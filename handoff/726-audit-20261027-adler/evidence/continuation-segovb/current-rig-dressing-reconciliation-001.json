@@ -1,0 +1,232 @@
+{
+  "id": "SEGOVB-CURRENT-RIG-DRESSING-RECONCILIATION-001",
+  "review": "One narrow current-canonical reconciliation of frozen Dressing rig ordinal receiver",
+  "lens": "type-granularity support; no original ordered advancement",
+  "current_revision": "961d226be23a81d9731a11958d62fe8a04b93e81",
+  "head_identity": "Read-only git rev-parse HEAD returned exact961; each registered current file byte-matched read-only git cat-file blob961:path. No Git mutation.",
+  "registration": "current-rig-dressing-reconciliation-001-registration.json",
+  "applicable_rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "body_read_basis": "Previously read entire applicable rules; exact hash unchanged"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "body_read_basis": "Previously read entire applicable rules; exact hash unchanged"
+    }
+  ],
+  "frozen_authority": {
+    "finding": "SEGOVB11-158-781-RIG-RECEIVER",
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/dressing.rs",
+    "sha256": "a5b190694f00f1dbc5e1895f5b40f65b6c1f7242da45ea844b59a6b6d6932523",
+    "source_ranges": [
+      [
+        80,
+        107
+      ]
+    ],
+    "line97": "parts.get(*joint as usize).copied().unwrap_or(true)",
+    "receipts": [
+      "audit11-successor-158-781.json",
+      "audit11-successor-159-783.json"
+    ],
+    "qualification": "Frozen source-backed nonprimitive cast receiving migration gap previously held pending actual canonical comparison; no runtime/compilation/current-main defect claim or unique count was accepted from it."
+  },
+  "current_disposition": {
+    "literal_frozen_as_cast": "ABSENT at961; replaced by explicit supported usize::from conversion in this receiver",
+    "full_typed_joint_column_receiver_migration": "UNINTEGRATED in current Dressing80-107: still creates Vec<bool> and crosses RigJointOrdinal->usize at local application lookup",
+    "whole_finding_status": "Concrete split disposition: exact frozen syntax/static incompatibility no longer describes current961; narrower canonical-column propagation concern remains source-backed and qualified. Do not mark broader rig/F50/family repaired or call current code the same compile failure.",
+    "current_line97": "parts.get(usize::from(*joint)).copied().unwrap_or(true)",
+    "exact_registered_range_delta": "Comparing frozen and current80-107, only line97 differs. Full-file SHA differs; no unregistered line coverage inferred.",
+    "new_accepted_unique_findings": 0,
+    "canonical_alias_assigned": false
+  },
+  "current_contract_trace": [
+    {
+      "owner": "Actual opaque ordinal owner and supported conversion",
+      "path": "crates/fabelgeist-rig/src/lib.rs",
+      "ranges": [
+        [
+          21,
+          108
+        ]
+      ],
+      "contract": "RigJointOrdinal is a usize-backed struct at50-52 deriving From/Into; it is distinct from RigJointName and parameter row. Explicit From<u32>94-98 admits native packed joint words; TryFrom<Ordinal> foru32 is checked native encoding. The current Dressing usize::from call uses the available derived conversion, so frozen as-cast diagnosis cannot be carried forward unchanged. Conversion availability does not by itself require every application consumer to erase ordinal role."
+    },
+    {
+      "owner": "PackedRigSkin actual iter producer",
+      "path": "crates/fabelgeist-rig/src/skin.rs",
+      "ranges": [
+        [
+          1,
+          26
+        ],
+        [
+          133,
+          164
+        ]
+      ],
+      "contract": "PackedRigSkin retains private Vec<[u32;WIDTH]> and RigJointCount, while iter154-156 maps every word to [RigJointOrdinal;WIDTH]. Current DrapeInput.indices is PackedRigSkin<8>; joint from iter in Dressing92-96 is a RigJointOrdinal, not a primitive or RigJointName. RigInfluences record remains the existing numerical joint/weight owner; no substitute owner proposed."
+    },
+    {
+      "owner": "RigJointTable actual map/typed checked lookup",
+      "path": "crates/fabelgeist-rig/src/table.rs",
+      "ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "contract": "RigJointTable<T> is a rig-order column; get49-51 accepts RigJointOrdinal and confines usize conversion inside owner. map57-59 maps values into RigJointTable<U>; FromIterator88-91 retains sequence. indexed/ordinals preserve ordinal role; Index/IndexMut use established construction/traversal ordinal, while external/unproven ordinals should use get. Docs8-10 explicitly require creator to use same admitted rig order and disclaim proving same rig instance. No universal instance association guarantee inferred."
+    },
+    {
+      "owner": "Current actual input and derived joint mask versus vertex mask",
+      "path": "crates/adventuresim-character-creator/src/garment.rs",
+      "ranges": [
+        [
+          37,
+          54
+        ]
+      ],
+      "contract": "DrapeInput.names is RigJointTable<RigJointName>, joints is RigJointTable<[f32;8]>, indices PackedRigSkin<8>, weights Vec<[f32;8]>. Dressing82-86 maps names through a slice iterator and collects Vec<bool>, discarding rig-column representation before ordinal lookup97. The final dressed Vec<bool> has one predicate per vertex/influence row, a different population. Existing typed table can preserve the joint-mask role without inventing a public per-vertex framework or semantic enum for each local Boolean."
+    },
+    {
+      "owner": "Current Dressing producer and recipient",
+      "path": "crates/adventuresim-character-creator/src/garment/dressing.rs",
+      "ranges": [
+        [
+          71,
+          107
+        ],
+        [
+          109,
+          125
+        ]
+      ],
+      "contract": "Dressing retains body BVH, matching copied faces and per-vertex dressed predicate. Constructor picks maximum-weight influence using existing total_cmp/tie behavior, then checked optional joint-mask lookup with fallbacktrue. dresses111-124 finds same-body triangle/corner and returns corresponding vertex predicate. The proposed typed-table change is about joint ordinal/column responsibility, not replacing local Boolean predicate or changing coverage semantics."
+    },
+    {
+      "owner": "Actual same-input caller and conformation receiver",
+      "paths": [
+        "crates/adventuresim-character-creator/src/garment/drape.rs",
+        "crates/adventuresim-character-creator/src/garment/conform.rs"
+      ],
+      "ranges": {
+        "drape": [
+          [
+            68,
+            84
+          ]
+        ],
+        "conform": [
+          [
+            198,
+            229
+          ]
+        ]
+      },
+      "contract": "drape78 constructs Dressing from the current input only when fit>0, then passes it into SewnCloth.draw_in79. draw_in derives one predicate per sewn point and draws only selected points inward before holding/pushing clear. This local actual recipient confirms coverage predicate role and no intermediate raw joint identity API. No claim about unrelated stale/current state or all conformation behavior."
+    }
+  ],
+  "coherent_connected_remedy_if_authorized": {
+    "status": "Not implemented or accepted as new unique defect by this review",
+    "shape": "Replace local names.iter().map(...).collect::<Vec<bool>>() with names.map(...) returning RigJointTable<bool>; use parts.get(*joint).copied().unwrap_or(true). Keep final vertex dressed vector and existing BodyPart coverage rules.",
+    "preserve": [
+      "Existing maximum-weight total_cmp/tie selection",
+      "Missing joint-mask membership fallbacktrue",
+      "Current packed8 influence width, zero-weight slot policy and row pairing",
+      "BodyPart form coverage/classification and same-body triangle/corner query",
+      "Explicit table same-rig-order precondition; no invented instance brand or bounds"
+    ],
+    "acceptance_limit": "A future authorized coherent repair requires its own source review and existing required checks; no product edit/test/check performed here."
+  },
+  "qualification_updates": [
+    "Replace earlier current-uncompared qualifier ONLY for this exact registered frozen/current receiver relation with the concrete split disposition above.",
+    "Retain frozen historical receipts unchanged. Frozen as-cast remains historical source fact, current explicit conversion is a distinct exact byte fact.",
+    "F50 joint influence row/weight/zero/duplicate policies and all wider canonical rig ownership/producer propagation work remain open; no alias or whole-family closure inferred.",
+    "No current runtime failure witnessed or compilation check performed. Generic safe conversion is not claimed a type-check test result; actual source contract and derives inspected.",
+    "Crosswalk001 source-key namespace policy retained; bare export Q008/Q009 not used as canonical aliases.",
+    "Currentness established only for exact961 files/ranges above, not every original/frozen path, family or new public mutation scenario."
+  ],
+  "current_source_pins": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "exact_961_tree_bytes_verified": true
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "exact_961_tree_bytes_verified": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment.rs",
+      "sha256": "3a53a6a40c78d926e2f50031f319b7fb338014633b6c73431b891b85a308c828",
+      "exact_961_tree_bytes_verified": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/conform.rs",
+      "sha256": "4c3ee7c251ed1a4d18681e0b05c0fcf35b3b61e7d6dd0decfda0708577469162",
+      "exact_961_tree_bytes_verified": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/drape.rs",
+      "sha256": "c26b0508ccce30c3c2ca164e46327764ca4b133b418b5ea49e008b0a45613421",
+      "exact_961_tree_bytes_verified": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/dressing.rs",
+      "sha256": "d9e49185a0d535f4dc1b7fb63850c927d5f59577fedf5d5f87ca8fc8b1e84a8a",
+      "exact_961_tree_bytes_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-rig/src/lib.rs",
+      "sha256": "7e73efb0a5ce824e111c2d28e54a5422b75bdca12e0c7553423dc0dfab8f563b",
+      "exact_961_tree_bytes_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-rig/src/skin.rs",
+      "sha256": "c1c856dd707201d43249ad4e61576728edf4ff9a2a2d1dbf68f6c980a1c2d206",
+      "exact_961_tree_bytes_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-rig/src/table.rs",
+      "sha256": "491cfcace087aef015067a75e218e3bee9dc3c1e8bf681b40afa840f806da282",
+      "exact_961_tree_bytes_verified": true
+    }
+  ],
+  "coverage_limits": [
+    "No ordered original790 advance or new source-discovery count; lens11 remains source-accounted0-789/next790 until root selects another packet.",
+    "No independent currentness reconciliation of every related conform/producer finding or all type-granularity roles in reached files. Unrelated portions not read.",
+    "Rules hashes match previously fully read rules; exact tree membership verified, no reread/global rule-clearance implied.",
+    "No rootledger/historical/product edits, Git mutations, project checks/scanners/tests/probes, publication or messages outside internal reviewer coordination."
+  ],
+  "root_ledger_modified": false,
+  "historical_files_modified": false,
+  "product_changes": false,
+  "checks_tests_publication": "none",
+  "ordered_accounting_increment": 0,
+  "accepted_unique_increment": 0,
+  "clear": false,
+  "stopped": true,
+  "evidence_fingerprints": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/current-rig-dressing-reconciliation-001-registration.json",
+      "sha256": "872392064a6313a9ba794a2fd8f93e1daab1ee7aa58e81d26715b679db816b2d"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit11-successor-158-781.json",
+      "sha256": "e3f0dd4994b94325d228434b5341012000d45fb0af8bc64f5bab0c7676f1c456"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit11-successor-159-783.json",
+      "sha256": "75ea7a5157f484426e62579e5622a46e1df24ddc780803e1ab46067bacbfba74"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit11-question-crosswalk-001.json",
+      "sha256": "3ae44c1c3444c5eebd27d7377e73cdb241fc922cb176bb8a8e17307556e145f7"
+    }
+  ]
+}

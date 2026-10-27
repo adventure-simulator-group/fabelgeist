@@ -1,0 +1,15 @@
+[1m[92m    Finished[0m `test` profile [optimized] target(s) in 0.24s
+[1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/adventuresim_core-1286a194d5135731)
+
+running 8 tests
+test combat::defense::tests::alignment_margin_is_monotonic_across_physical_inputs ... ok
+test combat::defense::tests::central_contact_can_be_caught_but_loses_edge_alignment ... ok
+test combat::defense::tests::first_or_simultaneous_contact_finishes_without_erasing_either_attack ... ok
+test combat::defense::tests::injury_and_intercept_geometry_monotonically_favor_defense ... ok
+test combat::defense::tests::near_complete_committed_strike_is_more_likely_to_finish_than_early_windup ... ok
+test combat::defense::tests::repeated_phase_intercepts_shift_a_borderline_choice_toward_finishing ... ok
+test combat::defense::tests::shield_alignment_is_lateral_and_mirror_symmetric ... ok
+test combat::defense::tests::weapon_defense_alignment_is_continuous_without_becoming_an_outcome_oracle ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 996 filtered out; finished in 0.00s
+

@@ -1,0 +1,317 @@
+{
+  "at": "2026-10-27T13:13:42.675240+00:00",
+  "lens": 11,
+  "status": "954-957 independently source-accounted",
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-031.json",
+    "sha256": "d3535003bd8327d0b204f4c22fd5f96350d9834030600108e4bb403c90e7f596"
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-032-registration.jsonl",
+    "sha256": "d7e222d306f60d253c5bddc9e2b8fad7f476f614cf86df864efa9ef6046c855d"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 954,
+      "source_id": "pr-working:crates/adventuresim-core/src/material.rs",
+      "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "actual_eof": 1869,
+      "ranges": [
+        [
+          1,
+          1869
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "personal_prior_body_reuse": {
+        "receipts": [
+          "batch-026-receipt.json",
+          "batch-027-receipt.json"
+        ],
+        "ranges": [
+          [
+            1,
+            22
+          ],
+          [
+            60,
+            115
+          ],
+          [
+            365,
+            415
+          ],
+          [
+            735,
+            825
+          ]
+        ],
+        "identity_reverified": true
+      },
+      "new_reads": [
+        [
+          23,
+          59
+        ],
+        [
+          116,
+          364
+        ],
+        [
+          416,
+          734
+        ],
+        [
+          826,
+          1869
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          23,
+          59
+        ],
+        [
+          116,
+          364
+        ],
+        [
+          416,
+          734
+        ],
+        [
+          826,
+          1869
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 955,
+      "source_id": "pr-working:crates/adventuresim-core/src/mission.rs",
+      "sha256": "998416982a504559c519dabf8fecf7612eb946283441b9644c073ac500a62e62",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/998416982a504559c519dabf8fecf7612eb946283441b9644c073ac500a62e62",
+      "actual_eof": 106,
+      "ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          106
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 956,
+      "source_id": "pr-working:crates/adventuresim-core/src/mission/enemy_roster.rs",
+      "sha256": "c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+      "actual_eof": 96,
+      "ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          96
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 957,
+      "source_id": "pr-working:crates/adventuresim-core/src/mission/roster.rs",
+      "sha256": "2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
+      "actual_eof": 91,
+      "ranges": [
+        [
+          1,
+          91
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          91
+        ]
+      ]
+    }
+  ],
+  "material_receivers": [
+    {
+      "kind": "connected-owner",
+      "original_index": 963,
+      "sha256": "906e67eed5acc9fbf6ab98e2e4bc7df11b8e9742c1ee148092c7d2061f64afab",
+      "ranges": [
+        [
+          200,
+          270
+        ]
+      ],
+      "prospective": true,
+      "reason": "MaterialIdentity and vessel actual physical-object/custody aggregate admission",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          200,
+          270
+        ]
+      ]
+    },
+    {
+      "kind": "connected-receiver",
+      "original_index": 1230,
+      "sha256": "f67d08c1d5b6f22ad63de5ab13e46c5b4f2cd5d7512a7d90de2d1c1cc538a292",
+      "ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "prospective": true,
+      "reason": "Actual retained mission party/enemy roster validation and source-of-count launch persistence ports",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          101
+        ]
+      ]
+    },
+    {
+      "kind": "connected-receiver",
+      "original_index": 1227,
+      "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+      "ranges": [
+        [
+          730,
+          812
+        ]
+      ],
+      "prospective": true,
+      "reason": "Actual retained mission party/enemy roster validation and source-of-count launch persistence ports",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          730,
+          812
+        ]
+      ]
+    },
+    {
+      "kind": "connected-receiver",
+      "original_index": 1242,
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "prospective": true,
+      "reason": "Actual tactical module import and living-party snapshot constructor receiving canonical roster",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          15
+        ]
+      ]
+    },
+    {
+      "kind": "connected-receiver",
+      "original_index": 1243,
+      "sha256": "9d7e1ac4bf3e219258571dc74f93f8adef66cd55dcab6fc2d49edf0c60e4cb7d",
+      "ranges": [
+        [
+          80,
+          130
+        ]
+      ],
+      "prospective": true,
+      "reason": "Actual tactical module import and living-party snapshot constructor receiving canonical roster",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          80,
+          130
+        ]
+      ]
+    }
+  ],
+  "reused_personal_source_proofs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-026-receipt.json",
+      "sha256": "a6a3bf715d71a10786994eea605f942cdb91f137578cb423ec0f81a23465904e"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-027-receipt.json",
+      "sha256": "871ad0df2778d657e3f880a3444f1c99f36a6d2b9258c12e6a57bb3c11a97b41"
+    }
+  ],
+  "per_role": [
+    {
+      "original": 954,
+      "roles": "Integer mass/volume/component units, rational portion; lot/process/request/digest identity and custody; private truth versus public material; preparation versus process; nonempty snapshots/source contributions/remainders/produced outputs; timing states; bulk/private conservation policy/receipt; retry and commit states.",
+      "trace": "Full1869 independent inventory with exact personally read union026/027 plus newly consumed remainder. Milligrams versus Milliliters/Microliters and component authored microunits have different units and conversions. Portion owns positive rational <=whole and floor split, preserving exact remainder; fixed-point933 fraction has different quantization/ceil behavior. MaterialIdentity couples lot with963 ObjectCustody rejecting selfcontainment. MaterialMeasure permits ZERO for arithmetic but snapshots reject empty. Private truth rejects duplicate keys and splits exact extensive amounts, not concentrations. Receipt checks source/output lot and object uniqueness, checked bulk loss/tolerance conservation and per-key component/contaminant changes. ProcessTiming checks positive duration+clock overflow and cooking/passive states own their payloads. Retry compares provenance, digest and full source Eq; commit checks fresh exact identity/custody/revision/measure/preparation/truth.",
+      "disposition": "Preserve physical units and authority distinctions even if storage same; generic component magnitude/load unit depends on key, not universally milligrams. Lot ID and object ID deliberately differ; custody is operational, not title/permission. ProducedMaterial wrapper keeps output contribution role despite repeated empty check being unreachable after snapshot admission. Share quantity numeric leaves beneath roles; MaterialMeasure constructor/getters still expose raw mass/volume u64 despite existing Milligrams/Microliters, vessel capacity raw microliters and revision rawu64 remain propagation questions. MaterialMeasure ZERO is useful additive/subtractive result and is not itself invalid; empty-lot admission belongs at snapshot. Private/public distinction delegates safe presentation to trusted adapter explicitly, not proof arbitrary supplied V is observer-safe. Domain policy singleton can earn authority role (930 Exact), no universal Exact case or giant material enum needed. Request ID nonzero digest versus canonical input digest have different construction authority. Digest omits private preparation/truth, but exact_sources_equal compares full captured snapshots so no hash-only retry defect is inferred. Existing fixture explicitly permits Materialized{170} query atcurrent90; do not invent <=current requirement for persisted materialization state. Components/contaminants and bulk-loss/tolerance independent budgets must not be collapsed.",
+      "remedy_acceptance": "Reuse exact unit/revision owners where units and authority match, keeping checked conversions/rounding and exhaustive payload states. Retain exact source Eq beside digest, current snapshot commit checks and adapter responsibilities. Actual same-transaction DB application/privacy authentication remain pending runtime acceptance, not unread source within this owner."
+    },
+    {
+      "original": 955,
+      "roles": "Mission/Battle/HostileGroup/OutcomeSource authority IDs; bound/unbound hostile group; strategic victor and authorized hostile resolution; tactical receipt limit constants.",
+      "trace": "Full106. Prefix-specific constructors share lexical contract but distinct nominal identity; HostileGroupBinding owns ID only when bound; StrategicBattleVictor includes stalemate while hostile resolution has Defeated/DrivenOff/Captured/CaptureTargetKilled.",
+      "disposition": "Keep distinct identity/authority namespaces and result meanings. Prefix type constructor does not establish authenticated source existence; derived transparent Serde bypasses constructor validation, an admission dependency, not new accepted unique claim. Enemy roster limit deliberately differs from party receipt participant bound. Raw unit constants should meet actual recipient role; do not apply arbitrary receipt capacity to hostile enrollment."
+    },
+    {
+      "original": 956,
+      "roles": "Captured exact hostile identity snapshot, nonempty unique roster, derived transport cardinality.",
+      "trace": "Full96. Constructor rejects empty/duplicate IDs and checked usize->NonZeroU32 overflow, preserves original order; cardinality derived from stored IDs. Actual1230 captures live group context IDs once, checks group enemy_count, stores exact IDs and validates stored identities exist without re-reading live group size.1227 launch writes count and IDs from same validated roster.",
+      "disposition": "Keep MissionEnemyRoster distinct from TacticalPartyRoster: hostile count may exceed16 by actual fixture, while transportu32 bound remains. Rawu64 enemy IDs are still internal identity erasure; zero is admitted and fixture uses0, so do not impose unrelated nonzero custody-ID semantics without canonical character identity proof. Stored native Vec loses wrapper but adapter re-admits at use; no current runtime alias or wrong enrollment claim."
+    },
+    {
+      "original": 957,
+      "roles": "Captured party durable membership, bounded unique nonempty roster, derived enrollment count.",
+      "trace": "Full91. Constructor bounds1..16, rejects duplicates, preserves order. NonZeroU32 count derived.1243 tactical_party_roster93-103 converts authoritative living_party_member_ids through this constructor;1227 writes authorized IDs in request.",
+      "disposition": "Keep party roster role and captured enrollment authority, with count derived rather than independently stored. Identity leaves rawu64 remain a propagation question, not a reason to merge party/enemy roster. Scope/source of living membership remains trusted native adapter responsibility; no entire DB/session enrollment or count API guarantee."
+    }
+  ],
+  "contract_limits": [
+    "954 full source union1869 includes fixtures but no tests/probes executed.026/027 exact reused source ranges hash-reverified before ordered inventory.",
+    "963200-262 complete actual ObjectCustody/OperationalCustody contracts; error enum264-270 only prefix. No full strategic place/custody topology or permission proof.",
+    "1230 requested1-115 but actualEOF101; actual1-101 only,102-115 nonexistent/uncredited. Qualification appended registration. Capture and enemy_roster actual bodies complete.",
+    "1227 actual730-812 includes complete roster-to-TacticalServerRequest persistence port752-791, preceding candidate-write tail and next retire helper793-812 partial. No whole bootstrap/reducer/DB transaction proof.",
+    "1242 only module/reexport1-15 prefix, not parent tactical implementation.1243 actual93-103 complete roster adapter; preceding settlement tail80-91 and testprefix105-130 do not confer wholefixture/settlement coverage.",
+    "Existing source fixtures establish intentional policies only, not observed execution. No current/alias/accepted unique/global clearance, no future ordered receiver credit."
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_ledger_edited": false
+}

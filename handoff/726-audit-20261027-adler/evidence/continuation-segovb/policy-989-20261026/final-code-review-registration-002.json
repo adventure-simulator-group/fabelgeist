@@ -1,0 +1,212 @@
+{
+  "at": "2026-10-27T00:15:12.712671+00:00",
+  "review": "Final Code Review002",
+  "base": "b3810b8b5db78c15cc51a0e1bef747a06450dffb",
+  "head": "a21f9ccaeba1e3947e22dc1f64106c4f2bc371b6",
+  "manifest_sha256": "bdc4ae1576bd074c1fde967a2c90747380f2027c91e36cd94cc7c943070da5b9",
+  "sources": [
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "sha256": "a7d4fc3525525acbcfa7ea6d88f751261132fc912cd26696d4975897a5f8b97e",
+      "lines": 34,
+      "ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "kind": "manifest productsource"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "d6cd017cc5d337a0ad47543cc51cc009cff84fa78bb65499b1cddfcb60afcb55",
+      "lines": 620,
+      "ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "kind": "manifest productsource"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "5b020e16dadfbc30f2eb50b784552258d880c631376ffc1d62e9e25cae07c992",
+      "lines": 264,
+      "ranges": [
+        [
+          1,
+          124
+        ]
+      ],
+      "kind": "manifest productsource"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "a5ec79b944808520b15bc649e4d54b14612859c9a5b1b1f8446a47c17bb6c1d6",
+      "lines": 905,
+      "ranges": [
+        [
+          1,
+          146
+        ],
+        [
+          366,
+          380
+        ]
+      ],
+      "kind": "manifest productsource"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "3adc6454ec9a8cada8428ebd2b800f5b7374028ce73a52df204e54aab3750a93",
+      "lines": 125,
+      "ranges": [
+        [
+          1,
+          125
+        ]
+      ],
+      "kind": "manifest productsource"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "f0828dbc6755445932455e5aa9edf040f2222deca3c1fe38c44460da856565d8",
+      "lines": 42,
+      "ranges": [
+        [
+          1,
+          42
+        ]
+      ],
+      "kind": "manifest productsource"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "14ac95339951ceb8b50cc3ab9452c251bbbce6122ebd7206a3961c406ff74858",
+      "lines": 323,
+      "ranges": [
+        [
+          1,
+          33
+        ],
+        [
+          100,
+          120
+        ],
+        [
+          262,
+          278
+        ]
+      ],
+      "kind": "manifest productsource"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "022b9d73dd2cfc76963f3945bc7b7c89e6bbb8322889adccf3599a7b4b0e83e7",
+      "lines": 87,
+      "ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "kind": "manifest productsource"
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "8ccab96e129e4b873ed3f8ae3841afd6bf7cfa59809b69cbed46ec41855b171e",
+      "lines": 12838,
+      "ranges": [
+        [
+          695,
+          701
+        ]
+      ],
+      "kind": "manifest productsource"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "e3ad593b83da185620d2729a5fde4a0f7bfda1c39993494432c55a0c989e0973",
+      "lines": 65,
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "kind": "connectedreceiver source"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "sha256": "878a4144b4fecdc20291885050e30fe521a5294117046c282ef24d40c5e407d9",
+      "lines": 27,
+      "ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "kind": "connectedreceiver source"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/cube_face.rs",
+      "sha256": "db49ac57de817ae29d6341288c341aacbe884102e4d98575a32590f334f90709",
+      "lines": 70,
+      "ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "kind": "connectedreceiver source"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs",
+      "sha256": "370add54d9307c5cbd778de771a6e2d98d0b0dbdb7b4e4b02d1245315458b11d",
+      "lines": 450,
+      "ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "kind": "connectedreceiver source"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+      "sha256": "45495b07095d77c0cb93ea88115508eeb2a1f083b9368e6d9b02dc6bee3a268c",
+      "lines": 313,
+      "ranges": [
+        [
+          1,
+          33
+        ],
+        [
+          142,
+          195
+        ]
+      ],
+      "kind": "connectedreceiver source"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+      "sha256": "83ba1e1ca0719ccdc74c3bc70f4fdc197dca496600a89b41a5e18c7a020fece0",
+      "lines": 17,
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "kind": "connectedreceiver source"
+    }
+  ],
+  "actual_diff": {
+    "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/final-source-002.patch",
+    "sha256": "3b12f8d201f130134f2d6b0cdd2e27137b78191c69491d80c2a04cce261fe619",
+    "bytes": 19547
+  },
+  "body_consumed_at_registration": false,
+  "limits": "Freshboundedfinalsource/receiverread. No projectexecution or source/Git/ledgeredit. Baselineonlyexactrelevantentry/diff pluslocalartifactcontent."
+}

@@ -1,0 +1,175 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "188",
+  "predecessor": "receipt-187-original966.json",
+  "population": "new material extension, no ordered original or original196/shared credit",
+  "sources": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f",
+      "actual_eof": 623,
+      "actual_ranges": [
+        [
+          1,
+          12
+        ],
+        [
+          74,
+          93
+        ]
+      ],
+      "extension_authorities": [
+        "134",
+        "135"
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              12
+            ],
+            [
+              74,
+              93
+            ]
+          ],
+          "role": "Exactadditional1-12/74-93of623 physicalP16schema independentlyread. CuboidDimensions/SignedLength imported4; nativepath item_catalog_physical_serde.rs7 declaresphysical_axis_array8 andactualserde(with = physical_axis_array)80 applies CuboidDimensionsfield81. NativeSerde denyunknown77/default84/89 attributeAST only. Humanaxisdocs79/grip82-88 distinguishorderedlocalaxes, noBCconstraint fromadapteroriginalboundarycomment. Other611? preciseunread13-73/94-623forTHISextension, nowholefile/current/PRschema alias. Previouslyoriginal116scopedownreview doesnottransferverdict.",
+          "disposition": "Independent own-lens extension source-accounting WITH exact native/constructor/caller limits."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/cuboid.rs",
+      "sha256": "7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a",
+      "actual_eof": 123,
+      "actual_ranges": [
+        [
+          81,
+          123
+        ]
+      ],
+      "extension_authorities": [
+        "134"
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              81,
+              123
+            ]
+          ],
+          "role": "Exact81-123of123 CuboidDimensions Serialize81 native tuple_structname Vec384 andDeserialize120 usesmatchingname/count; humanexpectsequence3f32 at100. Valuesaxis_metres85 serializednativefields86; deserializevisitor107-116 returnsf32triple thenactualfrom_metres121/cause->deErrorcustom121. Thoseproducer/constructor declarations1-80andnativeSerde/selectedglamidentityimplementations unconsumed inTHISextension, noaxis/order/admission/BCproof justcomment83. Tuple identity Vec3 atactualnativeSerde port qualifiesnativevocabulary notsemanticfirstpartyID; allothercallerspending.",
+          "disposition": "Independent own-lens extension source-accounting WITH exact native/constructor/caller limits."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_physical_serde.rs",
+      "sha256": "f260cac7fddd136d2fd754e6f147a3fcecaa67eb107b87d506121e3c60016671",
+      "actual_eof": 18,
+      "actual_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "extension_authorities": [
+        "136"
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              18
+            ]
+          ],
+          "role": "Full18 exactphysicalP16serdeadapter atrootpinned039329518e264f19206cf5b0b98d177433f40c17; actualschema path7/with80 proved. serialize usesdimensions.axis_metres().serialize10, deserialize nativearray[f32;3]16 ->CuboidDimensions::from_metres17 ->nativeSerdecustomerror17. No rawfirstpartyStringsemanticfield/API; humanmodulecomment1 doesnotimposeoldformatcompatibility. NativearraySerde/from_metres/axisgetter bodiesandallcatalogadmission/receivers notreviewedbyadapter alone.",
+          "disposition": "Independent own-lens extension source-accounting WITH exact native/constructor/caller limits."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    }
+  ],
+  "metadata_authorities": [
+    {
+      "path": "REGISTRATION-134-physical-catalog-numeric-closure.json",
+      "sha256": "829b8285a5a1f456e6f2f378869ea7c8de45bd148dba3c040a4423ae78ca2d14"
+    },
+    {
+      "path": "REGISTRATION-135-physical-axis-adapter-module.json",
+      "sha256": "86892cdcb52412832f9547c4a76bb2d79a8409ffaa8982d361df50fdf811b122"
+    },
+    {
+      "path": "REGISTRATION-136-physical-axis-serde-adapter.json",
+      "sha256": "6b0ce664f4f580e426e1984f1139721993763952f9db5fe1a11db43874179066"
+    }
+  ],
+  "connected_findings": [],
+  "verified_traces": [
+    {
+      "trace": "PhysicalP16EquipmentPhysicaldimensions_m serde(with)->declaredmodule->actualadapterSerializeaxisarray/nativearrayDeserialize->CuboidDimensions::from_metres; distinctownCuboidDimensions tuple_struct Vec3 nativeSerdecontract. Actualadditionalrequestedsource ranges independentlyconsumed, notrootverdicttransfer.",
+      "remaining": "Exactfrom_metres/axis_metres/getter, nativearray/tupleSerde andallactualcatalogadmission/retention/callers remain pending."
+    }
+  ],
+  "pending_contracts": [
+    "REG132 metadata consumed exact32632b080058e33bc0b5da39070711ddd77f2ef04f6edb1197cee55ecb766546; all20listed exactnative/firstparty sources/ranges own-lensbodyinventory stillpending, nofutureoriginalcredit.",
+    "REG134/135/136additional requested ranges now independentlysource-accounted WITH declarednative/constructor/allcaller limits; noallphysicalcatalog/wholeSDK/current/global clearance.",
+    "Allremainingoriginals967+,overlays246,merged38,originalmaterial196 andallotherregisteredextensions/dependencies separatepending; preserveallpriorqualifiedfindings/aliases."
+  ],
+  "qualifications": [
+    "Prospectivereg188 beforeexactbodyread, cacheSHAverified; metadataonlyprovenance notbodycredit. No project/test/nativeexecution orBCrequirement.",
+    "FrozenphysicalP16vsPRworkingvsCURRENTdistinct; root039329commit pin adapter onlyasprovided, no unknown dirty/currentaliases; all20/P16/P17/F9/M09/dedup/populations retained."
+  ],
+  "proposed_count": {
+    "before": 967,
+    "after": 967,
+    "indices_completed": [],
+    "next_original": 967,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f",
+      "ranges": [
+        [
+          1,
+          12
+        ],
+        [
+          74,
+          93
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/cuboid.rs",
+      "sha256": "7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a",
+      "ranges": [
+        [
+          81,
+          123
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_physical_serde.rs",
+      "sha256": "f260cac7fddd136d2fd754e6f147a3fcecaa67eb107b87d506121e3c60016671",
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ]
+    }
+  ],
+  "unique_count_delta": 0
+}

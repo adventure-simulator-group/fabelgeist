@@ -1,0 +1,27 @@
+[1m[92m   Compiling[0m fabelgeist-geometry v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-geometry)
+[1m[92m   Compiling[0m adventuresim-weapon-model v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-weapon-model)
+[1m[92m   Compiling[0m bevy_ahoy v0.2.0 (/home/runner/work/fabelgeist/fabelgeist/vendor/bevy_ahoy)
+[1m[92m   Compiling[0m adventuresim-building-generator v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-building-generator)
+[1m[92m   Compiling[0m adventuresim-core v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-core)
+[1m[92m   Compiling[0m adventuresim-tactical-core v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-core)
+[1m[92m    Finished[0m `test` profile [optimized] target(s) in 1m 49s
+[1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/adventuresim_tactical_core-1c1f0e01b14fa6e8)
+
+running 14 tests
+test scene::grade::tests::diagonal_triangle_grade_is_bounded_without_changing_valid_axis_relief ... ok
+test scene::grade::tests::dirty_sweeps_preserve_the_complete_unconditional_projection_result ... ok
+test scene::grade::tests::invalid_grade_request_preserves_samples ... ok
+test scene::grade::tests::neighboring_triangles_converge_and_repair_is_deterministic ... ok
+test scene::ground::tests::ground_grid_queries_discrete_centered_samples_and_rejects_invalid_data ... ok
+test scene::ground::urban::tests::spatial_lookup_matches_exact_urban_ownership_across_bucket_boundaries ... ok
+test scene::ground::urban::tests::subcell_garden_ownership_survives_transport_without_clearing_neighbouring_grass ... ok
+test scene::queries::tests::height_interpolation_respects_non_unit_grid_scale ... ok
+test scene::queries::tests::height_sampling_matches_each_mesh_triangle ... ok
+test scene::queries::tests::normals_are_finite_at_center_and_boundary ... ok
+test scene::tests::collider_heightfield_matches_the_rendered_surface_without_transposing_axes ... ok
+test scene::tests::mesh_vertices_follow_heightmap_row_major_order ... ok
+test scene::tests::refined_surface_keeps_a_coarse_lod_without_splitting_query_authority ... ok
+test scene::tests::transition_collar_removes_only_the_heightfield_interior ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 396 filtered out; finished in 0.01s
+

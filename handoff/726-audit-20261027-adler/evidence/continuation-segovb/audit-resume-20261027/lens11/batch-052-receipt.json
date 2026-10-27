@@ -1,0 +1,342 @@
+{
+  "at": "2026-10-27T14:27:19.186268+00:00",
+  "lens": 11,
+  "status": "1029-1035 independently source-accounted with findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-052-registration.jsonl",
+    "sha256": "05fd5ba8a20a0065a97cf44ecba7b27f3c9bce11efe90e36b264ec7d997c3851"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-051.json",
+    "sha256": "3da70595f0d58bd489e2d8b17565e356eedbe8d24dd0684a7aeefcce89c66e10"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1029,
+      "source_id": "pr-working:crates/adventuresim-dialogue/build.rs",
+      "sha256": "cc1742e70ed56b721e25aebb320b2295d621a1f826310a05b1f8771ab968093b",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/cc1742e70ed56b721e25aebb320b2295d621a1f826310a05b1f8771ab968093b",
+      "ranges": [
+        [
+          1,
+          580
+        ]
+      ],
+      "actual_eof": 580,
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          580
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1030,
+      "source_id": "pr-working:crates/adventuresim-dialogue/src/authoring_schema.rs",
+      "sha256": "5218afbbe83f65f767841fc2de3aea7f09b2b9fff8226085d6ab2ad98f63f6a7",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/5218afbbe83f65f767841fc2de3aea7f09b2b9fff8226085d6ab2ad98f63f6a7",
+      "ranges": [
+        [
+          1,
+          347
+        ]
+      ],
+      "actual_eof": 347,
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          347
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1031,
+      "source_id": "pr-working:crates/adventuresim-dialogue/src/authoring_schema/policy.rs",
+      "sha256": "a9642460145cc1153e7ead65a73b4a149dcdd4312676947997709889f4b3b2ae",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/a9642460145cc1153e7ead65a73b4a149dcdd4312676947997709889f4b3b2ae",
+      "ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "actual_eof": 102,
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          102
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1032,
+      "source_id": "pr-working:crates/adventuresim-dialogue/src/catalog_revision.rs",
+      "sha256": "c84897e6fc426cb620908fdabf4a4e52302d05bb588da91361407ab2d32868fb",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/c84897e6fc426cb620908fdabf4a4e52302d05bb588da91361407ab2d32868fb",
+      "ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "actual_eof": 82,
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          82
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1033,
+      "source_id": "pr-working:crates/adventuresim-dialogue/src/condition_validation.rs",
+      "sha256": "00fbc301066749af85fa86ca0ac2e5ca6be75aba4ac99770a9e4a4b2fd0e3c13",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/00fbc301066749af85fa86ca0ac2e5ca6be75aba4ac99770a9e4a4b2fd0e3c13",
+      "ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "actual_eof": 30,
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          30
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1034,
+      "source_id": "pr-working:crates/adventuresim-dialogue/src/lib.rs",
+      "sha256": "bd30bf8d21bb5152ad8cfdc81e7ff99fc9629f6f3c5d359c156aa4b1e21cd284",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/bd30bf8d21bb5152ad8cfdc81e7ff99fc9629f6f3c5d359c156aa4b1e21cd284",
+      "ranges": [
+        [
+          1,
+          1785
+        ]
+      ],
+      "actual_eof": 1785,
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          1785
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1035,
+      "source_id": "pr-working:crates/adventuresim-dialogue/src/prompt.rs",
+      "sha256": "ce7a0cb88c92661701e05af8240110971e02624dc1557a91cbb300ae94af94fb",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/ce7a0cb88c92661701e05af8240110971e02624dc1557a91cbb300ae94af94fb",
+      "ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "actual_eof": 37,
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          37
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected",
+      "original_index": 1216,
+      "sha256": "f9a27db833d675b23a449676ecfd6d878c0357f2a5190f6a649341766c5ee33c",
+      "ranges": [
+        [
+          370,
+          485
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual typed fact producer, private testimony binding and prompt mode/cardinality/vote receiving contracts",
+      "actual_read_ranges": [
+        [
+          370,
+          485
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1212,
+      "sha256": "775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+      "ranges": [
+        [
+          140,
+          197
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual typed fact producer, private testimony binding and prompt mode/cardinality/vote receiving contracts",
+      "actual_read_ranges": [
+        [
+          140,
+          197
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1214,
+      "sha256": "0b4667798ab18d21ca3e177acf453f643f39fd813f40d9dc55f2bf23fec06c01",
+      "ranges": [
+        [
+          1,
+          14
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual typed fact producer, private testimony binding and prompt mode/cardinality/vote receiving contracts",
+      "actual_read_ranges": [
+        [
+          1,
+          14
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1215,
+      "sha256": "ffaa735d01a814246e3df80b2da9bd1318b5777e34da322aa20f2c17320574fa",
+      "ranges": [
+        [
+          1,
+          83
+        ],
+        [
+          390,
+          510
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual typed fact producer, private testimony binding and prompt mode/cardinality/vote receiving contracts",
+      "actual_read_ranges": [
+        [
+          1,
+          83
+        ],
+        [
+          390,
+          510
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original_index": 1029,
+      "inventory": "Build source file/document/path/bytecursor/line/character-column/scalar literal evidence; scoped dialogue IDs and closed-role/runtime-slot/effect vocabularies; authoring conditions; prompt min/max/mode; testimony fragment+effect aggregate contract; deterministic catalog/source map/revision generation.",
+      "disposition": "Build parses strict shared schema before source Scanner, so malformed lexical source is rejected before unchecked scan indexing; no general parser-safety finding inferred from scanner helper alone. Byte offsets and character columns are distinct native source-location units. Build duplicates runtime RuntimeSlot/InvestigationAction/ParticipantKind as string allowlists, broadening wire schema and creating independent semantic vocabularies despite existing closed owners. Shared semantic checks still split between build asserts and runtime validator. Scoped-ID serialization by colon concatenation is broader than intended namespaces and can create ambiguous/rejected composite identities if delimiters admitted; no actual collision authored/runtime proof. Build source path dot-joining uses fixed schema keys/array indices for material fragment lookup; no dynamic role-key ambiguity at actual lookup shown.",
+      "remedy": "Share closed owner vocabulary and canonical validation operations between build target/runtime, retaining target dependency edges. Use typed scoped identities/structured composite keys and SourceLocation/fragment reference roles where mixups matter, preserving byte versus character units. Keep generated source evidence separate from runtime authority and no compatibility aliases.",
+      "acceptance": "Full1-580 consumed. Build loads sorted YAML-extension files as strict JSON subset, validates before scanning, fingerprints structural documents and emits generated constants. No local build/scanner executed, no claim actual content files all independently read by this packet."
+    },
+    {
+      "original_index": 1030,
+      "inventory": "Strict authoring conversation/roles/topics/responses/turns/prompts/choices/fragments/effects; role kind/cardinality; topic category and initially_known; Condition recursive logical sum; broad FactKey/FactValue pair and role selectors; canonical Sex payload.",
+      "disposition": "FactKey participant sex requires canonical Sex value, every other key merely rejects Sex (288-293). Key+value Cartesian product therefore admits mismatched Bool/Integer/Text for other facts; actual native producer distinguishes count Integer, present Bool, canonicalSex and age-band-as-text. Raw role/topic/contract/organization/flag/profession IDs differ from labels/prose. Prompt policy depends on mode: YesNo two choices and one selection; Single one; Multi admitted min/max. Public records/Serde express invalid combinations until build/runtime validate. Authored period claim versus authoritative explanation vs runtime slot are intentionally distinct authority states. Defaults for categoryLore and FirstResponse are explicit product policy, not automatically compatibility fallbacks.",
+      "remedy": "Use payload-owning fact predicates/typed expected values for each closed fact kind, reusing canonical age/religion/service/membership owners where actual vocabularies match. Admit role cardinality and mode-specific prompt payload once. Share schema/runtime owner types rather than parallel String variants; retain independently meaningful speaker/addressee/category/knowledge fields.",
+      "acceptance": "Full1-347 consumed. Complete runtime1034 matches facts by exact value and native1216 fact production370-485 demonstrates concrete value shapes. No actual authored wrong-type condition encountered or current input failure claimed."
+    },
+    {
+      "original_index": 1031,
+      "inventory": "PromptMode YesNo/Single/Multi; ResolutionPolicy FirstResponse/Unanimous/Majority/AllRespondents; parse error kind; authoredsnake-case vs persistedstable-ID boundary projections.",
+      "disposition": "Mode answers per-respondent selection shape, resolution answers group voting strategy; independent axes must not be collapsed. Same enum owns both different wire spellings through explicit projection/parse; no duplicate semantic owner or compatibility alias. Native policies rejects unknown persisted token instead of fallback.",
+      "remedy": "Retain canonical enums and actual boundary decoding; couple mode-specific bounds to prompt payload while group resolution stays independent unless product policy restricts combinations.",
+      "acceptance": "Full1-102 consumed. Native1214full1-14 decodes both owner enums;1215390-505 validates answer membership/cardinality and implements four vote strategies. No blanket group-voting policy correctness or execution claim."
+    },
+    {
+      "original_index": 1032,
+      "inventory": "Domain-separated catalog structural digest, ordered document path/value entries, explicit JSON variant tags/length framing, sorted object fields vs ordered arrays, fixed source fixtures.",
+      "disposition": "Catalog identity differs from literal source-map location/prose byte representation. Object field order intentionally ignored while array/file entry order matters; actual build sorts source files before passing entries. Raw Stringdigest can be mistaken for request/session/source identity at later ports, but underlying numeric/byte invariant alone should not merge those authorities.",
+      "remedy": "Use canonical CatalogRevision owner through persistence/client comparison, with one digest operation shared at build/runtime acceptance boundary; keep source location identity separately. No extra numeric range or replay-compat constraint.",
+      "acceptance": "Full1-82 consumed; actual1029main526-579 calls exact structural hash with sorted entries and publishes constant. Source fixtures not executed."
+    },
+    {
+      "original_index": 1033,
+      "inventory": "Recursive condition traversal, role-reference membership and fact-value admission through shared FactKey rule; mutable diagnostic accumulation.",
+      "disposition": "Role existence checks reach both participant operands via canonical helper. Value validation is only as strong as1030 key/value rule; Sex fixed, other value shape remains broad. All/Any empty collections retain usual boolean identity, no required nonempty constraint inferred.",
+      "remedy": "Make typed fact payload own valid expected value so validator does not need duplicated shape dispatch; reuse traversal for build/runtime with context-specific diagnostics.",
+      "acceptance": "Full1-30 consumed and actual1034 validators482-758 call it;1029 own build traversal84-110 equivalent intended role/value checks, no global semantic-validation equality proof."
+    },
+    {
+      "original_index": 1034,
+      "inventory": "Runtime semantic conversation graph and role/cardinality; addressee Participant/Role/Group; authored fragments vs fully resolved transcript fragments; RuntimeBindings map+special testimony, TestimonyLine spoken text/claim substring and event-local claim order; FactContext; SourceRef and URL projection; error sum; catalog/selection/validation/source lookup helpers; existing fixtures.",
+      "disposition": "Participant addressee targets concrete trigger actor even when role supports party, Group/Role have distinct intended receiving semantics; do not merge based on same role String. Private testimony proposition/assessment authority stays outside ResolvedFragment::Claim, whose claim_order is event-local0-based. Runtime text must remain inert output, not dialogue code; no HTML-client escaping proof from core fixture. RuntimeBindings::bind accepts Testimony key into ordinary String map but resolver ignores that entry and requires separate testimony Vec: API permits silent wrong payload kind; actual1212 uses bind_testimony correctly. ResolvedTurn fragments/source_refs parallel vectors are length checked at resolve_turn; publicSerde still permits unaligned transcript, suggest paired payload. Multiple testimony slots could make expansion alignment fail; validated authored response requires exactlyone pairedReceive effect, on_start/result choices reject testimony. FactContext public BTreeMap permits wrong FactValue shape; native1216 actually selects concrete typed shapes. Runtime validate omits some build-only constraints (at leastplayer+npc, nonempty topic response, same speaker/addressee rejection), so public validated documents are broader than build-compiled catalog; no malformed shipped catalog occurrence proved. Selection detects equally best eligible responses dynamically even if conditions differ, not unsafe priority tie.",
+      "remedy": "Use text-only slot keys versus testimony payload owned by binding enum/API, paired resolved-fragment+source provenance record, and admitted canonical catalog/fact graph. Reuse actual role-scoped IDs rather than raw interchangeable strings; distinguish SourceRef document/turn/fragment indices and actual repo location boundary only as needed. Share build/runtime invariants instead of duplicated partial acceptance owners; keep public observation/prose separate from private authority.",
+      "acceptance": "Full1-1785 consumed. Native1212 released withheld testimony140-197 constructs trimmed spoken text/private challenge span and binds correct dedicated Vec; only event insertion prefix197 read, no full private persistence/rights proof. Native1216 actual NPC facts370-485 preserves Sex while erasing canonicalAgeBand to text; no allplayer/native fact generation proof. Source fixtures read, never run."
+    },
+    {
+      "original_index": 1035,
+      "inventory": "Prompt/Choice IDs, respondent role, mode, min/max usize selection bounds, resolution policy, chosen-result turns and effects; explicit defaults.",
+      "disposition": "Prompt public shape allows invalid bound/mode/choice relationships until validation. Build/runtime validate those authored relationships, but native1215resolved_prompt_choices casts usize bounds to u32 without checked conversion1-21; qualified width/API candidate, no enormous authored content/runtime truncation witness. Dynamic promotion choices selected by special prompt ID, then canonicalorganization role targets and typed effect RequestOrganizationPromotion, a role/operation authority question rather than ordinary displaylabel. Native Unanimous compares ordered Vec ballots, while Majority/AllRespondents produce singleton winner; clarify whether Multi choices are ordered or set-valued and whether bounds concern individual ballots only before declaring policy conflict. Actual authored problematic combination not read/proved.",
+      "remedy": "Admit mode-specific cardinality with native representable bound/check conversion, retain group resolution independently. Use admitted ballot collection whose order/set semantics are explicit; preserve authored effect/role binding through winning choices. Dynamic choice policy can be an explicit typed prompt payload using existing promotion operation, avoiding magic ID as sole behavior authority.",
+      "acceptance": "Full1-37 consumed plus native1215complete resolved_prompt_choices1-79 and answer390-505 actual guards/vote strategy; answer continuation beyond510 and actual authored Multi-voting combinations remain unconsumed, so no incorrect runtime result asserted. Accepted source shape finding does not require inventing a stricter global choice policy."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-034-receipt.json",
+      "sha256": "1c32165aeec548d529c12cad8746034abe727fc5e73834f77ce581d3338e1510"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-035-receipt.json",
+      "sha256": "4a35c1a6afd6d6ebf7e63867b4b939fc63ae5d55011f0f8f0151be0c4e2dd1e2"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-041-receipt.json",
+      "sha256": "d2186d949de0de7aa5830664f5fe96b5c4fa6870d0282ebe4dd5d36ec0640340"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-043-receipt.json",
+      "sha256": "b82b6ad36c17396bc9156fb55b7ff194266c614eea286c038c4ad8b2e8abaf1c"
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Frozen source only; source-accounted with findings, no project execution/currentness/accepted unique/runtime/global clearance. No nested dialogue AGENTS located by scoped metadata search; existing root/crates rules retained.",
+    "1216 range370-485 begins/ends within fact generator, not complete all-fact/authorization body.1212 range140-197 includes complete material testimony selection/binding but not event insertion tail/rights chain.1215range390-510 partial reducer; complete material answer guards/voting390-505 consumed, subsequent effects/application not claimed.",
+    "Build-content compiled constant existence is not independent semantic consumption of every authored dialogue source file or native generated SDK implementation. Remaining source populations, overlays/currentness/family gates stay pending."
+  ]
+}

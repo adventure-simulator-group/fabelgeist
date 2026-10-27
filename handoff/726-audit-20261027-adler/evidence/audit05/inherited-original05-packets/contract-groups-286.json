@@ -1,0 +1,63 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-286",
+  "at": "2026-10-23T06:52:12.306590+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+      "sha256": "717bbedb859bc7b5df413aeea35d20cccbdf1e08dc53f2f8d692b72dc2cc662e",
+      "scope066_index": 2844,
+      "actual_EOF": 147,
+      "scoped_ranges_compared": [
+        [
+          1,
+          147
+        ]
+      ],
+      "actual05_comparison": "Fresh complete new066 exact source roles; own aggregate basis/kernel-device/buffer-length relationship comparison, not Camera07 or Root03 verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+      "scope066_index": 2845,
+      "actual_EOF": 138,
+      "scoped_ranges_compared": [
+        [
+          1,
+          138
+        ]
+      ],
+      "actual05_comparison": "Fresh complete new066 exact source roles; own aggregate basis/kernel-device/buffer-length relationship comparison, not Camera07 or Root03 verdict carry."
+    }
+  ],
+  "groups": [
+    {
+      "id": "scalp map retains one fitted projection",
+      "comparison": "fit captures same head.cranium.center and scalp.positions, filters unit directions by finite positive norm, derives axis from same directions with64 bounded refinement steps, maximum angular reach plus .02margin, orthogonal forward/side basis, mean-radius area scale. uv subtracts same retained centre and uses same axis/forward/side/rim, returning None outside reach. It stores the fitted whole rather than separate mutable external centre lookup. texel derives same retained area scale divided by caller size; no separate cached size authority."
+    },
+    {
+      "id": "fitted basis explicit geometry preconditions",
+      "comparison": "Empty directions fall backUp and positive .02rim; empty source meanradius0 produces0 texel scale. Raw extreme finite positions can overflow radius norm/sum and cause nonfinite scale; size0 gives native division issue. If fitted axis is exactly faceZ, forward fallbackface becomes parallel and sidezero; generic caller geometry contract must exclude/support that degeneracy before asserting area-preserving frame. No actual installed normal scalp reaches these cases proven, no new universal badasset finding or ordinary rendering/run claim. Frame fields crate-visible not a sealed validity token; actual Head/Surface admission/caller bodies remain separate. unit helper checks norm, not every derived reciprocal representability."
+    },
+    {
+      "id": "disk square relationship",
+      "comparison": "uv only accepts unit direction, clamps dot before acos, uses nonzero fitted rim under normal valid finite fit, then angle/half-sine radial reach, same basis azimuth and four ordered quarter sectors. square uses cyclic TAU and FRAC_PI_4 to cover four sides, no array ordinal/piece-membership mismatch. It assumes finite orthonormal map, not a new independent validation gate. Actual shader counterpart and texture consumer remain inventory obligations, not cleared by doc assertion."
+    },
+    {
+      "id": "one context kernels and serialized scratch owner",
+      "comparison": "HairGpu::new creates KernelSource on clone of supplied context, one fresh KernelCache, then all groomer/field/place/strips/bake from same source before publishing Self with same context. Failure before Self does not publish partially initialized HairGpu. Private fields prevent mixing a context and already-built foreign kernel groups directly. Groomer protected by one Mutex; guard lifetime serializes same scratch access. Poison recovery rationale says every groom sizes/clears scratch; actual called GpuGroomer bodies not read here, so no independent full-scratch-reset proof or GPU execution."
+    },
+    {
+      "id": "buffer physical minimum versus logical content",
+      "comparison": "storage requests bytes.max16, an explicit physical allocation minimum. upload replaces an empty logical slice with four Default elements then creates BufferUpload from the exact chosen slice on same context. Nonempty input preserved, no arbitrary zip of data and byte count in this helper. Called Buffer/BufferUpload implementation and shader binding-layout/element-count contract separate; no blanket zero-sized T/native-device guarantee or logical itemcount inferred from physical padding. Params macro inserts supplied literal names/values into canonical PassParameters, no retained competing model in this wrapper."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Actual normal scalp generation and shader map receiver preconditions remain separate whole source inventory roles.",
+    "No foreign GPU/compute implementation or runtime credit; new source role reconciliation is lens-specific."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

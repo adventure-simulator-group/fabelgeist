@@ -1,0 +1,355 @@
+{
+  "records": 1002,
+  "terms": [
+    "foraging.rs",
+    "forage_receipt",
+    "forage_result_href",
+    "query-after-fragment",
+    "fragment consumes",
+    "CAMERA-INITIAL07-F038",
+    "RIG-PPS-F009"
+  ],
+  "matches": [
+    {
+      "archive_file": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl",
+      "record_index": 37,
+      "record": {
+        "id": "CAMERA-INITIAL07-F038",
+        "at": "2026-10-23T04:09:20.832986+00:00",
+        "lens": "audit-redundant-authority",
+        "classification": "duplicate_local_navigation_policy_owner_strengthening",
+        "source_refs": [
+          "physical-p16:crates/strategic-web/src/routes/mod.rs:127-145",
+          "physical-p16:crates/strategic-web/src/location_urls.rs:200-203",
+          "physical-p16:crates/strategic-web/src/main.rs:174-180/204-227/301-339"
+        ],
+        "contract": "CAMERA-INITIAL07-CONTRACT-203",
+        "fact": "Local absolute return/navigation target syntax is independently implemented by local_return_url and local_redirect_path.",
+        "disagreement": "Representable raw /x followed by newline is Some in local_redirect_path but None in local_return_url (control rejection/nativeUri validation). Both gate workflow redirect/current destination contexts. Actual main later splits fragments and parses nativeUri or HeaderValue, so no accepted bad browser navigation/exploit/run asserted; target kinds and fragment policy may require explicit distinctions rather than blindly swapping helpers.",
+        "actual_receiver": "routes::redirect_to_local emits Redirect from stronger helper; main negotiated_post_root uses weaker helper for redirected/current target and forwards to internal renderer or hard-navigation response. Actual runtime ports impose additional constraints but no single accepted local-target owner exists.",
+        "connected_repair": "One canonical accepted local navigation target with explicit path/query/fragment/native-header projections, preserving local-only versus explicit HTTP/HTTPS hard navigation. Keep raw rejected source text and error policy; do not make unsafe values accepted through a compatibility fallback. Derive borrowed/owned forms from same admission.",
+        "acceptance": "Source-specific HTTP form and negotiated navigation classify shared local target invariant consistently; represent intentional hard destination/fragment differences explicitly, with one predicate owner. Preserve cookie updates and exact renderer lifecycle. No tests or source edits now.",
+        "validation_status": "not_run",
+        "repair_status": "frozen",
+        "normal_bad_caller_claim": false
+      }
+    },
+    {
+      "archive_file": "audit/continuation/native/camera-root169-supplier-owner-fit/findings.jsonl",
+      "record_index": 41,
+      "record": {
+        "id": "NATIVE-CAMERA-ROOT169-OWNER-SUPPORT-160",
+        "kind": "existing-owner-lens-support",
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/foraging.rs",
+        "sha256": "c58f33b486ca2344cd5e4a141065bf3f39de22d6dc739e48a217ae969173d604",
+        "coverage_ref": "NATIVE-CAMERA-ROOT169-OWNER-160",
+        "material_owner_comparison": "ForageSource five variants is exact after canonical_sources admission, but lexical stable-ID ordering fish/harmful/high/low/plants must remain rather than enumOrd. Wholehour60..1440 request differs partialelapsed0/30. Terrainpermille1000 and rankmillis5000 differ BPS. Rig040 supersedes older rounded0 production yield statement: emitted production yields positive, public manually constructed yield0 remains broader. WGS source branches differ abstract CaseSite; unknown/duplicate ordering preserved.",
+        "current_producer_refs": [
+          "CAM-PPS-STRATEGIC-PROJECTION-007",
+          "CAM-PPS-FORAGE-OUTBREAK-020",
+          "NATIVE-PS-CAMERA-MATERIAL-FORAGE-013"
+        ],
+        "deduplication_limit": "Retain canonical producer and owner findings as distinct supporting lenses; root reconciles finding identity. This row is neither a new repair claim nor a claim all source behavior is correct.",
+        "repair_map": "continuation/native/connected-repair-map.json",
+        "historical_acceptances_preserved": [
+          "P01",
+          "P02",
+          "P03",
+          "P04",
+          "P05",
+          "P07"
+        ],
+        "reopened_statuses_preserved": [
+          "P06",
+          "P08",
+          "P09",
+          "P11",
+          "P12",
+          "P14"
+        ],
+        "unfinished_graphs_preserved": [
+          "P16",
+          "P17"
+        ],
+        "human_decision_required": []
+      }
+    },
+    {
+      "archive_file": "audit/continuation/native/camera-root169-supplier-owner-fit/findings.jsonl",
+      "record_index": 131,
+      "record": {
+        "id": "NATIVE-CAMERA-ROOT169-OWNER-SUPPORT-476",
+        "kind": "existing-owner-lens-support",
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/foraging.rs",
+        "sha256": "be82a5ef7905b05d68bba4d61d5173cba6011c51ee8504da85d697bb2d80df84",
+        "coverage_ref": "NATIVE-CAMERA-ROOT169-OWNER-476",
+        "material_owner_comparison": "ForageSource five variants is exact after canonical_sources admission, but lexical stable-ID ordering fish/harmful/high/low/plants must remain rather than enumOrd. Wholehour60..1440 request differs partialelapsed0/30. Terrainpermille1000 and rankmillis5000 differ BPS. Rig040 supersedes older rounded0 production yield statement: emitted production yields positive, public manually constructed yield0 remains broader. WGS source branches differ abstract CaseSite; unknown/duplicate ordering preserved.",
+        "current_producer_refs": [
+          "CAM-PPS-FORAGE-OUTBREAK-020",
+          "RIG-PPS-040",
+          "NATIVE-PS-CAMERA-MATERIAL-FORAGE-013",
+          "RIG-CONT-PPS-PURE-FOOD-RECIPIENT-CARRY-FORWARD-041"
+        ],
+        "deduplication_limit": "Retain canonical producer and owner findings as distinct supporting lenses; root reconciles finding identity. This row is neither a new repair claim nor a claim all source behavior is correct.",
+        "repair_map": "continuation/native/connected-repair-map.json",
+        "historical_acceptances_preserved": [
+          "P01",
+          "P02",
+          "P03",
+          "P04",
+          "P05",
+          "P07"
+        ],
+        "reopened_statuses_preserved": [
+          "P06",
+          "P08",
+          "P09",
+          "P11",
+          "P12",
+          "P14"
+        ],
+        "unfinished_graphs_preserved": [
+          "P16",
+          "P17"
+        ],
+        "human_decision_required": []
+      }
+    },
+    {
+      "archive_file": "audit/continuation/root/initial04-invariant-operations/findings.jsonl",
+      "record_index": 25,
+      "record": {
+        "id": "ROOT-INITIAL04-F026",
+        "kind": "representable_API_stage_specific_duration_admission_gap",
+        "source_id": "physical-p16:crates/adventuresim-core/src/foraging.rs",
+        "locations": [
+          [
+            329,
+            334
+          ],
+          [
+            685,
+            705
+          ],
+          [
+            717,
+            822
+          ]
+        ],
+        "case": "Use same welltyped rights/coordinates/requirements as existing planner fixture, durationRequestedDuration::try_new(1), currentclock0, no terminal andSome independentlyprovidedForageResolution. Allrequirements canpass, genericbuild_plan returnsReady atminute1 withCompleted permittingyield although resolve rejects1 asnotwholehour60..1440. Publicauthoritative-adapter APIcounteronly, no badnormalDBrequest/runtimeclaim; planremains evidence andactualreducer mustreplan/validatecommit.",
+        "operation": "GenericpositiveRequestedDuration is broader than canonicalforage duration; adapter accepts it without retaining/re-admitting action-specific wholehour/daybound. Rawresolution/time correspondence similarlydelegatedtounsealedauthority input, notclaimedprovedfromfieldcomment.",
+        "connected_repair": "Introduce orreusecanonical forage-request duration wholehours60..1440 throughactualrequestproducer/planner/DBrecipients; explicitlywiden to sharedpositiveRequestedDuration onlyatgenericplanneroperation. Preservepartial elapsed exposure/training belowonehour and zero-time boundary outcomes, which are distinct fromrequestedfullforage duration. Coupleactualresolvedinterval/result inwholeadapter orvalidateit beforecompletioneffects. Do not globallyrestrictgenericstrategicactiondurations.",
+        "acceptance": "All accepted forageplans retain validrequestedforage duration; partialboundary/exposure paths keepactualelapsedminutesandnevergrantpartialyield. Invalid requested duration cannot acquire completion-only effects throughgenericpositive wrapper. Existingtestsadapt only, no newcases/assertions/helpers.",
+        "repair": "frozen_all13_initial",
+        "validation": "not_run"
+      }
+    },
+    {
+      "archive_file": "audit/records/final-acceptance-20261021/wave-01/audit-producer-propagation/camera/findings.jsonl",
+      "record_index": 8,
+      "record": {
+        "finding_id": "CAM-PROP-F009",
+        "lens": "audit-producer-propagation",
+        "disposition": "migration gap",
+        "status": "discovered; complete identity helper/getter caller graph pending; repair frozen",
+        "snapshots": [
+          "pr-working",
+          "physical-p16"
+        ],
+        "source_locations": [
+          {
+            "snapshot": "pr-working",
+            "path": "crates/adventuresim-core/src/strategic_place.rs",
+            "sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+            "lines": [
+              43,
+              119
+            ]
+          },
+          {
+            "snapshot": "pr-working",
+            "path": "crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+            "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+            "lines": [
+              635,
+              639
+            ]
+          },
+          {
+            "snapshot": "pr-working",
+            "path": "crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+            "sha256": "88470ea4f157d8b74f281effcb8bac261e5f3af81a84fe81562a9a549d695d6d",
+            "lines": [
+              365,
+              447
+            ]
+          },
+          {
+            "snapshot": "pr-working",
+            "path": "crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+            "sha256": "88470ea4f157d8b74f281effcb8bac261e5f3af81a84fe81562a9a549d695d6d",
+            "lines": [
+              1374,
+              1463
+            ]
+          },
+          {
+            "snapshot": "pr-working",
+            "path": "crates/adventuresim-stdb-module/src/investigation/model.rs",
+            "sha256": "ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+            "lines": [
+              1043,
+              1156
+            ]
+          },
+          {
+            "snapshot": "pr-working",
+            "path": "crates/adventuresim-stdb-module/src/strategic/governance.rs",
+            "sha256": "d5eb2f18906eb28ba2703b665b769c50113ed55b73f572896659d17492443e92",
+            "lines": [
+              1535,
+              1542
+            ]
+          }
+        ],
+        "earliest_unfinished_producer": "JourneyEndpoint::case_site_id erases retained CaseSiteId to &str before application comparison and destination matching",
+        "scenario": "Checked CaseSiteId retained in authority rows is extracted to &str/String through journey getter, quest influence helper and raw tuple iterator for destination_hostile_archetype. Actual recipient only compares case IDs before threat classification; true SDK find436 is a distinct real String boundary. Related pending incident helpers similarly erase typed case IDs into raw iterators before application checks.",
+        "governing_rule": "A primitive accessor/native-looking name does not establish a boundary; preserve canonical identity across internal helpers and retained tuples until real SDK key projection.",
+        "smallest_connected_repair": "Retain existing CaseSiteId through journey/case-only helper results and same-meaning tuple/iterator arguments, projecting at actual SDK key use. Trace all getters/helpers and generic roster context callers before selecting broader operation signature; no duplicate case ID or primitive forwarding shim.",
+        "shared_functions_owners": [
+          "camera first trace reached JourneyEndpoint and encounter case-site propagation; canonical Core CaseSiteId owner reused"
+        ],
+        "dependencies": [
+          "Core strategic_place full getter consumers and existing fixtures",
+          "actual context-roster receiver accepts generic contexts; do not blindly narrow to case-only identity",
+          "reconcile P16 whole StrategicOperationError path F006",
+          "Actual investigation getter/setter1043\u20131156 read: erases checked occupancy into String and reconstructs same CaseSiteId1084. All caller enumeration/receiving outbreak body pending; same connected identity repair."
+        ],
+        "acceptance_criterion": "Case-only internal helper/tuple APIs retain CaseSiteId; exact lexical sort/comparison/optional departure policy and actual SDK representation preserved.",
+        "trace_ids": [
+          "CAM-PROP-ENCOUNTER-001",
+          "CAM-PROP-AUTHORITY-001"
+        ],
+        "coverage_limit": "Initial camera producer-propagation inventory exhausted for all assigned variants and materially affected actual receiver paths, exact source/hash/range proof in coverage/related/shared/reconciliation shards. This is not repair/source/family acceptance or any other lens coverage. Parent audit/execution ledgers remain sole authority.",
+        "additional_source_evidence": [
+          {
+            "snapshot": "physical-p16",
+            "path": "crates/adventuresim-stdb-module/src/foraging.rs",
+            "sha256": "c58f33b486ca2344cd5e4a141065bf3f39de22d6dc739e48a217ae969173d604",
+            "lines": [
+              259,
+              365
+            ],
+            "detail": "ActualgettererasedCaseSiteId\u2192purestringactor_party_owns_incident_site263 then typedsite.as_strcomparisons277/285. Canonicalplace reconstruction358 follows erasure. Fullbodyread sharedfirstownerrepair."
+          }
+        ],
+        "additional_paths": [
+          {
+            "location": "travel_reducers.rs8/19\u2192133\u2192323/356;623\u2192684;973\u2192998",
+            "evidence": "Whole1029linebodyread inclpureStringhelper and sameCaseSiteId readmission; actualwire/nativeSDKportsdistinct."
+          }
+        ],
+        "initial_coverage_limit_history": "Actual owner, journey getter, full encounter source read; other caller bodies pending, no clearance.",
+        "discovery_status": "source-backed initial inventory accounted; actionable repair unresolved",
+        "repair_status": "frozen until all13 initial discovery and parent dependency reconciliation",
+        "validation_status": "not run; no source/project/CI/runtime PASS"
+      }
+    },
+    {
+      "archive_file": "audit/records/final-acceptance-20261021/wave-01/audit-producer-propagation/camera/findings.jsonl",
+      "record_index": 17,
+      "record": {
+        "finding_id": "CAM-PROP-F018",
+        "lens": "audit-producer-propagation",
+        "disposition": "migration gap",
+        "status": "discovered; rootdedupasked; exactcanonicalowner/pureCore resolution+planner+fixtures fullread, remainingnativegatewaycallergraphopen; sourcefrozen",
+        "snapshots": [
+          "pr-working",
+          "physical-p16"
+        ],
+        "source_locations": [
+          {
+            "snapshot": "physical-p16",
+            "path": "crates/adventuresim-stdb-module/src/foraging.rs",
+            "sha256": "c58f33b486ca2344cd5e4a141065bf3f39de22d6dc739e48a217ae969173d604",
+            "lines": [
+              172,
+              210
+            ]
+          },
+          {
+            "snapshot": "pr-working",
+            "path": "crates/adventuresim-core/src/foraging.rs",
+            "sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+            "lines": [
+              396,
+              482
+            ]
+          },
+          {
+            "snapshot": "pr-working",
+            "path": "crates/adventuresim-core/src/foraging.rs",
+            "sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+            "lines": [
+              567,
+              823
+            ]
+          }
+        ],
+        "earliest_unfinished_producer": "STDB canonical_sources validatesCoreForageSourcefrom_id thenreturnsVecString, retainedthroughpurelicense/Core resolve/plannerauthority/PublicPreview with repeatedsameenumadmission",
+        "scenario": "OriginalclosedForageSource69\u2013123 alreadyowns allfive categories. AdmissionatSTDB179 discardsreturnedowner; license204/638andCore419reparse. PureCoreForagePlanAuthority702/PublicPreview571storeVecString while correspondinglicensedecisionretainsenum653 and comparesbinding.source.id\u2192string731. Nativehashing/SDKreceipt needbytes onlylater, not theseapplicationAPIs.",
+        "governing_rule": "Carry existingcanonicaltype fromoriginaladmission throughpure applicationstate/ops/recipients; checkedmembership alonewouldnotbeproof, but exactsameowner reconstructed inactualreceiving bodies confirmsgap.",
+        "smallest_connected_repair": "AdmitrawABI sourceIDsonce toexistingForageSource andretaincheckedselectionthroughlicense/resolve/authority/preview/allactualcallers; encodeIDstrings atactualSHA/SDK/nativeviewports. Preserveoriginalduplicate/unknown/count/errorordering, canonicalIDlexicalsort, rightsbindings, deterministicdraw/hash order andrawreceiptABI. No equivalentenum/compatibility API.",
+        "shared_functions_owners": [
+          "camera originalwholeForageSource propagation tracependingrootdedup; CoreexistingForageSource remainscanonical",
+          "Root owns masterinventory and authorizesremediation onlyafterall13initialdiscovery"
+        ],
+        "dependencies": [
+          "AllactualnativegatewaySerde/UI/previewreceiver bodies and externalCorecallers",
+          "Do NOT sortbyderivedForageSourceOrd: lexicalIDorder fish/harmful/high/low/plants differsenumHigh/Low/Fish/Harmful/Plants; preserveexactoriginal lexicalorder",
+          "ExistingCore/STDBsourcefixtures sameinputs/count/assertions/order, no additions",
+          "P16typedphysical/equipmenterror chain stillmandatoryF006 andoriginalnative row/wire unchanged"
+        ],
+        "acceptance_criterion": "No primitivecategoryretention or repeatedForageSourcefrom_id insidepure post-admission graph; actualhashes/SDKencode samebytes/order andexistingfixtureexpectations; freshfullsource/reviews/requiredCI later, no currentacceptance.",
+        "trace_ids": [
+          "CAM-PROP-FORAGING-001"
+        ],
+        "coverage_limit": "Initial camera producer-propagation inventory exhausted for all assigned variants and materially affected actual receiver paths, exact source/hash/range proof in coverage/related/shared/reconciliation shards. This is not repair/source/family acceptance or any other lens coverage. Parent audit/execution ledgers remain sole authority.",
+        "initial_coverage_limit_history": "Fulloriginalproducer/receivingCorebodies/fixturesread; remaining materiallydistinct externalcaller/nativegraph open.",
+        "discovery_status": "source-backed initial inventory accounted; actionable repair unresolved",
+        "repair_status": "frozen until all13 initial discovery and parent dependency reconciliation",
+        "validation_status": "not run; no source/project/CI/runtime PASS"
+      }
+    },
+    {
+      "archive_file": "audit/records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/findings.jsonl",
+      "record_index": 8,
+      "record": {
+        "id": "RIG-PPS-F009",
+        "trace_refs": [
+          "RIG-PPS-021"
+        ],
+        "kind": "existing structured cause propagation gap",
+        "dedup": [
+          "RIG-OWNER-F025",
+          "CAM-OWNER-F015"
+        ],
+        "earliest_sources": [
+          "spacetimedb/client.rs155\u2013189 concrete U::Error\u2192Spacetime(String)",
+          "routes/mod.rs193\u2013348/474\u2013513/904\u2013930 SpacetimeError and PlaceIdentityError\u2192String",
+          "routes/foraging.rs316\u2013380/466\u2013533 concrete causes\u2192String before pure app helpers",
+          "main.rs95\u2013103 concrete SpacetimeError formatted into anyhow message"
+        ],
+        "connected_repair": "Consume camera canonical SpacetimeError projection-cause aggregate in existing rig whole handlers/helper APIs and camera whole main; keep concrete serde_json/PlaceIdentity/terrain causes until actual HTTP/CLI/native presentation, preserve final allowlisted messages and raw remote response text role. No duplicate broad error/primitive adapter.",
+        "source_backed_limit": "Does not assert all raw String errors are defects: native remote rejection text, token fail-closed classification and terminal rendered feedback have distinct proven roles. Other lenses independently examine those policies.",
+        "source_repair": "frozen until all13 initial inventories",
+        "owner_dependencies": [
+          "rig existing Web session/mission/forage/party-action/types functions",
+          "camera Web query/client SpacetimeError and main",
+          "root TerrainPack/source owner"
+        ]
+      }
+    }
+  ],
+  "qualification": "Bounded saved inventory navigation, no blanket uniqueness or source/verdict transfer."
+}

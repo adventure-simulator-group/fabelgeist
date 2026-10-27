@@ -1,0 +1,283 @@
+{
+  "per_overlay": [
+    {
+      "overlay_index": 0,
+      "id": "CONT-OWNER-RANGE-EXTENSION-001",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+      "sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+      "read_ranges_reused": [
+        [
+          142,
+          155
+        ]
+      ],
+      "behavior": "ActualTryFromf32 Serde delegations coveredby own1774 full217 read/newbodydelta; scalarpositive/unboundedquantity owner/error propagation retained. Own348 earlier effectiveexclusion142\u2013155 isnotused asproof; exactfull1774 actualbodyproof qualifiesreuse.",
+      "same_lens_actual_proof": {
+        "original": 1774,
+        "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+        "row_1based": 1532,
+        "receipt_sha256": "13defb6776c0c383b002378b5df16cf85bdde42323e70dc27e96387bb0ba8f4b",
+        "actual_read_ranges": [
+          [
+            1,
+            217
+          ]
+        ],
+        "read_method": "Fullfrozenbody+actualdiff/alladded compareddirectoldkernels, exactmaterialreceivers andexistingfixturebodies; noexecution"
+      }
+    },
+    {
+      "overlay_index": 1,
+      "id": "CONT-OWNER-RANGE-EXTENSION-002",
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+      "sha256": "4ccc1188de7d5f8bdbf63b71160b8557f76fb524ae47f924381325da11198ee8",
+      "read_ranges_reused": [
+        [
+          101,
+          105
+        ]
+      ],
+      "behavior": "ExactLeafDimensionsconstructor tail included own667full105 actualhead/delta and43full105. Finite-first thennegative/zero axis policy distinctLeafpositive/PlanDimensionspositive/PlanExtentsnonnegative. NativeScalaradmissionallcallingcontexts findingsretained; no historicalshape/errororder compatibilitypromise.",
+      "same_lens_actual_proof": {
+        "original": 667,
+        "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+        "row_1based": 697,
+        "receipt_sha256": "13defb6776c0c383b002378b5df16cf85bdde42323e70dc27e96387bb0ba8f4b",
+        "actual_read_ranges": [
+          [
+            1,
+            105
+          ]
+        ],
+        "read_method": "Actualhead/body andcomparison recorded in exact own-lens row"
+      }
+    },
+    {
+      "overlay_index": 2,
+      "id": "CONT-OWNER-RANGE-EXTENSION-003",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+      "read_ranges_reused": [
+        [
+          201,
+          213
+        ]
+      ],
+      "behavior": "ActualSceneDoorconstruction tail covered ownbatch019full1915438 pluscomplete106delta, exactfrozenhashalias365. Checkednativeleaves/tangent/outward andgeneratedbuilding association qualificationretained, separateunitdirectionsnotautomaticorthogonality. No reuse ofearlier365155\u2013200partialasdecoderfullproof.",
+      "same_lens_actual_proof": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/batch-019-originals1907-1921.json",
+        "sha256": "1038c7393f45d4cc859d38afe7869fcf22575ef01b35465e01d0dc97aac4f03d",
+        "originals": [
+          1915
+        ],
+        "actual_read_ranges": [
+          [
+            1,
+            438
+          ]
+        ]
+      }
+    },
+    {
+      "overlay_index": 3,
+      "id": "CONT-OWNER-RANGE-EXTENSION-004",
+      "source_id": "physical-p16:crates/adventuresim-core/src/bestiary.rs",
+      "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "read_ranges_reused": [
+        [
+          1,
+          65
+        ]
+      ],
+      "behavior": "ThreatId1\u201365 exactown75full1558. Openlexicaltry_new vs catalogmembership FromStr intentionaldifferentadmission; actualprofilelookup canpanic onsyntax-onlyIDifwrongboundary admitted, allordinarycaller/nativeassociation qualificationretained.",
+      "same_lens_actual_proof": {
+        "original": 75,
+        "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+        "row_1based": 140,
+        "receipt_sha256": "13defb6776c0c383b002378b5df16cf85bdde42323e70dc27e96387bb0ba8f4b",
+        "actual_read_ranges": [
+          [
+            1,
+            1558
+          ]
+        ],
+        "read_method": "Actualhead/body andcomparison recorded in exact own-lens row"
+      }
+    },
+    {
+      "overlay_index": 4,
+      "id": "CONT-OWNER-RANGE-EXTENSION-005",
+      "source_id": "physical-p16:crates/adventuresim-core/src/bestiary.rs",
+      "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "read_ranges_reused": [
+        [
+          124,
+          137
+        ]
+      ],
+      "behavior": "ThreatId124\u2013137 exactown881full1558 via own75 samehashbodyproof. ActualSerialize/Deserialize adapters usecatalogvalidatingFromStr, lexicalconstructorhasdifferentcontract. CanonicalauthoredcatalogopenIDs remainopen; no oldwire/backcompat constraints.",
+      "same_lens_actual_proof": {
+        "original": 881,
+        "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+        "row_1based": 998,
+        "receipt_sha256": "13defb6776c0c383b002378b5df16cf85bdde42323e70dc27e96387bb0ba8f4b",
+        "actual_read_ranges": [
+          [
+            1,
+            1558
+          ]
+        ],
+        "read_method": "Fresh complete head except881 exact own015 fullbody reuse; empty actual PR diffs and material receiving paths explicitly stated."
+      }
+    },
+    {
+      "overlay_index": 12,
+      "id": "CONT-OWNER-RANGE-EXTENSION-013",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "read_ranges_reused": [
+        [
+          1086,
+          1089
+        ]
+      ],
+      "behavior": "Actualcontainercapacity1086\u20131089 tail coveredown1119full1451 after220explicit1030\u20131085cutoff; cannotuse220narrativetoreplaceunreadtail. Nativeusedvolume+liquid checkedsum/capacitycheckedsub andtypedvolumeprojection retained, no universalDBtransaction/currentguardcertificate.",
+      "same_lens_actual_proof": {
+        "original": 1119,
+        "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+        "row_1based": 1234,
+        "receipt_sha256": "13defb6776c0c383b002378b5df16cf85bdde42323e70dc27e96387bb0ba8f4b",
+        "actual_read_ranges": [
+          [
+            1,
+            1451
+          ]
+        ],
+        "read_method": "Personally consumed full exact frozen body and complete actual PRbase\u2192head diff with connected earlier own08 consumer facts; preserve native/API/transaction limits instead of assuming runtime clearance."
+      }
+    },
+    {
+      "overlay_index": 13,
+      "id": "CONT-OWNER-RANGE-EXTENSION-014",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/family.rs",
+      "sha256": "39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "read_ranges_reused": [
+        [
+          106,
+          126
+        ]
+      ],
+      "behavior": "settle_character_age106\u2013126 coveredown1157full267 after236ends105; canonicalbirthsignedcoordinate\u2192effectiveage/cacheconditionalupdate. Historicalauthoritativepersonalfrontier vs displaycache separate; nobirthfallback/compatibilitypath added.",
+      "same_lens_actual_proof": {
+        "original": 1157,
+        "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+        "row_1based": 1272,
+        "receipt_sha256": "13defb6776c0c383b002378b5df16cf85bdde42323e70dc27e96387bb0ba8f4b",
+        "actual_read_ranges": [
+          [
+            1,
+            267
+          ]
+        ],
+        "read_method": "Fresh full unchanged bodies and complete pinned PR comparison; exact historical/error/identity/default/ordering source behavior independently assessed, no fixtures or DB execution."
+      }
+    },
+    {
+      "overlay_index": 16,
+      "id": "CONT-OWNER-RANGE-EXTENSION-017",
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/lib.rs",
+      "sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+      "read_ranges_reused": [
+        [
+          1,
+          58
+        ],
+        [
+          270,
+          315
+        ],
+        [
+          948,
+          995
+        ]
+      ],
+      "behavior": "Terrainmanifest/loadsignature/validation exactadditionalranges1\u201358/270\u2013315/948\u2013995 coveredownbatch0402082full2059, after419partialstops994. Filehash/schema/bounds/nativecacheadmission andtypedSourcePackageDigestmeaning retained, chunk/native/runtime/route invariants notestablishedbydigest alone.",
+      "same_lens_actual_proof": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/batch-040-originals2076-2083.json",
+        "sha256": "8fbeb3032628291277ee9e7b810bee0f3a98f8ed19d0e0bac0b30a50641e8387",
+        "originals": [
+          2082
+        ],
+        "actual_read_ranges": [
+          [
+            1,
+            2059
+          ]
+        ]
+      }
+    },
+    {
+      "overlay_index": 17,
+      "id": "CONT-OWNER-RANGE-EXTENSION-018",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings/window.rs",
+      "sha256": "f1d40643528b12fce9e1062c6a2e23e0192c6216cb5a5f645bbc624ef90b5c26",
+      "read_ranges_reused": [
+        [
+          46,
+          76
+        ]
+      ],
+      "behavior": "ActualSceneWindowDeserialize46\u201376 coveredownbatch10528191\u201376 exactsamehash as3661\u201345partial. Positivechecked dimensions/finitescenepose/unitdirections admission, publicframeorthogonality/association separatecandidate. No genericall-decoder orruntimeproof.",
+      "same_lens_actual_proof": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/batch-105-native-upload-order-and-authoritative-projection-contracts.json",
+        "sha256": "35e4733b5001cfbaa8457447242211bfdaf6416795180101f62d380baaa5f806",
+        "originals": [
+          2819
+        ],
+        "actual_read_ranges": [
+          [
+            1,
+            76
+          ]
+        ]
+      }
+    },
+    {
+      "overlay_index": 18,
+      "id": "CONT-OWNER-RANGE-EXTENSION-019",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+      "read_ranges_reused": [
+        [
+          214,
+          221
+        ]
+      ],
+      "behavior": "ActualSceneDoorError214\u2013221 typedcontext+GeometryError source coveredownbatch0191915full438/106delta, samehash365. Preservecanonicalcause throughrealnativeadapter; nouniterror/oldconcretedowncast/formatcompatibilityconstraint.",
+      "same_lens_actual_proof": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/batch-019-originals1907-1921.json",
+        "sha256": "1038c7393f45d4cc859d38afe7869fcf22575ef01b35465e01d0dc97aac4f03d",
+        "originals": [
+          1915
+        ],
+        "actual_read_ranges": [
+          [
+            1,
+            438
+          ]
+        ]
+      }
+    }
+  ],
+  "method": "Root explicitly reviewed exactown-lens actualbodyproofrows/ranges/semantics and matchingfrozenalias, nothash-only/otherlens/statuspresence. Reuse onlymaterialranges inside recordedfullscopes. EarlierP16partialcutoffs remainqualified; laterownPR/fullsource proof suppliesactualtail. HistoricalBCacceptancewording superseded by usercleanfinal/noBC instruction.",
+  "connected_repair_requirements": [
+    "Maintain admissionintent: positive/nonnegative/time/cache/catalogmembership/sourceidentity aredifferentpurposefulcontracts. Carry canonicalsource/errorpayload throughactualadapters; keepallprevioussourcequestions andallfamilydependencies."
+  ],
+  "acceptance_requirements": [
+    "Onlyseparateoverlay sourceaccounting WITHfindings. No code/checks/tests/builds/probes/runtime/current/unique/all20 orglobalclearance; remainingpopulations/extensions/baseconsolidation/current/dedup exactrepairacceptance pending."
+  ],
+  "at": "2026-10-27T16:43:26.538866+00:00",
+  "lens": 8,
+  "accepted_unique_count_change": 0,
+  "implementation_gate_complete": false
+}

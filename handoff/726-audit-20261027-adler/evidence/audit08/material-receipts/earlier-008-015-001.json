@@ -1,0 +1,129 @@
+{
+  "id": "ADLER-CONT08-MATERIAL008-015-001",
+  "lens": "behavior-preservation",
+  "assignment_limit": "At most M8-15, then save bounded frontier and await root direction/merge checkpoint.",
+  "registry": "shared-material-successor/source-extensions-196.json",
+  "source_pins": "material-receipts/source-pins-early-003.json",
+  "exact_correspondence": "material-receipts/early-008-015-correspondence-001.json",
+  "source_reads": [
+    {
+      "material": 8,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/building_program.rs",
+      "sha256": "2ecfe5491e448871f85d33e15bc04c197311aae741054b4587143531548063a2",
+      "ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "provenance": "Fresh personal actual registered source body read"
+    },
+    {
+      "material": 9,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/settlement.rs",
+      "sha256": "5a26d13567d00297e0bec89a8425945e633f346b1593eba9d4733ece32476ffc",
+      "ranges": [
+        [
+          1,
+          257
+        ]
+      ],
+      "provenance": "Fresh personal actual registered source body read"
+    },
+    {
+      "material": 10,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/settlement/size.rs",
+      "sha256": "23584a638ed300e6bfb8e5bb95e2a330d24b705b9589838c22632f99d81a884e",
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "provenance": "Fresh personal actual registered source body read"
+    },
+    {
+      "material": 11,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/streams.rs",
+      "sha256": "0d8665bffe65c04fdc695d187ef0a3b91071e714eecf1e46e526af46d2738df7",
+      "ranges": [
+        [
+          1,
+          149
+        ]
+      ],
+      "provenance": "Retained exact own08 full149 source and comparison048; no reread"
+    },
+    {
+      "material": 12,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/status.rs",
+      "sha256": "4ed19181ab78cf91d879f183d56d313397141bcefd0c3139ebd1263c1c3163ff",
+      "ranges": [
+        [
+          1,
+          204
+        ]
+      ],
+      "provenance": "Fresh personal actual registered source body read"
+    },
+    {
+      "material": 13,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/atmosphere.rs",
+      "sha256": "b9dcce7121c3161293d2fbd9c9f02f0df7aa341d51c9a0a1b94a7315f8bfdd4c",
+      "ranges": [
+        [
+          1,
+          332
+        ]
+      ],
+      "provenance": "Fresh personal actual registered source body read"
+    },
+    {
+      "material": 14,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_sky_viewer_main.rs",
+      "sha256": "4675cb9d134b9dbe5b05c9d82bed6b323983a88d2a63de941125b0be29e097d0",
+      "ranges": [
+        [
+          1,
+          114
+        ]
+      ],
+      "provenance": "Fresh personal actual registered source body read"
+    },
+    {
+      "material": 15,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs",
+      "sha256": "9db0cfc4b4c3053884d835faaca49a404c9942f7f0599b3069b89729fd8d7ae3",
+      "ranges": [
+        [
+          200,
+          209
+        ]
+      ],
+      "provenance": "Fresh personal actual registered source body read"
+    }
+  ],
+  "analyses": {
+    "8": "Actual BuildingProgram1-66 intentionally permits unsupported recipe combinations until generate/audit; no claim that public fields/serde alone guarantee a constructible building. Fixture dispatch retains the same archetype-specific producer and workplace Barn/Medium rule, existing optional church/heating semantics and schema11. Entire source is byte-identical base3a50/head6533. Changed distant-placement projections/usage policies remain their owning source roles rather than inferred safe from this unchanged declaration.",
+    "9": "Full257 actual source, including all three existing fixtures, read. Same workplace-first use->archetype mapping; settlement fixture, usage override, room reassignment and Dwelling heating policy; same roof/storey random purposes, abs-only roof variation for HallHouse/TownHall and same4degree/0.15metre amplitudes. validated_settlement still tests initial seed then attempts1..64, generates the actual candidate, optionally validates domestic circulation and returns the first error if all fail. First attempt and fallback seeds are not conflated. Whole base/head bytes equal; no generator/circulation success inferred without their owning contracts or execution.",
+    "10": "Full110 actual source including existing monotonic-band fixture read. Closed Small/Medium/Large retains enum order/wire snake_case. Parish role scaling stays distinct from service catchment capacity; unsupported workplace/use returns None. Native band arithmetic remains span(max-min+1), saturating subtraction then multiply3 then divide, with high band Large; extra bays0/1/2. with_service_size only changes workplace/church, with Large actual parish selecting basilica and others configured small church. Entire base/head bytes equal. Capacity-policy arithmetic and physical plot producers remain separately owned; no new construction invariant imposed.",
+    "11": "Retained exact own08 behavior-048 receipt: all149 purpose declarations were personally read and before/after compared at this exact0d8665... hash. Fresh whole-file base/head equality agrees. No redundant full-body reread, other-lens verdict or current CI shoot-identity source substitution. Existing named purposes/fullu64 seed context and broader RNG/native qualifications remain.",
+    "12": "Full204 actual status producer read; exact base/head equality. Requested_window records native pose error before composing status. Visible, matched source, coverage Drawn, environment ready, viewport equality, settled counter threshold4, route and connection capacity have distinct meanings. ready additionally excludes capacity errors while presentation_ready reflects settling alone; covered is independently reported, not silently included in ready. Once threshold reached, waiting pipelines are intentionally tolerated by the existing condition. Diagnostic Failure enum/string projection and JSON snapshot lock/serialization warnings remain unchanged. Do not interpret ready as all assets/current requested windows/all engine activity complete; actual producer mutations outside this body remain separate.",
+    "13": "Full332 actual atmosphere cache and lifecycle read; exact whole-file equality. Key keeps scene/environment/size/light policy/nearest-atmosphere entity+scale/translation native bits+change ticks+medium/shader revisions. Missing scene/disabled/correction mismatch clears; changed key clears old probes/assets before new probe; same key polls completion; native GPU completion gate precedes installing handles/Cached and retiring probe. Direct camera atmosphere is deliberately retained for live transport, while extractor cleanup removes three stale render components after native extract. The same source does not by itself prove GPU completion predicates, native backport correctness or every invalidation producer; earlier actual native/medium graph qualifications remain. No current CI source substitution.",
+    "14": "Full114 actual native-only CLI/id owner and both existing fixtures read. Ten closed SkyView variants map to exact stable CamelCase ids, while clap ValueEnum selects lowercase CLI words; these are separate boundary encodings. Default settle24 and output PathBuf feed the actual1742 viewer run previously read in own083. Wasm still panics as native-only. Whole base/head equality, with no format/logging-based identity inference or test execution.",
+    "15": "Only registered200-209 personally read: final nested SupportGeometryIssue source arm and public BoundarySupportProjection{mesh,gate_elevation} are unchanged by exact whole-file base/head hash equality. This is a completing declaration tail, not a successful projection/admission operation. Coherent construction and any possible mesh.binding.gate versus public gate_elevation disagreement require original1811/1812 actual producer/consumer reconciliation; those original roles remain pending rather than receiving coverage from this tail. No defect promoted from field names or broader aggregate cleared."
+  },
+  "unresolved_qualifications": [
+    "M15 is exact completing declaration coverage only; coherent projection and alternate updates remain pending original1811/1812, no inferred aggregate clearance.",
+    "Unchanged body evidence is source-specific; changed generator, status, pose, atmosphere/native GPU and physical reservation contexts remain their own source/earlier qualification obligations.",
+    "No accepted new unique finding, runtime incident or global audit/whole SDK clearance."
+  ],
+  "findings": [],
+  "original_frontier_unchanged": {
+    "completed": 1799,
+    "next": 1792,
+    "first_unfinished": 1462
+  },
+  "next_earlier_material": 16,
+  "execution": "Source-only; no product/Git mutations, project checks/tests, publication or authored tests/assertions/helpers."
+}

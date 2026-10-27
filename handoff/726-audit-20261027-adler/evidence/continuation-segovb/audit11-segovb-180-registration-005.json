@@ -1,0 +1,39 @@
+{
+  "packet": 180,
+  "lens": 11,
+  "entries": [
+    {
+      "original": 794,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/generation.rs",
+      "sha256": "eb3d54908cc923b9cd761ca5abaf748d4ad9ed9175289a2d3342d0e2d4c6a4a1",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/eb3d54908cc923b9cd761ca5abaf748d4ad9ed9175289a2d3342d0e2d4c6a4a1",
+      "ranges": [
+        [
+          56,
+          93
+        ]
+      ],
+      "purpose": "Close generated normals and rig-state table unit/ordinal producer, complete return",
+      "ordered_credit": false
+    },
+    {
+      "original": 683,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview.rs",
+      "sha256": "8c21b357f6f90a1c9c297c9e1c4306e63872daa3ccb32e060651f5df878b7ba3",
+      "read_from": "crates/adventuresim-character-creator/src/animation_preview.rs",
+      "ranges": [
+        [
+          22,
+          35
+        ],
+        [
+          178,
+          279
+        ]
+      ],
+      "purpose": "WalkPreview typed joints/inverse-bind owner and actual rebuild producer for same model receiving skin ordinal",
+      "ordered_credit": false
+    }
+  ],
+  "registered_before_body_read": true
+}

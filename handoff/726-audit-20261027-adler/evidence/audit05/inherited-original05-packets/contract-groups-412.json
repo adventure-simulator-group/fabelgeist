@@ -1,0 +1,144 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-412",
+  "at": "2026-10-23T13:26:00.741393+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/fatigue.rs",
+      "sha256": "823dc22517760aafcf6f7107becb2e1d9c647c685bfe5022f7865d7739cb52f5",
+      "scope072_index": 898,
+      "actual_EOF": 263,
+      "scoped_ranges_compared": [
+        [
+          1,
+          263
+        ]
+      ],
+      "actual05_comparison": "Fresh full actual source and all original fixtures; fatigue/rate/elapsed, anatomical contact identity, computed concentration and wound conservation compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/incapacitation.rs",
+      "sha256": "a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+      "scope072_index": 900,
+      "actual_EOF": 115,
+      "scoped_ranges_compared": [
+        [
+          1,
+          115
+        ]
+      ],
+      "actual05_comparison": "Fresh full actual source and all original fixtures; fatigue/rate/elapsed, anatomical contact identity, computed concentration and wound conservation compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/melee_resolution.rs",
+      "sha256": "5dd8e24f1b117b07079d9bbd53930a23740ac4970336b315e88a11642e2d0635",
+      "scope072_index": 901,
+      "actual_EOF": 123,
+      "scoped_ranges_compared": [
+        [
+          1,
+          123
+        ]
+      ],
+      "actual05_comparison": "Fresh full actual source and all original fixtures; fatigue/rate/elapsed, anatomical contact identity, computed concentration and wound conservation compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/targeting.rs",
+      "sha256": "ef6af9c32d9abfa63057616b145b7777bcd39042472238e8966e73cbab202c08",
+      "scope072_index": 902,
+      "actual_EOF": 427,
+      "scoped_ranges_compared": [
+        [
+          1,
+          427
+        ]
+      ],
+      "actual05_comparison": "Fresh full actual source and all original fixtures; fatigue/rate/elapsed, anatomical contact identity, computed concentration and wound conservation compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/weapon_contact.rs",
+      "sha256": "287ef23a8837049c44a05b856bcef61d536c382a5e3602b6755f434f02c177d5",
+      "scope072_index": 903,
+      "actual_EOF": 113,
+      "scoped_ranges_compared": [
+        [
+          1,
+          113
+        ]
+      ],
+      "actual05_comparison": "Fresh full actual source and all original fixtures; fatigue/rate/elapsed, anatomical contact identity, computed concentration and wound conservation compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/weapon_contact/tests.rs",
+      "sha256": "fe810f795ff7e4d52786d5c51504c3f2c12154cabdbeb23ba90939923971bfe4",
+      "scope072_index": 904,
+      "actual_EOF": 111,
+      "scoped_ranges_compared": [
+        [
+          1,
+          111
+        ]
+      ],
+      "actual05_comparison": "Fresh full actual source and all original fixtures; fatigue/rate/elapsed, anatomical contact identity, computed concentration and wound conservation compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/wounds.rs",
+      "sha256": "8db111805100afa261ac984d5fb0e0e191bfc0160a2792179af7c5ffab0b2d0d",
+      "scope072_index": 906,
+      "actual_EOF": 134,
+      "scoped_ranges_compared": [
+        [
+          1,
+          134
+        ]
+      ],
+      "actual05_comparison": "Fresh full actual source and all original fixtures; fatigue/rate/elapsed, anatomical contact identity, computed concentration and wound conservation compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "one fatigue pool with actual work and native-capacity limits",
+      "comparison": "898 full263: action work charged once, duration clamped to configured min/max, linear/angular mechanical work divided efficiency; ExplosiveDodge body+carried mass. Raw public workload scalar is not admitted computed work. Positive effort with sustainable NonnegativeSpeedZERO can produce Inf rate; zero-effort branch avoids0/0. Aerobic/carry/capacity arithmetic needs actual per-second result admission and later elapsed application policy, not a false PositiveSpeed invariant on every sustainable speed. Normal stats/config supplier bounds remain separate."
+    },
+    {
+      "id": "fatigue mutation joins existing checked computed-state graph",
+      "comparison": "Consumed Root079 F030 actual narrative then898 full: capacity2*enduranceMAX and recovery2*MAX/rest1 yieldsInf/InfNaN, directly replaces fatigue despite finalclamp. Same exact RootF030, no extra unique. WorkloadMAX under ordinary finite capacity legitimately saturates visiblefatigue1 and fixture223-261 preserves that policy. Repair must reject invalid computed ratio before retained mutation or use a justified stable calculation, preserve single visible pool and total incap performance; not reject every overexertion or invent hidden onset threshold. All112-263 fixtures read, not run."
+    },
+    {
+      "id": "recovery availability is a payload state and zero-time has explicit meaning",
+      "comparison": "900 full115: combat_incapacitation_performance clamps total to0..1 then checked UnitInterval admits1-total; NaN remains error. Zero base recovery returns AfterZERO regardless performance, positive base and zero performance CannotRecover; positive performance division checks finite then checkedElapsed. Thus AfterElapsed versus CannotRecover is intentional, not missing fallible default; successful After preserves actual duration guarantee. RecoveryTime publicenum can be independently constructed but payload checked. Encumbrance returns1-actual carrying penalty; lower admitted mass/capacity contract remains separate."
+    },
+    {
+      "id": "contact resolution consumes one anatomical and temporal result",
+      "comparison": "901 full123 first InvalidatedMiss returns zero non-contact; otherwise applies measure factor exactly once inside this resolver then accuracy/margin and selected contact.armor_surface. Negative attack chooses avoidance, others calculate physical damage; raw NaN margin matches fallthrough, so computed margin admission must precede that branch rather than comparisons presumed reject. Existing890? no counterpart credited; actual normal autoresolve prepare873 and exchange864 independently earlier read. Avoided branch retains physical_contact only weaponcontact response and applies spatial energy to force/rebound; no blanket raw result whole validity."
+    },
+    {
+      "id": "bodypart local coordinate binds named anatomy and physical surface",
+      "comparison": "902 full427: seven fixed body weights sum1 and every private weighted helper current call factor1; candidateweight strictlypositive beforedivision, fixed finite list bounds. Head fallback is roundoff endpoint, not evidence arbitrary callback distribution safe. Gap targeting moves local coordinate within chosen bodypart toward next_down1; same localcoordinate selects anatomical subregion and armor_surface. Generic raw MeleeContactLocation::new/publicfields can bind Chest to Arm subregion or unrelated retained surface; normal melee_contact_location builds all from one coordinate. This is connected canonical contact product admission/authority graph; no actual mismatched normal recipient proven. Chest named thresholds and Abdomen cutoff are reused deliberate anatomy, not independently capped generic precision."
+    },
+    {
+      "id": "physical and aim precision have different owners and ranges",
+      "comparison": "902 weighted skill/handling*normalizedhit, defense uses same actual bodyparts and total performance from skill facets. melee_measure_adjusted_precision hit*currentaccuracy propagates RootF029 computedNaN if invalid contact admitted.903 full113 chooses MAX working head concentration, not sum, shaft fallback only if no headprecision. Raw WeaponDesign section dimensions can makezero denominator =>ContactPrecision::new assert, existing contact admission graph, no current bad authored recipe claim. ContactPrecision privatefinite>=0, no decoder, intentionallyzero; resistance atprecision0 intentionallyInf sentinel and concentration x/(1+x) mayround1 forlargefinite, allowedunit endpoint. Do not impose<=1 on coefficient. Handling amplitude overflow can cliprecip0; actual physical admission/representability separate."
+    },
+    {
+      "id": "wound provenance and additive rates preserve distinct dimensions",
+      "comparison": "906 full134: applied cut emits open rate cut*.5/60, internal rate uses bodypartcoefficient and actual blunt joules threshold, identity bodypart retained. Rates are blood-volume fractions per second, not UnitInterval; repeated identical wounds are additive separate injuries per sourcefixture116-132, not automatically duplicate IDs. Acute trauma uses actual bodypart scale, distinct from ongoing bloodloss. Root092 F031 narrative consumed then exact fresh source: two rawfiniteMAXrates sumInf timesZEROelapsedNaNclamp; API-only/no normalrate claim. Existing parent damageclamp and actual applied shares bound normal perhitwound producer, but arbitrary vector count and rawSerde remain separate capacities."
+    },
+    {
+      "id": "existing fixtures source comparison only",
+      "comparison": "90067-115,902258-427,904all111 and90684-134 all freshly read without execution or changes. Target tests exercise anatomical area/mirror/coverage/gap, real leg-dependent dodge, precision tests max alternative rather than additive heads, actual concentration>1, conditioned precision once. These do not prove arbitrary malformed public aggregate or current GUI/gameplay run. No new test cases or assertions."
+    }
+  ],
+  "existing_findings_supported": [
+    "ROOT-INITIAL04-F029",
+    "ROOT-INITIAL04-F030",
+    "ROOT-INITIAL04-F031"
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Normal physical trait/config and raw anatomical contact product admission; exact native sustainable ZERO applicability at actual movement recipient; no whole child or runtime proof inferred."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

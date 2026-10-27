@@ -1,0 +1,115 @@
+--- base
++++ head
+@@ -255,14 +255,9 @@
+         }
+ 
+         // Transposed so a forward pass is `parameters @ transform`.
+-        let columns = parameter_transform.num_parameters();
+-        let mut transform = vec![0.0f32; num_model_parameters * joints * PARAMETERS_PER_JOINT];
+-        for row in 0..joints * PARAMETERS_PER_JOINT {
+-            for column in 0..num_model_parameters {
+-                transform[column * joints * PARAMETERS_PER_JOINT + row] =
+-                    parameter_transform.transform[row * columns + column];
+-            }
+-        }
++        let transform = parameter_transform
++            .transform
++            .tensor_transpose(num_model_parameters);
+ 
+         let offsets = parameter_transform
+             .offsets
+@@ -271,7 +266,7 @@
+             .then(|| {
+                 Tensor::from_data(
+                     TensorData::new(
+-                        parameter_transform.offsets.clone(),
++                        parameter_transform.offsets.tensor_values(),
+                         [1, joints * PARAMETERS_PER_JOINT],
+                     ),
+                     device,
+@@ -280,14 +275,24 @@
+ 
+         let fk_levels = skel_state::prefix_multiplication_levels(&character.skeleton.parents)
+             .into_iter()
+-            .map(|(source, target)| {
+-                let len = source.len();
+-                (
++            .map(|level| -> Result<_> {
++                let len = level.source.len();
++                let source: Vec<i32> = level
++                    .source
++                    .into_iter()
++                    .map(|joint| i32::try_from(usize::from(joint)))
++                    .collect::<Result<_, _>>()?;
++                let target: Vec<i32> = level
++                    .target
++                    .into_iter()
++                    .map(|joint| i32::try_from(usize::from(joint)))
++                    .collect::<Result<_, _>>()?;
++                Ok((
+                     Tensor::from_data(TensorData::new(source, [len]), device),
+                     Tensor::from_data(TensorData::new(target, [len]), device),
+-                )
++                ))
+             })
+-            .collect();
++            .collect::<Result<_>>()?;
+ 
+         let basis = &character.blend_shapes.vectors;
+         let identity_basis = Tensor::from_data(
+@@ -316,10 +321,10 @@
+             .zip(&character.skin_weights.weight)
+             .enumerate()
+         {
+-            for (joint, weight) in indices.iter().zip(weights) {
++            for (joint, weight) in indices.into_iter().zip(weights) {
+                 if *weight > 1e-5 {
+-                    skin_joint_indices.push(*joint as i32);
+-                    skin_vertex_indices.push(vertex as i32);
++                    skin_joint_indices.push(i32::try_from(usize::from(joint))?);
++                    skin_vertex_indices.push(i32::try_from(vertex)?);
+                     skin_weights.push(*weight);
+                 }
+             }
+@@ -331,8 +336,8 @@
+             .faces
+             .iter()
+             .flatten()
+-            .map(|corner| *corner as i32)
+-            .collect();
++            .map(|corner| i32::try_from(*corner))
++            .collect::<Result<_, _>>()?;
+         let num_corners = face_corners.len();
+ 
+         Ok(Self {
+@@ -348,17 +353,27 @@
+             num_model_parameters,
+             joint_translation_offsets: Tensor::from_data(
+                 TensorData::new(
+-                    character.skeleton.translation_offsets.concat(),
++                    character
++                        .skeleton
++                        .translation_offsets
++                        .as_native_slice()
++                        .concat(),
+                     [1, joints, 3],
+                 ),
+                 device,
+             ),
+             joint_prerotations: Tensor::from_data(
+-                TensorData::new(character.skeleton.prerotations.concat(), [1, joints, 4]),
++                TensorData::new(
++                    character.skeleton.prerotations.as_native_slice().concat(),
++                    [1, joints, 4],
++                ),
+                 device,
+             ),
+             inverse_bind_pose: Tensor::from_data(
+-                TensorData::new(character.inverse_bind_pose.concat(), [1, joints, 8]),
++                TensorData::new(
++                    character.inverse_bind_pose.as_native_slice().concat(),
++                    [1, joints, 8],
++                ),
+                 device,
+             ),
+             fk_levels,

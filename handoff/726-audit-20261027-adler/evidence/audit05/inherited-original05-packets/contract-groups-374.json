@@ -1,0 +1,80 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-374",
+  "at": "2026-10-23T12:50:23.786772+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/studio_cache.rs",
+      "sha256": "6d7378554d92fcefc39d39434744bdb50dd98358ce1596f571652a65ce4bf013",
+      "scope072_index": 831,
+      "actual_EOF": 192,
+      "scoped_ranges_compared": [
+        [
+          1,
+          192
+        ]
+      ],
+      "actual05_comparison": "Fresh fullsource; transitive cache dependencies, prepare/publish phase lifecycle and full orbit-goal convergence compared; source-specific existing findings personally consumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/studio_generation.rs",
+      "sha256": "7d6baf7df5362f498eb963aa984845e08e31952bec84de19b40620ea8f15dd0b",
+      "scope072_index": 832,
+      "actual_EOF": 187,
+      "scoped_ranges_compared": [
+        [
+          1,
+          187
+        ]
+      ],
+      "actual05_comparison": "Fresh fullsource; transitive cache dependencies, prepare/publish phase lifecycle and full orbit-goal convergence compared; source-specific existing findings personally consumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/studio_scene.rs",
+      "sha256": "e486c21e58ee4c7f689bceed15e636afc2b11d12fc0989b02ca4a5e128c85fcf",
+      "scope072_index": 833,
+      "actual_EOF": 367,
+      "scoped_ranges_compared": [
+        [
+          1,
+          367
+        ]
+      ],
+      "actual05_comparison": "Fresh fullsource; transitive cache dependencies, prepare/publish phase lifecycle and full orbit-goal convergence compared; source-specific existing findings personally consumed."
+    }
+  ],
+  "groups": [
+    {
+      "id": "complete cache dependency differs from requested model selector",
+      "comparison": "831 body key captures LOD,proportions,identity,expression but omits actual model correctives; hit returns prior body and leaves every dependent fit/finish/lining/drape. Actual819 successful sameLOD correctives replacement marks dirty but83239 uses cache.body,so omission propagates. Personally consumed exact CAMERA-INITIAL07-F050/CONTRACT252 and sourcecompared full831/832 plus own794/819. Existing normal-UI dependency finding support only; no measured neutral-pose difference/run, no new unique."
+    },
+    {
+      "id": "fit and lining preserve layered dependency order under normal call sequence",
+      "comparison": "831 fit_keys hashes exact item+placement+design plus finished-support keys in private DAG order. finish_key includes decoration+construction, so changing lower trim/construction invalidates outer fit. armor iterates sameplan into same-length Option slots; plan proofs supply expect witnesses. self.fits.remove/self.finishes.remove occurs before laterfallible fit/finish, so Err mayevict priorcache entries but returned gameplay/preview product not partially replaced bythis method. Successful return replaces caches with onlycurrentworn entries. lining filter_map could skipmissingfits for arbitrary samecrate callsequence, but actual832 calls onlyafter armorOk; normal completeallfitted keys established. Lining intentionallyuses preconstructionfitted rigid surfaces; drape keysordered InventoryItemId+selection+saved drape, currentbodykey andliningkeys."
+    },
+    {
+      "id": "preparation versus presentation failure boundaries",
+      "comparison": "832 clears dirty BEFORE fallible loadout/body/clothing/armor preparation. On preparationErr old scene/drape remains and dirtyfalse; this matches existing Camera252 qualification on old ready/export possibility and is not a sealed current output. On success rebuilds rig, requests changed drape, sets currentbounds, queuesold entitydespawn then fallible body/clothing/equipment/material publication. Thus preparing fit geometry beforedespawn is positive but doesnot establish full scene transaction iflater native/material failure. No actual normal invalid mesh/material/failurepath or executed mixed scene inferred. Canonical generation revision/correctivedependency F050 and defaultdirty F058 remain actual separatefindings. Successfulready worker prefix and explicit requestkeys already fresh336/346."
+    },
+    {
+      "id": "orbit goal is a correlated position distance orientation target",
+      "comparison": "833 whole367 independently read. CharacterBounds min/max derives every supplied vertex but rawfinite/empty precondition remains generatedbody; radiusframeguard denominators max1 and clamps0.25..14. Goal contains optionalangles withfocus/radius; approach updatesall but completion97 onlytests focus/radius. OrdinaryTurn goalcopiesexistingfocus/radius and adds\u00b1PI/4 toangle, so first fractionalupdate clearsunsatisfiedorientation. Personallyconsumed Root04F060/CONTRACT151 andcompared current85\u201399/310\u2013325. Exactexisting ordinarysourcefinding support,noUIrun/newunique. Manualpointer/wheel intentionallycancelsgoal; anglesNone means retain orientation, repeatedturnsaccumulateexistingtarget."
+    },
+    {
+      "id": "camera and scene scalar boundaries remain separate",
+      "comparison": "833 setup authoredpositive dimensions/lights/linear fog ordered7..20, stage sharesDAIS_HEIGHT acrossfloor/topgeometry. subcamera physicalsize components max1, but public(crate) rawpanel width\u2192u32 and size.x+panel nativecapacity remain conditionalAPIpreconditions ratherthan ordinarywindow overflow claim. No newaggregatefinding merelyfrom primitive records, no nativeBevy behaviorassumed. Allsource roles compared, no test/codeexecution."
+    }
+  ],
+  "new_unique_findings": [],
+  "existing_finding_support": [
+    "CAMERA-INITIAL07-F050/CON252",
+    "CAMERA-INITIAL07-F058/CON269",
+    "ROOT-INITIAL04-F060/CON151"
+  ],
+  "remaining_dependency_obligations": [
+    "Actual native material/command execution and normal failure reachability not established; raw public geometry contracts remain qualified."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

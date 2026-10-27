@@ -1,0 +1,75 @@
+{
+  "at": "2026-10-27T04:49:12.773737+00:00",
+  "lens": "13 magic-numbers",
+  "packet": "026",
+  "authority": {
+    "frozen_original_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "original_registry": "target/recovery-20261025/audit05/original-scope-072.json",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "prior_adopted_state": "audit13-successor-025-suggested-state.json",
+    "prior_state_sha256": "60a26667a1ab179ef14c75270334c2d4fa515859e032adc0c1f9b11058501a04",
+    "root_adoption": "audit13-successor-025-adoption-root.json",
+    "root_adoption_sha256": "1d68694a311118c1039cc9fade526ea0258ae60034cf6f66c66780c2d170fa30"
+  },
+  "source": {
+    "original": 39,
+    "source_id": "physical-p16:Cargo.lock",
+    "object_path": "target/recovery-20261025/continuation-segovb/source-objects/1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+    "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+    "bytes": 306149,
+    "actual_lines": 13103,
+    "full_effective_ranges": [
+      [
+        1,
+        13103
+      ]
+    ],
+    "contained_supplemental_ranges": [
+      [
+        10243,
+        10256
+      ],
+      [
+        10303,
+        10327
+      ],
+      [
+        10373,
+        10405
+      ]
+    ],
+    "prior_consumed_ranges": [
+      [
+        1,
+        4800
+      ]
+    ],
+    "registered_ranges_this_packet": [
+      [
+        4801,
+        6400
+      ]
+    ],
+    "planned_actual_output_chunks": [
+      [
+        4801,
+        5200
+      ],
+      [
+        5201,
+        5600
+      ],
+      [
+        5601,
+        6000
+      ],
+      [
+        6001,
+        6400
+      ]
+    ],
+    "body_read_at_registration": false
+  },
+  "purpose": "Fresh independent inventory of each actual non-string primitive in contiguous actual source; trace materially reached operations/receivers. Native quoted numerical-looking payloads are not numeric-boundary exemptions. No scanner/parser/summary substitute for source consumption.",
+  "limits": "37/2853 unchanged; partial31/36/39; earliest31; firstneverstarted40; no40 access. Headerrawversion4/nativeinterpretation and tail6401-13103 unresolved. No project execution/checks/scanners/probes/tests/helpers/assertions/doctests, product/Git/ledger/historical changes or publication. Ignored append-only evidence only; stop6400."
+}

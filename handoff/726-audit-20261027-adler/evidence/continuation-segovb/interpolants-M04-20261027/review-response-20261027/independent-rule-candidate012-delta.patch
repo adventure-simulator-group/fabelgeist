@@ -1,0 +1,322 @@
+diff --git a/content/tactical/combat.yaml b/content/tactical/combat.yaml
+index 75cdb95df..d1d4a1e9c 100644
+--- a/content/tactical/combat.yaml
++++ b/content/tactical/combat.yaml
+@@ -194,6 +194,7 @@ animation:
+     maximum_unsupported_contact_seconds: 0.35
+   state_transitions:
+     dive_root_handoff_start_fraction: 0.18
++    dive_airborne_root_handoff_end_fraction: 0.92
+     downed_facing_sector_half_width: 0.25
+     downed_facing_edge_stickiness: 0.055555556
+   playback:
+diff --git a/crates/adventuresim-core/src/linear_speed.rs b/crates/adventuresim-core/src/linear_speed.rs
+index ee4bb9cfd..7ae5a58d9 100644
+--- a/crates/adventuresim-core/src/linear_speed.rs
++++ b/crates/adventuresim-core/src/linear_speed.rs
+@@ -67,7 +67,8 @@ impl NonnegativeSpeed {
+     pub fn checked_lerp(self, other: Self, fraction: UnitInterval) -> SpeedResult<Self> {
+         let difference = other - self;
+         let scaled_difference = difference * fraction;
+-        Self::try_from((self + scaled_difference)?)
++        let interpolated_speed = (self + scaled_difference)?;
++        Self::try_from(interpolated_speed)
+     }
+ 
+     /// Normalize speed within an increasing interval, saturating at its endpoints.
+diff --git a/crates/adventuresim-core/src/unit_interval.rs b/crates/adventuresim-core/src/unit_interval.rs
+index 1d7e3a52e..edf3021d5 100644
+--- a/crates/adventuresim-core/src/unit_interval.rs
++++ b/crates/adventuresim-core/src/unit_interval.rs
+@@ -40,6 +40,14 @@ impl UnitInterval {
+     pub fn complement(self) -> Self {
+         Self(1.0 - self.0)
+     }
++    /// Subtract another fraction, saturating at zero when it is larger.
++    pub fn saturating_sub(self, other: Self) -> Self {
++        Self((self.0 - other.0).max(0.0))
++    }
++    /// Interpolate admitted endpoints and check the computed fraction.
++    pub fn checked_lerp(self, other: Self, fraction: Self) -> FractionResult<Self> {
++        Self::from_fraction(self.0 + (other.0 - self.0) * fraction.0)
++    }
+     /// Normalize within an increasing interval, saturating at its endpoints.
+     pub fn clamped_inverse_lerp(self, lower: Self, upper: Self) -> FractionResult<Self> {
+         if lower >= upper {
+diff --git a/crates/adventuresim-tactical-client/src/animation/procedural/dive.rs b/crates/adventuresim-tactical-client/src/animation/procedural/dive.rs
+index a633520c4..ebef400e3 100644
+--- a/crates/adventuresim-tactical-client/src/animation/procedural/dive.rs
++++ b/crates/adventuresim-tactical-client/src/animation/procedural/dive.rs
+@@ -88,22 +88,14 @@ mod tests {
+ 
+     #[test]
+     fn dive_pelvis_lean_tips_up_axis_exactly_toward_travel() {
+-        let forward = dive_pelvis_lean(
+-            DiveDirection::Forward,
+-            DiveInfluence(UnitInterval::ONE),
+-        ) * Vec3::Y;
+-        let backward = dive_pelvis_lean(
+-            DiveDirection::Backward,
+-            DiveInfluence(UnitInterval::ONE),
+-        ) * Vec3::Y;
+-        let left = dive_pelvis_lean(
+-            DiveDirection::Left,
+-            DiveInfluence(UnitInterval::ONE),
+-        ) * Vec3::Y;
+-        let right = dive_pelvis_lean(
+-            DiveDirection::Right,
+-            DiveInfluence(UnitInterval::ONE),
+-        ) * Vec3::Y;
++        let forward =
++            dive_pelvis_lean(DiveDirection::Forward, DiveInfluence(UnitInterval::ONE)) * Vec3::Y;
++        let backward =
++            dive_pelvis_lean(DiveDirection::Backward, DiveInfluence(UnitInterval::ONE)) * Vec3::Y;
++        let left =
++            dive_pelvis_lean(DiveDirection::Left, DiveInfluence(UnitInterval::ONE)) * Vec3::Y;
++        let right =
++            dive_pelvis_lean(DiveDirection::Right, DiveInfluence(UnitInterval::ONE)) * Vec3::Y;
+         assert!(forward.z > 0.64 && forward.y > 0.76);
+         assert!(backward.z < -0.64 && backward.y > 0.76);
+         assert!(left.x > 0.64 && left.y > 0.76);
+@@ -126,9 +118,8 @@ mod tests {
+                 direction,
+                 DiveInfluence(UnitInterval::ONE),
+             );
+-            let expected = (dive_pelvis_lean(direction, DiveInfluence(UnitInterval::ONE))
+-                * bind)
+-                .normalize();
++            let expected =
++                (dive_pelvis_lean(direction, DiveInfluence(UnitInterval::ONE)) * bind).normalize();
+             assert!(actual.angle_between(expected) < 0.0001);
+         }
+     }
+diff --git a/crates/adventuresim-tactical-client/src/animation/resolver/span.rs b/crates/adventuresim-tactical-client/src/animation/resolver/span.rs
+index d624417ed..0e53f3e34 100644
+--- a/crates/adventuresim-tactical-client/src/animation/resolver/span.rs
++++ b/crates/adventuresim-tactical-client/src/animation/resolver/span.rs
+@@ -23,7 +23,6 @@ impl<'a> PoseSampleResolver<'a> {
+         let PoseSampling::Span { end, progress } = sample.sampling else {
+             return Ok(());
+         };
+-        let progress = progress.fraction();
+         let Some(span) = self.resolve_span(start, sample.pose, end) else {
+             return append_weighted_anchor(
+                 weighted,
+@@ -39,16 +38,14 @@ impl<'a> PoseSampleResolver<'a> {
+             span.start.frame,
+             sample
+                 .weight
+-                .checked_scale(BlendWeight::from_factor(1.0 - progress)?)?,
++                .checked_scale(BlendWeight::from(progress.complement()))?,
+             layer,
+         )?;
+         append_weighted_anchor(
+             weighted,
+             &span.end.anchor,
+             span.end.frame,
+-            sample
+-                .weight
+-                .checked_scale(BlendWeight::from_factor(progress)?)?,
++            sample.weight.checked_scale(BlendWeight::from(progress))?,
+             layer,
+         )
+     }
+diff --git a/crates/adventuresim-tactical-core/src/animation/state.rs b/crates/adventuresim-tactical-core/src/animation/state.rs
+index c022b341a..012957a60 100644
+--- a/crates/adventuresim-tactical-core/src/animation/state.rs
++++ b/crates/adventuresim-tactical-core/src/animation/state.rs
+@@ -844,11 +844,6 @@ fn finite_clamp(value: f32, minimum: f32, maximum: f32, fallback: f32) -> f32 {
+     }
+ }
+ 
+-fn smoothstep(value: f32) -> f32 {
+-    let value = value.clamp(0.0, 1.0);
+-    value * value * (3.0 - 2.0 * value)
+-}
+-
+ fn centered_knot_acceleration(
+     incoming_secant: f32,
+     outgoing_secant: f32,
+@@ -1506,7 +1501,7 @@ impl SkeletonState {
+         if matches!(transition.kind, PostureTransitionKind::DiveToDowned { .. }) {
+             if !self.body.is_surface_supported() {
+                 transition.dive_was_airborne = true;
+-                transition.phase = UnitInterval::HALF;
++                transition.phase = DIVE_GROUND_CONTACT_PHASE;
+                 self.posture_transition = Some(transition);
+                 return Ok(());
+             }
+@@ -1517,10 +1512,11 @@ impl SkeletonState {
+                     self.finish_posture_transition(transition.kind);
+                     return Ok(());
+                 }
+-                transition.phase = UnitInterval::from_fraction(
+-                    0.5 + 0.5 * recovery_elapsed.samples() as f32
+-                        / transition.duration_ticks.samples() as f32,
++                let recovery = UnitInterval::from_fraction(
++                    recovery_elapsed.samples() as f32 / transition.duration_ticks.samples() as f32,
+                 )?;
++                transition.phase =
++                    DIVE_GROUND_CONTACT_PHASE.checked_lerp(UnitInterval::ONE, recovery)?;
+                 self.posture_transition = Some(transition);
+                 return Ok(());
+             }
+@@ -1531,13 +1527,14 @@ impl SkeletonState {
+                 // landing so pose and facing remain continuous.
+                 transition.dive_was_airborne = true;
+                 transition.dive_landing_tick = Some(current_tick);
+-                transition.phase = UnitInterval::HALF;
++                transition.phase = DIVE_GROUND_CONTACT_PHASE;
+                 self.posture_transition = Some(transition);
+                 return Ok(());
+             }
+-            transition.phase = UnitInterval::from_fraction(
+-                0.5 * elapsed.samples() as f32 / transition.duration_ticks.samples() as f32,
++            let launch = UnitInterval::from_fraction(
++                elapsed.samples() as f32 / transition.duration_ticks.samples() as f32,
+             )?;
++            transition.phase = UnitInterval::ZERO.checked_lerp(DIVE_GROUND_CONTACT_PHASE, launch)?;
+             self.posture_transition = Some(transition);
+             return Ok(());
+         }
+diff --git a/crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs b/crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs
+index e5e975c17..33948bb47 100644
+--- a/crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs
++++ b/crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs
+@@ -65,24 +65,23 @@ impl PostureTransitionState {
+         // whole character before the supine pose catches up. Reserve the first
+         // part of recovery for settling, then transfer root yaw with zero
+         // endpoint velocity. The endpoint remains the complete canonical turn.
+-        let root_handoff_start_fraction = crate::combat_config::runtime_animation_config()
+-            .state_transitions
+-            .dive_root_handoff_start_fraction;
++        let tuning = crate::combat_config::runtime_animation_config().state_transitions;
+         let root_handoff_end_fraction = match trajectory {
+-            // The shorter slide devotes a larger normalized share to the same
+-            // fixed presentation settling time, so its handoff finishes with
+-            // the transition. The longer airborne recovery can finish just
+-            // before the terminal pose without outrunning the authored turn.
+-            DiveTrajectory::GroundedSlide => 1.0,
+-            DiveTrajectory::Airborne => 0.92,
++            // Slides finish the transfer at the transition endpoint; airborne
++            // recovery uses the configured handoff endpoint.
++            DiveTrajectory::GroundedSlide => UnitInterval::ONE,
++            DiveTrajectory::Airborne => tuning.dive_airborne_root_handoff_end_fraction,
+         };
+-        let recovery = ((self.phase.fraction() - 0.5) * 2.0).clamp(0.0, 1.0);
+-        let handoff = ((recovery - root_handoff_start_fraction)
+-            / (root_handoff_end_fraction - root_handoff_start_fraction))
+-            .clamp(0.0, 1.0);
++        let recovery = self
++            .phase
++            .clamped_inverse_lerp(DIVE_GROUND_CONTACT_PHASE, UnitInterval::ONE)?;
++        let handoff = recovery.clamped_inverse_lerp(
++            tuning.dive_root_handoff_start_fraction,
++            root_handoff_end_fraction,
++        )?;
+         Ok(Some(DiveRecovery {
+             direction,
+-            progress: UnitInterval::from_fraction(smoothstep(handoff))?,
++            progress: handoff.smoothstep()?,
+         }))
+     }
+ }
+@@ -124,7 +123,7 @@ pub fn dive_landing_facing_delta(
+         DiveDirection::Right => -std::f32::consts::FRAC_PI_2,
+     };
+     Ok(Quat::from_rotation_y(
+-        total_yaw * (current_progress.fraction() - previous_progress.fraction()).clamp(0.0, 1.0),
++        total_yaw * current_progress.saturating_sub(previous_progress).fraction(),
+     ))
+ }
+ 
+diff --git a/crates/adventuresim-tactical-core/src/combat_config.rs b/crates/adventuresim-tactical-core/src/combat_config.rs
+index e2e3eae6c..db8254632 100644
+--- a/crates/adventuresim-tactical-core/src/combat_config.rs
++++ b/crates/adventuresim-tactical-core/src/combat_config.rs
+@@ -4,7 +4,7 @@ use crate::animation::{
+ };
+ use crate::animation::{
+     AngularSpeedRadians, AnimationElapsed, AnimationFrequency, NonnegativeLength,
+-    PositiveAnimationDuration, SignedHalfTurns, UnitInterval,
++    PositiveAnimationDuration, UnitInterval,
+ };
+ use adventuresim_building_generator::spatial_geometry::{PositiveLength, SignedLength};
+ use adventuresim_core::linear_speed::{NonnegativeSpeed, SignedSpeed};
+@@ -17,6 +17,7 @@ pub use landing::AnimationLandingConfig;
+ pub use locomotion::{AnimationGaitConfig, AnimationLocomotionConfig};
+ pub use maneuvers::ManeuverTimingConfig;
+ pub use playback::AnimationPlaybackConfig;
++pub use state_transitions::AnimationStateTransitionConfig;
+ use serde::{Deserialize, Serialize};
+ use sha2::{Digest, Sha256};
+ use thiserror::Error;
+@@ -46,6 +47,7 @@ mod pose_buffer;
+ mod procedural;
+ mod ragdoll;
+ mod runtime;
++mod state_transitions;
+ 
+ pub const TACTICAL_COMBAT_CONFIG_SCHEMA_VERSION: u16 = 9;
+ 
+@@ -90,14 +92,6 @@ pub struct GuardFootworkConfig {
+     pub maximum_unsupported_contact_seconds: PositiveAnimationDuration,
+ }
+ 
+-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+-#[serde(deny_unknown_fields)]
+-pub struct AnimationStateTransitionConfig {
+-    pub dive_root_handoff_start_fraction: f32,
+-    pub downed_facing_sector_half_width: SignedHalfTurns,
+-    pub downed_facing_edge_stickiness: SignedHalfTurns,
+-}
+-
+ /// Additive rotational hit springs on the rendered skeleton. A hit kicks
+ /// the struck bone's spring and the reaction travels the bone chain as a
+ /// wave; nothing here touches gameplay or physics.
+@@ -632,11 +626,9 @@ impl TacticalCombatConfig {
+         }
+ 
+         let animation = self.animation;
+-        animation.locomotion.validate(
+-            animation
+-                .playback
+-                .initial_locomotion_speed_metres_per_second,
+-        )?;
++        let initial_locomotion_speed = animation.playback.initial_locomotion_speed_metres_per_second;
++        animation.locomotion.validate(initial_locomotion_speed)?;
++        animation.state_transitions.validate()?;
+         let guard = animation.guard_footwork;
+         if ![
+             guard.default_half_width_metres,
+diff --git a/crates/adventuresim-tactical-core/src/combat_config/state_transitions.rs b/crates/adventuresim-tactical-core/src/combat_config/state_transitions.rs
+new file mode 100644
+index 000000000..097bbabb1
+--- /dev/null
++++ b/crates/adventuresim-tactical-core/src/combat_config/state_transitions.rs
+@@ -0,0 +1,25 @@
++use super::TacticalCombatConfigError;
++use crate::animation::{SignedHalfTurns, UnitInterval};
++use serde::{Deserialize, Serialize};
++
++#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
++#[serde(deny_unknown_fields)]
++pub struct AnimationStateTransitionConfig {
++    /// Start of root-facing transfer within normalized dive contact recovery.
++    pub dive_root_handoff_start_fraction: UnitInterval,
++    /// End of airborne root-facing transfer within normalized contact recovery.
++    pub dive_airborne_root_handoff_end_fraction: UnitInterval,
++    pub downed_facing_sector_half_width: SignedHalfTurns,
++    pub downed_facing_edge_stickiness: SignedHalfTurns,
++}
++
++impl AnimationStateTransitionConfig {
++    pub(super) fn validate(&self) -> Result<(), TacticalCombatConfigError> {
++        if self.dive_root_handoff_start_fraction >= self.dive_airborne_root_handoff_end_fraction {
++            return Err(TacticalCombatConfigError::Validation(
++                "dive root handoff end must exceed its start",
++            ));
++        }
++        Ok(())
++    }
++}

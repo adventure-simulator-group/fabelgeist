@@ -1,0 +1,51 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-367",
+  "at": "2026-10-25T23:45:52.904455+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 125,
+      "source_id": "physical-p16:crates/adventuresim-core/src/organization.rs",
+      "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+      "personally_read_ranges": [
+        [
+          1,
+          36
+        ],
+        [
+          88,
+          246
+        ],
+        [
+          316,
+          645
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read exact registered union1-36,88-246,316-645, not excluded profession/pronoun implementation or catalogue test tail. Definition aggregates role identity, admission/dues/activity/privileges and chapters; serde shape does not validate uniqueness, role references, nonzero intervals or finite weights. Runtime embedded catalog is parsed once and relies on build producer guarantees.",
+        "Privilege lookup adds organization and matching role privileges; an invalid role can still receive organization-wide privileges, so actual membership admission is a separate receiving contract. Promotion lookup uses global catalogue edges plus self roles; public arbitrary definitions do not automatically correlate with that catalogue. Chapter/service lookup selects first matching authored entries, service availability chooses physical venue while retaining institutional location identity.",
+        "Initial social assignment uses framed settlement length and explicit actor-domain key supplied by caller; deterministic modulo4 is not a uniqueness promise. Representative identity formats unframed settlement and organization strings, hashes then sets highbit; raw delimiter-bearing inputs can alias before hash. No ordinary canonical-ID producer collision demonstrated and existing identity findings must be deduped before raising any new issue. Exact representative match checks all named fields plus fixed conversation role. Partial membership serialization test prefix read only; no full test or included generated content credit."
+      ]
+    },
+    {
+      "scope_index": 126,
+      "source_id": "physical-p16:crates/adventuresim-core/src/personality.rs",
+      "sha256": "3251416fba119a8dbdfb3ce1f48abfd7bda014d55dd3ec2b3e38e4dd7e3e9b15",
+      "personally_read_ranges": [
+        [
+          1,
+          202
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full registered personality body1-202 read. Closed serde vocabularies remain separate axis types; neutral constructor chooses explicit inclination/presentation/sex defaults while non_neutral_count deliberately counts only13 personality axes. Consumer generation constraints such as2-4 nonneutral axes are not enforced by this public serde model itself and require actual producer comparison.",
+        "Conviction strength is a complete fixed0/2.5/5 mapping. Presentation has separate stable snake-case and variant-name strings; no automatic guarantee of referential consumer consistency. Existing neutral/vocabulary test source read, not executed. No body credit for declared virtue submodule."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "scope_authority": "original-scope-072.json exact bounded reached-owner union for125; full202 material contract for126. No inherited producer/other-lens verdict imported."
+}

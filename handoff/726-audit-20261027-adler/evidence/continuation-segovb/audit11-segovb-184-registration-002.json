@@ -1,0 +1,58 @@
+{
+  "packet": 184,
+  "lens": 11,
+  "registered_before_body_read": true,
+  "entries": [
+    {
+      "original": 821,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/outfit.rs",
+      "sha256": "4d3281fb80e63eeb57bf3caaec77e63eb33d75c62e6ec5d7053e2fd76ebd95f2",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/4d3281fb80e63eeb57bf3caaec77e63eb33d75c62e6ec5d7053e2fd76ebd95f2",
+      "actual_eof": 104,
+      "ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "purpose": "Concrete Loadout producer adapter plus clothing/drape/lining recipients; actualCatalogPiece/DrapedPiece grouping andID retained ports",
+      "ordered_original_shared_credit": 0
+    },
+    {
+      "original": 831,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/studio_cache.rs",
+      "sha256": "6d7378554d92fcefc39d39434744bdb50dd98358ce1596f571652a65ce4bf013",
+      "read_from": "crates/adventuresim-character-creator/src/studio_cache.rs",
+      "actual_eof": 192,
+      "ranges": [
+        [
+          60,
+          192
+        ]
+      ],
+      "purpose": "Actual fitted pieces/finish/drape cache consumers andfit_keys/finish_key identity serialization; prior180body-cache proof reused onlyat exactpins",
+      "ordered_original_shared_credit": 0
+    },
+    {
+      "original": 822,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/parametric_equipment.rs",
+      "sha256": "fb8ed7e496fe124cf6ea6c4deb962b9602cf62f5b516d362b5e50ddca9829c49",
+      "read_from": "crates/adventuresim-character-creator/src/parametric_equipment.rs",
+      "actual_eof": 478,
+      "ranges": [
+        [
+          1,
+          146
+        ],
+        [
+          167,
+          303
+        ]
+      ],
+      "purpose": "Concrete FittedPiece design dispatch, typed SelectedArmor/Finish retention and material/construction/fit/finish/selected receivers; no unrelatedtests ortrimsrecord147-166",
+      "ordered_original_shared_credit": 0
+    }
+  ],
+  "locator_only": "Named method/type declarations used tolocateactualrecipients; no semanticcoveragefromsignaturesearch",
+  "limits": "Only810orderedroleinventory; no821/822/831credit. Stopatfirstconcretematerialfrontier; no broadarmor/nativealgorithm/SDK exemption."
+}

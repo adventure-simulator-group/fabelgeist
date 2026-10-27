@@ -1,0 +1,422 @@
+{
+  "at": "2026-10-27T17:19:03.447471+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-099-registration.jsonl",
+    "sha256": "2305c2bcce30d0966c91a2705111f8df72060c0af5d26fdcda10c4c5ca313078"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-098.json",
+    "sha256": "c5c44da2b0f8ed54c88b53d450a10453c20333bc07ae16e78fd799b3e188fb50"
+  },
+  "mandatory_inherited_qualification": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-097-native-time-qualification-001.json",
+    "sha256": "8b5d251d80cb880d50c2e21b28fe4ece9ac8d71dc4e0e9b3397d4aaed3e3f4b9"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1182,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/authority_tests.rs",
+      "sha256": "3543fcdab7a7fd0bc516183ebfa20ccafe25fe34952235d37bd7a84762d99eeb",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/3543fcdab7a7fd0bc516183ebfa20ccafe25fe34952235d37bd7a84762d99eeb",
+      "ranges": [
+        [
+          1,
+          242
+        ]
+      ],
+      "actual_eof": 242,
+      "prospective": true,
+      "purpose": "Independent full effective residence child inventory; prior personal material ranges are explicit reuse, no automatic ordered credit.",
+      "actual_read_ranges": [
+        [
+          1,
+          242
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1183,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/occupancy.rs",
+      "sha256": "181a2ef44cc12c8b3d6393ed41ebe9a8e616923413382af26ffe28b090789d41",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/181a2ef44cc12c8b3d6393ed41ebe9a8e616923413382af26ffe28b090789d41",
+      "ranges": [
+        [
+          1,
+          282
+        ]
+      ],
+      "actual_eof": 282,
+      "prospective": true,
+      "purpose": "Independent full effective residence child inventory; prior personal material ranges are explicit reuse, no automatic ordered credit.",
+      "actual_read_ranges": [
+        [
+          246,
+          282
+        ]
+      ],
+      "personal_same_lens_reuse": [
+        {
+          "receipt": {
+            "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-093-receipt.json",
+            "sha256": "b678d140a2abbc2cd900379c0e6235bd4fc7ff0a52719fccd297d495321994e1"
+          },
+          "ranges": [
+            [
+              1,
+              124
+            ],
+            [
+              140,
+              245
+            ]
+          ]
+        },
+        {
+          "receipt": {
+            "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-098-receipt.json",
+            "sha256": "f58a5b41b62ef38274b2567e3be7f1eb03e3caf6b917dcaf06fc83b6815e1ec3"
+          },
+          "ranges": [
+            [
+              125,
+              139
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1184,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/properties.rs",
+      "sha256": "80864f0168cb8abf7dcd17c08ea7405e6124f2968ad6eb83dbca7e0a5aab4e26",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/80864f0168cb8abf7dcd17c08ea7405e6124f2968ad6eb83dbca7e0a5aab4e26",
+      "ranges": [
+        [
+          1,
+          377
+        ]
+      ],
+      "actual_eof": 377,
+      "prospective": true,
+      "purpose": "Independent full effective residence child inventory; prior personal material ranges are explicit reuse, no automatic ordered credit.",
+      "actual_read_ranges": [
+        [
+          71,
+          224
+        ],
+        [
+          313,
+          377
+        ]
+      ],
+      "personal_same_lens_reuse": [
+        {
+          "receipt": {
+            "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-098-receipt.json",
+            "sha256": "f58a5b41b62ef38274b2567e3be7f1eb03e3caf6b917dcaf06fc83b6815e1ec3"
+          },
+          "ranges": [
+            [
+              1,
+              70
+            ],
+            [
+              225,
+              264
+            ]
+          ]
+        },
+        {
+          "receipt": {
+            "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-093-receipt.json",
+            "sha256": "b678d140a2abbc2cd900379c0e6235bd4fc7ff0a52719fccd297d495321994e1"
+          },
+          "ranges": [
+            [
+              265,
+              312
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1185,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/properties/households.rs",
+      "sha256": "f5c4295a284249b0fad780f6b8331f2dbff6c574f33bec5ba45edd3896ff5d17",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/f5c4295a284249b0fad780f6b8331f2dbff6c574f33bec5ba45edd3896ff5d17",
+      "ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "actual_eof": 62,
+      "prospective": true,
+      "purpose": "Independent full effective residence child inventory; prior personal material ranges are explicit reuse, no automatic ordered credit.",
+      "actual_read_ranges": [
+        [
+          1,
+          62
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1186,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/properties/materialization.rs",
+      "sha256": "89be43ab5a91d96b96077c6950b9159b25f61165e938395ab54774540711b688",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/89be43ab5a91d96b96077c6950b9159b25f61165e938395ab54774540711b688",
+      "ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "actual_eof": 111,
+      "prospective": true,
+      "purpose": "Independent full effective residence child inventory; prior personal material ranges are explicit reuse, no automatic ordered credit.",
+      "actual_read_ranges": [
+        [
+          1,
+          111
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1187,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/view.rs",
+      "sha256": "b481076a43b5a9e15f7ee78deb63fb3e81cf97989061300fa34168d9182c6053",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/b481076a43b5a9e15f7ee78deb63fb3e81cf97989061300fa34168d9182c6053",
+      "ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "actual_eof": 57,
+      "prospective": true,
+      "purpose": "Independent full effective residence child inventory; prior personal material ranges are explicit reuse, no automatic ordered credit.",
+      "actual_read_ranges": [],
+      "personal_same_lens_reuse": [
+        {
+          "receipt": {
+            "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-098-receipt.json",
+            "sha256": "f58a5b41b62ef38274b2567e3be7f1eb03e3caf6b917dcaf06fc83b6815e1ec3"
+          },
+          "ranges": [
+            [
+              1,
+              57
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "connected_sources": [],
+  "role_dispositions": [
+    {
+      "original": 1182,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/authority_tests.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              242
+            ]
+          ],
+          "roles": "Existing guarded property acceptance fixture: catalog/economy JSON, private actor/guest/household identities, named versus aggregate resident count, renter versus owner, occupancy versus title and household membership, delayed capacity intervals.",
+          "disposition": "Fixture explicitly distinguishes tenancy without ownership and guest occupancy without title or membership mutation. Named count plus aggregate count is conserved population, not two independently authored census authorities. Same HouseholdRole::Head for both fixture members is a fixture arrangement, not proof arbitrary ordinary role multiplicity is intended. Future move and backdated capacity expectations exercise historical occupancy, but these source expectations were not executed and do not clear093 caught wedding commit error.",
+          "remedy": "Preserve canonical parsed catalog and typed IDs/counts/intervals at fixture boundary. Production owners and remedies098/099 below; no test/helper/assertion additions or BC adapter.",
+          "acceptance": "All242 source lines personally read, not invoked. Actual parent1180/1181 full098, occupancy1183/corecatalog992041 receivers accounted independently. No runtime census/capacity/security/current/unique proof."
+        }
+      ]
+    },
+    {
+      "original": 1183,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/occupancy.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              245
+            ]
+          ],
+          "roles": "Property occupancy event kind, character/property/optional holding identity, effective minute versus insertion ordinal, current pointer versus historical fold, parent-home inheritance, admission-end and resident count.",
+          "disposition": "Independent own-file inventory: admitted/removed events retain exact property+holding association so a delayed removal cannot erase another residence. Effective minute and insertion ordinal are distinct sort roles. Seeded occupancy with holding None is valid physical home without legal tenure, not malformed state. Current pointer is derived from full ledger, so it earns a separate projection without being authored truth. View and reducer queries share fold; small SDK adapters are justified. inherit_parent_home_at requires occupied parental property and active holding when present, then can fail capacity; callers differ in error policy (birth explicitly ancillary, wedding fallible commit).",
+          "remedy": "Canonical PropertyId/HoldingId/CharacterId/OccupancyOrdinal, named OccupancyAt and PreparedAdmission. Preserve physical-home versus legal-interest distinction and scoped removal payload; reuse existing chronology fold instead of duplicate authority.",
+          "acceptance": "Full282 effective source personally accounted via093/098 exact bodies plus fresh tests246\u2013282. No prior receiver access automatically credited; actual error receivers093/094/098 read, no universal harmless-capacity-failure or current/runtime claim."
+        },
+        {
+          "ranges": [
+            [
+              246,
+              282
+            ]
+          ],
+          "roles": "Existing native event constructor and same-minute ordering/backdated removal fixtures.",
+          "disposition": "Native raw ordinal/minute/property strings intentionally construct boundary records, then canonical StrategicMinute is admitted. Fixture expectations confirm sort semantics but not executed DB behavior or all pathological ordering cases.",
+          "remedy": "Keep technical fixture construction explicit, no new tests/helpers/assertions.",
+          "acceptance": "Every37 existing fixture lines read; no execution/whole SDK or alias/unique transfer."
+        }
+      ]
+    },
+    {
+      "original": 1184,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/properties.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              140
+            ],
+            [
+              225,
+              312
+            ]
+          ],
+          "roles": "Immutable generated property geometry and digest, physical property/building/settlement IDs, resident capacity, SI east/north/width/depth versus yaw, latest available-property view versus effective admission/capacity.",
+          "disposition": "GeneratedHomeCatalog owns parsed/validated geometry; home.id is existing PropertyId erased into SDK String. A broad arbitrary String is not justified for internal property/holding/household operations merely because SDK rows use it. Available-property view uses latest legal/current occupancy; reducer takes a personal minute and also reserves property against later/current interests. These are different availability contracts, not automatically a bug. Named versus unmaterialized residents are disjoint contributions to capacity. Capacity checks all effective transition boundaries until admission end; no tactical observed position inferred from residence.",
+          "remedy": "Reuse canonical PropertyId and admitted GeneratedHomeCatalog/HouseholdHome, physical Length/Yaw/ResidentCount roles at internal boundaries, and named AvailableProperty/PreparedAdmission. Preserve metre axes and angular frame; do not invent bounds beyond actual core admission.",
+          "acceptance": "Full377 source accounted with098/093 exact personal reuse + fresh ranges. Core992 full226041 admission/allocation/digest and tests993042 personally retained. No blanket finite/positive/current/native geometry guarantee from raw SDK fields."
+        },
+        {
+          "ranges": [
+            [
+              141,
+              224
+            ],
+            [
+              313,
+              377
+            ]
+          ],
+          "roles": "Gateway-only catalog registration, expected settlement/population validation, immutable manifest digest, named family allocation versus aggregate census allocation, initial zero-minute occupancy provenance.",
+          "disposition": "Digest equality makes exact registration retry a no-op, changed catalog rejected rather than remapping live holdings; no compatibility obligation introduced. Canonical HouseholdHome allocation is named, while native named-household/count pairs erase role details before allocation. Empty members represent aggregate household row, not zero-person named family. Named members receive GeneratedResidentHome provenance plus occupancy ledger/current pointer without creating characters. Registration and later materialization have different responsibilities.",
+          "remedy": "Typed HouseholdId/ResidentCount/PropertyId through allocation and SDK admission; an explicit NamedHousehold/CensusHousehold assignment payload would prevent conflating identity namespaces and whether individual occupants should be created. Reuse canonical allocation owner rather than parallel population arithmetic.",
+          "acceptance": "Actual registration/allocation bodies and materialization child1186 full read; no ordinary duplicate resident/census identity/current/unique claim, no whole generator upgrade clearance."
+        }
+      ]
+    },
+    {
+      "original": 1185,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/properties/households.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              62
+            ]
+          ],
+          "roles": "Gateway household-to-property projection with materialized and unmaterialized resident counts, household/property composite key and current occupants.",
+          "disposition": "Membership does not imply legal title. Aggregate census row and current named occupants contribute separate counts; same numeric unit does not justify merging them before conservation policy. Map tuple key contains two String identity namespaces, named key prevents positional swaps; projected count +=1 has fixed-width capacity question but no ordinary >u32 resident witness. This is a latest projection, no observer-relative historical promise in its API.",
+          "remedy": "Named HouseholdPropertyKey and canonical MaterializedResidentCount/UnmaterializedResidentCount over shared count invariant; keep latest projection distinct from historical capacity operation.",
+          "acceptance": "Full62 personally read; actual occupancy/property producers1183/1184 and parent098 consumed, no gateway-per-user privacy proof or runtime population overflow/current/unique acceptance."
+        }
+      ]
+    },
+    {
+      "original": 1186,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/properties/materialization.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              111
+            ]
+          ],
+          "roles": "One-time GeneratedResidentHome census provenance, current household membership, required named group count, available aggregate home and count transfer, existing occupancy preservation.",
+          "disposition": "Provenance prevents allocating census again after later moves and is distinct from current ResidenceOccupant truth. Group map key is actual named HouseholdId; selected aggregate home retains its own census household key, and loop deliberately discards named group key when transferring counts. These are two identity roles, not proved aliases and not automatically an erroneous mismatch. Required u32 conversion is checked, aggregate decremented only after >=required. Existing occupancy is preserved; census provenance can name original allocation while actual current home differs.",
+          "remedy": "Named MaterializationGroup and CensusHomeAllocation IDs with explicit source-to-named allocation receipt, share ResidentCount invariant beneath named/census roles. Reuse canonical property/household IDs and one-time provenance; do not collapse into current occupancy or reset on moves.",
+          "acceptance": "Full111 source personally read and direct property/occupancy SDK recipients accounted. Parent settlement population invokes bind_generated_households after named family setup (1188 427\u2013459 personally092); full1188 ordered inventory pending. No ordinary double-count/wrong-home/runtime/current/unique claim."
+        }
+      ]
+    },
+    {
+      "original": 1187,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/view.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              57
+            ]
+          ],
+          "roles": "Holding audience candidates: current property occupants, legal holder, primary designation and historical affected-character/occupancy transitions.",
+          "disposition": "Independent ordered inventory confirms holder remains visible even unoccupied/nonprimary, and historical event participants are included as candidates. Latest-pointer inputs are supplemented by histories; do not claim all former occupants disappear. Parent applies actor-time acquired/resolved/active filters. Physical occupant, owner and primary user are distinct roles; candidate union is appropriate technical set operation, not one closed exclusive enum.",
+          "remedy": "Typed HoldingAudience/CharacterId set and admitted observer access context. Keep legal management access independent from occupancy; reuse parent historical eligibility instead of duplicate authoritatively stored audience.",
+          "acceptance": "Exact full57 personal098 body reused, independently inventoried here. No extra current/gateway privacy/runtime/unique credit or automatic prior connected completion."
+        }
+      ]
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-020-receipt.json",
+        "sha256": "289492421de4bb2e396ebcf493c368175e64c3377ebf656fc75737c76f5accad"
+      },
+      "contract": "908 core courtship full1153 housing/morale economics"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-041-receipt.json",
+        "sha256": "d2186d949de0de7aa5830664f5fe96b5c4fa6870d0282ebe4dd5d36ec0640340"
+      },
+      "contract": "992 core settlement_property full226 canonical PropertyId/catalog admission/allocation/digest"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-042-receipt.json",
+        "sha256": "679029c645bbe69075e5b0f1c297fdd91ece13e10c96c08197b5f264c7f19edc"
+      },
+      "contract": "993 existing core property tests full99 source only"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-092-receipt.json",
+        "sha256": "c68c9452f59bc65a1dfe69bfb08ed7b26969d392fba02e43c18f174f4bf1108a"
+      },
+      "contract": "1188 actual427\u2013459 setup\u2192bind_generated_households and family group producer1189 material ranges"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-093-receipt.json",
+        "sha256": "b678d140a2abbc2cd900379c0e6235bd4fc7ff0a52719fccd297d495321994e1"
+      },
+      "contract": "1183 actual1\u2013124/140\u2013245 and1184 capacity265\u2013312"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-098-receipt.json",
+        "sha256": "f58a5b41b62ef38274b2567e3be7f1eb03e3caf6b917dcaf06fc83b6815e1ec3"
+      },
+      "contract": "1180/1181 full own inventories,1187 full57,1183 view125\u2013139 and1184 schemas/availability1\u201370/225\u2013264"
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Frozen source accounting WITH findings only; source fixture expectations not executed. No current/runtime/clinical/canonical alias/unique/global acceptance.",
+    "All prior qualifications and remaining originals/overlays/merged/material/unchanged/currentness obligations preserved. Census household and named household are not asserted aliases.",
+    "No project execution/tests/new tests/product/Git/root-ledger/publication."
+  ]
+}

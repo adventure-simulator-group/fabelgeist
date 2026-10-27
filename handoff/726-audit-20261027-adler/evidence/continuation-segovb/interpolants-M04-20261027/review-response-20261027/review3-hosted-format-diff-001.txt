@@ -1,0 +1,130 @@
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/animation/procedural/dive.rs:88:
+ 
+     #[test]
+     fn dive_pelvis_lean_tips_up_axis_exactly_toward_travel() {
+-        let forward = dive_pelvis_lean(
+-            DiveDirection::Forward,
+-            DiveInfluence(UnitInterval::ONE),
+-        ) * Vec3::Y;
+-        let backward = dive_pelvis_lean(
+-            DiveDirection::Backward,
+-            DiveInfluence(UnitInterval::ONE),
+-        ) * Vec3::Y;
+-        let left = dive_pelvis_lean(
+-            DiveDirection::Left,
+-            DiveInfluence(UnitInterval::ONE),
+-        ) * Vec3::Y;
+-        let right = dive_pelvis_lean(
+-            DiveDirection::Right,
+-            DiveInfluence(UnitInterval::ONE),
+-        ) * Vec3::Y;
++        let forward =
++            dive_pelvis_lean(DiveDirection::Forward, DiveInfluence(UnitInterval::ONE)) * Vec3::Y;
++        let backward =
++            dive_pelvis_lean(DiveDirection::Backward, DiveInfluence(UnitInterval::ONE)) * Vec3::Y;
++        let left =
++            dive_pelvis_lean(DiveDirection::Left, DiveInfluence(UnitInterval::ONE)) * Vec3::Y;
++        let right =
++            dive_pelvis_lean(DiveDirection::Right, DiveInfluence(UnitInterval::ONE)) * Vec3::Y;
+         assert!(forward.z > 0.64 && forward.y > 0.76);
+         assert!(backward.z < -0.64 && backward.y > 0.76);
+         assert!(left.x > 0.64 && left.y > 0.76);
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/animation/procedural/dive.rs:126:
+                 direction,
+                 DiveInfluence(UnitInterval::ONE),
+             );
+-            let expected = (dive_pelvis_lean(direction, DiveInfluence(UnitInterval::ONE))
+-                * bind)
+-                .normalize();
++            let expected =
++                (dive_pelvis_lean(direction, DiveInfluence(UnitInterval::ONE)) * bind).normalize();
+             assert!(actual.angle_between(expected) < 0.0001);
+         }
+     }
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/animation/procedural/dive.rs:88:
+ 
+     #[test]
+     fn dive_pelvis_lean_tips_up_axis_exactly_toward_travel() {
+-        let forward = dive_pelvis_lean(
+-            DiveDirection::Forward,
+-            DiveInfluence(UnitInterval::ONE),
+-        ) * Vec3::Y;
+-        let backward = dive_pelvis_lean(
+-            DiveDirection::Backward,
+-            DiveInfluence(UnitInterval::ONE),
+-        ) * Vec3::Y;
+-        let left = dive_pelvis_lean(
+-            DiveDirection::Left,
+-            DiveInfluence(UnitInterval::ONE),
+-        ) * Vec3::Y;
+-        let right = dive_pelvis_lean(
+-            DiveDirection::Right,
+-            DiveInfluence(UnitInterval::ONE),
+-        ) * Vec3::Y;
++        let forward =
++            dive_pelvis_lean(DiveDirection::Forward, DiveInfluence(UnitInterval::ONE)) * Vec3::Y;
++        let backward =
++            dive_pelvis_lean(DiveDirection::Backward, DiveInfluence(UnitInterval::ONE)) * Vec3::Y;
++        let left =
++            dive_pelvis_lean(DiveDirection::Left, DiveInfluence(UnitInterval::ONE)) * Vec3::Y;
++        let right =
++            dive_pelvis_lean(DiveDirection::Right, DiveInfluence(UnitInterval::ONE)) * Vec3::Y;
+         assert!(forward.z > 0.64 && forward.y > 0.76);
+         assert!(backward.z < -0.64 && backward.y > 0.76);
+         assert!(left.x > 0.64 && left.y > 0.76);
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/animation/procedural/dive.rs:126:
+                 direction,
+                 DiveInfluence(UnitInterval::ONE),
+             );
+-            let expected = (dive_pelvis_lean(direction, DiveInfluence(UnitInterval::ONE))
+-                * bind)
+-                .normalize();
++            let expected =
++                (dive_pelvis_lean(direction, DiveInfluence(UnitInterval::ONE)) * bind).normalize();
+             assert!(actual.angle_between(expected) < 0.0001);
+         }
+     }
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/animation/procedural/dive.rs:88:
+ 
+     #[test]
+     fn dive_pelvis_lean_tips_up_axis_exactly_toward_travel() {
+-        let forward = dive_pelvis_lean(
+-            DiveDirection::Forward,
+-            DiveInfluence(UnitInterval::ONE),
+-        ) * Vec3::Y;
+-        let backward = dive_pelvis_lean(
+-            DiveDirection::Backward,
+-            DiveInfluence(UnitInterval::ONE),
+-        ) * Vec3::Y;
+-        let left = dive_pelvis_lean(
+-            DiveDirection::Left,
+-            DiveInfluence(UnitInterval::ONE),
+-        ) * Vec3::Y;
+-        let right = dive_pelvis_lean(
+-            DiveDirection::Right,
+-            DiveInfluence(UnitInterval::ONE),
+-        ) * Vec3::Y;
++        let forward =
++            dive_pelvis_lean(DiveDirection::Forward, DiveInfluence(UnitInterval::ONE)) * Vec3::Y;
++        let backward =
++            dive_pelvis_lean(DiveDirection::Backward, DiveInfluence(UnitInterval::ONE)) * Vec3::Y;
++        let left =
++            dive_pelvis_lean(DiveDirection::Left, DiveInfluence(UnitInterval::ONE)) * Vec3::Y;
++        let right =
++            dive_pelvis_lean(DiveDirection::Right, DiveInfluence(UnitInterval::ONE)) * Vec3::Y;
+         assert!(forward.z > 0.64 && forward.y > 0.76);
+         assert!(backward.z < -0.64 && backward.y > 0.76);
+         assert!(left.x > 0.64 && left.y > 0.76);
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/animation/procedural/dive.rs:126:
+                 direction,
+                 DiveInfluence(UnitInterval::ONE),
+             );
+-            let expected = (dive_pelvis_lean(direction, DiveInfluence(UnitInterval::ONE))
+-                * bind)
+-                .normalize();
++            let expected =
++                (dive_pelvis_lean(direction, DiveInfluence(UnitInterval::ONE)) * bind).normalize();
+             assert!(actual.angle_between(expected) < 0.0001);
+         }
+     }
+##[error]Process completed with exit code 1.

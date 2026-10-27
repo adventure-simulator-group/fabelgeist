@@ -1,0 +1,17 @@
+[1m[92m    Finished[0m `test` profile [optimized] target(s) in 0.38s
+[1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/adventuresim_tactical_core-1c1f0e01b14fa6e8)
+
+running 10 tests
+test erosional_terrain::tests::basalt_has_consistent_winding_and_vertical_faces_at_both_resolutions ... ok
+test erosional_terrain::tests::carbonate_has_separate_open_hollows_with_solid_bridges ... ok
+test erosional_terrain::tests::carbonate_mesh_is_deterministic_and_has_no_interior_boundary_edges ... ok
+test erosional_terrain::tests::collar_cannot_be_longer_than_the_landform ... ok
+test erosional_terrain::tests::erosion_foot_rejoins_downhill_without_an_exit_lip ... ok
+test erosional_terrain::tests::fault_mesh_retains_consistent_winding_at_both_resolutions ... ok
+test erosional_terrain::tests::granite_has_consistent_winding_and_overhangs_at_both_resolutions ... ok
+test erosional_terrain::tests::sandstone_has_a_supported_roof_and_multiple_vertical_crossings ... ok
+test erosional_terrain::tests::sandstone_mesh_is_deterministic_and_has_no_interior_boundary_edges ... ok
+test erosional_terrain::tests::slump_has_consistent_winding_and_steep_head_at_both_resolutions ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 400 filtered out; finished in 4.55s
+

@@ -1,0 +1,52 @@
+diff --git a/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation_tests.rs b/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation_tests.rs
+index b47b24555..df99d4fd4 100644
+--- a/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation_tests.rs
++++ b/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation_tests.rs
+@@ -46,10 +46,10 @@ fn empty_body() -> RuntimeBody {
+         faces: vec![],
+         texcoords: vec![],
+         texcoord_faces: vec![],
+-        joint_indices: vec![],
++        joint_indices: Default::default(),
+         joint_weights: vec![],
+-        joint_names: vec!["l_lowarm".into()],
+-        global_joint_states: vec![],
++        joint_names: vec!["l_lowarm".into()].into(),
++        global_joint_states: Default::default(),
+         device: Default::default(),
+     }
+ }
+@@ -76,8 +76,7 @@ fn character_key(id: u64) -> FitKey {
+             CharacterProportions::from_seed(fabelgeist_determinism::Seed::from_u64(id)),
+             Default::default(),
+         ),
+-        item: "vambrace".into(),
+-        placement: "left".into(),
++        selection: layers::LayerSelection::admit("vambrace", "left").unwrap(),
+         layers: Vec::new(),
+     }
+ }
+@@ -259,7 +258,7 @@ fn empty_armor() -> GeneratedArmor {
+         positions: vec![],
+         normals: vec![],
+         texcoords: vec![],
+-        joint_indices: vec![],
++        joint_indices: Default::default(),
+         joint_weights: vec![],
+         indices: vec![],
+         faces: vec![],
+@@ -282,6 +281,14 @@ fn actor(world: &mut World, id: u64) -> Entity {
+         world.spawn((
+             HumanoidBone { owner, role },
+             MhrBone { owner },
++            crate::animation::AuthoredRigJoint::new(
++                if role == BoneRole::ForearmLeft {
++                    "l_lowarm"
++                } else {
++                    "hand"
++                }
++                .into(),
++            ),
+             Name::new(if role == BoneRole::ForearmLeft {
+                 "l_lowarm"
+             } else {

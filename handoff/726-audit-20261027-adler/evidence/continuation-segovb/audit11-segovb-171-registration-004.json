@@ -1,0 +1,60 @@
+{
+  "purpose": "797 actual GPU strip geometry/read/frame/closed Form payload contracts and directly relevant policy producers",
+  "sources": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/strips.rs",
+      "sha256": "018591fdd7fdc9288f16a0ed5ed2f2ef6e3649448afa564b58358a3987144bba",
+      "read_from": "crates/adventuresim-character-creator/src/hair/gpu/strips.rs",
+      "ranges": [
+        [
+          1,
+          71
+        ],
+        [
+          89,
+          300
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_or_shared_credit": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/placement.rs",
+      "sha256": "95f08e95fd0815ac957cb0578ef7291036b5d4a9b047e38da1a9f16bdebd4a7f",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/95f08e95fd0815ac957cb0578ef7291036b5d4a9b047e38da1a9f16bdebd4a7f",
+      "ranges": [
+        [
+          129,
+          184
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_or_shared_credit": false
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/lod.rs",
+      "sha256": "858dfb6b573d078ef1ecec3d6a2d8a0f16e80b1780e213259d8fe27946a6acc6",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/858dfb6b573d078ef1ecec3d6a2d8a0f16e80b1780e213259d8fe27946a6acc6",
+      "ranges": [
+        [
+          250,
+          289
+        ],
+        [
+          336,
+          375
+        ],
+        [
+          470,
+          482
+        ],
+        [
+          518,
+          546
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_or_shared_credit": false
+    }
+  ]
+}

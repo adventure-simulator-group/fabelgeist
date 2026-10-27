@@ -1,0 +1,150 @@
+{
+  "registry_snapshot": "registry-181.json",
+  "registry_sha256": "65c29f91e57e2186573857b2db192d4e48840f19d048b6eeb0ff23e35750092f",
+  "members": [
+    {
+      "material_index": 68,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/errantry.rs",
+        "sha256": "c745b617fe6b91b054b4f968565f295d03f9839eb329c4957d86306d65969858",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/c745b617fe6b91b054b4f968565f295d03f9839eb329c4957d86306d65969858",
+        "ranges": [
+          [
+            62,
+            98
+          ]
+        ],
+        "registration_evidence": "enum-shapes/registration-463A-material.json",
+        "reason": "Shared bestiary ThreatProfile combat.ranged from scoped881/classification F150 -> tactical_insight_for76..98 -> whole TacticalInsight{kind,threatID,finding,preparation} -> original1207 native strategic/challenges.rs391 receiver, later source trace. Same P16 path104 is separate source variant.",
+        "qualification": "Exact committed PR6533 affected material ranges; broader own09 viewed support does not enlarge shared all-lens scope. No receiver/other-lens coverage.",
+        "lenses": {
+          "producer-propagation": "Newmaterial delta pending own-lens disposition; inheritedcompletedbaseline remainsusable withoutreplay.",
+          "existing-type-owners": "Newmaterial delta pending own-lens disposition; inheritedcompletedbaseline remainsusable withoutreplay.",
+          "admission-contracts": "Own03 exact registered ranges dispositioned in contract-groups-006.json; inherited findings retained, no clearance.",
+          "invariant-operations": "Newmaterial delta pending own-lens disposition; inheritedcompletedbaseline remainsusable withoutreplay.",
+          "aggregate-states": "Newmaterial delta pending own-lens disposition; inheritedcompletedbaseline remainsusable withoutreplay.",
+          "type-ownership": "Own06 complete exact registered ranges; contract-groups-014.json. Findings/qualifications retained; no all13 clearance.",
+          "redundant-authority": "Independent07 boundedsourcecomparison WITH findings/qualifications; redundant-authority/live-delta-013.json. No clearance.",
+          "behavior-preservation": "Newmaterial delta pending own-lens disposition; inheritedcompletedbaseline remainsusable withoutreplay.",
+          "enum-shapes": "Ownenum-shapes sourceproof enum-shapes/registration-463A-material.json; no full-lensclearance",
+          "derivability": "Newmaterial delta pending own-lens disposition; inheritedcompletedbaseline remainsusable withoutreplay.",
+          "type-granularity": "Newmaterial delta pending own-lens disposition; inheritedcompletedbaseline remainsusable withoutreplay.",
+          "magic-strings": "Newmaterial delta pending own-lens disposition; inheritedcompletedbaseline remainsusable withoutreplay.",
+          "magic-numbers": "Newmaterial delta pending own-lens disposition; inheritedcompletedbaseline remainsusable withoutreplay."
+        },
+        "status": "Verifiedregisteredsource role; discovery partial globally, no clearance"
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          62,
+          98
+        ]
+      ],
+      "disposition": "Read registered62-98. Tactical insight only returns the closed melee fact when the threat profile is non-ranged and implemented lore contains that exact fact. Carries source threat ID and advice without changing combat stats; actual profile/lore owner remains distinct."
+    },
+    {
+      "material_index": 69,
+      "registration": {
+        "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/bevy_error.rs",
+        "sha256": "ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+        "revision": "exactregisterednative source; originalscope pin retained",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+        "ranges": [
+          [
+            7,
+            25
+          ],
+          [
+            228,
+            285
+          ],
+          [
+            381,
+            421
+          ]
+        ],
+        "registration_evidence": "behavior-preservation/source-registration-001.json",
+        "reason": "Need actual BevyError severity/default conversion to distinguish typed Err from recovery; caller411/main410 routes new projection errors here.",
+        "qualification": "Exact new material source/ranges; no original2853count increment or other-lens transfer.",
+        "lenses": {
+          "producer-propagation": "Newmaterial delta pending own-lens disposition; inheritedcompletedbaseline remainsusable withoutreplay.",
+          "existing-type-owners": "Newmaterial delta pending own-lens disposition; inheritedcompletedbaseline remainsusable withoutreplay.",
+          "admission-contracts": "Own03 exact registered ranges dispositioned in contract-groups-006.json; inherited findings retained, no clearance.",
+          "invariant-operations": "Newmaterial delta pending own-lens disposition; inheritedcompletedbaseline remainsusable withoutreplay.",
+          "aggregate-states": "Newmaterial delta pending own-lens disposition; inheritedcompletedbaseline remainsusable withoutreplay.",
+          "type-ownership": "Own06 complete exact registered ranges; contract-groups-014.json. Findings/qualifications retained; no all13 clearance.",
+          "redundant-authority": "Independent07 boundedsourcecomparison WITH findings/qualifications; redundant-authority/live-delta-013.json. No clearance.",
+          "behavior-preservation": "Ownbehavior-preservation sourceproof behavior-preservation/source-registration-001.json; no full-lensclearance",
+          "enum-shapes": "Newmaterial delta pending own-lens disposition; inheritedcompletedbaseline remainsusable withoutreplay.",
+          "derivability": "Newmaterial delta pending own-lens disposition; inheritedcompletedbaseline remainsusable withoutreplay.",
+          "type-granularity": "Newmaterial delta pending own-lens disposition; inheritedcompletedbaseline remainsusable withoutreplay.",
+          "magic-strings": "Newmaterial delta pending own-lens disposition; inheritedcompletedbaseline remainsusable withoutreplay.",
+          "magic-numbers": "Newmaterial delta pending own-lens disposition; inheritedcompletedbaseline remainsusable withoutreplay."
+        },
+        "status": "Verifiedregisteredsource role; discovery partial globally, no clearance"
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          7,
+          25
+        ],
+        [
+          228,
+          285
+        ],
+        [
+          381,
+          421
+        ]
+      ],
+      "disposition": "Read registered7-25,228-285,381-421. BevyError stores advisory severity, with_severity changes metadata only, and blanket conversion defaults to Panic. ResultSeverityExt transforms only errors. Actual fallback handler and system registration must determine application effect; no whole dependency body or runtime clearance."
+    },
+    {
+      "material_index": 70,
+      "registration": {
+        "source_id": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-client/src/character_settlement_reputation_type.rs",
+        "sha256": "fb0c3f00ff6ec75a99d6053871e23ef12e31108af4342f236de077e4d8f2e881",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/fb0c3f00ff6ec75a99d6053871e23ef12e31108af4342f236de077e4d8f2e881",
+        "ranges": [
+          [
+            1,
+            65
+          ]
+        ],
+        "registration_evidence": "operations/contract-groups-566.json#fresh_dependencies",
+        "reason": "Exact generated backend reputation i32 field widths and codec; no source change or originalscope credit.",
+        "qualification": "Generated native transport signed widths; no generated bindings edits, original2853 denominator unchanged.",
+        "lenses": {
+          "producer-propagation": "New material delta pending; adopted baselines remain usable without replay.",
+          "existing-type-owners": "New material delta pending; adopted baselines remain usable without replay.",
+          "admission-contracts": "Own03 exact registered ranges dispositioned in contract-groups-006.json; inherited findings retained, no clearance.",
+          "invariant-operations": "Own04 exact width/codec compared in operations/contract-groups-566.json; no full-lensclearance",
+          "aggregate-states": "New material delta pending; adopted baselines remain usable without replay.",
+          "type-ownership": "Own06 complete exact registered ranges; contract-groups-014.json. Findings/qualifications retained; no all13 clearance.",
+          "redundant-authority": "Independent07 boundedsourcecomparison WITH findings/qualifications; redundant-authority/live-delta-013.json. No clearance.",
+          "behavior-preservation": "New material delta pending; adopted baselines remain usable without replay.",
+          "enum-shapes": "New material delta pending; adopted baselines remain usable without replay.",
+          "derivability": "New material delta pending; adopted baselines remain usable without replay.",
+          "type-granularity": "New material delta pending; adopted baselines remain usable without replay.",
+          "magic-strings": "New material delta pending; adopted baselines remain usable without replay.",
+          "magic-numbers": "New material delta pending; adopted baselines remain usable without replay."
+        },
+        "status": "Verified bounded new source material; no transferred lens coverage"
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "disposition": "Read full generated reputation binding. Public String identity/settlement and u64 character with signed fame/infamy are serialized directly; typed query columns mirror those fields and indexes. Generator-owned raw transport does not prove server admission, composition uniqueness or bounded reputation semantics; no manual binding edit."
+    }
+  ],
+  "first_unfinished_material_index": 71,
+  "new_findings": []
+}

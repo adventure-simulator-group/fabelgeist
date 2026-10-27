@@ -1,0 +1,32 @@
+{
+  "packet": 187,
+  "lens": 11,
+  "registered_before_body_read": true,
+  "purpose": "Resolve actual EquipmentCatalog alias and wearable producer with narrowed native-key/borrowed-item boundary; no full binary or catalogdata body scope",
+  "sources": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "sha256": "da3139ef3625393db9041ad0680dc244b0f81235b86ea4519a87c9299763bdd6",
+      "read_from": "crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "ranges": [
+        [
+          1,
+          91
+        ]
+      ],
+      "ordered_credit": false
+    }
+  ]
+}

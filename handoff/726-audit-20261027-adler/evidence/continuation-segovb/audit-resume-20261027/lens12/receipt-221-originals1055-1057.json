@@ -1,0 +1,149 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "221",
+  "predecessor": "receipt-220-originals1052-1054.json",
+  "sources": [
+    {
+      "original_index": 1055,
+      "source_id": "pr-working:crates/adventuresim-procedural-materials/src/lib.rs",
+      "sha256": "3d5a061b676b7715c8db2c3687f4feadd02dd94e6e1cd51dded341c287c43396",
+      "actual_eof": 174,
+      "actual_ranges": [
+        [
+          1,
+          174
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              174
+            ]
+          ],
+          "role": "Full174 Rustmaterialowner independentlyread. AssetURIs embedded://adventuresim_procedural_materials/shaders/tactical_tree_bark.wgsl12/leaf_card14 rawstrnativeBevyassetlocator; actualembedded_asset registrationrelativepaths19/20\u2192MaterialExtension fragment/deferred108/112 andleafMaterial vertex/fragment/prepass120/124/143/147 ShaderRef .into sourcebodyread. Actualshaderfiles1056/1057 consumed exact firstparty bodies butnativeembedded_assetpathregistration/ShaderRef resolutionSDK/allappsinstallationpending. enable_leaf_transmission_shader_defs164 rawfiniteBevypreprocessor namesSTANDARD_MATERIAL_DIFFUSE_TRANSMISSION166/STANDARD_MATERIAL_DIFFUSE_OR_SPECULAR_TRANSMISSION167\u2192nativeShaderDefVal169\u2192Veccontains170/push171; actualspecialize158 recipient localproved, nativeSDKdefine meaning/receiversnotread. Don'tinventfirstpartyenumforSDKvocabulary without concretefit. Derive/fieldnames/bindingstexture/sampler/uniform actualRustGPUlayout owners notrawStringAPI; correspondingWGSL declarations1056/1057matchedonlyactualread. Allprosephysical/CPUclock47/MSAA/WebGPU128-130 notruntime/native/otherlensacceptance;1057usesglobals.time82 soCPU-phasecomment47 requirescommentlensreconciliation, F9globalnotcleared.",
+          "disposition": "Source-accounted WITH nativeWGSL/Bevy/producer/variant/currentness qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 1056,
+      "source_id": "pr-working:crates/adventuresim-procedural-materials/src/shaders/tactical_tree_bark.wgsl",
+      "sha256": "226829eae04e17626eeda3721fcbe33fc5c2d51b0a73ed9c81112fe87f7dc653",
+      "actual_eof": 517,
+      "actual_ranges": [
+        [
+          1,
+          517
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              517
+            ]
+          ],
+          "role": "Full517 independentlyread1-270/271-517. WGSL diagnostic off derivative_uniformity1 nativecompilercontroltext; importsbevy_pbr mesh_view_bindings::view4,pbr_fragment::pbr_input_from_standard_material5,pbr_functions::alpha_discard6,prepass_io VertexOutput/FragmentOutput11,deferred_output12,forward_io16/apply_pbr_lighting/main_pass_post_lighting_processing17 nativeWGSLpreprocessor/APIidentifiers. PREPASS_PIPELINE9/509 andVERTEX_COLORS423 semanticnativecompilationselectors, MATERIAL_BIND_GROUP21/23/25/27/29/47 substitutionnativebindgroupparameter. Alltexture/sampler/uniformnames22-48 andfields33-44 actualbindingcontracts matching1055Rustnumbers/dataorder sourceonly, notstring-valuedgameplayIDs. Allnumericfunctions50-517 andshaderlocalidentifiers/entryfragment380 areWGSLtypedcode notrawString-valuedAPI; noquotedliteralexceptnone; shaderimport/preprocessor symbolictext inventoried noexemption. Comments42-43/174-176/202-203/216-217/268/424-425/434-442/460-464 explanatorysourceintent; don'tturnthemintoproofWebGPU/numeric/uniformallproducer/renderer acceptance. ConcreteBevyWGSLimport/defineauthority/nativecompiler/actualmaterialallproducers stillunread.",
+          "disposition": "Source-accounted WITH nativeWGSL/Bevy/producer/variant/currentness qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 1057,
+      "source_id": "pr-working:crates/adventuresim-procedural-materials/src/shaders/tactical_tree_leaf_card.wgsl",
+      "sha256": "46a5f6da85cac6f612bdbeae41a1aa0cbee85b88205509e331ad526ca6fb146c",
+      "actual_eof": 284,
+      "actual_ranges": [
+        [
+          1,
+          284
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              284
+            ]
+          ],
+          "role": "Full284 actualWGSL diagnostic1/importbevy_pbrmesh_functions4/position_world_to_clip5;prepassGlobalsbevy_render::globals11/manual@group0binding1at12;prepass_io13/15,forwardglobals18/io20/pbrinput21/lighting22/materialflags24-25,SSAObinding29 nativeSDKshaderidentifiers. CompilationselectorsPREPASS_PIPELINE8/103/143/173,PREPASS_FRAGMENT14/144/174,NORMAL_PREPASS_OR_DEFERRED_PREPASS111,VERTEX_COLORS122,VERTEX_OUTPUT_INSTANCE_INDEX125,VISIBILITY_RANGE_DITHER128/177/197/212,MOTION_VECTOR_PREPASS134/186,NORMAL_PREPASS182,UNCLIPPED_DEPTH_ORTHO_EMULATION189,SCREEN_SPACE_AMBIENT_OCCLUSION28/269 explicitnativepreprocessortextboundary. MATERIAL_BIND_GROUP33-65 substitutionandbindings0-12 matchactual1055texture/sampler/uniformfieldorder, noextraoriginal/nativeSDKcredit. Allshadernumeric/textfree functions68-284 independentlyread inclglobals.time82 actualclock, notCPUphasepropagationproof. Macroactualnativeallvariantpipeline/SDKsource/CPUpopulation pending; comments9-10/79-81/145-146/157-160/165-167/201-202/226/230-232 sourceintentnotrender/nativeWebGPU/math guarantee. No shaderexecution/compilation/otherlens/currentacceptance.",
+          "disposition": "Source-accounted WITH nativeWGSL/Bevy/producer/variant/currentness qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    }
+  ],
+  "connected_findings": [],
+  "verified_traces": [
+    {
+      "source_indices": [
+        1055,
+        1056,
+        1057
+      ],
+      "trace": "ActualRustembeddedpath/ShaderRef/materialbindings\u2192firstpartyWGSLtexture/uniformdeclarations andentryfunctions independentlyconsumed. NativeSDKasset/import/definemeanings/allcompilevariants remainunread; notglobalShaderclearance."
+    }
+  ],
+  "pending_contracts": [
+    "ExactBevyembedded_asset/ShaderRef/ShaderDefVal/materialdefine WGSLimportnativeauthorities/installation/materialallproducers/compilationvariants.",
+    "1055CPUphasecomment47 vsactual1057globals.time82 sourcekeyedcommentlensqueue; no globalF9clearance orbehavior/mathverdict.",
+    "Viewer/capture newmaterialprovenance/body/otherlenses queue;REG13220/allpriorunread/otherpopulations/all20/P16/P17/F9/M09/current/aliases retained."
+  ],
+  "qualifications": [
+    "Full174/517/284 exactrequested bodies independentlyread; no compiler/shader/project/native/probe/testexecution.",
+    "NativeSDKtokensaretextboundaryonlyforactualcitedports, notsemanticStringblanketexemption; noBC/current/global/unique/otherlensclearance."
+  ],
+  "proposed_count": {
+    "before": 1055,
+    "after": 1058,
+    "indices_completed": [
+      1055,
+      1056,
+      1057
+    ],
+    "next_original": 1058,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "pr-working:crates/adventuresim-procedural-materials/src/lib.rs",
+      "sha256": "3d5a061b676b7715c8db2c3687f4feadd02dd94e6e1cd51dded341c287c43396",
+      "ranges": [
+        [
+          1,
+          174
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-procedural-materials/src/shaders/tactical_tree_bark.wgsl",
+      "sha256": "226829eae04e17626eeda3721fcbe33fc5c2d51b0a73ed9c81112fe87f7dc653",
+      "ranges": [
+        [
+          1,
+          517
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-procedural-materials/src/shaders/tactical_tree_leaf_card.wgsl",
+      "sha256": "46a5f6da85cac6f612bdbeae41a1aa0cbee85b88205509e331ad526ca6fb146c",
+      "ranges": [
+        [
+          1,
+          284
+        ]
+      ]
+    }
+  ],
+  "unique_count_delta": 0
+}

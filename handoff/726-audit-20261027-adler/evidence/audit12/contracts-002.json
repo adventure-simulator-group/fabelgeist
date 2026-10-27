@@ -1,0 +1,579 @@
+{
+  "id": "AUDIT12-CONTRACTS-002",
+  "at": "2026-10-26T06:46:21.236314+00:00",
+  "lens": "12 magic-strings",
+  "source_members": [
+    {
+      "scope_index": 4,
+      "source_id": "native-dependency:bevy_asset-0.19.1:event.rs",
+      "source_sha256": "22ff08ca5948660f8ea0ea2a1a0e9c977b3c9a44bd8c5c538014a9b8200ed0ca",
+      "source_object_git": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/22ff08ca5948660f8ea0ea2a1a0e9c977b3c9a44bd8c5c538014a9b8200ed0ca",
+      "registered_ranges": [
+        [
+          1,
+          159
+        ]
+      ],
+      "personally_read_actual_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "actual_EOF": 129,
+      "inventory": [
+        {
+          "ranges": [
+            [
+              14,
+              16
+            ],
+            [
+              32,
+              34
+            ],
+            [
+              37,
+              44
+            ]
+          ],
+          "role": "Native asset path/error payloads",
+          "actual_boundary": "AssetPath, AssetLoadError and typed/untypedAssetId own requestidentity and failure; conversion clones canonical path/error, not human classification."
+        },
+        {
+          "ranges": [
+            [
+              48,
+              48
+            ]
+          ],
+          "role": "missing_docs reason prose",
+          "actual_boundary": "Compiler lint diagnostic metadata."
+        },
+        {
+          "ranges": [
+            [
+              101,
+              108
+            ]
+          ],
+          "role": "Added/Modified/Removed/Unused/LoadedWithDependencies andid Debug strings",
+          "actual_boundary": "Final Debug rendering of corresponding AssetEvent typed variants and assetid; typed comparisons113-127 do not branch on labels."
+        },
+        {
+          "ranges": [
+            [
+              6,
+              8
+            ],
+            [
+              11,
+              15
+            ],
+            [
+              20,
+              20
+            ],
+            [
+              26,
+              34
+            ],
+            [
+              47,
+              60
+            ],
+            [
+              64,
+              85
+            ]
+          ],
+          "role": "Documentation prose and quoted event-role terms",
+          "actual_boundary": "Rustdoc/example description of actual native event enum roles, not raw retained gameplay states."
+        }
+      ],
+      "disposition": "ACCOUNTED_LENS12_ACTUAL_REGISTERED_CONTRACT_WITH_QUALIFICATIONS",
+      "qualification": "Exact pinned sourceEOF129, originalrange1-159 intersects actual1-129 only. Missing130-159 are nonexistent registration-tail metadata and receive zero body credit. Whole actual frozen file assessed, not a substituted version. No asset loader/application failure semantic clearance.",
+      "untraced_scope": "All source outside actual registeredintersection remains uncredited."
+    },
+    {
+      "scope_index": 5,
+      "source_id": "native-dependency:bevy_asset-0.19.1:server/mod.rs",
+      "source_sha256": "90bfda65679fc6cfb046dda1e2e7b5795d39e73778a15d0bc1eb7ef8d3e9bd25",
+      "source_object_git": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/90bfda65679fc6cfb046dda1e2e7b5795d39e73778a15d0bc1eb7ef8d3e9bd25",
+      "registered_ranges": [
+        [
+          2010,
+          2160
+        ],
+        [
+          2340,
+          2510
+        ]
+      ],
+      "personally_read_actual_ranges": [
+        [
+          2010,
+          2160
+        ],
+        [
+          2340,
+          2510
+        ]
+      ],
+      "actual_EOF": 2527,
+      "inventory": [
+        {
+          "ranges": [
+            [
+              2018,
+              2018
+            ],
+            [
+              2033,
+              2033
+            ],
+            [
+              2037,
+              2037
+            ],
+            [
+              2078,
+              2078
+            ],
+            [
+              2100,
+              2100
+            ]
+          ],
+          "role": "must_use/expect diagnostic messages",
+          "actual_boundary": "Compiler warnings and native invariant-failure presentation. No scoped branching on those messages; firstparty cause/error handling not cleared."
+        },
+        {
+          "ranges": [
+            [
+              2024,
+              2025
+            ]
+          ],
+          "role": "Empty string path validator",
+          "actual_boundary": "Actual native AssetPath load ingress rejects empty path through typedAssetLoadError::EmptyPath; zero text is explicit invalid input, not a fabricated loaded state."
+        },
+        {
+          "ranges": [
+            [
+              2040,
+              2047
+            ],
+            [
+              2363,
+              2366
+            ],
+            [
+              2400,
+              2401
+            ],
+            [
+              2423,
+              2425
+            ],
+            [
+              2460,
+              2462
+            ]
+          ],
+          "role": "Open Rust type/loader names paired withTypeId/AssetPath/error payloads",
+          "actual_boundary": "Native runtime asset-loader/type registry owns compiler core::any::type_name namespace and loadernames. Not a closed game discriminator; no claim omitted receiver algorithm uses onlydiagnostics."
+        },
+        {
+          "ranges": [
+            [
+              2137,
+              2139
+            ]
+          ],
+          "role": "Hotreload tracing prose",
+          "actual_boundary": "Immediate native info! presentation of retained AssetPath identity."
+        },
+        {
+          "ranges": [
+            [
+              2354,
+              2416
+            ],
+            [
+              2421,
+              2425
+            ],
+            [
+              2445,
+              2447
+            ],
+            [
+              2452,
+              2470
+            ],
+            [
+              2501,
+              2508
+            ]
+          ],
+          "role": "thiserror displaytemplates and rejected/open asset path/label/extension/type strings",
+          "actual_boundary": "Concrete typednativeerror variants own classification and retain cause; requested missing label/type/extension text remains rejected-source evidence. AssetPath/TypeId/BevyError remain actual owners where present. No string-policy branch observed."
+        },
+        {
+          "ranges": [
+            [
+              2411,
+              2411
+            ],
+            [
+              2473,
+              2482
+            ]
+          ],
+          "role": "Quoted label lists, comma separators and plural/noextension grammar",
+          "actual_boundary": "Immediate errorformatter output consumed by corresponding thiserror template; no new semantic state encoded by plural string."
+        },
+        {
+          "ranges": [
+            [
+              2487,
+              2489
+            ]
+          ],
+          "role": "AssetServer/info Debug names",
+          "actual_boundary": "Final native Debug output, not schema or dispatchdata."
+        },
+        {
+          "ranges": [
+            [
+              2493,
+              2495
+            ]
+          ],
+          "role": "--untyped asset source namespace suffix",
+          "actual_boundary": "Named semantic protocol token owned by AssetServer for nativeLoadedUntypedAsset source naming, expressly documented here. Not exempt merelybecauseconstant; no arbitrary game enum replacement for open AssetPath/source namespace."
+        },
+        {
+          "ranges": [
+            [
+              2010,
+              2017
+            ],
+            [
+              2036,
+              2036
+            ],
+            [
+              2055,
+              2055
+            ],
+            [
+              2089,
+              2096
+            ],
+            [
+              2110,
+              2111
+            ],
+            [
+              2341,
+              2352
+            ],
+            [
+              2419,
+              2419
+            ],
+            [
+              2429,
+              2437
+            ],
+            [
+              2443,
+              2457
+            ],
+            [
+              2461,
+              2469
+            ],
+            [
+              2493,
+              2506
+            ]
+          ],
+          "role": "Native docs/comments/backtick symbol names",
+          "actual_boundary": "Rustdoc/implementation documentation of asset APIs, actualtypedfailure roles remain separate."
+        }
+      ],
+      "disposition": "ACCOUNTED_LENS12_ACTUAL_REGISTERED_CONTRACT_WITH_QUALIFICATIONS",
+      "qualification": "All registered2010-2160/2340-2510 consumed. No otherserver ranges, complete load/hotreload body behavior or namespace collision/unique-source algorithm proof. UNTYPED_SOURCE_SUFFIX actual use sites outside registeredslice are not consumed/cleared; explicit owner definition classified only. No firstparty error-stringification/ready-state approval.",
+      "untraced_scope": "All source outside actual registeredintersection remains uncredited."
+    },
+    {
+      "scope_index": 6,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/bevy_error.rs",
+      "source_sha256": "ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+      "source_object_git": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+      "registered_ranges": [
+        [
+          40,
+          105
+        ],
+        [
+          395,
+          415
+        ]
+      ],
+      "personally_read_actual_ranges": [
+        [
+          40,
+          105
+        ],
+        [
+          395,
+          415
+        ]
+      ],
+      "actual_EOF": 567,
+      "inventory": [
+        {
+          "ranges": [
+            [
+              49,
+              49
+            ],
+            [
+              74,
+              74
+            ]
+          ],
+          "role": "Doctest malformednumeric input and example failureprose",
+          "actual_boundary": "Explicit Rust parsing/Error conversion demonstration; source example strings are external raw input/finalmessage, not live productpolicy."
+        },
+        {
+          "ranges": [
+            [
+              410,
+              410
+            ]
+          ],
+          "role": "backtrace feature literal",
+          "actual_boundary": "ExternalnativeCargo/Rust conditional compilation contract."
+        },
+        {
+          "ranges": [
+            [
+              40,
+              81
+            ],
+            [
+              89,
+              101
+            ],
+            [
+              399,
+              399
+            ]
+          ],
+          "role": "API documentation, error messages as genericinput and native From<&str> commentary",
+          "actual_boundary": "NativeBevyError retains Box<dynError> through genericE conversion; bounded docs allow open native messages but do not justify erasing firstparty typedcauses before finalpresentation."
+        }
+      ],
+      "disposition": "ACCOUNTED_LENS12_ACTUAL_REGISTERED_CONTRACT_WITH_QUALIFICATIONS",
+      "qualification": "Registered genericconstructors and actualBoxconversion read, no downcast/source/backtrace implementation bodies outside these ranges or application caller coverage.",
+      "untraced_scope": "All source outside actual registeredintersection remains uncredited."
+    },
+    {
+      "scope_index": 7,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/handler.rs",
+      "source_sha256": "800c43a7bcf3956170973151045546484c9546e3bb50635f9fab8cba7fed353d",
+      "source_object_git": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/800c43a7bcf3956170973151045546484c9546e3bb50635f9fab8cba7fed353d",
+      "registered_ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "personally_read_actual_ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "actual_EOF": 187,
+      "inventory": [
+        {
+          "ranges": [
+            [
+              47,
+              62
+            ]
+          ],
+          "role": "ErrorContext final display labels and grammar",
+          "actual_boundary": "Existing typedSystem/Command/Observer/RunCondition ownsrole; names use canonicalDebugName, on_set predicate selects only wording."
+        },
+        {
+          "ranges": [
+            [
+              83,
+              99
+            ]
+          ],
+          "role": "kind()->system/command/observer/run condition labels and inner errorformat",
+          "actual_boundary": "Actual in-file receivers145-181 pass derivedkind/name and typedBevyError to panic/log! macros. These labels are derived presentation, not standalone stateclassification."
+        },
+        {
+          "ranges": [
+            [
+              124,
+              124
+            ]
+          ],
+          "role": "Deprecated since0.19.0/note rename metadata",
+          "actual_boundary": "Native SDK compiler version/deprecation warning contract; not productcompatibility endorsement or authoritytoeditdependency."
+        },
+        {
+          "ranges": [
+            [
+              8,
+              40
+            ],
+            [
+              70,
+              82
+            ],
+            [
+              104,
+              113
+            ],
+            [
+              123,
+              127
+            ],
+            [
+              142,
+              184
+            ]
+          ],
+          "role": "Documentation/backtick tokens and namedseverity labels",
+          "actual_boundary": "Rustdoc/APIhelp; match_severity131-138 dispatches actualSeverity enum, not prose."
+        }
+      ],
+      "disposition": "ACCOUNTED_LENS12_ACTUAL_REGISTERED_CONTRACT_WITH_QUALIFICATIONS",
+      "qualification": "Whole187-line registerednativehandler read. Nativepanic/logging semantics do not clear application wrapper/callback error loss; no compatibilityalias introduced or sourceedit.",
+      "untraced_scope": "All source outside actual registeredintersection remains uncredited."
+    },
+    {
+      "scope_index": 8,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/mod.rs",
+      "source_sha256": "1647c35091db53ccde7cfd43e7b106f40942404b814f599015db776308ddfd3d",
+      "source_object_git": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/1647c35091db53ccde7cfd43e7b106f40942404b814f599015db776308ddfd3d",
+      "registered_ranges": [
+        [
+          70,
+          82
+        ]
+      ],
+      "personally_read_actual_ranges": [
+        [
+          70,
+          82
+        ]
+      ],
+      "actual_EOF": 82,
+      "inventory": [
+        {
+          "ranges": [
+            [
+              79,
+              81
+            ]
+          ],
+          "role": "Rustdoc result/error description",
+          "actual_boundary": "Native Result alias reexports typedBevyError; no compiled rawstringliteral/field/parameter/return in registered70-82."
+        }
+      ],
+      "disposition": "ACCOUNTED_LENS12_ACTUAL_REGISTERED_CONTRACT_WITH_QUALIFICATIONS",
+      "qualification": "Only module tail70-82, no othermodulebody or applicationalias propagation credit.",
+      "untraced_scope": "All source outside actual registeredintersection remains uncredited."
+    },
+    {
+      "scope_index": 9,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/observer/distributed_storage.rs",
+      "source_sha256": "9a1c51dbb516b0cc08c33d8a5a714041eef55650447b4bb7efaf86ce537952b1",
+      "source_object_git": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/9a1c51dbb516b0cc08c33d8a5a714041eef55650447b4bb7efaf86ce537952b1",
+      "registered_ranges": [
+        [
+          216,
+          275
+        ],
+        [
+          554,
+          583
+        ]
+      ],
+      "personally_read_actual_ranges": [
+        [
+          216,
+          275
+        ],
+        [
+          554,
+          583
+        ]
+      ],
+      "actual_EOF": 638,
+      "inventory": [
+        {
+          "ranges": [
+            [
+              219,
+              223
+            ],
+            [
+              246,
+              246
+            ]
+          ],
+          "role": "Observer docs/global and panicdescription",
+          "actual_boundary": "Rustdoc names typedEvent/Observer scope and nativeexclusive-system precondition, not a retained string-based mode."
+        },
+        {
+          "ranges": [
+            [
+              229,
+              230
+            ],
+            [
+              232,
+              232
+            ]
+          ],
+          "role": "Concat assertionprose/newline and systemDebugName",
+          "actual_boundary": "Actual !system.is_exclusive predicate determines invariant failure; concatstrings format final panic with open named system from nativeDebugName. No messageparse or applicationevent classification."
+        },
+        {
+          "ranges": [
+            [
+              554,
+              563
+            ]
+          ],
+          "role": "Native system_name()->DebugName and IntoObserver docs",
+          "actual_boundary": "Typed native reflection/observer API; remaining registered574/583 invoke typedObserver::new, not raw stringdispatch."
+        }
+      ],
+      "disposition": "ACCOUNTED_LENS12_ACTUAL_REGISTERED_CONTRACT_WITH_QUALIFICATIONS",
+      "qualification": "Exact216-275/554-583 only. Remaining dynamicrunner closure/condition runner outside registeredranges not traced or cleared; no firstparty observerlifecycle or panicpolicy verdict.",
+      "untraced_scope": "All source outside actual registeredintersection remains uncredited."
+    }
+  ],
+  "new_findings": [],
+  "new_unique_count": 0,
+  "first_unfinished_original": 10,
+  "inherited_qualified_slices_preserved": true,
+  "source_or_git_mutation": false,
+  "project_execution": false,
+  "other_lens_credit": false,
+  "global_clearance": false
+}

@@ -1,0 +1,57 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-440",
+  "at": "2026-10-23T13:47:33.478469+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/knowledge.rs",
+      "sha256": "eff9843bb7a8c4e0459b990f5684deae4c827ec824b58334789ec8e1cce55ffd",
+      "scope072_index": 948,
+      "actual_EOF": 1330,
+      "scoped_ranges_compared": [
+        [
+          1,
+          1330
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source union from producer1-1330, not narrowed owner prefix; private chronology/provenance/visibility/lineage/sharing/receipt aggregates and all original fixtures compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "private envelope admits chronology and shared provenance atomically",
+      "comparison": "KnowledgeEnvelope private fields, no Serde/Reflect/default or mutable access. try_new requires source<=learned<=observer personal frontier; Shared source additionally checks exact recipient/subject/proposition/source-minute and ObserverPrivate visibility. Confidence privatechecked UnitBasisPoints via constructor, IDs/revision NonZero native. Domain payload traits express ownership but do not authenticate arbitrary domain contents; actual domain adapter must bind belief/presentation meaning. Own430 evidence adapter uses same evidence ID throughout and checked envelope."
+    },
+    {
+      "id": "lineage local shape and exact supersession are distinct guarantees",
+      "comparison": "KnowledgeLineage admits revision1 iff no predecessor, revisions>=2 iff Some predecessor. Full validate_supersession then checks new record ID, same observer/subject/proposition, exact predecessor, checked priorrevision+1 and nonregressing learned time. At nativeMAX checked_addNone rejects even nextMAX; no saturating occurrence reuse like qualified Core case custody observation. Constructors retain immutable prior, full relation checked before caller mutation. Lineage alone does not prove predecessor exists, actual consumer must use supersession validation."
+    },
+    {
+      "id": "projection grant is trusted scope proof rather than public raw flag",
+      "comparison": "ProjectionGrant private viewer/frontier/scope, only pubcrate authenticated constructors, explicitly currently exercised by trusted fixtures. Public record.project checks observer scope or exact public disclosure rule plus learned<=viewer frontier; other viewers get no private record reference. Shareable visibility alone does not grant public disclosure. Public KnownFactProjection may be constructed as transport but cannot mint grant or reveal private storage by itself. Presentation argument remains caller/domain responsibility, not automatically derived truthful text."
+    },
+    {
+      "id": "sharing constructs one opaque attributable fact with precise identities",
+      "comparison": "SharingReceipt private, requires actual source Shareable rule, distinct recipient and learned<=shared<=sharer personal clock. Copies same source record/revision, subject/proposition, source observer, recipient and rule. Recipient envelope constructs private SharedProvenance from exactreceipt and copies same fact, sets source=sharedminute and ObserverPrivate, then common chronology check. It does not automatically transfer truth, existing visibility or authorization beyond supplied trusted frontier. No wire/persistence codecs create alternate backing."
+    },
+    {
+      "id": "contradiction provenance is relational without pretending to prove semantic disagreement",
+      "comparison": "Private ContradictionRecord refuses self record and different observers, checks recorded>=both learned and<=personal frontier, retains both exact record+revision pairs and supplied rationale. It allows different domain types intentionally. Rationale validity/actual logical contradiction belongs domain caller, not universally inferred from any two records. Canonical truth storage intentionally separate and no conversion truth->observer projection; hidden truth mutation does not refresh beliefs automatically."
+    },
+    {
+      "id": "mutation receipt classification uses exact input and detects ambiguous prior state",
+      "comparison": "KnowledgeMutationReceipt private request/input/outcome, committed constructor is explicit trusted postcommit boundary rather than transaction itself. classify filters requested ID, none->Apply, morethanone->AmbiguousPriorReceipt even identical duplicates, sole exactinput->Replay storedoutcome, differinginput->Collision. No local DB writes/clocks or callback occurs, and borrowing replay prevents invented new outcome. Caller must execute only Apply and persist receipt atomically with actual domain mutation; API does not itself authenticate receipt storage."
+    },
+    {
+      "id": "all1330 source fixtures and scope accounted",
+      "comparison": "Every820-1330 original fixture freshly read: observer isolation/time, public rule matching, chronology, exactsupersession includingMAX rejection, contradictionobserver, sharing attribution and nonreshare, hidden truth separation, replay/collision/ambiguousduplicates and domain vocabulary. Source-only, no execution/additions. Broader producer full1330 preserved over owner1-355/760-815; no unscoped whole-child/DB grant. No new aggregate defect identified within declared local guarantees."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Actual trusted authentication/domain belief-presentation semantics and atomic persistence receipt application; generic pure model explicitly grants no external authority or inference."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

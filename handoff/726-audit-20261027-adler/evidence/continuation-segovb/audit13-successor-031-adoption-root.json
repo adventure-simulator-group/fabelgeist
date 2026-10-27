@@ -1,0 +1,95 @@
+{
+  "at": "2026-10-27T05:38:20.978980+00:00",
+  "lens": 13,
+  "receipt": "audit13-successor-031.json",
+  "receipt_sha256": "bc23ac12a7f4225a1d5617e9ff1f776100a216271a6cc468b7483a4a73835430",
+  "state": "audit13-successor-031-suggested-state.json",
+  "state_sha256": "68b5166d3c0649906aae4f5257de0c0cead3838d6f9a38277df64c330bc42a43",
+  "correction": "audit13-successor-031-authority-correction-001.json",
+  "correction_sha256": "1e3625d9559bb66077ebc8c5e9dd283d57036d9dc030f8e618fbbfc0e953cc81",
+  "pinchecks": [
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-magic-numbers/SKILL.md",
+      "sha256": "d71feffe9ef2d777c5d447840f4d3fbcec2e1f4b2cc354fc331e0c899b558dee",
+      "matched": true
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit13-successor-registration-031.json",
+      "sha256": "283ad90c6dea87ac51dd48b3ec9ca4de0b2dbe214044b74670cb00ed440a6d89",
+      "matched": true
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit13-successor-registration-031-native-001.json",
+      "sha256": "9585c84b7c8335f0c07d2f502be4171784c384fedd28dccf9d57b9a15d4d029b",
+      "matched": true
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit13-successor-registration-031-native-002.json",
+      "sha256": "fdf4a00c74982164d680c9d5e42c69ca33f2efe868b30ea739844f543b1da7c6",
+      "matched": true
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit13-successor-registration-031-native-003.json",
+      "sha256": "193dc8f1c0a80354cba330594b2b93bd4dbc62f86394e2bc53da9d6f4e782226",
+      "matched": true
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit13-successor-registration-031-native-004.json",
+      "sha256": "4c930678b81921a790cdeacb6a909794b714563f313507ce403dba336b6fe816",
+      "matched": true
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/0ede9efa984ca1bbaacf8ad3231e6e9ee1efd4000986bc913a2178c7ceb5be8a",
+      "sha256": "0ede9efa984ca1bbaacf8ad3231e6e9ee1efd4000986bc913a2178c7ceb5be8a",
+      "matched": true
+    },
+    {
+      "path": "/home/brunosegovia/.rustup/toolchains/nightly-2026-07-13-x86_64-unknown-linux-gnu/lib/rustlib/multirust-channel-manifest.toml",
+      "sha256": "9335ea03f67e10eca8c9dd785dcf27ad5338609b92df071cb48678fb7a80b71d",
+      "matched": true
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/cbaf67dba589ff1ba2da2f8f6732de14a10e4e9323d683cb10728b500d312b96",
+      "sha256": "cbaf67dba589ff1ba2da2f8f6732de14a10e4e9323d683cb10728b500d312b96",
+      "matched": true
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit13-native-cargo-authority-metadata-031.json",
+      "sha256": "652b46e436e31db77335099c3a36aa8dccb2b1dbadf44696cb284da0f2992358",
+      "matched": true
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit13-successor-031-other-lens-extension-queue.json",
+      "sha256": "9b0aa820127e47e04a487b460e518542d006d462e11da5b2f930a876d3391ffe",
+      "matched": true
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit13-successor-031-suggested-state.json",
+      "sha256": "68b5166d3c0649906aae4f5257de0c0cead3838d6f9a38277df64c330bc42a43",
+      "matched": true
+    },
+    {
+      "path": "target/recovery-20261025/audit05/original-scope-072.json",
+      "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+      "matched": true
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit13-successor-030-suggested-state.json",
+      "sha256": "7cf99e57f0796b0d8cb0880eaaab3bda9a3089ac633ed95d124858bcd7021244",
+      "matched": true
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit13-successor-030-adoption-root.json",
+      "sha256": "633112a76be07203a839b4138634e8e1882d53590795794fbe2afa6d2122de91",
+      "matched": true
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit12-frozen-source-manifest-019.json",
+      "sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa",
+      "matched": true
+    }
+  ],
+  "qualification": "Exact frozen toolchain and installed static Cargo authority/official commit plus bounded ResolveVersion owner and retention traced. Corrected authority hash applies only via immutable031-authority-correction-001; prospective registration already correct. Static installed metadata is not historical binary proof. Disclosed unregistered commit-patch output has zero coverage; registered ranges alone credited. Raw4 parser/admission/encode and material payload roles pending.37/2853 unchanged;31/36/39 partial;no40 or unique/global clearance.",
+  "adopted": true,
+  "global_clearance": false
+}

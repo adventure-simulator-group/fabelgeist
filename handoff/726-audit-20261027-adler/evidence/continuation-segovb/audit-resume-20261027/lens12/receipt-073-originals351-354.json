@@ -1,0 +1,176 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "073",
+  "predecessor": "receipt-072-originals345-350.json",
+  "manifest_prefix_sha256": "9c87b90e9608aeec7100e6ad35f3edd0538b0fc4265cf7742fd2d074eb838004",
+  "sources": [
+    {
+      "original_index": 351,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "6f50079ada28d050e5bfea42953c9c789e0da99bde9ea8af38f69a2240f4c47c",
+      "actual_eof": 827,
+      "actual_ranges": [
+        [
+          1,
+          827
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "423-757",
+          "role": "TacticalCombatConfigError Validation(&staticstr)428/Fromstr433-436; every predicate464/474/518/531/543/556/563/569/588/596/610/627/652/678/694/717/744 selects free-text failure cause. Serialization(String)430 flattens serde_json error753. Display templates425/427/429.",
+          "disposition": "Canonical typed configuration validation cause should own failing predicate with structured payload, propagate typed errors internally and render once; preserve concrete serde cause/source when source-error authority fits. Exact config consumers/native serde_json receiver unread, no claim prose currently machine-branched."
+        },
+        {
+          "source_ranges": "750-757",
+          "role": "digest()->Result<String>750 validates751 then canonical serde_json bytes752/SHA256754/hexformat{byte:02x}756.",
+          "disposition": "Native hash/hex encoding concrete boundary, returned semantic ConfigDigest should retain canonical digest owner through transport/state/comparison; exact consumers/owner-fit pending, not arbitrary String passthrough or duplicated digest wrapper."
+        },
+        {
+          "source_ranges": "1-827",
+          "role": "All827 independently read. No other literal strings or string-valued configuration fields in1-420; serde field identities derive from typed config names. Existingtests779-827 numeric/typed, zero strings. Declared child/default/delegated validator bodies38-47/449-450/681/697-699 not credited.",
+          "disposition": "Native serde field-label codec boundary, no blanket attribute exemption; all delegate contracts queued. No project/native/test/numerical validation or current alias."
+        }
+      ],
+      "status": "Requested independent string inventory WITH findings/scoped text/zero roles."
+    },
+    {
+      "original_index": 352,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/ai_offense.rs",
+      "sha256": "cede3ecf1ccb8e95c2d4fedb6196a0a8137451304361c35822cafbe9c5f799e7",
+      "actual_eof": 37,
+      "actual_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-37",
+          "role": "No literals/String-valued APIs; typed BodyPart/durations/lengths feed interval predicates and defaults projection.",
+          "disposition": "Zero-string requested source; numeric interval adequacy/delegated defaults not certified."
+        }
+      ],
+      "status": "Requested independent string inventory WITH findings/scoped text/zero roles."
+    },
+    {
+      "original_index": 353,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "sha256": "5d254790fa2ec7e53bc749b18bfc8f4d89a1df367c3542f8f969403641c8a970",
+      "actual_eof": 71,
+      "actual_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-71",
+          "role": "Only four lock-poison expect strings18/49/59/67; actual config clone/cache/install APIs remain typed and call351validate15.",
+          "disposition": "Concrete panic diagnostic boundary. No runtime synchronization/poison/version-wrap/native/other-lens acceptance."
+        }
+      ],
+      "status": "Requested independent string inventory WITH findings/scoped text/zero roles."
+    },
+    {
+      "original_index": 354,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/doors.rs",
+      "sha256": "daf461a37ebe8f9ef72ac67aa98842c02bd8239ca43087f5c4d285f70df1ca34",
+      "actual_eof": 132,
+      "actual_ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-132",
+          "role": "Production1-85 no literals/String-valued APIs; existingtests94/95 valid test entity diagnostic expects only.",
+          "disposition": "Zero gameplay string role and native test diagnostic boundary; no collision/plugin/physics/geometry/runtime/other-lens acceptance."
+        }
+      ],
+      "status": "Requested independent string inventory WITH findings/scoped text/zero roles."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Config validation causes and digest identity cross application API as raw text",
+      "sources": [
+        "351:423-436,464-744,750-757",
+        "353:14-20"
+      ],
+      "remedy": "Own typed validation causes/source errors and canonical config digest through producers/receivers; keep prose/hash encoding at actual presentation/codec boundaries.",
+      "acceptance": "Trace all actual config validation/digest consumers before repair and canonical alias resolution; no invented current prose-branching claim or unique finding count.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "351 config digest/validation source callers, transport/storage/comparison, default canonical YAML loader and delegated child validators remain unread for new string contracts.",
+    "Native serde_json/hash/lock/physics SDK execution and other-lens numerical invariants not certified."
+  ],
+  "qualifications": [
+    "Exact frozen f82 physical-P16 only; no current alias.",
+    "No backward-compatibility/input-preservation obligation or tests/project/native/probe execution; no product/Git/root-ledger/publication mutation.",
+    "All inherited all20/P16/P17/F9/M09/aliases/currentness; no repaired/global/runtime/unique-total/other-lens clearance."
+  ],
+  "proposed_count": {
+    "before": 351,
+    "after": 355,
+    "indices_completed": [
+      351,
+      352,
+      353,
+      354
+    ],
+    "next_original": 355,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "6f50079ada28d050e5bfea42953c9c789e0da99bde9ea8af38f69a2240f4c47c",
+      "ranges": [
+        [
+          1,
+          827
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/ai_offense.rs",
+      "sha256": "cede3ecf1ccb8e95c2d4fedb6196a0a8137451304361c35822cafbe9c5f799e7",
+      "ranges": [
+        [
+          1,
+          37
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "sha256": "5d254790fa2ec7e53bc749b18bfc8f4d89a1df367c3542f8f969403641c8a970",
+      "ranges": [
+        [
+          1,
+          71
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/doors.rs",
+      "sha256": "daf461a37ebe8f9ef72ac67aa98842c02bd8239ca43087f5c4d285f70df1ca34",
+      "ranges": [
+        [
+          1,
+          132
+        ]
+      ]
+    }
+  ]
+}

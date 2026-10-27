@@ -1,0 +1,580 @@
+{
+  "at": "2026-10-27T09:55:58.839823+00:00",
+  "review": "Independent source-only final Rule Review PR992 candidate008, third user review5664856132",
+  "source_identity": {
+    "candidate_manifest": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/edited-source-manifest-008.json",
+      "sha256": "7d181544a8e62dd967923e79618afd2ba8a765c504dd6deb265c6b34b094ff2c"
+    },
+    "base": "35b18ec280a6884bb53996a2d859c4b27096f65c",
+    "review_parent": "837204c061adb97a2a62f43f7bcd841a223f0647",
+    "candidate_commit": "Not asserted: working source008 pins independently verified; root may subsequently bind exact commit without implying hosted acceptance.",
+    "full_PR_source_pins": [
+      {
+        "path": ".github/workflows/rust-quality.yml",
+        "sha256": "850183741ff4a1b097b93fc6285055d135558894f5ebf9324b52031cb9aadfc4",
+        "verified_current_bytes": true
+      },
+      {
+        "path": "Cargo.lock",
+        "sha256": "58118b1b138af4f9feea993ea990dc334f63d30c4aa66f8b5597a0f1dfecfcf6",
+        "verified_current_bytes": true
+      },
+      {
+        "path": "content/tactical/combat.yaml",
+        "sha256": "e046a24787a8fe5b26e80d4808b7c00c37bfdfb6a886b67d4287119850a80b29",
+        "verified_current_bytes": true
+      },
+      {
+        "path": "crates/adventuresim-character-creator/Cargo.lock",
+        "sha256": "c1eedbdf2c145f30bb9da7cc8f8fd02fa22b7ee9d9cd821c49ac5a17c441da09",
+        "verified_current_bytes": true
+      },
+      {
+        "path": "crates/adventuresim-core/Cargo.toml",
+        "sha256": "e5e9c6ed987838be5b7fef72e25ba3e6b6e848bc84105c42f396fcdfd7d65f53",
+        "verified_current_bytes": true
+      },
+      {
+        "path": "crates/adventuresim-core/build.rs",
+        "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+        "verified_current_bytes": true
+      },
+      {
+        "path": "crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+        "sha256": "06bfd3a023ac0c22751466720321fe796aba122f605d621f16ba56b318c712f8",
+        "verified_current_bytes": true
+      },
+      {
+        "path": "crates/adventuresim-core/src/linear_speed.rs",
+        "sha256": "7c44bfdf7648e528853e2e1c4d823e32d7ce37ec9a6d01f3db8f59c5b1934313",
+        "verified_current_bytes": true
+      },
+      {
+        "path": "crates/adventuresim-core/src/unit_interval.rs",
+        "sha256": "cfe4ee137e0df1f150fcee66caeab50f963b3bb36ee2ca518c0208e4f43ef5e1",
+        "verified_current_bytes": true
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+        "sha256": "12d4b4e5ed4ce3940c78b7ee4420ec94e5efa83776b14d60afdbf2ba0d501f5d",
+        "verified_current_bytes": true
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+        "sha256": "815bfd27404840b0d69f337719c882adf65fea894e48a769670a582eb42faf1b",
+        "verified_current_bytes": true
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/dive.rs",
+        "sha256": "c31ca562d4c25d843f4f4841ca0663f461cfafd474a1571ae31908d99be9fcad",
+        "verified_current_bytes": true
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+        "sha256": "ae1dcc0043d5bd5a98744dfb43a3f172a259b3ac3b5e0fe0743c31b83e00327e",
+        "verified_current_bytes": true
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+        "sha256": "93bf8878500fe7902fc616643b4678bfbc4c8f091c94dcd68b2a42a6ccb377af",
+        "verified_current_bytes": true
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+        "sha256": "e54bd673db78d4b343707613e348b7d7fb4f74d34b8a454fefe73f426145a045",
+        "verified_current_bytes": true
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+        "sha256": "f26dc1059e4a9d133ac1fba9c80a1086753b20b54e5a5074dc8e557540cea67b",
+        "verified_current_bytes": true
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+        "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027",
+        "verified_current_bytes": true
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+        "sha256": "37a5dba433aa5219b544716053897df30d3df49662fb5fd38794130c1b803946",
+        "verified_current_bytes": true
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+        "sha256": "b2c7bc9609b8deb810b4c586a09fdf8186b60803f648009fc3ff74931b2df113",
+        "verified_current_bytes": true
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+        "sha256": "543ea955a72a4accf8550af44b35ad0a526fbcc6731bc5fb109ac38ceb609e17",
+        "verified_current_bytes": true
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+        "sha256": "b394bde991895d6328b6f9f2be24fcb6d51c5c00e7f7143316339c372b7b5089",
+        "verified_current_bytes": true
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+        "sha256": "ada76a964c72b64d6bd3671a8ca2bde134da787f339914cc2091bd7994fac722",
+        "verified_current_bytes": true
+      },
+      {
+        "path": "rust-quality-baseline.toml",
+        "sha256": "8da5ee46241fe574e76a0b67391c30e5287f90a228995456a39b15cf00701262",
+        "verified_current_bytes": true
+      }
+    ]
+  },
+  "scope": "Full23-file PR scope by own accepted007 proof plus exact unchanged17-file carry and full actual6-file third-review delta/fresh material bodies. No new implementation or global audit work. Source-only qualified approval, not build/runtime/CI acceptance.",
+  "rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23"
+    },
+    {
+      "path": "crates/adventuresim-core/AGENTS.md",
+      "sha256": "7d2a3dd7507a8405fded5577a7f406273ab835389b52b189415d0878c39d8a73"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/AGENTS.md",
+      "sha256": "b3fd110d97bc871853458c38282d3d4c18369b6d0647e96e0de6d0641dca61c8"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/AGENTS.md",
+      "sha256": "f9633599a742ea38090fe2fb88e2dc464298d0ca4a70374f0851380e71e6910e"
+    }
+  ],
+  "skills": [
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/SKILL.md",
+      "sha256": "ff68d5ccf9f2545336b105f987ae17bb1a1f55dfbf1afb035dba8bef7053f27a"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/references/bespoke-type-review.md",
+      "sha256": "c6a71896616123559c0be4d318cbde751d8767dccc6009a943971dc3d4424f71"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-producer-propagation/SKILL.md",
+      "sha256": "9d202f015eed4818d6d2753c7624faa64fb5522e03cc55284fc68a366a204293"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-existing-type-owners/SKILL.md",
+      "sha256": "0876e49f57d2b5397d23735b9c49916d5d20087b33c110746beaa73c1c8cba3f"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-invariant-operations/SKILL.md",
+      "sha256": "94c0fc73e926619b9a9a50ef9f342a0c8f6210840f1aa1f3c5b5d9637994519d"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-magic-numbers/SKILL.md",
+      "sha256": "d71feffe9ef2d777c5d447840f4d3fbcec2e1f4b2cc354fc331e0c899b558dee"
+    }
+  ],
+  "pre_edit_proof": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/third-review-preflight-001.json",
+      "sha256": "02bb71bd621d65401d470d19e24b6096f72b72ab5fc418d74273ec2afeb1f30a"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/third-review-import-preflight-001.json",
+      "sha256": "b6ad44290860d68df7486eb617b5ccf752a5b55b6cad7893b220e1d9e41bcce7"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/dive-normalization-discovery-001.json",
+      "sha256": "87d6a9a7628726c5f0137704a82a572865ce379dc99b66fcdd3c0c43b642fc98"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/user-discussion-003.json",
+      "sha256": "412f6ad5309fb8b971618aa47e9a4c625c7f47e541d7ce54a3ec9bc4c26e79cb"
+    }
+  ],
+  "actual_source_reads": [
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "7c44bfdf7648e528853e2e1c4d823e32d7ce37ec9a6d01f3db8f59c5b1934313",
+      "actual_eof": 252,
+      "ranges": [
+        [
+          1,
+          252
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          1,
+          252
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate008-registration-001.json",
+        "sha256": "e7a78f5d9a90b1c8e4fe61d036fb9efaa023176263e81e57493f432e8cb0fc1e"
+      }
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "cfe4ee137e0df1f150fcee66caeab50f963b3bb36ee2ca518c0208e4f43ef5e1",
+      "actual_eof": 89,
+      "ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate008-registration-001.json",
+        "sha256": "e7a78f5d9a90b1c8e4fe61d036fb9efaa023176263e81e57493f432e8cb0fc1e"
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "sha256": "815bfd27404840b0d69f337719c882adf65fea894e48a769670a582eb42faf1b",
+      "actual_eof": 1813,
+      "ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate008-registration-001.json",
+        "sha256": "e7a78f5d9a90b1c8e4fe61d036fb9efaa023176263e81e57493f432e8cb0fc1e"
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/dive.rs",
+      "sha256": "c31ca562d4c25d843f4f4841ca0663f461cfafd474a1571ae31908d99be9fcad",
+      "actual_eof": 147,
+      "ranges": [
+        [
+          1,
+          147
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          1,
+          147
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate008-registration-001.json",
+        "sha256": "e7a78f5d9a90b1c8e4fe61d036fb9efaa023176263e81e57493f432e8cb0fc1e"
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "sha256": "93bf8878500fe7902fc616643b4678bfbc4c8f091c94dcd68b2a42a6ccb377af",
+      "actual_eof": 582,
+      "ranges": [
+        [
+          1,
+          18
+        ],
+        [
+          262,
+          336
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          1,
+          18
+        ],
+        [
+          262,
+          336
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate008-registration-001.json",
+        "sha256": "e7a78f5d9a90b1c8e4fe61d036fb9efaa023176263e81e57493f432e8cb0fc1e"
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "sha256": "b2c7bc9609b8deb810b4c586a09fdf8186b60803f648009fc3ff74931b2df113",
+      "actual_eof": 227,
+      "ranges": [
+        [
+          217,
+          227
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          217,
+          227
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate008-registration-001.json",
+        "sha256": "e7a78f5d9a90b1c8e4fe61d036fb9efaa023176263e81e57493f432e8cb0fc1e"
+      }
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/error.rs",
+      "sha256": "e3bd3bd8fb753b33e583e5cba64967ca07539dd8b4b0032a2153a330b59a01df",
+      "ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "actual_eof": 19,
+      "actual_read_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate008-registration-002.json",
+        "sha256": "984a6704610750b725c56f468fd0d2beb5c06100f0765a6259b154d29fbe1049"
+      }
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration/error.rs",
+      "sha256": "9864f16e67033ea8f14d686f25f2b71c78ff6e8866be6f8459df6384c4c5b647",
+      "ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "actual_eof": 46,
+      "actual_read_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate008-registration-002.json",
+        "sha256": "984a6704610750b725c56f468fd0d2beb5c06100f0765a6259b154d29fbe1049"
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/camera/values.rs",
+      "sha256": "a2f64c5b11f5551f2c7baae14dcb819408c25c075a3594694b06cf7ab40f1eaa",
+      "ranges": [
+        [
+          1,
+          52
+        ]
+      ],
+      "actual_eof": 107,
+      "actual_read_ranges": [
+        [
+          1,
+          52
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate008-registration-002.json",
+        "sha256": "984a6704610750b725c56f468fd0d2beb5c06100f0765a6259b154d29fbe1049"
+      }
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+      "sha256": "b1645110395d62b1dab020f6328f9b3d3fde6cd3f64b88101d6c66d5e7d8b0e6",
+      "ranges": [
+        [
+          50,
+          64
+        ]
+      ],
+      "actual_eof": 2973,
+      "actual_read_ranges": [
+        [
+          50,
+          64
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate008-registration-002.json",
+        "sha256": "984a6704610750b725c56f468fd0d2beb5c06100f0765a6259b154d29fbe1049"
+      }
+    }
+  ],
+  "actual_patch_read": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate008-delta.patch",
+    "sha256": "ca3d742ea913e956e2c1f7a9b8dac5b3e761f1fad0a005aef5f1cc1fe4e42e86",
+    "ranges": [
+      [
+        1,
+        286
+      ]
+    ],
+    "qualification": "Entire Git readonly837-to008 actual6-file delta consumed after registration; no Git mutation. Includes every changed fixture constructor/import/error match."
+  },
+  "carried_unchanged_source_proof": {
+    "own_prior_review": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-review-002.json",
+      "sha256": "ad7af1201658f08ad9843766c1a959729a6938fcc717217be9180beb136d7cdc"
+    },
+    "exact_hash_equal_files": [
+      {
+        "path": ".github/workflows/rust-quality.yml",
+        "sha256": "850183741ff4a1b097b93fc6285055d135558894f5ebf9324b52031cb9aadfc4"
+      },
+      {
+        "path": "Cargo.lock",
+        "sha256": "58118b1b138af4f9feea993ea990dc334f63d30c4aa66f8b5597a0f1dfecfcf6"
+      },
+      {
+        "path": "content/tactical/combat.yaml",
+        "sha256": "e046a24787a8fe5b26e80d4808b7c00c37bfdfb6a886b67d4287119850a80b29"
+      },
+      {
+        "path": "crates/adventuresim-character-creator/Cargo.lock",
+        "sha256": "c1eedbdf2c145f30bb9da7cc8f8fd02fa22b7ee9d9cd821c49ac5a17c441da09"
+      },
+      {
+        "path": "crates/adventuresim-core/Cargo.toml",
+        "sha256": "e5e9c6ed987838be5b7fef72e25ba3e6b6e848bc84105c42f396fcdfd7d65f53"
+      },
+      {
+        "path": "crates/adventuresim-core/build.rs",
+        "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6"
+      },
+      {
+        "path": "crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+        "sha256": "06bfd3a023ac0c22751466720321fe796aba122f605d621f16ba56b318c712f8"
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+        "sha256": "12d4b4e5ed4ce3940c78b7ee4420ec94e5efa83776b14d60afdbf2ba0d501f5d"
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+        "sha256": "ae1dcc0043d5bd5a98744dfb43a3f172a259b3ac3b5e0fe0743c31b83e00327e"
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+        "sha256": "e54bd673db78d4b343707613e348b7d7fb4f74d34b8a454fefe73f426145a045"
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+        "sha256": "f26dc1059e4a9d133ac1fba9c80a1086753b20b54e5a5074dc8e557540cea67b"
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+        "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027"
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+        "sha256": "37a5dba433aa5219b544716053897df30d3df49662fb5fd38794130c1b803946"
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+        "sha256": "543ea955a72a4accf8550af44b35ad0a526fbcc6731bc5fb109ac38ceb609e17"
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+        "sha256": "b394bde991895d6328b6f9f2be24fcb6d51c5c00e7f7143316339c372b7b5089"
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+        "sha256": "ada76a964c72b64d6bd3671a8ca2bde134da787f339914cc2091bd7994fac722"
+      },
+      {
+        "path": "rust-quality-baseline.toml",
+        "sha256": "8da5ee46241fe574e76a0b67391c30e5287f90a228995456a39b15cf00701262"
+      }
+    ],
+    "qualification": "Prior personally consumed source/connected body proof, original review001 and narrow formatting/baseline reconciliation retained as recorded by review002. No fresh whole-file reading claim and no source coverage transfer from another agent. For6 changed files, unchanged portions reconciled by complete actual patch, new bodies separately read as listed."
+  },
+  "contract_review": [
+    {
+      "topic": "Signed speed addition and nonnegative interpolation admission",
+      "evidence": "linear_speed.rs67\u201370,160\u2013166,213\u2013218 at7c44bfdf7648e528853e2e1c4d823e32d7ce37ec9a6d01f3db8f59c5b1934313",
+      "verdict": "Correct scoped type result: Add<SignedSpeed> for NonnegativeSpeed returns SpeedResult<SignedSpeed>. Finite negative sums accepted, nonfinite sums map to Overflow (only signed constructor rejection is nonfinite). checked_lerp retains NonnegativeSpeed guarantee by explicit TryFrom<SignedSpeed> after checked sum; conversion admits finite nonnegative value and rejects negative, no clamp/default. Existing positive widening, signed difference/multiply, Ratio division/bounded TryFrom retained exactly. No raw application extraction or compatibility overload added."
+    },
+    {
+      "topic": "Typed endpoint-derived interval normalization",
+      "evidence": "unit_interval.rs13\u201320,43\u201360 atcfe4ee137e0df1f150fcee66caeab50f963b3bb36ee2ca518c0208e4f43ef5e1",
+      "verdict": "Existing UnitInterval owner owns clamped_inverse_lerp(Self,Self). Reject lower>=upper first, including invalid intervals whose value is outside; saturate exterior values to ZERO/ONE only for valid interval, compute interior ratio from actual endpoints within owner and re-admit. Finite distinct ordered unit endpoints provide positive finite span; checked admission protects result. No hardcoded reciprocal2, duplicate ratio type, ordered interval implementation or unchecked primitive API. Cubic remains fallible direct formula."
+    },
+    {
+      "topic": "Launch, contact, and procedural receiving chain",
+      "evidence": "evaluation.rs13,262\u2013334 at93bf8878500fe7902fc616643b4678bfbc4c8f091c94dcd68b2a42a6ccb377af; procedural/dive.rs9\u201324,32\u201382 atc31ca562d4c25d843f4f4841ca0663f461cfafd474a1571ae31908d99be9fcad",
+      "verdict": "Canonical contact UnitInterval::HALF remains single threshold. Launch now uses ZERO..contact normalization without unintended smoothing; contact uses contact..ONE then cubic. Both upper/lower bodies use typed branch comparison and same contact helper. Procedural DiveInfluence::from_phase takes admitted transition phase, same two typed spans, cubic then complement on release; wraps admitted UnitInterval directly in existing role-specific private owner. Old raw factor constructor, redundant phase clamp/readmission and primitive interval helper call removed. Only actual native angle/quaternion/slerp boundary extracts fraction. Existing warn/continue error handling retained. Current contact is strictly inside interval, so both actual spans valid; no new configurable contact aggregate or arbitrary bound policy."
+    },
+    {
+      "topic": "Errors, derives and all reached result wrappers",
+      "evidence": "FractionError derive and newvariant; value_error.rs217\u2013227 atb2c7bc9609b8deb810b4c586a09fdf8186b60803f648009fc3ff74931b2df113; newly registered unchanged receivers",
+      "verdict": "FractionError now derives thiserror::Error, removing handwritten Display/Error rather than extending boilerplate. NonIncreasingBounds maps to existing AnimationValueError::NonIncreasingBounds with UnitInterval quantity. SpeedError retains Fraction payload; BattleResolutionError, MeleeIterationError, CameraError wrap FractionError transparently. No exhaustive receiving match omitted among located source consumers. Existing normal/build thiserror dependencies cover canonical separate build target; no new manifest or lock change in008."
+    },
+    {
+      "topic": "Imports, module/owner fit and native scope",
+      "evidence": "procedural.rs1\u201368 at815bfd27404840b0d69f337719c882adf65fea894e48a769670a582eb42faf1b; ik/mod.rs50\u201364 unchangedhashb1645110395d62b1dab020f6328f9b3d3fde6cd3f64b88101d6c66d5e7d8b0e6",
+      "verdict": "Parent smoothstep import used by removed raw dive path removed; actual IK owner independently imports/reexports its terrain helper. Metadata search shows remaining raw smoothstep uses inside IK subtree; no need to retain unused parent import or migrate unrelated IK callers here. Canonical existing leaf methods and role-local DiveInfluence phase producer avoid forwarding helpers or duplicate owners."
+    },
+    {
+      "topic": "FullPR propagation/configuration/dependencies/workflow carried unchanged",
+      "evidence": "17 exact files equal accepted007; prior review002 with own full delta and connected contract reads",
+      "verdict": "Required PositiveLength zero-speed stride in canonical YAML and config/runtime/snapshot/distance receivers, all7 speed widening ports, four run producers, typed length/cycle/bounce/flight/height/BlendWeight propagation, Ratio bounded conversion/native boundaries, shared cubic removal and existing production contact pair correction remain source-accounted as qualified by prior receipts. Existing normal+build math dependencies and root/creator lock additions unchanged. Workflow exact2 YAML trigger additions preserve prior gate bytes as proven002; no new workflow change in008."
+    },
+    {
+      "topic": "No tests or compatibility paths introduced",
+      "evidence": "Complete286-line patch and full147-line dive.rs including existing tests",
+      "verdict": "Only existing test fixtures replace removed raw factor constructor with private DiveInfluence(UnitInterval::ONE/ZERO); same three functions, cases/assertions, no added helper/test/doctest/assertion. Production-only from_phase is not a test helper. No legacy factor API/forwarder/migration/fallback/raw overload or preservation of old malformed-input behavior. No source edits by reviewer."
+    }
+  ],
+  "comment_dispositions": [
+    {
+      "comment": 4387031655,
+      "disposition": "Source repair complete across both old2multipliers plus directly connected procedural launch/release, not just reported contact line."
+    },
+    {
+      "comment": 4387152319,
+      "disposition": "Signed result accepted; checked_lerp explicit narrowing source-complete."
+    },
+    {
+      "comment": 4387198654,
+      "disposition": "Ordered interval type explicitly out of scope and not implemented. Bounded deferred role candidates documented discovery001 only; no exhaustive opportunities count, accepted unique claim or broader audit credit."
+    }
+  ],
+  "resolved_prior_finding": {
+    "id": "RR-M04-20261027-001",
+    "disposition": "Remains resolved in exact unchanged evaluation/locomotion hash; typed contact progress and complement widening retained."
+  },
+  "actionable_findings": [],
+  "baseline_and_validation": {
+    "baseline_sha256": "8da5ee46241fe574e76a0b67391c30e5287f90a228995456a39b15cf00701262",
+    "baseline_state": "Unchanged prior exact hosted-backed reductions only; further relevant reductions require new hosted export, no guessed counts or ceiling growth accepted.",
+    "pending": [
+      "Root bind/publish candidate008 exact source commit as applicable.",
+      "Hosted format/build/Clippy/existing gates and required positive artifacts for final source.",
+      "Read latest applicable hosted baseline export, apply only relevant reductions, then final same-head full CI after resulting commit if necessary."
+    ],
+    "checks_or_tests_run": [],
+    "no_local_project_execution": true
+  },
+  "coverage_limits": [
+    "Fresh reads/registrations are exact bounded bodies, full diff286 and prior own hash-equal proof; metadata searches do not confer body coverage.",
+    "Review does not prove every Ratio instance finite/bounded, cubic arithmetic infallible/bitwise same, all native numeric kernels correct, all IK interpolation ordered, all error populations complete or broad frozen/current audit complete.",
+    "No global038/lens11 discovery count or accepted unique finding/alias change. M03 related runtime policy owner and M09 unrelated concern retain prior qualified statuses.",
+    "Root sole product/Git/ledger writer. No product edits/Git mutations/root-ledger/history writes/publication or project commands; only ignored append-only evidence."
+  ],
+  "overall_source_verdict": "Source-only approved candidate008 full23-file scope with exact retained qualifications; no unresolved actionable source-rule finding. Current-head hosted baseline/full acceptance pending.",
+  "root_adoption_required": true
+}

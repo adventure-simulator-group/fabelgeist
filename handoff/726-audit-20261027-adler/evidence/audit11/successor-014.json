@@ -1,0 +1,30 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-014",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 410,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/main.rs",
+      "sha256": "0fd91dac25a4b0b05eb65c51f7aa7bc5740bd0de5adff082320dd247d83b2444",
+      "ranges": [
+        [
+          1,
+          726
+        ]
+      ],
+      "source_basis": "Fresh root full exact frozen physicalP16 main in four bounded windows; earlier partial preserved.",
+      "concepts_actual_uses_and_mixup": [
+        "Mission identity, tactical claim, scene key/source, URL/module, listen socket, party/objective counts and native/debug mode have separate authority/representation roles at CLI and startup boundaries. Native socket is not automatically identical to the observed bound/advertised endpoint; Q003 qualified pending actual receivers.",
+        "StartupInputs groups checked scene+combat snapshots before app construction. Optional timeout, no_timeout flag and reconnect duration represent different policies; older rawf32 CLI is not silently restored over any newer typed canonical owner, and no current-main regression inferred here.",
+        "Live strategic registration/enrollment differs from standalone world-dump authority; standalone bypasses STDB and uses local reflected tactical state. Simulated positions/terrain/condition state remain Bevy entities/resources in this body. Final reducer call registers mission claim/address, not per-tick position/damage. Imported module bodies are not coverage.",
+        "World dump entity mapping preserves owner/item references and derived inventory association, which are not interchangeable display/catalog IDs. Reflective loader and optional asset adapter contract retain separate raw-import admission obligations; allowlisted authoring does not prove arbitrary dump inputs valid.",
+        "Original dump tests personally read, including native IDs/relationships and explicit remapping checks; not executed. Declared child test modules are not credited as body reads."
+      ],
+      "disposition": "Retain meaningful authority, time/count, endpoint observation, scene-state and entity-association distinctions. Save Q003 pending source contract trace, no new unique finding or runtime/publication claim. Existing raw dump/graph admission and live/standalone obligations remain open.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

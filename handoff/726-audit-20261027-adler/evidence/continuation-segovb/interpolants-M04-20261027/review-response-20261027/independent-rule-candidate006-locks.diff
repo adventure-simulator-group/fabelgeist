@@ -1,0 +1,24 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index 2b3248115..e1205c6dc 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -184,6 +184,7 @@ dependencies = [
+  "enumflags2",
+  "fabelgeist-determinism",
+  "fabelgeist-geometry",
++ "fabelgeist-math",
+  "serde",
+  "serde-saphyr",
+  "serde_json",
+diff --git a/crates/adventuresim-character-creator/Cargo.lock b/crates/adventuresim-character-creator/Cargo.lock
+index 8cad91a4a..e2a78f0ba 100644
+--- a/crates/adventuresim-character-creator/Cargo.lock
++++ b/crates/adventuresim-character-creator/Cargo.lock
+@@ -172,6 +172,7 @@ dependencies = [
+  "enumflags2",
+  "fabelgeist-determinism",
+  "fabelgeist-geometry",
++ "fabelgeist-math",
+  "serde",
+  "serde-saphyr",
+  "serde_json",

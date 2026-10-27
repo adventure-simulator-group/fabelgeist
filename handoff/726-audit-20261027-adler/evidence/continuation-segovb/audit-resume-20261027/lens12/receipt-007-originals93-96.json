@@ -1,0 +1,489 @@
+{
+  "schema": "lens12-source-discovery-receipt-v1",
+  "id": "L12-RESUME-007",
+  "created_utc": "2026-10-27T11:00:48.756850+00:00",
+  "predecessor": "receipt-006-originals90-92.json",
+  "prospective_manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens12/prospective-sources-001.jsonl",
+    "sha256_prefix": "830434923571f9135686cea6210885f7793c6d0da3370df35dad453861de60c9",
+    "bytes_prefix": 58694
+  },
+  "source_reads": [
+    {
+      "original_index": 93,
+      "source_id": "physical-p16:crates/adventuresim-core/src/disease.rs",
+      "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+      "registered_scope_consumed": [
+        [
+          1,
+          60
+        ],
+        [
+          127,
+          205
+        ],
+        [
+          345,
+          353
+        ],
+        [
+          390,
+          510
+        ],
+        [
+          930,
+          1405
+        ],
+        [
+          1510,
+          1530
+        ],
+        [
+          1556,
+          1619
+        ],
+        [
+          1723,
+          1837
+        ],
+        [
+          2093,
+          2160
+        ],
+        [
+          2214,
+          2271
+        ]
+      ],
+      "actual_material_extension_ranges": [
+        [
+          61,
+          126
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              51,
+              72
+            ]
+          ],
+          "occurrences": 17,
+          "role": "Symptom.period_label rawtext presentation projection",
+          "disposition": "canonical Symptom enum retained, mapping17 human symptom labels; actualfinalconsumer not read/committedgrep only navigation foundnone. Preserve explicit untracedtextconsumer/ownerfit ratherthan globalnativeboundaryclaim."
+        },
+        {
+          "ranges": [
+            [
+              182,
+              200
+            ],
+            [
+              985,
+              1263
+            ],
+            [
+              1282,
+              1318
+            ]
+          ],
+          "occurrences": 24,
+          "role": "12 disease periodnames/12 contagion explanations passedconstd->retainedDiseaseDefinition",
+          "disposition": "source humantext data roles separate from canonical DiseaseId/TransmissionVector fields, not blanketcatalogexemption. Actual periodname receiver193:622-628 copies intoBackendPhysiologyDifferential.label.String; eventualUIserialization notconsumed here. Contagion consumer untraced; do notinfer stringsdrive/no-drive simulation from unusedsearch."
+        },
+        {
+          "lines": [
+            1280,
+            1377
+          ],
+          "occurrences": 2,
+          "role": "lint rationale",
+          "disposition": "compilerattribute text boundary"
+        },
+        {
+          "ranges": [
+            [
+              1341,
+              1348
+            ],
+            [
+              1379,
+              1402
+            ]
+          ],
+          "occurrences": 2,
+          "role": "typed StreamId purpose disease.outbreak-exposure1344; rawoutbreak_id&str1341/1381; format outbreak_id:at1390 toseed",
+          "disposition": "finding: rawsemantic outbreak identity and minute collapsed into applicationformattedkey before native Seed.derive. Exactnative seedframing2531 own006 consumed, outbreak keyproducer/outercaller notfullyread; retain canonicaloutbreakID plus StrategicMinute untilbytekernel, frame fields/numericbytes; no collisionclaim or oldoutputcompatcondition."
+        },
+        {
+          "ranges": [
+            [
+              1723,
+              1837
+            ],
+            [
+              2093,
+              2160
+            ],
+            [
+              2214,
+              2271
+            ]
+          ],
+          "occurrences": 3,
+          "role": "3 disease.affected-limb StreamId literals2230/2246/2264; resttypedDiseaseId/Meter/BodyRegion/episodefields",
+          "disposition": "existing StreamId owner retained atactual native randompurpose call, IDnumericcontext passedtyped/native; no rawStringstate in these ranges. Remaining mathematicalcurve/physiologyhelpers notread =>no other-lens/numericalclearance."
+        }
+      ],
+      "status": "source-accounted with findings/qualified untraced contracts; 93notwhole3842"
+    },
+    {
+      "original_index": 94,
+      "source_id": "physical-p16:crates/adventuresim-core/src/disease/identity.rs",
+      "sha256": "bbf3c7a20b95f217815f48c7e830dc75efab9ecf9d7e52a79fd4ad86324388af",
+      "registered_scope_consumed": [
+        [
+          1,
+          132
+        ]
+      ],
+      "actual_material_extension_ranges": [],
+      "roles": [
+        {
+          "lines": [
+            9
+          ],
+          "occurrences": 1,
+          "role": "serde snake_case",
+          "disposition": "derive serializer boundary"
+        },
+        {
+          "ranges": [
+            [
+              25,
+              62
+            ]
+          ],
+          "occurrences": 24,
+          "role": "12 stable_id snakecase and12 stable_variant_id Rustspellings asrawreturns",
+          "disposition": "source-backed duplicate projection table/late stringification candidate: canonicalDiseaseId alreadyowns vocabulary; stable_id actual persistence/differentialDTO623/2343/2384 used, stable_variant_id actual cut/standingcut formattedseed2337/2378. Historicalvariantspelling rationale44-45 gives no userrequirement (noBC); carry DiseaseId/native canonicalcoordinate untilhash/storageboundary, remove unnecessary secondtable ifonlyhistoricaloutput motive. Rolefit acrossothercallers stillpending; no claimall uses obsolete."
+        },
+        {
+          "lines": [
+            70
+          ],
+          "occurrences": 1,
+          "role": "ParseDiseaseIdError humanDisplay",
+          "disposition": "formatter.write_str native text boundary; typederror propagated byFromStr76-83; serdeenumgrammar reused, no independent inverse Stringtable"
+        },
+        {
+          "ranges": [
+            [
+              90,
+              132
+            ]
+          ],
+          "occurrences": 13,
+          "role": "10invalid parserliteral106-116, validkey120,2expectedvariantstrings125/126; serializefromString96",
+          "disposition": "actual parser/serializer boundary test inputs and expectedvalues, sourceonlyread. Historicalspelling testexpectations not BC constraint or execution evidence."
+        }
+      ],
+      "status": "source-accounted with findings/qualified untraced contracts; 93notwhole3842"
+    },
+    {
+      "original_index": 95,
+      "source_id": "physical-p16:crates/adventuresim-core/src/durability.rs",
+      "sha256": "7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
+      "registered_scope_consumed": [
+        [
+          1,
+          454
+        ]
+      ],
+      "actual_material_extension_ranges": [],
+      "roles": [
+        {
+          "ranges": [
+            [
+              26,
+              51
+            ]
+          ],
+          "occurrences": 6,
+          "role": "RepairService parse3tokens and as_str3tokens",
+          "disposition": "canonical enum alreadypreserves servicekind internally/matches typedRepairItemKind; exactactualouterparse/stringprojection consumers not read, pendingboundaryqualification ratherthan allAPIsallowed."
+        },
+        {
+          "ranges": [
+            [
+              94,
+              113
+            ]
+          ],
+          "occurrences": 1,
+          "role": "bounded_durable_change raw&staticstr error97; escrow expected/actual item&str109-110 equality112",
+          "disposition": "findings: internal semantic quantityfailure rawstringResult and catalogID equality asrawtext. Reuse typedquantityvalidationerror+proper canonicalcatalogID oncealiases/callersresolved; native message template atDisplay aftertypedtransport. No fixture/private exception."
+        },
+        {
+          "ranges": [
+            [
+              283,
+              300
+            ]
+          ],
+          "occurrences": 7,
+          "role": "RepairService parse/serializer matchingtests285-287/296-299",
+          "disposition": "direct canonical parser/projection boundary examples; no actualoutercallercoveragetransfer"
+        },
+        {
+          "ranges": [
+            [
+              441,
+              447
+            ]
+          ],
+          "occurrences": 8,
+          "role": "sword/axe escrow identity fixturekeys",
+          "disposition": "semanticequality inputs toactualbody112, same raw itemID family, no humantext exemption."
+        }
+      ],
+      "status": "source-accounted with findings/qualified untraced contracts; 93notwhole3842"
+    },
+    {
+      "original_index": 96,
+      "source_id": "physical-p16:crates/adventuresim-core/src/elapsed.rs",
+      "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "registered_scope_consumed": [
+        [
+          1,
+          131
+        ]
+      ],
+      "actual_material_extension_ranges": [],
+      "roles": [
+        {
+          "lines": [
+            11
+          ],
+          "occurrences": 2,
+          "role": "serde f32 try_from/into type tokens",
+          "disposition": "derive boundary with actual constructor/TryFrom/From bodies28-35/100-111 consumed"
+        },
+        {
+          "ranges": [
+            [
+              119,
+              131
+            ]
+          ],
+          "occurrences": 6,
+          "role": "6 typedElapsedError Display messages122-127",
+          "disposition": "concreteformatter.write_str final text boundary; error remains enum through numericalAPI. Full131 body no otherrawstrings/stringfields/APIs; no nativeDurationimplementation/numericinvariant/derive-lens clearance."
+        }
+      ],
+      "status": "source-accounted with findings/qualified untraced contracts; 93notwhole3842"
+    }
+  ],
+  "actual_material_receivers": [
+    {
+      "source_id": "physical-p16-unchanged-receiver:crates/adventuresim-core/src/disease/entropy.rs",
+      "sha256": "10eb46750c66da9cd03f116270ab91b4a1acad817e28333ac2fca342773e3bd8",
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "provenance": "exacta120 readonlygitbytes; pathabsentfullfrozenphysical159dirty; no current/prworkingalias",
+      "trace": "2 StreamId purpose literals5/20 immediatelyadmittedcanonicalowner; typedDiseaseId->numericalcontext8, StrategicMinute.get23 fixedwidth viaactualStreamId.seed; no speculativewire/enumordinal stabilityrequirement"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease.rs",
+      "sha256": "c001a52a7bb957260ae3914ca056d847292760b5911984791143b8a4a1ede2e5",
+      "ranges": [
+        [
+          140,
+          170
+        ],
+        [
+          600,
+          642
+        ],
+        [
+          2325,
+          2348
+        ],
+        [
+          2365,
+          2390
+        ]
+      ],
+      "trace": "DiseaseId stable_id gets String-erased before retainedDTO andlexicalsort635; periodname humanDTOlabel624; stable_variant in formatted cut/standingcutseed keys2337/2378 andstoragekey2343/2384. RetainedDTO SpacetimeType isactualschemaowner, underlyingserde/nativeAPIimplementation notclaimed. Otherhelpers/functionspanningbodies beyondranges notcleared."
+    }
+  ],
+  "findings": [
+    {
+      "family": "inherited rawidentity/seed and duplicate identityprojectionaliases",
+      "sources": [
+        "93:1341-1402",
+        "94:25-62",
+        "193:622-635,2333-2348,2374-2390",
+        "95:106-113"
+      ],
+      "remedy": "canonicalDiseaseId/outbreak/itemID through app APIs/retainedDTO and native seedcontext, separate actual text/display schemaadapters; collapse obsoletehistoricalspellingonlyauthority afterallactualcallersreviewed; noBC motivation",
+      "limits": "no runtime/collisionclaim/currentcomparison; canonicaloutbreakID/itemowner andingress unresolved; source-discoveredrolewithfinding ratherthan blockedcount",
+      "unique_delta": 0
+    },
+    {
+      "family": "rawinternalquantityerrortransport",
+      "source": "95:94-104",
+      "remedy": "canonicaltyped validationerror untilactualdiagnostic boundary; outercaller remains pending",
+      "unique_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Symptomperiod_label/contagion actualfinaltextconsumers; DiseaseDefinition humanlabelDTO finalrecipient notread.",
+    "Disease stable_id/projection and outbreakkey actualouterproducers/callers beyondprecise193 excerpts; allother IDs/rejectedinput/membergrammar rolesqualify.",
+    "RepairService.parse/as_str actualoutercaller andbounded_durable_change errorrecipient notread.",
+    "Mathematical/nonnativestring dependencies of93 scopedcurves/physiology notexpanded; other-lens obligationsremain."
+  ],
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/disease.rs",
+      "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+      "ranges": [
+        [
+          1,
+          60
+        ],
+        [
+          127,
+          205
+        ],
+        [
+          345,
+          353
+        ],
+        [
+          390,
+          510
+        ],
+        [
+          930,
+          1405
+        ],
+        [
+          1510,
+          1530
+        ],
+        [
+          1556,
+          1619
+        ],
+        [
+          1723,
+          1837
+        ],
+        [
+          2093,
+          2160
+        ],
+        [
+          2214,
+          2271
+        ]
+      ],
+      "coverage": "ownlens12 only; fullactualextensionspreserved separately; allapplicableotherlensesmandatory"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/disease/identity.rs",
+      "sha256": "bbf3c7a20b95f217815f48c7e830dc75efab9ecf9d7e52a79fd4ad86324388af",
+      "ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "coverage": "ownlens12 only; fullactualextensionspreserved separately; allapplicableotherlensesmandatory"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/durability.rs",
+      "sha256": "7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
+      "ranges": [
+        [
+          1,
+          454
+        ]
+      ],
+      "coverage": "ownlens12 only; fullactualextensionspreserved separately; allapplicableotherlensesmandatory"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/elapsed.rs",
+      "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "coverage": "ownlens12 only; fullactualextensionspreserved separately; allapplicableotherlensesmandatory"
+    },
+    {
+      "source_id": "physical-p16-unchanged-receiver:crates/adventuresim-core/src/disease/entropy.rs",
+      "sha256": "10eb46750c66da9cd03f116270ab91b4a1acad817e28333ac2fca342773e3bd8",
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "coverage": "ownlens12 only; fullactualextensionspreserved separately; allapplicableotherlensesmandatory"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease.rs",
+      "sha256": "c001a52a7bb957260ae3914ca056d847292760b5911984791143b8a4a1ede2e5",
+      "ranges": [
+        [
+          140,
+          170
+        ],
+        [
+          600,
+          642
+        ],
+        [
+          2325,
+          2348
+        ],
+        [
+          2365,
+          2390
+        ]
+      ],
+      "coverage": "ownlens12 only; fullactualextensionspreserved separately; allapplicableotherlensesmandatory"
+    }
+  ],
+  "qualifications": [
+    "All original2853/overlay246/merged38/material196/newextensions separate; no otherpopulationcountsadvanced.",
+    "All20/P16/P17/currentness/inheritedalias/uniquecount qualificationspreserved; no globalclearance.",
+    "Physicalfrozen exactf82 bytes; unchangedentropy exacta120 provenance; no currenttreealias.",
+    "Userforbidsbackcompat: old wire/message/seedspellings not acceptanceconstraints.",
+    "No projectexecution/tests/probes/newtests/source/Gitmutations/rootledger/publication."
+  ],
+  "proposed_count": {
+    "before": 93,
+    "after": 97,
+    "indices_completed": [
+      93,
+      94,
+      95,
+      96
+    ],
+    "next_original": 97,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  }
+}

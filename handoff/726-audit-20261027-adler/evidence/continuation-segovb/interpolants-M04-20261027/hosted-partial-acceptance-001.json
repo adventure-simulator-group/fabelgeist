@@ -1,0 +1,200 @@
+{
+  "at": "2026-10-27T05:11:02.776462+00:00",
+  "head": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+  "run": 40452560923,
+  "accepted_partial": true,
+  "full_hosted_acceptance": false,
+  "artifacts": [
+    {
+      "id": 12711931254,
+      "zip": "windows-df5-001.zip",
+      "sha256": "1126b55ca9b6c82714a7189979c42c963029477475d3edf46d42c6bab356b043",
+      "reported_digest_matches": true,
+      "members": [
+        {
+          "name": "prepared-impostors.log",
+          "sha256": "61eba7cb6506dd70742e74cf4c5b4d58018a4c57c28acdb460d9ad9f6e24f104",
+          "bytes": 514
+        },
+        {
+          "name": "envelope.log",
+          "sha256": "7921d2aea09e3ced32ea7d578426764329aa3ce7275260af74a172cf1073741f",
+          "bytes": 402
+        },
+        {
+          "name": "leaves.log",
+          "sha256": "92bbb4f495af1da5fcba439503711417c52b65f83c9c0c858dfaa9c2018ee785",
+          "bytes": 937
+        },
+        {
+          "name": "revision.txt",
+          "sha256": "a097b06c8b58e1b9f4f2d81b72dbb41c22a9baacf6746db5affd13457b8e1848",
+          "bytes": 41
+        },
+        {
+          "name": "sampling.log",
+          "sha256": "bb62742e553b92c06b12f662b795d8626c99b23e77c00ecdbc34bd6bd74cb2d9",
+          "bytes": 432
+        },
+        {
+          "name": "understory.log",
+          "sha256": "2e1bab28b77b2b9d2209288be18ee923395bb51a33e093e7bf0cf3bb1f3c9b58",
+          "bytes": 4295
+        }
+      ],
+      "raw_test_results": {
+        "prepared-impostors.log": {
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        "envelope.log": {
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        "leaves.log": {
+          "passed": 5,
+          "failed": 0,
+          "ignored": 0
+        },
+        "sampling.log": {
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        "understory.log": {
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        }
+      }
+    },
+    {
+      "id": 12711156898,
+      "zip": "texture-df5-001.zip",
+      "sha256": "eba4f10be43e49afcebdea4b72845fe3440bcced7920f0b329f5b385c8180056",
+      "reported_digest_matches": true,
+      "members": [
+        {
+          "name": "borrowed.command.txt",
+          "sha256": "ac753c838d8ff9782d898b9dfb0a3e82479a4354d34cdde1447a3d82fba19c5b",
+          "bytes": 165
+        },
+        {
+          "name": "doctests.command.txt",
+          "sha256": "d6ab4cb9f496a0d1838a8455caa4f86b1e8bad8d301558033e24cb7fcdf7f154",
+          "bytes": 51
+        },
+        {
+          "name": "borrowed.log",
+          "sha256": "33da59c414bf02f8042a9931705fd862d490802b63637d092c4ad5c1c581d4e7",
+          "bytes": 521
+        },
+        {
+          "name": "doctests.log",
+          "sha256": "b81568c31f67ddfe814dd51630c5636955bc776b3fb38b4d37c8a3784f696ced",
+          "bytes": 596
+        },
+        {
+          "name": "library.command.txt",
+          "sha256": "db18db08c53fe13e1b5f758450500af3bf7f0ad70b06caab2c65882d62bd205d",
+          "bytes": 83
+        },
+        {
+          "name": "library.log",
+          "sha256": "57c39de99c971a82c6859ed77d9d97e8b4ffbab7463c6d01336add8d30b6ad77",
+          "bytes": 2206
+        },
+        {
+          "name": "pr-head.txt",
+          "sha256": "a097b06c8b58e1b9f4f2d81b72dbb41c22a9baacf6746db5affd13457b8e1848",
+          "bytes": 41
+        },
+        {
+          "name": "results.json",
+          "sha256": "4263d56b0b28aec8c3e88221d15456495587e6c07495183b9b442b8293caa538",
+          "bytes": 324
+        },
+        {
+          "name": "rust-quality-baseline.toml",
+          "sha256": "bdf6580dab45e25f9de25a94f2e5b1888f1b316b2104b028b64b98d9f671481f",
+          "bytes": 331711
+        },
+        {
+          "name": "source.txt",
+          "sha256": "a097b06c8b58e1b9f4f2d81b72dbb41c22a9baacf6746db5affd13457b8e1848",
+          "bytes": 41
+        }
+      ],
+      "raw_test_results": {
+        "borrowed.log": {
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        "doctests.log": {
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        "library.log": {
+          "passed": 13,
+          "failed": 0,
+          "ignored": 0
+        }
+      }
+    }
+  ],
+  "baseline": {
+    "committed_sha256": "8ccab96e129e4b873ed3f8ae3841afd6bf7cfa59809b69cbed46ec41855b171e",
+    "exported_sha256": "bdf6580dab45e25f9de25a94f2e5b1888f1b316b2104b028b64b98d9f671481f",
+    "whole_sha_equal": false,
+    "relevant_entries": {
+      "files": {
+        "committed": [],
+        "exported": [],
+        "equal": true
+      },
+      "functions": {
+        "committed": [
+          {
+            "path": "crates/adventuresim-core/build.rs",
+            "item": "compile_organizations",
+            "ceiling": 118
+          }
+        ],
+        "exported": [
+          {
+            "path": "crates/adventuresim-core/build.rs",
+            "item": "compile_organizations",
+            "ceiling": 118
+          }
+        ],
+        "equal": true
+      },
+      "findings": {
+        "committed": [
+          {
+            "rule": "raw-string-branch",
+            "path": "crates/adventuresim-core/build.rs",
+            "item": "compile_road_encounters",
+            "fingerprint": "string:items",
+            "occurrences": 1
+          }
+        ],
+        "exported": [
+          {
+            "rule": "raw-string-branch",
+            "path": "crates/adventuresim-core/build.rs",
+            "item": "compile_road_encounters",
+            "fingerprint": "string:items",
+            "occurrences": 1
+          }
+        ],
+        "equal": true
+      }
+    },
+    "disposition": "Exact changed8path relevant entries unchanged: no reductions or ceiling changes required. Whole baseline equality not assumed/claimed."
+  }
+}

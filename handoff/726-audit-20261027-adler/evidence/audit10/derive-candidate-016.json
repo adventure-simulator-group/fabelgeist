@@ -1,0 +1,14 @@
+{
+ "id":"OWN10-DERIVE-CANDIDATE-016",
+ "classification":"Qualified mechanical Default suggestion; current values correct; global remedy dedup pending",
+ "revision":"6533e444fa37552927070cc8d8190907fd3b413e",
+ "scope_index":2389,
+ "path":"crates/strategic-web/src/spacetimedb/types.rs",
+ "ranges":[[302,400],[980,1025]],
+ "equivalence":"Every CatalogItemView default field is its type Default: empty strings/vectors/options, zero numeric and false booleans; preferred_melee_style/weapon_skills already call Default explicitly. Fresh exact same-revision Slot446-467 marks None default and CatalogItemKind1-22 marks Simple default. Non-generic struct introduces no new bounds.",
+ "connected_repair":"Add built-in Default derive to CatalogItemView and remove only its manual Default body. Keep all fields, visibility, native generated-row conversions and semantic shape selection unchanged. No new dependency, tests, fields, constructors or serialization API.",
+ "support":"catalog-item-default-support.json pins two personally read frozen type declaration ranges; no added original/material coverage or prior-lens credit.",
+ "acceptance":"After exhaustive own10 pass/global remedy dedup and latest owner version comparison, existing fixture construction/features must retain identical default data. No checks run.",
+ "new_unique_finding":false,
+ "clear":false
+}

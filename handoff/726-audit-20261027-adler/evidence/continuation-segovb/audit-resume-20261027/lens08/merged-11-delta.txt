@@ -1,0 +1,18 @@
+--- base
+
++++ head
+
+@@ -92,11 +92,11 @@
+
+                 let (joint, _) = joints
+                     .iter()
+                     .zip(weights)
+                     .max_by(|a, b| a.1.total_cmp(b.1))
+                     .expect("skin influences are never empty");
+-                parts.get(*joint as usize).copied().unwrap_or(true)
++                parts.get(usize::from(*joint)).copied().unwrap_or(true)
+             })
+             .collect();
+         Self {
+             body: fabelgeist_bvh::TriangleBvh::new(
+                 input.positions.iter().copied().map(vector).collect(),

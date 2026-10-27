@@ -1,0 +1,224 @@
+//! Mission status templates
+
+use maud::{Markup, html};
+
+use super::{StatusBadgeTone, mission_layout, panel, sidebar_section, status_badge};
+use crate::spacetimedb::{MissionServerView, MissionStatus};
+
+/// Mission status page updated by the shared strategic SSE stream.
+pub fn mission_status_page(server: &MissionServerView, logged_in_as: Option<&str>) -> Markup {
+    let status = server.status;
+
+    let content = html! {
+        aside class="left-sidebar" {
+            (sidebar_section("Mission", html! {
+                div class="flex flex-col gap-sm" {
+                    div {
+                        span class="detail-label" { "Status" }
+                        div { (status_badge(status.label(), mission_status_badge_tone(status))) }
+                    }
+                }
+            }))
+        }
+
+        main class="center-content" {
+            h2 class="page-title" { "Mission Status" }
+
+            div # "mission-status"
+                data-live-refresh
+                "data-on:strategic-live-update"=(format!("@get('/missions/{}/status?fragment=true')", server.mission_id)) {
+                @match status {
+                    MissionStatus::Ready => { (ready_state(server)) }
+                    MissionStatus::Failed => { (failed_state()) }
+                    MissionStatus::Ended => { (ended_state()) }
+                    MissionStatus::Pending => { (pending_state(&server.mission_id)) }
+                }
+            }
+        }
+
+        aside class="right-sidebar" {
+            (sidebar_section("Details", html! {
+                details class="mission-diagnostics" {
+                    summary { "Technical details" }
+                    div class="flex flex-col gap-sm" {
+                        div {
+                            span class="detail-label" { "Mission ID" }
+                            p class="detail-value cert-digest" { (server.mission_id) }
+                        }
+                        div {
+                            span class="detail-label" { "Scene" }
+                            p class="detail-value" { (server.scene_key) }
+                        }
+                        @if status == MissionStatus::Ready {
+                            div {
+                                span class="detail-label" { "Server" }
+                                p class="detail-value" style="font-size:var(--font-size-xs)" { (server.addr) }
+                            }
+                            @if !server.cert_digest.is_empty() {
+                                div {
+                                    span class="detail-label" { "Certificate" }
+                                    p class="detail-value cert-digest" { (server.cert_digest) }
+                                }
+                            }
+                        }
+                    }
+                }
+            }))
+        }
+    };
+
+    mission_layout("Mission Status", content, logged_in_as)
+}
+
+const fn mission_status_badge_tone(status: MissionStatus) -> StatusBadgeTone {
+    match status {
+        MissionStatus::Ready => StatusBadgeTone::Success,
+        MissionStatus::Pending => StatusBadgeTone::Warning,
+        MissionStatus::Failed => StatusBadgeTone::Danger,
+        MissionStatus::Ended => StatusBadgeTone::Info,
+    }
+}
+
+fn pending_state(mission_id: &str) -> Markup {
+    html! {
+        (panel("Waiting", html! {
+            div {
+                div class="status-message" {
+                div class="loading-spinner" { "Allocating server" }
+                p class="status-detail mt-1" {
+                        "This page will update automatically when the mission is ready."
+                    }
+                }
+            }
+        }))
+        (cancel_button(mission_id))
+    }
+}
+
+fn failed_state() -> Markup {
+    html! {
+        (panel("Mission Failed", html! {
+            div class="status-message" {
+                p class="text-danger" style="font-weight:600" { "Mission failed." }
+                a href="/" class="btn btn-primary mt-2" {
+                    "Return Home"
+                }
+            }
+        }))
+    }
+}
+
+fn ready_state(server: &MissionServerView) -> Markup {
+    html! {
+        (panel("Server Ready", html! {
+            div class="status-message success" {
+                p class="text-success" style="font-weight:700;font-size:var(--font-size-lg)" {
+                    "Your tactical server is ready!"
+                }
+                div class="connection-info mt-2" {
+                    div class="detail-row" {
+                        span class="detail-label" { "Server Address" }
+                        span class="detail-value" { (server.addr) }
+                    }
+                    @if !server.cert_digest.is_empty() {
+                        div class="detail-row" {
+                            span class="detail-label" { "Certificate" }
+                            span class="detail-value cert-digest" { (server.cert_digest) }
+                        }
+                    }
+                }
+                @if let Some(character_id) = server.character_id {
+                    a href=(format!("/tactical/tactical.html?server={}&id={character_id}&autostart=1", server.addr))
+                        class="btn btn-primary btn-large btn-block mt-2"
+                        data-persistent-tactical
+                        data-server-addr=(&server.addr)
+                        data-character-id=(character_id)
+                    {
+                        "Connect to Mission"
+                    }
+                } @else {
+                    p class="text-danger" { "Mission enrollment is unavailable." }
+                }
+            }
+        }))
+    }
+}
+
+fn ended_state() -> Markup {
+    html! {
+        (panel("Mission Complete", html! {
+            div class="status-message" {
+                p { "This mission has ended." }
+                a href="/" class="btn btn-primary mt-1" {
+                    "Return Home"
+                }
+            }
+        }))
+    }
+}
+
+fn cancel_button(mission_id: &str) -> Markup {
+    html! {
+        div class="mt-2" {
+            form method="post" action=(format!("/missions/{}/cancel", mission_id)) {
+                button type="submit" class="btn btn-danger" {
+                    "Cancel Mission"
+                }
+            }
+        }
+    }
+}
+
+/// Fragment for Datastar polling updates
+pub fn mission_status_fragment(server: &MissionServerView) -> Markup {
+    let status = server.status;
+
+    html! {
+        div # "mission-status"
+            data-live-refresh
+            "data-on:strategic-live-update"=(format!("@get('/missions/{}/status?fragment=true')", server.mission_id)) {
+            @match status {
+                MissionStatus::Ready => { (ready_state(server)) }
+                MissionStatus::Failed => { (failed_state()) }
+                MissionStatus::Ended => { (ended_state()) }
+                MissionStatus::Pending => { (pending_state(&server.mission_id)) }
+            }
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{mission_status_badge_tone, pending_state};
+    use crate::spacetimedb::MissionStatus;
+    use crate::templates::StatusBadgeTone;
+
+    #[test]
+    fn pending_status_is_concise_and_diagnostics_are_collapsed() {
+        let pending = pending_state("mission-1").into_string();
+        assert!(pending.contains("Allocating server"));
+        assert_eq!(pending.matches("prepared").count(), 0);
+        let source = include_str!("mission.rs");
+        assert!(source.contains("details class=\"mission-diagnostics\""));
+        assert!(source.contains("Technical details"));
+    }
+
+    #[test]
+    fn mission_status_controls_badge_tone_without_label_matching() {
+        assert_eq!(
+            [
+                MissionStatus::Ready,
+                MissionStatus::Pending,
+                MissionStatus::Failed,
+                MissionStatus::Ended,
+            ]
+            .map(mission_status_badge_tone),
+            [
+                StatusBadgeTone::Success,
+                StatusBadgeTone::Warning,
+                StatusBadgeTone::Danger,
+                StatusBadgeTone::Info,
+            ]
+        );
+    }
+}

@@ -1,0 +1,42 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-185",
+  "at": "2026-10-25T21:13:18.228999+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1971,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/surface_recipe.rs",
+      "sha256": "62dd60826db3c1d29b8ec6160d09985646410cb2b2b612e36b5370b3df1d891e",
+      "personally_read_ranges": [
+        [
+          1,
+          490
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full490 lines read. Private TerrainSurfaceRecipe binds canonical lithology/provenance source/structure through native and serde from_structure validation. Parameters derive exhaustively from lithology preset, with bounded grain/microrelief and ordered roughness. Structure enum variants retain their appropriate normal/dimension/variation tuples; integer widened squared-normal check avoids i16 arithmetic overflow. All structural dimensions and perturbations checked at admission.",
+        "Actual new constructor uses same lithology preset, seed and tangent to infer one stable scene-wide structure, explicitly artistic inference rather than measured mapped bedding. Massive presets select Massive; layered/foliated presets retain corresponding full payload. from_structure can author independent admissible structure with any lithology; source does not establish a universal impossible-geology rule forbidding that constructor, so test name alone is not a new defect.",
+        "Mapped provenance enum is not cryptographic/source-window proof; actual containment-verified producer is separate. Static parameter table and authored structural ranges were read in full. All45 lithology fixture, massive-family cases, sandstone cross-bedding and schist foliation assertions read only, no execution or empirical geology acceptance."
+      ]
+    },
+    {
+      "scope_index": 1972,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/tests/grounding_contracts.rs",
+      "sha256": "86099f8185a2046b811d7a1e14be6334d00f4b0eff889c3eb4e7bcda8e59a6a8",
+      "personally_read_ranges": [
+        [
+          1,
+          514
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full514-line public support contract fixture source read. Tests cover native/JSON/postcard policy admission and opaque reflection; missing threshold reports one missing binding via actual/limit/discrepancy, and ordered physical membership rejects duplicates. Thin and zero-width foundation contact cells intentionally remain admissible, distinguishing solid collider from ContactOnly rather than forbidding degenerate support globally.",
+        "Queries preserve negative levels with explicit bounded/unbounded ceiling and reject malformed serialized query trees/references. Mesh decoding rejects empty topology before physics; finite-extreme endpoint interpolation must return finite elevation. Garden owner/building/plant zero identity must reject native and both decoder paths. Selected assertions and physics ray expectations read only, not executed or complete clearance of all referenced source owners."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct present original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

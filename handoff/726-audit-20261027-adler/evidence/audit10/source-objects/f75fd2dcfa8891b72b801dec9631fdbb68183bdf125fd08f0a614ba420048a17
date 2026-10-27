@@ -1,0 +1,876 @@
+use std::{
+    fs::File,
+    io::{BufWriter, Write},
+    path::Path,
+};
+
+use adventuresim_tactical_core::prelude::*;
+use adventuresim_tactical_netcode::client::{DebugForceAttackTrigger, DirectControlState};
+use adventuresim_tactical_netcode::prelude::*;
+use bevy::{
+    app::AppExit,
+    input::{
+        InputSystems,
+        mouse::{AccumulatedMouseMotion, AccumulatedMouseScroll},
+    },
+    prelude::*,
+    render::view::screenshot::{Screenshot, ScreenshotCaptured, save_to_disk},
+    render::{Render, RenderApp, RenderSystems},
+};
+use serde::{Deserialize, Serialize};
+
+use crate::{
+    animation::{AnimationDiagnosticLog, DiagnosticInputStatus, RenderScheduleTelemetry},
+    player::ClientPlayer,
+};
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(deny_unknown_fields)]
+struct InputScript {
+    commands: Vec<ScriptCommand>,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(tag = "type", rename_all = "snake_case", deny_unknown_fields)]
+enum ScriptCommand {
+    Rotate {
+        degrees_right: f32,
+    },
+    Move {
+        #[serde(default)]
+        direction: MoveDirection,
+        input_speed: f32,
+        duration_seconds: f32,
+        /// Optional attack edge emitted while movement remains held. This is
+        /// intentionally part of the move command so diagnostics exercise the
+        /// real locomotion-to-attack ownership seam instead of stopping first.
+        #[serde(default)]
+        attack_at_seconds: Option<f32>,
+        /// Instant facing change applied on this command's first tick while
+        /// preserving the movement request. This exercises live turning
+        /// without an artificial zero-movement frame between commands.
+        #[serde(default)]
+        turn_degrees_right: Option<f32>,
+    },
+    Dive {
+        direction: MoveDirection,
+        duration_seconds: f32,
+    },
+    Slide {
+        direction: MoveDirection,
+        duration_seconds: f32,
+    },
+    Quickstep {
+        direction: MoveDirection,
+        duration_seconds: f32,
+    },
+    TogglePosture {
+        duration_seconds: f32,
+    },
+    Wait {
+        duration_seconds: f32,
+    },
+    Guard {
+        raised: bool,
+    },
+    Pace {
+        pace: MovementPace,
+    },
+    Attack {
+        #[serde(default = "default_attack_observation_seconds")]
+        duration_seconds: f32,
+    },
+    Screenshot {
+        path: String,
+    },
+    WaitForSignal {
+        path: String,
+    },
+}
+
+fn default_attack_observation_seconds() -> f32 {
+    1.0
+}
+
+fn diagnostic_command_pace(kind: &str, selected: MovementPace) -> MovementPace {
+    match kind {
+        "dive" => MovementPace::Walk,
+        "slide" => MovementPace::Sprint,
+        _ => selected,
+    }
+}
+
+#[derive(Debug, Clone, Copy, Default, Deserialize)]
+#[serde(rename_all = "snake_case")]
+enum MoveDirection {
+    #[default]
+    Forward,
+    Backward,
+    Left,
+    Right,
+    ForwardLeft,
+    ForwardRight,
+    BackwardLeft,
+    BackwardRight,
+}
+
+impl MoveDirection {
+    fn vector(self) -> Vec2 {
+        match self {
+            Self::Forward => Vec2::Y,
+            Self::Backward => Vec2::NEG_Y,
+            Self::Left => Vec2::NEG_X,
+            Self::Right => Vec2::X,
+            Self::ForwardLeft => Vec2::new(
+                -std::f32::consts::FRAC_1_SQRT_2,
+                std::f32::consts::FRAC_1_SQRT_2,
+            ),
+            Self::ForwardRight => Vec2::splat(std::f32::consts::FRAC_1_SQRT_2),
+            Self::BackwardLeft => Vec2::splat(-std::f32::consts::FRAC_1_SQRT_2),
+            Self::BackwardRight => Vec2::new(
+                std::f32::consts::FRAC_1_SQRT_2,
+                -std::f32::consts::FRAC_1_SQRT_2,
+            ),
+        }
+    }
+
+    fn dive_direction(self) -> DiveDirection {
+        match self {
+            Self::Forward => DiveDirection::Forward,
+            Self::Backward => DiveDirection::Backward,
+            Self::Left => DiveDirection::Left,
+            Self::Right => DiveDirection::Right,
+            Self::ForwardLeft | Self::ForwardRight => DiveDirection::Forward,
+            Self::BackwardLeft | Self::BackwardRight => DiveDirection::Backward,
+        }
+    }
+}
+
+#[derive(Resource, Debug)]
+struct ScriptedInput {
+    commands: Vec<ScriptCommand>,
+    command_index: usize,
+    command_elapsed: f32,
+    look: Vec2,
+    weapon_guard: WeaponGuardState,
+    pace: MovementPace,
+    posture_sequence: u32,
+    jump_sequence: u32,
+    started: bool,
+    exit_after_script: bool,
+    finished_elapsed: Option<f32>,
+}
+
+#[derive(Resource, Debug, Default)]
+struct PendingDiagnosticCaptures(usize);
+
+pub(crate) struct DiagnosticPlugin {
+    script: Option<InputScript>,
+    log: Option<File>,
+    frame_timing_log: Option<File>,
+    frame_timing_seconds: Option<f64>,
+    frame_timing_warmup_seconds: f64,
+    exit_after_script: bool,
+    render_schedule: Option<RenderScheduleTelemetry>,
+}
+
+#[derive(Resource)]
+struct FrameTimingTrace {
+    writer: BufWriter<File>,
+    frame: u64,
+    ready_elapsed_seconds: Option<f64>,
+    sample_seconds: f64,
+    warmup_seconds: f64,
+}
+
+#[derive(Serialize)]
+struct FrameTimingRecord {
+    trace_format: &'static str,
+    frame: u64,
+    sample_elapsed_seconds: f64,
+    render_delta_seconds: f32,
+    wall_clock_unix_micros: u64,
+    render_schedule_completion_count: u64,
+    render_schedule_completion_elapsed_micros: u64,
+}
+
+impl DiagnosticPlugin {
+    pub(crate) fn new(
+        script_path: Option<&str>,
+        log_path: Option<&str>,
+        frame_timing_log_path: Option<&str>,
+        frame_timing_seconds: Option<f64>,
+        frame_timing_warmup_seconds: f64,
+        exit_after_script: bool,
+    ) -> Result<Self, String> {
+        let script = script_path
+            .map(|path| -> Result<InputScript, String> {
+                let bytes = std::fs::read(path)
+                    .map_err(|error| format!("failed to read input script {path}: {error}"))?;
+                let script: InputScript = serde_json::from_slice(&bytes)
+                    .map_err(|error| format!("failed to parse input script {path}: {error}"))?;
+                validate_script(&script)?;
+                Ok(script)
+            })
+            .transpose()?;
+        let log = log_path
+            .map(|path| create_diagnostic_file(path, "animation log"))
+            .transpose()?;
+        let frame_timing_log = frame_timing_log_path
+            .map(|path| create_diagnostic_file(path, "frame timing log"))
+            .transpose()?;
+        if exit_after_script && script.is_none() {
+            return Err("--exit-after-script requires --input-script".to_owned());
+        }
+        if frame_timing_log.is_some() != frame_timing_seconds.is_some() {
+            return Err(
+                "--frame-timing-log and --frame-timing-seconds must be supplied together"
+                    .to_owned(),
+            );
+        }
+        if frame_timing_seconds.is_some_and(|seconds| !seconds.is_finite() || seconds <= 0.0) {
+            return Err("--frame-timing-seconds must be finite and greater than zero".to_owned());
+        }
+        if !frame_timing_warmup_seconds.is_finite() || frame_timing_warmup_seconds < 0.0 {
+            return Err("--frame-timing-warmup-seconds must be finite and non-negative".to_owned());
+        }
+        let render_schedule =
+            (log.is_some() || frame_timing_log.is_some()).then(RenderScheduleTelemetry::new);
+        Ok(Self {
+            script,
+            log,
+            frame_timing_log,
+            frame_timing_seconds,
+            frame_timing_warmup_seconds,
+            exit_after_script,
+            render_schedule,
+        })
+    }
+}
+
+impl Plugin for DiagnosticPlugin {
+    fn build(&self, app: &mut App) {
+        if let Some(file) = self.log.as_ref().and_then(|file| file.try_clone().ok()) {
+            app.insert_resource(AnimationDiagnosticLog {
+                writer: std::io::BufWriter::new(file),
+                frame: 0,
+            });
+        }
+        if let Some(telemetry) = &self.render_schedule {
+            app.insert_resource(telemetry.clone());
+        }
+        if let (Some(file), Some(sample_seconds)) = (
+            self.frame_timing_log
+                .as_ref()
+                .and_then(|file| file.try_clone().ok()),
+            self.frame_timing_seconds,
+        ) {
+            app.insert_resource(FrameTimingTrace {
+                writer: BufWriter::new(file),
+                frame: 0,
+                ready_elapsed_seconds: None,
+                sample_seconds,
+                warmup_seconds: self.frame_timing_warmup_seconds,
+            })
+            .add_systems(Last, record_frame_timing);
+        }
+        if let Some(script) = &self.script {
+            app.insert_resource(ScriptedInput {
+                commands: script.commands.clone(),
+                command_index: 0,
+                command_elapsed: 0.0,
+                look: Vec2::ZERO,
+                weapon_guard: WeaponGuardState::Lowered,
+                pace: MovementPace::Sprint,
+                posture_sequence: 0,
+                jump_sequence: 0,
+                started: false,
+                exit_after_script: self.exit_after_script,
+                finished_elapsed: None,
+            })
+            .init_resource::<DiagnosticInputStatus>()
+            .init_resource::<PendingDiagnosticCaptures>()
+            .add_systems(
+                PreUpdate,
+                (
+                    suppress_physical_input.after(InputSystems),
+                    drive_scripted_input.after(suppress_physical_input),
+                ),
+            );
+        }
+    }
+
+    fn finish(&self, app: &mut App) {
+        let Some(telemetry) = &self.render_schedule else {
+            return;
+        };
+        let Some(render_app) = app.get_sub_app_mut(RenderApp) else {
+            return;
+        };
+        render_app.insert_resource(telemetry.clone()).add_systems(
+            Render,
+            record_render_schedule_completion.after(RenderSystems::Render),
+        );
+    }
+}
+
+fn create_diagnostic_file(path: &str, label: &str) -> Result<File, String> {
+    let path = Path::new(path);
+    if let Some(parent) = path.parent() {
+        std::fs::create_dir_all(parent)
+            .map_err(|error| format!("failed to create {label} directory: {error}"))?;
+    }
+    File::create(path)
+        .map_err(|error| format!("failed to create {label} {}: {error}", path.display()))
+}
+
+fn record_frame_timing(
+    time: Res<Time>,
+    mut trace: ResMut<FrameTimingTrace>,
+    render_schedule: Res<RenderScheduleTelemetry>,
+    players: Query<(), (With<Player>, With<ClientPlayer>)>,
+    mut exit: MessageWriter<AppExit>,
+) {
+    if players.is_empty() {
+        return;
+    }
+    let now = time.elapsed_secs_f64();
+    let ready = *trace.ready_elapsed_seconds.get_or_insert(now);
+    let elapsed_since_ready = now - ready;
+    if elapsed_since_ready < trace.warmup_seconds {
+        return;
+    }
+    let sample_elapsed_seconds = elapsed_since_ready - trace.warmup_seconds;
+    let (render_count, render_elapsed_micros) = render_schedule.snapshot();
+    let wall_clock_unix_micros = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|duration| duration.as_micros().min(u64::MAX as u128) as u64)
+        .unwrap_or_default();
+    let record = FrameTimingRecord {
+        trace_format: "real-client-frame-timing-v1",
+        frame: trace.frame,
+        sample_elapsed_seconds,
+        render_delta_seconds: time.delta_secs(),
+        wall_clock_unix_micros,
+        render_schedule_completion_count: render_count,
+        render_schedule_completion_elapsed_micros: render_elapsed_micros,
+    };
+    serde_json::to_writer(&mut trace.writer, &record)
+        .expect("frame timing log should remain writable");
+    trace
+        .writer
+        .write_all(b"\n")
+        .expect("frame timing log should remain writable");
+    trace.frame += 1;
+    if sample_elapsed_seconds >= trace.sample_seconds {
+        trace
+            .writer
+            .flush()
+            .expect("frame timing log should remain writable");
+        exit.write(AppExit::Success);
+    }
+}
+
+fn suppress_physical_input(
+    mut commands: Commands,
+    players: Query<Entity, With<ClientPlayer>>,
+    mut keyboard: ResMut<ButtonInput<KeyCode>>,
+    mut mouse_buttons: ResMut<ButtonInput<MouseButton>>,
+    mut mouse_motion: ResMut<AccumulatedMouseMotion>,
+    mut mouse_scroll: ResMut<AccumulatedMouseScroll>,
+) {
+    keyboard.reset_all();
+    mouse_buttons.reset_all();
+    mouse_motion.delta = Vec2::ZERO;
+    mouse_scroll.delta = Vec2::ZERO;
+    for player in &players {
+        commands
+            .entity(player)
+            .insert(ContextActivity::<Player>::INACTIVE);
+    }
+}
+
+fn record_render_schedule_completion(telemetry: Res<RenderScheduleTelemetry>) {
+    telemetry.record_completion();
+}
+
+fn validate_script(script: &InputScript) -> Result<(), String> {
+    if script.commands.is_empty() {
+        return Err("input script must contain at least one command".to_owned());
+    }
+    for command in &script.commands {
+        match command {
+            ScriptCommand::Rotate { degrees_right } if !degrees_right.is_finite() => {
+                return Err("rotate degrees_right must be finite".to_owned());
+            }
+            ScriptCommand::Move {
+                input_speed,
+                duration_seconds,
+                attack_at_seconds: _,
+                turn_degrees_right,
+                ..
+            } if !(0.0..=1.0).contains(input_speed)
+                || !duration_seconds.is_finite()
+                || *duration_seconds <= 0.0
+                || turn_degrees_right.is_some_and(|degrees| !degrees.is_finite()) =>
+            {
+                return Err(
+                    "move input_speed must be 0..=1 and duration_seconds must be positive"
+                        .to_owned(),
+                );
+            }
+            ScriptCommand::Move {
+                duration_seconds,
+                attack_at_seconds: Some(attack_at_seconds),
+                ..
+            } if !attack_at_seconds.is_finite()
+                || *attack_at_seconds < 0.0
+                || *attack_at_seconds >= *duration_seconds =>
+            {
+                return Err(
+                    "move attack_at_seconds must be finite and within the move duration".to_owned(),
+                );
+            }
+            ScriptCommand::Dive {
+                duration_seconds, ..
+            }
+            | ScriptCommand::Slide {
+                duration_seconds, ..
+            } if !duration_seconds.is_finite() || *duration_seconds <= 0.0 => {
+                return Err("dive/slide duration_seconds must be positive".to_owned());
+            }
+            ScriptCommand::Quickstep {
+                duration_seconds, ..
+            } if !duration_seconds.is_finite() || *duration_seconds <= 0.0 => {
+                return Err("quickstep duration_seconds must be positive".to_owned());
+            }
+            ScriptCommand::TogglePosture { duration_seconds }
+                if !duration_seconds.is_finite() || *duration_seconds <= 0.0 =>
+            {
+                return Err("toggle_posture duration_seconds must be positive".to_owned());
+            }
+            ScriptCommand::Wait { duration_seconds }
+                if !duration_seconds.is_finite() || *duration_seconds <= 0.0 =>
+            {
+                return Err("wait duration_seconds must be positive".to_owned());
+            }
+            ScriptCommand::Attack { duration_seconds }
+                if !duration_seconds.is_finite() || *duration_seconds <= 0.0 =>
+            {
+                return Err("attack duration_seconds must be positive".to_owned());
+            }
+            ScriptCommand::Screenshot { path } if path.trim().is_empty() => {
+                return Err("screenshot path must not be empty".to_owned());
+            }
+            ScriptCommand::WaitForSignal { path } if path.trim().is_empty() => {
+                return Err("wait_for_signal path must not be empty".to_owned());
+            }
+            _ => {}
+        }
+    }
+    Ok(())
+}
+
+#[expect(
+    clippy::too_many_arguments,
+    reason = "Bevy injects scripted input state, player controls, capture state, status, and exit messaging independently"
+)]
+fn drive_scripted_input(
+    mut commands: Commands,
+    time: Res<Time>,
+    player: Query<(), With<ClientPlayer>>,
+    mut script: ResMut<ScriptedInput>,
+    mut input_override: ResMut<PlayerInputOverride>,
+    mut direct_controls: ResMut<DirectControlState>,
+    mut force_attack: ResMut<DebugForceAttackTrigger>,
+    mut pending_captures: ResMut<PendingDiagnosticCaptures>,
+    mut status: ResMut<DiagnosticInputStatus>,
+    mut exit: MessageWriter<AppExit>,
+) {
+    if player.is_empty() {
+        input_override.0 = None;
+        return;
+    }
+    if !script.started {
+        script.started = true;
+        info!(
+            commands = script.commands.len(),
+            "Started scripted real-client input"
+        );
+    }
+
+    let delta = time.delta_secs().max(0.0);
+    loop {
+        let Some(command) = script.commands.get(script.command_index).cloned() else {
+            input_override.0 = Some(PlayerInputRequest {
+                look: script.look,
+                ..default()
+            });
+            let exit_after_script = script.exit_after_script;
+            let elapsed = script.finished_elapsed.get_or_insert(0.0);
+            *elapsed += delta;
+            if exit_after_script && *elapsed >= 0.25 && pending_captures.0 == 0 {
+                info!("Scripted real-client input completed");
+                exit.write(AppExit::Success);
+            }
+            return;
+        };
+
+        if let ScriptCommand::Rotate { degrees_right } = &command {
+            script.look.x = (script.look.x + degrees_right.to_radians() + std::f32::consts::PI)
+                .rem_euclid(std::f32::consts::TAU)
+                - std::f32::consts::PI;
+            script.command_index += 1;
+            script.command_elapsed = 0.0;
+            continue;
+        }
+
+        if let ScriptCommand::Guard { raised } = command {
+            script.weapon_guard = if raised {
+                WeaponGuardState::Raised
+            } else {
+                WeaponGuardState::Lowered
+            };
+            script.command_index += 1;
+            script.command_elapsed = 0.0;
+            continue;
+        }
+
+        if let ScriptCommand::Pace { pace } = command {
+            script.pace = pace;
+            script.command_index += 1;
+            script.command_elapsed = 0.0;
+            continue;
+        }
+
+        if let ScriptCommand::Screenshot { path } = &command {
+            let path = Path::new(path).to_path_buf();
+            if let Some(parent) = path.parent()
+                && let Err(error) = std::fs::create_dir_all(parent)
+            {
+                error!(path = %path.display(), ?error, "Failed to create diagnostic screenshot directory");
+            } else {
+                pending_captures.0 += 1;
+                let capture_path = path.clone();
+                commands.spawn(Screenshot::primary_window()).observe(
+                    move |captured: On<ScreenshotCaptured>,
+                          mut pending: ResMut<PendingDiagnosticCaptures>| {
+                        save_to_disk(&capture_path)(captured);
+                        pending.0 = pending.0.saturating_sub(1);
+                    },
+                );
+                info!(path = %path.display(), "Requested a scripted diagnostic screenshot");
+            }
+            script.command_index += 1;
+            script.command_elapsed = 0.0;
+            continue;
+        }
+
+        if let ScriptCommand::WaitForSignal { path } = &command {
+            let request = PlayerInputRequest {
+                look: script.look,
+                weapon_guard: script.weapon_guard,
+                ..default()
+            };
+            input_override.0 = Some(request);
+            *status = DiagnosticInputStatus {
+                command_index: script.command_index,
+                command_kind: "wait_for_signal".to_owned(),
+                command_elapsed_seconds: script.command_elapsed,
+                request,
+            };
+            if Path::new(path).is_file() {
+                script.command_index += 1;
+                script.command_elapsed = 0.0;
+                continue;
+            }
+            return;
+        }
+
+        let command_start = script.command_elapsed == 0.0;
+        if command_start
+            && let ScriptCommand::Move {
+                turn_degrees_right: Some(degrees_right),
+                ..
+            } = &command
+        {
+            script.look.x = (script.look.x + degrees_right.to_radians() + std::f32::consts::PI)
+                .rem_euclid(std::f32::consts::TAU)
+                - std::f32::consts::PI;
+        }
+        if command_start
+            && matches!(
+                &command,
+                ScriptCommand::Dive { .. }
+                    | ScriptCommand::Slide { .. }
+                    | ScriptCommand::TogglePosture { .. }
+            )
+        {
+            script.posture_sequence = script.posture_sequence.wrapping_add(1);
+        }
+        if command_start && let ScriptCommand::Quickstep { direction, .. } = &command {
+            script.jump_sequence = script.jump_sequence.wrapping_add(1);
+            direct_controls.dodge_just_pressed = true;
+            direct_controls.quickstep_direction = direction.vector();
+        }
+        if command_start && matches!(&command, ScriptCommand::Attack { .. }) {
+            force_attack.0 = true;
+        }
+        let previous_command_elapsed = script.command_elapsed;
+        script.command_elapsed += delta;
+        let move_attack_due = matches!(
+            &command,
+            ScriptCommand::Move {
+                attack_at_seconds: Some(attack_at_seconds),
+                ..
+            } if previous_command_elapsed <= *attack_at_seconds
+                && script.command_elapsed > *attack_at_seconds
+        );
+        let (kind, duration, movement, posture, jump) = match command {
+            ScriptCommand::Move {
+                direction,
+                input_speed,
+                duration_seconds,
+                attack_at_seconds: _,
+                turn_degrees_right: _,
+            } => (
+                "move",
+                duration_seconds,
+                Some(direction.vector() * input_speed),
+                PostureCommand::default(),
+                JumpCommand::default(),
+            ),
+            ScriptCommand::Dive {
+                direction,
+                duration_seconds,
+            } => (
+                "dive",
+                duration_seconds,
+                Some(direction.vector()),
+                PostureCommand {
+                    sequence: script.posture_sequence,
+                    action: Some(PostureActionRequest::Dive {
+                        animation_direction: direction.dive_direction(),
+                        travel_direction: direction.dive_direction(),
+                    }),
+                },
+                JumpCommand::default(),
+            ),
+            ScriptCommand::Slide {
+                direction,
+                duration_seconds,
+            } => (
+                "slide",
+                duration_seconds,
+                Some(direction.vector()),
+                PostureCommand {
+                    sequence: script.posture_sequence,
+                    action: Some(PostureActionRequest::Dive {
+                        animation_direction: direction.dive_direction().opposite(),
+                        travel_direction: direction.dive_direction(),
+                    }),
+                },
+                JumpCommand::default(),
+            ),
+            ScriptCommand::Quickstep {
+                direction,
+                duration_seconds,
+            } => (
+                "quickstep",
+                duration_seconds,
+                Some(direction.vector()),
+                PostureCommand::default(),
+                JumpCommand {
+                    sequence: script.jump_sequence,
+                    quickstep: Some(direction.vector()),
+                },
+            ),
+            ScriptCommand::TogglePosture { duration_seconds } => (
+                "toggle_posture",
+                duration_seconds,
+                None,
+                PostureCommand {
+                    sequence: script.posture_sequence,
+                    action: Some(PostureActionRequest::Toggle),
+                },
+                JumpCommand::default(),
+            ),
+            ScriptCommand::Wait { duration_seconds } => (
+                "wait",
+                duration_seconds,
+                None,
+                PostureCommand::default(),
+                JumpCommand::default(),
+            ),
+            ScriptCommand::Attack { duration_seconds } => (
+                "attack",
+                duration_seconds,
+                None,
+                PostureCommand::default(),
+                JumpCommand::default(),
+            ),
+            ScriptCommand::Rotate { .. }
+            | ScriptCommand::Guard { .. }
+            | ScriptCommand::Pace { .. }
+            | ScriptCommand::Screenshot { .. }
+            | ScriptCommand::WaitForSignal { .. } => unreachable!(),
+        };
+        if move_attack_due {
+            force_attack.0 = true;
+        }
+        let request = PlayerInputRequest {
+            simulation_tick: PlayerInputTick::ZERO,
+            movement,
+            look: script.look,
+            jump,
+            jump_charge: false,
+            downed_align: false,
+            posture,
+            pace: diagnostic_command_pace(kind, script.pace),
+            weapon_guard: script.weapon_guard,
+            melee_preparation: MeleePreparationInput::Preferred,
+        };
+        input_override.0 = Some(request);
+        let next_status = DiagnosticInputStatus {
+            command_index: script.command_index,
+            command_kind: kind.to_owned(),
+            command_elapsed_seconds: script.command_elapsed,
+            request,
+        };
+        *status = next_status;
+        if script.command_elapsed >= duration {
+            script.command_index += 1;
+            script.command_elapsed = 0.0;
+        }
+        return;
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn timing_bounds_must_be_finite_and_positive() {
+        assert!(DiagnosticPlugin::new(None, None, None, None, 5.0, false).is_ok());
+        assert!(
+            DiagnosticPlugin::new(None, None, None, Some(1.0), 5.0, false)
+                .err()
+                .unwrap()
+                .contains("supplied together")
+        );
+        assert!(
+            DiagnosticPlugin::new(None, None, None, None, -1.0, false)
+                .err()
+                .unwrap()
+                .contains("non-negative")
+        );
+    }
+
+    #[test]
+    fn example_script_parses_and_validates() {
+        let script: InputScript = serde_json::from_str(
+            r#"{"commands":[{"type":"rotate","degrees_right":90.0},{"type":"guard","raised":true},{"type":"move","direction":"forward","input_speed":0.5,"duration_seconds":2.0},{"type":"attack"},{"type":"screenshot","path":"captures/attack.png"},{"type":"slide","direction":"forward","duration_seconds":1.5},{"type":"toggle_posture","duration_seconds":1.2},{"type":"dive","direction":"left","duration_seconds":1.5},{"type":"toggle_posture","duration_seconds":1.2},{"type":"guard","raised":false},{"type":"quickstep","direction":"right","duration_seconds":0.5},{"type":"wait","duration_seconds":0.5}]}"#,
+        )
+        .unwrap();
+        assert!(validate_script(&script).is_ok());
+        assert!(matches!(
+            script.commands[3],
+            ScriptCommand::Attack {
+                duration_seconds: 1.0
+            }
+        ));
+        assert!(matches!(
+            script.commands[5],
+            ScriptCommand::Slide {
+                direction: MoveDirection::Forward,
+                duration_seconds: 1.5,
+            }
+        ));
+        assert_eq!(
+            diagnostic_command_pace("dive", MovementPace::Sprint),
+            MovementPace::Walk
+        );
+        assert_eq!(
+            diagnostic_command_pace("slide", MovementPace::Walk),
+            MovementPace::Sprint
+        );
+    }
+
+    #[test]
+    fn invalid_analogue_speed_is_rejected() {
+        let script: InputScript = serde_json::from_str(
+            r#"{"commands":[{"type":"move","input_speed":1.1,"duration_seconds":2.0}]}"#,
+        )
+        .unwrap();
+        assert!(validate_script(&script).is_err());
+    }
+
+    #[test]
+    fn move_can_trigger_an_attack_without_releasing_directional_input() {
+        let script: InputScript = serde_json::from_str(
+            r#"{"commands":[{"type":"move","direction":"right","input_speed":1.0,"duration_seconds":2.0,"attack_at_seconds":1.0}]}"#,
+        )
+        .unwrap();
+        assert!(validate_script(&script).is_ok());
+    }
+
+    #[test]
+    fn move_attack_must_occur_strictly_within_the_command() {
+        let script: InputScript = serde_json::from_str(
+            r#"{"commands":[{"type":"move","input_speed":1.0,"duration_seconds":2.0,"attack_at_seconds":2.0}]}"#,
+        )
+        .unwrap();
+        assert!(validate_script(&script).is_err());
+    }
+
+    #[test]
+    fn signal_wait_requires_a_path() {
+        let script: InputScript =
+            serde_json::from_str(r#"{"commands":[{"type":"wait_for_signal","path":""}]}"#).unwrap();
+        assert!(validate_script(&script).is_err());
+    }
+
+    #[test]
+    fn attack_observation_duration_must_be_positive() {
+        let script: InputScript =
+            serde_json::from_str(r#"{"commands":[{"type":"attack","duration_seconds":0.0}]}"#)
+                .unwrap();
+        assert!(validate_script(&script).is_err());
+    }
+
+    #[test]
+    fn scripted_mode_clears_physical_keyboard_and_mouse_input() {
+        let mut world = World::new();
+        let mut keyboard = ButtonInput::default();
+        keyboard.press(KeyCode::KeyW);
+        let mut mouse_buttons = ButtonInput::default();
+        mouse_buttons.press(MouseButton::Left);
+        world.insert_resource(keyboard);
+        world.insert_resource(mouse_buttons);
+        world.insert_resource(AccumulatedMouseMotion { delta: Vec2::ONE });
+        world.insert_resource(AccumulatedMouseScroll {
+            delta: Vec2::ONE,
+            ..default()
+        });
+
+        world.run_system_cached(suppress_physical_input).unwrap();
+
+        assert!(
+            world
+                .resource::<ButtonInput<KeyCode>>()
+                .get_pressed()
+                .next()
+                .is_none()
+        );
+        assert!(
+            world
+                .resource::<ButtonInput<MouseButton>>()
+                .get_pressed()
+                .next()
+                .is_none()
+        );
+        assert_eq!(world.resource::<AccumulatedMouseMotion>().delta, Vec2::ZERO);
+        assert_eq!(world.resource::<AccumulatedMouseScroll>().delta, Vec2::ZERO);
+    }
+}

@@ -1,0 +1,48 @@
+{
+  "id": "ADLER-CONT11-Q006",
+  "classification": "Qualified grass vertex-kind/UV representation association across GPU paths; no accepted finding or unique increment",
+  "sources": [
+    {
+      "scope_index": 508,
+      "sha256": "e820d0090e4d3b180de4ebac4c8c5259559ca5b19b9709c1d284af8fe75f2eb9",
+      "ranges": [
+        [
+          166,
+          175
+        ],
+        [
+          272,
+          302
+        ],
+        [
+          332,
+          345
+        ]
+      ]
+    },
+    {
+      "scope_index": 510,
+      "sha256": "2d88c9d6787c5806e7c1bf6fde37f397e532773a16915e847af0ee5e12b07adc",
+      "ranges": [
+        [
+          3,
+          14
+        ],
+        [
+          78,
+          86
+        ],
+        [
+          169,
+          203
+        ]
+      ]
+    }
+  ],
+  "source_observation": "Shared-material shader treats negativeV asinflorescenceandusesUasanchorheight; ribbonwidthrecoversexactsideprojectionandcentretipzero. InstancedshadercommentssaymeshcontractidenticalbutcodealwaysclampsVasribbonbendandusesradialXZlengthashalfwidth, withoutnegativeVbranch/centrezerooverride.",
+  "qualification": "ActualfrozenCPUinstancedmeshgenerator, allowedLODvertexkinds andmaterialbindings nottraced. No claimthatordinaryvaliddrawcontainsunsupportedseedheads/leanedcentres, no observedvisualregression orcurrentmainrepair. Commentsalone notproofidenticalproducerpayload.",
+  "next": "Trace actualregisteredCPUvertexproducer/instance-materialreceiver beforeacceptance/dedup; preservewholevertex-kind semantics atthetrueGPUprojectionboundary.",
+  "new_unique_finding": false,
+  "repair": "not started",
+  "validation": "not run"
+}

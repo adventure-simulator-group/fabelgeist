@@ -1,0 +1,103 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-101",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1772,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/phase_response.rs",
+      "sha256": "924c663fe54edaaedc6f31a0d905cb5e72fe3e1e4cb918fbaad959e06d060fd5",
+      "ranges": [
+        [
+          1,
+          52
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete52line phase-rate/error-limit owners, basic/serde/Into already derived. Two manual TryFrom delegate finite/nonnegative admission.",
+      "disposition": "KEEP validating TryFrom adapters; no direct derive preserves constructor/error policy. No new candidate.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1773,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/pose_coordinates.rs",
+      "sha256": "10188a5b28d9578344b32aff9e51ca9b673e16696f9750f745d903bc85c281b3",
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete95line finite attack coordinate/progress delta. Mechanical traits/serde/Into derived; two validating TryFrom adapters. deserialize_progress rejects nonfinite then retains existing finite range clamp before UnitInterval admission.",
+      "disposition": "KEEP validation adapters and normalization decode hook. Direct strict UnitInterval serde would change accepted finite-out-of-range behavior; semantic curve clamp/arithmetic remains explicit. No candidate.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1774,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+      "sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+      "ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete217line seven response/compression/look/muscle policy owners. Basic/serde/Into already derived. Seven TryFrom delegates enforce quantity-specific finite/nonnegative/positive admission; native exponential/linear/interpolation/compliance kernels explicit.",
+      "disposition": "KEEP validated conversion/error adapters; semantic response laws and overflow/error mapping not directly derivable. No new candidate or numeric correctness certification.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1775,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+      "sha256": "744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093",
+      "ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete86line sample rate/frequency. Frequency basic/serde/Into derives; two TryFrom enforce positive frequency and representable positive reciprocal. Owned From sample-rate->f3282-86 selects original frequency from two-field retained aggregate.",
+      "disposition": "KEEP checked admission. Potential exact selected-field Into projection recorded candidate005 pending pinned macro proof and dedup; current conversion correct, not counted finding. Never recompute encoded frequency from reciprocal.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1776,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/sample_tick.rs",
+      "sha256": "ce44941a09ab6edf1bfe96d5617ad84d777c4bc3e0c8735d65ed6b369d727990",
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete110line sample tick/span. Basic/order/Reflect/serde/From/Display/Debug derives. Checked/wrapping/saturating clock/count operations and positive duration quantization explicit; no manual traits/codecs.",
+      "disposition": "No derivability candidate. Named count/time arithmetic distinguishes intended overflow/topology policy and cannot be replaced with generic operators without changing API/behavior.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1777,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "sha256": "61864d871215d4140f142c121202374b5a8e3434504d459b29e97d7e0a889033",
+      "ranges": [
+        [
+          1,
+          207
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete207line cycle/weight/mirror owners. Mechanical traits/serde/Into derived. Three TryFrom validate finite/range; two ClipMirror From adapters map Boolean named variants. Checked arithmetic and contact wrap kernels explicit.",
+      "disposition": "KEEP validation and semantic bool-codec adapters. Direct enum construction derives cannot express truth policy; native cyclic/weight operations intentionally distinguish finite signed/unwrapped and additive nonnegative roles. No new candidate.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

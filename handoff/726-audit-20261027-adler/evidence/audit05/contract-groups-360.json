@@ -1,0 +1,31 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-360",
+  "at": "2026-10-25T23:37:21.865436+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 86,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/incapacitation.rs",
+      "sha256": "a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+      "personally_read_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Explicit counterpart comparison: completed own05 source2690 was personally read1-115 in packet323; current original86 is distinct physical-p16 role. Both exact source pins a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3 checked, and complete unified body diff was personally inspected empty, saved original-role-diff-086-2690.diff. Coverage reuses that completed own body comparison with explicit receiving-role analysis, not hash-only inference.",
+        "Current P16 receiving comparison against personally read50/56/57/67/68/80: performance takes total incapacitation and returns checked one-minus-clamp UnitInterval; no separate fatigue shortcut. RecoveryTime CannotRecover for positive base at zero performance, zero base immediate, finite arithmetic otherwise checked. P16 scheduling handles unavailable recovery by no schedule; round telemetry retains RecoveryTime type and does not replace unavailable with a bogus duration.",
+        "Encumbrance remains a separate named contribution to total incapacitation; current P16 movement63/66 uses physical mass/armor instead of directly scaling speed by this performance. This closes these actual static receiving associations only, not every caller/UI/other snapshot or runtime behavior."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "coverage_kind": "completed own source-body review plus explicitly inspected full counterpart diff and current receiving-contract comparison",
+  "counterpart_source_scope_index": 2690,
+  "counterpart_proof": "contract-groups-323.json",
+  "complete_diff": "original-role-diff-086-2690.diff"
+}

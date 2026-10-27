@@ -1,0 +1,67 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-291",
+  "at": "2026-10-25T22:43:04.828792+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2550,
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/gpu/mod.rs",
+      "sha256": "6634431db696f50d97f3a8f405615336895803d2302aca8e7690144b710dae4d",
+      "personally_read_ranges": [
+        [
+          1,
+          376
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full376-line frozen PR GpuBvh owner. Constructor pairs all node, parent, indices, scratch and count buffers at one capacity, capacity minimum1; build rejects overcapacity then records clear/bounds/codes/sort/hierarchy/refit; count0 leaves no active nodes. count is updated before fallible dispatch recording, so failure/discarded batch can leave host count unlike submitted geometry; actual caller error handling required before stale traversal claim. Public buffers allow shape/device mismatch, raw primitive bounds extent unchecked here. u32 node_count/refit node arithmetic can overflow above2^31 primitives although allocation usesu64; no realizable oversized allocation/ordinary producer established. Reallocation resets count by replacing whole self. Readback slicing relies same private count/allocation relation. No GPU execution or family clearance."
+      ]
+    },
+    {
+      "scope_index": 2551,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/mesh.rs",
+      "sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+      "personally_read_ranges": [
+        [
+          1,
+          205
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full205-line frozen PR MeshCollider. Admission rejects empty triangles and any out-of-range vertex index, pairs triangle count, vertex count, packed buffers and BVH, then records initial rebuild. Position updates enforce count but require explicit documented refit/rebuild afterward. Public positions/triangles/bounds/BVH/surface permit independent mutation and stale broadphase; actual ordinary mutation sequence required. Surface thickness/friction and coordinate finiteness not validated here, so malformed raw input remains admission obligation, not accepted producer defect. usize-to-u32 truncation only at huge collection sizes; no allocated witness. Bounds inflate by same surface thickness before refit and binds traversal resources together."
+      ]
+    },
+    {
+      "scope_index": 2556,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/interior_lighting/field.rs",
+      "sha256": "cbc42cdf56bc3c26ad2b18de8e3c7729729adf374864c725afb51d3739be7dd0",
+      "personally_read_ranges": [
+        [
+          1,
+          206
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full206-line P16 interior field constructor and sample lookup, compared with2515 aperture updater. Samples/base_samples have same computed dimensions; shutter contribution indices derive from same level/depth/width indexing as sample storage. Each room/cell contributes paired six-lobe light and room marker; shutter matches assembly by origin/sill tolerance and TimberShutter layer. Canonical room/cell uniqueness, storey wall indices, positive storey height and finite local query remain owning plan/consumer invariants; arbitrary raw plan/query not cleared. Multiple leaves sharing opening can reach2515 first-match aperture selection; actual compiled leaf cardinality/lighting contract remains pending rather than asserted bug. No light generation was executed."
+      ]
+    },
+    {
+      "scope_index": 2558,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/prefix_sum.rs",
+      "sha256": "d37a82c99c0d23659bf6b0533ccb96435592ed4e2f3e62d9b5867d5c36a6e5c7",
+      "personally_read_ranges": [
+        [
+          1,
+          408
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full408-line PR prefix scan including embedded WGSL and fixtures. Bespoke element count converts tou64 bytes; record checks scratch capacity and data extent before mutation. Constructor recursively allocates totals from repeated ceildiv256, record recursively splits matching level and adds offsets after deeper scan. WGSL read-before-write barriers implement inclusive per-block then subtract original value to exclusive, overflow explicitly wraps. Folded grid may launch extra blocks; data writes are index<count guarded, sums writes use block with GPU robustness rather than explicit range guard. Nearu32 maximum element counts index arithmetic can wrap extra folded groups, but requires enormous buffers and device/dispatch acceptance; actual reachable count bound needed before defect. Fixtures cover ragged depths and untouched tail, read not run; no GPU semantics clearance from source alone."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "4 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

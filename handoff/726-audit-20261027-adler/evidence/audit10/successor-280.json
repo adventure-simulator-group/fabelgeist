@@ -1,0 +1,45 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-280",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 2476,
+      "source_id": "sdk-noiz-0.5.0:src/lib.rs",
+      "sha256": "75fd184c107067ee24f751adf6f49829c698ba89899a3595e6a608b63c6413f6",
+      "ranges": [
+        [
+          100,
+          180
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "source_basis": "Fresh personal exact registered SDK ranges; recovered Git hash plus native source catalogue identity, no other-lens verdict credit.",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/75fd184c107067ee24f751adf6f49829c698ba89899a3595e6a608b63c6413f6",
+      "trait_inventory_and_semantics": "Personally read SeedableNoise/ScalableNoise/Sampleable reached declarations and reciprocal period/frequency default methods. No handwritten structural trait implementation or codec in reached scope.",
+      "disposition": "No derivability candidate. Trait API/default numerical behavior is native owner contract, not boilerplate; no whole SDK, unusual-input/numeric/runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2477,
+      "source_id": "sdk-spacetimedb-sats-2.6.1:timestamp.rs",
+      "sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+      "ranges": [
+        [
+          1,
+          195
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "source_basis": "Fresh personal exact registered SDK ranges; recovered Git hash plus native source catalogue identity, no other-lens verdict credit.",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+      "trait_inventory_and_semantics": "Personally read exact timestamp1-195 from audit11 source object only (no verdict), independently hash-verified; immutable recovered Git object verified identical. SATS structural traits already derive; Add<TimeDuration> calls checked_add then unwrap, and Add<Duration> declaration starts at195. Native timestamp/system/chrono and checked arithmetic methods read.",
+      "disposition": "No derivability candidate. Preserve native checked timestamp/duration semantic operation and SATS codec; no tail195+ Add body, Display/other impls outside range, SDK arithmetic correctness or runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

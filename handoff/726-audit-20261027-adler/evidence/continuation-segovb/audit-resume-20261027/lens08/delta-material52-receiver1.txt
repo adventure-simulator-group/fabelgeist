@@ -1,0 +1,43 @@
+--- base-selected
++++ head-selected
+@@ -1,7 +1,7 @@
+ pub(crate) fn add_and_equip_basic_clothing(
+     ctx: &ReducerContext,
+     character_id: u64,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     for (item, slot) in [
+         ("linen_tunic", LoadoutSlot::Chest),
+         ("linen_breeches", LoadoutSlot::LeftLeg),
+@@ -21,7 +21,7 @@
+     ctx: &ReducerContext,
+     character_id: u64,
+     loadout: &[(&str, LoadoutSlot)],
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     for inventory_item_id in equipped_wearable_ids(ctx, character_id) {
+         unequip_wearable(ctx, inventory_item_id);
+     }
+@@ -34,9 +34,12 @@
+             .character_and_item_id()
+             .filter((character_id, *item_id))
+             .find(|item| !selected.contains(&item.id))
+-            .map(|item| item.id)
+-            .or_else(|| add_inventory_item(ctx, character_id, item_id, 1))
+-            .ok_or_else(|| format!("Failed to add {item_id} to development loadout"))?;
++            .map(|item| item.id);
++        let inventory_item_id = match inventory_item_id {
++            Some(id) => id,
++            None => add_inventory_item(ctx, character_id, item_id, 1)?
++                .ok_or_else(|| format!("Failed to add {item_id} to development loadout"))?,
++        };
+         selected.insert(inventory_item_id);
+         equip_equipment_internal(
+             ctx,
+@@ -50,6 +53,3 @@
+     }
+     Ok(())
+ }
+-
+-#[cfg(test)]
+-mod starting_character_boundary_tests {

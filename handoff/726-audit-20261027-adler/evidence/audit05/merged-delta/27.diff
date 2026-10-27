@@ -1,0 +1,25 @@
+--- 6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/tactical_scene_viewer/manifest.rs
++++ 13fc9dcc71ab879de364117e5462310673e43210:crates/adventuresim-tactical-client/src/tactical_scene_viewer/manifest.rs
+@@ -816,20 +816,20 @@
+         let views = [
+             CaptureViewSpec::new(
+                 "tree-cold-first-050",
+                 "Cold",
+                 CapturePose::TreeColdTraversal {
+-                    distance: crate::camera::authored_metres(50.0),
++                    distance: crate::camera::config::authored_metres(50.0),
+                 },
+                 80.0,
+                 100,
+             ),
+             CaptureViewSpec::new(
+                 "tree-warm-second-050",
+                 "Warm",
+                 CapturePose::TreeColdTraversal {
+-                    distance: crate::camera::authored_metres(50.0),
++                    distance: crate::camera::config::authored_metres(50.0),
+                 },
+                 80.0,
+                 100,
+             ),
+         ];

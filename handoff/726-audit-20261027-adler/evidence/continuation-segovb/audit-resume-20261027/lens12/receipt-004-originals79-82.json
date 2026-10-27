@@ -1,0 +1,236 @@
+{
+  "schema": "lens12-source-discovery-receipt-v1",
+  "id": "L12-RESUME-004",
+  "created_utc": "2026-10-27T10:52:07.533486+00:00",
+  "predecessor": "receipt-003-originals75-78.json",
+  "prospective_manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens12/prospective-sources-001.jsonl",
+    "sha256_prefix": "0fc0eb1922a2f19725dbdac20cf1f13165bfeaa49acfe2d7adf9c5f3e94d0d7a",
+    "bytes_prefix": 45656
+  },
+  "source_reads": [
+    {
+      "original_index": 79,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat.rs",
+      "sha256": "eb7dbfbe0a6f8fa81675d14434401b41bc0949b693b56338129c6c778af82284",
+      "actual_ranges": [
+        [
+          1,
+          1137
+        ]
+      ],
+      "scope": "full independently consumed registeredbody",
+      "roles": [
+        {
+          "lines": [
+            246,
+            373,
+            408
+          ],
+          "role": "3 lint rationale literals",
+          "disposition": "compiler attribute boundary"
+        },
+        {
+          "lines": [
+            654,
+            728
+          ],
+          "role": "combat-matchups default_character rawseed (2 occurrences)",
+          "disposition": "same inherited rawidentity/seed family: passed to actual default_character384 personality SourceSeed::derive(random353-360) consumed001. Test identity seeds have semantic producer role, no blanket fixture exemption; no need preserve old byte/hashing behavior."
+        },
+        {
+          "lines": [
+            740,
+            745,
+            750,
+            854,
+            861
+          ],
+          "role": "5 human diagnostic labels in existing MatchupCombatant.name and AvoidedMatchup.label fields",
+          "disposition": "actual samebody chain: name->format774 (BodyPart Display owner77:32-44 read); label->panic907/format910/assert916; no semantic comparison/lookup/seed with these fields in full body. Concrete diagnostic formatting role allows prose without new bespoke perfixture type."
+        },
+        {
+          "lines": [
+            544,
+            642,
+            694,
+            713,
+            717,
+            774,
+            808,
+            838,
+            907,
+            910,
+            916,
+            1043,
+            1116
+          ],
+          "role": "13 diagnostic format/assert/panic literals",
+          "disposition": "assert_in_window541-547 formats label plus numeric expectedbounds; other macros immediatelyconsumehumantext. Existing RenderedPersonalName getter as_str657/735 borrowed to testname->finalformatter775, not application identity branch; actual canonicalowner read001. No message compatibility/no execution claim."
+        }
+      ],
+      "status": "source-accounted with findings and pending qualified contracts"
+    },
+    {
+      "original_index": 80,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/config.rs",
+      "sha256": "cc2a62a000314375ca41307ed50b057e71d670192954b4aee7774a69fe2e976a",
+      "actual_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "scope": "full independently consumed registeredbody",
+      "roles": [
+        {
+          "lines": [
+            66,
+            116
+          ],
+          "role": "2 human errors returned by application validate APIs as Result<(), &static str>57/73",
+          "disposition": "source-accounted finding: validation failure is raw string-valued API despite physical/ordering semantic conditions; distinguish actual typed validation error owner/path before repair. fatigue/contact validate delegated? actualcallee owners85/89 queuednext. Unread caller/error wrapping not clearance."
+        },
+        {
+          "lines": [
+            122
+          ],
+          "occurrences": 2,
+          "role": "OUT_DIR and generated config filename include/env macro inputs",
+          "disposition": "concrete compiler/environment/include text path boundary; actual generated config producer not read here, no global generation/authorityclaim."
+        }
+      ],
+      "status": "source-accounted with findings and pending qualified contracts"
+    },
+    {
+      "original_index": 81,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/contact_geometry.rs",
+      "sha256": "49172abd688b3e643d98f8214b92848a339da49622b13331988449baffcb93f5",
+      "actual_ranges": [
+        [
+          1,
+          489
+        ]
+      ],
+      "scope": "full independently consumed registeredbody",
+      "roles": [
+        {
+          "lines": [
+            27,
+            36
+          ],
+          "occurrences": 2,
+          "role": "serde snake_case strategy",
+          "disposition": "concrete serializer/derive boundary for canonical contact classification/invalidationcause enums; actualfields93-105, constructorinvalid122-134 and consumer79:387-392/423-426 preserve enums. Rest full489 contains no stringfield/API/erasure; sourceonly existingtests inspected, no numerical/behavior verdict."
+        }
+      ],
+      "status": "source-accounted with findings and pending qualified contracts"
+    },
+    {
+      "original_index": 82,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/contact_timing.rs",
+      "sha256": "3b347473e5083f9fd02f59949b49f45eb7bf03e75c288b167cf003e2acc6ca89",
+      "actual_ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "scope": "full independently consumed registeredbody",
+      "roles": [
+        {
+          "lines": [
+            11
+          ],
+          "occurrences": 2,
+          "role": "serde try_from/into f32 primitive tokens",
+          "disposition": "derive wire configuration; actual TryFrom52-57 finite constructor15-19/From47-50 consumed. Full57 has no application stringstate or string API; no numerical/native Duration runtime claim."
+        }
+      ],
+      "status": "source-accounted with findings and pending qualified contracts"
+    }
+  ],
+  "connected_remedies": [
+    {
+      "family": "inherited raw seed identity",
+      "source": "79:654,728 -> starting_character.default_character/SourceSeed::derive (own001 actualreceiver trace)",
+      "remedy": "retain actual canonical seed/identity owner through internal APIs after remaining seed namespace/input owner reconciliation; native text only at actual seed-byte boundary",
+      "acceptance": "source trace all owned producer/retained/caller ports and owner aliases before authorized implementation; no runtime/test execution here",
+      "unique_delta": 0
+    },
+    {
+      "family": "raw string-valued validation errors",
+      "source": "80:57-73,116",
+      "remedy": "typed physical/ordering validation error with actual delegated causes, retain until diagnostic display boundary; inspect85/89 and actual caller next",
+      "limits": "no invented existing suitable errorowner or native consumerclaim; source-accounted with explicit untraced delegations/callers",
+      "unique_delta": 0
+    }
+  ],
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat.rs",
+      "sha256": "eb7dbfbe0a6f8fa81675d14434401b41bc0949b693b56338129c6c778af82284",
+      "ranges": [
+        [
+          1,
+          1137
+        ]
+      ],
+      "coverage": "only own lens12 source roles, no other-lens or currenttree verdict"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/config.rs",
+      "sha256": "cc2a62a000314375ca41307ed50b057e71d670192954b4aee7774a69fe2e976a",
+      "ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "coverage": "only own lens12 source roles, no other-lens or currenttree verdict"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/contact_geometry.rs",
+      "sha256": "49172abd688b3e643d98f8214b92848a339da49622b13331988449baffcb93f5",
+      "ranges": [
+        [
+          1,
+          489
+        ]
+      ],
+      "coverage": "only own lens12 source roles, no other-lens or currenttree verdict"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/contact_timing.rs",
+      "sha256": "3b347473e5083f9fd02f59949b49f45eb7bf03e75c288b167cf003e2acc6ca89",
+      "ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "coverage": "only own lens12 source roles, no other-lens or currenttree verdict"
+    }
+  ],
+  "qualifications": [
+    "All frozen/current/aliases/all20/P16/P17 obligations preserved.",
+    "Source inventory is not regression/runtime/native acceptance; no project/check/test/probe/source/Gitmutations.",
+    "No backward compatibility constraints apply; clean final schema/API.",
+    "No all-string audit clearance; each actual remaining population unaccounted until independently read; delegated85/89/rawvalidationreceivers remain explicit."
+  ],
+  "proposed_count": {
+    "before": 79,
+    "after": 83,
+    "indices_completed": [
+      79,
+      80,
+      81,
+      82
+    ],
+    "next_original": 83,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  }
+}

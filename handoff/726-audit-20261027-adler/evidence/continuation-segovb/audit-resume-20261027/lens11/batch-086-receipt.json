@@ -1,0 +1,421 @@
+{
+  "at": "2026-10-27T16:25:56.509267+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-086-registration.jsonl",
+    "sha256": "bc41f992de6b84646b503a234981b8bdc29b85d77761e2a11640cb5481e0b28f"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-085.json",
+    "sha256": "398643f33034d1a611c12b7f747a148c1e0035010906290526c0d31ef2aaee66"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1143,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/npc_causal.rs",
+      "sha256": "3e8edab2fcd4988c3443a07ef35041bc7c9522ab9e6e025317b29608a41de263",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/3e8edab2fcd4988c3443a07ef35041bc7c9522ab9e6e025317b29608a41de263",
+      "ranges": [
+        [
+          1,
+          635
+        ]
+      ],
+      "actual_eof": 635,
+      "prospective": true,
+      "purpose": "Independent full ordered scheduling typegranularity inventory, material actual recipients only",
+      "actual_read_ranges": [
+        [
+          1,
+          635
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1144,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/npc_causal/romance_candidates.rs",
+      "sha256": "6957bd242c23a68763c5e05b3d1dfc3277adedadb0338b05613bc915c1f982e3",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/6957bd242c23a68763c5e05b3d1dfc3277adedadb0338b05613bc915c1f982e3",
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "actual_eof": 28,
+      "prospective": true,
+      "purpose": "Independent full ordered scheduling typegranularity inventory, material actual recipients only",
+      "actual_read_ranges": [
+        [
+          1,
+          28
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected_original",
+      "original_index": 1155,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/courtship.rs",
+      "sha256": "3f03d0db1b9cf1860a021496c4a4442a607e0dc03f6eaa309ca7318e965e323c",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/3f03d0db1b9cf1860a021496c4a4442a607e0dc03f6eaa309ca7318e965e323c",
+      "ranges": [
+        [
+          274,
+          410
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual canonical NPC courtship outcome/owner/typed error and pair receiving body",
+      "actual_read_ranges": [
+        [
+          274,
+          410
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1180,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence.rs",
+      "sha256": "df7d47666e333785437d381321a5e7b85cd6e4c453067c83f8d86ea00a30ce35",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/df7d47666e333785437d381321a5e7b85cd6e4c453067c83f8d86ea00a30ce35",
+      "ranges": [
+        [
+          1158,
+          1310
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual housing outcome payload and NPC residence receiver",
+      "actual_read_ranges": [
+        [
+          1158,
+          1310
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1159,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/lifecycle.rs",
+      "sha256": "e07c9d7949a4086798ee405ba1deac19e4adcbb4e5dc5cf618eba028b229415d",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/e07c9d7949a4086798ee405ba1deac19e4adcbb4e5dc5cf618eba028b229415d",
+      "ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Exact global lifecycle admission/dispatch owner; only full138 cohesive lifecycle contract",
+      "actual_read_ranges": [
+        [
+          1,
+          138
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1155,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/courtship.rs",
+      "sha256": "3f03d0db1b9cf1860a021496c4a4442a607e0dc03f6eaa309ca7318e965e323c",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/3f03d0db1b9cf1860a021496c4a4442a607e0dc03f6eaa309ca7318e965e323c",
+      "ranges": [
+        [
+          411,
+          475
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Close actual NPC pair transaction and wedding output receiver",
+      "actual_read_ranges": [
+        [
+          411,
+          475
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1161,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/mod.rs",
+      "sha256": "3a963760e8bdf9dbe54464488f72d3dd2c976d3a2da5705a5cb30dec2f9265b1",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/3a963760e8bdf9dbe54464488f72d3dd2c976d3a2da5705a5cb30dec2f9265b1",
+      "ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual global lifecycle dispatch/wrapper and event budget/time owner",
+      "actual_read_ranges": [
+        [
+          1,
+          138
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1161,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/mod.rs",
+      "sha256": "3a963760e8bdf9dbe54464488f72d3dd2c976d3a2da5705a5cb30dec2f9265b1",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/3a963760e8bdf9dbe54464488f72d3dd2c976d3a2da5705a5cb30dec2f9265b1",
+      "ranges": [
+        [
+          139,
+          177
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Close exact global event dispatcher return",
+      "actual_read_ranges": [
+        [
+          139,
+          177
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1155,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/courtship.rs",
+      "sha256": "3f03d0db1b9cf1860a021496c4a4442a607e0dc03f6eaa309ca7318e965e323c",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/3f03d0db1b9cf1860a021496c4a4442a607e0dc03f6eaa309ca7318e965e323c",
+      "ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual typed courtship error classifications at receiving operation boundary",
+      "actual_read_ranges": [
+        [
+          1,
+          38
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1180,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence.rs",
+      "sha256": "df7d47666e333785437d381321a5e7b85cd6e4c453067c83f8d86ea00a30ce35",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/df7d47666e333785437d381321a5e7b85cd6e4c453067c83f8d86ea00a30ce35",
+      "ranges": [
+        [
+          1115,
+          1157
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual recovery error causes before classifying NoAffordableOffer mapping",
+      "actual_read_ranges": [
+        [
+          1115,
+          1157
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1143,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/npc_causal.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              97
+            ]
+          ],
+          "roles": "Wall-clock scheduled wake-up, strategic personal frontier, NPC versus lifecycle work budgets, policy Phase/Outcome and optional target receipt.",
+          "disposition": "ScheduleAt/TimeDuration are framework wake-up types, distinct from StrategicMinute durable causality and day index. Closed policy phases useful, but independent phase+flat outcome+Option target can encode Housing+RomanceEstablished or targetless established relation. Actual writers correlate them correctly, so no bad stored ordinary receipt claim. Housing rent tier duplicated into three outcomes despite existing HousingTier payload.",
+          "remedy": "One canonical phase-owned decision sum with Schedule/Housing/Romance outcome payloads and target owned only by established romance; derive phase/key from variant, keep SDK adapter if needed. Reuse existing HousingTier/NpcResidenceOutcome semantics instead of new duplicate tier vocabulary.",
+          "acceptance": "No backward compatibility constraint on stored shape; exact source receipt fields and all writers consumed. Work cap64 is actual service budget, not arbitrary NPC population bound."
+        },
+        {
+          "ranges": [
+            [
+              99,
+              263
+            ]
+          ],
+          "roles": "Stable frontier cohort, typed Seed and absolute minute/day, exact receipt IDs, schedule unallocated versus once initialized, authoritative adulthood.",
+          "disposition": "Same-day phase idempotence distinct once-ever schedule initialization, allowing dependent Ineligible receipts without blocking adult setup. Local schedule_is_unallocated ordinary predicate checks all allocation and organization links. Native schedule minute fields distinct activities, canonical ScheduleAllocation already owns aggregate. Seed and character ID both words with different roles.",
+          "remedy": "Canonical DayIndex/CharacterId/phase decision and admitted schedule payload; use existing schedule owner and shared numeric invariant without flattening activity roles.",
+          "acceptance": "Actual cohort alive+before official target sorted(minute,ID), retains one frontier before truncation, no global fairness/causal independence guarantee for effects between same-frontier policy decisions. Schedule effective_age_years at personal minute explicit, unlike later cached-age guards."
+        },
+        {
+          "ranges": [
+            [
+              266,
+              321
+            ]
+          ],
+          "roles": "Housing eligibility, canonical residence outcome and tier mapping, per-day receipt.",
+          "disposition": "Actual NpcResidenceOutcome::Rented(HousingTier) already owns tier; flattening to three policy outcomes repeats same vocabulary. Actor living/adult/home and ownership/recovery/affordability outcomes meaningful. Cached character.age_years check versus schedule effective_age_years is source authority consistency question, no ordinary stale-age witness established.",
+          "remedy": "Reuse canonical housing result as receipt payload with explicit Ineligible and preserve canonical age-at-frontier admission; do not introduce duplicate numeric age bounds or extra tier owner.",
+          "acceptance": "Actual1180 receiver1158\u20131254 fully consumed, uses existing holdings and billing. Recovery errors .is_err mapped NoAffordableOffer1198\u20131201 may classify non-budget infrastructure errors as affordability; exact recovery1115\u20131155 includes missing/not-owned/relinquished/clock/billing errors, but caller prefilters nominal ownership/status so ordinary bad branch not proven."
+        },
+        {
+          "ranges": [
+            [
+              323,
+              462
+            ]
+          ],
+          "roles": "Present candidate cohort, deterministic day+seed ordering, actor/candidate to suitor/partner direction, formal/informal/ineligible courtship and target receipt.",
+          "disposition": "Actor versus candidate encounter roles differ suitor versus partner policy roles; tuple(u64,u64) can swap these meaningful same-type fields. Canonical CourtshipPairError separates Rejected(CourtshipRejection) and InvalidState(String), real error distinctions; mapping to String at scheduler SDK is actual adapter. NpcCourtshipOutcome Formal/Informal/Ineligible duplicates core route distinctions only because represents completed operation, preserve role if completion differs intent.",
+          "remedy": "Named CourtshipPair with existing CharacterId, phase-owned established receipt target, existing typed route/result payloads. Keep expected rejection/no-op separate infrastructure failure through application ports.",
+          "acceptance": "Actual1155 operation283\u2013425 checks both NPC policies/living ages at max personal time, attraction/nonkin/conflicts, maps eligible route then shared final validator/establish/reserve wedding. Native shared validator55\u2013154 and wedding materialization body remain unconsumed here; no whole canonical family/transaction guarantee or actual wrong pair claim."
+        },
+        {
+          "ranges": [
+            [
+              464,
+              510
+            ]
+          ],
+          "roles": "Process schedule/housing/romance before personal advance; scheduler identity guard; global lifecycle batch before NPC frontier selection and one-day target.",
+          "disposition": "Global lifecycle event time and participant personal frontier differ scheduler wake-up wall clock. Current policy decisions all happen before any cohort member advances, but may mutate relationship/housing state visible to later decisions; no assertion all decisions use immutable whole-cohort snapshot. Already-used personal-time record and official target same type but different authority.",
+          "remedy": "Named admitted causal frontier/target and work budget; preserve independent lifecycle dispatch versus NPC decisions and existing Seed identity. Typed receiver boundary should name attempted/processable events rather than success count.",
+          "acceptance": "Actual1161 global dispatcher sorts full stable keys, filters processability then truncates and returns due.len even quarantines/failures; not count of successful lifecycle mutations. Only outer bounded events established, no guarantee inner wedding/birth helper all writes bounded or no player deferral."
+        },
+        {
+          "ranges": [
+            [
+              512,
+              635
+            ]
+          ],
+          "roles": "Existing scheduler bounds/order/receipt/age/presence/sex-role/lifecycle/identity source tests and pair fixtures.",
+          "disposition": "Raw numeric/sex/tuple fixtures legitimate native boundaries; source string checks establish expected text only. Same-sex retains deterministic actor order and opposite-sex reorders for formal directional policy, no needless distinct ID wrappers for each sex.",
+          "remedy": "No new tests/helpers/assertions/doctests or execution. Canonical typed pair and receipt migrations should update existing fixtures only under later authorized repair.",
+          "acceptance": "All635 personally read; no scheduler tick, lifecycle/romance probe or hosted acceptance observed."
+        }
+      ]
+    },
+    {
+      "original": 1144,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/npc_causal/romance_candidates.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              28
+            ]
+          ],
+          "roles": "Present romance candidate character ID plus policy Seed, settlement and actor-relative minute filter.",
+          "disposition": "Candidate identity and seed association canonical NpcCandidate reused; excludes actor and requires actual presence+NPC policy. Raw character/settlement internal ports still erase existing ID owners; minute is observer/actor-relative, not scheduler timestamp. Named small helper owns meaningful join/admission policy, not redundant forwarding.",
+          "remedy": "Retain canonical candidate/identity/PresenceFrontier through application; no new local duplicate candidate owner or runtime-disjointness rule beyond actual actor exclusion.",
+          "acceptance": "Actual same-source policy and presence joins consumed; native core959 stable ordering full296 prior033 reused. No whole presence/clinical engine or future relationship scope transfer."
+        }
+      ]
+    }
+  ],
+  "connected_role_inventory": [
+    {
+      "original": 1155,
+      "ranges": [
+        [
+          1,
+          38
+        ],
+        [
+          274,
+          475
+        ]
+      ],
+      "inventory": "Typed error owner1\u201338 and full NPC outcome/operation274\u2013425;427\u2013475 next public formal-courtship prefix only. Actual pair roles and final expected-vs-infrastructure error distinction; no full shared validator/native wedding materialization proof."
+    },
+    {
+      "original": 1180,
+      "ranges": [
+        [
+          1115,
+          1310
+        ]
+      ],
+      "inventory": "Complete recovery1115\u20131155, canonical housing outcome1158\u20131164 and complete NPC housing1167\u20131254.1256\u20131301 adjacent public admit/remove complete,1303\u20131310 test prefix. Preselection raw property/tier/offer tuples and rank0..2 adapt actualHousingTier; selected offer lookup equality not property identity, stable property order actual. No whole residence/billing proof."
+    },
+    {
+      "original": 1159,
+      "ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "inventory": "Cohesive DueLifecycleEvent Wedding/Birth sum owns effective time+event/participant/mother. stable_key uses meaningful precedence wedding-before-birth ordinal, numeric key at sorting adapter. processability checks canonical personal frontier or death before ceremony; failure records effective versus recorded times, quarantine uses typed PregnancyStatus but required resolved_minute remains separate field. No original1159 ordered credit."
+    },
+    {
+      "original": 1161,
+      "ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "inventory": "Module routing/imports/includes1\u201358; full global dispatch63\u2013154. Sort stable key, processability filter then limit, Wedding failure collapsed ResidenceUnavailable regardless raw String cause, Birth invalid preflight quarantined/recorded then commit errors propagated. Event ID/participant/mother remain typed-sum roles, actual effective versus world recorded time distinct.156\u2013177 source concat/test prefix only. No full leaf weddings/births or global family clearance."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-033-receipt.json",
+        "sha256": "2fa5eddcfced7cfdc55209d38df689845b351ca17c3551e42c9bd3acc54dca86"
+      },
+      "contract": "959 npc_policy full296 SHA51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a canonical initial schedule, stable candidates, house offer and courtship route."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-047-receipt.json",
+        "sha256": "6d045d41fa116d1526005fb43721c66da9f941caf1d7ff4316e2a17b4c749fce"
+      },
+      "contract": "1013 strategic_schedule effective full1363 combining recorded prior-role reuse+fresh ranges as receipt, schedule owner; do not claim fresh entire original read in047 alone."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-048-receipt.json",
+        "sha256": "45172eb33f46a6e35fe8c12f09f1b87fa6087f0e3029842e5421f6813eb6b2b1"
+      },
+      "contract": "1017 time full860 shared schedule/admission/one-day strategic clock authority context."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-062-receipt.json",
+        "sha256": "6f38488e18bb19f933f1bf16e5dbbc23fc0f3691f006b1d1d810fe84ce3f9c29"
+      },
+      "contract": "1079 Character full3983 and1153 chronology connected1\u2013107 actual effective age owner; no current source substitution."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-084-receipt.json",
+        "sha256": "a1e35a75e9eb2265261409dee6629fb2b7f627e223d182e4e78e33783dac9e21"
+      },
+      "contract": "1136 full actual currency count/credit/inventory schema, relevant residence affordability input and error collapse qualified."
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Original1143 full635 and1144 full28 personally consumed, exact frozen registration before body.",
+    "Material receiver ranges only above; adjacent prefixes disclosed, no whole future original credit or deep unchanged wedding/birth/billing traversal. Source-account decisions with typed-state, authority and error classification questions, not runtime observed faults.",
+    "All inherited capacity/identity/clock/privacy/currentness/alias/unique and mandatory material/other-population queues retained. No product/Git/root ledger/project execution/checks/tests/probes/publication."
+  ]
+}

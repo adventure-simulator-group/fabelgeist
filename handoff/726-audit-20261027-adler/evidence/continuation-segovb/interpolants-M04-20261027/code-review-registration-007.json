@@ -1,0 +1,36 @@
+{
+  "at": "2026-10-27T04:53:33.338624+00:00",
+  "head": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+  "extends": "code-review-registration-006.json",
+  "sources": [
+    {
+      "path": "crates/adventuresim-core/build/combat_resolution.rs",
+      "sha256": "edfd993d879e1cb771859c76510e7e78e3f612d2f22bacdff5a8ce923970d2ce",
+      "actual_lines": 275,
+      "ranges": [
+        [
+          1,
+          135
+        ],
+        [
+          250,
+          275
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/fatigue_config.rs",
+      "sha256": "a899b7bacdfbcbc116a93ff6adc283bfb56bea396687713dc3677ff505522ce9",
+      "actual_lines": 46,
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "body_read_at_registration": false
+    }
+  ],
+  "purpose": "Actual build-target receiver and emitted runtime qualified constructors; nested shared fatigue schema PositiveSpeed serde/validation dependencies. No unrelated generated-catalog closure. Initial in-memory planned combat_resolution250-280 failed metadataEOF275 before output/write, corrected250-275."
+}

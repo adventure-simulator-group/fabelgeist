@@ -1,0 +1,264 @@
+{
+  "lens": "13 magic-numbers",
+  "packet": "012",
+  "at": "2026-10-26T23:32:46.315247+00:00",
+  "status": "Bounded original31 receiver continuation; partial31 remains, no neworiginal completion/count. Stop packet.",
+  "authority": {
+    "frozen_original_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "original_registry": "target/recovery-20261025/audit05/original-scope-072.json",
+    "original31_identity": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/components.rs SHAe2053ee2dbf1a837b1a4e80d2d2afa22c0ecc2231bf586041222082971b9cbea full1-193; scope retained without rereading/restarting declarationinventory",
+    "adopted_previous_state": "audit13-successor-011-suggested-state-002.json",
+    "previous_state_sha256": "bb3cc11e39cf7a9a1b30543965d9e314f9a0f0c078b1b8f0dbce31da9b333500",
+    "native_commit": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+    "root_ledger_writer": "root"
+  },
+  "registration_files": [
+    "audit13-successor-registration-012.json",
+    "audit13-successor-registration-012-receivers-002.json",
+    "audit13-successor-registration-012-receivers-003.json"
+  ],
+  "source_fingerprints": [
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/pipeline.rs",
+      "sha256": "d47a07104ac9b2333006bbacbc50b5f097b5fa7a57ba4a4d822a62fb3c64e16b",
+      "bytes": 7419,
+      "actual_lines": 232,
+      "registered_and_consumed_ranges": [
+        [
+          118,
+          232
+        ]
+      ],
+      "registration": "audit13-successor-registration-012.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/pipeline.rs",
+      "sha256": "d47a07104ac9b2333006bbacbc50b5f097b5fa7a57ba4a4d822a62fb3c64e16b",
+      "bytes": 7419,
+      "actual_lines": 232,
+      "registered_and_consumed_ranges": [
+        [
+          85,
+          117
+        ]
+      ],
+      "registration": "audit13-successor-registration-012-receivers-002.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/utils.rs",
+      "sha256": "fff93a4ea0bea07da55e0414a7324ef78a98dbd7169f61f5d6e30eab0d3acc04",
+      "bytes": 95,
+      "actual_lines": 3,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          3
+        ]
+      ],
+      "registration": "audit13-successor-registration-012-receivers-002.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/allocator/id_allocator.rs",
+      "sha256": "9bb7823ec6f357ed07f8a4f6c217aaf600e2b6f04fcb06e31dd42f6a171dfd7b",
+      "bytes": 3991,
+      "actual_lines": 158,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "registration": "audit13-successor-registration-012-receivers-002.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/allocator/backend.rs",
+      "sha256": "d07d73f0a2aee9d87f042e265415251b7d444373b0e486c391f6f7fc95def5b5",
+      "bytes": 2085,
+      "actual_lines": 71,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "registration": "audit13-successor-registration-012-receivers-002.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/plugin.rs",
+      "sha256": "1e686092ec02c418795c2e1bed451a9aba8c196608d1b1fa2c334310d17f9b09",
+      "bytes": 9257,
+      "actual_lines": 262,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "registration": "audit13-successor-registration-012-receivers-002.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/allocator/paged_allocator.rs",
+      "sha256": "60da2629cd205e6cd1c9f5a243ef7f3f0769eb48e609a09afb9f9e23ed2d282d",
+      "bytes": 8712,
+      "actual_lines": 309,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          225
+        ]
+      ],
+      "registration": "audit13-successor-registration-012-receivers-003.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/utils.rs",
+      "sha256": "e0a8eea086cbad536b325d44c69e689280c931ddc1587e051167ec128bd4a383",
+      "bytes": 1049,
+      "actual_lines": 31,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "registration": "audit13-successor-registration-012-receivers-003.json",
+      "post_read_hash_verified": true
+    }
+  ],
+  "provenance": "Everynewreceiver exactimmutableGit1a5aff member, stagedbyroot audit13-native-receivers-stage-012.json/supplement; renderpipeline/plugin existing exactGit supplements provenancefromaudit12-successor-registration-012.json. Frozenoriginal31/32/33 peers byte-match samecommit objects. Provenance/locatorreuseonly,no otherlens verdict; no currentaliasor unseenfrozenmemberidentity asserted. Sourceobjectscheckedbeforeprospectiveregistrationandafterboundedbodyread.",
+  "independent_numeric_receiver_inventory": [
+    {
+      "source": "src/render/pipeline.rs85-232",
+      "roles": "Native shader/layout field positions, shader capabilityflags, instance vertexformatbyteoffsets and stride.",
+      "actual_operations": "Commonlayoutsingle storageInstanceUniforms false dynamicflag; shaderrefs M::vertex_shader/M::fragment_shader resolveandretainedhandles. Specializedmeshdescriptor primarylayout0 replaced; extendtolen2; commonlayoutindex2/materialindex3 insertorreplace. Native depthwriteSome(true),GreaterEqual,fragmentblendNone. AfterM::specialize descriptor receivesnative vertex/fragmenthandles. VertexInstanceData stride=size_ofInstanceData,stepmodeInstance,offsets0 thenFloat32x4.size +Float32.size+Uint32.size+Uint32.size; formats/location8posscale,9rotation,10index,11batchid,12seed.",
+      "disposition": "Concrete nativeGPUbyte/vertexAPI requires primitiveoffsets/locations/formats; actual IOreadinpacket011matchesmapping. Source ABI/memory/layout/compiler validation and customM::specialize guarantees not certified."
+    },
+    {
+      "source": "src/render/prepare/utils.rs1-3",
+      "roles": "Instanceelementoffsetu32 -> byteoffsetu64.",
+      "actual_operations": "offset asu64 * size_ofT asu64.",
+      "disposition": "ExplicitnativeGPUbyteboundary; upstreamcount/usize conversion,offsetcapacity/alignment and multiplicationoverflow not admitted bythishelper."
+    },
+    {
+      "source": "src/allocator/id_allocator.rs1-41",
+      "roles": "watermarku32,nextfreshbatchid,free_idsVecu32,entity->u32map.",
+      "actual_operations": "Defaultzero watermark/emptycollections. allocreturnsretainedidifexisting; otherwisepoprecycledID orpostincrementwatermark with+=1; storeandreturn. free removesallocation andpushesID;missingentity no-op.",
+      "disposition": "ActualdenseGPUindexproducer nowtraced,zero valid. No localsentinelreservation/checkedincrement/watermarkcap/publicfieldinvariant; behaviornotuniversallybounded."
+    },
+    {
+      "source": "src/allocator/backend.rs1-71",
+      "roles": "Nativeinstancecountu32,pageIDusize,rangeu32,typedallocationOption andbackend selection.",
+      "actual_operations": "DefaultusesPagedAllocator::default; allalloc/free/size/drain/reset/get/pagecount methodsdispatch toPaged orCustom(Box<dynInstanceAllocator>).",
+      "disposition": "Variantownershipiscanonicalnativeboundary; no hiddencustomvalidation inferred. Customimplementationcontract remainsuntraced, so nopackagewidecapacitypromise."
+    },
+    {
+      "source": "src/render/plugin.rs1-99",
+      "roles": "InstanceHistory Mat4 retention andcurrentGlobalTransformproducer.",
+      "actual_operations": "Coreplugin52-56 registersextractionforInstanceMaterialData/InstanceHistoryandPreUpdateupdate_instance_history. Query85-86 requiresmaterial+Mesh3d; eachentityreadsglobaltransform.to_matrix andupdateshistory.0 or insertsInstanceHistory(current_matrix).",
+      "disposition": "Actualhistoryproducerandframeworkextraction registration nowread. No consumerofhistoryvalue into previous_world_from_local proved; packet011actualuniformproducerusedcurrentgtf forboth. Otherpluginbodies100-262/nativeframeworkhistory extraction internals remainunread."
+    },
+    {
+      "source": "src/allocator/paged_allocator.rs1-225",
+      "roles": "Publicpage_sizeu32(default1_000_000),pagevector/cardinalityusize,entityPageAllocation,pageindexusize,offset/count/watermark/activecountu32,pendingclearRangeu32.",
+      "actual_operations": "addextendsparallelpages/clears/watermarks0/active_counts0. commitinsertallocation,active_counts[page]+=count,watermark=max(current,offset+count),returnstrue. alloc0 returnsSome(0,0)withoutpageallocation;count>pagesizeNone;elsefirstsuccessfuloffset_allocator.allocate onexistingpages oraddthenallocate. freeunknownnoop;pageboundscheck;delegatefree,subtractactivecount;activezero resetsonepageelsequeuesoffset..offset+countclear. size/drainoutofrange0/empty. traitresetclearspages/map/clears/watermarks; getconvertsactualbackendoffset; page_countlen. PageAllocation constructors/conversions copytypedbackendAllocation andrawcount/page.",
+      "disposition": "Actuallocalpagecountadmission andretainedmutations traced; default1millionlocalpagepolicy,not allSDK/devicebudget. offset_allocator::Allocator/Allocation internals andallcustom/externallymutatedpublicstate guarantees unread. Unchecked arithmetic andresetretentionobservation below preserved."
+    },
+    {
+      "source": "src/utils.rs1-31",
+      "roles": "NativeBuffer.check_bounds(offsetu64,data[T])->bool; shaderselectioncontext.",
+      "actual_operations": "BufferBoundsCheck<T:Pod> returns offset+(data.len asu64 * size_ofT asu64)<=self.size. ResolveShaderRef dispatchesDefaulttoembeddedasset,Handlepasseshandle,Pathloadsprovidedpath.",
+      "disposition": "Actualbufferbyteboundspredicate andnative shaderdispatch boundaryread. Arithmeticoverflow/nativewritevalidationnotsilentlycertified. Mshaderoverridepathnot collapsedtodefaultshader; noapplicationindex/seedsemantics inferred."
+    }
+  ],
+  "resolved_previous_trace_gaps": [
+    "InstanceData->nativevertexlayout locations8-12/formats/stride+offsetcalculation nowactualbodyproven, matchingpacket011IOdeclarations. Pendingnativevertexlayout receivingbodygapresolved; no compileABIvalidation claim.",
+    "data_offset elementstobytesandBufferBoundsCheck actualbodies read; empty/zero anduncheckedarithmeticvisible. Priorhelper-call-only gapresolved,notallupstreamboundspolicy.",
+    "IdAllocator actualbatchIDproducer anddefaultPaged/backendmethods nowread; defaultpage_size1million/count0/oversizebehavior established. BackendCustomanddelegatedoffsetallocatorcontracts remainexplicitlyunread.",
+    "InstanceHistory actualPreUpdateproducer/overwrite/insertionandextractionregistrationread. Historicalmatricesare notprovedtobeconsumedbyuniform/motionpath; existingcurrentmatrix-copyobservationretained."
+  ],
+  "source_observations_noncounted": [
+    {
+      "id": "NATIVE-012-ID-SENTINEL",
+      "location": "id_allocator.rs24-30 withcomponents.invalid0xFFFFFFFFandcompute.wgsl15frompacket011",
+      "observation": "NextfreshIDincrementhasnoexplicitMAXsentinelreservationorcheckedcap. Publicwatermark/free_ids/allocationsadmitmanuallyinconsistentIDs;alloccanreturnpreexisting/recycledsentinel. Nativecounteroverflowpolicynotestablished.",
+      "qualification": "No accepteduniquefinding; actualfirstpartyallocationlimits/publicmutationreachability/currentrevision/aliasreconciliationrequired. No hypotheticalbillionsofinstancesruntimefailureclaimed."
+    },
+    {
+      "id": "NATIVE-012-PAGED-RESET",
+      "location": "paged_allocator.rs25-35,56-60,100-104,145-151,171-176",
+      "observation": "Wholeallocatortraitresetclearsallparallelstateexceptactive_counts. Sourcecounterexample:allocate1 -> active_counts[0]=1;traitresetleaves[1];newpagepushes0butpage0commitadds1tostaleindex0=>2;free1leaves1,soemptypagedetectiondoesnotresetit.",
+      "qualification": "Nativecountcoherenceobservationonly,non-countedpendingrootfindingalias/currentness/firstpartyresetreachability. No wholeaggregatelenscredit; no sourceedit/acceptancetest."
+    },
+    {
+      "id": "NATIVE-012-BUFFER-BOUNDS",
+      "location": "src/utils.rs28-29;src/render/prepare/utils.rs1-3;id/pagedarithmetic",
+      "observation": "Nativebytepredicateusesuncheckedmultiply/addbeforecomparison; helpers/allocatorsuseuncheckedcounter,offset+countandactivecountarithmetic. Sourcevisibilityisnotuniversaloverflow-safetyproof.",
+      "qualification": "Retaininheritednativebuffer/counterfamilyandrootdedup; no newuniqueissuecount orallinputs/deviceadmission guarantee."
+    },
+    {
+      "id": "NATIVE-012-HISTORY",
+      "location": "plugin.rs82-99 andpreviouspacketprepare/mod.rs207-213",
+      "observation": "Historyproducerwritescurrentmatrix; previouslyreaduniformproducerdoesnotconsumehistoryandassignscurrentgtf tobothworldandpreviousworld. Selectedcustomshader/motionhistoryconsumerisnotestablished.",
+      "qualification": "Sourceobservation/untracedcontract,notconfirmedgameplay/renderdefect. Native/firstpartysemantics/currentnessandactualmotionpathremainopen."
+    }
+  ],
+  "remaining_partial_original31": [
+    {
+      "contract": "InstanceBuffer.length/capacity,GpuDrawIndexedIndirect.offset,InstancedComputeSourceBuffer.count/capacity,InstanceBatch.batch_id/offset",
+      "frontier": "Exactnativeidentifierlocators012containdeclarationsandsubstringInstanceBufferUpdatercontext; noactualwrapperrecipientbodyestablished. Searches/stagingarenotsemanticabsenceproof. Publicexternaluses/aliases/macrosuntraced; no completionfromunused-lookingnames."
+    },
+    {
+      "contract": "InstanceData.index/seed applications;selectedmaterialshaders",
+      "frontier": "Nativevertextransport/IOresolved,defaultmeshdoesnotreadindex/seedasrecorded011. ActualMshaderselection/ResolveShaderRefpassesHandle/Path; overriddenmaterialshaderandapplicationmeaning/producersnotread. No applicationnativeboundaryexemption orhistoricalaliasinvention."
+    },
+    {
+      "contract": "Historyconsumer/lifecycle",
+      "frontier": "Producer/extractionregistrationresolved;actualhistorypayloadconsumerandmeaningofpreviousworldincludingmotionprepassremainuntraced. plugin100-262/frameworkextractormethodsbodiesnotread."
+    },
+    {
+      "contract": "Delegatedallocator/admission/currentfirstpartyreachability",
+      "frontier": "BackendPagedlocalpolicyread;offset_allocator::Allocator.allocate/free/storageboundsandnativeAllocationownerimplementationnotread. Customtraitimplementations/publicmutablefields/actualinstance-lengthasu32producerandprocessallocations227-340notread. Do notpromisefullperpage/allGPUindex/count/bufferinvariants."
+    }
+  ],
+  "no_credit_for_metadata_only": {
+    "records": [
+      "audit13-native-receivers-stage-012.json",
+      "audit13-native-receivers-stage-012-supplement.json",
+      "audit13-native-receiver-locators-012.json"
+    ],
+    "knownstagedbutnotreread": "Nativecore112/resources182/batchbuffer262alreadyreadin011; stagedmetadataaddsno sourceororiginalcredit. No futureoriginal34+ readoraccountedhere.",
+    "identifiernavigation": "Onlyusedtolocatefunctions/testboundaries; notalllines/bodycoverageorabsenceproof."
+  },
+  "accounting": {
+    "before_original_accounted": 33,
+    "after_proposed_original_accounted": 33,
+    "original_total": 2853,
+    "new_originals_inspected": [],
+    "new_originals_completed": [],
+    "partial_original_indices": [
+      31
+    ],
+    "first_unfinished_original": 31,
+    "first_unread_original": 34,
+    "next_original": 31,
+    "overlays_increment": 0,
+    "merged_increment": 0,
+    "material_increment": 0,
+    "new_unique_count": 0,
+    "root_adoption_required": true
+  },
+  "qualifications": [
+    "Rootadopted011stateandallinheritedqualificationspreserved; no completed0-30/32/33restart, otherlensverdicttransfer,globallyuniquealiascreation orscopeweakening. Original31fullrequested1-193scopeandnativefrozenidentityunchanged.",
+    "7uniquenewreceivingfiles,8registrationrows: pipeline85-117plus118-232,otherexactrangesasfingerprints. Everyregisteredlinepersonallyreadinboundedoutput/hashverifiedbeforeandafter. No wholeGit/frozentreeprojectdownload.",
+    "idallocator42-158andpaged226-309existingtestsnotread/run;plugin100-262andpipeline1-84unread. No unittest/probe/assertion/helper/doctest added/run; no product/source/Git/rootledger/historicaloverwrite/check/lint/scan/generate/publication.",
+    "Source-onlyfield/operationassessmentdoesnotprovecompiledSDKlayout,OS/GPUbehavior,applicationunits/seed/indexmeaning,allcallerboundsorcurrentrepair. Nativeobservationsnon-countedpendingrootalias/currentness/firstpartyreconciliation. ExistingF1/F2/F6/F9andallpriorfindingsremainopen.",
+    "No compatibilityconstraints/aliases/legacyfallbackpolicyapplied. ScopeaccountingisnotglobalSDK/lens13/wholeauditclearance."
+  ],
+  "stop_reason": "Oneboundedpartial31packetcomplete;actualremainingreceiverfrontiersrecorded;stopasrootrequestedafterfinalpaged/utilsreads."
+}

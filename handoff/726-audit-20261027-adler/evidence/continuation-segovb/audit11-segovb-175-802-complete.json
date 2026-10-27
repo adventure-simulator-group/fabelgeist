@@ -1,0 +1,327 @@
+{
+  "packet": 175,
+  "lens": 11,
+  "lens_name": "type-granularity",
+  "status": "source_accounted_with_qualifications",
+  "prior_state": "audit11-segovb-174-proposed-state.json",
+  "authority": {
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "registry": "target/recovery-20261025/audit05/original-scope-072.json",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "source": {
+    "original": 802,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/place/wgsl.rs",
+    "sha256": "21850bcf4f22d8cd055230bb6ac0c8b93f722a90a278d51568acb513894f88c3",
+    "actual_eof": 274,
+    "bytes": 9045,
+    "requested_scope": [
+      [
+        1,
+        274
+      ]
+    ],
+    "personally_consumed_this_packet": [
+      [
+        1,
+        160
+      ],
+      [
+        161,
+        274
+      ]
+    ],
+    "full_scope": true,
+    "prior_connected_read_did_not_supply_ordered_credit": true
+  },
+  "rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "read_status": "prior personally consumed governing rules retained; exact bytes reverified174"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "read_status": "prior personally consumed governing rules retained; exact bytes reverified174"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-type-granularity/SKILL.md",
+      "sha256": "3a1fbf7f53c752e35eefe7763cbd49b9f280bd4b978ea998f74c3a68e45dc106",
+      "read_status": "prior personally consumed governing rules retained; exact bytes reverified174"
+    }
+  ],
+  "registrations": [
+    {
+      "path": "audit11-segovb-175-registration-001.json",
+      "sha256": "08495edceb0d1db7cc623c002508744652e8bc583231217c3d41f15dc0fc91b9"
+    },
+    {
+      "path": "audit11-segovb-175-registration-002.json",
+      "sha256": "10415989e87bfb81226d42eebdd5976050e87cb484cbb17fca297ddfbbd501de"
+    },
+    {
+      "path": "audit11-segovb-175-registration-003.json",
+      "sha256": "c7ea166eedb05ac0a6c2f61c5601ecfc7236d6a9de2402fdb056f01a6889306b"
+    },
+    {
+      "path": "audit11-segovb-175-registration-004.json",
+      "sha256": "1ffb9912fad26359485bdfd57ded62e196e76d2323b1249bca79b31d7f28c1da"
+    },
+    {
+      "path": "audit11-segovb-175-registration-005.json",
+      "sha256": "a108d7f17c6636e73b6fa834586f627ff5c38dc7cc672ebf8bce4f535410319b"
+    }
+  ],
+  "source_access_limit": "803 metadata/body not consumed or credited by175. No broader ordered packet.",
+  "new_connected_reads": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/gpu/wgsl/common.rs",
+      "sha256": "ffd989fed5f4bc512ee53fc408db1d2ecb6bcd81464b5c3eecc8ce4e4eef71e0",
+      "actual_eof": 446,
+      "ranges": [
+        [
+          161,
+          169
+        ],
+        [
+          283,
+          307
+        ]
+      ],
+      "provenance": "173field-staging; unchanged frozen base/head plus dirty-status proof retained, not current substitution",
+      "new_other_lens_ranges": [
+        [
+          161,
+          169
+        ],
+        [
+          283,
+          307
+        ]
+      ],
+      "original_shared_credit": false
+    },
+    {
+      "original": 2244,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+      "actual_eof": 406,
+      "ranges": [
+        [
+          216,
+          230
+        ],
+        [
+          279,
+          340
+        ],
+        [
+          126,
+          163
+        ],
+        [
+          250,
+          278
+        ],
+        [
+          28,
+          47
+        ],
+        [
+          65,
+          125
+        ]
+      ],
+      "read_from": "byte-matching exact workspace source",
+      "scope": "Kernel reflection workgroup-size source, grouped dispatch API and native dispatch adapter only; incidental adjacent fragments not complete function verdicts",
+      "original_shared_credit": false
+    }
+  ],
+  "carried_exact_personal_source_proofs": {
+    "174": {
+      "receipt": "audit11-segovb-174-801-complete.json",
+      "sha256": "f1f7fba67f7d06187aaec09a7db85bf90518983022b37af3ecde2b7ee7d4c699",
+      "use": "Actual host producer entire8011-365, frame/normal and buffer16/32byte/layout/count/policy contracts; native Settle/GpuGroom/Shrinkwrap and retained GroomedHair contracts with exact ranges already recorded."
+    },
+    "173_common": {
+      "sha256": "ffd989fed5f4bc512ee53fc408db1d2ecb6bcd81464b5c3eecc8ce4e4eef71e0",
+      "ranges": [
+        [
+          209,
+          278
+        ]
+      ],
+      "use": "HEAD sampled field/bust discriminator, field interpolation, head_distance and ellipse/capsule equations; no universal algorithm accuracy verdict."
+    }
+  },
+  "inventory": [
+    {
+      "ranges": [
+        [
+          5,
+          10
+        ],
+        [
+          116,
+          133
+        ],
+        [
+          135,
+          159
+        ],
+        [
+          178,
+          190
+        ],
+        [
+          215,
+          274
+        ]
+      ],
+      "role": "Folded item, strand ordinal, flattened point slot, guide ordinal and native count values",
+      "disposition": "Distinct integer roles share WGSL u32 solely at native ABI. CARRY/FOLLOW dispatch count strands; GATHER/MOVES dispatch count guides*points. Actual item helper flattens rows64wide; all four entrypoints bounds-check their own host-requested role. Host Kernel groups_folded derives declared workgroup_size from parsed source, folds afterMAX_GROUPS65535, skips zero items. Each802entry declares64; index mapping coherent for represented role. u32 multiplication/dispatch/buffer capacity and nonzero points admissions remain unproved overall; no implicit cardinality validation inferred."
+    },
+    {
+      "ranges": [
+        [
+          12,
+          44
+        ],
+        [
+          68,
+          81
+        ],
+        [
+          83,
+          93
+        ],
+        [
+          167,
+          176
+        ],
+        [
+          184,
+          188
+        ]
+      ],
+      "role": "Placement frame, position, displacement and normal",
+      "disposition": "Frame has origin, scaled axes and inverse squared axis factors. carry includes translation, carry_move excludes it; bust collision-response difference is transformed as movement, then subtracted from already-character-frame body response. carry_normal uses inverse factors and normalization/fallback; host HeadPlacement supplies same affine frame. These distinctions prevent adding translation to a move or carrying normal as position. Native vec3/f32 layout appropriate; no universal quantity framework or unsupported stronger finite/orthogonal/unit guarantees invented."
+    },
+    {
+      "ranges": [
+        [
+          46,
+          51
+        ]
+      ],
+      "role": "framed source composition",
+      "disposition": "Private function inserts fixed frame fields/helpers into onlyCARRY andMOVES at host801 construction. Names exactly match Frame::params keys. This is actual WGSL-source boundary; not a gameplay string API or independent authority for placement. No type-granularity defect established."
+    },
+    {
+      "ranges": [
+        [
+          53,
+          80
+        ],
+        [
+          123,
+          131
+        ]
+      ],
+      "role": "StrandGpu, position stream, perstrand attribute and root stream",
+      "disposition": "StrandGpu native normalvec3/idu32/uvvec2/groupi32/radiusf32 matches host32byteStrandGpu. Position/root vec4 layout matches16byte allocation. Only xyz/normal are transformed; pointw/rootw and other attribute payloads retained. Separate binding names and hostCarried fields correspond to real roles rather than redundant wrappers. No claim that arbitrary raw Buffer admission itself checks those schemas."
+    },
+    {
+      "ranges": [
+        [
+          94,
+          113
+        ]
+      ],
+      "role": "Root-clearance correction",
+      "disposition": "Clearance/tolerance/maxshift are lengths, min_incidence is cosine, steps an iteration bound. root_lift compares distance error, divides bynormal-gradient incidence, limits iterativealong, then falls back to actualpush_out. HEADgradient usescentraldifferences e2e-4 andsafe_normalize fallback+Y; push_out makes up to6 corrections. No promised clamp of finalfallback movement to max_shift: root_bounds margin/conservative-bound correctness remains unproved; this lens neither clears it nor invents a new scalar wrapper to claim correction."
+    },
+    {
+      "ranges": [
+        [
+          135,
+          159
+        ]
+      ],
+      "role": "Guide sampling and point remapping",
+      "disposition": "guide=i/points,source_index=guide*step*points+i%points. Host step=max(count/2048,1),guides=ceil(count/step); guide population not GuideNeighborCount, point count not StrandCount. Uses the same gathered strand positions in two frames, with distinct named outputs. No cast/reinterpret of rig or vertex identities. Target2048 is not an asserted hard maximum."
+    },
+    {
+      "ranges": [
+        [
+          161,
+          190
+        ]
+      ],
+      "role": "Four equilibria and differential move",
+      "disposition": "by_body-placed_free is character-frame response; by_bust-groomed_free is bust-frame response and transformed withcarry_move. Four buffers are semantically distinct despite identical representation; host801passes actualmatchingnative equilibrium outputs. moves.w=0 denotes displacement slot, not root payload."
+    },
+    {
+      "ranges": [
+        [
+          192,
+          253
+        ]
+      ],
+      "role": "Sinking amount, fade factors, nearest guide and root locking",
+      "disposition": "sink_start/full are world-distance thresholds; hold_start/full are worldY values computed fromcranium-radius positions throughactualplacement. smooth01 converts ratios to bounded blend factors, not a length. Nearest is selected by squared root distance in the common character frame; selected guide slot reused acrosspointindexj. dstroot is copied unchanged and belowhead points receive move*sinking*hold. No additional range type invented at WGSL boundary."
+    },
+    {
+      "ranges": [
+        [
+          254,
+          274
+        ]
+      ],
+      "role": "Segment length and carried directions",
+      "disposition": "rest is distance between original carried neighbors, direction uses neighboring moved positions, normalized with fallback original segment direction; newpoint=previous+along*rest. Original pointw retained. Distinguishes source rest segment from moved direction and accumulated output. Source reveals intended lengthrestoration; no numerical accuracy, NaN/degenerate/signedzero or complete geometry guarantee asserted."
+    }
+  ],
+  "new_observations": [],
+  "qualified_notes": [
+    {
+      "source_key": "SEGOVB11-174-801-DRAPING-POLICY-ERASURE",
+      "relationship": "inherited exactly;802 does not own the hostpolicy bool, no new finding or alias/count credit"
+    },
+    {
+      "source_key": "SEGOVB11-175-802-FOLDED-NATIVE-HELPER",
+      "relationship": "non-finding simplification candidate only",
+      "evidence": "802FOLDED is the width64 specialization of existing computeFOLDED_INDEX_WGSL(width) exact formula. Bothcurrentfrozenentry widths64 match actual reflected dispatch. Shared helper could reduce duplication, but no actual role mix-up or granularity defect proved; ownership/magic-number lenses get no automatic verdict."
+    },
+    {
+      "source_key": "SEGOVB11-175-802-ROOT-BOUND-LIMIT",
+      "relationship": "qualified receiving limit, not accepted unique defect",
+      "evidence": "max_shift ends iterative root-normal correction but push_out fallback has no max_shift parameter; therefore do not transfer a strict final-shift/conservative-root-box guarantee. No current canonical comparison or alias authority checked."
+    }
+  ],
+  "coverage_limits": [
+    "No product/Git/projectexecution/checks/tests/probes/publication/root-ledger/history edits. Evidence writes only.",
+    "Narrow signature search incidentally exposed kernel test declaration/assertion line397/403; excluded semantic test coverage, no test body consumed or execution.",
+    "Native direct contracts traced through source-reflected Kernel and actual WGSLhelper bodies. No independent audit of Naga/parser, GPUdriver validation, bindgroupreflection internals, fullgroom solver, or runtime guarantees inferred.",
+    "All prior capacity795/currentDressing/F50/M108/M24/crosswalk/unfinishedfamily/other-lens qualifications retained without transfer. Canonicalquestion IDs not repurposed.",
+    "New materialcommon161-169,283-307 extends mandatoryother-lensqueue without original/sharedcount; otherqueues remainunfinished.",
+    "Frozen exact workspace equality only; current wholefamily/alias identity/accepted unique count not established. No backwardcompatibility acceptance constraints."
+  ],
+  "new_unique_findings": 0,
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "proposed_frontier": {
+    "original_accounted": 803,
+    "original_total": 2853,
+    "next_original": 803,
+    "active_partial": null,
+    "newly_source_accounted": [
+      802
+    ]
+  },
+  "clear": false,
+  "integrated": false,
+  "validated": false,
+  "stop": "Bounded175complete; no803 body/orderedinventory."
+}

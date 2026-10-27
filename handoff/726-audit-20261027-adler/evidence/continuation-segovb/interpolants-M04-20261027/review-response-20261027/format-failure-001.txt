@@ -1,0 +1,146 @@
+2026-10-27T08:25:39.6608278Z Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/animation/authored_cadence.rs:62:
+2026-10-27T08:25:39.6608954Z  impl AuthoredStrideMeasurement {
+2026-10-27T08:25:39.6609408Z      pub(super) fn lerp(self, other: Self, amount: UnitInterval) -> AnimationValueResult<Self> {
+2026-10-27T08:25:39.6609902Z          Ok(Self {
+2026-10-27T08:25:39.6610263Z -            step_distance: self.step_distance.checked_lerp(other.step_distance, amount)?,
+2026-10-27T08:25:39.6610626Z +            step_distance: self
+2026-10-27T08:25:39.6610789Z +                .step_distance
+2026-10-27T08:25:39.6610984Z +                .checked_lerp(other.step_distance, amount)?,
+2026-10-27T08:25:39.6611234Z              maximum_stance_slip: self
+2026-10-27T08:25:39.6611412Z                  .maximum_stance_slip
+2026-10-27T08:25:39.6611618Z                  .checked_lerp(other.maximum_stance_slip, amount)?,
+2026-10-27T08:25:39.7325820Z Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/animation/procedural/height.rs:253:
+2026-10-27T08:25:39.7326386Z      let moving_weight = speed
+2026-10-27T08:25:39.7326620Z          .clamped_inverse_lerp(
+2026-10-27T08:25:39.7326918Z              playback_tuning().initial_locomotion_speed_metres_per_second,
+2026-10-27T08:25:39.7327331Z -            runtime_animation_config().locomotion.blend_speed.nonnegative(),
+2026-10-27T08:25:39.7327685Z +            runtime_animation_config()
+2026-10-27T08:25:39.7327922Z +                .locomotion
+2026-10-27T08:25:39.7328287Z +                .blend_speed
+2026-10-27T08:25:39.7328507Z +                .nonnegative(),
+2026-10-27T08:25:39.7328691Z          )?
+2026-10-27T08:25:39.7328808Z          .smoothstep();
+2026-10-27T08:25:39.7333766Z      if profile.flight_apex_metres <= HeightDistance::ZERO {
+2026-10-27T08:25:39.7334193Z Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/animation/procedural/height.rs:282:
+2026-10-27T08:25:39.7334518Z      let moving_weight = speed
+2026-10-27T08:25:39.7334669Z          .clamped_inverse_lerp(
+2026-10-27T08:25:39.7334863Z              playback_tuning().initial_locomotion_speed_metres_per_second,
+2026-10-27T08:25:39.7335124Z -            runtime_animation_config().locomotion.blend_speed.nonnegative(),
+2026-10-27T08:25:39.7335341Z +            runtime_animation_config()
+2026-10-27T08:25:39.7335492Z +                .locomotion
+2026-10-27T08:25:39.7335630Z +                .blend_speed
+2026-10-27T08:25:39.7335774Z +                .nonnegative(),
+2026-10-27T08:25:39.7335909Z          )?
+2026-10-27T08:25:39.7336020Z          .smoothstep();
+2026-10-27T08:25:39.7336159Z      procedural_tuning()
+2026-10-27T08:25:40.8333902Z Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/animation/authored_cadence.rs:62:
+2026-10-27T08:25:40.8334472Z  impl AuthoredStrideMeasurement {
+2026-10-27T08:25:40.8335480Z      pub(super) fn lerp(self, other: Self, amount: UnitInterval) -> AnimationValueResult<Self> {
+2026-10-27T08:25:40.8335860Z          Ok(Self {
+2026-10-27T08:25:40.8336173Z -            step_distance: self.step_distance.checked_lerp(other.step_distance, amount)?,
+2026-10-27T08:25:40.8336564Z +            step_distance: self
+2026-10-27T08:25:40.8336758Z +                .step_distance
+2026-10-27T08:25:40.8336926Z +                .checked_lerp(other.step_distance, amount)?,
+2026-10-27T08:25:40.8337117Z              maximum_stance_slip: self
+2026-10-27T08:25:40.8337278Z                  .maximum_stance_slip
+2026-10-27T08:25:40.8337470Z                  .checked_lerp(other.maximum_stance_slip, amount)?,
+2026-10-27T08:25:40.9034141Z Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/animation/procedural/height.rs:253:
+2026-10-27T08:25:40.9035190Z      let moving_weight = speed
+2026-10-27T08:25:40.9035427Z          .clamped_inverse_lerp(
+2026-10-27T08:25:40.9035746Z              playback_tuning().initial_locomotion_speed_metres_per_second,
+2026-10-27T08:25:40.9036152Z -            runtime_animation_config().locomotion.blend_speed.nonnegative(),
+2026-10-27T08:25:40.9036496Z +            runtime_animation_config()
+2026-10-27T08:25:40.9036655Z +                .locomotion
+2026-10-27T08:25:40.9036797Z +                .blend_speed
+2026-10-27T08:25:40.9036941Z +                .nonnegative(),
+2026-10-27T08:25:40.9037077Z          )?
+2026-10-27T08:25:40.9037193Z          .smoothstep();
+2026-10-27T08:25:40.9037411Z      if profile.flight_apex_metres <= HeightDistance::ZERO {
+2026-10-27T08:25:40.9037767Z Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/animation/procedural/height.rs:282:
+2026-10-27T08:25:40.9038219Z      let moving_weight = speed
+2026-10-27T08:25:40.9038367Z          .clamped_inverse_lerp(
+2026-10-27T08:25:40.9038560Z              playback_tuning().initial_locomotion_speed_metres_per_second,
+2026-10-27T08:25:40.9038816Z -            runtime_animation_config().locomotion.blend_speed.nonnegative(),
+2026-10-27T08:25:40.9039030Z +            runtime_animation_config()
+2026-10-27T08:25:40.9039181Z +                .locomotion
+2026-10-27T08:25:40.9039319Z +                .blend_speed
+2026-10-27T08:25:40.9039457Z +                .nonnegative(),
+2026-10-27T08:25:40.9039592Z          )?
+2026-10-27T08:25:40.9039703Z          .smoothstep();
+2026-10-27T08:25:40.9039860Z      procedural_tuning()
+2026-10-27T08:25:41.4861401Z Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/animation/authored_cadence.rs:62:
+2026-10-27T08:25:41.4861850Z  impl AuthoredStrideMeasurement {
+2026-10-27T08:25:41.4862126Z      pub(super) fn lerp(self, other: Self, amount: UnitInterval) -> AnimationValueResult<Self> {
+2026-10-27T08:25:41.4862411Z          Ok(Self {
+2026-10-27T08:25:41.4862621Z -            step_distance: self.step_distance.checked_lerp(other.step_distance, amount)?,
+2026-10-27T08:25:41.4862874Z +            step_distance: self
+2026-10-27T08:25:41.4863059Z +                .step_distance
+2026-10-27T08:25:41.4863249Z +                .checked_lerp(other.step_distance, amount)?,
+2026-10-27T08:25:41.4863435Z              maximum_stance_slip: self
+2026-10-27T08:25:41.4863599Z                  .maximum_stance_slip
+2026-10-27T08:25:41.4863785Z                  .checked_lerp(other.maximum_stance_slip, amount)?,
+2026-10-27T08:25:41.5572855Z Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/animation/procedural/height.rs:253:
+2026-10-27T08:25:41.5573426Z      let moving_weight = speed
+2026-10-27T08:25:41.5573663Z          .clamped_inverse_lerp(
+2026-10-27T08:25:41.5573972Z              playback_tuning().initial_locomotion_speed_metres_per_second,
+2026-10-27T08:25:41.5574420Z -            runtime_animation_config().locomotion.blend_speed.nonnegative(),
+2026-10-27T08:25:41.5574769Z +            runtime_animation_config()
+2026-10-27T08:25:41.5575011Z +                .locomotion
+2026-10-27T08:25:41.5575729Z +                .blend_speed
+2026-10-27T08:25:41.5575882Z +                .nonnegative(),
+2026-10-27T08:25:41.5576020Z          )?
+2026-10-27T08:25:41.5576137Z          .smoothstep();
+2026-10-27T08:25:41.5576364Z      if profile.flight_apex_metres <= HeightDistance::ZERO {
+2026-10-27T08:25:41.5576724Z Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/animation/procedural/height.rs:282:
+2026-10-27T08:25:41.5577052Z      let moving_weight = speed
+2026-10-27T08:25:41.5577204Z          .clamped_inverse_lerp(
+2026-10-27T08:25:41.5577404Z              playback_tuning().initial_locomotion_speed_metres_per_second,
+2026-10-27T08:25:41.5577671Z -            runtime_animation_config().locomotion.blend_speed.nonnegative(),
+2026-10-27T08:25:41.5578310Z +            runtime_animation_config()
+2026-10-27T08:25:41.5578711Z +                .locomotion
+2026-10-27T08:25:41.5578855Z +                .blend_speed
+2026-10-27T08:25:41.5579002Z +                .nonnegative(),
+2026-10-27T08:25:41.5579148Z          )?
+2026-10-27T08:25:41.5579265Z          .smoothstep();
+2026-10-27T08:25:41.5579400Z      procedural_tuning()
+2026-10-27T08:25:43.4877728Z Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-core/src/combat_config/locomotion.rs:32:
+2026-10-27T08:25:43.4879921Z          &self,
+2026-10-27T08:25:43.4880080Z          initial_locomotion_speed: NonnegativeSpeed,
+2026-10-27T08:25:43.4880286Z      ) -> Result<(), TacticalCombatConfigError> {
+2026-10-27T08:25:43.4880535Z -        let gaits = [self.walk, self.run, self.raised_guard, self.prone, self.supine];
+2026-10-27T08:25:43.4880769Z +        let gaits = [
+2026-10-27T08:25:43.4880895Z +            self.walk,
+2026-10-27T08:25:43.4881048Z +            self.run,
+2026-10-27T08:25:43.4881176Z +            self.raised_guard,
+2026-10-27T08:25:43.4881320Z +            self.prone,
+2026-10-27T08:25:43.4881453Z +            self.supine,
+2026-10-27T08:25:43.4881583Z +        ];
+2026-10-27T08:25:43.4881716Z          if gaits.into_iter().any(|gait| {
+2026-10-27T08:25:43.4881946Z              gait.support_phase_radius < CycleDelta::ZERO
+2026-10-27T08:25:43.4882211Z                  || gait.support_phase_radius >= CycleDelta::from_unit_cycles(UnitInterval::HALF)
+2026-10-27T08:25:43.4882599Z Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-core/src/combat_config/locomotion.rs:41:
+2026-10-27T08:25:43.4882920Z                  "invalid animation locomotion tuning",
+2026-10-27T08:25:43.4883084Z              ));
+2026-10-27T08:25:43.4883198Z          }
+2026-10-27T08:25:43.4883338Z -        if self.run.reference_speed_metres_per_second
+2026-10-27T08:25:43.4883539Z -            <= self.walk.reference_speed_metres_per_second
+2026-10-27T08:25:43.4883820Z +        if self.run.reference_speed_metres_per_second <= self.walk.reference_speed_metres_per_second
+2026-10-27T08:25:43.4884064Z          {
+2026-10-27T08:25:43.4884215Z              return Err(TacticalCombatConfigError::Validation(
+2026-10-27T08:25:43.4884442Z                  "run reference speed must exceed walk reference speed",
+2026-10-27T08:25:43.4908270Z Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-core/src/combat_config.rs:632:
+2026-10-27T08:25:43.4908728Z          }
+2026-10-27T08:25:43.4908901Z  
+2026-10-27T08:25:43.4909084Z          let animation = self.animation;
+2026-10-27T08:25:43.4909328Z -        animation
+2026-10-27T08:25:43.4909520Z -            .locomotion
+2026-10-27T08:25:43.4909855Z -            .validate(animation.playback.initial_locomotion_speed_metres_per_second)?;
+2026-10-27T08:25:43.4910246Z +        animation.locomotion.validate(
+2026-10-27T08:25:43.4910491Z +            animation
+2026-10-27T08:25:43.4910687Z +                .playback
+2026-10-27T08:25:43.4910939Z +                .initial_locomotion_speed_metres_per_second,
+2026-10-27T08:25:43.4911165Z +        )?;
+2026-10-27T08:25:43.4911296Z          let guard = animation.guard_footwork;
+2026-10-27T08:25:43.4911453Z          if ![
+2026-10-27T08:25:43.4912139Z              guard.default_half_width_metres,
+2026-10-27T08:25:46.4053826Z ##[error]Process completed with exit code 1.

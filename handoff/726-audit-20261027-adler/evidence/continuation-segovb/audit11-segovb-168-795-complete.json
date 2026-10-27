@@ -1,0 +1,180 @@
+{
+  "id": "SEGOVB-CONT11-SEGOVB-168-795",
+  "lens": "type-granularity",
+  "original": 795,
+  "prior_state": "audit11-state-root-166.json",
+  "prior_partial": "audit11-root-167-795-partial.json",
+  "status": "source-accounted with retained qualified primitive-role/admission concern; not clear",
+  "source_accounted": true,
+  "source_complete_for_requested_role": true,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/hair.rs",
+  "sha256": "a9d4f30809a845df7b5e43bac564eb66824d90bb6cfed878e96c6afae8ff332c",
+  "actually_read": [
+    [
+      1,
+      177
+    ]
+  ],
+  "source_contracts": [
+    {
+      "role": "Pigment, decoding carrier and optical roles",
+      "locations": "hair.rs33-80,94-141",
+      "trace": "HairPigment privately owns melanin amount, red-pigment share and three-channel linear RGB dye transmittance. PigmentShares is solely the Serde checked decoding carrier; TryFrom returns the semantic owner after each share/channel meets0..1. Runtime owner derives Serialize and checked Deserialize rather than transparently admitting carrier fields. Melanin concentration, red composition and dye are related optical parameters but are not interchangeable roles simply because their primitive bounds match. HairPigment itself is a useful cohesive owner; no duplicate canonical pigment type was established. Native three-channel RGB is homogeneous at material/real-time color adapters, not a positional heterogeneous domain record."
+    },
+    {
+      "role": "All concrete pigment producers and mutation paths",
+      "locations": "hair.rs82-117; material.rs98-151",
+      "trace": "Default copies finite mid-brown native material melanin0.65/redness0.35 and no-dye[1;3]. HairMaterial::named accepts an external named natural-colour key and chooses one authored catalogue pair (black,dark brown,brown,auburn,red,blond,platinum,grey); unknown keys returnNone. HairPigment::named maps those material values through new; actual named/default producer values lie in0..1. Public new clamps two values, dyed clamps each supplied dye component, leaving other pigment fields intact. These public clamp paths differ from fallible checked deserialization. Native clamp NaN contract is source-backed below; no assertion that all native HairMaterial instances are checked, since its fields/Deserialize remain public raw numerical material inputs."
+    },
+    {
+      "role": "Actual pigment-to-colour receiving boundary",
+      "locations": "hair.rs132-140; material.rs153-192",
+      "trace": "color constructs canonical HairMaterial using pigment melanin/redness/tint and native defaults, then calls base_color. base_color derives melanin-only absorption with tintwhite, applies Chiang roughness polynomial and calibrated REAL_TIME_ABSORPTION0.25, then multiplies each channel by clamped tint. absorption separates eumelanin/pheomelanin contributions and uses per-diameter absorption coefficients. Thus dye transmittance, pigment proportions, physical absorption and output linear RGB have different roles despite f32/triples; do not merge their validators or equate every unit interval with same semantic leaf. Native renderer arithmetic is the explicit material boundary. This trace does not clear all first-party material admission, numerical/colour-science policies or shader/upload receivers."
+    },
+    {
+      "role": "HairDesign and Groom geometry/material separation",
+      "locations": "hair.rs144-160; shape.rs26-39,42-81,118-146",
+      "trace": "HairDesign stores canonical Preset, HairShape and HairPigment. groom deliberately returns Groom{preset,shape}, with colour excluded. Groom::look creates Look from preset then applies shape. This is meaningful geometry request identity distinct from material colour; no redundant design Boolean or tag/payload combination is present. HairShape optional cut/arrangement/growth are independent overrides retaining preset choice whenNone, not one correlated state sum. ShapeValues is decoding carrier, ShapeKnobs is sliding-value exchange record, and HairShape privately retains admitted semantic variation. These owners have different responsibilities and should not collapse merely because fields can be copied."
+    },
+    {
+      "role": "Exact shape roles and numerical adapter needed to understand Groom",
+      "locations": "shape.rs15-24,89-116,148-229",
+      "trace": "Shape defines separate bounded lengthscale, metre volume/part/wave displacements, curl/clump additions and frizzscale. Checked decode uses role-specific ranges; default represents unchanged preset (None overrides,length/frizz1,additions0). with_knobs clamps each role against its named range; cut/arrangement/growth setters preserve unrelated axes. apply selects requested canonical cut/arrangement/growth, scales haircut, updates volume/part, and uses existing Ratio/Metres at Look curl/wave/frizz/flyaway/clump boundary. Distinct roles survive even when a common range/adaptation mechanism is reused. with_knobs shares possible NaN clamp qualification; this connected read grants no ordered806 credit or universal shape/native-unit admission guarantee. Full preset/look/growing algorithms and unit constructors are outside this bounded receiver assessment."
+    },
+    {
+      "role": "Presentation labels and owner exports",
+      "locations": "hair.rs1-31,163-177",
+      "trace": "Exports identify placement,cap,scalp,GPU/geometry/groom owners but do not establish their bodies/algorithm coverage. variant_label reads Debug variant spelling only to render human interface prose, using local character index/uppercase predicates; it neither parses mutable text into behavior nor stores a status identity. Generic interface formatting is not automatically a new closed role vocabulary. HAIR_ROUGHNESS is authored optical roughness, independent of pigment and geometry lengths; NO_DYE is unit RGB transmittance at explicit material boundary."
+    }
+  ],
+  "qualified_observations": [
+    {
+      "local_source_key": "pr-working:crates/adventuresim-character-creator/src/hair.rs@sha256:a9d4f30809a845df7b5e43bac564eb66824d90bb6cfed878e96c6afae8ff332c#L63-L115:clamped-pigment-admission",
+      "classification": "source-backed frozen admission discrepancy, retained local candidate; no accepted new unique finding or other-lens verdict",
+      "observation": "The declared pigment shares/channels0..1 and checked decode differ from public clamping constructors for NaN. Exact installed primary Rust core docs1533-1539 specify NaN is returned if input isNaN; implementation1564-1579 only compares against finite min/max then returnsself. HairPigment::new/ dyed therefore do not prove every private component lies in0..1; the same connected clamping pattern occurs in HairShape::with_knobs. Actual finite named/default producers are valid and do not establish an ordinary current UI/runtime NaN incident.",
+      "granularity_implication": "A shared checked unit-interval invariant can sit under distinct pigment roles if coherent producer repair is later authorized, while scale/displacement/optical meaning stays separate. Do not prescribe common type solely on numeric bounds or claim existing Ratio admission semantics without reading that owner.",
+      "repair_acceptance_limits": "Determine desired handling of nonfinite public inputs at actual admission; preserve relevant role distinctions through producer/consumer APIs. No compatibility constraints, automatic finite fallback, new bound or repair imposed in this source-only packet.",
+      "alias_currentness": "No matching hair/melanin/redness/source references were found in narrowly inspected inherited audit11 finding/supplement/alias and master-ledger records. Absence is not proof of global uniqueness. No current canonical hair source inspected, so frozen-current integration/regression and master alias remain unverified."
+    }
+  ],
+  "sources": [
+    {
+      "original_index": 795,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair.rs",
+      "sha256": "a9d4f30809a845df7b5e43bac564eb66824d90bb6cfed878e96c6afae8ff332c",
+      "consumed_ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "ordered_credit": true,
+      "frozen_authority": "original-scope-072 files index; f82adcabd9d89c4fa2dd7f99253a45297a0681ee recovered exact source object cache staged by root, hash personally verified"
+    },
+    {
+      "original_index": 806,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/shape.rs",
+      "sha256": "d2da1edcace60e78eab855e992651bda223fcbab7bd832c0f00304ecdcbe7294",
+      "consumed_ranges": [
+        [
+          1,
+          229
+        ]
+      ],
+      "ordered_credit": false,
+      "frozen_authority": "original-scope-072 files index; f82adcabd9d89c4fa2dd7f99253a45297a0681ee recovered exact source object cache staged by root, hash personally verified"
+    },
+    {
+      "original_index": 2296,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/material.rs",
+      "sha256": "20fdf72de21b47f4596eb6538d58a2d89aeb5217a8b797ca53730c769b5d5b1e",
+      "consumed_ranges": [
+        [
+          1,
+          60
+        ],
+        [
+          98,
+          199
+        ]
+      ],
+      "ordered_credit": false,
+      "frozen_authority": "original-scope-072 files index; f82adcabd9d89c4fa2dd7f99253a45297a0681ee recovered exact source object cache staged by root, hash personally verified"
+    }
+  ],
+  "native_contract": {
+    "path": "/home/brunosegovia/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/share/doc/rust/html/src/core/num/f32.rs.html",
+    "sha256": "1e617f2e08abc5ffe5e4ef6492ac43bef2b47c3f993901b8d9543a1370186e3f",
+    "decoded_rust_source_ranges": [
+      [
+        1530,
+        1585
+      ]
+    ],
+    "registered_before_read": true,
+    "qualification": "Installed primary Rust source documentation; no project execution or assertion of project compiler selection/version."
+  },
+  "registrations": [
+    "audit11-segovb-168-registration-001.json",
+    "audit11-segovb-168-registration-002.json",
+    "audit11-segovb-168-registration-003.json",
+    "audit11-segovb-168-registration-004.json",
+    "audit11-segovb-168-registration-005.json"
+  ],
+  "alias_authority_scope": [
+    {
+      "path": "target/recovery-20261025/audit11/inherited-findings.jsonl",
+      "sha256": "e0a473f7765a597a130ffe0a78792645640e475f0d771ca8f8e66f92ec92358c",
+      "coverage": "Narrow matching-record search for HairPigment/hair pigment/melanin/redness/hair source identity only; no general authority clearance"
+    },
+    {
+      "path": "target/recovery-20261025/audit11/inherited-finding-supplements.jsonl",
+      "sha256": "d37b1637d37f9dec2b41cc5865b75085b46b4bbc11222cd71aa291281123076c",
+      "coverage": "Narrow matching-record search for HairPigment/hair pigment/melanin/redness/hair source identity only; no general authority clearance"
+    },
+    {
+      "path": "target/recovery-20261025/audit11/inherited-alias-support.jsonl",
+      "sha256": "3a18a9cf5dd178b336795bcfcd62a532994471cadc896c6850fe8d8ba5138c7e",
+      "coverage": "Narrow matching-record search for HairPigment/hair pigment/melanin/redness/hair source identity only; no general authority clearance"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/inherited-master-ledger.json",
+      "sha256": "74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+      "coverage": "Narrow matching-record search for HairPigment/hair pigment/melanin/redness/hair source identity only; no general authority clearance"
+    }
+  ],
+  "applicable_rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "basis": "Previously fully read applicable rules; source-accounting review only, no source edit"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "basis": "Previously fully read applicable rules; source-accounting review only, no source edit"
+    }
+  ],
+  "skill": "/home/brunosegovia/.codex/skills/audit-type-granularity/SKILL.md",
+  "crosswalk": "audit11-question-crosswalk-001.json",
+  "current_reconciliation": "current-rig-dressing-reconciliation-001.json",
+  "qualifications": [
+    "Frozen source role only, no current counterpart or runtime validation.",
+    "Original0-794 retained, not restarted; connected806/2296 receive no ordered credit. No796 source read.",
+    "Source-accounted with qualified concern differs from clear/current/integrated/validated. Native material/shape references are bounded contracts, not whole family exemption.",
+    "Crosswalk001 qualified namespaces retained; no bareQ008/Q009 equivalence, F50/M108 or other open-family closure.",
+    "All broader audit population and other-lens qualifications remain inherited; no compatibility preservation requirement applies.",
+    "No product/Git/rootledger/historical mutations, checks/tests/probes/scanners or publication; ignored append-only evidence only."
+  ],
+  "new_unique_findings": 0,
+  "accepted_unique_count_change": 0,
+  "proposed_original_accounted": 796,
+  "original_total": 2853,
+  "next_original": 796,
+  "active_partial": null,
+  "current_counterpart_inspected": false,
+  "integrated": false,
+  "validated": false,
+  "clear": false,
+  "stop_boundary": "Original795 complete only; do not begin796."
+}

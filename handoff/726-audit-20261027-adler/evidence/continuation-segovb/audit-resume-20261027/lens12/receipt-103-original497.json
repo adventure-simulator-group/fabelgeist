@@ -1,0 +1,74 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "103",
+  "predecessor": "receipt-102-originals495-496.json",
+  "manifest_prefix_sha256": "91ac65af51f359c6873bb439f126648dbb5bdd55b9974f4dbce8eab0027edd5a",
+  "sources": [
+    {
+      "original_index": 497,
+      "source_id": "pr-working:Cargo.lock",
+      "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+      "actual_eof": 13102,
+      "actual_ranges": [
+        [
+          1,
+          13102
+        ]
+      ],
+      "read_evidence": "original497-read-progress.jsonl",
+      "roles": [
+        {
+          "source_ranges": "1-13102",
+          "role": "All records independently consumed in bounded contiguous raw-source reads: native Cargo format version4 and generated comments1-3; every package name/version/source/checksum and dependency entry is native dependency identity/selection/integrity text, including disambiguating versions and registry/Git source IDs. No generated-file or dependency-group exemption.",
+          "disposition": "Open Cargo package identities and native version/source/checksum grammar belong at actual Cargo/native consumer boundary; do not turn this open vocabulary into gameplay enums. Native parser/checksum verification/solver execution unclaimed."
+        },
+        {
+          "source_ranges": "112-544,4831-5168,10553-10590",
+          "role": "Firstparty workspace package records and dependencies, including tactical-client semver338/toml344; fabelgeist-rust-quality semver5111/toml5115; GPU5005-5030 has no derive_more edge in this exact frozen variant.",
+          "disposition": "Actual native metadata only; lack of edge is not a demonstrated current failure, no transfer from later lock corrections or CI."
+        },
+        {
+          "source_ranges": "1228-1284,1434-1442,1904-1930,2799-2818,4329-4336,5684-5729,8280-8339,9745-9749,10219-10478,11767-11859,12065-12231",
+          "role": "Exact versions/source pins: avian3d0.7.0; Bevy0.19.1; bevy_eidolon Git branch/revision1906; replicon0.41.1; derive_more2.1.1; separate glam0.32.1/0.33.6 and glamx0.2.0; parry3d0.27.0; semver1.0.28; SpacetimeDB2.6.1; wasm-bindgen0.2.126; WGPU29.0.4.",
+          "disposition": "These records prove only frozen selected metadata. Finite supported-Bevy policy and wasm tool-version extraction require actual firstparty recipients; native package IDs/version grammar remain open. No SDK behavior, math, parser, runtime, integrity, currentness or other-lens proof from version presence."
+        }
+      ],
+      "status": "Full requested changed variant independently source-accounted WITH explicit native/firstparty policy receiving obligations."
+    }
+  ],
+  "connected_findings": [],
+  "pending_contracts": [
+    "Actual firstparty Cargo.lock parsers/checks/toolarg recipients for this exact PR-working variant, including finite supported-Bevy policy and wasm-bindgen tooling selection, remain separate receiving obligations. Prior original39/P16/root receipts are context, not independently reread or transferred here.",
+    "Native Cargo parser/dependency resolution/checksum/integrity/semver implementation not consumed or executed; no blanket global clearance from file format.",
+    "498/499 registered next; all inherited application/native/identity/alias obligations retained."
+  ],
+  "qualifications": [
+    "Frozen PR-working exact bytes only, not physicalP16 or current main/HEAD. No current/runtime/global/unique-total/other-lens clearance.",
+    "No BC/API/schema/input preservation requirement; no project/native/test/probe execution or product/Git/rootledger/publication mutation.",
+    "All20/P16/P17/F9/M09 and aliases retained; unique delta0."
+  ],
+  "proposed_count": {
+    "before": 497,
+    "after": 498,
+    "indices_completed": [
+      497
+    ],
+    "next_original": 498,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "pr-working:Cargo.lock",
+      "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+      "ranges": [
+        [
+          1,
+          13102
+        ]
+      ]
+    }
+  ]
+}

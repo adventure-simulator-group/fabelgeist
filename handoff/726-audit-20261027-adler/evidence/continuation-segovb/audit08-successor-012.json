@@ -1,0 +1,497 @@
+{
+  "id": "SEGOVB-CONT08-SUCCESSOR-012",
+  "created_utc": "2026-10-27T01:02:26.016303+00:00",
+  "lens": "08 behavior-preservation",
+  "skill": "/home/brunosegovia/.codex/skills/audit-behavior-preservation/SKILL.md",
+  "scope": "One bounded continuation of root-adopted011 Q003: actual Transform -> GlobalTransform affine matrix -> compute_transform/to_scale_rotation_translation boundary. Default Replicon codec, other collider populations and arbitrary native expansion excluded from this packet.",
+  "inputs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-011.json",
+      "sha256": "6a09ef91acd2f1140b160424c39d322e88904098270898eb178a3c8cababa305"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-011-proposed-state.json",
+      "sha256": "e198f4073f49dd67ac4be0f0281ef037d2cc361a7c99f0b10734285b869f8160"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-009.json",
+      "sha256": "5e60a6ef0dcf072d5301758a928908d8d9f14515a55031aa4d394287a014273d"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-008.json",
+      "sha256": "d416f521ab16a91874f18f17f3764ce7d02f576fc43ce3cf74b5605549943f04"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-012-registration-lock.json",
+      "sha256": "1967b5cf773175ac3b390fc1c89dc16ea41c7919890311b6aa63e48b2472114e"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-012-registration-native-navigation.json",
+      "sha256": "4fe9b8e7f209b44199aad58e0ad966542817d6c3dd20a56e0b42ff0d699643ce"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-012-registration-bodies.json",
+      "sha256": "a7cd4e5b3149e2cc8d3709483f5bc71450d402b786a3637ce48b612b52e68058"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-012-registration-bridge.json",
+      "sha256": "c69df1ee478c7ec4ad9700f8646886dc843cc80f8944c5fba28fd54acacbdce4"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-012-registration-vector-navigation.json",
+      "sha256": "b38b1123089c83da6ed202708604e0051ff2cbaea0f588741edce9b330c35508"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-012-registration-matrix-arithmetic.json",
+      "sha256": "705ba4f14e3f22e7dc6bfed649d519ae5a1e5abfa0beff791fff76e241de83b4"
+    }
+  ],
+  "frozen_identity": {
+    "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "lock_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+    "qualification": "Exact frozen head dependency resolution only; not current PR990 a21 or current main, not committed P16 039329 or unknown Adler dirty bytes. No base-native-resolution equality claim."
+  },
+  "dependency_resolution": {
+    "lock_source": "target/recovery-20261025/audit10/overlay-source-objects/82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+    "actual_metadata_ranges": [
+      [
+        2459,
+        2478
+      ],
+      [
+        3022,
+        3038
+      ],
+      [
+        5684,
+        5697
+      ],
+      [
+        5698,
+        5706
+      ]
+    ],
+    "bevy_transform": {
+      "version": "0.19.1",
+      "checksum": "d94cc6065320ebeb58ae88a0863a4c4c2a642c6db698e283eb50be01a834ca5a",
+      "record": [
+        3022,
+        3038
+      ],
+      "depends_on": "bevy_math"
+    },
+    "bevy_math": {
+      "version": "0.19.1",
+      "checksum": "98ead494dcfaa9b4594eed7f09a27d868b7cc7fc9ebd655c5643322778f4a8a2",
+      "record": [
+        2459,
+        2478
+      ],
+      "depends_on": "glam 0.32.1"
+    },
+    "glam": {
+      "version": "0.32.1",
+      "checksum": "f70749695b063ecbf6b62949ccccde2e733ec3ecbbd71d467dca4e5c6c97cca0",
+      "record": [
+        5684,
+        5697
+      ]
+    },
+    "unused_metadata": "Adjacent glam0.33.6 record5698-5706 was registered/read as package metadata but is not the BevyMath dependency and supplies no native body evidence."
+  },
+  "source_reads": [
+    {
+      "source_id": "native-dependency:bevy_transform-0.19.1/src/components/transform.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_transform-0.19.1/src/components/transform.rs",
+      "sha256": "f2dfe5e97c277df925eb6f9eaf38d94f9bb810c9c8a3afc716ed918e33e0ce8b",
+      "line_count": 673,
+      "provenance": {
+        "archive": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/bevy_transform-0.19.1.crate",
+        "archive_sha256": "d94cc6065320ebeb58ae88a0863a4c4c2a642c6db698e283eb50be01a834ca5a",
+        "member": "bevy_transform-0.19.1/src/components/transform.rs",
+        "member_bytes_equal": true,
+        "frozen_head_lock": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce"
+      },
+      "reason": "Actual required receiving and matrix/decomposition bodies only; no tests or arbitrary native scope",
+      "actual_body_read_ranges": [
+        [
+          260,
+          281
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:bevy_transform-0.19.1/src/components/global_transform.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_transform-0.19.1/src/components/global_transform.rs",
+      "sha256": "4e932e4acbe0d048cf91f354f220e545fbc191ef78157c5591fca2e3b5bedeac",
+      "line_count": 416,
+      "provenance": {
+        "archive": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/bevy_transform-0.19.1.crate",
+        "archive_sha256": "d94cc6065320ebeb58ae88a0863a4c4c2a642c6db698e283eb50be01a834ca5a",
+        "member": "bevy_transform-0.19.1/src/components/global_transform.rs",
+        "member_bytes_equal": true,
+        "frozen_head_lock": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce"
+      },
+      "reason": "Actual required receiving and matrix/decomposition bodies only; no tests or arbitrary native scope",
+      "actual_body_read_ranges": [
+        [
+          51,
+          65
+        ],
+        [
+          111,
+          141
+        ],
+        [
+          184,
+          204
+        ],
+        [
+          281,
+          330
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:bevy_math-0.19.1/src/lib.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_math-0.19.1/src/lib.rs",
+      "sha256": "d743684d4c464873715e1fa8ef5fe0b6fa537fabb1172894056c3a7bff504a26",
+      "line_count": 103,
+      "provenance": {
+        "archive": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/bevy_math-0.19.1.crate",
+        "archive_sha256": "98ead494dcfaa9b4594eed7f09a27d868b7cc7fc9ebd655c5643322778f4a8a2",
+        "member": "bevy_math-0.19.1/src/lib.rs",
+        "member_bytes_equal": true,
+        "frozen_head_lock": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce"
+      },
+      "reason": "Actual required receiving and matrix/decomposition bodies only; no tests or arbitrary native scope",
+      "actual_body_read_ranges": [
+        [
+          98,
+          103
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:glam-0.32.1/src/f32/affine3a.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glam-0.32.1/src/f32/affine3a.rs",
+      "sha256": "4b1ff440ba0d591cd72d0e21bef34c743ae113c6802c6102f92a5d873b3152b8",
+      "line_count": 713,
+      "provenance": {
+        "archive": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/glam-0.32.1.crate",
+        "archive_sha256": "f70749695b063ecbf6b62949ccccde2e733ec3ecbbd71d467dca4e5c6c97cca0",
+        "member": "glam-0.32.1/src/f32/affine3a.rs",
+        "member_bytes_equal": true,
+        "frozen_head_lock": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce"
+      },
+      "reason": "Actual required receiving and matrix/decomposition bodies only; no tests or arbitrary native scope",
+      "actual_body_read_ranges": [
+        [
+          244,
+          280
+        ],
+        [
+          290,
+          330
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:glam-0.32.1/src/f32/scalar/mat3a.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glam-0.32.1/src/f32/scalar/mat3a.rs",
+      "sha256": "bdff186c46451dad90db55a65da51db41262704cbb892ab7a3ead9fdc30bd598",
+      "line_count": 1349,
+      "provenance": {
+        "archive": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/glam-0.32.1.crate",
+        "archive_sha256": "f70749695b063ecbf6b62949ccccde2e733ec3ecbbd71d467dca4e5c6c97cca0",
+        "member": "glam-0.32.1/src/f32/scalar/mat3a.rs",
+        "member_bytes_equal": true,
+        "frozen_head_lock": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce"
+      },
+      "reason": "Actual required receiving and matrix/decomposition bodies only; no tests or arbitrary native scope",
+      "actual_body_read_ranges": [
+        [
+          261,
+          306
+        ],
+        [
+          83,
+          99
+        ],
+        [
+          569,
+          583
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:glam-0.32.1/src/f32/sse2/mat3a.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glam-0.32.1/src/f32/sse2/mat3a.rs",
+      "sha256": "e586474aa778cbe719833e4494508c6f39baa0d0ace35ec23618eac6f1ea6359",
+      "line_count": 1359,
+      "provenance": {
+        "archive": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/glam-0.32.1.crate",
+        "archive_sha256": "f70749695b063ecbf6b62949ccccde2e733ec3ecbbd71d467dca4e5c6c97cca0",
+        "member": "glam-0.32.1/src/f32/sse2/mat3a.rs",
+        "member_bytes_equal": true,
+        "frozen_head_lock": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce"
+      },
+      "reason": "Actual required receiving and matrix/decomposition bodies only; no tests or arbitrary native scope",
+      "actual_body_read_ranges": [
+        [
+          266,
+          311
+        ],
+        [
+          91,
+          107
+        ],
+        [
+          579,
+          593
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:glam-0.32.1/src/f32/scalar/quat.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glam-0.32.1/src/f32/scalar/quat.rs",
+      "sha256": "59492839f1e4b0d1b0032427aaa3420f213c14d80780b13f9c2f232f3854f793",
+      "line_count": 1288,
+      "provenance": {
+        "archive": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/glam-0.32.1.crate",
+        "archive_sha256": "f70749695b063ecbf6b62949ccccde2e733ec3ecbbd71d467dca4e5c6c97cca0",
+        "member": "glam-0.32.1/src/f32/scalar/quat.rs",
+        "member_bytes_equal": true,
+        "frozen_head_lock": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce"
+      },
+      "reason": "Actual required receiving and matrix/decomposition bodies only; no tests or arbitrary native scope",
+      "actual_body_read_ranges": [
+        [
+          190,
+          258
+        ],
+        [
+          279,
+          293
+        ],
+        [
+          258,
+          277
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:glam-0.32.1/src/f32/sse2/quat.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glam-0.32.1/src/f32/sse2/quat.rs",
+      "sha256": "b2782d8370aa4bfbbf68444398a5820ea4efb591e7c4f1f3b765b26c091b5c6d",
+      "line_count": 1363,
+      "provenance": {
+        "archive": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/glam-0.32.1.crate",
+        "archive_sha256": "f70749695b063ecbf6b62949ccccde2e733ec3ecbbd71d467dca4e5c6c97cca0",
+        "member": "glam-0.32.1/src/f32/sse2/quat.rs",
+        "member_bytes_equal": true,
+        "frozen_head_lock": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce"
+      },
+      "reason": "Actual required receiving and matrix/decomposition bodies only; no tests or arbitrary native scope",
+      "actual_body_read_ranges": [
+        [
+          195,
+          263
+        ],
+        [
+          284,
+          298
+        ],
+        [
+          263,
+          282
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:glam-0.32.1/src/f32/scalar/vec3a.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glam-0.32.1/src/f32/scalar/vec3a.rs",
+      "sha256": "cf250aba35debd2b6f0e848693eaabfed1b058063b183546fd63b0b91ec17271",
+      "line_count": 2263,
+      "provenance": {
+        "archive": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/glam-0.32.1.crate",
+        "archive_sha256": "f70749695b063ecbf6b62949ccccde2e733ec3ecbbd71d467dca4e5c6c97cca0",
+        "member": "glam-0.32.1/src/f32/scalar/vec3a.rs",
+        "member_bytes_equal": true
+      },
+      "actual_body_read_ranges": [
+        [
+          250,
+          282
+        ],
+        [
+          553,
+          574
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:glam-0.32.1/src/f32/sse2/vec3a.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glam-0.32.1/src/f32/sse2/vec3a.rs",
+      "sha256": "febe43582221f4569f9bb9ead1d0a7f8b696524911d1a40c4afbc1a8025560a4",
+      "line_count": 2232,
+      "provenance": {
+        "archive": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/glam-0.32.1.crate",
+        "archive_sha256": "f70749695b063ecbf6b62949ccccde2e733ec3ecbbd71d467dca4e5c6c97cca0",
+        "member": "glam-0.32.1/src/f32/sse2/vec3a.rs",
+        "member_bytes_equal": true
+      },
+      "actual_body_read_ranges": [
+        [
+          255,
+          291
+        ],
+        [
+          565,
+          591
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:glam-0.32.1/src/f32/vec3.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glam-0.32.1/src/f32/vec3.rs",
+      "sha256": "28708ec95e5481d1673cbff86f8cafc8d19a50b5ea32fdd030cdbdb9d0601b4c",
+      "line_count": 2238,
+      "provenance": {
+        "archive": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/glam-0.32.1.crate",
+        "archive_sha256": "f70749695b063ecbf6b62949ccccde2e733ec3ecbbd71d467dca4e5c6c97cca0",
+        "member": "glam-0.32.1/src/f32/vec3.rs",
+        "member_bytes_equal": true
+      },
+      "actual_body_read_ranges": [
+        [
+          929,
+          945
+        ]
+      ]
+    }
+  ],
+  "retained_own_body_proofs": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/physics_transform/transform.rs",
+      "sha256": "5020a25a60cbe8b42d37cadf31c24a6d24dcde07df2c8f156ee45ff81e9c450b",
+      "source_id": "native-dependency:avian3d-0.7.0/src/physics_transform/transform.rs",
+      "own_receipt": "audit08-successor-009.json",
+      "actual_prior_body_ranges": [
+        [
+          1116,
+          1275
+        ]
+      ],
+      "new_body_read_ranges": [],
+      "qualification": "Own08 exactactualbodyproof retained at identicalfreshhash; nototherlensverdicttransfer, no newbodycount/globalcurrentcoverage."
+    },
+    {
+      "source_id": "native-dependency:avian3d-0.7.0/src/physics_transform/mod.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/physics_transform/mod.rs",
+      "sha256": "56022d7cec61d8ddcd7504ecdf782ce5e6f760ac840caae6fd80d18da9a8b36f",
+      "own_receipt": "audit08-successor-011.json",
+      "actual_prior_body_ranges": [
+        [
+          1,
+          167
+        ],
+        [
+          182,
+          270
+        ]
+      ],
+      "new_body_read_ranges": [],
+      "qualification": "Fresh identical hash retains own actual source-body proof only; no other-lens verdict transfer."
+    }
+  ],
+  "provenance": "Before every native body read, cached crate checksum was matched to exact frozen-head lock package record and member bytes compared with installed source bytes. Body ranges were prospectively saved, then read with line numbers. All source hashes match at completion. Navigation declaration hits/file names are not whole-body coverage. No source execution or downloaded sources.",
+  "actual_contract_trace": [
+    {
+      "id": "CONT08-Q003-MATRIX-012A",
+      "sources": [
+        "bevy_transform-0.19.1/src/components/transform.rs:270-275",
+        "bevy_transform-0.19.1/src/components/global_transform.rs:60,294-311",
+        "glam-0.32.1/src/f32/affine3a.rs:246-263"
+      ],
+      "fact": "Transform.compute_affine passes scale, rotation, translation to Affine3A::from_scale_rotation_translation. That calls Mat3A::from_quat, scales the resulting columns, and stores translation. GlobalTransform stores Affine3A; From<Transform> calls compute_affine. GlobalTransform.mul_transform also calls the local transform compute_affine before affine multiplication. There is no retained original quaternion field in GlobalTransform."
+    },
+    {
+      "id": "CONT08-Q003-ERASURE-012B",
+      "sources": [
+        "glam-0.32.1/src/f32/scalar/mat3a.rs:266-294",
+        "glam-0.32.1/src/f32/sse2/mat3a.rs:271-299"
+      ],
+      "fact": "Both displayed backends form x2=2x,y2=2y,z2=2z and products xx,xy,xz,yy,yz,zz,wx,wy,wz. Matrix columns are (1-(yy+zz),xy+wz,xz-wy), (xy-wz,1-(xx+zz),yz+wx), (xz+wy,yz-wx,1-(xx+yy)). The only w uses multiply one of x2,y2,z2.",
+      "source_derived_result": "For packet009 q=(+0,+0,+0,1+2^-14), all these products are zero and all three columns are identity exactly in the displayed scalar/SSE formulas. q and unit identity quaternion therefore yield the same affine matrix for the same scale and translation. This equality follows before decomposition; it does not require a universal numeric error bound or a runtime probe."
+    },
+    {
+      "id": "CONT08-Q003-DECOMPOSITION-012C",
+      "sources": [
+        "bevy_transform-0.19.1/src/components/global_transform.rs:124-136,195-202",
+        "glam-0.32.1/src/f32/affine3a.rs:294-329",
+        "glam-0.32.1/src/f32/scalar/quat.rs:193-274",
+        "glam-0.32.1/src/f32/sse2/quat.rs:198-279"
+      ],
+      "fact": "Both GlobalTransform.compute_transform and its to_scale_rotation_translation method call the stored affine decomposition. Decomposition uses determinant sign plus column lengths for scale, divides columns by scale, then calls Quat::from_mat3 -> from_rotation_axes. The quaternion is reconstructed from matrix axes, not copied from incoming Transform.rotation. The non-degenerate/no-shear expectation is explicitly documented; no universal normalization of arbitrary sheared/degenerate matrices is proved.",
+      "identity_case": "For unit scale, the identity matrix has determinant1, unit column lengths and reciprocal scale1. Reconstructed axes are identity. The displayed from_rotation_axes follows m22>0,sum10>0: four_wsq=4, inv4w=0.5/sqrt(4)=0.25, resulting q=(0,0,0,1). This is analytic source-formula reasoning, not execution. Scalar dot/cross/length and reciprocal bodies read in this packet substantiate those elementary terms. SSE has the same visible matrix/quaternion formulas, while its dot helper internals were not expanded; the identical-matrix erasure result does not depend on asserting a complete SIMD numerical proof."
+    },
+    {
+      "id": "CONT08-Q003-RECEIVER-012D",
+      "sources": [
+        "own009 avian3d0.7.0/src/physics_transform/transform.rs:1116-1275",
+        "own011 avian3d0.7.0/src/physics_transform/mod.rs:182-237"
+      ],
+      "fact": "Retained own-source proofs connect the actual installed Avian initialization/synchronization route to GlobalTransform construction/decomposition. transform_to_position computes GlobalTransform.compute_transform and conditionally derives/writes native Rotation from reconstructed rotation; initialization retains explicit non-placeholder native state and otherwise uses global-transform extraction. Packet012 resolves the previously open matrix/decomposition internals for this path only.",
+      "qualification": "No new complete application scheduling/configuration/parent propagation proof. Explicit native Rotation writers can bypass this matrix conversion; their first-party admission/selection remains open. Unchanged native Rotation may also remain because conditional synchronization does not always overwrite it."
+    }
+  ],
+  "Q003_disposition": {
+    "status": "CONT08-Q003 remains qualified partial",
+    "local009": "The direct admitted RigidRotation/Pose3 quaternion-vector composition counterexample remains valid in its pinned local scalar contract. It is not withdrawn, not converted into a runtime regression, and not a compatibility requirement.",
+    "progress": "The direct claim that packet009 pure-w amplitude passes through a Transform-derived GlobalTransform unchanged is ruled out for the displayed scalar/SSE matrix formulas: the matrix erases it. Thus this particular Transform matrix/decomposition route does not establish packet009 as an actual collider/query witness.",
+    "not_established": [
+      "A universal bound for all admitted non-pure-w rotations, scales, parent compositions or sheared/degenerate matrices.",
+      "Actual first-party input producing an affected native obstacle Rotation and an actual Parry hit.normal1 with the required magnitude/direction.",
+      "Default Replicon Transform/Collider codec admission semantics, explicit native Rotation write route, or all other hard-collider population producers.",
+      "Current-main/current-PR990 behavior, cross-backend full floating-point proof, or an executed runtime witness."
+    ],
+    "next_concrete_frontier": "Separate bounded packet may resolve exact frozen Replicon codec/write boundary, or an actual first-party explicit native Rotation producer bypassing GlobalTransform. It must establish admitted obstacle state and actual castnormal composition; do not substitute camera rotation or assume arbitrary quaternion payload arrival. No need to expand matrix SDK further solely to preserve the eliminated pure-w Transform route."
+  },
+  "coverage_delta": {
+    "original_accounted": 1799,
+    "original_total": 2853,
+    "new_original_completions": [],
+    "earliest_unfinished_original": 1462,
+    "partial1462": "CONT08-Q003 unchanged qualified partial; Transform/GlobalTransform decomposition boundary resolved for pure-w candidate only, actual admission/cast witness still open",
+    "next_ordered_original": 1792,
+    "material_contiguous": [
+      0,
+      51
+    ],
+    "next_material": 52,
+    "partial_material_indices": [
+      52
+    ],
+    "separate_material_interval": [
+      178,
+      195
+    ],
+    "new_material_completions": [],
+    "accepted_unique_increment": 0
+  },
+  "inherited": {
+    "material52": "Frozen P16 typed-error receiver partial unchanged. currentcomparison001 stays pinned to exact4fcc source, not current a21/main.",
+    "paid_withdrawn": "SEGOVB-CONT08-007-M51-PAID-WITHDRAWN remains preexisting partial candidate.",
+    "preserve": "All20/P16/P17/#780/#826/M16 canonical repairs, aliases, partials and native/policy qualifications remain. New Netlib45 required other-lens role queue remains root-owned. No source-body read transfers other-lens or original completion credit."
+  },
+  "limits": [
+    "No product/source/Git edits, project execution/tests/checks, root-ledger/history modification or publication. Only exact local source/provenance metadata, bounded raw body reads and ignored evidence writes.",
+    "No default codec expansion in this packet; no full SDK/tree download or whole lock body credit.",
+    "The old raw-normal versus new strict-normal behavior comparison remains pinned own008 evidence. This native dependency packet does not alone complete original1462 or any other changed original.",
+    "Backward compatibility is intentionally unsupported; no requirement to preserve malformed old inputs, old API/error layouts or old unchecked behavior. Q003 concerns unintended composition of intended new admitted contracts only."
+  ],
+  "global_clearance": false,
+  "stop": true
+}

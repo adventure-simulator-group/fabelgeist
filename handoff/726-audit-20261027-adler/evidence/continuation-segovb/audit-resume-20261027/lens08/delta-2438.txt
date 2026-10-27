@@ -1,0 +1,224 @@
+--- base:d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3
++++ head:eb2b6cb3cb56cc6209f7a15a8b3dd72bf75cee67562c2b59cf0300223cac0c4d
+@@ -4,6 +4,7 @@
+ pub(super) use admission::reject_capture;
+ use admission::{CaptureAdmission, RejectedCaptureAdmission, fail_capture};
+ use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
++use fabelgeist_geometry::SignedLength;
+ pub(super) use capture_schedule::CapturePlugin;
+ use frame_clock::{capture_frame_elapsed, next_capture_simulation_tick};
+ use repeated_evaluation::RepeatedEvaluationSnapshot;
+@@ -16,6 +17,7 @@
+ mod readiness;
+ mod repeated_evaluation;
+ mod root_motion;
++mod sample;
+ mod subject_motion;
+ 
+ pub(super) const CAPTURE_ROOT_GROUND_OFFSET_METRES: f32 = 0.95;
+@@ -50,7 +52,7 @@
+     warmup_frames: u32,
+     motion_ready_frames: u32,
+     simulation_tick: AnimationSampleTick,
+-    scenario_distance: f32,
++    scenario_distance: SignedLength,
+ }
+ 
+ pub(super) struct CompletedCapture {
+@@ -126,7 +128,7 @@
+             warmup_frames: 0,
+             motion_ready_frames: 0,
+             simulation_tick: AnimationSampleTick::ZERO,
+-            scenario_distance: 0.0,
++            scenario_distance: SignedLength::ZERO,
+         })
+     }
+ 
+@@ -239,7 +241,7 @@
+ 
+         if sequence.active_scenario.as_ref() != Some(&frame.scenario) {
+             sequence.active_scenario = Some(frame.scenario.clone());
+-            sequence.scenario_distance = 0.0;
++            sequence.scenario_distance = SignedLength::ZERO;
+             sequence.motion_ready_frames = 0;
+             *skeleton = SkeletonState::default();
+             *guard_input = WeaponGuardInputState::default();
+@@ -391,7 +393,6 @@
+             );
+         }
+         let elapsed = capture_frame_elapsed(frame.scenario_frame);
+-        let delta_seconds = elapsed.seconds();
+         procedural_clock.set_fixed_step(sequence.simulation_tick, elapsed);
+         let motion = subject_motion::CaptureMotion {
+             orientation,
+@@ -433,7 +434,9 @@
+             };
+             *transform = projected;
+         }
+-        sequence.scenario_distance += frame.speed.metres_per_second() * delta_seconds;
++        if !sequence.advance_distance(frame.speed, elapsed) {
++            return;
++        }
+         if let Err(error) = subject_motion::project_capture_motion(
+             &mut skeleton,
+             &mut transform,
+@@ -624,8 +627,15 @@
+     let Some(ground) = sequence.capture_ground(*terrain_ik, subject_global.translation()) else {
+         return;
+     };
+-    let evaluation_bones = ground.collect_bones(subject, &bones, &terrain);
+-    let evaluation_leg_ik = leg_ik.map(LegIkState::diagnostics).unwrap_or_default();
++    let evaluation_bones = match ground.collect_bones(subject, &bones, &terrain) {
++        Ok(bones) => bones,
++        Err(error) => {
++            sequence.admission =
++                CaptureAdmission::Rejected(RejectedCaptureAdmission::Geometry(error));
++            return;
++        }
++    };
++    let evaluation_leg_ik = leg_ik.map(LegIkState::diagnostics);
+     sequence.record_repeated_evaluation(&frame, &evaluation_bones, skeleton, evaluation_leg_ik);
+     if sequence.view_index == 0 {
+         sequence.global_bone_frames.push(GlobalBoneFrame::capture(
+@@ -640,10 +650,6 @@
+         else {
+             return;
+         };
+-        let root_distance_metres = sequence.scenario_distance;
+-        let (desired_left_foot_target, desired_right_foot_target) = raised_footwork
+-            .map(|state| (state.left_solve_target, state.right_solve_target))
+-            .unwrap_or_default();
+         let leg_ik = evaluation_leg_ik;
+         let Some(ik_support) =
+             sequence.admit_ik_support(leg_ik, cadence_support, skeleton, *terrain_ik)
+@@ -654,109 +660,29 @@
+             .filter(|state| state.initialized())
+             .map(|state| (state.left_support_weight, state.right_support_weight))
+             .unwrap_or(ik_support);
+-        sequence.samples.push(FrameSample {
+-            scenario: frame.scenario.clone(),
+-            scenario_frame: frame.scenario_frame,
+-            time_seconds: frame.time_seconds,
+-            speed_metres_per_second: frame.speed,
+-            gait_phase: skeleton.gait_phase,
+-            locomotion_sample_tick: skeleton.locomotion_sample_tick,
+-            body_acceleration: (subject_global.rotation().inverse() * skeleton.world_acceleration)
+-                .to_array(),
+-            world_acceleration: skeleton.world_acceleration.to_array(),
+-            bouncy_active_springs: bouncy_bones_telemetry.active_springs,
+-            bouncy_maximum_deflection_radians: bouncy_bones_telemetry.maximum_deflection_radians,
+-            // Raised guard owns its visual contacts locally. Segment its
+-            // diagnostics by the sequence that actually changed the rendered
+-            // support foot, not by the replicated locomotion cadence.
+-            // RaisedFootworkState retains the presentation-owned contact
+-            // counter even while its actual step is deliberately
+-            // uninitialized across an authored/no-IK handoff. Falling back to
+-            // the replicated idle counter here invents a 1 -> 0 reset that
+-            // neither the rendered feet nor the local stepper performed.
+-            contact_sequence: raised_footwork.map_or(
+-                skeleton.contact_sequence,
+-                RaisedFootworkState::step_sequence,
+-            ),
+-            contact_foot: raised_footwork
+-                .and_then(RaisedFootworkState::contact_foot)
+-                .unwrap_or(skeleton.contact_foot),
+-            landing_sequence: skeleton.landing_sequence,
+-            landing_impact_speed: skeleton.landing_impact_speed,
+-            body_lean_pitch_degrees: body_response
+-                .map_or(BodyAngle::ZERO, |state| state.pitch_radians),
+-            body_lean_roll_degrees: body_response
+-                .map_or(BodyAngle::ZERO, |state| state.roll_radians),
+-            landing_compression_metres: height_state
+-                .map_or(HeightDistance::ZERO, |state| state.landing_compression),
+-            root_distance_metres,
+-            root_position_metres: subject_global.translation().to_array(),
+-            world_travel_direction: (controller_yaw(Quat::from_rotation_y(
+-                frame.camera_yaw.radians(),
+-            )) * Vec3::new(
+-                frame.local_direction.x,
+-                0.0,
+-                frame.local_direction.y,
+-            ))
+-            .normalize_or_zero()
+-            .to_array(),
+-            desired_body_forward_direction: if frame.weapon_guard == WeaponGuardState::Raised
+-                || matches!(frame.action, SkeletonAction::Attack | SkeletonAction::Block)
+-            {
+-                (controller_yaw(Quat::from_rotation_y(frame.camera_yaw.radians())) * Vec3::NEG_Z)
+-                    .to_array()
+-            } else {
+-                (controller_yaw(Quat::from_rotation_y(frame.camera_yaw.radians()))
+-                    * Vec3::new(frame.local_direction.x, 0.0, frame.local_direction.y))
+-                .normalize_or_zero()
+-                .to_array()
+-            },
+-            body_forward_direction: (subject_global.rotation() * Vec3::Z).to_array(),
+-            body_rotation_xyzw: subject_global.rotation().to_array(),
+-            weapon_guard: frame.weapon_guard,
+-            lead_foot: skeleton.lead_foot,
+-            action: skeleton.action_kind(),
+-            action_phase: skeleton.action_phase(),
+-            attack_animation: skeleton.attack_animation(),
+-            strike_family: skeleton.strike_family(),
+-            guard_action: frame.weapon_guard == WeaponGuardState::Raised
+-                || matches!(
+-                    frame.action,
+-                    SkeletonAction::Dodge | SkeletonAction::Attack | SkeletonAction::Block
+-                ),
++        let sample = match FrameSample::capture(sample::CaptureSample {
++            frame: &frame,
++            skeleton,
++            subject_global,
++            bouncy_bones_telemetry: &bouncy_bones_telemetry,
++            raised_footwork,
++            body_response,
++            height_state,
++            leg_ik,
++            semantic_route,
++            root_distance_metres: sequence.scenario_distance,
+             left_support_weight,
+             right_support_weight,
+-            desired_left_foot_target: desired_left_foot_target.map(|value| value.to_array()),
+-            desired_right_foot_target: desired_right_foot_target.map(|value| value.to_array()),
+-            ik_left_authored_target: leg_ik.left_authored_target.map(|value| value.to_array()),
+-            ik_right_authored_target: leg_ik.right_authored_target.map(|value| value.to_array()),
+-            ik_left_planned_contact: leg_ik.left_planned_contact.map(|value| value.to_array()),
+-            ik_right_planned_contact: leg_ik.right_planned_contact.map(|value| value.to_array()),
+-            ik_settle_capture_point: leg_ik.settle_capture_point.map(|value| value.to_array()),
+-            ik_left_solve_target: leg_ik.left_solve_target.map(|value| value.to_array()),
+-            ik_right_solve_target: leg_ik.right_solve_target.map(|value| value.to_array()),
+-            ik_left_support_weight: leg_ik.left_support_weight,
+-            ik_right_support_weight: leg_ik.right_support_weight,
+-            ik_left_release_active: leg_ik.left_release_active,
+-            ik_right_release_active: leg_ik.right_release_active,
+-            ik_left_release_target: leg_ik.left_release_target.map(|value| value.to_array()),
+-            ik_right_release_target: leg_ik.right_release_target.map(|value| value.to_array()),
+-            ik_settle_progress: leg_ik.settle_progress.map(|progress| progress.fraction()),
+-            ik_left_knee_foot_yaw_offset_degrees: leg_ik
+-                .left_knee_foot_yaw_offset_degrees
+-                .degrees(),
+-            ik_right_knee_foot_yaw_offset_degrees: leg_ik
+-                .right_knee_foot_yaw_offset_degrees
+-                .degrees(),
+-            semantic_route_requested_path: semantic_route.requested_path,
+-            semantic_route_selected_path: semantic_route.path,
+-            semantic_route_runtime_evaluated: true,
+-            screenshots: VIEWS
+-                .into_iter()
+-                .map(|view| (view.slug().to_owned(), view.screenshot_name(&frame)))
+-                .collect(),
+-            bones: evaluation_bones,
+-        });
++            evaluation_bones,
++        }) {
++            Ok(sample) => sample,
++            Err(error) => {
++                sequence.admission =
++                    CaptureAdmission::Rejected(error);
++                return;
++            }
++        };
++        sequence.samples.push(sample);
+     }
+     sequence.capture_in_flight = true;
+     let frame_key = format!("{}:{}", frame.scenario.label(), frame.scenario_frame);

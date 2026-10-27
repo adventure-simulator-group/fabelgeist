@@ -1,0 +1,70 @@
+diff --git a/crates/adventuresim-tactical-core/src/animation/ik_parameters.rs b/crates/adventuresim-tactical-core/src/animation/ik_parameters.rs
+new file mode 100644
+index 000000000..1401c99f5
+--- /dev/null
++++ b/crates/adventuresim-tactical-core/src/animation/ik_parameters.rs
+@@ -0,0 +1,64 @@
++//! IK shaping inputs retain their authored set independently of elapsed time.
++
++use super::{AnimationQuantity, AnimationValueError, AnimationValueResult};
++use serde::{Deserialize, Serialize};
++
++/// Strictly positive, unbounded knee-target displacement amplification.
++#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize, derive_more::Into)]
++#[serde(try_from = "f32", into = "f32")]
++pub struct KneeTargetAmplification(f32);
++
++/// Finite signed settle progress, capped above at completion but not below zero.
++#[derive(Clone, Copy, Debug, Default, PartialEq)]
++pub struct SettleProgress(f32);
++
++impl KneeTargetAmplification {
++    pub fn from_factor(value: f32) -> AnimationValueResult<Self> {
++        if !value.is_finite() {
++            return Err(AnimationValueError::NonFinite {
++                quantity: AnimationQuantity::KneeTargetAmplification,
++            });
++        }
++        if value <= 0.0 {
++            return Err(AnimationValueError::NonPositive {
++                quantity: AnimationQuantity::KneeTargetAmplification,
++            });
++        }
++        Ok(Self(value))
++    }
++    pub fn factor(self) -> f32 {
++        self.0
++    }
++}
++impl SettleProgress {
++    pub const ZERO: Self = Self(0.0);
++    pub const COMPLETE: Self = Self(1.0);
++    pub fn from_progress(value: f32) -> AnimationValueResult<Self> {
++        if !value.is_finite() {
++            return Err(AnimationValueError::NonFinite {
++                quantity: AnimationQuantity::SettleProgress,
++            });
++        }
++        Ok(Self(value.min(1.0)))
++    }
++    pub(super) fn from_arithmetic(value: f32) -> AnimationValueResult<Self> {
++        if !value.is_finite() {
++            return Err(AnimationValueError::Overflow {
++                quantity: AnimationQuantity::SettleProgress,
++            });
++        }
++        Ok(Self(value))
++    }
++    pub fn fraction(self) -> f32 {
++        self.0
++    }
++    pub fn is_complete(self) -> bool {
++        self.0 >= 1.0
++    }
++}
++impl TryFrom<f32> for KneeTargetAmplification {
++    type Error = AnimationValueError;
++    fn try_from(value: f32) -> AnimationValueResult<Self> {
++        Self::from_factor(value)
++    }
++}

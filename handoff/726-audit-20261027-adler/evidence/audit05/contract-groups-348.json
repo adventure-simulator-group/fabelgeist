@@ -1,0 +1,30 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-348",
+  "at": "2026-10-25T23:30:31.698757+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 50,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve.rs",
+      "sha256": "0b6aef0b8e1be9846beaae48cc8f7130333b0b4634acbd0b2f8b393ee40d5cef",
+      "personally_read_ranges": [
+        [
+          1,
+          2879
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full P16 autoresolve.rs2879 personally read, including all inline fixtures. Combatant strategic constructor resets private duel state together, copies equipment/ammunition provenance, subtracts existing fatigue from starting incapacitation then restores fatigue separately. Actual input physiology/identity/equipment admission remains required; public mutable fields are raw state, not a sealed battle-ready aggregate.",
+        "Incapacitation combines starting condition/blood/pain/imbalance plus acute trauma/fatigue/encumbrance; movement applies physical load/armor/agility without separate fatigue/incapacitation multiplier. Action workload and elapsed active-work recovery are distinct; actual ranged attack/defense paths here do not call charge_action_work, unlike melee-owner work sites still to inspect. No new gameplay finding without full producer/policy/dedup trace.",
+        "Recorder constructs log IDs, part, damage apportionment, contact stress/item and optional telemetry from same attack result/effect, increments counters and timeline sequence. Raw sum/cast/overflow questions require admitted count/numeric bounds; summary ammunition uses initial-minus-final per combatant then u32 sum, and log length casts u32.",
+        "Battle initializes phases, applies explicit one-side opener, opening volleys, at most256 rounds, final classification and terminal event, then derives outcome from retained participants. Ranged plans and target indexes remain same fixed slices until application; pending simultaneous attacks intentionally apply both precomputed sides. Opening plans cap64; main ranged attack count is bounded by ammunition/interval and has no equivalent hard64 cap here, so actual admitted ammunition/tuning cap remains a required boundedness contract.",
+        "Optimal ranged defense compares neutral/dodge/block harm using same attacker/defender snapshot; actual work charging and response log presentation require further owner comparison. Outcome derives terminal cause from largest incapacitation contribution or yielded, not canonical lethal pathology; autopsy lethality uses separate vital/blood criteria.",
+        "Existing tests cover deterministic output, simultaneous cancellation, side/instance attribution, armor geometry, formation, phase readiness and impairment source assertions. They were read, not executed; no compile/runtime success or whole combat family clearance."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

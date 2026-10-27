@@ -1,0 +1,172 @@
+{
+  "lens": "13 magic-numbers",
+  "packet": "011",
+  "at": "2026-10-26T22:08:03.287878+00:00",
+  "status": "bounded partial: original31 fully inventoried but required receiver paths unresolved; original32/33 exact source contracts independently source-accounted with native qualifications",
+  "authority": {
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "original_registry": "target/recovery-20261025/audit05/original-scope-072.json",
+    "original_registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "observed_root_ledger_sha256": "7f719543edcb39bc0e5fe12ac114b6d16e406113af9faacb7ac81a5bc9131aa7",
+    "prior_adopted_state": "audit13-successor-010-suggested-state.json",
+    "prior_state_sha256": "d46e5c46dcca41aef3d497deaff499b2ae011baca58d91e852d697671502608b",
+    "prior_frontier": 31,
+    "native_revision": "bevy_eidolon1a5aff8d4809287e5f5713fb4cf72181b2285fff"
+  },
+  "registration_files": [
+    "audit13-successor-registration-011.json",
+    "audit13-successor-registration-011-receivers-002.json"
+  ],
+  "fingerprints": "audit13-successor-011-consumed-fingerprints.json",
+  "source_provenance": {
+    "original31_33_and_known_receivers": "Exact staged frozen f82 SHA objects, matched before and after bounded body consumption. Original scope and every declared range retained. No current working alias substituted.",
+    "cull_supplements": "pipeline.rs,prepare.rs,compute.wgsl exact immutable native Git commit1a5aff members staged by root with audit13-native-cull-stage-011.json; frozen31/32/33 peers byte-match same commit. Supplements are not asserted to have unseen frozen registry identities.",
+    "prior_lens": "Root12 metadata supplied source locators/provenance only. No string-lens or earlier audit verdict imported."
+  },
+  "originals": [
+    {
+      "original": 31,
+      "source": "src/components.rs",
+      "sha256": "e2053ee2dbf1a837b1a4e80d2d2afa22c0ecc2231bf586041222082971b9cbea",
+      "registered_and_consumed": [
+        [
+          1,
+          193
+        ]
+      ],
+      "disposition": "partial for actual retained recipients/producer policies listed below; no whole original completion",
+      "independent_inventory": [
+        {
+          "roles": "InstanceData.position:Vec3,scale:f32,rotation:f32,index:u32,batch_id:u32,seed:u32; repr(C)/Pod/Zeroable/Default/ShaderType",
+          "inventory": "Raw floating coordinates/uniform scale/rotation and integer application index/batch selector/random seed transport; invalid() chooses batch_id0xFFFFFFFF and defaults other fields; with_batch_id replaces only selector without local admission."
+        },
+        {
+          "roles": "InstanceMaterialData.instances:Arc<Vec<InstanceData>>,color:LinearRgba,visibility_range:Vec4; InstanceHistory(Mat4)",
+          "inventory": "Vector length in Debug is diagnostic; extracted data, matrix history and typed native color/range retained. Extract condition uses component changes and copies GlobalTransform/Aabb with material data. No scalar field policy admission demonstrated here."
+        },
+        {
+          "roles": "InstanceBuffer.length:usize/capacity:u32; GpuDrawIndexedIndirect.offset:u64; InstancedComputeSourceBuffer.count:u32/capacity:u32; InstanceBatch.batch_id:u32/offset:u32",
+          "inventory": "Raw length/count/capacity, byte-or-instance offset roles require actual recipients. InstanceBatch selector/offset transport is visible; other wrapper recipients not established by read bodies."
+        },
+        {
+          "roles": "InstanceUniforms.color,visibility_range,world_from_local,previous_world_from_local,aabb_center,aabb_half_extents; From<&InstanceMaterialData>",
+          "inventory": "Native shader-compatible vector/matrix/color transport. From copies color/range, sets aabb_half_extents=Vec4::splat(f32::MAX), derives defaults for other fields; no universal transform/range/finite guarantee. Matrix history and AABB producer correction path remains untraced."
+        },
+        {
+          "roles": "GpuCullCompute,InstanceLodBuffer,InstanceBindGroup,InstanceUniformBuffer,InstancedComputeBindGroup,MaterialBindGroupData<M>",
+          "inventory": "Unit marker or typed buffer/bind-group/generic payload wrappers contain no additional raw scalar field/literal policy in scoped bodies. Generic Eq/Hash/extraction/clone implementation does not admit or bound numeric payloads."
+        }
+      ],
+      "source_backed_traces": [
+        "invalid batch ID0xFFFFFFFF -> prepare/core.rs25-32 Clear allocates (end-start) invalid instances -> instance_buffer_updater.rs84-95 drains cleared ranges and uploads bounded tombstones -> compute.wgsl14-15 skips sentinel before indexing arrays. Zero remains a valid batch ID, distinct from sentinel.",
+        "with_batch_id -> instance_buffer_updater.rs97-116 rewrites every source instance selector from Write.batch_id and writes at data_offset<InstanceData>(offset) -> compute.wgsl17-22 checks selector against indirect_args length and reads instance_uniforms[batch_id]. ID allocator admission/sentinel exclusion is not established.",
+        "batcher.rs47-95 obtains source offset, mesh index count/base vertex/first index and sets GPU-cull instance_count0; non-cull uses instances.len() asu32. metadata={batch_id,index,start=offset,end=offset+len asu32}. Native/WASM first_instance policy visibly splits offset versus0 atcfg77-80. Batch IDs/range arithmetic casts and allocator limits are not certified.",
+        "BatchBuffer.update59-69 retains matching indirect/uniform/metadata entries. flush114-153 sorts/deduplicates contiguous dirty indices; write_buffer171-181 computes start*sizeofT and casts the exact slice to bytes -> RenderQueue.write_buffer. InstancePage.flush64-109 allocates each parallel GPU buffer by batchcapacity*sizeofT and flushes mirrors. Exact raw numeric formats are required by these native byte-buffer operations.",
+        "InstancePage.update120-162 retains compute_capacity, binds source/output/indirect/metadata as group0bindings0-3 and per-batchuniform buffer as group1binding0; PagePrepareRunner41-46 orders update,batch,write,flush,update_page and115 assigns allocator.size to capacity.",
+        "Source/output capacity derives allocator.size * sizeofInstanceData in updater27-30. Native allocator/utils16-22 aligns bytes with(capacity+3)&!3 and minimum1024; copy flagtrue for source,false for output controls copy-on-growth37-43, offsets0. This traces primitive byte counts but not device capacity/overflow/admission guarantees.",
+        "render/utils.wgsl calc_instance_world_matrix uses scale=w and position=xyz; sin/cos(rotation) yields local Y rotation, uniform scale and translation, then multiplies parenttransform. The actual selected vertex caller/index/seed recipient is not read, so this mathematical helper alone is not full render propagation.",
+        "compute.wgsl24-43 uses AABBcenter/extents for sixplane signed-distance radius cull and uses batch.world_from_local * vec4(localposition,1) then worlddistance vs visibility_range.x/w. render/utils.wgsl dither branch uses visibilityxy/zw,16levels,round/divide/clamp; ordered endpoints/nonzero width/finite values are not established."
+      ]
+    },
+    {
+      "original": 32,
+      "source": "src/cull/bindings.wgsl",
+      "sha256": "31551b31caac91e5decc47ac147154bba899d469dad8c0113e0a476ae53dc7d4",
+      "registered_and_consumed": [
+        [
+          1,
+          12
+        ]
+      ],
+      "disposition": "source-accounted exact native ABI selectors; conditional on native shader selection/compilation; no application shader or full SDK clearance",
+      "independent_inventory": "Group0bindings0,1,2,3 are respectively source read arrayInstanceData, output read_write arrayInstanceData, read_write indirectargs, read batchmetadata. Group1binding0 is read instanceuniforms. Group2binding0 is camera uniform. These raw selectors are native WGSL binding address literals; no semantic Boolean fields in scopedsource.",
+      "source_backed_traces": [
+        "pipeline.rs30-45 builds sequential COMPUTE storage ROInstanceData,storageInstanceData,storage[u32;5],storageRO[u32;4];47-61 builds commonInstanceUniforms and globalCameraCullData. false arguments are native no-dynamic-offset layout choices, not application Boolean admission. InstancePage.update132-147 matches the four actual buffer resources to bindings0-3;159-162 sets commonbinding0. node setsgroup2camera,group0compute,group1common beforedispatch.",
+        "Exact cull/types.wgsl field layout carries position+scale invec4,rotationf32,index/batch/seedu32; indirect indexcountu32,atomicinstancecountu32,firstindexu32,basevertexi32,firstinstanceu32; metadata threeu32;uniform matrix/vectorfields. This is concrete native transport correspondence; no full derived Rust layout/ABI/compiler validation is claimed.",
+        "node workgroup_size64 matches compute.wgsl@workgroup_size64; maximumx65535 matches shader threads_per_row=65535*64. Shader boundsi by sourcearraylength and batchid by indirectarraylength, then culls/appends. Other correlated array bounds remain native obligations."
+      ]
+    },
+    {
+      "original": 33,
+      "source": "src/cull/resources.rs",
+      "sha256": "bedf4e9e3cb681d6cd4ef75b146537e8e2c4876cad464addd82ba0bc5cdc83ab",
+      "registered_and_consumed": [
+        [
+          1,
+          18
+        ]
+      ],
+      "disposition": "source-accounted exact native camera transport/update/receiver with qualifications",
+      "independent_inventory": "CameraCullData.view_pos:Vec4 and frustum:[Vec4;6], repr(C)/Pod/Zeroable/Default/ShaderType. Fixed6 is native frustum plane cardinality. GlobalCullBuffer stores typed GPUbuffer/bindgroup; no raw scalar policy in wrapper.",
+      "source_backed_traces": [
+        "prepare.rs26 chooses first active tagged camera (cam.is_active), reads view.world_from_view.translation and maps Frustum.half_spaces to normal_d; packs homogeneousposition w1.0 and the six-plane array into CameraCullData32-35. Native half-space normalization and camera producer internals not audited.",
+        "bytes_of(data)37 is written at bufferbyteoffset0 when resourceexists; otherwise create_buffer_with_data UNIFORM|COPY_DST and actualgroupbinding0, then retainGlobalCullBuffer57. pipeline.global_layout uses uniform_buffer<CameraCullData>(false); node group2 binds retainedgroup.",
+        "compute.wgsl28-35 loops k0..<6, gets camera.frustum[k], computes dot(normal,AABBcenter)+plane.w and projected radius dot(abs(normal),AABBextents), culls when dist<-radius;39 uses camera.view_pos.xyz for worlddistance. Fixed6 has concrete index/loop receiver. No activecamera returns without clearing retained previousbuffer; scheduling freshness is unproven, not certified or newly counted."
+      ]
+    }
+  ],
+  "receiver_numeric_observations_noncounted": [
+    {
+      "id": "NATIVE-011-APPEND",
+      "source": "src/cull/compute.wgsl19-53; src/render/prepare/batcher.rs67-95",
+      "observation": "Only indirect-array selector bound precedes uniform/metadata indexing. AtomicAdd count1 is used with metadata.start_index to form unchecked output index; metadata.end_index is not checked by this shader. Parallel allocation/countreset/capacity policy is required, not established universally by one guard.",
+      "status": "Source observation only; root alias/currentness and actual first-party shader/reachability comparison required. No new unique finding."
+    },
+    {
+      "id": "NATIVE-011-DISPATCH",
+      "source": "src/cull/node.rs64-107;src/cull/compute.wgsl4-10",
+      "observation": "Dispatch count uses f32ceil(capacity/64), capsx65535 and computesyf32ceil; shader flattens with65535*64u32. No universal precision/overflow/device-limit guarantee derived. Sourcearray allocated minimum1024 means arraylength may exceed allocatorwatermark; no admission proof inferred.",
+      "status": "Native policy observation, not globally unique accepted defect."
+    },
+    {
+      "id": "NATIVE-011-RANGE",
+      "source": "src/render/utils.wgsl19-43;src/components.rs From InstanceMaterialData;native prepare bodies",
+      "observation": "Visibility range division/finite/order and transform/scale/rotation/seed semantics are not admitted here. Matrix/AABB corrected producers and application caller owners are required; f32MAX default is not a complete application policy.",
+      "status": "Retained unresolved source/application obligation; no clearance."
+    },
+    {
+      "id": "NATIVE-011-IMPORT",
+      "source": "src/cull/bindings.wgsl1;src/cull/types.wgsl1-37;src/cull/pipeline.rs63",
+      "observation": "Bindings imports LodCullData, absent in the exacttypes source. Pipeline selects M::cull_shader().resolve; override/loader semantics and actual selected shader compilation not read.",
+      "status": "String/context observation, no new lens13 credit, no compiled defect asserted."
+    }
+  ],
+  "pending_required_traces": [
+    {
+      "original": 31,
+      "needed": "Exact pinned selected render vertex receiver/IO and index/seed consumers; exact producer of InstanceUniforms.world_from_local/previous/AABB; recipients or proven absence for InstanceBuffer.length/capacity,GpuDrawIndexedIndirect.offset,InstancedComputeSourceBuffer.count/capacity,InstanceBatch.batch_id/offset.",
+      "request_to_root": "Requested original36 io_types.wgsl SHA3529f71ec77f88963ee969691ef2dd2f871abf490a8a4beed073b98ff10974b9 plus tree-confirmed render vertex and input collector exact immutable members; no unstaged/unregistered body consumption.",
+      "untraced_policy": "ID allocator excludes0xFFFFFFFF and preserves batch/parallelbuffer bounds; data_offset/check_bounds helper operation; full descriptor/layout/native queue admission and first-party role correctness remain untraced."
+    }
+  ],
+  "qualifications": [
+    "No original0-30 restarted. Bounded original31-33 requested scope retained in full. Receiver access34/35/37/38/2790-2797/2827 is not future-original credit. No overlays/merged/material or other-lens credit.",
+    "Full source consumption recorded only after prospective exactrange registration and hash checks. Identifier metadata queries and staging alone confer no coverage. No whole frozen tree or current alias substitution.",
+    "Incidental native existing test text in batch_buffer.rs232-262 was displayed as part of the registered full receiver file. It supplies no production or test validation credit; no tests/assertions/cases/helpers/doctests added or run.",
+    "Original31 remains partial because fully read field declarations are not actual receiver proof. Original32/33 source-accounted native format roles do not imply all application producers, device limits, layouts, loader/compiler, lifecycle/concurrency or runtime guarantees.",
+    "No old API/layout/message/downcast preservation constraint applied. No product/source/Git/ledger/historical edits, projectchecks/probes/tests/assertions/helpers/doctests or publication. Only ignored evidence files authored.",
+    "No globally unique finding accepted/count invented. Prior native observations and inherited F1/F2/F6/F9 ownership/admission/coherence families remain open. No whole SDK/global/lensclearance."
+  ],
+  "accounting": {
+    "original_inspected_this_packet": [
+      31,
+      32,
+      33
+    ],
+    "original_source_accounted_this_packet": [
+      32,
+      33
+    ],
+    "partial_originals": [
+      31
+    ],
+    "prior_accounted_count": 31,
+    "proposed_accounted_count": 33,
+    "original_total": 2853,
+    "first_unfinished_original": 31,
+    "first_unread_original": 34,
+    "new_unique_count": 0,
+    "root_adoption_required": true
+  },
+  "stop_reason": "Bounded packet stops with explicit original31 receiver frontier; no future original work. Root owns adoption and any continuation."
+}

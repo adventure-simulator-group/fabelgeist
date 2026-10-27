@@ -1,0 +1,297 @@
+{
+  "lens": "13 magic-numbers",
+  "packet": "015",
+  "at": "2026-10-27T00:10:02.401429+00:00",
+  "status": "Originals34/35 independently source-accounted within exact scopes, out of order. Original31 remains partial with all prior contracts/qualifications. Stop bounded packet.",
+  "authority": {
+    "frozen_original_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "original_registry": "target/recovery-20261025/audit05/original-scope-072.json",
+    "native_commit": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+    "prior_suggested_state": "audit13-successor-014-suggested-state.json",
+    "prior_state_sha256": "247eb4ee523a20fd5ce779b97b6de0d9785e202d0b14f7670364a7ef6171d18b",
+    "root_authorization": "Root explicitly schedules first-unread34/optional35 while earliest31 stays partial; root adopts014 separately. Root sole ledger writer.",
+    "root_adoption_required": true
+  },
+  "registration_files": [
+    "audit13-successor-registration-015.json",
+    "audit13-successor-registration-015-receivers-002.json",
+    "audit13-successor-registration-015-receivers-003.json"
+  ],
+  "source_fingerprints": [
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/types.wgsl",
+      "sha256": "63c3f55c90686a73788212c94f4d979fd2bc3240dd143c6b5e778d949d68fd65",
+      "bytes": 728,
+      "actual_lines": 37,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "role": 34,
+      "registration": "audit13-successor-registration-015.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/compute.wgsl",
+      "sha256": "246690e6a0c32e6055ac10b318925eb4eeff64b41f025d345a3f84cd839608e2",
+      "bytes": 1775,
+      "actual_lines": 55,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "role": "receiver-only",
+      "registration": "audit13-successor-registration-015.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/batcher.rs",
+      "sha256": "2d86931db56a5e517f84b400fb9e5a15968d553b5e543da880d12d6193920b84",
+      "bytes": 3927,
+      "actual_lines": 118,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "role": "receiver-only",
+      "registration": "audit13-successor-registration-015.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/draw/mod.rs",
+      "sha256": "fbf213c853e2cc4c8c58b16491a029d9ce4e1cac39ac0ef6780f362942a4313d",
+      "bytes": 703,
+      "actual_lines": 24,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "role": "receiver-only",
+      "registration": "audit13-successor-registration-015-receivers-002.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/draw/draw_instanced_material.rs",
+      "sha256": "c2dd22225519e2c6213960db4699cc32b33c0ddb9ae549f9fef17c556323f168",
+      "bytes": 3284,
+      "actual_lines": 94,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          94
+        ]
+      ],
+      "role": "receiver-only",
+      "registration": "audit13-successor-registration-015-receivers-002.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/draw/draw_instanced_material_mesh.rs",
+      "sha256": "fc7e17f092288a3568ecdd746d61f496d105e31c948ff799f4a27f1d0bdaa98b",
+      "bytes": 5253,
+      "actual_lines": 148,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          148
+        ]
+      ],
+      "role": "receiver-only",
+      "registration": "audit13-successor-registration-015-receivers-002.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/bindings.wgsl",
+      "sha256": "8fdf638edbf13ddc04a1a8392f3b873ec730f86f085522de471108c623ac129b",
+      "bytes": 275,
+      "actual_lines": 6,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          6
+        ]
+      ],
+      "role": 35,
+      "registration": "audit13-successor-registration-015-receivers-003.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/types.wgsl",
+      "sha256": "9bd27e4a4bb61b319e4ee13ae7e1407be2fdd432471ef6e9aede72e206321d90",
+      "bytes": 332,
+      "actual_lines": 15,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "role": "receiver-only",
+      "registration": "audit13-successor-registration-015-receivers-003.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/draw/set_material_bind_group.rs",
+      "sha256": "b4b73c9c1d6331880fe2939dd1487aaf1c97aad0b30c3144eaacbc13a6136638",
+      "bytes": 1730,
+      "actual_lines": 52,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          52
+        ]
+      ],
+      "role": "receiver-only",
+      "registration": "audit13-successor-registration-015-receivers-003.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/shading.wgsl",
+      "sha256": "965586e6cee62b7fe7623cafbd9a173ce271c14cd982466b73eb69a718dca6e9",
+      "bytes": 531,
+      "actual_lines": 21,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "role": "receiver-only",
+      "registration": "audit13-successor-registration-015-receivers-003.json",
+      "post_read_hash_verified": true
+    }
+  ],
+  "provenance": "Original34/35, render/types receiver and batcher are exact known frozen SHA objects. Compute/draw/default-shading supplements are exact immutable native Git1a5aff members staged by root. Known frozen native peers byte-match same commit; no unseen frozen-member identity, current alias or whole native tree claim. All identities verified before/after bounded reads.",
+  "originals": [
+    {
+      "original": 34,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/types.wgsl",
+      "sha256": "63c3f55c90686a73788212c94f4d979fd2bc3240dd143c6b5e778d949d68fd65",
+      "effective_registered_scope": [
+        [
+          1,
+          37
+        ]
+      ],
+      "bytes": 728,
+      "independent_inventory": [
+        {
+          "location": "3-9 InstanceData",
+          "primitives": "pos_and_scale:vec4f,rotation:f32,index/batch_id/seed:u32",
+          "role": "Native packed instance vertex/storage protocol: position xyz plus uniform scale w, rotation, payload index/seed and per-batch selector.",
+          "actual_boundary": "Host batcher/source upload and vertex ABI previously read in011-014; fresh compute12-22/37-53 loads record, recognizes invalid batch0xffffffff, indexes batch uniforms and copies full record to output; native draw binds output as instance vertex buffer. Kernel does not interpret index/seed/rotation/scale in its culling computation; copy preserves them for render receivers. First-party index/seed/units/admission remain original31 partial."
+        },
+        {
+          "location": "11-17 DrawIndexedIndirectArgs",
+          "primitives": "index_countu32,instance_countatomic<u32>,first_indexu32,base_vertexi32,first_instanceu32",
+          "role": "Concrete native indexed indirect-draw command fields; signed base-vertex offset, unsigned counts/start indices, atomic append count.",
+          "actual_boundary": "Fresh batcher83-89 constructs same named host DrawIndexedIndirectArgs from mesh slices/count and selected instance count/offset. Fresh compute47 atomicAdd1 updates instance_count before reserving output slot. draw_instanced_material_mesh126-139 computes byteoffset=range.start*sizeofhostDrawArgs and sends actual indirect buffer to native multi_draw_indexed_indirect or browser draw_indexed_indirect. Atomic primitive required by concurrent native shader operation; no higher-level first-party scalar API introduced."
+        },
+        {
+          "location": "19-23 BatchMetadata",
+          "primitives": "batch_id/start_index/end_index:u32",
+          "role": "Native correlated batch selector and source/output span endpoints.",
+          "actual_boundary": "Fresh batcher91-95 retains batchID and startoffset/endoffset+len. Compute49-53 uses start_index+atomic append index for output; metadata batch_id/end_index are not checked/consumed by this exact compute body. Existing correlated-bound/capacity/overflow observations preserved, not assumed safe."
+        },
+        {
+          "location": "25-28 CameraCullData",
+          "primitives": "view_pos:vec4f,frustum:array<vec4f,6>",
+          "role": "Native homogeneous camera position and six plane equations.",
+          "actual_boundary": "Prior exact camera host packing proof in011/native prepare maps Frustum half_spaces and positionw1; not reread/recounted original33. Fresh compute28-35 loops0..<6 and uses plane normal/distance in AABB signed-distance/radius test; camera positionxyz used in distance39. Fixed6 has concrete bounded-index receiver. Plane normalization and camera freshness/frame global policy not certified."
+        },
+        {
+          "location": "30-37 InstanceUniforms",
+          "primitives": "color/visibility_range/aabb_center/aabb_half_extents:vec4f,world_from_local/previous_world_from_local:mat4x4f",
+          "role": "Native per-batch shader transport layout for pigment, fade bands, transforms and culling bounds.",
+          "actual_boundary": "Fresh batcher90 copies input.batch into mirrored native buffers; fresh compute22-43 reads AABBxyz, currentworld matrix and visibilityx/w. Fresh native default shading19-20 consumes batch.color via render uniform array. Previousmatrix and other vector lanes are not consumed in exact cull body; prior producers/selected shader proofs and unresolved history/admission original31 obligations remain. Native wire types do not imply universal semantic admission."
+        }
+      ],
+      "disposition": "Exact original34 non-string primitive inventory and actual native producer/retained/kernel/draw boundaries source-accounted WITH the stated native/currentness/application limits. Prior receiver reads were not role clearance; this packet freshly read full1-37 and independently assessed every field/shape. No universal counter/capacity/ABI correctness claim."
+    },
+    {
+      "original": 35,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/bindings.wgsl",
+      "sha256": "8fdf638edbf13ddc04a1a8392f3b873ec730f86f085522de471108c623ac129b",
+      "effective_registered_scope": [
+        [
+          1,
+          6
+        ]
+      ],
+      "bytes": 275,
+      "independent_inventory": [
+        {
+          "location": "5",
+          "primitives": "@group(2),@binding(0),array<InstanceUniforms>,storage read",
+          "role": "Native GPU group/binding address of per-batch uniform storage array; intrinsic interface selectors, not a semantic application integer carried through domain APIs.",
+          "actual_boundary": "Fresh draw/mod10-17 selects SetInstanceBindGroup<M,2>. Its fresh render33-61 checks batch/page indices and binds actual page.common_bind_group at genericI=2. Prior same-lens pipeline actual85-101 common storage layout uses singleInstanceUniforms and resource update159-162 binds uniform buffer atbinding0. Fresh defaultfragment19 and prior actualvertex/shrubshader index array by typed/native batchselector. No full payload/lifetime/device guarantee from address literals."
+        },
+        {
+          "location": "6",
+          "primitives": "@group(3),@binding(0),uniform MaterialUniforms",
+          "role": "Native per-material uniform binding address; MaterialUniforms payload declared debug_colorvec4f in fresh render/types3-5.",
+          "actual_boundary": "Fresh draw/mod selects SetMaterialBindGroup<M,3>; fresh callback34-49 resolves material instance/prepared nativebindgroup orSkip, then sets groupI=3. Prior exactpipeline85-114/152-162 creates genericM material layout and positions it atslot3; defaultfragment conditionaldebug branch refersmaterial.debug_color. GenericM AsBindGroup/prepared-buffer creation, conditional shader compilation and arbitrary custom shader layout compatibility not certified."
+        }
+      ],
+      "disposition": "Exact original35 numeric binding selectors and native receiving bodies independently source-accounted with generic shader/material payload limits. All6lines freshly consumed. No admission or correctness promise for every genericM or selected first-party shader, no original37 credit."
+    }
+  ],
+  "actual_platform_policy_trace": [
+    "Fresh batcher67-80 starts GPU-cull instance_count0 or uses raw len asu32. It writes first_instance0 on wasm and sourceoffset on native. Native render SetInstanceBindGroup75-82 pairs this with vertexbuffer slot1 slice at instance_offset*sizeofInstanceData on wasm and wholebuffer on native.",
+    "Fresh mesh draw checks batch_lookup bounds and page bounds before indexing, requires actual mesh vertex/index buffers and indirectbuffer, sets mesh vertexbuffer0/indexbuffer, and calculates drawrange count=end-start and byteoffset=start*sizeofDrawIndexedIndirectArgs. Native emits multi-draw count; wasm emits oneindirectdraw with existing debug assertioncount1.",
+    "Fresh batcher.register104-109 constructs range=batch..batch+1, the source basis for one subdraw when arithmetic is valid. ID overflow/public range mutation/native buffer length/device validation not universally guaranteed. Existing assertion was read only, not added/executed."
+  ],
+  "retained_source_observations_noncounted": [
+    "Native atomic append can overflow or exceed correlated arrays/outputcapacity; only indirect-array batchID guard precedes other array reads. Source schema carries end_index but exactcompute doesnotuse it. RetainNATIVE011append/dispatch/range/import observations and native counter/byte/coherence families.",
+    "Host count casts, signed basevertex cast, rangeend/start arithmetic, offset*sizeofT and generic/public mutable state require actual upstream/native limits. No whole SDK/device/backend safety guarantee inferred from matching source field names or shader wire shapes.",
+    "Default shading conditional MATERIAL_DEBUG branch references final_color without a declaration in the read21linefile; active define/loader/import resolution and currentfirstparty reachability unverified. This is a contextual native source observation, not a compiled/current defect, new lens13 finding or unique-count increment.",
+    "Id-sentinel reservation, Paged reset active_counts, unchecked buffer bounds, allocation expect/count cap, history and first-party producer observations remain non-counted pending root source-key alias/currentness/reachability reconciliation."
+  ],
+  "original31_retention": "All original31 remaining contracts from014 remain exactly partial: wrapper recipients, grass/custom index/seed/length meaning, history consumer/previousworld semantics, offset_allocator/Custom/native admission/coherence and unconsumed first-party/native dependencies. Reading34/35 wire schemas does not resolve or close31. Prior first-party014 source/currentness and all extra-source queue obligations preserved.",
+  "other_lens_extension_queue": {
+    "path": "audit13-successor-015-other-lens-extension-queue.json",
+    "sha256": "1194fe6d7582ae8b0482a22ee88e59ee0effbfd2b5503e9e9d78a645ec7410d6",
+    "status": "Mandatory proposed root source/range-alias reconciliation and independent other-lens receiving assessment for5newdraw/defaultshader members; no extra original/shared/other-lens counts."
+  },
+  "accounting": {
+    "before_original_accounted": 33,
+    "newly_source_accounted_out_of_order": [
+      34,
+      35
+    ],
+    "after_proposed_original_accounted": 35,
+    "original_total": 2853,
+    "partial_original_indices": [
+      31
+    ],
+    "first_unfinished_original": 31,
+    "first_unread_original": 36,
+    "next_unread_candidate": 36,
+    "earliest_unfinished_preserved": 31,
+    "original37_and2793_receiver_credit": 0,
+    "overlays_increment": 0,
+    "merged_increment": 0,
+    "material_increment": 0,
+    "other_lens_credit": 0,
+    "new_unique_count": 0,
+    "root_adoption_required": true
+  },
+  "qualifications": [
+    "Full effective original34owner range1-37 and35range1-6 retained; registryshows no supplemental effective intervals. Exact bytecounts728/275 and hashes verified. Original0-30/32/33 not restarted or newly credited; original31 remains partial.",
+    "10 exact sourcefiles/570 registered lines consumed and post-read hash verified. Earlier receiver access to34/35/37 is source access only. Fresh independent34/35 inventory/concrete receiving trace supplies this proposed accounting; no other-lens verdict inheritance.",
+    "Native source supplements exact1a5aff Git objects, known frozenpeer equality only; no assertionallunseenfrozenmembershadtheseidentities orcurrentmainmatches. No fullsource tree download. Initialflat draw.rs absent; actualdirectory metadata located/staged beforebodyreads, no nonexistentfile credit.",
+    "Same-lens prior actual hostlayout/camera/uniform/upload sourceproofs are referenced with explicit remaininglimits; no new bodycredit for unread/nativeAPI internals, RustShaderType/Pod-derived layout, SDK/driver commandvalidation, GPUmemoryordering, pipelinecompilation, materialprepared-buffercreation or all generic shaders.",
+    "Original37 rendertypes and2793batcher were receiving sourceonly. No original36/37/later/shared/overlay/merged/material credit. Mandatory other-lens queue adds pending sourceassessment only, not unique roles or findings.",
+    "No projectexecution/build/test/lint/scanner/generator/probe/assertion/helper/doctest added/run; no product/source/Git/rootledger/historicalmutation orpublication. Only ignored registration/receipt/queue/proposedstate authored.",
+    "No compatibilitypreservation constraints or aliases introduced. All inheritedF1/F2/F6/F9/owner/admission/operation/currentness findings remainopen. Source-accounted means scoped native numeric roles/operations identified WITH qualifications, not global/lens13/SDK/auditclearance."
+  ],
+  "stop_reason": "Bounded originals34/35 packet complete with out-of-order proposed accounting; retain earliest31partial and stop. Root alone reconciles/adopts state."
+}

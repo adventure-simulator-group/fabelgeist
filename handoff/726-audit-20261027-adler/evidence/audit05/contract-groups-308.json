@@ -1,0 +1,53 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-308",
+  "at": "2026-10-25T22:54:18.485478+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2601,
+      "source_id": "dependency-serde_json1.0.151:src/de.rs",
+      "sha256": "4998d7e252eb513be85b298e287048b4fb283882e9ba7df905f572f07200f3f3",
+      "personally_read_ranges": [
+        [
+          1,
+          2714
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read entire2714-line frozen serde_json1.0.151 deserializer in contiguous260-linechunks plus2601-2714. Direct text parserinitializesdepth128, boundedcontainer recursion andtrailingconsumption viafrom_trait/end;manualDeserializer can intentionallyparseprefix. Integeroverflow transitionsf64 whiletargetintegervisitorrejectswrongkind/range. Non-float_roundtrip f32 receivesgenericparsedf64; float_roundtrip directf32temporarilysingleprecision lexicalparse rejectsinfinite target; this is distinctfromValue conversion2589\u201390. Arbitraryprecisiondeserialize_anyretainsnumericstrings. Floatdecimal/exponentoverflow rejected exceptzero/underflow; ignoredvaluesvalidatelexicalsyntax usingexplicitstack notnumericrange. Seq/mapclosure andexternalenumexactshape checked, duplicatekeypolicy targetVisitor-owned. Streambyteoffset/failedstate pairedwithreader behavior;not universaltransactionalretrycontract. No parse,projectexecution orfeaturegraphchecks, andno acceptedprojectnumericfailurefromdependencyalone."
+      ]
+    },
+    {
+      "scope_index": 2605,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/icon/screen.rs",
+      "sha256": "206d3367d126c35bb42e2ae53de50be30b5638a97ea72bb6713ede026454a1fe",
+      "personally_read_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full50-line PR weaponiconscreenprojection. Closedlayout selectsaxialsignand45degreerotation, mirroring/flipflags appliedspecificaxes. Occupiedboundsnormalizesnonzeroalphapixelindicesbysize; rawsize0 withnonzeroalpha divides/modulobyzero, mismatchedlength permitsy\u22651. Actualrenderer dimensions/bufferconstructor contract neededbeforefinding; no ordinarybadsize/lengthcallerproven andno renderexecuted."
+      ]
+    },
+    {
+      "scope_index": 2606,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/lib.rs",
+      "sha256": "80124b8fa3d698044166b5f4226391835bde877e6e3e55904a8e6ab149a5fdcd",
+      "personally_read_ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full171-line PR armorrootAPI/exports. Bracerencode/decode/hashinvokevalidation;breastplatehashvalidatesprofile/construction/fluting/edgefitbounds beforepostcardhash. Genericparametric_design_hash onlyhashesencodedbytes bydocumentedrawbyteboundary, notadmission. Bracercorrelatedcoverage+wristoffset checkedwidenedu32sum\u22641000 andpositivewall/clearance;breastplatefront/back/neck/arm/skirt scalarbounds explicit. Raw publicserde elsewherecanbypassnormalAPI, no ordinaryunvalidatedgenerationwitness orwholearmorclearance. No hashingprojectdesign,generation orfixtureexecution."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

@@ -1,0 +1,224 @@
+{
+  "at": "2026-10-27T12:21:19.206901+00:00",
+  "lens": 11,
+  "status": "887-890 independently source-accounted",
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-016.json",
+    "sha256": "bd0e3feaf50e45f5a0fe6b12058300807877c4442ae0043d1fd98312d3364009"
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-017-registration.jsonl",
+    "sha256": "b3a62525a0cecc466332aa9dd1a517fc4056518767eff8fe278970f87fabfeb4"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 887,
+      "source_id": "pr-working:crates/adventuresim-core/src/case.rs",
+      "sha256": "7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0",
+      "actual_eof": 921,
+      "ranges": [
+        [
+          1,
+          921
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          921
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 888,
+      "source_id": "pr-working:crates/adventuresim-core/src/celestial.rs",
+      "sha256": "c31595528b5df5ab5137bb15789e202abcc096187f12ba1f5f207d7299726b06",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/c31595528b5df5ab5137bb15789e202abcc096187f12ba1f5f207d7299726b06",
+      "actual_eof": 169,
+      "ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          169
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 889,
+      "source_id": "pr-working:crates/adventuresim-core/src/character_morph.rs",
+      "sha256": "078e18702247381254e0d5970a170bf88f594487ea11fee98a44c1b01d849013",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/078e18702247381254e0d5970a170bf88f594487ea11fee98a44c1b01d849013",
+      "actual_eof": 73,
+      "ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          73
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 890,
+      "source_id": "pr-working:crates/adventuresim-core/src/character_proportions.rs",
+      "sha256": "7a3b0a5797dbb6d8c811aa2e2df9d831e7424367faf501cf6b3b9bffe1683433",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/7a3b0a5797dbb6d8c811aa2e2df9d831e7424367faf501cf6b3b9bffe1683433",
+      "actual_eof": 208,
+      "ranges": [
+        [
+          1,
+          208
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          208
+        ]
+      ]
+    }
+  ],
+  "material_receivers": [
+    {
+      "kind": "connected-owner",
+      "original_index": 1017,
+      "sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+      "ranges": [
+        [
+          340,
+          362
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual cycle producer and calendar phase kernel for celestial roles",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          340,
+          362
+        ]
+      ]
+    },
+    {
+      "kind": "connected-owner",
+      "original_index": 2158,
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "ranges": [
+        [
+          377,
+          394
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual cycle producer and calendar phase kernel for celestial roles",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          377,
+          394
+        ]
+      ]
+    }
+  ],
+  "per_role": [
+    {
+      "original": 887,
+      "roles": "Case/Contract/Objective/OutcomeFact/Asset/Subject identities; requirement versus authenticated fact; strategic deadline; alternatives of conjunctive paths; custody object and holder; evaluation versus lifecycle status; raw party/site/source/recipient namespaces and currency/version/count roles.",
+      "trace": "Full921 read. Macro owns six separate prefix-constrained identities, meaningful equality/map keys even with identical String storage. Requirements and outcome variants own required payloads and are deliberately distinct authority; match_fact matches only actual corresponding variants and selected identities/deadlines. evaluate filters case+party before local progress; constructor limits DNF shape and duplicate objective IDs and rejects zero defeat count. CaseStatus and ContractStatus are different lifecycles, EvaluationState is derived resolution progress, not synonyms. CustodyObject sum prevents asset/subject key confusion, holder sum keeps location/party/character/NPC and terminal states explicit. apply_custody checks source-idempotence/version/case with actual map key. Raw strings still erase party/site/issuer/evidence/source/challenge identities; raw source-id dedupe key, revision, defeat count, and reward currency are separate quantities. No global authenticated-fact/persistence validator claim or blanket instance-branding requirement. Derived Serde/public field admission is a separate pending admission/aggregate issue; test source consumed, not run.",
+      "disposition": "source-accounted with identity/quantity propagation questions; preserve distinct authorities"
+    },
+    {
+      "original": 888,
+      "roles": "Canonical StrategicMinute versus journey-local solar-time argument, latitude/longitude, lunar cyclic phase versus illuminated fraction, east/up/north direction versus radians and degree numerical kernel.",
+      "trace": "Full169 read plus exact1017 lunar producer350-359 and2158 day-fraction380-388. Actual celestial API deliberately accepts separate sky and lunar clock coordinates, even both StrategicMinute. phase comes from positive interval remainder divided by lunar cycle; illumination is cosine of periodic phase, not same purpose despite common scalar backing. equatorial_to_horizon locally normalizes ENU vector before f32 output. Public CelestialDirections erases normalized direction frame and cyclic-vs-illumination semantics; numerical trig intermediates can remain scalar within this kernel. Actual direction use in local altitude/dot tests proves frame meaning but tests are not execution. No precision ephemeris/native renderer/global normalization guarantee or mandatory new scalar bound invented.",
+      "disposition": "source-accounted with purpose/frame output question"
+    },
+    {
+      "original": 889,
+      "roles": "IdentityMorph private bounded basis ordinal and canonical name versus CharacterMorphWeights signed coefficient collection and persistent character deterministic seed.",
+      "trace": "Full73 freshly read; independent ordered inventory. Only all()/from_name construct ordinal; canonical zero-padded name roundtrip rejects alternate spellings and out-of-range45. Fixed45 array is meaningful MHR identity basis distinct from nine skeletal controls, pose and other coefficients. named_weight converts only supported identity name to same array ordinal. Producer uses independent deterministic stream and signed bounded cosmetic coefficients, not UnitInterval and not tactical state. Actual MHR recipient trace in own001/003 preserves native coefficient boundary; no model-instance association/allnamescope/current claim.",
+      "disposition": "source-accounted; existing meaningful owners retained"
+    },
+    {
+      "original": 890,
+      "roles": "Nine semantic BodyProportion selectors; checked absolute per-control skeletal coefficients, reference-relative translation basis in metres per coefficient; deterministic stream distinct from identity surface morph.",
+      "trace": "Full208 consumed (own0031-165 hash-equal and fresh bounded reread, new166-208). BodyProportion is semantic selector with actual unequal model-specific limits, not a generic ordinal or universal fraction; CharacterProportions set/TryFrom/Serde all share per-selector finite bound. JointProportionBasis reference is checked absolute coefficients; translation_metres rows are local metres per coefficient and translation subtracts reference before weighted sum. Actual MHR operation/typed matrix rows/columns independently traced own003, role distinctions prevent mixing skeletal parameter/pose/identity basis. Public basis numeric metadata plus is_finite is not full admitted aggregate; no arbitrary body size/runtime reach effects or universal unit limit. Tests read only.",
+      "disposition": "source-accounted; preserve coefficients/reference/frame differences"
+    }
+  ],
+  "qualified_observations": [
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/case.rs@7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0#identity-quantity-ports",
+      "observation": "Distinct typed six ID roles coexist with raw party/site/source/issuer/evidence/challenge/custodian identifiers, raw u32 revision/defeat quantity and u64 reward currency. Actual evaluator and custody receiver compare or index these separately, so common String/u32 backing is not one authority.",
+      "remedy": "Reuse canonical existing identity, currency, count and revision owners at actual producer/persistence/application ports; share neutral syntax/invariants underneath distinct namespaces. Preserve requirement/fact, case/contract, holder/object and evaluated/lifecycle distinctions. Do not introduce universal global ID or merge all state axes.",
+      "acceptance": "Actual strategic fact/custody/contract chain cannot substitute unrelated namespace/quantity at typed ports; authenticated/persisted admission separately audited.",
+      "dependencies": [
+        "existing identity/master alias and current canonical authority reconciliation",
+        "producer/ownership/enum/admission/aggregate lenses"
+      ],
+      "currentness": "frozen local scoped source; no current runtime/alias/accepted unique claim"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/celestial.rs@c31595528b5df5ab5137bb15789e202abcc096187f12ba1f5f207d7299726b06#phase-frame-output",
+      "observation": "Retained public output uses [f32;3] for ENU normalized directions and f32 for cyclic lunar phase versus illuminated fraction. Actual clock arguments can intentionally differ while sharing clock storage; trig angle and direction coordinates are different roles.",
+      "remedy": "Reconcile canonical direction/frame/cycle/fraction owners at application and renderer boundary; retain independent lunar versus local solar clock authority. Share closed fraction invariants only where appropriate, preserve cyclic wrap semantics and native trig kernel.",
+      "acceptance": "Callers cannot confuse direction frame, lunar cycle coordinate, illumination magnitude or journey/canonical clock purpose through application ports.",
+      "dependencies": [
+        "actual native presentation/current receivers",
+        "existing frame/cycle owner and master aliases"
+      ],
+      "currentness": "qualified frozen output granularity question, no unique acceptance"
+    }
+  ],
+  "carried_own_proofs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-001-receipt.json",
+      "sha256": "b67040e3d8f546f061a83c2253768f52cc5c9c5e0b8717b65a2ea5d94b7592f2"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-003-receipt.json",
+      "sha256": "dae6ed054025d2299c8767350d2b9a7b374b5af94f10f88fedf58dd06a89e4ac"
+    }
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer. Preserve180/181nativeSDK/Bevy scheduling/imagecopylimits andallpendingreceiverqueues. M04current903reviewsseparate; notfrozenoriginal/lenscounts. Packet182InventoryItemId graph erasure, catalogkey/recordidentity and wear/order-selector sourcequestions retained, alias/currentness/unique acceptance unresolved. M04build-target review003 atdf5 andhostedCIseparatefromfrozenauditcounts. 184 newpublicDrapedPiece association/sourcegroupingquestion remainsfrozenlocal, noalias/currentness/uniqueacceptance; producerpathcoherent. M04df5validationseparate. 185 capacityreservationstaticAPIgap retainedasfrozenevidence only; alias/currentness/accepteduniqueness unresolved. No runtimewrongID orauthoredcurrentinputwitness. ExistingID/key/wear/savedassociationquestionsremainqualified. Packet186 independently accounts existing test-source812 only; fixture expectations are not observed execution/whole authored catalog/native guarantees and do not clear185 capacity witness. Existing lower-pattern fixture uses canonical owners; no new current alias or unique finding. Packet187 original813 only. New frozen inventory_ui and catalog wrapper material extensions mandatory other lenses, zero extra shared/original credit. UI acquisition is not atomic/all-worn; inherited capacity, typedID erasure/key authority and public saved-association questions retain all currentness/alias/unique limits. Batch011 frozen attack-ID packed participant-width witness retained; no runtime/current/alias/accepted unique finding, no invented32bit capacity bound. Batch012 actual simultaneous fixture permits absent scheduled measure beside present start/contact/recovery; group only proved coupled facts, do not require every active schedule measure.",
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_adoption_required": true,
+  "process_qualification": "Initial python command unavailable and consequent absent-object read failed with no source body exposed and no registration created; corrected python3 registration and hash succeeded before actual reads.",
+  "read_limits": [
+    "1017registered340-362 has adjacent journey result and next comment; only lunar350-359 used.2158registered377-394 includes partial next calendar_year, no whole year reconstruction claim.",
+    "No fixtures/validation/evaluator/kernel executed, no current source/unique/global acceptance."
+  ],
+  "restrictions": "Ignored append-only evidence only; no product/Git mutations/rootledger/projectchecks/tests/probes/publication."
+}

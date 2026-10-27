@@ -1,0 +1,129 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "082",
+  "predecessor": "receipt-081-originals383-387.json",
+  "manifest_prefix_sha256": "4cb659ea1280acaa942c9c475039fca358f52b5b21cc8c98a5be725be861c046",
+  "sources": [
+    {
+      "original_index": 388,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress.rs",
+      "sha256": "555e18f9ec8b6190fd3c3431665f737b37a74a9b7ee6341d99b660663015c75c",
+      "actual_eof": 1217,
+      "actual_ranges": [
+        [
+          1,
+          1217
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-534",
+          "role": "Native tracing prose47/115/219/223/245/260/326/336/345/369/381/394/419/468/480/487; expect350/410; compiler reasons169/436. Actual untargeted contact branch emits outcome miss/reason untargeted/event melee_attack_resolved302 directly at tracing output, no retained application string. All request/action/defense state typed.",
+          "disposition": "Concrete trace schema/prose/compiler diagnostics, not internal string state or raw classification API. External log readers/filter contracts unread; preserve classifications explicit without claiming source authority or trace/runtime correctness."
+        },
+        {
+          "source_ranges": "535-1217",
+          "role": "All1217 read1-450/451-850/851-1217. Existing13case label strings in-range798/window-outside807/over-window816/under-mode825/over-mode834/quickstep-max843/quickstep-over852/fist-close861/fist-forward870/fist-quickstep879/head-forward888/head-quickstep897/left-arm906 used only native assertion/println labels964/993/998/1002; actual ExpectedLungeMode enum702-706 owns expected role. Expects reachable with lunge1017/same center gap1028 native diagnostics.",
+          "disposition": "Local case label output boundary separated from typed expected contract; no fixture exemption for selectors but actual labels do not branch gameplay. No tests/probes execution/numerical/authority/native/lens08 proof."
+        }
+      ],
+      "status": "Full requested changed source independently inventoried, concrete trace/text roles."
+    },
+    {
+      "original_index": 389,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/attack_start.rs",
+      "sha256": "d0d569ebb258a1695be5f608854f31be959f905e0e7d67fa0cdb9b374b7c2b26",
+      "actual_eof": 292,
+      "actual_ranges": [
+        [
+          1,
+          292
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-292",
+          "role": "Compiler reasons210/251; native event melee_attack_started264; untargeted_no_movement output classification and melee_lunge_planned290 directly at tracingboundary. No String-valued gameplay API. Typed StartedMeleePreparation/Publication and observed key/event retained.",
+          "disposition": "Concrete trace schema/compiler output boundary. Actual388283publication call and382observe226/235connected locally; does not resolve earlier root Started-before-admission report qualification or imply runtime acceptance."
+        }
+      ],
+      "status": "Full requested changed source independently inventoried, concrete trace/text roles."
+    },
+    {
+      "original_index": 390,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/lunge.rs",
+      "sha256": "266a1dafe1f65fe3bb52d1d0cc91a35eb3ac61bd95c23db020c31708bcd64846",
+      "actual_eof": 287,
+      "actual_ranges": [
+        [
+          1,
+          287
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-287",
+          "role": "Local output label already_in_reach147/unreachable_no_movement149 fed info151; quickstep/forward label154 directly formats typed movement.quickstep; melee_lunge_planned151/154 event. Existingtests diagnostic262/265/284. No String-valued API or retained raw phase state.",
+          "disposition": "Concrete native tracing schema and assertion boundaries; external trace parsers unread. No physical/kernel/math/geometry/current/runtime or lens08Q003 transfer; full287 read, no tests/probes."
+        }
+      ],
+      "status": "Full requested changed source independently inventoried, concrete trace/text roles."
+    }
+  ],
+  "connected_findings": [],
+  "pending_contracts": [
+    "External/native trace schema filters/readers remain unread; direct emission source classification not whole parser correctness.",
+    "Earlier root Started-before-admission/key=None sourcefinding and existing event/name/identity/raw report qualifications remain; no native/math/lens08 transfer from actual389publication or390rotation bodies."
+  ],
+  "qualifications": [
+    "Exact frozen f82 physical-P16 only; no current alias.",
+    "No backward compatibility/input preservation or project/native/test/probe execution; no product/Git/root-ledger/publication mutation.",
+    "All20/P16/P17/F9/M09/inherited aliases/currentness; scoped source accounting not repaired/global/runtime/unique-total/other-lens clearance."
+  ],
+  "proposed_count": {
+    "before": 388,
+    "after": 391,
+    "indices_completed": [
+      388,
+      389,
+      390
+    ],
+    "next_original": 391,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress.rs",
+      "sha256": "555e18f9ec8b6190fd3c3431665f737b37a74a9b7ee6341d99b660663015c75c",
+      "ranges": [
+        [
+          1,
+          1217
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/attack_start.rs",
+      "sha256": "d0d569ebb258a1695be5f608854f31be959f905e0e7d67fa0cdb9b374b7c2b26",
+      "ranges": [
+        [
+          1,
+          292
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/lunge.rs",
+      "sha256": "266a1dafe1f65fe3bb52d1d0cc91a35eb3ac61bd95c23db020c31708bcd64846",
+      "ranges": [
+        [
+          1,
+          287
+        ]
+      ]
+    }
+  ]
+}

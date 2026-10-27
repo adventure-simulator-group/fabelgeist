@@ -1,0 +1,105 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-191",
+  "at": "2026-10-23T04:32:22.371621+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+      "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+      "scope058_index": 288,
+      "actual_EOF": 908,
+      "scoped_ranges_compared": [
+        [
+          1,
+          908
+        ]
+      ],
+      "actual05_comparison": "Fresh current PR1-300/301-462/515-711/712-908 plus personally joined actual05 packet185463-514. Complete actual PR/P16 full diff empty, each current producer/retained state/mutator/recipient compared; no hash or prior03 verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+      "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+      "scope058_index": 1226,
+      "actual_EOF": 908,
+      "scoped_ranges_compared": [
+        [
+          1,
+          908
+        ]
+      ],
+      "actual05_comparison": "Fresh current PR1-300/301-462/515-711/712-908 plus personally joined actual05 packet185463-514. Complete actual PR/P16 full diff empty, each current producer/retained state/mutator/recipient compared; no hash or prior03 verdict carry."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "journey construction and retained snapshots",
+      "comparison": "start_party_journey requires no unresolved encounter; removes old leg/route and forecasts actual party members. Forecast must exist and not truncate before new rows; objective continuity breaks before departure publication. PartyJourney and encounter authority are built with one party ID, active outbound leg only, completed counters0 and separate actual/forecast camps. Optional route copies all package/weather/points/spans/return snapshot fields together; no independent subsequent mutation here. Early deletions before fallible forecast rely on native transaction semantics, not independently proved; no blanket failure-atomicity claim."
+    },
+    {
+      "id": "exact camp versus interruption",
+      "comparison": "Active predicate requires off settlement/case, same destination and incomplete movement. Reached uses checkpoint membership; between-camps is complement and intentionally cannot own fireplace custody. Shared predicate omits party-ID equality F042, but current place loader queries both matching keys before constructing canonical place from party/departure/progress. Resolved encounter promotion checks Resolved, both party IDs, destination, exact incomplete movement and dedup checkpoint; resolved interruptions are promoted once. Current normal identity grammar and current membership remain distinct."
+    },
+    {
+      "id": "checkpoint collections and historical forecasts",
+      "comparison": "Movement/interruption records clamp completed movement to total, add elapsed, and reached camps only append if last differs. Camp forecasts merge contiguous elapsed intervals at same movement, retain initial mean/update ending mean and max. Actual recorded camp merge at same movement/adjacent elapsed retains initial mean and replaces final maximum with latest endpoint, deliberately different from forecast interval maximum semantics; caller/display interpretation remains qualified, no automatic duplicate-authority finding. Capacity refuses new camp beyondMAX; no universal checked elapsed capacity at u64MAX. Forecast refresh recomputes only remaining leg, offsets intervals by completed counters and preserves actual history."
+    },
+    {
+      "id": "safe movement prefix and immutable training input",
+      "comparison": "advance movement captures disease plan and all member safe prefixes from SAME traveler slice, min with request; zip uses SAME vector built one per traveler so length/order match. Zero prefix settles only zero-boundary members. Positive branch advances every member by shared prefix before terrain/oral/mastery awards and wilderness elapsed. Lower advance function returning false records survival, not a different elapsed by this helper; actual lower interval contract remains required. Terrain award uses frozen departure route and current completed movement, missing route/zero movement yields empty; duplicated raw spans break conservation F043. Oral immutable pregain snapshot behavior and F041 duplicate speaker precondition retained."
+    },
+    {
+      "id": "terrain columns and snow policy",
+      "comparison": "Exposure output fixed6 maps exact plains/forest/hills/wetlands/urban/snow slots to matching stored skill and enum target in one literal array. Overlap clipping uses start/end, snow share clamps0..10000 and splits hours into underlying and snow; underlying five normalized weights sum1000 only if caller admits raw terrain mix (NativeF037 source distinction). TrainingMultiplier permille intentionally rescales hours, not probability<=1. Zero overlap skips; all rows update SAME per-character skill then return excess by character. No fresh bad normal writer demonstrated."
+    },
+    {
+      "id": "subjective versus environment clock",
+      "comparison": "Wilderness elapsed requires initialized anchor unless no-op0, uses saturating increment. journey_local_minute and environment now wrap time-of-day around frozen anchor/day intentionally, not personal chronological dates. set_party_journey_state mutates ONLY journey location fields, preserving leader changes after terminal events; returning to settlement clears anchor+elapsed together. Empty safe-prefix list returns requested by fold, private caller membership nonempty precondition remains source-specific, no automatic assertion of living roster."
+    },
+    {
+      "id": "route presentation interpolation",
+      "comparison": "route_position derives segment lengths from SAME points windows, indexing index/index+1 locally safe; no parallel precomputed length column. Empty returnsNone, zero total or duration returns first, clamped minute target and zero segment handling intentional. Raw native unbounded E7 is not WGS84 admission. total.saturating_mul(clampedminute)/minutes can lose ratio before division for raw huge duration/distance; preserve qualified native capacity operation, no normal route overflow claim and no additional Native unique record. Route points may be simplified waypoints; do not infer exact terrain traversability from interpolation."
+    },
+    {
+      "id": "finish and unresolved authority",
+      "comparison": "finish removes exact active journey, encounter authority and route for sameparty, not tactical tick state. Encounter blocking checks actual AwaitingChoice plus current bound open road challenge, so stale open record elsewhere does not block. Character wrapper missingparty returnsOk intentionally, downstream action authority must separately establish actor. Native transaction and helper semantics not credited just from names."
+    }
+  ],
+  "new_unique_findings": [
+    {
+      "id": "NATIVE-INITIAL05-F042",
+      "relationship": "The party and journey passed to the exact-current-camp predicate must belong to the same party identity",
+      "source_refs": [
+        "physical-p16:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs:253-277",
+        "pr-working:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs:253-277"
+      ],
+      "counterexample": "Valid Party A (idA, off settlement/case, camp_destination X) and valid Journey B (party_id B, destination X, movement0/60, reached[0]) satisfy current-camp predicate although B is not As journey. Predicate never compares party.id to journey.party_id.",
+      "qualification": "Source/API strengthening only. No normal mismatched row, bad route asset, gameplay failure or executed behavior established. Root04 exact dedup query negative, no independent peer body coverage. Current canonical-place loader284-308 fetches both rows by SAME partyID, and resolved encounter promotion350-356 explicitly checks IDs, so these normal paths are coherent. Other same-crate callers remain exact source obligations.",
+      "connected_repair": "Make exact party/journey identity binding part of predicate or admit a private same-party journey context at the actual loader. Preserve active/incomplete destination and reached-versus-between-camp semantics; no universal identity branding.",
+      "acceptance": "Unrelated valid party/journey rows cannot establish reached camp; actual same-party loader results remain unchanged. No new tests/run."
+    },
+    {
+      "id": "NATIVE-INITIAL05-F043",
+      "relationship": "Terrain exposure spans for one movement interval must cover time without overlapping double-counts",
+      "source_refs": [
+        "physical-p16:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs:372-458/515-541",
+        "pr-working:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs:372-458/515-541"
+      ],
+      "counterexample": "Pass two identical otherwise-valid span values start0,duration60,trainingMultiplier1000,terrain plains1000/others0 with snow0. terrain_training_exposure([span,span],0,60,0) returns2 plains hours for one hour movement. Each leaf and normalized mixture is valid; the collection overlap relationship is missing.",
+      "qualification": "Source/API strengthening only. No normal mismatched row, bad route asset, gameplay failure or executed behavior established. Root04 exact dedup query negative, no independent peer body coverage. PR normal route producer Native169 constructs ordered spans; current start_party_journey200-218 copies route snapshot consistently. P16 normal planner outside its narrow terrain419 ranges is NOT inferred from PR producer proof. Training multipliers intentionally may exceed1000, but this counterexample uses1000 so duplication is not an intended multiplier.",
+      "connected_repair": "Retain a validated route-span collection with ordered nonoverlapping intervals and admitted coverage/metadata matching its movement duration; expose clipping/exposure on that owner. Keep raw imported rows separate until aggregate admission. Preserve snow-versus-underlying split, empty/partial intersections and authored training multipliers.",
+      "acceptance": "Duplicate/overlapping raw spans cannot double an accepted interval award; normal ordered route exposure and permitted weighting/rounding stay unchanged. No new tests/run."
+    }
+  ],
+  "partial_closures": [
+    "Packet185 journey288/1226 now fully compared. PRauthority1204 remains bounded supplemental; P16authority269 complete127."
+  ],
+  "scope_qualifications": [
+    "Current058 same2826 variants+243 overlays. New Root018 disease1811-2091 and019 physiology408-446 remain05 unread roles, no inherited credit. WorldImport scope057681-717 remainsunread."
+  ],
+  "remaining_dependency_obligations": [
+    "All normal PartyMember writers for F041, same-party remaining camp callers for F042, route raw collection admission/current normal P16 planner for F043, interval/native transaction and raw terrain mixture validity."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

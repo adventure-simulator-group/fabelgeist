@@ -1,0 +1,373 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "107",
+  "predecessor": "receipt-106-originals503-510.json",
+  "manifest_prefix_sha256": "e43aa2319a191caa0a86e57ec47f7ef7450348435576ae717cfc7fcca64ded0e",
+  "sources": [
+    {
+      "original_index": 511,
+      "source_id": "pr-working:assets/shaders/tactical_interior_lighting.wgsl",
+      "sha256": "92d6043b6367ed1a9ce3159c5e749bbff8eb7b5b528dd26ae9cd17592fada2d4",
+      "actual_eof": 100,
+      "actual_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "[[1, 100]]",
+          "role": "Native #define_import_path fabelgeist::interior_lighting1, Bevy import3, MATERIAL_BIND_GROUP25; no quoted stringliteral/String API in100. Actualnative import consumers and host layout remain obligations.",
+          "disposition": "All registered source independently read, concrete native shader import/preprocessor/entrypoint boundary. No whole-shader exemption, host pipeline/import registration/definition/asset/native parser/compiler numerical/visual/current acceptance remains explicit."
+        }
+      ],
+      "status": "Exact requested source inventory WITH delegated native/host/numeric obligations."
+    },
+    {
+      "original_index": 512,
+      "source_id": "pr-working:assets/shaders/tactical_moon.wgsl",
+      "sha256": "69d07afb5411b9aab80510259c6f30c47d2f6a6f27a07e96b09276dc3fb7639a",
+      "actual_eof": 65,
+      "actual_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "[[1, 65]]",
+          "role": "Native derivative_uniformity1/Bevyimports3-8/MATERIAL_BIND_GROUP10-19/VERTEX_OUTPUT_INSTANCE_INDEX35. No quoted stringliteral/String API in65; asset/nativecolour/numeric claims separate.",
+          "disposition": "All registered source independently read, concrete native shader import/preprocessor/entrypoint boundary. No whole-shader exemption, host pipeline/import registration/definition/asset/native parser/compiler numerical/visual/current acceptance remains explicit."
+        }
+      ],
+      "status": "Exact requested source inventory WITH delegated native/host/numeric obligations."
+    },
+    {
+      "original_index": 513,
+      "source_id": "pr-working:assets/shaders/tactical_pebble.wgsl",
+      "sha256": "5a55c52e1b2950b498e8d1679e7983bd84b6da069dc6fe5698a4b22d0646353e",
+      "actual_eof": 90,
+      "actual_ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "[[1, 90]]",
+          "role": "NativeBevyimports13-20/MATERIAL_BIND_GROUP27/VERTEX_OUTPUT_INSTANCE_INDEX45/VISIBILITY_RANGE_DITHER48/59. No quoted stringliteral/String API in90. Sourcehistoricalvisualrationale3-11 not BCconstraint.",
+          "disposition": "All registered source independently read, concrete native shader import/preprocessor/entrypoint boundary. No whole-shader exemption, host pipeline/import registration/definition/asset/native parser/compiler numerical/visual/current acceptance remains explicit."
+        }
+      ],
+      "status": "Exact requested source inventory WITH delegated native/host/numeric obligations."
+    },
+    {
+      "original_index": 514,
+      "source_id": "pr-working:assets/shaders/tactical_pebble_billboard.wgsl",
+      "sha256": "c4644f87c9162b39d2fc1225d9912d8e7a0580cd7556d1333181defd62752b93",
+      "actual_eof": 95,
+      "actual_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "[[1, 95]]",
+          "role": "Native derivative_uniformity1/Bevyimports3-9/MATERIAL_BIND_GROUP17/VERTEX_OUTPUT_INSTANCE_INDEX42/VISIBILITY_RANGE_DITHER45/60. No quoted stringliteral/String API in95.",
+          "disposition": "All registered source independently read, concrete native shader import/preprocessor/entrypoint boundary. No whole-shader exemption, host pipeline/import registration/definition/asset/native parser/compiler numerical/visual/current acceptance remains explicit."
+        }
+      ],
+      "status": "Exact requested source inventory WITH delegated native/host/numeric obligations."
+    },
+    {
+      "original_index": 515,
+      "source_id": "pr-working:assets/shaders/tactical_shrub_bark_instanced.wgsl",
+      "sha256": "696467dcd07aed5f94b0dfb6d9605560daf85fd74e780da49e2449c840e15844",
+      "actual_eof": 119,
+      "actual_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "[[1, 119]]",
+          "role": "NativeBevyimports6-10/bevy_eidolon imports12-14; VERTEX_NORMALS43/VISIBILITY_RANGE_DITHER22/55/68. No quoted stringliteral/String API in119. wood_mesh.rs87 text reference not readimplementation; comments legacy1/parity17 not BCrequirement.",
+          "disposition": "All registered source independently read, concrete native shader import/preprocessor/entrypoint boundary. No whole-shader exemption, host pipeline/import registration/definition/asset/native parser/compiler numerical/visual/current acceptance remains explicit."
+        }
+      ],
+      "status": "Exact requested source inventory WITH delegated native/host/numeric obligations."
+    },
+    {
+      "original_index": 516,
+      "source_id": "pr-working:assets/shaders/tactical_shrub_leaf_instanced.wgsl",
+      "sha256": "0f80c3f51e71056d7249e91d9dda6b82980138f76358602cf5aa887976e8aa52",
+      "actual_eof": 197,
+      "actual_ranges": [
+        [
+          1,
+          197
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "[[1, 197]]",
+          "role": "Native derivative_uniformity8/Bevyimports10-14/bevy_eidolon16-18; VISIBILITY_RANGE_DITHER48/112/125,VERTEX_UVS_A69,VERTEX_NORMALS94,VERTEX_COLORS108. No quoted stringliteral/String API in197. Commentunusednormalmaps5-6 corresponds declarations26-29 and no use in readbody, hostpipelinecleanup nativecontract not performed.",
+          "disposition": "All registered source independently read, concrete native shader import/preprocessor/entrypoint boundary. No whole-shader exemption, host pipeline/import registration/definition/asset/native parser/compiler numerical/visual/current acceptance remains explicit."
+        }
+      ],
+      "status": "Exact requested source inventory WITH delegated native/host/numeric obligations."
+    },
+    {
+      "original_index": 517,
+      "source_id": "pr-working:assets/shaders/tactical_stars.wgsl",
+      "sha256": "929fdce1cb1b288bcc885f481a2fd64d20f60dc513e16ebd534b84d700e7ca98",
+      "actual_eof": 61,
+      "actual_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "[[1, 61]]",
+          "role": "NativeBevyimports1-4/MATERIAL_BIND_GROUP6/9. No quoted stringliteral/String API in61. Nativehostvertexlayout and starcatalog ingress separate.",
+          "disposition": "All registered source independently read, concrete native shader import/preprocessor/entrypoint boundary. No whole-shader exemption, host pipeline/import registration/definition/asset/native parser/compiler numerical/visual/current acceptance remains explicit."
+        }
+      ],
+      "status": "Exact requested source inventory WITH delegated native/host/numeric obligations."
+    },
+    {
+      "original_index": 518,
+      "source_id": "pr-working:assets/shaders/tactical_terrain.wgsl",
+      "sha256": "3e1b93040592788f45f281cd81947315b64deedb33d1325c618959a3ca642e81",
+      "actual_eof": 415,
+      "actual_ranges": [
+        [
+          1,
+          415
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "[[1, 415]]",
+          "role": "Native derivative_uniformity1/Bevyimports3-15/PREPASS_PIPELINE9/404/MATERIAL_BIND_GROUP37-62. No quoted stringliteral/String API in415read1-210+211-415; numerical cover/substrate codes188-189/244-254/284-291 are other-lens finitecode obligations not erased by zero strings.",
+          "disposition": "All registered source independently read, concrete native shader import/preprocessor/entrypoint boundary. No whole-shader exemption, host pipeline/import registration/definition/asset/native parser/compiler numerical/visual/current acceptance remains explicit."
+        }
+      ],
+      "status": "Exact requested source inventory WITH delegated native/host/numeric obligations."
+    },
+    {
+      "original_index": 519,
+      "source_id": "pr-working:assets/shaders/tactical_tree_aggregate_bark.wgsl",
+      "sha256": "9fbf0f983b8019500e6cdf95bd531a99a9a3b01eea1b07f27d9c4506364c4fe8",
+      "actual_eof": 49,
+      "actual_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "[[1, 49]]",
+          "role": "NativeBevyimports1-14/PREPASS_PIPELINE4/41/MATERIAL_BIND_GROUP20. No quoted stringliteral/String API in49.",
+          "disposition": "All registered source independently read, concrete native shader import/preprocessor/entrypoint boundary. No whole-shader exemption, host pipeline/import registration/definition/asset/native parser/compiler numerical/visual/current acceptance remains explicit."
+        }
+      ],
+      "status": "Exact requested source inventory WITH delegated native/host/numeric obligations."
+    },
+    {
+      "original_index": 520,
+      "source_id": "pr-working:assets/shaders/tactical_tree_impostor.wgsl",
+      "sha256": "131a902b24267466e1c039477a9a18a881b7fd31212c614b850fbc15673934c4",
+      "actual_eof": 135,
+      "actual_ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "[[1, 135]]",
+          "role": "Native derivative_uniformity1/Bevyimports3-8/MATERIAL_BIND_GROUP10/12/21/VERTEX_OUTPUT_INSTANCE_INDEX74/VISIBILITY_RANGE_DITHER77/88. No quoted stringliteral/String API in135; nativeatlas/level4 numericalcontract separate.",
+          "disposition": "All registered source independently read, concrete native shader import/preprocessor/entrypoint boundary. No whole-shader exemption, host pipeline/import registration/definition/asset/native parser/compiler numerical/visual/current acceptance remains explicit."
+        }
+      ],
+      "status": "Exact requested source inventory WITH delegated native/host/numeric obligations."
+    },
+    {
+      "original_index": 521,
+      "source_id": "pr-working:assets/shaders/tactical_weather.wgsl",
+      "sha256": "5c0a4dc16844e0840b502186ec82a5b7b8398061d2fd4d68226c8bffebd47636",
+      "actual_eof": 317,
+      "actual_ranges": [
+        [
+          1,
+          317
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "[[1, 317]]",
+          "role": "NativeBevyimports1-4/MATERIAL_BIND_GROUP6-15. No quoted stringliteral/String API in317; weather.kind rawnumericselector110/225 branches118/131/179/228/259/264 belongs actual typedCPU/nativepacking policy, not lens12clearance.",
+          "disposition": "All registered source independently read, concrete native shader import/preprocessor/entrypoint boundary. No whole-shader exemption, host pipeline/import registration/definition/asset/native parser/compiler numerical/visual/current acceptance remains explicit."
+        }
+      ],
+      "status": "Exact requested source inventory WITH delegated native/host/numeric obligations."
+    }
+  ],
+  "connected_findings": [],
+  "pending_contracts": [
+    "Native host loader/entrypoint/shaderdef/import registration and shader ABI producers not consumed; no native rendering/compilation/numeric/comment accuracy verdict.",
+    "Actual numericalcodepacking weather/terrain finite authority preserved as other-lens obligations, not counttransfer.",
+    "522 alreadyread producer45 awaiting related523/524 grouping; all prior application receiving/identity obligations retained."
+  ],
+  "qualifications": [
+    "Frozen PR-working exact scopes, no P16/current/global/runtime/unique-total/otherlensclearance.",
+    "No backwardcompatibility/API/schema/input preservation requirement. No project/native/test/probe execution or product/Git/rootledger/publication mutation.",
+    "All20/P16/P17/F9/M09 and inheritedaliases retained; unique delta0."
+  ],
+  "proposed_count": {
+    "before": 511,
+    "after": 522,
+    "indices_completed": [
+      511,
+      512,
+      513,
+      514,
+      515,
+      516,
+      517,
+      518,
+      519,
+      520,
+      521
+    ],
+    "next_original": 522,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "pr-working:assets/shaders/tactical_interior_lighting.wgsl",
+      "sha256": "92d6043b6367ed1a9ce3159c5e749bbff8eb7b5b528dd26ae9cd17592fada2d4",
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_moon.wgsl",
+      "sha256": "69d07afb5411b9aab80510259c6f30c47d2f6a6f27a07e96b09276dc3fb7639a",
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_pebble.wgsl",
+      "sha256": "5a55c52e1b2950b498e8d1679e7983bd84b6da069dc6fe5698a4b22d0646353e",
+      "ranges": [
+        [
+          1,
+          90
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_pebble_billboard.wgsl",
+      "sha256": "c4644f87c9162b39d2fc1225d9912d8e7a0580cd7556d1333181defd62752b93",
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_shrub_bark_instanced.wgsl",
+      "sha256": "696467dcd07aed5f94b0dfb6d9605560daf85fd74e780da49e2449c840e15844",
+      "ranges": [
+        [
+          1,
+          119
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_shrub_leaf_instanced.wgsl",
+      "sha256": "0f80c3f51e71056d7249e91d9dda6b82980138f76358602cf5aa887976e8aa52",
+      "ranges": [
+        [
+          1,
+          197
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_stars.wgsl",
+      "sha256": "929fdce1cb1b288bcc885f481a2fd64d20f60dc513e16ebd534b84d700e7ca98",
+      "ranges": [
+        [
+          1,
+          61
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_terrain.wgsl",
+      "sha256": "3e1b93040592788f45f281cd81947315b64deedb33d1325c618959a3ca642e81",
+      "ranges": [
+        [
+          1,
+          415
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_tree_aggregate_bark.wgsl",
+      "sha256": "9fbf0f983b8019500e6cdf95bd531a99a9a3b01eea1b07f27d9c4506364c4fe8",
+      "ranges": [
+        [
+          1,
+          49
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_tree_impostor.wgsl",
+      "sha256": "131a902b24267466e1c039477a9a18a881b7fd31212c614b850fbc15673934c4",
+      "ranges": [
+        [
+          1,
+          135
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_weather.wgsl",
+      "sha256": "5c0a4dc16844e0840b502186ec82a5b7b8398061d2fd4d68226c8bffebd47636",
+      "ranges": [
+        [
+          1,
+          317
+        ]
+      ]
+    }
+  ]
+}

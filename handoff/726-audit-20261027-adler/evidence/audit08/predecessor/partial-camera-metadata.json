@@ -1,0 +1,140 @@
+[
+  {
+    "scope_index": 1461,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/aim.rs",
+    "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/camera/aim.rs",
+    "before_sha256": null,
+    "after_sha256": "cbbc59d3f49773f1c5030d3399c0dc94533f46afd5e022ea3adda5eda284c339",
+    "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1461-base-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/cbbc59d3f49773f1c5030d3399c0dc94533f46afd5e022ea3adda5eda284c339",
+    "diff": "source-evidence/1461.diff",
+    "diff_sha256": "eadf9149af0f37300dbdd6c1057e729fda93377949169ffec065890da1f1cbb0",
+    "head_body_read_ranges": [
+      [
+        1,
+        94
+      ]
+    ],
+    "facts": [
+      "Full94 body+complete added diff and removed old1460 aim method consumed. Raised/ranged gates, ray/filter order, planar fallback, right/muzzle and target arithmetic retained. Current aim is None before missing/controller/error paths; complete endpoints admitted before Some, no fabricated origin. blocked derives same hit-identity predicate; removed target args were unused. Actual display recipients pending."
+    ],
+    "disposition": "Own08 source-local old/new comparison accounted with native/UI dependencies; no all-camera clearance.",
+    "acceptance": "Preserve authored scalars, signed shaping and kernel/clamp/selection order; reject invalid owned results before affected publication, retain independent blend lifecycle. No checks/tests/repairs."
+  },
+  {
+    "scope_index": 1464,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/config.rs",
+    "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/camera/config.rs",
+    "before_sha256": null,
+    "after_sha256": "62f911a33b3857f7f42007f9773937a09e031bc7944bcf57536a64a030a6b9fa",
+    "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1464-base-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/62f911a33b3857f7f42007f9773937a09e031bc7944bcf57536a64a030a6b9fa",
+    "diff": "source-evidence/1464.diff",
+    "diff_sha256": "7112b88a1fd142fc9613e2351e83f803c5f7b23436ead0f9786139b361e9252f",
+    "head_body_read_ranges": [
+      [
+        1,
+        142
+      ]
+    ],
+    "facts": [
+      "Full142 body+added diff vs old1460 defaults. Same literal scalars/order including negative posture and zero shoulder, separate raised/lowered times. Constant admission checks authored finite values. Public custom signed/zero/negative shaping remains supported; no blanket positive restriction."
+    ],
+    "disposition": "Own08 source-local old/new comparison accounted with native/UI dependencies; no all-camera clearance.",
+    "acceptance": "Preserve authored scalars, signed shaping and kernel/clamp/selection order; reject invalid owned results before affected publication, retain independent blend lifecycle. No checks/tests/repairs."
+  },
+  {
+    "scope_index": 1465,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/rig.rs",
+    "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/camera/rig.rs",
+    "before_sha256": null,
+    "after_sha256": "1ec50b293b57a16a3f213a4e26d2a6a6f3d69500f61d3f586939745bc2978d01",
+    "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1465-base-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/1ec50b293b57a16a3f213a4e26d2a6a6f3d69500f61d3f586939745bc2978d01",
+    "diff": "source-evidence/1465.diff",
+    "diff_sha256": "0c3be1557bff3278d378e80daf67cf93d6cb790fa839e920a1c0eebf1a8fa6bc",
+    "head_body_read_ranges": [
+      [
+        1,
+        97
+      ]
+    ],
+    "facts": [
+      "Full97 body+added diff vs old1460 update. Same delta min(.1), controller selection and successful publication order. Invalid elapsed warns/returns; profile or input errors warn/continue; failed pose preparation retains previous committed pose/camera translation. No default-Bevy panic here. Mode reset drops observation history but retains blend as old initialized reset."
+    ],
+    "disposition": "Own08 source-local old/new comparison accounted with native/UI dependencies; no all-camera clearance.",
+    "acceptance": "Preserve authored scalars, signed shaping and kernel/clamp/selection order; reject invalid owned results before affected publication, retain independent blend lifecycle. No checks/tests/repairs."
+  },
+  {
+    "scope_index": 1466,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/rig/observation.rs",
+    "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/camera/rig/observation.rs",
+    "before_sha256": null,
+    "after_sha256": "a0a88df02f4d557950c09e55645900e75731a2817d9d422b636fe3126f062ef1",
+    "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1466-base-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/a0a88df02f4d557950c09e55645900e75731a2817d9d422b636fe3126f062ef1",
+    "diff": "source-evidence/1466.diff",
+    "diff_sha256": "9af33f44475e12cbbc322e61942507d8b941e913789b6ddf284e18c3c844d769",
+    "head_body_read_ranges": [
+      [
+        1,
+        170
+      ]
+    ],
+    "facts": [
+      "Full170 added body and equivalent whole addition differential; base absent and old1460 predecessor consumed. Prone/Supine-before-crouch, anchor order, subject ray/filter and soft point, focus damping/error/velocity rejection and shoulder scalar order retained. Mutations are local history until outer success. Debug volume/soft-point admission can fail before publication; ordinary invalid normal not proven."
+    ],
+    "disposition": "Own08 source-local old/new comparison accounted with native/UI dependencies; no all-camera clearance.",
+    "acceptance": "Preserve authored scalars, signed shaping and kernel/clamp/selection order; reject invalid owned results before affected publication, retain independent blend lifecycle. No checks/tests/repairs."
+  },
+  {
+    "scope_index": 1467,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/rig_history.rs",
+    "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/camera/rig_history.rs",
+    "before_sha256": null,
+    "after_sha256": "6b8831f4120039b41df17cb9365f3d4e37f1db57259aa4e5573e0fd8c9f8e4ff",
+    "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1467-base-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/6b8831f4120039b41df17cb9365f3d4e37f1db57259aa4e5573e0fd8c9f8e4ff",
+    "diff": "source-evidence/1467.diff",
+    "diff_sha256": "802e803ded8cd4980eb8a2ec7841b9336cb16692cef5c8f46b6baae79d7966c7",
+    "head_body_read_ranges": [
+      [
+        1,
+        105
+      ]
+    ],
+    "facts": [
+      "Full105+entire added diff vs old1460 state/reset/update. Scalar blend clamp then complete checked profile then derivative admitted before filter commit; pose update independent. Exact subject/anchor-distance>threshold reset and zero-velocity/default boom/shoulder retained. History Option intentionally replaces initialized boolean."
+    ],
+    "disposition": "Own08 source-local old/new comparison accounted with native/UI dependencies; no all-camera clearance.",
+    "acceptance": "Preserve authored scalars, signed shaping and kernel/clamp/selection order; reject invalid owned results before affected publication, retain independent blend lifecycle. No checks/tests/repairs."
+  },
+  {
+    "scope_index": 1469,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/values.rs",
+    "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/camera/values.rs",
+    "before_sha256": null,
+    "after_sha256": "6a14958f0a7593181730db9d73a69a54302cf39b9706819553ee8edece85a19f",
+    "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1469-base-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/6a14958f0a7593181730db9d73a69a54302cf39b9706819553ee8edece85a19f",
+    "diff": "source-evidence/1469.diff",
+    "diff_sha256": "2aa1e7ffa7910d7a277b202617e6b30d1617b2561a06d9f677fc192050688b3c",
+    "head_body_read_ranges": [
+      [
+        1,
+        105
+      ]
+    ],
+    "facts": [
+      "Full105+equivalent whole added diff vs prior native fields1460/1468. ScreenWindow finite nonnegative incl0/subnormal/>1, ScreenError finite signed incloffscreen, signed finite blend derivative. Owners retain unrounded native values; actual rig/aim warnings expose failure and do not fabricate success defaults."
+    ],
+    "disposition": "Own08 source-local old/new comparison accounted with native/UI dependencies; no all-camera clearance.",
+    "acceptance": "Preserve authored scalars, signed shaping and kernel/clamp/selection order; reject invalid owned results before affected publication, retain independent blend lifecycle. No checks/tests/repairs."
+  }
+]

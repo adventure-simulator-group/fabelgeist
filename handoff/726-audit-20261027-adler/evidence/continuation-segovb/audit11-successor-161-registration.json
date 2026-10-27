@@ -1,0 +1,109 @@
+{
+  "lens": "type-granularity",
+  "prior_state": "audit11-successor-160-proposed-state.json",
+  "crosswalk": "audit11-question-crosswalk-001.json",
+  "ordered_roles": [
+    {
+      "scope_index": 787,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/placement.rs",
+      "sha256": "7e744958c7df65097784318b313e51c658edae89fde9e0f80ba70ddce4fcaa81",
+      "ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "registered_before_new_read": true,
+      "prior_connected_access": "787full1-76 under158;78849-237/239-308 under157; prior access confers no ordered credit"
+    },
+    {
+      "scope_index": 788,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/settled.rs",
+      "sha256": "3dbafb11ea673b81b72c6d8599bf9c1ac4c55b3e456982e39d16d38faef2e42d",
+      "ranges": [
+        [
+          1,
+          308
+        ]
+      ],
+      "registered_before_new_read": true,
+      "prior_connected_access": "787full1-76 under158;78849-237/239-308 under157; prior access confers no ordered credit"
+    }
+  ],
+  "connected_extensions": [
+    {
+      "original_index": 2266,
+      "source_id": "pr-working:crates/fabelgeist-garment-fit/src/lib.rs",
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "787 exact GarmentPose/Fit receiving and clear_panels owner symbol location"
+    },
+    {
+      "original_index": 780,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment.rs",
+      "sha256": "d6b09524be811c5e4202be50af529c941a917ff8f31ea61e2a73e4da17dc103e",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "787 exact GarmentPose/Fit receiving and clear_panels owner symbol location"
+    },
+    {
+      "original_index": 2266,
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "ranges": [
+        [
+          433,
+          530
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "787 actual Fit receiving placement/body/collision geometry and pose update contract"
+    },
+    {
+      "original_index": 2657,
+      "sha256": "2f61441a1ff287026cb6bbe667bb91ae6c60ae760a14632b433dc17cfaaafe36",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "787 canonical GarmentPose placement transforms, not duplicate local pose ownership"
+    },
+    {
+      "original_index": 2266,
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "ranges": [
+        [
+          531,
+          574
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "787 complete reached native clear_body receiving body after registered boundary ended at530"
+    },
+    {
+      "original_index": 780,
+      "sha256": "d6b09524be811c5e4202be50af529c941a917ff8f31ea61e2a73e4da17dc103e",
+      "ranges": [
+        [
+          157,
+          218
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "787 material reused clear_panels receiving numerical boundary from original780 full earlier read; no earlier discovery restart"
+    },
+    {
+      "original_index": 789,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/settled/packed.rs",
+      "sha256": "ca95a83317547915bbd839018cd6b1c766ff327327877fc02c6978d1bcaee0f7",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "788 exact SurfaceBinding packing/Serde adapter receiver, six word arity and numeric-bit role distinction"
+    }
+  ]
+}

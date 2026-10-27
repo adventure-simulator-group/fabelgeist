@@ -1,0 +1,89 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "099",
+  "predecessor": "receipt-098-originals460-463.json",
+  "manifest_prefix_sha256": "4b8f85d275427fe9420912d091f38d2b75e8af0e1bb4268910ded6787045b336",
+  "sources": [
+    {
+      "original_index": 464,
+      "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/types.rs",
+      "sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+      "actual_eof": 2523,
+      "actual_ranges": [
+        [
+          1,
+          2523
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "75-400,417-425,467-812,821-1025",
+          "role": "NativeQuerySchema fieldnameString96 distinctfromsemanticIDs. Rawretainedviews:Bestiaryid101/name102/strengths104/weakness105;Charactername112/settlement115/party117;Settlementid128/name129/scenekey143/religion144/currency145;CaseBattlepubliccase153/party154/battle155/mission156 while CaseSiteId157 admitted572;Partyid162/name164/settlement166/contract168 with checkedsite167admitted608610;PartyActionRequestparty188/actionkind190/summary191/payload192 copied646648;JourneyRouteparty197/package_digest199 copied674;Equippedplacement224/itemname225 copied700;Recruitmentparty231/name233 copied718720;Missionidentity242/mission244/scene245/party246/addr248/cert249 andRequest255257258 retained via739-812,identitynative.to_string780,emptydefaultaddr753/cert754. Catalogplacementid287/attachmentpointid295/itemid304/tags310/299/accepts280 copied881/924/936940; EquipmentAttachmentTargetparentname276/point277 raw. ActualCharacterrow name485etc rawcopy;Settlementrawscene/religion/currency544546.",
+          "disposition": "Carry existing canonical distinct personaldisplay/catalog/openplacement/attachment/tag/scene/party/mission/case/digest/currency/religion owners across actualnativeprojection into appviews. No aliasnumericinventoryIDs as catalog IDs. Native networkaddr/cert/authIdentitytext actualwire/display roles need exactnativeownerfit; blankpendingstate not BCrequirement. RawJSONpayload/summary distinctroles, typeintent through actual internal consumers458340/909."
+        },
+        {
+          "source_ranges": "417-465,1027-1049,1124-1152",
+          "role": "Bestiaryprovenance()->Vec<String>418/458 parses actualnativeprovenance_json459 thenfilterstrimlen462; JourneyEndpointExt rawsettlement/casesite/name&str422424\u2192endpoint1030103710441045/campdisplay1046. npc_age_band_id()->&staticstr1124 convertsenumthenstable_id1132. Bestiaryprofileid.as_str.into1144\u2192view101,display_name1145\u2192102/lore11471148.",
+          "disposition": "Retain checkednamedIDs/display/provenance text at nativeadmission and internaljourney/bestiary/age APIs; do not treat presentationview as automaticrawtextboundary. Actualsharedprofile/stable_id/catalog/provenancemeaning stillqualified; nativeJSONparse locallyread."
+        },
+        {
+          "source_ranges": "109,126,135-136,220,240,273,278,317,333,356,364,372,380,388,396,1627-1815",
+          "role": "NativeSerde deny_unknown_fields/typepathsserialize_settlement_category/deserialize_settlement_category/deserialize_equipment_channel; repeatedcompilerexpectreasons220317333356364372380388396 nativeprose. SATS\u2192Serdenormalizer1627-1667 actualnativeValuekeyinterpretation none1644/some1647 (case-insensitive),expectonefield1643. sql_unit_variant_name Result<String>1757 nativeStringorone-objectvariant1761/diagnostic1763. SettlementCategory serializedUnknown/Hamlet/Village/Town/City/Capital1775-1780 andparsed1789-1794 withunknown1795; EquipmentChannel finiteHeld/BaseClothing/Padding/FlexibleArmor/RigidArmor/Outerwear/Accessory/Mount/Containment1804-1812+unknown1813. MissionStatus displayReady/Pending/Failed/Ended731-734.",
+          "disposition": "Concrete nativeSerde/SATS/compiler/displaytext classifications locally mapped canonical finite enums; actualnativeencoding implementation/schema alternatives/untrustedshapecontract not globallycleared. User forbids backwardcompatibility: no obligation to preserve alternate representations or caseinsensitiveinputs. Typedcore-to-nativeenum mappings1154-1625/1669-1754/1817-1921 containnoadditionalstrings; numericalsemanticsunclaimed."
+        },
+        {
+          "source_ranges": "1922-2523",
+          "role": "All existingfixture strings independentfullread: settlementid lubeck1994/2222/2238,nameLubeck1995/2238,scene lubeck-market2084/religionroman_catholic2085/currencylubeck_penny2086/evidence2088/2135;section52:532134 retainednativefixtureview1938/1968. Catalogarming_sword2141/placementright_hand2147/2344/tagblade2161/pointpommel2163/acceptscharm2167/2419. PersonalnameAda2219/2230,party:72223/2272/2284/2315/2324/2351/2366/2389,case:12271/battle:12273/mission:12274/2364/site:12276/2281/2290/2310,partynameCompany2286/contract:12292,actionkindtravel2317/2493/summaryTravel2318/2494/nativeJSON{}2319/2495/packagehasha2326,rolenameVanguard2353/sceneforest2365/nativeaddr127.0.0.1:30002367/cert2368/mission:22385/sceneroad2387; nativeunexpectedkey2479/party:12491/2498; diagnosticwrongreason2518.",
+          "disposition": "Sameactualsemanticowners forfixtures, native transport/JSON/diagnostic/explanatoryevidence roles explicit; no fixtureexemption/newtests/execution. Existingfakecerttextisnotproofnativecertcontract. No additional strings in full2523 outside groupedroles."
+        }
+      ],
+      "status": "Full exact2523material source independentlyread1-400/401-850/851-1300/1301-1750/1751-2200/2201-2523 WITH findings."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Actual generated database rows project semantic identities/displaytext raw into retained appviews",
+      "sources": [
+        "464:110-400,467-1025,1027-1049,1124-1152",
+        "458:211-219,340,662,725,909",
+        "459:560-588,621-678,1029,1075,1329-1351"
+      ],
+      "remedy": "Propagate canonical existing names/openIDs/enums/digests from generated-boundary admission through explicitpresentation/internalhelpers; serialize only actualUI/nativeSQL/HTTP/SATSboundary. Separate actionkind/summary/payload and catalogID/numericinventoryidentity.",
+      "acceptance": "Actual projected producers/retainedfields/routecomparison now read, but PartyAction/template/form/registerednativechild bodies and canonicalaliases still pending; sourceaccountWITHfindings no runtime/current/uniqueclaim.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actual PartyActionowner/template/form/nativeSATSimplementation/generatednativecontracts and narrowerprovenance/bestiary/age/stable_id consumers stillqualified.",
+    "All inheritedsourceidentity/receiver/alias/other-lens queues retained; no currentness proof from frozenprojectedview bodies."
+  ],
+  "qualifications": [
+    "Exact frozen f82 physical-P16 only; no global/current/runtime/unique-total/other-lens clearance.",
+    "No backwardscompatibility/schema/API/inputpreservation obligation, including alternatenativeValueforms. No project/native/test/probe execution or product/Git/rootledger/publication mutation.",
+    "All20/P16/P17/F9/M09 inheritedfindings/aliases/qualifications retained."
+  ],
+  "proposed_count": {
+    "before": 464,
+    "after": 465,
+    "indices_completed": [
+      464
+    ],
+    "next_original": 465,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/types.rs",
+      "sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+      "ranges": [
+        [
+          1,
+          2523
+        ]
+      ]
+    }
+  ]
+}

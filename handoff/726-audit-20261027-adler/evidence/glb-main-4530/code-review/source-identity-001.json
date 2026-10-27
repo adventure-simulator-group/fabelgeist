@@ -1,0 +1,329 @@
+{
+  "head": "6431c2faf1b50608344d1031d0f9413830c271fa",
+  "base": "4530fc19ce16641df65eae28735d69e86bbaa8ae",
+  "fingerprint": "c4a7ae8811845d6a1621e287992173d16b74e609142accbec4546c53dbeeb2fc",
+  "paths": [
+    {
+      "path": "crates/adventuresim-character-creator/README.md",
+      "sha256": "95e3abd4304b0585e8c5c4d5ec1d4585493c7ef5c15b4fe013c6523aa2357bdb",
+      "lines": 1468,
+      "base_sha256": "96b9fde915de517632793e8d2061af64e3640a3f4958b015bc0b7d17c286376c",
+      "preserved_source_bytes_equal": true,
+      "diff_sha256": "f54421dbcb4dae48d0fa64a2a606eee77bf8baeeb659ffd28cfecc72c9f74fe0",
+      "scope_read_ranges": [
+        [
+          33,
+          47
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "fe5c1027be20d6ab87b6bd34c3227d38b5eddaf7e33382917ff75e1459a37d69",
+      "lines": 1780,
+      "base_sha256": "a22a46a776d6c5626934f65ac3665e22090c8fb777b6621f6c8191354cd381b1",
+      "preserved_source_bytes_equal": true,
+      "diff_sha256": "34799f7b6d1ed468f73201e62baa5b72f6842855a3331ee21dce855ca9f16369",
+      "scope_read_ranges": [
+        [
+          1,
+          69
+        ],
+        [
+          588,
+          843
+        ],
+        [
+          845,
+          1066
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb.rs",
+      "sha256": "54be7e4aa7f3cdef3e59c0ffd22ce5594034e9be9b15deb6c141586002d58c29",
+      "lines": 64,
+      "base_sha256": "99b359ccf03e94e704e08e8f66f7b23c4dcf00a358ac7b1fabd98993530d26f8",
+      "preserved_source_bytes_equal": true,
+      "diff_sha256": "aaaac026b2bfd43dfbbcc0f09873c250e3d04c48560c54d1670a79fdb353be07",
+      "scope_read_ranges": [
+        [
+          1,
+          64
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb/error.rs",
+      "sha256": "a9f6695f0d792b48a94a12333c437769a0b6f6f262484c402327018a0e491ecc",
+      "lines": 55,
+      "base_sha256": null,
+      "preserved_source_bytes_equal": true,
+      "diff_sha256": "933a20bf2bcbfa5cc9cfde3721c1fc4f24d6706a6de9d7599442567aa23e5b66",
+      "scope_read_ranges": [
+        [
+          1,
+          55
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb/layout.rs",
+      "sha256": "c7598f12fd08c312d0422f86b062f038090e0a9527106a79b369a4e971cc469f",
+      "lines": 87,
+      "base_sha256": null,
+      "preserved_source_bytes_equal": true,
+      "diff_sha256": "756ebd81f9c53e9d4a3fd9a885aa4b15c1f11b36dc8076edc28f7f4c2fb14b78",
+      "scope_read_ranges": [
+        [
+          1,
+          87
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/profiling.rs",
+      "sha256": "e4bc8f373cddb24d0b8772fa66a004d59e8a69a5113d82b34f288e268bdfaf95",
+      "lines": 41,
+      "base_sha256": "73eb7657f5e30926f9ad6d5f5f3603b03284b29f3c1fe7c39e895b723729b950",
+      "preserved_source_bytes_equal": true,
+      "diff_sha256": "fc67fc2bf73137bce98c766047b590663eeebcb743a2409a4fecf0e12c32b4b4",
+      "scope_read_ranges": [
+        [
+          1,
+          41
+        ]
+      ]
+    }
+  ],
+  "fixture_preservation": {
+    "path": "crates/adventuresim-character-creator/src/export.rs",
+    "section": "entire cfg(test) module",
+    "base_head_byte_equal": true,
+    "sha256": "da3c9869f417549d19e9e067ddade5d2b26e2109ccd1224f14f80e6736ce30da",
+    "personally_read_ranges": [
+      [
+        845,
+        1066
+      ]
+    ],
+    "adjacent_partial_read": [
+      1068,
+      1072
+    ],
+    "qualification": "Other existing test bodies unchanged by full byte equality; no new tests/cases/assertions. Existing roundtrip body read908-1066; no execution."
+  },
+  "native_contracts": [
+    {
+      "path": "C:\\Users\\adler\\.rustup\\toolchains\\nightly-2026-07-13-x86_64-pc-windows-msvc\\lib\\rustlib\\src\\rust\\library\\core\\src\\num\\uint_macros.rs",
+      "sha256": "4fa90fb348b7eda1f601b7fca10e8b29e89b0d59570387df59cf287a294b494e",
+      "ranges": [
+        [
+          3791,
+          3814
+        ]
+      ],
+      "origin": "repository-pinned nightly-2026-07-13 rust-src"
+    },
+    {
+      "path": "C:\\Users\\adler\\.rustup\\toolchains\\nightly-2026-07-13-x86_64-pc-windows-msvc\\lib\\rustlib\\src\\rust\\library\\alloc\\src\\vec\\mod.rs",
+      "sha256": "b340400350f7aa8e614278b058a1eaee374841055c585c52beba9dea38701b0e",
+      "ranges": [
+        [
+          1530,
+          1582
+        ],
+        [
+          2960,
+          2997
+        ],
+        [
+          3600,
+          3616
+        ],
+        [
+          4058,
+          4075
+        ]
+      ],
+      "origin": "repository-pinned nightly-2026-07-13 rust-src"
+    },
+    {
+      "path": "C:\\Users\\adler\\.rustup\\toolchains\\nightly-2026-07-13-x86_64-pc-windows-msvc\\lib\\rustlib\\src\\rust\\library\\alloc\\src\\raw_vec\\mod.rs",
+      "sha256": "a262b9e494236a00270be0dd0c57be5259d62bc1e538c56506f7f0ce8debccc0",
+      "ranges": [
+        [
+          710,
+          741
+        ],
+        [
+          762,
+          812
+        ]
+      ],
+      "origin": "repository-pinned nightly-2026-07-13 rust-src"
+    },
+    {
+      "path": "C:\\Users\\adler\\.rustup\\toolchains\\nightly-2026-07-13-x86_64-pc-windows-msvc\\lib\\rustlib\\src\\rust\\library\\alloc\\src\\vec\\spec_extend.rs",
+      "sha256": "a0816ad0f39b947889771bf06930bf8e0c4ce794846d83863349697ec7c415ec",
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "origin": "repository-pinned nightly-2026-07-13 rust-src"
+    },
+    {
+      "path": "C:\\Users\\adler\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\anyhow-1.0.104\\src\\error.rs",
+      "sha256": "2a78ee4e5f8d6b4476c761f77473362b9ed12f5402e4701001e7d04d628ba030",
+      "ranges": [
+        [
+          147,
+          180
+        ],
+        [
+          674,
+          684
+        ]
+      ],
+      "version": "1.0.104",
+      "archive_checksum_verified": "330a5ed07fa54e4702c9d6c4174f74427fc0ef6e214bbd677ae50a5099946470",
+      "archive_member_equal": true
+    },
+    {
+      "path": "C:\\Users\\adler\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\serde_core-1.0.229\\src\\ser\\impls.rs",
+      "sha256": "5ee7efc439345e8665da0bd79bc06c02a0506e5fd0f3a4cf11af0c7197eaa643",
+      "ranges": [
+        [
+          454,
+          483
+        ]
+      ],
+      "version": "1.0.229",
+      "archive_checksum_verified": "67dca2c9c51e58a4791a4b1ed58308b39c64224d349a935ab5039aa360942a48",
+      "archive_member_equal": true
+    },
+    {
+      "path": "C:\\Users\\adler\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\derive_more-impl-2.1.1\\src\\fmt\\display.rs",
+      "sha256": "d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+      "ranges": [
+        [
+          34,
+          82
+        ],
+        [
+          234,
+          268
+        ]
+      ],
+      "version": "2.1.1",
+      "archive_checksum_verified": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb",
+      "archive_member_equal": true
+    },
+    {
+      "path": "C:\\Users\\adler\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\thiserror-2.0.20\\README.md",
+      "sha256": "96da8e4001dbd51bdc135de6deb4c954889624beb9f0c177ed0fdcd7e9ff41a2",
+      "ranges": [
+        [
+          89,
+          111
+        ],
+        [
+          169,
+          179
+        ]
+      ],
+      "version": "2.0.20",
+      "archive_checksum_verified": "ec86235f5fcc2a73650310756d2ac5b138a5780bbbdfae3eeccec992c435ba4f",
+      "archive_member_equal": true
+    }
+  ],
+  "skills": [
+    {
+      "lens": "producer-propagation",
+      "path": "target\\recovery-20261025\\handoff\\780\\skills\\audit-producer-propagation\\SKILL.md",
+      "sha256": "9d202f015eed4818d6d2753c7624faa64fb5522e03cc55284fc68a366a204293",
+      "read": "complete sequential focused skill documents during this review"
+    },
+    {
+      "lens": "existing-type-owners",
+      "path": "target\\recovery-20261025\\handoff\\780\\skills\\audit-existing-type-owners\\SKILL.md",
+      "sha256": "0876e49f57d2b5397d23735b9c49916d5d20087b33c110746beaa73c1c8cba3f",
+      "read": "complete sequential focused skill documents during this review"
+    },
+    {
+      "lens": "admission-contracts",
+      "path": "target\\recovery-20261025\\handoff\\780\\skills\\audit-admission-contracts\\SKILL.md",
+      "sha256": "de63b991f5d4a11423f639efc1a5c37b4593a10045ac3d93d88da4c9b95d249f",
+      "read": "complete sequential focused skill documents during this review"
+    },
+    {
+      "lens": "invariant-operations",
+      "path": "target\\recovery-20261025\\handoff\\780\\skills\\audit-invariant-operations\\SKILL.md",
+      "sha256": "94c0fc73e926619b9a9a50ef9f342a0c8f6210840f1aa1f3c5b5d9637994519d",
+      "read": "complete sequential focused skill documents during this review"
+    },
+    {
+      "lens": "aggregate-states",
+      "path": "target\\recovery-20261025\\handoff\\780\\skills\\audit-aggregate-states\\SKILL.md",
+      "sha256": "39d26ba8acbf1007875b37d7e0d6c35766fb246a01852d4237fa741139b12a82",
+      "read": "complete sequential focused skill documents during this review"
+    },
+    {
+      "lens": "type-ownership",
+      "path": "target\\recovery-20261025\\handoff\\780\\skills\\audit-type-ownership\\SKILL.md",
+      "sha256": "4e6ed19f7244c134db991a339145858059bb098ac2b804076675c8fe71de87e0",
+      "read": "complete sequential focused skill documents during this review"
+    },
+    {
+      "lens": "redundant-authority",
+      "path": "target\\recovery-20261025\\handoff\\780\\skills\\audit-redundant-authority\\SKILL.md",
+      "sha256": "9cf22aed78c7a55df0493264038f217f4c7d752c554741733cd8ed0795fbfeab",
+      "read": "complete sequential focused skill documents during this review"
+    },
+    {
+      "lens": "behavior-preservation",
+      "path": "target\\recovery-20261025\\handoff\\780\\skills\\audit-behavior-preservation\\SKILL.md",
+      "sha256": "7413ca56a7a637a20cb56f6a35c7623253934e806415e26131af076050fa685c",
+      "read": "complete sequential focused skill documents during this review"
+    },
+    {
+      "lens": "enum-shapes",
+      "path": "target\\recovery-20261025\\handoff\\780\\skills\\audit-enum-shapes\\SKILL.md",
+      "sha256": "964ebea7b08a545b5abcabf605c22b92ac0dbb09ed79e6f79651ea2f141a3500",
+      "read": "complete sequential focused skill documents during this review"
+    },
+    {
+      "lens": "derivability",
+      "path": "target\\recovery-20261025\\handoff\\780\\skills\\audit-derivability\\SKILL.md",
+      "sha256": "6c0f78f4e40e0432071f2e10db701d3da72efbafec83e2f678e03a550406a599",
+      "read": "complete sequential focused skill documents during this review"
+    },
+    {
+      "lens": "type-granularity",
+      "path": "target\\recovery-20261025\\handoff\\780\\skills\\audit-type-granularity\\SKILL.md",
+      "sha256": "3a1fbf7f53c752e35eefe7763cbd49b9f280bd4b978ea998f74c3a68e45dc106",
+      "read": "complete sequential focused skill documents during this review"
+    },
+    {
+      "lens": "magic-strings",
+      "path": "target\\recovery-20261025\\handoff\\780\\skills\\audit-magic-strings\\SKILL.md",
+      "sha256": "4288426f134e7b781da6ea3b9167722776db976f577b56e7936e787306fb277c",
+      "read": "complete sequential focused skill documents during this review"
+    },
+    {
+      "lens": "magic-numbers",
+      "path": "target\\recovery-20261025\\handoff\\780\\skills\\audit-magic-numbers\\SKILL.md",
+      "sha256": "d71feffe9ef2d777c5d447840f4d3fbcec2e1f4b2cc354fc331e0c899b558dee",
+      "read": "complete sequential focused skill documents during this review"
+    }
+  ],
+  "source_authority": "Current exact candidate/main diff and personally consumed actual bodies.25fe equality is source provenance only; no historic reviewer verdict read or transferred.",
+  "glb_spec": {
+    "url": "https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html",
+    "section": "4.4.2-4.4.3.3",
+    "source_revision": "2.0.1 /8e798b02d254cea97659a333cfcb20875b62bdd4",
+    "facts": "Unsigned little-endian 32-bit header/chunk lengths, total header+chunks, four-byte alignment, JSON space/BIN zero padding. Empty BIN SHOULD be omitted; existing two-chunk empty-BIN policy preserved."
+  }
+}

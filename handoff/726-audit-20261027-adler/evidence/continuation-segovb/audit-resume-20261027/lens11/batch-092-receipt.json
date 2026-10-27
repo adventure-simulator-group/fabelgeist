@@ -1,0 +1,509 @@
+{
+  "at": "2026-10-27T16:51:01.636413+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-092-registration.jsonl",
+    "sha256": "4e194058fe74adda852bb4763361dbdf0d0114e3789cdf0ef319029dade7181d"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-091.json",
+    "sha256": "fa91465fe35fffdda941515944c3a4a4c523b0da14494373eac2d54c740ba6b7"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1155,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/courtship.rs",
+      "sha256": "3f03d0db1b9cf1860a021496c4a4442a607e0dc03f6eaa309ca7318e965e323c",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/3f03d0db1b9cf1860a021496c4a4442a607e0dc03f6eaa309ca7318e965e323c",
+      "ranges": [
+        [
+          1,
+          685
+        ]
+      ],
+      "actual_eof": 685,
+      "prospective": true,
+      "purpose": "Independent full effective ordered courtship/discovery/family role inventory; prior personally read exact connected ranges reused explicitly, no automatic credit",
+      "actual_read_ranges": [
+        [
+          161,
+          273
+        ],
+        [
+          476,
+          685
+        ]
+      ],
+      "personal_same_lens_reuse": [
+        {
+          "receipt": {
+            "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-091-receipt.json",
+            "sha256": "dce80385e774a4d5f1b84f60d2114e2bd33677c6630468284dd855f0db9b6650"
+          },
+          "ranges": [
+            [
+              1,
+              160
+            ]
+          ]
+        },
+        {
+          "receipt": {
+            "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-086-receipt.json",
+            "sha256": "159dfc072922118236131cad060dc668cdb73d98fb95b2fc676a2b0836d4f015"
+          },
+          "ranges": [
+            [
+              274,
+              475
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1156,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/courtship_discovery.rs",
+      "sha256": "bb3280e79254b6cd420b8bb89720f0d32475c78005b1b8b56d01756a186c0e24",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/bb3280e79254b6cd420b8bb89720f0d32475c78005b1b8b56d01756a186c0e24",
+      "ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "actual_eof": 169,
+      "prospective": true,
+      "purpose": "Independent full effective ordered courtship/discovery/family role inventory; prior personally read exact connected ranges reused explicitly, no automatic credit",
+      "actual_read_ranges": [
+        [
+          1,
+          169
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1157,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/family.rs",
+      "sha256": "39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "ranges": [
+        [
+          1,
+          267
+        ]
+      ],
+      "actual_eof": 267,
+      "prospective": true,
+      "purpose": "Independent full effective ordered courtship/discovery/family role inventory; prior personally read exact connected ranges reused explicitly, no automatic credit",
+      "actual_read_ranges": [
+        [
+          1,
+          56
+        ],
+        [
+          116,
+          231
+        ]
+      ],
+      "personal_same_lens_reuse": [
+        {
+          "receipt": {
+            "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-062-receipt.json",
+            "sha256": "6f38488e18bb19f933f1bf16e5dbbc23fc0f3691f006b1d1d810fe84ce3f9c29"
+          },
+          "ranges": [
+            [
+              57,
+              115
+            ]
+          ]
+        },
+        {
+          "receipt": {
+            "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-091-receipt.json",
+            "sha256": "dce80385e774a4d5f1b84f60d2114e2bd33677c6630468284dd855f0db9b6650"
+          },
+          "ranges": [
+            [
+              232,
+              267
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected_original",
+      "original_index": 1202,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social_roles.rs",
+      "sha256": "328d8285856568995cc423bb2ec74bb88bfa690af6e4defcbfc4aa8f9a355415",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/328d8285856568995cc423bb2ec74bb88bfa690af6e4defcbfc4aa8f9a355415",
+      "ranges": [
+        [
+          126,
+          234
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual family social role key/instance/bool noble adapter receiving1157 household plan",
+      "actual_read_ranges": [
+        [
+          126,
+          234
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1188,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population.rs",
+      "sha256": "99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "ranges": [
+        [
+          1,
+          45
+        ],
+        [
+          420,
+          465
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual settlement household-group materialization call and declaration wiring; no unrelated whole population",
+      "actual_read_ranges": [
+        [
+          1,
+          45
+        ],
+        [
+          420,
+          465
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1195,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social.rs",
+      "sha256": "a09342196732b00b8520e9a446aa9fdef60e8fd44a439032ebdadc21e6e8e4c5",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/a09342196732b00b8520e9a446aa9fdef60e8fd44a439032ebdadc21e6e8e4c5",
+      "ranges": [
+        [
+          1520,
+          1615
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual current_affinity recipient of observer discovery penalty; preserve observer anchor vs trial receipt time",
+      "actual_read_ranges": [
+        [
+          1520,
+          1615
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1195,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social.rs",
+      "sha256": "a09342196732b00b8520e9a446aa9fdef60e8fd44a439032ebdadc21e6e8e4c5",
+      "ranges": [
+        [
+          1616,
+          1618
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Close put_affinity_at directly necessary delimiter only",
+      "actual_read_ranges": [
+        [
+          1616,
+          1618
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1189,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population/resident_drafts.rs",
+      "sha256": "0bdbeb8d3d35fb200d35d06429d177a9311b5e71207f89a3644fadcd6e72d959",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/0bdbeb8d3d35fb200d35d06429d177a9311b5e71207f89a3644fadcd6e72d959",
+      "ranges": [
+        [
+          204,
+          222
+        ],
+        [
+          449,
+          482
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual household group cardinality/order demographic producer required by1157 SeededHouseholdPlan; no unrelated business generation",
+      "actual_read_ranges": [
+        [
+          204,
+          222
+        ],
+        [
+          449,
+          482
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1155,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/courtship.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              153
+            ],
+            [
+              273,
+              501
+            ]
+          ],
+          "roles": "Expected rejection vs invalid state, NPC policy result, partner vs suitor, Sex vs Presentation vs Inclination vs CourtshipDisposition, shared relationship clock, formal route father/dowry versus informal secrecy.",
+          "disposition": "Independent inventory preserves semantic axes; sex/presentation/attraction not collapsed because same strings/native enums. Typed CourtshipPairError distinguishes policy rejection from corrupt state, conversion String at reducer edge legitimate. Existing CourtshipRoute core owner encodes route payload but establish_courtship takes kind+optional secrecy separately, formal father+money derived independently. Prior086 NPC decision enum is coherent outcome, not broad bool.",
+          "remedy": "Pass admitted canonical courtship route/pair/effective time from policy decision into establishment; preserve typed error until SDK. Reuse existing courtship/strategic_state owners, no new duplicate wrapper only for same name.",
+          "acceptance": "Full effective685 source accounted via personal091/086 exact reuse + fresh ranges; same-lens individual role inventory here, prior connected access not automatic ordered credit. Actual helper/route receiving bodies and model schema091 consumed; no current/runtime/unique proof."
+        },
+        {
+          "ranges": [
+            [
+              155,
+              271
+            ]
+          ],
+          "roles": "Frozen formal approval, sorted partner identity, baseline skill hours\u2192rank, frozen observer roster/insight, start date vs next-discovery day.",
+          "disposition": "Kind+secrecy+father+planned amount need owned route payload (Formal with approved father and dowry, Informal with reason), currently broader crossproduct despite actual callers coherent. Raw sqrt on deception_hours/insight_hours duplicates canonical skill training_rank/hour operation042; baseline infinity sentinel then fallback0 collapses absent/invalid skills, observer insight raw sqrt maynonfinite if malformed hours. Actual admitted bad hours/ordinary runtime unproved. Frozen observer eligibility at start intentionally distinct from later historical death; no ongoing co-location requirement invented.",
+          "remedy": "Reuse canonical SkillHours/TrainingRank admission and operations, retain named baseline record/observed identity; typed route payload and explicitly distinguish unavailable/invalid rank if policy needs it.",
+          "acceptance": "Actual establishment and discovery1156 full read; skill996 full1165 personally042 + mandatory042semantic supplement. No whole authored malformed skill witness, no UnitInterval bound for rank."
+        },
+        {
+          "ranges": [
+            [
+              503,
+              685
+            ]
+          ],
+          "roles": "Gateway development setup, actor-authorized formal/informal route, wedding scheduling, cancellation before ceremony and expiry transition.",
+          "disposition": "Development reducer is authorized separate gateway capability; not ordinary gameplay hidden affinity override. Scheduling has active courtship/pair actor guard and canonical admission; cancellation actor must participant, current world minute must precede effective date, valid terminal reason. expiry accepts internal time/status payload and reuses091 terminal helper; no arbitrary date bounds invented.",
+          "remedy": "Named admitted reservation operations using existing state owners and canonical IDs; keep development authority explicit and source-defined final API, no BC path.",
+          "acceptance": "091 full commitments and reached marriage recipient bodies reused. Existing gates/source only, no invocation or terminal replay observation."
+        }
+      ]
+    },
+    {
+      "original": 1156,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/courtship_discovery.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              109
+            ]
+          ],
+          "roles": "Daily canonical discovery ID, observer identity/baseline, personal frontier readiness, attempted historical minute, deterministic entropy and bounded chance, discovery bool, mutable affinity anchor.",
+          "disposition": "Return bool means day resolved versus deferred, consumer uses only that progression distinction; no requirement invent third result for irrelevant/no-active as both resolved. Skill insight/deception rank not probability; chance clamped0.02..0.85 and entropy.unit_f32 same unit-interval numeric invariant beneath different roles. Receipt attempted_minute historical day differs affinity anchor at current observer frontier; direct current_affinity subtraction anchored now prevents double decay. Frozen roster eligibility and historical alive gates are distinct, no current moving/co-location enforcement inferred from comment.",
+          "remedy": "Typed DiscoveryDay/Probability/SkillRank/AffinityDelta with shared scalar invariant and canonical named baseline/receipt; retain observer-time anchor role. Semantic Resolved/Deferred enum may improve call-site clarity but no extra bounds or expanded result forced.",
+          "acceptance": "Full169 personally read, direct native current_affinity1195 1571\u20131585 plusput_affinity_at1597\u20131617 read; core social998 full1909 personally043. No runtime roll/NaN/clinical/current/unique claim."
+        },
+        {
+          "ranges": [
+            [
+              111,
+              169
+            ]
+          ],
+          "roles": "Per-courtship next-discovery cursor, current day, sorted relationship IDs, evaluated-day progression.",
+          "disposition": "Cursor and immutable per-observer/day receipts are different facts: progress scheduling versus replay authority. day.saturating_add maystall at u64MAX source capacity API shape, no ordinary clock-bound witness; canonical StrategicMinute day_index reachable range not shown equalu64MAX. Do not claim infinite loop from raw type alone.",
+          "remedy": "Named bounded day/cursor owner grounded in actual clock range if needed; retain independent receipt/cursor authority and deterministic ordering.",
+          "acceptance": "Actual consumer gates deferred/complete, no whole SDK/time/execution bound proof or fabricated overflow witness."
+        }
+      ]
+    },
+    {
+      "original": 1157,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/family.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              56
+            ],
+            [
+              116,
+              202
+            ]
+          ],
+          "roles": "Directed kinship ID subject/relative/kind, current authoritative household vs durable birth family, sorted household members and kinship tuples, complete family ordering.",
+          "disposition": "Subject/related direction prevents Parent/Child inversion; household living membership distinct from birth-family organization identity. SeededHouseholdPlan named outer record retains Vec<(Character,Role)> and Vec<(subject,related,Kind)> internal positional roles; sourcegroup Vec<Vec<u64>> loses complete-family vs truncated roster shape. Actual producer finalizes demographic roles only completechunks4, then returns remainder chunks1..3; receiver assigns Head/Spouse/AdultChild butkinshiponlywhen4. This is a concrete source shape distinction, not proof remainder is invalid or relatives shouldexist. join_household early-return samehousehold ignoreschanged role; current invoked setup uses stable plan, ordinary bad role update unproved.",
+          "remedy": "Admitted generated household group shape carrying named members/relationships, canonical CharacterId/HouseholdId/FamilyKey; keep birth family independent of residential household, reuse existing rolecatalog. Explicit membership role update operation if policy needs changing roles.",
+          "acceptance": "Actual1189 demographic204\u2013222/factory449\u2013482,1188materialization427\u2013459,1202family role126\u2013225 read; no whole business/allpopulation or runtime surname/family/relationship witness."
+        },
+        {
+          "ranges": [
+            [
+              57,
+              115
+            ],
+            [
+              204,
+              267
+            ]
+          ],
+          "roles": "Signed birth coordinate vs unsigned strategy minute, effective age, historical father eligibility, exclusivity windows, tiered dowry Money.",
+          "disposition": "Birth synthetic adults and actual newborn coordinate policies meaningful; exact father canonical_now==relationshipminute is explicit shared approval gate, not universal clock synchrony and not relaxed merely fatheralivehistorically. Father selection uses first male Parent edge without ambiguous-parent error; API shape multiplicity candidate needs actual kinship producer policy before ordinary wrong father claim. Historical resolved interval differs currentactive indexes.",
+          "remedy": "Canonical BirthCoordinate/ParentSelection/RelationshipWindow records, named directional kinship. Preserve actual father approval authority and Money role; no arbitrary new parentcount/clock bound or BC fallback.",
+          "acceptance": "57\u2013115 exact personal062 reuse;232\u2013267091 reuse; fresh204\u2013231 reads directfather. Full267 independently accounted, no current/runtime/unique/new family policy acceptance."
+        }
+      ]
+    }
+  ],
+  "connected_role_inventory": [
+    {
+      "original": 1202,
+      "ranges": [
+        [
+          126,
+          234
+        ]
+      ],
+      "roles": "Family identity parser ProvisionalFamily/Family/Other payload, noble kind vs role catalog, household independent durable birth-family key.",
+      "disposition": "Distinct provisional birth family versus established family is identity lifecycle, not evidence of compatibility fallback. bool noble selects coherent definition+role pair actualconsumer; meaningful FamilyKind enum would own two selectedcatalogIDs. Parser providesrealnamespaceclassification, not redundant role wrappers.",
+      "remedy": "Canonical FamilyIdentity/FamilyKind reuse organization owner, payload-driven catalog lookup and typed family key. Preserve provisional replacement as current source lifecycle until actualpolicy established.",
+      "acceptance": "Completeensure164\u2013225 andparser126\u2013158 read;228\u2013234 copybodyprefix only, no fullchild family transfer credit."
+    },
+    {
+      "original": 1188,
+      "ranges": [
+        [
+          1,
+          45
+        ],
+        [
+          420,
+          465
+        ]
+      ],
+      "roles": "Persisted resident descriptor prefix and household materialization wiring.",
+      "disposition": "Population setup inserts drafts then organization representatives then binds household group and residence. Partial projection fields raw SDK strings not whole admission contract; no bodycoverage beyondregistration.",
+      "remedy": "Keep admitted typed generated plan throughmaterialization, source SDK textprojection explicit.",
+      "acceptance": "Onlyactualranges,461\u2013465 nextpredicate signaturepartial; no full original credit."
+    },
+    {
+      "original": 1189,
+      "ranges": [
+        [
+          204,
+          222
+        ],
+        [
+          449,
+          482
+        ]
+      ],
+      "roles": "Ordered four-person demographic producer versus partial chunks; factory returns resident draft list+householdgroups; standalone organization members.",
+      "disposition": "Complete family tuples sex/presentation/exact_age set onlychunks4. Returngroups include leftovers andsingletonorganization rosters; cannot treat everyVec as complete parent/childfamily. Input group role authority needs named shape beyondsameu64 storage.",
+      "remedy": "Named GeneratedHouseholdGroup with completefamily vsother roster where policy actuallyrequires, carry admitted member role information rather than reconstructbypositions downstream.",
+      "acceptance": "Exactmaterialbodyread, business/ambient numericgeneration not traversed because cannotchange distinction; no original1189 orderedcredit."
+    },
+    {
+      "original": 1195,
+      "ranges": [
+        [
+          1520,
+          1618
+        ]
+      ],
+      "roles": "Directed mutable affinity subject/actor and current personal-time decay, bounded affinity anchor.",
+      "disposition": "Current_affinity at subjectclock and direct discovery penalty anchor sameobserverclock coherent. Raw f32 affinity is signed-100..100, differs probability/rank and positivehours; namedadmittedAffinity owner neededbeneathSDK. 1520\u20131569 adjacent automatic-chat tail/prune body consumed butnotfull automaticchatproducer;1616\u20131618 closure separatelyregistered.",
+      "remedy": "Reuse canonical social Affinity/Delta and directedpair operations, keep currentvsimmutabletrialclock roles.",
+      "acceptance": "Onlyregisteredactualbodies, no whole social1195 orbrowser projection claim."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-020-receipt.json",
+        "sha256": "289492421de4bb2e396ebcf493c368175e64c3377ebf656fc75737c76f5accad"
+      },
+      "contract": "908 corecourtship full1153 canonical routes/seed/probability operations"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-042-receipt.json",
+        "sha256": "679029c645bbe69075e5b0f1c297fdd91ece13e10c96c08197b5f264c7f19edc"
+      },
+      "contract": "996 skill full1165 source admission/training_rank/hours; required042 semantic supplement retains infinity/hours witness qualifiers"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-043-receipt.json",
+        "sha256": "b82b6ad36c17396bc9156fb55b7ff194266c614eea286c038c4ad8b2e8abaf1c"
+      },
+      "contract": "998 coresocial full1909 actual affinity numerical operations"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-048-receipt.json",
+        "sha256": "45172eb33f46a6e35fe8c12f09f1b87fa6087f0e3029842e5421f6813eb6b2b1"
+      },
+      "contract": "1015 strategic_state full573 existing courtship route/state owner"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-062-receipt.json",
+        "sha256": "6f38488e18bb19f933f1bf16e5dbbc23fc0f3691f006b1d1d810fe84ce3f9c29"
+      },
+      "contract": "1157 actual57\u2013115 birth/effectiveage helper personallyread"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-086-receipt.json",
+        "sha256": "159dfc072922118236131cad060dc668cdb73d98fb95b2fc676a2b0836d4f015"
+      },
+      "contract": "1155 actual274\u2013475 NPC outcome/formal start personallyread"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-088-receipt.json",
+        "sha256": "e209983ef3cffc4ebbfc0dc31ed0f3a48ef5603c3ee0e75a63d044b3fc4a1fda"
+      },
+      "contract": "1202 global/typed role admission actual44\u2013121/235\u2013365 plusregisteredprior partials, no inventedwholemodel"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-091-receipt.json",
+        "sha256": "dce80385e774a4d5f1b84f60d2114e2bd33677c6630468284dd855f0db9b6650"
+      },
+      "contract": "1155 actual1\u2013160 validation/error and1157actual232\u2013267, full1154 commitment producer/terminal consumers"
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Frozen role/source discovery only; all qualifiers/currentness/clinical/runtime/alias/unique populations retained.",
+    "No projectcommands/tests/newtests/source/Git/rootledger/publication."
+  ]
+}

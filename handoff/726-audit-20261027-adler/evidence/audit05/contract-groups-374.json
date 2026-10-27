@@ -1,0 +1,44 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-374",
+  "at": "2026-10-25T23:51:35.414117+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 159,
+      "source_id": "physical-p16:crates/adventuresim-core/src/survival.rs",
+      "sha256": "63f604eeeca44d35f365c9daded84a61ca19b8c9c3976ead8503a2edbf4d1c57",
+      "personally_read_ranges": [
+        [
+          1,
+          430
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full registered survival1-430 read. Minute-loop preserves previouswetness/strain/frostbiteprogress and reports offsetsthat callersmustrebase; snapshotinterval/consecutive-minutecondition suppliedbycaller, nointernaltimestampcheck. ShelterIndoor recoversstrain oneunit andblocksambientloading, Tent onlyrain/wind; frostbiterequirescoldthreshold andduration, chooseleastprotectedfixed4arraywithdeterministictierotation.",
+        "Rain/evaporation computations clampresultwetness andthermalstrain; clothingderivation usespaddingcoverage andfiniteweatherproofingleaf. PublicrawSurvivalState/ClothingExposure/WeatherSnapshot canviolateexpectedbps/temperaturebounds, andrawi32extremetemperaturecanoverflow cold/heat intermediate; actualweathergenerator162 neededbeforenormalinputclaim. Indoorbranch returnsstrain-signumwithoutouterclamp, preservingextremeinvalidstateuntilrecovery; rawAPIqualification.",
+        "Frostbiteprogress uses saturation+thresholdsubtraction, andoutputdamageoffsets canrepeat foroversizedpreexistingprogress. Canonicalvalidstateisexpected belowthresholdafter priorstep; noactualcorruptstateadmissionwitness. Existingpartitiontest explicitlyrebasessecondoffsets; testsreadnotexecuted anddonotestablishallseed/platformbehavior."
+      ]
+    },
+    {
+      "scope_index": 161,
+      "source_id": "physical-p16:crates/adventuresim-core/src/water_source.rs",
+      "sha256": "2892720bfed0f3280e91d03da01cf985b234731e8f08d449a76bf97f7cfdb556",
+      "personally_read_ranges": [
+        [
+          1,
+          500
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full registered waterbody1-500 read. ExactP16 source independentlysupportsROOT-INITIAL04-F058 failedmodeldrawpartialcommit andF059 u64fractionintermediateoverflow; coherentAPIcasesalreadydeduped, noordinaryDBgameplayfailure/runclaim. Rawtransfer_all/cook_all/consume_all arithmetic andfixedsimulatedconsumptionID belongexplicitproofmodel, notproductionDBauthority.",
+        "Collectionrightsquestions carryactor/fixtureorobject/place andcanonicalversionedcompletefacetdigest; publicsourceopen decisionrecordsrevision, while planbuilder acceptsderivedbooleanfacts. Builderoverwritesduplicateinnercoordinates/requirements withouterauthority, alreadyCAMERA-INITIAL07-F018 redundancy, so no disagreementescapeinbuiltplanhere. Completiongatesdomaineffectandtimeadvance alwaysrecordsactualboundedtime; previewshowsrequestedamount.",
+        "conserved_collection requirespositiveamount<=source andcheckedcontaineradd beforepairreturn. proportionaltransfer widensproducts tou128, rejectszeropublictotal/moved>total, preservesfulltransferexactly andretainsintegerremainders; contribution/loadcoherenceseparate from publicvolume ratio. Unitownerpropagation CAM-OWNER-F008 retainedseparately, notcoverage. Existingtestsource read, noexecution."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "scope_authority": "original-scope-072.json full159/161; new acceptedfindingsnone, existingF058/F059P16supportonly."
+}

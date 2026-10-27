@@ -1,0 +1,87 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-372",
+  "at": "2026-10-23T12:49:15.090659+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/rig_parameters.rs",
+      "sha256": "f16955ae53a597eebce8b190c050f47e10671e50fb6f8426ce7bbed3164f14cc",
+      "scope072_index": 826,
+      "actual_EOF": 81,
+      "scoped_ranges_compared": [
+        [
+          1,
+          81
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source with original fixtures; checked uniform projection, body-indexed runtime clothing, success-count warmup and rigid skin row/membership preconditions compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/runtime_equipment/clothing.rs",
+      "sha256": "72974a2d1ab294dcd4b04a06a153d9781a559e9478b7f429ff32909fd6a03f8e",
+      "scope072_index": 828,
+      "actual_EOF": 68,
+      "scoped_ranges_compared": [
+        [
+          1,
+          68
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source with original fixtures; checked uniform projection, body-indexed runtime clothing, success-count warmup and rigid skin row/membership preconditions compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/runtime_equipment/warmup.rs",
+      "sha256": "3129853d5e471b55c8d757b9904276bd5eb90404d662099db7012cd9961dcfb2",
+      "scope072_index": 829,
+      "actual_EOF": 85,
+      "scoped_ranges_compared": [
+        [
+          1,
+          85
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source with original fixtures; checked uniform projection, body-indexed runtime clothing, success-count warmup and rigid skin row/membership preconditions compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/skin_rules.rs",
+      "sha256": "79f4a9ac4e470e5788fd7d75fee1142c11da843d258e870a42249eca81ea957e",
+      "scope072_index": 830,
+      "actual_EOF": 475,
+      "scoped_ranges_compared": [
+        [
+          1,
+          475
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source with original fixtures; checked uniform projection, body-indexed runtime clothing, success-count warmup and rigid skin row/membership preconditions compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "joint uniform binding admits native capacity before insertion",
+      "comparison": "826 closed RigJointParameter variants name actual shader roles, not the authored value name. insert_joint accepts checked RigJointOrdinal and fallibly converts tou32 BEFORE inserting into PassParameters, so unrepresentable ordinal leaves that parameter unmodified. This proves nativeword capacity only; ordinal membership in the particular body joint table and complete shader ABI binding remain caller/native parameter contract, not implied by canonical ordinal type. No local independent collection to validate, no whole native uniform graph credit."
+    },
+    {
+      "id": "runtime clothing retains body-indexed arrays",
+      "comparison": "828 private RuntimeClothing pairs borrowed same RuntimeBody with canonical CatalogPlacement. Generates exactly one specification and rejects missing first shell, then constructs GeneratedArmor from that shell positions/normals/faces and same sourcebody UV/skin/rig domain, no morphs/components/thick faces intentionally. It depends on generate_clothing_shells retaining whole body vertex indexing; public RuntimeBody arrays remain mutable F051 and broader raw product invariants. design_hash serializes tuple item+placement with JSON framing rather than ambiguous concatenation. No proof of static catalogue changing underneath bound placement."
+    },
+    {
+      "id": "warmup report is success count not accepted gameplay mesh",
+      "comparison": "829 iterates canonical parametric placements with nonempty surface, increments only after awaited generate succeeds, then explicit samebody cuirass\u2192pauldron support plus alternate chest and wrapped tasset paths. Any error returns before a success report; earlier kernel cache warming may remain, intended temporary cache effect not game-state transaction. Report.cached_kernels observed global cache size, not equal to placements and no claim kernels are per body. Public report fields can be descriptive raw observations; no validity seal or fixed all-route guarantee."
+    },
+    {
+      "id": "rigid attachment enforces joint bounds but requires full raw mesh coherence",
+      "comparison": "830 full475 including original tests read. attach first compares PackedRigSkin joint_count to joint-name count, resolves semantic anchors, preserves flexible helmet/material roles, rewrites plate/besagew domains; no-components is single plate. waist gets actual pelvic joint state then derives connected triangle sheets and selects hip by sheet centroid versus pelvisX, each nonempty sheet comes from allocated vertex partition. fill fallibly sets each packed row then slices weights range. Raw public GeneratedArmor can have mismatched row counts/component range/face membership: native joint bounds alone do not admit these relationships, and a later failure/panic may follow earlier row mutation. This is qualified raw-product/API precondition, no actual normal fitted invalid mesh, atomic whole-publication contract or new unique count asserted pending exact dedup. A finite extreme centroid sum may overflow but actual generated body-coordinate bounds not established here; no guessed arbitrary geometry API acceptance. Original tests explicitly compare rigid versus flexible row preservation and side/cuirass/waist assignment, source only."
+    }
+  ],
+  "new_unique_findings": [],
+  "qualified_observations": [
+    "830 raw mesh row/range membership and partial mutation precondition; no normal bad fitted path, exact peer dedup pending."
+  ],
+  "remaining_dependency_obligations": [
+    "Normal GeneratedArmor row/range admission and native MHR/skin product remain precise supplier predicates, not cleared by count equality."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

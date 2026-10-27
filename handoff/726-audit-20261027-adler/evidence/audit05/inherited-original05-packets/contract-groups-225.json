@@ -1,0 +1,93 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-225",
+  "at": "2026-10-23T05:31:28.049725+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/condition.rs",
+      "sha256": "48d1fbefb0cc475a98585e46dc0f4dabdef2c47eaa4bbb1ffb699ba604dc3758",
+      "scope061_index": 186,
+      "actual_EOF": 2628,
+      "scoped_ranges_compared": [
+        [
+          1,
+          2628
+        ]
+      ],
+      "actual05_comparison": "Fresh PR all remaining ranges of full2627 joined exact217 partial; truncated output565–590 immediately reread in full565–605. Complete actual P16 diff personally compared: extra import offsets rows1, Result aliases and fallible StrategicEquipment load; same actual state/operation/receiver policies. All existing inline tests read, not run."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/condition.rs",
+      "sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+      "scope061_index": 1086,
+      "actual_EOF": 2627,
+      "scoped_ranges_compared": [
+        [
+          1,
+          2627
+        ]
+      ],
+      "actual05_comparison": "Fresh PR all remaining ranges of full2627 joined exact217 partial; truncated output565–590 immediately reread in full565–605. Complete actual P16 diff personally compared: extra import offsets rows1, Result aliases and fallible StrategicEquipment load; same actual state/operation/receiver policies. All existing inline tests read, not run."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "raw durable state versus accepted projection",
+      "comparison": "CharacterCondition raw mass/current/maxblood+optionalreligion, Needs signed kcal/ml, Exposure wetness/strain/frostbite, MoraleEvent temporal/source payload, StrategicCondition derived input+total/status+multiplier are separate records. Defaults initialize missing rows from BodyMass DEFAULT and one-day needs/zeroexposure, without overwriting existing state. Raw public/SATS table construction does not establish current<=positive maximum, finite balance or matching projected aggregate. Typed presentation or checked volume leaves alone cannot repair full rawtuple; carry owner admission and operations into connected physical/condition repairs. No false finite seal or extra fatigue pool."
+    },
+    {
+      "id": "weather space and chronology actual receiver",
+      "comparison": "exposure_location chooses settlement coordinates/elevation, case-site E7 either geographicchecked or explicitly unbounded tactical-local projection, then partyjourney snapshot, else fixed53/10 fallback. These authored/native-port policies do not prove original location validity. Same route+completed movement snapshot feeds coordinate peroffset; updater moves weatherenvironment clock independently of subjective actorclock. Exact217 weather body receives elapsedcommittedprefix and persists complete Exposure before frostbite injury. F048 P16 recipient now source-specifically closed: full P16 diff shows same weather kernel/state effects with error propagation. Particular climate/clothing outcome not executed."
+    },
+    {
+      "id": "elapsed need provisions atomic plan",
+      "comparison": "Private ElapsedNeedsProvision binds food+water consumption: Personal subtracts actualelapsed rates and consumesboth; SettlementWater subtractsfood but neutralizeswaterdeficit withoutcarriedwater; FullBoard clearsnegative balances preserving positive fullness and consumesneither. One plan computed from SAME initial needs, food state written then foodconsumer may change it, reloadedbeforewater write so foodchange retained. Water party-first then personal reads remainingdeficit, no secondfullcharge; containedwater lowercustody independent. RawNaN balances/tabletuples broader than normal state, no accepted proof."
+    },
+    {
+      "id": "party observer and membership",
+      "comparison": "Corpse member helper deliberately singleton requested corpse, excludes livingpartymorale; living uses actual living_party_member_ids or singletonwithoutparty. Private projection list is not an acceptedmembershipbrand; lowerlist dedup remains exact dependency (existingF041 membershipgraph). SAME membervector supplies command/surplus and conditionrows; returnedrowthenrefreshcapability1539–1544. Source order positively prevents normal cache stale after this refresh; leaf mutation elsewhere independently audited."
+    },
+    {
+      "id": "religion and source privacy",
+      "comparison": "Religion cohort BTreeMap keyed exactreligionID; each iteration groups conviction, foreigncohort excludesown; ownreligion actual OfficialReligion. Language-scaled Command versus unscaled knowledge are distinct projections. Personality reacts raw magnitude but public label excludes private trait. Source keys injuries/cleanliness/religion/events/allies separate; duplicate actor IDs can duplicate contributors, no ordinary duplicate loader asserted."
+    },
+    {
+      "id": "signed morale and proportional shares",
+      "comparison": "Positive/negative sources separatelysorted; positive divide rank, negative divide rank*Will with actual Will floor. FiniteMAX sources can overflow signed sums and totalweight/surplus normalization1253–1259, extending existingF040 finite morale graph with receiver—not newunique. total_weight0 notdivided becauseonlypositivesurplusmembers emit shares; empty intentional. Ally lifts onlydeficit/excludeself/scaletodeficit before appendedsources. Positive surplus versus restoration fraction distinct, no arbitraryprobabilitycap on rawmorale."
+    },
+    {
+      "id": "event temporal correlation",
+      "comparison": "Normal record rejects0/nonfinite then chooses subjective time+duration; upsert targets samecharacter/sourceID and updateskind/magnitude/occurred/expiry together; fixedcontract helper accepts explicit source-approvedduration withoutpersonality rewrite. Raw events may reverse expiry or duplicate sourceID; normal methods carry pair but do not declare schemauniqueness. Mastery aggregates award perinterval, decays previous tostart then endpointonce; leisure onecap+earningwindow. MAXexpiry saturation shortensretention nearcapacity, terminalclockqualification, no normaldateclaim."
+    },
+    {
+      "id": "holy day canonical state machine",
+      "comparison": "Officialclock/day distinct from subjectiveelapsed. DemandonlySunday/religion/fervor/settlement, no pending/same-dayprior. Expirecheckscreated<current or departingcurrent. Resolve gate living+serverowner+pending+closedchoice; holyobserve sameofficialday+settlement, resolvedtuple updated then private24h downtime beforemoraleevent. NativeDBrollbackunproved; rawstatuskind/resolution broad butnormalmethodassignscorrelatedtuple. Repeatedrefresh reconciles expiration once via sourceID before creatingnewday; subjectivewilderness does not createofficialholydays."
+    },
+    {
+      "id": "blood and general recovery",
+      "comparison": "Loss writes currentblood minusmaximum*fraction.max0, clampslower, and uses SAMEwrittenratio for circulatorydeath<=.10. set_blood_fraction clamps0..1 andusescurrentratio. f32 NaN not rejected by clamp canretainNaN, rawmaximum/current tuple unadmitted; numeric/admission strengthening remains explicit connectedclinicalqualification, no currentbadcaller/symptom claimed. Recoveryupdatesonecalories reservoir. One StrategicIncapacitation derives components+total+status+multiplier together fornormalrow; F029 rawtacticalstate separate."
+    },
+    {
+      "id": "full existing fixtures and lower limits",
+      "comparison": "All2304–2627 PR fixtures read and actualP16counterpart compared: provisions/oneelapsedcharge, corpse membership, zero religioncohort, professionservice, reactionrankbeforeWill, leisurecap/partitionexamples. Fixturehelper uses onlypositive steps, nozero-step productiondefect invented. Full Condition count closes217 partial, not fear/inventorycontainer/capability/calledkernel bodies. No execution/newcases. Mandatory210 P16economy1–194/233–250 contextlimits retained, unrelatedsource no coverage."
+    }
+  ],
+  "new_unique_findings": [],
+  "existing_finding_supplements": [
+    {
+      "id": "NATIVE-INITIAL05-F048",
+      "qualification": "Original217 PR-only receiver supplemented by fresh full actual P16 counterpart here: same weather source/state receiver with fallible equipmentload, sameplanned omission. No execution/particularoutcome."
+    },
+    {
+      "id": "NATIVE-INITIAL05-F040",
+      "qualification": "Actual Condition rank→signed sum→positive surplusweightshare→derivedpublicmorale independentlysupports existingfiniteaggregate graph; normalmagnitudeboundsuntraced, no newunique."
+    }
+  ],
+  "remaining_dependency_obligations": [
+    "fear module, clothing/weather kernel, coordinate/route normalpolicy, equipment/party-list loader remain independent inventory.",
+    "NativeDBtransaction atomicity not proved by comments/Result order; full raw admission broader than normal construction."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

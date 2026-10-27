@@ -1,0 +1,80 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "085",
+  "predecessor": "receipt-084-originals398-399.json",
+  "manifest_prefix_sha256": "102dee694088e43f9324a41f3b1de6d3503a3810f3e513fee54df94547b9747c",
+  "sources": [
+    {
+      "original_index": 400,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment.rs",
+      "sha256": "56528e5adcad8261b414b53f196d12dee6548aa5f75c494b6a92c087d016446a",
+      "actual_eof": 1115,
+      "actual_ranges": [
+        [
+          1,
+          1115
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "281-482",
+          "role": "Actual topology root ordering receives properties.id293; catalog lookup340 and point.id.as_str347; raw ReachableTarget::EmptyAttachment.attachment_point_id String311 copied from catalog371 and compared point.id361; hand_topology typedEquipmentHand\u2192left_hand396/right_hand397\u2192placement string399,occupancyformat tactical:{}:held402 viahand.id. placement_topology item_id&str412/catalognative413/rootallowed443/parentallowed457 retains raw catalog refs; placement.id clone426/occupancyformat tactical:{item_id}:{placement.id}:{index}432. Actual attachment conflict raw equality477.",
+          "disposition": "Canonical open catalog/placement/attachment/occupancy identities should cross producer/state/root-order/comparison and mutation; typed hand should produce coherent canonical placement/occupancy without raw ID bounce. Existing core catalog/presentation owners and355state/328socket/340producer reconcile; no fabricated finite item list or constant exemption."
+        },
+        {
+          "source_ranges": "1-1115",
+          "role": "All1115 read1-450/451-850/851-1115. Native warn/info outputs65/75/85/117/126/135/146/157/170/192/256/262; allerrors/dynamicvalues output only. Existingfixtures semantic item IDs linen_tunic637,arming_sword662/681,halberd/hunting_spear/military_pike/spear667/686-709,belt825/873/943,leather_satchel906/947,sword_sheath894/932,mail_voiders982/991/998/1003/1033/1050,arming_doublet986/987,padded_chausses1069/1070,mail_knee_voider1074/1081/1088/1099/1108; placementworn827/875,occupied908,belt_left949,left/right/front/back848-851/888/902/925/954/1063-1064; occupancyformat capacity-{index}765/belt-{index}837/occupied-{point}910/belt877/edge951; spawn_test_item(id&str)802\u2192rawstate808. Diagnostic expects638/897/1001/1036/1084,assert668/696/1054.",
+          "disposition": "Fixtures share actual production catalog/topology semantic roles, no exemption; authored reference IDs open and assertions diagnostics. No test execution or mutation/timing/physics/concurrency/native runtime clearance."
+        }
+      ],
+      "status": "Full requested changed source independently read WITH catalog/topology reference findings."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Authoritative tactical equipment carries raw catalog/topology IDs across planning and mutation",
+      "sources": [
+        "400:293,311,340-371,392-432,443-477",
+        "355:103-162",
+        "328:1044-1051",
+        "340:77-104"
+      ],
+      "remedy": "Propagate canonical open catalog/placement/attachment/occupancy identities through source/admission/retainedstate/planning/comparison; native encoding at actual storage/SDK boundary.",
+      "acceptance": "Read401attachment/403fit/405transfer and actual root_order/protocol hand identity/catalog owners; reconcile shared M09/aliases before repair. No native/runtime/unique/current promotion.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "401attachment/403fit/405transfer already registered, bodies not yet read. Actual root_order and EquipmentHand::id native/canonical ownership still pending.",
+    "Actual catalog definition/reference admission, native rig/assets and all earlier report/name/digest/cause obligations retained."
+  ],
+  "qualifications": [
+    "Frozen f82 physical-P16 exact source only, no current alias.",
+    "No backward compatibility/input preservation or project/native/test/probe execution; no product/Git/root-ledger/publication mutation.",
+    "All20/P16/P17/F9/M09/aliases/currentness; source WITH findings not repaired/global/runtime/unique-total/other-lens clearance."
+  ],
+  "proposed_count": {
+    "before": 400,
+    "after": 401,
+    "indices_completed": [
+      400
+    ],
+    "next_original": 401,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment.rs",
+      "sha256": "56528e5adcad8261b414b53f196d12dee6548aa5f75c494b6a92c087d016446a",
+      "ranges": [
+        [
+          1,
+          1115
+        ]
+      ]
+    }
+  ]
+}

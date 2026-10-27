@@ -1,0 +1,102 @@
+{
+  "id": "AUDIT12-CONTRACTS-012",
+  "lens": 12,
+  "at": "2026-10-26T18:27:09.701909+00:00",
+  "roles": [
+    33,
+    34,
+    35,
+    36,
+    37
+  ],
+  "registration": "audit12-successor-registration-012.json",
+  "source_identities": [
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/resources.rs",
+      "sha256": "bedf4e9e3cb681d6cd4ef75b146537e8e2c4876cad464addd82ba0bc5cdc83ab",
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ]
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/types.wgsl",
+      "sha256": "63c3f55c90686a73788212c94f4d979fd2bc3240dd143c6b5e778d949d68fd65",
+      "ranges": [
+        [
+          1,
+          37
+        ]
+      ]
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/bindings.wgsl",
+      "sha256": "8fdf638edbf13ddc04a1a8392f3b873ec730f86f085522de471108c623ac129b",
+      "ranges": [
+        [
+          1,
+          6
+        ]
+      ]
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/io_types.wgsl",
+      "sha256": "3529f71ec77f88963ee969691ef2dd2f871abf490a8a4beed073b98ff10974b9",
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ]
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/types.wgsl",
+      "sha256": "9bd27e4a4bb61b319e4ee13ae7e1407be2fdd432471ef6e9aede72e206321d90",
+      "ranges": [
+        [
+          1,
+          15
+        ]
+      ]
+    }
+  ],
+  "inventory": [
+    {
+      "role": 33,
+      "occurrences": "Rust type/field names, native derive metadata; no string literal or runtime string-valued field",
+      "trace": "Full18lines source: CameraCullData view_pos/frustum and GlobalCullBuffer buffer/bind_group. Names are Rust native type/member identity; this scope admits no raw string semantic owner or text boundary."
+    },
+    {
+      "role": 34,
+      "occurrences": "Native shader import-path directive and named WGSL InstanceData/DrawIndexedIndirectArgs/BatchMetadata/CameraCullData/InstanceUniforms fields",
+      "trace": "Full37lines source: shader primitive vectors/matrices/atomic counts are native storage layout fields, not dynamically stored string identifiers. #define_import_path bevy_eidolon::cull::types establishes shader module identity; registered original32 imports actual matching InstanceData/InstanceUniforms/DrawIndexedIndirectArgs/BatchMetadata/CameraCullData declarations. No application text adapter in these bindings."
+    },
+    {
+      "role": 35,
+      "occurrences": "Native render module identity and types import-path directives, storage/uniform variable identifiers",
+      "trace": "Full6lines source imports MaterialUniforms/InstanceUniforms from render::types, then declares bound storage/uniform resources. Original37 full15lines actually declares those two names. Native registered render/plugin43-47 loads types/io_types/bindings through load_shader_library! with actual relative source paths. Sourceasset names identify shader sourcefiles; no application enum/identifier String field."
+    },
+    {
+      "role": 36,
+      "occurrences": "Shader conditional tokens VERTEX_NORMALS/VERTEX_UVS_A/VERTEX_UVS_B/VERTEX_TANGENTS/VERTEX_COLORS/SKINNED/VISIBILITY_RANGE_DITHER; WGSL builtin/location/interpolation tokens and field identifiers",
+      "trace": "Full48lines source selects vertex input/output fields by native shader definitions. Native eidolon pipeline118-232 first gets mesh_pipeline.specialize result, pushes VISIBILITY_RANGE_DITHER in vertex/fragment shader_defs, invokes M::specialize, sets shader handles and returns descriptor with instance attributes8-12. Newly registered Bevy mesh3217-3279 tests joint index+weight attributes before pushing SKINNED and placing matching vertex attributes6/7;3284-3327 matches native layout attributes before pushes NORMALS/UV_A/UV_B/TANGENTS/COLORS and locations1-5.3361-3369 invokes skinhelper offset6.3612-3627 stores named ShaderDefVal values in actual native vertex/fragment descriptors. This is native shader-specialization vocabulary, not independently reinvented game strings."
+    },
+    {
+      "role": 37,
+      "occurrences": "Native #define_import_path render::types, MaterialUniforms/InstanceUniforms WGSL type/field identifiers",
+      "trace": "Full15line source defines the exact types consumed by registered35 storage/uniform binding declarations. Material debug_color and instance color/visibility/transforms/aabb fields use concrete nativevec4/mat4; no raw runtime string or application semantic text state."
+    }
+  ],
+  "findings": [],
+  "disposition": "ACCOUNTED exact original33-37 full registered native bodies plus necessary shaderdefinition/import source producers and descriptor receivers",
+  "qualifications": [
+    "WGSL lexical names/attributes and Rust native field/type/derive metadata are compiler/binding boundaries. This scope does not validate byte-layout alignment, native numerical/frame/unit contracts, GPU resource association, draw semantics or runtime shader success.",
+    "Native M::specialize hook can modify descriptor and native mesh pipeline remainder is outside registered bounded regions. Actual namedflag producers/receiver fields were read; no universal guarantee all custom specialization retains every flag or shader interface is compatible.",
+    "Native eidolon supplemental pipeline/plugin source pinned to exact git1a5aff8d4809287e5f5713fb4cf72181b2285fff; gitobject/worktree bytes match and frozenpeer components source matches. New Bevy0.19.1mesh member archive matches currentCargo.lock checksum; no historicalfrozenmember/wholeengine equivalence implied.",
+    "Attempted locator for bevy_pbr0.18.1 path absent; no body read/sourcecredit. Actual available0.19.1 filename located with rg --files, identity pinned and ranges registered before consumption.",
+    "Only exact originalscopes plus registered supplements consumed. No wholeSDK/engine/currentapp/global clearance, otherlens verdicttransfer, projectexecution/productchanges or new tests/cases/helpers/assertions/doctests."
+  ],
+  "global_clearance": false
+}

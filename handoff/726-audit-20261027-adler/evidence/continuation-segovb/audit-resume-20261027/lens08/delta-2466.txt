@@ -1,0 +1,19 @@
+--- base:60c9a6b987e30fcff66d01e8afadaaf41ffde91b9d1285c46bd88ec6a1678a39
++++ head:ab520d3fbb8ff15b6554a7ae16e036426dea29b02082af86a99ce8de78c02fe7
+@@ -42,6 +42,16 @@
+ pub struct HeightSpeed(NonnegativeSpeed);
+ 
+ impl HeightDistance {
++    /// Native minimum of admitted height distances, preserving signed zero.
++    pub fn min(self, other: Self) -> Self {
++        Self(self.0.min(other.0))
++    }
++
++    /// Native maximum of admitted height distances, preserving signed zero.
++    pub fn max(self, other: Self) -> Self {
++        Self(self.0.max(other.0))
++    }
++
+     pub const ZERO: Self = Self(NonnegativeLength::ZERO);
+     pub fn from_metres(value: f32) -> AnimationValueResult<Self> {
+         NonnegativeLength::from_metres(value)

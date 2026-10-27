@@ -1,0 +1,335 @@
+{
+  "at": "2026-10-27T09:53:35.323617+00:00",
+  "assignment": "Focused pre-edit discovery for review5664856132 on PR992837204c: dive launch/contact/procedural receiving chain and signed addition contract",
+  "observed_head": "837204c061adb97a2a62f43f7bcd841a223f0647",
+  "status": "Pre-edit source-backed recommendation; not final implementation review or hosted acceptance",
+  "comment_evidence": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/user-discussion-003.json",
+    "sha256": "412f6ad5309fb8b971618aa47e9a4c625c7f47e541d7ce54a3ec9bc4c26e79cb"
+  },
+  "selected_comments": [
+    {
+      "id": 4387031655,
+      "body": "Magic number. My Codex side chat says:\n\n> It encodes the assumption that contact starts at `0.5`, leaving an interval of length `0.5`.\n> \n> The intended normalization is:\n> \n```rs\nprogress = (phase - contact) / (1 - contact)\n```\n> \n> The scale should be derived from those endpoints, ideally inside a typed interval-normalization operation. That keeps the contact phase as the single source of truth.",
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "line": 336,
+      "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/992#discussion_r4387031655"
+    },
+    {
+      "id": 4387152319,
+      "body": "It seems `type Output` should be `SpeedResult<SignedSpeed>`; a large negative speed plus a small nonnegative speed will be negative (i.e. signed, _not_ nonnegative).",
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "line": 167,
+      "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/992#discussion_r4387152319"
+    },
+    {
+      "id": 4387198654,
+      "body": "In how many other locations would it be helpful to make an \"open interval\" type, consisting of a lower and upper, with the _guarantee_ that `upper > lower`? So that we may make this a method of that. (Not in scope of this PR.)",
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "line": 83,
+      "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/992#discussion_r4387198654"
+    }
+  ],
+  "rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23"
+    },
+    {
+      "path": "crates/adventuresim-core/AGENTS.md",
+      "sha256": "7d2a3dd7507a8405fded5577a7f406273ab835389b52b189415d0878c39d8a73"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/AGENTS.md",
+      "sha256": "b3fd110d97bc871853458c38282d3d4c18369b6d0647e96e0de6d0641dca61c8"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/AGENTS.md",
+      "sha256": "f9633599a742ea38090fe2fb88e2dc464298d0ca4a70374f0851380e71e6910e"
+    }
+  ],
+  "skills": [
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/SKILL.md",
+      "sha256": "ff68d5ccf9f2545336b105f987ae17bb1a1f55dfbf1afb035dba8bef7053f27a"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/references/bespoke-type-review.md",
+      "sha256": "c6a71896616123559c0be4d318cbde751d8767dccc6009a943971dc3d4424f71"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-producer-propagation/SKILL.md",
+      "sha256": "9d202f015eed4818d6d2753c7624faa64fb5522e03cc55284fc68a366a204293"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-existing-type-owners/SKILL.md",
+      "sha256": "0876e49f57d2b5397d23735b9c49916d5d20087b33c110746beaa73c1c8cba3f"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-invariant-operations/SKILL.md",
+      "sha256": "94c0fc73e926619b9a9a50ef9f342a0c8f6210840f1aa1f3c5b5d9637994519d"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-magic-numbers/SKILL.md",
+      "sha256": "d71feffe9ef2d777c5d447840f4d3fbcec2e1f4b2cc354fc331e0c899b558dee"
+    }
+  ],
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/dive-normalization-discovery-registration-001.json",
+    "sha256": "5a7f597f4bb3613479141ae2d5403e5d806fd11ec65ba0c9ecff08c69716df8e"
+  },
+  "actual_body_reads": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "sha256": "2276321bd15949a298196a1879bfe64cbee5d2b864023f33ea81199789a828e9",
+      "actual_eof": 587,
+      "ranges": [
+        [
+          1,
+          18
+        ],
+        [
+          262,
+          339
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          1,
+          18
+        ],
+        [
+          262,
+          339
+        ]
+      ],
+      "hash_observed_before_read": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/dive.rs",
+      "sha256": "26b5e25b95cf1676bd54e0138ece10b0c150bf9787a1b47818b88746e3b9bfb2",
+      "actual_eof": 152,
+      "ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "hash_observed_before_read": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts.rs",
+      "sha256": "bd69d05aa06177aadb3c0a7e2e2e42f1e86fccf3ae5fc389bf5755bb6911f5dc",
+      "actual_eof": 564,
+      "ranges": [
+        [
+          550,
+          565
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          550,
+          565
+        ]
+      ],
+      "hash_observed_before_read": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "sha256": "1608b681791e4f1ffd9f4691a5ec204204669c0b68989a0f98b56b6064a9760d",
+      "actual_eof": 226,
+      "ranges": [
+        [
+          180,
+          226
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          180,
+          226
+        ]
+      ],
+      "hash_observed_before_read": true
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "e00ad4ab58d75204f2286543ebc37d3a9e746790c83e84fa5933732634dae8f2",
+      "actual_eof": 81,
+      "ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "hash_observed_before_read": true
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "6b68d706cda548cbc9329aff56a2ba099e5da11d24ad98e006a500736a5276e0",
+      "actual_eof": 245,
+      "ranges": [
+        [
+          40,
+          139
+        ],
+        [
+          160,
+          212
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          40,
+          139
+        ],
+        [
+          160,
+          212
+        ]
+      ],
+      "hash_observed_before_read": true
+    }
+  ],
+  "read_limits": "Only selected newest three comment bodies read in bounded output; earlier whole discussion print truncated and not credited as full consumption. Metadata rg locators are not body coverage. Exact source reads are of prerepair837 source; subsequent root edits not reviewed here.",
+  "concrete_contracts": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "ranges": [
+        [
+          12,
+          13
+        ],
+        [
+          262,
+          339
+        ]
+      ],
+      "observations": [
+        "Contact threshold is one typed UnitInterval::HALF constant.",
+        "Launch span275 is phase*2.0 before contact, so contact-only repair leaves duplicate HALF policy in directly connected producer.",
+        "Contact334\u2013338 manually computes (phase-contact)*2 then checked smoothstep; both transition and lower-body recipients guard phase>=contact.",
+        "At contact the launch contribution reaches directional dive, while recovery begins at zero progress. Launch is linear and contact recovery cubic; do not accidentally smooth the upper-body launch when unifying normalization."
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/dive.rs",
+      "ranges": [
+        [
+          5,
+          25
+        ],
+        [
+          31,
+          88
+        ]
+      ],
+      "observations": [
+        "transition.phase is already admitted UnitInterval, then48 extracts primitive and redundantly clamps.",
+        "49\u201353 separately normalizes ZERO..contact and contact..ONE through raw terrain smoothstep; latter result is complemented to release pelvis. Both procedural sides are cubic.",
+        "54 re-admits raw amount into private DiveInfluence; its from_factor repeats finite/clamp/unit checks.",
+        "DiveInfluence is role-specific wrapper used by quaternion rotation/slerp; preserve meaningful role wrapper but provide infallible From<UnitInterval> for typed production path. Keep native fraction extraction only when multiplying angle and calling quaternion slerp.",
+        "Procedural system returns unit and currently warns/continues on typed failure; preserve explicit error handling rather than panic/default fallback."
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts.rs",
+      "ranges": [
+        [
+          556,
+          564
+        ]
+      ],
+      "observations": [
+        "Generic raw smoothstep derives ratio from arbitrary edges then clamps and evaluates cubic; it has no explicit equal/reversed bounds contract.",
+        "Replacing dive callers does not prove all other raw helper callers use equivalent ordered semantics. Broad terrain/IK migration is outside this bounded packet."
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "observations": [
+        "Private checked finite0..1 leaf with ZERO/ONE/HALF, complement, fallible cubic and closed multiplication already exists.",
+        "Existing FractionError distinguishes nonfinite and outside-unit values; new normalization needs distinct nonincreasing bounds error.",
+        "Current handwritten Display/Error can be derived with existing thiserror dependency when changing this owner; no old-message compatibility constraint."
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "ranges": [
+        [
+          40,
+          139
+        ],
+        [
+          160,
+          212
+        ]
+      ],
+      "observations": [
+        "Generic NonnegativeSpeed+SignedSpeed currently returns SpeedResult<NonnegativeSpeed>, excluding a mathematically valid negative sum.",
+        "SignedSpeed is finite-only and existing constructor admits negatives; no new speed type required.",
+        "Direct same-owner consumer checked_lerp67\u201370 promises NonnegativeSpeed. Its lerp weights/endpoints mathematically yield nonnegative result, but after signed Add result it must explicitly re-admit this guarantee at the speed owner.",
+        "Addition can overflow even with finite inputs, so signed result still requires SpeedResult and explicit Overflow mapping; do not return infallible SignedSpeed or saturate.",
+        "Do not use nonnegative_part to mask a negative arithmetic result in checked_lerp. It is an existing independent intentional forward-only clamp."
+      ]
+    }
+  ],
+  "minimal_complete_recommendation": {
+    "owner_operation": "UnitInterval::clamped_inverse_lerp(self, lower:Self, upper:Self)->FractionResult<Self> on existing leaf. Check lower>=upper first and return FractionError::NonIncreasingBounds, even when value would otherwise clamp to endpoint. For valid interval return ZERO/ONE outside, otherwise admit (self.0-lower.0)/(upper.0-lower.0) via from_fraction within owner. Distinct finite ordered unit endpoints guarantee positive representable span; no explicit raw scale2 or new ratio owner needed.",
+    "callers": [
+      "evaluation launch: phase.clamped_inverse_lerp(UnitInterval::ZERO,DIVE_GROUND_CONTACT_PHASE)?; keep linear launch progress.",
+      "evaluation contact: phase.clamped_inverse_lerp(DIVE_GROUND_CONTACT_PHASE,UnitInterval::ONE)?.smoothstep()?; typed comparisons can replace primitive branch thresholds.",
+      "client procedural: typed phase<=contact; launch interval ZERO..contact then smoothstep; release interval contact..ONE then smoothstep and complement. Widen that UnitInterval into DiveInfluence without extracting/rechecking scalar. Retain native scalar extraction only angle/quaternion boundary."
+    ],
+    "error_receivers": "Extend existing From<FractionError> for AnimationValueError with NonIncreasingBounds carrying UnitInterval quantity. Existing animation result and client warn/continue handling remain coherent. No equal/reversed-step fallback or compatibility behavior needed.",
+    "addition": "Change impl Add<SignedSpeed> for NonnegativeSpeed Output to SpeedResult<SignedSpeed>. Use signed admission for sum with nonfinite mapped to Overflow. checked_lerp consumes signed sum and explicitly re-admits nonnegative arithmetic inside same existing owner; use existing private field access there instead of a new application primitive adapter. TryFrom<SignedSpeed> for NonnegativeSpeed is only necessary if another actual typed consumer needs it.",
+    "no_new_tests": "Existing tests may need only API migration if root chooses typed conversion; do not introduce tests, helpers, assertions, doctests or test-only compatibility constructors to justify this repair."
+  },
+  "deferred_ordered_interval_audit": {
+    "implementation": "Explicitly outside this PR per comment4387198654; do not implement a new ordered interval type now.",
+    "bounded_candidates": [
+      {
+        "role": "Typed speed normalization",
+        "evidence": "linear_speed74\u201394 owns runtime lower<upper check; actual previously traced callers include walk/run profile, cadence, distance, height fade, locomotion/airborne samples. Reuse of an admitted ordered span could later remove repeated aggregate proof, but no new type now."
+      },
+      {
+        "role": "Dive phase windows",
+        "evidence": "ZERO..contact and contact..ONE share threshold and need0<contact<1 for two strictly increasing spans. Current canonical HALF satisfies that. The proposed leaf operation checks every actual interval independently; no configurable-contact policy introduced."
+      },
+      {
+        "role": "Generic terrain raw-edge smoothstep",
+        "evidence": "556\u2013558 is a source-backed normalization implementation candidate; unreviewed callers may have different equal/reversed semantics. No accepted all-caller ordered-interval opportunity count."
+      }
+    ],
+    "count_qualification": "These are role groups, not exhaustive unique locations or accepted global audit findings; no globally unique finding or discovery count change."
+  },
+  "limits": [
+    "No product/source/Git/ledger edits, local project execution, probes/checks/scanners/tests or publication. Only ignored append-only evidence.",
+    "No claim about root subsequent repair, current hosted acceptance, broader pending038 audit, all IK/terrain interpolation or full family numerical guarantees.",
+    "Prior source-only approval007 does not exclude new explicitly requested review repairs; no compatibility API/messages/layout requirement.",
+    "Root remains sole implementation and ledger writer; root adoption required."
+  ]
+}

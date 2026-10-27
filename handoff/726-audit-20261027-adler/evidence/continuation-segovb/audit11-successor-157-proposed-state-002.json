@@ -1,0 +1,43 @@
+{
+  "lens": "type-granularity",
+  "prior_immutable_checkpoint": "audit11-successor-157-proposed-state.json",
+  "authoritative_historical_state_untouched": "target/recovery-20261025/audit11/STATE.json",
+  "proposed_original_accounted": 781,
+  "added_accounted_roles": [
+    778,
+    779,
+    780
+  ],
+  "earliest_unfinished": 781,
+  "next_original": 781,
+  "active_partials": [
+    {
+      "scope_index": 781,
+      "body_read_ranges": [
+        [
+          1,
+          324
+        ]
+      ],
+      "reason": "Body full; related root/field-owner traces now available but conform scalar/kernel receiving claims and complete role assessment still pending"
+    },
+    {
+      "scope_index": 782,
+      "body_read_ranges": [
+        [
+          1,
+          334
+        ]
+      ],
+      "reason": "Body full; stage/checkpoint/outfit/lining/saved ownership context now traced, but Fit/GPU numerical receiving contracts and complete role assessment pending"
+    }
+  ],
+  "connected_reads_do_not_count_future_roles": true,
+  "overlays": "unchanged incomplete",
+  "merged": "unchanged incomplete",
+  "material": "own181-195 retained;0-180 pending separately",
+  "new_unique_findings": 0,
+  "clear": false,
+  "receipt": "audit11-successor-157-connected-780-003.json",
+  "all_prior_qualifications_retained": true
+}

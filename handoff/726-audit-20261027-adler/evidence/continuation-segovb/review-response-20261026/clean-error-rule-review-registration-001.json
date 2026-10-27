@@ -1,0 +1,79 @@
+{
+  "base": "323789dd1beca252d4515c580573596ca0c98143",
+  "purpose": "Fresh complete source rule/enum/derive review; no compatibility guarantees required",
+  "manifest_sha256": "e15b95d5c3b025c624f53356243c537d0966078e3b2e69f3e70bbdd0a7cd232b",
+  "patch_sha256": "c4086530fc7efafd8e4c967a24a2fd38288cbef91d62c3381435a4682cd1da0d",
+  "scoped_sources": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "a295f80fefc3035bf18c518b5ad9d1c379cd2473deacb33dad2c738bbf35e92f",
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "d15d73bd8fbf0410de7031e9c2cb7672153f24391614877fedd8f6766f37692c",
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "04110cf73034d74c5252361f77af470d11d289fc1a1106e9c42e975707ebdf04",
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "0c00273b8492fa0919e7264459cffbd80f97564784a292e7e88d28bf928cb244",
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "3dce5de96be36b2463daee4fb0ed823563d3f87e99bfc9a8ba3b1ddcdc37fca8",
+      "ranges": [
+        [
+          1,
+          9
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "e3ad593b83da185620d2729a5fde4a0f7bfda1c39993494432c55a0c989e0973",
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "3a3902b9981ae772df92c2df1a97d245196d25cd83f2eacf4a586005ea39a6cd",
+      "ranges": [
+        [
+          1,
+          70
+        ]
+      ]
+    }
+  ],
+  "registered_before_fresh_body_read": true
+}

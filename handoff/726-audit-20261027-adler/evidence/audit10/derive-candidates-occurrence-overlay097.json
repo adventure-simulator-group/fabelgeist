@@ -1,0 +1,36 @@
+{
+  "id": "OWN10-EXISTING-CANDIDATES-OVERLAY097",
+  "overlay_index": 97,
+  "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "path": "crates/fabelgeist-xpbd/src/dynamics/mass.rs",
+  "existing_dependency": "Actual owning Cargo full personally read; derive_more2.1.1 features display,error,from,into enabled.",
+  "cargo_sha256": "e049988fc93c6de3ae4cea1aa73b63039c36c5038a5ce196487911d301f3d64a",
+  "occurrences": [
+    {
+      "remedy": "candidate013 mechanical From",
+      "ranges": [
+        [
+          136,
+          142
+        ]
+      ],
+      "type": "ParticleArealDensity",
+      "repair": "Add derive_more::From, remove only exact From<f32> Self(argument). Same no-check native all-float API; preserve validity/physical projection. Existing ParticleInverseMass/ParticleMass occurrences already retained."
+    },
+    {
+      "remedy": "candidate008 single-field Display",
+      "ranges": [
+        [
+          120,
+          124
+        ]
+      ],
+      "type": "ParticleMass",
+      "repair": "Existing derive_more::Display can delegate scalar f32 with same formatting flags; preserve all other traits/visibility. Exact expansion equivalence before repair."
+    }
+  ],
+  "qualified_only": "Same-type ParticleMass AddAssign/Sub mechanical, but owning add_assign/sub macro features not enabled; separate global feature/remedy decision. Never replace cross-role inverse-mass Add output or native primitive f32 iterator Sum with naive wrapper fold, which may change accumulation/rounding/order.",
+  "new_unique_finding": false,
+  "checks": "not run",
+  "clear": false
+}

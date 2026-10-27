@@ -1,0 +1,120 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-182",
+  "at": "2026-10-25T21:10:04.527679+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1944,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation.rs",
+      "sha256": "6dd07ed9db5b93386803c3c441f3e84c340a217626c86b423f59563deaf1c739",
+      "personally_read_ranges": [
+        [
+          1,
+          204
+        ]
+      ],
+      "role_credit": "none; already inherited",
+      "aggregate_trace_and_dispositions": [
+        "Full204 lines read as support only. Actual generate_unfurnished constructs terrain/patch/furniture/gardens/boundaries from one input before publishing complete scene with digest. generate furnishes a local scene and drops it on failure. Obstacles bind same original sample x/z, scene seed and spacing; collar suppresses old-heightfield scenery. Reserved/building filtering retains matching population and exact diagnostic removed counts; fallible building filter commits retained vector only after complete iteration. Landform fixture assertions read only."
+      ]
+    },
+    {
+      "scope_index": 1945,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/geographic.rs",
+      "sha256": "b0a7c91fd0c9c09870ebcacd16ae968638ba3381e66e7d44b9ee6c7e6235236c",
+      "personally_read_ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "role_credit": "none; already inherited",
+      "aggregate_trace_and_dispositions": [
+        "Full96 lines read as support only. prepare_geographic_terrain validates source, prepares exact buildings, upsamples one grid, repairs and constructs obstacles/ground under full scene reservations, then refines actual geographic source without seating floors. All related products return together. Reservations are horizontal collision/plot bounds, intentionally not a house-floor-to-soil projection."
+      ]
+    },
+    {
+      "scope_index": 1946,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/geographic/tests.rs",
+      "sha256": "567fff2185681d5767893b4a091f52e5d133ddd6a8576921b248cdd6e342bcbd",
+      "personally_read_ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "role_credit": "none; already inherited",
+      "aggregate_trace_and_dispositions": [
+        "Full39-line fixture read as support only. Checks unchanged source input, exact placement retention, no floor levelling, preserved source relief and deterministic terrain/obstacles with complete garden context. No execution."
+      ]
+    },
+    {
+      "scope_index": 1947,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/grounding/tests.rs",
+      "sha256": "fbe00d6ad48ad16142a3f1e110a1d35f58a27b88aecf6198a15f357a8e411f22",
+      "personally_read_ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "role_credit": "none; already inherited",
+      "aggregate_trace_and_dispositions": [
+        "Full217-line fixture read as support only. Production city draft must reject before grounding; accepted serialized input preserves source/owner descriptors and actual member floor support. Missing/stale/mismatched support rejects and prepared/full generation products agree. Matrix submodule declaration gives no semantic credit to its body. No execution."
+      ]
+    },
+    {
+      "scope_index": 1948,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/support_obstacles.rs",
+      "sha256": "275490834d4f7a36140e5d3a0739f5ce80d5a731c9d261f5645675bd4647f624",
+      "personally_read_ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "role_credit": "none; already inherited",
+      "aggregate_trace_and_dispositions": [
+        "Full87 lines read as support only. Support obstacle removal derives scene centre from original grid and matching extent, adds humanoid/controller-skin clearance once to physical obstacle radius, checks exact accepted surfaces and updates diagnostic count. Kassel case asserts expanded physical access clearance without enlarging grading ownership; permutation fixture read only."
+      ]
+    },
+    {
+      "scope_index": 1949,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/properties.rs",
+      "sha256": "f6b7e0173aefc53be5d5a32d2a1127e175f3101c199261306a1badca39d1c4bd",
+      "personally_read_ranges": [
+        [
+          1,
+          148
+        ]
+      ],
+      "role_credit": "none; already inherited",
+      "aggregate_trace_and_dispositions": [
+        "Full148 lines read as support only. Owning catalog validation precedes exact home physical ID/centre/yaw/dimensions/Dwelling-use comparisons across playable/distant placements. Missing/moved/rotated/resized cases reject. Catalog self settlement/population is not a proved external scene identity binding; class tier/capacity comes from actual1794 producer, no wrong-source runtime witness. Existing ROOT-PP-017 and owner-lens support cover shared physical-home propagation; no competing finding."
+      ]
+    },
+    {
+      "scope_index": 1950,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/recipes.rs",
+      "sha256": "cce4ce937c53b3edbb8c3ebc7e76f14b65139f4acc63770d448ed6712398e60e",
+      "personally_read_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "role_credit": "none; already inherited",
+      "aggregate_trace_and_dispositions": [
+        "Full112 lines read as support only. GeneratedBuildingRecipe compiles plan from same programme and collision from same plan; cache get/take/replace uses full programme equality and clears sites together. Ordinary constructor retains association; public serialized fields/ProgramFurnitureSite can express native mismatches and broader cache admission remains distinct. Reuse/take/regeneration fixture read only."
+      ]
+    }
+  ],
+  "deduplicated_findings": [
+    "ROOT-PP-017",
+    "CONT-NATIVE-ROOT-SUPPLIER-OWNER-F010"
+  ],
+  "findings": [],
+  "discovery": "0 newly accounted roles; all seven rereads are inherited supporting evidence. Inherited1944-1956 skipped for progress; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

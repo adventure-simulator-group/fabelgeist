@@ -1,0 +1,28 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-008",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 398,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ranged.rs",
+      "sha256": "e960a4f52cd7fa6f8d28da2983c5f066e216f0b74828295faa41b66bd436659e",
+      "ranges": [
+        [
+          1,
+          335
+        ]
+      ],
+      "source_basis": "Fresh root complete personal exact frozen physical-p16 source read. Supporting original382105-165/565-665 freshly read from exact object; already inherited, no original-role credit.",
+      "concepts_actual_uses_and_mixup": [
+        "RangedPerformances distinguishes attacker and defender factors; PreparedRangedDefense pairs actual defender view/response/performance/flanking for a validated Hit only. They prevent using missing/mismatched target facets, not merely duplicate generic UnitInterval.",
+        "RangedAmmunition associates actual item entity and optional remaining canonical quantity, requiring AuthorizedRangedShot to consume. remainingNone means stack depleted/despawn; valid nonzero CoreItemQuantity remains typed.",
+        "ValidatedRangedImpact already encodes Miss versus Hit with target/bodypart/checked pose, and AuthorizedRangedShot is a distinct consumed-authority stage. Miss consumes ammunition without defense; dry fire consumes cooldown only; actual damage only occurs after matching authorized Hit."
+      ],
+      "disposition": "Keep meaningful participant/observation/authority/quantity roles and explicit miss/empty-ammo policies, not invent mandatory target/ammo or strictly positive new bounds. Downstream canonical hit/miss enum is coherent; earlier event/facts still fabricate hit-only bodypart/precision for explicitMiss (source388405-411/39773-78) before validated enum removes irrelevantbodypart. Save Q002 as API-shape simplification with actual receiver trace, no normal runtime bug/new unique issue asserted. Preserve sender/live state/custody/line-of-sight ordering before authority consumption.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

@@ -1,0 +1,46 @@
+{
+  "at": "2026-10-27T02:49:58.299365+00:00",
+  "lens": 13,
+  "receipt": "audit13-successor-023.json",
+  "receipt_sha256": "629279e1b52c55640b0ecedfd3f45a559ed4dce4a1d93a5ff7e3f1582cb3d00d",
+  "state": "audit13-successor-023-suggested-state.json",
+  "state_sha256": "0ca73792ac7aa8a37982a082d26ffb90bc53bf49da42efac1e7682886a1cb070",
+  "root_adopted": true,
+  "pins": [
+    {
+      "path": "audit13-successor-registration-023.json",
+      "expected": "73780a033c81f31462131b2b11835ead678be6e8700d13535abc7e9bd2bc4ce5",
+      "matched_path": "target/recovery-20261025/continuation-segovb/audit13-successor-registration-023.json",
+      "matches": true
+    },
+    {
+      "path": "audit12-original39-native-boundary-registration.json",
+      "expected": "165d4fccc449c4c75964a337c8dc9a0377d371d71ab2a4608569b410747bfebd",
+      "matched_path": "target/recovery-20261025/continuation-segovb/audit12-original39-native-boundary-registration.json",
+      "matches": true
+    },
+    {
+      "path": "audit12-original39-receivers-registration.json",
+      "expected": "9a773b638c9f2051a1e1d38e91c08e7af5d8a12bb7b84754c4a655b11abb5e6f",
+      "matched_path": "target/recovery-20261025/continuation-segovb/audit12-original39-receivers-registration.json",
+      "matches": true
+    },
+    {
+      "path": "audit13-successor-023-other-lens-extension-queue.json",
+      "expected": "d3b9988c097dbb06defccc21abb25191bf9cc5412c1170b499b1e27f05095d44",
+      "matched_path": "target/recovery-20261025/continuation-segovb/audit13-successor-023-other-lens-extension-queue.json",
+      "matches": true
+    },
+    {
+      "source_id": "physical-p16:Cargo.lock",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+      "expected": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+      "matches": true
+    }
+  ],
+  "basis": "Root inspected exact read plan, raw nonstring role inventory, receiving-frontier and all fullscope qualifications; hashes do not substitute for actual independent body proof.",
+  "original_count_delta": 0,
+  "new_unique_delta": 0,
+  "note": "Original39 physical Cargo.lock full13103 scope preserved; actual1\u20131600 independently consumed, remaining1601\u201313103 plus concrete native version4 receiving contract untraced. Count37 unchanged; partial31/36/39, earliest31, next actual39line1601, first never-started40. No40 body credit or format exemption.",
+  "global_clearance": false
+}

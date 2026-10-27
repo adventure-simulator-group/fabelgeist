@@ -1,0 +1,22 @@
+diff --git a/rust-quality-baseline.toml b/rust-quality-baseline.toml
+index 14f669442..6fb284698 100644
+--- a/rust-quality-baseline.toml
++++ b/rust-quality-baseline.toml
+@@ -580,7 +580,7 @@ ceiling = 2394
+ 
+ [[files]]
+ path = "crates/adventuresim-tactical-core/src/combat_config.rs"
+-ceiling = 698
++ceiling = 642
+ 
+ [[files]]
+ path = "crates/adventuresim-tactical-core/src/inventory.rs"
+@@ -2390,7 +2390,7 @@ ceiling = 185
+ [[functions]]
+ path = "crates/adventuresim-tactical-core/src/combat_config.rs"
+ item = "TacticalCombatConfig::validate"
+-ceiling = 315
++ceiling = 278
+ 
+ [[functions]]
+ path = "crates/adventuresim-tactical-core/src/physics.rs"

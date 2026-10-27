@@ -1,0 +1,224 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "065",
+  "predecessor": "receipt-064-originals311-313.json",
+  "manifest_prefix_sha256": "dbb92e6489808180b95f584cf28ea69a4cdc96a3fb60655ada85326e43a8fd1b",
+  "sources": [
+    {
+      "original_index": 314,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/weapon_instance.rs",
+      "sha256": "e07ad1f88c536b1cd68f6384d729b7ca9d77bb74613af181283a9954346f9c27",
+      "actual_ranges": [
+        [
+          1,
+          439
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              439
+            ]
+          ],
+          "role": "Raw item/catalog ID APIs combat_geometry331/fitted_holder_mass361 and nativeobject/item joins145/151/171/177/228/231/236/263/307/335/352/379/382. Existing WeaponHolderKind -> rawscabbard232/weapon_loop233 then compare236 selects allowable fit. Empty range lowerbound75/109 nativeDBscan. Diagnostic label &str23 ->format26 actual316callerslabels; errors146/155/162/172/181/188/221/227/229/234/238/244/262/264/297/303/305/308/380/383. Tests authoredlongsword393/395/397/402/427 +expect393/394/402/412.",
+          "disposition": "Canonical open CatalogItemId/reference owner spans actual weapon/holder recipe, table and consumer; existing WeaponHolderKind should own connection to authored holder catalog/capability rather than erasing to raw selector. Scalar label is diagnostic context until rendering, distinct from finite gameplay enum. Native scan empty bound is concrete API token. Fixtures not exempt; actual2591 defaultdesign prior boundedownread, rest native recipe SDK not certified. Full439 requested read including prior material subsets, no execution/tests/recipe authentication/runtime verdict."
+        }
+      ],
+      "status": "Full requested changed source or explicit material owner body independently read; WITH findings, exact external receiving limits retained."
+    },
+    {
+      "original_index": 315,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/weapon_instance/appearance.rs",
+      "sha256": "f6b8605a22c9db0d93d4152347ac800118d90203a6f9d6976e716755dd1b7094",
+      "actual_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              78
+            ]
+          ],
+          "role": "Raw item_id &str6/43 passed nativequerycomparison19/59 and evaluate29/69; raw scabbard|weapon_loop45 selects holder projection. Empty native scan lowerbound12/52.",
+          "disposition": "Actual314 typed WeaponHolderKind-to-catalog mapping and315 rawgate should reuse canonical holder/catalog owner through object and projection. Open catalog IDs remain open; do not substitute totalclosedItemenum. Empty string has concrete native range role, not gameplay absence. Whole explicit material78 independently read; renderer/client/recipe native consumer still pending."
+        }
+      ],
+      "status": "Full requested changed source or explicit material owner body independently read; WITH findings, exact external receiving limits retained."
+    },
+    {
+      "original_index": 316,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/weapon_instance/evaluation.rs",
+      "sha256": "6307923392138203a738fb32c47fe530f7f57ff0c417f2091e5440345d1a752b",
+      "actual_ranges": [
+        [
+          1,
+          152
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              152
+            ]
+          ],
+          "role": "Raw expected_catalog_id &str73/90 compared evaluateddesign.catalog_id82/99, typed EvaluatedWeapon/Holder errorflatten9/18/42/50, errors20/52. Diagnostic labels mass22/length23/grip-to-tip distance25/holder mass60/holder length61/holder anchor-to-tip distance65 -> actual314checked_scaled_u32. Testcatalogrefs longsword112/114/128/133,utility_knife115,scabbard135/149,weapon_loop136; recipe.insert spacebyte122/143 is deliberately encoded-byte mutation boundary.",
+          "disposition": "Canonical catalog IDs should carry through evaluateddesign/application helper/native projection. Labels are concrete scalar context for typed error owner until render. Tests semanticcatalogrefs need same owners; native encodedspace is actual codec token, no new finite gameplay meaning. All152 explicit material read; no SDK decode/hash/numerical/authentication acceptance claim."
+        }
+      ],
+      "status": "Full requested changed source or explicit material owner body independently read; WITH findings, exact external receiving limits retained."
+    },
+    {
+      "original_index": 317,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_actor.rs",
+      "sha256": "232be94a5acf0de9c374f0c16d546051e2d007c1005510b0adb7f3c0d41b28f6",
+      "actual_ranges": [
+        [
+          1,
+          1353
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              1353
+            ]
+          ],
+          "role": "Raw context membership ID44/context_id46/location48,backend party72/contactref76/location78/limbslug87, contactauthorityid98/party100/context101/location102,receiptid110/context113/action114. Internal &str ports291/297-298/310-311/322/335/349/358-359/426-427/500/947; nativeretained copies and joins throughout. Formats party-context-contact292,field-character351,context404/449/518,context-contact977. Generateddisplayname Pending generated name388 ->actual178field creation then canonicalgeneratedname393, speaker.name539/555 sourceprose/nativehistoricalname handling.",
+          "disposition": "Canonical open ContextId/LocationId/PartyId/action/contact-reference owners span producer/state/helper/codec. ContextKind already typed51/77/408; canonical public context reference should own fixed-vs-public-ID payload rather than duplicating primitive authority. HistoricalName/checkeddisplayname owner should span intermediatefixture name to creation rather than raw placeholder; no BC or stable key/hash obligation. Nativehash/DB encoding are concrete kernel boundaries only."
+        },
+        {
+          "ranges": [
+            [
+              24,
+              289
+            ],
+            [
+              761,
+              779
+            ],
+            [
+              961,
+              1153
+            ]
+          ],
+          "role": "Finite fixed exact_case_context24 produced169 into BackendContextCharacter.contact_ref266; ContextualTreatmentClaim contact_refString763 comparedfixed773 for CaseSite/HostileGroup or membership.context_id776 for Strategic/RoadEncounter. Actual300 constructs claim919 and requestsdecision950/1039;317decision905 calls actualmatch888 and typeddecisions. Typed BodyRegion treatment_limb229 becomes limb.slug String284/field87; actual300 rawlimb reducer901 reparses913. Contactrequest969 matches context payload1020/1022/1044 then retry981 and state1148. Encounter available_choices removes raw sneak1112; actual281choice producer and269 retainedchoices previouslyread.",
+          "disposition": "Complete local producer/state/receiver evidence: use canonical public-context-reference enum with open-ID payload and revision claim across projection/gateway/request/treatment/contact/retry; existing BodyRegion should span projected limb and receiver admission where native codec permits. Keep finite CharacterContextKind/Role/Decision typed and canonical EncounterChoice rather than raw sneak. Reconcile duplicateexact_case_context constant actual2836 with same owner; not new unique findingcount."
+        },
+        {
+          "ranges": [
+            [
+              1,
+              1353
+            ]
+          ],
+          "role": "Feature authority-tests489/491;includes presence485/roster487/authority_tests490/contact_authority_tests492 and allsource-test path/markers1290-1351. All production diagnostics373/384/448/470/517/542/549/975/986/996/997/1003/1049/1059/1064/1067/1080/1104/1122;typedname errorflatten400;selection explanation1114 narrativeprose. Existing tests semantic membership:11167/road:11168/1169/1234/1248,forged_private_context1209,road:forged1241;other teststrings actualsource inspection.",
+          "disposition": "Error/context prose carries structured causes until output; explanation is retained display text, not machineenum. Sourcepaths/symbols concrete compile/inspection boundaries; fixtures retain same canonicalreference/context owner requirements. Full1353 read in two contiguouschunks; included presence/roster helpers unread get no credit from includes. characters_are_contextually_present593-695 and contextual_treatment_decision816-945 nowactualread, no runtime/security/numerical/current/otherlens acceptance."
+        }
+      ],
+      "status": "Full requested changed source or explicit material owner body independently read; WITH findings, exact external receiving limits retained."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Public context reference and limb/encounter choice erased across projection/request/state/actual selection",
+      "sources": [
+        "317:24,76,87,169,284,763-779,969-1044,1112,1148",
+        "300:901-925,940,950,1039,1165",
+        "283:6,398,416",
+        "281:choiceproducer"
+      ],
+      "remedy": "Carry existing canonical context payload, BodyRegion/EncounterChoice and open reference/action IDs through projection, gateway producer, request, retainedstate and actual receivers; encode only at native boundary.",
+      "acceptance": "Trace external gateway/UI consumer and declared presence/roster helper implementations; reconcile existing owners/aliases before repair, no old wire/schema/input or key preservation requirement.",
+      "unique_count_delta": 0
+    },
+    {
+      "family": "Weapon holder/catalog identity selector duplicated as raw item strings",
+      "sources": [
+        "314:231-236",
+        "315:43-69",
+        "316:73-99"
+      ],
+      "remedy": "Reuse canonical authored catalog IDs/capabilities and existing WeaponHolderKind through recipe/application/projection.",
+      "acceptance": "Reconcile actual weaponmodel holder/catalog owner and native decoder before implementation, retain open identity semantics.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actual world_actor presence/roster included helper implementations next; prior missing ContextualTreatmentClaim and localdecision/rosterproducer now actualread, no globalreceiver closure.",
+    "External gateway/UI treatment/context/limb producers, native weaponmodel fullcatalog/codec/renderer interfaces remain pending.",
+    "All inherited aliases/F9/M09/all20/P16/P17 and other populations/currentness retained."
+  ],
+  "qualifications": [
+    "Frozen f82 physical-P16 exactsource only, no current alias.",
+    "User no backward compatibility; no project/native/test/probe execution or product/Git/rootledger/publication mutations.",
+    "Source-accounted WITH findings only; no repaired/global/runtime/native/unique-total/other-lens clearance."
+  ],
+  "proposed_count": {
+    "before": 314,
+    "after": 318,
+    "indices_completed": [
+      314,
+      315,
+      316,
+      317
+    ],
+    "next_original": 318,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/weapon_instance.rs",
+      "sha256": "e07ad1f88c536b1cd68f6384d729b7ca9d77bb74613af181283a9954346f9c27",
+      "ranges": [
+        [
+          1,
+          439
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/weapon_instance/appearance.rs",
+      "sha256": "f6b8605a22c9db0d93d4152347ac800118d90203a6f9d6976e716755dd1b7094",
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/weapon_instance/evaluation.rs",
+      "sha256": "6307923392138203a738fb32c47fe530f7f57ff0c417f2091e5440345d1a752b",
+      "ranges": [
+        [
+          1,
+          152
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_actor.rs",
+      "sha256": "232be94a5acf0de9c374f0c16d546051e2d007c1005510b0adb7f3c0d41b28f6",
+      "ranges": [
+        [
+          1,
+          1353
+        ]
+      ]
+    }
+  ]
+}

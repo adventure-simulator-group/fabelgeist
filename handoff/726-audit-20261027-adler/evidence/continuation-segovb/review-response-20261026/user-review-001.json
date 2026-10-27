@@ -1,0 +1,265 @@
+{
+  "base": "961d226be23a81d9731a11958d62fe8a04b93e81",
+  "review": {
+    "reviews": [
+      {
+        "id": "PRR_kwDOPo01Gc8AAAABUT-qaw",
+        "state": "COMMENTED",
+        "body": "",
+        "submitted_at": "2026-10-26T20:23:24Z",
+        "author": {
+          "login": "segovb",
+          "name": "segovb",
+          "email": null,
+          "avatar_url": "https://avatars.githubusercontent.com/u/70238035?v=4",
+          "id": null
+        }
+      }
+    ]
+  },
+  "threads": {
+    "review_threads": [
+      {
+        "id": "PRRT_kwDOPo01Gc6wbWgz",
+        "is_resolved": false,
+        "is_outdated": false,
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+        "line": 17,
+        "diff_side": "RIGHT",
+        "start_line": 17,
+        "start_diff_side": null,
+        "original_line": 17,
+        "original_start_line": null,
+        "resolved_by": null,
+        "comments": [
+          {
+            "id": "PRRC_kwDOPo01Gc8AAAABBSyQDg",
+            "database_id": 4381773838,
+            "body": "`use wgpu::TextureView` up top",
+            "created_at": "2026-10-26T19:52:05Z",
+            "updated_at": "2026-10-26T20:23:24Z",
+            "author": {
+              "login": "segovb",
+              "name": "segovb",
+              "email": null,
+              "avatar_url": "https://avatars.githubusercontent.com/u/70238035?v=4",
+              "id": null
+            },
+            "viewer_did_author": true
+          }
+        ]
+      },
+      {
+        "id": "PRRT_kwDOPo01Gc6wbXFU",
+        "is_resolved": false,
+        "is_outdated": false,
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+        "line": 17,
+        "diff_side": "RIGHT",
+        "start_line": 17,
+        "start_diff_side": null,
+        "original_line": 17,
+        "original_start_line": null,
+        "resolved_by": null,
+        "comments": [
+          {
+            "id": "PRRC_kwDOPo01Gc8AAAABBSyfUQ",
+            "database_id": 4381777745,
+            "body": "`use wgpu::TextureView` up top",
+            "created_at": "2026-10-26T19:52:28Z",
+            "updated_at": "2026-10-26T20:23:24Z",
+            "author": {
+              "login": "segovb",
+              "name": "segovb",
+              "email": null,
+              "avatar_url": "https://avatars.githubusercontent.com/u/70238035?v=4",
+              "id": null
+            },
+            "viewer_did_author": true
+          }
+        ]
+      },
+      {
+        "id": "PRRT_kwDOPo01Gc6wbYO-",
+        "is_resolved": false,
+        "is_outdated": false,
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+        "line": 17,
+        "diff_side": "RIGHT",
+        "start_line": 17,
+        "start_diff_side": null,
+        "original_line": 17,
+        "original_start_line": null,
+        "resolved_by": null,
+        "comments": [
+          {
+            "id": "PRRC_kwDOPo01Gc8AAAABBSy-Eg",
+            "database_id": 4381785618,
+            "body": "`use wgpu::TextureView` up top",
+            "created_at": "2026-10-26T19:53:19Z",
+            "updated_at": "2026-10-26T20:23:24Z",
+            "author": {
+              "login": "segovb",
+              "name": "segovb",
+              "email": null,
+              "avatar_url": "https://avatars.githubusercontent.com/u/70238035?v=4",
+              "id": null
+            },
+            "viewer_did_author": true
+          }
+        ]
+      },
+      {
+        "id": "PRRT_kwDOPo01Gc6wbaJt",
+        "is_resolved": false,
+        "is_outdated": false,
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+        "line": 116,
+        "diff_side": "RIGHT",
+        "start_line": 115,
+        "start_diff_side": "RIGHT",
+        "original_line": 116,
+        "original_start_line": 115,
+        "resolved_by": null,
+        "comments": [
+          {
+            "id": "PRRC_kwDOPo01Gc8AAAABBSzudw",
+            "database_id": 4381798007,
+            "body": "Why isn't `| Self::Progress { cause, .. }` part of the same match arm?",
+            "created_at": "2026-10-26T19:54:34Z",
+            "updated_at": "2026-10-26T20:23:24Z",
+            "author": {
+              "login": "segovb",
+              "name": "segovb",
+              "email": null,
+              "avatar_url": "https://avatars.githubusercontent.com/u/70238035?v=4",
+              "id": null
+            },
+            "viewer_did_author": true
+          }
+        ]
+      },
+      {
+        "id": "PRRT_kwDOPo01Gc6wbn6X",
+        "is_resolved": false,
+        "is_outdated": false,
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+        "line": 29,
+        "diff_side": "RIGHT",
+        "start_line": 29,
+        "start_diff_side": null,
+        "original_line": 29,
+        "original_start_line": null,
+        "resolved_by": null,
+        "comments": [
+          {
+            "id": "PRRC_kwDOPo01Gc8AAAABBS5UVg",
+            "database_id": 4381889622,
+            "body": "Enum smell. (See if it needs expansion into more than two states; see also if other fields in other structs/enums could use it, and if other fields within this enum could be consolidated into a variant.)",
+            "created_at": "2026-10-26T20:04:36Z",
+            "updated_at": "2026-10-26T20:23:24Z",
+            "author": {
+              "login": "segovb",
+              "name": "segovb",
+              "email": null,
+              "avatar_url": "https://avatars.githubusercontent.com/u/70238035?v=4",
+              "id": null
+            },
+            "viewer_did_author": true
+          }
+        ]
+      },
+      {
+        "id": "PRRT_kwDOPo01Gc6wbqH7",
+        "is_resolved": false,
+        "is_outdated": false,
+        "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+        "line": 104,
+        "diff_side": "RIGHT",
+        "start_line": 97,
+        "start_diff_side": "RIGHT",
+        "original_line": 104,
+        "original_start_line": 97,
+        "resolved_by": null,
+        "comments": [
+          {
+            "id": "PRRC_kwDOPo01Gc8AAAABBS6N6g",
+            "database_id": 4381904362,
+            "body": "Derivable?",
+            "created_at": "2026-10-26T20:06:12Z",
+            "updated_at": "2026-10-26T20:23:24Z",
+            "author": {
+              "login": "segovb",
+              "name": "segovb",
+              "email": null,
+              "avatar_url": "https://avatars.githubusercontent.com/u/70238035?v=4",
+              "id": null
+            },
+            "viewer_did_author": true
+          }
+        ]
+      },
+      {
+        "id": "PRRT_kwDOPo01Gc6wbqPo",
+        "is_resolved": false,
+        "is_outdated": false,
+        "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+        "line": 113,
+        "diff_side": "RIGHT",
+        "start_line": 106,
+        "start_diff_side": "RIGHT",
+        "original_line": 113,
+        "original_start_line": 106,
+        "resolved_by": null,
+        "comments": [
+          {
+            "id": "PRRC_kwDOPo01Gc8AAAABBS6RCw",
+            "database_id": 4381905163,
+            "body": "Derivable?",
+            "created_at": "2026-10-26T20:06:17Z",
+            "updated_at": "2026-10-26T20:23:24Z",
+            "author": {
+              "login": "segovb",
+              "name": "segovb",
+              "email": null,
+              "avatar_url": "https://avatars.githubusercontent.com/u/70238035?v=4",
+              "id": null
+            },
+            "viewer_did_author": true
+          }
+        ]
+      },
+      {
+        "id": "PRRT_kwDOPo01Gc6wbror",
+        "is_resolved": false,
+        "is_outdated": false,
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+        "line": 120,
+        "diff_side": "RIGHT",
+        "start_line": 120,
+        "start_diff_side": null,
+        "original_line": 120,
+        "original_start_line": null,
+        "resolved_by": null,
+        "comments": [
+          {
+            "id": "PRRC_kwDOPo01Gc8AAAABBS61vw",
+            "database_id": 4381914559,
+            "body": "Derivable?",
+            "created_at": "2026-10-26T20:07:20Z",
+            "updated_at": "2026-10-26T20:23:24Z",
+            "author": {
+              "login": "segovb",
+              "name": "segovb",
+              "email": null,
+              "avatar_url": "https://avatars.githubusercontent.com/u/70238035?v=4",
+              "id": null
+            },
+            "viewer_did_author": true
+          }
+        ]
+      }
+    ]
+  },
+  "authorization": "Human user said Left a review; inspect and implement requested corrections on PR988; no merge/new stack, existing-tests-only and hosted-only remain."
+}

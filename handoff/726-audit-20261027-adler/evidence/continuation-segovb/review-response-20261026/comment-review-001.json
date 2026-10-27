@@ -1,0 +1,480 @@
+{
+  "id": "SEGOVB-PR988-REMEDIATION-COMMENT-001",
+  "created_utc": "2026-10-26T20:35:56.575439+00:00",
+  "skill": {
+    "path": "/home/brunosegovia/.codex/skills/comment-review/SKILL.md",
+    "read": true
+  },
+  "scope": "Independent source-only Comment Review of PR988 user-review remediation against base961d226be23a81d9731a11958d62fe8a04b93e81: new validation enum/context/guide, boxed source rationale, Display templates, cfg and actual policy receivers. No whole historical audit or PR discussion response publication.",
+  "rules": [
+    "AGENTS.md and crates/AGENTS.md read",
+    "No narrower AGENTS.md found under fabelgeist-gpu/fabelgeist-compute",
+    "No wiki prose changed; wiki workflow not invoked"
+  ],
+  "manifest": {
+    "path": "source-manifest-001.json",
+    "sha256": "1c72d1be7a816d638706574f740d916494bc4236b3e74ec584b94cabdf740a62",
+    "all15_current_files_match": true
+  },
+  "review_input": {
+    "path": "user-review-001.json",
+    "sha256": "577177c75b8bb31cca16246f91f094bb49b219dcbab21cfeae7036e4818afd4e",
+    "comments": 8
+  },
+  "registration": {
+    "path": "comment-review-registration-001.json",
+    "sha256": "949372555f4ab08d9e9ed505d11d0ea68aec00b6afe1f19c6a71357248b1e6f2"
+  },
+  "diffs": [
+    {
+      "path": "actual-diff-001.patch",
+      "sha256": "2ad6ac3b7cc94a499fa594374571fbdba54082c7c91e040176d99ba0608753af",
+      "read": "Complete tracked patch body"
+    },
+    {
+      "path": "actual-diff-002-complete.patch",
+      "sha256": "28988c6f0025292f2d0cfe6eb6548ec068296e2031e1984fe0768f1709c9706d",
+      "read": "New enum section501-530 compared with actual24-line source; other tracked changes already independently read from first patch"
+    }
+  ],
+  "reviewed_sources": [
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "sha256": "14cccb953bd0b8466b7ad010219c4220d535ee7ed9e6e66cad981c37cc67df88",
+      "read_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "scope": "Only these body ranges directly read; manifest fingerprints of other portions are not semantic coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "1ff31e6f3269b22c90de858db5935591432e74f58199699a22a735aac532c68b",
+      "read_ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "scope": "Only these body ranges directly read; manifest fingerprints of other portions are not semantic coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "f64791a9b8ca3d2203ed6c04fd5e0f0028fd8855ea3bc5674840e646581b5135",
+      "read_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "scope": "Only these body ranges directly read; manifest fingerprints of other portions are not semantic coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "baf15af7fdf3ecbc0776b475b3aadbd35c29a3d6e0185cef3b2f064803315381",
+      "read_ranges": [
+        [
+          1,
+          321
+        ]
+      ],
+      "scope": "Only these body ranges directly read; manifest fingerprints of other portions are not semantic coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "0fe254434e5c065ab49a04ba8c522d7066b48802b37538b6840653f5b2e3e59d",
+      "read_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "scope": "Only these body ranges directly read; manifest fingerprints of other portions are not semantic coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "6369e5b4f4847db2e85cd5a105dd891f8a68dcbf584622731565d36d05b6cb4e",
+      "read_ranges": [
+        [
+          1,
+          9
+        ]
+      ],
+      "scope": "Only these body ranges directly read; manifest fingerprints of other portions are not semantic coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "460e9c3fcc4cb794358e3a25ba96b2e877dbeffaac6404703ff493aa6cb58e18",
+      "read_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "scope": "Only these body ranges directly read; manifest fingerprints of other portions are not semantic coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "bb98de5214d48bd87519d09a702a5e8df2914c6a7d614d38b2c95ab13df51205",
+      "read_ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "scope": "Only these body ranges directly read; manifest fingerprints of other portions are not semantic coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "e8573dd939e0db024bb674e2647e14b10cdca9d5d4d141b9a39e2778a0e3aab8",
+      "read_ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "scope": "Only these body ranges directly read; manifest fingerprints of other portions are not semantic coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "019e06bddeb3cf69b87f4a5ca9ed92b605d5a7e211490af27f36d3ae3a63422d",
+      "read_ranges": [
+        [
+          1,
+          52
+        ]
+      ],
+      "scope": "Only these body ranges directly read; manifest fingerprints of other portions are not semantic coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+      "read_ranges": [
+        [
+          1,
+          84
+        ]
+      ],
+      "scope": "Only these body ranges directly read; manifest fingerprints of other portions are not semantic coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "33fed8d0c2ea47e990b60ad9c2cc14962f130c66ed4328d134e8f7f15d9b1128",
+      "read_ranges": [
+        [
+          1,
+          189
+        ]
+      ],
+      "scope": "Only these body ranges directly read; manifest fingerprints of other portions are not semantic coverage."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "sha256": "352f06a1ddfc9d7be1813161e4ac2365ae813a2f0e751614464fc8adddf9a735",
+      "read_ranges": [
+        [
+          108,
+          165
+        ]
+      ],
+      "scope": "Only these body ranges directly read; manifest fingerprints of other portions are not semantic coverage."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "e883e9bbfdcdb62065d26751a6135b65d6e3021604c9e6071ebdfbdf644457c5",
+      "read_ranges": [
+        [
+          95,
+          165
+        ]
+      ],
+      "scope": "Only these body ranges directly read; manifest fingerprints of other portions are not semantic coverage."
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be",
+      "read_ranges": [
+        [
+          4319,
+          4354
+        ],
+        [
+          12069,
+          12076
+        ],
+        [
+          12222,
+          12229
+        ]
+      ],
+      "scope": "Only these body ranges directly read; manifest fingerprints of other portions are not semantic coverage."
+    }
+  ],
+  "sdk_source_reads": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-2.1.1/src/as_dyn_error.rs",
+      "sha256": "ba3767c6c95966583360f28cd59bfe20717d0f53c2041c2c534552fcb1b265d9",
+      "observed_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "provenance": "Current lock-checksummed archive member bytes equal inspected local source; not frozen audit-source identity",
+      "package": "derive_more-2.1.1",
+      "archive_sha256": "d751e9e49156b02b44f9c1815bcb94b984cdcc4396ecc32521c739452808b134",
+      "purpose": "Independent source-backed manual boxed Error source and polling documentation rationale; no broad SDK coverage."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-impl-2.1.1/src/error.rs",
+      "sha256": "40cfa53d126eae5284310d5814318d32269e482e3491bf561ec9cd6168646aeb",
+      "observed_ranges": [
+        [
+          93,
+          184
+        ],
+        [
+          185,
+          334
+        ]
+      ],
+      "provenance": "Current lock-checksummed archive member bytes equal inspected local source; not frozen audit-source identity",
+      "package": "derive_more-impl-2.1.1",
+      "archive_sha256": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb",
+      "purpose": "Independent source-backed manual boxed Error source and polling documentation rationale; no broad SDK coverage."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-impl-2.1.1/src/fmt/display.rs",
+      "sha256": "d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+      "observed_ranges": [
+        [
+          398,
+          467
+        ]
+      ],
+      "provenance": "Current lock-checksummed archive member bytes equal inspected local source; not frozen audit-source identity",
+      "package": "derive_more-impl-2.1.1",
+      "archive_sha256": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb",
+      "purpose": "Independent source-backed manual boxed Error source and polling documentation rationale; no broad SDK coverage."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "observed_ranges": [
+        [
+          787,
+          849
+        ]
+      ],
+      "provenance": "Current lock-checksummed archive member bytes equal inspected local source; not frozen audit-source identity",
+      "package": "wgpu-29.0.4",
+      "archive_sha256": "76e8840e1ba2881d4cbb18d2147627a56af426ff064c0401eb0c8410c6325d07",
+      "purpose": "Independent source-backed manual boxed Error source and polling documentation rationale; no broad SDK coverage."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-types-29.0.4/src/lib.rs",
+      "sha256": "af153576bce090b101f05d3d4fc35523d82e8f7fd2f935bd60d12956af50cb3b",
+      "observed_ranges": [
+        [
+          290,
+          324
+        ]
+      ],
+      "provenance": "Current lock-checksummed archive member bytes equal inspected local source; not frozen audit-source identity",
+      "package": "wgpu-types-29.0.4",
+      "archive_sha256": "84bf84cd9ca8ca45e2b223a3868f1adf9bfc0c66aeac212e76ee7e40fdadf8f5",
+      "purpose": "Independent source-backed manual boxed Error source and polling documentation rationale; no broad SDK coverage."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-types-29.0.4/src/lib.rs",
+      "sha256": "af153576bce090b101f05d3d4fc35523d82e8f7fd2f935bd60d12956af50cb3b",
+      "observed_ranges": [
+        [
+          229,
+          273
+        ]
+      ],
+      "provenance": "Current lock-checksummed archive member bytes equal inspected local source; not frozen audit-source identity",
+      "package": "wgpu-types-29.0.4",
+      "archive_sha256": "84bf84cd9ca8ca45e2b223a3868f1adf9bfc0c66aeac212e76ee7e40fdadf8f5",
+      "purpose": "Actual no-explicit-timeout/native poll source for scoped validation documentation. Already archive/member hash-verified; fresh bounded body read."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "observed_ranges": [
+        [
+          78,
+          101
+        ]
+      ],
+      "provenance": "Current lock-checksummed archive member bytes equal inspected local source; not frozen audit-source identity",
+      "package": "wgpu-29.0.4",
+      "archive_sha256": "76e8840e1ba2881d4cbb18d2147627a56af426ff064c0401eb0c8410c6325d07",
+      "purpose": "Actual no-explicit-timeout/native poll source for scoped validation documentation. Already archive/member hash-verified; fresh bounded body read."
+    }
+  ],
+  "findings": [],
+  "conclusion": "No actionable newly introduced comment/documentation accuracy defect found in the pinned remediation scope. This is a narrow Comment Review, not global comment or implementation clearance.",
+  "verified_traces": [
+    {
+      "claim": "The new enum describes validation observation rather than ownership/presentation.",
+      "sources": [
+        "validation_observation.rs1-24",
+        "wgpu_context/mod.rs20-31,98-118,182-275",
+        "texture-views.md46-53"
+      ],
+      "evidence": "BlockingScopes pushes a native Validation-only error scope; Uncaptured returns no guard. start_scope exists only outside wasm32. from_parts selects Uncaptured; newly created native devices select BlockingScopes, browser creation selects Uncaptured. Presentation determines canvas/surface/blitter separately. Context docs accurately state constructor defaults and explicitly qualify separate validation paths and lack of global health/rollback proof. Public callers can choose policy explicitly; comments are not treated as an immutable ownership invariant."
+    },
+    {
+      "claim": "The same policy is carried through the affected shader/pipeline/compute paths.",
+      "sources": [
+        "compute_shader.rs49-69",
+        "pipeline/mod.rs37-59,83-125,164-187",
+        "kernel/fast.rs114-154",
+        "texture_2d/mod.rs128-155",
+        "validation_scope.rs59-86"
+      ],
+      "evidence": "Each affected native source calls validation_observation.start_scope; compile passes the context policy and the direct pipeline convenience method deliberately selects BlockingScopes. Browser branches do not invoke start_scope or block. The guide claims shared observation choice, not identical progress/error handling for every caller. Existing paths that still discard poll results remain separate qualifications."
+    },
+    {
+      "claim": "Guide/view error contracts and Display templates remain consistent.",
+      "sources": [
+        "texture-views.md3-59",
+        "all three views.rs full bodies",
+        "view_error.rs23-87",
+        "validation_scope.rs12-57,70-86"
+      ],
+      "evidence": "Cached-format returns still precede native texture admission and preserve Arc sharing; missing cache/native errors have no source. Requested format is retained while storage view descriptors may use its linear counterpart. Native rejection preserves per-operation cause; Progress retains request/operation/poll/captured rejection. Manual source returns inner concrete errors. Display derive attributes reproduce all prior templates/prefixes from the parent diff; ValidationScopeError tuple templates forward the same inner Display and explicit source fields. The guide example remains a text fence, not a new doctest."
+    },
+    {
+      "claim": "Manual boxed source rationale explains an actual downcast constraint.",
+      "sources": [
+        "view_error.rs90-102",
+        "derive_more-impl2.1.1/error.rs175-180,203-219,286-290,293-334",
+        "derive_more2.1.1/as_dyn_error.rs24-29"
+      ],
+      "evidence": "An explicitly derived source over these Box fields invokes AsDynError on the boxed field and returns that concrete Box error, while the manual as_ref returns its inner wgpu::Error or ValidationProgressError. Progress and native boxes have different concrete types, so their current typed cause bindings cannot share one or-pattern arm. The rationale is read in that source-selection context; it is not a claim that a bare Error derive without source annotations automatically identifies a named cause field."
+    },
+    {
+      "claim": "Native scope docs accurately avoid an infinite-success guarantee.",
+      "sources": [
+        "validation_scope.rs70-86",
+        "wgpu-types29.0.4/lib.rs229-264,294-321",
+        "wgpu29.0.4/api/device.rs86-96,839-849"
+      ],
+      "evidence": "wait_indefinitely constructs Wait with no explicit timeout/index; device.poll returns Result and native wait can fail. finish observes the poll result and then explicitly pops its same-thread scope before matching both outcomes. No view is returned on a finish error. No success/rollback/device-health claim is inferred."
+    },
+    {
+      "claim": "No stale field references and existing borrowed-device test intent unchanged.",
+      "sources": [
+        "Bounded source text search for blocking_validation/validation_observation under fabelgeist-gpu/src and fabelgeist-compute/src",
+        "wgpu_context/mod.rs288-320",
+        "actual-diff-001.patch"
+      ],
+      "evidence": "The only remaining blocking_validation spelling is a_borrowed_device_skips_blocking_validation, a descriptive existing test name. Field/doc references use validation_observation. Its existing test compares owned BlockingScopes and borrowed Uncaptured with the same purpose and messages; no renamed test or new test/case/helper/doctest was introduced by this diff. Source-only review does not claim the test ran."
+    }
+  ],
+  "native_provenance": "Read exact resolved derive_more2.1.1 and wgpu29.0.4 lockfile entries. All SDK source bytes used here match individually hashed members of local cached archives whose SHA256 equals the lockfile checksum; no download or whole SDK inspection. Earlier derivability verdicts were not used as substitute for body reads.",
+  "remaining_uncertainties": [
+    "Inherited F9 remains pending. In particular, untouched submitted_work_done rationale at context120-138 and borrowed test/watchdog prose288-293 still make broad queue/watchdog claims. Native PollType documentation238-245 describes waiting for the most recent submission at poll time. This remediation only updates the field link at131; it does not classify or clear those preexisting claims.",
+    "Other inherited constructor/readback/pipeline comments and broad source-context mismatches retain earlier comment-review-001/F9 qualifications. Newly passed policy is not proof that every constructor/subresource path honors it.",
+    "No full application caller, runtime backend, device-loss, macro expansion output, global safety/performance, current CI, whole comment inventory, all20/P16/P17/#780/#826 or later-lens acceptance is claimed. No global audit counts advanced."
+  ],
+  "post_review_fingerprints": [
+    {
+      "path": "Cargo.lock",
+      "initial_sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be",
+      "post_review_sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be",
+      "unchanged": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "initial_sha256": "352f06a1ddfc9d7be1813161e4ac2365ae813a2f0e751614464fc8adddf9a735",
+      "post_review_sha256": "352f06a1ddfc9d7be1813161e4ac2365ae813a2f0e751614464fc8adddf9a735",
+      "unchanged": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "initial_sha256": "460e9c3fcc4cb794358e3a25ba96b2e877dbeffaac6404703ff493aa6cb58e18",
+      "post_review_sha256": "460e9c3fcc4cb794358e3a25ba96b2e877dbeffaac6404703ff493aa6cb58e18",
+      "unchanged": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "initial_sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+      "post_review_sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+      "unchanged": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "initial_sha256": "33fed8d0c2ea47e990b60ad9c2cc14962f130c66ed4328d134e8f7f15d9b1128",
+      "post_review_sha256": "33fed8d0c2ea47e990b60ad9c2cc14962f130c66ed4328d134e8f7f15d9b1128",
+      "unchanged": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "initial_sha256": "e883e9bbfdcdb62065d26751a6135b65d6e3021604c9e6071ebdfbdf644457c5",
+      "post_review_sha256": "e883e9bbfdcdb62065d26751a6135b65d6e3021604c9e6071ebdfbdf644457c5",
+      "unchanged": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "initial_sha256": "bb98de5214d48bd87519d09a702a5e8df2914c6a7d614d38b2c95ab13df51205",
+      "post_review_sha256": "bb98de5214d48bd87519d09a702a5e8df2914c6a7d614d38b2c95ab13df51205",
+      "unchanged": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "initial_sha256": "e8573dd939e0db024bb674e2647e14b10cdca9d5d4d141b9a39e2778a0e3aab8",
+      "post_review_sha256": "e8573dd939e0db024bb674e2647e14b10cdca9d5d4d141b9a39e2778a0e3aab8",
+      "unchanged": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "initial_sha256": "019e06bddeb3cf69b87f4a5ca9ed92b605d5a7e211490af27f36d3ae3a63422d",
+      "post_review_sha256": "019e06bddeb3cf69b87f4a5ca9ed92b605d5a7e211490af27f36d3ae3a63422d",
+      "unchanged": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "initial_sha256": "f64791a9b8ca3d2203ed6c04fd5e0f0028fd8855ea3bc5674840e646581b5135",
+      "post_review_sha256": "f64791a9b8ca3d2203ed6c04fd5e0f0028fd8855ea3bc5674840e646581b5135",
+      "unchanged": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "initial_sha256": "6369e5b4f4847db2e85cd5a105dd891f8a68dcbf584622731565d36d05b6cb4e",
+      "post_review_sha256": "6369e5b4f4847db2e85cd5a105dd891f8a68dcbf584622731565d36d05b6cb4e",
+      "unchanged": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "initial_sha256": "14cccb953bd0b8466b7ad010219c4220d535ee7ed9e6e66cad981c37cc67df88",
+      "post_review_sha256": "14cccb953bd0b8466b7ad010219c4220d535ee7ed9e6e66cad981c37cc67df88",
+      "unchanged": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "initial_sha256": "1ff31e6f3269b22c90de858db5935591432e74f58199699a22a735aac532c68b",
+      "post_review_sha256": "1ff31e6f3269b22c90de858db5935591432e74f58199699a22a735aac532c68b",
+      "unchanged": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "initial_sha256": "baf15af7fdf3ecbc0776b475b3aadbd35c29a3d6e0185cef3b2f064803315381",
+      "post_review_sha256": "baf15af7fdf3ecbc0776b475b3aadbd35c29a3d6e0185cef3b2f064803315381",
+      "unchanged": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "initial_sha256": "0fe254434e5c065ab49a04ba8c522d7066b48802b37538b6840653f5b2e3e59d",
+      "post_review_sha256": "0fe254434e5c065ab49a04ba8c522d7066b48802b37538b6840653f5b2e3e59d",
+      "unchanged": true
+    }
+  ],
+  "actions": "Review evidence only. No source/product edits, Git commands/mutations, root ledger/history edits, project checks/tests, added tests/doctests, review replies or publication. Root is sole edit owner.",
+  "stop": "Saved report and stopped as requested."
+}

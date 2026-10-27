@@ -1,0 +1,43 @@
+{
+  "at": "2026-10-26T05:34:38.439523+00:00",
+  "head": "6431c2faf1b50608344d1031d0f9413830c271fa",
+  "base": "4530fc19ce16641df65eae28735d69e86bbaa8ae",
+  "body": "target\\recovery-20261025\\glb-main-4530\\pr-body.md",
+  "initial_body_sha256": "ef80a0157fdb691856d929f12ab7844ce97286d5b1fb06be440a92a1563d89d0",
+  "final_body_sha256": "a56fdae446976b413a081bd685b25b64f764d0d5f00cb742ff58a5a3fe82ce2f",
+  "body_lines_read": [
+    [
+      1,
+      44
+    ]
+  ],
+  "correction_exact_two_lines_verified": true,
+  "finding_history": [
+    {
+      "id": "GLB-COMMENT-001",
+      "lines": [
+        4,
+        5
+      ],
+      "initial_issue": "Old anyhow with_context retains underlying io::Error source; erased concrete write failures overstates change.",
+      "requested_wording": "Reported failures through contextual errors rather than a dedicatedGLBerror type.",
+      "final_resolution": "Actual revised local bytes match requested factual distinction.",
+      "status": "CLOSED_LOCAL"
+    }
+  ],
+  "claim_assessment": [
+    "Checked actual lengths/private coherent layout/final reserve, unchanged padding/order/emptyBIN writer behavior and existing public Result boundary agree with actual candidate source.",
+    "Final-frame reservation expressly distinguished from earlier serialization/image allocations; preparation-before-writer-filesystem expressly distinguished from preceding shared image publication and possible partial later file.",
+    "Hosted exact-head Rust workflow and independent source/rule/doc reviews remain pending/in progress, with source-only oversized/allocation/32bit/filesystem failure paths. No test success/runtime/platform/geometry claim added.",
+    "No new tests/cases/assertions and no local executions accurately stated for this slice; no need to infer new acceptance cases.",
+    "Implementationcontext describes final scope/material decisions and current verification limits; expressly no reviewed public conversation snapshot available, so no fabricated link."
+  ],
+  "new_actionable_findings": [],
+  "publication_status": "Parent reports corrected draft published asPR987 and run40274774510 underway; reviewer made no network read/write and does not independently certify external body equality or check result.",
+  "source_review": "source-review-001.json",
+  "verdict": "Corrected exact local draft wording suitable for draft publication; source and hosted acceptance remain independently pending.",
+  "source_or_git_mutation": false,
+  "project_execution": false,
+  "external_publication": false,
+  "frozen_lens05_credit": false
+}

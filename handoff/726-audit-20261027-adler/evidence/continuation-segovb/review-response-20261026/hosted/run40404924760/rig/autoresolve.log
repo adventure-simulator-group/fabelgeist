@@ -1,0 +1,90 @@
+[1m[92m   Compiling[0m fabelgeist-determinism v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-determinism)
+[1m[92m   Compiling[0m adventuresim-core v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-core)
+[1m[92m   Compiling[0m adventuresim-weapon-model v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-weapon-model)
+[1m[92m   Compiling[0m fabelgeist-geometry v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-geometry)
+[1m[92m   Compiling[0m adventuresim-world-schema v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-world-schema)
+[1m[92m   Compiling[0m adventuresim-puzzles v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-puzzles)
+[1m[92m   Compiling[0m adventuresim-dialogue v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-dialogue)
+[1m[92m    Finished[0m `test` profile [optimized] target(s) in 1m 19s
+[1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/adventuresim_core-1286a194d5135731)
+
+running 76 tests
+test autoresolve::classification::tests::replay_classifications_keep_their_wire_vocabulary ... ok
+test autoresolve::incapacitation_tests::burden_is_visible_and_not_also_subtracted_from_physical_skills ... ok
+test autoresolve::incapacitation_tests::fatigue_and_other_sources_produce_identical_combat_performance ... ok
+test autoresolve::incapacitation_tests::fatigue_does_not_slow_autoresolve_movement ... ok
+test autoresolve::melee_exchange::tests::outside_absolute_reach_is_contactless_even_for_maximum_attack_quality ... ok
+test autoresolve::melee_exchange::tests::tactical_and_autoresolve_projections_exactly_follow_the_shared_hit_equation ... ok
+test autoresolve::melee_iteration::tests::acceptance_evidence_exercises_surface_gaps_and_nonbinary_defense ... ok
+test autoresolve::melee_iteration::tests::authored_brigandine_and_jack_plate_surfaces_stop_longsword_edges ... ok
+test autoresolve::melee_iteration::tests::dodge_skill_participates_in_the_shared_exchange_equation ... ok
+test autoresolve::melee_iteration::tests::entering_reach_does_not_complete_a_committed_windup_early ... ok
+test autoresolve::melee_iteration::tests::every_roster_weapon_uses_authored_physics_for_autoresolve_cadence_and_balance ... ok
+test autoresolve::melee_iteration::tests::iteration_duels_make_terminal_progress ... ok
+test autoresolve::melee_iteration::tests::polearm_contact_uses_only_movement_elapsed_before_contact ... ok
+test autoresolve::melee_iteration::tests::roster_is_varied_and_melee_only ... ok
+test autoresolve::melee_iteration::tests::shorter_reach_combatants_land_contacts_across_bounded_property_seeds ... ok
+test autoresolve::melee_movement::tests::acceleration_integration_is_substep_invariant ... ok
+test autoresolve::melee_movement::tests::added_body_or_equipment_mass_reduces_ground_acceleration ... ok
+test autoresolve::melee_movement::tests::body_collision_floor_is_substep_invariant_and_cannot_tunnel ... ok
+test autoresolve::melee_movement::tests::body_collision_prevents_center_overlap_and_stops_closing_velocity ... ok
+test autoresolve::melee_movement::tests::displacement_never_exceeds_speed_times_elapsed ... ok
+test autoresolve::melee_movement::tests::opposed_intent_cannot_reverse_velocity_instantaneously ... ok
+test autoresolve::melee_movement::tests::opposed_intents_use_signed_simultaneous_displacement ... ok
+test autoresolve::melee_movement::tests::zero_acceleration_coasts_and_zero_elapsed_time_does_not_advance ... ok
+test autoresolve::melee_round::tests::attack_start_waits_for_later_of_measure_and_recovery ... ok
+test autoresolve::melee_round::tests::committed_short_weapon_tracks_while_long_weapon_seeks_measure ... ok
+test autoresolve::melee_round::tests::distal_headed_weapon_seeks_the_center_of_its_authored_head_band ... ok
+test autoresolve::melee_round::tests::exact_reach_boundary_is_attackable_but_outside_measure_closes ... ok
+test autoresolve::melee_round::tests::movement_and_recovery_gate_one_exact_attack_start ... ok
+test autoresolve::melee_round::tests::short_generated_sword_recovers_from_haft_only_measure ... ok
+test autoresolve::tests::agility_does_not_add_to_block_defense_below_the_mastery_cap ... ok
+test autoresolve::tests::autoresolve_dodge_choice_uses_authored_bot_chance_and_preserves_elapsed_time ... ok
+test autoresolve::tests::autoresolve_earlier_reaction_has_at_least_as_much_dodge_reflex ... ok
+test autoresolve::tests::battle_log_attributes_bow_and_sidearm_to_distinct_instances ... ok
+test autoresolve::tests::battle_resolution_distinguishes_mutual_incapacitation_from_timeout ... ok
+test autoresolve::tests::battle_summary_and_log_are_reproducible ... ok
+test autoresolve::tests::canceled_scheduled_attack_cannot_emit_a_ghost_contact ... ok
+test autoresolve::tests::combat_power_bounds_non_finite_components_without_saturating ... ok
+test autoresolve::tests::combat_power_orders_authored_cross_profiles_and_margin_boundaries ... ok
+test autoresolve::tests::combat_power_tracks_training_equipment_and_condition ... ok
+test autoresolve::tests::committed_parry_discards_prepared_strike_and_costs_work ... ok
+test autoresolve::tests::concentrated_ranged_attacks_cannot_bypass_intact_armor ... ok
+test autoresolve::tests::defense_matrix_exercises_skill_fatigue_implement_timing_and_leverage ... ok
+test autoresolve::tests::detour_volleys_only_target_surplus_melee ... ok
+test autoresolve::tests::empty_opposition_is_an_immediate_victory ... ok
+test autoresolve::tests::explicit_surprise_grants_exactly_one_authoritative_side_the_opener ... ok
+test autoresolve::tests::fatigue_recovery_preserves_active_work_across_time_slices ... ok
+test autoresolve::tests::fixed_seed_is_reproducible ... ok
+test autoresolve::tests::formation_detour_grants_additional_opening_volleys ... ok
+test autoresolve::tests::guard_access_recovers_continuously_before_incoming_contact ... ok
+test autoresolve::tests::melee_block_carries_contact_force_while_dodge_does_not ... ok
+test autoresolve::tests::melee_defense_is_precommitted_and_not_unconditional ... ok
+test autoresolve::tests::melee_event_order_is_independent_of_ally_enemy_array_side ... ok
+test autoresolve::tests::melee_exchange_uses_global_armor_coverage ... ok
+test autoresolve::tests::melee_only_fighter_with_disabled_weapon_arm_yields ... ok
+test autoresolve::tests::melee_screen_forces_engagement_before_backline_access ... ok
+test autoresolve::tests::movement_speed_changes_approach_fire_window ... ok
+test autoresolve::tests::neutral_guard_does_not_cancel_an_attack_that_has_not_started ... ok
+test autoresolve::tests::offhand_shield_preserves_prepared_strike_but_reduces_its_power ... ok
+test autoresolve::tests::ordinary_unprotected_damage_remains_coherent ... ok
+test autoresolve::tests::phase_adaptation_is_one_shot_elapsed_readiness_not_duplicate_attack_work ... ok
+test autoresolve::tests::precise_melee_attacks_do_not_reclassify_an_intact_surface_as_a_gap ... ok
+test autoresolve::tests::ranged_attack_interval_controls_attack_count ... ok
+test autoresolve::tests::ranged_attackers_prioritize_ranged_targets ... ok
+test autoresolve::tests::ranged_blocking_works_with_a_weapon_and_no_shield ... ok
+test autoresolve::tests::ranged_characters_fire_during_the_enemy_approach ... ok
+test autoresolve::tests::ranged_combat_resolves_without_melee_force ... ok
+test autoresolve::tests::ranged_combatants_switch_to_their_melee_weapon_when_ammunition_runs_out ... ok
+test autoresolve::tests::reading_defender_phase_never_mutates_the_scheduled_attack ... ok
+test autoresolve::tests::reciprocal_intercept_requires_an_overlapping_committed_attack_phase ... ok
+test autoresolve::tests::scheduled_committed_attack_cancels_even_after_readiness_was_reserved ... ok
+test autoresolve::tests::simultaneous_scheduled_contacts_both_resolve ... ok
+test autoresolve::tests::skeleton_matchup_emerges_from_resistance_and_padding_resolution ... ok
+test autoresolve::tests::skill_and_numbers_change_battle_odds ... ok
+test autoresolve::tests::strategic_state_constructs_a_fresh_combatant_without_exposing_duel_state ... ok
+test autoresolve::tests::successful_block_records_wear_for_both_contacting_instances ... ok
+test autoresolve::tests::timeline_canceled_attack_ids_never_emit_contacts ... ok
+
+test result: ok. 76 passed; 0 failed; 0 ignored; 0 measured; 928 filtered out; finished in 3.99s
+

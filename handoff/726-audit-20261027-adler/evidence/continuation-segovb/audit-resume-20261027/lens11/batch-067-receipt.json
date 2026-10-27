@@ -1,0 +1,396 @@
+{
+  "at": "2026-10-27T15:25:53.146012+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_qualified_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-067-registration.jsonl",
+    "sha256": "a3e8e8c8e940d411ffaaf9c40e614fd5d3dc964b8f419b9c8a159f3ba146777f"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-066.json",
+    "sha256": "29fd2a089a942aef8182aa9045dc56f3f331b6a0611cb35b7fe5a394cc0ecb53"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1093,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease.rs",
+      "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+      "ranges": [
+        [
+          1,
+          2950
+        ]
+      ],
+      "actual_eof": 2950,
+      "prospective": true,
+      "purpose": "Independent ordered full source type-granularity inventory",
+      "actual_read_ranges": [
+        [
+          1,
+          2950
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1094,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/administration_adapter.rs",
+      "sha256": "980f43c8f979574fcc23678173933bcef9f8fc18e678d0070dc3c8ec1e2a3181",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/980f43c8f979574fcc23678173933bcef9f8fc18e678d0070dc3c8ec1e2a3181",
+      "ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "actual_eof": 27,
+      "prospective": true,
+      "purpose": "Independent ordered full source type-granularity inventory",
+      "actual_read_ranges": [
+        [
+          1,
+          27
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1095,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/exposure_sources.rs",
+      "sha256": "fd65f1ffe87f35659e8ebfa0216668ba5e1c17373d94539901cf36bab248c81b",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/fd65f1ffe87f35659e8ebfa0216668ba5e1c17373d94539901cf36bab248c81b",
+      "ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "actual_eof": 77,
+      "prospective": true,
+      "purpose": "Independent ordered full source type-granularity inventory",
+      "actual_read_ranges": [
+        [
+          1,
+          77
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1096,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/interval.rs",
+      "sha256": "4384f792f23b407ce0400d31755a84c01e36c464be04edcea9ca39859deda652",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/4384f792f23b407ce0400d31755a84c01e36c464be04edcea9ca39859deda652",
+      "ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "actual_eof": 53,
+      "prospective": true,
+      "purpose": "Independent ordered full source type-granularity inventory",
+      "actual_read_ranges": [
+        [
+          1,
+          53
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected_original",
+      "original": 1195,
+      "sha256": "a09342196732b00b8520e9a446aa9fdef60e8fd44a439032ebdadc21e6e8e4c5",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/a09342196732b00b8520e9a446aa9fdef60e8fd44a439032ebdadc21e6e8e4c5",
+      "ranges": [
+        [
+          1280,
+          1302
+        ],
+        [
+          1735,
+          1815
+        ],
+        [
+          1919,
+          1965
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual retained presence identity and band producers; no whole future ordered credit",
+      "actual_read_ranges": [
+        [
+          1280,
+          1302
+        ],
+        [
+          1735,
+          1815
+        ],
+        [
+          1919,
+          1965
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original": 964,
+      "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+      "ranges": [
+        [
+          56,
+          104
+        ],
+        [
+          650,
+          714
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Exact previously personally consumed035/022 Administration and Dose leaf receiver reinspection",
+      "actual_read_ranges": [
+        [
+          56,
+          104
+        ],
+        [
+          650,
+          714
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1093,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              33,
+              200
+            ],
+            [
+              766,
+              861
+            ],
+            [
+              1654,
+              1721
+            ]
+          ],
+          "roles": "Private infection identity and versions, 32-byte physiology key, outbreak identity/window/intensity, committed cuts, public illness predicates, notice kind/message, typed episode decode.",
+          "disposition": "DiseaseId decode and version checks are real storage boundaries, not duplicate type owners. Ruleset and phenotype-key versions are distinct authorities despite same u16. Private causes, public illness knowledge, delivery dedupe and chart differential are different roles and must not share one universal disease-state record. critical implies symptomatic in actual writers, so aggregated illness has three reachable observation states, not independent authored flags. key Vec accepts arbitrarylength at type level while sole initializer creates32 bytes; no malformed actual key asserted.",
+          "remedy": "Reuse existing DiseaseId/character/infection/version/key owners at internal ports; explicit public illness observation state and typed notice kind separate from prose; keep exact bytes at crypto adapter.",
+          "acceptance": "Preserve private causes and public/observer authority distinctions; do not infer clinical truth from differential labels. Committed-cut public projection185-191 has no gateway guard unlike charts, but intended cut-observation/privacy policy not proven here; record authority review question, no exploit/current claim."
+        },
+        {
+          "ranges": [
+            [
+              143,
+              182
+            ],
+            [
+              201,
+              764
+            ]
+          ],
+          "roles": "Chart reading/gap payload, observer/patient directional pair, historical band/cadence/window, four signed humour arrays, visible mixture, likelihood/confidence BPS, known-intervention presentation.",
+          "disposition": "BackendPhysiologyChart combines reading and gap products via optional endpoints and empty arrays; actual builders coherent but invalid combinations representable. Four Vec arrays encode canonical region/humour layout; actual quantized fixed arrays write aligned vectors. Differential likelihood is independent similarity/confidence score, not established sum-to-one posterior. Signed humour deviation differs from UnitInterval probability, severity, band and duration. VisibleHumourReading is useful named observation record, not redundant clinical truth.",
+          "remedy": "Reading/Gap payload enum with named causal gap; canonical region/humour-indexed representation, bounded observation band and typed signed deviations/confidence scores. Retain visible-history-only differential fitting and separate private state.",
+          "acceptance": "Actual band producers clamp0..5, histories retain observed timestamps and gaps clear continuity. No clinical diagnosis/runtime/privacy clearance. ChartPatientState430-435 uses current immunity while reconstructing earlier readings: qualified history-authority dependency with existing core912 findings, no newly accepted unique alias."
+        },
+        {
+          "ranges": [
+            [
+              863,
+              1313
+            ],
+            [
+              1735,
+              2055
+            ]
+          ],
+          "roles": "Historical presence coverage, projected co-advance horizon, check segments, acquisition proposals/work budgets, healing policy, preview/commit terminal prefixes and failure mechanism.",
+          "disposition": "Named cache/plan records improve responsibility and prevent mutation-order drift. Raw per-character BTreeMaps and start/end/check tuples still lose identity/time/role association; Plan carries no explicit requested interval/healing-policy binding though receivers separately accept both. Actual constructor creates coherent keyed snapshots; no actual wrong-plan caller established. Preview(u64,bool) distinguishes terminal-at-end from successful completion at same duration; dropping flag in duration-only projection is not proof actual terminal loss. TerminalFailure typed cause retained into death transition.",
+          "remedy": "Canonical plan request/boundary result with elapsed duration plus terminal payload; bind per-character start/horizon/healing policy where reuse matters. Use canonical identity/elapsed/work-budget/check owners. Keep actual clinical terminal mechanism and unrelated completion effects distinct.",
+          "acceptance": "Preserve sorted/deduped participants, bounded work/candidates/spans, earliest inclusive terminal minute, side-effect-free preview and committed prefix only. Reuse exact core912 full source and time048 full actual consumer proof; no full unchanged runtime traversal needed to classify type gaps. No fatigue/check_multiplier movement-speed conflict asserted."
+        },
+        {
+          "ranges": [
+            [
+              1315,
+              1475
+            ],
+            [
+              1509,
+              1652
+            ],
+            [
+              1681,
+              1704
+            ]
+          ],
+          "roles": "Existing fixture-only contact/outbreak/merge acquisition helpers and native interval numeric loops.",
+          "disposition": "Fixture helpers have separate proposal semantics, not production duplicate authority. Raw source IDs/disease IDs/clocks and tuple windows retain role distinctions even in helpers; actual loops are explicit minute kernels. No fixtures executed.",
+          "remedy": "Share canonical identity/window owners where coherent; do not mistake fixture presence paths for current production selection.",
+          "acceptance": "Existing test scope read only; no test additions, local checks/probes or execution."
+        },
+        {
+          "ranges": [
+            [
+              1477,
+              1507
+            ],
+            [
+              2057,
+              2392
+            ]
+          ],
+          "roles": "Effective attribute penalty projection, private sensitivity/adverse variation, actor/patient treatment context, typed dose, preparation profile/version/route/region, course start-stop, committed and standing cut severity.",
+          "disposition": "Existing DoseMilliunits owner intentionally includesZERO for proportional components; standalone medication rejects zero while shared component no-opszero. Do not invent a duplicate universal nonzero dose owner. Route and optional region can express topical versus whole-body distribution, but no policy proves every route requires one exclusive region shape. Preparation ID+profile version+route are resolved against canonical profile before direct insertion. Same f32 cutseverity, surgerycheck, immunity and residual acquisition are different quantities. record_committed_cut/standing expose raw severity with only <=0 guard, so NaN admission is API-level candidate only; actual incoming tactical bound proof059 separate.",
+          "remedy": "Reuse DoseMilliunits internally and canonical profile/version/route identity; typed variation record instead of positional(i16,u16). Named checked cutseverity/check ports and typed error classifications; admit at literal/storage/framework boundaries. Distinguish future-stop None from active clinical effect expiry.",
+          "acceptance": "Preserve patient-owned individual medication check, context consent, route validation, private variation replay, direct versus proportional component semantics, terminal-at-administration boundary and explicit nonfinite policy. No clinical treatment recommendation or actual malformed runtime claim."
+        },
+        {
+          "ranges": [
+            [
+              2394,
+              2625
+            ],
+            [
+              2708,
+              2950
+            ]
+          ],
+          "roles": "Development patient/curriculum fixture identities and staged histories; existing source/behavior tests.",
+          "disposition": "All scoped sources consumed. Staged dev literals and deletion loops are fixture setup, no permission to run destructive setup or claim acceptance from assertions. fixture_administrations child call2622 is source fixture setup only, no additional production type-contract dependency established.",
+          "remedy": "No implementation/test changes authorized.",
+          "acceptance": "No source execution or project checks performed."
+        },
+        {
+          "ranges": [
+            [
+              2627,
+              2706
+            ]
+          ],
+          "roles": "Herbalist service/custody, aligned item/quantity entries, ingredient versus medication kind, storefront stock and currency cost.",
+          "disposition": "Vec itemIDs plus quantities are a broad aligned product admitted at reducer boundary; quantities1..100 policy is distinct from medicineDose. Actual guard verifies alignment and stock, costloopandaddloop zip same vectors; individual medication/stack ingredient policy delegated to canonical item helper. Raw currency/item/settlement IDs can reuse canonical roles.",
+          "remedy": "Named PurchaseEntry collection with checked purchase count and item identity after ABI decode; retain existing stock/kind/profile owners and typed money, no genericquantityalias.",
+          "acceptance": "Preserve service/location/living authority and single kind-aware inventory addition per requested entry; no actual wrong stock/economic/runtime claim."
+        }
+      ]
+    },
+    {
+      "original": 1094,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/administration_adapter.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              27
+            ]
+          ],
+          "roles": "Persisted treatment -> canonical Administration adapter; ruleset/version, bounded DoseMilliunits, route/region/history/sensitivity/adverse roles.",
+          "disposition": "Dose admission at persistence boundary is appropriate; no redundantDose owner. Adapter retains unlike roles raw where canonical Administration also does, coordinate owner migration. Only ruleset validated here; not proof all profiles/routes/stops/variation are admitted. Canonical effect_at resolves missing profile/mismatchedroute to ZERO; ordinary direct producers validate profile/route, so no actual malformed row asserted.",
+          "remedy": "Reuse canonical validated administration construction/error classifications instead of duplicating policy in storage adapter; typed profile/version/variation roles where material.",
+          "acceptance": "Source boundary cannot silently reinterpret version/route/dose quantities, preserving unsupported-profile decision explicitly and actual zero-dose component semantics."
+        }
+      ]
+    },
+    {
+      "original": 1095,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/exposure_sources.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              77
+            ]
+          ],
+          "roles": "Outbreak vs scoped local-problem exposure source, disease identity, source clock window, mitigation/intensity and scoping policy.",
+          "disposition": "Named common source is useful shared numeric contract but scoped bool selects materially different receiving path1093:1246-1250. Actual source builders consistent; source ID/settlement/possiblewindow are different identities. intensity is exposure magnitude, not automatically probability<=1.",
+          "remedy": "Explicit community/scoped exposure policy or payload carrying canonical scoped source identity, canonical interval/magnitude roles; retain existing DiseaseId and UnitBasisPoints mitigation.",
+          "acceptance": "Source classifier cannot accidentally bypass scoped exposure windows; current policy/alias/runtime not established and no unsupported bound invented."
+        }
+      ]
+    },
+    {
+      "original": 1096,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/interval.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              53
+            ]
+          ],
+          "roles": "Disease event projection and actual ContactWindow intersection of pair presence and co-advance request.",
+          "disposition": "Distinct source presence start/end, participant starts/horizons and exclusive advancement start+1 preserved. Named ContactWindow is useful output; raw map keyu64 and endpoints carry association only by construction. Actual ordered boundaries guard start<=end before emission, so no invalid ordinary window asserted.",
+          "remedy": "Canonical character/clock interval mapping and named participant horizon; share invariant beneath meaningful presence/request roles, do not implement future universal ordered interval during discovery.",
+          "acceptance": "Preserve inclusive receiving interval with prior minute excluded and absent nonparticipant fallback; no whole acquisition algorithm proof from this adapter."
+        }
+      ]
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-022-receipt.json",
+        "sha256": "f458ef20c08ccdb0e8388ebcc7109ff5d0acde5015789e0fa1067fe3c42d3ac0"
+      },
+      "contract": "912core disease full3842, actual ContactWindow/acquisition timeline/episodes/events and privateclinical vs observer distinctions; retain all qualifications and no verdict transfer."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-035-receipt.json",
+        "sha256": "4a35c1a6afd6d6ebf7e63867b4b939fc63ae5d55011f0f8f0151be0c4e2dd1e2"
+      },
+      "contract": "964physiology full effective source via personal022+035 ranges, canonicalDose/Administration/MeterVector operations and terminal contracts; no universalUnitInterval."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-048-receipt.json",
+        "sha256": "45172eb33f46a6e35fe8c12f09f1b87fa6087f0e3029842e5421f6813eb6b2b1"
+      },
+      "contract": "1017time full860 actual disease plan/preview/clip/finish elapsed receiving graph; no new body reads invented."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-061-receipt.json",
+        "sha256": "1e26974b7e1795184974dca7f3ff4cd5094facd0c1717fab47d9ce7b8edbc633"
+      },
+      "contract": "1076capability full694 effective attributes/checks; lowering combat or skill check not movement-speed rule conflict."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-062-receipt.json",
+        "sha256": "6f38488e18bb19f933f1bf16e5dbbc23fc0f3691f006b1d1d810fe84ce3f9c29"
+      },
+      "contract": "1079full Character death/attributes/skill creators."
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "All inherited source/current/alias/capacity/clinical and other-lens qualifications retained.",
+    "No product/Git/rootledger/publication changes or project checks/tests/probes.",
+    "1195 only1280-1302,1735-1815,1919-1965 actually read: declaration and actual presence insertion ports, not full reset_familiarity body or close helper; no whole future ordered credit.",
+    "Source-accounting with findings does not assert full clinical/native algorithms or clinical/runtime outcomes; deeper unchanged native traversal would not change this lens disposition."
+  ]
+}

@@ -1,0 +1,20 @@
+--- base
++++ frozen-head
+@@ -5,7 +5,7 @@
+ 
+ use adventuresim_building_generator::signs::ShopName;
+ use adventuresim_core::weather::{WORLD_WEATHER_SEED, weather_at};
+-use adventuresim_tactical_core::prelude::*;
++use adventuresim_tactical_core::{prelude::*, scene_coordinates::ScenePlanPoint};
+ use adventuresim_terrain::TerrainPack;
+ #[cfg(test)]
+ use adventuresim_terrain::{Cell, Surface};
+@@ -256,7 +256,7 @@
+     let surface = geological_landforms::mapped_fault_surface(
+         terrain_features,
+         center,
+-        Vec2::new(origin_cm[0] as f32, origin_cm[1] as f32) / 100.0,
++        ScenePlanPoint::from_metres(Vec2::new(origin_cm[0] as f32, origin_cm[1] as f32) / 100.0)?,
+         f64::from(SCARP_DEFAULT_HALF_LENGTH_CM.max(SCARP_DEFAULT_HALF_WIDTH_CM)) / 100.0,
+         seed,
+         tangent_permyriad,

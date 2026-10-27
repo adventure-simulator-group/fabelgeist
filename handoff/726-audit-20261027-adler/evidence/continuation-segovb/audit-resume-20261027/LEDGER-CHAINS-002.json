@@ -1,0 +1,109 @@
+{
+  "at": "2026-10-27T17:14:36.634717+00:00",
+  "kind": "Additive connected discovery ledger entries from already root-adopted source packets",
+  "entries": {
+    "CONT-IMMEDIATE-ACTIVITY-ELAPSED-NORMALIZATION": {
+      "status": "source-backed discovery candidate WITH findings; current/alias/exact finalrepairdecision/runtime acceptance pending",
+      "accepted_unique_count_change": 0,
+      "current_reconciled": false,
+      "validated": false,
+      "source_lenses": [
+        13
+      ],
+      "evidence": [
+        "audit-resume-20261027/lens13/batch-195-197-receipt.json",
+        "audit-resume-20261027/lens13/batch-198-receipt.json",
+        "audit-resume-20261027/ADOPTION-061.json"
+      ],
+      "source_chain": [
+        "physical-P16 time/activities.rs original304 perform_immediate_activity builds one-hour effective schedule and passes MINUTES_PER_DAY as apply_training elapsed normalization",
+        "time/schedule.rs original311 apply_training scales schedule allocations by elapsed/day",
+        "same311 ambient oral language branch independently uses elapsed/60 * 2/3 times language coefficient"
+      ],
+      "failed_contract": "One argument carries both schedule-normalization basis and actual elapsed duration. A one-hour activity passes1440minutes, allowing ambient language16hours instead of40minutes before coefficient/cap. Positive below-cap canonical inputs suffice for conditional source case.",
+      "reachability": "Actual frozen caller and full receiver source read; current main and executed gameplay outcome unproved. Reward preview scaled accumulator was separately ruled coherent, not this defect.",
+      "repair_contract": "Separate actual elapsed interval from schedule normalization at the canonical training owner. Admit a named execution/training allocation over its real duration; derive all ambient and scheduled learning from that execution contract. Preserve intended ambient exposure policy, remove day-sized surrogate time from elapsed APIs. Trace every apply_training caller, actual clock advancement, convalescence allocation and cap adapter as one repair.",
+      "function_ownership": [
+        "perform_immediate_activity",
+        "apply_training",
+        "ambient oral-language exposure",
+        "all actual schedule/training time adapters"
+      ],
+      "dependencies": [
+        "Canonical elapsed/time allocation owners and language hours/cap authority",
+        "Existing schedule raw-propagation/elapsed/training findings; exact aliases pending"
+      ],
+      "acceptance_contract": "A valid one-hour action consumes one hour of personal time and contributes at most its actual policy-weighted exposure; splitting equivalent elapsed intervals does not multiply ambient exposure. Daily schedule normalization and rest/travel/convalescence callers use the same admitted duration contract. Source/current reconciliation before execution."
+    },
+    "CONT-WEDDING-CAPACITY-POSTWRITE-ERROR": {
+      "status": "source-backed discovery candidate WITH findings; current/alias/exact finalrepairdecision/runtime acceptance pending",
+      "accepted_unique_count_change": 0,
+      "current_reconciled": false,
+      "validated": false,
+      "source_lenses": [
+        11
+      ],
+      "evidence": [
+        "audit-resume-20261027/lens11/batch-093-receipt.json",
+        "audit-resume-20261027/ADOPTION-062.json"
+      ],
+      "source_chain": [
+        "PR relationship/marriage.rs original1160 credits dowry191\u2013197, inserts household199\u2013205 and joins211\u2013217 after claiming fallible preflight complete189",
+        "move_residence_occupant_at218\u2013223 \u2192 residence1180 \u2192 occupancy1183 admit \u2192 properties1184 require_property_room_at returns capacityErr306\u2013307",
+        "relationship/mod.rs original1161 catches every wedding String error105\u2013123 and cancels ResidenceUnavailable instead of propagating commit failure"
+      ],
+      "failed_contract": "A fallible admission still occurs after earlier effects, while outer catchall converts any failure into a handled cancellation. Expected rejection and unexpected commit failure share String and can retain partial preparations.",
+      "reachability": "Connected actual frozen writes and capacity Result source proved; populated full-property transaction outcome/current activation not executed or asserted.",
+      "repair_contract": "Canonical prepared wedding admits all expected capacity, participant, money and residence effects before the first write, then commits a coherent transition. Distinguish typed expected preflight rejection from unexpected commit failure; propagate unexpected failure through the transaction boundary. Reuse admitted commitment/marriage states and authoritative occupancy/currency owners.",
+      "function_ownership": [
+        "settle_due_weddings",
+        "wedding settlement operation",
+        "move_residence_occupant_at",
+        "occupancy admission/capacity preflight",
+        "dowry escrow transition"
+      ],
+      "dependencies": [
+        "Canonical effective-dated occupancy/capacity and wedding commitment lifecycle",
+        "Dowry money/household/kinship associations and transaction error ownership",
+        "Optional newborn housing has deliberate separate failure policy and is not an exact alias"
+      ],
+      "acceptance_contract": "Capacity rejection publishes the intended cancelled wedding state with no unintended dowry or household preparation; successful settlement conserves escrow and binds all parties to the admitted residence/household. Unexpected commit failure aborts coherently, never becomes ResidenceUnavailable merely through String catchall."
+    },
+    "CONT-CONTACT-REVISION-DURATION-AUTHORITY": {
+      "status": "source-backed discovery candidate WITH findings; current/alias/exact finalrepairdecision/runtime acceptance pending",
+      "accepted_unique_count_change": 0,
+      "current_reconciled": false,
+      "validated": false,
+      "source_lenses": [
+        13
+      ],
+      "evidence": [
+        "audit-resume-20261027/lens13/batch-199-200-receipt.json",
+        "audit-resume-20261027/lens13/METADATA-QUALIFICATION-020.json",
+        "audit-resume-20261027/lens13/METADATA-QUALIFICATION-021.json",
+        "audit-resume-20261027/ADOPTION-061.json"
+      ],
+      "source_chain": [
+        "physical-P16 world_actor.rs original317 contact_context_character uses CaseSite/HostileGroup membership.revision as current_revision",
+        "successful contact writes separate PartyContextContactAuthority resulting revision, leaving membership revision unchanged",
+        "fresh actionID can reuse same membership revision and call physical social.rs original260 apply_async_socializing(...10), actual1625\u20131690 updates directed affinity and familiarity without advancing personal time"
+      ],
+      "failed_contract": "Retry identity protects exact same action replay, while independent revision/cadence authority permits fresh requests at unchanged context revision to repeatedly grant a virtual duration. Intended repeat-contact policy needs a canonical authority.",
+      "reachability": "Conditional authorized co-present Allowed contact source case with actual consumer bodies; no live exploit/runtime/current/accepted unique claim.",
+      "repair_contract": "Choose and encode explicit first/repeat contact duration and cadence policy at one canonical contact transition. Bind expected revision to the authority that actually advances, and bind social effects to admitted actual elapsed or explicit policy event so fresh request IDs cannot manufacture duration. Preserve exact retry association and distinct directed affinity versus shared familiarity.",
+      "function_ownership": [
+        "contact_context_character",
+        "PartyContextContactAuthority revision owner",
+        "context membership revision owner",
+        "apply_async_socializing contact adapter"
+      ],
+      "dependencies": [
+        "Canonical contact/action identity/replay and chronology owners",
+        "Existing social cooldown/familiarity/time and context membership authority findings; exact aliases pending"
+      ],
+      "acceptance_contract": "Repeating or retrying a supported contact obeys the decided cadence, revision and time policy. Same request is idempotent; fresh request at an unchanged authority cannot grant arbitrary elapsed social effects. Context changes and separate affinity/familiarity ownership stay explicit."
+    }
+  },
+  "accepted_unique_count_change": 0,
+  "implementation_gate_complete": false
+}

@@ -1,0 +1,75 @@
+{
+  "at": "2026-10-27T04:26:50.229827+00:00",
+  "finding": "M04",
+  "base": "35b18ec280a6884bb53996a2d859c4b27096f65c",
+  "source_pins": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "lines": 113
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "lines": 192
+    },
+    {
+      "path": "crates/adventuresim-core/AGENTS.md",
+      "sha256": "7d2a3dd7507a8405fded5577a7f406273ab835389b52b189415d0878c39d8a73",
+      "lines": 9
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/AGENTS.md",
+      "sha256": "b3fd110d97bc871853458c38282d3d4c18369b6d0647e96e0de6d0641dca61c8",
+      "lines": 17
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "db3686060ebd8ce533fe48c88685c5643b024b8a92b2b617d97481196988f3e0",
+      "lines": 178
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+      "lines": 58
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+      "lines": 267
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "sha256": "61864d871215d4140f142c121202374b5a8e3434504d459b29e97d7e0a889033",
+      "lines": 207
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "2bdf24f3de20d1901bfc475d799d3a07781d9c5e22733caaea0d2365250edd0f",
+      "lines": 522
+    }
+  ],
+  "canonical_owners": "core UnitInterval; NonnegativeSpeed and CycleDelta remain distinct output units",
+  "connected_scope": [
+    "NonnegativeSpeed.checked_lerp exacttwo production callers: locomotion_profile and tactical_jog_speed",
+    "CycleDelta.checked_lerp exactone caller: locomotion_profile",
+    "ShapingTime.checked_lerp alreadyUnitInterval, no change",
+    "UnitInterval.from_fraction/fraction actualbody read; no owner duplicate/new forwarding API"
+  ],
+  "implementation_plan": [
+    "Accept UnitInterval in both interpolation methods and extract only at arithmetic boundary",
+    "Admit clamped run once; reuse for speed/cycle/flight, compare withUnitInterval.HALF; complementary bounce fraction is distinct producer arithmetic/admission",
+    "Admit clamped smooth endurance once; keep polynomial/lerp arithmetic order, clamp computed interpolant to its intended unit domain beforeadmission",
+    "Carry FractionError through owning SpeedError with derived structured error source; no string erasure or legacy overload"
+  ],
+  "acceptance": [
+    "Every existing interpolation producer/caller uses canonical admittedUnitInterval",
+    "No oldrawf32 overload/compatibilityshim; no newtests/cases/helpers/assertions/doctests or localprojectchecks",
+    "Complete scoped13 source audits +independent Code/Rule/Commentreviews and requiredsamehead hostedCI before ready",
+    "No YAML tuning parameter or gameplay penalty introduced; broadM03/runtime calibration remains mandatory separate finding"
+  ],
+  "M09_dependency_preflight": "Current M09 rawenum/histogram paths still exist. Complete armor grouping must reconcile generic tactical catalogue-key namespace versus canonical CatalogItem admission/M07 and optional strategic inventory IDs; no narrow partial implementation or inventedduplicateowner accepted. M09 remains mandatory pendingdependency/source reconciliation.",
+  "source_complete": false,
+  "validated": false,
+  "global_clearance": false
+}

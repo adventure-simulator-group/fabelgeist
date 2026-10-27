@@ -1,0 +1,121 @@
+{
+  "at": "2026-10-27T01:13:53.141746+00:00",
+  "lens": 13,
+  "packet": "019",
+  "extension_of": "audit13-successor-registration-019.json",
+  "sources": [
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/components.rs",
+      "sha256": "e2053ee2dbf1a837b1a4e80d2d2afa22c0ecc2231bf586041222082971b9cbea",
+      "bytes": 5033,
+      "actual_lines": 193,
+      "ranges": [
+        [
+          129,
+          148
+        ]
+      ],
+      "purpose": "Rust InstanceUniforms layout/defaultconversion toshader schema",
+      "body_consumed_at_registration": false,
+      "role": "receiver only, no independent original role credit",
+      "provenance": "Exact known frozenoriginal/native1a5aff supplementary staged objects; prior011/012/015/016 source provenance retained, not blanket unseen frozenidentity"
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/mod.rs",
+      "sha256": "7b8be56d6f6ea9285176e55efb88de7bcb8a15df4cdca7619d3038a92de56092",
+      "bytes": 10975,
+      "actual_lines": 340,
+      "ranges": [
+        [
+          118,
+          225
+        ]
+      ],
+      "purpose": "Actual transform/AABB/previousmatrix uniformproducer andretainedinput",
+      "body_consumed_at_registration": false,
+      "role": "receiver only, no independent original role credit",
+      "provenance": "Exact known frozenoriginal/native1a5aff supplementary staged objects; prior011/012/015/016 source provenance retained, not blanket unseen frozenidentity"
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/batcher.rs",
+      "sha256": "2d86931db56a5e517f84b400fb9e5a15968d553b5e543da880d12d6193920b84",
+      "bytes": 3927,
+      "actual_lines": 118,
+      "ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "purpose": "Actual batch uniformretention/upload dispatch",
+      "body_consumed_at_registration": false,
+      "role": "receiver only, no independent original role credit",
+      "provenance": "Exact known frozenoriginal/native1a5aff supplementary staged objects; prior011/012/015/016 source provenance retained, not blanket unseen frozenidentity"
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/bindings.wgsl",
+      "sha256": "8fdf638edbf13ddc04a1a8392f3b873ec730f86f085522de471108c623ac129b",
+      "bytes": 275,
+      "actual_lines": 6,
+      "ranges": [
+        [
+          1,
+          6
+        ]
+      ],
+      "purpose": "Actual storage/uniform binding recipients",
+      "body_consumed_at_registration": false,
+      "role": "receiver only, no independent original role credit",
+      "provenance": "Exact known frozenoriginal/native1a5aff supplementary staged objects; prior011/012/015/016 source provenance retained, not blanket unseen frozenidentity"
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/compute.wgsl",
+      "sha256": "246690e6a0c32e6055ac10b318925eb4eeff64b41f025d345a3f84cd839608e2",
+      "bytes": 1775,
+      "actual_lines": 55,
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "purpose": "Actual AABB/world/visibility receiving body",
+      "body_consumed_at_registration": false,
+      "role": "receiver only, no independent original role credit",
+      "provenance": "Exact known frozenoriginal/native1a5aff supplementary staged objects; prior011/012/015/016 source provenance retained, not blanket unseen frozenidentity"
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/mesh.wgsl",
+      "sha256": "bb8dc8d197bfd558464608bb447dc4224e67c0488e695270f44e1656c9c8fa70",
+      "bytes": 1494,
+      "actual_lines": 60,
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "purpose": "Actual default vertex currentworld/visibility use",
+      "body_consumed_at_registration": false,
+      "role": "receiver only, no independent original role credit",
+      "provenance": "Exact known frozenoriginal/native1a5aff supplementary staged objects; prior011/012/015/016 source provenance retained, not blanket unseen frozenidentity"
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/shading.wgsl",
+      "sha256": "965586e6cee62b7fe7623cafbd9a173ce271c14cd982466b73eb69a718dca6e9",
+      "bytes": 531,
+      "actual_lines": 21,
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "purpose": "Actual debugcolor conditional andnormal batchcolor fragmentreceivers",
+      "body_consumed_at_registration": false,
+      "role": "receiver only, no independent original role credit",
+      "provenance": "Exact known frozenoriginal/native1a5aff supplementary staged objects; prior011/012/015/016 source provenance retained, not blanket unseen frozenidentity"
+    }
+  ],
+  "scope_limits": "Materially reached original37 producer/retainedstate/operation/receiver trace only. Do not independentlyassess38 until37sourceaccounted; no wholeSDK/render/applicationguarantees."
+}

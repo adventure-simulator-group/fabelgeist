@@ -1,0 +1,98 @@
+{
+  "registry_snapshot": "registry-192.json",
+  "registry_sha256": "8afe49cf6220f57c71de14e01c389f9f6ad686e6e3855fc4978ae622bc0f0116",
+  "members": [
+    {
+      "material_index": 190,
+      "registration": {
+        "source_id": "native-support:http-1.5.0/src/uri/path.rs#scan-classification",
+        "sha256": "d69c30a915c83bb99f956da92d9a3cc16b754da43d1e940bd750676e9a7a5c7f",
+        "revision": "Cargo.lock pinned http1.5.0",
+        "archive_checksum": "918d3568bebf352712bc2ef3d46a8bcf1a75b373be6539de198e9105cbbf9ce0",
+        "ranges": [
+          [
+            412,
+            465
+          ]
+        ],
+        "actual_EOF": 709,
+        "object": "source-objects/d69c30a915c83bb99f956da92d9a3cc16b754da43d1e940bd750676e9a7a5c7f",
+        "registration_evidence": "registration-014.json",
+        "reason": "Exact classification maps/constants referenced by registered URI scanner; needed to establish literal fragment acceptance. Additive bounded dependency, no whole file.",
+        "prior_reads": "05 declaration names/span navigation only; table values/build bodies not consumed. Coordinator hash/prefix metadata only.",
+        "lenses": {
+          "producer-propagation": "New bounded native classification contract pending independent reconciliation; no transferred coverage.",
+          "existing-type-owners": "New bounded native classification contract pending independent reconciliation; no transferred coverage.",
+          "admission-contracts": "New bounded native classification contract pending independent reconciliation; no transferred coverage.",
+          "invariant-operations": "New bounded native classification contract pending independent reconciliation; no transferred coverage.",
+          "aggregate-states": "New bounded native classification contract pending independent reconciliation; no transferred coverage.",
+          "type-ownership": "New bounded native classification contract pending independent reconciliation; no transferred coverage.",
+          "redundant-authority": "New bounded native classification contract pending independent reconciliation; no transferred coverage.",
+          "behavior-preservation": "New bounded native classification contract pending independent reconciliation; no transferred coverage.",
+          "enum-shapes": "New bounded native classification contract pending independent reconciliation; no transferred coverage.",
+          "derivability": "New bounded native classification contract pending independent reconciliation; no transferred coverage.",
+          "type-granularity": "New bounded native classification contract pending independent reconciliation; no transferred coverage.",
+          "magic-strings": "New bounded native classification contract pending independent reconciliation; no transferred coverage.",
+          "magic-numbers": "New bounded native classification contract pending independent reconciliation; no transferred coverage."
+        },
+        "status": "Prospective exact table/constants range; no transferred verdict or source coverage."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          412,
+          465
+        ]
+      ],
+      "disposition": "Personally read literal byte classification constants and both build maps412-465: ? is query, # is fragment in PATH_MAP and # is fragment in QUERY_MAP. Combined with independently read M188/189, this proves the short literal-fragment input reaches the parser fragment truncation, rather than native rejection. Aggregate raw-source versus parsed-copy identities remain separate; no whole parser/authority/runtime verdict."
+    },
+    {
+      "material_index": 191,
+      "registration": {
+        "source_id": "native-support:http-1.5.0/src/uri/mod.rs#maximum-length",
+        "sha256": "adf4235a0d72b03ca71582f4acab50fff8a146f2b92517a227806d372300186b",
+        "revision": "Cargo.lock pinned http1.5.0",
+        "archive_checksum": "918d3568bebf352712bc2ef3d46a8bcf1a75b373be6539de198e9105cbbf9ce0",
+        "ranges": [
+          [
+            145,
+            145
+          ]
+        ],
+        "actual_EOF": 1132,
+        "object": "source-objects/adf4235a0d72b03ca71582f4acab50fff8a146f2b92517a227806d372300186b",
+        "registration_evidence": "registration-015.json",
+        "reason": "Exact MAX_LEN bound directly used by registered Uri/PathAndQuery constructors; necessary for concrete short fragment witness admission, not whole SDK.",
+        "prior_reads": "05 declaration locator only; constant value notconsumed. Coordinator hash/metadata only.",
+        "lenses": {
+          "producer-propagation": "New single-constant dependency pending independent lens reconciliation; no transferred coverage.",
+          "existing-type-owners": "New single-constant dependency pending independent lens reconciliation; no transferred coverage.",
+          "admission-contracts": "New single-constant dependency pending independent lens reconciliation; no transferred coverage.",
+          "invariant-operations": "New single-constant dependency pending independent lens reconciliation; no transferred coverage.",
+          "aggregate-states": "New single-constant dependency pending independent lens reconciliation; no transferred coverage.",
+          "type-ownership": "New single-constant dependency pending independent lens reconciliation; no transferred coverage.",
+          "redundant-authority": "New single-constant dependency pending independent lens reconciliation; no transferred coverage.",
+          "behavior-preservation": "New single-constant dependency pending independent lens reconciliation; no transferred coverage.",
+          "enum-shapes": "New single-constant dependency pending independent lens reconciliation; no transferred coverage.",
+          "derivability": "New single-constant dependency pending independent lens reconciliation; no transferred coverage.",
+          "type-granularity": "New single-constant dependency pending independent lens reconciliation; no transferred coverage.",
+          "magic-strings": "New single-constant dependency pending independent lens reconciliation; no transferred coverage.",
+          "magic-numbers": "New single-constant dependency pending independent lens reconciliation; no transferred coverage."
+        },
+        "status": "Prospective single nativeconstant; no otherbody/coverage credit."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          145,
+          145
+        ]
+      ],
+      "disposition": "Personally read exact MAX_LEN145: (u16::MAX - 1) as usize =65534. Concrete /locations/camp#party is21 ASCII bytes, below bound; together with M188/189/190 this removes native length admission qualification for this concrete witness only. No arbitrary length/full parser/index-safety or runtime clearance."
+    }
+  ],
+  "first_unfinished_material_index": null,
+  "new_findings": [],
+  "qualification": "later-material/materials190-191-qualification-001.json",
+  "full_lens_clearance": false
+}

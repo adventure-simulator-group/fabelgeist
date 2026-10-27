@@ -1,0 +1,71 @@
+{
+  "at": "2026-10-26T20:29:02.826632+00:00",
+  "base": "961d226be23a81d9731a11958d62fe8a04b93e81",
+  "phase": "Initial exhaustive scoped enum/derive pass before semantic repair",
+  "source_pins": [
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "d225e430430ae842eb2b27a62da4e320547fbc9f07b67d0209b2579e3614896d"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "78737ed29bb25ecca79c079f6676afa0719fa8bfe65a9051b56536de280cfd63"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "642bfa7f9d9068c957e4f935600c0ab1eba0c91092060606392f9aa481dc9ad6"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "f795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "1c55bd7318aad5de90e1269947be86e50e89d12439d37c0bba301f30d05a7668"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "10387cbd21a9e79c1f7cac87677c5eb870460659e1c67ba5ac1f548d13b2d193"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "sha256": "8cb7511310b96d6e799dd584a3a6f64270c73ee3abbb50a7f730831938ef2fcf"
+    }
+  ],
+  "inventory": [
+    {
+      "role": "WgpuContext blocking_validation + pipeline policy parameter",
+      "trace": "from_parts false; owned open !wasm; clone retained; pipeline default directdevice true; compile copiescontextfield; shader/2dconstructor/fastpath use bool.then scope; ValidationScope::new same bool; wholeviews use pairedScope.finish",
+      "disposition": "One shared ValidationObservation::{BlockingScopes,Uncaptured}; carry throughcontext/publicpipelineparam/default/allactualconsumers, native start_scope adapter supplies Option<SDKguard>. Browsercfg doesnot synchronously observe."
+    },
+    {
+      "role": "Ownership/platform/presentation",
+      "trace": "Borrowed andbrowserowned same uncaptured policy. Nativecompute headless butblocking; nativepresentation blitterSome yetsurfaceNone. Device/adapter/queue usedindependentlyofobservation. Presentation argument/canvas/surface/blitter/lock are separateaxis fromvalidation.",
+      "disposition": "No invented thirdpolicy state or reuseofpolicy forpresentation. Do not movealwaysneededdevice intoonlyblockingvariant. Scopealreadyownsactualdevice+guard;progressalreadyrequiredpoll+optionalnative independentobservation."
+    },
+    {
+      "role": "ValidationScopeError Display/Error",
+      "disposition": "Mechanical delegation/immediatecause projection; derive_more Display/Error explicit sourcefields preservesunboxed immediatecauses. Do not use transparent Error delegation thatskipslayer."
+    },
+    {
+      "role": "TextureViewError Display",
+      "disposition": "Derive_more Display with exactexistingtemplates; mechanical presentationonly."
+    },
+    {
+      "role": "TextureViewError source",
+      "disposition": "Retain manual immediateinnercause.as_ref(); actualnative macro AsDynError on Box would exposeBox errorasdynamicvalue andalterdowncasts. Progress separatearm becauseBox<ValidationProgressError> differsfromBox<wgpu::Error>; cannotor-bindtypes. Sourceimplementation necessarycontractprojection,documentrationale."
+    },
+    {
+      "role": "ValidationProgressError Display/source",
+      "disposition": "Retain conditional suffix and native-priority/pollfallbacksource; not simplefielddelegation. No newhelper/serialize tosimulateequivalentderive."
+    }
+  ],
+  "acceptance": [
+    "Allcurrent boolconsumers migrated no compatibilityalias/primitiveadapter betweenapplicationAPIs",
+    "Existingborrowed testassertions mechanicallyselectenum; no addedtest/case/helper/assertion/doctest",
+    "IndependentaffectedCode/Rule/Comment review plus requiredhostedchecks onfinalrevision",
+    "PublishreviewfixcommittoexistingPR; stopagainforuserreview; no merge/newstack"
+  ],
+  "source_limits": "Scopedreview only; no globalall13/familyclearance, frozenauditfrontiersunchanged; prior961CIhistoricalafterchange",
+  "local_project_execution": false
+}

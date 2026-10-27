@@ -1,0 +1,200 @@
+{
+  "kind": "INITIAL_ALL13_CONNECTED_SHOOT_IDENTITY_DISCOVERY",
+  "head": "0dcca06bdab7f5aea543dd0ce49829156f75de36",
+  "scope": "Connected shoot identity family only; broader preserved CI batch remains separately pending review. Source navigation does not count whole-file audit coverage.",
+  "paths": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry.rs",
+      "sha256": "07ca0c32d3efa1bfee78bcf7c4e3a48c1a09b563519446793b09be9c1582d666"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves.rs",
+      "sha256": "c47a14c6ada04f5f80c476dae5e16fb28dbc5c4b34b9cb6a098a4a2d37e59567"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/identity.rs",
+      "sha256": "e57c4e4cb44c82dc7ab0c8fe5fc4a8b85a1b29ae1c857551c18109b418de88d7"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/arrangement.rs",
+      "sha256": "16e43f82ef10e80570e1a742bc302d72fc23eb2c2293b8300c5ca652cc2a656d"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/selection.rs",
+      "sha256": "a01ecfebb9837e6abc2b46941f50ec94710f30e93bbf0395eed65f47ca5ad40c"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/streams.rs",
+      "sha256": "c201bb426e3e9846eb5b017867812cbd86fdb1088adadd29690bddc6ff8598f9"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs",
+      "sha256": "01e01e3d4c8c4c8a5d0b5d91248c5b715bbfdb40722c4f36ed15395b95a35683"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/growth_axes.rs",
+      "sha256": "6e61b607878f8e70160e9a63cb75f65b52faf8332fdfa148f7262c6321e7e76f"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_plan.rs",
+      "sha256": "8ed183b6e87bf3e20eee0d8d2bfd5ec5f08c3cfcc5a3352bd4005ce62643922b"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/streams.rs",
+      "sha256": "0d8665bffe65c04fdc695d187ef0a3b91071e714eecf1e46e526af46d2738df7"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/mod.rs",
+      "sha256": "a5be53779c35911a24e8f805100790bd979c1dba323e219abe813ff70b84c5b3"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/mod.rs",
+      "sha256": "30d5e6301edce9013871f2322401b5a982a0a0cdd70aa556bc1404b1452a3c8f"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs",
+      "sha256": "8db4759e9a614693ef9872becdfa1d52e101b8f98738f982e14200c744401a69"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/raster.rs",
+      "sha256": "52b167554bc07998aec0c2de3e979b185404fab3f62e64ccb334f688b3d6dcb7"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/wood_mesh.rs",
+      "sha256": "c8bdedf818c892264ac85842e75ecf1d4759466c1f76f89744d3041d12521f7c"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/weather/occlusion.rs",
+      "sha256": "5d2644ab73944ec770aff90913a9d15f9e76e336437b5d9654b40f66affee7ad"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/specimens.rs",
+      "sha256": "fc7ff2bd7a82b647f3d159373a29f47dbed689557c87cfddb5d3a0233a064beb"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/understory.rs",
+      "sha256": "8ca16b3e780bcae3499b74af9ddc8e81b9f4b58ed76adc82d313839f0c99ec8f"
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "producer-propagation",
+      "source_trace": "Four terminal producers own stable purpose-derived seeds; carry identity through stored terminal branch, leaves, sampling and specimen selection. Native positions cannot identify shoots.",
+      "discovery": "complete within stated identity contract",
+      "repair": "pending",
+      "hosted_validation": "pending"
+    },
+    {
+      "lens": "existing-type-owners",
+      "source_trace": "Seed owns deterministic derivation; no existing shoot-specific owner. Reuse Seed, introduce one opaque shoot ID at existing identity owner.",
+      "discovery": "complete within stated identity contract",
+      "repair": "pending",
+      "hosted_validation": "pending"
+    },
+    {
+      "lens": "admission-contracts",
+      "source_trace": "Only actual terminal shoot producers attach an ID; ordinary axes have no foliage. No decoded/public admission or compatibility fallback.",
+      "discovery": "complete within stated identity contract",
+      "repair": "pending",
+      "hosted_validation": "pending"
+    },
+    {
+      "lens": "invariant-operations",
+      "source_trace": "Retain native geometry and per-purpose RNG arithmetic. Identity derives from seed before numerical geometry; append copies it only to final segment.",
+      "discovery": "complete within stated identity contract",
+      "repair": "pending",
+      "hosted_validation": "pending"
+    },
+    {
+      "lens": "aggregate-states",
+      "source_trace": "Foliage membership and shoot identity share Option<TreeShootId>; remove consumer reconstruction from depth and coordinates. Wood curve termination remains independent.",
+      "discovery": "complete within stated identity contract",
+      "repair": "pending",
+      "hosted_validation": "pending"
+    },
+    {
+      "lens": "type-ownership",
+      "source_trace": "Identity belongs to existing tree geometry leaf identity module; skeleton producer and all leaf consumers import one owner.",
+      "discovery": "complete within stated identity contract",
+      "repair": "pending",
+      "hosted_validation": "pending"
+    },
+    {
+      "lens": "redundant-authority",
+      "source_trace": "Remove coordinate-derived shoot_identity API entirely. No second ID/count/cache authority; geometry fingerprints remain native boundary and must consume ID losslessly.",
+      "discovery": "complete within stated identity contract",
+      "repair": "pending",
+      "hosted_validation": "pending"
+    },
+    {
+      "lens": "behavior-preservation",
+      "source_trace": "Intentional random realization change: old native float bits salted leaf RNG. Shoot counts, wood positions, leaf ordinal/counts, card arithmetic and draw purposes remain. Existing snapshot/envelope/assets require hosted regeneration and acceptance.",
+      "discovery": "complete within stated identity contract",
+      "repair": "pending",
+      "hosted_validation": "pending"
+    },
+    {
+      "lens": "enum-shapes",
+      "source_trace": "Some shoot identity means foliage-bearing terminal segment; None means no leaf flush. Do not add a Boolean plus optional identity. is_limb_tip retained solely for wood curve geometry.",
+      "discovery": "complete within stated identity contract",
+      "repair": "pending",
+      "hosted_validation": "pending"
+    },
+    {
+      "lens": "derivability",
+      "source_trace": "Identity equality/order/hash/copy/debug are word semantics and derive directly. Seed derivation and native RNG/hash adaptation remain explicit.",
+      "discovery": "complete within stated identity contract",
+      "repair": "pending",
+      "hosted_validation": "pending"
+    },
+    {
+      "lens": "type-granularity",
+      "source_trace": "Distinguish shoot identity from source seed and grouping indices; no per-branch or root identity needed. Existing groups are not unique per shoot.",
+      "discovery": "complete within stated identity contract",
+      "repair": "pending",
+      "hosted_validation": "pending"
+    },
+    {
+      "lens": "magic-strings",
+      "source_trace": "Reuse exact existing visual.tree.shoot-identity purpose in its sole owner. No prose branching or wire changes.",
+      "discovery": "complete within stated identity contract",
+      "repair": "pending",
+      "hosted_validation": "pending"
+    },
+    {
+      "lens": "magic-numbers",
+      "source_trace": "Eliminate f32 bit fields from identity. u64 confined to opaque ID and native hash boundary. Existing numeric fixtures adapt to checked owner without new cases/assertions.",
+      "discovery": "complete within stated identity contract",
+      "repair": "pending",
+      "hosted_validation": "pending"
+    }
+  ],
+  "acceptance": [
+    "Existing shrub population/reorder, tree leaf/sampling, specimen envelope and retained scene checks pass on hosted Linux",
+    "Existing exporter regenerates envelope/assets with provenance; no platform-specific expectations or weakened assertions",
+    "Independent Code/Rule/Comment and fresh scoped all13 source reviews",
+    "Full hosted quality run accepted before merge checkpoint"
+  ],
+  "limits": [
+    "Observed platform count difference alone does not prove every geometry failure is caused by IDs",
+    "No full #774 lens/global clearance",
+    "No local project execution",
+    "No new tests/cases/assertions/helpers"
+  ],
+  "connected_module_adjustment": {
+    "reason": "Oak producer propagation expands a preexisting oversized function/file; move its already cohesive oak-root append loop to existing root_plan module without changing arithmetic/order.",
+    "source": "skeleton.rs root append block already read; root_plan.rs is already in inventory",
+    "new_tests": "none",
+    "checks": "hosted no-growth baseline may only decrease"
+  },
+  "hosted_export_extension": {
+    "path": ".github\\workflows\\rust-quality.yml",
+    "contract": "Manual opt-in fixture regeneration invokes only existing exporter/tests, uploads source revision and generated assets; ordinary PR/push quality jobs remain mandatory. Export job is not an acceptance verdict.",
+    "source_owners": [
+      "Existing managed_hazel_matches_shared_envelope export mode",
+      "Existing ignored regenerate_art_demo_tree_impostors",
+      "Existing understory and leaves cases"
+    ],
+    "review": "pending"
+  }
+}

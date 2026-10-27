@@ -1,0 +1,103 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-011",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1485,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation_tests.rs",
+      "sha256": "8acbe54a829e4f8c3f5e3d2fc5b4efe91415a6ebf0ea601ed3d98c46f410d6e6",
+      "ranges": [
+        [
+          1,
+          394
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Existing generation fixtures are test functions and setup/assertion helpers only; no handwritten traits or codecs, including emptybody/cache/key/material constructors. They exercise live readiness/failure, hold/drop/newwearer association and cacheeviction rather than defining publicconstruction semantics.",
+      "disposition": "No derive opportunity. Do not replace contextualfixturebuilders by newFrom or addserialization; keep existingcases/assertions unchanged. Read-onlyexistingfixtures provide sourcecontext, no execution/acceptanceclearance and no newtests.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1486,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers.rs",
+      "sha256": "f57dcb58da364002292182c580ca197bfaa3ad85fc820f2dc6ce95d078b25dc0",
+      "ranges": [
+        [
+          1,
+          193
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "LayerSelection derives Clone/Copy/Debug. Handwritten From<CatalogPlacement<'static>> constructs Self{selection} directly; existing tactical-client derive_more2.1.1 has from feature enabled. Manual PartialEq/Eq/Hash/PartialOrd/Ord deliberately project lexical(itemID,placementID) through key(), preserving cachevalueidentity independent of fullcatalogrecords. OutfitPlan/FitKey/cache impls are semantic inherentadmission/dependency planning.",
+      "disposition": "Concrete mechanicalderive candidate: add derive_more::From to LayerSelection and remove only directFrom<CatalogPlacement<'static>> impl; pinned derive_more From onefieldnamed expansion retains same input/lifetime/output/publictraitmethod and infallibleconstruction. Keep semantickey equality/hash/order manual: deriving fromCatalogPlacement couldchange bounds or compare additionalcatalogdata. Keep OutfitPlan admission/support ordering explicit. Candidate pending sharedremedy dedup, no globallyunique count asserted.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1487,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers_tests.rs",
+      "sha256": "3ffe851b3adc14ac721684061b3d858a69bdf83e8114530b5f8c2639cda5dcdd",
+      "ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Existing layer fixtures are selection/key helpers and two runtimedependency/order/failure tests, with no handwritten trait or codec. Values use actualadmittedLayerSelection and productionFitKey/OutfitPlan.",
+      "disposition": "No derive opportunity in fixturefile; preservecases verifying semanticlexicalkey/supportrules when directFrom derive candidate1486 is integrated. No addedtests/assertions or execution.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1488,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/mesh_tests.rs",
+      "sha256": "469e30265983c8cf91c3a69cd688876287af3f9ba0efb71f2800256415e23933",
+      "ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Existing meshfixture builds actualGeneratedArmor/material/skin and inspectsnativeBevyAssets/Transforms to provepartcompaction andsharedcarryorigin. No handwritten trait orcodec; functions only.",
+      "disposition": "No derive opportunity. Retain explicitfixturetopology/weightedskin/material boundary and assertions, not rawconstructionderive or newserialization. Broader mesh/skin validation remainsother auditobligations.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1489,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/meshes.rs",
+      "sha256": "6a50a68295abda59aac92334c8dbb8a78d1d363d9ae39dd86ca676d57754164e",
+      "ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "CachedPart already derives Clone. equipment_parts/reference_center/runtime_equipment_mesh/material are inherentnativegeometry/material classification andcheckedjoint narrowing, not handwritten traits/codecs.",
+      "disposition": "No derive opportunity. Keep materialpartition, referencedvertex compaction, strongest-four nativeu16projection andactualPBRmapping explicit; genericFrom would hide semanticconversion/failure and codecderive would addunrequestedAPI.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1490,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/morphs.rs",
+      "sha256": "166a50824e9c051fa93ab7ce03790a3e36f362ad1b2326c98ce4e1da7fe7490c",
+      "ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "BodyShapeKey already derives Clone/Debug/PartialEq/Eq/Hash. new converts admittedproportions andcontextualmorph weights tobitkeys; proportions() readmits decodednativefloatarray; apply() validatesdimensions andupdatesmorphedbody/normals. No handwritten trait orcodec.",
+      "disposition": "No derive opportunity. Preserve bitidentity/signedzero semantics, contextualmorphselection andcheckedproportionconversion, ratherthan From/Into/serde onrawkey arrays. Numericalmeshclosure remainsotherlensobligation, not cleared.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

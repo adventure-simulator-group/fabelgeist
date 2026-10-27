@@ -1,0 +1,231 @@
+{
+  "at": "2026-10-27T14:01:29.903567+00:00",
+  "lens": 11,
+  "status": "1010-1012 independently source-accounted with findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-046-registration.jsonl",
+    "sha256": "f6572a2047402a581059517a9321ea846598ae98eb2961c2ff0de4b9b19670a2"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-045.json",
+    "sha256": "b0a9338ac6e340f6cd31e05128d3f588287f168512c52aedea6b6b1f1b112448"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1010,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_place.rs",
+      "sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+      "ranges": [
+        [
+          1,
+          998
+        ]
+      ],
+      "actual_eof": 998,
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          998
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1011,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_presence.rs",
+      "sha256": "2eeea5c9831e10b7c5d51d0d3f61b0093ce8c682bd0994d2c94de50aa3354a52",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/2eeea5c9831e10b7c5d51d0d3f61b0093ce8c682bd0994d2c94de50aa3354a52",
+      "ranges": [
+        [
+          1,
+          662
+        ]
+      ],
+      "actual_eof": 662,
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          662
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1012,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_presence/context.rs",
+      "sha256": "e8fa0d3cc0b66a908ad8f44642c1cf2e09f9d6d5e8ac341e7201f7aea959995e",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/e8fa0d3cc0b66a908ad8f44642c1cf2e09f9d6d5e8ac341e7201f7aea959995e",
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "actual_eof": 55,
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          55
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected",
+      "original_index": 2158,
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "ranges": [
+        [
+          329,
+          376
+        ]
+      ],
+      "actual_eof": 698,
+      "prospective": true,
+      "purpose": "Native calendar receiver for time-of-day/wrapped daily schedule",
+      "actual_read_ranges": [
+        [
+          329,
+          376
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1263,
+      "sha256": "39cd6d057c070e586f5701d068b930beaafe12dc00d68465ffd460ede664c5ea",
+      "ranges": [
+        [
+          1,
+          196
+        ]
+      ],
+      "actual_eof": 196,
+      "prospective": true,
+      "purpose": "Actual contextual presence observer frontier and revision binding",
+      "actual_read_ranges": [
+        [
+          1,
+          196
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1130,
+      "sha256": "f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+      "ranges": [
+        [
+          359,
+          435
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual occupancy/context identity+revision+observer frontier adapter",
+      "actual_read_ranges": [
+        [
+          359,
+          435
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1260,
+      "sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "ranges": [
+        [
+          595,
+          670
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual consent/presentation consumes exact co-presence and emergency distinctions",
+      "actual_read_ranges": [
+        [
+          595,
+          670
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1260,
+      "sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "ranges": [
+        [
+          590,
+          594
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Name/signature of contextual reachability receiver, no assumption exact venue needed",
+      "actual_read_ranges": [
+        [
+          590,
+          594
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original_index": 1010,
+      "inventory": "Opaque StrategicIdentityComponent; narrower CaseSiteId; physical SettlementVenueKind vs service mappings; coarse settlement/exact venue/chapter/residence/case/camp place payloads; institutional/service/outbreak/fireplace fixture payloads; distinct departure absolute clock vs camp movement progress; versioned canonical string encoding/number parsing; association errors; existing fixtures.",
+      "disposition": "CaseSiteId is usefully narrower than general place. Physical venue and storefront/action service are different vocabularies with explicit mappings, not automatic duplicate enums; chapter fixture may share effective service place while retaining institutional identity. Common component syntax does not prove settlement/organization/holding/party role identity: public variants can swap identical StrategicIdentityComponent roles. Fixture constructors check service/chapter/outbreak/fireplace associations, but public enum variants expose arbitrary StrategicPlaceId payloads, permitting invalid association without those constructors; qualified frozen API shape witness, not demonstrated authored/runtime use. CaseSiteId Serde validates; String From uses expect for server-authored input, no compatibility excuse. Formatting/parsing has exact family/tag/arity/version/lowercasehex/canonical number checks.",
+      "remedy": "Keep case-site/place/fixture distinctions; reuse existing specific identity owners rather than broad component in internal role fields. Encapsulate admitted fixture payload construction or use admitted place-specific payloads so public variants cannot bypass association policy. Keep departure clock distinct from elapsed movement/camp-stop progress; do not impose nonzero or arbitrary upper bound on progress. Preserve parse boundary failures and explicit service mapping, no legacy format path.",
+      "acceptance": "Full1-998 consumed including fixtures722-998. Actual1011 presence receiver and1006 coordinate checks consume exact place equality;1130 converts canonical CaseSiteId to place and validates observer site. No all persistence/generated SpacetimeType admission guarantee or currentness proof."
+    },
+    {
+      "original_index": 1011,
+      "inventory": "Private StrategicPresence character/place/frontier/basis; observer ID+personal chronology; coarse\u2192validated venue refinement; scheduled/residence/case occupancy/context evidence; context ID/revision matching; DailyPresenceWindow clock endpoints and remaining duration; independent context/health suppression; closed presence errors and equality co-presence.",
+      "disposition": "Presence at a coarse settlement is unequal to exact venue; validated refinement checks settlement and basis. Residence constructor needs effective occupancy and admission time, not ownership alone. Case context ID+revision+active+alive are separate facts and actual adapter carries expected versus actual membership identity/revision. Observer frontier differs from target chronology and are_co_present requires same observer/time plus exact place; raw u64 character/observer IDs still erase role identity. Daily schedule is a cyclical interval: overnight1200\u2192120 legitimate, so generic strictly increasing interval would reject valid policy. Window fields public/primitive; minutes_until_start checks equal endpoints invalid while remaining yields OutsideSchedule via calendar, a qualified state/error-shape simplification opportunity. Suppression context/health are independent axes: infection active+remediated keeps health true while context false; death health true context false. Preserve both rather than one generic bool.",
+      "remedy": "Use canonical character/context ID and revision owners, retain observer clock binding. Admit daily time-of-day/window semantics once with explicit overnight/full-day policy and named duration result; do not impose ascending endpoints or collapse observer to target clock. Narrow exact venue/residence/case payloads if this removes repeated matches without duplicating place identity. Keep independent suppression effects and provenance.",
+      "acceptance": "Full1-662 consumed, native calendar329-364 demonstrates half-open overnight/full-day end1440 semantics. Actual1130 sites359-432 and1263 full1-196 bind membership/occupancy visibility to observer minute, expected revision and site identity. Receiver1260 characters_are_contextually_present590-670 deliberately allows broad same-settlement context before exact case branch; no exact-venue rule violation inferred from that broader predicate. Whole receiver tail and investigation discovery/transaction helpers not audited here."
+    },
+    {
+      "original_index": 1012,
+      "inventory": "CharacterContextRole Counterparty/Patient/Bystander; retained authored ContextualDecisionState; projected InteractionPresentationDecision including EmergencyTreatment.",
+      "disposition": "Authored Allowed maps to Request, not completed/authorized interaction; Refused and Unavailable distinct. EmergencyTreatment exists only observer-specific affordance. Do not merge retained authored answer with projected/private-policy outcome or infer Patient solely from generic interaction allowed.",
+      "remedy": "Retain explicit authored\u2192presentation conversion and distinct observer policy authority; keep payloads at actual domain boundary, no universal permission bool.",
+      "acceptance": "Full1-55 independently inventoried (earlier040 connected read context only). Actual source040 challenges/world-actor cast retained decision and observer presentation ports remain exact prior proof; current/global policy proof not transferred."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-039-receipt.json",
+      "sha256": "e8dd9acd61a6e7ff4cf5551c460653184529319b1da16bdc63a269a7d90fb5e8"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-040-receipt.json",
+      "sha256": "1cafc13cab5c6749d60a28b0fbde49949745362216da3cc54ff0469bd8097f6e"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-045-receipt.json",
+      "sha256": "ef84d892ee23b0f811e99ab6e951c2e0bb21e340b90207e80f2b1f5f367f357b"
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Frozen source only, no execution/currentness/accepted unique/global clearance. Original full scopes read; connected source ranges grant zero future ordered credit.",
+    "Connected calendar329-376 ends inside unrelated floor_to_interval_minutes; only329-364 claimed complete material daily-window bodies.1260 read590-670 is partial contextual presence method, not consent/emergency method despite initial registration purpose wording.",
+    "Locator-only rg search across cached objects returned truncated names/line locators; no source-body coverage or unrelated source disposition inferred."
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-242",
+  "at": "2026-10-23T05:58:30.494983+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/keep_core.rs",
+      "sha256": "4fe112080f5dcc507eb0600309b787389a2dbb7b056ead9fd82bea634d9e496b",
+      "scope063_index": 2840,
+      "actual_EOF": 70,
+      "scoped_ranges_compared": [
+        [
+          1,
+          36
+        ]
+      ],
+      "actual05_comparison": "Actual post-registration complete bounded body read; independent aggregate-state analysis against parent240 current recipe, physical member, landing and bearing roles. Original tests source-only; no executed result."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/bearings.rs",
+      "sha256": "fe9290ba0a257cd25b730ebad5762e929b2c184773fb1b92f4b4591722a36089",
+      "scope063_index": 2841,
+      "actual_EOF": 69,
+      "scoped_ranges_compared": [
+        [
+          1,
+          69
+        ]
+      ],
+      "actual05_comparison": "Actual post-registration complete bounded body read; independent aggregate-state analysis against parent240 current recipe, physical member, landing and bearing roles. Original tests source-only; no executed result."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/tests.rs",
+      "sha256": "cc9107fd14bb47171e08b5020021594835c779dc021dd32e095a926ff9e977f1",
+      "scope063_index": 2842,
+      "actual_EOF": 221,
+      "scoped_ranges_compared": [
+        [
+          1,
+          221
+        ]
+      ],
+      "actual05_comparison": "Actual post-registration complete bounded body read; independent aggregate-state analysis against parent240 current recipe, physical member, landing and bearing roles. Original tests source-only; no executed result."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "normal keep recipe and occupied-storey authority",
+      "comparison": "keep_core12–17 admits exactly WalledKeep/ArtilleryRondelCastle. Factory19–36 returns None for other archetype or fewer than two storeys; constructs one StairSpiral with centre derived from the same footprint dimensions, base .15, inner .25/outer1.25, turns2.8 and clockwise true; rise derives from the same storey count and storey_height. Tread count delegates actual required_treads used by flight240, avoiding a parallel copied count. This supplies normal recipe relationships, not a proof every raw BuildingProgram has finite positive height or representable count. Constants9–10 are reserved_cells policy outside this role; not credited as a reached reservation body. Zero-rise public recipe F056 remains a separate API gap; later checked cuboid prevents successful malformed owned-plan publication."
+    },
+    {
+      "id": "bearing relationships derived from the same physical pair",
+      "comparison": "bearings14–41 enumerates each unordered pair once through index+1 suffix, skips same-owner and uses symmetric bearing_pair. Its owners array uses precisely the tested pair. The overlap is componentwise intersection of each actual yaw-oriented size/centre bound; rejects any nonpositive overlap and vertical overlap beyond deck thickness+.005 before checked SpatialBounds. Area uses sorted same-overlap axes and penetration uses the same horizontal overlap, so no unrelated independently supplied descriptor. Top-domain ID uses current junction_bonds length, whose capacity namespace remains a separate graph qualification. Finite component overflow/huge ID capacity is not excluded by this helper, but no ordinary invalid producer or additional unique counterexample is established."
+    },
+    {
+      "id": "accepted physical policy versus source intent",
+      "comparison": "bearing_pair43–60 accepts actual InteriorFloor or owned Landing against exact host-role list, or StairTread/Landing in the flight owner namespace against WalkSurface/Landing/CircuitWalk/GalleryFloor. It does not claim every source stair creates an occupied-storey portal. Parent240 owns the BuildingPlan by value and returns only after this fallible final phase, so partial local bonds preceding an error do not prove externally published partial state. The .005 contact tolerance belongs to physical support, distinct from landing room-cell membership."
+    },
+    {
+      "id": "original relational fixtures",
+      "comparison": "tests1–221 source read only. Existing fixture checks exact authored tread count, positive riser threshold, grounded newel and portal plus four offsets inside some physical landing; count-minus-one rejects while additional treads preserve count and rise bound. Radial bridge fixture preserves the inner walking line. WalledKeep seed42 fixture compares retained source IDs against collision and actual detail boundary vertices and checks upper-floor well clearance. Auxiliary CastleGatehouse/CourtyardCastle fixture intentionally has physical stairs/crown Landing but no occupied-floor portals or InteriorFloor. These fixtures support intended product relationships without proving generated output execution, all input bounds, called generator/collision/detail bodies, or one-to-one portal identity. Existing raw F056 and one-sided mutable-plan portal graph240 retain their qualifications."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "BuildingProgram input admission and ordinary maximum flight/storey count are not inferred from this bounded factory.",
+    "Reserved_cells38+ excluded; no new speculative graph.",
+    "Root current063 includes these exact roles; all mandatory prior qualification receipts retained."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

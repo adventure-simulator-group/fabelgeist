@@ -1,0 +1,39 @@
+{
+  "at": "2026-10-27T05:39:58.002802+00:00",
+  "lens": "13 magic-numbers",
+  "packet": "032",
+  "extends": "audit13-successor-registration-032.json",
+  "exact_Cargo_commit": "59800466c5c41c444d264b1010b4d57e85a7117f",
+  "sources": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/e6d4e6732a14f88c1d81d9c7847982caa718973a830ef9bd1029ccd773df5dc4",
+      "source_path": "src/cargo/core/resolver/encode.rs",
+      "sha256": "e6d4e6732a14f88c1d81d9c7847982caa718973a830ef9bd1029ccd773df5dc4",
+      "git_blob": "cd30c8275b8efcace4c19e2d5c797d17d9cbdc4e",
+      "actual_lines": 676,
+      "ranges": [
+        [
+          495,
+          509
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/cbaf67dba589ff1ba2da2f8f6732de14a10e4e9323d683cb10728b500d312b96",
+      "source_path": "src/cargo/core/resolver/resolve.rs",
+      "sha256": "cbaf67dba589ff1ba2da2f8f6732de14a10e4e9323d683cb10728b500d312b96",
+      "git_blob": "d93e395325cf1275dea3129b65bbaad505305639",
+      "actual_lines": 504,
+      "ranges": [
+        [
+          455,
+          475
+        ]
+      ],
+      "body_read_at_registration": false
+    }
+  ],
+  "purpose": "Enclosing actualserdeSerialize signature/initial encoder operations and concrete Resolve.version getter, same narrow nativeheader encode/owner graph. No fullinto_resolve/package parsing/writer/SDK expansion.",
+  "limits": "Original39stillpartial;all031disclosures preserved, counts37/2853/no40/noexecution/product/Git/ledger/publication."
+}

@@ -1,0 +1,49 @@
+{
+  "id": "M04-comment-review-body-007",
+  "created_utc": "2026-10-27T04:57:06.983078+00:00",
+  "head": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+  "review_type": "Focused final contributor-body reflow reconciliation",
+  "body": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/pr-body-007.md",
+    "sha256": "3a1f8c46190003e89079c10564323b037300c487b2c82e146ca0bcc3ceaab62f"
+  },
+  "prospective_registration": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/comment-review-body-007-registration.json",
+    "sha256": "db120bac9eb28cd31931c556ae66970e55e0ca8cab594c409b5efa7ebd21a558"
+  },
+  "wording_authority": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/pr-body-005.md",
+    "sha256": "c478bb5a8c5958716fea4054bcf5d050b6793a413fa6cf22f72f9ea534ac3f50"
+  },
+  "prior_accuracy_review": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/comment-review-body-005.json",
+    "sha256": "babeca52eaf47b9dd9a489bd3a69cf1adb7435157c31144c92cb8dfd7599c815"
+  },
+  "prior_reflow_review": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/comment-review-body-006.json",
+    "sha256": "49160c8d96738c83722787e3c9786ada6c9060055c1e89ed92883f83419f155f"
+  },
+  "actual_read_ranges": [
+    [
+      1,
+      24
+    ]
+  ],
+  "verified": {
+    "exact_whitespace_normalized_word_token_identity_to005": true,
+    "maximum_line_length": 80,
+    "all_lines_at_most80": true,
+    "low_endurance_preserved_as_single_token": true
+  },
+  "resolved_findings": [
+    "M04-BODY005-WRAP01",
+    "M04-BODY006-HYPHEN-WRAP01"
+  ],
+  "findings": [],
+  "verdict": "Accepted: exact previously accepted wording with corrected80column reflow and intact compound words. Hosted checks remain pending; no success claim introduced.",
+  "limits": [
+    "Source unchanged atdf5 per root; no source reread/project execution/checks/tests/Git/product/ledger/publication.",
+    "No remote status verification or globalF9/audit clearance."
+  ],
+  "stop": true
+}

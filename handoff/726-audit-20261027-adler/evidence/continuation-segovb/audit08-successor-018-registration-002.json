@@ -1,0 +1,39 @@
+{
+  "id": "CONT08-018-STREET-REGISTRATION-002",
+  "created_utc": "2026-10-27T04:48:04.064522+00:00",
+  "provenance": {
+    "path": "target/recovery-20261025/continuation-segovb/audit08-root-street-base-staging-018.json",
+    "sha256": "7a65749ebbde1b627ac7276b9d2ad22eb15afacd8514ca499fb5851c06f18453"
+  },
+  "sources": [
+    {
+      "source_id": "base:crates/adventuresim-tactical-core/src/city_layout/compiled/support/street.rs",
+      "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "sha256": "bfad206136bada1647f958a30c678a8adb4be33c01a967d3253aebde5f58de8b",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/bfad206136bada1647f958a30c678a8adb4be33c01a967d3253aebde5f58de8b",
+      "prospective_ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "reason": "Exact before/after materially reached street selection front end. One byte-identical physical body may be compared for both frozen roles; equality alone grants no dependency or other-lens coverage."
+    },
+    {
+      "source_id": "head:crates/adventuresim-tactical-core/src/city_layout/compiled/support/street.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "bfad206136bada1647f958a30c678a8adb4be33c01a967d3253aebde5f58de8b",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/bfad206136bada1647f958a30c678a8adb4be33c01a967d3253aebde5f58de8b",
+      "prospective_ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "reason": "Exact before/after materially reached street selection front end. One byte-identical physical body may be compared for both frozen roles; equality alone grants no dependency or other-lens coverage."
+    }
+  ],
+  "changed747_path_absent": true,
+  "dirty4_path_absent": true,
+  "qualification": "Catalog1797 existing source, receiver read only; no original1797 completion/count transfer."
+}

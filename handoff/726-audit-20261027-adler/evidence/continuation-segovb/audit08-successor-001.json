@@ -1,0 +1,218 @@
+{
+  "id": "SEGOVB-CONT08-SUCCESSOR-001",
+  "lens": "08 behavior-preservation",
+  "created_utc": "2026-10-26T17:39:23.929291+00:00",
+  "reviewer": "texture_comment_review subagent source-only continuation",
+  "scope": "Exact saved earliest unfinished original1462 and bounded earlier material32; no completed discovery restart",
+  "skill": {
+    "path": "/home/brunosegovia/.codex/skills/audit-behavior-preservation/SKILL.md",
+    "sha256": "7413ca56a7a637a20cb56f6a35c7623253934e806415e26131af076050fa685c"
+  },
+  "historical_state": {
+    "path": "target/recovery-20261025/audit08/STATE.json",
+    "sha256": "b4f9c4a6c3c59966cfe3cde46ee814963aad9c3d3808e9928ce40620c7e46e7b",
+    "first_unfinished_original": 1462,
+    "next_ordered_original": 1792,
+    "material_latest": "material-receipts/earlier-024-031-001.json",
+    "material_next": 32
+  },
+  "pins": {
+    "PR_base": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "PR_archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "PR_four_working_overlay_origin": "36c97923da8ee84d0ab8994e7cfedf6a0cdea641",
+    "P16_base": "a120390947c89b703dc74c4255a13c035d054c50",
+    "P16_preserved_dirty": "039329518e264f19206cf5b0b98d177433f40c17",
+    "P17_base": "18360adba0fb43add88c75dfbd2f45d7e71d8ace",
+    "P17_preserved": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+    "rig_preserved": "cbbbca08c89a8768926799371f54cf6057312e5e",
+    "frozen_merged_local774": "13fc9dcc71ab879de364117e5462310673e43210",
+    "qualification": "Distinct variants and before/after pairs; exact hashes prove recovery only, not source audit/head clearance. P16/P17 isolated unfinished behavior is not automatically merged774 regression."
+  },
+  "registration": "audit08-successor-001-registration.json",
+  "source_reads": [
+    {
+      "sha256": "e57c0f4f3a2b7f4cb749b5e1ca57628e9e5ef864f1bd4365fe48313a3f426c3e",
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/e57c0f4f3a2b7f4cb749b5e1ca57628e9e5ef864f1bd4365fe48313a3f426c3e",
+      "read_ranges": [
+        [
+          1,
+          339
+        ]
+      ],
+      "role": "original1462 head full requested source"
+    },
+    {
+      "sha256": "862d65dcfa27ffb94110dbaf5c32fd94e248028f14f278aa9429047789ec31d9",
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/862d65dcfa27ffb94110dbaf5c32fd94e248028f14f278aa9429047789ec31d9",
+      "read_ranges": [
+        [
+          1,
+          230
+        ]
+      ],
+      "role": "original1462 base full requested source"
+    },
+    {
+      "sha256": "c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+      "read_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "role": "original662 facade support only, no original completion"
+    },
+    {
+      "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "read_ranges": [
+        [
+          1,
+          100
+        ],
+        [
+          105,
+          142
+        ]
+      ],
+      "role": "original671 selective SpatialDirection support only, no original completion"
+    },
+    {
+      "sha256": "97e23604f5ed995bc4d619d8e37747acc42671ba34e7236a8184b1e3d175a35d",
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/97e23604f5ed995bc4d619d8e37747acc42671ba34e7236a8184b1e3d175a35d",
+      "read_ranges": [
+        [
+          1,
+          539
+        ]
+      ],
+      "role": "material32 full registered source; base/head byte-identical"
+    },
+    {
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/shape_cast/shape_cast_support_map_support_map.rs",
+      "sha256": "d874526a7a624206fd8ae6e3302db0f51f2d643c53014b8f5d496daa7d1e125c",
+      "local_path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/parry3d-0.27.0/src/query/shape_cast/shape_cast_support_map_support_map.rs",
+      "read_ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "provenance": "Pinned cached crate checksum 99613136af5c3ae1e26907eb8ef90183636f54d02341c0a1121caa813a242cb5 independently matches inherited registered provenance; no SDK execution."
+    },
+    {
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/gjk/gjk.rs",
+      "sha256": "893b9246ae77eb21d8a3f10afaeeb05e36bfdb774ce6e98579f614ac32e57a68",
+      "local_path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/parry3d-0.27.0/src/query/gjk/gjk.rs",
+      "read_ranges": [
+        [
+          353,
+          520
+        ],
+        [
+          634,
+          822
+        ]
+      ],
+      "provenance": "Pinned cached crate checksum 99613136af5c3ae1e26907eb8ef90183636f54d02341c0a1121caa813a242cb5 independently matches inherited registered provenance; no SDK execution."
+    },
+    {
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/contact/contact_support_map_support_map.rs",
+      "sha256": "fcb9e37067085e862b6a23bfbe73a4bc39ff56ceefc90031f9c0b10766430562",
+      "local_path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/parry3d-0.27.0/src/query/contact/contact_support_map_support_map.rs",
+      "read_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "provenance": "Pinned cached crate checksum 99613136af5c3ae1e26907eb8ef90183636f54d02341c0a1121caa813a242cb5 independently matches inherited registered provenance; no SDK execution."
+    },
+    {
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/epa/epa3.rs",
+      "sha256": "d7594bce8c436e98ca80944333cad8637478f1c9b1b5df42dc8f0bb463abc1df",
+      "local_path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/parry3d-0.27.0/src/query/epa/epa3.rs",
+      "read_ranges": [
+        [
+          55,
+          167
+        ],
+        [
+          427,
+          650
+        ]
+      ],
+      "provenance": "Pinned cached crate checksum 99613136af5c3ae1e26907eb8ef90183636f54d02341c0a1121caa813a242cb5 independently matches inherited registered provenance; no SDK execution."
+    },
+    {
+      "source_id": "native-dependency:parry3d-0.27.0/src/utils/ccw_face_normal.rs",
+      "sha256": "8bd63a55cf6ad370a0208e57876ceafbe637220d024c0108071d848ae7a8cccc",
+      "local_path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/parry3d-0.27.0/src/utils/ccw_face_normal.rs",
+      "read_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "provenance": "Pinned cached crate checksum 99613136af5c3ae1e26907eb8ef90183636f54d02341c0a1121caa813a242cb5 independently matches inherited registered provenance; no SDK execution."
+    }
+  ],
+  "original1462": {
+    "status": "remains partial WITH narrower source-backed Q003 qualification; no new original completion",
+    "head_sha256": "e57c0f4f3a2b7f4cb749b5e1ca57628e9e5ef864f1bd4365fe48313a3f426c3e",
+    "base_sha256": "862d65dcfa27ffb94110dbaf5c32fd94e248028f14f278aa9429047789ec31d9",
+    "comparison": "Fresh full base230/head339 actual source comparison; inherited own08/007 complete camera/UI/display evidence retained at its qualifications rather than replayed or transferred from other lenses. Geometric origin/direction/config/filter ordering, fraction clamp, endpoint lerp order, eight framing sweeps and soft damping comparisons preserve the old arithmetic on admitted results. New checked failure may precede current pose publication; cloned BoomRecovery commits at head328 after successful final sweep. No normalization repair was silently introduced.",
+    "known_difference": "Base72-101 retained raw ShapeHitData normal; head182-189 constructs SpatialDirection::from_normalized(hit.normal1). Zero, nonfinite or sufficiently nonunit native normals now yield CameraError and prevent current placement. This is existing CONT08-Q003, not a newly counted issue.",
+    "lower_producer_progress": [
+      "M90 support-map cast31-50 sends nearzero impact through contact and returns its normal; ordinary nonoverlap cast53-58 uses GJK normal and rotated negative counterpart.",
+      "M92 GJK directional_distance634-658 delegates to minkowski_ray_cast; initialized ray direction normalizes by length685, later projection normal uses normalize_and_length704, and ldir737 supplies successful exits709/722/777/790. Fresh closest_points353-455 similarly returns projection-normalized dir or old_dir at successful branches, or Intersection to EPA. No exact quantitative floating-point bound or all-shape guarantee is inferred from normalize names.",
+      "M93 contact60-68 uses GJK closest_points, then EPA on Intersection. EPA Face64-92 sets normal ZERO if ccw_face_normal returns None; ccw helper20-25 uses cross product.try_normalize. EPA closest_points453 returns Y for dimension0 and573/618/648 can return stored face.normal. Source alone does not prove degenerate zero-normal faces reach these exits under this actual camera cuboid and admitted obstacle population."
+    ],
+    "concrete_remaining_ambiguity": {
+      "identity": "CONT08-Q003",
+      "unproved": "A source-backed admitted collider pair/pose/simplex reaching EPA degenerate zero/nonunit output, or a quantitative normal-length bound after Parry/Avian rotation sufficient for SpatialDirection::from_normalized. An EPA ZERO assignment is not an ordinary hit witness. Existing actual compute_contact_on_penetration=true excludes the previously disproved false-initial-overlap witness.",
+      "policy": "If legitimate native degenerate/approximate normals reach this boundary, intended policy must decide rejecting the whole current pose versus consuming a separately admitted native normal representation. Do not change canonical SpatialDirection or normalize unconditionally without this contract.",
+      "next_exact_trace": "Trace actual Avian world rotation and admitted obstacle/degenerate-shape policy plus EPA selected simplex/face path. If a concrete ordinary witness cannot be established, preserve Q003 as a qualification; do not assert current-main regression or global camera/native clearance."
+    }
+  },
+  "material32": {
+    "status": "registered source-local comparison accounted WITH explicit host/ABI qualifications; no original-role completion",
+    "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/shape.rs",
+    "sha256": "97e23604f5ed995bc4d619d8e37747acc42671ba34e7236a8184b1e3d175a35d",
+    "registered_and_read_ranges": [
+      [
+        1,
+        539
+      ]
+    ],
+    "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "base_head_byte_identity": true,
+    "analysis": "Fresh full539 helmet shader-generation source read. Slot/VertexKind/PostMap/CheekRow generation entry1-17, head-frame half-extents and design-array indexing54-68, zero/negative power70-76, flute endpoint/zero-divisor branch order78-108, dome/crown mapping118-244, wrap table modulo48 and final interpolation145-166, and all brim/cheek/nape/peak/buffe/skirt/visor/dispatch kernels245-537 are unchanged bytes. Same angular wrap, clamp endpoints, branch thresholds, course bounds lookup, coordinate role reinterpretation and arithmetic order are retained in this receiver. No shader-source change or new source-local behavior difference is established.",
+    "qualification": "Source byte identity and full receiving body read do not prove changed host layout/Slot/VertexKind/PostMap/CheekRow values match these consumers, valid design-array population, shader execution, GPU portability or full20-family acceptance. Host2180-2188 and their actual type/layout/packing producers remain separate original/family obligations; no unrelated source or test body inferred.",
+    "next_material": 33
+  },
+  "coverage_delta": {
+    "newly_completed_original_indices": [],
+    "newly_accounted_material_indices": [
+      32
+    ],
+    "newly_extended_native_support": [
+      "parry3d-0.27.0/src/query/gjk/gjk.rs:353-455 actual closest-point normal production (353-520 read)",
+      "parry3d-0.27.0/src/query/epa/epa3.rs:55-167,427-650",
+      "parry3d-0.27.0/src/utils/ccw_face_normal.rs:1-26"
+    ],
+    "verified_not_body_read": [
+      "material88 shape_cast.rs",
+      "material89 default_query_dispatcher.rs"
+    ],
+    "unchanged_earliest_original": 1462,
+    "unchanged_next_ordered_original": 1792
+  },
+  "findings": "No new unique finding. Preserve CONT08-Q003, all inherited findings/aliases/partial policies, all20 migrations, P16/P17, shared dependencies and #780/#826 integration obligations. Do not sum overlapping populations.",
+  "global_clearance": false,
+  "repair": "None; audit discovery remains incomplete",
+  "validation": "No product edits, Git mutations, checks, tests, SDK/runtime/GPU/browser execution or publication. Current main applicability and same-revision hosted acceptance are not established by these frozen-source comparisons.",
+  "new_native_provenance": "For newly reached EPA and ccw_face_normal sources, byte equality against exact cached parry3d-0.27.0.crate members independently verified; crate checksum equals pinned 99613136af5c3ae1e26907eb8ef90183636f54d02341c0a1121caa813a242cb5. Verification occurred after bounded source reading; records do not backdate that provenance confirmation."
+}

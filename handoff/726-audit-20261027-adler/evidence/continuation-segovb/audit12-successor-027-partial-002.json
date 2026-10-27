@@ -1,0 +1,73 @@
+{
+  "at": "2026-10-27T04:53:02.508285+00:00",
+  "lens": 12,
+  "original": 50,
+  "prior_receipt": {
+    "path": "audit12-successor-027-partial-001.json",
+    "sha256": "ccaa38a68dff13ea416820993fbde0f5420d3a7628f17fd099fcf7dedb39c8bf"
+  },
+  "registrations": [
+    {
+      "path": "audit12-successor-registration-027-receiver-002.json",
+      "sha256": "986aae568382de4713ebda6401dcd37846e4a7c51a0361a559e6aab658e76f41"
+    },
+    {
+      "path": "audit12-successor-registration-027-receiver-003.json",
+      "sha256": "cdec245c606ef7b781d2ca473bd8fc3baa8f7d90ae1fcf36b0d14d829846afb5"
+    }
+  ],
+  "actual_reads": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs",
+      "sha256": "61fe528d93435e9e3d2d263110bc870e10ee25ea61c84196be203e4e771d6741",
+      "ranges": [
+        [
+          131,
+          189
+        ]
+      ],
+      "fact": "run_matchup obtains actual runner autoresolve batch then writes aggregate summary and reviewer packet. Packet trace filenames point to runner outputs; human balance/scale text is report prose, no branch."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+      "sha256": "e8b238c454b79527cff117b2acc8ad4b32214dfd7fb3714b9949c725daf7460d",
+      "ranges": [
+        [
+          1,
+          30
+        ],
+        [
+          80,
+          155
+        ]
+      ],
+      "fact": "run_autoresolve_batch invokes resolve_battle to obtain BattleOutcome; sends first outcome to write_json for autoresolve-trace.json, every outcome to serde_json::to_writer plus newline in autoresolve-traces.ndjson then flushes. record_autoresolve_outcome prefix consumes typed resolution then forwards fulloutcome to logging/timeline; rest not read. No newbehavior/native execution claim."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve.rs",
+      "sha256": "0b6aef0b8e1be9846beaae48cc8f7130333b0b4634acbd0b2f8b393ee40d5cef",
+      "ranges_recalled": [
+        [
+          321,
+          485
+        ]
+      ],
+      "fact": "Already fully-read original50 declarations re-read: BattleOutcome Serialize retains Vec<BattleLogEntry>, whose Serialize retains optional MeleeContactTelemetry; both rawstaticlabel fields are included with no skip attribute in actual declaration. This connects prior typedlabelproducers to concrete JSON/NDJSON serialization call, not human aggregate prose only."
+    }
+  ],
+  "conclusion": "Final output call boundary for effective_defender_response and defender_attack_commitment established through serialized full outcome. It does not justify erasing canonical typed states in application telemetry before the boundary; currentness/visibility/semantic ownership and M09alias still need source-backed reconciliation. No new unique finding accepted.",
+  "remaining": [
+    "Current canonical enum ownership/exportability and M09 alias/currentness/repair inventory; searches on currentsource yielded locators only and no newbodycoverage.",
+    "Actual quest catalog membership lookup/entries still untraced beyond original026predicate. No wholebestiary/current/runtime guarantee.",
+    "Original50 stayspartial; no51body/credit. Native serde_json implementation, all other writers and unreached runner bodies not cleared."
+  ],
+  "mandatory_other_lens_registrations": [
+    "audit12-successor-registration-027-receiver-002.json",
+    "audit12-successor-registration-027-receiver-003.json"
+  ],
+  "original_count_before": 50,
+  "original_count_after": 50,
+  "new_unique_delta": 0,
+  "global_clearance": false,
+  "local_project_execution": false
+}

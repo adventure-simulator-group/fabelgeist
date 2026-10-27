@@ -1,0 +1,388 @@
+{
+  "at": "2026-10-27T12:26:35.674439+00:00",
+  "lens": 11,
+  "status": "897-906 independently source-accounted",
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-018.json",
+    "sha256": "e2d94106dcf8db8a01fe423a0ce7c100254949a5c97862b1a9e69bf09f717364"
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-019-registration.jsonl",
+    "sha256": "84e4873490ec30cc129deacc014818552caf53828ebd6c41e1f4331c429fd90d"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 897,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/defense.rs",
+      "sha256": "a3019cfa64106abc38bbfa7b0962e406cc6cb1a1a663a8a0dfdee71f874201e1",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/a3019cfa64106abc38bbfa7b0962e406cc6cb1a1a663a8a0dfdee71f874201e1",
+      "actual_eof": 444,
+      "ranges": [
+        [
+          1,
+          444
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          444
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 898,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/fatigue.rs",
+      "sha256": "823dc22517760aafcf6f7107becb2e1d9c647c685bfe5022f7865d7739cb52f5",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/823dc22517760aafcf6f7107becb2e1d9c647c685bfe5022f7865d7739cb52f5",
+      "actual_eof": 263,
+      "ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          263
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 899,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/fatigue_config.rs",
+      "sha256": "a899b7bacdfbcbc116a93ff6adc283bfb56bea396687713dc3677ff505522ce9",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/a899b7bacdfbcbc116a93ff6adc283bfb56bea396687713dc3677ff505522ce9",
+      "actual_eof": 46,
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          46
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 900,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/incapacitation.rs",
+      "sha256": "a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+      "actual_eof": 115,
+      "ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          115
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 901,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/melee_resolution.rs",
+      "sha256": "5dd8e24f1b117b07079d9bbd53930a23740ac4970336b315e88a11642e2d0635",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/5dd8e24f1b117b07079d9bbd53930a23740ac4970336b315e88a11642e2d0635",
+      "actual_eof": 123,
+      "ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          123
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 902,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/targeting.rs",
+      "sha256": "ef6af9c32d9abfa63057616b145b7777bcd39042472238e8966e73cbab202c08",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/ef6af9c32d9abfa63057616b145b7777bcd39042472238e8966e73cbab202c08",
+      "actual_eof": 427,
+      "ranges": [
+        [
+          1,
+          427
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          427
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 903,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/weapon_contact.rs",
+      "sha256": "287ef23a8837049c44a05b856bcef61d536c382a5e3602b6755f434f02c177d5",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/287ef23a8837049c44a05b856bcef61d536c382a5e3602b6755f434f02c177d5",
+      "actual_eof": 113,
+      "ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          113
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 904,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/weapon_contact/tests.rs",
+      "sha256": "fe810f795ff7e4d52786d5c51504c3f2c12154cabdbeb23ba90939923971bfe4",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/fe810f795ff7e4d52786d5c51504c3f2c12154cabdbeb23ba90939923971bfe4",
+      "actual_eof": 111,
+      "ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          111
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 905,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/weapon_contact_config.rs",
+      "sha256": "ad51483d70e3e95165e16c92b3d3e270e381db2c9aa9135056cb6484e3e1b287",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/ad51483d70e3e95165e16c92b3d3e270e381db2c9aa9135056cb6484e3e1b287",
+      "actual_eof": 32,
+      "ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          32
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 906,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/wounds.rs",
+      "sha256": "8db111805100afa261ac984d5fb0e0e191bfc0160a2792179af7c5ffab0b2d0d",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/8db111805100afa261ac984d5fb0e0e191bfc0160a2792179af7c5ffab0b2d0d",
+      "actual_eof": 134,
+      "ranges": [
+        [
+          1,
+          134
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          134
+        ]
+      ]
+    }
+  ],
+  "read_basis": {
+    "897": "0181-240 hash-equal plus fresh234-444, independent full role inventory",
+    "899": "prior007/018 same exact owner body and fresh46",
+    "others": "fresh complete bounded bodies; existing sparse reads not automatic ordered credit"
+  },
+  "material_receivers": [],
+  "per_role": [
+    {
+      "original": 897,
+      "roles": "Signed ContactTimingOffset, nonnegative windup/recovery duration; finish-trade behavioral choice; attempted/effective defense; alignment sample/probability/continuous engagement; physical moment of inertia and completed work versus expected benefit.",
+      "trace": "Full444 personally consumed via0181-240 hash-equal+fresh234-444, independent inventory. CommittedThreatChoice two actual alternatives is meaningful behavioral choice, not outcome oracle. Before/equal own contact deterministically finishes, positive lag participates with duration. Sunk work/expected benefit may exceed1 despite dimensionless backing, while actual probability/engagement bounded; do not force every dimensionless value to UnitInterval. WeaponDefenseAlignment attempted and effective are before/after geometry states, not duplicate authority. DefenderResponse variant payloads actual four behaviors; factor can exceed1, though effectiveness/precision/engagement bounded. scaled_for_performance takes UnitInterval but extracts/reclamps into raw branch math, consumer ports retain f32; existingowner closed operations should carry meaning through, no distinct type merely for every name. Shield normalized lateral coordinate differs from body-surface area coordinate and metric distance. Tests read only.",
+      "disposition": "source-accounted with bounded versus unbounded/relative frame producer gap"
+    },
+    {
+      "original": 898,
+      "roles": "CombatActionWork three workload strategies; CombatActionWorkload metabolic joules versus mechanical energy; mass/inertia/length/angular and linear rate; single fatigue fraction, fatigue rate and endurance/capacity; typed elapsed and speed.",
+      "trace": "Full263 read. CombatActionWork is behavior selector with independent context dimensions used by each branch, not automatically a monolithic enum of every physical facet. Workload named metabolic energy is useful but public f32 admits any scalar; helpers convert mechanical energy via efficiency then add exactly once to same fatigue pool. Movement ratio may exceed1; sustainable speed parameter is NonnegativeSpeed and can be zero alongside positive effort, making raw denominator policy unresolved (finite-rate contract not established). Do not invent positive-speed policy/current runtime failure; reconcile actual sustainable-speed/zero-capacity semantic branch before choosing positive bound or explicit state. Fatigue state is clamped0-1, recovered amount/rate/energy/endurance are not interchangeable. Local kinetic-energy kernel can remain numeric, actual public/retained units need canonicalowner coordination. Fixtures do not execute or validate real fatigue/runtime legibility.",
+      "disposition": "source-accounted with physical/rate/fatigue owner gaps and qualified zero-sustainable policy question"
+    },
+    {
+      "original": 899,
+      "roles": "Mechanical efficiency versus energy capacity/power coefficients, endurance, action interval, travel distance, dodge speed.",
+      "trace": "Full46 read. Actual validate groups physically different positive values; efficiency additionally <=1, action durations positive and nondecreasing, so equal min/max supported. Existing AnimationElapsed and PositiveSpeed preserved; raw physical coefficient fields retain distinct units at build/runtime projection and actual898 formulas. One generic positive role would erase dimensions; no invented numeric caps for capacity/power/length/endurance.",
+      "disposition": "source-accounted with coherent typed coefficient projection question"
+    },
+    {
+      "original": 900,
+      "roles": "RecoveryTime After(duration)/CannotRecover snapshot; performance UnitInterval versus unbounded aggregate incapacitation and burden contribution.",
+      "trace": "Full115 read. Zero base recovery returns AfterZERO even at zero performance, positive recovery at zero performance returns CannotRecover, finite overflow remains error rather than unavailability. Meaningful sum owns actual state and should not be removed merely equivalent Option serialization; Option at native wire boundary is representation, not compatibility mandate. Actual874 scheduling declines CannotRecover, actual868? own012timeline etc preserve supported snapshot semantics. UnitInterval construction clamps total incapacitation so >1 yields0 performance and negative input1, not justification to cap total state. combat_encumbrance contributes once through existing capacity formula. Existing fixtures read only.",
+      "disposition": "source-accounted; meaningful recovery availability distinction retained"
+    },
+    {
+      "original": 901,
+      "roles": "Melee resolution orchestration of typed style/side/location/contact outcome, raw accuracy/margin/flanking and body/equipment facets.",
+      "trace": "Full123 read. actual895 revalidation rejects InvalidatedMiss before accuracy/energy; contact precision measure multiplier applied once for adjudication; avoided_contact preserves contact energy and response distinction. Parent891 and child902 receiver bodies now independently consumed. Side/style carry useful closed role distinctions; raw hit precision/flanking/accuracy margin/energy and result scaling support018 application port findings. Distinct actor facets are not automatic proof they can be interchanged or need one universal actor type. No new physical guarantee or fixture execution.",
+      "disposition": "source-accounted, existing parent finding support"
+    },
+    {
+      "original": 902,
+      "roles": "AnatomicalSubregion versus BodyPart; global weighted sample, body-local half-open area coordinate, targeting effort and probability; location/surface identity versus accuracy/defense check.",
+      "trace": "Full427 read. weighted_body_part_and_local turns global sample into body-part plus local coordinate; actual targeting biases local toward openings without changing body part, anatomy and armor use same coordinate. AnatomicalSubregion is finer than BodyPart for actual torso access; not redundant merely overlap limbs/head. Public MeleeContactLocation::new independently accepts part/subregion/coordinate/optional surface, allowing incoherent product though actual melee_contact_location derives same source; narrow construction/grouping question qualified, no observed badcall. Samples/coordinates clamp below1 via next_down, unlike closed UnitInterval; surface address is not arbitrary probability even if invariant can share boundedstorage. Local callback weight can be unnormalized, noallweights UnitInterval requirement. Existingfixtures read only.",
+      "disposition": "source-accounted with coordinate/aggregate granularity questions"
+    },
+    {
+      "original": 903,
+      "roles": "ContactPrecision continuous nonnegative unbounded concentration, concentrated fraction, energy resistance, handling accuracy; native metres-to-mm area kernel and component role/material geometry.",
+      "trace": "Full113 consumed, independent inventory. Working head shapes select maximum usable concentration, not sum across heads; structure/grip shaft fallback handles actual blunt implement geometry, not old API compatibility path. Underlying Metres inputs are actualweapon-model quantity owner, mm conversion and area arithmetic internal nativekernel. ContactPrecision prevents damage-type enum mistake; may exceed1 and value0 has explicit infinite resistance meaning, so no closedUnitInterval/alloperationsfinite claim. concentrated_fraction and handling_accuracy are bounded different purposes, actual875/891 equipment producer extracts raw concentration and lateasserts new, so existing owner propagation gap concrete. Parameter unarmed_precision raw despite same semantic owner; no need newduplicatevalidator. Tests source only.",
+      "disposition": "source-accounted; concentration type justified and propagation partial"
+    },
+    {
+      "original": 904,
+      "roles": "Existing source fixtures distinguish handling/balance/geometry concentration, material section dimensions and conditioned precision.",
+      "trace": "Full111 read. Samecanonicalowners/default designs and geometry fixtures; expected literal4/1/.5/.1 are concentration calibration, not four permitted categories; fixtures show open continuous changes. Constructor assertions and fullrecipe loop are source evidence only, no observed finitecatalog/native execution or current verdict. Existing condition fixture exercises raw->parametric->conditioned value API, supports propagation coordination without new tests.",
+      "disposition": "source-accounted fixture source only"
+    },
+    {
+      "original": 905,
+      "roles": "Reference control length versus three role-specific reference contact areas in mm2 and unarmed concentration.",
+      "trace": "Full32 read. Fourpositive calibrated dimensions grouped but not samephysicalquantity; area coefficients different working-contact calibration purpose can share area invariant underneath. Unarmed concentration is nonnegative allows0, unlike strictly positive length/areas; reuse actual ContactPrecision instead of second raw validation. Actual903 uses each area for workingsection type, realbehavior, no invented max1 bound.",
+      "disposition": "source-accounted with actual owner propagation question"
+    },
+    {
+      "original": 906,
+      "roles": "CombatWound kind/body destination and blood-volume fraction flow per second; applied health damage versus blunt joules threshold, cumulative blood fraction and acute trauma contribution.",
+      "trace": "Full134 read. Wound Open/Internal useful flow cause, actualproducer emits only positiveflow after applieddamage threshold and actualbleeding integrates rate*typed elapsed then clips cumulativefraction. Fraction-per-second is rate, not UnitInterval; aggregate wounds may sum and require no fixed unit cap. Applied cut/blunt health allocation891 is distinct from blunt incident energy required for threshold, preventing concrete quantity mixup. Wound public f32 and rawapplicationports retain nonfinite/sign/rate roles without canonical leaf; sameenergy-health finding group support, no new unique or runtime malformedwound witness. Tests read only.",
+      "disposition": "source-accounted with rate/health/energy propagation gap"
+    }
+  ],
+  "qualified_observations": [
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/combat/targeting.rs@ef6af9c32d9abfa63057616b145b7777bcd39042472238e8966e73cbab202c08#anatomical-location-granularity",
+      "observation": "Actual ordinary producer derives part, finer anatomy and selected armor from one half-open local coordinate. Public constructor/fields independently admit contradictory bodypart/subregion/coordinate/surface combinations, while global contact sample and local surface coordinate use same rawf32 despite different frames.",
+      "remedy": "Reconcile actual canonical anatomical/surface owner: derive finer anatomy/part from coherent admitted coordinate/location or own variant-specific payloads, retain selected surface association where required. Reuse half-open coordinate invariant or boundary adapter without treating area address as probability or forcing inclusive endpoint1.",
+      "acceptance": "Actual location recipients cannot confuse global sample/local area/normalized lateral frame or inconsistent anatomy/part; actual ordinary selection/coverage authority remains coherent.",
+      "dependencies": [
+        "aggregate/redundant-authority/owner aliases",
+        "actual current equipment/coverage/native receivers"
+      ],
+      "currentness": "frozen API shape question; actual producer coherent, no current/acceptedunique"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/combat/fatigue.rs@823dc22517760aafcf6f7107becb2e1d9c647c685bfe5022f7865d7739cb52f5#work-rate-fatigue-ports",
+      "observation": "Applicationports retain rawmetabolicjoules, physicalmass/inertia, ratepersecond, fatiguefraction andendurance. SustainableNonnegativeSpeed denominator admits0 whilepositiveeffort pathdivides; raw returnfinite guarantee/policy notestablished.",
+      "remedy": "Reconcile physical energy/rate/fatigue/attribute owners and actual sustainable-speed admission. Specify zero-sustainable policy with actual caller/control contract before selecting PositiveSpeed versus explicit unable state; no invented restriction from numerator alone. Keep single visible fatigue authority and numerical kernel local.",
+      "acceptance": "Typed state/rate/energy cannotbeconfused, zero-capacity policy explicit and native integration receives supported outputs without hidden parallel pool.",
+      "dependencies": [
+        "physical/rate/producer/admission aliases",
+        "actual current sustainable-speed/zero-policy and runtime integration"
+      ],
+      "currentness": "frozen qualified source question, no executed/current nonfinite witness or unique finding"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/combat/defense.rs@a3019cfa64106abc38bbfa7b0962e406cc6cb1a1a663a8a0dfdee71f874201e1#dimensionless-purpose-differences",
+      "observation": "Probability/engagement/completedfraction and unbounded signed skillmargin/sunkwork/expectedbenefit all rawf32. Actual factor can>1 and sunkwork/benefitcan>1; attempted/effective defense are meaningful before/after stages.",
+      "remedy": "Reuse canonical fraction/sample/check/physical owners at API/result ports and closed owner operations without making every dimensionless scalar UnitInterval. Preserve separate attempted/effective authority, signed timing, observed consecutive-intercept count and behavior choice.",
+      "acceptance": "Actual policy/alignment/performance receiving chain preserves admitted purpose/range/frame distinctions; no false max1 invariant on skillfactor/work/benefit.",
+      "dependencies": [
+        "018 result/fraction projection sourcegroup",
+        "current canonical fraction/check/owner and masteralias reconciliation"
+      ],
+      "currentness": "frozen scoped source, no current alias/unique acceptance"
+    }
+  ],
+  "carried_own_proofs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-007-receipt.json",
+      "sha256": "d47d3a4b9fb4daa1a830241c6ead725c3bbe461b7d56a83b1a5614bb640acf1f"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-011-receipt.json",
+      "sha256": "a3dc283db56a86d80f5baad4143672999d602269a8f4598d32362487981dfb07"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-012-receipt.json",
+      "sha256": "821410a651ac39aeabdcb7ac6fe484a0b61d651eaec59889090264ffcb3c5933"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-013-receipt.json",
+      "sha256": "aaf1be371c4e0904427877a362e3f30c763db5afb1261f0ca820884fd3124593"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-014-receipt.json",
+      "sha256": "9e2e5834705569d01b06c7e772fb7d82d07dbbad374f8f8245dc818eb7e68b87"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-018-receipt.json",
+      "sha256": "0f4346372944174f180d12722483bea2b3ee0a7130a0dda5bdc33e7623f0c0af"
+    }
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer. Preserve180/181nativeSDK/Bevy scheduling/imagecopylimits andallpendingreceiverqueues. M04current903reviewsseparate; notfrozenoriginal/lenscounts. Packet182InventoryItemId graph erasure, catalogkey/recordidentity and wear/order-selector sourcequestions retained, alias/currentness/unique acceptance unresolved. M04build-target review003 atdf5 andhostedCIseparatefromfrozenauditcounts. 184 newpublicDrapedPiece association/sourcegroupingquestion remainsfrozenlocal, noalias/currentness/uniqueacceptance; producerpathcoherent. M04df5validationseparate. 185 capacityreservationstaticAPIgap retainedasfrozenevidence only; alias/currentness/accepteduniqueness unresolved. No runtimewrongID orauthoredcurrentinputwitness. ExistingID/key/wear/savedassociationquestionsremainqualified. Packet186 independently accounts existing test-source812 only; fixture expectations are not observed execution/whole authored catalog/native guarantees and do not clear185 capacity witness. Existing lower-pattern fixture uses canonical owners; no new current alias or unique finding. Packet187 original813 only. New frozen inventory_ui and catalog wrapper material extensions mandatory other lenses, zero extra shared/original credit. UI acquisition is not atomic/all-worn; inherited capacity, typedID erasure/key authority and public saved-association questions retain all currentness/alias/unique limits. Batch011 frozen attack-ID packed participant-width witness retained; no runtime/current/alias/accepted unique finding, no invented32bit capacity bound. Batch012 actual simultaneous fixture permits absent scheduled measure beside present start/contact/recovery; group only proved coupled facts, do not require every active schedule measure.",
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_adoption_required": true,
+  "read_limits": [
+    "Full effective1808 lines source-accounted; no additional ordered credit for connected roles. Actual numeric assertions/fixtures read, not executed.",
+    "No wholeweaponmodel geometry validator/physicalcatalog guarantee; future/current receiver populations pending independently."
+  ],
+  "restrictions": "No product/Git mutations/rootledger/projectchecks/tests/probes/publication."
+}

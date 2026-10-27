@@ -1,0 +1,90 @@
+{
+  "at": "2026-10-27T05:37:18.652261+00:00",
+  "kind": "Append-only authority fingerprint transcription correction",
+  "lens": "13 magic-numbers",
+  "packet": "031",
+  "corrects": {
+    "receipt": "audit13-successor-031.json",
+    "receipt_sha256": "bc23ac12a7f4225a1d5617e9ff1f776100a216271a6cc468b7483a4a73835430",
+    "json_pointer": "/authority/source_manifest_sha256",
+    "incorrect_historical_value": "534be48a9e2108b7e446c9f069ef177bdf0165c0ad90f59b4f9610c514e5aa",
+    "incorrect_value_length": 62,
+    "correct_value": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa",
+    "correct_value_length": 64,
+    "scope": "This one receipt metadata value only; original031 stays immutable and requires this qualification for root adoption."
+  },
+  "independent_verification": {
+    "exact_frozen_manifest_ref": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee:handoff/774/adler-original/audit/records/final-acceptance-20261021/source-manifest.json",
+    "exact_frozen_manifest_sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa",
+    "root_staged_manifest": "audit12-frozen-source-manifest-019.json",
+    "root_staged_manifest_sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa",
+    "root_staged_bytes_equal_exact_frozen_Git_object": true,
+    "prior_prospective_registration": "audit13-successor-registration-031.json",
+    "prior_registration_sha256": "283ad90c6dea87ac51dd48b3ec9ca4de0b2dbe214044b74670cb00ed440a6d89",
+    "prior_registration_source_manifest_sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa",
+    "registration_already_had_correct_exact64character_value": true,
+    "physical_snapshot": {
+      "id": "physical-p16",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "a120390947c89b703dc74c4255a13c035d054c50",
+      "changed_variants": 159,
+      "status_records": 159,
+      "toolchain_status_matches": [],
+      "toolchain_changed_file_matches": []
+    },
+    "exact_toolchain_blob": {
+      "git_ref": "a120390947c89b703dc74c4255a13c035d054c50:rust-toolchain.toml",
+      "git_blob": "18d1c14844d398c027c2e2cc740acca5bda2ec75",
+      "sha256": "0ede9efa984ca1bbaacf8ad3231e6e9ee1efd4000986bc913a2178c7ceb5be8a",
+      "bytes": 150,
+      "actual_lines": 5,
+      "matches_existing_031_source_object_bytes": true,
+      "source_body_reprinted_or_newly_consumed": false
+    }
+  },
+  "assessment": "Bookkeeping transcription error in the final031receipt only. The prospective031registration already carried the correct frozenmanifest hash. Re-reading the same immutable Git metadata object reproduces the correct hash, exactly matches the root-staged manifest, and preserves the same physical snapshot and canonical toolchain blob. No alternative manifest/source was used or substituted; no source identity or bounded-body conclusion changes from this correction. This does not cure or retract the separately disclosed unregistered genericcommitpatch output, which retains zero coverage.",
+  "retained_artifacts": [
+    {
+      "path": "audit13-successor-031-suggested-state.json",
+      "sha256": "68b5166d3c0649906aae4f5257de0c0cead3838d6f9a38277df64c330bc42a43",
+      "status": "Untouched proposedstate; interpret referenced031receipt together with this authority correction, rootsoleadopter."
+    },
+    {
+      "path": "audit13-successor-031-other-lens-extension-queue.json",
+      "sha256": "9b0aa820127e47e04a487b460e518542d006d462e11da5b2f930a876d3391ffe",
+      "status": "Untouched mandatory extension queue and zero coverage/rolecount qualifiers."
+    }
+  ],
+  "coverage_and_scope": {
+    "new_source_body_expansion": false,
+    "new_source_or_original_credit": 0,
+    "new_unique_count": 0,
+    "original_accounted": 37,
+    "original_total": 2853,
+    "partial_original_indices": [
+      31,
+      36,
+      39
+    ],
+    "earliest_unfinished_original": 31,
+    "first_never_started_original": 40,
+    "original39_full_body_retained": [
+      [
+        1,
+        13103
+      ]
+    ],
+    "original39_native_parser_admission_encode_pending": true,
+    "metadata_or_hash_checks_not_body_coverage": true
+  },
+  "activity_limits": {
+    "project_or_toolchain_execution": false,
+    "project_checks_tests_probes_or_new_tests": false,
+    "product_source_edits": false,
+    "Git_mutations": false,
+    "root_ledger_or_historical_edits": false,
+    "publication": false,
+    "ignored_append_only_correction_only": true
+  },
+  "stop_reason": "Authority correction saved; stop without new source expansion until root adopts corrected031authority. All031andpriorlimitations/counts remain."
+}

@@ -1,0 +1,597 @@
+{
+  "authority": "raw-overlay-authority-proof-001.json",
+  "members": [
+    {
+      "overlay_index": 214,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-215",
+        "at": "2026-10-22T21:07:53.505403+00:00",
+        "source_id": "physical-p16:crates/adventuresim-core/src/quest_generation/solver.rs",
+        "sha256": "5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+        "material_ranges": [
+          [
+            591,
+            597
+          ]
+        ],
+        "audit_owner": "root",
+        "reason": "Actual direct ordering/selection-index/weight arithmetic producer or signature of scoped choose1-58/solve_variables1-216. Root041 explicitly incomplete until these exact operation guarantees traced.",
+        "scope_registration": [
+          {
+            "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+            "sha256": "d38fd15aade2c9cadb3f18e35929f781696a1fcd9b6fa3025ec421406c385a24",
+            "row_1based": 12,
+            "id": "ROOT-INITIAL04-REG012",
+            "original_record": {
+              "id": "ROOT-INITIAL04-REG012",
+              "at": "2026-10-22T21:06:15.289464+00:00",
+              "authority": "continuation/root/parallel-initial-audits-081.json",
+              "source_id": "physical-p16:crates/adventuresim-core/src/quest_generation/solver.rs",
+              "snapshot": "physical-p16",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\quest_generation\\solver.rs",
+              "sha256": "5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+              "actual_EOF": 979,
+              "material_ranges": [
+                [
+                  591,
+                  601
+                ]
+              ],
+              "direct_role": "Actual direct ordering/selection-index/weight arithmetic producer or signature of scoped choose1-58/solve_variables1-216. Root041 explicitly incomplete until these exact operation guarantees traced.",
+              "scope_limits": "Only stated direct helper definitions, no other candidate catalogue or solver feature/tests. modelconstants19-20 already scoped separately, no new variant from them. Before body analysis.",
+              "status": "prospectively_registered_before_new_body_analysis"
+            }
+          }
+        ],
+        "limits": "Only stated direct helper definitions, no other candidate catalogue or solver feature/tests. modelconstants19-20 already scoped separately, no new variant from them. Before body analysis.",
+        "source_qualifications": "Effective591-597 full witness_order helper;599-601 next build_actions attribute context excluded."
+      },
+      "personally_read_registered_ranges": [
+        [
+          591,
+          597
+        ]
+      ],
+      "disposition": "Witness ordering sorts candidate indices by resident_character_id then deterministic shuffles, preserving identity-independent input order. This helper does not itself reject duplicates; earlier own source trace canonical_context rejects duplicate residents on actual public generation path. No arbitrary direct-helper or whole solver clearance."
+    },
+    {
+      "overlay_index": 215,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-216",
+        "at": "2026-10-22T21:07:53.505403+00:00",
+        "source_id": "physical-p16:crates/adventuresim-core/src/quest_generation/model.rs",
+        "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+        "material_ranges": [
+          [
+            289,
+            303
+          ],
+          [
+            1191,
+            1198
+          ]
+        ],
+        "audit_owner": "root",
+        "reason": "Actual direct ordering/selection-index/weight arithmetic producer or signature of scoped choose1-58/solve_variables1-216. Root041 explicitly incomplete until these exact operation guarantees traced.",
+        "scope_registration": [
+          {
+            "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+            "sha256": "d38fd15aade2c9cadb3f18e35929f781696a1fcd9b6fa3025ec421406c385a24",
+            "row_1based": 13,
+            "id": "ROOT-INITIAL04-REG013",
+            "original_record": {
+              "id": "ROOT-INITIAL04-REG013",
+              "at": "2026-10-22T21:06:15.296144+00:00",
+              "authority": "continuation/root/parallel-initial-audits-081.json",
+              "source_id": "physical-p16:crates/adventuresim-core/src/quest_generation/model.rs",
+              "snapshot": "physical-p16",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\quest_generation\\model.rs",
+              "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+              "actual_EOF": 1230,
+              "material_ranges": [
+                [
+                  289,
+                  308
+                ],
+                [
+                  1191,
+                  1199
+                ]
+              ],
+              "direct_role": "Actual direct ordering/selection-index/weight arithmetic producer or signature of scoped choose1-58/solve_variables1-216. Root041 explicitly incomplete until these exact operation guarantees traced.",
+              "scope_limits": "Only stated direct helper definitions, no other candidate catalogue or solver feature/tests. modelconstants19-20 already scoped separately, no new variant from them. Before body analysis.",
+              "status": "prospectively_registered_before_new_body_analysis"
+            }
+          }
+        ],
+        "limits": "Only stated direct helper definitions, no other candidate catalogue or solver feature/tests. modelconstants19-20 already scoped separately, no new variant from them. Before body analysis.",
+        "source_qualifications": "Effective Weight289-303/Candidate1191-1198 only;305-308 nextGenerationContext header and1199blank excluded."
+      },
+      "personally_read_registered_ranges": [
+        [
+          289,
+          303
+        ],
+        [
+          1191,
+          1198
+        ]
+      ],
+      "disposition": "Weight stores plausibility/curation separately and multiplies after widening each u32 to u64, so product fits u64. Candidate couples open ID/value/weight/bridge/impossibility/factors privately, but valid cross-relations still come from catalogue compilation and solver acceptance. No inferred impossible\u2194zero invariant beyond actual validators."
+    },
+    {
+      "overlay_index": 216,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-217",
+        "at": "2026-10-22T21:07:53.505403+00:00",
+        "source_id": "pr-working:crates/adventuresim-world-schema/src/lib.rs",
+        "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+        "material_ranges": [
+          [
+            1910,
+            1978
+          ]
+        ],
+        "audit_owner": "rig",
+        "reason": "Necessary directly reached closed hydrology vocabulary and complete payload definitions; register before body.",
+        "scope_registration": [
+          {
+            "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+            "sha256": "9d04ba23ac4cb53f2da1f2d7d0bf5985cfe2814740241faef00a7e06e767ef4c",
+            "row_1based": 28,
+            "id": "RIG-INITIAL06-REG-028",
+            "original_record": {
+              "id": "RIG-INITIAL06-REG-028",
+              "at": "2026-10-22T21:04:17.033483+00:00",
+              "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+              "source_id": "pr-working:crates/adventuresim-world-schema/src/lib.rs",
+              "snapshot": "pr-working",
+              "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+              "actual_EOF": 4796,
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-world-schema\\src\\lib.rs",
+              "material_ranges": [
+                [
+                  1910,
+                  1978
+                ]
+              ],
+              "material_caller": "OriginalscopedRiverWatercourse2732\u20132735 usesFlowPersistence; originalscopedSettlementHydrology::has_freshwater/has_saltwater2673\u20132680 requiresactualcanonicalrecord+Flowing/Inland/Marineaccesspayloaddeclarations. Directtypeclosureonly.",
+              "reason": "Necessary directly reached closed hydrology vocabulary and complete payload definitions; register before body.",
+              "exclusions": "Only1910\u20131978; excludeProductionScale1979+/industryinferencefeature andtests",
+              "status": "Prospectivelyregisteredbeforebody; globalpending"
+            }
+          }
+        ],
+        "limits": "Only1910\u20131978; excludeProductionScale1979+/industryinferencefeature andtests",
+        "source_qualifications": "Exact prospective registered role; original exclusions retained."
+      },
+      "personally_read_registered_ranges": [
+        [
+          1910,
+          1978
+        ]
+      ],
+      "disposition": "Hydrology uses separate optional flowing/inland/marine aggregates. Flowing distinguishes River from RiverAndCanal, so canal data travels with river access; river persistence, inland size and marine tidal/open classifications are explicit closed variants. Numeric distance/order wrapper admission and geographic inference remain separate, not proved by these declarations."
+    },
+    {
+      "overlay_index": 217,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-218",
+        "at": "2026-10-22T21:07:53.505403+00:00",
+        "source_id": "pr-working:crates/adventuresim-world-schema/src/lib.rs",
+        "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+        "material_ranges": [
+          [
+            1758,
+            1765
+          ]
+        ],
+        "audit_owner": "rig",
+        "reason": "Tinydirectreturntype declaration, registered before body analysis.",
+        "scope_registration": [
+          {
+            "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+            "sha256": "9d04ba23ac4cb53f2da1f2d7d0bf5985cfe2814740241faef00a7e06e767ef4c",
+            "row_1based": 29,
+            "id": "RIG-INITIAL06-REG-029",
+            "original_record": {
+              "id": "RIG-INITIAL06-REG-029",
+              "at": "2026-10-22T21:05:52.193624+00:00",
+              "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+              "source_id": "pr-working:crates/adventuresim-world-schema/src/lib.rs",
+              "snapshot": "pr-working",
+              "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+              "actual_EOF": 4796,
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-world-schema\\src\\lib.rs",
+              "material_ranges": [
+                [
+                  1758,
+                  1765
+                ]
+              ],
+              "material_caller": "Scoped TravelRoute::kind3496\u20133501 returns TravelEdgeKind; exact canonicalclosedtag declaration+Serde/SATS neededto compare tag versus payloadsum owner, oldnextcontract1768.",
+              "reason": "Tinydirectreturntype declaration, registered before body analysis.",
+              "exclusions": "Only1758\u20131765, noLanguageCode/SettlementIDneighbor APIs orotherworldfeature",
+              "status": "Prospectivelyregisteredbeforebody; globalpending"
+            }
+          }
+        ],
+        "limits": "Only1758\u20131765, noLanguageCode/SettlementIDneighbor APIs orotherworldfeature",
+        "source_qualifications": "Exact prospective registered role; original exclusions retained."
+      },
+      "personally_read_registered_ranges": [
+        [
+          1758,
+          1765
+        ]
+      ],
+      "disposition": "TravelEdgeKind is exactly Land/Ferry with lowercase serde names and native type adapters. The declaration does not validate graph endpoints, ferry water reach or route cost."
+    },
+    {
+      "overlay_index": 218,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-219",
+        "at": "2026-10-22T21:12:05.379166+00:00",
+        "source_id": "physical-p16:crates/adventuresim-core/src/quest_generation/solver.rs",
+        "sha256": "5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+        "material_ranges": [
+          [
+            380,
+            407
+          ]
+        ],
+        "audit_owner": "camera",
+        "reason": "Actual solver68 circumstance_candidates(demographic) gate must compare whether label-derived allowed circumstances reach a positive candidate, exact child/demographic receiver only",
+        "scope_registration": [
+          {
+            "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+            "sha256": "3091834b138dcf824606f60bbb970d78fd9876c8773515692335849017a25d14",
+            "row_1based": 12,
+            "id": "CAMERA-INITIAL07-REG012",
+            "original_record": {
+              "id": "CAMERA-INITIAL07-REG012",
+              "at": "2026-10-22T21:08:32.049956+00:00",
+              "authority": "CONT-ROOT-PARALLEL-INITIAL-AUDITS-081",
+              "source_id": "physical-p16:crates/adventuresim-core/src/quest_generation/solver.rs",
+              "sha256": "5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+              "actual_EOF": 979,
+              "material_ranges": [
+                [
+                  380,
+                  408
+                ]
+              ],
+              "material_caller": "Actual solver68 circumstance_candidates(demographic) gate must compare whether label-derived allowed circumstances reach a positive candidate, exact child/demographic receiver only",
+              "exclusions": "Description helper409+ and all unrelated solver functions excluded; trailing blank qualified after bounded read",
+              "status": "registered BEFORE new body analysis"
+            }
+          }
+        ],
+        "limits": "Description helper409+ and all unrelated solver functions excluded; trailing blank qualified after bounded read",
+        "source_qualifications": "Fresh exact prospective direct helper/body tail. Solver408blank excluded; earlier reputational whole440 display uncredited, old85-356 remains separate."
+      },
+      "personally_read_registered_ranges": [
+        [
+          380,
+          407
+        ]
+      ],
+      "disposition": "Circumstance candidates iterate authored identities, optionally match demographic relation by ID, default absent relation entries to35/70, retain authored hard-zero marker/required bridge and factor label. The fallback is explicit sampling policy within this frozen source, not old-schema compatibility. Catalogue uniqueness and impossible/bridge receiver behavior remain distinct."
+    },
+    {
+      "overlay_index": 219,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-220",
+        "at": "2026-10-22T21:12:05.379166+00:00",
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/reputation.rs",
+        "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+        "material_ranges": [
+          [
+            357,
+            360
+          ]
+        ],
+        "audit_owner": "camera",
+        "reason": "Existing local_reputation350-356 scoped prefix requires actual completed aggregate read recipient, distinguishing current terminal projection from immutable event authority",
+        "scope_registration": [
+          {
+            "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+            "sha256": "3091834b138dcf824606f60bbb970d78fd9876c8773515692335849017a25d14",
+            "row_1based": 13,
+            "id": "CAMERA-INITIAL07-REG013",
+            "original_record": {
+              "id": "CAMERA-INITIAL07-REG013",
+              "at": "2026-10-22T21:10:53.339802+00:00",
+              "authority": "CONT-ROOT-PARALLEL-INITIAL-AUDITS-081",
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/reputation.rs",
+              "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+              "actual_EOF": 440,
+              "material_ranges": [
+                [
+                  357,
+                  360
+                ]
+              ],
+              "material_caller": "Existing local_reputation350-356 scoped prefix requires actual completed aggregate read recipient, distinguishing current terminal projection from immutable event authority",
+              "exclusions": "Earlier premature full440 display beyond existing85-356 role is explicitly uncredited;1-84/361-440 remain excluded unless already scoped independently; fresh357-360 read occurs only after this registration",
+              "status": "registered BEFORE credited body analysis"
+            }
+          }
+        ],
+        "limits": "Earlier premature full440 display beyond existing85-356 role is explicitly uncredited;1-84/361-440 remain excluded unless already scoped independently; fresh357-360 read occurs only after this registration",
+        "source_qualifications": "Fresh exact prospective direct helper/body tail. Solver408blank excluded; earlier reputational whole440 display uncredited, old85-356 remains separate."
+      },
+      "personally_read_registered_ranges": [
+        [
+          357,
+          360
+        ]
+      ],
+      "disposition": "Registered reputation tail357-360 plus350-356entry read confirms missing aggregate maps to(fame0,infamy0), existing row returns both fields together. No write, settlement propagation or aggregate recalculation invariants credited."
+    },
+    {
+      "overlay_index": 220,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-221",
+        "at": "2026-10-22T21:22:16.940593+00:00",
+        "source_id": "physical-p16:crates/adventuresim-core/src/item_references.rs",
+        "sha256": "e794dc0ede51c9d53d64155ee9ce8d551347ec8f659e2461c0b3d5d31b34cb6b",
+        "material_ranges": [
+          [
+            1,
+            10
+          ]
+        ],
+        "audit_owner": "camera",
+        "reason": "Exact strategic_currency assigned_currency_id24 indexes actual P16CURRENCY_IDS; direct fixed authored complete currency list required for authoritative roster vs live catalogue classification, no PR equality inference",
+        "scope_registration": [
+          {
+            "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+            "sha256": "e547e6aaf36af08c559c81ba92c702af24ea6580f6d34f862273e09245260783",
+            "row_1based": 14,
+            "id": "CAMERA-INITIAL07-REG014",
+            "original_record": {
+              "id": "CAMERA-INITIAL07-REG014",
+              "at": "2026-10-22T21:20:11.685790+00:00",
+              "authority": "CONT-ROOT-PARALLEL-INITIAL-AUDITS-081",
+              "source_id": "physical-p16:crates/adventuresim-core/src/item_references.rs",
+              "sha256": "e794dc0ede51c9d53d64155ee9ce8d551347ec8f659e2461c0b3d5d31b34cb6b",
+              "actual_EOF": 76,
+              "material_ranges": [
+                [
+                  1,
+                  10
+                ]
+              ],
+              "material_caller": "Exact strategic_currency assigned_currency_id24 indexes actual P16CURRENCY_IDS; direct fixed authored complete currency list required for authoritative roster vs live catalogue classification, no PR equality inference",
+              "exclusions": "ExistingP16medication12-27/food30-37 separate; no other source tail expansion",
+              "status": "registered BEFORE new body analysis"
+            }
+          }
+        ],
+        "limits": "ExistingP16medication12-27/food30-37 separate; no other source tail expansion",
+        "source_qualifications": "OriginalREG014 exclusion label food30-37 is inaccurate: actual30-37 is equipment belt/sheath/loop/worn/hip/attachment-point constants, notfood. Existingmaterialranges unchanged and originalregistration retained. MEDICATION_IDS12-27 has14items; CURRENCY_IDS1-10 has6. No38-76/testcredit."
+      },
+      "personally_read_registered_ranges": [
+        [
+          1,
+          10
+        ]
+      ],
+      "disposition": "Six currency IDs are stable catalogue references consumed elsewhere, not an exhaustively typed currency enum or proof each record exists. Source registration is only1-10."
+    },
+    {
+      "overlay_index": 221,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-222",
+        "at": "2026-10-22T21:29:24.137981+00:00",
+        "source_id": "physical-p16:crates/adventuresim-core/src/strategic_schedule.rs",
+        "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+        "material_ranges": [
+          [
+            171,
+            182
+          ]
+        ],
+        "audit_owner": "camera",
+        "reason": "Direct completion of scoped restorative_leisure_spans151-170 to compare scalar pro-rata leisure minutes vs actual relationship-overlap span projection and retain different-purpose distinction before any authority finding",
+        "scope_registration": [
+          {
+            "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+            "sha256": "df3d3166d0df17e20b3ab04f157c35614b4c12426f66d1fddea2868d35267a43",
+            "row_1based": 15,
+            "id": "CAMERA-INITIAL07-REG015",
+            "original_record": {
+              "id": "CAMERA-INITIAL07-REG015",
+              "at": "2026-10-22T21:24:32.899327+00:00",
+              "authority": "CONT-ROOT-PARALLEL-INITIAL-AUDITS-081",
+              "source_id": "physical-p16:crates/adventuresim-core/src/strategic_schedule.rs",
+              "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+              "actual_EOF": 1363,
+              "material_ranges": [
+                [
+                  171,
+                  183
+                ]
+              ],
+              "material_caller": "Direct completion of scoped restorative_leisure_spans151-170 to compare scalar pro-rata leisure minutes vs actual relationship-overlap span projection and retain different-purpose distinction before any authority finding",
+              "exclusions": "Only loop/return completion; trailing blank/context qualified after read, no unrelated schedule operations239+",
+              "status": "registered BEFORE new body analysis"
+            }
+          }
+        ],
+        "limits": "Only loop/return completion; trailing blank/context qualified after read, no unrelated schedule operations239+",
+        "source_qualifications": "Only171-182 completeactualrestorative_leisure_spans;183blankexcluded. Actualpro-rata restversuscalendaroverlap reproduction differentpurposes, no duplicateauthority fromcountdifference. Allotheroldrolespreserved; no239+newbody/testscope."
+      },
+      "personally_read_registered_ranges": [
+        [
+          171,
+          182
+        ]
+      ],
+      "disposition": "Registered span tail171-182 completes positive-only span push and saturated day-loop termination. Read123-170context distinguishes cumulative apportioned leisure minutes from canonical realized end-of-day spans; they intentionally serve different receiving policies. At MAX/empty/full-day allocation, no zero/negative span is appended. Extremely large requested interval resource bounds and other consumers remain qualified."
+    },
+    {
+      "overlay_index": 222,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-223",
+        "at": "2026-10-22T21:48:27.454755+00:00",
+        "source_id": "dependency-serde_json1.0.151:src/value/de.rs",
+        "sha256": "ceda1bf415aafde89caa83bf275811b70d393717d4e1038e0c61822d2da02993",
+        "material_ranges": [
+          [
+            121,
+            148
+          ]
+        ],
+        "audit_owner": "camera",
+        "reason": "Direct Value::deserialize object visit_map policy for authored duplicate keys versus source-map first path receiver",
+        "scope_registration": [
+          {
+            "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+            "sha256": "3800ec25ed78d5b3bfcd2889531e186163457785416bfd61ee83da653735c1a7",
+            "row_1based": 16,
+            "id": "CAMERA-INITIAL07-REG016",
+            "original_record": {
+              "registration_id": "CAMERA-INITIAL07-REG016",
+              "at": "2026-10-22T21:44:00.383127+00:00",
+              "authority": "continuation/root/parallel-initial-audits-081.json",
+              "source_id": "dependency-serde_json1.0.151:src/value/de.rs",
+              "snapshot": "pinned-cargo",
+              "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\serde_json-1.0.151\\src\\value\\de.rs",
+              "sha256": "ceda1bf415aafde89caa83bf275811b70d393717d4e1038e0c61822d2da02993",
+              "actual_EOF": 1507,
+              "material_ranges": [
+                [
+                  121,
+                  148
+                ]
+              ],
+              "reason": "Direct Value::deserialize object visit_map policy for authored duplicate keys versus source-map first path receiver",
+              "exclusions": "Only direct duplicate-key accumulation/insertion contract, no whole serde/package/foreign graph; same pinned native dependency already scoped. Navigation symbols only before registration.",
+              "status": "prospectively_registered_before_body_analysis"
+            }
+          }
+        ],
+        "limits": "Only direct duplicate-key accumulation/insertion contract, no whole serde/package/foreign graph; same pinned native dependency already scoped. Navigation symbols only before registration.",
+        "source_qualifications": "Only nativeordinaryobjectvisitor121-148, preserveoldseparatefloatroleandalloldbodies; nofloatadmissionclaimfrommapvisitor."
+      },
+      "personally_read_registered_ranges": [
+        [
+          121,
+          148
+        ]
+      ],
+      "disposition": "serde_json Value map visitor inserts successive keys into one map and therefore replaces earlier duplicate keys. KeyClassifier feature-specific number/raw paths remain distinct. This is dependency deserialization behavior, not duplicate-key rejection by downstream Value validators; preserve existing raw-text/native-format admission qualifications without importing another lens finding."
+    },
+    {
+      "overlay_index": 223,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-224",
+        "at": "2026-10-22T21:55:20.697739+00:00",
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+        "sha256": "1178bf380da9126c00678608493b9d252af9746d853d347d5f334d451586b5bb",
+        "material_ranges": [
+          [
+            108,
+            129
+          ]
+        ],
+        "audit_owner": "native",
+        "reason": "Necessary actual P17 direct topology mapping; REG011 excluded this role, so prospectively extend before body now. PR sibling topology is navigation only.",
+        "scope_registration": [
+          {
+            "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+            "sha256": "69a74476a30644a6096bdbf42396927ca8d45ee3bc5f6c4b3c0347b230ef5440",
+            "row_1based": 12,
+            "id": "NATIVE-INITIAL05-REG012",
+            "original_record": {
+              "id": "NATIVE-INITIAL05-REG012",
+              "at": "2026-10-22T21:53:58.976451+00:00",
+              "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+              "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+              "snapshot": "report-p17",
+              "resolved_path": "SNAPSHOTS/p17/crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+              "sha256": "1178bf380da9126c00678608493b9d252af9746d853d347d5f334d451586b5bb",
+              "actual_EOF": 138,
+              "material_ranges": [
+                [
+                  108,
+                  129
+                ]
+              ],
+              "material_caller": "Already global P17 capture.rs jitter_frames direct parent_bone call, same-frame local parent-relative projection requires actual acyclic reduced parent identity topology.",
+              "reason": "Necessary actual P17 direct topology mapping; REG011 excluded this role, so prospectively extend before body now. PR sibling topology is navigation only.",
+              "exclusions": "serialize_report_bone131-138 remains excluded; no authored complete rig hierarchy.",
+              "status": "prospectively registered before new body analysis; global pending"
+            }
+          }
+        ],
+        "limits": "serialize_report_bone131-138 remains excluded; no authored complete rig hierarchy.",
+        "source_qualifications": "Onlyreducedparentlookup108-129, originalREG0116-106separateandpreserved;131-138serializehelperexcluded, no completeauthoredrigscope."
+      },
+      "personally_read_registered_ranges": [
+        [
+          108,
+          129
+        ]
+      ],
+      "disposition": "Report-only reduced bone hierarchy maps captured roles to nearest retained parent and defaults uncaptured/root roles to None. Comment explicitly distinguishes full authored hierarchy; no skeletal authoring/root-closure clearance follows."
+    },
+    {
+      "overlay_index": 224,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-225",
+        "at": "2026-10-23T00:24:53.671788+00:00",
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/model.rs",
+        "sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+        "material_ranges": [
+          [
+            60,
+            91
+          ]
+        ],
+        "audit_owner": "camera",
+        "reason": "Compare actual canonical CharacterKinship kind/table semantics (used by scoped family::ensure_kinship) to corpse permission FamilyBinding and stale no-authoritative-kinship comment, not assume household labels are kin. Existingmodel250-440 different role remains unchanged.",
+        "scope_registration": [
+          {
+            "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+            "sha256": "ff6e02767b73308d5608deadecaf8732444590e72739eed2cfc28893293a0ce6",
+            "row_1based": 19,
+            "id": "CAMERA-INITIAL07-REG019",
+            "original_record": {
+              "registration_id": "CAMERA-INITIAL07-REG019",
+              "at": "2026-10-22T22:01:00.497794+00:00",
+              "authority": "continuation/root/parallel-initial-audits-081.json",
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/model.rs",
+              "snapshot": "physical-p16",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\relationship\\model.rs",
+              "sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+              "actual_EOF": 496,
+              "material_ranges": [
+                [
+                  60,
+                  94
+                ]
+              ],
+              "reason": "Compare actual canonical CharacterKinship kind/table semantics (used by scoped family::ensure_kinship) to corpse permission FamilyBinding and stale no-authoritative-kinship comment, not assume household labels are kin. Existingmodel250-440 different role remains unchanged.",
+              "exclusions": "Only directly needed canonical kinship declaration+methods/table; surrounding HouseholdRole/member, consent/marriage fields and tests excluded; navigation symbols only before body.",
+              "status": "prospectively_registered_before_body_analysis"
+            }
+          }
+        ],
+        "limits": "Only directly needed canonical kinship declaration+methods/table; surrounding HouseholdRole/member, consent/marriage fields and tests excluded; navigation symbols only before body.",
+        "source_qualifications": "Only60-91 KinshipKind/method/CharacterKinship table;92blank/93-94NEXT Householdattributesuncredited, no Householdbody/marriage/consent. Original250-440role preserved separately. Enumderiveprefixoutside60notcredited; no automatic Corpsepermissioncontactequivalence."
+      },
+      "personally_read_registered_ranges": [
+        [
+          60,
+          91
+        ]
+      ],
+      "disposition": "KinshipKind is four directed edge meanings with stable IDs. CharacterKinship stores subject/related/kind/time and comment requires callers create both directions when needed. Declaration cannot enforce reciprocal Parent/Child or symmetric pair existence; actual family mutation authority remains separate."
+    }
+  ],
+  "first_unfinished_overlay_index": 225,
+  "new_findings": []
+}

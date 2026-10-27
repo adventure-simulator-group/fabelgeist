@@ -1,0 +1,110 @@
+{
+  "lens": "type-granularity",
+  "prior_state": "audit11-successor-163-proposed-state.json",
+  "crosswalk": "audit11-question-crosswalk-001.json",
+  "current_reconciliation": "current-rig-dressing-reconciliation-001.json",
+  "metadata_only": [
+    {
+      "scope_index": 792,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/stages.rs",
+      "sha256": "ccbbca63f8954cde1d15934b057edc40dfe382d36c273fed0acd0316f9a2fe2a",
+      "cached": true
+    },
+    {
+      "scope_index": 793,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/validation.rs",
+      "sha256": "26ab01120c442d3d0f7fece4c338f28680fafcd633314036aeb853dc263e637e",
+      "cached": true
+    }
+  ],
+  "ordered_roles": [
+    {
+      "scope_index": 792,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/stages.rs",
+      "sha256": "ccbbca63f8954cde1d15934b057edc40dfe382d36c273fed0acd0316f9a2fe2a",
+      "ranges": [
+        [
+          1,
+          352
+        ]
+      ],
+      "registered_before_new_read": true,
+      "prior_connected": "7921-273 under157, no automatic ordered credit"
+    },
+    {
+      "scope_index": 793,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/validation.rs",
+      "sha256": "26ab01120c442d3d0f7fece4c338f28680fafcd633314036aeb853dc263e637e",
+      "ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "registered_before_new_read": true,
+      "prior_connected": "No prior body credit"
+    }
+  ],
+  "connected_extensions": [
+    {
+      "original_index": 2266,
+      "source_id": "pr-working:crates/fabelgeist-garment-fit/src/lib.rs",
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "792 actual solver/settings and HostContactSchedule/selfcollision receiving owner contracts"
+    },
+    {
+      "original_index": 2341,
+      "source_id": "pr-working:crates/fabelgeist-shell/src/shell.rs",
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "792 actual solver/settings and HostContactSchedule/selfcollision receiving owner contracts"
+    },
+    {
+      "original_index": 782,
+      "sha256": "c26b0508ccce30c3c2ca164e46327764ca4b133b418b5ea49e008b0a45613421",
+      "ranges": [
+        [
+          1,
+          194
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "792 exact checkpoint record/start payload producer and simulation stage/count/preview receiving bodies; material reuse, no earlier discovery restart"
+    },
+    {
+      "original_index": 2341,
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "ranges": [
+        [
+          1,
+          76
+        ],
+        [
+          167,
+          190
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "792 exact HostContactSchedule native host-control field roles/defaults and mesh-contact setter boundary"
+    },
+    {
+      "original_index": 2352,
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/solver.rs",
+      "sha256": "a7918c0ebe5c6fa1de3ea8bd7bc9eb76f4983ecc9c2d83d8d7063c46a334afde",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "792 actual numerical SolverSettings owner/solver step receiver after exact staging"
+    }
+  ]
+}

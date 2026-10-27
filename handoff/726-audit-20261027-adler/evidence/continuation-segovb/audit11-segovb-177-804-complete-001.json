@@ -1,0 +1,428 @@
+{
+  "packet": 177,
+  "lens": 11,
+  "lens_name": "type-granularity",
+  "status": "source_accounted_with_qualifications_and_registration_incident",
+  "prior_adopted_state": {
+    "path": "audit11-segovb-176-proposed-state-002.json",
+    "sha256": "08d3476b4663e7d73a3fd36c69b11d2da0bef995e23fdf8965ad174b91fc4c0c",
+    "adoption": "audit11-segovb-176-adoption-root.json",
+    "adoption_sha256": "8c56e50ce7e224d1048c919f2ced46d0885cfca0d9988e8b5a9c49ff6440a11f"
+  },
+  "authoritative_ledger_at_read": {
+    "path": "ledger.json",
+    "sha256": "8c1a52bc150140c33536eca983d2faf03d48fc0e67c85bd8109ec4e63f847fe0",
+    "selected_lens11": "804/2853,next804,noactivepartial,176state002",
+    "qualification": "Root mutableledger read only, not overwritten; otherlensmetadata notsourcecoverage orverdicttransfer."
+  },
+  "authority": {
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "registry": "target/recovery-20261025/audit05/original-scope-072.json",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "personally_read_this_packet": true
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "personally_read_this_packet": true
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-type-granularity/SKILL.md",
+      "sha256": "3a1fbf7f53c752e35eefe7763cbd49b9f280bd4b978ea998f74c3a68e45dc106",
+      "personally_read_this_packet": true
+    }
+  ],
+  "source": {
+    "original": 804,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/groom.rs",
+    "sha256": "6be15ac30dc63fd83b87ed48442b9fa9d403bb875737c7bafe13bdc19ac6c4c9",
+    "bytes": 8315,
+    "actual_eof": 233,
+    "requested_scope": [
+      [
+        1,
+        233
+      ]
+    ],
+    "personally_consumed_this_packet": [
+      [
+        1,
+        130
+      ],
+      [
+        131,
+        233
+      ]
+    ],
+    "full_requested_scope": true,
+    "read_from": "target/recovery-20261025/continuation-segovb/source-objects/6be15ac30dc63fd83b87ed48442b9fa9d403bb875737c7bafe13bdc19ac6c4c9",
+    "prior_access": "1-186 connectedonly in169/later; notfull233andnotorderedcredit. Currentpacket independently inventories233."
+  },
+  "registrations": [
+    {
+      "path": "audit11-segovb-177-registration-001.json",
+      "sha256": "bf0beee7ef161afc70f9680ae513afb0153307a163aa3b3279c7aa5fb337d99e"
+    },
+    {
+      "path": "audit11-segovb-177-registration-002.json",
+      "sha256": "313b971a266b38f3b03993706bea312924c551f486095bd85a9da074a1d168f2"
+    },
+    {
+      "path": "audit11-segovb-177-registration-003.json",
+      "sha256": "c8a4c8f5f0801c3807ba388324d5575dd9a318d25d36d4cc979059d4c19dc635"
+    },
+    {
+      "path": "audit11-segovb-177-registration-004.json",
+      "sha256": "de9624e8d3ac379ab1d5976864baeefdce163fe26d22b5f155c26e0a40468c38"
+    },
+    {
+      "path": "audit11-segovb-177-registration-005.json",
+      "sha256": "b4bf1c9ccabf08e670eaff20c09392c0c66e0767e4526000a54ea080354afa62"
+    }
+  ],
+  "new_connected_source_reads": [
+    {
+      "original": 2286,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow.rs",
+      "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+      "actual_eof": 876,
+      "ranges": [
+        [
+          100,
+          160
+        ]
+      ],
+      "read_from": "crates/fabelgeist-hair/src/gpu/grow.rs",
+      "original_shared_credit": false
+    },
+    {
+      "original": 2645,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/collider.rs",
+      "sha256": "a6c42473a9969568f6eb700df01cc6753b92bb2034ade7d129733d1a550c2021",
+      "actual_eof": 171,
+      "ranges": [
+        [
+          1,
+          39
+        ],
+        [
+          109,
+          154
+        ]
+      ],
+      "read_from": "crates/fabelgeist-hair/src/collider.rs",
+      "original_shared_credit": false
+    },
+    {
+      "original": 2845,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+      "actual_eof": 138,
+      "ranges": [
+        [
+          111,
+          116
+        ]
+      ],
+      "read_from": "crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "original_shared_credit": false
+    },
+    {
+      "original": 807,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair_preview.rs",
+      "sha256": "800207ff944cfc7487b00bfbaa888dbe254ec85340094e9104c392b54b14ea78",
+      "actual_eof": 343,
+      "ranges": [
+        [
+          100,
+          165
+        ],
+        [
+          200,
+          234
+        ]
+      ],
+      "read_from": "crates/adventuresim-character-creator/src/hair_preview.rs",
+      "original_shared_credit": false
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow.rs",
+      "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+      "actual_eof": 876,
+      "ranges": [
+        [
+          324,
+          347
+        ]
+      ],
+      "read_from": "crates/fabelgeist-hair/src/gpu/grow.rs",
+      "original_shared_credit": false
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/collider.rs",
+      "sha256": "a6c42473a9969568f6eb700df01cc6753b92bb2034ade7d129733d1a550c2021",
+      "actual_eof": 171,
+      "ranges": [
+        [
+          155,
+          165
+        ]
+      ],
+      "read_from": "crates/fabelgeist-hair/src/collider.rs",
+      "original_shared_credit": false
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/gpu/lods.rs",
+      "sha256": "4c4942bcc61f37168061524da5455ca10cfd712e6611f8128f2cf45cf1c58fb9",
+      "actual_eof": 597,
+      "ranges": [
+        [
+          115,
+          150
+        ],
+        [
+          263,
+          297
+        ]
+      ],
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/4c4942bcc61f37168061524da5455ca10cfd712e6611f8128f2cf45cf1c58fb9",
+      "original_shared_credit": false
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/gpu/lods.rs",
+      "sha256": "4c4942bcc61f37168061524da5455ca10cfd712e6611f8128f2cf45cf1c58fb9",
+      "actual_eof": 597,
+      "ranges": [
+        [
+          298,
+          307
+        ]
+      ],
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/4c4942bcc61f37168061524da5455ca10cfd712e6611f8128f2cf45cf1c58fb9",
+      "original_shared_credit": false
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/gpu/wgsl/lod.rs",
+      "sha256": "84921c3738f17ead3b584e9957b4da132682a3a9c475c3b99a664b48ec245df7",
+      "actual_eof": 932,
+      "ranges": [
+        [
+          897,
+          932
+        ]
+      ],
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/84921c3738f17ead3b584e9957b4da132682a3a9c475c3b99a664b48ec245df7",
+      "original_shared_credit": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair_preview.rs",
+      "sha256": "800207ff944cfc7487b00bfbaa888dbe254ec85340094e9104c392b54b14ea78",
+      "actual_eof": 343,
+      "ranges": [
+        [
+          166,
+          199
+        ]
+      ],
+      "original_shared_credit": false
+    }
+  ],
+  "registration_process_qualification": {
+    "failed_attempt": "Initial002write failed at raw SNAPSHOTS\\pr-working registrypath beforefilecreation; subsequentreadcallsran.",
+    "first_exposed_ranges": {
+      "2286": [
+        [
+          100,
+          160
+        ]
+      ],
+      "2645": [
+        [
+          1,
+          39
+        ],
+        [
+          109,
+          145
+        ]
+      ],
+      "2845": [
+        [
+          111,
+          116
+        ]
+      ],
+      "807": [
+        [
+          100,
+          165
+        ],
+        [
+          200,
+          234
+        ]
+      ]
+    },
+    "prospective_first_consumption_claim": false,
+    "correction": "Saved002pins all exactfrozenidentities andprospectivefreshreadranges, explicitlyrecordedfault. Personallyrereadactualboundedbodiesaftercorrectregistration. Rootmessageinstructedrecordexposureandfinishcorrectlyregisteredreads; rootsourceproofadoptionseparatefromprocessqualification. No coveragefromfailedwrite/hashalone.",
+    "firstexposure_source_identity_limit": "2286hashverifiedbeforefailure;807hashknownfromprior metadata; allfour reverifiedexactbeforefreshregisteredread. No current/frozen substitution."
+  },
+  "inherited_personal_source_reuse": [
+    {
+      "receipt": "audit11-segovb-168-795-complete.json",
+      "sha256": "417b1d2f3e32cda9f83b16ec3a321ec4118db68700b339bd5ab15cd738c6c0ad",
+      "use": "HairDesign/Groom separation and806full229 Groom.look/HairShape.apply; no795candidatepromotion or806orderedcredit."
+    },
+    {
+      "receipt": "audit11-segovb-170-796-complete.json",
+      "sha256": "429b079349ab86d448549a150f71dfe5cc39b2038549d5b94f7e9f316609d653",
+      "use": "Actualcut_scalp/GpuScalp.read geometry readback,ScalpMap/Head/scalp association,ScalpCap.fit and nativeMeshColliderquery; no shader/nativecorrectness guarantee."
+    },
+    {
+      "receipt": "audit11-segovb-171-797-complete.json",
+      "sha256": "a84068ba273bbdaeb01127bfa94dbc911fee5a741db2a3da32a8c7e15d4fb235",
+      "use": "PlacedHairgeometry/Form resolution anddistinctnormals/directions/points."
+    },
+    {
+      "receipt": "audit11-segovb-172-798-complete.json",
+      "sha256": "d3a99094e21b5baeb8c9d9ef1051bc5a284928199384e2a56aea3cd3b72ae565",
+      "use": "ScalpTexture/GpuScalpTexturebake and longestnativearc reductionactualproducer/retention; nofloatbit/nonfiniteorderingclearance."
+    },
+    {
+      "receipt": "audit11-segovb-173-800-complete.json",
+      "sha256": "bad62fb207aabbdac598cc5dd90e76e469ac15b78a3cb7f249c5ed3ac9fa4494",
+      "use": "BodyField sampledgeometry/nativefieldlayout plusqualified20bitcapacitygap."
+    },
+    {
+      "receipt": "audit11-segovb-174-801-complete.json",
+      "sha256": "f1f7fba67f7d06187aaec09a7db85bf90518983022b37af3ecde2b7ee7d4c699",
+      "use": "ActualDrapingnativepolicy andplacementcarry/drape/shrinkwrap,GpuGroomretention,HeadPlacementframe; rawboolmigrationquestion inherited exactly."
+    },
+    {
+      "receipt": "audit11-segovb-176-803-complete-001.json",
+      "sha256": "170225a7655e70ba202c3c44b98d71a69e4c329cb3a39c9bee5e8ef35d25b7a4",
+      "use": "StripSourcelongest subdivision/nativecard/strandformats and previewretentiondirectbufferbindings; no extrarendererproof."
+    }
+  ],
+  "inventory_and_contract_traces": [
+    {
+      "role": "GroomedHair and PlacedHair distinct phases",
+      "locations": "80427-65,70-93,103-138,164-203",
+      "disposition": "Meaningfulphase/frame distinction: GroomedHair retains authoredGroom/nativebustgroom,bustbounds/head/scalp/map/bakedtexture; PlacedHair retainscharacter-readyLODs/bodyfield/HeadPlacement/cap plus sharedbustparameterizedscalptexture. Samehairrequestdoesnotmeaninterchangeablegeometryframe. No collapseintooneoptionalfieldbag. Publicgroommetadata remains independentlymutableanddoesnotproveeveryexternalmutationmatchesprivategeometry."
+    },
+    {
+      "role": "BodySurface borrowed model mesh",
+      "locations": "80446-50,103-125;807100-120;nativecollider112-162;800prior",
+      "disposition": "Borrowedpositions/facesmodelspaceview feedsbothGPUfieldandCPUmeshcollider fromsamebody, convertingrawtriples->Vec3 andcloningtriangleindicesatnativeport. CPUcapcollision andGPUdrape/LODfield aredifferentneededrepresentations/receivers ratherthanduplicateauthorityfromunrelatedsources. Actualpreview derivesHeadPlacementfromsameBodyHeadskin thenpassesitspositions/faces. No universalmeshassociation/validindex/winding/finiteproof."
+    },
+    {
+      "role": "Actualgrow pipeline and geometry request owner",
+      "locations": "80470-93;806Groom.look/apply prior168;nativegrow100-160,324-345;HairGpu111-113;170scalpproducer",
+      "disposition": "Groom.look canonicalpreset+shape producesLook; samehead derivesactualGPUscalp/grownstrands/bounds thenScalpMap/scalpbake/longest. Nativegrow_look mapsvariation.ratio andseed.word atactualnativegeneratoradapter; ownsgroomerunderMutexGuard. Nativegrow takesmax(groom.points,2)beforeu32cast; readsrootcount, rejects0or>=2^20, emitsGpuGroom withthosecounts/positions/attributes/roots,root_bounds=scalp.bounds,headSome/headclone,guidesSome. Theseactualguardssupportthisproduceronly: usize->u32narrowing,allpointcountcapacityandpublicGpuGroommutationsnotuniversallyvalidated."
+    },
+    {
+      "role": "Actualnativebounds producer and retainedframe",
+      "locations": "80473-87,141-159;nativeLods263-305;nativeWGSL897-932",
+      "disposition": "Actualmeasure_bounds clearsnativewordworkspace,dispatchesbystrands*pointsandreads6orderedwords. ShaderorderedfloatkeyatomicMax packscomplementedminxyzandmaxxyz;hostreversesbitmappinginto[low,high]Vec3pair. Bounds referbustnativegroompositions. carried_bounds destructureshomogeneouspairlo/hi,maps8cornerswithHeadPlacement.point,addsphysicalFIELD_MARGIN. Namedframe/unit rolesuseful; no globalNaN/emptygeometry/overflow/SDF orconservativepost-drapeguarantee. Retainedrootboundsandmaxshiftquestionsremainqualified."
+    },
+    {
+      "role": "Draping carried policy",
+      "locations": "80436-37,88,110-115;801108-157;parametersDraping prior174",
+      "disposition": "Exactsamefrozenpolicy-erasuregap SEGOVB11-174-801-DRAPING-POLICY-ERASURE:look.drape.enabled()->retainedbool->placementDraping.drapes. CanonicalDrapingcanflowthroughretainedrecord/placementdecisionwithoutnativebooladapterbetweenapplicationoperations. Sourceaccountedwithknownmigrationgap, no newuniquealias/currentrepairclaim."
+    },
+    {
+      "role": "on_bust comparison output",
+      "locations": "804128-138;nativehead_shape149-175 retained172;HeadPlacementidentity retained169/171",
+      "disposition": "Sameactualhead suppliesbustmesh/collider/shape; identityplacementwithtypedRigJointOrdinal0 feeds prepare onoriginalgroom. Return(PlacedHair,Surface) pair hasdistincttypes andpairedcomparisonmeaning; namedrecordcouldclarifyapplicationreturn but no compilerroleconfusionorcanonicalreplacementproved. No compatibility justification required. Callerlocatoronlyrender_test128 observed; itsbody notconsumed/executedandno rendering-harnesscoverageclaimed."
+    },
+    {
+      "role": "Preparation and retainedbody/head texture association",
+      "locations": "804162-203;nativeLods115-150;cap796prior170;scalpbake798prior172;807123-193",
+      "disposition": "center comesfrommappedcraniumcenter, lods_againstreceivesplacedstrandsandSome(actualbodybuffer),cap.fit receivesretainedsamebustscalp/head/map plusactualplacement/CPUskin;PlacedHairstoresmatchingplacement/cap/body andsharedtextureArc. NativeLODusesgroomcachedboundsSomeoractualmeasureboundsNone. Previewworkerretainsgrown/placed/gpu,collectstoresplacedhairwithworkerbody;lookupchecksGroomandArcbodyidentity. Localpathassociations source-backed,notuniversaldevice/originbrandingorpublicmutationclearance."
+    },
+    {
+      "role": "Longeststrand physicalmeasurement acrossphase",
+      "locations": "80434-35,82,60-61,181;798427-448/799374-400prior172;805point/scaleprior169;803104-121,156-169prior176",
+      "disposition": "longestisactualbustgroomarclengthmetres thenstoredunchangedinPlacedHair,whileHeadPlacementcanapplynonuniformscale anddrapingmovespoints. StripSourcesubdivisionusesPlacedHair.longest. Thisrequiresphase/framequalification:cannotclaimitisthecheckedmaximumofpostplacementgeometryorstrictsegmentbound. Qualifiedlocalfrozenquestionbelow; no customcase/probe/acceptedunique/currentdefectclaim."
+    },
+    {
+      "role": "Forms and count role distinctions",
+      "locations": "804205-232;nativeGpuLods18-72prior171;nativeForm250-289prior171;parameters1-52prior174;807202-230",
+      "disposition": "CanonicalForm carriesStrandslevel+share vsCardslevel;804enumeratesactualnativevectors toconstruct forms,share1=allstrands. strand_points/card_count usegetwithzeroifmissing; actualpreviewlabelsconsumelevelsfromforms,soordinarycurrentselectionreferstopresentlevels. strand_count forwardsnativefirstlevelcount. Rawusize/u32counts areactualnativecollection/presentationbridges; existingStrandCount/PointsPerStrand remainsemanticowneroptions,notinterchangeable. Numberofcardstripsinacut differsfromGpuLods.cards.len/cardcutcount; do notreuseonegenericcardcountroleduetostorage/name. No fabricatedinvalidleveloutcomeorpositivecountboundintroduced."
+    }
+  ],
+  "qualified_observations": [
+    {
+      "source_key": "SEGOVB11-174-801-DRAPING-POLICY-ERASURE",
+      "relationship": "sameexactfrozenretainedsource witness, notnewfinding",
+      "proposeddisposition": "carrycanonicalpolicythroughGroomedHair+placement; currentness/alias/repairacceptancepending"
+    },
+    {
+      "source_key": "SEGOVB11-177-804-LENGTH-PHASE-RETENTION",
+      "classification": "qualifiedfrozenphase/receiverquestion, notaccepteduniquedefect",
+      "evidence": "GroomedHair.longestmeasuredfromon_gpuonbust is copiedunchangedinprepare whileplacementhasaffinescale;StripSourcesubdivisionconsumesit. No establishedcheckthatthisvalueboundsplacedarc lengths.",
+      "required_next_reconciliation": "Compareexactcurrentcanonicalmeasurement/placement/subdivisionowners andexistingfindingaliases beforeacceptance; determinewhetherproducer shouldremeasureplacedgroom orcarrya documentedconservativeboundwithphaseappropriateowner. Do not imposearbitraryclamporbackcompatconstraints."
+    }
+  ],
+  "mandatory_other_lens_queue_extensions": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/gpu/lods.rs",
+      "sha256": "4c4942bcc61f37168061524da5455ca10cfd712e6611f8128f2cf45cf1c58fb9",
+      "new_material_ranges": [
+        [
+          115,
+          149
+        ],
+        [
+          263,
+          306
+        ]
+      ],
+      "incidentalcomment307": true,
+      "original_shared_credit": 0,
+      "status": "pendingotherlenses"
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/gpu/wgsl/lod.rs",
+      "sha256": "84921c3738f17ead3b584e9957b4da132682a3a9c475c3b99a664b48ec245df7",
+      "new_material_ranges": [
+        [
+          897,
+          932
+        ]
+      ],
+      "original_shared_credit": 0,
+      "status": "pendingotherlenses"
+    }
+  ],
+  "coverage_limits": [
+    "Oneoriginal804full233scopeindependentlyinventoried; future805/807connectedrolesgetnoorderedcredit. Allreadrange/registrationincidentspreservedabove; successfulfreshreadcreditnotprospectivefirstconsumption.",
+    "No currentwholefamilyinspection oraliasauthorityreconciliation. Known795NaN/currentDressing/F50/M108/M24/field20bitcapacity/Draping/rootbounds andallotherlensunfinishedqueues retained. BareQ008/Q009 aliasesnotreused. Nouniqueacceptedcountchange.",
+    "Existing nativegrowpoint/countguardsarelocalproducerfacts,notuniversalrow/byte/index/finiteboundsorGPUalgorithmvalidity. BVHclosestpoint/normal/barycentric andshaderdistance/groom algorithmsnotgloballycleared.",
+    "Characterexport702localworkspaceSHAdiffersfromfrozenpin(metadataonly); no substitutedbodyorcurrentexportproof. OtherBodySurfacecallerlocators didnotconferbodycoverage. No claimallretainedreceivingfamily isclear.",
+    "Reviewnotprojectexecution: no tests/cases/helpers/assertions/doctests addedorexecuted, no source/product/Git/rootledger/historicalmutationsorpublication. Ignoredappend-onlyevidenceonly.",
+    "No backwardcompatibilityschema/API/layout/messageacceptanceconstraints; source-accountedWITHqualifications notclear/integrated/validated."
+  ],
+  "new_unique_findings": 0,
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "clear": false,
+  "integrated": false,
+  "validated": false,
+  "proposed_frontier": {
+    "original_accounted": 805,
+    "original_total": 2853,
+    "next_original": 805,
+    "active_partial": null,
+    "newly_source_accounted": [
+      804
+    ]
+  },
+  "root_adoption_required": true,
+  "stop": "177saved;stopbefore805orderedinventory"
+}

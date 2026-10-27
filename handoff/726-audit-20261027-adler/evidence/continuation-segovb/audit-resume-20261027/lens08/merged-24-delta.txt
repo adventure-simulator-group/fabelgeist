@@ -1,0 +1,20 @@
+--- base
+
++++ head
+
+@@ -180,12 +180,12 @@
+
+             self.last_used.insert(support.clone(), self.use_clock);
+             match self.models.get(&support) {
+                 Some(Ok(_)) => {}
+                 Some(Err(error)) => bail!(
+                     "lower equipment {} {} failed: {error}",
+-                    support.selection.item().id,
+-                    support.selection.id
++                    support.selection.selection.item().id,
++                    support.selection.selection.definition().id
+                 ),
+                 None => return self.next_fit(&support),
+             }
+         }
+         Ok(key.clone())

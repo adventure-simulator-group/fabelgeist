@@ -1,0 +1,535 @@
+{
+  "at": "2026-10-27T17:11:39.269655+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-097-registration.jsonl",
+    "sha256": "fd051e8f1b846ef474f03af87fdf8531e46711c730164e7217046a49b01ab551"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-096.json",
+    "sha256": "c40c777dc2fd398c539d575e9896bb3958cbac53ae5e7853187cc7e22403aca2"
+  },
+  "mandatory_qualification": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-097-native-time-qualification-001.json",
+    "sha256": "8b5d251d80cb880d50c2e21b28fe4ece9ac8d71dc4e0e9b3397d4aaed3e3f4b9"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1177,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/repair.rs",
+      "sha256": "121a3412ae887fe1eec8fdf53acc1d66a0e091bc4d5d68593f16f0c13b270c09",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/121a3412ae887fe1eec8fdf53acc1d66a0e091bc4d5d68593f16f0c13b270c09",
+      "ranges": [
+        [
+          1,
+          724
+        ]
+      ],
+      "actual_eof": 724,
+      "prospective": true,
+      "purpose": "Independent full effective repair/smith/reputation role inventory, no automatic priorrecipientcredit",
+      "actual_read_ranges": [
+        [
+          1,
+          724
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1178,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/repair/smiths.rs",
+      "sha256": "9f6f941a9c20133485bdb87f96731d858974bde4c8f173fd90da3f51fc1227a6",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/9f6f941a9c20133485bdb87f96731d858974bde4c8f173fd90da3f51fc1227a6",
+      "ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "actual_eof": 61,
+      "prospective": true,
+      "purpose": "Independent full effective repair/smith/reputation role inventory, no automatic priorrecipientcredit",
+      "actual_read_ranges": [
+        [
+          1,
+          61
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1179,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/reputation.rs",
+      "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+      "ranges": [
+        [
+          1,
+          440
+        ]
+      ],
+      "actual_eof": 440,
+      "prospective": true,
+      "purpose": "Independent full effective repair/smith/reputation role inventory, no automatic priorrecipientcredit",
+      "actual_read_ranges": [
+        [
+          1,
+          440
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected_original",
+      "original_index": 1204,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "ranges": [
+        [
+          955,
+          1020
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual canonical character authority boundary to distinguish raw claimedcharacterID from admittedactor inrepair publicreducers; no fullstrategicmodule",
+      "actual_read_ranges": [
+        [
+          955,
+          1020
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1205,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/autoresolve.rs",
+      "sha256": "b475a0317b7ceda238789e057c6c302ca8ca83924b7cb09b13807a2e70b63782",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/b475a0317b7ceda238789e057c6c302ca8ca83924b7cb09b13807a2e70b63782",
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Locate actual final strategic impact source adapter, no wholebattlealgorithm",
+      "actual_read_ranges": [
+        [
+          1,
+          80
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1249,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/mod.rs",
+      "sha256": "00f1fa799283c10da8bc5b3310a04c43d117753258629c791c379b6485f25f3f",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/00f1fa799283c10da8bc5b3310a04c43d117753258629c791c379b6485f25f3f",
+      "ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Correct actual PR native settle_lifecycle_after_character_time_write receiver; priorcore1017reuseisnotthissource",
+      "actual_read_ranges": [
+        [
+          1,
+          85
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1245,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/advancement.rs",
+      "sha256": "4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+      "ranges": [
+        [
+          1,
+          149
+        ],
+        [
+          266,
+          301
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Correct actualPR forward character/investigation time adapters requiredbyoutbreak/relationship callers; oldphysical305 variant notsubstitute",
+      "actual_read_ranges": [
+        [
+          1,
+          149
+        ],
+        [
+          266,
+          301
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1246,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/advancement/lifecycle.rs",
+      "sha256": "a8f43539a28232bc47303c02e648761d55590e7f33d97fd66abbc703374965f5",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/a8f43539a28232bc47303c02e648761d55590e7f33d97fd66abbc703374965f5",
+      "ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Exact first lifecycle segment cutoff adapter for1245",
+      "actual_read_ranges": [
+        [
+          1,
+          11
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1252,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+      "sha256": "f63df87344c6f358a0bcaa63481d349415e8e5481acb42031232d17cf20db125",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/f63df87344c6f358a0bcaa63481d349415e8e5481acb42031232d17cf20db125",
+      "ranges": [
+        [
+          402,
+          430
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual repairfield skill producer andtime budgetafterbodilyconvalescence",
+      "actual_read_ranges": [
+        [
+          402,
+          430
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1219,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+      "sha256": "88470ea4f157d8b74f281effcb8bac261e5f3af81a84fe81562a9a549d695d6d",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/88470ea4f157d8b74f281effcb8bac261e5f3af81a84fe81562a9a549d695d6d",
+      "ranges": [
+        [
+          900,
+          985
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual final combat exchange.contact_stress\u2192repair apply_impact ports and inventory IDs; no wholebattlealgorithm or futureorderedcredit",
+      "actual_read_ranges": [
+        [
+          900,
+          985
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1177,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/repair.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              135
+            ],
+            [
+              500,
+              601
+            ]
+          ],
+          "roles": "DamageBins damage fractions/quality-tier vs craftrepairtier, durable itemidentity/catalogkind, repairconditionnormalization, fieldskill tier andduration, physicalcontactstress input.",
+          "disposition": "Existing DamageBins/RepairService/RepairItemKind/InventoryLocation owners earn realcontracts; SDK fivefloattiers readmittednormalized not strict invalidstorageproof. Conditionfractionvsdamagefractionvsphysicalstress andcrafttiernotinterchangeable. Fieldsmith/tailor cappedrankflooru8 producer1252 and min2 repaironlylowtiers actual; stableproviders3..5 differentrole. Repeated manualfieldrepairarraymutationduplicatesexistingcorebinsoperations, canonicalowner shouldown allowedtier/fraction/time updates. Impactapplies finalstrategic summaryweapon/defenderitem IDs, notpersistenttacticaltickstate.",
+          "remedy": "CanonicalRepairSkillTier/ItemQuality beneath sharedtierindexinvariants, ConditionFraction/DamageShare andContactStress properunitowner atnativekernel; centralizefieldrepair operationinDamageBins ratherthanSDKarray arithmetic. Preservepurpose-specificroles withoutinventingstressSIunit/maximum.",
+          "acceptance": "Core915durabilityfull454 personally023, actual1252rankproducer402\u2013430 and1219finalcommit936\u2013975 read. No wholebattlealgorithm/nativefloat/ordinary malformedcondition/current/unique claim."
+        },
+        {
+          "ranges": [
+            [
+              137,
+              325
+            ]
+          ],
+          "roles": "Submittedquote/preparedwork, actorIDvsadmittedauthority, exactoneequipmentinventoryrow, sourcecustody/nestedobjecttransfer, savedplacement+typedattachmenttargets, fixedmoneyquote/readiness deadline.",
+          "disposition": "RawreducercharacterID onlycomparedinventoryowner, notsenderadmitted; native1204require_strategic_character_authority955\u2013966 existsbutnotcalledbyordinaryrepairreducers/submit infullscopedfile. This is sourceauthority admission gap, not demonstratedexternalexploit/runtime/currentfinding. Skill/servicecatalogcanonicalenum parsingatSDK is meaningfulboundary. Request quantity==1 is realcustodyrefinement, smithcharacter0 reservedescrowstate notordinaryactor. Savedplacementoptional andmanyattachmenttargetsneednamed restorationpayload; doNOTcollapse targetlisttooneparent. Bulk submit catches Stringerrors andcontinues after submitcustody/orderwrites +falliblecapability/conditionrefresh258\u2013259; typed expectedrejection vs commitfailure distinctionlost, potentialpartialAPI pathnotobservedruntime.",
+          "remedy": "AdmittedRepairActor/SingleEquipmentInstance/PreparedRepairOrder and typedQuoteMoney/ReadyAt/ElapsedMinutes; expectedvalidationpreflight followed atomiccommitwithunexpectederrorspropagated, preserve savedfullattachmentgraph and stablephysicalobjectidentity. ReuseInventoryLocation::Repair payload, no compatibilityescrowalias.",
+          "acceptance": "Fullsubmit+bulkbodyread; exactnativeauthority955\u2013966,1076capabilityfull694061/1086conditionfull2627064 actualrefresh receivers,1119containerfull075/1145custody087 reuse. No automaticSDKauthorization/exploit or observedpartialrepair claim."
+        },
+        {
+          "ranges": [
+            [
+              328,
+              498
+            ]
+          ],
+          "roles": "RepairOrderId vsInventoryItemId vsphysicalobject, frozenquotedcost/time, escrowvalidation, restoredcondition/custody/savedgraph, deterministicaffordableFIFO selectiontuple.",
+          "disposition": "TypedRepairOrder snapshot differentfrommutablecurrentitemdamage; quotedcost remainsstableevenlaterprice/conditionchanges. Retrieve validatesowner/settlement/time/escrowitemid anduniquenessofphysicalobject. Bulk retrieve? propagates errors, unlikebulk submitcatchall. Completionmessage on failedrestore accompaniesErr transaction, not proofpartialrepair persists. Submitted/time/order/cost3tuple erasesroles; namedretrievalcandidateprevents swaps. BasevalueNone\u21921 quote policy isfallbackdecision, no arbitrarypriceboundinferred.",
+          "remedy": "CanonicalRepairOrderId/InventoryItemId/Money andadmittedEscrowedItem/RestorationPlan, namedFIFOcandidate withtypedquote; explicitmissing-pricepolicy ifauthoredschema requires. Preserve fullsavedgraph restoration andtransactionerror distinction.",
+          "acceptance": "CoreDurabilityvalidescrow/affordableprefix023, itemcurrency1136full084 andrestorationCharacter/custody/container prior062/087/075 actualrecordedproof reused; no ordinary wrongobject/coinloss/current/unique assertion."
+        },
+        {
+          "ranges": [
+            [
+              603,
+              724
+            ]
+          ],
+          "roles": "Disposable simulationauthority/nonce/run/character/item association anddeterministicdamagefixture; existing service/attachment/escrow tests.",
+          "disposition": "Ownedrun plusmatchingclaimedcharacter andinventoryowner guard explicitfixtureauthority. Fixture damage0.08/0.24 tierfractions differcraftskill/physicalstress. Existingmultipleparenttargettest intentionallysortedbyrequirement_index, distinctfromcapacity_index/order/channel. Source testsreadnotrun, sourcecontainsnotbehavioralsecurityproof.",
+          "remedy": "Keep typedRun/Character/ItemIDs andcanonicalDamageBins fixtureadapter; maintainrequiredtargetrecordroles, no newtests/helpers/assertions.",
+          "acceptance": "Fullsourceexistingfixturesconsumed, simulationowned_runbody nottraversedherebecausetypedauthorityguarddelegation notbroadsecurityclearance; no invocation/current/unique."
+        }
+      ]
+    },
+    {
+      "original": 1178,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/repair/smiths.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              61
+            ]
+          ],
+          "roles": "Stableprovider skill3..5 fromdeterministicSeed/StreamId, itemkind\u2192specialistservice/generalblacksmithavailability, typedRepairService distinctfromproviderkind.",
+          "disposition": "Namedcraftskillsweaponsmith/armourer/tailor separateprofessions withsharedtiernumericinvariant. stable_skill3+rngindex3 explicitboundednativegeneration notrawhoursrank. Specialistmissing/serviceerror collapsedis_err\u2192generalblacksmith; expectedavailabilityvsunexpected String infrastructure distinctioncandidate. Actualresultskillfield tracksitemkind correctly.",
+          "remedy": "CanonicalRepairSkillTier withnamedprofession/provider record, typedServiceAvailability/Failure ratherthancatchallfallbackwherepolicyneedsdistinction. Keepgeneralblacksmith actualauthoredpolicy, notbackwardcompatibilityalias.",
+          "acceptance": "Full61linesread and1177actualconsumer; core915023repairitem/service mapping plus canonicalsettlementserviceowner, no observedwrongskill/service/current/unique."
+        }
+      ]
+    },
+    {
+      "original": 1179,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/reputation.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              146
+            ]
+          ],
+          "roles": "Fame vsinfamy nonnegativecentipoints; immutableeventsource andterminalsettlementaggregate; discoveredoffense/arrestsnapshot; publiccase vscanonicalcase/party/participantidentity.",
+          "disposition": "Aggregateprojection notspreadingsource: preventsroadcycleamplification, notredundanttruthrequiringremove. Named FameInfamyDelta/Score usescommoncentipointinvariant withoutinterchangeablefields. Eventsource_kind+source_id broadStringsum, offensekind+severity untyped1..5role. Publicbattleidentity legitimatelydifferentcanonicalresolutioneventidentity; participantsnapshotfrozen firstcapture, notalwayscurrentparty. Battleparticipantfallbackonlywhenbattlelistempty ordinarypolicy, notBC fallback.",
+          "remedy": "AdmittedReputationEvent/Source payload withcanonicalCharacter/Settlement/PublicCase/CanonicalCaseIDs andnamedscore/deltarecord; explicitParticipantSnapshot. Preserveterminalaggregateauthority noteventduplicate.",
+          "acceptance": "Core984reputationfull331 personally039 andworldeventcanonicalparticipanthelperfull1029 source051 roleproofreused; actualrecordretentionfull read, no wrongparty/runtime/current/unique."
+        },
+        {
+          "ranges": [
+            [
+              148,
+              244
+            ]
+          ],
+          "roles": "DiscoveredOffense severity/category/time, settledpredicate, immutablearrestchargeassociation vs mutableoffensesettledcheckpoint.",
+          "disposition": "Arrest snapshot fixesoffenseIDsforincident, lateroffensesnotretroactivelyincluded;settledboolnormalterminalpredicate valid ifnootherpayloadrequired. Separateincident/character/settlement checksactualunsettledchargequery; categoryarbitraryString andu8severity couldusecanonoffensepayload notgenericboundednumber.",
+          "remedy": "CanonicalOffenseId/ArrestIncidentId/OffenseSeverity withnamedchargecontext; typedoffensekindowner andsettlement authorityatadmission.",
+          "acceptance": "Fullactualwriters/readers consumed; no ordinary forgedcharge/execution/criminalpolicyclaim, doNOTinventcapitalpunishmentfieldboundfromcomment."
+        },
+        {
+          "ranges": [
+            [
+              246,
+              440
+            ]
+          ],
+          "roles": "Retry-stableeventid vssourceid, origin graphnode/settlement IDs andmetreedge, rawpositivefame/infamy vs cappedaggregate, eventinsertedboolresult, fullcharactercleanup andexistingtests.",
+          "disposition": "record_event repeatedID returnsfalsewithoutpayloadcomparison; insert-vs-replay boolpurposelegitimate butIdCollisionDistinctPayload wouldneedstateifconflictingretriespossible. Actualordinarycollisionnotproved; rootcanonicalworldeventfingerprintconsumer051mayguardrelevantcalls. Eightprimitivecoordinatearguments andlocal_reputation(i32,i32) losefame/infamy/sourceidentityroles. Corecontributions appliesgraphpolicy andreturnsnamedfields; numericcap/notordinaryclampedUnitInterval. Deletionremovesbothimmutableevents/terminalprojections, notusedasnewsource.",
+          "remedy": "AdmittedEventRequest andResult<RecordedOrReplay,Conflict>, namedReputationScore/Delta withexistingcoreowner, keepgraphlength unit/identity explicit. Reconcileactualsourceproducerfingerprintbeforeclaimingreplaydefect.",
+          "acceptance": "Full440linesread; core984039/WorldEvent051 personallyactualsource, existingfixturesreadnotrun. No wholeall-eventproducer/globalreplay/current/acceptedunique guarantee."
+        }
+      ]
+    }
+  ],
+  "connected_role_inventory": [
+    {
+      "original": 1204,
+      "ranges": [
+        [
+          955,
+          1020
+        ]
+      ],
+      "roles": "Canonical strategicCharacter authority guard; adjacentparty row/schema prefixes",
+      "disposition": "Exact955\u2013966 acceptsregisteredgatewayorsender-ownedsimulationCharacter; contrast1177noactoradmissioncall.968\u20131020 adjacentschemasread,notwholemodelproof.",
+      "remedy": "Canonical typed roles retainedatregisteredinternal/nativeboundary; existingownersbeforeduplicates. Detailednative-timecorrectionmandatoryqualificationlinked.",
+      "acceptance": "Onlyexactregisteredactualranges consumed, no futureordered/otherlens/current/runtime/uniquecredit."
+    },
+    {
+      "original": 1205,
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "roles": "Strategic glue imports/constants; locators for actual finalcombatadapter",
+      "disposition": "Only1\u201380headerbodyread, actualstressport locatedseparately1219. Raw constantsheterogeneousnative unit/seed/technicalIDs; no fullautoresolveoriginalcredit.",
+      "remedy": "Canonical typed roles retainedatregisteredinternal/nativeboundary; existingownersbeforeduplicates. Detailednative-timecorrectionmandatoryqualificationlinked.",
+      "acceptance": "Onlyexactregisteredactualranges consumed, no futureordered/otherlens/current/runtime/uniquecredit."
+    },
+    {
+      "original": 1249,
+      "ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "roles": "Nativepersonal-clock lifecycle hook andmoduleassembly",
+      "disposition": "Correctactual57\u201375nativehook, notcore1017; differentoperationorder/clock roles retained.77\u201385fixtureconcatprefixonly.",
+      "remedy": "Canonical typed roles retainedatregisteredinternal/nativeboundary; existingownersbeforeduplicates. Detailednative-timecorrectionmandatoryqualificationlinked.",
+      "acceptance": "Onlyexactregisteredactualranges consumed, no futureordered/otherlens/current/runtime/uniquecredit."
+    },
+    {
+      "original": 1245,
+      "ranges": [
+        [
+          1,
+          149
+        ],
+        [
+          266,
+          301
+        ]
+      ],
+      "roles": "Native forwardtime andinvestigation duration/completion adapters",
+      "disposition": "Actual1\u2013146/266\u2013297 completeports, absoluteclockversusrequested/actualelapsed andcompleted/stopped bool; no full582body/globalclinicalalgorithmclaim.",
+      "remedy": "Canonical typed roles retainedatregisteredinternal/nativeboundary; existingownersbeforeduplicates. Detailednative-timecorrectionmandatoryqualificationlinked.",
+      "acceptance": "Onlyexactregisteredactualranges consumed, no futureordered/otherlens/current/runtime/uniquecredit."
+    },
+    {
+      "original": 1246,
+      "ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "roles": "Earliestlifecycleintervalcutoff adapter",
+      "disposition": "Complete11 read, convertsboundaryabsolute time toelapsed duration, meaningfuladapter nottrivialforwarder.",
+      "remedy": "Canonical typed roles retainedatregisteredinternal/nativeboundary; existingownersbeforeduplicates. Detailednative-timecorrectionmandatoryqualificationlinked.",
+      "acceptance": "Onlyexactregisteredactualranges consumed, no futureordered/otherlens/current/runtime/uniquecredit."
+    },
+    {
+      "original": 1252,
+      "ranges": [
+        [
+          402,
+          430
+        ]
+      ],
+      "roles": "Fieldrepair canonicalcraftcappedrank/elapsed recoveryproducer",
+      "disposition": "Only402\u2013430bodyfragment; flooru8 smith/tailor shareinvariantdifferentrole, recovery_elapsed\u2212convalescing budget. No fullrest/clinical/trainingtimeproof.",
+      "remedy": "Canonical typed roles retainedatregisteredinternal/nativeboundary; existingownersbeforeduplicates. Detailednative-timecorrectionmandatoryqualificationlinked.",
+      "acceptance": "Onlyexactregisteredactualranges consumed, no futureordered/otherlens/current/runtime/uniquecredit."
+    },
+    {
+      "original": 1219,
+      "ranges": [
+        [
+          900,
+          985
+        ]
+      ],
+      "roles": "FinaltransientBattleOutcome contactstress andweapon/defenderitemIDports",
+      "disposition": "936\u2013975 commitheader/exchangeloopactual,900\u2013934adjacentend/terrain/penaltyhelpersread,976\u2013985 nextinjuryloop/enum prefixonly. No fullbattlecommit/algorithm/SDKguarantee.",
+      "remedy": "Canonical typed roles retainedatregisteredinternal/nativeboundary; existingownersbeforeduplicates. Detailednative-timecorrectionmandatoryqualificationlinked.",
+      "acceptance": "Onlyexactregisteredactualranges consumed, no futureordered/otherlens/current/runtime/uniquecredit."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-023-receipt.json",
+        "sha256": "03b30b384e3206d060da613d1da2619503e1dfed244ee67fa51bcd8aaddc4a42"
+      },
+      "contract": "915coreDurabilityfull454 damagebins/service/quote/escrow/affordabilityowners"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-039-receipt.json",
+        "sha256": "e8dd9acd61a6e7ff4cf5551c460653184529319b1da16bdc63a269a7d90fb5e8"
+      },
+      "contract": "984corereputationfull331 graphattenuation/cap andnamedcontributions"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-051-receipt.json",
+        "sha256": "4508fffb31dcaefc6f6add5364f45ce2ffc02869ede44688f6cdb633910fecb1"
+      },
+      "contract": "WorldEventactualcommitgate/fingerprint source context, notallreputationcallers"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-061-receipt.json",
+        "sha256": "1e26974b7e1795184974dca7f3ff4cd5094facd0c1717fab47d9ce7b8edbc633"
+      },
+      "contract": "1076nativecapabilityfull694 actualfalliblerefresh"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-062-receipt.json",
+        "sha256": "6f38488e18bb19f933f1bf16e5dbbc23fc0f3691f006b1d1d810fe84ce3f9c29"
+      },
+      "contract": "FullCharacterrecordedsource/attachmentrecipientcontext"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-064-receipt.json",
+        "sha256": "91c5c0fe2515a9d9782cbc7c18b53148b198e3ad2b331eccd6d26e78bc2b575c"
+      },
+      "contract": "1086nativeconditionfull2627 actualfalliblerefresh"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-075-receipt.json",
+        "sha256": "6b137e7e6d04ab2aa240fc17fe1e6600bb795b4e79fcfee1db06a458037e0b3b"
+      },
+      "contract": "1119containerfull1451 stableobject/custody/reconcile adapters"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-084-receipt.json",
+        "sha256": "a1e35a75e9eb2265261409dee6629fb2b7f627e223d182e4e78e33783dac9e21"
+      },
+      "contract": "1136itemfull957 personalcurrency/quoteinputrecord"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-087-receipt.json",
+        "sha256": "559267d7935601c2ad01dde05896a068e15e43a42a797f9b61a43ff4da11157a"
+      },
+      "contract": "1145custodyfull501 exactrepairrow identity/refinement"
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "ExactfrozenrolesWITHfindings, nocurrent/runtime/exploit/clinical/alias/acceptedunique/globalclearance.",
+    "Correctnative-timecitationfirstpersonallyconsumed097, notinventedearliercoverage. Preservehistoricalfilesandallpriorqualification/remainingpopulationqueues.",
+    "Noexecution/newtests/product/Git/rootledger/publication."
+  ]
+}

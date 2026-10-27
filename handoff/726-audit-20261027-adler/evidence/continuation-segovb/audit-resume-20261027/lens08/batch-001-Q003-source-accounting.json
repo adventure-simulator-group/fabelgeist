@@ -1,0 +1,185 @@
+{
+  "lens": 8,
+  "scope": "Original1462 Q003 remaining normal-production graph",
+  "source_reads": [
+    {
+      "source": "frozen1462",
+      "path": "crates/adventuresim-tactical-client/src/camera/collision.rs",
+      "sha256": "e57c0f4f3a2b7f4cb749b5e1ca57628e9e5ef864f1bd4365fe48313a3f426c3e",
+      "ranges": [
+        [
+          1,
+          210
+        ]
+      ],
+      "registration": "REGISTRATION-001.json"
+    },
+    {
+      "source": "base1462",
+      "path": "crates/adventuresim-tactical-client/src/camera/collision.rs",
+      "sha256": "862d65dcfa27ffb94110dbaf5c32fd94e248028f14f278aa9429047789ec31d9",
+      "ranges": [
+        [
+          1,
+          210
+        ]
+      ],
+      "registration": "REGISTRATION-001.json"
+    },
+    {
+      "source": "pinned-registry:parry3d-0.27.0/src/query/shape_cast/shape_cast_support_map_support_map.rs",
+      "path": null,
+      "sha256": "d874526a7a624206fd8ae6e3302db0f51f2d643c53014b8f5d496daa7d1e125c",
+      "ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "registration": "REGISTRATION-002.json"
+    },
+    {
+      "source": "pinned-registry:parry3d-0.27.0/src/query/closest_points/closest_points_support_map_support_map.rs",
+      "path": null,
+      "sha256": "36151185628a89cc6918ed58c19c44acb0bbc36a8db085c94c982d7cd88c3bfe",
+      "ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "registration": "REGISTRATION-002.json"
+    },
+    {
+      "source": "pinned-registry:parry3d-0.27.0/src/query/contact/contact_support_map_support_map.rs",
+      "path": null,
+      "sha256": "fcb9e37067085e862b6a23bfbe73a4bc39ff56ceefc90031f9c0b10766430562",
+      "ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "registration": "REGISTRATION-002.json"
+    },
+    {
+      "source": "pinned-registry:parry3d-0.27.0/src/query/gjk/gjk.rs",
+      "path": null,
+      "sha256": "893b9246ae77eb21d8a3f10afaeeb05e36bfdb774ce6e98579f614ac32e57a68",
+      "ranges": [
+        [
+          180,
+          530
+        ]
+      ],
+      "registration": "REGISTRATION-002.json"
+    },
+    {
+      "source": "pinned-registry:parry3d-0.27.0/src/query/epa/epa3.rs",
+      "path": null,
+      "sha256": "d7594bce8c436e98ca80944333cad8637478f1c9b1b5df42dc8f0bb463abc1df",
+      "ranges": [
+        [
+          30,
+          150
+        ],
+        [
+          320,
+          540
+        ]
+      ],
+      "registration": "REGISTRATION-002.json"
+    },
+    {
+      "source": "pinned-registry:parry3d-0.27.0/src/query/gjk/gjk.rs",
+      "path": null,
+      "sha256": "893b9246ae77eb21d8a3f10afaeeb05e36bfdb774ce6e98579f614ac32e57a68",
+      "ranges": [
+        [
+          630,
+          822
+        ]
+      ],
+      "registration": "REGISTRATION-003.json"
+    },
+    {
+      "source": "pinned-registry:parry3d-0.27.0/src/query/epa/epa3.rs",
+      "path": null,
+      "sha256": "d7594bce8c436e98ca80944333cad8637478f1c9b1b5df42dc8f0bb463abc1df",
+      "ranges": [
+        [
+          541,
+          739
+        ]
+      ],
+      "registration": "REGISTRATION-003.json"
+    },
+    {
+      "source": "pinned-registry:parry3d-0.27.0/src/utils/ccw_face_normal.rs",
+      "path": null,
+      "sha256": "8bd63a55cf6ad370a0208e57876ceafbe637220d024c0108071d848ae7a8cccc",
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "registration": "REGISTRATION-003.json"
+    },
+    {
+      "source": "frozen6533:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "path": null,
+      "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "ranges": [
+        [
+          95,
+          142
+        ]
+      ],
+      "registration": "REGISTRATION-004.json"
+    }
+  ],
+  "prior_own_source": {
+    "original": 1462,
+    "basis": "audit08/packets/behavior-007.json and own025/027/137 qualified facts; earlierfull339head/base230/diff and actualoutercameraerrorreceivers retained. Newranges refreshnormaladmission/supplier only, no newwholefilecredit frompartialrefresh"
+  },
+  "facts": [
+    {
+      "path": "parryshape_cast_support_map_support_map.rs1-67",
+      "contract": "OrdinarydirectionalGJKnormal reaches ShapeCastHit, nearzeroTOI when computeimpactgeometry true recomputescontact; initialoverlapfalse-normal witness staysexcluded. contactnormalandrotatednegativecounterpart retainnativeframe."
+    },
+    {
+      "path": "gjk.rs353-455,634-799",
+      "contract": "Closestpoints returns dir/old_dir derivedfromtry_normalize ornormalize_and_length; directionalray normal ldir startsnormalizedray andupdatesnormalizedseparationdir, no implicitfirstpartyVector->unit guarantee outsidethese arithmeticpaths."
+    },
+    {
+      "path": "contact_support_map1-73;epa3.rs64-128,427-649;ccw_face_normal20-26",
+      "contract": "Contact delegatesGJK thenEPAonintersection. EPAaxisfallbackunitY; facesusecross.try_normalize orZEROon degenerateface. Successful EPA returns face.normal withoutfinalnormalizationorstrictunitcheck atconvergence, numericalfallback anditerationcap. Thereforeunconditionalunitnormalclaimnotestablished bydocs; actualcodeexplicitlycontainsdegeneratezero representation."
+    },
+    {
+      "path": "orientation.rs119-140",
+      "contract": "SpatialDirection::from_normalized firstrejectsDir3newfailure thenrejects !Vec3::is_normalized; retainsactualvalue viaDir3new_unchecked. Separatefrom_vector normalizesaftervalidatingnonzerofinite. Newcameraadapterchoosesstrictmethod."
+    },
+    {
+      "path": "collision.rs169-190 vsbase88-100; prior007outerrig",
+      "contract": "Samecastgeometry/filter/config/order andfractionclamp retained. Newhitnormaladmission is fallible; invalidnativehit refuses wholeCameraSweep andouterposepublication whilekeepingpreviouspose. This is explicitnewinvalidvaluepolicy, no requirement to preserveoldinvalidnativepayloadoroldAPIlayout."
+    }
+  ],
+  "disposition": {
+    "inventory": "Source-accounted WITH qualified native-admission policy question; remaining lower normalreturnproduction obligation nowconsumed.",
+    "not_claimed": [
+      "ordinarycamera failure witness",
+      "completeSDK/colliderpopulation runtimeproof",
+      "bitwise or backwardscompatibility",
+      "globalcamera/auditclearance"
+    ],
+    "question": "CONT08-Q003 retained: whether strict checkednormal admission or explicit normalizingnativeadapter is intended for approximate/degenerateexternalhits. Nativezerobranch documented, no ordinaryproducer witness claimed.",
+    "repair_dependency": "If changed, centralize acceptednative-normalpolicy in existing canonical directionowner andcarryerror throughcameraSweep/posepublication; no duplicateVec3helper or fallbackinvaliddirection.",
+    "acceptance": "Inspect existing camera collision/rig fixtures and nativeproduction diagnostics in futureauthorizedvalidation; confirminvalidhitfailurepolicy and ordinaryhit geometry, no addedtestsrequired."
+  },
+  "original_accounted_delta": 1,
+  "new_unique_delta": 0,
+  "repairs": false,
+  "validation": false,
+  "currentness": "Frozen6533/base3a50 contracts; fresh main comparison remainsseparate. Currenttreepinned7a9, no sourceedits."
+}

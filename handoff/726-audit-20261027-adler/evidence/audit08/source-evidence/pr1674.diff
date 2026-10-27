@@ -1,0 +1,106 @@
+diff --git a/crates/adventuresim-tactical-client/src/presentation/vista/surface.rs b/crates/adventuresim-tactical-client/src/presentation/vista/surface.rs
+index c8106c093..9361ed8a2 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/vista/surface.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/vista/surface.rs
+@@ -1,6 +1,9 @@
+ //! Retained vista heights and the shared playable-to-vista surface boundary.
+ 
+ use super::*;
++use adventuresim_tactical_core::{
++    city_layout::grounding::SupportElevation, scene_coordinates::ScenePlanPoint,
++};
+ 
+ /// Keeps the closest vista rings for camera-local terrain refinement and city
+ /// ground seating. Every consumer queries the same stitched surface.
+@@ -14,6 +17,14 @@ pub(in crate::presentation) struct ActiveVistaSurface {
+     ground_support: streets::GroundSupport,
+ }
+ 
++#[derive(Component, Clone, Copy)]
++pub(crate) struct VistaTerrain(pub(crate) VistaLevelIndex);
++
++/// A terrain-surface chunk, excluding vista grass, rocks, and tree cards that
++/// also carry [`VistaTerrain`] for broad visibility isolation.
++#[derive(Component)]
++pub(crate) struct VistaTerrainMesh(pub(crate) VistaLevelIndex);
++
+ impl ActiveVistaSurface {
+     pub(in crate::presentation) fn update(&mut self, bundle: &SceneVistaBundle) {
+         self.revision = self.revision.wrapping_add(1);
+@@ -83,8 +94,8 @@ impl ActiveVistaSurface {
+         &self,
+         scene_digest: &str,
+         terrain: &SceneTerrain,
+-        local: Vec2,
+-    ) -> Option<f32> {
++        local: ScenePlanPoint,
++    ) -> Option<SupportElevation> {
+         if let Some(height) = terrain.height_at(local) {
+             return Some(height);
+         }
+@@ -92,19 +103,15 @@ impl ActiveVistaSurface {
+             return None;
+         }
+         let lod = self.lods.first()?;
+-        let world = local
+-            + Vec2::new(
+-                lod.origin_east_metres as f32,
+-                lod.origin_north_metres as f32,
+-            );
++        let world = lod.scene_point(local.offset_from_origin()).ok()?;
+         let vista_height = presented_height_at(lod, world, self.lods.get(1))?;
+-        Some(stitch_vista_height_to_playable_edge(
++        stitch_vista_height_to_playable_edge(
+             terrain,
+-            local,
++            local.offset_from_origin(),
+             self.playable_half_extent,
+             lod.spacing_metres,
+             vista_height,
+-        ))
++        )
+     }
+ }
+ 
+@@ -134,24 +141,28 @@ mod tests {
+             ground_support: default(),
+         };
+         assert_eq!(
+-            retained.presented_height_at("boundary", &terrain, Vec2::new(2.0, 0.0)),
+-            Some(10.0)
++            retained.presented_height_at(
++                "boundary",
++                &terrain,
++                ScenePlanPoint::from_metres(Vec2::new(2.0, 0.0)).unwrap()
++            ),
++            Some(SupportElevation::from_metres(10.0).unwrap())
+         );
+         let outside = retained
+-            .presented_height_at("boundary", &terrain, Vec2::new(3.0, 0.0))
++            .presented_height_at(
++                "boundary",
++                &terrain,
++                ScenePlanPoint::from_metres(Vec2::new(3.0, 0.0)).unwrap(),
++            )
+             .unwrap();
+-        assert!((outside - 15.0).abs() < 0.0001, "{outside}");
++        assert!((outside.metres() - 15.0).abs() < 0.0001, "{outside:?}");
+         assert_eq!(
+-            retained.presented_height_at("different", &terrain, Vec2::new(3.0, 0.0)),
++            retained.presented_height_at(
++                "different",
++                &terrain,
++                ScenePlanPoint::from_metres(Vec2::new(3.0, 0.0)).unwrap()
++            ),
+             None
+         );
+     }
+ }
+-
+-#[derive(Component, Clone, Copy)]
+-pub(crate) struct VistaTerrain(pub(crate) VistaLevelIndex);
+-
+-/// A terrain-surface chunk, excluding vista grass, rocks, and tree cards that
+-/// also carry [`VistaTerrain`] for broad visibility isolation.
+-#[derive(Component)]
+-pub(crate) struct VistaTerrainMesh(pub(crate) VistaLevelIndex);

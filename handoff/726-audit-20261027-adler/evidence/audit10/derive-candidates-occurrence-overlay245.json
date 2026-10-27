@@ -1,0 +1,23 @@
+{
+  "id": "OWN10-QUALIFIED-CLOSED-PARSER-DISPLAY-OVERLAY245",
+  "overlay_index": 245,
+  "path": "crates/strategic-web/src/location_urls.rs",
+  "source_sha256": "4cdfe5103f103f2628c55f1f8d3f9dd407342458647215a44b5add07c03dcb14",
+  "ranges": [
+    [
+      12,
+      49
+    ]
+  ],
+  "inventory": "LocationKind static as_str names settlement/case-site feed Display::write_str and exact-case FromStr returning unit error. Structural traits already derive. Route formatter is native URL-token adapter, not a structural codec derive.",
+  "remedy_families": [
+    "derive-candidate-006.json closed parser requires exact unit error/API proof",
+    "derive-candidate-display-occurrence-overlay143.json static display labels requires exact write_str/formatter proof"
+  ],
+  "qualification": "No normal owning strum/derive_more dependency in personally read frozen manifest; existing thiserror is error-specific and deriving Error would add an absent API. Appropriate macro dependency and pinned expansion/API/error equivalence remain a global remedy decision. If adding helper/API/dependency outweighs tiny adapter keep it; no claim current behavior defective. No runtime serde/stringify classifier substitution.",
+  "manifest_origin": "6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/Cargo.toml",
+  "manifest_sha256": "12e51aa4f9c6170f1048cd84146c977fb4cc36d1f5e0488ae9dcfefc413ed9f0",
+  "new_unique_finding": false,
+  "checks": "not run",
+  "clear": false
+}

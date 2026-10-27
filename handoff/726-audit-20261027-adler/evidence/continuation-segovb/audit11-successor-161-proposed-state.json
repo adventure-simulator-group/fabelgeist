@@ -1,0 +1,62 @@
+{
+  "lens": "type-granularity",
+  "prior_state": "audit11-successor-160-proposed-state.json",
+  "crosswalk": "audit11-question-crosswalk-001.json",
+  "partial_checkpoint_preserved": [
+    "audit11-successor-161-partial-001.json",
+    "audit11-successor-161-proposed-state-partial-001.json",
+    "audit11-successor-161-evidence-partial-001.json"
+  ],
+  "newly_source_accounted": [
+    787,
+    788
+  ],
+  "proposed_original_accounted": 789,
+  "original_total": 2853,
+  "next_original": 789,
+  "earliest_unfinished": 789,
+  "active_partial": null,
+  "receipts": [
+    "audit11-successor-161-787.json",
+    "audit11-successor-161-788.json"
+  ],
+  "registrations": [
+    "audit11-successor-161-registration.json",
+    "audit11-successor-161-completion-registration.json"
+  ],
+  "open_qualified_findings": [
+    "SEGOVB11-158-781-RIG-RECEIVER",
+    "SEGOVB11-158-781-ACCUMULATORS",
+    "SEGOVB11-158-782-PHYSICAL-PORTS"
+  ],
+  "future_source_reads": {
+    "789": {
+      "sha256": "ca95a83317547915bbd839018cd6b1c766ff327327877fc02c6978d1bcaee0f7",
+      "connected_read": [
+        [
+          1,
+          78
+        ]
+      ],
+      "ordered_credit": false,
+      "next": "Independent ordered granularity inventory required; full connected read is not automatic credit."
+    },
+    "792": "Connected1-273 under157; no ordered credit",
+    "923": "Earlier connected923-001; no ordered credit"
+  },
+  "new_unique_findings": 0,
+  "accepted_unique_count_change": 0,
+  "question_id_collision_retained": true,
+  "overlays": "unchanged incomplete",
+  "merged": "unchanged incomplete",
+  "material": "own181-195 retained;0-180 pending separately",
+  "source_complete": "Original0-788 source-accounted with inherited/161 qualifications; does not mean clear",
+  "currentness": "No current canonical source comparison; frozen ordinal/physical/frame/topology qualifications retained",
+  "integrated": false,
+  "validated": false,
+  "clear": false,
+  "root_ledger_overwritten": false,
+  "historical_states_overwritten": false,
+  "product_edits_checks_tests_publication": "none",
+  "stop_boundary": "Bounded packet ends after788; no ordered789 advance."
+}

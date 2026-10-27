@@ -1,0 +1,200 @@
+{
+  "lens": "13 magic-numbers",
+  "packet": "016",
+  "at": "2026-10-27T00:34:13.778403+00:00",
+  "status": "Original36 full effective scope freshly inventoried; concrete required conditional input/retained-output traces remain unresolved. Original36 partial, original31 partial unchanged. Stop at first concrete partial; no original37 assessment.",
+  "authority": {
+    "frozen_original_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "scope_registry": "target/recovery-20261025/audit05/original-scope-072.json",
+    "native_commit": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+    "prior_root_adopted_state": "audit13-successor-015-suggested-state.json",
+    "prior_state_sha256": "b2ece569875e5b21f94d930e92f85c9923d426715f4175beec26942a45bbb013",
+    "prior_accounted": 35,
+    "original_total": 2853,
+    "earliest31_contracts": "All original31 partial contracts/qualifications from014/015 retained without restart or closure",
+    "root_adoption_required": true
+  },
+  "registration": {
+    "path": "audit13-successor-registration-016.json",
+    "sha256": "1421f72d1d4c5e5bbc51b4c9558dc2ec02dc0dcc2a5ce05fe3e1bcf80ce7d0bd",
+    "before_body_reads": true
+  },
+  "source_fingerprints": [
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/io_types.wgsl",
+      "sha256": "3529f71ec77f88963ee969691ef2dd2f871abf490a8a4beed073b98ff10974b9",
+      "bytes": 1131,
+      "actual_lines": 48,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "role": 36,
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/mesh.wgsl",
+      "sha256": "bb8dc8d197bfd558464608bb447dc4224e67c0488e695270f44e1656c9c8fa70",
+      "bytes": 1494,
+      "actual_lines": 60,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "role": "receiver-only",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/pipeline.rs",
+      "sha256": "d47a07104ac9b2333006bbacbc50b5f097b5fa7a57ba4a4d822a62fb3c64e16b",
+      "bytes": 7419,
+      "actual_lines": 232,
+      "registered_and_consumed_ranges": [
+        [
+          118,
+          232
+        ]
+      ],
+      "role": "receiver-only",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/shading.wgsl",
+      "sha256": "965586e6cee62b7fe7623cafbd9a173ce271c14cd982466b73eb69a718dca6e9",
+      "bytes": 531,
+      "actual_lines": 21,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "role": "receiver-only",
+      "post_read_hash_verified": true
+    }
+  ],
+  "original36": {
+    "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/io_types.wgsl",
+    "sha256": "3529f71ec77f88963ee969691ef2dd2f871abf490a8a4beed073b98ff10974b9",
+    "bytes": 1131,
+    "effective_original_ranges": [
+      [
+        1,
+        48
+      ]
+    ],
+    "consumed_ranges": [
+      [
+        1,
+        48
+      ]
+    ],
+    "scope_basis": "Original-scope072 ownercontract full1-48; no supplemental intervals identified. All conditional requested forms kept, not reduced to default shader path. Earlier receiver access to this object is not original-role clearance.",
+    "independent_inventory": [
+      {
+        "location": "Vertex4",
+        "primitives": "@location0 position:vec3f",
+        "role": "Native mesh vertex-position input; f32 xyz at shader interface.",
+        "actual_trace": "Fresh defaultmesh21 extends with homogeneousw1, transforms by computed instanceworld matrix, then24 by clip_from_world into builtin clipposition. Native pipeline128 delegates base mesh layout; host geometry/position units and admission not proved here."
+      },
+      {
+        "location": "Vertex6-20",
+        "primitives": "Conditional normalvec3f at1,UV_Avec2f at2,UV_Bvec2f at3,tangentvec4f at4,colorvec4f at5",
+        "role": "Native mesh attribute formats/locations enabled by respective compile flags.",
+        "actual_trace": "Fresh defaultvertex26-45 consumes normal via transform/normalize orfallbackup, tangentxyz via directionw0 andnormalize withwcarried orfallback(1,0,0,1), UV_Acopiedorzero. UV_Bnotreferencedbyreaddefaultvertex. ColornotconsumedbydefaultVertexOutputpath, but prior exact014selectedshrubleafshader copied vertex.color underVERTEX_COLORS. Native MeshPipeline attribute/flag producer and all other material consumers remain untraced."
+      },
+      {
+        "location": "Vertex22-26",
+        "primitives": "SKINNEDjoint_indices:vec4u32 at6,joint_weights:vec4f at7",
+        "role": "Declared native skinning input lanes, withTODO source comment.",
+        "actual_trace": "All declarations read/inventoried, but freshdefaultmeshbodydoesnotreadindicesorweights and no actual host joint/weight layout, boneindex admission, weight policy or materially selected skinning consumer body is read. This conditional variant is not dropped or called complete from its type declaration."
+      },
+      {
+        "location": "Vertex28-32",
+        "primitives": "i_pos_scalevec4f at8,i_rotationf32 at9,i_indexu32 at10,i_batch_idu32 at11,i_seedu32 at12",
+        "role": "Native instanced vertex input transport; packed position/uniformscale,yaw,payloadindex,batchselector,seed.",
+        "actual_trace": "Fresh nativepipeline188-228 computes offsets from Float32x4/Float32/Uint32 sizes, uses sizeofInstanceData stride,Instance stepmode and matchinglocations8-12. Fresh defaultvertex14-19 selects uniforms bybatchID and passesposition/scale/rotation+parentmatrix to native matrixhelper. Index/seed are not read by thisexactdefaultvertex; prior014shrubreceptors also do not consume them. No global material/application meaning or original31 closure inferred."
+      },
+      {
+        "location": "VertexOutput35-40",
+        "primitives": "@builtin(position)clip_positionvec4f; conditional@location0flatvisibility_range_ditheri32",
+        "role": "Native clip-space output and signed flat fade discriminator.",
+        "actual_trace": "Defaultvertex23-24 writes world/clipposition;47-51 calls nativevisibility helper usingbatchrange andfinalmatrixcolumn3 whenenabled; freshfragment15-16 passesclipposition/dither toBevyPBRnative function. Prior exacthelper source011records16-level signed fade construction. Native imported function, shaderfeature compilation/validation and all range/finiteness admission not certified."
+      },
+      {
+        "location": "VertexOutput42-48",
+        "primitives": "world_positionvec4f at1,world_normalvec3f at2,uvvec2f at3,world_tangentvec4f at4,local_posvec3f at5,i_batch_idu32 at6",
+        "role": "Native per-vertex retained varyings into fragment interface.",
+        "actual_trace": "Defaultvertexexplicitlywritesworld/normal/UV/tangent/batchID andclipposition; freshfragment19-20 uses batchID toindexuniformcolor. local_pos has no explicitassignment inreaddefaultvertex and no use inreaddefaultfragment. Value/meaning across other materials and native initialization semantics are not inferred. Dither has explicitflat annotation, batchIDdoesnot; actualnativeinterpolation/entrypointvalidation policy unread, so no shader rejection asserted."
+      }
+    ],
+    "disposition": "Partial: every original line and primitive role inventoried, ordinary actual receivers traced, but conditional source/recipient/retained-output obligations below remain. Native interface syntax is not a blanket exemption or proof of all producer/admission behavior."
+  },
+  "fresh_receiver_traces": [
+    "Host specializedpipeline delegatesbaseMeshPipeline.specialize128 before modifying view/common/material layouts; M::specialize183 can change descriptor, then nativevertex/fragment handles selected185-186. This confirms a real unconsumed external layout/material variation boundary rather than proving allbaseattributes0-7.",
+    "Nativepipeline appends instanced vertexbuffer layout using sizeofInstanceData and explicitnative VertexFormat byte offsets/locations8-12; actual ordinary instancewire path is proven. Device/layout ABI validation, compiler acceptance and all M compatibility remain unexecuted/unread.",
+    "Native defaultvertex takes sharedVertex and returns sharedVertexOutput; it computes instanceworldmatrix, world/clipposition, optionalnormal/tangent/UV_A plusfallbacks, signedvisibilitydither, andbatchID. Defaultfragment accepts thatVertexOutput andusesdither/batchcolor. It doesnotprovide actualUV_B/joint/weight/local_possemantic traces.",
+    "Prior015 actual draw command binds meshbuffer slot0 and instanceoutput slot1, with separate browseroffset/nativefirst_instance policy. Those exactsame-lensproofs remain only receiving context, not a freshoriginal36 verdict or completionofunreadmeshproducervariants."
+  ],
+  "concrete_partial_frontier": [
+    {
+      "contract": "Conditionalmeshattribute hostproducer",
+      "required": "Exact provenance-pinned native MeshPipeline base specialization/mesh layout and flag-producing body forlocations0-7, including UV_B and SKINNEDjoint/weight formats. Actual nativeheader/callname alone doesnot establish the required admittedshape/conditions.",
+      "currently_read_boundary": "render/pipeline.rs128 calls externalself.mesh_pipeline.specialize(key.mesh_key,layout); implementation notread."
+    },
+    {
+      "contract": "Conditional recipient/selectedmaterial semantics",
+      "required": "Actual materially selected UV_B/skinning consumers or bounded justified absence/unsupported-state policy. No universalabsence proof from readdefaultmesh/shrubshaders or prior identifiernavigation.",
+      "currently_read_boundary": "Defaultmesh1-60 doesnotreadUV_B/jointinputs; M shader handles mayoverride default. No newsource expansion requestedafterthis concretepartial."
+    },
+    {
+      "contract": "Retainedlocal_posvarying",
+      "required": "Actual intendedproducer/consumer or bounded justification for native VertexOutput.local_pos. No explicit assignment/use in the two readdefaultbodies; do not invent zero/admittedposition semantics from a fieldname or assume genericmaterialneverusesit.",
+      "currently_read_boundary": "io_types46 declaration; defaultvertex varout10 andreturn56 withno explicitlocal_pos assignment; defaultfragment acceptssharedtype."
+    }
+  ],
+  "source_observations_noncounted": [
+    "Zero/degenerate normal and tangent normalization, nonuniform parent-transform normal treatment, clip/camera frames, native interpolation/entrypoint validation and conditional defines remain unproved. No runtime/rendering defect is claimed from those untraced policies.",
+    "Contextual native MATERIAL_DEBUG/final_color observation from015 remains unverified active-flag/compiled/current behavior; original36 brings no new unique issue alias/count.",
+    "All prior original31 ID-sentinel/Paged-reset/uncheckedbounds/count/expect/history/first-party observations remain non-counted pending root dedup/currentness/reachability, and all global20/inherited findings stay open."
+  ],
+  "other_lens_scope_reconciliation": {
+    "path": "audit13-successor-016-other-lens-reconciliation-note.json",
+    "sha256": "9bd78244d18d596d24b22a3b5512333a649aa7ac51fd16ae6003499b6dc70381",
+    "assessment": "No new native receiving file/range beyond already registered earlier scopes; retain014/015mandatory queues unchanged. No other-lens verdict, original37/future-role, overlay/shared/material increment."
+  },
+  "accounting": {
+    "before_original_accounted": 35,
+    "after_proposed_original_accounted": 35,
+    "original_total": 2853,
+    "new_original_independently_inspected": [
+      36
+    ],
+    "new_original_source_accounted": [],
+    "partial_original_indices": [
+      31,
+      36
+    ],
+    "earliest_unfinished_original": 31,
+    "first_unread_original": 37,
+    "original37_status": "Not independently assessed as original; priorreceiverbodyaccess confersno rolecredit",
+    "overlays_increment": 0,
+    "merged_increment": 0,
+    "material_increment": 0,
+    "other_lens_credit": 0,
+    "new_unique_count": 0,
+    "root_adoption_required": true
+  },
+  "qualifications": [
+    "Original36 full1-48/1131bytes consumed withallconditionalforms; no narrowedvariant or nonexistenttailcredit. Earlierreceiverreadnotoriginalclearance. Original0-30/32-35 and completed990review not restarted;31partialexactlyretained.",
+    "Four exact sourceobjects/244registeredlines readafterprospective registration andhashverifiedbefore/after. Original36 knownfrozenSHA; native mesh/pipeline/shading exactimmutableGit1a5aff supplements withpreviousrootprovenance. No currentalias/unseenfrozenidentity/fulltree claim.",
+    "No original37 independentlyinventoried/readforcredit; stopatfirstconcretepartialasrootrequested. Pendingotherlensextensionqueues014/015 andall inherited/global finding/state obligations unchanged.",
+    "No projectexecution/build/test/lint/scanner/generator/probe/assertion/helper/doctest added/run; no product/source/Git/rootledger/historicaledit orpublication. Only ignoredregistration/receipt/reconciliation-note/proposedstate authored.",
+    "No backwardcompatibilityconstraint, nativeboundaryblanketexemption, compiled/runtime/SDK/wholeauditorlens13clearance, accepteduniquealias/count or integratedrepairclaim."
+  ],
+  "stop_reason": "Concretepartial36nativevariant/recipientfrontierreached; saved without attempting37 or expandingbaseMeshPipeline/SDKgraph. Rootsoleadoption."
+}

@@ -1,0 +1,284 @@
+{
+  "id": "PR992-SOURCE-MATH-INTAKE-001",
+  "created_utc": "2026-10-27T08:06:09.655853+00:00",
+  "review_type": "Independent source/math intake for all5usercomments; focused bounded smoothstep and typed complement recommendations",
+  "source_context": "Userrevieweddf5f37abc8db96c3db69dd805f32ef1cf635dd59. Intakeactualsource fingerprints matched accepted df5source before rootimplementation; reportisnotfinalposteditreview.",
+  "feedback": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-feedback-comments-001.json",
+    "sha256": "a835c01725ba93c3dbae0ed02b72fff2046691ce0044ebe512823703b442243c"
+  },
+  "prospective_registrations": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/source-math-intake-registration-001.json",
+      "sha256": "7f1ff12b318e2b49d167be84a66af4a49749638a8baeefafd6da205ebf14f592"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/source-math-intake-registration-receivers-001.json",
+      "sha256": "f9435337b9f9e63d9a8057032eea4c65d7979dc49032db2c9f492055cb24d0bf"
+    }
+  ],
+  "source_pins": [
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+      "lines": 58,
+      "prospective_ranges": [
+        [
+          1,
+          58
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "b1561f750844b7395f96f8fe2ee767db88d73fb8d8b6e997779493130b09f877",
+      "lines": 173,
+      "prospective_ranges": [
+        [
+          1,
+          173
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "51a510d3c5f039d6b7eb4ce2b1511432fb3415bf0b15152d036ec01a6394f9c8",
+      "lines": 525,
+      "prospective_ranges": [
+        [
+          1,
+          525
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "7cca5e5cef2f3c3a5a11c88dba547195f36d61f4665f157c8d55eedc30179eab",
+      "lines": 267,
+      "prospective_ranges": [
+        [
+          1,
+          267
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "sha256": "3acaf77c189e6ab8abcd972e5615276d945a1ca6772ee90246feef673e8a2c69",
+      "lines": 207,
+      "prospective_ranges": [
+        [
+          1,
+          207
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "sha256": "7b026fd31eb9c09c84b446dbb0b71faea9717f93c027226dfbe357c5150dd704",
+      "prospective_ranges": [
+        [
+          1,
+          591
+        ]
+      ],
+      "scope": "Only actual smoothstep localhelper andendurance viewgetter declaration/body ports; no other wholefile verdict."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "7cca5e5cef2f3c3a5a11c88dba547195f36d61f4665f157c8d55eedc30179eab",
+      "prospective_ranges": [
+        [
+          1,
+          267
+        ]
+      ],
+      "scope": "Only actual smoothstep localhelper andendurance viewgetter declaration/body ports; no other wholefile verdict."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/player.rs",
+      "sha256": "7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+      "prospective_ranges": [
+        [
+          1,
+          640
+        ]
+      ],
+      "scope": "Only actual smoothstep localhelper andendurance viewgetter declaration/body ports; no other wholefile verdict."
+    }
+  ],
+  "actual_body_reads": [
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "ranges": [
+        [
+          1,
+          173
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "ranges": [
+        [
+          1,
+          260
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "ranges": [
+        [
+          125,
+          175
+        ],
+        [
+          210,
+          240
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "ranges": [
+        [
+          1,
+          15
+        ],
+        [
+          85,
+          120
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "ranges": [
+        [
+          360,
+          381
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/player.rs",
+      "ranges": [
+        [
+          425,
+          489
+        ]
+      ]
+    }
+  ],
+  "navigation_only": "Prospectively registeredrg symbolnavigation within core/tacticalcore found existing local smoothstep wrappers, actual joggingcallers andplayergetter. No body/wholecrate/terrain/other-lens credit frommatches; only actual ranges above assessed.",
+  "all5_comment_intake": [
+    {
+      "id": 4386135236,
+      "source": "animation/locomotion.rs146-151",
+      "request": "Keep speed dimension cancellation in a typed operation ratherthan repeated external rawmetres extraction.",
+      "source_fact": "Currentcaller unwraps3speeds, subtracts/divides, clampsunitfraction andreadmits. Currentfull linear_speed owner hastypedchecked_lerp butno speedinterval normalization/ratio owneroperation.",
+      "disposition": "Rootimplementationmustchooseclean typedrange normalization/ratiooperation with itsmeaningful endpoint/admission contract. Arbitrary divisionofspeeds isnot automaticallyUnitInterval becausea dimensionlessratio neednot lie[0,1]. Thispacketfocus is smoothstep/complement; no final ratio/API verdict."
+    },
+    {
+      "id": 4386140379,
+      "source": "animation/locomotion.rs165-167",
+      "request": "Typed complement ofadmittedrunfactor withoutfraction extraction/re-admission.",
+      "source_fact": "Current UnitInterval1-58 ownsfinite[0,1],ZERO/ONE/HALF,max,fraction, butno complement/Sub operation.",
+      "recommendation": "Add canonical UnitInterval::complement(self)->Self anduse run.complement(). Closed1-x admitsdirectSelf withoutfallible re-admission. Generic Sub<UnitInterval,Output=UnitInterval> isnotclosed forarbitrary admitteda,b; do notadd an unrestrictedSelf subtraction solelytoenableONE-run."
+    },
+    {
+      "id": 4386145956,
+      "source": "animation/sample_values.rs97-101",
+      "request": "Carry bespoke values through receiving arithmetic ratherthanprimitive-casting beforecallee.",
+      "source_fact": "CycleDelta::checked_lerp alreadyacceptsUnitInterval butcallsnativef32FloatExt::lerp with fraction.fraction(). Usercomment asksfinishingtheowned arithmetic path, so merelypointingtoexistingtyped signaturedoesnotaddressrequest.",
+      "disposition": "Roottrace/update typedinterpolation/arithmetic receivers withinfinalownergraph. Raw extractionshouldremainonlyinsideactualowned numericalkernel/nativeadapter, notmove intoanother raw applicationhelper. No independent finaloperation design or nativeAPI exemption claimedhere."
+    },
+    {
+      "id": 4386147316,
+      "source": "animation/sample_values.rs99",
+      "request": "Move use tofiletop.",
+      "source_fact": "Functionlocalusebevy::math::FloatExt ispresent; currenttopimports at3-7.",
+      "disposition": "Directrequestedfile-scopeimport correction if FloatExt remainsused aftertypedoperation change. No permissionneeded, rootsoleeditor."
+    },
+    {
+      "id": 4386224068,
+      "source": "physics/movement_speed.rs41-48",
+      "request": "Remove unnecessaryoutputclamp fromcubic smoothstep.",
+      "source_fact": "Currentexpression admitsafterapplyingpolynomial thenclamp. Existingenduranceinput clamp andlowbranch separate inputdomain fromoutputshape.",
+      "recommendation": "Admitlowbranch input asUnitInterval before thecurve; let canonical UnitInterval::smoothstep(self)->Self own a bounded evaluation. Removeoutputclamp; no compatibility or speculativefailure rationale."
+    }
+  ],
+  "endurance_admission_trace": [
+    {
+      "source": "physics/movement_speed.rs182-186;player.rs444,470-487",
+      "fact": "Ordinarycontroller obtainsendurance throughTacticalPlayerView PlayerInfo containingTacticalAttributes; raw_single_body_part_attr delegates toPlayerAttributeValues andreturnsf32. TacticalAttributesFrom stores thepassedattribute record; thisdisplayedport providesnoUnitIntervaltype ornewnumericadmission. Globalattributeadmission isnotassumed orauditedhere."
+    },
+    {
+      "source": "physics/movement_speed.rs41-49",
+      "fact": "PublicjoggingAPI takesf32, firstappliesexistinginputpolicyclamp[0,5], thenlowbranch<=1. Finitevaluesreachingthatbranch lie[0,1]. AdmitthatinputwithUnitInterval::from_fraction beforeapplying thecurve. Thispreservesownerresponsibility forfiniteunit admission withoutrequiring rawenduranceorallattributes toalreadybeUnitInterval."
+    },
+    {
+      "source": "physics/movement_speed.rs50-56,59-100",
+      "fact": "Upperendurancecurve usesnormalized(endurance-1)/4 andchecked speedconstruction; breath/exhaustion APIs calljoggingwiththeirsuppliedrawendurance. No outputcurveclamp isneededtoexpress thelowbranchrealmathematicaldomain. Input[0,5]policy isseparatefromtheoutputclamp underreview; donotexplainitsretention asbackwardcompatibility."
+    },
+    {
+      "source": "core/unit_interval.rs22-29;core/linear_speed.rs20-44,67-77",
+      "fact": "UnitInterval constructor rejectsnonfinite/outside[0,1] andprivatefield retains admittedvalue. ExistingSpeedErrorFraction conversioncanpropagate inputadmission andchecked_lerp alreadyconsumesadmittedfraction."
+    }
+  ],
+  "existing_owner_api_reconciliation": [
+    {
+      "source": "core/unit_interval.rs1-58",
+      "fact": "Exactcanonical owner currently hasno smoothsteporcomplement. Addclosed operationshere; no newfractionowner required."
+    },
+    {
+      "source": "animation/evaluation.rs372-377",
+      "fact": "Existinglocal smoothstep01 takesrawf32, clampsinput[0,1], evaluatescubic andfalliblyadmitsUnitInterval. Itisnotanalreadyavailable canonicalUnitIntervalmethod. A futurecaller wrapper mayown itsinputnormalization anddelegatecurve toadmittedowner; thispacketdoesnotrequestwholeterrainhelper migration."
+    },
+    {
+      "source": "animation/locomotion.rs233-239",
+      "fact": "Existinglocal edge0/edge1 smoothstep normalizes/clampsinput andhandlesdegenerateedges beforecubic. Itcombines range-normalizationpolicy withcurveevaluation; canonicalclosedUnitIntervalcurve canbe sharedwithoutconflating thosepolicies."
+    }
+  ],
+  "source_math_recommendation": {
+    "real_property": {
+      "formula": "f(x)=x\u00b2(3\u22122x)",
+      "derivative": "f\u2032(x)=6x(1\u2212x)\u22650 for0\u2264x\u22641",
+      "endpoints": "f(0)=0 andf(1)=1",
+      "conclusion": "Theuserisright: overrealadmittedinput thecubicmaps[0,1]to[0,1]; outputclampdoesnotbelongto thatmathematicaloperation."
+    },
+    "typed_curve_operation": "UnitInterval::smoothstep(self)->Self, receivinganadmittedinputandreturningthesamecanonicalbespoketype.",
+    "bounded_float_evaluation": {
+      "definition": "Foradmittedx, takeu=x whenx\u22641/2, otherwiseu=1\u2212x. Computeq=(u*u)*(3\u22122*u). Returnq onthelowerhalf and1\u2212q ontheupperhalf. Nooutputclamp orfalliblere-admission.",
+      "real_identity": "f(1\u2212u)=1\u2212f(u), so thisisalgebraicallythesame cubiccurve.",
+      "input_half_bound": "Bothbranches givefiniteu in[0,1/2]. Complement subtraction isclosedbecause1\u2212x isin[0,1],with0,1/2,1 representable.",
+      "rounded_operation_bound": "ForordinaryRustf32arithmetic, u*u roundswithin[0,1/4], and3\u22122*u within[2,3]. Theirproduct roundswithin[0,3/4] becauseboundsareexactrepresentablevalues. Thereforeloweroutputisin[0,3/4]; reflected1\u2212q roundswithin[1/4,1]. Everyreturnedvalueisfiniteandwithin[0,1].",
+      "endpoints": "x=0 gives0; x=1/2 gives1/2; x=1 gives1. Smallunderflowedproducts remain0withinthetypecontract.",
+      "scope": "Thisisabounded evaluationproof, not a claimofdemonstratednaivef32overshoot, exhaustiveadjacentfloatmonotonicity, or preservedprioroperationrounding. No probes or native/project executionwereperformed."
+    },
+    "typed_complement": {
+      "operation": "UnitInterval::complement(self)->Self implementing1\u2212x insideowner",
+      "proof": "Admittedfinite0\u2264x\u22641 impliesexactdifference[0,1], androundingbetweenrepresentable0and1 cannotleaveinterval. Noapplicationfraction()/from_fraction()roundtripneeded.",
+      "generic_subtraction": "Arbitrarya\u2212b canbenegative, e.g0\u22121; do notdeclaregeneralUnitInterval subtractionclosedwithouta distinctresultcontract.",
+      "scope": "No bitwiseinvolution/signedzero-preservationclaim beyondadmittedresult. Namedcomplementdirectlyexpressestheclosed operation."
+    }
+  },
+  "contributor_documentation_implication": "FinalPR/sourcecomment wording shoulddescribeadmittedtypedcurve/complement andthecleanunit-awareoperations. Removeprioroutputclamp description whenimplementationchanges; do notjustifyoldbehavior/APIcompatibility orclaimtheuserreal-rangeproofiswrong.",
+  "findings_or_recommendations_status": "All5userrequests mapped toactualsource; focusedclosedcurve/complement recommendation readyforrootimplementation. ThisisnotposteditCommentRevieworpermissiontopublish.",
+  "limits": [
+    "No product/source/Git/rootledger/publication edits, no localproject/native execution, probes/tests/newtests/helpers/assertions/doctests. Onlyignoredreportandregistrationfiles appended.",
+    "No broadgloballedger completion, all20/F9/native/currentruntimeorother-lensclearance; interrupted12original58 and08partials retainedunchanged.",
+    "Finalsourcepinsandcomments mustbereviewedafterrootimplementation; intakehashes donotcoverlaterchanges."
+  ],
+  "stop": true
+}

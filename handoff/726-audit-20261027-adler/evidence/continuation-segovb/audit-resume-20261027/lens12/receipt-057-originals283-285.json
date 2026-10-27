@@ -1,0 +1,178 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "057",
+  "predecessor": "receipt-056-original282.json",
+  "manifest_prefix_sha256": "5ecc8bf17bf36bd7c00ad446ab4a08b0c947e3e48129f1f4c1c1d6d687f7114b",
+  "sources": [
+    {
+      "original_index": 283,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/hostile_negotiation.rs",
+      "sha256": "f880f5a870da48b140f53c29d60b2663fe7e2f6b2ab1bac4d064ba884e8cab89",
+      "actual_ranges": [
+        [
+          1,
+          687
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              630
+            ]
+          ],
+          "role": "Raw context discriminator exact_case_context6 -> Backend context_ref37/398 -> reducer String524 -> exact authority &str412/compare416 -> retry537 and receipt25/624. Included spokesman path71 and actual284 helper fully read. Open party/group/action IDs18/21/23/101/112/126/180/235/291/410/522/526; action length checked529 then native receipt format532 and resolution suffix586. Typed CaseSiteId22/35 becomes raw request522 then parsed only by comparison against typed sites436.",
+          "disposition": "Canonical context enum/value should span source, projection, reducer/retry and retained state; typed case/open action/party/group IDs should span helpers until native encoding. Context is a finite application selector, not prose. ActionID remains open, with actual length/nonempty admission. Existing typed CharacterContextKind/Role470-472 and HostileResolutionKind552 should remain owners."
+        },
+        {
+          "ranges": [
+            [
+              177,
+              330
+            ]
+          ],
+          "role": "Native JSON fact decoding209/264/306 and objective JSON293; core CaseId constructed298 and ObjectiveId.as_str compared raw capability.objective_id320.",
+          "disposition": "Actual codec is boundary but decoded canonical CaseId/ObjectiveId/OutcomeFact should span internal APIs/native projection. Existing269 schema and273 mission producer evidence connect; exact core evaluate/delegated capability helper not newly read."
+        },
+        {
+          "ranges": [
+            [
+              1,
+              687
+            ]
+          ],
+          "role": "Errors417/425/428/438/445/447/455/461/487/490/493/515/530/542/613; response599/604 is narrative prose, returned393/401. Tests source paths650/671; marker strings652/654/657/660/662-666/672-685 and symbolic fixture values living-four/living-seven641/642,a/b644.",
+          "disposition": "Keep typed failure causes until final rendering; response text has concrete display role. Test source lexemes are actual source-inspection boundaries, symbolic payloads only exercise ordinal selection, not gameplay catalogs. No test execution or source-test sufficiency verdict; all687 lines inventoried."
+        }
+      ],
+      "status": "Full requested687 read; source-accounted WITH findings and pending external receivers."
+    },
+    {
+      "original_index": 284,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/hostile_negotiation/spokesman.rs",
+      "sha256": "859e2cce6e284240050cd19aadc0485b78d976c29aa738ca1c0c08734696b03d",
+      "actual_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              27
+            ]
+          ],
+          "role": "No literals or String-valued signatures. Actual group.id native context-index key11 and typed case-site as_str15 compared location_id. Typed CharacterContextKind13 and Role14 retained through selection26.",
+          "disposition": "Whole explicit material helper independently read; open group/location identity gap is connected native state/application compare, not new finite enum. Membership constructor/native projection and validity helper body remain pending; no broader world_actor credit."
+        }
+      ],
+      "status": "All explicit material1-27 independently read, exact helper contract accounted WITH qualified open-reference finding."
+    },
+    {
+      "original_index": 285,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/hostile_surrender.rs",
+      "sha256": "e2f5748256966b0c213139b3738202af3e71b51ae7b1d2be57814e76e66553d5",
+      "actual_ranges": [
+        [
+          1,
+          417
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              375
+            ]
+          ],
+          "role": "Raw context fields25/39/165, projection uses283 constant152, same exact authority198/255, retry188 and receipt312. Open party/group/action/site IDs18/21/23/163/167/327/329/331/356/358/361; receipt format181/resolution suffix267, actual action admission177. Typed SurrenderMode/Outcome remain27/29/41/168/234-295/314-316.",
+          "disposition": "Carry canonical context/open-reference owners through source/state/request/retry. Preserve existing typed surrender mode/outcome and CaseSiteId through helpers. No raw enum rewrite needed for already typed mode; no BC/schema/message preservation constraint."
+        },
+        {
+          "ranges": [
+            [
+              1,
+              417
+            ]
+          ],
+          "role": "Errors178/195/212/236/241/247/251/301 and lint reason351; narrative responses280/285/292; tests source path392 and source-symbol markers393-415 including message substring410.",
+          "disposition": "Typed errors until output; narrative response is concrete display prose, source marker strings are lexical source boundary and message substring410 is wording-coupled test, not evidence of runtime behavior. Tests only read, not run. All remaining sections typed/numeric or references."
+        }
+      ],
+      "status": "Full requested changed417 read; source-accounted WITH findings."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Hostile interaction context discriminator and open IDs erased across projection/reducer/retry/state",
+      "sources": [
+        "283:6,25,37,398,410-416,522-542,624",
+        "285:25,39,152,163-188,312"
+      ],
+      "remedy": "Carry canonical context and open IDs across all connected application and native-projection ports; preserve already typed mode/outcome.",
+      "acceptance": "Reconcile actual external gateway input/output codec and context/case owners, plus shared commit receiver; no native ABI, runtime authority or unique-total conclusion.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "External hostile negotiation/surrender gateway/action producers and native codec remain unread. Shared resolution commit/delegated generated-case eligibility helpers remain separately pending.",
+    "284 is exact material helper1-27 only; no whole world_actor membership/runtime credit.",
+    "288 prospective fullsource registration was corrected before any body read; actual required scope328-370,612-628,860-890 remains unread."
+  ],
+  "qualifications": [
+    "Exact frozen f82 physical-P16 source only, not current alias.",
+    "User noBC overrides preserve-wire/input clause; no project/native/test/probe execution or mutations/publication.",
+    "WITH findings is not global/repaired/runtime/native/other-lens or unique-total clearance; all inherited qualifications preserved."
+  ],
+  "proposed_count": {
+    "before": 283,
+    "after": 286,
+    "indices_completed": [
+      283,
+      284,
+      285
+    ],
+    "next_original": 286,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/hostile_negotiation.rs",
+      "sha256": "f880f5a870da48b140f53c29d60b2663fe7e2f6b2ab1bac4d064ba884e8cab89",
+      "ranges": [
+        [
+          1,
+          687
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/hostile_negotiation/spokesman.rs",
+      "sha256": "859e2cce6e284240050cd19aadc0485b78d976c29aa738ca1c0c08734696b03d",
+      "ranges": [
+        [
+          1,
+          27
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/hostile_surrender.rs",
+      "sha256": "e2f5748256966b0c213139b3738202af3e71b51ae7b1d2be57814e76e66553d5",
+      "ranges": [
+        [
+          1,
+          417
+        ]
+      ]
+    }
+  ]
+}

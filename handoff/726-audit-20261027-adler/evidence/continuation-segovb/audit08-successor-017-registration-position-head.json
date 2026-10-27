@@ -1,0 +1,40 @@
+{
+  "id": "CONT08-017-position-head-registration",
+  "at": "2026-10-27T02:44:25.667504+00:00",
+  "catalog": "target/recovery-20261025/audit05/original-scope-072.json",
+  "catalog_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+  "sources": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry.rs",
+      "original_index": 662,
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+      "sha256": "c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+      "base_sha256": "bae5a90cacf4d5bdb2a30d57f25ab8f71fb51c36fbe8378568879b01174d617d",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "frozen_requested_change",
+      "prospective_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "reason": "Exact materially needed module bridge and complete requested changed head Position leaf owner; body use limited to triangle constructor/accessor/serde contracts, no original completion or native expansion."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+      "original_index": 666,
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+      "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+      "base_sha256": "5d66826f5196f69a4cd6af52ed404fab55b4c9a001e77e7cee81f0751f477cb6",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "frozen_requested_change",
+      "prospective_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "reason": "Exact materially needed module bridge and complete requested changed head Position leaf owner; body use limited to triangle constructor/accessor/serde contracts, no original completion or native expansion."
+    }
+  ]
+}

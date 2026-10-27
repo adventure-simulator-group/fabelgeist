@@ -1,0 +1,479 @@
+{
+  "id": "CONT12-ORIGINAL39-RECEIVERS-REG-001",
+  "created_utc": "2026-10-26T18:40:43.797185+00:00",
+  "lens": "12 magic-strings",
+  "scope": "Original39 Cargo.lock actual bounded receiving graph at committed P16; no original39 completion.",
+  "skill": "/home/brunosegovia/.codex/skills/audit-magic-strings/SKILL.md",
+  "original_inventory_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+  "original39": {
+    "source_id": "physical-p16:Cargo.lock",
+    "snapshot": "physical-p16",
+    "path": "Cargo.lock",
+    "owner": "root",
+    "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+    "base_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+    "state": "modified",
+    "bytes": 306149,
+    "audit_owner": "root",
+    "scope_kind": "frozen_requested_change",
+    "producer_source_proof": [],
+    "owner_contract_proofs": [
+      {
+        "supplier": "root",
+        "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+        "row": 0,
+        "read_ranges": [
+          [
+            1,
+            13103
+          ]
+        ],
+        "contract_refs": [
+          "ROOT-OWNER-METADATA-001"
+        ],
+        "read_status": "full_stdlib_native_format_metadata",
+        "resolved_path": "SNAPSHOTS/physical-p16/Cargo.lock"
+      }
+    ],
+    "current_owner_suppliers": [
+      "root"
+    ],
+    "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+    "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+    "producer_inventory_accounting": {
+      "initial946_cell": true,
+      "frozen1650_supplement_index": null,
+      "new158_material_role_packet": false,
+      "expanded36_context_variant": false,
+      "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+      "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+    },
+    "admission03_increment050_role_observations": [
+      {
+        "supplier": "native",
+        "registry": "continuation/native/admission03/source-range-registration.jsonl",
+        "row_1based": 16,
+        "registration_id": "NATIVE-ADMISSION03-REG-016",
+        "original_record": {
+          "id": "NATIVE-ADMISSION03-REG-016",
+          "at": "2026-10-22T07:38:46.604886+00:00",
+          "authority": "continuation/root/admission03-discovery-authority-043.json",
+          "source_id": "physical-p16:Cargo.lock",
+          "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+          "snapshot": "physical-p16",
+          "actual_EOF": 13103,
+          "material_ranges": [
+            [
+              10243,
+              10256
+            ],
+            [
+              10303,
+              10327
+            ],
+            [
+              10373,
+              10405
+            ]
+          ],
+          "role": "Exact P16 basispoints optionalspacetimedb_lib derive namespace/dependencyversion/reexport chain toalreadyactualCamera2.6.1namedproductmacro. Definition59samecontract freshcompared; theseareonlydirectregistration/dependency/reexportedges.",
+          "reason": "Camera confirmed SATS001 PRonly andnoP16namespace/versionproof, soexactmissingdirectedgesprospectivelyregisteredbeforebody under043.",
+          "exclusions": "Dependency/reexportonly, notnewdecodersemantics/foreignpackageallsource/otherlensorwholemanifestwherebounded. No tests/projectexecution.",
+          "resolved_path": "SNAPSHOTS\\p16\\Cargo.lock",
+          "status": "registered_before_direct_dependency_reexport_body_analysis"
+        },
+        "local_qualifications": [
+          {
+            "id": "NATIVE-ADMISSION03-QUAL-016",
+            "registration_id": "NATIVE-ADMISSION03-REG-016",
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-016",
+              "at": "2026-10-22T07:38:46.604886+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "physical-p16:Cargo.lock",
+              "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+              "snapshot": "physical-p16",
+              "actual_EOF": 13103,
+              "material_ranges": [
+                [
+                  10243,
+                  10256
+                ],
+                [
+                  10303,
+                  10327
+                ],
+                [
+                  10373,
+                  10405
+                ]
+              ],
+              "role": "Exact P16 basispoints optionalspacetimedb_lib derive namespace/dependencyversion/reexport chain toalreadyactualCamera2.6.1namedproductmacro. Definition59samecontract freshcompared; theseareonlydirectregistration/dependency/reexportedges.",
+              "reason": "Camera confirmed SATS001 PRonly andnoP16namespace/versionproof, soexactmissingdirectedgesprospectivelyregisteredbeforebody under043.",
+              "exclusions": "Dependency/reexportonly, notnewdecodersemantics/foreignpackageallsource/otherlensorwholemanifestwherebounded. No tests/projectexecution.",
+              "resolved_path": "SNAPSHOTS\\p16\\Cargo.lock",
+              "status": "registered_before_direct_dependency_reexport_body_analysis"
+            },
+            "original_requested_context_ranges": [
+              [
+                10243,
+                10256
+              ],
+              [
+                10303,
+                10327
+              ],
+              [
+                10373,
+                10405
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                10243,
+                10256
+              ],
+              [
+                10303,
+                10327
+              ],
+              [
+                10373,
+                10405
+              ]
+            ],
+            "qualification": "Exact direct namespace/reexport route supporting P16 namedproductSATS macro witness; no general firstpartycodec orforeignpackagecredit.",
+            "current_admission_proof_refs": [
+              "contract-groups-043.json#p16-basispoints-all-adapter-routes",
+              "p16-basispoints-admission-witness-042.json"
+            ],
+            "frozen_hash_eof_verified": true,
+            "semantics_from_hash_or_ranges": false,
+            "global_reconciliation": "Root authority; raw original registration retained; no globalacceptance from this localqualification",
+            "producer_owner_later_lens_credit": false
+          }
+        ],
+        "effective_material_ranges": [
+          [
+            10243,
+            10256
+          ],
+          [
+            10303,
+            10327
+          ],
+          [
+            10373,
+            10405
+          ]
+        ],
+        "resolved_path": "SNAPSHOTS\\p16\\Cargo.lock",
+        "actual_EOF": 13103,
+        "bytes": 306149
+      }
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-tactical-client/build.rs",
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "163139166c401d4e8b770c9fe07bbaf21cb2ba2de0168daa00762823adca24e6",
+      "lines": 236,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/163139166c401d4e8b770c9fe07bbaf21cb2ba2de0168daa00762823adca24e6",
+      "ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "reason": "Prospective exact Cargo.lock receiving graph: parse/check/tool argument or path/hash recipient. No execution or whole original completion.",
+      "original_catalog_matches": [],
+      "qualification": "Distinct committed P16 source variant; catalog presence does not identify unknown dirty bytes or grant original/current coverage."
+    },
+    {
+      "source_id": "physical-p16-commit039329:scripts/build_texture_studio.py",
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "779707ff042a5c92c637cd4e6ad9bf06faddd7380165c09278aec9c8eeb84284",
+      "lines": 38,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/779707ff042a5c92c637cd4e6ad9bf06faddd7380165c09278aec9c8eeb84284",
+      "ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "reason": "Prospective exact Cargo.lock receiving graph: parse/check/tool argument or path/hash recipient. No execution or whole original completion.",
+      "original_catalog_matches": [],
+      "qualification": "Distinct committed P16 source variant; catalog presence does not identify unknown dirty bytes or grant original/current coverage."
+    },
+    {
+      "source_id": "physical-p16-commit039329:scripts/build_wasm.py",
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "2b45fea5f64c89476878b3e74e8974678bf423f7464e8524865b63bcde829fc6",
+      "lines": 136,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/2b45fea5f64c89476878b3e74e8974678bf423f7464e8524865b63bcde829fc6",
+      "ranges": [
+        [
+          1,
+          136
+        ]
+      ],
+      "reason": "Prospective exact Cargo.lock receiving graph: parse/check/tool argument or path/hash recipient. No execution or whole original completion.",
+      "original_catalog_matches": [],
+      "qualification": "Distinct committed P16 source variant; catalog presence does not identify unknown dirty bytes or grant original/current coverage."
+    },
+    {
+      "source_id": "physical-p16-commit039329:scripts/showcase.py",
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "292089164020846d3938b8d2723c6249130b2c5619e64c2e187706dd84da5d41",
+      "lines": 240,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/292089164020846d3938b8d2723c6249130b2c5619e64c2e187706dd84da5d41",
+      "ranges": [
+        [
+          1,
+          165
+        ]
+      ],
+      "reason": "Prospective exact Cargo.lock receiving graph: parse/check/tool argument or path/hash recipient. No execution or whole original completion.",
+      "original_catalog_matches": [],
+      "qualification": "Distinct committed P16 source variant; catalog presence does not identify unknown dirty bytes or grant original/current coverage."
+    },
+    {
+      "source_id": "physical-p16-commit039329:scripts/deploy.py",
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "770b53946d5e856398c489fd57b85bb652f61e9d59cf4431c6eb7ef3be739c17",
+      "lines": 837,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/770b53946d5e856398c489fd57b85bb652f61e9d59cf4431c6eb7ef3be739c17",
+      "ranges": [
+        [
+          620,
+          720
+        ]
+      ],
+      "reason": "Prospective exact Cargo.lock receiving graph: parse/check/tool argument or path/hash recipient. No execution or whole original completion.",
+      "original_catalog_matches": [],
+      "qualification": "Distinct committed P16 source variant; catalog presence does not identify unknown dirty bytes or grant original/current coverage."
+    },
+    {
+      "source_id": "physical-p16-commit039329:scripts/capture_tactical_scenes.py",
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "c99c3ec76a1ec6edb9097b232123b9175ed9175f23a00c7f26af9ce280be8509",
+      "lines": 556,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/c99c3ec76a1ec6edb9097b232123b9175ed9175f23a00c7f26af9ce280be8509",
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "reason": "Prospective exact Cargo.lock receiving graph: parse/check/tool argument or path/hash recipient. No execution or whole original completion.",
+      "original_catalog_matches": [],
+      "qualification": "Distinct committed P16 source variant; catalog presence does not identify unknown dirty bytes or grant original/current coverage."
+    },
+    {
+      "source_id": "physical-p16-commit039329:scripts/dev_stack.py",
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "a6016bb53c71ca978521006bbd4a6f929047db76d1a654194f3ddc7dd60230bd",
+      "lines": 3466,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/a6016bb53c71ca978521006bbd4a6f929047db76d1a654194f3ddc7dd60230bd",
+      "ranges": [
+        [
+          715,
+          790
+        ]
+      ],
+      "reason": "Prospective exact Cargo.lock receiving graph: parse/check/tool argument or path/hash recipient. No execution or whole original completion.",
+      "original_catalog_matches": [],
+      "qualification": "Distinct committed P16 source variant; catalog presence does not identify unknown dirty bytes or grant original/current coverage."
+    },
+    {
+      "source_id": "physical-p16-commit039329:scripts/real_world_tactical.py",
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "b506a05937657b1f1c30e25122fb0861ece3cc25a342cfac0de158c176ad4001",
+      "lines": 159,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/b506a05937657b1f1c30e25122fb0861ece3cc25a342cfac0de158c176ad4001",
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "reason": "Prospective exact Cargo.lock receiving graph: parse/check/tool argument or path/hash recipient. No execution or whole original completion.",
+      "original_catalog_matches": [],
+      "qualification": "Distinct committed P16 source variant; catalog presence does not identify unknown dirty bytes or grant original/current coverage."
+    }
+  ],
+  "additional_support": [
+    {
+      "source_id": "physical-p16-commit039329:scripts/capture_tactical_scenes.py",
+      "sha256": "c99c3ec76a1ec6edb9097b232123b9175ed9175f23a00c7f26af9ce280be8509",
+      "ranges": [
+        [
+          172,
+          220
+        ]
+      ],
+      "reason": "Prospective actual Cargo.lock path-to-digest/git argv or deploy command receiving body before read."
+    },
+    {
+      "source_id": "physical-p16-commit039329:scripts/dev_stack.py",
+      "sha256": "a6016bb53c71ca978521006bbd4a6f929047db76d1a654194f3ddc7dd60230bd",
+      "ranges": [
+        [
+          696,
+          714
+        ],
+        [
+          1020,
+          1080
+        ],
+        [
+          1180,
+          1220
+        ],
+        [
+          2850,
+          2920
+        ]
+      ],
+      "reason": "Prospective actual Cargo.lock path-to-digest/git argv or deploy command receiving body before read."
+    },
+    {
+      "source_id": "physical-p16-commit039329:scripts/real_world_tactical.py",
+      "sha256": "b506a05937657b1f1c30e25122fb0861ece3cc25a342cfac0de158c176ad4001",
+      "ranges": [
+        [
+          90,
+          159
+        ]
+      ],
+      "reason": "Prospective actual Cargo.lock path-to-digest/git argv or deploy command receiving body before read."
+    },
+    {
+      "source_id": "physical-p16-commit039329:scripts/deploy.py",
+      "sha256": "770b53946d5e856398c489fd57b85bb652f61e9d59cf4431c6eb7ef3be739c17",
+      "ranges": [
+        [
+          740,
+          764
+        ]
+      ],
+      "reason": "Prospective actual Cargo.lock path-to-digest/git argv or deploy command receiving body before read."
+    },
+    {
+      "source_id": "physical-p16-commit039329:Cargo.lock",
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+      "lines": 13103,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+      "ranges": [
+        [
+          1435,
+          1440
+        ],
+        [
+          9746,
+          9750
+        ],
+        [
+          11768,
+          11779
+        ]
+      ],
+      "reason": "Only actual Bevy/semver/wasm-bindgen name/version crossboundary records; parent supplied locators; no full original39 re-read or completion.",
+      "catalog_hash_matches_original39": true
+    },
+    {
+      "source_id": "native-crates.io:semver1.0.28/src/lib.rs",
+      "sha256": "e56f4d7c7774c45e61026fb0050955d67601c9ad18bdf93f8921d9898067c119",
+      "lines": 569,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/e56f4d7c7774c45e61026fb0050955d67601c9ad18bdf93f8921d9898067c119",
+      "ranges": [
+        [
+          140,
+          176
+        ],
+        [
+          370,
+          430
+        ]
+      ],
+      "reason": "Actual build guard semver::Version parse/structured comparison native owner, bounded before body read.",
+      "provenance": {
+        "package": "semver",
+        "version": "1.0.28",
+        "local_source_directory": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/semver-1.0.28",
+        "lock_checksum": "8a7852d02fc848982e0c167ef163aaff9cd91dc640ba85e263cb1ce46fae51cd",
+        "cargo_checksum_metadata_available": false,
+        "archive_available": true,
+        "archive_sha256": "8a7852d02fc848982e0c167ef163aaff9cd91dc640ba85e263cb1ce46fae51cd"
+      }
+    },
+    {
+      "source_id": "native-crates.io:semver1.0.28/src/parse.rs",
+      "sha256": "2d9cb28a72a813968c16da29a9690f8e53f1ce00727a1dbe67aec3ddb5ed59ed",
+      "lines": 404,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/2d9cb28a72a813968c16da29a9690f8e53f1ce00727a1dbe67aec3ddb5ed59ed",
+      "ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "reason": "Actual build guard semver::Version parse/structured comparison native owner, bounded before body read.",
+      "provenance": {
+        "package": "semver",
+        "version": "1.0.28",
+        "local_source_directory": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/semver-1.0.28",
+        "lock_checksum": "8a7852d02fc848982e0c167ef163aaff9cd91dc640ba85e263cb1ce46fae51cd",
+        "cargo_checksum_metadata_available": false,
+        "archive_available": true,
+        "archive_sha256": "8a7852d02fc848982e0c167ef163aaff9cd91dc640ba85e263cb1ce46fae51cd"
+      }
+    },
+    {
+      "source_id": "native-crates.io:semver1.0.28/src/parse.rs",
+      "sha256": "2d9cb28a72a813968c16da29a9690f8e53f1ce00727a1dbe67aec3ddb5ed59ed",
+      "lines": 404,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/2d9cb28a72a813968c16da29a9690f8e53f1ce00727a1dbe67aec3ddb5ed59ed",
+      "ranges": [
+        [
+          156,
+          185
+        ],
+        [
+          198,
+          261
+        ]
+      ],
+      "reason": "Complete reached numeric/prerelease/build identifier parsers and Version derived ordering component bodies, not full semver package.",
+      "provenance": "Exact source bytes equal the cached crate archive members; archive SHA256 matches original39 semver1.0.28 checksum8a7852d02fc848982e0c167ef163aaff9cd91dc640ba85e263cb1ce46fae51cd."
+    },
+    {
+      "source_id": "native-crates.io:semver1.0.28/src/impls.rs",
+      "sha256": "30bac3940b9bab840dc59280832c9afbb342abf47c51740a1b83b43c1646c56b",
+      "lines": 160,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/30bac3940b9bab840dc59280832c9afbb342abf47c51740a1b83b43c1646c56b",
+      "ranges": [
+        [
+          1,
+          146
+        ]
+      ],
+      "reason": "Complete reached numeric/prerelease/build identifier parsers and Version derived ordering component bodies, not full semver package.",
+      "provenance": "Exact source bytes equal the cached crate archive members; archive SHA256 matches original39 semver1.0.28 checksum8a7852d02fc848982e0c167ef163aaff9cd91dc640ba85e263cb1ce46fae51cd."
+    },
+    {
+      "source_id": "native-crates.io:semver1.0.28/src/impls.rs",
+      "sha256": "30bac3940b9bab840dc59280832c9afbb342abf47c51740a1b83b43c1646c56b",
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/30bac3940b9bab840dc59280832c9afbb342abf47c51740a1b83b43c1646c56b",
+      "ranges": [
+        [
+          147,
+          151
+        ]
+      ],
+      "reason": "Close actual BuildMetadata ordering tail after registered146; no further SDK scope."
+    }
+  ]
+}

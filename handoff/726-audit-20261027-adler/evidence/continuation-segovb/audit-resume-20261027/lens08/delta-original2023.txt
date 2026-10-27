@@ -1,0 +1,32 @@
+--- base
++++ frozen-head
+@@ -14,7 +14,7 @@
+     controller: &mut OffensiveCombatAi,
+     facts: &OffensiveFacts,
+     config: &AiOffenseConfig,
+-) {
++) -> ElapsedResult<()> {
+     let standoff = (facts.weapon_reach * config.ranged_reach_fraction)
+         .clamp(
+             config.ranged_standoff_min_metres,
+@@ -29,16 +29,15 @@
+         input.0 = Some(-Vec2::Y);
+     } else {
+         input.0 = None;
+-        let windup = CombatDuration::from_secs_f32(config.windup_seconds);
++        let windup = CombatDuration::from_elapsed(config.windup_seconds)?;
++        let timer = Timer::new(config.windup_seconds.native_duration()?, TimerMode::Once);
+         cmd.trigger(RangedAttackStartedIntent {
+             attacker: pursuit.entity,
+             target: Some(pursuit.target),
+             animation_windup: windup,
+             minimum_windup: windup,
+         });
+-        controller.phase = OffensiveCombatPhase::RangedWindup(Timer::from_seconds(
+-            config.windup_seconds,
+-            TimerMode::Once,
+-        ));
++        controller.phase = OffensiveCombatPhase::RangedWindup(timer);
+     }
++    Ok(())
+ }

@@ -1,0 +1,26 @@
+diff --git a/crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms.rs b/crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms.rs
+index 2f93b9526..9e5076867 100644
+--- a/crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms.rs
++++ b/crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms.rs
+@@ -315,21 +315,20 @@ fn add_stair_subjects(building: &GeneratedBuilding, floor: f32, subjects: &mut V
+ fn room_contains(room: &Room, point: Vec2) -> bool {
+     room.cells.iter().any(|cell| {
+         (point - cell.centre()).abs().max_element()
+             <= adventuresim_building_generator::CELL_SIZE_METRES * 0.5
+     })
+ }
+ 
+ #[cfg(test)]
+ mod tests {
+     use super::*;
+-    use adventuresim_building_generator::spatial_geometry::Position;
+     #[test]
+     fn closed_keep_door_blocks_a_camera_ray_that_static_navigation_allows() {
+         use adventuresim_building_generator::{
+             BuildingArchetype, BuildingProgram, compile_building_collision, generate,
+         };
+         let program = BuildingProgram::settlement(
+             BuildingArchetype::WalledKeep,
+             Some(BuildingUse::Castle),
+             fabelgeist_determinism::Seed::from_u64(42),
+         );

@@ -1,0 +1,626 @@
+{
+  "lens": "13 magic-numbers",
+  "packet": "audit13-successor-009",
+  "owner": "/root/texture_code_review",
+  "at": "2026-10-26T19:26:17.979757+00:00",
+  "source_authority": {
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "range_authority": "target/recovery-20261025/audit05/original-scope-072.json",
+    "prior_adopted_state": "audit13-state-successor-008-root.json",
+    "registration": "audit13-successor-registration-009.json"
+  },
+  "originals": [
+    {
+      "original": 25,
+      "source_id": "native-dependency:tiny-skia-0.11.4/Cargo.toml",
+      "sha256": "76370c68002a8cf88f605f06e1d645d11045ae2bae97a7d8b490acf47362e6ad",
+      "effective_requested_range_union": [
+        [
+          46,
+          47
+        ]
+      ],
+      "actually_consumed_requested_ranges": [
+        [
+          46,
+          47
+        ]
+      ],
+      "receiver_only_extensions": [],
+      "status": "independently source-accounted with native limits, root adoption required"
+    },
+    {
+      "original": 26,
+      "source_id": "native-dependency:tiny-skia-0.11.4/src/pixmap.rs",
+      "sha256": "a7845a931a40b5b24eaa24b6053121e61bfe8b3fffa4c0db89f58c368fb9bc56",
+      "effective_requested_range_union": [
+        [
+          155,
+          182
+        ],
+        [
+          385,
+          430
+        ]
+      ],
+      "actually_consumed_requested_ranges": [
+        [
+          155,
+          182
+        ],
+        [
+          385,
+          430
+        ]
+      ],
+      "receiver_only_extensions": [
+        [
+          1,
+          154
+        ],
+        [
+          183,
+          252
+        ],
+        [
+          287,
+          334
+        ],
+        [
+          600,
+          603
+        ],
+        [
+          580,
+          599
+        ]
+      ],
+      "status": "independently source-accounted with native limits, root adoption required"
+    },
+    {
+      "original": 27,
+      "source_id": "native-dependency:wgpu-29.0.4/src/api/buffer.rs",
+      "sha256": "c7d2c13d8031a9416d5562ec970a46470da331544d3a5e15bc8fb7dae2a9de32",
+      "effective_requested_range_union": [
+        [
+          835,
+          880
+        ]
+      ],
+      "actually_consumed_requested_ranges": [
+        [
+          835,
+          880
+        ]
+      ],
+      "receiver_only_extensions": [
+        [
+          745,
+          834
+        ],
+        [
+          881,
+          943
+        ],
+        [
+          601,
+          613
+        ],
+        [
+          680,
+          744
+        ],
+        [
+          945,
+          953
+        ]
+      ],
+      "status": "independently source-accounted with native limits, root adoption required"
+    }
+  ],
+  "independent_inventory": [
+    {
+      "original": 25,
+      "locations": [
+        "Cargo.toml46-47"
+      ],
+      "primitives": "No raw non-string primitive literal/field/return in exact scope. Quoted version=\"0.17\" is a string-valued Cargo dependency requirement, not a raw numeric quantity.",
+      "trace": "Native dependency metadata selects png compatibility series; matching concrete native png0.17.16 package used by observed receiver trace. No application numeric invariant or package-version numeric migration invented."
+    },
+    {
+      "original": 26,
+      "locations": [
+        "pixmap.rs155-182",
+        "pixmap.rs385-430"
+      ],
+      "primitives": "Vec<u8>/&[u8] image bytes and unit Result; width()/height() -> u32; Rgba/Eight native enums; c.red/green/blue/alpha u8; pixel loop counts; textual8-bit restriction and15% performance comment",
+      "trace": "load_png reads file bytes and delegates decode_png; Pixmap encode/save delegate as_ref to PixmapRef methods. encode copies retained data, demultiplies each native pixel, stores raw channel bytes via unchecked tuple constructor in temporary image, configures PNG Encoder with native width/height, Rgba/Eight, writes full copied bytes. save writes returned native bytes to file. Comments are not validated policies."
+    },
+    {
+      "original": 26,
+      "locations": [
+        "pixmap.rs23-68",
+        "pixmap.rs76-154",
+        "pixmap.rs287-334",
+        "pixmap.rs580-603",
+        "tiny-skia-path size.rs19-45/lib.rs63"
+      ],
+      "primitives": "BYTES_PER_PIXEL usize4; u32 dimensions wrapped by IntSize(NonZeroU32,NonZeroU32); vec![0;len]; i32 checked conversion/multiply; usize checked_sub/mul/add; data.len predicates; RGB3/GA2/RGBA4 channel chunks and offsets0,1,2,3; alpha0xFF",
+      "trace": "IntSize::from_wh admits nonzero dimensions via native standard owner. min_row_bytes requires i32(width)*4 checked and NonZeroUsize. compute_data_len uses (height-1)*row_bytes+width*4 checked operations. from_vec requires exact length, PixmapRef::from_bytes requires >=minimum; copied full slice retained. Decoder normalizes color8 before checking output Eight, expands RGB/gray/gray-alpha into RGBA then premultiplies, rejects stillIndexed. Generic decoder length/resource guarantees untraced."
+    },
+    {
+      "original": 26,
+      "locations": [
+        "color.rs9-16",
+        "color.rs29-76",
+        "color.rs96-168",
+        "color.rs414-426"
+      ],
+      "primitives": "native RGBA [u8;4] channels;0/1/2/3 indices; alpha0/255 sentinels; premult f64 division by255.0 and+0.5 round-to-byte; premultiply u32 product+128 and>>8 twice; opaque bool equality",
+      "trace": "ColorU8 owns straight bytes; checked PremultipliedColorU8 constructor requires r,g,b<=a, unchecked constructor just retains tuple. demultiply returns direct tuple for alpha255 else computes alpha/255.0 and each color/alpha+0.5 before u8 cast. premultiply widening operations max255*255+128 fit u32, shifts implement native 8-bit channel conversion. Temporary encode buffer intentionally carries straight channels in unchecked premultiplied tuple storage before exporting bytes; not a universal admitted pixel invariant."
+    },
+    {
+      "original": 26,
+      "locations": [
+        "png encoder.rs164-168/293-308/503-560/561-618/661-725",
+        "png common.rs1-107/650-673/715-735"
+      ],
+      "primitives": "u32 width/height, usize row/total counts; bitdepth enum1/2/4/8/16, color discriminants0/2/3/4/6 and sample counts1/2/3/4; row filter overhead1; subbyte packing8 and7; bool invalid combination/palette/init flags; zero-width/height checks; signature[137,80,78,71,13,10,26,10]; chunk i32::MAX limit; image counters0 and iendfalse; RGBA8 size4*width*height",
+      "trace": "Encoder Info::with_size preserves dimensions. setters preserve typed native format fields. PartialInfo copies shape/format. init rejects zero dimensions and invalid format combinations, writes signature. raw_row_length returns1+width*4 for RGBA8; write_image_data subtracts filter byte then compares product against supplied data.len, allocates previous/current rows with0 fill and filter prefix1. Native writer errors for mismatch. Full writer/compression/streaming paths not certified."
+    },
+    {
+      "original": 27,
+      "locations": [
+        "buffer.rs835-880"
+      ],
+      "primitives": "index passed to Vec::swap_remove is native usize ordinal from earlier position; unit BufferAsyncError/Result fmt; MapMode Read/Write typed enum; BufferDescriptor alias hides native u64 byte size/bool mapped_at_creation; [u8] byte-view docs",
+      "trace": "Actual remove function computes endpoint, uses exact stored range equality to locate vector element, expects presence then swap_removes native position. Descriptor alias expands to native fields, MapMode remains native closed enum. Error is zero-payload native cause; no application numeric status code or bool replacement required at this native API surface."
+    },
+    {
+      "original": 27,
+      "locations": [
+        "buffer.rs601-613/690-836/881-953",
+        "wgpu-types buffer.rs14-44/lib.rs135-147",
+        "device.rs275-287"
+      ],
+      "primitives": "BufferAddress=u64 bytes; BufferSize=NonZeroU64; offset+size unchecked; Range0..0 sentinel; range equality/containment/overlap Bool; vector position ordinal; native mapped_at_creation bool; mutable/immutable enum; raw mapped [u8]",
+      "trace": "Device::create_buffer routes mapped_at_creation.then_some(0..size) into MapContext, forwards descriptor to backend and retains size/usage. Mapping register rejects empty/unmapped and out-of-bounds subranges; overlap only allowed for immutable/immutable. Subrange stores offset..offset+size; get_mapped_range registers immutable subrange before obtaining backend view, retains owned buffer/offset/nonzero size, Deref delegates dispatch.read_slice, Drop removes exact range. No backend alignment or upstream checked offset-add guarantee inferred."
+    }
+  ],
+  "native_observations": [
+    {
+      "id": "NATIVE-PIXMAP-RAW-BUFFER-BOUNDARY",
+      "status": "non-counted native limitation pending root alias/currentness/first-party reachability",
+      "detail": "PixmapRef::from_bytes accepts at-least minimum data and assumes premultiplied RGBA. Encoder copies entire raw slice and casts to pixel tuples before PNG expected-length validation. Public mutable bytes and unchecked alpha tuple path do not enforce all advertised premultiplication/length invariants for every caller. No new unique first-party defect or repair claimed."
+    },
+    {
+      "id": "NATIVE-PNG-ARITHMETIC-BOUNDARY",
+      "status": "non-counted native limitation",
+      "detail": "Pixmap checked dimensions/storage constrain its normal output shape, while PNG raw row and total size operations use unchecked usize arithmetic. Full reader/codec allocation safety and malformed-input policy unproven. Numerical comments/format constants assessed only at concrete roles; no SDK-wide admission or runtime validation claim."
+    },
+    {
+      "id": "NATIVE-WGPU-RANGE-ADMISSION",
+      "status": "non-counted native limitation pending root alias/current caller reconciliation",
+      "detail": "Native Subrange::new/remove compute offset+NonZeroU64 size without a local checked addition. Actual upstream range admission and backend validation not assessed; containment/overlap checks observed downstream do not establish representable sums for all producer inputs. No F2 cache/device/coherence or wider F1/F6/F9 closure."
+    }
+  ],
+  "fingerprints": {
+    "originals": [
+      {
+        "original": 25,
+        "source_id": "native-dependency:tiny-skia-0.11.4/Cargo.toml",
+        "sha256": "76370c68002a8cf88f605f06e1d645d11045ae2bae97a7d8b490acf47362e6ad",
+        "ranges": [
+          [
+            46,
+            47
+          ]
+        ],
+        "read_ranges": [
+          [
+            46,
+            47
+          ]
+        ],
+        "local": "target/recovery-20261025/continuation-segovb/source-objects/76370c68002a8cf88f605f06e1d645d11045ae2bae97a7d8b490acf47362e6ad",
+        "extensions": [],
+        "extension_read_ranges": [],
+        "hash_verified_after_read": true
+      },
+      {
+        "original": 26,
+        "source_id": "native-dependency:tiny-skia-0.11.4/src/pixmap.rs",
+        "sha256": "a7845a931a40b5b24eaa24b6053121e61bfe8b3fffa4c0db89f58c368fb9bc56",
+        "ranges": [
+          [
+            155,
+            182
+          ],
+          [
+            385,
+            430
+          ]
+        ],
+        "read_ranges": [
+          [
+            155,
+            182
+          ],
+          [
+            385,
+            430
+          ]
+        ],
+        "local": "target/recovery-20261025/continuation-segovb/source-objects/a7845a931a40b5b24eaa24b6053121e61bfe8b3fffa4c0db89f58c368fb9bc56",
+        "extensions": [
+          {
+            "ranges": [
+              [
+                1,
+                154
+              ],
+              [
+                183,
+                252
+              ],
+              [
+                287,
+                334
+              ]
+            ],
+            "purpose": "Actual decoder admission, retained size/data and mutable pixels receivers"
+          },
+          {
+            "ranges": [
+              [
+                600,
+                603
+              ]
+            ],
+            "purpose": "Actual checked native pixel buffer length calculation"
+          },
+          {
+            "ranges": [
+              [
+                580,
+                599
+              ]
+            ],
+            "purpose": "Native row-byte and total-buffer-length arithmetic receivers"
+          }
+        ],
+        "extension_read_ranges": [
+          [
+            1,
+            154
+          ],
+          [
+            183,
+            252
+          ],
+          [
+            287,
+            334
+          ],
+          [
+            600,
+            603
+          ],
+          [
+            580,
+            599
+          ]
+        ],
+        "hash_verified_after_read": true
+      },
+      {
+        "original": 27,
+        "source_id": "native-dependency:wgpu-29.0.4/src/api/buffer.rs",
+        "sha256": "c7d2c13d8031a9416d5562ec970a46470da331544d3a5e15bc8fb7dae2a9de32",
+        "ranges": [
+          [
+            835,
+            880
+          ]
+        ],
+        "read_ranges": [
+          [
+            835,
+            880
+          ]
+        ],
+        "local": "target/recovery-20261025/continuation-segovb/source-objects/c7d2c13d8031a9416d5562ec970a46470da331544d3a5e15bc8fb7dae2a9de32",
+        "extensions": [
+          {
+            "ranges": [
+              [
+                745,
+                834
+              ],
+              [
+                881,
+                943
+              ],
+              [
+                601,
+                613
+              ]
+            ],
+            "purpose": "Actual subrange/index removal producer, mapped byte view retention and Deref body"
+          },
+          {
+            "ranges": [
+              [
+                680,
+                744
+              ],
+              [
+                945,
+                953
+              ]
+            ],
+            "purpose": "Actual range predicates, immutable/mutable compatibility, subrange arithmetic, drop removal"
+          }
+        ],
+        "extension_read_ranges": [
+          [
+            745,
+            834
+          ],
+          [
+            881,
+            943
+          ],
+          [
+            601,
+            613
+          ],
+          [
+            680,
+            744
+          ],
+          [
+            945,
+            953
+          ]
+        ],
+        "hash_verified_after_read": true
+      }
+    ],
+    "receivers": [
+      {
+        "path": "tiny-skia-0.11.4/src/color.rs",
+        "sha256": "41a25664ba67f30823dc48781fa35fd344d7f3cfd0c02a83e736c3fe6c18bc7d",
+        "local": "target/recovery-20261025/continuation-segovb/audit13-successor-009-sources/41a25664ba67f30823dc48781fa35fd344d7f3cfd0c02a83e736c3fe6c18bc7d",
+        "read_ranges": [
+          [
+            1,
+            181
+          ],
+          [
+            414,
+            426
+          ]
+        ],
+        "source_basis": "Current lock-matching native archive member, no unseen frozen identity asserted",
+        "archive_sha256": "83d13394d44dae3207b52a326c0c85a8bf87f1541f23b0d143811088497b09ab"
+      },
+      {
+        "path": "wgpu-types-29.0.4/src/buffer.rs",
+        "sha256": "d86234bd209e47644671ca80f94d830f8445999b1ab7aa59780449994b4fcea9",
+        "local": "target/recovery-20261025/continuation-segovb/audit13-successor-009-sources/d86234bd209e47644671ca80f94d830f8445999b1ab7aa59780449994b4fcea9",
+        "read_ranges": [
+          [
+            1,
+            48
+          ]
+        ],
+        "source_basis": "Current lock-matching native archive member, no unseen frozen identity asserted",
+        "archive_sha256": "84bf84cd9ca8ca45e2b223a3868f1adf9bfc0c66aeac212e76ee7e40fdadf8f5"
+      },
+      {
+        "path": "tiny-skia-path-0.11.4/src/size.rs",
+        "sha256": "2a887b25bee4194b730283f3e09ea8647af1f4584c2ba5d415024b0485022107",
+        "local": "target/recovery-20261025/continuation-segovb/audit13-successor-009-sources/2a887b25bee4194b730283f3e09ea8647af1f4584c2ba5d415024b0485022107",
+        "read_ranges": [
+          [
+            1,
+            48
+          ]
+        ],
+        "source_basis": "Current lock-matching native member; no unseen frozen identity asserted",
+        "archive_sha256": "9c9e7fc0c2e86a30b117d0462aa261b72b7a99b7ebd7deb3a14ceda95c5bdc93"
+      },
+      {
+        "path": "tiny-skia-0.11.4/src/geom.rs",
+        "sha256": "b93fdae6878e40c4b8b7b0e4f608634c78c6281e30f18e399d093b5b9c945ab9",
+        "local": "target/recovery-20261025/continuation-segovb/audit13-successor-009-sources/b93fdae6878e40c4b8b7b0e4f608634c78c6281e30f18e399d093b5b9c945ab9",
+        "read_ranges": [
+          [
+            183,
+            210
+          ]
+        ],
+        "source_basis": "Current lock-matching native member; no unseen frozen identity asserted",
+        "archive_sha256": "83d13394d44dae3207b52a326c0c85a8bf87f1541f23b0d143811088497b09ab"
+      },
+      {
+        "path": "wgpu-types-29.0.4/src/lib.rs",
+        "sha256": "af153576bce090b101f05d3d4fc35523d82e8f7fd2f935bd60d12956af50cb3b",
+        "local": "target/recovery-20261025/continuation-segovb/audit13-successor-009-sources/af153576bce090b101f05d3d4fc35523d82e8f7fd2f935bd60d12956af50cb3b",
+        "read_ranges": [
+          [
+            128,
+            148
+          ]
+        ],
+        "source_basis": "Current lock-matching native member; no unseen frozen identity asserted",
+        "archive_sha256": "84bf84cd9ca8ca45e2b223a3868f1adf9bfc0c66aeac212e76ee7e40fdadf8f5"
+      },
+      {
+        "path": "wgpu-29.0.4/src/api/device.rs",
+        "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+        "local": "target/recovery-20261025/continuation-segovb/audit13-successor-009-sources/e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+        "read_ranges": [
+          [
+            266,
+            290
+          ]
+        ],
+        "source_basis": "Current lock-matching native member; no unseen frozen identity asserted",
+        "archive_sha256": "76e8840e1ba2881d4cbb18d2147627a56af426ff064c0401eb0c8410c6325d07"
+      },
+      {
+        "path": "png-0.17.16/src/encoder.rs",
+        "sha256": "2befe627874fd46476bca960d8f89038479403b9611cbba4b37aadc42ac3658d",
+        "local": "target/recovery-20261025/continuation-segovb/audit13-successor-009-sources/2befe627874fd46476bca960d8f89038479403b9611cbba4b37aadc42ac3658d",
+        "read_ranges": [
+          [
+            164,
+            184
+          ],
+          [
+            293,
+            312
+          ],
+          [
+            561,
+            618
+          ],
+          [
+            661,
+            725
+          ],
+          [
+            503,
+            560
+          ]
+        ],
+        "source_basis": "Exact known original17 frozen SHA object independently reused only as receiver, no new role credit",
+        "archive_sha256": "82151a2fc869e011c153adc57cf2789ccb8d9906ce52c0b39a6b5697749d7526"
+      },
+      {
+        "path": "tiny-skia-path-0.11.4/src/lib.rs",
+        "sha256": "497bff2609b15972184c9730facc3d08082d7371c6e23f40065f45b5acf66135",
+        "local": "target/recovery-20261025/continuation-segovb/audit13-successor-009-sources/497bff2609b15972184c9730facc3d08082d7371c6e23f40065f45b5acf66135",
+        "read_ranges": [
+          [
+            61,
+            64
+          ]
+        ],
+        "source_basis": "Current lock-matching native archive member, no frozen identity asserted",
+        "archive_sha256": "9c9e7fc0c2e86a30b117d0462aa261b72b7a99b7ebd7deb3a14ceda95c5bdc93"
+      },
+      {
+        "path": "png-0.17.16/src/common.rs",
+        "sha256": "b3986553255abbc1f613dcb87469ce07bd750a9a2ca3087226c9b1f00e449129",
+        "local": "target/recovery-20261025/continuation-segovb/audit13-successor-009-sources/b3986553255abbc1f613dcb87469ce07bd750a9a2ca3087226c9b1f00e449129",
+        "read_ranges": [
+          [
+            1,
+            107
+          ],
+          [
+            650,
+            673
+          ],
+          [
+            715,
+            735
+          ]
+        ],
+        "source_basis": "Current lock-matching native archive member, no frozen identity asserted",
+        "archive_sha256": "82151a2fc869e011c153adc57cf2789ccb8d9906ce52c0b39a6b5697749d7526"
+      }
+    ]
+  },
+  "limitations": [
+    "Original0-24 not restarted or counted again. Original17 known frozen PNG encoder source reaccessed only as necessary receiver ranges, not a new original or cross-lens verdict. Root12 registration010 supplied locators only.",
+    "All original requested effective scopes retained:25Cargo46-47,26Pixmap155-182+385-430,27buffer835-880. Native files are bounded contracts; no whole source/SDK exemption or claim all accepted paths valid.",
+    "Known original sources are exact frozen f82adcabd9d89c4fa2dd7f99253a45297a0681ee SHA objects verified before/after body reads. New receiver members are from cached archives whose SHA256 matches current Cargo.lock. tiny-skia Pixmap and wgpu buffer archive peers byte-match known frozen originals; unseen receiver frozen identities not asserted. No .cargo-checksum.json proof or native whole-package identity inferred from peer comparison.",
+    "Native PNG decoder read_info/next_frame/normalize_to_color8 implementations and all decode resource/truncation budgets are unassessed. Visible calls and post-transform Eight check do not prove supported input bit depths, original input restrictions or allocation safety. Comment15% faster is source performance prose, not an accepted numerical tolerance/benchmark guarantee.",
+    "PNG encoder actual header/init, width/height retention, ColorType/BitDepth ownership, row-size and data-size receiving operations read; full serialization/chunks/filter/compression/streaming internals not assessed. Unchecked usize products/additions in native row/total length formulae are not certified universally overflow-safe. DEFAULT_BUFFER_LENGTH4*1024 visible as contextual default only; its consumers/streaming cap behavior not newly assessed or credited here.",
+    "Native ColorU8 and PremultipliedColorU8 channel/storage paths assessed at exact source operations. Public mutable raw bytes/from_bytes native assumption and unchecked temporary representation mean no universal premultiplied channel invariant promised. Native float-to-u8 casts/zero-alpha intermediates observed; no numerical-error proof, ICC/gamma/color-space or application units/frame invariant asserted.",
+    "Native wgpu API range containment/overlap/registration/index removal and mapped creation flag routing inspected. Upstream offset/size admission, backend creation/alignment validation, dispatch mapped memory lifetime, asynchronous mapping completion, generic range-to-slice conversion and all application callers remain unassessed. Unchecked offset+size additions are observed with no whole API safety/coherence clearance.",
+    "Context-only geometric conversion methods and f32-to-u8 function prefix visible in bounded receiver ranges are not complete additional original inventories. Typed NonZeroU32/NonZeroU64 standard owners identify native nonzero role; no underlying standard library implementation audit claimed.",
+    "No source-independent newly accepted defect or unique count inferred. Native observations remain for root source-key alias/currentness/first-party reachability reconciliation. Existing F1/F2/F6/F9 and owner/admission/numeric behavior obligations remain open.",
+    "No project execution, product/source/Git changes, ledger/historical overwrite, tests/cases/helpers/assertions/doctests added or run, or publication. Source hash assertions verify evidence identity only. Corrected failed output attempts and nonexistent tails disclosed in registration. No global, other-lens or unseen-tail clearance."
+  ],
+  "new_unique_count": 0,
+  "proposed_coverage": {
+    "original_inspected_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27
+    ],
+    "original_accounted_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27
+    ],
+    "original_accounted": 28,
+    "original_total": 2853,
+    "partial_original_indices": [],
+    "first_unfinished_original": 28,
+    "first_unread_original": 28,
+    "next_original": 28
+  },
+  "source_changes": false,
+  "git_mutations": false,
+  "project_execution": false,
+  "other_lens_credit": false,
+  "global_clearance": false,
+  "scope_complete_is_clearance": false,
+  "assignment_stop": "Stop after originals25-27 source-accounted with retained limits; root adoption required."
+}

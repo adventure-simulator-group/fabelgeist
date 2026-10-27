@@ -1,0 +1,344 @@
+{
+  "lens": 13,
+  "role": 24,
+  "source_id": "native-dependency:spacetimedb-sdk-2.6.1/src/db_connection.rs",
+  "sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+  "local": "target/recovery-20261025/continuation-segovb/source-objects/79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+  "ranges": [
+    [
+      187,
+      254
+    ],
+    [
+      410,
+      450
+    ],
+    [
+      727,
+      770
+    ],
+    [
+      1290,
+      1433
+    ]
+  ],
+  "read_ranges": [
+    [
+      187,
+      254
+    ],
+    [
+      410,
+      450
+    ],
+    [
+      727,
+      770
+    ],
+    [
+      1290,
+      1433
+    ]
+  ],
+  "source_basis": "Exact original frozen f82adcabd9d89c4fa2dd7f99253a45297a0681ee SHA object",
+  "authority": "original-scope-072 producer contract interval union; root12 registration010 used only locator/provenance",
+  "new_receivers": [
+    {
+      "path": "spacetimedb-sdk-2.6.1/src/callbacks.rs",
+      "sha256": "d0261a660323f1fa611ff006dbfb6c440fbe5add9f6bbab6c378b930a394e09f",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/d0261a660323f1fa611ff006dbfb6c440fbe5add9f6bbab6c378b930a394e09f",
+      "ranges": [
+        [
+          206,
+          280
+        ]
+      ],
+      "read_ranges": [
+        [
+          206,
+          280
+        ]
+      ],
+      "source_basis": "Current local archive member exact lock checksum, db_connection.rs peer matches frozen bytes; not proof unseen frozen callbacks identity",
+      "archive_sha256": "074a6d8828638176eb8e9bba7a3e6fb75dc659b260717306eb966c7e10575cd7",
+      "actual_lines": 280,
+      "hash_verified_after_read": true
+    },
+    {
+      "path": "spacetimedb-client-api-messages-2.6.1/src/websocket/v2.rs",
+      "sha256": "344acc4c0d3e0bc79aab2f702a0121fa73633a43a5d152c10ec539f254af188e",
+      "local": "target/recovery-20261025/continuation-segovb/audit13-successor-008-sources/344acc4c0d3e0bc79aab2f702a0121fa73633a43a5d152c10ec539f254af188e",
+      "ranges": [
+        [
+          110,
+          166
+        ],
+        [
+          355,
+          448
+        ]
+      ],
+      "read_ranges": [
+        [
+          110,
+          166
+        ],
+        [
+          355,
+          448
+        ]
+      ],
+      "source_basis": "New current lock-matching native archive member, no unseen frozen identity asserted",
+      "package": {
+        "name": "spacetimedb-client-api-messages",
+        "version": "2.6.1",
+        "source": "registry+https://github.com/rust-lang/crates.io-index",
+        "checksum": "1642404553853b56e521a12aa9849807d8e003433934c73eeebbc8671f1254f8",
+        "dependencies": [
+          "bytes",
+          "bytestring",
+          "chrono",
+          "derive_more 0.99.20",
+          "enum-as-inner",
+          "serde",
+          "serde_json",
+          "serde_with",
+          "smallvec",
+          "spacetimedb-lib",
+          "spacetimedb-primitives",
+          "spacetimedb-sats",
+          "strum 0.25.0",
+          "thiserror 1.0.69"
+        ]
+      },
+      "archive_sha256": "1642404553853b56e521a12aa9849807d8e003433934c73eeebbc8671f1254f8",
+      "actual_lines": 453,
+      "hash_verified_after_read": true
+    },
+    {
+      "path": "spacetimedb-client-api-messages-2.6.1/src/websocket/common.rs",
+      "sha256": "af43339000ed5fb69951b023c4369a8f1a487adc4ff39c3a9fce3a5f85ead163",
+      "local": "target/recovery-20261025/continuation-segovb/audit13-successor-008-sources/af43339000ed5fb69951b023c4369a8f1a487adc4ff39c3a9fce3a5f85ead163",
+      "ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "read_ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "source_basis": "New current lock-matching native archive member, no unseen frozen identity asserted",
+      "package": {
+        "name": "spacetimedb-client-api-messages",
+        "version": "2.6.1",
+        "source": "registry+https://github.com/rust-lang/crates.io-index",
+        "checksum": "1642404553853b56e521a12aa9849807d8e003433934c73eeebbc8671f1254f8",
+        "dependencies": [
+          "bytes",
+          "bytestring",
+          "chrono",
+          "derive_more 0.99.20",
+          "enum-as-inner",
+          "serde",
+          "serde_json",
+          "serde_with",
+          "smallvec",
+          "spacetimedb-lib",
+          "spacetimedb-primitives",
+          "spacetimedb-sats",
+          "strum 0.25.0",
+          "thiserror 1.0.69"
+        ]
+      },
+      "archive_sha256": "1642404553853b56e521a12aa9849807d8e003433934c73eeebbc8671f1254f8",
+      "actual_lines": 208,
+      "hash_verified_after_read": true
+    },
+    {
+      "path": "spacetimedb-sdk-2.6.1/src/subscription.rs",
+      "sha256": "5b1c6b0def7c80c6afb1659ff676de3c9414173452a374041d4c9f27f760e729",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/5b1c6b0def7c80c6afb1659ff676de3c9414173452a374041d4c9f27f760e729",
+      "ranges": [
+        [
+          20,
+          29
+        ],
+        [
+          71,
+          144
+        ],
+        [
+          156,
+          202
+        ],
+        [
+          311,
+          453
+        ],
+        [
+          455,
+          522
+        ]
+      ],
+      "read_ranges": [
+        [
+          20,
+          29
+        ],
+        [
+          71,
+          144
+        ],
+        [
+          156,
+          202
+        ],
+        [
+          311,
+          453
+        ],
+        [
+          455,
+          522
+        ]
+      ],
+      "source_basis": "Current native lock-matching SDK archive member matches cached bytes; original db_connection frozen peer exact, not proof unseen frozen subscription identity",
+      "archive_sha256": "074a6d8828638176eb8e9bba7a3e6fb75dc659b260717306eb966c7e10575cd7",
+      "hash_verified_after_read": true
+    },
+    {
+      "path": "bytes-1.12.1/src/bytes.rs",
+      "sha256": "eee15c02105022837d6ed01c6863fee58802ce7bd7c300e158521c9ae61257fc",
+      "local": "target/recovery-20261025/continuation-segovb/audit13-successor-008-sources/eee15c02105022837d6ed01c6863fee58802ce7bd7c300e158521c9ae61257fc",
+      "ranges": [
+        [
+          290,
+          326
+        ]
+      ],
+      "read_ranges": [
+        [
+          290,
+          326
+        ]
+      ],
+      "source_basis": "New current lock-matching native archive member, no frozen identity asserted",
+      "package": {
+        "name": "bytes",
+        "version": "1.12.1",
+        "source": "registry+https://github.com/rust-lang/crates.io-index",
+        "checksum": "fc652a48c352aef3ea3aed32080501cf3ef6ed5da78602a020c991775b0aff04",
+        "dependencies": [
+          "portable-atomic"
+        ]
+      },
+      "archive_sha256": "fc652a48c352aef3ea3aed32080501cf3ef6ed5da78602a020c991775b0aff04",
+      "hash_verified_after_read": true
+    }
+  ],
+  "at": "2026-10-26T19:11:58.678238+00:00",
+  "extensions": [
+    {
+      "ranges": [
+        [
+          297,
+          363
+        ],
+        [
+          1610,
+          1624
+        ]
+      ],
+      "purpose": "Actual update callback order and request/query ID numeric producers"
+    },
+    {
+      "ranges": [
+        [
+          256,
+          294
+        ],
+        [
+          1434,
+          1495
+        ],
+        [
+          450,
+          478
+        ]
+      ],
+      "purpose": "QuerySetId and procedure result actual callback propagation and send/parse receiver bodies"
+    },
+    {
+      "ranges": [
+        [
+          373,
+          410
+        ]
+      ],
+      "purpose": "Query subscription retained registration and native outgoing flags receiver"
+    }
+  ],
+  "provenance": {
+    "lock_sha256": "197d8605659fa581961b37f9c18f2a46b04db822a666d3abefe5653b4204401a",
+    "package": {
+      "name": "spacetimedb-sdk",
+      "version": "2.6.1",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "074a6d8828638176eb8e9bba7a3e6fb75dc659b260717306eb966c7e10575cd7",
+      "dependencies": [
+        "anymap3",
+        "base64 0.21.7",
+        "brotli 3.5.0",
+        "bytes",
+        "flate2",
+        "futures",
+        "futures-channel",
+        "home",
+        "http",
+        "log",
+        "native-tls",
+        "once_cell",
+        "prometheus",
+        "rand 0.9.5",
+        "spacetimedb-client-api-messages",
+        "spacetimedb-data-structures",
+        "spacetimedb-lib",
+        "spacetimedb-metrics",
+        "spacetimedb-query-builder",
+        "spacetimedb-sats",
+        "spacetimedb-schema",
+        "thiserror 1.0.69",
+        "tokio",
+        "tokio-tungstenite 0.27.0"
+      ]
+    }
+  },
+  "extension_read_ranges": [
+    [
+      256,
+      363
+    ],
+    [
+      373,
+      410
+    ],
+    [
+      450,
+      478
+    ],
+    [
+      1434,
+      1495
+    ],
+    [
+      1610,
+      1624
+    ]
+  ],
+  "read_error_disclosure": "Initial callbacks246-286 output construction hit EOF280 and raised IndexError before emitting that source body. Corrected metadata/range206-280 prospectively before successful actual246-280 read. No nonexistent281-286 credit.",
+  "hash_verified_after_read": true
+}

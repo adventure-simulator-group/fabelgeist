@@ -1,0 +1,102 @@
+{
+  "source_id": "native:Cargo@59800466c5c41c444d264b1010b4d57e85a7117f/crates/cargo-util-schemas/src/manifest/mod.rs",
+  "local": "target/recovery-20261025/continuation-segovb/source-objects/fc503d6532663f2b0f3217b53f235b6c24690e9c85116f1364ec134ca78cd92c",
+  "sha256": "fc503d6532663f2b0f3217b53f235b6c24690e9c85116f1364ec134ca78cd92c",
+  "git_blob": "c08ea423d62147e0ff6dd7b9f7f928124a2ca553",
+  "eof": 1839,
+  "locators": [
+    {
+      "line": 61,
+      "text": "pub workspace: Option<TomlWorkspace>,"
+    },
+    {
+      "line": 127,
+      "text": "pub struct TomlWorkspace {"
+    },
+    {
+      "line": 149,
+      "text": "pub struct InheritablePackage {"
+    },
+    {
+      "line": 179,
+      "text": "pub struct TomlPackage {"
+    },
+    {
+      "line": 195,
+      "text": "pub workspace: Option<String>,"
+    },
+    {
+      "line": 336,
+      "text": "pub enum InheritableField<T> {"
+    },
+    {
+      "line": 668,
+      "text": "pub enum InheritableDependency {"
+    },
+    {
+      "line": 720,
+      "text": "pub struct TomlInheritedDependency {"
+    },
+    {
+      "line": 721,
+      "text": "pub workspace: bool,"
+    },
+    {
+      "line": 723,
+      "text": "pub default_features: Option<bool>,"
+    },
+    {
+      "line": 725,
+      "text": "pub default_features2: Option<bool>,"
+    },
+    {
+      "line": 726,
+      "text": "pub optional: Option<bool>,"
+    },
+    {
+      "line": 737,
+      "text": "pub fn default_features(&self) -> Option<bool> {"
+    },
+    {
+      "line": 763,
+      "text": "pub fn is_optional(&self) -> bool {"
+    },
+    {
+      "line": 777,
+      "text": "pub fn default_features(&self) -> Option<bool> {"
+    },
+    {
+      "line": 825,
+      "text": "pub struct TomlDetailedDependency<P: Clone = String> {"
+    },
+    {
+      "line": 847,
+      "text": "pub optional: Option<bool>,"
+    },
+    {
+      "line": 848,
+      "text": "pub default_features: Option<bool>,"
+    },
+    {
+      "line": 850,
+      "text": "pub default_features2: Option<bool>,"
+    },
+    {
+      "line": 870,
+      "text": "pub fn default_features(&self) -> Option<bool> {"
+    },
+    {
+      "line": 1538,
+      "text": "pub struct InheritableLints {"
+    },
+    {
+      "line": 1541,
+      "text": "pub workspace: bool,"
+    },
+    {
+      "line": 1561,
+      "text": "struct InheritableLintsVisitor;"
+    }
+  ],
+  "body_read": false
+}

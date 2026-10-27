@@ -1,0 +1,26 @@
+{
+  "scope": "actual gameplay-server andviewer rootyaw receiving bodies before repair",
+  "sources": [
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+      "sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+      "ranges": [
+        [
+          105,
+          150
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/subject_motion.rs",
+      "sha256": "863b3c4fafe43198495f75878f9544b5af7fd3cccd198a88c0cc37042c390981",
+      "ranges": [
+        [
+          30,
+          75
+        ]
+      ]
+    }
+  ],
+  "before_body_read": true
+}

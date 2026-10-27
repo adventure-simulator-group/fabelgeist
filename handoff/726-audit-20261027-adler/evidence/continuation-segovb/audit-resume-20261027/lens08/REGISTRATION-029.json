@@ -1,0 +1,252 @@
+{
+  "purpose": "Behavior lens1857-1868 full bodies, actual base/head deltas; new files explicitly absent at base and old containing owners independently required",
+  "sources": [
+    {
+      "original": 1857,
+      "path": "crates/adventuresim-tactical-core/src/city_layout/surfaces.rs",
+      "head_sha256": "064e2fe3fc9294f655bfeaf2cd691d7277e6ad428a603ad1dbbf10aa42c18993",
+      "head_object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-064e2fe3fc9294f655bfeaf2cd691d7277e6ad428a603ad1dbbf10aa42c18993",
+      "base_sha256": "064e2fe3fc9294f655bfeaf2cd691d7277e6ad428a603ad1dbbf10aa42c18993",
+      "base_state": "present",
+      "base_equal": true,
+      "lines": 164,
+      "prospective_ranges": [
+        [
+          1,
+          164
+        ]
+      ]
+    },
+    {
+      "original": 1858,
+      "path": "crates/adventuresim-tactical-core/src/combat.rs",
+      "head_sha256": "6da9d5558329053c0ceaadbcb7a19730884fc55bbc50cdd90af9b9305346b48c",
+      "head_object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-6da9d5558329053c0ceaadbcb7a19730884fc55bbc50cdd90af9b9305346b48c",
+      "base_sha256": "b981c0e055476f68f0cd9465774e913711d91103f1d36f19cb91d709d7253aa7",
+      "base_state": "present",
+      "base_equal": false,
+      "lines": 290,
+      "prospective_ranges": [
+        [
+          1,
+          290
+        ]
+      ],
+      "delta": {
+        "object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/delta-original1858.txt",
+        "sha256": "677e396c2b3813f56432723f1f3ccc7a9288a13a100914e954ebe4ee583d1132",
+        "lines": 284
+      }
+    },
+    {
+      "original": 1859,
+      "path": "crates/adventuresim-tactical-core/src/combat/attack_key.rs",
+      "head_sha256": "0c195d5b16f4846e5d0e043e5864a0b65328387495a88af8a48719234aacd063",
+      "head_object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-0c195d5b16f4846e5d0e043e5864a0b65328387495a88af8a48719234aacd063",
+      "base_sha256": null,
+      "base_state": "absent",
+      "base_equal": false,
+      "lines": 23,
+      "prospective_ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "delta": {
+        "object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/delta-original1859.txt",
+        "sha256": "e9690068bb741be7a79a524bae471d39a1d5ac8a509a00adec67e481e8068f87",
+        "lines": 26
+      }
+    },
+    {
+      "original": 1860,
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "head_sha256": "5d114988a64595879b04e6f151d2a184cdf8f893f2f2b17a9987a3faf933d4ab",
+      "head_object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-5d114988a64595879b04e6f151d2a184cdf8f893f2f2b17a9987a3faf933d4ab",
+      "base_sha256": "52fc52b4c407472083f24acbc0233ee3ceb4e1f98774490dbdc74b9d1e53ab21",
+      "base_state": "present",
+      "base_equal": false,
+      "lines": 826,
+      "prospective_ranges": [
+        [
+          1,
+          826
+        ]
+      ],
+      "delta": {
+        "object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/delta-original1860.txt",
+        "sha256": "2b36f7eb330ff7ae3eebf151a96d7c12386f1b90f479bb1f8c0170398bff1411",
+        "lines": 1100
+      }
+    },
+    {
+      "original": 1861,
+      "path": "crates/adventuresim-tactical-core/src/combat_config/ai_offense.rs",
+      "head_sha256": "ee4573d3b48808c80f0dcea6b98ccbb8b44ef4d1120c6c8b0889571c572b982c",
+      "head_object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-ee4573d3b48808c80f0dcea6b98ccbb8b44ef4d1120c6c8b0889571c572b982c",
+      "base_sha256": "cf1ab76cf00ff7024dae3816aa2856e2dc1fdf0c45878a0edc782dea7a4564a2",
+      "base_state": "present",
+      "base_equal": false,
+      "lines": 37,
+      "prospective_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "delta": {
+        "object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/delta-original1861.txt",
+        "sha256": "2bee14fc25c763334aebb828cd12aabb325d88ae1bacf5c951ce3e31335fc73c",
+        "lines": 53
+      }
+    },
+    {
+      "original": 1862,
+      "path": "crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+      "head_sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+      "head_object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+      "base_sha256": null,
+      "base_state": "absent",
+      "base_equal": false,
+      "lines": 26,
+      "prospective_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "delta": {
+        "object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/delta-original1862.txt",
+        "sha256": "86316a16500d706c3c47bbb223e757c201037ed98233b5f0a51a13e484ce6416",
+        "lines": 29
+      }
+    },
+    {
+      "original": 1863,
+      "path": "crates/adventuresim-tactical-core/src/combat_config/incapacitation_forecast.rs",
+      "head_sha256": "649c01638b6d8607238b47f06392809a678d8d12bc88461a614b8dd3b0c57aba",
+      "head_object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-649c01638b6d8607238b47f06392809a678d8d12bc88461a614b8dd3b0c57aba",
+      "base_sha256": "daddd162d0a1a4b3f250507ef750df68c484e7dc3389e938a3f95362b3aaacf7",
+      "base_state": "present",
+      "base_equal": false,
+      "lines": 19,
+      "prospective_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "delta": {
+        "object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/delta-original1863.txt",
+        "sha256": "2248c0f3a7e144bd1f779b33607669115457ff4c68efe26a68425377dbb68efc",
+        "lines": 41
+      }
+    },
+    {
+      "original": 1864,
+      "path": "crates/adventuresim-tactical-core/src/combat_config/landing.rs",
+      "head_sha256": "d2e6f0bf1986b9465dec28c0b29c39db72b5470d50c0d8ce55332f6f8d1c0831",
+      "head_object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-d2e6f0bf1986b9465dec28c0b29c39db72b5470d50c0d8ce55332f6f8d1c0831",
+      "base_sha256": null,
+      "base_state": "absent",
+      "base_equal": false,
+      "lines": 33,
+      "prospective_ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "delta": {
+        "object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/delta-original1864.txt",
+        "sha256": "78f23765ed85f43e4608429cc2a26debba27c7131a566ac27b1e0166bafd35ae",
+        "lines": 36
+      }
+    },
+    {
+      "original": 1865,
+      "path": "crates/adventuresim-tactical-core/src/combat_config/maneuvers.rs",
+      "head_sha256": "619803fcb9f24448df76fd87b28028c86c520edd9b41dbc7b29033c8b432234f",
+      "head_object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-619803fcb9f24448df76fd87b28028c86c520edd9b41dbc7b29033c8b432234f",
+      "base_sha256": null,
+      "base_state": "absent",
+      "base_equal": false,
+      "lines": 19,
+      "prospective_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "delta": {
+        "object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/delta-original1865.txt",
+        "sha256": "c7d03884e092e3fb4558b3c2cd34fe5a400b52d415563681d83b6bbe597fcd30",
+        "lines": 22
+      }
+    },
+    {
+      "original": 1866,
+      "path": "crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+      "head_sha256": "6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+      "head_object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+      "base_sha256": null,
+      "base_state": "absent",
+      "base_equal": false,
+      "lines": 48,
+      "prospective_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "delta": {
+        "object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/delta-original1866.txt",
+        "sha256": "2a00e17b941ae3a432991315218d26ff5945a42d8dcebb7f599a7ce2799dfd36",
+        "lines": 51
+      }
+    },
+    {
+      "original": 1867,
+      "path": "crates/adventuresim-tactical-core/src/combat_config/pose_buffer.rs",
+      "head_sha256": "3cced457f7299b93a524ecf97ec487ea9ffe33d0c522293dbba1d80e6ee70b39",
+      "head_object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-3cced457f7299b93a524ecf97ec487ea9ffe33d0c522293dbba1d80e6ee70b39",
+      "base_sha256": null,
+      "base_state": "absent",
+      "base_equal": false,
+      "lines": 46,
+      "prospective_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "delta": {
+        "object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/delta-original1867.txt",
+        "sha256": "dc594356d434552d02396b568a1df65c1062e5f4bb34903673acf456409d130d",
+        "lines": 49
+      }
+    },
+    {
+      "original": 1868,
+      "path": "crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+      "head_sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+      "head_object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+      "base_sha256": null,
+      "base_state": "absent",
+      "base_equal": false,
+      "lines": 66,
+      "prospective_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "delta": {
+        "object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/delta-original1868.txt",
+        "sha256": "bdf2390e26a119c128eccc1811d1506ba92cae9654b022f1ec08d54a3d690dd7",
+        "lines": 69
+      }
+    }
+  ]
+}

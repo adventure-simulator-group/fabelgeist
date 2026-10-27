@@ -1,0 +1,64 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-019",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 429,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/holders.rs",
+      "sha256": "d99cadde4f1dc9227c791e6b25dab8869a68bc888b93fa6854a2a43460148635",
+      "ranges": [
+        [
+          1,
+          261
+        ]
+      ],
+      "source_basis": "Fresh root exact frozen registered full reached body.",
+      "concepts_actual_uses_and_mixup": [
+        "HolderConstruction couples generated parts, f64 extent/control grip and derived values privately. BladeSheath selects matching LoftedBlade source by component ID, HaftLoop selects Grip source; frozen holder_identity/construction validation remains separate reached dependency. Recipe-local geometric loops and metre conversions are native numerical adapters; material choice and component identity stay distinct. Render projects f64 to f32 and computes hash from same input in public generate_holder; no whole construction/manifold/finiteness clearance. Private tube_centers calls are fixed nonempty24/28point producers in this body, not demonstrated empty-input panic."
+      ],
+      "disposition": "Own11 accounted WITH existing numerical/native output obligations; no new unique finding or wholegeometry clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 430,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/lib.rs",
+      "sha256": "617d4da8bd91ac58b857ad94c1a1d44d417e90055976d46637e567caeb218bad",
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "source_basis": "Fresh root exact frozen registered full reached body.",
+      "concepts_actual_uses_and_mixup": [
+        "Exports distinguish Evaluated owned proof, public generated/raw output, recipe validation, codec and hash APIs. Weapon schema18/generator22 versus holder12/13 are different version roles; transport byte ceiling128KiB and grip dimensions millimetres are explicit native constants. Child module declarations grant no body coverage."
+      ],
+      "disposition": "Own11 accounted WITH existing numerical/native output obligations; no new unique finding or wholegeometry clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 431,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/mesh.rs",
+      "sha256": "13432d88e00f3227259bb5b938b0a72a40e300fa4cec4f0d92b020d07eca2418",
+      "ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "source_basis": "Fresh root exact frozen registered full reached body.",
+      "concepts_actual_uses_and_mixup": [
+        "Native mesh projection converts canonical double-precision positions/normals into f32 triples with indices and source component/material, bounds recomputed for projected positions. Derived properties separate material mass, whole longitudinal extent, grip-tip and selected head working section; spear socket working section uses frame dot-product rather than fullshaft. Raw arrays and as_chunks remainder/truncation policy depend on actual Construction/ModelPart admission; no arbitrary native array invariants inferred. generate validates identity and uses one model for bounds/anchors/physical output."
+      ],
+      "disposition": "Own11 accounted WITH existing numerical/native output obligations; no new unique finding or wholegeometry clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

@@ -1,0 +1,46 @@
+{
+  "id": "SEGOVB-CONT11-169-796-PARTIAL-001",
+  "lens": "type-granularity",
+  "original": 796,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/cap.rs",
+  "sha256": "f15aaadb4a376988994c92be34ee22767367490569bb5a1fec2dd21d0db5fdf8",
+  "actually_read": [
+    [
+      1,
+      256
+    ]
+  ],
+  "body_consumed": true,
+  "source_complete": false,
+  "source_accounted": false,
+  "inventory": [
+    "ScalpCap owns parallel model-space metre positions, smooth model-space normals, bust-scalp textureUVs, four-component texture tangent/handedness, triangle vertex slots and opacity. Roles remain distinct even when raw float arrays match; no proof of arbitrary public mutations/coherence.",
+    "fit uses HeadPlacement.point and normal separately; body query supplies signed distance and outward direction, applies metre CAP_LIFT and clears triangle samples; UV and hairline remain evaluated in original scalp/bust frame.",
+    "tangents is explicit local numerical kernel accumulating textureu/v derivatives by same topology, orthogonalizing against normals and storing directional tangent with sign; no new bounds or algorithm correctness inferred.",
+    "clear_skin generates barycentric weights by fixed positive DIP_STEPS, computes per-triangle sampled penetration, per-vertex maximumlift and boundedpasses along body outward direction. Sampling-count, pass-count, physicaldistance and barycentric share roles differ.",
+    "edge_fade owns native undirected edge keys, incidencecounts, vertex neighbour lists and BFS row distances; u32MAX denotes unvisited local algorithm workspace, capped into opacity at numerical output. No arbitrary semantic ordinal enum or bespoke bounded vertex-count policy proposed.",
+    "Actual GroomedHair.prepare passes retained self.scalp/head/scalp_map together with supplied placement/skin to cap.fit and stores cap alongsideplacement/scalptexture in PlacedHair. HeadPlacement affine map, ScalpMap fittedUV, Head hairlineheight and Collider signed query contracts personally consumed at exact registered ranges."
+  ],
+  "connected_registration_receipts": [
+    "audit11-segovb-169-registration-003.json",
+    "audit11-segovb-169-registration-004.json",
+    "audit11-segovb-169-registration-005.json"
+  ],
+  "pending_exact_contract": {
+    "original": 2289,
+    "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/mod.rs",
+    "sha256": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+    "reason": "Actual804grow path uses cut_scalp.read to make Surface. Need precise native geometry readback producer/correspondence contract, not assume CPU Head.scalp producer is actual GPU source. Metadata located, exact object requested; no body read yet."
+  },
+  "crosswalk": "audit11-question-crosswalk-001.json",
+  "current_reconciliation": "current-rig-dressing-reconciliation-001.json",
+  "original_accounted": 796,
+  "next_original": 796,
+  "new_unique_findings": 0,
+  "accepted_unique_count_change": 0,
+  "current_counterpart_inspected": false,
+  "integrated": false,
+  "validated": false,
+  "clear": false,
+  "restrictions_observed": "Ignored evidence only; no product/Git/rootledger/history edits, project execution/checks/tests/probes or publication; no797 ordered read."
+}

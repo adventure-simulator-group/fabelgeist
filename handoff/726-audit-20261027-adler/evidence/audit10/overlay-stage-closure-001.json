@@ -1,0 +1,37 @@
+{
+  "lens": "derivability",
+  "stage": "registered overlays",
+  "accounted": 246,
+  "total": 246,
+  "packets": "overlay-successor-001 through044",
+  "raw_authority": "../audit05/raw-overlay-registration-000.jsonl",
+  "authority_sha256": "c26e2def8f8520c870f359ef66919ce730fcddb65beb051365fce42371a7bc68",
+  "result": "COMPLETE_WITH_QUALIFIED_FINDINGS; not blanket clear",
+  "qualifications": [
+    "overlay-qualification-001.json",
+    "overlay-qualification-002.json",
+    "overlay-qualification-003.json"
+  ],
+  "new_latest_candidates": [
+    "derive-candidate-018.json",
+    "derive-candidates-occurrence-overlay245.json (existing saved remedy families; no unique increment)"
+  ],
+  "partial_reconciliation": "187 partial001 completed in successor036; active partial none; all prior raw scope qualifiers retained in packets",
+  "originals_preserved": 2853,
+  "first_unfinished": {
+    "stage": "merged",
+    "index": 0,
+    "count": 38
+  },
+  "material_pending": {
+    "count": 185,
+    "authority": "material-authority-successor-005.json",
+    "accounted": 0
+  },
+  "checks": "not run",
+  "source_edits": false,
+  "git_mutations": false,
+  "clear": false,
+  "runtime_clear": false,
+  "global_clear": false
+}

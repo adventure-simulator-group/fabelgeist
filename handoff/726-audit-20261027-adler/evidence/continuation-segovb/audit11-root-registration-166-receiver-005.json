@@ -1,0 +1,56 @@
+{
+  "lens": 11,
+  "for_original": 794,
+  "receiver_original": 2321,
+  "source_id": "pr-working:crates/fabelgeist-mhr/src/model.rs",
+  "sha256": "08275eee95012fbf2c20c185a7416b977f74c4181ad4362e704fafb847ae2c55",
+  "local": "target/recovery-20261025/continuation-segovb/source-objects/08275eee95012fbf2c20c185a7416b977f74c4181ad4362e704fafb847ae2c55",
+  "registered_at": "2026-10-26T21:45:49.092301+00:00",
+  "purpose": "Resolve Mhr forward output shape and admitted joint/model count contracts only; no original2321 or full numerical model credit",
+  "prospective_identifier_navigation": [
+    "MhrOutput",
+    "Mhr",
+    "num_joints",
+    "num_model_parameters",
+    "forward"
+  ],
+  "ranges": [
+    [
+      1,
+      93
+    ],
+    [
+      395,
+      520
+    ]
+  ],
+  "consumed_ranges": [
+    [
+      1,
+      93
+    ],
+    [
+      395,
+      520
+    ],
+    [
+      521,
+      600
+    ],
+    [
+      601,
+      626
+    ]
+  ],
+  "prospective_receiving_completion_ranges": [
+    [
+      521,
+      600
+    ],
+    [
+      601,
+      670
+    ]
+  ],
+  "bounds_disclosure": "Requested601-670 but actual EOF626; only601-626 exists/consumed, nonexistent627-670 excluded from coverage."
+}

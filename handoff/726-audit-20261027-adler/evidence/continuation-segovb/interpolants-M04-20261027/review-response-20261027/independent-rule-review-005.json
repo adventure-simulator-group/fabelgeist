@@ -1,0 +1,1147 @@
+{
+  "at": "2026-10-27T10:19:05.398390+00:00",
+  "review": "Independent Rule Review final candidate014/PR992; includes completed009\u2013014 receiving-chain reconciliation",
+  "head": "5376d149da40b9ba3afd93d86827832eab1f1f89",
+  "candidate_manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/edited-source-manifest-014.json",
+    "sha256": "72c341d36fbe97acb588ed88a692c59cdfc429abe8a20a5b6a8f4e66260d0222"
+  },
+  "base": "35b18ec280a6884bb53996a2d859c4b27096f65c",
+  "final_27_source_pins": [
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "850183741ff4a1b097b93fc6285055d135558894f5ebf9324b52031cb9aadfc4",
+      "verified_current_and_committed_git_show_head": true
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "58118b1b138af4f9feea993ea990dc334f63d30c4aa66f8b5597a0f1dfecfcf6",
+      "verified_current_and_committed_git_show_head": true
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "verified_current_and_committed_git_show_head": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "sha256": "c1eedbdf2c145f30bb9da7cc8f8fd02fa22b7ee9d9cd821c49ac5a17c441da09",
+      "verified_current_and_committed_git_show_head": true
+    },
+    {
+      "path": "crates/adventuresim-core/Cargo.toml",
+      "sha256": "e5e9c6ed987838be5b7fef72e25ba3e6b6e848bc84105c42f396fcdfd7d65f53",
+      "verified_current_and_committed_git_show_head": true
+    },
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+      "verified_current_and_committed_git_show_head": true
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "sha256": "06bfd3a023ac0c22751466720321fe796aba122f605d621f16ba56b318c712f8",
+      "verified_current_and_committed_git_show_head": true
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "58396f438d078eb49da6de8b6739ccddcc0c7240fb1f6ad8e62c35d7548fb98d",
+      "verified_current_and_committed_git_show_head": true
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "06bd726fb8282af0ad5c1f54f64b1bfe383842e284e948a6226240178de4b6bb",
+      "verified_current_and_committed_git_show_head": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "sha256": "12d4b4e5ed4ce3940c78b7ee4420ec94e5efa83776b14d60afdbf2ba0d501f5d",
+      "verified_current_and_committed_git_show_head": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "sha256": "815bfd27404840b0d69f337719c882adf65fea894e48a769670a582eb42faf1b",
+      "verified_current_and_committed_git_show_head": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/dive.rs",
+      "sha256": "777d81cd65a783e44930ba746488b1209406df1945d5a3fdefc236496549f7be",
+      "verified_current_and_committed_git_show_head": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "sha256": "ae1dcc0043d5bd5a98744dfb43a3f172a259b3ac3b5e0fe0743c31b83e00327e",
+      "verified_current_and_committed_git_show_head": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/resolver/span.rs",
+      "sha256": "1d9e43caff202030a311c016c3c4809bb3ad83868d2ad5ba458b2645ab36b1e1",
+      "verified_current_and_committed_git_show_head": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "sha256": "93bf8878500fe7902fc616643b4678bfbc4c8f091c94dcd68b2a42a6ccb377af",
+      "verified_current_and_committed_git_show_head": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "sha256": "e54bd673db78d4b343707613e348b7d7fb4f74d34b8a454fefe73f426145a045",
+      "verified_current_and_committed_git_show_head": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "f26dc1059e4a9d133ac1fba9c80a1086753b20b54e5a5074dc8e557540cea67b",
+      "verified_current_and_committed_git_show_head": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027",
+      "verified_current_and_committed_git_show_head": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "sha256": "37a5dba433aa5219b544716053897df30d3df49662fb5fd38794130c1b803946",
+      "verified_current_and_committed_git_show_head": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state.rs",
+      "sha256": "9e7cc69882008ce20f35864f9df76654679d000d14b798c70232dee9190c65bb",
+      "verified_current_and_committed_git_show_head": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs",
+      "sha256": "fa0524663e7887d03d177c6fe99de81edd2eeb7b5c402ab1c0037ab953e788c7",
+      "verified_current_and_committed_git_show_head": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "sha256": "b2c7bc9609b8deb810b4c586a09fdf8186b60803f648009fc3ff74931b2df113",
+      "verified_current_and_committed_git_show_head": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "5fc4c31e00f464e255fd56f5681ae6d255646f90c74ab7c3bef4fd1a6c2a865b",
+      "verified_current_and_committed_git_show_head": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "sha256": "b394bde991895d6328b6f9f2be24fcb6d51c5c00e7f7143316339c372b7b5089",
+      "verified_current_and_committed_git_show_head": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/state_transitions.rs",
+      "sha256": "81c141f7ef6eed5eee0d19173709260dc3c91483868e73e7783fe3efbd000f61",
+      "verified_current_and_committed_git_show_head": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "ada76a964c72b64d6bd3671a8ca2bde134da787f339914cc2091bd7994fac722",
+      "verified_current_and_committed_git_show_head": true
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "8da5ee46241fe574e76a0b67391c30e5287f90a228995456a39b15cf00701262",
+      "verified_current_and_committed_git_show_head": true
+    }
+  ],
+  "merge_qualification": {
+    "root_reported_squash_merge": "7a9d92ad7357779e9280146c521bd8588b86fcdb",
+    "source_binding": "All27 current and exact PR head5376 committed pins independently verified.",
+    "local_merge_object": "Unavailable to read-only git show (exit128); no fetch attempted. Merge outcome supplied by root; this review does not claim independently consumed merge commit bytes."
+  },
+  "rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23"
+    },
+    {
+      "path": "crates/adventuresim-core/AGENTS.md",
+      "sha256": "7d2a3dd7507a8405fded5577a7f406273ab835389b52b189415d0878c39d8a73"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/AGENTS.md",
+      "sha256": "b3fd110d97bc871853458c38282d3d4c18369b6d0647e96e0de6d0641dca61c8"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/AGENTS.md",
+      "sha256": "f9633599a742ea38090fe2fb88e2dc464298d0ca4a70374f0851380e71e6910e"
+    }
+  ],
+  "skills": [
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/SKILL.md",
+      "sha256": "ff68d5ccf9f2545336b105f987ae17bb1a1f55dfbf1afb035dba8bef7053f27a"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/references/bespoke-type-review.md",
+      "sha256": "c6a71896616123559c0be4d318cbde751d8767dccc6009a943971dc3d4424f71"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-producer-propagation/SKILL.md",
+      "sha256": "9d202f015eed4818d6d2753c7624faa64fb5522e03cc55284fc68a366a204293"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-existing-type-owners/SKILL.md",
+      "sha256": "0876e49f57d2b5397d23735b9c49916d5d20087b33c110746beaa73c1c8cba3f"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-invariant-operations/SKILL.md",
+      "sha256": "94c0fc73e926619b9a9a50ef9f342a0c8f6210840f1aa1f3c5b5d9637994519d"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-magic-numbers/SKILL.md",
+      "sha256": "d71feffe9ef2d777c5d447840f4d3fbcec2e1f4b2cc354fc331e0c899b558dee"
+    }
+  ],
+  "scope": "Full27-file source scope by own prior003 exact evidence plus fresh actual source/deltas. Prior009 approval held for direct producer gap; final014 completes that repair and latest user-directed speed cleanup. No global audit completion.",
+  "preflights": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/third-review-root-facing-preflight-001.json",
+      "sha256": "01505609144590442ed3b2850e8509739962dbb2e861a63d14dd99b51bbd8899"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/third-review-phase-producer-preflight-001.json",
+      "sha256": "8bcfd7e93bbb17176e897aa06b988b6f2314421a7898f59b5f00054174b26e25"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/third-review-span-receiver-preflight-001.json",
+      "sha256": "8d2ba739769fa4c6e741e1bc066104bb00a61d18c5c327d69f1798584e8e031a"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/fourth-review-preflight-001.json",
+      "sha256": "160f3b8e718885484b801249613fe010b12d7b969f1982a5b70cce26a3333417"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/fifth-review-preflight-001.json",
+      "sha256": "1a35c3cb99a0c559bb73b30b2edfb3ac96bc569354955981595019c8db4a6dda"
+    }
+  ],
+  "actual_body_reads": [
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "5866867b2d57f014832eb89f0e61a4df372f67bbb18b018f99feb88c9d6cb984",
+      "ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "actual_eof": 93,
+      "actually_read_ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate009-registration-001.json",
+        "sha256": "89245913b3637c52a0de5ed1095e43316ec172996c0812f326654e76124e7079"
+      },
+      "same_hash_as_current": false
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs",
+      "sha256": "2f08587f00050e9ac7fbc472fca884f6b574c3b062e65afe9e8d06b36f9f9065",
+      "ranges": [
+        [
+          1,
+          159
+        ]
+      ],
+      "actual_eof": 159,
+      "actually_read_ranges": [
+        [
+          1,
+          159
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate009-registration-001.json",
+        "sha256": "89245913b3637c52a0de5ed1095e43316ec172996c0812f326654e76124e7079"
+      },
+      "same_hash_as_current": false
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/state_transitions.rs",
+      "sha256": "81c141f7ef6eed5eee0d19173709260dc3c91483868e73e7783fe3efbd000f61",
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "actual_eof": 25,
+      "actually_read_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate009-registration-001.json",
+        "sha256": "89245913b3637c52a0de5ed1095e43316ec172996c0812f326654e76124e7079"
+      },
+      "same_hash_as_current": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "5fc4c31e00f464e255fd56f5681ae6d255646f90c74ab7c3bef4fd1a6c2a865b",
+      "ranges": [
+        [
+          1,
+          55
+        ],
+        [
+          608,
+          647
+        ]
+      ],
+      "actual_eof": 777,
+      "actually_read_ranges": [
+        [
+          1,
+          55
+        ],
+        [
+          608,
+          647
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate009-registration-001.json",
+        "sha256": "89245913b3637c52a0de5ed1095e43316ec172996c0812f326654e76124e7079"
+      },
+      "same_hash_as_current": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state.rs",
+      "sha256": "826f1aba2f89f6ff826b891589118da7e8f581d96bc564d9f239ade70d53a6c9",
+      "ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "actual_eof": 2064,
+      "actually_read_ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate009-registration-001.json",
+        "sha256": "89245913b3637c52a0de5ed1095e43316ec172996c0812f326654e76124e7079"
+      },
+      "same_hash_as_current": false
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "ranges": [
+        [
+          188,
+          218
+        ]
+      ],
+      "actual_eof": 346,
+      "actually_read_ranges": [
+        [
+          188,
+          218
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate009-registration-001.json",
+        "sha256": "89245913b3637c52a0de5ed1095e43316ec172996c0812f326654e76124e7079"
+      },
+      "same_hash_as_current": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+      "sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+      "ranges": [
+        [
+          95,
+          155
+        ]
+      ],
+      "actual_eof": 162,
+      "actually_read_ranges": [
+        [
+          95,
+          155
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate009-registration-001.json",
+        "sha256": "89245913b3637c52a0de5ed1095e43316ec172996c0812f326654e76124e7079"
+      },
+      "same_hash_as_current": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/subject_motion.rs",
+      "sha256": "863b3c4fafe43198495f75878f9544b5af7fd3cccd198a88c0cc37042c390981",
+      "ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "actual_eof": 126,
+      "actually_read_ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate009-registration-001.json",
+        "sha256": "89245913b3637c52a0de5ed1095e43316ec172996c0812f326654e76124e7079"
+      },
+      "same_hash_as_current": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state.rs",
+      "sha256": "826f1aba2f89f6ff826b891589118da7e8f581d96bc564d9f239ade70d53a6c9",
+      "ranges": [
+        [
+          1470,
+          1550
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          1470,
+          1550
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate009-registration-002.json",
+        "sha256": "2952302c199de6e83f9596d8e48a52de7266411f26f3117403ff22be57038fa5"
+      },
+      "same_hash_as_current": false
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "06bd726fb8282af0ad5c1f54f64b1bfe383842e284e948a6226240178de4b6bb",
+      "actual_eof": 97,
+      "ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate011-registration-001.json",
+        "sha256": "b2bd9e7cf84f8a0aff85475951b0139fdb18cc767282268dc2b8d43c06e2690e"
+      },
+      "same_hash_as_current": true
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "184bb79359c77e6b8350e0b680b67b6f9b9782b34d04977dba3f81958e652c29",
+      "actual_eof": 253,
+      "ranges": [
+        [
+          63,
+          75
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          63,
+          75
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate011-registration-001.json",
+        "sha256": "b2bd9e7cf84f8a0aff85475951b0139fdb18cc767282268dc2b8d43c06e2690e"
+      },
+      "same_hash_as_current": false
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state.rs",
+      "sha256": "9e7cc69882008ce20f35864f9df76654679d000d14b798c70232dee9190c65bb",
+      "actual_eof": 2066,
+      "ranges": [
+        [
+          1476,
+          1553
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          1476,
+          1553
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate011-registration-001.json",
+        "sha256": "b2bd9e7cf84f8a0aff85475951b0139fdb18cc767282268dc2b8d43c06e2690e"
+      },
+      "same_hash_as_current": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs",
+      "sha256": "819a153f16a8e2525c18d0a1066df334d85e7730aad9d165ccf6ecf0f923c52f",
+      "actual_eof": 157,
+      "ranges": [
+        [
+          50,
+          130
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          50,
+          130
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate011-registration-001.json",
+        "sha256": "b2bd9e7cf84f8a0aff85475951b0139fdb18cc767282268dc2b8d43c06e2690e"
+      },
+      "same_hash_as_current": false
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/resolver/span.rs",
+      "sha256": "07d821fecf924daf31fc058ba5cadf682d41053ed6529c7406fbc0988a2304d6",
+      "actual_eof": 142,
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate011-registration-001.json",
+        "sha256": "b2bd9e7cf84f8a0aff85475951b0139fdb18cc767282268dc2b8d43c06e2690e"
+      },
+      "same_hash_as_current": false
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/resolver.rs",
+      "sha256": "1b0873cd746e039bdbc6d22d4f55b28ffad8141f68f43fbdb9fb3be25eb7eeb0",
+      "actual_eof": 217,
+      "ranges": [
+        [
+          1,
+          38
+        ],
+        [
+          113,
+          157
+        ],
+        [
+          198,
+          222
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          1,
+          38
+        ],
+        [
+          113,
+          157
+        ],
+        [
+          198,
+          217
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate011-registration-001.json",
+        "sha256": "b2bd9e7cf84f8a0aff85475951b0139fdb18cc767282268dc2b8d43c06e2690e"
+      },
+      "same_hash_as_current": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/weighted.rs",
+      "sha256": "8453166436911f4394c507ec05f4e3bf3f52d0bb92cb9f388bb0cecbe64ceb7c",
+      "actual_eof": 71,
+      "ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate011-registration-001.json",
+        "sha256": "b2bd9e7cf84f8a0aff85475951b0139fdb18cc767282268dc2b8d43c06e2690e"
+      },
+      "same_hash_as_current": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/playback_contributions.rs",
+      "sha256": "5c10fad61699ffe32bde91d9f48b833a2e6c42d30f7c77189f0da2a73a2823b1",
+      "actual_eof": 43,
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate011-registration-001.json",
+        "sha256": "b2bd9e7cf84f8a0aff85475951b0139fdb18cc767282268dc2b8d43c06e2690e"
+      },
+      "same_hash_as_current": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/mod.rs",
+      "sha256": "cd54ed038a4131a947dff4db1a0310069b669800547e2f2b6456566e9c0ec4c4",
+      "actual_eof": 810,
+      "ranges": [
+        [
+          125,
+          151
+        ],
+        [
+          452,
+          479
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          125,
+          151
+        ],
+        [
+          452,
+          479
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate011-registration-001.json",
+        "sha256": "b2bd9e7cf84f8a0aff85475951b0139fdb18cc767282268dc2b8d43c06e2690e"
+      },
+      "same_hash_as_current": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+      "sha256": "4544835a041e7c35f25b60d0b13e06ff22ea4ecc0efc90efdda1cd6963fb9638",
+      "actual_eof": 1892,
+      "ranges": [
+        [
+          210,
+          225
+        ],
+        [
+          670,
+          695
+        ],
+        [
+          735,
+          800
+        ],
+        [
+          942,
+          961
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          210,
+          225
+        ],
+        [
+          670,
+          695
+        ],
+        [
+          735,
+          800
+        ],
+        [
+          942,
+          961
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate011-registration-001.json",
+        "sha256": "b2bd9e7cf84f8a0aff85475951b0139fdb18cc767282268dc2b8d43c06e2690e"
+      },
+      "same_hash_as_current": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer/inertialization.rs",
+      "sha256": "8bf6f24386dae22c8e339928d6d9c90fbf89cfc3b438d0cd0e74468559e8cd84",
+      "actual_eof": 443,
+      "ranges": [
+        [
+          26,
+          33
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          26,
+          33
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate011-registration-001.json",
+        "sha256": "b2bd9e7cf84f8a0aff85475951b0139fdb18cc767282268dc2b8d43c06e2690e"
+      },
+      "same_hash_as_current": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+      "sha256": "4544835a041e7c35f25b60d0b13e06ff22ea4ecc0efc90efdda1cd6963fb9638",
+      "ranges": [
+        [
+          801,
+          825
+        ],
+        [
+          594,
+          634
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          801,
+          825
+        ],
+        [
+          594,
+          634
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate011-registration-002.json",
+        "sha256": "568b621acf2bb91efb06c73c6f400041ca1ceb0414c64497866d0eb96f8afae0"
+      },
+      "same_hash_as_current": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/resolver.rs",
+      "sha256": "1b0873cd746e039bdbc6d22d4f55b28ffad8141f68f43fbdb9fb3be25eb7eeb0",
+      "ranges": [
+        [
+          55,
+          112
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          55,
+          112
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate011-registration-002.json",
+        "sha256": "568b621acf2bb91efb06c73c6f400041ca1ceb0414c64497866d0eb96f8afae0"
+      },
+      "same_hash_as_current": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "sha256": "815bfd27404840b0d69f337719c882adf65fea894e48a769670a582eb42faf1b",
+      "ranges": [
+        [
+          330,
+          405
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          330,
+          405
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate011-registration-002.json",
+        "sha256": "568b621acf2bb91efb06c73c6f400041ca1ceb0414c64497866d0eb96f8afae0"
+      },
+      "same_hash_as_current": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "sha256": "815bfd27404840b0d69f337719c882adf65fea894e48a769670a582eb42faf1b",
+      "ranges": [
+        [
+          405,
+          448
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          405,
+          448
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate012-registration-001.json",
+        "sha256": "4b85733c0c5b056ce11270ba66fdaced9adf59d97f715f26d8e0e18015f32964"
+      },
+      "same_hash_as_current": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+      "sha256": "4544835a041e7c35f25b60d0b13e06ff22ea4ecc0efc90efdda1cd6963fb9638",
+      "ranges": [
+        [
+          635,
+          641
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          635,
+          641
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate012-registration-001.json",
+        "sha256": "4b85733c0c5b056ce11270ba66fdaced9adf59d97f715f26d8e0e18015f32964"
+      },
+      "same_hash_as_current": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs",
+      "sha256": "fa0524663e7887d03d177c6fe99de81edd2eeb7b5c402ab1c0037ab953e788c7",
+      "ranges": [
+        [
+          62,
+          86
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          62,
+          86
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate012-registration-001.json",
+        "sha256": "4b85733c0c5b056ce11270ba66fdaced9adf59d97f715f26d8e0e18015f32964"
+      },
+      "same_hash_as_current": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/resolver/span.rs",
+      "sha256": "1d9e43caff202030a311c016c3c4809bb3ad83868d2ad5ba458b2645ab36b1e1",
+      "ranges": [
+        [
+          16,
+          55
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          16,
+          55
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate012-registration-001.json",
+        "sha256": "4b85733c0c5b056ce11270ba66fdaced9adf59d97f715f26d8e0e18015f32964"
+      },
+      "same_hash_as_current": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/dive.rs",
+      "sha256": "777d81cd65a783e44930ba746488b1209406df1945d5a3fdefc236496549f7be",
+      "ranges": [
+        [
+          112,
+          137
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          112,
+          137
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate012-registration-001.json",
+        "sha256": "4b85733c0c5b056ce11270ba66fdaced9adf59d97f715f26d8e0e18015f32964"
+      },
+      "same_hash_as_current": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/dive.rs",
+      "sha256": "777d81cd65a783e44930ba746488b1209406df1945d5a3fdefc236496549f7be",
+      "ranges": [
+        [
+          85,
+          112
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          85,
+          112
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate012-registration-002.json",
+        "sha256": "c1db6096c6c593b3df52ae64e5f2f970f588da93284723758a8112ea8ac1785f"
+      },
+      "same_hash_as_current": true
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "605bea6b15bd684caa98b4253582088f2755a5054808d18745d2f9298563ea2b",
+      "ranges": [
+        [
+          1,
+          260
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          1,
+          253
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate013-registration-001.json",
+        "sha256": "394f51573d1a40cc54a8d3d519c3c0ba00cba125a6477f5a5dad35631d42dd4a"
+      },
+      "same_hash_as_current": false
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "58396f438d078eb49da6de8b6739ccddcc0c7240fb1f6ad8e62c35d7548fb98d",
+      "ranges": [
+        [
+          210,
+          237
+        ]
+      ],
+      "actually_read_ranges": [
+        [
+          210,
+          237
+        ]
+      ],
+      "registration": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate014-registration-001.json",
+        "sha256": "270ada020557b75261bacf75c1d979e7bea3d3e58938dc8ab86bb9945ae1df9b"
+      },
+      "same_hash_as_current": true
+    }
+  ],
+  "read_accounting": "Sources prospectively registered and exact hashes checked before actual bounded reads. Historical009/011/012/013 bodies retained with their exact hashes; final current bodies reconciled by complete patches and fresh actual affected reads. Root preflights inform scope, not semantic coverage. Only own personal prior reads carry; metadata locators are not body coverage.",
+  "patch_reads": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate009-delta.patch",
+      "sha256": "339ef5f0d21b1fb451e599348dcc49d86ceea1ea1ff5589de6727bd5a2e61915",
+      "actually_read_ranges": [
+        [
+          1,
+          182
+        ]
+      ]
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate011-delta.patch",
+      "sha256": "d4cbacd66e6a3be6a7a23f0495ad536ebc494f4642e9a0293352b7973e88b6a3",
+      "actually_read_ranges": [
+        [
+          1,
+          274
+        ]
+      ]
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate012-delta.patch",
+      "sha256": "ecbf324e1b85fe19035c44994ad6d8e59b0b5f7828db24f6df28bd71320a4552",
+      "actually_read_ranges": [
+        [
+          1,
+          322
+        ]
+      ]
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-candidate014-delta.patch",
+      "sha256": "5875daf2aab4223c977fa2ab61e4115283c43b1c8813a6233eb61367fe83ef51",
+      "actually_read_ranges": [
+        [
+          1,
+          18
+        ]
+      ]
+    }
+  ],
+  "exact_unchanged_proof": {
+    "own_prior_review": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-review-003.json",
+      "sha256": "3e6c6e6e3038394223f3a24e61a6cb9abd60c2b674d6e38d30d828ef01dffc12"
+    },
+    "files_equal_accepted008": [
+      {
+        "path": ".github/workflows/rust-quality.yml",
+        "sha256": "850183741ff4a1b097b93fc6285055d135558894f5ebf9324b52031cb9aadfc4"
+      },
+      {
+        "path": "Cargo.lock",
+        "sha256": "58118b1b138af4f9feea993ea990dc334f63d30c4aa66f8b5597a0f1dfecfcf6"
+      },
+      {
+        "path": "crates/adventuresim-character-creator/Cargo.lock",
+        "sha256": "c1eedbdf2c145f30bb9da7cc8f8fd02fa22b7ee9d9cd821c49ac5a17c441da09"
+      },
+      {
+        "path": "crates/adventuresim-core/Cargo.toml",
+        "sha256": "e5e9c6ed987838be5b7fef72e25ba3e6b6e848bc84105c42f396fcdfd7d65f53"
+      },
+      {
+        "path": "crates/adventuresim-core/build.rs",
+        "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6"
+      },
+      {
+        "path": "crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+        "sha256": "06bfd3a023ac0c22751466720321fe796aba122f605d621f16ba56b318c712f8"
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+        "sha256": "12d4b4e5ed4ce3940c78b7ee4420ec94e5efa83776b14d60afdbf2ba0d501f5d"
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+        "sha256": "815bfd27404840b0d69f337719c882adf65fea894e48a769670a582eb42faf1b"
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+        "sha256": "ae1dcc0043d5bd5a98744dfb43a3f172a259b3ac3b5e0fe0743c31b83e00327e"
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+        "sha256": "93bf8878500fe7902fc616643b4678bfbc4c8f091c94dcd68b2a42a6ccb377af"
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+        "sha256": "e54bd673db78d4b343707613e348b7d7fb4f74d34b8a454fefe73f426145a045"
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+        "sha256": "f26dc1059e4a9d133ac1fba9c80a1086753b20b54e5a5074dc8e557540cea67b"
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+        "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027"
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+        "sha256": "37a5dba433aa5219b544716053897df30d3df49662fb5fd38794130c1b803946"
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+        "sha256": "b2c7bc9609b8deb810b4c586a09fdf8186b60803f648009fc3ff74931b2df113"
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+        "sha256": "b394bde991895d6328b6f9f2be24fcb6d51c5c00e7f7143316339c372b7b5089"
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+        "sha256": "ada76a964c72b64d6bd3671a8ca2bde134da787f339914cc2091bd7994fac722"
+      },
+      {
+        "path": "rust-quality-baseline.toml",
+        "sha256": "8da5ee46241fe574e76a0b67391c30e5287f90a228995456a39b15cf00701262"
+      }
+    ],
+    "qualification": "18 exact files still equal008. Other files use fresh actual changed-body/full-delta proof. Candidate013 differs012 solely linear_speed, personally read full260 source after registered hash. Candidate014 differs013 solely removal of unused7-line conversion, exact committed diff and actual local port read; other26 hashes equal. No entire unchanged-file fresh read asserted."
+  },
+  "source_contract_assessment": [
+    {
+      "role": "Canonical dive timeline and fraction operations",
+      "verdict": "Resolved producer authority gap. Actual state1476\u20131550 holds at DIVE_GROUND_CONTACT_PHASE and maps admitted native sample ratios through typed ZERO..contact and contact..ONE checked_lerp. Branch elapsed<duration implies positive divisor; saturating sample elapsed is nonnegative and finite u64-to-f32 conversion, ratio admitted once at clock numericalkernel. UnitInterval checked_lerp re-admits computed output, saturating_sub is closed0..1 because admitted subtraction lies[-1,1] then floors0. No independent raw HALF arithmetic in this dive producer. No all-clock or exact IEEE endpoint identity claim."
+    },
+    {
+      "role": "Root handoff/config/schema/default receiving chain",
+      "verdict": "Root dive_recovery uses same canonical contact, typed configured handoff endpoints, checked inverse normalization then cubic; progress stays UnitInterval through retained DiveRecovery and saturating delta until native yaw/Quat. Required UnitInterval end supplied canonical YAML0.92, start0.18; extracted config owner derives checked Serde and denies unknown fields, no default/fallback. Aggregate start<airborneEnd<=ONE also proves start<GroundedSlide endpointONE. Parent validation calls new owner; named initial speed preserves surrounding policy and removes redundant chain. Existing whole config default/runtime/digest/snapshot/client-install source proof retained own exact evidence; no manual per-field projection omitted. Parent module/reexport/import fit coherent."
+    },
+    {
+      "role": "Actual root receiving boundary",
+      "verdict": "Fresh source-backed server advance_posture_transition_facing applies returned quaternion to transient Transform and physicsRotation after timeline advance; viewer project_capture_motion invokes same root delta then native Transform. Prior/current progress semantics retained; typed delta floor is intentional no-reverse incremental policy. Separate supine get-up raw midpoint is distinct action and unchanged/global pending. Final trajectory comment accurately permits configured airborne endONE; no fixed settling time or necessarily earlier endpoint claim."
+    },
+    {
+      "role": "Actual Span resolution/retention/native sampling",
+      "verdict": "Actual evaluation Span routes append_layer -> append_interpolated_span; UnitInterval complement and lossless BlendWeight From now feed checked endpoint scaling without primitive extraction/readmission. WeightedClip stores typed weights/time/mirror, checked coalescing; PlaybackContributions validates total, PlaybackPose/AnimationPlayback retain typed plan and mirror. sample_plan -> checked accumulate_local_pose reduction admits weight/total ratio to UnitInterval at owning dimensionless numeric reduction, calls typed LocalPose::interpolate; extraction only Vec3 lerp/native hemisphere_slerp body (dot/antipode/slerp/normalize). Actual Transform assignments read. Separate CurveSpan extrapolation branch not falsely treated bounded."
+    },
+    {
+      "role": "Related mirror/native ports",
+      "verdict": "Actual resolver mirror reduction checked-sums typed weights then finite scalar quotient admitted in same owner. UnitInterval retained through plan/playback/BTreeMap; extraction at actual Vec3/Quat/Transform operations. FootIk separate kernel not newly comprehensively audited; no blanket arithmetic exemption transferred from root. Listed exact receiver ranges, not entire IK/population validation."
+    },
+    {
+      "role": "Latest signed arithmetic cleanup/user request",
+      "verdict": "Final linear_speed58396f438d078eb49da6de8b6739ccddcc0c7240fb1f6ad8e62c35d7548fb98d: SignedSpeed private from_arithmetic distinguishes Overflow, Add delegates and returns finite SignedSpeed allowing negatives. checked_lerp named finite result then directly constructs NonnegativeSpeed within owner. Proof: finite nonnegative endpoint difference lies[-MAX,MAX]; descending rounded difference cannot be less than -self, scaling by admitted0..1 cannot increase negative magnitude, so checked sum is nonnegative. Ascending offset nonnegative. Checked Add rejects nonfinite before direct constructor. Floating-point interpolation may lose tiny endpoint differences; no exact between-endpoints/bitwise preservation claim. General unused TryFrom<SignedSpeed> removed per latest explicit comment4387446445, superseding earlier keep preference, no alias. Checked primitive constructors and purpose-specific clamps remain."
+    },
+    {
+      "role": "Full earlier PR obligations/rules/tests",
+      "verdict": "Own003 exact source proof preserves typed speed/fraction/length/cycle/height/BlendWeight owners/receiving APIs, required zero-speedPositiveLength YAML0.9 field, all old7widening getter replacements, canonical Ratio bounded admission, direct cubic and typed errors. Core normal+build dependency/thiserror/math graph and two lock edges unchanged. Workflow YAML trigger additions/gates preserved. state::smoothstep removed after sole root recipient migration. No compatibility overload/shim/fallback or new bespoke interval type. Existing tests only original minimal constructor migration and hosted formatting, no new test/helper/assertion/doctest. No baseline ceilings raised."
+    }
+  ],
+  "finding_dispositions": [
+    {
+      "id": "RR-M04-20261027-002",
+      "historical_checkpoint": {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-review-004.json",
+        "sha256": "7bb445f8bcf6605a50e6e4fb22c191dab77cc904e66e78d88a262f4026a93bda"
+      },
+      "status": "Resolved by final producer body re-read and exact014 reconciliation;009 never approved."
+    },
+    {
+      "id": "RR-M04-20261027-001",
+      "status": "Remains resolved in exact unchanged production contact-pair file."
+    },
+    {
+      "source_key": "third-review-span-receiver-preflight-001:resolver/span.rs",
+      "status": "External discovery independently corroborated resolved; no unique/alias claim."
+    }
+  ],
+  "actionable_findings": [],
+  "validation_and_user_checkpoint": {
+    "user_authority": "Latest explicit user apply-comment then squash-merge with CI errors deferred, reflected fifth-review preflight and root merge report.",
+    "source_verdict": "Approved final014 scoped source, no unresolved actionable rule finding.",
+    "CI": "Explicitly deferred, not a merge blocker imposed by this receipt; no successful final same-head CI/artifact claim.",
+    "baseline": "Unchanged SHA8da5ee46241fe574e76a0b67391c30e5287f90a228995456a39b15cf00701262; latest applicable hosted export still needed before any relevant decrease, no guessed counts/raises.",
+    "local_project_execution": false,
+    "checks_or_tests_run": []
+  },
+  "limits": [
+    "No global038/lens11/accepted unique count/alias/currentness completion credit. Broad M03/M09 and other inherited qualifications remain unchanged.",
+    "Ordered interval type explicitly deferred; no implementation or exhaustive future-opportunity count.",
+    "Source body inspection is not numerical execution, full native SDK/terrain/IK reliability or all posture actions validation.",
+    "No product/source/Git mutations/root-ledger/history edits/publication; only append-only ignored evidence. Root sole adoption authority."
+  ],
+  "root_adoption_required": true
+}

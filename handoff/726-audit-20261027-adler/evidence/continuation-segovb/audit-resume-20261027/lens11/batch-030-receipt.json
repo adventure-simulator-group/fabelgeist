@@ -1,0 +1,210 @@
+{
+  "at": "2026-10-27T13:05:58.345181+00:00",
+  "lens": 11,
+  "status": "946-950 independently source-accounted",
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-029.json",
+    "sha256": "b8f7598899bc5992b31cba30802ba2b092a7b63df8af14521f8ac91d0dcbe679"
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-030-registration.jsonl",
+    "sha256": "a5035bbe7dbacb72fe3bebd73941b3ef17cf720faf4d541f355a33c98351f291"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 946,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_references.rs",
+      "sha256": "e794dc0ede51c9d53d64155ee9ce8d551347ec8f659e2461c0b3d5d31b34cb6b",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/e794dc0ede51c9d53d64155ee9ce8d551347ec8f659e2461c0b3d5d31b34cb6b",
+      "actual_eof": 76,
+      "ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          76
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 947,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_references/gameplay.rs",
+      "sha256": "5ea6b74abe83e50e450510c6e28499ad7597e7dddf14a93428184b5ece767263",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/5ea6b74abe83e50e450510c6e28499ad7597e7dddf14a93428184b5ece767263",
+      "actual_eof": 30,
+      "ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          30
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 948,
+      "source_id": "pr-working:crates/adventuresim-core/src/knowledge.rs",
+      "sha256": "eff9843bb7a8c4e0459b990f5684deae4c827ec824b58334789ec8e1cce55ffd",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/eff9843bb7a8c4e0459b990f5684deae4c827ec824b58334789ec8e1cce55ffd",
+      "actual_eof": 1330,
+      "ranges": [
+        [
+          1,
+          1330
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "personal_prior_body_reuse": {
+        "receipt": "batch-028-receipt.json",
+        "ranges": [
+          [
+            1,
+            310
+          ]
+        ],
+        "identity_reverified": true
+      },
+      "new_reads": [
+        [
+          311,
+          1330
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          311,
+          1330
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 949,
+      "source_id": "pr-working:crates/adventuresim-core/src/leadership.rs",
+      "sha256": "0fb805b67bc7cb231e00841a0fc40b44ddd96f52a54c08fe16f434e9435daf53",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/0fb805b67bc7cb231e00841a0fc40b44ddd96f52a54c08fe16f434e9435daf53",
+      "actual_eof": 89,
+      "ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          89
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 950,
+      "source_id": "pr-working:crates/adventuresim-core/src/lib.rs",
+      "sha256": "fd09a838f8cfdd2da3d48800fe56d9bbfad7e9ad5556ba696be7908b4a000c2a",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/fd09a838f8cfdd2da3d48800fe56d9bbfad7e9ad5556ba696be7908b4a000c2a",
+      "actual_eof": 138,
+      "ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          138
+        ]
+      ]
+    }
+  ],
+  "material_receivers": [],
+  "reused_personal_source_proofs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-028-receipt.json",
+      "sha256": "45e9ec96599b408c85a36ae3ba0299bcdb195524537add323b6aba4a300c89b2"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-029-receipt.json",
+      "sha256": "b5f69edf443b8875a00e648ec25fe4ceeb5c35862c1aa03b273538ce355aec36"
+    }
+  ],
+  "per_role": [
+    {
+      "original": 946,
+      "roles": "Closed supported currency/medication IDs; catalog item versus local placement/attachment IDs; mandatory references versus convenience constants.",
+      "trace": "Full76 consumed. CURRENCY_IDS and MEDICATION_IDS are set-equality registry authorities in941; REQUIRED_GAMEPLAY_ITEM_IDS passed by947 into937 existence lookup. Belt/sheath/loop item references differ from worn/right/left placement and blade attachment-point keys despite same &str storage.",
+      "disposition": "Constants centralize spelling but not identity namespaces. Reuse canonical item/placement/point owners to prevent cross-purpose key use. Closed registry arrays and required existence list have different contracts: do not merge merely repeated values; actual gameplay implementations define closed-set support. No automatic alias or current missing-reference claim."
+    },
+    {
+      "original": 947,
+      "roles": "Cross-catalog foreign references and missing-reference error.",
+      "trace": "Full30. Collects mandatory item list, strategic currency registry, physiology preparation IDs and quest monster loot IDs.937 validate_references checks each against canonical catalog, returns raw missing strings. Quest catalog owns monster membership; no stored second roster.",
+      "disposition": "Reference existence is a distinct admission boundary from semantic kind/capability; no proof every loot/currency/treatment ID has intended ItemKind from this helper alone. Keep foreign catalog authority; typed missing item IDs would prevent diagnostics mixing other namespaces. No execution or whole quest/physiology runtime coverage transfer."
+    },
+    {
+      "original": 948,
+      "roles": "Nonzero record/receipt/contradiction/request identity and revision; confidence band versus private exact confidence; observer envelope and authoritative truth; sharing/supersession/contradiction; opaque projection grant; mutation Apply/Replay/Collision/Ambiguous receipt decisions.",
+      "trace": "Independent inventory of full1330, personally reusing hash-equal1-310 read in028, newly consuming311-1330. KnowledgeLineage enforces first revision/no predecessor versus later predecessor. Envelope enforces shared exact recipient/fact/time and private visibility, source<=learned<=personal frontier. Projection checks viewer/scope/time and only observer projection exposes record reference. Sharing receipt owns exact source revision/fact/recipient, creates new observer-private envelope. Supersession compares exact IDs/observer/subject/proposition/predecessor+checked revision increment/time. Contradiction retains two immutable record+revision pairs with same observer. Mutation receipt retains exact typed input/outcome and classifier gives replay/collision/ambiguous terminal states.",
+      "disposition": "These distinctions prevent concrete authority/chronology/idempotency mixups and should remain. Shared UnitBasisPoints under KnowledgeConfidence is useful common invariant beneath meaningful confidence role. Keep AuthoritativeTruth separate; no conversion grants disclosure. Empty domain visibility types meaningfully remove unsupported branches. KnownFactReference groups observer+record+revision; sharing/contradiction record+revision tuple ports could share a focused immutable reference if it simplifies association without imposing unrelated observer policy. Projection presentation T is supplied by trusted caller, not derived from belief; opaque grant binds viewer/time/scope but not arbitrary presentation/fact correspondence, so this framework does not prove every runtime presentation is safe. Grant constructors are pub(crate), comments/cfg expectations show test fixtures currently mint them: do not claim integrated live authentication. Investigation934 string SharingReceiptId/record and generic numeric receipt may overlap a concept but exact adapter/identity authority remains unproved; retain namespace qualification, no automatic duplicate/alias finding."
+    },
+    {
+      "original": 949,
+      "roles": "Character identity, incumbent life state, unique living membership, voter/candidate ballot pair and tally/threshold/tie-break.",
+      "trace": "Full89 consumed. BTreeSet deduplicates living members, filters ballots by both memberships, BTreeMap tallies per candidate, excludes incumbent, uses66% living leader orhalf dead leader threshold and deterministic lowest-ID tie break. Input votes slice has no voter uniqueness check; repeated same (voter,candidate) counts multiple times.",
+      "disposition": "Raw u64 characters can reuse existing character identity owner; voter/candidate are roles in a ballot, not different global character identities. Coherent ballot set keyed by voter would own one-vote-per-member if that is the actual election policy; present API admits duplicates but source does not establish authoritative caller uniqueness or current runtime exploit. current_leader_alive bool is a genuine two-state threshold policy here; retaining leader ID separate allows dead incumbent not inliving members, as actualfixtures demonstrate. No invented percentage owner required for exact cross multiplication."
+    },
+    {
+      "original": 950,
+      "roles": "Crate module declarations, test-only validation boundary and public prelude reexports.",
+      "trace": "Full138 consumed. Public owner modules expose knowledge/rights/time/speed/unit interval and runtime catalog schema; validation module is test-only at lib root. Explicit speed type exports retain distinct Nonnegative/Positive/Signed owners.",
+      "disposition": "Module/reexport names are code structure rather than gameplay primitive values. No new bespoke wrapper needed. This root proves runtime module visibility, not build-script include/invocation or whole subtree source coverage. Prelude wildcard collisions/shared names need actual uses before a defect, not inferred merely from exports."
+    }
+  ],
+  "qualified_findings": [
+    {
+      "source_key": "lens11:frozen:949:ballot-set-voter-association",
+      "status": "public vote list allows duplicate voter tally; authoritative caller policy/currentness/alias unresolved",
+      "accepted_unique": false
+    }
+  ],
+  "contract_limits": [
+    "948 full1330 source union includes all fixtures; tests not executed.1-310 reused only after exact SHA verification and independently assessing current ordered role.",
+    "No runtime projection-grant integration, arbitrary presentation-to-fact proof, persistence receipt uniqueness or DB transaction guarantee is asserted. Pure mutation classifier distinguishes terminal outcomes but actual application acceptance remains separate.",
+    "946/947 actual named foreign references consumed; full currency, physiology and quest implementations remain independently scoped. No future-source credit.",
+    "All inherited currentness/alias/capacity/ID/saved-association findings and other-lens queues retained; no canonical unique count."
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_ledger_edited": false
+}

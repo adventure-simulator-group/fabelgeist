@@ -1,0 +1,471 @@
+{
+  "id": "PR988-CLEAN-ERROR-CODE-REVIEW-001",
+  "at": "2026-10-26T21:12:30.832907+00:00",
+  "reviewer": "/root/texture_code_review",
+  "review": "Fresh independent source-only CodeReview of actual implemented clean error composition and connected receiving bodies/native derive contracts",
+  "base": "323789dd1beca252d4515c580573596ca0c98143",
+  "scope": {
+    "manifest": {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/clean-error-source-manifest-001.json",
+      "sha256": "e15b95d5c3b025c624f53356243c537d0966078e3b2e69f3e70bbdd0a7cd232b",
+      "changed_files": 7
+    },
+    "actual_diff": {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/clean-error-actual-diff-001.patch",
+      "sha256": "c4086530fc7efafd8e4c967a24a2fd38288cbef91d62c3381435a4682cd1da0d",
+      "full_delta_read": true,
+      "manifest7path_set_matches": true
+    },
+    "registration": "clean-error-code-registration-001.json",
+    "all_current_end_hashes_match": true
+  },
+  "priority": "Explicit user instruction removes historical error API/layout/downcast/message preservation constraints. Old review recommendation is superseded; this review evaluates current composition/product semantics, not old representation.",
+  "status": "No actionable new correctness defect found in exact clean-error implementation; compiler/runtime/current CI validation not performed",
+  "findings": [],
+  "contract_traces": [
+    {
+      "contract": "Four actual observation outcomes and ownership",
+      "locations": [
+        "globals/validation_scope.rs11-65"
+      ],
+      "assessment": "Native-only ValidationScope keeps deviceArc plus same-device guard. finish first invokes poll(wait_indefinitely), then always pops/awaits captured native error, with no polling? early exit. Exhaustive four-way match maps Ok/None\u2192Ok,Ok/Some\u2192Native,Err/None\u2192Progress,Err/Some\u2192ProgressWithNative. Combined variant owns both concrete causes; no Option payload retained beside generic tag and no polling failure path drops captured rejection."
+    },
+    {
+      "contract": "Current primary-source policy and complete evidence",
+      "locations": [
+        "globals/validation_scope.rs19-33",
+        "texture/view_error.rs25-43",
+        "derive_more-impl error.rs124-181/202-220/286-326",
+        "derive_more as_dyn_error.rs17-29"
+      ],
+      "assessment": "Observation selects direct ValidationScopeError as source. Scope Native selects actual wgpu::Error; Progress selects actual PollError; ProgressWithNative explicitly selects poll while retaining native as non-source secondary field. Unit absence variants have derivedNone. Generator returns selected immediate field as dynError, with unit fallbackNone. Both progress displays identify poll failure; combined display includes native rejection. No historical first-layer downcast or old prefer-native behavior required or preserved."
+    },
+    {
+      "contract": "Canonical error shape and removals",
+      "locations": [
+        "texture/view_error.rs1-43",
+        "globals/validation_scope.rs1-65",
+        "globals/mod.rs1-9",
+        "complete clean-error patch"
+      ],
+      "assessment": "TextureViewError has two unit absences and one Observation owning requested/operation/scope cause. Canonical scope enum owns three valid failure states. Both derive Display+Error. Old Progress struct, duplicate three per-operation native error variants, from_observation classifier, unused into_anyhow, manual traits/comments, and old exports/imports are removed without aliases, forwarding APIs or extra compatibility state. Crate-wide occurrence search only found unrelated CaptureObstacle::from_observation in tactical client, not old GPU helper."
+    },
+    {
+      "contract": "Producers preserve original request and correct operation",
+      "locations": [
+        "texture_2d/views.rs13-55",
+        "texture_3d/views.rs13-55",
+        "texture_cube/views.rs13-56"
+      ],
+      "assessment": "All3 producers directly construct Observation in finish.map_err with requested:format (the caller original) and corresponding Texture2d/Texture3d/TextureCube operation; cause moves unboxed. Descriptor uses potentially projected requested_format. No classifier/helper/Box conversion, prose parsing or error stringify introduced at producer."
+    },
+    {
+      "contract": "Required view/caching/descriptor semantics",
+      "locations": [
+        "three views matching-format and native texture admission/descriptor branches"
+      ],
+      "assessment": "Stored-format branch first clones cached Arc or MissingView. Different-format path admits native texture or Uninitialized. Storage sRGB requests still project to linear descriptor format while original format remains error metadata.2D/3D inference and cube label/dimension/layercount6 retained. Error scope result propagated before returning newly created view, so all observed failures return Err. No new caching or public metadata/device-coherence promise."
+    },
+    {
+      "contract": "Connected ComputePass receiving bodies and generic boundary",
+      "locations": [
+        "compute/pass/mod.rs249-348"
+      ],
+      "assessment": "The3 actual native texture binding paths continue invoking view_with_format and propagating? into existing generic Result, then retaining view plus actual texture format/dimension. Current Error enum composes directly with standard error conversion; no old variants/helper/manual trait/boxed API depended on in these bodies. No source-level return type widening or new receiving classifier."
+    },
+    {
+      "contract": "Observation policy/cfg and SDK ownership",
+      "locations": [
+        "validation_observation.rs1-24",
+        "wgpu_context/mod.rs98-118/260-275",
+        "three view cfg blocks",
+        "validation_scope.rs3-7/12-17/35-65",
+        "wgpu Devicepoll95-97/push454-462/Error774-837/Guard850-877"
+      ],
+      "assessment": "Borrowed/browser context remains Uncaptured, native owned context BlockingScopes. Same native-only adapter pushes Validation filter on supplied device; all new finish/Observation construction stays nativecfg. SDK guard owns cloned same device inner and pops consumed index; guardedscope remains !Send/!Sync. Error types remain available alltargets, and direct fields impose same contained SDK auto-trait conditions rather than new Send/Sync bounds. Other shader/pipeline/constructor polling behavior untouched by7file delta."
+    },
+    {
+      "contract": "Derived diagnostics and obvious source-level size",
+      "locations": [
+        "texture/view_error.rs27-41",
+        "validation_scope.rs22-31",
+        "derive_more Display generator405-424",
+        "native wgpubError/PollError payload bodies"
+      ],
+      "assessment": "Current diagnostic identifies operation/original request and canonical cause; combined state includes poll and native text. No historical prefix guarantee required. Direct payloads comprise fieldless format/operation tags, native Error Box/String metadata and PollError at most two u64 values; no recursive type or inline variable-sized buffer/source-level obstacle observed. No exact ABI layout, size measurement, compiler lint or macro expansion check claimed."
+    },
+    {
+      "contract": "Guide agrees with current implementation",
+      "locations": [
+        "texture-views.md17-27/54-70"
+      ],
+      "assessment": "Guide describes Observation and canonical scope states, polling-primary failure source with native secondary evidence, unconditional scope pop and no newly created view on failure. Old native/progress wrapper/downcast layout and prefer-native policy removed. Text example remains text fence, not new doctest. Device-health/rollback/public cache-metadata coherence/subresource scope limitations retained."
+    }
+  ],
+  "four_outcome_table": [
+    {
+      "poll": "Ok",
+      "capture": "None",
+      "result": "Ok(())"
+    },
+    {
+      "poll": "Ok",
+      "capture": "Some(native)",
+      "result": "Native(native)"
+    },
+    {
+      "poll": "Err(poll)",
+      "capture": "None",
+      "result": "Progress(poll)"
+    },
+    {
+      "poll": "Err(poll)",
+      "capture": "Some(native)",
+      "result": "ProgressWithNative{poll,native}; source poll; both retained"
+    }
+  ],
+  "fingerprints": {
+    "changed_sources": [
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+        "sha256": "a295f80fefc3035bf18c518b5ad9d1c379cd2473deacb33dad2c738bbf35e92f",
+        "ranges": [
+          [
+            1,
+            55
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            1,
+            55
+          ]
+        ],
+        "hash_verified_after_read": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+        "sha256": "d15d73bd8fbf0410de7031e9c2cb7672153f24391614877fedd8f6766f37692c",
+        "ranges": [
+          [
+            1,
+            55
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            1,
+            55
+          ]
+        ],
+        "hash_verified_after_read": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+        "sha256": "04110cf73034d74c5252361f77af470d11d289fc1a1106e9c42e975707ebdf04",
+        "ranges": [
+          [
+            1,
+            56
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            1,
+            56
+          ]
+        ],
+        "hash_verified_after_read": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+        "sha256": "0c00273b8492fa0919e7264459cffbd80f97564784a292e7e88d28bf928cb244",
+        "ranges": [
+          [
+            1,
+            43
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            1,
+            43
+          ]
+        ],
+        "hash_verified_after_read": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+        "sha256": "3dce5de96be36b2463daee4fb0ed823563d3f87e99bfc9a8ba3b1ddcdc37fca8",
+        "ranges": [
+          [
+            1,
+            9
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            1,
+            9
+          ]
+        ],
+        "hash_verified_after_read": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+        "sha256": "e3ad593b83da185620d2729a5fde4a0f7bfda1c39993494432c55a0c989e0973",
+        "ranges": [
+          [
+            1,
+            65
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            1,
+            65
+          ]
+        ],
+        "hash_verified_after_read": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/texture-views.md",
+        "sha256": "3a3902b9981ae772df92c2df1a97d245196d25cd83f2eacf4a586005ea39a6cd",
+        "ranges": [
+          [
+            1,
+            70
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            1,
+            70
+          ]
+        ],
+        "hash_verified_after_read": true
+      }
+    ],
+    "receivers": [
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+        "sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+        "ranges": [
+          [
+            249,
+            348
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            249,
+            348
+          ]
+        ],
+        "purpose": "Actual three unchanged generic receiving bodies",
+        "hash_verified_after_read": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+        "sha256": "14cccb953bd0b8466b7ad010219c4220d535ee7ed9e6e66cad981c37cc67df88",
+        "ranges": [
+          [
+            1,
+            24
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            1,
+            24
+          ]
+        ],
+        "purpose": "Actual native scope policy adapter",
+        "hash_verified_after_read": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+        "sha256": "baf15af7fdf3ecbc0776b475b3aadbd35c29a3d6e0185cef3b2f064803315381",
+        "ranges": [
+          [
+            98,
+            118
+          ],
+          [
+            260,
+            275
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            98,
+            118
+          ],
+          [
+            260,
+            275
+          ]
+        ],
+        "purpose": "Context policy producers/retention",
+        "hash_verified_after_read": true
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-impl-2.1.1/src/error.rs",
+        "sha256": "40cfa53d126eae5284310d5814318d32269e482e3491bf561ec9cd6168646aeb",
+        "ranges": [
+          [
+            124,
+            181
+          ],
+          [
+            202,
+            220
+          ],
+          [
+            286,
+            326
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            124,
+            181
+          ],
+          [
+            202,
+            220
+          ],
+          [
+            286,
+            326
+          ]
+        ],
+        "purpose": "Actual new derived Error source selection and unit fallback",
+        "hash_verified_after_read": true,
+        "native_provenance": "Exact current lock-checksummed cached archive member equals inspected local bytes; bounded body proof only",
+        "archive_sha256": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb"
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-impl-2.1.1/src/fmt/display.rs",
+        "sha256": "d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+        "ranges": [
+          [
+            405,
+            424
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            405,
+            424
+          ]
+        ],
+        "purpose": "Actual Display generation",
+        "hash_verified_after_read": true,
+        "native_provenance": "Exact current lock-checksummed cached archive member equals inspected local bytes; bounded body proof only",
+        "archive_sha256": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb"
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-2.1.1/src/as_dyn_error.rs",
+        "sha256": "ba3767c6c95966583360f28cd59bfe20717d0f53c2041c2c534552fcb1b265d9",
+        "ranges": [
+          [
+            17,
+            29
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            17,
+            29
+          ]
+        ],
+        "purpose": "Direct native field to Error borrow adapter",
+        "hash_verified_after_read": true,
+        "native_provenance": "Exact current lock-checksummed cached archive member equals inspected local bytes; bounded body proof only",
+        "archive_sha256": "d751e9e49156b02b44f9c1815bcb94b984cdcc4396ecc32521c739452808b134"
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/device.rs",
+        "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+        "ranges": [
+          [
+            95,
+            97
+          ],
+          [
+            454,
+            462
+          ],
+          [
+            774,
+            837
+          ],
+          [
+            850,
+            877
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            95,
+            97
+          ],
+          [
+            454,
+            462
+          ],
+          [
+            774,
+            837
+          ],
+          [
+            850,
+            877
+          ]
+        ],
+        "purpose": "Actual native poll/guard/Error traits and ownership",
+        "hash_verified_after_read": true,
+        "native_provenance": "Exact current lock-checksummed cached archive member equals inspected local bytes; bounded body proof only",
+        "archive_sha256": "76e8840e1ba2881d4cbb18d2147627a56af426ff064c0401eb0c8410c6325d07"
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-types-29.0.4/src/lib.rs",
+        "sha256": "af153576bce090b101f05d3d4fc35523d82e8f7fd2f935bd60d12956af50cb3b",
+        "ranges": [
+          [
+            294,
+            321
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            294,
+            321
+          ]
+        ],
+        "purpose": "Actual PollError trait/current payload shape",
+        "hash_verified_after_read": true,
+        "native_provenance": "Exact current lock-checksummed cached archive member equals inspected local bytes; bounded body proof only",
+        "archive_sha256": "84bf84cd9ca8ca45e2b223a3868f1adf9bfc0c66aeac212e76ee7e40fdadf8f5"
+      }
+    ]
+  },
+  "limitations": [
+    "Fresh actual new-body review; no proposal/previous verdict transfer. Earlier source reviews and prior323/4fcc/961 hosted passes do not validate new implementation.",
+    "No project compiler/macro expansion/Clippy/fmt/test/probe/size execution. Root owns current-head acceptance. No new tests/cases/helpers/assertions/doctests added or run in this review; actual7file delta has no test additions.",
+    "Native receiver files verified against current lock/archive exact bytes; only recorded ranges assessed. No whole SDK, backend guard scheduling/poll future progress, all-target/all-hardware or global cause-attribution proof.",
+    "Native captured error is retained as a combined field and diagnostic, not second source() edge. Single-cause stdError chain policy intentionally polling-primary by explicit user direction; no historical compatibility requirement inferred.",
+    "Public texture/cache/format/device coherence, constructor/subresource validation, generic error/string policies outside scope and wider F1/F2/F6/F9/full audit stay open. No original audit population or new unique finding count credited.",
+    "Source occurrence searches locate stale affected APIs only; unrelated same-named helpers outside GPU are not compatibility aliases. No external API preservation constraints.",
+    "No product/source/Git commands or edits, root ledger/historical overwrite or publication. Only ignored append-only registration/report written."
+  ],
+  "project_execution": false,
+  "source_changes": false,
+  "git_commands_or_mutations": false,
+  "ledger_changes": false,
+  "tests_added_or_run": false,
+  "publication": false,
+  "global_clearance": false,
+  "stopped": true
+}

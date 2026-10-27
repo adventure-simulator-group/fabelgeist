@@ -1,0 +1,34 @@
+{
+  "id": "SEGOVB-CONT11-SUCCESSOR-157-CONNECTED-780-002",
+  "lens": "type-granularity",
+  "source_identity_resolution": {
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/selection.rs",
+    "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+    "evidence": "Recovered catalog at frozen f82adcab.../catalog.json rows2597, exact object retrieved and SHA verified",
+    "ranges_read": [
+      [
+        1,
+        49
+      ],
+      [
+        110,
+        142
+      ],
+      [
+        180,
+        224
+      ]
+    ],
+    "ordered_credit": false
+  },
+  "assessment": "Construction sum couples Sewn Pattern versus Coif design and derives GarmentForm rather than independently storing it. Skirted is actual role deciding transfer_skirt_skin in780467-468; that helper changes cloned construction to default sewn pattern before three calls to transfer_skin399-420, avoiding recursive skirt selection and applying direct body sampling intentionally. Selection retains explicit fabric/layer/appearance/resolution/drape controls; validate checks finite in-range resolution, delegates construction-specific checks and drape/mail validation. It does not validate DrapeInput body geometry/skinning/rig association. This resolves the specific selection/form ownership path without requiring another bool/type owner. Meaningful shared DrapeSettings role is retained; its internal accepted bounds and external numerical receiving policies still need their own exact traces, not inferred from delegated validate call.",
+  "pending": [
+    "Actual DrapeInput producer identity/body metre-frame/topology/rig-column association still needed before original780 final disposition.",
+    "BodyMesh shape source definition known2264 but unconsumed; no full measurement family clearance.",
+    "Worker763 is registered and symbol-located only; it accepts existing DrapeInput, not established as original body-data producer."
+  ],
+  "next_original": 780,
+  "original_accounted": 780,
+  "clear": false,
+  "validation": "none; no project checks/tests/source edits/publication"
+}

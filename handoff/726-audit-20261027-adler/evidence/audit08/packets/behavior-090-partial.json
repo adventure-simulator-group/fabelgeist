@@ -1,0 +1,180 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-090-PARTIAL",
+  "lens": "08 behavior-preservation",
+  "completed_original": [
+    1782,
+    1784,
+    1785,
+    1788
+  ],
+  "partial_original": [
+    1783,
+    1786,
+    1787,
+    1781,
+    1758,
+    1760,
+    1766,
+    1767,
+    1770,
+    1776,
+    1778
+  ],
+  "source_pins": [
+    "source-pins-and-scope-103.json",
+    "source-pins-and-scope-104.json"
+  ],
+  "source_reads": {
+    "1782": {
+      "head": [
+        [
+          1,
+          89
+        ]
+      ],
+      "head_sha256": "01140a5ec824cf8258598462f8d99cde62732bf1901ffaddcafcef6ee65e66a5",
+      "base_sha256": null,
+      "actual_histogram_diff_accounted": [
+        [
+          1,
+          95
+        ]
+      ],
+      "diff_sha256": "2d532a999772663bb583553df68da2daa85e0d0e7586eb976f24b40326057de6",
+      "method": "Each actual new-file header displayed; full added-body exact equality to personally consumed head verified, no duplicate payload dump. Old corresponding native bodies personally consumed in088/089 actual1781removedsource."
+    },
+    "1783": {
+      "head": [
+        [
+          1,
+          353
+        ]
+      ],
+      "head_sha256": "a9750618561952fe5915714dea2b3d942edf076b37f122e4c7518920255d7d63",
+      "base_sha256": null,
+      "actual_histogram_diff_accounted": [
+        [
+          1,
+          359
+        ]
+      ],
+      "diff_sha256": "0ee882b71dad77860212640e050002c8c739a69f47914b9b5d36f8ffa21aa096",
+      "method": "Each actual new-file header displayed; full added-body exact equality to personally consumed head verified, no duplicate payload dump. Old corresponding native bodies personally consumed in088/089 actual1781removedsource."
+    },
+    "1784": {
+      "head": [
+        [
+          1,
+          153
+        ]
+      ],
+      "head_sha256": "6ee51d617e6768c1552325294a976d780baa694c28386d909d913ef01475aea0",
+      "base_sha256": null,
+      "actual_histogram_diff_accounted": [
+        [
+          1,
+          159
+        ]
+      ],
+      "diff_sha256": "660b90830883800022b8ba9864edf8d6e380d78d75a4829a87e6c23bad39c100",
+      "method": "Each actual new-file header displayed; full added-body exact equality to personally consumed head verified, no duplicate payload dump. Old corresponding native bodies personally consumed in088/089 actual1781removedsource."
+    },
+    "1785": {
+      "head": [
+        [
+          1,
+          123
+        ]
+      ],
+      "head_sha256": "c0b137fbc417c7f671619a3cc9cc4b76cd30973682db603b40b27a6729ef5f2f",
+      "base_sha256": null,
+      "actual_histogram_diff_accounted": [
+        [
+          1,
+          129
+        ]
+      ],
+      "diff_sha256": "ca94d837e72009574f92a55c03350f5d1d71fe71a824ff1f828120c795b6a77f",
+      "method": "Each actual new-file header displayed; full added-body exact equality to personally consumed head verified, no duplicate payload dump. Old corresponding native bodies personally consumed in088/089 actual1781removedsource."
+    },
+    "1786": {
+      "head": [
+        [
+          1,
+          158
+        ]
+      ],
+      "head_sha256": "bc8baae81a0a5a732df8dba8928b78d85c6b941c193ec50a31780d1a5b43f816",
+      "base_sha256": null,
+      "actual_histogram_diff_accounted": [
+        [
+          1,
+          164
+        ]
+      ],
+      "diff_sha256": "68af62b0ba7ff853420d3ed4f61f4cf605cd36fefebd9d632f6c746ed77cb932",
+      "method": "Each actual new-file header displayed; full added-body exact equality to personally consumed head verified, no duplicate payload dump. Old corresponding native bodies personally consumed in088/089 actual1781removedsource."
+    },
+    "1787": {
+      "head": [
+        [
+          1,
+          272
+        ]
+      ],
+      "head_sha256": "1c3d107a1b048fc5397ff0bd4ce896e703fd748296193bf90bea403fe7af7bab",
+      "base_sha256": null,
+      "actual_histogram_diff_accounted": [
+        [
+          1,
+          278
+        ]
+      ],
+      "diff_sha256": "7d097b350f33072e4196cafaae6a5a5f9f9324ec86488a44133a0f306d3bd9e4",
+      "method": "Each actual new-file header displayed; full added-body exact equality to personally consumed head verified, no duplicate payload dump. Old corresponding native bodies personally consumed in088/089 actual1781removedsource."
+    },
+    "1788": {
+      "head": [
+        [
+          1,
+          145
+        ]
+      ],
+      "head_sha256": "a2f784e17dfc1ae6b606c9688428b0a9596f4a1b0da358f5a59eacb6494bdfe9",
+      "base_sha256": null,
+      "actual_histogram_diff_accounted": [
+        [
+          1,
+          151
+        ]
+      ],
+      "diff_sha256": "628ec4fcf08c076aca6c50da038607eb47fb11096f81127adc6922479c8ee6e2",
+      "method": "Each actual new-file header displayed; full added-body exact equality to personally consumed head verified, no duplicate payload dump. Old corresponding native bodies personally consumed in088/089 actual1781removedsource."
+    }
+  },
+  "support_reads": [
+    {
+      "index": 2069,
+      "sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+      "ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "purpose": "Actual server DownedFacingStep::for_frame native elapsed/get_up_seconds producer; rest162 and its own delta uncredited."
+    }
+  ],
+  "analysis": [
+    "1782 full89 compares actualold1781 ActionTimeline700-746 andadvance_action2462-2478: same saturatingsub/max1construction, contact/end saturatedaddition, current==end keepsphase1 exceptMAXcompletes, latercurrent completes, integer subtract thenf32ratio multiply/divide order retained. Currentstate advanceslocalcopy untilsample success; oldfiniteoutofrange decodeclamp nowexplicitdeserialize_progress, nonfinitecheckedadmission policy. Existing semanticMAXfixture andordinarycontact/recovery fixtures read077/087 without execution.",
+    "1784 full153 compares old2824-2958 actualsource: contactadvection/directionfallback, leadingcontact<=0orde adline, marginextension andcontactsequence order, swingselection, stepduration reach/support min+clamp, ceil-max1-nativeu64cast, forwarddistance andside/correction/lengthclamp exact. Suspectedworld-vs-local speedmix-up is disproved by actual1787local_speed source82/110 andcaller232-239: passednorm is the same localvelocitynorm oldcallee computed. No finding inferred from parameter name physical_speed.",
+    "1785 full123 compares old2964-3037 nativehelpers: samelegmax0, yardratio1.0736325/rearratio.08946937, directionnormalize, longitudinalabs,lerp andcontact(open-closed).max0*.5 ordering. SignedLength admission excludesnonfinite butvalidnegativeandzero stillsamegeometry. Originalignoredspeedparameter onguard_step_length removed, actual1767call fixedsameconfigleg length. Newfiletestbody92-121 read; a matching PR-base test/oracle has not been established, so do not call it preservedexisting coverage orruntimeevidence. No tests authored/executed here.",
+    "1788 full145 compares oldRaisedLocomotionIntent101-188 andadvanceintent2799-2822: sameplanted/movingwirevariants,finite/nonpositive/threshold.05 normalization anddirectionnormalize; nativewireadapter retainsinvalidspeed->planted, positivecheckedAPIcarriesNonnegativeSpeed withoutnewbound. Sameobserved-first/requestedfallback,minrequested.051, retaincurrentintent whileinflightstep, elseplanted. Actual1787measuredlocalspeed andprivatecorestate setter1400-1406 traced; fixedstationarythreshold remains distinct fromcustomplaybackhysteresis.",
+    "1783 full353 preservesoldunwrappedsignedroll, discreteposemodulo, nearestperiod, sectorhysteresis, exact-halfreleasebodyparitytie, stepclampandnext-current thresholds. SnapshotFromWire explicitlypreservesoldfinitefallback/clamp; newdirectcheckedAPIrejectsnonfinite beforeupdate. Frameproducerfor_frame sanitizesnonfinitestep tozero asoldcallee did. Actualserver2069 passeselapsed/get_up_seconds; its oldcaller comparison andturn_deadline nativebody_yaw/controller_yaw remainpending, so1783 stayspartial. Oldcamera-yawfixture counterpartlocated1790base448, notyetread inthispacket.",
+    "1786 full158 matchesoldposturestate564-637 andfacingdelta644-698: same min1tickduration, phaseHalf/recovery construction, root-handoffstart/endslide1/airborne.92, smoothstep, yaw0/pi/+pi2/-pi2, sameincrementclamp. Newfallible owningprogress canrejectunrepresentablecustomconfiguration; actualexternalResultconsumers stillpending, not inferredaccepted fromsignature.",
+    "1787 full272 compares oldprojection2646-2775: samecontroller/bodyframe choice, norm/calibration sequence, acceleration cap80, contiguouswrappingtick, landingcounter/impact max0, downedbodypreservation/dodgeending, syntheticdownedmin.8*2 andgait/hand-off/lead order. Measuredlocalnorm is separatelyretained andpassedatlocalconsumer. New preflightrejectsnonfinite/overflow observations beforevelocity/clock/bodywrites, includingfiniteorientation withoutnewunitnormcondition. Laterfalliblegroundcycle/actioncalls occurafterthosewrites; do notclaimglobalrollback orallpossiblecustomstate atomicity. Default/typedcontrollerpolicy andmovedturn/guardgeometry helpers needclosingreceipts;1778invalid-inputfixture qualification remains."
+  ],
+  "findings": [],
+  "global_clearance": false,
+  "execution": "No project checks/tests, new tests/assertions, product source orGit changes."
+}

@@ -1,0 +1,335 @@
+{
+  "at": "2026-10-27T01:06:46.809144+00:00",
+  "lens": "13 magic-numbers",
+  "packet": "018",
+  "status": "Bounded original31 terrain-dimension admission/source trace complete at explicit population and remaining validator frontier;35/2853 unchanged,partials31/36,firstunread37. Stop packet.",
+  "authority": {
+    "frozen_original_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "frozen_firstparty_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "registry": "target/recovery-20261025/audit05/original-scope-072.json",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "prior_root_adopted_state": "audit13-successor-017-suggested-state.json",
+    "prior_state_sha256": "1a16789ba8bd007fc24c88d37f91c48ece2170f7207880e023c7993c4e082a63",
+    "staging_receipts": [
+      {
+        "path": "audit13-root-terrain-staging-018.json",
+        "sha256": "2624dd8a19466dc7fa5170dcdf3fa9e360d81e3b8252d0343dda0a6630cc5d37",
+        "staging_is_metadata_only": true
+      },
+      {
+        "path": "audit13-root-terrain-staging-018-supplement.json",
+        "sha256": "23d38dd5d2ff966d1b7ce816577088a6a1bee23e8c8a5888bcdac2199227f946",
+        "staging_is_metadata_only": true
+      },
+      {
+        "path": "audit13-root-terrain-staging-018-final.json",
+        "sha256": "20bd14a8a129b92205b47bf2672a524888587a35dc6eb1df47613723ca4f45fa",
+        "staging_is_metadata_only": true
+      }
+    ],
+    "root_adoption_required": true
+  },
+  "registrations": [
+    {
+      "path": "audit13-successor-registration-018.json",
+      "sha256": "baabccded493f6b39639d5bbd91e05b29b06643b43aa85d4cf563f68a72986e4",
+      "before_actual_body_reads": true
+    },
+    {
+      "path": "audit13-successor-registration-018-extension-001.json",
+      "sha256": "52564272d3a35475c00ae48edd452e49598f8710adcd69e95780e3af44b29961",
+      "before_actual_body_reads": true
+    },
+    {
+      "path": "audit13-successor-registration-018-extension-002.json",
+      "sha256": "2b499c1e1c892c9ce4c766b32cc14cb15a84a7b38a446b3a2b6aae4ccb46d18a",
+      "before_actual_body_reads": true
+    },
+    {
+      "path": "audit13-successor-registration-018-extension-003.json",
+      "sha256": "68c1b5afbd995f55f0aaaf5b1470e94f01791182f95cd1ae5aed0706cc4bb7fe",
+      "before_actual_body_reads": true
+    },
+    {
+      "path": "audit13-successor-registration-018-extension-004.json",
+      "sha256": "9db926923f4770249371b7d8be1fa15170ea88e2953d86817274873fa818cb78",
+      "before_actual_body_reads": true
+    }
+  ],
+  "source_fingerprints": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene.rs",
+      "sha256": "2661ce950659807c47c0de4fdc769ba1ba79825c47ba2985fcec32d7e4f38390",
+      "bytes": 20452,
+      "actual_lines": 553,
+      "consumed_ranges": [
+        [
+          1,
+          275
+        ]
+      ],
+      "post_read_hash_verified": true,
+      "registry_alias_indices": [
+        1897
+      ],
+      "population_credit": 0
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input.rs",
+      "sha256": "bde515fc144669a9902a54886ded6185c84fca86313d86ca7c44ba0626e8ae12",
+      "bytes": 39530,
+      "actual_lines": 1026,
+      "consumed_ranges": [
+        [
+          1,
+          74
+        ],
+        [
+          75,
+          95
+        ],
+        [
+          150,
+          174
+        ],
+        [
+          244,
+          307
+        ],
+        [
+          420,
+          509
+        ]
+      ],
+      "post_read_hash_verified": true,
+      "registry_alias_indices": [
+        1914
+      ],
+      "population_credit": 0
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/admission.rs",
+      "sha256": "c77986f9f9ff85cd6b4359792d8c28838b437942db2e61c92dc4104856e849cb",
+      "bytes": 3032,
+      "actual_lines": 98,
+      "consumed_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "post_read_hash_verified": true,
+      "registry_alias_indices": [
+        1898
+      ],
+      "population_credit": 0
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/descriptor.rs",
+      "sha256": "2b30929bb687f5865c0fa515cb96763b1b03d4a97522dbc015b02d7cb4558336",
+      "bytes": 4372,
+      "actual_lines": 103,
+      "consumed_ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "post_read_hash_verified": true,
+      "registry_alias_indices": [
+        1919
+      ],
+      "population_credit": 0
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation.rs",
+      "sha256": "6dd07ed9db5b93386803c3c441f3e84c340a217626c86b423f59563deaf1c739",
+      "bytes": 7323,
+      "actual_lines": 204,
+      "consumed_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "post_read_hash_verified": true,
+      "registry_alias_indices": [
+        1944
+      ],
+      "population_credit": 0
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/validation.rs",
+      "sha256": "3d97a798029ddc9f195aa209105f64070c55fb0172ef87a515e67fe945c735c9",
+      "bytes": 2908,
+      "actual_lines": 64,
+      "consumed_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "post_read_hash_verified": true,
+      "registry_alias_indices": [
+        1960
+      ],
+      "population_credit": 0
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/geographic.rs",
+      "sha256": "b0a7c91fd0c9c09870ebcacd16ae968638ba3381e66e7d44b9ee6c7e6235236c",
+      "bytes": 3790,
+      "actual_lines": 96,
+      "consumed_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "post_read_hash_verified": true,
+      "registry_alias_indices": [
+        1945
+      ],
+      "population_credit": 0
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/supported.rs",
+      "sha256": "951ac796fe6192eccfebbeca4317a11c29f0ac3697424ddc46973810d05db06b",
+      "bytes": 2242,
+      "actual_lines": 56,
+      "consumed_ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "post_read_hash_verified": true,
+      "registry_alias_indices": [
+        2699
+      ],
+      "population_credit": 0
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/property_support.rs",
+      "sha256": "4eb5b88b6059d622bb8663f784c3cd8eab5289a4928d2c51ab38031acc6a354a",
+      "bytes": 7361,
+      "actual_lines": 181,
+      "consumed_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "post_read_hash_verified": true,
+      "registry_alias_indices": [
+        1904
+      ],
+      "population_credit": 0
+    }
+  ],
+  "consumption": {
+    "unique_files": 9,
+    "registered_lines": 1011,
+    "all_registered_ranges_consumed": true,
+    "post_read_hashes_verified": true,
+    "unregistered_body_reads": false,
+    "metadata_navigation_is_coverage": false
+  },
+  "independent_numeric_inventory": [
+    {
+      "source": "scene.rs1-275",
+      "roles": "TerrainGenerator raw period/grid_scale f32 and typedSeed; SceneTerrain private Vec<f32>heightmap,widthusize,scalef32,coarse_strideusize,TerrainGeometry; usize constructor gridcells/gridvertices; scalar noise octave/persistence/lacunarity/height conversion; checked index/count arithmetic; finiteness/positivity and option/result predicates; scale/extent getters; integer subdivision and height mutations.",
+      "actual_contracts": "new checks +1/mul, validates dimensions before allocation, samples row-major gridindices convertedtof32, stores scale then validates heights; from_heightmap derives depth/checks exact requesteddepth andvalidates; refined guards positivefinite target,checked gridexpansion, validatesnew dimensions and resamples typedpoint/elevation; width/depth=(vertices\u22121) asf32*scale; rewrite_heights builds fullsamegrid replacement and commits onlyafter alltypedpoints/elevations succeed. TerrainGenerator has public tuning/scale fields and delegates actual dimension admission toSceneTerrain::new.",
+      "limits": "Noise/callback/RNG mathematicalmeaning and downstreamgrade body not newlyread; no clamp to candidate/species allocationbudget. Refinement float rounding isnot exact bit-preserving extent proof."
+    },
+    {
+      "source": "scene/admission.rs1-98",
+      "roles": "TerrainWire raw samples/width/scale/stride; Dimensions/Scale/Stride/Heights predicates; u32MAX native mesh representation constraints; zero/two/six/one/four defaults and finite heights.",
+      "actual_contracts": "WireTryFrom constructs thenvalidate; width/depth>=2; checked width*depth<=u32MAX; checked(width\u22121)*(depth\u22121)*6<=u32MAX; scale finitepositive, representedaxisextentsfinite; nonzero stride divides cellaxes; heightmaplen divisiblebywidth andallheightsfinite; default is4zeros,width2,scale1,stride1.",
+      "assessment": "Concrete rowmajor/native vertex/indexcount constraints and validflatdefault identified. These mesh constraints do not bound physicalmetre extents or3.2m candidate lattice area to1M; they are not global GPU or all application admission."
+    },
+    {
+      "source": "scene_input.rs1-95,150-174,244-307,420-509",
+      "roles": "Constants: maxplayableside601,vistalevels8,totalvista2M,source/templatebytes128; filemax/zero checks; usize/u16 rowmajor lengths; spacingtarget2m/subdivisionmath; environment/cloning/interpolation; gridwidth/depth>=2..maxside,spacing.25..2000,heights\u00b112000,environmentbasispoints. Adjacent physicaltree/rock tuningconstants,onegrounddensityheightliteral andweather predicates also visible.",
+      "actual_contracts": "load bounds metadata filesize,deserializes thenvalidate; validate delegates source+grounding. upsample limits subdivisions by601side and interpolates samples; decreases spacing asdimensions increase ratherthan imposing a physicalextentmaximum. validate_grid checks dimensions,finiteintervalspacing,checkedproduct,exactheight/environmentlengths andboundedsamples.",
+      "limits": "This is a bounded receiving read,not independent wholeinput/weather/ground/geometry roleclearance. Adjacentground density uses9600saturating_sub(canopy/5),height82; weather native checksversion/basispoints/pressure8700..10850/direction<360/temperaturedew+5/lift\u00b1whole/cloud positiveheight/precipitation consistency, but atmosphere arithmetic/admission/owners andcanonical tuning policy receivers nottraced. No blanketjustification from literals/constants."
+    },
+    {
+      "source": "scene_input/descriptor.rs1-39 + validation.rs1-64",
+      "roles": "Public rawschemaversionu16/generationversionu16,playablegrid andcollections; typedSeed/coordinates/StrategicMinute/ElevationMeters; serde unknownfield denial;32MiBmaxwire andversion29/73; sourceidentitybytebounds/gridbounds/vistalevelordering+samplecheckedaddition/weather dispatch.",
+      "actual_contracts": "Publicfields/Deserialize do not independentlyvalidate; load/generation callvalidate. validate_source applies validate_grid(playable,601), then additional scene_fault/urban/establishment/property validators; vista checkslevelorder,finiteorigin,gridmaxu16,strictlyincreasingspacing,total<=2M andweather.",
+      "limits": "Landform/urban/properties/grounding/weather actualreceivers/sceneproducer inputlimits notnewlyread. Sourcegrid constraints alone permitlargephysicalextents, but no universally accepted fullTacticalSceneInput counterexample claimed."
+    },
+    {
+      "source": "scene_input/generation.rs1-78 + geographic.rs1-65 + supported.rs1-56",
+      "roles": "Generated state retainsSceneTerrain/SceneGround/obstacle/building vectors; sourcewidth/depthusize/spacingf32 pass throughupsampling/preparation; repairs samplelen.saturating_sub(..) asu32 andmutableslice receiver; optionalgrounding branchenum.",
+      "actual_contracts": "generate_unfurnished receivesprepare_supported; supported callsvalidate thenprepare_geographic; geographic validate_source -> upsample ->prepare_terrain(height/environmentmutable slices) ->SceneTerrain::from_heightmap ->ground builder ->refine_authoritative_terrain. Supported validatespads/compounds,optionally reconstructsgrounding and installswith_property_surface,then retainsactualterrain.",
+      "limits": "prepare_terrain dispatchrepair/microrelief,refine_authoritative_terrain/groundbuilding andgrounding/projectionreconstruct bodies unread. Physicalextentpreservation/alladditional rejection/selectedproducer maxima/currentallcallerreachability notproved. These are explicitnewfrontiers,not assumed neutral."
+    },
+    {
+      "source": "scene/property_support.rs1-62",
+      "roles": "Sampled/Owned(BoundedSettlementTerrain) owns modepayload; Option surface/getters,one vertexstride,indicesarraychunks3,u32/usize conversion andnative triangle transport.",
+      "actual_contracts": "with_property_surface consumesSelf and changesonlygeometry,retaining storedwidth/scale/heightmap. Sampled/physical geographic getters chooseactualowned/sampledsurface anddelegate triangleconstruction.",
+      "limits": "BoundedSettlementTerrain/GeographicSurface admissions,actualmeshcomponent receiver, ownedrepresentation terrain sampling/collider budgets andremainingqueries unread; no wholesale typeguarantee."
+    }
+  ],
+  "source_backed_trace": [
+    "Actual private SceneTerrain storage ->from_heightmap/new/refined +serdeTerrainWireTryFrom/validate ->width()/depth() representedmetre extents -> prior017 placements lattice ->prior014 per-species vectors/Arc ->prior013len asu32 +backend.alloc(...).expect ->prior012 defaultPagedAllocator1M policy.",
+    "Actual TacticalSceneInput.validate_source ->validate_grid(playable,601) ->geographic upsample/preparation ->SceneTerrain::from_heightmap ->unread authoritative refinement ->supported optionalownedtopology replacement ->retained GeneratedTacticalScene. This source edge is proved to the named unread receiving frontier; downstreambodyeffects are not assumed.",
+    "Public constructor/serde validation doesnot incorporate native1M allocationpolicy. Public heightrewrite source preserves successfulgridcount; ownedtopology replacement changesgeometryonly. grade::constrain mutableheightmap recipient andgeneric Reflect/write paths notcomplete mutationproof."
+  ],
+  "count_assessment": {
+    "prior_bound": "017 successfulplacements siteslen<=Nx*Nz, Nx=max(floor(terrain.width()/3.2) as i32,0),Nz analogous,actualf32 sourceoperations; eachspecieslen<=siteslen and3representations shareeachArc. This remains an upperbound only.",
+    "actual_terrain_constraints": "Concretevalidate_dimensions caps mesh vertex/index counts byu32,notphysicalmetreextent; finitepositive scale hasno fixedmaximum. Width/depth accessors multiplycellcount byscale. Thus candidateNx*Nz<=1M isnot an admitted invariant.",
+    "permitted_larger_lattice": "Source-reasoned nonexecuted example: SceneTerrain::new cellaxes1,1,scale6400.0 andfiniteflatcallback passesallvisible dimension/height checks,represents6400m square using4gridvertices. Its3.2m candidate lattice hasroughly2000cellsperaxis (even conservative1999peraxis exceeds1M area). This establishes admittedlargercandidatearea only,not an actualspeciespopulation orpanic witness.",
+    "scene_source_limits": "Localplayablegrid maximum601vertices/axis withspacingup to2000m permits a localphysicalextentbound600*2000=1_200_000m peraxis,well beyond a sufficient1M candidatearea budget. Upsampling limits sampledensity/side,notphysicalmetresize. Other source validators/refinement mayrejectthese combinations; no fullyaccepted scene witness asserted.",
+    "u32_comparison": "Terrain mesh u32 capacitydoesnot imply placementcount u32capacity becausephysicalextent maygrowvia scale independentlyofsamplecardinality. Native lenasu32 truncation/capacity interactions remain conditionalonactual producedspecieslen; no wrap/overfloworallocationfailure demonstrated.",
+    "logical_limit": "Larger-than1M upperbound doesnot disprove actualspecieslen<=1M. Randompresence/specieschoices/ground/point/slopefiltering mayremoveenough. Need actual populationlowerbound/witness or a separate sufficient hard producer/per-species/chunking contract,pluscurrentcaller/backend reachability, beforeconcrete failureclaim."
+  },
+  "source_observations_noncounted": [
+    {
+      "local_id": "UPSTREAM-018-LATTICE-ADMISSION",
+      "observation": "ReadSceneTerrain admission permitslarger-than1M candidatearea; native meshcapacityconstraints cannot supplythe missing sufficient placementarea cap.",
+      "status": "Missing sufficientcap/allowedlargerlattice only. No actualspecieslen>1M/u32overflow/nativepanic/globalguarantee refutation. Rootdedup/currentness/reachability pending;zeroacceptedunique."
+    }
+  ],
+  "remaining_partial_original31": [
+    "Exact actual speciespopulation bound/lowerbound/witness afterRNG/ground/point/slope filtering; currentalias/selectedbackend/actualcaller reachability andallinputproducermaxima remainunproved.",
+    "Newinputfrontier: scene_fault/urban/establishment/property/grounding validators andauthoritative refinement/repair/ground builders mayreject/alterdimensions/geometry; no unseenbodyeffect inferred. Publicgrade mutableheightmap recipient/opaqueReflect paths notclosed.",
+    "All prior othergrass/litter producers/custom index/seed receivers/historyconsumer/offsetallocator/Custom/publicstate/devicecoherence/currentness obligations andoriginal36 conditionalhost/local_pos partial retainedunchanged."
+  ],
+  "other_lens_extension_queue": {
+    "path": "audit13-successor-018-other-lens-extension-queue.json",
+    "sha256": "c649bd12f54ad60d903913da1dbb87e935a712ddfa6a06c6c9f5cd0edaffe774",
+    "credit": 0
+  },
+  "accounting": {
+    "before_original_accounted": 35,
+    "after_proposed_original_accounted": 35,
+    "original_total": 2853,
+    "partial_original_indices": [
+      31,
+      36
+    ],
+    "earliest_unfinished_original": 31,
+    "first_unread_original": 37,
+    "new_original_roles_inspected": [],
+    "new_original_roles_completed": [],
+    "receiving_access_population_credit": 0,
+    "overlays_increment": 0,
+    "merged_increment": 0,
+    "material_increment": 0,
+    "other_lens_credit": 0,
+    "new_unique_count": 0
+  },
+  "qualifications": [
+    "Nine exact frozen source objects/1011 registered lines personally consumed in bounded output after prospective registration; hashes verified before and after. Only recorded ranges, no unseen tails/fullsource or currentmain identity asserted. Source identifier navigation emitted incidental existing test locators in scene_input.rs510+ and scene.rs401+; no test body coverage, execution or acceptance credit. Existing tests in descriptor40+,geographic95+,generation169+,scene401+ not read as bodies/run.",
+    "Original0-30/32-35 and completed PR990 review not restarted;31 full declaration scope and36 partial retained; no original37 or future1897/1898/1904/1914/1919/1944/1945/1960/2699role credit from receiving subsets. No overlay/merged/sharedmaterial/otherlens increment.",
+    "Allowed larger candidate lattice refutes only a universal hard lattice-area cap <=1_000_000 derived from SceneTerrain admission. A larger upper bound does not refute actual per-species length<=1_000_000: no population lower bound/witness, filtering/RNG distributions, current caller/selected backend or panic/overflow proved. Native budget/u32 comparison is a missing sufficient input proof, not an accepted concrete failure.",
+    "All inherited and native ID-sentinel/reset/bufferbounds/history/custombackend observations remain non-counted pending root alias/currentness/firstparty reachability reconciliation. No unique aliases/count invented. All inherited F1/F2/F6/F9/global20 findings and other-lens queues remain open.",
+    "No exhaustive public mutation/decoder/Reflect implementation guarantee: actual registered constructors/height rewrite/propertysurface method read; grade::constrain receives mutableheightmap and is unread; other source tails/query/grade/Reflect generic implementations and reflection consumers are unread. Root identifier searches are locators only, not universal absence proof.",
+    "No project/source/Git/rootledger/historical edits, builds/checks/lint/scans/generators/probes/tests/assertions/helpers/doctests or publication. Only ignored registrations/receipt/queue/proposedstate authored. Conceptual permitted input below is source reasoning, not an added/executed fixture/test or runtime witness.",
+    "No compatibility/layout preservation, nativeboundary blanket exemption, integrated repair, wholeSDK/wholefirstparty/lens13/global audit clearance or CI claim."
+  ],
+  "stop_reason": "One bounded admission/source path complete at concrete allowedlargerlattice and unresolvedactualpopulation/validator frontier. Stopafter finalthree requested sourceobjects; no neworiginal orbroaderterrain/SDK/grass expansion."
+}

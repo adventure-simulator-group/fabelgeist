@@ -1,0 +1,77 @@
+[1m[92m    Finished[0m `test` profile [optimized] target(s) in 0.35s
+[1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/adventuresim_tactical_core-1c1f0e01b14fa6e8)
+
+running 70 tests
+test scene_input::buildings::exterior::tests::facade_shell_and_occupied_detail_share_the_same_physical_plan ... ok
+test scene_input::buildings::exterior::tests::prosperity_changes_finish_without_changing_building_mass ... ok
+test scene_input::buildings::occupied_recipe_tests::distant_buildings_reconstruct_the_same_occupied_recipe ... ok
+test scene_input::buildings::placement::tests::buried_floor_slabs_do_not_raise_bearings_or_thresholds ... ok
+test scene_input::buildings::placement::tests::distant_promotion_and_preparation_preserve_the_bound_floor_and_program ... ok
+test scene_input::buildings::service_recipe_tests::sized_church_and_workplace_recipes_survive_distant_transport_with_playable_geometry ... ok
+test scene_input::buildings::tests::building_orientation_is_finite_canonical_and_rejects_a_zero_frontage ... ok
+test scene_input::buildings::tests::oriented_pad_overlap_uses_both_local_frames ... ok
+test scene_input::buildings::window::tests::replicated_window_round_trip_admits_named_bars_and_rejects_invalid_leaves ... ok
+test scene_input::compounds::tests::adjacent_compounds_keep_separate_support_owners_after_terrain_refinement ... ok
+test scene_input::compounds::tests::compound_loaded_scene_rejects_broken_membership_and_authority ... ok
+test scene_input::compounds::tests::compound_rejects_a_loaded_route_ending_short_of_the_actual_store_door ... ok
+test scene_input::compounds::tests::sloped_compound_enclosures_bind_to_accepted_soil_without_rewriting_source_samples ... ok
+test scene_input::descriptor::tests::establishment_shop_name_must_name_its_operator ... ok
+test scene_input::descriptor::tests::recaptured_operator_names_require_fresh_branding ... ok
+test scene_input::descriptor::tests::shipped_scene_catalog_uses_the_complete_current_schema ... ok
+test scene_input::detail_noise::tests::eviction_and_query_order_preserve_seeded_surface_values ... ok
+test scene_input::furniture::interior::tests::interior_instances_follow_building_rotation_elevation_and_room_identity ... ok
+test scene_input::furniture::occupancy::tests::broad_phase_matches_exact_intersection_for_rotated_multicell_footprints ... ok
+test scene_input::furniture::reservations::tests::furniture_reservation_contains_both_complete_gate_sweeps ... ok
+test scene_input::furniture::sites::tests::carpenter_passage_reserves_the_reported_exterior_approach ... ok
+test scene_input::furniture::sites::tests::distant_furniture_reserves_the_occupied_footprint_and_unscaled_doors ... ok
+test scene_input::furniture::tests::a_wet_gentle_grade_keeps_supported_examples_of_every_family ... ok
+test scene_input::furniture::tests::city_acceptance::real_city_places_market_vendors_behind_its_wide_street_reservations ... ok
+test scene_input::furniture::tests::furniture_groups_are_deterministic_supported_and_leave_routes_clear ... ok
+test scene_input::furniture::tests::furniture_physics_blocks_real_members_and_keeps_stall_approach_open ... ok
+test scene_input::furniture::tests::inserted_street_obstruction_removes_every_conflicting_group ... ok
+test scene_input::furniture::tests::market_population_scales_with_area_without_obstructing_aisles ... ok
+test scene_input::furniture::tests::ordered_candidate_identity_separates_swapped_fields_and_anchor_kinds ... ok
+test scene_input::furniture::tests::production_review_input_places_every_furniture_family ... ok
+test scene_input::furniture::tests::unsupported_or_submerged_candidates_are_rejected_without_moving_terrain ... ok
+test scene_input::gardens::support::tests::a_missing_root_rejects_the_whole_projection_with_exact_identity ... ok
+test scene_input::gardens::support::tests::replicated_soil_elevations_reject_nonfinite_values ... ok
+test scene_input::gardens::tests::distant_garden_projection_retains_roots_membership_and_horizontal_geometry ... ok
+test scene_input::gardens::tests::explicit_garden_audit_checks_detailed_geometry ... ok
+test scene_input::gardens::tests::garden_input_rejects_missing_ownership_and_escape_from_property ... ok
+test scene_input::gardens::tests::sloped_garden_preserves_soil_relief_and_binds_each_retained_root ... ok
+test scene_input::gardens::tests::straddling_garden_roots_follow_the_same_stitched_soil_inside_and_outside_playable_bounds ... ok
+test scene_input::generation::geographic::tests::complete_geographic_preparation_preserves_source_identity_assets_and_relief ... ok
+test scene_input::generation::grounding::tests::matrix::production_required_sizes_preserve_all_homes_services_bindings_and_soil_roots ... ok
+test scene_input::generation::grounding::tests::occupied_inputs_reject_missing_stale_and_mismatched_support_without_fallback ... ok
+test scene_input::generation::grounding::tests::prepared_support_phase_matches_full_generation_and_rejects_removed_members ... ok
+test scene_input::generation::grounding::tests::production_support_handoff_preserves_source_identity_members_and_programmes ... ok
+test scene_input::generation::landform_tests::replacement_terrain_never_leaves_obstacles_at_the_old_surface ... ok
+test scene_input::generation::support_obstacles::tests::kassel_1_approach_reserves_the_complete_rock_envelope ... ok
+test scene_input::parishes::tests::parish_scene_rejects_missing_shared_overfilled_and_distant_members ... ok
+test scene_input::parishes::tests::parish_scene_round_trip_preserves_population_and_near_far_ownership ... ok
+test scene_input::properties::tests::home_binding_rejects_missing_moved_rotated_or_resized_buildings ... ok
+test scene_input::recipes::tests::reuse_preserves_geometry_and_distinguishes_complete_programs ... ok
+test scene_input::refinement::road::tests::goslar_road_rut_preserves_the_cross_runtime_source_vertex ... ok
+test scene_input::terrain_samples::tests::vista_ordinal_preserves_numeric_wire_identity_without_assigning_a_role ... ok
+test scene_input::tests::city_streets_replace_grass_with_their_authored_substrate ... ok
+test scene_input::tests::coarse_source_grid_is_upsampled_without_changing_extent ... ok
+test scene_input::tests::committed_obstacle_fixtures_exercise_sparse_trees_and_hilly_rocks ... ok
+test scene_input::tests::committed_synthetic_fixture_catalog_uses_the_production_format ... ok
+test scene_input::tests::developed_city_yards_replace_meadow_cover_with_bare_soil ... ok
+test scene_input::tests::every_committed_landform_fixture_authors_its_surface_truth ... ok
+test scene_input::tests::generated_rock_recipes_are_deterministic_and_fit_the_collision_proxy ... ok
+test scene_input::tests::generation_and_digest_are_reproducible ... ok
+test scene_input::tests::invalid_fixture_is_repaired_deterministically_into_a_connected_battlefield ... ok
+test scene_input::tests::microrelief_is_bounded_deterministic_and_preserves_the_combat_corridor ... ok
+test scene_input::tests::narrow_peak_is_preserved_on_the_regional_horizon_lod_boundary ... ok
+test scene_input::tests::obstacle_kind_has_a_stable_wire_round_trip ... ok
+test scene_input::tests::occupied::bound_building_has_static_collision_without_rewriting_surrounding_source ... ok
+test scene_input::tests::occupied::distant_buildings_affect_scene_identity_without_entering_tactical_generation ... ok
+test scene_input::tests::oversized_scene_file_fails_before_deserialization ... ok
+test scene_input::tests::rejects_versions_bounds_and_malformed_sample_counts ... ok
+test scene_input::tests::reserved_playability_corridor_covers_the_spawn_camera_envelope ... ok
+test scene_input::tests::tree_leaf_litter_tapers_from_a_dense_trunk_core ... ok
+test scene_input::tests::unknown_json_fields_fail_closed ... ok
+
+test result: ok. 70 passed; 0 failed; 0 ignored; 0 measured; 340 filtered out; finished in 218.83s
+

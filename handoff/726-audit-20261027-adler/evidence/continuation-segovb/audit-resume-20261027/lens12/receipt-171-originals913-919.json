@@ -1,0 +1,328 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "171",
+  "predecessor": "receipt-170-original912.json",
+  "sources": [
+    {
+      "original_index": 913,
+      "source_id": "pr-working:crates/adventuresim-core/src/disease/entropy.rs",
+      "sha256": "10eb46750c66da9cd03f116270ab91b4a1acad817e28333ac2fca342773e3bd8",
+      "actual_eof": 26,
+      "actual_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              26
+            ]
+          ],
+          "role": "Full26: StreamId disease.severity5 ->rng6-10 and disease.contact-exposure20 ->rng21-25 actual912severity1511/contact819 callers; native Seed/Stream implementation/authority and all callers pending.",
+          "disposition": "Source-accounted WITH source-keyed receiving/native/canonical/current qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 914,
+      "source_id": "pr-working:crates/adventuresim-core/src/disease/identity.rs",
+      "sha256": "bbf3c7a20b95f217815f48c7e830dc75efab9ecf9d7e52a79fd4ad86324388af",
+      "actual_eof": 132,
+      "actual_ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              132
+            ]
+          ],
+          "role": "Full132: DiseaseId10-23 finite canonical enum/nativeSerde snake_case9; stable_id27-42 compact vs stable_variant_id46-62 Pascal labels distinct. FromStr76-83 delegates Serde81, typed ParseDiseaseIdError66/humanDisplay70. Tests86-132 invalid spelling and variant adapters source-only; no BC acceptance requirement. Actual storage/transport consumers and nativeSerde implementation pending.",
+          "disposition": "Source-accounted WITH source-keyed receiving/native/canonical/current qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 915,
+      "source_id": "pr-working:crates/adventuresim-core/src/durability.rs",
+      "sha256": "7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
+      "actual_eof": 454,
+      "actual_ranges": [
+        [
+          1,
+          454
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              454
+            ]
+          ],
+          "role": "Full454: RepairService12 canonical Weapons/Armor/Clothing, parse27-34 raw finite tokens29-31 ->enum and as_str36-42 reverse adapter, matches44-50 typedRepairItemKind. bounded_durable_change94 Resultstaticstr ->limit failure97; actual callers/final error boundary unread. valid_repair_escrow_row106-113 expected/actual item_id&str109-110 semantic equality112, canonical item identity owner/actual ingress pending. Existingtests279-454 parse fixtures285-299 including unknown smith296 and raw sword/axe443-446 exact escrow equality, not mere prose or BC promise. All other bodies numeric/typed, no numeric/behavior proof.",
+          "disposition": "Source-accounted WITH source-keyed receiving/native/canonical/current qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 916,
+      "source_id": "pr-working:crates/adventuresim-core/src/elapsed.rs",
+      "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "actual_eof": 131,
+      "actual_ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              131
+            ]
+          ],
+          "role": "Full131: canonical ElapsedError15 six states ->Display119-129 human messages122-127. NativeSerde f32 conversion11/Debug115/nativeDuration79 concrete ports; actual checked clock operations28/70/83 and prior callers source-read, native implementations/all public error consumers pending.",
+          "disposition": "Source-accounted WITH source-keyed receiving/native/canonical/current qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 917,
+      "source_id": "pr-working:crates/adventuresim-core/src/encounter.rs",
+      "sha256": "aad69b12c6ade6caa59828876caede30c0a0fe2577b11fdd91f84594d2471dd5",
+      "actual_eof": 1019,
+      "actual_ranges": [
+        [
+          1,
+          1019
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              1019
+            ]
+          ],
+          "role": "Full1019 independently read1-340/341-680/681-1019. EncounterArchetype45/nativeSerde44 ->ThreatId68-74 and typed EncounterChoice162-184. EncounterRollDomain415-425 ->canonical StreamId stream428-448 finite encounter frequency/archetype/enemy-count/awareness/sneak/narrative travel/rest chance/selection tokens430-445 ->rng452. Actual native Seed/Stream implementation unread; no collision/security/runtime inference. NarrativeSelection.catalog_id String474 <-actual catalog definitions526/filter528/sort raw ID536/clone554; canonical catalog ID/schema/validation and all recipients unread. Human expect334 and550 concrete panic text, validation premise550 not independently proven. Existing tests558-1019 include enc: prefix578/hex579 (actual919format15), retry raw enc:abc585-609 and surrender587/597/607 vs attack611 ->919actual equality; human numeric diagnostics803-804/835. All tests read not executed. Comments entropy unchanged197-199/260-261 impose no BC constraint. Other typed/numeric bodies no other-lens verdict.",
+          "disposition": "Source-accounted WITH source-keyed receiving/native/canonical/current qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 918,
+      "source_id": "pr-working:crates/adventuresim-core/src/encounter/choice.rs",
+      "sha256": "3a327aeb8ec9f72d67960b0cdc94f7ece677c4a963d5ce8e1db7af3fd8025206",
+      "actual_eof": 72,
+      "actual_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              72
+            ]
+          ],
+          "role": "Full72: canonical EncounterChoice4 five variants; stable_id13-21 lower-case tokens ->parse38-49 by exact equality47; EncounterChoiceParseError25/humanDisplay29. Existing tests stable tokens/unknown withdraw68 source-only. Canonical owner fit for919retry choice strings, caller admission pending.",
+          "disposition": "Source-accounted WITH source-keyed receiving/native/canonical/current qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 919,
+      "source_id": "pr-working:crates/adventuresim-core/src/encounter/receipt.rs",
+      "sha256": "79edfeebdc4b5bdd4dfd8272b5b15981bf986c1acdcc4bca4b92d3fe3022b1b1",
+      "actual_eof": 36,
+      "actual_ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              36
+            ]
+          ],
+          "role": "Full36: opaque_strategic_encounter_id8 returns String; native StreamId encounter.identity-high9/identity-low12 ->rng and format enc:{high:016x}{low:016x}15. Native implementation/actual persistence ingress/callers unread, not opacity/security proof. strategic_encounter_retry_matches22-35 raw receipt_encounter_id&str23/encounter_id27 and receipt_choice&str25/choice29 equality32/34 with revision/character guards. Canonical EncounterChoice918 already available, raw retry choice gap source-proven; actual producer/admission consumers and open encounter-ID owner pending. Human Clippy reason20.",
+          "disposition": "Source-accounted WITH source-keyed receiving/native/canonical/current qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    }
+  ],
+  "connected_findings": [
+    {
+      "id": "L12-171-encounter-retry-choice-and-catalog-identity",
+      "source_indices": [
+        917,
+        918,
+        919
+      ],
+      "ranges": [
+        [
+          474,
+          474
+        ],
+        [
+          526,
+          555
+        ],
+        [
+          23,
+          34
+        ]
+      ],
+      "finding": "Existing canonical EncounterChoice is projected/compared as raw choice strings across retry API; narrative catalog identity remains String from actual catalog selection into retained result. Open encounter identity also raw across receipt API; its canonical owner fit remains pending.",
+      "remedy": "Carry EncounterChoice and correct open encounter/catalog identity owners through mechanics/retention; classify input at actual ingress and render only at native text boundary.",
+      "acceptance": "Read actual strategic receipt producer/admission/storage callers and road catalog schema/validation/receivers; confirm exact intended contract before connected repair.",
+      "aliases": "Prior encounter/catalog/identity findings may alias; unresolved.",
+      "unique_count_delta": 0
+    },
+    {
+      "id": "L12-171-durability-item-and-error-ports",
+      "source_indices": [
+        915
+      ],
+      "ranges": [
+        [
+          94,
+          113
+        ]
+      ],
+      "finding": "Durable limit failure returns raw static text; escrow identity compares two raw item IDs. Actual error wrappers/catalog ID ingress pending.",
+      "remedy": "Use canonical item identifier and typed quantity-limit error through actual callers; human text at actual boundary.",
+      "acceptance": "Read concrete reducer/escrow/item catalog callers and typed error owner.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actual encounter retry producers/admission/storage/all callers; road catalog ID schema/validation and NarrativeSelection recipients; native StreamId/Seed and native Serde implementations.",
+    "Actual RepairService parse/as_str boundary callers, durability limit error consumers and escrow item ID canonical producer/recipient.",
+    "Earlier disease evidence/site/exposure and error production callers remain pending; DiseaseId/entropy child scope now independently inventoried, no blanket closure.",
+    "Mandatory independent REG132/134-136 new-material queue remains pending; P16 catalog delimiter exclusion applies only proven validated P16 ingress, PR/direct ingress separate."
+  ],
+  "qualifications": [
+    "All seven exact prospective scopes independently consumed including existing tests; no search/hash/EOF-only clearance.",
+    "Frozen requested source only, no current/runtime/native/global/other-lens/unique promotion; no BC constraints or project/test/native execution. All20/P16/P17/F9/M09/aliases retained."
+  ],
+  "proposed_count": {
+    "before": 913,
+    "after": 920,
+    "indices_completed": [
+      913,
+      914,
+      915,
+      916,
+      917,
+      918,
+      919
+    ],
+    "next_original": 920,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/disease/entropy.rs",
+      "sha256": "10eb46750c66da9cd03f116270ab91b4a1acad817e28333ac2fca342773e3bd8",
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/disease/identity.rs",
+      "sha256": "bbf3c7a20b95f217815f48c7e830dc75efab9ecf9d7e52a79fd4ad86324388af",
+      "ranges": [
+        [
+          1,
+          132
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/durability.rs",
+      "sha256": "7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
+      "ranges": [
+        [
+          1,
+          454
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/elapsed.rs",
+      "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "ranges": [
+        [
+          1,
+          131
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/encounter.rs",
+      "sha256": "aad69b12c6ade6caa59828876caede30c0a0fe2577b11fdd91f84594d2471dd5",
+      "ranges": [
+        [
+          1,
+          1019
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/encounter/choice.rs",
+      "sha256": "3a327aeb8ec9f72d67960b0cdc94f7ece677c4a963d5ce8e1db7af3fd8025206",
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/encounter/receipt.rs",
+      "sha256": "79edfeebdc4b5bdd4dfd8272b5b15981bf986c1acdcc4bca4b92d3fe3022b1b1",
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ]
+    }
+  ],
+  "unique_count_delta": 0
+}

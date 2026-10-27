@@ -1,0 +1,22 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-147",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 762,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/drape_preview.rs",
+      "sha256": "c6e605a97a1a017db71939375f50395488a049834eebd77c4a09ee1058360077",
+      "ranges": [
+        [
+          1,
+          312
+        ]
+      ],
+      "assessment": "Full312 actual source read in two windows after hash match. DrapeWorker carries InventoryItemId but ready outcome keeps only garment vector; preview associates garments by zip with worker.draping IDs, requiring actual worker prefix/order contract, not inferred from bare Vec. DrapeJob ready/running flags reflect stages but model-state sum ownership remains qualified Q009. Native mesh attributes/image sRGB Boolean/material handles are real Bevy ports; internal weave/material cache and PBR triples remain semantic collection/record Q008. Private cache starts empty and removes at bound4 before push, proving its length invariant. Ordinary missing-skin preview is explicitly optional; no automatic compatibility fallback claim. No current-main/runtime/artistic/physical/global clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

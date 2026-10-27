@@ -1,0 +1,136 @@
+{
+  "id": "M04-comment-review-body-009",
+  "created_utc": "2026-10-27T06:09:16.258777+00:00",
+  "review_type": "Focused final contributor body evidence/counts/limits/readability Comment Review",
+  "skill": "/home/brunosegovia/.codex/skills/comment-review/SKILL.md",
+  "head": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+  "base": "35b18ec280a6884bb53996a2d859c4b27096f65c",
+  "body": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/pr-body-009.md",
+    "sha256": "6351cc05cfe82454de9f9fb9607c27bc3c30295202dc6606770529e49a04a490"
+  },
+  "actual_read_ranges": [
+    [
+      1,
+      30
+    ]
+  ],
+  "prospective_registration": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/comment-review-body-009-registration.json",
+    "sha256": "872879c84619439324f05673221b1f2d3847b07429d58334f11ca25e121c9033"
+  },
+  "exact_source_authority": {
+    "manifest": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/implementation-manifest-003.json",
+      "sha256": "1f13cba776d0819a38a88e28b5bc6c3255565ea4544bf0fff89ad0831798d01f"
+    },
+    "own_comment_review": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/comment-review-003.json",
+      "sha256": "f8c8609063e369a1bf7f377bcbf09e008806ac341d0c57b47af800c789644fb5"
+    },
+    "own_accepted_wording": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/comment-review-body-007.json",
+      "sha256": "cbfdc5ea8a3a0c3262394d38d916a7f47f982caa9b400e4ddabc5790e62907dc"
+    },
+    "qualification": "Same8file df5source per root; no newsource expansion/rereview. Body009 outsideValidation is exact whitespace-normalized word-token identity to acceptedbody007."
+  },
+  "reviewed_evidence": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/hosted-final-acceptance-001.json",
+      "sha256": "2a3d73719b27ae40cef12ba8427a1d9cd7a52cfecfeaddbeee4a84b1e457c062"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/rig-raw-acceptance-001.json",
+      "sha256": "f0ab907c7f316cb1bfa2d31bb49c51549267ff3303b420c7acf54a1cacea6f51"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/hosted-partial-acceptance-001.json",
+      "sha256": "ca54a72dbb42c66413b3595a33664468d16a7866f0ecb8b108f8dae29e0494b6"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/constraint-raw-acceptance-001.json",
+      "sha256": "e5a5986b3b9efd15f3bb972c98c7be8160e8885ed79b418152e9942a3086a511"
+    }
+  ],
+  "evidence_checks": [
+    {
+      "body_lines": [
+        14,
+        17
+      ],
+      "claim": "Hostedchecks passed atdf5f37a onLinux andWindows;49required+3additionalgroups allpositive/0failed.",
+      "support": "Finalacceptance exactfullhead/run40452560923 success;rust-quality andfoliage-portability success, fixture-regeneration skipped asopt-in. Rigreceipt raw_groups has52entries, subtract3explicit extras =49required. Independently summing receiptdata givesrequired1465passed/0failed/14ignored;extras106passed/0failed/0ignored. No claim fixture-regeneration ran."
+    },
+    {
+      "body_lines": [
+        17,
+        17
+      ],
+      "claim": "All4existingmovement-speedtests and98sharedanimationtests executed.",
+      "support": "Rigreceipt tactical-core-movement-speed=4/0/0 withall4actualtestnames matchingown001testsourceinventory; tactical-core-animation=98/0/0. Distinctclient animation=260/0/0, whichbodydoesnotmislabel ascore/shared. Initialparserassertionhistorical260correction isdocumented inrawreceipt, noextraCIrerun/successclaim."
+    },
+    {
+      "body_lines": [
+        19,
+        20
+      ],
+      "claim": "14existingterraincases ignoredforfixture/export/benchmarkrequirements.",
+      "support": "Rawreceipt namedignored counts:grounding3,presentation7,viewer1,artdemo2,dispatcher1, total14. All14names/reasonslisted andconsistent withprose; no blanketalltests-passed orzeroignored claim."
+    },
+    {
+      "body_lines": [
+        20,
+        21
+      ],
+      "claim": "GPU,constraint andWindowsportabilitychecks passed.",
+      "support": "Exactdf5partialartifactreceipt:GPU13library+2doc+1borrowedrepeat, all0failed/ignored;Windows rawgroups1+1+5+1+2=10passed,0failed/ignored. Constraintreceipt40shell+27xpbd=67unit,5xpbd-doc,0shell-doc,all0failed/ignored. Finalterminalsuccessreceipt supersedesremaining-jobpendingstate inearlierpartialreceipts."
+    },
+    {
+      "body_lines": [
+        21,
+        22
+      ],
+      "claim": "No tests/cases/helpers/assertions/doctests added; relevantbaselineentriesunchanged.",
+      "support": "Ownexact8filecommentreview003/fullsource003diff supportsnoaddedtests; workflow onlyselectsexistingcases. Rigbaseline relevant8paths files/functions/findings compareequal; wholecommitted/exported hashesdiffer explicitly. Bodycorrectly limitsclaimtoRelevantentries."
+    },
+    {
+      "body_lines": [
+        1,
+        10,
+        26,
+        30
+      ],
+      "claim": "FinalcanonicalUnitInterval/producers/errorconversion/buildsource explanation.",
+      "support": "Same words/punctuation asacceptedbody007 outsideValidation, supportedbyown001/002/003 exactsourceproof. Buildtargetcanonicalmodule/derive inclusionretained. No backwardscompat rationale, oldlayoutpromise, agenthistory or globalclearance."
+    },
+    {
+      "body_lines": [
+        1,
+        30
+      ],
+      "claim": "Readablewrappedprose withpreservedlink.",
+      "support": "Allproselines<=80; onlyline14 at97columns isonecompleteMarkdownHostedcheckslink, retainedundertheexplicitlinkpreservationexception. low-endurance remainsoneword; no brokencompound or issue-contentassumption."
+    }
+  ],
+  "findings": [],
+  "verdict": "Accepted: no actionable source-accuracy,count,limit,readabilityorwrappingissue inbody009. Suitableforroot-ownedfinalvalidationpublication/readytransition; thisreviewdoesnotauthorize merge or publishanything itself.",
+  "limits": [
+    "Evidence-receipt cross-check and arithmetic only; no newrawZIP/logreparse,remotequery,sourceexpansion,project/build/test/lint/helper/native execution.",
+    "Rootfinalexactheadterminalreceipt suppliesremotejobstatus; earlierpartialreceiptpendingwording ishistoricalanddoesnotcontradictfinalsuccess.",
+    "No source/product/Git/rootledger edits, newtests/publication/messages.",
+    "Related#780/#726 content notassumedfromlink; no publicconversationsnapshotavailable/created/sharedhere.",
+    "All20/F9/inheritedaudit/otherlens obligations remainincomplete/qualified; no globalclearance."
+  ],
+  "interrupted_lens12_preserved": {
+    "receipt": {
+      "path": "target/recovery-20261025/continuation-segovb/audit12-successor-038-original58-partial-001.json",
+      "sha256": "e594756816c457525a212210e4ab9e6c0c44e2de996c077a76157728d32a583b"
+    },
+    "proposed_state": {
+      "path": "target/recovery-20261025/continuation-segovb/audit12-successor-038-proposed-state-001.json",
+      "sha256": "ac11b1168b47557a65dbc11b18f246356ad09f105b6354d241c6f32120cc670a"
+    },
+    "status": "Full866primaryinventory,58stillpartialatmaterialrecipients;no59ordered/countadvance. No furtherauditworkperformed."
+  },
+  "stop": true
+}

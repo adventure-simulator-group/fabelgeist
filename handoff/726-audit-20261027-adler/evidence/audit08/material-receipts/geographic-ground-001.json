@@ -1,0 +1,20 @@
+{
+  "id": "ADLER-CONT08-M183-001",
+  "lens": "08 behavior-preservation",
+  "material_index": 183,
+  "registry": "shared-material-successor/source-extensions-185.json",
+  "registration": "shared-material-successor/registration-010.json",
+  "source_id": "frozen-native-support:crates/adventuresim-tactical-client/src/presentation/vista/geographic_ground.rs",
+  "sha256": "36fbbccfd07c690a076b96d31d91f0a27008633fbd0b0b7f2e99566acde4c840",
+  "ranges": [
+    [
+      1,
+      36
+    ]
+  ],
+  "base_head_raw_bytes_equal": true,
+  "chronology": "Exact Git hash and declaration navigation before prospective registration010; complete bounded bodies read only after shared registration.",
+  "analysis": "Actual unchanged36-line reflection owner checks/adds consecutive u32 indices only when absent, inverts existing winding and negates tangent.w where present. It keeps authored position/normal/material arrays. Both IndexCapacity and underlying MeshWindingInvertError causes are unchanged; new1665 Arc cache stores/clones this same cause without changing reflection order, retry policy or per-owner upload success.",
+  "findings": [],
+  "qualification": "Own08 material only, no original2853 increment, other-lens credit, local checks or runtime/native acceptance."
+}

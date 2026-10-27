@@ -1,0 +1,279 @@
+{
+  "at": "2026-10-27T01:16:11.772575+00:00",
+  "lens": "13 magic-numbers",
+  "packet": "019",
+  "status": "Original37 full source independently inventoried; concrete previous/history consumer frontier leaves37 partial. Stop before38 independent assessment;35/2853 count unchanged.",
+  "authority": {
+    "frozen_original_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "native_git_commit": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+    "original_registry": "target/recovery-20261025/audit05/original-scope-072.json",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "prior_root_adopted_state": "audit13-successor-018-suggested-state.json",
+    "prior_sha256": "a36d9799cca7aa33fa6b9e6eb8fddd70c406ad54f4463ab608736975c6d0e37a",
+    "root_adoption_required": true
+  },
+  "registration_files": [
+    {
+      "path": "audit13-successor-registration-019.json",
+      "sha256": "df5db61954a317366848da1bb939c274a4904dda619e9eb0bb3d322252e7741c",
+      "before_actual_reads": true
+    },
+    {
+      "path": "audit13-successor-registration-019-receivers-001.json",
+      "sha256": "7a369fcbd487b531f4343bd200f31ddcceb1fe11e34ddaa8be4a78107f2418a0",
+      "before_actual_reads": true
+    }
+  ],
+  "source_fingerprints": [
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/types.wgsl",
+      "sha256": "9bd27e4a4bb61b319e4ee13ae7e1407be2fdd432471ef6e9aede72e206321d90",
+      "bytes": 332,
+      "actual_lines": 15,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "role": 37,
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/components.rs",
+      "sha256": "e2053ee2dbf1a837b1a4e80d2d2afa22c0ecc2231bf586041222082971b9cbea",
+      "bytes": 5033,
+      "actual_lines": 193,
+      "registered_and_consumed_ranges": [
+        [
+          129,
+          148
+        ]
+      ],
+      "role": "receiver-only",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/mod.rs",
+      "sha256": "7b8be56d6f6ea9285176e55efb88de7bcb8a15df4cdca7619d3038a92de56092",
+      "bytes": 10975,
+      "actual_lines": 340,
+      "registered_and_consumed_ranges": [
+        [
+          118,
+          225
+        ]
+      ],
+      "role": "receiver-only",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/batcher.rs",
+      "sha256": "2d86931db56a5e517f84b400fb9e5a15968d553b5e543da880d12d6193920b84",
+      "bytes": 3927,
+      "actual_lines": 118,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "role": "receiver-only",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/bindings.wgsl",
+      "sha256": "8fdf638edbf13ddc04a1a8392f3b873ec730f86f085522de471108c623ac129b",
+      "bytes": 275,
+      "actual_lines": 6,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          6
+        ]
+      ],
+      "role": "receiver-only",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/compute.wgsl",
+      "sha256": "246690e6a0c32e6055ac10b318925eb4eeff64b41f025d345a3f84cd839608e2",
+      "bytes": 1775,
+      "actual_lines": 55,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "role": "receiver-only",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/mesh.wgsl",
+      "sha256": "bb8dc8d197bfd558464608bb447dc4224e67c0488e695270f44e1656c9c8fa70",
+      "bytes": 1494,
+      "actual_lines": 60,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "role": "receiver-only",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/shading.wgsl",
+      "sha256": "965586e6cee62b7fe7623cafbd9a173ce271c14cd982466b73eb69a718dca6e9",
+      "bytes": 531,
+      "actual_lines": 21,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "role": "receiver-only",
+      "post_read_hash_verified": true
+    }
+  ],
+  "consumption": {
+    "files": 8,
+    "lines": 403,
+    "post_read_hash_verified": true,
+    "registered_ranges_consumed_in_bounded_output": true,
+    "unregistered_body_reads": false
+  },
+  "original37": {
+    "source": "src/render/types.wgsl",
+    "effective_registered_scope": [
+      [
+        1,
+        15
+      ]
+    ],
+    "inventory": [
+      {
+        "lines": "3-5",
+        "field": "MaterialUniforms.debug_color",
+        "raw_type": "vec4<f32>",
+        "role": "GPU material debug color transport",
+        "actual_trace": "Bindings group3 binding0 uniform MaterialUniforms ->default fragment MATERIAL_DEBUG branch reads material.debug_color. Actual hostproducer/upload and activeconditional configuration are not established.",
+        "disposition": "Concrete read edge observed, producer/admission/activebranch frontier retained; not blanket native roleclearance."
+      },
+      {
+        "lines": "7-14 color",
+        "field": "InstanceUniforms.color",
+        "raw_type": "vec4<f32>",
+        "role": "Perbatch linear color transport",
+        "actual_trace": "Rust InstanceUniforms.color LinearRgba <-InstanceMaterialData.color; BatchInput.batch ->BatchData.uniform ->BatchBuffer.update ->render group2/binding0 instance_uniforms[batchid]; fragment returnsbatch.color.",
+        "limits": "Rust typedowner/nativeGPUfloatrecipient identified; actualcomponent/RustShaderType/encoding/upload internals andallfirstpartycolorproducers notnewlyconsumed."
+      },
+      {
+        "lines": "9",
+        "field": "visibility_range",
+        "raw_type": "vec4<f32>",
+        "role": "Four visibility endpoints transported as GPU tuple",
+        "actual_trace": "Rust From copies InstanceMaterialData.visibility_range; collect retains thenbatcher stores. Cullcompute uses x/w as near/far distance boundaries; defaultvertex conditionally passes fulltuple plus finalmatrix translation to get_visibility_range_dither_level.",
+        "limits": "Actual ditherhelper body not newlyconsumed here; previous sourceaccess not independent38credit. Fullordering/nonzero fade widths/finite inputs/customshader/appsemantics remain unproved."
+      },
+      {
+        "lines": "10",
+        "field": "world_from_local",
+        "raw_type": "mat4x4<f32>",
+        "role": "Current affine transform GPU transport",
+        "actual_trace": "collect_inputs fills gtf.to_matrix(); defaultvertex passes currentmatrix to calc_instance_world_matrix, then uses result forworld/clippositions andoptional normals/tangents; cullcompute multiplies instance localcenter vec4(...,1) toworld position beforedistance comparison.",
+        "limits": "Actual helper/Bevy transform ownership/units/normal inverse-transpose correctness/hostlayout/currentcaller validity not certified."
+      },
+      {
+        "lines": "11",
+        "field": "previous_world_from_local",
+        "raw_type": "mat4x4<f32>",
+        "role": "Declared historical transform transport",
+        "actual_trace": "Rust producer fills same gtf.to_matrix() as currentmatrix, copies throughBatchInput andBatchData.uniform into buffer update. No read in consumed mesh/cull/fragment bodies.",
+        "disposition": "Concretepartial: actual selected consumer or justified absence/historycontract unresolved. Prior31history gap retained, not a new unique finding. No universalunused or renderingbug claim frombounded readers."
+      },
+      {
+        "lines": "12-13",
+        "field": "aabb_center/aabb_half_extents",
+        "raw_type": "vec4<f32> each",
+        "role": "World AABB center/halfextent with sparew transport lanes",
+        "actual_trace": "collect transforms center andsumsabsolute transformed peraxis extentvectors; fallbackcenter ZERO/extents f32MAX; extends eachxyz with0. Cullcompute reads xyz and usescamera planes: dot(plane.xyz,center)+plane.w anddot(abs(plane.xyz),extents),rejectdist<-radius.",
+        "limits": "Concrete nativefrustum operation/zero padding observed; fallbackfinitearithmetic,allAABB admissions/overflow/plane/coordinate guarantees notcertified."
+      }
+    ],
+    "primitive_literal_inventory": "Original37 declares onlyf32 vector/matrix types andtheirshape widths4/4x4; no numeric values/defaults/arithmetic/control predicates in own15lines. These widths are concrete WGSL transportshapes with actual Rust/native carriers/receiving operations recorded above, not automatic applicationsemantic units guarantees.",
+    "producer_retained_operation_receiver": [
+      "Rust typedLinearRgba/rawVec4/Mat4 ->InstanceUniforms ->BatchInput.batch ->BatchData.uniform ->BatchBuffer.update; existing deeperBatchBuffer encoding/device recipient contract retained from011 andnotfreshrestarted here.",
+      "Render group2binding0 storagearray andgroup3binding0 uniform ->shader batch index ->color/currentworld/AABB/visibilityoperations asabove.",
+      "previous_world_from_local anddebug_color producer/activeuse remain concrete partial paths; no justifiedallmaterial unused guarantee."
+    ],
+    "disposition": "partial",
+    "concrete_partial_frontier": [
+      "Actual previous_world_from_local shader/selectedconsumer andhistorical transform contract; upstreamactualInstanceHistory versuscurrent producer relationship remains unproved.",
+      "Actual MaterialUniforms hostproducer/upload andMATERIAL_DEBUG activebranch/compilation path unresolved. Fragmentconditional reads debug_color into undeclared final_color in bounded source; this was retained015 contextual observation, not a new activefeature defect or unique count."
+    ],
+    "not_claimed": "No allshader/custommaterial consumer absence, runtime GPU validation, hostABI derivation correctness, allfirstparty matrix/frame/range admissions or operationalhistory guarantee."
+  },
+  "receiver_inventory": [
+    {
+      "source": "components.rs129-148 +prepare/mod.rs118-225",
+      "operations": "Rawfinite sentinel f32MAX fallback,defaultAABB ZERO,booleanGPUcull/empty/dirty checks,Arc pointeridentity andhash,transformaxis vectors/absolute AABBsum,current/previousmatrix assignment,extend0 padding.",
+      "qualification": "ExistingF2/cache/currentness obligations preserved; unchangedArc/materialkey cache decisions do notestablish fieldcoherence for allmutations. No independentoriginal31completion."
+    },
+    {
+      "source": "batcher.rs1-118",
+      "operations": "watermark usizecapacity; lookupoptionalmesh offsets/default0; indexbase as i32; GPUcull draws0else lenasu32;wasmfirstinstance0/nativeoffset;uniformcopy; endoffset+lenasu32;rangebatch..batch+1 andlookupindex narrowing.",
+      "qualification": "Actualretainedbatchuniform path observed; count/offset/sentinel bounds andnative platformoperation requirements retainprevious qualifications, not new budgetproof."
+    },
+    {
+      "source": "compute.wgsl1-55",
+      "operations": "64workgroups/65535rowflatten; source/indirectlength guards; FFFFFFFF sentinel;6frustumplanes;xyzAABBdot/radius;worldhomogeneousw1;distancex/w endpoints;atomicAdd1;offset+appendindexoutput.",
+      "qualification": "Actual fieldsreceiving operations visible; equalrelatedbufferlengths/outputcapacity/atomicbudget/planevalidity unproved here. Prior034sourceaccounting/limitations retained."
+    },
+    {
+      "source": "mesh.wgsl1-60 +shading.wgsl1-21 +bindings.wgsl1-6",
+      "operations": "Group2storage/group3uniform;batchindex;currentmatrix/vertex positionhomogeneous1,normal/tangenthomogeneous0 andfallbackaxisvectors;conditionalUV/dither;frontfacingbool unused;batchcolorreturn andconditionaldebugcolorread.",
+      "qualification": "IO36conditional/local_pos gaps retained. No shadercompile/activefeature/currentmaterial/normaltransform guarantees fromsource alone."
+    }
+  ],
+  "accounting": {
+    "before_original_accounted": 35,
+    "after_proposed_original_accounted": 35,
+    "original_total": 2853,
+    "new_original_roles_inspected": [
+      37
+    ],
+    "new_original_roles_completed": [],
+    "partial_original_indices": [
+      31,
+      36,
+      37
+    ],
+    "earliest_unfinished_original": 31,
+    "first_unread_original": 38,
+    "original38_ordered_credit": 0,
+    "original39_access_credit": 0,
+    "overlays_increment": 0,
+    "merged_increment": 0,
+    "material_increment": 0,
+    "other_lens_credit": 0,
+    "new_unique_count": 0
+  },
+  "other_lens_extension_queue": {
+    "path": "audit13-successor-019-other-lens-extension-queue.json",
+    "sha256": "573245917d32cd7f295f7672e6a6507ba763b9f1cdb2e93235f8f34882e9f638",
+    "credit": 0
+  },
+  "retained018": "Admittedlargercandidate lattice/no sufficienthardarea cap isnot an actualspecieslen>1M witness. No runtimepanic/overflow/actualbudgetfailure claim; allremaining018validators/population/currentnessfrontiers intact.",
+  "qualifications": [
+    "Original37 full effective owner range1-15/332bytes independently inventoried after prospective registration and before disposition. Earlier011/015 receiver access was not ordered original37 credit. No shrinking variants or unseen tails. Original38 only registry/hash/location metadata inspected in019; its actual body not consumed or independently inventoried here, and earlierreceiver access remains non-credit.",
+    "Eight exact immutable objects/403 registered lines consumed in bounded output and hash verified before/after. Original37 known f82 registrySHA and native supplementary exact1a5aff staging provenance from011/012/015/016 retained. No unseen frozen peer/currentmain identity or wholeSDK source claim.",
+    "Original37 is partial because actual previous_world_from_local consumer/history semantics remain unresolved anddebug-color native producer/activeconditional receipt notestablished. Native ABI spelling alone is not a primitive-role exemption. Original31/36 partials and018 larger-lattice-only qualification retained exactly; no actualspeciesbudgetfailure inferred.",
+    "Source-backed currentmatrix/AABB/color operations do not prove all firstparty units/frames/visibility ordering/fade widths/finite values, historycorrectness, compiler/hostShaderType layout, device buffer capacity/coherence, runtime selectedshader orallcustommaterial consumers. Those unseen contracts are not source-accounted.",
+    "All previous native ID/reset/count/history/bufferboundary observations and wider F1/F2/F6/F9/global20 findings remain non-counted/open pending root dedup/currentness/firstparty reachability; no unique finding alias/count invented. No other-lens verdict transfer, sharedmaterial/overlay/merged credit or scope closure.",
+    "No project/source/Git/rootledger/historical changes, checks/build/lint/scan/generate/probe/tests/assertions/helpers/doctests or publication. Only ignored registration/receipt/queue/proposedstate authored. No old layout/API/backwardcompatibility condition or wholeSDK/lens13/global audit clearance."
+  ],
+  "stop_reason": "First concretepartial atoriginal37 previous/history recipient, withadditionaldebugproducerfrontier; stopbefore38independentinventory andbefore39. No furthernativegraph expansion."
+}

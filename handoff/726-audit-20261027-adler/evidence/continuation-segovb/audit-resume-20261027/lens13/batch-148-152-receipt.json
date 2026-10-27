@@ -1,0 +1,338 @@
+{
+  "lens": 13,
+  "status": "scoped source-accounted WITH qualified observations; continuing",
+  "registrations": [
+    {
+      "path": "audit-resume-20261027/lens13/batch-148-registration.json",
+      "sha256": "e6c67fc1138f55bf8f3565ca8c3948a2bf90c263e3239262d7fc18689b08c13b"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-149-registration.json",
+      "sha256": "f9137f8d76d42769f9537984edc76e02d2cd31b204c9606e0fa64cbbc7651526"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-150-registration.json",
+      "sha256": "9fe7465ea48dcc0840e6e359b31cfd4e12b5355881513b7facd0967bbe5e6bc2"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-151-registration.json",
+      "sha256": "e33d931e9adf03b0627cac8780874e2e27ef00199eb448b69d7127853f4aa976"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-152-registration.json",
+      "sha256": "b02a3c8e243edb6d8cc11a647f5ace0fea48a29f5f447c828c284c313be8ae6f"
+    }
+  ],
+  "source_access_qualification": {
+    "path": "audit-resume-20261027/lens13/batch-148-source-access-qualification-001.json",
+    "sha256": "743847fcde65df3d52f34b1ef290c5d2beaa0c98e518e16d25445311bd380095"
+  },
+  "original_indices": [
+    238,
+    239,
+    240,
+    241
+  ],
+  "actual_source_reads": [
+    {
+      "original": 238,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/mod.rs",
+      "sha256": "e256eb33fd8ea25a8ef2d424cb1638ec08da0f6177bd5d6562cde1212a4b5b49",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/e256eb33fd8ea25a8ef2d424cb1638ec08da0f6177bd5d6562cde1212a4b5b49",
+      "eof": 217,
+      "requested_range_variants": [
+        [
+          1,
+          217
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "provenance": "Exact f82 registered physical original; all effective range variants; prior receiver reads reused only access not ordered verdict.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          217
+        ]
+      ]
+    },
+    {
+      "original": 239,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/model.rs",
+      "sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+      "eof": 496,
+      "requested_range_variants": [
+        [
+          250,
+          440
+        ]
+      ],
+      "ranges": [
+        [
+          250,
+          440
+        ]
+      ],
+      "provenance": "Exact f82 registered physical original; all effective range variants; prior receiver reads reused only access not ordered verdict.",
+      "actual_consumed_ranges": [
+        [
+          250,
+          440
+        ]
+      ]
+    },
+    {
+      "original": 240,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/newborn_residence.rs",
+      "sha256": "4057e287f3a5f3e79a9925db6a3b0769662f356fc27a8a8f9ea82a4db3b4affc",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/4057e287f3a5f3e79a9925db6a3b0769662f356fc27a8a8f9ea82a4db3b4affc",
+      "eof": 21,
+      "requested_range_variants": [
+        [
+          1,
+          21
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "provenance": "Exact f82 registered physical original; all effective range variants; prior receiver reads reused only access not ordered verdict.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          21
+        ]
+      ]
+    },
+    {
+      "original": 241,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/reproduction.rs",
+      "sha256": "7aa120228b9e756e8b9b4525e97db4cc17c4515639a1e26621919d57d8712122",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/7aa120228b9e756e8b9b4525e97db4cc17c4515639a1e26621919d57d8712122",
+      "eof": 690,
+      "requested_range_variants": [
+        [
+          1,
+          690
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          690
+        ]
+      ],
+      "provenance": "Exact f82 registered physical original; all effective range variants; prior receiver reads reused only access not ordered verdict.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          690
+        ]
+      ]
+    },
+    {
+      "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+      "ranges": [
+        [
+          630,
+          705
+        ]
+      ],
+      "role": "Re-read actual own core91 previously full1-1153, conception conserved remainder/trial ordinal native numeric receiver",
+      "actual_consumed_ranges": [
+        [
+          630,
+          705
+        ]
+      ]
+    },
+    {
+      "sha256": "1c346cbf22b4b7ad34cdd6b515b08d015c43e6489f953aa3a75ea40d8e3c675c",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/1c346cbf22b4b7ad34cdd6b515b08d015c43e6489f953aa3a75ea40d8e3c675c",
+      "ranges": [
+        [
+          2176,
+          2230
+        ],
+        [
+          2446,
+          2480
+        ]
+      ],
+      "role": "Re-read actual own178 full1-3987 initial newborn time receiver; no new original credit",
+      "actual_consumed_ranges": [
+        [
+          2176,
+          2230
+        ],
+        [
+          2446,
+          2480
+        ]
+      ]
+    },
+    {
+      "sha256": "bb3280e79254b6cd420b8bb89720f0d32475c78005b1b8b56d01756a186c0e24",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/bb3280e79254b6cd420b8bb89720f0d32475c78005b1b8b56d01756a186c0e24",
+      "ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "provenance": "Reconstructed unchanged physicala120 via pinnedmanifest534be path absent from physical changed/status. Exact Gitbytes, no current substitution. Material actual courtship day/skill/probability retained recipients; no original/sharedcredit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          169
+        ]
+      ]
+    },
+    {
+      "sha256": "181a2ef44cc12c8b3d6393ed41ebe9a8e616923413382af26ffe28b090789d41",
+      "ranges": [
+        [
+          76,
+          109
+        ]
+      ],
+      "provenance": "Exact f82 original248 native parent-home recipient only; zero orderedcredit.",
+      "actual_consumed_ranges": [
+        [
+          76,
+          109
+        ]
+      ]
+    },
+    {
+      "sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+      "ranges": [
+        [
+          201,
+          249
+        ]
+      ],
+      "provenance": "Exact f82 model239 material schema predecessor; originalrequested250-440 preserved. Earlier1-200 was output before prospective registration, disclosed separately, not retroactive.",
+      "actual_consumed_ranges": [
+        [
+          201,
+          249
+        ]
+      ]
+    },
+    {
+      "sha256": "3f03d0db1b9cf1860a021496c4a4442a607e0dc03f6eaa309ca7318e965e323c",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/3f03d0db1b9cf1860a021496c4a4442a607e0dc03f6eaa309ca7318e965e323c",
+      "ranges": [
+        [
+          155,
+          282
+        ]
+      ],
+      "role": "Same exact unchanged physical courtship source137 actual weaker-deception/observer-baseline producer for239; not full685 credit",
+      "actual_consumed_ranges": [
+        [
+          155,
+          282
+        ]
+      ]
+    },
+    {
+      "sha256": "181a2ef44cc12c8b3d6393ed41ebe9a8e616923413382af26ffe28b090789d41",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/181a2ef44cc12c8b3d6393ed41ebe9a8e616923413382af26ffe28b090789d41",
+      "ranges": [
+        [
+          44,
+          75
+        ]
+      ],
+      "role": "Exact f82 future original248 actual admit receiver after parenthome; no ordered credit",
+      "actual_consumed_ranges": [
+        [
+          44,
+          75
+        ]
+      ]
+    },
+    {
+      "status": "prospective",
+      "sha256": "80864f0168cb8abf7dcd17c08ea7405e6124f2968ad6eb83dbca7e0a5aab4e26",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/80864f0168cb8abf7dcd17c08ea7405e6124f2968ad6eb83dbca7e0a5aab4e26",
+      "ranges": [
+        [
+          265,
+          312
+        ]
+      ],
+      "role": "Exact frozen original249 room admission recipient reached240; bounded capacity check; zero futureoriginalcredit.",
+      "actual_consumed_ranges": [
+        [
+          265,
+          312
+        ]
+      ]
+    },
+    {
+      "sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+      "actual_consumed_ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "chronology": "Actually output BEFORE prospective supplemental range registration; exact SHA already pinned148. Explicit access qualification148 retained; material schema dependency only, no original scope expansion/extra credit."
+    }
+  ],
+  "numeric_inventory_and_actual_trace": [
+    {
+      "original": 238,
+      "scope": "Full217 independently inventory after prior receiver137 access; fresh bounded reread148.",
+      "inventory": "Actual caller-limitusize and returned count native cardinalities, typed due minutes; raw participant/mother nativeIDs remain event payloads. Full eligible due list collected/sorted by actual237stablekey; processablefilter then truncate(limit) beforedispatch. Stable sort covers observed event keys, not a bound on collection/sort memory. Typed wedding and birth handling/quarantine/failure recipients actually237/241, narrow actual preservedsource limits. cfg(test) modulelist/concat source is compile/source-text fixture boundary, no numbers/new tests/execution."
+    },
+    {
+      "original": 239,
+      "scope": "Effective250-440 of496 only; predecessors201-249 prospectivelyread150, schema1-200 outputbefore supplementalregistration explicitly disclosed. No441-496/whole496 claim.",
+      "inventory": "Raw f32 weaker-deception/observer-insight skillderived baselines; u64 next_discovery_day/day and native IDs; Bool succeeded receipt; u64 pregnancy/trialordinal and reservedchildidentity; typed child seeds/sex/home, typedchronologies/status, OptionbirthID/resolvedtime. Raw u64 jointminutes and u8 conservedremainder, u64 nexttrial; u32 dowry amount/outcome enum and IDs. Representations are semantic owners/counters, not universally bareprimitive exemptions.",
+      "trace": "Actual unchanged courtship155-282 computes min sqrt(deceptionhours), finitefallback0, captures eligible sortedunique adultliving observer baseline sqrt(insighthours). Actual unchanged discovery1-169 uses captured baselines for .08 slope/.15 base probability clamp.02..85, StreamId unitf32entropy; fixed -8 affinity penalty clamps-100..100, anchored at observerpresenttime. Typed day_index bounds current_day<=u64MAX/1440, so its day+1 saturation cannot alone cause MAXu64 day-loopnonprogress on this actual receiver: arbitrary stored nextdayMAX is already>currentday andbreaks. Do not transfer generic MAXcounter concern here. Daily receipt keys prevent repeats; skill/probability/affinity bespoke owner opportunity remains, no actual malformed/native skill assertion. Pregnancy and leisure retained recipients241/149 source read; typed strategicstate parse owner prior154 exact ownproof reused, not wholeSDK."
+    },
+    {
+      "original": 240,
+      "scope": "Full21",
+      "inventory": "Raw childID/parentsfixed[u64;2], typed dueMinute, settlementID. Parentpair is semantic two-parentrole, not arbitrary2cardinality; caller241 passes actualmother/father.",
+      "trace": "Optional housing failure deliberately ignored after birth commit. Actual248 occupancy76-109 selects exact parental historical residence and calls admit; actual44-75 checks room before write, removes prior occupancy then recordsnew andrefreshes. Actual249265-312 gathers futurechange boundaries in bounded admissioninterval; sum widened u32 residentcounts to u64 and namedcardinality, compares named+aggregate>=capacity. Unboundednative row-cardinality sum/add is theoretical API concern, no feasibleordinaryoverflow/unboundedhousing claim. No false promise that every newborn obtainsbed. Other occupancy/history internals uncredited beyond selected actualrecipient, no future248/249orderedcredit."
+    },
+    {
+      "original": 241,
+      "scope": "Full690",
+      "inventory": "Raw parent/child IDs/countas u64 pregnancyordinal, wrapping successor ID probe, typedPregnancyOrdinal seedinput but retained rawordinal; 280day gestation and16adult core constants reusedactualcore91 fullsource; named eligibility predicates with canonical enums, raw leisurejointminutes/counter/trialentropy (mod10000 fitsu16), millis1000 moraleencoding, deceased/active typedminutes; native oneactivepregnancy per mother pointer.",
+      "trace": "Establish checks actual settlement and oneactivepointer, computes due via typed saturation, child seed/reservation probe avoids existingcharacters/pregnancyIDs but wraps primitiveword (nonzero/namespace not preserved by wrapper alone, no actualzero collision witness). Overlap double-loop computes typed LeisureInterval joint, skipszero, sorts, uses existingoverlapreceipt and canonical core quantumplan, writes returned conserved remainder/ordinal. Core91 actual previously1-1153 reused and630-705 reread149: carriedremainder%60, crossingoffset and ordinal saturations, state remainder<60; source finiteworkbudget for huge publicadditional elapsed not established, no OOM claim. Trialactual parents living/adult/married atinstant and no pregnancy coveringtrial before creation.",
+      "birth_trace": "Actual validateDueBirth checks parents/settlement/reservation and typedstate; per-mother selecteddue atmostone by pointer, actual motherfrontier>=due required. Newborn options flags intentionallyfalse/age0, typedinitialtime due, native character2176-2230/2446-2480 reread149 accepts reservednewborn and retains fullu64 due as clock while recordbirth stores signedbirth coordinate. Removes reservation after child initialization, writes parentkinship roles/household/newborn residence, marksBorn and removes activepointer iffidentitymatches. Exact native seed/naming/continuity schemas not globallycertified."
+    }
+  ],
+  "qualified_observations": [
+    {
+      "id": "OBS13-CONCEPTION-ORDINAL-SATURATION-RECEIVER",
+      "source": "core91:650-678 -> native241:250-335",
+      "observation": "State next_trial_ordinalMAX plus two crossed hourquanta produces duplicateordinalMAX trial entries and unchangedMAXnext. Native receiptID includes sameordinal, so after firstinsert latertrial is skipped, futureMAXreceipts skip. Actual defaultstarts0; reachingMAX in ordinaryplay not established. Public source-state/counter-closure policy concern, distinct from day_index receiver which is calendarbounded. No runtime/current/unique claim."
+    },
+    {
+      "id": "OBS13-NEWBORN-SIGNED-BIRTH-NARROWING",
+      "source": "native241:due calculation/recordbirth -> own178 character receiver -> calendar147",
+      "observation": "Due isu64 typedminute, nativebirthcoordinate is i64 clampedMAX, personalclock keepsactualdue. For mathematical due=i64MAX+MINUTES_PER_YEAR (validu64) and newbornage0, recordcoordinatei64MAX yields effective age1 atbirth while cachedinitialage0. Same saturation already happens inside insertCharacter before later insert-only recordbirth call. Source endpoint witness, no ordinaryclockreachability/actualnativebirth/runtimeclaim. Retain checked conversion or coherent coordinate policy as future acceptance requirement."
+    }
+  ],
+  "limits": [
+    "Source role inventory complete WITH qualified findings, not proof of all parent/home/generator/SDK/runtime/current limits. Required numeric callbacks actually traced; same-hash owncore91full/178full reuses explicit.",
+    "Explicit148 schema1-200 pre-range-registration access retained, never relabeled prospective. Registered requested250-440 consumedafter148; additional201-249after150. No extra original/shared/other-lens credit.",
+    "No product/Git/rootledger/projectchecks/probes/tests/newhelpers/assertions/doctests/publication. Acceptednewunique0/globalfalse; all remaining populations separate."
+  ]
+}

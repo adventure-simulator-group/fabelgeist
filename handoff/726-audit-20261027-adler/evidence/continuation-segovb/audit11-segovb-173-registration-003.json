@@ -1,0 +1,57 @@
+{
+  "purpose": "800 canonical native FieldHeader serialization/cellword counts and actual field-discriminator/read adapter; typed BodyField to native collision buffer and same-topology normals production",
+  "sources": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/gpu/collide.rs",
+      "sha256": "af851e973e6dd5ec0e0926e794e3765a70640e402fe32274dfade030971f541a",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/af851e973e6dd5ec0e0926e794e3765a70640e402fe32274dfade030971f541a",
+      "ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "registered_before_body_read": true,
+      "original_shared_count_credit": false
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/gpu/wgsl/common.rs",
+      "sha256": "ffd989fed5f4bc512ee53fc408db1d2ecb6bcd81464b5c3eecc8ce4e4eef71e0",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/ffd989fed5f4bc512ee53fc408db1d2ecb6bcd81464b5c3eecc8ce4e4eef71e0",
+      "ranges": [
+        [
+          209,
+          278
+        ]
+      ],
+      "registered_before_body_read": true,
+      "original_shared_count_credit": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/place/mod.rs",
+      "sha256": "4197c4d14aeac409495f9d91e21e2e69439a4a62bd9991804a5b8fe59ebaad8d",
+      "read_from": "crates/adventuresim-character-creator/src/hair/gpu/place/mod.rs",
+      "ranges": [
+        [
+          128,
+          204
+        ]
+      ],
+      "registered_before_body_read": true,
+      "original_shared_count_credit": false
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/surface.rs",
+      "sha256": "117cfab53d13fbb84de5149685248b1c6a0b6d5578fb8ffdb522d08af10ccd60",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/117cfab53d13fbb84de5149685248b1c6a0b6d5578fb8ffdb522d08af10ccd60",
+      "ranges": [
+        [
+          216,
+          228
+        ]
+      ],
+      "registered_before_body_read": true,
+      "original_shared_count_credit": false
+    }
+  ]
+}

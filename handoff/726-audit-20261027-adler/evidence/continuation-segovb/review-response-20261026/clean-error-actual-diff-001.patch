@@ -1,0 +1,325 @@
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs
+index 2dd8d6f74..b1159679d 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs
+@@ -41,9 +41,13 @@ impl Texture2d {
+ 
+         #[cfg(not(target_arch = "wasm32"))]
+         if let Some(error_scope) = error_scope {
+-            error_scope.finish().map_err(|cause| {
+-                TextureViewError::from_observation(format, TextureViewOperation::Texture2d, cause)
+-            })?;
++            error_scope
++                .finish()
++                .map_err(|cause| TextureViewError::Observation {
++                    requested: format,
++                    operation: TextureViewOperation::Texture2d,
++                    cause,
++                })?;
+         }
+ 
+         Ok(Arc::new(view))
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs
+index bc5547d6a..51df3b118 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs
+@@ -41,9 +41,13 @@ impl Texture3d {
+ 
+         #[cfg(not(target_arch = "wasm32"))]
+         if let Some(error_scope) = error_scope {
+-            error_scope.finish().map_err(|cause| {
+-                TextureViewError::from_observation(format, TextureViewOperation::Texture3d, cause)
+-            })?;
++            error_scope
++                .finish()
++                .map_err(|cause| TextureViewError::Observation {
++                    requested: format,
++                    operation: TextureViewOperation::Texture3d,
++                    cause,
++                })?;
+         }
+ 
+         Ok(Arc::new(view))
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs
+index 7b3c12180..2135a8630 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs
+@@ -42,9 +42,13 @@ impl TextureCube {
+ 
+         #[cfg(not(target_arch = "wasm32"))]
+         if let Some(error_scope) = error_scope {
+-            error_scope.finish().map_err(|cause| {
+-                TextureViewError::from_observation(format, TextureViewOperation::TextureCube, cause)
+-            })?;
++            error_scope
++                .finish()
++                .map_err(|cause| TextureViewError::Observation {
++                    requested: format,
++                    operation: TextureViewOperation::TextureCube,
++                    cause,
++                })?;
+         }
+ 
+         Ok(Arc::new(view))
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs b/crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs
+index 397141d2a..84d869135 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs
+@@ -1,10 +1,8 @@
+ //! Failures selecting a format view of an existing whole texture.
+ 
+ use super::TextureFormat;
+-use crate::globals::ValidationProgressError;
+-#[cfg(not(target_arch = "wasm32"))]
+ use crate::globals::ValidationScopeError;
+-use derive_more::Display;
++use derive_more::{Display, Error};
+ 
+ /// The concrete result of selecting a whole-texture format view.
+ ///
+@@ -12,7 +10,7 @@ use derive_more::Display;
+ /// the public producer itself retains this bespoke error type.
+ pub type TextureViewResult<T> = std::result::Result<T, TextureViewError>;
+ 
+-/// The view operation whose validation observation could not finish.
++/// The whole-texture format-view operation being observed.
+ #[derive(Clone, Copy, Debug)]
+ pub enum TextureViewOperation {
+     Texture2d,
+@@ -22,9 +20,9 @@ pub enum TextureViewOperation {
+ 
+ /// Missing texture resources and native whole-texture format-view failures.
+ ///
+-/// Native variants retain the original request, even when storage binding
++/// Observation failures retain the original request, even when storage binding
+ /// requires its linear counterpart at the WebGPU descriptor boundary.
+-#[derive(Debug, Display)]
++#[derive(Debug, Display, Error)]
+ pub enum TextureViewError {
+     /// The operation requires a native texture, but none is present.
+     #[display("Texture is not initialized")]
+@@ -32,72 +30,14 @@ pub enum TextureViewError {
+     /// The operation requires a cached view, but none is present.
+     #[display("Texture has no view")]
+     MissingView,
+-    /// Failed progress retains the request and any captured native rejection.
++    /// The request and the complete failure of its validation observation.
+     #[display(
+-        "WGPU {operation:?} view validation observation Error (requested {requested:?}): {cause}"
++        "WGPU {operation:?} view validation failed (requested {requested:?}): {cause}"
+     )]
+-    Progress {
+-        requested: TextureFormat,
+-        operation: TextureViewOperation,
+-        cause: Box<ValidationProgressError>,
+-    },
+-    /// Native rejection of a two-dimensional texture view.
+-    #[display("WGPU Texture2d view_with_format Error (requested {requested:?}): {cause}")]
+-    Texture2d {
+-        requested: TextureFormat,
+-        cause: Box<wgpu::Error>,
+-    },
+-    /// Native rejection of a three-dimensional texture view.
+-    #[display("WGPU Texture3d view_with_format Error (requested {requested:?}): {cause}")]
+-    Texture3d {
+-        requested: TextureFormat,
+-        cause: Box<wgpu::Error>,
+-    },
+-    /// Native rejection of a cube texture view.
+-    #[display("WGPU TextureCube view_with_format Error (requested {requested:?}): {cause}")]
+-    TextureCube {
+-        requested: TextureFormat,
+-        cause: Box<wgpu::Error>,
+-    },
+-}
+-
+-// Native-only admission preserves the original operation-specific SDK cause.
+-#[cfg(not(target_arch = "wasm32"))]
+-impl TextureViewError {
+-    pub(super) fn from_observation(
++    Observation {
+         requested: TextureFormat,
+         operation: TextureViewOperation,
++        #[error(source)]
+         cause: ValidationScopeError,
+-    ) -> Self {
+-        match cause {
+-            ValidationScopeError::Progress(cause) => Self::Progress {
+-                requested,
+-                operation,
+-                cause: Box::new(cause),
+-            },
+-            ValidationScopeError::Native(cause) => {
+-                let cause = Box::new(cause);
+-                match operation {
+-                    TextureViewOperation::Texture2d => Self::Texture2d { requested, cause },
+-                    TextureViewOperation::Texture3d => Self::Texture3d { requested, cause },
+-                    TextureViewOperation::TextureCube => Self::TextureCube { requested, cause },
+-                }
+-            }
+-        }
+-    }
+-}
+-
+-// Keep the concrete error behind each box as the dynamic source for downcasts.
+-// Deriving Error would expose the Box itself; the progress box also has a
+-// different concrete type from the three native-error boxes.
+-impl std::error::Error for TextureViewError {
+-    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+-        match self {
+-            Self::Texture2d { cause, .. }
+-            | Self::Texture3d { cause, .. }
+-            | Self::TextureCube { cause, .. } => Some(cause.as_ref()),
+-            Self::Progress { cause, .. } => Some(cause.as_ref()),
+-            Self::Uninitialized | Self::MissingView => None,
+-        }
+-    }
++    },
+ }
+diff --git a/crates/fabelgeist-gpu/src/globals/mod.rs b/crates/fabelgeist-gpu/src/globals/mod.rs
+index be4fa01d7..b1a35b1b8 100644
+--- a/crates/fabelgeist-gpu/src/globals/mod.rs
++++ b/crates/fabelgeist-gpu/src/globals/mod.rs
+@@ -1,7 +1,7 @@
+ pub use validation_observation::ValidationObservation;
+ #[cfg(not(target_arch = "wasm32"))]
+ pub use validation_scope::ValidationScope;
+-pub use validation_scope::{ValidationProgressError, ValidationScopeError, ValidationScopeResult};
++pub use validation_scope::{ValidationScopeError, ValidationScopeResult};
+ pub use wgpu_context::*;
+ 
+ mod validation_observation;
+diff --git a/crates/fabelgeist-gpu/src/globals/validation_scope.rs b/crates/fabelgeist-gpu/src/globals/validation_scope.rs
+index 6d91d0ba5..4f2329dd8 100644
+--- a/crates/fabelgeist-gpu/src/globals/validation_scope.rs
++++ b/crates/fabelgeist-gpu/src/globals/validation_scope.rs
+@@ -5,17 +5,9 @@ use super::WgpuContext;
+ use derive_more::{Display, Error};
+ #[cfg(not(target_arch = "wasm32"))]
+ use std::sync::Arc;
+-use std::{error::Error, fmt};
+ 
+ pub type ValidationScopeResult<T> = Result<T, ValidationScopeError>;
+ 
+-/// A failed wait and any native validation error captured by the same scope.
+-#[derive(Debug)]
+-pub struct ValidationProgressError {
+-    pub poll: wgpu::PollError,
+-    pub native: Option<wgpu::Error>,
+-}
+-
+ /// The actual device and its same-thread native validation guard.
+ #[cfg(not(target_arch = "wasm32"))]
+ #[must_use]
+@@ -29,31 +21,15 @@ pub struct ValidationScope {
+ pub enum ValidationScopeError {
+     #[display("{_0}")]
+     Native(#[error(source)] wgpu::Error),
+-    #[display("{_0}")]
+-    Progress(#[error(source)] ValidationProgressError),
+-}
+-
+-impl fmt::Display for ValidationProgressError {
+-    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+-        write!(
+-            formatter,
+-            "Native validation progress failed: {}",
+-            self.poll
+-        )?;
+-        if let Some(native) = &self.native {
+-            write!(formatter, "; captured validation error: {native}")?;
+-        }
+-        Ok(())
+-    }
+-}
+-
+-impl Error for ValidationProgressError {
+-    fn source(&self) -> Option<&(dyn Error + 'static)> {
+-        match &self.native {
+-            Some(native) => Some(native),
+-            None => Some(&self.poll),
+-        }
+-    }
++    #[display("Native validation progress failed: {_0}")]
++    Progress(#[error(source)] wgpu::PollError),
++    /// Polling failed, and the same scope also captured a native rejection.
++    #[display("Native validation progress failed: {poll}; captured validation error: {native}")]
++    ProgressWithNative {
++        #[error(source)]
++        poll: wgpu::PollError,
++        native: wgpu::Error,
++    },
+ }
+ 
+ #[cfg(not(target_arch = "wasm32"))]
+@@ -80,20 +56,10 @@ impl ValidationScope {
+         match (progress, native) {
+             (Ok(_), None) => Ok(()),
+             (Ok(_), Some(native)) => Err(ValidationScopeError::Native(native)),
+-            (Err(poll), native) => Err(ValidationScopeError::Progress(ValidationProgressError {
+-                poll,
+-                native,
+-            })),
+-        }
+-    }
+-}
+-
+-impl ValidationScopeError {
+-    /// Admit the actual cause at an existing generic error boundary.
+-    pub fn into_anyhow(self) -> anyhow::Error {
+-        match self {
+-            Self::Native(cause) => anyhow::Error::new(cause),
+-            Self::Progress(cause) => anyhow::Error::new(cause),
++            (Err(poll), None) => Err(ValidationScopeError::Progress(poll)),
++            (Err(poll), Some(native)) => {
++                Err(ValidationScopeError::ProgressWithNative { poll, native })
++            }
+         }
+     }
+ }
+diff --git a/crates/fabelgeist-gpu/texture-views.md b/crates/fabelgeist-gpu/texture-views.md
+index 28f30a957..7a2e60785 100644
+--- a/crates/fabelgeist-gpu/texture-views.md
++++ b/crates/fabelgeist-gpu/texture-views.md
+@@ -15,17 +15,16 @@ still precedes native texture admission, so a cached view can be returned even
+ if a caller clears the public native texture field.
+ 
+ A different-format request without a native texture returns `Uninitialized`
+-with `Texture is not initialized`. These two errors have no source. The three
+-native rejection variants own a real `wgpu::Error` and expose it through
+-`std::error::Error::source`. They retain the existing diagnostic prefixes and
+-original requested format. Their Debug representation and cause chain are
+-structured.
++with `Texture is not initialized`. These two errors have no source.
++`Observation` owns the operation, original requested format and the shared
++`ValidationScopeError`. Both error enums derive their display and error
++implementations from these payloads.
+ 
+-`Progress` retains the operation, original requested format and a
+-`ValidationProgressError`. That cause owns the actual `wgpu::PollError` and any
+-native validation error captured by the same scope. Its source prefers the
+-captured native error when present, otherwise the polling error; both remain
+-available as fields.
++The scope error distinguishes a native rejection, failed polling, and failed
++polling with a captured native rejection. The combined state owns both the
++`wgpu::PollError` and `wgpu::Error`. Polling failures expose the polling error
++as their primary source, with any captured rejection available in the combined
++variant and its diagnostic. Native-only failures expose the native error.
+ 
+ ```text
+ use fabelgeist_gpu::{globals::WgpuContext, prelude::*};
+@@ -53,10 +52,10 @@ pipeline and compute fast-path creation. Ownership and presentation are
+ independent of this observation choice.
+ 
+ Enabled observation attempts the native wait and then always pops its scope,
+-including after a polling failure. A captured rejection returns its native
+-error; a failed wait returns `Progress` and retains any captured rejection.
+-Neither path returns the newly created view after failed observation. This does
+-not roll back earlier work or establish the device's global health.
++including after a polling failure. Its result selects `Native`, `Progress` or
++`ProgressWithNative` from the actual polling and capture outcomes. No failure
++returns the newly created view. This does not roll back earlier work or
++establish the device's global health.
+ 
+ The three ComputePass texture-binding paths preserve these errors through
+ standard conversion. Their reflection and descriptor policies are unchanged.

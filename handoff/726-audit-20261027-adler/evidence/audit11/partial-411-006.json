@@ -1,0 +1,43 @@
+{
+  "id": "ADLER-CONT11-PARTIAL-411-006",
+  "scope_index": 411,
+  "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+  "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+  "scope_authority": "../audit05/original-scope-072.json: frozen_requested_change full body required",
+  "personally_read_ranges": [
+    [
+      1,
+      2290
+    ]
+  ],
+  "next_line": 2291,
+  "whole_role_credit": false,
+  "partial_observations": [
+    "Native Bevy query tuples carry framework projections; LoadingPlayer/AdmittedPlayer/SpawnRecipient separate loading, validated batch and enemy/party destination. Prepared batch validates before project; downstream bodies still pending.",
+    "AuthoritativeInputTick retains optional actual prior PlayerInputTick instead of invented initial observation. AnimationSampleTick contact timing is a distinct clock role; raw jump/posture sequence fields in older P16 need canonical newer-owner comparison, not automatic restoration.",
+    "CameraFacingIntent expresses Free/Aim/DownedAlign with actual priority; raised guard and downed-align inputs are not interchangeable truth flags. AttackFacing couples target entity, current position observation and expiry tick; actual update removes missing/expired target state.",
+    "DisconnectedProjection is Loading or whole ProjectedPlayerSnapshot, preserving motion, typed attack authority and optional pending contact/lunge across entity lifecycle. CharacterId, ReconnectToken and native Entity are different identity/authority roles.",
+    "Mission difficulty, enemy combat and countermeasure basis-point factors have different meanings; zero health-scale behavior is explicit. No new arbitrary positive-only bound or hidden penalty inference from partial read.",
+    "Durable SDK equipment location/channel enums map exhaustively to core catalog roles at the explicit generated transport boundary; no edited generated binding or compatibility alias.",
+    "Durable strategic skill/limb/attribute projection and transient mission scaling are separate sources; health zero-scale policy differs from skill/attribute multiplier semantics. Derive-starting-condition receiver still pending, so no total-incapacitation arithmetic clearance.",
+    "Actual PreparedInventoryItem sum distinguishes Empty versus Admitted quantity/geometry. The projection reserves inventoryID-to-Entity mappings before attachment edges, then skips Empty payloads; whole graph/zero-parent admission must be established by actual prepared helper, not inferred from labels or successful per-item geometry.",
+    "Typed body mass is extracted at the Limbs native field; physical geometry passes as prepared records. Preserve canonical physical owner propagation across later internal recipients, no blanket float-admission claim.",
+    "Strategic catalog/character identity, durable inventory row identity and transient replicated Entity remain distinct. SDK anchor-kind/tag payloads are projected at an explicit boundary using expected relationship invariants; actual guard body416 not newly read.",
+    "Live reconnect consumes matching character/token capability, rotates token, restores whole transient projection and rekeys equipment/inventory ownership; fresh strategic enrollment is a distinct path and token-bearing invalid reconnect is rejected. Standalone dump join is an explicitly separate authority mode, not live authorization fallback.",
+    "Accepted continuous PlayerInputTick chronology differs from repeatable jump/posture edge sequences. Jump edge is consumed even when currently incapacitated/airborne so later recovery cannot replay stale jump; complete accepted movement/look updates follow their own native controller boundary.",
+    "Aim/preferred/alternate/offhand preparation roles remain explicit enums. Quickstep native pose is admitted once as Position/RigidRotation before canonical actuator call; airborne dive and inherited slide heading have different trajectory policies. No typed-pose or full gameplay admission clearance from partial body.",
+    "Validated input separates unitless bounded movement/quickstep direction, normalized yaw, clamped pitch, repeated edge sequences, posture/pace/guard/preparation roles. Native finite/clamp/normalize behavior itself is not newly certified beyond actual code; source decoders/other numerical policies remain independent.",
+    "Canonical quickstep commits animation and actuator only after body/guard/action checks; configured seconds convert to AnimationSampleSpan at the sampling boundary. Tick ordinal/span/elapsed are distinct. Dive animation direction and travel direction differ for grounded slide; emitted DiveLaunch carries trajectory/travel roles explicitly.",
+    "Body-local versus controller-local movement projections are actual native frame transformations, with separate body/controller quaternion inputs and axis conventions. They must not be merged as one generic direction or performance penalty; no direct fatigue-speed use appears in these read windows.",
+    "Controller observation projects typed ground contact, sample tick and elapsed into animation; acknowledged continuous-input tick, world pose/velocity and quickstep/lunge state belong to a separate complete replay snapshot, not merely visual skeleton state.",
+    "Disconnect capture owns complete core/motion/physics values before observer-deferred entity teardown. Loading and projected snapshots are meaningful different states. Rebinding preserves transient inventory Entity ownership and derived holding cache; native observer ordering is not used as an ownership guarantee.",
+    "Reconnect matching requires unclaimed current grace plus exact character/capability pair; immediate claim mutation precedes deferred restoration so concurrent duplicate events cannot claim twice in this body. Claimed records are excluded from expiry; remaining seconds and consumed capability phase retain different meanings.",
+    "Expiry submits leave_mission before transient inventory/root cleanup and retains state on immediate submission error. The body does not establish remote reducer completion semantics; no inferred persistent per-tick state or remote-ack acceptance.",
+    "Read1951-2106 actual on_player_added production: standalone dumped template lookup by CharacterId maps template entities to client entities, clones retained items, flushes world, and applies default posture/pace/player collider; generated durable identity and transient Entity remain separate.",
+    "Read2107-2250 existing standalone dump binding test fully; ownership/entity/inventory/holding caches and bots assertions are evidence of intended fixture contract, not executed acceptance. General test imports and next existing test only started2252-2290; remainder unread."
+  ],
+  "repair": "not started",
+  "validation": "not run",
+  "new_unique_finding": false,
+  "previous": "partial-411-005.json"
+}

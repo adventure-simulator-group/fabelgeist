@@ -1,0 +1,99 @@
+{
+  "lens": 11,
+  "packet": 183,
+  "prior_authoritative_state": {
+    "path": "audit11-segovb-182-proposed-state-root-002.json",
+    "sha256": "d612662fc639de4fcd864981536cd23848a32243dfb47777acffcf13cf7c899f"
+  },
+  "receipt": "audit11-segovb-183-809-complete-001.json",
+  "receipt_sha256": "ec788fbe604cb3ca970a41ae1e3326ab39049156b5c8a7aed6df22e0bc7a1916",
+  "original_accounted": 810,
+  "original_total": 2853,
+  "next_original": 810,
+  "newly_source_accounted": [
+    809
+  ],
+  "active_partial": null,
+  "source_accounting_not_clearance": true,
+  "new_unique_findings": 0,
+  "accepted_unique_count_change": 0,
+  "mandatory_other_lens_extensions": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/garment/selection.rs",
+      "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+      "actual_eof": 271,
+      "actual_access": [
+        [
+          1,
+          79
+        ],
+        [
+          111,
+          225
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          79
+        ],
+        [
+          111,
+          225
+        ]
+      ],
+      "root_provenance": {
+        "path": "audit11-root-garment-selection-staging-182.json",
+        "sha256": "5e81fcb5f5ca2e8dd9a56703c3cdc10911de94615516d90ed59eb5718d4d1ba4"
+      },
+      "proof": "Exact frozenbase3a50/head6533bytes equal, absent747changes/dirty4; no currentalias or bodycredit fromstaging",
+      "mandatory_other_lenses": "pending",
+      "original_shared_credit": 0
+    }
+  ],
+  "material_receiver_ranges_for_other_lenses": [
+    {
+      "original": 693,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_recipes.rs",
+      "sha256": "a6c834971b1cd263330dea65a4a48a826dda0b767e3e16b49dc26c8a7405c725",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/a6c834971b1cd263330dea65a4a48a826dda0b767e3e16b49dc26c8a7405c725",
+      "actual_eof": 262,
+      "actually_read": [
+        [
+          1,
+          83
+        ]
+      ],
+      "ordered_original_shared_credit": 0,
+      "status": "existing original populations remain mandatory under every other lens; no verdict/ordered/shared credit transfer"
+    },
+    {
+      "original": 688,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_design_input.rs",
+      "sha256": "7491f2bed3feecf76fd4446b7a20ce1470ef026f6deb1409b36798c860497ed1",
+      "read_from": "crates/adventuresim-character-creator/src/armor_design_input.rs",
+      "actual_eof": 400,
+      "actually_read": [
+        [
+          1,
+          52
+        ],
+        [
+          61,
+          151
+        ]
+      ],
+      "ordered_original_shared_credit": 0,
+      "status": "existing original populations remain mandatory under every other lens; no verdict/ordered/shared credit transfer"
+    }
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer. Preserve180/181nativeSDK/Bevy scheduling/imagecopylimits andallpendingreceiverqueues. M04current903reviewsseparate; notfrozenoriginal/lenscounts. Packet182InventoryItemId graph erasure, catalogkey/recordidentity and wear/order-selector sourcequestions retained, alias/currentness/unique acceptance unresolved. M04build-target review003 atdf5 andhostedCIseparatefromfrozenauditcounts.",
+  "clear": false,
+  "current_reconciled": false,
+  "integrated": false,
+  "validated": false,
+  "root_adoption_required": true,
+  "root_ledger_history_overwritten": false,
+  "product_source_git_checks_tests_publication": "none",
+  "stop": "809complete;no810orderedinventory"
+}

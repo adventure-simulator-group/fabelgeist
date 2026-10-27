@@ -1,0 +1,35 @@
+{
+  "source_observation": "L12-022-DIAGNOSTIC-PATH-ROLE",
+  "alias_disposition": "Existing M24 support, not a new unique finding",
+  "canonical_inherited_finding": {
+    "id": "M24",
+    "title": "Keep catalogue diagnostic paths and failures structured until presentation",
+    "source": "inherited-master-ledger.json#/findings",
+    "record_sha256_canonical_json": "27303d98c696949deee5b48cbc1524f0e301e561b8cb29f797495c4e9a1d74c0"
+  },
+  "head": "a21f9ccaeba1e3947e22dc1f64106c4f2bc371b6",
+  "current_registration": "audit12-current-diagnosticpath-registration-001.json",
+  "current_path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+  "current_full_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+  "current_actually_read": [
+    [
+      1,
+      180
+    ]
+  ],
+  "frozen_full_sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+  "selected_prefix_equal": true,
+  "selected_prefix_sha256": "2c0317536b2d5477a8077ef616d1471fabc009530675b549335688b636e54cd3",
+  "trace": "Public CatalogDiagnostic retains String path/message; CatalogValidationError Display invokes source_coordinates, which parses item prefix and field punctuation/whitespace and searches source text. The currently selected owner/path behavior is byte-identical to the frozen180line prefix and matches inherited M24 exactlocations/remedy.",
+  "scope_limits": [
+    "Only selected current owner/path receiver confirmed; current validationhelpers/runtimecatalog callers, concrete allsource spans, errorcauses and full M24 integration/acceptance remainuninspected.",
+    "Frozen original46 remains partial; no extra original/shared/other-lens credit or all-current-source equivalence.",
+    "Use clean final structuredsource target/diagnostic contract; old error prose/API/layout/convenience derives and downcasts are not compatibility requirements.",
+    "Existing M24 acceptance/source policy is material guidance, not blanket old behavior preservation. No product edits/tests/newassertions or runtime probes."
+  ],
+  "new_unique_delta": 0,
+  "integrated": false,
+  "validated": false,
+  "global_clearance": false,
+  "at": "2026-10-27T00:11:23.266633+00:00"
+}

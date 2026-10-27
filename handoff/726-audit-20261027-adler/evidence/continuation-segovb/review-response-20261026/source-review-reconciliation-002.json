@@ -1,0 +1,210 @@
+{
+  "id": "PR988-SOURCE-REVIEW-RECONCILIATION-002",
+  "at": "2026-10-26T20:42:51.185928+00:00",
+  "base": "a9d3597c60a9b762e73bf98762f0d2f8b61e462e",
+  "head": "dd1e69eca683a5aaee26ec93b7ad3cddf6de8720",
+  "review": "Bounded source-only reconciliation of exact hosted formatting correction; no new product source review or execution",
+  "scope": {
+    "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+    "old_sha256": "1ff31e6f3269b22c90de858db5935591432e74f58199699a22a735aac532c68b",
+    "new_sha256": "61bcf0fcfbea2980bd9426c89ae144fa0324e8d2d84e0a0094eeb6d6ea590ba3",
+    "current_source_body_read": [
+      [
+        55,
+        90
+      ]
+    ],
+    "actual_delta": "One method chain line63 is wrapped over lines63-65; same context.validation_observation.start_scope(&context.device)? expression."
+  },
+  "findings": [],
+  "proof": {
+    "format_patch_one_path_one_hunk": true,
+    "exact_inverse_replacement_restores_prior_whole_file_sha256": true,
+    "other_manifest_files": 14,
+    "other_manifest_files_sha256_match_all": true,
+    "reviewed_connected_native_consumer_hashes_match_all": true,
+    "interpretation": "No tokens, comments, strings, attrs/cfgs, public types, errors, allocations, call order, predicates or cause chains change. Only spaces/newlines inserted between the same chain tokens. The15file review scope retains semantic identity; only validation_scope fingerprint advances."
+  },
+  "earliest_failed_contract": {
+    "hosted_run": 40397139445,
+    "step": 7,
+    "failure": "formatting",
+    "bounded_evidence": "hosted-format-failure-001.txt",
+    "reconciliation": "Saved hosted excerpt requests exactly this3line chain and shows formatter exit1. Correction patch/current source match that excerpt. Downstream absent artifacts are not treated as a separate cause or evidence of downstream failure; no full logs investigated."
+  },
+  "prior_reviews": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/code-review-001.json",
+      "sha256": "1751aea330e585d6ae05b4516395a3537a75d2fb0af72314bdd22f368f75eb21",
+      "prior_findings": [],
+      "applicability": "All reviewed source contracts retained under exact whitespace-only inverse hash proof and unchanged14manifest files; original runtime/compiler/CI and broader finding limits remain."
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/rule-review-001.json",
+      "sha256": "8152e38915f3cb3b182ab59b0514dff24eb0d9043ed79c4a1829a2dae6f6b1d4",
+      "prior_findings": [],
+      "applicability": "All reviewed source contracts retained under exact whitespace-only inverse hash proof and unchanged14manifest files; original runtime/compiler/CI and broader finding limits remain."
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/comment-review-001.json",
+      "sha256": "781dd67f6cd6b10a9ed5de54e31b529a3411ba353ba1637c069201071d7c1a6d",
+      "prior_findings": [],
+      "applicability": "All reviewed source contracts retained under exact whitespace-only inverse hash proof and unchanged14manifest files; original runtime/compiler/CI and broader finding limits remain."
+    }
+  ],
+  "contract_applicability": [
+    "Canonical ValidationObservation enum/native device adapter and all5 former-boolean consumers unchanged.",
+    "Native-only scope method/call cfgs and created/borrowed/browser policies unchanged.",
+    "Derive_more Display/Error generation applicability, exact display strings, immediate native/progress source downcasts, manual Box dereference/fallback and into_anyhow admission unchanged.",
+    "Whole-view polling/pop/progress behavior and distinct preexisting behavior outside whole views unchanged.",
+    "Three unchanged ComputePass recipients, descriptors/cache precedence and existing3assertions/two migrated predicates unchanged."
+  ],
+  "line_location_mapping": "Prior source line63 expands to current63-65. Prior subsequent lines64-97 shift by+2 to66-99; historical source hashes/line references remain immutable and this reconciliation provides the new location mapping.",
+  "unchanged_manifest_fingerprints": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be",
+      "current_matches": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "sha256": "352f06a1ddfc9d7be1813161e4ac2365ae813a2f0e751614464fc8adddf9a735",
+      "current_matches": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "460e9c3fcc4cb794358e3a25ba96b2e877dbeffaac6404703ff493aa6cb58e18",
+      "current_matches": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+      "current_matches": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "33fed8d0c2ea47e990b60ad9c2cc14962f130c66ed4328d134e8f7f15d9b1128",
+      "current_matches": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "e883e9bbfdcdb62065d26751a6135b65d6e3021604c9e6071ebdfbdf644457c5",
+      "current_matches": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "bb98de5214d48bd87519d09a702a5e8df2914c6a7d614d38b2c95ab13df51205",
+      "current_matches": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "e8573dd939e0db024bb674e2647e14b10cdca9d5d4d141b9a39e2778a0e3aab8",
+      "current_matches": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "019e06bddeb3cf69b87f4a5ca9ed92b605d5a7e211490af27f36d3ae3a63422d",
+      "current_matches": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "f64791a9b8ca3d2203ed6c04fd5e0f0028fd8855ea3bc5674840e646581b5135",
+      "current_matches": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "6369e5b4f4847db2e85cd5a105dd891f8a68dcbf584622731565d36d05b6cb4e",
+      "current_matches": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "sha256": "14cccb953bd0b8466b7ad010219c4220d535ee7ed9e6e66cad981c37cc67df88",
+      "current_matches": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "baf15af7fdf3ecbc0776b475b3aadbd35c29a3d6e0185cef3b2f064803315381",
+      "current_matches": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "0fe254434e5c065ab49a04ba8c522d7066b48802b37538b6840653f5b2e3e59d",
+      "current_matches": true
+    }
+  ],
+  "connected_receiver_fingerprints": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-impl-2.1.1/src/error.rs",
+      "sha256": "40cfa53d126eae5284310d5814318d32269e482e3491bf561ec9cd6168646aeb",
+      "matches": true
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-impl-2.1.1/src/fmt/display.rs",
+      "sha256": "d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+      "matches": true
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-2.1.1/src/as_dyn_error.rs",
+      "sha256": "ba3767c6c95966583360f28cd59bfe20717d0f53c2041c2c534552fcb1b265d9",
+      "matches": true
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "matches": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "matches": true
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-types-29.0.4/src/lib.rs",
+      "sha256": "af153576bce090b101f05d3d4fc35523d82e8f7fd2f935bd60d12956af50cb3b",
+      "matches": true
+    }
+  ],
+  "evidence_fingerprints": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/format-correction-001.patch",
+      "sha256": "3abef4ff0e337150ec925c630142e71686bc6967f489dbd595084c6330f2f345"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/format-correction-001.json",
+      "sha256": "1f9326dab43cc85fba48df92e6b18fe356efaef17bd4f5e80d2485e15fb1d868"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/hosted-format-failure-001.txt",
+      "sha256": "7afa44b597fcca4537adcdf7896302709654e820b90175c1f89f7229fbeec472"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/source-manifest-001.json",
+      "sha256": "1c72d1be7a816d638706574f740d916494bc4236b3e74ec584b94cabdf740a62"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/code-review-001.json",
+      "sha256": "1751aea330e585d6ae05b4516395a3537a75d2fb0af72314bdd22f368f75eb21"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/rule-review-001.json",
+      "sha256": "8152e38915f3cb3b182ab59b0514dff24eb0d9043ed79c4a1829a2dae6f6b1d4"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/comment-review-001.json",
+      "sha256": "781dd67f6cd6b10a9ed5de54e31b529a3411ba353ba1637c069201071d7c1a6d"
+    }
+  ],
+  "limits": [
+    "This is source whitespace/identity reconciliation only; reviewer did not execute formatting, compiler, macro expansion, lint, tests or hosted workflow. New dd1 revision CI remains unverified here.",
+    "Prior3reviews remain source-only with all acceptance/runtime/currentness/inherited broader scope limits; earlier961 success is not proof of new head execution. No global audit, F1/F2/F6/F9 closure or new unique finding count.",
+    "No product/source/Git commands or mutations, root ledger/historical overwrite, project checks/tests or publication. Only ignored append-only reconciliation receipt written."
+  ],
+  "project_execution": false,
+  "source_changes": false,
+  "git_commands_or_mutations": false,
+  "ledger_changes": false,
+  "tests_added_or_run": false,
+  "publication": false,
+  "global_clearance": false,
+  "stopped": true
+}

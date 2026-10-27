@@ -1,0 +1,95 @@
+{
+  "at": "2026-10-26T04:44:53.381711+00:00",
+  "previous": "source-extensions-188.json",
+  "successor": "source-extensions-190.json",
+  "prefix_immutable": true,
+  "new_indices": [
+    188,
+    189
+  ],
+  "new_entries": [
+    {
+      "source_id": "native-support:http-1.5.0/src/uri/mod.rs",
+      "sha256": "adf4235a0d72b03ca71582f4acab50fff8a146f2b92517a227806d372300186b",
+      "revision": "Cargo.lock pinned http1.5.0",
+      "archive_checksum": "918d3568bebf352712bc2ef3d46a8bcf1a75b373be6539de198e9105cbbf9ce0",
+      "ranges": [
+        [
+          293,
+          341
+        ],
+        [
+          709,
+          716
+        ],
+        [
+          718,
+          725
+        ],
+        [
+          890,
+          897
+        ]
+      ],
+      "actual_EOF": 1132,
+      "object": "source-objects/adf4235a0d72b03ca71582f4acab50fff8a146f2b92517a227806d372300186b",
+      "registration_evidence": "registration-013.json",
+      "reason": "F005 current-source reconciliation needs actual admitted URI fragment parsing contract before retaining frozen witness. Narrow publicparse/PathAndQuery fragment contracts only, not whole SDK.",
+      "prior_reads": "05 declaration signatures/spans/hash/archive metadata navigation only, no parse/fragment body or verdict. Coordinator hash/copy/count plus Cargo.lock identity only before registration.",
+      "lenses": {
+        "producer-propagation": "New bounded native owner pending independent reconciliation; no inherited or other-lens credit.",
+        "existing-type-owners": "New bounded native owner pending independent reconciliation; no inherited or other-lens credit.",
+        "admission-contracts": "New bounded native owner pending independent reconciliation; no inherited or other-lens credit.",
+        "invariant-operations": "New bounded native owner pending independent reconciliation; no inherited or other-lens credit.",
+        "aggregate-states": "New bounded native owner pending independent reconciliation; no inherited or other-lens credit.",
+        "type-ownership": "New bounded native owner pending independent reconciliation; no inherited or other-lens credit.",
+        "redundant-authority": "New bounded native owner pending independent reconciliation; no inherited or other-lens credit.",
+        "behavior-preservation": "New bounded native owner pending independent reconciliation; no inherited or other-lens credit.",
+        "enum-shapes": "New bounded native owner pending independent reconciliation; no inherited or other-lens credit.",
+        "derivability": "New bounded native owner pending independent reconciliation; no inherited or other-lens credit.",
+        "type-granularity": "New bounded native owner pending independent reconciliation; no inherited or other-lens credit.",
+        "magic-strings": "New bounded native owner pending independent reconciliation; no inherited or other-lens credit.",
+        "magic-numbers": "New bounded native owner pending independent reconciliation; no inherited or other-lens credit."
+      },
+      "status": "Prospective bounded native dependency contract, no original/source/runtime/finding credit."
+    },
+    {
+      "source_id": "native-support:http-1.5.0/src/uri/path.rs",
+      "sha256": "d69c30a915c83bb99f956da92d9a3cc16b754da43d1e940bd750676e9a7a5c7f",
+      "revision": "Cargo.lock pinned http1.5.0",
+      "archive_checksum": "918d3568bebf352712bc2ef3d46a8bcf1a75b373be6539de198e9105cbbf9ce0",
+      "ranges": [
+        [
+          21,
+          39
+        ],
+        [
+          467,
+          538
+        ]
+      ],
+      "actual_EOF": 709,
+      "object": "source-objects/d69c30a915c83bb99f956da92d9a3cc16b754da43d1e940bd750676e9a7a5c7f",
+      "registration_evidence": "registration-013.json",
+      "reason": "F005 current-source reconciliation needs actual admitted URI fragment parsing contract before retaining frozen witness. Narrow publicparse/PathAndQuery fragment contracts only, not whole SDK.",
+      "prior_reads": "05 declaration signatures/spans/hash/archive metadata navigation only, no parse/fragment body or verdict. Coordinator hash/copy/count plus Cargo.lock identity only before registration.",
+      "lenses": {
+        "producer-propagation": "New bounded native owner pending independent reconciliation; no inherited or other-lens credit.",
+        "existing-type-owners": "New bounded native owner pending independent reconciliation; no inherited or other-lens credit.",
+        "admission-contracts": "New bounded native owner pending independent reconciliation; no inherited or other-lens credit.",
+        "invariant-operations": "New bounded native owner pending independent reconciliation; no inherited or other-lens credit.",
+        "aggregate-states": "New bounded native owner pending independent reconciliation; no inherited or other-lens credit.",
+        "type-ownership": "New bounded native owner pending independent reconciliation; no inherited or other-lens credit.",
+        "redundant-authority": "New bounded native owner pending independent reconciliation; no inherited or other-lens credit.",
+        "behavior-preservation": "New bounded native owner pending independent reconciliation; no inherited or other-lens credit.",
+        "enum-shapes": "New bounded native owner pending independent reconciliation; no inherited or other-lens credit.",
+        "derivability": "New bounded native owner pending independent reconciliation; no inherited or other-lens credit.",
+        "type-granularity": "New bounded native owner pending independent reconciliation; no inherited or other-lens credit.",
+        "magic-strings": "New bounded native owner pending independent reconciliation; no inherited or other-lens credit.",
+        "magic-numbers": "New bounded native owner pending independent reconciliation; no inherited or other-lens credit."
+      },
+      "status": "Prospective bounded native dependency contract, no original/source/runtime/finding credit."
+    }
+  ],
+  "coordinator_credit": "None: hash/copy/count/lock identity only before registration."
+}

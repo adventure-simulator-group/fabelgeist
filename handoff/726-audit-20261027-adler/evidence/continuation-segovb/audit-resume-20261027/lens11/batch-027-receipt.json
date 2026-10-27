@@ -1,0 +1,188 @@
+{
+  "at": "2026-10-27T12:58:26.276091+00:00",
+  "lens": 11,
+  "status": "931-933 independently source-accounted",
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-026.json",
+    "sha256": "4081141d083516d43f634cdb8170e1e5d9f805e3cbecdd999c455b8450020793"
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-027-registration.jsonl",
+    "sha256": "192b781cc00158fce4857bdc171ba7953ed629a15d8ac6bc502dc61a1cc1ea58"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 931,
+      "source_id": "pr-working:crates/adventuresim-core/src/ingredient_preparation.rs",
+      "sha256": "ae086fd226814d3e6a5085e053f4e16a02c4a46ecbfbe9e0c2bf7063e6edf170",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/ae086fd226814d3e6a5085e053f4e16a02c4a46ecbfbe9e0c2bf7063e6edf170",
+      "actual_eof": 72,
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "exact f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          72
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 932,
+      "source_id": "pr-working:crates/adventuresim-core/src/inventory_containers.rs",
+      "sha256": "4feda6b091c108a9cb8def2cfa8cd63c6fd7123d64c3584d308dec283048d50a",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/4feda6b091c108a9cb8def2cfa8cd63c6fd7123d64c3584d308dec283048d50a",
+      "actual_eof": 256,
+      "ranges": [
+        [
+          1,
+          256
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "exact f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          256
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 933,
+      "source_id": "pr-working:crates/adventuresim-core/src/inventory_measurement.rs",
+      "sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+      "actual_eof": 804,
+      "ranges": [
+        [
+          1,
+          804
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "exact f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          804
+        ]
+      ]
+    }
+  ],
+  "material_receivers": [
+    {
+      "kind": "connected-owner",
+      "original_index": 954,
+      "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "ranges": [
+        [
+          60,
+          115
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual volume unit and physical ID owner signatures/admission supporting containment roles",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          60,
+          115
+        ]
+      ]
+    },
+    {
+      "kind": "connected-owner",
+      "original_index": 963,
+      "sha256": "906e67eed5acc9fbf6ab98e2e4bc7df11b8e9742c1ee148092c7d2061f64afab",
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual volume unit and physical ID owner signatures/admission supporting containment roles",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          65
+        ]
+      ]
+    },
+    {
+      "kind": "connected-owner",
+      "original_index": 963,
+      "sha256": "906e67eed5acc9fbf6ab98e2e4bc7df11b8e9742c1ee148092c7d2061f64afab",
+      "ranges": [
+        [
+          140,
+          178
+        ]
+      ],
+      "prospective": true,
+      "reason": "Actual physical object ID leaf constructor/getter",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          140,
+          178
+        ]
+      ]
+    }
+  ],
+  "per_role": [
+    {
+      "original": 931,
+      "roles": "Cut/Grind requested ingredient operation, stable wire ID, stable frame byte and definition ID.",
+      "trace": "Full72 read independently. Enum selects two operations, distinct from954 resultant MaterialPreparation. Stable code1/2 participates in hash frames while textual IDs are boundary vocabulary; unknown input rejects.930 actual plan/receipt consumes action without an intermediate raw operation.",
+      "disposition": "Keep the operation owner and finite vocabulary; code/text/definition roles are explicit boundary adapters, not duplicate independent authority. No need to merge operation with resulting preparation or add numeric admission bounds."
+    },
+    {
+      "original": 932,
+      "roles": "PhysicalObjectId; exact Milliliters exterior displacement/interior capacity/current liquid amount; separate containment topology, depth/index counters and static errors.",
+      "trace": "Full256 read; new validates positive exterior, measured<=exterior and unique ID. insert checks known parent/child, actual container capability, cycles, combined ancestor/descendant depth16 and checked immediate-child used volume. Grandchildren do not double count; measured amount overrides exterior only for immediate liquid/lot volume. Private maps retain typed IDs; graph never exposes mutable object fields.954 volume leaf is zero-inclusive u64 with checked add/sub;963 physical ID is nonzero identity distinct from CustodyCharacterId.",
+      "disposition": "Containment and equipment attachment are different relations and must remain distinct. Shared Milliliters fits all three comparable physical volume roles without separate nominal wrappers unless actual mixup warrants them. Object capacity Option correctly distinguishes noncontainer from zero-capacity container; measured-volume Option is independent of container capability (a vessel may have contents and exterior). exterior positive validation may reuse an admitted positive physical-volume leaf if one exists, but do not invent capacity<=exterior policy: actual fixtures deliberately use capacity greater than exterior. Raw child/parent same identity type are relational arguments, not separate global identity owners. Errors remain raw strings at this API classification boundary."
+    },
+    {
+      "original": 933,
+      "roles": "Nonzero fungible ItemQuantity; fixed-point ConsumableFractionMicros; profile kind, immutable standard/instance basis and unopened/measured row; mass/value versus per-definition amount capacity; rational pricing factor and side-directed rounding.",
+      "trace": "Full804 read. ItemQuantity uses NonZeroU32 including Serde; fraction admission caps1e6, ratio rounds up/caps, scaling rounds down, multiplication/subtraction preserve boundedness. MeasurementProfile validates capacity>0, noncontainer/bulk tare0 and checked totals. effective_totals enforces singleton measured rows, paired amount/basis, bulk always measured, amount<=capacity; immutable instance basis intentionally differs from current catalog standard. Numeric prorating widens u128, checked aggregate pricing cancels rational factors and rounds once. Full existing fixtures source only.",
+      "disposition": "Fixed-point consumable fraction earns identity/rounding/storage distinction from float UnitInterval; share admitted [0,1] factor for try_scaled_floor rather than repeatedly accept raw f32. PricingFactor is positive unbounded rational, not UnitInterval, and public numerator/denominator revalidate in pricing operation; a canonical checked rational may help only if exact integer cancellation semantics survive. MeasuredInventoryRow exposes independently optional remaining_amount/instance_basis and arbitrary quantity although producer helpers always create Unopened{quantity} or Measured{amount,basis} with implicit singleton. Group those payload states to remove actual validator-rejected combinations; BulkLot restriction belongs in profile/row association. MeasurementBasis mass/currency/quantity-capacity raw u64 roles can be mixed at API; do not replace every capacity with Milliliters because this capacity is in item-definition units. EffectiveTotals mass/value distinct physical/economic roles merit existing owners after exact currency/mass unit reconciliation.",
+      "remedy_acceptance": "Use canonical nonzero quantity/fraction owners, coherent Unopened/Measured payload state and admitted basis with exact units. Preserve per-object immutable basis, integer rounding, zero remaining contents with recoverable tare and checked overflow; no backward compatibility requirement. Establish current callers/aliases before unique finding."
+    }
+  ],
+  "contract_limits": [
+    "963 prefix1-65 includes backing identity docs and raw location fields but is not full custody implementation coverage;140-178 completes only relevant ID leaves, with partial next party declaration.",
+    "95460-115 includes prior mass helper tail and partial From<Milliliters> for u64; only volume declaration/constructor/get/add/sub78-106 and From<u64>108-112 are claimed complete.",
+    "No live persistent inventory integration or runtime execution claim;933 explicitly describes framework-independent arithmetic for future schema adoption. Existing fixtures are source evidence only.",
+    "No extra ordered credit for963/954, no other-lens clearance; all prior capacity/ID/key/association/currentness qualifications retained."
+  ],
+  "qualified_findings": [
+    {
+      "source_key": "lens11:frozen:933:measured-row-payload-association",
+      "status": "source-backed validator-rejected public record states; aliases/currentness unresolved",
+      "accepted_unique": false
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_ledger_edited": false
+}

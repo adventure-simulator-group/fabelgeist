@@ -1,0 +1,74 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-189",
+  "at": "2026-10-25T21:19:45.892378+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1991,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_observations.rs",
+      "sha256": "cda65f6ad918673728bba9694b99ec598bde424978c0f896351fbfbe149e995c",
+      "personally_read_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full71 lines read. Grounded-node and threshold observations derive world point through the same fallible building projection, retain exact structural node/opening ID and supplied floor datum, and pair that point with diagnostic source sample. Compiled door opening ID must resolve in same plan or typed error. Raw summed world/sill elevation is diagnostic JSON arithmetic; finite overflow is not re-admitted here, but ordinary bounded source/placement witness not established. No promise every operable door is external just from function name; actual compiler/source policy remains owner."
+      ]
+    },
+    {
+      "scope_index": 1992,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions.rs",
+      "sha256": "89663c0241fc8675658795b9b0c80bf2361fbde5982a3c363b64c297a322aacc",
+      "personally_read_ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full168 lines read. Contact region uses same placement orientation and recipe ground-contact centre minus collision origin; fixed hinge-post region comes from same compound gate. Both are transformed into property frame before interval/gap comparisons. Nearest exact solid contacts retain source ID, gap and full polygon together; tie orders by source identity and reports matching actual solid role. Conservative envelopes/hinge gaps explicitly do not certify final collision or foundation. Fixture read only."
+      ]
+    },
+    {
+      "scope_index": 1993,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions/distance.rs",
+      "sha256": "ad44e57b22e6d7a14addd6a5cc842d77eb50c41fa224bd3ff8ae272390959d73",
+      "personally_read_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full89 lines read. Convex-contact distance preserves point/edge contact behavior: empty yieldsNone; contained or crossing boundaries yields0; otherwise checks endpoint-to-segment distances symmetrically with explicit zero-edge handling. Actualcaller1992 obtains ordered contact points from owning collision geometry, not arbitrary polygons. Collinear/repeated raw polygons with3 or more points can fool half-plane contains, but owning ground-contact admission must supply actual bad shape before normal false-zero gap; no such witness here. Source assertions read only."
+      ]
+    },
+    {
+      "scope_index": 1994,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/terraces.rs",
+      "sha256": "3fc98886a179f315392a59d9e492821a5d2c5758d61b854f323333dc91ec0d54",
+      "personally_read_ranges": [
+        [
+          1,
+          203
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full203 lines read. Terrace experiment uniquely resolves front/rear threshold routes, requires positive available stair flight runs and source heights, then computes coherent front/court/rear levels under same maximum grade. Gate approach is separately required before report. Native invalid maximum grade is internal caller limitation; actual1983 uses positive bounded TerrainGradeLimit.",
+        "Producer always emits exactly two candidates in explicit level-then-stepped order and each front/court/rear array in same order, so inspector1983 positional candidates[1] feeds the intended stepped levels into checked1988 adapter. This closes queued current-source role/order question without endorsing arbitrary JSON reordering. Endpoint feasibility remains explicitly distinct from full support/collision acceptance. Goslar/permuted-route/missing-threshold fixture assertions read only."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "4 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "dependency_updates": [
+    {
+      "dependency": "packet188 inspector candidate index and level tuple role",
+      "result": "Actual1994 fixed level-then-stepped two-element producer and explicit front/court/rear array match1983 index1/1988 named adapter; no current wrong-level selection proved."
+    }
+  ]
+}

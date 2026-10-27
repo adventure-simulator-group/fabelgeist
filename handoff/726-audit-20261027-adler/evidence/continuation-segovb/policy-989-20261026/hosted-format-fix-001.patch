@@ -1,0 +1,15 @@
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs
+index 28b411260..eb2cb5d64 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs
+@@ -4,7 +4,9 @@ use super::TextureCube;
+ #[cfg(not(target_arch = "wasm32"))]
+ use crate::{data::gpu::texture::TextureViewOperation, globals::ValidationScope};
+ use crate::{
+-    data::gpu::texture::{CubeFace, TextureFormat, TextureView, TextureViewError, TextureViewResult},
++    data::gpu::texture::{
++        CubeFace, TextureFormat, TextureView, TextureViewError, TextureViewResult,
++    },
+     globals::WgpuContext,
+ };
+ use std::sync::Arc;

@@ -1,0 +1,501 @@
+{
+  "at": "2026-10-27T15:53:40.808396+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-076-registration.jsonl",
+    "sha256": "92c808106a2d2195bcdbf848850e13e99a54598e17ddb323606efd3114e834c6"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-075-qualified-001.json",
+    "sha256": "ae7d22eb9891ad2dbea2801d7ca4f1e1052dd8e6a6cb31894cb52dec5f43cd00"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1120,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/actions.rs",
+      "sha256": "00ea04f41c3b01c494fc44e24a3bd5b3720d239de26a71f896d3841e2677fafd",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/00ea04f41c3b01c494fc44e24a3bd5b3720d239de26a71f896d3841e2677fafd",
+      "ranges": [
+        [
+          1,
+          1861
+        ]
+      ],
+      "actual_eof": 1861,
+      "prospective": true,
+      "purpose": "Independent full ordered source type-granularity inventory; previousconnected partial1120/1122context notautomatic credit",
+      "actual_read_ranges": [
+        [
+          1,
+          1861
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1121,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/actions/result_provenance.rs",
+      "sha256": "b6df0b98697c4b507e4570230628b5682ac09dce9375b700f1ae5f9d4399c85d",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/b6df0b98697c4b507e4570230628b5682ac09dce9375b700f1ae5f9d4399c85d",
+      "ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "actual_eof": 51,
+      "prospective": true,
+      "purpose": "Independent full ordered source type-granularity inventory; previousconnected partial1120/1122context notautomatic credit",
+      "actual_read_ranges": [
+        [
+          1,
+          51
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1122,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/actions/route_admission.rs",
+      "sha256": "6d55eb5793027527698cde4a38f3fe7849e2e1873112836ed2c37feb3b8ce4f1",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/6d55eb5793027527698cde4a38f3fe7849e2e1873112836ed2c37feb3b8ce4f1",
+      "ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "actual_eof": 30,
+      "prospective": true,
+      "purpose": "Independent full ordered source type-granularity inventory; previousconnected partial1120/1122context notautomatic credit",
+      "actual_read_ranges": [
+        [
+          1,
+          30
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected_original",
+      "original_index": 1126,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/mod.rs",
+      "sha256": "d46affb3494921f1aad34b7d508474aa92f244275766431dfb94da9e43cf535b",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/d46affb3494921f1aad34b7d508474aa92f244275766431dfb94da9e43cf535b",
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual import/include routing for1120 and native time adapter locator",
+      "actual_read_ranges": [
+        [
+          1,
+          46
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1127,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/model.rs",
+      "sha256": "ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+      "ranges": [
+        [
+          537,
+          615
+        ],
+        [
+          918,
+          1045
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual evidence knowledge receiving body and retained capability/attempt/outcome schema roles",
+      "actual_read_ranges": [
+        [
+          537,
+          615
+        ],
+        [
+          918,
+          1045
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1123,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/capabilities.rs",
+      "sha256": "6ef49eb46d226a645094323d9b637c290ec33b94068e634e865f3359188d2673",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/6ef49eb46d226a645094323d9b637c290ec33b94068e634e865f3359188d2673",
+      "ranges": [
+        [
+          187,
+          357
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual route-graph structure and authoritative generated binding admission for1122",
+      "actual_read_ranges": [
+        [
+          187,
+          357
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1128,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/projections.rs",
+      "sha256": "4277df1f4841a51dafe10f9ef950ca7dec6f434358cc8aa5a98f742766825102",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/4277df1f4841a51dafe10f9ef950ca7dec6f434358cc8aa5a98f742766825102",
+      "ranges": [
+        [
+          800,
+          965
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Exact generated_authority_reducer result producer for1121; signatures and actual binding payload",
+      "actual_read_ranges": [
+        [
+          800,
+          965
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1148,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak.rs",
+      "sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+      "ranges": [
+        [
+          1420,
+          1525
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual generated remediation receiving contract for1120",
+      "actual_read_ranges": [
+        [
+          1420,
+          1525
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 305,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/advancement.rs",
+      "sha256": "2baeb9fb076d4f802e6d65c3e31d148b12d4b44f6b57756ca9022338afcb76a4",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/2baeb9fb076d4f802e6d65c3e31d148b12d4b44f6b57756ca9022338afcb76a4",
+      "ranges": [
+        [
+          240,
+          290
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual advance_investigation_time adapter returns terminal-aware completion; no whole time-file credit",
+      "actual_read_ranges": [
+        [
+          240,
+          290
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1128,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/projections.rs",
+      "sha256": "4277df1f4841a51dafe10f9ef950ca7dec6f434358cc8aa5a98f742766825102",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/4277df1f4841a51dafe10f9ef950ca7dec6f434358cc8aa5a98f742766825102",
+      "ranges": [
+        [
+          735,
+          807
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Complete tuple ordering selection/validated authority producer; actual positional-role mismatch at917",
+      "actual_read_ranges": [
+        [
+          735,
+          807
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 305,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/advancement.rs",
+      "sha256": "2baeb9fb076d4f802e6d65c3e31d148b12d4b44f6b57756ca9022338afcb76a4",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/2baeb9fb076d4f802e6d65c3e31d148b12d4b44f6b57756ca9022338afcb76a4",
+      "ranges": [
+        [
+          291,
+          305
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Close investigation time completion receiver",
+      "actual_read_ranges": [
+        [
+          291,
+          305
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1120,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/actions.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              160
+            ]
+          ],
+          "roles": "Skill rank/skill BPS, assist cap, terrain, microdegree/E7 coordinate frames and weather payloads.",
+          "disposition": "Canonical Skill/Terrain/WeatherAuthority distinctions useful; skill BPS versus rank/millirank and geographic versus abstract coordinate frames must remain separate. Raw terrain/coordinates flattened from admitted authority at weather port; zero-origin fallback policy, no claimed invalid ordinary coordinate.",
+          "remedy": "Carry named normalized skill quantities and canonical coordinate sum until weather numeric adapter; no universal finite/fraction owner for all numeric roles.",
+          "acceptance": "Preserve actual settlement/site frame choice and snow/rain payloads; familiarity0 means absent authority, not invented knowledge."
+        },
+        {
+          "ranges": [
+            [
+              162,
+              334
+            ],
+            [
+              635,
+              1021
+            ]
+          ],
+          "roles": "Result lead/public versus canonical case, manual/generated source, route predecessors, custody consequence kind/object/version, generated remediation and evidence.",
+          "disposition": "Existing GeneratedActionOutput/GeneratedPatternAuthority/InvestigationTargetKind and consequence enums earn their payload distinctions. target_id String represents contact/cohort/area/site/tracks/route namespaces; generated_case_id plus provenance_kind and consequence JSON reconstruct sums internally. Raw String errors erase admission/authority/operational classification. Custody reissue rebuilds exact current version and is authority refresh, not compatibility.",
+          "remedy": "Reuse canonical identities and typed target payload, admitted source/result aggregate and typed operation errors; preserve distinct observer-public versus canonical identity and custody version versus capability version.",
+          "acceptance": "Actual membership, owner/case, occupancy and source/version guards consumed. Objective wording says unresolved but755\u2013823 only expression membership shown; no proven duplicate retrieval or outcome/runtime claim. Remediation1422\u20131509 matches fixture/remediation/party/source/time and retires contexts; no full clinical algorithm guarantee."
+        },
+        {
+          "ranges": [
+            [
+              336,
+              633
+            ],
+            [
+              1193,
+              1252
+            ]
+          ],
+          "roles": "Position, generated pattern condition, demographic presence version and live exact lead dependencies.",
+          "disposition": "Closed condition payloads and private observer knowledge authority are meaningful; independent target kind/raw ID lose association. Live source proofs must remain separate from safe prose, no grants from summary text.",
+          "remedy": "Named admitted target/condition authority retaining actual identity and version; share vocabulary validation below separate role owners.",
+          "acceptance": "Maintain route tracking and case ownership, actor presence, geography/abstract frame agreement and personal-minute condition. No current schema or runtime witness inferred."
+        },
+        {
+          "ranges": [
+            [
+              1023,
+              1191
+            ],
+            [
+              1475,
+              1482
+            ]
+          ],
+          "roles": "Bounded failure history, interrupted receipt, bare Resolution and bounded-resolution envelope, version-contiguous retry run.",
+          "disposition": "History parses raw JSON tags/key counts into CompletedFailure/Break; writer1173\u20131191 selects bare versus wrapper and explicit historical-shape preservation rationale1186. Clean typed outcome sum could remove structural reconstructions and enforce requested/elapsed/complete payload relationships. Interrupted success=false is not equivalent completed failure; distinct terminal state must survive. all9-kind helper1023\u20131043 presently returns true for every variant, redundant classification; !has_live_replacement_support wrapper1258 similarly trivial.",
+          "remedy": "One canonical typed attempt outcome envelope with completed bounded/unbounded and interruption payloads, remove historical compatibility path/rationale; retain independent progression and request chronology. Simplify all-variant helper and predicate forwarding where no semantic distinction.",
+          "acceptance": "No requirement to preserve old JSON shape/API; malformed stored history currently breaks progress rather than accepted failure. BTreeMap version duplicate shadowing only API shape observation absent actual duplicate-key producer proof; no infinite retry/runtime acceptance claim."
+        },
+        {
+          "ranges": [
+            [
+              1254,
+              1473
+            ],
+            [
+              1484,
+              1759
+            ]
+          ],
+          "roles": "Rights question/decision, exact-site planner snapshot/fingerprint, typed member IDs, requested/safe elapsed interval and native completion bool.",
+          "disposition": "Planner TimeBoundaries/effects and privacy authority distinguish immutable replan proof from UI approval. Partial vertical only Site+InspectSite uses canonical planner; remaining operation path unintegrated by source. Typed member IDs are flattened to raw Vec<u64> at1697 before internal time loop. Optional interval/commit effect locals represent required interval plus optional resolution; unsupported effects fail.",
+          "remedy": "Propagate canonical member/time/rights types through internal helpers; focused admitted effect aggregate avoiding positional pair/independent Options; complete equivalent planner integration by separately traced responsibility.",
+          "acceptance": "Actual snapshot/replan/validate_commit and effect/member/requested/resolution equality checked; do not infer all action families planner-complete. Time adapter305 actual266\u2013297 loops preview/advance, returns false if death/clipped, no endpoint-terminal global claim; no fatigue movement-speed rule allegation."
+        },
+        {
+          "ranges": [
+            [
+              1760,
+              1861
+            ]
+          ],
+          "roles": "Completed attempt, outcome observer/world chronology, successor activation, reducer scalar boundary.",
+          "disposition": "Authority effects precede stored attempt only on completed successful resolution; raw success/risk_active booleans are ordinary independent facts, interruption deserves sum. Outcome recorded_at personal clock and official_recorded_at world clock same primitive bespoke clock but distinct authority. Attempt capability/actor/version/method reconstruct exact replay binding.",
+          "remedy": "Typed attempt request/result and clock-role fields retained internally, serialize at SDK; observer/canonical IDs stay meaningful.",
+          "acceptance": "Preserve exact replay conflict checks and prior writes on interruption; reducers SDK scalars valid boundary, internal flattening not automatically native exemption. No execution or generated client modifications."
+        }
+      ]
+    },
+    {
+      "original": 1121,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/actions/result_provenance.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              51
+            ]
+          ],
+          "roles": "Temporary ActionResultProvenance public_case_id/kind/generated_outputs.",
+          "disposition": "Useful admitted projection but independently optional output plus public case cannot encode Manual/Generated association; validated generated authority returned as raw JSON tuple and reparsed. Generated output lookup independent of provenance admission; no concrete bad row insertion shown.",
+          "remedy": "Retain canonical admitted generated authority aggregate with named manifest/context and typed provenance sum; manual/generated publication outcomes explicit.",
+          "acceptance": "Invalid authority and malformed outputs fail closed; no claim caller can insert malformed row or public leak. Distinct public versus canonical case is privacy authority, not legacy alias."
+        }
+      ]
+    },
+    {
+      "original": 1122,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/actions/route_admission.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              30
+            ]
+          ],
+          "roles": "ValidatedActionRoute kind/target_terrain rebuilt each request.",
+          "disposition": "Canonical vocabulary plus live graph admission earns temporary record; two fields share no extra invariant beyond actual validator and should not become duplicate truth retained in DB. Route reducer graph actual1123 owner/case/tracking/predecessor checks consumed.",
+          "remedy": "Keep actual parsed canonical kinds/terrain through use, reuse combined route admission rather than repeat string parsing; no new wrappers merely renaming.",
+          "acceptance": "Preserve malformed vocabulary rejection and live graph checks; no automatic full1123 ordered credit."
+        }
+      ]
+    }
+  ],
+  "connected_role_inventory": [
+    {
+      "original": 1123,
+      "ranges": [
+        [
+          187,
+          357
+        ]
+      ],
+      "inventory": "Actual structure/evolved/initial frontiers and same owner/case/predecessor association;355\u2013357 successor signature prefix only. Current-row active bool separate from historical predecessor success. Minimum2/entry topology is authored route policy, not generic count invariant."
+    },
+    {
+      "original": 1126,
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "inventory": "Shared SDK macro/include routing; actual private helpers not native solely because included. No generated binding compatibility rationale adopted."
+    },
+    {
+      "original": 1127,
+      "ranges": [
+        [
+          537,
+          615
+        ],
+        [
+          918,
+          1045
+        ]
+      ],
+      "inventory": "Evidence receipt537\u2013577 idempotent exact source/case;578\u2013615 adjacent inspection prefix no full inspection credit. DB Capability target_kind/Stringtarget_id, generated provenance+case, consequenceJSON, predecessor/alternate raw IDs, seed, elapsed versus absolute minute and version/uncertainty roles. Attempt retained success/rawJSON; Outcome observer/world chronology intentional.1043\u20131045 occupancy signature prefix only."
+    },
+    {
+      "original": 1128,
+      "ranges": [
+        [
+          735,
+          965
+        ]
+      ],
+      "inventory": "735\u2013774 prior pattern tail only,951\u2013965 next clue function prefix only.776\u2013887 complete named-role loss producer and reducer authority lookup;889\u2013930 actual two consumers;932\u2013949 route skill modifier clamps BPS. Manifest/context same String storage differs schema/authority. Actual generated_investigability917 selects second/context then parses GeneratedCase, unlike correct first/manifest at898. Named validated authority record prevents concrete source mixup."
+    },
+    {
+      "original": 1148,
+      "ranges": [
+        [
+          1420,
+          1525
+        ]
+      ],
+      "inventory": "1422\u20131509 complete remediation receiver pins case/fixture/remediation/party/source/time, typed OutbreakSource, optional water authority. Source_kind string versus typed source_json redundant policy representation question.1511\u20131525 next retirement helper partial; no whole clinical/context guarantee."
+    },
+    {
+      "original": 305,
+      "ranges": [
+        [
+          240,
+          305
+        ]
+      ],
+      "inventory": "Actual266\u2013297 stationary strenuous time receiver loops remaining requested duration, preview clips and alive/elapsed return false.240\u2013260 preceding travel tail,299\u2013305 synchronization signature only. Bool completion collapses reason at this port; preserve death/clipping distinctions if upstream decision needs them, no unsupported per-member mismatch claim."
+    }
+  ],
+  "findings": [
+    {
+      "source_key": "frozen:4277df1f4841a51dafe10f9ef950ca7dec6f434358cc8aa5a98f742766825102:776-930:manifest-context-position",
+      "classification": "concrete_frozen_role_mixup",
+      "trace": "validated_generated_authority_candidate798\u2013807 returns(case,manifest_json,context_snapshot_json); exactly_one776\u2013796 returns(manifest,context); reducer849\u2013887 preserves order; generated_investigability917 binds second as manifest and918\u2013920 parses GeneratedCase; actions resolution path uses optional modifier.",
+      "remedy": "Named admitted authority payload, use actual generated manifest for hostile profile; no second interchangeable String slots.",
+      "acceptance": "Source-check exact typed producer/consumer; reconcile existing aliases/current source before any unique/current claim; runtime not observed.",
+      "accepted_unique_count_change": 0
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-028-receipt.json",
+        "sha256": "45e9ec96599b408c85a36ae3ba0299bcdb195524537add323b6aba4a300c89b2"
+      },
+      "contract": "934coreinvestigation full825,935action full1291,936vocabulary full186 personally prior-read canonical action Resolution/BoundedProgress/PlanEffects/coordinate role contracts reused, no verdict transfer."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-045-receipt.json",
+        "sha256": "ef84d892ee23b0f811e99ab6e951c2e0bb21e340b90207e80f2b1f5f367f357b"
+      },
+      "contract": "1006strategic_action full1209 snapshot/planner/commit owner personally read; canonical exact source reused."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-048-receipt.json",
+        "sha256": "45172eb33f46a6e35fe8c12f09f1b87fa6087f0e3029842e5421f6813eb6b2b1"
+      },
+      "contract": "1017time full860 party interval preview/clipping/clock owner context; not claiming whole305 only explicit fresh ranges."
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Every original1120 full1861 and1121 full51/1122 full30 personally consumed; previous connected source is context only.",
+    "Additional receiver prefixes/tails explicitly partial above; source-account with findings not global native/clinical/transaction proof.",
+    "Inherited all currentness/alias/capacity/combat movement-policy queues retained; no local checks/tests/probes/product/Git/ledger/publication."
+  ]
+}

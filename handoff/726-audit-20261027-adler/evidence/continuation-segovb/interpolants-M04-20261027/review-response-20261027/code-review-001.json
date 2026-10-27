@@ -1,0 +1,572 @@
+{
+  "kind": "Independent final scoped Code Review of PR992 review remediation",
+  "verdict": "No actionable source defect found in the scoped repair at exact candidate003 pins. Hosted compilation/test acceptance remains pending.",
+  "findings": [],
+  "revision": {
+    "base": "35b18ec280a6884bb53996a2d859c4b27096f65c",
+    "previous_reviewed_parent": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+    "candidate": "exact uncommitted candidate003 manifest; no new commit identity claimed",
+    "final_manifest": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/edited-source-manifest-003.json",
+      "sha256": "b05ad41890a4b409717962a417ca5247a7e528c90b493e95bad32ca0b93424ff"
+    },
+    "historical_manifests": [
+      {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/edited-source-manifest-001.json",
+        "sha256": "82f6fef01a7cdeb137f54def3d0d0f7254cd21d532f786c6f2f0853cdc687b2c"
+      },
+      {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/edited-source-manifest-002.json",
+        "sha256": "841248509b7393fc57887522289708c3f1e65a2c8bf7bdb976dc4ee70b07460b"
+      }
+    ],
+    "tracked_df5_delta": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/candidate-001-tracked.diff",
+      "sha256": "d4fda49ba0e998f810caa60f6aa132aecc3c97718a75f2fc31521d778ab2c4fe"
+    },
+    "reconciliation": "Candidate001 patch has all initial tracked df5 changes; new untracked locomotion module is independently read. Candidate002/003 superseding bodies were each registered before fresh actual body read; all16 final manifest source hashes verified. Build/workflow/dependency files unchanged from df5 are explicitly included in full manifest and bounded receiving review."
+  },
+  "registrations": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-final-code-registration-001.json",
+      "sha256": "3fab5aef08420afe7d6aed9bb9dab7f9c3187a4ee33ccf47634d508332d34804"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-final-code-registration-002.json",
+      "sha256": "6aa7f4d4095dfca36c30040d52e9d316791ce014cda7cc8fff04ca5c6f5c1ad2"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-final-code-registration-003.json",
+      "sha256": "8fb0d7d395dc4ea2b01527a87441a8f595af68f52a16b8adb0f65499129327e5"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-final-code-registration-004.json",
+      "sha256": "ecf2262cb83ec398974ca663e5d08b5fbe56570b55b029fe4f0967d7d5e37782"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-final-code-registration-005.json",
+      "sha256": "5f91eb019e769c122660f7a553ba4a50a15c08b315e058c004e3cd3f714abdb2"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-final-code-registration-006.json",
+      "sha256": "932b6c8964316140cb75c7be60af5a57bc3da0d69730c1c1f832a82efbb05f88"
+    }
+  ],
+  "source_fingerprints_and_actual_consumption": [
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "ceb8c36c8e8abb4ac96fa0c61601d11145d28755fdb3e7af723aa20ae8dc58bf",
+      "actual_consumed_ranges": [
+        [
+          1,
+          191
+        ]
+      ],
+      "eof": 191
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "de48188cfd3789d9a2ac3d9239c4d62f7991191f0a07d88ad90faa5047f7f129",
+      "actual_consumed_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "eof": 76
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "sha256": "7510f380b30f9476c5a6fb1c685a1cb4311061f24a07616b1f7a054d95af04fc",
+      "actual_consumed_ranges": [
+        [
+          1,
+          188
+        ]
+      ],
+      "eof": 188
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "sha256": "47f1910a4f6a6f9ef3e0cc4bc75e39527a72a18babc94b34a9fea6c0647be39c",
+      "actual_consumed_ranges": [
+        [
+          1,
+          336
+        ]
+      ],
+      "eof": 336
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "sha256": "9ac62b342f4ffec934232478fb5e019d84228a3cb726e29ed9b6f62d91775f36",
+      "actual_consumed_ranges": [
+        [
+          1,
+          42
+        ],
+        [
+          290,
+          402
+        ]
+      ],
+      "eof": 588
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "sha256": "5bb5172865b0ed718a1ecb1bf7378539725fc0afdbe8394d43ed23979c151d9e",
+      "actual_consumed_ranges": [
+        [
+          1,
+          289
+        ]
+      ],
+      "eof": 322
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "d20c873dd470d03cd65d2c0da3d73dd050cde53f78dfc8bb81b1d237bf55ddcf",
+      "actual_consumed_ranges": [
+        [
+          1,
+          255
+        ]
+      ],
+      "eof": 255
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027",
+      "actual_consumed_ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "eof": 107
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "sha256": "37a5dba433aa5219b544716053897df30d3df49662fb5fd38794130c1b803946",
+      "actual_consumed_ranges": [
+        [
+          1,
+          212
+        ]
+      ],
+      "eof": 212
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "sha256": "642983d4cdf24f5cda28f00740f180af4cc4e926b205df647057ef1194e9e32a",
+      "actual_consumed_ranges": [
+        [
+          1,
+          222
+        ]
+      ],
+      "eof": 222
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "a70dd7aa43995b5393dc2adbca58b231fd5d455c466b5ba926d1a65ef2d2232d",
+      "actual_consumed_ranges": [
+        [
+          1,
+          90
+        ],
+        [
+          340,
+          450
+        ],
+        [
+          590,
+          783
+        ]
+      ],
+      "eof": 783
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "c835a9611d133e6fbe72b9121632d5dca1752d4f22d1b0545792ff582844e68d",
+      "actual_consumed_ranges": [
+        [
+          1,
+          130
+        ],
+        [
+          250,
+          523
+        ]
+      ],
+      "eof": 523
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "sha256": "42b5532ca3f4d22095a3612e77ec5d3f3c4d3b9b8058bdc54ce9432a8e895dad",
+      "actual_consumed_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "eof": 58
+    },
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+      "actual_consumed_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "eof": 511
+    },
+    {
+      "path": "crates/adventuresim-core/Cargo.toml",
+      "sha256": "29e56014658d941895772dda71b9181863839eedf403c7d30b446186228c3441",
+      "actual_consumed_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "eof": 43
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "sha256": "5d254790fa2ec7e53bc749b18bfc8f4d89a1df367c3542f8f969403641c8a970",
+      "actual_consumed_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "eof": 71
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+      "sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+      "actual_consumed_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "eof": 26
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+      "sha256": "6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+      "actual_consumed_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "eof": 48
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/landing.rs",
+      "sha256": "d2e6f0bf1986b9465dec28c0b29c39db72b5470d50c0d8ce55332f6f8d1c0831",
+      "actual_consumed_ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "eof": 33
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+      "sha256": "60c9a6b987e30fcff66d01e8afadaaf41ffde91b9d1285c46bd88ec6a1678a39",
+      "actual_consumed_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "eof": 138
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/height_values.rs",
+      "sha256": "185b3d1b5dd499737ed32495e54f252665053c4d330711e358639a88f58bd240",
+      "actual_consumed_ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "eof": 39
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/presentation/cadence.rs",
+      "sha256": "9d7d6ca4239a97970517ad7b8b388d8173ce2cba9872f725316af92899489e9f",
+      "actual_consumed_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "eof": 90
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/sample_state.rs",
+      "sha256": "2605b48effbf078be1636edc4742d3f92bed99d01d2b20c232da4c564edefa3c",
+      "actual_consumed_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "eof": 73
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "sha256": "8b82644fdbb52e00c1b40a850239bb273c956668c89805efae19800b35f42487",
+      "actual_consumed_ranges": [
+        [
+          440,
+          485
+        ]
+      ],
+      "eof": 1813
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/presentation.rs",
+      "sha256": "6a067389a1cdcbddd0dd3814f95e17664351794be139353572edd19928a18171",
+      "actual_consumed_ranges": [
+        [
+          170,
+          185
+        ]
+      ],
+      "eof": 867
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "sha256": "05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+      "actual_consumed_ranges": [
+        [
+          171,
+          185
+        ],
+        [
+          205,
+          215
+        ]
+      ],
+      "eof": 344
+    },
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "0ad5e0e1b2b062d47f48af303bc97f1259f6d4ac99c62bef9b42588b183233b4",
+      "actual_consumed_ranges": [
+        [
+          1,
+          60
+        ],
+        [
+          280,
+          320
+        ],
+        [
+          380,
+          447
+        ]
+      ],
+      "eof": 595
+    },
+    {
+      "path": "crates/fabelgeist-geometry/src/length.rs",
+      "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "actual_consumed_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "eof": 40
+    },
+    {
+      "path": "crates/fabelgeist-geometry/src/lib.rs",
+      "sha256": "4be1dea1bfca250604d52c9c8ea026aac5e3608d4d8cf35168f0cdc60ff4a7ab",
+      "actual_consumed_ranges": [
+        [
+          1,
+          12
+        ]
+      ],
+      "eof": 16
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/spatial_geometry.rs",
+      "sha256": "c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+      "actual_consumed_ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "eof": 29
+    }
+  ],
+  "rules": "Root/crates/core/tactical-core and client animation AGENTS plus producer-propagation, existing-type-owners and invariant-operations skills freshly read earlier this review response and retained. No backwards compatibility requirement. No live tactical incident diagnosed.",
+  "native_provenance": {
+    "receipt": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/interpolation-boundary-trace-001.json",
+      "sha256": "f769e5e161104396b5effa80f954f00194ccb4667dd6bd1584ac4496afa48591"
+    },
+    "archive_lock_proof": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/native-provenance-001.json",
+      "sha256": "aedfe8247f9173819f6385b76d24b271853559108b57fd02265b350e658fbb8b"
+    },
+    "unchanged_native_pins": [
+      {
+        "path": "Cargo.lock",
+        "sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be",
+        "reused_actual_consumed_ranges": [
+          [
+            2462,
+            2485
+          ],
+          [
+            5061,
+            5071
+          ],
+          [
+            5688,
+            5702
+          ]
+        ]
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_math-0.19.1/src/lib.rs",
+        "sha256": "d743684d4c464873715e1fa8ef5fe0b6fa537fabb1172894056c3a7bff504a26",
+        "reused_actual_consumed_ranges": [
+          [
+            74,
+            100
+          ]
+        ]
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glam-0.32.1/src/float.rs",
+        "sha256": "ba7f8ab2d8f2a3e8d8706f29950edaac2b233163012636853dbc10c5d4fa1223",
+        "reused_actual_consumed_ranges": [
+          [
+            1,
+            48
+          ]
+        ]
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glam-0.32.1/src/f32/float.rs",
+        "sha256": "4ca0b623ede3a0ec0492fe7666ccf481e2d0fcc4d9bf0386a99a707a0473b63c",
+        "reused_actual_consumed_ranges": [
+          [
+            1,
+            40
+          ]
+        ]
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy-0.19.1/src/lib.rs",
+        "sha256": "10075d3357dd35ffcb0b0c85a276ded49573b59d692e075ba6e8ad8b2738aa48",
+        "reused_actual_consumed_ranges": [
+          [
+            48,
+            60
+          ]
+        ]
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_internal-0.19.1/src/lib.rs",
+        "sha256": "e4d62ec28c75d725a321bacfe8c6d2ac8cc8848833d3e9ddbcba22ff5f0c8c55",
+        "reused_actual_consumed_ranges": [
+          [
+            59,
+            70
+          ]
+        ]
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_math-0.19.1/src/lib.rs",
+        "sha256": "d743684d4c464873715e1fa8ef5fe0b6fa537fabb1172894056c3a7bff504a26",
+        "reused_actual_consumed_ranges": [
+          [
+            101,
+            103
+          ]
+        ]
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glam-0.32.1/src/lib.rs",
+        "sha256": "59d108054d6f38ce1cef40d832b79a1b2c4eac75c7182d19b46804b1ec0d8962",
+        "reused_actual_consumed_ranges": [
+          [
+            395,
+            399
+          ]
+        ]
+      }
+    ],
+    "assessment": "Bevy0.19.1\u2192bevy_math0.19.1\u2192glam0.32.1 actual FloatExt f32 body is self + (rhs-self)*t. Lock checksums/cached archive-member matches verified in prior receipt; native source and lock rehashed unchanged now. Final CycleDelta and NonnegativeLength receive typed Self/UnitInterval; only direct native call extracts, and result is immediately re-admitted. FloatExt moved to file-level import. No helper merely conceals an extraction."
+  },
+  "actual_contracts": [
+    {
+      "topic": "Admission and inverse speed normalization",
+      "source": "core linear_speed.rs1-95/unit_interval.rs1-76; value_error.rs124-222",
+      "assessment": "Private finite/nonnegative/unit field owners with checked constructors/Serde retained. lower>=upper rejects typed NonIncreasingBounds before sample endpoint checks/division; <=lower givesZERO, >=upper ONE; interior finite nonnegative subtraction has positive finite denominator and monotone numerator<=denominator, explicit UnitInterval admission remains. New SpeedError variant mapped exhaustively to AnimationValueError and for_quantity handles it. Invalid nonfinite/negative/rawfactor inputs rejected by owning admissions."
+    },
+    {
+      "topic": "Closed UnitInterval operations",
+      "source": "unit_interval.rs35-55",
+      "assessment": "Complement/product preserve finite[0,1], including permitted signedzero/subnormal underflow. Symmetric cubic evaluates only u<=.5, u\u00b2<=.25, 3-2u in[2,3], giving sufficient rounded upper bound.75, then optional complement stays[0,1]. Endpoints0/1 exact; no outputclamp or oldbitwise/roundoff compatibility promise. Source mathematical reasoning, no probes."
+    },
+    {
+      "topic": "All four run producers and retained typed values",
+      "source": "animation/locomotion.rs129-181; evaluation/locomotion.rs217-256; client authored_cadence.rs127-149",
+      "assessment": "locomotion_profile, ordinary_step_distance, locomotion_samples and AuthoredLocomotionStrides::ordinary all normalize typed speed with common walk/run typed bounds. Lower-speed distance interpolation likewise uses ZERO..walk and typed NonnegativeLength. CycleDelta/Speed/Length/Height consumers receive typed fraction; complement replaces bounce rawroundtrip. Guard/downed early returns and authored currentconfiguration/absent walk/run gates retained."
+    },
+    {
+      "topic": "Weights and reached shared smoothstep recipients",
+      "source": "evaluation/locomotion.rs111-154,186-283; evaluation.rs15-39,290-390; sample_values.rs132-198",
+      "assessment": "Bounded locomotion/run fractions retain complement/Mul until lossless From<UnitInterval> into broader nonnegative BlendWeight. Candidate003 longitudinal/lateral ratios are admitted once at native vector-derived boundary then reused through checked_scale; scale errors occur before returned samples. Candidate002 alternating_contact_pair correction remains: typed progress compared ZERO/ONE, progress/complement widened directly. append_scaled collects checked weights before vector extension. Existing dive/alternating shared smoothstep01 recipients read; no whole animation policy claim."
+    },
+    {
+      "topic": "Length/calibration/cadence propagation",
+      "source": "measurement.rs22-49; authored_cadence.rs8-26,62-70,127-149; unchanged presentation/cadence.rs25-86; independent-normalization-trace001",
+      "assessment": "Both authored stepdistance and maximumstanceslip remain NonnegativeLength, each uses checked_lerp. Owner uses actual native scalar kernel with finite/nonnegative result admission. Independent earlier exact calibration trace proves typed producer fields/retained options; cadence receiving body freshly read passes typed stepdistance to selection, compares typed slip budget, advances phase after success. No cache/configuration/missingmeasurement gate removed or new fallback introduced."
+    },
+    {
+      "topic": "Configuration moved owner and aggregate bounds",
+      "source": "combat_config/locomotion.rs1-58; combat_config.rs1-78,634-655,706-732; runtime.rs/defaults.rs/playback.rs/landing.rs",
+      "assessment": "Canonical serde records/public reexports retained, no duplicate owners. Candidate003 removes redundant finite/nonnegative/positive gait rescans only after own source proof of checked PositiveLength constructor/Deserialize (length.rs1-40 via exact reexports), PositiveSpeed checked constructor/Serde and HeightDistance underlying checked NonnegativeLength/Serde. CycleDelta is signed finite, so owning config retains ZERO<=support_radius<HALF-cycle relation. Strict run>walk and blend>initial plus landing validation retained. Full TacticalCombatConfig validator still calls owning locomotion and playback/etc. Defaults validate embeddedYAML; runtime install validates before publishing, getters return copied snapshot. Current2<5.5 and.05<.75 source values read; zero flight/bounce remains valid. No global unsafe/reflection/admission bypass proof claimed."
+    },
+    {
+      "topic": "Height producer/retention/error receiver",
+      "source": "client procedural/height.rs44-115,200-291; core height_measurement.rs44-89; sample_state.rs17-32; procedural.rs449-485",
+      "assessment": "Authored rise compensation uses typed run speed coordinate, eliminates amplitude division, so valid zero runflight is safe. Moving fade uses validated initial..blend and canonical smoothstep. Grounded/action/pack/upright/guard gates retained; zero flight returnsZERO. scaled_by/flight_wave accept typed fraction and re-admit HeightDistance. Height targets and retained state remain typed; actual apply handler rejects/logs errors and skips publishing failed nextstate. Existing signed offsets retained."
+    },
+    {
+      "topic": "Fallible arithmetic and checked invalid cases",
+      "source": "CycleDelta/Length checked_lerp, Speed inverse/result admission, value errors",
+      "assessment": "CycleDelta signed finite endpoints may overflow native rhs-self (static example -MAX,+MAX), including NaN atfactorZERO; immediate from_arithmetic prevents invalidtyped output. NonnegativeLength and Speed keep checked output admission; length errors remain Length and speed errors map structured quantities. Equal/reversed inverse intervals reject even for outside samples. Zero flight is neither rejected nor a divisor. Low-endurance input is clamped at producer then admitted before canonical smoothstep; NaN continues to later typed nonfinite rejection rather than admitted state. No runtime execution claim."
+    },
+    {
+      "topic": "Separate build root and hosted source bindings",
+      "source": "core build.rs1-75/Cargo.toml1-43; workflow1-60,280-320,380-447; movement_speed.rs250-523",
+      "assessment": "Build script includes canonical linear_speed and unit_interval, has serde derive+thiserror builddeps. New methods require existing std support; no extra cfg/dependency path. Existing movement filter selects four existing nonignored tests personally consumed; source repair adds/edits no tests. Hosted commands retain client/shared animation and core combat_config; combat_config command binds HEAD to expectedsource and positive result, movement group appears required positive rawresult gate. Gate does not enforce exact4count; actual hosted logs must verify execution. No local execution or workflow-wide recertification."
+    }
+  ],
+  "limitations": [
+    "Source-only scoped Code Review. No product/Git/root-ledger/history edits, project builds/tests/fmt/lints/scanners/toolchain/probes, new tests/helpers/assertions/doctests or publication. Evidence-only source navigation/hashing/JSON staging. Existing test bodies read, never run or added.",
+    "Registered full candidate file ranges are permissions/plans; actual_consumed_ranges above state precise consumption. Unchanged tails outside them are not source-certified. All scoped changed bodies and named receiving ports consumed. Native receiver proof reused after fresh hash equality, not another reviewer verdict.",
+    "Candidate001/002 became historical during review. Final candidate003 two changed bodies freshly registered/read; exact final16 hashes rechecked. Initial attempted report save detected transition and stopped before writing; this is sole final receipt.",
+    "Registration003 preliminary metadata EOF guard stopped overlong sample_state proposal before write/body output, then corrected1-73 registered/read. No nonexistent tail coverage.",
+    "No current/runtime/native scenario or final hosted acceptance claimed. Parent sole implementation/adoption/publication owner. Any further byte changes need reconciliation.",
+    "No global13/all20/original-role credit or acceptedunique count. Frozen audit frontier/qualifications preserved. No backwards compatibility scaffolding or historical arithmetic/errorlayout promise required."
+  ]
+}

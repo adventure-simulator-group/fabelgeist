@@ -1,0 +1,344 @@
+{
+  "schema": "lens12-source-discovery-receipt-v1",
+  "id": "L12-RESUME-006",
+  "created_utc": "2026-10-27T10:57:30.177451+00:00",
+  "predecessor": "receipt-005-originals83-89.json",
+  "prospective_manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens12/prospective-sources-001.jsonl",
+    "sha256_prefix": "7d986cc8ebb474f79a8f369135519ff042a7740a2bd1391584afe47168059b4f",
+    "bytes_prefix": 55665
+  },
+  "source_reads": [
+    {
+      "original_index": 90,
+      "source_id": "physical-p16:crates/adventuresim-core/src/composite.rs",
+      "sha256": "d12458450a9186177a47c1b404529e9f6128dfd204fd63817b8a4fd8cf27e72f",
+      "actual_ranges": [
+        [
+          1,
+          386
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              137,
+              150
+            ]
+          ],
+          "occurrences": 10,
+          "role": "ambassador delegate where/target string tokens",
+          "disposition": "concrete procedural macro Rustpredicate/fieldtarget boundary; actual fields151-157 and typeddelegate/trait methods175-386 read; no retained app stringstate/API"
+        },
+        {
+          "lines": [
+            297
+          ],
+          "occurrences": 1,
+          "role": "lint rationale",
+          "disposition": "compiler attribute boundary. All docs/codeexamples read sourceonly, no doctestexecution/addition."
+        }
+      ],
+      "status": "source-accounted with findings, no global/runtime/currentclearance"
+    },
+    {
+      "original_index": 91,
+      "source_id": "physical-p16:crates/adventuresim-core/src/courtship.rs",
+      "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+      "actual_ranges": [
+        [
+          1,
+          1153
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              37,
+              135
+            ]
+          ],
+          "role": "prefix37;12code tokens60-71;12parser tokens87-98;encodeformat123; parser delimiters131/134; code as_str58/FromStr85/detailString107/new111/encode121/parse129",
+          "disposition": "actual native reducer transport adapter confirmed via unchanged frozenserver CourtshipPairError20-25 and #[reducer] begin_formal427-441/456-500. In-app code remains CourtshipRejection.code enum; frontend1217-1219 parses code after error display then maps typedcode tohumanUI text1122-1146 ->JSON1233. Codec textboundary is source-backed for this route, not blanket allcallers claim. detail ishumanprose carriedtoenvelope and notusedasbranch in readclientroute. No requirement preserveold envelope/prose; actualDBSDKtransport implementation not read."
+        },
+        {
+          "ranges": [
+            [
+              196,
+              240
+            ]
+          ],
+          "role": "spacetimedb feature197 and HousingTier.id three tokens209-211/rawreturn207",
+          "disposition": "feature compilerboundary. Tier enum already canonical; id rawtext projection actualconsumers not yet traced, record pending purpose/retained-key finding ratherthan declaringnativeonly orunused."
+        },
+        {
+          "ranges": [
+            [
+              491,
+              529
+            ],
+            [
+              582,
+              626
+            ]
+          ],
+          "role": "LeisureInterval.location_id&str495 equality501 and copied521/526; hash domain/parts raw583/584/586; StreamId literal587; daily actor/location/target raw594-597/candidates607-609/618-622; day.to_string599 and domain601",
+          "disposition": "source-backed semantic identity finding: location equality and deterministic hash/tiebreak use rawstrings; keep actual appropriate canonical open IDs through producers/retainedstate, distinguish numericcharacter IDs from locationIDs and lifecycle purpose. Seed.derivation nativebyte boundary actual2531:5-20,63-69 is lengthframed; does not excuse earlier raw app IDs. Actual StreamId alreadyowns purpose; route genericdomain text through correct typedpurpose/Seed API after owner reconciliation. Numericday stringification violates checkednative Seed numericcontext contract61-62; use fixedwidth encoding at actual seedboundary, noBC requirement."
+        },
+        {
+          "ranges": [
+            [
+              715,
+              745
+            ]
+          ],
+          "role": "4 literals719/723/727/732 codecprose tests",
+          "disposition": "actual boundary decoder inputs/wrapped error envelope diagnostics; typed rejection code comparisons. Sourceonly testread, no executed acceptance."
+        },
+        {
+          "ranges": [
+            [
+              957,
+              972
+            ],
+            [
+              975,
+              1041
+            ],
+            [
+              1123,
+              1152
+            ]
+          ],
+          "role": "19 actor/location/candidate literals960/962/965/966/969/970;6 location literals979/984/991/1003/1015/1020;9parent/home IDs1126/1127/1130/1133/1134/1137/1145/1146/1149",
+          "disposition": "actual seed, ordering, and locationequality semantic identities, same connected raw ID finding, no blanket fixture exemption; exactcallee in91/92 read. Parent names used as fixtureidentifiers not proof realpersonname==characterID; ownerrole remains canonicalIDqualification."
+        }
+      ],
+      "status": "source-accounted with findings, no global/runtime/currentclearance"
+    },
+    {
+      "original_index": 92,
+      "source_id": "physical-p16:crates/adventuresim-core/src/courtship/child_identity.rs",
+      "sha256": "79e3e2273c83b841a9b8ad92bef203dfde9e3be24d063568921367c1ffe7f299",
+      "actual_ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            26
+          ],
+          "occurrences": 1,
+          "role": "spacetimedb featuretoken",
+          "disposition": "compiler boundary"
+        },
+        {
+          "ranges": [
+            [
+              50,
+              55
+            ],
+            [
+              67,
+              95
+            ]
+          ],
+          "role": "4 rawdomain constants50-53 and typedStreamIdliteral55; raw parent/location inputparams68/69/72; parentlexicalordering74, ordinal/birth stringified79/80",
+          "disposition": "source-backed raw identity/purpose erasure in lifecycleproducer despite typed ChildIdentitySeed/ChildNameSeed/HouseholdPlacementSeed outputs. Exact parent/fromproducer roles retained inSeedfielding; typed inputIDs/purpose and numericlittleendian framing needed, canonicalnative StreamId.seed34-42/Seed.derive63-69 read. No collision/runtime or currentimplementation claim; outputtype existence alone doesnotfinishproducer migration."
+        }
+      ],
+      "status": "source-accounted with findings, no global/runtime/currentclearance"
+    }
+  ],
+  "actual_material_receivers": [
+    {
+      "source_id": "physical-p16-unchanged-receiver:crates/adventuresim-stdb-module/src/relationship/courtship.rs",
+      "sha256": "3f03d0db1b9cf1860a021496c4a4442a607e0dc03f6eaa309ca7318e965e323c",
+      "ranges": [
+        [
+          1,
+          80
+        ],
+        [
+          423,
+          502
+        ]
+      ],
+      "provenance": "declared a120 snapshot, absent complete frozenphysical159dirty path, exact read-onlygitshowbytes; no PRworking/currentalias",
+      "trace": "canonicalcode preserved before native #[reducer] String return; CourtshipPairError.InvalidState(String)/Fromrawstring28-37 and messages61/68/74/448/454/458/467/479/488 are additional reached rawerror policy, mandatory future otherlenses/frozen/current review, not wholecourtshipcoverage"
+    },
+    {
+      "source_id": "physical-p16-unchanged-receiver:crates/strategic-web/src/routes/dialogue.rs",
+      "sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+      "ranges": [
+        [
+          1190,
+          1250
+        ],
+        [
+          1122,
+          1153
+        ]
+      ],
+      "provenance": "declared a120 snapshot absent frozenphysical159dirty exactgitshowbytes",
+      "trace": "actual error.to_string ->parseCourtshipRejection->typedcodeUI mapping ->Json response. Incidental reducer namecancel_wedding1200/prose1195/1209/1226/1228 and pathString1238 are reached context/futuremandatoryinventory, not blanketnativeAPIclearance; underlying state.db.call notread."
+    },
+    {
+      "source_id": "physical-p16:crates/fabelgeist-determinism/src/lib.rs",
+      "sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "trace": "actual declared seed/stream owners reexport; numericalfunctions no strings; no futureoriginal2594count"
+    },
+    {
+      "source_id": "physical-p16:crates/fabelgeist-determinism/src/seed.rs",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "trace": "StreamId.new28 assert29 and rawfield25, native BLAKE3derive/contextframing5-20/63-69, numericStreamId.seed34-42; externalBLAKE3implementation notneeded/claimed; String-ID parentappsemantics not owned byhasher"
+    }
+  ],
+  "findings": [
+    {
+      "family": "inherited raw identity/seed producer migration",
+      "sources": [
+        "91:491-529,582-626",
+        "92:50-95",
+        "2531:28-42,59-69"
+      ],
+      "remedy": "retain existing appropriate ID/Seed/StreamId owners across selectors and lifecycleproducer; encode numericcontext as fixedwidthbytes at nativehash boundary; distinguishtypedname/placementpurpose outputs from untypedinputs",
+      "limits": "actual app-ingress callers and canonicalsuitable Character/Location ID owners not independently fullyresolved; no newwrapper blindly. No collision/normalruntime/currentregressionclaim. Source-accountwithfinding notrepairacceptance",
+      "unique_delta": 0
+    },
+    {
+      "family": "raw HousingTier.id return pending exactconsumerrole",
+      "sources": [
+        "91:207-213"
+      ],
+      "remedy": "retain HousingTier in applicationkeys/state until actualwire/textprojection; needactualconsumers before determiningAPIrole",
+      "unique_delta": 0
+    }
+  ],
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/composite.rs",
+      "sha256": "d12458450a9186177a47c1b404529e9f6128dfd204fd63817b8a4fd8cf27e72f",
+      "ranges": [
+        [
+          1,
+          386
+        ]
+      ],
+      "coverage": "lens12 source roleinventory only; otherlens mandatory no future-original verdicttransfer"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/courtship.rs",
+      "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+      "ranges": [
+        [
+          1,
+          1153
+        ]
+      ],
+      "coverage": "lens12 source roleinventory only; otherlens mandatory no future-original verdicttransfer"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/courtship/child_identity.rs",
+      "sha256": "79e3e2273c83b841a9b8ad92bef203dfde9e3be24d063568921367c1ffe7f299",
+      "ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "coverage": "lens12 source roleinventory only; otherlens mandatory no future-original verdicttransfer"
+    },
+    {
+      "source_id": "physical-p16-unchanged-receiver:crates/adventuresim-stdb-module/src/relationship/courtship.rs",
+      "sha256": "3f03d0db1b9cf1860a021496c4a4442a607e0dc03f6eaa309ca7318e965e323c",
+      "ranges": [
+        [
+          1,
+          80
+        ],
+        [
+          423,
+          502
+        ]
+      ],
+      "coverage": "lens12 source roleinventory only; otherlens mandatory no future-original verdicttransfer"
+    },
+    {
+      "source_id": "physical-p16-unchanged-receiver:crates/strategic-web/src/routes/dialogue.rs",
+      "sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+      "ranges": [
+        [
+          1190,
+          1250
+        ],
+        [
+          1122,
+          1153
+        ]
+      ],
+      "coverage": "lens12 source roleinventory only; otherlens mandatory no future-original verdicttransfer"
+    },
+    {
+      "source_id": "physical-p16:crates/fabelgeist-determinism/src/lib.rs",
+      "sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "coverage": "lens12 source roleinventory only; otherlens mandatory no future-original verdicttransfer"
+    },
+    {
+      "source_id": "physical-p16:crates/fabelgeist-determinism/src/seed.rs",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "coverage": "lens12 source roleinventory only; otherlens mandatory no future-original verdicttransfer"
+    }
+  ],
+  "qualifications": [
+    "All predecessor/state037 all20/P16/P17/currentness/alias/unique obligations preserved.",
+    "Physicalfrozen a120 dirtysource recoveryprovenance remains distinct from currentmain/HEAD/PRworking.",
+    "No nativeSDK implementationclaim fromAPIinvocation; true sourcecallees/ingress notread areexplicit.",
+    "No backward compatibility constraints; envelope/native bytes maychange with cleanfinal API whenauthorized.",
+    "No project/source execution/tests/probes/newtests/source/Gitmutations/rootledgerpublication.",
+    "One attempted overlybroad metadata serialization was truncated; only compact snapshot metadata consumed subsequently, no sourcebody/count credit from that output."
+  ],
+  "proposed_count": {
+    "before": 90,
+    "after": 93,
+    "indices_completed": [
+      90,
+      91,
+      92
+    ],
+    "next_original": 93,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  }
+}

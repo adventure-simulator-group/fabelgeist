@@ -1,0 +1,145 @@
+{
+  "for_original": 46,
+  "scope": "prospective exact frozen receiver staging + identifier/function navigation only; not body or original/shared/lens clearance",
+  "source_authority": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+  "manifest": "audit12-frozen-source-manifest-019.json",
+  "base": "a120390947c89b703dc74c4255a13c035d054c50",
+  "files": [
+    {
+      "path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+      "source_id": "physical-p16-unchanged-base:crates/adventuresim-core/src/item_catalog_validation.rs",
+      "sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "lines": 2053,
+      "bytes": 72263,
+      "staged_path": "target/recovery-20261025/continuation-segovb/source-objects/df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "provenance": "Exact a120 base object; path absent from all159 frozen statuses/159changed manifest entries",
+      "function_locators_only": [
+        {
+          "line": 133,
+          "function": "parse_document"
+        },
+        {
+          "line": 205,
+          "function": "validate_documents"
+        },
+        {
+          "line": 212,
+          "function": "validate_documents_with_sources"
+        }
+      ],
+      "body_read": false
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_catalog_validation.rs",
+      "source_id": "physical-p16-unchanged-base:crates/adventuresim-core/src/quest_catalog_validation.rs",
+      "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+      "lines": 1526,
+      "bytes": 66249,
+      "staged_path": "target/recovery-20261025/continuation-segovb/source-objects/738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+      "provenance": "Exact a120 base object; path absent from all159 frozen statuses/159changed manifest entries",
+      "function_locators_only": [
+        {
+          "line": 427,
+          "function": "validate_documents"
+        }
+      ],
+      "body_read": false
+    },
+    {
+      "path": "crates/adventuresim-core/src/organization_catalog_validation.rs",
+      "source_id": "physical-p16-unchanged-base:crates/adventuresim-core/src/organization_catalog_validation.rs",
+      "sha256": "45b87fa13f86c8805f2b4f974fd1f629f5da068a07b3b7c4af17115aaa339846",
+      "lines": 986,
+      "bytes": 35810,
+      "staged_path": "target/recovery-20261025/continuation-segovb/source-objects/45b87fa13f86c8805f2b4f974fd1f629f5da068a07b3b7c4af17115aaa339846",
+      "provenance": "Exact a120 base object; path absent from all159 frozen statuses/159changed manifest entries",
+      "function_locators_only": [
+        {
+          "line": 207,
+          "function": "validate_documents"
+        }
+      ],
+      "body_read": false
+    },
+    {
+      "path": "crates/adventuresim-core/src/road_encounter_catalog.rs",
+      "source_id": "physical-p16-unchanged-base:crates/adventuresim-core/src/road_encounter_catalog.rs",
+      "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "lines": 2689,
+      "bytes": 102348,
+      "staged_path": "target/recovery-20261025/continuation-segovb/source-objects/62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "provenance": "Exact a120 base object; path absent from all159 frozen statuses/159changed manifest entries",
+      "function_locators_only": [
+        {
+          "line": 387,
+          "function": "validate_definitions"
+        },
+        {
+          "line": 874,
+          "function": "validate_item_references"
+        }
+      ],
+      "body_read": false
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_catalog.rs",
+      "source_id": "physical-p16-unchanged-base:crates/adventuresim-core/src/quest_catalog.rs",
+      "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+      "lines": 1630,
+      "bytes": 62269,
+      "staged_path": "target/recovery-20261025/continuation-segovb/source-objects/49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+      "provenance": "Exact a120 base object; path absent from all159 frozen statuses/159changed manifest entries",
+      "function_locators_only": [
+        {
+          "line": 842,
+          "function": "catalog"
+        }
+      ],
+      "body_read": false
+    }
+  ],
+  "generated_constant_receiver_locators": [
+    {
+      "path": "crates/adventuresim-core/src/item_catalog.rs",
+      "line": 31,
+      "identifiers": [
+        "ITEM_CATALOG_JSON"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/src/organization.rs",
+      "line": 490,
+      "identifiers": [
+        "ORGANIZATION_CATALOG_JSON"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_catalog.rs",
+      "line": 358,
+      "identifiers": [
+        "QUEST_DIALOGUE_VARIANT_SOURCE_MAP_JSON"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_catalog.rs",
+      "line": 846,
+      "identifiers": [
+        "QUEST_CATALOG_JSON"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_catalog.rs",
+      "line": 1077,
+      "identifiers": [
+        "QUEST_CATALOG_JSON"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/src/road_encounter_catalog.rs",
+      "line": 996,
+      "identifiers": [
+        "ROAD_ENCOUNTER_CATALOG_JSON"
+      ]
+    }
+  ]
+}

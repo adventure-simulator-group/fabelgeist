@@ -1,0 +1,134 @@
+{
+  "at": "2026-10-27T17:25:03.246015+00:00",
+  "kind": "Prospective merged exactsource role/variant bridge comparison registration",
+  "bridges": [
+    {
+      "merged_index": 15,
+      "own_original": 1079,
+      "own_sha256": "806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+      "own_local": "target/recovery-20261025/continuation-segovb/source-objects/806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+      "own_eof": 3983,
+      "merged_base": "517f93978b1b2a9fe9debaaa7d6386aa3200cda88348cd23a9ef6e5e94b5004a",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-15-base-517f93978b1b2a9fe9debaaa7d6386aa3200cda88348cd23a9ef6e5e94b5004a",
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-15-own-original1079-to-base-delta.txt",
+      "delta_sha256": "7b321cc5115f96d4bba87e4e959a6c74b9b27017d8e0708bddcab6a3ef3d2b82",
+      "delta_lines": 20,
+      "equal_maps": [
+        {
+          "own": [
+            1,
+            3062
+          ],
+          "base": [
+            1,
+            3062
+          ]
+        },
+        {
+          "own": [
+            3064,
+            3983
+          ],
+          "base": [
+            3066,
+            3985
+          ]
+        }
+      ]
+    },
+    {
+      "merged_index": 22,
+      "own_original": 1474,
+      "own_sha256": "c7869ebb6e2c2a67a4c47e9504c0ced6da6566f95fba9320181d49b1142a54fd",
+      "own_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-c7869ebb6e2c2a67a4c47e9504c0ced6da6566f95fba9320181d49b1142a54fd",
+      "own_eof": 1745,
+      "merged_base": "c4df9aebd8ae04e6fb831345ab7b31df4c29be24de21d73067dd1273f690d827",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-22-base-c4df9aebd8ae04e6fb831345ab7b31df4c29be24de21d73067dd1273f690d827",
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-22-own-original1474-to-base-delta.txt",
+      "delta_sha256": "8d7f5a0b951410a8f073402de25692eada87ea854f5ebe90da357e9c49c3b958",
+      "delta_lines": 35,
+      "equal_maps": [
+        {
+          "own": [
+            1,
+            242
+          ],
+          "base": [
+            1,
+            242
+          ]
+        },
+        {
+          "own": [
+            243,
+            1745
+          ],
+          "base": [
+            262,
+            1764
+          ]
+        }
+      ]
+    },
+    {
+      "merged_index": 37,
+      "own_original": 2475,
+      "own_sha256": "5d4c5bdafc3295b771e474acffa02faa4a43caa74624423cf02d3dabf4efa523",
+      "own_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-5d4c5bdafc3295b771e474acffa02faa4a43caa74624423cf02d3dabf4efa523",
+      "own_eof": 1001,
+      "merged_base": "9d0d3916352c4808958a17c7c58e323d8f1a5cc4cc104ab40807be5ed6fa3c15",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-37-base-9d0d3916352c4808958a17c7c58e323d8f1a5cc4cc104ab40807be5ed6fa3c15",
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-37-own-original2475-to-base-delta.txt",
+      "delta_sha256": "45316a91577f6d58384054842e6ba51d542279b6c18eb807aaa2cd7ed8a5e7bb",
+      "delta_lines": 34,
+      "equal_maps": [
+        {
+          "own": [
+            1,
+            191
+          ],
+          "base": [
+            1,
+            191
+          ]
+        },
+        {
+          "own": [
+            210,
+            1001
+          ],
+          "base": [
+            192,
+            983
+          ]
+        }
+      ]
+    }
+  ],
+  "fresh_full_merged_head_scopes": [
+    {
+      "merged_index": 12,
+      "source": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-12-head-68d980d533f30f094dc511d8e0eef78f92090b3d51d9754c28e57f190b80c864",
+      "sha256": "68d980d533f30f094dc511d8e0eef78f92090b3d51d9754c28e57f190b80c864",
+      "ranges": [
+        [
+          1,
+          513
+        ]
+      ]
+    },
+    {
+      "merged_index": 28,
+      "source": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-28-head-7f564603c19a4d7f46601c6c56251a3d2177c3cf8854811bac529e6f3228c8ad",
+      "sha256": "7f564603c19a4d7f46601c6c56251a3d2177c3cf8854811bac529e6f3228c8ad",
+      "ranges": [
+        [
+          1,
+          507
+        ]
+      ]
+    }
+  ],
+  "role": "Own full originallyread variant can only support this mergedbase after actualfullbridge delta + unchangedownbody mapping, no hash-only substitution.12/28 newly reached fullfirstparty caller scopes actuallyneeded, no wholeforeigntree extraction.",
+  "status": "registered only no sourcebody coverage yet"
+}

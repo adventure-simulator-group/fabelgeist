@@ -1,0 +1,98 @@
+{
+  "at": "2026-10-27T13:35:43.067133+00:00",
+  "lens": 8,
+  "original": 2313,
+  "registration": "REGISTRATION-094-mhr-contracts.json",
+  "head_sha256": "45961a0c74b57fb81e9429abc14d387a4e4a00ba18a771c17b0fd5e4ea09eaf4",
+  "actual_head_reads": [
+    [
+      1,
+      650
+    ],
+    [
+      651,
+      1750
+    ],
+    [
+      1751,
+      2850
+    ],
+    [
+      2851,
+      3950
+    ],
+    [
+      3951,
+      5050
+    ],
+    [
+      5051,
+      6150
+    ],
+    [
+      6151,
+      7093
+    ]
+  ],
+  "base_sha256": "84291a41f3258125af7ac8148db30f314122c22bdec03b44b8b2735f4521773f",
+  "base_comparison": {
+    "all_actual_delta_body_read": true,
+    "delta": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/delta-094-original2313.diff",
+    "exact_unchanged_same_lens_maps": [
+      {
+        "base": [
+          1,
+          2349
+        ],
+        "head": [
+          1,
+          2349
+        ]
+      },
+      {
+        "base": [
+          2350,
+          2384
+        ],
+        "head": [
+          2351,
+          2385
+        ]
+      },
+      {
+        "base": [
+          2385,
+          2394
+        ],
+        "head": [
+          2387,
+          2396
+        ]
+      },
+      {
+        "base": [
+          2395,
+          5470
+        ],
+        "head": [
+          2406,
+          5481
+        ]
+      },
+      {
+        "base": [
+          5471,
+          7061
+        ],
+        "head": [
+          5503,
+          7093
+        ]
+      }
+    ],
+    "qualification": "Exact same-lens freshly consumed head unchanged lines reused to account base, allcompleteold/new62linedelta read. Not literal fullbase reread or hash-only/nativeSDK proof."
+  },
+  "assessment": "Full native Cargo.lockversion4 package/source/version/checksum/dependency graph fields inspected. Changes add fabelgeist-rig to localFBX/MHR andnewrig package with derive_more/serde/strum, plusstrum/strum_macros0.27.2 graph. Existing external version/revision/checksum pins unchanged; no native Cargo feature activation, package build success, registry integrity, SDK body or runtime behavior inferred from graph entries. Burn/CubeCL/nativeWgpu30 lock here distinct fromworkspaceWgpu29 native receiver bodies; no crossversion source substitution. Everyliteral has actual package resolver codec role, no gameplay ID or newapplication bespoke owner needed solelyfor this generated file. No manual lock edits, project checks, download or codechanges.",
+  "accepted_unique_count_change": 0,
+  "implementation_gate_complete": false
+}

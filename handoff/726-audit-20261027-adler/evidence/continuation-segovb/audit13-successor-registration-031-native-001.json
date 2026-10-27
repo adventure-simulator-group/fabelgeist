@@ -1,0 +1,24 @@
+{
+  "at": "2026-10-27T05:24:35.251157+00:00",
+  "lens": "13 magic-numbers",
+  "packet": "031",
+  "extends": "audit13-successor-registration-031.json",
+  "sources": [
+    {
+      "path": "/home/brunosegovia/.rustup/toolchains/nightly-2026-07-13-x86_64-unknown-linux-gnu/lib/rustlib/multirust-channel-manifest.toml",
+      "sha256": "9335ea03f67e10eca8c9dd785dcf27ad5338609b92df071cb48678fb7a80b71d",
+      "bytes": 1064789,
+      "actual_lines": 34988,
+      "ranges": [
+        [
+          1,
+          12
+        ]
+      ],
+      "body_read_at_registration": false,
+      "provenance": "Static local installed toolchain distribution manifest for exactnightly2026-07-13selectedbyfrozenphysicaltoolchain file; currentinstalledmetadata only, not frozenmanifest identity or binaryexecution.",
+      "purpose": "Actual package Cargo version/gitcommit/date authority fields at packageheader before selecting any native source."
+    }
+  ],
+  "limits": "Only registered12metadata lines consumed, no binary/project/toolchain execution or full CargoSDK read."
+}

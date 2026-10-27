@@ -1,0 +1,196 @@
+{
+  "lens": "13 magic-numbers",
+  "packet": "014",
+  "at": "2026-10-27T00:01:13.431050+00:00",
+  "status": "Bounded first-party producer and selected shrub shader path assessed; original31 remains partial. Stop packet.",
+  "authority": {
+    "frozen_original_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "original31": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/components.rs SHAe2053ee2dbf1a837b1a4e80d2d2afa22c0ecc2231bf586041222082971b9cbea full1-193 retained/not reread",
+    "native_commit": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+    "firstparty_dependency_snapshot": {
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "manifest": "audit12-frozen-source-manifest-019.json"
+    },
+    "prior_state": "audit13-successor-013-suggested-state.json",
+    "prior_state_sha256": "89f85c064cd892584fc84077227d5992d46c0e3a3abdc39656b89eb27fefa34a",
+    "root_adoption_required": true,
+    "root_ledger_observed": "At initial read still named012; root013/014 continuation messages authorize use of saved013 state with unchanged33/partial31/firstunread34. No silent ledger write or claimed different counts."
+  },
+  "registration_files": [
+    "audit13-successor-registration-014.json",
+    "audit13-successor-registration-014-receivers-002.json"
+  ],
+  "source_fingerprints": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/batches.rs",
+      "sha256": "55a8f28f05846eea9e2cd7460a1a1aaecb83c64af31573ed82a2bb2f5bdaf196",
+      "bytes": 3288,
+      "actual_lines": 86,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "registration": "audit13-successor-registration-014.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_understory.rs",
+      "sha256": "99e5f51d7e539f2618ce3e0fa233173442b3f4bbefffb3df4fc0203ad2f22fd3",
+      "bytes": 11838,
+      "actual_lines": 322,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          322
+        ]
+      ],
+      "registration": "audit13-successor-registration-014.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:assets/shaders/tactical_shrub_bark_instanced.wgsl",
+      "sha256": "696467dcd07aed5f94b0dfb6d9605560daf85fd74e780da49e2449c840e15844",
+      "bytes": 4397,
+      "actual_lines": 119,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "registration": "audit13-successor-registration-014-receivers-002.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:assets/shaders/tactical_shrub_leaf_instanced.wgsl",
+      "sha256": "0f80c3f51e71056d7249e91d9dda6b82980138f76358602cf5aa887976e8aa52",
+      "bytes": 7894,
+      "actual_lines": 197,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          197
+        ]
+      ],
+      "registration": "audit13-successor-registration-014-receivers-002.json",
+      "post_read_hash_verified": true
+    }
+  ],
+  "provenance": "Understory exact frozen changed-manifest/recovered source object. Grass batches and two selected shaders exact unchanged base/head Git bytes, absent changedmanifest/all4dirty statuses, reconstructed by root receipts audit13-root-firstparty-staging-014.json and audit13-root-firstparty-shader-staging-014.json. No dirty/current/physical variant substituted. Exact dependency source hashes pinned before and after consumption; no other-lens verdict imported.",
+  "source_backed_numeric_inventory": [
+    {
+      "source": "instanced_grass/batches.rs1-86",
+      "roles": "Tier/species native collection indices, per-species instance vector/cardinality, deterministic mesh stream selectors, AABB footprint and visibility-range transport.",
+      "actual_operations": "For each TIERS/GrassSpecies::ALL take full batches[lod.tier_index()][species.index()], skip empty, build diagnostic material and mesh, derive mesh stream seed from species/tier indices cast tou64, calculate culling metadata, and spawn nativeInstanceMaterialData{Arc(instances),color:metadata,visibility_range:configured...}. RetainsGpuCullCompute,NoFrustumCulling,mesh/material and defaultTransform; instance count in Name is diagnostic.",
+      "disposition": "Actual retained native data producer traced. Source does not partition or cap vector length locally. Tier/species-index admission, lattice producer, culling/AABB and configuration receiver bodies not read; no valid-index/length/unit/currentness promise inferred from names."
+    },
+    {
+      "source": "instanced_understory.rs12-142",
+      "roles": "Material/shader selection, native texture/sampler binding indices0-12, packed Vec4 material parameters and framework Boolean flags.",
+      "actual_operations": "Two InstancedMaterial implementations select exact bark/leaf shader paths for both vertex/fragment, disable_prepass returns true. Leaf uniform conversion copies four Vec4 records; material binds six image/sampler pairs at0-11 and uniform12. specialize disables culling and enables alpha-to-coverage only for multisample.count>1.",
+      "disposition": "Actual selected shader/native binding boundary and packed transport read. Purpose-specific parameter lane admission, bool policy and unused payloads are not globally excused as native; queued for independent other-lens reconciliation."
+    },
+    {
+      "source": "instanced_understory.rs144-165,301-307",
+      "roles": "Three representation roles and three species array indices; four-component visibility fade bands.",
+      "actual_operations": "Closed representations Branches/CamberedLeaves/LeafCards map to literal Vec4 bands(0,.001,44,52),(0,.001,26,34),(26,34,84,96). Three-element species storage indexed by exhaustive CommonHazel0/Blackthorn1/CommonHawthorn2.",
+      "disposition": "Local species indexing matches fixed cardinality by construction. Literal selected bands have finite ordered endpoints and nonzero widths for the previously read native dither division; cambered/card transition shares26/34. Broader visibility semantics, metre admission/owner fit, all configurable grass ranges and application error budgets remain unassessed."
+    },
+    {
+      "source": "instanced_understory.rs171-299",
+      "roles": "Typed placement input, raw chance/slope threshold, native instance-vector count and shared Arc retention, footprint and shading/material values.",
+      "actual_operations": "Read placements from native caller, require terrainheight/normal, skip normal.y<.72, attempt Position<Scene>::from_metres, group shrub_instance by species. Each nonempty full-species vector becomes one Arc cloned across three representations; no local count cap/chunk. AABB footprint constant4.5metres and representation band supplied to InstanceMaterialData, white color, defaultTransform, GPU cull and NoFrustumCulling. Bark pigment/roughness comes from material or literalfallback(.16,.13,.10,.96); leaves copy calibrated vectors and shading(1,.72,0,0).",
+      "disposition": "Actual source -> retainednativeinstance path traced. Upstream placements/terrain/Position constructor guarantees, scene area/count limit, AABB receiver and material calibration source bodies not read. No current first-party overflow/panic or universal numeric-admission proof."
+    },
+    {
+      "source": "instanced_understory.rs309-322",
+      "roles": "Actual position frame, rotation/scale computation, deterministic Seed narrowing and default instance index/batch selector.",
+      "actual_operations": "Nativeposition=root.metres() fromPosition<Scene>; rotation=PLACEMENT_YAW.rng(hash,[]).inclusive_unit_f32()*TAU; scale=.72+PLACEMENT_SCALE...unit*.58. Shaderseed is StreamId(\"visual.ground-scatter.instanced-understory.shader-seed\").seed(...).to_u64() masked0xffffffff then castu32. Other fields use native InstanceData Default, so index/batch selector start at native zero defaults.",
+      "disposition": "Mask gives exact low32 transport without lossy unmasked cast. RNG finite/unit distribution and stream owners not read, so no unconditional yaw/scale range promise from method name. Native pipeline later rewrites batchID; selected shaders determine actual index/seed use below. Native unit/frame conversion does not excuse unowned placement tuning."
+    },
+    {
+      "source": "tactical_shrub_bark_instanced.wgsl1-119",
+      "roles": "Selected native shader binding3/0, vertex location/format transport, matrix/normal conversion, dither levels and fragment lighting coefficients.",
+      "actual_operations": "Vertex reads i_batch_id to select uniforms; pos/scale+rotation+parent matrix feed native calc_instance_world_matrix; meshposition extendedw1, normal defaultup/yawrotation+normalize, originw1 to visibilitydither. Fragment consumes signed dither/16 with clamp and pixelhash, front_facing Bool at shader boundary, directional-light indexedloop, dot/saturate/clampedshadow and Lambert coefficient.",
+      "disposition": "Concrete selected receiver for original31 position/scale/rotation/batchID and visibility values. This complete shader body does not reference i_index/i_seed or pass whole Vertex to another helper. Fragment coefficient/lighting/native imported function correctness, parent-transform normal behavior and shader compilation not certified; no whole shader numerical clearance."
+    },
+    {
+      "source": "tactical_shrub_leaf_instanced.wgsl1-197",
+      "roles": "Selected native texture/sampler bindings0-11 and uniform12; instance transport, wind/time/normal/visibility/opacity/shading numeric operations.",
+      "actual_operations": "Reads batchID, computes instance matrix from pos/scale/rotation+parentmatrix; worldposition displaced by procedural wind using UVbend, normalized direction, worldposition phase and globals.time. Yaw normal and bend normalization, color/UV defaults and optional meshattributes, instance-origin visibilitydither. Fragment signed dither/pixelhash, opacity threshold, front/back texture selection, pigment/occlusion/transmission lanes, lightloop/shadow and Lambert terms.",
+      "disposition": "Selected shader does not reference i_index/i_seed or pass whole Vertex onward. Index/seed are not used by these exact selected shrub bodies, not a universal semantic absence proof for materials/includes/other snapshots. Wind-normalization/finite inputs, physical parameter/clock units, shaders/imported SDK policies and full rendering behavior remain unproved."
+    }
+  ],
+  "producer_to_retained_state_to_receiver_trace": [
+    "First-party shrub placements -> typed Position<Scene> construction -> shrub_instance native InstanceData position/scale/yaw/low32seed -> per_species vectors -> shared Arc InstanceMaterialData spawned with GpuCullCompute and selected bark/leaf material. No local vector-length admission beyond nonempty.",
+    "The prior native packets read collect_inputs cloning Arc, allocation producer len asu32, backend/page/ID allocation and Write{offset,batch_id}, upload rewriting batch IDs, sizeofInstanceData vertex layout8-12 and shader IO. Current selected first-party material functions resolve to the two exact shader bodies now read.",
+    "Selected shrub shaders use batch selector and instance transform fields, then visibility/lighting; neither consumes per-instance index/seed. Their procedural wind uses worldposition/time/material vectors rather than i_seed. This resolves the exact shrub selected-receiver uncertainty while leaving grass/custom-material field meanings open.",
+    "Grass batches producer retains the full received per-tier/species vector and metadata into the same native pipeline, but its upstream lattice InstanceData constructor and actual selected grass material/shader were not read. No extension of shrub conclusions to grass is permitted.",
+    "The previously observed native >page_size None -> expect panic/count narrowing path remains conditional on upstream first-party population bounds. These newly read whole-scene producer bodies do not prove a hard cap, but placements/lattice/terrain limits remain unread, so no current first-party failure is claimed."
+  ],
+  "source_observations_noncounted": [
+    {
+      "local_id": "FIRSTPARTY-014-COUNT",
+      "locations": "grass/batches.rs30-76;instanced_understory.rs184-218,252-269;native allocation producer from013",
+      "observation": "Both exact producer bodies retain full nonempty per-tier/species vectors; shrub representations share each species Arc. No local partition/length cap protects nativeu32 narrowing or default1_000_000 page policy.",
+      "qualification": "Upstream placement/lattice/scene limits may provide admission; not read. Root source-key/currentness/finding-alias and actual selected backend/reachability must be reconciled before accepting a new finding. No unique count increment."
+    },
+    {
+      "local_id": "FIRSTPARTY-014-UNUSED-TRANSPORT",
+      "locations": "instanced_understory.rs309-321 and both exact selected shaders",
+      "observation": "Shrub shaderseed is computed/packed while index defaults; exact selected shrub bodies use neither i_seed nor i_index. This is bounded unused-transport evidence for this path only.",
+      "qualification": "No mandatory removal/repair inferred here; arbitrary other material variants and whole SDK/public API semantics remain untraced. Not a universal absence claim or globally unique defect."
+    },
+    {
+      "local_id": "FIRSTPARTY-014-SEMANTIC-POLICY",
+      "locations": "instanced_understory.rs40-41,144-150,181,197,240,292,309-319; selected shader procedural/lighting coefficients",
+      "observation": "Authored slope/scale/yaw/fade/footprint/shading policy and packed uniform lanes are visible at first-party construction and receiving kernels. Exact native API use identifies transport requirements but does not by itself establish bespoke owner/admission/tuning policy for every semantic primitive.",
+      "qualification": "No blanket native-boundary exemption. Existing owner-fit/numeric/aggregate/behavior findings and currentness must be reconciled; all additional source families queued for other lenses, no new unique alias/count."
+    }
+  ],
+  "remaining_partial_original31": [
+    "Actual recipients/bounded semantic absence for InstanceBuffer.length/capacity, GpuDrawIndexedIndirect.offset, InstancedComputeSourceBuffer.count/capacity and InstanceBatch.batch_id/offset remain unresolved.",
+    "Exact shrub index/seed selected receivers are now read, but upstream grass/litter InstanceData constructors, grass/custom selected shaders and first-party vector-length bounds remain unread. No global index/seed/length meaning or first-party rendering clearance.",
+    "InstanceHistory consumer/previous-world semantics remain open despite native producer/extraction registration read in012. Delegated offset_allocator implementations, Custom backends and all public-mutation/device/buffer coherence obligations remain open.",
+    "fitted_batch_aabb/culling metadata/configured visibility range, placements/terrain/Position/RNG/Seed implementations and shader imported native functions are not newly consumed; their guarantees cannot be inferred from names or typed callsites."
+  ],
+  "other_lens_extension_queue": {
+    "path": "audit13-successor-014-other-lens-extension-queue.json",
+    "sha256": "bc35e09b8678af2c9629c06df6c905daa25e81de73c756755ea62b288a8c07da",
+    "status": "Mandatory proposed root source/range-alias reconciliation and independent receiving assessments for lenses1-12; zero other-lens/original/shared credit from this packet."
+  },
+  "metadata_only_exclusions": {
+    "triangle_census": "SHAfb0fc3bbca6503d19caafadaef01a99600a6fdcd0ab42a316a90c94913284861 EOF507 was hash-verified and identifier-located only; no body consumed.",
+    "original_aliases": "Registry metadata aliases1555 grassbatches/1562 understory match sourceSHA; neither original gets independent role credit. No physical/current alias proof inferred."
+  },
+  "accounting": {
+    "before_original_accounted": 33,
+    "after_proposed_original_accounted": 33,
+    "original_total": 2853,
+    "new_originals_inspected": [],
+    "new_originals_completed": [],
+    "partial_original_indices": [
+      31
+    ],
+    "first_unfinished_original": 31,
+    "first_unread_original": 34,
+    "next_original": 31,
+    "overlays_increment": 0,
+    "merged_increment": 0,
+    "material_increment": 0,
+    "other_lens_credit": 0,
+    "new_unique_count": 0
+  },
+  "qualifications": [
+    "Four exact dependency files,724 registered lines personally consumed after prospective registration; hashes verified before and after. No whole source tree, no current/physical native/source alias substitution; first-party dependency snapshot is frozen6533 and not currentmain.",
+    "Original0-30/32/33 and completed989 review not restarted; full original31 scope preserved. New dependencies do not complete their own future original1555/1562 roles or shared materials. No other-lens verdict transfer.",
+    "Root demanded other-lens extension queue. Concrete queue is created after this lens13 reading and before any claimed other-lens assessment; no earlier file creation, other-lens read, completed-source accounting or ledger adoption is invented.",
+    "All prior ID-sentinel/Paged-reset/unchecked byte-bound/history/source-count observations remain non-counted pending root alias/currentness/first-party reconciliation. No globally unique finding aliases or counts invented; inheritedF1/F2/F6/F9 and wider source/admission/operation obligations remain open.",
+    "No project execution/build/test/lint/scanner/generator/probe/assertion/helper/doctest added/run; no product/source/Git/rootledger/historical edits or publication. Only ignored registration/receipt/queue/proposedstate artifacts authored.",
+    "No historical compatibility requirement, global/lens13/SDK/first-party-complete rendering claim or acceptance evidence. Exact source path assessment is not runtime validation or integrated repair."
+  ],
+  "stop_reason": "Producer and selected shrub shader path bounded close complete; original31 remains honest partial. No further source expansion in this packet."
+}

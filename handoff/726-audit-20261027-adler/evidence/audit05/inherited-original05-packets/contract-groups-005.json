@@ -1,0 +1,77 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-005",
+  "at": "2026-10-22T18:47:03.855240+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/layout.rs",
+      "sha256": "f19587b5c651091d18b720268e43f9bdef0e2ca083b33b57d53cbdbccb1be298",
+      "scope014_index": 646,
+      "actual_EOF": 452,
+      "scoped_ranges_compared": [
+        [
+          1,
+          452
+        ]
+      ],
+      "fresh_source_proof": "Fresh exact current05 layout1–284 then285–452; model1–169 displayed with13–15 context excluded. Root03G003 actual full definitions and Native03 roof001/002 actual construction/mutation recipient narratives personally consumed; current05 relationship analysis below."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model.rs",
+      "sha256": "f4e45aaf2f0f5190009ff9de1d465f436714224bb541e947fe46af32087f2408",
+      "scope014_index": 2560,
+      "actual_EOF": 331,
+      "scoped_ranges_compared": [
+        [
+          1,
+          12
+        ],
+        [
+          16,
+          169
+        ]
+      ],
+      "fresh_source_proof": "Fresh exact current05 layout1–284 then285–452; model1–169 displayed with13–15 context excluded. Root03G003 actual full definitions and Native03 roof001/002 actual construction/mutation recipient narratives personally consumed; current05 relationship analysis below."
+    }
+  ],
+  "groups": {
+    "lattice-parity-closed-aggregate": {
+      "relationship": "RoundTower anchor X/Z modulo30 must match even/odd positive cell diameter: both0 for even, both15 for odd. Independently admitted all-i32 GridPoint and positive CellDiameter can form invalid pair.",
+      "construction_retention_mutation": "modelGridPoint publicall-i32 /Cellpublicall-i16 rawnativegridcoordinate; CellDiameter privateu16 positive, checked new/gridunits/manualSerde; GridLengthprivatepositivei32. layoutRoundToweranchor/diameterprivate, new306–327 checks parity362–370 using rem_euclid (negativeanchorscorrect), thencommitsboth. manualSerde384–402 decodes pairthroughSAMEnew before assigningoptionalchords; withchordmethods345–353 cannotchange parity. Gettersonly foranchor/diameter; no independentsetter, noDefault/Reflect/rawFrom. Publicwallheight/thickness/roof/battlement/chords are broaderrawsource andnotincludedinparitypromise.",
+      "relying_consumer": "centre_metres337–339 andradius341–343 representpairedtowerlattice without halfcell parity drift. Chorddirection/positivebearinglength structurallyadmitted but wholechord/tower geometricfit notcheckedbythistype. No inventedanchorpositionmax/newglobalheightpositivity.",
+      "invalid_combo": "Validdiameter1 plusGridPoint(0,0) rejected, diameter1 plus(15,15) valid; negative rem_euclidmatchesparity. Numericpointsalonehave no paritypromise.",
+      "disposition": "Complete controlledconstruction alreadypreservesexact lattice correlation. Keep publicrawtowerrecipes distinctfromacceptedphysicalmember; no additionalbrand needed."
+    },
+    "raw-layout-incidence-and-recipe-records": {
+      "relationship": "Roomid/cellmembership, wallinside/outside room references, openingwallindex andstorey room/wall/opening incidence requirecompleteplancontext. Raw Room/WallSegment/Opening/StoreyPlan publicderivedSerde do not claimorprovide validatedmembership tokens. SquareTower/RoofPiece/Dormer/Stair/BattlementRun rawgeometryparameters similarlybroader thanaccepted resolved geometry.",
+      "construction_mutation_consumers": "All publicfields andordinarySerde permit independentliteral/deserialization/postconstruction edits. WallSegment::centre andexterior computefromitsowncell/direction/Option, not acheckagainst actualStoreyPlanrooms. Stairclosedvariant bindsstraightversusspiralpayloadbutdoesnotorderinner/outerradii/positivecount/rise/run; lateractualgeneratoradmission/geometry mustestablishsuchrelyingconstraints separately. Noneoutside_room intentionallyexterior, room0/ground0nativevalid ratherthanmissing-IDsentinel.",
+      "disposition": "Intentionallyrawinputrecords, notnewcheckedaggregate bypass. Recordactualcontextcorrelation obligations for owningconstructors/consumers inotherinitial05cells; this source doesnotestablishuniversalroomidentity/injectivecells/validopeningmembership. Do not forceallsourcefieldsintovalidatedgeometryor invent independentRoomIndexlistmembershipguarantee."
+    },
+    "accepted-roof-graph-shape-and-source-mutation-gap": {
+      "relationships": [
+        "Boundary RoofEdge mustreferenceoneactualface/internaledgeexactlytwo; kind/highside/phase/parent/sourcerecipe associations mustagree.",
+        "RoofFace outerpolygon/cutoutloops mustshareplane/appropriatereversewinding and actualsupport/drainage node references; RoofFootprintLoop mustmatch intended topology, notjustVec ofvalidGridPoints.",
+        "Abutmentsamples/edge/outlet/route/threephysicalsolidlinks and childcuts/trimmers/valley/flashing/facade/split-eave references mustexistandmatchactualconnectedgraph."
+      ],
+      "actual_construction_paths": "layoutRoofAssembly89–95 describes acceptedconnectedauthority, butAssembly269–291/Face174–187/Edge212–222/Child224–238/Abutment259–267 arepublicfields+ordinaryderivedSerde withoutwholegraphconstructor/privatebacking. Everyindividuallywelltypedleafcanforminvalidcombination; e.g Gabledkind withshed_high_sideSome, internaledge3validfaceIDs, boundary0faces, knownchildID withwrongparent_cut/ref. Publicsafeeditcanbreakpreviouslycoherentgraphafterbuilder. No sealed acceptance token or mutationmethodreadmitscompletegraph.",
+      "actual_retention_mutation_and_recipient_trace": "Personally consumed Native03 roof001/002 actual source narratives: resolve_one_roof buildsperfacefinitebounds/checkedphysicalproducts butreturnspublicrawAssembly; assemble roofs indexesmatchedpushloopthenmutatesparent/child/enclosurelinks, cut_parent pushescutoutBEFORElaterfallibleflashings, trimsphysicalsolids withtemporary0allowed, appenddormers updatesparent/Geometrybeforelastchildpublish, gable update_pitch zipsactualnew2polygonswithenclosurelistwithoutguaranteedcardinality, contactsimmutableindexholdscheckedbounds. Fresh actualabutments251 in05 confirms count-completeness and IDcleanup logic plusF002injectivitygap. This is actualconsumer support for broadacceptedgraphAPIweakness, notsuccessfulbuilderaswholegraphvalidator, not everyremainingroofsourcealreadycoveredbythistwo-sourcepacket.",
+      "coupled_plane_relationship": "RoofPlaneEquation rawpublicnormal+constant arecoupledcoefficients; RoofFace underside192–199 computes -(n.x*x+n.z*z+c+t*|n|)/n.y. Underpositivecommonscale of(n,c), representedplaneandnormal-thicknessoffsetheightremainunchanged. ReplacingnormalwithunitDirection ALONE changesconstantandgeometry; anynormalization mustrescalec coupled. Finitepoints/checkedbounds do notproveplanecoplanarity/nonzero n.y/orientation/finitecoefficient arithmetic; rawallowingzero/scalednormals isoriginalsourcepolicy, missing strengtheningseparatefrom lossofcheckedvalue. Concaveouterloops/holes genuineweather topology, strictconvexPlanPolygon notreplacement. Existinggablefixturewithscalednormal retained as exact source evidence, no newcase.",
+      "disposition": "NATIVE-INITIAL05-SUPPORT-ROOT-F001: actualrepresentableacceptedgraphAPIstrengtheninggap supports existingRootADM-F001 (NOTnewdeduplicateddefectcount). Exact relation before acceptedpublication and preserving afterlegitimateedit requireswholegraphcontext. F002 physicalIDcapacity isconcreteadditionalconstructionmechanism; do notdedupawayitsdistinctcleanupconsumerproof.",
+      "connected_repair_acceptance": "Root023 exactwholefunctionownership remains. Keep input recipes/rawrejectedgeometry available, construct/validateoneaccepted graph atomically at actualpublicationboundary and providecoherentgraph edits. Validate actualmember/count/kind/parent/plane/topology/physicalreference relationships appropriate tooperation; retain nonunitcoupledplane semantics, concave/holeloops, originalfixtures, zero-capabletemporaryphysicalaxes, nativeFP/errororder and actualNone/fallbackpolicies. No blanketstrictpositivepitch/unitnormal/newenumwhitelist or hiddencompatpath. Partialbuilderstate mustnotbe mislabeledaccepted; no sourceedits/tests."
+    }
+  },
+  "actual_source_refs": [
+    "root/admission03/model-digest-admission-003.json full actualsource narrative",
+    "native/admission03/root-support-batch3/contracts-001.json all8actualsourcegroups personallyconsumed",
+    "native/admission03/root-support-batch3/contracts-002.json all7actualsourcegroups personallyconsumed",
+    "initial05 contract-groups-004.json exactactualabutmentallocation"
+  ],
+  "finding_support": [
+    "Existing ROOT-ADM-F001; preserve05 aggregate relationships andsourcepositions as support, notanothernewdefect"
+  ],
+  "not_yet_covered": "Otherroofsourcefiles retainincomplete05status until their exact own currentrelationshipreview; reading shared003narrativesdoesnotbulkstampthose files.",
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

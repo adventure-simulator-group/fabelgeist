@@ -1,0 +1,175 @@
+{
+  "id": "SEGOVB-CONT11-170-796-COMPLETE",
+  "lens": "type-granularity",
+  "original": 796,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/cap.rs",
+  "sha256": "f15aaadb4a376988994c92be34ee22767367490569bb5a1fec2dd21d0db5fdf8",
+  "actually_read_original": [
+    [
+      1,
+      256
+    ]
+  ],
+  "source_accounted": true,
+  "source_complete_for_requested_role": true,
+  "status": "source-accounted with retained qualified geometry/frame/channel ownership concerns; not clear",
+  "prior_state": "audit11-segovb-169-proposed-state.json",
+  "prior_read_receipts": [
+    "audit11-segovb-169-796-partial-001.json",
+    "audit11-segovb-169-796-partial-002.json"
+  ],
+  "prior_reads_reused": "Full original796 and six exact direct receiver contracts consumed under169; not restarted and no prior ordered credit invented. Complete inherited material traces retained below.",
+  "inherited_contract_traces": [
+    {
+      "role": "Scalp cap channel distinctions and actual storage",
+      "locations": "cap.rs50-118; groom.rs164-185",
+      "trace": "ScalpCap stores model-space metre positions, smooth model-space normals, scalp-map UVs, directional tangent+handedness, triangle vertex slots and opacity. Same primitive arrays do not imply same frame/unit/role. Private fit produces these together and prepare stores cap next to placement and scalp texture. Public fields do not establish arbitrary caller mutations preserve length/identity; coherent owner record does not itself validate all stream associations. No renderer/serialization/skin binding body coverage inferred from exported names."
+    },
+    {
+      "role": "Body projection versus bust parameterization",
+      "locations": "cap.rs78-109; placement.rs38-47,107-126; scalp_map.rs33-147; head.rs170-189,263-269",
+      "trace": "Each original scalp point is mapped by HeadPlacement.point into model space before MeshCollider.query and metre CAP_LIFT offset; smooth normals use distinct inverse-transpose normal mapping. UV uses original bust point, and opacity hairline uses original bust point/head rather than deformed model point. ScalpMap.fit computes center/axis/side/forward/rim from that scalp and head; uv rejects out-of-map direction and maps its unit disk to square, returning normalized texture coordinates. fit uses unwrap_or_default UV fallback; no universal proof that every arbitrary/degenerate Surface point maps successfully is claimed. Head.above_hairline returns signed metre height difference at bust azimuth; cap subtracts metre stepped-edge allowance and divides by metre softness before smoothstep. Signed distance, normal direction, UV and opacity remain distinct meaningful roles."
+    },
+    {
+      "role": "Actual signed body query receiver",
+      "locations": "collider.rs1-24,108-162; groom.rs103-125,131-138",
+      "trace": "Collider.query explicitly returns signed distance (negative inside) plus outward direction; distance delegates to query. MeshCollider owns a BVH and same cloned positions/triangle order plus derived vertex normals/reach. query selects closest triangle and uses barycentric normals to orient distance/outward vector, returning reach/up outside query radius. BodySurface metre positions/faces supplied to place are copied into MeshCollider with BODY_REACH0.1; on_bust builds collider from head mesh and uses identity placement. This first-party numerical port explains local raw float/Vec3 tuple operations without certifying every external body mesh, finite state, normal or algorithm outcome. Named query record could clarify heterogeneous tuple roles if a coherent owner repair is later chosen; no new canonical alias or unique finding accepted."
+    },
+    {
+      "role": "Actual retained scalp/head/map association and pending producer",
+      "locations": "groom.rs27-44,70-93,164-185; surface.rs16-63; head.rs218-254",
+      "trace": "grow derives head from look, cuts GPU scalp for that head, reads scalp into Surface, then fits ScalpMap from that same head/scalp. These retained fields are passed together into cap.fit; no separate reordering is introduced in cap. Surface owns raw parallel positions/normals/UVs/triangles, with optional constructor channels; its constructor computes defaults and derived BVH but does not prove supplied normals/UV lengths. CPU Head.mesh/scalp derives same-index normals/UVs and remaps them with positions when clipping triangles, but that CPU producer is not the actual grow GPU readback path. Therefore no substitute producer proof: exact cut_scalp/GpuScalp.read body is still necessary for source-complete actual producer trace."
+    },
+    {
+      "role": "Tangent numerical kernel",
+      "locations": "cap.rs121-173",
+      "trace": "Input position/normal/UV arrays use same scalp triangle vertex slots. Native triangle-edge displacements and UV determinant produce along-u/along-v accumulators; projection removes normal component, normalizes finite nonzero direction and emits tangentxyz plus sign chosen by normal cross tangent dotv. Degenerate UV area and invalid tangent length have explicit kernel fallbacks. Signed handedness is a closed native rendering component, not independent human role enum. No new epsilon, tolerance, finite geometry bound or orthogonal-fallback correctness guarantee invented. Public channel association remains qualified beyond private producer chain."
+    },
+    {
+      "role": "Sampled clearance and topology workspaces",
+      "locations": "cap.rs175-256",
+      "trace": "clear_skin generates homogeneous barycentric weights from DIP_STEPS4 using nonzero fixed denominator and fixed-sum construction, samples triangle dips, accumulates per-vertex max metre lift, and performs DIP_PASSES4 bounded correction passes using native body distance/query. These are sampled iterative numerical policies, not proof of continuous all-triangle clearance. edge_fade keeps canonicalized undirected edge pairs, triangle incidence counts, vertex neighbours and BFS row distances; MAX denotes unvisited local workspace, then row/EDGE_FADE_ROWS maps to clampedopacity. Homogeneous vertex pairs/triangles/barycentric weights and numerical workspace slots do not warrant enum variants for arbitrary ordinals. Physical metre offsets, sampling/pass counts, graph row distance and output opacity must not be conflated solely by storage type."
+    }
+  ],
+  "new_contract_traces": [
+    {
+      "role": "Actual GPU scalp producer geometry association",
+      "locations": "gpu/scalp.rs136-305,359-410",
+      "trace": "Actual cut_scalp uploads same head shape, derives native grid and emits triangle-cell topology, compacts vertex flags and vertex-of mapping, allocates position/normal/UV streams at the same uses*16 byte capacity, binds all three to one nets_vertices dispatch, and emits triangle indices against the same vertex_of buffer. Vertex count comes from flags total and triangle count from scanned quad count. Nonempty triangle count and explicit native ScalpVertexLimit guard are observed policy, not new invented bounds. Returned GpuScalp retains same triangles/vertices and three streams; each stream passes through the same vertices*16-byte trim adapter. This establishes actual host producer grouping/native buffer-layout boundary needed for cap role assessment. It does not prove shader algorithm, every output index/finite component, scan/sort correctness, or arbitrary public GPU buffer mutation."
+    },
+    {
+      "role": "Actual native readback to Surface adapter",
+      "locations": "gpu/scalp.rs59-80; gpu/mod.rs518-549; scalp/layout.rs87-93",
+      "trace": "GpuScalp.read interprets the three retained streams as padded [f32;4] native elements, truncates each by the same stored vertex count, takes xyz for position/normal andxy for UV, and reads padded [u32;4] triangle records truncated by stored triangle count before taking xyz. These explicit homogeneous native representations are real GPU layout adapters. trimmed changes Buffer.size through canonical BufferByteLength, retaining max16 minimum native allocation/view length; same vertex-byte request applies to all three streams. Zero vertex count would truncate each to empty rather than invent one semantic vertex. Ordered metadata read_words copies each requested word to matching enumeration slot, checks returned word length and returns exact requested prefix, so vertex/area/bounds field selectors are explicit native metadata layout, not unordered independent domain values. Generic Buffer.read/kernel/driver internals were not re-audited; successful decoding and same-count wiring establish this particular host association, not universal GPU validity."
+    },
+    {
+      "role": "Frame and public channel granularity disposition",
+      "locations": "cap.rs50-118; inherited169 exact source traces; actual scalp producer/reader above",
+      "trace": "The pending actual source path is now traced without substituting CPU Head.scalp for GPU scalp.read. One retained scalp/head/map bundle feeds cap.fit: original bust points drive UV/hairline, mapped model points drive body signed-distance queries, mapped normals remain smooth surface direction, tangent/handedness and opacity retain separate meanings. ScalpCap is a useful coherent named record rather than redundant wrapper; public raw parallel channels remain a qualified association/physical-frame owner question, not proof that arbitrary externally mutated fields satisfy their relation. Native geometry vector/triple/slot operations at the numerical/readback adapters do not flatten these semantic roles or grant blanket primitive exemption. No additional receiver is needed to inventory original796 role distinctions at this bounded boundary; full renderer/shader correctness remains separate and unverified."
+    }
+  ],
+  "new_material_sources": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/gpu/scalp.rs",
+      "sha256": "64a5cc8196a567a3b4d071c355bc491a23956d815c57d4805277bf15b1135304",
+      "actual_eof": 412,
+      "consumed_ranges": [
+        [
+          1,
+          84
+        ],
+        [
+          136,
+          412
+        ]
+      ],
+      "unread_ranges": [
+        [
+          85,
+          135
+        ]
+      ],
+      "scope_limit": "Unrelated upload_scalp body not read; no whole file or shader implementation coverage",
+      "original_or_shared_count_credit": false
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/gpu/scalp/layout.rs",
+      "sha256": "1934e3eae9d1344b28b6cfd751a0fb691b3a81c64c1a18f2aea41a65f4e3f036",
+      "actual_eof": 93,
+      "consumed_ranges": [
+        [
+          87,
+          93
+        ]
+      ],
+      "scope_limit": "Only native trimmed buffer byte-view adapter; grid layout/bounds helpers unexamined",
+      "original_or_shared_count_credit": false
+    },
+    {
+      "original_index": 2289,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+      "read_from": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "consumed_ranges": [
+        [
+          518,
+          558
+        ]
+      ],
+      "prior_symbol_locator_receipt": "audit11-segovb-169-registration-006.json",
+      "scope_limit": "Workspace bytes exact-match frozen parent; only ordered word readback/scan wrapper body read here, not full current/native module equivalence",
+      "ordered_credit": false
+    }
+  ],
+  "new_material_provenance": [
+    {
+      "path": "audit11-segovb-170-scalp-staging.json",
+      "sha256": "c9787562aab3f43eb72686d3f800f8338d808668e7f33c5266773895557ebc3a",
+      "basis": "Root narrow provenance proof: exact frozen base3a50b708381ad00c116445c2c999a49c3943088b/head6533e444fa37552927070cc8d8190907fd3b413e bytes equal; path absent frozen pr-working changed manifest and all four dirty statuses. Unchanged dependency extension; no current child substituted."
+    },
+    {
+      "path": "audit11-segovb-170-scalp-layout-staging.json",
+      "sha256": "581c69fa841b061a6000c6953182d3601a78e2ddae95f79b2cfa16865b9ae407",
+      "basis": "Root narrow provenance proof: exact frozen base3a50b708381ad00c116445c2c999a49c3943088b/head6533e444fa37552927070cc8d8190907fd3b413e bytes equal; path absent frozen pr-working changed manifest and all four dirty statuses. Unchanged dependency extension; no current child substituted."
+    }
+  ],
+  "other_lenses_extension": "Root queues two newly reached unchanged dependency children for mandatory other lenses. This packet grants only bounded lens11 reached-contract assessment and zero original/shared discovery/count credit for these children.",
+  "qualified_observations": [
+    {
+      "local_source_key": "pr-working:crates/adventuresim-character-creator/src/hair/cap.rs@sha256:f15aaadb4a376988994c92be34ee22767367490569bb5a1fec2dd21d0db5fdf8#L50-L118:scalp-cap-geometry-channel-roles",
+      "classification": "retained qualified frame/channel/physical ownership assessment; no accepted unique finding",
+      "observation": "Cap positions, smooth normal directions, UVs, tangent handedness, topology slots and opacity represent different roles. Actual producer/readback preserves one identified local association before private construction; public independently mutable vectors lack universal relation proof. No new current regression, broad canonical alias, proposed universal geometry type framework or global clearance."
+    }
+  ],
+  "qualifications": [
+    "Source-accounted refers to original796 type-granularity roles and exact producer/receiver boundaries, not to clear/integrated/current/validated/all-algorithm-correct status.",
+    "Original0-795 source accounting retained; no ordered797 source read; all connected804/805/2289/2637/etc remain uncredited in ordered original queue.",
+    "Frozen original cap796 current counterpart not inspected. One matching current parent native file hash and root frozen base/head child proofs do not establish current cap family identity.",
+    "Prior795 HairPigment NaN remains source-local frozen candidate, with alias/currentness/unique acceptance unresolved; not promoted by this packet.",
+    "Crosswalk001 and current Dressing reconciliation001 retained; no bare Q008/Q009 canonical aliases, F50/M108 closure, broader population or other-lens verdict transfer.",
+    "Private numerical tangents/BFS/sampling and native GPU storage/count representations have exact bounded roles; no complete finite-input, degenerate geometry, continuous clearance, GPU scan/sort/shader/driver, render correctness or arbitrary public-input/mutation certification.",
+    "No backward-compatibility API/layout/message constraints apply.",
+    "No product/Git/rootledger/history edits, project execution/tests/probes/scanners or publication; ignored append-only evidence only."
+  ],
+  "registrations": [
+    "audit11-segovb-170-registration-001.json",
+    "audit11-segovb-170-registration-002.json",
+    "audit11-segovb-170-registration-003.json",
+    "audit11-segovb-170-registration-004.json",
+    "audit11-segovb-170-registration-005.json"
+  ],
+  "source_pin_postread_recheck": true,
+  "new_unique_findings": 0,
+  "accepted_unique_count_change": 0,
+  "proposed_original_accounted": 797,
+  "original_total": 2853,
+  "next_original": 797,
+  "active_partial": null,
+  "crosswalk": "audit11-question-crosswalk-001.json",
+  "current_reconciliation": "current-rig-dressing-reconciliation-001.json",
+  "current_counterpart_inspected": false,
+  "integrated": false,
+  "validated": false,
+  "clear": false,
+  "stop_boundary": "Only796 completed; do not start797."
+}

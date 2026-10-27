@@ -1,0 +1,91 @@
+{
+  "at": "2026-10-27T00:41:47.880615+00:00",
+  "lens": 12,
+  "original": 46,
+  "prior": "audit12-successor-022-partial-005.json",
+  "registrations": [
+    "audit12-successor-registration-022-receiver-005.json",
+    "audit12-successor-registration-022-receiver-006.json",
+    "audit12-successor-registration-022-receiver-007.json"
+  ],
+  "actual_new_read_ranges": {
+    "physical-p16-schema": {
+      "sha256": "115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f",
+      "ranges": [
+        [
+          321,
+          623
+        ]
+      ],
+      "semantic_production": [
+        [
+          321,
+          592
+        ]
+      ],
+      "incidental_existing_tests": [
+        [
+          593,
+          623
+        ]
+      ],
+      "no_test_credit": true
+    },
+    "physical-p16-unchanged-item-validator": {
+      "sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "ranges": [
+        [
+          361,
+          1492
+        ]
+      ],
+      "production_union_with_prior": [
+        [
+          1,
+          1492
+        ]
+      ],
+      "existing_tests1493plus_unread": true
+    }
+  },
+  "traces": [
+    {
+      "role": "Actual source ID and icon grammar",
+      "source": "itemvalidator361-636,1447-1492",
+      "contract": "Catalog and placement/attachment IDs admit lowercaseASCII/digits/underscore1..64; icons admit lowercaseASCII/digits/hyphen1..64 without leading/trailing hyphen. IDs retained as strings in typed schema/runtime projection. Native JSON field names/supported kind-slot-carry vocabularies are checked at authoring port, typed enums exist in decoded schema, but kind:&str also passes among private validators and sheathable_weapon is semantic attachment tag policy requiring canonical current owner reconciliation."
+    },
+    {
+      "role": "Typed schema stable labels and raw retained payload",
+      "source": "schema321-592",
+      "contract": "EquipmentLocation.stable_id maps closed owning enum to exact persisted text at boundary. ItemKind/WeaponCarry/Handling/Slot and BookTarget taggedSerde are closed owners. Presentation.icon, settlementallowlist, BookTarget skill/terrain and Food.class remainStrings. NativeSerde tags/kind/snake_case/unknown-fields are format metadata, not arbitrary game states. Typed AnimationPackId already exists, raw authored label rechecked by valid_id before typed decode."
+    },
+    {
+      "role": "Actual food/book admission",
+      "source": "itemvalidator1058-1446",
+      "contract": "Food.class checked against12closed spellings then retainedString; Book decoded then target Skill/Terrain matched to supported vocabularies and qualitymaximum, retainedString. Error formatting stringifies native Book decode cause in CatalogDiagnostic; M24 support. Numeric metadata/skill-distribution keys at JSON boundary are not independent string-state proof."
+    },
+    {
+      "role": "Actual equipment and physical policy",
+      "source": "itemvalidator637-1057",
+      "contract": "Nativeauthoring location/channel/material/part labels are checked against semantic vocabulary then schema enums decode; placement/attachment IDs, tags and surface domain kept raw. Required occupancy/dependencies and surface checks delegate to actual helpers not yet read. Fullmain validator body access is not helper/library or whole buildscript completion."
+    }
+  ],
+  "master_reconciliation": "audit12-current-M23-M25-reconciliation-002.json",
+  "accepted_aliases": [
+    "M23support only",
+    "M25support only",
+    "M24cause/pathsupport only"
+  ],
+  "remaining": [
+    "Actual occupancy, surface, numeric and material helper string roles and schema surface/fit children.",
+    "Other three build validators and generated runtime receivers.",
+    "Current canonical catalog-ID/tag/icon/domain owners and generated weapon recipe lookup; global other-lens queues."
+  ],
+  "original_count": 46,
+  "active_partial": 46,
+  "no115or116original_credit": true,
+  "new_unique_delta": 0,
+  "no_project_execution": true,
+  "no_compatibility_constraints": "Historical accepted spelling notes describe inspected source business policy; no API/input/message/downcast compatibility obligation is imposed on final repair.",
+  "global_clearance": false
+}

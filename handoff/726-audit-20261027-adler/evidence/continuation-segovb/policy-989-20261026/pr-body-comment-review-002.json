@@ -1,0 +1,84 @@
+{
+  "id": "SEGOVB-POLICY989-PR-BODY-COMMENT-REVIEW-002",
+  "at": "2026-10-27T00:16:37.289827+00:00",
+  "head": "a21f9ccaeba1e3947e22dc1f64106c4f2bc371b6",
+  "base": "b3810b8b5db78c15cc51a0e1bef747a06450dffb",
+  "body": {
+    "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/pr-body-003.md",
+    "sha256": "6b0f95a5c38fca4c319a9167e9bbed5c42aa90c1085c88822f1e2056d7de89b9"
+  },
+  "source_review": {
+    "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/final-comment-review-002.json",
+    "sha256": "568fad55ae39c781a44e347718691015d9c90f08e5cc96f34a978692bc80e022"
+  },
+  "inputs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/final-source-002.patch",
+      "sha256": "3b12f8d201f130134f2d6b0cdd2e27137b78191c69491d80c2a04cce261fe619"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/implementation-manifest-004.json",
+      "sha256": "bdc4ae1576bd074c1fde967a2c90747380f2027c91e36cd94cc7c943070da5b9"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/final-gpu-artifact-001.json",
+      "sha256": "53143f238b49665256f47216b64c3030f4c1ad684cb06778aa044604a273758a"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/final-windows-artifact-001.json",
+      "sha256": "5ba0bd9e8104546719233e0b2aca944d804f67c7ca7912681d1c2fd9d6e5b112"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/comment-discovery-001-issue989.json",
+      "sha256": "d8bfa2de3c31b502de5174c2368f7e1fd70cff44068773c601f4949156f511e9"
+    }
+  ],
+  "verdict": "No material source-accuracy or contributor-clarity defect. One nonblocking editorial correction: wrap the long validationline before finalpublication.",
+  "material_findings": [],
+  "editorial_findings": [
+    {
+      "location": "pr-body-003.md:27",
+      "severity": "nonblocking",
+      "line_length": 109,
+      "requirement": "RootAGENTS: Wrap Markdown prose at80columns, preserving codeblocks/tables/links.",
+      "problem": "Thisordinaryproseline exceeds80columns; itisnot an indivisible link/codeblock.",
+      "suggestion": "Split after Final acceptance remains pending. Begin No tests, cases, helpers, assertions or doctests on thenextline, wrapping thatsentence consistently. Final validation-onlycounts/linkedit canapply thiswrap."
+    }
+  ],
+  "claim_checks": [
+    {
+      "lines": [
+        3,
+        18
+      ],
+      "disposition": "supported by actualfinalconstructor/face/policy/finishbodyreads andfulloldnewpatch; firstpartyrequestedsemanticchange, no compatibilityrequirement. Couldwait phrasing doesnotclaim runtimehangwitness."
+    },
+    {
+      "lines": [
+        20,
+        20
+      ],
+      "disposition": "Issue989wasreadin discovery andpins exactscope/acceptance; #826treatedasrelatedlink only, no unreadspecificissuecontentclaims."
+    },
+    {
+      "lines": [
+        24,
+        29
+      ],
+      "disposition": "Scopedindependentsourcereview verdicts andmeasuredcube reduction accurate. Actualbaselineinverse proves862->812only. Suppliedsameheadsubsetartifacts supportGPU13/2/1andWindows10; bodydoesnotclaimfullCIpass. Running/pendingmatchesrootprovidedstatusatthisreviewandmustbeupdatedfromfinalsameheadevidence."
+    },
+    {
+      "lines": [
+        33,
+        37
+      ],
+      "disposition": "Materialdecisions stand alone: sharedscopeowner, genericconstructorboundary, canonicalfacepayload andowningdocs. Prioravailabilitydisclosure removed. No reviewedpublicsnapshotknown; missinglinknotafindingandno conversationsharingauthorized."
+    }
+  ],
+  "limits": [
+    "Exactcapturedpr-body003only; noliveGitHubbodyorcheckstatefetch/publication.",
+    "No overallLinux/sourceglobal/auditclearance fromsubsetpasses orreviewwording. InheritedF9andallpartialauditcounts unchanged.",
+    "No projectexecution/tests/checks or product/body/Git/ledgeredits."
+  ],
+  "stop": true
+}

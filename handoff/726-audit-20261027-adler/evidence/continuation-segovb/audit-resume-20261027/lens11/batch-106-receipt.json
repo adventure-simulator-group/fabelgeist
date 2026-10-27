@@ -1,0 +1,276 @@
+{
+  "at": "2026-10-27T17:50:58.865490+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-106-registration.jsonl",
+    "sha256": "2edf9ceee6f45ef15ea28c08a8fff253a708ad634a242ea31b7693b4ea335d1d"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-105.json",
+    "sha256": "a866b8812ae008f72bd03bedf0861c9131c2eb4571787661a5139e50bbe480ff"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1205,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/autoresolve.rs",
+      "sha256": "b475a0317b7ceda238789e057c6c302ca8ca83924b7cb09b13807a2e70b63782",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/b475a0317b7ceda238789e057c6c302ca8ca83924b7cb09b13807a2e70b63782",
+      "ranges": [
+        [
+          1,
+          235
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Independent whole effective strategic autoresolve native/admission/ammunition/combat outcome inventory.97/105 material access context only.",
+      "actual_read_ranges": [
+        [
+          1,
+          235
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected_original",
+      "original_index": 1219,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+      "sha256": "88470ea4f157d8b74f281effcb8bac261e5f3af81a84fe81562a9a549d695d6d",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/88470ea4f157d8b74f281effcb8bac261e5f3af81a84fe81562a9a549d695d6d",
+      "ranges": [
+        [
+          936,
+          1005
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual native outcome/report/ammunition receiving call site; full battle algorithm not required",
+      "actual_read_ranges": [
+        [
+          936,
+          1005
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 857,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve.rs",
+      "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "ranges": [
+        [
+          313,
+          343
+        ],
+        [
+          453,
+          480
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Exact core resolution/combatant outcome/report payload definitions, prior010 full source context",
+      "actual_read_ranges": [
+        [
+          313,
+          343
+        ],
+        [
+          453,
+          480
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 877,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/threat.rs",
+      "sha256": "58a5e53d2fdf5283f4e7ba8a58f1335f894bb6b4ab4524f3684f92bbca8dc106",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/58a5e53d2fdf5283f4e7ba8a58f1335f894bb6b4ab4524f3684f92bbca8dc106",
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual authored ThreatId/profile/scale/error admission boundary; prior014 full187 context",
+      "actual_read_ranges": [
+        [
+          1,
+          110
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1205,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/autoresolve.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              80
+            ]
+          ],
+          "roles": "Shared include-module imports, quest travel units and bounds, compiled isolated-development capability and reserved renderer-demo coordinates.",
+          "disposition": "Imports expose canonical world schema/Seed/types but do not confer coverage of their definitions. Travel divisor, metres/kilometre/minutes conversion, quest count and renderer IDs are different semantic roles. Compiled optional bootstrap token is a capability distinct from seed; no environment value inspected. Reserved maximum IDs are deliberate demo namespace, not universal nonzero/53bit policy.",
+          "remedy": "Keep conversion constants attached to owning operation and canonical units/IDs at consumers. Preserve guarded development capability, no new arbitrary bounds or runtime sample.",
+          "acceptance": "Entire235 read; declarations not evidence every include uses admitted values. No token values or development operations executed."
+        },
+        {
+          "ranges": [
+            [
+              82,
+              153
+            ]
+          ],
+          "roles": "Threat identity parse, coarse quest encounter archetype, combat difficulty/scale/countermeasure and loot catalog lookup.",
+          "disposition": "ThreatId, EncounterArchetype and CatalogItemId represent distinct levels; grouping goblin/kobold into archetype is useful lossy classification, not alias equivalence. parse_threat returns canonical typed ID then multiple helpers accept &str and reparse, migration gap. Archetype .ok collapses invalid threat with valid ungrouped threat; expected availability versus invalid source should be explicit when callers distinguish. Combat scale basis points can exceed one while countermeasure has distinct effect; neither interchangeable bounded probability. Actual core authored constructor owns typed AuthoredThreatError and uses parsed ThreatId/profile/scale; native parse/drop String errors erase that distinction.",
+          "remedy": "Carry canonical ThreatId through internal enemy/archetype/drop calls, typed scale versus countermeasure and difficulty quantities. One explicit wire parse, then canonical typed error/classification; do not duplicate ThreatId/EncounterArchetype owner.",
+          "acceptance": "Actual core8771..110 and prior014 full187; core1021049 escalation/profile units retained. No full numeric kernel or ordinary unknown-threat/runtime/current finding."
+        },
+        {
+          "ranges": [
+            [
+              155,
+              179
+            ]
+          ],
+          "roles": "Ammunition requested count, per-stack available/consumed/remaining count and inventory row identity.",
+          "disposition": "Helper only consumes arrow stacks and silently exhausts available rows even when requested quantity remains; return unit does not state committed spent versus requested count. Actual caller1219:976..977 feeds core outcome ammunition_used. This is API-level underexpressed availability/consumption contract; no proof of an ordinary shortage, fractional-arrow disagreement or asset loss. Row IDs differ CharacterId/item key and counts differ aggregate ammo delta.",
+          "remedy": "Admitted ammunition count/available source receipt and named consumption outcome or invariant-preserving checked operation appropriate to caller. Keep actual core requested and native committed quantity tied; reuse inventory owners without inventing a new shortfall policy.",
+          "acceptance": "Actual native call and core CombatantOutcome ammo field read, prior native inventory1118/1119/1136 proofs retained. No new tests/invocation or runtime shortage claim."
+        },
+        {
+          "ranges": [
+            [
+              181,
+              235
+            ]
+          ],
+          "roles": "Completed battle diagnostics report, battle/party association, Seed/resolution/round ordinal, sequence/body part/attack/outcome text.",
+          "disposition": "Report is presentation snapshot from BattleOutcome, not persisted tactical tick state; member body/positions are not stored here. Four-way BattleResolution (including mutual incapacity and timeout) is erased to victor String, so binary victor type would be too narrow. Summary/log free text is presentation but structured resolution/sequence/round/identity should stay typed until formatting. usize rounds castu32 is representation narrowing, no actual core round-bound violation asserted. Existing battle report replacement is delete+insert for same battle ID; helper alone does not enforce immutable outcome binding, callers own receipt.",
+          "remedy": "Typed BattleResolution in native report and explicit checked RoundCount adapter if required; named report capture tied to BattleId/PartyId. Keep human-readable summary/log separate semantic outcome rather than parsing text; do not persist tactical tick data.",
+          "acceptance": "Actual core857 definitions313..343/453..480 and prior010 full2878; native1219 report/commit call936..1005 read. Only registered prefix of latter commit consumed, no whole outcome-commit/clinical/runtime guarantee."
+        }
+      ]
+    }
+  ],
+  "connected_role_inventory": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+      "sha256": "88470ea4f157d8b74f281effcb8bac261e5f3af81a84fe81562a9a549d695d6d",
+      "ranges": [
+        [
+          936,
+          1005
+        ]
+      ],
+      "disposition": "Actual native outcome/report/ammunition receiving call site; full battle algorithm not required",
+      "acceptance": "Exact material source ranges consumed; no future ordered or whole commit/native algorithm credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve.rs",
+      "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "ranges": [
+        [
+          313,
+          343
+        ],
+        [
+          453,
+          480
+        ]
+      ],
+      "disposition": "Exact core resolution/combatant outcome/report payload definitions, prior010 full source context",
+      "acceptance": "Exact material source ranges consumed; no future ordered or whole commit/native algorithm credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/threat.rs",
+      "sha256": "58a5e53d2fdf5283f4e7ba8a58f1335f894bb6b4ab4524f3684f92bbca8dc106",
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "disposition": "Actual authored ThreatId/profile/scale/error admission boundary; prior014 full187 context",
+      "acceptance": "Exact material source ranges consumed; no future ordered or whole commit/native algorithm credit."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-010-receipt.json",
+        "sha256": "59d8ab785e544e91e87e1d58761594679196a96d9a1573cc6160f6ede4227829"
+      },
+      "contract": "Core857 autoresolve full2878, real battle phases/outcomes/bounds"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-014-receipt.json",
+        "sha256": "9e2e5834705569d01b06c7e772fb7d82d07dbbad374f8f8245dc818eb7e68b87"
+      },
+      "contract": "Core877 authored threat full187"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-049-receipt.json",
+        "sha256": "7c7a1bf82e75c5dbe9a67fb086ea7776db66160590f8435b8519b7479433d9df"
+      },
+      "contract": "Core1021 threat escalation full593"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-074-receipt.json",
+        "sha256": "d20b4bfe67138220f9efc3d466679c022f1c5548662f22a5114a3f33b536009f"
+      },
+      "contract": "Native1118 inventory amounts full241"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-075-receipt.json",
+        "sha256": "6b137e7e6d04ab2aa240fc17fe1e6600bb795b4e79fcfee1db06a458037e0b3b"
+      },
+      "contract": "Native1119 inventory containers full1451"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-084-receipt.json",
+        "sha256": "a1e35a75e9eb2265261409dee6629fb2b7f627e223d182e4e78e33783dac9e21"
+      },
+      "contract": "Native1136 item full957"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-097-receipt.json",
+        "sha256": "d4262c0437e29c169933163243d685d8a4068a0f500277a615157b172a43ff32"
+      },
+      "contract": "Original1205 prefix1..80 and native battle repair/context fragment; no fullcommit credit"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-105-receipt.json",
+        "sha256": "ee409eec20ed323ae54ad55d00d70d49c4987ae2f92e53970263e2c1cce68e99"
+      },
+      "contract": "Actual native authority model1204 full1586; hostile count/scale/diagnostic record fields"
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Frozen source discovery only, original235 actualEOF. Requested display241..480 was empty pastEOF and confers no coverage; registered1..235 fully read.",
+    "Ammunition shortfall and battle report overwrite are API-contract questions, no ordinary/runtime/current/accepted alias or unique claim.",
+    "All inherited role/clock/capacity/private-authority and mandatory material/other-population queues remain."
+  ]
+}

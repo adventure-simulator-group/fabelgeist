@@ -1,0 +1,98 @@
+{
+  "at": "2026-10-26T22:50:23.155321+00:00",
+  "head": "ef7630d757a6994297f6d24840991cda61bda63c",
+  "pull_request": "https://github.com/adventure-simulator-group/fabelgeist/pull/988",
+  "scope": "Technical acceptance of PR988 review correction only; user re-review checkpoint remains. Overall Goal726 is incomplete.",
+  "hosted": {
+    "run": 40404924760,
+    "url": "https://github.com/adventure-simulator-group/fabelgeist/actions/runs/40404924760",
+    "conclusion": "success",
+    "required_jobs": {
+      "rust-quality": "success",
+      "foliage-portability": "success"
+    },
+    "optional_regenerate-fixtures": "not dispatched/skipped"
+  },
+  "verification": {
+    "gpu_library": 13,
+    "gpu_doctests": 2,
+    "borrowed_case_separate": 1,
+    "windows": 10,
+    "constraint_library": 67,
+    "constraint_doctests": 5,
+    "consumer_groups": 48,
+    "consumer_passed_executions": 1461,
+    "consumer_failed": 0,
+    "consumer_existing_ignored": 14,
+    "baseline_2d_entry_absent": true,
+    "cube_ceiling": 862
+  },
+  "reviews": "Affected independent Code/Rule/Comment reviews clear; exact formatting/import/old-test-message-only changes reconciled; contributor description reviewed; validation-only final body update independently recalculated from actual artifacts. No historical layout/downcast/message compatibility requirement applied.",
+  "source_preservation": "All22 changed file bytes match final commit; working tree clean and four original stashes unchanged. No new tests/cases/assertions/helpers/doctests or local project execution.",
+  "receipts": [
+    {
+      "path": "clean-final-hosted-status-001.json",
+      "sha256": "de221a8d9492df082bc368ff4e0a56f49f7a8b231c79cc1dc5f9cfc5a7ac2f74"
+    },
+    {
+      "path": "clean-final-source-identity-001.json",
+      "sha256": "70f9cf6031fb6071b202fda7a0b4f8ed0cf508e377dbc5aa59da75b326c4ba80"
+    },
+    {
+      "path": "clean-final-gpu-artifact-001.json",
+      "sha256": "1bbcce5cd6034231505c720c85bf549c8cdd6cc6ab82bad31617d5cc81f6872b"
+    },
+    {
+      "path": "clean-final-windows-artifact-001.json",
+      "sha256": "4742f991d467709dbeea2df8609d87dde0be8766e2ef51d688cff1b6caba9769"
+    },
+    {
+      "path": "clean-final-constraints-artifact-001.json",
+      "sha256": "4367acf4819d13aa015626fb0e5cc16fecd10c2d17100638cd1654e677ef98e5"
+    },
+    {
+      "path": "clean-final-rig-artifact-001.json",
+      "sha256": "72b6277da1f6fdddedd7144da127b7a23f88cda2199b247c0446137dfe4837e3"
+    },
+    {
+      "path": "clean-error-code-review-001.json",
+      "sha256": "9523ff88cea82dad72575dd4b17a0573bf1f21e6cf68d24bf2f8810123fd8da6"
+    },
+    {
+      "path": "clean-error-rule-review-001.json",
+      "sha256": "621720d96665543189659aea7d99d951108ff1b8f3bdfc009c728296c43e93eb"
+    },
+    {
+      "path": "clean-error-comment-review-001.json",
+      "sha256": "c2c8ac8897aec6aa26cd43271f6937e6ca96d5e81e844451335d2885109f4250"
+    },
+    {
+      "path": "clean-error-format-reconciliation-001.json",
+      "sha256": "5a64657070c827e86b6c223b6fd1e58a225d88ecc04b5f77e30715189dda9cec"
+    },
+    {
+      "path": "imports-review-reconciliation-001.json",
+      "sha256": "e5ffa2d6cf18a4989a3d7094477019eb09394d739766654e32dc677b7820ad5e"
+    },
+    {
+      "path": "pr-body-contributor-source-review-ef7630d-001.json",
+      "sha256": "375e4f7346144eb05b8d050b58eaec3030b6d30194eb98400c350c63fbab1c42"
+    },
+    {
+      "path": "final-pr-body-validation-only-delta-001.json",
+      "sha256": "3206083b0cea4075ebb1696cd7b05ade2ffd5229266b5b3bd8209f7b2cde4224"
+    },
+    {
+      "path": "clean-final-pr-state-001.json",
+      "sha256": "a3f019e74dbe373371c7ba32588fc33771739c934270201e28b49d49393594c4"
+    }
+  ],
+  "known_limits": [
+    "Existing suites do not directly exercise new view-error/poll-failure branches; source traces and independent reviews cover those branches",
+    "Preexisting constructor/subresource policy gaps tracked in989 and public resource/cache/metadata/device coherence remain outside this slice",
+    "All20 migration families and broader13-lens populations/inherited findings remain mandatory and incomplete"
+  ],
+  "stopped_for_user_review": true,
+  "merged": false,
+  "overall_goal_complete": false
+}

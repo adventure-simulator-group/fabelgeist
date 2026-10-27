@@ -1,0 +1,28 @@
+{
+  "id": "ADLER-CONT03-DELTA174-009",
+  "lens": "admission-contracts",
+  "registry_sha256": "01e11726b2c32ab6f86d513d62a5aa88980e29a8b2ccaf8716319bf0e7629459",
+  "receipts": [
+    {
+      "extension_index": 174,
+      "source_id": "pr-working:crates/strategic-web/static/art-demo/viewer.mjs",
+      "sha256": "18e08b3c82909fa45a67ca5baeb0ecb0eb69b93db8f372d420940b8374effb78",
+      "source_ranges": [
+        [
+          265,
+          290
+        ]
+      ],
+      "actual_eof": 327,
+      "source_read_provenance": "Exact26line265-290body personally consumed; current lens analysis independent. No helper body or crosslens verdict credit.",
+      "repair": "not_started",
+      "validation": "not_run",
+      "admission_routes_and_contract": "start checks HTTP response.ok then JSONdecodes catalog, selects hash-matching ID or catalog[0], initializes WASM and forwards selected.id; window error/unhandledrejection handlers callfail. This range does not validate Array/entry shape, bounds, nonempty or native runtime admission.",
+      "disposition": "Static119catalog is currently nonempty/finite. Malformed/nonarray response can fail at.find rather than constitute successful validated admission; empty/unknown selection handling belongs select helper outside this range. Open IDs need not become finite enum. No actual normal invalid-render input proved, and no whole catalog/native schema clearance.",
+      "qualifications": "send/select receiving bodies newly registered175/176 but unread at this174receipt; preserve pending admission proof. Own03baseline through173 retained with findings; no replay."
+    }
+  ],
+  "clear": false,
+  "new_unique_findings": 0,
+  "continuation": 175
+}

@@ -1,0 +1,204 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "074",
+  "predecessor": "receipt-073-originals351-354.json",
+  "manifest_prefix_sha256": "e1d1b954490cddf9d7908698f2974d3f0ea9d0646c0345381794728cce48557a",
+  "sources": [
+    {
+      "original_index": 355,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory.rs",
+      "sha256": "a1b3b6e0f7f1d9884a53f8306a3e0e9e6c1a8deb26e2b13fb163f73edd39900d",
+      "actual_eof": 858,
+      "actual_ranges": [
+        [
+          1,
+          858
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "100-164,319-325,467-472",
+          "role": "ItemProperties.id String103;Topology placement OptionString109/occupancy_idString116/attachment_point_idString162;has_item_id(&str)322\u2192equality324 and weapon material .as_str468\u2192catalog469. Actual34077/88/95/103 producers and3281044-1051 socket recipient independently read; actual topology state now proven.",
+          "disposition": "Canonical open item/placement/occupancy/attachment reference owners should cross producer/state/API/lookup; admit only source/decoder/asset boundaries. Existing core catalog/presentation owners reconcile; no closed authored-ID enum or constant exemption."
+        },
+        {
+          "source_ranges": "649-858",
+          "role": "All existing tests read. Semantic fixtures double_strap774/808,character:1:Chest:60:0 occupancy777,item:41:left:0785/824,item:42:right:0796,left788/827,right799,attached822. No other literal strings in355.",
+          "disposition": "Fixtures share production topology reference owner and source-coded occupancy identity; test-only JSON numeric quantity847-856 is native serialization boundary. No execution or retained old schema/wire obligation."
+        }
+      ],
+      "status": "Requested source independently inventoried WITH findings or zero string roles."
+    },
+    {
+      "original_index": 356,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory/armor.rs",
+      "sha256": "49cd8bc000aa19cd346741cd36179b1477050c9c1949bcddc4696e486cd0461c",
+      "actual_eof": 53,
+      "actual_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-53",
+          "role": "ArmorLayerContact.item_id String31 beside typed material33,geometry34/surface37; TacticalInventoryItemId u64wrapper27 separate durable row authority.",
+          "disposition": "Carry canonical open item catalog identity into contact outcome; do not conflate catalog reference and strategic inventory row ID. Actual contact producer/query and downstream consequence receivers remain unread; source-level gap qualified."
+        }
+      ],
+      "status": "Requested source independently inventoried WITH findings or zero string roles."
+    },
+    {
+      "original_index": 357,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory/quantity.rs",
+      "sha256": "6a0acac145fbe06b57ecbe43504dae3eca6d0923f65aedccf72c98c9e7977e33",
+      "actual_eof": 28,
+      "actual_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-28",
+          "role": "No strings or String-valued API. Transparent serde typed ItemQuantity owner9.",
+          "disposition": "Zero string roles, no admission/serde/numerical/runtime acceptance."
+        }
+      ],
+      "status": "Requested source independently inventoried WITH findings or zero string roles."
+    },
+    {
+      "original_index": 358,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory/timing.rs",
+      "sha256": "d02da5117e785f6425ae9d21c2d48a30f0fb7818e22df987fa787f88a3cbab04",
+      "actual_eof": 17,
+      "actual_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-17",
+          "role": "No strings or String-valued API. Typed timing delegates to core equipment cadence11.",
+          "disposition": "Zero string role, no delegated numerical/other-lens credit."
+        }
+      ],
+      "status": "Requested source independently inventoried WITH findings or zero string roles."
+    },
+    {
+      "original_index": 359,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/lib.rs",
+      "sha256": "f0f319e706f85bf05b038d8e0387be8085c488aaa4b736609cb386eff9bd51e6",
+      "actual_eof": 160,
+      "actual_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-160",
+          "role": "No literal strings or String-valued API. Reexports/module paths and native plugin macro only.",
+          "disposition": "Zero string role from actual full source; module declarations/imports grant no child body/contract credit."
+        }
+      ],
+      "status": "Requested source independently inventoried WITH findings or zero string roles."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Tactical equipment catalog/topology/contact reference state remains raw",
+      "sources": [
+        "355:103,109,116,162,322-324,468-469",
+        "356:31",
+        "340:77-104",
+        "328:1044-1051"
+      ],
+      "remedy": "Retain canonical open catalog/topology/attachment/occupancy identities through producer/state/query/contact and native projection; keep strategic row identity separate.",
+      "acceptance": "Read query/contact producer/downstream consequence and exact native/asset admission before repair; reconcile existing aliases/canonical owner and other lens obligations.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "355 query/ordering/native reflection/replication and356ArmorLayerContact actual construction/consequence consumers remain unread.",
+    "Catalog/presentation references locally traced, not full rig/socket/asset-generator/native or inventory behavior acceptance."
+  ],
+  "qualifications": [
+    "Frozen f82 physical-P16 exact source; no current alias.",
+    "No backward-compatibility/input preservation obligation, no project/native/test/probe execution or product/Git/root-ledger/publication mutation.",
+    "All20/P16/P17/F9/M09/inherited aliases/currentness preserved; no repaired/global/runtime/unique-total/other-lens clearance."
+  ],
+  "proposed_count": {
+    "before": 355,
+    "after": 360,
+    "indices_completed": [
+      355,
+      356,
+      357,
+      358,
+      359
+    ],
+    "next_original": 360,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory.rs",
+      "sha256": "a1b3b6e0f7f1d9884a53f8306a3e0e9e6c1a8deb26e2b13fb163f73edd39900d",
+      "ranges": [
+        [
+          1,
+          858
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory/armor.rs",
+      "sha256": "49cd8bc000aa19cd346741cd36179b1477050c9c1949bcddc4696e486cd0461c",
+      "ranges": [
+        [
+          1,
+          53
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory/quantity.rs",
+      "sha256": "6a0acac145fbe06b57ecbe43504dae3eca6d0923f65aedccf72c98c9e7977e33",
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory/timing.rs",
+      "sha256": "d02da5117e785f6425ae9d21c2d48a30f0fb7818e22df987fa787f88a3cbab04",
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/lib.rs",
+      "sha256": "f0f319e706f85bf05b038d8e0387be8085c488aaa4b736609cb386eff9bd51e6",
+      "ranges": [
+        [
+          1,
+          160
+        ]
+      ]
+    }
+  ]
+}

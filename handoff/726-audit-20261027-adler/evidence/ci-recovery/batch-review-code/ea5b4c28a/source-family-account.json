@@ -1,0 +1,126 @@
+{
+  "head": "ea5b4c28ae4d8aadde3343a4cc9603e46bff6784",
+  "families": [
+    {
+      "id": "RIG",
+      "paths": [
+        "crates/adventuresim-character-creator/src/garment/settled/tests.rs"
+      ],
+      "contracts": "wearer helper44-64 declares one ROOT name and native identity state matching PackedRigSkin bound1 and joint0 weight rows. SkinSource::validate151-175 requires names/joints/bound/vertex arrays coherent; SettledDrape::fit184-222 calls transfer_skin. Exact diff preserves geometry, packed indices, weights and all existing cases/oracles. Prior own fixture review is source-specific support, not broader garment clearance.",
+      "disposition": "Source clear; full hosted creator cells pending."
+    },
+    {
+      "id": "INIT",
+      "paths": [
+        "crates/adventuresim-tactical-client/src/art_demo/residency.rs",
+        "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation_tests.rs"
+      ],
+      "contracts": "Existing cache test constructs App with actual task/asset plugins, BakedTexturesPlugin, WorldAsset/Image registration and PreparedTreeImpostorAssets resource. Actual show30-110 now accesses AssetServer, recipe residency and impostor residency; load_studio173-190 retains same cache insertion/recency. Seven existing studio IDs and eviction assertions remain. Equipment case adds Assets<Image> demanded by generate_runtime_equipment_models ResMut and cache.finish; same fit/drop/rebuild/refit sequence and assertions.",
+      "disposition": "Source clear; actual scheduler/plugin/asset behavior requires existing hosted tests."
+    },
+    {
+      "id": "HANDLES",
+      "paths": [
+        "crates/adventuresim-tactical-client/src/presentation/buildings/materials.rs",
+        "crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter.rs",
+        "crates/adventuresim-tactical-client/src/presentation/mod.rs",
+        "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/materials.rs",
+        "crates/adventuresim-tactical-client/src/presentation/terrain.rs",
+        "crates/adventuresim-tactical-client/src/presentation/terrain/cliff_surface.rs",
+        "crates/adventuresim-tactical-client/src/presentation/terrain/urban.rs",
+        "crates/adventuresim-tactical-client/src/presentation/terrain/urban/owned_tests.rs",
+        "crates/adventuresim-tactical-client/src/presentation/terrain/volumetric.rs"
+      ],
+      "contracts": "All changed fixtures formerly generated complete texture catalog; reserve uses canonical recipe/channel destinations, creating stable default Images without loading/generating maps. Actual affected assertions use material handles/scalars, shader text, mesh/visibility/lifecycle or image allocation counts, so populated texture pixels are not their premise. Broad fixture names now describe handles. Sampler test alone reads two committed BakedRecipe containers and compares actual channels; RuntimeTextureLoader and Image::from preserve that exact stored sampler. Removed generate import has no remaining caller. No runtime pipeline conversion or acceptance weakening is implied.",
+      "disposition": "Source clear for fixture setup and unchanged oracles. Committed container admission, actual pixel/renderer and quality acceptance still use existing hosted checks."
+    },
+    {
+      "id": "CLOUD",
+      "paths": [
+        "crates/adventuresim-tactical-client/src/presentation/cloud_bake_assets.rs",
+        "crates/adventuresim-tactical-client/src/presentation/clouds.rs",
+        "crates/adventuresim-tactical-client/src/presentation/clouds/bake.rs",
+        "rust-quality-baseline.toml"
+      ],
+      "contracts": "Extracted CloudBakeRequest::integrated_pixel is the actual native unit-ray/Y-up/metre kernel used by production full image loop and bounded existing fixture. Layer/sample order, step, density/detail, optical accumulation, threshold0.0001, exp, clamp/round and RGBA order match old body. Hoisted request expressions are recomputed per pixel but pure and arithmetically identical. cloud_bake_image still traverses every y then x. cloud_bake_direction seam formula unchanged. image_from_rgba8 takes owned Vec and exactly same dimensions/format/usage/clamp-linear sampler; prebaked borrowed bytes clone once. Async bake and offline exporter call same production image body. Existing determinism case samples16 authored rays twice and retains descriptor/sampler assertions; seam case integrates both seam rays for every row. This is reduced interior-texel test coverage, not proof of every pixel or visual success. No new cases/assertions/helpers; two WIP closures inlined; source ceiling decreases1014\u2192900 with112-line coherent new module.",
+      "disposition": "Source transfer clear; reduced fixture coverage explicitly qualified. Hosted tests, paired cloud assets and runtime validation pending."
+    },
+    {
+      "id": "FIXTURES",
+      "paths": [
+        "crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter.rs",
+        "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/raster.rs",
+        "crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms.rs",
+        "assets/tactical-scenes/flower-woodland-edge.json"
+      ],
+      "contracts": "Litter seed search requires centre cell4 on3x3 authored terrain, matching actual PLANT_PATCH/PRESENCE gate and jitter admission. Twig side oracle uses actual TWIG_SIDES stream instead of stale seed modulo. Existing woodland silhouette fixture loads current input and canonical oak_variant_for_site rather than copied raw-bit variant/digest/competition; actual selection uses named StreamId draw, environment and gnarling owner. All silhouette ratios/thresholds remain. Door fixture selects actual generated closure solid and finds clear static-navigation ray through its centre, then same blocker/owner slabs must occlude it; no guessed resolved item ID persists. Flower scene only seed word47104\u219247105 changes; existing nonempty suitable flower placement case remains unchanged.",
+      "disposition": "Source clear as current-owner fixture adaptations; fixture populations/spatial validity not computed locally and require hosted existing cases."
+    },
+    {
+      "id": "BUDGET",
+      "paths": [
+        "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/wood_mesh.rs",
+        "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation.rs",
+        "crates/adventuresim-tactical-client/src/presentation/ground_scatter/understory.rs"
+      ],
+      "contracts": "Only numeric expected topology/population snapshots and explanatory count comments change; exact assertions and relative density inequalities remain. Aggregate diagnostics array totals correspond to4630+462=5092, triangles6811/700; wood topology fixture assertions update consistent named counts. Shrub full populations unchanged while sparse snapshots differ. These values predate new stable identity change; no claim they match current source.",
+      "disposition": "Unaccepted generated expectations pending corrected hosted source measurement and exact delta review. Do not weaken assertions, introduce per-platform snapshots or accept old run as current."
+    },
+    {
+      "id": "SHOOT",
+      "paths": [
+        "crates/adventuresim-tactical-client/src/presentation/obstacles/mod.rs",
+        "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry.rs",
+        "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves.rs",
+        "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/arrangement.rs",
+        "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/identity.rs",
+        "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/selection.rs",
+        "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/streams.rs",
+        "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs",
+        "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/growth_axes.rs",
+        "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_plan.rs",
+        "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/wood_mesh.rs",
+        "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs",
+        "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/raster.rs",
+        "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/mod.rs",
+        "crates/adventuresim-tactical-client/src/presentation/weather/occlusion.rs"
+      ],
+      "contracts": "Own earlier Code/13 analysis revalidated at exact matching body hashes plus current context, not adopted from another reviewer. Four existing terminal source seeds feed sole opaque ID; only terminal segment retains Some; wood is_limb_tip preserved. All leaf/bud/review selection uses metadata; typed ID retained through sorts/groups/leaf copies to actual Seed/u64 RNG/fingerprint boundary. Old float-position ID facade removed. Root loop extraction preserves order/arguments/radius arithmetic. No public serde/primitive construction bypass. New RNG inputs intentionally alter all leaf choices and require new artifacts. Current raster fixture uses absolute crate::presentation::obstacles::tree::geometry::TreeShootId; module declarations confirm it resolves.",
+      "disposition": "SHOOT-CODE-1 closed by actual source correction. Connected source design clear; generated payload and existing test acceptance pending."
+    },
+    {
+      "id": "BAKE",
+      "paths": [
+        "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs"
+      ],
+      "contracts": "Beech LOD1 width recipe1.0\u21920.98 calibrates existing near-crown occupancy, retained in its owning species TreeBakeStyle. Actual production card width multiplies that field only atLOD1; append_tree_card_with_uv constructs native vertices. Existing projection oracle models identical scale and retains occupancy/extent/centroid thresholds. Bake revision16\u219218 covers both prior calibration and source ID replay change. Integer shoot ID now hashes losslessly while coordinate bits/order and wrapping prime arithmetic preserved.",
+      "disposition": "No source defect; calibration is intentional behavior change requiring existing hosted occupancy/silhouette checks and regenerated asset provenance. No visual or bitwise old-output preservation claim."
+    },
+    {
+      "id": "GENERATED",
+      "paths": [
+        "assets/art-demo/city-furniture.json",
+        "assets/art-demo/city-layout.json",
+        "assets/art-demo/oak.tree-impostors",
+        "assets/clouds/art-demo/city.rgba8",
+        "assets/clouds/art-demo/city.scene-digest",
+        "assets/clouds/art-demo/oak.rgba8",
+        "assets/clouds/art-demo/oak.scene-digest",
+        "content/tactical/garden-hazel-envelope.json"
+      ],
+      "contracts": "Exact hashes/bytes pinned. JSON structural account records many generated native float and identity/value changes plus list-size changes; no field-by-field validity certification. City curate decodes typed CityLayout, checks schema/generation versions, installs layout and validates input; furniture receiver and existing test require group/anchor membership. Clouds pair digest with prepared input before city curation and reject CloudSceneMismatch; existing case checks exact identity/nonempty full length. Impostor runtime enforces bake revision and existing matches_art_demo compares current source hash, usage/species/seed/LODs. Garden exporter derives actual hull/count from shared native meshes, non-update case requires containment/count/hull tolerance. Current envelope metadata3 does not establish it was exported from current source.",
+      "disposition": "Generated data individually qualified, not accepted. No local decode/render/probe; current envelope/tree bake/sparse budgets require corrected exact-source export and all related hosted cells. Prior cloud/city generated payloads require unchanged existing hosted consumers too."
+    },
+    {
+      "id": "WORKFLOW",
+      "paths": [
+        ".github/workflows/rust-quality.yml",
+        "crates/adventuresim-tactical-core/src/city_layout/gardens/README.md",
+        "crates/strategic-web/ART_DEMO.md"
+      ],
+      "contracts": "Normal quality job remains enabled for push/PR/default manual inputs; manual boolean opts into separate regeneration.20-minute presentation step timeout bounds earliest failure without removing any command. Existing main required-cell verifier checks exact revision, nonempty results, positive passed count and zero failed; no cell waived. Export runs actual existing hazel and ignored art-demo exporters, then both existing understory/leaves suites with pipefail and combined status. Artifacts upload always so failure can leave committed stale files; README now explicitly requires both exporters succeed and matching revision before copying, plus separate final normal workflow acceptance. ART_DEMO links owning guide.",
+      "disposition": "Source/config/doc behavior clear. Export run40242912915 at ea6762 and doc-only successor ea5b4 are not completed acceptance; no hosted status queried or inferred."
+    }
+  ],
+  "all_paths_accounted": "46 tracked paths vs local main990430b77; overlapping families intentional; no49-path claim."
+}

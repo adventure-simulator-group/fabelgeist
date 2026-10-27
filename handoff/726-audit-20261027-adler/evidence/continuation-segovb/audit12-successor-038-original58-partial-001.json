@@ -1,0 +1,805 @@
+{
+  "id": "CONT12-038-ORIGINAL58-PARTIAL-001",
+  "created_utc": "2026-10-27T06:07:09.700755+00:00",
+  "lens": "12 magic-strings",
+  "skill": {
+    "path": "/home/brunosegovia/.codex/skills/audit-magic-strings/SKILL.md",
+    "sha256": "4288426f134e7b781da6ea3b9167722776db976f577b56e7936e787306fb277c"
+  },
+  "user_override": "Skillpreservewire/acceptedinputclause isoverriddenbyexplicitusernoBC; cleanfinaltypes/API/schema required, no shim/fallback/oldmalformedinput preservation condition.",
+  "prior_root_state": {
+    "path": "target/recovery-20261025/continuation-segovb/audit12-state-successor-037-root-001.json",
+    "sha256": "7c5c2cda34fef5332dfafb68117d302555fd8c10df387999055734a5c5dd3ab6"
+  },
+  "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+  "original_index": 58,
+  "sha256": "e1dac77a2c5ef7c2bb50b886c9b7340c83f2fcee27fe767788e48463ad6f737c",
+  "object": "target/recovery-20261025/continuation-segovb/source-objects/e1dac77a2c5ef7c2bb50b886c9b7340c83f2fcee27fe767788e48463ad6f737c",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit12-successor-038-registration-original58.json",
+    "sha256": "8cfb1f623490bd1cb14b97cd99a45e464ba2b2e5e6fdb3974f2ca9eecc35a6de"
+  },
+  "actual_independent_primary_body_read_ranges": [
+    [
+      1,
+      430
+    ],
+    [
+      431,
+      866
+    ]
+  ],
+  "full_primary_866_body_inventory": true,
+  "source_identity": "Exact physical-p16 dirtysnapshot bytes recoveredfromf82 Gitobject path inregistration; checksum and866lines verified beforebodyreads. BaseSHA2f56c5185ec61241a7e4607eef02ebb4051e24dee918f5200585d586a4d971a8 isregistrycontextonly, notreadhere. No committed039/P16/currentdf5alias assumed.",
+  "prior_context_credit": "Root057prior1-227receivercontext wasnot usedasownread/verdict/completion credit. Every primaryline1-866 independently consumed in038.",
+  "manual_literal_inventory": [
+    {
+      "line": 30,
+      "values": [
+        "melee-iteration"
+      ],
+      "occurrences": 1,
+      "role": "default-character source key",
+      "trace": "default_character -> spec/native everydayname/personality producer pending"
+    },
+    {
+      "line": 33,
+      "values": [
+        "john"
+      ],
+      "occurrences": 1,
+      "role": "roster key",
+      "trace": "build_from_spec -> build.key; stableID source is spec.id for this build; downstream key recipients pending"
+    },
+    {
+      "line": 35,
+      "values": [
+        "Combat-trained adventurer; strong and agile, with broadly advanced melee training."
+      ],
+      "occurrences": 1,
+      "role": "description prose",
+      "trace": "build_from_spec -> build.description; output consumer pending"
+    },
+    {
+      "line": 36,
+      "values": [
+        "Longsword, morion, breastplate, paired steel vambraces, ordinary clothing and boots."
+      ],
+      "occurrences": 1,
+      "role": "equipment description prose",
+      "trace": "build_from_spec -> build.equipment_description; output consumer pending"
+    },
+    {
+      "line": 38,
+      "values": [
+        "longsword"
+      ],
+      "occurrences": 1,
+      "role": "weapon catalog key",
+      "trace": "build_from_spec -> authored_equipment -> item_catalog::definition, stable_id"
+    },
+    {
+      "line": 39,
+      "values": [
+        "morion",
+        "breastplate",
+        "vambrace",
+        "vambrace"
+      ],
+      "occurrences": 4,
+      "role": "armor catalog keys",
+      "trace": "build_from_spec -> apply_authored_armor -> definition and occurrence identity"
+    },
+    {
+      "line": 43,
+      "values": [
+        "hammer_brute"
+      ],
+      "occurrences": 1,
+      "role": "roster key",
+      "trace": "purpose_build -> stable_id/key/default_character(key).personality; retained build.key; downstream receiver pending"
+    },
+    {
+      "line": 44,
+      "values": [
+        "Hammer Brute"
+      ],
+      "occurrences": 1,
+      "role": "authored display name",
+      "trace": "purpose_build -> PersonalNameIdentity::authored and build_from_spec rawname -> Stringname; authored/native name admission and final rendering pending"
+    },
+    {
+      "line": 47,
+      "values": [
+        "war_hammer"
+      ],
+      "occurrences": 1,
+      "role": "weapon catalog key",
+      "trace": "purpose_build -> authored_equipment -> item_catalog::definition and stable_id"
+    },
+    {
+      "line": 48,
+      "values": [
+        "brigandine",
+        "arming_cap"
+      ],
+      "occurrences": 2,
+      "role": "armor catalog keys",
+      "trace": "purpose_build -> apply_authored_armor -> catalog lookup/occurrence identity"
+    },
+    {
+      "line": 50,
+      "values": [
+        "Exceptionally strong but only moderately agile fighter with competent hammer training."
+      ],
+      "occurrences": 1,
+      "role": "description prose",
+      "trace": "purpose_build -> StartingCharacterSpec.background via.into and retainedbuild.description; consumers pending"
+    },
+    {
+      "line": 51,
+      "values": [
+        "War hammer, brigandine, and arming cap."
+      ],
+      "occurrences": 1,
+      "role": "equipment description prose",
+      "trace": "purpose_build -> retainedbuild.equipment_description; consumers pending"
+    },
+    {
+      "line": 60,
+      "values": [
+        "militia"
+      ],
+      "occurrences": 1,
+      "role": "roster key",
+      "trace": "purpose_build -> stable_id/key/default_character(key).personality; retained build.key; downstream receiver pending"
+    },
+    {
+      "line": 61,
+      "values": [
+        "Shield Militiaman"
+      ],
+      "occurrences": 1,
+      "role": "authored display name",
+      "trace": "purpose_build -> PersonalNameIdentity::authored and build_from_spec rawname -> Stringname; authored/native name admission and final rendering pending"
+    },
+    {
+      "line": 64,
+      "values": [
+        "arming_sword"
+      ],
+      "occurrences": 1,
+      "role": "weapon catalog key",
+      "trace": "purpose_build -> authored_equipment -> item_catalog::definition and stable_id"
+    },
+    {
+      "line": 65,
+      "values": [
+        "arming_doublet",
+        "arming_cap"
+      ],
+      "occurrences": 2,
+      "role": "armor catalog keys",
+      "trace": "purpose_build -> apply_authored_armor -> catalog lookup/occurrence identity"
+    },
+    {
+      "line": 66,
+      "values": [
+        "buckler"
+      ],
+      "occurrences": 1,
+      "role": "shield catalog key",
+      "trace": "purpose_build -> authored_equipment -> definition/shield kind and stable_id"
+    },
+    {
+      "line": 67,
+      "values": [
+        "Healthy adult militia fighter with competent sword, shield, dodge, and balance training."
+      ],
+      "occurrences": 1,
+      "role": "description prose",
+      "trace": "purpose_build -> StartingCharacterSpec.background via.into and retainedbuild.description; consumers pending"
+    },
+    {
+      "line": 68,
+      "values": [
+        "Arming sword and buckler over an arming doublet and cap."
+      ],
+      "occurrences": 1,
+      "role": "equipment description prose",
+      "trace": "purpose_build -> retainedbuild.equipment_description; consumers pending"
+    },
+    {
+      "line": 71,
+      "values": [
+        "demi_lancer"
+      ],
+      "occurrences": 1,
+      "role": "roster key",
+      "trace": "purpose_build -> stable_id/key/default_character(key).personality; retained build.key; downstream receiver pending"
+    },
+    {
+      "line": 72,
+      "values": [
+        "Demi-lancer"
+      ],
+      "occurrences": 1,
+      "role": "authored display name",
+      "trace": "purpose_build -> PersonalNameIdentity::authored and build_from_spec rawname -> Stringname; authored/native name admission and final rendering pending"
+    },
+    {
+      "line": 75,
+      "values": [
+        "arming_sword"
+      ],
+      "occurrences": 1,
+      "role": "weapon catalog key",
+      "trace": "purpose_build -> authored_equipment -> item_catalog::definition and stable_id"
+    },
+    {
+      "line": 76,
+      "values": [
+        "morion",
+        "cuirass",
+        "tassets",
+        "vambrace",
+        "vambrace"
+      ],
+      "occurrences": 5,
+      "role": "armor catalog keys",
+      "trace": "purpose_build -> apply_authored_armor -> catalog lookup/occurrence identity"
+    },
+    {
+      "line": 78,
+      "values": [
+        "Fit professional mounted soldier fighting on foot, with advanced sword, defense, and balance training."
+      ],
+      "occurrences": 1,
+      "role": "description prose",
+      "trace": "purpose_build -> StartingCharacterSpec.background via.into and retainedbuild.description; consumers pending"
+    },
+    {
+      "line": 79,
+      "values": [
+        "Arming sword and demi-lancer steel plate armor."
+      ],
+      "occurrences": 1,
+      "role": "equipment description prose",
+      "trace": "purpose_build -> retainedbuild.equipment_description; consumers pending"
+    },
+    {
+      "line": 82,
+      "values": [
+        "polearm_veteran"
+      ],
+      "occurrences": 1,
+      "role": "roster key",
+      "trace": "purpose_build -> stable_id/key/default_character(key).personality; retained build.key; downstream receiver pending"
+    },
+    {
+      "line": 83,
+      "values": [
+        "Polearm Veteran"
+      ],
+      "occurrences": 1,
+      "role": "authored display name",
+      "trace": "purpose_build -> PersonalNameIdentity::authored and build_from_spec rawname -> Stringname; authored/native name admission and final rendering pending"
+    },
+    {
+      "line": 86,
+      "values": [
+        "halberd"
+      ],
+      "occurrences": 1,
+      "role": "weapon catalog key",
+      "trace": "purpose_build -> authored_equipment -> item_catalog::definition and stable_id"
+    },
+    {
+      "line": 87,
+      "values": [
+        "jack_of_plates",
+        "sallet"
+      ],
+      "occurrences": 2,
+      "role": "armor catalog keys",
+      "trace": "purpose_build -> apply_authored_armor -> catalog lookup/occurrence identity"
+    },
+    {
+      "line": 89,
+      "values": [
+        "Seasoned professional with expert polearm skill, strong balance, and advanced defensive training."
+      ],
+      "occurrences": 1,
+      "role": "description prose",
+      "trace": "purpose_build -> StartingCharacterSpec.background via.into and retainedbuild.description; consumers pending"
+    },
+    {
+      "line": 90,
+      "values": [
+        "Halberd, jack of plates, and sallet."
+      ],
+      "occurrences": 1,
+      "role": "equipment description prose",
+      "trace": "purpose_build -> retainedbuild.equipment_description; consumers pending"
+    },
+    {
+      "line": 94,
+      "values": [
+        "knife_novice"
+      ],
+      "occurrences": 1,
+      "role": "roster key",
+      "trace": "purpose_build -> stable_id/key/default_character(key).personality; retained build.key; downstream receiver pending"
+    },
+    {
+      "line": 95,
+      "values": [
+        "Knife Novice"
+      ],
+      "occurrences": 1,
+      "role": "authored display name",
+      "trace": "purpose_build -> PersonalNameIdentity::authored and build_from_spec rawname -> Stringname; authored/native name admission and final rendering pending"
+    },
+    {
+      "line": 98,
+      "values": [
+        "baselard"
+      ],
+      "occurrences": 1,
+      "role": "weapon catalog key",
+      "trace": "purpose_build -> authored_equipment -> item_catalog::definition and stable_id"
+    },
+    {
+      "line": 99,
+      "values": [
+        "arming_doublet"
+      ],
+      "occurrences": 1,
+      "role": "armor catalog keys",
+      "trace": "purpose_build -> apply_authored_armor -> catalog lookup/occurrence identity"
+    },
+    {
+      "line": 101,
+      "values": [
+        "Below-average novice with rudimentary knife, dodge, block, will, and balance training."
+      ],
+      "occurrences": 1,
+      "role": "description prose",
+      "trace": "purpose_build -> StartingCharacterSpec.background via.into and retainedbuild.description; consumers pending"
+    },
+    {
+      "line": 102,
+      "values": [
+        "Baselard and an arming doublet."
+      ],
+      "occurrences": 1,
+      "role": "equipment description prose",
+      "trace": "purpose_build -> retainedbuild.equipment_description; consumers pending"
+    },
+    {
+      "line": 110,
+      "values": [
+        "fixture construction keeps reviewer context with its build"
+      ],
+      "occurrences": 1,
+      "role": "compiler lint rationale",
+      "trace": "Rust #[expect] reason annotation concrete compiler/tool text boundary; no runtime string authority inferred"
+    },
+    {
+      "line": 182,
+      "values": [
+        "fixture construction names combat and reviewer context"
+      ],
+      "occurrences": 1,
+      "role": "compiler lint rationale",
+      "trace": "Rust #[expect] reason annotation concrete compiler/tool text boundary; no runtime string authority inferred"
+    },
+    {
+      "line": 345,
+      "values": [
+        "{armor_id}:{occurrence}"
+      ],
+      "occurrences": 1,
+      "role": "structured instance identity encoding",
+      "trace": "format! -> stable_id bytes -> CombatArmor.inventory_item_id; semantic identity rather than display text, actual typed ID/hash recipient pending"
+    },
+    {
+      "line": 375,
+      "values": [
+        "hammer_brute"
+      ],
+      "occurrences": 1,
+      "role": "existing-test roster-key predicate",
+      "trace": "literal -> build.key equality/.find; actual primary producer source traced locally, canonical roster key ownership unresolved, no fixture exemption"
+    },
+    {
+      "line": 383,
+      "values": [
+        "knife_novice"
+      ],
+      "occurrences": 1,
+      "role": "existing-test roster-key predicate",
+      "trace": "literal -> build.key equality/.find; actual primary producer source traced locally, canonical roster key ownership unresolved, no fixture exemption"
+    },
+    {
+      "line": 405,
+      "values": [
+        "{} is not an authored weapon"
+      ],
+      "occurrences": 1,
+      "role": "existing-test human diagnostic boundary",
+      "trace": "panic! format build.weapon_id; source text read only, harness formatting/native receiver behavior not executed"
+    },
+    {
+      "line": 441,
+      "values": [
+        "knife_novice"
+      ],
+      "occurrences": 1,
+      "role": "existing-test roster-key predicate",
+      "trace": "literal -> build.key equality/.find; actual primary producer source traced locally, canonical roster key ownership unresolved, no fixture exemption"
+    },
+    {
+      "line": 485,
+      "values": [
+        "terminal timeline event"
+      ],
+      "occurrences": 1,
+      "role": "existing-test human diagnostic boundary",
+      "trace": "Option.expect concrete failure text; source text read only, harness formatting/native receiver behavior not executed"
+    },
+    {
+      "line": 547,
+      "values": [
+        "bounded duel stopped making physiological or scheduled combat progress"
+      ],
+      "occurrences": 1,
+      "role": "existing-test human diagnostic boundary",
+      "trace": "assert! concrete failure text; source text read only, harness formatting/native receiver behavior not executed"
+    },
+    {
+      "line": 574,
+      "values": [
+        "{} was not reproducible"
+      ],
+      "occurrences": 1,
+      "role": "existing-test human diagnostic boundary",
+      "trace": "assert_eq! format opponent.name; source text read only, harness formatting/native receiver behavior not executed"
+    },
+    {
+      "line": 614,
+      "values": [
+        "{} shorter-reach side never landed"
+      ],
+      "occurrences": 1,
+      "role": "existing-test human diagnostic boundary",
+      "trace": "assert! format opponent.name; source text read only, harness formatting/native receiver behavior not executed"
+    },
+    {
+      "line": 623,
+      "values": [
+        "hammer_brute"
+      ],
+      "occurrences": 1,
+      "role": "existing-test roster-key predicate",
+      "trace": "literal -> build.key equality/.find; actual primary producer source traced locally, canonical roster key ownership unresolved, no fixture exemption"
+    },
+    {
+      "line": 646,
+      "values": [
+        "movement into reach cannot manufacture the remaining windup: {contact:?}"
+      ],
+      "occurrences": 1,
+      "role": "existing-test human diagnostic boundary",
+      "trace": "assert! native Debug contact formatting; source text read only, harness formatting/native receiver behavior not executed"
+    },
+    {
+      "line": 656,
+      "values": [
+        "polearm_veteran"
+      ],
+      "occurrences": 1,
+      "role": "existing-test roster-key predicate",
+      "trace": "literal -> build.key equality/.find; actual primary producer source traced locally, canonical roster key ownership unresolved, no fixture exemption"
+    },
+    {
+      "line": 705,
+      "values": [
+        "hammer_brute",
+        "polearm_veteran"
+      ],
+      "occurrences": 2,
+      "role": "existing-test roster-key predicate",
+      "trace": "literal -> build.key equality/.find; actual primary producer source traced locally, canonical roster key ownership unresolved, no fixture exemption"
+    },
+    {
+      "line": 714,
+      "values": [
+        "authored torso armor must expose its engaged surface"
+      ],
+      "occurrences": 1,
+      "role": "existing-test human diagnostic boundary",
+      "trace": "Option.expect concrete failure text; source text read only, harness formatting/native receiver behavior not executed"
+    },
+    {
+      "line": 804,
+      "values": [
+        "disabled_weapon_arm"
+      ],
+      "occurrences": 1,
+      "role": "existing-test evidence category predicate",
+      "trace": "entry.capability equality; evidence producer/type in declared mod evidence unassessed; retain M09 state-erasure obligation"
+    },
+    {
+      "line": 853,
+      "values": [
+        "war_hammer"
+      ],
+      "occurrences": 1,
+      "role": "existing-test evidence weapon identity predicate",
+      "trace": "contact.weapon equality in all_weapon_contact_bands; evidence producer/identity type unassessed, no closed catalog enum assumption"
+    },
+    {
+      "line": 861,
+      "values": [
+        "longsword"
+      ],
+      "occurrences": 1,
+      "role": "existing-test evidence weapon identity predicate",
+      "trace": "contact.weapon equality in all_weapon_contact_bands; evidence producer/identity type unassessed"
+    }
+  ],
+  "manual_literal_occurrences": 67,
+  "string_valued_api_inventory": [
+    {
+      "ranges": [
+        [
+          16,
+          26
+        ]
+      ],
+      "roles": "Public retained fields: key:&staticstr; name:String; description/equipment_description/weapon_id:&staticstr; armor_ids:Vec<&staticstr>; shield_id:Option<&staticstr>. All are string-valued applicationstate; no private/catalog/fixture exemption."
+    },
+    {
+      "ranges": [
+        [
+          112,
+          122
+        ],
+        [
+          146,
+          171
+        ]
+      ],
+      "roles": "purpose_build rawkey/name/weapon/armor/shield/description/equipmentdescription parameters. key ishashed forspec.id andpassedtodefault_character forpersonality; name goesPersonalNameIdentity::authored(name,German); description.into background; allsamecaller text thenflowsbuild_from_spec."
+    },
+    {
+      "ranges": [
+        [
+          174,
+          178
+        ]
+      ],
+      "roles": "stable_id(value:&str)->u64 hashes UTF8bytes withfixedfold constants; actualsemantic identity encoding, notconcrete human text boundary. Rosterkey/catalogkey/formattedarmor-instance callers inventory isdistinct; native Stringbytes definition notsource-expanded."
+    },
+    {
+      "ranges": [
+        [
+          184,
+          225
+        ]
+      ],
+      "roles": "build_from_spec accepts rawmetadata anditemIDs, nameto_owned:String, armor_ids.to_vec andcopykey/description/equipdescription/weapon/shield topublicbuild. spec.id suppliesCombatantID; textualfieldrecipients outsideprimaryunread."
+    },
+    {
+      "ranges": [
+        [
+          257,
+          297
+        ],
+        [
+          299,
+          357
+        ]
+      ],
+      "roles": "authored_equipment/apply_authored_armor use&str IDs forcataloglookup, copyunknownIDs intoMeleeIterationError Stringpayload, stablehashweapon/shield andformattedarmorinstance IDs; literalcatalogvalues tracedtolocalcalls only, typedowner/lookup implementation anderrorbody notread."
+    },
+    {
+      "ranges": [
+        [
+          360,
+          866
+        ]
+      ],
+      "roles": "Existingtests select rosterkeys andevidenceweapon/category values byrawstringequality; humanpanic/expect/assertformatstrings haveconcrete testdiagnostic textboundaries. Tests were readas source, neverexecuted orchanged; no blanketfixture exemption. NativeDebug/Display serializer/harness implementations notclaimed."
+    }
+  ],
+  "nonliteral_region_accounting": [
+    {
+      "ranges": [
+        [
+          1,
+          14
+        ]
+      ],
+      "role": "Module comment prose/compilerignoredtext anddeclared error/evidence/import source bridges; no hidden application string API assumed."
+    },
+    {
+      "ranges": [
+        [
+          228,
+          255
+        ]
+      ],
+      "role": "Numeric/typed combat skill fieldprojection, no quotedliteral orrawtext field/parameter/return observed."
+    },
+    {
+      "ranges": [
+        [
+          532,
+          533
+        ]
+      ],
+      "role": "Existing explanatorycomment prose at compilerignoredsource textboundary; no runtime stringowner or commentaccuracy/globalclearance inferred."
+    }
+  ],
+  "bounded_receiver_reads": [],
+  "remaining_receiver_frontiers": [
+    {
+      "id": "CONT12-038-CATALOG-ID-BOUNDARY",
+      "primary_ranges": [
+        [
+          18,
+          24
+        ],
+        [
+          117,
+          119
+        ],
+        [
+          190,
+          192
+        ],
+        [
+          257,
+          357
+        ]
+      ],
+      "actual_receivers": [
+        "item_catalog::definition(weapon_id/shield_id/armor_id)",
+        "CombatWeapon::from_authored_melee_definition",
+        "CombatEquipment::{melee_weapon_id,defense_item_id}",
+        "CombatArmor::inventory_item_id"
+      ],
+      "needed": "Exact snapshot catalog/source identity admission, retained itemdefinition canonical key owner and actual combat item identity fields; qualify root existing catalog/roster identity alias, no new unique finding."
+    },
+    {
+      "id": "CONT12-038-ROSTER-NAME-TEXT-RECIPIENTS",
+      "primary_ranges": [
+        [
+          28,
+          105
+        ],
+        [
+          112,
+          178
+        ],
+        [
+          184,
+          225
+        ]
+      ],
+      "actual_receivers": [
+        "starting_character::default_character",
+        "StartingCharacterSpec::{id,name_identity,background,personality}",
+        "PersonalNameIdentity::authored",
+        "StartingCharacterSpec::native_everyday_name",
+        "MeleeIterationBuild field consumers"
+      ],
+      "needed": "Exact materially required native/authored name/seed source and output/report/selection recipients. Source shows rawname/String and prose retention, but no concrete final rendering owner was read independently in038."
+    },
+    {
+      "id": "CONT12-038-ERROR-EVIDENCE-RECIPIENTS",
+      "primary_ranges": [
+        [
+          10,
+          14
+        ],
+        [
+          262,
+          284
+        ],
+        [
+          304,
+          338
+        ],
+        [
+          757,
+          865
+        ]
+      ],
+      "actual_receivers": [
+        "declared mod error: MeleeIterationError payloads",
+        "declared mod evidence: acceptance evidence capability and weapon fields",
+        "melee_iteration_acceptance_evidence"
+      ],
+      "needed": "Exact source identities/bodies and current alias policy forerror payloads, evidence category/weapon string erasure. M09 and existing identity candidate remain qualified and canonical alias unresolved. No59ordered source/body work started."
+    }
+  ],
+  "qualified_observations": [
+    {
+      "primary_ranges": [
+        [
+          18,
+          24
+        ],
+        [
+          147,
+          151
+        ],
+        [
+          174,
+          178
+        ],
+        [
+          215,
+          223
+        ],
+        [
+          257,
+          357
+        ]
+      ],
+      "observation": "Rawroster andcatalog identity stillcross applicationparameters/retainedstate andbyte-hashencoding. This is source-backedidentity authority concern, butexisting canonicalalias/unique ownership unresolved. Preserve inheritedcandidate; no acceptednewunique finding."
+    },
+    {
+      "primary_ranges": [
+        [
+          804,
+          804
+        ],
+        [
+          853,
+          861
+        ]
+      ],
+      "observation": "Evidence consumers comparedisabled_weapon_arm capability andwar_hammer/longsword weapon text. Actualevidenceproducer/body notread. M09 typedcategory/state-erasure repair remainsmandatorypending, notcleared bytestassertion orEOF."
+    }
+  ],
+  "disposition": "Qualifiedpartial: full independent primary string/API inventory complete; material catalog/name/error/evidence recipients remain untraced. Source presence/EOF/previousotherreview givesno58completion.",
+  "counts": {
+    "before_original_accounted": 58,
+    "after_original_accounted": 58,
+    "original_total": 2853,
+    "next_original": 58,
+    "active_partial_original": 58,
+    "new_original_completions": [],
+    "new_unique_delta": 0,
+    "overlay_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0
+  },
+  "findings": [],
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "sha256": "e1dac77a2c5ef7c2bb50b886c9b7340c83f2fcee27fe767788e48463ad6f737c",
+      "existing_original_index": 58,
+      "actual12_ranges": [
+        [
+          1,
+          866
+        ]
+      ],
+      "required": "Root reconcile existing all20/P16/other-lens obligations and inheritedidentity/M09aliases; no additionaloriginalpopulation orcrosslenscredit."
+    }
+  ],
+  "interruption": "Root instructedstopfurther038expansion aftercurrentregisteredrange atfinalPR992checkscheckpoint. FullprimaryEOF wasalreadyread; no recipient source expansion performed. Saveexactpartialandawaitbodyreview.",
+  "qualifications": [
+    "Allpriorroot037 scope/native/currentness/identity/findings/all20/P16/P17/otherlens qualifications preserved, no globalF9/candidate clearance.",
+    "No59orderedbody/inventory, project/test/helper/native execution, newtests/assertions/doctests, product/source/rootledger/Gitmutations/publication. Exactread-onlyf82source recoveryandignoredappendonlyevidenceonly.",
+    "Artifact/CIpassandready/unmergedstate areparentmonitored; no execution/result inferredbythis source review."
+  ],
+  "global_clearance": false,
+  "stop": true
+}

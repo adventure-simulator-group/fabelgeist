@@ -1,0 +1,39 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-024",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1532,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/environment.rs",
+      "sha256": "b6c219d19f45e18cf058bfa3ec4a06e826e50c2ae83d122e8d421f418dc31dbc",
+      "ranges": [
+        [
+          1,
+          577
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "ActiveTacticalScene Resource/Debug/Clone/Default, TacticalCameraSetup Resource/Clone/Copy and gameplay/mapcamera componentsalreadyderive. SolemanualtraitDefault for TacticalCameraSetup explicitlychooseszeroeye, NEG_Zdirection and80degreeFOV. Remainingfunctions are semanticlatestsceneactivation, weatherlighting/fog/nativeconfigmapping andcameraappconstruction; existingfixtures ordinaryfunctions.",
+      "disposition": "Keep smallmanualDefault because direction/FOV are specificcamera policy, not plainfielddefaults or demonstratedequivalentenabledderive. No codec/manualmechanicaltrait elsewhere. Preserve nativeweather/camera/sceneclassification and checkedsourceowners; no artistic/numeric/currentmainclearance or newtests.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1533,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/furniture.rs",
+      "sha256": "07988f23128ecaaf0ea6916b865309979ba36c6f62650f7171667f470f848cf9",
+      "ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "FurnitureMeshCache Default/Resource, furniture/vistamarkers Component alreadyderive. FurniturePresentationPlugin::build setsresources,observers and explicitvisibilityscheduleorder. Remainingfunctions classifydistance/locations and compile/publishnativefurnitureassets, no handwrittencodec.",
+      "disposition": "Keep Plugin manual as imperativeordering/policy; no equivalentderive. No otherderiveopportunity, automaticFrom/serde would bypassactualrecipe/cache/visibilitycontext. Source-onlyinspection, no checks/newtests.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

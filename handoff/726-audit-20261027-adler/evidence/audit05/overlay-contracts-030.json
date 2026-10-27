@@ -1,0 +1,543 @@
+{
+  "authority": "raw-overlay-authority-proof-001.json",
+  "members": [
+    {
+      "overlay_index": 231,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-232",
+        "at": "2026-10-23T02:08:40.390051+00:00",
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/authority_tests.rs",
+        "sha256": "79cb2928c581b94b83b90e220abb46105033b5e89588d1c7ba20e497772a0992",
+        "material_ranges": [
+          [
+            1,
+            75
+          ]
+        ],
+        "audit_owner": "camera",
+        "reason": "Existing isolated authority fixture is a direct CharacterPersonality table writer; inspect complete containing fixture so behavioral-versus-demographic mutation and any later reproject are actually established before every-writer cache claim. Current13 projection lifecycle exact dependency, not test addition/execution.",
+        "scope_registration": [
+          {
+            "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+            "sha256": "ae719b7285ea649dcf26c2dee0908de407f1fd679635d005107160dd907358f8",
+            "row_1based": 29,
+            "id": "CAMERA-INITIAL07-REG029",
+            "original_record": {
+              "registration_id": "CAMERA-INITIAL07-REG029",
+              "at": "2026-10-23T02:02:46.547836+00:00",
+              "authority": "continuation/root/parallel-initial-audits-081.json",
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/authority_tests.rs",
+              "snapshot": "pr-working",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\relationship\\authority_tests.rs",
+              "sha256": "79cb2928c581b94b83b90e220abb46105033b5e89588d1c7ba20e497772a0992",
+              "actual_EOF": 75,
+              "material_ranges": [
+                [
+                  1,
+                  75
+                ]
+              ],
+              "reason": "Existing isolated authority fixture is a direct CharacterPersonality table writer; inspect complete containing fixture so behavioral-versus-demographic mutation and any later reproject are actually established before every-writer cache claim. Current13 projection lifecycle exact dependency, not test addition/execution.",
+              "exclusions": "Existing source only; unrelated character fixture functions1\u2013248 excluded. No new tests/cases/assertions/helpers, no runtime/reset/seed, no wider relationship/character graph.",
+              "status": "prospectively_registered_before_body_analysis"
+            }
+          }
+        ],
+        "limits": "Existing source only; unrelated character fixture functions1\u2013248 excluded. No new tests/cases/assertions/helpers, no runtime/reset/seed, no wider relationship/character graph.",
+        "source_qualifications": "Only full relationship authority fixture1-75; source comparison under exact snapshot, no new tests or execution."
+      },
+      "personally_read_registered_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "disposition": "Read guarded existing conception chronology authority fixture1-75 only; no execution. It exercises birth/adulthood before/on boundary, historical death despite stale current cache, and missing birth fail-closed. Direct fixture mutations intentionally create stale projections; no normal producer or runtime acceptance implied."
+    },
+    {
+      "overlay_index": 232,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-233",
+        "at": "2026-10-23T02:46:19.446863+00:00",
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/mod.rs",
+        "sha256": "294366e9eac449d161658a404c461baaf901a04a89e96ea87909a819e322e88a",
+        "material_ranges": [
+          [
+            159,
+            213
+          ]
+        ],
+        "audit_owner": "native",
+        "reason": null,
+        "scope_registration": [
+          {
+            "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+            "sha256": "56d1a42c9bab45cf616aef13795dc0bf28256ee75b21c7d6dfa6a0a7d1fb2507",
+            "row_1based": 27,
+            "id": "NATIVE-INITIAL05-REG027",
+            "original_record": {
+              "id": "NATIVE-INITIAL05-REG027",
+              "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/mod.rs",
+              "sha256": "294366e9eac449d161658a404c461baaf901a04a89e96ea87909a819e322e88a",
+              "snapshot": "pr-working",
+              "actual_EOF": 362,
+              "material_ranges": [
+                [
+                  159,
+                  213
+                ]
+              ],
+              "role": "Complete directly reached tick_timeout tail and TerminalCombatSnapshot/CombatOutcomeHold::advance for scoped systems175\u2013276; excludes214+test-only state helper and original tests.",
+              "actual_caller": "MissionState::advance_combat_outcome101\u2013106 and systems234\u2013245",
+              "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+              "at": "2026-10-23T02:38:31.412904+00:00",
+              "status": "registered_before_body_analysis",
+              "source_edits": 0,
+              "other_lens_credit": false
+            }
+          }
+        ],
+        "limits": null,
+        "source_qualifications": "Only exact prospectively registered range; fresh03 comparison171. Root170 permanently excludes premature103 credit for PR mass/armor. No other-lens clearance or adjacent test coverage."
+      },
+      "personally_read_registered_ranges": [
+        [
+          159,
+          213
+        ]
+      ],
+      "disposition": "TerminalCombatSnapshot hold requires nonzero required enemies, enough loaded enemies, sealed enrollment and loaded party. Invalid enrollment resets holds; separate enemy/party incapacity duration resets when false and saturates when true. Party failure wins simultaneous holds. Snapshot field consistency and encounter population producers remain required; no tactical persistence authority transfer."
+    },
+    {
+      "overlay_index": 233,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-234",
+        "at": "2026-10-23T02:56:17.288451+00:00",
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+        "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+        "material_ranges": [
+          [
+            61,
+            66
+          ]
+        ],
+        "audit_owner": "native",
+        "reason": null,
+        "scope_registration": [
+          {
+            "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+            "sha256": "9e23e89dad33d1b2fcf5b94dbcece6f9a136d83d3bfd76f961509bb19cb3de91",
+            "row_1based": 30,
+            "id": "NATIVE-INITIAL05-REG030",
+            "original_record": {
+              "id": "NATIVE-INITIAL05-REG030",
+              "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+              "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+              "snapshot": "physical-p16",
+              "actual_EOF": 66,
+              "material_ranges": [
+                [
+                  61,
+                  66
+                ]
+              ],
+              "role": "Finish actual ProceduralAnimationConfig::validate direct callee; old1\u201360 cuts inside Err construction, topP16config calls this method.",
+              "actual_caller": "P16wholecombatconfig351/scopedchildrecords2483\u20132485",
+              "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+              "at": "2026-10-23T02:52:16.844288+00:00",
+              "status": "registered_before_fresh_body_analysis",
+              "qualification": "Complete counterpart diff navigation previously consumed; excluded identical byte regions were not assigned semantic credit. This registration precedes fresh bounded actual analysis.",
+              "source_edits": 0,
+              "other_lens_credit": false
+            }
+          }
+        ],
+        "limits": null,
+        "source_qualifications": "Exact fresh03 admission174 only; MeshData declaration excludes12-40/69+ under qualification173. Native config gaps complete prior bounded roles, no foreign/native/runtime or other-lens verdict."
+      },
+      "personally_read_registered_ranges": [
+        [
+          61,
+          66
+        ]
+      ],
+      "disposition": "Registered61-66 is validation error/result tail. Read30-60context confirms actual procedural guard requires nonzero presentation gap and response angle above report margin; wrappers carry separate numeric contracts. No broader procedural-body clearance."
+    },
+    {
+      "overlay_index": 234,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-235",
+        "at": "2026-10-23T02:56:17.288451+00:00",
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+        "sha256": "6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+        "material_ranges": [
+          [
+            26,
+            48
+          ]
+        ],
+        "audit_owner": "native",
+        "reason": null,
+        "scope_registration": [
+          {
+            "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+            "sha256": "9e23e89dad33d1b2fcf5b94dbcece6f9a136d83d3bfd76f961509bb19cb3de91",
+            "row_1based": 31,
+            "id": "NATIVE-INITIAL05-REG031",
+            "original_record": {
+              "id": "NATIVE-INITIAL05-REG031",
+              "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+              "sha256": "6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+              "snapshot": "physical-p16",
+              "actual_EOF": 48,
+              "material_ranges": [
+                [
+                  26,
+                  48
+                ]
+              ],
+              "role": "Finish actual AnimationPlaybackConfig declaration and validate/default direct callee; old1\u201325 cuts declaration; topP16config calls method.",
+              "actual_caller": "P16wholecombatconfig351/scopedchildrecords2483\u20132485",
+              "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+              "at": "2026-10-23T02:52:16.844312+00:00",
+              "status": "registered_before_fresh_body_analysis",
+              "qualification": "Complete counterpart diff navigation previously consumed; excluded identical byte regions were not assigned semantic credit. This registration precedes fresh bounded actual analysis.",
+              "source_edits": 0,
+              "other_lens_credit": false
+            }
+          }
+        ],
+        "limits": null,
+        "source_qualifications": "Exact fresh03 admission174 only; MeshData declaration excludes12-40/69+ under qualification173. Native config gaps complete prior bounded roles, no foreign/native/runtime or other-lens verdict."
+      },
+      "personally_read_registered_ranges": [
+        [
+          26,
+          48
+        ]
+      ],
+      "disposition": "Playback validation checks nonzero source gap and deactivation<=initial<=activation speed. Equality is permitted; private aggregate admission must run validation. Registered26-31 partial fields do not imply complete defaults or all-playback policy."
+    },
+    {
+      "overlay_index": 235,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-236",
+        "at": "2026-10-23T02:56:17.288451+00:00",
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+        "sha256": "af87991f5cb3f8fd2a6398ea5135c5daacd24c7b9c2b23181ebecec7bc516ad3",
+        "material_ranges": [
+          [
+            61,
+            80
+          ]
+        ],
+        "audit_owner": "native",
+        "reason": null,
+        "scope_registration": [
+          {
+            "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+            "sha256": "9e23e89dad33d1b2fcf5b94dbcece6f9a136d83d3bfd76f961509bb19cb3de91",
+            "row_1based": 32,
+            "id": "NATIVE-INITIAL05-REG032",
+            "original_record": {
+              "id": "NATIVE-INITIAL05-REG032",
+              "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+              "sha256": "af87991f5cb3f8fd2a6398ea5135c5daacd24c7b9c2b23181ebecec7bc516ad3",
+              "snapshot": "physical-p16",
+              "actual_EOF": 112,
+              "material_ranges": [
+                [
+                  60,
+                  80
+                ]
+              ],
+              "role": "Direct RagdollCapsulesConfig declaration used RagdollConfig.capsules; fills gap between globallyscoped1\u201359 and81\u2013112, no new foreign graph.",
+              "actual_caller": "P16wholecombatconfig351/scopedchildrecords2483\u20132485",
+              "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+              "at": "2026-10-23T02:52:16.844316+00:00",
+              "status": "registered_before_fresh_body_analysis",
+              "qualification": "Complete counterpart diff navigation previously consumed; excluded identical byte regions were not assigned semantic credit. This registration precedes fresh bounded actual analysis.",
+              "source_edits": 0,
+              "other_lens_credit": false
+            }
+          }
+        ],
+        "limits": null,
+        "source_qualifications": "Only declaration61-80; blank60 displayed context uncredited under Root176, old1-59/81-112 separate. Playback has no Default implementation. Actual03 proof174 with effective qualification176, no other-lens credit."
+      },
+      "personally_read_registered_ranges": [
+        [
+          61,
+          80
+        ]
+      ],
+      "disposition": "Ragdoll capsule group supplies nine role profiles, each radius/length PositiveLength. These declarations carry per-field positivity but do not correlate capsule shape to rig dimensions or prove every collider receiving invariant."
+    },
+    {
+      "overlay_index": 236,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-237",
+        "at": "2026-10-23T03:39:48.351987+00:00",
+        "source_id": "physical-p16:crates/adventuresim-core/src/material.rs",
+        "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+        "material_ranges": [
+          [
+            74,
+            106
+          ]
+        ],
+        "audit_owner": "native",
+        "reason": "141 actual graphpreservation proof needs real checkednativeu64volume implementation, no name-only orPRcounterpartcoverage. RegisterBEFOREboundedP16actualbodyanalysis.",
+        "scope_registration": [
+          {
+            "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+            "sha256": "c365626e4452c82aa9683f68c06c78d6f4212cefca583814bc382a04584ce92a",
+            "row_1based": 34,
+            "id": "NATIVE-INITIAL05-REG034",
+            "original_record": {
+              "id": "NATIVE-INITIAL05-REG034",
+              "at": "2026-10-23T03:34:08.300311+00:00",
+              "authority": "continuation/root/parallel-initial-audits-081.json",
+              "source_id": "physical-p16:crates/adventuresim-core/src/material.rs",
+              "snapshot": "physical-p16",
+              "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+              "actual_EOF": 1869,
+              "material_ranges": [
+                [
+                  74,
+                  106
+                ]
+              ],
+              "role": "ExactMilliliters declaration/default/ZERO/new/get/is_zero/checked_add/sub, actualdirectP16ContainmentGraph::used_volume58\u201374/insert131\u2013143 arithmetic receiver; sameexistingvariant2746 butnewexactdefinitionroleoutsideearliermaterial047/049ranges.",
+              "reason": "141 actual graphpreservation proof needs real checkednativeu64volume implementation, no name-only orPRcounterpartcoverage. RegisterBEFOREboundedP16actualbodyanalysis.",
+              "exclusions": "No107\u2013203unitconversions/Microliters, noVessel/Timing/Retry/tests; priorP16materialrolesretained.",
+              "status": "prospectively_registered_before_body_analysis"
+            }
+          }
+        ],
+        "limits": "No107\u2013203unitconversions/Microliters, noVessel/Timing/Retry/tests; priorP16materialrolesretained.",
+        "source_qualifications": "Exact prospectively registered source role after fresh Root03 proof180; no native library, whole simulation/CLI execution or adjacent material107+ credit. All prior mandatory qualifications retained."
+      },
+      "personally_read_registered_ranges": [
+        [
+          74,
+          106
+        ]
+      ],
+      "disposition": "Milliliters private u64 is exact nonnegative quantity including zero; checked addition/subtraction returns None on overflow/underflow. No liquid composition, mass or conservation correlation is encoded in this unit wrapper."
+    },
+    {
+      "overlay_index": 237,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-238",
+        "at": "2026-10-23T03:50:38.291517+00:00",
+        "source_id": "physical-p16:crates/adventuresim-terrain/src/lib.rs",
+        "sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+        "material_ranges": [
+          [
+            59,
+            65
+          ]
+        ],
+        "audit_owner": "camera",
+        "reason": "Exact missing Surface enum variant body between existing scoped derive1-58 and existing tail/method66-100; actual Cell/speed/decode classified surface owner/current native policy comparison, no surrounding route or builder graph.",
+        "scope_registration": [
+          {
+            "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+            "sha256": "84bd192195c45d47894add19267483be45049394780d4e86e2bbc06c1a80c3df",
+            "row_1based": 38,
+            "id": "CAMERA-INITIAL07-REG038",
+            "original_record": {
+              "registration_id": "CAMERA-INITIAL07-REG038",
+              "at": "2026-10-23T03:47:53.009411+00:00",
+              "authority": "continuation/root/parallel-initial-audits-081.json",
+              "source_id": "physical-p16:crates/adventuresim-terrain/src/lib.rs",
+              "snapshot": "physical-p16",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-terrain\\src\\lib.rs",
+              "sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+              "actual_EOF": 2059,
+              "material_ranges": [
+                [
+                  59,
+                  65
+                ]
+              ],
+              "reason": "Exact missing Surface enum variant body between existing scoped derive1-58 and existing tail/method66-100; actual Cell/speed/decode classified surface owner/current native policy comparison, no surrounding route or builder graph.",
+              "exclusions": "No new otherlibfunctions or terrainfeatures; only enum variants gap, all old scopes preserved.",
+              "status": "prospectively_registered_before_body_analysis"
+            }
+          }
+        ],
+        "limits": "No new otherlibfunctions or terrainfeatures; only enum variants gap, all old scopes preserved.",
+        "source_qualifications": "Only missing exact Surface variant role59-65; fresh actual03proof185 with independently resolved existing66Wetland andserde/speed/cell context. No whole2059/route/decoder or other-lens credit; all mandatory qualifications including184 retained."
+      },
+      "personally_read_registered_ranges": [
+        [
+          59,
+          65
+        ]
+      ],
+      "disposition": "Surface59-65 is partial enum; personally read66-67 confirms sixth Wetland variant and closing brace. Open default is explicit. No exhaustive five-variant claim or terrain classifier body credit."
+    },
+    {
+      "overlay_index": 238,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-239",
+        "at": "2026-10-23T04:14:26.252788+00:00",
+        "source_id": "pr-working:crates/adventuresim-core/src/morale.rs",
+        "sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+        "material_ranges": [
+          [
+            331,
+            334
+          ]
+        ],
+        "audit_owner": "native",
+        "reason": "Existing current PR scoped pain_incapacitation327-330",
+        "scope_registration": [
+          {
+            "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+            "sha256": "5879a1cddb4d7303da728c3016e785e105925ea1639f28321f8604ca4df6a2c8",
+            "row_1based": 35,
+            "id": "NATIVE-INITIAL05-REG035",
+            "original_record": {
+              "id": "NATIVE-INITIAL05-REG035",
+              "at": "2026-10-23T04:11:16.979695+00:00",
+              "authority": "Root081 whole initial05 current-role direct necessary material before fresh analysis",
+              "source_id": "pr-working:crates/adventuresim-core/src/morale.rs",
+              "sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+              "actual_EOF": 527,
+              "material_ranges": [
+                [
+                  331,
+                  334
+                ]
+              ],
+              "material_caller": "Existing current PR scoped pain_incapacitation327-330",
+              "role": "Complete exact terminal computation and function closing, no blood-loss/fatigue/hunger/thirst helpers335+",
+              "exclusions": "Earlier full companion display uncredited QUAL058; registered BEFORE fresh bounded reread/analysis. No other functions/fixtures/native runtime.",
+              "status": "registered before fresh credited body analysis"
+            }
+          }
+        ],
+        "limits": "Earlier full companion display uncredited QUAL058; registered BEFORE fresh bounded reread/analysis. No other functions/fixtures/native runtime.",
+        "source_qualifications": "Only prospective registered terminal role completes already scoped function. Fresh Root03 proof189, mandatory188 EOF331 and prior qualifications retained. No whole companion source/runtime/other-lens credit; preceding out-of-union display explicitly uncredited."
+      },
+      "personally_read_registered_ranges": [
+        [
+          331,
+          334
+        ]
+      ],
+      "disposition": "Registered pain expression331-334 plus327-330entry read computes from nonnegative damage/will and returns zero for no damage. Arbitrary nonfinite raw inputs are not validated here; actual bounded skill/health producers and inherited damage-weight qualification remain separate. Not a fatigue penalty or new tactical impairment pool."
+    },
+    {
+      "overlay_index": 239,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-240",
+        "at": "2026-10-23T04:14:26.252788+00:00",
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/reputation.rs",
+        "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+        "material_ranges": [
+          [
+            180,
+            188
+          ]
+        ],
+        "audit_owner": "native",
+        "reason": "Existing PR scoped unsettled_local_offenses172-179 prefix",
+        "scope_registration": [
+          {
+            "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+            "sha256": "5879a1cddb4d7303da728c3016e785e105925ea1639f28321f8604ca4df6a2c8",
+            "row_1based": 36,
+            "id": "NATIVE-INITIAL05-REG036",
+            "original_record": {
+              "id": "NATIVE-INITIAL05-REG036",
+              "at": "2026-10-23T04:11:16.979695+00:00",
+              "authority": "Root081 whole initial05 current-role direct necessary material before fresh analysis",
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/reputation.rs",
+              "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+              "actual_EOF": 440,
+              "material_ranges": [
+                [
+                  180,
+                  188
+                ]
+              ],
+              "material_caller": "Existing PR scoped unsettled_local_offenses172-179 prefix",
+              "role": "Complete actual local offense filter/sort/return to compare current unsettled snapshot membership, no snapshot_arrest_charges190+",
+              "exclusions": "Earlier full companion display uncredited QUAL058; registered BEFORE fresh bounded reread/analysis. No other functions/fixtures/native runtime.",
+              "status": "registered before fresh credited body analysis"
+            }
+          }
+        ],
+        "limits": "Earlier full companion display uncredited QUAL058; registered BEFORE fresh bounded reread/analysis. No other functions/fixtures/native runtime.",
+        "source_qualifications": "Only prospective registered terminal role completes already scoped function. Fresh Root03 proof189, mandatory188 EOF331 and prior qualifications retained. No whole companion source/runtime/other-lens credit; preceding out-of-union display explicitly uncredited."
+      },
+      "personally_read_registered_ranges": [
+        [
+          180,
+          188
+        ]
+      ],
+      "disposition": "Unsettled offenses are filtered by character index, exact settlement and !settled then stably sorted by minute/ID. Read172-179entry context; no mutable settled state or global legal-history claim."
+    },
+    {
+      "overlay_index": 240,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-241",
+        "at": "2026-10-23T04:19:32.528348+00:00",
+        "source_id": "physical-p16:crates/adventuresim-world-schema/src/language.rs",
+        "sha256": "1475b920cad83e1f040a2c19627f288508d660a9d771bd72cf8993fa34b9a05f",
+        "material_ranges": [
+          [
+            1,
+            205
+          ]
+        ],
+        "audit_owner": "rig",
+        "reason": "Direct already reached owner/definition dependency, registered BEFORE first current P16 definition body analysis. Existing PR sourceproof supplies comparison target but no automatic counterpart credit.",
+        "scope_registration": [
+          {
+            "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+            "sha256": "77cd3e4261e662a11708baeefcdea0ac3d0014570dcd918923e195e295dc2a76",
+            "row_1based": 36,
+            "id": "RIG-INITIAL06-REG-036",
+            "original_record": {
+              "id": "RIG-INITIAL06-REG-036",
+              "at": "2026-10-23T04:16:47.372465+00:00",
+              "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+              "source_id": "physical-p16:crates/adventuresim-world-schema/src/language.rs",
+              "snapshot": "physical-p16",
+              "sha256": "1475b920cad83e1f040a2c19627f288508d660a9d771bd72cf8993fa34b9a05f",
+              "actual_EOF": 756,
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\language.rs",
+              "material_ranges": [
+                [
+                  1,
+                  205
+                ]
+              ],
+              "material_caller": "Existing scoped P16 best_common_oral_language_capped214-236 calls OralLanguage::ALL/index and OralLanguageHours::effective. Actual current branch definitions/units/operation must be compared for ownership, not inferred from already reviewed PR definitions or same method names. Only P16helper214-243 was previously scoped.",
+              "reason": "Direct already reached owner/definition dependency, registered BEFORE first current P16 definition body analysis. Existing PR sourceproof supplies comparison target but no automatic counterpart credit.",
+              "exclusions": "Only enum/descriptor/direct-hours/effective helper prefix1-205. No206-213 unbounded sibling method, partytraining244+ or writtenlanguage/inference/tests. No newforeign package or feature.",
+              "status": "prospectively_registered_before_body; global reconciliation pending"
+            }
+          }
+        ],
+        "limits": "Only enum/descriptor/direct-hours/effective helper prefix1-205. No206-213 unbounded sibling method, partytraining244+ or writtenlanguage/inference/tests. No newforeign package or feature.",
+        "source_qualifications": "Actual P16 direct language enum/descriptor/hours operations prefix1-205, prospective registration and fresh Root03 proof191. Excludes206-213 and244+; existing214-243 separate. All mandatory qualifications including188 retained, no whole756 or other-lens credit."
+      },
+      "personally_read_registered_ranges": [
+        [
+          1,
+          205
+        ]
+      ],
+      "disposition": "Read P16language1-205: closed eight languages, descriptors/index and symmetric transfer matrix, public direct-hour fields with finite/bounded predicate. effective sums nonnegative direct hours times transfer; add_direct accepts finite positive increments and caps/fills nonfinite stored value. Public raw fields remain constructible; predicate is not automatic deserialize validation. Catalogue/gameplay identity and ordinary initialization remain separate."
+    }
+  ],
+  "first_unfinished_overlay_index": 241,
+  "new_findings": []
+}

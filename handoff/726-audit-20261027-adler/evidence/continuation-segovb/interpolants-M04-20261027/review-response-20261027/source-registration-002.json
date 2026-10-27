@@ -1,0 +1,93 @@
+{
+  "at": "2026-10-27T08:02:30.479922+00:00",
+  "kind": "Review-response native chain and caller receiver prospective reads",
+  "review_comment": 4386145956,
+  "extends": "source-registration-001.json",
+  "sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "7cca5e5cef2f3c3a5a11c88dba547195f36d61f4665f157c8d55eedc30179eab",
+      "bytes": 9717,
+      "actual_lines": 267,
+      "ranges": [
+        [
+          1,
+          104
+        ],
+        [
+          176,
+          267
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "sha256": "09565d01fd8fabbf899d84f107bdbf9c16fd6149ec61f51714599d160c1260e0",
+      "bytes": 8299,
+      "actual_lines": 218,
+      "ranges": [
+        [
+          91,
+          169
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy-0.19.1/src/lib.rs",
+      "sha256": "10075d3357dd35ffcb0b0c85a276ded49573b59d692e075ba6e8ad8b2738aa48",
+      "bytes": 2359,
+      "actual_lines": 61,
+      "ranges": [
+        [
+          48,
+          60
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_internal-0.19.1/src/lib.rs",
+      "sha256": "e4d62ec28c75d725a321bacfe8c6d2ac8cc8848833d3e9ddbcba22ff5f0c8c55",
+      "bytes": 3647,
+      "actual_lines": 112,
+      "ranges": [
+        [
+          59,
+          70
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_math-0.19.1/src/lib.rs",
+      "sha256": "d743684d4c464873715e1fa8ef5fe0b6fa537fabb1172894056c3a7bff504a26",
+      "bytes": 2774,
+      "actual_lines": 103,
+      "ranges": [
+        [
+          101,
+          103
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glam-0.32.1/src/lib.rs",
+      "sha256": "59d108054d6f38ce1cef40d832b79a1b2c4eac75c7182d19b46804b1ec0d8962",
+      "bytes": 13799,
+      "actual_lines": 399,
+      "ranges": [
+        [
+          395,
+          399
+        ]
+      ],
+      "body_read_at_registration": false
+    }
+  ],
+  "purpose": "Actualproducerprofile-retainedCycleDelta andsupportconsumer; canonicalerrorenum; Bevy->bevy_internal::math->bevy_math::glam->FloatExt re-exportchain.",
+  "range_disclosure": "Initial in-memory BevyMath101-108 and Glam395-402 plans failed metadataEOF103/399 guards before registration write/body output. Corrected actual101-103/395-399 registered here; no nonexistenttail credit.",
+  "limits": "Sourceonly/no execution/tests/newtests/product/Git/ledger/publication; no globalcoverage fromsearches."
+}

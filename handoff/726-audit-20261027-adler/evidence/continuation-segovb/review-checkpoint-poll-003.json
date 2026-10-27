@@ -1,0 +1,53 @@
+{
+  "pull_request": 988,
+  "pr": {
+    "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/988",
+    "number": 988,
+    "state": "open",
+    "merged": false,
+    "mergeable": true,
+    "draft": false,
+    "body": "Whole-texture format-view requests currently erase native validation causes into\ntext, panic when a matching-format cached view is absent, and ignore failed\ndevice polling. `Texture2d`, `Texture3d` and `TextureCube::view_with_format` now\nreturn a shared `TextureViewResult` preserving the requested format and native\ncause. Missing resources return typed errors, and failed observation returns a\ntyped progress error before caching a new view.\n\nThe shared `ValidationScope` keeps its device and guard together, attempts\npolling before always popping the scope, and retains both polling and captured\nvalidation errors. Alternate-format views honor the borrowed-context policy.\nCached Arc identity, cache-first precedence, storage sRGB projection,\ndescriptors and the three ComputePass error recipients retain their existing\nbehavior.\n\nThe workflow preserves the existing Linux, Windows, fixture-exporter and\npositive-execution gates. At final commit\n`961d226be23a81d9731a11958d62fe8a04b93e81`, [hosted run\n40372060212](https://github.com/adventure-simulator-group/fabelgeist/actions/runs/40372060212)\nhas passed the existing 13 GPU library tests, two GPU doctests, exact\nborrowed-context case, ten Windows foliage cases, 67 constraint/shell library\ntests and five constraint doctests, with zero failures or ignored cases in those\npopulations. Formatting, generated bindings, semantic/growth checks and Clippy\nhave also passed. The complete Linux and Windows jobs succeeded. The final\nsource-pinned artifact confirms positive execution in all 48 required rig and\nconsumer groups: 1,461 passed, zero failed, and 14 ignored cases across five\nterrain groups. The fixture-regeneration job was skipped by its existing opt-in\ncondition.\n\nThe hosted baseline supports only two relevant ceiling reductions: 2D texture\n538 to 502 and cube texture 899 to 862. No ceiling is raised. No tests, cases,\nhelpers, assertions or doctests are added; the saved WIP test/fixture files and\nnew doctests are excluded because they are absent from current main.\n\n## Implementation context\n\nIndependent Code, Rule and Comment source reviews checked the scoped producers,\nshared observation owner, unchanged receiving bodies, native SDK contracts and\nworkflow composition. They found no new scoped source defect after the baseline\nrepair. Existing tests do not directly exercise the new view-error or\npolling-failure branches; their behavior is supported by source traces. Final\nfingerprint reconciliation matches all 15 changed files and all 45 reviewed\nsource/SDK paths to the reviewed identities. Required hosted checks passed at\nthe final revision.\n\nThis is an independent increment toward #826, connected to #780 and #726. Public\ntexture/cache/metadata/device coherence, constructor and subresource validation,\nremaining migrations and the complete audit remain open.\n",
+    "title": "Preserve whole-texture view errors and validation progress",
+    "base": "main",
+    "base_sha": "a411abb4370bb6f6609622cef5da59988a37aee9",
+    "head": "codex/826-texture-view-errors-main",
+    "head_sha": "961d226be23a81d9731a11958d62fe8a04b93e81",
+    "head_repo_id": 1049441561,
+    "head_repo_full_name": "adventure-simulator-group/fabelgeist",
+    "merge_commit_sha": "636d4a39a868d9593593ac7b5b94ce7b0d224e05",
+    "user": {
+      "login": "segovb",
+      "name": "segovb",
+      "email": null,
+      "avatar_url": "https://avatars.githubusercontent.com/u/70238035?v=4",
+      "id": 70238035
+    },
+    "requested_reviewers": null,
+    "requested_team_reviewers": null,
+    "diff": null,
+    "comments": null,
+    "created_at": "2026-10-26T17:33:31Z",
+    "updated_at": "2026-10-26T19:45:44Z",
+    "closed_at": null,
+    "merged_at": null,
+    "commits": 2,
+    "changed_files": 15,
+    "additions": 537,
+    "deletions": 160,
+    "display_url": "https://github.com/adventure-simulator-group/fabelgeist/pull/988",
+    "display_title": "Preserve whole-texture view errors and validation progress"
+  },
+  "reviews": {
+    "reviews": []
+  },
+  "comments": {
+    "comments": [],
+    "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/988",
+    "title": "adventure-simulator-group/fabelgeist PR #988 comments",
+    "display_url": "https://github.com/adventure-simulator-group/fabelgeist/pull/988",
+    "display_title": "adventure-simulator-group/fabelgeist PR #988 comments"
+  },
+  "consecutive_pending_review_turns": 3,
+  "blocked_audit": "Same human-review prerequisite confirmed on three consecutive continuation turns. User requires stop at merge-ready PR and no subsequent slice before review. No review/comment exists; no meaningful authorized progress until human input or review-state change. Goal incomplete, not achieved."
+}

@@ -1,0 +1,138 @@
+{
+  "at": "2026-10-27T13:18:59.385630+00:00",
+  "lens": 11,
+  "status": "960-961 independently source-accounted",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-034-registration.jsonl",
+    "sha256": "c35877c03a26d02cfab5eaed7ab782855d0542234c77a4e94b0341063fc5ea4c"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-033.json",
+    "sha256": "da10d071ba0e1312c97bd5ff926eb3bf7136f37eefaf6684f2cb5fa9390067fe"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 960,
+      "source_id": "pr-working:crates/adventuresim-core/src/organization.rs",
+      "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+      "actual_eof": 1251,
+      "ranges": [
+        [
+          1,
+          1251
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "personal_prior_body_reuse": {
+        "receipt": "batch-031-receipt.json",
+        "ranges": [
+          [
+            330,
+            405
+          ]
+        ],
+        "identity_reverified": true
+      },
+      "new_reads": [
+        [
+          1,
+          329
+        ],
+        [
+          406,
+          1251
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          1,
+          329
+        ],
+        [
+          406,
+          1251
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 961,
+      "source_id": "pr-working:crates/adventuresim-core/src/organization_catalog_validation.rs",
+      "sha256": "45b87fa13f86c8805f2b4f974fd1f629f5da068a07b3b7c4af17115aaa339846",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/45b87fa13f86c8805f2b4f974fd1f629f5da068a07b3b7c4af17115aaa339846",
+      "actual_eof": 986,
+      "ranges": [
+        [
+          1,
+          986
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          986
+        ]
+      ]
+    }
+  ],
+  "material_receivers": [],
+  "reused_personal_source_proofs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-031-receipt.json",
+      "sha256": "0e64c59e0e3b9b6f7f087017c110ec1dc0229cff16557910de8d5f001554dd99"
+    }
+  ],
+  "supplemental_qualifications": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-033-qualification-001.json",
+      "sha256": "886c3c95db5184335b2b7c2836ef5cd26b00555128fe9101daa79f9bea073260"
+    }
+  ],
+  "per_role": [
+    {
+      "original": 960,
+      "roles": "Organization definition versus instance/scoped role/chapter/service venue; membership status; creation-only profession subset; admission/rank/training/privilege/recognition; address selection priority versus social hierarchy; grammatical register; practice policy/cadence; lineage/transition references and representative identity.",
+      "trace": "Full1251 inventory, exact330-405 personally reused031 after hash verification. Dynamic authored role IDs are scoped to organization and transition edges use organization+from+to. Recognition owns Universal versus selected settlements; starting professions are10 explicit creation choices, not all arbitrary institutional professions. Address_priority chooses public title while social_precedence controls familiar singular address; publicly_recognizable protects concealedroles. Chapterstableinstitutional location differs from effective mapped service venue and representative identity independentofvenue. servicehelper uses Storefront or SettlementActionService; physician/surgeon intentionally remain standalonelocations by fixture. Practice bool+cadence actualvalidator961 has only forbidden/0 orallowed/positive states. Training receiver1013 exact read031 admits/resolves raw selectors at use.",
+      "disposition": "Keep dynamic content identities scoped instead of institution-shapedenum or genericglobalrole. StartingProfession earns closed creation role, distinct from arbitrary profession strings. Existing public organization/role/chapter/service/settlement IDs and i16 address/social priority erase purpose: reuse correct identity/rank leaves without collapsing separate orderings. SecondPersonRegister11public strings admit hybrid conjugations beyond producer two coherent registers; selector policy output could own Familiar/Ordinary and deriveforms ratherthan independent fields. Preserve three independent inputaxes singular/status/intimacy. Practice state should own positive cadence. Requirement SkillRating raw skill+optional leaf is broader than actualsupportedleafrelationship; reuse canonical skill/leaf vocabulary in payloadsum. TrainingTarget variants useful but raw Religion/Bestiary/Terrain fields canreuse existing owners; weight relative before normalization, authoredcurriculum sum1 verified separately. Dues amount/interval positive actualcontract, notsameasfreejoiningfee or ordinary duration. Public InitialSocialRole triples can mismatch definition/role/scope, whileactualproduceralwayssettlement-scoped; qualify association ratherthan imposeunprovedscopepolicy. Representative rawu64 highbit namespace and entropy hash are explicitboundary, no collision-freecurrentproof."
+    },
+    {
+      "original": 961,
+      "roles": "Raw authored JSON validation, source/document pairing, canonical vocabulary, unique scoped identities, starting role consistency, practice payload, normalized training and privileges/policies.",
+      "trace": "Full986 read. Requirements enforce religion/bestiary leafrequired and forbiddenotherleaves; minimum0..5. Roles requireuniqueIDs, explicitprofession, representabilityi16priorities, practicecadencepositiveiffallowed. Chapterlocationsunique(settlement,location), entry/startroles exist, adult!=old and validrecognition/religioncombination. Duespositiveu32; authoredtraining positivefiniteweights sum1, disjoint canonicaltargetvocabularies. Validator loops documents.iter().zip(sources) withoutlengthcheck.",
+      "disposition": "Pair document with its source metadata in one inputrecord: independent slices permit skipped unvalidated trailingdocs. Source-level API witness withone document/zero sources andemptypolicy, no execution; trustedbuildcaller may alwayspaircorrectly. Raw Value belongs at externaladmission, but refined results discarded into primitive public960schema, duplicating vocabularies alreadyrepresentedby canonical enums and typedreceivers. Preserve per-purpose numeric bounds; roleminimum0..5 differs traininghours/weight/priority. Policyrestrictarms/restrictarmor andreferral/errantry bools represent independentcapabilities, not oneexclusiveenum. No proof everydurable role ispublic orservice-venue equivalent."
+    }
+  ],
+  "qualified_findings": [
+    {
+      "source_key": "lens11:frozen:960:practice-state-cadence",
+      "status": "actualvalidator-proved two payload states; alias/currentness unresolved",
+      "accepted_unique": false
+    },
+    {
+      "source_key": "lens11:frozen:961:authored-document-source-association",
+      "status": "source API zip omission witness; caller/currentness/alias unresolved",
+      "accepted_unique": false
+    }
+  ],
+  "contract_limits": [
+    "All1251/986 exact frozen source accounted including test source. Existing include_str tests are string expectations, not actual body coverage of module social_roles/character/population/dialogue/build; no scope transfer.",
+    "Training raw selectors/retained hours receiving contracts personally consumed031 reused with exact pins. Service helper calls typed economic APIs but no full economic/native algorithm guarantee; no new universal serviceowner invented.",
+    "OUT_DIR organization payload/build invocation/runtimeDB identity admission not inspected inthispacket; no currentnamespace alias, accepteduniqueorpolicyclearance.",
+    "033 qualification supersedes any conflictclassification based solely on check_multiplier: actual movementspeedrecipient required; combat/skill use may be permitted. No current speed defectasserted."
+  ],
+  "accepted_unique_count_change": 0,
+  "new_material_extensions": [],
+  "source_accounting_not_clearance": true,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_ledger_edited": false
+}

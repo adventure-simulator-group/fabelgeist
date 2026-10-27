@@ -1,0 +1,103 @@
+{
+  "lens": 13,
+  "packet": "041-043",
+  "receipt_sha256": "80b91a1894bc1c656b873f24906c460e03868c01a05049ec4740ac6c9408aebe",
+  "status": "mandatory extension queue; no extra original or otherlens count",
+  "source_dependencies": [
+    {
+      "source_id": "physical-p16:core/item_catalog_schema.rs",
+      "sha256": "115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f",
+      "ranges": [
+        [
+          143,
+          231
+        ],
+        [
+          470,
+          504
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:core/road_encounter_catalog.rs",
+      "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "ranges": [
+        [
+          19,
+          59
+        ],
+        [
+          387,
+          410
+        ],
+        [
+          986,
+          1005
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:puzzles/ordered_sigils.rs",
+      "sha256": "663ef1d62d85a2b952a6be5d496949ae0b71d293110c14d6d7d123319559ee6b",
+      "ranges": [
+        [
+          1,
+          100
+        ],
+        [
+          155,
+          230
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:core/food.rs",
+      "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "ranges": [
+        [
+          1,
+          170
+        ],
+        [
+          180,
+          308
+        ],
+        [
+          339,
+          440
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:core/item_catalog_fit.rs",
+      "sha256": "a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:puzzles/lib.rs",
+      "sha256": "710b7464b874f4a7d13e47772786ff780a13d4b4689a613d6f7fbc0efa2b5f28",
+      "ranges": [
+        [
+          1,
+          19
+        ]
+      ]
+    }
+  ],
+  "requested_other_lenses": [
+    "admission",
+    "aggregate-states",
+    "invariant-operations",
+    "existing-type-owners",
+    "producer-propagation",
+    "enum-shapes",
+    "redundant-authority"
+  ],
+  "accepted_unique_count": 0,
+  "qualifications": "Otherlens independent inventory/aliases/currentness required; numeric source roleaccounted doesnotgrant otherlenscoverage."
+}

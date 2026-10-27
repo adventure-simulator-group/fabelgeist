@@ -1,0 +1,23 @@
+--- 6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/equipment.rs
++++ 13fc9dcc71ab879de364117e5462310673e43210:crates/adventuresim-tactical-client/src/equipment.rs
+@@ -279,20 +279,10 @@
+     }
+     #[cfg(target_family = "wasm")]
+     {
+         path
+     }
+-}
+-
+-fn held_item(
+-    actor: Entity,
+-    hand: EquipmentHand,
+-    items: &Query<(Entity, &ItemOf, Option<&EquipSlot>)>,
+-) -> Option<Entity> {
+-    items.iter().find_map(|(entity, owner, slot)| {
+-        (owner.0 == actor && slot.is_some_and(|slot| *slot == hand.slot())).then_some(entity)
+-    })
+ }
+ 
+ fn key_code(input: &str) -> Option<KeyCode> {
+     Some(match input {
+         "q" => KeyCode::KeyQ,

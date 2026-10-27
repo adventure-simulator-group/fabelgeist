@@ -1,0 +1,65 @@
+--- base
+
++++ head
+
+@@ -9,10 +9,12 @@
+
+ 
+ use crate::character::{Character, PARAMETERS_PER_JOINT};
+ use crate::correctives::PoseCorrectives;
+ use crate::model_def::{ParameterTransform, append_blend_shape_parameters, parse_model_definition};
+ use crate::skel_state;
++
++mod rig;
+ 
+ /// Shape coefficients: 20 body, 20 head, 5 hands.
+ pub const NUM_IDENTITY_BLEND_SHAPES: usize = 45;
+ /// Facial expression coefficients.
+ pub const NUM_FACE_EXPRESSION_BLEND_SHAPES: usize = 72;
+@@ -75,11 +77,11 @@
+
+     joint_translation_offsets: Tensor<3>,
+     joint_prerotations: Tensor<3>,
+     /// `[1, joints, 8]`.
+     inverse_bind_pose: Tensor<3>,
+     /// Levels of the forward-kinematics prefix scan.
+-    fk_levels: Vec<(Tensor<1, Int>, Tensor<1, Int>)>,
++    fk_levels: Vec<rig::FkTensorLevel>,
+ 
+     /// `[45, vertices * 3]` and `[72, vertices * 3]`.
+     identity_basis: Tensor<2>,
+     expression_basis: Tensor<2>,
+     /// `[1, vertices * 3]`.
+@@ -271,30 +273,11 @@
+
+                     ),
+                     device,
+                 )
+             });
+ 
+-        let fk_levels = skel_state::prefix_multiplication_levels(&character.skeleton.parents)
+-            .into_iter()
+-            .map(|level| -> Result<_> {
+-                let len = level.source.len();
+-                let source: Vec<i32> = level
+-                    .source
+-                    .into_iter()
+-                    .map(|joint| i32::try_from(usize::from(joint)))
+-                    .collect::<Result<_, _>>()?;
+-                let target: Vec<i32> = level
+-                    .target
+-                    .into_iter()
+-                    .map(|joint| i32::try_from(usize::from(joint)))
+-                    .collect::<Result<_, _>>()?;
+-                Ok((
+-                    Tensor::from_data(TensorData::new(source, [len]), device),
+-                    Tensor::from_data(TensorData::new(target, [len]), device),
+-                ))
+-            })
+-            .collect::<Result<_>>()?;
++        let fk_levels = rig::fk_level_tensors(&character, device)?;
+ 
+         let basis = &character.blend_shapes.vectors;
+         let identity_basis = Tensor::from_data(
+             TensorData::new(
+                 basis[..NUM_IDENTITY_BLEND_SHAPES * vertices * 3].to_vec(),

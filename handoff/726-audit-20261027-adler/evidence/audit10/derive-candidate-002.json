@@ -1,0 +1,16 @@
+{
+  "id": "ADLER-CONT10-DERIVE-CANDIDATE-002",
+  "scope_index": 1612,
+  "source": "pr-working:crates/adventuresim-tactical-client/src/presentation/preparation.rs",
+  "source_hash": "Pinned by successor025 live1612 receipt; deletedbase1537 separatelypinnedandabsent",
+  "kind": "Threemechanicalunboxederror->boxedvariant From adapters",
+  "existing_dependency": "derive_more2.1.1 withfrom feature alreadyenabled in tacticalclient",
+  "proposal": "Derive derive_more::From forPreparationError with explicit #[from(SceneInputError)], #[from(GenerationError)] and #[from(InteriorLayoutError)] on relevantvariants; keep currentthiserror #[from] fieldattributes forboxedinput conversions; delete onlythreeunboxedmanualFrom impls.",
+  "semantic_comparison": "Pinnedmacro material122 Types expansion delegates <Box<SourceError> as From<SourceError>>::from(value), and pinnednativeBox material172 From<T> usesBox::new(t), preserving actualownedcause/variant/allocation. Explicit varianttypes suppress unspecifiedderive_more conversions. No borrowedoutput, narrowing, newcodec or stablebrowsercode mapping added.",
+  "qualification": "Currentmanualimplementations are correct. This is a qualifiedmaintainabilitycandidate; exactdualderiveattribute/coherence mustbeconfirmed whenimplemented using existingacceptance. Do not prescribe generic #[from(forward)] thatcouldoverlap boxedFrom impls.",
+  "connected_scope": "Live1612 only; deleted1537 neverrestored. Preserve allotherJSON/codec/geometry/vista/nativeerror sources and codes. Samepatternmayalias existingderivefamily; globaldeduprequired.",
+  "acceptance": "Unboxed andboxed sourceconversionsbothproduce identicaltypedvariant/cause, no additionalgenericFrom overlaps, nochangedpublicsignature/wirecode or newtests. Run applicableexistingacceptance onlyat authorizedimplementation, notthisread-onlypass.",
+  "source_edits": false,
+  "checks": "not run",
+  "new_unique_findings_claimed": 0
+}

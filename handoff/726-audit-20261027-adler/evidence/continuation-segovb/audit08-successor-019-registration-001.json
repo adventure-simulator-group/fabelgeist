@@ -1,0 +1,41 @@
+{
+  "id": "CONT08-019-ACCESS-REGISTRATION-001",
+  "created_utc": "2026-10-27T04:59:52.796360+00:00",
+  "prior_state": {
+    "path": "target/recovery-20261025/continuation-segovb/audit08-successor-018-proposed-state.json",
+    "sha256": "f7871acbdca659b28f1dd671132b90ac914ea03bb0395c94926680b05cd38ba0"
+  },
+  "provenance": {
+    "path": "target/recovery-20261025/continuation-segovb/audit08-root-access-staging-019.json",
+    "sha256": "e26e98726d5722641f710b70ce6d3f4b9f1536c6513205d66d6690c4a64b3b62"
+  },
+  "sources": [
+    {
+      "source_id": "base:crates/adventuresim-tactical-core/src/city_layout/grounding/access.rs",
+      "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/cf8f7790613cc67bc1de9815eea5ef31cc30c35b571b64930902c42c8d0469ab",
+      "sha256": "cf8f7790613cc67bc1de9815eea5ef31cc30c35b571b64930902c42c8d0469ab",
+      "prospective_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "reason": "Actual access_regions/available_run leaf and locally defined helpers reached from own018street26-35; unchanged foreign source read only, no original/future/other-lens completion."
+    },
+    {
+      "source_id": "head:crates/adventuresim-tactical-core/src/city_layout/grounding/access.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/cf8f7790613cc67bc1de9815eea5ef31cc30c35b571b64930902c42c8d0469ab",
+      "sha256": "cf8f7790613cc67bc1de9815eea5ef31cc30c35b571b64930902c42c8d0469ab",
+      "prospective_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "reason": "Actual access_regions/available_run leaf and locally defined helpers reached from own018street26-35; unchanged foreign source read only, no original/future/other-lens completion."
+    }
+  ],
+  "identity_qualification": "Exact staged before/after equal bytes; absent747 anddirty4 rootprovenance. One physical source body read represents both exact frozenroles, not current/P16 aliasing."
+}

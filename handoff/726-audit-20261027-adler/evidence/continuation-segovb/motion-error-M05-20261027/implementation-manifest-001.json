@@ -1,0 +1,41 @@
+{
+  "at": "2026-10-27T02:05:00.285888+00:00",
+  "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd",
+  "base": "d44a00cc9a0bed75b0d61a7b330a29fe8f0df83f",
+  "branch": "codex/780-retain-motion-error-identity",
+  "changed_paths": [
+    "crates/adventuresim-tactical-client/src/animation/catalog.rs"
+  ],
+  "source_pins": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/catalog.rs",
+      "sha256": "8d8a70c663bdd8e62c8e4636ec414e979852b1f469bffc9e70331d5947c165a4",
+      "lines": 361
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/catalog_id.rs",
+      "sha256": "349beedb860eef8c0f4e9b882e10824b343451085d654c20b7c001ea98a3b810",
+      "lines": 134
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "lines": 113
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "lines": 192
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/AGENTS.md",
+      "sha256": "f9633599a742ea38090fe2fb88e2dc464298d0ca4a70374f0851380e71e6910e",
+      "lines": 103
+    }
+  ],
+  "finding": "M05",
+  "raw_invalid_input_variants": "InvalidMotionStem(String),InvalidAssetDirectory(String) remain raw admission rejection payloads.",
+  "native_animation_guide_applicability": "Source identity propagation repair, not a defect reported in live tactical play. User mandates hosted project checks only; no local scenario or test execution.",
+  "runtime_validated": false,
+  "global_goal_complete": false
+}

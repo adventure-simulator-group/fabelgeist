@@ -1,0 +1,62 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-010",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 400,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment.rs",
+      "sha256": "56528e5adcad8261b414b53f196d12dee6548aa5f75c494b6a92c087d016446a",
+      "ranges": [
+        [
+          1,
+          1115
+        ]
+      ],
+      "source_basis": "Fresh root full exact frozen physical-P16 body in six bounded windows. Actual canonical chronology owner1879 personally read1-76; PR equipment2048 personally compared35-44/135-154/250-280. Neither support is credited as another original role.",
+      "concepts_actual_uses_and_mixup": [
+        "Equipment command sequence and authoritative mutation revision are distinct wrapping protocol roles. P16 stores rawu32 and defaults absent prior to0; actual frozenPR owner1879 provides separate EquipmentSequence/EquipmentRevision, zero-after-wrap versus initial-state semantics, and admissible_after(Option). Preserve those newer owners, do not restore older raw path or invent nonzero revision.",
+        "EquipmentHand is deliberately limited to two hand roles while EquipSlot/EquipmentLocation describe broader custody/placement. ReachableTarget distinguishes occupied entity from empty parent attachment/capacity; expected_entity projects parent identity for stale-destination checking.",
+        "Native framework Entity/query tuples and collision vectors are adapter representations; selected actor/item/parent roles, placementID/occupancyID/attachment-pointID and requirement/order/capacity ordinals retain different meanings. Actual capacity-conflict predicate compares parent+point+capacity, not requirement ordering. Scalar leaves alone do not prove graph membership/acyclicity.",
+        "Grip world position versus cuboid centre differs by physical anchor displacement; existing item_box_center and drop/pickup share the convention. CuboidDimensions and SignedLength reach native collider once; physical presence/validity/range/LOS checks precede mutation. Do not infer arbitrary Vec3 local/world equivalence.",
+        "Original fixtures cover multi-location topology, hand-only role, wrapping/reconnect/queue, distinct attachment capacities, nonzero anchor displacement, multi-parent atomicity, children, voiders and selected hose side. Fixtures read only; no execution inferred."
+      ],
+      "disposition": "Preserve canonical newer chronology types and optional prior observation across physicalP16 migration; no new chronology owner/unique finding. Keep meaningful participant/custody/placement/quantity/frame roles and explicit empty-state policies. Incoming full topology admission is existing connected graph obligation; successful local mutators/visited set are not global graph validation. No new runtime exploit or acceptance claimed.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "support": [
+    {
+      "scope_index": 1879,
+      "sha256": "bc1144d088c13835018209779eecddba0f5a94957c7987fa4b8c7be902db9fb9",
+      "ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "credit": "support only; no additional original coverage"
+    },
+    {
+      "scope_index": 2048,
+      "sha256": "294ef27435a3d5286f596695c442fb8bd28041af6d7b9ab24a27e1d8c4d2526f",
+      "ranges": [
+        [
+          35,
+          44
+        ],
+        [
+          135,
+          154
+        ],
+        [
+          250,
+          280
+        ]
+      ],
+      "credit": "support only; partial, no original coverage"
+    }
+  ],
+  "clear": false
+}

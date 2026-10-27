@@ -1,0 +1,380 @@
+{
+  "id": "SEGOVB-PR-BODY-CONTRIBUTOR-SOURCE-REVIEW-EF7630D-001",
+  "created_utc": "2026-10-26T22:06:36.395984+00:00",
+  "head": "ef7630d757a6994297f6d24840991cda61bda63c",
+  "verdict": "No material contributor-clarity or source-accuracy defect found in the exact captured description. Preserve the concurrent #989 paragraph; update validation only from same-head completed evidence.",
+  "scope": "Source-only review of captured PR988 description; read-only GitHub issue989 fetch; ignored review evidence writes only. No PR/body edits, product execution, Git commands, tests, checks, ledger writes, publication or messages.",
+  "skill": {
+    "path": "/home/brunosegovia/.codex/skills/comment-review/SKILL.md",
+    "applied": "Claims reviewed against actual current source and callers; uncertainties retained rather than inventing intent."
+  },
+  "fingerprints": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/remote-pr-body-with-followup-001.md",
+      "sha256": "4095eddb7618d1739df807aedefa522b98dafc626ae9eaf565f3db71edfada1f",
+      "ranges": [
+        [
+          1,
+          54
+        ]
+      ]
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/clean-final-gpu-artifact-001.json",
+      "sha256": "1bbcce5cd6034231505c720c85bf549c8cdd6cc6ab82bad31617d5cc81f6872b",
+      "ranges": [
+        [
+          1,
+          89
+        ]
+      ]
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/clean-final-windows-artifact-001.json",
+      "sha256": "4742f991d467709dbeea2df8609d87dde0be8766e2ef51d688cff1b6caba9769",
+      "ranges": [
+        [
+          1,
+          81
+        ]
+      ]
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/combined-pr-source-manifest-006.json",
+      "sha256": "6362ea178ad8625c35ba43f4936e3fdf7ec650e5be3895559bd64fcfbcc52406",
+      "ranges": [
+        [
+          1,
+          123
+        ]
+      ]
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/pr-body-followup-989-read-segovb-001.json",
+      "sha256": "f38d0bfcc05706634bdd5b527828236d73a4f5a9a8304c8050ddd69900e4cd6c",
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "ab5ff0debbab0de569e16562ea77ab30df38cb8b9632cfacd900aad0024fba98",
+      "git_blob_from_parent_manifest": "0785117450e459af2a3c14ba24637c7923b86b83",
+      "ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "qualification": "Exact current source fingerprints match ef763 manifest006; no Git command or whole unrelated source clearance."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "e3ad593b83da185620d2729a5fde4a0f7bfda1c39993494432c55a0c989e0973",
+      "git_blob_from_parent_manifest": "4f2329dd8c7ee24afb79ce92bb573a96b9a104c0",
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "qualification": "Exact current source fingerprints match ef763 manifest006; no Git command or whole unrelated source clearance."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "sha256": "878a4144b4fecdc20291885050e30fe521a5294117046c282ef24d40c5e407d9",
+      "git_blob_from_parent_manifest": "7d3ea629daf9df09dd78005e4fa3c0e8090241fe",
+      "ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "qualification": "Exact current source fingerprints match ef763 manifest006; no Git command or whole unrelated source clearance."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "56a27351a1b6013319dc514e027250efd43b0538d34237835d656ddd0d1a7b43",
+      "git_blob_from_parent_manifest": "e1475800043d9f3d29c760db3a161884aab63289",
+      "ranges": [
+        [
+          1,
+          321
+        ]
+      ],
+      "qualification": "Exact current source fingerprints match ef763 manifest006; no Git command or whole unrelated source clearance."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "5b5fe5e4ff2f4e7d2ec8daf2e852ea0c6f5de112716d6d1695502b1304318106",
+      "git_blob_from_parent_manifest": "ed202c68483cdec22f3c74160ac57257cc1a3a85",
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "qualification": "Exact current source fingerprints match ef763 manifest006; no Git command or whole unrelated source clearance."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "786f4f75b779e92f2a1b2e521e672606b4fa3b6bf9176530903dd6a4edf7f84b",
+      "git_blob_from_parent_manifest": "7e3ca54f0fb61fcf1c66a94f6302fc1a70d1bf70",
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "qualification": "Exact current source fingerprints match ef763 manifest006; no Git command or whole unrelated source clearance."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "0a399f468fc53f30affbe132b31d3b33f0f2de3d766758bb4023e86fc3b0bbff",
+      "git_blob_from_parent_manifest": "42512daad793521a4a66620c3bf0a8912d3f3085",
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "qualification": "Exact current source fingerprints match ef763 manifest006; no Git command or whole unrelated source clearance."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "d4d9df664fcd5207e09a8453fedfb5fae4ce9d139cd45d3bd8bc1e6a9f9ac12e",
+      "git_blob_from_parent_manifest": "e7f51eabca236ff910d45d61b7926b95a68546d5",
+      "ranges": [
+        [
+          80,
+          140
+        ]
+      ],
+      "qualification": "Exact current source fingerprints match ef763 manifest006; no Git command or whole unrelated source clearance."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "b86ab932de453c75553ba6a915d830406ac142dd7fe544a5d9fe5be25b14431a",
+      "git_blob_from_parent_manifest": "42b1a63f5bc1c1e207163b820d5985d0d9d39f34",
+      "ranges": [
+        [
+          105,
+          170
+        ],
+        [
+          275,
+          335
+        ]
+      ],
+      "qualification": "Exact current source fingerprints match ef763 manifest006; no Git command or whole unrelated source clearance."
+    },
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "3f6e1cfe6c05f5f6a2bb39155e3bf0d8ec8cbdabe3f77e993971d42e56891b33",
+      "git_blob_from_parent_manifest": "88c35275f91c73dc38a5bd17f37a668b916bda57",
+      "ranges": [
+        [
+          1,
+          590
+        ]
+      ],
+      "qualification": "Exact current source fingerprints match ef763 manifest006; no Git command or whole unrelated source clearance."
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "6144a5ab4e1f3132caf4c5b0aee92b151f093153e3e5bed8e4d6fadd7f12edb1",
+      "git_blob_from_parent_manifest": "2b3e071511bd7f4e2052e556ccddbf8d3c3d1b33",
+      "ranges": [
+        [
+          1,
+          12838
+        ]
+      ],
+      "qualification": "Exact current source fingerprints match ef763 manifest006; no Git command or whole unrelated source clearance."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "ranges": [
+        [
+          1,
+          16
+        ],
+        [
+          262,
+          341
+        ]
+      ],
+      "qualification": "Actual generic callers outside changed-file manifest; bounded source registration."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "sha256": "352f06a1ddfc9d7be1813161e4ac2365ae813a2f0e751614464fc8adddf9a735",
+      "git_blob": "e1b53a5ceb774d0af2e9085081fa1fb84f72f83b",
+      "registered_ranges": [
+        [
+          1,
+          375
+        ]
+      ],
+      "purpose": "Prospective current policy recipient source scope; only actual bounded bodies subsequently read are credited."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+      "git_blob": "8489b7ec8a3a2489915ba9b617aaecd46a7b9ab2",
+      "registered_ranges": [
+        [
+          1,
+          84
+        ]
+      ],
+      "purpose": "Prospective current policy recipient source scope; only actual bounded bodies subsequently read are credited."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "33fed8d0c2ea47e990b60ad9c2cc14962f130c66ed4328d134e8f7f15d9b1128",
+      "git_blob": "ec503606414cf21d4181fad00f2723f12615ac0a",
+      "registered_ranges": [
+        [
+          1,
+          189
+        ]
+      ],
+      "purpose": "Prospective current policy recipient source scope; only actual bounded bodies subsequently read are credited."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "e883e9bbfdcdb62065d26751a6135b65d6e3021604c9e6071ebdfbdf644457c5",
+      "git_blob": "f16536c5a4b771b53ec303421391ffa8a108225f",
+      "registered_ranges": [
+        [
+          1,
+          627
+        ]
+      ],
+      "purpose": "Prospective current policy recipient source scope; only actual bounded bodies subsequently read are credited."
+    }
+  ],
+  "registrations": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/pr-body-contributor-source-review-ef7630d-001-registration.json",
+      "sha256": "40bb9267ad6baaaa58936dbaf2eb5bf6d7bcaf0dcb2d7a0c533ea8a987514178"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/pr-body-contributor-source-review-ef7630d-001-registration-supplement.json",
+      "sha256": "691cbae8e08dd57acd93cb479f7bde42a4f7ab1370c55972c02fbac83afb7b9b"
+    }
+  ],
+  "fingerprint_recheck": "All 21 registered evidence/source entries matched their registered SHA256 at report creation. Source entries supplied by manifest006 match its ef7630d identities. This is not an independent Git checkout identity assertion.",
+  "findings": [],
+  "claims": [
+    {
+      "body_lines": [
+        3,
+        14
+      ],
+      "disposition": "supported",
+      "source_ranges": [
+        "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:1-41",
+        "crates/fabelgeist-gpu/src/globals/validation_scope.rs:1-65",
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs:1-55",
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs:1-55",
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs:1-56"
+      ],
+      "trace": "Observation directly contains ValidationScopeError; Native, Progress and ProgressWithNative cover the four poll/pop outcomes. Poll is the source in both progress states; the combined state retains and displays native rejection. Both enums derive Display and Error. View methods return typed missing-resource/observation errors before returning newly created views. No old error layout, prefix/downcast or compatibility promise is made."
+    },
+    {
+      "body_lines": [
+        16,
+        21
+      ],
+      "disposition": "supported within stated receiving paths",
+      "source_ranges": [
+        "crates/fabelgeist-gpu/src/globals/validation_scope.rs:1-65",
+        "crates/fabelgeist-gpu/src/globals/validation_observation.rs:1-27",
+        "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs:1-156,182-209,242-275",
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs:1-78",
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs:35-112,166-183",
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:49-65,124-167",
+        "crates/fabelgeist-compute/src/kernel/fast.rs:100-152"
+      ],
+      "trace": "ValidationScope finish attempts poll then pops before selecting result. Existing-device context selects Uncaptured; open selects native BlockingScopes/browser Uncaptured separately from presentation. The policy reaches shader, pipeline API/compile, 2D create and fast compiled-layout scope admission. These older recipients still have their existing polling/error implementation; the description does not claim the new shared error model migrated every GPU operation."
+    },
+    {
+      "body_lines": [
+        23,
+        26
+      ],
+      "disposition": "supported",
+      "source_ranges": [
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs:1-55",
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs:1-55",
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs:1-56",
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:1-16,262-341"
+      ],
+      "trace": "Matching-format branch returns cached Arc before texture admission. Storage sRGB descriptor projection retains the original requested value for observation errors. Three existing ComputePass arms propagate view_with_format with ? through the generic error boundary."
+    },
+    {
+      "body_lines": [
+        30,
+        37
+      ],
+      "disposition": "accurate as pending, with bounded supplied passes available for final wording",
+      "source_ranges": [
+        ".github/workflows/rust-quality.yml:64-72,376-442,452-458,534-544,572-584",
+        "rust-quality-baseline.toml:registered TOML metadata"
+      ],
+      "trace": "Linux and Windows jobs remain; fixture exporter has explicit workflow_dispatch gate; required-result checks reject empty successful execution records. Current baseline metadata has no texture_2d/mod.rs record and cube file ceiling862. GPU summary supports 13 library,2 doc,1 exact borrowed passes, all zero failed/ignored; Windows summary supports10 passes,zero failed/ignored. Neither summary proves full Linux completion. No baseline-wide old/new equivalence or complete no-test-addition re-diff is inferred from this metadata review."
+    },
+    {
+      "body_lines": [
+        41,
+        44
+      ],
+      "disposition": "current error-model statement supported; review-process provenance bounded to supplied manifest",
+      "source_ranges": [
+        "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:1-41",
+        "crates/fabelgeist-gpu/src/globals/validation_scope.rs:1-65",
+        "combined-pr-source-manifest-006.json:review references"
+      ],
+      "trace": "Current model directly owns causes with derived traits and no boxed observation wrapper or conversion helper. Manifest names independent Code/Rule/Comment receipts; this PR-body review does not independently rerun or globally endorse those reviews."
+    },
+    {
+      "body_lines": [
+        46,
+        48
+      ],
+      "disposition": "supported; preserve concurrent follow-up text",
+      "issue": {
+        "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/pr-body-followup-989-read-segovb-001.json",
+        "sha256": "f38d0bfcc05706634bdd5b527828236d73a4f5a9a8304c8050ddd69900e4cd6c"
+      },
+      "source_ranges": [
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:80-140",
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:105-170,275-335"
+      ],
+      "trace": "Read issue989 via github_fetch_issue, rather than assuming linked content. It names these exact three operations, with cube face conditioned on a supplied context, and explicitly calls the gap preexisting before988. Current native constructors/cube face perform native scope/poll without observing the context policy. Context-free cube-face path does not enter that context branch. This is an open follow-up, not a claim repaired here."
+    },
+    {
+      "body_lines": [
+        50,
+        54
+      ],
+      "disposition": "appropriate explicit limits",
+      "trace": "Description does not claim direct new failure-branch test coverage or completion of constructors/subresources/public state coherence/the full audit. Issue826/780/726 linkage is reported as linkage only; their substantive content was not fetched during this packet."
+    }
+  ],
+  "limits": [
+    "Exact remote-body snapshot only; no assertion that the live body has remained unchanged since capture. Root owns preserving subsequent remote edits and final wording/publication.",
+    "GPU and Windows supplied artifact-summary JSONs were read, not independently downloaded or executed. Full Linux was pending in the supplied evidence; no full-CI pass claim is authorized by this review.",
+    "The no-new-tests/process-review provenance statements were not independently re-diffed across all22 files in this small packet; current existing borrowed-context predicates were inspected and earlier bounded source review evidence remains separately scoped.",
+    "Conditional requirement for a reviewed shared conversation link cannot be resolved without evidence that an appropriate reviewed public snapshot is available; no invented missing-link defect.",
+    "Inherited F9 comment qualification remains pending; narrow PR-body review is not global comment clearance. All20/P16/P17/M16 and earlier audit counts, aliases and partials remain unchanged.",
+    "No full current/frozen tree read, frozen partial resolution, runtime hang reproduction, native SDK proof or architectural whole-program clearance is claimed."
+  ],
+  "next_owner_action": "Root may retain the captured body and concurrent989 text, then replace pending validation with exact same-head final evidence once all required checks finish."
+}

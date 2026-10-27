@@ -1,0 +1,409 @@
+//! Checked target acquisition and collision-aware assisted-contact preparation.
+
+use super::*;
+use adventuresim_building_generator::spatial_geometry::GeometryFrame;
+use bevy::ecs::system::SystemParam;
+use crate::targeting::{auto_aim_candidate, TargetingCandidate, TargetingRange};
+
+#[derive(Debug, Clone, Copy)]
+pub(super) struct AttackTarget {
+    pub(super) body: Entity,
+    pub(super) hitbox: Entity,
+    pub(super) body_part: BodyPart,
+    pub(super) local_strike_point: Position<HitboxLocal>,
+    pub(super) arrival: MeleeLungeArrival,
+}
+
+/// Coordinates measured in the selected hitbox's local affine frame.
+#[derive(Clone, Copy, Debug, PartialEq, Reflect)]
+pub(super) enum HitboxLocal {}
+impl GeometryFrame for HitboxLocal {}
+
+pub(super) struct AttackAcquisition {
+    pub(super) target: Option<AttackTarget>,
+    pub(super) position: Option<Position<Scene>>,
+    pub(super) direction: Dir3,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq)]
+struct ResolvedChoice<T> {
+    value: T,
+    position: Position<Scene>,
+}
+
+#[derive(Clone, Copy)]
+struct BodyStableChoice<T> {
+    pub(super) body: Entity,
+    resolved: Option<ResolvedChoice<T>>,
+    ideal_position: Position<Scene>,
+    stable_key: u64,
+}
+
+fn body_stable_auto_aim<T: Copy>(
+    camera_origin: Vec3,
+    camera_forward: Vec3,
+    actor_origin: Vec3,
+    range: TargetingRange,
+    choices: &[BodyStableChoice<T>],
+) -> Option<ResolvedChoice<T>> {
+    let mut exhausted = Vec::new();
+    loop {
+        let body = auto_aim_candidate(
+            camera_origin,
+            camera_forward,
+            actor_origin,
+            range,
+            choices
+                .iter()
+                .filter(|choice| !exhausted.contains(&choice.body))
+                .map(|choice| TargetingCandidate { candidate: choice.body, position: choice.ideal_position.metres(), stable_key: choice.stable_key }),
+        )?;
+        if let Some(resolved) = auto_aim_candidate(
+            camera_origin,
+            camera_forward,
+            actor_origin,
+            range,
+            choices
+                .iter()
+                .filter(|choice| choice.body == body)
+                .filter_map(|choice| {
+                    choice
+                        .resolved
+                        .map(|resolved| TargetingCandidate { candidate: resolved, position: resolved.position.metres(), stable_key: choice.stable_key })
+                }),
+        ) {
+            return Some(resolved);
+        }
+        exhausted.push(body);
+    }
+}
+
+#[derive(Clone, Copy)]
+pub(super) struct AttackAcquisitionRange {
+    pub(super) reach: SignedLength,
+    pub(super) maximum_travel: SignedLength,
+}
+
+/// Native ECS observations remain borrowed until their owned math/admission ports.
+struct TargetAcquisitionFrame<'a> {
+    origin: Position<Scene>,
+    attacker_transform: &'a Transform,
+    attacker_collider: &'a Collider,
+    attacker_side: TacticalCombatSide,
+    camera: &'a Transform,
+    range: AttackAcquisitionRange,
+    lunge_timing: Option<MeleeAcquisitionTiming>,
+    obstruction_filter: SpatialQueryFilter,
+}
+
+struct TargetHitboxObservation<'a> {
+    entity: Entity,
+    transform: &'a GlobalTransform,
+    collider_of: &'a ColliderOf,
+    limb: &'a LimbHitbox,
+}
+
+#[derive(SystemParam)]
+pub(super) struct CombatTargeting<'w, 's> {
+    spatial: SpatialQuery<'w, 's>,
+    attackers: Query<
+        'w,
+        's,
+        (
+            &'static Transform,
+            &'static Collider,
+            &'static CharacterDimensions,
+            &'static TacticalCombatSide,
+            &'static CharacterControllerCamera,
+        ),
+    >,
+    cameras: Query<'w, 's, &'static Transform, With<TacticalGameplayCamera>>,
+    hitboxes: Query<
+        'w,
+        's,
+        (
+            Entity,
+            &'static GlobalTransform,
+            &'static Collider,
+            &'static ColliderOf,
+            &'static LimbHitbox,
+        ),
+    >,
+    pub(super) combatants: Query<
+        'w,
+        's,
+        (
+            &'static TacticalCombatSide,
+            &'static TacticalCombatState,
+            &'static Transform,
+            &'static Collider,
+        ),
+    >,
+    scene_items: Query<'w, 's, Entity, With<TacticalSceneItem>>,
+}
+
+impl CombatTargeting<'_, '_> {
+    pub(super) fn arm_reach(&self, attacker: Entity) -> SignedLength {
+        self.attackers
+            .get(attacker)
+            .map_or(SignedLength::ZERO, |(_, _, dimensions, _, _)| dimensions.arm_reach_metres)
+    }
+
+    pub(super) fn melee_acquisition_range(
+        &self,
+        attacker: Entity,
+        weapon_reach: SignedLength,
+        config: &TacticalCombatConfig,
+    ) -> MeleeGeometryResult<AttackAcquisitionRange> {
+        let leg_length = self.attackers.get(attacker).map_or(
+            config.movement.motor.reference_quickstep_leg_length_metres,
+            |(_, _, dimensions, _, _)| dimensions.leg_length_metres,
+        );
+        Ok(AttackAcquisitionRange {
+            reach: melee_interaction_range(self.arm_reach(attacker), weapon_reach)?,
+            maximum_travel: quickstep_target_displacement_metres(leg_length, &config.movement.motor)?,
+        })
+    }
+
+    pub(super) fn acquire(
+        &self,
+        attacker: Entity,
+        range: AttackAcquisitionRange,
+        lunge_timing: Option<MeleeAcquisitionTiming>,
+    ) -> MeleeGeometryResult<AttackAcquisition> {
+        let Ok((transform, collider, dimensions, attacker_side, camera)) =
+            self.attackers.get(attacker)
+        else {
+            return Ok(AttackAcquisition { target: None, position: None, direction: Dir3::NEG_Z });
+        };
+        let Ok(camera_transform) = self.cameras.get(camera.get()) else {
+            return Ok(AttackAcquisition { target: None, position: None, direction: Dir3::NEG_Z });
+        };
+        let origin = attack_origin(transform, collider, *dimensions)?;
+        let excluded: Vec<_> = self.scene_items.iter().chain([attacker]).collect();
+        let obstruction_filter = SpatialQueryFilter::from_excluded_entities(excluded);
+        let frame = TargetAcquisitionFrame {
+            origin,
+            attacker_transform: transform,
+            attacker_collider: collider,
+            attacker_side: *attacker_side,
+            camera: camera_transform,
+            range,
+            lunge_timing,
+            obstruction_filter,
+        };
+        let choices: Vec<_> = self.hitboxes.iter()
+            .map(|(entity, transform, _, collider_of, limb)| self.hitbox_choice(
+                &frame, TargetHitboxObservation { entity, transform, collider_of, limb },
+            ))
+            .collect::<MeleeGeometryResult<Vec<_>>>()?
+            .into_iter().flatten().collect();
+        let selected = body_stable_auto_aim(
+            camera_transform.translation,
+            camera_transform.forward().as_vec3(),
+            origin.metres(),
+            if lunge_timing.is_some() {
+                TargetingRange::MovementPrevalidated
+            } else {
+                TargetingRange::Bounded(range.reach)
+            },
+            &choices,
+        );
+        Ok(AttackAcquisition {
+            target: selected.map(|resolved| resolved.value),
+            position: selected.map(|resolved| resolved.position),
+            direction: camera_transform.forward(),
+        })
+    }
+
+    fn hitbox_choice(
+        &self,
+        frame: &TargetAcquisitionFrame<'_>,
+        hitbox: TargetHitboxObservation<'_>,
+    ) -> MeleeGeometryResult<Option<BodyStableChoice<AttackTarget>>> {
+        let target = hitbox.collider_of.body;
+        let Ok((side, state, body_transform, body_collider)) = self.combatants.get(target) else {
+            return Ok(None);
+        };
+        if *side == frame.attacker_side || state.is_incapacitated() {
+            return Ok(None);
+        }
+        let position = Position::from_metres(hitbox.transform.translation())?;
+        let sight = position.metres() - frame.origin.metres();
+        let distance = sight.length();
+        let Ok(direction) = Dir3::new(sight) else { return Ok(None); };
+        let Some(impact) = (distance > 0.0).then(|| self.spatial.cast_ray(
+            frame.origin.metres(), direction, distance, true, &frame.obstruction_filter,
+        )).flatten() else { return Ok(None); };
+        let visible = impact.entity == target || impact.entity == hitbox.entity
+            || self.hitboxes.get(impact.entity).is_ok_and(|(_, _, _, collider, _)| collider.body == target);
+        let surface_distance = SignedLength::from_metres(impact.distance)?;
+        let arrival = frame.movement_arrival(body_transform, body_collider)?;
+        if !attack_target_within_angular_threshold(
+            frame.camera.forward().as_vec3(), position.metres() - frame.camera.translation, surface_distance,
+        )? {
+            return Ok(None);
+        }
+        let resolved = arrival.map(|arrival| -> MeleeGeometryResult<ResolvedChoice<AttackTarget>> {
+            Ok(ResolvedChoice {
+                value: AttackTarget {
+                    body: target,
+                    hitbox: hitbox.entity,
+                    body_part: hitbox.limb.0,
+                    local_strike_point: Position::from_metres(hitbox.transform.affine()
+                        .inverse().transform_point3(position.metres()))?,
+                    arrival,
+                },
+                position,
+            })
+        }).transpose()?;
+        Ok(visible.then_some(BodyStableChoice {
+            body: target,
+            resolved,
+            ideal_position: position,
+            stable_key: hitbox.entity.to_bits(),
+        }))
+    }
+
+}
+
+impl TargetAcquisitionFrame<'_> {
+    fn movement_arrival(
+        &self,
+        body_transform: &Transform,
+        body_collider: &Collider,
+    ) -> MeleeGeometryResult<Option<MeleeLungeArrival>> {
+        let Some(timing) = self.lunge_timing else {
+            return Ok(Some(MeleeLungeArrival::NotNeeded));
+        };
+        let maximum_travel = self.range.maximum_travel.min(horizontal_collider_clearance(
+            self.attacker_transform.translation,
+            self.attacker_collider,
+            body_transform,
+            body_collider,
+        )?);
+        let surface_measure = (self.attacker_transform.translation.xz()
+            .distance(body_transform.translation.xz())
+            - adventuresim_core::combat::HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES).max(0.0);
+        timing.contact_arrival(MeleeLungeGeometry {
+            separation: SignedLength::from_metres(surface_measure)?,
+            interaction_range: self.range.reach,
+            maximum_travel,
+        })
+    }
+
+}
+
+fn horizontal_collider_clearance(
+    attacker: Vec3,
+    attacker_collider: &Collider,
+    target_transform: &Transform,
+    target_collider: &Collider,
+) -> MeleeGeometryResult<SignedLength> {
+    let attacker_bounds = attacker_collider.aabb(attacker, Rotation::default());
+    let target_bounds = target_collider.aabb(
+        target_transform.translation,
+        Rotation(target_transform.rotation),
+    );
+    let attacker_radius = ((attacker_bounds.max - attacker_bounds.min) * 0.5)
+        .xz()
+        .max_element();
+    let target_radius = ((target_bounds.max - target_bounds.min) * 0.5)
+        .xz()
+        .max_element();
+    SignedLength::from_metres((attacker.xz().distance(target_transform.translation.xz()) - attacker_radius - target_radius)
+        .max(0.0)).map_err(Into::into)
+}
+
+fn attack_target_angular_threshold_degrees(surface_distance_metres: SignedLength) -> AnimationValueResult<adventuresim_tactical_core::animation::SignedAngleDegrees> {
+    adventuresim_tactical_core::animation::SignedAngleDegrees::from_degrees(90.0 / surface_distance_metres.metres().max(0.5))
+}
+
+fn attack_target_within_angular_threshold(
+    camera_forward: Vec3,
+    direction_to_candidate: Vec3,
+    surface_distance_metres: SignedLength,
+) -> AnimationValueResult<bool> {
+    let Some(camera_forward) = camera_forward.try_normalize() else {
+        return Ok(false);
+    };
+    let Some(direction) = direction_to_candidate.try_normalize() else {
+        return Ok(false);
+    };
+    let threshold = attack_target_angular_threshold_degrees(surface_distance_metres)?.radians();
+    Ok(camera_forward.dot(direction).clamp(-1.0, 1.0) >= threshold.cos())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn unreachable_preferred_head_falls_back_within_the_same_enemy() {
+        let preferred = Entity::from_bits(1);
+        let other = Entity::from_bits(2);
+        let choices = [
+            BodyStableChoice {
+                body: preferred,
+                resolved: None,
+                ideal_position: Position::from_metres(Vec3::new(0.0, 1.8, -2.0)).unwrap(),
+                stable_key: 1,
+            },
+            BodyStableChoice {
+                body: preferred,
+                resolved: Some(ResolvedChoice { value: BodyPart::Chest, position: Position::from_metres(Vec3::new(0.0, 1.2, -2.0)).unwrap() }),
+                ideal_position: Position::from_metres(Vec3::new(0.0, 1.2, -2.0)).unwrap(),
+                stable_key: 2,
+            },
+            BodyStableChoice {
+                body: other,
+                resolved: Some(ResolvedChoice { value: BodyPart::Head, position: Position::from_metres(Vec3::new(0.05, 1.8, -1.8)).unwrap() }),
+                ideal_position: Position::from_metres(Vec3::new(0.05, 1.8, -1.8)).unwrap(),
+                stable_key: 3,
+            },
+        ];
+        assert_eq!(
+            body_stable_auto_aim(
+                Vec3::new(0.0, 1.8, 0.0),
+                Vec3::NEG_Z,
+                Vec3::ZERO,
+                TargetingRange::Bounded(fabelgeist_geometry::SignedLength::from_metres(10.0).unwrap()),
+                &choices
+            ),
+            Some(ResolvedChoice { value: BodyPart::Chest, position: Position::from_metres(Vec3::new(0.0, 1.2, -2.0)).unwrap() })
+        );
+    }
+
+    #[test]
+    fn attack_target_threshold_scales_with_surface_distance() {
+        assert_eq!(attack_target_angular_threshold_degrees(SignedLength::from_metres(0.0).unwrap()).unwrap().degrees(), 180.0);
+        assert_eq!(attack_target_angular_threshold_degrees(SignedLength::from_metres(0.5).unwrap()).unwrap().degrees(), 180.0);
+        assert_eq!(attack_target_angular_threshold_degrees(SignedLength::from_metres(1.0).unwrap()).unwrap().degrees(), 90.0);
+        assert_eq!(attack_target_angular_threshold_degrees(SignedLength::from_metres(2.0).unwrap()).unwrap().degrees(), 45.0);
+        assert!((attack_target_angular_threshold_degrees(SignedLength::from_metres(1_000.0).unwrap()).unwrap().degrees() - 0.09).abs() < 1.0e-6);
+    }
+
+    #[test]
+    fn attack_target_threshold_accepts_wide_nearby_and_narrow_distant_aim() {
+        assert!(attack_target_within_angular_threshold(
+            Vec3::NEG_Z,
+            Vec3::Z,
+            SignedLength::from_metres(0.0).unwrap(),
+        ).unwrap());
+        assert!(attack_target_within_angular_threshold(
+            Vec3::NEG_Z,
+            Vec3::X,
+            SignedLength::from_metres(1.0).unwrap(),
+        ).unwrap());
+        assert!(attack_target_within_angular_threshold(
+            Vec3::NEG_Z,
+            Vec3::new(1.0, 0.0, -1.0),
+            SignedLength::from_metres(2.0).unwrap(),
+        ).unwrap());
+        assert!(!attack_target_within_angular_threshold(
+            Vec3::NEG_Z,
+            Quat::from_rotation_y(0.1_f32.to_radians()) * Vec3::NEG_Z,
+            SignedLength::from_metres(1_000.0).unwrap(),
+        ).unwrap());
+    }
+}

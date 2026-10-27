@@ -1,0 +1,106 @@
+{
+  "run": 40473139582,
+  "earliest_failure": "Check formatting",
+  "evidence": "format-failure-001.txt",
+  "comparison": "All file bytes equal after whitespace and optional comma-before-closing-delimiter normalization; direct exactdiff review still required",
+  "files": [
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "before": "0ad5e0e1b2b062d47f48af303bc97f1259f6d4ac99c62bef9b42588b183233b4",
+      "after": "0ad5e0e1b2b062d47f48af303bc97f1259f6d4ac99c62bef9b42588b183233b4",
+      "only_whitespace_and_optional_trailing_commas": true
+    },
+    {
+      "path": "crates/adventuresim-core/Cargo.toml",
+      "before": "29e56014658d941895772dda71b9181863839eedf403c7d30b446186228c3441",
+      "after": "29e56014658d941895772dda71b9181863839eedf403c7d30b446186228c3441",
+      "only_whitespace_and_optional_trailing_commas": true
+    },
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "before": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+      "after": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+      "only_whitespace_and_optional_trailing_commas": true
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "before": "ceb8c36c8e8abb4ac96fa0c61601d11145d28755fdb3e7af723aa20ae8dc58bf",
+      "after": "ceb8c36c8e8abb4ac96fa0c61601d11145d28755fdb3e7af723aa20ae8dc58bf",
+      "only_whitespace_and_optional_trailing_commas": true
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "before": "de48188cfd3789d9a2ac3d9239c4d62f7991191f0a07d88ad90faa5047f7f129",
+      "after": "de48188cfd3789d9a2ac3d9239c4d62f7991191f0a07d88ad90faa5047f7f129",
+      "only_whitespace_and_optional_trailing_commas": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "before": "7510f380b30f9476c5a6fb1c685a1cb4311061f24a07616b1f7a054d95af04fc",
+      "after": "12d4b4e5ed4ce3940c78b7ee4420ec94e5efa83776b14d60afdbf2ba0d501f5d",
+      "only_whitespace_and_optional_trailing_commas": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "before": "47f1910a4f6a6f9ef3e0cc4bc75e39527a72a18babc94b34a9fea6c0647be39c",
+      "after": "fcc7c277f72f6a1004077bd04d3fb0c91607e17e8ee3977106aaa2c3cee38b98",
+      "only_whitespace_and_optional_trailing_commas": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "before": "9ac62b342f4ffec934232478fb5e019d84228a3cb726e29ed9b6f62d91775f36",
+      "after": "9ac62b342f4ffec934232478fb5e019d84228a3cb726e29ed9b6f62d91775f36",
+      "only_whitespace_and_optional_trailing_commas": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "before": "5bb5172865b0ed718a1ecb1bf7378539725fc0afdbe8394d43ed23979c151d9e",
+      "after": "5bb5172865b0ed718a1ecb1bf7378539725fc0afdbe8394d43ed23979c151d9e",
+      "only_whitespace_and_optional_trailing_commas": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "before": "d20c873dd470d03cd65d2c0da3d73dd050cde53f78dfc8bb81b1d237bf55ddcf",
+      "after": "d20c873dd470d03cd65d2c0da3d73dd050cde53f78dfc8bb81b1d237bf55ddcf",
+      "only_whitespace_and_optional_trailing_commas": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "before": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027",
+      "after": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027",
+      "only_whitespace_and_optional_trailing_commas": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "before": "37a5dba433aa5219b544716053897df30d3df49662fb5fd38794130c1b803946",
+      "after": "37a5dba433aa5219b544716053897df30d3df49662fb5fd38794130c1b803946",
+      "only_whitespace_and_optional_trailing_commas": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "before": "642983d4cdf24f5cda28f00740f180af4cc4e926b205df647057ef1194e9e32a",
+      "after": "642983d4cdf24f5cda28f00740f180af4cc4e926b205df647057ef1194e9e32a",
+      "only_whitespace_and_optional_trailing_commas": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "before": "a70dd7aa43995b5393dc2adbca58b231fd5d455c466b5ba926d1a65ef2d2232d",
+      "after": "543ea955a72a4accf8550af44b35ad0a526fbcc6731bc5fb109ac38ceb609e17",
+      "only_whitespace_and_optional_trailing_commas": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "before": "c835a9611d133e6fbe72b9121632d5dca1752d4f22d1b0545792ff582844e68d",
+      "after": "c835a9611d133e6fbe72b9121632d5dca1752d4f22d1b0545792ff582844e68d",
+      "only_whitespace_and_optional_trailing_commas": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "before": "42b5532ca3f4d22095a3612e77ec5d3f3c4d3b9b8058bdc54ce9432a8e895dad",
+      "after": "024ec4e60675ea68c97e5ed11e89756356b724a7ea0519006227c58c6bfeefce",
+      "only_whitespace_and_optional_trailing_commas": true
+    }
+  ],
+  "downstream_not_diagnosed": true,
+  "initial_whitespace_only_comparison": "Correctly rejected combat_config trailing comma; no false acceptance; refined comparison explicitly includes optional formatter comma."
+}

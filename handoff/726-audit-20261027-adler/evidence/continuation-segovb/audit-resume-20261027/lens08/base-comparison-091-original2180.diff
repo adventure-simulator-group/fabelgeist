@@ -1,0 +1,30 @@
+--- base/crates/fabelgeist-armor/src/gpu/bracer.rs
++++ head/crates/fabelgeist-armor/src/gpu/bracer.rs
+@@ -150,6 +150,7 @@
+ 
+ /// A bracer recorded on the device, with a mesh per body realization.
+ pub struct DeviceBracer {
++    rig_joints: fabelgeist_rig::RigJointCount,
+     design: BracerDesign,
+     layout: Layout,
+     texcoords: Buffer,
+@@ -327,6 +328,7 @@
+ 
+         let vertex_count = layout.vertex_count() as u64;
+         let bracer = Self {
++            rig_joints: skin.body.joint_count,
+             design: design.clone(),
+             texcoords: gpu.scratch(vertex_count * 8, "bracer texcoords")?,
+             joint_indices: gpu.scratch(vertex_count * 32, "bracer joint indices")?,
+@@ -462,7 +464,10 @@
+             positions,
+             normals,
+             texcoords: results.prefix(attributes[0], vertex_count),
+-            joint_indices: results.prefix(attributes[1], vertex_count),
++            joint_indices: fabelgeist_rig::PackedRigSkin::from_native(
++                results.prefix(attributes[1], vertex_count),
++                self.rig_joints,
++            )?,
+             joint_weights: results.prefix(attributes[2], vertex_count),
+             indices: results.prefix(attributes[3], self.layout.triangle_count as usize * 3),
+             faces: self.layout.faces(),

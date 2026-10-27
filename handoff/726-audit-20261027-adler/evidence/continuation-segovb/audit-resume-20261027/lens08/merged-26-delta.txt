@@ -1,0 +1,17 @@
+--- base
+
++++ head
+
+@@ -320,11 +320,10 @@
+
+ }
+ 
+ #[cfg(test)]
+ mod tests {
+     use super::*;
+-    use adventuresim_building_generator::spatial_geometry::Position;
+     #[test]
+     fn closed_keep_door_blocks_a_camera_ray_that_static_navigation_allows() {
+         use adventuresim_building_generator::{
+             BuildingArchetype, BuildingProgram, compile_building_collision, generate,
+         };

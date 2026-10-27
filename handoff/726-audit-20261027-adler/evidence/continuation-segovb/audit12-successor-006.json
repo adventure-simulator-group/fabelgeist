@@ -1,0 +1,36 @@
+{
+  "id": "AUDIT12-CONTRACTS-006",
+  "lens": 12,
+  "at": "2026-10-26T17:59:12.951335+00:00",
+  "role": 19,
+  "source": {
+    "index": 19,
+    "source_id": "native-dependency:serde-saphyr-1.2.0/src/lib.rs",
+    "sha256": "c8ac1fdcdcbfc060a9ef1696609f81289b0fdd5700e1d9b374de91b7770d6818",
+    "ranges": [
+      [
+        20,
+        44
+      ]
+    ],
+    "local": "target/recovery-20261025/continuation-segovb/source-objects/c8ac1fdcdcbfc060a9ef1696609f81289b0fdd5700e1d9b374de91b7770d6818",
+    "read": "registered-before-bounded-consumption"
+  },
+  "inventory": [
+    {
+      "ranges": [
+        [
+          20,
+          44
+        ]
+      ],
+      "occurrences": "cfg(feature=\"serialize\"),cfg(feature=\"deserialize\") and exported native type/module names",
+      "trace": "String literals are Cargo/Rust compilation feature identifiers at cfg boundary. Reexports carry actual native SerializeError/DeserializeError, Error, MessageFormatter/Localizer and include resolver owners. Error actual payload-to-formatter graph is source-accounted in predecessor005; no raw application string field/parameter/return is introduced by this exact reexport range.",
+      "qualification": "Only registered20-44; no fullmodule/featuredependency/wire behavior coverage. NativeError aliases are externalSDK API, not added application compatibility paths."
+    }
+  ],
+  "findings": [],
+  "global_clearance": false,
+  "checks": "none",
+  "source_edits": false
+}

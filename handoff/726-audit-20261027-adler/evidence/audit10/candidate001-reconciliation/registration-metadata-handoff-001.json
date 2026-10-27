@@ -1,0 +1,219 @@
+{
+  "id": "OWN10-CANDIDATE001-CANONICAL-METADATA-HANDOFF-001",
+  "registration_locators": [
+    {
+      "path": "canonical-registration-001.json",
+      "sha256": "0b959e9cc3a95ac03bffff5efc31c446a1bf50a2a6a695fec2c706614f5d8b90"
+    },
+    {
+      "path": "canonical-registration-002.json",
+      "sha256": "6140673337d90c731a98b820e928c2c8e5bf4187ac273bca49462fc752585b37"
+    }
+  ],
+  "metadata_only": true,
+  "prospective_timing": "All current Git objects were copied/hashed as metadata before the corresponding registration was saved. First current-body semantic reads followed the saved registrations; incidental context is disclosed separately.",
+  "files": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers.rs",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "sha256": "4f2a0ea9d96dba2f493cb7bd317313f553b00f0e29ff1eb0c223c7eed02058f4",
+      "bytes": 6610,
+      "lines": 204,
+      "same_bytes_as_prior_registered_variant": false,
+      "fresh_displayed_ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "semantic_target_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "prior_read_disclosure": "Frozen6533 role1486 had been fully personally read before this followup. Current whole bytes differ; current body first read after registration001. Exact declaration15-18 and From41-45 match frozen bytes. Lines73-85 were incidental partial OutfitPlan context displayed with the bounded read; no unrelated whole-body coverage or verdict claimed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/player.rs",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "sha256": "7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+      "bytes": 21008,
+      "lines": 640,
+      "same_bytes_as_prior_registered_variant": true,
+      "fresh_displayed_ranges": [
+        [
+          437,
+          491
+        ]
+      ],
+      "semantic_target_ranges": [
+        [
+          438,
+          484
+        ]
+      ],
+      "prior_read_disclosure": "Current bytes equal an existing frozen registered variant already personally read. Fresh declaration, semantic Default, From and PlayerAttributes context were read for canonical comparison. Lines486-491 are incidental next-type prefix context, no added body coverage."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/buildings/identity.rs",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "sha256": "53af66cb68d475328494f071fc1fc64701c6c2fbd3204ffb79a82bbfd318a7b0",
+      "bytes": 1023,
+      "lines": 40,
+      "same_bytes_as_prior_registered_variant": true,
+      "fresh_displayed_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "semantic_target_ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "prior_read_disclosure": "Current bytes equal frozen roles1916/2528 already personally read. Display36-40 was contextual only; candidate008 was not reopened or credited by this From disposition."
+    },
+    {
+      "path": "crates/fabelgeist-xpbd/src/particles/packed.rs",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "sha256": "50a7d66bba9f42c372ffecc21cb208485f80885c3b4ee4884631d5473fc48d70",
+      "bytes": 3317,
+      "lines": 100,
+      "same_bytes_as_prior_registered_variant": true,
+      "fresh_displayed_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "semantic_target_ranges": [
+        [
+          7,
+          100
+        ]
+      ],
+      "prior_read_disclosure": "Current bytes equal registered frozen2649 already personally read; records, checked constructor, upload context and retained semantic slice From re-read only to compare the two direct Vec conversions."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/operation_error.rs",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "status": "ABSENT_AT_CANONICAL_REVISION",
+      "selection": "Git path absence and declaration-name navigation only; no source body exists at the requested path.",
+      "prior_read_disclosure": "Frozen overlay112 had been read; current crate declaration search found no enum/struct/type named StrategicOperationError. No replacement source body was read."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/Cargo.toml",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "sha256": "8aa55633cd7ff303e586406b52582fd208269232ae9217364c309fa085b074d1",
+      "bytes": 4171,
+      "lines": 132,
+      "same_bytes_as_prior_registered_variant": false,
+      "fresh_selected_lines": [
+        [
+          20,
+          20
+        ],
+        [
+          23,
+          23
+        ],
+        [
+          95,
+          95
+        ]
+      ],
+      "structured_selection": "Containing Cargo section for each selected derive_more/thiserror declaration; normal derive_more is dependencies, line95 thiserror is build-dependencies.",
+      "prior_read_disclosure": "Frozen manifest had been read; current whole bytes differ. Current selected declarations/section metadata were read only after registration001; no other dependency bodies credited."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/Cargo.toml",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "sha256": "a514b1eccfff839c875aaa5148d8299f119beb39ce645dc828e653399b6ef320",
+      "bytes": 1228,
+      "lines": 44,
+      "same_bytes_as_prior_registered_variant": true,
+      "fresh_selected_lines": [
+        [
+          16,
+          16
+        ],
+        [
+          26,
+          26
+        ]
+      ],
+      "structured_selection": "Containing Cargo dependency section for derive_more/thiserror.",
+      "prior_read_disclosure": "Whole bytes equal existing registered frozen manifest; selected current dependency lines/section labels re-read."
+    },
+    {
+      "path": "crates/fabelgeist-xpbd/Cargo.toml",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "sha256": "e049988fc93c6de3ae4cea1aa73b63039c36c5038a5ce196487911d301f3d64a",
+      "bytes": 683,
+      "lines": 21,
+      "same_bytes_as_prior_registered_variant": true,
+      "fresh_selected_lines": [
+        [
+          14,
+          14
+        ]
+      ],
+      "structured_selection": "Containing Cargo dependency section for derive_more.",
+      "prior_read_disclosure": "Whole bytes equal existing registered frozen manifest; selected current dependency line/section label re-read."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/Cargo.toml",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "sha256": "88120e04c42c2e3a0dfa5100055838100a09da1e60fb3193f2aa8ab2a8867113",
+      "bytes": 882,
+      "lines": 31,
+      "same_bytes_as_prior_registered_variant": true,
+      "fresh_selected_lines": [
+        [
+          28,
+          28
+        ]
+      ],
+      "structured_selection": "Containing Cargo dependency section for thiserror; metadata search for a derive_more declaration found none.",
+      "prior_read_disclosure": "Whole bytes equal existing registered frozen manifest; only selected dependency/macro-availability metadata read."
+    },
+    {
+      "path": "Cargo.lock",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "sha256": "d148af6f0f15140e5337b4ee4bf9d5ea5f63c6ff10bae5c472592d2768f58515",
+      "fresh_selected_ranges": [
+        [
+          4318,
+          4352
+        ]
+      ],
+      "structured_selection": "Only package blocks whose name is derive_more or derive_more-impl. This includes derive_more0.99.20, derive_more2.1.1 and derive_more-impl2.1.1, with blank separators, but no following package body.",
+      "prior_read_disclosure": "Current lock bytes copied/hashed before prospective registration002; selected package blocks first semantically read afterward. Older frozen lock/package proof existed, but no current-body credit inferred from it."
+    }
+  ],
+  "additional_existing_source_only": {
+    "source": "nativeM122 derive_more-impl2.1.1/src/from.rs",
+    "sha256": "dbcea1f655618518d366313124b59d50181928e1f0a092ff8796d5accec81fd6",
+    "archive_checksum": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb",
+    "fresh_ranges": [
+      [
+        189,
+        209
+      ],
+      [
+        299,
+        319
+      ]
+    ],
+    "prior_read_disclosure": "Already prospectively registered/sharedM1221-322 and personally read for own10; same bytes and package re-read. No new native body or additional source role."
+  },
+  "report_inventory_reads": "Copied accepted root ledger/connected-repair-map and inherited F004 plus saved1002-record inventory for remedy dedup only; no other-lens source coverage or verdict transfer. Exact hashes are in inventory-navigation-001.json.",
+  "unchanged_checkpoint": "disposition-001.json and parent audit10/STATE.json remain saved. No new source reading performed to prepare this metadata handoff.",
+  "source_edits": false,
+  "git_state_changes": false,
+  "project_checks": "not run",
+  "accepted_new_unique_issues": 0
+}

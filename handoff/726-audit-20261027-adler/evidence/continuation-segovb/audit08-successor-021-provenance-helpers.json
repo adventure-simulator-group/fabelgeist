@@ -1,0 +1,165 @@
+{
+  "id": "CONT08-021-HELPER-PROVENANCE",
+  "created_utc": "2026-10-27T05:21:45.523966+00:00",
+  "authorization": "Root explicitly permits read-only exact Git object/metadata recovery in021, ignored source-object staging only; no mutation.",
+  "frozen_manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/audit12-frozen-source-manifest-019.json",
+    "sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa"
+  },
+  "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+  "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "sources": [
+    {
+      "role": "base",
+      "source_id": "base:crates/adventuresim-tactical-core/src/city_layout/grounding/location.rs",
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/location.rs",
+      "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "git_tree_entry": "100644 blob 49603bc026c0708058f734fbf2ef3accaf465cd3\tcrates/adventuresim-tactical-core/src/city_layout/grounding/location.rs",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/a11423ff0d43b8b2f1167c4fe16aa9b53f3da611fa697c38fb90105d69178f1d",
+      "sha256": "a11423ff0d43b8b2f1167c4fe16aa9b53f3da611fa697c38fb90105d69178f1d",
+      "bytes": 1716,
+      "lines": 46,
+      "frozen747_matches": [],
+      "dirty4_matches": [],
+      "body_read": false
+    },
+    {
+      "role": "head",
+      "source_id": "head:crates/adventuresim-tactical-core/src/city_layout/grounding/location.rs",
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/location.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_tree_entry": "100644 blob 49603bc026c0708058f734fbf2ef3accaf465cd3\tcrates/adventuresim-tactical-core/src/city_layout/grounding/location.rs",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/a11423ff0d43b8b2f1167c4fe16aa9b53f3da611fa697c38fb90105d69178f1d",
+      "sha256": "a11423ff0d43b8b2f1167c4fe16aa9b53f3da611fa697c38fb90105d69178f1d",
+      "bytes": 1716,
+      "lines": 46,
+      "frozen747_matches": [],
+      "dirty4_matches": [],
+      "body_read": false
+    },
+    {
+      "role": "base",
+      "source_id": "base:crates/adventuresim-tactical-core/src/city_layout/grounding/measurement.rs",
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/measurement.rs",
+      "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "git_tree_entry": "100644 blob fb5f74f9aac8d7ed2ee5dfbca9ab8a2161b9c304\tcrates/adventuresim-tactical-core/src/city_layout/grounding/measurement.rs",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/6bf7e931e120e7f023858ffebeedc30845b61f861c39ec75d03c500564192bc1",
+      "sha256": "6bf7e931e120e7f023858ffebeedc30845b61f861c39ec75d03c500564192bc1",
+      "bytes": 8910,
+      "lines": 261,
+      "frozen747_matches": [],
+      "dirty4_matches": [],
+      "body_read": false
+    },
+    {
+      "role": "head",
+      "source_id": "head:crates/adventuresim-tactical-core/src/city_layout/grounding/measurement.rs",
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/measurement.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_tree_entry": "100644 blob fb5f74f9aac8d7ed2ee5dfbca9ab8a2161b9c304\tcrates/adventuresim-tactical-core/src/city_layout/grounding/measurement.rs",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/6bf7e931e120e7f023858ffebeedc30845b61f861c39ec75d03c500564192bc1",
+      "sha256": "6bf7e931e120e7f023858ffebeedc30845b61f861c39ec75d03c500564192bc1",
+      "bytes": 8910,
+      "lines": 261,
+      "frozen747_matches": [],
+      "dirty4_matches": [],
+      "body_read": false
+    },
+    {
+      "role": "base",
+      "source_id": "base:crates/adventuresim-building-generator/src/spatial_geometry/length.rs",
+      "path": "crates/adventuresim-building-generator/src/spatial_geometry/length.rs",
+      "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "git_tree_entry": "100644 blob b18656d7b089ad921422c838f0cf4e07541134a8\tcrates/adventuresim-building-generator/src/spatial_geometry/length.rs",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/85b9e28a95b866246fdc9e3c87fbf6c59f3c8ab02b87d623ef1bdaeb3110411a",
+      "sha256": "85b9e28a95b866246fdc9e3c87fbf6c59f3c8ab02b87d623ef1bdaeb3110411a",
+      "bytes": 1270,
+      "lines": 36,
+      "frozen747_matches": [
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/length.rs",
+          "snapshot": "pr-working",
+          "path": "crates/adventuresim-building-generator/src/spatial_geometry/length.rs",
+          "owner": "root",
+          "sha256": null,
+          "base_sha256": "85b9e28a95b866246fdc9e3c87fbf6c59f3c8ab02b87d623ef1bdaeb3110411a",
+          "state": "deleted",
+          "bytes": 0
+        }
+      ],
+      "dirty4_matches": [],
+      "body_read": false
+    },
+    {
+      "role": "head",
+      "source_id": "head:crates/fabelgeist-geometry/src/lib.rs",
+      "path": "crates/fabelgeist-geometry/src/lib.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_tree_entry": "100644 blob 029d185535629cee9ca47ad8ef547aca80239827\tcrates/fabelgeist-geometry/src/lib.rs",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/4be1dea1bfca250604d52c9c8ea026aac5e3608d4d8cf35168f0cdc60ff4a7ab",
+      "sha256": "4be1dea1bfca250604d52c9c8ea026aac5e3608d4d8cf35168f0cdc60ff4a7ab",
+      "bytes": 632,
+      "lines": 16,
+      "frozen747_matches": [
+        {
+          "source_id": "pr-working:crates/fabelgeist-geometry/src/lib.rs",
+          "snapshot": "pr-working",
+          "path": "crates/fabelgeist-geometry/src/lib.rs",
+          "owner": "root",
+          "sha256": "4be1dea1bfca250604d52c9c8ea026aac5e3608d4d8cf35168f0cdc60ff4a7ab",
+          "base_sha256": null,
+          "state": "new",
+          "bytes": 632
+        }
+      ],
+      "dirty4_matches": [],
+      "body_read": false
+    },
+    {
+      "role": "head",
+      "source_id": "head:crates/fabelgeist-geometry/src/length.rs",
+      "path": "crates/fabelgeist-geometry/src/length.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_tree_entry": "100644 blob 2ce787e969bc6df118dd86a7285293cd3602e063\tcrates/fabelgeist-geometry/src/length.rs",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "bytes": 1383,
+      "lines": 40,
+      "frozen747_matches": [
+        {
+          "source_id": "pr-working:crates/fabelgeist-geometry/src/length.rs",
+          "snapshot": "pr-working",
+          "path": "crates/fabelgeist-geometry/src/length.rs",
+          "owner": "root",
+          "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+          "base_sha256": null,
+          "state": "new",
+          "bytes": 1383
+        }
+      ],
+      "dirty4_matches": [],
+      "body_read": false
+    }
+  ],
+  "owner_migration_absence": [
+    {
+      "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "path": "crates/fabelgeist-geometry/src/lib.rs",
+      "git_ls_tree": "",
+      "absent": true
+    },
+    {
+      "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "path": "crates/fabelgeist-geometry/src/length.rs",
+      "git_ls_tree": "",
+      "absent": true
+    },
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/spatial_geometry/length.rs",
+      "git_ls_tree": "",
+      "absent": true
+    }
+  ],
+  "qualification": "Exact source metadata/byte recovery only, no body audit credit. No current/P16 alias or Git mutations. No project execution."
+}

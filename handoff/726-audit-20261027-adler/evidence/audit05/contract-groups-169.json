@@ -1,0 +1,120 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-169",
+  "at": "2026-10-25T20:56:26.057740+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1745,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/ui.rs",
+      "sha256": "2a2206d4b76e7db409e7cfa2b8e4337d5ea4a6fa606a95de4e8cf04ca85666e6",
+      "personally_read_ranges": [
+        [
+          1,
+          1039
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1039 lines personally read, including fixtures 941-1039. Actual incapacitation sources, forecast, will and limbs are obtained from the same queried actor. Camera projection is checked; missing head falls back to a UI anchor above the actor root. Current impairment and yellow projections flow into a shared 100% clipping painter; this remains display-only and introduces no impairment or movement rule. Enemy wheels require the actual Enemy side and positive current incapacitation.",
+        "UI updates pair controlled-player guard/aim state with the selected camera observation, and match each limb source to its designated span. Attack events resolve the actual attacker CharacterId, defender response and AttackResult payload before displaying the first hit; outcome text and class come from one enum. PlayerSpanOf linked-spawn relationship binds player-list entries to actor lifetime.",
+        "Inventory display clears and rebuilds equipped/backpack lists from InventoryItems membership and the same ItemQuery row. This consumer runs only on Changed<InventoryItems>; whether slot/quantity/property mutations always invalidate that membership component needs actual mutation producer closure before any stale-HUD defect claim. No ordinary invalid composition or stale output is proved here. Item display precedence for native multiple optional equipment components is representational only without a producer witness.",
+        "Positive forecast with zero current impairment would not draw a wheel, but no reachable forecast producer case was established here; do not promote that observation to a gameplay defect. Native ECS singleton/event shape authority remains outside this body. Existing wheel, camera and outcome fixtures were read, not executed."
+      ]
+    },
+    {
+      "scope_index": 1746,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/ui/combat_state.rs",
+      "sha256": "4a377bed178aa3822eba2e6be0f9b97db5e7b8267ade2b3bdc90924241a074a2",
+      "personally_read_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 140 lines personally read. The nine display segments preserve strategic ordering, combine pain with acute trauma, use one black fatigue source and translucent grey encumbrance. Forecast admission computes available space from the current total once, scales positive forecast increases to the remaining capacity, then interleaves current and yellow projected portions without replacing actual sources. The parent painter supplies the 100% cutoff.",
+        "The aggregate assumes TacticalIncapacitationSources nonnegative coherent fields; negative/native-invalid source combinations are not independently admitted by this display helper and no actual bad producer was established. State label selects Active/Incapacitated from the same TacticalCombatState used for blood-loss/fatigue/imbalance numbers. Tests describe overflow clipping and all-source projection; no execution."
+      ]
+    },
+    {
+      "scope_index": 1747,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/weather_audio.rs",
+      "sha256": "35e0527b4916af005b7cf251be2808a43f5226c23fefc9287f14ae511c6b27e9",
+      "personally_read_ranges": [
+        [
+          1,
+          208
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 208 lines personally read. RainAudioLayer carries either a particular surface or HeavyStorm, and startup pairs each enum with its asset and silent looping playback. Update obtains rain intensity, actual listener point and ground surface, then applies one matching surface bed plus storm layer. The cover/substrate precedence is explicit: foliage cover wins before water substrate; no evidence that this violates the owning ground classification policy.",
+        "Actual audio configuration parse validates gains and ducking in [0,1], finite positive exponents/response, and heavy-rain start strictly below one (same-lens support1457 lines1-206). This closes rain_mix denominator and monotone bounded-gain relationships for admitted configuration; saturation bounds raw weather basis points. The interpolation response is tied to frame delta. Native malformed Time/config mutation remains representational, not a demonstrated production path.",
+        "Independent first environment/ground/listener selection requires the installed scene singleton contract; this body alone does not prove arbitrary multi-scene association. Missing environment means silent weather; missing listener/ground uses soft-ground classification as presentation policy. No persistent tactical state or gameplay penalty is introduced. Fixtures read only."
+      ]
+    },
+    {
+      "scope_index": 1748,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/AGENTS.md",
+      "sha256": "b3fd110d97bc871853458c38282d3d4c18369b6d0647e96e0de6d0641dca61c8",
+      "personally_read_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 17-line instruction role read. Canonical YAML owns authored runtime parameters, typed validation and synchronized defaults; shared consumers take typed projections. This is a policy artifact with no runtime aggregate construction, not proof that all implementations satisfy its contract."
+      ]
+    },
+    {
+      "scope_index": 1750,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/README.md",
+      "sha256": "b3acfbbe37624ffc0518b11dd27945d3d6c1258e0aa6759a95e2ca395b7ad5ac",
+      "personally_read_ranges": [
+        [
+          1,
+          239
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 239-line contributor guide role read. It declares transient tactical authority, checked animation quantities and paired sampling intervals, frame-specific geometry/datum conversion, private paired door/window pose/rotation, cached executable identity, typed input acknowledgement, retained observation histories, explicit lunge/recovery variants and original melee key correlation. These are documented aggregate contracts and navigation to owning source, not semantic clearance of every referenced family.",
+        "Exact original-role source read was retained without substituting current-main documentation or claiming execution. Already audited animation source roles1751-1789 and Cargo1749 remain inherited; this prose adds no duplicate runtime role credits."
+      ]
+    }
+  ],
+  "support_reads": [
+    {
+      "scope_index": 1457,
+      "ranges": [
+        [
+          1,
+          206
+        ]
+      ],
+      "role_credit": "none; inherited same-lens support"
+    }
+  ],
+  "findings": [],
+  "qualified_dependencies": [
+    {
+      "source_index": 1745,
+      "range": [
+        711,
+        770
+      ],
+      "contract": "Inventory HUD mutation invalidation",
+      "status": "producer closure pending; no accepted defect"
+    },
+    {
+      "source_index": 1747,
+      "range": [
+        102,
+        139
+      ],
+      "contract": "Scene environment/ground/listener singleton association",
+      "status": "installed producer contract dependency; no arbitrary multi-scene defect alleged"
+    }
+  ],
+  "discovery": "5 newly accounted original roles; lens incomplete; inherited1749 and1751-1789 are not recounted",
+  "repair": "not_started",
+  "validation": "not_run"
+}

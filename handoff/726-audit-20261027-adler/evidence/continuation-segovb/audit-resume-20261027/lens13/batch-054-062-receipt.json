@@ -1,0 +1,933 @@
+{
+  "lens": 13,
+  "status": "source_accounted_with_qualified_findings",
+  "authority": {
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "source_manifest_sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa"
+  },
+  "registrations": [
+    {
+      "path": "audit-resume-20261027/lens13/batch-054-registration.json",
+      "sha256": "eccc1a692ba38a4f657a6b700ea8cb6b21f346d690cdffa2c375fb0b8a6ccae5"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-055-registration.json",
+      "sha256": "9038a5a12b0a0789eedd23126f5262bbb0b5181f71133b8e5b4d5894965f9972"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-056-registration.json",
+      "sha256": "9988c62732c78c9db594afcb78e7067c6a11f1f687a3e028942731bf626a846a"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-057-registration.json",
+      "sha256": "13f8da76c4cc8cd2ca72a880af050c279a7f3abe28e34892b61e21e77935ac68"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-058-registration.json",
+      "sha256": "0c30a3821533436de0ebc61f276e263cfca8729752e70d14ab69f1375c0857d9"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-059-registration.json",
+      "sha256": "d5f74d94bf5ce1a0443977db4a305cbcf2a3606900ba24d42aa1bb735d32d881"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-060-registration.json",
+      "sha256": "1342af142a93d92b529fe3d16661b619a814a1868d125e0d8eed1a28cde9c1eb"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-061-registration.json",
+      "sha256": "15fd81a7d63371fc5411b754fae79ee426bd205087548ba648e3143e85c93293"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-062-registration.json",
+      "sha256": "0aa28df6e04f258d67b582450a09149bb0770ea94794f1f3cbaee711944e5946"
+    }
+  ],
+  "actual_source_reads": [
+    {
+      "original": 129,
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_catalog.rs",
+      "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+      "requested_range_variants": [
+        [
+          1,
+          67
+        ],
+        [
+          89,
+          91
+        ],
+        [
+          92,
+          110
+        ],
+        [
+          111,
+          323
+        ],
+        [
+          324,
+          589
+        ],
+        [
+          324,
+          597
+        ],
+        [
+          590,
+          597
+        ],
+        [
+          598,
+          607
+        ],
+        [
+          608,
+          668
+        ],
+        [
+          669,
+          670
+        ],
+        [
+          731,
+          791
+        ],
+        [
+          793,
+          840
+        ],
+        [
+          842,
+          860
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          67
+        ],
+        [
+          89,
+          670
+        ],
+        [
+          731,
+          791
+        ],
+        [
+          793,
+          840
+        ],
+        [
+          842,
+          860
+        ]
+      ],
+      "eof": 1630,
+      "provenance": "Exact f82 registered physical source. All requested variants retained; prior own receiver reads are access reuse only, independent role inventory required.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          67
+        ],
+        [
+          89,
+          670
+        ],
+        [
+          731,
+          791
+        ],
+        [
+          793,
+          840
+        ],
+        [
+          842,
+          860
+        ]
+      ],
+      "read_qualification": "All listed registered ranges were actually consumed in bounded output after registration and SHA verification; metadata staging body_read=false describes staging chronology only."
+    },
+    {
+      "original": 130,
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_catalog_validation.rs",
+      "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+      "requested_range_variants": [
+        [
+          1,
+          199
+        ],
+        [
+          200,
+          212
+        ],
+        [
+          213,
+          351
+        ],
+        [
+          352,
+          390
+        ],
+        [
+          391,
+          447
+        ],
+        [
+          448,
+          480
+        ],
+        [
+          481,
+          1516
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          1516
+        ]
+      ],
+      "eof": 1526,
+      "provenance": "Exact f82 registered physical source. All requested variants retained; prior own receiver reads are access reuse only, independent role inventory required.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          1516
+        ]
+      ],
+      "read_qualification": "All listed registered ranges were actually consumed in bounded output after registration and SHA verification; metadata staging body_read=false describes staging chronology only."
+    },
+    {
+      "original": 131,
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_generation/model.rs",
+      "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "requested_range_variants": [
+        [
+          1,
+          58
+        ],
+        [
+          99,
+          153
+        ],
+        [
+          171,
+          191
+        ],
+        [
+          320,
+          505
+        ],
+        [
+          506,
+          507
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          58
+        ],
+        [
+          99,
+          153
+        ],
+        [
+          171,
+          191
+        ],
+        [
+          320,
+          507
+        ]
+      ],
+      "eof": 1230,
+      "provenance": "Exact f82 registered physical source. All requested variants retained; prior own receiver reads are access reuse only, independent role inventory required.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          58
+        ],
+        [
+          99,
+          153
+        ],
+        [
+          171,
+          191
+        ],
+        [
+          320,
+          507
+        ]
+      ],
+      "read_qualification": "All listed registered ranges were actually consumed in bounded output after registration and SHA verification; metadata staging body_read=false describes staging chronology only."
+    },
+    {
+      "original": 132,
+      "source_id": "physical-p16:crates/adventuresim-core/src/reducer_error.rs",
+      "sha256": "ec4f9bddc8b7d73ed40bcfbecb23d7b061016ee53bd6fea4a524d05e838691c7",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/ec4f9bddc8b7d73ed40bcfbecb23d7b061016ee53bd6fea4a524d05e838691c7",
+      "requested_range_variants": [
+        [
+          1,
+          100
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "eof": 100,
+      "provenance": "Exact f82 registered physical source. All requested variants retained; prior own receiver reads are access reuse only, independent role inventory required.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "read_qualification": "All listed registered ranges were actually consumed in bounded output after registration and SHA verification; metadata staging body_read=false describes staging chronology only."
+    },
+    {
+      "original": 133,
+      "source_id": "physical-p16:crates/adventuresim-core/src/reputation.rs",
+      "sha256": "f440b09e301404f9d1be804764c9be6af087320ea34c8b8a27fd9a4b191b8103",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/f440b09e301404f9d1be804764c9be6af087320ea34c8b8a27fd9a4b191b8103",
+      "requested_range_variants": [
+        [
+          1,
+          150
+        ],
+        [
+          1,
+          331
+        ],
+        [
+          140,
+          215
+        ],
+        [
+          180,
+          225
+        ],
+        [
+          196,
+          240
+        ],
+        [
+          310,
+          338
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          338
+        ]
+      ],
+      "eof": 331,
+      "provenance": "Exact f82 registered physical source. All requested variants retained; prior own receiver reads are access reuse only, independent role inventory required.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          338
+        ]
+      ],
+      "read_qualification": "All listed registered ranges were actually consumed in bounded output after registration and SHA verification; metadata staging body_read=false describes staging chronology only."
+    },
+    {
+      "original": 134,
+      "source_id": "physical-p16:crates/adventuresim-core/src/road_encounter_catalog.rs",
+      "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "requested_range_variants": [
+        [
+          1,
+          179
+        ],
+        [
+          180,
+          395
+        ],
+        [
+          396,
+          994
+        ],
+        [
+          995,
+          1039
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          1039
+        ]
+      ],
+      "eof": 2689,
+      "provenance": "Exact f82 registered physical source. All requested variants retained; prior own receiver reads are access reuse only, independent role inventory required.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          1039
+        ]
+      ],
+      "read_qualification": "All listed registered ranges were actually consumed in bounded output after registration and SHA verification; metadata staging body_read=false describes staging chronology only."
+    },
+    {
+      "source_id": "physical-p16:core/quest_catalog.rs",
+      "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+      "ranges": [
+        [
+          68,
+          88
+        ],
+        [
+          671,
+          730
+        ]
+      ],
+      "provenance": "Exact f82 physical registry source",
+      "actual_consumed_ranges": [
+        [
+          68,
+          88
+        ],
+        [
+          671,
+          730
+        ]
+      ],
+      "read_qualification": "All listed registered ranges were actually consumed in bounded output after registration and SHA verification; metadata staging body_read=false describes staging chronology only."
+    },
+    {
+      "source_id": "physical-p16:core/quest_generation/model.rs",
+      "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "ranges": [
+        [
+          283,
+          319
+        ]
+      ],
+      "provenance": "Exact f82 physical registry source",
+      "actual_consumed_ranges": [
+        [
+          283,
+          319
+        ]
+      ],
+      "read_qualification": "All listed registered ranges were actually consumed in bounded output after registration and SHA verification; metadata staging body_read=false describes staging chronology only."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "sha256": "a1005d38cb2af372af21abdfbba3af8f2209de2fa20a31d3d084792d49acbf46",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/a1005d38cb2af372af21abdfbba3af8f2209de2fa20a31d3d084792d49acbf46",
+      "eof": 2815,
+      "provenance": "Exact f82 registered physical source",
+      "ranges": [
+        [
+          91,
+          165
+        ],
+        [
+          1590,
+          1740
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          91,
+          165
+        ],
+        [
+          1590,
+          1740
+        ]
+      ],
+      "read_qualification": "All listed registered ranges were actually consumed in bounded output after registration and SHA verification; metadata staging body_read=false describes staging chronology only."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_generation/sampling.rs",
+      "sha256": "3c679c4e5177ee4462d6286d81cdd3e3cfaa9b6e2d91e844d3d45b8e2f666a44",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/3c679c4e5177ee4462d6286d81cdd3e3cfaa9b6e2d91e844d3d45b8e2f666a44",
+      "eof": 213,
+      "provenance": "Exact f82 registered physical source",
+      "ranges": [
+        [
+          1,
+          134
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          134
+        ]
+      ],
+      "read_qualification": "All listed registered ranges were actually consumed in bounded output after registration and SHA verification; metadata staging body_read=false describes staging chronology only."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_generation/solver.rs",
+      "sha256": "5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+      "eof": 979,
+      "provenance": "Exact f82 registered physical source",
+      "ranges": [
+        [
+          1,
+          217
+        ],
+        [
+          218,
+          288
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          217
+        ],
+        [
+          218,
+          288
+        ]
+      ],
+      "read_qualification": "All listed registered ranges were actually consumed in bounded output after registration and SHA verification; metadata staging body_read=false describes staging chronology only."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_generation/assembly.rs",
+      "sha256": "a54013572d9b0b6a8385c70e2aac6dbd516dfd40a72e87ede1c8ab6e9ea48ff7",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/a54013572d9b0b6a8385c70e2aac6dbd516dfd40a72e87ede1c8ab6e9ea48ff7",
+      "eof": 1443,
+      "provenance": "Reconstructed unchanged physical exact a120 base=head; pinned physical manifest/status no path",
+      "ranges": [
+        [
+          780,
+          862
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          780,
+          862
+        ]
+      ],
+      "read_qualification": "All listed registered ranges were actually consumed in bounded output after registration and SHA verification; metadata staging body_read=false describes staging chronology only."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+      "sha256": "e34eb575d8091df0f4e9d8242066c7734b986d888d7a54c51aaaf1681a53ed34",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/e34eb575d8091df0f4e9d8242066c7734b986d888d7a54c51aaaf1681a53ed34",
+      "eof": 79,
+      "provenance": "Reconstructed unchanged physical exact a120 base=head; pinned physical manifest/status no path",
+      "ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "read_qualification": "All listed registered ranges were actually consumed in bounded output after registration and SHA verification; metadata staging body_read=false describes staging chronology only."
+    },
+    {
+      "source_id": "physical-p16:stdb/strategic/inventory_trade.rs",
+      "sha256": "85c8f2c699beb1c00311678bbe179a5cc75bb33c607051bd967e91c9e6eba749",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/85c8f2c699beb1c00311678bbe179a5cc75bb33c607051bd967e91c9e6eba749",
+      "ranges": [
+        [
+          481,
+          562
+        ],
+        [
+          1705,
+          1752
+        ]
+      ],
+      "provenance": "Exact f82 registered physical source or unchanged physical a120 reconstruction as pinned in source-staging-055/056 metadata.",
+      "purpose": "Material actual recipient or alternative trace-budget branch; no extra original or other-lens credit.",
+      "actual_consumed_ranges": [
+        [
+          481,
+          562
+        ],
+        [
+          1705,
+          1752
+        ]
+      ],
+      "read_qualification": "All listed registered ranges were actually consumed in bounded output after registration and SHA verification; metadata staging body_read=false describes staging chronology only."
+    },
+    {
+      "source_id": "physical-p16:stdb/personality.rs",
+      "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "ranges": [
+        [
+          49,
+          52
+        ],
+        [
+          516,
+          577
+        ]
+      ],
+      "provenance": "Exact f82 registered physical source or unchanged physical a120 reconstruction as pinned in source-staging-055/056 metadata.",
+      "purpose": "Material actual recipient or alternative trace-budget branch; no extra original or other-lens credit.",
+      "actual_consumed_ranges": [
+        [
+          49,
+          52
+        ],
+        [
+          516,
+          577
+        ]
+      ],
+      "read_qualification": "All listed registered ranges were actually consumed in bounded output after registration and SHA verification; metadata staging body_read=false describes staging chronology only."
+    },
+    {
+      "source_id": "physical-p16:stdb/strategic/encounters.rs",
+      "sha256": "3c9ffa24338de25378c4f5b46c684ed6e4dbe34e70b4edff6badc1df3f025340",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/3c9ffa24338de25378c4f5b46c684ed6e4dbe34e70b4edff6badc1df3f025340",
+      "ranges": [
+        [
+          215,
+          258
+        ]
+      ],
+      "provenance": "Exact f82 registered physical source or unchanged physical a120 reconstruction as pinned in source-staging-055/056 metadata.",
+      "purpose": "Material actual recipient or alternative trace-budget branch; no extra original or other-lens credit.",
+      "actual_consumed_ranges": [
+        [
+          215,
+          258
+        ]
+      ],
+      "read_qualification": "All listed registered ranges were actually consumed in bounded output after registration and SHA verification; metadata staging body_read=false describes staging chronology only."
+    },
+    {
+      "source_id": "physical-p16:core/quest_generation/assembly.rs",
+      "sha256": "a54013572d9b0b6a8385c70e2aac6dbd516dfd40a72e87ede1c8ab6e9ea48ff7",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/a54013572d9b0b6a8385c70e2aac6dbd516dfd40a72e87ede1c8ab6e9ea48ff7",
+      "ranges": [
+        [
+          1,
+          20
+        ],
+        [
+          863,
+          1443
+        ]
+      ],
+      "provenance": "Exact f82 registered physical source or unchanged physical a120 reconstruction as pinned in source-staging-055/056 metadata.",
+      "purpose": "Material actual recipient or alternative trace-budget branch; no extra original or other-lens credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          20
+        ],
+        [
+          863,
+          1443
+        ]
+      ],
+      "read_qualification": "All listed registered ranges were actually consumed in bounded output after registration and SHA verification; metadata staging body_read=false describes staging chronology only."
+    },
+    {
+      "source_id": "physical-p16:core/quest_generation/validation.rs",
+      "sha256": "a58991cdececa54b76db9d44b4f5dd1702ef3c8d132e37350fcba62b5bf9e827",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/a58991cdececa54b76db9d44b4f5dd1702ef3c8d132e37350fcba62b5bf9e827",
+      "ranges": [
+        [
+          197,
+          1121
+        ]
+      ],
+      "provenance": "Exact f82 registered physical source or unchanged physical a120 reconstruction as pinned in source-staging-055/056 metadata.",
+      "purpose": "Material actual recipient or alternative trace-budget branch; no extra original or other-lens credit.",
+      "actual_consumed_ranges": [
+        [
+          197,
+          1121
+        ]
+      ],
+      "read_qualification": "All listed registered ranges were actually consumed in bounded output after registration and SHA verification; metadata staging body_read=false describes staging chronology only."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "sha256": "a1005d38cb2af372af21abdfbba3af8f2209de2fa20a31d3d084792d49acbf46",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/a1005d38cb2af372af21abdfbba3af8f2209de2fa20a31d3d084792d49acbf46",
+      "ranges": [
+        [
+          895,
+          1023
+        ]
+      ],
+      "purpose": "Complete actual material combat-count receiver and generated-case numeric validation helper; receiver access only, no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          895,
+          1023
+        ]
+      ],
+      "read_qualification": "All listed registered ranges were actually consumed in bounded output after registration and SHA verification; metadata staging body_read=false describes staging chronology only."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_generation/validation.rs",
+      "sha256": "a58991cdececa54b76db9d44b4f5dd1702ef3c8d132e37350fcba62b5bf9e827",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/a58991cdececa54b76db9d44b4f5dd1702ef3c8d132e37350fcba62b5bf9e827",
+      "ranges": [
+        [
+          1,
+          196
+        ]
+      ],
+      "purpose": "Complete actual material combat-count receiver and generated-case numeric validation helper; receiver access only, no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          196
+        ]
+      ],
+      "read_qualification": "All listed registered ranges were actually consumed in bounded output after registration and SHA verification; metadata staging body_read=false describes staging chronology only."
+    },
+    {
+      "source_id": "physical-p16:stdb/strategic/encounters.rs",
+      "sha256": "3c9ffa24338de25378c4f5b46c684ed6e4dbe34e70b4edff6badc1df3f025340",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/3c9ffa24338de25378c4f5b46c684ed6e4dbe34e70b4edff6badc1df3f025340",
+      "ranges": [
+        [
+          259,
+          346
+        ]
+      ],
+      "provenance": "Exact f82 physical registered source; world_actor is future original317 staged exact hash, no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          259,
+          346
+        ]
+      ],
+      "read_qualification": "All listed registered ranges were actually consumed in bounded output after registration and SHA verification; metadata staging body_read=false describes staging chronology only."
+    },
+    {
+      "source_id": "physical-p16:stdb/world_actor.rs",
+      "sha256": "232be94a5acf0de9c374f0c16d546051e2d007c1005510b0adb7f3c0d41b28f6",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/232be94a5acf0de9c374f0c16d546051e2d007c1005510b0adb7f3c0d41b28f6",
+      "ranges": [
+        [
+          424,
+          497
+        ]
+      ],
+      "provenance": "Exact f82 physical registered source; world_actor is future original317 staged exact hash, no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          424,
+          497
+        ]
+      ],
+      "read_qualification": "All listed registered ranges were actually consumed in bounded output after registration and SHA verification; metadata staging body_read=false describes staging chronology only."
+    },
+    {
+      "source_id": "physical-p16:stdb/world_actor.rs",
+      "sha256": "232be94a5acf0de9c374f0c16d546051e2d007c1005510b0adb7f3c0d41b28f6",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/232be94a5acf0de9c374f0c16d546051e2d007c1005510b0adb7f3c0d41b28f6",
+      "ranges": [
+        [
+          349,
+          423
+        ]
+      ],
+      "purpose": "Actual roster count/ordinal recipient reached through bounded road count; no original317 credit.",
+      "actual_consumed_ranges": [
+        [
+          349,
+          423
+        ]
+      ],
+      "read_qualification": "All listed registered ranges were actually consumed in bounded output after registration and SHA verification; metadata staging body_read=false describes staging chronology only."
+    },
+    {
+      "source_id": "physical-p16:stdb/time/advancement.rs",
+      "sha256": "2baeb9fb076d4f802e6d65c3e31d148b12d4b44f6b57756ca9022338afcb76a4",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/2baeb9fb076d4f802e6d65c3e31d148b12d4b44f6b57756ca9022338afcb76a4",
+      "ranges": [
+        [
+          201,
+          265
+        ]
+      ],
+      "provenance": "Exact f82 original305 physical variant; receiver access only.",
+      "purpose": "Actual positive travel delay admission into shared time plan.",
+      "actual_consumed_ranges": [
+        [
+          201,
+          265
+        ]
+      ],
+      "read_qualification": "All listed registered ranges were actually consumed in bounded output after registration and SHA verification; metadata staging body_read=false describes staging chronology only."
+    },
+    {
+      "source_id": "physical-p16:stdb/time/advancement.rs",
+      "sha256": "2baeb9fb076d4f802e6d65c3e31d148b12d4b44f6b57756ca9022338afcb76a4",
+      "ranges": [
+        [
+          1,
+          149
+        ]
+      ],
+      "purpose": "Actual elapsed budget return/checked clock recipient.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          149
+        ]
+      ],
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/2baeb9fb076d4f802e6d65c3e31d148b12d4b44f6b57756ca9022338afcb76a4",
+      "read_qualification": "All listed registered ranges were actually consumed in bounded output after registration and SHA verification; metadata staging body_read=false describes staging chronology only."
+    },
+    {
+      "source_id": "physical-p16:stdb/filth.rs",
+      "sha256": "2688d57af608f66bdca8ba271a0d9283be2467514b3545e140014b5a5ef9b2fe",
+      "ranges": [
+        [
+          142,
+          154
+        ]
+      ],
+      "provenance": "Exact f82 original199 physical source; no future original credit.",
+      "purpose": "Strictly positive chunk boundary used by travel loop.",
+      "actual_consumed_ranges": [
+        [
+          142,
+          154
+        ]
+      ],
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/2688d57af608f66bdca8ba271a0d9283be2467514b3545e140014b5a5ef9b2fe",
+      "read_qualification": "All listed registered ranges were actually consumed in bounded output after registration and SHA verification; metadata staging body_read=false describes staging chronology only."
+    },
+    {
+      "source_id": "physical-p16:stdb/filth.rs",
+      "sha256": "2688d57af608f66bdca8ba271a0d9283be2467514b3545e140014b5a5ef9b2fe",
+      "ranges": [
+        [
+          1,
+          10
+        ],
+        [
+          61,
+          70
+        ],
+        [
+          155,
+          185
+        ]
+      ],
+      "purpose": "Remainder producer/retention and day constant for actual positive travel-chunk boundary; no original199 credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          10
+        ],
+        [
+          61,
+          70
+        ],
+        [
+          155,
+          185
+        ]
+      ],
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/2688d57af608f66bdca8ba271a0d9283be2467514b3545e140014b5a5ef9b2fe",
+      "read_qualification": "All listed registered ranges were actually consumed in bounded output after registration and SHA verification; metadata staging body_read=false describes staging chronology only."
+    }
+  ],
+  "role_inventories": [
+    {
+      "original": 129,
+      "inventory": "Raw integer monster weights, priors, speeds in metres/minute, training/precision milli values, percentage/scale/growth/baseline fields; evidence support basis points and ordered milliscale difficulties; signed dialogue/witness priorities; sapience/negotiation and fallback flags; template minute intervals and incident maxima; signed price basis points, encounter frequencies and disease intensity. Catalog maps retain values and source indices; startup validate_documents -> typed serde -> compile -> OnceLock is the checked authoring route.",
+      "trace": "130 independently read admission bounds -> compiled MonsterDefinition/EvidenceDefinition/Template -> 131 generated case/weighted candidates; rendering/accessors and highest-priority witness dialogue bodies consumed in 055. Template minutes remain u64 and maximum incidents widen u8 to u16 in assembly.",
+      "qualification": "Public raw fields and independently deserialized typed records are separate from the startup validated route. Equal evidence lower/upper limits are accepted; arbitrary ratios and signed deltas are not all UnitInterval values. No whole generated-case consumer or physical combat simulation clearance."
+    },
+    {
+      "original": 130,
+      "inventory": "Inclusive unsigned/signed admission helpers and all numeric validation call sites in 1-1516: priorities, demographics, monster finite-positive f64 fields with target-width checks, percent/basis-point ranges, positive template minutes/incidents, relation u32 p/c and hard-zero diagnostic equivalence, text size limits and list uniqueness.",
+      "trace": "Actual raw JSON validation errors carry index/source context; equal-priority overlap checking calls the consumed demographic owner. Catalog compile subsequently rejects target f32 underflow-to-zero for positive monster fields. Sampling receives checked individual weights but independently checks aggregate overflow.",
+      "qualification": "No total aggregate weight bound is supplied by catalog validation. This is handled as a fallible native sampling error, not an unchecked overflow claim. Tail1517-1526 is outside effective registered scope and unread."
+    },
+    {
+      "original": 131,
+      "inventory": "Fixed candidate4096/visited16384/trace32768/trace-byte1048576 budgets, bounded string ID storage and lengths, public raw p/c weights, seed/observer entropy words, ordinal u16, witness character/presence identities and default/time flags, accepted/decision trace state.",
+      "trace": "Weight::combined widens both u32 operands before u64 product. Sampling canonicalizes IDs, rejects duplicates/impossible candidates, propagates native SamplingError; solver guards witnesses>=2/<=4096 and approximate witness bytes<=64KiB, and increments visited counter before bounded error. Regular assembly checks trace count and selected-string byte estimate after construction, retains template fields and calls actual common validator. Outbreak path constructs one fixed trace record and two witness bindings then calls the same validator.",
+      "qualification": "The regular trace-byte estimate excludes factor_ids, required_bridge and serialization overhead; no serialized 1MiB or preallocation bound is proved. Common validate does not repair that narrower estimate. from_static catalog IDs check nonempty/length but do not enforce the try_new ASCII policy; e.g. non-ASCII valid UTF8 fits, without proving an invalid-UTF8 panic. Witness version hashing commits selected visible fields only, not every display field."
+    },
+    {
+      "original": 132,
+      "inventory": "Closed reducer error code variants, marker prefix byte length/index, native text find/split extraction and parsing.",
+      "trace": "Matched ASCII marker establishes native string byte boundary; prefix length addition stays within the matched input. Closed parser maps only known error codes.",
+      "qualification": "No generic usize overflow finding is inferred from this bounded slice operation; externally generated arbitrary strings are not proved semantic reducer errors."
+    },
+    {
+      "original": 133,
+      "inventory": "Raw settlement IDs, signed reputation centipoints, population levels/estimates, edge metre distances, reach/caps, 3000 basis-point spill, max24 destinations/4096 searched nodes, charge severity and settled flags.",
+      "trace": "apply_delta widens i32 additions to i64 then clamps 0..100000. Native logarithmic local multiplier rounds/clamps2000..10000; Dijkstra enforces positive edge cost and capped reach; at most24 weights each<=250001 yield <=6000024 and safe widened spill products. Reaction calculation widens before multiplying.",
+      "qualification": "The public population-estimate path accepts positive1 as well as1000, which reaches different clamp behavior around the logarithmic denominator; record a policy/admission question, not an activated settlement bug. Search node budget does not bound adjacency construction over the full input edge slice. Raw aggregate authority fine sum is not source-proved overflow-free for arbitrary huge public slices; no allocation/runtime witness or real route assertion."
+    },
+    {
+      "original": 134,
+      "inventory": "Positive authored selection weights/version, 3..8 choices, 2048 byte text budget, character identity/revision words and availability/supernatural flags, skill hours/item quantities/currency deltas/DC millis, signed personality effects, bounded effect collections, StartCombat count1..8 and TravelDelay minutes1..720, four outcome payloads.",
+      "trace": "Catalog validation -> retained EncounterTransition/effects -> actual challenges skill/item/currency/check/effect/personality/transition recipients. Quantity u16 widens to u32; fungible inventory checked_add creates a new stack on overflow. Signed currency uses guarded widening or unsigned_abs. Personality development saturates then clamps -10000..10000 before persistence. Combat count is retained in StrategicEncounter, widened to rebind count and checked against roster length; materialize_context_roster caps to u16 maximum and checked ordinal enumeration, so admitted1..8 does not encounter that cap. Travel delay u16 widens to u64, reaches actual travel loop and typed StrategicMinute saturation; completed/total journey elapsed use explicit saturating operations.",
+      "qualification": "Public raw structures do not acquire startup admission by type alone. Item/currency aggregate sums over arbitrary DB stacks are not globally bounded by these leaf checks. Travel clock delegates injury/disease/lifecycle clipping: actual clock-write and loop bodies were consumed, but not all physiology integration. Dirt boundary is max1 on its admitted remainder route; raw u16 DB bypass is distinct. Core travel_dirt_accrual source was already independently accounted under106 and reused as the remainder producer, not reread or new credit. Native character persistence, DB atomicity, hash uniqueness and current activation are unvalidated."
+    }
+  ],
+  "findings": [
+    {
+      "id": "L13-054-TRACE-BYTE-ESTIMATE",
+      "source": "131; assembly.rs780-862; validation.rs197-1121",
+      "assessment": "Named trace byte budget covers only selected strings after trace construction, not all retained trace payload or native serialized bytes. Preserve as qualified budget/owner-fit observation; no runtime failure claimed."
+    },
+    {
+      "id": "L13-054-STATIC-ID-ADMISSION",
+      "source": "131 open_catalog_id selected scope",
+      "assessment": "from_static and try_new enforce different lexical admission while both produce one retained ID owner. Native UTF8 remains valid; reconcile semantic ASCII policy before repair."
+    },
+    {
+      "id": "L13-054-RAW-PORTS",
+      "source": "129-134 inventories",
+      "assessment": "Many retained raw IDs, counts, minutes, distances, milli/basis-point and signed-policy APIs coexist with canonical StrategicMinute, Seed, typed catalog IDs and earlier numeric owners. These require owner/granularity assessment with accepted aliases/currentness, not mechanical replacement of every raw number."
+    }
+  ],
+  "scope_limits": [
+    "129,131,134 preserve all effective union ranges in054; no unread tails claimed. 133 requested338 but actual EOF331:332-338 absent.",
+    "Sources staged under055/056 metadata have staging body_read=false; subsequent actual reads are listed here. Assembly/demographic/validation are exact unchanged physical a120 reconstructions as their pinned metadata states; other staged recipients are exact f82 registered physical variants.",
+    "Future originals199/271/2781/2782/281/287/305/317 and shared receiver dependencies receive no ordered inventory or other-lens credit from these reads.",
+    "All prior031 correction/access qualification and independent findings/currentness/SDK/018 lattice limits remain retained. Accepted new unique count0. No runtime validation, project execution, repair or global clearance."
+  ],
+  "source_accounted_originals": [
+    129,
+    130,
+    131,
+    132,
+    133,
+    134
+  ],
+  "next_original": 135,
+  "no_product_git_rootledger_or_project_execution": true
+}

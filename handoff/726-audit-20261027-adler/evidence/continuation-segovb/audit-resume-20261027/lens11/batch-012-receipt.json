@@ -1,0 +1,211 @@
+{
+  "at": "2026-10-27T11:46:26.445866+00:00",
+  "lens": 11,
+  "status": "865\u2013869 independently source-accounted with existing identity/schedule findings refined",
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-011.json",
+    "sha256": "6660a29dffdaef9a752911df100d6942201bbce62169bf551e53ebeefeaf0101"
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-012-registration.jsonl",
+    "sha256": "e7c7af0c0a97384217358657de4105128c4e861de4db7efb5c3224ed395e56cf"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 865,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "sha256": "2f56c5185ec61241a7e4607eef02ebb4051e24dee918f5200585d586a4d971a8",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/2f56c5185ec61241a7e4607eef02ebb4051e24dee918f5200585d586a4d971a8",
+      "actual_eof": 866,
+      "ranges": [
+        [
+          1,
+          866
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          866
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 866,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration/error.rs",
+      "sha256": "9864f16e67033ea8f14d686f25f2b71c78ff6e8866be6f8459df6384c4c5b647",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/9864f16e67033ea8f14d686f25f2b71c78ff6e8866be6f8459df6384c4c5b647",
+      "actual_eof": 46,
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          46
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 867,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence.rs",
+      "sha256": "204c03d01cb76d4603c9c42a010a5ccf300f65abe20d62ab307212fe2fac19bc",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/204c03d01cb76d4603c9c42a010a5ccf300f65abe20d62ab307212fe2fac19bc",
+      "actual_eof": 448,
+      "ranges": [
+        [
+          1,
+          448
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          448
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 868,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/armor.rs",
+      "sha256": "9a5f5b89b21f9f10d774f35eb8c9f2cc2c73ebd4a21faf917bae8cd0b428561c",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/9a5f5b89b21f9f10d774f35eb8c9f2cc2c73ebd4a21faf917bae8cd0b428561c",
+      "actual_eof": 76,
+      "ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          76
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 869,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/timeline.rs",
+      "sha256": "8be8fb9671dfce44ce30fa2a7738cc1ff52df15d2ee5517e8eef0aa1733c3d1a",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/8be8fb9671dfce44ce30fa2a7738cc1ff52df15d2ee5517e8eef0aa1733c3d1a",
+      "actual_eof": 151,
+      "ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          151
+        ]
+      ]
+    }
+  ],
+  "per_role": [
+    {
+      "original": 865,
+      "roles": "MeleeIterationBuild reviewer key/name/descriptions/catalog selections versus actual Combatant; StartingCharacterSpec/StartingAttributes/Skills; typed PersonalNameIdentity/Culture/Seed; catalog ItemKind and occurrence-based placement; fixed fixture setup versus game tuning.",
+      "trace": "Full866 lines personally read. Canonical default character and purpose-built named samples construct existing shared participant/schema values. Catalog weapon/shield kinds are checked, authored physics projected by858, armor uses authored placement/protection/geometry and distinct repeated occurrences; nonarmor entries are skipped as actual fixture behavior, not a promised all-input validator. Stable_id is full u64 FNV-style deterministic synthetic identity from keys; no32bit admission bound, supporting prior packed-ID capacity qualification without proving a runtime collision for fixed samples. Meaningful build-key/catalog-ID/name/instance roles share raw strings/integers and deserve canonical owner reconciliation; report prose stays text. Existing tests intentionally mutate raw fixture fields and expect deterministic physical/timing/defense behavior; no execution or whole authored-data acceptance.",
+      "disposition": "source-accounted with inherited identity/physical/projection questions"
+    },
+    {
+      "original": 866,
+      "roles": "MeleeIterationError typed name/weapon/resolution/timing/performance causes and operation-specific required item/opponent locator payloads.",
+      "trace": "Full46 lines read. Distinct missing catalog item versus wrong kind versus missing projection/placement/protection and bounded missing cancellation evidence are real diagnostic states. Typed shared causes retain existing semantic failures; strings are actual catalog/build locators and diagnostics, not proof all IDs are native text forever. No legacy wrapper/downcast/message compatibility requirement.",
+      "disposition": "source-accounted; canonical ID payload propagation remains qualified"
+    },
+    {
+      "original": 867,
+      "roles": "Named serialized acceptance evidence records for contact/material/geometry, capability, defense, fatigue cadence and actual replay sequences; typed enums/RecoveryTime coexist with native numeric/text output.",
+      "trace": "Full448 lines read. Evidence function assembles same canonical roster, forced shared equations and bounded explicit samples; physical record fields distinguish incident/transformed joules, measure/center separation, lever arm and energy fraction. Fatigue cadence uses typed elapsed actions, actual workload owner and typed RecoveryTime availability. Capability is matched to static output tag and availability bool; actual record is native serialized evidence, not independent runtime control authority. Defense and layer booleans intentionally report different observed/derived facts; no inference that every pair is one impossible-state enum. These named DTOs do not justify erasing semantic values in game state, nor require a wrapper for every serialized scalar.",
+      "disposition": "source-accounted with inherited physical/capability/tag qualification"
+    },
+    {
+      "original": 868,
+      "roles": "Authored equipment/placement versus geometric coverage/selected surface, side/body-part/placement-index fixture cases, human surface/gap output labels.",
+      "trace": "Full76 lines read. Brigandine samples ask actual wearer armor_surface and canonical authored geometry; intersection and selected surface are computed separately, and mirrored vambrace cases explicitly pair left/right anatomical BodyPart with selected placement. Same f32 coordinate is actual normalized surface parameter at geometry boundary, not physical metres. Fixed native output labels are not gameplay control branches. Index0/1 assumptions are specific authored fixture input; no all-catalog placement validity or execution claim.",
+      "disposition": "source-accounted; explicit native evidence/geometry scope"
+    },
+    {
+      "original": 869,
+      "roles": "Typed Seed, BattleOpening, BattleTime/AnimationElapsed, replay kind and attacker/cancellation/batch identity; evidence sequence vectors and computed boolean equality.",
+      "trace": "Full151 lines read. Runs are only source-described here: forward/reversed rosters, first-contact slice, exact simultaneous fixture setup and bounded64 seed search; no function called. Canceled IDs and contact IDs are joined by raw equality into a report, a concrete receiving path for batch011 packed attack-ID witness. Simultaneous fixture directly populates paired start/contact fields and recovery time, adding source support for grouped scheduling authority; it does not populate measure, so proposed grouping must reflect actual optional measurement semantics rather than assume every active schedule always has a measure. Error for unavailable bounded evidence is explicit, not a fabricated successful result.",
+      "disposition": "source-accounted with attack identity/source-state support"
+    }
+  ],
+  "qualified_observations": [
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration.rs@2f56c5185ec61241a7e4607eef02ebb4051e24dee918f5200585d586a4d971a8#build-key-catalog-v-instance-identities",
+      "observation": "Build preset key, authored weapon/armor/shield catalog IDs, human names/descriptions and deterministic synthetic u64 participant/item IDs have different actual roles. Keys select fixtures, item IDs query canonical catalog, descriptions label evidence, and synthetic instance IDs enter shared combat/replay. Full64bit hashing has no32bit domain restriction. Native source literals/report prose do not make internal identity roles interchangeable.",
+      "remedy": "Reconcile canonical fixture-key/catalog-ID/participant/item-instance owners and existing master aliases; retain semantic identities through build/error/record boundaries while keeping human prose and native output strings. Preserve synthetic fixture identity authority as distinct from persistent player-bearing objects.",
+      "acceptance": "Actual fixture selection/catalog lookup/error/replay ports distinguish supported namespaces; packed attack identity handles admitted full-capacity participant identities without guessed bounds.",
+      "dependencies": [
+        "batch011 source-capacity witness and inherited ID questions, no automatic alias",
+        "current canonical catalog/fixture/replay source"
+      ],
+      "currentness": "Qualified frozen source, no runtime/current/accepted unique claim"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/timeline.rs@8be8fb9671dfce44ce30fa2a7738cc1ff52df15d2ee5517e8eef0aa1733c3d1a#cancellation-id-join-and-optional-measure",
+      "observation": "Cancellation evidence uses affected_attack_id versus attack_id equality, so lossy identifier packing can conflate separate attacks in a material consumer. Simultaneous fixture creates an active scheduled start/contact/recovery with no scheduled measure field. This narrows the schedule-grouping remedy: start/contact are coupled here, measurement is genuinely optional in this supported source setup and may be derived downstream.",
+      "remedy": "Preserve compound attack identity and group only actual coupled schedule facts; keep a legitimate optional measure inside that state if actual receiving contracts derive it when absent. Do not impose a stronger all-fields-present state based solely on commit helper.",
+      "acceptance": "Cancellation/contact matching is unambiguous and actual fixture/production schedule states retain required timing while supporting documented/actual absent measurement.",
+      "dependencies": [
+        "remaining scheduling/commitment/evidence recipients and currentness",
+        "existing batch010/011 questions and master aliases"
+      ],
+      "currentness": "Frozen source qualification; no new accepted unique finding"
+    }
+  ],
+  "carried_own_proofs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-010-receipt.json",
+      "sha256": "59d8ab785e544e91e87e1d58761594679196a96d9a1573cc6160f6ede4227829"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-011-receipt.json",
+      "sha256": "a3dc283db56a86d80f5baad4143672999d602269a8f4598d32362487981dfb07"
+    }
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer. Preserve180/181nativeSDK/Bevy scheduling/imagecopylimits andallpendingreceiverqueues. M04current903reviewsseparate; notfrozenoriginal/lenscounts. Packet182InventoryItemId graph erasure, catalogkey/recordidentity and wear/order-selector sourcequestions retained, alias/currentness/unique acceptance unresolved. M04build-target review003 atdf5 andhostedCIseparatefromfrozenauditcounts. 184 newpublicDrapedPiece association/sourcegroupingquestion remainsfrozenlocal, noalias/currentness/uniqueacceptance; producerpathcoherent. M04df5validationseparate. 185 capacityreservationstaticAPIgap retainedasfrozenevidence only; alias/currentness/accepteduniqueness unresolved. No runtimewrongID orauthoredcurrentinputwitness. ExistingID/key/wear/savedassociationquestionsremainqualified. Packet186 independently accounts existing test-source812 only; fixture expectations are not observed execution/whole authored catalog/native guarantees and do not clear185 capacity witness. Existing lower-pattern fixture uses canonical owners; no new current alias or unique finding. Packet187 original813 only. New frozen inventory_ui and catalog wrapper material extensions mandatory other lenses, zero extra shared/original credit. UI acquisition is not atomic/all-worn; inherited capacity, typedID erasure/key authority and public saved-association questions retain all currentness/alias/unique limits. Batch011 frozen attack-ID packed participant-width witness retained; no runtime/current/alias/accepted unique finding, no invented32bit capacity bound.",
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_adoption_required": true,
+  "read_limits": [
+    "All1587 registered original lines consumed. All evidence/test functions were read as source only, never executed; function names/fixtures do not establish hosted acceptance.",
+    "Existing shared combat/geometry/workload and catalog owners retain independent original scopes. Named report DTOs/literal samples are native evidence boundary; no blanket native exemption for internal physical/game state.",
+    "Raw IDs/tags and optional-schedule questions remain qualified aliases/currentness unresolved; no accepted unique change."
+  ],
+  "restrictions": "No product/Git mutations/root ledger/project execution/scans/probes/tests/new tests/publication."
+}

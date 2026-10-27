@@ -1,0 +1,27 @@
+diff --git a/crates/adventuresim-character-creator/src/device_garment.rs b/crates/adventuresim-character-creator/src/device_garment.rs
+index 3f8515aa0..4ee2f0471 100644
+--- a/crates/adventuresim-character-creator/src/device_garment.rs
++++ b/crates/adventuresim-character-creator/src/device_garment.rs
+@@ -14,21 +14,21 @@ use crate::device_garment_kernel::{
+     Access, Bound, Grid, Word, atomic, dispatch, read, read_u32, write,
+ };
+ use crate::device_piece::DeviceRecording;
+ use crate::rig_parameters::RigJointParameter;
+ use anyhow::Result;
+ use fabelgeist_armor::{DevicePart, GarmentArmorDesign, GarmentArmorKind as Kind};
+ use fabelgeist_compute::KernelBatch;
+ use fabelgeist_geometry::SignedLength;
+ use fabelgeist_gpu::prelude::Buffer;
+ use fabelgeist_gpu::prelude::BufferUpload;
+-use fabelgeist_math::Ratio;
++use fabelgeist_math::units::Ratio;
+ use fabelgeist_rig::{RigJointLookupError, RigJointName, RigJointOrdinal};
+ 
+ pub(crate) use candidates::BAND;
+ 
+ mod candidates;
+ 
+ /// Words of the part frame, failure flag included, at the start of a fit.
+ pub(crate) const FRAME_WORDS: u32 = 16;
+ 
+ /// A joint's position, read from the rig.

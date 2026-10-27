@@ -1,0 +1,227 @@
+{
+  "at": "2026-10-27T05:14:54.787451+00:00",
+  "lens": 12,
+  "original": 50,
+  "status": "Original50 source-accounted with retained M09-related typed-category propagation gap; not clear/currentwholefamily/runtimevalidated",
+  "frozen_original": {
+    "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve.rs",
+    "sha256": "0b6aef0b8e1be9846beaae48cc8f7130333b0b4634acbd0b2f8b393ee40d5cef",
+    "actual_full_body_read": [
+      1,
+      2879
+    ],
+    "inventory_authority": "audit12-successor-026-partial-004.json",
+    "connected_output": "audit12-successor-027-partial-002.json",
+    "connected_membership": "audit12-successor-028-partial-001.json"
+  },
+  "current_head": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+  "registrations": [
+    {
+      "path": "audit12-successor-registration-029-current-labels-002.json",
+      "sha256": "429176f9e8eeed1dda9bf075a03af8c517178b6dc815145cd5c048dbf5d4df72"
+    },
+    {
+      "path": "audit12-successor-registration-029-response-choice-003.json",
+      "sha256": "ad1988bf4595773c1a50f5e3307e5fe928241add5c4270a169ff345a449a2621"
+    }
+  ],
+  "actual_current_reads": [
+    {
+      "source_id": "current-df5:crates/adventuresim-core/src/autoresolve.rs",
+      "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "ranges": [
+        [
+          424,
+          452
+        ]
+      ]
+    },
+    {
+      "source_id": "current-df5:crates/adventuresim-core/src/combat.rs",
+      "sha256": "7d00629a7da937cf41b5bc49a86df7119cc7054743dce1f70ac2507a7aba59b0",
+      "ranges": [
+        [
+          175,
+          205
+        ]
+      ]
+    },
+    {
+      "source_id": "current-df5:crates/adventuresim-core/src/autoresolve/melee_round/commitment.rs",
+      "sha256": "52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
+      "ranges": [
+        [
+          104,
+          128
+        ],
+        [
+          216,
+          239
+        ]
+      ]
+    },
+    {
+      "source_id": "current-df5:crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "sha256": "3ada1de8aa9e1322565a5f1ae9b5882e0beba1d5ad024cc4705f7eb35ba0982b",
+      "ranges": [
+        [
+          149,
+          174
+        ]
+      ]
+    },
+    {
+      "source_id": "current-df5:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+      "sha256": "682408c513c94a29855ef855be8d4e16dad21a2de2e3349ff61dea8f87a43d0a",
+      "ranges": [
+        [
+          82,
+          120
+        ]
+      ]
+    },
+    {
+      "source_id": "current-df5:crates/adventuresim-core/src/autoresolve/timeline.rs",
+      "sha256": "4e83c1f6cda9e4f7a8f9a19ac6c54119c67701f6d4dae37641c5e6b7b94b753d",
+      "ranges": [
+        [
+          70,
+          105
+        ]
+      ]
+    }
+  ],
+  "contracts": [
+    {
+      "role": "Current retained labels and producer",
+      "fact": "Exact df5MeleeContactTelemetry stillretains effective_defender_response/defender_attack_commitment as staticstr; actual record_melee_result constructs them by response_name(exchange.effective_response) and commitment.kind.as_str. Fullfrozenoriginal andcurrentfile are NOTaliases (physicalquantityfields differ); only precise unchanged categoryroles traced."
+    },
+    {
+      "role": "Canonical response payload/category distinction",
+      "fact": "Public DefenderResponse canonicalenum carries Block/Parry/Dodge numericpayloads plusNone andSerde; response_name discards tofour staticlabels. Existing response_choice maps sameactualeffectiveenum tocanonicalMeleeResponseChoice. That public Serialize/snakecase enumalsohasFinishTrade, so requestedvs effective semanticroles/subset/granularity mustbe respected incleanrepair; no automaticfinalAPIselection orduplicatekind invented."
+    },
+    {
+      "role": "Canonical commitment owner",
+      "fact": "Existing MeleeDefenseCommitmentKind fiveactualstates:None,NeutralGuardRecovery,CanceledSameWeapon,TransformedOffhand,DefenseRecovery. Scopedvisibility pub(in crate::autoresolve), noSerialize atcurrentdefinition, as_str erasesstate before publictelemetry. Reuse/move appropriatecanonicalowner/visibility andderive atits finalowner; do notduplicateenum orkeepcompatibilityforwarding."
+    },
+    {
+      "role": "Actual current outputboundary",
+      "fact": "Currentrun_autoresolve_batch obtains BattleOutcome, writes firstoutcome JSON andeveryoutcome serde_json::to_writer NDJSON, newlineandflush. Sameapplication-before-output erasure remainscurrent; source-boundregisteredbody82-120consumed, no currentwholefileor nativeparserclearance."
+    },
+    {
+      "role": "M09 canonical reconciliation",
+      "fact": "InheritedM09corecause is premature enum-to-text propagation before reportoutput; these adjacent telemetrycategory sites are a related mandatoryextension tothatrepair, not a separatelyacceptedunique. Histogrambin/armoridentity dependencies fromM09remainmandatory, not closed or narrowedtothese2fields. PriorM09 spelling/order compatibility wording is superseded byuser/root no-backwardcompatibilitypolicy."
+    },
+    {
+      "role": "Why source-accounted withoutallcatalogentries",
+      "fact": "Original50 authored threatfixture literals are inputs toanactual checked syntax+exactcatalogmembership boundary, whoseconstructor/maplookup/retention/initreceivers are now read. Thisstring-role assessment requires admission/failurecontract, not proofevery authored entry/fixture succeeds; no fixtureexecution orwholecatalogdata validationclaim. All registeredcatalog/native/data source obligations remainmandatory separately, with no counttransfer orscope reduction."
+    }
+  ],
+  "repair_obligation": {
+    "canonical_related_finding": "M09",
+    "state": "mandatory pending completeconnectedrepair; current source gapconfirmed, not implemented",
+    "sites": [
+      "core/autoresolve.rs425-450 rawtelemetrylabels",
+      "core/autoresolve/melee_round/mod.rs165-167 typedstate erasure",
+      "core/autoresolve/melee_round/commitment.rs108-124/221-239 canonicalmapping/owner"
+    ],
+    "policy": "Cleanfinaltyped eventcategoryschema/API; no raw forwardingoverload, inventedStringwrapper or oldoutput/downcast/messagecompatibilityrequirement. Preserve deliberate semanticdistinctions, not legacyrepresentation."
+  },
+  "boundary_qualifications": [
+    "Actual original50full2879 inventory includes fixture/error/prose/format roles alreadyrecorded026; not restarted or narrowed. Fullmatchedcommitment helperSHA52eb reused exact; newcurrentroles registered/read atactualscope only.",
+    "Registration001 initiallyplanned nonexistentcommitment240-245, correctedin002 beforebodyread toactual239; no nonexistent/exposedsourcecredit.",
+    "M09related categorystate repair/currentnessconfirmed only forprecise sitesabove. Otherfrozenphysicalquantity/timing/native/P16/P17families remain mandatory andnotcurrentvalidated bythisrecord.",
+    "NativeSerialize macro expansion/JSON grammar/alloutputconsumers notwhole-audited; actualfirstparty concrete serializationboundary read. No arbitrary parser/entrysuccess or malformedoldinput backwardcompatibilityguarantee."
+  ],
+  "mandatory_other_lens_extensions": {
+    "current_roles": [
+      {
+        "source_id": "current-df5:crates/adventuresim-core/src/autoresolve.rs",
+        "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+        "ranges": [
+          [
+            424,
+            452
+          ]
+        ]
+      },
+      {
+        "source_id": "current-df5:crates/adventuresim-core/src/combat.rs",
+        "sha256": "7d00629a7da937cf41b5bc49a86df7119cc7054743dce1f70ac2507a7aba59b0",
+        "ranges": [
+          [
+            175,
+            205
+          ]
+        ]
+      },
+      {
+        "source_id": "current-df5:crates/adventuresim-core/src/autoresolve/melee_round/commitment.rs",
+        "sha256": "52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
+        "ranges": [
+          [
+            104,
+            128
+          ],
+          [
+            216,
+            239
+          ]
+        ]
+      },
+      {
+        "source_id": "current-df5:crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+        "sha256": "3ada1de8aa9e1322565a5f1ae9b5882e0beba1d5ad024cc4705f7eb35ba0982b",
+        "ranges": [
+          [
+            149,
+            174
+          ]
+        ]
+      },
+      {
+        "source_id": "current-df5:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+        "sha256": "682408c513c94a29855ef855be8d4e16dad21a2de2e3349ff61dea8f87a43d0a",
+        "ranges": [
+          [
+            82,
+            120
+          ]
+        ]
+      },
+      {
+        "source_id": "current-df5:crates/adventuresim-core/src/autoresolve/timeline.rs",
+        "sha256": "4e83c1f6cda9e4f7a8f9a19ac6c54119c67701f6d4dae37641c5e6b7b94b753d",
+        "ranges": [
+          [
+            70,
+            105
+          ]
+        ]
+      }
+    ],
+    "pending_lenses": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      13
+    ],
+    "original_or_shared_population_credit": 0
+  },
+  "original_count_before": 50,
+  "original_count_after": 51,
+  "next_original": 51,
+  "partial_originals": [],
+  "new_unique_delta": 0,
+  "global_clearance": false,
+  "local_project_execution": false,
+  "product_changes": false
+}

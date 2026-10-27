@@ -1,0 +1,11 @@
+--- base:40cfb0af104c5b99efdf25346bf83168023b20c4305655f392ef49dcca1ab584
++++ head:de154a56960ffb19516e463e4fdd5bed4d85b09923ed552f3773729ac8ad56e7
+@@ -32,7 +32,7 @@
+ use crate::animation::pose_buffer::PoseBufferMetrics;
+ use crate::animation::review_scenarios::*;
+ use crate::animation::{
+-    AnimationPlayback, AnimationRuntime, ArmIkState, AuthoredBindTransform, BodyAngle, BoneRole,
++    AnimationPlayback, AnimationRuntime, ArmIkState, AuthoredBindTransform, BoneRole,
+     HumanoidBone, LegIkDiagnostics, LegIkState, LocomotionBodyResponseState, LocomotionHeightState,
+     LocomotionPresentationEvent, LocomotionPresentationPayload, PresentedSkeleton,
+     ProceduralAnimationClock, RaisedFootworkState, TacticalAnimationPlugin, TerrainIkMode,

@@ -1,0 +1,99 @@
+{
+  "source_id": "native:Cargo@59800466c5c41c444d264b1010b4d57e85a7117f/src/cargo/util/toml/mod.rs",
+  "local": "target/recovery-20261025/continuation-segovb/source-objects/940a2998ebff9915b4a0d050dcadc4d12e05615c7fcc3a5fb447b7d3fea4ea8e",
+  "sha256": "940a2998ebff9915b4a0d050dcadc4d12e05615c7fcc3a5fb447b7d3fea4ea8e",
+  "git_blob": "619409cac21a484b6ee8e89e825a3ba8dcf64677",
+  "eof": 3347,
+  "locators": [
+    {
+      "line": 251,
+      "text": "if dep.is_optional() {"
+    },
+    {
+      "line": 252,
+      "text": "bail!(\"{name} is optional, but workspace dependencies cannot be optional\",);"
+    },
+    {
+      "line": 255,
+      "text": "bail!(\"{name} is public, but workspace dependencies cannot be public\",);"
+    },
+    {
+      "line": 260,
+      "text": "unused_dep_keys(name, \"workspace.dependencies\", dep.unused_keys(), warnings);"
+    },
+    {
+      "line": 958,
+      "text": "fn normalize_path_dependency<'a>("
+    },
+    {
+      "line": 1075,
+      "text": "fn get_dependency("
+    },
+    {
+      "line": 1081,
+      "text": "bail!(\"`workspace.dependencies` was not defined\");"
+    },
+    {
+      "line": 1084,
+      "text": "bail!(\"`dependency.{name}` was not found in `workspace.dependencies`\");"
+    },
+    {
+      "line": 1170,
+      "text": "fn dependency_inherit_with<'a>("
+    },
+    {
+      "line": 1183,
+      "text": "\"error inheriting `{name}` from workspace root manifest's `workspace.dependencies.{name}`\","
+    },
+    {
+      "line": 1190,
+      "text": "fn inner_dependency_inherit_with<'a>("
+    },
+    {
+      "line": 1219,
+      "text": "match (default_features, merged_dep.default_features()) {"
+    },
+    {
+      "line": 1230,
+      "text": "deprecated_ws_default_features(name, Some(true), edition, warnings)?;"
+    },
+    {
+      "line": 1235,
+      "text": "deprecated_ws_default_features(name, None, edition, warnings)?;"
+    },
+    {
+      "line": 1255,
+      "text": "fn deprecated_ws_default_features("
+    },
+    {
+      "line": 1271,
+      "text": "{ws_def_feat} for `workspace.dependencies.{label}`, \\"
+    },
+    {
+      "line": 2193,
+      "text": "pub(crate) fn config_patch_to_dependency<P: ResolveToPath + Clone>("
+    },
+    {
+      "line": 2212,
+      "text": "fn dep_to_dependency<P: ResolveToPath + Clone>("
+    },
+    {
+      "line": 2300,
+      "text": "let mut dep = Dependency::parse(pkg_name, version, new_source_id)?;"
+    },
+    {
+      "line": 2302,
+      "text": ".set_default_features(orig.default_features().unwrap_or(true))"
+    },
+    {
+      "line": 2368,
+      "text": "fn to_dependency_source_id<P: ResolveToPath + Clone>("
+    },
+    {
+      "line": 3246,
+      "text": "fn map_dependency("
+    }
+  ],
+  "body_read": false,
+  "staging_note": "Initial single process argument exceeded OS limit before creation; exact data staged in four bounded base64 fragments, verified before any source read. No project execution."
+}

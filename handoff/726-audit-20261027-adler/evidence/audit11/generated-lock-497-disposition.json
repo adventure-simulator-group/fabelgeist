@@ -1,0 +1,208 @@
+{
+  "scope_index": 497,
+  "source_id": "pr-working:Cargo.lock",
+  "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+  "bytes": 306125,
+  "lines": 13102,
+  "format": 4,
+  "package_count": 1126,
+  "registry_package_count": 1078,
+  "selected_native_packages": [
+    {
+      "name": "avian3d",
+      "version": "0.7.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "35a30cb730c72527ffaca7f8806881c7e4acc70a4a74c54eb1ffb56c27f64235",
+      "dependencies": [
+        "approx 0.5.1",
+        "avian_derive",
+        "bevy",
+        "bevy_heavy",
+        "bevy_math",
+        "bevy_transform_interpolation",
+        "bitflags 2.13.1",
+        "derive_more 2.1.1",
+        "disqualified",
+        "glam_matrix_extras",
+        "itertools 0.15.0",
+        "obvhs",
+        "parry3d",
+        "parry3d-f64",
+        "serde",
+        "smallvec",
+        "thiserror 2.0.20",
+        "thread_local"
+      ]
+    },
+    {
+      "name": "bevy",
+      "version": "0.19.1",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "4bfadbebfc6599aa59289b754ac30023959854304f3d393da2cf62bb3cd5df8f",
+      "dependencies": [
+        "bevy_internal",
+        "tracing"
+      ]
+    },
+    {
+      "name": "bevy_replicon",
+      "version": "0.41.1",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "a25105650eb1b27c6ada888e06bb38ff7e326a94c7c5b4d75fb5aee50c5ae45e",
+      "dependencies": [
+        "bevy",
+        "bitflags 2.13.1",
+        "bytes",
+        "deterministic-hash",
+        "log",
+        "petgraph 0.8.3",
+        "postcard",
+        "serde",
+        "smallbitvec",
+        "smallvec",
+        "typeid",
+        "variadics_please 2.0.0",
+        "xxhash-rust"
+      ]
+    },
+    {
+      "name": "fabelgeist-geometry",
+      "version": "0.1.0",
+      "dependencies": [
+        "bevy_math",
+        "bevy_reflect",
+        "serde",
+        "thiserror 2.0.20"
+      ]
+    },
+    {
+      "name": "fabelgeist-math",
+      "version": "0.1.0",
+      "dependencies": [
+        "bytemuck",
+        "serde",
+        "wgpu"
+      ]
+    },
+    {
+      "name": "parry3d",
+      "version": "0.27.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "99613136af5c3ae1e26907eb8ef90183636f54d02341c0a1121caa813a242cb5",
+      "dependencies": [
+        "approx 0.5.1",
+        "arrayvec",
+        "bitflags 2.13.1",
+        "downcast-rs 2.0.2",
+        "either",
+        "ena",
+        "foldhash 0.2.0",
+        "glamx",
+        "hashbrown 0.16.1",
+        "log",
+        "num-derive",
+        "num-traits",
+        "ordered-float",
+        "rayon",
+        "rstar",
+        "serde",
+        "serde_arrays",
+        "simba",
+        "slab",
+        "smallvec",
+        "spade",
+        "static_assertions",
+        "thiserror 2.0.20"
+      ]
+    },
+    {
+      "name": "postcard",
+      "version": "1.1.3",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "6764c3b5dd454e283a30e6dfe78e9b31096d9e32036b5d1eaac7a6119ccb9a24",
+      "dependencies": [
+        "cobs",
+        "embedded-io 0.4.0",
+        "embedded-io 0.6.1",
+        "postcard-derive",
+        "serde"
+      ]
+    },
+    {
+      "name": "serde",
+      "version": "1.0.229",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "4148590afebada386688f18773da617792bf2ef03ffc1e4cbd2b1d45b023e0ba",
+      "dependencies": [
+        "serde_core",
+        "serde_derive"
+      ]
+    },
+    {
+      "name": "spacetimedb-sats",
+      "version": "2.6.1",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "6cefb87b7d5e760d43cb65855591e25af772bdcca19562e5796ae797240d1998",
+      "dependencies": [
+        "anyhow",
+        "arrayvec",
+        "bitflags 2.13.1",
+        "bytemuck",
+        "bytes",
+        "bytestring",
+        "chrono",
+        "decorum",
+        "derive_more 0.99.20",
+        "enum-as-inner",
+        "ethnum",
+        "hex",
+        "itertools 0.12.1",
+        "lean_string",
+        "rand 0.9.5",
+        "second-stack",
+        "serde",
+        "sha3",
+        "smallvec",
+        "spacetimedb-bindings-macro",
+        "spacetimedb-memory-usage",
+        "spacetimedb-metrics",
+        "spacetimedb-primitives",
+        "thiserror 1.0.69",
+        "uuid"
+      ]
+    },
+    {
+      "name": "spacetimedb-sdk",
+      "version": "2.6.1",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "074a6d8828638176eb8e9bba7a3e6fb75dc659b260717306eb966c7e10575cd7",
+      "dependencies": [
+        "anymap3",
+        "base64 0.21.7",
+        "brotli 3.5.0",
+        "bytes",
+        "flate2",
+        "futures",
+        "futures-channel",
+        "home",
+        "http",
+        "log",
+        "native-tls",
+        "once_cell",
+        "prometheus",
+        "rand 0.9.5",
+        "spacetimedb-client-api-messages",
+        "spacetimedb-data-structures",
+        "spacetimedb-lib",
+        "spacetimedb-metrics",
+        "spacetimedb-query-builder",
+        "spacetimedb-sats",
+        "spacetimedb-schema",
+        "thiserror 1.0.69",
+        "tokio",
+        "tokio-tungstenite 0.27.0"
+      ]
+    }
+  ],
+  "disposition": "Generatednonsemanticlockledger; exactbytes/hash+stdlibTOMLinventory only, boundedheader/tail/selectedpackageentriespersonallyinspected. No full13102body/source/featuregraph/compile/runtimeclearance. No code or tests executed."
+}

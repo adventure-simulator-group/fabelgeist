@@ -1,0 +1,136 @@
+{
+  "id": "SEGOVB-CONT11-SUCCESSOR-164-793-PARTIAL-001",
+  "lens": "type-granularity",
+  "scope_index": 793,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/validation.rs",
+  "sha256": "26ab01120c442d3d0f7fece4c338f28680fafcd633314036aeb853dc263e637e",
+  "consumed_ranges": [
+    [
+      1,
+      179
+    ]
+  ],
+  "body_consumed": true,
+  "source_complete": false,
+  "status": "full original body read and independently inventoried; exact clearance-tolerance receiving leaf pending; no ordered credit",
+  "role_inventory": [
+    {
+      "locations": "3-22",
+      "roles": "DrapedGarment geometry; SewnSurface welded topology; TriangleBvh geometric acceleration owner; Vec<String> nonfatal human issue text",
+      "assessment": "contact_issues returns nonfatal messages after constructing BVH in welded cloth space. It separately reports wearer/inner intersection and self intersection. This is human display aggregation, not evidence message strings are parsed identity codes. Existing SewnSurface owns original/sewn vertex association; do not flatten it because both store triples. Prior163/791 and157/780 exact owner trace retained."
+    },
+    {
+      "locations": "24-35,50-61",
+      "roles": "Body world points, default centimetre body offset converted to metres, canonical fabric half thickness, metre clearance margin/residual/tolerance, nearest-triangle ordinal and outward normal",
+      "assessment": "validate_body_clearance uses unsown original points and closed wearer BVH; margin adds explicit CM_TO_M offset conversion and Fabric.particle_radius. body_residual queries nearest triangle with f32::MAX distance, derives normalized triangle normal and folds maximal positive deficit from0. Residual and normal direction are different roles despite f32/Vec3 storage. Exact Fit/Fabric owner contracts were personally traced158/161. Scope does not prove all degenerate/finite geometry behavior, outward winding, arbitrary input admission or universal physical quantity framework. CLEARANCE_TOLERANCE declaration/owning policy is not yet source-consumed in this packet; retain partial."
+    },
+    {
+      "locations": "38-48,63-85",
+      "roles": "Two geometric surfaces with directional query roles; triangle vertex indices; local edge slot; vector displacement/direction; linear distance; endpoint tolerance",
+      "assessment": "validate_surface deliberately queries edge crossing in both directions. edges_cross uses source triangle vertex slots, local0..3edge slots, normalized ray direction and trimmed positive linear length. Face-index space is distinct from vertex-index space, though both use raw native u32/usize. Concrete TriangleBvh owner and triangle/raycast contracts prove native query receives triangle ordinals and returns hit distances; no evidence supports merging all indices or adding arbitrary maximum geometry bounds. Endpoint exclusion and short-edge cutoff are actual numerical policies, not newly proposed constraints."
+    },
+    {
+      "locations": "87-118",
+      "roles": "Original cloth triangle enumerate index, BVH callback triangle ordinal, face vertex membership, local edge slot and Ray/max-distance",
+      "assessment": "self_intersects compares callback triangle ordinal to same cloth triangle enumerate index, excludes same face/incident edge vertices, and calls ray_triangle for remaining candidates. Both identity values refer to the same TriangleBvh.triangles collection; the actual receiving boundary resolves this concrete association. No general topology identity wrapper or all-surface correctness claim follows. Lower ray_triangle algorithm has not been newly traced here, so numerical intersection correctness remains outside disposition."
+    },
+    {
+      "locations": "120-179",
+      "roles": "Existing native triangle/vertex fixtures; canonical form/fabric/stage; human name; clearance displacement and result predicates",
+      "assessment": "Both existing tests read fully as source only: one distinguishes strict folded crossings despite shared vertex; one separates clearance wrong side from surface crossing and shifts z. Source fixtures do not validate runtime, justify new production bounds or permit new tests. No additions, restoration or execution."
+    }
+  ],
+  "connected_sources": [
+    {
+      "original_index": 2226,
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/cpu/mod.rs",
+      "sha256": "c38b573a2cc782cf12b477bf67c5fd77c4b35c756c91569d8b2e0c36a75273b2",
+      "consumed_ranges": [
+        [
+          302,
+          359
+        ],
+        [
+          382,
+          462
+        ]
+      ],
+      "trace": "TriangleBvh stores positions plus triangle vertex-index triples and Bvh. new derives bounds from same mesh. triangle(u32) resolves a triangle ordinal then its vertex slots. closest returns native primitive ordinal plus linear distance after internal squared-distance search; closest_point re-evaluates selected triangle to return its closest point. raycast callback receives same native primitive ordinal and current linear limit, returns optional hit distance. No whole traversal/Aabb/SDK coverage claimed.",
+      "ordered_credit": false
+    },
+    {
+      "original_index": 780,
+      "sha256": "d6b09524be811c5e4202be50af529c941a917ff8f31ea61e2a73e4da17dc103e",
+      "prior_material_ranges": [
+        [
+          214,
+          319
+        ]
+      ],
+      "prior_receipts": [
+        "audit11-successor-157-connected-780-003.json",
+        "audit11-successor-163-791.json"
+      ],
+      "trace": "Previously personally consumed SewnSurface map/average/expand owns source render versus welded geometry; precise reuse, no discovery restart or other-lens verdict."
+    },
+    {
+      "original_index": 2266,
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "prior_material_ranges": [
+        [
+          32,
+          98
+        ]
+      ],
+      "prior_receipt": "audit11-successor-158-registration.json",
+      "trace": "Named body_offset_cm default/unit and explicit conversion owner retained."
+    },
+    {
+      "original_index": 2229,
+      "sha256": "37cf4430a9923bb91663a7eb0eadee8674fd3489e172a5f8d164a929d6ba1313",
+      "prior_material_ranges": [
+        [
+          1,
+          49
+        ],
+        [
+          117,
+          134
+        ]
+      ],
+      "prior_receipt": "audit11-successor-158-registration.json",
+      "trace": "Fabric thickness in metres and particle_radius half thickness receiver retained."
+    }
+  ],
+  "pending_exact_contracts": [
+    {
+      "original_index": 2658,
+      "source_id": "pr-working:crates/fabelgeist-shell/src/outer_layer.rs",
+      "sha256": "3f1d557c4daffcbad92797372a8066682af51f46afa49672c0ec3622b39f1bd0",
+      "reason": "CLEARANCE_TOLERANCE declaration/role is material to793 validate_body_clearance residual comparison. Metadata identity located; cache absent at request; body not consumed. No coverage inferred from other supplier/audit."
+    }
+  ],
+  "qualified_observations": [
+    {
+      "local_source_key": "pr-working:crates/adventuresim-character-creator/src/garment/validation.rs@sha256:26ab01120c442d3d0f7fece4c338f28680fafcd633314036aeb853dc263e637e#L24-L114:geometry-distance-index-roles",
+      "classification": "qualified physical/frame/topology receiver assessment; not accepted unique finding",
+      "observation": "Raw world positions, normal vectors, linear clearance/query distances, native vertex ordinals and native triangle ordinals have distinct actual uses. Native numerical bodies establish a bounded receiver rationale, not clearance of retained public geometry/physical ownership questions or new canonical question aliases."
+    }
+  ],
+  "registrations": [
+    "audit11-successor-164-registration.json",
+    "audit11-successor-164-registration-004.json",
+    "audit11-successor-164-registration-005.json"
+  ],
+  "crosswalk": "audit11-question-crosswalk-001.json",
+  "current_reconciliation": "current-rig-dressing-reconciliation-001.json",
+  "new_unique_findings": 0,
+  "accepted_unique_count_change": 0,
+  "ordered_credit": false,
+  "current_main_compared": false,
+  "current_main_integrated": false,
+  "validated": false,
+  "clear": false,
+  "stop_reason": "Root requested immediate bounded checkpoint; no broad new receiver discovery. Full793 scope pending exact tolerance-owner contract, not abandoned or silently accepted.",
+  "restrictions_observed": "No product/Git/rootledger/history edits, project checks/scanners/tests or publication; evidence files only."
+}

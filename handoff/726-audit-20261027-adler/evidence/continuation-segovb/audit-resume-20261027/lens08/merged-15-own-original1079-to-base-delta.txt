@@ -1,0 +1,20 @@
+--- own-original
+
++++ merged-base
+
+@@ -3058,11 +3058,13 @@
+
+                 }
+                 ctx.db
+                     .equipment_occupancy()
+                     .id()
+                     .find(attachment_occupancy_id(parent_id, point_id, index))
+-                    .map_or(AttachmentCapacity::Free, AttachmentCapacity::from)
++                    .map_or(AttachmentCapacity::Free, |row| {
++                        AttachmentCapacity::Occupied(row.inventory_item_id)
++                    })
+             })
+             .or_else(|| {
+                 replace_occupied.then(|| {
+                     (0..point.capacity).find(|index| {
+                         !reserved_capacity.contains(&(parent_id, point_id.to_owned(), *index))

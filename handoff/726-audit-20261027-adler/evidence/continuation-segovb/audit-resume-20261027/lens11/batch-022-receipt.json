@@ -1,0 +1,236 @@
+{
+  "at": "2026-10-27T12:35:49.152676+00:00",
+  "lens": 11,
+  "status": "912-914 independently source-accounted",
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-021.json",
+    "sha256": "7a85b5408dba586c6b03e6ead103e497d6ecfed1e891b3c44bef88a6d3ace87e"
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-022-registration.jsonl",
+    "sha256": "fe951e36f298e4095fffa9f268e8b6cd37e7103bac830d46bbb0a56e9d4c7189"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 912,
+      "source_id": "pr-working:crates/adventuresim-core/src/disease.rs",
+      "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+      "actual_eof": 3842,
+      "ranges": [
+        [
+          1,
+          3842
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          3842
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 913,
+      "source_id": "pr-working:crates/adventuresim-core/src/disease/entropy.rs",
+      "sha256": "10eb46750c66da9cd03f116270ab91b4a1acad817e28333ac2fca342773e3bd8",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/10eb46750c66da9cd03f116270ab91b4a1acad817e28333ac2fca342773e3bd8",
+      "actual_eof": 26,
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          26
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 914,
+      "source_id": "pr-working:crates/adventuresim-core/src/disease/identity.rs",
+      "sha256": "bbf3c7a20b95f217815f48c7e830dc75efab9ecf9d7e52a79fd4ad86324388af",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/bbf3c7a20b95f217815f48c7e830dc75efab9ecf9d7e52a79fd4ad86324388af",
+      "actual_eof": 132,
+      "ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          132
+        ]
+      ]
+    }
+  ],
+  "material_receivers": [
+    {
+      "kind": "connected-owner",
+      "original_index": 964,
+      "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+      "ranges": [
+        [
+          115,
+          160
+        ],
+        [
+          188,
+          220
+        ],
+        [
+          257,
+          290
+        ],
+        [
+          320,
+          455
+        ],
+        [
+          640,
+          675
+        ],
+        [
+          715,
+          765
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual signed meter vector and curve/age contract; anatomy/projection axes; private phenotype/baseline role receiver",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          115,
+          160
+        ],
+        [
+          188,
+          220
+        ],
+        [
+          257,
+          290
+        ],
+        [
+          320,
+          455
+        ],
+        [
+          640,
+          675
+        ],
+        [
+          715,
+          765
+        ]
+      ]
+    }
+  ],
+  "per_role": [
+    {
+      "original": 912,
+      "roles": "DiseaseId versus infection/character/exposure identity; disease stage and event with terminalcause payload; observed symptom/humour/element versus hidden disease/meter state; innate versus acquired immunity, exposure dose/intensity versus probability/affordance, severity versus course amplitude, relative age/duration versus absolute clock; attempt authority state; keyed timelines/budgets and contact/presence/relative clocks.",
+      "trace": "Full3842 personally consumed including complete existing fixtures, none run. All definitions/symptom groups/12catalogentries and direct local receiving operations actually read, no sampling. DiseaseStage6 and DiseaseEventKind4 have different state/event purposes; Critical event owns TerminalFailure already. DiseaseState stage plus separate terminalfailureOption has actual coupling (evaluate changes stage Critical wheneverterminal Some), and currentstate fields are public. AcquisitionAttempt uses exposureNone for externally authoritative guaranteeddecision plus unusedbase0, Some for evaluated dose/chance; actual timeline branches directly onOption then usesbase only exposedbranch, so sum couldownrequiredpayloads. EnvironmentalExposureSource is per-minute inclusive route source, ContactWindow pairedpresence; timeline orders acquisitions atminute, onlyexistingpreviousminuteepisodes becomecontactsource, checks target and disease, sorts/deduplicates by actualstate. Typedclock retained but IDs, episode association/version, dose/chance/rate/scaled impairment/weights/check/budget and tupleinterval ports raw. Local fixtureintensity1e6 and severity>=1.85 establish no universal UnitInterval; course progress is rise/peak/recovery amplitude, not monotonically increasing phase or disease-stageordinal. ExposureComponents prevents/dose sum meaningful, diagnosticpattern visibleobservability distinct from hiddenidentity, symptoms lossyhumourprojectionnotdiagnosis. PrivateMeterState uses actual964 publicsignedMeterVector[-1,2], regionalnormalizedweights and privatekeyedphenotype multipliers(mean1), while VitalImpairment canaggregateabove1 andterminal enum4 differs10meteraxis. Preserve distinctions; whether clinical projections duplicate current authority needsactualcurrentnative/otherlensreconciliation, no blanketmerge. Duration/relativeage rawminutes distinctStrategicMinute, receivedactualpiecewise. SeedStream domains separate draws, no cryptographic/allhashunique/globalsimulationguarantee. All existingtestsource read only; sourceassertions do not confer nativevalidation or observedchunk/performance/clinicalpolicy acceptance.",
+      "disposition": "source-accounted with authority payload, identity and quantity/clock/projection granularity findings"
+    },
+    {
+      "original": 913,
+      "roles": "Severity entropy from episode identity versus minute-specific contact acquisition from target/source character and source episode; actual canonical Seed and StreamId.",
+      "trace": "Full26 read. Actual912calls connect exacttargetID/sourceID/sourceepisode/absoluteclock positions, not semantic aliases merely allu64. Separate streams mean operations have different responsibility, both returning canonicalSeed is legitimate native random boundary; no needeverydrawseed duplicated wrapper absent actualadditionalconstraint. Sameu64 parameters/episodefields erase character-vs-infection namespaces and source/target roles; existingidentityowners shouldpropagate whereactualactor distinction matters. No replayexecution/nativeRNGcoverage/hashingcollisionclaim.",
+      "disposition": "source-accounted; existingseedowneruse justified, ID-port gap supports912"
+    },
+    {
+      "original": 914,
+      "roles": "Closed12 canonicalDiseaseId, disease-storage/public differential key versus deterministic coordinate spelling, typed parse failure.",
+      "trace": "Full132 read. Actual enumorder matches912STARTER_DISEASES12 entry order; definitionindexesbyenumusize, typedId preventsunrelatedordinal. FromStr delegatesSerdeexactcanonicalkeys; olduppercasealiases notaccepted. Separate stable_id/snakecase and stable_variant_iduppercase returnstrings ofsameidentity atdifferentwire/coordinate role, not by itself competing diseaseowner or permissionto preservelegacyAPI. Sourcecomments/tests explicitly insist historicalspellings; currentcleanAPIpolicydoesnotrequireold coordinates/messages and no compatibility acceptance constraint carried. ManualDisplay/Error is derivabilitylens separatelypending, ParseDiseaseIdError meaningful closedparsefailure nootherpayloadknown. Sourcefixtures readnotrun.",
+      "disposition": "source-accounted; closedidentity justified, wire/coordinate distinction qualified"
+    }
+  ],
+  "qualified_observations": [
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/disease.rs@67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954#acquisition-and-critical-payload-states",
+      "observation": "AcquisitionAttempt exposureNone means external authoritativedecision and ignoresbase_acquisition, Some means evaluate doseusingbase. DiseaseState actualCritical stage iscoupledwithSome terminalfailure butpublicrecord storesindependenttag/Option. ActualDiseaseEventKind::Critical alreadyownsitscause.",
+      "remedy": "Reconcile coherent externallydecided versus exposure-evaluated attemptsum with requiredbase/dosepayload and preserve attempted-versusaccepted authority. Reconcile DiseaseState Criticalcause payload with actualexistingstage/terminalowner; do notmerge privateclinical/observer stages or event/state axes.",
+      "acceptance": "Representableattempt/state owns exactlymaterialpayloads atactualreceivers and cannotaccidentally reinterpret externaldecision as zero/rawexposure; usefulevent/result/projection distinctions retained.",
+      "dependencies": [
+        "enum/aggregate/master alias reconciliation",
+        "actual current acquisition/runtime/clinical receivers"
+      ],
+      "currentness": "qualified frozen source, no current/alias/runtime violation/accepted unique claim"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/disease.rs@67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954#dose-immunity-impairment-clock-granularity",
+      "observation": "Rawf32 across API/state means exposure/intensityunbounded, acquisitionprobability/affordancebounded, innateimmunity practicalcheck versusacquiredresistance, severity>1, courseamplitude andsignedfunctional loss. Rawu64 meansrelativeageminutes/duration versusidentity/budget and typedStrategicMinute. Actual964MeterVector permitsnegativeand>1 andhumour projectionbounds[-1,1], whilevitalimpairmentaggregation>1 triggersfailure.",
+      "remedy": "Reuse canonicalfraction/check/signedloss/magnitude/clockduration/identityowners atadmission/state/result/operationports, sharingconstraintsbelowmeaningfulpurpose. Keepnumericalhazard/interpolation/trig/randomkernelslocal; no arbitrarymax1 onexposure/severity/weight/combinedimpairment and no futuregenericinterval implementationduringdiscovery.",
+      "acceptance": "Actualclinical/exposure chain cannotconfuse dose/probability, innate/acquiredimmunity, relativeage/absoluteclock orsignedloss/percentage, preservingrealcapacity/zero/nonfinitepolicy explicitly.",
+      "dependencies": [
+        "canonical existing physiology/quantity owners and current receivinggraph",
+        "producer/operations/admission/ownership aliases"
+      ],
+      "currentness": "qualified frozen source, no current/alias/runtime violation/accepted unique claim"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/disease.rs@67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954#infection-character-version-and-context-association",
+      "observation": "InfectionEpisode id andcharacter_id, ContactWindow low/high, environmentalcharacter/exposure IDs, keyedtimeline maps andworkbudgets retainrawnumeric/text roles. Physiologypatientid andepisodecharacterid usedforseparatekeyedbaseline/phenotype; separateu16ruleset/phenotypeversion ports. Actualordinaryproducerbuilds coherentrecords buttypepositionsallowwrongnamespaceand publicmap/episodeassociationunproved.",
+      "remedy": "Reconcilecanonicalcharacter/infection/exposure/version/workcount owners and coherentcontext/episodereceivingassociation asmateriallyrequired. Do notdemanduniversalinstancebranding orclaimruntimewrongID; preservetarget/source directionalrole inentropy and actualsharedtimelineauthority.",
+      "acceptance": "Actualproducer/retainedapplication/nativecoordinates cannotmix unrelatedID/version/budget namespaces; association assumptions explicit atadmission and context boundaries.",
+      "dependencies": [
+        "185/182 qualified identitysourcegroups support only, no unprovedalias",
+        "actual current strategic persistence/physiologycontext contracts"
+      ],
+      "currentness": "qualified frozen source, no current/alias/runtime violation/accepted unique claim"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/disease.rs@67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954#overbroad-acquisition-definition-input",
+      "observation": "acquisition_succeeds consumesonlydefinition.base_acquisition butacceptscompleteDiseaseDefinition; first_presence helpers synthesizeInfluenza definitionwithoverriddenbase solelytopassthisport. Diseaseidentity/cause/timing/symptomdatairrelevanttoreceivingprobabilityoperation.",
+      "remedy": "Narrowoperationtosupported acquisitioncoefficient/fractionownerplus actualindependentimmunity/doseinputs, keepDiseaseDefinition-to-policyprojection atrealowner. Reuseexistingadmittedowner, donotcreate seconddiseaseidentity orallpurposepositivevalidator.",
+      "acceptance": "Probabilityreceiver cannotrequire fabricatedunrelateddiseasecatalogentry, actualroute/eligibility/diseaseidentity remainswithcallerwhichneedsit.",
+      "dependencies": [
+        "actual current acquisitionpolicy and existingowner/master aliases"
+      ],
+      "currentness": "qualified frozen source, no current/alias/runtime violation/accepted unique claim"
+    }
+  ],
+  "carried_own_proofs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-016-receipt.json",
+      "sha256": "8a08d4a7a68768b9c1813ab799897da5c4422ede6cf9a388279d8d3c27eb92d0"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-020-receipt.json",
+      "sha256": "289492421de4bb2e396ebcf493c368175e64c3377ebf656fc75737c76f5accad"
+    }
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer. Preserve180/181nativeSDK/Bevy scheduling/imagecopylimits andallpendingreceiverqueues. M04current903reviewsseparate; notfrozenoriginal/lenscounts. Packet182InventoryItemId graph erasure, catalogkey/recordidentity and wear/order-selector sourcequestions retained, alias/currentness/unique acceptance unresolved. M04build-target review003 atdf5 andhostedCIseparatefromfrozenauditcounts. 184 newpublicDrapedPiece association/sourcegroupingquestion remainsfrozenlocal, noalias/currentness/uniqueacceptance; producerpathcoherent. M04df5validationseparate. 185 capacityreservationstaticAPIgap retainedasfrozenevidence only; alias/currentness/accepteduniqueness unresolved. No runtimewrongID orauthoredcurrentinputwitness. ExistingID/key/wear/savedassociationquestionsremainqualified. Packet186 independently accounts existing test-source812 only; fixture expectations are not observed execution/whole authored catalog/native guarantees and do not clear185 capacity witness. Existing lower-pattern fixture uses canonical owners; no new current alias or unique finding. Packet187 original813 only. New frozen inventory_ui and catalog wrapper material extensions mandatory other lenses, zero extra shared/original credit. UI acquisition is not atomic/all-worn; inherited capacity, typedID erasure/key authority and public saved-association questions retain all currentness/alias/unique limits. Batch011 frozen attack-ID packed participant-width witness retained; no runtime/current/alias/accepted unique finding, no invented32bit capacity bound. Batch012 actual simultaneous fixture permits absent scheduled measure beside present start/contact/recovery; group only proved coupled facts, do not require every active schedule measure.",
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_adoption_required": true,
+  "read_limits": [
+    "Full4000effectiveoriginal linespersonallyconsumed, boundedactualoutputs. No clinical/gameplayfixture/kernel/probe execution.",
+    "964 actualmaterialranges115-160,188-220,257-290,320-455,640-675,715-765 only. PartialMeter.public_name/BodyRegion.index/nextdisclosure/precedingcanview/admin/cryptohelper contexts notwholebodyproof. CompleteMeterVector/curve/piecewise/phenotype/baseline used; keyed_hash751+truncatednotcryptographicproof.",
+    "Distinct private-meter/vital/observer projections sourceknown, but their wholecurrent runtimeauthority/cause/persistence/nativegraph isnotcleared. Allotheroriginals/overlays/material/currentness/aliaspopulationsremainmandatory."
+  ],
+  "restrictions": "Ignored append-only evidence only; no product/Git mutations/rootledger/projectchecks/tests/probes/publication."
+}

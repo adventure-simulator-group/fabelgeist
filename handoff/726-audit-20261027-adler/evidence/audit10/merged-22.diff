@@ -1,0 +1,35 @@
+diff --git a/crates/adventuresim-tactical-client/src/equipment.rs b/crates/adventuresim-tactical-client/src/equipment.rs
+index c89f53ce8..62e7978bb 100644
+--- a/crates/adventuresim-tactical-client/src/equipment.rs
++++ b/crates/adventuresim-tactical-client/src/equipment.rs
+@@ -276,30 +276,20 @@ fn procedural_equipment_asset_path(file: &str) -> String {
+     #[cfg(not(target_family = "wasm"))]
+     {
+         format!("workspace://{path}")
+     }
+     #[cfg(target_family = "wasm")]
+     {
+         path
+     }
+ }
+ 
+-fn held_item(
+-    actor: Entity,
+-    hand: EquipmentHand,
+-    items: &Query<(Entity, &ItemOf, Option<&EquipSlot>)>,
+-) -> Option<Entity> {
+-    items.iter().find_map(|(entity, owner, slot)| {
+-        (owner.0 == actor && slot.is_some_and(|slot| *slot == hand.slot())).then_some(entity)
+-    })
+-}
+-
+ fn key_code(input: &str) -> Option<KeyCode> {
+     Some(match input {
+         "q" => KeyCode::KeyQ,
+         "e" => KeyCode::KeyE,
+         "f" => KeyCode::KeyF,
+         "x" => KeyCode::KeyX,
+         "tab" => KeyCode::Tab,
+         "r" => KeyCode::KeyR,
+         "g" => KeyCode::KeyG,
+         "y" => KeyCode::KeyY,

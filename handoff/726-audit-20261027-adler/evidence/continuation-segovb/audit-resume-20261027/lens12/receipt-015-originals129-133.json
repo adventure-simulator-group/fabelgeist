@@ -1,0 +1,526 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "015",
+  "predecessor": "receipt-014-originals123-128.json",
+  "manifest_prefix_sha256": "38643f46d998f7a6c2a29a8e1d7f76e29bafd5669c693fefca8d06d577a5fa92",
+  "sources": [
+    {
+      "original_index": 129,
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_catalog.rs",
+      "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+      "actual_ranges": [
+        [
+          1,
+          67
+        ],
+        [
+          89,
+          670
+        ],
+        [
+          731,
+          791
+        ],
+        [
+          793,
+          840
+        ],
+        [
+          842,
+          860
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              20,
+              20
+            ],
+            [
+              64,
+              64
+            ]
+          ],
+          "role": "Two generated include tokens, one Serde vocabulary naming token",
+          "disposition": "Native build/compiler/codec text; actual generated producer remains unread."
+        },
+        {
+          "ranges": [
+            [
+              54,
+              60
+            ],
+            [
+              92,
+              108
+            ],
+            [
+              127,
+              173
+            ],
+            [
+              177,
+              320
+            ],
+            [
+              324,
+              332
+            ]
+          ],
+          "role": "All scoped raw String/Vec/String-key maps: open catalog identities/references, mechanic categories, selectors, narrative labels/descriptions/templates/advice, icon references",
+          "disposition": "Canonical open ThreatId/ReportDescription and131quest IDs exist. BestiaryCategory already typed. Combat rig/attack/protection/temperament retained raw and later rematched731-788 despite actual typed profiles from75. Prose/icon boundary recipients need separate trace; no blanket catalog exemption."
+        },
+        {
+          "ranges": [
+            [
+              336,
+              588
+            ],
+            [
+              731,
+              840
+            ]
+          ],
+          "role": "All compile/validation raw String failures, formatted source/error text; semantic template/cause/category tables and relation prefixes",
+          "disposition": "Error strings remain internal Result<String>, typed source-aware failure owner and outer adapter still needed. Three closed template tables454-462, cause/archetype495-497, description prefix539/560/562, combat category765-784 and evidence stat816 are gameplay meanings, not prose. Exact duplicates with130 source-authority risk. IDs remain open; membership validation not syntax or closed enum."
+        },
+        {
+          "ranges": [
+            [
+              590,
+              670
+            ]
+          ],
+          "role": "Catalog raw lookup and demographic selector API params",
+          "disposition": "Actual BTreeMap and equality uses proven; selector_matches_fact body130372-379 now read, so natural profession/local role text is actually gameplay matching authority. Typed Age/role/service owner fit still needs exact producers."
+        },
+        {
+          "ranges": [
+            [
+              842,
+              858
+            ]
+          ],
+          "role": "Four expect diagnostics and embedded source-name format850",
+          "disposition": "Actual JSON native parser/diagnostic boundaries. Runtime invokes raw validator then typed deserialization then compile; native serde internals/source-map generator not read."
+        }
+      ],
+      "status": "Complete requested material union independently inventoried, source-accounted with findings and explicit gaps."
+    },
+    {
+      "original_index": 130,
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_catalog_validation.rs",
+      "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+      "actual_ranges": [
+        [
+          1,
+          1516
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            8
+          ],
+          "role": "Declared demographic child file path",
+          "disposition": "Compiler declaration only. parse_sexes and sex_selectors_overlap child bodies unread; no child coverage from declaration."
+        },
+        {
+          "ranges": [
+            [
+              15,
+              173
+            ],
+            [
+              427,
+              480
+            ],
+            [
+              1262,
+              1272
+            ]
+          ],
+          "role": "Every ROOT/field-key array token and all repeated JSON key accesses/branch discriminators",
+          "disposition": "Actual serde_json Value map boundary and closed schema dispatch; distinct semantic values below are not exempt by being adjacent to keys."
+        },
+        {
+          "ranges": [
+            [
+              175,
+              317
+            ]
+          ],
+          "role": "All raw key/location/text helper params/returns and formatted shape/key/numeric diagnostics",
+          "disposition": "Actual Value native extraction boundary for raw ingress. Errors retain raw String internally, source locations also raw. id200-212 validates lower bounded open syntax only; ownership is not retained by returned unit."
+        },
+        {
+          "ranges": [
+            [
+              318,
+              358
+            ]
+          ],
+          "role": "Condition op/key tokens and raw failure templates",
+          "disposition": "Actual JSON condition structural classifier; typed dialogue Condition owner exists at129import6/field59 but native typed deserialization body uninspected. Carry typed condition after admission instead of duplicating op vocabulary."
+        },
+        {
+          "ranges": [
+            [
+              360,
+              425
+            ],
+            [
+              853,
+              950
+            ],
+            [
+              1444,
+              1468
+            ]
+          ],
+          "role": "Demographic raw state, exact16 profession facts382-396? and15 local role facts399-412; token-normalization matcher and overlap checks; age tokens888/1458",
+          "disposition": "Actual profession facts are15 entries382-396 and local role facts14entries399-412 (counts corrected here). They are semantic authority tables, not display-only labels. Raw selector/fact text match372-379 is canonicalization plus whole/token equality; later late selection129proven. Child sex parsing unread."
+        },
+        {
+          "ranges": [
+            [
+              481,
+              756
+            ],
+            [
+              757,
+              852
+            ],
+            [
+              951,
+              1182
+            ],
+            [
+              1183,
+              1255
+            ],
+            [
+              1273,
+              1442
+            ],
+            [
+              1471,
+              1516
+            ]
+          ],
+          "role": "All JSON-key/location/error occurrences, nonempty text checks, closed category tables, reference IDs/wildcard, source/relation composite names and mandatory relation roster",
+          "disposition": "Keys and paths stay at Value/source diagnostic boundary; all failures remain internal String. Closed combat535-567, activity649,habitat660-670/961-971,hypothesis708,escalation729,stat787,site955,template988-1053,symptom1071-1075,archetype1083,bridge action1143-1167,dialogue1186,relation namespace1308-1384/disease1336-1340/1408-1412/cause1401-1415/reliability1418-1423/account1425/route1426/pattern1427 all inventoried as semantic categories, requiring canonical enum/owner reuse. Open item/cause/bridge/evidence/description/factor/reference IDs retain open syntax and namespace association rather than enum of examples. Raw string wildcard1019/1038/1051/1094/1475 is a categorical Any-or-specific payload candidate, aliases unresolved. Required relation names1489-1507 are19 semantic composite IDs, not prose. All repeated diagnostic formats in these ranges grouped only by actual string Result error role; outer build/authoring consumer uninspected."
+        }
+      ],
+      "status": "Complete requested material union independently inventoried, source-accounted with findings and explicit gaps."
+    },
+    {
+      "original_index": 131,
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_generation/model.rs",
+      "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "actual_ranges": [
+        [
+          1,
+          58
+        ],
+        [
+          99,
+          153
+        ],
+        [
+          171,
+          191
+        ],
+        [
+          320,
+          507
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              17,
+              18
+            ],
+            [
+              24,
+              58
+            ]
+          ],
+          "role": "Catalog revision &str projection; eleven ID macro types with publicString field, raw Result<Self,&staticstr> error37 and expect42",
+          "disposition": "Canonical wrappers exist; constructor/retained field propagation should use them. Public raw field and derivedDeserialize admission question to admission/aggregate lenses; no native derive proof. Digest exact producer boundary unread."
+        },
+        {
+          "ranges": [
+            [
+              99,
+              153
+            ],
+            [
+              171,
+              180
+            ]
+          ],
+          "role": "Open ID macro raw error125, expect133, Clippyreason106, six WitnessDemographic and six Circumstance canonical exampletokens",
+          "disposition": "Explicit String serde ingress148->checked try_new149 and serializer143 are actual native boundaries. from_static109 only checks nonempty/length, while try_new121 checksASCII; direct source admission inconsistency queued independently, not executed. Keep open catalog type rather than replace by enum of constants."
+        },
+        {
+          "lines": [
+            183,
+            491
+          ],
+          "role": "Two Serde vocabulary names",
+          "disposition": "Native codec configuration for typed Reliability and TraceDecision."
+        },
+        {
+          "ranges": [
+            [
+              323,
+              359
+            ],
+            [
+              361,
+              445
+            ],
+            [
+              448,
+              507
+            ]
+          ],
+          "role": "All raw witness IDs/location/age/profession/presentation/description/labels, factor candidate/reason and bridge event/text fields; commitment363/expect375; location tokens400/403; narrative format417",
+          "disposition": "Raw location/profession/age used in actual matching, presence hash and retainedstate. Existing demographic/Circumstance typed, actual catalog selector129 and native hash previously read. Presentation labels stay distinct from privateSex, no inference. visible description format417 intended prose, actual rendered recipient still unread. Typed canonical subject/place/ID fit required across input/output. Raw factor candidate is relation-dependent semantic identity, not blanket text; event rawString alongside typed bridge/evidence/action IDs is migration gap."
+        }
+      ],
+      "status": "Complete requested material union independently inventoried, source-accounted with findings and explicit gaps."
+    },
+    {
+      "original_index": 132,
+      "source_id": "physical-p16:crates/adventuresim-core/src/reducer_error.rs",
+      "sha256": "ec4f9bddc8b7d73ed40bcfbecb23d7b061016ee53bd6fea4a524d05e838691c7",
+      "actual_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              9,
+              9
+            ],
+            [
+              25,
+              62
+            ],
+            [
+              65,
+              72
+            ]
+          ],
+          "role": "One envelopeprefix,18 code tokens mirroredformat/parser, one wrapperformat, rawdetail/input/output APIs",
+          "disposition": "ReducerErrorCode owns closed machine meaning; Display actual formatter42. Format/parser implement text envelope, but actual reducer transport/frontend recipients unread here. Existing actual courtship reducer/web receiver from006 source can inform alias graph, not blanketallcodesclearance. Detail prose must not become logic authority."
+        },
+        {
+          "lines": [
+            91,
+            93,
+            98
+          ],
+          "role": "Three existing test diagnostic inputs/format",
+          "disposition": "Actual envelope roundtrip/negative parse; source only."
+        }
+      ],
+      "status": "Complete requested material union independently inventoried, source-accounted with findings and explicit gaps."
+    },
+    {
+      "original_index": 133,
+      "source_id": "physical-p16:crates/adventuresim-core/src/reputation.rs",
+      "sha256": "f440b09e301404f9d1be804764c9be6af087320ea34c8b8a27fd9a4b191b8103",
+      "actual_ranges": [
+        [
+          1,
+          331
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              21,
+              37
+            ],
+            [
+              89,
+              182
+            ],
+            [
+              220,
+              226
+            ]
+          ],
+          "role": "Raw settlement ID fields/input and testhelper parameter; actual equality, sorttiebreak, retained contributions",
+          "disposition": "Existing canonical settlement/place identity fit needed, not displaytext. IDs clonedinto output; native persistence ingress/recipient not read."
+        },
+        {
+          "lines": [
+            245,
+            246,
+            247,
+            266,
+            274,
+            295,
+            297,
+            300,
+            304,
+            309
+          ],
+          "role": "Ten test identity literal occurrences including one formatnear-node",
+          "disposition": "Actual semantic constructor/equality inputs, no fixture exemption. No testexecution."
+        },
+        {
+          "ranges": [
+            [
+              1,
+              331
+            ]
+          ],
+          "role": "Actual EOF331 vs historical310-338 ownerproof",
+          "disposition": "No332-338 credit. Full actual331 consumed; original registered continuation1-331 supports exact identity."
+        }
+      ],
+      "status": "Complete requested material union independently inventoried, source-accounted with findings and explicit gaps."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Canonical quest catalog and generated witness propagation / categorical raw authority tables",
+      "sources": [
+        "129:92-332,450-577,590-670,731-840",
+        "130:108-122,372-425,481-1516",
+        "131:24-58,99-153,323-507",
+        "133:21-37,89-182"
+      ],
+      "disposition": "Source-accounted with raw open ID/typed-owner propagation and closed gameplay table duplication findings; no unique alias total or current runtime defect claim. Actual producer/catalog/validator/model routes now read for requested roles.",
+      "remedy": "Canonical ID/semantic enum owners at actual catalog admission, retain across maps, witnesses, solvertrace and gameplay selection; typed source-aware failure until external diagnostic boundary. Replace string wildcard/state tables with exact typed owner contracts where appropriate. Do not close genuine content ID populations.",
+      "acceptance": "Complete unread producer/consumer contracts and clean final schema owner fit before future implementation; no BC constraints.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Demographic parse_sexes/sex_selectors_overlap declared child implementation, exact generated quest source-map/include/digest producers and external build/authoring diagnostic consumers remain unread.",
+    "Actual profession/age/location owners and upstream visible witness/native downstream render/storage/solver paths remain bounded pending, not inferred from IDs or names.",
+    "Source129 unscheduled68-88,671-730,792,841,861-1630;13159-98,154-170,192-319,508-1230 remain unread as primary scope here; prior own receiver source may overlap but no expanded scope credit.",
+    "All earlier pending roles, aliases/M09/F9/all20/P16/P17, other registered populations and currentness qualifications preserved."
+  ],
+  "qualifications": [
+    "Only source/metadata/evidence; no project/check/test/probe execution, product/Git/root-ledger/publication mutations or new tests.",
+    "Frozen physical-P16 exact f82 identities, no current main/HEAD/PR-working alias.",
+    "Original130 actual1526 lines but requested1-1516 completelyread;1517-1526 are outside registered material scope here. Original133actualEOF331qualifiedno332-338.",
+    "No globalclearance, runtimeacceptance, new unique finding counts or otherlens transfer; no-BC override."
+  ],
+  "proposed_count": {
+    "before": 129,
+    "after": 134,
+    "indices_completed": [
+      129,
+      130,
+      131,
+      132,
+      133
+    ],
+    "next_original": 134,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_catalog.rs",
+      "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+      "ranges": [
+        [
+          1,
+          67
+        ],
+        [
+          89,
+          670
+        ],
+        [
+          731,
+          791
+        ],
+        [
+          793,
+          840
+        ],
+        [
+          842,
+          860
+        ]
+      ],
+      "coverage": "Own lens12 role discovery only; other lenses independent."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_catalog_validation.rs",
+      "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+      "ranges": [
+        [
+          1,
+          1516
+        ]
+      ],
+      "coverage": "Own lens12 role discovery only; other lenses independent."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_generation/model.rs",
+      "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "ranges": [
+        [
+          1,
+          58
+        ],
+        [
+          99,
+          153
+        ],
+        [
+          171,
+          191
+        ],
+        [
+          320,
+          507
+        ]
+      ],
+      "coverage": "Own lens12 role discovery only; other lenses independent."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/reducer_error.rs",
+      "sha256": "ec4f9bddc8b7d73ed40bcfbecb23d7b061016ee53bd6fea4a524d05e838691c7",
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "coverage": "Own lens12 role discovery only; other lenses independent."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/reputation.rs",
+      "sha256": "f440b09e301404f9d1be804764c9be6af087320ea34c8b8a27fd9a4b191b8103",
+      "ranges": [
+        [
+          1,
+          331
+        ]
+      ],
+      "coverage": "Own lens12 role discovery only; other lenses independent."
+    }
+  ]
+}

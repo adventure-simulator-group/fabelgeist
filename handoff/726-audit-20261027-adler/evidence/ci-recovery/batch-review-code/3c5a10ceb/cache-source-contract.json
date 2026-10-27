@@ -1,0 +1,6 @@
+{
+  "official_source": "https://github.com/Swatinem/rust-cache/blob/v2/README.md",
+  "read_via": "Independent official README web read; relevant lines197-248 and306-333",
+  "paraphrase": "The shared key replaces the default job-based part. Rust compiler identity and the default Rust environment hashes still participate. Failure caching defaults off; enabling it allows saving dependency artifacts after a failed job. Default caching removes workspace and incremental artifacts. No promise of an exact cache hit or faster execution follows.",
+  "observed_workflow": "Both Linux jobs select the same pinned nightly before the same action. Each supplies shared-key rust-quality and cache-on-failure true. Neither reads cache-hit or conditions test acceptance on it. Source commands and required-result gates are byte-unchanged."
+}

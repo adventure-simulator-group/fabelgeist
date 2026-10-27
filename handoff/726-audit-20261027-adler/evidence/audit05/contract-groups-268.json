@@ -1,0 +1,56 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-268",
+  "at": "2026-10-25T22:27:32.083334+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2409,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/trade/equipment.rs",
+      "sha256": "3229ebb47a71f62dc45c5b0406a116e0785dcdf26ea485deff0f757edc4cdaac",
+      "personally_read_ranges": [
+        [
+          1,
+          1169
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full frozen1-1169 in three bounded chunks: core/web equipment-location and channel mappings exhaustively paired. Ancestor traversal uses visited set, recursive root walk path set prevents cycles; roots preserve body location/channel/order/depth. Keyboard badge stack joins nodes by inventory ID and deterministic rank/ID sort. Rank encodes depth*100000+channel*1000+u16order; canonical order/depth bounds and ordering equivalence remain qualified, no witnessed wrong-slot action.",
+        "equipment_control derives authored placement requirements, graph conflicts, attachment targets and occupants within the same placement enumeration. Parent target ID/point/capacity, requirementIndex and placementIndex retain association in JSON; protection uses current graph node placement ID. Raw definition/inventory/graph identity is caller requirement rather than locally sealed association; inherited failed graph and observation-frontier findings remain qualified.",
+        "Attachment filter2410 rejects self/descendant, checks channel/order/optional root location and accepted tags; target free capacity remains exposed for client/backend selection rather than unconditional availability guarantee. Conflict2411 reconstructs occupied requirement fit_zone through graph node item name, placement ID and requirement index before canonical conflicts_with. Missing lookup falls back None; actual graph/catalog completeness remains producer requirement.",
+        "Medication controls use self-administer advisory gating and administration language, ordinary equipment uses current status/keyboard metadata. Full tests800-1169 read as fixtures, not executed; CSS include_str assertions provide no independent CSS-body credit."
+      ]
+    },
+    {
+      "scope_index": 2410,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/trade/equipment/attachment.rs",
+      "sha256": "3ffa6b1a6c8bbdffdfc3d43c453dff29c9f612da9cdfaf8b9902c32224ce9433",
+      "personally_read_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full frozen1-25: accepts binds target channel/order to authored parent requirement, optional side/root location through same graph, tag intersection and no self/descendant cycle. No new aggregate finding; capacity and actual mutation authorization remain downstream."
+      ]
+    },
+    {
+      "scope_index": 2411,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/trade/equipment/fit.rs",
+      "sha256": "5f88b54a698112493584486bd95eb1576ac5de6badef00ed2d7b6b4a787a1b07",
+      "personally_read_ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full frozen1-38: fit conflict reconstructs same occupied graph node's authored placement requirement-index fit_zone and delegates canonical OccupancyRequirement::conflicts_with using actual location/channel/order. Missing association yields None fit_zone; no unsupported proof that arbitrary raw graph/catalog mismatch is accepted by actual producer."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

@@ -1,0 +1,142 @@
+{
+  "id": "AUDIT12-CONTRACTS-007",
+  "lens": 12,
+  "at": "2026-10-26T18:01:03.137143+00:00",
+  "role": 20,
+  "source": {
+    "role": 20,
+    "source_id": "native-dependency:spacetimedb-2.6.1/src/rt.rs",
+    "sha256": "9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+    "ranges": [
+      [
+        1,
+        200
+      ],
+      [
+        203,
+        225
+      ],
+      [
+        330,
+        465
+      ],
+      [
+        628,
+        655
+      ],
+      [
+        660,
+        695
+      ],
+      [
+        1025,
+        1065
+      ],
+      [
+        1086,
+        1098
+      ],
+      [
+        1228,
+        1295
+      ],
+      [
+        1374,
+        1393
+      ]
+    ],
+    "local": "target/recovery-20261025/continuation-segovb/source-objects/9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+    "read": "registered pending",
+    "extensions": [
+      {
+        "ranges": [
+          [
+            600,
+            635
+          ],
+          [
+            785,
+            900
+          ]
+        ],
+        "purpose": "Native exported function/argument/primarykey-name receiving bodies and schema metadata boundaries; register before read"
+      }
+    ]
+  },
+  "inventory": [
+    {
+      "ranges": [
+        [
+          1,
+          200
+        ],
+        [
+          203,
+          225
+        ]
+      ],
+      "occurrences": "Compiler feature unstable, diagnostic::on_unimplemented messages/labels/notes; native expect labels; FnInfo NAME/ARG_NAMES/VIEW_PRIMARY_KEY_COLUMNS staticstr interfaces; Box<str> ReducerResult",
+      "trace": "Native callable trait signatures use typed ReducerContext/ViewContext/AnonymousViewContext and SpacetimeType. Compiler diagnostics/expect text are actual compiler/panic presentation. IntoReducerResult::into_result219-223 maps user Display error to boxedtext only at SDK result boundary; success carries unit. Metadata consts are source/exported DB identifier/parameter/primarykey schema inputs, not gameplay state."
+    },
+    {
+      "ranges": [
+        [
+          330,
+          465
+        ],
+        [
+          628,
+          655
+        ],
+        [
+          660,
+          695
+        ],
+        [
+          600,
+          635
+        ],
+        [
+          785,
+          900
+        ]
+      ],
+      "occurrences": "ViewReturn diagnostic literal, RawQuery.sql().to_string(), allow(non_snake_case/unused) compiler attributes, macro metadata names",
+      "trace": "RawQuery textual SQL converts into actual ViewResultHeader::RawSql then BSATN writer; Vec/Option rows encode typed RowData header. Args::schema624-633 converts ARG_NAMES directly into ProductTypeElement.name and native AlgebraicType. register_reducer799-810/procedure812-827/view830-852/anonymous874-896 send NAME and schema to RawModuleDefV10Builder add_* metadata methods; primarykey column strings go to add_view_primary_key. These are actual SDK schema/serialization identifiers. Macro receiver maps typed tuples to callable signatures and native IntoReducerResult, no parsed prose or primitive app storage introduced."
+    },
+    {
+      "ranges": [
+        [
+          1025,
+          1065
+        ],
+        [
+          1086,
+          1098
+        ],
+        [
+          1228,
+          1295
+        ],
+        [
+          1374,
+          1393
+        ]
+      ],
+      "occurrences": "extern \"C\" ABI strings, error msg.as_bytes() writes; BytesSink panic labels; ABI/encoding prose",
+      "trace": "__call_reducer__ reconstructs typed Identity/ConnectionId/Timestamp context, invokes typed registered reducer with BSATN args, then convert_err_to_errno1089-1097 writes boxed error text as bytes and returns named HOST_CALL_FAILURE. Actual write_to_sink1377-1393 loops raw SDK bytes_sink_write; panic labels map native error codes, not message classification. __call_view__/anon write actual serialized headers/rows/query bytes and return ABI code. Strings are final host/compiler/encoding boundaries; no game-domain string adapters."
+    }
+  ],
+  "disposition": "ACCOUNTED exact original20 registered runtime contracts with receiving extensions/qualifications",
+  "findings": [],
+  "qualifications": [
+    "SDK deliberately erases reducer Display errors into text at documented host boundary; no internal firstparty producer/cause migration clearance inferred.",
+    "FnInfo metadata checked only through native builder receiving calls; no full downstream RawModuleDef validation/table/schema migration/generatedclient/applicationreducer acceptance.",
+    "Native unsafe ABI/index/wrapping/data validity and error-buffer semantics are other-lens/runtime contracts; no local projectchecks. ExternalSDK old ABI mention and aliases do not authorize application compatibility code.",
+    "Receiver extension785-900 includes adjacent unstableHTTP/route/security declarations as context only; no full HTTP routing/query/security behavior covered.",
+    "No original or material population recounted from existing priorlens receipts; all original0-19 qualifications retained."
+  ],
+  "project_checks": "none",
+  "source_edits": false,
+  "global_clearance": false
+}

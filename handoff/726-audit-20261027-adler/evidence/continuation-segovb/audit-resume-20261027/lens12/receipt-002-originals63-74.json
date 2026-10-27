@@ -1,0 +1,658 @@
+{
+  "schema": "lens12-source-discovery-receipt-v1",
+  "id": "L12-RESUME-002",
+  "created_utc": "2026-10-27T10:47:11.664248+00:00",
+  "lens": "magic-strings",
+  "predecessor": "receipt-001-originals58-62.json",
+  "authority": "original-scope-072.json; state037; root-adoption pending for local proposals",
+  "prospective_manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens12/prospective-sources-001.jsonl",
+    "sha256_prefix": "5fc02cbeb5b505002ccd369c34d28d1511e282d7203bedc61501dc63f436a9af",
+    "bytes_prefix": 41285
+  },
+  "source_reads": [
+    {
+      "original_index": 63,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_movement.rs",
+      "sha256": "3fcb38f4034fe1eccf1d7d99ee3310fed62812d16ef25d547e79e009e4425c33",
+      "actual_full_ranges": [
+        [
+          1,
+          392
+        ]
+      ],
+      "scope": "full original body independently consumed",
+      "roles": [
+        {
+          "ranges": [
+            [
+              39,
+              42
+            ],
+            [
+              185,
+              188
+            ]
+          ],
+          "occurrences": 2,
+          "role": "compiler lint rationale and panic diagnostic",
+          "disposition": "actual compiler attribute/panic text boundary; no string gameplay state or string APIs anywhere in full392"
+        }
+      ],
+      "source_accounted_with_findings": true
+    },
+    {
+      "original_index": 64,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/assignment.rs",
+      "sha256": "edaab496e73d7ae22b10743303627d76c5526cdff566e72e60f563dcbc2c77f9",
+      "actual_full_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "scope": "full original body independently consumed",
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              72
+            ]
+          ],
+          "occurrences": 0,
+          "role": "index assignment with typed attack-mode enum",
+          "disposition": "entire body contains no raw string, string field/parameter/return/default/extraction; no borrowed no-string search verdict"
+        }
+      ],
+      "source_accounted_with_findings": true
+    },
+    {
+      "original_index": 65,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/commitment.rs",
+      "sha256": "52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
+      "actual_full_ranges": [
+        [
+          1,
+          239
+        ]
+      ],
+      "scope": "full original body independently consumed",
+      "roles": [
+        {
+          "ranges": [
+            [
+              108,
+              124
+            ],
+            [
+              229,
+              239
+            ]
+          ],
+          "occurrences": 9,
+          "role": "closed response and defense commitment enum projections",
+          "disposition": "finding: response_name erases DefenderResponse to4 strings; commitment.as_str erases same-file canonical5state enum, retained in MeleeContactTelemetry through original67:167-168 and original50:425-451/507-585; retain canonical enums (possibly response_choice if payload intentionally excluded), serialize at actual boundary; do not invent duplicate enums or preserve old wire layout"
+        }
+      ],
+      "source_accounted_with_findings": true
+    },
+    {
+      "original_index": 66,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "sha256": "6807ada697c587ffd96f625c61692de55a4ae1548d7dcd9e5d2d539e5f6187c0",
+      "actual_full_ranges": [
+        [
+          1,
+          234
+        ]
+      ],
+      "scope": "full original body independently consumed",
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              234
+            ]
+          ],
+          "occurrences": 0,
+          "role": "movement state and event producer",
+          "disposition": "full body uses MeleeMovementAction/MeleeTimelinePhase/MeleeTimelineKind through event receiver original72, no rawtext API/literal/string erasure"
+        }
+      ],
+      "source_accounted_with_findings": true
+    },
+    {
+      "original_index": 67,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "sha256": "4d44aec14335abdea2ad0899a2d41cf09c7b5677fcb850b2ede69174596d3a34",
+      "actual_full_ranges": [
+        [
+          1,
+          597
+        ]
+      ],
+      "scope": "full original body independently consumed",
+      "roles": [
+        {
+          "ranges": [
+            [
+              34,
+              37
+            ],
+            [
+              107,
+              110
+            ],
+            [
+              205,
+              208
+            ],
+            [
+              273,
+              276
+            ]
+          ],
+          "occurrences": 4,
+          "role": "lint rationale prose",
+          "disposition": "compiler attribute boundary"
+        },
+        {
+          "ranges": [
+            [
+              130,
+              174
+            ]
+          ],
+          "occurrences": 1,
+          "role": "battle-stage main identity",
+          "disposition": "finding: literal main -> record_attack &str -> BattleLogEntry.phase String, original50:507-585; phase is categorical not arbitrary displaytext. Existing timeline phase Windup/Recovery has different role; select canonical battle-stage owner only after all phase producers reconcile; no blanket static-string exemption"
+        },
+        {
+          "ranges": [
+            [
+              167,
+              168
+            ]
+          ],
+          "occurrences": 0,
+          "role": "raw text returns consumed into retained telemetry",
+          "disposition": "same M09-family exact enum-erasure graph as original65, not a unique finding count"
+        }
+      ],
+      "source_accounted_with_findings": true
+    },
+    {
+      "original_index": 68,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+      "sha256": "170846de4c534120087f3f12c2fd365b8f2103c97d270ff28d71bee179d6e147",
+      "actual_full_ranges": [
+        [
+          1,
+          391
+        ]
+      ],
+      "scope": "full original body independently consumed",
+      "roles": [
+        {
+          "ranges": [
+            [
+              180,
+              183
+            ]
+          ],
+          "occurrences": 1,
+          "role": "lint rationale",
+          "disposition": "compiler attribute boundary; rest of full391 no string-valued state/API; typed attack/timeline identities preserved"
+        }
+      ],
+      "source_accounted_with_findings": true
+    },
+    {
+      "original_index": 69,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/model.rs",
+      "sha256": "b1b76643680707125e6bd040b60703127a2ed09cc460e226b2c4f08c90724ffe",
+      "actual_full_ranges": [
+        [
+          1,
+          364
+        ]
+      ],
+      "scope": "full original body independently consumed",
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              364
+            ]
+          ],
+          "occurrences": 0,
+          "role": "combat snapshots, trait implementations and native numeric geometry",
+          "disposition": "independent full364 read: no raw string literals/fields/parameters/return/default/extraction; aliases to numerical inventory IDs remain other-lens/context qualifications, not string clearance of producers"
+        }
+      ],
+      "source_accounted_with_findings": true
+    },
+    {
+      "original_index": 70,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/power.rs",
+      "sha256": "7469ca1e1a2a0c7bfa49292adac667ebbf5323f3dfd5f0e39e368e18f118d2a7",
+      "actual_full_ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "scope": "full original body independently consumed",
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              168
+            ]
+          ],
+          "occurrences": 0,
+          "role": "numerical combat strength kernel",
+          "disposition": "full168 independent body no raw string or string API; no numeric/behavior-lens verdict inferred"
+        }
+      ],
+      "source_accounted_with_findings": true
+    },
+    {
+      "original_index": 71,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/threat.rs",
+      "sha256": "bf72fdd14fdc1fc1e4196b4c65172f6c71d0658f4bad6896cb41495acf889798",
+      "actual_full_ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "scope": "full original body independently consumed",
+      "roles": [
+        {
+          "ranges": [
+            [
+              12,
+              17
+            ],
+            [
+              20,
+              21
+            ]
+          ],
+          "occurrences": 2,
+          "role": "typed error templates and invalid threat diagnostic payload",
+          "disposition": "thiserror final human text boundary for templates; enemy_typeString payload preserves rejected rawinput for error, source UnknownThreatId retained"
+        },
+        {
+          "ranges": [
+            [
+              28,
+              41
+            ]
+          ],
+          "occurrences": 0,
+          "role": "enemy_type &str accepted by internal application API",
+          "disposition": "finding: canonical ThreatId exists and exact45-61 syntax plus108-116 catalog membership parser read. API receives rawtext then reparses before profile484-500. Carry ThreatId from actual ingress; unknown caller/catalog generated-source membership implementation remains not yet independently traced; no closed enum substitution"
+        },
+        {
+          "ranges": [
+            [
+              163,
+              166
+            ]
+          ],
+          "occurrences": 1,
+          "role": "knife item catalog lookup key",
+          "disposition": "same open catalog key family from58; exact definition53 lookup/schema retainedID receiver/projection independently read001. Reuse canonical open item key, not threat enum/weapon instance numerical ID"
+        }
+      ],
+      "source_accounted_with_findings": true
+    },
+    {
+      "original_index": 72,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/timeline.rs",
+      "sha256": "97e87014b1ece1247d03e8e2a7e1e36db3c28ccae7b17b95dd7857ca13075406",
+      "actual_full_ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "scope": "full original body independently consumed",
+      "roles": [
+        {
+          "ranges": [
+            [
+              47,
+              47
+            ],
+            [
+              59,
+              59
+            ],
+            [
+              68,
+              68
+            ],
+            [
+              79,
+              79
+            ]
+          ],
+          "occurrences": 4,
+          "role": "serde rename strategy tokens",
+          "disposition": "actual derive serializer configuration boundary for typed event enums; state/event producer fields remain enums. No native serializer implementation claim"
+        }
+      ],
+      "source_accounted_with_findings": true
+    },
+    {
+      "original_index": 73,
+      "source_id": "physical-p16:crates/adventuresim-core/src/battle_rewards.rs",
+      "sha256": "b01daaf0a320f38062f1772b90da65b1d29e49f85f49a1dcde2d72b539a381b5",
+      "actual_full_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "scope": "full original body independently consumed",
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              31
+            ]
+          ],
+          "occurrences": 0,
+          "role": "participant numerical set intersection plus existing tests",
+          "disposition": "full31 no raw string/stringAPI. Source-only test body read, no execution or test evidence"
+        }
+      ],
+      "source_accounted_with_findings": true
+    },
+    {
+      "original_index": 74,
+      "source_id": "physical-p16:crates/adventuresim-core/src/battle_time.rs",
+      "sha256": "989db0ee4ad72276f3923b7d005480e50b6c618e04d0b7623602bf0de0d2a350",
+      "actual_full_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "scope": "full original body independently consumed",
+      "roles": [
+        {
+          "ranges": [
+            [
+              12,
+              12
+            ]
+          ],
+          "occurrences": 2,
+          "role": "serde primitive wire type configuration",
+          "disposition": "try_from/into f32 tokens consumed by derive; checked constructor and From impl read fullbody; no string retained application state"
+        },
+        {
+          "ranges": [
+            [
+              17,
+              20
+            ]
+          ],
+          "occurrences": 2,
+          "role": "typed error text templates",
+          "disposition": "thiserror human diagnostic boundary. Existing comments numerical policy preserved as source only; no numerical/runtime verdict"
+        }
+      ],
+      "source_accounted_with_findings": true
+    }
+  ],
+  "actual_material_receiver_reads": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve.rs",
+      "sha256": "0b6aef0b8e1be9846beaae48cc8f7130333b0b4634acbd0b2f8b393ee40d5cef",
+      "ranges": [
+        [
+          350,
+          590
+        ]
+      ],
+      "trace": "MeleeContactTelemetry raw response/commitment fields445-446; BattleRecorder raw phase509 retainedString561 and telemetry584; typed serde outcome retained. No original50 restart/count credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/bestiary.rs",
+      "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "ranges": [
+        [
+          1,
+          138
+        ],
+        [
+          367,
+          396
+        ],
+        [
+          484,
+          505
+        ]
+      ],
+      "trace": "canonical open ThreatId syntax/member parse, profile identity/cache; exact quest catalog source behind .monster remains an ordered/direct recipient obligation, not global catalog clearance; original75 not complete from this subset."
+    }
+  ],
+  "connected_findings": [
+    {
+      "alias_family": "inherited M09 categorical-state/enum-erasure",
+      "source_keys": [
+        "65:108-124,229-239",
+        "67:167-168",
+        "50:425-451,507-585"
+      ],
+      "remedy": "retain canonical response/commitment enum through telemetry, serialize only at concrete output; reconcile sibling observations before choosing payload shape",
+      "acceptance": "all response/commitment producers/fields/receivers typed with intended payload; no string comparisons/categories within application path; source review and later authorized acceptance owned by root",
+      "unique_count_delta": 0
+    },
+    {
+      "alias_family": "inherited raw identity/catalog/battle-stage keys",
+      "source_keys": [
+        "67:132",
+        "50:509,561",
+        "71:28-41,163-166",
+        "75:12-16,45-61,108-116"
+      ],
+      "remedy": "reuse ThreatId before internal API; reconcile open item IDs and actual battle-stage owner across producers; no blanket fixture or native-text exemption",
+      "limits": "current tree not compared; no duplicate identity/collision/runtime claim; generated quest catalog/member data beyond read recipient still pending",
+      "unique_count_delta": 0
+    }
+  ],
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_movement.rs",
+      "sha256": "3fcb38f4034fe1eccf1d7d99ee3310fed62812d16ef25d547e79e009e4425c33",
+      "ranges": [
+        [
+          1,
+          392
+        ]
+      ],
+      "lenses": "all remaining applicable lenses; this read grants lens12 role inventory only"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/assignment.rs",
+      "sha256": "edaab496e73d7ae22b10743303627d76c5526cdff566e72e60f563dcbc2c77f9",
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "lenses": "all remaining applicable lenses; this read grants lens12 role inventory only"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/commitment.rs",
+      "sha256": "52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
+      "ranges": [
+        [
+          1,
+          239
+        ]
+      ],
+      "lenses": "all remaining applicable lenses; this read grants lens12 role inventory only"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "sha256": "6807ada697c587ffd96f625c61692de55a4ae1548d7dcd9e5d2d539e5f6187c0",
+      "ranges": [
+        [
+          1,
+          234
+        ]
+      ],
+      "lenses": "all remaining applicable lenses; this read grants lens12 role inventory only"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "sha256": "4d44aec14335abdea2ad0899a2d41cf09c7b5677fcb850b2ede69174596d3a34",
+      "ranges": [
+        [
+          1,
+          597
+        ]
+      ],
+      "lenses": "all remaining applicable lenses; this read grants lens12 role inventory only"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+      "sha256": "170846de4c534120087f3f12c2fd365b8f2103c97d270ff28d71bee179d6e147",
+      "ranges": [
+        [
+          1,
+          391
+        ]
+      ],
+      "lenses": "all remaining applicable lenses; this read grants lens12 role inventory only"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/model.rs",
+      "sha256": "b1b76643680707125e6bd040b60703127a2ed09cc460e226b2c4f08c90724ffe",
+      "ranges": [
+        [
+          1,
+          364
+        ]
+      ],
+      "lenses": "all remaining applicable lenses; this read grants lens12 role inventory only"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/power.rs",
+      "sha256": "7469ca1e1a2a0c7bfa49292adac667ebbf5323f3dfd5f0e39e368e18f118d2a7",
+      "ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "lenses": "all remaining applicable lenses; this read grants lens12 role inventory only"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/threat.rs",
+      "sha256": "bf72fdd14fdc1fc1e4196b4c65172f6c71d0658f4bad6896cb41495acf889798",
+      "ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "lenses": "all remaining applicable lenses; this read grants lens12 role inventory only"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/timeline.rs",
+      "sha256": "97e87014b1ece1247d03e8e2a7e1e36db3c28ccae7b17b95dd7857ca13075406",
+      "ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "lenses": "all remaining applicable lenses; this read grants lens12 role inventory only"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/battle_rewards.rs",
+      "sha256": "b01daaf0a320f38062f1772b90da65b1d29e49f85f49a1dcde2d72b539a381b5",
+      "ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "lenses": "all remaining applicable lenses; this read grants lens12 role inventory only"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/battle_time.rs",
+      "sha256": "989db0ee4ad72276f3923b7d005480e50b6c618e04d0b7623602bf0de0d2a350",
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "lenses": "all remaining applicable lenses; this read grants lens12 role inventory only"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/bestiary.rs",
+      "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "ranges": [
+        [
+          1,
+          138
+        ],
+        [
+          367,
+          396
+        ],
+        [
+          484,
+          505
+        ]
+      ],
+      "lenses": "all remaining applicable lenses; exact reached context only"
+    }
+  ],
+  "qualifications": [
+    "No backward compatibility or malformed-old-input preservation requirement; clean final owner APIs required.",
+    "Source discovery accounted with findings, not repair/runtime acceptance. No project execution/tests/probes/source edits.",
+    "Physical-P16 exact f82 sources remain distinct from PR-working and current main/HEAD; no same-path/equalhash verdict transfer.",
+    "Inherited all20/P16/P17/raw identity/M09 aliases and other-lens obligations preserved; no unique total/global clearance.",
+    "Quest catalog lookup implementation and caller admissions of authored_threat_combatant remain pending actual source trace; source-accounted71 records this raw API finding, not unread recipient clearance."
+  ],
+  "proposed_count": {
+    "before": 63,
+    "after": 75,
+    "indices_completed": [
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74
+    ],
+    "next_original": 75,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  }
+}

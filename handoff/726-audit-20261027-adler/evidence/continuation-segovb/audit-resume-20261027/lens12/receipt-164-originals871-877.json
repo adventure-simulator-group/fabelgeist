@@ -1,0 +1,346 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "164",
+  "predecessor": "receipt-163-originals864-870.json",
+  "sources": [
+    {
+      "original_index": 871,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/commitment.rs",
+      "sha256": "52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
+      "actual_eof": 239,
+      "actual_ranges": [
+        [
+          1,
+          239
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              239
+            ]
+          ],
+          "role": "Full239: canonical MeleeDefenderPhase -> MeleeTimelinePhase27-46 and canonical MeleeResponseAvailability49-77 remain typed. Actual response_name108-115 maps DefenderResponse to raw none/block/parry/dodge, alongside actual response_choice117-124 to canonical MeleeResponseChoice. MeleeDefenseCommitmentKind enum222-227 -> as_str230-239 none/neutral_guard_recovery/canceled_for_same_weapon_defense/transformed_by_offhand_defense/defense_recovery. Exact actual873166-167 stores these rawlabels in857444-445 serializable telemetry, proving existing canonical owner fit candidate, not only display. All final telemetry/report consumers and canonical DefenderResponse/choice owner implementations remain queued; numeric/mutation otherlens limits.",
+          "disposition": "Source-accounted WITH source-keyed typed/raw role and unread recipient qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 872,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "sha256": "201e0aa26a4ceec81c0caa799acc2dae96ad3d1600ed6184aef8f671e3becf1c",
+      "actual_eof": 226,
+      "actual_ranges": [
+        [
+          1,
+          226
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              226
+            ]
+          ],
+          "role": "Full226: no raw string literal or String API; actual typed MeleeMovementAction intent17-42 and typed MeleeTimelinePhase190-198; actual862advance319 -> advance135 -> preview55 -> actual870integrator94 and typed timeline retention215/223/224. No source/native numeric/runtime proof transfer; future timeline owner/final readers remain queued.",
+          "disposition": "Source-accounted WITH source-keyed typed/raw role and unread recipient qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 873,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "sha256": "3ada1de8aa9e1322565a5f1ae9b5882e0beba1d5ad024cc4705f7eb35ba0982b",
+      "actual_eof": 595,
+      "actual_ranges": [
+        [
+          1,
+          595
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              595
+            ]
+          ],
+          "role": "Full595 independently read1-300/301-595. Actual862resolve232/245 ->resolve_melee_turn38 ->prepare357 uses typed863 decision409/actual864exchange427 ->record_melee_result111. Raw phase main130 ->actual857record_attack508/to_string560; actual typed response_name/commitment.kind.as_str166-167 from871108-124/222-239 ->retained857444-445. Actual timeline routes retain canonical kinds/phases/response_choice184/194-195/299-307/325/340-342 unlike adjacent rawtelemetry; no assumption same role/payload as response_choice because effective vs attempted distinction. Human Clippy reasons36/109/205/273; existing tests454-595 no raw semantic strings. Sourcewithfindings final serialization/report/native/current readers pending.",
+          "disposition": "Source-accounted WITH source-keyed typed/raw role and unread recipient qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 874,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+      "sha256": "9c56fb8232e356e6e204ba7c1065597c6063b0b25572d6f0e7cb131b2a7eb320",
+      "actual_eof": 391,
+      "actual_ranges": [
+        [
+          1,
+          391
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              391
+            ]
+          ],
+          "role": "Full391: only raw string reason182 human Clippy rationale; actual AttackStartTrace.record58 emits typed AttackStarted69/phase81-86; actual857649initialize92 and862284/293schedule153 -> actualtimingcommit258 ->record268. All actual numeric/state body consumed without execution/event-order/runtime/otherlens clearance. No additional rawtextclassifier.",
+          "disposition": "Source-accounted WITH source-keyed typed/raw role and unread recipient qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 875,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/model.rs",
+      "sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+      "actual_eof": 363,
+      "actual_ranges": [
+        [
+          1,
+          363
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              363
+            ]
+          ],
+          "role": "Full363: no raw String API/string literals; canonical BodySide/BodyPart/Skill/EquipmentMaterial etc own finite selection. Actual865build215 uses CombatEquipment; actual857record/actual873physics types retained, sourcecontains typed trait/calculation ports rather than text branches. NativeSerde derive7 and all underlying sharedtrait/canonicalowners/actualexternalcallers remain qualified.",
+          "disposition": "Source-accounted WITH source-keyed typed/raw role and unread recipient qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 876,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/power.rs",
+      "sha256": "76922a00bc1d4bf13c6d972aaba83258551ce853fff438f2edc3f0d295ae025a",
+      "actual_eof": 168,
+      "actual_ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              168
+            ]
+          ],
+          "role": "Full168: no raw String literal/API; pure numeric aggregate policy uses typed Skill/BodyPart/Equipment ports. Actual857export23/callers tests and otheralreadyconsumedreceivers source only; no numeric correctness/current/runtime transfer from noStringinventory.",
+          "disposition": "Source-accounted WITH source-keyed typed/raw role and unread recipient qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 877,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/threat.rs",
+      "sha256": "58a5e53d2fdf5283f4e7ba8a58f1335f894bb6b4ab4524f3684f92bbca8dc106",
+      "actual_eof": 187,
+      "actual_ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              187
+            ]
+          ],
+          "role": "Full187: authored_threat_combatant raw enemy_type&str27 parsed once to canonical ThreatId32-38, raw inputcloned into typed error enemy_typeString11/36 with source UnknownThreatId13. Actual857cultist1543-1544 producer consumed; all othercaller admissions pending, possible canonicaltypedpublicAPI migration rather than repeatedparse internal. Raw knife catalogreference161 ->actual858 projection160, canonical itemID owner pending. Finite typed AttackStyle/RigTopology/Protection122-138/63/95 own threat decisions; human Display templates9/17, native error derive no classifier. Canonical ThreatId/parser/UnknownThreatId bodies and all consumers remain unread.",
+          "disposition": "Source-accounted WITH source-keyed typed/raw role and unread recipient qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    }
+  ],
+  "connected_findings": [
+    {
+      "id": "L12-164-response-commitment-enum-to-retained-text",
+      "source_indices": [
+        871,
+        873,
+        857
+      ],
+      "ranges_by_original": {
+        "871": [
+          [
+            108,
+            124
+          ],
+          [
+            221,
+            239
+          ]
+        ],
+        "873": [
+          [
+            111,
+            174
+          ]
+        ],
+        "857": [
+          [
+            424,
+            450
+          ],
+          [
+            558,
+            584
+          ]
+        ]
+      },
+      "finding": "Actual canonical finite response and commitment state converts to raw static strings before retained serializable telemetry, while parallel attempted response and timeline remain typed. Effective response vs attempted response must remain distinct; source proves conversion/retention not final-reader policy.",
+      "remedy": "Carry correct canonical effective response classification and commitment owner through telemetry and actual report/serialization receivers, rendering text at observed native boundary.",
+      "acceptance": "Consume canonical owner declarations and all actual telemetry receivers; preserve semantic effective/attempted distinctions, no BC requirement.",
+      "aliases": "Refines L12-162-autoresolve-phase-and-telemetry-text; existing replay/phase finding aliases/unique unresolved.",
+      "unique_count_delta": 0
+    },
+    {
+      "id": "L12-164-threat-text-admission-api",
+      "source_indices": [
+        877
+      ],
+      "ranges": [
+        [
+          8,
+          38
+        ],
+        [
+          154,
+          163
+        ]
+      ],
+      "finding": "Public mechanics API takes raw threat text and re-admits to existing ThreatId, with raw input retained in typed parse-failure context; actual all callers not yet consumed.",
+      "remedy": "After exact boundary/caller trace, admit once at true text origin and use canonical ThreatId internally; retain malformed source input only in actual text-boundary error if intended.",
+      "acceptance": "Read ThreatId owner/parser and all public caller ingress; identify canonical open/finite policy and genuine native text boundary before repair.",
+      "aliases": "Existing threat/catalog/type-owner candidates may alias; no unique/current assertion.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Final rawphase/effective-response/commitment telemetry report/serialization consumers and exact canonical response/commitment owner placement fit.",
+    "Actual ThreatId/parser/UnknownThreatId declarations, all threat stringAPI callers and canonical knife/item lookup.",
+    "All inherited actual catalog/roster/evidence/source/native/current/alias/other-lens queues preserved."
+  ],
+  "qualifications": [
+    "Prospective164 exact fullchangedvariant registration before independentlyconsumed bodies, all outputs untruncated. Prior857 source reused only exact personally consumed roles, no variant/other-lens verdict transfer.",
+    "No BC/project/native/test/probe execution/product/Git/rootledger/publication. Source-accounted WITH findings; all20/P16/P17/F9/M09/population distinctions retained."
+  ],
+  "proposed_count": {
+    "before": 871,
+    "after": 878,
+    "indices_completed": [
+      871,
+      872,
+      873,
+      874,
+      875,
+      876,
+      877
+    ],
+    "next_original": 878,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/commitment.rs",
+      "sha256": "52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
+      "ranges": [
+        [
+          1,
+          239
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "sha256": "201e0aa26a4ceec81c0caa799acc2dae96ad3d1600ed6184aef8f671e3becf1c",
+      "ranges": [
+        [
+          1,
+          226
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "sha256": "3ada1de8aa9e1322565a5f1ae9b5882e0beba1d5ad024cc4705f7eb35ba0982b",
+      "ranges": [
+        [
+          1,
+          595
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+      "sha256": "9c56fb8232e356e6e204ba7c1065597c6063b0b25572d6f0e7cb131b2a7eb320",
+      "ranges": [
+        [
+          1,
+          391
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/model.rs",
+      "sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+      "ranges": [
+        [
+          1,
+          363
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/power.rs",
+      "sha256": "76922a00bc1d4bf13c6d972aaba83258551ce853fff438f2edc3f0d295ae025a",
+      "ranges": [
+        [
+          1,
+          168
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/threat.rs",
+      "sha256": "58a5e53d2fdf5283f4e7ba8a58f1335f894bb6b4ab4524f3684f92bbca8dc106",
+      "ranges": [
+        [
+          1,
+          187
+        ]
+      ]
+    }
+  ],
+  "unique_count_delta": 0
+}

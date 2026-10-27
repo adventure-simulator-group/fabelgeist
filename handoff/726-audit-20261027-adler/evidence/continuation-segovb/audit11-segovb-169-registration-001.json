@@ -1,0 +1,20 @@
+{
+  "lens": "type-granularity",
+  "prior_state": "audit11-segovb-168-proposed-state.json",
+  "frozen_authority": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+  "original_registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+  "planned_originals": [
+    {
+      "original": 796,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/cap.rs",
+      "sha256": "f15aaadb4a376988994c92be34ee22767367490569bb5a1fec2dd21d0db5fdf8",
+      "scope": "full changed source, actual EOF to be established after staging",
+      "body_read": false
+    }
+  ],
+  "metadata_only": true,
+  "crosswalk": "audit11-question-crosswalk-001.json",
+  "current_reconciliation": "current-rig-dressing-reconciliation-001.json",
+  "stop_boundary": "one original796 cell, or explicit partial; no797 ordered read",
+  "restrictions": "No product/Git/rootledger/history mutations, project execution/tests/probes/scanners or publication"
+}

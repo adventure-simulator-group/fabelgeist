@@ -1,0 +1,283 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "072",
+  "predecessor": "receipt-071-originals339-344.json",
+  "manifest_prefix_sha256": "6f25eb94a32860223892cf67f745f891ab32bd68d8d2295d1a69af5d417f3c8c",
+  "sources": [
+    {
+      "original_index": 345,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+      "sha256": "62a3215d6f52174d7351776d55c5f7f07adf340abada8e8aff653d674f389095",
+      "actual_eof": 135,
+      "actual_ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              135
+            ]
+          ],
+          "role": "All literal strings are serde try_from/into f32 type-path annotations12/17/22/29/34. Constructors/error quantities typed.",
+          "disposition": "Concrete serde generated adapter type identity boundary; no raw text gameplay API. Numeric/math/serde execution not certified."
+        }
+      ],
+      "status": "Requested independent source inventory with explicit scope limits."
+    },
+    {
+      "original_index": 346,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "3e29916a9d570f6e0d12ffb54541ee018fb068902a4e5b6c0f744db9971d9ba9",
+      "actual_eof": 100,
+      "actual_ranges": [
+        [
+          1,
+          53
+        ],
+        [
+          63,
+          100
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              53
+            ],
+            [
+              63,
+              100
+            ]
+          ],
+          "role": "Strings only serde f32 annotations10/15/16. Exact1-53/63-100 excludes sample_span54-62; checked_nonnegative89-100 uses typed AnimationQuantity errors.",
+          "disposition": "Native serde type annotation boundary. No string roles in numerical APIs;54-62 unconsumed, duration/elapsed/geometry admission globally unclaimed."
+        }
+      ],
+      "status": "Requested independent source inventory with explicit scope limits."
+    },
+    {
+      "original_index": 347,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/mod.rs",
+      "sha256": "75fc12083762ad42e6fa03e9dbbd10e448c72c7940847b8c105add09c96e3c66",
+      "actual_eof": 86,
+      "actual_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              86
+            ]
+          ],
+          "role": "Only include tests.rs86 string path. Reexports/declared modules15-81 establish owner paths, no body coverage.",
+          "disposition": "Native Rust source inclusion path; tests/children not source-accounted by declaration."
+        }
+      ],
+      "status": "Requested independent source inventory with explicit scope limits."
+    },
+    {
+      "original_index": 348,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+      "sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+      "actual_eof": 217,
+      "actual_ranges": [
+        [
+          1,
+          99
+        ],
+        [
+          126,
+          162
+        ],
+        [
+          170,
+          217
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              99
+            ],
+            [
+              126,
+              162
+            ],
+            [
+              170,
+              217
+            ]
+          ],
+          "role": "Serde f32 type adapter strings11/16/21/26/31/36/42 only. Numeric constructors return typed AnimationValueError/AnimationQuantity.142-155 actual TryFrom ports were prospectively included as direct serde adapter declaration dependency.",
+          "disposition": "Concrete serialization type-path boundary; no raw String-valued API.100-125/163-169 excluded, including ImpactCompressionCompliance operations; no numerical/other-lens/globalowner clearance."
+        }
+      ],
+      "status": "Requested independent source inventory with explicit scope limits."
+    },
+    {
+      "original_index": 349,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/sample_tick.rs",
+      "sha256": "ce44941a09ab6edf1bfe96d5617ad84d777c4bc3e0c8735d65ed6b369d727990",
+      "actual_eof": 110,
+      "actual_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              110
+            ]
+          ],
+          "role": "Debug templates {_0:?}24/44 at derive formatting; transparent serde has no literal. No String-valued API.",
+          "disposition": "Native Debug output boundary for typed sample coordinate/count; numeric wrap/deadline comments no backward compatibility authority or lens08 proof."
+        }
+      ],
+      "status": "Requested independent source inventory with explicit scope limits."
+    },
+    {
+      "original_index": 350,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat.rs",
+      "sha256": "98f3cb6b60b6672e3bdb730f6c922c012120f3763add4beb906040f1be122c2f",
+      "actual_eof": 310,
+      "actual_ranges": [
+        [
+          1,
+          310
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              310
+            ]
+          ],
+          "role": "Only authored constant panic13 and existing test panic expected lunge arrival265/284/305. Errors retain canonical typed Geometry/Animation/Timing/Performance sources21-28. All310 read, including tests211-310.",
+          "disposition": "Concrete diagnostic output boundary, no raw string gameplay dispatch. No tests run and no lunge/clock/native numerical/runtime/behavior verdict."
+        }
+      ],
+      "status": "Requested independent source inventory with explicit scope limits."
+    }
+  ],
+  "connected_findings": [],
+  "pending_contracts": [
+    "346 sample_span54-62 outside material scope;348 ImpactCompressionCompliance operations100-125/163-169 outside material scope.",
+    "347 declared/included children remain independent mandatory obligations; native serde/derive implementations and numerical contracts not certified."
+  ],
+  "qualifications": [
+    "Exact frozen f82 physical-P16 only, no current alias or verdict transfer.",
+    "No backward-compatibility/input preservation obligation. No project/native/test/probe execution or product/Git/root-ledger/publication mutation.",
+    "All inherited F9/M09/all20/P16/P17/aliases/currentness; scoped string accounting only, no repaired/global/native/runtime/unique-total/other-lens clearance."
+  ],
+  "proposed_count": {
+    "before": 345,
+    "after": 351,
+    "indices_completed": [
+      345,
+      346,
+      347,
+      348,
+      349,
+      350
+    ],
+    "next_original": 351,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+      "sha256": "62a3215d6f52174d7351776d55c5f7f07adf340abada8e8aff653d674f389095",
+      "ranges": [
+        [
+          1,
+          135
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "3e29916a9d570f6e0d12ffb54541ee018fb068902a4e5b6c0f744db9971d9ba9",
+      "ranges": [
+        [
+          1,
+          53
+        ],
+        [
+          63,
+          100
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/mod.rs",
+      "sha256": "75fc12083762ad42e6fa03e9dbbd10e448c72c7940847b8c105add09c96e3c66",
+      "ranges": [
+        [
+          1,
+          86
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+      "sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+      "ranges": [
+        [
+          1,
+          99
+        ],
+        [
+          126,
+          162
+        ],
+        [
+          170,
+          217
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/sample_tick.rs",
+      "sha256": "ce44941a09ab6edf1bfe96d5617ad84d777c4bc3e0c8735d65ed6b369d727990",
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat.rs",
+      "sha256": "98f3cb6b60b6672e3bdb730f6c922c012120f3763add4beb906040f1be122c2f",
+      "ranges": [
+        [
+          1,
+          310
+        ]
+      ]
+    }
+  ]
+}

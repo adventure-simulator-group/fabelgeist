@@ -1,0 +1,44 @@
+{
+  "at": "2026-10-27T04:51:53.915952+00:00",
+  "failed_head": "903174935e1d8a07293105a9bccff17325489f3d",
+  "run": 40451496036,
+  "linux_earliest": {
+    "job": 122015018821,
+    "step": 10,
+    "contract": "Verify generated SpacetimeDB bindings",
+    "log_ranges": [
+      [
+        985,
+        1010
+      ],
+      [
+        1154,
+        1154
+      ]
+    ],
+    "error": "adventuresim-core build script missing crate::unit_interval and thiserror dependency"
+  },
+  "windows_earliest": {
+    "job": 122015018498,
+    "step": 6,
+    "log_ranges": [
+      [
+        595,
+        607
+      ]
+    ],
+    "error": "Same missing UnitInterval module/thiserror in core build-script compilation"
+  },
+  "diagnosis": "Root/source reviews missed direct #[path] inclusion of linear_speed.rs by core build.rs. Runtime Cargo dependencies and module declarations do not supply separate build target. Later upload failures are downstream absent artifacts, not separately debugged.",
+  "repair": {
+    "head": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+    "changed": [
+      "crates/adventuresim-core/build.rs",
+      "crates/adventuresim-core/Cargo.toml"
+    ],
+    "scope": "Add canonical UnitInterval path module and existing workspace thiserror build-dependency; no new API path or generated binding edits"
+  },
+  "local_project_execution": false,
+  "tests_added": false,
+  "hosted_acceptance": "Must rerun and accept exact repaired revision after review; prior903source verdicts retained historically only/hash-equal scopes carry."
+}

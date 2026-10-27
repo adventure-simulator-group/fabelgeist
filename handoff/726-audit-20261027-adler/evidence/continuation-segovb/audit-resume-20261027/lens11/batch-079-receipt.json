@@ -1,0 +1,269 @@
+{
+  "at": "2026-10-27T16:02:01.031531+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-079-registration.jsonl",
+    "sha256": "0ed671691bc2ca84aabf6ae3066f171312667acf6aa1ace5339d8bee86271c76"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-078.json",
+    "sha256": "a1df959ddec8e65c64158e2cbbb1130d8823ece819356f87f7dafa8c1a466171"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1127,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/model.rs",
+      "sha256": "ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+      "ranges": [
+        [
+          1,
+          1399
+        ]
+      ],
+      "actual_eof": 1399,
+      "prospective": true,
+      "purpose": "Independent full ordered model inventory; prior partialconnectedreceiveraccess onlycontext",
+      "actual_read_ranges": [
+        [
+          1,
+          536
+        ],
+        [
+          616,
+          811
+        ],
+        [
+          884,
+          917
+        ],
+        [
+          1046,
+          1182
+        ],
+        [
+          1266,
+          1399
+        ]
+      ],
+      "personal_same_lens_reuse": [
+        {
+          "receipt": {
+            "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-076-receipt.json",
+            "sha256": "34bad8167fc24ed0400a20064c7585975518859a9e5ac8d413b29736449a27c6"
+          },
+          "ranges": [
+            [
+              537,
+              615
+            ],
+            [
+              918,
+              1045
+            ]
+          ]
+        },
+        {
+          "receipt": {
+            "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-078-receipt.json",
+            "sha256": "3b1bce05b2ca4a5a496632b8f8f07ab963c2ec744517c9515827e130c5a87fa9"
+          },
+          "ranges": [
+            [
+              812,
+              883
+            ],
+            [
+              1183,
+              1265
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected_original",
+      "original_index": 1148,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak.rs",
+      "sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+      "ranges": [
+        [
+          1890,
+          1955
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual case-site occupancy transition receiving namespace/time state; no full clinicalbodyexpansion",
+      "actual_read_ranges": [
+        [
+          1890,
+          1955
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1127,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/model.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              234
+            ]
+          ],
+          "roles": "SDK tables for private generation/event/observation/recollection/claim/evidence, passed inspection/receipt, lore/diagnostic/report/deduction and safe backend record.",
+          "disposition": "Canonical existing core Observation/Recollection/Claim and case/event/proposition/knowledge IDs express actualdifferentfacts evenStringstorage. Stored stageJSON andduplicatedidentityfields require coherentassociation; EvidencePresentationKind currentlytagbesideauthorityJSON, physical/informational notgenuineprimitiveflag. Diagnostic successful lore differs passed physical check, report differs inference; separateauthors notcollapsedtruth.",
+          "remedy": "Reuse core stage/ID/EvidenceKind/ReportDescription/ThreatId/DeductionSupport through internalfields; admit typed privateauthoritysum/passedinspection result and serialize atDBframework.",
+          "acceptance": "Actual evidenceowner/source guarded inrecord537\u2013577 andinspection586\u2013808; no publicclinicaltruth leak or validstringsgloballysameID claim. NamedSDK output records appropriate boundary, notpermission rawstrings inprivate helpers."
+        },
+        {
+          "ranges": [
+            [
+              235,
+              424
+            ]
+          ],
+          "roles": "Bespoke lore results admission/duplicate-kind set, ordered support rank/label, report+diagnostic tuples and SafeBestiaryDeduction.",
+          "disposition": "EvidenceKind admitted thenleftString inPersistedBestiaryLoreResult, DiagnosticSupport canonicalenum convertedearly tostaticstr via SafeBestiaryDeduction; ranku8helper repeats enumorder. Report pairs and diagnostic triples combine canonicalkindwithuntypedreceipt/prose; namedrecords preventsreceipt/provenance swap. FixedvisibilityDim/distanceMedium/capabilityOrdinary/regionauthoredpolicy independentknowledgefacts, notdeductiontruth.",
+          "remedy": "Canonical supportenum/EvidenceKind retained tostorage, named ReportReceipt/DiagnosticReceipt and typed sourceprovenance vector; ownerimplements ordering ratherthanexternal ordinalifshared.",
+          "acceptance": "Preserve actualduplicatekind rejection, positiveboundedinterpretation, typedinference andqualitativededuction nativeowner934full. Diagnosticlistdedupbyreceipt while interpretationprovenance aggregates all sources, attribution policyquestion notruntimefalseproof."
+        },
+        {
+          "ranges": [
+            [
+              426,
+              585
+            ]
+          ],
+          "roles": "Exact action receipt equality, merge-by-kind lore updates, inspection augmented result+changed tuple, capability check/native millirank.",
+          "disposition": "Passed physical check and lore checks independentlygovernknowledge. Changedbool ordinaryderivedpredicate but returntuplestate couldnamed outcome; no enumjustforlocalboolrequired. callbackcategory+u16threshold roles meaningful, millistat notBPS/fraction. inspection_stat_milli finite/nonnegative thenroundsaturationu16 indicates nativequantization, canonical checkedleaf reuse ratherthanunitinterval.",
+          "remedy": "Typed checkmilli/loredifficulty retaining category+namedoutcome; sharedexistingcapabilityknowledgeowner, typed errorcauses. Keep originalinspectionstatusandnewknowledge timestamp separate.",
+          "acceptance": "Existing886capabilityfull552 checkedactualbestiaryknowledgecalculation earlier016 reused; no new thresholdbounds invented. Originalpassedfalse suppresses allnewlore, freezephysicaloutcomeintentional ratherthanlateststat guarantee."
+        },
+        {
+          "ranges": [
+            [
+              586,
+              808
+            ]
+          ],
+          "roles": "Physical evidence inspection mutation, location/topic authority, immutable attempt reused withnew diagnostic successes, journal/knowledge receipts.",
+          "disposition": "Actual stableattempt percharacter/evidence/topic andactionreplay independent; checkOption distinguishes intrinsicno-checktopic withpassedtrue/emptystat fromcheckedtest. passedbool+statlabel/narration/knowledgeJSON broadproductsumcandidate, no globalpassed=>diagnosticmustexist. Laterpreviouspassedtrue recomputeslore andaugmentsnewkind butlearned_at764 andjournal/update769/796 useinspection.attempted_at(originalfirstattempt), evenwhennewknowledge gainednow; temporalrolecandidate.",
+          "remedy": "Canonicalinspectionoutcome/no-check/checkedpayload andseparate learned_at fornewdiagnosticreceipt/rebuild; retain firstattemptchronology distinctactualnewlearningtime. Typed topic/evidenceids/admittedgeneratedauthority.",
+          "acceptance": "Source-backed latelearning path withinactualbody, no executedstatimprovementorclinical/fairnessconsequence witness. Actualoccupancy+evidenceidentity+topic andgateway/living/replay guards consumed. No alteration/newtests or currentalias/uniqueclaim."
+        },
+        {
+          "ranges": [
+            [
+              810,
+              1025
+            ]
+          ],
+          "roles": "Belief/currentrevision/lead, case site/area coordinates, capability/generated outputs/patterntarget/attempt/outcome/tracking.",
+          "disposition": "Usefulimmutableauthorityversusobserverbelief/knowledgeandprivatepresentationtracking distinctions. SameStrategicMinute storage personalobserverrecorded_at vs officialworldrecorded_at explicitroles. Casesite id_keystring duplicate typedCaseSiteId documentedframeworkindexadapter legitimate if equalityactualchecked. Coordinatesframebool+rawE7/lateruniformgeo validator misgranularity preserved078. CapabilityTargetKind/targetID/provenancesum andJSONattemptoutcome migration findings076/077 notnewunique.",
+          "remedy": "Canonicalexisting IDs/coordinateframe/destination/state payloads internally; recordnamedclockroles andcase/privatepublicauthority; avoiduniversalidentifierorconfidenceownerthatflattenssemantics.",
+          "acceptance": "Trackingexplicitlynotobjective/acceptance/positionauthority. Distinctpresentedknowledge maywrong/corrected legitimate, notruthassertion. Actualproducers/consumers1120/1123/1124 sourcecompleteprevious076\u2013078."
+        },
+        {
+          "ranges": [
+            [
+              1027,
+              1156
+            ]
+          ],
+          "roles": "Case occupancy half-open intervals/currentunique lookup andtypedCaseSiteId flattenedsetter/getter, context/outbreak transition.",
+          "disposition": "Case occupancy actualtypedsite while getterreturnsStringandsetteracceptsOptionStringreadmitsnextoperation; sourceproducerpropagationgap. entered_at<=t<left_at halfopen anduniqueactive required, Optionclosesmeaningfulinterval. getNone conflatesnonewithconflictingmultiple; mutationexpliciterrorchecks. Differentunderlyingeventhistory/contextmembership/clinicalspan intentionallydifferentauthorities, actualsamecharacterpersonalclock.",
+          "remedy": "Keep Option<CaseSiteId> internal andclosed/openoccupancyinterval/admittedunique projection; preserve absencevsconflictwherecallerdecides. NativeDBindexadapterisolated.",
+          "acceptance": "Actualsetter closespresence/social beforeDBtransition, callsoutbreak1890\u20131944 whichre-admitscanonicalplacefromrawstr andwrites sameclock/sourceplace; no wrongordinarysite/runtimeclaim. Deeperbiologicalclinicaleffects deliberatelynotre-audited, sourceformatrecipient materialcontract consumed."
+        },
+        {
+          "ranges": [
+            [
+              1158,
+              1399
+            ]
+          ],
+          "roles": "Sharing/action/safeclaim/witnessreferral/lead/journal persistedrecords andjournal insert/upsert/forwardhelper.",
+          "disposition": "Raw grantkindwithpayloadsentinels, consumed_bystringstates, recordsource-ID namespace, semanticpayloadfingerprint distinctalreadytrace078. Genericjournalimmutableexactretry differs upsertpublicthreat latestprojection; notduplicateauthorityorBCfallback. record_physical_evidence_journal_notice1381\u20131399 forwardsallargswithoutpolicy, concretesimplification. Stablehashid vsactualsourceidentity equalityguards collisions, no collisionfreeclaim.",
+          "remedy": "Canonicaltypedreceipt/referral/provenance andjournal sourcepayload retained; sharedinsert/upsert invariant belowseparateimmutable/latestroles; removeunnecessaryforwardhelper.",
+          "acceptance": "Actualjournalbounds/idempotency checksallstoredfields, upsertguardsidentitythenupdatespayload; no preservingoldschema/API. Public output vsprivate authority distinctions maintained; sourcehash evidence notruntimeacceptance."
+        }
+      ]
+    }
+  ],
+  "connected_role_inventory": [
+    {
+      "original": 1148,
+      "ranges": [
+        [
+          1890,
+          1955
+        ]
+      ],
+      "inventory": "Actual presence-transition1890\u20131944 full. Closesexistingactive spans first, parsesdestinationcaseplace fromString, activeunremediatedauthoritymatch, generates sourceplaceid/character/start andopenend; repeats typedsite admission.1946\u20131955 next discovercorpses signature/queryprefix only, nowholefuturecredit."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-016-receipt.json",
+        "sha256": "8a08d4a7a68768b9c1813ab799897da5c4422ede6cf9a388279d8d3c27eb92d0"
+      },
+      "contract": "886capabilityfull552 bestiary knowledge check actualowner; SHA6e0a321cc3add825f92a96426d7bd4b3af413ad02381e547a2db66fdd8676d82."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-028-receipt.json",
+        "sha256": "45e9ec96599b408c85a36ae3ba0299bcdb195524537add323b6aba4a300c89b2"
+      },
+      "contract": "934investigationfull825 canonicalpipeline/IDs/Confidence/qualitativedeductions infer_threats; norawStringnewowner justified."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-037-receipt.json",
+        "sha256": "9eba0cc942018e3348434818aa4201ceb3a5509ab2183eb34b9a6e117cc1c75a"
+      },
+      "contract": "972generationmodelfull1230 EvidenceCheckStat/topic/GeneratedEvidence/BestiaryEvidenceImplication andtypedgenerationrecords canonical source."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-076-receipt.json",
+        "sha256": "34bad8167fc24ed0400a20064c7585975518859a9e5ac8d413b29736449a27c6"
+      },
+      "contract": "1120fullreceiver route/rights/time/outcome, explicit1127 partial537\u2013615/918\u20131045 actualbody reused."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-077-receipt.json",
+        "sha256": "f5beff649d59ea6b7e3e0d2414b54f88339e31b6e7be21c381c062c9d6e92fc4"
+      },
+      "contract": "1123full capabilityissuance/transition actualproducer."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-078-receipt.json",
+        "sha256": "3b1bce05b2ca4a5a496632b8f8f07ab963c2ec744517c9515827e130c5a87fa9"
+      },
+      "contract": "1124fullclaim/lead/referralactualproducers/receivers;1127partial812\u2013883/1183\u20131265 actualsame-lensreused."
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "All1127effectivefull1399 inventoried; personallyfreshunreadranges plus exact076/078 priorbodyranges explicitlylisted, noautomaticpreviousconnectedcompletioncredit.",
+    "Passedinspection/lore chronology candidate no runtime/current/alias/unique transfer. Capacity/frames/privacy/clock/sourceknowledge all priorqualified findings retained.",
+    "Only1148new1890\u20131955 boundary, no deepclinicalalgorithm or wholesubsystemclearance. No product/Git/ledger/projectchecks/tests/probes/publication."
+  ]
+}

@@ -1,0 +1,26 @@
+--- base
++++ head
+@@ -0,0 +1,23 @@
++//! Opaque correlation of one observed authoritative melee request.
++
++use derive_more::{Debug, From};
++use serde::{Deserialize, Serialize};
++
++/// Original observed request word, independent of delayed animation/contact
++/// coordinates. Every bit pattern is valid, including zero; absence is Option.
++#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize, From)]
++#[debug("{_0:?}")]
++#[serde(transparent)]
++pub struct MeleeAttackKey(u64);
++
++impl MeleeAttackKey {
++    /// Native word only for final diagnostics or an external scalar encoding.
++    pub fn encoded(self) -> u64 {
++        self.0
++    }
++
++    /// Exact original word at the deterministic seed byte boundary.
++    pub fn to_le_bytes(self) -> [u8; 8] {
++        self.0.to_le_bytes()
++    }
++}

@@ -1,0 +1,166 @@
+{
+  "id": "ADLER-CONT08-MATERIAL024-031-001",
+  "lens": "behavior-preservation",
+  "assignment_limit": "M24-31 only; stop afterM31.",
+  "registry": "shared-material-successor/source-extensions-196.json",
+  "source_pins": "material-receipts/source-pins-early-005.json",
+  "correspondence": "material-receipts/early-024-031-correspondence-001.json",
+  "source_reads": {
+    "24": {
+      "source_id": "native-dependency:serde_derive-1.0.229/src/de/enum_internally.rs",
+      "sha256": "9d898dbc1c46262f695ef7ba1660b2af70de48e07bbac8f44b740326b7c5b303",
+      "registered_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "read_mode": "Fresh actual registered body/ranges personally read"
+    },
+    "25": {
+      "source_id": "native-dependency:bevy_replicon-0.41.1/src/postcard_utils.rs",
+      "sha256": "4a9f413f61885f1581e0a3ddadb2528459e45bd2ea029a7a08ad3b2ab085d537",
+      "registered_ranges": [
+        [
+          120,
+          143
+        ]
+      ],
+      "read_mode": "Retained own08 original472120-133 plus fresh134-143"
+    },
+    "26": {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/guards.rs",
+      "sha256": "aa9d8fff8668ea79607a4037aced426da5be5f58d5ee3929008ee00c92994267",
+      "registered_ranges": [
+        [
+          1,
+          225
+        ]
+      ],
+      "read_mode": "Fresh actual registered body/ranges personally read"
+    },
+    "27": {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/world_import.rs",
+      "sha256": "cc83d5f3e3c415a12dc0ced11a5e9271a2b115d3ed5ac9703d1a8b8ae9728d22",
+      "registered_ranges": [
+        [
+          1,
+          45
+        ],
+        [
+          411,
+          440
+        ],
+        [
+          523,
+          721
+        ],
+        [
+          736,
+          834
+        ],
+        [
+          985,
+          1104
+        ]
+      ],
+      "read_mode": "Fresh actual registered body/ranges personally read"
+    },
+    "28": {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/bracer_wgsl.rs",
+      "sha256": "4d241c6f7e175f29b96322988a5847431b5894612786ac6173cabb719b9642c9",
+      "registered_ranges": [
+        [
+          1,
+          426
+        ]
+      ],
+      "read_mode": "Fresh actual registered body/ranges personally read"
+    },
+    "29": {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/bracer_contour_wgsl.rs",
+      "sha256": "1dcc2d531a53792a6bf2d8a1725d0aa2e081cd60bb86247bf5146588d32f16a4",
+      "registered_ranges": [
+        [
+          1,
+          266
+        ]
+      ],
+      "read_mode": "Fresh actual registered body/ranges personally read"
+    },
+    "30": {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/chart/chart_wgsl.rs",
+      "sha256": "2b31c7fe9b829a50fc2c3411ebf7f12d06a54f079f88b86c4cf1165c17e6bb80",
+      "registered_ranges": [
+        [
+          1,
+          226
+        ]
+      ],
+      "read_mode": "Fresh actual registered body/ranges personally read"
+    },
+    "31": {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/codes.rs",
+      "sha256": "0b8a7c542323af91d7989eb07067b61c68e2ffe46254a1d10477293591c3cb13",
+      "registered_ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "read_mode": "Fresh actual registered body/ranges personally read"
+    }
+  },
+  "reuse": {
+    "25": {
+      "own08_original": 472,
+      "source_sha256": "4a9f413f61885f1581e0a3ddadb2528459e45bd2ea029a7a08ad3b2ab085d537",
+      "prior_read_ranges": [
+        [
+          120,
+          133
+        ]
+      ],
+      "fresh_read_ranges": [
+        [
+          134,
+          143
+        ]
+      ],
+      "qualification": "Previous1-40 original472 receipt retained independently; no new1-40 credit or whole module claim."
+    }
+  },
+  "support": {
+    "original": 2115,
+    "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/placement.rs",
+    "sha256": "243d594fbb5904b60ec01daa6e25decb1ace121320b548926f0400a909222fc3",
+    "read_ranges": [
+      [
+        1,
+        156
+      ]
+    ],
+    "scope_authority": "Original scope072 producer_reached_contract_observations explicitly register1-156; fresh actual producer/native receiver support only, no original2115/delta completion.",
+    "path_mapping": "Catalog SNAPSHOTS\\pr-working prefix maps to Git path after pr-working:, not a literal Git prefix."
+  },
+  "analyses": {
+    "24": "Fresh exact serde_derive enum_internally1-106 read. Generated internally tagged Deserialize first calls Deserializer::deserialize_any with TaggedContentVisitor, before dispatching the selected variant into ContentDeserializer; skipped/custom variant handling does not remove that initial call. Unit variant content also uses deserialize_any. Together with personally read M23 postcard WontImplement and prior own472 from_buf this confirms the native mechanism behind the retained RootF52 terrain-codec qualification. It does not establish a new unique issue or clear the actual application component/codec selection, nor substitute this source for other serde versions.",
+    "25": "Exact postcard_utils source hash matches own08 predecessor original472. Reused actual120-133 from_buf body: constructs native postcard Deserializer over BufFlavor and invokes T::deserialize, rather than routing through JSON. Fresh134-143 reads entity_from_buf specialised compact entity decode and the borrowed-buffer cursor documentation. The next BufFlavor implementation after143 is uncredited. Streaming failure can consume bytes; no rollback or arbitrary internally tagged payload compatibility follows from Result alone. Prior native version/RootF52 qualifications retained.",
+    "26": "Fresh full225 guard receiver read and exact base3a50/head6533 identity proved. Same left/right/independent/symmetric sweep construction, native sample counts, terminal selection/order, material fallback, rounded block and assembly Catmull-Rom arithmetic. Actual registered original2115 placement producer full156 read as uncounted support: grip_width is the first matching Grip-ID/Grip-role recognized shape, retained unchanged in PlacementGraph and copied to each ResolvedComponent. This reaches actual max(height*1.2,grip_width-or-zero) at guard138. Both producer and receiver unchanged. Broader grip frame/seat selection consistency and changed weapon-model owners remain qualified; no inferred last-grip equivalence or ordinary mismatch witness from names.",
+    "27": "Fresh exact five registered world_import ranges read,493 lines total; full-file base/head equality proved without reading excluded bodies. Same active owner/artifact/completed gates; settlement reconstruction and validation order before row upsert; source-node/language/profile guards; source-oriented population/category projection; delayed final industry/economy equality against final travel edges before marking complete. Native route count clamps to u16MAX only at inference boundary, and scale thresholds retain>=2/rolling/250 plus marginal0. Hydrology/drought/soil/geology reconstruction is unchanged. Finalization also calls character-data discard; nothing was executed. Public score/tier producer semantics or all database updates are not cleared from this bounded unchanged import receiver.",
+    "28": "Fresh full426 bracer shader source read in1-220/221-426; entire module byte-identical base/head. Axis/sample/point/design word counts and buffer binding/index arithmetic retained. Actual ordered regression sums and unit thresholds, displace outer/inner offsets, wound outer/inner/end triangles, UV interpolation and strongest-eight joint reduction preserve exact source order, lower-joint tie choice and output lanes. M29 actually produces at most four sample contributors from two two-point crossings, bounding the32 intermediate joint slots in this shader path. Native params/host buffer population and assembled shared math/status pieces remain separate owners; no execution, universal GPU portability or malformed-buffer safety claim.",
+    "29": "Fresh full266 contour shader source read; base/head identical. Same face/edge enumeration, axial clamp/tolerance, normalized two-point crossings, first welded crossing in face order, capacity failure and fewer-than3 EmptyContour. Stable angular insertion sort retains equal-angle weld order; bracket/wrap selection and blend process keep ascending vertex keys, threshold1e-7 and native float/u32 bitcast layouts. Connected output SAMPLE_WORDS9 matches M28 consumer. Degenerate custom contour/host-data policies and GPU native arithmetic remain unproved beyond actual status/error code; no runtime success or new source finding inferred.",
+    "30": "Fresh full226 chart shader module read; base/head identical. Same storage/uniform fields and padding, reflected placement order, flute fan/relief arithmetic, grid/apex/capped-tip branching and half-height tip math, carrier/height writes, world origin/axis and mirrored winding flag. Constants are formatted from named Rust owners into native WGSL, not independently reassigned here. Positive counts/spans/row/stride and finite shared frame/math assumptions belong to actual host/admission sources; unchanged shader body alone does not clear changed host layouts or every assembled shader string.",
+    "31": "Fresh full171 canonical helmet code declarations read; base/head identical. shared_codes generates both fieldless Rust enums and WGSL u32 constants from the same ordered variant list. COUNT and SCREAMING_SNAKE conversion preserve exact current discriminant/name outputs; Slot, VertexKind, PostMap and CheekRow have no new variants/reordering. Actual trait-free ordinal cast is a native buffer/shader encoding. Host payload writers and kernel dispatch consumers remain their own source roles; no whole helmet behavior or current-main audit clearance."
+  },
+  "findings": [],
+  "new_unique_count": "Not asserted; existing RootF52 codec, grip/semantic identity, import authority and native shader/host qualifications retained.",
+  "global_clearance": false,
+  "next_earlier_material": 32,
+  "original_frontier_unchanged": {
+    "completed": 1799,
+    "next": 1792,
+    "first_unfinished": 1462
+  },
+  "execution": "No product/Git changes, project checks/tests, compiled shaders, database actions, new tests/assertions/helpers or publication."
+}

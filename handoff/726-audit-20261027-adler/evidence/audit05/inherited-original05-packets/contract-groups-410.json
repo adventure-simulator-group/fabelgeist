@@ -1,0 +1,70 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-410",
+  "at": "2026-10-23T13:24:16.862635+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/contact_geometry.rs",
+      "sha256": "8be98e18f4aa0d7bb6fbc302c7a10e6df912a744927240f6a4618ce41541e75f",
+      "scope072_index": 895,
+      "actual_EOF": 488,
+      "scoped_ranges_compared": [
+        [
+          1,
+          488
+        ]
+      ],
+      "actual05_comparison": "Fresh full actual source including all original fixtures; physical contact/classification/cause and response/diagnostic correlations compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/defense.rs",
+      "sha256": "a3019cfa64106abc38bbfa7b0962e406cc6cb1a1a663a8a0dfdee71f874201e1",
+      "scope072_index": 897,
+      "actual_EOF": 444,
+      "scoped_ranges_compared": [
+        [
+          1,
+          444
+        ]
+      ],
+      "actual05_comparison": "Fresh full actual source including all original fixtures; physical contact/classification/cause and response/diagnostic correlations compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "physical classification is one correlated computed contact",
+      "comparison": "895 full488: invalid facts nonfinite/negative or effective reach<=0 classified InvalidGeometry; actual>reach distinct OutsideReach. Result intentionally retains rejected raw measurements as diagnostic while sets invalidated classification/zeroenergy/zeroaccuracy/causeSome. Successful unarmed grip<=0 avoids division; armed branch has grip>0, computes current lever and butt, maps head/haft/pommel to actual body/striking material and squared lever ratio. Classification/cause/material/energy columns are public and derived Serde can mix independently, so caller cannot treat any raw literal as resolved accepted contact. Intended(measure) is explicit shortcut with zero lever/energy1/accuracy1, not evidence all geometry ratios were computed."
+    },
+    {
+      "id": "authored ideal and scheduled observation must stay distinct",
+      "comparison": "895 ideal clamp at286-301 uses authored ideal, actual current measure; scheduled measure retained diagnostic and not redefining ideal. Distal headed geometry tests preserve continuous head/haft energy and material switch, continuous sword blade not incorrectly haft. Actual detection helper53-63 considers geometry plus material difference; public distal_headed bool can bypass that relationship. No normal inconsistent weapon producer inferred."
+    },
+    {
+      "id": "computed fractions retain existing finite-admission findings",
+      "comparison": "Personally consumed Root04 079/083, then independently full PR895: smallest positive effective reach, allotherlengths0, unarmed, actual/ideal0 passes native geometry gate but .08*reach underflows0 and0/0 returns NaNaccuracy. Exact RootF029 source support, no extra unique. Large finite head_start+reach can overflow before *.5 in preferred69-84; Root083 already notes exact PR observation, P16 checked result may reject. This packet does not infer a portable minimum length, require wider arithmetic, or claim current normal huge/tiny weapon. Energy ratio overflow with positive grip is clipped1 before square deliberately and does not itself publish Inf."
+    },
+    {
+      "id": "committed defense carries probability and observed inputs together",
+      "comparison": "897 full444: signed lag<=0 forces FinishTrade, zero lag completed1 evenwindup0; positive lag windup0 gives completed0 through clamp. u8 interception count bounds learned ratio and inertia/(inertia+1) does not overflow for finite inertia. Benefit and sunk work may exceed1 while probability alone normalized. Public CommittedThreatDecision fields are not sealed correlation of choice, sample and probability; normal shared function computes them as one result. Root095 exact F032 consumed: recoveryMAX+windupMAX denominatorInf biases exposure0 vs.5 and response choice, API-only no ordinary configured duration claim."
+    },
+    {
+      "id": "alignment and performance scale different purposeful response facets",
+      "comparison": "897 finite sample clamped into open unit range gives finite logit; exp overflow returns valid logistic0 endpoint, no requirement every intermediate finite. Nonweapon bypass keeps diagnostic rawsample without using it. Alignment scales block effectiveness/parry precision, performance additionally scales dodge reflex, preserves attempted vs effective and engagement distinct from workcost. Raw response enum lacks native field admission, e.g input_reflexMAX parry precision0 factor2*MAX*0NaN; normal unit reflex supplier separate. A shared UnitInterval for actual factors must not cap legitimate defensefactor2 or benefit3."
+    },
+    {
+      "id": "shield anatomy and source fixture bounds",
+      "comparison": "897 fixed lateral coordinate mapping for actual bodypart + finite unit localcoordinate, resting side+-.55 and denominator.8; outside>=.8 returns None before divide. BodySideBoth means no singly resting coordinate and preserves originalresponse deliberately. Raw NaN local coordinate is broader contact admission graph, not a normal misaligned shield claim. All298-444 original mirror/center/logistic/nearcompletion/simultaneous/injury/intercept fixtures freshly read, not run.895304-488 every band/closure/head/shaft/material/outside/preferred/ideal fixture read source-only."
+    }
+  ],
+  "existing_findings_supported": [
+    "ROOT-INITIAL04-F029",
+    "ROOT-INITIAL04-F032"
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Normal coherent weapon geometry/distal flag, contact coordinate and normalized response payload suppliers are exact separately queued boundaries. Raw result Serde remains broader than resolved accepted contact."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

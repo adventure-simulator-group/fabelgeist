@@ -1,0 +1,2878 @@
+//! Framework-neutral, deterministic combat simulation for strategic autoresolve.
+
+use crate::battle_time::BattleTime;
+use crate::elapsed::{AnimationElapsed, ElapsedResult};
+use crate::unit_interval::{FractionResult, UnitInterval};
+
+use crate::prelude::*;
+use adventuresim_world_schema::BestiaryCategory;
+use fabelgeist_determinism::{DeterministicRng, Seed, StreamId};
+use serde::Serialize;
+
+use crate::projectile::ProjectileKind;
+pub use authored_weapon::{AuthoredMeleeWeaponError, AuthoredMeleeWeaponResult};
+pub use classification::{BattleAttackKind, MeleeMovementAction};
+pub use error::{BattleResolutionError, BattleResolutionResult};
+use joint_melee::*;
+use melee_defense::*;
+use melee_exchange::*;
+pub use melee_iteration::*;
+use melee_movement::*;
+use melee_round::*;
+pub use model::*;
+pub use power::autoresolve_combat_power;
+#[cfg(test)]
+use power::finite_log_component;
+pub use threat::{AuthoredThreatError, AuthoredThreatResult, authored_threat_combatant};
+pub use timeline::{
+    MeleeResponseAvailability, MeleeResponseChoice, MeleeTimelineEvent, MeleeTimelineKind,
+    MeleeTimelinePhase,
+};
+
+mod authored_weapon;
+mod classification;
+mod error;
+mod joint_melee;
+mod melee_defense;
+mod melee_exchange;
+mod melee_iteration;
+mod melee_movement;
+mod melee_round;
+mod model;
+mod power;
+mod threat;
+mod timeline;
+
+const AUTORESOLVE_MAX_COMBAT_ROUNDS: usize = 256;
+const AUTORESOLVE_MAX_RANGED_ATTACKS_PER_PHASE: usize = 64;
+
+#[derive(Clone, Debug)]
+pub struct Combatant {
+    pub id: u64,
+    pub attributes: PlayerAttributeValues,
+    pub body: CombatBody,
+    pub essentials: CombatEssentials,
+    pub equipment: CombatEquipment,
+    pub skills: CombatSkills,
+    /// Physical creature facets used to select the attacker's anatomical lore.
+    pub bestiary_categories: Vec<BestiaryCategory>,
+    /// Strategic incapacitation not recomputed in battle, such as fear or hunger.
+    pub starting_incapacitation: f32,
+    pub starting_blood_fraction: f32,
+    #[doc(hidden)]
+    pub imbalance: f32,
+    #[doc(hidden)]
+    pub blood_loss_fraction: f32,
+    #[doc(hidden)]
+    pub wounds: Vec<CombatWound>,
+    /// General fatigue: the same incapacitation fraction shown in black tactically.
+    pub fatigue: f32,
+    #[doc(hidden)]
+    pub acute_trauma: f32,
+    #[doc(hidden)]
+    pub active_work_seconds: AnimationElapsed,
+    #[doc(hidden)]
+    #[doc(hidden)]
+    pub melee_attack_power_multiplier: f32,
+    #[doc(hidden)]
+    pub melee_interval_jitter_seconds: AnimationElapsed,
+    #[doc(hidden)]
+    melee_consecutive_intercepts: u8,
+    #[doc(hidden)]
+    melee_phase_adaptation_delay_seconds: AnimationElapsed,
+    #[doc(hidden)]
+    melee_engagement_target: Option<u64>,
+    #[doc(hidden)]
+    melee_engagement_distance_metres: f32,
+    /// Signed contribution to separation velocity: closing is negative.
+    melee_separation_velocity_metres_per_second: SignedSpeed,
+    #[doc(hidden)]
+    melee_recovery_until_seconds: BattleTime,
+    #[doc(hidden)]
+    melee_attack_started_at_seconds: Option<BattleTime>,
+    #[doc(hidden)]
+    melee_attack_contact_at_seconds: Option<BattleTime>,
+    #[doc(hidden)]
+    melee_attack_scheduled_measure_metres: Option<f32>,
+    #[doc(hidden)]
+    #[doc(hidden)]
+    pub yielded: bool,
+    #[doc(hidden)]
+    /// Cut damage committed at the tactical/strategic boundary. This is durable
+    /// wound provenance, not tactical tick state.
+    pub cut_damage: f32,
+    #[doc(hidden)]
+    pub initial_ammunition: u32,
+    #[doc(hidden)]
+    pub ranged_attack_progress: f32,
+}
+
+/// Durable combat facts projected into a fresh autoresolve participant.
+///
+/// Duel timing, movement, wounds, and other transient state are deliberately
+/// initialized by [`Combatant::from_strategic_state`] rather than exposed to
+/// strategic persistence adapters.
+#[derive(Clone, Debug)]
+pub struct CombatantStrategicState {
+    pub id: u64,
+    pub attributes: PlayerAttributeValues,
+    pub body: CombatBody,
+    pub essentials: CombatEssentials,
+    pub equipment: CombatEquipment,
+    pub skills: CombatSkills,
+    pub starting_incapacitation: f32,
+    pub starting_blood_fraction: f32,
+    /// General fatigue already included in strategic incapacitation.
+    pub fatigue: f32,
+}
+
+impl Combatant {
+    pub fn new(id: u64) -> Self {
+        Self {
+            id,
+            attributes: PlayerAttributeValues::default(),
+            body: CombatBody::default(),
+            essentials: CombatEssentials {
+                focus_level: 1.0,
+                ..CombatEssentials::default()
+            },
+            equipment: CombatEquipment::default(),
+            skills: CombatSkills::default(),
+            bestiary_categories: vec![BestiaryCategory::Human],
+            starting_incapacitation: 0.0,
+            starting_blood_fraction: 1.0,
+            imbalance: 0.0,
+            blood_loss_fraction: 0.0,
+            wounds: Vec::new(),
+            fatigue: 0.0,
+            acute_trauma: 0.0,
+            active_work_seconds: AnimationElapsed::ZERO,
+            melee_attack_power_multiplier: 1.0,
+            melee_interval_jitter_seconds: AnimationElapsed::ZERO,
+            melee_consecutive_intercepts: 0,
+            melee_phase_adaptation_delay_seconds: AnimationElapsed::ZERO,
+            melee_engagement_target: None,
+            melee_engagement_distance_metres: 0.0,
+            melee_separation_velocity_metres_per_second: SignedSpeed::ZERO,
+            melee_recovery_until_seconds: BattleTime::ZERO,
+            melee_attack_started_at_seconds: None,
+            melee_attack_contact_at_seconds: None,
+            melee_attack_scheduled_measure_metres: None,
+            yielded: false,
+            cut_damage: 0.0,
+            initial_ammunition: 0,
+            ranged_attack_progress: 0.0,
+        }
+    }
+
+    pub fn from_strategic_state(state: CombatantStrategicState) -> Self {
+        let initial_ammunition = state.equipment.ammunition;
+        let mut combatant = Self::new(state.id);
+        combatant.attributes = state.attributes;
+        combatant.body = state.body;
+        combatant.essentials = state.essentials;
+        combatant.equipment = state.equipment;
+        combatant.skills = state.skills;
+        combatant.starting_incapacitation =
+            (state.starting_incapacitation - state.fatigue).max(0.0);
+        combatant.fatigue = state.fatigue.clamp(0.0, 1.0);
+        combatant.starting_blood_fraction = state.starting_blood_fraction;
+        combatant.initial_ammunition = initial_ammunition;
+        combatant
+    }
+
+    fn view_with_equipment<'a>(
+        &'a self,
+        equipment: &'a CombatEquipment,
+    ) -> PlayerInfo<
+        &'a PlayerAttributeValues,
+        &'a CombatBody,
+        &'a CombatEssentials,
+        &'a CombatEquipment,
+        &'a CombatSkills,
+    > {
+        PlayerInfo::empty()
+            .with_attributes(&self.attributes)
+            .with_body(&self.body)
+            .with_essentials(&self.essentials)
+            .with_equipment(equipment)
+            .with_skills(&self.skills)
+    }
+
+    pub fn incapacitation(&self) -> f32 {
+        let will = self.skills.skill_check_by_parts(
+            Skill::Will,
+            &self.attributes,
+            &self.body,
+            &self.essentials,
+            &self.equipment,
+            LimbWeights::all_equal(),
+        );
+        combat_incapacitation(
+            self.starting_incapacitation,
+            self.starting_blood_fraction,
+            self.blood_loss_fraction,
+            self.body.total_damage(),
+            will,
+            self.imbalance,
+        ) + self.acute_trauma
+            + self.fatigue
+            + combat_encumbrance_incapacitation(&self.attributes, &self.body, &self.equipment)
+    }
+
+    pub fn is_incapacitated(&self) -> bool {
+        self.incapacitation() >= 1.0
+    }
+
+    fn is_defeated(&self) -> bool {
+        self.is_incapacitated() || self.yielded
+    }
+
+    fn recover_balance(&mut self, elapsed_seconds: AnimationElapsed) {
+        self.imbalance = recover_combat_imbalance(self.imbalance, elapsed_seconds);
+    }
+
+    fn advance_condition(&mut self, elapsed_seconds: AnimationElapsed) {
+        self.recover_balance(elapsed_seconds);
+        self.blood_loss_fraction =
+            advance_combat_bleeding(self.blood_loss_fraction, &self.wounds, elapsed_seconds);
+        let recovery_seconds = elapsed_seconds.saturating_sub(self.active_work_seconds);
+        recover_combat_fatigue(
+            &mut self.fatigue,
+            recovery_seconds,
+            self.attributes.endurance,
+            EMBEDDED_COMBAT_RESOLUTION_PARAMETERS.fatigue,
+        );
+        self.active_work_seconds = self.active_work_seconds.saturating_sub(elapsed_seconds);
+    }
+
+    fn charge_action_work(&mut self, work: CombatActionWork, duration_seconds: AnimationElapsed) {
+        let weapon = self.equipment.melee_weapon.unwrap_or_default();
+        let workload = combat_action_workload(
+            work,
+            duration_seconds,
+            weapon.weight,
+            weapon.moment_of_inertia_kg_m2,
+            self.equipment.inventory_weight,
+            self.body.weight_kg,
+            EMBEDDED_COMBAT_RESOLUTION_PARAMETERS.fatigue,
+        );
+        apply_combat_workload(
+            &mut self.fatigue,
+            workload,
+            self.attributes.endurance,
+            EMBEDDED_COMBAT_RESOLUTION_PARAMETERS.fatigue,
+        );
+        self.active_work_seconds = self.active_work_seconds.max(duration_seconds);
+    }
+
+    fn incapacitation_performance(&self) -> FractionResult<UnitInterval> {
+        combat_incapacitation_performance(self.incapacitation())
+    }
+
+    fn can_attack_ranged(&self) -> bool {
+        self.equipment.ranged_weapon.is_some() && self.equipment.ammunition > 0
+    }
+
+    fn can_attack_melee(&self) -> bool {
+        self.equipment.melee_weapon.is_some()
+            && melee_attack_capability(&self.body, &self.equipment.for_melee()).is_available()
+    }
+
+    fn movement_speed_meters_per_second(
+        &self,
+        minimum_speed: PositiveSpeed,
+    ) -> SpeedResult<PositiveSpeed> {
+        let leg_agility = self.attributes.limb_attr_by_weight_by_parts(
+            LimbAttribute::Agility,
+            &self.body,
+            LimbWeights::both_legs(),
+        );
+        let armor = self.equipment.armor_penalty(BodyPart::LOWER_BODY);
+        // Physical load still affects locomotion; fatigue and total
+        // incapacitation do not add a separate movement-speed multiplier.
+        let encumbrance = self
+            .equipment
+            .encumbrance_penalty_by_parts(&self.attributes, &self.body);
+        let measured = (1.0 + leg_agility) * armor * encumbrance;
+        if !measured.is_finite() {
+            return Err(SpeedError::Overflow);
+        }
+        PositiveSpeed::from_metres_per_second(measured.max(minimum_speed.metres_per_second()))
+    }
+}
+
+/// The quest policy's conservative 5:4 party-to-opposition margin. Overflow
+/// is an invalid assessment, not implicit permission to fight.
+pub fn combat_power_meets_safety_margin(party_power: u64, enemy_power: u64) -> Option<bool> {
+    Some(party_power.checked_mul(4)? >= enemy_power.checked_mul(5)?)
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "snake_case")]
+pub enum BattleResolution {
+    AlliesVictory,
+    EnemiesVictory,
+    MutualIncapacitation,
+    Timeout,
+}
+
+#[derive(Clone, Debug, Serialize)]
+pub struct CombatantOutcome {
+    pub id: u64,
+    pub body: CombatBody,
+    pub blood_loss_fraction: f32,
+    pub cut_damage: f32,
+    pub incapacitated: bool,
+    pub yielded: bool,
+    pub incapacitation: f32,
+    pub imbalance: f32,
+    pub acute_trauma: f32,
+    pub pain_incapacitation: f32,
+    pub fatigue: f32,
+    pub encumbrance: f32,
+    pub wound_count: usize,
+    pub open_wound_count: usize,
+    pub internal_wound_count: usize,
+    pub wound_flow_fraction_per_second: f32,
+    pub ammunition_used: u32,
+    pub terminal_cause: Option<CombatTerminalCause>,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
+pub enum CombatTerminalCause {
+    YieldedUnableToContinue,
+    StartingCondition,
+    Pain,
+    BloodLoss,
+    AcuteTrauma,
+    Fatigue,
+    Encumbrance,
+    Imbalance,
+}
+
+#[derive(Clone, Debug, Default, Serialize)]
+pub struct BattleSummary {
+    pub stealth_attempts: u32,
+    pub stealth_successes: u32,
+    pub opening_ranged_attacks: u32,
+    pub ranged_attacks: u32,
+    pub melee_attacks: u32,
+    pub hits: u32,
+    pub total_health_damage: f32,
+    pub ammunition_used: u32,
+}
+
+#[derive(Clone, Debug, Serialize)]
+pub struct BattleLogEntry {
+    pub sequence: u32,
+    pub phase: String,
+    pub round: usize,
+    pub attacker_id: u64,
+    pub defender_id: u64,
+    pub attack_kind: BattleAttackKind,
+    /// Exact strategic inventory instance used, when the combatant came from
+    /// persistent equipment rather than an abstract enemy profile.
+    pub weapon_inventory_item_id: Option<u64>,
+    /// Exact shield or weapon contacted on a successful block or parry.
+    pub defender_contact_item_id: Option<u64>,
+    pub defender_response: MeleeResponseChoice,
+    pub body_part: BodyPart,
+    pub outcome: BattleAttackOutcome,
+    pub health_damage: f32,
+    /// Applied shares from this individual hit. These are durable combat facts
+    /// used by strategic bruising/fracture/wound generation.
+    pub cut_damage: f32,
+    pub blunt_damage: f32,
+    pub projectile_kind: Option<ProjectileKind>,
+    /// Pre-absorption contact force; remains positive when armor absorbs all
+    /// health damage.
+    pub contact_stress: f32,
+    pub armor_impact: Option<ArmorImpact>,
+    pub melee_telemetry: Option<MeleeContactTelemetry>,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "snake_case")]
+pub enum BattleAttackOutcome {
+    Blocked,
+    Missed,
+    HitHealth,
+    HitArmor,
+}
+
+impl std::fmt::Display for BattleAttackOutcome {
+    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        formatter.write_str(match self {
+            Self::Blocked => "blocked",
+            Self::Missed => "missed",
+            Self::HitHealth => "hit_health",
+            Self::HitArmor => "hit_armor",
+        })
+    }
+}
+
+#[derive(Clone, Debug, Serialize)]
+pub struct ArmorLayerTelemetry {
+    pub inventory_item_id: Option<u64>,
+    pub material: Option<crate::item_catalog_schema::EquipmentMaterial>,
+    pub geometry: AuthoredArmorCoverage,
+    pub intersected: bool,
+    pub selected: bool,
+}
+
+#[derive(Clone, Debug, Serialize)]
+pub struct MeleeContactTelemetry {
+    pub anatomical_subregion: AnatomicalSubregion,
+    pub surface_coordinate: f32,
+    pub armor_layer_chain: Vec<ArmorLayerTelemetry>,
+    pub scheduled_contact_measure_metres: f32,
+    pub ideal_contact_measure_metres: f32,
+    /// Gap from the attack origin to the target body's near surface.
+    pub actual_contact_measure_metres: f32,
+    /// Physical center separation after adding both 0.4 m humanoid radii.
+    pub actual_center_separation_metres: f32,
+    pub contact_classification: MeleeContactClassification,
+    pub contact_lever_arm_metres: f32,
+    pub contact_energy_fraction: f32,
+    pub measure_accuracy_multiplier: f32,
+    pub contact_invalidation_cause: Option<MeleeContactInvalidationCause>,
+    pub contact_material: Option<crate::item_catalog_schema::EquipmentMaterial>,
+    pub defense_success_probability: Option<f32>,
+    pub defense_alignment_sample: Option<f32>,
+    pub defense_engagement: Option<f32>,
+    pub effective_defender_response: &'static str,
+    pub defender_attack_commitment: &'static str,
+    pub defender_retained_attack_power: Option<f32>,
+    pub attack_power_multiplier: f32,
+    pub attacker_incapacitation_performance: UnitInterval,
+    pub attack_interval_seconds: crate::combat::RecoveryTime,
+}
+
+#[derive(Clone, Debug, Serialize)]
+pub struct BattleOutcome {
+    pub seed: Seed,
+    pub resolution: BattleResolution,
+    pub rounds: usize,
+    pub allies: Vec<CombatantOutcome>,
+    pub enemies: Vec<CombatantOutcome>,
+    pub summary: BattleSummary,
+    pub log: Vec<BattleLogEntry>,
+    pub timeline: Vec<MeleeTimelineEvent>,
+}
+
+#[derive(Clone, Copy)]
+struct PendingAttack {
+    attacker_index: usize,
+    target_index: usize,
+    result: AttackResult,
+    part: BodyPart,
+    mode: BattleAttackKind,
+    phase: &'static str,
+    round: usize,
+}
+
+#[derive(Clone, Copy, Default)]
+struct OpeningVolleyPlan {
+    direct_attacks: usize,
+    total_attacks: usize,
+}
+
+#[derive(Default)]
+struct BattleRecorder {
+    summary: BattleSummary,
+    log: Vec<BattleLogEntry>,
+    timeline: Vec<MeleeTimelineEvent>,
+    next_timeline_sequence: u64,
+}
+
+#[derive(Clone, Copy)]
+struct AttackEffect {
+    hit: bool,
+    health_damage: f32,
+}
+
+impl BattleRecorder {
+    fn record_timeline(&mut self, mut event: MeleeTimelineEvent) {
+        event.sequence = self.next_timeline_sequence;
+        self.next_timeline_sequence = self.next_timeline_sequence.saturating_add(1);
+        self.timeline.push(event);
+    }
+
+    #[expect(
+        clippy::too_many_arguments,
+        reason = "this domain boundary names each independent input explicitly"
+    )]
+    fn record_attack(
+        &mut self,
+        phase: &str,
+        round: usize,
+        attacker_id: u64,
+        defender_id: u64,
+        mode: BattleAttackKind,
+        weapon_inventory_item_id: Option<u64>,
+        projectile_kind: Option<ProjectileKind>,
+        defender_contact_item_id: Option<u64>,
+        defender_response: MeleeResponseChoice,
+        part: BodyPart,
+        result: AttackResult,
+        effect: AttackEffect,
+        melee_telemetry: Option<MeleeContactTelemetry>,
+    ) {
+        match mode {
+            BattleAttackKind::Melee => self.summary.melee_attacks += 1,
+            BattleAttackKind::Ranged => self.summary.ranged_attacks += 1,
+        }
+        if effect.hit {
+            self.summary.hits += 1;
+        }
+        self.summary.total_health_damage += effect.health_damage;
+        let outcome = match result {
+            AttackResult::ToAttacker {
+                physical_contact: true,
+                ..
+            } => BattleAttackOutcome::Blocked,
+            AttackResult::ToAttacker { .. } => BattleAttackOutcome::Missed,
+            AttackResult::ToDefender { .. } if effect.health_damage > 0.0 => {
+                BattleAttackOutcome::HitHealth
+            }
+            AttackResult::ToDefender { .. } => BattleAttackOutcome::HitArmor,
+        };
+        let (raw_cut, raw_blunt) = match result {
+            AttackResult::ToDefender {
+                cut_damage,
+                blunt_damage,
+                ..
+            } => (cut_damage.max(0.0), blunt_damage.max(0.0)),
+            _ => (0.0, 0.0),
+        };
+        let raw_total = raw_cut + raw_blunt;
+        let (cut_damage, blunt_damage) = if raw_total > 0.0 {
+            (
+                effect.health_damage * raw_cut / raw_total,
+                effect.health_damage * raw_blunt / raw_total,
+            )
+        } else {
+            (0.0, 0.0)
+        };
+        self.log.push(BattleLogEntry {
+            sequence: self.log.len() as u32,
+            phase: phase.to_string(),
+            round,
+            attacker_id,
+            defender_id,
+            attack_kind: mode,
+            weapon_inventory_item_id,
+            defender_contact_item_id,
+            defender_response,
+            body_part: part,
+            outcome,
+            health_damage: effect.health_damage,
+            cut_damage,
+            blunt_damage,
+            projectile_kind: (mode == BattleAttackKind::Ranged)
+                .then_some(projectile_kind.unwrap_or(ProjectileKind::Arrowhead)),
+            contact_stress: match result {
+                AttackResult::ToDefender { contact_force, .. } => contact_force.max(0.0),
+                AttackResult::ToAttacker { contact_force, .. } => contact_force.max(0.0),
+            },
+            armor_impact: match result {
+                AttackResult::ToDefender { armor_impact, .. } => armor_impact,
+                AttackResult::ToAttacker { .. } => None,
+            },
+            melee_telemetry,
+        });
+    }
+}
+
+fn defender_contact_item_id(result: AttackResult, equipment: &CombatEquipment) -> Option<u64> {
+    match result {
+        AttackResult::ToDefender {
+            armor_impact: Some(impact),
+            ..
+        } => impact.surface.inventory_item_id,
+        AttackResult::ToAttacker {
+            physical_contact: true,
+            ..
+        } => equipment.defense_item_id,
+        _ => None,
+    }
+}
+
+fn melee_defender_contact_item_id(
+    result: AttackResult,
+    response: DefenderResponse,
+    equipment: &CombatEquipment,
+) -> Option<u64> {
+    match result {
+        AttackResult::ToDefender {
+            armor_impact: Some(impact),
+            ..
+        } => impact.surface.inventory_item_id,
+        AttackResult::ToAttacker {
+            physical_contact: true,
+            ..
+        } => match response {
+            DefenderResponse::Parry { .. } => equipment.melee_weapon_id,
+            DefenderResponse::Block { .. } => {
+                equipment.defense_item_id.or(equipment.melee_weapon_id)
+            }
+            DefenderResponse::None | DefenderResponse::Dodge { .. } => None,
+        },
+        _ => None,
+    }
+}
+
+/// Resolve an abstract battle using the same attack calculations as direct
+/// combat. The supplied seed makes the result reproducible and the hard round
+/// cap keeps reducer execution bounded.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub enum BattleOpening {
+    #[default]
+    Normal,
+    AlliesSurprise,
+    EnemiesSurprise,
+}
+
+pub fn resolve_battle(
+    mut allies: Vec<Combatant>,
+    mut enemies: Vec<Combatant>,
+    seed: Seed,
+    opening: BattleOpening,
+) -> BattleResolutionResult<BattleOutcome> {
+    let parameters = crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS;
+    let mut random = StreamId::new("combat.autoresolve").rng(seed, &[]);
+    let mut recorder = BattleRecorder::default();
+    let mut resolution = None;
+    let mut rounds = 0;
+
+    initialize_melee_phases(&mut allies, &mut enemies, &mut random, parameters)?;
+
+    // Awareness was already resolved by the strategic encounter. Do not roll
+    // stealth again here: exactly one authoritative side receives the opener.
+    match opening {
+        BattleOpening::Normal => {}
+        BattleOpening::AlliesSurprise => take_side_turns(
+            &mut allies,
+            &mut enemies,
+            0,
+            &mut random,
+            &mut recorder,
+            parameters,
+        )?,
+        BattleOpening::EnemiesSurprise => take_side_turns(
+            &mut enemies,
+            &mut allies,
+            0,
+            &mut random,
+            &mut recorder,
+            parameters,
+        )?,
+    }
+    resolve_opening_volleys(
+        &mut allies,
+        &mut enemies,
+        &mut random,
+        &mut recorder,
+        parameters,
+    )?;
+
+    for round in 0..AUTORESOLVE_MAX_COMBAT_ROUNDS {
+        if let Some(terminal) =
+            classify_battle_resolution(side_defeated(&allies), side_defeated(&enemies), false)
+        {
+            resolution = Some(terminal);
+            break;
+        }
+        rounds = round + 1;
+
+        resolve_battle_round(
+            &mut allies,
+            &mut enemies,
+            round + 1,
+            &mut random,
+            &mut recorder,
+            parameters,
+        )?;
+    }
+
+    let resolution = resolution.unwrap_or_else(|| {
+        classify_battle_resolution(side_defeated(&allies), side_defeated(&enemies), true)
+            .expect("exhausting the bounded round schedule is terminal")
+    });
+
+    let terminal_seconds = match recorder.timeline.last() {
+        Some(event) => event.time_seconds,
+        None => {
+            BattleTime::from_seconds(rounds as f32 * parameters.combat_round_seconds.seconds())?
+        }
+    };
+    recorder.record_timeline(
+        MeleeTimelineEvent::at(MeleeTimelineKind::Terminal, terminal_seconds)
+            .with_terminal(resolution),
+    );
+
+    recorder.summary.ammunition_used = allies
+        .iter()
+        .chain(&enemies)
+        .map(|combatant| {
+            combatant
+                .initial_ammunition
+                .saturating_sub(combatant.equipment.ammunition)
+        })
+        .sum();
+
+    Ok(BattleOutcome {
+        seed,
+        resolution,
+        rounds,
+        allies: allies.into_iter().map(outcome).collect(),
+        enemies: enemies.into_iter().map(outcome).collect(),
+        summary: recorder.summary,
+        log: recorder.log,
+        timeline: recorder.timeline,
+    })
+}
+
+fn classify_battle_resolution(
+    allies_defeated: bool,
+    enemies_defeated: bool,
+    round_limit_reached: bool,
+) -> Option<BattleResolution> {
+    match (allies_defeated, enemies_defeated) {
+        (true, true) => Some(BattleResolution::MutualIncapacitation),
+        (true, false) => Some(BattleResolution::EnemiesVictory),
+        (false, true) => Some(BattleResolution::AlliesVictory),
+        (false, false) if round_limit_reached => Some(BattleResolution::Timeout),
+        (false, false) => None,
+    }
+}
+
+fn resolve_battle_round(
+    allies: &mut [Combatant],
+    enemies: &mut [Combatant],
+    round: usize,
+    random: &mut DeterministicRng,
+    recorder: &mut BattleRecorder,
+    parameters: crate::combat::AutoresolveParameters,
+) -> BattleResolutionResult<()> {
+    resolve_ranged_round(allies, enemies, round, random, recorder, parameters)?;
+    resolve_joint_melee_round(allies, enemies, round, random, recorder, parameters)?;
+    allies
+        .iter_mut()
+        .chain(enemies)
+        .for_each(|combatant| combatant.advance_condition(parameters.combat_round_seconds));
+    Ok(())
+}
+
+#[derive(Clone, Copy)]
+enum ScheduledBattleSide {
+    Allies,
+    Enemies,
+}
+
+fn apply_pending_attacks(
+    attackers: &mut [Combatant],
+    defenders: &mut [Combatant],
+    attacks: &[PendingAttack],
+    recorder: &mut BattleRecorder,
+) {
+    for attack in attacks {
+        let effect = apply_attack_result(
+            &mut attackers[attack.attacker_index],
+            &mut defenders[attack.target_index],
+            attack.result,
+            attack.part,
+        );
+        recorder.record_attack(
+            attack.phase,
+            attack.round,
+            attackers[attack.attacker_index].id,
+            defenders[attack.target_index].id,
+            attack.mode,
+            match attack.mode {
+                BattleAttackKind::Melee => {
+                    attackers[attack.attacker_index].equipment.melee_weapon_id
+                }
+                BattleAttackKind::Ranged => {
+                    attackers[attack.attacker_index].equipment.ranged_weapon_id
+                }
+            },
+            (attack.mode == BattleAttackKind::Ranged)
+                .then_some(
+                    attackers[attack.attacker_index]
+                        .equipment
+                        .ranged_projectile_kind,
+                )
+                .flatten(),
+            defender_contact_item_id(attack.result, &defenders[attack.target_index].equipment),
+            MeleeResponseChoice::None,
+            attack.part,
+            attack.result,
+            effect,
+            None,
+        );
+    }
+}
+
+fn resolve_opening_volleys(
+    allies: &mut [Combatant],
+    enemies: &mut [Combatant],
+    random: &mut DeterministicRng,
+    recorder: &mut BattleRecorder,
+    parameters: crate::combat::AutoresolveParameters,
+) -> BattleResolutionResult<()> {
+    let ally_plans = opening_volley_plans(allies, enemies, parameters)?;
+    let enemy_plans = opening_volley_plans(enemies, allies, parameters)?;
+    let ally_detour_targets: Vec<_> = active_melee_indices(enemies)
+        .into_iter()
+        .skip(active_melee_indices(allies).len())
+        .collect();
+    let enemy_detour_targets: Vec<_> = active_melee_indices(allies)
+        .into_iter()
+        .skip(active_melee_indices(enemies).len())
+        .collect();
+    let steps = ally_plans
+        .iter()
+        .chain(&enemy_plans)
+        .map(|plan| plan.total_attacks)
+        .max()
+        .unwrap_or(0);
+
+    for step in 0..steps {
+        if side_defeated(allies) || side_defeated(enemies) {
+            break;
+        }
+        if random.next_u64().is_multiple_of(2) {
+            take_opening_volley_step(
+                allies,
+                &ally_plans,
+                enemies,
+                &ally_detour_targets,
+                step,
+                random,
+                recorder,
+                parameters,
+            )?;
+            take_opening_volley_step(
+                enemies,
+                &enemy_plans,
+                allies,
+                &enemy_detour_targets,
+                step,
+                random,
+                recorder,
+                parameters,
+            )?;
+        } else {
+            take_opening_volley_step(
+                enemies,
+                &enemy_plans,
+                allies,
+                &enemy_detour_targets,
+                step,
+                random,
+                recorder,
+                parameters,
+            )?;
+            take_opening_volley_step(
+                allies,
+                &ally_plans,
+                enemies,
+                &ally_detour_targets,
+                step,
+                random,
+                recorder,
+                parameters,
+            )?;
+        }
+    }
+    Ok(())
+}
+
+fn opening_volley_plans(
+    ranged_side: &[Combatant],
+    closing_side: &[Combatant],
+    parameters: crate::combat::AutoresolveParameters,
+) -> SpeedResult<Vec<OpeningVolleyPlan>> {
+    let screen_count = active_melee_indices(ranged_side).len();
+    let closing_melee = active_melee_indices(closing_side);
+    let closing_melee_count = closing_melee.len();
+    let direct_closing_speed = closing_melee.iter().try_fold(
+        parameters.minimum_movement_speed_metres_per_second,
+        |retained, index| -> SpeedResult<_> {
+            Ok(
+                retained.max(closing_side[*index].movement_speed_meters_per_second(
+                    parameters.minimum_movement_speed_metres_per_second,
+                )?),
+            )
+        },
+    )?;
+    ranged_side
+        .iter()
+        .map(|attacker| {
+            if attacker.is_defeated()
+                || preferred_attack_mode(attacker) != BattleAttackKind::Ranged
+                || closing_melee_count == 0
+            {
+                return Ok(OpeningVolleyPlan::default());
+            }
+
+            let weapon = attacker.equipment.ranged_weapon.unwrap();
+            let interval = weapon
+                .attack_interval_seconds
+                .max(parameters.minimum_attack_interval_seconds)
+                .seconds();
+            let range = weapon.ranged_range.max(0.0);
+            let direct_seconds = range / direct_closing_speed.metres_per_second();
+            let direct_attacks = (direct_seconds / interval)
+                .ceil()
+                .clamp(0.0, AUTORESOLVE_MAX_RANGED_ATTACKS_PER_PHASE as f32)
+                as usize;
+            let detour = if closing_melee_count > screen_count && screen_count > 0 {
+                let formation_radius =
+                    screen_count as f32 * parameters.formation_spacing_metres * 0.5;
+                std::f32::consts::PI * formation_radius
+            } else {
+                0.0
+            };
+            let surplus_speed = closing_melee.iter().skip(screen_count).try_fold(
+                direct_closing_speed,
+                |retained, index| -> SpeedResult<_> {
+                    Ok(
+                        retained.max(closing_side[*index].movement_speed_meters_per_second(
+                            parameters.minimum_movement_speed_metres_per_second,
+                        )?),
+                    )
+                },
+            )?;
+            let total_seconds = direct_seconds + detour / surplus_speed.metres_per_second();
+            Ok(OpeningVolleyPlan {
+                direct_attacks,
+                total_attacks: (total_seconds / interval)
+                    .ceil()
+                    .clamp(0.0, AUTORESOLVE_MAX_RANGED_ATTACKS_PER_PHASE as f32)
+                    as usize,
+            })
+        })
+        .collect()
+}
+
+#[expect(
+    clippy::too_many_arguments,
+    reason = "opening volleys carry two sides, their plan, deterministic state, and tuning"
+)]
+fn take_opening_volley_step(
+    attackers: &mut [Combatant],
+    plans: &[OpeningVolleyPlan],
+    defenders: &mut [Combatant],
+    detour_targets: &[usize],
+    step: usize,
+    random: &mut DeterministicRng,
+    recorder: &mut BattleRecorder,
+    parameters: crate::combat::AutoresolveParameters,
+) -> FractionResult<()> {
+    for attacker_index in 0..attackers.len() {
+        let plan = plans[attacker_index];
+        if plan.total_attacks <= step
+            || attackers[attacker_index].is_defeated()
+            || !attackers[attacker_index].can_attack_ranged()
+        {
+            continue;
+        }
+        let targets = if step < plan.direct_attacks {
+            prioritized_ranged_targets(defenders)
+        } else {
+            let ranged = active_ranged_indices(defenders);
+            if ranged.is_empty() {
+                detour_targets
+                    .iter()
+                    .copied()
+                    .filter(|index| !defenders[*index].is_defeated())
+                    .collect()
+            } else {
+                ranged
+            }
+        };
+        if targets.is_empty() {
+            break;
+        }
+        let target_index = targets[random.index(targets.len())];
+        let part = crate::combat::targeting::body_part_from_contact_sample(random.unit_f32());
+        let result = autoresolve_optimal_ranged_exchange(
+            &attackers[attacker_index],
+            &defenders[target_index],
+            autoresolve_hit_precision(random, parameters),
+            part,
+            parameters,
+        )?;
+        attackers[attacker_index].equipment.ammunition -= 1;
+        let effect = apply_attack_result(
+            &mut attackers[attacker_index],
+            &mut defenders[target_index],
+            result,
+            part,
+        );
+        recorder.summary.opening_ranged_attacks += 1;
+        recorder.record_attack(
+            "opening",
+            0,
+            attackers[attacker_index].id,
+            defenders[target_index].id,
+            BattleAttackKind::Ranged,
+            attackers[attacker_index].equipment.ranged_weapon_id,
+            attackers[attacker_index].equipment.ranged_projectile_kind,
+            defender_contact_item_id(result, &defenders[target_index].equipment),
+            MeleeResponseChoice::None,
+            part,
+            result,
+            effect,
+            None,
+        );
+    }
+    Ok(())
+}
+
+fn resolve_ranged_round(
+    allies: &mut [Combatant],
+    enemies: &mut [Combatant],
+    round: usize,
+    random: &mut DeterministicRng,
+    recorder: &mut BattleRecorder,
+    parameters: crate::combat::AutoresolveParameters,
+) -> FractionResult<()> {
+    let ally_attacks = plan_ranged_round(allies, enemies, round, random, parameters)?;
+    let enemy_attacks = plan_ranged_round(enemies, allies, round, random, parameters)?;
+    apply_pending_attacks(allies, enemies, &ally_attacks, recorder);
+    apply_pending_attacks(enemies, allies, &enemy_attacks, recorder);
+    Ok(())
+}
+
+fn plan_ranged_round(
+    attackers: &mut [Combatant],
+    defenders: &[Combatant],
+    round: usize,
+    random: &mut DeterministicRng,
+    parameters: crate::combat::AutoresolveParameters,
+) -> FractionResult<Vec<PendingAttack>> {
+    let mut attacks = Vec::new();
+    for (attacker_index, attacker) in attackers.iter_mut().enumerate() {
+        if attacker.is_defeated() || !attacker.can_attack_ranged() {
+            continue;
+        }
+        let interval = attacker
+            .equipment
+            .ranged_weapon
+            .unwrap()
+            .attack_interval_seconds
+            .max(parameters.minimum_attack_interval_seconds)
+            .seconds();
+        attacker.ranged_attack_progress += parameters.combat_round_seconds.seconds() / interval;
+        let attack_count =
+            (attacker.ranged_attack_progress.floor() as u32).min(attacker.equipment.ammunition);
+        attacker.ranged_attack_progress -= attack_count as f32;
+
+        for _ in 0..attack_count {
+            let targets = prioritized_ranged_targets(defenders);
+            if targets.is_empty() {
+                break;
+            }
+            let target_index = targets[random.index(targets.len())];
+            let part = crate::combat::targeting::body_part_from_contact_sample(random.unit_f32());
+            let result = autoresolve_optimal_ranged_exchange(
+                attacker,
+                &defenders[target_index],
+                autoresolve_hit_precision(random, parameters),
+                part,
+                parameters,
+            )?;
+            attacker.equipment.ammunition -= 1;
+            attacks.push(PendingAttack {
+                attacker_index,
+                target_index,
+                result,
+                part,
+                mode: BattleAttackKind::Ranged,
+                phase: "main",
+                round,
+            });
+        }
+    }
+    Ok(attacks)
+}
+
+fn apply_attack_result(
+    attacker: &mut Combatant,
+    defender: &mut Combatant,
+    result: AttackResult,
+    part: BodyPart,
+) -> AttackEffect {
+    match result {
+        AttackResult::ToAttacker { balance_damage, .. } => {
+            attacker.imbalance += balance_damage.max(0.0);
+            AttackEffect {
+                hit: false,
+                health_damage: 0.0,
+            }
+        }
+        AttackResult::ToDefender {
+            balance_damage,
+            blunt_damage,
+            ..
+        } => {
+            defender.imbalance += balance_damage.max(0.0);
+            let damage = health_damage_from_attack(result, part);
+            let applied = defender.body.apply_damage(part, damage);
+            defender.acute_trauma += acute_trauma_incapacitation(part, applied);
+            let (applied_cut, applied_blunt) = apportion_attack_health_damage(result, applied);
+            defender.cut_damage += applied_cut;
+            defender.wounds.extend(wounds_from_applied_health_damage(
+                part,
+                applied_cut,
+                applied_blunt,
+                blunt_damage,
+            ));
+            AttackEffect {
+                hit: true,
+                health_damage: applied,
+            }
+        }
+    }
+}
+
+fn preferred_attack_mode(attacker: &Combatant) -> BattleAttackKind {
+    if attacker.can_attack_ranged() {
+        BattleAttackKind::Ranged
+    } else {
+        BattleAttackKind::Melee
+    }
+}
+
+fn ranged_exchange(
+    attacker: &Combatant,
+    defender: &Combatant,
+    precision: f32,
+    flanking: f32,
+    part: BodyPart,
+    response: DefenderResponse,
+) -> FractionResult<AttackResult> {
+    let attacker_equipment = attacker.equipment.for_ranged();
+    let attacker_view = attacker.view_with_equipment(&attacker_equipment);
+    Ok(attacker_view.resolve_ranged_attack(
+        crate::combat::EMBEDDED_COMBAT_RESOLUTION_PARAMETERS,
+        &defender.view_with_equipment(&defender.equipment),
+        response.scaled_for_performance(defender.incapacitation_performance()?),
+        precision * attacker.incapacitation_performance()?.fraction(),
+        flanking,
+        part,
+    ))
+}
+
+fn autoresolve_optimal_ranged_exchange(
+    attacker: &Combatant,
+    defender: &Combatant,
+    precision: f32,
+    part: BodyPart,
+    parameters: crate::combat::AutoresolveParameters,
+) -> FractionResult<AttackResult> {
+    let block = if defender.equipment.melee_weapon.is_some()
+        || defender.equipment.shield_block_bonus > 0.0
+    {
+        DefenderResponse::Block { effectiveness: 1.0 }
+    } else {
+        DefenderResponse::None
+    };
+    let neutral = ranged_exchange(
+        attacker,
+        defender,
+        precision,
+        0.0,
+        part,
+        DefenderResponse::None,
+    )?;
+    let dodge = ranged_exchange(
+        attacker,
+        defender,
+        precision,
+        0.0,
+        part,
+        DefenderResponse::Dodge {
+            input_reflex: parameters.ranged_defense_input_reflex,
+        },
+    )?;
+    let block = ranged_exchange(attacker, defender, precision, 0.0, part, block)?;
+    Ok([dodge, block].into_iter().fold(neutral, |best, candidate| {
+        if attack_harm(candidate).total_cmp(&attack_harm(best)).is_lt() {
+            candidate
+        } else {
+            best
+        }
+    }))
+}
+
+fn autoresolve_hit_precision(
+    random: &mut DeterministicRng,
+    parameters: crate::combat::AutoresolveParameters,
+) -> f32 {
+    parameters.minimum_hit_precision
+        + random.unit_f32() * (parameters.maximum_hit_precision - parameters.minimum_hit_precision)
+}
+
+fn attack_harm(result: AttackResult) -> f32 {
+    match result {
+        AttackResult::ToAttacker { balance_damage, .. } => -balance_damage,
+        AttackResult::ToDefender {
+            cut_damage,
+            blunt_damage,
+            balance_damage,
+            ..
+        } => cut_damage + blunt_damage + balance_damage,
+    }
+}
+
+fn side_defeated(side: &[Combatant]) -> bool {
+    side.is_empty() || side.iter().all(Combatant::is_defeated)
+}
+
+fn outcome(combatant: Combatant) -> CombatantOutcome {
+    let incapacitated = combatant.is_incapacitated();
+    let incapacitation = combatant.incapacitation();
+    let open_wound_count = combatant
+        .wounds
+        .iter()
+        .filter(|wound| wound.kind == CombatWoundKind::Open)
+        .count();
+    let internal_wound_count = combatant
+        .wounds
+        .iter()
+        .filter(|wound| wound.kind == CombatWoundKind::Internal)
+        .count();
+    let wound_flow_fraction_per_second = combatant
+        .wounds
+        .iter()
+        .map(|wound| wound.blood_fraction_per_second)
+        .sum();
+    let will = combatant.skills.skill_check_by_parts(
+        Skill::Will,
+        &combatant.attributes,
+        &combatant.body,
+        &combatant.essentials,
+        &combatant.equipment,
+        LimbWeights::all_equal(),
+    );
+    let pain_incapacitation =
+        crate::morale::pain_incapacitation(combatant.body.total_damage(), will);
+    let blood_loss_incapacitation = crate::morale::blood_loss_incapacitation(
+        (combatant.starting_blood_fraction - combatant.blood_loss_fraction).clamp(0.0, 1.0),
+        1.0,
+    );
+
+    let encumbrance = combat_encumbrance_incapacitation(
+        &combatant.attributes,
+        &combatant.body,
+        &combatant.equipment,
+    );
+    let terminal_cause = if combatant.yielded {
+        Some(CombatTerminalCause::YieldedUnableToContinue)
+    } else if incapacitated {
+        [
+            (
+                combatant.starting_incapacitation,
+                CombatTerminalCause::StartingCondition,
+            ),
+            (pain_incapacitation, CombatTerminalCause::Pain),
+            (blood_loss_incapacitation, CombatTerminalCause::BloodLoss),
+            (combatant.acute_trauma, CombatTerminalCause::AcuteTrauma),
+            (combatant.fatigue, CombatTerminalCause::Fatigue),
+            (encumbrance, CombatTerminalCause::Encumbrance),
+            (combatant.imbalance, CombatTerminalCause::Imbalance),
+        ]
+        .into_iter()
+        .max_by(|(left, _), (right, _)| left.total_cmp(right))
+        .map(|(_, cause)| cause)
+    } else {
+        None
+    };
+    CombatantOutcome {
+        id: combatant.id,
+        body: combatant.body,
+        blood_loss_fraction: combatant.blood_loss_fraction,
+        cut_damage: combatant.cut_damage,
+        incapacitated,
+        yielded: combatant.yielded,
+        incapacitation,
+        imbalance: combatant.imbalance,
+        acute_trauma: combatant.acute_trauma,
+        pain_incapacitation,
+        fatigue: combatant.fatigue,
+        encumbrance,
+        wound_count: combatant.wounds.len(),
+        open_wound_count,
+        internal_wound_count,
+        wound_flow_fraction_per_second,
+        ammunition_used: combatant
+            .initial_ammunition
+            .saturating_sub(combatant.equipment.ammunition),
+        terminal_cause,
+    }
+}
+
+pub const fn body_part_index(part: BodyPart) -> usize {
+    match part {
+        BodyPart::LeftArm => 0,
+        BodyPart::RightArm => 1,
+        BodyPart::LeftLeg => 2,
+        BodyPart::RightLeg => 3,
+        BodyPart::Chest => 4,
+        BodyPart::Stomach => 5,
+        BodyPart::Head => 6,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::bestiary::{ThreatId, profile};
+    use crate::item_catalog_schema::EquipmentMaterial;
+
+    fn autoresolve_parameters() -> crate::combat::AutoresolveParameters {
+        crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS
+    }
+
+    #[test]
+    fn fatigue_recovery_preserves_active_work_across_time_slices() {
+        let mut whole = fighter(1, 3.0, false);
+        whole.fatigue = 0.5;
+        whole.active_work_seconds = crate::elapsed::AnimationElapsed::from_seconds(1.0).unwrap();
+        let mut sliced = whole.clone();
+        whole.advance_condition(crate::elapsed::AnimationElapsed::from_seconds(1.5).unwrap());
+        for _ in 0..3 {
+            sliced.advance_condition(crate::elapsed::AnimationElapsed::from_seconds(0.5).unwrap());
+        }
+        assert_eq!(whole.fatigue, sliced.fatigue);
+        assert!(whole.fatigue < 0.5);
+        let burden =
+            combat_encumbrance_incapacitation(&whole.attributes, &whole.body, &whole.equipment);
+        assert_eq!(whole.incapacitation(), whole.fatigue + burden);
+    }
+
+    #[test]
+    fn strategic_state_constructs_a_fresh_combatant_without_exposing_duel_state() {
+        let equipment = CombatEquipment {
+            ammunition: 7,
+            ..CombatEquipment::default()
+        };
+        let combatant = Combatant::from_strategic_state(CombatantStrategicState {
+            id: 42,
+            attributes: PlayerAttributeValues {
+                endurance: 3.5,
+                ..PlayerAttributeValues::default()
+            },
+            body: CombatBody::default(),
+            essentials: CombatEssentials::default(),
+            equipment,
+            skills: CombatSkills::default(),
+            starting_incapacitation: 0.2,
+            fatigue: 0.1,
+            starting_blood_fraction: 0.85,
+        });
+
+        assert_eq!(combatant.id, 42);
+        assert_eq!(combatant.attributes.endurance, 3.5);
+        assert_eq!(combatant.starting_incapacitation, 0.1);
+        assert_eq!(combatant.fatigue, 0.1);
+        assert_eq!(combatant.starting_blood_fraction, 0.85);
+        assert_eq!(combatant.initial_ammunition, 7);
+        assert_eq!(combatant.melee_engagement_target, None);
+        assert_eq!(combatant.melee_attack_started_at_seconds, None);
+        assert!(combatant.wounds.is_empty());
+    }
+
+    fn fighter(id: u64, skill: f32, ranged: bool) -> Combatant {
+        let mut fighter = Combatant::new(id);
+        fighter.attributes = PlayerAttributeValues {
+            endurance: 3.0,
+            intelligence: 2.0,
+            instinct: 3.0,
+            left_arm_strength: skill,
+            right_arm_strength: skill,
+            left_leg_strength: 3.0,
+            right_leg_strength: 3.0,
+            left_arm_agility: skill,
+            right_arm_agility: skill,
+            left_leg_agility: skill,
+            right_leg_agility: skill,
+            ..PlayerAttributeValues::default()
+        };
+        fighter.skills = CombatSkills {
+            sword_hours: skill * 2_000.0,
+            bow_hours: skill * 3_000.0,
+            dodge_hours: skill * 2_000.0,
+            block_hours: skill * 2_000.0,
+            will_hours: skill * 1_000.0,
+            balance_hours: skill * 2_000.0,
+            ..CombatSkills::default()
+        };
+        let weapon = CombatWeapon {
+            skills: if ranged {
+                crate::equipment::WeaponSkillDistribution {
+                    bow: 1.0,
+                    ..Default::default()
+                }
+            } else {
+                crate::equipment::WeaponSkillDistribution {
+                    sword: 1.0,
+                    ..Default::default()
+                }
+            },
+            melee: !ranged,
+            ranged,
+
+            preferred_melee_style: crate::combat_style::MeleeAttackStyle::Swing,
+            weight: 1.5,
+            precision: 1.0,
+            melee_reach: if ranged { 0.0 } else { 1.0 },
+            grip_to_tip_m: if ranged { 0.0 } else { 0.8 },
+            total_length_m: if ranged { 0.0 } else { 1.0 },
+            striking_head_length_m: if ranged { 0.0 } else { 0.8 },
+            body_material: (!ranged).then_some(EquipmentMaterial::RoughSteel),
+            striking_material: (!ranged).then_some(EquipmentMaterial::RoughSteel),
+            ranged_range: if ranged { 20.0 } else { 0.0 },
+            attack_interval_seconds: crate::elapsed::AnimationElapsed::from_seconds(1.0).unwrap(),
+            ranged_force_joules: 50.0,
+            ..CombatWeapon::default()
+        };
+        fighter.equipment.weapon = Some(weapon);
+        if ranged {
+            fighter.equipment.ranged_weapon = Some(weapon);
+            fighter.equipment.ammunition = 32;
+            fighter.initial_ammunition = 32;
+        } else {
+            fighter.equipment.melee_weapon = Some(weapon);
+        }
+        fighter
+    }
+
+    #[test]
+    fn combat_power_tracks_training_equipment_and_condition() {
+        let novice = fighter(1, 1.0, false);
+        let mut trained = novice.clone();
+        trained.id = 2;
+        trained.skills = fighter(2, 4.0, false).skills;
+        assert!(autoresolve_combat_power(&trained) > autoresolve_combat_power(&novice));
+
+        let mut armored = novice.clone();
+        armored.equipment.armor.fill(CombatArmor {
+            resistance: 25.0,
+            padding: 15.0,
+            coverage: 0.8,
+            coverage_geometry: crate::combat::AuthoredArmorCoverage::from_span(
+                crate::combat::ArmorCoverageSpan::centered(0.8),
+            ),
+            ..CombatArmor::default()
+        });
+        assert!(autoresolve_combat_power(&armored) > autoresolve_combat_power(&novice));
+
+        let mut impaired = trained.clone();
+        impaired.starting_incapacitation = 0.75;
+        assert!(autoresolve_combat_power(&impaired) < autoresolve_combat_power(&trained));
+
+        let mut heavier = novice.clone();
+        let weapon = heavier.equipment.melee_weapon.as_mut().unwrap();
+        weapon.weight *= 2.0;
+        heavier.equipment.weapon = heavier.equipment.melee_weapon;
+        assert!(autoresolve_combat_power(&heavier) > autoresolve_combat_power(&novice));
+
+        let mut penetrating = novice.clone();
+        let weapon = penetrating.equipment.melee_weapon.as_mut().unwrap();
+        weapon.precision *= 2.0;
+        penetrating.equipment.weapon = penetrating.equipment.melee_weapon;
+        assert!(autoresolve_combat_power(&penetrating) > autoresolve_combat_power(&novice));
+
+        let mut longer = novice.clone();
+        let weapon = longer.equipment.melee_weapon.as_mut().unwrap();
+        weapon.melee_reach *= 2.0;
+        longer.equipment.weapon = longer.equipment.melee_weapon;
+        assert!(autoresolve_combat_power(&longer) > autoresolve_combat_power(&novice));
+
+        let mut slower = novice.clone();
+        let weapon = slower.equipment.melee_weapon.as_mut().unwrap();
+        weapon.attack_interval_seconds = weapon.attack_interval_seconds.checked_scale(2.0).unwrap();
+        slower.equipment.weapon = slower.equipment.melee_weapon;
+        assert!(autoresolve_combat_power(&slower) < autoresolve_combat_power(&novice));
+
+        let mut chest_only = novice.clone();
+        chest_only.equipment.armor[body_part_index(BodyPart::Chest)] = CombatArmor {
+            resistance: 25.0,
+            padding: 15.0,
+            coverage: 0.8,
+            coverage_geometry: crate::combat::AuthoredArmorCoverage::from_span(
+                crate::combat::ArmorCoverageSpan::centered(0.8),
+            ),
+            flexibility: 0.8,
+            ..CombatArmor::default()
+        };
+        assert!(autoresolve_combat_power(&chest_only) > autoresolve_combat_power(&novice));
+    }
+
+    #[test]
+    fn combat_power_bounds_non_finite_components_without_saturating() {
+        assert_eq!(finite_log_component(f32::NAN, 1.0), 0.0);
+        assert_eq!(finite_log_component(f32::NEG_INFINITY, 1.0), 0.0);
+        let infinite = finite_log_component(f32::INFINITY, 4_000_000.0);
+        assert!(infinite.is_finite());
+
+        let mut extreme = fighter(1, 1.0, false);
+        extreme.equipment.armor.fill(CombatArmor {
+            resistance: f32::INFINITY,
+            padding: f32::MAX,
+            coverage: 1.0,
+            coverage_geometry: crate::combat::AuthoredArmorCoverage::from_span(
+                crate::combat::ArmorCoverageSpan::centered(1.0),
+            ),
+            range_of_motion: 0.5,
+            ..CombatArmor::default()
+        });
+        let power = autoresolve_combat_power(&extreme);
+        assert!(power > 0);
+        assert!(power < u64::MAX);
+    }
+
+    #[test]
+    fn combat_power_orders_authored_cross_profiles_and_margin_boundaries() {
+        let cultist = authored_threat_combatant(1, "cultist", 1, 10_000, 10_000).unwrap();
+        let veteran = authored_threat_combatant(2, "cultist", 6, 10_000, 10_000).unwrap();
+        assert!(autoresolve_combat_power(&veteran) > autoresolve_combat_power(&cultist));
+        assert_eq!(combat_power_meets_safety_margin(125, 100), Some(true));
+        assert_eq!(combat_power_meets_safety_margin(124, 100), Some(false));
+        assert_eq!(combat_power_meets_safety_margin(u64::MAX, 1), None);
+    }
+
+    fn resolved_melee_health_damage(mut weapon: CombatWeapon, protection: CombatArmor) -> f32 {
+        let mut attacker = fighter(1, 3.0, false);
+        weapon.skills = crate::equipment::WeaponSkillDistribution {
+            sword: 1.0,
+            ..Default::default()
+        };
+        weapon.melee = true;
+        weapon.grip_to_tip_m = 0.8;
+        weapon.preferred_melee_style = crate::combat_style::MeleeAttackStyle::Swing;
+        weapon.weight = 1.5;
+        weapon.melee_reach = 1.0;
+        weapon.attack_interval_seconds =
+            crate::elapsed::AnimationElapsed::from_seconds(1.0).unwrap();
+        attacker.equipment.weapon = Some(weapon);
+        attacker.equipment.melee_weapon = Some(weapon);
+
+        let mut defender = fighter(2, 1.0, false);
+        defender.equipment.armor.fill(protection);
+        let exchange = melee_exchange(
+            &attacker,
+            &defender,
+            1.0,
+            0.0,
+            DefenderResponse::None,
+            MeleeExchangeSamples {
+                contact: 0.5,
+                defense_alignment: 0.5,
+            },
+        )
+        .unwrap();
+        health_damage_from_attack(exchange.result, exchange.contact.body_part)
+    }
+
+    #[test]
+    fn fixed_seed_is_reproducible() {
+        let first = resolve_battle(
+            vec![fighter(1, 3.0, false)],
+            vec![fighter(2, 2.0, false)],
+            fabelgeist_determinism::Seed::from_u64(42),
+            BattleOpening::Normal,
+        )
+        .unwrap();
+        let second = resolve_battle(
+            vec![fighter(1, 3.0, false)],
+            vec![fighter(2, 2.0, false)],
+            fabelgeist_determinism::Seed::from_u64(42),
+            BattleOpening::Normal,
+        )
+        .unwrap();
+        assert_eq!(first.resolution, second.resolution);
+        assert_eq!(first.rounds, second.rounds);
+        assert_eq!(first.allies[0].body.health, second.allies[0].body.health);
+        assert_eq!(first.enemies[0].body.health, second.enemies[0].body.health);
+    }
+
+    #[test]
+    fn melee_event_order_is_independent_of_ally_enemy_array_side() {
+        let first = fighter(11, 3.0, false);
+        let second = fighter(22, 3.0, false);
+        let forward = resolve_battle(
+            vec![first.clone()],
+            vec![second.clone()],
+            fabelgeist_determinism::Seed::from_u64(91),
+            BattleOpening::Normal,
+        )
+        .unwrap();
+        let reversed = resolve_battle(
+            vec![second],
+            vec![first],
+            fabelgeist_determinism::Seed::from_u64(91),
+            BattleOpening::Normal,
+        )
+        .unwrap();
+        let causal_sequence = |outcome: &BattleOutcome| {
+            outcome
+                .log
+                .iter()
+                .map(|entry| {
+                    (
+                        entry.attacker_id,
+                        entry.defender_id,
+                        entry.round,
+                        entry.outcome,
+                    )
+                })
+                .collect::<Vec<_>>()
+        };
+        assert_eq!(causal_sequence(&forward), causal_sequence(&reversed));
+        let nonterminal_timeline = |outcome: &BattleOutcome| {
+            outcome
+                .timeline
+                .iter()
+                .filter(|event| event.kind != MeleeTimelineKind::Terminal)
+                .cloned()
+                .collect::<Vec<_>>()
+        };
+        assert_eq!(
+            nonterminal_timeline(&forward),
+            nonterminal_timeline(&reversed)
+        );
+        assert_eq!(forward.rounds, reversed.rounds);
+    }
+
+    #[test]
+    fn simultaneous_scheduled_contacts_both_resolve() {
+        let mut ally = fighter(11, 3.0, false);
+        let mut enemy = fighter(22, 3.0, false);
+        ally.melee_engagement_target = Some(enemy.id);
+        enemy.melee_engagement_target = Some(ally.id);
+        ally.melee_engagement_distance_metres = 0.4;
+        enemy.melee_engagement_distance_metres = 0.4;
+        let mut allies = vec![ally];
+        let mut enemies = vec![enemy];
+        let mut recorder = BattleRecorder::default();
+        resolve_joint_melee_round(
+            &mut allies,
+            &mut enemies,
+            1,
+            &mut DeterministicRng::new(fabelgeist_determinism::Seed::from_u64(7)),
+            &mut recorder,
+            autoresolve_parameters(),
+        )
+        .unwrap();
+        assert_eq!(recorder.log.len(), 2);
+        assert_eq!(recorder.log[0].round, 1);
+        assert_eq!(recorder.log[1].round, 1);
+        let contacts = recorder
+            .timeline
+            .iter()
+            .filter(|event| event.kind == MeleeTimelineKind::Contact)
+            .collect::<Vec<_>>();
+        assert_eq!(contacts.len(), 2);
+        assert_eq!(
+            contacts[0].simultaneous_batch_id,
+            contacts[1].simultaneous_batch_id
+        );
+        assert_eq!(contacts[0].simultaneous_members.len(), 2);
+        assert_eq!(
+            contacts[0].simultaneous_members,
+            contacts[1].simultaneous_members
+        );
+        assert_eq!(contacts[0].simultaneous_order, Some(0));
+        assert_eq!(contacts[1].simultaneous_order, Some(1));
+    }
+
+    #[test]
+    fn timeline_canceled_attack_ids_never_emit_contacts() {
+        let outcome = (0..64)
+            .map(fabelgeist_determinism::Seed::from_u64)
+            .map(|seed| {
+                resolve_battle(
+                    vec![fighter(11, 3.0, false)],
+                    vec![fighter(22, 3.0, false)],
+                    seed,
+                    BattleOpening::Normal,
+                )
+                .unwrap()
+            })
+            .find(|outcome| {
+                outcome
+                    .timeline
+                    .iter()
+                    .any(|event| event.kind == MeleeTimelineKind::AttackCanceled)
+            })
+            .expect("the deterministic seed range includes a committed cancellation");
+        let canceled = outcome
+            .timeline
+            .iter()
+            .filter(|event| event.kind == MeleeTimelineKind::AttackCanceled)
+            .filter_map(|event| event.affected_attack_id)
+            .collect::<Vec<_>>();
+        let contacts = outcome
+            .timeline
+            .iter()
+            .filter(|event| event.kind == MeleeTimelineKind::Contact)
+            .filter_map(|event| event.attack_id)
+            .collect::<Vec<_>>();
+
+        assert!(!canceled.is_empty());
+        assert!(
+            canceled
+                .iter()
+                .all(|attack_id| !contacts.contains(attack_id))
+        );
+    }
+
+    #[test]
+    fn explicit_surprise_grants_exactly_one_authoritative_side_the_opener() {
+        let allies_first = resolve_battle(
+            vec![fighter(1, 5.0, false)],
+            vec![fighter(2, 5.0, false)],
+            fabelgeist_determinism::Seed::from_u64(77),
+            BattleOpening::AlliesSurprise,
+        )
+        .unwrap();
+        let enemies_first = resolve_battle(
+            vec![fighter(1, 5.0, false)],
+            vec![fighter(2, 5.0, false)],
+            fabelgeist_determinism::Seed::from_u64(77),
+            BattleOpening::EnemiesSurprise,
+        )
+        .unwrap();
+        assert_eq!(allies_first.log.first().map(|hit| hit.attacker_id), Some(1));
+        assert_eq!(
+            enemies_first.log.first().map(|hit| hit.attacker_id),
+            Some(2)
+        );
+        assert_eq!(allies_first.summary.stealth_attempts, 0);
+        assert_eq!(enemies_first.summary.stealth_attempts, 0);
+    }
+
+    #[test]
+    fn ranged_combat_resolves_without_melee_force() {
+        let attacker = fighter(1, 4.0, true);
+        let defender = fighter(2, 1.0, false);
+        let result = ranged_exchange(
+            &attacker,
+            &defender,
+            1.0,
+            1.0,
+            BodyPart::Chest,
+            DefenderResponse::None,
+        )
+        .unwrap();
+        assert!(health_damage_from_attack(result, BodyPart::Chest) > 0.0);
+    }
+
+    #[test]
+    fn ranged_blocking_works_with_a_weapon_and_no_shield() {
+        let attacker = fighter(1, 4.0, true);
+        let defender = fighter(2, 3.0, false);
+        let undefended = ranged_exchange(
+            &attacker,
+            &defender,
+            1.0,
+            0.0,
+            BodyPart::Chest,
+            DefenderResponse::None,
+        )
+        .unwrap();
+        let weapon_block = ranged_exchange(
+            &attacker,
+            &defender,
+            1.0,
+            0.0,
+            BodyPart::Chest,
+            DefenderResponse::Block { effectiveness: 1.0 },
+        )
+        .unwrap();
+        assert!(
+            health_damage_from_attack(weapon_block, BodyPart::Chest)
+                < health_damage_from_attack(undefended, BodyPart::Chest)
+        );
+    }
+
+    #[test]
+    fn melee_block_carries_contact_force_while_dodge_does_not() {
+        let attacker = fighter(1, 0.1, false);
+        let mut defender = fighter(2, 5.0, false);
+        defender.equipment.shield_block_bonus = 5.0;
+
+        let block = melee_exchange(
+            &attacker,
+            &defender,
+            0.65,
+            0.0,
+            DefenderResponse::Block { effectiveness: 1.0 },
+            MeleeExchangeSamples {
+                contact: 0.5,
+                defense_alignment: 0.5,
+            },
+        )
+        .unwrap()
+        .result;
+        assert!(matches!(
+            block,
+            AttackResult::ToAttacker {
+                physical_contact: true,
+                contact_force,
+                ..
+            } if contact_force > 0.0
+        ));
+
+        let dodge = melee_exchange(
+            &attacker,
+            &defender,
+            0.65,
+            0.0,
+            DefenderResponse::Dodge { input_reflex: 1.0 },
+            MeleeExchangeSamples {
+                contact: 0.5,
+                defense_alignment: 0.5,
+            },
+        )
+        .unwrap()
+        .result;
+        if let AttackResult::ToAttacker {
+            physical_contact,
+            contact_force,
+            ..
+        } = dodge
+        {
+            assert!(!physical_contact);
+            assert_eq!(contact_force, 0.0);
+        }
+    }
+
+    #[test]
+    fn melee_exchange_uses_global_armor_coverage() {
+        let attacker = fighter(1, 3.0, false);
+        let mut defender = fighter(2, 1.0, false);
+        defender.equipment.armor.fill(CombatArmor::default());
+        defender.equipment.armor[body_part_index(BodyPart::Chest)] = CombatArmor {
+            resistance: 10_000.0,
+            padding: 10_000.0,
+            range_of_motion: 1.0,
+            coverage: 1.0,
+            coverage_geometry: crate::combat::AuthoredArmorCoverage::from_span(
+                crate::combat::ArmorCoverageSpan::centered(1.0),
+            ),
+            ..CombatArmor::default()
+        };
+
+        let exchange = melee_exchange(
+            &attacker,
+            &defender,
+            1.0,
+            0.0,
+            DefenderResponse::None,
+            MeleeExchangeSamples {
+                contact: 0.5,
+                defense_alignment: 0.5,
+            },
+        )
+        .unwrap();
+        let result = exchange.result;
+        let part = exchange.contact.body_part;
+
+        assert_eq!(part, BodyPart::Chest);
+        assert!(matches!(
+            result,
+            AttackResult::ToDefender {
+                armor_impact: Some(_),
+                ..
+            }
+        ));
+        assert_eq!(health_damage_from_attack(result, part), 0.0);
+    }
+
+    #[test]
+    fn agility_does_not_add_to_block_defense_below_the_mastery_cap() {
+        let low_agility = fighter(1, 3.0, false);
+        let mut high_agility = low_agility.clone();
+        high_agility.attributes.left_arm_agility = 5.0;
+        high_agility.attributes.right_arm_agility = 5.0;
+
+        let block = |combatant: &Combatant| {
+            combatant.skills.skill_check_by_parts(
+                Skill::Block,
+                &combatant.attributes,
+                &combatant.body,
+                &combatant.essentials,
+                &combatant.equipment,
+                LimbWeights::all_equal(),
+            )
+        };
+        assert_eq!(block(&low_agility), block(&high_agility));
+    }
+
+    #[test]
+    fn defense_matrix_exercises_skill_fatigue_implement_timing_and_leverage() {
+        let attacker = fighter(1, 3.0, false);
+        let novice = fighter(2, 1.0, false);
+        let expert = fighter(3, 4.0, false);
+        let mut buckler_expert = expert.clone();
+        buckler_expert.equipment.shield_block_bonus = 1.5;
+        let attack_equipment = attacker.equipment.for_melee();
+        let attack_value = |defender: &Combatant, response: DefenderResponse| {
+            melee_attack_value_by_parts(
+                &attacker.skills,
+                &attacker.attributes,
+                &attacker.body,
+                &attacker.essentials,
+                &attack_equipment,
+                attacker.equipment.melee_holding_side,
+                attack_equipment.weapon_preferred_melee_style(),
+                attacker.incapacitation_performance().unwrap().fraction(),
+                0.0,
+                response.scaled_for_performance(defender.incapacitation_performance().unwrap()),
+                &defender.skills,
+                &defender.attributes,
+                &defender.body,
+                &defender.essentials,
+                &defender.equipment,
+                crate::combat::EMBEDDED_COMBAT_RESOLUTION_PARAMETERS.contact,
+            )
+        };
+
+        let fresh_weapon = attack_value(&expert, DefenderResponse::Block { effectiveness: 1.0 });
+        let fatigued_weapon = attack_value(&expert, DefenderResponse::Block { effectiveness: 0.5 });
+        let fresh_buckler = attack_value(
+            &buckler_expert,
+            DefenderResponse::Block { effectiveness: 1.0 },
+        );
+        let novice_weapon = attack_value(&novice, DefenderResponse::Block { effectiveness: 1.0 });
+        let favorable_parry = attack_value(
+            &expert,
+            DefenderResponse::Parry {
+                input_reflex: 1.0,
+                precision: 1.0,
+            },
+        );
+        let unfavorable_parry = attack_value(
+            &expert,
+            DefenderResponse::Parry {
+                input_reflex: 0.35,
+                precision: 0.35,
+            },
+        );
+
+        assert!(fresh_buckler < fresh_weapon);
+        assert!(fresh_weapon < fatigued_weapon);
+        assert!(fresh_weapon < novice_weapon);
+        assert!(favorable_parry < unfavorable_parry);
+        // Interception is probabilistic: total impairment may move this fixture
+        // across zero without reversing the expert shield advantage.
+        let alignment_chance = |margin| {
+            resolve_weapon_defense_alignment(
+                DefenderResponse::Block { effectiveness: 1.0 },
+                margin,
+                0.5,
+            )
+            .success_probability
+        };
+        assert!(alignment_chance(fresh_buckler) > alignment_chance(novice_weapon));
+    }
+
+    #[test]
+    fn concentrated_ranged_attacks_cannot_bypass_intact_armor() {
+        let mut attacker = fighter(1, 5.0, true);
+        attacker.skills.bow_hours = 100_000.0;
+        let weapon = attacker.equipment.ranged_weapon.as_mut().unwrap();
+        weapon.grip_to_tip_m = 0.1;
+        weapon.precision = 4.0;
+
+        let mut defender = fighter(2, 1.0, false);
+        defender.equipment.armor.fill(CombatArmor {
+            resistance: 10_000.0,
+            padding: 10_000.0,
+            flexibility: 0.0,
+            range_of_motion: 1.0,
+            coverage: 1.0,
+            coverage_geometry: crate::combat::AuthoredArmorCoverage::from_span(
+                crate::combat::ArmorCoverageSpan::centered(1.0),
+            ),
+            ..CombatArmor::default()
+        });
+
+        let critical = ranged_exchange(
+            &attacker,
+            &defender,
+            1.0,
+            0.0,
+            BodyPart::Chest,
+            DefenderResponse::None,
+        )
+        .unwrap();
+        attacker.equipment.ranged_weapon.as_mut().unwrap().precision = 0.1;
+        let armored = ranged_exchange(
+            &attacker,
+            &defender,
+            1.0,
+            0.0,
+            BodyPart::Chest,
+            DefenderResponse::None,
+        )
+        .unwrap();
+
+        assert_eq!(health_damage_from_attack(critical, BodyPart::Chest), 0.0);
+        assert_eq!(health_damage_from_attack(armored, BodyPart::Chest), 0.0);
+        assert!(
+            matches!(armored, AttackResult::ToDefender { contact_force, armor_impact: Some(_), .. } if contact_force > 0.0)
+        );
+    }
+
+    #[test]
+    fn precise_melee_attacks_do_not_reclassify_an_intact_surface_as_a_gap() {
+        let mut attacker = fighter(1, 5.0, false);
+        attacker.skills.sword_hours = 100_000.0;
+        let weapon = attacker.equipment.melee_weapon.as_mut().unwrap();
+        weapon.grip_to_tip_m = 0.1;
+        weapon.precision = 4.0;
+
+        let mut defender = fighter(2, 1.0, false);
+        defender.equipment.armor.fill(CombatArmor {
+            resistance: 10_000.0,
+            padding: 10_000.0,
+            flexibility: 0.0,
+            range_of_motion: 1.0,
+            coverage: 1.0,
+            coverage_geometry: crate::combat::AuthoredArmorCoverage::from_span(
+                crate::combat::ArmorCoverageSpan::centered(1.0),
+            ),
+            ..CombatArmor::default()
+        });
+
+        let critical = melee_exchange(
+            &attacker,
+            &defender,
+            1.0,
+            0.0,
+            DefenderResponse::None,
+            MeleeExchangeSamples {
+                contact: 0.5,
+                defense_alignment: 0.5,
+            },
+        )
+        .unwrap();
+        attacker.equipment.melee_weapon.as_mut().unwrap().precision = 0.1;
+        let armored = melee_exchange(
+            &attacker,
+            &defender,
+            1.0,
+            0.0,
+            DefenderResponse::None,
+            MeleeExchangeSamples {
+                contact: 0.5,
+                defense_alignment: 0.5,
+            },
+        )
+        .unwrap();
+
+        assert_eq!(
+            health_damage_from_attack(critical.result, critical.contact.body_part),
+            0.0
+        );
+        assert_eq!(
+            health_damage_from_attack(armored.result, armored.contact.body_part),
+            0.0
+        );
+    }
+
+    #[test]
+    fn ranged_combatants_switch_to_their_melee_weapon_when_ammunition_runs_out() {
+        let mut hybrid = fighter(1, 3.0, true);
+        hybrid.equipment.melee_weapon = fighter(9, 3.0, false).equipment.melee_weapon;
+        assert_eq!(preferred_attack_mode(&hybrid), BattleAttackKind::Ranged);
+
+        hybrid.equipment.ammunition = 0;
+        assert_eq!(preferred_attack_mode(&hybrid), BattleAttackKind::Melee);
+    }
+
+    #[test]
+    fn battle_log_attributes_bow_and_sidearm_to_distinct_instances() {
+        let result = AttackResult::ToDefender {
+            cut_damage: 0.0,
+            blunt_damage: 0.0,
+            balance_damage: 0.1,
+            contact_force: 40.0,
+            armor_impact: None,
+        };
+        let effect = AttackEffect {
+            hit: true,
+            health_damage: 0.0,
+        };
+        let mut recorder = BattleRecorder::default();
+        recorder.record_attack(
+            "opening",
+            0,
+            1,
+            2,
+            BattleAttackKind::Ranged,
+            Some(101),
+            Some(ProjectileKind::Arrowhead),
+            None,
+            MeleeResponseChoice::None,
+            BodyPart::Chest,
+            result,
+            effect,
+            None,
+        );
+        recorder.record_attack(
+            "main",
+            1,
+            1,
+            2,
+            BattleAttackKind::Melee,
+            Some(202),
+            None,
+            None,
+            MeleeResponseChoice::None,
+            BodyPart::Chest,
+            result,
+            effect,
+            None,
+        );
+        assert_eq!(recorder.log[0].weapon_inventory_item_id, Some(101));
+        assert_eq!(recorder.log[1].weapon_inventory_item_id, Some(202));
+        assert!(
+            recorder
+                .log
+                .iter()
+                .all(|entry| entry.contact_stress == 40.0)
+        );
+    }
+
+    #[test]
+    fn successful_block_records_wear_for_both_contacting_instances() {
+        let result = AttackResult::ToAttacker {
+            balance_damage: 0.2,
+            contact_force: 55.0,
+            physical_contact: true,
+        };
+        let defender = CombatEquipment {
+            defense_item_id: Some(303),
+            ..CombatEquipment::default()
+        };
+        let mut recorder = BattleRecorder::default();
+        recorder.record_attack(
+            "main",
+            1,
+            1,
+            2,
+            BattleAttackKind::Melee,
+            Some(202),
+            None,
+            defender_contact_item_id(result, &defender),
+            MeleeResponseChoice::Block,
+            BodyPart::Chest,
+            result,
+            AttackEffect {
+                hit: false,
+                health_damage: 0.0,
+            },
+            None,
+        );
+
+        assert_eq!(recorder.log[0].weapon_inventory_item_id, Some(202));
+        assert_eq!(recorder.log[0].defender_contact_item_id, Some(303));
+        assert_eq!(recorder.log[0].contact_stress, 55.0);
+        assert_eq!(recorder.log[0].outcome, BattleAttackOutcome::Blocked);
+        assert!(recorder.log[0].armor_impact.is_none());
+    }
+
+    #[test]
+    fn melee_screen_forces_engagement_before_backline_access() {
+        let attackers = vec![fighter(1, 3.0, false), fighter(2, 3.0, false)];
+        let defenders = vec![fighter(3, 3.0, false), fighter(4, 3.0, true)];
+
+        assert_eq!(
+            melee_assignment(0, &attackers, &defenders, autoresolve_parameters()),
+            (0, 0.0)
+        );
+        assert_eq!(
+            melee_assignment(1, &attackers, &defenders, autoresolve_parameters()),
+            (1, 0.0)
+        );
+
+        let mut surplus = attackers;
+        surplus.push(fighter(5, 3.0, false));
+        assert_eq!(
+            melee_assignment(2, &surplus, &defenders, autoresolve_parameters()),
+            (0, 0.5)
+        );
+    }
+
+    #[test]
+    fn formation_detour_grants_additional_opening_volleys() {
+        let ranged_side = vec![
+            fighter(1, 3.0, true),
+            fighter(2, 3.0, false),
+            fighter(3, 3.0, false),
+            fighter(4, 3.0, false),
+        ];
+        let matched_closers = vec![
+            fighter(5, 3.0, false),
+            fighter(6, 3.0, false),
+            fighter(7, 3.0, false),
+        ];
+        let mut surplus_closers = matched_closers.clone();
+        surplus_closers.push(fighter(8, 3.0, false));
+
+        let direct_plan =
+            opening_volley_plans(&ranged_side, &matched_closers, autoresolve_parameters()).unwrap()
+                [0];
+        let detour_plan =
+            opening_volley_plans(&ranged_side, &surplus_closers, autoresolve_parameters()).unwrap()
+                [0];
+        assert!(direct_plan.direct_attacks > 0);
+        assert_eq!(direct_plan.direct_attacks, direct_plan.total_attacks);
+        assert_eq!(detour_plan.direct_attacks, direct_plan.direct_attacks);
+        assert!(detour_plan.total_attacks > detour_plan.direct_attacks);
+    }
+
+    #[test]
+    fn ranged_characters_fire_during_the_enemy_approach() {
+        let mut archer = fighter(1, 5.0, true);
+        archer.skills.bow_hours = 100_000.0;
+        archer
+            .equipment
+            .ranged_weapon
+            .as_mut()
+            .unwrap()
+            .grip_to_tip_m = 0.1;
+        let mut allies = vec![archer];
+        let mut enemies = vec![fighter(2, 1.0, false)];
+
+        resolve_opening_volleys(
+            &mut allies,
+            &mut enemies,
+            &mut DeterministicRng::new(fabelgeist_determinism::Seed::from_u64(7)),
+            &mut BattleRecorder::default(),
+            autoresolve_parameters(),
+        )
+        .unwrap();
+
+        assert!(enemies[0].body.total_damage() > 0.0);
+    }
+
+    #[test]
+    fn detour_volleys_only_target_surplus_melee() {
+        let mut archer = fighter(1, 5.0, true);
+        archer.skills.bow_hours = 100_000.0;
+        archer
+            .equipment
+            .ranged_weapon
+            .as_mut()
+            .unwrap()
+            .grip_to_tip_m = 0.1;
+        let screen = fighter(2, 3.0, false);
+        let mut attackers = vec![archer, screen];
+        let mut defenders = vec![fighter(3, 1.0, false), fighter(4, 1.0, false)];
+        let plans = opening_volley_plans(&attackers, &defenders, autoresolve_parameters()).unwrap();
+        let direct_attacks = plans[0].direct_attacks;
+
+        take_opening_volley_step(
+            &mut attackers,
+            &plans,
+            &mut defenders,
+            &[1],
+            direct_attacks,
+            &mut DeterministicRng::new(fabelgeist_determinism::Seed::from_u64(17)),
+            &mut BattleRecorder::default(),
+            autoresolve_parameters(),
+        )
+        .unwrap();
+
+        assert_eq!(defenders[0].body.total_damage(), 0.0);
+        assert!(defenders[1].body.total_damage() > 0.0);
+    }
+
+    #[test]
+    fn empty_opposition_is_an_immediate_victory() {
+        let outcome = resolve_battle(
+            vec![fighter(1, 3.0, false)],
+            Vec::new(),
+            fabelgeist_determinism::Seed::from_u64(1),
+            BattleOpening::Normal,
+        )
+        .unwrap();
+        assert_eq!(outcome.resolution, BattleResolution::AlliesVictory);
+        assert_eq!(outcome.rounds, 0);
+        assert_eq!(outcome.seed, fabelgeist_determinism::Seed::from_u64(1));
+    }
+
+    #[test]
+    fn ranged_attack_interval_controls_attack_count() {
+        let mut fast = fighter(1, 3.0, true);
+        fast.equipment
+            .ranged_weapon
+            .as_mut()
+            .unwrap()
+            .attack_interval_seconds = crate::elapsed::AnimationElapsed::from_seconds(0.5).unwrap();
+        let defenders = vec![fighter(2, 3.0, false)];
+        let attacks = plan_ranged_round(
+            &mut [fast],
+            &defenders,
+            1,
+            &mut DeterministicRng::new(fabelgeist_determinism::Seed::from_u64(3)),
+            autoresolve_parameters(),
+        )
+        .unwrap();
+        assert_eq!(attacks.len(), 2);
+    }
+
+    #[test]
+    fn movement_speed_changes_approach_fire_window() {
+        let ranged = vec![fighter(1, 3.0, true)];
+        let mut slow = fighter(2, 3.0, false);
+        slow.attributes.left_leg_agility = 0.0;
+        slow.attributes.right_leg_agility = 0.0;
+        let fast = fighter(3, 5.0, false);
+
+        let slow_attacks = opening_volley_plans(&ranged, &[slow], autoresolve_parameters())
+            .unwrap()[0]
+            .total_attacks;
+        let fast_attacks = opening_volley_plans(&ranged, &[fast], autoresolve_parameters())
+            .unwrap()[0]
+            .total_attacks;
+        assert!(slow_attacks > fast_attacks);
+    }
+
+    #[test]
+    fn autoresolve_earlier_reaction_has_at_least_as_much_dodge_reflex() {
+        let parameters = autoresolve_parameters();
+        let early = autoresolve_melee_input_reflex(0.0, parameters).unwrap();
+        let middle = autoresolve_melee_input_reflex(0.5, parameters).unwrap();
+        let late = autoresolve_melee_input_reflex(1.0, parameters).unwrap();
+        assert!(early > middle && middle > late);
+    }
+
+    #[test]
+    fn autoresolve_dodge_choice_uses_authored_bot_chance_and_preserves_elapsed_time() {
+        let defender = fighter(2, 3.0, false);
+        let parameters = autoresolve_parameters();
+        let incoming = ScheduledMeleeTiming {
+            started_at_seconds: BattleTime::ZERO,
+            contact_at_seconds: BattleTime::from_seconds(0.65).unwrap(),
+            recovery_until_seconds: BattleTime::from_seconds(0.9).unwrap(),
+        };
+        let below = parameters.melee_dodge_reaction_chance.next_down();
+        let above = parameters.melee_dodge_reaction_chance.next_up();
+        assert!(matches!(
+            autoresolve_melee_defender_response(
+                &defender,
+                below,
+                0.0,
+                0.5,
+                incoming,
+                MeleeDefenderPhase::NeutralGuard,
+                parameters
+            )
+            .unwrap()
+            .response,
+            DefenderResponse::Dodge { .. }
+        ));
+        assert!(matches!(
+            autoresolve_melee_defender_response(
+                &defender,
+                above,
+                0.0,
+                0.5,
+                incoming,
+                MeleeDefenderPhase::NeutralGuard,
+                parameters
+            )
+            .unwrap()
+            .response,
+            DefenderResponse::Block { .. }
+        ));
+        let early = autoresolve_melee_reaction_timing(0.0, parameters).unwrap();
+        let late = autoresolve_melee_reaction_timing(1.0, parameters).unwrap();
+        assert!(early.displacement_time_seconds > late.displacement_time_seconds);
+        assert!((early.displacement_time_seconds.seconds() - 0.45).abs() < 1.0e-6);
+        assert!((late.displacement_time_seconds.seconds() - 0.38).abs() < 1.0e-6);
+    }
+
+    #[test]
+    fn melee_defense_is_precommitted_and_not_unconditional() {
+        let mut defender = fighter(2, 3.0, false);
+        defender.equipment.shield_block_bonus = 2.0;
+        let parameters = autoresolve_parameters();
+        let incoming = ScheduledMeleeTiming {
+            started_at_seconds: BattleTime::ZERO,
+            contact_at_seconds: BattleTime::from_seconds(0.65).unwrap(),
+            recovery_until_seconds: BattleTime::from_seconds(0.9).unwrap(),
+        };
+
+        assert!(matches!(
+            autoresolve_melee_defender_response(
+                &defender,
+                1.0,
+                0.5,
+                0.5,
+                incoming,
+                MeleeDefenderPhase::NeutralGuard,
+                parameters
+            )
+            .unwrap()
+            .response,
+            DefenderResponse::Block { effectiveness: 1.0 }
+        ));
+        assert!(matches!(
+            autoresolve_melee_defender_response(
+                &defender,
+                0.0,
+                0.5,
+                0.5,
+                incoming,
+                MeleeDefenderPhase::NeutralGuard,
+                parameters
+            )
+            .unwrap()
+            .response,
+            DefenderResponse::Dodge { .. }
+        ));
+        let occupied = ScheduledMeleeTiming {
+            started_at_seconds: BattleTime::from_seconds(-0.1).unwrap(),
+            contact_at_seconds: BattleTime::from_seconds(0.5).unwrap(),
+            recovery_until_seconds: BattleTime::from_seconds(0.8).unwrap(),
+        };
+        assert!(matches!(
+            autoresolve_melee_defender_response(
+                &defender,
+                1.0,
+                0.5,
+                0.5,
+                incoming,
+                MeleeDefenderPhase::CommittedAttack(occupied),
+                parameters,
+            )
+            .unwrap()
+            .response,
+            DefenderResponse::None
+        ));
+        assert!(matches!(
+            autoresolve_melee_defender_response(
+                &defender,
+                1.0,
+                0.5,
+                0.5,
+                incoming,
+                MeleeDefenderPhase::OccupiedRecovery {
+                    until_seconds: BattleTime::from_seconds(0.8).unwrap(),
+                },
+                parameters,).unwrap().response,
+            DefenderResponse::Block { effectiveness }
+                if effectiveness > 0.0 && effectiveness < 1.0
+        ));
+    }
+
+    #[test]
+    fn guard_access_recovers_continuously_before_incoming_contact() {
+        let contact = BattleTime::from_seconds(1.0).unwrap();
+        let windup = crate::elapsed::AnimationElapsed::from_seconds(0.65).unwrap();
+        let almost_recovered =
+            recovery_guard_effectiveness(BattleTime::from_seconds(1.1).unwrap(), contact, windup)
+                .unwrap();
+        let deeply_committed =
+            recovery_guard_effectiveness(BattleTime::from_seconds(1.6).unwrap(), contact, windup)
+                .unwrap();
+        let recovered = recovery_guard_effectiveness(contact, contact, windup).unwrap();
+
+        assert!(deeply_committed < almost_recovered);
+        assert!(almost_recovered < recovered);
+        assert_eq!(recovered, 1.0);
+    }
+
+    #[test]
+    fn ranged_attackers_prioritize_ranged_targets() {
+        let targets = vec![fighter(1, 3.0, false), fighter(2, 3.0, true)];
+        assert_eq!(prioritized_ranged_targets(&targets), vec![1]);
+    }
+
+    #[test]
+    fn battle_summary_and_log_are_reproducible() {
+        let outcome = resolve_battle(
+            vec![fighter(1, 4.0, false)],
+            vec![fighter(2, 1.0, false)],
+            fabelgeist_determinism::Seed::from_u64(27),
+            BattleOpening::Normal,
+        )
+        .unwrap();
+        assert_eq!(outcome.seed, fabelgeist_determinism::Seed::from_u64(27));
+        assert_eq!(outcome.summary.melee_attacks as usize, outcome.log.len());
+        assert_eq!(outcome.log.first().map(|entry| entry.sequence), Some(0));
+    }
+
+    #[test]
+    fn skill_and_numbers_change_battle_odds() {
+        let strong_wins = (0..64)
+            .map(fabelgeist_determinism::Seed::from_u64)
+            .filter(|seed| {
+                resolve_battle(
+                    vec![fighter(1, 4.0, false), fighter(2, 4.0, false)],
+                    vec![fighter(3, 1.5, false)],
+                    *seed,
+                    BattleOpening::Normal,
+                )
+                .unwrap()
+                .resolution
+                    == BattleResolution::AlliesVictory
+            })
+            .count();
+        let weak_wins = (0..64)
+            .map(fabelgeist_determinism::Seed::from_u64)
+            .filter(|seed| {
+                resolve_battle(
+                    vec![fighter(1, 1.5, false)],
+                    vec![fighter(2, 4.0, false), fighter(3, 4.0, false)],
+                    *seed,
+                    BattleOpening::Normal,
+                )
+                .unwrap()
+                .resolution
+                    == BattleResolution::AlliesVictory
+            })
+            .count();
+        assert!(strong_wins > weak_wins, "{strong_wins} versus {weak_wins}");
+    }
+
+    #[test]
+    fn skeleton_matchup_emerges_from_resistance_and_padding_resolution() {
+        let innate = profile(ThreatId::Skeleton).combat.innate_protection;
+        let protection = CombatArmor::innate(innate.resistance_joules, innate.padding_joules);
+        let cutting = resolved_melee_health_damage(
+            CombatWeapon {
+                // Hand axe and sword catalog coefficient.
+                precision: 1.0,
+                ..Default::default()
+            },
+            protection,
+        );
+        let blunt = resolved_melee_health_damage(
+            CombatWeapon {
+                // Flanged mace and war hammer catalog coefficient.
+                precision: 0.5,
+                ..Default::default()
+            },
+            protection,
+        );
+
+        assert!(blunt > cutting, "blunt {blunt} versus cutting {cutting}");
+    }
+
+    #[test]
+    fn ordinary_unprotected_damage_remains_coherent() {
+        let unprotected_cut = resolved_melee_health_damage(
+            CombatWeapon {
+                precision: 1.0,
+                ..Default::default()
+            },
+            CombatArmor::default(),
+        );
+        let unprotected_blunt = resolved_melee_health_damage(
+            CombatWeapon {
+                precision: 0.5,
+                ..Default::default()
+            },
+            CombatArmor::default(),
+        );
+        assert!(unprotected_cut > unprotected_blunt);
+        assert!(unprotected_blunt > 0.0);
+    }
+
+    #[test]
+    fn committed_parry_discards_prepared_strike_and_costs_work() {
+        let mut defender = fighter(2, 3.0, false);
+        let fatigue_before = defender.fatigue;
+        let commitment = commit_defensive_action(
+            &mut defender,
+            DefenderResponse::Parry {
+                input_reflex: 0.8,
+                precision: 0.8,
+            },
+            DefenderResponse::Parry {
+                input_reflex: 0.8,
+                precision: 0.8,
+            },
+            MeleeDefenderPhase::CommittedAttack(ScheduledMeleeTiming {
+                started_at_seconds: BattleTime::ZERO,
+                contact_at_seconds: BattleTime::from_seconds(0.65).unwrap(),
+                recovery_until_seconds: BattleTime::from_seconds(0.9).unwrap(),
+            }),
+        )
+        .unwrap();
+        defender.charge_action_work(
+            CombatActionWork::WeaponDefense,
+            crate::elapsed::AnimationElapsed::from_seconds(0.5).unwrap(),
+        );
+        assert_eq!(
+            commitment.kind,
+            MeleeDefenseCommitmentKind::CanceledSameWeapon
+        );
+        assert!(defender.fatigue > fatigue_before);
+    }
+
+    #[test]
+    fn scheduled_committed_attack_cancels_even_after_readiness_was_reserved() {
+        let mut defender = fighter(2, 3.0, false);
+        let commitment = commit_defensive_action(
+            &mut defender,
+            DefenderResponse::Parry {
+                input_reflex: 0.8,
+                precision: 0.8,
+            },
+            DefenderResponse::Parry {
+                input_reflex: 0.8,
+                precision: 0.8,
+            },
+            MeleeDefenderPhase::CommittedAttack(ScheduledMeleeTiming {
+                started_at_seconds: BattleTime::ZERO,
+                contact_at_seconds: BattleTime::from_seconds(0.65).unwrap(),
+                recovery_until_seconds: BattleTime::from_seconds(0.9).unwrap(),
+            }),
+        )
+        .unwrap();
+        assert_eq!(
+            commitment.kind,
+            MeleeDefenseCommitmentKind::CanceledSameWeapon
+        );
+    }
+
+    #[test]
+    fn canceled_scheduled_attack_cannot_emit_a_ghost_contact() {
+        let mut attacker = fighter(2, 3.0, false);
+        let timing = ScheduledMeleeTiming {
+            started_at_seconds: BattleTime::from_seconds(1.0).unwrap(),
+            contact_at_seconds: BattleTime::from_seconds(1.65).unwrap(),
+            recovery_until_seconds: BattleTime::from_seconds(1.9).unwrap(),
+        };
+        attacker.melee_attack_started_at_seconds = Some(timing.started_at_seconds);
+        attacker.melee_attack_contact_at_seconds = Some(timing.contact_at_seconds);
+        assert!(scheduled_attack_is_current(&attacker, timing));
+        attacker.melee_attack_started_at_seconds = None;
+        attacker.melee_attack_contact_at_seconds = None;
+        assert!(!scheduled_attack_is_current(&attacker, timing));
+    }
+
+    #[test]
+    fn reciprocal_intercept_requires_an_overlapping_committed_attack_phase() {
+        let defender = fighter(2, 3.0, false);
+        let parameters = autoresolve_parameters();
+        let incoming = ScheduledMeleeTiming {
+            started_at_seconds: BattleTime::from_seconds(1.0).unwrap(),
+            contact_at_seconds: BattleTime::from_seconds(1.65).unwrap(),
+            recovery_until_seconds: BattleTime::from_seconds(1.9).unwrap(),
+        };
+        let later = ScheduledMeleeTiming {
+            started_at_seconds: BattleTime::from_seconds(1.2).unwrap(),
+            contact_at_seconds: BattleTime::from_seconds(1.85).unwrap(),
+            recovery_until_seconds: BattleTime::from_seconds(2.1).unwrap(),
+        };
+        assert!(matches!(
+            autoresolve_melee_defender_response(
+                &defender,
+                1.0,
+                0.5,
+                1.0,
+                incoming,
+                MeleeDefenderPhase::CommittedAttack(later),
+                parameters,).unwrap().response,
+            DefenderResponse::Parry { precision, .. }
+                if precision == parameters.maximum_hit_precision
+        ));
+        let earlier = ScheduledMeleeTiming {
+            started_at_seconds: BattleTime::from_seconds(0.9).unwrap(),
+            contact_at_seconds: BattleTime::from_seconds(1.55).unwrap(),
+            recovery_until_seconds: BattleTime::from_seconds(1.8).unwrap(),
+        };
+        assert_eq!(
+            autoresolve_melee_defender_response(
+                &defender,
+                1.0,
+                0.5,
+                0.5,
+                incoming,
+                MeleeDefenderPhase::CommittedAttack(earlier),
+                parameters,
+            )
+            .unwrap()
+            .response,
+            DefenderResponse::None
+        );
+        let too_late = ScheduledMeleeTiming {
+            started_at_seconds: BattleTime::from_seconds(1.7).unwrap(),
+            contact_at_seconds: BattleTime::from_seconds(2.35).unwrap(),
+            recovery_until_seconds: BattleTime::from_seconds(2.6).unwrap(),
+        };
+        assert_eq!(
+            autoresolve_melee_defender_response(
+                &defender,
+                1.0,
+                1.0,
+                0.5,
+                incoming,
+                MeleeDefenderPhase::CommittedAttack(too_late),
+                parameters,
+            )
+            .unwrap()
+            .response,
+            DefenderResponse::Block { effectiveness: 1.0 }
+        );
+    }
+
+    #[test]
+    fn offhand_shield_preserves_prepared_strike_but_reduces_its_power() {
+        let mut defender = fighter(2, 3.0, false);
+        defender.equipment.shield_block_bonus = 1.5;
+        commit_defensive_action(
+            &mut defender,
+            DefenderResponse::Block { effectiveness: 0.8 },
+            DefenderResponse::Block { effectiveness: 0.8 },
+            MeleeDefenderPhase::CommittedAttack(ScheduledMeleeTiming {
+                started_at_seconds: BattleTime::ZERO,
+                contact_at_seconds: BattleTime::from_seconds(0.65).unwrap(),
+                recovery_until_seconds: BattleTime::from_seconds(0.9).unwrap(),
+            }),
+        )
+        .unwrap();
+        assert!((defender.melee_attack_power_multiplier - 0.68).abs() < 1.0e-6);
+    }
+
+    #[test]
+    fn neutral_guard_does_not_cancel_an_attack_that_has_not_started() {
+        let mut defender = fighter(2, 3.0, false);
+        let commitment = commit_defensive_action(
+            &mut defender,
+            DefenderResponse::Block { effectiveness: 0.8 },
+            DefenderResponse::Block { effectiveness: 0.8 },
+            MeleeDefenderPhase::NeutralGuard,
+        )
+        .unwrap();
+        assert_eq!(
+            commitment.kind,
+            MeleeDefenseCommitmentKind::NeutralGuardRecovery
+        );
+    }
+
+    #[test]
+    fn reading_defender_phase_never_mutates_the_scheduled_attack() {
+        let mut defender = fighter(2, 3.0, false);
+        defender.melee_engagement_target = Some(1);
+        defender.melee_attack_started_at_seconds = Some(BattleTime::from_seconds(1.3).unwrap());
+        defender.melee_attack_contact_at_seconds = Some(BattleTime::from_seconds(1.95).unwrap());
+        defender.melee_recovery_until_seconds = BattleTime::from_seconds(2.2).unwrap();
+        let phase = defender_phase_at_contact(
+            &defender,
+            1,
+            ScheduledMeleeTiming {
+                started_at_seconds: BattleTime::from_seconds(1.0).unwrap(),
+                contact_at_seconds: BattleTime::from_seconds(1.65).unwrap(),
+                recovery_until_seconds: BattleTime::from_seconds(1.9).unwrap(),
+            },
+        );
+        assert!(matches!(phase, MeleeDefenderPhase::CommittedAttack(_)));
+        assert_eq!(
+            defender.melee_attack_started_at_seconds,
+            Some(BattleTime::from_seconds(1.3).unwrap())
+        );
+        assert_eq!(
+            defender.melee_attack_contact_at_seconds,
+            Some(BattleTime::from_seconds(1.95).unwrap())
+        );
+        assert_eq!(
+            defender.melee_recovery_until_seconds,
+            BattleTime::from_seconds(2.2).unwrap()
+        );
+    }
+
+    #[test]
+    fn phase_adaptation_is_one_shot_elapsed_readiness_not_duplicate_attack_work() {
+        let mut attacker = fighter(1, 3.0, false);
+        let mut defender = fighter(2, 3.0, false);
+        attacker.melee_engagement_target = Some(defender.id);
+        defender.melee_engagement_target = Some(attacker.id);
+        attacker.melee_engagement_distance_metres = 0.5;
+        defender.melee_engagement_distance_metres = 0.5;
+        attacker.melee_recovery_until_seconds = BattleTime::from_seconds(1.0).unwrap();
+        attacker.melee_phase_adaptation_delay_seconds =
+            crate::elapsed::AnimationElapsed::from_seconds(0.2).unwrap();
+        let mut attackers = vec![attacker];
+        let mut defenders = vec![defender];
+        let mut recorder = BattleRecorder::default();
+        let scheduled = schedule_side_melee_attacks_in_window(
+            &mut attackers,
+            &mut defenders,
+            BattleTime::ZERO,
+            crate::elapsed::AnimationElapsed::from_seconds(2.0).unwrap(),
+            &mut DeterministicRng::new(fabelgeist_determinism::Seed::from_u64(11)),
+            &mut recorder,
+            autoresolve_parameters(),
+        )
+        .unwrap();
+
+        assert_eq!(scheduled.len(), 1);
+        assert!((scheduled[0].attack_timing.started_at_seconds.seconds() - 1.2).abs() < 1.0e-6);
+        assert_eq!(
+            attackers[0].melee_phase_adaptation_delay_seconds.seconds(),
+            0.0
+        );
+        assert_eq!(attackers[0].active_work_seconds.seconds(), 0.0);
+        let start = recorder
+            .timeline
+            .iter()
+            .find(|event| event.kind == MeleeTimelineKind::AttackStarted)
+            .expect("attack start is recorded");
+        assert_eq!(
+            start.phase_adaptation_delay_seconds,
+            Some(crate::elapsed::AnimationElapsed::from_seconds(0.2).unwrap())
+        );
+    }
+
+    #[test]
+    fn melee_only_fighter_with_disabled_weapon_arm_yields() {
+        let mut disabled = fighter(2, 3.0, false);
+        disabled.body.health[body_part_index(BodyPart::RightArm)] = 0.0;
+        let mut attackers = vec![disabled];
+        let mut defenders = vec![fighter(1, 3.0, false)];
+        take_side_turns(
+            &mut attackers,
+            &mut defenders,
+            1,
+            &mut DeterministicRng::new(fabelgeist_determinism::Seed::from_u64(7)),
+            &mut BattleRecorder::default(),
+            autoresolve_parameters(),
+        )
+        .unwrap();
+        assert!(attackers[0].yielded);
+        assert!(side_defeated(&attackers));
+    }
+
+    #[test]
+    fn battle_resolution_distinguishes_mutual_incapacitation_from_timeout() {
+        assert_eq!(
+            classify_battle_resolution(true, true, false),
+            Some(BattleResolution::MutualIncapacitation)
+        );
+        assert_eq!(classify_battle_resolution(false, false, false), None);
+        assert_eq!(
+            classify_battle_resolution(false, false, true),
+            Some(BattleResolution::Timeout)
+        );
+    }
+}
+
+#[cfg(test)]
+mod incapacitation_tests;

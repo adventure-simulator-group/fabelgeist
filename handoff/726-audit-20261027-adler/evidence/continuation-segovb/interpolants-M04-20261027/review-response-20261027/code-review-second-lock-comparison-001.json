@@ -1,0 +1,127 @@
+{
+  "basis": "direct actual TOML records; read-only Git38ff base, exactcurrent; metadata comparison supplements actual bounded lock body reads, not scanner/bodycoverage substitute",
+  "results": [
+    {
+      "path": "Cargo.lock",
+      "base_sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be",
+      "current_sha256": "58118b1b138af4f9feea993ea990dc334f63d30c4aa66f8b5597a0f1dfecfcf6",
+      "only_structural_change": "existing adventuresim-core package dependency array adds existing fabelgeist-math edge",
+      "core_package_before": {
+        "name": "adventuresim-core",
+        "version": "0.1.0",
+        "dependencies": [
+          "adventuresim-dialogue",
+          "adventuresim-puzzles",
+          "adventuresim-weapon-model",
+          "adventuresim-world-schema",
+          "ambassador",
+          "blanket",
+          "enum-assoc",
+          "enumflags2",
+          "fabelgeist-determinism",
+          "fabelgeist-geometry",
+          "serde",
+          "serde-saphyr",
+          "serde_json",
+          "sha2",
+          "spacetimedb",
+          "spacetimedb-sats",
+          "thiserror 2.0.20"
+        ]
+      },
+      "core_package_after": {
+        "name": "adventuresim-core",
+        "version": "0.1.0",
+        "dependencies": [
+          "adventuresim-dialogue",
+          "adventuresim-puzzles",
+          "adventuresim-weapon-model",
+          "adventuresim-world-schema",
+          "ambassador",
+          "blanket",
+          "enum-assoc",
+          "enumflags2",
+          "fabelgeist-determinism",
+          "fabelgeist-geometry",
+          "fabelgeist-math",
+          "serde",
+          "serde-saphyr",
+          "serde_json",
+          "sha2",
+          "spacetimedb",
+          "spacetimedb-sats",
+          "thiserror 2.0.20"
+        ]
+      },
+      "existing_math_package_unchanged": {
+        "name": "fabelgeist-math",
+        "version": "0.1.0",
+        "dependencies": [
+          "bytemuck",
+          "serde",
+          "wgpu"
+        ]
+      },
+      "package_versions_sources_checksums_unchanged": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "base_sha256": "0814366f818cf580e09b015977170498c750f76174d620a866e602855a455597",
+      "current_sha256": "c1eedbdf2c145f30bb9da7cc8f8fd02fa22b7ee9d9cd821c49ac5a17c441da09",
+      "only_structural_change": "existing adventuresim-core package dependency array adds existing fabelgeist-math edge",
+      "core_package_before": {
+        "name": "adventuresim-core",
+        "version": "0.1.0",
+        "dependencies": [
+          "adventuresim-dialogue",
+          "adventuresim-puzzles",
+          "adventuresim-weapon-model",
+          "adventuresim-world-schema",
+          "ambassador",
+          "blanket",
+          "enum-assoc",
+          "enumflags2",
+          "fabelgeist-determinism",
+          "fabelgeist-geometry",
+          "serde",
+          "serde-saphyr",
+          "serde_json",
+          "sha2",
+          "thiserror 2.0.20"
+        ]
+      },
+      "core_package_after": {
+        "name": "adventuresim-core",
+        "version": "0.1.0",
+        "dependencies": [
+          "adventuresim-dialogue",
+          "adventuresim-puzzles",
+          "adventuresim-weapon-model",
+          "adventuresim-world-schema",
+          "ambassador",
+          "blanket",
+          "enum-assoc",
+          "enumflags2",
+          "fabelgeist-determinism",
+          "fabelgeist-geometry",
+          "fabelgeist-math",
+          "serde",
+          "serde-saphyr",
+          "serde_json",
+          "sha2",
+          "thiserror 2.0.20"
+        ]
+      },
+      "existing_math_package_unchanged": {
+        "name": "fabelgeist-math",
+        "version": "0.1.0",
+        "dependencies": [
+          "bytemuck",
+          "serde",
+          "wgpu 29.0.4"
+        ]
+      },
+      "package_versions_sources_checksums_unchanged": true
+    }
+  ]
+}

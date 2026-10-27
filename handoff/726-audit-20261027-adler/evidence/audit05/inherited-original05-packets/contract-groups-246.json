@@ -1,0 +1,187 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-246",
+  "at": "2026-10-23T06:01:53.950901+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/doors.rs",
+      "sha256": "117277d2c1a3694f567606dcd0e8207f647755a386fdabfca098aa8597a6e1b7",
+      "scope063_index": 551,
+      "actual_EOF": 295,
+      "scoped_ranges_compared": [
+        [
+          1,
+          295
+        ]
+      ],
+      "actual05_comparison": "Fresh PR complete actual body/original fixtures read and own aggregate analysis."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/doors/admission_tests.rs",
+      "sha256": "6f85090d8c5d624da30e2e2ebeb308b0a110340a189eac9bc4c13c28888e011a",
+      "scope063_index": 552,
+      "actual_EOF": 51,
+      "scoped_ranges_compared": [
+        [
+          1,
+          51
+        ]
+      ],
+      "actual05_comparison": "Fresh PR complete actual body/original fixtures read and own aggregate analysis."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/windows.rs",
+      "sha256": "ebb276b2f9852eb4cd3cf87b5582ac9f8e58c4b266f937bc5a84d0396b06ff76",
+      "scope063_index": 676,
+      "actual_EOF": 259,
+      "scoped_ranges_compared": [
+        [
+          1,
+          259
+        ]
+      ],
+      "actual05_comparison": "Fresh PR complete actual body/original fixtures read and own aggregate analysis."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/windows/contract_tests.rs",
+      "sha256": "e90e34c5bf132224c8fe4cf0e24b30950f9dab42abf14da6812e97d290a51c5d",
+      "scope063_index": 677,
+      "actual_EOF": 155,
+      "scoped_ranges_compared": [
+        [
+          1,
+          155
+        ]
+      ],
+      "actual05_comparison": "Fresh PR complete actual body/original fixtures read and own aggregate analysis."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/windows/leaf.rs",
+      "sha256": "bea74075651588d26b629c3b43996d0c9fe8d76c47577b585af2b8e159488ffd",
+      "scope063_index": 678,
+      "actual_EOF": 150,
+      "scoped_ranges_compared": [
+        [
+          1,
+          150
+        ]
+      ],
+      "actual05_comparison": "Fresh PR complete actual body/original fixtures read and own aggregate analysis."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/windows/spec.rs",
+      "sha256": "eb5e21dfb8d7915e6e7a3f3c39ee3ee3e9f0a91b5c3604972180918ca488234b",
+      "scope063_index": 679,
+      "actual_EOF": 147,
+      "scoped_ranges_compared": [
+        [
+          1,
+          147
+        ]
+      ],
+      "actual05_comparison": "Fresh PR complete actual body/original fixtures read and own aggregate analysis."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/doors.rs",
+      "sha256": "117277d2c1a3694f567606dcd0e8207f647755a386fdabfca098aa8597a6e1b7",
+      "scope063_index": 2500,
+      "actual_EOF": 295,
+      "scoped_ranges_compared": [
+        [
+          1,
+          73
+        ],
+        [
+          120,
+          224
+        ]
+      ],
+      "actual05_comparison": "Actual complete bounded source text compared line-for-line to freshly read PR counterpart, then own current P16 named leaf/factory/geometry recipient role compared. Same semantics only for exact requested ranges; excluded PR operations/fixtures not credited."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/windows.rs",
+      "sha256": "ebb276b2f9852eb4cd3cf87b5582ac9f8e58c4b266f937bc5a84d0396b06ff76",
+      "scope063_index": 2507,
+      "actual_EOF": 259,
+      "scoped_ranges_compared": [
+        [
+          1,
+          36
+        ],
+        [
+          43,
+          45
+        ],
+        [
+          103,
+          209
+        ]
+      ],
+      "actual05_comparison": "Actual complete bounded source text compared line-for-line to freshly read PR counterpart, then own current P16 named leaf/factory/geometry recipient role compared. Same semantics only for exact requested ranges; excluded PR operations/fixtures not credited."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/windows/leaf.rs",
+      "sha256": "bea74075651588d26b629c3b43996d0c9fe8d76c47577b585af2b8e159488ffd",
+      "scope063_index": 2508,
+      "actual_EOF": 150,
+      "scoped_ranges_compared": [
+        [
+          1,
+          108
+        ]
+      ],
+      "actual05_comparison": "Actual complete bounded source text compared line-for-line to freshly read PR counterpart, then own current P16 named leaf/factory/geometry recipient role compared. Same semantics only for exact requested ranges; excluded PR operations/fixtures not credited."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/windows/spec.rs",
+      "sha256": "eb5e21dfb8d7915e6e7a3f3c39ee3ee3e9f0a91b5c3604972180918ca488234b",
+      "scope063_index": 2509,
+      "actual_EOF": 147,
+      "scoped_ranges_compared": [
+        [
+          1,
+          46
+        ],
+        [
+          56,
+          118
+        ]
+      ],
+      "actual05_comparison": "Actual complete bounded source text compared line-for-line to freshly read PR counterpart, then own current P16 named leaf/factory/geometry recipient role compared. Same semantics only for exact requested ranges; excluded PR operations/fixtures not credited."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "door assembly-to-leaf binding",
+      "comparison": "compile_operable_doors chooses exactly Door+Operable+DoorLeaf+insideSome+outsideNone, maps actual closure ID through resolved-solid map and names missing closure with opening. Same chosen solid supplies source, centre,size-derived width/thickness, hinge and height. Unit tangent/outward admitted from actual vectors before projection, closed yaw and swing sign derive same tangent/outward; no array row zip. Public independently typed fields/Serde are not an immutable accepted opening-membership brand, and normalized directions alone do not assert perpendicularity. Generator chooses inward swing; generic decoded records retain authored finite signed angle and independently positioned hinge. Existing offset-hinge fixture expressly permits that offset, so do not invent hinge-at-edge/zero-offset restriction."
+    },
+    {
+      "id": "door sweep reduces only admitted corners",
+      "comparison": "PR actual horizontal_sweep77–116 uses all four leaf-local X/Z corners relative to actual hinge and closed yaw; a rotation about hinge preserves maximum radius. Every computed point AND its length must be finite before max fold, so opposite finiteMAX centres cannot be hidden by max. Final radius finite check and source/opening error context retained. Native fixture37–51 explicitly exercises this overflow error; no new unique numerical gap. P16 source scope excludes this method74–117, so no P16 sweep body credit from identical path."
+    },
+    {
+      "id": "window selection and independent bar purpose",
+      "comparison": "Window compiler selects operable exterior inside-bound windows, then first actual supported Glazing/OpeningClosure source; MissingClosure retains complete authored closure list and first available source ID. Same selected solid determines kind, centre, dimensions and swing; minimum thickness .025 is explicit render/collider choice. BarPresence comes from the same closure-layer collection, while fixed bars compile independently of operable eligibility as intended. PR bar count is exactly2/3, each index0..count, nativefraction(index+1)/(count+1) safe and interior to width. Bar source ID bit encoding inherits accepted OpeningAssemblyId capacity; no local arbitrary-u64 uniqueness proof, no ordinary alias claim. Zero frame rejects rather than silently normalizing authored set-out arithmetic. P16 scoped windows excludes bar compiler47–96, so no P16 bar operation credit."
+    },
+    {
+      "id": "decoded roles versus accepted correlated assembly",
+      "comparison": "Door/Window manual Deserialize collects complete wire raw record then admits named positions, strictly positive LeafDimensions, finite radians, normalized directions, preserving opening/source on error. WindowBar uses nonnegative generic CuboidDimensions, intentionally allowing degeneracy separate from operable leaf. This preserves distinct units/frame/leaf-role guarantees without imposing a universal whole-assembly membership promise; authored opening/source/wall provenance remains the parent accepted plan graph. WindowSpec docs expressly says generator chooses inward swing and leaves checked individually. P16 WindowSpec exact1–46/56–118 excludes WindowBarSpec47–55 and decoder119+, not inferred from PR counterpart."
+    },
+    {
+      "id": "mesh decorations and native capacity qualification",
+      "comparison": "Leaf compiler derives all boards/cames/straps/catches from the same local body dimensions and explicit kind/state. Fixed glazing can have zero thickness; decorations may extend beyond collider per explicit docs, so no false shape-envelope containment defect for decorative extras. Zero count loops perform no division; horizontal/vertical division occurs only within nonempty corresponding loop. Finite huge dimension can cast native counts large before builder, so checked leaf alone is not workload-capacity proof; no actual enormous authored window/run/allocation or additional unique finding established. Very small shutter width subtracts seam allowance from board width; final actual Builder policy remains separately scoped, no name-only success guarantee."
+    },
+    {
+      "id": "original fixtures and counterpart exclusions",
+      "comparison": "PR original door fixtures check inward swing and sweep bound across offset hinge and angles; admission fixture checks postcard roles/invalid dimensions/direction and numerical sweep rejection. PR window fixtures span operable/fixed/barred seeds, verify inward swing, deliberate missing closure and invalid zero frame/height failures, full JSON/postcard record roundtrip, invalid roles/directions, fixed degenerate glazing and encoded bar error ID. All source-read, no execution. Complete actual selected P16 ranges are text-equivalent to PR bodies and their current retained source/render conversion meaning explicitly compared; no P16 omitted fixtures/native bar decoder/sweep clearance."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Actual Builder native geometry/capacity and accepted parent opening/frame identity graph remain separate inventory.",
+    "No ordinary bad producer or runtime result inferred from raw typed records or source fixtures."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

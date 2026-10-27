@@ -1,0 +1,50 @@
+--- base
+
++++ frozen-head
+
+@@ -1,6 +1,8 @@
+
+ //! Plant roots use the same immutable soil triangles as collision and rendering.
+ use super::*;
++
++type Result<T> = std::result::Result<T, GardenSupportError>;
+ 
+ #[derive(Clone, Debug, PartialEq, thiserror::Error)]
+ pub enum GardenSupportError {
+     #[error("property {property:?}, building {building}, plant {plant:?}: invalid garden identity")]
+@@ -33,28 +35,27 @@
+
+ impl SceneGarden {
+     /// Project every accepted plant without moving, omitting or reseeding it.
+     /// This binds roots only; route grade and enclosure clearance have separate
+     /// acceptance checks. The complete geographic/support terrain is required.
+-    pub fn project(garden: CityGarden, terrain: &SceneTerrain) -> Result<Self, GardenSupportError> {
++    pub fn project(garden: CityGarden, terrain: &SceneTerrain) -> Result<Self> {
+         let plant_support = garden
+             .plants
+             .iter()
+             .map(|plant| {
+-                let elevation = terrain
+-                    .height_at(plant.centre_metres.metres())
+-                    .and_then(SupportElevation::from_metres)
+-                    .ok_or(GardenSupportError::MissingSoil {
++                let elevation = terrain.height_at(plant.centre_metres).ok_or(
++                    GardenSupportError::MissingSoil {
+                         property: garden.owner,
+                         building: garden.front_building_id,
+                         plant: plant.id,
+                         location_metres: plant.centre_metres,
+-                    })?;
++                    },
++                )?;
+                 Ok(GardenPlantSupport {
+                     plant_id: plant.id,
+                     elevation,
+                 })
+             })
+-            .collect::<Result<_, GardenSupportError>>()?;
++            .collect::<Result<_>>()?;
+         Self::from_support(garden, plant_support)
+     }
+ }
+ 

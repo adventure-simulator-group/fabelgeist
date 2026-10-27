@@ -1,0 +1,198 @@
+{
+  "task": "One narrow current-canonical Dressing/Rig receiver reconciliation",
+  "current_head": "961d226be23a81d9731a11958d62fe8a04b93e81",
+  "frozen_finding": "SEGOVB11-158-781-RIG-RECEIVER",
+  "ordered_audit_frontier_unchanged": 790,
+  "applicable_rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "body_read_basis": "Previously read entire applicable rules; exact hash unchanged"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "body_read_basis": "Previously read entire applicable rules; exact hash unchanged"
+    }
+  ],
+  "current_scope": [
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/dressing.rs",
+      "sha256": "d9e49185a0d535f4dc1b7fb63850c927d5f59577fedf5d5f87ca8fc8b1e84a8a",
+      "ranges": [
+        [
+          80,
+          107
+        ]
+      ],
+      "registered_before_read": true,
+      "reason": "Actual current receiving field population/lookup contrasted with frozen97cast"
+    },
+    {
+      "path": "crates/fabelgeist-rig/src/lib.rs",
+      "sha256": "7e73efb0a5ce824e111c2d28e54a5422b75bdca12e0c7553423dc0dfab8f563b",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "registered_before_read": true,
+      "reason": "Locate actual current canonical names/module reexports, do not assume frozen API"
+    }
+  ],
+  "extensions": [
+    {
+      "path": "crates/fabelgeist-rig/src/skin.rs",
+      "sha256": "c1c856dd707201d43249ad4e61576728edf4ff9a2a2d1dbf68f6c980a1c2d206",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "registered_before_read": true,
+      "reason": "Narrow exact PackedRigSkin iter producer / RigJointTable map+lookup / DrapeInput field and actual Dressing receiver contract"
+    },
+    {
+      "path": "crates/fabelgeist-rig/src/table.rs",
+      "sha256": "491cfcace087aef015067a75e218e3bee9dc3c1e8bf681b40afa840f806da282",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "registered_before_read": true,
+      "reason": "Narrow exact PackedRigSkin iter producer / RigJointTable map+lookup / DrapeInput field and actual Dressing receiver contract"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment.rs",
+      "sha256": "3a53a6a40c78d926e2f50031f319b7fb338014633b6c73431b891b85a308c828",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "registered_before_read": true,
+      "reason": "Narrow exact PackedRigSkin iter producer / RigJointTable map+lookup / DrapeInput field and actual Dressing receiver contract"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/conform.rs",
+      "sha256": "4c3ee7c251ed1a4d18681e0b05c0fcf35b3b61e7d6dd0decfda0708577469162",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "registered_before_read": true,
+      "reason": "Narrow exact PackedRigSkin iter producer / RigJointTable map+lookup / DrapeInput field and actual Dressing receiver contract"
+    },
+    {
+      "path": "crates/fabelgeist-rig/src/lib.rs",
+      "sha256": "7e73efb0a5ce824e111c2d28e54a5422b75bdca12e0c7553423dc0dfab8f563b",
+      "ranges": [
+        [
+          21,
+          105
+        ]
+      ],
+      "registered_before_read": true,
+      "reason": "Actual current opaque RigJointOrdinal definition and explicit conversion interfaces"
+    },
+    {
+      "path": "crates/fabelgeist-rig/src/table.rs",
+      "sha256": "491cfcace087aef015067a75e218e3bee9dc3c1e8bf681b40afa840f806da282",
+      "ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "registered_before_read": true,
+      "reason": "Narrow actual canonical producer/table map and lookup plus Dressing current local receiving context"
+    },
+    {
+      "path": "crates/fabelgeist-rig/src/skin.rs",
+      "sha256": "c1c856dd707201d43249ad4e61576728edf4ff9a2a2d1dbf68f6c980a1c2d206",
+      "ranges": [
+        [
+          1,
+          26
+        ],
+        [
+          133,
+          164
+        ]
+      ],
+      "registered_before_read": true,
+      "reason": "Narrow actual canonical producer/table map and lookup plus Dressing current local receiving context"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment.rs",
+      "sha256": "3a53a6a40c78d926e2f50031f319b7fb338014633b6c73431b891b85a308c828",
+      "ranges": [
+        [
+          37,
+          54
+        ]
+      ],
+      "registered_before_read": true,
+      "reason": "Narrow actual canonical producer/table map and lookup plus Dressing current local receiving context"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/dressing.rs",
+      "sha256": "d9e49185a0d535f4dc1b7fb63850c927d5f59577fedf5d5f87ca8fc8b1e84a8a",
+      "ranges": [
+        [
+          71,
+          79
+        ],
+        [
+          109,
+          125
+        ]
+      ],
+      "registered_before_read": true,
+      "reason": "Narrow actual canonical producer/table map and lookup plus Dressing current local receiving context"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/conform.rs",
+      "sha256": "4c3ee7c251ed1a4d18681e0b05c0fcf35b3b61e7d6dd0decfda0708577469162",
+      "ranges": [
+        [
+          198,
+          229
+        ]
+      ],
+      "registered_before_read": true,
+      "reason": "Narrow actual canonical producer/table map and lookup plus Dressing current local receiving context"
+    },
+    {
+      "path": "crates/fabelgeist-rig/src/table.rs",
+      "sha256": "491cfcace087aef015067a75e218e3bee9dc3c1e8bf681b40afa840f806da282",
+      "ranges": [
+        [
+          82,
+          111
+        ]
+      ],
+      "registered_before_read": true,
+      "reason": "Complete exact canonical map collection/typed Index implementation and explicit conversion body"
+    },
+    {
+      "path": "crates/fabelgeist-rig/src/lib.rs",
+      "sha256": "7e73efb0a5ce824e111c2d28e54a5422b75bdca12e0c7553423dc0dfab8f563b",
+      "ranges": [
+        [
+          106,
+          108
+        ]
+      ],
+      "registered_before_read": true,
+      "reason": "Complete exact canonical map collection/typed Index implementation and explicit conversion body"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/drape.rs",
+      "sha256": "c26b0508ccce30c3c2ca164e46327764ca4b133b418b5ea49e008b0a45613421",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "registered_before_read": true,
+      "reason": "Actual current Dressing constructor call and draw_in receiving context"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/drape.rs",
+      "sha256": "c26b0508ccce30c3c2ca164e46327764ca4b133b418b5ea49e008b0a45613421",
+      "ranges": [
+        [
+          68,
+          84
+        ]
+      ],
+      "registered_before_read": true,
+      "reason": "Actual same-input current Dressing constructor -> draw_in handoff; only materially reached caller context"
+    }
+  ]
+}

@@ -1,0 +1,214 @@
+{
+  "at": "2026-10-27T05:39:39.979443+00:00",
+  "lens": 12,
+  "original": 51,
+  "prior_state": {
+    "path": "audit12-state-successor-029-root-002.json",
+    "sha256": "eda84a07ad2394255e4b2789a4f1e752bb49c552137889653697cc5dedd5505c"
+  },
+  "registrations": [
+    {
+      "path": "audit12-successor-registration-030-original51.json",
+      "sha256": "a19a5dabe4e7b763ca197e3d6e519fc6d38151b2ea2b723b6efb96490c7417b3"
+    },
+    {
+      "path": "audit12-successor-registration-030-original51-receiver-001.json",
+      "sha256": "940d1024c9531927e850e8bbf6242df73fa9c0101150af88c05b410b86dd6885"
+    },
+    {
+      "path": "audit12-successor-registration-030-original51-receiver-002.json",
+      "sha256": "399fc8fd1c129610b122652922b3f09fece950c825e706f6f57558d4b4e50566"
+    },
+    {
+      "path": "audit12-successor-registration-030-original51-receiver-003.json",
+      "sha256": "a1fc456170d2aeea5ab918f6e39ec9ae25f84ebb540fd60bde4a0889f36999a2"
+    },
+    {
+      "path": "audit12-successor-registration-030-original51-receiver-004.json",
+      "sha256": "235dfef2d6290a005d457d5463f706e1ad535bf7c52f1b0dc46edf600ad9ff90"
+    }
+  ],
+  "source_reads": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/authored_weapon.rs",
+      "original": 51,
+      "sha256": "d51000403c3e70e523d5bdfe690114fcf0781449dabb10a52ee3dc006b00f5ca",
+      "actual_ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "independent_full_inventory": true
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/catalog.rs",
+      "original": 2591,
+      "sha256": "0f579abd98b3de2924ebba3a1addc74b37c30c098af4667ae23b6fdaaef398e2",
+      "actual_ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "material_ranges": [
+        [
+          73,
+          87
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "source_id": "physical-p16-unchanged-base-dependency:crates/adventuresim-weapon-model/src/design/recipe.rs",
+      "sha256": "cf98c39d3507e4f13116cf175ca4555950d82e4cafdebefd7600e7856bbdc3a4",
+      "actual_ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "material_ranges": [
+        [
+          11,
+          16
+        ]
+      ],
+      "ordered_credit": false,
+      "mandatory_unchanged_extension": true
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "original": 116,
+      "sha256": "115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f",
+      "actual_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "material_ranges": [
+        [
+          26,
+          45
+        ]
+      ],
+      "ordered_credit": false
+    }
+  ],
+  "role_inventory": [
+    {
+      "scope": "Full51 lines1-130",
+      "roles": "Module documentation and ordinary source comments explain authored projection; #[error] literals are final diagnostic formatting only, with typed variants classifying failures. NotWeapon/NotMeleeOnly/MissingRecipe/Recipe weapon:String payload is catalogidentity context. ValidationError vector remains typed and rendered with Debug at presentation; no parsing/branching on error text in this source. No independent format policy/routes/query/path/JSON keys in51."
+    },
+    {
+      "scope": "Actual51 producer and lookup",
+      "roles": "definition.id.as_str preserves exact raw String identity by borrow; NotWeapon and NotMeleeOnly depend on ItemKind/Boolean predicates, not string contents. default_design consumes same borrowed identity; absence yields MissingRecipe with exact ownedcopy, property errors yield Recipe with same copy and structured violations. Numeric recipe/timing/geometry work is outside this string-role proof."
+    }
+  ],
+  "receiving_trace": [
+    {
+      "source": "schema26-45",
+      "contract": "Derived Serialize/Deserialize ItemDefinition owns raw String id, display_name and tags. Only id is reached by51. Serde wrapper has no bespoke identity constructor on this field; no claim complete catalog validation/admission or native Serde implementation."
+    },
+    {
+      "source": "catalog73-87",
+      "contract": "gameplay OnceLock parses included gameplay.json into Vec<WeaponDesign> once; default_design exact text-equality membership lookup against catalog_id then cloned result. Embedded authored recipe parse failure expects; not silently defaulted. JSON path is actual include_str source locator, error literal diagnostic panic context. Actual entries/native parser/whole catalog initialization success unproved."
+    },
+    {
+      "source": "recipe11-16",
+      "contract": "WeaponDesign derives Serde, deny_unknown_fields; catalog_id:String is retained alongside canonical recipe. String identity association is explicit; no bespoke shared identity admission on the field. ComponentRole enum adjacent context not whole recipe schema/algorithm clearance."
+    }
+  ],
+  "qualified_candidates": [
+    {
+      "source_key": "physical-p16:crates/adventuresim-core/src/autoresolve/authored_weapon.rs@d51000403c3e70e523d5bdfe690114fcf0781449dabb10a52ee3dc006b00f5ca#catalog-identity",
+      "classification": "Qualified internal string-identity migration candidate; canonical finding/owner/currentness reconciliation pending; accepted unique delta0",
+      "contract": "ItemDefinition.id and WeaponDesign.catalog_id are raw String identity fields; authored weapon passes borrowed text to default_design and clones same identity into structured error context. default_design searches gameplay designs by exact catalog_id equality and returns cloned match orNone. No casing/alias/fallback/default recipe behavior.",
+      "remedy": "Determine lowest shared catalog-identity owner from exhaustive/global reconciliation, keep open vocabulary, admit at actual decoding/authoring boundary, carry through ItemDefinition/WeaponDesign/lookup/error context and connected callers. No duplicate local wrapper, display-label enum or compatibility path.",
+      "limits": "No current wholefile alias, runtime/catalog-input incident, canonical unique finding or all authored recipe success proof."
+    }
+  ],
+  "new_unique_delta": 0,
+  "source_accounted": true,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "integrated": false,
+  "global_clearance": false,
+  "counts": {
+    "before": 51,
+    "after": 52,
+    "total": 2853,
+    "newly_accounted": [
+      51
+    ],
+    "next": 52,
+    "no52bodycredit": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/catalog.rs",
+      "original": 2591,
+      "sha256": "0f579abd98b3de2924ebba3a1addc74b37c30c098af4667ae23b6fdaaef398e2",
+      "actual_ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "material_ranges": [
+        [
+          73,
+          87
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "source_id": "physical-p16-unchanged-base-dependency:crates/adventuresim-weapon-model/src/design/recipe.rs",
+      "sha256": "cf98c39d3507e4f13116cf175ca4555950d82e4cafdebefd7600e7856bbdc3a4",
+      "actual_ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "material_ranges": [
+        [
+          11,
+          16
+        ]
+      ],
+      "ordered_credit": false,
+      "mandatory_unchanged_extension": true
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "original": 116,
+      "sha256": "115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f",
+      "actual_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "material_ranges": [
+        [
+          26,
+          45
+        ]
+      ],
+      "ordered_credit": false
+    }
+  ],
+  "qualifications": [
+    "Other2591 catalog body fully displayed for coherent receiving context, only gameplay/default_design materially assessed. PRESET_IDS/MELEE_CATALOG_IDS/preset/recommended_holder/default_holder paths remain independent mandatory roles, not catalog/other-lens clearance.",
+    "Recipe unchanged-base dependency proven exact physical a120 base=head with159 dirty/file absence and byteequal origin039329. No frozen population expansion or current alias; mandatoryotherlenses queued with zero count transfer.",
+    "Prospective receiver002 mistakenly planned1-50 though actualEOF16; corrected003 to1-16 before bodyread. Nonexistent17-50 zero credit; historical002 retained.",
+    "Source51 full130 independently read in prior uninterrupted turn and freshly re-read within registeredscope; summary not substituted for body. All source SHA verified after read. Connected source reads confer no extra original/material/overlay/merged count.",
+    "No requirement to preserve prior wire/API/error layouts or labels. No product/Git/project/check/test/scanner/generator/native execution, no new tests/cases/helpers/assertions/doctests. Append ignored evidence and root ledger only.",
+    "All prior all20/P16/P17/inherited/native/currentness/other-lens limitations remain via exact priorstate; M09 currentcategory repair remains mandatory and separate."
+  ],
+  "stop": "Original51 stringroles source-accounted with qualified identity candidate; stop before52 pending currentPR acceptance."
+}

@@ -1,0 +1,171 @@
+{
+  "id": "AUDIT12-CONTRACTS-008",
+  "lens": 12,
+  "at": "2026-10-26T18:08:20.870428+00:00",
+  "roles": [
+    {
+      "role": 21,
+      "source_id": "native-dependency:spacetimedb-bindings-macro-2.6.1/src/reducer.rs",
+      "sha256": "5d9af3fa69cda0c4377ddc6e3da0ead36b83bcb5f7cda7e53d78534b9bfd0fba",
+      "ranges": [
+        [
+          1,
+          204
+        ]
+      ],
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/5d9af3fa69cda0c4377ddc6e3da0ead36b83bcb5f7cda7e53d78534b9bfd0fba",
+      "read": "registered pending",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              204
+            ]
+          ],
+          "occurrences": "syn LitStr rename input, LifecycleReducer literalvariant names, compiler diagnostics/plural role strings, Ident.to_string() argument names, register_describer symbol format, quoted ABI/compiler attributes and emitted FnInfo string constants",
+          "trace": "ReducerArgs parses syn attribute syntax into name:Option<LitStr> and closed LifecycleReducer state. Lifecycle literal Init/OnConnect/OnDisconnect becomes syn::Ident for emitting typed native LifecycleReducer variant. Function/arg source identifiers become actual FnInfo::NAME/ARG_NAMES in quoted runtime registration; explicit rename goes to actual ExplicitNames.insert_function. Runtime receiving schema/builder/ABI error-text graph was source-accounted original20; no intermediate game String owner inferred. assert_only_lifetime_generics and extract_typed_args generate only syn::Error diagnostics. Export-name __preinit__20_register_describer_* and extern C are native loader/Rust token encodings."
+        }
+      ],
+      "disposition": "ACCOUNTED exact registered contract with necessary receiving extensions"
+    },
+    {
+      "role": 22,
+      "source_id": "native-dependency:spacetimedb-bindings-macro-2.6.1/src/view.rs",
+      "sha256": "48fc81bd0f4780c85900aac82084c05599116c565c7beecd4d26239cf7d0a78a",
+      "ranges": [
+        [
+          190,
+          361
+        ]
+      ],
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/48fc81bd0f4780c85900aac82084c05599116c565c7beecd4d26239cf7d0a78a",
+      "read": "registered pending",
+      "extensions": [
+        [
+          1,
+          189
+        ],
+        [
+          362,
+          364
+        ]
+      ],
+      "inventory": [
+        {
+          "ranges": [
+            [
+              190,
+              361
+            ],
+            [
+              1,
+              189
+            ],
+            [
+              362,
+              364
+            ]
+          ],
+          "occurrences": "ViewArgs LitStr/Ident names/accessors/primarykey; source syntax literals Query/Vec/Option/RawQuery; diagnostics/example strings; emitted ABI export-name and FnInfo name/arg/primarykey constants",
+          "trace": "Actual ViewArgs parse54-96 requires accessor and public, preserves optional explicit name/primarykey. Primarykey Ident unraw().to_string() or LitStr.value() supplies native schema column text; identifier form additionally emits field/type assertion. View accessor ident becomes NAME, arg identifiers become ARG_NAMES, VIEW_PRIMARY_KEY_COLUMNS is emitted from same primarykey. Query/RawQuery matching100-136/267-271 is Rust AST grammar recognition for supported native view return forms, not behavior controlled by user display prose. Generated typed ViewRegistrar/ViewDispatcher/FnInfo calls reach actual runtime schema/BSATN boundaries already traced original20. No full native SQL/query/typealias/rewriting correctness asserted."
+        }
+      ],
+      "disposition": "ACCOUNTED exact registered contract with necessary receiving extensions"
+    }
+  ],
+  "receivers": [
+    {
+      "source": "util.rs SHAf738ede5b1f13210deca5f22f5dc82e90834dee12b56bfe09f7f38f5763fc9ab",
+      "ranges": [
+        [
+          1,
+          42
+        ],
+        [
+          53,
+          68
+        ],
+        [
+          84,
+          118
+        ],
+        [
+          42,
+          52
+        ],
+        [
+          68,
+          83
+        ]
+      ],
+      "trace": "ident_to_litstr34-36 constructs syn::LitStr from exact syn::Ident.to_string() with source span. check_duplicate_msg56-65 tests Option presence then constructs actual syn::Error through ErrorSource42-49; message pluralization/one_of68-83 uses native compiler diagnostic formatting. match_meta84-118 compares syn path with canonical Symbol and emits expected-attribute syn::Error when no grammar token matches."
+    },
+    {
+      "source": "lib.rs SHA4ddcdb3edbf28ff93e4d013fa71135ce98698acc219481abaadf9a27005193ff",
+      "ranges": [
+        [
+          114,
+          199
+        ]
+      ],
+      "trace": "Native sym::Symbol is one canonical staticstr token wrapper; symbol! uses stringify! to define known SDK attribute/type tokens. PartialEq for syn::Path calls is_ident; Display/Borrow render/access the same native symbol. These are source-grammar and compiler diagnostics boundaries. No new firstparty equivalent owner or alias created."
+    }
+  ],
+  "source_provenance": [
+    {
+      "path": "src/util.rs",
+      "sha256": "f738ede5b1f13210deca5f22f5dc82e90834dee12b56bfe09f7f38f5763fc9ab",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/f738ede5b1f13210deca5f22f5dc82e90834dee12b56bfe09f7f38f5763fc9ab",
+      "ranges": [
+        [
+          1,
+          42
+        ],
+        [
+          53,
+          68
+        ],
+        [
+          84,
+          118
+        ],
+        [
+          42,
+          52
+        ],
+        [
+          68,
+          83
+        ]
+      ],
+      "source": "new cached crate member supplement; archive matches Cargo.lock; registered original21/22 bytes match same archive",
+      "crate_sha256": "fce86c7657dcb42a33ce55f0100f98964dc15b64e79f06803a478676b74d6c82",
+      "read": "registered pending"
+    },
+    {
+      "path": "src/lib.rs",
+      "sha256": "4ddcdb3edbf28ff93e4d013fa71135ce98698acc219481abaadf9a27005193ff",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/4ddcdb3edbf28ff93e4d013fa71135ce98698acc219481abaadf9a27005193ff",
+      "ranges": [
+        [
+          114,
+          199
+        ]
+      ],
+      "source": "cached lock-checksummed native crate member; original21/22samearchivebytesverified",
+      "read": "registered before bounded consumption"
+    }
+  ],
+  "read_procedure_qualification": "util.rs42-83 was consumed after prior registration update failed on guessed missing sym.rs; record actual prior access, do not backdate it. Source identity already pinned; these additional bounds are now registered for explicit revalidation. No source credit inferred merely from that accidental read.",
+  "findings": [],
+  "qualifications": [
+    "Native macro/metadata/token/compiler boundary only; no generated firstparty current bindings, caller schema, error preservation/runtime, full SQL/query/path resolution or SDK correctness clearance.",
+    "Role22 registered190-361 was read first; necessary declaration/return-body extensions1-189/362-364 complete its actual364-line body, explicitly separate from original obligations. No invented385/389-line tail credit.",
+    "ViewArgs native documentation says name required; actual parser only requires accessor/public. Record actual optionalname behavior; no native documentation/global comment-review clearance.",
+    "util42-83 prior unregistered context read was disclosed; currently registered bounds revalidated at pinned bytes. No backdated coverage or claim that prior read was prospective.",
+    "All new cached native source members verified against lock checksum and frozen registered original21/22 archive identities; no wholefrozentransport extraction.",
+    "No tests/cases/helpers/assertions/doctests/sourcechanges/projectexecution authored/performed; existing quoted native assertions inspected only."
+  ],
+  "global_clearance": false
+}

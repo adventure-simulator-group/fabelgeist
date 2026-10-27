@@ -1,0 +1,100 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-184",
+  "at": "2026-10-25T21:12:26.934516+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1965,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain.rs",
+      "sha256": "7623a9336cbe4a4c30650bd451893f1769952e1d29b6cd4c18e6c4f23780887e",
+      "personally_read_ranges": [
+        [
+          1,
+          526
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full526 lines now personally read across support175 ranges1-110,128-189,440-526 plus current111-127,190-439; no blind reread/hash-only credit. Actual dispatch validates immutable recipe against terrain before kind-specific producer. Fault producer retains one bounded side/spacing/minimum, matching offsets/masks/base-height arrays and same affine sample expression. Private SimulatedScarpSurface stores those dimensions with offsets, so interpolation and range iteration use same cardinality.",
+        "Stencil precomputes resistance for same source/neighbor lattice, writes horizontal/vertical transfers from immutable prior offsets then applies fixed ordered contributions per cell. Boundaries lack neighbor Option and zero masks reset offsets, preventing stale transfer across outside collar. Height range checks finite full sum before mesh limits/extraction. Trimmed extractor receives same positive bounded lattice and per-column height source, satisfying its affine/common-Y precondition; no arbitrary closure is admitted by this caller.",
+        "SceneTerrainPatch collider composition checks total vertex count before offsetting patch indices and joins natural outside-collar mesh plus foundation colliders. It assumes supplied terrain matches retained collar/source, which actual generated scene caller must bind; public pairability alone is not a proved bad ordinary scene. Tests for serial/parallel determinism, playable-edge fringe extent and exact collar matching are source assertions only."
+      ]
+    },
+    {
+      "scope_index": 1966,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/error.rs",
+      "sha256": "e3616e905943b4275f23b767ac43c8a4f19c1661ddcaef93914bbead401ab7a9",
+      "personally_read_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full40-line error body read. TerrainRecipeError preserves stage-specific support, topology, bounds, count/nonfinite/empty surface, material/structure and recipe errors through typed result. Display prose is diagnostics, not policy or successful default. No mutable runtime aggregate."
+      ]
+    },
+    {
+      "scope_index": 1967,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/patch.rs",
+      "sha256": "f51a14125e8e313cd4e2fcfc73efc27b9c219f1804556cbeffaf224dfb4a31f8",
+      "personally_read_ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full99 lines personally read earlier as support175, now original-role credit after own frontier reaches it; exact cached SHA retained. Private SceneTerrainPatch native/serde construction checks nonempty positions/indices, matched position/normal cardinality, u32 vertex capacity, triangle-multiple index count, bounds for every index and finite all buffer scalars before retention. Read-only accessors and consumed TerrainMeshBuffers prevent mutating admitted product through upload buffers.",
+        "Unit-normal semantics are explicitly producer responsibility, not enforced as generic finite admission. Existing actual marching normal producer1883 and topology behavior were traced; no arbitrary zero-normal/raw topology strengthening silently imposed. Collar/source terrain coherence remains owning producer contract."
+      ]
+    },
+    {
+      "scope_index": 1968,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/recipe.rs",
+      "sha256": "fcaf87702a89d958728884e2576a2f981d6a15f491e9fab4586e483f9527df2f",
+      "personally_read_ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full217 lines personally read earlier as support175, now original-role credit. QuantizedLandformRecipe is explicitly raw, TerrainLandformRecipe privately retains admitted parameters plus derived collar and serde uses checked conversion. Constructor uses same origin/tangent/dimensions/seed for collar then requires normalized tangent interval, relief/dimension bounds and collar narrower than length and half width. Positive LOD spacing is closed Detail/Fringe.",
+        "validate(terrain) checks overlapping playable bounds rather than requiring complete feature inside; this preserves fringe features and clamped source continuation. Surface recipe validates independently; kind-to-lithology constraints and existing authored morphological policy cannot be inferred from enum labels alone. Getters preserve exact integer wire coordinates."
+      ]
+    },
+    {
+      "scope_index": 1969,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/resistance.rs",
+      "sha256": "775f5d7a035eea6e401828aeceab320737bbaf8286024f65b9e65153a24d7f3b",
+      "personally_read_ranges": [
+        [
+          1,
+          114
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full114 lines read. ScarpResistanceGrid emits one cell per exact mask/source index, retains x/z neighbor as optional typed resistance only if both bounded neighbor and source/target mask permit it. Midpoint, recipe seed, collar and half-length all match erosion grid. Coefficient is clamped unit interval from same free-face/coherent material/drainage sample; no dependency on evolving offsets. Gully centres/positive widths stay paired per deterministic index.",
+        "Caller1965 constructs same side-squared mask array and spacing/minimum before stencil; arbitrary mismatched raw slice/side is internal representability only, not an actual producer witness. Parallel sampling returns ordered cell vector, and update reads same source coordinate."
+      ]
+    },
+    {
+      "scope_index": 1970,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/support.rs",
+      "sha256": "bba6cc80f38ff3d02d8c7fced6c2f8b6a18271b18b4d115a260a97453c2c3923",
+      "personally_read_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full17 lines personally read as support175, now original-role credit. height_at_extended_edge clamps admitted scene point to same actual terrain half-width/depth, re-admits finite boundary point and requires owning height query. This explicitly extends real edge soil, not zero/fabricated terrain or a separate building-floor authority. Missing support propagates typed error."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "6 newly accounted distinct present original roles; full prior support reads explicitly promoted only now; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

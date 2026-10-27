@@ -1,0 +1,104 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "102",
+  "predecessor": "receipt-101-originals478-494.json",
+  "manifest_prefix_sha256": "91ac65af51f359c6873bb439f126648dbb5bdd55b9974f4dbce8eab0027edd5a",
+  "sources": [
+    {
+      "original_index": 495,
+      "source_id": "pinned-sdk:spacetimedb-sats2.6.1/src/timestamp.rs",
+      "sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+      "actual_eof": 343,
+      "actual_ranges": [
+        [
+          1,
+          343
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-343",
+          "role": "NativeSDK TimestampRFC3339parse(&str)135 callsChrono136,contextdiagnostic138; to_rfc3339()->Result<String>182 delegates183/displayformat247. Nativeexpectdurationoverflow78/systemtimeoverflows9497/predatesepoch110/DateTimeoverflow177; wasm32/unknowncfg1924anddeprecateddiagnostic25. All existingtests269343containnostringliterals.",
+          "disposition": "Concrete externaltimestamp text/Chrono/SystemTime/diagnostic boundary, no gamecalendaridentity stringrole. Chronoparser/nativeclock/arithmetic/numeric/docaccuracy/current/lens08 contracts notproved. No BCobligation fromdeprecation note or wire text."
+        }
+      ],
+      "status": "Exact requested native or fullchanged PR-working source independentlyread, no runtime/checkexecution."
+    },
+    {
+      "original_index": 496,
+      "source_id": "pr-working:.github/workflows/rust-quality.yml",
+      "sha256": "5c2ceb3c325776e498988e77ac4244d1ad60ea11783ac9366e83c034933a1cde",
+      "actual_eof": 393,
+      "actual_ranges": [
+        [
+          1,
+          393
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-393",
+          "role": "Fullfrozen393read. NativeYAMLworkflowname1/eventpushpaths5-48/envversion56/actionrefs62/67/73/154/389/toolchain69/components70/target71/nativeinstallURL76/shellenv7779/linkerpackages8285; allruncommandstrings87-318 nativeBash/Cargo/Python/CLI/package/testfilters/filepaths. Expectedsource GitHubexpression64140161193255263275289297306314321\u2192shellrevisionchecks, artifactnames156391/paths157392/nativepolicyerror158warn393. Humanstepnames66-387 outputlabels. EmbeddedPython323386: literalnativeartifactdir329/revisionfile330/expectedenv331/fullSHAregex331/error332; finite requiredlist334-360matches actualrunlogbasenames171-311 then fpath364/read_text365/ANSIregex366/testsummaryregex368\u2192passed/failed/ignored371-378\u2192acceptedbool378/missing383\u2192nativeartifactJSON380-382/error385. NativeJSONkeys cell/log/revision/passed/failed/ignored/accepted376378,filename required-cells.json380.",
+          "disposition": "Concrete CI/tool/testoutput/artifact vocabulary, no gameplaybespokeString owner. Requiredlabel finitepolicy currentlyrawstrings controlsacceptance, actualproducerlognames independentlyreadallwithinthisfile and matchedsource notexecution. Keep clearlynamed finite cellowner/sharedmanifest across CIproducer/parser ifmaterialrepair planned; no constants/private/CI exemption. RawCLIselectors remain actualtoolarguments; no nativeGitHub/Cargo/Python/regexparser implementation/hostedruntime/success/newtestpermission claim."
+        }
+      ],
+      "status": "Exact requested native or fullchanged PR-working source independentlyread, no runtime/checkexecution."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "CI required logcell identity represented by repeated rawlabels across producer/parser",
+      "sources": [
+        "496:171-311,333-385"
+      ],
+      "remedy": "Whenrepairingthissource, representrequiredcell identity once through actualproducer/verificationnativeboundary; preserveindividualpolicyobligations not blanketpath/fixtureexemption.",
+      "acceptance": "Allscopedcellproducerlogbasenames/parserlistactualsourceread; nativeCargo/teststdout/parser/runtime acceptance unclaimed, no CIexecution. Classify operationalpolicyfinding withaliases beforeunique count.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "497PR-workingCargo.lock full13102registerednotreadyet; independentvariantrequired, no039/P16/orotherreviewercoverage transfer.",
+    "498fullCargo manifest221/499config96registerednotread; nativecommandtools/hostedacceptance notexecuted or claimed.",
+    "Allinheritedapplication/otherlens/native/identityaliases preserved."
+  ],
+  "qualifications": [
+    "Exactf82native495andPR-working496scope only, distinct physicalP16/current identities. No global/current/runtime/unique-total/otherlensclearance.",
+    "NoBC/API/input/schema preservation requirement. No project/native/test/probe/helperexecution or product/Git/rootledger/publication mutation.",
+    "All20/P16/P17/F9/M09 inheritedfindings/qualifications/aliases retained."
+  ],
+  "proposed_count": {
+    "before": 495,
+    "after": 497,
+    "indices_completed": [
+      495,
+      496
+    ],
+    "next_original": 497,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "pinned-sdk:spacetimedb-sats2.6.1/src/timestamp.rs",
+      "sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+      "ranges": [
+        [
+          1,
+          343
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:.github/workflows/rust-quality.yml",
+      "sha256": "5c2ceb3c325776e498988e77ac4244d1ad60ea11783ac9366e83c034933a1cde",
+      "ranges": [
+        [
+          1,
+          393
+        ]
+      ]
+    }
+  ]
+}

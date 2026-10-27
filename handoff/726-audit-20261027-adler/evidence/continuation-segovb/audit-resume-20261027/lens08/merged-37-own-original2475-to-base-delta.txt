@@ -1,0 +1,34 @@
+--- own-original
+
++++ merged-base
+
+@@ -187,28 +187,10 @@
+
+ 
+ [[scopes]]
+ kind = "boundary_adapter"
+ path = "crates/adventuresim-world-import/src/**"
+ reason = "World import explicitly adapts external formats and vocabularies."
+-
+-[[scopes]]
+-kind = "boundary_adapter"
+-path = "crates/fabelgeist-mhr/src/character/skeleton.rs"
+-item = "SkeletonBuilder<'a>::visit"
+-reason = "Decodes FBX node properties, including the authored col_type collision marker, into canonical rig joints and parent links."
+-
+-[[scopes]]
+-kind = "boundary_adapter"
+-path = "crates/fabelgeist-mhr/src/character/skin.rs"
+-item = "parse_skin"
+-reason = "Reads FBX cluster fields, including the TransformLink bind matrix, into admitted rig influences and aligned inverse bind poses."
+-
+-[[scopes]]
+-kind = "boundary_adapter"
+-path = "crates/fabelgeist-mhr/src/model_def/layout.rs"
+-item = "JointChannel::from_model_token"
+-reason = "Decodes Momentum model-file channel tokens tx/ty/tz/rx/ry/rz/sc once into the closed JointChannel vocabulary used by model logic."
+ 
+ [[scopes]]
+ kind = "boundary_adapter"
+ path = "crates/fabelgeist-fs/src/lib.rs"
+ reason = "Filesystem and browser URI parsing is an external-system boundary."

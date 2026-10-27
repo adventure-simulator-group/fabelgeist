@@ -1,0 +1,31 @@
+{
+  "run": 40421868169,
+  "source": "a21f9ccaeba1e3947e22dc1f64106c4f2bc371b6",
+  "jobs": [
+    {
+      "id": 121918021458,
+      "name": "foliage-portability",
+      "status": "in_progress",
+      "conclusion": null,
+      "active": [
+        "Expose the configured bundled Rust linker"
+      ]
+    },
+    {
+      "id": 121918021668,
+      "name": "rust-quality",
+      "status": "in_progress",
+      "conclusion": null,
+      "active": [
+        "Cache Rust build artifacts"
+      ]
+    },
+    {
+      "id": 121918023256,
+      "name": "regenerate-fixtures",
+      "status": "completed",
+      "conclusion": "skipped"
+    }
+  ],
+  "status": "Confirmed active final-source run; same-revision acceptance pending. Do not start duplicate run or mark PR ready."
+}

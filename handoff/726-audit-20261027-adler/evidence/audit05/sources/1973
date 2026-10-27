@@ -1,0 +1,1514 @@
+use crate::DEFAULT_SERVER_URL;
+use crate::message::{
+    JoinRequest, JumpCommand, PlayerInputRequest, PostureActionRequest, PostureCommand,
+    ReconnectCapability, ReconnectToken, TacticalCombatConfigSnapshot,
+};
+use adventuresim_tactical_core::animation::{
+    AnimationElapsed, AnimationValueResult, PositiveAnimationDuration, UnitInterval,
+};
+use adventuresim_tactical_core::prelude::*;
+use aeronet_replicon::client::{AeronetRepliconClient, AeronetRepliconClientPlugin};
+use aeronet_websocket::client::{ClientConfig, WebSocketClient, WebSocketClientPlugin};
+use bevy::ecs::system::SystemParam;
+use bevy::prelude::*;
+use bevy_replicon::prelude::*;
+
+use melee_preparation::AttackInputObservation;
+
+mod melee_preparation;
+
+#[cfg(test)]
+const SPRINT_HOLD_THRESHOLD_SECONDS: f32 = 0.25;
+
+#[derive(Default)]
+pub struct AdventureSimulatorClientPlugin;
+
+impl Plugin for AdventureSimulatorClientPlugin {
+    fn build(&self, app: &mut App) {
+        app.init_resource::<WeaponGuardInputState>()
+            .init_resource::<TacticalCombatConfig>()
+            .init_resource::<ReconnectCredential>()
+            .init_resource::<DirectControlState>()
+            .init_resource::<DebugForceAttackTrigger>()
+            .init_resource::<PlayerInputOverride>()
+            .init_resource::<LocalInputTick>()
+            .add_plugins((WebSocketClientPlugin, AeronetRepliconClientPlugin))
+            .add_observer(on_client_added)
+            .add_observer(store_reconnect_capability)
+            .add_observer(store_tactical_combat_config)
+            .add_systems(OnEnter(ClientState::Connected), announce_join)
+            .add_systems(
+                PreUpdate,
+                update_direct_control_input.after(bevy::input::InputSystems),
+            )
+            .add_systems(
+                FixedUpdate,
+                (send_player_input,).run_if(in_state(ClientState::Connected)),
+            );
+    }
+}
+
+fn store_tactical_combat_config(
+    snapshot: On<TacticalCombatConfigSnapshot>,
+    mut config: ResMut<TacticalCombatConfig>,
+) {
+    if let Err(error) = snapshot.0.validate() {
+        error!("ignored invalid tactical combat config received from server: {error}");
+        return;
+    }
+    if let Err(error) = snapshot.0.install_runtime_snapshot() {
+        error!("ignored tactical combat config that could not be installed: {error}");
+        return;
+    }
+    *config = snapshot.0.clone();
+}
+
+/// Kept in the running client application across transport reconnects. It is
+/// neither an ECS component nor replicated to peers.
+#[derive(Resource, Debug, Clone, Copy, Default)]
+struct ReconnectCredential(Option<(CharacterId, ReconnectToken)>);
+
+fn store_reconnect_capability(
+    capability: On<ReconnectCapability>,
+    mut credential: ResMut<ReconnectCredential>,
+) {
+    credential.0 = Some((capability.character_id, capability.token));
+}
+
+#[derive(Resource, Debug, Clone, Copy, Default, PartialEq, Eq)]
+pub struct WeaponGuardInputState {
+    pub desired: WeaponGuardState,
+}
+
+/// Set via BRP by native diagnostic tooling to force `attack_just_pressed`
+/// for one frame without needing real mouse/gamepad input.
+/// `update_direct_control_input` recomputes `attack_just_pressed` from raw
+/// input unconditionally every frame with no override-checking otherwise, so
+/// a plain BRP `insert_resources` on `DirectControlState` itself would get
+/// silently clobbered by the very next frame's real (absent) input before
+/// `apply_direct_combat_controls` ever reads it - this is a dedicated,
+/// consumed-and-cleared trigger instead, the same pattern
+/// `DebugDumpWorldTrigger` (`adventuresim-tactical-client/src/debug.rs`)
+/// already uses for the same reason.
+#[derive(Resource, Debug, Clone, Copy, Default, Reflect)]
+#[reflect(Resource)]
+pub struct DebugForceAttackTrigger(pub bool);
+
+#[derive(Resource, Debug, Clone, Copy, Reflect)]
+#[reflect(Resource)]
+pub struct DirectControlState {
+    pub pace: MovementPace,
+    pub jump_charge: bool,
+    pub attack_just_pressed: bool,
+    pub alternate_attack: bool,
+    pub attack_hand: AttackHand,
+    pub melee_preparation: MeleePreparationInput,
+    pub local_preparation_from: MeleePreparationInput,
+    pub local_preparation_to: MeleePreparationInput,
+    #[reflect(remote = adventuresim_tactical_core::animation::ReflectedUnitInterval)]
+    pub local_preparation_progress: UnitInterval,
+    pub dodge_just_pressed: bool,
+    pub quickstep_direction: Vec2,
+    pub roll_just_pressed: bool,
+    pub downed_align: bool,
+    caps_jog: bool,
+    sprint: SprintInputState,
+    reserved_throw_chord: bool,
+    posture_command: PostureCommand,
+    posture_control_armed: bool,
+    posture_control_consumed: bool,
+    gamepad_roll_latched: bool,
+    keyboard_roll_pending: bool,
+    keyboard_dive_latched: bool,
+    keyboard_quickstep_latched: bool,
+    space_jump_armed: bool,
+    jump_command: JumpCommand,
+    mouse_main_attack_armed: bool,
+    #[reflect(remote = adventuresim_tactical_core::animation::ReflectedAnimationElapsed)]
+    mouse_main_attack_seconds: AnimationElapsed,
+    mouse_offhand_attack_armed: bool,
+    #[reflect(remote = adventuresim_tactical_core::animation::ReflectedAnimationElapsed)]
+    mouse_offhand_attack_seconds: AnimationElapsed,
+}
+
+impl Default for DirectControlState {
+    fn default() -> Self {
+        Self {
+            pace: MovementPace::Walk,
+            jump_charge: false,
+            attack_just_pressed: false,
+            alternate_attack: false,
+            attack_hand: AttackHand::Main,
+            melee_preparation: MeleePreparationInput::Preferred,
+            local_preparation_from: MeleePreparationInput::Preferred,
+            local_preparation_to: MeleePreparationInput::Preferred,
+            local_preparation_progress: UnitInterval::ONE,
+            dodge_just_pressed: false,
+            quickstep_direction: Vec2::ZERO,
+            roll_just_pressed: false,
+            downed_align: false,
+            caps_jog: false,
+            sprint: SprintInputState::default(),
+            reserved_throw_chord: false,
+            posture_command: PostureCommand::default(),
+            posture_control_armed: false,
+            posture_control_consumed: false,
+            gamepad_roll_latched: false,
+            keyboard_roll_pending: false,
+            keyboard_dive_latched: false,
+            keyboard_quickstep_latched: false,
+            space_jump_armed: false,
+            jump_command: JumpCommand::default(),
+            mouse_main_attack_armed: false,
+            mouse_main_attack_seconds: AnimationElapsed::ZERO,
+            mouse_offhand_attack_armed: false,
+            mouse_offhand_attack_seconds: AnimationElapsed::ZERO,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy, Default, PartialEq, Reflect)]
+struct SprintInputState {
+    active: bool,
+    shift_down: bool,
+    #[reflect(remote = adventuresim_tactical_core::animation::ReflectedAnimationElapsed)]
+    held_seconds: AnimationElapsed,
+    deactivating_press: bool,
+}
+
+impl SprintInputState {
+    fn update_with_threshold(
+        &mut self,
+        shift_down: bool,
+        elapsed: AnimationElapsed,
+        hold_threshold: PositiveAnimationDuration,
+    ) -> AnimationValueResult<()> {
+        let mut next = *self;
+        // The current frame's delta ends at this sample, so it belongs to a
+        // key that was already down. Counting it here includes the release
+        // frame without pretending a new press began at the frame's start.
+        if next.shift_down && !next.deactivating_press {
+            next.held_seconds = next.held_seconds.checked_add(elapsed)?;
+        }
+        if shift_down && !next.shift_down {
+            next.deactivating_press = next.active;
+            next.active = !next.active;
+            next.held_seconds = AnimationElapsed::ZERO;
+        } else if !shift_down && next.shift_down {
+            if !next.deactivating_press && next.held_seconds > hold_threshold.elapsed() {
+                next.active = false;
+            }
+            next.held_seconds = AnimationElapsed::ZERO;
+            next.deactivating_press = false;
+        }
+        next.shift_down = shift_down;
+        *self = next;
+        Ok(())
+    }
+
+    fn cancel_latch_when_idle(&mut self, moving: bool) {
+        if !moving && !self.shift_down {
+            self.active = false;
+        }
+    }
+}
+
+/// Optional input supplied by native diagnostic tooling. The request still
+/// crosses the ordinary client/server transport and authoritative controller;
+/// only the physical keyboard/gamepad sampling is replaced.
+#[derive(Resource, Debug, Clone, Copy, Default, Reflect)]
+#[reflect(Resource, Default)]
+pub struct PlayerInputOverride(pub Option<PlayerInputRequest>);
+
+#[derive(SystemParam)]
+struct DirectControlQueries<'w, 's> {
+    gamepads: Query<'w, 's, &'static Gamepad>,
+    controlled_players: Query<'w, 's, &'static SkeletonState, With<ControlledPlayer>>,
+    combat_config: Res<'w, TacticalCombatConfig>,
+}
+
+#[derive(Resource, Debug, Clone, Copy, Default)]
+struct LocalInputTick(PlayerInputTick);
+
+fn update_direct_control_input(
+    time: Res<Time>,
+    keys: Res<ButtonInput<KeyCode>>,
+    mouse: Res<ButtonInput<MouseButton>>,
+    queries: DirectControlQueries<'_, '_>,
+    mut guard: ResMut<WeaponGuardInputState>,
+    mut controls: ResMut<DirectControlState>,
+    mut force_attack: ResMut<DebugForceAttackTrigger>,
+) {
+    let DirectControlQueries {
+        gamepads,
+        controlled_players,
+        combat_config,
+    } = queries;
+    let input_config = &combat_config.client_input;
+    if keys.just_pressed(KeyCode::CapsLock) {
+        controls.caps_jog = !controls.caps_jog;
+    }
+    let shift_down = keys.pressed(KeyCode::ShiftLeft) || keys.pressed(KeyCode::ShiftRight);
+    let elapsed = AnimationElapsed::from(time.delta());
+    if let Err(error) =
+        controls
+            .sprint
+            .update_with_threshold(shift_down, elapsed, input_config.sprint_hold_seconds)
+    {
+        controls.attack_just_pressed = false;
+        warn!(%error, "Rejected sprint hold clock");
+        return;
+    }
+    let keyboard_direction = Vec2::new(
+        (keys.pressed(KeyCode::KeyD) as u8 as f32) - (keys.pressed(KeyCode::KeyA) as u8 as f32),
+        (keys.pressed(KeyCode::KeyW) as u8 as f32) - (keys.pressed(KeyCode::KeyS) as u8 as f32),
+    );
+    let keyboard_moving =
+        keyboard_direction.length_squared() > input_config.movement_deadzone.powi(2);
+    let gamepad_direction = gamepads
+        .iter()
+        .map(|gamepad| {
+            Vec2::new(
+                gamepad.get(GamepadAxis::LeftStickX).unwrap_or_default(),
+                gamepad.get(GamepadAxis::LeftStickY).unwrap_or_default(),
+            )
+        })
+        .max_by(|left, right| left.length_squared().total_cmp(&right.length_squared()))
+        .unwrap_or_default();
+    let gamepad_moving =
+        gamepad_direction.length_squared() > input_config.movement_deadzone.powi(2);
+    let moving = keyboard_moving || gamepad_moving;
+    let selected_pace = if keyboard_moving {
+        if controls.sprint.active {
+            MovementPace::Sprint
+        } else if controls.caps_jog {
+            MovementPace::Jog
+        } else {
+            MovementPace::Walk
+        }
+    } else if gamepad_moving {
+        MovementPace::Sprint
+    } else {
+        MovementPace::Walk
+    };
+    controls.sprint.cancel_latch_when_idle(moving);
+    let left_trigger_value = gamepads
+        .iter()
+        .filter_map(|gamepad| gamepad.get(GamepadButton::LeftTrigger2))
+        .fold(0.0_f32, f32::max);
+    let left_trigger = gamepads
+        .iter()
+        .any(|gamepad| gamepad.pressed(GamepadButton::LeftTrigger2));
+    let left_trigger_just_pressed = gamepads
+        .iter()
+        .any(|gamepad| gamepad.just_pressed(GamepadButton::LeftTrigger2));
+    let right_bumper = gamepads
+        .iter()
+        .any(|gamepad| gamepad.pressed(GamepadButton::RightTrigger));
+    let right_bumper_just_pressed = gamepads
+        .iter()
+        .any(|gamepad| gamepad.just_pressed(GamepadButton::RightTrigger));
+    let right_trigger_just_pressed = gamepads
+        .iter()
+        .any(|gamepad| gamepad.just_pressed(GamepadButton::RightTrigger2));
+    let right_trigger = gamepads
+        .iter()
+        .any(|gamepad| gamepad.pressed(GamepadButton::RightTrigger2));
+    let left_thumb = gamepads
+        .iter()
+        .any(|gamepad| gamepad.pressed(GamepadButton::LeftThumb));
+    let left_thumb_just_pressed = gamepads
+        .iter()
+        .any(|gamepad| gamepad.just_pressed(GamepadButton::LeftThumb));
+    let left_thumb_just_released = gamepads
+        .iter()
+        .any(|gamepad| gamepad.just_released(GamepadButton::LeftThumb));
+    let gamepad_lateral = gamepads
+        .iter()
+        .filter_map(|gamepad| gamepad.get(GamepadAxis::LeftStickX))
+        .max_by(|left, right| left.abs().total_cmp(&right.abs()))
+        .unwrap_or_default();
+    let downed = controlled_players
+        .iter()
+        .any(|skeleton| skeleton.body().is_downed());
+    let quickstep_grounded = controlled_players
+        .iter()
+        .next()
+        .is_none_or(|skeleton| skeleton.body() == BodyState::Grounded(GroundedPosture::Upright));
+    let roll_transitioning = controlled_players.iter().any(|skeleton| {
+        matches!(
+            skeleton
+                .posture_transition()
+                .map(|transition| transition.kind()),
+            Some(
+                PostureTransitionKind::ProneToSupine { .. }
+                    | PostureTransitionKind::SupineToProne { .. }
+            )
+        )
+    });
+
+    let raised = mouse.pressed(MouseButton::Right) || left_trigger;
+    if right_bumper && left_trigger_just_pressed {
+        controls.reserved_throw_chord = true;
+    }
+    if !right_bumper || !left_trigger {
+        controls.reserved_throw_chord = false;
+    }
+    guard.desired = if raised {
+        WeaponGuardState::Raised
+    } else {
+        WeaponGuardState::Lowered
+    };
+
+    let alt_pressed = keys.pressed(KeyCode::AltLeft);
+    let alt_just_pressed = keys.just_pressed(KeyCode::AltLeft);
+    let alt_just_released = keys.just_released(KeyCode::AltLeft);
+    if alt_just_pressed || left_thumb_just_pressed {
+        controls.posture_control_armed = true;
+        controls.posture_control_consumed = false;
+    }
+    let space_pressed = keys.pressed(KeyCode::Space);
+    let space_just_pressed = keys.just_pressed(KeyCode::Space);
+    let space_just_released = keys.just_released(KeyCode::Space);
+    let keyboard_dive_chord = alt_pressed && keyboard_moving && !downed;
+    if !keyboard_dive_chord {
+        controls.keyboard_dive_latched = false;
+    }
+    let keyboard_dive = keyboard_dive_chord && !controls.keyboard_dive_latched;
+    if keyboard_dive {
+        controls.keyboard_dive_latched = true;
+        controls.posture_control_consumed = true;
+        controls.space_jump_armed = false;
+    }
+    let gamepad_dive =
+        left_thumb && right_trigger_just_pressed || right_trigger && left_thumb_just_pressed;
+    if keyboard_dive || gamepad_dive {
+        let movement_direction = if keyboard_moving {
+            keyboard_direction
+        } else {
+            gamepad_direction
+        };
+        let travel_direction = dive_direction(movement_direction);
+        let animation_direction = if selected_pace == MovementPace::Sprint {
+            travel_direction.opposite()
+        } else if raised {
+            travel_direction
+        } else {
+            DiveDirection::Forward
+        };
+        queue_posture_action(
+            &mut controls,
+            PostureActionRequest::Dive {
+                animation_direction,
+                travel_direction,
+            },
+        );
+        controls.posture_control_consumed = true;
+    }
+
+    if space_just_pressed {
+        controls.space_jump_armed = !downed;
+    }
+    let keyboard_roll_held = downed
+        && !keyboard_dive
+        && space_pressed
+        && (keys.pressed(KeyCode::KeyA) || keys.pressed(KeyCode::KeyD));
+    if roll_transitioning || !keyboard_roll_held {
+        controls.keyboard_roll_pending = false;
+    }
+    let keyboard_roll =
+        (keyboard_roll_held && !roll_transitioning && !controls.keyboard_roll_pending)
+            .then(|| lateral_roll_action(keyboard_direction.x))
+            .flatten();
+
+    let (gamepad_roll_modifier, gamepad_roll_modifier_just_pressed) = controller_roll_modifier(
+        left_trigger,
+        right_trigger,
+        right_trigger_just_pressed,
+        right_bumper,
+        right_bumper_just_pressed,
+    );
+    if gamepad_lateral.abs() <= input_config.roll_deadzone || !gamepad_roll_modifier {
+        controls.gamepad_roll_latched = false;
+    }
+    let gamepad_roll = (downed
+        && !gamepad_dive
+        && gamepad_roll_modifier
+        && gamepad_lateral.abs() >= input_config.quickstep_threshold
+        && (!controls.gamepad_roll_latched || gamepad_roll_modifier_just_pressed))
+        .then(|| lateral_roll_action(gamepad_lateral))
+        .flatten();
+    let roll_action = keyboard_roll.or(gamepad_roll);
+    let rolling = roll_action.is_some();
+    controls.roll_just_pressed = rolling;
+    controls.downed_align = downed
+        && !keyboard_dive
+        && !gamepad_dive
+        && ((space_pressed && keyboard_direction.x == 0.0)
+            || (gamepad_roll_modifier && gamepad_lateral.abs() <= input_config.roll_deadzone));
+    if let Some(action) = roll_action {
+        queue_posture_action(&mut controls, action);
+        controls.keyboard_roll_pending = keyboard_roll.is_some();
+        controls.gamepad_roll_latched = gamepad_roll.is_some();
+        controls.space_jump_armed = false;
+    }
+    if (alt_just_released || left_thumb_just_released) && controls.posture_control_armed {
+        if !controls.posture_control_consumed {
+            queue_posture_action(&mut controls, PostureActionRequest::Toggle);
+        }
+        controls.posture_control_armed = false;
+        controls.posture_control_consumed = false;
+    }
+
+    let prepared = match controls.prepare_attack_input(
+        AttackInputObservation {
+            mouse: &mouse,
+            left_trigger,
+            left_trigger_value,
+            controller_attack: left_trigger && right_trigger_just_pressed && !rolling,
+            forced_attack: force_attack.0,
+            elapsed,
+        },
+        input_config,
+    ) {
+        Ok(prepared) => prepared,
+        Err(error) => {
+            // Retire the previous frame's edge; rejected input must not replay it.
+            controls.attack_just_pressed = false;
+            warn!(%error, "Rejected attack preparation progress");
+            return;
+        }
+    };
+    prepared.publish(&mut controls, &mut force_attack);
+    let gamepad_quickstep = left_trigger
+        && right_bumper_just_pressed
+        && moving
+        && !controls.reserved_throw_chord
+        && !rolling;
+    let keyboard_quickstep_held =
+        raised && !downed && !keyboard_dive_chord && !rolling && space_pressed && keyboard_moving;
+    if !keyboard_quickstep_held || !quickstep_grounded {
+        controls.keyboard_quickstep_latched = false;
+    }
+    let keyboard_quickstep =
+        keyboard_quickstep_held && quickstep_grounded && !controls.keyboard_quickstep_latched;
+    if keyboard_quickstep {
+        controls.keyboard_quickstep_latched = true;
+        controls.space_jump_armed = false;
+    }
+    let charging_keyboard_jump =
+        controls.space_jump_armed && space_pressed && !downed && !raised && !keyboard_dive_chord;
+    controls.jump_charge = charging_keyboard_jump;
+    let quickstep_direction = if keyboard_quickstep {
+        keyboard_direction
+    } else if gamepad_quickstep {
+        gamepad_direction
+    } else {
+        Vec2::ZERO
+    }
+    .normalize_or_zero();
+    let quickstep_requested = quickstep_direction != Vec2::ZERO;
+    controls.dodge_just_pressed = quickstep_requested;
+    controls.quickstep_direction = quickstep_direction;
+    let jump_requested = !quickstep_requested
+        && !keyboard_dive_chord
+        && !gamepad_dive
+        && !rolling
+        && (space_just_released && controls.space_jump_armed && !raised
+            || (!left_trigger && !left_thumb && right_trigger_just_pressed));
+    if jump_requested || quickstep_requested {
+        controls.jump_command.sequence = controls.jump_command.sequence.wrapping_add(1);
+        controls.jump_command.quickstep = quickstep_requested.then_some(quickstep_direction);
+        if quickstep_requested {
+            info!(
+                target: "quickstep_trace",
+                sequence = controls.jump_command.sequence,
+                direction = ?quickstep_direction,
+                raised,
+                quickstep_grounded,
+                "[quickstep][client-input] queued"
+            );
+        }
+    }
+    if space_just_released {
+        controls.space_jump_armed = false;
+    }
+    controls.pace = selected_pace;
+}
+
+fn controller_roll_modifier(
+    left_trigger: bool,
+    right_trigger: bool,
+    right_trigger_just_pressed: bool,
+    right_bumper: bool,
+    right_bumper_just_pressed: bool,
+) -> (bool, bool) {
+    if left_trigger {
+        (right_bumper, right_bumper_just_pressed)
+    } else {
+        (right_trigger, right_trigger_just_pressed)
+    }
+}
+
+fn lateral_roll_action(lateral: f32) -> Option<PostureActionRequest> {
+    if lateral < 0.0 {
+        Some(PostureActionRequest::RollLeft)
+    } else if lateral > 0.0 {
+        Some(PostureActionRequest::RollRight)
+    } else {
+        None
+    }
+}
+
+fn dive_direction(input: Vec2) -> DiveDirection {
+    if input.x.abs() > input.y.abs() {
+        if input.x < 0.0 {
+            DiveDirection::Left
+        } else {
+            DiveDirection::Right
+        }
+    } else if input.y < 0.0 {
+        DiveDirection::Backward
+    } else {
+        DiveDirection::Forward
+    }
+}
+
+#[derive(Component, Clone, Debug)]
+#[require(Name::from("Client"), AeronetRepliconClient)]
+pub struct AdventureSimulatorClient {
+    pub player_id: u64,
+    pub server_url: String,
+}
+
+impl Default for AdventureSimulatorClient {
+    fn default() -> Self {
+        Self {
+            player_id: 0,
+            server_url: DEFAULT_SERVER_URL.to_string(),
+        }
+    }
+}
+
+fn on_client_added(
+    event: On<Add, AdventureSimulatorClient>,
+    mut commands: Commands,
+    clients: Query<&AdventureSimulatorClient>,
+) -> Result {
+    let client = clients.get(event.entity)?;
+
+    commands
+        .entity(event.entity)
+        .queue(WebSocketClient::connect(
+            websocket_config(&client.server_url),
+            normalize_server_url(&client.server_url),
+        ));
+
+    Ok(())
+}
+
+fn announce_join(
+    mut commands: Commands,
+    client: Single<&AdventureSimulatorClient>,
+    credential: Res<ReconnectCredential>,
+) {
+    info!("[startup] tactical network connected; announcing join");
+    let character_id = CharacterId(client.player_id);
+    commands.client_trigger(JoinRequest {
+        character_id,
+        reconnect_token: credential
+            .0
+            .filter(|(stored, _)| *stored == character_id)
+            .map(|(_, token)| token),
+    });
+}
+
+fn send_player_input(
+    mut commands: Commands,
+    mut input_tick: ResMut<LocalInputTick>,
+    players: Query<(&Actions<Player>, &CharacterLook), With<ControlledPlayer>>,
+    movements: Query<&Action<input::Movement>>,
+    guard: Res<WeaponGuardInputState>,
+    controls: Res<DirectControlState>,
+    scripted: Res<PlayerInputOverride>,
+) {
+    let simulation_tick = input_tick.0;
+    input_tick.0 = input_tick.0.wrapping_next();
+    for (actions, look) in &players {
+        if let Some(mut request) = scripted.0 {
+            request.simulation_tick = simulation_tick;
+            commands.client_trigger(request);
+            continue;
+        }
+        let movement = movements
+            .iter_many(actions)
+            .next()
+            .map(|movement| **movement);
+        commands.client_trigger(PlayerInputRequest {
+            simulation_tick,
+            movement,
+            look: Vec2::new(look.yaw, look.pitch),
+            jump: controls.jump_command,
+            jump_charge: controls.jump_charge,
+            downed_align: controls.downed_align,
+            posture: controls.posture_command,
+            pace: controls.pace,
+            weapon_guard: guard.desired,
+            melee_preparation: controls.melee_preparation,
+        });
+    }
+}
+
+fn queue_posture_action(controls: &mut DirectControlState, action: PostureActionRequest) {
+    controls.posture_command.sequence = controls.posture_command.sequence.wrapping_add(1);
+    controls.posture_command.action = Some(action);
+}
+
+#[cfg(target_family = "wasm")]
+fn websocket_config(_server_url: &str) -> ClientConfig {
+    ClientConfig
+}
+
+#[cfg(not(target_family = "wasm"))]
+fn websocket_config(server_url: &str) -> ClientConfig {
+    if normalize_server_url(server_url).starts_with("wss://") {
+        ClientConfig::default()
+    } else {
+        ClientConfig::builder().with_no_encryption()
+    }
+}
+
+pub fn normalize_server_url(server_url: &str) -> String {
+    if server_url.contains("://") {
+        server_url.to_string()
+    } else {
+        format!("ws://{server_url}")
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    impl SprintInputState {
+        fn update(
+            &mut self,
+            shift_down: bool,
+            elapsed: AnimationElapsed,
+        ) -> AnimationValueResult<()> {
+            self.update_with_threshold(
+                shift_down,
+                elapsed,
+                PositiveAnimationDuration::try_from(SPRINT_HOLD_THRESHOLD_SECONDS)?,
+            )
+        }
+    }
+
+    #[test]
+    fn reconnect_credential_is_process_owned_not_transport_owned() {
+        let credential = ReconnectCredential(Some((CharacterId(42), ReconnectToken([5; 32]))));
+        // A transport state transition does not recreate App resources; the
+        // same contract is compiled for native and wasm clients.
+        assert_eq!(credential.0.unwrap().0, CharacterId(42));
+        assert_eq!(credential.0.unwrap().1, ReconnectToken([5; 32]));
+    }
+
+    fn input_fixture() -> (World, Schedule) {
+        let mut world = World::new();
+        world.insert_resource(Time::<()>::default());
+        world.insert_resource(ButtonInput::<KeyCode>::default());
+        world.insert_resource(ButtonInput::<MouseButton>::default());
+        world.insert_resource(WeaponGuardInputState::default());
+        world.insert_resource(DirectControlState::default());
+        world.insert_resource(TacticalCombatConfig::default());
+        world.insert_resource(DebugForceAttackTrigger::default());
+        let mut schedule = Schedule::default();
+        schedule.add_systems(update_direct_control_input);
+        (world, schedule)
+    }
+
+    #[test]
+    fn left_mouse_release_classifies_primary_before_and_alternate_after_threshold() {
+        for (held, alternate) in [(0.1, false), (0.21, true)] {
+            let (mut world, mut schedule) = input_fixture();
+            {
+                let mut mouse = world.resource_mut::<ButtonInput<MouseButton>>();
+                mouse.press(MouseButton::Right);
+                mouse.press(MouseButton::Left);
+            }
+            schedule.run(&mut world);
+            {
+                let controls = world.resource::<DirectControlState>();
+                assert!(!controls.attack_just_pressed);
+                assert_eq!(
+                    controls.local_preparation_to,
+                    MeleePreparationInput::Alternate
+                );
+                assert_eq!(controls.melee_preparation, MeleePreparationInput::Preferred);
+            }
+            world
+                .resource_mut::<Time<()>>()
+                .advance_by(std::time::Duration::from_secs_f32(held));
+            world
+                .resource_mut::<ButtonInput<MouseButton>>()
+                .clear_just_pressed(MouseButton::Left);
+            schedule.run(&mut world);
+            assert_eq!(
+                world.resource::<DirectControlState>().melee_preparation,
+                if alternate {
+                    MeleePreparationInput::Alternate
+                } else {
+                    MeleePreparationInput::Preferred
+                }
+            );
+            world
+                .resource_mut::<ButtonInput<MouseButton>>()
+                .release(MouseButton::Left);
+            schedule.run(&mut world);
+            let controls = world.resource::<DirectControlState>();
+            assert!(controls.attack_just_pressed);
+            assert_eq!(controls.attack_hand, AttackHand::Main);
+            assert_eq!(controls.alternate_attack, alternate);
+        }
+    }
+
+    #[test]
+    fn middle_mouse_is_release_triggered_offhand_input() {
+        let (mut world, mut schedule) = input_fixture();
+        {
+            let mut mouse = world.resource_mut::<ButtonInput<MouseButton>>();
+            mouse.press(MouseButton::Right);
+            mouse.press(MouseButton::Middle);
+        }
+        schedule.run(&mut world);
+        assert!(!world.resource::<DirectControlState>().attack_just_pressed);
+        world
+            .resource_mut::<ButtonInput<MouseButton>>()
+            .release(MouseButton::Middle);
+        schedule.run(&mut world);
+        let controls = world.resource::<DirectControlState>();
+        assert!(controls.attack_just_pressed);
+        assert_eq!(controls.attack_hand, AttackHand::Offhand);
+    }
+
+    #[test]
+    fn shift_tap_latches_sprint_until_the_next_press() {
+        let mut sprint = SprintInputState::default();
+        sprint
+            .update(true, AnimationElapsed::from_seconds(0.0).unwrap())
+            .unwrap();
+        assert!(sprint.active);
+        sprint
+            .update(true, AnimationElapsed::from_seconds(0.1).unwrap())
+            .unwrap();
+        sprint
+            .update(false, AnimationElapsed::from_seconds(0.0).unwrap())
+            .unwrap();
+        assert!(sprint.active);
+
+        sprint
+            .update(true, AnimationElapsed::from_seconds(0.0).unwrap())
+            .unwrap();
+        assert!(!sprint.active);
+        sprint
+            .update(true, AnimationElapsed::from_seconds(1.0).unwrap())
+            .unwrap();
+        sprint
+            .update(false, AnimationElapsed::from_seconds(0.0).unwrap())
+            .unwrap();
+        assert!(!sprint.active);
+    }
+
+    #[test]
+    fn held_shift_sprints_immediately_and_stops_on_release() {
+        let mut sprint = SprintInputState::default();
+        sprint
+            .update(true, AnimationElapsed::from_seconds(0.0).unwrap())
+            .unwrap();
+        assert!(sprint.active);
+        sprint
+            .update(
+                true,
+                AnimationElapsed::from_seconds(SPRINT_HOLD_THRESHOLD_SECONDS + 0.01).unwrap(),
+            )
+            .unwrap();
+        assert!(sprint.active);
+        sprint
+            .update(false, AnimationElapsed::from_seconds(0.0).unwrap())
+            .unwrap();
+        assert!(!sprint.active);
+    }
+
+    #[test]
+    fn latched_sprint_cancels_when_movement_input_stops() {
+        let mut sprint = SprintInputState::default();
+        sprint
+            .update(true, AnimationElapsed::from_seconds(0.0).unwrap())
+            .unwrap();
+        sprint
+            .update(true, AnimationElapsed::from_seconds(0.1).unwrap())
+            .unwrap();
+        sprint
+            .update(false, AnimationElapsed::from_seconds(0.0).unwrap())
+            .unwrap();
+        assert!(sprint.active);
+
+        sprint.cancel_latch_when_idle(true);
+        assert!(sprint.active);
+        sprint.cancel_latch_when_idle(false);
+        assert!(!sprint.active);
+    }
+
+    #[test]
+    fn held_sprint_can_begin_moving_after_an_idle_frame() {
+        let mut sprint = SprintInputState::default();
+        sprint
+            .update(true, AnimationElapsed::from_seconds(0.0).unwrap())
+            .unwrap();
+        sprint.cancel_latch_when_idle(false);
+        assert!(sprint.active);
+    }
+
+    #[test]
+    fn shift_release_at_exact_hold_threshold_remains_toggled() {
+        let mut sprint = SprintInputState::default();
+        sprint
+            .update(true, AnimationElapsed::from_seconds(0.0).unwrap())
+            .unwrap();
+        sprint
+            .update(
+                false,
+                AnimationElapsed::from_seconds(SPRINT_HOLD_THRESHOLD_SECONDS).unwrap(),
+            )
+            .unwrap();
+        assert!(sprint.active);
+    }
+
+    #[test]
+    fn caps_lock_toggles_keyboard_movement_between_walk_and_jog() {
+        let (mut world, mut schedule) = input_fixture();
+        {
+            let mut keys = world.resource_mut::<ButtonInput<KeyCode>>();
+            keys.press(KeyCode::KeyW);
+            keys.press(KeyCode::CapsLock);
+        }
+        schedule.run(&mut world);
+        assert_eq!(
+            world.resource::<DirectControlState>().pace,
+            MovementPace::Jog
+        );
+
+        {
+            let mut keys = world.resource_mut::<ButtonInput<KeyCode>>();
+            keys.clear_just_pressed(KeyCode::CapsLock);
+            keys.release(KeyCode::CapsLock);
+            keys.clear_just_released(KeyCode::CapsLock);
+            keys.press(KeyCode::CapsLock);
+        }
+        schedule.run(&mut world);
+        assert_eq!(
+            world.resource::<DirectControlState>().pace,
+            MovementPace::Walk
+        );
+    }
+
+    #[test]
+    fn stopping_movement_cancels_sprint_but_preserves_caps_jog() {
+        let (mut world, mut schedule) = input_fixture();
+        {
+            let mut controls = world.resource_mut::<DirectControlState>();
+            controls.caps_jog = true;
+            controls.sprint.active = true;
+        }
+
+        schedule.run(&mut world);
+        {
+            let controls = world.resource::<DirectControlState>();
+            assert!(!controls.sprint.active);
+            assert_eq!(controls.pace, MovementPace::Walk);
+        }
+
+        world
+            .resource_mut::<ButtonInput<KeyCode>>()
+            .press(KeyCode::KeyW);
+        schedule.run(&mut world);
+        let controls = world.resource::<DirectControlState>();
+        assert!(!controls.sprint.active);
+        assert_eq!(controls.pace, MovementPace::Jog);
+    }
+
+    #[test]
+    fn posture_toggle_is_emitted_on_release_not_press() {
+        let (mut world, mut schedule) = input_fixture();
+        world
+            .resource_mut::<ButtonInput<KeyCode>>()
+            .press(KeyCode::AltLeft);
+        schedule.run(&mut world);
+        assert_eq!(
+            world.resource::<DirectControlState>().posture_command,
+            PostureCommand::default()
+        );
+
+        {
+            let mut keys = world.resource_mut::<ButtonInput<KeyCode>>();
+            keys.clear_just_pressed(KeyCode::AltLeft);
+            keys.release(KeyCode::AltLeft);
+        }
+        schedule.run(&mut world);
+        assert_eq!(
+            world.resource::<DirectControlState>().posture_command,
+            PostureCommand {
+                sequence: 1,
+                action: Some(PostureActionRequest::Toggle),
+            }
+        );
+    }
+
+    #[test]
+    fn movement_held_before_left_alt_dives_and_consumes_posture_release() {
+        let (mut world, mut schedule) = input_fixture();
+        world
+            .resource_mut::<ButtonInput<KeyCode>>()
+            .press(KeyCode::KeyA);
+        schedule.run(&mut world);
+        assert_eq!(
+            world.resource::<DirectControlState>().posture_command,
+            PostureCommand::default()
+        );
+
+        {
+            let mut keys = world.resource_mut::<ButtonInput<KeyCode>>();
+            keys.clear_just_pressed(KeyCode::KeyA);
+            keys.press(KeyCode::AltLeft);
+        }
+        schedule.run(&mut world);
+        assert_eq!(
+            world.resource::<DirectControlState>().posture_command,
+            PostureCommand {
+                sequence: 1,
+                action: Some(PostureActionRequest::Dive {
+                    animation_direction: DiveDirection::Forward,
+                    travel_direction: DiveDirection::Left,
+                }),
+            }
+        );
+
+        {
+            let mut keys = world.resource_mut::<ButtonInput<KeyCode>>();
+            keys.clear_just_pressed(KeyCode::AltLeft);
+            keys.release(KeyCode::AltLeft);
+        }
+        schedule.run(&mut world);
+        assert_eq!(
+            world
+                .resource::<DirectControlState>()
+                .posture_command
+                .sequence,
+            1
+        );
+    }
+
+    #[test]
+    fn space_and_lateral_direction_rolls_when_downed_without_jumping() {
+        let (mut world, mut schedule) = input_fixture();
+        world.spawn((
+            ControlledPlayer::default(),
+            SkeletonState::default().with_body_state(BodyState::Prone),
+        ));
+        {
+            let mut keys = world.resource_mut::<ButtonInput<KeyCode>>();
+            keys.press(KeyCode::Space);
+            keys.press(KeyCode::KeyA);
+        }
+
+        schedule.run(&mut world);
+        assert_eq!(
+            world.resource::<DirectControlState>().posture_command,
+            PostureCommand {
+                sequence: 1,
+                action: Some(PostureActionRequest::RollLeft),
+            }
+        );
+        assert_eq!(
+            world.resource::<DirectControlState>().jump_command,
+            JumpCommand::default()
+        );
+        assert!(world.resource::<DirectControlState>().roll_just_pressed);
+        assert!(!world.resource::<DirectControlState>().downed_align);
+    }
+
+    #[test]
+    fn space_without_lateral_input_requests_downed_camera_alignment() {
+        let (mut world, mut schedule) = input_fixture();
+        world.spawn((
+            ControlledPlayer::default(),
+            SkeletonState::default().with_body_state(BodyState::Prone),
+        ));
+        world
+            .resource_mut::<ButtonInput<KeyCode>>()
+            .press(KeyCode::Space);
+
+        schedule.run(&mut world);
+        let controls = world.resource::<DirectControlState>();
+        assert!(controls.downed_align);
+        assert!(!controls.roll_just_pressed);
+        assert_eq!(controls.posture_command, PostureCommand::default());
+    }
+
+    #[test]
+    fn held_space_and_lateral_direction_queues_each_roll_after_contact() {
+        let (mut world, mut schedule) = input_fixture();
+        let player = world
+            .spawn((
+                ControlledPlayer::default(),
+                SkeletonState::default().with_body_state(BodyState::Prone),
+            ))
+            .id();
+        {
+            let mut keys = world.resource_mut::<ButtonInput<KeyCode>>();
+            keys.press(KeyCode::Space);
+            keys.press(KeyCode::KeyD);
+        }
+        schedule.run(&mut world);
+        assert_eq!(
+            world
+                .resource::<DirectControlState>()
+                .posture_command
+                .sequence,
+            1
+        );
+
+        {
+            let mut keys = world.resource_mut::<ButtonInput<KeyCode>>();
+            keys.clear_just_pressed(KeyCode::Space);
+            keys.clear_just_pressed(KeyCode::KeyD);
+        }
+        schedule.run(&mut world);
+        assert_eq!(
+            world
+                .resource::<DirectControlState>()
+                .posture_command
+                .sequence,
+            1
+        );
+
+        assert!(
+            world
+                .get_mut::<SkeletonState>(player)
+                .unwrap()
+                .begin_posture_transition(
+                    PostureTransitionKind::ProneToSupine {
+                        direction: RollDirection::Right,
+                    },
+                    adventuresim_tactical_core::animation::AnimationSampleTick::from(0u64),
+                    adventuresim_tactical_core::animation::AnimationSampleSpan::from(2u64),
+                )
+        );
+        schedule.run(&mut world);
+        assert_eq!(
+            world
+                .resource::<DirectControlState>()
+                .posture_command
+                .sequence,
+            1
+        );
+
+        world
+            .get_mut::<SkeletonState>(player)
+            .unwrap()
+            .advance_posture_transition(
+                adventuresim_tactical_core::animation::AnimationSampleTick::from(2u64),
+            )
+            .unwrap();
+        schedule.run(&mut world);
+        assert_eq!(
+            world.resource::<DirectControlState>().posture_command,
+            PostureCommand {
+                sequence: 2,
+                action: Some(PostureActionRequest::RollRight),
+            }
+        );
+    }
+
+    #[test]
+    fn upright_keyboard_jump_charges_on_press_and_launches_on_release() {
+        let (mut world, mut schedule) = input_fixture();
+        world
+            .resource_mut::<ButtonInput<KeyCode>>()
+            .press(KeyCode::Space);
+        schedule.run(&mut world);
+        assert!(world.resource::<DirectControlState>().jump_charge);
+        assert_eq!(
+            world.resource::<DirectControlState>().jump_command.sequence,
+            0
+        );
+
+        {
+            let mut keys = world.resource_mut::<ButtonInput<KeyCode>>();
+            keys.clear_just_pressed(KeyCode::Space);
+            keys.release(KeyCode::Space);
+        }
+        schedule.run(&mut world);
+        assert!(!world.resource::<DirectControlState>().jump_charge);
+        assert_eq!(
+            world.resource::<DirectControlState>().jump_command.sequence,
+            1
+        );
+    }
+
+    #[test]
+    fn aim_and_space_without_movement_do_nothing() {
+        let (mut world, mut schedule) = input_fixture();
+        world
+            .resource_mut::<ButtonInput<MouseButton>>()
+            .press(MouseButton::Right);
+        world
+            .resource_mut::<ButtonInput<KeyCode>>()
+            .press(KeyCode::Space);
+        schedule.run(&mut world);
+
+        let controls = world.resource::<DirectControlState>();
+        assert!(!controls.dodge_just_pressed);
+        assert!(!controls.jump_charge);
+        assert_eq!(controls.jump_command.sequence, 0);
+
+        {
+            let mut keys = world.resource_mut::<ButtonInput<KeyCode>>();
+            keys.clear_just_pressed(KeyCode::Space);
+            keys.release(KeyCode::Space);
+        }
+        schedule.run(&mut world);
+
+        let controls = world.resource::<DirectControlState>();
+        assert!(!controls.dodge_just_pressed);
+        assert!(!controls.jump_charge);
+        assert_eq!(controls.jump_command.sequence, 0);
+        assert_eq!(controls.jump_command.quickstep, None);
+    }
+
+    #[test]
+    fn lowering_aim_before_releasing_space_allows_an_ordinary_jump() {
+        let (mut world, mut schedule) = input_fixture();
+        world
+            .resource_mut::<ButtonInput<MouseButton>>()
+            .press(MouseButton::Right);
+        world
+            .resource_mut::<ButtonInput<KeyCode>>()
+            .press(KeyCode::Space);
+        schedule.run(&mut world);
+        assert_eq!(
+            world.resource::<DirectControlState>().jump_command.sequence,
+            0
+        );
+
+        world
+            .resource_mut::<ButtonInput<KeyCode>>()
+            .clear_just_pressed(KeyCode::Space);
+        world
+            .resource_mut::<ButtonInput<MouseButton>>()
+            .release(MouseButton::Right);
+        schedule.run(&mut world);
+        assert!(world.resource::<DirectControlState>().jump_charge);
+
+        world
+            .resource_mut::<ButtonInput<KeyCode>>()
+            .release(KeyCode::Space);
+        schedule.run(&mut world);
+
+        let controls = world.resource::<DirectControlState>();
+        assert!(!controls.dodge_just_pressed);
+        assert_eq!(controls.jump_command.sequence, 1);
+        assert_eq!(controls.jump_command.quickstep, None);
+    }
+
+    #[test]
+    fn aiming_and_tapping_a_movement_key_never_requests_a_quickstep() {
+        let (mut world, mut schedule) = input_fixture();
+        world
+            .resource_mut::<ButtonInput<MouseButton>>()
+            .press(MouseButton::Right);
+        world
+            .resource_mut::<ButtonInput<KeyCode>>()
+            .press(KeyCode::KeyA);
+        schedule.run(&mut world);
+        assert!(!world.resource::<DirectControlState>().dodge_just_pressed);
+        assert_eq!(
+            world.resource::<DirectControlState>().jump_command.sequence,
+            0
+        );
+
+        {
+            let mut keys = world.resource_mut::<ButtonInput<KeyCode>>();
+            keys.clear_just_pressed(KeyCode::KeyA);
+            keys.release(KeyCode::KeyA);
+        }
+        schedule.run(&mut world);
+
+        let controls = world.resource::<DirectControlState>();
+        assert!(!controls.dodge_just_pressed);
+        assert_eq!(controls.jump_command, JumpCommand::default());
+    }
+
+    #[test]
+    fn aim_space_and_movement_request_a_quickstep_as_soon_as_the_chord_is_down() {
+        let (mut world, mut schedule) = input_fixture();
+        {
+            let mut keys = world.resource_mut::<ButtonInput<KeyCode>>();
+            keys.press(KeyCode::Space);
+            keys.press(KeyCode::KeyD);
+        }
+        schedule.run(&mut world);
+        assert!(!world.resource::<DirectControlState>().dodge_just_pressed);
+        {
+            let mut keys = world.resource_mut::<ButtonInput<KeyCode>>();
+            keys.clear_just_pressed(KeyCode::Space);
+            keys.clear_just_pressed(KeyCode::KeyD);
+        }
+        world
+            .resource_mut::<ButtonInput<MouseButton>>()
+            .press(MouseButton::Right);
+        schedule.run(&mut world);
+
+        let controls = world.resource::<DirectControlState>();
+        assert!(controls.dodge_just_pressed);
+        assert_eq!(controls.jump_command.sequence, 1);
+        assert_eq!(controls.jump_command.quickstep, Some(Vec2::X));
+        assert!(!controls.jump_charge);
+    }
+
+    #[test]
+    fn held_quickstep_chord_rearms_in_air_and_repeats_on_ground_contact() {
+        let (mut world, mut schedule) = input_fixture();
+        world
+            .resource_mut::<ButtonInput<MouseButton>>()
+            .press(MouseButton::Right);
+        {
+            let mut keys = world.resource_mut::<ButtonInput<KeyCode>>();
+            keys.press(KeyCode::Space);
+            keys.press(KeyCode::KeyW);
+        }
+        schedule.run(&mut world);
+        {
+            let mut keys = world.resource_mut::<ButtonInput<KeyCode>>();
+            keys.clear_just_pressed(KeyCode::Space);
+            keys.clear_just_pressed(KeyCode::KeyW);
+        }
+        schedule.run(&mut world);
+
+        let controls = world.resource::<DirectControlState>();
+        assert!(!controls.dodge_just_pressed);
+        assert_eq!(controls.jump_command.sequence, 1);
+        assert_eq!(controls.jump_command.quickstep, Some(Vec2::Y));
+
+        let player = world
+            .spawn((
+                ControlledPlayer::default(),
+                SkeletonState::default().with_body_state(BodyState::Airborne),
+            ))
+            .id();
+        schedule.run(&mut world);
+        assert!(!world.resource::<DirectControlState>().dodge_just_pressed);
+        assert_eq!(
+            world.resource::<DirectControlState>().jump_command.sequence,
+            1
+        );
+
+        world
+            .get_mut::<SkeletonState>(player)
+            .unwrap()
+            .transition_body(BodyState::Grounded(GroundedPosture::Upright));
+        schedule.run(&mut world);
+
+        let controls = world.resource::<DirectControlState>();
+        assert!(controls.dodge_just_pressed);
+        assert_eq!(controls.jump_command.sequence, 2);
+        assert_eq!(controls.jump_command.quickstep, Some(Vec2::Y));
+    }
+
+    #[test]
+    fn holding_aim_and_space_then_pressing_movement_requests_a_quickstep() {
+        let (mut world, mut schedule) = input_fixture();
+        world
+            .resource_mut::<ButtonInput<MouseButton>>()
+            .press(MouseButton::Right);
+        world
+            .resource_mut::<ButtonInput<KeyCode>>()
+            .press(KeyCode::Space);
+        schedule.run(&mut world);
+        assert!(!world.resource::<DirectControlState>().dodge_just_pressed);
+        assert_eq!(
+            world.resource::<DirectControlState>().jump_command.sequence,
+            0
+        );
+
+        world
+            .resource_mut::<ButtonInput<KeyCode>>()
+            .clear_just_pressed(KeyCode::Space);
+        world
+            .resource_mut::<ButtonInput<KeyCode>>()
+            .press(KeyCode::KeyS);
+        schedule.run(&mut world);
+
+        let controls = world.resource::<DirectControlState>();
+        assert!(controls.dodge_just_pressed);
+        assert_eq!(controls.jump_command.sequence, 1);
+        assert_eq!(controls.jump_command.quickstep, Some(Vec2::NEG_Y));
+    }
+
+    #[test]
+    fn jump_charge_preserves_the_selected_movement_pace() {
+        let (mut world, mut schedule) = input_fixture();
+        {
+            let mut keys = world.resource_mut::<ButtonInput<KeyCode>>();
+            keys.press(KeyCode::KeyW);
+            keys.press(KeyCode::ShiftLeft);
+            keys.press(KeyCode::Space);
+        }
+
+        schedule.run(&mut world);
+        let controls = world.resource::<DirectControlState>();
+        assert!(controls.jump_charge);
+        assert_eq!(controls.pace, MovementPace::Sprint);
+    }
+
+    #[test]
+    fn controller_roll_uses_rt_unraised_and_rb_while_lt_is_held() {
+        assert_eq!(
+            controller_roll_modifier(false, true, true, false, false),
+            (true, true)
+        );
+        assert_eq!(
+            controller_roll_modifier(true, true, true, false, false),
+            (false, false)
+        );
+        assert_eq!(
+            controller_roll_modifier(true, false, false, true, true),
+            (true, true)
+        );
+    }
+
+    #[test]
+    fn dive_direction_uses_the_dominant_axis_and_defaults_forward() {
+        assert_eq!(dive_direction(Vec2::ZERO), DiveDirection::Forward);
+        assert_eq!(dive_direction(Vec2::new(0.2, 0.8)), DiveDirection::Forward);
+        assert_eq!(
+            dive_direction(Vec2::new(0.2, -0.8)),
+            DiveDirection::Backward
+        );
+        assert_eq!(dive_direction(Vec2::new(-0.8, 0.2)), DiveDirection::Left);
+        assert_eq!(dive_direction(Vec2::new(0.8, 0.2)), DiveDirection::Right);
+    }
+
+    #[test]
+    fn left_alt_and_each_wasd_key_dive_without_sprint_or_space() {
+        for (key, travel_direction) in [
+            (KeyCode::KeyW, DiveDirection::Forward),
+            (KeyCode::KeyA, DiveDirection::Left),
+            (KeyCode::KeyS, DiveDirection::Backward),
+            (KeyCode::KeyD, DiveDirection::Right),
+        ] {
+            let (mut world, mut schedule) = input_fixture();
+            world
+                .resource_mut::<ButtonInput<KeyCode>>()
+                .press(KeyCode::AltLeft);
+
+            schedule.run(&mut world);
+            assert_eq!(
+                world.resource::<DirectControlState>().posture_command,
+                PostureCommand::default()
+            );
+            {
+                let mut keys = world.resource_mut::<ButtonInput<KeyCode>>();
+                keys.clear_just_pressed(KeyCode::AltLeft);
+                keys.press(key);
+            }
+            schedule.run(&mut world);
+            assert_eq!(
+                world.resource::<DirectControlState>().posture_command,
+                PostureCommand {
+                    sequence: 1,
+                    action: Some(PostureActionRequest::Dive {
+                        animation_direction: DiveDirection::Forward,
+                        travel_direction,
+                    }),
+                }
+            );
+            assert_eq!(
+                world.resource::<DirectControlState>().jump_command,
+                JumpCommand::default()
+            );
+            {
+                let mut keys = world.resource_mut::<ButtonInput<KeyCode>>();
+                keys.clear_just_pressed(key);
+                keys.release(KeyCode::AltLeft);
+            }
+            schedule.run(&mut world);
+            assert_eq!(
+                world
+                    .resource::<DirectControlState>()
+                    .posture_command
+                    .sequence,
+                1
+            );
+        }
+    }
+
+    #[test]
+    fn aimed_dive_uses_chord_movement_direction_and_latches_until_released() {
+        let (mut world, mut schedule) = input_fixture();
+        world
+            .resource_mut::<ButtonInput<MouseButton>>()
+            .press(MouseButton::Right);
+        {
+            let mut keys = world.resource_mut::<ButtonInput<KeyCode>>();
+            keys.press(KeyCode::AltLeft);
+            keys.press(KeyCode::KeyD);
+        }
+        schedule.run(&mut world);
+        assert_eq!(
+            world
+                .resource::<DirectControlState>()
+                .posture_command
+                .action,
+            Some(PostureActionRequest::Dive {
+                animation_direction: DiveDirection::Right,
+                travel_direction: DiveDirection::Right,
+            })
+        );
+        {
+            let mut keys = world.resource_mut::<ButtonInput<KeyCode>>();
+            keys.clear_just_pressed(KeyCode::AltLeft);
+            keys.clear_just_pressed(KeyCode::KeyD);
+        }
+        schedule.run(&mut world);
+        assert_eq!(
+            world
+                .resource::<DirectControlState>()
+                .posture_command
+                .sequence,
+            1
+        );
+    }
+
+    #[test]
+    fn sprinting_forward_dive_requests_the_backward_slide_animation() {
+        let (mut world, mut schedule) = input_fixture();
+        {
+            let mut keys = world.resource_mut::<ButtonInput<KeyCode>>();
+            keys.press(KeyCode::ShiftLeft);
+            keys.press(KeyCode::AltLeft);
+            keys.press(KeyCode::KeyW);
+        }
+
+        schedule.run(&mut world);
+        let controls = world.resource::<DirectControlState>();
+        assert_eq!(controls.pace, MovementPace::Sprint);
+        assert_eq!(
+            controls.posture_command.action,
+            Some(PostureActionRequest::Dive {
+                animation_direction: DiveDirection::Backward,
+                travel_direction: DiveDirection::Forward,
+            })
+        );
+    }
+}

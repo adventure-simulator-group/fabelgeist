@@ -1,0 +1,19 @@
+--- base
+
++++ head
+
+@@ -107,12 +107,11 @@
+
+         .unwrap();
+         assert!(
+             contact.is_none_or(|contact| contact.penetration <= 0.0001),
+             "camera at {position:?} penetrated obstacle at {:?}: {contact:?}",
+             obstacle.position
+-        )
+-        .unwrap();
++        );
+     }
+ }
+ 
+ #[test]
+ fn close_view_clears_wall_and_keeps_subject_beside_manual_aim() {

@@ -1,0 +1,58 @@
+{
+  "at": "2026-10-26T20:55:28.838675+00:00",
+  "run": 40398942505,
+  "artifact_id": 12688117218,
+  "artifact_digest": "sha256:37fc045e3f323161891e736e4cb5a5823ea069b66d4ca75cbff0de3a72f94aee",
+  "revision": "4fcc43038fc8abff41996c6e68376344569025cb",
+  "results": {
+    "library": {
+      "passed": 13,
+      "failed": 0,
+      "ignored": 0
+    },
+    "doctests": {
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0
+    },
+    "borrowed": {
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0
+    }
+  },
+  "baseline_2d_entry_absent": true,
+  "baseline_cube_ceiling": 862,
+  "files": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/hosted/run40398942505/gpu/source.txt",
+      "sha256": "b845d4ebaa7b30a9654ac6d3237520da570ae7bf314b8daa365d1b093c15d60f"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/hosted/run40398942505/gpu/pr-head.txt",
+      "sha256": "b845d4ebaa7b30a9654ac6d3237520da570ae7bf314b8daa365d1b093c15d60f"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/hosted/run40398942505/gpu/results.json",
+      "sha256": "6ccf43819f624353eff957167cd139053e44370e734c197e6f7d2399b374f669"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/hosted/run40398942505/gpu/rust-quality-baseline.toml",
+      "sha256": "6c59c24c8c7ca1c3e252ddf9bf8cbded3ab5cec47a7bdb7b5e185f8acb6839dc"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/hosted/run40398942505/gpu/library.log",
+      "sha256": "f7397b081f3acdfa071b6c0025189a094ccd9adf87a6a3a55709e7ed6b639eb9"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/hosted/run40398942505/gpu/doctests.log",
+      "sha256": "93717d7308fa90daca916d810d3b5c29ad17c477548965d1529cdc5fe08e811f"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/hosted/run40398942505/gpu/borrowed.log",
+      "sha256": "607906eb1735c3706ec9e6557fa8e99dd195372b1e9be3e6e6998ae26670b98a"
+    }
+  ],
+  "qualification": "Actualfinalsource selectedGPU/doctests/borrowed1 and relevantbaselineonly; fullLinux/Windows/constraint/rig acceptance stillpending; no directnew failurebranchruntimeproof",
+  "local_project_execution": false
+}

@@ -1,0 +1,133 @@
+{
+  "id": "OWN10-CANDIDATE001-CANONICAL-DISPOSITION-001",
+  "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "status": "BOUNDED_DEDUP_AND_CURRENT_CANONICAL_COMPARISON_COMPLETE_WITH_QUALIFICATIONS",
+  "historical_candidate": "../derive-candidate-001.json and saved candidate001 occurrences/range qualification; all retained unchanged",
+  "inventory_navigation": "inventory-navigation-001.json",
+  "prospective_registrations": [
+    "canonical-registration-001.json",
+    "canonical-registration-002.json"
+  ],
+  "source_sites": [
+    {
+      "type": "LayerSelection",
+      "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers.rs",
+      "declaration": [
+        15,
+        18
+      ],
+      "manual_from": [
+        41,
+        45
+      ],
+      "source_type": "CatalogPlacement<'static>",
+      "disposition": "Current exact equivalent derive opportunity; additional site of inherited optional F004 direct-construction maintenance family. Not a new accepted unique issue.",
+      "identity": "Whole file differs from frozen1486, prospectively registered and freshly compared. Exact declaration15-18 and From41-45 remain byte-identical.",
+      "retain": "Admission lookup, exact lexical item/placement key equality/hash/order, outfit dependency behavior and all wire/API roles.",
+      "source_sha256": "4f2a0ea9d96dba2f493cb7bd317313f553b00f0e29ff1eb0c223c7eed02058f4"
+    },
+    {
+      "type": "TacticalAttributes",
+      "path": "crates/adventuresim-tactical-core/src/player.rs",
+      "declaration": [
+        438,
+        444
+      ],
+      "manual_from": [
+        470,
+        474
+      ],
+      "source_type": "PlayerAttributeValues",
+      "disposition": "Exact duplicate of SEGOVB-INITIAL10-F004. Current equivalent derive opportunity remains, with source variant/line shift recorded.",
+      "identity": "Current whole file matches an already registered frozen variant; critical declaration/Default/From/PlayerAttributes bodies freshly re-read.",
+      "retain": "Authored default-character projection446-468, PlayerAttributes forwarding476-484, Component immutability, transparent serde and opaque reflection.",
+      "source_sha256": "7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645"
+    },
+    {
+      "type": "SceneBuildingId",
+      "path": "crates/adventuresim-tactical-core/src/scene_input/buildings/identity.rs",
+      "declaration": [
+        12,
+        28
+      ],
+      "manual_from": [
+        30,
+        34
+      ],
+      "source_type": "u64",
+      "disposition": "Current exact equivalent derive opportunity in F004 direct-construction maintenance family. Own roles1916/2528 are one source site, not two issues.",
+      "identity": "Current whole file matches registered frozen variant; target freshly re-read.",
+      "retain": "Public tuple field, allu64 identity, repr/serde/reflection traits. Manual Display36-40 is candidate008, excluded from this bounded From disposition.",
+      "source_sha256": "53af66cb68d475328494f071fc1fc64701c6c2fbd3204ffb79a82bbfd318a7b0"
+    },
+    {
+      "type": "ParticlePositions",
+      "path": "crates/fabelgeist-xpbd/src/particles/packed.rs",
+      "declaration": [
+        23,
+        24
+      ],
+      "manual_from": [
+        56,
+        60
+      ],
+      "source_type": "Vec<ParticlePositionRecord>",
+      "disposition": "Current exact equivalent derive opportunity in the same optional direct-construction family.",
+      "identity": "Current whole file matches registered frozen variant; declaration and connected native packing context freshly re-read.",
+      "retain": "Checked position/mass length admission26-43, native records/POD/layout, uploads and private field visibility.",
+      "source_sha256": "50a7d66bba9f42c372ffecc21cb208485f80885c3b4ee4884631d5473fc48d70"
+    },
+    {
+      "type": "ParticleVelocities",
+      "path": "crates/fabelgeist-xpbd/src/particles/packed.rs",
+      "declaration": [
+        62,
+        69
+      ],
+      "manual_from": [
+        96,
+        100
+      ],
+      "source_type": "Vec<ParticleVelocityRecord>",
+      "disposition": "Current exact equivalent derive opportunity in the same optional direct-construction family.",
+      "identity": "Same exact current/frozen packed source as ParticlePositions; distinct conversion site, not a new unique remedy.",
+      "retain": "Semantic From<&[Vec3]>83-95 that packs native velocity/padding, at_rest and upload/layout. Derive only the exact Vec-record constructor.",
+      "source_sha256": "50a7d66bba9f42c372ffecc21cb208485f80885c3b4ee4884631d5473fc48d70"
+    }
+  ],
+  "shared_equivalence_proof": {
+    "macro": "derive_more::From2.1.1",
+    "macro_member_sha256": "dbcea1f655618518d366313124b59d50181928e1f0a092ff8796d5accec81fd6",
+    "macro_archive_checksum": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb",
+    "scope": "Exact already registered nativeM122, same member/package as current Cargo.lock. Fresh target re-read189-209/299-319; prior full registered1-322 receipt retained.",
+    "semantics": "Default sole-field expansion moves the identical owned field into named/tuple wrapper. All five targets are nongeneric; static field lifetime remains identical. No new reference/generic/variant conversions, error, allocation, normalization or serialization API. Existing normal dependencies in all three owning crates explicitly enable from; no dependency or feature change required.",
+    "current_manifest_lines": {
+      "TacticalClient": 20,
+      "TacticalCore": 16,
+      "XPBD": 14
+    },
+    "current_lock_source_sha256": "d148af6f0f15140e5337b4ee4bf9d5ea5f63c6ff10bae5c472592d2768f58515",
+    "current_lock_selected_packages": "derive_more2.1.1 and derive_more-impl2.1.1; unrelated0.99.20 package is not target dependency"
+  },
+  "qualified_absent_site": {
+    "candidate": "../derive-candidate-001-occurrence-overlay112.json",
+    "path": "crates/adventuresim-stdb-module/src/operation_error.rs",
+    "canonical_status": "Path absent at990430b77; bounded crate declaration search also finds no enum/struct/type named StrategicOperationError.",
+    "disposition": "No current From cleanup at this site. Preserve frozen WIP receiving obligation and dependency/source(None) qualification; absence is not resolution or discard of the broader G11 cause graph.",
+    "dependency": "Current StdbModule manifest has thiserror but no derive_more normal dependency. Do not add thiserror #[from] to a String variant or add a dependency solely to satisfy an absent site. Retain borrowed-to-owned adapter semantics when receiving its canonical WIP graph."
+  },
+  "not_part_of_this_bounded_followup": [
+    "F004 additional ReachLimit and ArtDemoPreparationError sites are preserved existing suggestions; not newly current-reviewed here.",
+    "Candidate008 Display and other derive families are not broadened by this From comparison.",
+    "M07/P14/M51/M68/M75/G11 behavioral/admission/cause obligations remain independently open as recorded."
+  ],
+  "next_action": "Coordinator may plan an optional existing-family cleanup of five direct conversions across four existing source files, preserving all adjacent semantic code. This is a source-backed planning disposition, not implementation or merge readiness; use existing acceptance only after authorized scope/review gates, no new tests.",
+  "accepted_new_unique_issues": 0,
+  "new_unique_findings_claimed": 0,
+  "source_roles_added": 0,
+  "source_edits": false,
+  "git_state_changes": false,
+  "project_checks": "not run",
+  "compiler_or_macro_execution": false,
+  "runtime_or_merge_clearance": false
+}

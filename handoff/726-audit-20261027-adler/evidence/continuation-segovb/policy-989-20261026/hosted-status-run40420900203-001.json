@@ -1,0 +1,33 @@
+{
+  "run": 40420900203,
+  "source": "f2978ded53c97a69e3ee6855843078364a942920",
+  "jobs": [
+    {
+      "id": 121914778966,
+      "name": "foliage-portability",
+      "status": "in_progress",
+      "conclusion": null,
+      "active": [
+        "Verify existing foliage and prepared-asset contracts"
+      ],
+      "failed": []
+    },
+    {
+      "id": 121914779391,
+      "name": "rust-quality",
+      "status": "in_progress",
+      "conclusion": null,
+      "active": [
+        "Lint tactical client WASM target"
+      ],
+      "failed": []
+    },
+    {
+      "id": 121914780664,
+      "name": "regenerate-fixtures",
+      "status": "completed",
+      "conclusion": "skipped"
+    }
+  ],
+  "limits": "Snapshot only. GPU artifact independently consumed; no final CI acceptance. Required baseline reduction pending final revision."
+}

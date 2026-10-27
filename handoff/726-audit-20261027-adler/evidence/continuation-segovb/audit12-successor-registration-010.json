@@ -1,0 +1,180 @@
+{
+  "lens": 12,
+  "roles": [
+    {
+      "role": 24,
+      "source_id": "native-dependency:spacetimedb-sdk-2.6.1/src/db_connection.rs",
+      "sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+      "ranges": [
+        [
+          187,
+          254
+        ],
+        [
+          410,
+          450
+        ],
+        [
+          727,
+          770
+        ],
+        [
+          1290,
+          1433
+        ]
+      ],
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+      "read": "registered before bounded consumption",
+      "authority": "union original owner/producer reached ranges, not wholeforeignfile",
+      "extensions": [
+        {
+          "ranges": [
+            [
+              140,
+              186
+            ],
+            [
+              270,
+              293
+            ],
+            [
+              1434,
+              1440
+            ],
+            [
+              1477,
+              1482
+            ]
+          ],
+          "purpose": "Identity token and subscription error parse/retention/callback bodies; exact table lookup receiver follows separately"
+        },
+        {
+          "ranges": [
+            [
+              500,
+              560
+            ]
+          ],
+          "purpose": "Pending table callback names actual dispatch bodies"
+        }
+      ]
+    },
+    {
+      "role": 25,
+      "source_id": "native-dependency:tiny-skia-0.11.4/Cargo.toml",
+      "sha256": "76370c68002a8cf88f605f06e1d645d11045ae2bae97a7d8b490acf47362e6ad",
+      "ranges": [
+        [
+          46,
+          47
+        ]
+      ],
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/76370c68002a8cf88f605f06e1d645d11045ae2bae97a7d8b490acf47362e6ad",
+      "read": "registered before bounded consumption",
+      "authority": "union original owner/producer reached ranges, not wholeforeignfile"
+    },
+    {
+      "role": 26,
+      "source_id": "native-dependency:tiny-skia-0.11.4/src/pixmap.rs",
+      "sha256": "a7845a931a40b5b24eaa24b6053121e61bfe8b3fffa4c0db89f58c368fb9bc56",
+      "ranges": [
+        [
+          155,
+          182
+        ],
+        [
+          385,
+          430
+        ]
+      ],
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/a7845a931a40b5b24eaa24b6053121e61bfe8b3fffa4c0db89f58c368fb9bc56",
+      "read": "registered before bounded consumption",
+      "authority": "union original owner/producer reached ranges, not wholeforeignfile"
+    },
+    {
+      "role": 27,
+      "source_id": "native-dependency:wgpu-29.0.4/src/api/buffer.rs",
+      "sha256": "c7d2c13d8031a9416d5562ec970a46470da331544d3a5e15bc8fb7dae2a9de32",
+      "ranges": [
+        [
+          835,
+          880
+        ]
+      ],
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/c7d2c13d8031a9416d5562ec970a46470da331544d3a5e15bc8fb7dae2a9de32",
+      "read": "registered before bounded consumption",
+      "authority": "union original owner/producer reached ranges, not wholeforeignfile"
+    }
+  ],
+  "supplements": [
+    {
+      "path": "src/error.rs",
+      "sha256": "e98badf5f0eaff8bfe959e31b3ed9e4a6ad5cf5ec4040bfe806f74dc0c692d38",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/e98badf5f0eaff8bfe959e31b3ed9e4a6ad5cf5ec4040bfe806f74dc0c692d38",
+      "ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "archive_sha256": "074a6d8828638176eb8e9bba7a3e6fb75dc659b260717306eb966c7e10575cd7",
+      "authority": "New cached native member supplement; archive matches Cargo.lock and original24 member bytes match frozen source",
+      "read": "registered before consumption",
+      "actual_lines": 104
+    },
+    {
+      "path": "src/client_cache.rs",
+      "sha256": "1815445657f053bf0d24bdf218219eed822e9626511eade5d3afa0aca3fa7ff1",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/1815445657f053bf0d24bdf218219eed822e9626511eade5d3afa0aca3fa7ff1",
+      "ranges": [
+        [
+          347,
+          396
+        ],
+        [
+          400,
+          530
+        ]
+      ],
+      "archive_sha256": "074a6d8828638176eb8e9bba7a3e6fb75dc659b260717306eb966c7e10575cd7",
+      "authority": "new cached native member supplement pinned by lock-checksummed archive and original24 exact member match",
+      "read": "registered before consumption"
+    },
+    {
+      "path": "src/subscription.rs",
+      "sha256": "5b1c6b0def7c80c6afb1659ff676de3c9414173452a374041d4c9f27f760e729",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/5b1c6b0def7c80c6afb1659ff676de3c9414173452a374041d4c9f27f760e729",
+      "ranges": [
+        [
+          124,
+          144
+        ],
+        [
+          435,
+          452
+        ]
+      ],
+      "archive_sha256": "074a6d8828638176eb8e9bba7a3e6fb75dc659b260717306eb966c7e10575cd7",
+      "authority": "new cached native member supplement; lock-checksummed archive with original24 exact member identity",
+      "read": "registered before consumption"
+    },
+    {
+      "path": "src/callbacks.rs",
+      "sha256": "d0261a660323f1fa611ff006dbfb6c440fbe5add9f6bbab6c378b930a394e09f",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/d0261a660323f1fa611ff006dbfb6c440fbe5add9f6bbab6c378b930a394e09f",
+      "ranges": [
+        [
+          45,
+          78
+        ],
+        [
+          79,
+          102
+        ]
+      ],
+      "archive_sha256": "074a6d8828638176eb8e9bba7a3e6fb75dc659b260717306eb966c7e10575cd7",
+      "authority": "new cached native member supplement; lock-checksummed archive with original24 exact member identity",
+      "read": "registered before consumption"
+    }
+  ]
+}

@@ -1,0 +1,489 @@
+{
+  "packet": 180,
+  "lens": 11,
+  "lens_name": "type-granularity",
+  "at": "2026-10-27T02:51:50.724840+00:00",
+  "status": "source_accounted_with_inherited_qualifications",
+  "authority": {
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "registry": "target/recovery-20261025/audit05/original-scope-072.json",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "prior_adopted_state": {
+    "path": "audit11-segovb-179-proposed-state-002.json",
+    "sha256": "c02e037c61d5498b85b4da76f62c7968b00746a49cbe12316132025899f5e2c5"
+  },
+  "root_adoption": {
+    "path": "audit11-segovb-179-adoption-root.json",
+    "sha256": "69ddb1d0d3df25e729230eb773c75b32d175d172d6448ee98004e97a16ed96ae"
+  },
+  "source": {
+    "original": 807,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/hair_preview.rs",
+    "sha256": "800207ff944cfc7487b00bfbaa888dbe254ec85340094e9104c392b54b14ea78",
+    "bytes": 11395,
+    "actual_eof": 343,
+    "effective_requested_scope": [
+      [
+        1,
+        343
+      ]
+    ],
+    "full_independent_inventory": true,
+    "prior_receiver_access_no_automatic_credit": true,
+    "source_accounted": true
+  },
+  "registrations": [
+    {
+      "path": "audit11-segovb-180-registration-001.json",
+      "sha256": "ff87010de371217653fec723a5d3247382a12c6845a84a231d558ce8e1e63fa5"
+    },
+    {
+      "path": "audit11-segovb-180-registration-002.json",
+      "sha256": "127adba33841baf2b9ff5965d7ef3a8e95aadce84deb52bf201ab1948873401f"
+    },
+    {
+      "path": "audit11-segovb-180-registration-003.json",
+      "sha256": "bbbe7eb8e681a64325ba3d9b2e550667a10f747e70ee4062e46e08e293673efd"
+    },
+    {
+      "path": "audit11-segovb-180-registration-004.json",
+      "sha256": "8714b68c3c06fe6502f31f66913f6041d88afc96a1402a4d57dd6247e4cd1ec0"
+    },
+    {
+      "path": "audit11-segovb-180-registration-005.json",
+      "sha256": "41bd619b57b157ad48b2bd25f1549fda2f3a2d1cf14d36ae18b20a54965a2dba"
+    },
+    {
+      "path": "audit11-segovb-180-registration-006.json",
+      "sha256": "37b9e82e40e97fade97d8963c126ce5d047b42d38827ea8e616901351cd74733"
+    },
+    {
+      "path": "audit11-segovb-180-registration-007.json",
+      "sha256": "b693a8792bf7a70ac72aebf60e05b2e635224c9b6a22a5f590b5fd851b354276"
+    },
+    {
+      "path": "audit11-segovb-180-registration-008.json",
+      "sha256": "088d7f1922d3493ba81b068a789083bb7fa5ccad8036316b76cfb9704d6982d4"
+    }
+  ],
+  "new_reads": [
+    {
+      "original": 807,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair_preview.rs",
+      "sha256": "800207ff944cfc7487b00bfbaa888dbe254ec85340094e9104c392b54b14ea78",
+      "actual_access": [
+        [
+          1,
+          180
+        ],
+        [
+          181,
+          343
+        ]
+      ],
+      "material_consumed": [
+        [
+          1,
+          343
+        ]
+      ],
+      "ordered_credit": true,
+      "identity": "exact frozen registry object/local byte match; no currentness inference"
+    },
+    {
+      "original": 808,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair_preview/assets.rs",
+      "sha256": "1945aa84edf49348310989955b6f814cc19ae8cceaf87d85400f4bce8cf9a296",
+      "actual_access": [
+        [
+          1,
+          93
+        ],
+        [
+          119,
+          194
+        ],
+        [
+          94,
+          118
+        ],
+        [
+          195,
+          225
+        ]
+      ],
+      "material_consumed": [
+        [
+          1,
+          225
+        ]
+      ],
+      "ordered_credit": false,
+      "identity": "exact frozen registry object/local byte match; no currentness inference"
+    },
+    {
+      "original": 831,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/studio_cache.rs",
+      "sha256": "6d7378554d92fcefc39d39434744bdb50dd98358ce1596f571652a65ce4bf013",
+      "actual_access": [
+        [
+          1,
+          70
+        ]
+      ],
+      "material_consumed": [
+        [
+          1,
+          56
+        ]
+      ],
+      "ordered_credit": false,
+      "identity": "exact frozen registry object/local byte match; no currentness inference"
+    },
+    {
+      "original": 684,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/binding.rs",
+      "sha256": "1d37cdfbe3438b86643502d8f147cec1c22cfb04ba2ccdf09da1c30aacac7152",
+      "actual_access": [
+        [
+          49,
+          58
+        ]
+      ],
+      "material_consumed": [
+        [
+          53,
+          58
+        ]
+      ],
+      "ordered_credit": false,
+      "identity": "exact frozen registry object/local byte match; no currentness inference"
+    },
+    {
+      "original": 794,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/generation.rs",
+      "sha256": "eb3d54908cc923b9cd761ca5abaf748d4ad9ed9175289a2d3342d0e2d4c6a4a1",
+      "actual_access": [
+        [
+          1,
+          55
+        ],
+        [
+          56,
+          93
+        ]
+      ],
+      "material_consumed": [
+        [
+          1,
+          93
+        ]
+      ],
+      "ordered_credit": false,
+      "identity": "exact frozen registry object/local byte match; no currentness inference"
+    },
+    {
+      "original": 819,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "actual_access": [
+        [
+          99,
+          108
+        ],
+        [
+          172,
+          187
+        ]
+      ],
+      "material_consumed": [
+        [
+          99,
+          103
+        ],
+        [
+          172,
+          181
+        ]
+      ],
+      "ordered_credit": false,
+      "identity": "exact frozen registry object/local byte match; no currentness inference"
+    },
+    {
+      "original": 683,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview.rs",
+      "sha256": "8c21b357f6f90a1c9c297c9e1c4306e63872daa3ccb32e060651f5df878b7ba3",
+      "actual_access": [
+        [
+          22,
+          35
+        ],
+        [
+          178,
+          279
+        ],
+        [
+          386,
+          398
+        ]
+      ],
+      "material_consumed": [
+        [
+          22,
+          34
+        ],
+        [
+          178,
+          274
+        ],
+        [
+          386,
+          397
+        ]
+      ],
+      "ordered_credit": false,
+      "identity": "exact frozen registry object/local byte match; no currentness inference"
+    },
+    {
+      "original": 832,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/studio_generation.rs",
+      "sha256": "7d6baf7df5362f498eb963aa984845e08e31952bec84de19b40620ea8f15dd0b",
+      "actual_access": [
+        [
+          21,
+          68
+        ],
+        [
+          109,
+          115
+        ],
+        [
+          69,
+          83
+        ]
+      ],
+      "material_consumed": [
+        [
+          21,
+          79
+        ],
+        [
+          109,
+          115
+        ]
+      ],
+      "ordered_credit": false,
+      "identity": "exact frozen registry object/local byte match; no currentness inference"
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/hair_preview/gpu.rs",
+      "sha256": "462eb12c93f953673bc177a3cef00835889022f59d278bf1884086fc328c2adc",
+      "actual_access": [
+        [
+          1,
+          73
+        ]
+      ],
+      "material_consumed": [
+        [
+          1,
+          73
+        ]
+      ],
+      "root_provenance": {
+        "path": "audit11-root-render-dependencies-staging-180.json",
+        "sha256": "635b3c2cc3d9614aebbcc931ca214943afc49e516e6910e43ec87ce8be51ac4e"
+      },
+      "mandatory_other_lenses": "pending; all newly materially reached73lines; no original/shared credit",
+      "original_shared_credit": 0
+    }
+  ],
+  "root_staging": [
+    {
+      "path": "audit11-root-render-dependencies-staging-180.json",
+      "sha256": "635b3c2cc3d9614aebbcc931ca214943afc49e516e6910e43ec87ce8be51ac4e"
+    },
+    {
+      "path": "audit11-root-generation-staging-180.json",
+      "sha256": "efdc2da26dd6ae969cb8bfb44b68bea9ea480b9371d0addef3f904a9107120d7"
+    }
+  ],
+  "role_inventory": [
+    {
+      "lines": [
+        1,
+        34
+      ],
+      "roles": "Presentation module imports/plugins/layers; test module declaration only, no test body read or executed."
+    },
+    {
+      "lines": [
+        35,
+        75
+      ],
+      "roles": "HairMesh retains HairDesign plus native Form for visible render key. HairPreview separately retains grown geometry, body-placed geometry, optional active worker and optional render GPU. PlacedStyle associates PlacedHair+device owner+Arc body+distinct atlas/scalp image handles. Worker associates Groom+Arc body+JoinHandle<Result<Prepared>>; Prepared returns grown/placed/device payload. These are independent phases/resources, not one exclusive enum axis."
+    },
+    {
+      "lines": [
+        77,
+        121
+      ],
+      "roles": "BodyHead privately owns generated metric position triples, native mesh triangle ordinals, PackedRigSkin<8>, matching weight arrays, named rig column and eight-scalar global-state rig column. Constructor obtains topology/skin/names from model and positions/states from generated result; placement borrows them as HeadSkin; place carries same geometry via BodySurface to canonical hair placement. Raw float/index arrays here are established geometry/native layout roles, not proof of arbitrary same-count rig interchangeability."
+    },
+    {
+      "lines": [
+        123,
+        160
+      ],
+      "roles": "Groom equality selects reuse of grown geometry; body Arc identity additionally selects placed/worker reuse. Pigment and display Form deliberately do not enter growth identity. Request bool reports whether work was started, not a configurable semantic state. Worker clones concrete device owner, gets its kernels, grows only if matching cached Groom absent, then places on captured BodyHead. Replacing a different worker drops its handle; no cancellation/bounded-concurrency guarantee asserted."
+    },
+    {
+      "lines": [
+        162,
+        193
+      ],
+      "roles": "Finished JoinHandle gate, take/join/panic-to-anyhow/error propagation, then atlas/scalp asset creation; retained body comes from same captured Worker and GPU from Prepared. JoinHandle finished vs Result success vs optional worker absence are distinct lifecycle/result roles."
+    },
+    {
+      "lines": [
+        196,
+        243
+      ],
+      "roles": "FormChoice preserves typed native Form alongside display-only String label. Labels derive points/card counts and do not drive selection. strands_drawn retains drawn/all as named usize counts, native form-dependent computation/strand count from same PlacedHair. preparing is direct worker Option observation. No demonstrated stronger admitted count owner or >2-state bool payload requirement in these uses."
+    },
+    {
+      "lines": [
+        245,
+        306
+      ],
+      "roles": "Refresh compares shown design/Form against requested recipe option, despawns mismatches, handles hair absence, gates on dirty/no rig joints/active UI drag, obtains same cache body Arc and checks placed Groom/body. Skin receiving option comes from actual typed WalkPreview joint table and inverse-bind handle."
+    },
+    {
+      "lines": [
+        307,
+        343
+      ],
+      "roles": "HairAssets consumes typed Form/design plus exact PlacedStyle, obtains optional hair geometry and mandatory scalp cap. Both spawned entities retain same HairMesh design/Form and same skin clone, distinct HairLayer ownership/visibility, material/mesh handles. Hair GPU vertex positions are deliberately not CPU AABB data; NoFrustumCulling is explicit. No runtime shader or rendering validation inferred."
+    }
+  ],
+  "contract_traces": [
+    {
+      "contract": "Body-frame/rig association producer and placement receiver",
+      "source_refs": [
+        "794:3-93",
+        "819:99-103,172-181",
+        "807:87-119",
+        "178receipt:805 HeadSkin/fit/inverse contracts",
+        "177receipt:804 place/prepare contracts"
+      ],
+      "proof": "generate_character uses same model forward call, checks complete XYZ chunks, divides positions by100; checks complete8-scalar joint states and admitted model joint count, divides only translation XYZ by100. BodyHead borrows rig owners without primitive ordinal erasure. HeadPlacement native body/bust frame distinctions and existing reciprocal-scale candidate remain as recorded. Does not prove all MHR internals or same-instance identity by type alone."
+    },
+    {
+      "contract": "Retained body identity and invalidation ports",
+      "source_refs": [
+        "831:16-55",
+        "807:125-159,268-306",
+        "832:21-79,109-115"
+      ],
+      "proof": "Cache key serializes lod/proportions/identity/expression; equal key returns same Arc, changed key creates generated Arc and clears equipment caches. Successful generation rebuilds animation from same model/generated and enqueues despawn for old CharacterMesh except retained drape entities. Hair entities carry CharacterMesh and have no drape marker in807 spawn. Typed body identity participates in placed/worker matching. No assumption that cache key captures every possible BodyModel mutation, nor proof of Bevy deferred-command scheduling/system ordering or failed regeneration behavior outside these ports."
+    },
+    {
+      "contract": "Typed rig ordinal through actual presentation boundary",
+      "source_refs": [
+        "808:119-169",
+        "683:178-274,386-397",
+        "684:53-58",
+        "807:304-342"
+      ],
+      "proof": "Hair/scalp meshes accept RigJointOrdinal then checked usize->u16 conversion only at Bevy vertex attribute; all vertices weighted wholly to selected head. Animation rebuild enumerates model names in typed rig order and stores entity table plus inverse matrices from corresponding generated globals. mhr_state decodes translation0..2/quaternion3..6/scale7. skin uses nonempty typed table native slice and retained inverse-bind handle. Raw Bevy u16/array encoding is local adapter, no universal rig-instance association or upstream parent validity proof."
+    },
+    {
+      "contract": "Render-device lifetime and native geometry buffers",
+      "source_refs": [
+        "new gpu.rs:1-73",
+        "807:143-158,182-190",
+        "808:33-63,75-91",
+        "176receipt GpuGeometry/StrandShading boundary",
+        "177receipt HairGpu upload/storage owner"
+      ],
+      "proof": "StudioHairGpu clones Arc<DeviceKernels> containing concrete WgpuContext and OnceLock<Result<HairGpu,String>>. Plugin obtains renderer instance/device/queue/adapter and canonical from_parts; worker kernels constructed once from same context clone; Prepared/PlacedStyle retain owner. HairAssets builds selected native geometry on retained kernels and StrandShading clones matching geometry storage handles as previously read. No current SDK/whole WgpuContext/driver/shader algorithm clearance."
+    },
+    {
+      "contract": "Appearance vs grown geometry vs native Form",
+      "source_refs": [
+        "795receipt HairDesign.groom",
+        "179receipt806 Groom/shape",
+        "171receipt Form producer",
+        "807:125-159,205-230,268-323",
+        "808:33-113,172-225"
+      ],
+      "proof": "Groom selects physical shape/preset geometry, HairDesign retains separate pigment, typed Form selects strands/cards/level/share. Display labels are strings only. Pigment reaches linear base color/specular tint in hair_surface; card Form controls atlas texture. AtlasLevel native RGBA mip adapter uses level dimensions and largest-first concatenation, explicit Rgba8Unorm; mip count usize->u32 is at native descriptor boundary, not a semantic tag. No unproved numerical capacity or nonfinite pigment guarantee."
+    }
+  ],
+  "carried_actual_source_proofs": [
+    {
+      "path": "audit11-segovb-171-797-complete.json",
+      "sha256": "a84068ba273bbdaeb01127bfa94dbc911fee5a741db2a3da32a8c7e15d4fb235"
+    },
+    {
+      "path": "audit11-segovb-177-804-complete-001.json",
+      "sha256": "10b0476156bb5d27b68414859850f1231cbbf0eff423e15d5ce74c8880944f90"
+    },
+    {
+      "path": "audit11-segovb-178-805-complete-001.json",
+      "sha256": "5600116f984c0e425b9772f62fe0d4e609bdc1072e2ddef2dd13cad5296d11c6"
+    },
+    {
+      "path": "audit11-segovb-179-806-complete-001.json",
+      "sha256": "01b7ac2a0cef069e21909d944da2f0492b3ff37f38a3e4f66fced31609b8935d"
+    }
+  ],
+  "findings": [],
+  "new_unique_findings": 0,
+  "accepted_unique_count_change": 0,
+  "qualified_observations": [
+    "No additional concrete type-granularity defect established for807 within actual traced ports. This is source accounting with inherited concerns, not a clean/global verdict.",
+    "Independent geometry/worker/device/body/display lifecycle axes retained; no unsupported consolidation proposed.",
+    "GPU cached compiler error is String at unchanged GPU owner; typed error identity/derivability/producer propagation remain other-lens responsibility, no new alias or issue count asserted."
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here.",
+  "coverage_limits": [
+    "Original807 full343 actual independent consumption only new ordered cell. Connected808 full225 read strictly as material render adapter, no808 ordered/disposition credit. Connected683/684/794/819/831/832 give zero additional original/shared credit.",
+    "Signature-only locator output is discovery, not body coverage. Registered accesses include adjacent83158-70 armor prefix,819105-108 Studio prefix/183-187 main prefix,683276-279 cloth attribute prefix,68449-51 prior skin_mesh tail,83280-83 scene destructure; excluded from semantic coverage.",
+    "No unregistered source body consumed in180. Root staging supplies provenance, not body coverage. Current mismatching binding/studio_generation sources were not substituted or read.",
+    "No deeper Bevy/WGPU SDK, complete MHR implementation, full shader/math algorithm, system scheduling, arbitrary public mutation/capacity, current integration or hosted/runtime validation claim. No project execution or new tests."
+  ],
+  "mandatory_other_lens_extensions": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/hair_preview/gpu.rs",
+      "sha256": "462eb12c93f953673bc177a3cef00835889022f59d278bf1884086fc328c2adc",
+      "actual_access": [
+        [
+          1,
+          73
+        ]
+      ],
+      "material_consumed": [
+        [
+          1,
+          73
+        ]
+      ],
+      "root_provenance": {
+        "path": "audit11-root-render-dependencies-staging-180.json",
+        "sha256": "635b3c2cc3d9614aebbcc931ca214943afc49e516e6910e43ec87ce8be51ac4e"
+      },
+      "mandatory_other_lenses": "pending; all newly materially reached73lines; no original/shared credit",
+      "original_shared_credit": 0
+    }
+  ],
+  "source_complete": true,
+  "current_reconciled": false,
+  "integrated": false,
+  "validated": false,
+  "global_clearance": false,
+  "product_git_rootledger_history_publication": "none",
+  "tool_note": "Initial python command unavailable; repeated read-only metadata operation with python3. No project execution.",
+  "stop": "807 source-accounted; stop before808 ordered inventory; root adoption required"
+}

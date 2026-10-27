@@ -1,0 +1,32 @@
+{
+  "at": "2026-10-26T21:07:35.391107+00:00",
+  "base": "323789dd1beca252d4515c580573596ca0c98143",
+  "human_constraint": "No backwards compatibility anywhere untilrelease. HistoricalBox/downcast shape is not an acceptance contract.",
+  "superseded_decision": "ManualTextureViewError source kept solely to preserveboxedconcretedowncasts; remove rationale/implementation andoldshape instead.",
+  "scoped_inventory": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "f64791a9b8ca3d2203ed6c04fd5e0f0028fd8855ea3bc5674840e646581b5135",
+      "disposition": "Uninitialized/MissingView plus Observation{requested,operation,cause:ValidationScopeError}; directownedcause, deriveDisplay/Error, no from_observation facade orperoperationnativevariants."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "61bcf0fcfbea2980bd9426c89ae144fa0324e8d2d84e0a0094eeb6d6ea590ba3",
+      "disposition": "Native(wgpuError), Progress(PollError), ProgressWithNative{poll,native}. Explicitvalidpayloadstates deriveDisplay/Error; pollprimarysourcewhenpollfailed; bothactualcauses retainedincombinedstate. finish mapsallfouractualpoll/nativecombinations, alwayspop. RemoveValidationProgressError andunusedinto_anyhow, no aliases."
+    }
+  ],
+  "receivers": "Threeviews directlyconstructObservationatactualscopefinishmaperr; globalreexportremovesobsoleteProgressError. Allothercontextpolicyconsumers unaffected; ComputePass generic? conversions unchanged. Guideupdatedtofinalschema/sourcepolicy; no historicalprefix/source-chain promises.",
+  "initial_pass_complete": true,
+  "necessary_semantics": [
+    "Keeporiginalrequestedformat/operation/nativecausesandbothobservationswhenpresent",
+    "Keepcache-firstidentity/missingresourcebehavior/nativepolicy/descriptorstorageprojection andpollthenalwayspop ordering",
+    "Sourcepollasprimaryforprogressfailure becauseitexplainsfailedobservation; combinednativecause retainedexplicitly",
+    "No legacyfields/variants/forwardingaliases/fallbacks"
+  ],
+  "acceptance": [
+    "FreshscopedCode/Rule/Commentreviewreflectcleanfinalshape, nohistoricalAPI/messages/downcast constraints",
+    "Finalsameheadhostedchecks; no localchecks/tests/probes/generators/newtestcases/assertions/doctests",
+    "Remove stalePR/ledgercompatibilityclaims; stopforuserreviewwhenmerge-ready"
+  ],
+  "no_project_execution": true
+}

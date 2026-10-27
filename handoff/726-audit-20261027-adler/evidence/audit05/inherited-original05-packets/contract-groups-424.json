@@ -1,0 +1,60 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-424",
+  "at": "2026-10-23T13:35:13.410706+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/foraging.rs",
+      "sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+      "scope072_index": 928,
+      "actual_EOF": 1278,
+      "scoped_ranges_compared": [
+        [
+          1,
+          1278
+        ]
+      ],
+      "actual05_comparison": "Fresh full actual source including all15 resource literals and every original fixture; search budget, normalized mixture, RNG bounds, question binding and prepared resolution/time product compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "whole resolver gates justify fixed collection and arithmetic bounds",
+      "comparison": "resolve validates whole hours60..1440, mixture,1..5 sources, uniqueness, known closed source and nonempty actual resource groups before yield. is_normalized shortcircuits eachu16<=1000 before sum<=4000, so rawfourMAX cannotoverflowpredicate. Static15resources have min1or2/max<=6 ordered; public custom ForageResource is not accepted into resolve. Everyselectedsource has>=1resource and total<=15, hence positive source/resource divisor<=75. Numerator max2300*1440*1500*1000*1750=8.694e15 fitsu64; denominator480*1e9*75 fitsu64. Expected<=18112permille, discovered<=19, baseyield<=6, quantity<=171 fitsu16; saturating arithmetic is unreachable capacity protection under actual whole gate, not an earlydivision loss."
+    },
+    {
+      "id": "source order and resource identity are canonical before deterministic draws",
+      "comparison": "BTreeSet sorts selected source strings before iteration, fixed resource roster ordering and separate purpose tags retain reproducibility. Actual fractionalbound1000, stealth1001 and positive range max-min+1<=6 close ForageDraw NonZero bound at actual current PR callers; prior929 actualsampling contract is separate existing proof. Does not make arbitrary0 safe or assert native rejection consumesoneword. Marketvalue absent from discovery by explicit policy."
+    },
+    {
+      "id": "normalized habitat training and partial exposure conserve separate meanings",
+      "comparison": "habitat saturatingu16fold then min1000 preserves finalcap even custom repeatedbiomes, not demandmixturevalueincludescoastwetflags. training rejects malformedmixture tozeros, validu64MAXminutes/60 times<=1000 fitsf32 before/1000; total leafhours conserved withinnative rounding. Partial exposure accepts nonwholehours intentionally withoutyield; stealthdc saturatingoperations beforefinal4500 preservecappedthreshold, actualroll<=1000 plusu16skill saturating sum correctly decides threshold. Duration validation is completion yield policy, not ban on partialexposure."
+    },
+    {
+      "id": "rights decision binding establishes actor and selected source together",
+      "comparison": "Private ForageLicenseDecision try_new compares typed Character subject, domain Source, Harvest/global and exact purpose-framed question digest, then storesactor/source/decision privately. Planner requires sorted nonempty sourceIDs, matchinglength and sameactor/source pair eachbinding, and Allowed/Denied concrete kind. Known enum uniqueness implies<=5 without second authority. Anydenied or localrestriction ->IllegalAttempt, which can stillbe attempted; not everydenied license is rejection. Generic decision construction suppliedprivilege bool/revision is not authenticatedDBmembership."
+    },
+    {
+      "id": "prepared completion and resolution must refer to one elapsed operation",
+      "comparison": "Planner retains independent public duration/terminal/Optionresolution with commentNoneonlyzeroelapsed. Sharedbuild_plan checksrequirements/time; positiveelapsed plusSomeresolution publishesCommit, clearingyields forpartialtime while preservingexposure. Positivetime+None silentlyomitsCommit and raw foreignresolution canbe paired; pure authorityadapter musthydrate same elapsed/seed/environment/capability and replan. Consumed exact Root065 F026 narrative thenindependent fullPR928: genericpositive1minuteplan notcompletionresolvewholehour, and resolution/time coupling are same existing adaptergraph. No normal DBbadwriter or partialexposureban inferred."
+    },
+    {
+      "id": "public preview and rejection preserve observer boundary",
+      "comparison": "ForagePublicPreview only source IDs and requestminutes, intentionally omits privateenvironment, licenseevidence, seed,roll,DC, prospectiveyield. Local closure works onownedresolution and clear onlyunpublishedyieldvector, so no local partial externalmutation onfailure. Closedsource vocabulary and license order explicit; current normal sourceavailability bool is caller-backed, notfieldname seal."
+    },
+    {
+      "id": "all original fixtures source-only",
+      "comparison": "825-1278 every original fixture freshread: deterministicyield/budget, category/resource conservation, reorderedinput, legalitypartialexposure, leaftraining, habitat/skill calibration, stable IDs, unavailablefish, licensequestiondigest, wait-only/partialcompletion and mismatchedbinding rejection. No fixtureexecution, seedreproduction or addedcases. ActualnormalDB route/clock/revision/actor provenance remain precise separately queued suppliers."
+    }
+  ],
+  "existing_findings_supported": [
+    "ROOT-INITIAL04-F026"
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Actual authoritative DB adapter hydrates same resolution and elapsed time, binds snapshot/revision/seed and normal source/capability/rights; raw input pure plan is not permission."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

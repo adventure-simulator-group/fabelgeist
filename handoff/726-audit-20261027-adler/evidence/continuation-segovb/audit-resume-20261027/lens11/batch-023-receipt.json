@@ -1,0 +1,231 @@
+{
+  "at": "2026-10-27T12:39:13.580312+00:00",
+  "lens": 11,
+  "status": "915-919 independently source-accounted",
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-022.json",
+    "sha256": "3b7cd71be9f1284255606eceb245f01764376b41db189164a13ed721676bea4b"
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-023-registration.jsonl",
+    "sha256": "706c96683fe441ebaafb2f48ed8a1b0b158706aabc11a6c50abea4eb08be18e8"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 915,
+      "source_id": "pr-working:crates/adventuresim-core/src/durability.rs",
+      "sha256": "7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
+      "actual_eof": 454,
+      "ranges": [
+        [
+          1,
+          454
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          454
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 916,
+      "source_id": "pr-working:crates/adventuresim-core/src/elapsed.rs",
+      "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "actual_eof": 131,
+      "ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          131
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 917,
+      "source_id": "pr-working:crates/adventuresim-core/src/encounter.rs",
+      "sha256": "aad69b12c6ade6caa59828876caede30c0a0fe2577b11fdd91f84594d2471dd5",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/aad69b12c6ade6caa59828876caede30c0a0fe2577b11fdd91f84594d2471dd5",
+      "actual_eof": 1019,
+      "ranges": [
+        [
+          1,
+          1019
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          1019
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 918,
+      "source_id": "pr-working:crates/adventuresim-core/src/encounter/choice.rs",
+      "sha256": "3a327aeb8ec9f72d67960b0cdc94f7ece677c4a963d5ce8e1db7af3fd8025206",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/3a327aeb8ec9f72d67960b0cdc94f7ece677c4a963d5ce8e1db7af3fd8025206",
+      "actual_eof": 72,
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          72
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 919,
+      "source_id": "pr-working:crates/adventuresim-core/src/encounter/receipt.rs",
+      "sha256": "79edfeebdc4b5bdd4dfd8272b5b15981bf986c1acdcc4bca4b92d3fe3022b1b1",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/79edfeebdc4b5bdd4dfd8272b5b15981bf986c1acdcc4bca4b92d3fe3022b1b1",
+      "actual_eof": 36,
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          36
+        ]
+      ]
+    }
+  ],
+  "material_receivers": [],
+  "per_role": [
+    {
+      "original": 915,
+      "roles": "DamageBins five ordered repair-depth bins; repair skill, craftsmanship quality and damage tier; repair service versus item kind; condition/damage fraction, stress thresholds and wear rate; currency, count, inventory/custody identity, signed quantity change.",
+      "trace": "Full454 read. Service3 covers actual ItemKind4 with Weapons accepting weapon or shield, so these closed vocabularies have different scope and are not duplicate enums. DamageBins is meaningful ordered collection, but public scalar array permits unsupported aggregates; normalized preserves deeper damage first, unlike uniform scaling. Damage tier1-5, repair skill0-5 and quality1-5 use sameu8 but different policy/ordinal operations. Actual damage producer differentiates ordinary tier1/2 versus catastrophic>=3 plus flag; public DamageEvent can encode contradictory flag/tier. Threshold/span/failure-share operations have distinct numerical roles; actual physical stress unit not established by this file, no invented joule/Pascal owner choice. Currency quote, purse and reservations versus item count/change/custody/priority minutes are distinct application ports. bounded_durable_change returns add/remove pair but actual branch admits only one nonzero; signed delta or sum could own relation. Existing tests read only; normalizers/quotation/kernel not executed and no current repair/persistence acceptance.",
+      "disposition": "source-accounted with repair tier/quantity/payload and raw identity questions"
+    },
+    {
+      "original": 916,
+      "roles": "AnimationElapsed nonnegative finite duration versus BattleTime signed coordinate, ContactTimingOffset signed relative delta, native Duration representability; construction/arithmetic/native errors.",
+      "trace": "Full131 consumed, independent inventory after prior sparse owner reads. Existing shared elapsed owner is useful across animation/combat/presentation; same seconds invariant does not justify competing duration wrappers solely by module name. ZERO valid, checked_add/scale enforce finite arithmetic, saturating_sub/abs_diff are closed over admitted nonnegative values. Duration widening safe finiteu64 range, native_duration may reject larger admittedf32 as NativeRange, distinct from constructor error. capped_by_seconds and checked_scale still accept raw maximum/factor rather than typed duration/appropriate coefficient owner, so owner operations can tighten meaningful inputs without arbitrary bounds. Contact errors in shared enum are distinguishable, owner-placement/derivability coordination independent. Actual signed offset producer896 and recovery900/clock880 sources consumed in own018/019/014; no oldmessage/downcast/API/nativefloatendpoint compatibility mandate.",
+      "disposition": "source-accounted; shared elapsed distinction justified, raw operation ports qualified"
+    },
+    {
+      "original": 917,
+      "roles": "Encounter terrain/archetype/awareness versus bestiary habitat/open threat identity; accepted quest and local problem influence; journey/rest cursor versus requested span/roll ordinal/boundary; speed metres per minute; awareness checks versus random rolls, count, probability versus curation weight; separate narrative/combat streams.",
+      "trace": "Full1019 consumed including all existing fixtures. Archetype3 intentionally selects eligible encounter subset and maps actual ThreatId profile; Habitat wider context not automatically same owner as encounter terrain subset. Awareness4 encodes independent party/enemy observation, actualselection filters Neither before interruption; choice availability consumes awareness/archetype/speed. RollDomain closed private behavior owns NarrativeBoundaryKind payload, meaningful separate entropy streams. Source traverses canonical relative movement or accumulated rest boundary, not necessarily absoluteStrategicMinute; index/minute are independently supplied at public select_at/narrative_selection_at and retained record, while ordinary first_* derives them coherently. Raw integer APIs erase cursor/span/index/identity, m/min speed versus physical m/s owner, fixedpoint score/probability/multiplier/count roles. Relative ecological/curation weights need not <=whole, scale_enemy_count can multiply overwhole; no generic probability bound imposed on weights. Context bools night/in_settlement/pending are independent facts, not one enum merely to eliminate booleans. Actual881 profile/habitat body proof carried; road catalog method call known, no body/weight-validation transfer. Fixtures read only, no randomness/frequency/chunk/invariance/runtime check executed.",
+      "disposition": "source-accounted with cursor/roll/identity and numeric purpose propagation questions"
+    },
+    {
+      "original": 918,
+      "roles": "EncounterChoice closed five accepted behaviors and parse failure, native stable string token.",
+      "trace": "Full72 consumed. Direct717available_choices and penalty APIs accept existingtypedowner; FromStr only supported stable tokens. Native wire spelling is representation, not competing authority or reason to preserve historical API. Type useful even absent numericvalidation; explicit error no additionalpayloadknown. HandwrittenDisplay/Error separately for derivability lens. All fixtures source only.",
+      "disposition": "source-accounted; canonical choice owner justified"
+    },
+    {
+      "original": 919,
+      "roles": "Opaque encounter identity versus deterministic source seed/roll ordinal, receipt character identity, typed-choice role erased to string and expected revision.",
+      "trace": "Full36 consumed. Actual generator builds two independently streamed64-bit words encoded into nativeenc text; no cryptographic/hashcollision-free/allglobalunique claim. Retry helper checks four corresponding fields, with distinct meaning despite same string/integer backing. Existing EncounterChoice918 not propagated into pure retry matching port, same for encounter/character/revision owners; native string adapter may remain at external boundary. Actual917source tests exercise matching/mismatched revisions/choices but do not prove every current reducer input already validated; no runtime retry-spoof finding or acceptedunique. No equality-implies-authorized-current-state claim.",
+      "disposition": "source-accounted with actual existing choice/identity port propagation gap"
+    }
+  ],
+  "qualified_observations": [
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/durability.rs@7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd#repair-tier-quantity-and-event-shape",
+      "observation": "Repair skill0-5, item quality1-5 and damage tier1-5 share rawu8 although actual operations differ. Five-bin damage array has public rawf32 aggregate. DamageEvent stores catastrophic flag independent of actual producer tier relation, and signed quantity-change helper returns mutually exclusive add/remove tuple.",
+      "remedy": "Reconcile canonical existing repair-rating/quality/tier and damage-fraction owners; preserve real ordinal policies and deeper-first normalization at focused damage collection. Own meaningful event payload states and add-versus-remove relation. Share invariant storage without collapsing role names or inventing arbitrary stress units.",
+      "acceptance": "Supported repair/quality/tier roles cannot be interchanged at application ports, collection invariants/operation outputs coherent, event/change states encode actual admitted cases.",
+      "dependencies": [
+        "actual current equipment/craftsmanship/repair owner and source aliases",
+        "aggregate/enum/admission/operations lenses"
+      ],
+      "currentness": "qualified frozen API source; ordinary fixtures coherent, no executed/current/unique invalid-state claim"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/encounter.rs@aad69b12c6ade6caa59828876caede30c0a0fe2577b11fdd91f84594d2471dd5#journey-cursor-boundary-quantity-granularity",
+      "observation": "Rawu64 carries completed journey/rest cursor, requested duration, roll index and boundary minute. Actual ordinary traversal derives index*interval, but public selection takes index and minute independently; returned state retains both. Rawu32/u16 also share m/min speed, count, awareness score, bounded random sample, frequency and unnormalized curation/scaling weight roles.",
+      "remedy": "Reconcile actual journey/rest cursor and span/boundary/roll owners, derive coupled boundary from coherent ordinal/kind where supported; reuse canonical speed/fixedpoint/check/count owners with explicit native unit conversion. Do not misclassify movement cursor as absolute strategicclock or force relativeweights/multipliers into probability fraction.",
+      "acceptance": "Actual producer/application/retained encounter chain cannot mix movement cursor/span/ordinal/nativeidentity or speed/count/score/probability; independent context axes remain independent.",
+      "dependencies": [
+        "actual current journey/rest/native persistence consumers",
+        "existing clock/identity/quantity master aliases"
+      ],
+      "currentness": "qualified frozen source, no current/unique/runtime malformed-call claim"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/encounter/receipt.rs@79edfeebdc4b5bdd4dfd8272b5b15981bf986c1acdcc4bca4b92d3fe3022b1b1#typed-retry-request-ports",
+      "observation": "Pure retry function compares raw text choice despite actual canonical EncounterChoice and raw encounter/character/revision fields. Identity generator returns native String rather than purpose owner, while receipt/request share several interchangeable scalar positions.",
+      "remedy": "Reconcile canonical encounter/character/revision owners and use EncounterChoice through internal request/receipt comparison, keeping parse/format at actual native ABI. Prefer coherent request/receipt records over unrelated positional primitives when they own actual meaning; do not add compatibility aliases or second owners.",
+      "acceptance": "Actual internal retry comparison cannot accept unrelated choice/identity/revision namespaces by accidental argument substitution; external input admission and current authorization remain independently enforced.",
+      "dependencies": [
+        "actual current reducer/receipt DTO and validation contracts",
+        "918 canonical choice and existing identity/master alias reconciliation"
+      ],
+      "currentness": "frozen propagation question only, no runtime authorization/spoof/current/unique claim"
+    }
+  ],
+  "carried_own_proofs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-014-receipt.json",
+      "sha256": "9e2e5834705569d01b06c7e772fb7d82d07dbbad374f8f8245dc818eb7e68b87"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-015-receipt.json",
+      "sha256": "7004d53b1622eb7834523ad33453cba4658d03e5783c21c18f6742f91ad5c3b0"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-018-receipt.json",
+      "sha256": "0f4346372944174f180d12722483bea2b3ee0a7130a0dda5bdc33e7623f0c0af"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-019-receipt.json",
+      "sha256": "f99ec163b4d7be8af81b66a3598fe3527c3381b405cb39281f6e7b9b28ffbf0b"
+    }
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer. Preserve180/181nativeSDK/Bevy scheduling/imagecopylimits andallpendingreceiverqueues. M04current903reviewsseparate; notfrozenoriginal/lenscounts. Packet182InventoryItemId graph erasure, catalogkey/recordidentity and wear/order-selector sourcequestions retained, alias/currentness/unique acceptance unresolved. M04build-target review003 atdf5 andhostedCIseparatefromfrozenauditcounts. 184 newpublicDrapedPiece association/sourcegroupingquestion remainsfrozenlocal, noalias/currentness/uniqueacceptance; producerpathcoherent. M04df5validationseparate. 185 capacityreservationstaticAPIgap retainedasfrozenevidence only; alias/currentness/accepteduniqueness unresolved. No runtimewrongID orauthoredcurrentinputwitness. ExistingID/key/wear/savedassociationquestionsremainqualified. Packet186 independently accounts existing test-source812 only; fixture expectations are not observed execution/whole authored catalog/native guarantees and do not clear185 capacity witness. Existing lower-pattern fixture uses canonical owners; no new current alias or unique finding. Packet187 original813 only. New frozen inventory_ui and catalog wrapper material extensions mandatory other lenses, zero extra shared/original credit. UI acquisition is not atomic/all-worn; inherited capacity, typedID erasure/key authority and public saved-association questions retain all currentness/alias/unique limits. Batch011 frozen attack-ID packed participant-width witness retained; no runtime/current/alias/accepted unique finding, no invented32bit capacity bound. Batch012 actual simultaneous fixture permits absent scheduled measure beside present start/contact/recovery; group only proved coupled facts, do not require every active schedule measure.",
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_adoption_required": true,
+  "read_limits": [
+    "Full1712 effective original lines personally consumed. Existing tests and doctests source only, never executed.",
+    "All material local producer/operation/receiver bodies read. Actual road catalog calls/assumed bounds visible but no catalog-validator or RNG/SDK/cryptography body coverage transferred.",
+    "Durability stress physical unit/current native producer not proved; no Pa/J choice or current/runtime policy guarantee. Whole current global family and pending population reconciliation remain unfinished."
+  ],
+  "restrictions": "Ignored append-only evidence only; no product/Git mutations/rootledger/projectchecks/tests/probes/publication."
+}

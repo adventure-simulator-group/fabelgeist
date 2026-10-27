@@ -1,0 +1,43 @@
+{
+  "at": "2026-10-27T05:39:24.947764+00:00",
+  "lens": "13 magic-numbers",
+  "packet": "032",
+  "authority": {
+    "original39_source_sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+    "frozen_original_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "source_manifest_sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa",
+    "prior_adopted_state": "audit13-successor-031-suggested-state.json",
+    "prior_state_sha256": "68b5166d3c0649906aae4f5257de0c0cead3838d6f9a38277df64c330bc42a43",
+    "prior_root_adoption": "audit13-successor-031-adoption-root.json",
+    "prior_root_adoption_sha256": "046c169b77184d1af11152d610602ee57fe4eb4fe89de75691567e6046cd5dea",
+    "correction": "audit13-successor-031-authority-correction-001.json",
+    "correction_sha256": "1e3625d9559bb66077ebc8c5e9dd283d57036d9dc030f8e618fbbfc0e953cc81",
+    "exact_Cargo_commit": "59800466c5c41c444d264b1010b4d57e85a7117f",
+    "Cargo_tree": "3b8f73cb75ecbd212ea88427ce00eeee3504809e"
+  },
+  "sources": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/e6d4e6732a14f88c1d81d9c7847982caa718973a830ef9bd1029ccd773df5dc4",
+      "source_path": "src/cargo/core/resolver/encode.rs",
+      "sha256": "e6d4e6732a14f88c1d81d9c7847982caa718973a830ef9bd1029ccd773df5dc4",
+      "git_blob": "cd30c8275b8efcace4c19e2d5c797d17d9cbdc4e",
+      "bytes": 26028,
+      "actual_lines": 676,
+      "ranges": [
+        [
+          1,
+          175
+        ],
+        [
+          510,
+          572
+        ]
+      ],
+      "official_url": "https://api.github.com/repos/rust-lang/cargo/contents/src/cargo/core/resolver/encode.rs?ref=59800466c5c41c444d264b1010b4d57e85a7117f",
+      "provenance": "OfficialGitHub read-only contentsGET at exacttoolchain-derivedcommit; fetchedrawsourceGitblobSHA1 equals independentlyretainedfixedtree metadata. No genericcommitpatchresponse printed.",
+      "purpose": "Actual formatversion scalar mapping/admission and small encoder owner operations, plus nativeimports. Identifier-onlylocators used before boundedregistration, no sourcebodycoveragefromstaging.",
+      "body_read_at_registration": false
+    }
+  ],
+  "limits": "Original39fullsource retained;counts37/2853,partials31/36/39,earliest31,neverstarted40/no40. No fullCargoSDK/otherpackageexpansion, originalcompletion/unique/currentruntime/clearance frommetadata. No product/Git/ledger/publication mutations or projectexecution/tests/newtests. Preserve031unregisteredoutput/authoritycorrection disclosures."
+}

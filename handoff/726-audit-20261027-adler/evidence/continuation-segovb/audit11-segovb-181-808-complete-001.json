@@ -1,0 +1,372 @@
+{
+  "packet": 181,
+  "lens": 11,
+  "lens_name": "type-granularity",
+  "at": "2026-10-27T03:11:40.333223+00:00",
+  "status": "source_accounted_with_inherited_qualifications",
+  "authority": {
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "prior_adopted_state": {
+    "path": "audit11-segovb-180-proposed-state.json",
+    "sha256": "85bd6ae9859e77d84839f6b4959e039930478d6a6b8c036b7583b53811ad1b08"
+  },
+  "root_adoption": {
+    "path": "audit11-segovb-180-adoption-root.json",
+    "sha256": "15a69c0e1b7f9a58760adb643aff119199cb20e6772fae35fd92afacc420ad43"
+  },
+  "source": {
+    "original": 808,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/hair_preview/assets.rs",
+    "sha256": "1945aa84edf49348310989955b6f814cc19ae8cceaf87d85400f4bce8cf9a296",
+    "bytes": 8436,
+    "actual_eof": 225,
+    "effective_requested_scope": [
+      [
+        1,
+        225
+      ]
+    ],
+    "personally_consumed": [
+      [
+        1,
+        118
+      ],
+      [
+        119,
+        225
+      ]
+    ],
+    "full_independent_inventory": true,
+    "identity_reverified_before_full_read": true,
+    "prior180_receiver_access": "context only; no automatic ordered credit",
+    "source_accounted": true
+  },
+  "rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "read_status": "prior personally read, exact bytes reverified; source-only restrictions and no backward compatibility constraints retained"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "read_status": "prior personally read, exact bytes reverified; source-only restrictions and no backward compatibility constraints retained"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-type-granularity/SKILL.md",
+      "sha256": "3a1fbf7f53c752e35eefe7763cbd49b9f280bd4b978ea998f74c3a68e45dc106",
+      "read_status": "prior personally read, exact bytes reverified; source-only restrictions and no backward compatibility constraints retained"
+    }
+  ],
+  "registrations": [
+    {
+      "path": "audit11-segovb-181-registration-001.json",
+      "sha256": "c2f93815987ccd14eda2ea9e9c57e771c9ecb47b7b826725be8d678d48f58526"
+    },
+    {
+      "path": "audit11-segovb-181-registration-002.json",
+      "sha256": "73e05cace74d8f82eb27fe080087bd5fc02d24ba1035c37e8aaf8ac4ce68c0f9"
+    },
+    {
+      "path": "audit11-segovb-181-registration-003.json",
+      "sha256": "0920dfb55e3b3cd95e6c417a95ab273a0513de95de5078cd67688777bb44599f"
+    },
+    {
+      "path": "audit11-segovb-181-registration-004.json",
+      "sha256": "e5e1ab8d47ab4b73f6a9b18ad724173869a8d5cc3de48d4542c9f6bb9025cb47"
+    }
+  ],
+  "new_material_receivers": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/hair_preview/scalp_shade.rs",
+      "sha256": "4bee07accb46e2b52d29da58644b4b620c69f55278774fcd1fff1d591d4c8779",
+      "actual_eof": 71,
+      "actual_access": [
+        [
+          28,
+          32
+        ],
+        [
+          40,
+          71
+        ],
+        [
+          1,
+          27
+        ],
+        [
+          33,
+          39
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          71
+        ]
+      ],
+      "provenance": {
+        "path": "audit11-root-scalp-receivers-staging-181.json",
+        "sha256": "189d1e5e80524c7e057e28eff1a8d7674f62728840b3699e4e34a8102a4d0102"
+      },
+      "native_contract_scope": "Concrete first-party material/image/texture-copy adapters only; no WGSL shader or whole SDK bodies",
+      "mandatory_other_lenses": "pending",
+      "original_shared_credit": 0
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/hair_preview/scalp_upload.rs",
+      "sha256": "2204f09240707fa76e04f408ffdd9a1b1ab0f7b65b840c4a290db3f368156a63",
+      "actual_eof": 150,
+      "actual_access": [
+        [
+          21,
+          132
+        ],
+        [
+          1,
+          20
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          132
+        ]
+      ],
+      "provenance": {
+        "path": "audit11-root-scalp-receivers-staging-181.json",
+        "sha256": "189d1e5e80524c7e057e28eff1a8d7674f62728840b3699e4e34a8102a4d0102"
+      },
+      "native_contract_scope": "Concrete first-party material/image/texture-copy adapters only; no WGSL shader or whole SDK bodies",
+      "mandatory_other_lenses": "pending",
+      "original_shared_credit": 0
+    }
+  ],
+  "carried_actual_source_proofs": [
+    {
+      "path": "audit11-segovb-168-795-complete.json",
+      "sha256": "417b1d2f3e32cda9f83b16ec3a321ec4118db68700b339bd5ab15cd738c6c0ad"
+    },
+    {
+      "path": "audit11-segovb-170-796-complete.json",
+      "sha256": "429b079349ab86d448549a150f71dfe5cc39b2038549d5b94f7e9f316609d653"
+    },
+    {
+      "path": "audit11-segovb-171-797-complete.json",
+      "sha256": "a84068ba273bbdaeb01127bfa94dbc911fee5a741db2a3da32a8c7e15d4fb235"
+    },
+    {
+      "path": "audit11-segovb-172-798-complete.json",
+      "sha256": "d3a99094e21b5baeb8c9d9ef1051bc5a284928199384e2a56aea3cd3b72ae565"
+    },
+    {
+      "path": "audit11-segovb-172-799-complete.json",
+      "sha256": "d4dcef1ae4658464987e5305ae76bfd6cf3dab8793fce6dfb22587dc58aed95a"
+    },
+    {
+      "path": "audit11-segovb-176-803-complete-001.json",
+      "sha256": "170225a7655e70ba202c3c44b98d71a69e4c329cb3a39c9bee5e8ef35d25b7a4"
+    },
+    {
+      "path": "audit11-segovb-178-805-complete-001.json",
+      "sha256": "5600116f984c0e425b9772f62fe0d4e609bdc1072e2ddef2dd13cad5296d11c6"
+    },
+    {
+      "path": "audit11-segovb-180-807-complete-001.json",
+      "sha256": "c3dcf00443532da26ae2e85d0d917fd38173dd97425b6e21bb02087a43f16b75"
+    }
+  ],
+  "role_inventory": [
+    {
+      "lines": [
+        1,
+        27
+      ],
+      "roles": "SystemParam HairAssets groups ECS asset stores of Mesh, HairShading, ScalpShading, Image plus upload resource. Different typed material assets and raw Image handles have different native resource roles; no redundant bespoke owner demonstrated. HIGHLIGHT_HUE is optical mix share; SHADOW_COVERAGE is alpha-depth/shadow policy, both f32 numerical rendering parameters, not one interchangeable fact."
+    },
+    {
+      "lines": [
+        29,
+        65
+      ],
+      "roles": "hair consumes PlacedStyle, HairDesign, native Form and returns Result<Option<(mesh handle, hair material handle)>>. None represents unavailable native form, Err failure; pair is an actual two-resource render result. scalp_cap uses same PlacedStyle placement/head ordinal and returns distinct mesh/scalp-material pair. Groom identity, pigment appearance, requested form and device owner remain separate from parent807."
+    },
+    {
+      "lines": [
+        67,
+        92
+      ],
+      "roles": "Form Cards/Strands sum is canonical requested geometry policy. Local cards bool is the direct variant predicate controlling optional atlas texture; it is not retained independent state. AlphaMode::Mask uses coverage policy, not pigment or draw-count state. StrandShading::new receives actual GpuGeometry buffers as previously source-traced."
+    },
+    {
+      "lines": [
+        94,
+        114
+      ],
+      "roles": "HairPigment produces linear RGB floats, brightest-channel normalization drives specular hue; allblack brightness0 maps white tint, other channels interpolate with optical highlight mix. base color/specular tint/roughness/metallic are distinct native StandardMaterial fields. Existing795 nonfinite candidate retained; this downstream function does not make pigment universally finite or add an admission policy."
+    },
+    {
+      "lines": [
+        116,
+        140
+      ],
+      "roles": "GpuGeometry vertex count determines dummy CPU position and skin arrays, while faces are actual strip topology. Canonical RigJointOrdinal stays typed until checked usize->u16 skinattribute adapter. Uint16x4 firstslot stores head; remaining0slots have zero weights, firstweight1. Raw zeroXYZ placeholders supply vertex count only; actual geometry positions remain GPU storage."
+    },
+    {
+      "lines": [
+        142,
+        169
+      ],
+      "roles": "ScalpCap native parallel channels map to distinct Mesh attributes: model-space positions, smooth normals, UV, tangent+handedness, opacity-to-whiteRGBAcolor, triangle topology. Same typed head ordinal checked to native u16 and weighted wholly tohead. Actual producer796 associates channels, but public vectors do not prove arbitrary caller shape/frame/finite validity."
+    },
+    {
+      "lines": [
+        171,
+        187
+      ],
+      "roles": "Card AtlasLevel mips become one native Image. ScalpTexture has two distinct GPU chains passed to upload resource separately and retained in ScalpImages shade/strands fields. Generic Handle<Image> is a native resource identity boundary here, with concrete first-party semantic fields material consumes."
+    },
+    {
+      "lines": [
+        189,
+        225
+      ],
+      "roles": "AtlasLevel width/height/rgba fields describe one RGBA mip. Native image descriptor uses D2, depth1, Rgba8Unorm, largest mip extent, packed complete-chain bytes, explicit level count and clamp/linear sampling. usize->u32 mip count is native descriptor encoding; dimensions/count/bytes/sampler choices differ from physical geometry and optical roles. Emptyfirst fallback is implementation behavior, not a compatibility API; no all-input shape/overflow or valid-empty-image guarantee asserted."
+    }
+  ],
+  "contract_traces": [
+    {
+      "role": "Producer physical/frame roles to skin-native attributes",
+      "source_refs": [
+        "796 cap producer source traces via170",
+        "797 native geometry/atlas source traces via171",
+        "803 GPU storage/topology via176",
+        "805 typedheadplacement via178",
+        "808119-169",
+        "807 skin retention via180"
+      ],
+      "trace": "Cap producer keeps original bust mapping/hairline separate from mapped model positions/normal transforms, derives tangent handedness and opacity as different roles. GpuGeometry topology and vertex count derive same native rows/strips as storage layout. 808 translates only actualhead ordinal at Bevy Uint16x4 boundary, withcheckedconversionandweights. Skin entity column/inverse bind actual producer and sameBodyHead association read180. This doesnot brand all public vectors or certify Bevy schedule/driver/shader/arbitrarymodel swaps."
+    },
+    {
+      "role": "Geometry, appearance and material-extension owners",
+      "source_refs": [
+        "795 HairDesign/HairPigment via168",
+        "807worker/PlacedStyle via180",
+        "80829-114",
+        "176 StrandShading41-68",
+        "newscalp_shade23-38,40-71"
+      ],
+      "trace": "Geometry form and pigment remain distinct inputs. HairShading native extension clones four corresponding geometry buffer handles per prior176 proof. ScalpShading is ExtendedMaterial<StandardMaterial,ScalpStrands>; extension binds strandImage at100/101 and fragment ShaderRef namesembeddedshader. ScalpImages distinguishes grey-shade/coverage from strand-direction/shade; material maps first tobase_color_texture/Blend andsecondtoextension, using samehair_surface pigment. colors maps eachopacity towhiteRGB+that alpha. Actual WGSL shader body and whole StandardMaterial implementation are not inspected/cleared."
+    },
+    {
+      "role": "Exact atlas RGBA byte protocol through native descriptor",
+      "source_refs": [
+        "171 geometry100-120,163-172 andCardAtlaspacking",
+        "808172-174,189-225"
+      ],
+      "trace": "Native atlas stores coverage/shade/depth/coverage; geometry.atlas_levels produces shadeRGB+coveragealpha foreachcomplete4bytetexel, followsstoredtotaldimensionsandactualmips. 808 preserveslargest-first mipbytes and Rgba8UnormD2descriptor withlinearfiltering. Nativecopy/imageformat explains rawRGBA8bytes/extent/count roles; no blanketprimitive exemption or publicmutation/fullmipcompleteness/shortdata/endianness/overflow proof."
+    },
+    {
+      "role": "Scalp two-plane retained buffer to actual native copy receiver",
+      "source_refs": [
+        "17279896-168,170-258,373-424",
+        "172799290-372",
+        "808177-186",
+        "newscalp_upload1-132"
+      ],
+      "trace": "BakeScalpTexture hasdistinct shade+strand buffers in same padded texel Level sequence. Level side/stride/offset aretexels, fixedSIZE2048 sequence halves to1; stride64texels aligns4bytetexels to256byterow. ActualScalpUploads.image clonesrequestedchain+newImagehandle into mutexqueue; Image::new_uninit descriptor usescanonicalscalp_levels side/count andRgba8Unorm. upload waits untilRenderAssets hasmatchingimage, thenuses exactcanonicallevels:offset*4bytes, stride*4rowbytes, side rows/extent, native mip ordinal. Pendingwithoutimage retained; copiedentryremoved; submitonlyifanycopyencoded. Boolcopied isdirectaggregateobservation, retainbool isframeworkcallback result; no newsemanticstateenumrequired. No pluginschedule/GPUdriver/nativeSDKallinputvalidity claim."
+    }
+  ],
+  "findings": [],
+  "qualified_observations": [
+    "No additional concrete type-granularity mismatch established for808 at exact traced contracts. Raw native handle/count/vertex/texture encodings remain explained by actual first-party adapters, not a whole-family exemption.",
+    "795 frozen HairPigment NaN can reach downstreamnativecolors; retained existing source-local candidate only, no alias/currentness/newuniqueacceptance.",
+    "Canonical Form and distinct scalp-plane/pigment/geometry/frame roles remain separate; no universal wrapper system or backward-compatible API proposed."
+  ],
+  "new_unique_findings": 0,
+  "accepted_unique_count_change": 0,
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer.",
+  "coverage_limits": [
+    "Original808 full225 independently read thispacket; previous180 fullreceiverread not automaticorderedcredit. Allnewreceiveraccess is prospectivelyregistered andexacthashverified.",
+    "Newscalp_shade full71 consumed acrossregisteredranges asconcreteowner/type/descriptor/material/coloradapter, notshaderbodycoverage. Newscalp_upload1-132 only; plugin135-150 and scheduling notread. Bothmandatoryotherlensqueues,zerooriginal/sharedcredit.",
+    "Precise earlier personallyreadsourcecontracts carried withreceiptpins; no repeatcompleteddiscoveryornewcredit for795/796/797/798/799/803/805/807. Registrymetadata locators andrgdeclarations arenotsemanticbodycoverage.",
+    "A locator attemptednonexistenthair/bake/mod.rs andhair/mod.rs paths andfailed; no contentorcoverage. Canonicalregistered798path hair/gpu/bake/mod.rs exacthash reverified andearlier172fullactualproofused.",
+    "No wholeSDK/nativeAPI/shaderalgorithm/numerical/capacity/endian/arbitrarypublicmutation guarantee. No currentcounterpartfamily, integrationorhostedruntimevalidation.",
+    "No source/product/Git/projectexecution/checks/tests/probes/scanners/helpers/assertions/doctests/rootledger/history/publication. Ignoredappendonlyevidenceonly."
+  ],
+  "mandatory_other_lens_extensions": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/hair_preview/scalp_shade.rs",
+      "sha256": "4bee07accb46e2b52d29da58644b4b620c69f55278774fcd1fff1d591d4c8779",
+      "actual_eof": 71,
+      "actual_access": [
+        [
+          28,
+          32
+        ],
+        [
+          40,
+          71
+        ],
+        [
+          1,
+          27
+        ],
+        [
+          33,
+          39
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          71
+        ]
+      ],
+      "provenance": {
+        "path": "audit11-root-scalp-receivers-staging-181.json",
+        "sha256": "189d1e5e80524c7e057e28eff1a8d7674f62728840b3699e4e34a8102a4d0102"
+      },
+      "native_contract_scope": "Concrete first-party material/image/texture-copy adapters only; no WGSL shader or whole SDK bodies",
+      "mandatory_other_lenses": "pending",
+      "original_shared_credit": 0
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/hair_preview/scalp_upload.rs",
+      "sha256": "2204f09240707fa76e04f408ffdd9a1b1ab0f7b65b840c4a290db3f368156a63",
+      "actual_eof": 150,
+      "actual_access": [
+        [
+          21,
+          132
+        ],
+        [
+          1,
+          20
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          132
+        ]
+      ],
+      "provenance": {
+        "path": "audit11-root-scalp-receivers-staging-181.json",
+        "sha256": "189d1e5e80524c7e057e28eff1a8d7674f62728840b3699e4e34a8102a4d0102"
+      },
+      "native_contract_scope": "Concrete first-party material/image/texture-copy adapters only; no WGSL shader or whole SDK bodies",
+      "mandatory_other_lenses": "pending",
+      "original_shared_credit": 0
+    }
+  ],
+  "source_complete": true,
+  "current_reconciled": false,
+  "integrated": false,
+  "validated": false,
+  "clear": false,
+  "global_clearance": false,
+  "stop": "808source-accounted; no809orderedinventory; rootadoptionrequired"
+}

@@ -1,0 +1,165 @@
+{
+  "id": "AUDIT12-CONTRACTS-014-COMPLETE",
+  "lens": 12,
+  "at": "2026-10-26T18:53:20.932562+00:00",
+  "role": 39,
+  "source_id": "physical-p16:Cargo.lock",
+  "source_sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+  "full_requested_range": [
+    [
+      1,
+      13103
+    ]
+  ],
+  "body_read_union": [
+    [
+      1,
+      13103
+    ]
+  ],
+  "body_receipts": [
+    {
+      "receipt": "audit12-successor-014-partial.json",
+      "sha256": "23068ee6cf812499a00ac1fe4df46fc67edf9f5962efddc4568680426c07faaf",
+      "source_sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+      "body_ranges": [
+        [
+          1,
+          800
+        ]
+      ]
+    },
+    {
+      "receipt": "audit12-original39-part801-4800.json",
+      "sha256": "f27682fd98d3db5a82eac876d6a68d9493c3d9f1b57a8ebc15ab753dd48ed2a0",
+      "source_sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+      "body_ranges": [
+        [
+          801,
+          1600
+        ],
+        [
+          1601,
+          2400
+        ],
+        [
+          2401,
+          3200
+        ],
+        [
+          3201,
+          4000
+        ],
+        [
+          4001,
+          4800
+        ]
+      ]
+    },
+    {
+      "receipt": "audit12-original39-part4801-8800.json",
+      "sha256": "7dd27047f09352df786a0c28190a511f641379b62ac21c0f7b044900dcb9b2d1",
+      "source_sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+      "body_ranges": [
+        [
+          4801,
+          5300
+        ],
+        [
+          5301,
+          5800
+        ],
+        [
+          5801,
+          6300
+        ],
+        [
+          6301,
+          6800
+        ],
+        [
+          6801,
+          7300
+        ],
+        [
+          7301,
+          7800
+        ],
+        [
+          7801,
+          8300
+        ],
+        [
+          8301,
+          8800
+        ]
+      ]
+    },
+    {
+      "receipt": "audit12-original39-part8801-13103.json",
+      "sha256": "4da9597f94fdf681b6cef4f053263754066d9a7303e81e6e7bf7423203e4e616",
+      "source_sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+      "body_ranges": [
+        [
+          8801,
+          9600
+        ],
+        [
+          9601,
+          10400
+        ],
+        [
+          10401,
+          11200
+        ],
+        [
+          11201,
+          12000
+        ],
+        [
+          12001,
+          12800
+        ],
+        [
+          12801,
+          13103
+        ]
+      ]
+    }
+  ],
+  "body_union_proof": "Each actual contiguous bounded source read accounted by responsible root/delegated receiver; no gap, overlap, truncated body or metadata-only source substitution. Hash/range arithmetic corroborates provenance; semantic inventories in all four receipts justify actual dispositions.",
+  "native_text_boundary": {
+    "registration": "audit12-original39-native-boundary-registration.json",
+    "consumed": "Installed primary CargoBook guide188-266 and package-ID reference188-266: lock holds exact dependency/revision information, package IDs are open strings disambiguated by version/source. This supports native-format ownership only, not a claim of native Cargo parser/resolver correctness or every source grammar accepted.",
+    "inventory": "Every table/header/key and value in fullsource classified at concrete Cargo serialized package graph. Package names remain open; versions/selectors retain exact text and metadata; registry+ source IDs distinct from plainURLs; exact Git source branch/revision preserved; checksums opaque native archive-integrity text; local/source-less records do not prove workspace membership. Group only identical field-role justifications from actual reads; no blanket generated-file/catalog exemption."
+  },
+  "firstparty_receiving_support": {
+    "receipt": "audit12-original39-receivers.json",
+    "sha256": "5db7e540ed44c2f93f7b232f85eee3e7dd54baef48f996fc19df3baa0aaa4846",
+    "dispositions": [
+      "CONT12-39-RECV-01",
+      "CONT12-39-RECV-02",
+      "CONT12-39-RECV-03",
+      "CONT12-39-RECV-04",
+      "CONT12-39-RECV-05",
+      "CONT12-39-RECV-06",
+      "CONT12-39-RECV-07",
+      "CONT12-39-RECV-08"
+    ],
+    "trace": "Actual P16 commit039329 guard admits exact bevy relevance via CargoPackageRole then semver::Version and0.20.0 native structured threshold. Python wasm-bindgen consumers select serialized native version and compare actual tool-output token, retaining expected text only until native diagnostic/equality/tool argv boundary. Deployment lexical AWK extraction ends at quoted cargo-install version argv. Opaque lock bytes reach separate named capture/dev hash/cache/profile serialization boundaries with distinct actual framing. These are concrete native/build text boundaries; no firstparty gameplay String API introduced by lockmetadata.",
+    "workflow_registration": "audit12-original39-workflow-registration.json",
+    "workflow_trace": "Exact P16 workflow1-42 supplies Cargo.lock as native GitHubActions push/pull_request pathfilter (10/32), and140-154 sends same path to native git diff --exit-code -- along with other lockfiles after existing --locked selected-package tests. File path is native build/Git argv vocabulary, not a game identifier."
+  },
+  "disposition": "ACCOUNTED exact fullrequested original39 string contracts plus necessary firstparty/native receiving text-boundary roles WITH explicit qualifications; no parser/runtime/wholefamily/global clearance",
+  "findings": [],
+  "qualified_questions": [
+    "Existing first-match/no-match/duplicate package and CLI output token/AWK lexical shape assumptions remain in build tools. Frozen fullbody has actual selected records and bound receiver semantics; no allfutureinput robustness promise or accepted new defect inferred.",
+    "Native Cargo parser/registry transport/archive checksum validation, graph edge resolution, requested/current dependency policy, featureselection and buildability were not independently proved or executed. Source-accounted means stringowner/boundary classification, not toolchain correctness.",
+    "Downstream capture manifest/Rust env decoding, complete dev cache/profilecomparison, native wasm-bindgen/wasm-opt/cargo-install/SSH implementations remain outside necessary bounded original locktext-to-concrete-boundary trace; new receiver supplements remain mandatory pending materials for all otherlenses. No whole sourcefile/SDK exemption.",
+    "Actual sourcevariant is frozen physicalP16 lock SHA1191..., not currentworking Cargo.lock SHA197d...; receiver supplements are exact committed039329sources, no unknown dirty/current equivalence. Newly registered primarydocs/native archive source provenance explicitly qualified in respective registrations.",
+    "All20familyobligations, inheritedfindings, #780/#826, P16/P17 and otherlenses/populations unchanged. No unique countincrement, tests/cases/helpers/assertions/doctests/projectexecution/productchanges."
+  ],
+  "original_accounted_proposal": 40,
+  "next_original": 40,
+  "global_clearance": false
+}

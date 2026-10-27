@@ -1,0 +1,388 @@
+{
+  "id": "SEGOVB-CONT08-SUCCESSOR-002",
+  "lens": "08 behavior-preservation",
+  "created_utc": "2026-10-26T17:56:24.483253+00:00",
+  "prior_receipt": "audit08-successor-001.json",
+  "root_ledger_reconciliation": "Root ledger lens08 current_successor points to001 proposedstate and confirms earliercontiguous0-32,next33; root retains ownership. No historical/root state overwritten.",
+  "registry": {
+    "path": "target/recovery-20261025/shared-material-successor/source-extensions-196.json",
+    "sha256": "12adb62b53902f4e42f8e882ec18181d465c049956c8af8b5626d3d3192ff849",
+    "entries": 196,
+    "qualification": "Append-only196prefix; exact materials33-36 only newly accounted; no population overlap summed."
+  },
+  "pins": {
+    "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "current_main_qualification": "Frozen comparison only; no current-main applicability or final-revision validation inferred."
+  },
+  "skill": {
+    "path": "/home/brunosegovia/.codex/skills/audit-behavior-preservation/SKILL.md",
+    "sha256": "7413ca56a7a637a20cb56f6a35c7623253934e806415e26131af076050fa685c",
+    "reuse": "Previously loaded within this agent; applied again to exact new frontier."
+  },
+  "prospective_registration": "audit08-successor-002-registration.json",
+  "source_reads": [
+    {
+      "material_index": 33,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/wgsl/common.rs",
+      "sha256": "ffd989fed5f4bc512ee53fc408db1d2ecb6bcd81464b5c3eecc8ce4e4eef71e0",
+      "base_sha256": "ffd989fed5f4bc512ee53fc408db1d2ecb6bcd81464b5c3eecc8ce4e4eef71e0",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/ffd989fed5f4bc512ee53fc408db1d2ecb6bcd81464b5c3eecc8ce4e4eef71e0",
+      "registered_ranges": [
+        [
+          1,
+          446
+        ]
+      ],
+      "read_ranges": [
+        [
+          1,
+          446
+        ]
+      ],
+      "base_head_byte_identity": true,
+      "recovery": "Exact git show at each pinned revision; whole-file SHA256 checked before bounded source read."
+    },
+    {
+      "material_index": 34,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/wgsl/groom.rs",
+      "sha256": "955f005be356cd5dac7fef18bd1c669d248c1fdf2632f5a787a7b10222be2ae2",
+      "base_sha256": "955f005be356cd5dac7fef18bd1c669d248c1fdf2632f5a787a7b10222be2ae2",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/955f005be356cd5dac7fef18bd1c669d248c1fdf2632f5a787a7b10222be2ae2",
+      "registered_ranges": [
+        [
+          1,
+          1609
+        ]
+      ],
+      "read_ranges": [
+        [
+          1,
+          1609
+        ]
+      ],
+      "base_head_byte_identity": true,
+      "recovery": "Exact git show at each pinned revision; whole-file SHA256 checked before bounded source read."
+    },
+    {
+      "material_index": 35,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/wgsl/guides.rs",
+      "sha256": "bcd60aee22ae82fae270b38599aca660f0432c0a6baf72d58241a88da4cfa840",
+      "base_sha256": "bcd60aee22ae82fae270b38599aca660f0432c0a6baf72d58241a88da4cfa840",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/bcd60aee22ae82fae270b38599aca660f0432c0a6baf72d58241a88da4cfa840",
+      "registered_ranges": [
+        [
+          1,
+          1129
+        ]
+      ],
+      "read_ranges": [
+        [
+          1,
+          1129
+        ]
+      ],
+      "base_head_byte_identity": true,
+      "recovery": "Exact git show at each pinned revision; whole-file SHA256 checked before bounded source read."
+    },
+    {
+      "material_index": 36,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow/input.rs",
+      "sha256": "79df824a0c6fc00d93e45308c1d6f5a24ecb35216bab4b22b51d271d96a6f9e3",
+      "base_sha256": "79df824a0c6fc00d93e45308c1d6f5a24ecb35216bab4b22b51d271d96a6f9e3",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/79df824a0c6fc00d93e45308c1d6f5a24ecb35216bab4b22b51d271d96a6f9e3",
+      "registered_ranges": [
+        [
+          1,
+          22
+        ]
+      ],
+      "read_ranges": [
+        [
+          1,
+          22
+        ]
+      ],
+      "base_head_byte_identity": true,
+      "recovery": "Exact git show at each pinned revision; whole-file SHA256 checked before bounded source read."
+    }
+  ],
+  "support_reads": [
+    {
+      "original_index": 2286,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow.rs",
+      "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+      "base_sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+      "head_sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+      "base_head_byte_identity": true,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+      "read_ranges": [
+        [
+          100,
+          348
+        ],
+        [
+          656,
+          753
+        ],
+        [
+          842,
+          876
+        ],
+        [
+          349,
+          655
+        ],
+        [
+          754,
+          841
+        ]
+      ],
+      "qualification": "Affected original source support at exact ranges only; no original-role completion, other-lens transfer or current-main validation."
+    },
+    {
+      "original_index": 2287,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/guides.rs",
+      "sha256": "ff313e8605d4893263109f7c930fcc81eb6c71aae6a7cffdbcafd10a44137aea",
+      "base_sha256": "ff313e8605d4893263109f7c930fcc81eb6c71aae6a7cffdbcafd10a44137aea",
+      "head_sha256": "ff313e8605d4893263109f7c930fcc81eb6c71aae6a7cffdbcafd10a44137aea",
+      "base_head_byte_identity": true,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/ff313e8605d4893263109f7c930fcc81eb6c71aae6a7cffdbcafd10a44137aea",
+      "read_ranges": [
+        [
+          1,
+          148
+        ],
+        [
+          149,
+          356
+        ]
+      ],
+      "qualification": "Affected original source support at exact ranges only; no original-role completion, other-lens transfer or current-main validation."
+    },
+    {
+      "original_index": 2288,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/guides/packed.rs",
+      "sha256": "eabbc4d66906c663bc661d3ac362b051fc301694f436b2fdd0613116e2e2249b",
+      "base_sha256": "eabbc4d66906c663bc661d3ac362b051fc301694f436b2fdd0613116e2e2249b",
+      "head_sha256": "eabbc4d66906c663bc661d3ac362b051fc301694f436b2fdd0613116e2e2249b",
+      "base_head_byte_identity": true,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/eabbc4d66906c663bc661d3ac362b051fc301694f436b2fdd0613116e2e2249b",
+      "read_ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "qualification": "Affected original source support at exact ranges only; no original-role completion, other-lens transfer or current-main validation."
+    },
+    {
+      "original_index": 2291,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/hairdo.rs",
+      "sha256": "7adbce20aa4fb6390748d4a83ad91e4c31a976db817f0a26c321f5c415393f14",
+      "base_sha256": "7adbce20aa4fb6390748d4a83ad91e4c31a976db817f0a26c321f5c415393f14",
+      "head_sha256": "7adbce20aa4fb6390748d4a83ad91e4c31a976db817f0a26c321f5c415393f14",
+      "base_head_byte_identity": true,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/7adbce20aa4fb6390748d4a83ad91e4c31a976db817f0a26c321f5c415393f14",
+      "read_ranges": [
+        [
+          131,
+          268
+        ],
+        [
+          539,
+          581
+        ]
+      ],
+      "qualification": "Affected original source support at exact ranges only; no original-role completion, other-lens transfer or current-main validation."
+    },
+    {
+      "original_index": 2290,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/groom.rs",
+      "sha256": "083ab47dd800216d8bbcd584b64aa7851587f5e88bd459c449d0d429793f23cf",
+      "base_sha256": "083ab47dd800216d8bbcd584b64aa7851587f5e88bd459c449d0d429793f23cf",
+      "head_sha256": "083ab47dd800216d8bbcd584b64aa7851587f5e88bd459c449d0d429793f23cf",
+      "base_head_byte_identity": true,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/083ab47dd800216d8bbcd584b64aa7851587f5e88bd459c449d0d429793f23cf",
+      "read_ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "qualification": "Affected original source support at exact ranges only; no original-role completion, other-lens transfer or current-main validation."
+    },
+    {
+      "original_index": 2285,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/follicles.rs",
+      "sha256": "340bfe96a91d869c32ce69355977aa5d552d76fe8f27d48d566e6f78c4b1ad49",
+      "base_sha256": "340bfe96a91d869c32ce69355977aa5d552d76fe8f27d48d566e6f78c4b1ad49",
+      "head_sha256": "340bfe96a91d869c32ce69355977aa5d552d76fe8f27d48d566e6f78c4b1ad49",
+      "base_head_byte_identity": true,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/340bfe96a91d869c32ce69355977aa5d552d76fe8f27d48d566e6f78c4b1ad49",
+      "read_ranges": [
+        [
+          32,
+          62
+        ],
+        [
+          171,
+          205
+        ],
+        [
+          251,
+          330
+        ]
+      ],
+      "qualification": "Affected original source support at exact ranges only; no original-role completion, other-lens transfer or current-main validation."
+    },
+    {
+      "original_index": 2642,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow/profile.rs",
+      "sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+      "base_sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+      "head_sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+      "base_head_byte_identity": true,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+      "read_ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "qualification": "Affected original source support at exact ranges only; no original-role completion, other-lens transfer or current-main validation."
+    },
+    {
+      "original_index": 2301,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/ops/mod.rs",
+      "sha256": "b5146988078e923f50a7c89002bacf7e8cee61f11e1f894b946aed9441c0d704",
+      "base_sha256": "b5146988078e923f50a7c89002bacf7e8cee61f11e1f894b946aed9441c0d704",
+      "head_sha256": "b5146988078e923f50a7c89002bacf7e8cee61f11e1f894b946aed9441c0d704",
+      "base_head_byte_identity": true,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/b5146988078e923f50a7c89002bacf7e8cee61f11e1f894b946aed9441c0d704",
+      "read_ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "qualification": "Affected original source support at exact ranges only; no original-role completion, other-lens transfer or current-main validation."
+    },
+    {
+      "original_index": 2289,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+      "base_sha256": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+      "head_sha256": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+      "base_head_byte_identity": true,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+      "read_ranges": [
+        [
+          113,
+          127
+        ]
+      ],
+      "qualification": "Affected original source support at exact ranges only; no original-role completion, other-lens transfer or current-main validation."
+    }
+  ],
+  "analyses": {
+    "33": {
+      "status": "accounted WITH exact producer/layout/numeric qualifications",
+      "analysis": "Full446 common WGSL source read. RANDOM8-35 preserves hash shift/multiply order and 24bit conversion; NOISE41-113 preserves signed lattice conversions, gradient selector, octave accumulation, amplitude and clamp order. MATH121-204 retains zero-width guards, signed shape_range/normalization fallback thresholds, antiparallel transport policy and explicit difference-form lerp. HEAD214-304 retains sampled-grid selector, x-fastest index/edge clamping, reach fallback, exact trilinear mix order and fixed mannequin17-row interpretation plus six-step push-out. WALK312-427 preserves two-point initial tangent/walker use, increasing arclength advancement and <= endpoint condition, degenerate span t0, restore_lengths accumulation and unchanged point w retention. INDEX432-434 preserves64-wide folded item order. STRAND439-445 matches actual native repr(C)/Pod record gpu/mod.rs117-124; no shader/runtime equivalence claim.",
+      "trace_refs": [
+        "M34+M35 exact helper composition/imports",
+        "original2289:113-127 actual native record",
+        "original2286:125,176-178 actual points>=2 and nonempty-guide gate before interpolation"
+      ],
+      "qualifications": [
+        "No newly introduced source-local behavior difference: exact base/head bytes identical. No bit-for-bit CPU/GPU numerical equality inferred from comments or helper names.",
+        "Native sampled-field header shape, buffer membership, grid dimensions/lengths and mannequin-row population admission remain separate canonical layout obligations; this body read does not clear them.",
+        "Existing normal/fallback/epsilon-like policy literals are preserved; other audit lenses must independently assess their semantic ownership."
+      ]
+    },
+    "34": {
+      "status": "accounted WITH unchanged admission/map/numeric policy qualifications",
+      "analysis": "Full1609 groom WGSL source read. Source assembly10-17 appends helpers, folded index and body in same order. Growth discriminants42-76 match actual Growth::ALL order follicles53-60 and both host2286/2288 ordinal projections; 0/3 whorl,1double,2cowlick,4forward,5backward,6down retained. Parting85-110 matches host grow848-875 codes0None/1plane/2lanes/3fringe with existing strict plane/until/endpoints. Roots166-222 retain systematic cumulative-area lower-bound search, barycentric fold and mask seed/branch order; compact261-277 consumes scan adjacency unchanged. Interpolation316-397 keeps first compatible nearest candidates with strict-distance/insertion tie order, two-sweep fallback, maximum8 neighbors, divergence sample indices and inverse-square weighting. Actual host125,176-178,276 supplies points>=2/nonemptyguides and wantedclamp1..8; no from-syntax zero-neighbor bug asserted. Points443-472 preserve eight weights, skip<=0, near-root normal following and w0. Orient/Trim521-633 preserve memory/no-leave skip and arclength resample endpoint order. Map671-768 preserves inverted12bitpriority+20bitstrand word, empty0, group-slot clamp,27-cell traversal, compatible-first search and nearest strict-less tie. Actual host148-151 rejects count>=2^20; grid793-836 preserves minimumcell.002/coarsening1.25/dimensionmin1 and five-slot budget. Operations807-1315 and1325-1609 retain root locking, cumulative displacement, relative profile radius, shrinkwrap, settle suffix accumulation/root-tip order, standard-relative application, few-workgroup branch and192-point threshold.",
+      "trace_refs": [
+        "original2286:100-876 (all public grow/record_ops/roots/map/parting bodies; header1-99 excluded)",
+        "original2285:32-62,171-205,251-330 Growth source mapping/direction",
+        "original2642:1-56 Profile and guide-pack actual dispatch"
+      ],
+      "qualifications": [
+        "No new source-local difference across frozen revisions; all checked host support bytes are also identical.",
+        "Mapped reuse behavior remains conditional on reuse_guide_map && mapped; Profile modifies radius in place and continues without position swap. No general source/resource authority or malformed group/layout guarantee is inferred.",
+        "Existing count narrowing, extreme/nonfinite bounds, cross-device resources and shader execution remain governed by retained M16/shared native-layout obligations, not globally cleared here.",
+        "No claim that the GPU root selection exactly equals the CPU root algorithm under all floating-point inputs; ordered old/new source behavior only is established."
+      ]
+    },
+    "35": {
+      "status": "accounted WITH hairdo/CPU equivalence/shape-population qualifications",
+      "analysis": "Full1129 guide WGSL source read. Candidate52-85 keeps seedshares and lower-bound triangle endpoint clamp; edge closest171-210 retains centimeter limit,corner-distance prefilter and <= later-equal-triangle precedence with barycentric fallback. Sequential greedy guide_select272-358 preserves rootcandidate order, strict spacing,256candidate chunks, hairline second pass, raw-boundary spacing lookup and index+1 from_edge marker. HAIRDO366-432 matches host repr(C) HairdoGpu64-118 field ordering; actual HairdoUpload30-90 copies fields/flags/whorl defaults/flow code and two-entry tie-axis fallback unchanged. FLOW632-639 and701-738 match actual Hairdo::flow_code564-575; tie flow_value0tail/1bun/2braid agrees with571-595. CPU guide helper sources179-264 retain same candidate hash keys, guide count/spacing and guide IDs; this is source tracing, not runtime/float equivalence. Comb764-984 preserves workgroupguide order, perguide random stream reset, number/order of Gaussian draws, fringe/clipped precedence,angle clamp,step bound,max_path guard,bodyfield sharedlane order,tie/cut branches and arclength resampling. guide_attributes1020-1035 preserves normal/UV/ID/group/radius; guide_pack1070-1087 emits point w arclength and native f32 group in same order. edge_distances1111-1125 preserves no-positive-edge e1 policy and distance accumulation. Actual record_hairdo_guides262-303 sizes path/output buffers and dispatches one workgroup per guide; max_path ceil/max301+2 unchanged.",
+      "trace_refs": [
+        "original2287:1-357 printed, body1-356;357closing brace incidental",
+        "original2288:1-93",
+        "original2291:131-268,539-581",
+        "M33+M34 helper bodies and growth/parting mappings"
+      ],
+      "qualifications": [
+        "Native raw array sizes, finite admitted Hairdo fields, attachment populations, exact ordinary head geometry and CPU/GPU full comb equivalence remain independent source/family obligations.",
+        "GPU sampled-head field and CPU original comb269-538 were not fully reconciled in this receipt; no whole Hairdo or M16 clearance. Existing source comments claiming CPU equality are not acceptance evidence.",
+        "No runtimeGPU/visual acceptance and no new refactor regression is asserted from unchanged shader branches."
+      ]
+    },
+    "36": {
+      "status": "accounted WITH explicit unchanged CPU/GPU supported-stack distinction",
+      "analysis": "Full22 Interpolation::find source read: first Op::Interpolate selected in input order by enumerate/find_map; absence yields HairGpuError::MissingInterpolation. Actual GpuGroomer::grow125-126 finds that boundary before head upload/roots; then runs beforeops204, interpolates253-327 and afterops330. record_ops647 rejects any later Interpolate with RepeatedInterpolation. CPU Groom::grow_while63-76 resamples once then applies every op in sequence; actual Op::apply98-112 replaces strands for every Interpolate. CPU Profile146-154 matches GPU radius formula1310-1314/record_profile including only Some(grown)>0 relative scaling; Profile is in-place, and actual GPU guide_pack uses post-operation positions/attributes with requested parting.",
+      "trace_refs": [
+        "original2290:1-79",
+        "original2301:1-156",
+        "original2286:118-345,349-651",
+        "original2642:1-56",
+        "M34:1283-1318"
+      ],
+      "qualifications": [
+        "This establishes a preexisting supported-stack difference, not newly introduced behavior: M36, CPU Groom, Op::apply and all relevant GPU host support bytes match base/head.",
+        "Do not silently require missing/repeated-interpolation CPU/GPU equivalence or change it without product/policy evidence. No newly counted unique defect; retained source/admission policy qualification only.",
+        "CPU op child execution, host serialization/wire migration and whole GPU error cause propagation remain separately queued; original2290/2301 are not completed by this support read."
+      ]
+    }
+  },
+  "findings": "No newly introduced source-local behavior difference and no new unique finding. Preserve inherited findings, alias graph, all20 migration obligations, P16/P17, shared dependencies, #780/#826 integration and canonical M16 layout/authority remedies. CPU/GPU supported-stack distinction is explicit qualification, not an invented migration regression.",
+  "coverage_delta": {
+    "kind": "Proposed additive state patch only; historical states and root ledger untouched",
+    "receipt": "audit08-successor-002.json",
+    "prior_receipt": "audit08-successor-001.json",
+    "material_earlier_contiguous_proposal": [
+      0,
+      36
+    ],
+    "next_material": 37,
+    "newly_accounted_material_indices": [
+      33,
+      34,
+      35,
+      36
+    ],
+    "new_original_completions": [],
+    "original_first_unfinished": 1462,
+    "next_ordered_original": 1792,
+    "partial1462": "CONT08-Q003 unchanged qualifiedpartial; prior narrower nativeproducer proof retained",
+    "broad_goal_complete": false
+  },
+  "global_clearance": false,
+  "repair": "None; lens exhaustive pass incomplete",
+  "validation": "Read-only frozen source/identity/delta comparison and ignored evidence writes only. No product edits, checks, tests, SDK execution, GPU/browser/runtime observation or publication. Historical CI and hashes do not clear audit scope.",
+  "source_read_limits": [
+    "Original host roles were read only at registered support ranges; unchanged-file byte identity is not entire original-role clearance. Full requested original source/delta and remaining connected bodies stay queued.",
+    "No new fullSDK/library population or other-lens/current-source clearance.",
+    "Host2287 full printer exposed finalclosing357 beyond registered1-356; no behavioral content was expanded or coverage backdated."
+  ]
+}

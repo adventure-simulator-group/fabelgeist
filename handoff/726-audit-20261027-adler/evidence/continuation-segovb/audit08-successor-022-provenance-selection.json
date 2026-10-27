@@ -1,0 +1,49 @@
+{
+  "id": "CONT08-022-SELECTION-PROVENANCE",
+  "created_utc": "2026-10-27T05:39:14.808257+00:00",
+  "declaring_port": "Own019 grounding.rs56-57 atSHA8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c declares modselection and reexports CompoundSupportRequest; exactmodulepath resolved by Gitls-tree.",
+  "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+  "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/audit12-frozen-source-manifest-019.json",
+    "sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa"
+  },
+  "changed747_matches": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/selection.rs",
+      "snapshot": "pr-working",
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/selection.rs",
+      "owner": "root",
+      "sha256": "c4827110d150c745990de0f5da9e210b9dfd0797122a4cd661ef7353d2142084",
+      "base_sha256": "b3e453a104d7296d1cadecfd964a78c7742c5d3c111f92873ad0f6697b7ab08e",
+      "state": "modified",
+      "bytes": 5113
+    }
+  ],
+  "dirty4_matches": [],
+  "sources": [
+    {
+      "source_id": "base:crates/adventuresim-tactical-core/src/city_layout/grounding/selection.rs",
+      "role": "base",
+      "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/b3e453a104d7296d1cadecfd964a78c7742c5d3c111f92873ad0f6697b7ab08e",
+      "sha256": "b3e453a104d7296d1cadecfd964a78c7742c5d3c111f92873ad0f6697b7ab08e",
+      "lines": 112,
+      "bytes": 4625,
+      "git_tree_entry": "100644 blob 21e9f5a2fc4012a1602ddc0dda42970bee186838\tcrates/adventuresim-tactical-core/src/city_layout/grounding/selection.rs",
+      "body_read": false
+    },
+    {
+      "source_id": "head:crates/adventuresim-tactical-core/src/city_layout/grounding/selection.rs",
+      "role": "head",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/c4827110d150c745990de0f5da9e210b9dfd0797122a4cd661ef7353d2142084",
+      "sha256": "c4827110d150c745990de0f5da9e210b9dfd0797122a4cd661ef7353d2142084",
+      "lines": 127,
+      "bytes": 5113,
+      "git_tree_entry": "100644 blob feb04b11734dab5dcb9ae818ae0a71b8dffdd802\tcrates/adventuresim-tactical-core/src/city_layout/grounding/selection.rs",
+      "body_read": false
+    }
+  ],
+  "qualification": "Authorized exact read-only Git object/metadata recovery and ignoredimmutable source staging only; no body credit/currentalias/Gitmutation."
+}

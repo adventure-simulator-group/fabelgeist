@@ -1,0 +1,486 @@
+{
+  "at": "2026-10-27T08:08:16.019984+00:00",
+  "head": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+  "base": "35b18ec280a6884bb53996a2d859c4b27096f65c",
+  "canonical_finding": "M04",
+  "inherited_authority": {
+    "path": "inherited-master-ledger.json#/findings[id=M04]",
+    "sha256": "74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+    "repair_status_as_recorded": "not started; awaiting complete initial discovery"
+  },
+  "process_failure": "Root began implementation from bounded M04 discovery before all thirteen selected lenses had completed exhaustive discovery. Prior ready/source-reviewed/CI status did not establish complete audit or complete producer-consumer family. Userreview identified omitted operations/recipients.",
+  "user_authority": {
+    "global_rule": "Complete audit ledger discovery before subsequent implementation; no compatibility exceptions.",
+    "specific_current_exception": "While we are here, finish PR992, address review and trace its propagation chain in the existing ledger. Root may implement this PR after recording connected discovery; this is not authorization for later PR implementation before global discovery completes."
+  },
+  "sources": [
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86"
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "b1561f750844b7395f96f8fe2ee767db88d73fb8d8b6e997779493130b09f877"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "7cca5e5cef2f3c3a5a11c88dba547195f36d61f4665f157c8d55eedc30179eab"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "sha256": "3acaf77c189e6ab8abcd972e5615276d945a1ca6772ee90246feef673e8a2c69"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "3e29916a9d570f6e0d12ffb54541ee018fb068902a4e5b6c0f744db9971d9ba9"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "sha256": "09565d01fd8fabbf899d84f107bdbf9c16fd6149ec61f51714599d160c1260e0"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "sha256": "7b026fd31eb9c09c84b446dbb0b71faea9717f93c027226dfbe357c5150dd704"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "sha256": "2767919da7545eecbaab9b212fc6a8e52802f6a61f3862c447903f75cf1ec6e7"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "5d114988a64595879b04e6f151d2a184cdf8f893f2f2b17a9987a3faf933d4ab"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+      "sha256": "6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "51a510d3c5f039d6b7eb4ce2b1511432fb3415bf0b15152d036ec01a6394f9c8"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "sha256": "fe34810c16d01e6e72cb6550444fb14d00245023b73d532a7bd87f5582897fc3"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "sha256": "b9328929e65c3617acb6340dc0db4ed3db4b260b76b791e7cd1fb8ed1b3cd441"
+    }
+  ],
+  "comments": [
+    {
+      "url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/pulls/comments/4386135236",
+      "pull_request_review_id": 5663623098,
+      "id": 4386135236,
+      "node_id": "PRRC_kwDOPo01Gc8AAAABBW8cxA",
+      "diff_hunk": "@@ -143,12 +143,14 @@ pub fn locomotion_profile(\n     }\n     let walk = walk_locomotion_profile();\n     let run_profile = run_locomotion_profile();\n-    let run = ((speed.metres_per_second() - walk.reference_speed.metres_per_second())\n-        / (run_profile.reference_speed.metres_per_second()\n-            - walk.reference_speed.metres_per_second()))\n-    .clamp(0.0, 1.0);\n+    let run = UnitInterval::from_fraction(\n+        ((speed.metres_per_second() - walk.reference_speed.metres_per_second())\n+            / (run_profile.reference_speed.metres_per_second()\n+                - walk.reference_speed.metres_per_second()))",
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "commit_id": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+      "original_commit_id": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+      "user": {
+        "login": "segovb",
+        "id": 70238035,
+        "node_id": "MDQ6VXNlcjcwMjM4MDM1",
+        "avatar_url": "https://avatars.githubusercontent.com/u/70238035?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/segovb",
+        "html_url": "https://github.com/segovb",
+        "followers_url": "https://api.github.com/users/segovb/followers",
+        "following_url": "https://api.github.com/users/segovb/following{/other_user}",
+        "gists_url": "https://api.github.com/users/segovb/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/segovb/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/segovb/subscriptions",
+        "organizations_url": "https://api.github.com/users/segovb/orgs",
+        "repos_url": "https://api.github.com/users/segovb/repos",
+        "events_url": "https://api.github.com/users/segovb/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/segovb/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "body": "Is the `.metres_per_second()` on all of these strictly necessary when mathematically the units cancel out regardless? Like would it be possible, or super inconvenient, to support dimensionless math on these",
+      "created_at": "2026-10-27T07:38:11Z",
+      "updated_at": "2026-10-27T07:54:21Z",
+      "html_url": "https://github.com/adventure-simulator-group/fabelgeist/pull/992#discussion_r4386135236",
+      "pull_request_url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/pulls/992",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/pulls/comments/4386135236"
+        },
+        "html": {
+          "href": "https://github.com/adventure-simulator-group/fabelgeist/pull/992#discussion_r4386135236"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/pulls/992"
+        }
+      },
+      "reactions": {
+        "url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/pulls/comments/4386135236/reactions",
+        "total_count": 0,
+        "+1": 0,
+        "-1": 0,
+        "laugh": 0,
+        "hooray": 0,
+        "confused": 0,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 0
+      },
+      "start_line": 147,
+      "original_start_line": 147,
+      "start_side": "RIGHT",
+      "line": 149,
+      "original_line": 149,
+      "side": "RIGHT",
+      "author_association": "MEMBER",
+      "original_position": 11,
+      "position": 11,
+      "subject_type": "line",
+      "is_copilot_code_review": false,
+      "copilot_code_review_sources": []
+    },
+    {
+      "url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/pulls/comments/4386140379",
+      "pull_request_review_id": 5663623098,
+      "id": 4386140379,
+      "node_id": "PRRC_kwDOPo01Gc8AAAABBW8w2w",
+      "diff_hunk": "@@ -162,10 +164,8 @@ pub fn locomotion_profile(\n             .checked_lerp(run_profile.support_phase_radius, run)?,\n         bounce_metres: walk\n             .bounce_metres\n-            .scaled_by(UnitInterval::from_fraction(1.0 - run)?)?,\n-        flight_apex_metres: run_profile\n-            .flight_apex_metres\n-            .scaled_by(UnitInterval::from_fraction(run)?)?,\n+            .scaled_by(UnitInterval::from_fraction(1.0 - run.fraction())?)?,",
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "commit_id": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+      "original_commit_id": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+      "user": {
+        "login": "segovb",
+        "id": 70238035,
+        "node_id": "MDQ6VXNlcjcwMjM4MDM1",
+        "avatar_url": "https://avatars.githubusercontent.com/u/70238035?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/segovb",
+        "html_url": "https://github.com/segovb",
+        "followers_url": "https://api.github.com/users/segovb/followers",
+        "following_url": "https://api.github.com/users/segovb/following{/other_user}",
+        "gists_url": "https://api.github.com/users/segovb/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/segovb/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/segovb/subscriptions",
+        "organizations_url": "https://api.github.com/users/segovb/orgs",
+        "repos_url": "https://api.github.com/users/segovb/repos",
+        "events_url": "https://api.github.com/users/segovb/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/segovb/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "body": "To fraction, then from fraction? Could we do `UnitInterval::ONE - run` (or something like that, whatever `1` is)",
+      "created_at": "2026-10-27T07:39:13Z",
+      "updated_at": "2026-10-27T07:54:21Z",
+      "html_url": "https://github.com/adventure-simulator-group/fabelgeist/pull/992#discussion_r4386140379",
+      "pull_request_url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/pulls/992",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/pulls/comments/4386140379"
+        },
+        "html": {
+          "href": "https://github.com/adventure-simulator-group/fabelgeist/pull/992#discussion_r4386140379"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/pulls/992"
+        }
+      },
+      "reactions": {
+        "url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/pulls/comments/4386140379/reactions",
+        "total_count": 0,
+        "+1": 0,
+        "-1": 0,
+        "laugh": 0,
+        "hooray": 0,
+        "confused": 0,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 0
+      },
+      "start_line": null,
+      "original_start_line": null,
+      "start_side": null,
+      "line": 167,
+      "original_line": 167,
+      "side": "RIGHT",
+      "author_association": "MEMBER",
+      "original_position": 28,
+      "position": 28,
+      "subject_type": "line",
+      "is_copilot_code_review": false,
+      "copilot_code_review_sources": []
+    },
+    {
+      "url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/pulls/comments/4386145956",
+      "pull_request_review_id": 5663623098,
+      "id": 4386145956,
+      "node_id": "PRRC_kwDOPo01Gc8AAAABBW9GpA",
+      "diff_hunk": "@@ -94,10 +94,10 @@ impl CycleDelta {\n     pub fn from_unit_cycles(value: super::UnitInterval) -> Self {\n         Self(value.fraction())\n     }\n-    /// Native interpolation of two cycle displacements, before retaining the result.\n-    pub fn checked_lerp(self, other: Self, fraction: f32) -> AnimationValueResult<Self> {\n+    /// Native interpolation of two cycle displacements using an admitted fraction.\n+    pub fn checked_lerp(self, other: Self, fraction: UnitInterval) -> AnimationValueResult<Self> {\n         use bevy::math::FloatExt;\n-        Self::from_arithmetic(self.0.lerp(other.0, fraction))\n+        Self::from_arithmetic(self.0.lerp(other.0, fraction.fraction()))",
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "commit_id": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+      "original_commit_id": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+      "user": {
+        "login": "segovb",
+        "id": 70238035,
+        "node_id": "MDQ6VXNlcjcwMjM4MDM1",
+        "avatar_url": "https://avatars.githubusercontent.com/u/70238035?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/segovb",
+        "html_url": "https://github.com/segovb",
+        "followers_url": "https://api.github.com/users/segovb/followers",
+        "following_url": "https://api.github.com/users/segovb/following{/other_user}",
+        "gists_url": "https://api.github.com/users/segovb/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/segovb/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/segovb/subscriptions",
+        "organizations_url": "https://api.github.com/users/segovb/orgs",
+        "repos_url": "https://api.github.com/users/segovb/repos",
+        "events_url": "https://api.github.com/users/segovb/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/segovb/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "body": "If you have to call a primitive-casting helper before feeding a value into a function, you have almost certainly found a bespoke-typing propagation gap (i.e., a function that _should_ just take the bespoke type as it is).",
+      "created_at": "2026-10-27T07:40:16Z",
+      "updated_at": "2026-10-27T07:54:21Z",
+      "html_url": "https://github.com/adventure-simulator-group/fabelgeist/pull/992#discussion_r4386145956",
+      "pull_request_url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/pulls/992",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/pulls/comments/4386145956"
+        },
+        "html": {
+          "href": "https://github.com/adventure-simulator-group/fabelgeist/pull/992#discussion_r4386145956"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/pulls/992"
+        }
+      },
+      "reactions": {
+        "url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/pulls/comments/4386145956/reactions",
+        "total_count": 0,
+        "+1": 0,
+        "-1": 0,
+        "laugh": 0,
+        "hooray": 0,
+        "confused": 0,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 0
+      },
+      "start_line": null,
+      "original_start_line": null,
+      "start_side": null,
+      "line": 100,
+      "original_line": 100,
+      "side": "RIGHT",
+      "author_association": "MEMBER",
+      "original_position": 19,
+      "position": 19,
+      "subject_type": "line",
+      "is_copilot_code_review": false,
+      "copilot_code_review_sources": []
+    },
+    {
+      "url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/pulls/comments/4386147316",
+      "pull_request_review_id": 5663623098,
+      "id": 4386147316,
+      "node_id": "PRRC_kwDOPo01Gc8AAAABBW9L9A",
+      "diff_hunk": "@@ -94,10 +94,10 @@ impl CycleDelta {\n     pub fn from_unit_cycles(value: super::UnitInterval) -> Self {\n         Self(value.fraction())\n     }\n-    /// Native interpolation of two cycle displacements, before retaining the result.\n-    pub fn checked_lerp(self, other: Self, fraction: f32) -> AnimationValueResult<Self> {\n+    /// Native interpolation of two cycle displacements using an admitted fraction.\n+    pub fn checked_lerp(self, other: Self, fraction: UnitInterval) -> AnimationValueResult<Self> {\n         use bevy::math::FloatExt;",
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "commit_id": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+      "original_commit_id": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+      "user": {
+        "login": "segovb",
+        "id": 70238035,
+        "node_id": "MDQ6VXNlcjcwMjM4MDM1",
+        "avatar_url": "https://avatars.githubusercontent.com/u/70238035?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/segovb",
+        "html_url": "https://github.com/segovb",
+        "followers_url": "https://api.github.com/users/segovb/followers",
+        "following_url": "https://api.github.com/users/segovb/following{/other_user}",
+        "gists_url": "https://api.github.com/users/segovb/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/segovb/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/segovb/subscriptions",
+        "organizations_url": "https://api.github.com/users/segovb/orgs",
+        "repos_url": "https://api.github.com/users/segovb/repos",
+        "events_url": "https://api.github.com/users/segovb/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/segovb/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "body": "`use` should go at the top of the file",
+      "created_at": "2026-10-27T07:40:28Z",
+      "updated_at": "2026-10-27T07:54:21Z",
+      "html_url": "https://github.com/adventure-simulator-group/fabelgeist/pull/992#discussion_r4386147316",
+      "pull_request_url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/pulls/992",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/pulls/comments/4386147316"
+        },
+        "html": {
+          "href": "https://github.com/adventure-simulator-group/fabelgeist/pull/992#discussion_r4386147316"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/pulls/992"
+        }
+      },
+      "reactions": {
+        "url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/pulls/comments/4386147316/reactions",
+        "total_count": 0,
+        "+1": 0,
+        "-1": 0,
+        "laugh": 0,
+        "hooray": 0,
+        "confused": 0,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 0
+      },
+      "start_line": null,
+      "original_start_line": null,
+      "start_side": null,
+      "line": 99,
+      "original_line": 99,
+      "side": "RIGHT",
+      "author_association": "MEMBER",
+      "original_position": 17,
+      "position": 17,
+      "subject_type": "line",
+      "is_copilot_code_review": false,
+      "copilot_code_review_sources": []
+    },
+    {
+      "url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/pulls/comments/4386224068",
+      "pull_request_review_id": 5663623098,
+      "id": 4386224068,
+      "node_id": "PRRC_kwDOPo01Gc8AAAABBXB3xA",
+      "diff_hunk": "@@ -40,7 +41,9 @@ pub(super) const UNATTRIBUTED_JOG_SPEED: NonnegativeSpeed = authored_speed(3.75)\n pub fn tactical_jog_speed(endurance: f32) -> SpeedResult<NonnegativeSpeed> {\n     let endurance = endurance.clamp(0.0, 5.0);\n     if endurance <= 1.0 {\n-        let smooth_endurance = endurance * endurance * (3.0 - 2.0 * endurance);\n+        let smooth_endurance = UnitInterval::from_fraction(\n+            (endurance * endurance * (3.0 - 2.0 * endurance)).clamp(0.0, 1.0),",
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "commit_id": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+      "original_commit_id": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+      "user": {
+        "login": "segovb",
+        "id": 70238035,
+        "node_id": "MDQ6VXNlcjcwMjM4MDM1",
+        "avatar_url": "https://avatars.githubusercontent.com/u/70238035?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/segovb",
+        "html_url": "https://github.com/segovb",
+        "followers_url": "https://api.github.com/users/segovb/followers",
+        "following_url": "https://api.github.com/users/segovb/following{/other_user}",
+        "gists_url": "https://api.github.com/users/segovb/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/segovb/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/segovb/subscriptions",
+        "organizations_url": "https://api.github.com/users/segovb/orgs",
+        "repos_url": "https://api.github.com/users/segovb/repos",
+        "events_url": "https://api.github.com/users/segovb/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/segovb/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "body": "No need to `clamp`. $$f:[0,1]\\to\\mathbb{R}$$ with $$f(x)=x^2 (3-2x)$$ has extreme values at $$x=0$$ (0) and $$x=1$$ (1).",
+      "created_at": "2026-10-27T07:54:16Z",
+      "updated_at": "2026-10-27T07:54:21Z",
+      "html_url": "https://github.com/adventure-simulator-group/fabelgeist/pull/992#discussion_r4386224068",
+      "pull_request_url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/pulls/992",
+      "_links": {
+        "self": {
+          "href": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/pulls/comments/4386224068"
+        },
+        "html": {
+          "href": "https://github.com/adventure-simulator-group/fabelgeist/pull/992#discussion_r4386224068"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/pulls/992"
+        }
+      },
+      "reactions": {
+        "url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/pulls/comments/4386224068/reactions",
+        "total_count": 0,
+        "+1": 0,
+        "-1": 0,
+        "laugh": 0,
+        "hooray": 0,
+        "confused": 0,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 0
+      },
+      "start_line": null,
+      "original_start_line": null,
+      "start_side": null,
+      "line": 45,
+      "original_line": 45,
+      "side": "RIGHT",
+      "author_association": "MEMBER",
+      "original_position": 14,
+      "position": 14,
+      "subject_type": "line",
+      "is_copilot_code_review": false,
+      "copilot_code_review_sources": []
+    }
+  ],
+  "trace": [
+    {
+      "stage": "Admission and configuration",
+      "contract": "Core NonnegativeSpeed/PositiveSpeed and UnitInterval checked constructors/Serde are existing owners. AnimationGaitConfig positive reference speeds alone do not prove run>walk. Flight HeightDistance zero is valid. Existing playback hysteresis validates deactivation<=initial<=activation, not initial<blend. Add explicit increasing walk/run and moving-fade ranges in owning locomotion config validation; do not require positive flight amplitude."
+    },
+    {
+      "stage": "Native motion -> typed speed",
+      "contract": "SkeletonState::animation_speed computes native horizontal velocity norm, rejects nonfinite then admits NonnegativeSpeed. Grounded posture comes from BodyState; authored height gate requires Upright and loweredguard, so direct ordinary runfraction cannot enter downed/raised path."
+    },
+    {
+      "stage": "Normalized-speed producers",
+      "contract": "locomotion_profile, ordinary_step_distance, evaluation::locomotion_samples and AuthoredLocomotionStrides::ordinary duplicate speed-minus-walk / run-minus-walk. Move bounded ratio operation to NonnegativeSpeed::clamped_inverse_lerp(lower,upper), rejecting nonincreasing bounds, using typed endpoints/constants and dividing only interior finite differences. The same operation owns speed0..blend/0..walk and initial..blend motion factors at connected evaluation/height consumers."
+    },
+    {
+      "stage": "Retained profile and pose contributions",
+      "contract": "Canonical run UnitInterval feeds typed NonnegativeSpeed/CycleDelta interpolation and HeightDistance scaling. Replace inverse bounce re-admission with UnitInterval::complement. Widen fraction into existing BlendWeight via lossless From; bounded fraction multiplication is closed and can retain UnitInterval via Mul. BlendWeight itself remains unbounded/nonnegative and generic checked_scale unrestricted."
+    },
+    {
+      "stage": "Length/cadence recipients",
+      "contract": "ordinary_step_distance and AuthoredStrideMeasurement::lerp currently extract length scalars before FloatExt; add checked_lerp to existing NonnegativeLength and use typed blend. Authored stride optional/current-configuration gates remain intact; no new retainedsource/fallback."
+    },
+    {
+      "stage": "Height recipient",
+      "contract": "authored_height_compensation reconstructs runfraction by interpolated flightheight/configured runheight. Valid zero runheight causes0/0. Consume normalized speedfraction directly; keep zeroheight valid. Native height wave andretained LocomotionHeightState continue carrying HeightDistance."
+    },
+    {
+      "stage": "Endurance shaping",
+      "contract": "Existing tactical_jog_speed input clamp and<=1branch admit lowendurance once asUnitInterval, then canonical smoothstep returnsUnitInterval withoutoutputclamp. Symmetric halfinterval kernel: u in[0,.5], q=u*u*(3-2u) stays[0,.75] even under roundedf32 bounds; upper half uses1-q. This is same real cubic by f(1-u)=1-f(u); no bitwise/backwardscompatibility requirement."
+    },
+    {
+      "stage": "Actual numerical boundary",
+      "contract": "CycleDelta::checked_lerp already takes typed endpoints/fraction and immediately uses Bevy/glam f32 FloatExt then finite-result admission. Keep that actual nativekernel, move FloatExt import to top, explain units/native requirement. No pass-through mathhelper to disguise the getter."
+    }
+  ],
+  "planned_files": [
+    "crates/adventuresim-core/src/unit_interval.rs",
+    "crates/adventuresim-core/src/linear_speed.rs",
+    "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+    "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+    "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+    "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+    "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+    "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+    "crates/adventuresim-tactical-core/src/combat_config.rs",
+    "crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+    "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+    "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+    "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+    "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs"
+  ],
+  "module_plan": "Extract existing locomotion config records and gait validation from oversized combat_config.rs into owning locomotion module before adding new range policy; rootreexports remain canonical API. Retain all old checks and landingvalidation. Consume hosted baseline export and apply only relevant reductions, never ceiling increases.",
+  "acceptance": [
+    "All fivecomments resolved in code or exactnativeboundary explanation, no typeerasure through intermediate application APIs for scoped blendchain.",
+    "Independent Code/Rule/Comment review at finalexactsource; distinguish family sourcecoverage from globalunfinishedaudit.",
+    "Hosted only fullsamehead Linux/Windows workflow, positive raw group execution including existing4movement/98sharedanimation/260clientanimation/config suites and preservedGPU/constraint/gates. Counts rechecked fromactualnewlogs, notassumed.",
+    "No new tests/cases/testhelpers/assertions/doctests, no local project/toolchain/probes/scanners/generators. No merge; stopforuserreview again."
+  ],
+  "global_discovery_complete": false,
+  "scope_discovery": "Connected currentM04 operation/producer/recipient contracts pinned before repair; independent sourceintake receipts supplementactualnative/math/config proof. No globalcoverage/counttransfer."
+}

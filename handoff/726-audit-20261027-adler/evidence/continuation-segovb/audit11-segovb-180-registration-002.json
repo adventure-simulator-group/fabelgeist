@@ -1,0 +1,43 @@
+{
+  "packet": 180,
+  "lens": 11,
+  "registered_before_body_read": true,
+  "entries": [
+    {
+      "original": 831,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/studio_cache.rs",
+      "sha256": "6d7378554d92fcefc39d39434744bdb50dd98358ce1596f571652a65ce4bf013",
+      "read_from": "crates/adventuresim-character-creator/src/studio_cache.rs",
+      "ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "actual_eof": 192,
+      "purpose": "Exact body cache key/Arc generation producer for body identity retention",
+      "ordered_credit": false
+    },
+    {
+      "original": 808,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair_preview/assets.rs",
+      "sha256": "1945aa84edf49348310989955b6f814cc19ae8cceaf87d85400f4bce8cf9a296",
+      "read_from": "crates/adventuresim-character-creator/src/hair_preview/assets.rs",
+      "ranges": [
+        [
+          1,
+          93
+        ],
+        [
+          119,
+          194
+        ]
+      ],
+      "actual_eof": 225,
+      "purpose": "HairAssets actual material/mesh/scalp/atlas receiving adapters; no original808 ordered credit",
+      "ordered_credit": false
+    }
+  ],
+  "signature_locator_only": "rg declaration search previously exposed named signatures/module exports on683/808/816/831; no semantic body coverage credited. Full807 alreadyregistered/consumed.",
+  "not_registered": "unchanged gpu.rs, animation binding skin and nonmatching studio_generation body remain unread pending exact provenance/ranges"
+}

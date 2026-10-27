@@ -1,0 +1,482 @@
+{
+  "at": "2026-10-27T10:50:07.378123+00:00",
+  "lens": 11,
+  "status": "Original819\u2013823 independently source-accounted, qualified observations retained",
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-001.json",
+    "sha256": "0078a717f5ed477c2e2cbea9288934ef46a31d199e429f889c7443bf803772bc"
+  },
+  "authoritative_root_baseline": {
+    "path": "target/recovery-20261025/continuation-segovb/audit11-segovb-187-proposed-state.json",
+    "sha256": "bda064c320e11c976479600e9d7f40a10c36e05cddd388874d3c1534b490f152"
+  },
+  "registry": {
+    "path": "target/recovery-20261025/audit05/original-scope-072.json",
+    "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "frozen_authority": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+  "prospective_registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-002-registration.jsonl",
+    "sha256": "35b65d08b1101ff10e66285ddab4db2c0df0952e3d41bb6d01841cdc25fc8ae0"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 819,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/main.rs",
+      "path": "crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "actual_eof": 667,
+      "ranges": [
+        [
+          1,
+          667
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "existing exactfrozencache",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          667
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 820,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/model_controls.rs",
+      "path": "crates/adventuresim-character-creator/src/model_controls.rs",
+      "sha256": "f52b873a70ee6fd3ac34fc78e3acb63fac9b6466d973114ca313fe066105b5ae",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/f52b873a70ee6fd3ac34fc78e3acb63fac9b6466d973114ca313fe066105b5ae",
+      "actual_eof": 40,
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/f52b873a70ee6fd3ac34fc78e3acb63fac9b6466d973114ca313fe066105b5ae",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          40
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 821,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/outfit.rs",
+      "path": "crates/adventuresim-character-creator/src/outfit.rs",
+      "sha256": "4d3281fb80e63eeb57bf3caaec77e63eb33d75c62e6ec5d7053e2fd76ebd95f2",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/4d3281fb80e63eeb57bf3caaec77e63eb33d75c62e6ec5d7053e2fd76ebd95f2",
+      "actual_eof": 104,
+      "ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "existing exactfrozencache",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          104
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 822,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/parametric_equipment.rs",
+      "path": "crates/adventuresim-character-creator/src/parametric_equipment.rs",
+      "sha256": "fb8ed7e496fe124cf6ea6c4deb962b9602cf62f5b516d362b5e50ddca9829c49",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/fb8ed7e496fe124cf6ea6c4deb962b9602cf62f5b516d362b5e50ddca9829c49",
+      "actual_eof": 478,
+      "ranges": [
+        [
+          1,
+          478
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/fb8ed7e496fe124cf6ea6c4deb962b9602cf62f5b516d362b5e50ddca9829c49",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          478
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 823,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/preview.rs",
+      "path": "crates/adventuresim-character-creator/src/preview.rs",
+      "sha256": "c028a72d0f62e5d1f79d76d09e35a549de03dcbba566a0258e69fe8248023c09",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/c028a72d0f62e5d1f79d76d09e35a549de03dcbba566a0258e69fe8248023c09",
+      "actual_eof": 193,
+      "ranges": [
+        [
+          1,
+          193
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/c028a72d0f62e5d1f79d76d09e35a549de03dcbba566a0258e69fe8248023c09",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          193
+        ]
+      ]
+    }
+  ],
+  "material_receivers": [
+    {
+      "kind": "connected",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/drape_worker.rs",
+      "sha256": "6e96818d06560c10bd8f74d121d84fc812726274dedc89b59f85bce7d0e6ca73",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/6e96818d06560c10bd8f74d121d84fc812726274dedc89b59f85bce7d0e6ca73",
+      "ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "prospective": true,
+      "zero_new_original_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          131
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/drape_preview.rs",
+      "sha256": "c6e605a97a1a017db71939375f50395488a049834eebd77c4a09ee1058360077",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/c6e605a97a1a017db71939375f50395488a049834eebd77c4a09ee1058360077",
+      "ranges": [
+        [
+          1,
+          45
+        ],
+        [
+          141,
+          164
+        ]
+      ],
+      "prospective": true,
+      "zero_new_original_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          45
+        ],
+        [
+          141,
+          164
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/equipment_layers.rs",
+      "sha256": "2b9b34141b3bd8d1b9bc98b9db3af749035fa68190e135d31183a2c89fd70b86",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/2b9b34141b3bd8d1b9bc98b9db3af749035fa68190e135d31183a2c89fd70b86",
+      "ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "prospective": true,
+      "zero_new_original_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          71
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_frames.rs",
+      "sha256": "f5c8d7cf65f9cdc3472f6944d83c5d8340c2380bf19320be39b2613c3c9bc352",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/f5c8d7cf65f9cdc3472f6944d83c5d8340c2380bf19320be39b2613c3c9bc352",
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "prospective": true,
+      "zero_new_original_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          55
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_fit.rs",
+      "sha256": "5eb9fadd5491db5b34e9ea0b0478355229d88f1b0b9d937911f586dc55a0b710",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/5eb9fadd5491db5b34e9ea0b0478355229d88f1b0b9d937911f586dc55a0b710",
+      "ranges": [
+        [
+          431,
+          512
+        ]
+      ],
+      "prospective": true,
+      "zero_new_original_credit": true,
+      "actual_read_ranges": [
+        [
+          431,
+          512
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/studio_generation.rs",
+      "sha256": "7d6baf7df5362f498eb963aa984845e08e31952bec84de19b40620ea8f15dd0b",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/7d6baf7df5362f498eb963aa984845e08e31952bec84de19b40620ea8f15dd0b",
+      "ranges": [
+        [
+          21,
+          55
+        ],
+        [
+          118,
+          177
+        ]
+      ],
+      "prospective": true,
+      "zero_new_original_credit": true,
+      "actual_read_ranges": [
+        [
+          21,
+          55
+        ],
+        [
+          118,
+          177
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview.rs",
+      "sha256": "8c21b357f6f90a1c9c297c9e1c4306e63872daa3ccb32e060651f5df878b7ba3",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/8c21b357f6f90a1c9c297c9e1c4306e63872daa3ccb32e060651f5df878b7ba3",
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "prospective": true,
+      "zero_new_original_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          21
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_fit.rs",
+      "sha256": "5eb9fadd5491db5b34e9ea0b0478355229d88f1b0b9d937911f586dc55a0b710",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/5eb9fadd5491db5b34e9ea0b0478355229d88f1b0b9d937911f586dc55a0b710",
+      "ranges": [
+        [
+          83,
+          91
+        ]
+      ],
+      "prospective": true,
+      "zero_new_original_credit": true,
+      "actual_read_ranges": [
+        [
+          83,
+          91
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/cli.rs",
+      "sha256": "75a646db6855544be80e795e8a46aa8467929113159c7c94011e641e00472c9c",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/75a646db6855544be80e795e8a46aa8467929113159c7c94011e641e00472c9c",
+      "ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "prospective": true,
+      "zero_new_original_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          70
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/binding.rs",
+      "sha256": "1d37cdfbe3438b86643502d8f147cec1c22cfb04ba2ccdf09da1c30aacac7152",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/1d37cdfbe3438b86643502d8f147cec1c22cfb04ba2ccdf09da1c30aacac7152",
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "prospective": true,
+      "zero_new_original_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          58
+        ]
+      ]
+    }
+  ],
+  "per_role": [
+    {
+      "original": 819,
+      "disposition": "source-accounted",
+      "inventory": "BodyModel nativeMhr+lod+correctives resource, Studio recipe/UI pages/tab/dirty/status/paths/Seed/selectedmodelsettings and typedhairForm/ShownLayers, GeneratedCharacter rigindexed globalstates and native geometrybuffers, Libraries coherent separatepayloads, BevyCharacterMesh marker. Args selectors are actual CLI flags/optionalpaths; no invented mutually-exclusive policy.",
+      "contracts": [
+        "1\u2013181 rawlod passes CLI parser range4..6 -> native loadvalidation -> retainedBodyModel/Studio rawu8, matchingbatch001 question. correctives checkbox/nativeconfig isbinary modelfeature flag distinct from LOD/dirty; no semanticmerge. Recipe/glb/design/library paths originatePathBuf thenUIeditable String andnativePath boundary; labels/status arepresentationtext.",
+        "183\u2013265 entry mode priority write-designs -> review -> equipmentgeneration -> export -> GUI. ActualtypedEquipmentItemSelection admission before generation; ReviewSelection enum payload remains distinct. No unsupported universalmode/exclusion type imposed fromflagcount alone.",
+        "275\u2013379 actual resources/system ordering declared throughBevy scheduling, notexecution/lifetimeguarantee; validatedrecipeonstartup/save/load; nativefilesystem serialization isexplicitboundary. Newvalid recipefields flowwholeaggregate.",
+        "381\u2013455 placementcoverage islocalnumericcatalogmean; beltlocationenum classifiesmodelspaceunitaxis atnativegeometryboundary. load_model and reload preserveactualvalidated selection/failure revertsrequestedstate.",
+        "457\u2013667 fixtures readonly: GPUignored tests passLOD1 to loadbodymodel even though reachedadmission4..6. Source-backed earliestcontract conflict before intendedbody/dradetest ifassets envset; noexecutionorcurrentness claimed. Existing test numericalthresholds/JSON/environment selectors arefixtureports, no newproductionpolicies inferred."
+      ]
+    },
+    {
+      "original": 820,
+      "disposition": "source-accounted",
+      "inventory": "Nativeegui modelLOD slider and posecorrectivecheckbox overStudio requestedstate; namedchange predicates.",
+      "contracts": [
+        "Bounds exactlycanonical4..6; formatterconvertsnativefloatingUIvalue into CharacterLod beforevertices, strongtableindexproof retained. Productionexpect sliderbounds isactualcode, notnewauthoredcheck or inferredexecution; strengthens existing lostcheckedleaf propagation question, no independentunique count. Checkboxlabels enabled/disabledpresentationonly."
+      ]
+    },
+    {
+      "original": 821,
+      "disposition": "source-accounted",
+      "inventory": "TypedLoadout/FittedPiece/InventoryItemId,DrapeInput,optionalArcPlateLining,UnderPlate,GeneratedArmor and GarmentSpecification.",
+      "contracts": [
+        "14\u201342 actualinventoryloadout -> typedcatalogclothing factories -> nativebodyposition/normal/skin/framebuffers. Prior184 exactGarmentSpecification/from_catalog/clothingreceivingproof retained; no universalpublicgeometryvalidation.",
+        "46\u201373 iteratesdrapedpieces outertoinner, carries eachtypedInventoryID withDrapeInput, restoresinputorder; sameinputownsselection and optional saveddrape. Underplate onlycoveragepredicate, native metresstandoff derivesnamedclearance andfabricradius. No newplate-v-clothidentity conflation or physicalbounds invented.",
+        "75\u2013104 lining selectsactualrigidchannel frompairedpiece/armor; clothingfactory usesactualborrowedCatalogPlacement. Positional tagged inputs carry typedpayloads and tags into actualgenericworker; association issourcecoherent, notstaticuniversalownershipproof."
+      ]
+    },
+    {
+      "original": 822,
+      "disposition": "source-accounted with qualified receivingassociation question",
+      "inventory": "ItemDesign/ParametricDesign actualgenerator alternatives, CatalogPlacement->FittingPlacement(LateralSide/Unpaired), DevicePiece, Fitted records, SelectedArmor vsFinish stages, optionalSelectedTrim/SelectedLacing policy payloads, LayerPlan ordinals.",
+      "contracts": [
+        "14\u2013111 Underlayer/TrunkHose routeownfitter, otherdesigns devicefit thenassemble; Vambrace requireslateral side andmaps toForearmSide, Breastplate dedicatedfit. Genericfitting Side vsRigSide/nativeforearmrole adapters areexplicitclassification; no automaticflattening justidenticalleft/right storage. Catalogselection retainedabovepurefittingroleboundary.",
+        "114\u2013266 Finish containscacheablegeometry/trim/lacing beforeassociation; SelectedArmor bindsclonedFittedPiece andnativeoutputname, preservingexistingstage distinction ratherthan redundantwrapper. issteel/rigid areactualderivedpredicates. construct/trim returntypedcomponentpairs immediatelydestructuredintofinalnamedFinish; no untypedprimitive parameter role conflation inferred.",
+        "269\u2013303 LayerPlan constructor1\u201354 buildsallindices fromsameplacementslen, topoorder rejectscycle. results/fitted vectors samecardinality, indicesarestructurallyboundedhere; localusizeordinals notarbitraryclosedenum. supports mustalreadyfittedcheckedOption beforeaccess; no unproveddynamicindexbranch invented.",
+        "305\u2013478 fixtures specifytopology/component/morph/trim expectations, notobservedresults orcontinuousfitguarantee; sameLOD1sourceconflict316 supportsbatch001LODquestion. deviceFit actualassembly publicnames/endpoints pairing recordedbelow; do notdeepenphysicalfitkernels unnecessarily."
+      ]
+    },
+    {
+      "original": 823,
+      "disposition": "source-accounted with qualified skinbufferassociation question",
+      "inventory": "ArmorShading plateStandardMaterial+optionalTrimPreview(UV/material),nativeClothingShell->Mesh,typedWalkPreview skinowner,GeneratedArmor surfaces/components,SkinnedMesh,Colorauthorpreset.",
+      "contracts": [
+        "18\u201360 shellpositions/normals/triangleindices and borrowedmodelskin convertedatBevyMeshnativeattributes, PBRcolorroleexplicitnativeColor. Actualbinding1\u201358 retainsPackedRigSkin ordinals untilcheckedu16encoding/top4weights; independentvertexbufferlength questionrecordedbelow.",
+        "74\u2013141 actualper-surfaceplateandoptionaltrimdraws; names/components,range/UV/material temporarytuples areimmediatelydestructuredatnativeMeshconstruction, no newgeneralpartidentitytype requiredsolelytuplearity. ExistingpublicGeneratedArmor structural/indexvalidity notguaranteedbythisread.",
+        "Actual832118\u2013176 producesTrimPreview fromsameSelectedTrim payload andusesmatchingpiecegenerated; lacing receivesseparateGeneratedArmor/cordmaterial andtrimNone. Actualnamedshadingrecord ownsrelevantoptionalpayload, no boolean-plus-independenttrimdata redesignneeded.",
+        "147\u2013193 nativebodyskin/material adapter andauthoredskinPBRpreset; colors/roughnessnativeframework fields notretainedgameplayratio semantics. Novisualrenderacceptance inferred."
+      ]
+    }
+  ],
+  "qualified_observations": [
+    {
+      "source_key": "pr-working:crates/adventuresim-character-creator/src/main.rs@41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9#L99-L116,L408-L455,L483-L485:characterlod-validation-discard",
+      "relation": "Further exactsupport forbatch001sameLODsourcequestion, no newacceptedalias/unique",
+      "observation": "RawvalidatedLOD retainedBodyModel/Studio and APIacceptsu8. Existingignoredtestpasses1; constructorreturnsErrgivenexactMIN4/MAX6 beforeintendedGPUbody. Secondfixtureoriginal822316 repeats sameinput. Programmatic badinput isconcretefrozen sourcewitness, notexecutedtest/currentruntimeincident.",
+      "remedy": "Carry existingcheckedCharacterLod inapplicationstate/ports andadmit fixture/nativeCLIvalues explicitly; reconcilefrozen/current supportedLODpolicybeforeanyrepair. No compatibility fallback or retaininginvalid1expected.",
+      "acceptance": "All actual app detailports use same canonicalrange; nativeMhrConfig/assetpath conversion onlyatadapter; existingfixtures useactualsupportedselection.",
+      "currentness": "Frozenonly, canonicalfindingalias/currentcomparison pending"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-character-creator/src/device_fit.rs@5eb9fadd5491db5b34e9ea0b0478355229d88f1b0b9d937911f586dc55a0b710#L83-L89,L431-L475:morph-name-endpoint-pairing",
+      "classification": "Qualified receiving-role association gap; ordinaryproducer/runtimewitness notestablished",
+      "observation": "PublicDevicePiece endpointsVec independentfrompublicFitted.morphs names. assemble_recipe zip454 truncatesto shorter; checks topology onlyforpaired entries, no cardinalityrelationshipcheckhere despite per-realizationtargetcontract. Actual822producerpassesnamesfromsamemorphsliceusedupstream, soordinaryproducercoherence remainsqualified; no currentwrongmeshclaim.",
+      "remedy": "Reconcileexistingmorphowner; retain eachrealizationnamewithitsendpoint duringproducerfit oradmit matchingcollection atassembly boundary. Do not inventnumericbounds or universalrig-instanceassociation.",
+      "dependencies": [
+        "Existing184savedassociation/F50/M108aliases requirecanonicalcomparison, notassumedaliases",
+        "exactcurrentBody/APIcomparison",
+        "producer/nativecountcontract ifrepairchosen"
+      ],
+      "acceptance": "Sourcebackedone-to-one namedrealization/endpoints relationship or explicitintentionalprefixstate, no silentunpaired drop underclaimedper-realization result.",
+      "currentness": "Frozenonly; noalias/acceptedunique established"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-character-creator/src/animation_preview/binding.rs@1d37cdfbe3438b86643502d8f147cec1c22cfb04ba2ccdf09da1c30aacac7152#L7-L18,L20-L49:skin-index-weight-vertex-association",
+      "classification": "Qualifiednative-adapter inputassociation question",
+      "observation": "ClothBinding::Weighted andskin_mesh takePackedRigSkin<8> independentweightrows; zip22 silentlyuses commonprefix. Typedjointordinals/nativeu16boundary correct, butmatchingvertexrows notadmittedhere. Actual823passescoherentmodelindex/weightfields, noordinarywronginput/nativefailureasserted.",
+      "remedy": "Reusecanonicalskinbindingowner/checkedrowassociation beforeadapter; keepexplicitnative4influenceencoding. Do not inventstricterweightnumericpolicy withoutactualcontract.",
+      "dependencies": [
+        "ExistingF50/M108andcurrentDressingreconciliation preserved, notnewalias",
+        "currentnativeadapter/sourcecomparison",
+        "canonicalRigskinownercoordination"
+      ],
+      "acceptance": "Actualpairedskinrowcardinality expressed/validated beforeattributeconstruction; typedordinalthroughnativeencoding retained, no fabricatedSDKguarantee.",
+      "currentness": "Frozenonly/currentness/alias/unique unresolved"
+    }
+  ],
+  "carried_own_proofs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-001-receipt.json",
+      "sha256": "b67040e3d8f546f061a83c2253768f52cc5c9c5e0b8717b65a2ea5d94b7592f2"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit11-segovb-184-810-complete-001.json",
+      "sha256": "1efd23196f71ca4b5cdca49ef43277bf8637d2406faa019403b93d8e07f85328"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit11-segovb-180-807-complete-001.json",
+      "sha256": "c3dcf00443532da26ae2e85d0d917fd38173dd97425b6e21bb02087a43f16b75"
+    }
+  ],
+  "source_limits": [
+    "No deeperphysicalfit/shader/BevySDK traversal neededtodecide scopedgranularity; source-accountedwithlistedquestions, notallnativekernelclearance.",
+    "All1482originalsource lines actuallyconsumed; connectedranges explicitlyprospectiveregistered andread, nohash/searchonlycoverage orotherlenscredit.",
+    "Metadataoutputtruncationofsymbol locators notbodycoverage. PythonSyntaxWarning fromtightternary inread script wasnonprojectreadhelper; actual822241\u2013478 and8231\u2013193 complete output consumed.",
+    "Prospectiveregistered incidentalpartial helper tails (LayerPlanancestors56\u201371,Side.joint39\u201355) readforcontextbutnotclaimedwholemethodcontracts.",
+    "No product/Gitmutations/rootledger/projectexecution/checks/probes/tests/newtests/publication."
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer. Preserve180/181nativeSDK/Bevy scheduling/imagecopylimits andallpendingreceiverqueues. M04current903reviewsseparate; notfrozenoriginal/lenscounts. Packet182InventoryItemId graph erasure, catalogkey/recordidentity and wear/order-selector sourcequestions retained, alias/currentness/unique acceptance unresolved. M04build-target review003 atdf5 andhostedCIseparatefromfrozenauditcounts. 184 newpublicDrapedPiece association/sourcegroupingquestion remainsfrozenlocal, noalias/currentness/uniqueacceptance; producerpathcoherent. M04df5validationseparate. 185 capacityreservationstaticAPIgap retainedasfrozenevidence only; alias/currentness/accepteduniqueness unresolved. No runtimewrongID orauthoredcurrentinputwitness. ExistingID/key/wear/savedassociationquestionsremainqualified. Packet186 independently accounts existing test-source812 only; fixture expectations are not observed execution/whole authored catalog/native guarantees and do not clear185 capacity witness. Existing lower-pattern fixture uses canonical owners; no new current alias or unique finding. Packet187 original813 only. New frozen inventory_ui and catalog wrapper material extensions mandatory other lenses, zero extra shared/original credit. UI acquisition is not atomic/all-worn; inherited capacity, typedID erasure/key authority and public saved-association questions retain all currentness/alias/unique limits.",
+  "new_material_extensions": [],
+  "new_original_shared_credit_for_receivers": 0,
+  "accepted_unique_count_change": 0,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_adoption_required": true
+}

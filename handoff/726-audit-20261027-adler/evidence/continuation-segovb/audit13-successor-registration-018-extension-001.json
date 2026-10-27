@@ -1,0 +1,36 @@
+{
+  "at": "2026-10-27T01:01:32.798397+00:00",
+  "lens": 13,
+  "packet": "018",
+  "extension_of": "audit13-successor-registration-018.json",
+  "body_consumed_at_registration": false,
+  "sources": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input.rs",
+      "sha256": "bde515fc144669a9902a54886ded6185c84fca86313d86ca7c44ba0626e8ae12",
+      "bytes": 39530,
+      "actual_lines": 1026,
+      "ranges": [
+        [
+          1,
+          74
+        ],
+        [
+          150,
+          174
+        ],
+        [
+          244,
+          307
+        ],
+        [
+          420,
+          509
+        ]
+      ],
+      "purpose": "Scene input imports/module paths;load/validate delegation; exact upsample dimension transformation and sample-grid validation receiver; production only",
+      "provenance": "audit13-root-terrain-staging-018.json exact f82 registered pr-working object"
+    }
+  ],
+  "limits": "Metadata rg for symbol/dimension locators emitted incidental existing test lines beyond510: no test/body coverage or execution, no conclusions from those lines. These exact production ranges now prospectively registered; no test tail or unrelated helpers consumed."
+}

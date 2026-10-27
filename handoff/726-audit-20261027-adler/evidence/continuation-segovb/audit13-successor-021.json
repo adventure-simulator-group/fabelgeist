@@ -1,0 +1,322 @@
+{
+  "at": "2026-10-27T01:50:20.435822+00:00",
+  "lens": "13 magic-numbers",
+  "packet": "021",
+  "status": "Original37 is proposed source-accounted WITH qualified native source observations: actualselecteddefaultmotionprepass receivespreviousmatrix; producer mismatch identified.36/2853 proposed,31/36partial,firstunread38. Stop packet.",
+  "authority": {
+    "frozen_original_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "native_git_commit": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+    "root_adoption": "audit13-successor-020-adoption-root.json",
+    "root_adoption_sha256": "621ced6cd900bff33505a6db388b113abbb3d2ce865eb8d9c727bb43fbf14afc",
+    "prior_state": "audit13-successor-020-suggested-state.json",
+    "prior_state_sha256": "79bd2346876e4b67d6bab93bf32e4a89ce8e38e21719a988819d2c33fabd0dd9",
+    "original37": {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/types.wgsl",
+      "sha256": "9bd27e4a4bb61b319e4ee13ae7e1407be2fdd432471ef6e9aede72e206321d90",
+      "bytes": 332,
+      "actual_lines": 15,
+      "full_effective_scope": [
+        [
+          1,
+          15
+        ]
+      ],
+      "independent_inventory_source": "audit13-successor-019.json original37",
+      "latest_identity_verified": true
+    },
+    "native_staging": [
+      {
+        "path": "audit13-native-history-staging-021.json",
+        "sha256": "cbfc1067f0b3e1eb26eb7dc4da1048c162660ca64f7fcc3007ab405d14e31e01",
+        "staging_is_body_coverage": false
+      },
+      {
+        "path": "audit13-native-history-staging-021-supplement.json",
+        "sha256": "b8fe8873b1bc08527d0ff62ba0bb44355d35a5c38127b2a2cac542d94bdf418c",
+        "staging_is_body_coverage": false
+      }
+    ],
+    "root_adoption_required": true
+  },
+  "registration_files": [
+    {
+      "path": "audit13-successor-registration-021.json",
+      "sha256": "0a5773c64cc382e7135d27f952e74c37797bb18228ef771ff1365d4ad9e21667",
+      "before_actual_body_reads": true
+    },
+    {
+      "path": "audit13-successor-registration-021-receivers-001.json",
+      "sha256": "4da9e2266d8d524d3736b2483608de47497e9461aa6bc60749900383443b96fc",
+      "before_actual_body_reads": true
+    }
+  ],
+  "source_fingerprints": [
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/prepass/prepass.wgsl",
+      "sha256": "d55568e08bd83b5db11110f851fba531d10e170ad6c0bf0a4c5acda1a8c58695",
+      "bytes": 4212,
+      "actual_lines": 155,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "post_read_hash_verified": true,
+      "role": "receiver-only; zero independent source-population credit"
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/prepass/pipeline.rs",
+      "sha256": "8e3f4e39a664ef4ce7965f53f8a0d93da7d3ccd0b3312b003b27a23255e87dbc",
+      "bytes": 10547,
+      "actual_lines": 283,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          283
+        ]
+      ],
+      "post_read_hash_verified": true,
+      "role": "receiver-only; zero independent source-population credit"
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/prepass/plugin.rs",
+      "sha256": "962b5cd44b2de30e93febfd431c1c538530d121e1e2dd514f63ec8dc3ccc0bf0",
+      "bytes": 1701,
+      "actual_lines": 51,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "post_read_hash_verified": true,
+      "role": "receiver-only; zero independent source-population credit"
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/prepass/queue.rs",
+      "sha256": "d7b476b47eca0a3dbd652572ee1e56daf97d14a21005038c102ffff0e681367e",
+      "bytes": 8172,
+      "actual_lines": 221,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          221
+        ]
+      ],
+      "post_read_hash_verified": true,
+      "role": "receiver-only; zero independent source-population credit"
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/components.rs",
+      "sha256": "e2053ee2dbf1a837b1a4e80d2d2afa22c0ecc2231bf586041222082971b9cbea",
+      "bytes": 5033,
+      "actual_lines": 193,
+      "registered_and_consumed_ranges": [
+        [
+          104,
+          108
+        ],
+        [
+          128,
+          148
+        ]
+      ],
+      "post_read_hash_verified": true,
+      "role": "receiver-only; zero independent source-population credit"
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/plugin.rs",
+      "sha256": "1e686092ec02c418795c2e1bed451a9aba8c196608d1b1fa2c334310d17f9b09",
+      "bytes": 9257,
+      "actual_lines": 262,
+      "registered_and_consumed_ranges": [
+        [
+          42,
+          56
+        ],
+        [
+          82,
+          99
+        ]
+      ],
+      "post_read_hash_verified": true,
+      "role": "receiver-only; zero independent source-population credit"
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/mod.rs",
+      "sha256": "7b8be56d6f6ea9285176e55efb88de7bcb8a15df4cdca7619d3038a92de56092",
+      "bytes": 10975,
+      "actual_lines": 340,
+      "registered_and_consumed_ranges": [
+        [
+          112,
+          124
+        ],
+        [
+          179,
+          225
+        ]
+      ],
+      "post_read_hash_verified": true,
+      "role": "receiver-only; zero independent source-population credit"
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/prepass/draw.rs",
+      "sha256": "c53031d25ee42c3b37e286bfff5b3de15a9c5de94084f62db4924a08d9a9588d",
+      "bytes": 574,
+      "actual_lines": 14,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          14
+        ]
+      ],
+      "post_read_hash_verified": true,
+      "role": "receiver-only; zero independent source-population credit"
+    }
+  ],
+  "consumption": {
+    "unique_files": 8,
+    "registered_lines": 843,
+    "all_registered_ranges_consumed": true,
+    "post_read_hash_verified": true,
+    "unregistered_actual_body_read": false,
+    "search_or_staging_is_body_coverage": false
+  },
+  "history_producer_retention_operation_receiver": [
+    {
+      "step": "History carrier/update/extraction",
+      "source": "components.rs104-108;render/plugin.rs42-56/82-99",
+      "proof": "InstanceHistory ownsMat4 withComponent/ExtractComponent/Reflect/etcderives. Plugin registersExtractComponentPlugin<InstanceHistory> andPreUpdate updater. Updater queriesGlobalTransform+OptionalmutableHistory forentitieswithInstanceMaterialData/Mesh3d;writescurrent_matrix orinitializesHistory(current_matrix).",
+      "limit": "No previousframe valuepromisedfromnamealone;schedule/currentfirstpartytransformupdateordering,actualglobaltransformhistory andReflectadmissionsnotproved."
+    },
+    {
+      "step": "Actual uniformproducer",
+      "source": "render/prepare/mod.rs112-124/179-225;components.rs128-148",
+      "proof": "collect_inputs queryhasInstanceMaterialData,GlobalTransform,optionalGpuCullCompute/Aabb,butnoHistorycomponent. BatchInput.InstanceUniforms assigns world_from_local=gtf.to_matrix() and previous_world_from_local=gtf.to_matrix(),setsworldAABBzeropaddedvectors,thenusesmaterialcolor/rangeFromconversion.",
+      "limit": "Concrete fieldoriginindependentoflexicalsearch;no routefromInstanceHistory intothisactualproducer. Other possiblecustomproducers notgloballyexcluded."
+    },
+    {
+      "step": "Retained GPUtransport",
+      "source": "Retained019/011 actualBatchInput->BatchData.uniform->BatchBuffer.update/flush;021prepassdraw.rs1-14",
+      "proof": "Previouslyread actualbufferpathretainsInstanceUniforms;actualprepassdrawtupleusesSetInstanceBindGroup<M,2> andSetMaterialBindGroup<M,3>,samegenericnativebindingrecipientsread015/020. Thus selectedprepassreadsactualsharedgroup2storageuniforms,notaspeculateddifferenthistorybuffer.",
+      "limit": "Retainedexactsourceproof,notneworiginal31/35creditorcompiledbyte/driverproof;macrogeneratedencodingsandGPUfreshness/currentnessstillqualified."
+    },
+    {
+      "step": "Selection/gates",
+      "source": "prepass/plugin.rs1-51;prepass/queue.rs1-221;prepass/pipeline.rs1-283;retained020material.rs23-39/utilsresolver",
+      "proof": "Pluginregistersembeddedprepass.wgsl,prepass/deferredrendercommands,pipelineinitandqueue. Queue requiresmaterial/assets/meshandprepassenabled;viewMotionVectorPrepassSome addsMOTION_VECTOR_PREPASS tobothopaque/deferred pipelinekeys. Pipeline resolvesM::prepass_shader();Defaultselectsembeddedprepass/prepass.wgsl,addsMOTION_VECTOR_PREPASS/PREPASS_FRAGMENT,choosesmotionviewlayout/targets,installsselectedshader,andcallsM::specialize.",
+      "limit": "Native conditionalconfiguration/actualcodepath,notruntimeviewpresence/firstpartymaterialselection. Mmayoverrideshader/specialization;allcustomcontractsnotclosed."
+    },
+    {
+      "step": "Concrete previousmatrix consumer",
+      "source": "prepass/prepass.wgsl49-70/109-134",
+      "proof": "Vertexreadsbatchfrominstance_uniforms[vertex.i_batch_id]. UnderMOTION_VECTOR_PREPASS,currentandpreviousmatrices are separatelypassedwithsameinstanceposition/rotation tocalc_instance_world_matrix; previousworldposition=prev_final_matrix*vec4(vertex.position,1) isretainedaslocation1varying. Fragmentpassescurrent/previousworldpositions toBevynativecalculate_motion_vector andwritesmotion_vector output.",
+      "limit": "Actualhistoryfieldconsumerandnativefloatmatrixinterfaceestablished. Helper/compiler/device/camera implementation/currentactivation notexecuted;nooverallzero-motionorvisualartifactclaim."
+    }
+  ],
+  "original37_field_reconciliation": [
+    {
+      "field": "MaterialUniforms.debug_color:vec4<f32>",
+      "producer_retention_receiver": "020StandardColor ->to_linear().to_vec4()->InstancedMaterialUniforms/AsBindGroup binding0 ->PreparedBindGroup ->group3uniform ->MATERIAL_DEBUG branch. NativeStandarddebugkey enablesconditional.",
+      "disposition": "Source-accountednativepayloadwithqualifiedsource-backedconditionalmismatch:fragmentassignsundeclaredfinal_color andreturnsbatch.color. Runtime/currentactivationnotproved."
+    },
+    {
+      "field": "InstanceUniforms.color:vec4<f32>",
+      "producer_retention_receiver": "019actualLinearRgbaFromInstanceMaterialData ->BatchInput/BatchData.uniform/buffer ->defaultfragmentbatch.color;021deferredprepassalsoassignsbatch.color toPBRbase_color.",
+      "disposition": "Source-accountednativecolortransport/operations;notallfirstpartycolorpolicy/compiledlayout."
+    },
+    {
+      "field": "visibility_range:vec4<f32>",
+      "producer_retention_receiver": "019FromInstanceMaterialDataVec4->uniformbuffer;actualcullcomparesworlddistance tox/w;defaultvertexand021prepasspassfulltuple toditherhelper. Retained011actualhelperread usesxy/zw fadeintervals,division/round/clamp/16levels;rootreceipt011sourceproofexplicitlyretained.",
+      "disposition": "Source-accountednumericnativeendpointroles/operations WITH unvalidatedorder/nonzerowidth/finiteness/appbounds;38priorreceiverproofdoesnot confer38orderedrolecredit."
+    },
+    {
+      "field": "world_from_local:mat4x4<f32>",
+      "producer_retention_receiver": "019/021GTF.to_matrix ->uniformbuffer ->actualdefaultvertex/currentprepasslocal-to-worldmatrix/cullposition operations.",
+      "disposition": "Source-accountednativeaffinetransformport;notallframes/finiteadmission/currentness."
+    },
+    {
+      "field": "previous_world_from_local:mat4x4<f32>",
+      "producer_retention_receiver": "021GTF.to_matrix(current) ->sameuniformbuffer ->defaultselectedmotionprepasspreviousposition ->calculate_motion_vector. InstanceHistory isupdated/extractedbutnotqueriedatproducer.",
+      "disposition": "Source-accountedWITHsource-backedhistorical-inputmismatch; no longeruntracedconsumer. Findingalias/currentness/reachability/runtimeeffectunresolved,zeroacceptedunique."
+    },
+    {
+      "field": "aabb_center/aabb_half_extents:vec4<f32>",
+      "producer_retention_receiver": "019/021worldtransformAABBproducer/paddingw0 ->uniformbuffer ->actualcullcompute.xyzsignedplaneprojection/radius.",
+      "disposition": "Source-accountednativeAABBtransport/operation;f32MAXfallback/arithmeticoverflow/framepolicy/correlatedbufferboundsretainqualifications."
+    }
+  ],
+  "new_receiver_numeric_inventory": [
+    {
+      "source": "prepass/prepass.wgsl1-155",
+      "roles": "NativeWGSLpositions/matricesfloatvectors,group0binding1globals;locations0-6varyings;flatditheri32/batchu32;homogeneous1/normal0;world/previouspositionconditional;fallbacknormal(0,1,0),tangentw;UV/deferred/dither/nativePBRfloathelpers;normalpack*.5+.5,metallic0/roughness.5/passID1u.",
+      "actual_operations": "Current/previousfieldreceiversabove;normal/tangenttransform/normalize,viewclipprojection;PBRcolor/positionnormalretentionandnativegbuffer output.",
+      "limits": "Contextualnativecalls/packingidentified,nouniversalshader/sampler/unit/normal/PBRadmissionorpassIDownerproof. Nootheroriginalsourcecompletion. UNCLIPPED_DEPTH_ORTHO_EMULATIONbranchesreferenceout/in.unclipped_depth absentinreadPrepassVertexOutput;contextsourceobservationonly,noactivefeature/compilerdefectclaimoruniquecount."
+    },
+    {
+      "source": "prepass/pipeline.rs1-283 +queue.rs1-221",
+      "roles": "Namednativefeaturebitkeys/presenceOptions,materialdisable_prepassbool,MSAAcounts/mask!0,falsealpha,trueDepthWrite,depthcompareGreaterEqual;layoutgroups0-3;meshvertexloc0-5/instance8-12;size_ofInstanceData byteoffset/nativeformat conversions;passselectors/InputUniformIndex0;optionalphasecache/meshresources;specializationunwrap.",
+      "actual_operations": "Actualcameraoption->nativebitkey->shaderdef andselectedshaderdescriptor;nativevertex/bufferformats,prepassrenderscheduling/key/materialstate retainedasabove.",
+      "limits": "ConcretegraphicsABI/group/format/featurepoliciesidentified,notbroadtypedowner/primitiveexemptionorcurrentview/device/allkeybounds guarantee. Related36conditionalhostqueriesarenotindependentlyreconciled/clearedbythisreceiverread."
+    },
+    {
+      "source": "prepass/plugin.rs1-51/draw.rs1-14;components.rs104-108/128-148;renderplugin42-56/82-99;prepare112-124/179-225",
+      "roles": "Generictypedplugin/marker/queryOptions,currentMat4state,tuplegroupaddressliterals0-3;globaltransformmatrix/AABBaxisabs/padding0;componentfeaturefilters;typedLinearrgba/rawVec4defaults f32MAX.",
+      "actual_operations": "Exacthistoryupdate/extraction,currentmatrixuniformproducer,selecteddrawbindingandmotionreceiverrelationshiprecordedabove.",
+      "limits": "Noallcaller/reflection/genericM/temporalordering/previouspose/bodymovementadmission proof;nativehistorysourceobservationretainednon-counted."
+    }
+  ],
+  "source_observations_noncounted": [
+    {
+      "prior_family": "011/012/019/020 nativehistory/previousmatrix",
+      "update": "Actualselecteddefaultmotionprepassconsumer foundandread. Producerwritescurrentmatrixintopreviousfield anddoesnotqueryInstanceHistory;selectedmotioncomputationenumeratespreviouspositionfromthatfield.",
+      "status": "Source-backedmismatch,notincompletefieldtrace. Noactualcurrentfirstpartyactivation/screenresult/compiler/runtimeclaim ornewuniqueacceptedfinding. Rootalias/currentness/reachabilityreconciliationrequired."
+    }
+  ],
+  "scope_disposition": {
+    "original37": "Proposed source-accounted fullregistered1-15 scope WITH qualifiedsourceobservations. Eachscopedprimitivefieldhasactualnativeproducer/retainedtransport/operation/receiver orsource-backedmismatch. Thisisnotintegratedrepair/runtimevalidation/fullSDKorallcustommaterialclearance.",
+    "original31": "Remains partial;defaultnativehistoryconsumersubsetresolvedwithobservation,allother31wrapper/count/seed/index/currentfirstparty/customlimitsretainauthority.",
+    "original36": "Partial unchanged;noautomaticconditionalhost/UV/skinning/local_posrolecredit fromrelatedprepassreceiverread.",
+    "original38": "Stillfirstunreadorderedrole;no021bodyinventory orcredit. Retained011receiverbodyproofonly."
+  },
+  "accounting": {
+    "before_original_accounted": 35,
+    "after_proposed_original_accounted": 36,
+    "original_total": 2853,
+    "new_original_roles_completed": [
+      37
+    ],
+    "original37_completion_increment": 1,
+    "partial_original_indices": [
+      31,
+      36
+    ],
+    "earliest_unfinished_original": 31,
+    "first_unread_original": 38,
+    "original38_ordered_credit": 0,
+    "overlays_increment": 0,
+    "merged_increment": 0,
+    "material_increment": 0,
+    "other_lens_credit": 0,
+    "new_unique_count": 0
+  },
+  "other_lens_extension_queue": {
+    "path": "audit13-successor-021-other-lens-extension-queue.json",
+    "sha256": "8b7916c4855fbd230c5715c063cc2d074536f5baef829c20b5745f80716567c8",
+    "credit": 0
+  },
+  "qualifications": [
+    "Original37full effectiveowner scope1-15/332bytes independently inventoried in019,exactSHAverifiedagain in021; source-role completion now uses thatinventory plusactual020native material/debug source and021history/defaultprepass source,not anotherlens verdict ormetadata-onlysearch. No narrowedvariants/unseen sourcecredit.",
+    "Eight exactnative sourceobjects/843 prospectively registered lines personally consumed inboundedoutputs,hashverified before/after. Five selectedprepassmembers stagedfromimmutablecachedGit1a5aff; known original37peerbyteidentity retained,not a claimallunseenfrozenmembers/currentmainmatch. NativeGitcommandsread-only metadata/objectextractiononly,explicitlyauthorized;no repositoryGit mutation/wholeSDK/frozen-tree download.",
+    "Identifier search locatedprepassreceivers butdidnot proveuniversalabsence. Actualselecteddefaultshader source/queue/pipeline/drawbodies now read. CustomM mayoverrideshaders/specialization/disableprepass andhasunboundedcustomcontracts; source-accounted37doesnot certifyallcustomM,allfirstpartyproducers/currentactivationorwholeSDK.",
+    "Source completeness isdistinctfromruntimevalidation: original37 nowhasactualproducer/retainedtransport/receiver orsource-backedmismatch foreachscopedfield. UnreadAsBindGroup/ShaderType byteencoding,bufferupload/driver/loader/compilerinternals andunverifiedcurrentfirstpartyactivation remainexternalqualifications,not automaticmissing-source37rolecredit.",
+    "The nativehistory consumer frontier in019/020 is superseded forselecteddefaultmotionprepass bythisexactsourcegraph. Original31remains partialforotherwrapper/count/seed/index/app/historycurrentness obligations;original36conditionalhost/local_pospartial unchanged. Noindependent31/36 completion fromreceiveraccess.",
+    "Source-backed mismatch iscurrentGTFassignedtobothuniformmatrices whileactualmotionprepass consumespreviousfield;InstanceHistoryupdated/extractedbutnotaninputtoreadcollect_inputsquery. No actualscreenmotion,zerooverallmotion,temporal schedulingbug,currentfirstpartyreachability,compilednativefailureoruniqueacceptedfinding asserted. Camera motion/nativecalculate_motion_vectorimplementationunread.",
+    "020Standarddebugenable/nativeuniformproducerobservations retained;undeclaredfinal_color/alwaysbatchcolor sourceconcernnon-counted. CurrentStandard/customMchoice/debugtrue/compiledactivation andallmacro/devicebytecorrectness unvalidated. Do not silentlyconvertthese limitsinto a globalnativeclearance orcompletefirstpartypolicy.",
+    "018larger candidate-lattice area andmissing sufficienthardcap do notproveactualspecieslen>1M,overfloworpanic. Actualpopulationlowerbound/witness,allscenevalidators/currentbackend andremaining31counts unchanged. All inherited/nativeID/reset/buffer/history/F1/F2/F6/F9/global20findings andother-lensqueues remainopen/non-counteduntilrootdedup/currentness/reachability.",
+    "No original38body read/orderedinventory/credit in021,nor39. Original0-30/32-35notrestarted;only37proposedsource-accounted+1. Noprojectexecution/build/check/test/lint/scan/generate/probe/assertion/helper/doctestaddition/run,product/source/repositoryGit/rootledger/historicaledits orpublication. Ignoredappend-onlyevidence only. No backwardcompatibilityorwholeSDK/lens13/globalauditclearance."
+  ],
+  "stop_reason": "Boundedoriginal37history/defaultselectedconsumertracefinishedandallscopedfieldsreconciledwithpriorindependentinventory/producerproofs;proposesourceaccounted37withqualifiedobservations,stopbefore38andanybroaderSDK/apptrace."
+}

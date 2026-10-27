@@ -1,0 +1,37 @@
+diff --git a/crates/adventuresim-tactical-client/src/camera.rs b/crates/adventuresim-tactical-client/src/camera.rs
+index c9ffae881..63c3800fb 100644
+--- a/crates/adventuresim-tactical-client/src/camera.rs
++++ b/crates/adventuresim-tactical-client/src/camera.rs
+@@ -3,30 +3,29 @@ use adventuresim_core::linear_speed::SignedSpeed;
+ use adventuresim_tactical_core::{
+     animation::UnitInterval,
+     scene_coordinates::{Scene, SceneVelocity},
+ };
+ use bevy::prelude::*;
+ use fabelgeist_geometry::SignedLength;
+ 
+ pub use adventuresim_tactical_core::animation::ResponseShapingTime;
+ use aim::update_camera_aim;
+ use collision::{CameraHit, CameraVolumeDebug};
+-pub(crate) use config::authored_metres;
+ pub use config::{CameraProfile, CameraRigConfig};
+ use rig::update_camera_rig;
+ use rig_history::CameraRigState;
+ use values::ScreenError;
+-pub use values::{CameraError, CameraResult, FramingOffset, MuzzleOffset, ScreenWindow};
++pub use values::{CameraError, CameraResult, ScreenWindow};
+ 
+ mod aim;
+ pub(crate) mod collision;
+-mod config;
++pub(crate) mod config;
+ mod rig;
+ mod rig_history;
+ mod smoothing;
+ mod values;
+ 
+ pub struct TacticalCameraPlugin;
+ 
+ #[derive(SystemSet, Debug, Clone, Copy, PartialEq, Eq, Hash)]
+ pub(crate) enum TacticalCameraSet {
+     Offset,

@@ -1,0 +1,253 @@
+{
+  "lens": "derivability",
+  "registry": "../shared-material-successor/source-extensions-187.json",
+  "registry_sha256": "afd8158f9381deffcb264daf382e4db681880cd51b120b9a3fcc9b8bfc2ea3b9",
+  "receipts": [
+    {
+      "material_index": 153,
+      "registration": {
+        "source_id": "pinned-registry:derive_more-impl-2.1.1/src/as/mod.rs",
+        "sha256": "767fe0f2cb67c57028ca69d138757c5fdd894ad6fa54fcb11ef8f4a7d4b4ef82",
+        "ranges": [
+          [
+            17,
+            68
+          ],
+          [
+            147,
+            306
+          ]
+        ],
+        "actual_EOF": 306,
+        "package_checksum": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb",
+        "reason": "Bounded exact existing AsRef derive equivalence for LibraryName: explicit str output only, borrowed String view, no extra AsRef<String>/blanket implementation. No external SDK repair or whole-library coverage.",
+        "registration_evidence": "derivability/fresh-dependency-registration-423.json",
+        "line_count": 306,
+        "provenance_verification": "Coordinator compared exact object against cached archive member and package checksum; worker frozen lock680 match evidence retained. No macro execution or source-semantic credit.",
+        "index": 153
+      },
+      "source_origin": "../audit02-delta/sources/767fe0f2cb67c57028ca69d138757c5fdd894ad6fa54fcb11ef8f4a7d4b4ef82",
+      "source_sha256": "767fe0f2cb67c57028ca69d138757c5fdd894ad6fa54fcb11ef8f4a7d4b4ef82",
+      "read_ranges": [
+        [
+          17,
+          68
+        ],
+        [
+          147,
+          306
+        ]
+      ],
+      "inventory_and_semantics": "Actual derive_more AsRef/AsMut accepts structs only; explicit container conversion requires exactlyonefield, separates direct reference, forwarded field trait call and autoref specialization. Forward adds field:AsRef<T> bound and generic output may be unsized; direct preserves original whereclause. Owner replacements must preserve exact target/bounds/API, not blanket forward.",
+      "disposition": "Bounded native derive support recorded; exact owner proof retained",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no bound/API admission/rollback/native/runtime/global acceptance"
+    },
+    {
+      "material_index": 154,
+      "registration": {
+        "source_id": "pinned-registry:derive_more-impl-2.1.1/src/as/ref.rs",
+        "sha256": "06f9f3379037f8002874119b864ca62c65d8dd785c821a1fdfd74b59d988f133",
+        "ranges": [
+          [
+            1,
+            15
+          ]
+        ],
+        "actual_EOF": 15,
+        "package_checksum": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb",
+        "reason": "Bounded exact existing AsRef derive equivalence for LibraryName: explicit str output only, borrowed String view, no extra AsRef<String>/blanket implementation. No external SDK repair or whole-library coverage.",
+        "registration_evidence": "derivability/fresh-dependency-registration-423.json",
+        "line_count": 15,
+        "provenance_verification": "Coordinator compared exact object against cached archive member and package checksum; worker frozen lock680 match evidence retained. No macro execution or source-semantic credit.",
+        "index": 154
+      },
+      "source_origin": "../audit02-delta/sources/06f9f3379037f8002874119b864ca62c65d8dd785c821a1fdfd74b59d988f133",
+      "source_sha256": "06f9f3379037f8002874119b864ca62c65d8dd785c821a1fdfd74b59d988f133",
+      "read_ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "inventory_and_semantics": "Actual AsRef entrypoint selects as_ref method and immutable reference expansion; supportsM153 exact dispatch, not a new owner suggestion.",
+      "disposition": "Bounded native derive support recorded; exact owner proof retained",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no bound/API admission/rollback/native/runtime/global acceptance"
+    },
+    {
+      "material_index": 155,
+      "registration": {
+        "source_id": "pinned-registry:derive_more-2.1.1/src/as.rs",
+        "sha256": "c51f277897f4a2a62c0824f00d6775814282673efd16d0c8df8f87d406f7e984",
+        "ranges": [
+          [
+            1,
+            53
+          ]
+        ],
+        "actual_EOF": 78,
+        "package_checksum": "d751e9e49156b02b44f9c1815bcb94b984cdcc4396ecc32521c739452808b134",
+        "reason": "Bounded exact existing AsRef derive equivalence for LibraryName: explicit str output only, borrowed String view, no extra AsRef<String>/blanket implementation. No external SDK repair or whole-library coverage.",
+        "registration_evidence": "derivability/fresh-dependency-registration-423.json",
+        "line_count": 78,
+        "provenance_verification": "Coordinator compared exact object against cached archive member and package checksum; worker frozen lock680 match evidence retained. No macro execution or source-semantic credit.",
+        "index": 155
+      },
+      "source_origin": "../audit02-delta/sources/c51f277897f4a2a62c0824f00d6775814282673efd16d0c8df8f87d406f7e984",
+      "source_sha256": "c51f277897f4a2a62c0824f00d6775814282673efd16d0c8df8f87d406f7e984",
+      "read_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "inventory_and_semantics": "Native autoref Conv helper implements bound-free generic PhantomData Default and reference extraction; forwarding requires Frm:AsRef<To> with lifetime/unsized bounds. Keep tiny native generic/manual implementations; deriving ordinary Default may add irrelevant bounds.",
+      "disposition": "Bounded native derive support recorded; exact owner proof retained",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no bound/API admission/rollback/native/runtime/global acceptance"
+    },
+    {
+      "material_index": 156,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/hilt.rs",
+        "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_blob": "95044a623f95b7636fecae276612e70f37491050",
+        "sha256": "8afb3bf2ceb343de66192b0c257b876deade739f32668e38e70244c3b6036f0b",
+        "reason": "Actual shared26 model/guards.rs arm26\u201364/guard66\u2013137 receives GuardParameters, selects Independent/Symmetric beside left/right dimensions/terminals and optional terminal_profile. Need canonical field owner/default admission to qualify payload applicability. Exact direct type definition/default only; no hilt sibling adjacency.",
+        "contract": "contracts-718.json",
+        "ranges": [
+          [
+            1,
+            135
+          ]
+        ],
+        "line_count": 414,
+        "registration_evidence": "enum-shapes/source-registration-718.json",
+        "provenance_verification": "Coordinator exact git/object SHA comparison; only direct required owner ranges, no semantic credit.",
+        "index": 156
+      },
+      "source_origin": "../audit02-delta/sources/8afb3bf2ceb343de66192b0c257b876deade739f32668e38e70244c3b6036f0b",
+      "source_sha256": "8afb3bf2ceb343de66192b0c257b876deade739f32668e38e70244c3b6036f0b",
+      "read_ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "inventory_and_semantics": "GuardParameters already derives structural/hash/strictcamelCase serde with optional skip/default and custom present-value decoder. These attributes encode missing-vs-null semantics; no handwritten trait/codec body to remove, no automatic control-shape acceptance.",
+      "disposition": "No derivability candidate; existing derives/semanticfixtures retained",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no bound/API admission/rollback/native/runtime/global acceptance"
+    },
+    {
+      "material_index": 157,
+      "registration": {
+        "source_id": "scope-amendment:pr-working:crates/adventuresim-weapon-model/src/recipe/choices.rs#guard-owner-enums",
+        "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "sha256": "32853562a79ddc5ae393bc38780b86583500e079c5ca22109b07f1a479e030c0",
+        "reason": "Shared26 actual guard66\u2013137 dispatches Independent/Symmetric plus per-side terminal then Profile requiring TerminalProfile; direct enum owner definitions needed to qualify GuardParameters1\u2013135 payload applicability. Existing shared61 only200\u2013225 does not cover these variants; no firearm/pommel adjacency.",
+        "contract": "contracts-718.json",
+        "ranges": [
+          [
+            193,
+            199
+          ],
+          [
+            226,
+            282
+          ]
+        ],
+        "line_count": 367,
+        "registration_evidence": "enum-shapes/source-registration-718B.json",
+        "provenance_verification": "Coordinator exact git/object SHA comparison; only direct required owner ranges, no semantic credit.",
+        "range_amendment_of": 61,
+        "qualification": "Only missing direct enum-owner ranges; existing shared61 200\u2013225 unchanged. Exclude adjacent283 declaration.",
+        "index": 157
+      },
+      "source_origin": "../audit02-delta/sources/32853562a79ddc5ae393bc38780b86583500e079c5ca22109b07f1a479e030c0",
+      "source_sha256": "32853562a79ddc5ae393bc38780b86583500e079c5ca22109b07f1a479e030c0",
+      "read_ranges": [
+        [
+          193,
+          199
+        ],
+        [
+          226,
+          282
+        ]
+      ],
+      "inventory_and_semantics": "GuardMirrorMode/LeftTerminal/RightTerminal use existing serde derives and explicit spellings. Independent bounded193-199/226-282 ranges include partialvarianttails; native guard vocabulary, not Displaymacro. No new candidate.",
+      "disposition": "No derivability candidate; existing derives/semanticfixtures retained",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no bound/API admission/rollback/native/runtime/global acceptance"
+    },
+    {
+      "material_index": 158,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+        "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+        "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+        "line_count": 50,
+        "base_sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+        "reason": "Actual1093 disease module child: runtime fixture producer seed call2622; feature authority-tests child4\u20135 is existing fixture source for timing/version/error contracts. Register exact bounded bodies before semantic consumption; not automatic baseline expansion by metadata.",
+        "index": 158,
+        "ranges": [
+          [
+            1,
+            50
+          ]
+        ],
+        "registration_evidence": "behavior-preservation/source-registration-006.json",
+        "provenance_verification": "Coordinator independently compared exact pinned PR andbasegit bytes/SHA; no semantic coverage fromregistration."
+      },
+      "source_origin": "../audit02-delta/sources/e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+      "source_sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+      "read_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "inventory_and_semantics": "Disease fixture seed computes keyed variation and typeddose/time values before persistent row inserts. Semantic fixture projection/authority, no handwritten trait/codec; no execution or data mutation performed.",
+      "disposition": "No derivability candidate; existing derives/semanticfixtures retained",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no bound/API admission/rollback/native/runtime/global acceptance"
+    },
+    {
+      "material_index": 159,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/authority_tests.rs",
+        "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/disease/authority_tests.rs",
+        "sha256": "9b8f6ef268561b6c24817749d89472e8024db82c7f13e4d837db84e0dba66e80",
+        "line_count": 96,
+        "base_sha256": "9b8f6ef268561b6c24817749d89472e8024db82c7f13e4d837db84e0dba66e80",
+        "reason": "Actual1093 disease module child: runtime fixture producer seed call2622; feature authority-tests child4\u20135 is existing fixture source for timing/version/error contracts. Register exact bounded bodies before semantic consumption; not automatic baseline expansion by metadata.",
+        "index": 159,
+        "ranges": [
+          [
+            1,
+            96
+          ]
+        ],
+        "registration_evidence": "behavior-preservation/source-registration-006.json",
+        "provenance_verification": "Coordinator independently compared exact pinned PR andbasegit bytes/SHA; no semantic coverage fromregistration."
+      },
+      "source_origin": "../audit02-delta/sources/9b8f6ef268561b6c24817749d89472e8024db82c7f13e4d837db84e0dba66e80",
+      "source_sha256": "9b8f6ef268561b6c24817749d89472e8024db82c7f13e4d837db84e0dba66e80",
+      "read_ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "inventory_and_semantics": "Existing guarded disease authority reducers verify stored vocabulary/order and malformed-row rejection/rollback contract. Existing fixture cases/sourceonly; no handwritten trait/codec or addedtestcase/helper/assertion.",
+      "disposition": "No derivability candidate; existing derives/semanticfixtures retained",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no bound/API admission/rollback/native/runtime/global acceptance"
+    }
+  ],
+  "checks": "not run",
+  "source_edits": false,
+  "clear": false
+}

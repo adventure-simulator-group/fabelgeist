@@ -1,0 +1,113 @@
+{
+  "head": "4fcc43038fc8abff41996c6e68376344569025cb",
+  "base": "a411abb4370bb6f6609622cef5da59988a37aee9",
+  "files": [
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "3f6e1cfe6c05f5f6a2bb39155e3bf0d8ec8cbdabe3f77e993971d42e56891b33",
+      "git_blob": "88c35275f91c73dc38a5bd17f37a668b916bda57"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be",
+      "git_blob": "2b32481153a3344caa1a951686e489024ac1f1cb"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "sha256": "352f06a1ddfc9d7be1813161e4ac2365ae813a2f0e751614464fc8adddf9a735",
+      "git_blob": "e1b53a5ceb774d0af2e9085081fa1fb84f72f83b"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "460e9c3fcc4cb794358e3a25ba96b2e877dbeffaac6404703ff493aa6cb58e18",
+      "git_blob": "43ec5b14cd4adbd6b00cdafe60851d46ccb247bd"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "sha256": "6df2befe9397b790ad88233dee3fe7ed4f4aaf918a41b939585a5c633fe0f3db",
+      "git_blob": "0e3026441132a049c2472bbccbc294cf7a279b82"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+      "git_blob": "8489b7ec8a3a2489915ba9b617aaecd46a7b9ab2"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "33fed8d0c2ea47e990b60ad9c2cc14962f130c66ed4328d134e8f7f15d9b1128",
+      "git_blob": "ec503606414cf21d4181fad00f2723f12615ac0a"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+      "sha256": "83ba1e1ca0719ccdc74c3bc70f4fdc197dca496600a89b41a5e18c7a020fece0",
+      "git_blob": "ae680d919df5352dd3fe2aeefa7a9eaf2dd614e0"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "e883e9bbfdcdb62065d26751a6135b65d6e3021604c9e6071ebdfbdf644457c5",
+      "git_blob": "f16536c5a4b771b53ec303421391ffa8a108225f"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "bb98de5214d48bd87519d09a702a5e8df2914c6a7d614d38b2c95ab13df51205",
+      "git_blob": "2dd8d6f7482f456b2869068c525b1a1b6acb4d4a"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "d4d9df664fcd5207e09a8453fedfb5fae4ce9d139cd45d3bd8bc1e6a9f9ac12e",
+      "git_blob": "e7f51eabca236ff910d45d61b7926b95a68546d5"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "e8573dd939e0db024bb674e2647e14b10cdca9d5d4d141b9a39e2778a0e3aab8",
+      "git_blob": "bc5547d6a049808d9225292a95415e52d9fc626b"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "b86ab932de453c75553ba6a915d830406ac142dd7fe544a5d9fe5be25b14431a",
+      "git_blob": "42b1a63f5bc1c1e207163b820d5985d0d9d39f34"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "019e06bddeb3cf69b87f4a5ca9ed92b605d5a7e211490af27f36d3ae3a63422d",
+      "git_blob": "7b3c1218023ce55fa1654f97b9f886deb32d2ad3"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "f64791a9b8ca3d2203ed6c04fd5e0f0028fd8855ea3bc5674840e646581b5135",
+      "git_blob": "397141d2ab9a7bda08d1f0f133f7d27a123eb270"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "6369e5b4f4847db2e85cd5a105dd891f8a68dcbf584622731565d36d05b6cb4e",
+      "git_blob": "be4fa01d7458cf481e8232ff6f284f2f3f9a970f"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "sha256": "14cccb953bd0b8466b7ad010219c4220d535ee7ed9e6e66cad981c37cc67df88",
+      "git_blob": "d8279d68f1487a9a3f6296f4d84195b9fe829d0a"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "61bcf0fcfbea2980bd9426c89ae144fa0324e8d2d84e0a0094eeb6d6ea590ba3",
+      "git_blob": "6d91d0ba5317912163f91fb54772cb3eb258f7e1"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "baf15af7fdf3ecbc0776b475b3aadbd35c29a3d6e0185cef3b2f064803315381",
+      "git_blob": "5dd6cd39d003e1266528413d497f623dbd9d0c53"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "0fe254434e5c065ab49a04ba8c522d7066b48802b37538b6840653f5b2e3e59d",
+      "git_blob": "28f30a957c5393c0eccf2197f6dcbe5fc79e6ee5"
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "6144a5ab4e1f3132caf4c5b0aee92b151f093153e3e5bed8e4d6fadd7f12edb1",
+      "git_blob": "2b3e071511bd7f4e2052e556ccddbf8d3c3d1b33"
+    }
+  ],
+  "no_project_execution": true,
+  "at": "2026-10-26T20:49:54.476078+00:00"
+}

@@ -1,0 +1,200 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-056",
+  "at": "2026-10-22T21:44:20.505546+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/overlay.rs",
+      "sha256": "52776510686b004cc99d1cc9373424cffdfbad85172cc116f47bb8b15a13f0aa",
+      "scope034_index": 1417,
+      "actual_EOF": 80,
+      "scoped_ranges_compared": [
+        [
+          1,
+          80
+        ]
+      ],
+      "actual05_comparison": "Overlay uses actual fixed nonempty VIEWS and clamps view index; single subject + owner-filtered role map prevents cross-character edges. Missing bones are skipped for visualization, not claimed complete pose. Support from checked locomotion weights colors feet, not aggregate flight truth or gameplay penalty. Same-role duplicates collapse in map; actual rig assignment/roster gate separate. No raw native transform finite seal here.",
+      "source_body_proof": "Fresh full frozen body personally read for05, all original fixtures source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+      "sha256": "40836a3c9a7e347f98f9ecf51aca3df955494d854e67f805e1cff8e54d02ec8a",
+      "scope034_index": 1420,
+      "actual_EOF": 136,
+      "scoped_ranges_compared": [
+        [
+          1,
+          136
+        ]
+      ],
+      "actual05_comparison": "CaptureGround Terrain vs AuthoredPlane retains actual elevation authority. collect_bones filters matching owner and declared REPORT_BONES, stores role with transform and optional same-position terrain clearance; missing terrain remains None, authored disabled IK never falls back to terrain after invalid plane. Initial and per-frame root position complete XYZ readmitted before return; transform scale retained deliberately. Quickstep vertical is one actual fixture trajectory, ragdoll root independent lowering. Native duplicate role map overwrite is not sealed role-uniqueness proof; complete roster presence separately checked, current rig-role uniqueness remains separate.",
+      "source_body_proof": "Fresh full frozen body personally read for05, all original fixtures source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/subject_motion.rs",
+      "sha256": "863b3c4fafe43198495f75878f9544b5af7fd3cccd198a88c0cc37042c390981",
+      "scope034_index": 1421,
+      "actual_EOF": 126,
+      "scoped_ranges_compared": [
+        [
+          1,
+          126
+        ]
+      ],
+      "actual05_comparison": "CaptureMotion is a raw native tuple, admitted at SkeletonLocomotionInput before projection. Body rotation ownership suppresses ordinary facing during posture transitions. Current ordered writes can precede later fallible posture advance; no rollback claim. begin_capture_action matches same planned frame/tick/attack start; valid private catalogue provides nonzero quickstep directions, current fixed contact durations. Saturating tick/contact is intentional clock operation but atMAX can collapse positive action interval; no normal finite catalogue reachesMAX. All expectations depend on actual admitted scenario state, not blanket public SkeletonState validity.",
+      "source_body_proof": "Fresh full frozen body personally read for05, all original fixtures source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+      "sha256": "1178bf380da9126c00678608493b9d252af9746d853d347d5f334d451586b5bb",
+      "scope034_index": 1431,
+      "actual_EOF": 138,
+      "scoped_ranges_compared": [
+        [
+          1,
+          138
+        ]
+      ],
+      "actual05_comparison": "Actual REPORT_BONES contains17 distinct closed roles with unique labels and a reduced acyclic parent map: pelvis root, chest arms/head, bilateral thigh-shin-foot-toe. This is reduced report topology, intentionally not full authored skeleton hierarchy. CapturedBones private BTreeMap pairs each role/sample, FromIterator accepts overwrite semantics, ordered lexical report-label iteration preserves floating fold/tie order. Serializer rejects unsupported roles. Test-only mutation absent production; normal root collector filters supported matching-owner roles, report requires all17. No parallel label/pose arrays or automatic full-rig membership seal.",
+      "source_body_proof": "Fresh full frozen body personally read for05, all original fixtures source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/presentation_events.rs",
+      "sha256": "96bc4db93aefaea58374be6eba6a7eed668bfaebc77e74a40c1516b2fdf420e5",
+      "scope034_index": 1439,
+      "actual_EOF": 48,
+      "scoped_ranges_compared": [
+        [
+          1,
+          48
+        ]
+      ],
+      "actual05_comparison": "Presentation event validation checks adjacent same-scenario/same-stream events advance by payload+tick, scans all earlier entries to reject duplicate(owner,scenario,payload), then requires exact4contact events for CadenceContact and1landing for AirborneLanding only if corresponding frames exist. Scenario absence intentionally N/A. Adjacent check is not a per-stream history map; interleaved other stream can separate same-stream ordering checks. Actual collector still pending, so do not infer current normal reordered events or a complete global stream admission seal.",
+      "source_body_proof": "Fresh full frozen body personally read for05, all original fixtures source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/admission.rs",
+      "sha256": "7d0001581edb1446088662238b20c1f4e4d2f8f30f69d47aac54402e9af2dc80",
+      "scope034_index": 1442,
+      "actual_EOF": 43,
+      "scoped_ranges_compared": [
+        [
+          1,
+          43
+        ]
+      ],
+      "actual05_comparison": "Typed authored catalogue boundary rejects invalid elapsed/angle/speed by panic with explicit authoring failure; this is not a fallible external raw gameplay factory. canonical sprint combines fixed equal strength4, capacities1 and current burden94.9 via actual tactical_sprint_speed. Panic cleanup already required by repository style; no duplicate invariant finding merely for constant-backed expectations. No default fallback silently replaces invalid authored inputs.",
+      "source_body_proof": "Fresh full frozen body personally read for05, all original fixtures source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/plan_families.rs",
+      "sha256": "8e07b8a223fec8cbfa46b35aedc1732f3ff056c3000abf8db68f322517119d66",
+      "scope034_index": 1443,
+      "actual_EOF": 190,
+      "scoped_ranges_compared": [
+        [
+          1,
+          190
+        ]
+      ],
+      "actual05_comparison": "Actual family producers bind same authored ScenarioId with finite fixed speeds, directions, lead-foot and reversal flag. Raised/RightSupport families propagate fallible step-length duration, flatten only after all child Results admitted. Attack families permit ZERO direction only with stationary ZERO speed, moving diagonal normalized. Current calls use positive1/2 guard speeds and cycles1/2, no zero-divisor normal construction. Family labels and semantic execution compared against053 metadata and actual subject-motion consumer, not string-only authority.",
+      "source_body_proof": "Fresh full frozen body personally read for05, all original fixtures source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/quickstep.rs",
+      "sha256": "33077519d29facefe510e67394af05f51874b1324ce3b4a8de4f27b657852e9c",
+      "scope034_index": 1444,
+      "actual_EOF": 183,
+      "scoped_ranges_compared": [
+        [
+          1,
+          183
+        ]
+      ],
+      "actual05_comparison": "Quickstep builds speeds for exactly72 then indexes0..72, same length provenance (not two independently authored arrays). Default config + fixed mass93.9/biological70/leg strength4/agility4 feed force/target, positive sample rate; stores checked SignedSpeed each iteration. Contact/action/push/release/landing identities have distinct physical roles, not arbitrary equal clocks; source fixtures expect25push/11release/22landing but not run. Raw frame_count API canrequest huge work, no new capacity bound inferred. Action tick denominator only used inside frame<action_ticks, zero action cannot divide there; landing expect requires actual default trajectory, not every possible runtime config (function always Default).",
+      "source_body_proof": "Fresh full frozen body personally read for05, all original fixtures source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/terrain_policy.rs",
+      "sha256": "ef089759439d79d013473eda445c12a1f4ee725f5aee47be890a3983a8a492a2",
+      "scope034_index": 1445,
+      "actual_EOF": 40,
+      "scoped_ranges_compared": [
+        [
+          1,
+          40
+        ]
+      ],
+      "actual05_comparison": "Terrain policy derived from same ScenarioMetadata: startup skips per-frame toggle override deliberately; Toggle enables only frames16..79, Absent disabled. RaisedStop allows flight while ordinary raised scenarios require zero flight. Not stale duplicate terrain authorities: startup, per-frame and validation questions differ.",
+      "source_body_proof": "Fresh full frozen body personally read for05, all original fixtures source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/setup.rs",
+      "sha256": "ca7571cd25d303d7ef2ca543a07674e3ba3ba58b4a9abb8bb3f234f03507f9cb",
+      "scope034_index": 1446,
+      "actual_EOF": 94,
+      "scoped_ranges_compared": [
+        [
+          1,
+          94
+        ]
+      ],
+      "actual05_comparison": "Actual setup generates bounded100x100 scene with flat/hill height0/30 and period200, admits origin terrain elevation and completed finite root before spawning same terrain+capture subject. Subject identity/default skeleton/collider/controller bind once; optional explicit checked proportions inserted on same subject. Body proportions artifact uses explicit product or deterministic default-character seed; no assumed decoder/general asset gate. Commands deferred/native generation lower details remain actual ports, not tested here.",
+      "source_body_proof": "Fresh full frozen body personally read for05, all original fixtures source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/view.rs",
+      "sha256": "1ec7bad7a491c5c78bfefb2ee24f87039f35d5fc22fcca5aec8ab879f69a79d8",
+      "scope034_index": 1447,
+      "actual_EOF": 74,
+      "scoped_ranges_compared": [
+        [
+          1,
+          74
+        ]
+      ],
+      "actual05_comparison": "Three camera cases exhaust actual view enum and derive from same subject; gameplay resets default base+offset every frame to avoid offset accumulation with physics disabled. Side/front focus offsets nonzero before look_at; optional armor review override and inspection orbit separate presentation policy. Owner+Head role selects actual subject bone. Labels only applied frame; no frame advance. Native transform/quaternion/armor helper admission not proved by camera rendering; no general finite native transform guarantee.",
+      "source_body_proof": "Fresh full frozen body personally read for05, all original fixtures source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs",
+      "sha256": "256fd3e5455eea95b629cf6ee1f856cb2149bb522d91b81d8bd9820c801161e6",
+      "scope034_index": 1441,
+      "actual_EOF": 1409,
+      "scoped_ranges_compared": [
+        [
+          1,
+          1409
+        ]
+      ],
+      "actual05_comparison": "Actual full1409 incl original fixtures personally read. PlannedFrame keeps scenario/frame/speed/time/direction/camera/action/guard/lead together, but pub(super) raw fields not an accepted plan seal. Fixed catalogue enumerates coherent kind/body transitions, quicksteps only +/-X nonzero, stationary actions may useZERO direction, steady speeds2/3.75/5.5 and guard1/2 with finite positive cycle constants. Per-scenario time frame/hz and sequential iterator index match. Steady functions65-95/906-931 derive duration from step length divided by signed speed and unchecked cycles then ceil-as-usize+1; finiteZERO speed is representable but invalid divisor and can overflow last_frame despite Result return. Normal actual catalogue avoids this. Downed body parameter selects fixture speed; posture helper ignores _start intentionally because metadata sole execution authority, current callers match. Transition capture intentionally stops before endpoint ownership handoff, not missing final endpoint proof. Existing tests1054-1409 read only; file existence fixture not executed.",
+      "source_body_proof": "Fresh full frozen body personally read for05, all original fixtures source-only."
+    }
+  ],
+  "comparison_groups": {
+    "same-subject-roster": "Matching-owner collection + actual17-role reduced hierarchy + complete report roster; optional terrain authority explicit, no duplicate-role uniqueness from BTreeMap.",
+    "authored-plan-product": "Full fixed catalogue compared to family/action/terrain/clock consumers, normal quickstep nonzero direction and positive steady divisors established source-only.",
+    "ordered-presentation": "Per-stream pair predicate and same-owner duplicate scan distinct, current event collector pending; no blanket order proof."
+  },
+  "new_unique_findings": [
+    "NATIVE-INITIAL05-F017"
+  ],
+  "finding_support": [
+    "F016 normal report has actual17-bone complete roster, all finite captured transforms and artifacts; standalone weakness preserved without normal false-pass claim."
+  ],
+  "lower_proof_refs": [
+    "contract-groups-029.json",
+    "contract-groups-031.json",
+    "contract-groups-053.json",
+    "contract-groups-054.json",
+    "contract-groups-055.json"
+  ],
+  "remaining_dependency_obligations": [
+    "Capture presentation collector actualsource and normal rig unique-role producer are own remaining cells; raw native ports not refined wholesale."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

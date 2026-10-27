@@ -1,0 +1,23 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-051",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1604,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor_assets.rs",
+      "sha256": "792c336a1d9612c83b4ae0f385c94a35175009ae202f71d4e3231d10179f899a",
+      "ranges": [
+        [
+          1,
+          444
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete444line preparedimpostor asset source read in two consecutive windows. Asset/TypePath/SystemParam/ResourceDefault and wiremodels SerializeDeserialize already derived. AssetLoader manual load performs asyncnative read then gzip+postcard and extensions names filekind. Four manual From bridges convert native Vec2/Vec3/Vec4/UVec4 to explicit fixedarrays and back between cluster/record wire and runtimeowners. Other runtime adapters reconstruct Mesh/Image/provenance and enforce bakeversionassert.",
+      "disposition": "Keep AssetLoader behavior. Keep four manual From representations: they transform vectorstorage, are borrowed crossrecord APIs and not targetfield-derived From. Existing wirecodec already derived; replacing wiremodels with natives would need independent exactpostcardformat/feature proof and is not an established derive-equivalent patch. Gzip framing/native mesh reconstruction is semantic. This scope does not clear unboundeddecode, weakadmission, versionassert or sourcefingerprint policies; otherlens obligations retained. No checks run.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

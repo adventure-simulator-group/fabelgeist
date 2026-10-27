@@ -1,0 +1,23 @@
+{
+  "at": "2026-10-26T04:52:33.295353+00:00",
+  "material_indices": [
+    190,
+    191
+  ],
+  "finding": "ADLER-RESUMED05-F005",
+  "native_package": "http1.5.0",
+  "package_checksum": "918d3568bebf352712bc2ef3d46a8bcf1a75b373be6539de198e9105cbbf9ce0",
+  "proof": "Literal # is classified fragment; PathAndQuery::from_shared truncates its parsed-copy buffer there; Uri::from_shared leading slash path has empty scheme/authority. local_return_url returns original borrowed value rather than this truncated parsed copy. The21-byte ASCII witness is below65534. Existing appended feedback fields therefore remain after original # in resulting href.",
+  "limits": [
+    "No runtime/browser/request test or actual template fragment caller established.",
+    "No full native URI parser, authority, UTF8/index safety or arbitrary-length acceptance clearance.",
+    "Frozen original finding optional fragment test is source-only authored assertion, not itself native parser proof; this prospective dependency trace supplies missing native admission proof for concrete short witness.",
+    "No new accepted finding/unique increment; original2853/overlays246/deltas38 unchanged."
+  ],
+  "source_authorities": [
+    "registry-192.json",
+    "contracts-042.json",
+    "contracts-043.json"
+  ],
+  "new_unique_count": 0
+}

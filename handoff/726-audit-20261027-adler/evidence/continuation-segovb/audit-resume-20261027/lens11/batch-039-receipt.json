@@ -1,0 +1,229 @@
+{
+  "at": "2026-10-27T13:35:35.031193+00:00",
+  "lens": 11,
+  "status": "983-986 independently source-accounted with findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-039-registration.jsonl",
+    "sha256": "5f693f0447edf2cb3fb29460a54a7b5406e5431af7ee50df28669985c688cb03"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-038.json",
+    "sha256": "d2a195d2f545a59a0e4c696bbef1bd8ec49040f95d138de8a8d5f6801e3ed473"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 983,
+      "source_id": "pr-working:crates/adventuresim-core/src/reducer_error.rs",
+      "sha256": "ec4f9bddc8b7d73ed40bcfbecb23d7b061016ee53bd6fea4a524d05e838691c7",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/ec4f9bddc8b7d73ed40bcfbecb23d7b061016ee53bd6fea4a524d05e838691c7",
+      "actual_eof": 100,
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          100
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 984,
+      "source_id": "pr-working:crates/adventuresim-core/src/reputation.rs",
+      "sha256": "f440b09e301404f9d1be804764c9be6af087320ea34c8b8a27fd9a4b191b8103",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/f440b09e301404f9d1be804764c9be6af087320ea34c8b8a27fd9a4b191b8103",
+      "actual_eof": 331,
+      "ranges": [
+        [
+          1,
+          331
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          331
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 985,
+      "source_id": "pr-working:crates/adventuresim-core/src/rights.rs",
+      "sha256": "452c9b104be14352c93d247f83a87de98fa79b10c86d3b51d28eaa252a927b07",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/452c9b104be14352c93d247f83a87de98fa79b10c86d3b51d28eaa252a927b07",
+      "actual_eof": 1224,
+      "ranges": [
+        [
+          1,
+          1224
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "prior_personal_read_reuse": {
+        "receipts": [
+          "batch-026-receipt.json",
+          "batch-028-receipt.json"
+        ],
+        "ranges": [
+          [
+            200,
+            260
+          ],
+          [
+            715,
+            835
+          ]
+        ],
+        "identity_reverified": true
+      },
+      "actual_read_ranges": [
+        [
+          1,
+          199
+        ],
+        [
+          261,
+          714
+        ],
+        [
+          836,
+          1224
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 986,
+      "source_id": "pr-working:crates/adventuresim-core/src/rights/validity.rs",
+      "sha256": "72edd06818cd5299b7c2abae17080541165ea0eebb52a05d557437b1ac41d159",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/72edd06818cd5299b7c2abae17080541165ea0eebb52a05d557437b1ac41d159",
+      "actual_eof": 32,
+      "ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          32
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "original_index": 1179,
+      "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+      "actual_read_ranges": [
+        [
+          1,
+          90
+        ],
+        [
+          246,
+          360
+        ]
+      ],
+      "no_ordered_credit": true
+    }
+  ],
+  "role_dispositions": [
+    {
+      "roles": [
+        983
+      ],
+      "locations": [
+        "reducer_error.rs1-100"
+      ],
+      "inventory": "Closed ReducerErrorCode distinguishes caller behavior from mutable detail prose; String envelope is explicit terminal transport. Code display/parser mappings round-trip.",
+      "disposition": "Keep typed classification through internal producers and parse only at transport. Nine semantic codes are useful; no universal arbitrary-string error owner needed.",
+      "findings": [
+        "parse_reducer_error searches for prefix anywhere to tolerate outer transport framing; actual fixture93 documents this. It is classification, not authorization. Do not infer remote-trust safety from code prefix."
+      ],
+      "acceptance": "Behavior consumes canonical code, not detail wording; owner payload stays typed until required envelope.",
+      "limits": "No full reducer/client consumer or generated binding clearance."
+    },
+    {
+      "roles": [
+        984
+      ],
+      "locations": [
+        "reputation.rs1-214; existing fixtures216-331",
+        "stdb reputation1-90,246-360"
+      ],
+      "inventory": "Fame/infamy centipoints, signed applied delta, nonnegative authored event amounts, node identity, settlement identity, metre edge/distance/reach, population level/estimate, bounded familiarity basis points, raw offense severity and fine denomination. Event and aggregate retained records are distinct; only event invokes contributions in inspected receiver.",
+      "findings": [
+        "Bounded nonnegative reputation state and signed change share i32 primitive APIs, while fame versus infamy also share parameters/tuple return. Purpose wrappers over a common bounded centipoint leaf prevent state/delta/fame/infamy confusion. Do not constrain unnormalized distance weights to UnitInterval.",
+        "Population estimate0 means unavailable and triggers explicit level-derived estimate. This is an intentional policy fallback, not compatibility. Model Estimated versus Reported if encoding absence removes sentinel ambiguity.",
+        "Authority charges are (u8,bool) snapshot tuples; severity is clamped1..5 and settled filter chooses applicable charges. A typed charge/status record makes this distinct from a generic boolean/count/amount. Fines are currency amounts; canonical currency denominations1007 alone do not supply existing numeric Money owner.",
+        "Inspected record_event rejects negative event amounts, checks existing event ID as retry marker, records original event and applies terminal contributions to aggregates. It does not prove equal payload for reused ID; qualified source identity-association question, not witnessed collision or accepted unique defect."
+      ],
+      "remedy": "Retain event-versus-terminal-projection separation; introduce coherent quantity roles and typed identity/charge-state ports; one event identity authority must bind immutable payload if required by actual callers.",
+      "acceptance": "Only action events propagate; raw event amounts cannot substitute signed aggregate deltas or vice versa; typed settlement/node/metre/currency roles retain source units.",
+      "limits": "No transactional SDK proof, whole event producers/currentness or all database identity policy proof."
+    },
+    {
+      "roles": [
+        985
+      ],
+      "locations": [
+        "rights.rs1-1224 full through registered new reads plus exact026/028 prior reuse"
+      ],
+      "inventory": "RightsSubject,Resource,Operation,Jurisdiction and domain marker traits distinguish authority roles despite common storage. Grant/attempt/request/action/input-digest/revision identities are purpose-specific. Canonical digest frames shared variant tags and length-framed components. Provenance groups immutable request/action/snapshot. ConsumptionProposal/Receipt and GrantAssessment carry states and payload. Private/public decision and evidence remain separate.",
+      "findings": [
+        "Nonzero digest identities are not interchangeable merely because all32bytes; RightsRevision has no invented nonzero restriction. GrantId differs from source object/character. Ownership, custody, permission and jurisdiction intentionally can disagree; do not consolidate these axes.",
+        "PermissionGrant mode plus state represents invalid Reusable+Consumed, but private fields and try_new already reject it. Combining mode/lifecycle is a simplification candidate rather than observed admitted invalid state. Revocation revision and consumed receipt identity/revision are checked at construction.",
+        "RightsValidity public fields permit reversed windows bypassing try_new; downstream permission try_new accepts the value without revalidating and assessment just compares dates. Keep admitted interval leaf private and constructor checked. This is a frozen API construction gap, not proof of authored runtime grant.",
+        "Private rights decision retains provenance but generic preparation/investigation consumers earlier026/028 check Allowed without question binding. Preserve those qualified receiving findings; this generic owner does not repair or globally prove consumer evidence association.",
+        "Marker trait bounds establish role namespaces, not authorization; public evidence construction and consumption receipt constructor need reducer-owned trusted evidence/commit authority. Do not claim they themselves grant permission, as explicit module contract says."
+      ],
+      "remedy": "Share common invariant mechanisms beneath separate authority roles, keep validity admitted, carry actual question/provenance to domain receiving boundary. Preserve domain evidence vs public allowance and replay/collision/unavailable distinctions.",
+      "acceptance": "No swapped question/resource/operation/jurisdiction or request/action/snapshot coordinates; receipt replay remains exact and expiry does not change committed replay. Evidence sanitization independent of hidden denial details.",
+      "limits": "Existing fixtures consumed, not run; no proof all domain reducers enforce private evidence authority."
+    },
+    {
+      "roles": [
+        986
+      ],
+      "locations": [
+        "validity.rs1-32"
+      ],
+      "inventory": "Absolute StrategicMinute lower bound plus optional inclusive upper bound, with perpetual interval distinct from finite expiry; shared clock owner meaningful.",
+      "findings": [
+        "try_new rejects end<start but fields are public, so checked interval invariant not retained by representation. Same source witness as985 validity observation, not an additional unique finding."
+      ],
+      "remedy": "Private admitted interval; retain inclusive end and None as unbounded policy without compatibility scaffolding.",
+      "acceptance": "All representations used by grants satisfy start<=end when bounded; no invented strictly-positive interval duration."
+    }
+  ],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_ledger_edited": false,
+  "new_material_extensions": [],
+  "limits": [
+    "Frozen source only, no runtime/current/accepted alias or global/other-lens credit.",
+    "Existing ownership, physical-object, place and strategic-action/material receivers personally read earlier reused at their exact prior pins; no completed discovery restart."
+  ]
+}

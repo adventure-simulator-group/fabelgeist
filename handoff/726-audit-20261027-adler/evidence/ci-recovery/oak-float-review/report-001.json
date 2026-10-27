@@ -1,0 +1,60 @@
+{
+  "at": "2026-10-26T02:42:49.621336+00:00",
+  "task": "Independent read-only current986 Windows oak prepared-asset identity investigation, separate frozen774 inventory",
+  "reviewed_head": "8d6bc9672da4e63d5545ead34589fd950d29e988",
+  "diagnostic_head": "91e7d86403ea969b573366506106de5e7e17d3ea",
+  "source_identity": "Five source arithmetic owners exactly byte-identical across both heads; only diagnostic receiver changed15lines in tree subtree.",
+  "failure_authority": "Parent reports Windows job121342681865 run40251011535 existing fixed_oak_exhibit_has_every_matching_prebaked_impostor failed at scenery279; nine other foliage cases pass. Not independently run/reproduced by reviewer.",
+  "earliest_contract": "Prepared asset decodes and bake_count6 passes, then matches_art_demo rebuilds playable oak/site source and fixed vista oak+beech, requiring exact raw-float geometry hash XOR bake version for all6 entries. No tolerance/rounding in current receiver.",
+  "likely_cause": {
+    "status": "Strong source-backed mechanism, exact failing field/operation not proven until parent diagnostic result.",
+    "facts": [
+      "Current growth_axes oak trunk points use native sin/cos/powf at11-42 before branches are emitted.",
+      "Common append_branch_curve uses native t.powf(0.64) for every branch radius at skeleton766-767; hash reads both radii directly.",
+      "Oak canopy, beech vista and oak leaf arrangement have additional native trig/fractional powers, so typed shoot ID repair alone cannot make source floats bit-stable.",
+      "Pinned local Rust source explicitly says sin/cos/powf/powi precision nondeterministic across platform/version; square root instead guarantees rounded IEEE754 result.",
+      "Deterministic RNG produces exact seed words/unit draws but does not own subsequent native transcendental evaluation."
+    ]
+  },
+  "exact_text_inventory": {
+    "authority": "arithmetic-inventory-002.json",
+    "counts": {
+      "remainder_operator": 1,
+      "powf": 11,
+      "cos": 24,
+      "sin": 39,
+      "powi": 2,
+      "rem_euclid": 2
+    },
+    "method": "Personally read actual matching expressions plus pinned receiving/producer ranges. Metadata extraction is stdlib text bookkeeping, not project scanner or full AST/whole-file semantic clearance.",
+    "correction": "Inventory001 omitted skeleton production following isolated cfg(test) helper86;002 corrects actual module boundary789 and supersedes001."
+  },
+  "libm_comparison": {
+    "workspace_contract": "Cargo.toml134 pins=0.2.16,default-features=false,force-soft-floats. Existing terrain road source46 explains software transcendentals required for accepted terrain hashes.",
+    "member_identity": "libm-package-proof-001.json verifies cached crate archive SHA against exact Cargo.lock package checksum and selected installed member equality.",
+    "actual_implementation": "sinf1-96,cosf1-86 andpowf1-343 personally read. They use software branch/polynomial/argument reduction and explicit special cases, delegating internal kernels/reduction/scalbn/sqrt. configure85-99 excludes architecture/intrinsic alternatives when force-soft-floats. No entire libm internal kernel/package proof claimed.",
+    "constraints": [
+      "sin/cos take radians and produce NaN for Inf/NaN. Finite generated phases stay in ordinary intended branch; do not silently alter input admission.",
+      "powf handles zero/one/nonfinite and negative fractional inputs explicitly. Existing tree fractional-power bases are clamped or nonnegative sample fractions in reviewed routes; preserve those equations and types.",
+      "powf(x,2.0) returns x*x in pinned implementation134-136; existing two powi(2) can become explicit multiplication in existing bodies without new helpers.",
+      "Mere direct dependency does not redirect f32 scalar methods; glam has separate libm feature, global Bevy feature changes affect unrelated math and cannot fix native scalar calls by themselves."
+    ]
+  },
+  "recommended_clean_repair": {
+    "scope": "Existing source arithmetic producers in skeleton.rs,growth_axes.rs,root_plan.rs,root_profile.rs,leaves/arrangement.rs; inherit libm.workspace=true in client manifest as necessary. No new test/helper/assertion required.",
+    "actions": [
+      "Replace reached scalar sin/cos/powf with direct pinned libm sinf/cosf/powf without changing source equations/precision to f64 or random draw ownership.",
+      "Replace two fixed powi(2) with multiplication of the same computed window, preserving evaluation order.",
+      "Inventory signed remainder skeleton77 and Euclidean remainders skeleton547/root_plan118. If making this boundary uniformly software-owned, use fmodf for signed remainder; Euclidean result requires r<0 then r+abs(TAU) else r, preserving negative-zero/current semantics. Do not blindly substitute fmodf for rem_euclid. Remainder currently not proven culprit.",
+      "Keep raw to_bits hash, integer shoot identity, bake version stale-source detection and one shared prepared asset. Regenerate actual affected outputs through existing dependency workflow after source change, then run existing Linux+Windows acceptance.",
+      "Leave ordinary Vec3 dot/lerp/normalization and unrelated bake/render code unchanged unless first differing diagnostic demands more scope. glam Vec3 normalize uses sqrt(dot).recip multiplication; sqrt is correctly rounded, not approximate reciprocal-square-root."
+    ]
+  },
+  "limitations": [
+    "No source edits,Git mutations,project execution,new tests/helpers/assertions or asset generation.",
+    "Current investigation contributes no frozen audit lens coverage.",
+    "Actual failure may also involve selected seed/species/root identity until parent diagnostic separates those coordinates.",
+    "Not asserting specific libc function or exact one-ULP difference without cross-platform first-field evidence; no full geometry/renderer/platform-wide determinism clearance.",
+    "Only source-authority/registered read ranges in pins and inventory are claimed."
+  ]
+}

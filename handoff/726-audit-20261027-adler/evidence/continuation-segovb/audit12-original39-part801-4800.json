@@ -1,0 +1,389 @@
+{
+  "id": "SEGOVB-CONT12-ORIGINAL39-PART801-4800",
+  "lens": 12,
+  "skill": "audit-magic-strings",
+  "original_role": 39,
+  "source_id": "physical-p16:Cargo.lock",
+  "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+  "full_requested_scope": [
+    [
+      1,
+      13103
+    ]
+  ],
+  "assigned_scope": [
+    [
+      801,
+      4800
+    ]
+  ],
+  "consumed_ranges": [
+    [
+      801,
+      1600
+    ],
+    [
+      1601,
+      2400
+    ],
+    [
+      2401,
+      3200
+    ],
+    [
+      3201,
+      4000
+    ],
+    [
+      4001,
+      4800
+    ]
+  ],
+  "consumed_line_count": 4000,
+  "body_consumption": "Every assigned source line was emitted in bounded contiguous tool output and semantically read. No sampled/search/parser/hash-only substitute. Hash verified before first body read; SHA/line count and range fingerprints are provenance only, not coverage proof.",
+  "registration": "audit12-successor-registration-014.json",
+  "registration_scope": "Parent registered exact full13103-line source before delegating this801-4800 subrange. No registration/history modification.",
+  "chunk_traces": [
+    {
+      "range": [
+        801,
+        1600
+      ],
+      "body_output_chunk": "6db3a5 applies skill only; actual source chunk4cc7c2",
+      "inventory": "Begins with preceding dependency array tail is_terminal_polyfill/utf8parse801-803. Full package tables805-1576 run anstyle through bevy_app; bevy_asset starts1577 and continues across next chunk. All names, resolved version strings, registry source strings, checksums and dependency selectors classified. Distinct examples: approx0.3.2/0.5.1, base640.21.7/0.22.1/0.23.1, ash version build metadata0.38.0+1.3.281 at962; bevy_ahoy1459-1477 omits source/checksum in this record."
+    },
+    {
+      "range": [
+        1601,
+        2400
+      ],
+      "body_output_chunk": "50eb2e",
+      "inventory": "Finishes bevy_asset dependency array; package tables from bevy_asset_macros through bevy_light; bevy_log starts2394, dependencies continue next chunk. Native Cargo names include bevy_flair_css_parser, selectors dependency2073, CSS/JSON/URI-related library names, all still package identifiers rather than application selector/format literals. bevy_eidolon1904-1931 has exact Git source URI with branch query and locked revision instead of registry checksum."
+    },
+    {
+      "range": [
+        2401,
+        3200
+      ],
+      "body_output_chunk": "29a90e",
+      "inventory": "Finishes bevy_log array. Package tables bevy_macro_utils through bevy_window; bevy_winit begins3178 and continues next chunk. Includes wgpu/wgpu-types/naga/naga_oil bridge references, serde/ron/http-body-util and world-serialization dependency names: these remain Cargo graph strings, not evidence of current gameplay authority, persistence, renderer string APIs or network endpoints. Version-qualified selectors continue explicit lock graph disambiguation."
+    },
+    {
+      "range": [
+        3201,
+        4000
+      ],
+      "body_output_chunk": "04256c",
+      "inventory": "Finishes bevy_winit dependencies then package records bevy_world_serialization through cpufeatures. crc32fast begins3999/name4000 and continues next chunk. Multiple bit-vec, bitflags, block2, brotli, brotli-decompressor, calloop, calloop-wayland-source, convert_case, core-foundation and cpufeatures versions remain separate Cargo package identities; do not collapse names, strip version selectors or infer compatibility aliases. Checksums remain quoted digest data."
+    },
+    {
+      "range": [
+        4001,
+        4800
+      ],
+      "body_output_chunk": "3ea779",
+      "inventory": "Finishes crc32fast record; package tables criterion through ethnum. Includes criterion/criterion-plot, cssparser/cssparser-color/cssparser-macros, csv/csv-core, defmt family, derive_more family, dispatch family, egui/emath/ecolor/epaint, embedded-io multiple versions and enum macros/serialization libraries. Same Cargo string owners. Final ethnum table4793-4800 closes its serde dependency array exactly at assigned endpoint."
+    }
+  ],
+  "exhaustive_occurrence_grouping": {
+    "method": "All textual occurrences in assigned contiguous ranges are grouped only by identical Cargo-format role and concrete value owner below; repeated/native status is not a blanket source exemption. Individual anchors illustrate each class; ranges cover all occurrences, not only anchors.",
+    "coverage_ranges": [
+      [
+        801,
+        4800
+      ]
+    ],
+    "classes": [
+      {
+        "role": "TOML native table/field spellings",
+        "text": [
+          "[[package]]",
+          "name",
+          "version",
+          "source",
+          "checksum",
+          "dependencies"
+        ],
+        "occurrences": "Every package table/header and occurrence of these field keys in801-4800; no other table/field key was observed in this assigned body.",
+        "anchors": [
+          [
+            805,
+            817
+          ],
+          [
+            1904,
+            1908
+          ],
+          [
+            4793,
+            4800
+          ]
+        ],
+        "owner_boundary": "Cargo.lock TOML schema: repeated package records and dependency arrays. Preserve exact field spellings and array shape; project gameplay enum/constants cannot replace this external file vocabulary. Bare keys are audited text too, not excluded for lacking quotes."
+      },
+      {
+        "role": "Open Cargo package identity names",
+        "text_shape": "name = \"...\"; dependency array unqualified \"name\"",
+        "occurrences": "All package name fields and unqualified dependency elements throughout assigned scope, including array tails/starts crossing chunk boundaries.",
+        "anchors": [
+          [
+            806,
+            817
+          ],
+          [
+            1460,
+            1476
+          ],
+          [
+            2073,
+            2079
+          ],
+          [
+            4509,
+            4523
+          ],
+          [
+            4794,
+            4799
+          ]
+        ],
+        "owner_boundary": "Cargo graph package identifiers. Keep identifiers open, preserving hyphens/underscores/case and upstream names; do not replace with a finite gameplay catalog or Rust module spelling. Names such as selectors, data-url, directories, csv, cursor-icon and error-code are dependency names here, not actual CSS selector, runtime URL/path, CSV key, UI cursor or error-code payloads."
+      },
+      {
+        "role": "Exact resolved package version strings",
+        "text_shape": "version = \"semver\" including metadata",
+        "occurrences": "Every version field throughout package records in assigned body.",
+        "anchors": [
+          [
+            807,
+            809
+          ],
+          [
+            854,
+            865
+          ],
+          [
+            961,
+            964
+          ],
+          [
+            1418,
+            1433
+          ],
+          [
+            4318,
+            4334
+          ]
+        ],
+        "owner_boundary": "Cargo package resolution version. These are exact lock selections, not user-facing versions or application numeric policy. Native build metadata in ash0.38.0+1.3.281 must remain exact; no stripping metadata or normalizing through a local numeric wrapper."
+      },
+      {
+        "role": "Version-qualified native dependency selectors",
+        "text_shape": "\"package version\"",
+        "occurrences": "All dependency array entries with version suffix throughout801-4800.",
+        "anchors": [
+          [
+            826,
+            837
+          ],
+          [
+            914,
+            914
+          ],
+          [
+            980,
+            980
+          ],
+          [
+            1235,
+            1245
+          ],
+          [
+            1474,
+            1474
+          ],
+          [
+            1889,
+            1892
+          ],
+          [
+            2466,
+            2474
+          ],
+          [
+            3512,
+            3525
+          ],
+          [
+            4020,
+            4020
+          ],
+          [
+            4248,
+            4248
+          ],
+          [
+            4723,
+            4729
+          ]
+        ],
+        "owner_boundary": "Cargo lock graph references when package-name-only selection is insufficient. Examples windows-sys0.61.2/0.60.2, syn2.0.119/3.0.4, rand0.9.5/0.10.2, getrandom0.3.4/0.4.3, derive_more2.1.1, itertools0.10.5/0.14.0/0.15.0, bitflags1.3.2/2.13.1, rustix0.38.44/1.1.4. Preserve embedded separator and exact suffix. No application selector parser or stringly gameplay branch is present in this use."
+      },
+      {
+        "role": "Native registry source identity URI",
+        "text": "registry+https://github.com/rust-lang/crates.io-index",
+        "occurrences": "Every registry source field in assigned scope; Git source1907 is separately inventoried.",
+        "anchors": [
+          [
+            808,
+            809
+          ],
+          [
+            1438,
+            1439
+          ],
+          [
+            2803,
+            2804
+          ],
+          [
+            4796,
+            4797
+          ]
+        ],
+        "owner_boundary": "Cargo source identifier, with registry+ prefix. It is not merely an HTTP URL or a gameplay content endpoint; retaining its external spelling is required at this file boundary. No URL fetching/credential use was performed."
+      },
+      {
+        "role": "Native registry archive checksum text",
+        "text_shape": "checksum = \"hex digest\"",
+        "occurrences": "Every checksum field in assigned body; none in observed bevy_ahoy or bevy_eidolon records.",
+        "anchors": [
+          [
+            809,
+            809
+          ],
+          [
+            1439,
+            1439
+          ],
+          [
+            4512,
+            4512
+          ],
+          [
+            4797,
+            4797
+          ]
+        ],
+        "owner_boundary": "Cargo registry archive identity/integrity data associated with the package/source/version record. Digest-like text is opaque native data here, not a stable game identifier, authorization credential or justification for bespoke application enum. No remote archive retrieval or authenticity/content verification claimed."
+      },
+      {
+        "role": "Git source URI with branch selector and locked revision",
+        "text": "git+https://github.com/barsoosayque/bevy_eidolon?branch=fablegeist-0.19#1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+        "occurrences": [
+          [
+            1907,
+            1907
+          ]
+        ],
+        "owner_boundary": "Cargo Git source identity: git+ transport prefix, exact upstream repository URL, query key branch with branch spelling fablegeist-0.19, and exact revision fragment. Keep all parts unchanged; do not rename branch to project spelling, discard query or replace the lock revision with a moving branch. This is a build source selector, not a gameplay magic-string classification."
+      }
+    ]
+  },
+  "unusual_native_observations": [
+    {
+      "source_lines": [
+        1904,
+        1931
+      ],
+      "observation": "bevy_eidolon uses the sole non-registry source form observed in801-4800. Branch/revision URI above independently inventoried; no checksum is asserted missing/defective for this Git record."
+    },
+    {
+      "source_lines": [
+        1459,
+        1477
+      ],
+      "observation": "bevy_ahoy record has name/version/dependencies but no source/checksum. This records the actual native form only; no concrete local path literal, workspace membership proof, patch target or alternate-source policy is inferable from this assigned record alone."
+    },
+    {
+      "source_lines": [
+        961,
+        964
+      ],
+      "observation": "ash version includes +1.3.281 build metadata. Exact version text is native data, not accidental arithmetic/string construction."
+    },
+    {
+      "source_lines": [
+        4317,
+        4351
+      ],
+      "observation": "derive_more0.99.20 and2.1.1 remain separately selected Cargo packages, not evidence authorizing compatibility APIs in product code. Same rule for all duplicate package names/qualified dependency selectors."
+    }
+  ],
+  "native_receiver_limits": {
+    "actual_concrete_text_boundary": "The consumed source is the Cargo.lock serialized package graph. The values are already at Cargo/TOML dependency resolution boundary; no application code importing these strings, format dispatch on gameplay values or producer-to-gameplay primitive loss was observed in this file segment.",
+    "not_inspected": "No Cargo internal parser, resolver, registry transport/checksum implementation or Git source parser was opened by this bounded packet; no compilation/tool execution. Do not present this receipt as source-backed proof of every Cargo grammar/accepted source form, graph completeness or remote validity.",
+    "necessary_followup_if_questioned": "If full-role reconciliation needs stronger receiver proof than identifying Cargo native lock fields, register and inspect exact pinned Cargo lockfile package deserialization/PackageId dependency-reference/source-id parsing contracts for name/version/source/checksum/dependencies (including git branch/revision), then archive checksum consumer. Do not substitute gameplay wrappers or assume an arbitrary TOML field is exempt. Any custom repository parser consuming this lock must be located/pinned separately before clearance.",
+    "graph_links_outside_assignment": "Dependencies may target records outside801-4800. This packet does not verify all references, source uniqueness, version satisfiability, package existence, feature/target selection, dependency safety or full Cargo schema acceptance."
+  },
+  "disposition": {
+    "assigned_body_source_consumed": true,
+    "assigned_string_roles_source_accounted": true,
+    "new_concrete_magic_string_defects": [],
+    "new_accepted_unique_findings": 0,
+    "proposed_repairs": [],
+    "reason": "All observed raw strings grouped at explicit Cargo package graph/native source/checksum boundary; no application-domain text defect established from assigned source. No wrappers/closed identifier enums or schema reshaping proposed. Receiver/graph/global limitations retained."
+  },
+  "coverage_qualifications": [
+    "Original39 remains incomplete until root unions all exact pinned source chunks, full13103scope and material boundary dispositions. This subagent claims only801-4800; root1-800 is not independently consumed or credited here.",
+    "Start801 is a dependency-array continuation whose header lies in root prior chunk. Chunk ends except4800 may cut package tables; contiguous union801-4800 resolves internal boundaries. No read beyond4800.",
+    "No original39 completion, no root frontier/ledger change, no lens11 credit or transferred other-lens verdict.",
+    "No current working tree/revision comparison; frozen physical-p16 variant alone is audited. No global Cargo/repository string clearance.",
+    "No rootledger/historical/product edits, Git commands, project checks/tests/probes/scanners, remote fetches or publication. Evidence serialization and source hash/range output only."
+  ],
+  "range_fingerprints": [
+    {
+      "range": [
+        801,
+        1600
+      ],
+      "sha256_exact_original_line_bytes": "a47a0bfc7c782c0060772303f6116f4babd29d08ede1e219d1d01e2a74cebc9c"
+    },
+    {
+      "range": [
+        1601,
+        2400
+      ],
+      "sha256_exact_original_line_bytes": "61a74e6688930065225677c2aa48dbeb7c5b91531dd6ec2e6bc9892aaf37b49d"
+    },
+    {
+      "range": [
+        2401,
+        3200
+      ],
+      "sha256_exact_original_line_bytes": "a48005eef49e5aefcf828a308bd8bf21d7a87f33054e62f7efe29b36dd251b2d"
+    },
+    {
+      "range": [
+        3201,
+        4000
+      ],
+      "sha256_exact_original_line_bytes": "60ea48ea5c8fbcb31e97fa578a8a4293832aaa376c1d0db1887dca98d6a0b042"
+    },
+    {
+      "range": [
+        4001,
+        4800
+      ],
+      "sha256_exact_original_line_bytes": "873996679e5f97cd1e9afc48b7d718a473e0a259523b1c590b7bba4ad899211a"
+    }
+  ],
+  "original39_accounting_increment": 0,
+  "lens11_accounting_increment": 0,
+  "root_ledger_modified": false,
+  "historical_files_modified": false,
+  "product_changes": false,
+  "checks_tests_publication": "none",
+  "clear": false,
+  "stop_at": 4800
+}

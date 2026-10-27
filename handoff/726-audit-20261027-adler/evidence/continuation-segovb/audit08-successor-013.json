@@ -1,0 +1,332 @@
+{
+  "id": "SEGOVB-CONT08-SUCCESSOR-013",
+  "created_utc": "2026-10-27T01:15:49.061172+00:00",
+  "lens": "08 behavior-preservation",
+  "skill": "/home/brunosegovia/.codex/skills/audit-behavior-preservation/SKILL.md",
+  "scope": "One bounded ordered-original1792 packet, independently of Q003. Full changed heating.rs base/head and actual point/terrain/ground receiving contracts read; stop at missing exact fixture parent/grid/generated-placement route and base ground receiver. No fixture exemption.",
+  "inputs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-012.json",
+      "sha256": "57496f4e5aadbc3c8d365f43a66bbd69f79eaa628445b92639808e00a0e67d75"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-012-proposed-state.json",
+      "sha256": "c818afbe0bbe488ffbb8e7c3cd33a169c63657c82324d7a69d444a25f561ddaf"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-root-heating-base-staging-013.json",
+      "sha256": "1b46ab858342267c27684abf3670857675a2defa124e6293cc7f9f0cce54611e"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-013-registration-original.json",
+      "sha256": "e3f1ee5c162600db867eba4bc9c8897fe13d9227ee718edcb0332232d3c9ef2a"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-013-registration-base.json",
+      "sha256": "e3f9e6a2726aa1f94789a9b508553f9ec9e9b05c278e6c87903803160cf182fd"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-013-registration-point.json",
+      "sha256": "3479ee749723f7a73e104d7a6458e6b60f86606893fa4cd0fa3eb29a90363fe2"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-013-registration-receivers.json",
+      "sha256": "256eb9f15abda655b4ee22e40a3f6c6691224ca6c6e20f5aa51a86c65c9db2ab"
+    },
+    {
+      "path": "target/recovery-20261025/audit05/original-scope-072.json",
+      "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+    }
+  ],
+  "frozen_identity": {
+    "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "qualification": "Frozen PR variants only; no current-main/PR990/P16 dirty-source substitution. Base heating bytes staged by root at exact base Git revision; staging supplies provenance only, own full body read is independently recorded."
+  },
+  "source_reads": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/bin/generate_scene_fixtures/heating.rs",
+      "original_index": 1792,
+      "scope_kind": "frozen_requested_change",
+      "frozen_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "target/recovery-20261025/audit10/successor-source-objects/b92ee2d412b4ce07eeae5e08de9f482ccb8226d8a4e76b0fe3200e014acae923",
+      "sha256": "b92ee2d412b4ce07eeae5e08de9f482ccb8226d8a4e76b0fe3200e014acae923",
+      "prospective_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "catalog_requested_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "base_sha256": "deab8a8b54485ffbcd6a8276a7424a0f7907af7776e72e190d9dd9550e2cbcaf",
+      "reason": "Full changed head body and actual producing/receiving contracts; fixture name gives no exemption. Source reuse gives no other-lens verdict transfer.",
+      "actual_body_read_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "completion_credit": "None from dependency access; original1792 remains partial pending named receiving frontier."
+    },
+    {
+      "source_id": "pr-base:crates/adventuresim-tactical-core/src/bin/generate_scene_fixtures/heating.rs",
+      "original_index": 1792,
+      "scope_kind": "frozen_requested_change",
+      "frozen_base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/deab8a8b54485ffbcd6a8276a7424a0f7907af7776e72e190d9dd9550e2cbcaf",
+      "sha256": "deab8a8b54485ffbcd6a8276a7424a0f7907af7776e72e190d9dd9550e2cbcaf",
+      "prospective_ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "root_provenance": "audit08-root-heating-base-staging-013.json",
+      "reason": "Full changed base variant, actual old producer and receiving calls",
+      "actual_body_read_ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "completion_credit": "None from dependency access; original1792 remains partial pending named receiving frontier."
+    },
+    {
+      "source_id": "pr-head:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "original_index": 1907,
+      "path": "target/recovery-20261025/audit08/source/head/1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+      "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+      "prospective_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "reason": "Full requested changed dependency variant: ScenePlanPoint conversion/finite point contract actually added in1792",
+      "actual_body_read_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "completion_credit": "None from dependency access; original1792 remains partial pending named receiving frontier."
+    },
+    {
+      "source_id": "pr-base:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "original_index": 1907,
+      "path": "target/recovery-20261025/audit08/source/base/4444765495bc33a59a51b9a927463073ec4543d55a89b0a3f2651caeaba37a7c",
+      "sha256": "4444765495bc33a59a51b9a927463073ec4543d55a89b0a3f2651caeaba37a7c",
+      "prospective_ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "reason": "Full requested changed dependency variant: ScenePlanPoint conversion/finite point contract actually added in1792",
+      "actual_body_read_ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "completion_credit": "None from dependency access; original1792 remains partial pending named receiving frontier."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene.rs",
+      "original_index": 1897,
+      "path": "target/recovery-20261025/audit10/successor-source-objects/2661ce950659807c47c0de4fdc769ba1ba79825c47ba2985fcec32d7e4f38390",
+      "sha256": "2661ce950659807c47c0de4fdc769ba1ba79825c47ba2985fcec32d7e4f38390",
+      "prospective_ranges": [
+        [
+          1,
+          553
+        ]
+      ],
+      "reason": "Exact receiving owner/navigation; changed requested variants retain full scope, body credit separately records actual read. No original completion credit from receiver access.",
+      "actual_body_read_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "completion_credit": "None from dependency access; original1792 remains partial pending named receiving frontier."
+    },
+    {
+      "source_id": "pr-base:crates/adventuresim-tactical-core/src/scene.rs",
+      "original_index": 1897,
+      "path": "target/recovery-20261025/audit08/source/base/3c124cb1f252af95932cb2db1f6fc9ba9b4b9b21a78d5bbbb2060d978a7aad55",
+      "sha256": "3c124cb1f252af95932cb2db1f6fc9ba9b4b9b21a78d5bbbb2060d978a7aad55",
+      "prospective_ranges": [
+        [
+          1,
+          699
+        ]
+      ],
+      "reason": "Exact receiving owner/navigation; changed requested variants retain full scope, body credit separately records actual read. No original completion credit from receiver access.",
+      "actual_body_read_ranges": [
+        [
+          241,
+          373
+        ]
+      ],
+      "completion_credit": "None from dependency access; original1792 remains partial pending named receiving frontier."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/ground.rs",
+      "original_index": 1901,
+      "path": "target/recovery-20261025/audit08/source/head/54559503a139270a829c73a46cb1ba81b69ada99dc3827350e16b575c4139d8a",
+      "sha256": "54559503a139270a829c73a46cb1ba81b69ada99dc3827350e16b575c4139d8a",
+      "prospective_ranges": [
+        [
+          1,
+          182
+        ]
+      ],
+      "reason": "Exact receiving owner/navigation; changed requested variants retain full scope, body credit separately records actual read. No original completion credit from receiver access.",
+      "actual_body_read_ranges": [
+        [
+          1,
+          182
+        ]
+      ],
+      "completion_credit": "None from dependency access; original1792 remains partial pending named receiving frontier."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/queries.rs",
+      "original_index": 1905,
+      "path": "target/recovery-20261025/audit08/source/head/feacac20255eb9787f14ee21a2b7955e72d5be7b618755698965657402efc08c",
+      "sha256": "feacac20255eb9787f14ee21a2b7955e72d5be7b618755698965657402efc08c",
+      "prospective_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "reason": "Exact receiving owner/navigation; changed requested variants retain full scope, body credit separately records actual read. No original completion credit from receiver access.",
+      "actual_body_read_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "completion_credit": "None from dependency access; original1792 remains partial pending named receiving frontier."
+    }
+  ],
+  "comparisons": [
+    {
+      "id": "CONT08-013-1792-A",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/bin/generate_scene_fixtures/heating.rs",
+      "before_ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "after_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "fact": "Both full variants read. Lines1-146 are identical and base147-155 equals head152-160. The only delta inserts ScenePlanPoint::from_metres(point).unwrap() in the existing test after its unchanged sample-point expression. Product fixture() and buildings() bodies1-88 are byte-for-byte unchanged.",
+      "preserved_local_contract": "HeatingReview fixture, playable spacing25m, identifier/climate/seed47126, flat sampler, nine archetype/seed inputs, upper TownHouse11/MerchantHouse0 domestic-heating override, one-based IDs, zero elevation/centre, identity orientation, collect-before-grid and error propagation remain unchanged locally. This does not imply their called dependencies are globally behavior-identical."
+    },
+    {
+      "id": "CONT08-013-POINT-B",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "before_ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "after_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "fact": "Complete before/after owner bodies read. Head from_metres31-37 checks x/y finite and stores the input Vec2 unchanged; metres38-40 returns that same Vec2. Base23-25 used Vec2.is_finite and retained input. New constructor adds no clamp, normalization, offset, reordering or quantization for finite sample points.",
+      "qualification": "The added unwrap asserts this locally produced sample is finite. No actual malformed-point witness is claimed. Preserving old non-finite inputs is not a requirement. A proof of all intended fixed-fixture sample arithmetic has not yet been completed through the missing build/grid/placement producer bodies."
+    },
+    {
+      "id": "CONT08-013-TERRAIN-C",
+      "sources": [
+        "pr-base:crates/adventuresim-tactical-core/src/scene.rs:286-362",
+        "pr-working:crates/adventuresim-tactical-core/src/scene/queries.rs:86-165"
+      ],
+      "fact": "Old height_at accepts raw Vec2, calls surface_at_stride(pos,1), maps elevation.metres. New accepts ScenePlanPoint, calls surface_at_stride(point,1), maps typed elevation. For finite input, new point.metres preserves the same centered grid coordinate and the sampled branch retains scale/dimension guards, inclusive last-vertex limits, stride/clamp rules, cell fractions, triangle branch and arithmetic order. The owned branch previously constructs ScenePlanPoint at query time and now receives it directly. The existing heating test only checks is_some, so the f32 -> SupportElevation return payload change does not alter that assertion by itself.",
+      "qualification": "No claim of full SceneTerrain owner coverage: head scene.rs only1-110 and base241-373 read. The exact called SurfaceHit/owned-surface implementation is not newly reviewed here; no completed-original transfer."
+    },
+    {
+      "id": "CONT08-013-GROUND-D",
+      "sources": [
+        "pr-working:crates/adventuresim-tactical-core/src/scene/ground.rs:120-136"
+      ],
+      "fact": "Actual head ground_at takes ScenePlanPoint, extracts metres for centered-grid bounds/floor lookup, and sends the same point to urban.surface_at before the natural-sample fallback. All head ground.rs1-182 read. The heating assertions still require GroundCover::Bare and density0.",
+      "qualification": "Exact base ground.rs3dbb0ea8... is not locally staged/read in this packet, so whole before/after precedence and payload comparison is not certified. No conclusion from source presence/search or another lens."
+    }
+  ],
+  "disposition": {
+    "original_index": 1792,
+    "status": "qualified partial",
+    "qualification_id": "SEGOVB-CONT08-013-1792-RECEIVERS-PARTIAL",
+    "actionable_findings": [],
+    "progress": "Full requested original bodies and actual newly inserted point conversion reviewed; coordinate-preserving terrain path established for finite points. No unintended behavior defect demonstrated in this bounded packet.",
+    "concrete_untraced_frontier": [
+      {
+        "path": "crates/adventuresim-tactical-core/src/bin/generate_scene_fixtures parent/support modules",
+        "contract": "Actual HeatingReview dispatcher -> heating::buildings -> arrange_catalogue_grid and build_fixture -> input.generate; establish the concrete generated centres/orientations/collision half extents used by this fixed nine-program sample. Exact module paths/base/head provenance requested from root, not assumed."
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/scene/ground.rs",
+        "base_sha256": "3dbb0ea8a81599718ff587192e49a670d7dce9255e8f850fe3ea9897be34c033",
+        "contract": "Read exact base ground_at/urban lookup receiving bodies and compare with actual head preserving intended finite sample semantics."
+      }
+    ],
+    "stop": "Save at this concrete receiver/producer frontier, no further arbitrary dependency expansion in packet013."
+  },
+  "coverage_delta": {
+    "original_accounted": 1799,
+    "original_total": 2853,
+    "new_original_completions": [],
+    "earliest_unfinished_original": 1462,
+    "partial1462": "CONT08-Q003 unchanged; packet012 matrix-erasure result retained",
+    "next_ordered_original": 1792,
+    "ordered1792_status": "qualified partial SEGOVB-CONT08-013-1792-RECEIVERS-PARTIAL",
+    "material_contiguous": [
+      0,
+      51
+    ],
+    "next_material": 52,
+    "partial_material_indices": [
+      52
+    ],
+    "separate_material_interval": [
+      178,
+      195
+    ],
+    "new_material_completions": [],
+    "accepted_unique_increment": 0
+  },
+  "inherited": {
+    "Q003": "Packet009 local direct composition counterexample remains; packet012 pure-w deviation is erased by Transform affine matrix route. No ordinary collider/current runtime witness or general normalization bound.",
+    "material52": "Frozen P16 typed-error receiver partial unchanged; currentcomparison001 only exact4fcc, not current source.",
+    "paid_withdrawn": "Preexisting SEGOVB-CONT08-007-M51-PAID-WITHDRAWN candidate remains partial.",
+    "preserve": "All20/P16/P17/#780/#826/M16 graph, inherited aliases/partials/policy/native obligations remain. Root owns ledger/adoption and any source repair."
+  },
+  "limits": [
+    "No source/product edits, Git commands, root-ledger/history changes, project/test/fixture execution or additions, publication. Python used only source metadata/hash/line reads and exact textual comparisons.",
+    "Full original1792 requested base/head scope read, not narrowed to changed lines. Existing test body read as source within requested scope; not executed or changed.",
+    "Full point owner variant reads and bounded scene/ground/query access do not complete those other originals or transfer another lens verdict.",
+    "Backward compatibility unsupported: no obligation to preserve malformed old inputs, old schema/API/layout, or unchecked arithmetic. No defect invented from a newly explicit intended contract.",
+    "Only ignored append-only evidence files created; root sole product/ledger writer."
+  ],
+  "global_clearance": false,
+  "stop": true
+}

@@ -1,0 +1,359 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "021",
+  "predecessor": "receipt-020-originals161-164.json",
+  "manifest_prefix_sha256": "0c16763ce4542adda3442092b73d94329c731a4125de7b40ad237cfc6e88680d",
+  "sources": [
+    {
+      "original_index": 165,
+      "source_id": "physical-p16:crates/adventuresim-dialogue/build.rs",
+      "sha256": "cc1742e70ed56b721e25aebb320b2295d621a1f826310a05b1f8771ab968093b",
+      "actual_ranges": [
+        [
+          1,
+          580
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            7,
+            9
+          ],
+          "role": "Two exact Rust module path literals",
+          "disposition": "Compiler input boundaries; actual authoring166/revision168 bodies now independentlyread."
+        },
+        {
+          "ranges": [
+            [
+              17,
+              83
+            ],
+            [
+              218,
+              247
+            ]
+          ],
+          "role": "36 closed runtime slot tokens22-57,10 investigation actiontokens69-78,four player/npc discriminator occurrences229/234/240",
+          "disposition": "Semantic categories matched from raw authoring fields. Need canonical runtime slot/action/role owners across build and runtime; actual runtime170 not yet read in full, no inferred fit or duplicate newenum. All matches actual gameplay/authoring authority, constants not exemption."
+        },
+        {
+          "ranges": [
+            [
+              84,
+              216
+            ],
+            [
+              248,
+              412
+            ]
+          ],
+          "role": "All raw role/topic/source path parameters and ID composite formats, testimony discriminator185/268; all assertion diagnostics",
+          "disposition": "Role/topic/response/prompt/choice identities drive BTreeMap/Set references and uniqueness. Composite ID formats256/294/312/350 are semantic identity keys, should retain exact scoped ID/role owners through application. Native assert diagnostics are concrete panic boundary here. Condition166 typed FactKey/FactValue functions participant_roles/authoring validity actual bodies read. Outer runtime semantic overlap not blanketcleared."
+        },
+        {
+          "ranges": [
+            [
+              414,
+              524
+            ]
+          ],
+          "role": "Raw scanner text/file/pathsegments, JSON lexical bytes and structured source-map field-key literals522 plus pathdelimiter same line",
+          "disposition": "Actual serde_json parsing/scanning/source-codec boundary. Decimal index488 is source-location JSON path representation, not numeric game ID or nativeSeed contract. Native metadata format/provenance not independently algorithm-correctness proof."
+        },
+        {
+          "ranges": [
+            [
+              526,
+              580
+            ]
+          ],
+          "role": "Environment names/directories/extensions/source separator, Cargo rerun format529, diagnostics531/550/553, generated Rust template573, OUT_DIR+filename576",
+          "disposition": "Exact fs/env/Cargo/generated Rust native boundaries visible. Digest flows168 and actual JSON parse strict AuthoringDocument source166 read. Conversation semantic IDs retained inside generated documents, later170recipient uninspected. No sourceexecution/scanner run occurred."
+        }
+      ],
+      "status": "Fullrequestedbody independentlyread and inventoried; source-accountedwithfindings and explicitunreadrecipients."
+    },
+    {
+      "original_index": 166,
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/authoring_schema.rs",
+      "sha256": "5218afbbe83f65f767841fc2de3aea7f09b2b9fff8226085d6ab2ad98f63f6a7",
+      "actual_ranges": [
+        [
+          1,
+          347
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            5,
+            8,
+            44,
+            46,
+            63,
+            90,
+            102,
+            104,
+            106,
+            122,
+            131,
+            163,
+            183
+          ],
+          "role": "Lintreason,modulepath,fivedefault-functionstrings,Serde discriminator/namingstrategy pairs plus TopicCategoryname",
+          "disposition": "Actual compiler/serializer metadata, default-function bodies16-24 read. Declaredpolicy167 fullyread."
+        },
+        {
+          "ranges": [
+            [
+              28,
+              60
+            ],
+            [
+              72,
+              128
+            ],
+            [
+              132,
+              159
+            ]
+          ],
+          "role": "All raw conversation/role/topic/response/prompt/choice IDs, speaker/addressee references, role kind, prose labels/fragments/reference, runtime slot/effect contract/profession/promotion/flag/action strings",
+          "disposition": "Actual native JSON ingress schema, but retained String semantic meaning extends across build165 and later runtime170. Raw runtime/action/category fields require canonical closed owner; authored IDs stay open and scoped. Narrative value/label fields need precise output grammar/bespoke text boundaries; no blanket Text exemption for references/slots."
+        },
+        {
+          "ranges": [
+            [
+              184,
+              285
+            ],
+            [
+              287,
+              347
+            ]
+          ],
+          "role": "All FactKey payloadStrings, participant-role string iterator, FactValue::Text(String)",
+          "disposition": "Exact participant references are used by build165roles.contains and conditionvalidator169. Text fact values are keyed bysemanticvariant, so actual source/consumer must distinguish ID/category/prose; onlyParticipantSex explicitly pairs typedSex at288-292. Subject/value matching runtimebody still unread, source-backed granularity/admission dependency without runtimeclaim."
+        }
+      ],
+      "status": "Fullrequestedbody independentlyread and inventoried; source-accountedwithfindings and explicitunreadrecipients."
+    },
+    {
+      "original_index": 167,
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/authoring_schema/policy.rs",
+      "sha256": "a9642460145cc1153e7ead65a73b4a149dcdd4312676947997709889f4b3b2ae",
+      "actual_ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            6,
+            14
+          ],
+          "role": "TwoSerde vocabularynames",
+          "disposition": "Native codecconfiguration."
+        },
+        {
+          "lines": [
+            32,
+            33
+          ],
+          "role": "Two typed parsefailure Display templates",
+          "disposition": "Actualformatter.write_strboundary; typedDialoguePolicyParseErrorretained."
+        },
+        {
+          "ranges": [
+            [
+              40,
+              77
+            ]
+          ],
+          "role": "Seven policy tokens43-45/60-63 and two raw parse APIs",
+          "disposition": "Canonical PromptMode/ResolutionPolicy own category. Actualparsecomparesstable IDs, build165 typedprompt conditions use exactowners. Different nativeSnakecasevsstablePascal spellings not BCproblem; actualpersistedtransportreadunverified."
+        },
+        {
+          "lines": [
+            86,
+            88,
+            94,
+            98
+          ],
+          "role": "Four source-only JSON/token test literals",
+          "disposition": "Actualnativeparse/expectedclassification boundary; no testexecution or wirepreservationrequirement."
+        }
+      ],
+      "status": "Fullrequestedbody independentlyread and inventoried; source-accountedwithfindings and explicitunreadrecipients."
+    },
+    {
+      "original_index": 168,
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/catalog_revision.rs",
+      "sha256": "c84897e6fc426cb620908fdabf4a4e52302d05bb588da91361407ab2d32868fb",
+      "actual_ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            4,
+            14
+          ],
+          "role": "Domain-separation bytes and native hashhexformat",
+          "disposition": "Actual Sha256 update and formatted digest boundary. WholefunctionreturnsStringdigestandacceptsStringpaths; typedrevision owner fit/actualruntimeconsumerstillpending. No nativehash/securityclaim."
+        },
+        {
+          "ranges": [
+            [
+              6,
+              51
+            ]
+          ],
+          "role": "Raw path/JSONvalueString and number.to_string projection into lengthframed nativebytes",
+          "disposition": "Concrete source-content fingerprint kernel, not arbitrary gameplaytext; JSONsortedobjectkeys45/lengthframing18/explicitnode tags visible, implementationnotexecuted."
+        },
+        {
+          "lines": [
+            62,
+            63,
+            68,
+            74,
+            75,
+            78,
+            79
+          ],
+          "role": "Test path/embeddedJSONkeys+speaker/listerner semantic fixturevalues,expectedhash,JSONparseinputs",
+          "disposition": "ActualnativeJSON/hash/sourcepath fixtureboundaries; no allcontentcanonicalidentity exemption, no testsrun."
+        }
+      ],
+      "status": "Fullrequestedbody independentlyread and inventoried; source-accountedwithfindings and explicitunreadrecipients."
+    },
+    {
+      "original_index": 169,
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/condition_validation.rs",
+      "sha256": "00fbc301066749af85fa86ca0ac2e5ca6be75aba4ac99770a9e4a4b2fd0e3c13",
+      "actual_ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              30
+            ]
+          ],
+          "role": "Raw roleString-keymap/role extraction and typed error role payload24; zero literalstrings",
+          "disposition": "Actual internalparticipantrole membership and typedDialogueError retained. CanonicalRoleId fitneeds actualruntime170Role/FactKey owner; no boundary inference from nameofrole."
+        }
+      ],
+      "status": "Fullrequestedbody independentlyread and inventoried; source-accountedwithfindings and explicitunreadrecipients."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Dialogue authoring/runtime slot, action, role and fact identity propagation",
+      "sources": [
+        "165:17-83,218-412",
+        "166:28-159,184-347",
+        "169:6-25"
+      ],
+      "disposition": "Actual raw schema fields driveclosedvocabulary/reference/identityvalidation. Text values havevariantdependentmeaning; actualtypedpolicy/Sex ownerspartiallyreused, runtimeownershipstillunread.",
+      "remedy": "Reuseprecise canonical closed runtime/action/role/factownersatnativecatalogadmission;retain scopedopencontentIDs andstructuredtextuntilexactcodec/renderboundaries;avoidindependentbuild/runtimevocabularytables.",
+      "acceptance": "Read actual runtime170 constructor/state/consumer and higherlevelproducers before finalrepairownerfit;noBCconstraints or unique-countaddition.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actualruntime170full body and nativeconditionevaluation/rendering/role/topic/contract/slot/actionrecipientsremainunread, despiteexactbuild/sourcepolicyproof.",
+    "Typedcatalogrevision/digest and source-path ownerfitthroughruntimeandpersistedreceiptsneedsactualconsumer.",
+    "All prior pendingroles/aliases/currentness/all20/P16/P17/F9/M09andotherpopulationspreserved."
+  ],
+  "qualifications": [
+    "Exactf82physical-P16 frozenbodies, notcurrentmain/HEAD/PRworking aliases.",
+    "No project/check/test/probe/scanner execution; no source/Git/rootledger/publicationchangesornewtests.",
+    "Fullrequestedrolesaccountedwithfindings; nativeboundaryproofsourceonly, noglobal/unique/runtime/otherlensclearance. Userno-BCoverrideswirepreserveclause."
+  ],
+  "proposed_count": {
+    "before": 165,
+    "after": 170,
+    "indices_completed": [
+      165,
+      166,
+      167,
+      168,
+      169
+    ],
+    "next_original": 170,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-dialogue/build.rs",
+      "sha256": "cc1742e70ed56b721e25aebb320b2295d621a1f826310a05b1f8771ab968093b",
+      "ranges": [
+        [
+          1,
+          580
+        ]
+      ],
+      "coverage": "Ownlens12rolesonly;allotherapplicablelensesindependent."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/authoring_schema.rs",
+      "sha256": "5218afbbe83f65f767841fc2de3aea7f09b2b9fff8226085d6ab2ad98f63f6a7",
+      "ranges": [
+        [
+          1,
+          347
+        ]
+      ],
+      "coverage": "Ownlens12rolesonly;allotherapplicablelensesindependent."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/authoring_schema/policy.rs",
+      "sha256": "a9642460145cc1153e7ead65a73b4a149dcdd4312676947997709889f4b3b2ae",
+      "ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "coverage": "Ownlens12rolesonly;allotherapplicablelensesindependent."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/catalog_revision.rs",
+      "sha256": "c84897e6fc426cb620908fdabf4a4e52302d05bb588da91361407ab2d32868fb",
+      "ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "coverage": "Ownlens12rolesonly;allotherapplicablelensesindependent."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/condition_validation.rs",
+      "sha256": "00fbc301066749af85fa86ca0ac2e5ca6be75aba4ac99770a9e4a4b2fd0e3c13",
+      "ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "coverage": "Ownlens12rolesonly;allotherapplicablelensesindependent."
+    }
+  ]
+}

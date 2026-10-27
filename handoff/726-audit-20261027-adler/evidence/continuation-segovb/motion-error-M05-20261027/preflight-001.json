@@ -1,0 +1,50 @@
+{
+  "at": "2026-10-27T02:02:50.431434+00:00",
+  "finding": "M05",
+  "implementation_owner": "/root",
+  "scope": "CatalogError::UnknownMotion payload and both actual PackBuilder error producers; use existing MotionId, retain invalid-input raw strings at admission failures.",
+  "base": "d44a00cc9a0bed75b0d61a7b330a29fe8f0df83f",
+  "branch": "codex/780-retain-motion-error-identity",
+  "source_pins": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/catalog.rs",
+      "sha256": "4621b2ac33e53d39be4866122ba41283261d01f8d007455c5266ef88916655a0"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/catalog_id.rs",
+      "sha256": "349beedb860eef8c0f4e9b882e10824b343451085d654c20b7c001ea98a3b810"
+    }
+  ],
+  "registered_current_read_ranges": {
+    "catalog.rs": [
+      [
+        1,
+        164
+      ]
+    ],
+    "catalog_id.rs": [
+      [
+        1,
+        134
+      ]
+    ]
+  },
+  "source_basis": "Inherited masterM05 plus own source-backed audit12successor024 canonical PackBuilder identity/motion recipients, current byte equality reconfirmed after branchswitch.",
+  "shared_ownership": "Historical native_reports shared-animation-admission-and-plan-failures concerns loading/admission/revision/sample_plan/update_pose_buffers/sample_character_plan. This small catalog payload change has root sole implementation owner, no active competing writer, no change to that whole pipeline. Root retains broader family obligations.",
+  "acceptance": [
+    "UnknownMotion stores existing MotionId at both error producers, never to_string internally.",
+    "All existing typed/invalid-input distinctions retained; no compatibility API or alternate path.",
+    "Independent Code/Rule/Comment Reviews and scoped13lens proof on same final revision plus required hostedCI.",
+    "Existing tests only; no local project execution or new tests/cases/helpers/assertions/doctests."
+  ],
+  "product_edits_started": false,
+  "global_goal_complete": false
+}

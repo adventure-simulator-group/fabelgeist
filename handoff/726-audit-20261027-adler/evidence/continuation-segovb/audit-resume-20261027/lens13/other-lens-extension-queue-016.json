@@ -1,0 +1,21 @@
+{
+  "status": "mandatory_unassessed_other_lens_extensions",
+  "source_receipt": "audit-resume-20261027/lens13/batch-077-081-receipt.json",
+  "source_receipt_sha256": "bac1cd8dac68bf27336b3ac4f28ba13df3c9a8d6e511d821304c191fbc987e7a",
+  "new_receiving_dependencies": [
+    "physical-p16:world-schema/calendar.rs",
+    "physical-p16:core/strategic_schedule.rs",
+    "physical-p16:stdb/strategic/inventory_trade.rs",
+    "physical-p16:core/strategic_schedule/allocation.rs",
+    "physical-p16:stdb/condition.rs",
+    "physical-p16:core/item_references.rs own052 reuse"
+  ],
+  "required_lenses": "All other applicable lenses independently; locators/body access provide no transferred verdict.",
+  "credit": {
+    "original": 0,
+    "overlay": 0,
+    "merged": 0,
+    "old_shared": 0,
+    "accepted_new_unique": 0
+  }
+}

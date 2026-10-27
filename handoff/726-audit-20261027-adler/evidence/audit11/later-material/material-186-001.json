@@ -1,0 +1,19 @@
+{
+  "id": "ADLER-CONT11-MATERIAL-186-001",
+  "lens": "type-granularity",
+  "material_index": 186,
+  "source_id": "native-support:bevy_render-0.19.1/src/texture/gpu_image.rs",
+  "sha256": "93ce4dd53c7e855b2ebc057fc23e71c191f1fd74c0f9ae224b49de260d556708",
+  "ranges": [
+    [
+      26,
+      38
+    ]
+  ],
+  "source_basis": "Personal exact bounded body read after registry187 prospective registration; source-object SHA matched. No other-lens transfer.",
+  "assessment": "Exact26-38 associated RenderAsset types/Param and asset_usage only. GpuImage maps SourceAsset=Image and returns image.asset_usage typed bitflags. No body beyond38 consumed; no take_gpu_data/GPU upload/error/full SDK verdict inferred.",
+  "new_unique_finding": false,
+  "repair": "not started",
+  "validation": "not run",
+  "scope_limits": "Bounded native contract only, original roles unchanged and no blanket exemption."
+}

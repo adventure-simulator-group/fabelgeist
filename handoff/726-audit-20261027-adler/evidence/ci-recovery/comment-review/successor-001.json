@@ -1,0 +1,47 @@
+{
+  "at": "2026-10-25T23:03:08.353647+00:00",
+  "head": "ea6762b9c1cb156edb16f1a3f3ab7a9a42a464e5",
+  "prior_head": "8dd44e74eb5109d95bb341f4729bebe69ca5a118",
+  "scope": "Comment-review delta only; prior review and pins immutable",
+  "source_pins": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/clouds.rs",
+      "sha256": "5f06b83f4ad15abade193c4f6eaa53da8883dc6ead574c4e63d8be9bf398af6b"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/raster.rs",
+      "sha256": "9fccf858ba9d05364f441ce14f4b51f32755539575e274040bb09aed6a1b0483"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/terrain/cliff_surface.rs",
+      "sha256": "8ccdbfd43becdfa894a59dd37e98e2cf75bac6a0a7fa88b6ca66196dbbacc56e"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/gardens/README.md",
+      "sha256": "4c842ed44ad7ee5197c2e571d0669113a1f03aee062776106006189c3a8815f4"
+    },
+    {
+      "path": "crates/strategic-web/ART_DEMO.md",
+      "sha256": "36986f30126ac2e507c0d0cabc751ebd2ccda6e771a1e63130c099d0ebd914a0"
+    },
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "9c6fe53c2202a3d05349093c067558eb00a626fd0b7ee9e44398f12594de893c"
+    }
+  ],
+  "findings": [
+    {
+      "id": "CI-COMMENT-001",
+      "status": "partially_resolved",
+      "path": "crates/adventuresim-tactical-core/src/city_layout/gardens/README.md",
+      "line": 73,
+      "remaining": "Workflow always uploads even on failure, so an unchanged committed fixture may be present in a revision-matched artifact after its exporter failed. The new text does not ask contributors to check exporter results before copying.",
+      "precise_wording": "Artifacts are uploaded even if an exporter fails; check that both exporter steps succeeded before copying either generated file.",
+      "placement": "After the sentence instructing artifact download.",
+      "resolved": "Dispatch option, source-revision verification, expected two outputs, review/commit guidance, separate normal workflow on final source; ART_DEMO cross-link."
+    }
+  ],
+  "other_delta": "Fixture-owner path correction and two inlined test closures preserve reviewed comments and intent; no new comment finding.",
+  "checks": "None; read-only Git source/diff inspection only.",
+  "limits": "No hosted/global audit acceptance; generated outputs and expected budget literals still require appropriate review; lens05 stays checkpoint3142499/2853,next2634line1."
+}

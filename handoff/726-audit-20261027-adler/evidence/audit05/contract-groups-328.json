@@ -1,0 +1,81 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-328",
+  "at": "2026-10-25T23:14:00.660965+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2709,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/volumetric.rs",
+      "sha256": "91cc6773da28100f122fbaa19b7bbc9a258f808a68f09e61f199d880652266b0",
+      "personally_read_ranges": [
+        [
+          1,
+          280
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1-280: counts>=2/finite ordered bounds and checked sample/cell products precede allocation; sample scalar outputs finite checked. Derived spacing/coordinate/intersection position arithmetic not revalidated. F009 finite extreme bounds plus ordinary scalar-y callback yields bounded nonfinite retained vertices. Edge-sign indexing derives valid neighboring cells, cell vertices/indices zip; outward/closed sphere tests are narrow fixture evidence, not all scalarfield topology proof. No execution."
+      ]
+    },
+    {
+      "scope_index": 2711,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+      "personally_read_ranges": [
+        [
+          1,
+          267
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1-267 exact physical-p16: typed locomotion gait/profile leaves carry speed/distance/phase/height/landing semantics. animation speed checks horizontal norm overflow before downed minimum. Profiles chosen from runtime config, blend run proportion assumes distinct ordered walk/run reference speeds; checked interpolation catches derived nonfinite where propagated. Shared cadence divides by existing step-distance floor, support smoothstep handles zero radius explicitly. Public aggregate can mix gait/leaves/landing minima/maxima; actual validated config/consumer relation separate, no new invalid profile caller."
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "ADLER-RESUMED05-F009",
+      "lens": "audit-aggregate-states",
+      "classification": "Finite ordered Surface Nets bounds can produce nonfinite retained render vertices because derived spacing is unchecked",
+      "sources": [
+        {
+          "scope_index": 2709,
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/volumetric.rs",
+          "sha256": "91cc6773da28100f122fbaa19b7bbc9a258f808a68f09e61f199d880652266b0",
+          "ranges": [
+            [
+              8,
+              32
+            ],
+            [
+              35,
+              71
+            ],
+            [
+              98,
+              140
+            ],
+            [
+              145,
+              205
+            ],
+            [
+              255,
+              278
+            ]
+          ]
+        }
+      ],
+      "relationship": "Grid admission requires finite ordered bounds and counts>=2; extractor rejects nonfinite sampled scalar values and returns positions/normals/indices for direct mesh conversion. Grid counts/bounds and derived coordinate arithmetic must remain coherent before accepting render geometry.",
+      "source_counterexample": "Use sample_counts=[3,3,3], minimum=(-f32::MAX,-1,-1), maximum=(f32::MAX,1,1), field(point)=point.y. All explicit grid checks pass, products are27/8, and every sampled scalar value is -1,0 or1 (finite). maximum.x-minimum.x overflows toinfinity, so sample x is NaN atzero andinfinity otherwise; crossing ycells calculate averaged intersections withnonfinite x, push them at137-139 and returnSome(surface)at205 without checking positions. Normal gradient can remain finiteY because fielduses onlyy. No giant allocation, nonfinite authored bound, or nonfinite field output required.",
+      "actual_path": "Module API SurfaceNetsGrid -> extract_surface_nets -> uncheckedderivedspacing/samplepositions -> finite scalarcallbackcheck -> retained ExtractedSurface positions -> into_mesh. Static bounded27sample API counterexample, no normal rock/stone recipe caller or rendered output failure claimed, no code execution.",
+      "dedup": "All1002inheritedmetadata searchedSurfaceNetsGrid/extract_surface_nets/surface_nets/surface nets andexactpresentation/volumetric.rs. Only ROOT-INITIAL04-F012 relates to hair/head.rs tinypositivecell ->usize countoverflow, distinct source/calculation/counterexample; possible shared arithmetic admission repair family retained without creating repair plan.",
+      "proof_ref": "contract-groups-328.json",
+      "repair": "not_started_initial_discovery_gate",
+      "validation": "not_run"
+    }
+  ],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

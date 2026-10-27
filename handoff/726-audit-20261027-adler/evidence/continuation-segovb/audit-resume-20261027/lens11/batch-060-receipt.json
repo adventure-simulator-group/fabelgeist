@@ -1,0 +1,228 @@
+{
+  "at": "2026-10-27T14:54:57.298054+00:00",
+  "lens": 11,
+  "status": "1073-1075 independently source-accounted with findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-060-registration.jsonl",
+    "sha256": "81aa48554efbcdd36c06906ce8dc7ab7f4e15e39cad170d2f623b8e0b9268f30"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-059.json",
+    "sha256": "39ed7dcba3a67c862615400c2b1c2cdd0906092b4ed817bc65ab3bf2fb6fba3d"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1073,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs",
+      "sha256": "c572b0014c6114020ee98d99a3cdfa1579b25a815ade34656bfeb8b6a421d1dc",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/c572b0014c6114020ee98d99a3cdfa1579b25a815ade34656bfeb8b6a421d1dc",
+      "ranges": [
+        [
+          1,
+          677
+        ]
+      ],
+      "actual_eof": 677,
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          677
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1074,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/browser_session.rs",
+      "sha256": "58bcbbfa28a430def36a47439a94587ab24f3fbdfe2eeca4b9c58e19a6e0ed4a",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/58bcbbfa28a430def36a47439a94587ab24f3fbdfe2eeca4b9c58e19a6e0ed4a",
+      "ranges": [
+        [
+          1,
+          567
+        ]
+      ],
+      "actual_eof": 567,
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          567
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1075,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/browser_session/descendants.rs",
+      "sha256": "4ee78100f46e24040c48bd9007e4a8892b04b81c6b351f77d1eb9fa701246a16",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/4ee78100f46e24040c48bd9007e4a8892b04b81c6b351f77d1eb9fa701246a16",
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "actual_eof": 95,
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          95
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected",
+      "original_index": 1118,
+      "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+      "ranges": [
+        [
+          1,
+          162
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual fraction retrieval/admission, partial measured object consumption and payload retainedrow",
+      "actual_read_ranges": [
+        [
+          1,
+          162
+        ]
+      ]
+    },
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-module/src/alcohol/rest_ledger.rs",
+      "sha256": "cbe90b94bb21eaa7f2b76678f1d61dac849bc50057ab24fb20a52476d88f1c59",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/cbe90b94bb21eaa7f2b76678f1d61dac849bc50057ab24fb20a52476d88f1c59",
+      "ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "actual_eof": 32,
+      "prospective": true,
+      "purpose": "Actual evening evaluation retained ledger update; id/character/evening/amount association",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "base_head_bytes_equal": true,
+      "absent_frozen_changed_variants_and_dirty4": true,
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          32
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original_index": 1073,
+      "inventory": "AlcoholConsumption retained character/evening/ethanol/evaluation record; AlcoholProperties copy; carried Stack::Party/Personal payloads and external owner+party_scopebool; per-row ConsumableFractionMicros versus aggregate available micros/reserve units, settled/medical/hydration selectionpolicies; ethanol/hydration/disinfectantml, effectiveness, morale, count and monetaryunits; optionalbestdisinfectant tuple and rest ledger.",
+      "disposition": "Per-row ConsumableFractionMicros rightly bounds one object, while available_item_micros can aggregate many objects then capsu32; do not incorrectly wrap totalstock in one-row fraction. Party/Personal Stack owns matching rowpayload and actualconsume dispatch retains correctscope. Other functions combine rawowneru64+party_scopebool and repeatedflagtriples, allowing invalidnamespace/policy combinations byshape; actualcallers consistently usepartyleader forpartyreserve andcharacterforpersonal. Ethanol volume, hydration volume and disinfectant serving volume compare ml but different effectroles; BPS/alcoholfraction, dosehistory and morale not oneUnitInterval. Microsceil request/flooreffect is explicitconversion: sub-ml consumed fractions can roundeffect0; retain precisionpolicy question without assertingactualplayerloss. Several errors are collapsed tozeroavailability/consumed via unwrap_or_default; this erases failureclassification, not a compatibilityrequirement. Nightlyledger takes redundant id+character+eveningrawports butactualproducerconstructsledger_id coherently; morale_evaluated is phasefact independent from accumulated ethanol.",
+      "remedy": "Reuse canonical positive/general volume and consumablefraction owners with named effecttypes where swapsmatter; coherent inventoryscope/owner payload and named consumptionpolicy. Retain aggregatequantity distinct from rowfraction, preserve integerrounding policy explicitly, keep typed errors until deliberate selection failuredecision. Ledger keyed bycanonical character/evening derivedid instead of acceptingindependent authorities. Any invariant/perception/conservation remedy needs actualalias/current acceptance, no new arbitrary alcoholbounds.",
+      "acceptance": "Full1-677 consumed. Exactpure8531-426 and933full1-804 personally reused with hashcheck; native1118fraction/consume1-162 complete; newunchangedrestledgerfull1-32 provenbase=head and absent747dirty4. No all item/catalogadmission/currency/container/condition/nativeDBatomicity/runtime guarantee."
+    },
+    {
+      "original_index": 1074,
+      "inventory": "PrivateBrowserOwnerKey64lowercasehex; persistentexclusive grants versus shareddevelopmentaccess; originStartingCandidate/AdultDescendant plus two optionalprovenancearms, characterid and redundantscanid; owner-scoped selection; wall-clock granted/selectedmicroseconds versus strategicminute; trusted backendaccess selectedflag.",
+      "disposition": "GrantOrigin selector with independent Optionrequest/parent admits invalidcartesianstates; actualvalid_grant_provenance and grantproducers enforce exactlyonearm and storedclaimownership. Payload-owning enum directly prevents this mixup without new validation bounds. Exclusiveordinarycharactergrant and nonexclusive development-scenarioaccess differauthority and must remainseparate; selectedflag observerprojection notpermissionauthority. character_scan_id duplicatesid fornative numericviewscan limitation, justifiedindexprojection notseparatemechanicalidentity. Ownerkey format numericstring notcharacterID; shouldretain nominal pseudonymousowner role despite sameStringstorageasrequest/scenarioslug. Nativewallclockmicros differ strategicmaturityfrontier.",
+      "remedy": "Canonical BrowserOwnerKey and GrantProvenance::Starting{requestkey}/Descendant{sourceparent} payload; derive scanprojection fromcanonicalidentity at all mutations and keep explicit ordinaryexclusive versus developmentsharedaccess. Keep selectedcharacter/ownerassociation and typed strategicfrontier until viewnativeadapter. No fallback/APIalias or cryptographicownerverificationclaim from formatcheck.",
+      "acceptance": "Full1-567 consumed with1075fullhelpers. Actualinitialclaim==character+owner and lineageclaim/sourcegrant checks, adult/alive/gateway/different-owner rejection traced. No signedcookie/cryptographicgateway implementation or globalprivateprojectionproof."
+    },
+    {
+      "original_index": 1075,
+      "inventory": "Descendant grant validation, signedbirthcoordinate\u2192adulthoodStrategicMinute, optionalselectedlivingobserverfrontier versus descendantownfrontier, view/reducer access and baselineage fallback.",
+      "disposition": "Adulthoodcoordinate, selectedobserverdate and descendantdate shareStrategicMinuteunit but distinct authorityroles: futureadulthoodhiddenwhilelivingselectedobserverearlier, absent/deadselection allowsdescendantfrontierrecovery. Optionabsence meaningfulpolicy, noterror ordefaulttime0. View helper additionallyrequires selectedordinarygrantowner association; reducer assumesselectionownership maintained byparentproducer. Wallclockgranttime must notsubstituteformaturityfrontier. Viewageusesbirthifpresentotherwisecharacter.age_years; dualbaseline/birth representationrequires exactCharacterbirthadmission reconciliation later, notassume backwardscompatibility orwrongactualdescendantage.",
+      "remedy": "Named maturity/observerfrontier policy inputs or coherent contextpreventswapping same-unit clocks, preserving fallbacktoownfrontier only forabsent/deadselection. Reuse canonical effective-age calculation/admission across view/reducer where possible, reconcile baselineage/birthsemantics before changingpolicy.",
+      "acceptance": "Full1-95 consumed withactualparent1074constructors/select/viewreceiver. Courtshipadultconstant/birthclockleaves previouslyreached; fullCharacter/relationshipproducers remain scheduled originals and no earlycompletion/current/runtime claim."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-008-receipt.json",
+        "sha256": "480a8e5ab6e0ba18252686cbe2eac0f4d38a718701571266a49ae7dd7076e900"
+      },
+      "original_index": 853,
+      "sha256": "ead3354da78110069cabd335496a7e9ee16125ac302d7dece1d3684b0a1824ef",
+      "ranges": [
+        [
+          1,
+          426
+        ]
+      ],
+      "identity_reverified": true
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-027-receipt.json",
+        "sha256": "871ad0df2778d657e3f880a3444f1c99f36a6d2b9258c12e6a57bb3c11a97b41"
+      },
+      "original_index": 933,
+      "sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+      "ranges": [
+        [
+          1,
+          804
+        ]
+      ],
+      "identity_reverified": true
+    }
+  ],
+  "new_material_extensions": [
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-module/src/alcohol/rest_ledger.rs",
+      "sha256": "cbe90b94bb21eaa7f2b76678f1d61dac849bc50057ab24fb20a52476d88f1c59",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/cbe90b94bb21eaa7f2b76678f1d61dac849bc50057ab24fb20a52476d88f1c59",
+      "ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "actual_eof": 32,
+      "prospective": true,
+      "purpose": "Actual evening evaluation retained ledger update; id/character/evening/amount association",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "base_head_bytes_equal": true,
+      "absent_frozen_changed_variants_and_dirty4": true,
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          32
+        ]
+      ]
+    }
+  ],
+  "provenance": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-060-rest-ledger-provenance.json",
+    "sha256": "d1ddcd876c3680731ba8456307773fc15350d67ebea82a4adb6d15e4cc0da57a"
+  },
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Frozen source-only; no accepted unique/current/alias/runtime/global inference.",
+    "Inventoryamount1118first162 only; transfer tail notread. Existing corealcohol scope1-426 reused, not full776.",
+    "Character/relationship birthbaseline/current ownerkey cryptographicauthority and deeper condition/currency/container acceptance notinferred from these source guards; pending fullregisteredroles remain mandatory."
+  ]
+}

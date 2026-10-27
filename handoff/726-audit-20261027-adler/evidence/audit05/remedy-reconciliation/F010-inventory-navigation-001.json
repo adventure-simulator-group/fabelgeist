@@ -1,0 +1,39 @@
+{
+  "records": 1002,
+  "terms": [
+    "settle_temporary_member_stake",
+    "temporary member",
+    "temporary companion",
+    "generated companion",
+    "dismiss",
+    "party stake",
+    "party_stake",
+    "stake.value",
+    "stake_value"
+  ],
+  "matches": [
+    {
+      "archive_file": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl",
+      "record_index": 38,
+      "record": {
+        "id": "CAMERA-INITIAL07-F039",
+        "at": "2026-10-23T04:11:43.273439+00:00",
+        "lens": "audit-redundant-authority",
+        "classification": "transaction_receipt_uses_independent_preview_value",
+        "contract": "CAMERA-INITIAL07-CONTRACT-204",
+        "source_refs": [
+          "physical-p16:crates/strategic-web/src/routes/quests.rs:295-327",
+          "physical-p16:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs:11-110"
+        ],
+        "fact": "Successful report response reward purports to describe awarded money, but is independently selected before the authoritative transaction.",
+        "disagreement": "Pre-call BackendContract query error becomes empty then reward0 at300-307. Independent report_contract can succeed and credits current canonical quest.gold_reward.max(0) at60-69. Response317-320 then emits claimed:true/reward:0 and reward-added message. Also pre-read raw negative value differs canonical nonnegative credit. These are source-backed conditional paths; no current query failure/negative installed contract/actualbadaward or run asserted.",
+        "actual_receiver": "Structured TurnInQuestResponse JSON outgoing native HTTP receipt after reducer succeeds; definitive party currency/stakes/reserve are mutated by report_contract, which returns unit. No downstream browser display behavior inferred beyond emitted JSON.",
+        "connected_repair": "Return or fetch a canonical committed payout receipt bound to the exact report occurrence and use its amount in success response; keep preview/retrieval unavailable distinct from measured0. Retain idempotent paid state/current party ownership and exact party stake/reserve split; do not reexecute the transaction or trust browser amount.",
+        "acceptance": "A claimed-success amount originates from committed canonical payout, with typed amount/receipt through first-party state to actual HTTP codec; historical estimate explicitly distinguished if retained. No compatibility raw-success path or invented current failure.",
+        "validation_status": "not_run",
+        "repair_status": "frozen",
+        "normal_bad_caller_claim": false
+      }
+    }
+  ]
+}

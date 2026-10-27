@@ -1,0 +1,128 @@
+{
+  "id": "SEGOVB-FINAL-REVIEW-RECONCILIATION-001",
+  "review": "Final scoped PR source/Git/hash identity reconciliation; not CI completion",
+  "at_utc": "2026-10-26T19:35:19.004826+00:00",
+  "head": "961d226be23a81d9731a11958d62fe8a04b93e81",
+  "base": "a411abb4370bb6f6609622cef5da59988a37aee9",
+  "status": "All scoped source fingerprints and final manifest identities match; no new source identity finding",
+  "source_only": true,
+  "source_fingerprint_summary": {
+    "unique_paths_verified": 45,
+    "repository_paths": 41,
+    "external_SDK_paths": 4,
+    "mismatches": [],
+    "method": "Resolve Code003 nonworkflow unchanged claims to Code001 exact end fingerprints; Code002 supplies superseding workflow/quality inspector pins; Rule003 explicit source/baseline/workflow hashes and Comment003 source_identity_comparison independently agree. Current file SHA256 compared to all those current pins. Every repository source byte-matched committed961 blob via read-only Git; external SDK files compared to exact reviewed SHA256.",
+    "data_receipt": "final-review-reconciliation-001-data.json"
+  },
+  "final_manifest_reconciliation": {
+    "file": "final-source-manifest-001.json",
+    "paths": 15,
+    "sha256_match_all": true,
+    "blob_id_match_all": true,
+    "working_file_matches_committed_tree_all": true,
+    "changed_path_set_equals_manifest": true,
+    "working_tree_clean": "Read-only git status --porcelain=v1 --untracked-files=all returned empty: tracked/nonignored working tree clean. Ignored evidence files remain separate."
+  },
+  "workflow_preservation": {
+    "path": ".github/workflows/rust-quality.yml",
+    "sha256": "3f6e1cfe6c05f5f6a2bb39155e3bf0d8ec8cbdabe3f77e993971d42e56891b33",
+    "exact_reviewed_workflow_preserved": true,
+    "all_base_lines_retained": true,
+    "actual_base_to_head_operations": [
+      {
+        "operation": "insert",
+        "base_lines": [
+          115,
+          114
+        ],
+        "current_lines": [
+          115,
+          153
+        ]
+      },
+      {
+        "operation": "insert",
+        "base_lines": [
+          128,
+          127
+        ],
+        "current_lines": [
+          167,
+          174
+        ]
+      }
+    ],
+    "interpretation": "Only reviewed insertions115-153 and167-174 relative to base; no existing base line changed/deleted. Exact reviewed002/003 hash means scoped #986/#987 Linux/Windows/fixture-exporter/positive-execution guards and original check ordering remain as reviewed. This does not assert any execution passed from source alone."
+  },
+  "baseline_reductions": {
+    "path": "rust-quality-baseline.toml",
+    "sha256": "37048dd0f6d5655c517af9c3bbf9f33eed0dd43fc05cf3ff61228d80b779d20c",
+    "only_changed_values": [
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+        "before": 538,
+        "after": 502
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+        "before": 899,
+        "after": 862
+      }
+    ],
+    "no_added_or_raised_ceiling": true,
+    "meaning": "Read-only exact base-to-head baseline delta contains only these2reductions, matching retained Rule003/code/comment source repair and hosted relevant snapshot evidence. No scanner/check/baseline command run."
+  },
+  "unresolved_and_retained_limits": [
+    "Full final961 hosted CI is still pending. Parent reported steps1-43successful/live44 at assignment; reviewer did not poll CI or claim later completion.",
+    "Existing CommentF9 and all broader audit/migration/coherence/device/constructor/subresource families remain open; fingerprint match does not resolve inherited semantic findings.",
+    "Existing13GPU/2doc/1borrowed, Windows10 and constraint40+27/5 artifacts retain their exact tested populations; no direct runtime coverage of new view/polling-error branches inferred.",
+    "Code003/Comment003 earlier PR-body002/preliminarybb0 evidence is historical; current candidate003 separate PR review handles updated final961 subset wording. No historical PR prose hash falsely treated as product source mismatch.",
+    "No currentness or clearance transfer to unrelated frozen lens11/12/13 populations; no ordered audit/source accounting increment."
+  ],
+  "findings": [],
+  "evidence_fingerprints": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/final-source-manifest-001.json",
+      "sha256": "77043e14d7a107b52afed9378d7fe920a3912d7c47e42a533c32cfbc11ebdb1c"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/code-review-001.json",
+      "sha256": "3ffa92c97e90ae930b3b996241b23caab8e18500226c4dc39c2d6b37091e8b47"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/code-review-002.json",
+      "sha256": "df6e484581849f1ebc465f20244f9d492df4e231e1f890981c8b8bb7d34903b1"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/code-review-003.json",
+      "sha256": "06eee0d9338f75e5d60f199cf1c9a0e85974a321db640db6ab336d801d170e3b"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/rule-review-002.json",
+      "sha256": "47dc41f2a1eb1143a9bff24e8ddddebc979dd6603d419364caa19bc5bbd7b6d1"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/rule-review-003.json",
+      "sha256": "073039b0d2ecb9ffe9c395d1bae8944abfd9c6c7cb4dc1f92ee8a586de87f52d"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/comment-review-003.json",
+      "sha256": "9ee0f3d153abf0fba86ba9de2eb4e1b870861a8ce8317e5630fec38d8aad9050"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/final-review-reconciliation-001-data.json",
+      "sha256": "a468739f26495b92c8198939eb853f05adb7d7e38b2098a4d2890c27be873705"
+    }
+  ],
+  "no_mutations_or_execution": [
+    "No product or Git mutation",
+    "No rootledger/historical overwrite",
+    "No project checks/scanners/tests/probes or hosted workflow actions",
+    "No publication/external communication"
+  ],
+  "recommendation": "Scoped source review identities remain applicable to exact961 deliverable. Await final required same-revision CI before any merge-ready declaration. Stop this reconciliation now.",
+  "global_clear": false,
+  "CI_complete": false,
+  "goal_complete": false,
+  "stopped": true
+}

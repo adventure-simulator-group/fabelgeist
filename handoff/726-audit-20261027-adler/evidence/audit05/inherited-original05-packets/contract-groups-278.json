@@ -1,0 +1,80 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-278",
+  "at": "2026-10-23T06:42:53.870622+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/roof_tessellation.rs",
+      "sha256": "1b6392b23903162a4016dd207491880b8fc6d4b6242e1fe516eb8c92ce18634d",
+      "scope065_index": 652,
+      "actual_EOF": 426,
+      "scoped_ranges_compared": [
+        [
+          1,
+          426
+        ]
+      ],
+      "actual05_comparison": "Fresh complete requested source including original fixtures; own relationship analysis of retained triangle topology/surface pairing/geometry input and arithmetic preconditions."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/solid_overlap.rs",
+      "sha256": "e61d932304ccb07e313798a4bd6cafd3c7003cf995bb29550db5cfcdf3558d24",
+      "scope065_index": 661,
+      "actual_EOF": 118,
+      "scoped_ranges_compared": [
+        [
+          1,
+          118
+        ]
+      ],
+      "actual05_comparison": "Fresh complete requested source including original fixtures; own relationship analysis of retained triangle topology/surface pairing/geometry input and arithmetic preconditions."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry.rs",
+      "sha256": "c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+      "scope065_index": 662,
+      "actual_EOF": 29,
+      "scoped_ranges_compared": [
+        [
+          1,
+          29
+        ]
+      ],
+      "actual05_comparison": "Fresh complete requested source including original fixtures; own relationship analysis of retained triangle topology/surface pairing/geometry input and arithmetic preconditions."
+    }
+  ],
+  "groups": [
+    {
+      "id": "roof material surfaces and paired prism",
+      "comparison": "tessellate_roof_face normalizes the coupled plane normal only for orientation/thickness displacement, not mutating plane equation or pretending normalized constant. It feeds the same flattened outer+remaining cutout vertices and hole starts to earcut, retrieves indexed triples, orients each to same normal, emits paired reversed interior offset and boundary edges. Weather/interior/boundary/enclosure classifications deliberately affect detailed rendering while coarse shell may ignore distinction. Plane/polygon coplanarity and shape admission remain original roof-source obligations; this renderer does not validate every raw RoofFace."
+    },
+    {
+      "id": "notch and hole membership",
+      "comparison": "Boundary cutout first attempts same-edge two touchpoints, sorts their local parameters, walks cutout cycle between distinct positions with direction selected to keep interior path; touches.len==2 proves nonempty cutout before modulus. Corner fallback requires an actual shared outer vertex plus previous/next touches and one interior point, otherwise retains cutout as hole. Outer loops guard empty modulo; same_point uses .002 distance tolerance. remove_collinear loop removes one only while len>3, terminates, guarded expect removable actual Some. These operations assume supported coherent polygon/cutout topology, not a general arbitrary self-intersection repair. Native earcut implementation not present in global scope and not source-read; index-range/native triangulation contract stays explicit rather than blanket foreign proof."
+    },
+    {
+      "id": "same triangulation closes only unshared edges",
+      "comparison": "append_boundary_sides compares each oriented top edge with all other edges in either direction under same_point. Only unique boundary edges create two offset side triangles; shared triangulation diagonals omitted. Derived cross product produces same side normal for both triangles. Raw duplicate/nonmanifold polygons may defeat physical closure, not accepted by this helper; source does not seal public mutable triangle records. Actual UV helpers compute along-surface distances and downhill tangent, horizontal fallback explicit; positive nonzero metres_per_unit/native normalized triangle inputs required, no generic finite arithmetic promise. Original pitch/azimuth and hole-area/winding/closed-mesh fixtures fully read, not run."
+    },
+    {
+      "id": "enclosure residual frame",
+      "comparison": "Enclosure len>=3 before first vertex, derives same normal/tangent/plane, asks actual residual against current walls, concatenates each polygon ring with hole starts, drops ring closing duplicate and rebuilds positions from same plane/tangent/elevation. Actual residual contract supplies closed nonempty rings; no .len()-1 safety inferred for unrelated raw native Polygon. Same paired offset and boundary helper applies. No unregistered residual helper body or native geometry package proof."
+    },
+    {
+      "id": "physical overlap operation has no retained duplicate authority",
+      "comparison": "solid_overlap transforms actual triangle into same solid local yaw/crossfall/longfall frame; SAT uses three coordinate axes, triangle normal and edge cross axes, omits nearzero axes and tests positive tolerance penetration. Cuboid versus AABB similarly combines actual world/local/cross axes and radii. Does not retain stale projection or independent geometry owner. Bounds ordered/finite native arithmetic and tolerance meaning are caller preconditions; these methods are crate-private, no current normal extreme API witness established here. Actual corner-contact and empty-AABB-overlap fixture read only. No broad shape-envelope containment clearance from bounding cuboid SAT."
+    },
+    {
+      "id": "geometry reexport boundary",
+      "comparison": "spatial_geometry.rs reexports canonical frame/coordinate/displacement/dimensions/orientation owners and declares modules/tests. It states signed coordinates/zero displacement allowed and direction/rotation normalization; reexports contain no duplicated state or collection relationship. Actual lower definitions have separate prior05 cells; this wiring receives no blanket constructor/mutation coverage."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Native earcut and geo implementation not source-read; actual call parameters and local output assembly only, no universal arbitrary-polygon validity proof.",
+    "Remaining global source inventory unread."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

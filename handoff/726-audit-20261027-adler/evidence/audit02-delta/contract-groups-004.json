@@ -1,0 +1,308 @@
+{
+  "id": "ADLER-OWN02-MATERIAL-004",
+  "lens": "02 existing type owners",
+  "sources": [
+    {
+      "index": 88,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/shape_cast/shape_cast.rs",
+      "sha256": "55751d940df916bcdc1526be642b46736efe8223038ea0bbed6cee5530db129e",
+      "ranges": [
+        [
+          1,
+          151
+        ],
+        [
+          272,
+          284
+        ]
+      ],
+      "revision": null,
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\55751d940df916bcdc1526be642b46736efe8223038ea0bbed6cee5530db129e",
+      "recovery": "target\\recovery-20261025\\audit03-delta\\source-objects\\55751d940df916bcdc1526be642b46736efe8223038ea0bbed6cee5530db129e",
+      "line_count": 284,
+      "disposition": "Native Parry already owns ShapeCastOptions/ShapeCastHit/ShapeCastStatus and Unsupported. ScalarTOI is ray/velocity parameter (zero valid, defaultRealMAX), targetdistance nonnegative includingzero; witnesspoints/normals are shape-local with status-dependent reliability. Project RequestedDuration/PositiveLength or sceneDirection cannot replace all nativevalues without narrowing or changingframe. Reuse complete native hit/status/options at actual boundary, then admit projectsemantic result with statuspolicy; record name alone doesn't guarantee valid witness geometry. Current caller behavior not inferred here.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 89,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/default_query_dispatcher.rs",
+      "sha256": "dd9873e219688b93f28314df13a405c0c78fb44444344b46e18ba2eb75fbe53d",
+      "ranges": [
+        [
+          437,
+          543
+        ]
+      ],
+      "revision": null,
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\dd9873e219688b93f28314df13a405c0c78fb44444344b46e18ba2eb75fbe53d",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/native-parry-dd9873e219688b93f28314df13a405c0c78fb44444344b46e18ba2eb75fbe53d",
+      "line_count": 835,
+      "disposition": "Actual dispatcher retains same native Pose/Vector/ShapeCastOptions through shape-class routing and preserves Unsupported separately from None. Exactnative kernel port justifies these native owners; not a blanket exemption for project callers. No existing game coordinate or scalarowner matches multiple localshape frames and parameterized motion, so no duplicate wrappers in vendorednative implementation.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 90,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/shape_cast/shape_cast_support_map_support_map.rs",
+      "sha256": "d874526a7a624206fd8ae6e3302db0f51f2d643c53014b8f5d496daa7d1e125c",
+      "ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "revision": null,
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\d874526a7a624206fd8ae6e3302db0f51f2d643c53014b8f5d496daa7d1e125c",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/native-parry-d874526a7a624206fd8ae6e3302db0f51f2d643c53014b8f5d496daa7d1e125c",
+      "line_count": 67,
+      "disposition": "Support-map cast uses native RoundShapeRef, GJK/simplex and Contact to produce actual ShapeCastHit, including status, local witness/normal transforms and parameterTOI. targetdistancezero is explicit ordinarybranch. Dir3/positive physicalduration would be incorrect universal substitutions; validity of returned geometry depends on actualstatus/options as documented88. Existing native aggregate can be reused only with those retained predicates, no inferred unit guarantee.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 91,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/shape_cast/shape_cast_halfspace_support_map.rs",
+      "sha256": "42943e2a44151982c9c509c9c633cde8b794e4da98ac70a1fd1d99c657aef851",
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "revision": null,
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\42943e2a44151982c9c509c9c633cde8b794e4da98ac70a1fd1d99c657aef851",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/native-parry-42943e2a44151982c9c509c9c633cde8b794e4da98ac70a1fd1d99c657aef851",
+      "line_count": 78,
+      "disposition": "Halfspace cast uses actual HalfSpace.normal/Ray/ShapeCastOptions and swaps shape-local witnessroles through native hit.swapped. Existing native geometryowners retain frames internally; zeroTOI and nonnegative targetdistance required. No corresponding gamePoint<Scene>/metresleaf fits generichalfspace localcoordinates without conversion at callerboundary. No new wrapper solely because nativeVector fields represent pointsandnormals.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 92,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/gjk/gjk.rs",
+      "sha256": "893b9246ae77eb21d8a3f10afaeeb05e36bfdb774ce6e98579f614ac32e57a68",
+      "ranges": [
+        [
+          634,
+          822
+        ]
+      ],
+      "revision": null,
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\893b9246ae77eb21d8a3f10afaeeb05e36bfdb774ce6e98579f614ac32e57a68",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/native-parry-893b9246ae77eb21d8a3f10afaeeb05e36bfdb774ce6e98579f614ac32e57a68",
+      "line_count": 822,
+      "disposition": "GJK raw Vector/Real/simplex values are actual low-level Minkowski/ray algorithm state with zero/default/undefinedpenetration witnesses and normalizedworkingdirection. Existing VoronoiSimplex/Ray/GJKResult own algorithm and actual indices derive same simplexpopulation. UnitInterval, PositiveLength, spatialPosition or projectqueryresult are not exact substitutes for nativeparam and localCSO coordinates. Final gamehit admission/statuspolicy remains callerobligation; no wholeNativeAPI clearance.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 93,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/contact/contact_support_map_support_map.rs",
+      "sha256": "fcb9e37067085e862b6a23bfbe73a4bc39ff56ceefc90031f9c0b10766430562",
+      "ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "revision": null,
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\fcb9e37067085e862b6a23bfbe73a4bc39ff56ceefc90031f9c0b10766430562",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/native-parry-fcb9e37067085e862b6a23bfbe73a4bc39ff56ceefc90031f9c0b10766430562",
+      "line_count": 73,
+      "disposition": "Native Contact/GJKResult/EPA represent different resultstates and shape-local frame transforms; optional initdirection is numeric searchhint with fallbackX. Actual NoIntersection is retained on totalalgorithmfailure, so projectconsumer may need policy but cannot replace generickernel types by gamephysical owners. No proof allContact output is finite/unit at projectboundary from recordname alone.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 94,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/clothing/regions.rs",
+      "sha256": "3819e9e4805a3004655e303c8a9e84b2d28892ea2d2b193ea9d094a31afc8f5a",
+      "ranges": [
+        [
+          104,
+          133
+        ]
+      ],
+      "revision": null,
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\3819e9e4805a3004655e303c8a9e84b2d28892ea2d2b193ea9d094a31afc8f5a",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/592/crates/adventuresim-character-creator/src/clothing/regions.rs",
+      "line_count": 162,
+      "disposition": "Waist policy already uses canonical RigJointName/RigJointMembership/RigJointTable<RigJointName>/RigJointOrdinal from fabelgeist-rig. indexed producer emitsordinal/name association from actual orderedtable, filterretains slot, and consumer returns HashSet<ordinal>. No stringprefix/reconstructedrawusize in registered path. This is positive existingownerreuse; no equivalent localjointwrapper or bodypartname conflation.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 95,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/boundaries.rs",
+      "sha256": "41530ea3d8197242c6c5cc79ac9a35b31b9df76287a57aae530247553f3e2f2b",
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "revision": null,
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\41530ea3d8197242c6c5cc79ac9a35b31b9df76287a57aae530247553f3e2f2b",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/606/crates/adventuresim-tactical-server/src/boundaries.rs",
+      "line_count": 46,
+      "disposition": "Boundaryserver receives SceneBoundary/GeneratedBoundary then actual fixed_support collider and GateDatum from native transformY, constructs scene door before spawn and native Avian collider publication. Datumframe owner already reused at realboundary; elevation nativefloat extracted solely to Transform. PropertyID numeric display is terminal. Existing Scene/Gate datum differs Architectural floor, so preserveframe-specific actual helpers, not genericMetres replacement.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 96,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/investigation/claims.rs",
+      "sha256": "19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+      "ranges": [
+        [
+          643,
+          655
+        ]
+      ],
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-material-19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+      "line_count": 1771,
+      "disposition": "Development bootstrap path checks capability and actual livingcharacter then delegates receipt/action strings to shared rumorimplementation. Characteru64 is databaseidentity, receiptID/actionID are opaque source/retry roles. Existing SharingReceiptId nonzerou64 and RightsActionId32bytes found in core differ meaning/representation/admission; not exactfit. Actual receiverbody outside registered643-655 is not certified; preserve shared investigationidentity remedy/deferredpolicy rather than invent alias or blanketString exemption.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 97,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/investigation/model.rs",
+      "sha256": "ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+      "ranges": [
+        [
+          1287,
+          1335
+        ]
+      ],
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-material-ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+      "line_count": 1399,
+      "disposition": "Journal notice retains existing StrategicMinute clock; remaining publiccase/source/summary/label strings have separate roles and currentlength/nonempty validation. Existing CaseSiteId is geographic visitlocation, not publiccaseidentity; SharingReceiptId/RightsActionId also differ. No exact checked publiccase/source/notice textowner found in bounded core/schema search; unresolvedmissingowner rather than wronglyreuseCaseSiteId. Actual stablehash-derived retryidentity verifies allfullfields on collision/retry before insert, so identityassociation cannot be replaced by sourcehash alone. Keep source-backed admission/identity remedies pending.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 98,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/shell.rs",
+      "sha256": "ff370d4ead428bf2bc7c6de55dcf2d22d7b358ab64054cac8e1ec34f71bda894",
+      "ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\ff370d4ead428bf2bc7c6de55dcf2d22d7b358ab64054cac8e1ec34f71bda894",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/659/crates/adventuresim-character-creator/src/export/shell.rs",
+      "line_count": 111,
+      "disposition": "Frozen rig-quality shell writer lowers native glTF buffer-view/accessor indices, component/type codes and semantics to JSON, with Views tuple plusbody_skin pair. Existing RigJointOrdinal is jointtable slot, BufferByteOffset/Length are GPUbyte quantities, so neither fits glTF view/accessorindex; no exact existing exportindex owner found in frozen Creator search. Missing coherent glTF layout/accessorowner/association remains pending780 exportgraph. RiggedShell/TextureImages own source selections; zip and tuple names do not prove shell/view population/position-skin correspondence. No new GLBframing clearance inferred.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 99,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "cc0dcb8aa0f608af65aa968955667894a687e4f44ef547919b421d7c3e1d2616",
+      "ranges": [
+        [
+          633,
+          670
+        ],
+        [
+          810,
+          840
+        ]
+      ],
+      "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\cc0dcb8aa0f608af65aa968955667894a687e4f44ef547919b421d7c3e1d2616",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/659/crates/adventuresim-character-creator/src/export.rs",
+      "line_count": 1819,
+      "disposition": "Frozen export entry retains GlbOutput/RiggedMesh/RiggedShell/RiggedSocket and calls validate before compaction; actual buffer/skinning source then writer/nativeJSON lowering. Existing RigJointName/Ordinal/Table are rigidentityowners, not skeleton-node/accessorindices. lod/recipe_versionu8 and character_name are independent source metadata; no exact canonical existingLod/version owner located in bounded Creator/coresearch. Registeredranges633-670,810-840 only; current checkedGLBframing slice does not discharge whole frozen material/mesh/accessorgraph. No stale source restoration proposed.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 100,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/contracts.rs",
+      "sha256": "082a7174a1ca9b578bf1a52852a7d09d952c4af3c6d0705ee7b5442692175e33",
+      "ranges": [
+        [
+          1,
+          291
+        ],
+        [
+          338,
+          384
+        ]
+      ],
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\082a7174a1ca9b578bf1a52852a7d09d952c4af3c6d0705ee7b5442692175e33",
+      "recovery": "target\\recovery-20261025\\audit03-delta\\source-objects\\082a7174a1ca9b578bf1a52852a7d09d952c4af3c6d0705ee7b5442692175e33",
+      "line_count": 384,
+      "disposition": "ContractInteractionStage/ContractStatus/CaseStatus/StrategicMinute and actual table/session entities already reused. Stringcontract/party/dialogueaction/location andu64revision retain distinct authority: simulation explicitly uses revision0, so KnowledgeRevision NonZeroU64/BeliefRevision cannot blindlyfit; receipt/action other existingtypes differ semantics. Actual record producer validates living leader, acceptedparty/stage, issuerpresence and location before publishingreceipt; consume derives sameIDcoordinates and stage thenmutatesconsumed. Generic recordname is not leafidentity proof, but don'tinventparallel owner without actual sharedcontract/dialoguesession fit. Reducertransaction rollback is required for accept afterreceiptconsumption, not a new primitiveowner issue.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 101,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade/streams.rs",
+      "sha256": "f0317997a922b05065564f3a5b4963d424f0efd3a2c4ed70dbb72a1de6c9569e",
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\f0317997a922b05065564f3a5b4963d424f0efd3a2c4ed70dbb72a1de6c9569e",
+      "recovery": "target\\recovery-20261025\\audit03-delta\\source-objects\\f0317997a922b05065564f3a5b4963d424f0efd3a2c4ed70dbb72a1de6c9569e",
+      "line_count": 18,
+      "disposition": "Stable draw streams already use actual Seed/StreamId and NonZeroU64 for below's nativeexclusivebound. maximumu32 is semanticallypositive and Somegold is nonzero amount; NonZeroU32 is reusable numeric leaf with currency-specific role, not genericfullu32. Existing ItemQuantity (inventory_measurement.rs13-32) is nonzero fungibleitem count but module explicitly deferred persistentinventoryschema; accepteddeferral retained, no forced schema revival. Actual inventory_trade caller1373 buildsmaximum fromdifficulty.max(1)*10 and adds currencyitem amount; separate arithmeticbounds not proved by helpername. No new globallyunique defectcount.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 102,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/scalp.rs",
+      "sha256": "64a5cc8196a567a3b4d071c355bc491a23956d815c57d4805277bf15b1135304",
+      "ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\64a5cc8196a567a3b4d071c355bc491a23956d815c57d4805277bf15b1135304",
+      "recovery": "target\\recovery-20261025\\audit03-delta\\source-objects\\64a5cc8196a567a3b4d071c355bc491a23956d815c57d4805277bf15b1135304",
+      "line_count": 412,
+      "disposition": "GpuScalp retains actual GPU Buffer owners but rawtriangle/vertex/boundarycounts, metre-squaredarea andboundsarray need mesh/bufferpopulation association. Existing ScanElementCount is scaninvocationrole, hair StrandCount/PointsPerStrand/GuideNeighborCount describe differentpopulations; noneexact same countowner. ScalpGrid siblinglayout is rawshadergrid and not admitted scalpmeshowner; BufferByteLength only bytes. Existing Surface is actual upload/readrecipient but construction alone doesn't establish indexvalidity/finite area or match buffers. Missing coherent scalpmesh/layout owner remains hair/GPU graph, not architecturaltype import. Nativevec4padding andlabels are actualGPUports; no blanket rawretainedmetadata exemption.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 103,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/shape_cast/shape_cast.rs",
+      "sha256": "55751d940df916bcdc1526be642b46736efe8223038ea0bbed6cee5530db129e",
+      "ranges": [
+        [
+          157,
+          175
+        ],
+        [
+          212,
+          220
+        ]
+      ],
+      "revision": "pinned native parry3d-0.27.0 lock checksum",
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\55751d940df916bcdc1526be642b46736efe8223038ea0bbed6cee5530db129e",
+      "recovery": "target\\recovery-20261025\\audit03-delta\\source-objects\\55751d940df916bcdc1526be642b46736efe8223038ea0bbed6cee5530db129e",
+      "line_count": 284,
+      "disposition": "Native cast documentation confirms timeofimpact follows native unitspertime velocities and zeroalreadytouching; example4seconds derives8units/2. This disambiguates native parameter role from distance. Reuse actual native motion/hitcontext and keep projectcallerunits explicit; isolatedfloatTOI is not inherently Metres or positiveRequestedDuration. Documentation is supplemental receivercontract, not fresh algorithm/currentcaller validation.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    }
+  ],
+  "new_unique_findings_claimed": 0,
+  "execution": "Read-only source evidence; no project checks, source edits or Git changes",
+  "supplemental_owner_searches": [
+    "Frozen6533 core/schema/Creator/rig public owner search found RigJointName lib.rs48, RigJointOrdinal52, RigJointTable table.rs14; no glTFaccessor/viewowner. Typeidentity semantic distinction compared to actual98/99 receivingJSON.",
+    "Frozen6533 core/strategic_place.rs45-92 personallyread: CaseSiteId checkedStrategicIdentityComponent and actualplaceprojection, distinctfrom publiccaseID97.",
+    "Frozen6533 hair/gpu/scalp/layout.rs1-103 personallyread: actual ScalpGrid/nativeparameters/orderedbounds/trimmed byteextent, not a pre-existing admittedScalpMeshcountowner.",
+    "Frozen6533 core/inventory_measurement.rs1-95 personallyread: ItemQuantity NonZeroU32 and intentionallydeferredinventoryscope; inventory_trade.rs1363-1386 actualgoldproducer/consumer personallyread.",
+    "Frozen6533 bounded core/schema/dialogue owner searches compared revision,action,receipt,location,currency roles; matching spelling alone not reused."
+  ],
+  "accepted_limits": [
+    "Parrynativeframes/IEEEalgorithmstate are specific actual receivingports, not globalnativeexemption.",
+    "P16/rigquality frozenobjects and currentmaincheckedGLBimplementation are different scopevariants; no currentglobal clearance or staleoverwrite.",
+    "Existing physical/rig/export/hair/identity remedies retained; newunique count remains0 until sharedremedy dedup."
+  ]
+}

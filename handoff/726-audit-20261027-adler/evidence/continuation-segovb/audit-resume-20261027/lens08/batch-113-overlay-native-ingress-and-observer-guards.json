@@ -1,0 +1,316 @@
+{
+  "registration": "audit-resume-20261027/REGISTRATION-147-lens08-overlay-scope-reconciliation.json",
+  "per_overlay": [
+    {
+      "overlay_index": 107,
+      "id": "CONT-OWNER-RANGE-EXTENSION-108",
+      "source_id": "native-dependency:spacetimedb-2.6.1/src/rt.rs",
+      "sha256": "9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+      "fresh_read_ranges": [
+        [
+          560,
+          627
+        ],
+        [
+          703,
+          712
+        ],
+        [
+          1296,
+          1308
+        ]
+      ],
+      "prior_original_role_proof_indices": [
+        20
+      ],
+      "behavior": "FreshnativeRT560\u2013627/703\u2013712/1296\u20131308 closesactualtuple Argsvisitor/reducerargument SerDe wrappers andbufferreader tail. Args productlen fromtuplearity, eachfield actualnativeDeserialize withmissingfieldErr, namedproductsunsupported, methodconstructs tupledirectly anddoesnotinvoke firstpartytypeconstructorexceptitsDeserialize. Outerdeserialize_product/nativeBSATN engine owninherited20context required for trailingarity/consumption; no claim extra elements acceptedorallreducerargs validated. read_bytes_source_into beforelogic usesIterBuf sourcecontext, nottransaction rollbackproof. 560trait/627schema partial/1308errno const precise nofullRT/SDK blanket."
+    },
+    {
+      "overlay_index": 110,
+      "id": "CONT-OWNER-RANGE-EXTENSION-111",
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/replication/registry/rule_fns.rs",
+      "sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+      "fresh_read_ranges": [
+        [
+          116,
+          169
+        ]
+      ],
+      "prior_original_role_proof_indices": [
+        470,
+        478
+      ],
+      "behavior": "Fresh116\u2013169 ruleFns actualcallbackdelegation: deserialize new vs deserialize_in_place existing, consume stalehistory/customcallback separateports, skiphistorymayadvancecursor withoutDeserialize. NativeSerdecomponentadmission mustcoveractualselectedcallbacks; no inferencevalidationatdefaultctor/mutation fromfnname. Exactsame-lens earlier470/478 readproofcontext retained, no oldbytes compatibilityguarantee orallreplicationcertificate."
+    },
+    {
+      "overlay_index": 133,
+      "id": "CONT-OWNER-RANGE-EXTENSION-134",
+      "source_id": "pr-working:crates/strategic-web/static/dialogue-client.js",
+      "sha256": "dd5524466d59c0e52e3a527e31b8cc005ebf64f581b89a08801e2195943fcf19",
+      "fresh_read_ranges": [
+        [
+          4,
+          72
+        ],
+        [
+          100,
+          108
+        ]
+      ],
+      "prior_original_role_proof_indices": [
+        2414
+      ],
+      "behavior": "Fresh4\u201372/100\u2013108 browserdialogue helpers: normalizedlabel/ID exactfirstcandidate, comma-separatedmulti rejectsblank/unknown/duplicateIDs, completiononlyuniqueprefix. Literalcomma inopenauthoredlabel potentialambiguousmulti UI butactualcataloglabelrules needed. Unicode toLocaleLowerCase client vsbackendID exactmeaning nativeinput distinct. RetriableAction retainsIDafterambiguousfailure butclears409/422/success; samehelperconcurrentrequests sharependingID andsuccessmayclearotherinflight, actualbuttonlifecycle needed. Bindingguardsgeneration/NPC/path/token/session/revision actual beforemutations, no allstaleresponseclaim beyondrealguardedcallers. Own073 full825 actualsamebody reusednooriginalcount."
+    },
+    {
+      "overlay_index": 134,
+      "id": "CONT-OWNER-RANGE-EXTENSION-135",
+      "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+      "sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+      "fresh_read_ranges": [
+        [
+          371,
+          387
+        ],
+        [
+          392,
+          423
+        ]
+      ],
+      "prior_original_role_proof_indices": [
+        2361
+      ],
+      "behavior": "Fresh371\u2013387/392\u2013423 actualdialogueNPC placebinding: categoryTown/City/Capital haskeep, canonicalnavdelegate andexactrepresentative expectedID/home/org/conversation fields plusactualchapterlocation. Emptyorg rejects representativeconversation subtype ratherthanassumingallNPCsrepresentative; actualcanonicalauthoredIDs/nativesourceadmission needed. Prior062 lackedbody392+, nowactual lowerpredicate sourcecovered; nowhole1897 route/runtime/stateprivacyclearance."
+    },
+    {
+      "overlay_index": 137,
+      "id": "CONT-OWNER-RANGE-EXTENSION-138",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/surface.rs",
+      "sha256": "bccc776702dc9fffcbe8d608fa0de1f2ab28f6fc601d4186762fa8641fd87022",
+      "fresh_read_ranges": [
+        [
+          16,
+          17
+        ]
+      ],
+      "prior_original_role_proof_indices": [
+        1622
+      ],
+      "behavior": "Fresh16\u201317 onlyCAMERA_STANDOFF_SPANS2/CAMERA_CLIP_MARGIN4 constants provideunits/meaning, notcamerakernel projectionbody beyondownoriginal1622scope. No arbitraryphysics/magicglobalboundinferred."
+    },
+    {
+      "overlay_index": 138,
+      "id": "CONT-OWNER-RANGE-EXTENSION-139",
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/config.rs",
+      "sha256": "7e192ef20631845534afb5f4060d45c4253271682e203f89ae3c83dec1b5687e",
+      "fresh_read_ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "prior_original_role_proof_indices": [
+        1269
+      ],
+      "behavior": "Fresh1\u2013171 fullCoreLoopConfig actualdisposablefixture admission: loopbackHTTPcredential/path/query/fragment constraints; databaseprefixedASCII name, runnonce16..96ASCII, population2..32/party2..8/cycles/days100yr/work<=100000; importedworld andquestfixturemode correlatedOptiondigest gates. cfgpublic/Serde bypassvalidate untilcallerinvokes, uniqueDBnameprefix doesnotproveuniqueinstance norauthorizeDBdeletion. Closed9fixtureDiseases subsetintentionalfixturepolicy, notallgame catalogwhitelist. Allcode/sourceonlynoapp/DB/network/check/testexecution. Tokenliteralformatvalidation notrandomentropyproof or actualsecretread."
+    },
+    {
+      "overlay_index": 144,
+      "id": "CONT-OWNER-RANGE-EXTENSION-145",
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/travel.rs",
+      "sha256": "6aabf6b42ea20cd7b12e0ce9e5b3cba26c21b29cee6652b53f307ed65bf1063e",
+      "fresh_read_ranges": [
+        [
+          152,
+          153
+        ],
+        [
+          571,
+          604
+        ],
+        [
+          686,
+          694
+        ]
+      ],
+      "prior_original_role_proof_indices": [
+        2413
+      ],
+      "behavior": "Fresh152\u2013153/571\u2013604/686\u2013694 travelmarkup/mapserialization tails. Distinctwater actual/target/daylight/partyfatigue/terrain/projectedpath displayroles; playerlegibility requiresactualbrowserinterpretation. Nativepipe/comma positionalitinerary segments includeaverage/start/end/maxfatigue/restminutes explicitunits; allproducerassociation andJS integer/format semantics remainasown0731\u2013694, no full1579body."
+    },
+    {
+      "overlay_index": 146,
+      "id": "CONT-OWNER-RANGE-EXTENSION-147",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+      "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+      "fresh_read_ranges": [
+        [
+          46,
+          46
+        ],
+        [
+          93,
+          93
+        ]
+      ],
+      "prior_original_role_proof_indices": [
+        611
+      ],
+      "behavior": "Fresh46/93 onlyclosingbrace/derive annotation, no new executablebody/no wholechurchgeneratorcredit. Own611 exactregisteredapsegate scopes andcheckedcustom5sidepolicy remain separate."
+    },
+    {
+      "overlay_index": 153,
+      "id": "CONT-OWNER-RANGE-EXTENSION-154",
+      "source_id": "pinned-bevy-replicon-0.41.1:src/shared/replication/rules.rs",
+      "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+      "fresh_read_ranges": [
+        [
+          153,
+          159
+        ],
+        [
+          278,
+          278
+        ]
+      ],
+      "prior_original_role_proof_indices": [
+        471,
+        479
+      ],
+      "behavior": "Fresh153\u2013159/278 actualReplicon replicate_as delegates genericfiltered_as,CClone/Into/FromT nativeSerde adapter. Concreteconversion mayeraseandreadmitbespokeinvariants; defaultfn/wire actualcallbody/in-place/consume contracts retainedfromown471/479, no declaration/nativecodec-only blanket. 278closingbrace notnewbody."
+    },
+    {
+      "overlay_index": 154,
+      "id": "CONT-OWNER-RANGE-EXTENSION-155",
+      "source_id": "pinned-registry:avian3d-0.7.0/src/physics_transform/transform.rs",
+      "sha256": "5020a25a60cbe8b42d37cadf31c24a6d24dcde07df2c8f156ee45ff81e9c450b",
+      "fresh_read_ranges": [
+        [
+          740,
+          745
+        ],
+        [
+          1051,
+          1074
+        ],
+        [
+          1092,
+          1114
+        ]
+      ],
+      "prior_original_role_proof_indices": [
+        484
+      ],
+      "behavior": "FreshAvianRotation740\u2013745/1051\u20131074/1092\u20131114 publicQuaternionpayload+DerefMut/Serde/Reflect, FromTransform/GlobalTransform computedrotation andQuat/DQuat scalarcasts constructwithoutnormalization/admission. Actualapplicationfiniteunitrotation wrapper needed beforecallingnormalization assumptions; f64\u2192f32overflow possibleunderselectedScalarfeature andnon-unitquatscanpropagate. Nativefeatures/GlobalTransformdecomposition sourceownpreviousreceipts distinct, no runtimeordinaryphysicswitness/allfeatureclaim. This is externalSDK boundary notautomaticfieldprivacyseal."
+    },
+    {
+      "overlay_index": 157,
+      "id": "CONT-OWNER-RANGE-EXTENSION-158",
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+      "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+      "fresh_read_ranges": [
+        [
+          1504,
+          1609
+        ]
+      ],
+      "prior_original_role_proof_indices": [
+        443,
+        2164
+      ],
+      "behavior": "Fresh1504\u20131609 LandUseFraction privateBPS constructordelegatesUnitBasisPoints andcustomSerde callsnew; LandUseProfile privatefourfractions ctoru32sum==10000 overflow-safe4*u16, getters/intensity partial at1609. NativeSATSderive attributes mayconstructfieldsdirectly bypassSerde ctor, existing090macroproof relevant butactualrow/nativecaller needed. RestprofileDeserialize1610+ ownoriginal443scope retained; no full4796bodyorblanket10000allnamedpermille."
+    },
+    {
+      "overlay_index": 163,
+      "id": "CONT-OWNER-RANGE-EXTENSION-164",
+      "source_id": "physical-p16:crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "fresh_read_ranges": [
+        [
+          2054,
+          2054
+        ]
+      ],
+      "prior_original_role_proof_indices": [
+        465,
+        2402
+      ],
+      "behavior": "Fresh2054 deriveonly ActivityEffectRates, no independentfullbody/Defaultnativebehaviorcredit. Actualfields andconstructors/callers owned109/112 sameSHA, nozero-rateavailabilityguaranteefromDefaultderive."
+    },
+    {
+      "overlay_index": 164,
+      "id": "CONT-OWNER-RANGE-EXTENSION-165",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/browser_session/descendants.rs",
+      "sha256": "4ee78100f46e24040c48bd9007e4a8892b04b81c6b351f77d1eb9fa701246a16",
+      "fresh_read_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "prior_original_role_proof_indices": [
+        1075
+      ],
+      "behavior": "Fresh1\u201395 actualdescendantgrant/adultobservervisibility andvieweffectiveage. Signedbirth\u2192adulthood typedchecked; whenselectedlivingobserver absent visibilityusesdescendantfrontier intentionalexplicitpolicy requiringoutergrantowner/timeauthority. Viewselectedobserver additionallychecksselectedgrant.owner same, reducerprivatepredicate selectionownerkey thenlivingcharacter/time; canonicalselectionadmission/allcallerneeded before unauthorizedstateclaim. effective_age_years_for_view missingbirthfallsbackcachedage; usernoBC forbids treatingthisaslegacyrequired, finalcanonicalbirth/admittedavailabilitydecision pendingactualproducer. No privacy/runtime/ordinarycorruptselectionclaim."
+    },
+    {
+      "overlay_index": 182,
+      "id": "CONT-OWNER-RANGE-EXTENSION-183",
+      "source_id": "pinned-registry:spacetimedb-bindings-macro-2.6.1/src/sats.rs",
+      "sha256": "bf26e6331c7cf9a560ecec507b5e06b11bc77460dec17ac0d553cff5278a5bc4",
+      "fresh_read_ranges": [
+        [
+          728,
+          752
+        ]
+      ],
+      "prior_original_role_proof_indices": [
+        2562
+      ],
+      "behavior": "Fresh728\u2013752 nativeSATS variant_data restricts unit orsingle named/unnamedpayload; multi-field variants returnmacroErr. This constrainsderive shaping, canwrapcanonicalpayloadrecord atnativeedge ratherthanflattentoindependentOptionfields. No bound onvariantcount/name/bodySerializehelpers638\u2013727 inferred. ActualfieldnativeDeserialize maybypassownconstructor asprior090, no blanketderiveimpossibleclaim."
+    },
+    {
+      "overlay_index": 192,
+      "id": "CONT-OWNER-RANGE-EXTENSION-193",
+      "source_id": "physical-p16:crates/adventuresim-core/src/skill.rs",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "fresh_read_ranges": [
+        [
+          892,
+          981
+        ]
+      ],
+      "prior_original_role_proof_indices": [
+        141,
+        996
+      ],
+      "behavior": "Fresh892\u2013981 GoverningAptitudes private3u8percentage+LimbWeights fields, constweighted assertsu16sum100 (max765safe); meaningfulwholepercent vsBPS distinction. resolve onlynonzeroaxes, weightedlimbsthen/100 andfiniteclampMAX_CHECK else0. Privateweightadmissiondoesnotadmitpublicnativeattributes; finiteMAXattribute*100 canoverflow\u21920, actualboundedattributes neededbeforeordinarydefect. 0weights prevent0*NaN propagationforinactiveaxes, no nominalfiniteinputclosurepromise. Existing141/996samebody/sourcequalified."
+    },
+    {
+      "overlay_index": 201,
+      "id": "CONT-OWNER-RANGE-EXTENSION-202",
+      "source_id": "pinned-registry:spacetimedb-bindings-macro-2.6.1/src/sats.rs",
+      "sha256": "bf26e6331c7cf9a560ecec507b5e06b11bc77460dec17ac0d553cff5278a5bc4",
+      "read_ranges_reused": [
+        [
+          728,
+          752
+        ]
+      ],
+      "same_lens_reuse": "Samepacket freshlyconsumedoverlay182 exact728\u2013752 andsamepinnedSHA; independentrawregistration202 meansWorldEventpayload derivationbarrier role, no duplicatebody/unique/originalcount.",
+      "behavior": "WorldEventcanonicalpayload canuseone native record pervariant; exactSATS macrorestriction forbidsdirectmultifieldsum butdoesnotjustifyparallelunrelatedlegacyfields ornoallSDKsupport. Serialize638\u2013727 remainsunreadbythisoverlay."
+    }
+  ],
+  "scope_qualification": "Exactadditionalranges actualread, oneexactsamepacketbodyreuse201/182 withindependentpurposeassessment. Alloriginal/source/runtime/current/otherlens/unique/all20 limitsretained.",
+  "connected_repair_requirements": [
+    "Use exactnativeDeserialize/conversion/callback/alias contract atactualapplicationingress, no constructorproof byprivacy/names/Serdeattributes.",
+    "Carry namedobserver/subject/source/time/authority distinctions throughrealgrant/dialogue/fixture/nativeAPIs; keeptransienttacticalstate inBevy anddisposablefixtureconfig scoped."
+  ],
+  "acceptance_requirements": [
+    "No code/test/helper/check/build/probe/DBoperation. Continueallpendingpopulations/sourceextensions/bases/current/all20/uniquededup connectedrepairacceptance."
+  ],
+  "at": "2026-10-27T16:53:06.086519+00:00",
+  "lens": 8,
+  "accepted_unique_count_change": 0,
+  "implementation_gate_complete": false
+}

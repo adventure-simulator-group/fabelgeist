@@ -1,0 +1,122 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "134",
+  "predecessor": "receipt-133-originals673-679.json",
+  "manifest_prefix_sha256": "c1fe3a17ec1a7aa564ab20f1ee7c59ea2fdaab7f455fac87ff0533a510950e43",
+  "sources": [
+    {
+      "original_index": 680,
+      "source_id": "pr-working:crates/adventuresim-character-creator/Cargo.lock",
+      "sha256": "60cf80c50552791fe98d6c50b3a730b7c0f04bdfa993ec003a781538683e6d72",
+      "actual_eof": 12310,
+      "actual_ranges": [
+        [
+          1,
+          12310
+        ]
+      ],
+      "status": "source-accounted WITH qualifications",
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              12310
+            ]
+          ],
+          "role": "Every quoted value is accounted as native Cargo package name, semantic version, registry/Git source locator, checksum, or dependency package-ID selector. Version suffixes on dependency IDs distinguish graph nodes. Native schema keys/header comments are Cargo metadata. These identities remain open within Cargo; no bespoke finite application enum is warranted solely for this serialization boundary.",
+          "disposition": "Native metadata boundary source-accounted; first-party consumers and policy not cleared."
+        },
+        {
+          "source_ranges": [
+            [
+              118,
+              223
+            ],
+            [
+              887,
+              894
+            ],
+            [
+              2533,
+              2919
+            ],
+            [
+              3564,
+              4098
+            ],
+            [
+              4315,
+              4336
+            ],
+            [
+              4886,
+              5195
+            ],
+            [
+              7134,
+              7185
+            ],
+            [
+              8151,
+              8203
+            ],
+            [
+              9279,
+              9283
+            ],
+            [
+              10374,
+              10392
+            ],
+            [
+              10825,
+              10878
+            ],
+            [
+              11093,
+              11432
+            ]
+          ],
+          "role": "Actual first-party package records, Bevy0.19.1 node, Burn/cubecl/cubek/pliron/tracel Git source records, derive_more2.1.1, semver1.0.28, wasm-bindgen0.2.128 and wgpu29/30 records independently consumed. GPU5039-5060 lacks derive_more edge in this frozen snapshot.",
+          "disposition": "Exact frozen dependency identities only, no current lock defect or compatibility requirement inferred."
+        }
+      ]
+    }
+  ],
+  "connected_findings": [],
+  "pending_contracts": [
+    "Actual first-party Cargo.lock package/version parsing, supported-version policy and command argument recipients remain queued; native Cargo/semver parser implementations were not read here.",
+    "Frozen creator lock is distinct from root/P16/current locks. No current GPU dependency-edge conclusion from historical5039-5060.",
+    "All inherited StreamId/AuditIssue/GenerationError/ShopName/native-label and alias obligations remain."
+  ],
+  "qualifications": [
+    "Frozen f82 SHA object bound to exact registered PR-working original680, not a current alias. All12310 lines independently read in bounded raw-source chunks; no project/test/native/probe execution.",
+    "No backward compatibility obligation; no global/runtime/current/other-lens clearance or unique total. All20/P16/P17/F9/M09 qualifications retained; unique_count_delta0."
+  ],
+  "proposed_count": {
+    "before": 680,
+    "after": 681,
+    "indices_completed": [
+      680
+    ],
+    "next_original": 681,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/Cargo.lock",
+      "sha256": "60cf80c50552791fe98d6c50b3a730b7c0f04bdfa993ec003a781538683e6d72",
+      "ranges": [
+        [
+          1,
+          12310
+        ]
+      ]
+    }
+  ],
+  "unique_count_delta": 0
+}

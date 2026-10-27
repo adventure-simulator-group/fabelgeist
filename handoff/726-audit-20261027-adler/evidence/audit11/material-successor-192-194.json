@@ -1,0 +1,58 @@
+{
+  "lens": "type-granularity",
+  "source_registry": "../shared-material-successor/source-extensions-195.json",
+  "receipts": [
+    {
+      "material_index": 192,
+      "source_id": "canonical-support:990430b:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers.rs",
+      "sha256": "4f2a0ea9d96dba2f493cb7bd317313f553b00f0e29ff1eb0c223c7eed02058f4",
+      "ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "assessment": "Own11 personally read1-71 afterhash. LayerSelection keeps actualtyped CatalogPlacement reference; item/placement key tuple has two semantic names only through its producers, but external Eq/Hash/Ord signatures and lexicalpair sorting are required adapters. All identity traits derive from same orderedkey, no mismatchedaggregate observed. Catalog Placement internalcheckedadmission/identity uniqueness not re-proved; no blanket record exemption. Simple From wrapper derivability candidate remains otherlens question, not newgranularity defect.",
+      "new_unique_finding": false,
+      "validation": "not run"
+    },
+    {
+      "material_index": 193,
+      "source_id": "canonical-support:990430b:crates/adventuresim-tactical-client/Cargo.toml",
+      "sha256": "8aa55633cd7ff303e586406b52582fd208269232ae9217364c309fa085b074d1",
+      "ranges": [
+        [
+          20,
+          20
+        ],
+        [
+          23,
+          23
+        ],
+        [
+          95,
+          95
+        ]
+      ],
+      "assessment": "Own11 personally readonlylines20,23,95 andcontaining Cargo sectionheaders after hash. Normalderive_more featurefrom is selected; thiserrornormal/build dependencies distinct. Dependencyidentity/feature bookkeeping doesnot prove macro expansion, compilation, typegranularity or any wholemanifest body.",
+      "new_unique_finding": false,
+      "validation": "not run"
+    },
+    {
+      "material_index": 194,
+      "source_id": "canonical-support:990430b:Cargo.lock",
+      "sha256": "d148af6f0f15140e5337b4ee4bf9d5ea5f63c6ff10bae5c472592d2768f58515",
+      "ranges": [
+        [
+          4318,
+          4352
+        ]
+      ],
+      "assessment": "Own11 personally readonly4318-4352 afterhash: two derive_more versions and impl2.1.1 packageidentity/checksums/deps. Identity metadata givesno SDKbody/runtime/otherlens credit or full lock scope.",
+      "new_unique_finding": false,
+      "validation": "not run"
+    }
+  ],
+  "scope": "Independent own11 actualboundedreads; notcurrent4530 identity comparison, no transferfromotherlenses.",
+  "clear": false
+}

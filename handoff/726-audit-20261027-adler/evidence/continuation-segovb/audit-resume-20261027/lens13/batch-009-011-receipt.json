@@ -1,0 +1,217 @@
+{
+  "at": "2026-10-27T10:42:45.362506+00:00",
+  "lens": 13,
+  "scope": "Original39 complete receiving contract reconciliation WITH native/currentness/framework limits",
+  "original": {
+    "index": 39,
+    "source_id": "physical-p16:Cargo.lock",
+    "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+    "full_effective_scope": [
+      [
+        1,
+        13103
+      ]
+    ],
+    "contained_supplements": [
+      [
+        10243,
+        10256
+      ],
+      [
+        10303,
+        10327
+      ],
+      [
+        10373,
+        10405
+      ]
+    ],
+    "own_full_body_receipts": [
+      {
+        "path": "target/recovery-20261025/continuation-segovb/audit13-successor-023.json",
+        "sha256": "629279e1b52c55640b0ecedfd3f45a559ed4dce4a1d93a5ff7e3f1582cb3d00d"
+      },
+      {
+        "path": "target/recovery-20261025/continuation-segovb/audit13-successor-024.json",
+        "sha256": "a810b620373430eced3976637101b89380d4b9883511626534b12a9c3ff6d85c"
+      },
+      {
+        "path": "target/recovery-20261025/continuation-segovb/audit13-successor-025.json",
+        "sha256": "eec1b7c1aed78bb905207e724ff751e198d4299e08fe83a32c1e29a30b67a7fe"
+      },
+      {
+        "path": "target/recovery-20261025/continuation-segovb/audit13-successor-026.json",
+        "sha256": "ea7d9d77dadc4e562fa804c076a98774693e9af01915b82c80b5e269e8114d26"
+      },
+      {
+        "path": "target/recovery-20261025/continuation-segovb/audit13-successor-027.json",
+        "sha256": "232f4f774e09454f66a2357c444329238a873982d6e1004329459d39cf77f7bb"
+      },
+      {
+        "path": "target/recovery-20261025/continuation-segovb/audit13-successor-028.json",
+        "sha256": "dc43661c83553d20f4af33de75ce2a5838517a5c64fd9f73b42180e7c0833a24"
+      },
+      {
+        "path": "target/recovery-20261025/continuation-segovb/audit13-successor-029.json",
+        "sha256": "b1b1ccff9cb2088c2d16dc28f19b9c7132aa2a6369d385225db97923b1572325"
+      },
+      {
+        "path": "target/recovery-20261025/continuation-segovb/audit13-successor-030.json",
+        "sha256": "19516402dc13162a9d9d54e7e6613db8b0a90672ca4b0496e802a739f5e80c5d"
+      }
+    ],
+    "no_body_restart": true
+  },
+  "retained_native_boundary_proofs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit13-successor-031.json",
+      "sha256": "bc23ac12a7f4225a1d5617e9ff1f776100a216271a6cc468b7483a4a73835430"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit13-successor-032.json",
+      "sha256": "91eb910167c98c1b3557c1e2c1f5b9fa253f3cb426e55232cb8759134741d106"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit13-successor-033.json",
+      "sha256": "aa076dad05c5a4bd20a30f603912892e0f22debac3df25585dfc3b4178fe2705"
+    }
+  ],
+  "authority_correction": {
+    "path": "target/recovery-20261025/continuation-segovb/audit13-successor-031-authority-correction-001.json",
+    "sha256": "1e3625d9559bb66077ebc8c5e9dd283d57036d9dc030f8e618fbbfc0e953cc81"
+  },
+  "registrations": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-009-registration.json",
+      "sha256": "5949fc94457e6d27c1ee6e2fe4e9b308a278f99b738cc23b0faaa8108c1e75bb"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-010-registration.json",
+      "sha256": "79a87cc44035b0861fa69821f25afeda179f639e257dfaff3172c18f13f4c7f2"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-011-registration.json",
+      "sha256": "10bc9e9a1293188ca67aa703827a60805d6377c9e7f6d26edcc965a3a76c9de2"
+    }
+  ],
+  "new_source_consumption": [
+    {
+      "source_id": "native:Cargo@59800466c5c41c444d264b1010b4d57e85a7117f/src/cargo/core/resolver/encode.rs",
+      "sha256": "e6d4e6732a14f88c1d81d9c7847982caa718973a830ef9bd1029ccd773df5dc4",
+      "ranges": [
+        [
+          176,
+          509
+        ],
+        [
+          573,
+          676
+        ]
+      ]
+    },
+    {
+      "source_id": "native:Cargo@59800466c5c41c444d264b1010b4d57e85a7117f/crates/cargo-util-schemas/src/lockfile.rs",
+      "sha256": "129c750f6afd9eb6af07b04a10e924f79ba49d14d24fa5c6e8b091df86ac3fd8",
+      "ranges": [
+        [
+          91,
+          405
+        ]
+      ]
+    },
+    {
+      "source_id": "native:Cargo@59800466c5c41c444d264b1010b4d57e85a7117f/src/cargo/core/package_id.rs",
+      "sha256": "8add0e9f96dc5c121a62ba9af315e1e38184bd4e6b377afa0fbc34b6dd1f02b8",
+      "ranges": [
+        [
+          1,
+          180
+        ]
+      ]
+    },
+    {
+      "source_id": "native:Cargo@59800466c5c41c444d264b1010b4d57e85a7117f/src/cargo/core/source_id.rs",
+      "sha256": "c39195e7f2a3a77995ef73dbd140a28d2c93a6f0e194757753d61ea3829270a3",
+      "ranges": [
+        [
+          1,
+          300
+        ],
+        [
+          705,
+          791
+        ]
+      ]
+    },
+    {
+      "source_id": "native:Cargo@59800466c5c41c444d264b1010b4d57e85a7117f/src/cargo/core/resolver/resolve.rs",
+      "sha256": "cbaf67dba589ff1ba2da2f8f6732de14a10e4e9323d683cb10728b500d312b96",
+      "ranges": [
+        [
+          206,
+          310
+        ],
+        [
+          397,
+          410
+        ]
+      ]
+    }
+  ],
+  "primitive_reconciliation": [
+    {
+      "occurrence": "raw header version=4",
+      "source_to_owner": "Completeoriginalfile13103 actualnumericinventory retained; nativeTomlLockfile.version Option<u32> inexactCargo-util-schema, actualdiskread->toml::from_str::<TomlLockfile> call, Some4->canonicalResolveVersion::V4 explicitmatch and nativepolicy owner. Newcompleteinto_resolve176-428 readsallrelevant mutation/earlyfailure/constructorhandoff: maxV2 updates cannotreduceV4; duplicateencodedpkgIDs error; actualPackageId creation failures propagate; graph/replacement/metadata/unusedpatches assembled thenResolve::new(...version...). Prior031 actualconstructor retainsversion. Newmerge_from compareschecksumsfirst, copiesmetadata thenpreviouscanonicalversion. ActualV4Serialize->Some4->TomlTable->headerformatter/nativefilewrite chain retained033. This is concreteexternalformatselector backed by typedowner/operations, notblanketmetadata exemption."
+    },
+    {
+      "occurrence": "quoted package versions/names/dependency selectors",
+      "source_to_owner": "Allactualquotedliteralcategories inventoried in023-030, not treatedas blank nonnumericexemption. Nativewire schema storesversionString. ActualPackageId::try_new127-134 parsesstr tosemver::Version; new136-152 privatelyretains typedversion/source/nameandinterner. into_resolve180-290 structuredTomlPackageId candidates detectduplicates, lookup typedname/version/source and ambiguity, dependenciesbuildactualGraph, replacementsexclusivewithdependencies. CanonicalPackageId.version getter returns&semver::Version; encodingformatsnativeVersionbacktotextandcountsactualversions toomit unambiguousselectors. Nativeidentity/versionformat units, notgameplay speed/bound/scalepolicy. Underlyingsemvergrammarimplementation/runtime invalidcategory exhaustivevalidation notclaimed; actualcanonicalowneradmission/APIreceivingbodyproven."
+    },
+    {
+      "occurrence": "quoted sourceURLs/revisions",
+      "source_to_owner": "SchemaTomlLockfileSourceId new106-141 splitsprotocolprefix, parsesURL, mapsSourceKind; nativeSourceId::from_url152-180 parsesgit/registry/sparse/path, capturesqueryGitReference/fragmentPrecise, removesrawquery/fragment fromURL, constructskind/CanonicalUrl typedinternedsource. ActualnativeGit/registry constructorsandtypedcachebodyread. SourceIdAsUrl actualDisplay711-730 emitsprotocol+URL+queriedtypedGitReference+precise. V4encodable_source_id663-676 choosesas_encoded_url. No inference that URLnumericcharacters constituteapplicationunitvalues; query/version/hashfields are sourceidentity grammar. Exact URLcanonicalization/GitReference helper internals/security/remoteinput/currentCI notaudited."
+    },
+    {
+      "occurrence": "quoted checksum payloads and metadata",
+      "source_to_owner": "ChecksumString copied intoHashMap<PackageId,Option<String>> withversionmaxV2; oldmetadata checksum parse andremove/filter recordedactualbody325-355. Resolve::new actualretainsmap; Resolve::checksums/set_checksum actualgetter/setterandmerge_from212-305 compareSome/None/string equality andfailon mismatchbeforecopyingmetadata/version. Encoder617-628 transferschecksum onlyV2+; ondiskschema/formatter receivesTOMLstring. This provesnativeopaqueSHA256identitytext handling andtypedpackagekey, not SHA256digestimplementation, authenticity/download/security/ordinaryruntimeverification. No native64hexhash arithmetic orbespokegameplaynumber roleclaimed."
+    }
+  ],
+  "new_native_numeric_inventory": [
+    {
+      "source": "encode176-509/573-676",
+      "roles": "CanonicalenumversionmaxV2/V4 comparisons, uniquenessBool HashSet/Optionresults, cardinality==0/1 andnext unwrap guardedbylen, metadatafilters/conditionalblanklinecount1, graphnode/edgeidentities, EncodeState pername/versionusizecount0/+1, typedstateSome/None selecting omittedversion/source. These areactualnativecodec/lookup/graph cardinalityroles; no firstpartyprimitive semanticvalue propagated. Explicitmap/groupcountuncorrelatedpublicinputlimit andnativeassert/unwrap behaviors retained, no universalsafetypromise."
+    },
+    {
+      "source": "schema91-405",
+      "roles": "NativeURLkind enum/Optionversiontext, splitn3 into name/version/source, String->parsedURL kind->typedwireowner; rawStringserde atliteralmetadata boundary. Ord/Hash/equalscompareactualparsedkind/URL. Errorenums sourcepayload, no applicationrawfloatunits. Existing test/dump bodies319-405 readincidentallywithinregisteredrange only, no testsadded/run/acceptancecredit; futureoriginalsource roles notcredited."
+    },
+    {
+      "source": "PackageId1-180/SourceId1-300,705-791",
+      "roles": "Typednativeversion/name/source privateinternedrecord, equalityBool vs pointerfastpath true, mutex/cache/typedVersion parse witherror, URLquery/fragmentstate andSourceKindenum, encodedBool adapterflagfalse/true, protocolselectionBool/defaults. Existingdocs/examples/tests750-791 incidental readnotrequiredclaim; no execution/BCinferencefromnativecomments."
+    },
+    {
+      "source": "Resolve206-310/397-410",
+      "roles": "ExactchecksumsOption presence/equality/typedpackagekeys, nativeResultunitreturn, semanticmetadata/versionretainedafterchecks; no mutablehumanprosebranching. Allnativechecksumfailuremessages are diagnostic; notnewmagicnumberpolicy."
+    }
+  ],
+  "disposition": "Propose source-accounted original39 fullrequested13103scope WITH nativeformat/currentness/framework-validation limits. Actualrawheaderowner/producer/retention/parse/admission/serialize/write and materialquotedidentityreceivingbodies nowestablished; no longerpendingwholeinto_resolve. FundamentalSerde/TOML/semver/URLlibrary parser/Display implementation internals and historicalgeneration/runtime/security/IO durability are explicitly externalacceptance/implementationdepth limits, not blanketnativeexemptions or reason to fabricate allSDKsource audit.",
+  "accounting": {
+    "prior_proposed": 39,
+    "original_proposed": 40,
+    "newly_accounted": [
+      39
+    ],
+    "partial": [],
+    "first_never_started": 40,
+    "next_original": 40,
+    "new_unique": 0,
+    "overlay_merge_shared_increment": 0
+  },
+  "qualifications": [
+    "Frozenmanifestproper64char534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa retained.031originaltypo and accidentaltruncatedcommitpatchzero-creditremainimmutable/correctedadopted. Staticinstalledtoolchain/exactofficialCargo598 isnot historicalbinary oractualgenerator/currentCIproof.",
+    "source-staging010 retrievedselectedPackageId278lines/SourceId919lineobjects viaread-onlyGitHubconnector base64 atfixedcommit; GitblobSHA1 independentlyrecomputed matchesAPI, SHA256 pinnedbeforebody. InitialurllibDNSfailuregotnobytes. No wholeCargoSDK/tree download. Unread PackageId181-278/SourceId301-704,792-919 notcredited.",
+    "Newunintendedbroadcacheidentifiernavigation incident preserved SOURCE-ACCESS-QUALIFICATION-001 withzero source/role credit; no backdatedregistration orabsenceproof. CorrectknownliteralresolveSHA wasthenusedandboundedbodyregisteredbeforeconsumption.",
+    "No localproject/toolchain execution/checks/tests/probes/newtesthelpers/assertions/doctests/product/Git/rootledger/history/publication; sourceaccountingWITHfindingsnotvalidation/globalclearance. All inheritedfamilies/otherlensqueue/currentness and018distinction retained."
+  ],
+  "continue": "Begin independent original40 full effectiveunion next, no arbitrarysinglefilestop."
+}

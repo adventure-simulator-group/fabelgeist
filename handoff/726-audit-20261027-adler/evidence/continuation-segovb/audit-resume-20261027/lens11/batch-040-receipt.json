@@ -1,0 +1,155 @@
+{
+  "at": "2026-10-27T13:38:54.996196+00:00",
+  "lens": 11,
+  "status": "987 independently source-accounted with findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-040-registration.jsonl",
+    "sha256": "39738bb3b3c1aecc4e4d8e6e00a9eacef4e5bb82e63ca0bd04b898a26411c367"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-039.json",
+    "sha256": "41de5157b07690eee55692b11c661c1b85d38c3a5215782555c23d23a7203376"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 987,
+      "source_id": "pr-working:crates/adventuresim-core/src/road_encounter_catalog.rs",
+      "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "actual_eof": 2689,
+      "ranges": [
+        [
+          1,
+          2689
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          2689
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "original_index": 1012,
+      "sha256": "e8fa0d3cc0b66a908ad8f44642c1cf2e09f9d6d5e8ac341e7201f7aea959995e",
+      "actual_read_ranges": [
+        [
+          1,
+          55
+        ]
+      ]
+    },
+    {
+      "original_index": 1207,
+      "sha256": "b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+      "actual_read_ranges": [
+        [
+          27,
+          165
+        ],
+        [
+          450,
+          590
+        ],
+        [
+          1540,
+          1768
+        ]
+      ]
+    },
+    {
+      "original_index": 1260,
+      "sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "actual_read_ranges": [
+        [
+          480,
+          592
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "locations": [
+        "road_encounter_catalog.rs50-55,403-405"
+      ],
+      "finding": "TriggerEligibility travel/rest booleans have three admitted states; false/false rejected. Travel, Rest, Both enum or nonempty closed trigger set removes invalid state while preserving both-trigger encounters.",
+      "remedy": "Encode nonempty trigger selection at authored owner and propagate to selector; no exclusive either/or assumption."
+    },
+    {
+      "locations": [
+        "65-109,421-443,931-952",
+        "world_actor.rs494-591"
+      ],
+      "finding": "SpeakerBacking correctly owns character decisions versus narrative/blocked reasons. SpeakerNature is independent of backing in representation but Character backing requires Mortal. Mortal narrative collectives and blocked figures are valid; do not force every mortal to Character. Could consolidate the proved invalid supernatural+Character cross-product without discarding narrative mortal cases.",
+      "trace": "Actual materializer only enters SpeakerBacking::Character; uses checked u16 cast ordinal and context/role/decision/name retry comparisons before persistent Character insertion. No catalog name alone substitutes identity.",
+      "remedy": "Keep actual contextual Character authority distinct from presentation; if simplifying shape, own mortal Character payload explicitly while retaining non-character nature classification. Review markers are authored assertions, not machine proof of verse."
+    },
+    {
+      "locations": [
+        "113-165,488-587,662-698,725-751",
+        "strategic/challenges.rs1571-1717"
+      ],
+      "finding": "SharedCharacterInteraction list duplicates mechanically derivable information/inventory/personality/combat indicators; validator requires exact iff correspondence to effect/transition presence. Treatment/contact have separate ordinary authority and are not inferable merely from item effects. NarrativeOnly excludes mechanics; Blocked remains explicit nonexecutable content state.",
+      "trace": "Reducer rejects Blocked, requires ordinary Surgery completion for treatment and skips already-consumed bandage mechanic; then dispatches requirement/check/effect/transition types.",
+      "remedy": "Derive mechanical capability tags from typed mechanics or combine payloads with authority shape; keep explicit ordinary treatment/contact ports and blocked follow-up reason. Group only true coupled facts."
+    },
+    {
+      "locations": [
+        "177-239,699-705,779-847"
+      ],
+      "finding": "Transition enum owns combat payload and travel delay; Noop and None are behaviorally duplicate at actual reducer1698-1717 (None skips, Noop empty). Use one absence representation. CombatOutcomeSet gives all four distinct outcomes; defeat/stalemate intentionally coalesce while escape/surrender remain distinct. Single RoadCombatArchetype::Bandits is a restricted authored category, not automatically pointless.",
+      "remedy": "Remove redundant noop encoding; retain complete per-outcome reward scope. Positive bounded1..8 enemy count and1..720 delay are concrete catalog policies, not global count/time bounds. Non-victory effects intentionally may consume items/currency; forbid only actual reward forms."
+    },
+    {
+      "locations": [
+        "292-377,588-661,850-929",
+        "strategic/challenges.rs27-164,1585-1696"
+      ],
+      "finding": "Requirement/Check/Effect sums correctly own distinct payload shapes, but raw quantities lose units and roles: training hours, milli-attribute/skill difficulty, positive item quantity, signed currency change and positive required money. Distinct catalog/choice/speaker/item/information/reward IDs all String. Currency ID validator checks only syntax/catalog existence, while actual apply_narrative_effect additionally checks is_currency_id.",
+      "trace": "Negative Currency removes generic party currency after checking declared currency category; positive Currency adds that declared item count. Requirement::Currency counts all currency stacks. Thus denomination quantity versus generic monetary amount association must remain explicit; no universal same-unit Money assumption.",
+      "remedy": "Use canonical item/currency identities and purpose-specific quantity owners, share numeric invariants below those roles, admit currency category at catalog owner. Restrict authored skill/personality/religion subsets over canonical owners when that removes duplicate adapters; keep deliberate supported subset policy.",
+      "limits": "No actual malformed authored-currency input/runtime claim or full inventory/currency kernel proof; default requirement currency has no explicit denomination, so exact conversion policy remains a qualified authority question."
+    },
+    {
+      "locations": [
+        "254-290",
+        "strategic_presence/context.rs1-55",
+        "strategic/challenges.rs450-590"
+      ],
+      "finding": "Authored ContextualDecisionState is not observer-specific InteractionPresentationDecision. The latter also permits EmergencyTreatment and is gated by live presence/injury/status. Raw treatment_limb_slug Option<String> loses already selected canonical BodyRegion on presentation boundary; assess typed serialization rather than adding another body-region owner.",
+      "remedy": "Preserve authored answer, observer affordance, contact revision and membership revision as separate roles; keep actual body region typed until wire formatting. No authorization proof from presentation alone."
+    },
+    {
+      "locations": [
+        "387-1039,1041-2689"
+      ],
+      "finding": "Runtime embedded catalog is validated and item references checked before shared access. Structural open-ID validation and reference existence do not prove every declared category/authority. Full existing fixtures personally read, including poetry/provenance, distinct route materiality, moral tradeoffs, victory-only rewards and bounded delays.",
+      "remedy": "Retain compiler/catalog admission and explicit player-safe projections; source-account fixtures without treating prose assertions as actual simulation of each narrated action. All source notes remain frozen/current/alias qualified.",
+      "acceptance": "Typed mechanic payloads and purpose quantities survive actual reducer receiving ports; no additional hidden state/animal/sleep/persistent narrative entity inferred from authored text."
+    }
+  ],
+  "locator_only_no_body_credit": [
+    1011,
+    1219
+  ],
+  "read_limits": [
+    "1207 view450-590 stops before return tail;1540 begins inside reducer authority checks. Actual complete scoped requirement/check/effect/transition receiving loops consumed; no whole function authorization proof.",
+    "1260480-483 preceding function tail only;494-591 complete materializer. No wider world-actor authority traversal.",
+    "Locator-only metadata and searches get no source credit or future ordered count."
+  ],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_ledger_edited": false,
+  "new_material_extensions": []
+}

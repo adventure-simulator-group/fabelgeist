@@ -1,0 +1,83 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-338",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 2794,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/instance_buffer_updater.rs",
+      "sha256": "9ca918f8a35c0e2bf7b50aece5d43c1f31fd3510b72463d88155e812701a2f0f",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/9ca918f8a35c0e2bf7b50aece5d43c1f31fd3510b72463d88155e812701a2f0f",
+      "ranges": [
+        [
+          1,
+          152
+        ]
+      ],
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "scope_limits": "Actual instance upload/buffer size/write data contexts consumed directly by page runner. Exact direct pinned native storage/caller only; no whole package or other lens credit.",
+      "source_basis": "Fresh personal exact registered foreign native/macro source reads; immutable Git bytes/hash verified, no other-lens verdict coverage.",
+      "trait_inventory_and_semantics": "Fresh exact recovered eidolon full152. Native instance buffer lifecycle updates capacity, clear/write queue, batch IDs and retained non-cull output writes; context records express borrowed execution state. No handwritten traits/codecs.",
+      "disposition": "Keep semantic renderer/native GPU adapters; no runtime or parent review credit transferred.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2795,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/page_prepare_runner.rs",
+      "sha256": "b40981bbae360e987668adfd785a7a553b89baf39823ed53d173263bdf849be4",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/b40981bbae360e987668adfd785a7a553b89baf39823ed53d173263bdf849be4",
+      "ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "scope_limits": "Actual per-page ordering updater\u00e2\u2020\u2019batcher\u00e2\u2020\u2019flush\u00e2\u2020\u2019bindgroup contract. Exact direct pinned native storage/caller only; no whole package or other lens credit.",
+      "source_basis": "Fresh personal exact registered foreign native/macro source reads; immutable Git bytes/hash verified, no other-lens verdict coverage.",
+      "trait_inventory_and_semantics": "Fresh exact recovered eidolon full118. Per-page prepare sequences update/batch/write/flush/bind-group refresh with native bounds-filtered writes; no traits/codecs.",
+      "disposition": "Keep semantic lifecycle orchestration and small receiver methods; no local checks/SDK completeness claim.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2796,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/core.rs",
+      "sha256": "aa281e28468d05c840eccdb908fce2cfeff7a3a27066b3db55852d15affccda0",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/aa281e28468d05c840eccdb908fce2cfeff7a3a27066b3db55852d15affccda0",
+      "ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "scope_limits": "Direct BatchInput/PageBatches andpendingwrite/request records used by updater/batcher. Exact direct pinned native storage/caller only; no whole package or other lens credit.",
+      "source_basis": "Fresh personal exact registered foreign native/macro source reads; immutable Git bytes/hash verified, no other-lens verdict coverage.",
+      "trait_inventory_and_semantics": "Fresh exact recovered eidolon full47. Write/Clear structural traits derived. From<Range<u32>> builds invalid-instance tombstone payload and converts element address into native byte offset; BatchInput/cached records retain render identifiers and shared instance data.",
+      "disposition": "Keep semantic range-to-GPU-clear conversion; ordinary wrapper From derive would not preserve tombstone/offset contract.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2797,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/allocator/utils.rs",
+      "sha256": "ee4e51d4aa4627685f22098b0ad292b9ea7a86e8f76a8537aa66898f73dbb340",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/ee4e51d4aa4627685f22098b0ad292b9ea7a86e8f76a8537aa66898f73dbb340",
+      "ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "scope_limits": "Exact ensure_buffer_capacity called by registered page/updater, no genericGPUgraph. Exact direct pinned native storage/caller only; no whole package or other lens credit.",
+      "source_basis": "Fresh personal exact registered foreign native/macro source reads; immutable Git bytes/hash verified, no other-lens verdict coverage.",
+      "trait_inventory_and_semantics": "Fresh exact recovered eidolon full47 native buffer allocator aligns capacity, chooses minimum backing size, conditionally encodes/submits copy then publishes replacement. No traits/codecs.",
+      "disposition": "Keep native lifecycle/ownership adapter; no general arithmetic/runtime clearance.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

@@ -1,0 +1,25 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-305",
+  "at": "2026-10-25T22:51:51.493503+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2589,
+      "source_id": "dependency-serde_json1.0.151:src/value/de.rs",
+      "sha256": "ceda1bf415aafde89caa83bf275811b70d393717d4e1038e0c61822d2da02993",
+      "personally_read_ranges": [
+        [
+          1,
+          1507
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full1507-line frozen serde_json1.0.151 Value deserialization, contiguous260-line chunks plus1301-1507. ValueVisitorf64 mapsnonfiniteNumber::from_f64 failure toNull; strictcatalogvisitor2587insteaderrors. Owned/borrowed Value typednumeric methods undernon-arbitrary_precision delegateNumber::deserialize_any, so f32 receives storedf64 then serde_core2588casts without finite bound. Arbitraryprecision feature uses typedNumber method, mustpreserveactualfeature distinction. Array/map visitor completion rejectsremainingentries, externalenumobject requiresexactlyonekey andunitpayloaddelegatesDeserialize<()>; borrowed/ownedpaths parallel. Mapkeynumericparsingrequireswholekeyconsumption; mapaccess holds onependingvalue. Typecheckingdoesnot validatecorrelatedprojectfields. No currentproject acceptedoverflow yet: actual physicalschemafieldtarget andcanonicalcompiler/admissiontrace remainpending. No parsing/execution."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

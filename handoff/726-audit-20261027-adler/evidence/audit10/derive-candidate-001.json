@@ -1,0 +1,16 @@
+{
+  "id": "ADLER-CONT10-DERIVE-CANDIDATE-001",
+  "scope_index": 1486,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers.rs",
+  "source_hash": "Pinned by successor-011.json receipt1486 and catalog.json",
+  "range": [40, 44],
+  "kind": "Mechanical From fieldprojection can reuse existing project derive",
+  "existing_dependency": "Frozen6533 tactical-client/Cargo.toml derive_more2.1.1 explicitly enables from",
+  "equivalent_derive": "derive_more::From on single-field named LayerSelection; pinned derive_more-impl2.1.1 From expansion onefielddirect From<T> constructs Self{selection:value}",
+  "source_support": "Same agent personally inspected exact pinned From implementation material122 for02; sourcebytes and actualmacro semantics only reused, no02verdictcoverage transfer. Fresh10 LayerSelection entire193lines and currentmanifestfeature personallyread.",
+  "repair_scope": "Add derive_more::From beside Clone/Copy/Debug; delete only manual From<CatalogPlacement<'static>> impl. Keep all lexicalkey equality/hash/ordering and admission/dependency functions manual.",
+  "acceptance": "Same owned CatalogPlacement<'static> input and LayerSelection output, infallible construction, identical lifetimes/visibility/noextra genericbounds; existing layer/key/runtimeequipmentcases remain unchanged. No serialization or nativeindexexposure added, no newtests authorized.",
+  "dedup_status": "No LayerSelection derivecandidate found in bounded adoptedfindings search; broader sharedledger dedup still required before unique count. No globallyunique findingincrement claimed.",
+  "checks": "not run",
+  "source_edits": false
+}

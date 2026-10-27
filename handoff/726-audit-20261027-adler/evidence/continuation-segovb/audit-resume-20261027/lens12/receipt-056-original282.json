@@ -1,0 +1,137 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "056",
+  "predecessor": "receipt-055-original281.json",
+  "manifest_prefix_sha256": "b81a67c6f4334e60381f0150adfa8ae16d9f55d05adf140c0a9769244a35a633",
+  "sources": [
+    {
+      "original_index": 282,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/governance.rs",
+      "sha256": "c557181c6e91e2beb9c7f20a44324af9d5f4e95ee886d4ae1198e7c78d7f6682",
+      "actual_ranges": [
+        [
+          1,
+          1653
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              1653
+            ]
+          ],
+          "role": "All open party, settlement, item, contract, source, vote and case identifiers in fields, parameters, returns, cloned retained state, native table keys and joins. Native formats vote302/319, solo497, display name502; typed CaseSiteId flattened1541. Player-facing summary65/130, recruitment names760/841/967/996 and default Any adventurer806/881 are text. No test section.",
+          "disposition": "Carry canonical open identity/reference owners across application/state/native projection; keep display prose distinct from finite selectors. Native ID text encoding is a boundary, not an application-wide exemption. Full delegated inventory/security/codec/gateway consumers remain explicit."
+        },
+        {
+          "ranges": [
+            [
+              1,
+              58
+            ]
+          ],
+          "role": "Chat subject_kind String5 with subject_id6 matches player23 or npc34; correlated payload parse30/35-37, native chat state46-55; location and body text admitted18-24. Actual279 chat producer65/74/84 uses same tags.",
+          "disposition": "Canonical chat subject enum should own the player/NPC payload across producer and state. Open body text remains prose with its actual trim/nonempty contract; native text storage does not justify raw selector."
+        },
+        {
+          "ranges": [
+            [
+              61,
+              134
+            ],
+            [
+              175,
+              258
+            ]
+          ],
+          "role": "Action kind String64 has 17-key allowlist86-102, raw retention129, travel/party_inventory coalescing109/115. Approval JSON197 and planned repeat245 parse existing268 ApprovedPartyAction then compare derived kind199/247 to raw retained kind before execution202/250. Native269 schema1547-1549 holds kind, summary and JSON.",
+          "disposition": "Existing ApprovedPartyAction should own correlated payload and derived kind through request/state/approval; admit external JSON at actual ingress and avoid duplicate raw allowlist/parallel kind authority. Open summary remains prose. Actual external request producer, native codec and execution delegates remain pending."
+        },
+        {
+          "ranges": [
+            [
+              475,
+              529
+            ],
+            [
+              666,
+              754
+            ],
+            [
+              757,
+              1016
+            ],
+            [
+              1344,
+              1530
+            ]
+          ],
+          "role": "Member role Leader525; attach_seeded_party_member role &str670 copied697/744 resolves actual local storage recipient for prior companion/Guard/Pilgrim fixture producers. Recruitment name text805/808/880/883/975/1009 copied into member role896/1525; Unassigned1370 is display beside typed RecruitmentRolePurpose1369, purpose compared1378-1380.",
+          "disposition": "PartyMember.role downstream interpretation remains unread, so no blanket prose-only classification. Recruitment display name and typed purpose are distinct; use checked bespoke display text where justified, and canonical role/purpose payload across application. No old default/name/role compatibility requirement."
+        },
+        {
+          "ranges": [
+            [
+              1,
+              1653
+            ]
+          ],
+          "role": "All error/prose/format sites17/20/25/30/37/44/74/75/81/83/105/148/154/156/178/187/193/195/198/200/226/235/241/243/246/248/257/282/284/286/292/298/300/341/349/433/495/550/677/681/687/714/768/774/787/794/795/801/803/822/848/856/857/863/865/872/874/878/915/916/922/924/931/933/973/977/1005/1007/1011/1023/1029/1048/1055/1056/1062/1064/1086/1088/1190/1199/1206/1225/1227/1256/1261/1275/1277/1283/1285/1288/1295/1298/1301/1308/1313/1318/1321/1355/1391/1394/1399/1406/1408/1415/1416/1423/1425/1428/1431/1438/1443/1516/1643/1646/1649. Typed OperationalCustody error flattened1465 before rehome1466.",
+          "disposition": "Keep structured failure causes until external rendering; JSON decode198/246 is actual codec boundary but failure context should be typed internally. String messages are output prose, not semantic enums. All remaining source sections typed/numeric or reference roles above; no tests executed."
+        }
+      ],
+      "status": "Entire requested changed source independently read in three contiguous outputs before context compaction; source-accounted WITH findings."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Raw approved-action kind duplicates typed payload; chat subject and party-role payloads need canonical owners",
+      "sources": [
+        "282:5-55,64-130,197-202,245-250,525,670-744,896,1369-1380,1525",
+        "268:6-95",
+        "269:1547-1549",
+        "279:65-84"
+      ],
+      "remedy": "Carry canonical correlated action/chat/role payloads through actual ingress, state, application selection and native projection; retain prose as checked text rather than finite enums.",
+      "acceptance": "Trace actual gateway request producers, native codec and PartyMember.role consumers before repair; reconcile existing canonical owners and aliases.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actual PartyMember.role downstream semantics, external approved-action ingress/native codec and delegated inventory/disband/security helpers remain unread.",
+    "Actual normalize Accepted/ReadyToReport to Withdrawn443 is recorded source only; no lens08 verdict/count transfer.",
+    "All inherited aliases, F9/M09/all20/P16/P17 and other populations remain qualified."
+  ],
+  "qualifications": [
+    "Frozen f82 physical-P16 identity; no current alias.",
+    "User no backward compatibility overrides skill preserve-wire clause.",
+    "No project/native/test/probe execution, product/Git mutations/root ledger/publication.",
+    "Source-accounted WITH findings is not repaired/global/runtime/native/unique-total/other-lens clearance."
+  ],
+  "proposed_count": {
+    "before": 282,
+    "after": 283,
+    "indices_completed": [
+      282
+    ],
+    "next_original": 283,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/governance.rs",
+      "sha256": "c557181c6e91e2beb9c7f20a44324af9d5f4e95ee886d4ae1198e7c78d7f6682",
+      "ranges": [
+        [
+          1,
+          1653
+        ]
+      ]
+    }
+  ]
+}

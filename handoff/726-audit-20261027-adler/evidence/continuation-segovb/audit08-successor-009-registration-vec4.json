@@ -1,0 +1,43 @@
+{
+  "at": "2026-10-26T23:50:39.055366+00:00",
+  "sources": [
+    {
+      "source_id": "native-dependency:glam-0.32.1/src/f32/sse2/vec4.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glam-0.32.1/src/f32/sse2/vec4.rs",
+      "sha256": "7bda0e65bd4427df04832fedd9dfb552e86129c61ccb8ce090a82d7069c941b9",
+      "prospective_ranges": [
+        [
+          1,
+          2109
+        ]
+      ],
+      "reason": "Quat::is_normalized delegates to exactVec4 predicate; actual bound required, no namednormalized assumption",
+      "provenance": {
+        "archive": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/glam-0.32.1.crate",
+        "archive_sha256": "f70749695b063ecbf6b62949ccccde2e733ec3ecbbd71d467dca4e5c6c97cca0",
+        "matches_exact_frozen_head_lock_checksum": true,
+        "member": "glam-0.32.1/src/f32/sse2/vec4.rs",
+        "member_bytes_equal": true
+      }
+    },
+    {
+      "source_id": "native-dependency:glam-0.32.1/src/f32/scalar/vec4.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glam-0.32.1/src/f32/scalar/vec4.rs",
+      "sha256": "763bf48bd47c1ba6494d6128b24803075104ca0c6008c488e1f7a257a64e6c68",
+      "prospective_ranges": [
+        [
+          1,
+          2234
+        ]
+      ],
+      "reason": "Quat::is_normalized delegates to exactVec4 predicate; actual bound required, no namednormalized assumption",
+      "provenance": {
+        "archive": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/glam-0.32.1.crate",
+        "archive_sha256": "f70749695b063ecbf6b62949ccccde2e733ec3ecbbd71d467dca4e5c6c97cca0",
+        "matches_exact_frozen_head_lock_checksum": true,
+        "member": "glam-0.32.1/src/f32/scalar/vec4.rs",
+        "member_bytes_equal": true
+      }
+    }
+  ]
+}

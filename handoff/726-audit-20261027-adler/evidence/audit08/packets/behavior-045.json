@@ -1,0 +1,142 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-045",
+  "lens": "08 behavior-preservation",
+  "completed_original": [
+    1583,
+    1584,
+    1585,
+    1586,
+    1587,
+    1588,
+    1590,
+    1613
+  ],
+  "partial_original": [
+    1589
+  ],
+  "source_pins": [
+    "source-pins-and-scope-070.json",
+    "support-obstacle-seed-071.json"
+  ],
+  "source_reads": {
+    "1583": {
+      "head": [
+        [
+          1,
+          129
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1584": {
+      "head": [
+        [
+          1,
+          206
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1585": {
+      "head": [
+        [
+          1,
+          82
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1586": {
+      "head": [
+        [
+          1,
+          251
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1587": {
+      "head": [
+        [
+          1,
+          115
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1588": {
+      "head": [
+        [
+          1,
+          331
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1589": {
+      "head": [
+        [
+          1,
+          407
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          32
+        ]
+      ]
+    },
+    "1590": {
+      "head": [
+        [
+          1,
+          141
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          13
+        ]
+      ]
+    },
+    "1613": {
+      "head": [
+        [
+          1,
+          31
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          22
+        ]
+      ]
+    }
+  },
+  "support": [
+    "support-oak-review-caller-072.json",
+    "support-plan-point-073.json",
+    "support-scene-plan-alias-074.json"
+  ],
+  "analysis": [
+    "1583-1588 complete current bodies are byte-identical to the base. Actual building-plan cells, rooms, storeys and apertures feed the same room-owned six-lobe irradiance grid and shutter contributions; native field/local/world projection, directional evaluation, room sentinel, aperture matching tolerance, softened inverse-distance energy and bounce equations are unchanged. Raw/public plan and transform validity is not universally established by these unchanged equations.",
+    "1587 actual SceneWindow recipient uses the typed tangent getter, matches replicated building/opening IDs and transformed local X, preserves its absolute-dot aperture formula, .001 update threshold, base-sample restore and shutter sum/cap. No new normalization or parallel authority is introduced here. The frozen source is identical, while upstream window-pose ownership remains a separately registered contract.",
+    "1586 selects actual active views within100m, nearest up to16 fields and65536 total samples, then stable entity order; unchanged field change detection/transform selection/daylight drives padded native ShaderBuffer publication. Material1585 keeps StandardMaterial handles as authored source, forwards Modified events to cached native ExtendedMaterial, invalidates Removed/Unused and replaces the original draw component once. Native GPU storage200 and PBR shader integration are retained; no GPU/shader execution.",
+    "1583 exposure uses real paused-independent elapsed time, same asymmetric1.5/.35s approach,6-stop cap/logarithmic target and authored night response. All current exposure/shutter/interior fixture bodies and oracles were personally read without execution. No implied external asset/shader read.",
+    "1590 full unchanged review equations except typed root signature: actual1613 old seed used only Vec3 x/z bit words, new point getters use x/y plan bit words. Actual1907 conversion100-104 copies Position<Scene> x/z exactly, without arithmetic. Actual1699 root producer1448-1450 and call1475 pass that point; native seed and resulting review selection are therefore preserved for the same valid root. Other tree geometry/native seed consumers retain their own upcoming roles.",
+    "1613 full31 current body and actual22diff read out of order. Position purpose visual.obstacle.position, seed0 and widened f32 bit words preserve their exact order/content; stable_text_seed, bps and linear Color conversion bodies unchanged. No seed narrowing to JS Number is introduced here. New callers remain individually audited in their original source roles.",
+    "1589 full407 source and32diff read. Runtime plugin startup/update/postupdate ordering, resource/asset initialization and observers are unchanged. This directly proves present_ground_scatter is in the same terrain/vista chain, completing that registration edge. New preparation module, PreparedBackdrop/BackdropError facade and TerrainContactHeightmap export replace old constructor exports; actual owning implementations and requested call adjustments remain queued, so1589 stays partial rather than claiming blanket facade completion.",
+    "Supporting1909 1-150 and1907 full122 current bodies were personally read for frame/point definitions. They are partial original roles pending exact base/diff/context comparison, and carry no new whole-role count."
+  ],
+  "findings": [],
+  "qualifications": [
+    "Frozen6533 only; no changing worktree or hosted CI results substituted.",
+    "Original1589 remains partial for changed preparation/backdrop/contact exports, linked to their owning queued roles.",
+    "Native GPU/material/shader behavior and broader tree geometry remain distinct obligations. Existing findings/policy qualifications retained.",
+    "No local checks/tests/builds or source/Git mutation; no global clearance."
+  ],
+  "global_clearance": false
+}

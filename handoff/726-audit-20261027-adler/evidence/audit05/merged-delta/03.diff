@@ -1,0 +1,38 @@
+--- 6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/clothing/validation.rs
++++ 13fc9dcc71ab879de364117e5462310673e43210:crates/adventuresim-character-creator/src/clothing/validation.rs
+@@ -24,5 +24,35 @@
+             face: ClothingFaceContext::from(*face),
+         });
+     }
+     Ok(faces.to_vec())
+ }
++
++/// Grow an anatomical face mask by neighboring triangle rings.
++pub(super) fn expand_selected_faces(
++    faces: &[[u32; 3]],
++    selected_faces: &mut [bool],
++    vertices: usize,
++    rings: usize,
++) {
++    for _ in 0..rings {
++        let mut selected_vertices = vec![false; vertices];
++        for (face, selected) in faces.iter().zip(selected_faces.iter()) {
++            if *selected {
++                for vertex in face {
++                    selected_vertices[*vertex as usize] = true;
++                }
++            }
++        }
++        let previous = selected_faces.to_vec();
++        for (index, face) in faces.iter().enumerate() {
++            selected_faces[index] |= face
++                .iter()
++                .filter(|vertex| selected_vertices[**vertex as usize])
++                .count()
++                >= 2;
++        }
++        if *selected_faces == previous {
++            break;
++        }
++    }
++}

@@ -1,0 +1,121 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-017",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 417,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/scene_spawn.rs",
+      "sha256": "0ed8029897a512fc8ebb39248471b4febef60c0a7c7657673a9df6b393d9838a",
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "source_basis": "Fresh root exact frozen bytes; registered requested/reached ranges from original-scope072, no foreign fullbody expansion.",
+      "concepts_actual_uses_and_mixup": [
+        "SceneSpawnError retains distinct geometry, equipment, terrain support, bodymass-with-character cause, ambiguous terrain and absent fixture failures. authoritative_terrain returns None for zero, Some borrowed authoritative terrain for one and Err for multiple. Optional absence and ambiguity are distinct states."
+      ],
+      "disposition": "Own11 source comparison WITH retained qualifications; no new unique finding or cross-lens/runtime clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 418,
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/digest.rs",
+      "sha256": "80e021f45fedb26ff313fe42e19a49503716be0c710173af5285e572bfe5ce98",
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "source_basis": "Fresh root exact frozen bytes; registered requested/reached ranges from original-scope072, no foreign fullbody expansion.",
+      "concepts_actual_uses_and_mixup": [
+        "Native hash adapters stream raw bytes to SHA256, formatting lowercase hex at deployment boundary. valid_digest checks canonical SourcePackageDigest parse; no claim arbitrary producer Strings already hold that invariant, no new hash representation API."
+      ],
+      "disposition": "Own11 source comparison WITH retained qualifications; no new unique finding or cross-lens/runtime clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 419,
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/lib.rs",
+      "sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+      "ranges": [
+        [
+          321,
+          437
+        ]
+      ],
+      "source_basis": "Fresh root exact frozen bytes; registered requested/reached ranges from original-scope072, no foreign fullbody expansion.",
+      "concepts_actual_uses_and_mixup": [
+        "Registered producer321-437 only: TerrainPack keeps manifest/file/ranges/tile-index/cache associated, admits package digest/content digest, checked offset conversion and range sum, rejects overlap/out-of-file/duplicate chunks and inconsistent tile dimensions before constructing native cache. Package/content/road/wetland/cultivation digests are distinct roles despite string accessors; byte count/chunk index/tile coordinates distinct native representations. validate_manifest and full terrain math unreviewed here; no2059line wholebody credit."
+      ],
+      "disposition": "Own11 source comparison WITH retained qualifications; no new unique finding or cross-lens/runtime clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 420,
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/road_pack.rs",
+      "sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+      "ranges": [
+        [
+          1,
+          344
+        ]
+      ],
+      "source_basis": "Fresh root exact frozen bytes; registered requested/reached ranges from original-scope072, no foreign fullbody expansion.",
+      "concepts_actual_uses_and_mixup": [
+        "RoadManifest is native deployment metadata; resident RoadPack retains canonical source digest and checked E7 RoadLine geometry/bounds. Offline native full precision WGS84 degrees are distinct from checked presentation E7. Payload content digest, point-only geometry digest and source terrain identity have distinct roles; tags have explicit exhaustive codec. Loader validates metadata pairing, bounded bytes, decode counts/trailing bytes and geometry before resident publication; builder validates all lines before file writes. Actual bounded allocation arithmetic uses1millionpoint/50thousandline ceilings, no generic raw-count admission claim. External coordinate/source schema owners are not newly credited."
+      ],
+      "disposition": "Own11 source comparison WITH retained qualifications; no new unique finding or cross-lens/runtime clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 421,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/Cargo.toml",
+      "sha256": "3a08ad5b69e06fb586e1ff7ace785e9b53c79345119fddc49c3f162b5f2f3bdb",
+      "ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "source_basis": "Fresh root exact frozen bytes; registered requested/reached ranges from original-scope072, no foreign fullbody expansion.",
+      "concepts_actual_uses_and_mixup": [
+        "PhysicalP16 weapon model manifest reviewed exactly19lines: serde_json float_roundtrip, serde/sha2/thiserror workspace and glam0.32.1. This is dependency declaration evidence, not resolved feature/macro/runtime proof."
+      ],
+      "disposition": "Own11 source comparison WITH retained qualifications; no new unique finding or cross-lens/runtime clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 422,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/codec.rs",
+      "sha256": "1a32ed016049692514041f1111820fc2513464dcd4f23b45a4f65f8b084c9b60",
+      "ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "source_basis": "Fresh root exact frozen bytes; registered requested/reached ranges from original-scope072, no foreign fullbody expansion.",
+      "concepts_actual_uses_and_mixup": [
+        "Separate weapon/holder envelopes retain schema and generator versions with recipe payload. Parse enforces byte ceiling and exact revisions; decode additionally calls proper semantic validator, whereas crate-private serialization/parse are lower transport layers. Structured errors preserve schema/generator found/expected roles and typed validation list. Validation bodies and generated transport are not credited from imports."
+      ],
+      "disposition": "Own11 source comparison WITH retained qualifications; no new unique finding or cross-lens/runtime clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

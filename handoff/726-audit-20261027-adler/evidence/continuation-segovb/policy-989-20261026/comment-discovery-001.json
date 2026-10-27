@@ -1,0 +1,256 @@
+{
+  "id": "SEGOVB-POLICY989-COMMENT-DISCOVERY-001",
+  "created_utc": "2026-10-26T23:17:07.933555+00:00",
+  "base": "b3810b8b5db78c15cc51a0e1bef747a06450dffb",
+  "phase": "Pre-edit source discovery; not independent post-edit Comment Review",
+  "scope": "Issue989/current guide/context field docs and actual affected constructors/cube-face bodies. No product edits, project execution, tests, Git or ledger changes. Root owns implementation and publication.",
+  "skill": {
+    "path": "/home/brunosegovia/.codex/skills/comment-review/SKILL.md",
+    "sha256": "31dc8dc28441a5b643e534a631b5d50444fb1b4d48a305c91e8a32519a2827a4"
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/comment-discovery-001-registration.json",
+    "sha256": "1c0aa0fa6491b842db8e5e04a06d01f69abcc3563131a8cb8376f174b5b37e05"
+  },
+  "issue": {
+    "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/comment-discovery-001-issue989.json",
+    "sha256": "d8bfa2de3c31b502de5174c2368f7e1fd70cff44068773c601f4949156f511e9",
+    "url": "https://github.com/adventure-simulator-group/fabelgeist/issues/989",
+    "updated_at": "2026-10-26T21:37:16Z",
+    "state": "open",
+    "content_read": true
+  },
+  "sources": [
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "3a3902b9981ae772df92c2df1a97d245196d25cd83f2eacf4a586005ea39a6cd",
+      "ranges": [
+        [
+          1,
+          70
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "sha256": "6df2befe9397b790ad88233dee3fe7ed4f4aaf918a41b939585a5c633fe0f3db",
+      "ranges": [
+        [
+          1,
+          34
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "56a27351a1b6013319dc514e027250efd43b0538d34237835d656ddd0d1a7b43",
+      "ranges": [
+        [
+          1,
+          183
+        ],
+        [
+          242,
+          321
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "sha256": "878a4144b4fecdc20291885050e30fe521a5294117046c282ef24d40c5e407d9",
+      "ranges": [
+        [
+          1,
+          27
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "e3ad593b83da185620d2729a5fde4a0f7bfda1c39993494432c55a0c989e0973",
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "ab5ff0debbab0de569e16562ea77ab30df38cb8b9632cfacd900aad0024fba98",
+      "ranges": [
+        [
+          1,
+          41
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/cube_face.rs",
+      "sha256": "db49ac57de817ae29d6341288c341aacbe884102e4d98575a32590f334f90709",
+      "ranges": [
+        [
+          1,
+          70
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "e883e9bbfdcdb62065d26751a6135b65d6e3021604c9e6071ebdfbdf644457c5",
+      "ranges": [
+        [
+          49,
+          167
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "d4d9df664fcd5207e09a8453fedfb5fae4ce9d139cd45d3bd8bc1e6a9f9ac12e",
+      "ranges": [
+        [
+          1,
+          145
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "b86ab932de453c75553ba6a915d830406ac142dd7fe544a5d9fe5be25b14431a",
+      "ranges": [
+        [
+          1,
+          175
+        ],
+        [
+          260,
+          350
+        ]
+      ]
+    }
+  ],
+  "source_changed_after_discovery_reads": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "discovery_sha256": "ab5ff0debbab0de569e16562ea77ab30df38cb8b9632cfacd900aad0024fba98",
+      "now_sha256": "f0828dbc6755445932455e5aa9edf040f2222deca3c1fe38c44460da856565d8"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "discovery_sha256": "e883e9bbfdcdb62065d26751a6135b65d6e3021604c9e6071ebdfbdf644457c5",
+      "now_sha256": "d6cd017cc5d337a0ad47543cc51cc009cff84fa78bb65499b1cddfcb60afcb55"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "discovery_sha256": "d4d9df664fcd5207e09a8453fedfb5fae4ce9d139cd45d3bd8bc1e6a9f9ac12e",
+      "now_sha256": "079273e59412710ca9a4388161808b03747351f97d18622f36bff4dbacac15c5"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "discovery_sha256": "b86ab932de453c75553ba6a915d830406ac142dd7fe544a5d9fe5be25b14431a",
+      "now_sha256": "a5ec79b944808520b15bc649e4d54b14612859c9a5b1b1f8446a47c17bb6c1d6"
+    }
+  ],
+  "requested_corrections": [
+    {
+      "id": "989-DOC01",
+      "location": "crates/fabelgeist-gpu/texture-views.md:1-8,10-21,41-58,60-70",
+      "classification": "Required synchronization with planned policy/face-result change",
+      "current_quotes": [
+        "# Whole-texture format views",
+        "Cube-face views, array views, texture creation, clearing and readback remain separate operations.",
+        "Constructors and subresource methods have their own validation paths and do not yet consistently honor the context's blocking policy."
+      ],
+      "correction": "Expand the owning guide to whole-texture and cube-face format views, naming face, face_view and face_view_with_format only as their final signatures warrant. Qualify cached matching-format Arc reuse/MissingView as the three whole-texture methods; cube-face selection always creates a D2 subresource view and requires the native texture. Describe the face-specific operation payload retaining CubeFace and original requested format. Replace the broad constructor/cube-face gap paragraph with exact completed coverage: 2D/3D/cube construction and context-bearing cube-face observation use the context policy; do not claim all subresource methods migrated. State context-free cube-face, WASM and Uncaptured add no synchronous validation wait. Readback completion and submission backpressure are separate waits. Keep mutable-resource/device-coherence limits.",
+      "proposed_core_text": [
+        "Whole-texture and cube-face format views return the shared TextureViewResult. Cube-face observation errors retain the requested face and original format. The cached-view behavior described below applies to the three whole-texture methods.",
+        "Texture2d::create, Texture3d::new and TextureCube::new observe native creation through the context policy. A cube-face request observes validation only when it receives a context selecting BlockingScopes. Context-free requests, Uncaptured and browser targets do not add a validation wait. Readback completion and submission backpressure remain separate operations."
+      ],
+      "qualification": "Pre-edit proposed wording must be reconciled with actual final method signatures, constructor generic error boundaries and CubeFace variant shape; do not assert constructors return TextureViewResult if they continue returning anyhow::Result. Keep example fenced text, no new doctest."
+    },
+    {
+      "id": "989-DOC02",
+      "location": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs:20-30",
+      "classification": "Required synchronization with completed affected-path coverage",
+      "current_quotes": [
+        "How shader, pipeline and whole-texture format-view creation observe native validation errors.",
+        "Texture constructors and cube subresource views have separate validation paths and do not yet consistently honor this policy."
+      ],
+      "correction": "Include affected texture constructors and cube-face views in the field contract, remove the completed gap claim, retain default native/existing-device/browser selections and global-health/rollback limits. State that the policy controls validation observation, not readback completion or submission backpressure. Avoid claiming every possible subresource operation honors the policy.",
+      "proposed_core_text": "How shader, pipeline, texture construction and format-view creation observe native validation errors. Native contexts created here default to blocking scopes; existing-device and browser contexts default to uncaptured errors. The policy controls validation observation, including context-bearing cube-face views. It does not disable readback completion or submission backpressure, establish global device health or roll back prior work."
+    },
+    {
+      "id": "989-DOC03",
+      "location": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:1,7-10,13,21-24",
+      "classification": "Required ownership terminology update for canonical cube-face result",
+      "current_quotes": [
+        "Failures selecting a format view of an existing whole texture.",
+        "The concrete result of selecting a whole-texture format view.",
+        "The whole-texture format-view operation being observed.",
+        "Missing texture resources and native whole-texture format-view failures."
+      ],
+      "correction": "Broaden whole-texture-only owner descriptions to texture format views/whole-texture and cube-face views. Document new CubeFace operation payload using the existing CubeFace owner; preserve original requested format and structured scope cause without adding aliases, wrappers or old diagnostic/downcast guarantees. Uninitialized remains native-texture admission; MissingView remains cached-view admission.",
+      "proposed_core_text": [
+        "Failures selecting whole-texture and cube-face format views.",
+        "The texture format-view operation being observed.",
+        "Missing texture resources and native format-view observation failures."
+      ]
+    },
+    {
+      "id": "989-DOC04",
+      "location": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:269-281",
+      "classification": "Useful API contract at optional-context boundary",
+      "current_quotes": [
+        "Only read to check the view natively; the web cannot block on it."
+      ],
+      "correction": "Replace or promote the parameter comment with public method documentation explaining that Some(context) permits policy-selected native observation and None creates without synchronous validation observation. Document canonical typed result for all final face helpers, native-texture requirement and face/request payload on observed errors. Browser and Uncaptured skip the validation-only wait; do not promise all asynchronous device failures are reported by this Result.",
+      "qualification": "Current pre-edit face helpers all return anyhow::Result<TextureView>; this request describes planned final API, not an already implemented fact."
+    },
+    {
+      "id": "989-DOC05",
+      "location": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:128-131",
+      "classification": "Existing inaccurate absolute rationale in the directly touched constructor",
+      "current_quotes": [
+        "waits for a queue that never empties.",
+        "only a context that owns its device drains it."
+      ],
+      "correction": "Replace the absolute queue/ownership explanation with the policy-selected operation. Ownership chooses constructor defaults but the public policy field is the actual admission authority. Describe avoiding synchronous validation observation on borrowed devices rather than an inevitable permanent wait or universal ownership guarantee.",
+      "proposed_core_text": "Observe creation only when the context permits a synchronous native validation scope. Uncaptured contexts leave errors to the device provider.",
+      "related_existing_qualification": "This is a local inherited F9 example, not a new runtime regression finding or global resolution of F9."
+    }
+  ],
+  "confirmed_current_traces": [
+    {
+      "source": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:49-167",
+      "trace": "new delegates to create. create admits scope using the policy but separately polls and stringifies capture; polling failure discarded. Shared finish migration changes error handling while preserving descriptor/format/admission choices."
+    },
+    {
+      "source": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs:47-126",
+      "trace": "Native new unconditionally pushes scope and waits; no policy admission. WASM compiles that block out."
+    },
+    {
+      "source": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs:50-151,269-320",
+      "trace": "Native new unconditionally pushes/waits. face(Some context) and face_view(None) delegate to face_view_with_format; Some currently pushes/waits regardless of policy, None skips scope. Face descriptor selects D2/one layer/face.index, storage sRGB projects format; returned TextureView carries effective descriptor format."
+    },
+    {
+      "source": "crates/fabelgeist-gpu/src/globals/validation_scope.rs:35-63",
+      "trace": "new admits using context policy, retains actual Arc device and guard. finish polls then pops and retains native, poll, or combined outcomes. No success/failure proves global health."
+    },
+    {
+      "source": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs:91-118,260-275",
+      "trace": "from_parts selects Uncaptured; open selects browser Uncaptured/native BlockingScopes independently of presentation."
+    }
+  ],
+  "no_required_change_identified": [
+    "README whole-texture link remains accurate for the existing methods; broaden navigation text only if the guide title/scope changes, with no root README edit.",
+    "ValidationObservation and ValidationScope contracts already describe observation rather than all GPU completion; do not expand them into an ownership/device-health guarantee."
+  ],
+  "limits": [
+    "No post-edit implementation or final changed-source verdict; independent Comment Review remains required after root supplies exact final source pins.",
+    "No runtime reproduction, project command, test or SDK-global claim. Current issue is source-comparison evidence and says can block, not a reproduced inevitable hang.",
+    "Readback/backpressure bodies were not fully traced in this comment packet; preserve them and confirm their unchanged identities in the final diff.",
+    "Inherited F9 also remains at WgpuContext submitted_work_done:120-138 and borrowed-test rationale:288-316; this packet does not clear those absolute queue/watchdog/tick claims or alter tests.",
+    "All broader audit counts, all20/P16/P17, earlier partials, aliases, frozen/current distinctions and root ledger remain unchanged."
+  ]
+}

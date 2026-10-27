@@ -1,0 +1,121 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-232",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 2273,
+      "source_id": "pr-working:crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "5fcedc2343591f9fdc806e66e0e0f619d352e9c1f19d615603fda80cc7168e64",
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh requested GPU manifest43. Existing serde/bytemuck/strum derives, anyhow/math/color/native WGPU/naga/async facilities and optional image IO; no derive_more/thiserror dependency at exact6533.",
+      "disposition": "Metadata only; do not infer later826 dependency or macro availability into frozen source.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2274,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "sha256": "e88c8b37e80959ef7b47ce22d914becb64f57221b2adf497036ebd98881eef95",
+      "ranges": [
+        [
+          1,
+          303
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh whole unchanged reached bind-group303 plan GPU ports079. No handwritten traits/codecs. Actual reflected scalar/vector/matrix native LE uniform packing, buffer/texture dimension-format-view admission, sampler resource errors and native bind-group publication read.",
+      "disposition": "No derivability candidate. Shader layout/resource adaptation is semantic native packing, not generic serde; no alignment/cache/device/runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2275,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh whole byte extent53 construction021/kernel022. Existing structural length/default/order derives. Manual From u64 into length/offset and reverse, usize-length conversion and two Display forwarders; actual checked offset+length arithmetic read.",
+      "disposition": "Keep tiny native byte conversions/format adapters absent existing equivalent derive dependency in frozen manifest2273; no dependency added merely for these impls. Checked address arithmetic remains semantic; no new candidate.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2276,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+      "ranges": [
+        [
+          1,
+          178
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh whole Buffer178 construction021/kernel022. Existing Clone/Debug derive; manual pointer-and-logical-size equality intentionally ignores usage/native object value, unsafe Send/Sync native handles. Actual allocation/upload/write/read staging/poll/map/copy/unmap and checked write_at read.",
+      "disposition": "Keep semantic identity PartialEq and native Send/Sync adapters; structural equality changes resource identity contract. No derivability candidate and no safety/progress/coherence/runtime clearance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2277,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "sha256": "3e25d7e25d9d85032c723926167bf505637c2e31d7f05503b9e4d5f08bd12600",
+      "ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh whole typed Readback89 native-cause023. No handwritten traits/codecs. Actual nonzero element-size/divisibility admission, preallocated typed buffer, unsafe native byte copy then initialized-length publication and existing bit/padding/truncation cases read.",
+      "disposition": "No derivability candidate. Semantic native byte representation/initialization must remain explicit; no unsafe/memory/runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2278,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "sha256": "fc1fbee2e072e88d28d41f4f7422b7d7eae85e5307406406722b378fdf4bbbc9",
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh whole unchanged reached upload58 plan GPU ports079. Existing borrowed structural derives; no handwritten trait/codec. Actual NoUninit cast, typed byte length/occupancy, empty-word policy and native queue-write projection read.",
+      "disposition": "No derivability candidate. Semantic borrowed native representation/empty binding policy remains explicit; no upload/GPU acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

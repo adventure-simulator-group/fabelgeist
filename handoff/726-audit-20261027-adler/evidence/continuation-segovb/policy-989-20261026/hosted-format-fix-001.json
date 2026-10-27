@@ -1,0 +1,16 @@
+{
+  "run": 40419867459,
+  "job": 121911321840,
+  "source": "54bacc42ffa9832b460c3d5f2412c1beb3f9af8c",
+  "earliest_failure": "Check formatting",
+  "correction": "exact hosted rustfmt nested-import wrapping only",
+  "changed_paths": [
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs"
+  ],
+  "review_reconciliation": "Whitespace-only nested use grouping preserves all imported names and every body; no source semantics changed, prior independent reviews retained with qualification. New final same-head hosted gates required.",
+  "pending": [
+    "new run",
+    "hosted baseline reduction",
+    "all final checks"
+  ]
+}

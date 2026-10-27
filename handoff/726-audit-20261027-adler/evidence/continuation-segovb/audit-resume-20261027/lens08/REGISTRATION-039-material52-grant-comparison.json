@@ -1,0 +1,16 @@
+{
+  "purpose": "Material52 underlying item grant exact base comparison",
+  "head_object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-ceb03feba2b994ec10da5469e562e5a434a89ce36635aadb1d0ab11ccdc6b8ed",
+  "head_sha256": "ceb03feba2b994ec10da5469e562e5a434a89ce36635aadb1d0ab11ccdc6b8ed",
+  "head_range": [
+    351,
+    408
+  ],
+  "base_object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+  "base_sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+  "base_range": [
+    429,
+    408
+  ],
+  "delta": "--- base-add_inventory_item\n+++ head-add_inventory_item\n@@ -0,0 +1,58 @@\n+pub fn add_inventory_item(\n+    ctx: &ReducerContext,\n+    character_id: u64,\n+    item_id: &str,\n+    quantity: u32,\n+) -> crate::StrategicOperationResult<Option<u64>> {\n+    if quantity == 0 {\n+        return Ok(None);\n+    }\n+\n+    let definition = ctx.db.item().id().find(item_id.to_owned());\n+    let kind = definition.as_ref().map(|definition| definition.kind);\n+    let food_definition = inventory_food_definition(kind, item_id)?;\n+    let durable = definition\n+        .as_ref()\n+        .is_some_and(|definition| definition.repairable);\n+    let food = food_definition.is_some();\n+    let measured = crate::inventory_amount::is_measured_item(ctx, item_id);\n+    // Every food unit is its own non-fungible batch. A partly consumed unit\n+    // remains quantity one while its authoritative lot mass/value/provenance\n+    // shrink, so it can never be merged back into fresh stock.\n+    let individual = requires_stable_object(definition.as_ref(), food, measured);\n+    let count = if individual { quantity } else { 1 };\n+    let mut first = None;\n+    for _ in 0..count {\n+        let item = ctx.db.inventory_item().insert(InventoryItem {\n+            id: 0,\n+            character_id,\n+            item_id: item_id.to_string(),\n+            quantity: if individual { 1 } else { quantity },\n+        });\n+        if individual {\n+            crate::inventory_container::insert_personal_object(ctx, &item)?;\n+        }\n+        if durable {\n+            crate::repair::initialize_item_condition(ctx, &item);\n+        }\n+        crate::weapon_instance::initialize_personal_weapon(ctx, &item)?;\n+        if measured {\n+            crate::inventory_amount::initialize_personal(ctx, item.id);\n+        }\n+        if food {\n+            crate::food::create_personal_food_lot(\n+                ctx,\n+                character_id,\n+                item.id,\n+                item_id,\n+                if individual { 1 } else { quantity },\n+            )\n+            .map_err(|error| format!(\"Could not create food lot: {error}\"))?;\n+        }\n+        first.get_or_insert(item.id);\n+    }\n+    if food {\n+        crate::capability::refresh_character_capability(ctx, character_id)?;\n+    }\n+    Ok(first)\n+}\n"
+}

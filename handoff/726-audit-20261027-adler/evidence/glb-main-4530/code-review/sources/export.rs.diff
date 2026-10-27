@@ -1,0 +1,68 @@
+diff --git a/crates/adventuresim-character-creator/src/export.rs b/crates/adventuresim-character-creator/src/export.rs
+index 644aa4187..85dfe90f9 100644
+--- a/crates/adventuresim-character-creator/src/export.rs
++++ b/crates/adventuresim-character-creator/src/export.rs
+@@ -1,32 +1,33 @@
+ //! Deterministic binary glTF export for an identity-shaped MHR character.
+ 
++use anyhow::{Context, Result, bail};
++use buffer::{BufferBuilder, f32_bytes, u16_bytes, u32_bytes};
++use fabelgeist_mhr::math::{Transform, quat_from_matrix, quat_normalize};
+ use fabelgeist_rig::{RigJointLookupError, RigJointMembership, RigJointName, RigJointOrdinal};
+ #[cfg(test)]
+ use glb::GLB_MAGIC;
++pub use rigged::{RiggedMesh, RiggedMorphTarget, RiggedShell};
++use serde_json::{Value, json};
+ #[cfg(test)]
+ use std::fs;
+ use std::path::Path;
+-
+-use anyhow::{Context, Result, bail};
+-use fabelgeist_mhr::math::{Transform, quat_from_matrix, quat_normalize};
+-use serde_json::{Value, json};
++pub use textures::{
++    GlbOutput, ShellTextures, SurfaceAlpha, SurfaceSampling, SurfaceSides, SurfaceTextures,
++};
++use validation::validate;
+ 
+ mod assembly;
+ mod buffer;
+-use buffer::{BufferBuilder, f32_bytes, u16_bytes, u32_bytes};
+ mod compact;
+-mod glb;
++pub mod glb;
+ mod morphs;
++mod rigged;
+ mod shell;
+ mod skeleton;
+ pub mod skinning;
+-mod textures;
+-pub use textures::{
+-    GlbOutput, ShellTextures, SurfaceAlpha, SurfaceSampling, SurfaceSides, SurfaceTextures,
+-};
+ mod sockets;
++mod textures;
+ mod validation;
+-use validation::validate;
+ 
+ pub const EQUIPMENT_SOCKET_NODE_PREFIX: &str = "equipment_socket_";
+ pub const MHR_ANATOMICAL_UV_DOMAIN: &str = "mhr_body_v1";
+@@ -52,9 +53,6 @@ const WEAPON_SOCKET_CALIBRATION: Transform = Transform {
+     scale: 1.0,
+ };
+ 
+-mod rigged;
+-pub use rigged::{RiggedMesh, RiggedMorphTarget, RiggedShell};
+-
+ pub struct RiggedSocket<'a> {
+     pub attachment_point_id: &'a str,
+     pub surface_uv_domain: &'a str,
+@@ -841,7 +839,7 @@ pub fn export_rigged_glb(
+ 
+     texture_images.finish(output, &mut document)?;
+ 
+-    glb::write(output.path(), &document, buffer.bytes)
++    glb::write(output.path(), &document, buffer.bytes).map_err(Into::into)
+ }
+ 
+ #[cfg(test)]

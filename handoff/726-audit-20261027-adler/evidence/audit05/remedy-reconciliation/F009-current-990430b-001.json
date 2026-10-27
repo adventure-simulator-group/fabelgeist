@@ -1,0 +1,89 @@
+{
+  "at": "2026-10-26T04:56:11.788529+00:00",
+  "finding_id": "ADLER-RESUMED05-F009",
+  "phase": "Read-only global remedy/current-canonical reconciliation",
+  "finding_authority": [
+    {
+      "scope_index": 2709,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/volumetric.rs",
+      "sha256": "91cc6773da28100f122fbaa19b7bbc9a258f808a68f09e61f199d880652266b0",
+      "ranges": [
+        [
+          8,
+          32
+        ],
+        [
+          35,
+          71
+        ],
+        [
+          98,
+          140
+        ],
+        [
+          145,
+          205
+        ],
+        [
+          255,
+          278
+        ]
+      ]
+    }
+  ],
+  "current_canonical": {
+    "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "sources": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/volumetric.rs",
+        "sha256": "91cc6773da28100f122fbaa19b7bbc9a258f808a68f09e61f199d880652266b0",
+        "entire_blob_exact_equal_to_frozen_finding_variant": true,
+        "personally_read_ranges": [
+          [
+            8,
+            32
+          ],
+          [
+            35,
+            71
+          ],
+          [
+            98,
+            140
+          ],
+          [
+            145,
+            205
+          ],
+          [
+            255,
+            278
+          ]
+        ]
+      }
+    ]
+  },
+  "disposition": "CURRENT_UNREPAIRED_QUALIFIED",
+  "source_relationship": "Finite ordered bound admission does not check finite derived spacing/sample coordinates or retained vertex positions. The small27sample grid with finite extreme x bounds and field=p.y retains nonfinite x geometry while all callback scalar values remain finite. Same module and direct mesh projection remain unchanged.",
+  "dedup": {
+    "inventory": "target\\recovery-20261025\\audit05\\inherited\\adler-finding-records.json",
+    "inventory_sha256": "473fc7ce6d08f96419a86d239410cf94fa1ba9b8cf8c93ef45ba2d7b44d6942d",
+    "records": 1002,
+    "navigation": "F009-inventory-navigation-001.json",
+    "candidate_ids": [
+      "ROOT-INITIAL04-F012"
+    ],
+    "assessment": "Full candidate metadata personally read: hair/head.rs tiny positive spacing leads saturatingusize count+1/product overflow, rather than this volumetric.rs finite-bound span overflow with tiny bounded sample count. Related derived arithmetic admission family; exact connected remedy grouping pending.",
+    "global_uniqueness": "Not established by limited inventory search; final connected remedy grouping remains pending."
+  },
+  "qualifications": [
+    "No project/SurfaceNets/native arithmetic execution, normal stone/rock caller or rendered failure asserted.",
+    "No native Mesh validation/runtime acceptance claim; finding concerns already retained ExtractedSurface before native upload."
+  ],
+  "project_checks": false,
+  "source_or_git_mutations": false,
+  "new_issue": false,
+  "new_unique_count": 0,
+  "accepted_own_findings_unchanged": 10,
+  "global_clearance": false
+}

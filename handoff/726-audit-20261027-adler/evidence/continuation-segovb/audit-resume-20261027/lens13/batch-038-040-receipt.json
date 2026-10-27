@@ -1,0 +1,712 @@
+{
+  "lens": 13,
+  "status": "original90-96 source-accounted WITH qualifiedfindings",
+  "generated_at": "2026-10-27T11:46:39.797584+00:00",
+  "authority": {
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "manifest_sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa"
+  },
+  "registrations": [
+    {
+      "path": "audit-resume-20261027/lens13/batch-038-registration.json",
+      "sha256": "91970dc23b39b2a253c379dfa47f6a652a729d015611a0dea1a8231c63a5e018"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-039-registration.json",
+      "sha256": "b9dc154d0bc701020356a2d0d6115fc92d21bbe1847d50ce192cf40e1a7d088f"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-040-registration.json",
+      "sha256": "4cf0aa7d4af2920d617b96266bf308d8c70fd8c700f5cc8fcdc25b2187983edf"
+    }
+  ],
+  "actual_source_reads": [
+    {
+      "original": 90,
+      "source_id": "physical-p16:crates/adventuresim-core/src/composite.rs",
+      "sha256": "d12458450a9186177a47c1b404529e9f6128dfd204fd63817b8a4fd8cf27e72f",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/d12458450a9186177a47c1b404529e9f6128dfd204fd63817b8a4fd8cf27e72f",
+      "requested_range_variants": [
+        [
+          1,
+          386
+        ],
+        [
+          325,
+          370
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          386
+        ]
+      ],
+      "eof": 386,
+      "provenance": "exact f82 recovered physical original; full effectiveunion fromowner/producer/expanded/admission recordrange metadata retained",
+      "reuse": null,
+      "actual_consumed_ranges": [
+        [
+          1,
+          386
+        ]
+      ],
+      "read_qualification": "original96 originallyplannedownpriorproofreuse; actualfull1-131 also freshlyconsumed underprospective038 fororderedinventory"
+    },
+    {
+      "original": 91,
+      "source_id": "physical-p16:crates/adventuresim-core/src/courtship.rs",
+      "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+      "requested_range_variants": [
+        [
+          1,
+          25
+        ],
+        [
+          1,
+          1153
+        ],
+        [
+          148,
+          157
+        ],
+        [
+          195,
+          240
+        ],
+        [
+          195,
+          390
+        ],
+        [
+          390,
+          685
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          1153
+        ]
+      ],
+      "eof": 1153,
+      "provenance": "exact f82 recovered physical original; full effectiveunion fromowner/producer/expanded/admission recordrange metadata retained",
+      "reuse": null,
+      "actual_consumed_ranges": [
+        [
+          1,
+          1153
+        ]
+      ],
+      "read_qualification": "original96 originallyplannedownpriorproofreuse; actualfull1-131 also freshlyconsumed underprospective038 fororderedinventory"
+    },
+    {
+      "original": 92,
+      "source_id": "physical-p16:crates/adventuresim-core/src/courtship/child_identity.rs",
+      "sha256": "79e3e2273c83b841a9b8ad92bef203dfde9e3be24d063568921367c1ffe7f299",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/79e3e2273c83b841a9b8ad92bef203dfde9e3be24d063568921367c1ffe7f299",
+      "requested_range_variants": [
+        [
+          1,
+          97
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "eof": 97,
+      "provenance": "exact f82 recovered physical original; full effectiveunion fromowner/producer/expanded/admission recordrange metadata retained",
+      "reuse": null,
+      "actual_consumed_ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "read_qualification": "original96 originallyplannedownpriorproofreuse; actualfull1-131 also freshlyconsumed underprospective038 fororderedinventory"
+    },
+    {
+      "original": 93,
+      "source_id": "physical-p16:crates/adventuresim-core/src/disease.rs",
+      "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+      "requested_range_variants": [
+        [
+          1,
+          60
+        ],
+        [
+          127,
+          159
+        ],
+        [
+          160,
+          205
+        ],
+        [
+          345,
+          353
+        ],
+        [
+          390,
+          437
+        ],
+        [
+          440,
+          510
+        ],
+        [
+          930,
+          984
+        ],
+        [
+          985,
+          1271
+        ],
+        [
+          1272,
+          1277
+        ],
+        [
+          1282,
+          1299
+        ],
+        [
+          1300,
+          1405
+        ],
+        [
+          1510,
+          1518
+        ],
+        [
+          1519,
+          1530
+        ],
+        [
+          1556,
+          1559
+        ],
+        [
+          1556,
+          1619
+        ],
+        [
+          1560,
+          1563
+        ],
+        [
+          1564,
+          1619
+        ],
+        [
+          1723,
+          1837
+        ],
+        [
+          2093,
+          2160
+        ],
+        [
+          2214,
+          2271
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          60
+        ],
+        [
+          127,
+          205
+        ],
+        [
+          345,
+          353
+        ],
+        [
+          390,
+          437
+        ],
+        [
+          440,
+          510
+        ],
+        [
+          930,
+          1277
+        ],
+        [
+          1282,
+          1405
+        ],
+        [
+          1510,
+          1530
+        ],
+        [
+          1556,
+          1619
+        ],
+        [
+          1723,
+          1837
+        ],
+        [
+          2093,
+          2160
+        ],
+        [
+          2214,
+          2271
+        ]
+      ],
+      "eof": 3842,
+      "provenance": "exact f82 recovered physical original; full effectiveunion fromowner/producer/expanded/admission recordrange metadata retained",
+      "reuse": null,
+      "actual_consumed_ranges": [
+        [
+          1,
+          60
+        ],
+        [
+          127,
+          205
+        ],
+        [
+          345,
+          353
+        ],
+        [
+          390,
+          437
+        ],
+        [
+          440,
+          510
+        ],
+        [
+          930,
+          1277
+        ],
+        [
+          1282,
+          1405
+        ],
+        [
+          1510,
+          1530
+        ],
+        [
+          1556,
+          1619
+        ],
+        [
+          1723,
+          1837
+        ],
+        [
+          2093,
+          2160
+        ],
+        [
+          2214,
+          2271
+        ]
+      ],
+      "read_qualification": "original96 originallyplannedownpriorproofreuse; actualfull1-131 also freshlyconsumed underprospective038 fororderedinventory"
+    },
+    {
+      "original": 94,
+      "source_id": "physical-p16:crates/adventuresim-core/src/disease/identity.rs",
+      "sha256": "bbf3c7a20b95f217815f48c7e830dc75efab9ecf9d7e52a79fd4ad86324388af",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/bbf3c7a20b95f217815f48c7e830dc75efab9ecf9d7e52a79fd4ad86324388af",
+      "requested_range_variants": [
+        [
+          1,
+          132
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "eof": 132,
+      "provenance": "exact f82 recovered physical original; full effectiveunion fromowner/producer/expanded/admission recordrange metadata retained",
+      "reuse": null,
+      "actual_consumed_ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "read_qualification": "original96 originallyplannedownpriorproofreuse; actualfull1-131 also freshlyconsumed underprospective038 fororderedinventory"
+    },
+    {
+      "original": 95,
+      "source_id": "physical-p16:crates/adventuresim-core/src/durability.rs",
+      "sha256": "7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
+      "requested_range_variants": [
+        [
+          1,
+          142
+        ],
+        [
+          1,
+          454
+        ],
+        [
+          250,
+          289
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          454
+        ]
+      ],
+      "eof": 454,
+      "provenance": "exact f82 recovered physical original; full effectiveunion fromowner/producer/expanded/admission recordrange metadata retained",
+      "reuse": null,
+      "actual_consumed_ranges": [
+        [
+          1,
+          454
+        ]
+      ],
+      "read_qualification": "original96 originallyplannedownpriorproofreuse; actualfull1-131 also freshlyconsumed underprospective038 fororderedinventory"
+    },
+    {
+      "original": 96,
+      "source_id": "physical-p16:crates/adventuresim-core/src/elapsed.rs",
+      "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "requested_range_variants": [
+        [
+          1,
+          131
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "eof": 131,
+      "provenance": "exact f82 recovered physical original; full effectiveunion fromowner/producer/expanded/admission recordrange metadata retained",
+      "reuse": "own13batch014fullreadbefore;freshorderedinventory required, no freshbodycredited",
+      "actual_consumed_ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "read_qualification": "original96 originallyplannedownpriorproofreuse; actualfull1-131 also freshlyconsumed underprospective038 fororderedinventory"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/disease/entropy.rs",
+      "sha256": "10eb46750c66da9cd03f116270ab91b4a1acad817e28333ac2fca342773e3bd8",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/10eb46750c66da9cd03f116270ab91b4a1acad817e28333ac2fca342773e3bd8",
+      "eof": 26,
+      "provenance": "reconstructedunchangedphysical exacta120base=head, pinnedmanifest/status no path",
+      "body_read": false,
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "read_qualification": "original96 originallyplannedownpriorproofreuse; actualfull1-131 also freshlyconsumed underprospective038 fororderedinventory"
+    },
+    {
+      "source_id": "physical-p16:determinism/seed.rs",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "ranges": [
+        [
+          1,
+          213
+        ]
+      ],
+      "provenance": "exactf82 physicalregisteredoriginal necessaryreceiver; no futureoriginalcredit, diseasenewranges not originalscopeexpansioncredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          213
+        ]
+      ],
+      "read_qualification": "original96 originallyplannedownpriorproofreuse; actualfull1-131 also freshlyconsumed underprospective038 fororderedinventory"
+    },
+    {
+      "source_id": "physical-p16:determinism/stream.rs",
+      "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "ranges": [
+        [
+          91,
+          169
+        ]
+      ],
+      "provenance": "exactf82 physicalregisteredoriginal necessaryreceiver; no futureoriginalcredit, diseasenewranges not originalscopeexpansioncredit",
+      "actual_consumed_ranges": [
+        [
+          91,
+          169
+        ]
+      ],
+      "read_qualification": "original96 originallyplannedownpriorproofreuse; actualfull1-131 also freshlyconsumed underprospective038 fororderedinventory"
+    },
+    {
+      "source_id": "physical-p16:world-schema/calendar.rs",
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "ranges": [
+        [
+          1,
+          22
+        ],
+        [
+          155,
+          180
+        ],
+        [
+          250,
+          260
+        ]
+      ],
+      "provenance": "exactf82 physicalregisteredoriginal necessaryreceiver; no futureoriginalcredit, diseasenewranges not originalscopeexpansioncredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          22
+        ],
+        [
+          155,
+          180
+        ],
+        [
+          250,
+          260
+        ]
+      ],
+      "read_qualification": "original96 originallyplannedownpriorproofreuse; actualfull1-131 also freshlyconsumed underprospective038 fororderedinventory"
+    },
+    {
+      "source_id": "physical-p16:core/physiology.rs",
+      "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+      "ranges": [
+        [
+          1,
+          238
+        ],
+        [
+          346,
+          390
+        ],
+        [
+          410,
+          454
+        ],
+        [
+          724,
+          788
+        ]
+      ],
+      "provenance": "exactf82 physicalregisteredoriginal necessaryreceiver; no futureoriginalcredit, diseasenewranges not originalscopeexpansioncredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          238
+        ],
+        [
+          346,
+          390
+        ],
+        [
+          410,
+          454
+        ],
+        [
+          724,
+          788
+        ]
+      ],
+      "read_qualification": "original96 originallyplannedownpriorproofreuse; actualfull1-131 also freshlyconsumed underprospective038 fororderedinventory"
+    },
+    {
+      "source_id": "physical-p16:core/disease.rs",
+      "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+      "ranges": [
+        [
+          1836,
+          2092
+        ]
+      ],
+      "provenance": "exactf82 physicalregisteredoriginal necessaryreceiver; no futureoriginalcredit, diseasenewranges not originalscopeexpansioncredit",
+      "actual_consumed_ranges": [
+        [
+          1836,
+          2092
+        ]
+      ],
+      "read_qualification": "original96 originallyplannedownpriorproofreuse; actualfull1-131 also freshlyconsumed underprospective038 fororderedinventory"
+    },
+    {
+      "source_id": "physical-p16:core/disease.rs",
+      "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+      "ranges": [
+        [
+          1620,
+          1722
+        ],
+        [
+          2161,
+          2213
+        ]
+      ],
+      "provenance": "exactf82original93 reachedreceivingbodies; additionalaccess no extraoriginalpopulationcredit",
+      "actual_consumed_ranges": [
+        [
+          1620,
+          1722
+        ],
+        [
+          2161,
+          2213
+        ]
+      ],
+      "read_qualification": "original96 originallyplannedownpriorproofreuse; actualfull1-131 also freshlyconsumed underprospective038 fororderedinventory"
+    }
+  ],
+  "role_inventories": [
+    {
+      "original": 90,
+      "source_id": "physical-p16:crates/adventuresim-core/src/composite.rs",
+      "sha256": "d12458450a9186177a47c1b404529e9f6128dfd204fd63817b8a4fd8cf27e72f",
+      "inventory_and_trace": [
+        "Full1-386; no originalfieldsrawnonstringprimitivein genericretainedPlayerInfo. Generic private component slotsretaintypedimplementers, builderreconstructsgenericstate, delegateattributesactualannotationtargets. No sourceexecution/macroexpandedbodycertification or guaranteeunknownfutureimplementations.",
+        "Rawfatigue/attribute/skillcheckf32returns andhitprecision/flanking/contactsamplef32params forwardbetweenfirstpartyAPIs; actualcanonicalreceiverscombat79,melee_resolution123,targeting257,skill141methods readpriorgroup. Actualmelee_contact_locationgap(accuracy-1).clamp0..1*ContactPrecision.concentrated_fraction thenrawfunctionrecipient notnative. RawprivateCompositeAPI seamactualproducer50/69retainsconcretestate so propagationgapknown, notblanketgenericexception. Publicarbitrarytraitimplsremainqualified.",
+        "Documentation examples/doctesttext andassertionsread sourceonly; no doctest/tests created/run. Existingtraitattributes/essentials numericalbodies notallread; no fulltrait/globalbehavior claim beyondnamedrawforwardingports."
+      ],
+      "assessment": "source-accountedWITHfindings;validation/currentness/aliases separate"
+    },
+    {
+      "original": 91,
+      "source_id": "physical-p16:crates/adventuresim-core/src/courtship.rs",
+      "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+      "inventory_and_trace": [
+        "Full1-1153 preservesallowner/producerexpandedranges. Policy constants adulthood16u16,affinity45/35/75f32and\u00b110,yearnotice/280daygestation/15minuteSocializing/30daybilling/raw60minuteconception40per10000. These carrygameplay/economy/time semantics despiteconstnames.",
+        "HousingEconomy rawu32currencyand16bitboostBPS values11000/13000/16000 intentionally>10000 multiplier; cannotblindlyreuseUnitBasisPoints0..10000. Prices120/500/1800,rent8/24/70,maintenance2/6/16,tax2/6/18; enumHousingTierALL[3] ownstiersbutnumericaggregatefieldspublicunchecked. Validatoractualcount/order/strictlyincreasing/ownershipcheaperthanrent; not automaticallycalledatallpublicconstruction. Residencecharge usesrawownedBool(countdistinctstate), adults/dependentsu32*4/*2 saturatesu32BEFOREu64 widening; rawcurrency/publiccountownerfit, cannotclaimglobalpopulationadmission.",
+        "StrategicMinute actualcalendarpositiveunitconstants1440/day365year checked/saturatingnativecoordinateoperations read039. DuePeriods incrementschecked30daysandendsOnOverflow; settlementactualIteratorcountasusize\u2192u64, zeropricechecked_divfallbackallperiodsdue intentionallyfreecharge, cappedaffordableamountthenreturnedPlanrawu64counts/funds/spend. At extremeclockMAX, saturated next_due canremainMAX afterallduepaid; sourceboundarycase/currentcallerhorizon/persistencecontractqualified notordinaryruntimeincident.",
+        "RefreshableMorale rawu32millipoints/u64durationplus typedabsoluteexpiry; exact0gainno prolonging,8k/12kcap16kcombined, expirystrictafter,2milliperjointminute nativeintegerkernel andsaturatingu64/u32caps. DerivedboostBPSminus10000 premium supports>whole. Pairintervaltypedinstantspermitzero/reversednoaccrual; uncoveredspanfunctionfilterspositiveintervals/sorts/unions; notstrictUpper>LowerallAPI requirement.",
+        "Lifecycle stable_lifecycle_hash actualSeed::derive nativeframing/Seedownerread039; rawu64day/score returns andtypedPregnancyOrdinal->decimalstring currentreceiver92. ExplicitSeed numericcontextpolicyfixedLE contrastsdecimalencoding: qualifiedcontractmismatchnotactualhashcollision. Conceptionstateu8remainder modulo60\u21920..59actualsafeu8cast, nextu64ordinal saturationrepeatsatMAX andallocatesVecpercrossingno admissionbudget; source-onlypolicy/identity/budgetconcerns,noactualallocationclaim. crossesdays day_index=minute/1440 givesfirst+1fitsu64; notfalseoverflowfinding.",
+        "711-1153 wholeexistingfixturesread: clockpartitions/dates/prices/BPS/caps/membership/seed42/43/ordinal3/4/tuples/cardinalities/tolerances; sourceexpectationsnoexecution/pass."
+      ],
+      "assessment": "source-accountedWITHfindings;validation/currentness/aliases separate"
+    },
+    {
+      "original": 92,
+      "source_id": "physical-p16:crates/adventuresim-core/src/courtship/child_identity.rs",
+      "sha256": "79e3e2273c83b841a9b8ad92bef203dfde9e3be24d063568921367c1ffe7f299",
+      "inventory_and_trace": [
+        "Full1-97. NumericopaqueChildIdentitySeed/PregnancyOrdinal ownu64allwordsincluding0 viauncheckedconstnew appropriateidentity/ordinalrepresentationbutnoboundedordinalincrementguarantee; ChildIdentitySeedwrapping_add explicitsemanticoperation. TypedSeedfornaming/household versusuntypednativewordextractforstableid.",
+        "Parentidslexicographicallycanonicalized, typedpregnancy/dateextracttodecimalstrings\u2192actualdomainframedSeedhashreceiver91/039; outputsChildSeedsretaintypedidentity/name/home+Sexenum. SexchooseactualRNGindexnonemptyvariantarrayexpectation; enumSexnativevariantpopulationnotgloballyauditedhere, noexhaustivefutureSexvariant claim. Actualoriginal92arithmeticnoneexceptidentitywrapping/nativebyte/decimalencoding. No originaldeterminismfuturecredit."
+      ],
+      "assessment": "source-accountedWITHfindings;validation/currentness/aliases separate"
+    },
+    {
+      "original": 93,
+      "source_id": "physical-p16:crates/adventuresim-core/src/disease.rs",
+      "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+      "inventory_and_trace": [
+        "RequestedunionONLY:1-60/127-205/345-353/390-437/440-510/930-1277/1282-1405/1510-1530/1556-1619/1723-1837/2093-2160/2214-2271 fullconsumed; additionalmaterial163? exactregistered1620-1722/1836-2092/2161-2213 receiverbodiesactualread039/040. Whole3842file, otherdiagnostic/treatment/exposurepaths/unreadtailsNOTcleared.",
+        "RawDiseaseDefinition durationsu64minutes,acquisition/immunity/attribute/vitalf32publicstate andscaling/addition; versionu16, vitalthreshold2 andterminal1 areapplicationpolicy. Localtransmissionpreventableceilings.90/.94/.65/.80/0/.30,physiologycheck0..5competencepow1.25,bloodcare.25+.45+.30*(1-cut), rawexposurecomponentsretained; existingUnitIntervalcouldcoverboundedaffordances/progressbutnotintentionallyoverwholevitals/severity. Casefinite/nonnegativepositiveadmissionnotencodedinpublicscalars.",
+        "Historicalpractitioneridu64+typedpresenceintervalstransportuple+rawpinnedcheck ->BTreeMapdedupmax ->actualboundedpartyaggregation78 bodyread. Presencewindowusesfrom+1saturating,endmin and<=closedminutevalidity; projectionOptiontypedclocksactualbranchpreservesminimumhorizon/no fabricatedabsence.",
+        "All12starterdiseaseconstantsinthefullrequestedtableactualread. Everydurationmultiplier timesDAY(1440), hourly*60, rawbaseacquisitionandimmunity0..0.90, allpeakattribute/vitalcoefficients0..0.8,zero-defaultZ/VZ groupedasownedDiseaseDefinitionpolicy notnativeexemption. dconstructorcopiespublicprimitiveinputswithoutvalidation; actualdefinition indexesDiseaseId0..11 into12orderedtable, original94enumvariantorder/tablematchingactuallyread. Enumdiscriminantusedalsoseverityentropyread039, documentedstable-stringcoordinatesarenotseenthere; no claimallseedproducersmigrated.",
+        "ActualInfectionEpisode rawu64IDs/charID,u16ruleset/phenotypeversions+typedabsolutecontractdate; mainselectedevaluate/entropy/readpathsdo notconsultretainedruleset_version, phenotypeversionactuallyinputtonativekeyed_hash. Currentness/otherpathsnotinferredfromsearch. Raw DiseaseState severity/progress/attributes/vitalspersistthroughcombined_stateandregional_vitals, allmaterialscalaroperationsactualread. Severitycan>1intentionally(immunity<=0floor1.85), soUnitIntervalnotgeneralcorrectownerforseverity/terminalimpairment.",
+        "Rawageu64\u2192f32 losesminutegranularityabove2^24generically; actualstaticdiseasecurvesall<2^24minutes andresolvebeforeremotetime, so no unsupportedcurrenteventprecisionfailure. Rawwallminutefloatceil\u2192u64\u2192typedStrategicMinute, actualinterval_events/structural_minutes040consumersread; allstaticordinaryduration sumsfitu64, no falseoverflowfromunboundedpublicDefinitionwhichisnotselectedbydefinition(id). nativeclocktypewiderhorizonsremainqualified.",
+        "Actualphysiologyreceivers128 boundedrangesread039: Meter/BodyRegionownedindices10/7, publicrawMeterVector[f32;10]clamps-1..2 andfinite_or_zerowhereused, publicCurvePointu64minute/f32loss, piecewiseactualempty/endpoint/zerospan/interpolatedlossbody. Allselectedfantasticcurvesandordinarymeterlossarraysactualread, strictlyincreasingknownknotsandfiniteboundedweightscheckedbysourceinspectiononly. private_meter_state->private_regional_state040 normalizesweighttotals/gateszero andusesactualboundedadd/scaled, preservingnegativebeneficialmeterloss/overwholeterminal2support. PublicMeterVectorrawtupleallowothersbypassboundedmethods; sourcegapnotwhole128credit.",
+        "Phenotypesecretu8slice/keyversionu16/cid/eidu64/discriminatoru8\u2192actuallocalHMAC-SHA25664byteblock/32bytekeydigest/0x36/0x5cpads/8byteprefix\u2192u64nativeword, top53bits>>11/(1<<53)\u21920.72+unit*.56 thenmean-normalize10elements; numericencodingboundarysource, nocryptographicsecurity/replay/keymanagement/runtimeguarantee. Seed/severity/exposureactualfullframedreceivers039read; underlyingallRand/SHA/BLAKE3implementationnotgloballyaudited orcredited."
+      ],
+      "assessment": "source-accountedWITHfindings;validation/currentness/aliases separate"
+    },
+    {
+      "original": 94,
+      "source_id": "physical-p16:crates/adventuresim-core/src/disease/identity.rs",
+      "sha256": "bbf3c7a20b95f217815f48c7e830dc75efab9ecf9d7e52a79fd4ad86324388af",
+      "inventory_and_trace": [
+        "Full1-132. Noexplicitrawnonstringproductionfield/param/return; DiseaseId12variantsimplicitordinalhasactualarray/nativeentropyreceivers93. Stableword-vs-varianttextownedbyenum; parsingSerdekeys actualsource, no otherlensverdict. Existingfixtureloops/canonicalstring/Boolassertionsonlysource, noexecution."
+      ],
+      "assessment": "source-accountedWITHfindings;validation/currentness/aliases separate"
+    },
+    {
+      "original": 95,
+      "source_id": "physical-p16:crates/adventuresim-core/src/durability.rs",
+      "sha256": "7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
+      "inventory_and_trace": [
+        "Full1-454. DamageBins public[f32;5] encodesrepairdifficultybins1..5; defaults0,normalizedfinite/nonnegativedeepprioritycapacity1, totalclamp0..1; yellowbins0/1vsred2..end, repairableskillu8min5, repair_throughzeroing, addtierclamp1..5, cappedqualityu8clamp andoverflowfoldthenownnormalization. Optionalnormalizedmethodnotguaranteepublicrawtupleinvariant: yellow/red/repairablecanconsumeNaN/unboundedrawvalues, ownerfitandmutationgap.",
+        "IDsrawu64/equippedBool/removecountu32tuple ->sortsparesfirst/tiebreaknativeVecaddress, semanticcustodycharacter_id0+quantity1 escrow sentinel atactualpredicate112, ownerfitnotnativeexemption. Quotebasevalueu32/rawdamagefractionfinitecheck/clamp/ceil ->u32min1, rawcurrency/funds budgets:u64saturating_subafteruncheckedaggregate.sum notcheckedwidebound, boundedquantityi32.unsigned_abslimit64nativeguardpreservesnegative/zeroaddremove. Minutesu64remainingfloor localfirstpartyunitgap.",
+        "DurabilityProfile rawstress/yield/catastrophic/wear/sharef32andqualityu8(publicunchecked) ->actualdamagekernel; quality1..5 factors.65/.80/1/1.25/1.60, overloadedshare.35 andtier3+(overload*2floorasu8)+qualityterm/2 thenmin5. Source/APIfiniteprofileyield1,catastrophic2,wear.1,share.5,quality3,stress1000 =>overload499 =>floor998asu8=255;3+255overflowsBEFOREcap. Checkedbuildcanpanic;uncheckedwrapcanreturntier2withcatastrophictrue. Staticarithmeticpathnotexecuted, no currentincident/uniqueacceptedalias.",
+        "ActualDamageEventrawamount/tier/catastrophicBoolreturned andunderlyingBins/repairstateslocaloperationsread; arbitrarysemanticfuturecallerconstraintsnotinvented. Orderedthresholdspanandfinite/positiveboundsnotencodedaggregate; sourceAPIallowsreversed/NaNconfiguration, cannotclaimglobalvaliduserpath. effectiveweaponstat/handlingrawsensitivity/base ->boundedfractionsactualbodies269-277. Wholefixturetail279-454 finiteexamples/invalidextrema/bound64/65/i32MIN/custodyidentities/wearloops20 andtolerances sourceonly, notvalidation."
+      ],
+      "assessment": "source-accountedWITHfindings;validation/currentness/aliases separate"
+    },
+    {
+      "original": 96,
+      "source_id": "physical-p16:crates/adventuresim-core/src/elapsed.rs",
+      "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "inventory_and_trace": [
+        "Full1-131 freshlyreadunder038 afterinitialown13proofreuseplanned; no duplicateoriginalcredit. AnimationElapsedprivatefiniteNONNEGATIVEf32, ZERO/SECOND0/1 andcheckedTryFromSerde/Defaultpreservevalidzero/-0negativecomparisonsemantics. Rawcapped_by_secondsfromargumentchecks; min/max/sub/absdiffclosedfinitebyfinite-nonnegativeinputalgebra; checkedscale rejectsnonfiniteproductthennegative, addrejectoverflow.",
+        "NativeDurationconversion isconcretestdtimeAPI boundary: checkedtry_from_secs_f32 maperrorNativeRange; FromDurationas_secs_f32 usesnativeu64sec-rangefinitebound. Standardlibraryrange/conversion/backendimplementationnotfreshlyaudited; noexecutionorwholeSDKclaim. Actualtypedtime consumers50/55/56/63/65/66/67/68/74/82/84/86read; sourceownerfitclearwithincheckedconstructor/arithmeticcontract, publicscalarIntoFromextractionsstillmustbetracedatindividualfirstpartycallers(no blanketlateunwrapclearance). ManualDebug/Display/Erroroutside13deriveverdict, no crosslensclearance."
+      ],
+      "assessment": "source-accountedWITHfindings;validation/currentness/aliases separate"
+    }
+  ],
+  "canonical_owner_comparison_addition": "Freshlyreachedphysiology::BodyMassKg(checked20..300kg) iscandidateforlivingcharacterbodymassportsinoriginal69/77, NOT automaticallyappropriateforsmall/largecreaturethreats ornewborns. MeterVector permitsnegativeand>one, DoseMilliunits0..8000; do not overnarrowrawvitals/severitytosimpleUnitInterval.",
+  "qualified_concerns": [
+    "Durabilitycatastrophictieru8intermediateoverflow actualfiniteAPIwitness, beforepostcap5.",
+    "SeednumericfixedLEdocumentationvscourtshiptypedordinal/daydecimalencodingactualreceivercontractdifference; nohashcollision/runtimeclaim.",
+    "Rawpublicdurations/currency/morale/quality/fraction/loss/severity/sequence/versionfieldsremainfirstpartypropagation/admission/ownerfitfindingsdespiteconstnames/records/nativeformatcalls.",
+    "Conceptionordinal/quantum/publicinputpopulationbounds, extremeclockMAXnext_dueandbudgetarithmeticqualification retained; no ordinaryruntimeincident/OOMclaim."
+  ],
+  "qualifications": [
+    "All90-96 requestedrangevariantsmergedexplicitlyinprospective038; original93onlymandatoryeffectiveunionplusactualreachedreceivers, notwhole3842file/treatment/diagnosticcompletion.",
+    "All otherpopulationsoriginal/shared/overlay/merged/extensionsdistinct; no futureoriginal128/141/2531/2532/2594/440 orother-lenssourcecreditfromrequiredreceivers.",
+    "AllinheritedF1/F2/F6/F9/all20/nativeSDK/currentness/018latticelimits/031correctedauthority/sourceaccessdisclosuresretainedbyreference.",
+    "Allstaticsourceassessment WITHfindings; no waitingforordinaryruntimewitness/repairtests, no acceptance/currentness/aliasclosureoraccepteduniquecount.",
+    "Read-onlysource/hash/metadata andignoredappend-onlyevidence; no product/Git/rootledger/historyedits/projectexecution/probes/newtests/helpers/assertions/doctests/publication.",
+    "Existingtest/doctestbodiesactualsourceonly; no passedtest/compile/assertionexecutionclaim."
+  ],
+  "new_original_accounted": [
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96
+  ],
+  "next_original": 97,
+  "accepted_new_unique_count": 0,
+  "global_clearance": false
+}

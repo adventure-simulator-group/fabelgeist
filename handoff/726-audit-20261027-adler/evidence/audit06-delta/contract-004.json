@@ -1,0 +1,133 @@
+{
+  "id": "ADLER-CONT06-LATER-004",
+  "lens": "type-ownership",
+  "receipts": [
+    {
+      "material_index": 127,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/growth_axes.rs",
+      "sha256": "6e61b607878f8e70160e9a63cb75f65b52faf8332fdfa148f7262c6321e7e76f",
+      "ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "source_basis": "Fresh root personal complete bounded source read; exact hash verified. Own06 analysis, no other-lens verdict.",
+      "owners_and_users": "Presentation geometry owns OakGnarlingParameters and TreeBranchSegment; skeleton growth helpers use those owners directly and fabelgeist_determinism Seed/StreamId. Native Vec3 holds tree points/directions, phases remain distinct from normalized controls.",
+      "disposition": "No alternate gnarling/branch owner defined here. Do not merge angles, normalized controls, geometry lengths or branch group identity because their storage is primitive. Existing raw-role/admission requirements remain; local centerline work does not establish tactical world-frame interchangeability.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 128,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_plan.rs",
+      "sha256": "8ed183b6e87bf3e20eee0d8d2bfd5ec5f08c3cfcc5a3352bd4005ce62643922b",
+      "ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "source_basis": "Fresh root personal complete bounded source read; exact hash verified. Own06 analysis, no other-lens verdict.",
+      "owners_and_users": "Skeleton root_plan produces private OakRootSpec/OakRootFork declared in skeleton.rs26-41, uses shared geometry gnarling/branch owners and deterministic stream owners. Spec feeds root_profile; beech appends TreeBranchSegment through shared curve writer.",
+      "disposition": "Root specs are purpose-specific intermediate tree-morphology owners, not duplicates of physical roots/colliders. Radii/reach/angle/attach have distinct semantics. Ungrouped beech sentinel u8/u16MAX retains cross-lens raw-state debt; no new unique owner finding.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 129,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_profile.rs",
+      "sha256": "55e0e9789ade5938b62b9c929b4a8e6ccb49920e42ad85b38648c19fe315022b",
+      "ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "source_basis": "Fresh root personal complete bounded source read; exact hash verified. Own06 analysis, no other-lens verdict.",
+      "owners_and_users": "root_profile consumes exactly parent OakRootSpec/Fork/Gnarling owners from skeleton/geometry and returns temporary native Vec3 point arrays. sample_polyline/polyline_tangent are shared skeleton numerical helpers.",
+      "disposition": "Producer and receiver share same morphology owners. Branch-local normal/direction/position roles are not interchangeable even when Vec3, but registered body shows no competing bespoke definition or wrong import. Seed/StreamId imports without use are style debt, not an ownership claim.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 130,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_classification.rs",
+      "sha256": "a65529b45c53a783feaa8905b9fba38d95d28e97b01fe8198d4ffeee0a57c58d",
+      "ranges": [
+        [
+          8,
+          22
+        ]
+      ],
+      "source_basis": "Fresh root personal complete bounded source read; exact hash verified. Own06 analysis, no other-lens verdict.",
+      "owners_and_users": "CatalogItemKind is shared adventuresim-core item classification, derives Serde and optionally SpacetimeType. Frozen Git navigation locates canonical core definition and generated STDB client mirror.",
+      "disposition": "Shared core is below tactical/strategic consumers; generated wire mirror is legitimate schema boundary and must not be hand-edited. Item kind and other category enums can have distinct policy; no new duplicate concept proved by this body alone.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 131,
+      "source_id": "pinned-registry:bevy_ecs_macros-0.19.1/src/lib.rs",
+      "sha256": "ee0b935d492a294197b26f2db38ff3eea4dcad569d17dadfb913cb15618673fc",
+      "ranges": [
+        [
+          16,
+          20
+        ],
+        [
+          214,
+          239
+        ]
+      ],
+      "source_basis": "Fresh root personal complete bounded source read; exact hash verified. Own06 analysis, no other-lens verdict.",
+      "owners_and_users": "Bevy ECS macro MapEntities generates native trait implementation on declared type through bevy_ecs_macro_logic map_entities. EntityMapper remains Bevy entity relocation authority.",
+      "disposition": "Native derive wrapper delegates implementation, no independent semantic owner. Generating trait does not prove all fields opted into remapping; caller declaration remains responsible.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 132,
+      "source_id": "pinned-registry:bevy_ecs_macro_logic-0.19.1/src/map_entities.rs",
+      "sha256": "be35a0c5898b7d60c5fbbada7977a1a9edba77895ddad9950fe541baa0f12059",
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "source_basis": "Fresh root personal complete bounded source read; exact hash verified. Own06 analysis, no other-lens verdict.",
+      "owners_and_users": "Bevy macro logic identifies fields annotated entities or relationship field and calls each field MapEntities. It returns no mapping body when none selected.",
+      "disposition": "Native metadata controls remapping policy, not bespoke type consolidation. Missing annotations can leave an actual caller field stale; no first-party defect or complete mapping inferred without declaration/consumer trace.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 133,
+      "source_id": "pinned-registry:bevy_ecs-0.19.1/src/entity/map_entities.rs",
+      "sha256": "2a3f91a6dfa09402301d1fab24afda22aff2fbca098c2a6f0ba69bfd37a2e4dc",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          54,
+          66
+        ],
+        [
+          172,
+          178
+        ]
+      ],
+      "source_basis": "Fresh root personal complete bounded source read; exact hash verified. Own06 analysis, no other-lens verdict.",
+      "owners_and_users": "Bevy MapEntities owns entity relocation contract. Entity delegates to EntityMapper.get_mapped; Vec recursively maps each owned element.",
+      "disposition": "Vector element and container mapping are different representation levels of same native relocation, no duplicate retained first-party owner. Native Entity identities must remain distinct from strategic IDs/indices. No whole first-party mapping clearance.",
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "new_unique_findings": 0,
+  "supporting_reads": "Original1592 geometry85-113/240-276 and1598 skeleton1-58 reread; no original-role credit. Exact Git definition search native/generated CatalogItemKind navigation only, no generated body verdict.",
+  "clear": false
+}

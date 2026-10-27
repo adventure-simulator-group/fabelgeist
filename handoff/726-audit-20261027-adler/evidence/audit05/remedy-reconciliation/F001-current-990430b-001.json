@@ -1,0 +1,107 @@
+{
+  "at": "2026-10-26T04:36:39.410457+00:00",
+  "finding_id": "ADLER-RESUMED05-F001",
+  "phase": "Read-only global remedy/current-canonical reconciliation",
+  "finding_authority": {
+    "path": "target\\recovery-20261025\\audit05\\source-support-001-dispatcher-port-allocation.json",
+    "sha256": "4cdb1b6e0bda659adb0ca8bf6c4f97c4ad16b15d554436fbff1ca07bb2184747",
+    "frozen_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/main.rs",
+    "source_sha256": "de12026f8d2b3c6409d0ff52f053b48b2caf54e3af425d2abdc2e7a3ec6b7eb5",
+    "source_ranges": [
+      [
+        50,
+        52
+      ],
+      [
+        98,
+        100
+      ],
+      [
+        142,
+        164
+      ],
+      [
+        186,
+        214
+      ]
+    ]
+  },
+  "current_canonical": {
+    "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "path": "crates/adventuresim-tactical-server-dispatcher/src/main.rs",
+    "sha256": "de12026f8d2b3c6409d0ff52f053b48b2caf54e3af425d2abdc2e7a3ec6b7eb5",
+    "exact_entire_blob_equal_to_frozen_finding_source": true,
+    "personally_read_ranges": [
+      [
+        20,
+        56
+      ],
+      [
+        71,
+        80
+      ],
+      [
+        90,
+        104
+      ],
+      [
+        126,
+        171
+      ],
+      [
+        172,
+        214
+      ]
+    ],
+    "smallest_mechanism": {
+      "admission": "Clap Args base_port:u16 no range restriction beyond native type, used by Args::parse.",
+      "retained": "next_port:Arc<Mutex<u16>> initialized from base_port.",
+      "transition": "on_insert reserves current *p then performs *p+=1 before launch argument admission, materialization and authorization/spawn.",
+      "receiver": "Reserved local port passed unchanged to native SocketAddr::new(host,port) for subprocess --addr."
+    }
+  },
+  "disposition": "CURRENT_UNREPAIRED_QUALIFIED",
+  "source_mechanism": "At accepted base_port65535 the first allocation increments u16 before current launch. Overflow checking can panic; unchecked arithmetic wraps next state to0. No exhaustion state/rejection is represented. This source behavior remains byte-identical on pinned canonical main.",
+  "dedup": {
+    "inventory": "target\\recovery-20261025\\audit05\\inherited\\adler-finding-records.json",
+    "inventory_sha256": "473fc7ce6d08f96419a86d239410cf94fa1ba9b8cf8c93ef45ba2d7b44d6942d",
+    "records": 1002,
+    "exact_navigation": "F001-inventory-navigation-001.json",
+    "broader_navigation": "F001-inventory-navigation-002.json",
+    "broader_candidates": [
+      "NATIVE-CAMERA-ROOT169-OWNER-SUPPORT-232",
+      "NATIVE-CAMERA-ROOT169-OWNER-SUPPORT-233",
+      "NATIVE-CAMERA-ROOT169-OWNER-SUPPORT-234",
+      "NATIVE-CAMERA-ROOT169-OWNER-SUPPORT-235",
+      "NATIVE-CAMERA-ROOT169-OWNER-SUPPORT-237",
+      "RIG-ADMISSION03-F087",
+      "RIG-INITIAL06-F018",
+      "RIG-INITIAL09-F011",
+      "ROOT-PP-010",
+      "ROOT-PP-011",
+      "ROOT-PP-012",
+      "ROOT-PP-013",
+      "ROOT-PP-014",
+      "ROOT-PP-015",
+      "ROOT-PP-016",
+      "NATIVE-PS-F005"
+    ],
+    "assessment": "No exact dispatcher-port/exhaustion remedy identity found by stated source/type/value and dispatcher-family terms. Broader connected dispatcher records address coordinates, scene materialization errors, geographic/source/mission identity or unrelated producer roles. Shared scope is not same failing allocation contract.",
+    "global_uniqueness": "Not established. Full remedy-map/cross-lens reconciliation remains pending; no blanket uniqueness from limited search, no new accepted issue/count."
+  },
+  "retained_remedy_identity": "Existing F001 requires coherent allocated port and explicit exhaustion transition across accepted base-port range before current launch. This report does not design/implement repair or change admission policy.",
+  "qualifications": [
+    "Build-profile overflow-check mode not established; both conditional modes documented without execution.",
+    "No process/network launch, deployed outage, database interaction or valid OS bind result claimed.",
+    "Potential adjacent request retry/concurrency/port-reuse behaviors not expanded or assigned new findings.",
+    "Current means pinned canonical main990430b only, not unreviewed branch/source after it.",
+    "No materially reached new source body consumed; only existing frozen/current same owner and saved metadata."
+  ],
+  "source_or_git_mutations": false,
+  "project_checks": false,
+  "new_issue": false,
+  "new_unique_count": 0,
+  "own_accepted_findings_unchanged": 10,
+  "global_clearance": false
+}

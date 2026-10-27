@@ -1,0 +1,36 @@
+--- base:634aa39a782f19bdca7d9ede973722090d92f06a2b54c192076c589dea3be95d
++++ head:95852ba679486fb361ff90d203788f00fd951c87d215420de1e4931d6911226c
+@@ -35,6 +35,16 @@
+ pub struct SignedAngularSpeedDegrees(f32);
+ 
+ impl SignedAngleDegrees {
++    /// Native minimum of admitted finite angles, preserving signed zero.
++    pub fn min(self, other: Self) -> Self {
++        Self(self.0.min(other.0))
++    }
++
++    /// Native maximum of admitted finite angles, preserving signed zero.
++    pub fn max(self, other: Self) -> Self {
++        Self(self.0.max(other.0))
++    }
++
+     pub const ZERO: Self = Self(0.0);
+     pub fn from_degrees(value: f32) -> AnimationValueResult<Self> {
+         if !value.is_finite() {
+@@ -78,6 +88,16 @@
+ }
+ 
+ impl AngularMagnitudeDegrees {
++    /// Native minimum of admitted finite magnitudes, preserving signed zero.
++    pub fn min(self, other: Self) -> Self {
++        Self(self.0.min(other.0))
++    }
++
++    /// Native maximum of admitted finite magnitudes, preserving signed zero.
++    pub fn max(self, other: Self) -> Self {
++        Self(self.0.max(other.0))
++    }
++
+     pub const ZERO: Self = Self(0.0);
+     pub fn degrees(self) -> f32 {
+         self.0

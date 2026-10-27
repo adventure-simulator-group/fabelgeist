@@ -1,0 +1,450 @@
+{
+  "id": "SEGOVB-CONT08-SUCCESSOR-016",
+  "created_utc": "2026-10-27T02:22:16.899196+00:00",
+  "lens": "08 behavior-preservation",
+  "skill": "/home/brunosegovia/.codex/skills/audit-behavior-preservation/SKILL.md",
+  "scope": "One bounded geographic numerical-kernel subset of ordered1793 partial: GroundTriangle requested admission/order/bounds/height/contains/boundary-factor bodies and necessary area/compare helpers, plus actual planar bounds/index constructor/intersections. No cuts/full terrain solver/native SDK or1794 expansion.",
+  "authoritative_start": {
+    "ledger_path": "target/recovery-20261025/continuation-segovb/ledger.json",
+    "ledger_sha256_at_start": "c9d200449a7b459bcb2a7f20745ab9982e96a5b6a90971945d2bfa95622c9f09",
+    "adoption": {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-015-adoption-root.json",
+      "sha256": "1a00e316df46ae08ef138d0976c891fe0f7bd734fa4bf3aab20b16bd4d8d83b9"
+    },
+    "adopted_receipt_sha256": "7f60cfd78c5149b35b5ebd73860374deeaa1ed1e827e2037eec133ba2d0fb991",
+    "adopted_state_sha256": "fed98167b4b44a057ff96ac612b23beface2345f1d3881cd7486d6a063770ffb",
+    "original_accounted": 1800,
+    "ordered_original": 1793,
+    "earliest_unfinished": 1462,
+    "material_partial": 52
+  },
+  "inputs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-015.json",
+      "sha256": "7f60cfd78c5149b35b5ebd73860374deeaa1ed1e827e2037eec133ba2d0fb991"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-015-proposed-state.json",
+      "sha256": "fed98167b4b44a057ff96ac612b23beface2345f1d3881cd7486d6a063770ffb"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-016-provenance-001.json",
+      "sha256": "3443b90b83ba9053d98e0444625a6633b4636f53cf4d0f0b0b03c11920f00a03"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-016-registration-bodies.json",
+      "sha256": "c9e0f545b4077bf900c98fcd4cbfa87fab7fad905c0f110ace6614e29746922e"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-016-registration-navigation.json",
+      "sha256": "5abd1af3da3eb94f084d6165d63c250fcf1849f839cae0c95ba4bda06f062315"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-016-registration-area-helper.json",
+      "sha256": "78eeea545e7551ec12192b3f500fa4c631f02b2bd7d62b8c050c0ea5302ae5e5"
+    }
+  ],
+  "frozen_identity": {
+    "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "manifest_path": "target/recovery-20261025/continuation-segovb/audit12-frozen-source-manifest-019.json",
+    "manifest_sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa",
+    "qualification": "Frozen PR only, not current main/ff43/M05 or P16 dirty source. Exact2paths independently absent747/dirty4 and equal base/head source hash; actual body reads independently performed after registration."
+  },
+  "source_reads": [
+    {
+      "source_id": "pr-head:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/geometry.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_tree_entry": "100644 blob 67021b396081bf9c19a79cdf71aeaef17b368108\tcrates/adventuresim-tactical-core/src/city_layout/grounding/foundations/geometry.rs",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/35462629537232e291556fb180d6092e157ed718cf492f6a448d1c1c142cf0cb",
+      "sha256": "35462629537232e291556fb180d6092e157ed718cf492f6a448d1c1c142cf0cb",
+      "bytes": 9153,
+      "line_count": 242,
+      "frozen747_matches": [],
+      "dirty4_matches": [],
+      "body_read_ranges": [],
+      "base_head_equal": true,
+      "unchanged_alias_eligible": true,
+      "prospective_ranges": [
+        [
+          1,
+          147
+        ],
+        [
+          235,
+          240
+        ],
+        [
+          199,
+          212
+        ]
+      ],
+      "requested_variant_scope": [
+        [
+          1,
+          242
+        ]
+      ],
+      "reason": "Only actual requested triangle admission/order/bounds/height/contains/tolerance helpers and complete cohesive planar bound/index constructor/intersection receiver; no cut/terrain compiler expansion.",
+      "actual_body_read_ranges": [
+        [
+          1,
+          147
+        ],
+        [
+          235,
+          240
+        ],
+        [
+          199,
+          212
+        ]
+      ],
+      "prospective_registration_files": [
+        "audit08-successor-016-registration-bodies.json",
+        "audit08-successor-016-registration-area-helper.json"
+      ],
+      "base_head_alias": "Exact equal before/after Git bytes, absent747/dirty4; one own actual body read covers those established aliases only, no duplicate population credit."
+    },
+    {
+      "source_id": "pr-head:crates/adventuresim-tactical-core/src/city_layout/grounding/planar/query.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_tree_entry": "100644 blob 5d4a2705116d129dc4f86de067b3492e8133975b\tcrates/adventuresim-tactical-core/src/city_layout/grounding/planar/query.rs",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/6876c759c1e7a12a44cce57a8c372f1f7dcb4f926b9edc6e1486fc341a489cf6",
+      "sha256": "6876c759c1e7a12a44cce57a8c372f1f7dcb4f926b9edc6e1486fc341a489cf6",
+      "bytes": 5177,
+      "line_count": 156,
+      "frozen747_matches": [],
+      "dirty4_matches": [],
+      "body_read_ranges": [],
+      "base_head_equal": true,
+      "unchanged_alias_eligible": true,
+      "prospective_ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "requested_variant_scope": [
+        [
+          1,
+          156
+        ]
+      ],
+      "reason": "Only actual requested triangle admission/order/bounds/height/contains/tolerance helpers and complete cohesive planar bound/index constructor/intersection receiver; no cut/terrain compiler expansion.",
+      "actual_body_read_ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "prospective_registration_files": [
+        "audit08-successor-016-registration-bodies.json"
+      ],
+      "base_head_alias": "Exact equal before/after Git bytes, absent747/dirty4; one own actual body read covers those established aliases only, no duplicate population credit."
+    }
+  ],
+  "retained_own_caller_proof": [
+    {
+      "source_id": "pr-head:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source.rs",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/ff887ab06cf0892fa9f624f587e493319a93fc570898a890fb117a382061e3b3",
+      "sha256": "ff887ab06cf0892fa9f624f587e493319a93fc570898a890fb117a382061e3b3",
+      "own_receipt": "audit08-successor-015.json",
+      "actual_prior_body_read_ranges": [
+        [
+          1,
+          181
+        ]
+      ],
+      "new_body_read_ranges": [],
+      "qualification": "Exact own015 actual caller proof retained at identical fresh hash; no prior other-lens verdict transfer."
+    }
+  ],
+  "actual_contracts": [
+    {
+      "id": "CONT08-016-TRIANGLE-ADMISSION",
+      "source": "pr-head:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/geometry.rs",
+      "ranges": [
+        [
+          20,
+          47
+        ],
+        [
+          71,
+          78
+        ],
+        [
+          235,
+          239
+        ]
+      ],
+      "fact": "new rejects raw non-finite Vec3 points, rotates the array to the lexicographically minimum point using x,z,y total_cmp, computes f64 xz determinant, rejects abs determinant<=8*f64::EPSILON*(abs(ab.x*ac.y)+abs(ab.y*ac.x)), swaps final two vertices for negative winding, and admits checked Position leaves. compare uses that canonical point sequence. This establishes the local stated determinant/ordering control flow; exact machine-epsilon use here has area units and operand scaling in the displayed formula.",
+      "qualification": "No universal numerical error-budget/native-backend proof or leaf-constructor guarantee is inferred. No execution or fixture-admission success. Unread cuts and other geometry methods remain separate."
+    },
+    {
+      "id": "CONT08-016-HEIGHT-CONTAINMENT",
+      "source": "pr-head:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/geometry.rs",
+      "ranges": [
+        [
+          80,
+          100
+        ],
+        [
+          127,
+          147
+        ]
+      ],
+      "fact": "height_at converts query to f64 and narrows the explicit affine-plane height expression to f32. contains requires all three oriented edge cross products >= -tolerance*edge length. In own015 GeographicSurface.elevation_at the supplied tolerance is0, so its local edge rule is inclusive without a positive architectural margin. represented_point_tolerance instead computes a one-next_up f32 upper bound from the point rounding-cell diagonal and is not automatically applied in that source sampler.",
+      "qualification": "No broad tolerance-policy claim, all-scale proof, or actual source/collider/controller witness. A returned sampled height is subsequently admitted through SupportElevation in the own015 caller. Quantization/error magnitude and downstream support contact remain separately qualified."
+    },
+    {
+      "id": "CONT08-016-BOUNDARY-FACTOR",
+      "source": "pr-head:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/geometry.rs",
+      "ranges": [
+        [
+          49,
+          69
+        ],
+        [
+          103,
+          116
+        ],
+        [
+          199,
+          211
+        ]
+      ],
+      "fact": "boundary_extension_factor uses opposite-edge lengths to form triangle incenter, inradius=2*area/perimeter, and maximum vertex-distance/inradius. Actual area helper uses an origin-relative double-precision polygon cross-product sum, abs and0.5. bounds projects admitted positions to scene points and takes the xz component bounds through PlanarBounds.",
+      "qualification": "The intended geometric factor formula is traced, not universal finite bound or all expanded-region callers. PlanarBounds.expanded itself does unchecked f64\u00b1distance and this packet does not certify arbitrary distance admission."
+    },
+    {
+      "id": "CONT08-016-PLANAR-BOUNDS",
+      "source": "pr-head:crates/adventuresim-tactical-core/src/city_layout/grounding/planar/query.rs",
+      "ranges": [
+        [
+          13,
+          57
+        ]
+      ],
+      "fact": "from_triangle converts three scene points to f64 and uses component min/max. from_points rejects empty or any non-finite points while folding min/max. intersects uses inclusive AABB overlap, rejecting separated min/max comparisons. union is componentwise min/max.",
+      "qualification": "Constructor caller/leaf preconditions matter; no arbitrary mutated/nonfinite PlanarBounds use or SDK min/max implementation-wide guarantee."
+    },
+    {
+      "id": "CONT08-016-INDEX-ORDER",
+      "source": "pr-head:crates/adventuresim-tactical-core/src/city_layout/grounding/planar/query.rs",
+      "ranges": [
+        [
+          60,
+          152
+        ]
+      ],
+      "fact": "Index retains original bounds vector and starts with indices0..len. Empty index creates no nodes and intersections returns empty. append creates bounding union, stores <=8regions in a leaf, otherwise partitions by longest-axis bound-centre sum with source-index tie-break, then recursively splits at len/2. Query traverses overlapping nodes, filters actual region bounds, and sorts final candidate indices ascending. This explicitly restores authoritative source-collection order independently of tree visitation/partition order.",
+      "qualified_connection": "Own015 from_triangles sorts admitted triangles before building the index; own015 elevation_at finds the first containing candidate. Thus local canonical source/candidate ordering is source-backed. This does not prove full terrain/floor permutation equivalence, solver behavior, complete coverage or all numerical predicates."
+    }
+  ],
+  "disposition": {
+    "original_index": 1793,
+    "status": "qualified partial",
+    "qualification_id": "SEGOVB-CONT08-016-1793-REMAINING-COMPOSITION-PARTIAL",
+    "actionable_findings": [],
+    "resolved_subset": "The actual requested triangle and query index bodies now independently read and connected to exact own015 caller proof. Local determinant rejection, canonical triangle order, affine height/edge rule, boundary factor and candidate-index order are explicit.",
+    "untraced_frontier": [
+      {
+        "id": "CONT08-016-CHECKED-POSITION-LEAF",
+        "source_backed_callers": [
+          {
+            "source": "pr-head:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/geometry.rs",
+            "ranges": [
+              [
+                16,
+                18
+              ],
+              [
+                40,
+                46
+              ],
+              [
+                145,
+                147
+              ]
+            ]
+          }
+        ],
+        "actual_symbols": [
+          "adventuresim_building_generator::spatial_geometry::Position<Scene>::from_metres",
+          "Position<Scene>::metres",
+          "ScenePlanPoint::from(Position<Scene>)"
+        ],
+        "needed": "Exact materially needed checked leaf constructor/accessor/projected-point contracts before universal finite/geometric admission claims. Initial raw Vec3 finite check and displayed formulas are read, but this packet does not expand generator owner internals. Existing earlier own point-owner evidence is not fresh independent016 whole-leaf coverage."
+      },
+      {
+        "id": "CONT08-016-SOLVER-JSON-TERRAIN-INHERITED",
+        "frontiers": [
+          {
+            "id": "CONT08-015-PLANNING-INTERIOR",
+            "source_backed_callers": [
+              {
+                "source": "pr-head:crates/adventuresim-tactical-core/src/city_layout/compiled/support.rs",
+                "ranges": [
+                  [
+                    146,
+                    225
+                  ],
+                  [
+                    227,
+                    277
+                  ]
+                ]
+              },
+              {
+                "source": "own014 compiled/grounded.rs",
+                "ranges": [
+                  [
+                    53,
+                    80
+                  ]
+                ]
+              }
+            ],
+            "actual_symbols": [
+              "street::select",
+              "CityRecipePalette::for_program",
+              "Recipe::door_point",
+              "BuildingCollision::ground_floor_contact_bounds",
+              "CitySceneLayout::plan_single_property_support"
+            ],
+            "known_sources": [
+              "crates/adventuresim-tactical-core/src/city_layout/compiled/support/street.rs is declared at support.rs6, not read in015",
+              "Recipe palette and plan_single_property_support actual declaring paths/ranges still need exact locators; no guessed path credit."
+            ],
+            "needed": "Follow actual changed checked geometry/bounds/door-selection and support solver receivers for this fixed fixture, including floor outputs and permutations. No new native/generator-wide expansion; save next bounded declared contracts before reading."
+          },
+          {
+            "id": "CONT08-015-GEOGRAPHIC-NUMERIC-KERNEL",
+            "source_backed_caller": {
+              "source": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source.rs",
+              "ranges": [
+                [
+                  138,
+                  177
+                ]
+              ]
+            },
+            "actual_symbols": [
+              "GroundTriangle::new",
+              "GroundTriangle::compare",
+              "GroundTriangle::bounds",
+              "GroundTriangle::contains",
+              "GroundTriangle::height_at",
+              "GroundTriangle::boundary_extension_factor",
+              "PlanarQueryIndex::from_bounds",
+              "PlanarQueryIndex::intersections"
+            ],
+            "known_source_bridges": [
+              "foundations.rs11 reexports geometry::GroundTriangle, so actual declared module grounding/foundations/geometry.rs is identified but not read here",
+              "source.rs3 imports grounding/planar/query::{PlanarBounds,PlanarQueryIndex}; actual geometric predicates/index constructors not read here"
+            ],
+            "needed": "Exact frozen before/after numerical admission/canonical order/point sampling contracts. Current constructor outer source preserves ordering by compare and all-or-none new, but that does not prove exact admission or triangle-order independence through changed kernels."
+          },
+          {
+            "id": "CONT08-015-JSON-REMAINING-LEAVES",
+            "source_backed_callers": [
+              {
+                "source": "own014 grounded/tests.rs",
+                "ranges": [
+                  [
+                    11,
+                    23
+                  ]
+                ]
+              },
+              {
+                "source": "pr-head:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+                "ranges": [
+                  [
+                    111,
+                    148
+                  ]
+                ]
+              }
+            ],
+            "actual_symbols": [
+              "CityCompound serde admission and nested plot/access/boundary owners",
+              "SceneBuildingId serde/Ord",
+              "ScenePlanPoint serde",
+              "BuildingArchetype/BuildingUse/ServiceBuildingSize/ProsperityTier/Seed serialization",
+              "BuildingProgram::settlement",
+              "BuildingProgram::fixture",
+              "BuildingProgram::with_service_size"
+            ],
+            "progress": "Actual Distant/Tactical record fields and promotion body, orientation Deserialize and finite SupportElevation Deserialize are source-read before/after. Remaining leaves/program constructors not newly traversed; actual JSON decoded-success/program identity is not asserted from derive or old test assertions. ScenePlanPoint has own earlier013 evidence but no new independent015 leaf-body credit.",
+            "needed": "Narrow exact changed leaf/compound serialization and program-selection receivers needed by actual captured front/rear records. No requirement to support old malformed schema/inputs."
+          },
+          {
+            "id": "CONT08-015-TERRAIN-COMPOSITION",
+            "source_backed_caller": {
+              "source": "own014 compiled/grounded.rs",
+              "ranges": [
+                [
+                  100,
+                  118
+                ]
+              ]
+            },
+            "actual_symbols": [
+              "BoundedSettlementTerrain::compile",
+              "BoundedSettlementTerrain::elevations_at",
+              "PropertySupportSurface/CompoundSupportPlan member and surface extraction"
+            ],
+            "known_source_bridge": "foundations.rs13 reexports settlement::{BoundedSettlementTerrain,SettlementSupportError}; settlement module was listed as Git path metadata only, not staged/read.",
+            "needed": "Ownership composition and elevation lookup remain open; no actual numeric floor/terrain permutation witness or executed fixture."
+          }
+        ],
+        "qualification": "Packet016 resolves only requested local geometry/index bodies. Preserve actual street/recipe/single-property planning, remaining typed JSON/compound/program leaves, BoundedSettlementTerrain composition/elevation lookup and full geometry-clipping callers. These are not discharged by local canonical index order."
+      }
+    ],
+    "stop": "Save at remaining checked-leaf/solver/JSON/terrain contracts; no more geometry/native/generator or ordered originals in016."
+  },
+  "coverage_delta": {
+    "prior_original_accounted": 1800,
+    "original_accounted": 1800,
+    "original_total": 2853,
+    "new_original_completions": [],
+    "newly_accounted_original_roles": 0,
+    "new_unique_finding_count_delta": 0,
+    "earliest_unfinished_original": 1462,
+    "partial1462": "CONT08-Q003 unchanged;012 pure-w matrix erasure and009 direct local counterexample retained",
+    "next_ordered_original": 1793,
+    "ordered1793_status": "qualified partial SEGOVB-CONT08-016-1793-REMAINING-COMPOSITION-PARTIAL",
+    "material_contiguous": [
+      0,
+      51
+    ],
+    "next_material": 52,
+    "partial_material_indices": [
+      52
+    ],
+    "separate_material_interval": [
+      178,
+      195
+    ],
+    "new_material_completions": []
+  },
+  "inherited": {
+    "Q003": "009 direct admitted-contract local composition counterexample retained;012 pure-w candidate erased by Transform matrix route; no actual obstacle/cast/current witness or universal numeric bound.",
+    "material52": "Frozen P16 typed-error receiver partial unchanged; currentcomparison001 remains exact4fcc, not current main/PR990.",
+    "paid_withdrawn": "Preexisting SEGOVB-CONT08-007-M51-PAID-WITHDRAWN candidate unchanged partial.",
+    "preserve": "All20/P16/P17/#780/#826/M16 repair graph, source-keyed policies, aliases, partials and prior exact qualifications remain. Root sole ledger/product/unique-finding adoption owner.",
+    "new_shared_source_queue": "Prior Netlib45 and generator parent/support mandatory other-lens role queues retained; no new source body completion or duplicate identity population here."
+  },
+  "new_dependency_accounting": "Both actual kernel owners already belong to original catalog1817/1833. Their bounded receiving body access is not completion of those original roles and confers no other-lens/native/current-family clearance. Root retains existing shared scope queues and aliases.",
+  "limits": [
+    "No product/source/Git mutation, project/native/test/fixture execution or additions, checks, root-ledger/history edits or publication. Only exact authorized read-only Git objects, local metadata/hash/raw source reads and ignored append-only evidence.",
+    "No test/case/helper/assertion/doctest added or run; source modules #[cfg(test)] only declarations were read.",
+    "Geometry body ranges1-147,199-212,235-240; methods148-198,213-234/cuts and test bodies unreviewed here. Query source1-156 fully read including test-module declaration only.",
+    "No1794 body/read/credit; count1800 and zero new unique findings unchanged. Q003/material52/015solver+remainingJSON+terrain frontiers preserved, including no current-runtime or universal numeric bound.",
+    "Backward compatibility unsupported; no requirement to preserve malformed old input/API/schema/error behavior. No failure invented from a hypothetical unbounded native case."
+  ],
+  "global_clearance": false,
+  "stop": true
+}

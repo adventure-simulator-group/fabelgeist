@@ -1,0 +1,148 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "211",
+  "predecessor": "receipt-210-original1023.json",
+  "sources": [
+    {
+      "original_index": 1024,
+      "source_id": "pr-working:crates/adventuresim-core/src/weather.rs",
+      "sha256": "62c3d0b44fa30ce15dab8e231cc5ef90e631e633d9ef4ea34091c5c8c3f3fde9",
+      "actual_eof": 958,
+      "actual_ranges": [
+        [
+          1,
+          958
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              958
+            ]
+          ],
+          "role": "Full958 independently read1-320/321-640/641-958. Canonical Precipitation30 and CloudForm40 enums own weather categories; serde snake_case28/39 is concrete declared encoding, actual genericSerde/SATS/native producer/readers not consumed. WeatherSnapshot104 retains typed precip/cloud state, numeric weather fields no raw String identity. qualitative_ground146 returns human-facing labels Deep snow148/Snow-covered150/Waterlogged152/Muddy154/Damp156/Dry158 from conditions, not categorical ID proof; actual render/allsemantic callers pending before choosing display-only text vs typed ground-condition classification. Expect diagnostics189/214/598 are human invariant explanations, not protocol tags. weather_at178\u2192interval_weather263 uses actual typed streams::PURPOSE272/279/286/293/300/307/331/338/345/352/366/619; actual1025 field body and1026 owner constants fully read. Rest numerical/cloud diagnosis/ground overlay/training647-670 no StringAPI; no numeric/other-lens acceptance. All tests672-958 independently consumed source-only, typed weather snapshots and numeric assertions, no fixture exemption/execution. Doc replay/rules/authority claims not evidence of actual complete authoritative consumer population or current runtime behavior.",
+          "disposition": "Source-accounted WITH display-caller/native/authority/currentness qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 1025,
+      "source_id": "pr-working:crates/adventuresim-core/src/weather/field.rs",
+      "sha256": "8f11cdffeb39e9e0ca929c9cf3ac853b89c6d926c5bdd4d42c0ec9208e36cede",
+      "actual_eof": 61,
+      "actual_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              61
+            ]
+          ],
+          "role": "Full61 actual correlated_field accepts typed StreamId9 from1024; domain.rng26-35 consumes typed Seed/version and numerical lattice coordinates then bounded index36. fade_fraction51/lerp57 numerical helpers with no raw String literals/API. Module and API prose1/5-6 describe intended numerical boundary, not SDK/runtime/determinism/math acceptance. StreamId native implementation/allcaller population still pending.",
+          "disposition": "Source-accounted WITH display-caller/native/authority/currentness qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 1026,
+      "source_id": "pr-working:crates/adventuresim-core/src/weather/streams.rs",
+      "sha256": "441a11bfce5d076e3dc78875c0f4bfbe8622178c5c1a4cba2c7e0077f5ea2ea8",
+      "actual_eof": 11,
+      "actual_ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              11
+            ]
+          ],
+          "role": "Full11 actual eight generator purpose literals weather.convection4/middle-moisture5/moisture6/precipitation7/pressure8/shear9/temperature10/upper-moisture11 admitted directly at StreamId::new canonical owner and retained as typed private constants. Actual1024 typed callers and1025 domain.rng consumed, so local purpose producer\u2192retention\u2192recipient graph source-proved. Replay-contract comment1 imposes no user-forbidden BC requirement; native StreamId/rng implementation/domain-collision/allproducer population still separate pending.",
+          "disposition": "Source-accounted WITH display-caller/native/authority/currentness qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    }
+  ],
+  "connected_findings": [],
+  "verified_traces": [
+    {
+      "source_indices": [
+        1024,
+        1025,
+        1026
+      ],
+      "trace": "Eight textual random purposes directly admitted at typed StreamId owner\u2192actual weather sampling\u2192actual correlated_field domain.rng; all firstparty bodies consumed, native RNG/current/runtime/allpopulation limits retained."
+    }
+  ],
+  "pending_contracts": [
+    "Weather qualitative_ground actual renderer/semantic callers; genericSerde/SATS and native StreamId/RNG contracts/allauthority populations.",
+    "REG13220 own body ranges and all prior unread/other populations/all20/P16/P17/F9/M09/current/aliases preserved."
+  ],
+  "qualifications": [
+    "All exact requested bodies independently consumed; no execution/new tests/product changes.",
+    "User noBC overrides skill preserve-wire clause; no global/current/unique/other-lens clearance."
+  ],
+  "proposed_count": {
+    "before": 1024,
+    "after": 1027,
+    "indices_completed": [
+      1024,
+      1025,
+      1026
+    ],
+    "next_original": 1027,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/weather.rs",
+      "sha256": "62c3d0b44fa30ce15dab8e231cc5ef90e631e633d9ef4ea34091c5c8c3f3fde9",
+      "ranges": [
+        [
+          1,
+          958
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/weather/field.rs",
+      "sha256": "8f11cdffeb39e9e0ca929c9cf3ac853b89c6d926c5bdd4d42c0ec9208e36cede",
+      "ranges": [
+        [
+          1,
+          61
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/weather/streams.rs",
+      "sha256": "441a11bfce5d076e3dc78875c0f4bfbe8622178c5c1a4cba2c7e0077f5ea2ea8",
+      "ranges": [
+        [
+          1,
+          11
+        ]
+      ]
+    }
+  ],
+  "unique_count_delta": 0
+}

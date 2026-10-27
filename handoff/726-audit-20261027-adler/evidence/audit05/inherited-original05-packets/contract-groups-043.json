@@ -1,0 +1,150 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-043",
+  "at": "2026-10-22T21:20:08.564000+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/clock.rs",
+      "sha256": "f71ea0cad3b1311e6b0d29b398a293759f859ee7fc9c2fd2d91b2e09a54c33c0",
+      "scope032_index": 1360,
+      "actual_EOF": 36,
+      "scoped_ranges_compared": [
+        [
+          1,
+          36
+        ]
+      ],
+      "actual05_comparison": "FixedAnimationStep bundles actual sample tick with AnimationElapsed; setter commits both in Some, Default override absent deliberately render delta path. No requirement tick monotonic or positive delta inferred: deterministic tools may render same tick again. Actual IK evaluation/publish Native034 checks duplicate tick and snapshot publication, consumer facade still pending.",
+      "source_body_proof": "Fresh full actual source and all inline original tests personally read; source-only no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/sample_state.rs",
+      "sha256": "2605b48effbf078be1636edc4742d3f92bed99d01d2b20c232da4c564edefa3c",
+      "scope032_index": 1392,
+      "actual_EOF": 73,
+      "scoped_ranges_compared": [
+        [
+          1,
+          73
+        ]
+      ],
+      "actual05_comparison": "LocomotionHeightState stores typed amplitude/signed displayed offsets/compression/recovery plus optional per-foot raw target/owner/ticks; Default0/None means no history, not real observation. HeightHistory::observe63–71 copies guard/posture/action/groundcontact/landingsequence/tick from one Skeleton source; BodyObservation pairs actual tick with velocity. BodyResponse retained current+target angular state with optional actual observation. No automatic invariant all optional foot/tick fields Some together; mutation/height/body-response caller exact cells remain pending.",
+      "source_body_proof": "Fresh full actual source and all inline original tests personally read; source-only no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/height_values.rs",
+      "sha256": "185b3d1b5dd499737ed32495e54f252665053c4d330711e358639a88f58bd240",
+      "scope032_index": 1363,
+      "actual_EOF": 39,
+      "scoped_ranges_compared": [
+        [
+          1,
+          39
+        ]
+      ],
+      "actual05_comparison": "Signed finite height offsets add/subtract through SignedLength admission and map overflow to HeightOffset; advance_offset moves current toward0 by actual nonnegative cap, clamp limits ordered ±same maximum. Completed result checked before return; no source/default input erased, no all offsets positive constraint. Consumers height/IK still actual individual scope.",
+      "source_body_proof": "Fresh full actual source and all inline original tests personally read; source-only no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/reach.rs",
+      "sha256": "1cc9f3d9d7158bd2ad9c143ad3256ce97afd1e58516d4f968a224dbfb1e52a70",
+      "scope032_index": 1376,
+      "actual_EOF": 148,
+      "scoped_ranges_compared": [
+        [
+          1,
+          148
+        ]
+      ],
+      "actual05_comparison": "LimbSegments measure computes both distances before Self and checks actual NonnegativeLength arithmetic; geometry leaves allow0 intentionally. ReachLimit carries geometry variant instead of storing potentially overflowed law-of-cosines scalar. Fixed/Flexed/Extended/Landing different roles; landing129–134 explicitly rejects reserved>full or NaN before clamp, even tiny segments. Terrain pelvis applies confidence before quarter-metre downward cap whereas ordinary clamps first then weights; preserve this intentional FP/order policy. Final SignedLength gate validates retained offset, native_metres may return Inf intermediate; no blanket all intermediates finite invariant. Whole external caller completed target gate still required, no success claim from Option alone.",
+      "source_body_proof": "Fresh full actual source and all inline original tests personally read; source-only no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/solver.rs",
+      "sha256": "a677e882ad829a28f90793efb5ccfadcef1512255ef4b1c5105e9f8365e9f543",
+      "scope032_index": 1379,
+      "actual_EOF": 564,
+      "scoped_ranges_compared": [
+        [
+          1,
+          564
+        ]
+      ],
+      "actual05_comparison": "TwoBoneChain private tuple but constnew accepts native positions plus checked nonnegative independent lengths. Actual solve internal201 rejects nonfinite root/target and segments<=.0001, 211–218 rejects unordered/NaN reach bounds BEFORE clamp,253 checks knee/end finite. Thus NativeF011 pose-buffer tinychain panic is NOT attributed here. Preserves pole/authored hemisphere and fallback unitdirection, actual knee/end order. apply301–355 snapshots real hierarchy, rotates upper, recomputes twist hierarchy then lower and restores end world facing; partial upper application on later failure is possible but no atomic whole-chain guarantee stated, no inferred runtime invalid hierarchy. Existing full tests358–564 source-read, omitted display478–485 separately reread; no execution.",
+      "source_body_proof": "Fresh full actual source and all inline original tests personally read; source-only no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/geometry.rs",
+      "sha256": "90a0f67311aeddea43683a7d3e4c1c8ce0fa9dda96367303edd0e7557c63e224",
+      "scope032_index": 1396,
+      "actual_EOF": 66,
+      "scoped_ranges_compared": [
+        [
+          1,
+          66
+        ]
+      ],
+      "actual05_comparison": "RagdollGeometry::prepare zips definition bodies with seeds, checks scaled positive radius and signed segment/half length for every present seed then collect before any physics commands. Signed segment swaps native capsule endpoints intentionally. zip itself does not prove count equality; actual same-definition seed factory and spawn consumer below supply correlation. Raw collider translation/rotation and seed pose not validated by scalar dimension gates; F012-derived malformed native pose qualification remains, no allgeometry finite claim.",
+      "source_body_proof": "Fresh full actual source and all inline original tests personally read; source-only no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/entry.rs",
+      "sha256": "ba3c2942e73fcaac4b7698ec909382e907d0fd807f395e5f31509d904f910d6f",
+      "scope032_index": 1395,
+      "actual_EOF": 359,
+      "scoped_ranges_compared": [
+        [
+          1,
+          359
+        ]
+      ],
+      "actual05_comparison": "Topological order allocates table exactly rig count, parent membership comes actual Native039 same rig; cycle stops if no progress, not infinite loop (raw public bogusordinal not independently sealed). World prev/next samecount and parent-beforechild order. seed_bodies allocates EXACT definition.bodies.len, body_of mapping comes same definition; normal definition/body/joint indices and prepared zip lengths align, not equalcount-only inference. BodySeed raw pose/velocity plus bind rotation, short quaternion arc sign corrected; positive sample interval and angular floor roles distinct. spawn prepares ALL scaled dimensions before body/joint queue; then definition-indexed bodies/seed/geometry aligned, joints actual same definition members. Publicsuper manually fabricated vectors can bypass, no currentbadcaller. Native physics receives raw pose; dimension gate not allpose validation. Full original angular fixture336–359 read only.",
+      "source_body_proof": "Fresh full actual source and all inline original tests personally read; source-only no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/mod.rs",
+      "sha256": "eaddce3e79397bc2d636eb4cecac5907f696760cbc35c1c305699bdc700df91a",
+      "scope032_index": 1397,
+      "actual_EOF": 336,
+      "scoped_ranges_compared": [
+        [
+          1,
+          336
+        ]
+      ],
+      "actual05_comparison": "Ragdolling private whole record definition/parts/bodymap/jointmap/order/age/scale/pelvis relative; normal enter builds definition first then role mapping directly from same rig and definition, topological order and actual two sample affines, seed factory exact body count; requires pelvis seed, then full spawn success before switches PoseOwnership Physics + inserts record. Actual bodies/pelvis index0 is fixed actual BODY_SPECS. Exit despawns recorded parts and switches Authored; orphan sweep owner check. Transient local articulated presentation island only, server owns coarse character root. proportioned_bind uses SAME owner, depth64 prevents unbounded malformed parents; does not prove ancestor root reached, native rawbind finite/scale still preconditions. Existing source fixtures289–336 read only. Drive/muscles exact following cells pending; no claimed full physics lifecycle closure.",
+      "source_body_proof": "Fresh full actual source and all inline original tests personally read; source-only no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/definition.rs",
+      "sha256": "4164ade7dd800ba7a39b1318bce6a59e5920b0931d86fc161b9c1cfb8bff4a76",
+      "scope032_index": 1393,
+      "actual_EOF": 602,
+      "scoped_ranges_compared": [
+        [
+          1,
+          602
+        ]
+      ],
+      "actual05_comparison": "Actual fixed BODY_SPECS15 unique roles with kinematic PelvisFIRST0; JOINT_SPECS14 all refer actual same list, each parent precedes child in listed tree. Constructor requires all driving transforms, None absent rig, computes bodyindex by same vector.position before jointpush; missing anchor role falls back child, missing far-axis falls back actual finite unitliteral. All angular limits private hardcoded pairs ordered (knee0..2.3,ankle-.5...5,elbow0..2.5) checked finite Radians, not generic signedangle guarantees order. Whole raw native bind transforms/axes not checked at definition boundary; scalar capsule config valid doesnot validate completed seed pose; F012 recipient qualifier. Original fixtures492–602 source-read show whole graph and absence semantics, no execution.",
+      "source_body_proof": "Fresh full actual source and all inline original tests personally read; source-only no execution."
+    }
+  ],
+  "comparison_groups": {
+    "two-bone-completed-result": "Actual ReachLimit Landing guard and solver bounds/finite gates compared against independent pose-buffer F011. Shared domain is not identical operation; preserve authored bend, actual endpoint and final finite result.",
+    "ragdoll-aligned-columns-lifecycle": "Actual definition constants→same vector membership→rig joint mapping→exact length seeds→prepared dimension vector→spawn→whole Ragdolling. Normal source-index identity proven, publicsuper fabricated state not silently sealed; drive/muscles remain separate unread."
+  },
+  "new_unique_findings": [],
+  "finding_support": [
+    "F011 explicitly excluded from actual guarded procedural solver",
+    "F012 propagated native offset/bind/seed qualification; no new unique"
+  ],
+  "remaining_dependency_obligations": [
+    "Actual procedural facade/IKmain consumes ReachLimit/HeightHistory/tick state; no body coverage inferred from module use",
+    "Ragdoll drive/muscles completed rawpose application and lifecycle operations still unread"
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

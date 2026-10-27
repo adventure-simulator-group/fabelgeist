@@ -1,0 +1,180 @@
+{
+  "review": "Fresh independent scoped all13 wave001",
+  "head": "6431c2faf1b50608344d1031d0f9413830c271fa",
+  "base": "4530fc19ce16641df65eae28735d69e86bbaa8ae",
+  "fingerprint": "c4a7ae8811845d6a1621e287992173d16b74e609142accbec4546c53dbeeb2fc",
+  "source_identity": "source-identity-001.json",
+  "code_review": "code-review-001.json",
+  "verdict": "No actionable scoped findings; source clearance only, hosted validation pending.",
+  "coverage": "All six changed paths accounted; wholecurrent GLB/error/layout/profiling bodies, actualchanged parentdeclarations/call and READMEparagraph; direct unchangedcaller/texturefinish and full existingroundtripfixture personally read. No inherited historicverdict or globalfamilycredit.",
+  "lenses": [
+    {
+      "lens": "01",
+      "name": "producer-propagation",
+      "disposition": "Scoped source-clear WITH stated limits",
+      "evidence": "GLB producer is native Vec/serde byte lengths at the format adapter. Followed both through private GlbLayout to usize reservation and u32 little-endian headers, then native fs::write. The sole caller passes its existing Value and buffer.bytes without primitive readmission loops. Errors stay concrete through Into<anyhow>; profiling primitive label/time ends in terminal JSON. No unfinished propagation in this slice; earlier geometry/material producers not cleared.",
+      "locations": [
+        "glb.rs:25-64",
+        "glb/layout.rs:25-87",
+        "export.rs:821-842",
+        "profiling.rs:22-41"
+      ],
+      "findings": []
+    },
+    {
+      "lens": "02",
+      "name": "existing-type-owners",
+      "disposition": "Scoped source-clear WITH stated limits",
+      "evidence": "Repository search found GlbOutput packaging owner and this sole framing/layout/error family; fabelgeist-geometry lengths are physical f32 metres and do not fit unsigned byte counts or allocation sizes. Existing std Vec/TryReserveError, serde_json::Error, io::Error/PathBuf and TryFromIntError are reused. Native usize/u32 are justified at actual allocation/protocol boundaries, not by a private helper name.",
+      "locations": [
+        "glb/layout.rs:3-21",
+        "glb/error.rs:3-55",
+        "textures.rs:10-21"
+      ],
+      "findings": []
+    },
+    {
+      "lens": "03",
+      "name": "admission-contracts",
+      "disposition": "Scoped source-clear WITH stated limits",
+      "evidence": "All ChunkLayout/GlbLayout/PreparedGlb fields private; only checked constructors establish their layout. No Default, Deserialize, Reflect, From-raw derive, setter or mutable accessor bypass. Public errors carry diagnostics rather than admitted successful frames. Counterexamples usizeMAX misaligned padding, padded chunk beyondu32, sumoverflow and totalbeyondu32 all reject before IO; zero deliberately admitted.",
+      "locations": [
+        "glb/layout.rs:12-55",
+        "glb.rs:23-48"
+      ],
+      "findings": []
+    },
+    {
+      "lens": "04",
+      "name": "invariant-operations",
+      "disposition": "Scoped source-clear WITH stated limits",
+      "evidence": "Checked alignment and every total addition, checked narrowing; padding subtraction is justified by checked-next-multiple monotonicity. Constant12+8*2 is small/compile-time. Assembly component sum equals reserved total; native reserve handles hostcapacity/OOM, and append counts remain withincapacity. No retained layout mutation or retry clock; only subsequent fswrite can partially publish under existing policy.",
+      "locations": [
+        "glb/layout.rs:5-55",
+        "glb.rs:29-64"
+      ],
+      "findings": []
+    },
+    {
+      "lens": "05",
+      "name": "aggregate-states",
+      "disposition": "Scoped source-clear WITH stated limits",
+      "evidence": "Chunk padding/encoded length and total usize/u32 representations are built together privately from actual payload lengths, never independently set afteradmission. PreparedGlb owns assembled bytes before write, so valid leaf fields cannot be mixed via public API. Error variants correlate role with nativecause/path. Sharedtexture stage is separate and explicitly nontransactional.",
+      "locations": [
+        "glb/layout.rs:12-55",
+        "glb.rs:23-48",
+        "glb/error.rs:21-55",
+        "textures.rs:129-173"
+      ],
+      "findings": []
+    },
+    {
+      "lens": "06",
+      "name": "type-ownership",
+      "disposition": "Scoped source-clear WITH stated limits",
+      "evidence": "GLB module owns framing-specific private layouts, public typed causes and protocol constants. It depends on serialization/native storage, not body/fitting libraries. GlbOutput remains packaging/path owner in textures, no duplicate replacement. Existing result aliases preserve layout-error versus complete-writer distinctions. Public error export is needed by the actual anyhow-facing caller; no compatibility alias or forwarding API.",
+      "locations": [
+        "export.rs:3-30",
+        "glb.rs:7-21",
+        "glb/layout.rs:3-21",
+        "glb/error.rs:3-55"
+      ],
+      "findings": []
+    },
+    {
+      "lens": "07",
+      "name": "redundant-authority",
+      "disposition": "Scoped source-clear WITH stated limits",
+      "evidence": "byte_length/encoded_length and padding/encodedchunk lengths duplicate derived representations only inside an immutable private record with one constructor. No update/invalidation route permits disagreement; emitted bytes use those same values. Storing both avoids unchecked conversion at each header/allocation boundary. Optional AtomicBool is one independent logging switch, not a redundant initialization/validity flag.",
+      "locations": [
+        "glb/layout.rs:12-78",
+        "glb.rs:29-44",
+        "profiling.rs:9-41"
+      ],
+      "findings": []
+    },
+    {
+      "lens": "08",
+      "name": "behavior-preservation",
+      "disposition": "Scoped source-clear WITH stated limits",
+      "evidence": "Compared actual base/head and complete direct caller. Successful bytes retain serializer delegation, payload order, exactpadding and nativeheader encodings. New representability/reserve failures precede GLB IO, intendedhardening; emptyBINpolicy remains. Error pathcontext/cause retained; earlierimages and nontransactionalwrite remain. Profiling optionalJSONfailure intentionally omitslog instead ofpanic. Existing tests unchanged byte-exact; runtimeacceptance pending.",
+      "locations": [
+        "glb.rs:25-64",
+        "export.rs:588-843",
+        "export.rs:845-1066",
+        "profiling.rs:22-41",
+        "README.md:33-47"
+      ],
+      "findings": []
+    },
+    {
+      "lens": "09",
+      "name": "enum-shapes",
+      "disposition": "Scoped source-clear WITH stated limits",
+      "evidence": "GlbLengthRole is a closed actual field role, not an arbitrary ordinal. GlbLayoutError Overflow versus Width carries only applicable data; GlbError serialization/layout/reserve/directory/write variants own relevant cause/path. No bool-plus-optionalpayload invalidsuccessstate introduced. Profiling enabled flag remains an ordinary native opt-in predicate; no new enum needed.",
+      "locations": [
+        "glb/error.rs:9-55",
+        "profiling.rs:9-41"
+      ],
+      "findings": []
+    },
+    {
+      "lens": "10",
+      "name": "derivability",
+      "disposition": "Scoped source-clear WITH stated limits",
+      "evidence": "Existing derive_more Display feature/version verified in CreatorCargo/lock and actualmacro source; static rolelabels derive instead of manualfmt. thiserror derives native From/source/Display with concrete fields; Timing derives Serialize. Layout construction/narrowing are invariant-establishing operations, so mechanical rawconstruction derives would bypasschecks. No unnecessary manualtrait implementation in changedfamily.",
+      "locations": [
+        "glb/error.rs:3-55",
+        "profiling.rs:11-15",
+        "Creator Cargo.toml derive_more",
+        "native-contracts in source-identity-001.json"
+      ],
+      "findings": []
+    },
+    {
+      "lens": "11",
+      "name": "type-granularity",
+      "disposition": "Scoped source-clear WITH stated limits",
+      "evidence": "ChunkLayout owns padding/encodedchunk invariant, GlbLayout completecontainersize, PreparedGlb completedbytes, and GlbLengthRole preciseerrorclassification. Their actual consumers distinguish these stages and prevent emittinguncheckedlengths. Private native-byte storage fits the concrete protocol/allocator adapter; extra genericbyteunit hierarchy would add no demonstrated distinction here. Error/layout submodules have coherent separate responsibilities.",
+      "locations": [
+        "glb/layout.rs:12-55",
+        "glb.rs:23-48",
+        "glb/error.rs:9-55"
+      ],
+      "findings": []
+    },
+    {
+      "lens": "12",
+      "name": "magic-strings",
+      "disposition": "Scoped source-clear WITH stated limits",
+      "evidence": "Inventoried GLB magic bytes, glb_serialize/glb_write labels, JSON/BIN/containerDisplaylabels, all errorformatstrings and PROFILE prefix/Timinglabel. Magic goes directly to fileformat; labels/prose terminate at profiling/log/ErrorDisplay rather than businessbranching. Errorclassification remains enum-driven. Native paths retain Path/PathBuf and display onlyatmessage boundary. README text is contributor documentation; unchanged outerexport labels/identities not newly cleared.",
+      "locations": [
+        "glb.rs:16-21,28,58",
+        "glb/error.rs:9-55",
+        "profiling.rs:11-15,39",
+        "README.md:33-47"
+      ],
+      "findings": []
+    },
+    {
+      "lens": "13",
+      "name": "magic-numbers",
+      "disposition": "Scoped source-clear WITH stated limits",
+      "evidence": "Inventoried protocolversion2, alignment4, header12, chunkheader8, twochunks, JSONspace/BINzero, raw usize/u32 lengths/paddinganddiagnosticbytes. These feed actual GLB/nativeVec arithmetic/encoding proven by Khronos4.4 and pinnedRustsource. No signed narrowing, sentinel or universaldecimalbound. Profiling1000 conversion is existing Duration-seconds to JSONmilliseconds nativeoutput; nochangedtuning. Zero payloads retained rather than inventingpositive policy.",
+      "locations": [
+        "glb.rs:16-44",
+        "glb/layout.rs:5-87",
+        "glb/error.rs:24-31",
+        "profiling.rs:33-36"
+      ],
+      "findings": []
+    }
+  ],
+  "limitations": [
+    "No local project execution, new tests/cases/assertions, product source or Git mutations.",
+    "Earlier buffer/JSON allocation, geometry/material/body/fitting/admission and wholeexport transaction remain their existing obligations.",
+    "No complete GLBschema/payload validator claim; size/framing only.",
+    "Fresh thirteen lenses within this candidate are not completed frozen774 original/material inventory coverage.",
+    "Hosted run and merge readiness belong to parent."
+  ]
+}

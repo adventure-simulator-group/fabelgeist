@@ -1,0 +1,19 @@
+{
+  "id": "ADLER-CONT11-MATERIAL-185-001",
+  "lens": "type-granularity",
+  "material_index": 185,
+  "source_id": "native-support:bevy_render-0.19.1/src/render_asset.rs",
+  "sha256": "fec69e4c27506056a55fc472e30fb113fdf316dc73647fb11794fb6c1ac77377",
+  "ranges": [
+    [
+      280,
+      364
+    ]
+  ],
+  "source_basis": "Personal exact bounded body read after registry187 prospective registration; source-object SHA matched. No other-lens transfer.",
+  "assessment": "Exact280-364 native generic extraction. Typed AssetId<A::SourceAsset> retains source association; AssetEvent enums and RenderAssetUsages named flags express framework lifecycle. RENDER_WORLD branch mutates retained asset via get_mut_untracked and take_gpu_data, rather than deleting Assets entry; other usages clone source. No ordinary missing-image witness from this contract, no inferred exact take_gpu_data body/storage or all asset-event behavior. Native SDK integer/collection/generic roles are required framework APIs, not new first-party conceptual owners.",
+  "new_unique_finding": false,
+  "repair": "not started",
+  "validation": "not run",
+  "scope_limits": "Bounded native contract only, original roles unchanged and no blanket exemption."
+}

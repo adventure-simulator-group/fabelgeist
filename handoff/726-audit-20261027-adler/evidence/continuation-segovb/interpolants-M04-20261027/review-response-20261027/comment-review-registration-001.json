@@ -1,0 +1,165 @@
+{
+  "id": "PR992-COMMENT-REVIEW-REMEDIATION-REGISTRATION-001",
+  "created_utc": "2026-10-27T08:16:20.983722+00:00",
+  "manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/edited-source-manifest-001.json",
+    "sha256": "82f6fef01a7cdeb137f54def3d0d0f7254cd21d532f786c6f2f0853cdc687b2c"
+  },
+  "revision_base": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+  "sources": [
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "ceb8c36c8e8abb4ac96fa0c61601d11145d28755fdb3e7af723aa20ae8dc58bf",
+      "lines": 191,
+      "prospective_ranges": [
+        [
+          1,
+          191
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "de48188cfd3789d9a2ac3d9239c4d62f7991191f0a07d88ad90faa5047f7f129",
+      "lines": 76,
+      "prospective_ranges": [
+        [
+          1,
+          76
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "sha256": "7510f380b30f9476c5a6fb1c685a1cb4311061f24a07616b1f7a054d95af04fc",
+      "lines": 188,
+      "prospective_ranges": [
+        [
+          1,
+          188
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "sha256": "47f1910a4f6a6f9ef3e0cc4bc75e39527a72a18babc94b34a9fea6c0647be39c",
+      "lines": 336,
+      "prospective_ranges": [
+        [
+          1,
+          336
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "sha256": "9ac62b342f4ffec934232478fb5e019d84228a3cb726e29ed9b6f62d91775f36",
+      "lines": 588,
+      "prospective_ranges": [
+        [
+          1,
+          588
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "sha256": "fddfc7081466c2609c2a3879071e69fa0141d6c9737c7049c13e9730a5f6c4b7",
+      "lines": 325,
+      "prospective_ranges": [
+        [
+          1,
+          325
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "d20c873dd470d03cd65d2c0da3d73dd050cde53f78dfc8bb81b1d237bf55ddcf",
+      "lines": 255,
+      "prospective_ranges": [
+        [
+          1,
+          255
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027",
+      "lines": 107,
+      "prospective_ranges": [
+        [
+          1,
+          107
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "sha256": "37a5dba433aa5219b544716053897df30d3df49662fb5fd38794130c1b803946",
+      "lines": 212,
+      "prospective_ranges": [
+        [
+          1,
+          212
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "sha256": "642983d4cdf24f5cda28f00740f180af4cc4e926b205df647057ef1194e9e32a",
+      "lines": 222,
+      "prospective_ranges": [
+        [
+          1,
+          222
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "a70dd7aa43995b5393dc2adbca58b231fd5d455c466b5ba926d1a65ef2d2232d",
+      "lines": 783,
+      "prospective_ranges": [
+        [
+          1,
+          783
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "c835a9611d133e6fbe72b9121632d5dca1752d4f22d1b0545792ff582844e68d",
+      "lines": 523,
+      "prospective_ranges": [
+        [
+          1,
+          523
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "sha256": "5446405a9325b3d18f2a0b610462dcccda459122780598ba519bb174e21e8ad0",
+      "lines": 66,
+      "prospective_ranges": [
+        [
+          1,
+          66
+        ]
+      ]
+    }
+  ],
+  "diff": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/candidate-001-tracked.diff",
+    "sha256": "d4fda49ba0e998f810caa60f6aa132aecc3c97718a75f2fc31521d778ab2c4fe",
+    "prospective_ranges": [
+      [
+        1,
+        637
+      ]
+    ]
+  },
+  "scope": "Independent affectedcomments/mathcontracts and materially calledreceiverbodyreview; actual readranges recorded inreceipt. No product/Git/ledger/projectchecks/probes/tests/publication."
+}

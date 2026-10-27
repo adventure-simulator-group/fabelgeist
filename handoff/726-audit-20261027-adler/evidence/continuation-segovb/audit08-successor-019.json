@@ -1,0 +1,336 @@
+{
+  "id": "SEGOVB-CONT08-SUCCESSOR-019",
+  "created_utc": "2026-10-27T05:02:50.561407+00:00",
+  "lens": 8,
+  "skill": "/home/brunosegovia/.codex/skills/audit-behavior-preservation/SKILL.md",
+  "scope": "One bounded remaining street delegate trace: access_regions/available_run/local minimum_width and exact directly reached planar clip/subtract/signed_area. No ordered1794 or whole subsystem expansion.",
+  "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+  "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "prior_authority": {
+    "path": "target/recovery-20261025/continuation-segovb/audit08-successor-018-proposed-state.json",
+    "sha256": "f7871acbdca659b28f1dd671132b90ac914ea03bb0395c94926680b05cd38ba0"
+  },
+  "root_adoption": {
+    "path": "target/recovery-20261025/continuation-segovb/audit08-successor-018-adoption-root.json",
+    "sha256": "362998a11823414d95559353b10259d5211a37a19b42342c5c26ffebf81234b4"
+  },
+  "authoritative_ledger_observation": {
+    "path": "target/recovery-20261025/continuation-segovb/ledger.json",
+    "observed_current_successor": "audit08-successor-018-proposed-state.json",
+    "coverage": "1800/2853 originals;earliest1462Q003partial;ordered1793partial;material52partial",
+    "modified": false
+  },
+  "provenance": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-root-access-staging-019.json",
+      "sha256": "e26e98726d5722641f710b70ce6d3f4b9f1536c6513205d66d6690c4a64b3b62"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-root-planar-staging-019.json",
+      "sha256": "b4927912e88f8d2441e0f324e7b25c41bb2aa25d336c836ae8caa1eba7c45543"
+    }
+  ],
+  "prospective_registrations": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-019-registration-001.json",
+      "sha256": "038d3d01d7733526a551447fdf9c034f13a33aeda211e7c66c6657c0f77702b5"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-019-registration-navigation.json",
+      "sha256": "6e3e2ac63c3f9272d7d6035d1ed11935f4e239d8ad2361d6b9eac85dcd8c1045"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-019-registration-navigation-002.json",
+      "sha256": "93d28d03f2fff6d48ba303747b04354d2d024facdb8d304e354eecfb057c2a65"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-019-registration-planar.json",
+      "sha256": "1b1db157d560bb19b6be5895adbe60b17ba2794731290ddb1902c0432f2f31f3"
+    }
+  ],
+  "source_inventory": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/access.rs",
+      "catalog_index": 1804,
+      "base_sha256": "cf8f7790613cc67bc1de9815eea5ef31cc30c35b571b64930902c42c8d0469ab",
+      "head_sha256": "cf8f7790613cc67bc1de9815eea5ef31cc30c35b571b64930902c42c8d0469ab",
+      "actual_before_after_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "material_ranges": [
+        [
+          5,
+          111
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "original_credit": false
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-core/src/city_layout/grounding/planar.rs",
+      "base_sha256": "443ff701ad79a52b06623fc199de7ea1df011b7527ed2ef8056057b9b8fac059",
+      "head_sha256": "443ff701ad79a52b06623fc199de7ea1df011b7527ed2ef8056057b9b8fac059",
+      "actual_before_after_ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "material_ranges": [
+        [
+          3,
+          66
+        ]
+      ],
+      "qualification": "distance_outside68-83 displayed as neighboring source only, not called by this access route and not independently behavior-cleared. query2 only declaration, no child body read."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+      "actual_navigation_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "role": "Module declaration navigation only; line44 establishes planar module, line57 reexports CompoundSupportRequest. Own015 frozen identity retained; no whole original credit."
+    }
+  ],
+  "identity_qualification": "Root staging proves exact3a50/6533 access and planar blobs byte-equal and absent747changed anddirty4 at frozen manifest534be48...; own body hashes verified before bounded reads. One physical body independently read represents both exact frozen roles. No equality with currentdf5 or P16dirty source assumed; other-lens source metadata grants no behavior verdict.",
+  "actual_contracts": [
+    {
+      "source": "crates/adventuresim-tactical-core/src/city_layout/grounding/access.rs",
+      "sha256": "cf8f7790613cc67bc1de9815eea5ef31cc30c35b571b64930902c42c8d0469ab",
+      "ranges": [
+        [
+          5,
+          44
+        ]
+      ],
+      "old_new": "Identical exact frozen bodies. Start with the property plot; only Corridor streets contribute. Tangent and edge-side expressions determine a half-width corridor region; a side==0 guard skips that branch. Centre is (start+end)*0.5+normal*side*half_width*0.5, dimensions are endpoint distance and half width. Typed point/dimensions/orientation/bounds construction failure returns immediately via?. Region order is plot then admitted input corridor order. Every region is converted by corners(), then f32Vec2->DVec2. These control/operation orders are preserved; bounds/corner and actual street ingress semantics remain pending."
+    },
+    {
+      "source": "crates/adventuresim-tactical-core/src/city_layout/grounding/access.rs",
+      "sha256": "cf8f7790613cc67bc1de9815eea5ef31cc30c35b571b64930902c42c8d0469ab",
+      "ranges": [
+        [
+          46,
+          88
+        ]
+      ],
+      "old_new": "Identical exact frozen body. Finite maximum is used directly; otherwise derive maximum forward vertex projection folded from0. Nonpositive maximum returns0 before strip construction. Approach strip corners retain edge\u00b1offset and edge+direction*maximum\u00b1offset order. Subtract each region sequentially, then consider only residual polygons whose minimum_width is strictly greater than tolerance. Return minimum forward vertex projection folded frommaximum, lower-clamped0. Empty/filtered residual collection retains maximum. No world/native/runtime result or arbitrary-polygon admission proof claimed."
+    },
+    {
+      "source": "crates/adventuresim-tactical-core/src/city_layout/grounding/access.rs",
+      "sha256": "cf8f7790613cc67bc1de9815eea5ef31cc30c35b571b64930902c42c8d0469ab",
+      "ranges": [
+        [
+          90,
+          111
+        ]
+      ],
+      "old_new": "Local minimum_width source-assessed. Exact signed_area==0 returns0; iterate cyclic edges, ignore zero-length-squared edges, normalize perpendicular, project vertices, compute hi-lo and minimum over edges starting at+infinity. All exact old/new expressions including strict comparisons, fold seeds and f64 precision are unchanged. No universal numerical stability/convexity proof."
+    },
+    {
+      "source": "crates/adventuresim-tactical-core/src/city_layout/grounding/planar.rs",
+      "sha256": "443ff701ad79a52b06623fc199de7ea1df011b7527ed2ef8056057b9b8fac059",
+      "ranges": [
+        [
+          3,
+          24
+        ]
+      ],
+      "old_new": "Direct local clip helper read for both frozen roles. Empty polygon returns empty. Previous vertex begins atlast; a >=0 side transition inserts lerp at previous_side/(previous_side-current_side), then current >=0 endpoint is retained. Side function evaluation and vertex order identical; native DVec2::lerp implementation not newly audited or executed."
+    },
+    {
+      "source": "crates/adventuresim-tactical-core/src/city_layout/grounding/planar.rs",
+      "sha256": "443ff701ad79a52b06623fc199de7ea1df011b7527ed2ef8056057b9b8fac059",
+      "ranges": [
+        [
+          26,
+          53
+        ]
+      ],
+      "old_new": "Actual subtract helper first clips complete intersection by each convex outline half-plane. Intersection<3vertices or exact zero signed area returns the original input as one region, preserving unrelated topology. Otherwise each edge emits the outside clipped remainder only if>=3vertices and carries its inside remainder to next edge. All edge ordering, sign choices and strict criteria are identical frozen source. Convex/winding/finite preconditions still depend on actual corners/input owners."
+    },
+    {
+      "source": "crates/adventuresim-tactical-core/src/city_layout/grounding/planar.rs",
+      "sha256": "443ff701ad79a52b06623fc199de7ea1df011b7527ed2ef8056057b9b8fac059",
+      "ranges": [
+        [
+          55,
+          66
+        ]
+      ],
+      "old_new": "Actual signed_area returns0for empty polygon, translates every cyclic edge endpoint by firstvertex origin, sums perp_dot in source iteration order in f64 and multiplies0.5. No changed summation/default/translation/endpoint policy demonstrated at exact source; native perp_dot and arithmetic not expanded into unrelated SDK."
+    }
+  ],
+  "disposition": "No actionable unintended behavior delta demonstrated within actual access and direct planar helpers. This source-assesses the old018access delegate local body graph, with exact input/corner/solver frontier retained; neither1793 nor1804 completed from receiver access.",
+  "resolved_subset": "CONT08-018 street access_regions/available_run local delegated arithmetic through planar clip/subtract/signed_area; input-owner and solver composition qualifications remain.",
+  "remaining_frontier": [
+    {
+      "id": "CONT08-019-PLANNING-DELEGATES-PARTIAL",
+      "source_backed_calls": [
+        {
+          "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/access.rs",
+          "sha256": "cf8f7790613cc67bc1de9815eea5ef31cc30c35b571b64930902c42c8d0469ab",
+          "ranges": [
+            [
+              22,
+              42
+            ]
+          ]
+        },
+        {
+          "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/support/street.rs",
+          "sha256": "bfad206136bada1647f958a30c678a8adb4be33c01a967d3253aebde5f58de8b",
+          "ranges": [
+            [
+              15,
+              47
+            ]
+          ]
+        },
+        {
+          "source": "own015 compiled/support.rs",
+          "ranges": [
+            [
+              146,
+              277
+            ]
+          ]
+        }
+      ],
+      "actual_symbols": [
+        "CityPlotBounds::{new,corners,centre_metres,dimensions_metres,orientation}",
+        "PlanDimensions::from_metres",
+        "BuildingOrientation::from_frontage_tangent (own015 prior finite/orientation source subset may be reused only at exact identities and actual newly reached contract)",
+        "SupportLimits::contact_tolerance_metres",
+        "CompoundSupportRequest::select",
+        "SupportDiagnostic::framed_geometry",
+        "CityRecipePalette::for_program",
+        "Recipe::door_point",
+        "BuildingCollision::ground_floor_contact_bounds",
+        "CitySceneLayout::plan_single_property_support"
+      ],
+      "needed": "Exact materially reached bounds/corner admission/orientation/positive dimensions and support solver composition remain, plus inherited recipe/collision/single-property contracts. New local planar arithmetic closure does not prove complete input admission, no counterexample or expected numeric fixture output inferred."
+    },
+    {
+      "id": "CONT08-015-JSON-REMAINING-LEAVES",
+      "source_backed_callers": [
+        {
+          "source": "own014 grounded/tests.rs",
+          "ranges": [
+            [
+              11,
+              23
+            ]
+          ]
+        },
+        {
+          "source": "pr-head:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+          "ranges": [
+            [
+              111,
+              148
+            ]
+          ]
+        }
+      ],
+      "actual_symbols": [
+        "CityCompound serde admission and nested plot/access/boundary owners",
+        "SceneBuildingId serde/Ord",
+        "BuildingArchetype/BuildingUse/ServiceBuildingSize/ProsperityTier/Seed serialization",
+        "BuildingProgram::settlement",
+        "BuildingProgram::fixture",
+        "BuildingProgram::with_service_size"
+      ],
+      "progress": "Actual Distant/Tactical record fields, promotion body, orientation/elevation leaf ports read in015; materially reached Position/ScenePlanPoint constructor/accessor/projection/serde wrapper bodies resolved by017. Remaining compound/ID/enum/Seed/program receiver bodies retain scoped obligations.",
+      "needed": "Narrow exact changed leaf/compound serialization and program-selection receivers needed by actual captured front/rear records. No requirement to support old malformed schema/inputs."
+    },
+    {
+      "id": "CONT08-015-TERRAIN-COMPOSITION",
+      "source_backed_caller": {
+        "source": "own014 compiled/grounded.rs",
+        "ranges": [
+          [
+            100,
+            118
+          ]
+        ]
+      },
+      "actual_symbols": [
+        "BoundedSettlementTerrain::compile",
+        "BoundedSettlementTerrain::elevations_at",
+        "PropertySupportSurface/CompoundSupportPlan member and surface extraction"
+      ],
+      "known_source_bridge": "foundations.rs13 reexports settlement::{BoundedSettlementTerrain,SettlementSupportError}; settlement module was listed as Git path metadata only, not staged/read.",
+      "needed": "Ownership composition and elevation lookup remain open; no actual numeric floor/terrain permutation witness or executed fixture."
+    }
+  ],
+  "mandatory_other_lens_queue": [
+    {
+      "canonical_source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-core/src/city_layout/grounding/planar.rs",
+      "base_alias": "base:crates/adventuresim-tactical-core/src/city_layout/grounding/planar.rs",
+      "head_alias": "head:crates/adventuresim-tactical-core/src/city_layout/grounding/planar.rs",
+      "sha256": "443ff701ad79a52b06623fc199de7ea1df011b7527ed2ef8056057b9b8fac059",
+      "actual_body_read_ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "materially_assessed_ranges": [
+        [
+          3,
+          66
+        ]
+      ],
+      "root_provenance": "audit08-root-planar-staging-019.json",
+      "original_catalog_entry_present": false,
+      "required": "Root reconcile newly reached shared first-party source and mandatory applicable other-lens roles/source-extension registry before future whole-scope claims. Preserve frozen base/head aliases as one identity; no changed-original denominator increment, current/P16 alias or automatic verdict transfer."
+    },
+    {
+      "canonical_source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/access.rs",
+      "sha256": "cf8f7790613cc67bc1de9815eea5ef31cc30c35b571b64930902c42c8d0469ab",
+      "existing_original_catalog_index": 1804,
+      "actual08_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "required": "Root preserve existing shared-source aliases/applicable other-lens obligations; no new population or original1804 verdict/count from receiving-body access."
+    }
+  ],
+  "findings": [],
+  "new_unique_finding_count_delta": 0,
+  "counts": {
+    "before": 1800,
+    "after": 1800,
+    "total": 2853,
+    "new_original_completions": [],
+    "next_ordered_original": 1793,
+    "earliest_unfinished_original": 1462,
+    "material_contiguous": [
+      0,
+      51
+    ],
+    "material52": "partial",
+    "separate_material_interval": [
+      178,
+      195
+    ]
+  },
+  "preserved_limits": [
+    "No reopening of assessed street front-end, triangle/kernel/Position/ScenePlanPoint bodies; module header navigation is not whole-original credit.",
+    "Q003009direct composition counterexample/012matrix erasure/current ingress/cast witness limitations unchanged. material52 andPaid-to-Withdrawn candidate unchangedpartial.",
+    "All20/P16/P17/#780/#826/M16repair graph/inheritedaliases/findings and broadF9 remain incomplete/qualified.",
+    "No backward compatibility/input/schema/API preservation constraints on malformed old values.",
+    "No test/fixture/project/helper/native execution/scans/probes or new tests/assertions/doctests. No product/source/Git/root-ledger/history/publication changes. Only ignored append-only evidence."
+  ],
+  "stop": "One bounded actual access-to-planar trace saved. Stop at typed bounds/corners/input/solver and retained planning/JSON/terrain composition frontier, before1794; no runtime witness or global clearance."
+}

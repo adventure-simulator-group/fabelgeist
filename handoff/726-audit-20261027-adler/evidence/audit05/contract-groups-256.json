@@ -1,0 +1,28 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-256",
+  "at": "2026-10-25T22:16:48.562289+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2384,
+      "source_id": "pr-working:crates/strategic-web/src/session.rs",
+      "sha256": "6be4223e4e49787ef289a75602ec8a113d2c0b7220292db0ed9de21eee34e50d",
+      "personally_read_ranges": [
+        [
+          1,
+          355
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "SessionCodec admits exact32byte decoded secret, opaque32byte random ID, version/id/issuedtime signed together; verification requires exact4parts/version/idextent, MAC verification, lifetime and future-skew gates before owner derivation. Owner key hashes fixed domain+same ID; no external cryptographic review/runtime proof claimed.",
+        "Session extraction verifies cookie first, then queries grants by derived owner; typed query failure becomes explicit unavailable and any foreign-owner row rejects complete session. Selected grant wraps exact returned ID privately, all grant IDs originate same verified owner. Multiple selected rows would select first; canonical browser_session producer uniqueness obligation remains, no actual duplicated selection alleged.",
+        "GrantedCharacterId stripped through rawu64 accessors before authority-sensitive receivers exact RIG-OWNER-F025; no new duplicate. IssuedSession public token/owner fields can be manually separated as raw issuance DTO, but actual issue constructs both together and no authorization derived from unverified caller owner here.",
+        "Cookie secure/HttpOnly/Lax flags and expiry correspond codec configuration; redirect helper adds only header-valid cookie. clear_character_cookie intentionally redirects after caller server-side selection clear, not actual grant revocation. Full fixtures read only."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

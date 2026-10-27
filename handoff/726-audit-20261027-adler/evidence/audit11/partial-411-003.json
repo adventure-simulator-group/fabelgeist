@@ -1,0 +1,34 @@
+{
+  "id": "ADLER-CONT11-PARTIAL-411-003",
+  "scope_index": 411,
+  "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+  "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+  "scope_authority": "../audit05/original-scope-072.json: frozen_requested_change full body required",
+  "personally_read_ranges": [
+    [
+      1,
+      1270
+    ]
+  ],
+  "next_line": 1271,
+  "whole_role_credit": false,
+  "partial_observations": [
+    "Native Bevy query tuples carry framework projections; LoadingPlayer/AdmittedPlayer/SpawnRecipient separate loading, validated batch and enemy/party destination. Prepared batch validates before project; downstream bodies still pending.",
+    "AuthoritativeInputTick retains optional actual prior PlayerInputTick instead of invented initial observation. AnimationSampleTick contact timing is a distinct clock role; raw jump/posture sequence fields in older P16 need canonical newer-owner comparison, not automatic restoration.",
+    "CameraFacingIntent expresses Free/Aim/DownedAlign with actual priority; raised guard and downed-align inputs are not interchangeable truth flags. AttackFacing couples target entity, current position observation and expiry tick; actual update removes missing/expired target state.",
+    "DisconnectedProjection is Loading or whole ProjectedPlayerSnapshot, preserving motion, typed attack authority and optional pending contact/lunge across entity lifecycle. CharacterId, ReconnectToken and native Entity are different identity/authority roles.",
+    "Mission difficulty, enemy combat and countermeasure basis-point factors have different meanings; zero health-scale behavior is explicit. No new arbitrary positive-only bound or hidden penalty inference from partial read.",
+    "Durable SDK equipment location/channel enums map exhaustively to core catalog roles at the explicit generated transport boundary; no edited generated binding or compatibility alias.",
+    "Durable strategic skill/limb/attribute projection and transient mission scaling are separate sources; health zero-scale policy differs from skill/attribute multiplier semantics. Derive-starting-condition receiver still pending, so no total-incapacitation arithmetic clearance.",
+    "Actual PreparedInventoryItem sum distinguishes Empty versus Admitted quantity/geometry. The projection reserves inventoryID-to-Entity mappings before attachment edges, then skips Empty payloads; whole graph/zero-parent admission must be established by actual prepared helper, not inferred from labels or successful per-item geometry.",
+    "Typed body mass is extracted at the Limbs native field; physical geometry passes as prepared records. Preserve canonical physical owner propagation across later internal recipients, no blanket float-admission claim.",
+    "Strategic catalog/character identity, durable inventory row identity and transient replicated Entity remain distinct. SDK anchor-kind/tag payloads are projected at an explicit boundary using expected relationship invariants; actual guard body416 not newly read.",
+    "Live reconnect consumes matching character/token capability, rotates token, restores whole transient projection and rekeys equipment/inventory ownership; fresh strategic enrollment is a distinct path and token-bearing invalid reconnect is rejected. Standalone dump join is an explicitly separate authority mode, not live authorization fallback.",
+    "Accepted continuous PlayerInputTick chronology differs from repeatable jump/posture edge sequences. Jump edge is consumed even when currently incapacitated/airborne so later recovery cannot replay stale jump; complete accepted movement/look updates follow their own native controller boundary.",
+    "Aim/preferred/alternate/offhand preparation roles remain explicit enums. Quickstep native pose is admitted once as Position/RigidRotation before canonical actuator call; airborne dive and inherited slide heading have different trajectory policies. No typed-pose or full gameplay admission clearance from partial body."
+  ],
+  "repair": "not started",
+  "validation": "not run",
+  "new_unique_finding": false,
+  "previous": "partial-411-002.json"
+}

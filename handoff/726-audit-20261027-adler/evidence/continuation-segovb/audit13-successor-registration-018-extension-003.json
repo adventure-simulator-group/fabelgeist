@@ -1,0 +1,69 @@
+{
+  "at": "2026-10-27T01:02:30.078441+00:00",
+  "lens": 13,
+  "packet": "018",
+  "extension_of": "audit13-successor-registration-018.json",
+  "sources": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/admission.rs",
+      "sha256": "c77986f9f9ff85cd6b4359792d8c28838b437942db2e61c92dc4104856e849cb",
+      "bytes": 3032,
+      "actual_lines": 98,
+      "ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "purpose": "Actual TerrainWire/TryFrom,dimension/height admission,SceneTerrain validate/default",
+      "provenance": "audit13-root-terrain-staging-018-supplement.json exact f82 original registry object",
+      "body_consumed_at_registration": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/descriptor.rs",
+      "sha256": "2b30929bb687f5865c0fa515cb96763b1b03d4a97522dbc015b02d7cb4558336",
+      "bytes": 4372,
+      "actual_lines": 103,
+      "ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "purpose": "Actual public input source/playable fields,wire derive andschema constants; exclude tests40+",
+      "provenance": "audit13-root-terrain-staging-018-supplement.json exact f82 original registry object",
+      "body_consumed_at_registration": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation.rs",
+      "sha256": "6dd07ed9db5b93386803c3c441f3e84c340a217626c86b423f59563deaf1c739",
+      "bytes": 7323,
+      "actual_lines": 204,
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "purpose": "Actual TacticalSceneInput generation/preparation/validation edge andSceneTerrain receiving path; exclude unrelatedobstacle helpers79+",
+      "provenance": "audit13-root-terrain-staging-018-supplement.json exact f82 original registry object",
+      "body_consumed_at_registration": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/validation.rs",
+      "sha256": "3d97a798029ddc9f195aa209105f64070c55fb0172ef87a515e67fe945c735c9",
+      "bytes": 2908,
+      "actual_lines": 64,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "purpose": "Actual validate_source fullproduction contract applying grid/source/version limits",
+      "provenance": "audit13-root-terrain-staging-018-supplement.json exact f82 original registry object",
+      "body_consumed_at_registration": false
+    }
+  ],
+  "limits": "Bounded material receiving contract only, no future-original independent lens credit/no unrelated wholeterrain graph; tests not registered."
+}

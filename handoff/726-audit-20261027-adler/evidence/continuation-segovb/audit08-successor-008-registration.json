@@ -1,0 +1,103 @@
+{
+  "id": "SEGOVB-CONT08-SUCCESSOR-008-REG",
+  "at": "2026-10-26T23:29:11.591255+00:00",
+  "question": "CONT08-Q003 actual world-normal producer/rotation boundary; boundedonepacket, originalsunchangedunlessfullyresolved",
+  "sources": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-source/862d65dcfa27ffb94110dbaf5c32fd94e248028f14f278aa9429047789ec31d9",
+      "sha256": "862d65dcfa27ffb94110dbaf5c32fd94e248028f14f278aa9429047789ec31d9",
+      "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "ranges": [
+        [
+          1,
+          230
+        ]
+      ],
+      "role": "Original1462 full old/new requested source"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-source/e57c0f4f3a2b7f4cb749b5e1ca57628e9e5ef864f1bd4365fe48313a3f426c3e",
+      "sha256": "e57c0f4f3a2b7f4cb749b5e1ca57628e9e5ef864f1bd4365fe48313a3f426c3e",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "ranges": [
+        [
+          1,
+          339
+        ]
+      ],
+      "role": "Original1462 full old/new requested source"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-source/05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "role": "Existing strict direction admission owner; only scopedsupportcredit"
+    },
+    {
+      "source_id": "pinned-registry:avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+      "sha256": "2a04ce7d6913b008e654905c96ead648efd840ddf102863532bc38bd187e3945",
+      "ranges": [
+        [
+          1,
+          1830
+        ]
+      ],
+      "role": "Prospective native source navigation/actual cast transformation support; only later listed boundedbodyreads count",
+      "provenance": {
+        "matches_prior_frozen_inventory_row": 481,
+        "cached_archive": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0.crate",
+        "archive_sha256": "35a30cb730c72527ffaca7f8806881c7e4acc70a4a74c54eb1ffb56c27f64235",
+        "member": "avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+        "member_bytes_equal": true,
+        "qualification": "Package bytes verified before bodyread; exactfrozen dependencyresolution retained from prior evidence, not re-proven from current lock."
+      }
+    },
+    {
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/shape_caster.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/spatial_query/shape_caster.rs",
+      "sha256": "e7ddca53ee044c4814c925fffa7f172680988ea9456834049da965f16a5c6b66",
+      "ranges": [
+        [
+          1,
+          612
+        ]
+      ],
+      "role": "Prospective native source navigation/actual cast transformation support; only later listed boundedbodyreads count",
+      "provenance": {
+        "matches_prior_frozen_inventory_row": 486,
+        "cached_archive": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0.crate",
+        "archive_sha256": "35a30cb730c72527ffaca7f8806881c7e4acc70a4a74c54eb1ffb56c27f64235",
+        "member": "avian3d-0.7.0/src/spatial_query/shape_caster.rs",
+        "member_bytes_equal": true,
+        "qualification": "Package bytes verified before bodyread; exactfrozen dependencyresolution retained from prior evidence, not re-proven from current lock."
+      }
+    },
+    {
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/system_param.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/spatial_query/system_param.rs",
+      "sha256": "a568d6d6d411e2832b3efb91dfc919770712da09eae38e4a9dff53ffd8d72fea",
+      "ranges": [
+        [
+          1,
+          1293
+        ]
+      ],
+      "role": "Prospective native source navigation/actual cast transformation support; only later listed boundedbodyreads count",
+      "provenance": {
+        "matches_prior_frozen_inventory_row": 487,
+        "cached_archive": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0.crate",
+        "archive_sha256": "35a30cb730c72527ffaca7f8806881c7e4acc70a4a74c54eb1ffb56c27f64235",
+        "member": "avian3d-0.7.0/src/spatial_query/system_param.rs",
+        "member_bytes_equal": true,
+        "qualification": "Package bytes verified before bodyread; exactfrozen dependencyresolution retained from prior evidence, not re-proven from current lock."
+      }
+    }
+  ]
+}

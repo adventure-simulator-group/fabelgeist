@@ -1,0 +1,23 @@
+[package]
+name = "adventuresim-dialogue"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+build = "build.rs"
+
+[dependencies]
+adventuresim-world-schema.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+
+[dev-dependencies]
+sha2.workspace = true
+
+[build-dependencies]
+adventuresim-world-schema.workspace = true
+serde = { workspace = true, features = ["derive"] }
+serde_json.workspace = true
+sha2.workspace = true
+
+[lints]
+workspace = true

@@ -1,0 +1,207 @@
+{
+  "lens": 13,
+  "status": "source-accounted WITH qualified observations; continuing",
+  "registrations": [
+    {
+      "path": "audit-resume-20261027/lens13/batch-153-registration.json",
+      "sha256": "264ec3e064435de798a8eb351fecf4afdf3af5487bc9e8f2bfecd29226ff354e"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-154-registration.json",
+      "sha256": "5f310aad6d7ae4639f2c2789c2e8616aa9b57852e461ed1c15b038711f3b1da2"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-155-registration.json",
+      "sha256": "ff591923ec6120d5dfc6f05fe51f27de05b695413ea191053a690138c6a0449e"
+    }
+  ],
+  "source_provenance": [
+    {
+      "path": "audit-resume-20261027/lens13/batch-155-staging-metadata.json",
+      "sha256": "0ace35cbdec56d48c71d9be902114bc27ce50c1c39fdc4a39377e498c12d968f"
+    }
+  ],
+  "actual_source_reads": [
+    {
+      "original": 242,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/repair.rs",
+      "sha256": "059b098c4d5f5c79ce5f04d376a03631e5d78b601474c3f151881ccae4a66d45",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/059b098c4d5f5c79ce5f04d376a03631e5d78b601474c3f151881ccae4a66d45",
+      "eof": 726,
+      "requested_range_variants": [
+        [
+          1,
+          55
+        ],
+        [
+          1,
+          726
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          726
+        ]
+      ],
+      "provenance": "Exact f82 registered physical original; all requested scopes/variants, independentnumeric inventory. Prior receiver access no ordered verdicttransfer.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          726
+        ]
+      ]
+    },
+    {
+      "original": 243,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/repair/smiths.rs",
+      "sha256": "9f6f941a9c20133485bdb87f96731d858974bde4c8f173fd90da3f51fc1227a6",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/9f6f941a9c20133485bdb87f96731d858974bde4c8f173fd90da3f51fc1227a6",
+      "eof": 61,
+      "requested_range_variants": [
+        [
+          1,
+          61
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "provenance": "Exact f82 registered physical original; all requested scopes/variants, independentnumeric inventory. Prior receiver access no ordered verdicttransfer.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          61
+        ]
+      ]
+    },
+    {
+      "original": 244,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/reputation.rs",
+      "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+      "eof": 440,
+      "requested_range_variants": [
+        [
+          85,
+          350
+        ],
+        [
+          253,
+          356
+        ]
+      ],
+      "ranges": [
+        [
+          85,
+          356
+        ]
+      ],
+      "provenance": "Exact f82 registered physical original; all requested scopes/variants, independentnumeric inventory. Prior receiver access no ordered verdicttransfer.",
+      "actual_consumed_ranges": [
+        [
+          85,
+          356
+        ]
+      ]
+    },
+    {
+      "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+      "ranges": [
+        [
+          1,
+          84
+        ],
+        [
+          357,
+          375
+        ]
+      ],
+      "role": "Exact frozen244 header/schema/native aggregate query continuation; existing own1121-110/258-375 reuse already bodyread, no whole440claim.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          84
+        ],
+        [
+          357,
+          375
+        ]
+      ]
+    },
+    {
+      "sha256": "7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
+      "ranges": [
+        [
+          140,
+          260
+        ]
+      ],
+      "role": "Re-read selected actual core95 alreadywhole454 read038-040; DamageBins repair_through/repairable/damage numeric receiver for242; no extraoriginalcredit.",
+      "actual_consumed_ranges": [
+        [
+          140,
+          260
+        ]
+      ]
+    },
+    {
+      "source_id": "reconstructed-unchanged-physical-p16:crates/fabelgeist-determinism/src/lib.rs",
+      "sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+      "eof": 58,
+      "provenance": "Pinned534be physicalmanifest base=head a120, no changed/statuspath, exactGitbytes. Metadata staging only.",
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "role": "Actual native RNG trait owner/re-export reached smith stable_skill; no original/sharedcredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          58
+        ]
+      ]
+    }
+  ],
+  "prior_actual_reuse": [
+    "Core95 durability SHA7e08e941 full1-454 actual038\u2013040, re-read1-140 in138 and140-260 in154. Core133 reputation SHAf440b09e full1-338 actual054\u2013062. Native244 earlier1121-110/258-375 actualbody access reused only samehash.",
+    "Native item221 full946 actual136; personal currency checked debit/stack handling and canonical typed physical InventoryLocation receiver retained. Native178 character full3987 actual097\u2013101 supports saved attachment index semantics but not all nativeSDK/runtime proof.",
+    "Determinism stream SHAc2ec90f6 actual0851-90 plus03891-169; index30-90 re-read under existing prospective source access (not new role count), sample nonzero length3; no full Rand implementation proof."
+  ],
+  "numeric_inventory_and_actual_trace": [
+    {
+      "original": 242,
+      "scope": "Full726 including requested1-55 supplement; all production/fixture bodies actual read.",
+      "inventory": "ItemCondition five public nativef32 damagebins and typed DamageBins conversion; smithskillu8, rawu64 inventory/owner/order/rowIDs, autoID0, quotedu32costdefault0, typedminutes, f32targetcondition and stress. Two-day fullrepair duration, quality1..5, fieldrepair yellowbins skillmin2, wear80/20 fractions, positive-minimumminute1, limitu32 nativecollection and submissioncount integer; raw semantic values need owners/units.",
+      "trace": "Actual normalized bins rejectnonfinite/negative and totalcapacity1 before use. Submitrequires exactlyoneownedrow, correctservice/catalogkind, repairable>0, computes ceil(repairfraction*2880min) and stablecorequote before explicit repaircustody. Nativezerocharacter reservedescrow, autoorderID0 distinctroles; native InventoryLocation::Repair typedpayload captures originatingrow/settlement. Retrieval checks owner/location/deadline, charges exactquote, validates canonical core escrow0/quantity1/sameitem, clears binsthroughselectedskill and returns physicalobject after duplicate<=1guard; restores retained ordered attachment graph. NativeSDK reducer atomicrollback not independentlyproven; do not allege partialdurablecommit solelybecause checksafterwrites.",
+      "operations": "Fieldrepair minskill2 and normalized fivebins bound fixedindex/slice; remainingMinutes->f32->ratio->ceil roundtrip and saturation needs explicit time-roundingbudget, no exactfractional conservation promise. Work arrays collectedbeforelimit/request loops, theoretical requestbudget concern notordinaryOOM. Actualcore damage_from_impact read154 still computes3+(overload*2).floorasu8+qualityadjust BEFOREmin5: earlier core95 positiveoverload cast255 overflow concern persists even though native qualityclamped1..5. Currentactualauthored stress/profile reachingoverload>=127.5 not established; native clamp quality alone does not repair overload arithmetic. No new unique/runtimeclaim.",
+      "fixtures": "Simulationownedrun fixture sets .08/.24 tier2/3 after exactownership; existingtest roles classes, attachment indices0/1/parent10/11/item99/actor1/capacity0; consumednotexecuted."
+    },
+    {
+      "original": 243,
+      "scope": "Full61",
+      "inventory": "Stable skill3+RNGindex(3) gives3..5 under actual nonempty samplerbound; service/armor/clothingenums own kind distinction; three static streamIDs separate deterministic generation. Native rawu8 skill checkpoint remains representationowner candidate.",
+      "trace": "Missing smith inserted once with three boundedskills; service availability distinguishes specialist/generalblacksmith and correctcatalogkind. Actual local deterministic traitlib58 reconstructedunchangeda120 source155 and priorstream indexbody57-63 sourcebacked, bound3 checkednonzero before native sampler. No new SDK/random output guarantee beyond exactselected native API. Nested seeds fromsamea120 priorproof, no currentdirty substitution."
+    },
+    {
+      "original": 244,
+      "scope": "Effective85-356 plus selectedheader1-84/continuation357-375; no complete440/delete-tailcoverage.",
+      "inventory": "Rawu64 participant/character IDs, u8offense severity clamps1..5, settledBool as nativecheckpoint, usizeoffensecount, nonnegativei32 fame/infamycentipoints and rawdeltas, rawsettlementpopulation/travelmetres recipients; typedoccurred/capturedminute. StableID joins are presentation/keyadapter, no rawstringowner verdicttransfer.",
+      "trace": "Caseparticipants actualcanonical coreworldevent prior1-182 selectedproof sorts/dedups and usesfallback onlywhenbattleempty; snapshot stablekeycanonicalcase+actor exactonce. Arrestcharges retainimmutableoffenseIDs, queriesfilterowner/settlement/unsettled then deterministicorder; settlemutates Boolcheckpoint. recordevent rejectsnegative deltas and unknownorigin, computes actualcore133 graphcontributions, insertsuniqueevent thenapply_delta boundedcoreprojection. SameeventID earlyno-op doesnotcomparepayload; record identity/idempotency policy concern, no proven conflicting legitimateproducer/runtime. Aggregatesneverre-emitted asspreadinginputs. Localzero fallback validnoreputationstate, fame/infamy tuple should useexistingnamedrecord/owner ifpropagated.",
+      "receiver_limits": "Core133 earlieractualfull338 covers graphspread/distance/centipoint arithmetic and cap; no allworldmodel/SDKnegative-roadinputs validation claim. Actualnative worldevent/food callers constrain boundedordinarydeltas asalreadyrecorded; publicAPI permitsnonnegativei32MAX withcorecaps, not hidden overflow allegation."
+    }
+  ],
+  "new_material_dependency_inventory": [
+    "Determinism lib58 native bit scales24/53, shifts40/11, fixedu32/u64encoding and halfopen/inclusive denominator2^n vs2^n-1 are actual bit-to-float numerical kernels; conversion inputs allu64 and finitepositive denominators. Nativepacketarrays/highbits fitexactf32/f64precision, outputendpointclosed/halfopen byconstruction. Existing seed0 and hexadecimal SplitMix sequencefixtures consumednotexecuted. No whole RNG/SDK/globalotherlensclearance."
+  ],
+  "limits": [
+    "All effectiveoriginalrangesretained; native receiver additions/futureobjects no orderedcredit. New exactlibsource mandatory otherlensqueue; no sharedpopulationcredit.",
+    "Source-only withfindings; currentness/aliases/acceptance/runtimevalidation separate, acceptednewunique0/globalfalse. No product/Git/rootledger/checks/tests/probes/publication."
+  ]
+}

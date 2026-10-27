@@ -1,0 +1,92 @@
+{
+  "at": "2026-10-27T05:12:29.646876+00:00",
+  "lens": 12,
+  "original": 50,
+  "purpose": "Currentness/canonicalenumownership and M09alias reconciliation of same effective-response/commitment retention gap; no new productrepair or global/currentwholefileaudit",
+  "sources": [
+    {
+      "source_id": "current-df5:crates/adventuresim-core/src/autoresolve.rs",
+      "path": "crates/adventuresim-core/src/autoresolve.rs",
+      "head": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+      "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "lines": 2878,
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "prospective_ranges": [
+        [
+          424,
+          452
+        ]
+      ],
+      "current_bytes_equal_committed_head": true
+    },
+    {
+      "source_id": "current-df5:crates/adventuresim-core/src/combat.rs",
+      "path": "crates/adventuresim-core/src/combat.rs",
+      "head": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+      "sha256": "7d00629a7da937cf41b5bc49a86df7119cc7054743dce1f70ac2507a7aba59b0",
+      "lines": 1137,
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/7d00629a7da937cf41b5bc49a86df7119cc7054743dce1f70ac2507a7aba59b0",
+      "prospective_ranges": [
+        [
+          175,
+          205
+        ]
+      ],
+      "current_bytes_equal_committed_head": true
+    },
+    {
+      "source_id": "current-df5:crates/adventuresim-core/src/autoresolve/melee_round/commitment.rs",
+      "path": "crates/adventuresim-core/src/autoresolve/melee_round/commitment.rs",
+      "head": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+      "sha256": "52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
+      "lines": 239,
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
+      "prospective_ranges": [
+        [
+          104,
+          128
+        ],
+        [
+          216,
+          239
+        ]
+      ],
+      "current_bytes_equal_committed_head": true
+    },
+    {
+      "source_id": "current-df5:crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "path": "crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "head": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+      "sha256": "3ada1de8aa9e1322565a5f1ae9b5882e0beba1d5ad024cc4705f7eb35ba0982b",
+      "lines": 595,
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/3ada1de8aa9e1322565a5f1ae9b5882e0beba1d5ad024cc4705f7eb35ba0982b",
+      "prospective_ranges": [
+        [
+          149,
+          174
+        ]
+      ],
+      "current_bytes_equal_committed_head": true
+    },
+    {
+      "source_id": "current-df5:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+      "path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+      "head": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+      "sha256": "682408c513c94a29855ef855be8d4e16dad21a2de2e3349ff61dea8f87a43d0a",
+      "lines": 325,
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/682408c513c94a29855ef855be8d4e16dad21a2de2e3349ff61dea8f87a43d0a",
+      "prospective_ranges": [
+        [
+          82,
+          120
+        ]
+      ],
+      "current_bytes_equal_committed_head": true
+    }
+  ],
+  "global_clearance": false,
+  "corrected_before_any_body_read": {
+    "prior": "audit12-successor-registration-029-current-labels-001.json",
+    "reason": "commitment.rs actual EOF239; nonexistent240-245 excluded before bodyread; no exposed/unregisteredsource orcoverage"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-351",
+  "at": "2026-10-25T23:32:00.869925+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 58,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "sha256": "e1dac77a2c5ef7c2bb50b886c9b7340c83f2fcee27fe767788e48463ad6f737c",
+      "personally_read_ranges": [
+        [
+          1,
+          866
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full866line P16 melee iteration source read. Fixed John/five-opponent roster creates build labels, weapon/armor/shield IDs and Combatant together from canonical starting attributes/skills and catalog definitions. Stable fixture IDs use FNV-like wrapping hash, not DB IDs or proof of global injectivity; actual fixed key collision not asserted.",
+        "Weapon and shield projection uses exact catalog key with typed kind checks and retains weight/IDs. Repeated armor IDs count prior occurrences to cycle authored placements, then overwrite per-body-region CombatArmor and add each item's weight. This intentionally stores one protection record per region; overlap/layer loss relative to tactical chain needs actual admitted roster placement trace and existing finding dedup before promotion.",
+        "Unexpected nonarmor definition in armor list is silently skipped by helper; real fixed roster IDs/catalog kind must be compared before accepted bug claim. Skills copy canonical source fields with deliberately zeroed bow/crossbow/firearm for melee-only fixtures.",
+        "Existing bounded seed tests, hit/cadence/geometry comparisons and acceptance evidence assertions read in full, including terminal timeline/timeout-progress and simultaneous/cancellation invariants. They are not executed evidence and do not prove all source-required cases or generated fixture currentness. Evidence producer modules remain separate original roles."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

@@ -1,0 +1,68 @@
+{
+  "base": "961d226be23a81d9731a11958d62fe8a04b93e81",
+  "at": "2026-10-26T20:30:43.402645+00:00",
+  "files": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "sha256": "352f06a1ddfc9d7be1813161e4ac2365ae813a2f0e751614464fc8adddf9a735"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "460e9c3fcc4cb794358e3a25ba96b2e877dbeffaac6404703ff493aa6cb58e18"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "33fed8d0c2ea47e990b60ad9c2cc14962f130c66ed4328d134e8f7f15d9b1128"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "e883e9bbfdcdb62065d26751a6135b65d6e3021604c9e6071ebdfbdf644457c5"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "bb98de5214d48bd87519d09a702a5e8df2914c6a7d614d38b2c95ab13df51205"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "e8573dd939e0db024bb674e2647e14b10cdca9d5d4d141b9a39e2778a0e3aab8"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "019e06bddeb3cf69b87f4a5ca9ed92b605d5a7e211490af27f36d3ae3a63422d"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "f64791a9b8ca3d2203ed6c04fd5e0f0028fd8855ea3bc5674840e646581b5135"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "6369e5b4f4847db2e85cd5a105dd891f8a68dcbf584622731565d36d05b6cb4e"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "sha256": "14cccb953bd0b8466b7ad010219c4220d535ee7ed9e6e66cad981c37cc67df88"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "1ff31e6f3269b22c90de858db5935591432e74f58199699a22a735aac532c68b"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "baf15af7fdf3ecbc0776b475b3aadbd35c29a3d6e0185cef3b2f064803315381"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "0fe254434e5c065ab49a04ba8c522d7066b48802b37538b6840653f5b2e3e59d"
+    }
+  ],
+  "scope": "PR988 review remediation, no global auditcounts advanced",
+  "project_execution": false
+}

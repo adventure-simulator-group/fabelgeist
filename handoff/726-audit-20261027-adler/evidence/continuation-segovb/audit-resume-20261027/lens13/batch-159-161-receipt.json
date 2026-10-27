@@ -1,0 +1,195 @@
+{
+  "lens": 13,
+  "status": "source-accounted WITH qualified limits; continuing",
+  "registrations": [
+    {
+      "path": "audit-resume-20261027/lens13/batch-159-registration.json",
+      "sha256": "a89d62feb9133f41011b11a481e0707de19fa48d07b3d47e23744dcb7ed5ad2b"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-160-registration.json",
+      "sha256": "bc750a2976b862424c22e8f7aea418b94c3e5cee7dc05a6df183d17d5e186be0"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-161-registration.json",
+      "sha256": "9083b0e4df34cdfd6ce91119303649a88768c825e12ccdee9ef5019c6e78e169"
+    }
+  ],
+  "source_provenance": {
+    "path": "audit-resume-20261027/lens13/batch-160-staging-metadata.json",
+    "sha256": "f1f2f5b8dcbe705120397c7605b3866eabc47942c63d051864e514313b4c2c31"
+  },
+  "original_indices": [
+    253,
+    254,
+    255
+  ],
+  "actual_source_reads": [
+    {
+      "original": 253,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population.rs",
+      "sha256": "99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "eof": 759,
+      "requested_range_variants": [
+        [
+          1,
+          759
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          759
+        ]
+      ],
+      "provenance": "Exact frozen f82 physical registered source; preservefullrequestedunion; priorrecipientaccessnotoriginalcredit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          759
+        ]
+      ]
+    },
+    {
+      "original": 254,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population/resident_drafts.rs",
+      "sha256": "0bdbeb8d3d35fb200d35d06429d177a9311b5e71207f89a3644fadcd6e72d959",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/0bdbeb8d3d35fb200d35d06429d177a9311b5e71207f89a3644fadcd6e72d959",
+      "eof": 585,
+      "requested_range_variants": [
+        [
+          1,
+          585
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          585
+        ]
+      ],
+      "provenance": "Exact frozen f82 physical registered source; preservefullrequestedunion; priorrecipientaccessnotoriginalcredit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          585
+        ]
+      ]
+    },
+    {
+      "original": 255,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population/resident_persistence.rs",
+      "sha256": "40ec2a78bdcbb5225ff5558a6bb8f186af189dc527eef024048495ec10df0e94",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/40ec2a78bdcbb5225ff5558a6bb8f186af189dc527eef024048495ec10df0e94",
+      "eof": 299,
+      "requested_range_variants": [
+        [
+          1,
+          299
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          299
+        ]
+      ],
+      "provenance": "Exact frozen f82 physical registered source; preservefullrequestedunion; priorrecipientaccessnotoriginalcredit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          299
+        ]
+      ]
+    },
+    {
+      "source_id": "reconstructed-unchanged-physical-p16:crates/adventuresim-world-schema/src/settlement_buildings.rs",
+      "sha256": "ee6bdc44d99872bbf35493a9d1b3195e6ed7c5c94a5524c0cedea93096a68a94",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/ee6bdc44d99872bbf35493a9d1b3195e6ed7c5c94a5524c0cedea93096a68a94",
+      "eof": 248,
+      "provenance": "Pinned534be physicalmanifest base=head a120; exactpathabsentchanged/status, exactGitbytes. Metadataonly; no bodycredit.",
+      "ranges": [
+        [
+          1,
+          248
+        ]
+      ],
+      "role": "Actual business-demand count/ordinal producer reached254; own material dependency, no original/sharedcredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          248
+        ]
+      ]
+    },
+    {
+      "sha256": "39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "ranges": [
+        [
+          118,
+          267
+        ]
+      ],
+      "role": "Exact frozen native family236 actual required household producer->retained receiver reached253; supplementary receiver scope not original236 fullfilecredit.",
+      "actual_consumed_ranges": [
+        [
+          118,
+          267
+        ]
+      ]
+    },
+    {
+      "status": "prospective",
+      "source_id": "reconstructed-unchanged-physical-p16:crates/adventuresim-world-schema/src/settlement_buildings/parish.rs",
+      "sha256": "e1ef72b55859f234152049ee1b6c44d4ecb9a833fc2a4bc347b86713872a702a",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/e1ef72b55859f234152049ee1b6c44d4ecb9a833fc2a4bc347b86713872a702a",
+      "ranges": [
+        [
+          1,
+          136
+        ]
+      ],
+      "eof": 136,
+      "provenance": "Pinned534be physicalmanifest a120 base=head; exactpathabsentphysicalchanged/status, exactGitbytes. Actual initial parish plan capacity required by reached service-plan guard, ownmaterialextension only, no original/sharedcredit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          136
+        ]
+      ]
+    }
+  ],
+  "numeric_inventory_and_actual_trace": [
+    {
+      "original": 253,
+      "scope": "Full759 independently after earlier selectedrecipient147/063access, allproduction/fixturesactualread.",
+      "inventory": "Rawu64 character/projection/nativeoperatorIDs and ambientusizeordinal, dailyminuteu16 start/end, semanticdefault/context/healthBool flags; typedageband/sex/presentation/places/Seed. Nativeprojectionranges0u64.. andsingleton0 gatewayadapter. Residentidentity hash highbitOR1<<63 namespace, not collision-free owner. Three authored presencebridgechoices, closed venue/entropy enums alreadynamed.",
+      "trace": "resolve/profileviews join actualCharacter cachedage andpersonality, ratherthan duplicatednumericdemographicrecord; actualfamily235agecachelifecycleupdates and typedcalendar proof retained. EnsurePopulation computes finalizeddrafts beforepersistence, thenexactorganizations update and family/homebind. Businessoperatornative row requires sameBusinessId andoperator onretry, rejectsoneoperatorforanotherbusiness. Presence functions keeptypedobserverMinute, historicaloutbreaksuppression actual230 andcore152 DailyPresenceWindow actualpriorfull365; Schedule endpoints verifiednative255 <=1440, wrappingwindow valid, validzero00:00 preserved. Legacyraw no-context presence helper explicitly usesmutablecheckpointflags; authoritative reducers/views usehistorical query. No timelesscache/globalpresenceguarantee inferred.",
+      "fixtures": "Existing authored time480/1020/900/120, overnight1200/120/1380/60/600 andsource42; 7generationdecisions sourceexpectations, nativeprojection/sourcepredicates; noexecution/newtests."
+    },
+    {
+      "original": 254,
+      "scope": "Full585",
+      "inventory": "Rawu64draftID/usizeor u32 businessordinal/exactu16age/Boolisdefault andurban; DefaultPresence enum convertsnativeflag; optional typedBusinessId/surnameid and typedSex/Presentation. Firstbusinessordinal0servicepolicy vs additionalbusinesses, familychunks4 and finalized52/48/24/21years, birth-yearfallback30, ambientordinal0/1/2/staticlocationarrays, UI role/stringfields are notnumericexemption.",
+      "trace": "Deterministicnew picksSex variants vianonempty RNG and highbitidentity. Businessdrafts consumeactualSettlementBuildingDemand, filterService businesskey, contiguoussameusagegroups alwaysadvanceend>start becausefirstsameusage. Demographicplanning operatesfullchunks4; lastpartialkeepsgeneratedage, then chunks4formhouseholdgroups. Surname usesfirstmember sourceage atZERO, sameID->samefamilyidentity; missingmembererror. Organizations haveoneauthoredrepresentative; duplicatescharacter/business IDs rejected before anypersistentwrites. Actualfamily118-267new160 enforcesmax4 beforedirect[0..3]indexes and emits10 parent/siblingedges; named household/role/kinshipretentionactualnativebodyread, zeroextraoriginal236credit.",
+      "demand_bound": "Newunchangedexactworldschema248+parish136 actual160/161: positivepopulationparishdesired=ceil(pop/NonZeroTarget), count<=floor4096/3=1365, each2buildings+atmost1school =>initial<=2731. Mainservice/civic additionsguard cap4096, looppositivecapacity andsaturatingcovered; ordinal increments atmost4096, no u32overflowclaim. Nativebusinessdraftscount<=4096, plus fixedambient andactualauthoredorganizations, not infinite/oneNPCperpopulation. This materially narrows earliergeneric4Bseeded-family/census concern; no caponallfuturehouseholdmutations/customSDK. CatalogueBuildingUse::definition staticcapacitypositivity is required authoringcontract; publicCapacityRangefields canbypassnewassert, noactualbadstaticrangeclaimed."
+    },
+    {
+      "original": 255,
+      "scope": "Full299",
+      "inventory": "NativeproviderBool and profileageband vs exactageu16; canonicalrepresentativeages Child8/Adolescent15/Adult30/Elder68, Seed, rawcharacterID, facialhairRNGindex3/==0, fixedappearancearrays4, schedules Day360-1200/Evening720-1380/Early240-960/Provider0-1440, context/healthfalse initialcheckpoints.",
+      "trace": "Prepared generation usesactualcore136 priorwhole667 schema/decisiontable proof: ageoverrideclassifiesexactage; providerprofileconstraint/typedSchedule retained, no allnativefieldsadmissionexemption. Reuseexisting samehome profile intentionallydoesnotregeneratedemographics, butrebindroles/businessidentity; sourcecollision/pastgenerationchangeslimitsretained. NewnativeCharacter actual178fullsource andbirth/calendargetters retainedsamehashproof, seed/demographics passedtyped andexactageNPCfacts thennativepolicy/sourceprofile/timepresenceinsert. RNGindex nonemptyboundactualstreambelow/index alreadyownread andlib155 actualbody; appearanceindex3/4 safe underselected API, no blanketSDKarbitraryarray claim. Presenceschema retainsrawu16 endpoints butallfourauthoredschedules<=minutesperday1440; canonicalcorepresence boundary actualprior365 validates/reconstructswindows."
+    }
+  ],
+  "new_material_dependency_inventory": [
+    "Exactunchangedphysical worldschema buildingdemand248 froma120/manifest534be, no current/differentvariant substitution. Rawu32 ServiceCapacity/ordinal/ParishId/Population, pubCapacityRange min/max; constructor assertsmin>0<=max, sampledwidth widened u64 andnonzero; min+sample<=max undervalidrange. Semanticservicecapacitydistinctresidenthousingcapacity; typedwrapperpublicfield doesnotproveallpublicadmissions. max4096 and defaultparishtarget3000/villagethreshold1500 are authoredpolicy bounds needingowners.",
+    "Parishplan shortfalls conserveassignedpopulation: quotient/remainder partition overdesired beforecap, assignedsum<=inputu32; desirednonzero forpositivepop, targetNonZero, firstordinal0principal/school andotherneighbourhoodroles, countbound>=0; no divisorzeroorprimitivepopulationextensionexemption. EnumBuildingDemand ownsService/Civic/Parishpayloads; ordinal0 civic is adapterprojection notuniversaluniqueordinal.",
+    "Allnewexactdependencies enteredmandatoryotherlensqueue; no original/sharedcount for sourceaddedbuilding/parish orfamilytail. Sourcecount completion doesnotassertallworldsocialroles/naming/culturebindingsruntimeproof."
+  ],
+  "limits": [
+    "Allregistrationsbeforeactualnewbodyreads; previous schema148prematureoutputdisclosure unchanged. Exactpriorcorepopulation/organization/character/calendar/presence proofs reused onlytheiractualscopes, no root/otherlensverdicttransfer.",
+    "No runtime/current/SDKglobal/acceptedunique/all20clearance. No product/Git/rootledger/checks/tests/probes/newhelpers/publication. Remainingoriginal/overlay/merge/shared/extensions separatemandatory."
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-448",
+  "at": "2026-10-23T13:56:15.270174+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/organization.rs",
+      "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+      "scope072_index": 960,
+      "actual_EOF": 1251,
+      "scoped_ranges_compared": [
+        [
+          1,
+          1251
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source production and all original fixtures; authored role/chapter/training/admission correlations and immutable installed catalogue boundary compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/organization_catalog_validation.rs",
+      "sha256": "45b87fa13f86c8805f2b4f974fd1f629f5da068a07b3b7c4af17115aaa339846",
+      "scope072_index": 961,
+      "actual_EOF": 986,
+      "scoped_ranges_compared": [
+        [
+          1,
+          986
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source production and all original fixtures; authored role/chapter/training/admission correlations and immutable installed catalogue boundary compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "Raw authored records versus static accepted catalogue",
+      "comparison": "OrganizationCatalog and definitions public mutable/ordinarySerde. denyunknown is structural only; Dues rawu32 canzero and TrainingEntry rawf32 canInf/NaN via literal, rawrole canreference absenttarget. catalog487 immutable OnceLock onlydecodes buildembedded JSON; actual own382 fullbuild independently establishes shared validate_documents beforeemit, equal documents/source pairing includingarrayflatten and promotionedges knownorg/knownroles/nonreflexive/unique. No arbitrary rawcatalog constructor becomes acceptedstatic cache, no build run."
+    },
+    {
+      "id": "Role and chapter graph admission",
+      "comparison": "Validator rejects duplicate/syntax-invalid organization and roleIDs; rolesnonempty; entryroles unique/known; practiceallowed iff positivecadence, forbiddeniffzero; priority/precedence nativei16; knownwrittenliteracy. Starting adult/old distinct/known, chapter nonempty and at leastone recognizedchapter, combined admission/eachselectedrole professedreligion set<=1. Chaptersettlement uniqueperorg, pair(settlement,location) uniqueglobally; bounded organization-*location. Recognition knownshape/uniqueIDs; nonblank settlement identity is not externalworldmembership proof. Promotionedgeclosure resides actualbuild382, not thisfunction."
+    },
+    {
+      "id": "Curriculum and requirement correlations",
+      "comparison": "Knownskills/typedreligion or bestiaryleaf, other skills forbidleaf; minimum0..5; privilegesknownunique. Training kind-specific allowedfields/known target, everyweight f64finitepositive, nonemptytotalwithin1e-6of1. This excludes own444 rawMAX weight normalization loss from normalvalidated authoredcatalogue. Native decodef32 maydrop tinyrelativeweight, but feasible positiveunitmass keeps total finite/bounded; no claim exactreal budget equality beyond floatingpolicy. Emptytraining explicitlyvalid. Duespositiveu32/positiveinterval and policy unique settlement/boolfields checked."
+    },
+    {
+      "id": "Zip pairing is actual generic API limit, normal build closes it",
+      "comparison": "validate_documents iterates zip(sources) at216 withoutlengthequality; shorter source array skipsdocuments, even all with documents.len1 and emptysources yields no orgvalidation beforepolicy. Existing admission03 genericvalidator gap preserved as support, no newunique. own382 actual normalbuild makes arrays together, so no ordinary omitteddocumentclaim. Raw Value validation unit doesnot freeze latermutations or mint an ownedacceptedproduct."
+    },
+    {
+      "id": "Lookup helpers preserve provenance only for canonical receiver",
+      "comparison": "chapter/service selects same immutableorg+chapter before expect, no interveningmutation; chapter_at bindssettlement+location. has_privilege_at_role returnsorg-globalprivilegeevenunknownrole bycurrentpolicy, notproof actualmembership. can_transition usesglobalcatalogedges filteredself.id withoutchecking rawself containsroles; promotion_targets filtersmissingrole. Passing clonewithsameid/editedroles is APIcontextprecondition. Stablechapter identity intentionallyseparate availablephysicalservicevenue; fallbackauthoredchapterlegitimate."
+    },
+    {
+      "id": "Representative identity independently supports existing RootF055",
+      "comparison": "Personally consumed Root initial04 packet132 actualnarrative thenfreshPR606-609. Unframed settlement:organization encoding aliases rawpairs(a:b,c)/(a,b:c); laterexactrepresentativefields checks bindID/home/org/category but do not restorelostpreimageboundaries. Actualvalidator organizationsyntax excludescolon, so these particularpairs are not validatedauthoredorgIDs; actualotherpubliccallergrammar remainsqualified. No ordinaryDBcollision/run, no additionaluniquefinding. initial_social_role alreadyframes settlementbytelen, distinct actor-domain keys caller-owned."
+    },
+    {
+      "id": "Presentation policy products and fixtures",
+      "comparison": "secondperson register selects coherentallfields for singular inferior/intimate vspluralyou. addresspriority/socialprecedence independentpurpose; profession-bearing role and organizationinstance identity not scalar substitution. All634-1251orgfixtures and723-986validatorfixtures read sourceonly, including include_str textualchecks no importedbodycredit. No execution/newtests."
+    }
+  ],
+  "new_unique_findings": [],
+  "existing_finding_support": [
+    "ROOT-INITIAL04-F055; actual PR full counterpart independently compared, not inherited P16 role credit",
+    "Existing admission03 shorter-zip generic validator gap; actual normal build382 closes pairing"
+  ],
+  "remaining_dependency_obligations": [
+    "Actual dynamic membership/active/dues authorities, worldsettlement membership and public raw clone consumers retain own obligations; acceptedstaticcatalogue not genericrawproof."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

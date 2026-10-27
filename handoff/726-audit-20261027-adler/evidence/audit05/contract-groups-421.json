@@ -1,0 +1,83 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-421",
+  "at": "2026-10-26T00:35:51.868085+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 361,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics/quickstep.rs",
+      "sha256": "b14b69313123c2918b34a7aaa2c076821c05d7756edcfbee08561a4071504278",
+      "personally_read_ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full physics/quickstep.rs1-81. begin captures tick/typed orientation/origin plus normalized-or-zero direction and active flag; cancel retains history. Sample clock derives elapsed by saturating authoritative tick difference and minimumone action sample. Positive finite duration alone does not exclude product overflow before saturating native cast; actual config bounds/witness remain separate. target_phase uses elapsed+1/action and may exceed1 intentionally for recovery tail, not a unit fraction invariant. No actuator execution."
+      ]
+    },
+    {
+      "scope_index": 407,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/equipment.rs",
+      "sha256": "734717189e02b8266dcc04626015d9fee4bb6e32d7a5816040db8d0a94d0f379",
+      "personally_read_ranges": [
+        [
+          1,
+          163
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full iteration/equipment.rs1-163. Actual roster build supplies melee weapon, shield and armor, with catalog-backed physical fields and per-placement occurrences. Armor covered_parts and coverage_geometry derive in same loop from canonical protection set, closing the actual normal producer side of CAMERA-INITIAL07-F036's qualified independent mask/geometry issue; no malformed build/run claimed. Scalar armor values use first protected bodypart aggregate and each spawned occurrence, so cross-layer numeric fidelity requires original roster aggregation trace; not assumed from matching masks. Panics depend on upstream roster validation contract; no new injected fixture or execution."
+      ]
+    },
+    {
+      "scope_index": 408,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/logging.rs",
+      "sha256": "cee413f196e6709475af3c4f68ba65471662d2dbc16d1fe978946ecbf362ca2d",
+      "personally_read_ranges": [
+        [
+          1,
+          431
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full logging.rs1-431. Attack start count increments before optional observation and fallible geometry log assembly; missing projection or bad geometry can leave counter without detailed event, requiring actual event/validity invariant before mismatch finding. Resolved attack builds full entry before pushing and then records newly appended wounds by prior vector length. Count-based wound tracking assumes append-only wound collection; actual removal/replacement lifecycle remains receiver trace.",
+        "Condition log stores decomposed pain/blood/fatigue/encumbrance and independently retained total; compares with epsilon and only records change after initial sample. It is observation, not recomputation authority; scheduling determines whether all fields share instant. Number/counter/cardinality overflow not ordinary demonstrated. No telemetry run."
+      ]
+    },
+    {
+      "scope_index": 409,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs",
+      "sha256": "3454be3e36e9ce85770800d62425263aa87627bdcea264b6ab2803d24d3eeb02",
+      "personally_read_ranges": [
+        [
+          1,
+          167
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full resolution.rs1-167. AttackResult sum type determines Hit/Defended/Avoided, armor-surface/gap and cut/blunt/contact numbers, preserving zeros for attacker-directed outcome. Log joins immutable event contact-at-time values with current viewer inventory/armor and condition projections. Equipment could change between event capture and logging only under actual scheduling witness; no hypothetical race promoted. Defensive implement class derived current shield/weapon slot; serialized_name assumes enum string shape from known diagnostic types. No gameplay state mutation here."
+      ]
+    },
+    {
+      "scope_index": 410,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/main.rs",
+      "sha256": "0fd91dac25a4b0b05eb65c51f7aa7bc5740bd0de5adff082320dd247d83b2444",
+      "personally_read_ranges": [
+        [
+          1,
+          726
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full tactical-server/main.rs1-726. Startup loads checked scene/combat before app publication, configures transient Bevy authority, distinct standalone dump and strategic connection paths, ordered spawn/terminal/result systems and fixed motor/snapshot pipeline. CLI expected_members positive is checked; raw timeout and reconnect-grace f32 feed native Timer/Duration without local finite/nonnegative parser. Existing historical finding dedup to be retained; no actual process/invalid invocation run.",
+        "Standalone dump parses owned scene then writes world/flushes and marks replicated even if write returns error, so partial-apply semantics require actual serializer transactional contract/fixture witness; no player-bearing persistence operation performed. Dump fixture mutex and entity-remapping/inventory tests read as source only. Scene generation prepares before commands, then world bounds and exact mission enrollment; no source/Git/check changes."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "5 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

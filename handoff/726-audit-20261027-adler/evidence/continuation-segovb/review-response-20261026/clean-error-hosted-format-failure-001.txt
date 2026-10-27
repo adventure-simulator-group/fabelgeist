@@ -1,0 +1,12 @@
+2026-10-26T21:18:26.3710800Z Diff in /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:31:
+2026-10-26T21:18:26.3712143Z      #[display("Texture has no view")]
+2026-10-26T21:18:26.3712624Z      MissingView,
+2026-10-26T21:18:26.3713182Z      /// The request and the complete failure of its validation observation.
+2026-10-26T21:18:26.3713860Z -    #[display(
+2026-10-26T21:18:26.3714454Z -        "WGPU {operation:?} view validation failed (requested {requested:?}): {cause}"
+2026-10-26T21:18:26.3715139Z -    )]
+2026-10-26T21:18:26.3715718Z +    #[display("WGPU {operation:?} view validation failed (requested {requested:?}): {cause}")]
+2026-10-26T21:18:26.3716425Z      Observation {
+2026-10-26T21:18:26.3716791Z          requested: TextureFormat,
+2026-10-26T21:18:26.3717252Z          operation: TextureViewOperation,
+2026-10-26T21:18:28.4209417Z ##[error]Process completed with exit code 1.

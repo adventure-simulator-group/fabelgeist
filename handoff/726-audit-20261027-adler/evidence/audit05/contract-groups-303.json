@@ -1,0 +1,25 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-303",
+  "at": "2026-10-25T22:49:59.768341+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2587,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_validation.rs",
+      "sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "personally_read_ranges": [
+        [
+          1,
+          2053
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full2053-line frozen P16 item catalog validator including all fixture bodies, contiguous260-line chunks. parse_document uses strictJSONvalue visitor rejecting duplicate mapping keys and nonfinitef64. validate_documents checks maxima/globaluniqueIDs, rootschema/itemkind, kind-specific fields, occupancy/surface/protection/material/carry contracts and then serde_json::from_value<ItemCatalogDocument> for each document269-273. This final typed admission rejects malformed occupancy scalar/array shapes that2585local.ok does not diagnose, so local conversion silence is not accepted aggregate finding. Armor/clothing explicitly require nonemptyprotection842-846, narrowing2586 empty-protection condition. Attachment surface_uv/tangent must be authored together, UV0..1 andf64directionnonzero; typedfloat narrowing/normalization owner still required before all physical transform clearance. Optionalcapabilities absence can bypasskind-specific checks inside validate_capabilities; actual typed schema/default and owningbuild consumption needed before defect. Maxdiagnostics truncation occursafterfullvalidation, so doesnotpermitinvalidinput. Registrycurrency/medicationIDs exactsetchecked acrossdocuments. Sourcelocation is heuristic search, not semanticvalidator authority. Fixturesreadnotrun; no projectexecution or blanketcatalog clearance."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

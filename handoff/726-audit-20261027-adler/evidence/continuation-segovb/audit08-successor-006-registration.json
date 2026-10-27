@@ -1,0 +1,693 @@
+{
+  "id": "SEGOVB-CONT08-SUCCESSOR-006-REG",
+  "created_utc": "2026-10-26T18:54:39.476759+00:00",
+  "prior": "audit08-successor-005.json",
+  "registry": "shared-material-successor/source-extensions-196.json",
+  "registry_sha256": "12adb62b53902f4e42f8e882ec18181d465c049956c8af8b5626d3d3192ff849",
+  "materials": [
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-tactical-client/src/equipment/readiness.rs",
+      "sha256": "81632fbe7f7562ccfcfbdbeda4eb587bfcbb4fb62d60ad8c9e550837a1c968bb",
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/81632fbe7f7562ccfcfbdbeda4eb587bfcbb4fb62d60ad8c9e550837a1c968bb",
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "registration_evidence": "enum-shapes/source-extensions.jsonl",
+      "registration_id": "SEGO-INITIAL09-REGISTRATION-324A-2",
+      "reason": "Connected calls in frozen P16 sources and pending-material-306/317; current parent source-provenance instruction authorizes prospective commit variant registration.",
+      "qualification": "Distinct committed-source extension, not byte-verified Adler dirty snapshot; unrecorded dirty bytes unknown. Frozen2853 denominator unchanged, no audit coverage from recovery.",
+      "status": "Exactsourceverifiedandrecovered only; unchanged2853historicaldenominator and no automaticlensclearance.",
+      "index": 49,
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "81632fbe7f7562ccfcfbdbeda4eb587bfcbb4fb62d60ad8c9e550837a1c968bb",
+          "lines": 72,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/81632fbe7f7562ccfcfbdbeda4eb587bfcbb4fb62d60ad8c9e550837a1c968bb"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "81632fbe7f7562ccfcfbdbeda4eb587bfcbb4fb62d60ad8c9e550837a1c968bb",
+          "lines": 72,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/81632fbe7f7562ccfcfbdbeda4eb587bfcbb4fb62d60ad8c9e550837a1c968bb"
+        }
+      },
+      "original_catalog_matches": [
+        {
+          "original_index": 1480,
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/readiness.rs",
+          "snapshot": "pr-working",
+          "path": "crates/adventuresim-tactical-client/src/equipment/readiness.rs",
+          "sha256": "81632fbe7f7562ccfcfbdbeda4eb587bfcbb4fb62d60ad8c9e550837a1c968bb",
+          "bytes": 2594,
+          "already_in_frozen_variants": false,
+          "evidence": [
+            {
+              "shard": "rig",
+              "record": "wave-01/audit-producer-propagation/rig/supplemental-root-receivers-007.json",
+              "ranges": [
+                [
+                  1,
+                  72
+                ]
+              ],
+              "source_read_status": null,
+              "trace_refs": [
+                "RIG-SUPP-STRATEGIC-001"
+              ]
+            }
+          ],
+          "audit_owner": "rig",
+          "scope_kind": "affected_unchanged_reached_contract",
+          "owner_contract_proofs": [
+            {
+              "supplier": "rig",
+              "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+              "row": 112,
+              "read_ranges": [
+                [
+                  1,
+                  72
+                ]
+              ],
+              "contract_refs": [
+                "RIG-OWNER-EQUIPMENT-RUNTIME-019",
+                "RIG-OWNER-CATALOG-008",
+                "RIG-OWNER-GRAPH-009"
+              ],
+              "read_status": "full_current_lens_source_read",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/equipment/readiness.rs"
+            }
+          ],
+          "current_owner_suppliers": [
+            "rig"
+          ],
+          "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+          "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+          "producer_inventory_accounting": {
+            "initial946_cell": false,
+            "frozen1650_supplement_index": 606,
+            "new158_material_role_packet": false,
+            "expanded36_context_variant": false,
+            "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+            "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+          }
+        }
+      ]
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/strategic/dialogue_policy.rs",
+      "sha256": "0b4667798ab18d21ca3e177acf453f643f39fd813f40d9dc55f2bf23fec06c01",
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/0b4667798ab18d21ca3e177acf453f643f39fd813f40d9dc55f2bf23fec06c01",
+      "ranges": [
+        [
+          1,
+          14
+        ]
+      ],
+      "registration_evidence": "enum-shapes/source-extensions.jsonl",
+      "registration_id": "SEGO-INITIAL09-REGISTRATION-324A-3",
+      "reason": "Connected calls in frozen P16 sources and pending-material-306/317; current parent source-provenance instruction authorizes prospective commit variant registration.",
+      "qualification": "Distinct committed-source extension, not byte-verified Adler dirty snapshot; unrecorded dirty bytes unknown. Frozen2853 denominator unchanged, no audit coverage from recovery.",
+      "status": "Exactsourceverifiedandrecovered only; unchanged2853historicaldenominator and no automaticlensclearance.",
+      "index": 50,
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "0b4667798ab18d21ca3e177acf453f643f39fd813f40d9dc55f2bf23fec06c01",
+          "lines": 14,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/0b4667798ab18d21ca3e177acf453f643f39fd813f40d9dc55f2bf23fec06c01"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "0b4667798ab18d21ca3e177acf453f643f39fd813f40d9dc55f2bf23fec06c01",
+          "lines": 14,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/0b4667798ab18d21ca3e177acf453f643f39fd813f40d9dc55f2bf23fec06c01"
+        }
+      },
+      "original_catalog_matches": []
+    }
+  ],
+  "additional_support": [
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-tactical-client/src/strategic_scene/status.rs",
+      "ranges": [
+        [
+          100,
+          226
+        ]
+      ],
+      "reason": "Prospective49-50 actual readiness producer/status and dialogue stored-field parser/choice receiver bodies before read.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "1ac60dfc9e48db2d8717ff144d5b340d9f5cf2f9a158a8a7dcb1c966f17afdb4",
+          "lines": 226,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/1ac60dfc9e48db2d8717ff144d5b340d9f5cf2f9a158a8a7dcb1c966f17afdb4"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "1ac60dfc9e48db2d8717ff144d5b340d9f5cf2f9a158a8a7dcb1c966f17afdb4",
+          "lines": 226,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/1ac60dfc9e48db2d8717ff144d5b340d9f5cf2f9a158a8a7dcb1c966f17afdb4"
+        }
+      }
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation.rs",
+      "ranges": [
+        [
+          1,
+          402
+        ]
+      ],
+      "reason": "Prospective49-50 actual readiness producer/status and dialogue stored-field parser/choice receiver bodies before read.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "92e54d6897e8c25fa216aacba88771dbd55b17f9f9968e180cf5b92ee48340a1",
+          "lines": 402,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/92e54d6897e8c25fa216aacba88771dbd55b17f9f9968e180cf5b92ee48340a1"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "92e54d6897e8c25fa216aacba88771dbd55b17f9f9968e180cf5b92ee48340a1",
+          "lines": 402,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/92e54d6897e8c25fa216aacba88771dbd55b17f9f9968e180cf5b92ee48340a1"
+        }
+      }
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-tactical-client/src/equipment/runtime_equipment.rs",
+      "ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "reason": "Prospective49-50 actual readiness producer/status and dialogue stored-field parser/choice receiver bodies before read.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "6ad606cfa6e06fa08e4526a3aa00bc7994af35b88608f906eb7987f16d88099c",
+          "lines": 143,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/6ad606cfa6e06fa08e4526a3aa00bc7994af35b88608f906eb7987f16d88099c"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "6ad606cfa6e06fa08e4526a3aa00bc7994af35b88608f906eb7987f16d88099c",
+          "lines": 143,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/6ad606cfa6e06fa08e4526a3aa00bc7994af35b88608f906eb7987f16d88099c"
+        }
+      }
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-dialogue/src/authoring_schema/policy.rs",
+      "ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "reason": "Prospective49-50 actual readiness producer/status and dialogue stored-field parser/choice receiver bodies before read.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "a9642460145cc1153e7ead65a73b4a149dcdd4312676947997709889f4b3b2ae",
+          "lines": 102,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/a9642460145cc1153e7ead65a73b4a149dcdd4312676947997709889f4b3b2ae"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "a9642460145cc1153e7ead65a73b4a149dcdd4312676947997709889f4b3b2ae",
+          "lines": 102,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/a9642460145cc1153e7ead65a73b4a149dcdd4312676947997709889f4b3b2ae"
+        }
+      }
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+      "ranges": [
+        [
+          190,
+          250
+        ]
+      ],
+      "reason": "Prospective49-50 actual readiness producer/status and dialogue stored-field parser/choice receiver bodies before read.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+          "lines": 781,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+          "lines": 781,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576"
+        }
+      }
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+      "ranges": [
+        [
+          395,
+          530
+        ]
+      ],
+      "reason": "Prospective49-50 actual readiness producer/status and dialogue stored-field parser/choice receiver bodies before read.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "ffaa735d01a814246e3df80b2da9bd1318b5777e34da322aa20f2c17320574fa",
+          "lines": 616,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/ffaa735d01a814246e3df80b2da9bd1318b5777e34da322aa20f2c17320574fa"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "d00168e23c47224b67755629192618e89fd66e2dc3c2f2440e4e2193acacaf4e",
+          "lines": 616,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/d00168e23c47224b67755629192618e89fd66e2dc3c2f2440e4e2193acacaf4e"
+        }
+      }
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-tactical-client/src/equipment/render_binding.rs",
+      "reason": "Actual readiness item/root/part producer and part binding visibility transitions; prospectively register full bounded file before body read.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "d5972ade2c5b5d552b28b1bfa5521b07e6b6f22ed4407a1b202a3820e259dd84",
+          "lines": 234,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/d5972ade2c5b5d552b28b1bfa5521b07e6b6f22ed4407a1b202a3820e259dd84"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "d5972ade2c5b5d552b28b1bfa5521b07e6b6f22ed4407a1b202a3820e259dd84",
+          "lines": 234,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/d5972ade2c5b5d552b28b1bfa5521b07e6b6f22ed4407a1b202a3820e259dd84"
+        }
+      },
+      "ranges": [
+        [
+          1,
+          234
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-tactical-client/src/strategic_scene/equipment.rs",
+      "reason": "Actual readiness item/root/part producer and part binding visibility transitions; prospectively register full bounded file before body read.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "bcfd6571ac4b5c7fb271cfb50e5ef79c08b7110bc649364f23abd31c44799bdf",
+          "lines": 150,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/bcfd6571ac4b5c7fb271cfb50e5ef79c08b7110bc649364f23abd31c44799bdf"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "a5276f1904f7b2072d0b173663ed3592075960f11ef193b5ffc0688023523a41",
+          "lines": 150,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/a5276f1904f7b2072d0b173663ed3592075960f11ef193b5ffc0688023523a41"
+        }
+      },
+      "ranges": [
+        [
+          1,
+          150
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "ffaa735d01a814246e3df80b2da9bd1318b5777e34da322aa20f2c17320574fa",
+          "lines": 616,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/ffaa735d01a814246e3df80b2da9bd1318b5777e34da322aa20f2c17320574fa"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "d00168e23c47224b67755629192618e89fd66e2dc3c2f2440e4e2193acacaf4e",
+          "lines": 616,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/d00168e23c47224b67755629192618e89fd66e2dc3c2f2440e4e2193acacaf4e"
+        }
+      },
+      "ranges": [
+        [
+          280,
+          394
+        ],
+        [
+          531,
+          616
+        ]
+      ],
+      "reason": "Complete actual persisted policy producer, retry gate, answer function and prompt state decoding tail before body read."
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+          "lines": 781,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+          "lines": 781,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576"
+        }
+      },
+      "ranges": [
+        [
+          251,
+          254
+        ]
+      ],
+      "reason": "Complete actual persisted policy producer, retry gate, answer function and prompt state decoding tail before body read."
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/operation_error.rs",
+      "reason": "Actual changed answer reducer StrategicOperationResult error conversion/serialization owner; register full file before read.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "absent": true
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "f7a676c963f59e4691374c71e9f81caf252350a5c5c8f22da6a977beb97c62d4",
+          "lines": 44,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/f7a676c963f59e4691374c71e9f81caf252350a5c5c8f22da6a977beb97c62d4"
+        }
+      },
+      "ranges": [
+        [
+          1,
+          44
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "ffaa735d01a814246e3df80b2da9bd1318b5777e34da322aa20f2c17320574fa",
+          "lines": 616,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/ffaa735d01a814246e3df80b2da9bd1318b5777e34da322aa20f2c17320574fa"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "d00168e23c47224b67755629192618e89fd66e2dc3c2f2440e4e2193acacaf4e",
+          "lines": 616,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/d00168e23c47224b67755629192618e89fd66e2dc3c2f2440e4e2193acacaf4e"
+        }
+      },
+      "ranges": [
+        [
+          370,
+          394
+        ]
+      ],
+      "reason": "Full answer function boundary and retry gate base/head; existing395-616 head/body ranges plus base read explicitly compared."
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-tactical-client/src/equipment.rs",
+      "reason": "Actual ItemPlaceholder producer root-to-item binding and runtime branch before body read. Reuse exact recovered bytes does not grant any original completion.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "d341ec9a750f801013db4593ed67fe8925d3185c5cbbd7ba01ae23786b352899",
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/d341ec9a750f801013db4593ed67fe8925d3185c5cbbd7ba01ae23786b352899"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "de5de9948499820d3cad696afbcdc3f1d2473f3abac518c580de6440f3f8dd8a",
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/de5de9948499820d3cad696afbcdc3f1d2473f3abac518c580de6440f3f8dd8a"
+        }
+      },
+      "ranges": {
+        "base": [
+          [
+            834,
+            922
+          ]
+        ],
+        "head": [
+          [
+            837,
+            925
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "ffaa735d01a814246e3df80b2da9bd1318b5777e34da322aa20f2c17320574fa",
+          "lines": 616,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/ffaa735d01a814246e3df80b2da9bd1318b5777e34da322aa20f2c17320574fa"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "d00168e23c47224b67755629192618e89fd66e2dc3c2f2440e4e2193acacaf4e",
+          "lines": 616,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/d00168e23c47224b67755629192618e89fd66e2dc3c2f2440e4e2193acacaf4e"
+        }
+      },
+      "ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "reason": "Actual resolved_prompt_choices producer returns typed PromptMode and cardinality to persisted stable IDs; full bounded function before body read."
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-tactical-core/src/inventory.rs",
+      "reason": "Actual changed tactical physical validity gate and retained typed authored dimensions supplied to readiness placeholder producer; prospective bounded type/body registration.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "f77b0e7f7bdaa2236b496546994145e0cac821ecdf98ecd9281e282e2c1f4dad",
+          "lines": 860,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/f77b0e7f7bdaa2236b496546994145e0cac821ecdf98ecd9281e282e2c1f4dad"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "a1b3b6e0f7f1d9884a53f8306a3e0e9e6c1a8deb26e2b13fb163f73edd39900d",
+          "lines": 858,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/a1b3b6e0f7f1d9884a53f8306a3e0e9e6c1a8deb26e2b13fb163f73edd39900d"
+        }
+      },
+      "ranges": {
+        "base": [
+          [
+            155,
+            235
+          ]
+        ],
+        "head": [
+          [
+            156,
+            236
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "reason": "Actual changed tactical physical validity gate and retained typed authored dimensions supplied to readiness placeholder producer; prospective bounded type/body registration.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+          "lines": 618,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f",
+          "lines": 623,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f"
+        }
+      },
+      "ranges": {
+        "base": [
+          [
+            65,
+            105
+          ]
+        ],
+        "head": [
+          [
+            69,
+            109
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+          "lines": 618,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f",
+          "lines": 623,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f"
+        }
+      },
+      "ranges": [
+        [
+          1,
+          14
+        ]
+      ],
+      "reason": "Resolve exact physical_axis_array source module path attribute before its body read."
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/fabelgeist-geometry/src/cuboid.rs",
+      "reason": "Actual admitted typed geometry and native authored-axis serde receiving owner for changed physical validity guard; bounded prospective source registration. No reflection/other codec clearance.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a",
+          "lines": 123,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a",
+          "lines": 123,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a"
+        }
+      },
+      "ranges": [
+        [
+          1,
+          108
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/fabelgeist-geometry/src/measurement.rs",
+      "reason": "Actual admitted typed geometry and native authored-axis serde receiving owner for changed physical validity guard; bounded prospective source registration. No reflection/other codec clearance.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "7424133b695eecdc9d04383ff3021b7f902952c2c24354e06ca31f104642c471",
+          "lines": 102,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/7424133b695eecdc9d04383ff3021b7f902952c2c24354e06ca31f104642c471"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "c84b2c054d772b9b8037209e1d8542238c397c5dc0148ca5f68c86ef5fc9b9b2",
+          "lines": 107,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/c84b2c054d772b9b8037209e1d8542238c397c5dc0148ca5f68c86ef5fc9b9b2"
+        }
+      },
+      "ranges": [
+        [
+          1,
+          91
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-core/src/item_catalog_physical_serde.rs",
+      "reason": "Actual admitted typed geometry and native authored-axis serde receiving owner for changed physical validity guard; bounded prospective source registration. No reflection/other codec clearance.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "absent": true
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "f260cac7fddd136d2fd754e6f147a3fcecaa67eb107b87d506121e3c60016671",
+          "lines": 18,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/f260cac7fddd136d2fd754e6f147a3fcecaa67eb107b87d506121e3c60016671"
+        }
+      },
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/fabelgeist-geometry/src/cuboid.rs",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a",
+          "lines": 123,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a",
+          "lines": 123,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a"
+        }
+      },
+      "ranges": {
+        "head": [
+          [
+            109,
+            123
+          ]
+        ]
+      },
+      "reason": "Complete reached cuboid serde body and exact old SignedLength finite-admission body; no Area or other geometry owner coverage."
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/fabelgeist-geometry/src/measurement.rs",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "7424133b695eecdc9d04383ff3021b7f902952c2c24354e06ca31f104642c471",
+          "lines": 102,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/7424133b695eecdc9d04383ff3021b7f902952c2c24354e06ca31f104642c471"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "c84b2c054d772b9b8037209e1d8542238c397c5dc0148ca5f68c86ef5fc9b9b2",
+          "lines": 107,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/c84b2c054d772b9b8037209e1d8542238c397c5dc0148ca5f68c86ef5fc9b9b2"
+        }
+      },
+      "ranges": {
+        "base": [
+          [
+            1,
+            83
+          ]
+        ]
+      },
+      "reason": "Complete reached cuboid serde body and exact old SignedLength finite-admission body; no Area or other geometry owner coverage."
+    }
+  ],
+  "scope": "Only49-50 and necessary actual producers/receivers; no further material. Distinct committed P16 variants with unknown dirty-source qualification."
+}

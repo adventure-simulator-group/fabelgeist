@@ -1,0 +1,80 @@
+{
+  "records": 1002,
+  "terms": [
+    "InferredIndustryProfile",
+    "PeatCutting",
+    "peat cutting",
+    "regionalpeat",
+    "regional peat",
+    "ROOT-ADM-F007"
+  ],
+  "matches": [
+    {
+      "archive_file": "audit/continuation/root/admission03/findings.jsonl",
+      "record_index": 6,
+      "record": {
+        "id": "ROOT-ADM-F007",
+        "at": "2026-10-22T07:33:56.953063+00:00",
+        "lens": "audit-admission-contracts",
+        "source_id": "pr-working:crates/adventuresim-world-schema/src/lib.rs",
+        "classification": "checked_geographic_route_values_have_bypassing_safe_admission_routes",
+        "routes": {
+          "travel_geometry": {
+            "ranges": [
+              [
+                1778,
+                1809
+              ]
+            ],
+            "counterexample": "Public TravelGeometryPoint{longitude_e7:i32::MAX,latitude_e7:0} or derived Serde accepts axis value rejected by canonical LongitudeE7; longitude() then expects checkednew and panics. Same latitude. Actual Native020 inclusive axis predicate proof consumed. No observed current badcaller/runtime execution.",
+            "remedy": "Retain canonical checked geographic components through actual record API/Serde/SATS/consumers, extract primitive at real schema/format projection. Remove recheck-expect; no compatibility duplicate shape or forced source/playable-region membership."
+          },
+          "bounded_named_products": {
+            "ranges": [
+              [
+                1636,
+                1690
+              ],
+              [
+                1830,
+                1908
+              ],
+              [
+                2683,
+                2718
+              ],
+              [
+                2803,
+                2911
+              ],
+              [
+                2914,
+                2958
+              ]
+            ],
+            "counterexample": "ElevationMeters,WaterDistanceMeters,StrahlerOrder,EdgeProgressPermille and five bounded_route_metric expansions have checkednew/manualSerde but no reprC, named private primitive fields, deriveSpacetimeType; Camera exact macro route001 independently constructs raw named fields without constructor. RouteElevationProfile private Vec likewise namedSATScannot enforce 2..1001/sortedunique0..1000endpoints though customSerde does. ScalarSATS can also feed invalid typedleaves into RouteElevationProfile::new, which validates only lengths/progressordering, unlike validate_raw explicitleafrechecks. Featureon only, actual Core/DBfeatureproof Camera020.",
+            "remedy": "Canonical scalar and profile admission must govern all enabled decoder/validate routes, preserve0wherevalid/signedgrade/Elevation-500..9000/endpointbounds/exact wire authority. No assumption Serdetry_from repairs SATS. Source macro supplier pinned receipt135204893e6a2f2b966eb1c10bf622a05ee5745becf97c36966cd49cdf084d8e consumed; no independent foreigngraph credit."
+          },
+          "route_terrain": {
+            "ranges": [
+              [
+                3076,
+                3188
+              ],
+              [
+                3453,
+                3494
+              ]
+            ],
+            "counterexample": "Public fields admit mean_slope>max_slope or contradictory grade signs using individually valid scalar constructors, while manualDeserialize callsvalidate and rejects. Postdecode mutation canbreak invariant; deriveSATS bypasses validation and collection bounds. validate_context is separate currentroute/length-derived correlation and not promised by mere localvalidate.",
+            "remedy": "Separate raw/stageintermediate and canonical accepted aggregate via clean owned typedAPI; route every claimedaccepteddecoder/state transition through realpredicate. Stageplaceholder is explicit temporary workflow role, no fabricated finished terrain/certification. Preserve contextual validation andsource provenance."
+          }
+        },
+        "boundaries": "Ordinary closed enums decode valid variants. ReligionHours/Minutes are raw broad pubfields and explicitnormalizing operations, not validatednumericowners; no invented globalupperbounds. WaterDistance0 valid; Strahler0invalid; elevationnegativevalid; continuousNativeTerrainCoordinate mayleaveWGS84. No schema mutation/generator/build/tests now.",
+        "repair": "frozen_initial_all13",
+        "validation": "not_established"
+      }
+    }
+  ],
+  "qualification": "Saved inventory metadata navigation, not blanket uniqueness or source/verdict transfer."
+}

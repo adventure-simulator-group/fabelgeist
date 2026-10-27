@@ -1,0 +1,83 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-235",
+  "at": "2026-10-23T05:43:43.467196+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog.rs",
+      "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+      "scope061_index": 966,
+      "actual_EOF": 1630,
+      "scoped_ranges_compared": [
+        [
+          1,
+          1630
+        ]
+      ],
+      "actual05_comparison": "Fresh full PR1630 including all existing inlinefixtures862–1630. Complete actual P16 diff empty then personally compare onlyselected currentranges, exact P16 gaps/context retained; no P16compile/privatecache/startupload/render or fulltests guarantee from equality."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_catalog.rs",
+      "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+      "scope061_index": 129,
+      "actual_EOF": 1630,
+      "scoped_ranges_compared": [
+        [
+          1,
+          67
+        ],
+        [
+          89,
+          91
+        ],
+        [
+          111,
+          323
+        ],
+        [
+          598,
+          670
+        ],
+        [
+          793,
+          840
+        ]
+      ],
+      "actual05_comparison": "Fresh full PR1630 including all existing inlinefixtures862–1630. Complete actual P16 diff empty then personally compare onlyselected currentranges, exact P16 gaps/context retained; no P16compile/privatecache/startupload/render or fulltests guarantee from equality."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "raw authored product and compiled publication",
+      "comparison": "Public DTO CatalogDocument vectors and everynestedrecord ordinarydenyunknownSerde, no validationseal. Catalog private compile stagesBTreeMaps, eachinsertdetectduplicates (variant IDs globallyfirst), ID copiedsameobjectkey, referenceschecked beforeOk. Result owns originaldocuments andprivateindexes; onlyproductioncatalog() OnceLock returnsimmutable&staticCatalog, compileprivate/notClone andno publicownedfactory/decoder. Thus publicdocuments field alone doesnotestablish usableexternalmutableownedcache defect; actualinternalfixturesclone/recompile intentionally. Separatemaps docorder originalvsBTree lookupsort legitimateobserverroles."
+    },
+    {
+      "id": "actual runtime admission order",
+      "comparison": "catalog842–859 decodesembeddedrawVec<Value>; constructsONE source stringperdoc byenumerating SAME rawarray, validate_documents beforestrictCatalogDocumentdecode thenprivatecompile. This closes normal runtime documents/source-vector pairing, notpublicvalidatorarbitraryarrays orbuildcallerproof. Generatedcontent/source-map actualbuildrole remainsindependent, no semanticproof from include name. Bestiary231profile enumconversions/cataloguemembership normalPRgate conditional on still-unreadsharedvalidatorbody. P16catalog842+notinselectedscope, no PRcarry."
+    },
+    {
+      "id": "correlated content admission during compile",
+      "comparison": "Monster syntax/mechanics checked, rig/attack/protection/temperamentclosedmatch, ranged iff bow, categoriesunique, positive speed/training/scale/mass, bounded20000innate andnonemptyinvestigation. validate_monsterlocal weight<=0 alone doesnotrejectNaN, but production sharedrawvalidatorprecedes and mustactuallycompare. Templates EXACTsupportedorderedroutes/objectives andpositiveincidentcadence/max; causefinalesnonemptyandsubsetobjectives. Consequenceboundedbasispoints andcause/archetypecompatibility. Mistakenmonster/bridge/description references checkedglobalmaps, positive silhouettecause likelihood. No partialpublishedmapstateonErr; nativecacheOneLockfailurebehaviorunexecuted."
+    },
+    {
+      "id": "evidence and demographic source relationships",
+      "comparison": "Evidence topicsunique, difficultymin<=max<=10000, closed3stats, categoryimplicationsunique/support<=10000/lore<=5000/UTF8interpretation1..1024. P16actual793–840exactlowerreadcomparisonsame. witness_demographic iteratesrules fromsame documents, nonfallbackmustmatchage/optionalSex/profession/localrole, maxpriority; fallbackonlyafter no specific. Equalpriorityoverlap exclusion reliesdirectdemographicvalidator, notmax_by_keypromise. SourceP16actual608–653 same selection; no P16schemafields92–108/compile335+credit."
+    },
+    {
+      "id": "dialogue text and source provenance",
+      "comparison": "VariantkindclosedReferral, priority i32 andconditionpayload; runtime selects eligible max, rejectsmultiplewinningties ratherthanorder. Sources indexed byvariantID afterglobalIDuniqueness; actualsourcepathdoc/index optionalmatching, onlyprivatecompile mayomit forfixtures, productionselectedpersistedsource presence isexternalreceivergate. Render checks eachvaluecharcount<=512/controlfree, unresolvedbraces/finaltemplatecharbound. Sequential replace means valuecontainingfutureplaceholder may beexpanded; no intendedliteralescapingcontract/currentnormalvalue proven, so retainrawtextqualificationwithoutinventedfinding. Presentation-onlyvariantcannotcarryauthorityeffects."
+    },
+    {
+      "id": "whole requested original fixtures",
+      "comparison": "AllPR862–1630 fixtures source-read, noexecution/newcases: addedauthoredthreat reacheslootvalidator, addedreportquality, maporder/digest, factprofessionvsorganization, source span,Unicodecharacter/bytebounds, duplicatedvariantIDs, inconsistentencountercause, danglingbridge/candidate, requiredfallback, runtimeintegerwidth/nullablefields/typeerrors, demographics exact/tokenmatching andknownSex/fallbackpriority, openYAMLIDs. These callactualsharedvalidator butnames/expectedassertionsdonotreplace readingitsbody. No wholeP16fixturecredit."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Actual sharedquest_catalog_validation fullPR1526 andexactP16scope/demographic79 stillunread05.",
+    "Production embeddedbuild/source-map pairing and P16startupcompile outsidecurrentP16ranges notinferred; exactrelevantroles orregistrationrequired beforeclaimingclosed."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

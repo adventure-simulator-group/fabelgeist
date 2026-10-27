@@ -1,0 +1,44 @@
+{
+  "at": "2026-10-27T00:34:13.778403+00:00",
+  "packet": "016",
+  "scope": "No new receiving source object or range extension beyond already registered original36 and prior exact receiver ranges. This packet performs fresh own-lens original36 assessment only.",
+  "retained_pending_queues": [
+    "audit13-successor-014-other-lens-extension-queue.json",
+    "audit13-successor-015-other-lens-extension-queue.json"
+  ],
+  "receiver_reuse": [
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/mesh.wgsl",
+      "sha256": "bb8dc8d197bfd558464608bb447dc4224e67c0488e695270f44e1656c9c8fa70",
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ]
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/pipeline.rs",
+      "sha256": "d47a07104ac9b2333006bbacbc50b5f097b5fa7a57ba4a4d822a62fb3c64e16b",
+      "ranges": [
+        [
+          118,
+          232
+        ]
+      ]
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/shading.wgsl",
+      "sha256": "965586e6cee62b7fe7623cafbd9a173ce271c14cd982466b73eb69a718dca6e9",
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ]
+    }
+  ],
+  "other_lens_credit": 0,
+  "new_original_shared_scope_from_receivers": 0,
+  "limits": "Root must preserve/reconcile existing other-lens pending source obligations; no assertion that queue adoption means independent verdicts or coverage. No rootqueue/ledger mutation."
+}

@@ -1,0 +1,161 @@
+{
+  "at": "2026-10-26T05:34:38.439523+00:00",
+  "scope": "Independent Comment/documentation review of exact current six-file GLB candidate only; no borrowed verdict/source acceptance.",
+  "head": "6431c2faf1b50608344d1031d0f9413830c271fa",
+  "base": "4530fc19ce16641df65eae28735d69e86bbaa8ae",
+  "candidate_manifest": "../candidate-001.json",
+  "source_pins": [
+    {
+      "path": "crates/adventuresim-character-creator/README.md",
+      "revision": "6431c2faf1b50608344d1031d0f9413830c271fa",
+      "sha256": "95e3abd4304b0585e8c5c4d5ec1d4585493c7ef5c15b4fe013c6523aa2357bdb",
+      "source_reviewed_ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "read_method": "Actual exact Git diff plus bounded current source/context; full body only for64/55/87-lineGLB files and41-lineprofiling."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "revision": "6431c2faf1b50608344d1031d0f9413830c271fa",
+      "sha256": "fe5c1027be20d6ab87b6bd34c3227d38b5eddaf7e33382917ff75e1459a37d69",
+      "source_reviewed_ranges": [
+        [
+          1,
+          57
+        ],
+        [
+          800,
+          844
+        ]
+      ],
+      "read_method": "Actual exact Git diff plus bounded current source/context; full body only for64/55/87-lineGLB files and41-lineprofiling."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb.rs",
+      "revision": "6431c2faf1b50608344d1031d0f9413830c271fa",
+      "sha256": "54be7e4aa7f3cdef3e59c0ffd22ce5594034e9be9b15deb6c141586002d58c29",
+      "source_reviewed_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "read_method": "Actual exact Git diff plus bounded current source/context; full body only for64/55/87-lineGLB files and41-lineprofiling."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb/error.rs",
+      "revision": "6431c2faf1b50608344d1031d0f9413830c271fa",
+      "sha256": "a9f6695f0d792b48a94a12333c437769a0b6f6f262484c402327018a0e491ecc",
+      "source_reviewed_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "read_method": "Actual exact Git diff plus bounded current source/context; full body only for64/55/87-lineGLB files and41-lineprofiling."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb/layout.rs",
+      "revision": "6431c2faf1b50608344d1031d0f9413830c271fa",
+      "sha256": "c7598f12fd08c312d0422f86b062f038090e0a9527106a79b369a4e971cc469f",
+      "source_reviewed_ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "read_method": "Actual exact Git diff plus bounded current source/context; full body only for64/55/87-lineGLB files and41-lineprofiling."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/profiling.rs",
+      "revision": "6431c2faf1b50608344d1031d0f9413830c271fa",
+      "sha256": "e4bc8f373cddb24d0b8772fa66a004d59e8a69a5113d82b34f288e268bdfaf95",
+      "source_reviewed_ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "read_method": "Actual exact Git diff plus bounded current source/context; full body only for64/55/87-lineGLB files and41-lineprofiling."
+    }
+  ],
+  "direct_support": {
+    "path": "crates/adventuresim-character-creator/src/export/textures.rs",
+    "revision": "6431c2faf1b50608344d1031d0f9413830c271fa",
+    "sha256": "a1209864646b06dca2b190b469fab5b2ecec8109d7c7fc95c95b7105e5c911b2",
+    "ranges": [
+      [
+        129,
+        171
+      ]
+    ],
+    "authority": "Actual directly receiving finish call840 before writer842, inspected narrowly for task-requested earlier-image publication contract. Not a changed path or frozen audit coverage."
+  },
+  "comment_skill": "target/recovery-20261025/handoff/826/skills/comment-review/SKILL.md",
+  "assessments": [
+    {
+      "path": "crates/adventuresim-character-creator/README.md",
+      "lines": [
+        36,
+        41
+      ],
+      "result": "Owning crate guide accurately states padded chunk/container unsigned32-bit checks before GLB open, retains distinct serialization/layout/final-frame-allocation/filesystem causes, and warns preceding shared images may already exist and writes are nontransactional. Documentation directly covers changed behavior; unrelated binary-maintenance exemption does not remove this need. No root README/wiki expansion."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb.rs",
+      "lines": [
+        1,
+        64
+      ],
+      "result": "Complete PreparedGlb is serialized, checked and reserved/assembled before writer creates directories or writes file. Preparation boundary is explicitly limited to this writer. Json to_vec allocation occurs before checked layout/final reserve; comments do not promise recoverable earlier allocation or whole-export transaction."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb/error.rs",
+      "lines": [
+        1,
+        55
+      ],
+      "result": "Error docs/display prose track actual variant payloads: role-specific host overflow/32-bit width, serdeJSON source, finalTryReserveError, path+io errors. New API classifies concrete GLB errors; no assertion that prior anyhow context discarded its source chain."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb/layout.rs",
+      "lines": [
+        1,
+        87
+      ],
+      "result": "Private layout module description matches checked padded lengths plus full frameoverhead arithmetic; fields/accessors only encode admitted corresponding lengths."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/profiling.rs",
+      "lines": [
+        1,
+        41
+      ],
+      "result": "Existing opt-in timing wording remains accurate: wrapper returns operation result after diagnostic record, serialization error skips optional timing line. No new guarantee that all stderr/allocation failures are infallible."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "lines": [
+        800,
+        844
+      ],
+      "result": "Actual texture finish precedes GLB writer; inspected support finish129-171 may create directory/write missing shared image files, confirming documented partial publication. Result conversion keeps public existing anyhow result boundary."
+    }
+  ],
+  "new_actionable_source_findings": [],
+  "scope_limits": [
+    "Comment accuracy/needed durable contributor guide only; not independent Code/Rule acceptance or GLB-format conformance certification.",
+    "No geometry, texture generation or equipment correctness clearance; those bodies not reviewed as changed product behavior.",
+    "No full1780-line export module or1468-line README claim; exact selected changed/context ranges only.",
+    "No new tests/cases/assertions/helpers; no project/local/hosted checks executed by reviewer.",
+    "Candidate code identity with preserved25fe is metadata only, not transferred verdict."
+  ],
+  "source_or_git_mutation": false,
+  "project_execution": false,
+  "external_publication": false,
+  "frozen_lens05_credit": false,
+  "verdict": "No actionable source Comment/documentation issue in the exact candidate."
+}

@@ -1,0 +1,10 @@
+{
+  "89": {
+    "inventory": "SortScratch/RadixSort already derive Clone/Debug; semantic native buffer allocation/grow/swap and shader histogram/scatter sources use exact per-pass uniform/storage layouts. No handwritten traits/codecs in1-219.",
+    "disposition": "Keep semantic scratch/kernels/cache construction, no derive candidate. No public buffer/capacity/device coherence or GPU arithmetic/index/dispatch/runtime acceptance; record220+ and convenience/tests excluded from this overlay role."
+  },
+  "90": {
+    "inventory": "ScanError already derives thiserror with typed capacities/lengths/concrete GPU cause. Scratch and PrefixSum derive Clone/Debug; native recursive shader source, allocation/grow and record/record_level check input/capacity and dispatch hierarchy.",
+    "disposition": "No handwritten traits/codecs in exact ranges. Keep semantic native layout/binding/error/recursive recording path. No capacity/device/public buffer coherence, GPU sums/kernel correctness or excluded Count/convenience/tests acceptance."
+  }
+}

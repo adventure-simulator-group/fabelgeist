@@ -1,0 +1,472 @@
+{
+  "authority": "authority-proof-001.json",
+  "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "head": "13fc9dcc71ab879de364117e5462310673e43210",
+  "members": [
+    {
+      "index": 15,
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "before_sha256": "517f93978b1b2a9fe9debaaa7d6386aa3200cda88348cd23a9ef6e5e94b5004a",
+      "head_sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "15.diff",
+      "hunks": [
+        {
+          "before_start": 1,
+          "before_count": 9,
+          "head_start": 1,
+          "head_count": 9
+        },
+        {
+          "before_start": 2914,
+          "before_count": 28,
+          "head_start": 2914,
+          "head_count": 11
+        }
+      ],
+      "disposition": "Weapon-only carry-placement match delegates before law enforcement and detachment, preserving request/error order. Actual removed body compared to new16helper."
+    },
+    {
+      "index": 16,
+      "path": "crates/adventuresim-stdb-module/src/character/weapon_carry.rs",
+      "before_sha256": "d6528de59338d56a9be46239ca4e7a55ba4f3dac2dcbb27948ac19aeaf8da711",
+      "head_sha256": "cb5f4c039d6cedda16a83650c94f72bdb0e12e45903dce4a835e8057b7ef2fbe",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "16.diff",
+      "hunks": [
+        {
+          "before_start": 153,
+          "before_count": 5,
+          "head_start": 153,
+          "head_count": 30
+        }
+      ],
+      "disposition": "Complete new helper keeps HandOnly held-root guard, unrestricted Sheathable case and parent-attachment rejection for absent/non-sheathable contracts. Read1-30parent import confirms existing held-root helper lexical access. No new authored carry policy."
+    },
+    {
+      "index": 17,
+      "path": "crates/adventuresim-tactical-client/Cargo.toml",
+      "before_sha256": "c57a0334ef2f29a999ad45e9d4714bc954669a429a1a95f3cd993b6cff8722e2",
+      "head_sha256": "2423c1f83aebd66d9432b5b8317ec10a6bf7b0824db9246e2e9b08041653b863",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "17.diff",
+      "hunks": [
+        {
+          "before_start": 13,
+          "before_count": 10,
+          "head_start": 13,
+          "head_count": 11
+        },
+        {
+          "before_start": 124,
+          "before_count": 8,
+          "head_start": 125,
+          "head_count": 7
+        }
+      ],
+      "disposition": "fabelgeist-math path dependency moves from dev-only to ordinary dependencies with default features false. Exact manifest changed hunks read; resolved feature/build acceptance not inferred."
+    },
+    {
+      "index": 18,
+      "path": "crates/adventuresim-tactical-client/examples/armor_browser_probe.rs",
+      "before_sha256": "4d0171a6cd7835711e211df50e71df5c0f143e6bba2b85b6e655dcf5f5af4892",
+      "head_sha256": "e84ff19544c1f4e8c6fbae3b322e5a342baf49981fd56e6b9c5f57ef1924a201",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "18.diff",
+      "hunks": [
+        {
+          "before_start": 6,
+          "before_count": 10,
+          "head_start": 6,
+          "head_count": 25
+        },
+        {
+          "before_start": 55,
+          "before_count": 24,
+          "head_start": 70,
+          "head_count": 11
+        }
+      ],
+      "disposition": "Twelve probe variants extracted into constant PROBES, same ordered item/placement literals in same two-round loop. No runtime GPU/probe execution credit."
+    },
+    {
+      "index": 19,
+      "path": "crates/adventuresim-tactical-client/src/camera.rs",
+      "before_sha256": "4d7aab7742753836f2384c8cd1095148537193d23ba45c3f5bac3762dabc6fa9",
+      "head_sha256": "7ee2de1823310c9341f42ddb4d1f016a619b7038b0f69aa4f1a316f22032026a",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "19.diff",
+      "hunks": [
+        {
+          "before_start": 8,
+          "before_count": 20,
+          "head_start": 8,
+          "head_count": 19
+        }
+      ],
+      "disposition": "Camera module public surface removes offset reexports/authored_metres facade, exposes config within crate; actual callers updated in27/29-32. No camera calculation changed in diff."
+    },
+    {
+      "index": 20,
+      "path": "crates/adventuresim-tactical-client/src/camera/collision/tests.rs",
+      "before_sha256": "64b2d4cf55741173468cc58b7c98013529ad4004d7aa164c6d9f0728e2616e64",
+      "head_sha256": "92f47bc1cf69d262c09d215bc35adf19d01216f98fd5fb35f2aceab0aa870e0c",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "20.diff",
+      "hunks": [
+        {
+          "before_start": 107,
+          "before_count": 12,
+          "head_start": 107,
+          "head_count": 11
+        }
+      ],
+      "disposition": "Removes invalid unwrap after existing assert macro; same collision assertion. Static fixture repair only."
+    },
+    {
+      "index": 21,
+      "path": "crates/adventuresim-tactical-client/src/camera/values.rs",
+      "before_sha256": "6a14958f0a7593181730db9d73a69a54302cf39b9706819553ee8edece85a19f",
+      "head_sha256": "a2f64c5b11f5551f2c7baae14dcb819408c25c075a3594694b06cf7ab40f1eaa",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "21.diff",
+      "hunks": [
+        {
+          "before_start": 41,
+          "before_count": 10,
+          "head_start": 41,
+          "head_count": 12
+        }
+      ],
+      "disposition": "CameraError adds transparent conversion from canonical FractionError, preserving typed cause rather than flattening. No successful camera state change."
+    },
+    {
+      "index": 22,
+      "path": "crates/adventuresim-tactical-client/src/equipment.rs",
+      "before_sha256": "c4df9aebd8ae04e6fb831345ab7b31df4c29be24de21d73067dd1273f690d827",
+      "head_sha256": "189c2e7491ed6395765d58dcd3ed3b115bc06895e114e26cb7a9954ed14464a5",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "22.diff",
+      "hunks": [
+        {
+          "before_start": 279,
+          "before_count": 20,
+          "head_start": 279,
+          "head_count": 10
+        }
+      ],
+      "disposition": "held_item removed here and moved unchanged to23; read module1-60confirms existing grab_world glob import connects name."
+    },
+    {
+      "index": 23,
+      "path": "crates/adventuresim-tactical-client/src/equipment/grab_world.rs",
+      "before_sha256": "458e3d73d56242705d9f851842b96b9e5b302ecfffac569a0da3a43a5b3bd392",
+      "head_sha256": "4b5e698d92f04c27f1c98dd09a71ddcab3ef0f38fec5bf5072dd917a1df5844b",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "23.diff",
+      "hunks": [
+        {
+          "before_start": 1,
+          "before_count": 6,
+          "head_start": 1,
+          "head_count": 7
+        },
+        {
+          "before_start": 137,
+          "before_count": 5,
+          "head_start": 138,
+          "head_count": 15
+        }
+      ],
+      "disposition": "Same actor/owner/hand-slot query now private parent-visible helper with explicit EquipmentHand import. No changed candidate filtering or first-match policy; duplicate held-item admission remains external."
+    },
+    {
+      "index": 24,
+      "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers.rs",
+      "before_sha256": "f57dcb58da364002292182c580ca197bfaa3ad85fc820f2dc6ce95d078b25dc0",
+      "head_sha256": "aa37d6dd277f36960419f7eb6c96b50130f26dc152aef57d605af98dc99a66a4",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "24.diff",
+      "hunks": [
+        {
+          "before_start": 180,
+          "before_count": 12,
+          "head_start": 180,
+          "head_count": 12
+        }
+      ],
+      "disposition": "Error context accesses nested canonical selection and definition ID. Error remains propagated; no layer-fit successful state mutation."
+    },
+    {
+      "index": 25,
+      "path": "crates/adventuresim-tactical-client/src/strategic_scene/views.rs",
+      "before_sha256": "ccf553eb553150d9800d83d4f17b763f19de8547e3b57b46a9486a0782c330a9",
+      "head_sha256": "4bbc1929ef5a2b7b59aa29f7513940adb88c8804fa243ada08430f3c057540a0",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "25.diff",
+      "hunks": [
+        {
+          "before_start": 326,
+          "before_count": 11,
+          "head_start": 326,
+          "head_count": 14
+        }
+      ],
+      "disposition": "Existing fixture front uses checked Position::from_metres(Vec3::ZERO).unwrap instead of raw Vec3; zero is finite supported coordinate. This closes historical compile mismatch, not production relocation findings."
+    },
+    {
+      "index": 26,
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms.rs",
+      "before_sha256": "3891936e52f5d84f5970256e12a8cce2b3cf5990b15775b3512bab34ff1e21ac",
+      "head_sha256": "c042af2ce9602f7b34f3fbcb6ea10836f4f4f7c3cec6b1bed5a5c7d1bc9087e1",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "26.diff",
+      "hunks": [
+        {
+          "before_start": 320,
+          "before_count": 11,
+          "head_start": 320,
+          "head_count": 10
+        }
+      ],
+      "disposition": "Only unused test Position import removed; no assertions changed."
+    },
+    {
+      "index": 27,
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/manifest.rs",
+      "before_sha256": "90d78c0c708175d63d2b3654ce3d96a08c32444ff581cf53e94f78d5f971bb96",
+      "head_sha256": "d5ced13275995ed15eb02c87b8889992a0e5a2070e752a05c3bed45505651f92",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "27.diff",
+      "hunks": [
+        {
+          "before_start": 816,
+          "before_count": 20,
+          "head_start": 816,
+          "head_count": 20
+        }
+      ],
+      "disposition": "Manifest test uses camera::config owning authored_metres path in both traversal views. Same50m values, no traversal/sample policy change."
+    },
+    {
+      "index": 28,
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/triangle_census.rs",
+      "before_sha256": "fb0fc3bbca6503d19caafadaef01a99600a6fdcd0ab42a316a90c94913284861",
+      "head_sha256": "7f564603c19a4d7f46601c6c56251a3d2177c3cf8854811bac529e6f3228c8ad",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "28.diff",
+      "hunks": [
+        {
+          "before_start": 193,
+          "before_count": 12,
+          "head_start": 193,
+          "head_count": 12
+        },
+        {
+          "before_start": 276,
+          "before_count": 11,
+          "head_start": 276,
+          "head_count": 11
+        },
+        {
+          "before_start": 357,
+          "before_count": 12,
+          "head_start": 357,
+          "head_count": 12
+        },
+        {
+          "before_start": 390,
+          "before_count": 11,
+          "head_start": 390,
+          "head_count": 11
+        }
+      ],
+      "disposition": "Capture position/target unwrap canonical positions through metres at actual Bevy/array/report boundaries. Same coordinates, camera configuration and census semantics; no screen-projection or visible triangle acceptance inferred."
+    },
+    {
+      "index": 29,
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs.rs",
+      "before_sha256": "ee9206f01afa3ace0319c0d1098568b83cb983fe7240990836b13da56e045b16",
+      "head_sha256": "be10078a6ca459afe85ee55e84fc78ff7a0bc1c81c2172d6c17fb5f6c6030fa4",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "29.diff",
+      "hunks": [
+        {
+          "before_start": 1,
+          "before_count": 6,
+          "head_start": 1,
+          "head_count": 6
+        }
+      ],
+      "disposition": "View specs import authored_metres directly from owning config module, no pose semantics change."
+    },
+    {
+      "index": 30,
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/fungi.rs",
+      "before_sha256": "bde10d85a38741896836a0e0bb333b05ab49f3ba3569cd0abadd2210d1781e31",
+      "head_sha256": "016e6c5593957fe9efed109b0de5a2f2b1e5f79b90f0f10f0bbe673f9f582b5a",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "30.diff",
+      "hunks": [
+        {
+          "before_start": 1,
+          "before_count": 7,
+          "head_start": 1,
+          "head_count": 7
+        }
+      ],
+      "disposition": "Fungi same owning config import update; no species/capture values changed."
+    },
+    {
+      "index": 31,
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/plant_lods.rs",
+      "before_sha256": "b850100ae1740709302dacd1a36ee787c8fb3f7836ab5cc947c3d3814f923d8c",
+      "head_sha256": "2e175079130faa55ba0f0cff4ba918e88b7ef0a1e3239b534a55c644fccd6a0f",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "31.diff",
+      "hunks": [
+        {
+          "before_start": 1,
+          "before_count": 7,
+          "head_start": 1,
+          "head_count": 7
+        }
+      ],
+      "disposition": "PlantLOD same owning config import update; no LOD population/ring policy changed."
+    },
+    {
+      "index": 32,
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/plants.rs",
+      "before_sha256": "60f01634eb5a6148da91a0723992f2e1ac569ab9eacfd993328f3c3005be1fe1",
+      "head_sha256": "2b72637010370a048795eb7eab6228aafe8fc1a9b240b32a0cb9b9338b116895",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "32.diff",
+      "hunks": [
+        {
+          "before_start": 1,
+          "before_count": 8,
+          "head_start": 1,
+          "head_count": 8
+        }
+      ],
+      "disposition": "Plants same owning config import update; no accepts_plant formula changed."
+    },
+    {
+      "index": 33,
+      "path": "crates/fabelgeist-mhr/src/model.rs",
+      "before_sha256": "08275eee95012fbf2c20c185a7416b977f74c4181ad4362e704fafb847ae2c55",
+      "head_sha256": "40ffb38f7e31078dc362350d86467b2a82568d14153ad3e7eef940961b828f84",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "33.diff",
+      "hunks": [
+        {
+          "before_start": 9,
+          "before_count": 10,
+          "head_start": 9,
+          "head_count": 12
+        },
+        {
+          "before_start": 75,
+          "before_count": 11,
+          "head_start": 77,
+          "head_count": 11
+        },
+        {
+          "before_start": 271,
+          "before_count": 30,
+          "head_start": 273,
+          "head_count": 11
+        }
+      ],
+      "disposition": "Forward-kinematics tuple type named through extracted rig::FkTensorLevel and conversion delegates with same character/device. Actual removed complete conversion compared to new34body."
+    },
+    {
+      "index": 34,
+      "path": "crates/fabelgeist-mhr/src/model/rig.rs",
+      "before_sha256": null,
+      "head_sha256": "bbc58fc45ff9a4337c0d9cca24cec87ef3a6165d041e2b7c3c56c57825c1824c",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "34.diff",
+      "hunks": [
+        {
+          "before_start": 0,
+          "before_count": 0,
+          "head_start": 1,
+          "head_count": 32
+        }
+      ],
+      "disposition": "Read full32line added rig file: same source/target ordinal\u2192usize\u2192checked i32 conversions, same source length for both Tensor shapes and same ordered collect/error propagation. Prefix-level paired lengths and skeleton validity remain upstream contracts; extraction does not invent checks."
+    },
+    {
+      "index": 35,
+      "path": "crates/fabelgeist-mhr/src/model_def/tests.rs",
+      "before_sha256": "8a4c3ccff3704053320170d56ccd92e1e3d449f9744b8993f0cebe87b7aef0a1",
+      "head_sha256": "d80611df9dffc2c832cb7a11f6aca369a90a3c6b53c5fe7f2afad3eb8770685f",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "35.diff",
+      "hunks": [
+        {
+          "before_start": 1,
+          "before_count": 6,
+          "head_start": 1,
+          "head_count": 7
+        }
+      ],
+      "disposition": "Fixture imports canonical RigJointOrdinal needed for existing typed parent0; no changed assertion."
+    },
+    {
+      "index": 36,
+      "path": "rust-quality-baseline.toml",
+      "before_sha256": "059d0c2bc687c8d7bd314cfa50fb863ac83959cc3483e74aee993980f47e3efe",
+      "head_sha256": "096c47ee96a9514cacdde1ed23c78518cfdbafff851f41989f7c617af9f02ac3",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "36.diff",
+      "hunks": [
+        {
+          "before_start": 2273,
+          "before_count": 15,
+          "head_start": 2273,
+          "head_count": 10
+        },
+        {
+          "before_start": 10032,
+          "before_count": 18,
+          "head_start": 10027,
+          "head_count": 18
+        }
+      ],
+      "disposition": "Entire39line quality-debt delta read: removes obsolete camera.rs/update_camera_rig function ceiling and relocates two raw-string finding paths to character/skeleton.rs and character/skin.rs. Nonsemantic ledger disposition only; no exhaustive12842entry or scanner/ceiling-policy acceptance."
+    },
+    {
+      "index": 37,
+      "path": "rust-quality.toml",
+      "before_sha256": "9d0d3916352c4808958a17c7c58e323d8f1a5cc4cc104ab40807be5ed6fa3c15",
+      "head_sha256": "596414de1f529bf660c72374ab78b2479ef444a374b64ca7f77cb1294b17ad02",
+      "actual_entire_diff_personally_read": true,
+      "diff_file": "37.diff",
+      "hunks": [
+        {
+          "before_start": 979,
+          "before_count": 5,
+          "head_start": 979,
+          "head_count": 11
+        }
+      ],
+      "disposition": "Full added boundary_adapter scope read and compared to actual unchanged frozen layout.rs1-100(source2323, merged SHA identical): from_model_token maps exactly tx/ty/tz/rx/ry/rz/sc to seven closed channels, unknownNone. This config change names external vocabulary boundary, not new threshold allowance or global quality gate acceptance."
+    }
+  ],
+  "first_unfinished_merge_index": 38,
+  "new_findings": [],
+  "supporting_source": {
+    "original_index": 2323,
+    "source_id": "pr-working:crates/fabelgeist-mhr/src/model_def/layout.rs",
+    "sha256": "add108e99167c2fa9f7550558f56bdd7f28bf7e5d5b6537fc516b9481a2ef247",
+    "actual_read_ranges": [
+      [
+        1,
+        100
+      ]
+    ],
+    "merged_exact_identity_verified": true
+  }
+}

@@ -1,0 +1,636 @@
+{
+  "at": "2026-10-27T15:13:33.319967+00:00",
+  "lens": 11,
+  "status": "1086-1087 independently source-accounted with findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-064-registration.jsonl",
+    "sha256": "532a87b084dc8472b5aaf3c01ab87c750e3be20d45636697a0d6e65f8be6bd05"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-063.json",
+    "sha256": "a577468e58ddfa0fec7eb4f520443f3dcf50a9651e79376a2f7165865c7d53ea"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1086,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/condition.rs",
+      "sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+      "ranges": [
+        [
+          1,
+          2627
+        ]
+      ],
+      "actual_eof": 2627,
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          2627
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1087,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/condition/fear.rs",
+      "sha256": "8cefb00626e1f5cf3f9eb57fb0e412503aecbd64597f2bbb63d04a97c0eda958",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/8cefb00626e1f5cf3f9eb57fb0e412503aecbd64597f2bbb63d04a97c0eda958",
+      "ranges": [
+        [
+          1,
+          8
+        ]
+      ],
+      "actual_eof": 8,
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          8
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-module/src/time/clock.rs",
+      "sha256": "5494962821652b9edef4abf446ca231baf0db2919917b93fafb37218340af587",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/5494962821652b9edef4abf446ca231baf0db2919917b93fafb37218340af587",
+      "actual_eof": 127,
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "provenance": "base3a50/head6533 exactbytes equal, absent747changed/dirty4; separatefromphysical-p16alias proof",
+      "prospective": true,
+      "purpose": "Actual globalofficial refresh_clock versus personalCharacterTime helper receiving authority",
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          45
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 958,
+      "sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "ranges": [
+        [
+          327,
+          390
+        ]
+      ],
+      "purpose": "Actual rawdamage/current-maxblood/fatigue/signedneeds receiving admission/result distinctions",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          327,
+          390
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 958,
+      "sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "ranges": [
+        [
+          146,
+          179
+        ]
+      ],
+      "purpose": "Actual mastery-learning hours/minutes retention update and decay receiver",
+      "prospective": true,
+      "new_material_ranges_mandatory_other_lenses": true,
+      "actual_read_ranges": [
+        [
+          146,
+          179
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original_index": 1086,
+      "inventory": "Allcondition/need/exposure/morale/demand/projection/time/rest/blood/lifecycle/fixture roles",
+      "responsibility_parts": [
+        {
+          "role": "authorities and projected condition",
+          "ranges": [
+            [
+              28,
+              200
+            ],
+            [
+              1264,
+              1447
+            ],
+            [
+              1516,
+              1558
+            ],
+            [
+              2213,
+              2302
+            ]
+          ],
+          "inventory": "CharacterConditionmass/current-maxblood/religion; signed foodkcal/watermlbalances; BPSwetness/signedthermalstrain/frostbiteminutes; morale/sources/history and projectedbonuses/fervor/incapacitationcontributions/checkmultiplier/status; numericIDs/labels/choice/statusstrings.",
+          "disposition": "Distinct signedneedbalances allowdeficitsandreserves, notnonnegativevolume. Bloodcurrent<=maximum and positiveBodyMass derivedmaximum are aggregate relationships lostbyrawpublicrows; massalreadyhascanonicalBodyMassKg usedatinitthenextracted. Totalincapacitation and contributions canexceed1; check_multiplier boundedcombat/skill performance is allowed bycombatlegibility rule and isNOTmovement-speed penalty. Projectioncaches derivefromneeds/wounds/exposure/morale andrefreshcapabilityin samefunction; notpersistedlive tacticaltickstate. ReligionIDString isclosedOfficialReligion atactualknowledge/professionadmission, butretainedrawIDcouldreuseexistingowner.",
+          "remedy": "Admittedcondition/need aggregates with sharednumericinvariants beneath meaningfulmass/blood/reserve/contributionroles; existingboundedfractionowner whereactualbounded, notuniversalUnitInterval forincapacitation/signedbalances/ratings. Preserveonecanonicalprojectionrefresh and actoridentity.",
+          "acceptance": "Full1-2627; actualcore9581-145/146-179/180-330/327-390 combinedproof,964physiology and061capabilityreceiver. No move-speed receiverclaim or all clinical/current/runtime guarantee."
+        },
+        {
+          "role": "weather/space/time frame",
+          "ranges": [
+            [
+              203,
+              416
+            ]
+          ],
+          "inventory": "ExposureLocationFixed(lat,long,elevation) versusRoute+completedmovementminutes; WGS84E7\u2192microdegrees versusUnboundedE7syntheticcoordinate, pathoffset, canonicalstartingclock versuswildernessenvironmentcyclicday; actualweather/survival\u2192frostbite offsets\u2192absoluteclock.",
+          "disposition": "Summeaningfullyownsroutepayload butFixedtupleerases geographic/syntheticframe and latitude/longituderoles aftercheckedconversion; both flowrawweather_at. Sourcefallsback(53M,10M,0)whenmissingorinvalidlocation, a chosenfallbackpolicy whosemissingerrorstate isnotexpressed; notassumeBC orwrongactualweatherwithoutcallerproof. Personalabsoluteclock, movementelapsed and cyclicenvironmentclock mustremainseparate; frostbiteoffset convertedbacktoabsolute forinjury. Nativecoordinate/noisekernelcanremainnumericatadapter;no newglobalgeographicboundforsyntheticworld.",
+          "remedy": "Namedadmitted exposureposition/frame and explicitmissinglocationpolicy, preserveclock/frame/offsetowners throughtheoperationandonlyunwrapatweatherkernel. Shareexistingcoordinatesandtimeowners, no duplicateglobalcoordinateframework.",
+          "acceptance": "Actualcore1024fullweather/1020fullsurvival andcurrentpacketfullnativebody; noallgeospatial/weatherfloat/nativealgorithmcorrectness."
+        },
+        {
+          "role": "provisions, reserve and quantity",
+          "ranges": [
+            [
+              419,
+              676
+            ]
+          ],
+          "inventory": "Standardwaterskincapacityu32/rowquantity, physicalOperationalCustodyParty/Character, actualcarriedwateru64, signedwaterbalancef32, reservesindays versusstoredsupplies; SettlementRestProvision\u2192ElapsedNeedsProvision3states and privateplanbalance+consume flags.",
+          "disposition": "PersonalSupplies/SettlementWater/FullBoard reflect3realoutcomes and correctlyseparatewaterfromfoodprovision; privateplanboolsarederivedoperationrequests, notauthoredindependentstate. Physiologicalreservedays intentionallyexcludecarriedinventory. Standardwaterskin displaycapacity is narrowerthanallphysicalcontainercapacity: no genericcontaineralias/actualwrongUIclaimed. Rawceilnegativewaterbalance\u2192u64request\u2192f32supply losesexactphysicalvolume meaning/precision atboundary; sourceactualcustodychecked. Capacity/volume/quantity/reserveunit roles differ; do notwrap signedunsupportedneedasMilliliters.",
+          "remedy": "Usecanonicalphysicalvolume atcontainerportandtyped signedneedbalance forphysiology; retainexplicitderiveddayconversion andprovisionpolicy. Coherent needsplan canownbalance/outflow relationship ratherthan freebooleans ifpubliclyretained.",
+          "acceptance": "Fullnativehelpers andexistingcore963custody/060alcoholinventorytrace; deeperfood/containercollection mutationnotwhollyreadhere, no conservation/atomicity/current acceptance."
+        },
+        {
+          "role": "morale and cohort context",
+          "ranges": [
+            [
+              678,
+              1447
+            ],
+            [
+              1695,
+              1878
+            ],
+            [
+              2004,
+              2110
+            ]
+          ],
+          "inventory": "Skillchecks versusWillprotection, namedPartyReligionContextown/foreign/command/knowledge; typedOfficialReligion bridge, targettraditionhours, signedProjectedMoraleSource, identitykey/prose/kind/reactionstimulus; ranking/diminishingreturns, allyrestorationfraction/shares and mastery/leisure retainedeventsemantics.",
+          "disposition": "Authoritativeknowledge selectsactualOfficialReligion.effectivehours, differentfromgenericmaximum/totaldirect summaries061; coherentpurpose distinctionretained. Owncohort/foreignpressure andCommand/knowledge samef32 butdifferentcontracts, shouldremainnamedfields. Magnitudes/surplusesunbounded/signed, restoration/fervorfractionsbounded; no universalpositive/fractionwrapper. Privatepersonalityreaction changesmagnitude whiledisplaylabels omittraittruth; notsameauthorityaspublicprose. SourceIDmagicLEISURE/MASTERY selectsdecaylaw separatelyfromeventkind, a productshape can encodewrongretentionifAPIcallercombinesmismatchedkind/source; actualdedicatedconstructorssetmatchingfields. Fixedmoraleupsertacceptsindependentoccurred/expires/magnitudewithno finite/ordercheck, unlikegeneralrecord, qualifiedAPIadmission notdemonstratedbadcall.",
+          "remedy": "Retain canonicaltypedknowledge/morale/eventkind/identityowners; explicitretentionpolicy withneededpayload separatefromoriginID/prose, andadmittedfixedeventwindow/signedmagnitude. Shareboundedfractionmathbeneathpurposefieldsandpreserve endpointaggregatedmasteryaward/leisure semantics.",
+          "acceptance": "Fullnativebody,pure958extendedreceiverandcore886/personalitysourcepriorproof; noallreactionprivacy/retentionpartition/runtime orallfixedupsertcallersproven."
+        },
+        {
+          "role": "religious demands and authority clocks",
+          "ranges": [
+            [
+              133,
+              150
+            ],
+            [
+              1449,
+              1514
+            ],
+            [
+              1560,
+              1693
+            ],
+            [
+              1956,
+              1992
+            ],
+            [
+              2242,
+              2302
+            ]
+          ],
+          "inventory": "Rawholy_daykind/pending-resolvedstatus/observe-refusechoice, optionalresolvedat/resolution, religion/boundedfervor, publicDemandID; globalofficialSunday/dayindex versuspersonalcharacterclock; currenttacticalserverIdentity==requestsender guard.",
+          "disposition": "Closedkind/choice andPending versusResolved{at,choice} states arepayloadshapecandidates; actualcreators/mutationscoherentlywriteoptions butpublicflatrowadmitsinvalidcombinations. Globalclock.refresh actuallyusesworldepoch/SDKtimestamp, unlikeCharacterTime moraleclock; explicitauthoritydistinctionrequired, noassumptionallStrategicMinute meansactorfrontier. Holydaylogic appliesSundaytoallprofessedreligions, a qualifiedcalendarpolicyquestion needingreligionpolicyreconciliation, notinventalternativecalendar. ResolveguardusesCharacter.server tacticalassignmentandcallsitplayer: sourceauthority-rolecontrastwithstrategicgateway/browserowner, butactualwebcaller notreadso noaccessfailure/exploitclaim.",
+          "remedy": "CanonicalDemandKind/Choice andpayloadstatewithfaith/dateidentity ifpolicyrequires, namedofficialcalendar versuspersonalfrontier inputs; usecorrectexistingrequestauthorityowner throughapplicationadapter aftercallertrace. NoBCfallback preservation ornewuniversalidentityalias.",
+          "acceptance": "Fullnativebody andexactprheadclock1-45 proof;1079serverassignment/060browserownerssourcecontrast. Noallwebrequestauth/calendarpolicy/current/runtimeacceptance."
+        },
+        {
+          "role": "travel/rest/blood and lifecycle",
+          "ranges": [
+            [
+              1880,
+              2002
+            ],
+            [
+              2075,
+              2240
+            ]
+          ],
+          "inventory": "Recoverablefatiguecaloriesreservoir versusfoodneedbalance; elapsedminutes/segmentend/historyminute, prayerallocation, camp/leisure/recovery pathways; fractionOfMaximumBloodLost versusabsoluteBloodFraction, sameunitfloatsdifferentoperationmeaning; readinessgate.",
+          "disposition": "Singlefatiguepool sharesCharacterStats.calories_used; foodreserve isseparatephysiologicalnutrition notadditionalfatiguepenaltypool. Explicittravel/rest/leisure updates recoverreservoir; apply_rest_conditionignorestimeandonlyrefreshes, actualcallercoordinationneednotduplicatehealing. Incrementalloss andtargetfraction aredifferentmethodcontracts; targetset clampsrawfractionbutNaNpassesclampandcanpersistNaNblood (qualifiedpublicAPIwitness). Actualincomingtacticalreceiptvalidatedfinite059, surgerycoupledreceiver049finiteactualsource; noactualNaNclinicaloutcomeclaimed. Terminalcirculatorythreshold0.10sourcepolicyalreadyphysiologyowner; donotnewarbitrarybounds.",
+          "remedy": "Existingtypedbloodfractionandnamedloss/targetoperations,sharedbodymass/bloodaggregate,andtypedcaloricwork/elapsedhours to avoidswaps. Preservecanonicalterminals/clippedclockandnofatigue-speedruleclaimwithoutactualmovementreceiver.",
+          "acceptance": "Fullbody,059finiteincomingreceipt and049surgerysourcepreviousactualproof; broaderallhealth/needdiseaseoutcomesstillpending."
+        },
+        {
+          "role": "existingfixtures",
+          "ranges": [
+            [
+              2304,
+              2627
+            ]
+          ],
+          "inventory": "Restprovision/templeservice/cohortabsence/deadmember/projection, reservevsinventory, signeddeficits/fullness, holydaydayboundary, rankedmorale andpartitionedleisure sourcefixtures.",
+          "disposition": "Fixtures expressintendedstate distinctions includingnegativebalances andzerorestoration; theirsourcepresence isnotexecutedvalidation. Localtesttuples/rawIDs/calibrationvalues/nativecomparison tolerancesarefixturedata, notproductionadmissionbounds.",
+          "remedy": "Carry canonicalnewownersintofutureexistingfixturemigrationsonlyafterdiscovery; no newtests/cases/helpers/assertionsorprojectexecution.",
+          "acceptance": "Everyline2304-2627consumed,nofixtureexecuted."
+        }
+      ],
+      "disposition": "Source-accounted WITH qualifiedfindings",
+      "remedy": "See responsibilityparts, canonicalexistingowners/payloadsandactualclockauthority",
+      "acceptance": "Full2627personallyconsumedandmaterialreceivers"
+    },
+    {
+      "original_index": 1087,
+      "inventory": "IncomingenemytypeString\u2192canonicalThreatId\u2192profilefearcalibration\u2192nonnegativefearmultipliervsersuserrorString",
+      "disposition": "ExistingThreatIdclosednamespaceadmittedbeforeprofile; fearmultiplier1+fear/50 canexceed1 andisnotUnitInterval/probability. Stringatnativequestboundarynotreasontodefineanotherenemyowner.",
+      "remedy": "CarryexistingThreatIdthroughinternalgroupprojectionuntilnativeinput/outputtextboundary andtypedparsecauseuntilterminalerrorformat.",
+      "acceptance": "Full1-8 consumed; purecore881bestiary/877profile personallyearlierread; noarbitrarythreat/current/unique/globalclaim."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-008-receipt.json",
+        "sha256": "480a8e5ab6e0ba18252686cbe2eac0f4d38a718701571266a49ae7dd7076e900"
+      },
+      "original_index": 853,
+      "sha256": "ead3354da78110069cabd335496a7e9ee16125ac302d7dece1d3684b0a1824ef",
+      "ranges": [
+        [
+          1,
+          426
+        ]
+      ],
+      "prior_personal_read_reuse": null,
+      "identity_reverified": true
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-016-receipt.json",
+        "sha256": "8a08d4a7a68768b9c1813ab799897da5c4422ede6cf9a388279d8d3c27eb92d0"
+      },
+      "original_index": 886,
+      "sha256": "6e0a321cc3add825f92a96426d7bd4b3af413ad02381e547a2db66fdd8676d82",
+      "ranges": [
+        [
+          1,
+          552
+        ]
+      ],
+      "prior_personal_read_reuse": null,
+      "identity_reverified": true
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-033-receipt.json",
+        "sha256": "2fa5eddcfced7cfdc55209d38df689845b351ca17c3551e42c9bd3acc54dca86"
+      },
+      "original_index": 958,
+      "sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "ranges": [
+        [
+          1,
+          145
+        ],
+        [
+          180,
+          330
+        ]
+      ],
+      "prior_personal_read_reuse": null,
+      "identity_reverified": true
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-035-receipt.json",
+        "sha256": "4a35c1a6afd6d6ebf7e63867b4b939fc63ae5d55011f0f8f0151be0c4e2dd1e2"
+      },
+      "original_index": 963,
+      "sha256": "906e67eed5acc9fbf6ab98e2e4bc7df11b8e9742c1ee148092c7d2061f64afab",
+      "ranges": [
+        [
+          66,
+          139
+        ],
+        [
+          179,
+          199
+        ],
+        [
+          271,
+          383
+        ]
+      ],
+      "prior_personal_read_reuse": {
+        "receipts": [
+          "batch-027-receipt.json",
+          "batch-032-receipt.json"
+        ],
+        "ranges": [
+          [
+            1,
+            65
+          ],
+          [
+            140,
+            178
+          ],
+          [
+            200,
+            270
+          ]
+        ],
+        "identity_reverified": true
+      },
+      "identity_reverified": true
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-035-receipt.json",
+        "sha256": "4a35c1a6afd6d6ebf7e63867b4b939fc63ae5d55011f0f8f0151be0c4e2dd1e2"
+      },
+      "original_index": 964,
+      "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+      "ranges": [
+        [
+          1,
+          114
+        ],
+        [
+          161,
+          187
+        ],
+        [
+          221,
+          256
+        ],
+        [
+          291,
+          319
+        ],
+        [
+          456,
+          639
+        ],
+        [
+          676,
+          714
+        ],
+        [
+          766,
+          1169
+        ]
+      ],
+      "prior_personal_read_reuse": {
+        "receipt": "batch-022-receipt.json",
+        "ranges": [
+          [
+            115,
+            160
+          ],
+          [
+            188,
+            220
+          ],
+          [
+            257,
+            290
+          ],
+          [
+            320,
+            455
+          ],
+          [
+            640,
+            675
+          ],
+          [
+            715,
+            765
+          ]
+        ],
+        "identity_reverified": true
+      },
+      "identity_reverified": true
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-047-receipt.json",
+        "sha256": "6d045d41fa116d1526005fb43721c66da9f941caf1d7ff4316e2a17b4c749fce"
+      },
+      "original_index": 1013,
+      "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "ranges": [
+        [
+          116,
+          234
+        ],
+        [
+          641,
+          1363
+        ]
+      ],
+      "prior_personal_read_reuse": null,
+      "identity_reverified": true
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-049-receipt.json",
+        "sha256": "7c7a1bf82e75c5dbe9a67fb086ea7776db66160590f8435b8519b7479433d9df"
+      },
+      "original_index": 1020,
+      "sha256": "63f604eeeca44d35f365c9daded84a61ca19b8c9c3976ead8503a2edbf4d1c57",
+      "ranges": [
+        [
+          1,
+          430
+        ]
+      ],
+      "prior_personal_read_reuse": null,
+      "identity_reverified": true
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-050-receipt.json",
+        "sha256": "0f23acc687c49d5da235bff7f543610cceab01a8e151173da1289b445ff24dd6"
+      },
+      "original_index": 1024,
+      "sha256": "62c3d0b44fa30ce15dab8e231cc5ef90e631e633d9ef4ea34091c5c8c3f3fde9",
+      "ranges": [
+        [
+          1,
+          958
+        ]
+      ],
+      "prior_personal_read_reuse": null,
+      "identity_reverified": true
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-059-receipt.json",
+        "sha256": "8e3a50c3d9931bcb33c91d7b8d92b3f75e40878f06a077c7fb31355f99f92cd6"
+      },
+      "original_index": 1068,
+      "sha256": "45a56ae8f6a11c4f676604c9e3c69148174c0cd6c50178a693bd9ebe8d3d4e0e",
+      "ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "prior_personal_read_reuse": null,
+      "identity_reverified": true
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-060-receipt.json",
+        "sha256": "6f4d66ee0ace59f2431dcc84532f71662cf68c37b2a04a1477ff3917e5ea4b15"
+      },
+      "original_index": 1073,
+      "sha256": "c572b0014c6114020ee98d99a3cdfa1579b25a815ade34656bfeb8b6a421d1dc",
+      "ranges": [
+        [
+          1,
+          677
+        ]
+      ],
+      "prior_personal_read_reuse": null,
+      "identity_reverified": true
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-061-receipt.json",
+        "sha256": "1e26974b7e1795184974dca7f3ff4cd5094facd0c1717fab47d9ce7b8edbc633"
+      },
+      "original_index": 1076,
+      "sha256": "3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
+      "ranges": [
+        [
+          1,
+          694
+        ]
+      ],
+      "prior_personal_read_reuse": null,
+      "identity_reverified": true
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-061-receipt.json",
+        "sha256": "1e26974b7e1795184974dca7f3ff4cd5094facd0c1717fab47d9ce7b8edbc633"
+      },
+      "original_index": 1077,
+      "sha256": "afba3aaeb15ab41fe36d35221b5269a784098863766c03ad61ecd6532204bdbc",
+      "ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "prior_personal_read_reuse": null,
+      "identity_reverified": true
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-062-receipt.json",
+        "sha256": "6f38488e18bb19f933f1bf16e5dbbc23fc0f3691f006b1d1d810fe84ce3f9c29"
+      },
+      "original_index": 1079,
+      "sha256": "806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+      "ranges": [
+        [
+          1,
+          3983
+        ]
+      ],
+      "prior_personal_read_reuse": null,
+      "identity_reverified": true
+    }
+  ],
+  "new_material_extensions": [
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-module/src/time/clock.rs",
+      "sha256": "5494962821652b9edef4abf446ca231baf0db2919917b93fafb37218340af587",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/5494962821652b9edef4abf446ca231baf0db2919917b93fafb37218340af587",
+      "actual_eof": 127,
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "provenance": "base3a50/head6533 exactbytes equal, absent747changed/dirty4; separatefromphysical-p16alias proof",
+      "prospective": true,
+      "purpose": "Actual globalofficial refresh_clock versus personalCharacterTime helper receiving authority",
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          45
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/morale.rs",
+      "original_index": 958,
+      "sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "material_ranges": [
+        [
+          146,
+          179
+        ],
+        [
+          327,
+          390
+        ]
+      ],
+      "mandatory_other_lenses": true,
+      "reason": "Newmaterialreceiverbodies beyond original958 registered1-145/180-330; overlapping327-330 retained, allactualexposedranges honest",
+      "zero_extra_original_shared_credit": true
+    }
+  ],
+  "provenance": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-064-clock-provenance.json",
+    "sha256": "d9cf3a259b47dad9407cf4b5cab72f5ec4f185da491d0c3dea5870cdf1dad84d"
+  },
+  "process_qualification": {
+    "event": "Mistaken firstclockdisplaycommand referenced previouslyreadphysical-p16 object25673af055bc146c82eb0fcf5bcbde2db09174cc6bec4e4dc2ae081150e3a25c lines1-45 after registeringactualprhead5494962821652b9edef4abf446ca231baf0db2919917b93fafb37218340af587.",
+    "disposition": "No coverage/alias/currentproof creditedfromwrongdisplay. Correctregistered549496body1-45 thenpersonallyconsumed explicitly. Bodies1-45samevisibletextbutwholehashdifferent, no wholefilealiasinferred."
+  },
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Frozen source-only, no current/alias/runtime/acceptedunique/globaltransfer.",
+    "Totalincapacitation/checkmultiplierfinding isnotmovement-speedconflict; required033qualification preserved.",
+    "Newcore958146-179/327-390 andprclock1-45 material queuedallotherlenses,+0original/sharedextra. Coremorale391+notread.",
+    "SDK/globalclocknativehelper1-31complete; unrelatedfamilyclock33-45partial. Deepercontainers/clinical/webcallers/calendar/religiouspolicy leftasqualifiedacceptancequestions, notclaimedunreadsourceclearance."
+  ]
+}

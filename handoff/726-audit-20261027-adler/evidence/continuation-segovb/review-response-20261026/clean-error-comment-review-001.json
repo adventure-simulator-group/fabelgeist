@@ -1,0 +1,308 @@
+{
+  "id": "SEGOVB-CLEAN-ERROR-COMMENT-001",
+  "created_utc": "2026-10-26T21:13:11.707928+00:00",
+  "skill": "/home/brunosegovia/.codex/skills/comment-review/SKILL.md previously read and applied freshly",
+  "base": "323789dd1beca252d4515c580573596ca0c98143",
+  "scope": "Independent Comment Review of the7 exact clean-error files plus registered direct current receivers/SDK source. User explicitly forbids backward-compatibility constraints. Review final semantics only; no old API/layout/prefix/downcast/source-chain promises or older verdicts transferred.",
+  "registration": {
+    "path": "clean-error-comment-registration-001.json",
+    "sha256": "c49c2b4d953dc4d320e079284bb85ce60d65193c400aed57571e6b45f7ce5aa0"
+  },
+  "manifest": {
+    "path": "clean-error-source-manifest-001.json",
+    "sha256": "e15b95d5c3b025c624f53356243c537d0966078e3b2e69f3e70bbdd0a7cd232b"
+  },
+  "patch": {
+    "path": "clean-error-actual-diff-001.patch",
+    "sha256": "c4086530fc7efafd8e4c967a24a2fd38288cbef91d62c3381435a4682cd1da0d"
+  },
+  "sources": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "a295f80fefc3035bf18c518b5ad9d1c379cd2473deacb33dad2c738bbf35e92f",
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "d15d73bd8fbf0410de7031e9c2cb7672153f24391614877fedd8f6766f37692c",
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "04110cf73034d74c5252361f77af470d11d289fc1a1106e9c42e975707ebdf04",
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "0c00273b8492fa0919e7264459cffbd80f97564784a292e7e88d28bf928cb244",
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "3dce5de96be36b2463daee4fb0ed823563d3f87e99bfc9a8ba3b1ddcdc37fca8",
+      "ranges": [
+        [
+          1,
+          9
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "e3ad593b83da185620d2729a5fde4a0f7bfda1c39993494432c55a0c989e0973",
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "3a3902b9981ae772df92c2df1a97d245196d25cd83f2eacf4a586005ea39a6cd",
+      "ranges": [
+        [
+          1,
+          70
+        ]
+      ]
+    }
+  ],
+  "additional_support": [
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "sha256": "14cccb953bd0b8466b7ad010219c4220d535ee7ed9e6e66cad981c37cc67df88",
+      "ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "purpose": "Actual unchanged context policy constructor/gating source required by guide semantics; no global context comment clearance."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "baf15af7fdf3ecbc0776b475b3aadbd35c29a3d6e0185cef3b2f064803315381",
+      "ranges": [
+        [
+          20,
+          31
+        ],
+        [
+          98,
+          118
+        ],
+        [
+          260,
+          275
+        ]
+      ],
+      "purpose": "Actual unchanged context policy constructor/gating source required by guide semantics; no global context comment clearance."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "ranges": [
+        [
+          1,
+          16
+        ],
+        [
+          255,
+          341
+        ]
+      ],
+      "purpose": "Actual three generic texture-binding error conversions needed by guide60-61; bounded body only."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-impl-2.1.1/src/error.rs",
+      "sha256": "40cfa53d126eae5284310d5814318d32269e482e3491bf561ec9cd6168646aeb",
+      "observed_ranges": [
+        [
+          175,
+          219
+        ],
+        [
+          286,
+          334
+        ]
+      ],
+      "provenance": "Current lock-checksummed archive member bytes equal inspected local source; not frozen audit-source identity",
+      "package": "derive_more-impl-2.1.1",
+      "archive_sha256": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb",
+      "purpose": "Re-evaluate exact previously archive-verified derive_more source generation against final unboxed explicit source fields. No prior error-layout/downcast promise transferred."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-2.1.1/src/as_dyn_error.rs",
+      "sha256": "ba3767c6c95966583360f28cd59bfe20717d0f53c2041c2c534552fcb1b265d9",
+      "observed_ranges": [
+        [
+          24,
+          29
+        ]
+      ],
+      "provenance": "Current lock-checksummed archive member bytes equal inspected local source; not frozen audit-source identity",
+      "package": "derive_more-2.1.1",
+      "archive_sha256": "d751e9e49156b02b44f9c1815bcb94b984cdcc4396ecc32521c739452808b134",
+      "purpose": "Re-evaluate exact previously archive-verified derive_more source generation against final unboxed explicit source fields. No prior error-layout/downcast promise transferred."
+    }
+  ],
+  "findings": [],
+  "conclusion": "No actionable comment/documentation accuracy defect found in the clean composed-error scope. The guide and comments describe the final three-state scope error and new enclosing Observation error without an old prefix/downcast preservation requirement.",
+  "verified_traces": [
+    {
+      "id": "CLEAN-COMMENT-01",
+      "claim": "TextureViewError::Observation owns context and a direct shared scope error.",
+      "sources": [
+        "view_error.rs13-43",
+        "all three views.rs full bodies",
+        "texture-views.md3-27"
+      ],
+      "evidence": "Each alternate-format native failure constructs Observation with the original requested format, the corresponding operation and the exact ValidationScopeError cause. Scope causes are unboxed. The new Display includes the operation/request/cause and no documentation promises the old per-dimension diagnostic prefixes or immediate native-error downcast. The operation documentation now covers both rejected native validation and failed polling, matching the enclosing observation state."
+    },
+    {
+      "id": "CLEAN-COMMENT-02",
+      "claim": "The documented primary/secondary causes match every outcome.",
+      "sources": [
+        "validation_scope.rs19-33,48-65",
+        "texture-views.md23-27,54-58",
+        "view_error.rs37-41"
+      ],
+      "evidence": "finish polls then pops its guard before matching outcomes. Ok/None returns success, Ok/Some returns Native(native), Err/None returns Progress(poll), Err/Some returns ProgressWithNative{poll,native}. Both polling variants annotate poll as the source. The combined native error remains retained in its named field and displayed after the polling diagnostic; it is not the primary source. Observation source is the shared scope error first, then the relevant leaf. Native-only source is wgpu::Error. No failed observation returns the newly created Arc view."
+    },
+    {
+      "id": "CLEAN-COMMENT-03",
+      "claim": "Derived trait documentation describes the actual final payloads.",
+      "sources": [
+        "view_error.rs25-43",
+        "validation_scope.rs20-33",
+        "derive_more-impl2.1.1/error.rs175-219,286-334",
+        "derive_more2.1.1/as_dyn_error.rs24-29"
+      ],
+      "evidence": "Both enums now derive Display and Error; explicit source fields select the intended shared/leaf owners. The SDK generator emits source coercion on that chosen field. With direct unboxed owners, the old Box-source rationale and manual source implementation are unnecessary and have been removed. The new guide does not retain their downcast or previous source-preference promise."
+    },
+    {
+      "id": "CLEAN-COMMENT-04",
+      "claim": "Resource admission and provider policy text remains current behavior, not a compatibility constraint.",
+      "sources": [
+        "all three views.rs19-53/54",
+        "texture-views.md10-18,41-58",
+        "validation_observation.rs1-24",
+        "wgpu_context/mod.rs20-31,98-118,260-275"
+      ],
+      "evidence": "Matching-format requests clone the cached Arc before native-texture admission and report MissingView when absent. Alternate-format requests require native texture; sRGB storage requests use a linear descriptor counterpart while retaining the original request. Native observation is gated by context policy; browser branches do not block. Context constructors select blocking for created native devices and uncaptured for borrowed/browser devices; presentation remains separate. These describe the current source and do not restrict a future clean redesign by backward compatibility."
+    },
+    {
+      "id": "CLEAN-COMMENT-05",
+      "claim": "Guide generic-caller language matches actual direct receivers.",
+      "sources": [
+        "compute/pass/mod.rs1-16,262-341",
+        "texture-views.md60-64"
+      ],
+      "evidence": "The three registered ComputePass branches use view_with_format(...)? into their ordinary anyhow Result. No custom into_anyhow/from_observation helper is needed at these text-described receiver sites. This is a source conversion observation, not a build/runtime result or complete reflection/descriptor review."
+    },
+    {
+      "id": "CLEAN-COMMENT-06",
+      "claim": "Removed owners and rationale do not remain in scoped source documentation.",
+      "sources": [
+        "clean-error-actual-diff-001.patch",
+        "globals/mod.rs1-9",
+        "view_error.rs full",
+        "validation_scope.rs full",
+        "texture-views.md full",
+        "bounded source-text navigation in GPU compute/globals/texture directories"
+      ],
+      "evidence": "ValidationProgressError re-export/wrapper, operation-specific native TextureViewError variants, manual Error source implementation, Box rationale, from_observation and into_anyhow are removed. No scoped old-prefix/downcast-preservation promise remains. Existing result aliases own the final bespoke error types and are not compatibility forwarding aliases."
+    }
+  ],
+  "source_legibility": "The current guide explains the three distinct observation failures, both retained causes in the combined failure, and which cause is primary. It makes no claim of rollback, global device health, coherence of caller-mutated public resources or universal constructor/subresource coverage. The example stays a text fence, not an executable doctest.",
+  "remaining_limits": [
+    "Inherited F9 and other broad source-comment qualifications remain pending outside this clean-error scope; no global comment clearance or audit-count advance. Older reports describing the retired boxed layout are historical evidence, not constraints on this implementation.",
+    "No tests, typecheck, macro expansion output, runtime backend, device-loss/timeout reproduction, whole SDK decoder or full application caller graph was run/proved. Exact SDK body fingerprints were checked and relevant native source re-evaluated; previous verdicts were not substituted for final-layout reasoning.",
+    "No old API/diagnostic prefix/immediate native downcast compatibility is required or promised. New public types and messages are assessed as the clean final interface."
+  ],
+  "post_read_fingerprints": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "a295f80fefc3035bf18c518b5ad9d1c379cd2473deacb33dad2c738bbf35e92f",
+      "unchanged_after_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "d15d73bd8fbf0410de7031e9c2cb7672153f24391614877fedd8f6766f37692c",
+      "unchanged_after_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "04110cf73034d74c5252361f77af470d11d289fc1a1106e9c42e975707ebdf04",
+      "unchanged_after_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "0c00273b8492fa0919e7264459cffbd80f97564784a292e7e88d28bf928cb244",
+      "unchanged_after_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "3dce5de96be36b2463daee4fb0ed823563d3f87e99bfc9a8ba3b1ddcdc37fca8",
+      "unchanged_after_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "e3ad593b83da185620d2729a5fde4a0f7bfda1c39993494432c55a0c989e0973",
+      "unchanged_after_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "3a3902b9981ae772df92c2df1a97d245196d25cd83f2eacf4a586005ea39a6cd",
+      "unchanged_after_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "sha256": "14cccb953bd0b8466b7ad010219c4220d535ee7ed9e6e66cad981c37cc67df88",
+      "unchanged_after_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "baf15af7fdf3ecbc0776b475b3aadbd35c29a3d6e0185cef3b2f064803315381",
+      "unchanged_after_read": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "unchanged_after_read": true
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-impl-2.1.1/src/error.rs",
+      "sha256": "40cfa53d126eae5284310d5814318d32269e482e3491bf561ec9cd6168646aeb",
+      "unchanged_after_read": true
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-2.1.1/src/as_dyn_error.rs",
+      "sha256": "ba3767c6c95966583360f28cd59bfe20717d0f53c2041c2c534552fcb1b265d9",
+      "unchanged_after_read": true
+    }
+  ],
+  "actions": "Ignored review evidence only. No product/source changes, Git commands, project checks/tests or new cases/doctests, root ledger/history edits or publication. Root is sole edit owner.",
+  "stop": "Saved this bounded review and stopped as requested."
+}

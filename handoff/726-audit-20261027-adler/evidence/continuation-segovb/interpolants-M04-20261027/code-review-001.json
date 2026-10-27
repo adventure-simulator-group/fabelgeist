@@ -1,0 +1,400 @@
+{
+  "at": "2026-10-27T04:40:56.513190+00:00",
+  "kind": "Independent source-only Code Review",
+  "finding_family": "M04 admitted interpolation fractions",
+  "head": "5ceaa9bd5738b8b01e7d488df55c172cd4f8593d",
+  "base": "35b18ec280a6884bb53996a2d859c4b27096f65c",
+  "verdict": "No actionable source defects found in the exact five-file M04 delta and listed connected contracts. Hosted acceptance remains pending.",
+  "findings": [],
+  "scope": {
+    "manifest": "implementation-manifest-001.json",
+    "manifest_sha256": "a3c6d937060b6e252e642fc2f609e62e0399c3504ce1c9095e4b725d7748cf60",
+    "complete_diff": "source.diff",
+    "complete_diff_sha256": "051d1466a1e6aacae17135c4156ed4a95a562a52f47dda01ec7f46e4ed035396",
+    "changed_paths": [
+      {
+        "path": "crates/adventuresim-core/src/linear_speed.rs",
+        "base_sha256": "db3686060ebd8ce533fe48c88685c5643b024b8a92b2b617d97481196988f3e0",
+        "sha256": "b1561f750844b7395f96f8fe2ee767db88d73fb8d8b6e997779493130b09f877",
+        "base_lines": 178,
+        "lines": 173
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+        "base_sha256": "6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+        "sha256": "7cca5e5cef2f3c3a5a11c88dba547195f36d61f4665f157c8d55eedc30179eab",
+        "base_lines": 267,
+        "lines": 267
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+        "base_sha256": "61864d871215d4140f142c121202374b5a8e3434504d459b29e97d7e0a889033",
+        "sha256": "3acaf77c189e6ab8abcd972e5615276d945a1ca6772ee90246feef673e8a2c69",
+        "base_lines": 207,
+        "lines": 207
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+        "base_sha256": "18c3232bb01109cd7ec857f3c750d2c04ffb869dd52ca42cec82524816c41206",
+        "sha256": "09565d01fd8fabbf899d84f107bdbf9c16fd6149ec61f51714599d160c1260e0",
+        "base_lines": 217,
+        "lines": 218
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+        "base_sha256": "2bdf24f3de20d1901bfc475d799d3a07781d9c5e22733caaea0d2365250edd0f",
+        "sha256": "51a510d3c5f039d6b7eb4ce2b1511432fb3415bf0b15152d036ec01a6394f9c8",
+        "base_lines": 522,
+        "lines": 525
+      }
+    ],
+    "full_changed_bodies_read": true,
+    "connected_receivers": "Canonical UnitInterval; HeightDistance; already-typed ResponseShapingTime/camera caller; AnimationValueError and typed BattleResolutionError/CameraError wrappers; authoritative projection, client phase prediction and native-controller assignment."
+  },
+  "independent_identity_evidence": {
+    "head_verified_at_start_by_readonly_git": true,
+    "working_tree_clean_at_start": true,
+    "actual_base_to_head_git_diff_bytes_equal_staged_diff": true,
+    "actual_changed_path_set_exactly_five_manifest_paths": true,
+    "each_base_hash_matches_manifest": true,
+    "each_current_Rust_file_equals_exact_initial_commit_blob": true,
+    "later_head_at_final_Rust_pincheck": "903174935e1d8a07293105a9bccff17325489f3d",
+    "later_head_note": "Root added a workflow-only hosted-test change after initial source review began. All five reviewed Rust byte hashes remain identical to5ce. Supplemental workflow/source reconciliation will be code-review-002; it is outside this initial verdict."
+  },
+  "prospective_registrations": [
+    {
+      "path": "code-review-registration-001.json",
+      "sha256": "3ee952c410c6b7008b320c9cb60222a062f83612f35511b9b2d4506c95a90c84"
+    },
+    {
+      "path": "code-review-registration-002.json",
+      "sha256": "0b53f0b6b95e6498cbebd5a551d1bb8e235db20202c9a7235cae1238b584d64b"
+    },
+    {
+      "path": "code-review-registration-003.json",
+      "sha256": "71b6166ddbde2903ed4e0a9ea04d476d2c1874db1f75a24658bb464dbae7df2c"
+    }
+  ],
+  "source_fingerprints": [
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "b1561f750844b7395f96f8fe2ee767db88d73fb8d8b6e997779493130b09f877",
+      "bytes": 4953,
+      "actual_lines": 173,
+      "consumed_ranges": [
+        [
+          1,
+          173
+        ]
+      ],
+      "post_read_fingerprint_verified": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "7cca5e5cef2f3c3a5a11c88dba547195f36d61f4665f157c8d55eedc30179eab",
+      "bytes": 9717,
+      "actual_lines": 267,
+      "consumed_ranges": [
+        [
+          1,
+          267
+        ]
+      ],
+      "post_read_fingerprint_verified": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "sha256": "3acaf77c189e6ab8abcd972e5615276d945a1ca6772ee90246feef673e8a2c69",
+      "bytes": 7349,
+      "actual_lines": 207,
+      "consumed_ranges": [
+        [
+          1,
+          207
+        ]
+      ],
+      "post_read_fingerprint_verified": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "sha256": "09565d01fd8fabbf899d84f107bdbf9c16fd6149ec61f51714599d160c1260e0",
+      "bytes": 8299,
+      "actual_lines": 218,
+      "consumed_ranges": [
+        [
+          1,
+          218
+        ]
+      ],
+      "post_read_fingerprint_verified": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "51a510d3c5f039d6b7eb4ce2b1511432fb3415bf0b15152d036ec01a6394f9c8",
+      "bytes": 20827,
+      "actual_lines": 525,
+      "consumed_ranges": [
+        [
+          1,
+          525
+        ]
+      ],
+      "post_read_fingerprint_verified": true
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+      "bytes": 1740,
+      "actual_lines": 58,
+      "consumed_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "post_read_fingerprint_verified": true
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/source.diff",
+      "sha256": "051d1466a1e6aacae17135c4156ed4a95a562a52f47dda01ec7f46e4ed035396",
+      "bytes": 7395,
+      "actual_lines": 161,
+      "consumed_ranges": [
+        [
+          1,
+          161
+        ]
+      ],
+      "post_read_fingerprint_verified": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/mod.rs",
+      "sha256": "de9811b3907cc3d97cd41b77b27c02d459a32275b5e813ee589b0cf1b8b9e4c9",
+      "bytes": 3089,
+      "actual_lines": 90,
+      "consumed_ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "post_read_fingerprint_verified": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+      "sha256": "60c9a6b987e30fcff66d01e8afadaaf41ffde91b9d1285c46bd88ec6a1678a39",
+      "bytes": 4763,
+      "actual_lines": 138,
+      "consumed_ranges": [
+        [
+          43,
+          83
+        ]
+      ],
+      "post_read_fingerprint_verified": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/shaping_time.rs",
+      "sha256": "daf4c6b1cf6f43edc45f91ac44fb6fe70ae0848a2e1b23b8bc313ba24d887a87",
+      "bytes": 2331,
+      "actual_lines": 63,
+      "consumed_ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "post_read_fingerprint_verified": true
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/error.rs",
+      "sha256": "e3bd3bd8fb753b33e583e5cba64967ca07539dd8b4b0032a2153a330b59a01df",
+      "bytes": 627,
+      "actual_lines": 19,
+      "consumed_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "post_read_fingerprint_verified": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/camera/values.rs",
+      "sha256": "a2f64c5b11f5551f2c7baae14dcb819408c25c075a3594694b06cf7ab40f1eaa",
+      "bytes": 3192,
+      "actual_lines": 107,
+      "consumed_ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "post_read_fingerprint_verified": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics.rs",
+      "sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+      "bytes": 72173,
+      "actual_lines": 1738,
+      "consumed_ranges": [
+        [
+          375,
+          440
+        ]
+      ],
+      "post_read_fingerprint_verified": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state/projection.rs",
+      "sha256": "1c3d107a1b048fc5397ff0bd4ce896e703fd748296193bf90bea403fe7af7bab",
+      "bytes": 10398,
+      "actual_lines": 272,
+      "consumed_ranges": [
+        [
+          202,
+          272
+        ]
+      ],
+      "post_read_fingerprint_verified": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/presentation.rs",
+      "sha256": "6a067389a1cdcbddd0dd3814f95e17664351794be139353572edd19928a18171",
+      "bytes": 35002,
+      "actual_lines": 867,
+      "consumed_ranges": [
+        [
+          82,
+          177
+        ]
+      ],
+      "post_read_fingerprint_verified": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/camera/smoothing.rs",
+      "sha256": "6f9948b9cd1412b7351a88e92a460780579e7d89ad0a9ae6bbfb4dd99102842a",
+      "bytes": 9153,
+      "actual_lines": 269,
+      "consumed_ranges": [
+        [
+          112,
+          146
+        ]
+      ],
+      "post_read_fingerprint_verified": true
+    }
+  ],
+  "rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "read": "Full; root/crates/client-animation/producer skill retained from earlier same-conversation reads, current identities rechecked; core/tactical-core/invariant skill freshly read."
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "read": "Full; root/crates/client-animation/producer skill retained from earlier same-conversation reads, current identities rechecked; core/tactical-core/invariant skill freshly read."
+    },
+    {
+      "path": "crates/adventuresim-core/AGENTS.md",
+      "sha256": "7d2a3dd7507a8405fded5577a7f406273ab835389b52b189415d0878c39d8a73",
+      "read": "Full; root/crates/client-animation/producer skill retained from earlier same-conversation reads, current identities rechecked; core/tactical-core/invariant skill freshly read."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/AGENTS.md",
+      "sha256": "b3fd110d97bc871853458c38282d3d4c18369b6d0647e96e0de6d0641dca61c8",
+      "read": "Full; root/crates/client-animation/producer skill retained from earlier same-conversation reads, current identities rechecked; core/tactical-core/invariant skill freshly read."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/AGENTS.md",
+      "sha256": "f9633599a742ea38090fe2fb88e2dc464298d0ca4a70374f0851380e71e6910e",
+      "read": "Full; root/crates/client-animation/producer skill retained from earlier same-conversation reads, current identities rechecked; core/tactical-core/invariant skill freshly read."
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-producer-propagation/SKILL.md",
+      "sha256": "9d202f015eed4818d6d2753c7624faa64fb5522e03cc55284fc68a366a204293",
+      "read": "Full; root/crates/client-animation/producer skill retained from earlier same-conversation reads, current identities rechecked; core/tactical-core/invariant skill freshly read."
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-invariant-operations/SKILL.md",
+      "sha256": "94c0fc73e926619b9a9a50ef9f342a0c8f6210840f1aa1f3c5b5d9637994519d",
+      "read": "Full; root/crates/client-animation/producer skill retained from earlier same-conversation reads, current identities rechecked; core/tactical-core/invariant skill freshly read."
+    }
+  ],
+  "source_backed_traces": [
+    {
+      "contract": "Canonical admitted fraction owner",
+      "sources": "core/unit_interval.rs1-58; tactical-core/animation/mod.rs17",
+      "trace": "UnitInterval privately retains f32, rejects nonfinite and values outside inclusive[0,1], and is reused by Deserialize through TryFrom. ZERO/ONE/HALF and Default are admitted endpoints. The animation module reexports this exact core owner; new signatures do not introduce a duplicate type or raw forwarding API.",
+      "assessment": "Both interpolation APIs receive the admitted owner. fraction() extraction occurs at scalar arithmetic boundaries."
+    },
+    {
+      "contract": "Speed interpolation producer to retained result",
+      "sources": "linear_speed.rs20-31/34-77; locomotion.rs129-170; movement_speed.rs41-57",
+      "trace": "Source-reference navigation and actual bodies identify two production NonnegativeSpeed.checked_lerp calls. Locomotion admits its clamped run ratio once, then copies that owner through speed/cycle/flight operations and compares with HALF. Jog speed admits the intentionally clamped smooth-endurance polynomial before its speed lerp. The speed kernel retains self+(other-self)*factor order, then calls the same nonnegative finite result admission and maps nonfinite arithmetic to Overflow.",
+      "assessment": "No raw internal factor parameter, primitive round trip, duplicated retained authority, unchecked output publication or changed valid-factor arithmetic order was introduced."
+    },
+    {
+      "contract": "Cycle interpolation and remaining typed receivers",
+      "sources": "sample_values.rs92-129; locomotion.rs162-168; height_measurement.rs44-82; shaping_time.rs49-56; camera/smoothing.rs114-146",
+      "trace": "CycleDelta remains a signed unwrapped finite displacement; only its interpolant becomes UnitInterval. It keeps the same native FloatExt.lerp call and from_arithmetic overflow rejection. The one current cycle caller reuses run. Bounce computes and admits the distinct complement1-run.fraction(); flight directly reuses run. HeightDistance.scaled_by extracts only for multiplication and re-admits its result. Existing ResponseShapingTime and both camera calls already use UnitInterval and stay unchanged.",
+      "assessment": "The migration preserves distinct output units and existing fallibility. Finite endpoint values are not claimed to make every floating-point interpolation infallible."
+    },
+    {
+      "contract": "Endurance clamp and intentional behavior change",
+      "sources": "movement_speed.rs41-57; complete diff",
+      "trace": "Existing endurance clamp[0,5], branch<=1, polynomial endurance*endurance*(3-2*endurance), upper-endurance power curve and speed interpolation order remain. New clamp[0,1] applies to the computed polynomial before UnitInterval admission.",
+      "assessment": "This enforces the intended unit-domain policy for finite polynomial roundoff and is deliberate. No requirement to preserve tiny prior extrapolation, prior incidental error shape or bitwise equality was imposed. No empirical/all-input floating-point equivalence claim or new tuning/YAML parameter."
+    },
+    {
+      "contract": "Structured error propagation",
+      "sources": "linear_speed.rs20-31; unit_interval.rs12-16/50-58; value_error.rs177-218; autoresolve/error.rs1-19; camera/values.rs44-58",
+      "trace": "SpeedError derives thiserror::Error and owns FractionError via#[from], retaining a structured source and contextual Display. Existing four speed rejection messages remain explicitly declared. The sole explicit variant conversion found in source, AnimationValueError::from(SpeedError), includes Fraction(error)=>Self::from(error), reusing canonical unit-fraction classification. BattleResolutionError and CameraError retain SpeedError through existing typed variants.",
+      "assessment": "No missing exhaustiveness arm, error-string branching, string erasure, compatibility shim or invented legacy source/downcast contract was found."
+    },
+    {
+      "contract": "Meaningful unchanged failure/state recipients",
+      "sources": "physics.rs411-424; projection.rs202-272; presentation.rs82-177; changed movement_speed.rs59-99/172-223",
+      "trace": "Native-controller assignment receives SpeedResult, logs any Err and continues before assigning a bad speed. Jog-derived breath/exhaustion and ordinary-controller paths propagate typed errors. Projection checks locomotion/profile/cycle arithmetic before gait-phase/contact writes; prediction obtains profile/cycle results before phase-retention writes. Existing state updates elsewhere in these methods remain unchanged.",
+      "assessment": "No new partial state commit or swallowed fraction rejection was introduced by the changed producer/API calls. This is not a claim that the complete unchanged routines are transactional under every failure."
+    }
+  ],
+  "validation_required_before_acceptance": {
+    "source_review_complete": true,
+    "local_project_execution": false,
+    "hosted_existing_movement_tests_required": true,
+    "existing_command": "cargo test --locked --package adventuresim-tactical-core --lib physics::movement_speed::tests",
+    "existing_matching_tests": [
+      {
+        "name": "character_paces_are_reference_normalized_and_guard_sprint_becomes_jog",
+        "line": 264
+      },
+      {
+        "name": "sprint_speed_retains_injury_and_burden_penalties",
+        "line": 393
+      },
+      {
+        "name": "prone_walk_is_fixed_jog_is_neutral_and_sprint_costs_exhaustion",
+        "line": 403
+      },
+      {
+        "name": "movement_speed_preserves_stick_magnitude_and_caps_diagonals",
+        "line": 488
+      }
+    ],
+    "reason": "Changed tactical_jog_speed is directly exercised by existing endpoint/pace, exhaustion, guard/prone and movement-cap coverage. Clippy compilation and animation-only execution do not execute this existing physics suite. Root owns hosted execution and positive-count evidence.",
+    "new_tests_helpers_assertions_doctests_requested_or_added": false,
+    "native_live_tactical_diagnostic_required_for_this_source_issue": false,
+    "hosted_success_claimed": false
+  },
+  "range_correction_disclosure": "Initial receiver registration requested projection202-279 although actual EOF is272. Output printed actual202-272 then stopped at EOF before presentation. Corrected202-272 was prospectively recorded and freshly read; nonexistent273-279 receives no credit. Presentation82-177 was subsequently read separately. No product or project-check execution resulted.",
+  "limitations": [
+    "Exact initial five-file/source-contract verdict only; the later workflow increment is reviewed separately. Source-only review is not compiler/test/runtime/visual acceptance.",
+    "Reference navigation located all current checked_lerp names: two speed calls, one cycle call and two unchanged ResponseShapingTime camera calls. It does not certify every unrelated arithmetic/configuration/animation state path.",
+    "Existing movement tests259-525 were read as unchanged source context only, not executed or altered. No new cases/helpers/assertions/doctests, local project checks/native probes, product edits, root ledger changes or publication.",
+    "M03 tuning/raw endurance admission, M09 categories and all inherited/global audit obligations remain open. No backward-compatibility conditions, global13/all20 or whole-SDK clearance.",
+    "Audit13 packet024 evidence is untouched: original39 cumulative1-3200, next3201, native format-version receiver and full tail pending; no source-audit count credit from this review."
+  ],
+  "stop_reason": "Initial source review complete; save immutable001, then inspect only the advised hosted-test workflow increment at903 in supplemental002."
+}

@@ -1,0 +1,20 @@
+{
+  "source_index": 287,
+  "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+  "sha256": "85c8f2c699beb1c00311678bbe179a5cc75bb33c607051bd967e91c9e6eba749",
+  "personally_read_ranges": [
+    [
+      1,
+      1200
+    ]
+  ],
+  "first_unread_line": 1201,
+  "coverage": "partial only; no new original-role credit",
+  "notes": [
+    "Party transfer checks positive quantity, different living same-party actors, actual source ownership/quantity/unequipped. Physical objects move exact singleton subtree and custody; measured/medication/durable rows stay atomic. Food split delegates exact lot ratio. Generic destination overflow creates separate stack, supporting existingF036 ordinary multiple-stack producer rather than assuming merged total fitsu32.",
+    "Food lot value requires finite nonnegative but f32->u64 saturates outside range; actual normal food producer maximum needed before value-loss witness. Checked line/subtree/party stake/reserve arithmetic otherwise propagates failure.",
+    "add_to_party_inventory convenience discards checked error; individual object loops insert row then multiple fallible object/food/weapon steps. Need actual late failure plus convenience normal caller before partial state finding; no inferred global transaction rollback if error suppressed. Catalogue unknown definition question remains existing rig item family.",
+    "Mission current candidate compares full immutable capability/mission/site/group/objective/weight/capture snapshot, open case and pending evaluated objective, exact capture custody/version. Stable sorted framed entropy/weighted selection, no sample marks Failed; successful commit validates state before/after.",
+    "Shared hostile authority requires structured resolution contract, exact replay all coordinates, active group/site/case, authored surrender, bound mission exact current candidate OR present precombat leader with current exact approach. Then disposition/context/fact/custody/capabilities/incident/receipt mutate; errors propagate. Saturating custody version atMAX receiver question remains qualified. Battle helper tail unread."
+  ]
+}

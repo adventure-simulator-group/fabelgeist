@@ -1,0 +1,27 @@
+diff --git a/crates/adventuresim-character-creator/src/device_garment_torso.rs b/crates/adventuresim-character-creator/src/device_garment_torso.rs
+index d72cf71c1..f1ff886b5 100644
+--- a/crates/adventuresim-character-creator/src/device_garment_torso.rs
++++ b/crates/adventuresim-character-creator/src/device_garment_torso.rs
+@@ -9,21 +9,21 @@ use crate::device_garment::{
+ };
+ use crate::device_garment_kernel::{Grid, Word, atomic, dispatch, read, read_u32, write};
+ use crate::device_garment_tube::GARMENT_FIT_MARGIN_M;
+ use crate::device_piece::DeviceRecording;
+ use crate::rig_parameters::RigJointParameter;
+ use anyhow::Result;
+ use fabelgeist_armor::gpu::record_garment_torso;
+ use fabelgeist_armor::{GarmentArmorDesign, GarmentArmorKind as Kind};
+ use fabelgeist_compute::KernelBatch;
+ use fabelgeist_geometry::SignedLength;
+-use fabelgeist_math::Ratio;
++use fabelgeist_math::units::Ratio;
+ use fabelgeist_rig::RigJointName;
+ 
+ /// The torso frame rises above the neck to hold the shoulder seams.
+ const SHOULDER_LIFT_M: f32 = 0.045;
+ 
+ /// Stations of the torso cage, evenly spaced over the frame's height.
+ const CAGE_SECTIONS: u32 = 17;
+ 
+ /// Floats per cage section: its height, then its low and high bounds.
+ const SECTION_WORDS: u32 = 7;

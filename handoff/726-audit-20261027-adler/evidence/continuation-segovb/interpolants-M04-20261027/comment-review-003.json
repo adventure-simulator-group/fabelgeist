@@ -1,0 +1,230 @@
+{
+  "id": "M04-comment-review-003",
+  "created_utc": "2026-10-27T04:53:20.422720+00:00",
+  "review_type": "Independent source-only supplemental Comment Review of separate core build context and contributor body",
+  "skill": "/home/brunosegovia/.codex/skills/comment-review/SKILL.md",
+  "head": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+  "base": "35b18ec280a6884bb53996a2d859c4b27096f65c",
+  "manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/implementation-manifest-003.json",
+    "sha256": "1f13cba776d0819a38a88e28b5bc6c3255565ea4544bf0fff89ad0831798d01f"
+  },
+  "source_diff": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/source-003.diff",
+    "sha256": "3976d9b626c989ab52c8e8d3a26a5d98e9e3d4ef44236fde113da41c2e307d56"
+  },
+  "body": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/pr-body-004.md",
+    "sha256": "cdcab2460237ee12dfee46188f89f9a442ae4804fb92dc4187ee815a7cff2834"
+  },
+  "failure_context": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/hosted-failure-001.json",
+    "sha256": "4e298a338de7d17cee3711f76642dec09a3a150329195df79033c0cf59d5329e"
+  },
+  "prospective_registrations": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/comment-review-003-registration.json",
+      "sha256": "db54b9c5813c816292254e0e4104092cf13dad0f784f87ad50e6b3d645ad42ce"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/comment-review-003-registration-runtime.json",
+      "sha256": "f9c77b519037bb5c176a5d90969ddf8abb2765a64359c907d07e08f504763256"
+    }
+  ],
+  "retained_own_reviews": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/comment-review-001.json",
+      "sha256": "62afc26c99d5c160b497b46fadef9ecf54331bfb0756c3ef6f4be45609505d8a"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/comment-review-002.json",
+      "sha256": "47bddd7c27d82ec0673068322cba4208de7740bfa105cdba066d3bf57379c980"
+    }
+  ],
+  "source_pins": [
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "base_sha256": "db3686060ebd8ce533fe48c88685c5643b024b8a92b2b617d97481196988f3e0",
+      "sha256": "b1561f750844b7395f96f8fe2ee767db88d73fb8d8b6e997779493130b09f877",
+      "base_lines": 178,
+      "lines": 173,
+      "unchanged_from_002": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "base_sha256": "6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+      "sha256": "7cca5e5cef2f3c3a5a11c88dba547195f36d61f4665f157c8d55eedc30179eab",
+      "base_lines": 267,
+      "lines": 267,
+      "unchanged_from_002": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "base_sha256": "61864d871215d4140f142c121202374b5a8e3434504d459b29e97d7e0a889033",
+      "sha256": "3acaf77c189e6ab8abcd972e5615276d945a1ca6772ee90246feef673e8a2c69",
+      "base_lines": 207,
+      "lines": 207,
+      "unchanged_from_002": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "base_sha256": "18c3232bb01109cd7ec857f3c750d2c04ffb869dd52ca42cec82524816c41206",
+      "sha256": "09565d01fd8fabbf899d84f107bdbf9c16fd6149ec61f51714599d160c1260e0",
+      "base_lines": 217,
+      "lines": 218,
+      "unchanged_from_002": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "base_sha256": "2bdf24f3de20d1901bfc475d799d3a07781d9c5e22733caaea0d2365250edd0f",
+      "sha256": "51a510d3c5f039d6b7eb4ce2b1511432fb3415bf0b15152d036ec01a6394f9c8",
+      "base_lines": 522,
+      "lines": 525,
+      "unchanged_from_002": true
+    },
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "base_sha256": "3f6e1cfe6c05f5f6a2bb39155e3bf0d8ec8cbdabe3f77e993971d42e56891b33",
+      "sha256": "0ad5e0e1b2b062d47f48af303bc97f1259f6d4ac99c62bef9b42588b183233b4",
+      "base_lines": 590,
+      "lines": 595,
+      "unchanged_from_002": true
+    },
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "base_sha256": "fc42ea1f2234144e94d6bfac86f254cd059799b9f9e5ae6de7f77e3125f19b7c",
+      "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+      "base_lines": 509,
+      "lines": 511,
+      "unchanged_from_002": false
+    },
+    {
+      "path": "crates/adventuresim-core/Cargo.toml",
+      "base_sha256": "feb7d553952f711d1296803b07e2ec1b7ee1cb555df59648b5bdef7e2cf5d4a9",
+      "sha256": "29e56014658d941895772dda71b9181863839eedf403c7d30b446186228c3441",
+      "base_lines": 42,
+      "lines": 43,
+      "unchanged_from_002": false
+    }
+  ],
+  "identity_checks": [
+    "All8 current source byte hashes match manifest003 at df5f37.",
+    "All prior6 source hashes and their complete per-file patch sections equal accepted source002; only core build.rs2lines and Cargo.toml1line added.",
+    "Canonical unit_interval.rs current SHA268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86 matches own001 canonical owner proof and was reread in full here."
+  ],
+  "actual_reads": [
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "material_ranges": [
+        [
+          12,
+          33
+        ],
+        [
+          74,
+          81
+        ]
+      ],
+      "qualification": "No review credit for remaining unrelated build bodies111-511."
+    },
+    {
+      "path": "crates/adventuresim-core/Cargo.toml",
+      "sha256": "29e56014658d941895772dda71b9181863839eedf403c7d30b446186228c3441",
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/src/lib.rs",
+      "sha256": "fd09a838f8cfdd2da3d48800fe56d9bbfad7e9ad5556ba696be7908b4a000c2a",
+      "ranges": [
+        [
+          52,
+          56
+        ],
+        [
+          98,
+          102
+        ]
+      ],
+      "qualification": "Material runtime module declarations only; no whole runtime source credit."
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/source-003.diff",
+      "ranges": [
+        [
+          1,
+          209
+        ]
+      ]
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/pr-body-004.md",
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ]
+    }
+  ],
+  "verified_contracts": [
+    {
+      "claim": "The separately compiled build script uses the same canonical fraction source as the runtime crate.",
+      "evidence": "build.rs30-33 directly includes src/linear_speed.rs and src/unit_interval.rs; runtime lib.rs54,100 declares the same source modules; unit_interval.rs10,22-30 owns the checked UnitInterval. No duplicate type implementation, alternate input path or compatibility branch was introduced."
+    },
+    {
+      "claim": "The build target now declares the derive dependency required by its shared speed source.",
+      "evidence": "Cargo.toml7 identifies build.rs; runtime dependencies15 and build-dependencies31-33 both use thiserror.workspace=true. Exact unchanged linear_speed.rs20-32 derives thiserror::Error and carries canonical FractionError, as personally read in001. Source-level dependency repair supported; successful compilation requires final hosted evidence."
+    },
+    {
+      "claim": "Retained build-source intent comments and owner names remain accurate within the affected context.",
+      "evidence": "build.rs12-13 describes shared framework-neutral vocabulary; new direct source inclusion follows that existing pattern. build.rs1-4 retains runtime-only cfg-derive expectation; this delta adds no new explanatory comment or stale old-API promise. Unrelated build bodies not blanket-cleared."
+    },
+    {
+      "claim": "Body004 final API/build-context explanation is supported and self-contained.",
+      "evidence": "pr-body-004.md1-9,21-25. Canonical fraction ownership, both speed callers, cycle caller, complement calculation and clamped smoothstep remain exact unchanged own001/002 source proof. Last sentence accurately identifies same fraction/error source compilation in catalog build context; it does not claim a successful build or native/runtime test result."
+    },
+    {
+      "claim": "Validation status and scope limits are accurate as a proposed draft.",
+      "evidence": "pr-body-004.md14-17 explicitly says source reviews and hosted checks pending for final build-context change. Existing four selected movement-speed tests and positive-results verifier unchanged from own002. No test cases/helpers/assertions/doctests or generated bindings added in full209line patch. No no-BC rationale or promise of legacy behavior appears."
+    },
+    {
+      "claim": "Markdown prose complies with80-column wrapping.",
+      "evidence": "All25 body004 lines inspected; no line exceeds80columns."
+    }
+  ],
+  "findings": [],
+  "source_comment_verdict": "Accepted within affected source context; no actionable stale or inaccurate comment/owner claim.",
+  "body_verdict": "Accepted as proposed body004 at df5f37; no actionable accuracy, contributor-context or wrapping issue. Final source-review status naturally changes after reviewers finish; hosted outcome remains pending.",
+  "limits": [
+    "Hosted-failure001 is root-saved diagnostic context at failed903; raw hosted logs were not reparsed here. This receipt independently assesses actual repaired source, not a successful runtime result.",
+    "Prior review001/002 did not establish complete build-target readiness; their retained exact hash scopes do not convert failed903 into acceptance. Final df5f37 needs its own authoritative hosted acceptance.",
+    "No Cargo/build/test/lint/workflow/native code or project helper executed; no new tests, Git commands/mutations, product/source/root-ledger/history changes, public messages or publication.",
+    "No whole build script/SDK/globalF9/all20/other-lens clearance. Existing M03configuration/M09categories and broader obligations remain open.",
+    "No backward compatibility constraints on old APIs, errors, schemas or malformed inputs. Clean canonical source inclusion assessed directly.",
+    "Audit08 packet018 evidence preserved; no further audit packet started or original/material count altered."
+  ],
+  "global_clearance": false,
+  "stop": true
+}

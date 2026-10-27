@@ -1,0 +1,240 @@
+{
+  "at": "2026-10-27T15:37:16.831452+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-072-registration.jsonl",
+    "sha256": "5ecbd159c422a31d61a2c5e6ab5dabb3bba5872e11230a193f9a68bea0091ecd"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-071.json",
+    "sha256": "c3abfe10cee64e052a16e9d955e80779659a9aae3d9214b2397c18da324de40c"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1110,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/projections.rs",
+      "sha256": "34432896548762546bb11a8ebc933ffe8ec596b120cafbedc81afa7ac38fdfa7",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/34432896548762546bb11a8ebc933ffe8ec596b120cafbedc81afa7ac38fdfa7",
+      "ranges": [
+        [
+          1,
+          538
+        ]
+      ],
+      "actual_eof": 538,
+      "prospective": true,
+      "purpose": "Independent ordered full type-granularity source inventory; existingfixture source only no execution",
+      "actual_read_ranges": [
+        [
+          1,
+          538
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1111,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/tests/fireplace_and_cooking.rs",
+      "sha256": "acfc43dbdcea3d27f478885960da71bbc37353a0d5878d376458b05238464d6b",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/acfc43dbdcea3d27f478885960da71bbc37353a0d5878d376458b05238464d6b",
+      "ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "actual_eof": 190,
+      "prospective": true,
+      "purpose": "Independent ordered full type-granularity source inventory; existingfixture source only no execution",
+      "actual_read_ranges": [
+        [
+          1,
+          190
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1112,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/tests/lots_and_consumption.rs",
+      "sha256": "6dc480ed2a4a6c22f394a7a310beb51b05331690975d1addcd802f0afb806164",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/6dc480ed2a4a6c22f394a7a310beb51b05331690975d1addcd802f0afb806164",
+      "ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "actual_eof": 89,
+      "prospective": true,
+      "purpose": "Independent ordered full type-granularity source inventory; existingfixture source only no execution",
+      "actual_read_ranges": [
+        [
+          1,
+          89
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1113,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/tests/preparation.rs",
+      "sha256": "635ff9be462bb2f00748c6776bc4e15f232d69710185d948f770e9aa0af3159f",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/635ff9be462bb2f00748c6776bc4e15f232d69710185d948f770e9aa0af3159f",
+      "ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "actual_eof": 179,
+      "prospective": true,
+      "purpose": "Independent ordered full type-granularity source inventory; existingfixture source only no execution",
+      "actual_read_ranges": [
+        [
+          1,
+          179
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [],
+  "role_dispositions": [
+    {
+      "original": 1110,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/projections.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              19
+            ],
+            [
+              260,
+              476
+            ]
+          ],
+          "roles": "Gateway prepared reducer tuple with actor/scope/row/lot/object identity, requestdigest, expected materialrevision, retrygeneration, closed preparation action, predicted duration and displayname.",
+          "disposition": "Projection is not authoritative committed plan: reducer1105 reconstructs/revalidates actual snapshot, appropriately separate. Same rawu64 positions have different identity/revision/generation/elapsed roles and should carry canonical leaves internally to wire adapter. Action option tuple stores action and physical as same IngredientPreparationAction copied identically; no semantic distinction proven, concrete simplification useone action in named option record. Prefix displayname not authority, stable action remains enum. Actual projection settlement-only303/337 while reducer1109 preparation_place also supports site/camp, scope limitation not proof unavailable runtime requiredfeature.",
+          "remedy": "Named PreparationOption with single action and canonical check/tool/nextstate policy shared with reducer; typed prepared request coordinates until serialization. Keep gateway projection vs executionauthority distinct.",
+          "acceptance": "Preserve exact requestbinding/current generation and closed transitions; review actual UI contract before claiming settlement-only omission a defect. No current/runtime/unique/globalcredit."
+        },
+        {
+          "ranges": [
+            [
+              21,
+              258
+            ]
+          ],
+          "roles": "View-framework inventory object lookup uniqueness, ancestry depth, carriedscope/custody, catalog/row/toolbinding, skillrank and direct immediate custodian.",
+          "disposition": "ViewContext and ReducerContext are actual different framework adapters; duplicated policy not automatically redundant wrapper. But carried rows/tool qualification/check/nextaction calculation mirror1105/1109 and risk independent policy drift. Actual bounded ancestry fails closed on missing/deep paths; no unmatched simpleID/runtimeswap established. Option/bool results conflate unavailable/malformed/notqualified, acceptable projection omission only if ownedpolicy.",
+          "remedy": "Share canonical pure admission/selection policy beneath necessary context adapters, named scopedrow/toolcandidate and existingPhysicalObjectId/Custody roles; no generaldatabase abstraction invented.",
+          "acceptance": "Preserve unique object per row, exact rowquantity/item/ownercustody and excluding installed fireplace. Deeper1145resolve graph not asserted equivalent/unread algorithm proof."
+        },
+        {
+          "ranges": [
+            [
+              478,
+              538
+            ]
+          ],
+          "roles": "Gateway visible station optional tool/object and dish historical contributor/method/start/target/name.",
+          "disposition": "Intentional sanitizedprojection excludes privatecontamination/custody truth. Station twoOptions reproduce broad item/object product; actualsource1104usesallSomeorallNone. Key/fixture/actor identity redundantlyserialized butownedvalidators notalternateauthority. Historical contributor and displayname distinct currentmutablecharacter/catalog labels.",
+          "remedy": "Reuse station toolpayload shape and typedcanonical identities until wire adapter, keep historicalsnapshot/visibleprojectiondistinct.",
+          "acceptance": "All viewfunctions actuallygatewayguarded, not proof perbrowser filtering downstream or currentsecurity/clinicalclearance."
+        }
+      ]
+    },
+    {
+      "original": 1111,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/tests/fireplace_and_cooking.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              190
+            ]
+          ],
+          "roles": "Existing fireplace/cooking fixtures190: lane separation/directcontents, water mass, gateway/private authority, exact returncustody, memberdeparture/deathcleanup, preparedsafety factors. Numeric7/8-party fixtures and rawsource-text search tokens are testboundaries, not productionquantityadmission.",
+          "disposition": "All scoped existing fixture source personally consumed. Actual namedtypedowners used and raw literal/hash/text fixtures are native testing boundaries. No newbespoke wrapper merely to rename isolated testfixtures.",
+          "remedy": "Migrate existing fixture call signatures only when canonical owner changes; do not add helpers/assertions/tests during discovery.",
+          "acceptance": "No tests run, no source-text assertion treated as actual runtime acceptance; production bodies/sourceproofs071/070/069 remain authoritative."
+        }
+      ]
+    },
+    {
+      "original": 1112,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/tests/lots_and_consumption.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              89
+            ]
+          ],
+          "roles": "Existing lot/consumption fixtures89: row/lot/object/materialrevision distinctions; source substring count3 refers concreteconstructors, not gameplaymax3; explicit flavor/mass/energy/value example and quarterfraction retained quality. Claimed assertion text doesnotprove all stateconservation.",
+          "disposition": "All scoped existing fixture source personally consumed. Actual namedtypedowners used and raw literal/hash/text fixtures are native testing boundaries. No newbespoke wrapper merely to rename isolated testfixtures.",
+          "remedy": "Migrate existing fixture call signatures only when canonical owner changes; do not add helpers/assertions/tests during discovery.",
+          "acceptance": "No tests run, no source-text assertion treated as actual runtime acceptance; production bodies/sourceproofs071/070/069 remain authoritative."
+        }
+      ]
+    },
+    {
+      "original": 1113,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/tests/preparation.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              179
+            ]
+          ],
+          "roles": "Existing preparation fixtures179: scope/row/item/damagebits versionvector includesINFINITY as hashbit fixture, not acceptance of infinite liveweapon; requestgeneration/row/custody distinctions, materialrevisionoverflow and safe-prefix ordering sourceassertions. No invariant/publicpolicy inferred from assertionstringsalone.",
+          "disposition": "All scoped existing fixture source personally consumed. Actual namedtypedowners used and raw literal/hash/text fixtures are native testing boundaries. No newbespoke wrapper merely to rename isolated testfixtures.",
+          "remedy": "Migrate existing fixture call signatures only when canonical owner changes; do not add helpers/assertions/tests during discovery.",
+          "acceptance": "No tests run, no source-text assertion treated as actual runtime acceptance; production bodies/sourceproofs071/070/069 remain authoritative."
+        }
+      ]
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-071-receipt.json",
+        "sha256": "b94198e8df2c2233a4ea0271205c9c647155925e7056bc7752267f3b4dc797d4"
+      },
+      "contract": "1105/1109full preparation operation/authority and1108schema; actual reducer receives exactly projectedrequesttuple and independently validates."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-070-receipt.json",
+        "sha256": "bfce24727f8ea5bb00152c3bb85ae8d66e718fcf5c24521c667befcc6bf76c83"
+      },
+      "contract": "1103/1104full cooking/custody receiver and1145typedadapter exactranges."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-069-receipt.json",
+        "sha256": "a49b031e734015fe2681e2ae5fe186811d8cf99151ef6f401af95f4699301781"
+      },
+      "contract": "1102consumptionfull and1106/1116relatedactualamountports."
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "All inherited qualifiers/mandatoryqueues retained, no product/source/Git/rootledger/publication/projectexecution/probes/tests.",
+    "No new external receiver required beyond actual table/reducer contract to classify scope/identity/derivedprojection roles. Native SpacetimeDB serialization requirements not claimed independently verified.",
+    "No screenshot/runtime/UIbehavior/clinical/uniqueacceptedcount or globalclearance."
+  ]
+}

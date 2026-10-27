@@ -1,0 +1,81 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-113",
+  "at": "2026-10-23T02:34:01.983830+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment.rs",
+      "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "scope049_index": 920,
+      "actual_EOF": 1182,
+      "scoped_ranges_compared": [
+        [
+          1,
+          1182
+        ]
+      ],
+      "actual05_comparison": "Fresh full PR1182 personally read including all original fixtures. EquipmentGraph public BTreeMap and placement Vecs remain raw construction/mutation paths; controlled equip normalizes singleton order, rejects internal/body/capacity conflicts, missing equipped parents and cycles before sole insert. unequip denies parents with children, otherwise remove is idempotent. would_cycle visited set terminates raw cycles but does not certify all preexisting nodes. Exact edge key is (parent inventory ID, attachment point, capacity), so multiple distinct capacities/points allowed. Catalogue point existence/tags/capacity are not intrinsic graph promises; do not invent those as generic graph invariants. Static keyboard mapping deliberately many-to-many with outside-to-inside order and movement keys excluded. WeaponSkillDistribution is raw public Serde/SATS nine-field record; weights sanitize nonfinite/negative to0, validate requires original finite nonnegative and positive applicable family, empty distribution intentionally valid when neither family requested; weighted_check empty returns0. Its finite leaves do not establish finite total/normalized result (F031). EncumbranceSummary sanitizes NaN/negative→0, positiveInf→MAX, combined saturates computed overflow via same constructor; zero capacity intentionally full penalty even zero burden, burden+capacity combine before ratio. No separate fatigue/movement penalty inferred. PlayerEquipment is a multi-observer trait, default timing and empty/material absence intentional; no trait-wide consistency seal inferred. Original fixtures cover tiny weights, hybrid checks, scalar transport, geometry/contact relation, missing catalogue identity→empty, balance, overload/infinite sanitization, armor folds, graph atomicity/cycles and explicit keyboard cells. All source-only, not run. Actual armor/parametric/timing lower helper bodies are distinct scoped obligations, not credited by imports.",
+      "source_body_proof": "Fresh full PR actual source plus complete actual P16 diff and explicit current-role comparison where specified."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/equipment.rs",
+      "sha256": "635ee67da06496157b5b091eb40535af2493a554d2b69f6b82023886b9b2a1e0",
+      "scope049_index": 100,
+      "actual_EOF": 1182,
+      "scoped_ranges_compared": [
+        [
+          1,
+          1182
+        ]
+      ],
+      "actual05_comparison": "Complete actual P16/PR source diff consumed against fresh PR full1182 and personally compared every current aggregate role: Fresh full PR1182 personally read including all original fixtures. EquipmentGraph public BTreeMap and placement Vecs remain raw construction/mutation paths; controlled equip normalizes singleton order, rejects internal/body/capacity conflicts, missing equipped parents and cycles before sole insert. unequip denies parents with children, otherwise remove is idempotent. would_cycle visited set terminates raw cycles but does not certify all preexisting nodes. Exact edge key is (parent inventory ID, attachment point, capacity), so multiple distinct capacities/points allowed. Catalogue point existence/tags/capacity are not intrinsic graph promises; do not invent those as generic graph invariants. Static keyboard mapping deliberately many-to-many with outside-to-inside order and movement keys excluded. WeaponSkillDistribution is raw public Serde/SATS nine-field record; weights sanitize nonfinite/negative to0, validate requires original finite nonnegative and positive applicable family, empty distribution intentionally valid when neither family requested; weighted_check empty returns0. Its finite leaves do not establish finite total/normalized result (F031). EncumbranceSummary sanitizes NaN/negative→0, positiveInf→MAX, combined saturates computed overflow via same constructor; zero capacity intentionally full penalty even zero burden, burden+capacity combine before ratio. No separate fatigue/movement penalty inferred. PlayerEquipment is a multi-observer trait, default timing and empty/material absence intentional; no trait-wide consistency seal inferred. Original fixtures cover tiny weights, hybrid checks, scalar transport, geometry/contact relation, missing catalogue identity→empty, balance, overload/infinite sanitization, armor folds, graph atomicity/cycles and explicit keyboard cells. All source-only, not run. Actual armor/parametric/timing lower helper bodies are distinct scoped obligations, not credited by imports. P16-specific weapon grip/reach/total/head traits use SignedLength and ZERO; balance extracts metres after positive check. Geometry/contact fixtures use checked SignedLength and fallible preferred/contact result. All graph, nine-weight validation/normalization, encumbrance and fixture contracts otherwise unchanged, not hash-only carry.",
+      "source_body_proof": "Fresh full PR actual source plus complete actual P16 diff and explicit current-role comparison where specified."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory.rs",
+      "sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+      "scope049_index": 1877,
+      "actual_EOF": 862,
+      "scoped_ranges_compared": [
+        [
+          1,
+          862
+        ]
+      ],
+      "actual05_comparison": "Fresh full PR862 read in1–440/441–862 including all original fixtures. ItemOf relationship and InventoryItems reverse list are native ECS-correlated state. Holding weapon/shield are retained derived indexes, rebuilt after ownership-root rebind by current ItemOf/hand-slot queries; EquipSlot hooks update only when owner and InventoryItems exist, and scene restore explicitly trusts both stored sides with hooks suppressed. Thus public raw component/Serde/Reflect/dump route is broader than accepted spawn/transition. Existing spawn preparation gap NATIVE-CAMERA-SUPPORT03-F004 retained. equip hook match gives WeaponItem precedence if same entity also ShieldItem, rebuild independently sets both; no normal dual-kind catalogue/current invalid graph claimed. Combat weapon selection derives from actual selected Main-right/Offhand-left item, not holding_weapon cache; shield bonus uses holding_shield cache, so their different observation paths require incoming/root-hook coherence. Original restore-cache fixture explicitly repairs missing cache after rebind. Raw WeaponItem stats, ItemProperties mass, ShieldItem block and topology fields do not seal aggregate finite/ownership/unique-slot/acyclic conditions. Physical is_valid checks finite strictly positive axes, grip>=0, head in0..height and finite anchor; optional physical/appearance/procedural proxy are different purposes, not promised exact equality. Opaque recipe/hash bytes not self-validated here. Topology maps parent Entity fields while occupancy_id strings remain stable edge identifiers; no derived string-equals-remapped-entity guarantee invented. View ties entity/query/attack hand without independent scalar cache; armour folds and timing lower bodies remain separate current obligations; actual query::iter implementation uncredited by called name. Original fixtures inspect unarmed timing/precision, cache rebuild, layering/multilocation, stable topology/entity remap, nonzero quantity transport. No tests executed.",
+      "source_body_proof": "Fresh full PR actual source plus complete actual P16 diff and explicit current-role comparison where specified."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory.rs",
+      "sha256": "a1b3b6e0f7f1d9884a53f8306a3e0e9e6c1a8deb26e2b13fb163f73edd39900d",
+      "scope049_index": 355,
+      "actual_EOF": 858,
+      "scoped_ranges_compared": [
+        [
+          1,
+          858
+        ]
+      ],
+      "actual05_comparison": "Complete actual P16/PR source diff consumed against fresh PR full862, P16 EOF858. Personal current aggregate comparison: Fresh full PR862 read in1–440/441–862 including all original fixtures. ItemOf relationship and InventoryItems reverse list are native ECS-correlated state. Holding weapon/shield are retained derived indexes, rebuilt after ownership-root rebind by current ItemOf/hand-slot queries; EquipSlot hooks update only when owner and InventoryItems exist, and scene restore explicitly trusts both stored sides with hooks suppressed. Thus public raw component/Serde/Reflect/dump route is broader than accepted spawn/transition. Existing spawn preparation gap NATIVE-CAMERA-SUPPORT03-F004 retained. equip hook match gives WeaponItem precedence if same entity also ShieldItem, rebuild independently sets both; no normal dual-kind catalogue/current invalid graph claimed. Combat weapon selection derives from actual selected Main-right/Offhand-left item, not holding_weapon cache; shield bonus uses holding_shield cache, so their different observation paths require incoming/root-hook coherence. Original restore-cache fixture explicitly repairs missing cache after rebind. Raw WeaponItem stats, ItemProperties mass, ShieldItem block and topology fields do not seal aggregate finite/ownership/unique-slot/acyclic conditions. Physical is_valid checks finite strictly positive axes, grip>=0, head in0..height and finite anchor; optional physical/appearance/procedural proxy are different purposes, not promised exact equality. Opaque recipe/hash bytes not self-validated here. Topology maps parent Entity fields while occupancy_id strings remain stable edge identifiers; no derived string-equals-remapped-entity guarantee invented. View ties entity/query/attack hand without independent scalar cache; armour folds and timing lower bodies remain separate current obligations; actual query::iter implementation uncredited by called name. Original fixtures inspect unarmed timing/precision, cache rebuild, layering/multilocation, stable topology/entity remap, nonzero quantity transport. No tests executed. P16 signed length weapon fields and physical grip/head plus CuboidDimensions strengthen finite leaf admission but dimensions can be zero and signed lengths negative; actual is_valid retains strictpositive axes/grip/head relation. Raw u32 revision replaces PR typed token and no chronology reexport, preserving allword transport versus transition semantics. Native/reflection dump and graph/cache relationships unchanged. No PR leaf admission automatically credited to P16 beyond actual typed declarations and separate canonical proof.",
+      "source_body_proof": "Fresh full PR actual source plus complete actual P16 diff and explicit current-role comparison where specified."
+    }
+  ],
+  "comparison_groups": {
+    "controlled-equipment-graph": "One preflight and sole node mutation; public map retains bypass route, no catalogue-schema guarantee invented.",
+    "native-inventory-products": "Relationship/reverse list/holding cache operation and restore lifecycle explicitly compared; accepted graph and raw native dump distinguished.",
+    "finite-weight-aggregate": "All finite nonnegative leaves and positive family are insufficient for stable normalized mean.",
+    "encumbrance-observer-policy": "Sanitized burden/capacity combine before penalty, one visible incapacitation input not a movement penalty."
+  },
+  "new_unique_findings": [
+    "NATIVE-INITIAL05-F031"
+  ],
+  "independent_cross_lens_supports": [
+    "NATIVE-CAMERA-SUPPORT03-F004"
+  ],
+  "remaining_dependency_obligations": [
+    "Inventory query::iter and armor/timing exact source roles remain uncredited by called name; source-specific actual parent proofs111/112 and103/106 show normal transitions/reconnect, not universal raw graph validity."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

@@ -1,0 +1,84 @@
+{
+  "id": "AUDIT12-CONTRACTS-009",
+  "lens": 12,
+  "at": "2026-10-26T18:11:33.191878+00:00",
+  "role": 23,
+  "source": {
+    "lens": 12,
+    "role": 23,
+    "source_id": "native-dependency:spacetimedb-sats-2.6.1/src/timestamp.rs",
+    "sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+    "ranges": [
+      [
+        1,
+        95
+      ],
+      [
+        210,
+        251
+      ]
+    ],
+    "local": "target/recovery-20261025/continuation-segovb/source-objects/9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+    "authority": "original23 producer_reached_contract_observations",
+    "read": "registered before bounded consumption",
+    "extensions": [
+      {
+        "ranges": [
+          [
+            96,
+            150
+          ]
+        ],
+        "purpose": "NativeRFC3339string producer consumed by registeredTimestampDisplay"
+      },
+      {
+        "ranges": [
+          [
+            175,
+            195
+          ]
+        ],
+        "purpose": "Actualto_rfc3339nativeproducer at182 locatedafter precedingboundedcontext; registered before consumption"
+      }
+    ]
+  },
+  "inventory": [
+    {
+      "ranges": [
+        [
+          1,
+          95
+        ],
+        [
+          210,
+          251
+        ]
+      ],
+      "occurrences": "cfg target_arch wasm32/target_os unknown; native deprecation text, numeric overflow expect labels; Format Display{} and Timestamp microsecondfield/API docs",
+      "trace": "Compiler cfg/deprecation and panic-label text boundaries. Timestamp holds typednativei64epoch-microseconds; semanticnumeric contracts are otherlenses, not inferred. Registered Display245-249 writes actual native RFC3339string through fmt::Formatter. No raw String app storage/identifier protocol introduced."
+    },
+    {
+      "ranges": [
+        [
+          96,
+          150
+        ],
+        [
+          175,
+          195
+        ]
+      ],
+      "occurrences": "Native SystemTime panic labels, parse_from_rfc3339(str:&str) context message, to_chrono_date_time error text and to_rfc3339()->Result<String>",
+      "trace": "Actual native text input passes to chrono DateTime::parse_from_rfc3339 then maps parsed microseconds to native Timestamp. Invalid-format context is errorpresentation, no classification by message. to_chrono_date_time175-179 constructs native datetime from epochmicros or reports overflow, then to_rfc3339182-184 yields actual Chrono formatted text to Display. These are native timestamp parsing/rendering boundaries, not firstpartyprimitive adapters."
+    }
+  ],
+  "disposition": "ACCOUNTED exact registered timestamp text contract plus necessary format producer ranges",
+  "findings": [],
+  "qualifications": [
+    "Display calls to_rfc3339().unwrap() and may panic when nativeDateTime range is exceeded; native Timestamp range/admission alone does not prove display success. Numeric/SystemTime precision/overflow/signedness and platform doc claims not cleared.",
+    "Only original1-95/210-251 and newly registered96-150/175-195 consumed. No full343-line source, chrono implementation, application timestamp/clock producer migration or runtime acceptance.",
+    "Additional96-150 context preceded actualRFC3339producer located182; both actual ranges registered and consumed, not backdated/relabelled as original. Native deprecated now() does notauthorize applicationcompatibilitypaths.",
+    "No existing completed roles restarted or other-lens verdict transferred. No new tests/sourcechanges/projectexecution."
+  ],
+  "global_clearance": false
+}

@@ -1,0 +1,207 @@
+diff --git a/crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants.rs b/crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants.rs
+index f874c0198..9e4e965e5 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants.rs
+@@ -1,7 +1,7 @@
+ //! Habitat-filtered, instanced botanical meshes shared with Plant Studio.
+-mod streams;
+ use super::{GroundScatterLayer, scatter_ground_without_patch};
+ use crate::presentation::{bps, stable_text_seed};
++use adventuresim_building_generator::spatial_geometry::{GeometryResult, Position};
+ use adventuresim_plant_generator::{
+     PlantSpecies,
+     habitat::{PlantGround, PlantHabitat},
+@@ -10,39 +10,23 @@ use adventuresim_tactical_core::prelude::{
+     GroundCover, GroundSubstrate, GroundSurface, SceneEnvironment, SceneGround, SceneId,
+     SceneTerrain, TerrainLandformRecipe,
+ };
++use adventuresim_tactical_core::scene_coordinates::{Scene, ScenePlanPoint};
+ use adventuresim_world_schema::calendar::StrategicMinute;
+ use bevy::prelude::*;
+ use fabelgeist_determinism::Seed;
+-mod lod;
+ pub(crate) use lod::PlantLodInstance;
+ use lod::SpecimenCache;
+ 
++mod lod;
++mod streams;
++
+ const SITE_SPACING_METRES: f32 = 2.0;
+ const MAX_SPECIMENS: usize = 512;
+ const MIN_SLOPE_NORMAL_Y: f32 = 0.8;
+ const ROOT_EMBED_METRES: f32 = 0.002;
+ const OCCUPANCY: f32 = 0.32;
+ const PLANT_SEED: Seed = Seed::from_u64(0x504c_414e_5453);
+-#[cfg(test)]
+-mod tests;
+ 
+-pub(in crate::presentation) struct PlantPresentationPlugin;
+-impl Plugin for PlantPresentationPlugin {
+-    fn build(&self, app: &mut App) {
+-        app.init_resource::<SpecimenCache>()
+-            .add_systems(Update, present);
+-    }
+-}
+-#[derive(Component)]
+-struct PlantsPresented;
+-/// Actual production roots retained for capture framing and placement diagnostics.
+-#[derive(Component)]
+-pub(crate) struct PlantCaptureAnchors(pub Vec<PlantCaptureAnchor>);
+-#[derive(Clone, Copy)]
+-pub(crate) struct PlantCaptureAnchor {
+-    pub root: Vec3,
+-    pub species: PlantSpecies,
+-}
+ type NewPlantScenes<'w, 's> = Query<
+     'w,
+     's,
+@@ -57,6 +41,31 @@ type NewPlantScenes<'w, 's> = Query<
+     Without<PlantsPresented>,
+ >;
+ 
++pub(in crate::presentation) struct PlantPresentationPlugin;
++#[derive(Component)]
++struct PlantsPresented;
++/// Actual production roots retained for capture framing and placement diagnostics.
++#[derive(Component)]
++pub(crate) struct PlantCaptureAnchors(pub Vec<PlantCaptureAnchor>);
++#[derive(Clone, Copy)]
++pub(crate) struct PlantCaptureAnchor {
++    pub root: Position<Scene>,
++    pub species: PlantSpecies,
++}
++#[derive(Debug, PartialEq)]
++struct PlantSite {
++    root: Position<Scene>,
++    species: PlantSpecies,
++    hash: Seed,
++}
++
++impl Plugin for PlantPresentationPlugin {
++    fn build(&self, app: &mut App) {
++        app.init_resource::<SpecimenCache>()
++            .add_systems(Update, present);
++    }
++}
++
+ fn present(
+     mut commands: Commands,
+     scenes: NewPlantScenes,
+@@ -65,16 +74,22 @@ fn present(
+     mut materials: ResMut<Assets<StandardMaterial>>,
+ ) {
+     for (entity, id, terrain, ground, environment, landform) in &scenes {
+-        cache.prepare(&mut meshes, &mut materials);
+         let masked = landform.map(|l| scatter_ground_without_patch(ground, l.transition_collar()));
+         let ground = masked.as_ref().unwrap_or(ground);
+         let seed = stable_text_seed(&id.0)
+             .xor_word(stable_text_seed(&environment.scene_digest).to_u64())
+             .xor_word(PLANT_SEED.to_u64());
+-        let sites = placements(terrain, ground, environment, seed);
++        let sites = match placements(terrain, ground, environment, seed) {
++            Ok(sites) => sites,
++            Err(error) => {
++                warn!(%error, ?entity, "Invalid botanical ground mask");
++                continue;
++            }
++        };
++        cache.prepare(&mut meshes, &mut materials);
+         let mut anchors = Vec::new();
+         for site in sites {
+-            let transform = Transform::from_translation(site.root)
++            let transform = Transform::from_translation(site.root.metres())
+                 .with_rotation(Quat::from_rotation_y(
+                     streams::YAW.rng(site.hash, &[]).inclusive_unit_f32() * std::f32::consts::TAU,
+                 ))
+@@ -93,24 +108,17 @@ fn present(
+     }
+ }
+ 
+-#[derive(Debug, PartialEq)]
+-struct PlantSite {
+-    root: Vec3,
+-    species: PlantSpecies,
+-    hash: Seed,
+-}
+-
+ fn placements(
+     terrain: &SceneTerrain,
+     ground: &SceneGround,
+     environment: &SceneEnvironment,
+     seed: Seed,
+-) -> Vec<PlantSite> {
++) -> GeometryResult<Vec<PlantSite>> {
+     let count_x = (terrain.width() / SITE_SPACING_METRES).floor() as i32;
+     let count_z = (terrain.depth() / SITE_SPACING_METRES).floor() as i32;
+     let mut candidates = Vec::new();
+     let cover =
+-        super::cover_mask::CoverageMask::new(ground, stable_text_seed(&environment.scene_digest));
++        super::cover_mask::CoverageMask::new(ground, stable_text_seed(&environment.scene_digest))?;
+     for z in 0..count_z {
+         for x in 0..count_x {
+             let hash = streams::SITE.seed(seed, &[x as u64, z as u64]);
+@@ -129,6 +137,9 @@ fn placements(
+                         + streams::JITTER_Z.rng(hash, &[]).inclusive_unit_f32() * 0.7)
+                         * SITE_SPACING_METRES,
+             );
++            let Some(world) = ScenePlanPoint::from_metres(world) else {
++                continue;
++            };
+             let (Some(surface), Some(height), Some(normal)) = (
+                 ground.ground_at(world),
+                 terrain.height_at(world),
+@@ -154,8 +165,15 @@ fn placements(
+             else {
+                 continue;
+             };
++            let Ok(root) = Position::from_metres(Vec3::new(
++                world.metres().x,
++                height.metres() - ROOT_EMBED_METRES,
++                world.metres().y,
++            )) else {
++                continue;
++            };
+             candidates.push(PlantSite {
+-                root: Vec3::new(world.x, height - ROOT_EMBED_METRES, world.y),
++                root,
+                 species: PlantSpecies::ALL[species],
+                 hash,
+             });
+@@ -163,19 +181,26 @@ fn placements(
+     }
+     // Stable priority sampling spreads the bounded population over the entire
+     // scene; truncating row order would leave one populated corner.
+-    candidates.sort_by_key(|site| (site.hash, site.root.x.to_bits(), site.root.z.to_bits()));
++    candidates.sort_by_key(|site| {
++        (
++            site.hash,
++            site.root.metres().x.to_bits(),
++            site.root.metres().z.to_bits(),
++        )
++    });
+     candidates.truncate(MAX_SPECIMENS);
+-    candidates
++    Ok(candidates)
+ }
+ 
+ /// Shoots occupy existing vegetation openings, never clear their own.
+-fn open_understory_site(cover: &super::cover_mask::CoverageMask, point: Vec2) -> bool {
++fn open_understory_site(cover: &super::cover_mask::CoverageMask, point: ScenePlanPoint) -> bool {
+     const MAX_GRASS_COVERAGE: u8 = 64;
+     const SHOOT_CLEARANCE_METRES: f32 = 0.4;
+     [Vec2::ZERO, Vec2::X, Vec2::NEG_X, Vec2::Y, Vec2::NEG_Y]
+         .into_iter()
+         .all(|offset| {
+-            cover.coverage_byte(point + offset * SHOOT_CLEARANCE_METRES) <= MAX_GRASS_COVERAGE
++            ScenePlanPoint::from_metres(point.metres() + offset * SHOOT_CLEARANCE_METRES)
++                .is_some_and(|point| cover.coverage_byte(point) <= MAX_GRASS_COVERAGE)
+         })
+ }
+ 
+@@ -202,3 +227,6 @@ fn habitat(surface: GroundSurface, e: &SceneEnvironment) -> PlantHabitat {
+         ground,
+     }
+ }
++
++#[cfg(test)]
++mod tests;

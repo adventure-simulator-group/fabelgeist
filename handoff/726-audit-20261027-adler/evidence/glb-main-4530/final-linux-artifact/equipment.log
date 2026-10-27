@@ -1,0 +1,54 @@
+[1m[92m    Finished[0m `test` profile [optimized] target(s) in 0.59s
+[1m[92m     Running[0m unittests src/main.rs (target/debug/deps/adventuresim_tactical_client-6bb0fdc9d807cce8)
+
+running 47 tests
+test equipment::preview::tests::outermost_display_skips_empty_attachment_capacity ... ok
+test equipment::preview::tests::preview_traversal_keeps_belt_attachment_points_in_their_slots ... ok
+test equipment::render_binding::tests::loading_drop_and_reequip_keep_skin_and_vertex_layout_coherent ... ok
+test equipment::runtime_equipment::body::tests::geometric_surface_chart_handles_uv_free_body_and_rejects_invalid_geometry ... ok
+test equipment::runtime_equipment::generation::tests::cache_eviction_releases_old_bodies_and_keeps_recent_fits ... ok
+test equipment::runtime_equipment::generation::tests::physical_fit_survives_hold_drop_and_placeholder_rebuild_then_refits_new_wearer ... ok
+test equipment::runtime_equipment::generation::tests::readiness_waits_for_requested_equipment_and_surfaces_fit_failures ... ok
+test equipment::runtime_equipment::layers::tests::evicted_fit_rebuilds_innermost_support_and_propagates_failure ... ok
+test equipment::runtime_equipment::layers::tests::fitting_keys_ignore_outfit_order_and_unrelated_limbs ... ok
+test equipment::runtime_equipment::meshes::tests::material_parts_preserve_skin_uvs_and_relative_position_when_dropped ... ok
+test equipment::runtime_equipment::rig::tests::cache_identity_changes_with_body_controls_and_rejects_missing_targets ... ok
+test equipment::runtime_equipment::rig::tests::coupled_proportions_match_morph_then_skin_and_do_not_deform_twice ... ok
+test equipment::runtime_equipment::rig::tests::leg_height_correction_moves_pelvis_descendants_but_not_body_world ... ok
+test equipment::runtime_equipment::sockets::tests::opposite_carry_points_follow_garment_width_and_avoid_cut_edges ... ok
+test equipment::skin::tests::skeletal_proportions_follow_equipment_transfer_without_rebinding_shared_assets ... ok
+test equipment::slot_selection::tests::client_keyboard_preview_and_hud_preserve_depth_across_reversed_entity_allocation ... ok
+test equipment::slot_selection::tests::fresh_gauntlet_grab_reaches_each_hand_through_keyboard_and_hud ... ok
+test equipment::tests::armor_slots_use_body_anchor_instead_of_stale_hand_constraint ... ok
+test equipment::tests::attached_items_resolve_the_body_bone_through_their_parent_chain ... ok
+test equipment::tests::attachment_correction_cancels_mhr_bind_roll_but_keeps_position ... ok
+test equipment::tests::corrupt_weapon_recipe_falls_back_instead_of_panicking ... ok
+test equipment::tests::distinct_weapon_designs_get_distinct_tactical_icon_handles ... ok
+test equipment::tests::either_replication_arrival_order_builds_one_holder_presentation ... ok
+test equipment::tests::either_replication_arrival_order_builds_one_weapon_presentation ... ok
+test equipment::tests::empty_hand_tracks_a_pointed_door_but_an_occupied_hand_does_not ... ok
+test equipment::tests::empty_hand_tracks_a_pointed_window_but_an_occupied_hand_does_not ... ok
+test equipment::tests::empty_hand_tracks_the_pointed_scene_item_for_release ... ok
+test equipment::tests::every_equipment_catalog_icon_is_present_in_tactical_atlas ... ok
+test equipment::tests::every_equipment_location_has_a_semantic_bone ... ok
+test equipment::tests::generated_armor_starts_with_runtime_presentation ... ok
+test equipment::tests::generated_clothing_starts_with_runtime_presentation ... ok
+test equipment::tests::grab_outline_is_visible_only_for_the_selected_world_target ... ok
+test equipment::tests::holder_chassis_without_an_instance_never_renders_a_generic_box ... ok
+test equipment::tests::identical_holder_recipes_share_a_separate_cache ... ok
+test equipment::tests::identical_holder_recipes_share_cached_tactical_icon_handles ... ok
+test equipment::tests::identical_weapon_recipes_share_cached_mesh_handles ... ok
+test equipment::tests::identical_weapon_recipes_share_cached_tactical_icon_handles ... ok
+test equipment::tests::limb_placeholders_use_semantic_joint_axes_not_local_mhr_y ... ok
+test equipment::tests::movement_keys_are_not_slot_addresses ... ok
+test equipment::tests::pointed_scene_item_does_not_override_an_explicit_slot_selection ... ok
+test equipment::tests::procedural_equipment_manifest_selects_exact_and_dropped_variants ... ok
+test equipment::tests::procedural_equipment_uses_live_rig_while_worn_and_rest_pose_when_dropped ... ok
+test equipment::tests::tactical_holder_icon_cache_reauthenticates_before_a_warm_hit ... ok
+test equipment::tests::tactical_icon_cache_reauthenticates_recipe_before_a_warm_hit ... ok
+test equipment::tests::warm_cache_does_not_accept_a_recipe_with_a_borrowed_hash ... ok
+test equipment::tests::warm_holder_cache_reauthenticates_recipe_and_hash ... ok
+test equipment::visuals::tests::retired_items_remove_pending_geometry_before_generation ... ok
+
+test result: ok. 47 passed; 0 failed; 0 ignored; 0 measured; 654 filtered out; finished in 0.77s
+

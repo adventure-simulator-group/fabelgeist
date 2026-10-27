@@ -1,0 +1,81 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-332",
+  "at": "2026-10-25T23:16:41.349749+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2736,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/build.rs",
+      "sha256": "1cbb4c6032d77345ba85c017d2e5f94b1600c1a4064ff586f0e1872afd63df74",
+      "personally_read_ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1-121 exact physical-p16 build source read only, not executed. Sorted recursive YAML paths feed relative-path+NUL+text digest, JSON-compatible decode extends catalogs, then fragments resolve before wholevalidation and sourcegeneration. Duplicate repertoire IDs could be extended first but later uniqueness rejects; unresolvedfragment panics atbuild boundary. Runtime embedded JSON/digest born only after validator success."
+      ]
+    },
+    {
+      "scope_index": 2737,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/name_catalog_schema.rs",
+      "sha256": "c50dcf6eef9aa348c8c259b105a9734f1e25ee2e57a043ee484a3892e9795dfa",
+      "personally_read_ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1-199 exact physical-p16: strict catalog source/family/form/surname/observation/derivation/repertoire/fragment raw schema; closed cultural/sex/register/class variants, CalendarYear leaves, BTreeMapsex sampling records. Raw optional targetfields permit invalid combinations until derivationvalidator, not a claim everydeserialized document is accepted. Relativeweights distinctfromobservedcounts intentionally."
+      ]
+    },
+    {
+      "scope_index": 2738,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/name_catalog_validation.rs",
+      "sha256": "555b21fb6dddac260f0a951252041fd40a0d3e02dd8bb0d649fda9a528e0ed77",
+      "personally_read_ranges": [
+        [
+          1,
+          576
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1-576 exact physical-p16: checks nonemptycorecollections, unique IDs, provenance, resolvedfragments, familysex/formculture/register compatibility, inclusive nonoverlappingrepertoireyearselectors, positive uniquefrequencies/coveringdisplayforms and hereditarycommonersurnames. Perfamily form totals checked_add; top family/surname sums notbounded here, actual runtime weighted sampling/errorhandling needed before overflowfinding (metadataquery no exact claimant). Tests readnotrun; sourceURLprefix check is syntax only, no external historical evidence validated."
+      ]
+    },
+    {
+      "scope_index": 2739,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/name_catalog_validation/derivations.rs",
+      "sha256": "7178c20d189f6254be6bd97094c550465c0b137c2c2e3ccf0b8f033cc80d435d",
+      "personally_read_ranges": [
+        [
+          1,
+          214
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1-214 exact physical-p16: target map pairs repertoire+family/form/surname with exactfrequency; derivations validate uniqueid/target, nonemptyrationale/operation/observations, allowed optional targetshape, linkedentity membership and exactfrequency, duplicate/dangling observations rejected. Every repertoireentry requires exactlyone derivation by coveragecardinality aftermembershipchecks. No currenthistorical/evidencetruthclearance inferred."
+      ]
+    },
+    {
+      "scope_index": 2740,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/catalog.rs",
+      "sha256": "0f579abd98b3de2924ebba3a1addc74b37c30c098af4667ae23b6fdaaef398e2",
+      "personally_read_ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1-131 pr-working weapon catalog independently read after2591: OnceLock gameplay JSON decodes typedrecipes, catalogid search optional, preset definitions decode withok? and default holder constructed around same clonedweapon. Registered melee/preset ID constants and recommended-holder match duplicates semanticregistration but no actual mismatch witness; typed recipevalidation happensownbuilder/consumer, not implicit fromserde."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "5 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

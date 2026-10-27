@@ -1,0 +1,67 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-115",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 703,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/character_morphs.rs",
+      "sha256": "8de5cb18068b504009da233ef635cb7781311cebe73f1bcafd94532b3478a02d",
+      "ranges": [
+        [
+          1,
+          378
+        ]
+      ],
+      "assessment": "Full378 actual source read in two windows after SHA256 match, including existing tests only. MorphDelta::between checks each delta collection against its own base, not cross-position/normal equality; downstream base invariants remain necessary. CharacterMorphs generates matching ordered body/sample channels in same loops, skeletal channels deliberately zero body deltas with nonzero sample joint states. Native strongest-four influence correction matches exported influence contract in existing fixtures. Raw morph-name Strings classify via SkeletalFitMorph::from_name canonical owner; not human-prose branch. Semantic nested collections and component/surface ranges remain Q009; actual armor.surfaces producer bounds still require owning implementation. No current-main/runtime/physical/global clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 704,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/character_morphs/draped.rs",
+      "sha256": "7cbb0d1aed87b54b76c84353b51764207bd5186eec0e364d1d3a1328864d000c",
+      "ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "assessment": "Full85 actual body read after SHA256 match: registered1\u201379 plus necessary return/map closing80\u201385. CharacterMorphs::draped constructs BVH from same supplied body/faces and dereferences resulting face ordinal into original faces, conditional on actual BVH provenance contract; raw triangles/weights sample pairs and nested morph collection remain Q008/Q009. Barycentric numerical kernel is real geometry adapter, but positive determinant alone is not all finite/conditioning/mesh validity admission. No speculative ordinary failure, runtime/physical/current-main acceptance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 705,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/character_morphs/hair.rs",
+      "sha256": "b8e8d0fa72dee3419d0297a005b1f8dc2d17aa4a85dda08268f5433d4721543f",
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "assessment": "Full55 actual source read after SHA256 match. Typed HeadSkin/HeadPlacement/RigInfluences propagate actual rig ownership; each source sample produces one MorphDelta through checked lengths. Whole-head repeated joint rows and weights are both derived from actual base vertex count before skeletal correction. Naked raw geometry arrays at actual library handoff remain Q009/native-contract questions, no duplicate typed owner or new accepted finding established.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 706,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/cli.rs",
+      "sha256": "75a646db6855544be80e795e8a46aa8467929113159c7c94011e641e00472c9c",
+      "ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "assessment": "Full70 unchanged reached CLI source read after SHA256 match. Paths/String filters/Booleans and LOD u8 originate at actual clap/environment boundary. LOD parser bounds use shared owning constants; closed armor-review selection already enum via value_enum. requires constrains relevant argument combinations, but independent mode flags beyond those constraints require dispatcher behavior trace before invalid-state finding. No current-main/runtime/global clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

@@ -1,0 +1,592 @@
+{
+  "lens": 13,
+  "status": "original75-89 source-accounted WITH qualified findings",
+  "generated_at": "2026-10-27T11:35:05.092158+00:00",
+  "authority": {
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "manifest_sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa"
+  },
+  "registrations": [
+    {
+      "path": "audit-resume-20261027/lens13/batch-034-registration.json",
+      "sha256": "3adc606827db8740fe35cf5ee1844b5f8a2f9caa62515b8acfb9c3652d46ec9e"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-035-registration.json",
+      "sha256": "2ba1167ecd3d8ea947287c5051ed388cdb93b809b0d20387490ac214d10367b8"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-036-registration.json",
+      "sha256": "ee342c7f610653f4a3ecd3d343aa7065b32d5a43be09961862a322a108f9a1c9"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-037-registration.json",
+      "sha256": "909905b8b0eb79db7fd47c6780bc5406186e5057e46617c89d9d9f7d392d9ea0"
+    }
+  ],
+  "actual_additional_sources": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/armor.rs",
+      "sha256": "3aeb6961c084a063132b1d1302d006c8cbf59cacaf960081e799b7ce46d37930",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/3aeb6961c084a063132b1d1302d006c8cbf59cacaf960081e799b7ce46d37930",
+      "eof": 138,
+      "provenance": "exactf82 registeredphysicaloriginal receiver-only",
+      "body_read": false,
+      "ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          138
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/design/recipe.rs",
+      "sha256": "cf98c39d3507e4f13116cf175ca4555950d82e4cafdebefd7600e7856bbdc3a4",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/cf98c39d3507e4f13116cf175ca4555950d82e4cafdebefd7600e7856bbdc3a4",
+      "eof": 16,
+      "provenance": "reconstructed unchanged physical: absent pinnedmanifest/status, exacta120base=headGit bytes",
+      "body_read": false,
+      "ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          16
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:core/quest_catalog.rs",
+      "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+      "ranges": [
+        [
+          1,
+          40
+        ],
+        [
+          92,
+          182
+        ],
+        [
+          324,
+          405
+        ],
+        [
+          590,
+          601
+        ],
+        [
+          654,
+          682
+        ],
+        [
+          731,
+          792
+        ],
+        [
+          842,
+          861
+        ]
+      ],
+      "provenance": "exact f82 physical registered original receiver only; no original credit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          40
+        ],
+        [
+          92,
+          182
+        ],
+        [
+          324,
+          405
+        ],
+        [
+          590,
+          601
+        ],
+        [
+          654,
+          682
+        ],
+        [
+          731,
+          792
+        ],
+        [
+          842,
+          861
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:weapon-model/lib.rs",
+      "sha256": "617d4da8bd91ac58b857ad94c1a1d44d417e90055976d46637e567caeb218bad",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/617d4da8bd91ac58b857ad94c1a1d44d417e90055976d46637e567caeb218bad",
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "provenance": "exact f82 physical registered original receiver only; no original credit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          50
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:weapon-model/recipe/mod.rs",
+      "sha256": "6df2420e23ec21a7d706b89d8af5a999f4798fbff05d5fb6d7a3b5e647b2ff4e",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/6df2420e23ec21a7d706b89d8af5a999f4798fbff05d5fb6d7a3b5e647b2ff4e",
+      "ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "provenance": "exact f82 physical registered original receiver only; no original credit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          150
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/bestiary/report_quality.rs",
+      "sha256": "99cf829423d94b7d5cafa84c6bc853ce91d1c74dc20891d894e1ca435cc5310b",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/99cf829423d94b7d5cafa84c6bc853ce91d1c74dc20891d894e1ca435cc5310b",
+      "eof": 39,
+      "provenance": "reconstructed unchanged physical exacta120 base=head; pinnedmanifest/status no path",
+      "body_read": false,
+      "ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          39
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/threat_escalation_limits.rs",
+      "sha256": "f6fd77cd38865e477731cf06914d6e576b6498e4b2847c2a586368b378073929",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/f6fd77cd38865e477731cf06914d6e576b6498e4b2847c2a586368b378073929",
+      "eof": 7,
+      "provenance": "reconstructed unchanged physical exacta120 base=head; pinnedmanifest/status no path",
+      "body_read": false,
+      "ranges": [
+        [
+          1,
+          7
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          7
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:core/quest_catalog_validation.rs",
+      "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+      "ranges": [
+        [
+          220,
+          257
+        ],
+        [
+          427,
+          460
+        ],
+        [
+          500,
+          640
+        ],
+        [
+          680,
+          740
+        ]
+      ],
+      "provenance": "exact f82 physical original receiver only no originalcredit",
+      "actual_consumed_ranges": [
+        [
+          220,
+          257
+        ],
+        [
+          427,
+          460
+        ],
+        [
+          500,
+          640
+        ],
+        [
+          680,
+          740
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:core/quest_catalog.rs",
+      "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+      "ranges": [
+        [
+          404,
+          435
+        ],
+        [
+          574,
+          589
+        ]
+      ],
+      "provenance": "exact f82 physical original receiver only no originalcredit",
+      "actual_consumed_ranges": [
+        [
+          404,
+          435
+        ],
+        [
+          574,
+          589
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:core/quest_catalog_validation.rs",
+      "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+      "ranges": [
+        [
+          460,
+          500
+        ],
+        [
+          739,
+          755
+        ]
+      ],
+      "provenance": "exact f82 registeredphysicaloriginal necessaryreceiver only, no originalcredit",
+      "actual_consumed_ranges": [
+        [
+          460,
+          500
+        ],
+        [
+          739,
+          755
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:core/skill.rs",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "ranges": [
+        [
+          680,
+          815
+        ],
+        [
+          1100,
+          1165
+        ]
+      ],
+      "provenance": "exact f82 registeredphysicaloriginal necessaryreceiver only, no originalcredit",
+      "actual_consumed_ranges": [
+        [
+          680,
+          815
+        ],
+        [
+          1100,
+          1165
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:core/skill.rs",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "provenance": "exact f82 original141 receiver, macrodeclared hours calibration only; no originalcredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          119
+        ]
+      ]
+    }
+  ],
+  "prior_full_body_access_authority": "batch-023-033-receipt.json actualsources027/030 with exactoriginalpins; receivingaccessnotautomaticcredit: ownfreshinventorybelow",
+  "role_inventories": [
+    {
+      "original": 75,
+      "source_id": "physical-p16:crates/adventuresim-core/src/bestiary.rs",
+      "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "effective_scope": "all registeredoriginalowner/producer/admissionunion preserved; actualfullbodyreadexcept80explicitownpriorfullbodyreuse",
+      "assessment": "source-accounted WITH findings",
+      "inventory_and_trace": [
+        "1-1558 full body actual read under027; fresh own roleinventory here, not otherlens verdict",
+        "Private ThreatId encoding lenu8/bytes[u8;63], zero initialization/index/count, checkedtry_newASCIIlength1..63\u2192safe nativeUTF8slice useslen; closedstaticliteralconstructors allfitknown63. ThreatProfile/publicCombatProfile/InvestigationProfile hold raw counts/weightsu16,speedu32,mass/precision/trainingf32,scalarsu8/BPSu16 andsemanticBool flags; numericunits remain firstpartyretained rawAPI despite validated catalog producer.",
+        "Actual cachedprofileproducer compile_profile502-710 copies canonicalMonster fields; initplaceholdervalues overwritten before return. Conversion precision_milli/training_milli /1000\u2192f32, resistance/paddingu32asf32, scalebps copy; native unitquantization is actual numerical conversion but outputretainedfirstpartyrawfields isownerfitgap. Material source129 schema types, catalogOnceLock\u2192sharedvalidate_documents\u2192serde\u2192compile\u2192validatemonster\u2192BTreeMapretention\u2192lookup bodies read034-036. Sharedhelper unsignedas_u64 plus inclusivebounds concretely establishes base/curation/prior1..u16MAX, speed1..u32MAX, precision/training1..u16MAX, perception/stealth/morale/disease/fear/investigability0..100, protection0..20000, encounter1..u16MAX, growth1..10000, baseline1000..300000; weight finitepositive\u2264f32MAX, local compile rejects zero. Thus actualcached report_likelihood100-investigability subtraction has a source-bound, no invented underflow finding. Publicprofile constructors stillcannotpromiseeverycallerusedthatroute.",
+        "Actualreceivingautoresolve71, localimplemented_combat_lore397-460, habitat selection746-814, report likelihood838-887, ranking905-969, summary1013-1056 anddiagnostics1063-1224 allread. Numericpolicy habitat900/10/350/500/300/200 andGenericprior100, visibility100/55/20 distance100/60/25 capability35/65/100 arithmeticmean/3, clarity60, observation50+.../100; raw gameplaylikelihood/score etc are not made native by arithmetic. Dedup32 evidence, saturatingfactor100/2 andu64scores, sort tieid; saturationboundsrepresentability butcaneraseweights/rankdistinctions, no assertion thisdeliberatepolicyiswrong. BPSnumeratormul10000 andsaturatingtotals thenclamp10000/u16; rawBPS output ownerfitexistingUnitBasisPoints withknownadmissionqualification.",
+        "Actualreport_quality39lines checks cardinality2,dominance9500 anddistinctclues2; thresholds areownedpolicy namesbutstillrawBPS/countargs/outputs. Existingfixtures1226-1558: counts2/3,seedlessarrays/identities, weights1000/1,duplicate10000evidence, precisionJexamples no new numericadmissionproof/testpass. Qualifier generatedcatalogactualcontent/fullgeneric serde/parser/backend notcertified byread; actualstaticinputvaluesbeyondrequiredports awaitoriginalpop."
+      ]
+    },
+    {
+      "original": 76,
+      "source_id": "physical-p16:crates/adventuresim-core/src/bestiary/error.rs",
+      "sha256": "279813fa320c4ce35bbef2229faa4367af4c93d97f074cec46e6984974245b6c",
+      "effective_scope": "all registeredoriginalowner/producer/admissionunion preserved; actualfullbodyreadexcept80explicitownpriorfullbodyreuse",
+      "assessment": "source-accounted WITH findings",
+      "inventory_and_trace": [
+        "1-51 full read027",
+        "No numeric/Boolproductionpayload orarithmetic; existing error tests downcast/String/SerdeBool assertions andwireidentityonly. Source role accounted, no testexecution/derive-lenscredit."
+      ]
+    },
+    {
+      "original": 77,
+      "source_id": "physical-p16:crates/adventuresim-core/src/body.rs",
+      "sha256": "febe5d8b193afe3cefa2292965bb42c15d4a5d25aef8a2f3c9fea757b3720317",
+      "effective_scope": "all registeredoriginalowner/producer/admissionunion preserved; actualfullbodyreadexcept80explicitownpriorfullbodyreuse",
+      "assessment": "source-accounted WITH findings",
+      "inventory_and_trace": [
+        "1-179 full read027",
+        "BodyPartrepru8 bitflags1<<0..6 ownssevenanatomicalflagidentities, actualscalarbody_part_index in50separatelymaps0..6; nativeBitFlags traits/macrointernalnotgloballyread. PlayerBody rawhealth/massf32 returns arefirstpartyAPI gaps actualmodel69andcombat79receiversread, not externalnativeencoding. LimbWeights fourpublicf32 weights allconstructors0/1/.5/.25/.75 anchoredselectedlimb; normalize divides each byrawtotal withno finite/nonnegative/positive-total admission. Defaultallzero normalizetotal0\u2192NaN each is sourcecounterexample, no runtimeincident. TypedBodySide choosesarmhand policy, bypartmapsnonlimbsto0. No unconditionalnormalizeddistributionguarantee."
+      ]
+    },
+    {
+      "original": 78,
+      "source_id": "physical-p16:crates/adventuresim-core/src/capability.rs",
+      "sha256": "80bba40bb933f538a8ad43a88ab0d13bb1cea44bf19486687e27896363dae7f0",
+      "effective_scope": "all registeredoriginalowner/producer/admissionunion preserved; actualfullbodyreadexcept80explicitownpriorfullbodyreuse",
+      "assessment": "source-accounted WITH findings",
+      "inventory_and_trace": [
+        "1-554 full read027",
+        "Rawpolicy constants mass4/strength3/rankdefault3, charisma2.5/.5/1.125/1/3,5pointcap,.5supportdecay; skill/headhealthf32args andreturns, rawcapabilities/RoleRequirements booleans/precisionf32/ratingsu8 retainedSerde state. Actualmeets bodycomparesallrequirements, ratingroundclamp0..5asu8; no canonicalrank/fraction/weightowner propagated. Bool armorflags captureoverlappingtierfacts not automaticallyexclusiveenum; enum-shapelensqueued.",
+        "Aggregation rawfinitefilters do not implyfiniteoutput: aggregate_party_check([f32MAX,f32MAX]) addsMAX+MAX/2\u2192infinity, exposedrawresult. Boundedparty methodclampsinput5, complementproducts/.5.powi(indexasi32) usesuncheckedusize\u2192i32; wrap couldinvertdecayforastronomicalindices, onlysource/APIboundgapno actualallocationclaim. Command sum/supportandpowi lengthsimilarlyunbounded; clampcapsfiniteordinaryvaluesbutnotallprecision/overflowsemantics. Native powi/powf/sort use actualmathkernel but firstpartyaggregates exposeprimitiveAPI.",
+        "ActualcanonicalSkill owner141 methods/training/maxhoursmacrodecldata read036-037: finitehours max0; rank5*hours/(hours+halfmaxhours); hours_for_rank(5)=INFINITY intentionally nofiniteasymptote, cappedsaturatesaptitude0..5 withnonfinite0; noexistingrankbespoketype silentlyassumed. Macrocodeexpansion notexecuted, actual enumAssoc calibration5000..30000source observed. Skillcheck receives rawLimbWeights+PlayerBody/Equipment andreturnraw; allcomputedcapabilitiesclamp0..5 butpublicSerde fields acceptarbitraryinputs. Existingfixturetail351-554 sourceonlynumericexpectations/tolerances, noexecution."
+      ]
+    },
+    {
+      "original": 79,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat.rs",
+      "sha256": "eb7dbfbe0a6f8fa81675d14434401b41bc0949b693b56338129c6c778af82284",
+      "effective_scope": "all registeredoriginalowner/producer/admissionunion preserved; actualfullbodyreadexcept80explicitownpriorfullbodyreuse",
+      "assessment": "source-accounted WITH findings",
+      "inventory_and_trace": [
+        "1-1137 full read027",
+        "Rawunits/ratios/counters areactualpubliccombatAPI: imbalance.25persecond; startingfractions/stats/rawhealthmutation; AttackResult rawenergyJ/damagef32 andphysicalContactBool, Serde admissionunbounded, Mul<f32> exposesarbitraryfactorwithno checkedfinite/nonnegativecontract. Actualrecord50 andbody69/rawport consumers read.",
+        "Calculation kernels actualfullsource: raw tupledirectionsdot andFRAC1SQRT2 thresholds, current flanking formula1+(clamped_dot+lower)/(higher-lower) retainsrawreturn. Damage capacities20/35/20/80/55J, blunt*.75, workload andwoundactualreceivers read. Rawphysicalcalibration muscle5kg/strength, J2, punch.1,unarmed.875/.2,stagger.25/.5/cap.5 anddefenseexpmodel5/2 are gameplayphysicalpolicy, not nativeprotocol. Native stdfloat math isconcretenumericoperation, notjustificationfor rawfirstpartyretained parameters.",
+        "Materialarmor receiving3aeb696...full138 read034: admittedContactPrecision->edge/blunt split, padding/resistanceandhalftransmission arithmetic ->retainedArmorImpact; nofiniteownerfor incidentenergy/publicsurfaces. precisionconstructor panics oninvalidrawparameter byactual87, so publicCombatWeapon.precision mutatedNaNcanreachnew throughpower70/damage79; thisis actualsource/APIpanicpath, notproofcurrentcallerssupplyNaN or runtimeincident.",
+        "Log-vs-wound channel0.75 discrepancy retained fromreceipt023-033, no duplicateacceptedfinding. Fullfixturetail514-1137 existingphysicalbounds/weights/IDs/tolerances/namedexpectedwindows consumedonly, nottestpass. Remainingmodule-population sourcecontracts assessedindividuallylater; no wholecombatclearance."
+      ]
+    },
+    {
+      "original": 80,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/config.rs",
+      "sha256": "cc2a62a000314375ca41307ed50b057e71d670192954b4aee7774a69fe2e976a",
+      "effective_scope": "all registeredoriginalowner/producer/admissionunion preserved; actualfullbodyreadexcept80explicitownpriorfullbodyreuse",
+      "assessment": "source-accounted WITH findings",
+      "inventory_and_trace": [
+        "1-122 full ownread013 reused; fresh orderedrole inventory",
+        "CombatResolutionParameters andAutoresolveParameters keep rawdimensionless/physicalparameters (energytransfer,resistanceperkg,force/gravity/traction/reference-strength,fraction/chance/flanking/precision) alongsidecheckedtime/PositiveSpeed/SignedLength. Exactbuild40 emitsdefaultsthenvalidate aggregatepositive/nonnegative/ordering; publicretainedfields remainprimitiveandmutationbypassesvalidation. Own40proof actualfullconfig/sourcevalidatedfamilies isreused withpins, not lens12 verdict; no globalconfig or currentM04closure."
+      ]
+    },
+    {
+      "original": 81,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/contact_geometry.rs",
+      "sha256": "49172abd688b3e643d98f8214b92848a339da49622b13331988449baffcb93f5",
+      "effective_scope": "all registeredoriginalowner/producer/admissionunion preserved; actualfullbodyreadexcept80explicitownpriorfullbodyreuse",
+      "assessment": "source-accounted WITH findings",
+      "inventory_and_trace": [
+        "1-489 full read027",
+        "TypedSignedLength geometry inputs/retainedfields alongsideBooldistal flag andrawfallbackfraction/energy/accuracy values. Actualcalibrationradius.4,minradius*2,arm.526801,headhalfthreshold.5; preferredmeasurefallbackclamp0..1 ormidpoint*.5. Actualphysicalrevalidation gatesnegativegeometry/outsidepositiveReach, usesoffsetlever/butt, close pommel/haft, fractionsquared,powi2; .1closelever andSwing.30/Stab.18/min.08tolerance are numericalpolicy. Nonzeroand finite geometrycheckedcanonicalleaf proofown40; fractions/probabilityoutputsremainrawfirstpartyretainedAPI. PublicMeleeContactAtTime deriveDeserialize canadmitunboundedf32fractions (typedgeometryserdeonlychecksitsownleaf), actual79usesenergy asmultiplier, no wholeinvariantguarantee. Existingfixturetail305-489 corner/finitegeometry/tolerancevalues read; no native/runtimeresultasserted."
+      ]
+    },
+    {
+      "original": 82,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/contact_timing.rs",
+      "sha256": "3b347473e5083f9fd02f59949b49f45eb7bf03e75c288b167cf003e2acc6ca89",
+      "effective_scope": "all registeredoriginalowner/producer/admissionunion preserved; actualfullbodyreadexcept80explicitownpriorfullbodyreuse",
+      "assessment": "source-accounted WITH findings",
+      "inventory_and_trace": [
+        "1-57 full read027",
+        "ContactTimingOffset finiteSIGNEDf32 owner actualcheckedconstructor/SerdeTryFrom; signedcoordinatescontacts subtract withnonfiniteOverflowerror. Zero simultaneous andnegativeearliercontact intentional; no narrowingpositiveproposed. NativeDurationas_secs_f32 representableforu64sec+subsec; From externalformat finitebound. Getteratownrelativecomparisonkernel only, sourceoffsetunits seconds actual83/56recipient."
+      ]
+    },
+    {
+      "original": 83,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/defense.rs",
+      "sha256": "a3019cfa64106abc38bbfa7b0962e406cc6cb1a1a663a8a0dfdee71f874201e1",
+      "effective_scope": "all registeredoriginalowner/producer/admissionunion preserved; actualfullbodyreadexcept80explicitownpriorfullbodyreuse",
+      "assessment": "source-accounted WITH findings",
+      "inventory_and_trace": [
+        "1-444 full read027",
+        "CommittedThreatFacts rawengagement/incap/inertia/samples plusconsecutiveu8 andtypedoffset/elapsed ->actualchoosebody sunk-work/recoveryratio, inertiareference1, learnedcount/(count+1), probabilities/benefitf32retained. Zero windup validtypedelapsed andcontactlagconditions local; no strictlypositiveownerclaim. Publicrawparametersdonotguaranteefiniteprobabilityforallvalues, typedneighborcannotcloseaggregate.",
+        "Alignmentrawmargin/sample\u2192logistic1/(1+exp), strictsampleclamp(next_up0,next_down1), rawengagement retained andDefenderResponsepayload scaling. Raworiginalalignment_sample storedratherthanclampedlocal numericalsample; noimplicitnormalizedretainedguarantee. Shieldside/exhaustiveBodySide plusnormalizedlateralcoordinatekernel bounds .35+.45,.55/.2/.8/.5/.3/1.1/.7 actualanatomy; twohalves //.5 interceptfactor. factor andscaled_for_performance accepttypedUnitIntervalbutreturnrawresponsefields; ownershipgapactual50/57/65receivers. 298-444fixturesfinite/equality/tolerancevaluesonly."
+      ]
+    },
+    {
+      "original": 84,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/fatigue.rs",
+      "sha256": "823dc22517760aafcf6f7107becb2e1d9c647c685bfe5022f7865d7739cb52f5",
+      "effective_scope": "all registeredoriginalowner/producer/admissionunion preserved; actualfullbodyreadexcept80explicitownpriorfullbodyreuse",
+      "assessment": "source-accounted WITH findings",
+      "inventory_and_trace": [
+        "1-263 full read027",
+        "RawmetabolicjoulespublicCombatActionWorkload andf32mass/inertia/endurance/carry/gravity/efficiencyports; physicalenergy kernel. Typedtime/actionenum/speed separateunits retainedthroughactualcomputationclampedactiondurations then0.5*m*v\u00b2 +0.5*I*omega\u00b2, mechanicalefficiencydivision ->rawworkload. Actualparameter85validate positive finite efficiency<=1 andtimeorder, actual84 applyclampsfatigue0..1/recover, but mutablepublicparameterinstances canbypassvalidator; no positivityguaranteefromstructname.",
+        "Movementfatigue signature accepts sustainable NonnegativeSpeed includingzero; effortpositive andsustainablezero ->infinite ratio/rate; actualsourceAPIzero-denominatorfrontier/ownerfit concern, notruntimeactivationfailure. Stationaryeffortzero specialcase0 intentional. Fulltesttail112-263 workloadexamplesextrema/finitephysicalvalues deliberate; no execution."
+      ]
+    },
+    {
+      "original": 85,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/fatigue_config.rs",
+      "sha256": "a899b7bacdfbcbc116a93ff6adc283bfb56bea396687713dc3677ff505522ce9",
+      "effective_scope": "all registeredoriginalowner/producer/admissionunion preserved; actualfullbodyreadexcept80explicitownpriorfullbodyreuse",
+      "assessment": "source-accounted WITH findings",
+      "inventory_and_trace": [
+        "1-46 full read030 (ownrole40fullproofalsoexists)",
+        "RawpositivephysicalscalarsandfractionefficiencyretainedSerde, typedmin/maxelapsed/dodgePositiveSpeed. validatechecksfinitepositivearray8, nonzerotime,efficiency<=1,min<=max; equalitydurationallowed. This aggregatevalidatoractualbodyfeedsbuild40; doesnotrestrictpublicmutableconstruction orderivedDeserialize tovalidatedaggregate. No arbitrarynewpositiveunitowneror testproof."
+      ]
+    },
+    {
+      "original": 86,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/incapacitation.rs",
+      "sha256": "a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+      "effective_scope": "all registeredoriginalowner/producer/admissionunion preserved; actualfullbodyreadexcept80explicitownpriorfullbodyreuse",
+      "assessment": "source-accounted WITH findings",
+      "inventory_and_trace": [
+        "1-115 full read030",
+        "RecoveryTime enumAfter(AnimationElapsed)/CannotRecover ownspayload, zero recovery validregardlessperformance, positivebase withzeroperformanceUnavailable, checkedfinitequotient/overflow mappedElapsedError, actual50/60/68receivers. combat_incapacitation_performance rawf32inputclamp thencheckedUnitInterval actualownerown40; NaN becomescheckedFractionError. encumbrance1-rawpenaltyfirstpartyAPI notnativeboundary. Testtail67-115 finiteunder/over-rangeandzero endpoints noexecution."
+      ]
+    },
+    {
+      "original": 87,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/weapon_contact.rs",
+      "sha256": "6490cee01f9eeb43f5cb7201d193a93cb59f9e053ba093d3689c94008a24d140",
+      "effective_scope": "all registeredoriginalowner/producer/admissionunion preserved; actualfullbodyreadexcept80explicitownpriorfullbodyreuse",
+      "assessment": "source-accounted WITH findings",
+      "inventory_and_trace": [
+        "1-113 full read030",
+        "ContactPrecision privatef32 constructor actuallyassertsfinite/nonnegative inclzero; value extraction atactualresistance/concentration numericalkernel, zeroresistance branchINFINITYsentinel explicitnotfinitequantity. Rawpublicprecision_for_design/handlingaccuracy result/inputs throughphysicalunits. Metresreceiver435finiteSIGNEDf64 (notpositive) actualSerdecheckedfinite/canonicalzero, mm conversion f64*1000asf32, areaformulas powi2orproducts/2 andmaxselectedcandidate, fallbackshaft no headactualbranch. Geometry ownerprivatefinite leafdoesnotguaranteepositiveworkingareanor f32narrowrange.",
+        "ActualWeaponDesign publicrecipe andRecipe publicshaft/components/Shaftpubliclength/radius/bodyread034. Source/APIwitness WeaponDesignwithcomponents[] andSomeShaft(length=Metres::new(0),radius=Metres::new(0), optionalfieldsNone) isrepresentable; validatedpositivecalibration /zero fallbackarea\u2192infinity\u2192ContactPrecision::new assert. Shapeinvalidinputmayberejectedbyothervalidationroutes; functiondoesnotinvokevalidate andsignaturedoesnotrequirevalidatedshapeowner. No runtimepanic/currentpathclaimorwholecatalogdefaultguarantee. PreserveMetressigned/zerocoordinate support; no arbitrarypositiveallMetresrecommendation."
+      ]
+    },
+    {
+      "original": 88,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/weapon_contact/tests.rs",
+      "sha256": "1f06000f7544b5eef15b06fbce033930014e96dc50812d8b9dadfd3c2b850af9",
+      "effective_scope": "all registeredoriginalowner/producer/admissionunion preserved; actualfullbodyreadexcept80explicitownpriorfullbodyreuse",
+      "assessment": "source-accounted WITH findings",
+      "inventory_and_trace": [
+        "1-111 full read030",
+        "Existingtests only rawfinitehandlinglength/balance/precision, typedMetresnew width/thicknessmutations, explicitreferenceprecision4/1/.5/.1 anderrorbounds.05/.02, allrecipefixtureloopfinitepositivityassertions, parametricequipmentconstructor1m/.8/.7/.2/.4/2. These assertdesiredcalibrationatactual87body/quantity435owner, not runtimeproofallrecipespassed ornewproductioncase. Nohelper/testadded/run."
+      ]
+    },
+    {
+      "original": 89,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/weapon_contact_config.rs",
+      "sha256": "ad51483d70e3e95165e16c92b3d3e270e381db2c9aa9135056cb6484e3e1b287",
+      "effective_scope": "all registeredoriginalowner/producer/admissionunion preserved; actualfullbodyreadexcept80explicitownpriorfullbodyreuse",
+      "assessment": "source-accounted WITH findings",
+      "inventory_and_trace": [
+        "1-32 full read030",
+        "Rawreference-control-length andreferenceareamm\u00b2 scalarspositivefinite, unarmedprecisionfiniteNONNEGATIVE (zero valid), actualvalidatebody checksphysicalpolicy andactualbuild40compilesconfig; outputretainedrawpublicstruct/Serde admissiondoesnotautomaticallyinvokevalidate. Actual87/79receivers read; unit/fractionbespokeownerfitpendingreconciliationnotnativeexemption."
+      ]
+    }
+  ],
+  "qualified_new_concerns": [
+    {
+      "id": "local-alias-pending-precision-admission",
+      "source": [
+        "original87:20-72/89-94",
+        "receiverWeaponDesigncf98...1-16",
+        "receiverRecipe6df...75-134",
+        "receiverMetres5e3...5-39"
+      ],
+      "status": "source-backed uncheckedAPIinput -> zero/narrowedarea numericaloutcome -> constructorassert; no actualruntime/currentincidentacceptedunique"
+    },
+    {
+      "id": "local-alias-pending-weight-normalize",
+      "source": [
+        "original77:63-69/135-143"
+      ],
+      "status": "defaultzero weights normalizedbyzero createNaN; source-only, owner-fit/currentness/aliaspending"
+    },
+    {
+      "id": "local-alias-pending-sustainable-zero",
+      "source": [
+        "original84:64-87",
+        "ownfrozenNonnegativeSpeedowner119proof"
+      ],
+      "status": "positiveeffort/zerovalidsustainable inputs formunboundedrate; sourcecontractquestion notactualcallers/runtime failure"
+    },
+    {
+      "id": "local-alias-pending-aggregate-overflow",
+      "source": [
+        "original78:23-34/83-100/113-132"
+      ],
+      "status": "inputfinitefiltersalone nofiniteaggregate/ordinalcastbound; API/sourceconcernnot actualhugeparty/runtimewitness"
+    }
+  ],
+  "qualifications": [
+    "Alloriginal75-89 independentnonstringinventories coverrequestedfullscope/supplements;80own13fullbodyproofreuseexplicit, no12verdict transfer.",
+    "Actualcachedcatalogsharedvalidatornumericboundsnowproved; do NOT assert report_likelihoodinvestigabilityunderflowonthatadmittedproducer. Rawpublicstruct/APIowner-fit gapsremainqualified.",
+    "No sourcecompletionheldfor ordinaryruntimewitness/shapeexecution/recipeprobe/repairtests. Admitted sourcecounterexamples andrawports arefindings, externalvalidation/currentnessstatusseparate.",
+    "Allrequested007-033nativequalifications,018largerlatticeversusactualpopulation,031authoritycorrection andsourceaccessdisclosures remainhistoricallyretained; no global13/all20/nativeSDKoruniqueacceptedcount.",
+    "No futureoriginal129/130/141/430/434/435/1859 or otherreceiverscredited. Additionaldependenciesjoinmandatoryotherlensqueue. No projectexecution, testsadditions/runs, source/Git/rootledger/historicaledits/publication.",
+    "Sourcefixturesreadonly;assertionpresence/staticexpectationsneverpassedvalidation. Macrodeclaredcalibrationobservedwithoutcompiledexpansionorwholemacrolibrarycertification.",
+    "Wholequestcatalog/recipe/Serde/parser/backend/fullsource beyondregisteredrangesnotcleared; actualmaterialports/localnumericpolicyareassessedhere."
+  ],
+  "new_original_accounted": [
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85,
+    86,
+    87,
+    88,
+    89
+  ],
+  "next_original": 90,
+  "accepted_new_unique_count": 0,
+  "other_population_credit": 0
+}

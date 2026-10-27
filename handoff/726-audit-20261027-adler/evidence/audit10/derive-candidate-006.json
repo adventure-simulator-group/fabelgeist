@@ -1,0 +1,11 @@
+{
+ "id":"OWN10-QUALIFIED-CANDIDATE-006",
+ "scope_index":1778,
+ "path":"crates/adventuresim-tactical-core/src/animation/semantic.rs",
+ "ranges":[[1026,1071],[1123,1132]],
+ "implementation":"SemanticPose::as_str maps41variants to static external clip names. FromStr scans ALL and returns Err=() on no exact name.",
+ "potential_existing_adapter":"Existing strum0.28derive is available in frozen TacticalCore1749. Evaluate EnumString and static string conversion support with exact custom spellings for AttackSwing=swing, AttackThrust=thrust, AttackOffhand=offhand, AttackOffhandPrepared=offhand_prepared, while preserving all other exact snake_case names, case sensitivity, accepted set and FromStr::Err=().",
+ "status":"QUALIFIED_CANDIDATE_REQUIRES_PINNED_MACRO_AND_ERROR_API_PROOF_AND_GLOBAL_REMEDY_DEDUP_NOT_NEW_FINDING",
+ "limits":"No automatic EnumString recommendation: default strum ParseError differs from current unit error; no new aliases, serde-derived parser, forwarding compatibility API or new parse-error helper assumed. Current serde snake_case deliberately differs for four external clip names, so JSON stringify is invalid replacement. ALL/HUMANOID_REQUIRED and semantic fallback/mirror policies not mechanical parser replacement scope.",
+ "needed_proof":"Prospective registration and actual pinned strum/strum_macros0.28 string/parse source, exact supported error configuration and generated bounds/API. If preserving unit error/static method requires new helper or API expansion, keep small existing parser. No source edit/macro execution/project checks."
+}

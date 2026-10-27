@@ -1,0 +1,54 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-215",
+  "at": "2026-10-25T21:45:55.228097+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2206,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/material.rs",
+      "sha256": "ab288766a2010d8edd2795c541884dda9c55367deaf0105f1a7e8a0574c0f0fe",
+      "personally_read_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all103lines material.rs. Metal.validate checks finite/bounded color and every float and scratch_density<=3000, then delegates Engraving.validate. Actual2191 entry calls it before bake, closing scratch_length/width/roughness ordinary shader assumptions. MetalTextures/DepthMap remain freely constructible correlated size/bytes/optional depth outputs; actualbake2191 produces all same size, no consumer malformed-input witness established.",
+        "Defaults satisfy shown bounds; no second fatigue/authority issue and no new aggregate finding."
+      ]
+    },
+    {
+      "scope_index": 2207,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/ornament.rs",
+      "sha256": "5aaf7f24806502832feef0cc0a9d5e572e80199b63c1d371b05a14fd6cb361ef",
+      "personally_read_ranges": [
+        [
+          1,
+          189
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all189lines ornament.rs including existing source tests without execution. Closed six Motif variants map words codes0..5 exactly as2194 shader; validator gates repeats1..8, line0.01..0.2finite, guilloche strands1..6 and finite bounded motif properties. Actual Metal\u2192Engraving validation links this gate to bake, closing2194 repeat/strand denominator questions. No newfinding."
+      ]
+    },
+    {
+      "scope_index": 2208,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/pattern.rs",
+      "sha256": "8d0d262278bc2b6511da93bf24abf111ae4e5649b288166b56a2a5a4a17d1ca2",
+      "personally_read_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all86lines pattern.rs including existing source test. One Plate produces centimetre edge geometry then outline converts same coordinates back to metres; roundness controls branch and sampled curve subdivision, continuity endpoints share formulas. Public raw Plate requires actual upstream admission before invalid negative/nonfinite literal could demonstrate an ordinary failure; inherited raw plate admission family retained. No execution."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

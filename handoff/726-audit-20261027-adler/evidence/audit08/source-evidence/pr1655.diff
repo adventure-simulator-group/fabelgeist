@@ -1,0 +1,43 @@
+diff --git a/crates/adventuresim-tactical-client/src/presentation/vista/pigment/tests.rs b/crates/adventuresim-tactical-client/src/presentation/vista/pigment/tests.rs
+index 9414d874f..35fc6ed53 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/vista/pigment/tests.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/vista/pigment/tests.rs
+@@ -64,7 +64,10 @@ fn prepared_pigments_preserve_weather_interpolation_and_edge_bytes() {
+                             Vec2::new(37.0, 23.0),
+                             weather,
+                         );
+-                        let actual = fields.at(point, Vec2::new(37.0, 23.0));
++                        let actual = fields.at(
++                            PlanDisplacement::try_from(point).unwrap(),
++                            Vec2::new(37.0, 23.0),
++                        );
+                         assert_eq!(
+                             actual.map(|c| c.map(f32::to_bits)),
+                             expected.map(|c| c.map(f32::to_bits)),
+@@ -98,14 +101,15 @@ fn required_owned_mesh_pigments_preserve_uncached_vertex_bytes() {
+             let coarser = input.vista.lods.get(i + 1);
+             let playable = (i == 0).then_some(&environment);
+             let meshes = owned::vista_meshes(
+-                &generated.terrain,
++                generated.terrain.property_surface().unwrap(),
+                 lod,
+                 inner,
+                 coarser,
+                 playable,
+                 environment.weather,
+                 None,
+-            );
++            )
++            .unwrap();
+             for mesh in meshes {
+                 let positions = mesh
+                     .attribute(Mesh::ATTRIBUTE_POSITION)
+@@ -194,7 +198,7 @@ fn presented_color_at(
+     let Some(coarser) = coarser_lod else {
+         return Some(own.to_array());
+     };
+-    let weight = lod_transition_weight(lod, coarser, world);
++    let weight = lod_transition_weight(lod, coarser, ScenePlanPoint::try_from(world).unwrap());
+     Some(
+         sample_vista_color(coarser, world, weather)
+             .map(|color| own.lerp(color, weight))

@@ -1,0 +1,118 @@
+{
+  "id": "SEGOVB-CONT11-SUCCESSOR-162-789",
+  "lens": "type-granularity",
+  "scope_index": 789,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/settled/packed.rs",
+  "sha256": "ca95a83317547915bbd839018cd6b1c766ff327327877fc02c6978d1bcaee0f7",
+  "source_ranges": [
+    [
+      1,
+      78
+    ]
+  ],
+  "source_read_basis": "Full connected body under161 independently inventoried in ordered789 now; exact byte SHA verified before this body read. No automatic credit from prior connected access.",
+  "status": "source-accounted-with-explicit-native-wire-and-semantic-admission-limits; not global clear",
+  "source_complete": true,
+  "role_inventory": [
+    {
+      "role": "Private Packed trait and fixed-width type-specific codec",
+      "locations": "8-14",
+      "trace": "Packed names the actual common operation: a value of statically declared word width can append its u32 words and rebuild Self from exactly that many words. Sized supports return Self. This is a coherent local wire-format helper, not an additional application position/triangle/binding authority. Shared implementation can encode records of different meaning without collapsing their semantic owners. No extra quantity/index enum or public encoding framework justified."
+    },
+    {
+      "role": "f32x2, f32x3 and u32x3 implementations",
+      "locations": "16-44",
+      "trace": "The Vec2 and Vec3 numerical records use f32::to_bits/from_bits; topology triangle triples retain u32 integers directly. Both float3 and triangle3 occupy3words but use different T and corresponding pack/unpack paths. The generic typed field supplies interpretation; record bytes are not self-describing and width alone does not identify semantic role. Existing named SettledDrape fields retain positions, UV and faces separately, so same representation does not authorize merging them or adding duplicate position/triangle owners at the wire adapter."
+    },
+    {
+      "role": "Retained SurfaceBinding mixed-role record",
+      "locations": "connected settled63-103",
+      "trace": "SurfaceBinding implements Packed WORDS6: triangle ordinal,2barycentric floats and3local-frame-offset floats in fixed sequence. It names unlike roles before serialization and reconstructs that same record after decoding. Private named semantic record owns this distinction; homogeneous u32 word buffer is only native representation. This differs from typed float/triangle arrays even though all emit u32 words."
+    },
+    {
+      "role": "Encoded record words, bytes and base64 text",
+      "locations": "47-56",
+      "trace": "serialize<T> allocates a word vector using values.len*WORDS, appends each T record, converts every word explicitly to little-endian bytes and feeds actual byte payload to STANDARD.encode, then Serializer.serialize_str. Words, byte buffer and text have distinct wire responsibilities; no application String is retained across semantic processing here. Serde field adapter is the exact external text boundary. Endianness and one-string shape are intentional native schema, not arbitrary text constants needing an application enum."
+    },
+    {
+      "role": "Decode-to-arity admission versus semantic value admission",
+      "locations": "59-78; connected settled138-169",
+      "trace": "deserialize asks D for String, STANDARD.decode returns bytes/errors mapped to D::Error::custom, record width is WORDS*size_of u32, and non-integral record byte count is rejected. Then four-byte chunks decode with from_le_bytes, and chunks_exact(WORDS) feeds T::unpack. For actual reached widths2/3/6 this ensures every indexed unpack receives its fixed arity. It does not guarantee finite floats, triangle bounds, paired vector cardinality or topology association: SettledDrape.validate explicitly owns those selected semantic checks after capture/when invoked. Do not move those unrelated application checks into the generic codec or claim deriving Deserialize calls them automatically."
+    },
+    {
+      "role": "Scalar word count versus byte stride and record population",
+      "locations": "10,17,27,37,51,64-77",
+      "trace": "WORDS counts native u32 units per record, record is bytes per record, values.len is record population and bytes.len is encoded buffer length. Their numerical relation is explicit at adapter; they are not interchangeable physical units or a reason to create new public counter wrappers. All reached implementations have positive fixed width. No blanket guarantee for future zero/inconsistent WORDS implementation, capacity arithmetic overflow, resource limits or arbitrary huge inputs."
+    },
+    {
+      "role": "Empty serialized collection versus valid saved garment",
+      "locations": "51-77; connected settled138-146",
+      "trace": "Empty byte array is an integral number of positive-width records and decodes to empty Vec. That is a valid generic codec result; saved garment owner separately requires nonempty bindings/faces and matching positions/UV. Imposing nonempty in this common adapter would conflate shape decoding with unrelated field/content policy. No unsupported generic bounds invented."
+    },
+    {
+      "role": "Native codec error versus application status",
+      "locations": "62-69",
+      "trace": "Base64 or shape errors become generic D::Error, with diagnostic byte/record count text. This is native decoding failure evidence; it does not introduce a closed gameplay status vocabulary or another saved-drape state. Standard codec acceptance details are not asserted from an uninspected external implementation."
+    }
+  ],
+  "actual_producer_receiving_traces": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/settled.rs",
+      "sha256": "3dbafb11ea673b81b72c6d8599bf9c1ac4c55b3e456982e39d16d38faef2e42d",
+      "retained_ranges": [
+        [
+          63,
+          103
+        ],
+        [
+          107,
+          127
+        ],
+        [
+          138,
+          169
+        ],
+        [
+          172,
+          226
+        ]
+      ],
+      "receipt": "audit11-successor-161-788.json",
+      "trace": "Serde with=packed applies T-specific adapter to named positions/texcoords/faces/bindings. SurfaceBinding is6words. capture constructs matching actual per-vertex bindings and copies source cloth channels, then validates. fit interprets these as current wearer geometry/material/topology and reconstructs actual DrapedGarment. Same typed records are retained between native codec boundaries; no intermediate reclassification of arbitrary raw gameplay string."
+    },
+    {
+      "receipt": "audit11-successor-160-786.json",
+      "trace": "Outfit saved/live branch supplies the actual current DrapeInput to saved.wear, consumes resulting DrapeOutcome and worker retains attempted checkpoints. This downstream semantic role is preserved, not bypassed by decoding."
+    }
+  ],
+  "qualified_observations": [
+    {
+      "local_source_key": "pr-working:crates/adventuresim-character-creator/src/garment/settled/packed.rs@sha256:ca95a83317547915bbd839018cd6b1c766ff327327877fc02c6978d1bcaee0f7#L47-L78:fixed-word-wire-versus-saved-semantic-admission",
+      "classification": "source-backed boundary distinction; no new accepted unique finding",
+      "observation": "Codec width establishes native shape only. Float bits, topology words, body binding roles and enclosing field/vertex associations retain separate owner contracts. Keep M108/physical-frame/current-topology/source-key qualifications from161; native codec does not close them or grant whole-module primitive exemption."
+    }
+  ],
+  "boundary_limits": [
+    "Actual called STANDARD.encode/decode and Serde str methods are concrete external native APIs. This packet does not open their external implementations or claim every alphabet/padding/canonical-input policy; selected codec errors are propagated as shown.",
+    "WORD count/pack agreement proved by personally read actual implementations only: arrays16-44 and SurfaceBinding retained63-87. No exhaustive trait implementation or public arbitrary decoder safety/global arithmetic guarantee inferred.",
+    "Wire has one string representation with no fallback in this scoped source; no product schema/API change, compatibility repair or current canonical implementation claim.",
+    "Whole recipe/inventory deserialization validation invocation and resource/adversarial limits remain outside this bounded source trace, not implicitly cleared."
+  ],
+  "qualifications": [
+    "Source accounting with explicit limits is not global clear. Original0-788 not restarted; this is independently ordered789 disposition.",
+    "No canonical source equivalence of invalid bare Q008/Q009 labels used; crosswalk001 source-key namespace policies retained, no accepted unique count change.",
+    "Inherited frozen rig receiving migration gap and physical/frame/topology owner questions remain current-uncompared; no other-lens verdict transfer.",
+    "No rootledger/historical/product edits, Git mutation/operation, checks/tests/probes/publication. No tests in scoped body and none authored/restored/run.",
+    "No ordered790/792/923 or connected consumer credit. Bounded packet stops after789."
+  ],
+  "registration": "audit11-successor-162-registration.json",
+  "crosswalk": "audit11-question-crosswalk-001.json",
+  "new_unique_findings": 0,
+  "proposed_original_accounted": 790,
+  "next_original": 790,
+  "active_partial": null,
+  "current_main_integrated": false,
+  "validated": false,
+  "clear": false,
+  "validation": "none"
+}

@@ -1,0 +1,103 @@
+{
+  "id": "AUDIT12-CONTRACTS-004",
+  "lens": 12,
+  "at": "2026-10-26T17:38:26.135245+00:00",
+  "registration": "audit12-successor-registration-004.json",
+  "source_members": [
+    {
+      "index": 15,
+      "source_id": "native-dependency:bevy_math-0.19.1/src/direction.rs",
+      "sha256": "0aef18fddadf5d5361c4c11f0b9d5561637a7cee6dabde16dfd2816dcf2e521c",
+      "ranges": [
+        [
+          1,
+          205
+        ],
+        [
+          550,
+          660
+        ]
+      ],
+      "source": "target/recovery-20261025/continuation-segovb/source-objects/0aef18fddadf5d5361c4c11f0b9d5561637a7cee6dabde16dfd2816dcf2e521c",
+      "read": "actual registered ranges personally consumed",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              205
+            ],
+            [
+              550,
+              660
+            ]
+          ],
+          "occurrences": "Feature-name strings bevy_reflect/serialize/std/approx; doc(alias) Direction2d; thiserror error labels; assert_is_normalized(message:&str) and fixed Dir2/Dir3 messages; Rustdoc code/prose",
+          "trace": "Feature literals feed Rust cfg/reflect/derive; alias feeds rustdoc. InvalidDirectionError::from_length37-47 classifies numeric state into closed variants; thiserror only renders variants. Dir2/Dir3 unchecked constructors feed fixed diagnostic text to assert_is_normalized58-81, whose sole sinks are panic!/eprintln!; no text comparison or retained semantic string. Direction constants/API docs are rustdoc boundaries, no raw string-valued application quantity.",
+          "qualification": "Registered ranges only; native admission/operator/serde guarantees and numerical policies are other-lens questions. No full1511-line SDK review."
+        }
+      ],
+      "disposition": "ACCOUNTED exact registered contract with explicit qualifications"
+    },
+    {
+      "index": 16,
+      "source_id": "native-dependency:parry3d-0.27.0/Cargo.toml",
+      "sha256": "e9a4996484162b4fcda871bf170f0224ad27e1fff77ef5c88a8d8eafdfc89b9a",
+      "ranges": [
+        [
+          60,
+          87
+        ]
+      ],
+      "source": "target/recovery-20261025/continuation-segovb/source-objects/e9a4996484162b4fcda871bf170f0224ad27e1fff77ef5c88a8d8eafdfc89b9a",
+      "read": "actual registered ranges personally consumed",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              60,
+              87
+            ]
+          ],
+          "occurrences": "Cargo feature names/defaults and dependency feature strings such as dim3/f32/glamx/libm/rayon/dep:rkyv",
+          "trace": "Exact Cargo manifest feature selection/dependency boundaries. required-features feeds dim3/f32 definitions; raw strings are actual Cargo grammar, not application primitives or status comparisons.",
+          "qualification": "Only explicit producer contract60-87. Partial array tail and full397-line manifest are not silently consumed; no dependency-resolution or caller-policy equivalence asserted."
+        }
+      ],
+      "disposition": "ACCOUNTED exact registered contract with explicit qualifications"
+    },
+    {
+      "index": 17,
+      "source_id": "native-dependency:png-0.17.16/src/encoder.rs",
+      "sha256": "2befe627874fd46476bca960d8f89038479403b9611cbba4b37aadc42ac3658d",
+      "ranges": [
+        [
+          20,
+          165
+        ]
+      ],
+      "source": "target/recovery-20261025/continuation-segovb/source-objects/2befe627874fd46476bca960d8f89038479403b9611cbba4b37aadc42ac3658d",
+      "read": "actual registered ranges personally consumed",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              20,
+              165
+            ]
+          ],
+          "occurrences": "EncodingError/FormatError Display strings and formatting tokens; err.to_string() in From<EncodingError> for io::Error; documentation/TODO/FIXME prose",
+          "trace": "Typed EncodingError variants carry IoError, FormatError, ParameterError or LimitsExceeded. FormatErrorKind selects diagnostic branches; closed TextEncodingError variants select nested diagnostics. Display formats to fmt::Formatter. Native From<EncodingError> for io::Error specifically converts displayed text into io::ErrorKind::Other message at113-117; this is actual std IO error boundary, not application string-based classification.",
+          "qualification": "This native conversion stringifies and loses the concrete EncodingError source; no cause-preservation guarantee claimed. Existing application PNG receivers not assessed by this native scoped role. Encoder/options fields in range carry typed/native roles; no native error types rewritten."
+        }
+      ],
+      "disposition": "ACCOUNTED exact registered contract with explicit qualifications"
+    }
+  ],
+  "new_actionable_findings": [],
+  "new_unique_count": "not established",
+  "source_edits": false,
+  "project_checks": false,
+  "other_lens_credit": false,
+  "global_clearance": false
+}

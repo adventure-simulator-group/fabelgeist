@@ -1,0 +1,564 @@
+{
+  "id": "PR988-REVIEW-REMEDIATION-CODE-001",
+  "at": "2026-10-26T20:35:49.302093+00:00",
+  "reviewer": "/root/texture_code_review",
+  "review_kind": "Fresh independent source-only Code Review of implemented user-review correction delta; no initial recommendation/verdict transfer",
+  "base": "961d226be23a81d9731a11958d62fe8a04b93e81",
+  "scope": {
+    "manifest": {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/source-manifest-001.json",
+      "sha256": "1c72d1be7a816d638706574f740d916494bc4236b3e74ec584b94cabdf740a62",
+      "files": 15
+    },
+    "actual_diff": {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/actual-diff-002-complete.patch",
+      "sha256": "28988c6f0025292f2d0cfe6eb6548ec068296e2031e1984fe0768f1709c9706d",
+      "provenance": "Root saved read-only complete diff vs961 including exact new enum. Reviewer uses current source hashes and bodies; no Git commands."
+    },
+    "actual_diff_coverage": "Complete saved002 patch verified to retain fully read001 prefix plus actual newenum source/hunk independently consumed;15path set exactly equals manifest. Original old/new delta personally read.",
+    "source_registration": "code-review-registration-001.json",
+    "exact_current_manifest_matches": true
+  },
+  "status": "No actionable new correctness defect found in scoped source delta; runtime/compiler validation not performed",
+  "findings": [],
+  "source_backed_assessments": [
+    {
+      "contract": "Mechanical Display derivation",
+      "locations": [
+        "globals/validation_scope.rs28-33",
+        "texture/view_error.rs27-62",
+        "derive_more-impl fmt/display.rs398-467"
+      ],
+      "assessment": "ValidationScopeError explicit one-field display formats are generator-transparent and forward Display::fmt to field/same formatter. Six TextureViewError messages exactly match removed manual arms, including Debug requested/operation placeholders and cause formatting. Native requests, Box shapes, Debug derive and formatting policy unchanged."
+    },
+    {
+      "contract": "Immediate native/progress Error sources and downcasts",
+      "locations": [
+        "globals/validation_scope.rs28-57/89-97",
+        "texture/view_error.rs64-103",
+        "derive_more-impl error.rs124-226/284-334",
+        "derive_more as_dyn_error.rs17-64"
+      ],
+      "assessment": "Derived ValidationScopeError selects each explicit unboxed source and emits Some(immediate cause), preserving wgpu::Error or ValidationProgressError source/downcast identity rather than transparent skipping. TextureViewError retains manual cause.as_ref() for three native boxes and separate progress box, with None for missing resources. ValidationProgressError manual fallback prefers captured native else PollError, both fields retained. from_observation allocation/classification and into_anyhow actual-cause admission unchanged. No Error derive applied to boxed TextureViewError."
+    },
+    {
+      "contract": "Observation producer\u2192retained field\u2192all five native scope-opening consumers",
+      "locations": [
+        "validation_observation.rs1-24",
+        "wgpu_context/mod.rs9-32/98-118/260-275",
+        "validation_scope.rs59-86",
+        "compute_shader.rs49-69",
+        "pipeline/mod.rs37-125/166-188",
+        "texture_2d/mod.rs128-155",
+        "fabelgeist-compute/kernel/fast.rs114-155"
+      ],
+      "assessment": "WgpuContext field is one canonical ValidationObservation enum. from_parts selects Uncaptured; native created contexts BlockingScopes; browser created contexts Uncaptured. Copy/clone retains choice. start_scope receives concrete device and maps BlockingScopes\u2192device.push_error_scope(Validation), Uncaptured\u2192None. All5 formerly bool.then scope creators delegate to same adapter, preserving prior policy exactly. No duplicate bool mirror, compatibility alias/default reinterpretation or ownership/presentation conflation introduced."
+    },
+    {
+      "contract": "Existing polling/error behavior stays separate outside whole views",
+      "locations": [
+        "validation_scope.rs62-85",
+        "compute_shader.rs63-69",
+        "pipeline/mod.rs112-125",
+        "texture_2d/mod.rs149-165",
+        "fabelgeist-compute/kernel/fast.rs147-155"
+      ],
+      "assessment": "Shared whole-view ValidationScope still attempts poll then always pops its guard; returns Progress with actual poll and optional native error, otherwise Native or Ok. Shader/fast/2Dcreation still ignore poll Result and map captured native to prior generic text; pipeline still stores native validation text then caches pipeline as before. Correction changes only scope-opening policy construction at these bodies; does not widen typed Progress behavior or claim those inherited policies repaired."
+    },
+    {
+      "contract": "Actual SDK guard/device ownership and Error bounds",
+      "locations": [
+        "wgpu Device::poll86-96/push_error_scope454-462",
+        "wgpu Error787-837",
+        "ErrorScopeGuard850-877",
+        "wgpu-types PollError294-321"
+      ],
+      "assessment": "Native push creates guard containing clone of same device inner, index and notSend/notSync phantom. pop consumes guard and records popped before delegation; drop pops if not already popped. Wrapper deviceArc and guard remain bound to same supplied context device. Native Error/PollError implement Error+Display; derive adds no new Send/Sync bounds or serialization/admission traits. Backend poll/guard future internals not reviewed beyond these actual receiving bodies."
+    },
+    {
+      "contract": "Target cfg preservation",
+      "locations": [
+        "validation_observation.rs17-23",
+        "validation_scope.rs3-8/20-25/59-86",
+        "compute_shader.rs50-51/63-69",
+        "pipeline/mod.rs58-59/84-85/113-121",
+        "texture_2d/mod.rs132-133/149-155",
+        "kernel/fast.rs121-122/147-153",
+        "three views cfg call blocks",
+        "gpu Cargo.toml30-37"
+      ],
+      "assessment": "start_scope method and all5 call sites remain native-only; wasm API carries enum but does not call absent method. Context browser choice still Uncaptured. Pipeline explicit native default BlockingScopes replaces oldtrue, validated path typed arg replaces bool and all crate source references migrated. Derives Error/Display compile over public error fields on either target with existing SDK target features; no new native-only type exposed in browser-only code. No actual cross-target compile run or browser runtime claim."
+    },
+    {
+      "contract": "Whole-texture view and unchanged receiving bodies",
+      "locations": [
+        "texture_2d/views.rs1-51",
+        "texture_3d/views.rs1-51",
+        "texture_cube/views.rs1-52",
+        "compute/pass/mod.rs225-355"
+      ],
+      "assessment": "Each view delta only imports TextureView and shortens qualified return annotation. Same return type identity, matching-format cached Arc priority, missing error precedence, storage sRGB projection/descriptors/cube layers/label and conditional observation remain. Unchanged ComputePass three texture paths still invoke view_with_format and propagate with? into existing generic Result; typed/native source chain is retained. No new cache insertion or coherence guarantee inferred."
+    },
+    {
+      "contract": "Dependency and retained existing test shape",
+      "locations": [
+        "gpu Cargo.toml13",
+        "Cargo.lock5008-5034",
+        "wgpu_context/mod.rs284-321",
+        "complete actual diff"
+      ],
+      "assessment": "One direct derive_more2.1.1 dependency enables display,error with its implicit defaultstd; no other derive feature selected in this manifest. Lock delta is only derive_more2.1.1 edge under fabelgeist-gpu, existing package versions/checksums retained. Existing borrowed-context test keeps same three assert calls; two predicates migrate bool to matching enum variant. No tests/cases/helpers/assertions/doctests added, removed or run; unchanged third surface assertion preserved."
+    }
+  ],
+  "limitations": [
+    "Fresh source-only review of exact correction delta and recorded receiving scopes. No project checks/compiler/macro expansion/test/scanner/probe executed, no claim remediation is validated at runtime or final CI. Earlier final961 CI is pre-correction evidence only.",
+    "Native derive generator bodies read independently against current code annotations and exact locked package source; prior derivability receipts are context/locators only. No broad derive-library or SDK audit, all native backend paths or generic compiler-proof claim.",
+    "All changed paths represented in complete diff and actual hashes; only actual recorded current body ranges read. Cargo.lock whole file not semantically read: one changed dependency edge and its package body assessed; Texture2d unchanged tail beyond195 not credited.",
+    "Old boolean text discovery found only unchanged test function name, with no stale field/call/doc references in searched crate Rust/Markdown. This is scoped source reachability evidence, not global external caller or binary compatibility claim. Public bool\u2192enum API break intentionally has no compatibility shim.",
+    "Inherited device/cache/public metadata coherence, native guard attribution across context/resource devices, constructor/subresource validation, pipeline cache keys, progress policies outside whole views, F1/F2/F6/F9 and complete audit remain open. No global or other-lens count/clearance.",
+    "No product/source edits, Git commands/mutations, root ledger/historical overwrite or publication by reviewer. Only ignored registration/report written. Parent sole implementation owner."
+  ],
+  "fingerprints": {
+    "changed_sources": [
+      {
+        "path": "Cargo.lock",
+        "sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be",
+        "ranges": [
+          [
+            1,
+            13106
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            4999,
+            5036
+          ]
+        ],
+        "consumed_diff": "Entire actual delta including old/new bodies against961 personally read; full unchanged tails not claimed",
+        "hash_verified_after_read": true
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+        "sha256": "352f06a1ddfc9d7be1813161e4ac2365ae813a2f0e751614464fc8adddf9a735",
+        "ranges": [
+          [
+            1,
+            375
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            1,
+            375
+          ]
+        ],
+        "consumed_diff": "Entire actual delta including old/new bodies against961 personally read; full unchanged tails not claimed",
+        "hash_verified_after_read": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/Cargo.toml",
+        "sha256": "460e9c3fcc4cb794358e3a25ba96b2e877dbeffaac6404703ff493aa6cb58e18",
+        "ranges": [
+          [
+            1,
+            44
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            1,
+            44
+          ]
+        ],
+        "consumed_diff": "Entire actual delta including old/new bodies against961 personally read; full unchanged tails not claimed",
+        "hash_verified_after_read": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+        "sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+        "ranges": [
+          [
+            1,
+            84
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            1,
+            84
+          ]
+        ],
+        "consumed_diff": "Entire actual delta including old/new bodies against961 personally read; full unchanged tails not claimed",
+        "hash_verified_after_read": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+        "sha256": "33fed8d0c2ea47e990b60ad9c2cc14962f130c66ed4328d134e8f7f15d9b1128",
+        "ranges": [
+          [
+            1,
+            189
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            1,
+            189
+          ]
+        ],
+        "consumed_diff": "Entire actual delta including old/new bodies against961 personally read; full unchanged tails not claimed",
+        "hash_verified_after_read": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+        "sha256": "e883e9bbfdcdb62065d26751a6135b65d6e3021604c9e6071ebdfbdf644457c5",
+        "ranges": [
+          [
+            1,
+            627
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            1,
+            195
+          ]
+        ],
+        "consumed_diff": "Entire actual delta including old/new bodies against961 personally read; full unchanged tails not claimed",
+        "hash_verified_after_read": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+        "sha256": "bb98de5214d48bd87519d09a702a5e8df2914c6a7d614d38b2c95ab13df51205",
+        "ranges": [
+          [
+            1,
+            51
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            1,
+            51
+          ]
+        ],
+        "consumed_diff": "Entire actual delta including old/new bodies against961 personally read; full unchanged tails not claimed",
+        "hash_verified_after_read": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+        "sha256": "e8573dd939e0db024bb674e2647e14b10cdca9d5d4d141b9a39e2778a0e3aab8",
+        "ranges": [
+          [
+            1,
+            51
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            1,
+            51
+          ]
+        ],
+        "consumed_diff": "Entire actual delta including old/new bodies against961 personally read; full unchanged tails not claimed",
+        "hash_verified_after_read": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+        "sha256": "019e06bddeb3cf69b87f4a5ca9ed92b605d5a7e211490af27f36d3ae3a63422d",
+        "ranges": [
+          [
+            1,
+            52
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            1,
+            52
+          ]
+        ],
+        "consumed_diff": "Entire actual delta including old/new bodies against961 personally read; full unchanged tails not claimed",
+        "hash_verified_after_read": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+        "sha256": "f64791a9b8ca3d2203ed6c04fd5e0f0028fd8855ea3bc5674840e646581b5135",
+        "ranges": [
+          [
+            1,
+            103
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            1,
+            103
+          ]
+        ],
+        "consumed_diff": "Entire actual delta including old/new bodies against961 personally read; full unchanged tails not claimed",
+        "hash_verified_after_read": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+        "sha256": "6369e5b4f4847db2e85cd5a105dd891f8a68dcbf584622731565d36d05b6cb4e",
+        "ranges": [
+          [
+            1,
+            9
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            1,
+            9
+          ]
+        ],
+        "consumed_diff": "Entire actual delta including old/new bodies against961 personally read; full unchanged tails not claimed",
+        "hash_verified_after_read": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+        "sha256": "14cccb953bd0b8466b7ad010219c4220d535ee7ed9e6e66cad981c37cc67df88",
+        "ranges": [
+          [
+            1,
+            24
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            1,
+            24
+          ]
+        ],
+        "consumed_diff": "Entire actual delta including old/new bodies against961 personally read; full unchanged tails not claimed",
+        "hash_verified_after_read": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+        "sha256": "1ff31e6f3269b22c90de858db5935591432e74f58199699a22a735aac532c68b",
+        "ranges": [
+          [
+            1,
+            97
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            1,
+            97
+          ]
+        ],
+        "consumed_diff": "Entire actual delta including old/new bodies against961 personally read; full unchanged tails not claimed",
+        "hash_verified_after_read": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+        "sha256": "baf15af7fdf3ecbc0776b475b3aadbd35c29a3d6e0185cef3b2f064803315381",
+        "ranges": [
+          [
+            1,
+            321
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            1,
+            321
+          ]
+        ],
+        "consumed_diff": "Entire actual delta including old/new bodies against961 personally read; full unchanged tails not claimed",
+        "hash_verified_after_read": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/texture-views.md",
+        "sha256": "0fe254434e5c065ab49a04ba8c522d7066b48802b37538b6840653f5b2e3e59d",
+        "ranges": [
+          [
+            1,
+            71
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            1,
+            71
+          ]
+        ],
+        "consumed_diff": "Entire actual delta including old/new bodies against961 personally read; full unchanged tails not claimed",
+        "hash_verified_after_read": true
+      }
+    ],
+    "connected_receivers": [
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-impl-2.1.1/src/error.rs",
+        "sha256": "40cfa53d126eae5284310d5814318d32269e482e3491bf561ec9cd6168646aeb",
+        "ranges": [
+          [
+            124,
+            184
+          ],
+          [
+            185,
+            226
+          ],
+          [
+            284,
+            334
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            124,
+            184
+          ],
+          [
+            185,
+            226
+          ],
+          [
+            284,
+            334
+          ]
+        ],
+        "purpose": "Independent actual derive generation and native Error bound/cause receiving body review",
+        "hash_verified_after_read": true,
+        "source_basis": "Current exact lock-checksummed cached archive member bytes match inspected local source; no full SDK audit",
+        "archive_sha256": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb"
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-impl-2.1.1/src/fmt/display.rs",
+        "sha256": "d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+        "ranges": [
+          [
+            398,
+            467
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            398,
+            467
+          ]
+        ],
+        "purpose": "Independent actual derive generation and native Error bound/cause receiving body review",
+        "hash_verified_after_read": true,
+        "source_basis": "Current exact lock-checksummed cached archive member bytes match inspected local source; no full SDK audit",
+        "archive_sha256": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb"
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-2.1.1/src/as_dyn_error.rs",
+        "sha256": "ba3767c6c95966583360f28cd59bfe20717d0f53c2041c2c534552fcb1b265d9",
+        "ranges": [
+          [
+            17,
+            64
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            17,
+            64
+          ]
+        ],
+        "purpose": "Independent actual derive generation and native Error bound/cause receiving body review",
+        "hash_verified_after_read": true,
+        "source_basis": "Current exact lock-checksummed cached archive member bytes match inspected local source; no full SDK audit",
+        "archive_sha256": "d751e9e49156b02b44f9c1815bcb94b984cdcc4396ecc32521c739452808b134"
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/device.rs",
+        "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+        "ranges": [
+          [
+            86,
+            104
+          ],
+          [
+            443,
+            462
+          ],
+          [
+            787,
+            841
+          ],
+          [
+            850,
+            877
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            86,
+            104
+          ],
+          [
+            443,
+            462
+          ],
+          [
+            787,
+            841
+          ],
+          [
+            850,
+            877
+          ]
+        ],
+        "purpose": "Independent actual derive generation and native Error bound/cause receiving body review",
+        "hash_verified_after_read": true,
+        "source_basis": "Current exact lock-checksummed cached archive member bytes match inspected local source; no full SDK audit",
+        "archive_sha256": "76e8840e1ba2881d4cbb18d2147627a56af426ff064c0401eb0c8410c6325d07"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+        "sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+        "ranges": [
+          [
+            225,
+            355
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            225,
+            355
+          ]
+        ],
+        "purpose": "Three unchanged ComputePass texture view-error recipients and standard conversion bodies",
+        "hash_verified_after_read": true
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-types-29.0.4/src/lib.rs",
+        "sha256": "af153576bce090b101f05d3d4fc35523d82e8f7fd2f935bd60d12956af50cb3b",
+        "ranges": [
+          [
+            294,
+            321
+          ]
+        ],
+        "consumed_ranges": [
+          [
+            294,
+            321
+          ]
+        ],
+        "purpose": "Actual PollError native Display/Error bounds for progress fallback; no whole poll/backend promise",
+        "hash_verified_after_read": true,
+        "source_basis": "Current exact lock-checksummed cached archive member bytes match inspected local source; no full SDK audit",
+        "archive_sha256": "84bf84cd9ca8ca45e2b223a3868f1adf9bfc0c66aeac212e76ee7e40fdadf8f5"
+      }
+    ],
+    "post_read_manifest_matches": true
+  },
+  "project_execution": false,
+  "source_changes": false,
+  "git_commands_or_mutations": false,
+  "ledger_changes": false,
+  "tests_added_or_run": false,
+  "publication": false,
+  "global_clearance": false,
+  "stopped": true
+}

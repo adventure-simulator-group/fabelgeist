@@ -1,0 +1,24 @@
+{
+  "id": "OWN10-DERIVE-CANDIDATE-019",
+  "classification": "Qualified mechanical operator/Display migration suggestion; no available equivalent derive proven; current behavior correct; global remedy dedup pending",
+  "material_index": 62,
+  "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "source_sha256": "83d359f9d5ae866cc3935577b48f93d9916081bceb05ac92748c91e98672c143",
+  "path": "crates/fabelgeist-math/src/vector/vec3.rs",
+  "ranges": [
+    [
+      103,
+      151
+    ],
+    [
+      231,
+      263
+    ]
+  ],
+  "inventory": "Vec3 componentwise Neg/Add/Sub and exact Display triple are handwritten mechanical implementations; Mul/Div have multiple RHS shapes and assignment delegates share arithmetic policy. Primitive-f32 LHS Mul delegates to Vec3 scalar multiplication. All float IEEE behavior must remain exact.",
+  "dependency_evidence": "Frozen fabelgeist-math/Cargo.toml read personally: serde/bytemuck derive dependencies only; no derive_more/strum/operator macro. No repair using currently available derive is established. Workspace macro usage elsewhere does not establish owning-crate feature availability.",
+  "connected_repair_requirements": "Before any recommendation or repair, identify pinned project macro and exact supported operator/format expansion; preserve implemented trait matrix, scalar versus elementwise overloads, result type, ownership/reference API, float ordering/exceptional values, Display parentheses/comma-space and formatter behavior. Retain primitive-LHS adapter unless actual supported implementation proven. Do not derive extra traits or change arithmetic kernels merely to remove boilerplate.",
+  "acceptance": "Global remedy dedup and exact current-version comparison first; existing feature/operator fixtures only; no new tests/cases/assertions/helpers, no checks run.",
+  "new_unique_finding": false,
+  "clear": false
+}

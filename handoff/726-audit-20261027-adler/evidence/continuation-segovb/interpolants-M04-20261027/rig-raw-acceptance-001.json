@@ -1,0 +1,883 @@
+{
+  "at": "2026-10-27T06:05:27.228043+00:00",
+  "head": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+  "run": 40452560923,
+  "artifact": {
+    "id": 12713900291,
+    "name": "rig-contracts-df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+    "zip_sha256": "a65c6d938909a92e5bddbf655eeb29a35040472c769b3ad0a3772cc88a010692",
+    "github_digest_verified": true,
+    "workflow_run_head_verified": true,
+    "revision_txt": "df5f37abc8db96c3db69dd805f32ef1cf635dd59"
+  },
+  "required_groups": 49,
+  "all_required_raw_groups_positive_and_zero_failed": true,
+  "extra_groups": [
+    "tactical-core-animation",
+    "tactical-core-combat-config",
+    "tactical-server-startup"
+  ],
+  "raw_groups": {
+    "animation-reports": {
+      "sha256": "2ab13932618d5e61ae17709465fe4b2c530f80754d9be487019e046a492e6581",
+      "summaries": [
+        [
+          26,
+          0,
+          0
+        ]
+      ],
+      "passed": 26,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "audio": {
+      "sha256": "1c28f11ab39553ca34147620a425a5b3b92b2d431b220d3a0b92e5ca243660a4",
+      "summaries": [
+        [
+          1,
+          0,
+          0
+        ]
+      ],
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "animation": {
+      "sha256": "f4f2b8e6e447413b59245136513dc9e83e16f7fc366fd0300c01cca962345b10",
+      "summaries": [
+        [
+          260,
+          0,
+          0
+        ]
+      ],
+      "passed": 260,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "autoresolve": {
+      "sha256": "f90ff72208b7691d9291d3536cfa1be4fcc128a6658793b6683f6ed0eee1adb0",
+      "summaries": [
+        [
+          76,
+          0,
+          0
+        ]
+      ],
+      "passed": 76,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "camera": {
+      "sha256": "122889ac793a36d91363b8f4473a13d3eb53986fdc51f7331b76fdf7d2d505c0",
+      "summaries": [
+        [
+          11,
+          0,
+          0
+        ]
+      ],
+      "passed": 11,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "contact-defense": {
+      "sha256": "b1ad1eb2a8e43b2cf88d3e9399fb91f5792c6007ae1f55c0fd470e02993ac671",
+      "summaries": [
+        [
+          8,
+          0,
+          0
+        ]
+      ],
+      "passed": 8,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "creator-animation-preview": {
+      "sha256": "43eb929ba24a25d7679d1c4ac28eaa5394f87958bf731dda4efbae49b39d09a8",
+      "summaries": [
+        [
+          5,
+          0,
+          0
+        ]
+      ],
+      "passed": 5,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "creator-armor-frames": {
+      "sha256": "399c98b9e77f27dd008bf6a63e97dcc47420669b6ada045309884ca89097bd60",
+      "summaries": [
+        [
+          2,
+          0,
+          0
+        ]
+      ],
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "creator-character-morphs": {
+      "sha256": "1405ab31cad3066da0bf9a87ed70ba5fc9ab0e6a44ca0e34d83699375c6cb4b8",
+      "summaries": [
+        [
+          2,
+          0,
+          0
+        ]
+      ],
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "creator-clothing": {
+      "sha256": "1eac81670206e69034af2806810fd84bd67ef97d42cb97045b7f7c00dbd15d19",
+      "summaries": [
+        [
+          11,
+          0,
+          0
+        ]
+      ],
+      "passed": 11,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "creator-device-bracer": {
+      "sha256": "53a27aaec2f76e317b64e0b440d596599656eadc0dfc8e3d84350732c5fbae99",
+      "summaries": [
+        [
+          4,
+          0,
+          0
+        ]
+      ],
+      "passed": 4,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "creator-device-breastplate": {
+      "sha256": "e9c72c01857b4abc5879ec9476a9b800fac9eb0c72502306dd8a628453052402",
+      "summaries": [
+        [
+          1,
+          0,
+          0
+        ]
+      ],
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "creator-device-frames": {
+      "sha256": "6d7f66dca94521d92178d31dc6171030e9402eefd8d209d30f8eae1bebd93b62",
+      "summaries": [
+        [
+          4,
+          0,
+          0
+        ]
+      ],
+      "passed": 4,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "creator-export": {
+      "sha256": "ca6864d39d487103e0fe502d9cd84ce7b7de5f3c875347bad7a34bfd37984e55",
+      "summaries": [
+        [
+          12,
+          0,
+          0
+        ]
+      ],
+      "passed": 12,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "creator-garment": {
+      "sha256": "55aa61f56137be7955827460f97a03b1308f582b1b6d49bb973a8ee45f8054d0",
+      "summaries": [
+        [
+          37,
+          0,
+          0
+        ]
+      ],
+      "passed": 37,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "creator-gorget-bib": {
+      "sha256": "a6260f7c7e081606a02747ff04be435d2d29658a12cc07aaf28d82a4102a6f0e",
+      "summaries": [
+        [
+          1,
+          0,
+          0
+        ]
+      ],
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "creator-gorget-collar": {
+      "sha256": "1f3d658d75323604437910909041f2867ca239aaa8c179008967735501583f12",
+      "summaries": [
+        [
+          2,
+          0,
+          0
+        ]
+      ],
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "creator-runtime-equipment": {
+      "sha256": "fb1ff28a92a8ed67145734f83da2b177c822ce5acca938e251e5dd15cda54719",
+      "summaries": [
+        [
+          1,
+          0,
+          0
+        ]
+      ],
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "creator-skin-rules": {
+      "sha256": "5070c424ed2096156ac19d1d7aa28310f2c5588648d4708e244b2371c6d66276",
+      "summaries": [
+        [
+          6,
+          0,
+          0
+        ]
+      ],
+      "passed": 6,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "creator-torso-domain": {
+      "sha256": "ad93eb819c36a02aeae6718494e45ba561617d9c95da723a302f009b7a96babb",
+      "summaries": [
+        [
+          3,
+          0,
+          0
+        ]
+      ],
+      "passed": 3,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "creator-underlayer-design": {
+      "sha256": "a64725d7e6700c57437c55e75e6b13953e44fb9e78fcabfe95f683b0ee13f0e2",
+      "summaries": [
+        [
+          1,
+          0,
+          0
+        ]
+      ],
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "creator-wrapped-tasset": {
+      "sha256": "568de55e59622e028313a95e254a8eb31b9cef662170a8249c91eaaf324bb614",
+      "summaries": [
+        [
+          1,
+          0,
+          0
+        ]
+      ],
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "equipment-chronology": {
+      "sha256": "e8a43a023ff185c81b58c99146d48f4c8900529a548de10fc815906605ab017e",
+      "summaries": [
+        [
+          18,
+          0,
+          0
+        ]
+      ],
+      "passed": 18,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "equipment-mapping": {
+      "sha256": "2b2f2e0d31fe57ba384669f78a4562cd89623d4c2ab630690129d63b09a74395",
+      "summaries": [
+        [
+          5,
+          0,
+          0
+        ]
+      ],
+      "passed": 5,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "geometry-admission": {
+      "sha256": "d03a051be98085aa43cd48f4f9ff95ef921c081d5bd6985e13bd3014ec9e7155",
+      "summaries": [
+        [
+          6,
+          0,
+          0
+        ]
+      ],
+      "passed": 6,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "equipment": {
+      "sha256": "da865e71eb060951e8dfeca401d8a362fb6ac9b5850b4afe95866cf3f26832e6",
+      "summaries": [
+        [
+          47,
+          0,
+          0
+        ]
+      ],
+      "passed": 47,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "geometry-doc": {
+      "sha256": "4d88341a7e891b279b22d568d4ad0e18df4e3e532d464a8da9ec6e3b6acabdaa",
+      "summaries": [
+        [
+          2,
+          0,
+          0
+        ]
+      ],
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "maneuver-consumers": {
+      "sha256": "977c972e9f6cf82cd04125a357327e04ef5f14811eaeaf6bde33bb51854c2c16",
+      "summaries": [
+        [
+          33,
+          0,
+          0
+        ]
+      ],
+      "passed": 33,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "mhr": {
+      "sha256": "d40a672c58fdfd5590aa2d538082e0cc653cff09bd629b91d72e5d1e8628260d",
+      "summaries": [
+        [
+          18,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ]
+      ],
+      "passed": 19,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "native-iteration": {
+      "sha256": "e567e1431556393920ad6642b04615095898192695332ba4ec3718e76ad04c24",
+      "summaries": [
+        [
+          10,
+          0,
+          0
+        ]
+      ],
+      "passed": 10,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "strategic-bootstrap": {
+      "sha256": "38cd613b5d96043192b20ff5b1e9d3bb75b84936266adced68c3137430e31894",
+      "summaries": [
+        [
+          178,
+          0,
+          0
+        ]
+      ],
+      "passed": 178,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "rig": {
+      "sha256": "cba43b8c22085b30f7144f62294473a8599244cc42ae5b109e38e8fc95481fa7",
+      "summaries": [
+        [
+          5,
+          0,
+          0
+        ],
+        [
+          2,
+          0,
+          0
+        ]
+      ],
+      "passed": 7,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "tactical-core-animation": {
+      "sha256": "6634c4eac55375412ad34b5398c790665ecd03ca621d1d08c20fa5c263dc628a",
+      "summaries": [
+        [
+          98,
+          0,
+          0
+        ]
+      ],
+      "passed": 98,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "tactical-core-movement-speed": {
+      "sha256": "84940de04b0cfad86efd4bf41330c63d1e5d06e86de52ef02e45beaf496fe79c",
+      "summaries": [
+        [
+          4,
+          0,
+          0
+        ]
+      ],
+      "passed": 4,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "tactical-core-combat-config": {
+      "sha256": "5c423794f2eff80cdf79b3659071695e85091a6fb07720a2d666082515d743eb",
+      "summaries": [
+        [
+          5,
+          0,
+          0
+        ]
+      ],
+      "passed": 5,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "tactical-server-startup": {
+      "sha256": "7b82f68484c8fe71592eecc04c902e93b90c6879668b55facf909de17f67a591",
+      "summaries": [
+        [
+          3,
+          0,
+          0
+        ]
+      ],
+      "passed": 3,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "terrain-animation-capture": {
+      "sha256": "747816ca52e721227086e57e603400d96031fc6f908241155826ebca44336eea",
+      "summaries": [
+        [
+          5,
+          0,
+          0
+        ]
+      ],
+      "passed": 5,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "terrain-art-demo": {
+      "sha256": "cf690c50a81cb14b74411c3d5dc4ff1b073980fefe04a056d60293a4c454b6db",
+      "summaries": [
+        [
+          13,
+          0,
+          2
+        ]
+      ],
+      "passed": 13,
+      "failed": 0,
+      "ignored": 2,
+      "ignored_names": [
+        [
+          "art_demo::scenery::tests::regenerate_art_demo_cloud_assets",
+          ", offline asset generator performs the full deterministic cloud bakes"
+        ],
+        [
+          "art_demo::scenery::tests::regenerate_art_demo_tree_impostors",
+          ", offline asset generator performs all deterministic tree impostor bakes"
+        ]
+      ]
+    },
+    "terrain-dispatcher": {
+      "sha256": "a45e5a0b81f3cc62c36247535fb2a8a73c4992522c71cd9e7f7ae7a56782464b",
+      "summaries": [
+        [
+          16,
+          0,
+          1
+        ]
+      ],
+      "passed": 16,
+      "failed": 0,
+      "ignored": 1,
+      "ignored_names": [
+        [
+          "scene_input::tests::startup_fixtures::export_distinct_startup_destinations",
+          ", exports client fixtures to STRATEGIC_STARTUP_FIXTURE_DIR"
+        ]
+      ]
+    },
+    "terrain-erosion": {
+      "sha256": "697efea3de862c724a57021c26dc7acd28d6f40fab81d3ee81f6015afcb9482b",
+      "summaries": [
+        [
+          10,
+          0,
+          0
+        ]
+      ],
+      "passed": 10,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "terrain-extraction": {
+      "sha256": "ce3e3655c3765abc871f67be1aa9776d77c8b53b741c0caf3842f922f6b44147",
+      "summaries": [
+        [
+          2,
+          0,
+          0
+        ]
+      ],
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "terrain-grounding": {
+      "sha256": "2f2d606c7fd069796c77cf651cfefd2ed18f4b13e77653847a8512c13fb11d6b",
+      "summaries": [
+        [
+          94,
+          0,
+          3
+        ]
+      ],
+      "passed": 94,
+      "failed": 0,
+      "ignored": 3,
+      "ignored_names": [
+        [
+          "city_layout::grounding::tests::movement::gardens::production_garden_routes_allow_entry_tending_and_return",
+          ", requires a frozen production export in FABELGEIST_TERRAIN_SCENE"
+        ],
+        [
+          "city_layout::grounding::tests::movement::production::production_compound_routes_allow_entry_thresholds_and_return",
+          ", requires a frozen production export in FABELGEIST_TERRAIN_SCENE"
+        ],
+        [
+          "city_layout::grounding::tests::movement::single::production_single_entrances_allow_full_width_entry_and_return",
+          ", requires a frozen production export in FABELGEIST_TERRAIN_SCENE"
+        ]
+      ]
+    },
+    "terrain-inspection": {
+      "sha256": "24a9becf01d1bd2736daf165c8788d16eddf0ebc14f4f9eb874b5278023f7f43",
+      "summaries": [
+        [
+          11,
+          0,
+          0
+        ]
+      ],
+      "passed": 11,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "terrain-landforms": {
+      "sha256": "93781a7eed60ab6165d2d55a7b873832b0378651c873268e34da09e34b5d9044",
+      "summaries": [
+        [
+          5,
+          0,
+          0
+        ]
+      ],
+      "passed": 5,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "terrain-presentation": {
+      "sha256": "ed1e26e8eca3f07c23047b68e1d27806f5668c9a02c08e7d1f91e910ebab29da",
+      "summaries": [
+        [
+          329,
+          0,
+          7
+        ]
+      ],
+      "passed": 329,
+      "failed": 0,
+      "ignored": 7,
+      "ignored_names": [
+        [
+          "presentation::generation::tests::focused_city_workers_keep_canonical_support_without_actor_preparation",
+          ", requires REGIONAL_MAP_CITY_INPUT from the imported-settlement producer"
+        ],
+        [
+          "presentation::generation::travel_fixtures::distinct_city_inputs_validate_occupied_layouts",
+          ", writes explicit benchmark scene inputs to STRATEGIC_TRAVEL_FIXTURE_DIR"
+        ],
+        [
+          "presentation::terrain::ground_map::noise::tests::benchmark_dense_ground_noise",
+          ", explicit CPU microbenchmark; never run alongside browser measurements"
+        ],
+        [
+          "presentation::vista::ground::tests::goslar_property_1236_vista_scenery_uses_accepted_support",
+          ", requires the accepted Goslar terrain input"
+        ],
+        [
+          "presentation::vista::ground::tests::required_city_vista_scenery_matches_property_support",
+          ", requires the frozen terrain acceptance input manifest"
+        ],
+        [
+          "presentation::vista::owned::tests::required_owned_partitions_preserve_ordered_mesh_bytes",
+          ", requires the frozen terrain acceptance input manifest"
+        ],
+        [
+          "presentation::vista::pigment::tests::required_owned_mesh_pigments_preserve_uncached_vertex_bytes",
+          ", requires the frozen terrain acceptance input manifest"
+        ]
+      ]
+    },
+    "terrain-scene-coordinates": {
+      "sha256": "78002889361c061bc04996cf984a73bb54b9b49e4f145bc7ec632f04df29269a",
+      "summaries": [
+        [
+          6,
+          0,
+          0
+        ]
+      ],
+      "passed": 6,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "terrain-scene-input": {
+      "sha256": "433354d43e4b6a17e9e77da6978f1986f957dc927e9fe08eb89b0acb128dc822",
+      "summaries": [
+        [
+          70,
+          0,
+          0
+        ]
+      ],
+      "passed": 70,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "terrain-scene": {
+      "sha256": "512a374896f2e0abef506285692ce9de0f63c094bc6186f768910afd7319f4c6",
+      "summaries": [
+        [
+          14,
+          0,
+          0
+        ]
+      ],
+      "passed": 14,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "terrain-server-gates": {
+      "sha256": "61203827a9ef9674ff048dbed78731fa9fb6d259d4bb0342aa7583e8f4d534da",
+      "summaries": [
+        [
+          1,
+          0,
+          0
+        ]
+      ],
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "terrain-strategic": {
+      "sha256": "3ba041afce4423fdd128c1f5ad316119f5ffa8c5fd12f8805c3f033bb92c9176",
+      "summaries": [
+        [
+          21,
+          0,
+          0
+        ]
+      ],
+      "passed": 21,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    },
+    "terrain-viewer": {
+      "sha256": "8a146269da94e1dc91f6ed3b764eb21a396d60638ac37f7edd8476364512b25d",
+      "summaries": [
+        [
+          62,
+          0,
+          1
+        ]
+      ],
+      "passed": 62,
+      "failed": 0,
+      "ignored": 1,
+      "ignored_names": [
+        [
+          "tactical_scene_viewer::fixed_city_cameras::promotion::tests::required_capture_members_preserve_all_accepted_production_terrain",
+          ", requires the frozen production fixture/camera manifest"
+        ]
+      ]
+    },
+    "weather-audio": {
+      "sha256": "c504ef0c34d160d31e2895fb3a1d1c2819c6d71bfd0392ad468ee139b6d075d2",
+      "summaries": [
+        [
+          2,
+          0,
+          0
+        ]
+      ],
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0,
+      "ignored_names": []
+    }
+  },
+  "movement_names": [
+    "character_paces_are_reference_normalized_and_guard_sprint_becomes_jog",
+    "movement_speed_preserves_stick_magnitude_and_caps_diagonals",
+    "prone_walk_is_fixed_jog_is_neutral_and_sprint_costs_exhaustion",
+    "sprint_speed_retains_injury_and_burden_penalties"
+  ],
+  "baseline": {
+    "committed_sha256": "8ccab96e129e4b873ed3f8ae3841afd6bf7cfa59809b69cbed46ec41855b171e",
+    "exported_sha256": "bdf6580dab45e25f9de25a94f2e5b1888f1b316b2104b028b64b98d9f671481f",
+    "whole_sha_equal": false,
+    "relevant8path_entries": {
+      "files": {
+        "committed": [],
+        "exported": [],
+        "equal": true
+      },
+      "functions": {
+        "committed": [
+          {
+            "path": "crates/adventuresim-core/build.rs",
+            "item": "compile_organizations",
+            "ceiling": 118
+          }
+        ],
+        "exported": [
+          {
+            "path": "crates/adventuresim-core/build.rs",
+            "item": "compile_organizations",
+            "ceiling": 118
+          }
+        ],
+        "equal": true
+      },
+      "findings": {
+        "committed": [
+          {
+            "rule": "raw-string-branch",
+            "path": "crates/adventuresim-core/build.rs",
+            "item": "compile_road_encounters",
+            "fingerprint": "string:items",
+            "occurrences": 1
+          }
+        ],
+        "exported": [
+          {
+            "rule": "raw-string-branch",
+            "path": "crates/adventuresim-core/build.rs",
+            "item": "compile_road_encounters",
+            "fingerprint": "string:items",
+            "occurrences": 1
+          }
+        ],
+        "equal": true
+      }
+    },
+    "relevant_changes_required": false
+  },
+  "bookkeeping_correction": "Initial parser incorrectly asserted historical260 for tactical-core-animation. Actual raw current summary98/0/0; client animation group carries260. Only parsing assertion failed, no hosted/project failure, no CI rerun; originalrequired positive execution is satisfied. Correction before acceptance receipt written.",
+  "all_tests_added": false,
+  "project_execution": "Hosted only; local raw-log/ZIP/baseline bookkeeping parser, no project checker/test/toolchain execution",
+  "full_job_terminal_status": "Verify fresh jobs/run after cleanup",
+  "global_audit_clearance": false
+}

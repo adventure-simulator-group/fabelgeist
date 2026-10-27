@@ -1,0 +1,602 @@
+{
+  "lens": 13,
+  "status": "source-accounted with qualified findings; continuing full queue",
+  "authority": {
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "manifest_sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa"
+  },
+  "registrations": [
+    {
+      "path": "audit-resume-20261027/lens13/batch-123-registration.json",
+      "sha256": "f431ded3d2246286ed6c4635fc431fc6f929c9b5741a41a76721973048c4063d"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-124-registration.json",
+      "sha256": "a790075c39976ea54464466d6d93ad11aa300e825581f5c99df24e377cdbcf82"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-125-registration.json",
+      "sha256": "19fe1cba2739d5b7f63c8cea1042cd73f8c6db84b715001e978ae8e8ac1143ea"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-126-registration.json",
+      "sha256": "693a4df8f4d0aa2aeb9d2b7a5694efdd1f4589c9f6e5364aeac7d45a4db3a3d1"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-127-registration.json",
+      "sha256": "e49c7bdaebad425aaa80508b803c7aa5c7a5f0b6cb68e9a6a471c46bfa19da2f"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-128-registration.json",
+      "sha256": "1780d6263f6707c3867d37c7fdcdc7e26b6ee3991f07037138a0221145395cd7"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-129-registration.json",
+      "sha256": "f3da0331defaa0bce579adf2967f72749411585381aa8972310be7aa2d7dd2d5"
+    }
+  ],
+  "actual_source_reads": [
+    {
+      "original": 204,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "sha256": "da8832af71a29edfd807274456fa4ee5890834beec5b80ef726e55b8399eaf7b",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/da8832af71a29edfd807274456fa4ee5890834beec5b80ef726e55b8399eaf7b",
+      "requested_range_variants": [
+        [
+          1,
+          868
+        ],
+        [
+          450,
+          522
+        ],
+        [
+          638,
+          812
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          868
+        ]
+      ],
+      "eof": 868,
+      "provenance": "Exact frozen f82 registered physical variant; all effective requested range unions preserved, previous receiver access not original-role inventory credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          868
+        ]
+      ]
+    },
+    {
+      "original": 205,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+      "sha256": "91a13115f15cf32eabd8971f881e1eb15a9177e089cc8e72d8c7ef0495cdb168",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/91a13115f15cf32eabd8971f881e1eb15a9177e089cc8e72d8c7ef0495cdb168",
+      "requested_range_variants": [
+        [
+          1,
+          656
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          656
+        ]
+      ],
+      "eof": 656,
+      "provenance": "Exact frozen f82 registered physical variant; all effective requested range unions preserved, previous receiver access not original-role inventory credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          656
+        ]
+      ]
+    },
+    {
+      "original": 206,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs",
+      "sha256": "9e75b9aba8942a342cb8fefc7b4d41940349122a52c86c976547d280e751a509",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/9e75b9aba8942a342cb8fefc7b4d41940349122a52c86c976547d280e751a509",
+      "requested_range_variants": [
+        [
+          1,
+          652
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          652
+        ]
+      ],
+      "eof": 652,
+      "provenance": "Exact frozen f82 registered physical variant; all effective requested range unions preserved, previous receiver access not original-role inventory credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          652
+        ]
+      ],
+      "chronology": "Full1-652 freshly read after123 for independent ordered inventory, distinct from receiver-only122 read."
+    },
+    {
+      "original": 207,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+      "sha256": "28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "requested_range_variants": [
+        [
+          1,
+          534
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          534
+        ]
+      ],
+      "eof": 534,
+      "provenance": "Exact frozen f82 registered physical variant; all effective requested range unions preserved, previous receiver access not original-role inventory credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          534
+        ]
+      ],
+      "chronology": "Full1-534 inventory assessed independently for this original:118 actual1-184/207-280/444-534 source reads reused at same hash,123 newly read185-206/281-443. No claim full fresh read after123 and no automatic role credit from prior receiving access."
+    },
+    {
+      "original": 208,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/mod.rs",
+      "sha256": "80bfa29d162de3dce0554d867093029ba6a5a3b02e405cafd0863a80692c0e7f",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/80bfa29d162de3dce0554d867093029ba6a5a3b02e405cafd0863a80692c0e7f",
+      "requested_range_variants": [
+        [
+          1,
+          84
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          84
+        ]
+      ],
+      "eof": 84,
+      "provenance": "Exact frozen f82 registered physical variant; all effective requested range unions preserved, previous receiver access not original-role inventory credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          84
+        ]
+      ]
+    },
+    {
+      "original": 209,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/model.rs",
+      "sha256": "b1ed41d6a51aaf7bcd77c4e36ad928b0ef533216ddc9efb1aa3a0f78a97c12d9",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/b1ed41d6a51aaf7bcd77c4e36ad928b0ef533216ddc9efb1aa3a0f78a97c12d9",
+      "requested_range_variants": [
+        [
+          1,
+          151
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "eof": 151,
+      "provenance": "Exact frozen f82 registered physical variant; all effective requested range unions preserved, previous receiver access not original-role inventory credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "chronology": "Actual full1-151 read118, independently assessed every primitive field and connected producer/consumer for original209 now. Same hash; no claim fresh full read after123 or automatic credit from receiver access."
+    },
+    {
+      "original": 210,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/preparation_authority.rs",
+      "sha256": "4f06d127e8d7d358ded01b2d1b7eba9116644b53146a476dd780e98344689613",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/4f06d127e8d7d358ded01b2d1b7eba9116644b53146a476dd780e98344689613",
+      "requested_range_variants": [
+        [
+          1,
+          635
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          635
+        ]
+      ],
+      "eof": 635,
+      "provenance": "Exact frozen f82 registered physical variant; all effective requested range unions preserved, previous receiver access not original-role inventory credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          635
+        ]
+      ]
+    },
+    {
+      "original": 211,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/projections.rs",
+      "sha256": "34432896548762546bb11a8ebc933ffe8ec596b120cafbedc81afa7ac38fdfa7",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/34432896548762546bb11a8ebc933ffe8ec596b120cafbedc81afa7ac38fdfa7",
+      "requested_range_variants": [
+        [
+          1,
+          538
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          538
+        ]
+      ],
+      "eof": 538,
+      "provenance": "Exact frozen f82 registered physical variant; all effective requested range unions preserved, previous receiver access not original-role inventory credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          538
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/food.rs",
+      "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "ranges": [
+        [
+          441,
+          557
+        ]
+      ],
+      "provenance": "Food/herbalism exact frozen f82 registered variants; material exact git show a120 unchanged physical path absent pinned manifest files/status. Actual numerical receiving owners only; no arbitrary full SDK or future original credit.",
+      "actual_consumed_ranges": [
+        [
+          441,
+          557
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/herbalism.rs",
+      "sha256": "98a9b9265a294f16c734dc7a90ca9cbb9f7770b359a71fdbdc4e19a3736ad934",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/98a9b9265a294f16c734dc7a90ca9cbb9f7770b359a71fdbdc4e19a3736ad934",
+      "ranges": [
+        [
+          240,
+          290
+        ]
+      ],
+      "provenance": "Food/herbalism exact frozen f82 registered variants; material exact git show a120 unchanged physical path absent pinned manifest files/status. Actual numerical receiving owners only; no arbitrary full SDK or future original credit.",
+      "actual_consumed_ranges": [
+        [
+          240,
+          290
+        ]
+      ]
+    },
+    {
+      "source_id": "reconstructed-unchanged-physical-p16:crates/adventuresim-core/src/material.rs",
+      "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "ranges": [
+        [
+          1,
+          100
+        ],
+        [
+          269,
+          340
+        ],
+        [
+          1266,
+          1320
+        ]
+      ],
+      "provenance": "Food/herbalism exact frozen f82 registered variants; material exact git show a120 unchanged physical path absent pinned manifest files/status. Actual numerical receiving owners only; no arbitrary full SDK or future original credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          100
+        ],
+        [
+          269,
+          340
+        ],
+        [
+          1266,
+          1320
+        ]
+      ]
+    },
+    {
+      "source_id": "reconstructed-unchanged-physical-p16:crates/adventuresim-core/src/material.rs",
+      "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "ranges": [
+        [
+          101,
+          207
+        ],
+        [
+          341,
+          418
+        ],
+        [
+          465,
+          615
+        ],
+        [
+          882,
+          1060
+        ]
+      ],
+      "provenance": "Exact unchanged physical a120 reconstruction as124; no original/shared/other-lens credit.",
+      "actual_consumed_ranges": [
+        [
+          101,
+          207
+        ],
+        [
+          341,
+          418
+        ],
+        [
+          465,
+          615
+        ],
+        [
+          882,
+          1060
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/inventory_containers.rs",
+      "sha256": "4feda6b091c108a9cb8def2cfa8cd63c6fd7123d64c3584d308dec283048d50a",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/4feda6b091c108a9cb8def2cfa8cd63c6fd7123d64c3584d308dec283048d50a",
+      "ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "provenance": "Exact frozen f82 registered physical variant; material exact unchanged a120 reconstruction as124. Required water tuple/depth/identity boundaries only, no future original or whole SDK credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          30
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/outbreak.rs",
+      "sha256": "463018a13e8d3061fb161e6f5d814acd00f8cb489e3aa43f3cb08def9ea35f27",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/463018a13e8d3061fb161e6f5d814acd00f8cb489e3aa43f3cb08def9ea35f27",
+      "ranges": [
+        [
+          658,
+          732
+        ]
+      ],
+      "provenance": "Exact frozen f82 registered physical variant; material exact unchanged a120 reconstruction as124. Required water tuple/depth/identity boundaries only, no future original or whole SDK credit.",
+      "actual_consumed_ranges": [
+        [
+          658,
+          732
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "provenance": "Exact frozen f82 registered physical variant; material exact unchanged a120 reconstruction as124. Required water tuple/depth/identity boundaries only, no future original or whole SDK credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          60
+        ]
+      ]
+    },
+    {
+      "source_id": "reconstructed-unchanged-physical-p16:crates/adventuresim-core/src/material.rs",
+      "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "ranges": [
+        [
+          208,
+          268
+        ]
+      ],
+      "provenance": "Exact frozen f82 registered physical variant; material exact unchanged a120 reconstruction as124. Required water tuple/depth/identity boundaries only, no future original or whole SDK credit.",
+      "actual_consumed_ranges": [
+        [
+          208,
+          268
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_action.rs",
+      "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+      "ranges": [
+        [
+          665,
+          715
+        ]
+      ],
+      "provenance": "Exact frozen registered physical variant; same own077-081 full1-715 source proof.",
+      "actual_consumed_ranges": [
+        [
+          665,
+          715
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/herbalism.rs",
+      "sha256": "501c6cf8ba05522213c175784f28e6ddecd14aaab72a490fcb4bfa846eccb203",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/501c6cf8ba05522213c175784f28e6ddecd14aaab72a490fcb4bfa846eccb203",
+      "ranges": [
+        [
+          194,
+          314
+        ]
+      ],
+      "provenance": "Exact frozen f82 registered physical object, original110 full1-405 actual044-048 prior proof.",
+      "actual_consumed_ranges": [
+        [
+          194,
+          314
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_action.rs",
+      "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+      "ranges": [
+        [
+          340,
+          435
+        ]
+      ],
+      "provenance": "Exact frozen registered object148, own077-081 source proof retained.",
+      "actual_consumed_ranges": [
+        [
+          340,
+          435
+        ]
+      ]
+    }
+  ],
+  "originals": [
+    {
+      "original": 204,
+      "status": "source_accounted_with_qualified_owner_and_arithmetic_candidates",
+      "role": "Cooking selection, retained dish snapshot and retrieval",
+      "inventory_and_trace": [
+        "Full1-868. Raw character/row/object u64 IDs, input fractions Vec<u32> admitted into canonical ConsumableFractionMicros, u32 duration/quantity, u8 quality, raw f32 checks/mass/kcal/value/flavor/growth/load/medicine quantities, booleans vessel/equipment/fat/partial completion and typed absolute minute fields all inventoried. Explicit numeric policies include32 loose selected lots, single quantity1 output, quality1..5, herbalism>=1 and.5+.1*check, grams/liters factor1000, contamination conservation tolerance max(1,expected)*1e-5. Native source identity0 is auto-increment insert sentinel, not a valid stable object owner for subsequent operations.",
+        "Producer selects unique positive typed fractions<=available, so ratio denominator positive on this selected route; per-lot mass/nutrition/value/flavors explicitly finite/nonnegative. Each lot is source-unit proportionally retained or consumed, individual object identity/custody checked. Vessel lane intentionally sees direct contents only (despite broader doc wording), removes contained food edges after accepted snapshot. Vessel path does not share loose-lot32 selection cap; no universal arbitrary container cardinality or ordinary f32 aggregate overflow claim. Raw aggregate totals and repeated typed getter division are ownership/operation candidates; selected producer finite checks alone are not a general closed-aggregate type guarantee.",
+        "Actual canonical107 food requested scope reused and newly reached441-557124 receiving bodies read: finite flavor/mass guards, bounded three/four-way flavor scores, chef/fat quality clamps1..5, explicit/travel consumption and finite guarded retained_component. is_cookable_ingredient excludes cooked_meal, preventing repeated cooked nutrition/value multiplication through ordinary selected route. Raw f32 normalized and quantity ports stay first-party until real core numerical operations/native storage; private function names are not exemptions.",
+        "Actual126 contained water receiver reads native u64water_ml, checked integer milliliters*1000 to typed Microliters and proportional source contributions, skips zero amount then computes held concentration.204 converts public water_ml to f32 and readmits rounded microliters to compare contribution sum, while typed contribution amounts are checked-added exactly. Potential precision policy remains qualified; no actual feasible container-volume counterexample or claimed ordinary overflow. Raw water kilograms /1000 and contamination mass products are explicit unit-conversion boundaries.",
+        "Retained dish snapshot pins raw totals/profile versions1/potency, fixed contributors/digest and typed start minute; retrieval resolves custody and elapsed -> actual canonical doneness kernel, subtracts quality penalty with floor1, scales nutrition/value/load and medicine heat factor. Conservation residual check is numerical tolerance, not universal finite proof: no claim NaN impossible in arbitrary persisted rows or every full source producer. Actual native output quantity1/revision1 and remaining lot203 consumption seen; no global DB transaction/custody/runtime certification."
+      ]
+    },
+    {
+      "original": 205,
+      "status": "source_accounted_with_identity_and_aggregate_candidates",
+      "role": "Canonical fireplace fixture, vessel custody and lifecycle",
+      "inventory_and_trace": [
+        "Full1-656. Raw u64 character/object IDs and optional object IDs remain neighboring ports despite typed StrategicFixtureId/StrategicPlaceId/OperationalCustody/InventoryLocation. Bool occupied/personal-estate existence/camp eligibility reflect actual predicates, not arbitrary boolean payload exemption. Native insert0 and physical object quantity1 are concrete SDK/schema cardinality roles. Vec capacity mirrors actual station count, not an independently asserted resource bound.",
+        "Actual fixture admission parses enum FirePlace only and validates canonical station key, item/object/custody equivalences, settlement venue availability or exact journey camp identity. Cleanup prevalidates all returns, abandoned tools stay installed, exact existing party destination or personal estate is explicit policy. Core physical_object127 checked custody/identity bodies and native rehome/prevalidation220 selected bodies were already read; no all tree/cycle/capacity/global lifecycle proof transferred.",
+        "Place/retrieve require live authority/no tactical assignment and exact root object/custody; creation/deletion preserves stable object ID and quantity-one native row at destination. Camp cleanup predicates iterate actual subject sets and return errors for occupied station/dish. No new arithmetic failure established, raw identity propagation remains an existing-owner fit candidate."
+      ]
+    },
+    {
+      "original": 206,
+      "status": "source_accounted_with_qualified_owner_candidates",
+      "role": "Ingredient preparation attempt generation, wait and material commit",
+      "inventory_and_trace": [
+        "Full1-652 freshly consumed after123, earlier122 receiver-only access not automatic original credit. Raw u64 actor/row/lot/object/revision/generation, raw u32 duration and f32 precision/edge/check/hours, bool completion/interruption/custody predicates and fixed five damage channels inventoried. Cut precision>=.5 is intentional gameplay threshold, raw1u16 hash version and exact bit/LE framing are concrete encoding operations. Canonical durability/skill141 training receivers were already read.",
+        "Actual206 ->210 authority -> canonical herbalism110 builder -> strategic_action148 typed RequestedDuration/time/calculation -> selected114 wait -> native retained receipt. Exact existing receipt compares submitted tuple before mutable state; generation0 default and checked_add1 exhaustion, lot revision checked_add1 and unchanged postwait source snapshot. Hash request/source identity values remain raw semantic ports before encoding. No compatibility shadow path was added or recommended.",
+        "Core builder time gates completion-only effects; raw wait u64 extracted only for actual native clock advancement, though other retained semantic raw duration ports could reuse existing types. Training duration /60 into actual direct training is a units conversion; finite/skill bounds from static physical-preparation policy and selected canonical owners narrow public arbitrary scalar concerns. Full all injury/lifecycle/material planner implementations are not certified by this trace."
+      ]
+    },
+    {
+      "original": 207,
+      "status": "source_accounted_with_qualified_public_API_candidates",
+      "role": "Food lot source material and fraction retention/splitting",
+      "inventory_and_trace": [
+        "Full1-534 coverage consists of118 prior exact receiver reads plus123 newly read gaps185-206/281-443; independent entire original numeric inventory now assessed, not inherited verdict. Native stable object quantity1 requirement, raw u64 identity/revision, Option native row links, u32 original/taken/removed quantities and raw f32 ingredient/unit/mass/nutrition/value/flavor/load fields inventoried. Constructor revision1 and checked retention increment are explicit, while canonical definitions *u32 quantity source data do not prove every arbitrary future lot/native-row admission.",
+        "Personal split_lot/removal validates zero/order before quotient, full move retains identity and partial split scales then subtracts source ingredients. Public party removal/move_or_split helpers do not enforce the same original>0/taken<=original guards before division; actual selected ordinary callers and valid-zero policy remain qualification. No demonstrated ordinary invalid quantity invocation or runtime damage claimed. Existing typed fractions/quantity relations should carry through these internal ports rather than assuming private/naming establishes native boundary.",
+        "Actual core retained_component124 rejects nonfinite inputs and clamps finite retained0..1, so do not claim a nonfinite helper quotient necessarily stores nonfinite mass: invalid ratio may zero components instead. Actual medicine split124 rejects nonfinite/out-of-range fraction; raw provenance helper multiplies loads and exact-byte digest fields, with no independent finite guard. Whole-material equality/precision policy remains source/API concern, not exact conservation certification."
+      ]
+    },
+    {
+      "original": 208,
+      "status": "source_accounted_with_native_module_schema_roles",
+      "role": "Food module assembly and feature selection",
+      "inventory_and_trace": [
+        "Full1-84 imports canonical typed units/identity and assembles exact include ordering under existing native SpacetimeDB scope. Native cfg(test) versus feature authority-tests and source concatenation determine compilation/fixture availability; no gameplay boolean/quantity literals added here. Actual included producer/retained/consumer bodies204-211/203 are independently assessed. Existing fixture includes are source inventory only, no execution or compile acceptance."
+      ]
+    },
+    {
+      "original": 209,
+      "status": "source_accounted_with_owner_propagation_candidates",
+      "role": "Durable food, contamination, preparation and fireplace schema",
+      "inventory_and_trace": [
+        "Full1-151 source was consumed118 and independently inventoried for original role now; no fresh123 read claim. Every u64 native identity/revision/generation, u32 duration, u8 quality, f32 food/nutrition/flavor/value/contamination/profile potency, Vec<u16> version, bool interruption/completion and Option native row/object references is traced to actual204/206/207/210 writers and203/211/native schema recipients. Typed StrategicMinute/enum preparation/method/custody remain retained.",
+        "Public/hidden row visibility is not a bespoke-type invariant. Native wire storage is a real final conversion boundary, but the same scalar fields participate in first-party calculations and retained snapshots before export. Existing measured units, positive/finite scalar owners, version/revision and aggregate constraints can be evaluated without inventing blanket wrappers for every integer. All underlying SDK derived macro implementation/unknown callers remain qualified."
+      ]
+    },
+    {
+      "original": 210,
+      "status": "source_accounted_with_qualified_conversion_and_digest_findings",
+      "role": "Preparation authority admission, physical material snapshot and fingerprint",
+      "inventory_and_trace": [
+        "Full1-635. Raw IDs/generation/revision/duration and exact bit-coded f32 fields are framed into SHA256 request/authority/source digests;32-byte array/LE widths/len-as-u64/hex2 are concrete encoding operations. Skill tags0/1/2 and enum asu8 are versioned internal numeric discriminants, not ordinal gameplay magnitudes. Typed coordinates/custody/place/request/duration owners retain authority into actual canonical builder. Load checks positive nonstale lotrevision, exact linked native row/object, carried root custody and legal prep transition before effect construction.",
+        "Numeric material admission124-126 actually read: Milligrams checked finite/nonnegative kg with widened1M conversion, MaterialMeasure nonempty, positive MaterialLotId/ProcessId/ObjectId, whole Portion1/1 with checked constructor, u128 exact prorating and checked measure subtraction, private truth rejects duplicate keys, nonempty typed snapshot, duplicate input/output identity guards in receipt constructor and selected validate_material_commit identity/revision/measure/preparation/truth checks. Unread generic canonical_input_digest/private conservation implementations remain explicit dependency/validation qualifications, no whole material SDK clearance.",
+        "Adapter contaminant current.max0 * mass_milligrams then round asu64 -> NonZeroU64 is an unchecked native quantity conversion: large/nonfinite arithmetic may saturate rather than use a checked error. Actual private truth recipient accepts positive u64 load and cannot recover discarded float information. This is a qualified conversion/order concern related to prior142/185 policies, not a demonstrated admitted huge food mass/load, ordinary overflow, DB acceptance or new unique defect. Native checked unit constructors use floating MAX comparisons; exact representability/rounding extremes stay qualified, not a fabricated exact witness.",
+        "Terminal fingerprint frames terminal_minute.unwrap_or(MAX), so None/Some(MAX) terminal field bytes collide. Actual127-129 trace narrows consequence: None at endpoint MAX -> ClockExhausted, Some(MAX) -> TerminalBoundary; validate_commit compares typed time and rejects a changed outcome. It does not directly compare effects. Actual herbalism emits completion effects only from typed Completed time. Thus no demonstrated commit bypass, changed completion effect atMAX or cryptographic collision allegation; retain optional-state fingerprint representation/authority candidate."
+      ]
+    },
+    {
+      "original": 211,
+      "status": "source_accounted_with_qualified_retention_candidates",
+      "role": "Gateway preparation plans and station/dish projections",
+      "inventory_and_trace": [
+        "Full1-538: raw native actor/row/lot/object IDs, revision/generationu64, durationu32 and identity strings retain actual reducer tuple for native SpacetimeType export; typed action/method/minute/custody remain. Positive revision range1.. and quantity-one row matching are explicit admission. Zero scan lower bounds enumerate native unsigned indexes rather than admitting stable identity0.",
+        "Actual view resolves unique object mapping with two iterator reads, bounded ancestry depth MAX16 inclusive0..=16 with fail-closed false/true results, validates every carried native row quantity1 and root owner/custody. No universal graph capacity/cycle correctness asserted by this projection. Raw bool predicates are actual existence/equality/control policy; independent aggregate state and canonical ID propagation remain candidates.",
+        "Fixed two possible preparation action slots correspond Raw cut/grind, Cut grind, others none; tools/check/.5 threshold and duration policy reuse actual206/210/core110 bodies. Generation state returns None whencompleted else samecursor or0; canonical request captures direct custody and native tuple. Native duration preview is copied to backend; producer duration bounded by selected policy, not arbitrary u32 upper interval claim. Gateway read-only projection does not replace reducer validation or certify current runtime subscriptions."
+      ]
+    }
+  ],
+  "specific_boundary_proofs": [
+    "Exact own prior core107/110/112/125/127/141/148 and native178/186/193/220 selected source proofs reused by SHA, never other-lens verdicts. Newly required core food441-557, native medicine split, material units/snapshot/source/commit, water tuple/depth policy and typed time receivers were registered before actual bounded reads.",
+    "207 and209 earlier118 actual body reads are explicitly reused with independent numeric inventories; only missing207 gaps read123. No claim their entire source was freshly read after123 or coverage granted merely by receiving access.206 entire source freshly read123 for ordered inventory.",
+    "Core material exact unchanged a120 source reconstruction is supported by pinned physical manifest base=head/omitted changed/status path, not current source alias. All new material ranges are independent required extension scopes; full1869-file/unread tails and unknown generic implementations not cleared."
+  ],
+  "qualified_observations": [
+    {
+      "id": "preparation-optional-terminal-fingerprint",
+      "source": "210 authority digest +127-129 actualtypedtime/commit",
+      "claim": "None/Some(MAX) terminal bytes equal; typed time comparison distinguishes actual outcomes, so source encoding candidate only, no demonstrated authorization/commit bypass."
+    },
+    {
+      "id": "preparation-contaminant-quantity-conversion",
+      "source": "210 material_snapshot +124-126 units/private truth",
+      "claim": "Unchecked float-rounded load to u64 before positive wrapper lacks explicit overflow error. Actual admissible huge source bound/current runtime witness not established; related conversion policies remain aliases pending."
+    }
+  ],
+  "limits": [
+    "No product/Git/root ledger/project execution/tests/probes/publication changes; no compatibility constraints.",
+    "No accepted unique, current/runtime/all-SDK/global clearance. All earlier source-access disclosures/corrections/qualification limits and independent overlay/merge/shared/other-lens queues retained.",
+    "Unknown complete graph/DB native implementations and generic private material conservation/digest internals remain explicit additional source/validation scope, not claimed by name or presence."
+  ]
+}

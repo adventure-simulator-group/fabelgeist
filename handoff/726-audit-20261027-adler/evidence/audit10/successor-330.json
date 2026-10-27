@@ -1,0 +1,178 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-330",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 2748,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/visuals.rs",
+      "sha256": "e2fd1124f665b41f87b754099e2c67c04f4d30d6689c2a57afcc115710d3993a",
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "scope_kind": "materially_reached_parallel_initial07_dependency",
+      "scope_limits": "OnlyactualPluginpipeline+orphanremoval1\u201350; existingtests51\u201375 excluded. SourcealreadyfixedPR6533, no sourcechanges. Firstprematuredisplayuncredited, actualfreshboundedreread afterregistration. Everylensneedsownexactrolecomparison; no14priorverdictcarry.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh registered full1-50. EquipmentVisualSystems derives traits; Plugin build explicitly orders resource/system registrations and remove_orphan_equipment checks actual item entity presence. No boilerplate trait forwarder.",
+      "disposition": "Keep semantic Bevy plugin implementation; do not derive system ordering. Source51+ excluded.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2749,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/identity_morphs.rs",
+      "sha256": "340b2018b6091fe33081fc257ab36fc8f65a72011cb81d5fc583239d32807c5d",
+      "ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "scope_kind": "materially_reached_parallel_initial07_dependency",
+      "scope_limits": "Only production sync_character_morphs1-76. Tests77-138 excluded. Fresh source-specific comparison required independently in every lens; no cross-lens verdict credit.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh registered1-76. Identity morph synchronization change/removal gates, canonical deterministic proportions, mesh target-name resolution and index-bounded writes; no manual traits/codecs.",
+      "disposition": "Keep semantic morph binding; source77+ and called names/fit implementations not credited.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2750,
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/lib.rs",
+      "sha256": "9d99fd95ed9ec73c741b282a32784af8c92b4a8d3abcbc8ae15914f94a50f06b",
+      "ranges": [
+        [
+          31,
+          43
+        ]
+      ],
+      "scope_kind": "materially_reached_parallel_initial_dependency",
+      "scope_limits": "Earlier full46-line GetContent display occurred before missing scope identity was noticed; contracts005 erroneously lists full fresh library proof. That premature display and prior analysis receive NO source/lens credit. Register now BEFORE fresh exact bounded31-EOF reread/reanalysis; QUAL001 overrides005 library claim. No retroactive authorization.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh exact exports31-43 of MHR body/model definitions only, no trait implementations/codecs.",
+      "disposition": "Namespace/signature support only, no module or foreign source coverage.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2751,
+      "source_id": "pr-working:crates/fabelgeist-math/src/transform.rs",
+      "sha256": "db425ac10c79f92ed75f446051d52b90811ab3c5b2c5f28304959c9445182564",
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "scope_kind": "materially_reached_parallel_initial_dependency",
+      "scope_limits": "Exactregisteredroleonly, no unlistedcontext/foreignhelpercredit.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh1-110. Transform structural/serde traits derived; explicit identity Default has unit scale differing Vec3 zero-default; constructors and native Euler-degree matrix conversion semantic.",
+      "disposition": "Keep identity Default and native transform operations; source111+ excluded.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2752,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/framed_roofs.rs",
+      "sha256": "a59c1c293c17b206f5608ab7911c49309758f10c5c16101742cdbc6fcbe8a54b",
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "scope_kind": "materially_reached_parallel_initial_dependency",
+      "scope_limits": "Premature full46 display occurred in same invocation as membership lookup which returned absent016. No credit from premature display. Register exact role now before fresh bounded reread and analysis.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh full46. Framed roof resolution explicitly sequences roof/window/child front opening/timber assembly mutation and result propagation; no traits/codecs.",
+      "disposition": "Keep semantic generation orchestration; no called-body coverage.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2753,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_editing.rs",
+      "sha256": "53655cb95df237464c4b34646936dd085323800bf11a21f2f7762de11dd29b17",
+      "ranges": [
+        [
+          1,
+          229
+        ]
+      ],
+      "scope_kind": "materially_reached_parallel_initial05_dependency",
+      "scope_limits": "Exact separate registered ranges only; roof_editingtests230+ andbearingtests59+ excluded. No wholeaudit/editor/helpergraph or verdictcredit.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh exact union1-149/150-229. Pitch edit validates topology/noop policy, stages cloned assembly/geometry, reconstructs native dimensions/weathering with contextual checked errors, commits only successful local result. No manual traits/codecs.",
+      "disposition": "Keep semantic transactional geometry edit. Source230+ and external predicates not credited or runtime-cleared.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2754,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/bearing.rs",
+      "sha256": "426ca5b68aff61bdf650125502698d909d7c426408627fabf2172720f564bd29",
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "scope_kind": "materially_reached_parallel_initial05_dependency",
+      "scope_limits": "Exact separate registered ranges only; roof_editingtests230+ andbearingtests59+ excluded. No wholeaudit/editor/helpergraph or verdictcredit.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh1-58. Positive bearing audit dispatches oriented vs axis bounds by physical role, ownership/support-node relation and exact overlap tolerance; no traits/codecs.",
+      "disposition": "Keep semantic geometric audit; source59+ excluded.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2755,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+      "sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "scope_kind": "materially_reached_parallel_initial06_dependency",
+      "scope_limits": "No tests, unrelated GPU label owners or foreign SDK graph; exact direct definition only",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh full28. BufferLabel derives structural traits; owned String wrapper From plus str-to-owned and borrowed-to-str adapters. Exact6533GPU manifest personally read full: no derive_more normal dependency or configured equivalent From derive, existing serde/strum do not provide wrapper From.",
+      "disposition": "Keep three tiny native diagnostic ownership adapters; do not add dependency solely for this leaf. Existing compile-fail doc preserved, not run.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2756,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/mod.rs",
+      "sha256": "7a84c8ef7c760fd6292dac52b88418a52a7e4831a5a3579e05d9fd19e4e856ad",
+      "ranges": [
+        [
+          7,
+          13
+        ]
+      ],
+      "scope_kind": "materially_reached_parallel_initial06_dependency",
+      "scope_limits": "Other module declarations/reexports excluded; no texture/color implementation graph",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh exact module reexports7-13 only; no traits/codecs.",
+      "disposition": "Namespace support only, not unobserved GPU/math body coverage.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

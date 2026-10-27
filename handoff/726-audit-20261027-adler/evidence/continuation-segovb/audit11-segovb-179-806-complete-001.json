@@ -1,0 +1,649 @@
+{
+  "packet": 179,
+  "lens": 11,
+  "lens_name": "type-granularity",
+  "status": "source_accounted_with_qualified_nonfinite_admission_candidate",
+  "prior_adopted_state": {
+    "path": "audit11-segovb-178-proposed-state.json",
+    "sha256": "d765eebb0c9161161e319d88dbeff92529bf49fdf0ed2fadbff7c3fe56acd7e4",
+    "adoption": "audit11-segovb-178-adoption-root.json",
+    "adoption_sha256": "ef574afbc3c8bc9818d063527fb85755e5f16ae6d11e51a763ccac39ad109e69"
+  },
+  "immutable_partial": {
+    "path": "audit11-segovb-179-806-partial-001.json",
+    "sha256": "304459045f348620d4f17ac9bad78b288647452370a04c4d826e43fdc9808ecc",
+    "relationship": "Full806body, actualcanonical/UI/nativeinventories, connectedranges/provenance andqualificationscarriedexactly. OnlypendingnativeGROWTHdecoderresolvedbelow; no repeat806fullread."
+  },
+  "immutable_partial_state": {
+    "path": "audit11-segovb-179-proposed-state.json",
+    "sha256": "8b71f50ebc1ea2bd6b492203b99a212038f762dd01eccdbbcd4d5e2d96c5d409",
+    "relationship": "Preservedhistoricalpartial; completionproposes002onlyrootmayadopt."
+  },
+  "authority": {
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "source": {
+    "original": 806,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/shape.rs",
+    "sha256": "d2da1edcace60e78eab855e992651bda223fcbab7bd832c0f00304ecdcbe7294",
+    "bytes": 7373,
+    "actual_eof": 229,
+    "effective_requested_scope": [
+      [
+        1,
+        229
+      ]
+    ],
+    "personally_consumed": [
+      [
+        1,
+        125
+      ],
+      [
+        126,
+        229
+      ]
+    ],
+    "full_original_body_read": true,
+    "source_accounted": true,
+    "prior_receiver_read_not_ordered_credit": true,
+    "full_body_reread_in_completion": false
+  },
+  "rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "read_status": "Priorpersonallyconsumedgoverningrules/skill, exactbytesreverifiedcompletion. User/rootboundedsource-onlyrestrictionsapplied."
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "read_status": "Priorpersonallyconsumedgoverningrules/skill, exactbytesreverifiedcompletion. User/rootboundedsource-onlyrestrictionsapplied."
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-type-granularity/SKILL.md",
+      "sha256": "3a1fbf7f53c752e35eefe7763cbd49b9f280bd4b978ea998f74c3a68e45dc106",
+      "read_status": "Priorpersonallyconsumedgoverningrules/skill, exactbytesreverifiedcompletion. User/rootboundedsource-onlyrestrictionsapplied."
+    }
+  ],
+  "carried_registrations": [
+    {
+      "path": "audit11-segovb-179-registration-001.json",
+      "sha256": "bf6d430060e5af317ca26059f9e9b8668afb4b423432f9aa73063191f7d8773c"
+    },
+    {
+      "path": "audit11-segovb-179-registration-002.json",
+      "sha256": "15eff55dc70311f7e6674f1f97773166f1ff33be7916c111ceb15a5c2212fc47"
+    },
+    {
+      "path": "audit11-segovb-179-registration-003.json",
+      "sha256": "2e76550ba0ef353a7cc8f2d4448e3c55d1f0e8fa77cb0c509af58aacc8121050"
+    },
+    {
+      "path": "audit11-segovb-179-registration-004.json",
+      "sha256": "490d99706d69d3754ff38d40f32d51f8516e37b4a13dca0f1549412e6ffb1ad4"
+    },
+    {
+      "path": "audit11-segovb-179-registration-005.json",
+      "sha256": "dd1fdb4ba19cac5a82d5b699fc58c0ba39a99fdb063fed05b2d594bdb7372fe4"
+    },
+    {
+      "path": "audit11-segovb-179-registration-006.json",
+      "sha256": "e813a70d8677856a4ea4b32a7f267b5a7442eaee14ff1f3e51d245e6ef2b92ae"
+    },
+    {
+      "path": "audit11-segovb-179-registration-007.json",
+      "sha256": "c2d2d437ca7b95e89706ff44191865cfaaddd7d3cbbf7479dcb30749f02bc602"
+    }
+  ],
+  "new_registrations": [
+    {
+      "path": "audit11-segovb-179-registration-008.json",
+      "sha256": "ab4f0d45ae95a7cbac816fdb08211434514271ba94156243369fd36ab3dce360"
+    },
+    {
+      "path": "audit11-segovb-179-registration-009.json",
+      "sha256": "0735052df056833fd0d63f4db4cf81ac5780378a18c82f18e48a69178c22ec42"
+    }
+  ],
+  "carried_connected_reads": [
+    {
+      "original": 2293,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/look.rs",
+      "sha256": "81e8743f737a776691275b86117f5b22c8b318ae88c8985f2dcc12f7280b69d5",
+      "actual_eof": 469,
+      "ranges": [
+        [
+          58,
+          303
+        ]
+      ],
+      "read_from": "crates/fabelgeist-hair/src/look.rs",
+      "ordered_original_shared_credit": false
+    },
+    {
+      "original": 2294,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/look/groom.rs",
+      "sha256": "3dffaa4b35a78c1b5f3d8e07b5698d2f273f563741c9250883f74701d5572818",
+      "actual_eof": 193,
+      "ranges": [
+        [
+          1,
+          193
+        ]
+      ],
+      "read_from": "crates/fabelgeist-hair/src/look/groom.rs",
+      "ordered_original_shared_credit": false
+    },
+    {
+      "original": 2638,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/haircut.rs",
+      "sha256": "707b015e87fe4c3b69df96658a1f904b186775ff7d80b7e3f2a3b68fb9a0f02b",
+      "actual_eof": 409,
+      "ranges": [
+        [
+          30,
+          83
+        ],
+        [
+          146,
+          315
+        ]
+      ],
+      "read_from": "crates/fabelgeist-hair/src/haircut.rs",
+      "ordered_original_shared_credit": false
+    },
+    {
+      "original": 2639,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/hairstyle.rs",
+      "sha256": "b5f8a3df2ec5973448ef2183c300de94346d3a00051e77fb1ed61a8c98ec68a2",
+      "actual_eof": 173,
+      "ranges": [
+        [
+          15,
+          173
+        ]
+      ],
+      "read_from": "crates/fabelgeist-hair/src/hairstyle.rs",
+      "ordered_original_shared_credit": false
+    },
+    {
+      "original": 2291,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/hairdo.rs",
+      "sha256": "7adbce20aa4fb6390748d4a83ad91e4c31a976db817f0a26c321f5c415393f14",
+      "actual_eof": 710,
+      "ranges": [
+        [
+          59,
+          127
+        ]
+      ],
+      "read_from": "crates/fabelgeist-hair/src/hairdo.rs",
+      "ordered_original_shared_credit": false
+    },
+    {
+      "original": 2285,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/follicles.rs",
+      "sha256": "340bfe96a91d869c32ce69355977aa5d552d76fe8f27d48d566e6f78c4b1ad49",
+      "actual_eof": 400,
+      "ranges": [
+        [
+          28,
+          95
+        ]
+      ],
+      "read_from": "crates/fabelgeist-hair/src/follicles.rs",
+      "ordered_original_shared_credit": false
+    },
+    {
+      "original": 2311,
+      "source_id": "pr-working:crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "actual_eof": 120,
+      "ranges": [
+        [
+          1,
+          22
+        ],
+        [
+          52,
+          70
+        ]
+      ],
+      "read_from": "crates/fabelgeist-math/src/units.rs",
+      "ordered_original_shared_credit": false
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/hair_controls.rs",
+      "sha256": "8e9fc2ebe137bb6765c672155835f032498767cf2e8b8dae178f9f5decac18ac",
+      "actual_eof": 266,
+      "ranges": [
+        [
+          81,
+          207
+        ]
+      ],
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/8e9fc2ebe137bb6765c672155835f032498767cf2e8b8dae178f9f5decac18ac",
+      "provenance": "audit11-root-hair-controls-staging-179.json exactunchangedbase/head+absenceproof",
+      "ordered_original_shared_credit": false,
+      "other_lenses": "mandatorynewmaterialqueuepending"
+    },
+    {
+      "original": 2288,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/guides/packed.rs",
+      "sha256": "eabbc4d66906c663bc661d3ac362b051fc301694f436b2fdd0613116e2e2249b",
+      "actual_eof": 93,
+      "ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "read_from": "crates/fabelgeist-hair/src/gpu/guides/packed.rs",
+      "original_shared_credit": false
+    },
+    {
+      "original": 2287,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/guides.rs",
+      "sha256": "ff313e8605d4893263109f7c930fcc81eb6c71aae6a7cffdbcafd10a44137aea",
+      "actual_eof": 357,
+      "ranges": [
+        [
+          132,
+          148
+        ],
+        [
+          249,
+          321
+        ]
+      ],
+      "read_from": "crates/fabelgeist-hair/src/gpu/guides.rs",
+      "original_shared_credit": false
+    },
+    {
+      "original": 2638,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/haircut.rs",
+      "sha256": "707b015e87fe4c3b69df96658a1f904b186775ff7d80b7e3f2a3b68fb9a0f02b",
+      "actual_eof": 409,
+      "ranges": [
+        [
+          1,
+          29
+        ],
+        [
+          317,
+          321
+        ]
+      ],
+      "read_from": "crates/fabelgeist-hair/src/haircut.rs",
+      "original_shared_credit": false
+    },
+    {
+      "original": 2639,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/hairstyle.rs",
+      "sha256": "b5f8a3df2ec5973448ef2183c300de94346d3a00051e77fb1ed61a8c98ec68a2",
+      "actual_eof": 173,
+      "ranges": [
+        [
+          1,
+          14
+        ]
+      ],
+      "read_from": "crates/fabelgeist-hair/src/hairstyle.rs",
+      "original_shared_credit": false
+    },
+    {
+      "original": 2291,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/hairdo.rs",
+      "sha256": "7adbce20aa4fb6390748d4a83ad91e4c31a976db817f0a26c321f5c415393f14",
+      "actual_eof": 710,
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "read_from": "crates/fabelgeist-hair/src/hairdo.rs",
+      "original_shared_credit": false
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/hair_controls.rs",
+      "sha256": "8e9fc2ebe137bb6765c672155835f032498767cf2e8b8dae178f9f5decac18ac",
+      "actual_eof": 266,
+      "ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/8e9fc2ebe137bb6765c672155835f032498767cf2e8b8dae178f9f5decac18ac",
+      "original_shared_credit": false,
+      "other_lenses": "additionalmandatoryrangequeued"
+    },
+    {
+      "original": 2287,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/guides.rs",
+      "sha256": "ff313e8605d4893263109f7c930fcc81eb6c71aae6a7cffdbcafd10a44137aea",
+      "actual_eof": 357,
+      "ranges": [
+        [
+          58,
+          121
+        ]
+      ],
+      "read_from": "crates/fabelgeist-hair/src/gpu/guides.rs",
+      "original_shared_credit": false
+    },
+    {
+      "original": 2291,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/hairdo.rs",
+      "sha256": "7adbce20aa4fb6390748d4a83ad91e4c31a976db817f0a26c321f5c415393f14",
+      "actual_eof": 710,
+      "ranges": [
+        [
+          564,
+          590
+        ]
+      ],
+      "read_from": "crates/fabelgeist-hair/src/hairdo.rs",
+      "original_shared_credit": false,
+      "actual_consumed_ranges": [
+        [
+          564,
+          580
+        ]
+      ]
+    },
+    {
+      "original": 2285,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/follicles.rs",
+      "sha256": "340bfe96a91d869c32ce69355977aa5d552d76fe8f27d48d566e6f78c4b1ad49",
+      "actual_eof": 400,
+      "ranges": [
+        [
+          171,
+          220
+        ]
+      ],
+      "read_from": "crates/fabelgeist-hair/src/follicles.rs",
+      "original_shared_credit": false,
+      "actual_consumed_ranges": [
+        [
+          171,
+          205
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/hairdo.rs",
+      "sha256": "7adbce20aa4fb6390748d4a83ad91e4c31a976db817f0a26c321f5c415393f14",
+      "actual_eof": 710,
+      "ranges": [
+        [
+          131,
+          164
+        ]
+      ],
+      "original_shared_credit": false
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/gpu/wgsl/guides.rs",
+      "sha256": "bcd60aee22ae82fae270b38599aca660f0432c0a6baf72d58241a88da4cfa840",
+      "actual_eof": 1129,
+      "ranges": [
+        [
+          1,
+          28
+        ],
+        [
+          366,
+          437
+        ],
+        [
+          490,
+          535
+        ],
+        [
+          605,
+          679
+        ],
+        [
+          684,
+          741
+        ]
+      ],
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/bcd60aee22ae82fae270b38599aca660f0432c0a6baf72d58241a88da4cfa840",
+      "original_shared_credit": false,
+      "other_lenses": "mandatorynewmaterialqueuepending"
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/gpu/wgsl/guides.rs",
+      "sha256": "bcd60aee22ae82fae270b38599aca660f0432c0a6baf72d58241a88da4cfa840",
+      "actual_eof": 1129,
+      "ranges": [
+        [
+          571,
+          604
+        ],
+        [
+          765,
+          830
+        ]
+      ],
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/bcd60aee22ae82fae270b38599aca660f0432c0a6baf72d58241a88da4cfa840",
+      "original_shared_credit": false,
+      "other_lenses": "newadditionalmaterialrangesmandatorypending"
+    }
+  ],
+  "new_connected_read": {
+    "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/gpu/wgsl/groom.rs",
+    "sha256": "955f005be356cd5dac7fef18bd1c669d248c1fdf2632f5a787a7b10222be2ae2",
+    "actual_eof": 1609,
+    "read_from": "target/recovery-20261025/continuation-segovb/source-objects/955f005be356cd5dac7fef18bd1c669d248c1fdf2632f5a787a7b10222be2ae2",
+    "actual_consumed_ranges": [
+      [
+        22,
+        75
+      ],
+      [
+        76,
+        82
+      ]
+    ],
+    "production_material_ranges": [
+      [
+        22,
+        79
+      ]
+    ],
+    "incidental81_82": "AdjacentPartingdocumentationonly; nextPARTINGconstant/bodyunread",
+    "frozen_provenance": {
+      "path": "audit11-root-groom-shader-staging-179.json",
+      "sha256": "2fd30a3d89a913769ac20c9b51e593d5d3254ea9a8f7c8f65b403cc147d85287",
+      "contract": "Exact3a50base/6533headbyteequalityandabsence747changed/dirty4; no currentsubstitution; rootstagingnotbodycredit"
+    },
+    "registered_before_body_read": true,
+    "original_shared_credit": 0,
+    "other_lenses": "mandatorynewmaterialrangequeuepending"
+  },
+  "carried_source_inventory": [
+    {
+      "role": "Groom geometryrequest vsHairDesign/pigment/nativeLook",
+      "source": "80626-39;795144-160/80470-93 retained168/177;Look58-301fresh",
+      "disposition": "Groom keepscanonicalPreset+HairShape only;color/pigment separate. look constructsfreshLook::new(preset),appliesonceprivately,returnstypednativeLook, thenactualGroomedHair.grow retainsgroom andGPUgeometry asalreadytraced177. NotaredundantLookwrapper: geometryrequestidentity excludesmaterialandrebuildsnativeoperationstate."
+    },
+    {
+      "role": "IndependentoptionalCut/Arrangement/Growthoverrides",
+      "source": "80642-50,149-174,208-216;UI81-100,182-204;nativeCut/Arrangement/Growth freshdecls",
+      "disposition": "Threeindependentaxes:Cutlength/outline,Arrangementcombing/tie,andGrowthfollicledirection. Nonekeepsthepresetchoice,Somecanonicalenumreplacesonlythataxis. NativeHairstyle explicitlyallowsanystylewithanycut/growth; nojustificationforoneexclusiveoverrideenum. UIchoicecomparesactualOption<T>/typedTandusestextonlyaslabels,notparsingDebugtobehavior."
+    },
+    {
+      "role": "HairShape vsShapeValues vsShapeKnobs",
+      "source": "80642-202;UI81-177",
+      "disposition": "HairShapeprivatepersistentvariationrecord withcheckedSerdeTryFromShapeValues;ShapeValuesprivatedecodingcarrierforrangeadmission;ShapeKnobspublicrawUIexchange. Thesearecoherent distinctboundaries,notparallelownerssolelybecausefieldscopy. SerializationemitsHairShapefields,Deserializecheckssevenrole-specificrangesanddenyunknownfields;defaultfinitevalues representnochange. with_knobspreservesoverridesandclampseachmatchingrange, butNaNqualificationbelow preventsclaiminguniversalcheckedadmission."
+    },
+    {
+      "role": "SevennumericrolesthroughactualUI/nativeports",
+      "source": "80615-24,51-65,93-113,176-225;UI1-30,101-177;Units1-22,52-70",
+      "disposition": "Length/frizzarescalefactorspermittedabove1;volume/part/wavearesignedmetreoffsets;curl/clumpingaresignedamountadditions,resultingabsoluteamountclamped0..1. Do notmergeallf32rolesorimposeoneunitintervalvalidator. UIvolumepartmultipliesmetresby100cm/m,waveby1000mm/m,theninvertsunitfactorbeforewith_knobs;othersunit1. NativeMetresissigneddistance,Ratioisdimenionlesswithoutpolicybounds;constructors/getterswrap/extractrawfloatanddonotcertifyfinite/range. Theycannotreplaceapplicationboundspolicyorconflateoffset/resultroles."
+    },
+    {
+      "role": "Actualcut/style/growthoperations",
+      "source": "806205-228;Haircut146-315;Hairstyle78-173;Hairdo59-164,564-578;Follicles171-202",
+      "disposition": "SelectedCut/ArrangementinstantiatecanonicalHaircut/Hairstyle;Growthsetsnativefolliclepattern. Haircut.scaled multipliesfourlengthsandmapshemline/domeatnativegeometricport;notclaimingeveryothercutfieldscales. Volumeadds/clampsnonnegative,partaddsmetreshift;curl/clumpresultRatio andwave/frizzMetres plusflyawaysshare followexplicitdifferentformulas. hairdo.drapes ordinarypredicatebasedonarrangement/cutlongest/dome ->canonicalDraping policy. Laterretainedboolerasure174unchanged."
+    },
+    {
+      "role": "TypedLook ->nativeoperationgraph",
+      "source": "nativeLook/groom1-193;GPUgrow177proof",
+      "disposition": "LookkeepscanonicalMetres/Ratio/counts/policies untilgroomrecipeemitsnativeOp structs:curlfactor,Clumpfactor/size,Waveamplitude/wavelength,Frizzdistance/flyawaysshare,andSettlegravity/wind. ActualOpgraphhandoffdocumentednumericalCPU/WGSLboundary,notblanketnativeexemption orfullsolvervalidity. No nativeLookpublicSerde/finite/arithmeticglobalclearance."
+    },
+    {
+      "role": "NativeHairdoUpload andactualGUIDESfield/flowreceiver",
+      "source": "PackedHairdoUpload1-93;guidesHairdoGpu58-121/record249-321;shader366-437,605-679,684-741,571-604,765-830",
+      "disposition": "HostPODHairdoGpupacksseparatefloatmetre/ratio/countflags/tagfields,arraysfornativevectorcomponents. WGSLHairdodeclmatchesfield/componentorderingandbindingnamehairdo. Actualflowconstants0..7matchHairdo.flow_code;partmetresvsSweptsidedirectionpayloadaredecodedbyflow_at, Tieflowvalue1bun/2braid/defaulttailbybundled;volumefeedsComb.layerincumbinit. Nativecutfieldsdrivecut_length/is_cut. GrowthtagcomesfromGrowth::ALLpositiononthetypedGrowthField.growth. ItsactualdecoderisimportedGROWTHfromdifferentnativeWGSLleafandremainspending,therefore no806orderedcountyet."
+    }
+  ],
+  "completed_native_growth_receiving_contract": {
+    "source": "nativegroomWGSL22-79; guide_comb605-630injectsGROWTHparams->hairdo; PackedHairdoUpload40-43; FolliclesGrowth32-61/field171-202, allpreviouslyregisteredactualbodies",
+    "trace": "ActualGrowth::ALLorder isWhorl0,DoubleWhorl1,Cowlick2,Radial3,Forward4,Backward5,Down6. NativeFollicles.field copiescanonicalgrowthandconstructsonewhorlforWhorl/Radial(twoforDoubleWhorl/Cowlick;nonefordirectionalpatterns); Radialsetsitswhorlspiral0. HairdoUploadusespositioninactualALLarraytogenerateu32nativegrowthfield, independentfromArrangementflow. Injectedgrowth_direction switches0/3tosinglewhorldirection,1totwowhorldistanceblend,2tofrontcowlickreachblend,4forward,5backward,6downwithoutwardcomponent; thenreturnssafe_normalize(in_plane(v,n),fallback). Thussameprimitiveu32doesnotconflatenativeGrowthtagswithFlow0..7. Whorl/Radialsharebranchbutretainmeaningfuldistinctpatternparameters; DoubleWhorl/Cowlickneedseparateblendsemantics. No proposedmergeofsemantictypesjustbecauselabelsorbranch/storageoverlap.",
+    "scope": "Whorlhelper23-33andcompletegrowth_direction36-78sourceconsumed; actualtag/fieldrolesresolved. Nativein_plane/safe_normalize/MATHfieldhelpers andcompleteGPUguide/groomsolvernotnewlycleared. No fullgeometry/finite/accuracy/runtime guarantee."
+  },
+  "granularity_disposition": {
+    "Groom": "Usefulgeometryrequestidentity(Preset+HairShape)distinctfromHairDesignpigmentandexpandednativeLook; actualgrow/retainedGroomedHairreceiversprovedin177and795.",
+    "HairShape": "Coherentpresetvariationownerwiththreeindependenttypedoptionaloverridesandsevenseparatenumericroles. ShapeValuesdecodingcarrierandShapeKnobsUIcarrieraredifferentadmission/exchangeboundaries,notduplicatedruntimeowners. Privateapplicationfieldsboundspolicyremainsqualifiedforwith_knobsNaN.",
+    "units_and_bounds": "Length/frizzscalesmayexceed1;curl/clumpdeltascannegative;part/volume/wavearesignedmetreshifts;absoluteoutputcurl/clump/flyaways andphysicalwavedistancehaveowndifferentoperations. ExistingMetres/Ratioownunitswithoutaddingfinite/boundspolicy; do notreuseoneboundedratiovalidatorforallrolesoraddarbitrarynativebounds.",
+    "overrides_and_native_roles": "CanonicalCut,Arrangement,Growthdifferentaxesarecompatibleindependently; OptionNonemeanspresetselection. ActualUIretainsT/Option<T>,displaytextneverselectsbehavior. ActualHostFlowenumownsnativepayloaduntilflow_codeadapter; nativeWGSLtag/valuewordsareexplicitshaderprotocolboundarieswithreceivingcodeverified.",
+    "migration_limit": "KnownDrapingtypedpolicyerasureoccurslaterinGroomedHairretention174,notrepairedorcountedagainbythisscope. No globallyunique/acceptednewcandidate."
+  },
+  "qualified_observations": [
+    {
+      "source_key": "SEGOVB11-179-806-KNOB-NONFINITE-ADMISSION",
+      "classification": "frozen source-backed candidate, no unique/current/acceptedaliasclaim",
+      "evidence": "with_knobs publicnativeUIcarrier clampsf32swithoutseparatefinitecheck; checkedSerdeusesRangeInclusive.contains forrolebounds. PriorprimaryRustclampcontractreturnsNaNforNaN andsamecallisnowindependentlyread806190-200. NativeMetres/Ratio intentionallyaddnonumericalpolicy,so theydonotrepairapplicationadmission.",
+      "primary_contract_reuse": {
+        "path": "/home/brunosegovia/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/share/doc/rust/html/src/core/num/f32.rs.html",
+        "sha256": "1e617f2e08abc5ffe5e4ef6492ac43bef2b47c3f993901b8d9543a1370186e3f",
+        "decoded_rust_source_ranges": [
+          [
+            1530,
+            1585
+          ]
+        ],
+        "registered_before_read": true,
+        "qualification": "Installed primary Rust source documentation; no project execution or assertion of project compiler selection/version."
+      },
+      "relationship_to_795": "SameclampmechanismfamilyaspriorqualifiedHairPigmentcandidate, notprovensamecanonicalfinding/aliasoraccepteduniqueissue.",
+      "required_next": "Currentcanonical/aliasreconciliationandexplicitapplicationnonfinitepolicybeforeanyrepairoracceptedcount; nobroaderRatio/Metresboundsinvented."
+    }
+  ],
+  "pending_material_contracts_for806": [],
+  "mandatory_other_lens_extensions": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/hair_controls.rs",
+      "sha256": "8e9fc2ebe137bb6765c672155835f032498767cf2e8b8dae178f9f5decac18ac",
+      "ranges": [
+        [
+          1,
+          30
+        ],
+        [
+          81,
+          207
+        ]
+      ],
+      "root_staging": "audit11-root-hair-controls-staging-179.json",
+      "original_shared_credit": 0,
+      "status": "mandatorypending"
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/gpu/wgsl/guides.rs",
+      "sha256": "bcd60aee22ae82fae270b38599aca660f0432c0a6baf72d58241a88da4cfa840",
+      "ranges": [
+        [
+          1,
+          28
+        ],
+        [
+          366,
+          437
+        ],
+        [
+          490,
+          535
+        ],
+        [
+          571,
+          604
+        ],
+        [
+          605,
+          679
+        ],
+        [
+          684,
+          741
+        ],
+        [
+          765,
+          830
+        ]
+      ],
+      "root_staging": "audit11-root-guides-staging-179.json",
+      "original_shared_credit": 0,
+      "status": "mandatorypending"
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/gpu/wgsl/groom.rs",
+      "sha256": "955f005be356cd5dac7fef18bd1c669d248c1fdf2632f5a787a7b10222be2ae2",
+      "ranges": [
+        [
+          22,
+          79
+        ]
+      ],
+      "actual_access": [
+        [
+          22,
+          82
+        ]
+      ],
+      "root_staging": "audit11-root-groom-shader-staging-179.json",
+      "original_shared_credit": 0,
+      "status": "mandatorypending",
+      "adjacent81_82": "documentationnotPartingbodycoverage"
+    }
+  ],
+  "coverage_limits": [
+    "ExistingnativeFollicles/Look/Preset/Haircut/Hairstyle/GPUrecipefieldrolesreadonlyatregisteredports; notwholepresetcatalog/growthgeometry/GPUsolver/egui/stat_slideralgorithmguarantee.",
+    "Someforeignregisteredwindowsintentionallyreadsubset:Hairdo564-580not590;Follicles171-205not220. Adjacentcomments/helperprefixesexcludedcompletefunctioncoverage.",
+    "OwnerlocatorregexincidentallyexposedisolatedLookpreset/randomassignmentlinesbeforefreshregistration; explicit002qualification preserved. Randomwholebody/presetglobalcoverage notcreditedfromsearch.",
+    "All178reciprocalscale/177longestphase/174Draping/20bitfieldcapacity/rootbounds/795/currentDressing/F50/M108/M24/crosswalk/currentness/unfinishedotherlensqueues retained. Nonewuniqueacceptedcount.",
+    "No product/source/Git/rootledger/historymutation,projectexecution/tests/cases/helpers/assertions/doctestsorpublication. Sourcehash/evidencewritesonly; nobackcompatconstraints.",
+    "Rootauthorizedminimal76-82tailafter22-75endedatswitchdefault. Bothrangesprospectivelyregistered008/009; fullreturn/delimiterreadthrough79. No accidentalwhole1609groomshadercoverage.",
+    "No807orderedinventory; earlierBodyHead/previewreceivingreadsremainnarrowconnectedonly. ExistingregistryLook/Cut/Arrangement/Growth/units/recipe/packingrolesgetnoorderedfuturecredit.",
+    "Onlythreeexactnewunchangeddependencyidentities(controls,guidesWGSL,groomGROWTH)andtheirregisteredmaterialrangesextendmandatoryotherlensqueue. No extraoriginal/sharedcountorother-lensverdict.",
+    "PartialNativeHairdo/Folliclesregisteredwindowswereintentionallyreadsubsets; exactactualrangesinpartialreadscarryunchanged. NativeLookrandomlocatorlineexposurequalificationretained; nopreset/randomfullalgorithmcreditfromsearch.",
+    "PublicnativeLook/Hairstyle/Haircut/Folliclesmutationandserde,boundedUIwidgetinternals,shapecontrolunusualIEEEinputs,nativephysics/GPUcapacity/driver/algorithmacceptanceunverifiedbeyondexactsourcecontracts. No all-familyclearance."
+  ],
+  "new_unique_findings": 0,
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_whole_family_inspected": false,
+  "clear": false,
+  "integrated": false,
+  "validated": false,
+  "proposed_frontier": {
+    "original_accounted": 807,
+    "original_total": 2853,
+    "next_original": 807,
+    "active_partial": null,
+    "newly_source_accounted": [
+      806
+    ]
+  },
+  "root_adoption_required": true,
+  "root_ledger_history_overwritten": false,
+  "product_source_git_checks_tests_publication": "none",
+  "stop": "179completion;stopbefore807orderedwork"
+}

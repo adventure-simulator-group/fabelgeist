@@ -1,0 +1,339 @@
+{
+  "at": "2026-10-27T11:33:04.916483+00:00",
+  "lens": 11,
+  "status": "857 full requested source independently inventoried and source-accounted with qualified findings",
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-009.json",
+    "sha256": "93130ae368dd8f233adcb4eb8e5d640f1de3b290cc780ff986bc93d657fdf74e"
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-010-registration.jsonl",
+    "sha256": "18539d0ebf1dbfb619cc17234df64a681f6ab2f29142a516744c62395703a030"
+  },
+  "source_read_progress": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-010-source-progress.json",
+    "sha256": "bd45a58937e2c0130e98bdfdccc70aa85880d63efc910167c2ab5a5087fd9b7a"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 857,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve.rs",
+      "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "actual_eof": 2878,
+      "ranges": [
+        [
+          1,
+          2878
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "previous_personal_reads": [
+        [
+          1,
+          95
+        ],
+        [
+          305,
+          415
+        ],
+        [
+          453,
+          480
+        ]
+      ],
+      "own_receipts": [
+        "batch-007-receipt.json",
+        "batch-009-receipt.json"
+      ],
+      "prior_receiver_reads_not_automatic_ordered_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          2878
+        ]
+      ]
+    }
+  ],
+  "material_receivers": [
+    {
+      "kind": "connected-owner",
+      "original_index": 860,
+      "sha256": "e3bd3bd8fb753b33e583e5cba64967ca07539dd8b4b0032a2153a330b59a01df",
+      "ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual error/clock/fraction/physical exchange owner reached by857",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          19
+        ]
+      ]
+    },
+    {
+      "kind": "connected-owner",
+      "original_index": 880,
+      "sha256": "989db0ee4ad72276f3923b7d005480e50b6c618e04d0b7623602bf0de0d2a350",
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual error/clock/fraction/physical exchange owner reached by857",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          95
+        ]
+      ]
+    },
+    {
+      "kind": "connected-owner",
+      "original_index": 1022,
+      "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual error/clock/fraction/physical exchange owner reached by857",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          58
+        ]
+      ]
+    },
+    {
+      "kind": "connected-receiver",
+      "original_index": 891,
+      "sha256": "7d00629a7da937cf41b5bc49a86df7119cc7054743dce1f70ac2507a7aba59b0",
+      "ranges": [
+        [
+          1,
+          80
+        ],
+        [
+          117,
+          218
+        ],
+        [
+          248,
+          340
+        ]
+      ],
+      "prospective": true,
+      "reason": "physical AttackResult/DefenderResponse payload and actual ranged exchange precision/performance receiver; locate RecoveryTime reexport",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          80
+        ],
+        [
+          117,
+          218
+        ],
+        [
+          248,
+          340
+        ]
+      ]
+    },
+    {
+      "kind": "connected-owner",
+      "original_index": 900,
+      "sha256": "a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual RecoveryTime payload state and checked elapsed derivation, not a redundant elapsed alias",
+      "actual_read_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "zero_extra_original_credit": true
+    },
+    {
+      "kind": "connected-owner",
+      "original_index": 900,
+      "sha256": "a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+      "ranges": [
+        [
+          59,
+          89
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual DefenderResponse performance-scaled payload consumer; close relevant typed factor boundary",
+      "actual_read_ranges": [
+        [
+          59,
+          89
+        ]
+      ],
+      "zero_extra_original_credit": true
+    },
+    {
+      "kind": "connected-receiver",
+      "original_index": 897,
+      "sha256": "a3019cfa64106abc38bbfa7b0962e406cc6cb1a1a663a8a0dfdee71f874201e1",
+      "ranges": [
+        [
+          247,
+          287
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual DefenderResponse::scaled_for_performance implementation and same-owner weapon-contact predicate",
+      "actual_read_ranges": [
+        [
+          247,
+          287
+        ]
+      ],
+      "zero_extra_original_credit": true
+    }
+  ],
+  "per_role": [
+    {
+      "role": "Fresh simulation participant versus durable input/output",
+      "locations": "49-181,202-301,321-393,637-735,1237-1317",
+      "disposition": "Justified authority distinction; retain qualified raw-condition/unit/identity gaps",
+      "trace": "CombatantStrategicState exposes durable input fields; from_strategic_state resets transient duel state, removes already-included fatigue from starting incapacitation and carries one general fatigue pool. Work/bleeding/recovery advance only battle state. Outcome/log projection is actual committed strategic fact, not tactical tick persistence. Existing flags incapacitated/yielded/terminal cause represent different status/explanation facts; do not infer single-state equivalence without actual contract. Raw general incapacitation, health/blood/damage, IDs and physical magnitudes remain qualified roles; existing855/856 questions supported, not automatically new aliases."
+    },
+    {
+      "role": "Clock/duration/speed/fraction owners",
+      "locations": "1-5,73-97,231-271,282-301,704-713,893-959,1036-1102,1151-1219; connected880/900/952/1022",
+      "disposition": "Meaningful distinctions source-backed; no flattening into one bounded scalar",
+      "trace": "Actual BattleTime880 is finite signed battle-relative coordinate and supports negative times; AnimationElapsed916 is finite nonnegative span, distinct from authority/strategic clocks. SignedSpeed is separation velocity while PositiveSpeed is nonzero measured/minimum closing speed; measured speed rejects overflow then canonical constructor admits. UnitInterval1022 is finite closed fraction; combat performance producer900 clamps its existing policy then admits. RecoveryTime900 is After(span)/CannotRecover with zero-recovery and zero-performance branches, not redundant alias or infinity sentinel. Existing config894 carries durations/speeds into actual opening volley/condition consumers. Opening timing extracts seconds in a local range/speed/attack-count arithmetic kernel; ranged_attack_progress is fractional attack-count accumulation that may exceed1, so UnitInterval would impose a false invariant."
+    },
+    {
+      "role": "Battle opening/result/attack/response alternatives",
+      "locations": "311-352,367-402,506-624,629-749,1104-1211",
+      "disposition": "Real semantic sums; adjacent payload/identifier-role questions qualified",
+      "trace": "BattleOpening Normal/AlliesSurprise/EnemiesSurprise prevents ambiguous two-authoritative-openers choice. BattleResolution distinguishes both defeated, one side defeated and bounded timeout from ongoing None. BattleAttackKind selects actual melee versus ranged item instance and projectile handling; mode is not log opening phase. AttackResult shared physical kernel891 distinguishes recipient and payload, and ToAttacker.physical_contact separates blocking contact from miss/dodge for wear/logging. Actual ranged kernel clamps incoming hit precision/flanking, and typed performance consumer897 scales corresponding response payloads. AttackEffect hit may be true with0 health damage (armor), so replacing hit with damage>0 would lose actual distinction."
+    },
+    {
+      "role": "Schedules, buffered ordinals, recorders and telemetry",
+      "locations": "49-108,354-493,495-624,751-816,965-1102,1237-1330",
+      "disposition": "Named records justified; retained raw namespace and co-occurrence questions source-accounted with dependencies",
+      "trace": "PendingAttack groups same attack result/body part/mode/round and attacker/target collection ordinals; actual producer enumerates attacker side and chooses defender targets, consumer applies the same paired side buffers. OpeningVolleyPlan names direct and total attack counts bounded by actual64 cap. BattleRecorder owns summary/log/timeline and assigns independent log versus timeline sequences. Combatant IDs, inventory instance IDs, participant vector ordinals, rounds and sequence namespaces remain unlike roles despite raw integers. Melee contact telemetry names surface coordinate, anatomical destination, gap versus center separation/lever lengths, energy fraction, alignment/probability, typed performance and availability-aware RecoveryTime. Same-representation fields do not justify one universal number wrapper or universal instance branding. Coupled optional started/contact/measure state and flattened static response/commitment tags remain qualified questions pending actual sibling producer/current comparison, not witnessed invalid runtime combinations."
+    },
+    {
+      "role": "Existing fixture source and external module declaration",
+      "locations": "1332-2878",
+      "disposition": "Whole requested source consumed, no test execution or next-file coverage",
+      "trace": "Personally read all source including every existing fixture: work slice retention, fresh participant authority, power/overflow margins, deterministic seeds/causal ordering, simultaneous/canceled contacts, explicit surprise, ranged/melee defense/armor, exact equipment instance logging, approach windows, typed timing/guard recovery, phase adaptation and disabled-arm yield. Fixtures intentionally mutate raw public state and express expected semantics; no observed pass or whole combat/native acceptance inferred. cfg(test) incapacitation_tests declaration does not confer its separate source coverage."
+    }
+  ],
+  "qualified_observations": [
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/autoresolve.rs@cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a#battle-identity-log-role-granularity",
+      "observation": "Participant/target IDs, concrete weapon/contact IDs, array ordinals, log/timeline sequences, round numbers and retained log phase strings share raw representations across actual planning/log ports. Actual current frozen producers keep sides/item instances distinct and existing fixtures specifically encode bow versus sidearm provenance. opening/main phase is not BattleOpening surprise authority or fine-grained melee timeline phase.",
+      "remedy": "Reconcile canonical existing identity/stage owners and inherited master aliases; type meaningful application IDs/stages and preserve named same-side ordinal adapters at actual collection boundary. Avoid arbitrary per-number wrappers, universal instance tokens or reusing wrong existing phase enum.",
+      "acceptance": "Actual planning/application/log/persistence boundaries cannot confuse participant and inventory namespaces or unrelated stage/sequence roles; deterministic ordering and correct source-instance provenance retained.",
+      "dependencies": [
+        "inherited182/185 ID/key/capacity and master finding reconciliation",
+        "actual current source and sibling timeline/persistence recipients"
+      ],
+      "currentness": "Frozen source only, no runtime wrong-ID witness or accepted unique count"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/autoresolve.rs@cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a#optional-schedule-and-telemetry-payload-roles",
+      "observation": "Started/contact timestamps and scheduled measure are independent Options beside recovery/target/power state. Telemetry retains many Optional response samples and static response/commitment labels while canonical response/timing owners exist. This broad shape warrants exact sibling-producer/recipient reconciliation, but parent source and fixtures do not establish every absent/present combination is invalid, nor that labels have identical state space.",
+      "remedy": "Group only fields proven to share one state lifetime using existing actual timing/response owners; serialize labels at native telemetry boundary after confirming canonical states. Preserve independently meaningful terminal/condition, geometric and timing axes. No historical layout/API/message constraints.",
+      "acceptance": "Every proved coupled schedule/response state owns its required payload and all producers/cancel/retained receivers use it; independent quantities stay independent.",
+      "dependencies": [
+        "melee scheduling/defense/timeline original populations, still independently pending",
+        "enum-shape/aggregate/redundant-authority alias coordination",
+        "current source"
+      ],
+      "currentness": "Qualified source-accounted design question; no accepted unique finding"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/autoresolve.rs@cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a#physical-condition-precision-propagation",
+      "observation": "Typed performance/duration/speed leaves have real mathematical contracts, but retained health/damage/condition, metre distances and telemetry physical/fraction magnitudes remain raw. Actual range exchange passes an extracted performance-scaled precision into shared physical calculation891 whose signature is raw and clamps by existing policy. This does not make all battle state a native kernel or establish every precision quantity shares UnitInterval bounds.",
+      "remedy": "Reconcile existing physical/condition/contact-precision owners and actual supported bounds; retain semantic values through application ports and extract only at local numerical/serialization boundaries. Share invariant math while preserving units and role identity; no arbitrary new finite cap or repeated clamp admission.",
+      "acceptance": "Actual producer/retained/receiver chain expresses supported magnitude distinctions, preserves speed state/clock/RecoveryTime contracts and existing one general fatigue authority.",
+      "dependencies": [
+        "batch007 projection and batch009 body-health source-key support, no automatic alias",
+        "remaining combat/physics owners and currentness population"
+      ],
+      "currentness": "Frozen only; current/alias/runtime acceptance unresolved"
+    }
+  ],
+  "carried_own_proofs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-007-receipt.json",
+      "sha256": "d47d3a4b9fb4daa1a830241c6ead725c3bbe461b7d56a83b1a5614bb640acf1f"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-008-receipt.json",
+      "sha256": "480a8e5ab6e0ba18252686cbe2eac0f4d38a718701571266a49ae7dd7076e900"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-009-receipt.json",
+      "sha256": "c4846ed7280666ba54db302343501cb6a097784ab4b44929dc6751e5bb943324"
+    }
+  ],
+  "process_qualifications": [
+    {
+      "kind": "process-qualification",
+      "original_index": 2034,
+      "sha256": "68cb46b9efe6c4f44ba41fe4386c02fa7000314c52d6e10b7d33fa9742290d8e",
+      "actual_incidental_read_ranges": [
+        [
+          247,
+          255
+        ]
+      ],
+      "registered_ranges": [
+        [
+          247,
+          287
+        ]
+      ],
+      "actual_eof": 255,
+      "reason": "path suffix filter unintentionally also selected tactical-server/combat/defense.rs; registered and hashed before read but not material to857. No coverage, source support, ordered or other-lens material credit; original2034 requested scope remains pending.",
+      "prospective_claim_for_out_of_eof": false
+    },
+    "Registered90059-89 actually consumed encumbrance and existing test prefix, not expected DefenderResponse method. Actual method subsequently located at897 and registered/read247-287; no inferred implementation coverage.",
+    "891 connected ranges end in partial unrelated function signatures/tails at80/218/340; only complete AttackResult/DefenderResponse and ranged receiver248-315 claimed, no full core combat body."
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer. Preserve180/181nativeSDK/Bevy scheduling/imagecopylimits andallpendingreceiverqueues. M04current903reviewsseparate; notfrozenoriginal/lenscounts. Packet182InventoryItemId graph erasure, catalogkey/recordidentity and wear/order-selector sourcequestions retained, alias/currentness/unique acceptance unresolved. M04build-target review003 atdf5 andhostedCIseparatefromfrozenauditcounts. 184 newpublicDrapedPiece association/sourcegroupingquestion remainsfrozenlocal, noalias/currentness/uniqueacceptance; producerpathcoherent. M04df5validationseparate. 185 capacityreservationstaticAPIgap retainedasfrozenevidence only; alias/currentness/accepteduniqueness unresolved. No runtimewrongID orauthoredcurrentinputwitness. ExistingID/key/wear/savedassociationquestionsremainqualified. Packet186 independently accounts existing test-source812 only; fixture expectations are not observed execution/whole authored catalog/native guarantees and do not clear185 capacity witness. Existing lower-pattern fixture uses canonical owners; no new current alias or unique finding. Packet187 original813 only. New frozen inventory_ui and catalog wrapper material extensions mandatory other lenses, zero extra shared/original credit. UI acquisition is not atomic/all-worn; inherited capacity, typedID erasure/key authority and public saved-association questions retain all currentness/alias/unique limits.",
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_adoption_required": true,
+  "read_limits": [
+    "Full857 source accounted; remaining sibling originals retain their own scopes, read obligations and no automatic ordered credit from parent fixtures/reexports. Qualified schedule/tag questions are findings/dependencies, not policy/runtime acceptance blockers.",
+    "No full physical kernel, tactical scheduling, all-contact numerical or persistence/currentness/alias guarantee. Exact Git queries were locator-only before hash-pinned actual object/range reads."
+  ],
+  "restrictions": "No product/Git mutations/root ledger/project execution/scans/probes/tests/new tests/publication."
+}

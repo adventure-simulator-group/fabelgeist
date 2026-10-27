@@ -1,0 +1,184 @@
+{
+  "id": "ADLER-CONT06-LATER-001",
+  "lens": "type-ownership",
+  "receipts": [
+    {
+      "material_index": 100,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/contracts.rs",
+      "sha256": "082a7174a1ca9b578bf1a52852a7d09d952c4af3c6d0705ee7b5442692175e33",
+      "ranges": [
+        [
+          1,
+          291
+        ],
+        [
+          338,
+          384
+        ]
+      ],
+      "source_basis": "Fresh root personal complete read of registered bounded ranges; exact hash verified. Own06 analysis, no other-lens verdict transfer.",
+      "owners_and_users": "ContractInteractionStage and ContractIssuerInteractionReceipt are module-local SpacetimeDB strategic authority-model owners; ContractStatus is shared adventuresim-core owner. Recorder and consumer use those types directly; dialogue provenance and simulation producer are separate authorities despite shared string representation. Baseline supporting bodies pr-working authority_model399-428 and case99-117 freshly read.",
+      "disposition": "Reuse existing stage/status owners and preserve historical receipt coordinates; no competing equivalent type or wrong layer established by this added material. Existing identity/provenance/aggregate-state obligations remain; no schema edit or clearance.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 101,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade/streams.rs",
+      "sha256": "f0317997a922b05065564f3a5b4963d424f0efd3a2c4ed70dbb72a1de6c9569e",
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "source_basis": "Fresh root personal complete read of registered bounded ranges; exact hash verified. Own06 analysis, no other-lens verdict transfer.",
+      "owners_and_users": "fabelgeist_determinism owns Seed and StreamId; standard NonZeroU64 is temporary native below-bound argument. GOLD_PRESENCE and GOLD_AMOUNT intentionally identify different deterministic streams while sharing Seed.",
+      "disposition": "Correct lower-level deterministic owners; do not collapse the two draw identities or replace full-width Seed with raw caller-specific RNG. Positive maximum admission and caller multiplier obligations belong to connected existing findings, not an independent type-owner defect.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 102,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/scalp.rs",
+      "sha256": "64a5cc8196a567a3b4d071c355bc491a23956d815c57d4805277bf15b1135304",
+      "ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "source_basis": "Fresh root personal complete read of registered bounded ranges; exact hash verified. Own06 analysis, no other-lens verdict transfer.",
+      "owners_and_users": "fabelgeist-hair Surface is host mesh owner, GpuScalp is retained native upload representation, fabelgeist-gpu Buffer is native storage. GpuGroomer operates at upload/read boundaries. Fresh baseline Surface17-66 support confirms mutable columns plus private CDF/BVH.",
+      "disposition": "Host and GPU representations have distinct roles and need coherent handoff, not automatic consolidation. Current uploader mixes recomputed GPU CDF with cached host area and independently uploads columns/counts; preserve existing #780 Surface/scalp coherence obligation and pending lens07 exact dedup. No new unique owner defect asserted.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 103,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/shape_cast/shape_cast.rs",
+      "sha256": "55751d940df916bcdc1526be642b46736efe8223038ea0bbed6cee5530db129e",
+      "ranges": [
+        [
+          157,
+          175
+        ],
+        [
+          212,
+          220
+        ]
+      ],
+      "source_basis": "Fresh root personal complete read of registered bounded ranges; exact hash verified. Own06 analysis, no other-lens verdict transfer.",
+      "owners_and_users": "Parry cast_shapes time_of_impact is native dependency solver-time scalar; positions and velocities are native geometry arguments. Documentation explicitly includes hit at zero and absent hit; no first-party retained semantic clock defined here.",
+      "disposition": "Legitimate solver boundary. Preserve first-party clock/frame distinctions at calling adapter; documentation/example is corroboration only, not exhaustive native implementation or first-party caller clearance.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 104,
+      "source_id": "pinned-registry:bevy_render_macros-0.19.1/src/extract_component.rs",
+      "sha256": "2deb41c36880e96baffe3899ba832ae528a5cd97eb5bd611272651e032223932",
+      "ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "source_basis": "Fresh root personal complete read of registered bounded ranges; exact hash verified. Own06 analysis, no other-lens verdict transfer.",
+      "owners_and_users": "Bevy macro generates SyncComponent and ExtractComponent traits under actual resolved bevy_render_path. Self clone is extracted Out; optional sync target controls cleanup association rather than introducing a second first-party semantic owner.",
+      "disposition": "Native derive adapter reuses Bevy owners; target and Out intentionally differ in role. No duplicated bespoke first-party definition in registered body; actual extraction scheduling still requires plugin and is not established here.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 105,
+      "source_id": "pinned-registry:bevy_render_macros-0.19.1/src/lib.rs",
+      "sha256": "9f94ce2c2e61634a28dedcca4a440c9ba5332efa3bede22b30d3b0a563d89884",
+      "ranges": [
+        [
+          27,
+          62
+        ]
+      ],
+      "source_basis": "Fresh root personal complete read of registered bounded ranges; exact hash verified. Own06 analysis, no other-lens verdict transfer.",
+      "owners_and_users": "ExtractComponent proc-macro public entry delegates to extract_component implementation; documented Clone extraction matches material104. SyncComponent target is separate cleanup target.",
+      "disposition": "Delegation is a native macro implementation boundary, not deprecated first-party forwarding API. No owner move indicated; derive declaration does not prove execution of extraction.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 106,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/material.rs",
+      "sha256": "67733383aa74089a84e76448e23b6911132a2a298ab684e44655f8e85fa0765c",
+      "ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "source_basis": "Fresh root personal complete read of registered bounded ranges; exact hash verified. Own06 analysis, no other-lens verdict transfer.",
+      "owners_and_users": "bevy_eidolon InstancedMaterial extends native Asset/AsBindGroup plus Clone; ShaderRef, PolygonMode, Color, mesh layout and specialization result remain native Bevy owners. Self::Data comes from AsBindGroup.",
+      "disposition": "Native rendering contract, no first-party duplicate material concept introduced by body. Shader choices, flags and actual material payload semantics stay distinct; no blanket equivalence with first-party surface policy inferred.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 107,
+      "source_id": "pinned-registry:bevy_render-0.19.1/src/render_resource/bind_group.rs",
+      "sha256": "c0efbc7a55dffa8e71f5a7ff158b5123b2b031f44db99275a61ad6c008dda14f",
+      "ranges": [
+        [
+          500,
+          504
+        ]
+      ],
+      "source_basis": "Fresh root personal complete read of registered bounded ranges; exact hash verified. Own06 analysis, no other-lens verdict transfer.",
+      "owners_and_users": "Bevy AsBindGroup declares associated Data prepared alongside bind group, and Param system input; they are distinct native contracts with Send/Sync and SystemParam bounds.",
+      "disposition": "Native associated types establish ownership at render adapter. No evidence Data must duplicate a first-party semantic owner or that equal layouts imply equivalent authority.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 108,
+      "source_id": "pinned-registry:serde_derive-1.0.229/src/ser.rs",
+      "sha256": "18b3a4d06cd721c402835b17f008a63fdbaad379734f0fd4132aa28d8ea5c1de",
+      "ranges": [
+        [
+          191,
+          212
+        ]
+      ],
+      "source_basis": "Fresh root personal complete read of registered bounded ranges; exact hash verified. Own06 analysis, no other-lens verdict transfer.",
+      "owners_and_users": "Serde transparent serializer dispatches to selected field Serialize or explicit serialize_with; serializer is delegated native wire owner while outer Rust owner remains type-specific.",
+      "disposition": "Transparent wire representation does not erase Rust owner nor establish admission validation. Existing first-party checked deserialization obligations remain with their owners; no first-party owner move follows from native macro body.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 109,
+      "source_id": "pinned-registry:glam-0.32.1/src/features/impl_serde.rs",
+      "sha256": "da9b8a13b57b257793481f554e6888a8fb0c82a7669e52d7e2d2af74701f0061",
+      "ranges": [
+        [
+          73,
+          86
+        ],
+        [
+          730,
+          748
+        ],
+        [
+          1044,
+          1062
+        ]
+      ],
+      "source_basis": "Fresh root personal complete read of registered bounded ranges; exact hash verified. Own06 analysis, no other-lens verdict transfer.",
+      "owners_and_users": "glam owns Vec3/Vec3A and affine/matrix/quaternion native math representations; macros implement Serde tuple serialization using three fields. f32 module selects precision-specific owners.",
+      "disposition": "Native numerical/wire boundary. Vector storage equality does not make coordinate-frame roles interchangeable. Serializer provides no finite/frame admission guarantee; retain bespoke semantic wrappers in first-party owners and existing admission findings, no new duplicate owner shown.",
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "new_unique_findings": 0,
+  "qualification": "Only material100-109 newly accounted; original-role supporting rereads add no role count. Existing baseline findings remain."
+}

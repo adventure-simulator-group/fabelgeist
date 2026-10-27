@@ -1,0 +1,28 @@
+--- base
+
++++ head
+
+@@ -816,20 +816,20 @@
+
+         let views = [
+             CaptureViewSpec::new(
+                 "tree-cold-first-050",
+                 "Cold",
+                 CapturePose::TreeColdTraversal {
+-                    distance: crate::camera::authored_metres(50.0),
++                    distance: crate::camera::config::authored_metres(50.0),
+                 },
+                 80.0,
+                 100,
+             ),
+             CaptureViewSpec::new(
+                 "tree-warm-second-050",
+                 "Warm",
+                 CapturePose::TreeColdTraversal {
+-                    distance: crate::camera::authored_metres(50.0),
++                    distance: crate::camera::config::authored_metres(50.0),
+                 },
+                 80.0,
+                 100,
+             ),
+         ];

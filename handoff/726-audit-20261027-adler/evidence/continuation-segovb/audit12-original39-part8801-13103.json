@@ -1,0 +1,97 @@
+{
+  "at": "2026-10-26T18:40:42.768469+00:00",
+  "lens": 12,
+  "role": 39,
+  "source_id": "physical-p16:Cargo.lock",
+  "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+  "registration": "audit12-original39-part8801-13103-registration.json",
+  "consumed_ranges": [
+    [
+      8801,
+      9600
+    ],
+    [
+      9601,
+      10400
+    ],
+    [
+      10401,
+      11200
+    ],
+    [
+      11201,
+      12000
+    ],
+    [
+      12001,
+      12800
+    ],
+    [
+      12801,
+      13103
+    ]
+  ],
+  "consumed_line_count": 4303,
+  "body_read": "Every actual assigned line emitted/consumed in six bounded contiguous outputs, no truncation. ExactsourceSHA verified before eachchunk and after finalread; no parser/scanner/summarysubstitute.",
+  "inventory": [
+    {
+      "range": [
+        8801,
+        13103
+      ],
+      "occurrences": "All TOML package table/header spellings and name/version/source/checksum/dependencies keys",
+      "boundary": "Cargo.lock serialized nativepackage graph grammar; exact fieldspellings preserved; no app semanticclassifiers."
+    },
+    {
+      "range": [
+        8801,
+        13103
+      ],
+      "occurrences": "All package name fields and dependency elements, including unqualifiednames and name+version selectors",
+      "boundary": "Open nativepackageidentity and dependencyreferencing/disambiguation. Native pkg names suchashttp/png/serde/thiserror are graphIDs here, not gameplayserializedfield IDs or error classification. Repeatednames preserve actualseparateversions (rand0.8.8/0.9.5/0.10.2, strum0.25.0/0.27.2/0.28.0, syn2.0.119/3.0.4, thiserror1.0.69/2.0.20, windows-sys multipleversions). No arbitrary finiteenum/compatibilitywrapper introduced."
+    },
+    {
+      "range": [
+        8801,
+        13103
+      ],
+      "occurrences": "All version fields incl exact SemVer build/prerelease metadata",
+      "boundary": "Resolved nativepackageselections. Preserve spirv0.4.0+sdk-1.4.341.0, serde_yaml0.9.34+deprecated, tikv-jemalloc-sys0.5.4+5.3.0-patched, TOML+spec-1.1.0 and wasi+snapshot/buildmetadata. These are literalnativeversions, no arithmetic applicationquantity or permissionforcompatibilityAPIs."
+    },
+    {
+      "range": [
+        8801,
+        13103
+      ],
+      "occurrences": "All source fields in rootassignedrange",
+      "boundary": "Every observed value registry+https://github.com/rust-lang/crates.io-index. Cargo sourceID, not merelyURL/gamecontentendpoint. No alternate URI in thisrange; delegated1907git URI remains separately inventoried."
+    },
+    {
+      "range": [
+        8801,
+        13103
+      ],
+      "occurrences": "All checksum fields",
+      "boundary": "Quoted opaque native registryarchive digest text. Preserve exactbytes; no verificationofeacharchive, trust/authenticity/security or cryptographicproof claimed."
+    },
+    {
+      "range": [
+        10554,
+        10591
+      ],
+      "occurrences": "strategic-web source/checksumabsent record",
+      "boundary": "Actual lockrecordname/version/dependency fields; absencealone doesnot establish workspacemembership or filepath. Root1-800 and delegatedsource-lessrecords samequalification."
+    }
+  ],
+  "boundary_support": "audit12-original39-native-boundary-registration.json captures actual installedprimaryCargoBook packageidentity/lockpurpose contracts. It is documentationofnativeboundary, not nativeCargo parserimplementation/source audit or actualCLI execution.",
+  "open_receiving_work": "Frozen039329firstparty Cargo.lock consumers located by exactgitgrep (Bevybuildguard and Python/awk wasmCLIversion readers plus hash/pathlists); delegatedsourceonlytracepending in audit12-original39-receivers. No full39credit beforeactualreceivingdisposition.",
+  "qualifications": [
+    "Final13103EOF exactly read. Root801-8800 delegatedbodies not personallyread; only receipt-basedunion mayadopt those independentinventories.",
+    "Fullgraphvalidity, packageedgeexistence/desiredversion/featureselection, buildability and runtime behavior remain unverified; frozenCargo.lock !=currentCargo.lock.",
+    "No tests/cases/helpers/assertions/doctests or product/git mutations/projectchecks. Rootwrites ignoredsource/evidencefiles only.",
+    "No global/lens13/otherpopulationcredit; thispart has zerooriginalcompletionincrement."
+  ],
+  "findings": [],
+  "original39_accounting_increment": 0,
+  "global_clearance": false
+}

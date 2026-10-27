@@ -1,0 +1,68 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-390",
+  "at": "2026-10-26T00:12:03.141907+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 249,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/residence/properties.rs",
+      "sha256": "80864f0168cb8abf7dcd17c08ea7405e6124f2968ad6eb83dbca7e0a5aab4e26",
+      "personally_read_ranges": [
+        [
+          1,
+          377
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full377 lines. Catalogue parse/settlement+effective-population validation+digest precede immutable manifest gate; equal digest returns without repeated materialization. Seed family allocation computed before property insert; allocate_population errors propagate to reducer transaction rather than ignored partial-state claim. Available-property combines unresolved legal holdings, effective ledger residents, latest occupancy pointer and aggregate census; conservative latest/future pointer inclusion is explicit, exact frontier availability-policy question not new finding.",
+        "Capacity checker is read-only before occupancy writes. It checks requested minute plus every later target-property event before admission_end, excludes incoming character from named count and includes unmaterialized census. Coherent catalogue capacity/population is separately validated; arbitrary persisted aggregate overflow is not ordinary witness."
+      ]
+    },
+    {
+      "scope_index": 250,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/residence/properties/households.rs",
+      "sha256": "f5c4295a284249b0fad780f6b8331f2dbff6c574f33bec5ba45edd3896ff5d17",
+      "personally_read_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full62 lines. Gateway-only projection groups aggregate census by household/property then adds current materialized occupants with membership. It projects latest pointer rather than a requested historical frontier. u32 increment assumes actual capacity-bounded physical occupancy; no raw large-row witness established."
+      ]
+    },
+    {
+      "scope_index": 251,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/residence/properties/materialization.rs",
+      "sha256": "89be43ab5a91d96b96077c6950b9159b25f61165e938395ab54774540711b688",
+      "personally_read_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full111 lines. Once manifest exists, groups resident profiles lacking one-time provenance by authoritative household. Chooses sorted first census home with enough remaining count in settlement, decrements aggregate, inserts one-time provenance and only creates zero-minute occupancy for characters without current occupancy. Families may consume another synthetic census household's home while projection preserves original aggregate versus named-family identities; policy/identity equivalence needs producer contract, not automatically census-loss finding. Errors propagate caller; no runtime acceptance."
+      ]
+    },
+    {
+      "scope_index": 252,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/residence/view.rs",
+      "sha256": "b481076a43b5a9e15f7ee78deb63fb3e81cf97989061300fa34168d9182c6053",
+      "personally_read_ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full57 lines. Viewer candidates include effective latest occupants and primary designations, always legal holder, plus all affected legal/physical historical-transition characters; sort/dedup. Unfiltered historical candidate collection requires enclosing per-character frontier projection/authorization, not itself proof of leaked future transition. Source is included helper, not standalone access gate."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "4 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

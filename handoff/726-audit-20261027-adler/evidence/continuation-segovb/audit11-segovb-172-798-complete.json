@@ -1,0 +1,124 @@
+{
+  "id": "SEGOVB-CONT11-172-798-COMPLETE",
+  "lens": "type-granularity",
+  "original": 798,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+  "sha256": "2d8ba1f7658b0a709143467f73dc6b3f0a0eab31ad0a36a6a7436028b0ba4d7f",
+  "actually_read": [
+    [
+      1,
+      448
+    ]
+  ],
+  "source_accounted": true,
+  "source_complete_for_requested_role": true,
+  "status": "source-accounted with qualified physical/layout/channel-owner concerns; not clear",
+  "prior_state": "audit11-segovb-171-proposed-state.json",
+  "contract_traces": [
+    {
+      "role": "Texture planes, mip descriptor and grid records",
+      "locations": "96-168,261-267",
+      "trace": "ScalpTexture distinguishes shade/coverage mipchain from strand UV-direction/shade mipchain. GpuScalpTexture stores each as a separate private GPU buffer, a meaningful host-vs-device distinction. Level names side, padded stride and offset in texels; these differ from byte lengths/offsets. levels derives a fixed sequence from SIZE2048 untilside1; ROW_TEXELS64 corresponds to four-byte texels at256-byte row alignment. Grid separates shadow-blockside/count and blur reach in texels. These records are cohesive roles, not duplicate wrappers merely because raw u32 or Vec<AtlasLevel> matches; native texel descriptors should not incorrectly reuse byte-offset leaves."
+    },
+    {
+      "role": "Actual bake admission, retained source/frame and producers",
+      "locations": "170-215,269-325; connected groom80470-93 retained169; ScalpMap2844100-117 retained169",
+      "trace": "Private bake receives HairGpu, native GpuGroom, bust Head and same retained ScalpMap. Existing grow creates head/scalp/map for same bust and retains resulting textureArc; no externally decoded bare map admitted here. Approximate metre-per-texel from ScalpMap.texel converts physical shadow/blur reaches to explicit rounded>=1 texel counts. STEP/REACH/SHADOW_REACH/LOCK_WIDTH are physical metres; shade/spreads/thresholds are optical shares; SIZE/blocks are native grid dimensions. Native buffers and one shared KernelBatch own draw,bare,blur,finish order; texture planes use same total padded chain length. Public native GpuGroom counts/buffers are not universally branded or checked by this function; no arbitrary caller finite/buffer/device coherence proof."
+    },
+    {
+      "role": "Distinct native stage roles and buffer flow",
+      "locations": "272-424; shader79937-372",
+      "trace": "Host draws strand-major positions/StrandGpu attributes into packed topmost and binary shadow-block workspaces. Bare stage derives binary floatimage, then four alternating row/column passes turn it into fractional local bare share in ping-pong buffers. Finish writes shade/coverage and encodeddirection/shade as separateRGBA words; halve walks actual adjacent Level records for both planes. A binary f32 workspace is intentionally later averaged and must not be mechanically replaced by an applicationbool. Row/column stride1/SIZE and ping-pong indexes are native kernel scheduling, not gameplay state. Host parameter keys bind actual WGSL Params/buffers; lexical shader tokens are framework boundaries, no mutable display-prose branching."
+    },
+    {
+      "role": "Exact native packing/readback/image boundary",
+      "locations": "227-258,373-424; shader799307-370",
+      "trace": "Shader texel_of packsRGBAchannels into a u32 and HALVE unpacks/averages/repacks channels at from/to padded texel descriptors. Host read obtains native u32 words, views bytes and strips row padding using the same levels descriptor before constructing square AtlasLevel image records. Thus texture side, padded stride, chain texeloffset andbyte multiply4 have different roles at the actual image/GPU boundary. Samelevels allocation/dispatch/readback provides source-backed local extent association. No universal cross-backend endianness/shortread/arbitrary mutatedbuffer guarantee or renderer/texturecopy consumer correctness is inferred."
+    },
+    {
+      "role": "Longest-strand reduction producer through retained physical value",
+      "locations": "427-448; shader799374-400; native gpu/mod.rs119-175; retained groom804/strips803 traces169/171",
+      "trace": "Longest helper allocates/clears native atomicword, dispatches by strandcount and points, waits for readback and reconstructs f32bits (zero when no returnedword). Shader sums consecutive point distances and atomicMaxs positive-length encoding; host value is retained as longest strand metres in GroomedHair/PlacedHair and used by StripSource subdivision. Numeric bit transport, metre length and strand/pointcount are different meanings. Zero is legitimate empty/native workspace result, not a legacycompatibility fallback. Native invalid/nonfinite point admission, float-bit ordering/overflow and full reduction correctness remain unverified rather than presumed from typedhostsignature."
+    },
+    {
+      "role": "Canonical GPU/context/storage helpers",
+      "locations": "connected HairGpu284551-111,117-138; native gpu2289119-175; receiver799full400",
+      "trace": "HairGpu retains one context and compiled BakeKernels; KernelSource delegates compile to samecontext KernelCache. Actual storage helper converts native byte length into canonical BufferByteLength at Buffer::new and obeys minimum16native allocation; upload uses BufferUpload for NoUninit elements with explicit native empty padding. Native GpuGroom defines strand-major pointbuffer, per-strand attributebuffer and separate counts; head_shape explicitly serializes canonical Head fields into padded vec4 tape. These identify real native storage/compile/descriptor boundaries, without granting whole GPU/mathematical helper/source-family clearance. MATH/HEAD numerical evaluator bodies were not re-audited and no distance/physics/finite correctness guarantee is asserted from imported names."
+    }
+  ],
+  "qualified_observations": [
+    {
+      "local_source_key": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs@sha256:2d8ba1f7658b0a709143467f73dc6b3f0a0eab31ad0a36a6a7436028b0ba4d7f#L96-L168,L427-L448:scalp-plane-layout-and-length-roles",
+      "classification": "retained physical/texel-layout/optical owner-propagation qualification; no accepted unique finding",
+      "observation": "Metre distances, scalar optical shares, native grid texel counts/offsets, byte lengths and longest-strand physicalvalue are distinct. Exact first-party nativepacking/scheduling boundaries inspected justify native representations there, not blanket primitive carry through retained application APIs. No matchingcanonical checkedleaf/alias repair or universal quantity framework imposed."
+    }
+  ],
+  "registrations": [
+    "audit11-segovb-172-registration-001.json",
+    "audit11-segovb-172-registration-002.json",
+    "audit11-segovb-172-registration-003.json"
+  ],
+  "connected_material_reads": [
+    {
+      "original": 799,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/bake/wgsl.rs",
+      "sha256": "7965432924278f1a7cbcf9a47a295a9c2b9fe4103783e8d641f54dbbd9bc70ec",
+      "ranges": [
+        [
+          1,
+          400
+        ]
+      ],
+      "ordered_credit_at_read": false,
+      "note": "Independent ordered799 assessment follows only after798 disposition; fullconnectedread is not automatic count."
+    },
+    {
+      "original": 2289,
+      "sha256": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+      "ranges": [
+        [
+          119,
+          175
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "original": 2845,
+      "sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+      "ranges": [
+        [
+          51,
+          111
+        ],
+        [
+          117,
+          138
+        ]
+      ],
+      "ordered_credit": false
+    }
+  ],
+  "reused_prior_contracts": [
+    "169 exact GroomedHair grow/bake retention and ScalpMap metre/texel producer scopes",
+    "171 canonical AtlasLevel native image record/frame distinctions; no discovery restart"
+  ],
+  "qualifications": [
+    "Full448 exact frozen original798 body personally read. Workspace byte identity matches onlythisfile, not whole current family/runtime/integration.",
+    "No early799/800 ordered credit from body access ormetadata; original0-797 not restarted.",
+    "All prior source-key/canonical alias, current Dressing and795NaN qualifications retained; no new accepted unique count/globalclearance.",
+    "Prior796 two and171 three new unchanged dependency extensions remain mandatory other-lensqueue incomplete, zero extraoriginal/sharedcount.",
+    "Type granularity source accounting does not clear shader/numerical invariants, admission, behavior or other lenses; no projectcheck/test/probe execution.",
+    "No new tests/assertions/helpers/doctests, product/Git/rootledger/history edits orpublication."
+  ],
+  "new_unique_findings": 0,
+  "accepted_unique_count_change": 0,
+  "proposed_original_accounted": 799,
+  "next_original": 799,
+  "active_partial": null,
+  "integrated": false,
+  "validated": false,
+  "clear": false,
+  "crosswalk": "audit11-question-crosswalk-001.json",
+  "current_reconciliation": "current-rig-dressing-reconciliation-001.json"
+}

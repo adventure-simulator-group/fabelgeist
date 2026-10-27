@@ -1,0 +1,40 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-003",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1470,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/combat_effects.rs",
+      "sha256": "236a5328824e94bb189a8bde68dcf4f82154f9f48a4badb36397fe8f3fecf453",
+      "ranges": [
+        [
+          1,
+          308
+        ]
+      ],
+      "source_basis": "Fresh root complete personal recovered-object read; exact hash verified, independent own10 analysis.",
+      "trait_inventory_and_semantics": "CombatEffectsPlugin::build explicitly registers plugins/resources/observer/systems; no derive can express application scheduling composition. CombatEffectAssets already derives Resource/Default. CombatEffectResources/SystemParam and particle/marker Component derive native mechanics.",
+      "disposition": "Keep manual Plugin behavior and inherent effect/audio/movement kernels. ImpactSound family match is runtime policy, not serialization boilerplate; do not derive a codec solely to replace it. No handwritten mechanical trait/codec opportunity shown.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1471,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/combat_effects/blood_decals.rs",
+      "sha256": "3e00a08166bcf6b3d43e75aea399b0c990287a726a79642e49133cdf2f166066",
+      "ranges": [
+        [
+          1,
+          337
+        ]
+      ],
+      "source_basis": "Fresh root complete personal recovered-object read; exact hash verified, independent own10 analysis.",
+      "trait_inventory_and_semantics": "BloodDecalPlugin::build registers its actual MaterialPlugin. BloodMaskExtension already derives Asset/AsBindGroup/Reflect/Debug/Clone, while MaterialExtension selects actual forward/deferred blood shader; remaining code is geometry/stamping operations. Existing two tests personally read.",
+      "disposition": "Keep manual Plugin/MaterialExtension policy; equal shader selection in two methods is small necessary native trait implementation, not evidence of available semantics-preserving derive. Do not expand derives/serde for numerical projection/classification. No new tests or execution.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "new_unique_findings": 0,
+  "clear": false
+}

@@ -1,0 +1,426 @@
+{
+  "at": "2026-10-27T17:00:10.285624+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-094-registration.jsonl",
+    "sha256": "d6c69cf4513ec871c2672e4b4ccede8436f29ddc0ca1ce2b6e3b3276dc3e90d1"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-093.json",
+    "sha256": "aae76301885423fc81898a7a783341dc6c56b00d4b91d1733eaa5882e05722c1"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1163,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/newborn_residence.rs",
+      "sha256": "4057e287f3a5f3e79a9925db6a3b0769662f356fc27a8a8f9ea82a4db3b4affc",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/4057e287f3a5f3e79a9925db6a3b0769662f356fc27a8a8f9ea82a4db3b4affc",
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "actual_eof": 21,
+      "prospective": true,
+      "purpose": "Independent full effective newborn/relationship projection/reproduction/socializing inventory; earlier connected exact bodies reused with independent roles, no automatic completion",
+      "actual_read_ranges": [
+        [
+          1,
+          21
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1164,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/projections.rs",
+      "sha256": "21ca8c10819955044eb13b938fbd469c82394fafb8353c1b4af33d72b8edc688",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/21ca8c10819955044eb13b938fbd469c82394fafb8353c1b4af33d72b8edc688",
+      "ranges": [
+        [
+          1,
+          255
+        ]
+      ],
+      "actual_eof": 255,
+      "prospective": true,
+      "purpose": "Independent full effective newborn/relationship projection/reproduction/socializing inventory; earlier connected exact bodies reused with independent roles, no automatic completion",
+      "actual_read_ranges": [
+        [
+          1,
+          255
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1165,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/reproduction.rs",
+      "sha256": "52318f2d0b66c1d88adaa38059b677829f263cfe6f2033fc92c2c59f6671563c",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/52318f2d0b66c1d88adaa38059b677829f263cfe6f2033fc92c2c59f6671563c",
+      "ranges": [
+        [
+          1,
+          690
+        ]
+      ],
+      "actual_eof": 690,
+      "prospective": true,
+      "purpose": "Independent full effective newborn/relationship projection/reproduction/socializing inventory; earlier connected exact bodies reused with independent roles, no automatic completion",
+      "actual_read_ranges": [
+        [
+          343,
+          619
+        ],
+        [
+          670,
+          690
+        ]
+      ],
+      "personal_same_lens_reuse": [
+        {
+          "receipt": {
+            "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-091-receipt.json",
+            "sha256": "dce80385e774a4d5f1b84f60d2114e2bd33677c6630468284dd855f0db9b6650"
+          },
+          "ranges": [
+            [
+              1,
+              145
+            ]
+          ]
+        },
+        {
+          "receipt": {
+            "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-093-receipt.json",
+            "sha256": "b678d140a2abbc2cd900379c0e6235bd4fc7ff0a52719fccd297d495321994e1"
+          },
+          "ranges": [
+            [
+              146,
+              342
+            ],
+            [
+              620,
+              669
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1166,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/socializing.rs",
+      "sha256": "9a9ab241262b451da17be5f58496db212b0d767fba0049cd64ee9de105ed927f",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/9a9ab241262b451da17be5f58496db212b0d767fba0049cd64ee9de105ed927f",
+      "ranges": [
+        [
+          1,
+          325
+        ]
+      ],
+      "actual_eof": 325,
+      "prospective": true,
+      "purpose": "Independent full effective newborn/relationship projection/reproduction/socializing inventory; earlier connected exact bodies reused with independent roles, no automatic completion",
+      "actual_read_ranges": [
+        [
+          1,
+          325
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected_original",
+      "original_index": 1195,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social.rs",
+      "sha256": "a09342196732b00b8520e9a446aa9fdef60e8fd44a439032ebdadc21e6e8e4c5",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/a09342196732b00b8520e9a446aa9fdef60e8fd44a439032ebdadc21e6e8e4c5",
+      "ranges": [
+        [
+          1620,
+          1734
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual async socializing affinity/familiarity receiver, actor/target direction and minutes unit for1166",
+      "actual_read_ranges": [
+        [
+          1620,
+          1734
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1202,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social_roles.rs",
+      "sha256": "328d8285856568995cc423bb2ec74bb88bfa690af6e4defcbfc4aa8f9a355415",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/328d8285856568995cc423bb2ec74bb88bfa690af6e4defcbfc4aa8f9a355415",
+      "ranges": [
+        [
+          228,
+          273
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual maternal birth-family copy receiving1165 child identity; close earlier personal partials without claimingwholemodel",
+      "actual_read_ranges": [
+        [
+          228,
+          273
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1163,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/newborn_residence.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              21
+            ]
+          ],
+          "roles": "Optional newborn housing versus already committed ordinary Character/family membership, child identity versus ordered parent candidates, effective due time and settlement.",
+          "disposition": "Small adapter owns deliberate policy suppressing allinherit_parent_home_at errors so birth survivesmissingbed/home. It is not trivial forwarding because changes resultpolicy. Parent array order intentional firstsuitablehome, notunorderedpartneridentity. Underlying ResultString collapses expectedcapacity/missinghome vsunexpectedauthorityfault, policy shouldnamewhichtoforgive if distinctionmaterial.",
+          "remedy": "Typed OptionalHousingOutcome/expectedHousingUnavailable separate unexpectedadmissionerrors; keep newbornidentity and actualbirthcommit separate fromhousingpolicy.",
+          "acceptance": "Full21source andactualreceiver1183inherit_parent_home_at74\u2013108/1184capacity265\u2013311 personally093. Existingcommentdefineshousingancillary, no demandmakebirthfail on capacity. No runtime/clinical/current finding."
+        }
+      ]
+    },
+    {
+      "original": 1164,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/projections.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              206
+            ]
+          ],
+          "roles": "Trustedgateway projection actor identity, spouse history, optional courtship triple, optional wedding quartet, active pregnancy due date versus latest born child.",
+          "disposition": "Gateway identity guardactual; per-signed-incharacterfilter belongshighergatewayconsumer andnotprovedhere. Courtship partner/kind/exposed andweddingID/partner/time/settlement co-varywithoneproducerOption; namedpayloadowners reduceinvalidcrossproduct internallythenflattenatSDK. Activepregnancydue andlatestbornchild areindependent (maybothSome); doNOTforceonepregnancyrecordpairorXOR. Historicalspouse/courtship/pregnancy queryrecordedintervals, wedding queryreliescurrentexclusiveparticipantindex163\u2013181 despiteobserverpastfilter: terminalcleanup1154 deletesindex, so latestindexcannotreconstructhistoricalreservationalone. Ordinarylaggingobserveraftercancellation source/runtime/currentnesswitnessnotestablished.",
+          "remedy": "Typed projectedCourtship/Wedding payloads, preserve separate CurrentPregnancyDue/LatestBornChild authorities. Reconstruct historicalreservedrelationship fromcanonicalcommitmenthistorywhereobserver-relativecontractrequires, rather thancurrentuniquenesspointer.",
+          "acceptance": "Full255actualread;093stateindexrelease/currentpointer producer personallyread; no actualbrowserprivacybypass, historicalUIwrongrow/runtime/current/uniqueclaim."
+        },
+        {
+          "ranges": [
+            [
+              208,
+              255
+            ]
+          ],
+          "roles": "Latest active-courtship predicate vs observer-relative discoveryreceipt projection, observer recipient vs partner IDs.",
+          "disposition": "active_courtship_between_view intentionally latestActive/Exposed not historical; callersmustnameauthoritycontext. Discovery rows visibleonlytrustedgateway and historicalsuccessreceipt<=observerpersonalclock; discoverswhichfamilymember is observer-private separate partnerrelationshipstate. Boolpredicateappropriateexistenceanswer, noextraenumrequired.",
+          "remedy": "Keep typed observer/partneridentity andclock context atgatewayboundary; named latest vs historical lookup topreventwrongreceiverreuse.",
+          "acceptance": "Actualfullpredicatesread, no fullhighergateway/originalclient populationcoverage transferred."
+        }
+      ]
+    },
+    {
+      "original": 1165,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/reproduction.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              134
+            ]
+          ],
+          "roles": "Pregnancy/mother/father/ordinal/reservedchild identity, deterministic role-specific seeds, historicalconceptionadmission.",
+          "disposition": "Existingactivepregnancy shortcut returnsrowwithoutmatchingnewfather/conceivedminute/settlement; broadAPIprovenancequestion, actualonlyreadconceptioncaller mayalreadycheckhistoricalpregnancyinterval andnoordinaryincorrectreuseproven. Canonicalparenttuple mother/father differssortspousepair. Name/home/identityseeds distinctroles despitecommonSeed get adapters. CollisionwrappingchildID andsignedbirthconversionat501 are fixed-widthcapacitypolicyquestions, no observedexhaustion/wrongbirth/runtime/currentclaim.",
+          "remedy": "NamedadmittedConceptionParents/ConceptionRequest andtypedPregnancy/ChildReservation IDs; explicitidempotencyassociation andfalliblesignedBirthCoordinateconversion where actualsupportedclockrequires. Reuseexistingseedowners, no arbitrarynewclocklimit.",
+          "acceptance": "091full1\u2013134personalread reused;core908full1153 personally020;actualCharactername/origin/rules source062 andcontinuity1088full065 reuse, currentness/uniqueunresolved."
+        },
+        {
+          "ranges": [
+            [
+              136,
+              419
+            ]
+          ],
+          "roles": "Moraleearnedmillipoints versusfraction/probability; realizedleisureintervals/overlaprecords/conceptionquantumremainder/trialordinal/crossingoffset; locations andmarriageeffectivewindow.",
+          "disposition": "Seven-field overlap tuple erases IDs/endpoints/duration/locationroles, namedrecordneeded;coreLeisureInterval/MinuteSpan/ConceptionQuantumState alreadycanonicalowners. Actorcurrentsettlementusedtolabelrealizedinterval; intervalclockboundaries actualtimeownerreuse048, noordinarymoveinsideintervalwitness. Conditionaltrialreceipt writes distinctfromsuccessfulpregnancy; immutableoverlapreplayreceiptsdifferentfromconservedcheckpointcursor.",
+          "remedy": "Use namedtypedOverlap/LeisureSlice andadmittedConceptionQuantumState throughSDK; keepclock/endpoints/duration/cursor/receipt identities distinct; numericmorale conversion explicit atconditionkernel.",
+          "acceptance": "Fullbodyeffective1\u2013419 accountedwith091/093exactreuse +fresh343\u2013419. Actualcoreplanner020 andcondition1086source064 retained; no execution/partitionguarantee fromfixture."
+        },
+        {
+          "ranges": [
+            [
+              421,
+              690
+            ]
+          ],
+          "roles": "Duebirthprocessability, fullCharacterNewborncreationoptions/name/home/identityseeds, maternalbirthfamilycopy, signedbirthdate, dependenthousehold/optionalhome andPregnancyStateBorn payload; globalbirthbound.",
+          "disposition": "Birthrequiresmotherfrontier>=due, so globalhelpernameisnotunconditionalworldadvanceguarantee. NewbornisfullCharacterwithNpcLifeFacts, nottacticaltickpersistencetype. Sourceuses motherbirthfamilyroles specifically (policy, no inventedbothparentinheritance), fatherandmother passednamedcanonicalCharacterId tonaming. Dueu64\u2192birthi64 via unwrap_or(MAX) canlossrepresentableauthorityatAPIclockceiling; preservequalificationnosupportedordinarymaxclockwitness. Bornstatus/child/resolvedtime coupled andcanonicalPregnancyState availablebutdiscarded. Fallibleactualnewborncreation/naming/copyfamily? propagatesandparentbirthcommit? propagates, unlikecaughtwedding failure093. Housingancillaryexplicitadapter1163.",
+          "remedy": "Admitted PreparedBirth/PregnancyState operations andcanonicalBirthCoordinate/ParentIDs/role-seedowners; distinguish optionalhousingexpectedunavailable, preserveatomicityofremainingfalliblecommit.",
+          "acceptance": "Full690sourceaccountedviafresh343\u2013619/670\u2013690 pluspersonal0911\u2013145/093146\u2013342/620\u2013669. Actual1202copy228\u2013272 freshlyread andCharacter062/continuity065/directedkinship1157/occupancy093 reused. No ordinarybadbirth/current/unique/clinicaloutcome; noquarantiningunexpectedcommiterrors."
+        }
+      ]
+    },
+    {
+      "original": 1166,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/socializing.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              153
+            ]
+          ],
+          "roles": "DirectedhistoricalAffinityAt vs latestCurrentAffinity, historicalromanticpartners vs currentparty/acquaintance priority, deterministicdailyselection, personal/time/place identity.",
+          "disposition": "affinity_at distinguishesunreconstructablefutureanchor(None) fromnoedge(Some0), meaningfulabsencevsneutral. socializing_target uses effectivealive/recurringNPCpresence but currentparty and current_affinity foracquaintancepriority; thesearelatestsoftfacts, notnecessarilyhistoricalatcursor. Broaderwrongtarget/timechunkingquestionrequiresactualmutationinterval/runtime/currentness; no newordinarywitness. NumericCharacterId\u2192decimalString\u2192parse atstablehashselector is technicalkerneladapter, notuniversalstring ID permission.",
+          "remedy": "Named DirectedPair/SelectionContext with explicitlatestsoftvsdatedhardfacts, typedCharacterId stablehashadapter; reusecanonicalAffinity andProbabilitydistinctfromtrainingrank.",
+          "acceptance": "Full325read, native1195async1624\u20131690 actualreceiver andcore998social043/908courtship020 reused; no policyforcinghistoricalsocialledger invented."
+        },
+        {
+          "ranges": [
+            [
+              155,
+              240
+            ]
+          ],
+          "roles": "Dynamicboundarytimestamp, signedbirthcoordinate, chronologicalsocialreceipt ID/day/window/duration.",
+          "disposition": "Boundaryoperationreturnsonlynexttimestamp intentionally, nativeaggregationtuple notneedextraEventsum ifrecipientonlyneedsplitpoint. Dayreceiptactor/target/start/end/accumulatedminutes canrepresentmergedslices; accumulatedminutes isnotnecessarilyend-start owinggaps, doNOTderivefromenvelopeanddoublecount.",
+          "remedy": "TypedDayIndex/ElapsedMinutes andnamedSocializingReceiptstate, retainconservedactualminuteswithenvelope ratherthanfalseequal-durationinvariant.",
+          "acceptance": "Actualboundary/receiptproducerfullread; coreMinuteSpan/planner020 andtime048 receiver reuse, no runtimefixedtarget/chunkingclaim."
+        },
+        {
+          "ranges": [
+            [
+              242,
+              325
+            ]
+          ],
+          "roles": "Socializingdailybudget vs absoluteinterval, applied-through watermark, no-targetsentinel versus actualdirectedinteraction, partyfamiliarityownership.",
+          "disposition": "No-target uses actor_id==target_id and0minutes privatewatermark; actualsame_settlement predicate excludesactor so sentineldisjoint, a truepayload-state distinction. BroadSocializingReceipt targetID permitsmisreadwatermarkasrealinteractionatfutureconsumer; taggedSkipped/Applied receipt removes sentinel. Partyfamiliarityalreadysharedclockowned; partybranchuseswithout_familiarity toavoidduplicatecontribution whiledirectedaffinitystillchanges. Rawu16scheduleminutes/day notboundUnitInterval; actualadmittedDailyScheduleowneralreadyexistsupstream.",
+          "remedy": "Receipt enumNoTarget{through}/Applied{target,realizedduration} pluscanonicalDailyAllocation/interval; namedFamiliarityPolicy mayreplacemagicbool insharedhelper onlyifusefuloperationowner, noextrastateinvented.",
+          "acceptance": "Nativeasync1195with/withoutfamiliarity actual1624\u20131690 andsharedclockprefix1692\u20131734 read; latterfullcontinuation1735\u20131815 personally067 recorded, no globalfullsocialcredit. No localexecution/newtests/current/unique."
+        }
+      ]
+    }
+  ],
+  "connected_role_inventory": [
+    {
+      "original": 1195,
+      "ranges": [
+        [
+          1620,
+          1734
+        ]
+      ],
+      "roles": "Directedtargettowardactor affinitygain versus undirectedpairfamiliarity, elapsedminutes/hourrate, record_familiarity booladapter andsharedpersonalclockminimum.",
+      "disposition": "Twoentrypointsdifferrealfamiliarityauthority, notredundantforwarding: samepartysharedclockownsminutes andscheduledsocializingstillaffinity. boolonlychooseswhetherrecordsharedminutes; typedpolicycanclarify, nooverconsolidationofindependentaffinity/familiarity. RawfloatnumericgainatnativekernelrequirescanonicalcoreAffinityDelta roleelsewhere.",
+      "remedy": "AdmittedSocializingEffectsPolicy/DirectedPair withcanonicalAffinity/Duration owners, retaintechnicalpairordering andseparatesharedclockaccounting.",
+      "acceptance": "Actualfullasyncbody1624\u20131690 read, sharedsettlement1695\u20131734 prefix+0671735\u20131815personalreceivingcontext; nowhole1195orderedcredit."
+    },
+    {
+      "original": 1202,
+      "ranges": [
+        [
+          228,
+          273
+        ]
+      ],
+      "roles": "Birth-familyrolecopy parent\u2192child, provisionalidentityreplacement andcatalogroleauthority.",
+      "disposition": "Familyidentity deliberatelyindependenthousehold. Functioncopiesallparentfamilyrolesanderrorsifparentnofamily, notsilentfallback; actualbirthcallerchoosesmother. Sameorganizationroletypes reusedforinheritedcatalogassignment.",
+      "remedy": "CanonicalFamilyRoleAssignment andParent/ChildIDs, preservethisrealprovenanceoperation; noble/commonpayloadexistingowner, noadditionalduplicatedflag.",
+      "acceptance": "Fullcopybody228\u2013272 read;existinginsertrole admission1202 personally088; nofullcurrent/bloodlinepolicyclaim."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-020-receipt.json",
+        "sha256": "289492421de4bb2e396ebcf493c368175e64c3377ebf656fc75737c76f5accad"
+      },
+      "contract": "908corecourtshipfull1153 normalization/quantum/leisure/seedoperations"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-043-receipt.json",
+        "sha256": "b82b6ad36c17396bc9156fb55b7ff194266c614eea286c038c4ad8b2e8abaf1c"
+      },
+      "contract": "998coresocialfull1909 actualaffinity/familiarity operations"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-048-receipt.json",
+        "sha256": "45172eb33f46a6e35fe8c12f09f1b87fa6087f0e3029842e5421f6813eb6b2b1"
+      },
+      "contract": "1015statefull573/1017timefull860 andactualintervalboundarydispatch"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-062-receipt.json",
+        "sha256": "6f38488e18bb19f933f1bf16e5dbbc23fc0f3691f006b1d1d810fe84ce3f9c29"
+      },
+      "contract": "FullCharacter/sourcebirth/namecreation retained exactrecorded source and1165birthprefix424\u2013530 (freshlyrereadhere)"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-064-receipt.json",
+        "sha256": "91c5c0fe2515a9d9782cbc7c18b53148b198e3ad2b331eccd6d26e78bc2b575c"
+      },
+      "contract": "1086condition source physiology/morale/sourceamount distinctions, no impliedwholeunreadkernel"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-065-receipt.json",
+        "sha256": "cc2d8c7e71beb3d585b1f4e1ed6c043dc7e52df02e18703390ddbc78f272d397"
+      },
+      "contract": "1088continuityfull909 actualchildcontinuity recipient"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-067-receipt.json",
+        "sha256": "e02e209bcb9d7257a2a89762ff62094e269991a6d7e48af1897a8e10b7047e7f"
+      },
+      "contract": "1195socialactual1735\u20131815 connectedread closeslinkedsharedclockcontext, notwholemodule"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-091-receipt.json",
+        "sha256": "dce80385e774a4d5f1b84f60d2114e2bd33677c6630468284dd855f0db9b6650"
+      },
+      "contract": "1165 actual1\u2013145 independentconception/seedbody"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-092-receipt.json",
+        "sha256": "c68c9452f59bc65a1dfe69bfb08ed7b26969d392fba02e43c18f174f4bf1108a"
+      },
+      "contract": "1157full family/household/birth andcourtship routes"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-093-receipt.json",
+        "sha256": "b678d140a2abbc2cd900379c0e6235bd4fc7ff0a52719fccd297d495321994e1"
+      },
+      "contract": "1165actual146\u2013342/620\u2013669;full1162schemas/1160marriage and1183/1184optionalhousing recipients"
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Frozen source rolesWITHfindings only, no runtime/clinical/current/alias/acceptedunique or highergatewayprivacy proof.",
+    "Keep independentlatestbornchild/currentpregnancy,directedaffinity/undirectedfamiliarity, optionalhousing/birthcommit distinctions andallpriorqualification/otherpopulationqueues.",
+    "No projectexecution/tests/newtests/product/Git/rootledger/publication."
+  ]
+}

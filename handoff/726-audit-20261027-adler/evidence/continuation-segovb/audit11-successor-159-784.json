@@ -1,0 +1,183 @@
+{
+  "id": "SEGOVB-CONT11-SUCCESSOR-159-784",
+  "lens": "type-granularity",
+  "scope_index": 784,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/fitted.rs",
+  "sha256": "90a73376395b601a39a8d4a51fe9004d62176ce2ac236c578bee720bab2007a6",
+  "source_ranges": [
+    [
+      1,
+      588
+    ]
+  ],
+  "source_complete": true,
+  "status": "source-accounted-with-qualified-observations; not clear",
+  "frozen_provenance": {
+    "archive_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "object_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/90a73376395b601a39a8d4a51fe9004d62176ce2ac236c578bee720bab2007a6",
+    "verification": "Exact cached bytes reverified SHA256; original full requested body read, including existing test body454-588. No current-source substitution."
+  },
+  "role_inventory": [
+    {
+      "role": "PartFrame, CoifCarrier and DrapeInput/Wearer",
+      "locations": "24-69",
+      "disposition": "Meaningful local/body coordinate and source-carrier roles. coif24-41 builds Wearer using the supplied positions, topology, normals and typed rig skin/names/joints; receives frame and carrier from fitted_coif_carrier, then passes canonical fabric density. Connected device_coif240-252 records one head frame, passes that frame into coif drape and record_coif, and stores it beside that part.352-369 submits that recording, invokes frame.check for Head, reads that frame and the same part carrier. CoifCarrier213-237 documents head-frame positions/crown0 and decodes this part shell0. This actual producer pair prevents a local/body-frame mixup along the reached caller; no arbitrary public pair or universal frame-instance branding claim."
+    },
+    {
+      "role": "Local carrier geometry versus world/body simulation geometry versus flat material geometry",
+      "locations": "49-115,183-201",
+      "disposition": "surface_mesh checks nonempty carrier, triples and bounded indices, cuts the carrier in local head coordinates, and transforms each selected point through frame.point into mesh.positions. PartFrame16-20 performs origin plus basis transform; frame docs explicitly permit reflection. unwrap generates a separate Vec2 per material vertex in metres, anchored/oriented by the two selected pins; GarmentMesh material and world position fields are intentionally separate. Matching raw arrays does not erase frame/unit/association distinctions; no extra right-handed-only restriction is justified."
+    },
+    {
+      "role": "FrontCut record: original versus appended copied vertex slots, remapped faces, seam pairs",
+      "locations": "119-168",
+      "disposition": "One private coherent record retains origins, faces and seams. Initial origins identity preserves every original carrier slot; copies are memoized only for shared front-centre vertices on left faces, appended once, and paired original/copy as seams. Actual constructor maps positions through origins and consumes the remapped faces. Original topology bends can therefore index unchanged original slots in the expanded position vector. These fields prevent confusing the two vertex populations without introducing a universal index framework."
+    },
+    {
+      "role": "Topology edge/bend roles and native bending record schema",
+      "locations": "86-112",
+      "disposition": "Cut faces supply stretch edges/rest lengths; original whole faces supply bends spanning stitched copies. Canonical BendQuad separates shared hinge vertices from wings and particles fixes their order; topology32-92 builds one record for exactly two incident faces. bending_weights167-235 consumes that same order and returns four affine weights or None for the documented degeneracies. Caller stores matching BendQuad and eight-float row [four weights, rest, three padding], as documented by GarmentMesh130-162 and the already-traced Cloth/Shell receiver. This is an identified native packed record boundary; no blanket raw-physical-quantity exemption or generic attachment-schema proof."
+    },
+    {
+      "role": "Canonical areal density and particle mass",
+      "locations": "49-53,113-114",
+      "disposition": "surface_mesh receives ParticleArealDensity and passes it unchanged to topology.vertex_masses100-116. The producer allocates ParticleMass::ZERO per output position and adds density.vertex_share for each cut-triangle corner, returning Vec<ParticleMass>. Cloth/Shell receives that same mass channel as traced in158. These units remain distinct even if numeric storage matches; no new density/mass wrapper or extra bound is justified by this caller. The internal physical owner implementation is not newly audited by this reach."
+    },
+    {
+      "role": "Rest record, sparse Row alias and numerical V alias",
+      "locations": "172-181,203-241,370-452",
+      "disposition": "Rest names triangle face, two-component local hat gradients and square-root-area weight. Row=(Vec<(usize,f64)>,f64) is the local sparse least-squares coefficient/index list plus target; V=[f64;3] is local native vector arithmetic. Their actual uses are matrix/vector operations, not interchangeable physical application records. Named Rest avoids collapsing geometric face/gradient/weight roles; per-coefficient bespoke wrappers or a universal quantity framework would not prevent a demonstrated role mixup here."
+    },
+    {
+      "role": "Pin roles and compressed solver unknown indices",
+      "locations": "69-84,190-201,245-367",
+      "disposition": "The actual caller selects crown0 as origin and the lowest back-centre vertex as orientation pin. conformal encodes u/v as2i/2i+1, pins origin both0 and second v=-span, and builds dense free-variable indices with usize::MAX only for pinned entries. rigid_round compresses vertex ordinals around the fixed anchor. These are distinct local numerical address spaces with visible mappings. The origin/vertical pair could be named/destructured for clarity, but no actual swapped caller or accepted defect is established; do not impose a global mesh index taxonomy."
+    },
+    {
+      "role": "Conformal/rigid solver stages, iteration limits and tolerance",
+      "locations": "13-21,183-201,245-426",
+      "disposition": "Named iteration budgets, tolerance and native f64 least-squares arrays have separate algorithmic purposes. Conformal solve initializes rest geometry;24 rigid rounds refine the same coordinates with one fixed anchor; least_squares uses matrix/transpose residual operations and relative normal-equation gradient threshold. This trace justifies scoped numerical representation, not convergence, precision, overflow, geometry quality or all-finite guarantees."
+    },
+    {
+      "role": "Existing test-only records and fixtures",
+      "locations": "454-588",
+      "disposition": "Existing test bodies read as requested full changed scope. They instantiate the same frame/carrier/density and verify mesh/UV properties; no tests executed, authored, restored or credited as validation."
+    }
+  ],
+  "receiving_contract_support": [
+    {
+      "receipt": "audit11-successor-158-782.json",
+      "trace": "Original drape102-131 consumes fitted::coif as the Coif GarmentBuild and passes same build to placement/Fit; placement source7e744...1-76 and Fit c2d2...391-432 construct Cloth from build.mesh."
+    },
+    {
+      "sha256": "d5124bc81c37905a779feea7e56a120ed5fadda9448cad8cf907a61c938b1da6",
+      "ranges": [
+        [
+          130,
+          164
+        ]
+      ],
+      "trace": "Previously registered/read GarmentMesh owns world positions, flat material coordinates, topology, native bend rows, seams, canonical masses and panel metadata."
+    },
+    {
+      "sha256": "2318544fe5a77b517ae01b26f7d4b65b288c0be78c63aa9a90034bd2a7385c05",
+      "ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "trace": "Previously registered/read Cloth::new transfers matching mesh geometry/constraint/mass channels into ShellMesh and Shell::new."
+    },
+    {
+      "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+      "ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "trace": "Previously registered/read ShellMesh admission checks positions, masses and constraint counts/indices/rest values. Does not establish arbitrary material UV or frame-instance invariants."
+    }
+  ],
+  "qualified_observations": [
+    {
+      "local_source_key": "pr-working:crates/adventuresim-character-creator/src/garment/fitted.rs@sha256:90a73376395b601a39a8d4a51fe9004d62176ce2ac236c578bee720bab2007a6#L190-L201:material-origin-and-vertical-pins",
+      "classification": "clarity suggestion only; no accepted unique finding",
+      "observation": "Two pin roles are meaningful and could use named destructuring/a small local record to expose origin versus orientation. Actual single caller selects them deliberately; no concrete mixup established."
+    },
+    {
+      "local_source_key": "pr-working:crates/adventuresim-character-creator/src/garment/fitted.rs@sha256:90a73376395b601a39a8d4a51fe9004d62176ce2ac236c578bee720bab2007a6#L49-L115:physical-and-frame-boundaries",
+      "classification": "retained canonical owner/propagation qualification; no accepted unique finding",
+      "support": [
+        "audit11-successor-158-782.json#SEGOVB11-158-782-PHYSICAL-PORTS",
+        "audit11-question-crosswalk-001.json"
+      ],
+      "observation": "Metre geometry/rest lengths, material coordinates, native frame arrays and eight-float GPU records have distinct responsibilities. Existing M108 physical propagation support remains relevant, with native adapters scoped to actual ports. This classification does not close inherited physical/frame owner work, create unproved aliases or grant module-wide primitive exemption."
+    }
+  ],
+  "new_connected_source_fingerprints": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_coif.rs",
+      "sha256": "462aea2bd0f7f1a5dc8b365a394bacdaa8f01919a15bd385494f52b7044cf32e",
+      "consumed_ranges": [
+        [
+          213,
+          237
+        ],
+        [
+          240,
+          351
+        ],
+        [
+          352,
+          395
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/frame.rs",
+      "sha256": "3f26803970af96abe7f16ff9d245230a7718e93f657f8868d605623716356c5e",
+      "consumed_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-shell/src/topology.rs",
+      "sha256": "98444936697b73035be3e07e0464a3e4a031ad0b1f28084275206b1b8ae7eb91",
+      "consumed_ranges": [
+        [
+          32,
+          122
+        ],
+        [
+          153,
+          238
+        ]
+      ],
+      "ordered_credit": false
+    }
+  ],
+  "inherited_frozen_ordinal_gap": "SEGOVB11-158-781-RIG-RECEIVER remains source-backed frozen migration gap, qualified pending canonical current-source comparison; not present as a newly discovered784 failure or new unique finding.",
+  "registration": "audit11-successor-159-registration.json",
+  "coverage_limits": [
+    "No full GPU shader/DevicePart/DeviceFrame admission audit: only exact registered producer/readback and PartFrame owner ranges; invoking frame.check is not proof of every internal check.",
+    "Public field mutation, malformed topology, arbitrary frame/carrier substitution, numerical extremes, solver convergence and other-lens invariants are not cleared by this local producer/receiver trace.",
+    "Connected original722/2178/2345 and other future roles receive no new ordered credit; original785 has not been advanced. Future786/923 remain uncredited.",
+    "No bare Q008/Q009 export alias used; source-key crosswalk001 retained, with namespace collision and unknown intended canonical targets explicit.",
+    "No current main source comparison, product edits, project checks/tests/probes/publication or global clearance."
+  ],
+  "new_unique_findings": 0,
+  "proposed_original_accounted": 785,
+  "next_original": 785,
+  "active_partial": null,
+  "current_main_integrated": false,
+  "validated": false,
+  "clear": false,
+  "validation": "none"
+}

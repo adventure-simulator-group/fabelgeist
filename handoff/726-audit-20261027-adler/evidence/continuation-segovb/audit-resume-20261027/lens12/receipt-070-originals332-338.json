@@ -1,0 +1,249 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "070",
+  "predecessor": "receipt-069-originals328-331.json",
+  "manifest_prefix_sha256": "64a76f4a69fbc865f0146cb35c0a65df0fb2391e0e29852ccb3814bd45731fd5",
+  "sources": [
+    {
+      "original_index": 332,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/equipment/visuals.rs",
+      "sha256": "d5f2d169f12713c33afc9246eadbcc9389bfcdc8d14c17e64168b8a21b629704",
+      "actual_eof": 75,
+      "actual_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-75",
+          "role": "No literals, String-valued API or raw string use in full requested source, including existing tests52-75. Plugin29-35 installs typed equipment systems already independently read in328-331.",
+          "disposition": "Zero string role from source, not metadata; no renderer/generator/runtime/other-lens clearance."
+        }
+      ],
+      "status": "Requested source independently read; scoped text or zero-string roles accounted with explicit limits."
+    },
+    {
+      "original_index": 333,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player.rs",
+      "sha256": "5da51367e584ae158ebf0c1b3b4edc472dbc542fe12aa8b52682c918e1f42b62",
+      "actual_eof": 575,
+      "actual_ranges": [
+        [
+          1,
+          575
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "151-575",
+          "role": "Compiler lint-reason prose151/242/395; log164 Added new player {name} from Player{name}163; local-control log170; cfg feature debug203; warnings300/329/349/360/457; existing assert text513/expect570. Typed combat families, hand/bodypart/positions/elapsed retained throughout.",
+          "disposition": "Actual native logging/compiler boundaries; inherited Player.name raw text is human-name projection qualified by earlier178/179, not blanket name-owner proof. No timing/geometry/runtime/lens08 acceptance."
+        }
+      ],
+      "status": "Requested source independently read; scoped text or zero-string roles accounted with explicit limits."
+    },
+    {
+      "original_index": 334,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/acquisition.rs",
+      "sha256": "2e7f4ea1406c4d400b369bb79f73a65677af168b00a1d8eecc0489dbd013f746",
+      "actual_eof": 409,
+      "actual_ranges": [
+        [
+          1,
+          409
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-409",
+          "role": "No literals, String-valued API or raw strings, including existing tests337-409. Actual typed AttackTargetBodyPart and positions retained.",
+          "disposition": "Zero string role; native collision/geometry/other-lens behavior not certified."
+        }
+      ],
+      "status": "Requested source independently read; scoped text or zero-string roles accounted with explicit limits."
+    },
+    {
+      "original_index": 335,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/action_clock.rs",
+      "sha256": "aaa9212aceb6edf4e5fbe62c3630c1d0dd02774cb3347740b2936d490049e610",
+      "actual_eof": 199,
+      "actual_ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-199",
+          "role": "Only warning cannot schedule attack116; typed scheduling errors propagate. Existing tests165-199 have no strings.",
+          "disposition": "Native tracing prose boundary; no timing/math/runtime acceptance."
+        }
+      ],
+      "status": "Requested source independently read; scoped text or zero-string roles accounted with explicit limits."
+    },
+    {
+      "original_index": 336,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/attack_start.rs",
+      "sha256": "8d0d41365f804ba69b7249db78e85fd95f091405b565cbcc2144bb269d944cc6",
+      "actual_eof": 454,
+      "actual_ranges": [
+        [
+          1,
+          454
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-454",
+          "role": "Only logs300 Trying to attack, but can't get weapon reach. Not holding any weapons ?;315 Trying to attack without a usable equipped weapon;451 cannot schedule buffered melee attack. Typed AttackHand/StrikeFamily/MeleeStyle/AttackSpec feed MeleeActionRequest273/443 and RangedActionRequest186.",
+          "disposition": "Native logging boundary; no String-valued application API. Authoritative server admission/transport/runtime receivers not inferred."
+        }
+      ],
+      "status": "Requested source independently read; scoped text or zero-string roles accounted with explicit limits."
+    },
+    {
+      "original_index": 337,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/contact.rs",
+      "sha256": "c2ecfdb4af316c360a84cf28f9b9e0217b87f33150794971dd656ec47239a599",
+      "actual_eof": 82,
+      "actual_ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-82",
+          "role": "No strings or String-valued API. PredictedContactHit/Miss18-21 and HitPerformed position/direction69-79 connect actual333caller354-374.",
+          "disposition": "Zero string role; no native raycast/physics/geometry/runtime acceptance."
+        }
+      ],
+      "status": "Requested source independently read; scoped text or zero-string roles accounted with explicit limits."
+    },
+    {
+      "original_index": 338,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/quickstep_trace.rs",
+      "sha256": "d4c445ad8881a51294103c9f7ee9ef4024f1a3d64692356dfa8ac21f93604346",
+      "actual_eof": 128,
+      "actual_ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-128",
+          "role": "Native tracing target quickstep_trace91/111; messages [quickstep][client-state] animation/actuator discrepancy102 and transition122. States typed16/17/21-28, structured output95-101/115-121.",
+          "disposition": "Concrete logging target identity and output text boundary. External machine log consumers unread; no global prose-only claim/runtime probe."
+        }
+      ],
+      "status": "Requested source independently read; scoped text or zero-string roles accounted with explicit limits."
+    }
+  ],
+  "connected_findings": [],
+  "pending_contracts": [
+    "Inherited equipment slot/readiness/rig/asset-generator and external/native/server receiver qualifications remain.",
+    "Player.name output does not establish whole name admission/state owner coverage.",
+    "Logging target filtering/external machine consumers unread; concrete local native boundary only."
+  ],
+  "qualifications": [
+    "Exact frozen f82 physical-P16 objects; no current alias.",
+    "No backward-compatibility/input-preservation requirement. No project/native/test/probe execution or product/Git/root-ledger/publication mutation.",
+    "Source-accounting only, not repaired/global/runtime/native/unique-total/other-lens clearance; all20/P16/P17/F9/M09/aliases preserved."
+  ],
+  "proposed_count": {
+    "before": 332,
+    "after": 339,
+    "indices_completed": [
+      332,
+      333,
+      334,
+      335,
+      336,
+      337,
+      338
+    ],
+    "next_original": 339,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/equipment/visuals.rs",
+      "sha256": "d5f2d169f12713c33afc9246eadbcc9389bfcdc8d14c17e64168b8a21b629704",
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player.rs",
+      "sha256": "5da51367e584ae158ebf0c1b3b4edc472dbc542fe12aa8b52682c918e1f42b62",
+      "ranges": [
+        [
+          1,
+          575
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/acquisition.rs",
+      "sha256": "2e7f4ea1406c4d400b369bb79f73a65677af168b00a1d8eecc0489dbd013f746",
+      "ranges": [
+        [
+          1,
+          409
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/action_clock.rs",
+      "sha256": "aaa9212aceb6edf4e5fbe62c3630c1d0dd02774cb3347740b2936d490049e610",
+      "ranges": [
+        [
+          1,
+          199
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/attack_start.rs",
+      "sha256": "8d0d41365f804ba69b7249db78e85fd95f091405b565cbcc2144bb269d944cc6",
+      "ranges": [
+        [
+          1,
+          454
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/contact.rs",
+      "sha256": "c2ecfdb4af316c360a84cf28f9b9e0217b87f33150794971dd656ec47239a599",
+      "ranges": [
+        [
+          1,
+          82
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/quickstep_trace.rs",
+      "sha256": "d4c445ad8881a51294103c9f7ee9ef4024f1a3d64692356dfa8ac21f93604346",
+      "ranges": [
+        [
+          1,
+          128
+        ]
+      ]
+    }
+  ]
+}

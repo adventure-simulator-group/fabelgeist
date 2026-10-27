@@ -1,0 +1,260 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "013",
+  "predecessor": "receipt-012-originals113-116.json",
+  "manifest_prefix_sha256": "e4af378abb03ecf6f32f61122f7155137c44aac0a5d4f069eea9498286cd7cc9",
+  "sources": [
+    {
+      "original_index": 117,
+      "source_id": "physical-p16:crates/adventuresim-core/src/leadership.rs",
+      "sha256": "0fb805b67bc7cb231e00841a0fc40b44ddd96f52a54c08fe16f434e9435daf53",
+      "actual_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "roles": [
+        "1-89: zero string literals/string-valued APIs; numeric leadership and existing source-only tests. No election/aggregate verdict."
+      ],
+      "status": "independently full actual body inventoried; source-accounted with findings/qualifications"
+    },
+    {
+      "original_index": 118,
+      "source_id": "physical-p16:crates/adventuresim-core/src/lib.rs",
+      "sha256": "fd09a838f8cfdd2da3d48800fe56d9bbfad7e9ad5556ba696be7908b4a000c2a",
+      "actual_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "roles": [
+        "1-138: zero string literals/string APIs. Actual module/prelude declarations only, no child implementation credit."
+      ],
+      "status": "independently full actual body inventoried; source-accounted with findings/qualifications"
+    },
+    {
+      "original_index": 119,
+      "source_id": "physical-p16:crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "db3686060ebd8ce533fe48c88685c5643b024b8a92b2b617d97481196988f3e0",
+      "actual_ranges": [
+        [
+          1,
+          178
+        ]
+      ],
+      "roles": [
+        "9,13,17: six Serde f32 type tokens at native serializer configuration.",
+        "129-139: four Display templates132-135 at formatter.write_str actual diagnostic boundary; no raw semantic text state. Frozen speed arithmetic not compared with current PR992 implementation."
+      ],
+      "status": "independently full actual body inventoried; source-accounted with findings/qualifications"
+    },
+    {
+      "original_index": 120,
+      "source_id": "physical-p16:crates/adventuresim-core/src/mission.rs",
+      "sha256": "998416982a504559c519dabf8fecf7612eb946283441b9644c073ac500a62e62",
+      "actual_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "roles": [
+        "17-55: canonical open authority ID owners wrap String and enforce prefix/ASCII/length in new. Raw error35 remains Result<Self,&static str>; as_str40/into_inner44/Display49-53 expose text.",
+        "57-60: four kind prefixes belong to MissionId/BattleId/HostileGroupId/OutcomeSourceId, open suffix grammar not closed complete IDs.",
+        "93-103: eight test literals cover ingress/invalid examples/format/expected canonical output; source read only.",
+        "EOF106 verified. Historical expanded1-114 conflicts with exact object; existing qualification already records106. No107-114 credit.",
+        "Transparent derived Deserialize has no visible constructor reference; admission-lens question only, native derive implementation uninspected."
+      ],
+      "status": "independently full actual body inventoried; source-accounted with findings/qualifications"
+    },
+    {
+      "original_index": 121,
+      "source_id": "physical-p16:crates/adventuresim-core/src/mission/enemy_roster.rs",
+      "sha256": "c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+      "actual_ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "roles": [
+        "21-23 three Display templates actual formatter boundary; expect48 native panic text; cfg target_pointer_width64 at88 compiler configuration. No string semantic state."
+      ],
+      "status": "independently full actual body inventoried; source-accounted with findings/qualifications"
+    },
+    {
+      "original_index": 122,
+      "source_id": "physical-p16:crates/adventuresim-core/src/mission/roster.rs",
+      "sha256": "2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
+      "actual_ranges": [
+        [
+          1,
+          91
+        ]
+      ],
+      "roles": [
+        "26-28 three Display templates and54-55 two expect diagnostics. No string semantic state."
+      ],
+      "status": "independently full actual body inventoried; source-accounted with findings/qualifications"
+    }
+  ],
+  "actual_material_receivers": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "sha256": "85c8f2c699beb1c00311678bbe179a5cc75bb33c607051bd967e91c9e6eba749",
+      "ranges": [
+        [
+          1200,
+          1240
+        ]
+      ],
+      "trace": "Constructed typed IDs discarded1221-1227; raw String lookup1233 and identity equality1235-1238.",
+      "limits": "Bounded actual role only; no future original completion."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap/standalone.rs",
+      "sha256": "f8c439a961994d8cecdb92d5714dc22d3bf156311809819c89c78e0a1cbdd1a5",
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "trace": "Actual family classification parses canonical ID then extracts/strips raw coordinate; case-ID format63-65. Error strings retained within application Result; outer boundary unread.",
+      "limits": "Bounded actual role only; no future original completion."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Canonical mission authority ID erased or discarded inside application",
+      "sources": [
+        "120:17-60",
+        "287:1221-1238",
+        "290:17-39,63-65"
+      ],
+      "disposition": "Existing canonical owners should pass through actual application parameters/state. Inventory commit validates and discards all four typed IDs, then uses raw ID text for DB lookup/equality. Standalone family reparses MissionId into prefix-classified enum; canonical family/coordinate admission belongs with actual ID/family owner. Error projection should remain typed until actual external text boundary.",
+      "remedy": "Trace actual source/retained DB adapters before repair; carry canonical open IDs, typed family and failures through application API, extract at actual DB/native formatting boundary. No closed catalog enum for open suffixes.",
+      "acceptance": "Complete connected producers/retained recipients/owner fit and aliases before future code. User no-BC applies.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actual DB table schema/outer result adapter and remaining MissionId consumers are unread here; source-account with findings is not whole receiving-graph clearance.",
+    "Exact native Serde transparent derive admission implementation remains uninspected; no confirmed bypass or runtime claim.",
+    "All prior unfinished roles and inherited all20/P16/P17/F9/M09/canonical alias/currentness qualifications remain."
+  ],
+  "qualifications": [
+    "Source-only discovery; no project/check/test/probe execution or source/Git/root-ledger/publication changes.",
+    "Frozen f82 physical-P16 distinct from current main/HEAD/PR-working and unknown dirty variants.",
+    "No BC until release, no unique totals/global clearance or other-lens transfer."
+  ],
+  "proposed_count": {
+    "before": 117,
+    "after": 123,
+    "indices_completed": [
+      117,
+      118,
+      119,
+      120,
+      121,
+      122
+    ],
+    "next_original": 123,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/leadership.rs",
+      "sha256": "0fb805b67bc7cb231e00841a0fc40b44ddd96f52a54c08fe16f434e9435daf53",
+      "ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "coverage": "Own lens12 roles only; all applicable other lenses independent"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/lib.rs",
+      "sha256": "fd09a838f8cfdd2da3d48800fe56d9bbfad7e9ad5556ba696be7908b4a000c2a",
+      "ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "coverage": "Own lens12 roles only; all applicable other lenses independent"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "db3686060ebd8ce533fe48c88685c5643b024b8a92b2b617d97481196988f3e0",
+      "ranges": [
+        [
+          1,
+          178
+        ]
+      ],
+      "coverage": "Own lens12 roles only; all applicable other lenses independent"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/mission.rs",
+      "sha256": "998416982a504559c519dabf8fecf7612eb946283441b9644c073ac500a62e62",
+      "ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "coverage": "Own lens12 roles only; all applicable other lenses independent"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/mission/enemy_roster.rs",
+      "sha256": "c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+      "ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "coverage": "Own lens12 roles only; all applicable other lenses independent"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/mission/roster.rs",
+      "sha256": "2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
+      "ranges": [
+        [
+          1,
+          91
+        ]
+      ],
+      "coverage": "Own lens12 roles only; all applicable other lenses independent"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "sha256": "85c8f2c699beb1c00311678bbe179a5cc75bb33c607051bd967e91c9e6eba749",
+      "ranges": [
+        [
+          1200,
+          1240
+        ]
+      ],
+      "coverage": "Own lens12 roles only; all applicable other lenses independent"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap/standalone.rs",
+      "sha256": "f8c439a961994d8cecdb92d5714dc22d3bf156311809819c89c78e0a1cbdd1a5",
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "coverage": "Own lens12 roles only; all applicable other lenses independent"
+    }
+  ]
+}

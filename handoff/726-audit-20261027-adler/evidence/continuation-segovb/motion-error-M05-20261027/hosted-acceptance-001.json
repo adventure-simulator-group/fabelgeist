@@ -1,0 +1,61 @@
+{
+  "at": "2026-10-27T03:15:13.078856+00:00",
+  "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd",
+  "base": "d44a00cc9a0bed75b0d61a7b330a29fe8f0df83f",
+  "pr": 991,
+  "run": 40436696284,
+  "source_sha256": "8d8a70c663bdd8e62c8e4636ec414e979852b1f469bffc9e70331d5947c165a4",
+  "source_complete": true,
+  "source_reviews_accepted": true,
+  "scoped13_accepted": true,
+  "hosted_accepted": true,
+  "required_raw_positive_groups": 48,
+  "additional_raw_positive_groups": 3,
+  "animation_passed": 260,
+  "constraints_unit_passed": 67,
+  "constraints_doc_passed": 5,
+  "gpu_library_passed": 13,
+  "gpu_doc_passed": 2,
+  "gpu_borrowed_repeat_passed": 1,
+  "windows_passed": 10,
+  "terrain_ignored_cases": 14,
+  "ignored_limit": "Existing fixture/benchmark/asset-generation cases; not newly added, not executed by this hosted run. Requiredpositivegroup guards permit these ignored cases. No all-terrain-runtime claim.",
+  "evidence": [
+    {
+      "path": "scoped-thirteen-lenses-001.json",
+      "sha256": "668529f87c0cdfe4e4f96ac0a47d31e22ce029d9f8d1d650dd7fe2da64c469cd"
+    },
+    {
+      "path": "independent-source-review-adoption-001.json",
+      "sha256": "fd08e46402469ba30f4b8aba8777a5b096bdeb21a14201f9b162c6c21a5d1694"
+    },
+    {
+      "path": "gpu-windows-raw-parse-001.json",
+      "sha256": "5ffea144e67da78b370f38cc36bf20b99bfe31d9e8d5f113401a85274ed807e7"
+    },
+    {
+      "path": "constraint-baseline-raw-parse-001.json",
+      "sha256": "d7d3d6f0913bbf4158c6a50fa26ab9f9157630fabfdbf2cc2366bc061c37f03a"
+    },
+    {
+      "path": "rig-raw-parse-001.json",
+      "sha256": "f14594284c1770fe68585bc33cc3e47ea32e0b667a731e2503e2a8392be0138e"
+    },
+    {
+      "path": "hosted-terminal-004-run.json",
+      "sha256": "99760595f3d1361b02cd46607e20e2da44e6022e85d05909b045a8b259fb2279"
+    },
+    {
+      "path": "hosted-terminal-004-jobs.json",
+      "sha256": "e36cb9e146525ce0bfff2c72d440122c51f337f1c6dcd7feecda6d8550498e8d"
+    },
+    {
+      "path": "hosted-terminal-004-checks.json",
+      "sha256": "7d394f3c58271676b55f17813751ce5d8c8a56cff502ed3aa1b7b68b47409296"
+    }
+  ],
+  "approval_observation": "One final read-only jobs metadata automatic-approval review timed out. Its single permitted identical retry succeeded; no policy-unsafe determination or remaining blocker.",
+  "ready_published": false,
+  "integrated": false,
+  "goal_complete": false
+}

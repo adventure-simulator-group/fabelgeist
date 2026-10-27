@@ -1,0 +1,159 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-322",
+  "at": "2026-10-25T23:08:15.240362+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2674,
+      "source_id": "native-dependency:spacetimedb-sats-2.6.1/src/typespace.rs",
+      "sha256": "2ff9ac1123584afecdb55ac04bc118f75d05afd96d3149ce46638a8f21ac3243",
+      "personally_read_ranges": [
+        [
+          1,
+          496
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-496: Typespace holds mutable public types; get/get_mut checked versus Index/resolve panics as documented, add u32-fit enforced. inline_ref temporarily swaps a Ref marker and returns early on recursion/invalid nestedrefs, leaving partial mutation on error; intended caller discard/retry needed, no project observed failure. SpacetimeType guarantees schema/codec consistency by implementor contract, not project validation; primitive/container registrations preserve nativefloat capability. Tests readnotrun."
+      ]
+    },
+    {
+      "scope_index": 2675,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+      "sha256": "031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+      "personally_read_ranges": [
+        [
+          1,
+          364
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-364 exactphysical-p16: ValidatedSchedule private payload checks total<=day plus quarter-hour all10fields, effective_at read-only deterministic weighted redistribution bounds total and leaves reading unchanged. DailySchedulePlan public aggregate/OrganizationAllocation variant allow direct correlation bypass; independently recognized duplicate tupleminutes vsactivities and dedup1002 found CAMERA-INITIAL07-F017/ROOT-ADM-F005/NATIVE-OWNER-F002. Actual factoryarray-index correspondence remains qualified without caller proof. No newfinding or narrowed ActivityMinutes policy."
+      ]
+    },
+    {
+      "scope_index": 2681,
+      "source_id": "report-p17:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "sha256": "a0aef58d11a9181ab559caf6b1f989eb84d5deded64ae19cbf885a011b1f6450",
+      "personally_read_ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-120 exactreport-p17: finiteScenePlanPoint private Vec2, checkednative/TryFrom/serde allrejectnonfinite; opaqueReflect standardstructural bypass not inferred. Translation rechecks finite result; conversion from checked3DPosition projectsX/Z without newarithmetic. PlanDisplacement distinctoffset role. Signedfinitecoordinate policy includesnegative/zero, no geographic/current-main substitute."
+      ]
+    },
+    {
+      "scope_index": 2682,
+      "source_id": "report-p17:crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+      "personally_read_ranges": [
+        [
+          1,
+          407
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-407 exactreport-p17: checkedSupportElevation arithmetic/serde, multiplequeryheights intentionally represented, CompoundSupportPlan private correlatedproperty/levels/profile/treatment built bycompile. Pointquery appliesentryoverride and main/passage nearretainingboundary with selectedlevels; contains/passage normal presumes compileraccepted nonzero route. Privatefloortanslation basis shiftsfloorprofiles/stairs butnotacceptedplan, complete grading delegatedfoundation/mesh checks. validate_displacement_at query alone returnsOkwhennoheight, explicitlynotcompletecoverageacceptance. No broader support compiler clearance."
+      ]
+    },
+    {
+      "scope_index": 2685,
+      "source_id": "report-p17:Cargo.toml",
+      "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+      "personally_read_ranges": [
+        [
+          1,
+          221
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-221 exactreport-p17workspace manifest read separately fromphysical-p162671 even identical declarations. Declaredserde/Bevy/SATSfeatures/versions andBurnexclusions; currentresolved/compiledfeaturegraphnotestablished."
+      ]
+    },
+    {
+      "scope_index": 2686,
+      "source_id": "report-p17:Cargo.lock",
+      "sha256": "7478839fc1c520db3c24b75b8f0364f5109b1e8f5fa43fa5a576202468258a20",
+      "personally_read_ranges": [
+        [
+          1,
+          5
+        ],
+        [
+          172,
+          194
+        ],
+        [
+          534,
+          545
+        ],
+        [
+          1434,
+          1443
+        ],
+        [
+          2459,
+          2478
+        ],
+        [
+          2660,
+          2688
+        ],
+        [
+          9756,
+          9765
+        ],
+        [
+          9766,
+          9782
+        ],
+        [
+          9812,
+          9825
+        ],
+        [
+          10301,
+          10325
+        ],
+        [
+          10371,
+          10403
+        ],
+        [
+          13083,
+          13101
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Parentexplicitlyauthorizednonsemanticgenerateddependencyledger dispositiononly. ExactSHA7478839fc1c520db3c24b75b8f0364f5109b1e8f5fa43fa5a576202468258a20; header/version4, rootmembercore/worldschema, relevantBevy0.19.1/serde1.0.229/serde_json1.0.151/saphyr1.2.0/SpacetimeDB2.6.1entries/tail personallyreadboundedranges. StdlibTOML1126packages, topversion/package bookkeeping. Full13101packagebodiesnotexhaustivelyread; no Rustsemantics, resolvedfeaturegraph, compiler/runtime or otherlenscredit; uninspectedsemanticcontractsremainpending."
+      ],
+      "coverage_kind": "explicit nonsemantic generated dependency-ledger disposition; no exhaustive package body or semantic credit"
+    },
+    {
+      "scope_index": 2688,
+      "source_id": "report-p17:crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+      "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+      "personally_read_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-28 exactreport-p17: nativeVec3finite component adapter reports firstXYZnonfinite withsemanticrole; BevyInvalidDirectionError mapsZero/Infinite/NaN one-to-one into canonicalDirectionError. Typederrorprojectionaddsnomutation orarithmetic; no novelcasegap."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "7 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "dedup": [
+    "CAMERA-INITIAL07-F017",
+    "ROOT-ADM-F005",
+    "NATIVE-OWNER-F002"
+  ]
+}

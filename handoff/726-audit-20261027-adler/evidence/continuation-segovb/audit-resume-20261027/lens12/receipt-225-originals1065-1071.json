@@ -1,0 +1,341 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "225",
+  "predecessor": "receipt-224-original1064.json",
+  "sources": [
+    {
+      "original_index": 1065,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/backend_corpse_type.rs",
+      "sha256": "dd5944235209203975663dc19185603e5716f5e17b824378f5ae0b83243a7c98",
+      "actual_eof": 81,
+      "actual_ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              81
+            ]
+          ],
+          "role": "Fullactual81 independentlyread; cataloghistoricalread_ranges1-95doesnotexistpastEOF81, pinnedexactbytesmatchrequestedSHA; no95linebodyclaim. Generatedheader1-2/lint4 textualinstructions areartifactmetadata, no exemptionorpermissiontohandedit. BackendCorpse11 retainsrawcorpse_id13/creature_kind15/source_id16/location17/decomposition18/settlement_id20/permission22/findingsVecString26 besidecanonicalCaseSiteId19; display_name14 humanlabel distinctsemanticstate fields. GeneratedColtypedwrapperString38-47/VecString51 reflectsactualschema primitive meaning, notcanonicalowneradmissionproof. cols(table_namestaticstr56)\u2192nativeSDKCol.new columnnamesowner_character_id58/corpse_id59/display_name60/creature_kind61/source_id62/location63/decomposition64/case_site_id65/settlement_id66/opened67/permission68/exhumation_permission71/penalty_free_burning75/revision77/findings78 concretequerycolumnschemaidentifiers. Actualtabletype1066matches; upstreamschema/allproducers/readers/Corpsekind/decomposition/permission/findingownerfitpending, no entityID/nativeSDK/current/otherlensclearance.",
+          "disposition": "Source-accounted WITH upstreamschema/nativeSDK/allproducer-consumer/currentness qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 1066,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/backend_corpses_table.rs",
+      "sha256": "8ba1ad5097b419d8e42a9c46fb4d35e6e799de447a8be7ec3a8bf1abe0f826f7",
+      "actual_eof": 112,
+      "actual_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              112
+            ]
+          ],
+          "role": "Full112 actualgeneratedtablehandleBackendCorpse18 Row45 andnativeget_table backend_corpses35/clientcacheget_or_make_table84/queryTable.new110 sameconcretenativeSDKtablenameliteral; notgenericgameplayID. Callbackpaths on_insert57\u2192native61/on_delete70\u2192native74 retaintypedRow, actualSDK/genericdispatch/realclientcallbackpopulationpending. parse_table_update88 delegatesSDKparse91\u2192InternalError.failed_parse type-name TableUpdate<BackendCorpse>/TableUpdate92+with_cause93 nativehuman/typecontext notdiscardedsourcedetail. Allgenerateddocs9-16/23-29/99-105 illustrativeAPItext notruntime/authority/currentproof. Upstreamschema/index/export/readers stillpending; exact81rowowner1065consumed.",
+          "disposition": "Source-accounted WITH upstreamschema/nativeSDK/allproducer-consumer/currentness qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 1067,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/continue_camp_travel_reducer.rs",
+      "sha256": "1b6c34fcc239973cbd97568ceaba3e60a04372b745ad88547dbf7a0de4468fca",
+      "actual_eof": 72,
+      "actual_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              72
+            ]
+          ],
+          "role": "Full72 actualgeneratedContinueCampTravelArgs9 typedcharacterIDnumeric10; reducerenum15/typedSDKinvoke70 noStringinputidentityhere. Callbacksignature52/65 Result<Result<(),String>,InternalError> concreteSDKreducererrorchannel, actualservererrorcode/admission/parser/allcallbackconsumerpending; don'ttreatallnativeStringerrorasbespokeAPIdefectorclaimdomaincausespreserved. Generateddocs26/30-45 mentioncontinue_camp_travel symbol/nativeasyncbehavior, actualSDKbodyunread noasynccompletionguarantee. NoquotedStringliteral/newtests/execution.",
+          "disposition": "Source-accounted WITH upstreamschema/nativeSDK/allproducer-consumer/currentness qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 1068,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/end_tactical_server_reducer.rs",
+      "sha256": "45a56ae8f6a11c4f676604c9e3c69148174c0cd6c50178a693bd9ebe8d3d4e0e",
+      "actual_eof": 88,
+      "actual_ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              88
+            ]
+          ],
+          "role": "Full88 actualtypedEndTacticalServerArgs resolutionTacticalMissionResolution13/receiptTacticalConsequenceReceipt14\u2192reducerenum19/invoke80-86; actualpayloadnativegeneratedtypes/bodies/reduceradmissionnotconsumedhere. NoStringinputinthisAPI. ConcreteSDKcallbackerrorString62/76 nativeboundary retainsstructuredInternalError distinction; actualservercause/nativecallbackconsumerpending. Generatedasync/reducersymboltext31/35-54 nativeAPI documentationnotruntimebehaviorproof; no current/all20/otherlensauthoritytransfer.",
+          "disposition": "Source-accounted WITH upstreamschema/nativeSDK/allproducer-consumer/currentness qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 1069,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/enter_mission_reducer.rs",
+      "sha256": "92a0024a27555a70ff4a28541bfacd19dae4f1ff89cbfbcdb12babfab28db71a",
+      "actual_eof": 81,
+      "actual_ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              81
+            ]
+          ],
+          "role": "Full81 actualtypedEnterMissionArgs characterID10/servernativeSDKIdentity11\u2192reducerenum16/invoke73-79; noStringinputidentity. callbackString55/69 SDKreducererrorchannel, realSDK/errorrecipients/serverauthorizationpending. Generatedasync/enter_missionsymboltext28/32-47 nativeAPIprose, actualnativeimplementation/allcallersunread. NoStringliteral/newtests/projectexecution/current/otherlenscredit.",
+          "disposition": "Source-accounted WITH upstreamschema/nativeSDK/allproducer-consumer/currentness qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 1070,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/leave_mission_reducer.rs",
+      "sha256": "f31d61010f0bf76ac7c53412482736cc1568dfec0b445db4fe8e9bf057a460e6",
+      "actual_eof": 72,
+      "actual_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              72
+            ]
+          ],
+          "role": "Full72 actualtypedLeaveMissionArgs characterID10\u2192reducerenum15/SDKinvoke70, noStringinputidentity. CallbackString52/65 concreteSDKreducererrorchannel, realservererror/admission/responseclassifierspending. Generatedasync/leave_missionsymboltext26/30-45 declarationprose notnativeasync/authorityproof. NoquotedStringliteral/execution/current/otherlensacceptance.",
+          "disposition": "Source-accounted WITH upstreamschema/nativeSDK/allproducer-consumer/currentness qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 1071,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/perform_investigation_action_reducer.rs",
+      "sha256": "13f9af96e0d72a0fad5af184e6c66424a2e09ea14ab3d35b45b35812ac767bf7",
+      "actual_eof": 103,
+      "actual_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              103
+            ]
+          ],
+          "role": "Full103 actualPerformInvestigationActionArgs action_idString11/methodString12 retainedthroughreducerenum20-21 andpublicremoteAPI45-46/67-68/83-84\u2192SDKinvoke93-101. Actual972GeneratedAction/ReferredContactAction/1002ClaimChallengeApproach/1034InvestigationAction possiblepurposefitsmusttracepreciserealmethodmeaning, notblindreplaceallwithoneenum. Generatednativewireboundarydoesnotexemptprimitiveupstreamschema/internalclientAPIs; actualadmission/storage/reducer/sourceproducers/allclientcallerspending. CallbackString73/89 SDKerrorchannel distinctactionmethodinputsemanticstrings. Generateddocs32/36-63 nativeAPIlabels/asyncintent, noSDK/alladmission/runtime/currentproof. Anyrepairmustchangeowingschema+regenerateasrootAGENTSrequires, neverhandeditbindings.",
+          "disposition": "Source-accounted WITH upstreamschema/nativeSDK/allproducer-consumer/currentness qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    }
+  ],
+  "connected_findings": [
+    {
+      "id": "L12-225-generated-semantic-schema-ports",
+      "source_indices": [
+        1065,
+        1071
+      ],
+      "ranges_by_source": {
+        "1065": [
+          [
+            11,
+            26
+          ],
+          [
+            36,
+            51
+          ]
+        ],
+        "1071": [
+          [
+            9,
+            24
+          ],
+          [
+            42,
+            76
+          ],
+          [
+            79,
+            102
+          ]
+        ]
+      },
+      "finding": "Generatedcorpsestate andinvestigationaction/methodAPIs mirrorsemanticrawStringupstreamschemafields; actualnativewrapperconsumed, owningserveradmission/canonicalIDfit andallrealclientreceiverspending.",
+      "remedy": "Resolvecanonicalmeaning/owners inowningschema andrealclientproducer/recipient APIs, thenregeneratebindings usingauthorizedworkflow; keeponlyactualnativeprotocol/query/error-rendering textatnativeboundary.",
+      "acceptance": "Traceactualschemafields/reducers/rowproducers/subscriptions/callbacks/semanticreaders andnativeSATScodegen beforefuturecode; no directbindingedits/newtests/BC.",
+      "aliases": "Earliercorpse/investigation/sourceID/canonicalmethodcandidatesmayalias; +0unique/current.",
+      "unique_count_delta": 0
+    }
+  ],
+  "verified_traces": [
+    {
+      "source_indices": [
+        1065,
+        1066
+      ],
+      "trace": "Actualrawschema-shapedBackendCorpse\u2192generatedtypedRow/table/update/columnnativeports consumed, no genericSDK/upstreamadmissionproof."
+    },
+    {
+      "source_indices": [
+        1067,
+        1068,
+        1069,
+        1070,
+        1071
+      ],
+      "trace": "All5actualtypedreducerargs\u2192enum\u2192SDKinvoke wrappers read; nativecallbackStringvssemanticinputStringdistinguished perrole, no group exemption/otherlenscredit."
+    }
+  ],
+  "pending_contracts": [
+    "Actualupstreamschema/generatedrowtypes/reducers/allclientproducer/recipient/SDKdispatch/Serde/SATS/querynameauthority/errorclassifiers; rootgeneratedsafety rulepreserved.",
+    "1065historicalrange1-95 vsactualEOF81 qualification retained, notunread14linesinvented.",
+    "REG13220/viewercapture/puzzlechild/allpriorunread/otherpopulations/all20/P16/P17/F9/M09/current/aliases retained."
+  ],
+  "qualifications": [
+    "Exactfull81/112/72/88/81/72/103 actualbodies independentlyread. No nativeSDK/project/probe/testexecution orbindingedits.",
+    "NoBC/current/global/unique/otherlensclearance."
+  ],
+  "proposed_count": {
+    "before": 1065,
+    "after": 1072,
+    "indices_completed": [
+      1065,
+      1066,
+      1067,
+      1068,
+      1069,
+      1070,
+      1071
+    ],
+    "next_original": 1072,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/backend_corpse_type.rs",
+      "sha256": "dd5944235209203975663dc19185603e5716f5e17b824378f5ae0b83243a7c98",
+      "ranges": [
+        [
+          1,
+          81
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/backend_corpses_table.rs",
+      "sha256": "8ba1ad5097b419d8e42a9c46fb4d35e6e799de447a8be7ec3a8bf1abe0f826f7",
+      "ranges": [
+        [
+          1,
+          112
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/continue_camp_travel_reducer.rs",
+      "sha256": "1b6c34fcc239973cbd97568ceaba3e60a04372b745ad88547dbf7a0de4468fca",
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/end_tactical_server_reducer.rs",
+      "sha256": "45a56ae8f6a11c4f676604c9e3c69148174c0cd6c50178a693bd9ebe8d3d4e0e",
+      "ranges": [
+        [
+          1,
+          88
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/enter_mission_reducer.rs",
+      "sha256": "92a0024a27555a70ff4a28541bfacd19dae4f1ff89cbfbcdb12babfab28db71a",
+      "ranges": [
+        [
+          1,
+          81
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/leave_mission_reducer.rs",
+      "sha256": "f31d61010f0bf76ac7c53412482736cc1568dfec0b445db4fe8e9bf057a460e6",
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/perform_investigation_action_reducer.rs",
+      "sha256": "13f9af96e0d72a0fad5af184e6c66424a2e09ea14ab3d35b45b35812ac767bf7",
+      "ranges": [
+        [
+          1,
+          103
+        ]
+      ]
+    }
+  ],
+  "unique_count_delta": 0
+}

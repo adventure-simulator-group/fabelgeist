@@ -1,0 +1,105 @@
+{
+  "at": "2026-10-27T10:11:38.875753+00:00",
+  "kind": "Independent actual selected Span receiver classification",
+  "registration_pins": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/third-review-span-chain-registration-001.json",
+      "sha256": "6082853cc009640f0fd46f8aa65e5841fc9f1b6f067b6045b96c89ff0c096fc8"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/third-review-span-chain-registration-002.json",
+      "sha256": "5878857fc47e64e9d2996e56b8876f7d4229adcdaa2b4a84e275c5c1c19c0327"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/third-review-span-chain-registration-003.json",
+      "sha256": "e9cf76015ac41ec548dfd73e13129bbb7532319f4ecf3b8c53ea9d04cba0b3ad"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/code-review-sixth-registration-001.json",
+      "sha256": "2b1cecaa076d5f9a934a92f4ad165b17a1c71080c04e0a48fa4ffca18b141e07"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/code-review-sixth-registration-002.json",
+      "sha256": "9871cdb67fbae5faef5aad06d4e0cfbd12eab3de6d3d9e688ed08b490c716282"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/code-review-sixth-registration-003.json",
+      "sha256": "6d778a968559d7ca5df93be7a8336d2a8bb204bc4dd1a5e6fa3d073fac44fee7"
+    }
+  ],
+  "traces": [
+    {
+      "stage": "producer and state",
+      "sources": [
+        "animation/state.rs:1476-1551",
+        "animation/evaluation.rs:262-334",
+        "animation/state/posture_transition.rs:1-128"
+      ],
+      "contract": "Positive admitted duration, saturating elapsed count, completion guard before count normalization. Canonical DIVE_GROUND_CONTACT_PHASE used for both holds and typed launch/recovery interpolation. Typed phase enters normalized dive Span progress, procedural influence and root handoff. Failure does not publish partially computed phase."
+    },
+    {
+      "stage": "span receiver",
+      "sources": [
+        "client animation/resolver.rs:120-145",
+        "client animation/resolver/span.rs:15-51"
+      ],
+      "contract": "Actual selected production Span receiver retains UnitInterval; complement and lossless From<UnitInterval> prepare endpoint BlendWeights before checked scaling. Missing authored span preserves existing complete-start-anchor fallback. This fixes confirmed former extraction/re-admission gap."
+    },
+    {
+      "stage": "coalescing and retained plan",
+      "sources": [
+        "client animation/weighted.rs:1-71",
+        "client animation/playback_contributions.rs:1-43",
+        "client animation/resolver.rs:1-120",
+        "client animation/mod.rs:110-155,430-480,570-625"
+      ],
+      "contract": "Typed clip time/weight/mirrored weight retained. Coalesced checked totals are prepared before assigning either total. All contribution weights are sum-admitted before private plan storage. Playback retains typed whole-body mirror and influence."
+    },
+    {
+      "stage": "weighted mirror reduction",
+      "sources": [
+        "client animation/resolver.rs:198-217",
+        "client animation/procedural.rs:324-447"
+      ],
+      "contract": "Typed contribution iterator, checked sums, zero-total policy ZERO, finite checked scalar quotient, explicit saturation and UnitInterval admission before retention. Same semantic fraction is not exported as raw state/API. Mirror weights remain typed through BTreeMap and are extracted at native Vec3/Quat transform kernels. This is a local owning numerical reduction; no additional fraction_of API required by this scoped repair."
+    },
+    {
+      "stage": "weighted pose reduction",
+      "sources": [
+        "client animation/pose_buffer.rs:665-820,942-959,209-225"
+      ],
+      "contract": "Typed weights enter sample accumulation. Checked next total, first-sample policy avoids zero/zero, new fraction admitted before typed LocalPose::interpolate. Both accumulated pose and weight assigned only after successful computation. Alpha extraction belongs to local native transform interpolation kernel; no retained primitive intermediate."
+    },
+    {
+      "stage": "native interpolation",
+      "sources": [
+        "client animation/pose_buffer/inertialization.rs:24-31",
+        "client animation/pose_buffer/baking.rs:109-128",
+        "glam0.32.1 src/f32/vec3.rs:944-954",
+        "glam0.32.1 src/f32/sse2/quat.rs:726-779",
+        "glam0.32.1 src/f32/scalar/quat.rs:720-760"
+      ],
+      "contract": "LocalPose invokes actual Vec3::lerp and hemisphere quaternion kernel. Hemisphere kernel performs dot/antipode choice, slerp and normalize; also receives local baked-grid alpha from frame.fract(). Native slerp consumes f32 and owns trigonometric/vector arithmetic. Reviewed scalar and SSE2 implementations, not all possible cfg backends or runtime normalization."
+    },
+    {
+      "stage": "IK reduction",
+      "sources": [
+        "client animation/foot_influence.rs:1-107"
+      ],
+      "contract": "Typed input and retained left/right fractions; Vec2 multiply/add/divide is actual numerical reduction, finite checks and explicit clamp/admission before retention. No first-party primitive pair passed downstream."
+    },
+    {
+      "stage": "Cycle and separate Timeline",
+      "sources": [
+        "client animation/resolver.rs:152-195",
+        "client animation/sample_values.rs:22-65"
+      ],
+      "contract": "Cycle selected path calls typed ClipDuration::at_phase and retains typed ClipTime plus physical CyclePhase. Timeline branch is independently read and still projects progress/reversal to ClipTime; it is a separate sampling branch, not selected dive Span. No claim of whole Timeline refactor or all animation arithmetic clearance."
+    }
+  ],
+  "reconciliation": "Initial possible shared BlendWeight fraction_of suggestion was provisional before all receiving bodies. Completed bodies show typed input/retention and immediate admission of new numerical results; do not require that optional abstraction as a propagation repair. Confirmed endpoint preparation gap alone is fixed in candidate012. Root independently saved its pre-edit receiver receipt; this independent completed report is post-edit review, not a claim that all our final native reads preceded root edits.",
+  "qualification": "Selected meaningful receiving graph, not every extrapolated/continuation curve implementation, arbitrary custom animation graph, all native backends, or global bespoke audit. No unique finding count.",
+  "project_execution": false,
+  "product_edits": false,
+  "tests_added": false
+}

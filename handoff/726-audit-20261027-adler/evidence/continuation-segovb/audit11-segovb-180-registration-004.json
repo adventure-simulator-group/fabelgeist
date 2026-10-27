@@ -1,0 +1,72 @@
+{
+  "packet": 180,
+  "lens": 11,
+  "entries": [
+    {
+      "original": 684,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/binding.rs",
+      "sha256": "1d37cdfbe3438b86643502d8f147cec1c22cfb04ba2ccdf09da1c30aacac7152",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/1d37cdfbe3438b86643502d8f147cec1c22cfb04ba2ccdf09da1c30aacac7152",
+      "ranges": [
+        [
+          49,
+          58
+        ]
+      ],
+      "actual_eof": 58,
+      "purpose": "Actual skin receiving adapter; no unrelated clothbinding body",
+      "ordered_credit": false
+    },
+    {
+      "original": 794,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/generation.rs",
+      "sha256": "eb3d54908cc923b9cd761ca5abaf748d4ad9ed9175289a2d3342d0e2d4c6a4a1",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/eb3d54908cc923b9cd761ca5abaf748d4ad9ed9175289a2d3342d0e2d4c6a4a1",
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "actual_eof": 93,
+      "purpose": "Actual generate_character producer outputs into BodyHead; close function as needed",
+      "ordered_credit": false
+    },
+    {
+      "original": 819,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "ranges": [
+        [
+          99,
+          108
+        ],
+        [
+          172,
+          187
+        ]
+      ],
+      "actual_eof": 667,
+      "purpose": "Concrete BodyModel and GeneratedCharacter record ownership only",
+      "ordered_credit": false
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/hair_preview/gpu.rs",
+      "sha256": "462eb12c93f953673bc177a3cef00835889022f59d278bf1884086fc328c2adc",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/462eb12c93f953673bc177a3cef00835889022f59d278bf1884086fc328c2adc",
+      "ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "purpose": "Only73line device-kernel owner/plugin: clone identity, OnceLock kernel construction and injection producer all material to worker/device retain.",
+      "provenance": "audit11-root-render-dependencies-staging-180.json",
+      "new_other_lens_mandatory": true,
+      "original_shared_credit": 0
+    }
+  ],
+  "registered_before_body_read": true,
+  "locator_only": "Named signatures/types at68453/gpu14,21,23/7943/81999,172; no body coverage claimed by rg."
+}

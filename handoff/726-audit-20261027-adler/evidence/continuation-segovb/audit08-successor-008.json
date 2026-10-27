@@ -1,0 +1,390 @@
+{
+  "id": "SEGOVB-CONT08-SUCCESSOR-008",
+  "at": "2026-10-26T23:31:12.692864+00:00",
+  "lens": "08 behavior-preservation",
+  "skill": {
+    "path": "/home/brunosegovia/.codex/skills/audit-behavior-preservation/SKILL.md",
+    "sha256": "7413ca56a7a637a20cb56f6a35c7623253934e806415e26131af076050fa685c"
+  },
+  "scope": "One bounded packet at actual earliest unfinished original1462 CONT08-Q003: native world-normal transformation boundary. Full frozen original1462 base230/head339 read again; no nextordered restart or material53 traversal.",
+  "inputs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-001.json",
+      "sha256": "a20f3d21ec5ce98fefaaa3cf887b9f637fd9e5d6cee63874c91547548e0779a6"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-007.json",
+      "sha256": "62dcdf5764c779b6f896ccb6eea3863fd79064713cd1ef812166f48b92b194f9"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-007-proposed-state.json",
+      "sha256": "73bd345a0870c089e0b258db851c8d82081083ac5ca33328abca9df8e6922641"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-adoption-007.json",
+      "sha256": "abd98e46a4df3eeef2856b4ed349190be70c5204d040e3cdc4c73b42bc67fb56"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-current-comparison-001.json",
+      "sha256": "b3116b0e9394b77f186c1db5eee7e0a8e63e94afa242885d2cd2ebed5b6dd93c"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-008-registration.json",
+      "sha256": "8324297da113e4069202d0090d3997c4b16f6fcca649e4b898a3f227f45738f4"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-008-registration-supplement.json",
+      "sha256": "ec85ce62fb1d3d0c10deb1e11c538f2d92001ee5bd8faae46bbb84ba2635383d"
+    },
+    {
+      "path": "target/recovery-20261025/audit08/STATE.json",
+      "sha256": "b4f9c4a6c3c59966cfe3cde46ee814963aad9c3d3808e9928ce40620c7e46e7b"
+    },
+    {
+      "path": "target/recovery-20261025/audit08/predecessor/partial-kernels-006.json",
+      "sha256": "185f8ab09edb895992c0f61052df3bf326b71653ac580e866cbe4ffe3a4ef2c9"
+    },
+    {
+      "path": "target/recovery-20261025/audit08/predecessor/source-inventory.json",
+      "sha256": "bfbcfba87ab12644946de377b9cda227f3203ac836bcf4933d3ce099d8f21b97"
+    },
+    {
+      "path": "target/recovery-20261025/audit05/original-scope-072.json",
+      "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+    },
+    {
+      "path": "target/recovery-20261025/shared-material-successor/source-extensions-196.json",
+      "sha256": "12adb62b53902f4e42f8e882ec18181d465c049956c8af8b5626d3d3192ff849"
+    }
+  ],
+  "source_reads": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-source/862d65dcfa27ffb94110dbaf5c32fd94e248028f14f278aa9429047789ec31d9",
+      "sha256": "862d65dcfa27ffb94110dbaf5c32fd94e248028f14f278aa9429047789ec31d9",
+      "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "ranges": [
+        [
+          1,
+          230
+        ]
+      ],
+      "role": "Original1462 full old/new requested source",
+      "actual_body_read_ranges": [
+        [
+          1,
+          230
+        ]
+      ],
+      "navigation_only_other_ranges": "Registered source grep navigation was used; omitted/truncated output and unused registered ranges get no bodycoverage."
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-source/e57c0f4f3a2b7f4cb749b5e1ca57628e9e5ef864f1bd4365fe48313a3f426c3e",
+      "sha256": "e57c0f4f3a2b7f4cb749b5e1ca57628e9e5ef864f1bd4365fe48313a3f426c3e",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "ranges": [
+        [
+          1,
+          339
+        ]
+      ],
+      "role": "Original1462 full old/new requested source",
+      "actual_body_read_ranges": [
+        [
+          1,
+          339
+        ]
+      ],
+      "navigation_only_other_ranges": "Registered source grep navigation was used; omitted/truncated output and unused registered ranges get no bodycoverage."
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-source/05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "role": "Existing strict direction admission owner; only scopedsupportcredit",
+      "actual_body_read_ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "navigation_only_other_ranges": "Registered source grep navigation was used; omitted/truncated output and unused registered ranges get no bodycoverage."
+    },
+    {
+      "source_id": "pinned-registry:avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+      "sha256": "2a04ce7d6913b008e654905c96ead648efd840ddf102863532bc38bd187e3945",
+      "ranges": [
+        [
+          1,
+          1830
+        ]
+      ],
+      "role": "Prospective native source navigation/actual cast transformation support; only later listed boundedbodyreads count",
+      "provenance": {
+        "matches_prior_frozen_inventory_row": 481,
+        "cached_archive": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0.crate",
+        "archive_sha256": "35a30cb730c72527ffaca7f8806881c7e4acc70a4a74c54eb1ffb56c27f64235",
+        "member": "avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+        "member_bytes_equal": true,
+        "qualification": "Package bytes verified before bodyread; exactfrozen dependencyresolution retained from prior evidence, not re-proven from current lock."
+      },
+      "actual_body_read_ranges": [],
+      "navigation_only_other_ranges": "Registered source grep navigation was used; omitted/truncated output and unused registered ranges get no bodycoverage."
+    },
+    {
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/shape_caster.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/spatial_query/shape_caster.rs",
+      "sha256": "e7ddca53ee044c4814c925fffa7f172680988ea9456834049da965f16a5c6b66",
+      "ranges": [
+        [
+          1,
+          612
+        ]
+      ],
+      "role": "Prospective native source navigation/actual cast transformation support; only later listed boundedbodyreads count",
+      "provenance": {
+        "matches_prior_frozen_inventory_row": 486,
+        "cached_archive": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0.crate",
+        "archive_sha256": "35a30cb730c72527ffaca7f8806881c7e4acc70a4a74c54eb1ffb56c27f64235",
+        "member": "avian3d-0.7.0/src/spatial_query/shape_caster.rs",
+        "member_bytes_equal": true,
+        "qualification": "Package bytes verified before bodyread; exactfrozen dependencyresolution retained from prior evidence, not re-proven from current lock."
+      },
+      "actual_body_read_ranges": [
+        [
+          412,
+          485
+        ],
+        [
+          581,
+          612
+        ]
+      ],
+      "navigation_only_other_ranges": "Registered source grep navigation was used; omitted/truncated output and unused registered ranges get no bodycoverage."
+    },
+    {
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/system_param.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/spatial_query/system_param.rs",
+      "sha256": "a568d6d6d411e2832b3efb91dfc919770712da09eae38e4a9dff53ffd8d72fea",
+      "ranges": [
+        [
+          1,
+          1293
+        ]
+      ],
+      "role": "Prospective native source navigation/actual cast transformation support; only later listed boundedbodyreads count",
+      "provenance": {
+        "matches_prior_frozen_inventory_row": 487,
+        "cached_archive": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0.crate",
+        "archive_sha256": "35a30cb730c72527ffaca7f8806881c7e4acc70a4a74c54eb1ffb56c27f64235",
+        "member": "avian3d-0.7.0/src/spatial_query/system_param.rs",
+        "member_bytes_equal": true,
+        "qualification": "Package bytes verified before bodyread; exactfrozen dependencyresolution retained from prior evidence, not re-proven from current lock."
+      },
+      "actual_body_read_ranges": [
+        [
+          1,
+          130
+        ],
+        [
+          523,
+          594
+        ]
+      ],
+      "navigation_only_other_ranges": "Registered source grep navigation was used; omitted/truncated output and unused registered ranges get no bodycoverage."
+    },
+    {
+      "source_id": "native-dependency:avian3d-0.7.0/src/math/mod.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/math/mod.rs",
+      "sha256": "67a006eda87315f690718b4d9c45b656b04958f32a80dffb0700cd9fa2d3a0e0",
+      "prospective_ranges": [
+        [
+          1,
+          668
+        ]
+      ],
+      "reason": "Exact make_pose/rotation authority dependency navigation; only bounded actual body ranges count",
+      "provenance": {
+        "archive_path": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0.crate",
+        "archive_sha256": "35a30cb730c72527ffaca7f8806881c7e4acc70a4a74c54eb1ffb56c27f64235",
+        "member": "avian3d-0.7.0/src/math/mod.rs",
+        "member_bytes_equal": true,
+        "scope": "Prospective native supplement; no wholeSDK clearance."
+      },
+      "actual_body_read_ranges": [
+        [
+          565,
+          638
+        ]
+      ],
+      "navigation_only_other_ranges": "Registered source grep navigation was used; omitted/truncated output and unused registered ranges get no bodycoverage."
+    },
+    {
+      "source_id": "native-dependency:avian3d-0.7.0/src/math/single.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/math/single.rs",
+      "sha256": "279b93c665684614416422084c7c9a7aca565ef6a57bd3fa61e76e388a1f71b9",
+      "prospective_ranges": [
+        [
+          1,
+          146
+        ]
+      ],
+      "reason": "Exact make_pose/rotation authority dependency navigation; only bounded actual body ranges count",
+      "provenance": {
+        "archive_path": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0.crate",
+        "archive_sha256": "35a30cb730c72527ffaca7f8806881c7e4acc70a4a74c54eb1ffb56c27f64235",
+        "member": "avian3d-0.7.0/src/math/single.rs",
+        "member_bytes_equal": true,
+        "scope": "Prospective native supplement; no wholeSDK clearance."
+      },
+      "actual_body_read_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "navigation_only_other_ranges": "Registered source grep navigation was used; omitted/truncated output and unused registered ranges get no bodycoverage."
+    },
+    {
+      "source_id": "native-dependency:avian3d-0.7.0/src/dynamics/rigid_body/mod.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/dynamics/rigid_body/mod.rs",
+      "sha256": "eb3a7e85f3ce1aca1e6959e5d335dc72a1f1fdcf3cd4835344c9d410efb247bd",
+      "prospective_ranges": [
+        [
+          1,
+          662
+        ]
+      ],
+      "reason": "Exact make_pose/rotation authority dependency navigation; only bounded actual body ranges count",
+      "provenance": {
+        "archive_path": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0.crate",
+        "archive_sha256": "35a30cb730c72527ffaca7f8806881c7e4acc70a4a74c54eb1ffb56c27f64235",
+        "member": "avian3d-0.7.0/src/dynamics/rigid_body/mod.rs",
+        "member_bytes_equal": true,
+        "scope": "Prospective native supplement; no wholeSDK clearance."
+      },
+      "actual_body_read_ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "navigation_only_other_ranges": "Registered source grep navigation was used; omitted/truncated output and unused registered ranges get no bodycoverage."
+    }
+  ],
+  "original1462": {
+    "status": "CONT08-Q003 remains qualified partial",
+    "base": {
+      "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "sha256": "862d65dcfa27ffb94110dbaf5c32fd94e248028f14f278aa9429047789ec31d9",
+      "read_ranges": [
+        [
+          1,
+          230
+        ]
+      ]
+    },
+    "head": {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "e57c0f4f3a2b7f4cb749b5e1ca57628e9e5ef864f1bd4365fe48313a3f426c3e",
+      "read_ranges": [
+        [
+          1,
+          339
+        ]
+      ]
+    },
+    "old_new_path": "Base72-101 retains raw ShapeHitData; head152-190 retains only entity and SpatialDirection::from_normalized(hit.normal1), propagating error. Same native collider/origin/shape rotation/direction/maxdistance/filter/predicate cast remains. Admitted paths retain original fraction clamp, eight framing sweeps, endpoint lerp and recovery damping order. Head307-328 commits cloned recovery only after final successful sweep/position admission.",
+    "trigger_and_observable_difference": "A returned hit.normal1 that is zero, nonfinite or not accepted as normalized causes head CameraError before current placement is returned; base retained that raw normal. A concrete ordinary admitted collider/pose producing this condition is still unproved. No new regression finding claimed."
+  },
+  "new_source_backed_progress": [
+    {
+      "id": "CONT08-Q003-WORLD-NORMAL-008A",
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/system_param.rs",
+      "sha256": "a568d6d6d411e2832b3efb91dfc919770712da09eae38e4a9dff53ffd8d72fea",
+      "ranges": [
+        [
+          59,
+          64
+        ],
+        [
+          523,
+          594
+        ]
+      ],
+      "trace": "SpatialQuery reads obstacle Position/Rotation/Collider. Actual camera cast_shape_predicate filters then uses pose1=make_pose(obstacle position,obstacle rotation) and pose2=make_pose(cast origin,cast rotation). It calls Parry on scaled shapes, then stores normal1=pose1.rotation*hit.normal1 and normal2=pose2.rotation*hit.normal2. Camera consumes normal1.",
+      "implication": "Camera frame RigidRotation admission alone cannot prove returned normal1 length: its rotation applies to cast shape/pose2, while the selected normal1 uses obstacle pose1. The actual world-normal assignment adds no explicit normalization or normalized-direction admission. This narrows the lower producer contract; it does not prove the product violates the strict bound."
+    },
+    {
+      "id": "CONT08-Q003-CONFIG-008B",
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/shape_caster.rs",
+      "sha256": "e7ddca53ee044c4814c925fffa7f172680988ea9456834049da965f16a5c6b66",
+      "ranges": [
+        [
+          412,
+          464
+        ],
+        [
+          581,
+          605
+        ]
+      ],
+      "trace": "from_max_distance uses target_distance0, compute_contact_on_penetrationtrue and ignore_origin_penetrationfalse. ShapeHitData normal1 is native Vector documented as obstacle surface normal in worldspace, not a checked direction type.",
+      "implication": "The previously rejected false-initial-overlap/no-impact-geometry witness remains inapplicable. A named normal/documentation alone supplies no quantitative postrotation normalized-length bound."
+    },
+    {
+      "id": "CONT08-Q003-POSE-008C",
+      "source_id": "native-dependency:avian3d-0.7.0/src/math/mod.rs",
+      "ranges": [
+        [
+          606,
+          618
+        ]
+      ],
+      "trace": "3D make_pose converts into native Position/Rotation then calls parry::math::Pose3::from_parts(position.0,rotation.0). Single precision aliases Vector=Vec3 and Quaternion=Quat at math/single.rs19-21,47-48.",
+      "implication": "No explicit normalization is present in Avian make_pose. Pose3::from_parts itself, native obstacle Rotation admission/synchronization and quantitative quaternion multiplication bound were not followed in this packet; do not infer identity or malformed-rotation admission from function names or public fields."
+    }
+  ],
+  "concrete_remaining_contract": {
+    "qualification": "CONT08-Q003",
+    "needed": [
+      "Exact admitted obstacle rotation and shape policy plus the Pose3::from_parts/multiplication implementations sufficient to bound returned normal1 length against SpatialDirection::from_normalized.",
+      "Alternatively an actual source-backed admitted collider pair/pose/simplex reaching a degenerate EPA returned normal and this camera cast, with compute_contact_on_penetrationtrue. A bare EPA ZERO assignment is not an ordinary hit witness."
+    ],
+    "next_bounded_frontier": "Native obstacle Rotation/Pose3::from_parts authority first; only then the admitted obstacle population and selected EPA simplex/face route if required. Preserve intended reject-vs-admit policy uncertainty; do not normalize the canonical direction unconditionally."
+  },
+  "coverage_delta": {
+    "new_original_completions": [],
+    "original_accounted": 1799,
+    "original_total": 2853,
+    "earliest_unfinished_original": 1462,
+    "next_ordered_original": 1792,
+    "new_material_completions": [],
+    "material_contiguous": [
+      0,
+      51
+    ],
+    "next_material": 52,
+    "material52": "SEGOVB-CONT08-007-M52-PARTIAL unchanged frozen committedP16 typed-error receiver contract",
+    "separate_materials": [
+      178,
+      195
+    ],
+    "accepted_new_unique_findings": 0
+  },
+  "inherited": {
+    "Paid_to_Withdrawn": "SEGOVB-CONT08-007-M51-PAID-WITHDRAWN retained as preexisting partial candidate; not reclassified or repaired.",
+    "material52_current_crosswalk": "Prior currentcomparison001 remains separately scoped to its exact4fcc source. Frozen039329 mismatch cannot be closed from current String helpers; current workingbranch was not read/revalidated in this packet.",
+    "P16": "039329 committed extension remains distinct from unknown Adler dirty bytes and current source.",
+    "preserve": "All20/P16/P17/M16, aliases, existing native/policy/overflow qualifications and #780/#826 obligations unchanged. No rootledger/history overwrite."
+  },
+  "global_clearance": false,
+  "execution": "No product edits, source execution, project checks/tests, Git commands, fullfrozen tree read/download or publication. Only native cached archive byte comparison, source metadata/read and ignored evidence writes.",
+  "stop": "One bounded world-normal packet saved; stop at concrete untraced obstacle rotation/Pose3 authority and quantitative normal bound."
+}

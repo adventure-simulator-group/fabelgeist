@@ -1,0 +1,399 @@
+{
+  "at": "2026-10-26T22:22:41.128738+00:00",
+  "source": "ef7630d757a6994297f6d24840991cda61bda63c",
+  "run": 40404924760,
+  "jobs": {
+    "jobs": [
+      {
+        "id": 121860102795,
+        "name": "foliage-portability",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 40404924760,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Install pinned Rust toolchain",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Expose the configured bundled Rust linker",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Cache Rust build artifacts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Verify existing foliage and prepared-asset contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Verify required existing cases executed",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Upload foliage portability evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Post Cache Rust build artifacts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17
+          }
+        ]
+      },
+      {
+        "id": 121860103299,
+        "name": "rust-quality",
+        "status": "in_progress",
+        "conclusion": null,
+        "run_id": 40404924760,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Install pinned Rust toolchain",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Cache Rust build artifacts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Install pinned SpacetimeDB CLI",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Install configured Linux linker",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Check formatting",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Test generated bindings verifier",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Check building review presentation boundary",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Verify generated SpacetimeDB bindings",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Test shared schema and GPU readback boundaries",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          },
+          {
+            "name": "Test existing GPU contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Test resolved Bevy guard",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          },
+          {
+            "name": "Test checked FBX array encoding",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14
+          },
+          {
+            "name": "Test existing FBX object-name consumers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          },
+          {
+            "name": "Check semantic values and Rust growth",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Upload texture-view validation evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17
+          },
+          {
+            "name": "Check calendar API ownership",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18
+          },
+          {
+            "name": "Lint tactical client WASM target",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19
+          },
+          {
+            "name": "Test native and WASM deterministic draws",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 20
+          },
+          {
+            "name": "Run Clippy with warnings denied",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 21
+          },
+          {
+            "name": "Test constraint graph and shell consumers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 22
+          },
+          {
+            "name": "Upload constraint validation evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 23
+          },
+          {
+            "name": "Record rig contract revision",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 24
+          },
+          {
+            "name": "Test shared rig contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 25
+          },
+          {
+            "name": "Test shared scalar geometry contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 26
+          },
+          {
+            "name": "Test native iteration report producers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 27
+          },
+          {
+            "name": "Test autoresolve battle-time consumers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 28
+          },
+          {
+            "name": "Test MHR rig admission",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 29
+          },
+          {
+            "name": "Test strategic bootstrap failure contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 30
+          },
+          {
+            "name": "Test creator rig family contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 31
+          },
+          {
+            "name": "Test tactical animation and audio contracts",
+            "status": "in_progress",
+            "conclusion": null,
+            "number": 32
+          },
+          {
+            "name": "Test existing animation report consumers",
+            "status": "pending",
+            "conclusion": null,
+            "number": 33
+          },
+          {
+            "name": "Test tactical equipment contracts",
+            "status": "pending",
+            "conclusion": null,
+            "number": 34
+          },
+          {
+            "name": "Test equipment chronology and mapped requests",
+            "status": "pending",
+            "conclusion": null,
+            "number": 35
+          },
+          {
+            "name": "Test gameplay camera contracts",
+            "status": "pending",
+            "conclusion": null,
+            "number": 36
+          },
+          {
+            "name": "Test shared animation value contracts",
+            "status": "pending",
+            "conclusion": null,
+            "number": 37
+          },
+          {
+            "name": "Test canonical combat configuration",
+            "status": "pending",
+            "conclusion": null,
+            "number": 38
+          },
+          {
+            "name": "Test server configuration startup",
+            "status": "pending",
+            "conclusion": null,
+            "number": 39
+          },
+          {
+            "name": "Test authoritative maneuver consumers",
+            "status": "pending",
+            "conclusion": null,
+            "number": 40
+          },
+          {
+            "name": "Test shared terrain support contracts",
+            "status": "pending",
+            "conclusion": null,
+            "number": 41
+          },
+          {
+            "name": "Test terrain presentation and retained scene consumers",
+            "status": "pending",
+            "conclusion": null,
+            "number": 42
+          },
+          {
+            "name": "Test existing terrain capture and art-demo consumers",
+            "status": "pending",
+            "conclusion": null,
+            "number": 43
+          },
+          {
+            "name": "Test dispatcher terrain selection and inspection consumers",
+            "status": "pending",
+            "conclusion": null,
+            "number": 44
+          },
+          {
+            "name": "Export semantic family baseline snapshot",
+            "status": "pending",
+            "conclusion": null,
+            "number": 45
+          },
+          {
+            "name": "Verify required rig contract execution",
+            "status": "pending",
+            "conclusion": null,
+            "number": 46
+          },
+          {
+            "name": "Upload rig contract evidence",
+            "status": "pending",
+            "conclusion": null,
+            "number": 47
+          },
+          {
+            "name": "Post Cache Rust build artifacts",
+            "status": "pending",
+            "conclusion": null,
+            "number": 93
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "pending",
+            "conclusion": null,
+            "number": 94
+          }
+        ]
+      },
+      {
+        "id": 121860106817,
+        "name": "regenerate-fixtures",
+        "status": "completed",
+        "conclusion": "skipped",
+        "run_id": 40404924760,
+        "logs_url": null,
+        "steps": null
+      }
+    ]
+  },
+  "acceptance": "In progress, not final acceptance"
+}

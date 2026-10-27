@@ -1,0 +1,70 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-339",
+  "at": "2026-10-25T23:22:21.516593+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2812,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/query.rs",
+      "sha256": "88a095239e91a987745462a6d940bd24f04148126ba2f0297a9365612ba6f512",
+      "personally_read_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Inventory iteration follows owner's inventory entities through Bevy item query; missing owner/item components yield no item. item_at_slot returns first matching slot and optional persistent inventory ID together; actual unique-slot admission/order is a producer obligation, not proved here."
+      ]
+    },
+    {
+      "scope_index": 2813,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory_armor.rs",
+      "sha256": "6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b",
+      "personally_read_ranges": [
+        [
+          1,
+          205
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Armor chain filters protected parts with positive coverage, stable-sorts descending layer order, selects first geometry containing sample, then emits every layer with explicit intersected/selected flags and same item identity/material/geometry/surface. Equal-order determinism and covered_parts/geometry correlation rely on admission source.",
+        "fold_armor_layers unions scalar coverage, sums nonnegative resistance/padding, resistance-weights flexibility and minimizes range of motion. Finite inputs/count bounds remain required to exclude overflow/nonfinite aggregate; actual admitted armor producer needed. Existing catalog armor geometry example tests personally read, not run."
+      ]
+    },
+    {
+      "scope_index": 2814,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/enrollment.rs",
+      "sha256": "9d6646ad8d4c3da14afcf544a8426c44afd33921fc4c39d20f4e2c09a49aa5f1",
+      "personally_read_ranges": [
+        [
+          1,
+          189
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Enrollment state preserves nonzero expected count with seen-ID set and empty duration. First load begins enrollment; seal requires seen count reaching expected and no loading player; sealed reconnect admits only known IDs. Empty no-loading interval saturates duration to abandonment while activity resets it.",
+        "Expected count is not identity roster, and allows_join before seal is permissive; external mission authority must enforce roster membership. Awaiting does not advance empty timeout until begun, grace zero immediately abandons even nonempty if configured. Actual caller timing/configuration policy remains scoped, no ordinary failure witness."
+      ]
+    },
+    {
+      "scope_index": 2815,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/receipt.rs",
+      "sha256": "24e17b0e16c1731ef4fa81d7e8f2448cd42b12b6b75dbbe16bc502f0f606508d",
+      "personally_read_ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Receipt derives per-character consequences from accumulator, adds zero-injury rows for contact owners, sorts IDs and truncates participant list, while equipment contacts project all accumulated contacts. This exposes potential party/contact correlation loss when participant cap exceeded; actual accumulator/roster cap admission required before a finding.",
+        "Body parts map exhaustively and related damage fields project together. No additional finite/damage/contact/count validation in this DTO conversion, so actual accumulator production plus reducer admission retain responsibility. Single contact-owner inclusion test read, not run."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "4 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

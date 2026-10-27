@@ -1,0 +1,155 @@
+{
+  "at": "2026-10-27T00:10:02.401429+00:00",
+  "origin": "audit13 independent originals34/35 bounded packet015 native receiving extensions",
+  "source_authority": "Exact immutable bevy_eidolon Git1a5aff8d4809287e5f5713fb4cf72181b2285fff members per audit13-native-stage-015.json; newmembers not asserted to have unseen frozen registry identities.",
+  "new_receiver_sources": [
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/draw/mod.rs",
+      "sha256": "fbf213c853e2cc4c8c58b16491a029d9ce4e1cac39ac0ef6780f362942a4313d",
+      "bytes": 703,
+      "actual_lines": 24,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "role": "receiver-only",
+      "registration": "audit13-successor-registration-015-receivers-002.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/draw/draw_instanced_material.rs",
+      "sha256": "c2dd22225519e2c6213960db4699cc32b33c0ddb9ae549f9fef17c556323f168",
+      "bytes": 3284,
+      "actual_lines": 94,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          94
+        ]
+      ],
+      "role": "receiver-only",
+      "registration": "audit13-successor-registration-015-receivers-002.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/draw/draw_instanced_material_mesh.rs",
+      "sha256": "fc7e17f092288a3568ecdd746d61f496d105e31c948ff799f4a27f1d0bdaa98b",
+      "bytes": 5253,
+      "actual_lines": 148,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          148
+        ]
+      ],
+      "role": "receiver-only",
+      "registration": "audit13-successor-registration-015-receivers-002.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/draw/set_material_bind_group.rs",
+      "sha256": "b4b73c9c1d6331880fe2939dd1487aaf1c97aad0b30c3144eaacbc13a6136638",
+      "bytes": 1730,
+      "actual_lines": 52,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          52
+        ]
+      ],
+      "role": "receiver-only",
+      "registration": "audit13-successor-registration-015-receivers-003.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/shading.wgsl",
+      "sha256": "965586e6cee62b7fe7623cafbd9a173ce271c14cd982466b73eb69a718dca6e9",
+      "bytes": 531,
+      "actual_lines": 21,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "role": "receiver-only",
+      "registration": "audit13-successor-registration-015-receivers-003.json",
+      "post_read_hash_verified": true
+    }
+  ],
+  "other_lenses_pending": [
+    {
+      "lens": 1,
+      "status": "Root must reconcile source/range aliases and existing coverage, then independently assess materially relevant contracts if unaccounted. No verdict or counts from lens13."
+    },
+    {
+      "lens": 2,
+      "status": "Root must reconcile source/range aliases and existing coverage, then independently assess materially relevant contracts if unaccounted. No verdict or counts from lens13."
+    },
+    {
+      "lens": 3,
+      "status": "Root must reconcile source/range aliases and existing coverage, then independently assess materially relevant contracts if unaccounted. No verdict or counts from lens13."
+    },
+    {
+      "lens": 4,
+      "status": "Root must reconcile source/range aliases and existing coverage, then independently assess materially relevant contracts if unaccounted. No verdict or counts from lens13."
+    },
+    {
+      "lens": 5,
+      "status": "Root must reconcile source/range aliases and existing coverage, then independently assess materially relevant contracts if unaccounted. No verdict or counts from lens13."
+    },
+    {
+      "lens": 6,
+      "status": "Root must reconcile source/range aliases and existing coverage, then independently assess materially relevant contracts if unaccounted. No verdict or counts from lens13."
+    },
+    {
+      "lens": 7,
+      "status": "Root must reconcile source/range aliases and existing coverage, then independently assess materially relevant contracts if unaccounted. No verdict or counts from lens13."
+    },
+    {
+      "lens": 8,
+      "status": "Root must reconcile source/range aliases and existing coverage, then independently assess materially relevant contracts if unaccounted. No verdict or counts from lens13."
+    },
+    {
+      "lens": 9,
+      "status": "Root must reconcile source/range aliases and existing coverage, then independently assess materially relevant contracts if unaccounted. No verdict or counts from lens13."
+    },
+    {
+      "lens": 10,
+      "status": "Root must reconcile source/range aliases and existing coverage, then independently assess materially relevant contracts if unaccounted. No verdict or counts from lens13."
+    },
+    {
+      "lens": 11,
+      "status": "Root must reconcile source/range aliases and existing coverage, then independently assess materially relevant contracts if unaccounted. No verdict or counts from lens13."
+    },
+    {
+      "lens": 12,
+      "status": "Root must reconcile source/range aliases and existing coverage, then independently assess materially relevant contracts if unaccounted. No verdict or counts from lens13."
+    }
+  ],
+  "material_families": [
+    "Draw command composition and group-slot selectors; native instance-buffer/source offset and platform first-instance policy",
+    "Indirect draw range/byte offset/count, guard/skip policy and typed native rendering boundary",
+    "Prepared material identity/binding propagation and selected default shader uniform/color/debug/dither behavior"
+  ],
+  "prior_pending_queue_retained": "audit13-successor-014-other-lens-extension-queue.json (first-party producer/shrubshader dependency assessments), unchanged/not overwritten.",
+  "known_receiver_only_original_aliases": [
+    {
+      "original": 37,
+      "sha256": "9bd27e4a4bb61b319e4ee13ae7e1407be2fdd432471ef6e9aede72e206321d90",
+      "credit": 0
+    },
+    {
+      "original": 2793,
+      "sha256": "2d86931db56a5e517f84b400fb9e5a15968d553b5e543da880d12d6193920b84",
+      "credit": 0
+    }
+  ],
+  "chronology": "Queue written after own lens13 reads, prospectively for other independent lenses. No other-lens body assessment/credit claimed.",
+  "original_increment_from_dependencies": 0,
+  "shared_material_increment": 0,
+  "other_lens_credit": 0,
+  "new_unique_finding_count": 0
+}

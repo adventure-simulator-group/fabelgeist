@@ -1,0 +1,179 @@
+--- base:6255135aec06f6ce010b7bb960723b059db57684bf009fa48ad2fe9a8e754d23
++++ head:a4cd3203c13ad00470f001d622f3c1097fcb28954a8c1e93766a53ddfa472441
+@@ -1,6 +1,9 @@
+ //! Repeated logical-tick comparison across capture views.
+ 
+ use super::*;
++use adventuresim_tactical_core::animation::{
++    AngularMagnitudeDegrees, AnimationValueError, NonnegativeLength,
++};
+ 
+ pub(super) struct RepeatedEvaluationSnapshot {
+     scenario: ScenarioMetadata<'static>,
+@@ -9,7 +12,28 @@
+     contact_sequence: ContactSequence,
+     landing_sequence: adventuresim_tactical_core::animation::LandingSequence,
+     event_count: usize,
+-    leg_ik: LegIkDiagnostics,
++    leg_ik: Option<LegIkDiagnostics>,
++}
++
++#[derive(Debug)]
++pub(super) enum RepeatedBoneMismatch {
++    MissingBone { bone: BoneRole },
++    UnexpectedBone { bone: BoneRole },
++    Transform {
++        bone: BoneRole,
++        position_delta: NonnegativeLength,
++        rotation_delta: AngularMagnitudeDegrees,
++    },
++    InvalidObservation { bone: BoneRole, cause: AnimationValueError },
++}
++
++impl RepeatedBoneMismatch {
++    fn bone(&self) -> BoneRole {
++        match self {
++            Self::MissingBone { bone } | Self::UnexpectedBone { bone }
++            | Self::Transform { bone, .. } | Self::InvalidObservation { bone, .. } => *bone,
++        }
++    }
+ }
+ 
+ impl CaptureSequence {
+@@ -18,7 +42,7 @@
+         frame: &PlannedFrame,
+         bones: &CapturedBones,
+         skeleton: &SkeletonState,
+-        leg_ik: LegIkDiagnostics,
++        leg_ik: Option<LegIkDiagnostics>,
+     ) {
+         let event_count = self.presentation_events.len();
+         if self.view_index == 0 {
+@@ -35,6 +59,10 @@
+             let repeated_evaluation_matches =
+                 baseline.matches(frame, bones, skeleton, event_count, leg_ik);
+             self.repeated_evaluation_valid &= repeated_evaluation_matches;
++        } else {
++            self.repeated_evaluation_valid = false;
++            warn!(scenario = frame.scenario.label(), scenario_frame = frame.scenario_frame,
++                "repeated animation evaluation has no baseline observation");
+         }
+     }
+ }
+@@ -46,7 +74,7 @@
+         bones: &CapturedBones,
+         skeleton: &SkeletonState,
+         event_count: usize,
+-        leg_ik: LegIkDiagnostics,
++        leg_ik: Option<LegIkDiagnostics>,
+     ) -> bool {
+         let bone_mismatch = repeated_bone_mismatch(&self.bones, bones);
+         let bones_match = bone_mismatch.is_none();
+@@ -58,16 +86,29 @@
+             && self.event_count == event_count
+             && repeated_leg_ik_matches(self.leg_ik, leg_ik);
+         if !repeated_evaluation_matches
+-            && let Some((bone, position_delta, rotation_delta)) = &bone_mismatch
++            && let Some(mismatch) = &bone_mismatch
+         {
++            let bone = mismatch.bone();
++            let (position_delta, rotation_delta) = match mismatch {
++                RepeatedBoneMismatch::Transform { position_delta, rotation_delta, .. } => {
++                    (Some(position_delta.metres()), Some(rotation_delta.degrees()))
++                }
++                _ => (None, None),
++            };
++            let invalid_cause = match mismatch {
++                RepeatedBoneMismatch::InvalidObservation { cause, .. } => Some(cause),
++                _ => None,
++            };
+             warn!(
+                 scenario = frame.scenario.label(),
+                 scenario_frame = frame.scenario_frame,
+-                bone = report_bone_label(*bone)
++                bone = report_bone_label(bone)
+                     .map(str::to_owned)
+                     .unwrap_or_else(|| format!("{bone:?}")),
+-                position_delta,
+-                rotation_delta,
++                ?position_delta,
++                ?rotation_delta,
++                ?invalid_cause,
++                ?mismatch,
+                 "repeated animation evaluation changed a captured bone"
+             );
+         }
+@@ -91,18 +132,15 @@
+ pub(super) fn repeated_bone_mismatch(
+     expected: &CapturedBones,
+     actual: &CapturedBones,
+-) -> Option<(BoneRole, f32, f32)> {
+-    if let Some(name) = expected
+-        .keys()
+-        .find(|name| !actual.contains_key(**name))
+-        .or_else(|| actual.keys().find(|name| !expected.contains_key(**name)))
+-    {
+-        return Some((*name, f32::INFINITY, f32::INFINITY));
+-    }
+-    expected.iter().find_map(|(name, expected)| {
+-        let actual = actual
+-            .get(*name)
+-            .expect("equal repeated-evaluation bone keys were checked above");
++) -> Option<RepeatedBoneMismatch> {
++    if let Some(bone) = expected.keys().find(|bone| !actual.contains_key(**bone)) {
++        return Some(RepeatedBoneMismatch::MissingBone { bone: *bone });
++    }
++    if let Some(bone) = actual.keys().find(|bone| !expected.contains_key(**bone)) {
++        return Some(RepeatedBoneMismatch::UnexpectedBone { bone: *bone });
++    }
++    // Equal key sets retain the same lexical report order in both captures.
++    expected.iter().zip(actual.iter()).find_map(|((name, expected), (_, actual))| {
+         let position_delta =
+             Vec3::from_array(expected.position).distance(Vec3::from_array(actual.position));
+         let expected_rotation = Quat::from_array(expected.rotation_xyzw);
+@@ -120,18 +158,29 @@
+         };
+         // Re-evaluating one logical tick must be visually identical. Keep only
+         // sub-half-millimetre/sub-twentieth-degree numeric noise.
+-        (position_delta > 0.0005 || rotation_delta > 0.05).then_some((
+-            *name,
+-            position_delta,
+-            rotation_delta,
+-        ))
++        let position_delta = match NonnegativeLength::from_metres(position_delta) {
++            Ok(delta) => delta,
++            Err(cause) => return Some(RepeatedBoneMismatch::InvalidObservation { bone: *name, cause }),
++        };
++        let rotation_delta = match AngularMagnitudeDegrees::from_degrees(rotation_delta) {
++            Ok(delta) => delta,
++            Err(cause) => return Some(RepeatedBoneMismatch::InvalidObservation { bone: *name, cause }),
++        };
++        (position_delta.metres() > 0.0005 || rotation_delta.degrees() > 0.05).then_some(
++            RepeatedBoneMismatch::Transform { bone: *name, position_delta, rotation_delta },
++        )
+     })
+ }
+ 
+ pub(super) fn repeated_leg_ik_matches(
+-    expected: LegIkDiagnostics,
+-    actual: LegIkDiagnostics,
++    expected: Option<LegIkDiagnostics>,
++    actual: Option<LegIkDiagnostics>,
+ ) -> bool {
++    let (expected, actual) = match (expected, actual) {
++        (Some(expected), Some(actual)) => (expected, actual),
++        (None, None) => return true,
++        _ => return false,
++    };
+     let option_vec3_matches =
+         |expected: Option<Vec3>, actual: Option<Vec3>| match (expected, actual) {
+             (Some(expected), Some(actual)) => expected.distance(actual) <= 0.0005,
+@@ -188,7 +237,7 @@
+         let sample = BoneSample {
+             position: Vec3::ZERO.to_array(),
+             rotation_xyzw: Quat::IDENTITY.to_array(),
+-            terrain_clearance_metres: Some(0.0),
++            terrain_clearance_metres: Some(fabelgeist_geometry::SignedLength::from_metres(0.0).unwrap()),
+         };
+         let expected = CapturedBones::from_iter([(BoneRole::FootLeft, sample)]);
+         let missing = CapturedBones::default();

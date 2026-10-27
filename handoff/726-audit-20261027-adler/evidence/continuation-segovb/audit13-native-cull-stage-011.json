@@ -1,0 +1,51 @@
+{
+  "at": "2026-10-26T22:03:27.614805+00:00",
+  "commit": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+  "known_frozen_peer_identity_proof": [
+    {
+      "original": 31,
+      "path": "src/components.rs",
+      "sha256": "e2053ee2dbf1a837b1a4e80d2d2afa22c0ecc2231bf586041222082971b9cbea"
+    },
+    {
+      "original": 32,
+      "path": "src/cull/bindings.wgsl",
+      "sha256": "31551b31caac91e5decc47ac147154bba899d469dad8c0113e0a476ae53dc7d4"
+    },
+    {
+      "original": 33,
+      "path": "src/cull/resources.rs",
+      "sha256": "bedf4e9e3cb681d6cd4ef75b146537e8e2c4876cad464addd82ba0bc5cdc83ab"
+    }
+  ],
+  "members": [
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/pipeline.rs",
+      "path": "src/cull/pipeline.rs",
+      "sha256": "2d9281b0c2391f5ed43a69c209fca68e30d3e54305ee3d8d4c417343d5c9a6cd",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/2d9281b0c2391f5ed43a69c209fca68e30d3e54305ee3d8d4c417343d5c9a6cd",
+      "lines": 74,
+      "basis": "Exact pinned immutable Git object, not working-tree/current alias",
+      "body_coverage": false
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/prepare.rs",
+      "path": "src/cull/prepare.rs",
+      "sha256": "a9e168de6c2a99f5121f16b60d26098c1aae0937c1257648805a38deb1979f7a",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/a9e168de6c2a99f5121f16b60d26098c1aae0937c1257648805a38deb1979f7a",
+      "lines": 59,
+      "basis": "Exact pinned immutable Git object, not working-tree/current alias",
+      "body_coverage": false
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/compute.wgsl",
+      "path": "src/cull/compute.wgsl",
+      "sha256": "246690e6a0c32e6055ac10b318925eb4eeff64b41f025d345a3f84cd839608e2",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/246690e6a0c32e6055ac10b318925eb4eeff64b41f025d345a3f84cd839608e2",
+      "lines": 55,
+      "basis": "Exact pinned immutable Git object, not working-tree/current alias",
+      "body_coverage": false
+    }
+  ],
+  "scope": "Requested native cull pipeline/layout/camera update/compute receiving members only; staging is not audit coverage; agent must register ranges before consuming"
+}

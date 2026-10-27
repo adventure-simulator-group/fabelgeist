@@ -1,0 +1,53 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-324",
+  "at": "2026-10-25T23:09:27.003102+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2700,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/demographics.rs",
+      "sha256": "396148642d664ea3084057fd95d0f9ca430f445ca1ff2d98c8d028ab573c7b92",
+      "personally_read_ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-93 exactphysicalp16: closed Sex/Culture enum serde snakecase, separately explicit stable historicalvariant seedspelling for deterministicinputs; no acceptingoldcase compatibilitydecode. UniformSexVARIANTS source enumderive, no unknownvariant accepted. Tests readnotrun, no demographic/naming wholefamily clearance."
+      ]
+    },
+    {
+      "scope_index": 2702,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+      "sha256": "c9727fc74c74134d8b6f7b5beb407f9cea87d594ee426c04f3c3b93789ce7bb2",
+      "personally_read_ranges": [
+        [
+          1,
+          373
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-373 exactphysicalp16: CapturePhase combinesReadbackview/count/kind and disjointConfigure/Settling, lightingconvergence consumeslatestpair while preservingtrace andbudget8. Helpershandleabsent/emptyreadbacks, finite luminance required; mean pixelbytebounded inactualproducer. Metricdimensions separatelycheckedbufferlen before rows; nativeoverflowforhugewidth remains qualified. SceneCaptureState retains duplicateview/phasecurrentview needingasyncreceivingedge2704, not atomiccaptureproof."
+      ]
+    },
+    {
+      "scope_index": 2703,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs",
+      "sha256": "3c564d966106dc282daa68307a9b2fe6bb064582bab74f8a50e64a1aa9650896",
+      "personally_read_ranges": [
+        [
+          1,
+          186
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-186 exactphysicalp16: ReviewRequirements auditseachbuilding and derivesdoor/windowcounts; fixtureadmissionstrictunknownfields then cardinality/slugasserts, signidexisting/publicshop/mount checks, cameras fromsamematchedfixture. Boundariesincrementdoorcountsbydeclaredquantity, readinessconsumerneeded. InvalidreviewJSONreturnsErr but semanticallywrongauthoredfixtureassertpanic intentionalreviewgatequestion, not ordinarygameplayfailure."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

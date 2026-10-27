@@ -1,0 +1,174 @@
+{
+  "id": "CONT08-015-provenance-initial",
+  "at": "2026-10-27T01:44:36.363904+00:00",
+  "manifest_path": "target/recovery-20261025/continuation-segovb/audit12-frozen-source-manifest-019.json",
+  "manifest_sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa",
+  "frozen_base": "3a50b708381ad00c116445c2c999a49c3943088b",
+  "frozen_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "changed_count": 747,
+  "dirty4": [
+    " M crates/adventuresim-stdb-module/src/character.rs",
+    " M crates/adventuresim-stdb-module/src/character/attachment_capacity.rs",
+    " M crates/adventuresim-tactical-client/src/equipment.rs",
+    " M crates/adventuresim-tactical-client/src/equipment/icons.rs"
+  ],
+  "sources": [
+    {
+      "source_id": "pr-base:crates/adventuresim-tactical-core/src/city_layout/compiled/support.rs",
+      "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "git_tree_entry": "100644 blob 08a425eef43818d2b1449531a93e2a601931238e\tcrates/adventuresim-tactical-core/src/city_layout/compiled/support.rs",
+      "sha256": "d28606e279ac45d8c65e8ec2eceacaddf20747af389761b9c2b1b6a5b4273c82",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/d28606e279ac45d8c65e8ec2eceacaddf20747af389761b9c2b1b6a5b4273c82",
+      "line_count": 291,
+      "bytes": 10026,
+      "frozen747_matches": [],
+      "dirty4_matches": [],
+      "body_read_ranges": [],
+      "base_head_equal": true,
+      "unchanged_alias_eligible": true
+    },
+    {
+      "source_id": "pr-head:crates/adventuresim-tactical-core/src/city_layout/compiled/support.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_tree_entry": "100644 blob 08a425eef43818d2b1449531a93e2a601931238e\tcrates/adventuresim-tactical-core/src/city_layout/compiled/support.rs",
+      "sha256": "d28606e279ac45d8c65e8ec2eceacaddf20747af389761b9c2b1b6a5b4273c82",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/d28606e279ac45d8c65e8ec2eceacaddf20747af389761b9c2b1b6a5b4273c82",
+      "line_count": 291,
+      "bytes": 10026,
+      "frozen747_matches": [],
+      "dirty4_matches": [],
+      "body_read_ranges": [],
+      "base_head_equal": true,
+      "unchanged_alias_eligible": true
+    },
+    {
+      "source_id": "pr-base:crates/adventuresim-tactical-core/src/scene_input/buildings/placement.rs",
+      "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "git_tree_entry": "100644 blob acb7b1f969760a5dc4fedf26b90db6c9494a9cf3\tcrates/adventuresim-tactical-core/src/scene_input/buildings/placement.rs",
+      "sha256": "8d39af4feaf3413ec32ff198193d1f15b9c029ac9be1f9582f00834976ac1bcc",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/8d39af4feaf3413ec32ff198193d1f15b9c029ac9be1f9582f00834976ac1bcc",
+      "line_count": 188,
+      "bytes": 7849,
+      "frozen747_matches": [],
+      "dirty4_matches": [],
+      "body_read_ranges": [],
+      "base_head_equal": true,
+      "unchanged_alias_eligible": true
+    },
+    {
+      "source_id": "pr-head:crates/adventuresim-tactical-core/src/scene_input/buildings/placement.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_tree_entry": "100644 blob acb7b1f969760a5dc4fedf26b90db6c9494a9cf3\tcrates/adventuresim-tactical-core/src/scene_input/buildings/placement.rs",
+      "sha256": "8d39af4feaf3413ec32ff198193d1f15b9c029ac9be1f9582f00834976ac1bcc",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/8d39af4feaf3413ec32ff198193d1f15b9c029ac9be1f9582f00834976ac1bcc",
+      "line_count": 188,
+      "bytes": 7849,
+      "frozen747_matches": [],
+      "dirty4_matches": [],
+      "body_read_ranges": [],
+      "base_head_equal": true,
+      "unchanged_alias_eligible": true
+    },
+    {
+      "source_id": "pr-base:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "git_tree_entry": "100644 blob e84a1b722da315228a01cb588dc0c4a44da5a129\tcrates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "sha256": "142ec022e368d366558d1191d278516343a415a48eb2a23c487d7cbe22e21e28",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/142ec022e368d366558d1191d278516343a415a48eb2a23c487d7cbe22e21e28",
+      "line_count": 481,
+      "bytes": 17498,
+      "frozen747_matches": [
+        {
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+          "snapshot": "pr-working",
+          "path": "crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+          "owner": "root",
+          "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+          "base_sha256": "142ec022e368d366558d1191d278516343a415a48eb2a23c487d7cbe22e21e28",
+          "state": "modified",
+          "bytes": 16151
+        }
+      ],
+      "dirty4_matches": [],
+      "body_read_ranges": [],
+      "base_head_equal": false,
+      "unchanged_alias_eligible": false
+    },
+    {
+      "source_id": "pr-head:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_tree_entry": "100644 blob 76183b03fb13e09dd65710d069792cab55e02cc3\tcrates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+      "line_count": 438,
+      "bytes": 16151,
+      "frozen747_matches": [
+        {
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+          "snapshot": "pr-working",
+          "path": "crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+          "owner": "root",
+          "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+          "base_sha256": "142ec022e368d366558d1191d278516343a415a48eb2a23c487d7cbe22e21e28",
+          "state": "modified",
+          "bytes": 16151
+        }
+      ],
+      "dirty4_matches": [],
+      "body_read_ranges": [],
+      "base_head_equal": false,
+      "unchanged_alias_eligible": false
+    },
+    {
+      "source_id": "pr-base:crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "git_tree_entry": "100644 blob 007bf3cebae348337fe0723ea16e686bb6377685\tcrates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "sha256": "272b5c591e9d2c24d31343ec5ffe8ca6d99ae05793c3ebdad4ea4119330d32d4",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/272b5c591e9d2c24d31343ec5ffe8ca6d99ae05793c3ebdad4ea4119330d32d4",
+      "line_count": 370,
+      "bytes": 13478,
+      "frozen747_matches": [
+        {
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "snapshot": "pr-working",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "owner": "root",
+          "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+          "base_sha256": "272b5c591e9d2c24d31343ec5ffe8ca6d99ae05793c3ebdad4ea4119330d32d4",
+          "state": "modified",
+          "bytes": 14801
+        }
+      ],
+      "dirty4_matches": [],
+      "body_read_ranges": [],
+      "base_head_equal": false,
+      "unchanged_alias_eligible": false
+    },
+    {
+      "source_id": "pr-head:crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_tree_entry": "100644 blob c7e7c3b49f7c88910d1b8eb460e723e125f788b3\tcrates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+      "line_count": 407,
+      "bytes": 14801,
+      "frozen747_matches": [
+        {
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "snapshot": "pr-working",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "owner": "root",
+          "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+          "base_sha256": "272b5c591e9d2c24d31343ec5ffe8ca6d99ae05793c3ebdad4ea4119330d32d4",
+          "state": "modified",
+          "bytes": 14801
+        }
+      ],
+      "dirty4_matches": [],
+      "body_read_ranges": [],
+      "base_head_equal": false,
+      "unchanged_alias_eligible": false
+    }
+  ],
+  "qualification": "Exact read-only Git path objects staged only; provenance/body hashes and metadata are not source-body coverage. Grounding/buildings primary owner used for declaration navigation only until bounded body registration. No whole tree/download/native expansion."
+}

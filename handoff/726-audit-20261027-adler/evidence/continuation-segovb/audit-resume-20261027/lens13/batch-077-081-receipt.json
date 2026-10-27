@@ -1,0 +1,492 @@
+{
+  "lens": 13,
+  "status": "source_accounted_with_qualified_findings",
+  "authority": {
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "source_manifest_sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa"
+  },
+  "registrations": [
+    {
+      "path": "audit-resume-20261027/lens13/batch-077-registration.json",
+      "sha256": "d7fa2c9861a4328a3cdc0fe4c11d3c7048c7fefa778989d39b925df6581bb4b2"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-078-registration.json",
+      "sha256": "8b4c57012064a9d9cc7e9d7440eb9f02006a2bf56060eb9ecccba3bdcba883c8"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-079-registration.json",
+      "sha256": "4db3ec8ab0eae4e26eb2ec6a2dacc1d3ed260d53c3e5bbd0c38faf3952e80be8"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-080-registration.json",
+      "sha256": "1112e5edc07e22a179306984394696475637e69c60fdd5afc0c88343fe03a610"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-081-registration.json",
+      "sha256": "b2a21bff93df8fa60a26ac67c1b29c95d33ddc7b6e501270c499472fdd1959ca"
+    }
+  ],
+  "actual_source_reads": [
+    {
+      "original": 148,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_action.rs",
+      "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+      "requested_range_variants": [
+        [
+          1,
+          170
+        ],
+        [
+          60,
+          150
+        ],
+        [
+          171,
+          412
+        ],
+        [
+          171,
+          714
+        ],
+        [
+          458,
+          715
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          715
+        ]
+      ],
+      "eof": 1209,
+      "provenance": "Exact frozen f82 registered physical variant; prior receiver access is not original-role credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          715
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration and SHA verification; no unread tail or future-role credit."
+    },
+    {
+      "original": 149,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_currency.rs",
+      "sha256": "837f9fd6f0198b1141b6908e9a329a770104cb67be25e2234764977af3db85df",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/837f9fd6f0198b1141b6908e9a329a770104cb67be25e2234764977af3db85df",
+      "requested_range_variants": [
+        [
+          1,
+          40
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "eof": 40,
+      "provenance": "Exact frozen f82 registered physical variant; prior receiver access is not original-role credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration and SHA verification; no unread tail or future-role credit."
+    },
+    {
+      "original": 150,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_economy.rs",
+      "sha256": "0821918d44bc66de59484518b50255c6a75b8001427feaa6ab8309a7a8ec7e5c",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/0821918d44bc66de59484518b50255c6a75b8001427feaa6ab8309a7a8ec7e5c",
+      "requested_range_variants": [
+        [
+          1,
+          143
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "eof": 143,
+      "provenance": "Exact frozen f82 registered physical variant; prior receiver access is not original-role credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration and SHA verification; no unread tail or future-role credit."
+    },
+    {
+      "original": 151,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_inventory.rs",
+      "sha256": "d271b63418f6ef51f276ab1e383bb534724f08ae106ffd7285f530e0308fef3e",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/d271b63418f6ef51f276ab1e383bb534724f08ae106ffd7285f530e0308fef3e",
+      "requested_range_variants": [
+        [
+          1,
+          455
+        ],
+        [
+          180,
+          240
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          455
+        ]
+      ],
+      "eof": 455,
+      "provenance": "Exact frozen f82 registered physical variant; prior receiver access is not original-role credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          455
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration and SHA verification; no unread tail or future-role credit."
+    },
+    {
+      "original": 152,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_presence.rs",
+      "sha256": "2eeea5c9831e10b7c5d51d0d3f61b0093ce8c682bd0994d2c94de50aa3354a52",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/2eeea5c9831e10b7c5d51d0d3f61b0093ce8c682bd0994d2c94de50aa3354a52",
+      "requested_range_variants": [
+        [
+          1,
+          365
+        ],
+        [
+          226,
+          298
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          365
+        ]
+      ],
+      "eof": 662,
+      "provenance": "Exact frozen f82 registered physical variant; prior receiver access is not original-role credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          365
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration and SHA verification; no unread tail or future-role credit."
+    },
+    {
+      "original": 153,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_schedule.rs",
+      "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "requested_range_variants": [
+        [
+          1,
+          170
+        ],
+        [
+          20,
+          33
+        ],
+        [
+          184,
+          184
+        ],
+        [
+          185,
+          185
+        ],
+        [
+          186,
+          239
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          170
+        ],
+        [
+          184,
+          239
+        ]
+      ],
+      "eof": 1363,
+      "provenance": "Exact frozen f82 registered physical variant; prior receiver access is not original-role credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          170
+        ],
+        [
+          184,
+          239
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration and SHA verification; no unread tail or future-role credit."
+    },
+    {
+      "source_id": "physical-p16:world-schema/calendar.rs",
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "ranges": [
+        [
+          329,
+          394
+        ]
+      ],
+      "purpose": "Material complete receiving numeric boundary for originals148-153, exact previously pinned physical source; no new future original credit.",
+      "actual_consumed_ranges": [
+        [
+          329,
+          394
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration and SHA verification; no unread tail or future-role credit."
+    },
+    {
+      "source_id": "physical-p16:core/strategic_schedule.rs",
+      "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "ranges": [
+        [
+          171,
+          183
+        ]
+      ],
+      "purpose": "Material complete receiving numeric boundary for originals148-153, exact previously pinned physical source; no new future original credit.",
+      "actual_consumed_ranges": [
+        [
+          171,
+          183
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration and SHA verification; no unread tail or future-role credit."
+    },
+    {
+      "source_id": "physical-p16:stdb/strategic/inventory_trade.rs",
+      "sha256": "85c8f2c699beb1c00311678bbe179a5cc75bb33c607051bd967e91c9e6eba749",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/85c8f2c699beb1c00311678bbe179a5cc75bb33c607051bd967e91c9e6eba749",
+      "ranges": [
+        [
+          2180,
+          2395
+        ],
+        [
+          2439,
+          2495
+        ],
+        [
+          2670,
+          2790
+        ]
+      ],
+      "purpose": "Material complete receiving numeric boundary for originals148-153, exact previously pinned physical source; no new future original credit.",
+      "actual_consumed_ranges": [
+        [
+          2180,
+          2395
+        ],
+        [
+          2439,
+          2495
+        ],
+        [
+          2670,
+          2790
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration and SHA verification; no unread tail or future-role credit."
+    },
+    {
+      "source_id": "physical-p16:stdb/strategic/inventory_trade.rs",
+      "sha256": "85c8f2c699beb1c00311678bbe179a5cc75bb33c607051bd967e91c9e6eba749",
+      "ranges": [
+        [
+          2396,
+          2438
+        ],
+        [
+          2496,
+          2669
+        ],
+        [
+          2791,
+          3000
+        ]
+      ],
+      "purpose": "Complete selected storefront validation/typed request consumption, checked totals/payment and native inventory persistence body; no original287 credit.",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/85c8f2c699beb1c00311678bbe179a5cc75bb33c607051bd967e91c9e6eba749",
+      "actual_consumed_ranges": [
+        [
+          2396,
+          2438
+        ],
+        [
+          2496,
+          2669
+        ],
+        [
+          2791,
+          3000
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration and SHA verification; no unread tail or future-role credit."
+    },
+    {
+      "source_id": "physical-p16:core/strategic_schedule/allocation.rs",
+      "sha256": "031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+      "ranges": [
+        [
+          1,
+          112
+        ],
+        [
+          178,
+          240
+        ]
+      ],
+      "purpose": "Material allocation/periodic-time kernel and actual fatigue/morale recipient for153; no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          112
+        ],
+        [
+          178,
+          240
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration and SHA verification; no unread tail or future-role credit."
+    },
+    {
+      "source_id": "physical-p16:world-schema/calendar.rs",
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "ranges": [
+        [
+          260,
+          278
+        ]
+      ],
+      "purpose": "Material allocation/periodic-time kernel and actual fatigue/morale recipient for153; no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          260,
+          278
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration and SHA verification; no unread tail or future-role credit."
+    },
+    {
+      "source_id": "physical-p16:stdb/condition.rs",
+      "sha256": "48d1fbefb0cc475a98585e46dc0f4dabdef2c47eaa4bbb1ffb699ba604dc3758",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/48d1fbefb0cc475a98585e46dc0f4dabdef2c47eaa4bbb1ffb699ba604dc3758",
+      "ranges": [
+        [
+          2060,
+          2145
+        ]
+      ],
+      "purpose": "Material allocation/periodic-time kernel and actual fatigue/morale recipient for153; no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          2060,
+          2145
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration and SHA verification; no unread tail or future-role credit."
+    },
+    {
+      "source_id": "physical-p16:stdb/condition.rs",
+      "sha256": "48d1fbefb0cc475a98585e46dc0f4dabdef2c47eaa4bbb1ffb699ba604dc3758",
+      "ranges": [
+        [
+          2004,
+          2059
+        ]
+      ],
+      "purpose": "Actual leisure-rate/morale admission and persistence function receiving153 output; no original186 credit.",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/48d1fbefb0cc475a98585e46dc0f4dabdef2c47eaa4bbb1ffb699ba604dc3758",
+      "actual_consumed_ranges": [
+        [
+          2004,
+          2059
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration and SHA verification; no unread tail or future-role credit."
+    }
+  ],
+  "role_inventories": [
+    {
+      "original": 148,
+      "inventory": "Contextual fact Booleans and f32 cut damage; social ability0..5, language0..1, affinity\u00b1100, morale percentu8, awareness basis pointsu16; closed decision enums; raw snapshot revisionu64, signed capability millii32 and32-byte digest/binding arrays; private nonzero requested minute duration and typed absolute clocks; requirement.satisfied flag, completion flag, fixed ID length256, unique-tool counts.",
+      "trace": "Actual coordinates enforce fixture/place/target consistency and unique typed physical object IDs; private requested duration rejects0. resolve_time uses checked clock addition, explicit MAX exhaustion and earliest terminal/interruption priority; elapsed derives typed time difference. build_plan rejects failed requirements before invoking calculation. validate_commit compares attempts/provenance, receipt, revision+digest and complete fresh replan before Apply. Earlier independently read herbal action producer supplies typed duration and completion guards; no whole-domain caller guarantee.",
+      "qualification": "Core generic requirements trust domain-authored facts and calculation; build_plan does not itself filter arbitrary completion effects. Booleans and raw capability/score/revision ports remain owner-fit observations; fixed byte arrays are native digest/equality payloads, not numeric magnitudes. No SDK transactional, cryptographic collision or authority-proof certification. Scoped1-715 consumed;716-1209 unread."
+    },
+    {
+      "original": 149,
+      "inventory": "Currency-membership Boolean and native RNG usize array index/len. No numeric currency amount payload.",
+      "trace": "Canonical catalog kind Currency predicate; canonical settlement identity bytes -> typed Seed/Stream -> checked native bounded index -> six-entry fixed CURRENCY_IDS table. Table actual bytes were previously prospectively consumed052 and reread within those registered ranges, SHAe794dc0ede51c9d53d64155ee9ce8d551347ec8f659e2461c0b3d5d31b34cb6b1-76; no original2744 credit. Same own deterministic index proof reused.",
+      "qualification": "Six entries establish nonempty index bound, not exhaustiveness of all runtime economy currencies or historical exchange-rate behavior; no string-lens verdict transfer."
+    },
+    {
+      "original": 150,
+      "inventory": "Gold/coin raw u32/u64 unit prices, fees25 and daily board2, margin1.25 and tax0.10, language penalty0.25/0.20 and coefficients0..1, medicinal fixed11 value table, signed-invalid food value handling, checked line/sum/payment arithmetic.",
+      "trace": "u32 products widen to checked u64 line totals; checked totals reject aggregate overflow; party payment splits min amount and subtraction without overflowing combined coin. Inn cost divides into complete days/one partial then checked day cost. Actual merchant caller admits stock/provider/presence, uses numeric quotes, checked cost/proceeds/balance sums, checks quantities and duplicate sale IDs, applies guarded decrements and checked stack merges, and checked-narrows currency proceeds to u32 before persistence.",
+      "qualification": "Unit quote f32 arithmetic/narrowing can saturate at u32MAX on public extreme base values; this is a raw-money/rounding policy observation, not an activated trade bug. Public base0 yields buy0/sell1; actual catalog admission/current stocked zero-value route is unproved, so no arbitrage claim. Food huge finite public values can saturate u64 but actual merchant recipient checked-narrows to u32 and rejects overflow. Native float rounding/zero/fractional-food policies must survive any later typed repair."
+    },
+    {
+      "original": 151,
+      "inventory": "Private CoinAmount NonZeroU64, authorization maxima allowing0, closed one/two funding-source enum, merchant provider NonZeroU64, TradeQuantity reusing ItemQuantity NonZeroU32, wire parallel-vector lengths/zero counts, raw inventory/character IDs and scope Boolean. Existing fixtures consumed only as source.",
+      "trace": "plan rejects zero total, computes personal=min(total,max), stake=total-personal and checks authorized stake; absence is represented by enum variants. unique provider reads at most two and rejects missing/multiple/zero. Request/offer parse aligns vectors, admits quantities and owns scope as enum; actual reducer parses wire input before processing and checks provider/current ownership/inventory before applying.",
+      "finding": "Actual finalize_storefront_trade_impl immediately maps admitted typed quantities into retained Vec<u32> and uses those through internal processing before actual numerical/native inventory kernels. This is an existing-owner propagation gap, without claiming current arithmetic incorrect or introducing a duplicate quantity owner. Sell/from/to raw identities also remain unadmitted in the pure plan until DB recipient checks.",
+      "qualification": "No request population/heap cap or whole SpacetimeDB atomicity proof. Type ownership of money absence versus raw zero-return accessors needs distinct semantics, not mechanical NonZero on all totals."
+    },
+    {
+      "original": 152,
+      "inventory": "Raw character/observer/owner IDs, context revisionu32, typed absolute frontiers, alive/active/suppression/evidence Booleans, daily raw u16 minute endpoints and remaining/wait durationsu64/u32.",
+      "trace": "Actual constructors gate exact place/basis, living/effective occupancy, no future admission, context identity/revision equality; remaining daily window calls actual calendar half-open/overnight kernel. Co-presence requires same canonical place AND same observer frontier. Outbreak suppression uses ordered typed chronology and half-open infection interval; remediation changes context but not active health suppression.",
+      "qualification": "Daily windows are cyclic: reversed endpoints are supported overnight and0..1440 is a valid full day, so not a strict linear lower<upper candidate. Raw1440..0 aliases midnight but never contains a minute; no current authored activation claimed. Public primitive IDs/facts/window fields are owner/admission gaps; constructor evidence is trusted caller-supplied facts, not a universal DB existence proof. Scope1-365 only, no366-662 credit."
+    },
+    {
+      "original": 153,
+      "inventory": "32 skill-hour fields/order, finite-only field scan, daily fatigue600/labor50/leisure recovery100, morale limit4/scale200, preview reservoir100; raw u64 elapsed periods, f32 fatigue/hour/morale deltas and infinity sentinel for never-cleared fatigue; typed span endpoints; daily allocation receiver uses quarter-hour ActivityMinutes and enum-owned organization absence.",
+      "trace": "Actual SkillHours values/finite scans; restorative integer-share and span producers; leisure outcome resolves generated fatigue/recovery and post-clear qualifying time. Native allocation validates total<=1440 and segment multiple; actual condition recipient updates fatigue and upserts finite positive earned morale capped4 at typed event times. Span tail171-183 actually read: checks next_day<=day_start to terminate saturation. Calendar cumulative-share body consumed266-268.",
+      "finding": "For admitted schedule with allocated720/leisure720, start=StrategicMinute::new(u64MAX/720+1440) and elapsed1440 fit the clock. Both cumulative self.minutes*720 operations saturate before /1440, producing difference0 instead of one full day share720. Source-only extreme-clock API witness; not ordinary current activation or runtime evidence. This does not refute algebraic telescoping of the already-clipped cumulative function.",
+      "qualification": "Float leisure-rate outputs do not receive an exact partition-equality proof from comments. ActivityMinutes allows0 legitimately; public OrganizationAllocation::Scheduled can consequently be manually built with zero minutes despite parse rejecting zero-plus-organization: qualified aggregate admission/owner-fit issue, no wire/current route claim. Selected original union1-170/184-239 preserved; additional171-183 receiver completes span body.240-1363 unread and uncredited."
+    }
+  ],
+  "source_accounted_originals": [
+    148,
+    149,
+    150,
+    151,
+    152,
+    153
+  ],
+  "scope_limits": [
+    "All requested range variants retained in077; material tails added prospectively078-081. Source access beyond original scope receives no future role credit.",
+    "Source052 item-reference full-range access is own proof reuse plus reread, not a new original. Allocation prior own052 read113-177 is reused;080 actually reads1-112/178-240, not whole allocation file.",
+    "078 calendar329-394 includes only registered receiving context; no whole calendar or new ordered native original credit. Native partial calendar year/function contexts outside needed window methods carry no completeness claim.",
+    "142 forge aggregate bound remains partial from014; no substitution of root other-lens geometry verdict. All previous observations, metadata errata,031 correction/access qualification, currentness/alias/runtime/018 lattice limits remain.",
+    "Root remains sole ledger/product/Git writer; no execution/probes/tests/new cases/helpers/checks/source edits or publication."
+  ],
+  "accepted_new_unique_count": 0,
+  "global_clearance": false
+}

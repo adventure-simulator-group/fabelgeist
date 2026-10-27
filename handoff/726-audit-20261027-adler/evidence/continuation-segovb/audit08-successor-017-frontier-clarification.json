@@ -1,0 +1,109 @@
+{
+  "id": "SEGOVB-CONT08-017-FRONTIER-CLARIFICATION",
+  "created_utc": "2026-10-27T02:50:01.707357+00:00",
+  "receipt": {
+    "path": "target/recovery-20261025/continuation-segovb/audit08-successor-017.json",
+    "sha256": "f442adcb7f37ccd0836b024528cf2280201aa23baa0ec0d8a68e8d988336045d"
+  },
+  "purpose": "Current frontier normalization only; no source reread, count/finding change or historical overwrite. Main017 nested inherited015/016 frontier records are retained history, not requests to restart subsets now resolved.",
+  "resolved_current_subsets": [
+    "CONT08-015-GEOGRAPHIC-NUMERIC-KERNEL requested local GroundTriangle/PlanarBounds/PlanarQueryIndex bodies resolved016, with checked Position leaf then resolved017. No universal/native/runtime proof follows.",
+    "CONT08-016-CHECKED-POSITION-LEAF resolved017 for actual sampler.",
+    "ScenePlanPoint serde within CONT08-015-JSON-REMAINING-LEAVES resolved at first-party wrapper level017; native parser coverage not claimed."
+  ],
+  "current_untraced_frontier": [
+    {
+      "id": "CONT08-015-PLANNING-INTERIOR",
+      "source_backed_callers": [
+        {
+          "source": "pr-head:crates/adventuresim-tactical-core/src/city_layout/compiled/support.rs",
+          "ranges": [
+            [
+              146,
+              225
+            ],
+            [
+              227,
+              277
+            ]
+          ]
+        },
+        {
+          "source": "own014 compiled/grounded.rs",
+          "ranges": [
+            [
+              53,
+              80
+            ]
+          ]
+        }
+      ],
+      "actual_symbols": [
+        "street::select",
+        "CityRecipePalette::for_program",
+        "Recipe::door_point",
+        "BuildingCollision::ground_floor_contact_bounds",
+        "CitySceneLayout::plan_single_property_support"
+      ],
+      "known_sources": [
+        "crates/adventuresim-tactical-core/src/city_layout/compiled/support/street.rs is declared at support.rs6, not read in015",
+        "Recipe palette and plan_single_property_support actual declaring paths/ranges still need exact locators; no guessed path credit."
+      ],
+      "needed": "Follow actual changed checked geometry/bounds/door-selection and support solver receivers for this fixed fixture, including floor outputs and permutations. No new native/generator-wide expansion; save next bounded declared contracts before reading."
+    },
+    {
+      "id": "CONT08-015-JSON-REMAINING-LEAVES",
+      "source_backed_callers": [
+        {
+          "source": "own014 grounded/tests.rs",
+          "ranges": [
+            [
+              11,
+              23
+            ]
+          ]
+        },
+        {
+          "source": "pr-head:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+          "ranges": [
+            [
+              111,
+              148
+            ]
+          ]
+        }
+      ],
+      "actual_symbols": [
+        "CityCompound serde admission and nested plot/access/boundary owners",
+        "SceneBuildingId serde/Ord",
+        "BuildingArchetype/BuildingUse/ServiceBuildingSize/ProsperityTier/Seed serialization",
+        "BuildingProgram::settlement",
+        "BuildingProgram::fixture",
+        "BuildingProgram::with_service_size"
+      ],
+      "progress": "Actual Distant/Tactical record fields, promotion body, orientation/elevation leaf ports read in015; materially reached Position/ScenePlanPoint constructor/accessor/projection/serde wrapper bodies resolved by017. Remaining compound/ID/enum/Seed/program receiver bodies retain scoped obligations.",
+      "needed": "Narrow exact changed leaf/compound serialization and program-selection receivers needed by actual captured front/rear records. No requirement to support old malformed schema/inputs."
+    },
+    {
+      "id": "CONT08-015-TERRAIN-COMPOSITION",
+      "source_backed_caller": {
+        "source": "own014 compiled/grounded.rs",
+        "ranges": [
+          [
+            100,
+            118
+          ]
+        ]
+      },
+      "actual_symbols": [
+        "BoundedSettlementTerrain::compile",
+        "BoundedSettlementTerrain::elevations_at",
+        "PropertySupportSurface/CompoundSupportPlan member and surface extraction"
+      ],
+      "known_source_bridge": "foundations.rs13 reexports settlement::{BoundedSettlementTerrain,SettlementSupportError}; settlement module was listed as Git path metadata only, not staged/read.",
+      "needed": "Ownership composition and elevation lookup remain open; no actual numeric floor/terrain permutation witness or executed fixture."
+    }
+  ],
+  "qualification": "Unread cuts/clipping/geometry operations only become active if actual remaining planning/terrain calls materially require them; no new whole-kernel/native audit obligation inferred from body presence. Native/serde runtime limitations remain qualifications, not invented completion requirements.",
+  "stop": true
+}

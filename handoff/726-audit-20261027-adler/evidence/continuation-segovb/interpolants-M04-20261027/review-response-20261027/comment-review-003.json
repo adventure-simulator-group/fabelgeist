@@ -1,0 +1,309 @@
+{
+  "kind": "Independent full PR992 scoped source Comment Review and mathematical contract reconciliation candidate008",
+  "skill": "/home/brunosegovia/.codex/skills/comment-review/SKILL.md",
+  "commit": "c20cac0b49ac679ddd7a7be6535fa54f5e08bafb",
+  "base": "35b18ec280a6884bb53996a2d859c4b27096f65c",
+  "review_parent": "837204c061adb97a2a62f43f7bcd841a223f0647",
+  "manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/edited-source-manifest-008.json",
+    "sha256": "7d181544a8e62dd967923e79618afd2ba8a765c504dd6deb265c6b34b094ff2c"
+  },
+  "source_pins": [
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "850183741ff4a1b097b93fc6285055d135558894f5ebf9324b52031cb9aadfc4"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "58118b1b138af4f9feea993ea990dc334f63d30c4aa66f8b5597a0f1dfecfcf6"
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "sha256": "e046a24787a8fe5b26e80d4808b7c00c37bfdfb6a886b67d4287119850a80b29"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "sha256": "c1eedbdf2c145f30bb9da7cc8f8fd02fa22b7ee9d9cd821c49ac5a17c441da09"
+    },
+    {
+      "path": "crates/adventuresim-core/Cargo.toml",
+      "sha256": "e5e9c6ed987838be5b7fef72e25ba3e6b6e848bc84105c42f396fcdfd7d65f53"
+    },
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "sha256": "06bfd3a023ac0c22751466720321fe796aba122f605d621f16ba56b318c712f8"
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "7c44bfdf7648e528853e2e1c4d823e32d7ce37ec9a6d01f3db8f59c5b1934313"
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "cfe4ee137e0df1f150fcee66caeab50f963b3bb36ee2ca518c0208e4f43ef5e1"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "sha256": "12d4b4e5ed4ce3940c78b7ee4420ec94e5efa83776b14d60afdbf2ba0d501f5d"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "sha256": "815bfd27404840b0d69f337719c882adf65fea894e48a769670a582eb42faf1b"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/dive.rs",
+      "sha256": "c31ca562d4c25d843f4f4841ca0663f461cfafd474a1571ae31908d99be9fcad"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "sha256": "ae1dcc0043d5bd5a98744dfb43a3f172a259b3ac3b5e0fe0743c31b83e00327e"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "sha256": "93bf8878500fe7902fc616643b4678bfbc4c8f091c94dcd68b2a42a6ccb377af"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "sha256": "e54bd673db78d4b343707613e348b7d7fb4f74d34b8a454fefe73f426145a045"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "f26dc1059e4a9d133ac1fba9c80a1086753b20b54e5a5074dc8e557540cea67b"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "sha256": "37a5dba433aa5219b544716053897df30d3df49662fb5fd38794130c1b803946"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "sha256": "b2c7bc9609b8deb810b4c586a09fdf8186b60803f648009fc3ff74931b2df113"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "543ea955a72a4accf8550af44b35ad0a526fbcc6731bc5fb109ac38ceb609e17"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "sha256": "b394bde991895d6328b6f9f2be24fcb6d51c5c00e7f7143316339c372b7b5089"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "ada76a964c72b64d6bd3671a8ca2bde134da787f339914cc2091bd7994fac722"
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "8da5ee46241fe574e76a0b67391c30e5287f90a228995456a39b15cf00701262"
+    }
+  ],
+  "identity_verification": "All23 current source hashes and exact git show c20cac:path hashes independently match manifest008 before final receipt.",
+  "user_review": {
+    "id": 5664856132,
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/user-discussion-003.json",
+    "sha256": "412f6ad5309fb8b971618aa47e9a4c625c7f47e541d7ce54a3ec9bc4c26e79cb",
+    "consumed": "Only bounded relevant third-review comment IDs4387031655,4387152319,4387198654 and empty review body; initial broad JSON display truncated and not credited as full discussion review.",
+    "disposition": {
+      "4387031655": "Endpoint-derived normalization now canonical UnitInterval method; launch and recovery plus client influence use contact constant as typed endpoint.",
+      "4387152319": "Nonnegative+Signed now returns checked SignedSpeed; interpolation explicitly narrows via TryFrom.",
+      "4387198654": "Reusable ordered interval type expressly out of scope; not implemented and no artificial requirement added."
+    }
+  },
+  "registrations": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/comment-review-registration-008.json",
+      "sha256": "2b559b72650637cbb8745c74866336a82a69e129df4b7b79deeb94156cdb4ce7"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/comment-review-registration-008-tests.json",
+      "sha256": "692d85a9de5fcf9fa0e0fb8da7f94038f08c91235506eec972d9c8ef0cf4599a"
+    }
+  ],
+  "actual_delta": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/comment-review-delta-008.patch",
+    "sha256": "ca3d742ea913e956e2c1f7a9b8dac5b3e761f1fad0a005aef5f1cc1fe4e42e86",
+    "meaning": "Full tracked manifest-path diff versus exact837, six changed files. No source body credit from path presence/hash alone."
+  },
+  "actual_new_body_reads": [
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "ranges": [
+        [
+          1,
+          252
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "ranges": [
+        [
+          1,
+          89
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "limit": "Only import/declaration ports materially changed; no full1813body read/clearance."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/dive.rs",
+      "ranges": [
+        [
+          1,
+          147
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "ranges": [
+        [
+          1,
+          15
+        ],
+        [
+          260,
+          339
+        ],
+        [
+          465,
+          550
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "ranges": [
+        [
+          215,
+          227
+        ]
+      ]
+    }
+  ],
+  "retained_own_scope": {
+    "unchanged_pins": [
+      ".github/workflows/rust-quality.yml",
+      "Cargo.lock",
+      "content/tactical/combat.yaml",
+      "crates/adventuresim-character-creator/Cargo.lock",
+      "crates/adventuresim-core/Cargo.toml",
+      "crates/adventuresim-core/build.rs",
+      "crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "rust-quality-baseline.toml"
+    ],
+    "source_review": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/comment-review-candidate007-001.json",
+      "sha256": "cbf02a6312846ddbd51391611b74908adb837e8b9ac0ff5c7a0dd3b2054e991a"
+    },
+    "head_binding": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/comment-review-candidate007-head-001.json",
+      "sha256": "3f9fdf69515974d655495d95647096610bd09606878b3f2abd2b1bf6d5d01e05"
+    },
+    "meaning": "Unchanged17 exact source identities retain only earlier own affected-comment/caller/math review scope, not another lens/global/full SDK clearance."
+  },
+  "comment_dispositions": [
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "range": [
+        160,
+        166
+      ],
+      "quote": "Adding a signed offset permits negative results and rejects overflow.",
+      "verdict": "Accurate updated resulting contract; signed finite constructor allows negative and maps nonfinite to Overflow. Does not wrongly promise nonnegative sum."
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "range": [
+        67,
+        70
+      ],
+      "verdict": "Actual checked_lerp explicitly narrows checked signed addition result with TryFrom<SignedSpeed>; no stale nonnegative Add assumption or compatibility shim."
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "range": [
+        43,
+        59
+      ],
+      "quote": "Normalize within an increasing interval, saturating at its endpoints.",
+      "verdict": "Accurate existing-owner API with lower>=upper rejection before endpoint saturation, checked quotient admission, and direct checked cubic. No duplicated interval owner or reflected/clamped output."
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "range": [
+        13,
+        20
+      ],
+      "verdict": "Derived FractionError Display/Error templates describe actual three admission outcomes; handwritten traits removed, existing thiserror normal/build dependencies support included leaf context."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "range": [
+        12,
+        13
+      ],
+      "verdict": "Current contact constant remains HALF, matching halfway doc. Consumers derive both spans from constant, no embedded half-span scale."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "range": [
+        286,
+        303
+      ],
+      "verdict": "Existing smooth contact endpoint and lower-body hold/recovery comments match selected real cubic and typed branch progression. Historical visual rationale retained without new runtime acceptance assertion."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/dive.rs",
+      "range": [
+        1,
+        31
+      ],
+      "verdict": "Checked UnitInterval retains bounded influence; amount rises toONE at contact and falls toZERO at endpoint; existing authored pelvis reference-frame description unchanged. Broader clip-masking/native hierarchy claims are inherited and not re-established by this arithmetic packet."
+    }
+  ],
+  "mathematical_contracts": {
+    "signed_add": "Finite nonnegative speed plus finite signed offset may be negative or overflow. New output SpeedResult<SignedSpeed> and finite admission accurately implement full signed result; no saturation. TryFrom<SignedSpeed> to NonnegativeSpeed rejects negative explicitly at interpolation recipient.",
+    "unit_normalization": "Admitted finite0..1 operands. lower>=upper yields NonIncreasingBounds; lower/upper endpoint saturation yields exactZERO/ONE. Interior subtraction spans finite positive representable range; quotient admitted via from_fraction. No output invariant assumed without admission.",
+    "dive_launch": "Core launch uses phase.clamped_inverse_lerp(ZERO,CONTACT). Contact recovery uses phase.clamped_inverse_lerp(CONTACT,ONE). Both derive span from typed endpoints. Current CONTACT=HALF strictly interior, so no nonincreasing errors at intended constants.",
+    "client_dive": "from_phase uses same launch smoothstep up to contact, second-span smoothstep complement after contact. Current endpoint values0/contact/1 produce influence0/1/0 with no native scalar adapter; native extraction remains only at quaternion numerical kernels. Any FractionError propagates into existing AnimationValueError then logged/continued at actual apply caller.",
+    "cubic": "Same direct x*x*(3-2*x), real derivative6*x*(1-x) and real range[0,1]; actual rounded result checked. No f32 overshoot/runtime/performance or backward compatibility claim.",
+    "error_receiving": "New FractionError NonIncreasingBounds maps to AnimationValueError NonIncreasingBounds with UnitInterval quantity; existing SpeedError Fraction wraps all variants through standard From.",
+    "remaining_ops": "Prior exact Sub finite bound, SignedSpeed*UnitInterval closure, checked signed division->canonical Ratio and positive widening unchanged and scoped acceptance retained."
+  },
+  "existing_tests": {
+    "client_dive": "Exactly seven existing literal fixture constructor uses changed from removed raw-factor adapter to DiveInfluence(UnitInterval::ONE/ZERO); no test/helper/case/assertion/doctest added. Existing names and assertions unchanged.",
+    "core_dive": "Read existing hold-until-contact/zero-slope tests for intent only. No execution/pass claim; no new test source."
+  },
+  "findings": [],
+  "verdict": "Accepted candidate008 at exact c20cac within requested source comment/math scope; no actionable new stale/inaccurate/needless comment found.",
+  "body_status": "Previous body not accepted as final. Current body003 reviewed separately with its final hash; no publication or hosted-success acceptance inferred.",
+  "limits": [
+    "No product/source/Git mutation/root ledger/publication, project execution/checks/fmt/tests/native probes/generators or new tests/helpers/assertions/doctests.",
+    "No backward compatibility or old malformed-input preservation constraint. Deferred interval type not implemented.",
+    "All23pins/full PR changed-comment scope reconciled; not full untouched tree or clip-mask/native runtime validation. Existing inherited F9/all20/audit08/audit12 partials, aliases and counts unchanged.",
+    "No current hosted success or production visual acceptance established."
+  ]
+}

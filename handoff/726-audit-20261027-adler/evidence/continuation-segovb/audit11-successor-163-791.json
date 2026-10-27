@@ -1,0 +1,119 @@
+{
+  "id": "SEGOVB-CONT11-SUCCESSOR-163-791",
+  "lens": "type-granularity",
+  "scope_index": 791,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/shading.rs",
+  "sha256": "8d9236c7e60922d5e12987557077f6554b1061d171f0b4d783576711c71f56b3",
+  "source_ranges": [
+    [
+      1,
+      70
+    ]
+  ],
+  "source_complete": true,
+  "status": "source-accounted-with-native-geometry-and-construction-limits; not clear",
+  "source_contracts": [
+    {
+      "role": "Original render geometry versus deformed positions and normal stream",
+      "locations": "3-9",
+      "trace": "normals_for receives replacement positions but requires their count match self.positions. It builds SewnSurface grouping from original stored positions/faces, computes welded positions from the replacement array, accumulates normals on welded faces and expands normals back to original render vertices. Original seam-identification geometry, current deformation geometry and returned unit-direction stream intentionally differ despite [f32;3] storage. Grouping from original positions keeps actual seam association stable under deformation; no duplicate semantic owner or universal vector quantity framework proposed."
+    },
+    {
+      "role": "Private welded groups and original render slots",
+      "locations": "7-8; connected garment214-298",
+      "trace": "SewnSurface owns groups of original vertex slots, welded faces and original render-face backmap. from_positions uses exact original coordinate bit keys to form seams; new builds groups and remaps nondegenerate faces. positions averages each group in source geometry; expand writes one group result into its original member vertices. This record owns three distinct topology address spaces. Native homogeneous triple/edge arrays and numerical group maps are actual kernel structures, not automatically missing public index wrappers. No epsilon-weld/signed-zero policy change invented."
+    },
+    {
+      "role": "Actual normal numerical receiver and expand shape",
+      "locations": "5-8; connected garment299-319",
+      "trace": "normals allocates one accumulator per welded position, adds unnormalized face cross-product to every corner, normalizes above explicit threshold and uses upward fallback otherwise. expand returns one normal per original slot by group membership. Same welded topology supplies normals and positions; this is an identified numerical kernel/native geometry port. No all-finite, arbitrary-degenerate, outward-winding or appearance correctness claim from type-granularity assessment."
+    },
+    {
+      "role": "Pattern material metres versus body positions",
+      "locations": "13-29",
+      "trace": "from_pattern copies GarmentMesh.material Vec2 values to texcoord pairs in pattern metres; downstream surfaces select texture repeat. Form and fabric retain canonical GarmentSelection/FabricPreset owners; human name combines selection and fabric label, not a parsed state or identity code. Faces come from same mesh triangles. Metre material coordinates are distinct from deformed body positions and normal vectors even when raw scalar storage matches; retained physical/frame/UV association questions are not closed by this adapter."
+    },
+    {
+      "role": "Placed construction skeleton versus published geometry",
+      "locations": "13-29; connected drape131-155,280-334",
+      "trace": "from_pattern privately creates DrapedGarment metadata/UV/faces with empty dynamic positions/normals/skin and DrapeStage::Placed. Actual drape caller constructs it from current build, then show_unsewn receives fit positions and same triangles, checks material vertex cardinality/finite positions, computes orientation/normals, fills geometry/stage before preview. Sewn path uses same SewnSurface to expand positions/normals and applies render-face backmap for winding. This is concrete same-build staged construction, not evidence every arbitrary public DrapedGarment has coherent nonempty fields or reason to invent another public owner absent actual mixup. Aggregate state/API admission remains separately qualified."
+    },
+    {
+      "role": "Canonical stage/form/fabric and test-only geometry",
+      "locations": "33-70",
+      "trace": "Existing seam-normal test uses canonical GarmentForm::Upper, FabricPreset::Chainmail, DrapeStage::Placed, default canonical PackedRigSkin and a native two-panel fixture. One deformed vertex and assertions compare seam-copy normals and direction length. This source demonstrates intended local normal/position role association only; test not run, added, restored or credited as runtime evidence. Fixture counts/thresholds and free-form name are native test/presentation inputs, not new production semantic bounds."
+    }
+  ],
+  "connected_sources": [
+    {
+      "original_index": 780,
+      "sha256": "d6b09524be811c5e4202be50af529c941a917ff8f31ea61e2a73e4da17dc103e",
+      "registered_consumed_ranges": [
+        [
+          214,
+          322
+        ]
+      ],
+      "material_contract_ranges": [
+        [
+          214,
+          319
+        ]
+      ],
+      "ordered_credit": false,
+      "reason": "Precise material reuse of previously full-read owner; no discovery restart."
+    },
+    {
+      "original_index": 782,
+      "sha256": "c26b0508ccce30c3c2ca164e46327764ca4b133b418b5ea49e008b0a45613421",
+      "registered_consumed_ranges": [
+        [
+          131,
+          155
+        ],
+        [
+          280,
+          334
+        ]
+      ],
+      "ordered_credit": false,
+      "reason": "Actual same-build from_pattern then geometry population/preview and sewn normals receiving."
+    },
+    {
+      "receipt": "audit11-successor-161-787.json",
+      "sha256": "d5124bc81c37905a779feea7e56a120ed5fadda9448cad8cf907a61c938b1da6",
+      "retained_ranges": [
+        [
+          130,
+          164
+        ]
+      ],
+      "trace": "Canonical GarmentMesh separate material/world positions/topology/skin-related channel roles already personally source traced; not whole mesh family clearance."
+    }
+  ],
+  "qualified_observations": [
+    {
+      "local_source_key": "pr-working:crates/adventuresim-character-creator/src/garment/shading.rs@sha256:8d9236c7e60922d5e12987557077f6554b1061d171f0b4d783576711c71f56b3#L3-L29:material-normal-position-role-adapters",
+      "classification": "retained geometry/physical/frame ownership and association qualification; no accepted unique finding",
+      "observation": "Raw material metres, body positions and normal directions are semantically distinct named channels. Exact numerical/wire adapters shown do not authorize blanket primitive use before/after boundary or collapse related master concerns into unproved canonical aliases."
+    }
+  ],
+  "qualifications": [
+    "Source body exact frozen original791 variant, not current-main counterpart. No current population/runtime claim inferred.",
+    "Current Dressing reconciliation001 retained: frozen as-cast absent at961, typed-column migration unintegrated. No obsolete current compile failure repeated.",
+    "No other-lens seam/mutation/geometry/admission/numeric/behavior verdict or global audit clearance transferred.",
+    "Original0-790 not restarted; connected780/782 owner reuse confers no new ordered credit. Future792/923 uncredited.",
+    "No tests/helpers/assertions/doctests authored/restored/run. No product/Git/rootledger/historical edits/checks/probes/publication."
+  ],
+  "registration": "audit11-successor-163-registration.json",
+  "crosswalk": "audit11-question-crosswalk-001.json",
+  "current_reconciliation": "current-rig-dressing-reconciliation-001.json",
+  "new_unique_findings": 0,
+  "proposed_original_accounted": 792,
+  "next_original": 792,
+  "active_partial": null,
+  "current_main_integrated": false,
+  "validated": false,
+  "clear": false,
+  "validation": "none"
+}

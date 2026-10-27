@@ -1,0 +1,133 @@
+{
+  "at": "2026-10-26T05:05:47.825386+00:00",
+  "previous": "source-extensions-192.json",
+  "successor": "source-extensions-195.json",
+  "prefix_immutable": true,
+  "new_indices": [
+    192,
+    193,
+    194
+  ],
+  "new_entries": [
+    {
+      "source_id": "canonical-support:990430b:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers.rs",
+      "sha256": "4f2a0ea9d96dba2f493cb7bd317313f553b00f0e29ff1eb0c223c7eed02058f4",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "bytes": 6610,
+      "object": "source-objects/4f2a0ea9d96dba2f493cb7bd317313f553b00f0e29ff1eb0c223c7eed02058f4",
+      "registration_evidence": "registration-016.json",
+      "reason": "Bounded current-canonical comparison for existing derivability candidate001; original inventory unchanged.",
+      "prior_reads": "Frozen6533 role1486 had been fully personally read before this followup. Current whole bytes differ; current body first read after registration001. Exact declaration15-18 and From41-45 match frozen bytes. Lines73-85 were incidental partial OutfitPlan context displayed with the bounded read; no unrelated whole-body coverage or verdict claimed.",
+      "own_prospective_authority": "../audit10/candidate001-reconciliation/canonical-registration-001.json",
+      "registration_timing": "Shared consolidation follows own10 prospective local registrations and qualified actual reads. No claim that prior reads awaited shared registry; no other-lens coverage transfer.",
+      "lenses": {
+        "producer-propagation": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "existing-type-owners": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "admission-contracts": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "invariant-operations": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "aggregate-states": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "type-ownership": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "redundant-authority": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "behavior-preservation": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "enum-shapes": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "derivability": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "type-granularity": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "magic-strings": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "magic-numbers": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit."
+      },
+      "status": "Bounded new current variant, no accepted newunique issue or PR986 gate/source change.",
+      "incidental_displayed_not_coverage": [
+        [
+          73,
+          85
+        ]
+      ]
+    },
+    {
+      "source_id": "canonical-support:990430b:crates/adventuresim-tactical-client/Cargo.toml",
+      "sha256": "8aa55633cd7ff303e586406b52582fd208269232ae9217364c309fa085b074d1",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "ranges": [
+        [
+          20,
+          20
+        ],
+        [
+          23,
+          23
+        ],
+        [
+          95,
+          95
+        ]
+      ],
+      "bytes": 4171,
+      "object": "source-objects/8aa55633cd7ff303e586406b52582fd208269232ae9217364c309fa085b074d1",
+      "registration_evidence": "registration-016.json",
+      "reason": "Bounded current-canonical comparison for existing derivability candidate001; original inventory unchanged.",
+      "prior_reads": "Frozen manifest had been read; current whole bytes differ. Current selected declarations/section metadata were read only after registration001; no other dependency bodies credited.",
+      "own_prospective_authority": "../audit10/candidate001-reconciliation/canonical-registration-001.json",
+      "registration_timing": "Shared consolidation follows own10 prospective local registrations and qualified actual reads. No claim that prior reads awaited shared registry; no other-lens coverage transfer.",
+      "lenses": {
+        "producer-propagation": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "existing-type-owners": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "admission-contracts": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "invariant-operations": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "aggregate-states": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "type-ownership": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "redundant-authority": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "behavior-preservation": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "enum-shapes": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "derivability": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "type-granularity": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "magic-strings": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "magic-numbers": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit."
+      },
+      "status": "Bounded new current variant, no accepted newunique issue or PR986 gate/source change.",
+      "structured_selection": "Containing Cargo section for each selected derive_more/thiserror declaration; normal derive_more is dependencies, line95 thiserror is build-dependencies."
+    },
+    {
+      "source_id": "canonical-support:990430b:Cargo.lock",
+      "sha256": "d148af6f0f15140e5337b4ee4bf9d5ea5f63c6ff10bae5c472592d2768f58515",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "ranges": [
+        [
+          4318,
+          4352
+        ]
+      ],
+      "bytes": 306154,
+      "object": "source-objects/d148af6f0f15140e5337b4ee4bf9d5ea5f63c6ff10bae5c472592d2768f58515",
+      "registration_evidence": "registration-016.json",
+      "reason": "Bounded current-canonical comparison for existing derivability candidate001; original inventory unchanged.",
+      "prior_reads": "Current lock bytes copied/hashed before prospective registration002; selected package blocks first semantically read afterward. Older frozen lock/package proof existed, but no current-body credit inferred from it.",
+      "own_prospective_authority": "../audit10/candidate001-reconciliation/canonical-registration-002.json",
+      "registration_timing": "Shared consolidation follows own10 prospective local registrations and qualified actual reads. No claim that prior reads awaited shared registry; no other-lens coverage transfer.",
+      "lenses": {
+        "producer-propagation": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "existing-type-owners": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "admission-contracts": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "invariant-operations": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "aggregate-states": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "type-ownership": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "redundant-authority": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "behavior-preservation": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "enum-shapes": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "derivability": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "type-granularity": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "magic-strings": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit.",
+        "magic-numbers": "New bounded canonical variant pending independent shared-queue reconciliation; local own10 evidence explicitly retained, no automatic credit."
+      },
+      "status": "Bounded new current variant, no accepted newunique issue or PR986 gate/source change.",
+      "structured_selection": "Only package blocks whose name is derive_more or derive_more-impl. This includes derive_more0.99.20, derive_more2.1.1 and derive_more-impl2.1.1, with blank separators, but no following package body."
+    }
+  ],
+  "coordinator_credit": "Hash/copy/metadata only; no new canonical body read or transferred verdict.",
+  "prior_authority": "Own10 local prospective registrations001/002 predate its semantic reads; incidental context preserved."
+}

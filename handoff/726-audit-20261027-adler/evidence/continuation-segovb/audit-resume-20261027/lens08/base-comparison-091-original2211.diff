@@ -1,0 +1,75 @@
+--- base/crates/fabelgeist-armor/src/tiling/embedded.rs
++++ head/crates/fabelgeist-armor/src/tiling/embedded.rs
+@@ -4,7 +4,7 @@
+ use fabelgeist_math::vector::Vec3;
+ 
+ use super::surface::{GridPoint, GridSurface};
+-use crate::{ArmorMorph, GeneratedArmor, PlateFace, skin};
++use crate::{ArmorMorph, ConstructionError, GeneratedArmor, PlateFace, skin};
+ 
+ /// A vertex, as a place on a grid.
+ #[derive(Clone, Copy, Debug)]
+@@ -50,24 +50,28 @@
+         source: &GeneratedArmor,
+         surfaces: &[GridSurface],
+         design_hash: [u8; 32],
+-    ) -> GeneratedArmor {
++    ) -> Result<GeneratedArmor, ConstructionError> {
+         let (positions, normals) = self.realize(surfaces);
+-        let (joint_indices, joint_weights) = self
+-            .vertices
+-            .iter()
+-            .map(|vertex| {
+-                let corners = surfaces[vertex.grid]
+-                    .corners(vertex.at)
+-                    .map(|(corner, share)| {
+-                        let corner = corner as usize;
+-                        (
+-                            (source.joint_indices[corner], source.joint_weights[corner]),
+-                            share,
+-                        )
+-                    });
+-                skin::blend(&corners)
+-            })
+-            .unzip();
++        let mut joint_indices =
++            fabelgeist_rig::PackedRigSkin::empty(source.joint_indices.joint_count());
++        let mut joint_weights = Vec::with_capacity(self.vertices.len());
++        for vertex in &self.vertices {
++            let corners = surfaces[vertex.grid]
++                .corners(vertex.at)
++                .map(|(corner, share)| {
++                    let corner = corner as usize;
++                    skin::SkinShare {
++                        skin: source
++                            .joint_indices
++                            .weighted_vertex(corner, source.joint_weights[corner]),
++                        share,
++                    }
++                });
++            let [first, remaining @ ..] = corners;
++            let skin = skin::blend(first, &remaining);
++            joint_indices.push(skin.joints)?;
++            joint_weights.push(skin.weights);
++        }
+         let morphs = source
+             .morphs
+             .iter()
+@@ -85,7 +89,7 @@
+                 }
+             })
+             .collect();
+-        GeneratedArmor {
++        Ok(GeneratedArmor {
+             components: Vec::new(),
+             design_hash,
+             surface_domain: source.surface_domain.clone(),
+@@ -99,7 +103,7 @@
+             trim: None,
+             grids: Vec::new(),
+             morphs,
+-        }
++        })
+     }
+ }
+ 

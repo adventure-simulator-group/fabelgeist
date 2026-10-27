@@ -1,0 +1,95 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-316",
+  "at": "2026-10-25T23:04:31.060672+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2641,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow/input.rs",
+      "sha256": "79df824a0c6fc00d93e45308c1d6f5a24ecb35216bab4b22b51d271d96a6f9e3",
+      "personally_read_ranges": [
+        [
+          1,
+          22
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-22: Interpolation::find selects first interpolate op and retains its original ordinal and borrowed body; absence typed MissingInterpolation. Does not establish exactly-one interpolation or whole stack validity; owner GpuGroomer trace needed."
+      ]
+    },
+    {
+      "scope_index": 2642,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow/profile.rs",
+      "sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+      "personally_read_ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-56: profile dispatch preserves set count/attribute buffer, relative flag derives Option presence with zero fallback payload; guide pack joins explicit position/attribute/info buffers, count and points with parting parameters. Agreement of guide storage extents/count and shader parameter admission remains caller-owned, not proven by params macro."
+      ]
+    },
+    {
+      "scope_index": 2646,
+      "source_id": "pr-working:crates/fabelgeist-shell/src/mesh.rs",
+      "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+      "personally_read_ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-139: ShellMesh::new validates positive finite density, finite positions and triangle bounds before topology/mass production. validate separately requires nonzero u32-fit particle count, mass cardinality/validity, paired constraint lengths, all connectivity bounds and finite rest data. Constructor does not call validate, so empty or extreme finite geometry can still construct then fail validate; actual Shell/solver admission needed. Public field mutation is representability, no ordinary admitted invalid mesh witness."
+      ]
+    },
+    {
+      "scope_index": 2647,
+      "source_id": "pr-working:crates/fabelgeist-shell/src/lib.rs",
+      "sha256": "f56675ce9e64d8c46ee028e405abd261b969614531a211b4c75471ba5b714f10",
+      "personally_read_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-58: ShellMaterial checks every coefficient finite/nonnegative and thickness strictly positive, particle_radius halves thickness; coefficient units/ranges beyond nonnegative not inferred. Public material leaves require caller validate; no whole solver guarantee from reexports."
+      ]
+    },
+    {
+      "scope_index": 2648,
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/particles.rs",
+      "sha256": "99b46998863ca413643469afd3b2108707428e366d63088af8f759a515bcf37b",
+      "personally_read_ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-171 paired2649: capacity creates three same-sized GPU arrays; write checks positions/masses length and casted capacity then packs and writes position/previous/zero velocities before updating count and host masses. Failed mid-upload may leave device buffers partially changed while metadata unchanged; actual write failure and reuse needed. write_positions temporarily takes/restores host masses across write outcome. usize-to-u32 truncation at huge source lengths qualified allocation/caller obligation, no executable witness."
+      ]
+    },
+    {
+      "scope_index": 2649,
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/particles/packed.rs",
+      "sha256": "50a7d66bba9f42c372ffecc21cb208485f80885c3b4ee4884631d5473fc48d70",
+      "personally_read_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-100: private native record positions/inverse mass stay zip-paired with length equality, distinct velocity records zero padding and at_rest count matches position records. Raw readback From does not validate numeric contents; no nonfinite position admission or GPU semantic validity promised by Pod layout. compile-fail example read, not executed."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "6 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

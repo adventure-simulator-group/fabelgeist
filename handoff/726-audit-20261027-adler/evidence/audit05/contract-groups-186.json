@@ -1,0 +1,96 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-186",
+  "at": "2026-10-25T21:15:28.435658+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1973,
+      "source_id": "pr-working:crates/adventuresim-tactical-netcode/src/client.rs",
+      "sha256": "7efcd68002b4980f4d901f87a84c47dc0f697e35551b4fb3a13bc6ce80a1e770",
+      "personally_read_ranges": [
+        [
+          1,
+          1514
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1514 lines read in bounded contiguous1-500,501-1000,1001-1514 ranges. Canonical combat configuration snapshot validates/installs before replacing app resource; process-owned reconnect credential keeps character and token paired and JoinRequest includes it only for matching selected CharacterId. Server URL/epoch binding is not established by this local pair; no ordinary cross-server/reused-token defect claimed.",
+        "SprintInputState clones next, checked-adds elapsed only for prior down state, handles press/release/deactivation latch and publishes only after success. DirectControlState coordinates keyboard/gamepad movement, stance/roll/dive/quickstep/jump latches and sequence+payload commands. Repeated fixed-input packets retain same jump/posture sequence and payload until a new edge changes both; latest simulation tick is supplied once per fixed step, including scripted override. Actual authoritative recipients and wrap/reorder acceptance remain server roles.",
+        "PreUpdate attack preparation collects admission result before publishing its related attack fields; error explicitly retires attack edge. Other direct-control fields may already have changed earlier in the same function, so no global transactional UI snapshot claim. Native huge typed clock/config mutation/BRP overrides are not assumed ordinary input witnesses. Multiple gamepad aggregation and singleton player query semantics remain existing input policy, not an automatic entity-association defect.",
+        "Existing source fixtures cover reconnect ownership, melee release/hand selection, sprint tap/hold thresholds, posture chord consumption, held roll contact, quickstep rearming and jump/pace relationships. Assertions read only, no schedule execution."
+      ]
+    },
+    {
+      "scope_index": 1974,
+      "source_id": "pr-working:crates/adventuresim-tactical-netcode/src/client/melee_preparation.rs",
+      "sha256": "bc62caee41b6c642c35101af3a0f5dee241c87afceff2d426fc038ec8740cf03",
+      "personally_read_ranges": [
+        [
+          1,
+          178
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full178 lines read. HeldAttack pairs armed state and checked elapsed per hand, PreparedAttackInput privately owns both snapshots, release flags/request/alternate/hand and complete MeleePreparation. prepare reads current controls immutably and returns all admitted updates before publish; failure cannot partially replace held attack clocks/progress. Release publish resets matching hand only and consumes forced trigger once.",
+        "Progress ratio may temporarily overflow but clamps before finite UnitInterval admission, as explicit numerical policy; positive configured hold duration owns denominator. From/to/progress/selected stay paired in one preparation record. HeldAttack assigns current delta while pressed (including just-pressed, excluding released) whereas sprint assigns elapsed to previous-down state; timing-policy equivalence has not been established, so do not describe them as identical clocks or claim exact physical hold duration without event-time contract.",
+        "Simultaneous releases choose Offhand precedence while main-release may set alternate; actual combat recipient policy must decide whether alternate is meaningful for offhand before alleging invalid combined intent. No executed/default failure or accepted new defect."
+      ]
+    },
+    {
+      "scope_index": 1975,
+      "source_id": "pr-working:crates/adventuresim-tactical-netcode/src/message.rs",
+      "sha256": "61261c4055cee33ac91c6cdac317996352c4997f93cbd692a93448656a2db2eb",
+      "personally_read_ranges": [
+        [
+          1,
+          475
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full475 lines read. Message structures retain sender-owned enrollment character/reconnect capability, complete continuous input snapshot and durable edge sequence/payload, mapped equipment actor/revision/hand/expected current/destination plus closed action-specific target payload. Entity map annotations include nested pickup/door/window/target and complete SuccessfulAttackResponse actors/hit/impact recipient, preventing local/server entity IDs from being confused at this transport declaration.",
+        "SceneVistaBundle carries complete static digest/extent/placements/establishment/surface/furniture/LOD products; this raw event derives serde and does not itself enforce counts/correlations. Actual server producer and client consumer admission remain owning graph, not proved by comments. Ranged start/complete miss/complete hit enum retains distinct payload shape, while active phase correlation/precision validation belongs server. ImpactEffects presentation flags are server semantics; SuccessfulAttackResponse total_damage follows its result variant rather than treating reflected-to-attacker as defender damage.",
+        "Mapping/roundtrip fixtures read only. Primitive quantities, independent event fields and payload representability are migration surfaces, not evidence every native combination is a valid ordinary state. No tactical tick persistence introduced."
+      ]
+    },
+    {
+      "scope_index": 1976,
+      "source_id": "pr-working:crates/adventuresim-tactical-netcode/src/replication.rs",
+      "sha256": "3723f618b79b8e9c01b414c6fb374dd1f15e970c4182b2fa6d446c84924a33c8",
+      "personally_read_ranges": [
+        [
+          1,
+          242
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full242 lines read. Replication registration distinguishes mutable tactical components from replicate-once descriptors and ordered join/config/vista/equipment/combat events from unreliable continuous input. SceneBuilding custom codec serializes exact owning JSON as postcard bytes and decodes through same checked serde, preserving internally tagged programme shape.",
+        "Filtered compact colliders exclude large building cuboids while retaining selected player/item/obstacle diagnostics; server authoritative building collision remains separate. Registration does not prove recipients validate association, epoch or user authority. InventoryItems membership is derived from ItemOf, while quantity/properties/slot replicate separately; retain packet169 HUD invalidation producer question rather than assume change tracking always invalidates membership.",
+        "Furniture compact identity, SceneBuilding JSON/postcard and door/window admitted leaf roundtrips are source fixtures only. Every annotated ID/type remains its owning contract; no new network compatibility path or executed transport acceptance claimed."
+      ]
+    }
+  ],
+  "qualified_dependencies": [
+    {
+      "source_index": 1974,
+      "range": [
+        42,
+        56
+      ],
+      "contract": "Held-attack sample interval assignment versus prior-down sprint clock",
+      "status": "source timing-policy question; no accepted defect"
+    },
+    {
+      "source_index": 1974,
+      "range": [
+        76,
+        120
+      ],
+      "contract": "Simultaneous main/offhand release alternate semantics",
+      "status": "actual combat recipient policy pending; no accepted defect"
+    }
+  ],
+  "findings": [],
+  "discovery": "4 newly accounted distinct present original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

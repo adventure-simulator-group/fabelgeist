@@ -1,0 +1,108 @@
+{
+  "at": "2026-10-27T02:20:47.421592+00:00",
+  "lens": 13,
+  "packet": "022",
+  "extension_of": "audit13-successor-registration-022.json",
+  "sources": [
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/components.rs",
+      "sha256": "e2053ee2dbf1a837b1a4e80d2d2afa22c0ecc2231bf586041222082971b9cbea",
+      "bytes": 5033,
+      "actual_lines": 193,
+      "ranges": [
+        [
+          43,
+          76
+        ],
+        [
+          128,
+          148
+        ]
+      ],
+      "purpose": "Actualraw InstanceData pos/scale/rotation andnative perbatchparentmatrix/visibility producers",
+      "body_consumed_at_registration": false,
+      "role": "receivingcontracts only; no earlieroriginalcompletion orotherlenscredit"
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/mod.rs",
+      "sha256": "7b8be56d6f6ea9285176e55efb88de7bcb8a15df4cdca7619d3038a92de56092",
+      "bytes": 10975,
+      "actual_lines": 340,
+      "ranges": [
+        [
+          179,
+          225
+        ]
+      ],
+      "purpose": "Actualcurrent/previousparenttransform andvisibility retaineduniformproducer",
+      "body_consumed_at_registration": false,
+      "role": "receivingcontracts only; no earlieroriginalcompletion orotherlenscredit"
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/mesh.wgsl",
+      "sha256": "bb8dc8d197bfd558464608bb447dc4224e67c0488e695270f44e1656c9c8fa70",
+      "bytes": 1494,
+      "actual_lines": 60,
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "purpose": "Actualdefaultforward helperinputs/results/nativeprojection anddithervarying recipient",
+      "body_consumed_at_registration": false,
+      "role": "receivingcontracts only; no earlieroriginalcompletion orotherlenscredit"
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/prepass/prepass.wgsl",
+      "sha256": "d55568e08bd83b5db11110f851fba531d10e170ad6c0bf0a4c5acda1a8c58695",
+      "bytes": 4212,
+      "actual_lines": 155,
+      "ranges": [
+        [
+          49,
+          106
+        ],
+        [
+          114,
+          155
+        ]
+      ],
+      "purpose": "Actualdefaultprepasshelpercurrent/previousinput/result andnative dither/motion/PBR recipients",
+      "body_consumed_at_registration": false,
+      "role": "receivingcontracts only; no earlieroriginalcompletion orotherlenscredit"
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/pipeline.rs",
+      "sha256": "d47a07104ac9b2333006bbacbc50b5f097b5fa7a57ba4a4d822a62fb3c64e16b",
+      "bytes": 7419,
+      "actual_lines": 232,
+      "ranges": [
+        [
+          169,
+          232
+        ]
+      ],
+      "purpose": "NativeVISIBILITY_RANGE_DITHER selection andactualinstancevertexformat/location ports",
+      "body_consumed_at_registration": false,
+      "role": "receivingcontracts only; no earlieroriginalcompletion orotherlenscredit"
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/shading.wgsl",
+      "sha256": "965586e6cee62b7fe7623cafbd9a173ce271c14cd982466b73eb69a718dca6e9",
+      "bytes": 531,
+      "actual_lines": 21,
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "purpose": "Actualforwardvisibilitydither level consumed byBevyPBR nativefunction",
+      "body_consumed_at_registration": false,
+      "role": "receivingcontracts only; no earlieroriginalcompletion orotherlenscredit"
+    }
+  ],
+  "authority": "Exact knownf82/nativeGit1a5aff stagedsource identities, same nativeprovenanceas011/019/020/021",
+  "limits": "Boundedhelperproducer/nativeports/selectedcalleroperations only; useprevious matching actualbodyproofs asqualifiedsame-lenssourcecontext,not orderedcredit. No39,projectexecution,sourceGitrootledgereditsorpublication."
+}

@@ -1,0 +1,74 @@
+{
+  "at": "2026-10-27T00:43:27.444282+00:00",
+  "sources": [
+    {
+      "source_id": "physical-p16-unchanged-base:crates/adventuresim-core/src/item_catalog_fit.rs",
+      "path": "crates/adventuresim-core/src/item_catalog_fit.rs",
+      "staged_path": "target/recovery-20261025/continuation-segovb/source-objects/a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "sha256": "a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "lines": 46,
+      "provenance": "Exact a120 base, absent159changed/status rows",
+      "locators_only": [
+        [
+          11,
+          "pub enum EquipmentFitZone {"
+        ],
+        [
+          20,
+          "impl EquipmentFitZone {"
+        ],
+        [
+          35,
+          "impl OccupancyRequirement {"
+        ]
+      ],
+      "body_credit": false
+    },
+    {
+      "source_id": "physical-p16-unchanged-base:crates/adventuresim-core/src/item_catalog_surface.rs",
+      "path": "crates/adventuresim-core/src/item_catalog_surface.rs",
+      "staged_path": "target/recovery-20261025/continuation-segovb/source-objects/9f49d61c21b245ad0793daea4f28f1f74769c76680ef383553454b688c9f6cbd",
+      "sha256": "9f49d61c21b245ad0793daea4f28f1f74769c76680ef383553454b688c9f6cbd",
+      "lines": 47,
+      "provenance": "Exact a120 base, absent159changed/status rows",
+      "locators_only": [
+        [
+          7,
+          "pub struct EquipmentSurfaceSpan {"
+        ],
+        [
+          19,
+          "pub const MAX_EQUIPMENT_SURFACE_SEGMENTS: usize = 16;"
+        ],
+        [
+          23,
+          "pub enum SurfaceAnchor {"
+        ],
+        [
+          31,
+          "pub enum EquipmentAnatomicalRegion {"
+        ]
+      ],
+      "body_credit": false
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_physical_serde.rs",
+      "path": "crates/adventuresim-core/src/item_catalog_physical_serde.rs",
+      "staged_path": "target/recovery-20261025/continuation-segovb/source-objects/f260cac7fddd136d2fd754e6f147a3fcecaa67eb107b87d506121e3c60016671",
+      "sha256": "f260cac7fddd136d2fd754e6f147a3fcecaa67eb107b87d506121e3c60016671",
+      "lines": 18,
+      "provenance": "Exact frozen changed object",
+      "locators_only": [
+        [
+          6,
+          "pub(super) fn serialize<S: serde::Serializer>("
+        ],
+        [
+          13,
+          "pub(super) fn deserialize<'de, D: serde::Deserializer<'de>>("
+        ]
+      ],
+      "body_credit": false
+    }
+  ]
+}

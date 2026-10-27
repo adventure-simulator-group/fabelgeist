@@ -1,0 +1,86 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-195",
+  "at": "2026-10-25T21:28:06.965538+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2084,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/codec.rs",
+      "sha256": "1a32ed016049692514041f1111820fc2513464dcd4f23b45a4f65f8b084c9b60",
+      "personally_read_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full strict weapon/holder codec: schema/generator versions, envelope and design remain together, bounded decode then explicit validation; public encode validates before serializing. Crate-private parse/serialize intentionally split from validation and need actual validated evaluation callers before assuming accepted aggregate construction.",
+        "No backward compatibility branch; unsupported versions fail explicitly. No new finding."
+      ]
+    },
+    {
+      "scope_index": 2085,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/curves.rs",
+      "sha256": "b5accc11c18f0ac90310414f5db75ca9ef76661bea923b658513fed644cea66e",
+      "personally_read_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full adaptive curve and subdivision operations: quality and detail carried per call, endpoints paired with parametric spans, stable endpoint compaction and depth-eight refinement ceiling.",
+        "subdivide indexes first point and assumes positive finite chord/nonempty points; these are internal construction preconditions, with ordinary caller validation/recipe support pending. Error budget may be unmet after depth ceiling by design; no established contradictory acceptance policy or ordinary defect."
+      ]
+    },
+    {
+      "scope_index": 2086,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/mod.rs",
+      "sha256": "7327c75b4030df58f3b59c44b7b691713289908715ecb4c6adae4b0829806fc1",
+      "personally_read_ranges": [
+        [
+          1,
+          230
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full construction root: bounded triangle admission, closed detail enum, paired Solid faces/surfaces/positions through triangle/quad/append, orientation-preserving rigid transforms and signed volume winding reversal.",
+        "Solid is crate-private with mutable buffers; raw mutation can violate cardinality/indexing. Actual producers and downstream validation required; no arbitrary internal literal promoted to ordinary failure."
+      ]
+    },
+    {
+      "scope_index": 2087,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/polygon.rs",
+      "sha256": "660aa84bce2b4252168df40b15a47bdb710ba829c03ea76bf45584a0c6e1bc9f",
+      "personally_read_ranges": [
+        [
+          1,
+          318
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full Region triangulation/refinement: finite minimum-three outline, scale tolerances, nonadjacent edge intersection/touch rejection, orientation, ear membership and final nondegeneracy; private derived boundary and triangle indices remain tied to admitted points.",
+        "Refinement shares edge midpoint IDs and applies conforming split before quality changes. Internal max_edge contract and upstream construction budget remain producer dependencies; no ordinary invalid max-edge witness."
+      ]
+    },
+    {
+      "scope_index": 2088,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/solids.rs",
+      "sha256": "b139a5600efc6654b3209ce230bb22ba7713836752f49c867f7b6996bcabb0c2",
+      "personally_read_ranges": [
+        [
+          1,
+          389
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full solid construction: planar region and boundary shared between opposing faces and side walls, radial rings/caps from same profile and scale, inner/outer socket arrays associated by station.",
+        "Some internal socket helpers assume nonempty matching profiles, positive sections/segments; public admitted weapon construction and actual recipe callers remain necessary to establish ordinary reachability. Radial profile performs bounded triangle estimate before subdivision. No new accepted finding."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "5 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

@@ -1,0 +1,80 @@
+{
+  "lens": 11,
+  "original": 794,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/generation.rs",
+  "sha256": "eb3d54908cc923b9cd761ca5abaf748d4ad9ed9175289a2d3342d0e2d4c6a4a1",
+  "at": "2026-10-26T21:37:39.532670+00:00",
+  "body_consumed": [
+    [
+      1,
+      93
+    ]
+  ],
+  "source_accounted": false,
+  "status": "partial; table collect resolved, Mhr/proportions producer receiving contracts remain",
+  "registration": "audit11-root-registration-166.json",
+  "receiver_registrations": [
+    "audit11-root-registration-166-receiver-001.json",
+    "audit11-root-registration-166-receiver-002.json"
+  ],
+  "inventory": [
+    "Recipe identity and expression are distinct coefficient collections with externally required tensor shapes [1,count]. Actual CharacterRecipe validation checks closed version, both exact counts, nonblank name, finite coefficients and inventory; no new range inferred for arbitrary valid coefficient values.",
+    "Positions, normals and global joint states are distinct spatial/rig roles. Vertex and normal native readback requires exact triples; joint state requires eight components and exact admitted joint count. Only positions and first three joint components convert centimetres to metres; normals and other joint components are not distance. Generic native arrays do not themselves certify units, frame or joint association.",
+    "Actual binary GeneratedCharacter retains positions/normals as Vec<[f32;3]>, joint states as RigJointTable<[f32;8]> and joint proportions as RigJointTable<JointProportionBasis>. The generation return collects joint chunks; applicable RigJointTable collection/admission contract has not yet been read. No compile defect or new unique finding inferred before that contract.",
+    "BodyModel retains Mhr plus LOD/correctives; actual Mhr tensor output layout/count/admission and model_parameters/joint_bases producers not newly traced in this packet. Primitive-to-native handoffs are only bounded roles, not global primitive exemptions."
+  ],
+  "known_receivers": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/lib.rs",
+      "sha256": "dc0c4f7b59ecd62d3a8a4a6b00c5bfecfc15470df833fe4294e486d1ffa5393c",
+      "consumed": [
+        [
+          1,
+          120
+        ],
+        [
+          130,
+          205
+        ]
+      ],
+      "actual_role": "CharacterRecipe owner and validate; not BodyModel/GeneratedCharacter owner. Initial library-parent locator corrected explicitly."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "consumed": [
+        [
+          1,
+          140
+        ],
+        [
+          165,
+          195
+        ]
+      ],
+      "actual_role": "Actual generation module/import resolution, BodyModel and GeneratedCharacter retaining records; incidental unrelated Studio/main/default fixture bodies not independently cleared"
+    }
+  ],
+  "next_exact_contracts": [
+    "proportions model_parameters and joint_bases actual frozen producers",
+    "Mhr forward output layout/cardinality ownership as materially needed; typed table collect contract is now resolved"
+  ],
+  "new_unique_findings": 0,
+  "global_clearance": false,
+  "current_counterpart_inspected": false,
+  "project_execution": false,
+  "tests_added": false,
+  "qualifications": "All prior families/lenses/aliases retained; no frozen/current counterpart identity substitution, no backwards compatibility acceptance constraints",
+  "resolved_table_receiver": {
+    "source_id": "pr-working:crates/fabelgeist-rig/src/table.rs",
+    "sha256": "491cfcace087aef015067a75e218e3bee9dc3c1e8bf681b40afa840f806da282",
+    "registration": "audit11-root-registration-166-receiver-003.json",
+    "actually_read": [
+      [
+        1,
+        108
+      ]
+    ],
+    "trace": "Explicit generic FromIterator collects values into internal Vec without changing order, so generation collect can construct the retained RigJointTable. Count equality is checked in generation against admitted model joints before collect. Table provides typed RigJointOrdinal access and joint_count, but explicitly does not prove same rig instance across columns; no compiler gap or cross-rig identity certification inferred."
+  }
+}

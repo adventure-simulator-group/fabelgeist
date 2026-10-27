@@ -1,0 +1,481 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "017",
+  "predecessor": "receipt-016-originals134-140.json + receipt-016-erratum-001.json",
+  "manifest_prefix_sha256": "5da7d51f5dcf806aac57776ad84f70b0e76b07505f8647367b8f9180593c6b5e",
+  "sources": [
+    {
+      "original_index": 141,
+      "source_id": "physical-p16:crates/adventuresim-core/src/skill.rs",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "actual_ranges": [
+        [
+          9,
+          117
+        ],
+        [
+          720,
+          777
+        ],
+        [
+          892,
+          1105
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              9,
+              117
+            ],
+            [
+              720,
+              777
+            ],
+            [
+              892,
+              981
+            ],
+            [
+              1014,
+              1105
+            ]
+          ],
+          "role": "No raw string literals or string-valued application fields in these registered numeric/Skill contracts",
+          "disposition": "Canonical Skill owner confirmed; no numeric, learning, attribute or other-lens verdict."
+        },
+        {
+          "ranges": [
+            [
+              983,
+              1012
+            ]
+          ],
+          "role": "description returnsString, six attribute/scope label occurrences985/988/991/997/999/1001, three format templates1003/1006/1009 and join delimiter1011",
+          "disposition": "Actual attribute description producer derives narrative text from checked numeric/typed fields, no string-based mechanical branching. External presentation recipient unread. Extension982-1009 was prospectively registered before body read; no unrelated skill methods coverage."
+        }
+      ],
+      "status": "Complete registered material union independently read/inventoried; source-accounted with findings and pending recipients."
+    },
+    {
+      "original_index": 142,
+      "source_id": "physical-p16:crates/adventuresim-core/src/smithing.rs",
+      "sha256": "83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "actual_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              12,
+              20
+            ],
+            [
+              28,
+              46
+            ]
+          ],
+          "role": "Two String-key quote maps, String result error, five error/template occurrences20/28/32/37/45; stock.item_id extraction41/46",
+          "disposition": "Actual semantic stock ID keys retained in quote and errors flattened from typed upstream usingDebug. Reuse canonical stock/item owner and structured cause across application quote; extract only at real output boundary. Actual forge_stock/item_id implementation and quote persistence/UI recipients unread, no inferred native boundary."
+        },
+        {
+          "ranges": [
+            [
+              57,
+              61
+            ],
+            [
+              70,
+              73
+            ]
+          ],
+          "role": "Embedded JSON keys and semantic catalog/component/material/attachment values, plus two catalog ID lookup inputs",
+          "disposition": "Actual serde_json native ingress only for JSON syntax. Materials/component attachment values remain typed-owner admission obligations in weapon-model producer; fixture not exempt. No test execution."
+        }
+      ],
+      "status": "Complete registered material union independently read/inventoried; source-accounted with findings and pending recipients."
+    },
+    {
+      "original_index": 143,
+      "source_id": "physical-p16:crates/adventuresim-core/src/social.rs",
+      "sha256": "bb53725a73f48ae6fbd9f4ff3e2e744aaaea403fa2fd0a9381c6766ce0ad1b6d",
+      "actual_ranges": [
+        [
+          1,
+          1909
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            163
+          ],
+          "role": "Compiler feature token",
+          "disposition": "Native compile configuration."
+        },
+        {
+          "ranges": [
+            [
+              147,
+              159
+            ],
+            [
+              182,
+              274
+            ],
+            [
+              307,
+              327
+            ]
+          ],
+          "role": "Six SocialTopic tokens, all PersonalityAxis labels/value-labels/slugs and raw slug parser",
+          "disposition": "Existing enums own categorical selection, labels are derived from axis/code. Exact later renderer/parser call boundaries uninspected; raw numeric personality codes remain separate other-lens issue, no blind duplicate strings/types."
+        },
+        {
+          "ranges": [
+            [
+              475,
+              490
+            ],
+            [
+              558,
+              565
+            ]
+          ],
+          "role": "Raw source IDs in iteration/set membership, raw action_kind parameter and formatted cooldown output",
+          "disposition": "Action parameter is internal despite exact SocialActionKind available in same module; canonical cooldown owner could carry actor,target,topic,typed action until native persistence projection. Morale source IDs also identity role through HashSet, no prose exemption. Actual source-ID producer/persistence adapter unread."
+        },
+        {
+          "ranges": [
+            [
+              568,
+              660
+            ]
+          ],
+          "role": "counsel/devotion/intention raw static prose fields: three counsel strings582/587/592, seven devotions639-645, five intentions648-652",
+          "disposition": "Actual mechanics chosen from typed topic/religion and numeric profiles; prose is output alongside mechanics, never matched here. Public rendering recipient needs exact trace; no fabricated diagnostic-only proof."
+        },
+        {
+          "lines": [
+            1293,
+            1467,
+            1468,
+            1469,
+            1472,
+            1473,
+            1474,
+            1485,
+            1622,
+            1623,
+            1639,
+            1642,
+            1651,
+            1665,
+            1693,
+            1695,
+            1696,
+            1713,
+            1717,
+            1747
+          ],
+          "role": "All existing-test string-bearing lines: identity fixture inputs/equalities, output expectations, expect/assertion diagnostics, forbidden-copy fragments (multiple literals on1485/1713)",
+          "disposition": "Source-only occurrence inventory, no test execution. String source IDs and action keys remain semantic inputs; output/prose markers are actual comparison/nativepanic boundaries inside source-only tests."
+        }
+      ],
+      "status": "Complete registered material union independently read/inventoried; source-accounted with findings and pending recipients."
+    },
+    {
+      "original_index": 144,
+      "source_id": "physical-p16:crates/adventuresim-core/src/social/action_kind.rs",
+      "sha256": "2b9ff5d4ad32e81e8a66e3ad09dc43d0e382c88b117b89b970876d9d3789ce92",
+      "actual_ranges": [
+        [
+          1,
+          264
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            10,
+            18,
+            20
+          ],
+          "role": "Serde naming and two rename tokens",
+          "disposition": "Native serializer configuration for canonical SocialActionKind."
+        },
+        {
+          "ranges": [
+            [
+              26,
+              38
+            ],
+            [
+              73,
+              131
+            ]
+          ],
+          "role": "Nine reducer key tokens and all action/topic-specific prose outputs plus one fallback message",
+          "disposition": "Canonical action already owns vocabulary and skill/risk/eligibility. FromStr uses actualSerde string deserializer164, typed parsefailure. Descriptions are derived output, not API authority; renderer/native transport caller remains unread."
+        },
+        {
+          "lines": [
+            154
+          ],
+          "role": "Parse error Display literal",
+          "disposition": "Actual formatter.write_str diagnostic boundary."
+        },
+        {
+          "ranges": [
+            [
+              175,
+              234
+            ],
+            [
+              239,
+              261
+            ]
+          ],
+          "role": "Nine canonical key fixture inputs, one JSONformat232, six invalidinputs239 and three typedparse inputs246/252/258",
+          "disposition": "All actual literal occurrences inventoried by source range; native parsing/format expected checks only, not run or compatibility requirements."
+        }
+      ],
+      "status": "Complete registered material union independently read/inventoried; source-accounted with findings and pending recipients."
+    },
+    {
+      "original_index": 145,
+      "source_id": "physical-p16:crates/adventuresim-core/src/social/affinity.rs",
+      "sha256": "498a0922e501f63800d2c4fa9bbffd863ca4cf98b83e09393c504b29d8a8ba7c",
+      "actual_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              60
+            ]
+          ],
+          "role": "Zero string literals or string-valued APIs",
+          "disposition": "Numerical affinity body and source-only tests independently read, no other-lens numeric verdict."
+        }
+      ],
+      "status": "Complete registered material union independently read/inventoried; source-accounted with findings and pending recipients."
+    },
+    {
+      "original_index": 146,
+      "source_id": "physical-p16:crates/adventuresim-core/src/social/claim_resolution.rs",
+      "sha256": "adfd512aab47db7827260717ebbb91d41706b4668372a0137510c9d3df796dcc",
+      "actual_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            8,
+            9,
+            20
+          ],
+          "role": "One Serde strategy and two compilerfeature values",
+          "disposition": "Native codec/compiler configuration; typed resolution retained."
+        },
+        {
+          "lines": [
+            45,
+            57
+          ],
+          "role": "Two expected outcome vocabulary tokens45, two JSON field keys57",
+          "disposition": "Native serde_json test encode/parse expected-value boundary; no execution or schema compatibility requirement."
+        }
+      ],
+      "status": "Complete registered material union independently read/inventoried; source-accounted with findings and pending recipients."
+    },
+    {
+      "original_index": 147,
+      "source_id": "physical-p16:crates/adventuresim-core/src/social/witness.rs",
+      "sha256": "14db851b00491a104efa4d272f24ef1285b357a92dbd0f875a109a27033fd735",
+      "actual_ranges": [
+        [
+          1,
+          233
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            54
+          ],
+          "role": "Serde naming token",
+          "disposition": "Native codec configuration for ClaimChallengeApproach."
+        },
+        {
+          "ranges": [
+            [
+              61,
+              79
+            ],
+            [
+              103,
+              117
+            ]
+          ],
+          "role": "Three stable challenge keys, raw FromStrinput and typedDisplayfailure105",
+          "disposition": "Existing ClaimChallengeApproach owns challenge vocabulary; maps directly to typed SocialActionKind/Skill, exact parserusesnative StrDeserializer115. Typedparseerror retained toDisplay. Actual request transport boundary still uninspected."
+        },
+        {
+          "ranges": [
+            [
+              202,
+              225
+            ]
+          ],
+          "role": "Three valid key input strings203-205, one JSONformat212, six invalid keys220-225",
+          "disposition": "Concrete parser/native encode inputs and expected results in source-only test; not executed."
+        }
+      ],
+      "status": "Complete registered material union independently read/inventoried; source-accounted with findings and pending recipients."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Typed social action/source identity and forge material quote propagation",
+      "sources": [
+        "142:12-46",
+        "143:475-490,558-565",
+        "144:26-49,160-166"
+      ],
+      "disposition": "Raw internal cooldown action parameter despite actual SocialActionKind owner, raw source identity set inputs, quote item map keys and flattened upstream errors are concrete migration gaps. Narrative catalog labels remain distinct from semantic authority.",
+      "remedy": "Carry existing typed action and canonical source/item/stock identifiers through APIs/state, typed cooldown identity and upstream causes until actual codec/render/persistence boundary. Keep genuinely open identities open.",
+      "acceptance": "Trace unresolved source/quote producers and final persistence/UI/native receivers, resolve canonical aliases before future implementation; no BC constraints.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actual cooldown persistence/action-key caller, morale source-ID producers, social description/prayer/PersonalityAxis label renderers and request boundary remain unread.",
+    "Exact forge material/stock/item_id producer implementation and quote UI/transaction consumer remain unread; no native-boundary claim from helper names.",
+    "Original141 only registered union plus description extension: gaps1-8,118-719,778-891,1106-1165 not newly inventoried here (prior bounded own receiving evidence preserved separately).",
+    "All prior pending roles, aliases/currentness/all20/P16/P17/F9/M09 obligations and other populations preserved."
+  ],
+  "qualifications": [
+    "Only source/metadata/ignored evidence; no project/check/test/probe execution, new tests, source/Git/root-ledger/publication mutations.",
+    "Exact frozen f82 physical-P16 source identities, not current main/HEAD or PR-working aliases.",
+    "Source-accounted with findings and explicit untraced contracts; no repair, runtime, global/unique-total or other-lens clearance. User no-BC overrides skill wire-preservation clause."
+  ],
+  "proposed_count": {
+    "before": 141,
+    "after": 148,
+    "indices_completed": [
+      141,
+      142,
+      143,
+      144,
+      145,
+      146,
+      147
+    ],
+    "next_original": 148,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/skill.rs",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "ranges": [
+        [
+          9,
+          117
+        ],
+        [
+          720,
+          777
+        ],
+        [
+          892,
+          1105
+        ]
+      ],
+      "coverage": "Own lens12 roles only; all other lenses independent."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/smithing.rs",
+      "sha256": "83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "coverage": "Own lens12 roles only; all other lenses independent."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/social.rs",
+      "sha256": "bb53725a73f48ae6fbd9f4ff3e2e744aaaea403fa2fd0a9381c6766ce0ad1b6d",
+      "ranges": [
+        [
+          1,
+          1909
+        ]
+      ],
+      "coverage": "Own lens12 roles only; all other lenses independent."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/social/action_kind.rs",
+      "sha256": "2b9ff5d4ad32e81e8a66e3ad09dc43d0e382c88b117b89b970876d9d3789ce92",
+      "ranges": [
+        [
+          1,
+          264
+        ]
+      ],
+      "coverage": "Own lens12 roles only; all other lenses independent."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/social/affinity.rs",
+      "sha256": "498a0922e501f63800d2c4fa9bbffd863ca4cf98b83e09393c504b29d8a8ba7c",
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "coverage": "Own lens12 roles only; all other lenses independent."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/social/claim_resolution.rs",
+      "sha256": "adfd512aab47db7827260717ebbb91d41706b4668372a0137510c9d3df796dcc",
+      "ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "coverage": "Own lens12 roles only; all other lenses independent."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/social/witness.rs",
+      "sha256": "14db851b00491a104efa4d272f24ef1285b357a92dbd0f875a109a27033fd735",
+      "ranges": [
+        [
+          1,
+          233
+        ]
+      ],
+      "coverage": "Own lens12 roles only; all other lenses independent."
+    }
+  ]
+}

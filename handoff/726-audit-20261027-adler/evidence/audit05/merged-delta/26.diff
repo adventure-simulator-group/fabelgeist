@@ -1,0 +1,14 @@
+--- 6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms.rs
++++ 13fc9dcc71ab879de364117e5462310673e43210:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms.rs
+@@ -320,11 +320,10 @@
+ }
+ 
+ #[cfg(test)]
+ mod tests {
+     use super::*;
+-    use adventuresim_building_generator::spatial_geometry::Position;
+     #[test]
+     fn closed_keep_door_blocks_a_camera_ray_that_static_navigation_allows() {
+         use adventuresim_building_generator::{
+             BuildingArchetype, BuildingProgram, compile_building_collision, generate,
+         };

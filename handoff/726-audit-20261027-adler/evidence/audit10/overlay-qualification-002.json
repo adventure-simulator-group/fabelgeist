@@ -1,0 +1,8 @@
+{
+  "id": "OWN10-OVERLAY-QUALIFICATION-002",
+  "corrects": "overlay-successor-019.json overlay93 narrative",
+  "correction": "Actual freshly read function tail353 is CombatTrainingProfile::from_equipped_hands(hands), consuming owned Vec; prior receipt said combat_training_profile(&hands) incorrectly. Semantic trait disposition unchanged, no trait implementation/codecs in exact range.",
+  "actual_support": "Frozen6533 crates/strategic-web/src/routes/settlements/encumbrance.rs350-354 personally read, matched same exact source body.",
+  "new_source_credit": false,
+  "checks": "not run"
+}

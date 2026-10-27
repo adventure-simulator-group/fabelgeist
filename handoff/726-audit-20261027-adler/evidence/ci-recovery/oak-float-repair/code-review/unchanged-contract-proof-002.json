@@ -1,0 +1,29 @@
+{
+  "supersedes_proof_wording": "unchanged-contract-proof-001 used read_text normalization; its body equality is logical text equality, not raw-byte equality. This attachment records both explicitly.",
+  "fixtures": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry.rs",
+      "test_module_raw_bytes_equal": true,
+      "test_module_newline_normalized_equal": true,
+      "head_test_raw_sha256": "dbb34b08f913a2fe652f06274b9a1b6480374f0674281f4ae809ae742cbee144"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs",
+      "test_module_raw_bytes_equal": true,
+      "test_module_newline_normalized_equal": true,
+      "head_test_raw_sha256": "10835796c57e30664ea0ba6636e092e9e5a2ff3ab4098b8b1dc5210bbdba5d56"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_profile.rs",
+      "test_module_raw_bytes_equal": false,
+      "test_module_newline_normalized_equal": true,
+      "head_test_raw_sha256": "14248fc920020f628742362c12ff55c6c236b3ade69f4ebe190796739c4b4866"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs",
+      "test_module_raw_bytes_equal": true,
+      "test_module_newline_normalized_equal": true,
+      "head_test_raw_sha256": "e69c22fb38ac9a839ab2f5f43e6223a2fee773fbeb1419a41d2eeff3cd387dab"
+    }
+  ]
+}

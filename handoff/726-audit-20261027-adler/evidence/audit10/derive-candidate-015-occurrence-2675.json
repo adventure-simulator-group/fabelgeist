@@ -1,0 +1,13 @@
+{
+ "scope_index":2675,
+ "revision":"039329518e264f19206cf5b0b98d177433f40c17",
+ "path":"crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+ "ranges":[[78,102]],
+ "implementation":"ScheduleParseError has five nongeneric unit variants, each mapped to one static Display message, plus empty Error.",
+ "equivalent_repair":"Derive existing thiserror::Error with the five exact current error strings; remove only manual Display/Error. Preserve existing Clone/Copy/Debug/Eq and error variant/API, all schedule admission and redistribution logic.",
+ "source_evidence":"Fresh complete frozen364-line allocation read, exact normal module declaration located strategic_schedule.rs14. Complete frozen owning Core manifest personally read: workspace thiserror normal dependency. Source-specific dependency support derive-dependency-support-2558-2587.json. Same static-error recipe family as candidate015; current labels/behavior correct.",
+ "qualification":"No new cause fields/source chain; default source(None) remains. Public invalid schedule API/cross-field weaknesses are existing other-lens obligations, not repaired or cleared by this mechanical suggestion.",
+ "new_unique_findings_claimed":0,
+ "acceptance":"After exhaustive own10 and shared/historical remedy dedup, existing schedule/error consumers only; no new tests/cases/assertions/helpers and no checks or edits here.",
+ "clear":false
+}

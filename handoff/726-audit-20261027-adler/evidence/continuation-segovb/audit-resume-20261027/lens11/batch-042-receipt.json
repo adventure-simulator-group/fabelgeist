@@ -1,0 +1,205 @@
+{
+  "at": "2026-10-27T13:45:13.028727+00:00",
+  "lens": 11,
+  "status": "993-997 independently source-accounted with findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-042-registration.jsonl",
+    "sha256": "4c48e45d162e1f47705350a0824193e8cca3e7d86be79c207b8a4252ae54d212"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-041.json",
+    "sha256": "1b24ee54c62e90f3f3ffb5431f69f0accad11318d6b6ae76a52384d001f27ddd"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 993,
+      "source_id": "pr-working:crates/adventuresim-core/src/settlement_property/tests.rs",
+      "sha256": "37706ca3f62b5b44d61a78f6ec146281ba11990c9a218f0182be06e9f23a2c3b",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/37706ca3f62b5b44d61a78f6ec146281ba11990c9a218f0182be06e9f23a2c3b",
+      "actual_eof": 99,
+      "ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          99
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 994,
+      "source_id": "pr-working:crates/adventuresim-core/src/simulation_security.rs",
+      "sha256": "3c199480635cb250ba4fe3c60e13afcad2b958c8b11b3e97588c57fd85500272",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/3c199480635cb250ba4fe3c60e13afcad2b958c8b11b3e97588c57fd85500272",
+      "actual_eof": 61,
+      "ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          61
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 995,
+      "source_id": "pr-working:crates/adventuresim-core/src/skeletal_fit.rs",
+      "sha256": "9263e946947987759ca44148c3b0683b27ad749fa9c679f9edc6d852293eafdc",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/9263e946947987759ca44148c3b0683b27ad749fa9c679f9edc6d852293eafdc",
+      "actual_eof": 132,
+      "ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          132
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 996,
+      "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "actual_eof": 1165,
+      "ranges": [
+        [
+          1,
+          1165
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "prior_personal_read_reuse": {
+        "receipt": "batch-031-receipt.json",
+        "ranges": [
+          [
+            1020,
+            1115
+          ]
+        ],
+        "identity_reverified": true
+      },
+      "actual_read_ranges": [
+        [
+          1,
+          1019
+        ],
+        [
+          1116,
+          1165
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 997,
+      "source_id": "pr-working:crates/adventuresim-core/src/smithing.rs",
+      "sha256": "83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "actual_eof": 78,
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          78
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "original_index": 1191,
+      "sha256": "909ef3cba93d998d407876cc05fd8c4ad9933f39faec7de0ac45dd0893d9bd60",
+      "actual_read_ranges": [
+        [
+          1,
+          33
+        ],
+        [
+          197,
+          280
+        ]
+      ]
+    },
+    {
+      "original_index": 1194,
+      "sha256": "aecea90ad65fd73946a24653499fdfe07a626491543cb20c57f5e70ae82e4d49",
+      "actual_read_ranges": [
+        [
+          1,
+          119
+        ]
+      ]
+    },
+    {
+      "original_index": 1490,
+      "sha256": "166a50824e9c051fa93ab7ce03790a3e36f362ad1b2326c98ce4e1da7fe7490c",
+      "actual_read_ranges": [
+        [
+          1,
+          77
+        ]
+      ]
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-017-receipt.json",
+      "sha256": "248e389c980fabae29b237383d7f7e5974775a7ae6eccf99fb4ac741199271bf"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-031-receipt.json",
+      "sha256": "0e64c59e0e3b9b6f7f087017c110ec1dc0229cff16557910de8d5f001554dd99"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-040-receipt.json",
+      "sha256": "1cafc13cab5c6749d60a28b0fbde49949745362216da3cc54ff0469bd8097f6e"
+    }
+  ],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_ledger_edited": false,
+  "new_material_extensions": [],
+  "limits": [
+    "Frozen source only, no execution/current/accepted alias/runtime/global proof.",
+    "Registered full effective original scopes consumed; oversized sed upper bounds on short files return only actual EOF and receipt credits actual1..EOF."
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "id": "SEGOVB-CONT11-172-799-COMPLETE",
+  "lens": "type-granularity",
+  "original": 799,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/bake/wgsl.rs",
+  "sha256": "7965432924278f1a7cbcf9a47a295a9c2b9fe4103783e8d641f54dbbd9bc70ec",
+  "actually_read": [
+    [
+      1,
+      400
+    ]
+  ],
+  "source_accounted": true,
+  "source_complete_for_requested_role": true,
+  "status": "source-accounted with qualified internal-map-result record concern and numerical/native-layout limits; not clear",
+  "ordered_assessment": "Full400 personally consumed as798connectedreceiver under registration003; independent799 role inventory performed after798completion and explicit registration004, no automatic early credit.",
+  "contract_traces": [
+    {
+      "role": "Compiled source ownership and actual host receivers",
+      "locations": "all400; host798125-135,170-258,272-448",
+      "trace": "Seven named WGSL source constants implement precisely the paired host bake/reduction stages and bind named Params/buffers. Each shaderword/float/vector field is at an identified native GPU language/buffer interface or local numerical workspace; source strings are program text, not mutable display/status input. Host compiles PACKING with DRAW/FINISH and passes matching uniforms through concrete framework bindings. Samefixed2048grid and hostlevels descriptors drive allocation/dispatch/readback. This packet independently accountsall799code, not a generic allshader exemption."
+    },
+    {
+      "role": "Topmost packed observation versus colour texel versus float bits",
+      "locations": "5-35,157-170,307-335,338-400",
+      "trace": "PACKING holds quantized height12bits, direction12bits and shade8bits; angularturn wraps to one revolution. Quantize/field_of map bounded numeric bitfields, and max1 reserves0 for no strand. atomicMax on this native word selects lexicographic quantizedheight thenlowerfields; no continuous fullprecision topmost proof beyond quantization. FINISH has a differentRGBA8word protocol, and LONGEST stores nonnegative arc-length floatbits in another atomicu32. Equal primitive storage does not make these concepts interchangeable; explicit pack/decode helpers own their actual native representation. No application status enum or duplicate overarching packed-word owner should combine these unrelated encodings."
+    },
+    {
+      "role": "Native StrandGpu and procedural appearance inputs",
+      "locations": "38-115,210-232; native parent2289119-146; host798272-323",
+      "trace": "StrandGpu exposes native normal, idword, UV, groupword and radius layout matchinghoststruct; DRAW consumesidonlyasstablehash/noise seed alongside rootposition scaledbyLOCK_WIDTH. Hash constants, binarycorner coordinates, iterationindices and per-strand/point slots are native numerical algorithm representation; this is not a proof of game entity identity or source membership. Tone combines lockcoherence and per-strandvariation opticalshares; physicalrootcoordinate and seed/random share differ. All source/attribute finite/range/buffer cardinality admission and statistical/artistic correctness remain independently unverified."
+    },
+    {
+      "role": "Map result and observation history distinctions",
+      "locations": "118-155,186-208,219-228; ScalpMap2844 exact169 contract retained",
+      "trace": "Map uses bustcenter/axis/rim/side/forward parameters to map a3Dpoint into2Dtexel coordinates; thirdvec3 component denotesvalidity0/1 andvisit testsz>0.5. It is not spatialz. Previousseen flag,lasttexel,lastheight form local traversal history, withcurrentmap result a separate observation. LocalWGSLboolpredicates differ from host-carriedsemantic choices; these are not indiscriminately converted to enums. A named local resultrecord would make texel/validity roles explicit without claiming WGSL/native ABI requires heterogeneousvec3. Source-key question recordedbelow; no current error or unique accepted finding."
+    },
+    {
+      "role": "Physical sample height, drawing and binary shadow workspaces",
+      "locations": "136-232",
+      "trace": "Visit calls imported head_distance for rawheight and separately handles mapvalidity/shadowreach. Draw interpolates native texelpositions/height, normalizesbyREACH and computes opticalshade beforeatomicpacking. Shade_blocks maps continuoustexel samples into blockrow/column andnativeatomic0/1 visibilityworkspaces. Pointdistance, texturecoordinate, unitdirection/angle, normalizedheight, opacity/share and integercounts aredistinct evenwhenfloat/u32 matches. ImportedHEAD/MATH functionbodies were not re-audited; no exact SDF/finite/tolerance/collision behavior is claimed merely from head_distance name. This is the explicit bounded lower numerical helper boundary, not a global exemption."
+    },
+    {
+      "role": "Binary bare sample becomes continuous share",
+      "locations": "235-288; host798327-370",
+      "trace": "BARE nativebuffer emits f32zero/one from absence oftopmostandshadow. BLUR averages thosefloatvalues overclampednative row/column windows; host alternatesstride1/SIZE andpingpong buffers for fourpasses. Output is fractional localbarecoverage, so retainingfloat is meaningful despite binaryinitialization. Buffer selector/currentpass counters are native scheduling, not an applicationclosedstate demanding another enum. No blanket boundedness/arithmetic proof for arbitraryexternaluniforms, overflow, nonfinite inputs or language edge cases."
+    },
+    {
+      "role": "Final two-plane output and mip consumer",
+      "locations": "290-372; host798227-258,373-424",
+      "trace": "FINISH interprets bare share into skin visibility anddecodes packedstranddirection/shade. shadeRGBA owns greyRGB pluscoveragealpha; strandsRGBA owns encodeddirectionxy,shade andopaquealpha. No-strand direction maps tocentral encoded0.5. NativeRGBA packing/clamping is actualbyteformatboundary. HALVE uses same from/to texelside,stride,offset layout ashostLevel, averages eachbytechannel andrepacks tocorrectpaddedslot. Hostreadstripsrowpadding intotypedAtlasLevelrecords; this concrete downstream adapter is inspected. GenericRGBAaveraging doesnot prove all filtering/appearance/texel endianness/publicmutation properties or thatdirection shouldbe conflatedwithopacity."
+    },
+    {
+      "role": "Longest arc reduction and host retained physical value",
+      "locations": "374-400; host798427-448; prior171 StripSource subdivision",
+      "trace": "One invocation perstrand adds distances between consecutivepoints, thenatomicMaxs its f32bits into clearedword. Host reconstructs f32 value consumed asmetrelongest strandlength; positionwchannel isexcluded byxyz. Count,pointsperstrand andphysicalarc length are different roles. Zero is legitimate empty reduction result. Sourceidentifies nativebittransport but doesnot establish nonnegativefinite inputs/overflow/NaNordering for arbitrarymutatedGpuGroomdata; no other-lens numerical clearance."
+    }
+  ],
+  "qualified_observations": [
+    {
+      "local_source_key": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/bake/wgsl.rs@sha256:7965432924278f1a7cbcf9a47a295a9c2b9fe4103783e8d641f54dbbd9bc70ec#L136-L155,L195-L207:map-texel-validity-record",
+      "classification": "qualified internal-result granularity/record-owner concern; no accepted globally unique finding or runtime defect",
+      "observation": "map_texel returnsheterogeneousvec3 wherexyaretexelcoordinates andzisinside/outsideflag; callerdecodesflagusing0.5. An ordinarylocal namedresult record carrying texelcoordinates andvaliditypredicate would distinguish thisfromspatial3Dvectors andremoveimplicitfield/thresholdmeaning. Actualcurrentguard iscoherent ininspectedsource; no badmapping/failureincident demonstrated. WGSL internalstructs existhere, so fullvectorreturn isnotshownrequiredbyframeworkboundary; exactcanonicalowner/alias/native legality ofanyrepair muststillbereconciledbeforeimplementation.",
+      "acceptance_limits": "No sourcechange/newtest/probeauthorized. Do not inventaccepted uniquealias ortransferotherlensfinding. Existingflag/payloadhistorystates and requiredexternalbufferencodings remain separate."
+    }
+  ],
+  "connected_material_receiver": {
+    "original": 798,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+    "sha256": "2d8ba1f7658b0a709143467f73dc6b3f0a0eab31ad0a36a6a7436028b0ba4d7f",
+    "ranges": [
+      [
+        1,
+        448
+      ]
+    ],
+    "receipt": "audit11-segovb-172-798-complete.json",
+    "ordered_credit_in_this_receipt": false
+  },
+  "registrations": [
+    "audit11-segovb-172-registration-002.json",
+    "audit11-segovb-172-registration-003.json",
+    "audit11-segovb-172-registration-004.json"
+  ],
+  "qualifications": [
+    "Original799 full400 body personally read; exactworkspace/frozen filehashmatch established onlyfor thisfile, not wholecurrentfamily/runtime/regression.",
+    "Source-accounted meansbounded type/role/producer/receiver assessment withexplicitlimitations; notclear/integrated/validated.",
+    "No798receivercountduplicate; original0-797 not restarted. Original800 metadatahashonly sofar, no800body/orderedcredit.",
+    "No newunchangedsourceextensioninthispacket; previous796two and171three mandatoryotherlensqueueobligations retainedincomplete withzeroextraoriginal/sharedcount.",
+    "Prior795 NaN,currentDressingreconciliation andcrosswalksource-keynamespaces retained. No bareQ008/Q009alias/F50/M108/globalfamilyclearance.",
+    "No backwardcompatibilityconstraints, newtests/assertions/helpers/doctests, product/Git/rootledger/historyedits, localprojectchecks/tests/probes/scanners orpublication."
+  ],
+  "new_unique_findings": 0,
+  "accepted_unique_count_change": 0,
+  "proposed_original_accounted": 800,
+  "original_total": 2853,
+  "next_original": 800,
+  "active_partial": null,
+  "integrated": false,
+  "validated": false,
+  "clear": false,
+  "crosswalk": "audit11-question-crosswalk-001.json",
+  "current_reconciliation": "current-rig-dressing-reconciliation-001.json",
+  "stop_boundary": "Coherent798host/799shaderpacket ends; original800bodyfieldnotstarted."
+}

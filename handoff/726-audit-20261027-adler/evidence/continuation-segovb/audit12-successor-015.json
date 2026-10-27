@@ -1,0 +1,3123 @@
+{
+  "lens": "12 magic-strings",
+  "owner": "/root/texture_code_review",
+  "at": "2026-10-26T19:05:47.287189+00:00",
+  "packet": "audit12-successor-015",
+  "source_authority": {
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "physical_p16_base_head": "a120390947c89b703dc74c4255a13c035d054c50",
+    "range_authority": "target/recovery-20261025/audit05/original-scope-072.json",
+    "registration": "audit12-successor-registration-015.json",
+    "prior_state": "audit12-state-successor-014-complete.json"
+  },
+  "scope": {
+    "original": 40,
+    "source_id": "physical-p16:content/tactical/combat.yaml",
+    "sha256": "05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+    "bytes": 13718,
+    "effective_range_union": [
+      [
+        1,
+        344
+      ]
+    ],
+    "actually_consumed": [
+      [
+        1,
+        344
+      ]
+    ],
+    "scope_basis": "owner_contract_proofs1-344 plus producer_reached_contract_observations1-344; no expanded interval omitted",
+    "status": "source-accounted with inherited and native-boundary qualifications; root adoption required"
+  },
+  "inventory": {
+    "mapping_keys": [
+      {
+        "line": 1,
+        "column": 1,
+        "key": "schema_version",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 3,
+        "column": 1,
+        "key": "resolution",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 4,
+        "column": 3,
+        "key": "contact",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 5,
+        "column": 5,
+        "key": "reference_control_length_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 6,
+        "column": 5,
+        "key": "point_reference_area_mm2",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 7,
+        "column": 5,
+        "key": "edge_reference_area_mm2",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 8,
+        "column": 5,
+        "key": "broad_reference_area_mm2",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 9,
+        "column": 5,
+        "key": "unarmed_precision",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 10,
+        "column": 3,
+        "key": "fatigue",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 11,
+        "column": 5,
+        "key": "mechanical_efficiency",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 12,
+        "column": 5,
+        "key": "capacity_joules_per_endurance",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 13,
+        "column": 5,
+        "key": "recovery_watts_per_endurance",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 14,
+        "column": 5,
+        "key": "aerobic_watts_per_endurance",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 15,
+        "column": 5,
+        "key": "carry_watts_per_kg",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 16,
+        "column": 5,
+        "key": "minimum_endurance",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 17,
+        "column": 5,
+        "key": "minimum_action_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 18,
+        "column": 5,
+        "key": "maximum_action_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 19,
+        "column": 5,
+        "key": "attack_travel_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 20,
+        "column": 5,
+        "key": "defense_travel_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 21,
+        "column": 5,
+        "key": "dodge_speed_metres_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 22,
+        "column": 3,
+        "key": "armed_attack_energy_transfer",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 23,
+        "column": 3,
+        "key": "stagger_resistance_joules_per_kg",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 25,
+        "column": 1,
+        "key": "autoresolve",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 26,
+        "column": 3,
+        "key": "combat_round_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 27,
+        "column": 3,
+        "key": "formation_spacing_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 28,
+        "column": 3,
+        "key": "reference_melee_attack_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 29,
+        "column": 3,
+        "key": "minimum_movement_speed_metres_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 30,
+        "column": 3,
+        "key": "guarded_movement_speed_metres_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 31,
+        "column": 3,
+        "key": "melee_lunge_speed_metres_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 32,
+        "column": 3,
+        "key": "melee_lunge_maximum_travel_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 33,
+        "column": 3,
+        "key": "reference_ground_drive_force_newtons",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 34,
+        "column": 3,
+        "key": "reference_leg_strength",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 35,
+        "column": 3,
+        "key": "gravity_metres_per_second_squared",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 36,
+        "column": 3,
+        "key": "traction_coefficient",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 37,
+        "column": 3,
+        "key": "minimum_attack_interval_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 38,
+        "column": 3,
+        "key": "minimum_melee_input_reflex",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 39,
+        "column": 3,
+        "key": "melee_windup_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 40,
+        "column": 3,
+        "key": "melee_reaction_delay_min_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 41,
+        "column": 3,
+        "key": "melee_reaction_delay_max_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 42,
+        "column": 3,
+        "key": "melee_dodge_reaction_chance",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 43,
+        "column": 3,
+        "key": "melee_reflex_window_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 44,
+        "column": 3,
+        "key": "melee_initiative_delay_min_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 45,
+        "column": 3,
+        "key": "melee_initiative_delay_max_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 46,
+        "column": 3,
+        "key": "melee_cadence_jitter_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 47,
+        "column": 3,
+        "key": "long_weapon_measure_threshold_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 48,
+        "column": 3,
+        "key": "melee_measure_reach_fraction",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 49,
+        "column": 3,
+        "key": "minimum_hit_precision",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 50,
+        "column": 3,
+        "key": "maximum_hit_precision",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 51,
+        "column": 3,
+        "key": "outnumbered_flanking",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 52,
+        "column": 3,
+        "key": "ranged_defense_input_reflex",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 54,
+        "column": 1,
+        "key": "realtime_authority",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 55,
+        "column": 3,
+        "key": "defense",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 55,
+        "column": 14,
+        "key": "reflex_window_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 55,
+        "column": 42,
+        "key": "roll_dodge_effectiveness",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 56,
+        "column": 3,
+        "key": "melee",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 57,
+        "column": 5,
+        "key": "replay_cooldown_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 58,
+        "column": 5,
+        "key": "completion_allowance_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 59,
+        "column": 5,
+        "key": "range_latency_tolerance_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 60,
+        "column": 5,
+        "key": "windup_jitter_fraction",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 61,
+        "column": 5,
+        "key": "maximum_windup_jitter_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 62,
+        "column": 5,
+        "key": "lunge_range_window_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 63,
+        "column": 5,
+        "key": "lunge_quickstep_threshold_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 64,
+        "column": 3,
+        "key": "ranged",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 65,
+        "column": 5,
+        "key": "cooldown_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 66,
+        "column": 5,
+        "key": "completion_allowance_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 67,
+        "column": 5,
+        "key": "range_latency_tolerance_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 68,
+        "column": 5,
+        "key": "aim_half_angle_degrees",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 69,
+        "column": 3,
+        "key": "impact",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 70,
+        "column": 5,
+        "key": "whole_body_velocity_scale",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 71,
+        "column": 5,
+        "key": "maximum_velocity_change_metres_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 73,
+        "column": 1,
+        "key": "movement",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 74,
+        "column": 3,
+        "key": "speeds_metres_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 75,
+        "column": 7,
+        "key": "walk",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 75,
+        "column": 18,
+        "key": "run",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 75,
+        "column": 28,
+        "key": "raised_guard",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 75,
+        "column": 47,
+        "key": "prone_walk",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 75,
+        "column": 65,
+        "key": "prone",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 75,
+        "column": 77,
+        "key": "roll",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 75,
+        "column": 88,
+        "key": "dive",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 75,
+        "column": 99,
+        "key": "quickstep",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 76,
+        "column": 3,
+        "key": "jump_heights_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 76,
+        "column": 26,
+        "key": "ordinary",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 76,
+        "column": 42,
+        "key": "dive",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 77,
+        "column": 3,
+        "key": "prone_lateral_speed_scale",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 78,
+        "column": 3,
+        "key": "prone_effort_scale",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 79,
+        "column": 3,
+        "key": "motor",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 80,
+        "column": 5,
+        "key": "gravity_metres_per_second_squared",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 81,
+        "column": 5,
+        "key": "fallback_character_mass_kg",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 82,
+        "column": 5,
+        "key": "reference_ground_drive_force_newtons",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 83,
+        "column": 5,
+        "key": "reference_ground_braking_force_newtons",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 84,
+        "column": 5,
+        "key": "reference_quickstep_peak_horizontal_force_bodyweights",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 85,
+        "column": 5,
+        "key": "quickstep_peak_horizontal_force_bodyweights_per_strength",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 86,
+        "column": 5,
+        "key": "reference_quickstep_push_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 87,
+        "column": 5,
+        "key": "quickstep_push_seconds_reduction_per_agility",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 88,
+        "column": 5,
+        "key": "quickstep_maximum_supported_root_displacement_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 89,
+        "column": 5,
+        "key": "reference_quickstep_target_displacement_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 90,
+        "column": 5,
+        "key": "reference_quickstep_leg_length_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 91,
+        "column": 5,
+        "key": "quickstep_authored_displacement_profile",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 92,
+        "column": 5,
+        "key": "quickstep_takeoff_angle_degrees",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 93,
+        "column": 5,
+        "key": "reference_leg_strength",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 94,
+        "column": 5,
+        "key": "reference_leg_agility",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 95,
+        "column": 5,
+        "key": "reference_lateral_acceleration_gravities",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 96,
+        "column": 5,
+        "key": "reference_sprint_turn_radius_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 97,
+        "column": 5,
+        "key": "agility_one_sprint_turn_radius_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 98,
+        "column": 5,
+        "key": "agility_five_sprint_turn_radius_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 99,
+        "column": 5,
+        "key": "traction_coefficient",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 100,
+        "column": 5,
+        "key": "slide_drag_coefficient",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 101,
+        "column": 5,
+        "key": "air_control_force_scale",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 102,
+        "column": 5,
+        "key": "maximum_step_height_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 103,
+        "column": 5,
+        "key": "maximum_walkable_slope_degrees",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 104,
+        "column": 3,
+        "key": "maneuvers",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 105,
+        "column": 5,
+        "key": "get_up_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 106,
+        "column": 5,
+        "key": "roll_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 107,
+        "column": 5,
+        "key": "dive_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 108,
+        "column": 5,
+        "key": "backward_dive_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 109,
+        "column": 5,
+        "key": "slide_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 110,
+        "column": 5,
+        "key": "quickstep_duration_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 112,
+        "column": 1,
+        "key": "ai",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 113,
+        "column": 3,
+        "key": "ordinary",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 114,
+        "column": 5,
+        "key": "offense",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 115,
+        "column": 7,
+        "key": "hit_precision",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 116,
+        "column": 7,
+        "key": "target_body_part",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 117,
+        "column": 7,
+        "key": "windup_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 118,
+        "column": 7,
+        "key": "cooldown_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 119,
+        "column": 7,
+        "key": "initiative_delay_min_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 120,
+        "column": 7,
+        "key": "initiative_delay_max_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 121,
+        "column": 7,
+        "key": "cadence_jitter_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 122,
+        "column": 7,
+        "key": "long_weapon_measure_threshold_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 123,
+        "column": 7,
+        "key": "melee_measure_reach_fraction",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 124,
+        "column": 7,
+        "key": "ranged_standoff_min_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 125,
+        "column": 7,
+        "key": "ranged_standoff_max_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 126,
+        "column": 7,
+        "key": "ranged_standoff_slop_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 127,
+        "column": 7,
+        "key": "ranged_reach_fraction",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 128,
+        "column": 5,
+        "key": "defense",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 129,
+        "column": 7,
+        "key": "dodge_chance",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 130,
+        "column": 7,
+        "key": "reaction_delay_min_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 131,
+        "column": 7,
+        "key": "reaction_delay_max_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 132,
+        "column": 7,
+        "key": "frontal_flanking_max",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 134,
+        "column": 1,
+        "key": "client_input",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 135,
+        "column": 3,
+        "key": "alternate_attack_hold_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 136,
+        "column": 3,
+        "key": "sprint_hold_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 137,
+        "column": 3,
+        "key": "movement_deadzone",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 138,
+        "column": 3,
+        "key": "roll_deadzone",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 139,
+        "column": 3,
+        "key": "quickstep_threshold",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 140,
+        "column": 3,
+        "key": "aim_trigger_threshold",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 141,
+        "column": 3,
+        "key": "gamepad_look_scale",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 143,
+        "column": 1,
+        "key": "targeting",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 144,
+        "column": 3,
+        "key": "reported_hit_precision",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 145,
+        "column": 3,
+        "key": "body_part_hitboxes",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 146,
+        "column": 9,
+        "key": "body_part",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 146,
+        "column": 26,
+        "key": "center_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 146,
+        "column": 59,
+        "key": "half_extents_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 147,
+        "column": 9,
+        "key": "body_part",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 147,
+        "column": 27,
+        "key": "center_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 147,
+        "column": 60,
+        "key": "half_extents_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 148,
+        "column": 9,
+        "key": "body_part",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 148,
+        "column": 29,
+        "key": "center_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 148,
+        "column": 62,
+        "key": "half_extents_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 149,
+        "column": 9,
+        "key": "body_part",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 149,
+        "column": 29,
+        "key": "center_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 149,
+        "column": 64,
+        "key": "half_extents_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 150,
+        "column": 9,
+        "key": "body_part",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 150,
+        "column": 30,
+        "key": "center_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 150,
+        "column": 64,
+        "key": "half_extents_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 151,
+        "column": 9,
+        "key": "body_part",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 151,
+        "column": 29,
+        "key": "center_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 151,
+        "column": 65,
+        "key": "half_extents_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 152,
+        "column": 9,
+        "key": "body_part",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 152,
+        "column": 30,
+        "key": "center_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 152,
+        "column": 65,
+        "key": "half_extents_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 154,
+        "column": 1,
+        "key": "presentation",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 155,
+        "column": 3,
+        "key": "incapacitation_forecast",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 156,
+        "column": 5,
+        "key": "horizon_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 157,
+        "column": 5,
+        "key": "trend_response_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 158,
+        "column": 3,
+        "key": "dodge_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 159,
+        "column": 3,
+        "key": "body_turn_seconds_per_half_turn",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 160,
+        "column": 3,
+        "key": "downed_turn_radians_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 161,
+        "column": 3,
+        "key": "attack_curve",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 162,
+        "column": 5,
+        "key": "inertia_characteristic",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 163,
+        "column": 5,
+        "key": "inertia_weight",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 164,
+        "column": 5,
+        "key": "skill_weight",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 165,
+        "column": 5,
+        "key": "tell_base",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 166,
+        "column": 5,
+        "key": "tell_span",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 167,
+        "column": 5,
+        "key": "drawback_base",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 168,
+        "column": 5,
+        "key": "drawback_span",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 169,
+        "column": 5,
+        "key": "follow_through_base",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 170,
+        "column": 5,
+        "key": "follow_through_span",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 171,
+        "column": 5,
+        "key": "overshoot_base",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 172,
+        "column": 5,
+        "key": "overshoot_span",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 173,
+        "column": 5,
+        "key": "maximum_drawback",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 174,
+        "column": 5,
+        "key": "maximum_overshoot",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 176,
+        "column": 1,
+        "key": "animation",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 177,
+        "column": 3,
+        "key": "locomotion",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 178,
+        "column": 5,
+        "key": "sample_hz",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 179,
+        "column": 5,
+        "key": "landing",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 179,
+        "column": 16,
+        "key": "minimum_impact_speed_metres_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 179,
+        "column": 61,
+        "key": "compression_per_metre_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 179,
+        "column": 102,
+        "key": "minimum_compression_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 179,
+        "column": 136,
+        "key": "maximum_compression_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 179,
+        "column": 170,
+        "key": "recovery_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 180,
+        "column": 5,
+        "key": "walk",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 180,
+        "column": 13,
+        "key": "reference_speed_metres_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 180,
+        "column": 53,
+        "key": "step_distance_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 180,
+        "column": 81,
+        "key": "support_phase_radius",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 180,
+        "column": 109,
+        "key": "bounce_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 180,
+        "column": 130,
+        "key": "flight_apex_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 181,
+        "column": 5,
+        "key": "run",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 181,
+        "column": 12,
+        "key": "reference_speed_metres_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 181,
+        "column": 52,
+        "key": "step_distance_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 181,
+        "column": 80,
+        "key": "support_phase_radius",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 181,
+        "column": 109,
+        "key": "bounce_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 181,
+        "column": 129,
+        "key": "flight_apex_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 182,
+        "column": 5,
+        "key": "raised_guard",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 182,
+        "column": 21,
+        "key": "reference_speed_metres_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 182,
+        "column": 61,
+        "key": "step_distance_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 182,
+        "column": 89,
+        "key": "support_phase_radius",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 182,
+        "column": 117,
+        "key": "bounce_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 182,
+        "column": 138,
+        "key": "flight_apex_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 183,
+        "column": 5,
+        "key": "prone",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 183,
+        "column": 14,
+        "key": "reference_speed_metres_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 183,
+        "column": 54,
+        "key": "step_distance_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 183,
+        "column": 82,
+        "key": "support_phase_radius",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 183,
+        "column": 110,
+        "key": "bounce_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 183,
+        "column": 130,
+        "key": "flight_apex_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 184,
+        "column": 5,
+        "key": "supine",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 184,
+        "column": 15,
+        "key": "reference_speed_metres_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 184,
+        "column": 55,
+        "key": "step_distance_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 184,
+        "column": 84,
+        "key": "support_phase_radius",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 184,
+        "column": 112,
+        "key": "bounce_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 184,
+        "column": 132,
+        "key": "flight_apex_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 185,
+        "column": 5,
+        "key": "blend_speed",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 186,
+        "column": 3,
+        "key": "guard_footwork",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 187,
+        "column": 5,
+        "key": "default_half_width_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 188,
+        "column": 5,
+        "key": "contact_margin_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 189,
+        "column": 5,
+        "key": "minimum_step_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 190,
+        "column": 5,
+        "key": "maximum_step_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 191,
+        "column": 5,
+        "key": "planning_reach_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 192,
+        "column": 5,
+        "key": "reference_leg_length_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 193,
+        "column": 5,
+        "key": "maximum_unsupported_contact_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 194,
+        "column": 3,
+        "key": "state_transitions",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 195,
+        "column": 5,
+        "key": "dive_root_handoff_start_fraction",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 196,
+        "column": 5,
+        "key": "downed_facing_sector_half_width",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 197,
+        "column": 5,
+        "key": "downed_facing_edge_stickiness",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 198,
+        "column": 3,
+        "key": "playback",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 199,
+        "column": 5,
+        "key": "frames_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 200,
+        "column": 5,
+        "key": "player_visual_y_offset_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 201,
+        "column": 5,
+        "key": "velocity_response_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 202,
+        "column": 5,
+        "key": "phase_correction_rate_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 203,
+        "column": 5,
+        "key": "phase_drift_deadband",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 204,
+        "column": 5,
+        "key": "phase_drift_measurement_blend",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 205,
+        "column": 5,
+        "key": "phase_snap_error",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 206,
+        "column": 5,
+        "key": "maximum_source_gap_ticks",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 207,
+        "column": 5,
+        "key": "authored_step_cadence",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 208,
+        "column": 7,
+        "key": "maximum_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 209,
+        "column": 7,
+        "key": "transition_width_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 210,
+        "column": 7,
+        "key": "minimum_step_distance_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 211,
+        "column": 5,
+        "key": "maximum_authored_stance_slip_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 212,
+        "column": 5,
+        "key": "maximum_coalesced_events",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 213,
+        "column": 5,
+        "key": "initial_locomotion_speed_metres_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 214,
+        "column": 5,
+        "key": "locomotion_deactivation_speed_metres_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 215,
+        "column": 5,
+        "key": "locomotion_activation_speed_metres_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 216,
+        "column": 3,
+        "key": "pose_buffer",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 217,
+        "column": 5,
+        "key": "minimum_baked_grid_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 218,
+        "column": 5,
+        "key": "minimum_phase_fit_displacement_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 219,
+        "column": 5,
+        "key": "sample_hz",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 220,
+        "column": 5,
+        "key": "maximum_observation_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 221,
+        "column": 5,
+        "key": "authored_phase_calibration_intervals",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 222,
+        "column": 5,
+        "key": "minimum_authored_foot_range_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 223,
+        "column": 5,
+        "key": "maximum_authored_foot_range_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 224,
+        "column": 5,
+        "key": "inertial_blend_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 225,
+        "column": 5,
+        "key": "cull_distance_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 226,
+        "column": 5,
+        "key": "cull_radius_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 227,
+        "column": 5,
+        "key": "authored_contact_plant_limit_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 228,
+        "column": 5,
+        "key": "authored_contact_height_fraction",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 229,
+        "column": 5,
+        "key": "authored_contact_minimum_height_window_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 230,
+        "column": 5,
+        "key": "authored_contact_maximum_height_window_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 231,
+        "column": 3,
+        "key": "procedural",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 232,
+        "column": 5,
+        "key": "guarded_look_joint_limit_degrees",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 233,
+        "column": 5,
+        "key": "guarded_look_joint_count",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 234,
+        "column": 5,
+        "key": "dive_pelvis_lean_degrees",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 235,
+        "column": 5,
+        "key": "height_transition_speed_metres_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 236,
+        "column": 5,
+        "key": "locomotion_stop_height_speed_metres_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 237,
+        "column": 5,
+        "key": "authored_ordinary_passing_rise_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 238,
+        "column": 5,
+        "key": "minimum_landing_absorption_speed_metres_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 239,
+        "column": 5,
+        "key": "landing_compression_arrival_tolerance_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 240,
+        "column": 5,
+        "key": "landing_plant_minimum_compression_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 241,
+        "column": 5,
+        "key": "body_response",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 242,
+        "column": 7,
+        "key": "maximum_presentation_sample_gap_ticks",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 243,
+        "column": 7,
+        "key": "steady_travel_lean_degrees",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 244,
+        "column": 7,
+        "key": "maximum_travel_lean_degrees",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 245,
+        "column": 7,
+        "key": "forward_reference_acceleration_metres_per_second_squared",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 246,
+        "column": 7,
+        "key": "maximum_forward_acceleration_lean_degrees",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 247,
+        "column": 7,
+        "key": "braking_acceleration_lean_degrees",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 248,
+        "column": 7,
+        "key": "maximum_braking_lean_degrees",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 249,
+        "column": 7,
+        "key": "lateral_reference_acceleration_metres_per_second_squared",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 250,
+        "column": 7,
+        "key": "maximum_lateral_acceleration_lean_degrees",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 251,
+        "column": 7,
+        "key": "maximum_response_degrees",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 252,
+        "column": 7,
+        "key": "forward_acceleration_lean_degrees",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 253,
+        "column": 7,
+        "key": "lateral_acceleration_lean_degrees",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 254,
+        "column": 7,
+        "key": "startup_inertial_lean_scale",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 255,
+        "column": 7,
+        "key": "sustained_inertial_lean_scale",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 256,
+        "column": 7,
+        "key": "degrees_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 257,
+        "column": 7,
+        "key": "smooth_time_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 258,
+        "column": 7,
+        "key": "acceleration_attack_response_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 259,
+        "column": 7,
+        "key": "acceleration_release_response_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 260,
+        "column": 7,
+        "key": "maximum_frame_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 261,
+        "column": 3,
+        "key": "bouncy_bones",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 262,
+        "column": 5,
+        "key": "impact_impulse_scale",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 263,
+        "column": 5,
+        "key": "strength",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 264,
+        "column": 5,
+        "key": "frequency_hz",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 265,
+        "column": 5,
+        "key": "halflife_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 266,
+        "column": 5,
+        "key": "coupling_per_second_squared",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 267,
+        "column": 5,
+        "key": "transmission",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 268,
+        "column": 5,
+        "key": "maximum_angle_radians",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 269,
+        "column": 3,
+        "key": "inverse_kinematics",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 270,
+        "column": 5,
+        "key": "minimum_inter_foot_separation_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 271,
+        "column": 5,
+        "key": "safe_settle_fallback_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 272,
+        "column": 5,
+        "key": "outer_foot_track_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 273,
+        "column": 5,
+        "key": "maximum_plant_discontinuity_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 274,
+        "column": 5,
+        "key": "maximum_owner_translation_per_tick_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 275,
+        "column": 5,
+        "key": "maximum_owner_rotation_per_tick_degrees",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 276,
+        "column": 5,
+        "key": "maximum_knee_target_amplification",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 277,
+        "column": 5,
+        "key": "maximum_knee_step_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 278,
+        "column": 5,
+        "key": "continuity_sample_hz",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 279,
+        "column": 5,
+        "key": "run_airborne_owner_step_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 280,
+        "column": 5,
+        "key": "run_first_release_owner_step_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 281,
+        "column": 5,
+        "key": "airborne_release_step_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 282,
+        "column": 5,
+        "key": "raised_settle_pelvis_knee_budget_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 283,
+        "column": 5,
+        "key": "raised_settle_step_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 284,
+        "column": 5,
+        "key": "guard_reach_pelvis_drop_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 285,
+        "column": 5,
+        "key": "stationary_turn_foot_limit_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 286,
+        "column": 5,
+        "key": "stationary_turn_step_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 287,
+        "column": 5,
+        "key": "knee_pole_maximum_foot_facing_offset_degrees",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 288,
+        "column": 5,
+        "key": "airborne_foot_rotation_speed_degrees_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 289,
+        "column": 5,
+        "key": "first_run_release_foot_rotation_speed_degrees_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 290,
+        "column": 5,
+        "key": "maximum_retained_plant_reach_correction_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 291,
+        "column": 5,
+        "key": "pelvis_correction_speed_metres_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 292,
+        "column": 5,
+        "key": "run_pelvis_correction_speed_metres_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 293,
+        "column": 5,
+        "key": "maximum_pelvis_correction_step_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 294,
+        "column": 5,
+        "key": "terrain_blend_speed_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 295,
+        "column": 5,
+        "key": "minimum_knee_flexion_degrees",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 296,
+        "column": 5,
+        "key": "minimum_terrain_knee_flexion_degrees",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 297,
+        "column": 5,
+        "key": "landing_knee_reserve_release_compression_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 298,
+        "column": 5,
+        "key": "landing_knee_reserve_full_compression_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 299,
+        "column": 5,
+        "key": "measured_ankle_sole_offset_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 300,
+        "column": 5,
+        "key": "sole_contact_tolerance_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 301,
+        "column": 5,
+        "key": "swing_sole_clearance_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 302,
+        "column": 5,
+        "key": "run_swing_sole_clearance_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 303,
+        "column": 5,
+        "key": "terrain_transition_flight_toe_clearance_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 304,
+        "column": 5,
+        "key": "terrain_contact_toe_clearance_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 305,
+        "column": 5,
+        "key": "run_swing_minimum_sole_clearance_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 306,
+        "column": 5,
+        "key": "run_contact_approach_phase",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 307,
+        "column": 5,
+        "key": "run_contact_chain_settle_phase",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 308,
+        "column": 5,
+        "key": "run_maximum_planned_reach_pelvis_drop_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 309,
+        "column": 5,
+        "key": "late_run_contact_plan_phase",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 310,
+        "column": 5,
+        "key": "maximum_run_swing_root_relative_step_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 311,
+        "column": 5,
+        "key": "settle_step_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 312,
+        "column": 5,
+        "key": "settle_step_clearance_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 313,
+        "column": 5,
+        "key": "settle_capture_point_margin_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 314,
+        "column": 5,
+        "key": "assumed_center_of_mass_height_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 315,
+        "column": 5,
+        "key": "maximum_settle_capture_speed_metres_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 316,
+        "column": 5,
+        "key": "maximum_hip_drop_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 317,
+        "column": 5,
+        "key": "sole_contact_margin_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 318,
+        "column": 3,
+        "key": "ragdoll",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 319,
+        "column": 5,
+        "key": "capsules",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 320,
+        "column": 7,
+        "key": "pelvis",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 320,
+        "column": 17,
+        "key": "radius_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 320,
+        "column": 38,
+        "key": "length_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 321,
+        "column": 7,
+        "key": "chest",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 321,
+        "column": 16,
+        "key": "radius_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 321,
+        "column": 37,
+        "key": "length_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 322,
+        "column": 7,
+        "key": "head",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 322,
+        "column": 15,
+        "key": "radius_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 322,
+        "column": 36,
+        "key": "length_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 323,
+        "column": 7,
+        "key": "thigh",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 323,
+        "column": 16,
+        "key": "radius_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 323,
+        "column": 37,
+        "key": "length_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 324,
+        "column": 7,
+        "key": "shin",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 324,
+        "column": 15,
+        "key": "radius_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 324,
+        "column": 37,
+        "key": "length_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 325,
+        "column": 7,
+        "key": "foot",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 325,
+        "column": 15,
+        "key": "radius_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 325,
+        "column": 36,
+        "key": "length_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 326,
+        "column": 7,
+        "key": "upper_arm",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 326,
+        "column": 20,
+        "key": "radius_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 326,
+        "column": 42,
+        "key": "length_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 327,
+        "column": 7,
+        "key": "forearm",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 327,
+        "column": 18,
+        "key": "radius_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 327,
+        "column": 40,
+        "key": "length_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 328,
+        "column": 7,
+        "key": "hand",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 328,
+        "column": 15,
+        "key": "radius_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 328,
+        "column": 36,
+        "key": "length_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 329,
+        "column": 5,
+        "key": "muscles",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 330,
+        "column": 7,
+        "key": "tone",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 331,
+        "column": 7,
+        "key": "proportional_gain",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 332,
+        "column": 7,
+        "key": "derivative_gain",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 333,
+        "column": 7,
+        "key": "maximum_kick_radians_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 334,
+        "column": 7,
+        "key": "stun_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 335,
+        "column": 7,
+        "key": "rise_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 336,
+        "column": 7,
+        "key": "stun_floor",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 337,
+        "column": 7,
+        "key": "limp_at_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 338,
+        "column": 7,
+        "key": "limp_seconds",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 339,
+        "column": 5,
+        "key": "joint_relative_damping_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 340,
+        "column": 5,
+        "key": "joint_maximum_brake_radians_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 341,
+        "column": 5,
+        "key": "speculative_contact_margin_metres",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 342,
+        "column": 5,
+        "key": "maximum_seed_speed_metres_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 343,
+        "column": 5,
+        "key": "maximum_seed_spin_radians_per_second",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      },
+      {
+        "line": 344,
+        "column": 5,
+        "key": "terrain_horizontal_velocity_retention",
+        "disposition": "YAML mapping key admitted by corresponding typed serde configuration field; no opaque application selector retained"
+      }
+    ],
+    "non_key_string_scalars": [
+      {
+        "line": 116,
+        "value": "Chest",
+        "owner": "adventuresim_core::body::BodyPart",
+        "disposition": "canonical externally tagged unit-variant spelling, retained as BodyPart"
+      },
+      {
+        "line": 146,
+        "value": "Head",
+        "owner": "adventuresim_core::body::BodyPart",
+        "disposition": "canonical externally tagged unit-variant spelling, retained as BodyPart"
+      },
+      {
+        "line": 147,
+        "value": "Chest",
+        "owner": "adventuresim_core::body::BodyPart",
+        "disposition": "canonical externally tagged unit-variant spelling, retained as BodyPart"
+      },
+      {
+        "line": 148,
+        "value": "Stomach",
+        "owner": "adventuresim_core::body::BodyPart",
+        "disposition": "canonical externally tagged unit-variant spelling, retained as BodyPart"
+      },
+      {
+        "line": 149,
+        "value": "LeftArm",
+        "owner": "adventuresim_core::body::BodyPart",
+        "disposition": "canonical externally tagged unit-variant spelling, retained as BodyPart"
+      },
+      {
+        "line": 150,
+        "value": "RightArm",
+        "owner": "adventuresim_core::body::BodyPart",
+        "disposition": "canonical externally tagged unit-variant spelling, retained as BodyPart"
+      },
+      {
+        "line": 151,
+        "value": "LeftLeg",
+        "owner": "adventuresim_core::body::BodyPart",
+        "disposition": "canonical externally tagged unit-variant spelling, retained as BodyPart"
+      },
+      {
+        "line": 152,
+        "value": "RightLeg",
+        "owner": "adventuresim_core::body::BodyPart",
+        "disposition": "canonical externally tagged unit-variant spelling, retained as BodyPart"
+      }
+    ],
+    "other_text": "No comments, quoted free-form prose, paths, URIs or arbitrary identifiers present in original YAML. Numeric/boolean scalars remain outside this string-lens packet.",
+    "inventory_recording": "Enumerates every mapping-key occurrence, including all inline hitbox-map keys, and all eight non-key BodyPart spelling occurrences. Extracted after complete body read, not used for source-consumption credit."
+  },
+  "receiving_traces": [
+    {
+      "id": "YAML-SCHEMA",
+      "source": "combat.yaml1-344",
+      "owner": "combat_config.rs53-423, core/config.rs plus fatigue_config.rs/weapon_contact_config.rs and registered physical leaf modules",
+      "trace": "All mapping labels are schema member identifiers. TacticalCombatConfig and nested schema structs derive Serialize/Deserialize with deny_unknown_fields. Default canonical loader includes exact authored path, invokes serde_saphyr::from_str<TacticalCombatConfig>, validates, and retains typed config in LazyLock. Full field labels are not retained as runtime string dispatch tokens. Custom AuthoredCadenceCap deserializes via strict CadenceCapInput, then TryFrom calls new; no blanket native primitive exemption."
+    },
+    {
+      "id": "BODY-PART",
+      "source": "ai.ordinary.offense.target_body_part and targeting.body_part_hitboxes[*].body_part",
+      "owner": "core/body.rs BodyPart; combat_config/ai_offense.rs target_body_part and combat_config.rs BodyPartHitboxConfig",
+      "trace": "Chest and seven body-part list spellings map to derived serde unit variants LeftArm,RightArm,LeftLeg,RightLeg,Chest,Stomach,Head. Their human Display labels have spaces and are separate presentation text; unrelated BodySide snake_case annotation does not rename BodyPart. validate requires seven hitboxes and unique typed exhaustive body_part_index results. Bodies retain BodyPart, not String."
+    },
+    {
+      "id": "NATIVE-YAML",
+      "owner": "serde-saphyr1.2.0 exact registered native API/with_deserializer/deserializer ranges",
+      "trace": "api::from_str delegates default options to from_str_with_options_impl and T::deserialize callback. with_deserializer constructs LiveEvents, YamlDeserializer, executes callback, then probes for extra documents and finishes. deserialize_struct enables struct_mode and uses map visitor. next_key_seed captures mapping key, passes recorded events to YamlDeserializer with in_key=true, invokes serde key seed; deserialize_identifier delegates to string visitor. Enum scalar view becomes Mode::Unit, EnumAccess gives effective identifier to serde visitor, unit variant is accepted without payload. This hands native text to canonical derived schema/enum owners; native library does not own gameplay meaning."
+    },
+    {
+      "id": "RETAINED-CONFIG",
+      "owner": "defaults.rs1-26; runtime.rs1-71",
+      "trace": "Canonical typed config retained in LazyLock; Default clones canonical. install_runtime_snapshot validates before copying full typed config into OnceLock<RwLock<TacticalCombatConfig>> and incrementing runtime version. animation accessor copies typed fields via thread-local cache; presentation and melee getters clone typed values. No re-parsing of key or BodyPart strings is visible in these retained receiving bodies."
+    },
+    {
+      "id": "BUILD-PROJECTION",
+      "owner": "build.rs72-76; build/combat_resolution.rs1-275; core/config.rs1-122",
+      "trace": "Build entry calls combat_resolution::compile at workspace root. Compile reads content/tactical/combat.yaml, deserializes a smaller build schema, formats Rust source for retained typed constants and writes generated output. Unlike full tactical schema this projection does not deny unknown fields and ignores schema_version. Some generated autoresolve values are projected from movement/AI, documented in observations. It is a concrete native source-generation/text boundary, not proof every authored tactical key is consumed by core."
+    },
+    {
+      "id": "NUMERIC-ENUM-EXCEPTION",
+      "owner": "combat_config/ragdoll.rs1-112",
+      "trace": "MuscleRelease uses serde try_from Option<f32>/into Option<f32>; authored limp_at_seconds numeric value is Some\u2192checked duration\u2192After, null would be Never. Never/After are not YAML string discriminants in this file."
+    }
+  ],
+  "observations": [
+    {
+      "id": "P16-DUPLICATE-IMPORT",
+      "locations": [
+        "combat_config.rs1",
+        "combat_config.rs10"
+      ],
+      "status": "source observation, no new unique finding",
+      "detail": "Frozen receiver imports SignedLength under the same name from fabelgeist_geometry and adventuresim_building_generator::spatial_geometry. P16 source is WIP; declarative string contract trace does not establish compilation or runtime success. Parent must reconcile against inherited/current F1 family before any accepted finding/repair."
+    },
+    {
+      "id": "BUILD-AUTHORITY-PROJECTION",
+      "locations": [
+        "build/combat_resolution.rs92-275",
+        "combat_config.rs53-66"
+      ],
+      "status": "source-backed inherited authority/behavior reconciliation obligation; no unique finding invented",
+      "detail": "Generated autoresolve guarded speed uses movement.speeds.raised_guard; lunge speed uses movement.speeds.run; maximum lunge uses movement.motor.reference_quickstep_target_displacement; drive force/leg strength/gravity/traction use movement.motor; dodge chance uses ai.defense; long-measure/reach use ai.offense. Full tactical schema separately consumes authored autoresolve members. Do not assert parallel authored fields share authority or values remain coherent."
+    },
+    {
+      "id": "TEXT-ERROR-BOUNDARIES",
+      "locations": [
+        "combat_config.rs424-442",
+        "combat_config.rs750-758",
+        "core/config.rs validate"
+      ],
+      "status": "retained F9/string error migration qualification",
+      "detail": "Validation carries static prose, serialization wraps error.to_string, digest returns String. These reached text APIs are not certified stable classifications/bespoke digest owners; no F9 closure. Original40 itself contains neither diagnostic prose nor digests."
+    }
+  ],
+  "receiver_fingerprints": [
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "source_id": "physical-p16:crates/adventuresim-core/build.rs",
+      "sha256": "fc42ea1f2234144e94d6bfac86f254cd059799b9f9e5ae6de7f77e3125f19b7c",
+      "registered_ranges": [
+        [
+          1,
+          509
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "source_basis": "exact known frozen SHA object",
+      "provenance_receipt": null
+    },
+    {
+      "path": "crates/adventuresim-core/build/combat_resolution.rs",
+      "source_id": "physical-p16:crates/adventuresim-core/build/combat_resolution.rs",
+      "sha256": "79ebf48add6f1035ba223c7d310864e958145bdb580ab8fd0189eac3700ff9c5",
+      "registered_ranges": [
+        [
+          1,
+          275
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          275
+        ]
+      ],
+      "source_basis": "exact known frozen SHA object",
+      "provenance_receipt": null
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/config.rs",
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/config.rs",
+      "sha256": "cc2a62a000314375ca41307ed50b057e71d670192954b4aee7774a69fe2e976a",
+      "registered_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "source_basis": "exact known frozen SHA object",
+      "provenance_receipt": null
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "6f50079ada28d050e5bfea42953c9c789e0da99bde9ea8af38f69a2240f4c47c",
+      "registered_ranges": [
+        [
+          1,
+          827
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          827
+        ]
+      ],
+      "source_basis": "exact known frozen SHA object",
+      "provenance_receipt": null
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/ai_offense.rs",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/ai_offense.rs",
+      "sha256": "cede3ecf1ccb8e95c2d4fedb6196a0a8137451304361c35822cafbe9c5f799e7",
+      "registered_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "source_basis": "exact known frozen SHA object",
+      "provenance_receipt": null
+    },
+    {
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\combat_config\\runtime.rs",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "sha256": "5d254790fa2ec7e53bc749b18bfc8f4d89a1df367c3542f8f969403641c8a970",
+      "registered_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "source_basis": "exact known frozen SHA object",
+      "provenance_receipt": null
+    },
+    {
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\combat_config\\procedural.rs",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+      "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+      "registered_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "source_basis": "exact known frozen SHA object",
+      "provenance_receipt": null
+    },
+    {
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\combat_config\\ragdoll.rs",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+      "sha256": "af87991f5cb3f8fd2a6398ea5135c5daacd24c7b9c2b23181ebecec7bc516ad3",
+      "registered_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "source_basis": "exact known frozen SHA object",
+      "provenance_receipt": null
+    },
+    {
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\combat_config\\playback.rs",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+      "sha256": "6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+      "registered_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "source_basis": "exact known frozen SHA object",
+      "provenance_receipt": null
+    },
+    {
+      "path": "SNAPSHOTS/p16/crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+      "sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+      "registered_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "source_basis": "exact known frozen SHA object",
+      "provenance_receipt": null
+    },
+    {
+      "path": "crates/adventuresim-core/src/body.rs",
+      "source_id": null,
+      "sha256": "febe5d8b193afe3cefa2292965bb42c15d4a5d25aef8a2f3c9fea757b3720317",
+      "registered_ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "source_basis": "exact known frozen SHA object",
+      "provenance_receipt": null
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/fatigue_config.rs",
+      "source_id": null,
+      "sha256": "a899b7bacdfbcbc116a93ff6adc283bfb56bea396687713dc3677ff505522ce9",
+      "registered_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "source_basis": "exact known frozen SHA object",
+      "provenance_receipt": null
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/weapon_contact_config.rs",
+      "source_id": null,
+      "sha256": "ad51483d70e3e95165e16c92b3d3e270e381db2c9aa9135056cb6484e3e1b287",
+      "registered_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "source_basis": "exact known frozen SHA object",
+      "provenance_receipt": null
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/landing.rs",
+      "source_id": null,
+      "sha256": "d2e6f0bf1986b9465dec28c0b29c39db72b5470d50c0d8ce55332f6f8d1c0831",
+      "registered_ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "source_basis": "Exactbaseobject for unchangedreceiver; frozenphysicalmanifest159changed/status records have no matchingpath",
+      "provenance_receipt": "audit12-original40-leaf-recovery-001.json"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/maneuvers.rs",
+      "source_id": null,
+      "sha256": "619803fcb9f24448df76fd87b28028c86c520edd9b41dbc7b29033c8b432234f",
+      "registered_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "source_basis": "Exactbaseobject for unchangedreceiver; frozenphysicalmanifest159changed/status records have no matchingpath",
+      "provenance_receipt": "audit12-original40-leaf-recovery-001.json"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/pose_buffer.rs",
+      "source_id": null,
+      "sha256": "3cced457f7299b93a524ecf97ec487ea9ffe33d0c522293dbba1d80e6ee70b39",
+      "registered_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "source_basis": "Exactbaseobject for unchangedreceiver; frozenphysicalmanifest159changed/status records have no matchingpath",
+      "provenance_receipt": "audit12-original40-leaf-recovery-001.json"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/incapacitation_forecast.rs",
+      "source_id": null,
+      "sha256": "649c01638b6d8607238b47f06392809a678d8d12bc88461a614b8dd3b0c57aba",
+      "registered_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "source_basis": "Exactbaseobject for unchangedreceiver; frozenphysicalmanifest159changed/status records have no matchingpath",
+      "provenance_receipt": "audit12-original40-leaf-recovery-001.json"
+    },
+    {
+      "path": "serde-saphyr-1.2.0/src/de/mod.rs",
+      "source_id": null,
+      "sha256": "cbc20d3e9e4ee10ebd01489d90b7599f7159879a4cd881b8e4a1b0ce252568e7",
+      "registered_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "source_basis": "Current local cached lock-matching archive member; original frozen error.rs peer matches, not proof of every file frozen identity",
+      "provenance_receipt": null
+    },
+    {
+      "path": "serde-saphyr-1.2.0/src/de/api.rs",
+      "source_id": null,
+      "sha256": "02fd000004106ce209ca065c78b70c71a7b86ac03a3ddbedd48eb7e577358ce7",
+      "registered_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "source_basis": "Current lock-matching cached archive, same provenance as de/mod.rs",
+      "provenance_receipt": null
+    },
+    {
+      "path": "serde-saphyr-1.2.0/src/de/deserializer.rs",
+      "source_id": null,
+      "sha256": "72b755ac168c5dd782c5b1bea90fce7488a9d4b9ba713fe26be33b553973362a",
+      "registered_ranges": [
+        [
+          319,
+          377
+        ],
+        [
+          1037,
+          1125
+        ],
+        [
+          1621,
+          1655
+        ],
+        [
+          1773,
+          2407
+        ],
+        [
+          2416,
+          2910
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          319,
+          377
+        ],
+        [
+          1037,
+          1125
+        ],
+        [
+          1621,
+          1655
+        ],
+        [
+          1773,
+          2407
+        ],
+        [
+          2416,
+          2737
+        ],
+        [
+          2860,
+          2910
+        ]
+      ],
+      "source_basis": "Current lock-matching cached archive, same provenance as de/mod.rs",
+      "provenance_receipt": null
+    },
+    {
+      "path": "serde-saphyr-1.2.0/src/de/with_deserializer.rs",
+      "source_id": null,
+      "sha256": "c6304415acbe2cb08fe5a730da8625f2c4631d111b7dccde6dad44c2d5e34c95",
+      "registered_ranges": [
+        [
+          1,
+          222
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          222
+        ]
+      ],
+      "source_basis": "Current lock-matching cached archive, same provenance as de/mod.rs",
+      "provenance_receipt": null
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/cadence_limit.rs",
+      "source_id": "physical-p16-unchanged:crates/adventuresim-tactical-core/src/animation/cadence_limit.rs",
+      "sha256": "c8a718000e7ca797858aa79c1569d3a357a508e5bf319e75a1662bb47ebbf4c3",
+      "registered_ranges": [
+        [
+          1,
+          174
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          174
+        ]
+      ],
+      "source_basis": "exact known frozen SHA object",
+      "provenance_receipt": "audit12-original40-leaf-recovery-002.json"
+    }
+  ],
+  "limits": [
+    "Only original40 independent root lens12 role assessed. Original0-39 not restarted; other original receiver bodies do not gain population/lens13/other-lens credit.",
+    "Exact registered original and existing receiver objects came from frozen f82 hash objects. Five unchanged physical receivers recovered using exact a120 base and frozen manifest159changed/status records with no matching path; matching pr-working hashes do not import its verdict or presume dirty bytes.",
+    "New serde-saphyr native members are current local archive additions proven against lock checksum plus frozen peer, not assumed frozen source objects. No whole native library, parser grammar, interpolation/aliases/tags/duplicate policy, serde code generation, or all accepted-input proof is claimed.",
+    "Actual native map/key/enum receiving bodies read only at recorded intervals; unseen native tails remain unassessed. No archive-wide/member-wide clearance beyond actual consumed scopes.",
+    "Typed config retention/getters are traced. Downstream gameplay/rendering/physics semantics, live external config loader paths, alias resolution, numerical invariants and all current callers are not claimed. This bounded original text assessment does not close inherited F1/F2/F6/F9 or other findings.",
+    "Existing tests visible within whole registered receiver files may have been read as source; no tests/cases/helpers/assertions/doctests added or executed. No project execution, product/source/git mutation, root ledger/historical overwrite or publication.",
+    "Full YAML body was actually consumed before inventory extraction. Metadata searches and generated inventory are locators/recording only, not source-consumption substitutes."
+  ],
+  "new_unique_count": 0,
+  "proposed_coverage": {
+    "original_accounted_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40
+    ],
+    "original_accounted": 41,
+    "original_total": 2853,
+    "next_original": 41,
+    "partial_original_indices": [],
+    "scope_complete_is_clearance": false
+  },
+  "project_execution": false,
+  "source_changes": false,
+  "git_mutations": false,
+  "other_lens_credit": false,
+  "global_clearance": false,
+  "assignment_stop": "Stop after original40; root adoption and continued original41 work require parent action."
+}

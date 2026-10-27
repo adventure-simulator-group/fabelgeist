@@ -1,0 +1,11 @@
+{
+  "candidate": "derive-candidate-008.json",
+  "scope_index": 1835,
+  "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/policy.rs",
+  "range": [60,64],
+  "same_remedy": "SupportGrade(f32) manual Display delegates ratio().fmt(f), and actual ratio()24-26 returns self.0 without computation. Existing derive_more::Display forwards that same single f32 field to the unchanged Formatter, as established by exact pinned macro proof008. Add the existing derive and remove only this manual Display.",
+  "preserved_semantics": "Keep manual Deserialize28-33: it admits finite strictly positive f32 and preserves its concrete rejection message. Standard transparent raw Deserialize would bypass that validation. No additional TryFrom/raw API is necessary just to move this small semantic adapter.",
+  "new_unique_findings_claimed": 0,
+  "checks": "not run",
+  "source_edits": false
+}

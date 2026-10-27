@@ -1,0 +1,230 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "071",
+  "predecessor": "receipt-070-originals332-338.json",
+  "manifest_prefix_sha256": "ff13f0d67fbea0fabdb161736cdbb10fb69e6d5b2ec7416277e9401ea93ab560",
+  "sources": [
+    {
+      "original_index": 339,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/environment.rs",
+      "sha256": "b6c219d19f45e18cf058bfa3ec4a06e826e50c2ae83d122e8d421f418dc31dbc",
+      "actual_eof": 577,
+      "actual_ranges": [
+        [
+          1,
+          270
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-270",
+          "role": "Only literal Name::new Tactical gameplay camera215 at native Bevy diagnostic entity naming. No other String-valued API in requested range. End269-270 begins apply_active_environment_fog signature only.",
+          "disposition": "Concrete native name boundary;271-577 not read/accounted. Typed AntiAliasing/Tonemapping/SceneEnvironment roles read locally, no renderer/native/numerical validation."
+        }
+      ],
+      "status": "Requested source independently read WITH findings/scoped text/zero roles; unread contracts explicit."
+    },
+    {
+      "original_index": 340,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/strategic_scene/equipment.rs",
+      "sha256": "a5276f1904f7b2072d0b173663ed3592075960f11ef193b5ffc0688023523a41",
+      "actual_eof": 150,
+      "actual_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-150",
+          "role": "Raw item/placement/attachment references copied into ItemProperties.id77/EquipmentTopology.placement88/attachment_point_id103; native String occupancy_id format presentation:{item.id}:{index}95 uses typed PresentationId key57/95. Catalog definition lookup61.",
+          "disposition": "Carry canonical open item/placement/attachment and occupancy identity owners through actual appearance producer/retained topology/native mesh consumers; existing core equipment presentation owners reused, not invented closed catalog. Actual328socket recipient read; exact topology occupancy consumer and protocol appearance producer still pending. Format95 is internal semantic ID, no blanket native-format exemption."
+        }
+      ],
+      "status": "Requested source independently read WITH findings/scoped text/zero roles; unread contracts explicit."
+    },
+    {
+      "original_index": 341,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera.rs",
+      "sha256": "b8ca7d503b8d6de9b9f0892346e97eb71f3a801b68012337f4943be7e7057af9",
+      "actual_eof": 265,
+      "actual_ranges": [
+        [
+          1,
+          265
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-265",
+          "role": "CaptureCameraError Display templates21/23/25/27/29/31 carry typed pose payload and canonical nested Animation/Geometry/Camera/Terrain error variants13-20; all CapturePose dispatch typed222-264. No String-valued application API.",
+          "disposition": "Native error display boundary, not authoritative prose matching. Children342/343 independently read; delegated plant/fault/debris/native and state admission bodies not credited. No numerical/camera/BC behavior preservation requirement from comments."
+        }
+      ],
+      "status": "Requested source independently read WITH findings/scoped text/zero roles; unread contracts explicit."
+    },
+    {
+      "original_index": 342,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/landscape.rs",
+      "sha256": "0ca70d46d9aafbe4f1fef2e245b771e23fd6a79eb7263b7937c6306ed1068a11",
+      "actual_eof": 101,
+      "actual_ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-101",
+          "role": "No literals or String-valued API. Typed vista observations/positions/directions/capture errors flow to actual343 view constructor at29/44/71/80/94.",
+          "disposition": "Zero string role from actual full material source; no numerical/native/other-lens acceptance."
+        }
+      ],
+      "status": "Requested source independently read WITH findings/scoped text/zero roles; unread contracts explicit."
+    },
+    {
+      "original_index": 343,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/placement.rs",
+      "sha256": "6f16515e0ef35ed320d6c8b862676bb68e853ba485c30454c7c049a6c61bfa0c",
+      "actual_eof": 60,
+      "actual_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-60",
+          "role": "No literals or String-valued API. Typed SceneCameraView positions/target/orientation throughout, InvalidView variant31/32. Native Transform52-58 numerical boundary.",
+          "disposition": "Zero string role; comment55 original arithmetic does not impose backward compatibility. No native numerical correctness/other-lens proof."
+        }
+      ],
+      "status": "Requested source independently read WITH findings/scoped text/zero roles; unread contracts explicit."
+    },
+    {
+      "original_index": 344,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/targeting.rs",
+      "sha256": "d98b3d7ac9f2dd1dfd08f9eaa0442053cdc84b0e110c02d79de04eadafa0529f",
+      "actual_eof": 103,
+      "actual_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-103",
+          "role": "Generic auto_aim_candidate<T> retains caller type. Existing fixture candidates nearby side68/pointed69+72/behind84+86/far98 are arbitrary opaque equality values exercising generic T identity, no string dispatch or parsing. Production numerical body1-53 has zero strings.",
+          "disposition": "Existing generic fixture equality boundary supports any Copy candidate type; no purpose-specific gameplay string owner implied. No tests executed or geometry/ranking/runtime/lens08 acceptance."
+        }
+      ],
+      "status": "Requested source independently read WITH findings/scoped text/zero roles; unread contracts explicit."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Strategic appearance references and occupancy identity remain raw through runtime topology",
+      "sources": [
+        "340:61,77,88-104",
+        "328:1044-1051",
+        "324:catalog/topology fixture producer"
+      ],
+      "remedy": "Carry existing open catalog/placement/attachment and coherent occupancy identity through producer/state/receiver; encode at actual codec/native asset boundary only.",
+      "acceptance": "Read exact protocol/appearance producer and occupancy consumers before repair; preserve qualified canonical alias, no closed catalog enum or runtime assertion.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "339271-577 outside requested material range;269-270 only partial next signature.",
+    "340 appearance protocol producer and topology occupancy consumer unread;328 socket lookup actual receiver scope only.",
+    "CapturePose delegated camera/state/native numerical kernel authority remains qualified; no child/native/runtime transfer."
+  ],
+  "qualifications": [
+    "Frozen f82 physical-P16 only; no current alias.",
+    "No backward-compatibility/input preservation; no project/native/test/probe execution or product/Git/root-ledger/publication mutation.",
+    "All inherited all20/P16/P17/F9/M09/aliases/currentness retained; no repaired/global/runtime/unique-total/other-lens clearance."
+  ],
+  "proposed_count": {
+    "before": 339,
+    "after": 345,
+    "indices_completed": [
+      339,
+      340,
+      341,
+      342,
+      343,
+      344
+    ],
+    "next_original": 345,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/environment.rs",
+      "sha256": "b6c219d19f45e18cf058bfa3ec4a06e826e50c2ae83d122e8d421f418dc31dbc",
+      "ranges": [
+        [
+          1,
+          270
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/strategic_scene/equipment.rs",
+      "sha256": "a5276f1904f7b2072d0b173663ed3592075960f11ef193b5ffc0688023523a41",
+      "ranges": [
+        [
+          1,
+          150
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera.rs",
+      "sha256": "b8ca7d503b8d6de9b9f0892346e97eb71f3a801b68012337f4943be7e7057af9",
+      "ranges": [
+        [
+          1,
+          265
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/landscape.rs",
+      "sha256": "0ca70d46d9aafbe4f1fef2e245b771e23fd6a79eb7263b7937c6306ed1068a11",
+      "ranges": [
+        [
+          1,
+          101
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/placement.rs",
+      "sha256": "6f16515e0ef35ed320d6c8b862676bb68e853ba485c30454c7c049a6c61bfa0c",
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/targeting.rs",
+      "sha256": "d98b3d7ac9f2dd1dfd08f9eaa0442053cdc84b0e110c02d79de04eadafa0529f",
+      "ranges": [
+        [
+          1,
+          103
+        ]
+      ]
+    }
+  ]
+}

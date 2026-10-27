@@ -1,0 +1,30 @@
+{
+  "id": "CONT08-020-COMPOUND-REGISTRATION",
+  "created_utc": "2026-10-27T05:08:34.745402+00:00",
+  "provenance": {
+    "path": "target/recovery-20261025/continuation-segovb/audit08-root-compound-staging-020.json",
+    "sha256": "d0ab0dc6fd3fe0810dc2c0483130780d3264b5b363b9fdbb7d91a03290bbe8d2"
+  },
+  "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+  "sources": [
+    {
+      "role": "base",
+      "sha256": "8d64dedb165f7ed83c658f1f3126c264e7d67aef759ccaeed83843d99190c86b",
+      "lines": 93,
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/8d64dedb165f7ed83c658f1f3126c264e7d67aef759ccaeed83843d99190c86b"
+    },
+    {
+      "role": "head",
+      "sha256": "8d64dedb165f7ed83c658f1f3126c264e7d67aef759ccaeed83843d99190c86b",
+      "lines": 93,
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/8d64dedb165f7ed83c658f1f3126c264e7d67aef759ccaeed83843d99190c86b"
+    }
+  ],
+  "prospective_ranges": [
+    [
+      1,
+      93
+    ]
+  ],
+  "reason": "Actual CityPlotBounds reexport/type declaration ports reached from parent city_layout.rs32-36; only called bounds contracts assessed, no unrelated compound behavior coverage."
+}

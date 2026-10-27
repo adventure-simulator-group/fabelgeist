@@ -1,0 +1,23 @@
+--- 6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/Cargo.toml
++++ 13fc9dcc71ab879de364117e5462310673e43210:crates/adventuresim-tactical-client/Cargo.toml
+@@ -13,10 +13,11 @@
+ tracy = ["bevy/trace_tracy", "dep:tracing-tracy", "dep:tracing-subscriber", "dep:tracy-client-sys"]
+ # See src/lib.rs - only used by crates/adventuresim-tactical-brp-generator.
+ remote-types = ["debug"]
+ 
+ [dependencies]
++fabelgeist-math = { path = "../fabelgeist-math", default-features = false }
+ fabelgeist-geometry.workspace = true
+ derive_more = { version = "2.1.1", default-features = false, features = ["debug", "display", "from", "into", "deref"] }
+ strum = { version = "0.27.2", features = ["derive"] }
+ fabelgeist-rig.workspace = true
+ thiserror.workspace = true
+@@ -124,8 +125,7 @@
+ doc = false
+ required-features = ["debug"]
+ 
+ [dev-dependencies]
+ fabelgeist-bvh = { path = "../fabelgeist-bvh", default-features = false }
+-fabelgeist-math = { path = "../fabelgeist-math", default-features = false }
+ gltf = { version = "1.4", default-features = false, features = ["utils", "names"] }
+ pollster = "0.4"

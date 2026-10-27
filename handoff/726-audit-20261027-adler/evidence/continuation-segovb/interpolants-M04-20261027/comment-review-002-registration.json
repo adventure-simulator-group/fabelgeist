@@ -1,0 +1,80 @@
+{
+  "head": "903174935e1d8a07293105a9bccff17325489f3d",
+  "base": "35b18ec280a6884bb53996a2d859c4b27096f65c",
+  "manifest_path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/implementation-manifest-002.json",
+  "manifest_sha256": "96d764066b163106ad0d4da4c11ccf3f9da8ca6f3334076e6584b1344681dd62",
+  "source_pins": [
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "b1561f750844b7395f96f8fe2ee767db88d73fb8d8b6e997779493130b09f877",
+      "lines": 173,
+      "unchanged_from_review001": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "7cca5e5cef2f3c3a5a11c88dba547195f36d61f4665f157c8d55eedc30179eab",
+      "lines": 267,
+      "unchanged_from_review001": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "sha256": "3acaf77c189e6ab8abcd972e5615276d945a1ca6772ee90246feef673e8a2c69",
+      "lines": 207,
+      "unchanged_from_review001": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "sha256": "09565d01fd8fabbf899d84f107bdbf9c16fd6149ec61f51714599d160c1260e0",
+      "lines": 218,
+      "unchanged_from_review001": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "51a510d3c5f039d6b7eb4ce2b1511432fb3415bf0b15152d036ec01a6394f9c8",
+      "lines": 525,
+      "unchanged_from_review001": true
+    },
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "0ad5e0e1b2b062d47f48af303bc97f1259f6d4ac99c62bef9b42588b183233b4",
+      "lines": 595,
+      "unchanged_from_review001": false
+    }
+  ],
+  "new_workflow": {
+    "path": ".github/workflows/rust-quality.yml",
+    "sha256": "0ad5e0e1b2b062d47f48af303bc97f1259f6d4ac99c62bef9b42588b183233b4",
+    "prospective_ranges": [
+      [
+        1,
+        595
+      ]
+    ],
+    "reason": "New workflow execution/positive-gate names and materially connected recording/upload context; actual ranges recorded after navigation."
+  },
+  "diff": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/source-002.diff",
+    "sha256": "b65a637241a90525b10c8b0b7badce3e5705a7cdb80bf8fa81cd58137b3141a8",
+    "prospective_ranges": [
+      [
+        1,
+        184
+      ]
+    ]
+  },
+  "body": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/pr-body-002.md",
+    "sha256": "a45e6fc49a19360744caaa7a4569275cc40a463131d06dc128d5758eea7a2329",
+    "prospective_ranges": [
+      [
+        1,
+        24
+      ]
+    ]
+  },
+  "prior_source_receipt": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/comment-review-001.json",
+    "sha256": "62afc26c99d5c160b497b46fadef9ecf54331bfb0756c3ef6f4be45609505d8a"
+  },
+  "reason": "Supplemental exact-head Comment Review; own accepted five Rust source body proof retained only at verified unchanged hashes. No project execution/source edits."
+}

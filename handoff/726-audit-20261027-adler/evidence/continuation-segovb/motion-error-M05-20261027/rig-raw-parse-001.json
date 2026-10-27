@@ -1,0 +1,921 @@
+{
+  "at": "2026-10-27T03:14:03.787223+00:00",
+  "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd",
+  "run": 40436696284,
+  "run_conclusion": "success",
+  "required_workflow_labels": [
+    "rig",
+    "autoresolve",
+    "contact-defense",
+    "mhr",
+    "strategic-bootstrap",
+    "geometry-admission",
+    "geometry-doc",
+    "native-iteration",
+    "camera",
+    "equipment-chronology",
+    "equipment-mapping",
+    "animation",
+    "audio",
+    "weather-audio",
+    "animation-reports",
+    "equipment",
+    "maneuver-consumers",
+    "creator-armor-frames",
+    "creator-clothing",
+    "creator-device-frames",
+    "creator-gorget-bib",
+    "creator-gorget-collar",
+    "creator-wrapped-tasset",
+    "creator-export",
+    "creator-garment",
+    "creator-runtime-equipment",
+    "creator-skin-rules",
+    "creator-torso-domain",
+    "creator-underlayer-design",
+    "creator-character-morphs",
+    "creator-animation-preview",
+    "creator-device-bracer",
+    "creator-device-breastplate",
+    "terrain-scene",
+    "terrain-scene-input",
+    "terrain-scene-coordinates",
+    "terrain-grounding",
+    "terrain-server-gates",
+    "terrain-landforms",
+    "terrain-erosion",
+    "terrain-extraction",
+    "terrain-presentation",
+    "terrain-strategic",
+    "terrain-viewer",
+    "terrain-art-demo",
+    "terrain-dispatcher",
+    "terrain-inspection",
+    "terrain-animation-capture"
+  ],
+  "required_positive_groups": 48,
+  "additional_positive_groups": [
+    "tactical-core-animation",
+    "tactical-core-combat-config",
+    "tactical-server-startup"
+  ],
+  "raw": {
+    "rig": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 5,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "status": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 7,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "dd334ac458935a097e8ae8e013ab7a481af583e834877782b6ad1077316d264e"
+    },
+    "autoresolve": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 76,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 76,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "8fe9178f98815381c6b9ceddc50e2303be3838065045d26edfebae067e5c786e"
+    },
+    "contact-defense": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 8,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 8,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "59de59026ed00baa6a2684546c26fbd59426a390fca4270ff3668de6d1c62fa0"
+    },
+    "mhr": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 18,
+          "failed": 0,
+          "ignored": 0
+        },
+        {
+          "status": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 19,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "492deff16d1dafc79e1fea7551dd23cf239822ce6dd7ad26a739ba0f21c30681"
+    },
+    "strategic-bootstrap": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 178,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 178,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "877256287aea310cd3708a50952e59791e7d459c1dd9e105437b9b8885060b26"
+    },
+    "geometry-admission": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 6,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 6,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "691288e9f38f5f67246f6493a81f9a192f170f4d35e827e83944df12dd685611"
+    },
+    "geometry-doc": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 2,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "72b4e5e2e0fab51a9e223f953450e4ae45d5e5faf77c5a224c9c3b0c2633a5f7"
+    },
+    "native-iteration": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 10,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 10,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "d4cbd41910efe7ec20cc6bf7bccf58771ac80208271bb2336470ed2a35c8c90f"
+    },
+    "camera": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 11,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 11,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "8f70cca89e4654acf26422ebf393288e4d54cf99533a6ec10b8ca14a17b09f08"
+    },
+    "equipment-chronology": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 18,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 18,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "41d33a050e2b83476633b388e9262361b70865eee23474813d1019e3c8232c82"
+    },
+    "equipment-mapping": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 5,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 5,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "4449d2d89330004d53b6ef694e08009105f743ffd7b240a1c25ec95a39a9a1f0"
+    },
+    "animation": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 260,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 260,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "a941886286a4d96afb1cd44259d15a09d472b0764c70de4abe8df79a89aab956"
+    },
+    "audio": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 1,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "1ee0fecc8ddc7b12498ea7effaadaf02cf035245fc39f9a89717424575f90d03"
+    },
+    "weather-audio": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 2,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "d8d10d448f37a6cde859e412fe37d1c95826237ec2329ec70ae84ea5067953cf"
+    },
+    "animation-reports": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 26,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 26,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "3e7b1e9e7737bdc8187ec1c1cdd845872c2fe8db9a25935355de354ea79c9149"
+    },
+    "equipment": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 47,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 47,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "f10de93445b3cc3e9fc602b6bb3b9923d71f5fb6ef096fb012d4b8ada4c208fa"
+    },
+    "maneuver-consumers": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 33,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 33,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "50c89ed423ba0a78d253116cfac63515da0d4905588745a377f14612fa5b3859"
+    },
+    "creator-armor-frames": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 2,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "5757de6ecd5ec88e5ab49689179d0a52c30edb7750079a33e2a715ab9b60a889"
+    },
+    "creator-clothing": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 11,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 11,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "5e755571e271d72dfcedad6c8c9b67b80f7d2777806affe8f04fdc14e200dea8"
+    },
+    "creator-device-frames": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 4,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 4,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "f24d8e58ca20674b0cd2eefb2ed899c6c68fbd55f36ebecf48c38875dc273212"
+    },
+    "creator-gorget-bib": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 1,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "d2fb58952cba283a002234de4ab6009fc160d0e78f4bea01d712e9451aa2da0d"
+    },
+    "creator-gorget-collar": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 2,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "128a6d3e97d7cef056f1ff5039f425578f0b21d7bc5dcdbf23e1ee4270609878"
+    },
+    "creator-wrapped-tasset": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 1,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "9b32b9db1c5d1709a835f22345793ca7008682106875921212b1f8b38473994b"
+    },
+    "creator-export": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 12,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 12,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "9cf31d40d456da98a1206c9a64d74b70a878dae3e152ebbe0c9ddcca853587ae"
+    },
+    "creator-garment": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 37,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 37,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "12a9d23e1ac7ae15b90405be1a5ea2d446cfaca45fad86eaa7c82386f28a7fed"
+    },
+    "creator-runtime-equipment": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 1,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "6552c534b2bd8b1c51f7317416ea113f84bdaf2b8ce89b2fe9a0a1ec1f0abe94"
+    },
+    "creator-skin-rules": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 6,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 6,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "ca87ef5df9c579bacdb31936f92ef487c8a884e30360ca7752fe3074c93637dc"
+    },
+    "creator-torso-domain": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 3,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "ee198e7c707d0a3c1881ba8c189d2f9ef7e482d6bbba6da01f7d3ed6f54d3cfe"
+    },
+    "creator-underlayer-design": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 1,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "8705583524b16fa1117516bc5759b9883c0a12f7bdbdfacc0748e5699e7dbc58"
+    },
+    "creator-character-morphs": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 2,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "1c00f860ba9781e693282dffbdea6b6ee2d233f2ea7d0a42b0323117745f9328"
+    },
+    "creator-animation-preview": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 5,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 5,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "05d9f5166d990f705e884e293bce03ad76b61f24d03def0ebb42282a5eacfcbc"
+    },
+    "creator-device-bracer": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 4,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 4,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "974db0e1f5dbcf5db0ee95829ae38a405ce141f866f2daace2c6f6a79c5e85a8"
+    },
+    "creator-device-breastplate": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 1,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "47621c7f21304b797496d93f539e933e378b9850ef95f4b998eabdf2ddef4e34"
+    },
+    "terrain-scene": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 14,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 14,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "fe47f10383f76656ec311706f4c1c54630ecd7300ab018f410ef0cd4ef7c2999"
+    },
+    "terrain-scene-input": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 70,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 70,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "80ad8ab388fc7de76e8175278e32962e88ad62d442f3ce3558d76e38decadf0e"
+    },
+    "terrain-scene-coordinates": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 6,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 6,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "c9cead47148c69f2c25ae0178cb87617cec674a96fb08a503036b1e4b9373ad2"
+    },
+    "terrain-grounding": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 94,
+          "failed": 0,
+          "ignored": 3
+        }
+      ],
+      "counts": {
+        "passed": 94,
+        "failed": 0,
+        "ignored": 3
+      },
+      "sha256": "c4f97261a9882466ef972868546acda28890f1cbaed4276c1887cb89de1920b8"
+    },
+    "terrain-server-gates": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 1,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "fbec8c3484b70edfece51206d84a148b97b796c5e1516b621e7043d2b07480cb"
+    },
+    "terrain-landforms": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 5,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 5,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "3b0e67aea303f56074450ed355f290414732f891824089f1876b77f01cc9175f"
+    },
+    "terrain-erosion": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 10,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 10,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "7a2c29b84aeda962f169690cc66d01d5ac27eec4e0eb8c4b3235d653983d1ae0"
+    },
+    "terrain-extraction": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 2,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "fff32164a2ffadfcdb8941545d888c89c5c5ca4c06d9f5bc3a75563c59505b7c"
+    },
+    "terrain-presentation": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 329,
+          "failed": 0,
+          "ignored": 7
+        }
+      ],
+      "counts": {
+        "passed": 329,
+        "failed": 0,
+        "ignored": 7
+      },
+      "sha256": "0cfded226fc98a0f284f90718199a5d3004b8da1a8c640c0747471963df0ddf0"
+    },
+    "terrain-strategic": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 21,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 21,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "afd9cd8ee57835485c59bfc9d9082c333f00231f6b12574a8d7ae0c440abf872"
+    },
+    "terrain-viewer": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 62,
+          "failed": 0,
+          "ignored": 1
+        }
+      ],
+      "counts": {
+        "passed": 62,
+        "failed": 0,
+        "ignored": 1
+      },
+      "sha256": "2d2c97233f6679333bff1db3d080764193da2191986c1ef0dbab0b6f90e55cdf"
+    },
+    "terrain-art-demo": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 13,
+          "failed": 0,
+          "ignored": 2
+        }
+      ],
+      "counts": {
+        "passed": 13,
+        "failed": 0,
+        "ignored": 2
+      },
+      "sha256": "8b80621edecb650698c9bddb7f66e672b6e3ac971a166f5cdde0ca27c770686d"
+    },
+    "terrain-dispatcher": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 16,
+          "failed": 0,
+          "ignored": 1
+        }
+      ],
+      "counts": {
+        "passed": 16,
+        "failed": 0,
+        "ignored": 1
+      },
+      "sha256": "650d71f504143b55c24c9ce0743c192c5711bcd29e013a455778d3fb45b09ce5"
+    },
+    "terrain-inspection": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 11,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 11,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "9d3a3316f6150242130b47ddae228c92e99cde20aafc0cbcfb47c42884a58515"
+    },
+    "terrain-animation-capture": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 5,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 5,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "fc5314605451e05d7e839654d761a082c874cf5d7dde9d7e6ef207854185fe3a"
+    },
+    "tactical-core-animation": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 98,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 98,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "3ad710eb16e374f77782f69e0ecb81eb31571aad7887cddea6da08c3bc65056f"
+    },
+    "tactical-core-combat-config": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 5,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 5,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "86d591f5a0deb265403b097f1c8057d414898a39b0b82d163e1349a0920a4b8e"
+    },
+    "tactical-server-startup": {
+      "groups": [
+        {
+          "status": "ok",
+          "passed": 3,
+          "failed": 0,
+          "ignored": 0
+        }
+      ],
+      "counts": {
+        "passed": 3,
+        "failed": 0,
+        "ignored": 0
+      },
+      "sha256": "0632ed6b65e33473a28c6bc2322fa7324cfc28aef1c90d9714e9b8dbe40b250a"
+    }
+  },
+  "required_cells_json_matches_independent_raw_parse": true,
+  "artifact_id": 12707286078,
+  "archive_sha256": "39804812f5cf2e5f1adca86dd322fea573be10e2f42ff28b1a4dfcbf37f8b73d",
+  "baseline_selected_entries": {
+    "files": [
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+        "ceiling": 812
+      }
+    ],
+    "functions": [
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+        "item": "TextureCube::blit_texture_to_face",
+        "ceiling": 161
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+        "item": "TextureCube::render_face_shader_raw",
+        "ceiling": 149
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+        "item": "TextureCube::render_shader_raw",
+        "ceiling": 142
+      }
+    ]
+  },
+  "qualification": "Required groups independently parsed from actual raw logs and compared with current workflow list and required-cells data. Positive execution groups are not unique test count or gameplay/global-audit clearance. Existing skipped fixture-regeneration job is manual-only. No local project execution."
+}

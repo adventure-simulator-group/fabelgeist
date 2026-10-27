@@ -1,0 +1,106 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-197",
+  "at": "2026-10-25T21:29:33.730615+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2100,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/icon.rs",
+      "sha256": "ee709ba9baafee9046a52d19cc14feea08c7194db4bc29a478fd98b71da4e33a",
+      "personally_read_ranges": [
+        [
+          1,
+          574
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full weapon/holder icon facade, semantic role selection, projection, framing anchor, fit scale, synthetic head-only fallback, output metadata and existing fixtures.",
+        "Exact current support for inherited RIG-ADMISSION03-F047/ROOT-ADM-F002: original optional component IDs compete with resolved generated IDs in role/focus/anchor lookup. Same canonical identity repair graph, no new duplicate. Icon spec admitted by renderer; public output fields/PNG receiver are native representation, no private admitted-icon claim."
+      ]
+    },
+    {
+      "scope_index": 2101,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/icon/render.rs",
+      "sha256": "edff51da5c9b4c69950952e210b14a410e3b57e81af24119e35a300379796c81",
+      "personally_read_ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full bounded supersampled rasterizer: size16..512, samples1..8 checked before allocations; color/depth share width\u00b2; triangle indices select matching positions/normals; resolve emits exactly size\u00b2RGBA and same pixel coverage.",
+        "Private caller always obtains canonical generated parts. Raw public mesh topology assumptions remain inherited output admission gap; no normal malformed generated mesh established. Read depth ordering fixture, no run."
+      ]
+    },
+    {
+      "scope_index": 2102,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/icon/studio.rs",
+      "sha256": "750bfa5bef2e547e50aca9f9835f5fcc90ccbc5183ebf3147cfebe159300ea69",
+      "personally_read_ranges": [
+        [
+          1,
+          114
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full fixed studio environment, normal/reflection sampling, exposure and RGBE export, PNG size/pixel-shape admission.",
+        "Retain inherited RIG-OWNER-F012/RIG-OWNER-DELTA-CARRIED-PNG-001 early EncodingError flattening; no new finding or repair."
+      ]
+    },
+    {
+      "scope_index": 2103,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/lib.rs",
+      "sha256": "617d4da8bd91ac58b857ad94c1a1d44d417e90055976d46637e567caeb218bad",
+      "personally_read_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full public crate surface and version/transport limits: raw design/generated/derived types exported alongside validated evaluated facade; internal construction remains private.",
+        "No implied coherent aggregate admission from exported names. Existing output and identity findings retained."
+      ]
+    },
+    {
+      "scope_index": 2104,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/mesh.rs",
+      "sha256": "13432d88e00f3227259bb5b938b0a72a40e300fa4cec4f0d92b020d07eca2418",
+      "personally_read_ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full f64-to-renderer native mesh projection and canonical physical metadata aggregation, generated bounds/anchors/hash/parts built from one model.",
+        "Preserve CAMERA-INITIAL07-F037/ROOT-ADM-F002 exact original optional-ID vs resolved component selection issue: head ID and spear working-section lookup use original IDs. Also preserve CAM-PROP-F002 raw computed-leaf propagation, no duplicate. Full support2113 confirms actual generate_model\u2192Construction validates recipe then resolves clone and uses shared canonical product; does not mutate original design."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "5 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "dedup_refs": [
+    "RIG-ADMISSION03-F047",
+    "ROOT-ADM-F002",
+    "CAMERA-INITIAL07-F037",
+    "CAM-PROP-F002",
+    "RIG-OWNER-F012"
+  ],
+  "support_sources": [
+    {
+      "scope_index": 2113,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/mod.rs",
+      "ranges": [
+        [
+          1,
+          273
+        ]
+      ],
+      "disposition": "full body support read ahead; no role credit before own frontier"
+    }
+  ]
+}

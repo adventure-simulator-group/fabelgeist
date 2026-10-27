@@ -1,0 +1,103 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-097",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1750,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/README.md",
+      "sha256": "b3acfbbe37624ffc0518b11dd27945d3d6c1258e0aa6759a95e2ca395b7ad5ac",
+      "ranges": [
+        [
+          1,
+          239
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete239line TacticalCore durable contract read: authoritative source/state boundary, checked values/serde, frame identity and native arithmetic/availability semantics described. No executable trait/codec.",
+      "disposition": "Non-code role accounted as narrative evidence, not acceptance proof. Subsequent source comparisons must retain actual validation/units/absence policies and inspect code independently.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1751,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/attack_commitment.rs",
+      "sha256": "9710c5585d8a1552feb4a8fb935b6f5050f15d82b292a36841b452f9bf83e438",
+      "ranges": [
+        [
+          1,
+          12
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete12line SkeletonState defensive-commit mutation method; no manual traits/codecs.",
+      "disposition": "No derivability candidate; conditional state transition is semantic.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1752,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+      "sha256": "62a3215d6f52174d7351776d55c5f7f07adf340abada8e8aff653d674f389095",
+      "ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete135line five authored scalar owners. Applicable basic traits, SerializeDeserialize via checked f32 and derive_moreInto already derived. Five TryFrom implementations delegate finite/nonnegative checked constructors; radians conversion remains explicit.",
+      "disposition": "KEEP validation-preserving TryFrom delegates: existing enabled From/Into derives cannot replace fallible checked admission. No manual codec remains; serde already delegates checked paths, exact scalar wire representation retained. No new candidate.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1753,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/cadence_limit.rs",
+      "sha256": "c8a718000e7ca797858aa79c1569d3a357a508e5bf319e75a1662bb47ebbf4c3",
+      "ranges": [
+        [
+          1,
+          174
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete174line cadence policy/demand/selection. Scalar Into and serde already derive; record serde uses CadenceCapInput checked TryFrom. Two manual TryFrom implementations invoke validated constructors. Explicit quotient overflow state, smoothing polynomial and semantic selection.",
+      "disposition": "KEEP small validated TryFrom adapters. Mechanical derives would bypass policy coupling/range admission; native demand/smoothing and capped state classification are semantic. Existing serialization derives appropriate, no new candidate or runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1754,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/calibration_parameters.rs",
+      "sha256": "5a37d4bd2c837948b19eec639ad5640b2f163e7c4c8d474e4e8048da9ac84656",
+      "ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete57line authored positive multiplier and minimum-three interval owners. Basic/serde/Into traits derived. TryFrom<f32> checked positive finite constructor; TryFrom<u32> rejects fewer than three.",
+      "disposition": "KEEP both validating TryFrom implementations; no existing direct derive preserves these validation/error contracts. No custom codec/other mechanical implementation.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1756,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/continuation_parameters.rs",
+      "sha256": "136104d58296283dd4227e0381e52b7d9893172a96f83ce34abf301c64d7b4a9",
+      "ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete112line incoming tangent/readiness owners. Basic/serde/Into derived. TryFrom delegates validation; deserialize_tangent first rejects nonfinite then applies existing finite-negative clamp distinct from strict constructor, before serde custom error mapping.",
+      "disposition": "KEEP validating adapters and small normalization decode hook. Direct serde on strict scalar would change accepted finite-negative decode and negative-zero normalization; existing derive cannot express this same boundary policy without explicit conversion. No new candidate. Original1755 already inherited complete and remains untouched.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

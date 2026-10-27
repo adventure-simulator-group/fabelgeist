@@ -1,0 +1,197 @@
+{
+  "at": "2026-10-26T20:25:16.688973+00:00",
+  "scope": "PR988 manual Display/Error derivability source-only response; no repairs/checks/publication",
+  "source_pins": [
+    {
+      "path": "Cargo.toml",
+      "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "197d8605659fa581961b37f9c18f2a46b04db822a666d3abefe5653b4204401a"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "5fcedc2343591f9fdc806e66e0e0f619d352e9c1f19d615603fda80cc7168e64"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "78737ed29bb25ecca79c079f6676afa0719fa8bfe65a9051b56536de280cfd63"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "642bfa7f9d9068c957e4f935600c0ab1eba0c91092060606392f9aa481dc9ad6"
+    }
+  ],
+  "native_receivers": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.20/src/aserror.rs",
+      "sha256": "c4504c7db4639c5700882fd8133bf257d6755a9dad28b55b6daf02e1fb64be56",
+      "observed_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "provenance": "Current lock-checksummed archive member bytes equal inspected local source; not frozen audit-source identity",
+      "package": "thiserror-2.0.20",
+      "archive_sha256": "ec86235f5fcc2a73650310756d2ac5b138a5780bbbdfae3eeccec992c435ba4f"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-impl-2.0.20/src/expand.rs",
+      "sha256": "76285acc08ccb8a0a93a3cbd58c3e12cbcde61720ad676be181fff7b1f278df3",
+      "observed_ranges": [
+        [
+          226,
+          273
+        ]
+      ],
+      "provenance": "Current lock-checksummed archive member bytes equal inspected local source; not frozen audit-source identity",
+      "package": "thiserror-impl-2.0.20",
+      "archive_sha256": "bc04cd3e1236dd4a98afca4569f2deb3f120e5422a4023be2cb683f8486292af"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-impl-2.0.20/src/attr.rs",
+      "sha256": "d3c7fa9e8269973f140e5382f753664ac32bee44c09875f678100b890aea4d06",
+      "observed_ranges": [
+        [
+          55,
+          143
+        ]
+      ],
+      "provenance": "Current lock-checksummed archive member bytes equal inspected local source; not frozen audit-source identity",
+      "package": "thiserror-impl-2.0.20",
+      "archive_sha256": "bc04cd3e1236dd4a98afca4569f2deb3f120e5422a4023be2cb683f8486292af"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-2.1.1/src/as_dyn_error.rs",
+      "sha256": "ba3767c6c95966583360f28cd59bfe20717d0f53c2041c2c534552fcb1b265d9",
+      "observed_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "provenance": "Current lock-checksummed archive member bytes equal inspected local source; not frozen audit-source identity",
+      "package": "derive_more-2.1.1",
+      "archive_sha256": "d751e9e49156b02b44f9c1815bcb94b984cdcc4396ecc32521c739452808b134"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-impl-2.1.1/src/error.rs",
+      "sha256": "40cfa53d126eae5284310d5814318d32269e482e3491bf561ec9cd6168646aeb",
+      "observed_ranges": [
+        [
+          93,
+          184
+        ],
+        [
+          185,
+          334
+        ],
+        [
+          300,
+          530
+        ]
+      ],
+      "provenance": "Current lock-checksummed archive member bytes equal inspected local source; not frozen audit-source identity",
+      "package": "derive_more-impl-2.1.1",
+      "archive_sha256": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-impl-2.1.1/src/fmt/display.rs",
+      "sha256": "d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+      "observed_ranges": [
+        [
+          398,
+          467
+        ]
+      ],
+      "provenance": "Current lock-checksummed archive member bytes equal inspected local source; not frozen audit-source identity",
+      "package": "derive_more-impl-2.1.1",
+      "archive_sha256": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-impl-2.1.1/src/utils.rs",
+      "sha256": "4801ae8348907fa512f73283995d231bcafff1638729ff1de231f07ad18ace3f",
+      "observed_ranges": [
+        [
+          1018,
+          1053
+        ]
+      ],
+      "provenance": "Current lock-checksummed archive member bytes equal inspected local source; not frozen audit-source identity",
+      "package": "derive_more-impl-2.1.1",
+      "archive_sha256": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "observed_ranges": [
+        [
+          787,
+          849
+        ]
+      ],
+      "provenance": "Current lock-checksummed archive member bytes equal inspected local source; not frozen audit-source identity",
+      "package": "wgpu-29.0.4",
+      "archive_sha256": "76e8840e1ba2881d4cbb18d2147627a56af426ff064c0401eb0c8410c6325d07"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-types-29.0.4/src/lib.rs",
+      "sha256": "af153576bce090b101f05d3d4fc35523d82e8f7fd2f935bd60d12956af50cb3b",
+      "observed_ranges": [
+        [
+          290,
+          324
+        ]
+      ],
+      "provenance": "Current lock-checksummed archive member bytes equal inspected local source; not frozen audit-source identity",
+      "package": "wgpu-types-29.0.4",
+      "archive_sha256": "84bf84cd9ca8ca45e2b223a3868f1adf9bfc0c66aeac212e76ee7e40fdadf8f5"
+    }
+  ],
+  "revision_authority": "Parent task PR988/final reviewed source head961d226be23a81d9731a11958d62fe8a04b93e81; current source-file hashes pinned separately. No Git command executed.",
+  "initial_locator_correction": "Initial discovery inspected thiserror2.0.18 snippets before lock metadata showed resolved2.0.20. Final recommendations independently checked against exact locked2.0.20 source; no2.0.18 behavior imported as current proof.",
+  "post_read_source_identity": [
+    {
+      "path": "Cargo.toml",
+      "initial_sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+      "current_sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+      "unchanged": true
+    },
+    {
+      "path": "Cargo.lock",
+      "initial_sha256": "197d8605659fa581961b37f9c18f2a46b04db822a666d3abefe5653b4204401a",
+      "current_sha256": "197d8605659fa581961b37f9c18f2a46b04db822a666d3abefe5653b4204401a",
+      "unchanged": true
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "initial_sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "current_sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "unchanged": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "initial_sha256": "5fcedc2343591f9fdc806e66e0e0f619d352e9c1f19d615603fda80cc7168e64",
+      "current_sha256": "5fcedc2343591f9fdc806e66e0e0f619d352e9c1f19d615603fda80cc7168e64",
+      "unchanged": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "initial_sha256": "78737ed29bb25ecca79c079f6676afa0719fa8bfe65a9051b56536de280cfd63",
+      "current_sha256": "78737ed29bb25ecca79c079f6676afa0719fa8bfe65a9051b56536de280cfd63",
+      "unchanged": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "initial_sha256": "642bfa7f9d9068c957e4f935600c0ab1eba0c91092060606392f9aa481dc9ad6",
+      "current_sha256": "642bfa7f9d9068c957e4f935600c0ab1eba0c91092060606392f9aa481dc9ad6",
+      "unchanged": true
+    }
+  ]
+}

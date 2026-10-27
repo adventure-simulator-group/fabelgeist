@@ -1,0 +1,231 @@
+{
+  "at": "2026-10-27T16:11:47.687891+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-083-registration.jsonl",
+    "sha256": "063f20b5ce3e8de415806f67ac597b69dbb2e39e4421e62a35a214c376036e86"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-082.json",
+    "sha256": "4af3c57de92fe902e227d32ab3800f7c6bf5c06be9a66918946b2dd25d749a09"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1134,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/bestiary_and_corrections.rs",
+      "sha256": "4237f3b685e3eb38b41d2eabd6b64c89542d97923b84d8b55b7a3f63e8bf5f70",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/4237f3b685e3eb38b41d2eabd6b64c89542d97923b84d8b55b7a3f63e8bf5f70",
+      "ranges": [
+        [
+          1,
+          586
+        ]
+      ],
+      "actual_eof": 586,
+      "prospective": true,
+      "purpose": "Independent full ordered fixture-source lens inventory; source-readnotexecuted",
+      "actual_read_ranges": [
+        [
+          1,
+          586
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1135,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/projection_and_referrals.rs",
+      "sha256": "c66f2f103d7c9e06d5426737e2d87279cd43f0160b834292664ddaa3e55c8390",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/c66f2f103d7c9e06d5426737e2d87279cd43f0160b834292664ddaa3e55c8390",
+      "ranges": [
+        [
+          1,
+          648
+        ]
+      ],
+      "actual_eof": 648,
+      "prospective": true,
+      "purpose": "Independent full ordered fixture-source lens inventory; source-readnotexecuted",
+      "actual_read_ranges": [
+        [
+          1,
+          648
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [],
+  "role_dispositions": [
+    {
+      "original": 1134,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/bestiary_and_corrections.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              181
+            ]
+          ],
+          "roles": "Visible ReportDescription/EvidenceKind and receipt/provenance pairs; exact inspection replay; stable observation plus later lore; passed/failed physical check; category-specific knowledge checks.",
+          "disposition": "The fixtures preserve distinct physical observation, learned interpretation and category threshold roles. Literal native values/invalid JSON are legitimate fixture boundaries. Existing fixture136\u2013159 gives two implications with the SAME diagnostic_kind pawprints but Beast/Werekin categories and different interpretations. Model1127 merge437\u2013452 keys only diagnostic_kind and keeps first interpretation; parse235\u2013247 rejects duplicate kind. Therefore broader kind identity cannot represent independent learned interpretations for that fixture shape. Actual authored ordinary implications with this duplication have not been established; retain a qualified granularity candidate, not actual lost gameplay knowledge.",
+          "remedy": "If source policy requires independent interpretations, retain canonical safe interpretation identity/provenance beneath EvidenceKind and expose only authorized prose; do not expose hidden category/difficulty as a remedy. Keep physical first-attempt timestamp distinct from actual later diagnostic learning time (079).",
+          "acceptance": "No fixture run, assertion result or current/alias/unique claim. Stable observation timestamp preservation is intentional and does not require newly learned diagnostic receipts to inherit that timestamp. Actual1127 producer/merge/receipt bodies personally accounted079."
+        },
+        {
+          "ranges": [
+            [
+              183,
+              328
+            ]
+          ],
+          "roles": "Existing failed_attempt/exact_lead/exact_capability fixture helpers; raw serialized Resolution; target Area/Route/Site tracking chain, owner and predecessor success.",
+          "disposition": "These helpers intentionally construct storage rows/JSON including partial or malformed states to test admission. Different target roles sharing String remain meaningful; fixture literals do not justify raw internal production ports. No new bespoke wrapper for every argument name, no positive-duration constraint on all attempts.",
+          "remedy": "Reuse existing core action/target/Seed/StrategicMinute owners at canonical producers; canonical typed attempt outcome migration should update existing fixtures only when repairs authorized.",
+          "acceptance": "Actual tracking predicate1128 full080 and action history1120 full076 are proof; test assertions source-only. No new helper/assertion/test created."
+        },
+        {
+          "ranges": [
+            [
+              330,
+              586
+            ]
+          ],
+          "roles": "Correction-dependency scope, supported replacement versus unsupported reset, contiguous version gap, seed replacement and deduplicated capability set; text-order assertions.",
+          "disposition": "Capability version, attempt ordinal and random seed are different authorities despite numeric storage. Correction increments version without manufacturing an attempt, so version gaps legitimately break history rather than requiring contiguous every version. Supported replacement preserves progress and seed; local has_live_support predicate bool is ordinary condition, not necessarily a two-variant persisted enum. BTreeSet expresses meaningful dedup collection.",
+          "remedy": "Named canonical IDs and typed capability/attempt version relation internally; simplify correction_requires_progress_reset inversion wrapper noted076 while preserving source policy.",
+          "acceptance": "No behavior execution, no proof of all mutation ordering from contains/find assertions. Actual reset/correction writers076/078 and blueprint source077 support disposition; no old JSON/API compatibility constraint."
+        }
+      ]
+    },
+    {
+      "original": 1135,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/projection_and_referrals.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              22
+            ],
+            [
+              139,
+              248
+            ]
+          ],
+          "roles": "Source-text assertions for observer-safe bestiary and generated progress/provenance boundaries.",
+          "disposition": "String selectors and substring operations are test source-adapter tokens, not gameplay vocabulary to migrate. Every existing action-kind variant is intentionally in bounded-progress fixture; does not establish future enum exhaustiveness policy beyond actual matches.",
+          "remedy": "Keep actual typed production owner proof and explicit source limitation; no replacement tests or helpers added.",
+          "acceptance": "Included source presence/text is not a behavioral or security proof, and does not confer source credit on included files."
+        },
+        {
+          "ranges": [
+            [
+              24,
+              137
+            ]
+          ],
+          "roles": "Contiguous completed failure versus terminal interruption/malformed receipt; native ResolutionInput, evidence age, skill BPS, WeatherAuthority, bare versus bounded JSON.",
+          "disposition": "Fixture distinguishes completed failure from interrupted receipt and successful attempt; raw false success alone is insufficient history. Native seed search is a fixture algorithm read only, never executed. Exact bare Resolution versus wrapper assertions describe existing layout, not a compatibility acceptance constraint under user policy.",
+          "remedy": "Canonical typed attempt outcome envelope and named progress data through storage boundary; retain action kind, terrain, elapsed age, absolute minute and probability/uncertainty scales independently.",
+          "acceptance": "Actual076 history/writer and core935 full028 reused, no test execution or unbounded search performed. No assertion that old schema must survive repair."
+        },
+        {
+          "ranges": [
+            [
+              250,
+              484
+            ]
+          ],
+          "roles": "GenerationContext/QuestGenerationAuthority/CaseAuthority and context commitment; nested manual/generated/invalid provenance; exact witness referral namespace, context, catalog and source draft index.",
+          "disposition": "Canonical/public IDs are privacy roles; Source resident IDs can exceed JavaScript-safe integers, literal fixture boundary valid and no 53-bit ID cap invented. Initial rumor source resident is meaningful despite empty testimony-source fields. Flat tags and sentinels permit malformed fixture states, supporting canonical provenance sum migration1131/1124.",
+          "remedy": "Retain admitted generation/provenance aggregates, existing typed Seed/Scope/StrategicMinute and canonical identity owners. Separate source resident, witness binding ID and receipt ID without inventing per-argument numeric classes.",
+          "acceptance": "Actual validation1131 full081 and referral1124 full078 consulted; generated authority admission source gate not inferred from assertion successes. No current alias/security/runtime/unique claim."
+        },
+        {
+          "ranges": [
+            [
+              486,
+              648
+            ]
+          ],
+          "roles": "Both generated families, track-segment terrain, observer-scoped action remap and text admission; very large character IDs; every authored testimony pipeline and malformed receipt identity.",
+          "disposition": "Fixture family/seed homogeneous pair uses explicit names and native boundary; test-only root/successor booleans are local predicates. Pipeline event/observation/recollection/claim IDs are distinct canonical owners, despite common ASCII/length admission. Large resident/character IDs explicitly demonstrate no invented JavaScript-safe limit. Error message equality is test expectation, not stable typed error classification or requirement to preserve old prose.",
+          "remedy": "Reuse canonical typed generation and pipeline owners, named internal safe capability text rather than positional same-String pair (080); no new tests, new bounds or compatibility wrapper.",
+          "acceptance": "Native process_report body934 full028, generation assembly/model/projection full037 and actual stage/receive1124 full078 reused. All648 lines personally consumed, no generator, seed search or pipeline probe executed."
+        }
+      ]
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-076-receipt.json",
+        "sha256": "34bad8167fc24ed0400a20064c7585975518859a9e5ac8d413b29736449a27c6"
+      },
+      "contract": "1120 full actual history/progress/correction/replay/JSON envelopes."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-077-receipt.json",
+        "sha256": "f5beff649d59ea6b7e3e0d2414b54f88339e31b6e7be21c381c062c9d6e92fc4"
+      },
+      "contract": "1123 full issuance/transition/referred dialogue actual source."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-078-receipt.json",
+        "sha256": "3b1bce05b2ca4a5a496632b8f8f07ab963c2ec744517c9515827e130c5a87fa9"
+      },
+      "contract": "1124 full claim/referral/pipeline/native side effects and geometry adapter."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-079-receipt.json",
+        "sha256": "ef70dff17f6462ef0ab28482eab61adec5e63bdd0e3b4735583c02bcbbc3b04e"
+      },
+      "contract": "1127 full model/inspection/lore merge and receipt timestamp roles."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-080-receipt.json",
+        "sha256": "e7e063d915523fa6483924f9f5ba6519a75a73dc67a0c1190c66cc9e169f7697"
+      },
+      "contract": "1128 full projection/knowledge/source identity and authority ordering; qualification080 applies."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-081-receipt.json",
+        "sha256": "22b86f0c0ade24faaace3215121b9d409ef15c7f82f0cff2aa7fc878ac0cf272"
+      },
+      "contract": "1130/1131 full site/provenance actual recipient."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-028-receipt.json",
+        "sha256": "45e9ec96599b408c85a36ae3ba0299bcdb195524537add323b6aba4a300c89b2"
+      },
+      "contract": "Core934/935/936 full canonical investigation/pipeline/action owners."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-037-receipt.json",
+        "sha256": "9eba0cc942018e3348434818aa4201ceb3a5509ab2183eb34b9a6e117cc1c75a"
+      },
+      "contract": "Generation assembly/model/projection full personally read canonical owners."
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Original1134 full586 and1135 full648 personally read in bounded outputs. No tests, probes, seed search or project execution.",
+    "Fixture-shaped same-kind/different-interpretation candidate retained until actual authored source identity/alias/currentness reconciliation, +0 accepted unique. All prior qualifications/mandatory queues retained.",
+    "No product/Git/root ledger/publication mutations."
+  ]
+}

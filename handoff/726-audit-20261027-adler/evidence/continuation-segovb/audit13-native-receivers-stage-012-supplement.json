@@ -1,0 +1,142 @@
+{
+  "files": [
+    {
+      "source_git": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+      "path": "src/allocator/paged_allocator.rs",
+      "sha256": "60da2629cd205e6cd1c9f5a243ef7f3f0769eb48e609a09afb9f9e23ed2d282d",
+      "lines": 309,
+      "staged_path": "target/recovery-20261025/continuation-segovb/source-objects/60da2629cd205e6cd1c9f5a243ef7f3f0769eb48e609a09afb9f9e23ed2d282d",
+      "body_read": false
+    },
+    {
+      "source_git": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+      "path": "src/allocator/batch_buffer.rs",
+      "sha256": "f16e4c87e35b57bf6dfcd2f8315f055e665d5c7d07b36722e247a9b2be1c4721",
+      "lines": 262,
+      "staged_path": "target/recovery-20261025/continuation-segovb/source-objects/f16e4c87e35b57bf6dfcd2f8315f055e665d5c7d07b36722e247a9b2be1c4721",
+      "body_read": false
+    },
+    {
+      "source_git": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+      "path": "src/utils.rs",
+      "sha256": "e0a8eea086cbad536b325d44c69e689280c931ddc1587e051167ec128bd4a383",
+      "lines": 31,
+      "staged_path": "target/recovery-20261025/continuation-segovb/source-objects/e0a8eea086cbad536b325d44c69e689280c931ddc1587e051167ec128bd4a383",
+      "body_read": false
+    }
+  ],
+  "locators": [
+    {
+      "path": "src/allocator/batch_buffer.rs",
+      "line": 97,
+      "identifiers": [
+        "fn check_bounds"
+      ]
+    },
+    {
+      "path": "src/utils.rs",
+      "line": 23,
+      "identifiers": [
+        "fn check_bounds"
+      ]
+    },
+    {
+      "path": "src/utils.rs",
+      "line": 28,
+      "identifiers": [
+        "fn check_bounds"
+      ]
+    }
+  ],
+  "coverage": "staging/navigation only",
+  "paged_function_locators": [
+    {
+      "line": 26,
+      "name": "default"
+    },
+    {
+      "line": 40,
+      "name": "commit"
+    },
+    {
+      "line": 56,
+      "name": "add"
+    },
+    {
+      "line": 66,
+      "name": "update_watermark"
+    },
+    {
+      "line": 73,
+      "name": "alloc_existing"
+    },
+    {
+      "line": 90,
+      "name": "alloc_new"
+    },
+    {
+      "line": 100,
+      "name": "reset"
+    },
+    {
+      "line": 108,
+      "name": "alloc"
+    },
+    {
+      "line": 127,
+      "name": "free"
+    },
+    {
+      "line": 155,
+      "name": "size"
+    },
+    {
+      "line": 163,
+      "name": "drain"
+    },
+    {
+      "line": 171,
+      "name": "reset"
+    },
+    {
+      "line": 178,
+      "name": "get"
+    },
+    {
+      "line": 184,
+      "name": "page_count"
+    },
+    {
+      "line": 198,
+      "name": "new"
+    },
+    {
+      "line": 208,
+      "name": "from"
+    },
+    {
+      "line": 217,
+      "name": "from"
+    },
+    {
+      "line": 230,
+      "name": "entity"
+    },
+    {
+      "line": 235,
+      "name": "test_should_alloc"
+    },
+    {
+      "line": 251,
+      "name": "test_should_free"
+    },
+    {
+      "line": 266,
+      "name": "test_alloc_should_overflow_and_alloc_new_page"
+    },
+    {
+      "line": 289,
+      "name": "test_alloc_should_reuse"
+    }
+  ]
+}

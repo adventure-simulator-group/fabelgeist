@@ -1,0 +1,209 @@
+{
+  "lens": 13,
+  "status": "scoped source-accounted WITH findings; continuing",
+  "registrations": [
+    {
+      "path": "audit-resume-20261027/lens13/batch-144-registration.json",
+      "sha256": "060759a4aad1b5650de610fc68d7d52b1008d054dd3389a8cd2d19f338e8eeb2"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-145-registration.json",
+      "sha256": "e213f06738a89473864f1707514d28eec3e81eef6bb0f0bd5cc8bbe6cfed1fd5"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-146-registration.json",
+      "sha256": "4e5691cbed63ad54c9df5153f527a86c3927ee864fa7b75f6cdfd14f86682354"
+    }
+  ],
+  "actual_source_reads": [
+    {
+      "original": 234,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/personality.rs",
+      "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "eof": 1210,
+      "requested_range_variants": [
+        [
+          1,
+          160
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "provenance": "Exact f82 registered physical original; all effective requested scope, prior receiver access not independent rolecredit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          160
+        ]
+      ]
+    },
+    {
+      "original": 235,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/chronology.rs",
+      "sha256": "9bd03249bc0fbc1de28571a08035a777f3ab8fe1ddd0ac177d6e32b3693ee621",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/9bd03249bc0fbc1de28571a08035a777f3ab8fe1ddd0ac177d6e32b3693ee621",
+      "eof": 200,
+      "requested_range_variants": [
+        [
+          1,
+          200
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "provenance": "Exact f82 registered physical original; all effective requested scope, prior receiver access not independent rolecredit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          200
+        ]
+      ]
+    },
+    {
+      "original": 236,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/family.rs",
+      "sha256": "39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "eof": 267,
+      "requested_range_variants": [
+        [
+          1,
+          105
+        ],
+        [
+          106,
+          114
+        ],
+        [
+          106,
+          117
+        ],
+        [
+          115,
+          117
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          117
+        ]
+      ],
+      "provenance": "Exact f82 registered physical original; all effective requested scope, prior receiver access not independent rolecredit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          117
+        ]
+      ]
+    },
+    {
+      "original": 237,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/lifecycle.rs",
+      "sha256": "e07c9d7949a4086798ee405ba1deac19e4adcbb4e5dc5cf618eba028b229415d",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/e07c9d7949a4086798ee405ba1deac19e4adcbb4e5dc5cf618eba028b229415d",
+      "eof": 138,
+      "requested_range_variants": [
+        [
+          1,
+          138
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "provenance": "Exact f82 registered physical original; all effective requested scope, prior receiver access not independent rolecredit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          138
+        ]
+      ]
+    },
+    {
+      "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "ranges": [
+        [
+          161,
+          246
+        ],
+        [
+          315,
+          478
+        ]
+      ],
+      "role": "Complete set_score private assignment/clamp and actual score projection/native writers; original234 requested1-160 preserved, no full1210/tailcredit. Already-own actual516-577 and707-840 reused only exactranges.",
+      "actual_consumed_ranges": [
+        [
+          161,
+          246
+        ],
+        [
+          315,
+          478
+        ]
+      ]
+    },
+    {
+      "status": "prospective",
+      "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "ranges": [
+        [
+          300,
+          314
+        ]
+      ],
+      "role": "Actual bipolar threshold recipient used by project_scores; same frozen original234 source, no wholefileclaim.",
+      "actual_consumed_ranges": [
+        [
+          300,
+          314
+        ]
+      ]
+    }
+  ],
+  "numeric_inventory_and_actual_trace": [
+    {
+      "original": 234,
+      "scope": "Only requested1-160 of1210 plus selected actual numerical recipient300-314/161-246/315-478; prior own49-52/516-577 and707-840 actual reads reused. No unread tail scope credit.",
+      "inventory": "Raw character/projection IDs u64; thirteen public signed i16 score axes and event delta/resulting_score, typed axis/deed/virtue/occurredminute; scorelimit\u00b110000, visiblethreshold\u00b15000, cruel-8000, deed6000; neutral0 valid, not nonzero ratio/UnitInterval. Discrete behavioral enums and demographic Sex/Presentation/Inclination already typed. Bounded signed personality score owner candidate should not be unsigned BPS just because scale10000.",
+      "trace": "set_score clamps i16 input before retention; neutral/from_visible produce bounded canonical endpoints and intermediate Callous=-5000. project_scores maps actual bipolar threshold recipient and Conscience distinct -8000 policy; projection_character_id equals authoritycharacterID. Selected initializer existing scores win while demographics refresh; reset explicitly reconstructs all scores, set axis writes authority then projection. Public raw struct fields/native storage do not themselves establish -10000..10000 invariant, even though actual helper paths clamp; retain admission/ownership concern, not ordinary bypass claim. Prior actual deed development uses wider arithmetic/clamp and same-source continuous morale receiver had qualified overflow concern already recorded, no new unique count.",
+      "limits": "No hidden-generation/privateSDK/unused1210tail or arbitrary allwriters proof; selected native retention/actual numeric threshold bodies read."
+    },
+    {
+      "original": 235,
+      "scope": "Full200",
+      "inventory": "Raw characteru64 and Seed, otherwise typed clock minute/endpoints, Option wedding/birth/marriage/inheritance/birthday, named Bool living/policy availability predicates. Earliest boundary filters strict start<boundary<end, min across event types.",
+      "trace": "Actual137stationary and chronology advance recursively target that strict interior boundary, so same interval cannot select equalstart/end forever by this selector. Targetretroactive rejected; after exactboundary policy-authority-transfer check avoids continuing browser-controlled clock. initialize validates full character then native policyinsert; missing clock/error policies explicit. Core calendar birth-anniversary numerical bodies were previously actually read in own156/coreworldschema selected proof; no new native semantics inferred. Actual time lifecycle callback executes canonical source; no all downstream revalidation claim."
+    },
+    {
+      "original": 236,
+      "scope": "Effective1-117 only; familyEOF267 unreadtail not original credit.",
+      "inventory": "Raw u64 subject/related/householdmember IDs and signed i64 birth coordinate, u16 seeded/effective age; typed kinshipkind/role/time. Native key includesbothIDs+kind, existing row insert-only avoids duplicate; householdjoin samehousehold no-op then oldmembershipdelete/newinsert.",
+      "trace": "recordbirth raw signedcoordinate retained; seeded birth fromage delegates actual canonical StrategicMinute::ZERO.signed_birth_minute_for_age, effectiveage delegates age_years_since_signed_birth then cached displayage update. Existing core156 calendar full actual proof supports u128/widened/saturating age calculations; no negative birth rejection invented, pre-epochbirth intentionally valid. Signed birth-coordinate owner candidate, actorID/age propagation gap retained. No full demographic family planner267 proof."
+    },
+    {
+      "original": 237,
+      "scope": "Full138",
+      "inventory": "Closed Wedding/Birth payload-owning event enum carries actual participant/mother IDs+typed instant. Stable key (minute,u8 0/1,id) encodes authored wedding-before-birth sameinstant precedence. Error truncation512 chars is native text length budget, not byte limit. Named Boolprocessable requires exact death<=ceremony or allpersonalfrontiers>=eventinstant.",
+      "trace": "Actual137full global dispatcher sorts by this stablekey, filtersprocessable before truncate(limit), applies wedding/birth and typed quarantine/failure rows; actual unresolved actorfrontier cannot consume quota. quarantine only Active pregnancy, closes typed resolvedminute, removes active/reservedchild pointers only ifidentitymatches. Stableorder should be owned by eventkind if changing representation, no arbitrary numeric ordinal exemption; raw IDs remain identity roles, no integerarithmeticbeyondcomparison. Source-backed recipients close numericalrole; actual birthsemantic bodies not globally certified."
+    }
+  ],
+  "limits": [
+    "All effective requested ranges retained. Previous actual same-hash source reuses constrained to recorded ranges, no cross-lens verdict/source credit. No future original238/239/241 ordered credit from receiving dispatch.",
+    "No execution/runtime/currentness/acceptedunique/global/all20 claims. No product/Git/rootledger/checks/tests/probes/publication."
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-229",
+  "at": "2026-10-25T21:55:54.979977+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2279,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "personally_read_ranges": [
+        [
+          1,
+          484
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all484lines compute/pass/mod.rs. Validatedpipeline/reflection/layoutpresence before namedbindingrecording, sourceuniformpacking includes Unsigned unlike2274sharedadapter but stillallowsmissing/wrongwidthsilence existingF058family. Textures choose sRGBcounterpart view thenkeepnativeactualformat forallowance, dimension/viewgates beforebinding. ExplicitTextureView counterpartformatacceptance actualviewassociationneedsproducerbeforeclaim.",
+        "Reflectiongroup.index selects layout butfinalbindgroupsenumerate0..; sparse/noncontiguousactualreflectionproducerpolicy pending beforewrongbindingfinding. PublicBufferlogicalsize0 NonZero unwrap coveredF065rawmetadata gap, normalconstructorrejectszero. Noexecution."
+      ]
+    },
+    {
+      "scope_index": 2280,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "f795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204",
+      "personally_read_ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all187lines compute/pipeline/mod.rs. prepare retainsoneinterface layouts/reflection againstshadercode; compile obtainsentrypointcachedpipeline then checksvalidationstatebeforepublishingpipeline. Publicshader/layout/reflection/cache/pipeline mutation andentrypoint-onlycache exactRIG-ADMISSION03-F057-SUPPLEMENT-001. NativevalidationcauseStringflatten exactRIG-OWNER-F009. No secondcompiledidentityfinding."
+      ]
+    },
+    {
+      "scope_index": 2281,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+      "sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+      "personally_read_ranges": [
+        [
+          1,
+          42
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all42lines parameters/mod.rs. OneIndexMap ownskey\u2192PassParameter association, insertoverwritesbysamekey, gettersborrow; no claimed matchtospecificshader untilbinder; noindependentsemanticcheckedaggregate. Emptyparameterslegitimatekernelswithnobindings."
+      ]
+    },
+    {
+      "scope_index": 2282,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+      "sha256": "8057e3bc54fcc2941ab0b231989785cbbff9c222088d96a10920c55572a4bf24",
+      "personally_read_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all129lines parameter.rs. Closedvariantowns scalar/vector/matrix/transform/texture/sampler/buffer payload; nativeu32bitsretainUnsigned, i32projectsbyas u32(two'scomplement) actualuniformtypemeaningnot retained. No blanketnonnegativeclaimforUnsigned vswirebits. Matchingvariant/reflectedscalarwidth/type is receivingbinderobligation; relatedF058."
+      ]
+    },
+    {
+      "scope_index": 2283,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "sha256": "d43420951ea5f0f3ca07b9e7945387e830a858e14314cc634dde30079018a17a",
+      "personally_read_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all73lines shader.rs. Reflection records rawpublicgroupindex/memberoffset/size andbindings; no reflectedsignedscalaridentity retained. Parse_Naga sourceformatselectionthenactualNagaerrorformat erasure exactRIG-OWNER-F009. Arbitraryrawreflectioncounterexamples nottreatedcanonicalproducerfacts."
+      ]
+    },
+    {
+      "scope_index": 2284,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "dd7c6c3515b7f79314eccb5a4be41e3ec6856c0c5c26f3788df27473b1f12834",
+      "personally_read_ranges": [
+        [
+          1,
+          314
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all314lines wgpu_context/mod.rs includingtestsource. open obtainsinstance\u2192compatibleadapter\u2192device/queue together andrequestslimitssupportedbyadapter, optionalfeaturesintersectactualfeatures. from_parts intentionallyborroweddevice skipsblockingvalidation anddropssurface/blitter. PublicArcfields canbeindependentlyreplaced but actualnormalfactoryassociationscoherent; noSDKmisuse/hostexecutionproved. submitted_work_done waitscurrentpointindex, sourcepollerrorsignored qualifiescompletionattestation, nativecausefamilyF009; no runtimehangclaim."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "6 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "dedup": [
+    "RIG-ADMISSION03-F058",
+    "RIG-ADMISSION03-F057-SUPPLEMENT-001",
+    "RIG-ADMISSION03-F065",
+    "RIG-OWNER-F009"
+  ],
+  "open_source_questions": [
+    "Canonical reflection group-index density/order and returnedbindgroupenumeration must be compared before any sparsegroupbindingfinding."
+  ]
+}

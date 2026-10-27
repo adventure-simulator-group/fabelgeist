@@ -1,0 +1,37 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-142",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 755,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_underlayer.rs",
+      "sha256": "b42e82c29ce8e08f7e378abc16f0f9823aea7c2580456c37cbaa4084ea781591",
+      "ranges": [
+        [
+          1,
+          416
+        ]
+      ],
+      "assessment": "Full416 actual source read in three windows after hash match. BodyShape/SurfaceDomain/ShellSurface/FittedUnderlayer expose related geometry/skin/UV/morph collections; local row checks improve admission but do not encode cross-source identity Q009. Actual realization list begins with base then one per morph; buffer sizes/copy offsets use same list, narrowing base-expect concern given positive count and complete readbacks. Plan positive count still depends on756/SurfaceCut producer. record_skin returns semantic joints/floats buffer pair Q008; native batch/copy encoding genuine. Fit.domain optional skin branch has only Some at visible production constructor; no automatic compatibility fallback finding without actual alternative caller. No current-main/runtime/physical/global clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 756,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_underlayer/plan.rs",
+      "sha256": "7eb172df559ec4825c756c36b416e163b5703de648a9e6a84af309ca71c56fe9",
+      "ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "assessment": "Full156 actual source read after hash match including existing fixture only. CutPlan::new validates design and rejects empty cut.faces, but public from_cut and public raw table/indices/sources/count allow detached meaning/invariants Q009. Native POINT_WORDS9 serialization legitimately encodes original body/UV triangle slots and barycentric bits at device boundary; it does not justify earlier SurfaceCut identity arrays. from_cut indexes actual source/UV triangles, so producer validity and UV association require actual SurfaceCut owner, not inferred. incidence is mathematical native adjacency table with caller index bounds. No ordinary bad-cut or current-main/runtime/global acceptance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

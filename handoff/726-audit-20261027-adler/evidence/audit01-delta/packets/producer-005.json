@@ -1,0 +1,136 @@
+{
+  "id": "ADLER-CONT01-LATER-005",
+  "lens": "producer-propagation",
+  "registry_sha256": "01e11726b2c32ab6f86d513d62a5aa88980e29a8b2ccaf8716319bf0e7629459",
+  "receipts": [
+    {
+      "extension_index": 88,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/shape_cast/shape_cast.rs",
+      "sha256": "55751d940df916bcdc1526be642b46736efe8223038ea0bbed6cee5530db129e",
+      "source_ranges": [
+        [
+          1,
+          151
+        ],
+        [
+          272,
+          284
+        ]
+      ],
+      "actual_eof": 284,
+      "trace": {
+        "producer": "Native Parry ShapeCastHit owns raw Real time, local witness1/2 and local outward normal1/2 plus status; cast_shapes computes relative pose/velocity and delegates native dispatcher.",
+        "retained_and_operations": "swapped exchanges shape roles and transform1_by transforms only first witness/normal; status/penetration config explicitly qualifies reliable geometry. Native vectors are actual shape-query math representation.",
+        "actual_receiver": "Fresh original Avian487540-594 SHAa568d6d6d411e2832b3efb91dfc919770712da09eae38e4a9dff53ffd8d72fea: actual cast caller uses static obstacle asshape1, camera shape2; converts each local witness/normal with its actual pose, returns ShapeHitData world normal1/2. Fresh original camera/collision.rs162-189 SHAe57c0f4f3a2b7f4cb749b5e1ca57628e9e5ef864f1bd4365fe48313a3f426c3e admits hit.normal1 through SpatialDirection::from_normalized and distance fraction through UnitInterval.",
+        "boundary_and_disposition": "Extraction of checked camera position/rotation to Avian is actual framework boundary and re-admission of native hit is correct. For these traced branches normal1 is world afterAvian, with no extra camera rotation at application consumer. Preserve inherited Q003 qualifications about native status/numerical validity/other branches; no blanket SDK or whole camera clearance."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 89,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/default_query_dispatcher.rs",
+      "sha256": "dd9873e219688b93f28314df13a405c0c78fb44444344b46e18ba2eb75fbe53d",
+      "source_ranges": [
+        [
+          437,
+          543
+        ]
+      ],
+      "actual_eof": 835,
+      "trace": {
+        "producer": "DefaultQueryDispatcher chooses actual ball, halfspace/support-map, heightfield, support/support or composite/voxel shape-query implementation from native shapes.",
+        "retained_and_operations": "Same relative pose/local velocity and ShapeCastOptions forwarded, no application primitive re-admission. Cuboids take support-map branch, halfspace combinations have explicit direction/order.",
+        "actual_receiver": "Actual native support90 and halfspace91 producers feed ShapeCastHit88 and actual Avian world transform; unsupported shape combinations produce Unsupported, not fabricated hit.",
+        "boundary_and_disposition": "Native closed dispatcher is actual geometry-kernel handoff. Do not infer cuboid path from generic docs or certify unread composite/heightfield/voxel numerical bodies; all materially reached registered support/halfspace branches are independently traced below."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 90,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/shape_cast/shape_cast_support_map_support_map.rs",
+      "sha256": "d874526a7a624206fd8ae6e3302db0f51f2d643c53014b8f5d496daa7d1e125c",
+      "source_ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "actual_eof": 67,
+      "trace": {
+        "producer": "Support-map shape cast calls GJK directional_distance92 and, near zero impact when requested, contact93.",
+        "retained_and_operations": "Normal1 remains first-shape local; normal2 derives inverse relative rotation of negative normal1; witness2 inverse-transforms; positive target distance inflates native shape. Nearzero contact preserves actual local contact fields and applies stop/separating policy.",
+        "actual_receiver": "Hit88 is consumed by original Avian487 which applies actual pose rotations to world, then camera normal admission. No application helper interprets local vector as world before that transform in traced route.",
+        "boundary_and_disposition": "This is source-backed local-frame producer proof for existingQ003, not merely documentation. Raw tuples from GJK are native numerical boundary, not game quantity identity. Preserve zero/penetration/reliability policy; no new native repair or runtime success."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 91,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/shape_cast/shape_cast_halfspace_support_map.rs",
+      "sha256": "42943e2a44151982c9c509c9c633cde8b794e4da98ac70a1fd1d99c657aef851",
+      "source_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "actual_eof": 78,
+      "trace": {
+        "producer": "Halfspace/support-map casts produce normal1=halfspace local normal and normal2=inverse relative rotation of its negative; witnesses likewise local per shape.",
+        "retained_and_operations": "Reversed support/halfspace route computes inverse pose/opposite transformed velocity and swaps hit roles. Ray/target-distance computations occur in native local space, status preserves penetration/converged distinction.",
+        "actual_receiver": "Dispatcher89 forwards this hit through88 to Avian actual world transforms and camera typed direction port.",
+        "boundary_and_disposition": "Normal role/frame survives reversed case correctly at source. Do not replace distinct shape normals with one raw worldnormal before native transform, or invent false double-rotation failure in observed application path. SDK robustness and broad contact validity remain unclaimed."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 92,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/gjk/gjk.rs",
+      "sha256": "893b9246ae77eb21d8a3f10afaeeb05e36bfdb774ce6e98579f614ac32e57a68",
+      "source_ranges": [
+        [
+          634,
+          822
+        ]
+      ],
+      "actual_eof": 822,
+      "trace": {
+        "producer": "Native GJK directional_distance/minkowski raycast returns time/normal/witness tuple in first-shape CSO frame g1-pos12*g2.",
+        "retained_and_operations": "Ray direction normalized inside solver; returned time divides by original ray length, ldir tracks native projection normal; witnesses combine actual support-point originals. Zero movement returns None, loops/relative thresholds native algorithm policy.",
+        "actual_receiver": "Actual support-map cast90 names tuple time_of_impact/normal1/witnesses and converts normal2/witness2 before ShapeCastHit. Avian then converts local frames at actual framework boundary.",
+        "boundary_and_disposition": "This is concrete numerical-kernel tuple, not an intermediate application positional-record escape. Keep native time-versus-distance semantics: Avian uses unit cast direction so its hit scalar is distance, general Parry velocity makes it time. No global finite/iteration/assertion guarantee or new SDK issue count."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 93,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/contact/contact_support_map_support_map.rs",
+      "sha256": "fcb9e37067085e862b6a23bfbe73a4bc39ff56ceefc90031f9c0b10766430562",
+      "source_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "actual_eof": 73,
+      "trace": {
+        "producer": "Native support-map contact obtains GJK closest points or EPA fallback; normal1 first-shape frame, normal2 inverse-rotated negative normal1, point2 inverse-transformed.",
+        "retained_and_operations": "Initial direction from relative translation or nativeX fallback; failed native contact returnsNoIntersection, not fabricated geometry. ReturnContact preserves local role fields.",
+        "actual_receiver": "Actual nearzero cast90 reuses these fields thenAvian transforms actual poses. This closes the registered native penetration-normal producer role, not all native geometry branches.",
+        "boundary_and_disposition": "No new application raw-value producer gap at native contact arithmetic. Camera re-admits framework normal to checked SpatialDirection after world projection; native failures/status/config remain inherited source/policy qualifications, no runtime/hardware clearance."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    }
+  ],
+  "global_clearance": false,
+  "new_unique_count": "not asserted; existing-remedy dedup required",
+  "extra": {
+    "critical_existing_support": "Original catalog487 Avian540-594 and1462 camera162-189 personally re-read at exact frozen hashes; no original baseline restart or new role count."
+  }
+}

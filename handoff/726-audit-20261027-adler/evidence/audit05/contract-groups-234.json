@@ -1,0 +1,88 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-234",
+  "at": "2026-10-25T22:00:14.649913+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2313,
+      "source_id": "pr-working:crates/fabelgeist-mhr/Cargo.lock",
+      "sha256": "45961a0c74b57fb81e9429abc14d387a4e4a00ba18a771c17b0fd5e4ea09eaf4",
+      "personally_read_ranges": [
+        [
+          1,
+          28
+        ],
+        [
+          97,
+          102
+        ],
+        [
+          588,
+          602
+        ],
+        [
+          1997,
+          2005
+        ],
+        [
+          2335,
+          2440
+        ],
+        [
+          2469,
+          2479
+        ],
+        [
+          4035,
+          4044
+        ],
+        [
+          5244,
+          5253
+        ],
+        [
+          7070,
+          7093
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Generateddependency-ledger inventorydisposition only: boundedheader/rootpackage/relevantdependencyversionentries read, packagesnotexhaustivelyread, noRustsemanticorlockgraphcorrectnessclearance. Exacthashverified. HeaderdeclaresCargogeneratedversion4; rootMHR0.1.0dependsBurn/FBX/FS/NumPy-storage/Rig/anyhow, matchingmoduleimports/libraryroles; Burnpinned0.22.0-pre.2gitb1502de8 anddependencyversionsrecorded. No unresolveddependencyambiguityraisedbythisboundedread; anyfutureactualdependencyquestionrequiresseparatetargetedtrace. Noresolve/update/build/network."
+      ],
+      "coverage_kind": "explicit nonsemantic generated dependency-ledger disposition; no exhaustive package/body/graph semantic credit"
+    },
+    {
+      "scope_index": 2315,
+      "source_id": "pr-working:crates/fabelgeist-mhr/README.md",
+      "sha256": "2f55f036aa8e477333adc25d8fd8c50685a6648e6e9966c76c1e227bd5607ea7",
+      "personally_read_ranges": [
+        [
+          1,
+          154
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all154lines MHR README asdocumentationevidence. Input/outputshapecontractandcentimetres/skeleton8tuple matchconsumergoals; references/sourceperformance/paritynumbersnotimportedaspassthisaudit. Known-gapsvertexnormalsclaimmaybestaleagainstmodelbodypending; keepactualcodeauthority. Noexecution."
+      ],
+      "coverage_kind": "personally read complete source body"
+    },
+    {
+      "scope_index": 2316,
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/character.rs",
+      "sha256": "2d2357141ae8fa55cdb6e758723986a13dae79c775a82cdb7d4d79615e1076ed",
+      "personally_read_ranges": [
+        [
+          1,
+          315
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all315lines character.rs includingtestsource. FBXScene\u2192skeleton/jointids sameorderedRigJointTable, mapobjectIDs\u2192ordinals thenmesh/skin/inversebind/bases retainedinCharacter. Vertextriples/UVpairs rejectincomplete; polygonterminator/min3checks beforefan. Publicmesh/basisfaceindicesandfloatnarrowing independentbounds needcanonicalMHRadmissionlatermodel; notclaimedbadcurrentasset. Blendshape per-slotinvaliddata skipped/zeros byexistingpolicy, namesequenceandsamevectorstrideappendedtogether. ExistinginheritedMHRfindings reconciliationcontinuesskeleton/skin/modelgroup. Noexecution."
+      ],
+      "coverage_kind": "personally read complete source body"
+    }
+  ],
+  "findings": [],
+  "discovery": "Two complete source bodies and one explicit nonsemantic generated dependency-ledger disposition; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

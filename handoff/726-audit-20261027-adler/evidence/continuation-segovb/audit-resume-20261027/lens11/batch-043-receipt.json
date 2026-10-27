@@ -1,0 +1,277 @@
+{
+  "at": "2026-10-27T13:48:31.818000+00:00",
+  "lens": 11,
+  "status": "998-1002 independently source-accounted with findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-043-registration.jsonl",
+    "sha256": "a300ec1b84a9c6eb2145a19c8f0a143e99c039616433476937ed7a0a770e62a5"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-042.json",
+    "sha256": "1d56ac86719a183eba8799c6cf41c2c59bac0675c0e40dc818f13a8fa5bf2209"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 998,
+      "source_id": "pr-working:crates/adventuresim-core/src/social.rs",
+      "sha256": "bb53725a73f48ae6fbd9f4ff3e2e744aaaea403fa2fd0a9381c6766ce0ad1b6d",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/bb53725a73f48ae6fbd9f4ff3e2e744aaaea403fa2fd0a9381c6766ce0ad1b6d",
+      "actual_eof": 1909,
+      "ranges": [
+        [
+          1,
+          1909
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          1909
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 999,
+      "source_id": "pr-working:crates/adventuresim-core/src/social/action_kind.rs",
+      "sha256": "2b9ff5d4ad32e81e8a66e3ad09dc43d0e382c88b117b89b970876d9d3789ce92",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/2b9ff5d4ad32e81e8a66e3ad09dc43d0e382c88b117b89b970876d9d3789ce92",
+      "actual_eof": 264,
+      "ranges": [
+        [
+          1,
+          264
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          264
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1000,
+      "source_id": "pr-working:crates/adventuresim-core/src/social/affinity.rs",
+      "sha256": "498a0922e501f63800d2c4fa9bbffd863ca4cf98b83e09393c504b29d8a8ba7c",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/498a0922e501f63800d2c4fa9bbffd863ca4cf98b83e09393c504b29d8a8ba7c",
+      "actual_eof": 60,
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          60
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1001,
+      "source_id": "pr-working:crates/adventuresim-core/src/social/claim_resolution.rs",
+      "sha256": "adfd512aab47db7827260717ebbb91d41706b4668372a0137510c9d3df796dcc",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/adfd512aab47db7827260717ebbb91d41706b4668372a0137510c9d3df796dcc",
+      "actual_eof": 69,
+      "ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          69
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1002,
+      "source_id": "pr-working:crates/adventuresim-core/src/social/witness.rs",
+      "sha256": "14db851b00491a104efa4d272f24ef1285b357a92dbd0f875a109a27033fd735",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/14db851b00491a104efa4d272f24ef1285b357a92dbd0f875a109a27033fd735",
+      "actual_eof": 233,
+      "ranges": [
+        [
+          1,
+          233
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          233
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "original_index": 1195,
+      "sha256": "a09342196732b00b8520e9a446aa9fdef60e8fd44a439032ebdadc21e6e8e4c5",
+      "actual_read_ranges": [
+        [
+          200,
+          270
+        ],
+        [
+          510,
+          588
+        ],
+        [
+          1121,
+          1152
+        ],
+        [
+          1195,
+          1270
+        ],
+        [
+          1565,
+          1625
+        ],
+        [
+          1850,
+          1915
+        ],
+        [
+          2327,
+          2413
+        ],
+        [
+          2481,
+          2515
+        ],
+        [
+          2620,
+          2795
+        ]
+      ],
+      "no_ordered_credit": true
+    }
+  ],
+  "registered_but_body_unread": [
+    1003
+  ],
+  "role_dispositions": [
+    {
+      "roles": [
+        998
+      ],
+      "locations": [
+        "social.rs35-108,137-328,546-565,663-1041",
+        "stdb social522-539,2327-2413,2481-2515"
+      ],
+      "inventory": "Petition approach versus fit/difficulty/outcome; closed topic and action, personality-axis selector and axis-local values; private truth versus perceived belief, confidence and demeanor; symmetric familiarity versus directional affinity; elapsed minutes, real training hours, check rank, roll/risk/chance, effectiveness and signed deltas.",
+      "findings": [
+        "PersonalityAxis+i8 true/perceived values flatten15 canonical axis-specific enums and admit illegal combinations; diagnosed_axis only debug_asserts legality. Actual personality_truth extracts canonical enums into codes and put_belief rechecks legal set. A payload-owning PersonalityValue sum preserves code/axis relation and removes duplicate labels/legal mappings without merging distinct personality axes.",
+        "CasualChatDisposition retains Mirth/Transparency but extracts canonical Sociability/Outlook into i8 with exact manual conversion; reuse canonical enums directly. Prayer functions similarly take raw conviction codes despite existing Conviction enum.",
+        "PermissionPetitionApproach plus professional_fit/authority_fit boolean fields only apply to certain variants; approach-owned fit payload can remove ignored fields. Domain authority still explicitly caller-owned; a resolved success bool is not legal permission.",
+        "canonical_cooldown_id accepts action_kind&str even canonical SocialActionKind exists and actual caller supplies canonical key; keep action typed until key format. Typed character pair versus directional endpoints prevents unintended affinity/familiarity swap.",
+        "Risk/chance/roll/sensitivity/assessment strength share bounded invariant but distinct meanings; profile effectiveness may exceed1 (prayer1.25; profilecap2), failure multiplier and signed chance modifiers are not UnitInterval. Skill base0..5 can receive signed contextual bonus before clamping; preserve base versus adjusted check distinction.",
+        "SocialAttempt action/topic/profile independently allow unsupported combinations; actual caller checks and chooses prayer/reassurance and hard incompatible-flirt branches. Admitted attempt/profile can own needed payload and availability while retaining distinct personality/attraction gates.",
+        "Raw public f32 API clamps do not establish finite input invariant universally. Confidence replacement checks new finite value but first insert put_belief lacks that predicate; API candidate retained without authored runtime/current witness."
+      ],
+      "remedy": "Canonical personality payload sum and direct canonical axis enums; typed bounded numeric invariant below separate purpose roles; admitted action/topic/profile and source ID through receiving boundaries. Keep private truth and observer belief separate.",
+      "acceptance": "No illegal axis-local code or raw action key and no universal fraction collapse. Actual contextual checks precede commit; belief remains observer-owned fallible inference.",
+      "limits": "No global legal/medical authorization, full social persistence/runtime or randomness guarantee."
+    },
+    {
+      "roles": [
+        999
+      ],
+      "locations": [
+        "action_kind.rs1-264"
+      ],
+      "inventory": "Nine semantic social actions own stable reducer values, supported topics, skill and risk; commiseration shared concern changes actual executing skill Insight versus Deception. ParseSocialActionKindError is typed unit failure; canonical keys deliberately differ from Rust Rally/Reframe names.",
+      "findings": [
+        "shares_concern boolean has consequence only for Commiserate; source-specific admitted action could own genuine-versus-feigned concern, avoiding unrelated booleans across actions if API simplification warranted. Supported action/topic pair currently checked separately; description invalid-pair placeholder is defensive output, not proof of admitted action."
+      ],
+      "remedy": "Keep canonical action owner and supported-pair admission; no compatibility aliases for rejected rally/reframe input keys.",
+      "acceptance": "Actual action selects canonical skill/request spelling; names in display copy never become authority."
+    },
+    {
+      "roles": [
+        1000
+      ],
+      "locations": [
+        "affinity.rs1-60",
+        "stdb social1571-1617,1121-1149"
+      ],
+      "inventory": "Directional settled anchor state [-100,100], signed requested and realized delta, positive realized morale gain and elapsed decay minutes.",
+      "findings": [
+        "State versus delta/gain are different units/roles thoughf32. Actual realized_affinity_delta caps before receipt capture; settle_affinity rejects nonfinite anchor but gain/delta current remain raw public inputs. Typed admitted affinity/finite delta and checked operations simplify repeated clamp.",
+        "Actual current_affinity uses subject personal clock to decay anchor; symmetric familiarity is not this directional state. Keep clock and role distinction rather than universal pair score."
+      ],
+      "remedy": "Retain purpose-specific state/delta/gain wrappers using shared finite invariant and capped state operations.",
+      "limits": "No claim all persisted anchors finite or runtime malformed input; numeric formulas source-only."
+    },
+    {
+      "roles": [
+        1001
+      ],
+      "locations": [
+        "claim_resolution.rs1-69",
+        "stdb social206-265,1214-1257,1121-1149"
+      ],
+      "inventory": "WitnessClaimOutcome UsefulAnswer/DidNotYield is sanitized observer feedback, not factual accuracy; Option<WitnessClaimResolution> owns resolved state. Stored affinity_delta is realized snapshot after state clamp, not requested delta/live relationship.",
+      "findings": [
+        "Keep actual outcome enum and resolution-presence authority; do not add resolved bool or derive feedback from future live affinity. Raw affinity delta can use admitted signed purpose owner without constraining topositive or conflating with morale.",
+        "Actual apply_witness_relationship_outcome returns realized delta and claim persists from_challenge(outcome,delta), so no loss of this distinction in inspected path."
+      ],
+      "remedy": "Retain snapshot semantic owner; type delta and identity ports to mutation/retention boundary."
+    },
+    {
+      "roles": [
+        1002
+      ],
+      "locations": [
+        "witness.rs1-233",
+        "quest model935-968 personally037",
+        "stdb social1195-1270"
+      ],
+      "inventory": "Demeanor noisy signal [-1,1] versus factual accuracy bool and observer colored direction/strength; ClaimChallengeApproach distinct vocabulary from companion social actions; private claim truth versus safe failed result, skill/leverage/personality/morale modifiers.",
+      "findings": [
+        "ClaimChallengeApproach earns its place even maps to ordinary action skill: different leverage/truth/affinity policy and keys, so do not merge enums merelysame3skills. Unknown/LikelyFalse/LikelyTrue assessment is meaningful noisy demeanor, not truth boolean.",
+        "Strength can reuse bounded fraction beneath assessment-specific role; input signal bounded signed unit is not same owner as probability. Raw demeanor signal currently derived from Reliability into {-1,0,1}; no universally continuous versus closed3state commitment beyond actual producer.",
+        "False claim plus successful check gives UsefulAnswer; truthful versus insufficient checks intentionally share failed affinity result. Do not expose failure-reason enum containing hidden accuracy. Command success still has negative affinity toll, so succeeded cannot imply positive affinity."
+      ],
+      "remedy": "Keep typed private truth, noisy assessment and sanitized feedback boundaries; propagate canonical numerics and avoid converting private truth to observer certainty.",
+      "acceptance": "Safe failure shape and snapshot delta remain while all admitted numeric/identity roles carry purpose."
+    }
+  ],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_ledger_edited": false,
+  "new_material_extensions": [],
+  "limits": [
+    "Frozen source only, fixtures not executed; no current/runtime/accepted alias/global or other-lens proof.",
+    "1195 ranges intentionally include partial method context; complete scoped numeric receiver loops, canonical axis conversion and actual captured result consumed. No whole social authorization/view/retry/condition/RNG proof.",
+    "Pure and reducer social distinction source-accounted with findings; native RNG implementation and all condition producers remain separately registered populations."
+  ]
+}

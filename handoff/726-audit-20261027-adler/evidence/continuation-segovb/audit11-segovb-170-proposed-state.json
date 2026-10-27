@@ -1,0 +1,56 @@
+{
+  "lens": 11,
+  "prior_state": "audit11-segovb-169-proposed-state.json",
+  "newly_source_accounted": [
+    796
+  ],
+  "original_accounted": 797,
+  "original_total": 2853,
+  "next_original": 797,
+  "active_partial": null,
+  "receipt": "audit11-segovb-170-796-complete.json",
+  "new_material_extensions": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/gpu/scalp.rs",
+      "sha256": "64a5cc8196a567a3b4d071c355bc491a23956d815c57d4805277bf15b1135304",
+      "consumed_ranges": [
+        [
+          1,
+          84
+        ],
+        [
+          136,
+          412
+        ]
+      ],
+      "original_shared_count_credit": false,
+      "other_lenses": "mandatory root queue, incomplete"
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/gpu/scalp/layout.rs",
+      "sha256": "1934e3eae9d1344b28b6cfd751a0fb691b3a81c64c1a18f2aea41a65f4e3f036",
+      "consumed_ranges": [
+        [
+          87,
+          93
+        ]
+      ],
+      "original_shared_count_credit": false,
+      "other_lenses": "mandatory root queue, incomplete"
+    }
+  ],
+  "source_accounting_not_clearance": true,
+  "new_unique_findings": 0,
+  "accepted_unique_count_change": 0,
+  "crosswalk": "audit11-question-crosswalk-001.json",
+  "current_reconciliation": "current-rig-dressing-reconciliation-001.json",
+  "inherited_populations_and_qualifications": "Unchanged broader unfinished populations/families; prior795 candidate not current/unique promoted, source-key aliases preserved, no other lens credit.",
+  "current_cap_counterpart_inspected": false,
+  "integrated": false,
+  "validated": false,
+  "clear": false,
+  "root_ledger_overwritten": false,
+  "historical_states_overwritten": false,
+  "source_git_checks_tests_publication": "none",
+  "stop_boundary": "796 completed only;797 unstarted."
+}

@@ -1,0 +1,253 @@
+{
+  "at": "2026-10-27T05:41:27.937435+00:00",
+  "lens": "13 magic-numbers",
+  "packet": "032",
+  "status": "ActualCargo Some4->V4admission and V4->Some4serdeencoding now traced withretainedversiongetter. Rawtextparser/fullretention/writer/materialpayloadfrontiers partial;37/2853unchanged;31/36/39partial.",
+  "authority": {
+    "frozen_original_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "original_index": 39,
+    "original39_fullsource_sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+    "original_registry": "target/recovery-20261025/audit05/original-scope-072.json",
+    "original_registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "source_manifest_sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa",
+    "prior_root_adopted_state": "audit13-successor-031-suggested-state.json",
+    "prior_state_sha256": "68b5166d3c0649906aae4f5257de0c0cead3838d6f9a38277df64c330bc42a43",
+    "prior_root_adoption": "audit13-successor-031-adoption-root.json",
+    "prior_root_adoption_sha256": "046c169b77184d1af11152d610602ee57fe4eb4fe89de75691567e6046cd5dea",
+    "prior_authority_correction": "audit13-successor-031-authority-correction-001.json",
+    "correction_sha256": "1e3625d9559bb66077ebc8c5e9dd283d57036d9dc030f8e618fbbfc0e953cc81",
+    "exact_Cargo_commit": "59800466c5c41c444d264b1010b4d57e85a7117f",
+    "Cargo_tree": "3b8f73cb75ecbd212ea88427ce00eeee3504809e",
+    "root_adoption_required": true
+  },
+  "skill": {
+    "path": "/home/brunosegovia/.codex/skills/audit-magic-numbers/SKILL.md",
+    "sha256": "d71feffe9ef2d777c5d447840f4d3fbcec2e1f4b2cc354fc331e0c899b558dee",
+    "read": "Fullreload025retained;applicablerules/priorqualifiersretained."
+  },
+  "prospective_registrations": [
+    {
+      "path": "audit13-successor-registration-032.json",
+      "sha256": "a1d669fcfcaa226b90c62f3490317a2455de05715e7af20c26be3293c25b3aaa"
+    },
+    {
+      "path": "audit13-successor-registration-032-native-001.json",
+      "sha256": "b2547ea7be9a5061cfb43340fbdcb218ff9f44f884a16fe6a4279c34a0c69bc4"
+    }
+  ],
+  "source_fingerprints": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/e6d4e6732a14f88c1d81d9c7847982caa718973a830ef9bd1029ccd773df5dc4",
+      "source_path": "src/cargo/core/resolver/encode.rs",
+      "sha256": "e6d4e6732a14f88c1d81d9c7847982caa718973a830ef9bd1029ccd773df5dc4",
+      "git_blob": "cd30c8275b8efcace4c19e2d5c797d17d9cbdc4e",
+      "bytes": 26028,
+      "actual_lines": 676,
+      "ranges": [
+        [
+          1,
+          175
+        ],
+        [
+          510,
+          572
+        ]
+      ],
+      "official_url": "https://api.github.com/repos/rust-lang/cargo/contents/src/cargo/core/resolver/encode.rs?ref=59800466c5c41c444d264b1010b4d57e85a7117f",
+      "provenance": "OfficialGitHub read-only contentsGET at exacttoolchain-derivedcommit; fetchedrawsourceGitblobSHA1 equals independentlyretainedfixedtree metadata. No genericcommitpatchresponse printed.",
+      "purpose": "Actual formatversion scalar mapping/admission and small encoder owner operations, plus nativeimports. Identifier-onlylocators used before boundedregistration, no sourcebodycoveragefromstaging.",
+      "body_read_at_registration": false,
+      "actual_consumed_ranges": [
+        [
+          1,
+          175
+        ],
+        [
+          510,
+          572
+        ]
+      ],
+      "post_read_SHA256_and_Git_blob_verified": true
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/e6d4e6732a14f88c1d81d9c7847982caa718973a830ef9bd1029ccd773df5dc4",
+      "source_path": "src/cargo/core/resolver/encode.rs",
+      "sha256": "e6d4e6732a14f88c1d81d9c7847982caa718973a830ef9bd1029ccd773df5dc4",
+      "git_blob": "cd30c8275b8efcace4c19e2d5c797d17d9cbdc4e",
+      "actual_lines": 676,
+      "ranges": [
+        [
+          495,
+          509
+        ]
+      ],
+      "body_read_at_registration": false,
+      "actual_consumed_ranges": [
+        [
+          495,
+          509
+        ]
+      ],
+      "post_read_SHA256_and_Git_blob_verified": true
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/cbaf67dba589ff1ba2da2f8f6732de14a10e4e9323d683cb10728b500d312b96",
+      "source_path": "src/cargo/core/resolver/resolve.rs",
+      "sha256": "cbaf67dba589ff1ba2da2f8f6732de14a10e4e9323d683cb10728b500d312b96",
+      "git_blob": "d93e395325cf1275dea3129b65bbaad505305639",
+      "actual_lines": 504,
+      "ranges": [
+        [
+          455,
+          475
+        ]
+      ],
+      "body_read_at_registration": false,
+      "actual_consumed_ranges": [
+        [
+          455,
+          475
+        ]
+      ],
+      "post_read_SHA256_and_Git_blob_verified": true
+    }
+  ],
+  "source_consumption": {
+    "original39_reread": false,
+    "prior_fulloriginal39_body_ranges": [
+      [
+        1,
+        13103
+      ]
+    ],
+    "nativeencode_actualranges_thispacket": [
+      [
+        1,
+        175
+      ],
+      [
+        495,
+        572
+      ]
+    ],
+    "nativeowner_actualranges_thispacket": [
+      [
+        455,
+        475
+      ]
+    ],
+    "unregistered_actual_body_output_thispacket": false,
+    "entire676lineencodefile_audited": false,
+    "nativeencode_unread_ranges": [
+      [
+        176,
+        494
+      ],
+      [
+        573,
+        676
+      ]
+    ],
+    "bodyfromgenericcommitmetadataresponse": false,
+    "all031unregistered_output_disclosures_retained": true,
+    "source_accounted_original39": false
+  },
+  "independent_numeric_inventory_and_trace": [
+    {
+      "sources": "encode.rs128-164",
+      "roles": "TomlLockfile.version optionalnativeformatselector; Some5 unstableformatconditional,Some4/Some3 knownformats,Some(n)unknownexplicitnumbererror,Nonehistoricaldefault.",
+      "actual_trace": "into_resolve takes TomlLockfile,originaltext,&Workspace and firstbuildspathdeps. It matches version: Some(n@5) acceptedasV5onlywhen nightly_features_allowed and next_lockfile_bump true; nightlynoflagfailswithspecificerror,non-nightly5 fallsunknownerror. Some4->V4,Some3->V3; allotherSome numbersbailunsupported; None->V1. Native exactraw4owneradmissionbody isnowproven for an alreadytypedTomlLockfile,not for rawTOMLtextparse.",
+      "remaining": "TomlLockfileversionfieldtype/Serdeinputscalaradmission/callsite and completeinto_resolve flow toretainedResolve unread; no type/range/negative/float inputpolicy invented."
+    },
+    {
+      "sources": "encode.rs166-172",
+      "roles": "Optionalpackage/root collections andnativeindex0prepend.",
+      "actual_trace": "Absentpackagearray usesdefaultempty; ifrootrecordSome,packages.insert(0,root) prependsit. Literal0 is actual nativeVecfirstposition in historicalrootrecord normalization,notgamespace/unknownunit.",
+      "remaining": "Packageidentifier reconstruction/graph/duplicates/source/semver/checksum admission in unread176-494notclearfromthisprefix."
+    },
+    {
+      "sources": "retained031resolve153-193;freshresolve461-469",
+      "roles": "Nominalversion retainedatcreation,getter/setter.",
+      "actual_trace": "Priorregisteredconstructor acceptsResolveVersion andstoresfield; actualversion()returns self.version;set_version takesResolveVersion andassigns it. No primitiveintegercrossing bythese operations.",
+      "remaining": "Allcallers/mutations/upstreamRustVersionpolicy/actualcurrentgeneration untraced, no universalimmutableversion guarantee."
+    },
+    {
+      "sources": "encode.rs504-571",
+      "roles": "ActualserdeSerialize forResolve; deterministicorderedIDs, optionalmetadata/patchrecords, nativeversionconditionalchecksumfields, numericheaderoutput.",
+      "actual_trace": "serialize<S:ser::Serializer> sortsiteratedIDs, buildsEncodeState/nodes, clonesmetadata. V1 addschecksummetadatafornonpathIDs,using <none>sentinelifnochecksum. Empty metadata->None; unusedpatch checksum includedforversion>=V2. TomlLockfile version match mapsV5->Some5,V4->Some4,V3->Some3,V1/V2->None; resultingrecord .serialize(s). Thus retainedV4getter drives anactualnumericSome4header atnativeSerdeboundary.",
+      "remaining": "EncodeState/node/sourceIDbody,metadata/checksum nativepayloadinterpretation and actualserializer/literalon-diskwriter inops/lockfile.rsnotread. Traitimplementation provesemissionstructure not actualtextorallreceivingSerdeformats."
+    }
+  ],
+  "source_observations_noncounted": [],
+  "concrete_remaining_frontier": {
+    "original39_source": {
+      "consumed_ranges": [
+        [
+          1,
+          13103
+        ]
+      ],
+      "unread_ranges": [],
+      "next_body_line": null,
+      "source_eof_consumed": true,
+      "role_source_accounted": false
+    },
+    "resolved_native_subset": [
+      "ExactnativeCargoowner/default/maxstable/Rust-versionselection/constructorretention from031",
+      "ExplicitalreadytypedSome4nativeadmission->ResolveVersionV4match",
+      "RetainedResolve.versiongetter/setter body",
+      "ResolveSerializeenumV4->TomlLockfileSome4nativeSerdeoutput"
+    ],
+    "pending_native_receiving_contracts": [
+      "ActualTomlLockfile.versionfield/Serdeintegerinputadmission and rawtextparser invocation from on-disklockfile; no inference from usage alone.",
+      "Completeinto_resolve relevantversionmutations/constructorhandoff; prefixmatchnotfullfunctionacceptance/graphvalidity.",
+      "Actualon-disknumericliteralheaderwriter and serialization/parsingcallers in src/cargo/ops/lockfile.rs; documentation islocatoronly.",
+      "Materialquotednativeversions/checksums/source/dependencyselectors actualreceivinginterpretation, canonicaltypes/admission/operations asneeded, no arbitraryallpackageimplementationaudit."
+    ],
+    "nativeencode_unread_ranges": [
+      [
+        176,
+        494
+      ],
+      [
+        573,
+        676
+      ]
+    ],
+    "stop": "Boundedactualadmission/encodingleaf accomplished; no furthernative/sourceexpansion or40access."
+  },
+  "accounting": {
+    "before_original_accounted": 37,
+    "after_proposed_original_accounted": 37,
+    "original_total": 2853,
+    "partial_original_indices": [
+      31,
+      36,
+      39
+    ],
+    "earliest_unfinished_original": 31,
+    "first_never_started_original": 40,
+    "new_original_roles_completed": [],
+    "new_unique_count": 0,
+    "original40_access_credit": 0,
+    "overlays_increment": 0,
+    "merged_increment": 0,
+    "material_increment": 0,
+    "other_lens_credit": 0
+  },
+  "other_lens_extension_queue": {
+    "path": "audit13-successor-032-other-lens-extension-queue.json",
+    "sha256": "f2e2a9d725c2fddf5796c8688f82bfba1e624ff3409f8cc418c5428897c079bc",
+    "credit": 0
+  },
+  "qualifications": [
+    "032 consumed only prospectively registered/hashverified nativeencode1-175/495-572 andsamepinnedownerresolve455-475. Entireselectedencode26028byteblob staged/hashverified fromofficialfixedcommitAPI, notfullbodyconsumption. No sourcebodyfromgenericcommit/patch printed in032;031incidentalunregisteredtruncatedpatch remainszero coverage.",
+    "031 authority correction applies unchanged: proper64char frozen source-manifest534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa; original031typoimmutable, correction/adoption retained. Cargoexactcommit59800466c5c41c444d264b1010b4d57e85a7117f fromcurrentstaticinstalledmanifest matchingfrozen selectedtoolchain is not historicalbinary/generation/currentCIexecutionproof.",
+    "Concrete rawSome4->ResolveVersionV4 admission match and retainedversiongetter->serdeSerialize versionSome4 arm now sourcebacked. This is nativeformatversionencoding policy at anactualoperation, not a businessscalar exemption inferred from names/metadata. FulltextTOMLnumberparse/type admission/caller, completeinto_resolvepackage processing/retention path, literalon-diskwriter and sourceURLformat receiver semantics not yet traced. Original39 remains partial.",
+    "The V5nightly/next-lockfile-bump flags are actualcheckedconditionbodies, but upstreamflagadmission/config/environment interpretation and channelprovenance not read. Raw1/2/3/4/5formatstates andV1/V2checksummetadata paths assessed only at visiblematch/comparison/serializationoperations; no universalfutureversion/safety/currentfirstparty/runtimebehavior guarantee.",
+    "Quotedpackageversions/checksums/source/dependencyselectors and their numerical interpretation are not blanketexempted. Reads ofTomlLockfiletypeusage/versionfieldmatches do not prove exactSerdefieldtype, invalidinteger/float/negative/future handling at rawtextboundary, semver/parser invariants, checksum integrity or packagegraph validity. Fullpackageimplementations/SDK not arbitrarily expanded.",
+    "Original39fullsource1-13103incl allcontainedsupplements remains retained unchanged from023-030.37/2853accounted unchanged;partials31/36/39,earliest31,neverstarted40/no40access. All inheritedF1/F2/F6/F9/global20/nativecurrentness/debug/history/AsBindGroup/custom-M/index/reset/count/buffer/range/other-lens queues remainopen/noncounted.018largerallowedlattice isnotactualspecieslenbudgetfailure/runtimepanicwitness. No acceptednewuniquealias/count.",
+    "No project/toolchain execution/build/check/lint/scan/generate/probe/tests/helpers/assertions/doctests additions/runs, product/source/Git/rootledger/historicalmutation orpublication. Onlyread-onlyofficialAPI andignoredappend-onlystaging/evidence. No oldAPI/schema/backwardcompatibility condition imposed; upstreamnativeformatversionsdescribed asactualsourcepolicyonly."
+  ],
+  "stop_reason": "Stopafteractualtypedheader4admission/Serdeencoding+versiongetter. Original39fullsourcebutrawtext/writer/materialreceiverpartial;counts unchanged."
+}

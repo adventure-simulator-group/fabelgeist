@@ -1,0 +1,678 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "101",
+  "predecessor": "receipt-100-originals465-477.json",
+  "manifest_prefix_sha256": "4dbf94cfaae484fcf6ad04489812aa9a5e84b43abc6b71c2d95375e71db80f93",
+  "sources": [
+    {
+      "original_index": 478,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/replication/registry/rule_fns.rs",
+      "sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+      "actual_eof": 348,
+      "actual_ranges": [
+        [
+          65,
+          169
+        ],
+        [
+          179,
+          268
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "65-169,179-268",
+          "role": "No literalstrings/StringvaluedAPIs inexactscope; actualRuleFns constructor88/as101/withinplace113/consume131/serialize143/deserialize150/inplace162/consume167; default183184andSerde207216\u2192472actualnativecodec. EqualSHA470differentregisterednamespace/range.",
+          "disposition": "Independentread covers currentexact requestedranges only; samebytes doesnotgrant aliaswholeSDK/firstpartyadmission/other-lens proof."
+        }
+      ],
+      "status": "Exact requestedmaterialunion independentlyread, historicalEOF qualifications explicit, no nativeimplementation/firstparty/globalclearance."
+    },
+    {
+      "original_index": 479,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/replication/rules.rs",
+      "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+      "actual_eof": 1386,
+      "actual_ranges": [
+        [
+          748,
+          809
+        ],
+        [
+          901,
+          939
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "748-809,901-939",
+          "role": "No literals/StringvaluedAPIs; actualreplicate_with752753\u2192filtered777781\u2192priorityfiltered901; functionpointerrules913/finalinsert920.",
+          "disposition": "Native registration genericdispatch only. ProtocolHasher/into_rules/filterimplementations/firstpartyinstallation notconsumed;939endsnextbodyprefix."
+        }
+      ],
+      "status": "Exact requestedmaterialunion independentlyread, historicalEOF qualifications explicit, no nativeimplementation/firstparty/globalclearance."
+    },
+    {
+      "original_index": 480,
+      "source_id": "pinned-registry:avian3d-0.7.0/Cargo.toml",
+      "sha256": "784418664acf79e35890108db95d9b43517706726665ab37152f3f252cb0dba9",
+      "actual_eof": 407,
+      "actual_ranges": [
+        [
+          55,
+          104
+        ],
+        [
+          364,
+          381
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "55-104,364-381",
+          "role": "AllstringsnativeCargo feature names/dependencyversions:bevy_render55/default3d,f32,parry-f32,debug-plugin,xpbd_joints,parallel,collider-from-mesh,bevy_scene,picking58-66;diagnostic70-71/libm74-76/parryfeature77-78/parallel83-85/parrydependency88-95/serde98-104;dependencyversions0.27365369/serde1373/derive374/smallvec1.15378/thiserror2381.",
+          "disposition": "Concrete nativefeature/version dependency declaration, no installedfeature resolution/lockchecksum/currentalias/runtimeproof."
+        }
+      ],
+      "status": "Exact requestedmaterialunion independentlyread, historicalEOF qualifications explicit, no nativeimplementation/firstparty/globalclearance."
+    },
+    {
+      "original_index": 481,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+      "sha256": "2a04ce7d6913b008e654905c96ead648efd840ddf102863532bc38bd187e3945",
+      "actual_eof": 1830,
+      "actual_ranges": [
+        [
+          390,
+          441
+        ],
+        [
+          633,
+          810
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "390-441,633-810",
+          "role": "Onlyliteralfeatures2d/3d390394718724730740746752758776783; nativecollider/ray/compound/cuboid wrappers sourcecontains no semanticstringstate. aabb404412\u2192make_pose,cast651662\u2192nativeRay andnormal666,compound698714\u2192SharedShape;cuboid747748\u2192490sharedshape.",
+          "disposition": "No stringfinding; actualnative math/collisionadmission/normalization/posebody/SDKruntime unavailable fromwrappers; preserve lens08Q003 no transfer. DocURLhalfspace804 is sourceprose link, contentnotread orclaimsupported."
+        }
+      ],
+      "status": "Exact requestedmaterialunion independentlyread, historicalEOF qualifications explicit, no nativeimplementation/firstparty/globalclearance."
+    },
+    {
+      "original_index": 482,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/math/mod.rs",
+      "sha256": "67a006eda87315f690718b4d9c45b656b04958f32a80dffb0700cd9fa2d3a0e0",
+      "actual_eof": 668,
+      "actual_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-70",
+          "role": "Literalcfgfeature f32/f64/2d/3d7/11/14/16/22/25/29/33/37/41/45/49/54/58/62/66 only; typedaliasesanddocs no StringAPI.",
+          "disposition": "Concrete nativecompiler vocabulary; no numeric/nativepose/raybehavior proof."
+        }
+      ],
+      "status": "Exact requestedmaterialunion independentlyread, historicalEOF qualifications explicit, no nativeimplementation/firstparty/globalclearance."
+    },
+    {
+      "original_index": 483,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/math/single.rs",
+      "sha256": "279b93c665684614416422084c7c9a7aca565ef6a57bd3fa61e76e388a1f71b9",
+      "actual_eof": 146,
+      "actual_ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-85",
+          "role": "Onlyliteralfeature2d/3d17/20/28/31/38/41; rawQuat/vectoraliases andprecisioncastmethods numerical.",
+          "disposition": "No stringapplicationrole or math/aliasinstallation proof;85beginsDVec2implementationonly."
+        }
+      ],
+      "status": "Exact requestedmaterialunion independentlyread, historicalEOF qualifications explicit, no nativeimplementation/firstparty/globalclearance."
+    },
+    {
+      "original_index": 484,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/physics_transform/transform.rs",
+      "sha256": "5020a25a60cbe8b42d37cadf31c24a6d24dcde07df2c8f156ee45ff81e9c450b",
+      "actual_eof": 1275,
+      "actual_ranges": [
+        [
+          125,
+          146
+        ],
+        [
+          740,
+          745
+        ],
+        [
+          1051,
+          1074
+        ],
+        [
+          1092,
+          1114
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "125-146,740-745,1051-1074,1092-1114",
+          "role": "Onlyfeatures serialize129130742743/2d135/3d139740105110921104. NativeRotationQuaternion745;GlobalTransformcompute_transform10661072 andrawQuatcomponents10951107 retainednumerically.",
+          "disposition": "No stringfinding; no normalization/composition/matrixproof or lens08Q003transfer despite exactnativebodyaccess."
+        }
+      ],
+      "status": "Exact requestedmaterialunion independentlyread, historicalEOF qualifications explicit, no nativeimplementation/firstparty/globalclearance."
+    },
+    {
+      "original_index": 485,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/ray_caster.rs",
+      "sha256": "bcc49b636bc3db8ebe946f004414493433003c689a819ede071337f555cc7c52",
+      "actual_eof": 410,
+      "actual_ranges": [
+        [
+          384,
+          410
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "384-410",
+          "role": "Literal serialize392393 nativefeature; RayHitData entity/distance/normal395403 andmapping407408, nostringAPI.",
+          "disposition": "ExactfrozenEOF410; historical384-415 exceedsactualby411415, actualproducerproof384410matches. No fabricatedread/numericalnormalproof."
+        }
+      ],
+      "status": "Exact requestedmaterialunion independentlyread, historicalEOF qualifications explicit, no nativeimplementation/firstparty/globalclearance.",
+      "historical_range_qualification": "Owner recorded384-415 exceeds exactEOF410; actualproducerproof384-410 matches bytes; registeractual384-410 only. Absent411-415 no coverage."
+    },
+    {
+      "original_index": 486,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/shape_caster.rs",
+      "sha256": "e7ddca53ee044c4814c925fffa7f172680988ea9456834049da965f16a5c6b66",
+      "actual_eof": 612,
+      "actual_ranges": [
+        [
+          400,
+          612
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "400-612",
+          "role": "Nativefeatures serialize409410525526578579 and2d/3ddocimports511512; docaliasmax_time_of_impact416/time_of_impact586; doctest printHitentitydistance519 concreteoutput. ShapeCastConfig/ShapeHits/HitData containnonumericalStringAPI.",
+          "disposition": "ExactfrozenEOF612vsold614, no613614bytes/credit. No source math/configcorrectness/nativehitorder/runtime/otherlensproof; doccomments/sourceexample rolesonly."
+        }
+      ],
+      "status": "Exact requestedmaterialunion independentlyread, historicalEOF qualifications explicit, no nativeimplementation/firstparty/globalclearance.",
+      "historical_range_qualification": {
+        "recorded_ranges": [
+          [
+            400,
+            614
+          ]
+        ],
+        "actual_ranges": [
+          [
+            400,
+            612
+          ]
+        ],
+        "reason": "Historical requestedrange extends past exactfrozenEOF. No invented absentbytes or bodycredit; actualproducerproof match separately qualified."
+      }
+    },
+    {
+      "original_index": 487,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/system_param.rs",
+      "sha256": "a568d6d6d411e2832b3efb91dfc919770712da09eae38e4a9dff53ffd8d72fea",
+      "actual_eof": 1293,
+      "actual_ranges": [
+        [
+          87,
+          155
+        ],
+        [
+          176,
+          229
+        ],
+        [
+          420,
+          493
+        ],
+        [
+          523,
+          609
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "87-155,176-229,420-493,523-609",
+          "role": "Onlynativecfg2d/3d/f3288/138/140/147/420/484/486/493 anddoctestFirsthitprints101435. Numerical cast methods111119/176225/446464/523595; no literalStringapplicationports.",
+          "disposition": "Actualnativequerywrappercalls481 and468 butunderlyingpose/geometry/tree/nativecastimplementation unclaimed; no Q003/lens08/normalruntimeproof. Excludedrangesunread; no arbitrarySDKexpansion."
+        }
+      ],
+      "status": "Exact requestedmaterialunion independentlyread, historicalEOF qualifications explicit, no nativeimplementation/firstparty/globalclearance."
+    },
+    {
+      "original_index": 488,
+      "source_id": "pinned-registry:parry3d-0.27.0/src/math/mod.rs",
+      "sha256": "f1b05b3e1a27c95127e70c59bc0269e9a191b64f4c8f7b02d0f9e402f1752c8c",
+      "actual_eof": 314,
+      "actual_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-48",
+          "role": "Onlynativefeaturef64/f32/dim26/8/12/14/26/31/35/39/46; nativeglamxPosealiases28/32 anddefaultEPS43.",
+          "disposition": "No Stringapplicationrole; actualPose/rotation implementationsunread here, no numerical/nativecoverage."
+        }
+      ],
+      "status": "Exact requestedmaterialunion independentlyread, historicalEOF qualifications explicit, no nativeimplementation/firstparty/globalclearance."
+    },
+    {
+      "original_index": 489,
+      "source_id": "pinned-registry:parry3d-0.27.0/src/shape/cuboid.rs",
+      "sha256": "e096c59d8192dc997b7db25e0dcd024eefb5c9f37a00a2338bafd11f39582630",
+      "actual_eof": 783,
+      "actual_ranges": [
+        [
+          55,
+          90
+        ],
+        [
+          110,
+          127
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "55-90,110-127",
+          "role": "Onlynativefeaturesserde57/bytemuck58/encase59/rkyv61; numericalCuboidconstructor118119 storesvector.",
+          "disposition": "No Stringapplicationrole; unrelateddocs/code/nativegeometry/mathunclaimed."
+        }
+      ],
+      "status": "Exact requestedmaterialunion independentlyread, historicalEOF qualifications explicit, no nativeimplementation/firstparty/globalclearance."
+    },
+    {
+      "original_index": 490,
+      "source_id": "pinned-registry:parry3d-0.27.0/src/shape/shared_shape.rs",
+      "sha256": "7cec2012b2193c9dc60738a2a1ce2b9e873a83f730e6d0d15bfe616eead271c5",
+      "actual_eof": 715,
+      "actual_ranges": [
+        [
+          282,
+          300
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "282-300",
+          "role": "Onlydim3/dim2doc/cfg282284289295; SharedShapeCuboidconstructor290291\u2192489new,roundtail296300incomplete.",
+          "disposition": "No Stringapplicationrole; no wholephysics/runtime/numericaladmissiontransfer."
+        }
+      ],
+      "status": "Exact requestedmaterialunion independentlyread, historicalEOF qualifications explicit, no nativeimplementation/firstparty/globalclearance."
+    },
+    {
+      "original_index": 491,
+      "source_id": "pinned-sdk-2.6.1:db_connection.rs",
+      "sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+      "actual_eof": 1624,
+      "actual_ranges": [
+        [
+          715,
+          805
+        ],
+        [
+          930,
+          975
+        ],
+        [
+          1138,
+          1180
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "715-805,930-975,1138-1180",
+          "role": "NativegeneratedAPItable_name&staticstr735 retainedTableHandle742; reducercallbackResult<Result<(),String>,InternalError>750 contains hostfailuretext. Nativeprocedure_name&staticstr785\u2192pendingprocedure792/BSATNexpects793799; compiler must_use multiline936949 andfeaturebrowser950956964; nativeextra_loggingfile error970 retainedtypedcausewith_cause971; on_connecttoken&str1144 nativeauthcallback; nativepaniccallbackmultiplicity11471165.",
+          "disposition": "Concrete generatedDBtable/procedure/nativeauth/error/diagnostic boundaries; actualgeneratedfirstpartycallers/cache/nativeprotocol missing, do not blanketexempt downstreamsemanticstrings. No secretvalues/networkexecution; TODOdeprecatedcomment770 not BCpolicy."
+        }
+      ],
+      "status": "Exact requestedmaterialunion independentlyread, historicalEOF qualifications explicit, no nativeimplementation/firstparty/globalclearance."
+    },
+    {
+      "original_index": 492,
+      "source_id": "pinned-sdk-2.6.1:error.rs",
+      "sha256": "e98badf5f0eaff8bfe959e31b3ed9e4a6ad5cf5ec4040bfe806f74dc0c692d38",
+      "actual_eof": 104,
+      "actual_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-104",
+          "role": "NativeErrorDisplay8/11/17/20/23, SubscriptionError observedhostString18; InternalErrormessageString32 withoptionaltypedArcsource33/new37; nativecodegenfailed_parse(ty/container&staticstr)55/unknown_namecategory/nameDisplay/container65\u2192diagnosticstrings57-5967-69,Displaycolon78;docStackOverflowURL89unread.",
+          "disposition": "ExactnativeSDKdiagnostic API source, externaltextauthority retainedasnativeobservedpayload; downstreamapplication parsing/sourceerrorflattening not cleared. cause85 returnsstoredcause/source99returnsNoneobserved, no otherlensuniquefinding orSDKrepairclaim."
+        }
+      ],
+      "status": "Exact requestedmaterialunion independentlyread, historicalEOF qualifications explicit, no nativeimplementation/firstparty/globalclearance."
+    },
+    {
+      "original_index": 493,
+      "source_id": "pinned-sdk-2.6.1:lib.rs",
+      "sha256": "8de4cda1540f853eb47c888806c1529d3a7b2ed9e928d8fa01304f7d525e8161",
+      "actual_eof": 76,
+      "actual_ranges": [
+        [
+          35,
+          65
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "35-65",
+          "role": "No literalstrings/StringvaluedAPI; nativegeneratedexports/typealiases/moduleprose.",
+          "disposition": "Declarations not implementation/bodycoverage/currentnativealias or compatibilityobligation; sourcepolicy saysnonstable exports only asquotedbehavior notuserconstraint."
+        }
+      ],
+      "status": "Exact requestedmaterialunion independentlyread, historicalEOF qualifications explicit, no nativeimplementation/firstparty/globalclearance."
+    },
+    {
+      "original_index": 494,
+      "source_id": "pinned-sdk-2.6.1:subscription.rs",
+      "sha256": "5b1c6b0def7c80c6afb1659ff676de3c9414173452a374041d4c9f27f760e729",
+      "actual_eof": 566,
+      "actual_ranges": [
+        [
+          140,
+          190
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "140-190",
+          "role": "No literalstrings/StringvaluedAPIinsideexactscope; SubscriptionBuilder genericIntoQueries181\u2192185 nativeSQLsubscription boundary actualIntoQueriesbodyunread.",
+          "disposition": "No wholequery/codegen/nativeSDK/async/runtimeproof;190endsunconsumedtail."
+        }
+      ],
+      "status": "Exact requestedmaterialunion independentlyread, historicalEOF qualifications explicit, no nativeimplementation/firstparty/globalclearance."
+    }
+  ],
+  "connected_findings": [],
+  "pending_contracts": [
+    "Actualnativecodegen/cache/query/procedure/URL/BSATN/underlyingSerde/numericalpose/collisionimplementation andfirstpartyinstantiationsremainexactqualifiedreceivingobligations.",
+    "No SDKrangeaccessrepairsorclearspriorfirstpartyrawIDs/names/frame/action/errorcause/digest findings; allaliasesretained."
+  ],
+  "qualifications": [
+    "Exactf82registeredpinnednativeversionmaterialonly, nowholeSDKdownload/read/currentinstalledalias. EqualSHA470478/471479 namespaces independentlyread; no verdicttransfer.",
+    "485historical411-415absentactualEOF410;486historical613614absentactualEOF612; actualscopedremainingbodiesreadonly, no inventedcoverage.",
+    "No BC/input/API/schema preservation constraint; no native/project/test/probe execution or product/Git/rootledger/publication mutation. All20/P16/P17/F9/M09/global/current/runtime/unique-total/otherlens limits preserved."
+  ],
+  "proposed_count": {
+    "before": 478,
+    "after": 495,
+    "indices_completed": [
+      478,
+      479,
+      480,
+      481,
+      482,
+      483,
+      484,
+      485,
+      486,
+      487,
+      488,
+      489,
+      490,
+      491,
+      492,
+      493,
+      494
+    ],
+    "next_original": 495,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/replication/registry/rule_fns.rs",
+      "sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+      "ranges": [
+        [
+          65,
+          169
+        ],
+        [
+          179,
+          268
+        ]
+      ]
+    },
+    {
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/replication/rules.rs",
+      "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+      "ranges": [
+        [
+          748,
+          809
+        ],
+        [
+          901,
+          939
+        ]
+      ]
+    },
+    {
+      "source_id": "pinned-registry:avian3d-0.7.0/Cargo.toml",
+      "sha256": "784418664acf79e35890108db95d9b43517706726665ab37152f3f252cb0dba9",
+      "ranges": [
+        [
+          55,
+          104
+        ],
+        [
+          364,
+          381
+        ]
+      ]
+    },
+    {
+      "source_id": "pinned-registry:avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+      "sha256": "2a04ce7d6913b008e654905c96ead648efd840ddf102863532bc38bd187e3945",
+      "ranges": [
+        [
+          390,
+          441
+        ],
+        [
+          633,
+          810
+        ]
+      ]
+    },
+    {
+      "source_id": "pinned-registry:avian3d-0.7.0/src/math/mod.rs",
+      "sha256": "67a006eda87315f690718b4d9c45b656b04958f32a80dffb0700cd9fa2d3a0e0",
+      "ranges": [
+        [
+          1,
+          70
+        ]
+      ]
+    },
+    {
+      "source_id": "pinned-registry:avian3d-0.7.0/src/math/single.rs",
+      "sha256": "279b93c665684614416422084c7c9a7aca565ef6a57bd3fa61e76e388a1f71b9",
+      "ranges": [
+        [
+          1,
+          85
+        ]
+      ]
+    },
+    {
+      "source_id": "pinned-registry:avian3d-0.7.0/src/physics_transform/transform.rs",
+      "sha256": "5020a25a60cbe8b42d37cadf31c24a6d24dcde07df2c8f156ee45ff81e9c450b",
+      "ranges": [
+        [
+          125,
+          146
+        ],
+        [
+          740,
+          745
+        ],
+        [
+          1051,
+          1074
+        ],
+        [
+          1092,
+          1114
+        ]
+      ]
+    },
+    {
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/ray_caster.rs",
+      "sha256": "bcc49b636bc3db8ebe946f004414493433003c689a819ede071337f555cc7c52",
+      "ranges": [
+        [
+          384,
+          410
+        ]
+      ]
+    },
+    {
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/shape_caster.rs",
+      "sha256": "e7ddca53ee044c4814c925fffa7f172680988ea9456834049da965f16a5c6b66",
+      "ranges": [
+        [
+          400,
+          612
+        ]
+      ]
+    },
+    {
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/system_param.rs",
+      "sha256": "a568d6d6d411e2832b3efb91dfc919770712da09eae38e4a9dff53ffd8d72fea",
+      "ranges": [
+        [
+          87,
+          155
+        ],
+        [
+          176,
+          229
+        ],
+        [
+          420,
+          493
+        ],
+        [
+          523,
+          609
+        ]
+      ]
+    },
+    {
+      "source_id": "pinned-registry:parry3d-0.27.0/src/math/mod.rs",
+      "sha256": "f1b05b3e1a27c95127e70c59bc0269e9a191b64f4c8f7b02d0f9e402f1752c8c",
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ]
+    },
+    {
+      "source_id": "pinned-registry:parry3d-0.27.0/src/shape/cuboid.rs",
+      "sha256": "e096c59d8192dc997b7db25e0dcd024eefb5c9f37a00a2338bafd11f39582630",
+      "ranges": [
+        [
+          55,
+          90
+        ],
+        [
+          110,
+          127
+        ]
+      ]
+    },
+    {
+      "source_id": "pinned-registry:parry3d-0.27.0/src/shape/shared_shape.rs",
+      "sha256": "7cec2012b2193c9dc60738a2a1ce2b9e873a83f730e6d0d15bfe616eead271c5",
+      "ranges": [
+        [
+          282,
+          300
+        ]
+      ]
+    },
+    {
+      "source_id": "pinned-sdk-2.6.1:db_connection.rs",
+      "sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+      "ranges": [
+        [
+          715,
+          805
+        ],
+        [
+          930,
+          975
+        ],
+        [
+          1138,
+          1180
+        ]
+      ]
+    },
+    {
+      "source_id": "pinned-sdk-2.6.1:error.rs",
+      "sha256": "e98badf5f0eaff8bfe959e31b3ed9e4a6ad5cf5ec4040bfe806f74dc0c692d38",
+      "ranges": [
+        [
+          1,
+          104
+        ]
+      ]
+    },
+    {
+      "source_id": "pinned-sdk-2.6.1:lib.rs",
+      "sha256": "8de4cda1540f853eb47c888806c1529d3a7b2ed9e928d8fa01304f7d525e8161",
+      "ranges": [
+        [
+          35,
+          65
+        ]
+      ]
+    },
+    {
+      "source_id": "pinned-sdk-2.6.1:subscription.rs",
+      "sha256": "5b1c6b0def7c80c6afb1659ff676de3c9414173452a374041d4c9f27f760e729",
+      "ranges": [
+        [
+          140,
+          190
+        ]
+      ]
+    }
+  ]
+}

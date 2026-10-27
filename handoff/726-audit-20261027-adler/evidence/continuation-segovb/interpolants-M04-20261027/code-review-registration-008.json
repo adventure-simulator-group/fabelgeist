@@ -1,0 +1,32 @@
+{
+  "at": "2026-10-27T04:53:53.114829+00:00",
+  "head": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+  "extends": "code-review-registration-006.json",
+  "sources": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be",
+      "actual_lines": 13106,
+      "ranges": [
+        [
+          173,
+          215
+        ],
+        [
+          9761,
+          9778
+        ],
+        [
+          9806,
+          9820
+        ],
+        [
+          10837,
+          10878
+        ]
+      ],
+      "body_read_at_registration": false
+    }
+  ],
+  "purpose": "Existing locked core dependency edge and concrete Serde/thiserror package identities; no native macro implementation or package-wide clearance."
+}

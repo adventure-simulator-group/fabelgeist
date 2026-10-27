@@ -1,0 +1,154 @@
+{
+  "at": "2026-10-27T14:21:06.346970+00:00",
+  "lens": 11,
+  "status": "1027-1028 independently source-accounted with findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-051-registration.jsonl",
+    "sha256": "4822cc7b9ac54c3ffa87e47bc34a61ef69185bcbe8d7958d0575e2b8128450af"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-050.json",
+    "sha256": "a7324c6e250c6a2d9bdb2776b286d766751fdb69c775115a411624a486620afa"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1027,
+      "source_id": "pr-working:crates/adventuresim-core/src/world_event.rs",
+      "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+      "ranges": [
+        [
+          1,
+          620
+        ]
+      ],
+      "actual_eof": 620,
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          620
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1028,
+      "source_id": "pr-working:crates/adventuresim-core/tests/armor_harness.rs",
+      "sha256": "264aac03ab4bce2ffa47c2532cb1f092ed5717c1e5abac65af784125b1a90e0d",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/264aac03ab4bce2ffa47c2532cb1f092ed5717c1e5abac65af784125b1a90e0d",
+      "ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "actual_eof": 170,
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          170
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected",
+      "original_index": 1265,
+      "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+      "ranges": [
+        [
+          283,
+          605
+        ],
+        [
+          941,
+          1000
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual world-event commit validation/fingerprint/idempotency/native consequence and infection envelope producer binding",
+      "actual_read_ranges": [
+        [
+          283,
+          605
+        ],
+        [
+          941,
+          1000
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1265,
+      "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+      "ranges": [
+        [
+          606,
+          811
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual existing consequence-key payload collisions and legal consequence ordering, including zero-participant case",
+      "actual_read_ranges": [
+        [
+          606,
+          811
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original_index": 1027,
+      "inventory": "Private canonical occurrence versus observation/rights; schema revision/event ID; source request/finale/consumption IDs; actor character/party; canonical affected subjects; settlement vs strategic place ID; occurrence clock; correlated source/payload/actor references; infection dose versus protected dose, immunity milli and consumed fractionBPS; closed consequences and replay decisions; sorted battle/living fallback participants; raw reputation amount vs mitigation/severity; source fixtures.",
+      "disposition": "Event source/payload/actor form a restricted Cartesian product: validate310-354 requires matching request/finale IDs and corresponding actor/subjects, yet public records+Serde permit mismatches until validation. A payload-owning event-kind sum can carry each actual case once, removing duplicate source/payload IDs and invalid actor combinations without losing meaningful event kinds. Subjects must be canonical sorted unique nonempty<=64; Vec is broader than admitted set. Raw event/party/case/problem/source/disease/consumption/carrier IDs and strategic-place String erase different namespaces; generic validate_id onlysyntax, not canonical place or membership. Canonical occurrence place/time does not establish observation or legal permission. Infection dose microunits nonnegative quantization differs from proportion and immunity milli0..100000, not UnitInterval. Protected dose<=dose is aggregate relation; no direct clinical outcome inferred. Consequence local-problem resolve and mitigation fields remain independently meaningful outside current full-resolution planner. Participant selection intentionally may be empty and produces no consequences when no problem (fixture560-579); no force nonempty enrollment.",
+      "remedy": "Admit one domain event payload with correct actor/source IDs and canonical subject collection, then flatten only at native storage boundary; reuse canonical role IDs and strategic place owners after actual namespace reconciliation. Keep private occurrence authority separate from observer/public records and rights. Use dose/immunity/fraction and signed/nonnegative reputation quantity owners with checked quantization. Preserve exact request replay vs ID collision and distinguish stable request from dynamic participant-derived envelope.",
+      "acceptance": "Full1-620 consumed. Actual1265 native283-811 commit validates both request/result envelopes, fingerprints separate request/envelope/consequence domains, compares exact canonical consequence plan and ordering, preflights every existing consequence ID payload before native mutations, then retains receipt. Existing infection ID is checked against character/disease/time/ruleset/phenotype before apply skips insertion; no missing-key-association defect asserted. Native941-999 constructs infection from raw ports with dose quantization/immunity clamp and commits through same gate. This concrete gate repairs possible inference that general1179 event-id idempotence alone permits incompatible existing consequences; other callers remain their own scope. No all SDK transaction/rights/knowledge or clinical proof."
+    },
+    {
+      "original_index": 1028,
+      "inventory": "Armor harness fixture catalog IDs, local EquipmentGraph instance IDs, occupancy requirements location/channel/order/fit-zone, parent vectors, semantic protection body part vs surface anatomical regions, scalar coverage and graph counts.",
+      "disposition": "EquipmentLocation/channel/fit zone are different roles. Whole-limb zoneNone conflicts with specific zone, adjacent plates coexist and padding channel distinct. `order` does not bypass occupancy conflict (fixtureforearm0vs9), preserving prior wear/order-selector question rather than treating raw order as identity. Surface Neck region can coexist with Head protection model; do not force coverage surface and protection footprint same enum. Local graph instance0 deliberately admitted147; universal persistent nonzero InventoryItemId rule is not automatically appropriate for this fixture/local identity namespace.",
+      "remedy": "Reuse canonical occupancy/catalog/region owners and retain local graph-instance identity distinct from persistent inventory identity when actual API requires it. Keep qualified inherited185capacity/key/wear questions and typed operation contracts; no new fixture/test addition or role bounds derived solely from IDs/count22.",
+      "acceptance": "Full1-170 consumed. Actual equipment graph/occupancy bodies independently inventoried184-187 and core catalog029 previously pinned; fixtures read-only and do not establish whole authored catalog/native wearer/runtime guarantees."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-029-receipt.json",
+      "sha256": "b5f69edf443b8875a00e648ec25fe4ceeb5c35862c1aa03b273538ce355aec36"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-039-receipt.json",
+      "sha256": "e8dd9acd61a6e7ff4cf5551c460653184529319b1da16bdc63a269a7d90fb5e8"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-049-receipt.json",
+      "sha256": "7c7a1bf82e75c5dbe9a67fb086ea7776db66160590f8435b8519b7479433d9df"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-050-receipt.json",
+      "sha256": "0f23acc687c49d5da235bff7f543610cceab01a8e151173da1289b445ff24dd6"
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Frozen source only. Source-accounted with findings, no execution/currentness/accepted unique/global clearance. Connected native1265 gets zero ordered credit.",
+    "1265 full persist/envelope mapping169-282 and public foraging/case wrapper producers812-940 not read here. Actual core envelopes and native commit/semantic binding/preflight/apply consumed, no all producer authorization or persistence-field mapping claim.",
+    "WorldEventConsequence namespace/custom key collisions remain qualified until actual role aliases/currentness reconciled. Existing source fixture naming mentioning legacy is not a compatibility acceptance constraint."
+  ]
+}

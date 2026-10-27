@@ -1,0 +1,197 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "087",
+  "predecessor": "receipt-086-originals401-405.json",
+  "manifest_prefix_sha256": "2972d5b31ed069328bff0598293c70b856a641091a4ee6329db4e396e045dec0",
+  "sources": [
+    {
+      "original_index": 406,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration.rs",
+      "sha256": "5ebb42e36e764cd3adee88c336b2976f42db557494a436e8fa2eef2f79fdef61",
+      "actual_eof": 649,
+      "actual_ranges": [
+        [
+          1,
+          649
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "47-124,191-245",
+          "role": "Actual left/right MeleeIterationBuild names passed tactical_duel_resolution82;left_name/right_name&str111-112\u2192Victory victor.to_owned116/119. Spawn Player.name build.name.to_owned201 beside stableCharacterId203 and typedside224. Actual37351/55victor-name branch/368name-based counter selectors already independently read.",
+          "disposition": "Stable combatant identity/side should survive tactical outcome/event/report aggregation distinct from human display name; typed outcome enum alone does not justify String victor. No name uniqueness validation seen here; no actual runtime duplicate-name witness claimed."
+        },
+        {
+          "source_ranges": "291-649",
+          "role": "Existing tests branch on rawconditioncause fatigue340/492,blood_loss_fraction347/358,blood_loss_incapacitation353,displayname Shield Militiaman506/515 anddefensiveimplement buckler507,decisioncause offhand_block_reduced_attack_power518. Other namedcombatant comparisons363/479/487/553/561/575/587/608/630 couple identity to names. Existingleft/rightfixtures637/645feednameconstructor. NativeName Melee iteration ground183/debugassert305/369/405/469/474/514/568/590/614/618 output only.",
+          "disposition": "Fixture consumers share actual report semantic causes/identity/catalog roles; no test exemption or execution. Human labels for actor identity cannot justify mutable-name authority; no BC preservation or acceptance of physical claims."
+        }
+      ],
+      "status": "Full requested source independently read WITH actual producer/state/recipient findings."
+    },
+    {
+      "original_index": 407,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/equipment.rs",
+      "sha256": "734717189e02b8266dcc04626015d9fee4bb6e32d7a5816040db8d0a94d0f379",
+      "actual_eof": 163,
+      "actual_ranges": [
+        [
+          1,
+          163
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-163",
+          "role": "Raw build.weapon_id13\u2192catalog and ItemProperties.id23; shield_id74\u2192raw79;armor_ids92\u2192catalog93/raw129; repeatedarmorIDs comparison101. All other literals expects14/18/37/75/94/98/106/112/114 render roster metadata assumptions.",
+          "disposition": "Actual frozen roster-to-tactical catalog identity producer now connected to355state and398/377lookups. Canonical open catalog identity should propagate through roster/build/ItemProperties. Strategic inventory row IDs1/2/10+index separateauthority; no catalog\u2194inventoryalias or native/equipment runtime proof."
+        }
+      ],
+      "status": "Full requested source independently read WITH actual producer/state/recipient findings."
+    },
+    {
+      "original_index": 408,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/logging.rs",
+      "sha256": "cee413f196e6709475af3c4f68ba65471662d2dbc16d1fe978946ecbf362ca2d",
+      "actual_eof": 431,
+      "actual_ranges": [
+        [
+          1,
+          431
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "78-180,198-431",
+          "role": "TacticalMeleeLogEntry attacker/defenderString83-84,defensiveimplementOptionString88,bodypart/anatomicalString94-95;Condition combatantString127/causeString128;Wound combatant/bodypartString138-139;DecisioncombatantString148/targetOptionString151/causeOption&staticstr155;DuelResolutionVictoryvictorString161. Exact Player.name clone241/244/275/287/351/420; woundBodyPart Debug/lowercase352. Condition8causes pain399,acute_trauma400,blood_loss_fraction402,blood_loss_incapacitation407,imbalance411,fatigue412,encumbrance413,total414\u2192String421. All431read.",
+          "disposition": "Retain canonical combatant identity, BodyPart/AnatomicalSubregion, catalogrefs and condition-cause enum through event/log state; display/serde projection only at final serialization. Actual406fixturecause/name consumers and368rawmap consumer read; no wholesale report-output exemption. Typeddecision/status/contact/coverage/implement enums21-64 already own finite roles, retain them."
+        },
+        {
+          "source_ranges": "19-64,158-165,198-257,361-386",
+          "role": "Serde snake_case20/32/43/51/59 and tagkind159 concrete JSON mapping annotations. Expect368/371 diagnostic. record_attack_start increments count207 and records typedStarted243/keyNone253 on incomingStartedIntent199, actual406installed155 independently read.",
+          "disposition": "Native serde/diagnostic boundary, but retained semantic strings above not exempt. Earlier root Started-before-authoritative-admission/keyNone finding/source chronology preserved, no repair/correctness claimed; numerical/behavior other-lens scope excluded."
+        }
+      ],
+      "status": "Full requested source independently read WITH actual producer/state/recipient findings."
+    },
+    {
+      "original_index": 409,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs",
+      "sha256": "3454be3e36e9ce85770800d62425263aa87627bdcea264b6ab2803d24d3eeb02",
+      "actual_eof": 167,
+      "actual_ranges": [
+        [
+          1,
+          167
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "55-129,161-167",
+          "role": "Actual event\u2192retainedlog attacker/defender nameclones72-73;defensiveimplement catalogID.to_owned85;bodypartDebuglowercase98;anatomical serialized_name99. Generic helper161 returnsString usingserde_json::to_value162\u2192as_str164\u2192to_owned166,expects163/165. armor_layer_chain104 obtains actual356type withrawcatalogID, exactquerybody remainsunread.",
+          "disposition": "Premature primitive projection before actual368counter/mapconsumer rather than final serializer. Retain native typedBodyPart/AnatomicalSubregion/opencatalog refs through application reportstate; encoding at actual serde output. Actual381/385/396typed anatomical event producer chain now consumed, no nativeserde/runtime verdict."
+        },
+        {
+          "source_ranges": "1-167",
+          "role": "Only otherliteral compilerreason53; finite outcome/coverage/defensiveimplement/decision remaintyped4-5/12-49/132-158.",
+          "disposition": "Native compiler annotation; enum-nativeJSON encoding ownership already available, no fabricated raw label requirement or oldwire/BC obligation."
+        }
+      ],
+      "status": "Full requested source independently read WITH actual producer/state/recipient findings."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Tactical report prematurely projects typed identity/bodypart/anatomical/condition causes into retained strings",
+      "sources": [
+        "406:82,111-119,201,340-358,492-518",
+        "408:83-95,127-161,241-244,351-352,399-421",
+        "409:72-99,161-167",
+        "368:13,28,102,125,173",
+        "373:49-63"
+      ],
+      "remedy": "Carry stable combatant identity/side, BodyPart/AnatomicalSubregion and conditioncause enum/canonical catalog refs through report producers/state/aggregation; human prose/nativeJSON encoding once at finalboundary.",
+      "acceptance": "Inspect remaining decisioncause/actual reportmap/query/serializer/readers and canonical roster aliases before repair; no runtime duplicate-name/collision, currentness, unique total or otherlens promotion.",
+      "unique_count_delta": 0
+    },
+    {
+      "family": "Roster equipment catalog refs enter raw tactical retained state",
+      "sources": [
+        "407:13-23,74-79,92-129",
+        "355:103",
+        "398:92",
+        "377:81"
+      ],
+      "remedy": "Propagate canonical open itemreference from roster/build through tacticalprojection/lookups and report.",
+      "acceptance": "Exact core roster/catalog type authority/aliases and native decoder policies still qualified; no finiteclosedcatalog or fixtureexemption.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actual408decisions child body/causes pending; earlier root chronology findings retained.",
+    "356ArmorLayerContact actual query producer via409104 remains unread; report map definitions and external/serialization readers pending.",
+    "Core roster/build canonical identity validation and nativeJSON/parser/runtime source not globally certified."
+  ],
+  "qualifications": [
+    "Exact frozen f82 physical-P16 only; no current alias or verdicttransfer.",
+    "No backwardcompatibility/inputpreservation or project/native/test/probe execution; no product/Git/rootledger/publication mutation.",
+    "All20/P16/P17/F9/M09/inherited aliases/currentness retained; source WITHfindings not repaired/global/runtime/unique-total/otherlens clearance."
+  ],
+  "proposed_count": {
+    "before": 406,
+    "after": 410,
+    "indices_completed": [
+      406,
+      407,
+      408,
+      409
+    ],
+    "next_original": 410,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration.rs",
+      "sha256": "5ebb42e36e764cd3adee88c336b2976f42db557494a436e8fa2eef2f79fdef61",
+      "ranges": [
+        [
+          1,
+          649
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/equipment.rs",
+      "sha256": "734717189e02b8266dcc04626015d9fee4bb6e32d7a5816040db8d0a94d0f379",
+      "ranges": [
+        [
+          1,
+          163
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/logging.rs",
+      "sha256": "cee413f196e6709475af3c4f68ba65471662d2dbc16d1fe978946ecbf362ca2d",
+      "ranges": [
+        [
+          1,
+          431
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs",
+      "sha256": "3454be3e36e9ce85770800d62425263aa87627bdcea264b6ab2803d24d3eeb02",
+      "ranges": [
+        [
+          1,
+          167
+        ]
+      ]
+    }
+  ]
+}

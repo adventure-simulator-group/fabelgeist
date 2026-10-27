@@ -1,0 +1,26 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-042",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 518,
+      "source_id": "pr-working:assets/shaders/tactical_terrain.wgsl",
+      "sha256": "3e1b93040592788f45f281cd81947315b64deedb33d1325c618959a3ca642e81",
+      "ranges": [
+        [
+          1,
+          415
+        ]
+      ],
+      "source_basis": "Root personally read exact frozen registered full415-line WGSL body with line numbers.",
+      "concepts_actual_uses_and_mixup": [
+        "Terrain uniform groups source/world transforms, native weather/cover/LOD/patch and soil/litter/cliff quantities. Ground-map categorical kind bytes remain discrete while canopy floor distance/physical coverage/weather blend continuously. Source-axis normal reconstruction explicitly assumes axis-aligned mapping. Soil/litter/cliff UV scale, metric height, AO, roughness, pixel derivatives and optical parallax are distinct native GPU concepts. Coarse patch discard uses camera/world radius while source frame maps material. Mesh geometric truth and material color/normal modifiers remain separate. Actual CPU frame admission, categorical packing, texture formats/mips/samplers and shader runtime not traced here; no whole renderer or physical/collision authority proof."
+      ],
+      "disposition": "Accounted with exact native GPU/host producer limits; no accepted new finding.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

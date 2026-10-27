@@ -1,0 +1,243 @@
+{
+  "at": "2026-10-27T10:12:33.263493+00:00",
+  "kind": "Independent final scoped Code Review PR992 candidate013",
+  "base": "35b18ec280a6884bb53996a2d859c4b27096f65c",
+  "review_parent": "bca8a656440564fb7d486224115520fa5d317599",
+  "candidate": "013 exact current source; final committed-head binding pending parent final commit",
+  "manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/edited-source-manifest-013.json",
+    "sha256": "2519ce16f00edad1cd0a4d198f184c6f9a439ab1bcb48155002d069214a3c81f"
+  },
+  "source_pins": [
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "850183741ff4a1b097b93fc6285055d135558894f5ebf9324b52031cb9aadfc4"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "58118b1b138af4f9feea993ea990dc334f63d30c4aa66f8b5597a0f1dfecfcf6"
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "sha256": "c1eedbdf2c145f30bb9da7cc8f8fd02fa22b7ee9d9cd821c49ac5a17c441da09"
+    },
+    {
+      "path": "crates/adventuresim-core/Cargo.toml",
+      "sha256": "e5e9c6ed987838be5b7fef72e25ba3e6b6e848bc84105c42f396fcdfd7d65f53"
+    },
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "sha256": "06bfd3a023ac0c22751466720321fe796aba122f605d621f16ba56b318c712f8"
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "605bea6b15bd684caa98b4253582088f2755a5054808d18745d2f9298563ea2b"
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "06bd726fb8282af0ad5c1f54f64b1bfe383842e284e948a6226240178de4b6bb"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "sha256": "12d4b4e5ed4ce3940c78b7ee4420ec94e5efa83776b14d60afdbf2ba0d501f5d"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "sha256": "815bfd27404840b0d69f337719c882adf65fea894e48a769670a582eb42faf1b"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/dive.rs",
+      "sha256": "777d81cd65a783e44930ba746488b1209406df1945d5a3fdefc236496549f7be"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "sha256": "ae1dcc0043d5bd5a98744dfb43a3f172a259b3ac3b5e0fe0743c31b83e00327e"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/resolver/span.rs",
+      "sha256": "1d9e43caff202030a311c016c3c4809bb3ad83868d2ad5ba458b2645ab36b1e1"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "sha256": "93bf8878500fe7902fc616643b4678bfbc4c8f091c94dcd68b2a42a6ccb377af"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "sha256": "e54bd673db78d4b343707613e348b7d7fb4f74d34b8a454fefe73f426145a045"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "f26dc1059e4a9d133ac1fba9c80a1086753b20b54e5a5074dc8e557540cea67b"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "sha256": "37a5dba433aa5219b544716053897df30d3df49662fb5fd38794130c1b803946"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state.rs",
+      "sha256": "9e7cc69882008ce20f35864f9df76654679d000d14b798c70232dee9190c65bb"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs",
+      "sha256": "fa0524663e7887d03d177c6fe99de81edd2eeb7b5c402ab1c0037ab953e788c7"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "sha256": "b2c7bc9609b8deb810b4c586a09fdf8186b60803f648009fc3ff74931b2df113"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "5fc4c31e00f464e255fd56f5681ae6d255646f90c74ab7c3bef4fd1a6c2a865b"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "sha256": "b394bde991895d6328b6f9f2be24fcb6d51c5c00e7f7143316339c372b7b5089"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/state_transitions.rs",
+      "sha256": "81c141f7ef6eed5eee0d19173709260dc3c91483868e73e7783fe3efbd000f61"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "ada76a964c72b64d6bd3671a8ca2bde134da787f339914cc2091bd7994fac722"
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "8da5ee46241fe574e76a0b67391c30e5287f90a228995456a39b15cf00701262"
+    }
+  ],
+  "verdict": "No actionable source defect found in this scoped repair and selected meaningful receiving boundaries. Source acceptance only; same-head hosted acceptance pending.",
+  "findings": [],
+  "scope": "Full 27-path PR repair: canonical arithmetic/admission, normalized run/stride/height producers, dive phase/contact/root-facing producers and recipients, selected client Span preparation and retained native playback, configuration/YAML/build-root/dependency/workflow/baseline scope. Prior body reads retained only with matching source hashes; new changed bodies independently consumed. No global audit clearance.",
+  "evidence": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/code-review-001.json",
+      "sha256": "bae3f378f0b48a353f9665ecdc247a0759abba529069c92f2eaec699f5942652"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/code-review-002.json",
+      "sha256": "469c7894ac64aa04d5dcf8e3a170281687d121d455425da6fa41b1069cc18c88"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/code-review-third-registration-001.json",
+      "sha256": "cddce643a269d86a9692e8ef6cc0c9bf7a91bed21e4b3174bccfd94fab0c0716"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/code-review-third-registration-002.json",
+      "sha256": "348bbb42278ecc21a207418fbe2f7502be6e90405b56185086bebc8f5a8f229b"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/code-review-third-registration-003.json",
+      "sha256": "41d911de0994cf8bf6959fc7c5dcfc59e573286855648cd20c7991f9e893aef7"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/code-review-third-registration-004.json",
+      "sha256": "c70136206bc91cd463102c329ef1e810eb527257d4e4483c788bc26f9c928680"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/code-review-fourth-registration-001.json",
+      "sha256": "2bb0ee8c5a6101e134392832cb91e2d7226af692034ec7e831568fc6b3daf1e4"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/code-review-fourth-registration-002.json",
+      "sha256": "d5cceecdb80a0e3d7fa7cfca4e1df01656807770b750f6d5101e315e94d1eea9"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/code-review-fifth-registration-001.json",
+      "sha256": "d68e6f9217692c88b90b9c907c65df21127331512a5b5a2782ab3fd17834c80f"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/code-review-sixth-registration-001.json",
+      "sha256": "2b1cecaa076d5f9a934a92f4ad165b17a1c71080c04e0a48fa4ffca18b141e07"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/code-review-sixth-registration-002.json",
+      "sha256": "9871cdb67fbae5faef5aad06d4e0cfbd12eab3de6d3d9e688ed08b490c716282"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/code-review-sixth-registration-003.json",
+      "sha256": "6d778a968559d7ca5df93be7a8336d2a8bb204bc4dd1a5e6fa3d073fac44fee7"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/code-review-sixth-registration-004.json",
+      "sha256": "302401a138db09f8b2e6e521fe69496baf57eeca80b29e7f2538453a5c58e78b"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/third-review-root-handoff-discovery-001.json",
+      "sha256": "1b1a93a2cbb165835ecf4294ca811add1da664a9a3ab3a9c23dc55f1d561a8c9"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/third-review-span-chain-discovery-001.json",
+      "sha256": "b9cfb1c30e9c4b2f9871fe5b50cd5dd64fb4ebea635c0a7eed46bc907ac04e2d"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/native-provenance-001.json",
+      "sha256": "aedfe8247f9173819f6385b76d24b271853559108b57fd02265b350e658fbb8b"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/interpolation-boundary-trace-001.json",
+      "sha256": "f769e5e161104396b5effa80f954f00194ccb4667dd6bd1584ac4496afa48591"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/code-review-second-lock-comparison-001.json",
+      "sha256": "76f8c76185fe766f51b43e6d859772bcddb7d76949eb4d5138264cc476bc7875"
+    }
+  ],
+  "assessments": [
+    {
+      "role": "final013 arithmetic",
+      "sources": [
+        "core/src/linear_speed.rs:40-105,108-145,168-226"
+      ],
+      "conclusion": "All current 260 lines independently read after hash/registration. SignedSpeed arithmetic constructor rejects nonfinite as Overflow; general Add intentionally permits negative signed results. Nonnegative endpoint subtraction produces finite SignedSpeed. Scaling by UnitInterval cannot increase magnitude; descending rounded difference is at least negative self because negative self is representable, so scaled negative offset is also at least negative self. Checked Add enforces finite result. Thus checked_lerp internal direct NonnegativeSpeed construction preserves finite/nonnegative invariant, including signed zero. No exact between-endpoints floating-point or bitwise endpoint guarantee claimed. General checked TryFrom<SignedSpeed> retained by explicit user preference. Division rejects both signed zeros and overflow; existing unrestricted Ratio receives finite quotient, and UnitInterval owns bounded admission."
+    },
+    {
+      "role": "fraction operations",
+      "conclusion": "Constructor/Serde enforce finite closed interval. Complement, Mul and saturating subtraction preserve admission. checked_lerp and direct cubic smoothstep admit computed outputs and may return typed error for floating-point roundoff; no hidden cubic clamp or unconditional arithmetic closure promise. Strict bounds checked before inverse endpoint saturation; errors mapped exhaustively."
+    },
+    {
+      "role": "run, strides and height",
+      "conclusion": "Carried independent reviewed body evidence covers all four normalized run producers, retained typed stride/length/weights and height receivers, all seven PositiveSpeed Into/From ports, and all direct smoothstep call sites plus existing helper migration. Required PositiveLength YAML zero-speed endpoint survives config/snapshot/digest and phase propagation. Zero flight remains valid. run>walk and blend>initial config constraints retained, with leaf-typed admission replacing redundant rescans. No generic arithmetic framework or compatibility path added."
+    },
+    {
+      "role": "root producer through native yaw",
+      "conclusion": "Canonical contact constant drives count-based phase producer, hold states and typed launch/recovery checked_lerp; positive duration and bounded elapsed checks precede native count-ratio admission. Typed root handoff config start/end with strict focused validation permits end ONE and uses ONE for slide endpoint. Typed normalization/smoothstep/saturating progress delta reaches Quat angular kernel. Actual server/viewer receiving bodies propagate errors and do not assign yaw after failure; skeleton advance precedes yaw operation, so no whole-tick rollback claim."
+    },
+    {
+      "role": "Span retention and native kernels",
+      "conclusion": "Complete trace saved separately: production Span keeps UnitInterval through complement/lossless BlendWeight conversion and checked scale, weighted anchors/coalescing preserve typed values, private playback is aggregate-admitted, local weighted reductions admit newly computed fractions before typed retention/interpolate. Mirror and IK reductions have explicit zero/finite/saturation policies. They are actual owning numerical kernels rather than a retained primitive propagation gap. Actual LocalPose Vec3 interpolation, quaternion antipode/dot/slerp/normalize body and lock-matching glam scalar/SSE2 receiving bodies inspected. A shared fraction_of abstraction is optional, not required for this repair."
+    },
+    {
+      "role": "final012 narrow changes retained by013",
+      "conclusion": "Final dive body incl existing fixtures independently read; layout-only fixture change adds no cases/assertions. Shorter final Span endpoint call retains same typed semantics. Root comment correctly allows configured endpoint ONE. 013 changes only linear_speed from012; all other current manifest hashes match012."
+    },
+    {
+      "role": "build and validation source",
+      "conclusion": "Retained source review verifies separate build.rs root includes canonical unit_interval with linear_speed; math/thiserror normal and build dependencies available. Actual lock TOML comparison preserves package versions/sources/checksums and adds only existing math edge to core package records. Existing movement-speed four-case hosted filter/positive gate, animation/config/client suites and YAML both-trigger paths retained. Baseline reductions retained. This is source evidence, not a passing build/test claim."
+    }
+  ],
+  "limitations": [
+    "No builds/tests/fmt/lints/generators/toolchain probes/runtime experiments or publication performed. Final exact-head raw hosted acceptance and baseline export/reduction reconciliation remain separate acceptance evidence.",
+    "No final012 acceptance was written: the source-fingerprint guard stopped when013 arrived. This receipt supersedes held008/009/010/011/012 review attempts and binds current013 source.",
+    "Registration access scope is not actual source coverage. The third-registration semantic.rs locator was an existing test and provides no production recipient proof; actual resolver/span subsequently read. Registered270 linear_speed001 ended at actual EOF253; registered185 native f32.rs ended183. Only emitted actual lines count.",
+    "Three012 diff hunks were read before new012 registration; sixth003 discloses this and preceded following complete bounded final bodies. No retroactive prospective registration claim.",
+    "Native glam package checksum verified against current lock, selected archive members equal local bytes. Scalar/SSE2 quaternion and cfg selection source reviewed; other cfg backends, actual compiler selection and runtime quaternion normalization not certified.",
+    "Separate Timeline projection, supine-getup action policy, unread curve implementations, all custom graphs and global audit13/all20 remain outside this verdict. Frozen partials/currentness/SDK limits and zero accepted unique credit retained. Future ordered-interval discovery is deferred; its six families allow equality and are not six strict increasing-interval matches."
+  ],
+  "tests_added": false,
+  "local_project_execution": false,
+  "product_edits": false,
+  "global_audit_complete": false
+}

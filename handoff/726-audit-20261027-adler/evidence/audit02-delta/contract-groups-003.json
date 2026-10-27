@@ -1,0 +1,155 @@
+{
+  "id": "ADLER-OWN02-MATERIAL-003",
+  "lens": "02 existing type owners",
+  "sources": [
+    {
+      "index": 80,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/analysis.rs",
+      "sha256": "fb36566c1c5d3a10b22638406e6341f7fcd427c4226b20604e56153dc380caeb",
+      "ranges": [
+        [
+          1,
+          348
+        ]
+      ],
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\fb36566c1c5d3a10b22638406e6341f7fcd427c4226b20604e56153dc380caeb",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/fb36566c1c5d3a10b22638406e6341f7fcd427c4226b20604e56153dc380caeb",
+      "line_count": 348,
+      "disposition": "Analysis already retains actual PuzzleAuthority/PuzzleKind/Sigil/WitnessPath/RuneGate/RuneOperation owners through actual solver calls and answer enumeration. Remaining u16/u32 fields are counts/depths, f32 hypothesis_load is cumulativelog2 and structural_complexity is explicitly uncalibrated comparative score, not probability/UnitInterval or tacticaldifficulty guarantee. Bounded puzzle type search finds no existing exact count/load/score owner; no invented replacement. Cardinality/narrowing/association admission remains source-owner obligation for publicPuzzleAnalysis; named record alone doesn't prove Vec counts align fact_count. rune candidate/gate association created from same laws byactualproducer; no external mismatchedslice witness claimed.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 81,
+      "source_id": "pinned-registry:serde_json-1.0.151/src/value/ser.rs",
+      "sha256": "11f2b7daa1eba826d4086d5497f73729478dd7647bff77deccde5e47b0f126f2",
+      "ranges": [
+        [
+          148,
+          158
+        ]
+      ],
+      "revision": null,
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\11f2b7daa1eba826d4086d5497f73729478dd7647bff77deccde5e47b0f126f2",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/592/serde_json-1.0.151/src/value/ser.rs",
+      "line_count": 1063,
+      "disposition": "serde_json Value serializer forwards native f32/f64 to actual Value::from. JSON Value is actual heterogeneous wire owner and cannot preserve typed finite/probability/physical semantics by itself; project producers must keep their owners until port. No exact application owner can be substituted inside generic serializer. Registered148-158 only, not blanket serialize/error rejection proof.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 82,
+      "source_id": "pinned-registry:serde_json-1.0.151/src/value/from.rs",
+      "sha256": "ae4b5f93b27e578fa40e3a8d25d0df2032fe40b680cddb15963e47cbd56db613",
+      "ranges": [
+        [
+          27,
+          52
+        ]
+      ],
+      "revision": null,
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\ae4b5f93b27e578fa40e3a8d25d0df2032fe40b680cddb15963e47cbd56db613",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/592/serde_json-1.0.151/src/value/from.rs",
+      "line_count": 284,
+      "disposition": "Actual Value::from(f32) maps nonfinite toNull via Number::from_f32; this is nativeJSON representation policy, not a finite numeric bespoke owner. Null cannot be treated as an unchanged numericquantity by downstream project record. f64 excerpt documents same policy but body lies outside range; no extra implementation credit. Do not forceUnitInterval or Metres into native JSON library.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 83,
+      "source_id": "pinned-registry:glam-0.32.1/src/f32/vec3.rs",
+      "sha256": "28708ec95e5481d1673cbff86f8cafc8d19a50b5ea32fdd030cdbdb9d0601b4c",
+      "ranges": [
+        [
+          1021,
+          1032
+        ]
+      ],
+      "revision": null,
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\28708ec95e5481d1673cbff86f8cafc8d19a50b5ea32fdd030cdbdb9d0601b4c",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/596/glam-0.32.1/src/f32/vec3.rs",
+      "line_count": 2238,
+      "disposition": "glam Vec3.clamp_length_max is generic native vector scalarmax with assertnonnegative and no units/frame. Existing gamePosition/Velocity/Direction requires actual caller role and result admission; not a universal replacement for genericnative Vec3/f32. Finite max squared canoverflow, so native helper name does not supply stronger bespoke magnitude guarantee. No current projectcaller or exact reuse candidate is proved by this isolated receiver.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 84,
+      "source_id": "pinned-registry:glam-0.33.6/src/f32/vec3.rs",
+      "sha256": "3e72eeb9eddf937d45c43637677046bb2a00027a317770ad8ba72619fc6605fe",
+      "ranges": [
+        [
+          1043,
+          1054
+        ]
+      ],
+      "revision": null,
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\3e72eeb9eddf937d45c43637677046bb2a00027a317770ad8ba72619fc6605fe",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/596/glam-0.33.6/src/f32/vec3.rs",
+      "line_count": 2241,
+      "disposition": "Second pinnedglam version has the same actual generic clamp_length_max semantics as83 by freshread. Version identity preserved separately; no borrowed verdict transfer. No native scalarmax owner with actual physicalmeaning or normalizeddirection assertion is implied by this helper.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 85,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/city_layout/compiled/property.rs",
+      "sha256": "ae34cb221f0a7fec0c9c65d49e88822262a16c26c965566e735cc95b510741de",
+      "ranges": [
+        [
+          1,
+          55
+        ],
+        [
+          110,
+          203
+        ]
+      ],
+      "revision": null,
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\ae34cb221f0a7fec0c9c65d49e88822262a16c26c965566e735cc95b510741de",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/606/crates/adventuresim-tactical-core/src/city_layout/compiled/property.rs",
+      "line_count": 203,
+      "disposition": "Registered P16 producer has actual BuildingProgram/PropertySide/CityPropertyId/BuildingOrientation/CityPlotBounds and checked CityAccessSegment endpoints. Existing ScenePlanPoint is exact sceneeast/north finitepoint, PositiveLength fits strictlypositive widths/heights/thickness (not signedoffset -0.5); PlanDisplacement fits scene translations distinct frompoints. junction/doors and retained CityBoundarySegment Vec2/f32 fields still erase those meanings. Same6533 owner bodies personallyread are comparison candidates, not claim P16/currentvariant already migrated. ClearanceCache tuple retains fullprogramme/footprint/side associations; choosing reuse requires complete cachekey geometry proof and should not replace key by a single material/ID. Existing physicalgeometry remedy retained; no new globallyunique count.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 86,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/city_layout.rs",
+      "sha256": "d5aacb8a24fecfd5dadee9361c1b6c3d32bd19171bfc0bc984cd8b2efb183c8f",
+      "ranges": [
+        [
+          235,
+          315
+        ]
+      ],
+      "revision": null,
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\d5aacb8a24fecfd5dadee9361c1b6c3d32bd19171bfc0bc984cd8b2efb183c8f",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/606/crates/adventuresim-tactical-core/src/city_layout.rs",
+      "line_count": 338,
+      "disposition": "Actual typed Seed/BlockId/BuildingOrientation/PropertySide used. Candidate still retains centre/footprint Vec2 and rawlotkeyu64; ScenePlanPoint fits scene centre, positive two-axis extent needs dimensionsowner rather than point, and actual PlanDirection<Scene> fits normalized frontage tangent only after current admission. Existing checked BuildingOrientation already converts tangent, so arbitrary genericVec2 need not remain in retainedAPI. Source185 selected hierarchy not read; don't infer a coherent lotidentity owner from numeric shape alone. Preserve rawtemporary affine math at actual kernel boundary with re-admission; no architectureframe substitution.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 87,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/city_layout/compiled/property/handedness_tests.rs",
+      "sha256": "f41fca98399a19869386e27461d20b58338b534bf26227fd0c2e4e3f5ca1e528",
+      "ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "revision": null,
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\f41fca98399a19869386e27461d20b58338b534bf26227fd0c2e4e3f5ca1e528",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/606/crates/adventuresim-tactical-core/src/city_layout/compiled/property/handedness_tests.rs",
+      "line_count": 77,
+      "disposition": "Existing handedness fixture uses canonical Seed, BuildingOrientation, PropertySide and CityAccessSegment update_endpoints with ScenePlanPoint; assertions are terminal native observations of gateprojection and distinct IDs. Native Vec2 zeros/streetarrays and finite yaw literals are fixture/kernel construction, not reasons for equivalent new fixture wrappers. Width dimension reuse would follow production85/86 migration; no new tests/assertions/helpers. Both mirrored side inputs are explicit and independent from stable economic identity.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    }
+  ],
+  "new_unique_findings_claimed": 0,
+  "execution": "Read-only source evidence; no project checks, source edits or Git changes",
+  "supplemental_owner_bodies": [
+    "Frozen6533 tactical-core/scene_coordinates.rs1-105: ScenePlanPoint finite east/north metre point, PlanDisplacement finite translation, checked deserialization and translated result.",
+    "Frozen6533 building-generator/spatial_geometry/orientation.rs1-105: Radians finite unwrapped, PlanDirection framed normalized Dir2, RigidRotation finite unit quaternion.",
+    "Frozen6533 tactical-core/city_layout/compound/access.rs1-70: immutable checked ScenePlanPoint/PositiveLength segment and construct-before-replace mutations."
+  ],
+  "variant_limit": "Materials85-87 are physicalP16 frozenobjects without common explicitgitrevision. Supplemental6533 owner definitions are independently compared proposedexisting owners; this is no assertion of exacthash equality/current-main clearance.",
+  "repair_acceptance_if_in_existing_physical_remedy": "Propagate scene points/translations, positive lengths and framed directions through actual lot/property/boundary producers and consumers; keep negative offsets supported and frame distinction intact; preserve mirrored route and gate existingfixtures. No new tests authorized."
+}

@@ -1,0 +1,228 @@
+{
+  "at": "2026-10-27T15:45:08.728017+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-075-registration.jsonl",
+    "sha256": "01cbd93fa6269152029b4178afab79672c6f15cc6b925360cef6b0477a1434e9"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-074.json",
+    "sha256": "e460c1b7be6d19818c0991cd2b0fba6849c9ebaff414029d59a3e6ee6d3b439b"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1119,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "ranges": [
+        [
+          1,
+          1451
+        ]
+      ],
+      "actual_eof": 1451,
+      "prospective": true,
+      "purpose": "Independent full ordered type-granularity inventory; previous175-220/270-547 materialcontext notautomaticcredit",
+      "actual_read_ranges": [
+        [
+          1,
+          1451
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected_original",
+      "original_index": 1148,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak.rs",
+      "sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+      "ranges": [
+        [
+          157,
+          300
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual native contribution volume/provenance consume/take/delete receiving contracts for1119; no whole future credit",
+      "actual_read_ranges": [
+        [
+          157,
+          300
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1119,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              25,
+              143
+            ],
+            [
+              165,
+              305
+            ],
+            [
+              935,
+              986
+            ]
+          ],
+          "roles": "Stable physical Object versus scoped backingrow, containment child/parent roles, generic liquididentity/volume, unique lookup, insertion quantityone, consumed/fullremoval and measured-volume decode.",
+          "disposition": "Canonical InventoryLocation/PhysicalObjectId/CarriedInventoryScope useful; raw DBIDs at schema and raw internalIDs not samejustification. Child/parent share PhysicalObjectId owner with named roles, no unnecessaryseparateper-edgeIDwrapper. Liquid water_ml actuallygenericliquidvolume (actual tincturespirit1116) and unlike itemcapacity/count/clinicaldose. FullyConsumedbool is applicationremovalstate, unlike ordinarylocalempty/nested/conditionpredicates.",
+          "remedy": "Reuse canonical identities/volume across internalports, namedscopedrow/consumptionoutcome; keep schema fields at adapter, genericLiquidVolume naming rather thanwateronlyauthority.",
+          "acceptance": "Preserve lookup duplicate detection, quantityone backing, stableobject identity and meaningful row/object distinction; no globalallU64nonzero or current/runtimealiasclaim."
+        },
+        {
+          "ranges": [
+            [
+              145,
+              163
+            ],
+            [
+              310,
+              647
+            ]
+          ],
+          "roles": "Containment ancestors/root, exact OperationalCustody, prevalidatedrehome versus deletion, source/destination personal/party backing and linked material/condition.",
+          "disposition": "Rootcustody differs directcontainment/legalownership; typed sum earns existing meaning. Rehome personal->party replaces backingrow while stableObjectID retained and movesfood/amount/condition; actual1/1foodtransfer source-backed no invalidportion. Typed OperationalCustody wider than actual character/party carried destinations so repeated rejection, focused CarriedDestination refinement could simplify without duplicateowner. ancestry missingobjectreturnsfalse149-150 whereas1110view returns true onmissing; actual requireactorcarried root validation before mutations, so sourcepolicycontrast not runtimebypassclaim.",
+          "remedy": "Admitted carried destination/scopedrow transfer and typed PhysicalObjectId propagated; reuse core custody/vocabulary and concrete pure ancestry policy across contexts. Avoid oneuniversalowner for direct/root/legalauthority.",
+          "acceptance": "Preserve complete preflight beforedeletion, expectedroot/backingaliaschecks and linkedstatecleanup. Native deeper custodybacking not globallyguaranteed; actual sourceproof scope retained."
+        },
+        {
+          "ranges": [
+            [
+              649,
+              788
+            ]
+          ],
+          "roles": "Empty-container merge, instancecondition vscontent/nesting, selected targetrow, countoverflow and removalofdiscreteobjectidentity whenstacked.",
+          "disposition": "Meaningful distinction individual stableobject versus fungibleemptystack; quantitycan>1 afterobjectremoved, not violationglobal quantityone. Local boolpredicates are ordinaryconditions; no newenumjusttoenclose3bool required. Actual per-scope target/sourcecondition guards preserve nonfungiblecondition. Merge selection rawrowID versusobjectID and expectedroot associatedbypreflight.",
+          "remedy": "Named admittedempty-container/stacktarget if reused, canonical scopedIDs and count, keep actual narrow localpredicate simple; preserve condition and objectcapabilities.",
+          "acceptance": "No observedloss/duplication/runtimeclaim; objectforrowNone target legitimateemptystackstate. Stackingcount checkedaddfailure retained."
+        },
+        {
+          "ranges": [
+            [
+              790,
+              933
+            ]
+          ],
+          "roles": "Existing fixtures for backing/custody/deletion/merge/water sourcecontracts.",
+          "disposition": "Allbodyconsumednotrun; assertions do notprove nativeguardsruntime.",
+          "remedy": "No tests/helpers/assertions added.",
+          "acceptance": "Existingproductionbodies authoritative; no globalclearance."
+        },
+        {
+          "ranges": [
+            [
+              988,
+              1195
+            ],
+            [
+              1236,
+              1277
+            ]
+          ],
+          "roles": "Native ContainmentGraph Object with typed PhysicalObjectId/Milliliters, capacityversusexterior/measuredcontents, remainingcapacity, authored waterskinselection, aggregatecontainedwater and actualconsumedvolume; privatecontributionunits.",
+          "disposition": "Existing Milliliters/Microliters canonicalowners already express units; rawu64 throughout precedinginternal volumeports incompletepropagation. Capacity is optionalcontainercapability, exteriorobjectvolume differs containedmaterialvolume; no globalpositivevolumeinvented. Actual measuredfraction scale-floor numericadapter, graph andliquid used addedonce. Watercontributionreceiver1148 uses Microliters and named source/movedroles butreturns positional(lotID,volume,load).",
+          "remedy": "Carry canonical volume/identity through graph/capacity/fill/drain APIs and named MaterialWaterContribution, share volumeinvariant without flattening physicalroles. Canonicalfraction and actualliteral/storage adapters retained.",
+          "acceptance": "Preserve checkedoverflow/capacity and exactrootselection, actualfoodwaterexposure actual1102 receiver and core1026proportionalmaterial nativeproof reused. No full outbreakclinical/nativealgorithm or runtimeconservation claim."
+        },
+        {
+          "ranges": [
+            [
+              1197,
+              1234
+            ],
+            [
+              1279,
+              1451
+            ]
+          ],
+          "roles": "Mutable installed/macerating ancestry, childscope/row versusparentscope/row, samecarriedcustody, actualcapacity graph insertion, containerwaterdiscard and exactactorownership.",
+          "disposition": "require_mutable is realownerpolicy across fireplace/tincture states, not genericboolflag. APIdecoded scopes/IDs checked againstactualcarriedobject; coregraph rejects cycles/depth and bodyactualusesexistingtypedowner. DBnative publiccontainmentedges broad butgraph constructor/checks consumed; no actualacceptedcycleclaim. Discard amount positive and<=storedvolume beforetypedmicroconversion; requestedvsremainingbothvolume, no newunitownerneeded.",
+          "remedy": "Named container insertion request and typed canonical IDs/volumes until framework; reuse material/custodyowner. Distinct admission/operationalerror classifications insteadofrawString where callersneeddecide.",
+          "acceptance": "Preserve gateway/living whereactualpresent, exactactorcustody, mutableancestry and capacitychecks, publicliquid/privatecontribution retirement. Do not claim allconsumewaterpaths have identicalmutabilityguards: filteredwater/custody roles differ and actualwrongmutablecaseunproven."
+        }
+      ]
+    }
+  ],
+  "connected_role_inventory": [
+    {
+      "original": 1148,
+      "ranges": [
+        [
+          157,
+          300
+        ]
+      ],
+      "inventory": "Actualdelete/take/consume/expose watercontribution bodies157-290 complete;291-300onlynextReceipt declarationprefix. Source_total andmoved Microliters admitted, extensivecontaminantload distinctconcentration; canonical proportionaltransfer before DBdelta, moved(lot,amount,load) then currentgrowthandclinicaldose via1102. One microliter0.001ml denominatorfloor dimensionalnumericaladapter, no machineepsilon/newgeneralminimum proof. Existing material/clinicalquantityroles preserved, no futureorderedcredit."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-027-receipt.json",
+        "sha256": "871ad0df2778d657e3f880a3444f1c99f36a6d2b9258c12e6a57bb3c11a97b41"
+      },
+      "contract": "932corecontainment full256 Object/ContainmentGraph nativevolume/cycle/depthops,933measurementfull804 canonicalfraction."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-050-receipt.json",
+        "sha256": "0f23acc687c49d5da235bff7f543610cceab01a8e151173da1289b445ff24dd6"
+      },
+      "contract": "1026corewater_source full registeredscope actualproportionalmaterialtransfer;1148earlierconnectedrange160-218/420-565 sourceproof notfullfile."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-071-receipt.json",
+        "sha256": "b94198e8df2c2233a4ea0271205c9c647155925e7056bc7752267f3b4dc797d4"
+      },
+      "contract": "1106full lottransfer/delete and privatecomponentreceivers."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-074-receipt.json",
+        "sha256": "d20b4bfe67138220f9efc3d466679c022f1c5548662f22a5114a3f33b536009f"
+      },
+      "contract": "1116/1118full medicine/amount actualfields/locks/transfer and1145resolvedrootreceiver303-404."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-070-receipt.json",
+        "sha256": "bfce24727f8ea5bb00152c3bb85ae8d66e718fcf5c24521c667befcc6bf76c83"
+      },
+      "contract": "1104fullfireplacecustody and1145canonicalcustodyadapter1-159/405-430."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-069-receipt.json",
+        "sha256": "a49b031e734015fe2681e2ae5fe186811d8cf99151ef6f401af95f4699301781"
+      },
+      "contract": "1102fullfoodwaterexposure goesactualworldeventnativegate."
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Inherited qualifications/mandatoryownandotherlensmaterial/currentness queues retained.",
+    "No product/source/Git/rootledger/publication or localprojectexecution/probes/tests.",
+    "All original1119effectivefull1451 personally consumedagainindependently; previouspartialcontextnotautomaticcredit.",
+    "1148onlynew157-300bodyread and previous050 exactpartialranges; no wholefutureorderedcredit or clinicaloutcome/cryptographic/runtimeguarantee."
+  ]
+}

@@ -1,0 +1,2504 @@
+{
+  "at": "2026-10-27T17:22:05.508932+00:00",
+  "kind": "Prospective exact38mergedsource/delta scopes from frozen navigation; no otherlens verdict imported",
+  "navigation_only": {
+    "path": "target/recovery-20261025/audit10/merged-registration-001.json",
+    "sha256": "97889dfdc12bed54b033bf9bcfe4fb88b30a95cb8dedf2b45aefca56bfa8295d"
+  },
+  "scopes": [
+    {
+      "index": 0,
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "before_sha256": "60cf80c50552791fe98d6c50b3a730b7c0f04bdfa993ec003a781538683e6d72",
+      "head_sha256": "5753b3fa224b8d7e052c5ab7c6a7420f0c22cbcdb9303d7ae9d2980421ac6a27",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-00-base-60cf80c50552791fe98d6c50b3a730b7c0f04bdfa993ec003a781538683e6d72",
+      "base_eof": 12310,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-00-head-5753b3fa224b8d7e052c5ab7c6a7420f0c22cbcdb9303d7ae9d2980421ac6a27",
+      "head_eof": 12308,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-00-delta.txt",
+      "delta_sha256": "0893acf1d0782035f2992ff9378ea7090eeb6d8f5d363d700e8d166d034ae4e5",
+      "delta_lines": 18,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            5032
+          ],
+          "head": [
+            1,
+            5032
+          ]
+        },
+        {
+          "base": [
+            5035,
+            12310
+          ],
+          "head": [
+            5033,
+            12308
+          ]
+        }
+      ],
+      "base_own_proof_locators": [
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 783,
+          "original": 680,
+          "ranges": []
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "path": "crates/adventuresim-character-creator/src/animation_preview/binding.rs",
+      "before_sha256": "1d37cdfbe3438b86643502d8f147cec1c22cfb04ba2ccdf09da1c30aacac7152",
+      "head_sha256": "80cd2b04543c35e3ad7d0cae1d5fd89eb5a92e78d68204e990a93a4672d84d65",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-01-base-1d37cdfbe3438b86643502d8f147cec1c22cfb04ba2ccdf09da1c30aacac7152",
+      "base_eof": 58,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-01-head-80cd2b04543c35e3ad7d0cae1d5fd89eb5a92e78d68204e990a93a4672d84d65",
+      "head_eof": 65,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-01-delta.txt",
+      "delta_sha256": "90a4441edc835150b8b155760bd3a6dc05d1f2f3bce4d5d795fed45420751cef",
+      "delta_lines": 23,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            7
+          ],
+          "head": [
+            1,
+            7
+          ]
+        },
+        {
+          "base": [
+            8,
+            58
+          ],
+          "head": [
+            15,
+            65
+          ]
+        }
+      ],
+      "base_own_proof_locators": [
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 787,
+          "original": 684,
+          "ranges": [
+            [
+              1,
+              58
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "path": "crates/adventuresim-character-creator/src/clothing.rs",
+      "before_sha256": "01a1b2449b801b5bc0597ad35ddb9a5cef1bc7f86612b1c02efcb50c6b18e049",
+      "head_sha256": "d3bce4f4d9a53afc7ea141c5edf1163e85f55cb1b455b976b3bd5e329902ce33",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-02-base-01a1b2449b801b5bc0597ad35ddb9a5cef1bc7f86612b1c02efcb50c6b18e049",
+      "base_eof": 714,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-02-head-d3bce4f4d9a53afc7ea141c5edf1163e85f55cb1b455b976b3bd5e329902ce33",
+      "head_eof": 699,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-02-delta.txt",
+      "delta_sha256": "945933b9875ccc35917576af4cb579bcd45b4450f659d8e715753c860420e127",
+      "delta_lines": 43,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            233
+          ],
+          "head": [
+            1,
+            233
+          ]
+        },
+        {
+          "base": [
+            255,
+            714
+          ],
+          "head": [
+            240,
+            699
+          ]
+        }
+      ],
+      "base_own_proof_locators": [
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 824,
+          "original": 707,
+          "ranges": [
+            [
+              1,
+              714
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "path": "crates/adventuresim-character-creator/src/clothing/validation.rs",
+      "before_sha256": "630f8e3e98411ed571b011cdd36f22ff53ea367770a459c0fd16617077b05a1c",
+      "head_sha256": "2a753a0c1f67e4c3c7f6ee4560557063c65d99202ef7073ecfaa93260bc95415",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-03-base-630f8e3e98411ed571b011cdd36f22ff53ea367770a459c0fd16617077b05a1c",
+      "base_eof": 28,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-03-head-2a753a0c1f67e4c3c7f6ee4560557063c65d99202ef7073ecfaa93260bc95415",
+      "head_eof": 58,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-03-delta.txt",
+      "delta_sha256": "6ef2dc2445edb724346a6ba8aba3e1216182bf9ec5ece8412a90e3afecd2131d",
+      "delta_lines": 41,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            28
+          ],
+          "head": [
+            1,
+            28
+          ]
+        }
+      ],
+      "base_own_proof_locators": [
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 829,
+          "original": 713,
+          "ranges": [
+            [
+              1,
+              28
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "path": "crates/adventuresim-character-creator/src/device_fit.rs",
+      "before_sha256": "5eb9fadd5491db5b34e9ea0b0478355229d88f1b0b9d937911f586dc55a0b710",
+      "head_sha256": "937f4a7860d38a7b490464615e476551a565f2119242b8e30ea3aeaf7c8307d7",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-04-base-5eb9fadd5491db5b34e9ea0b0478355229d88f1b0b9d937911f586dc55a0b710",
+      "base_eof": 518,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-04-head-937f4a7860d38a7b490464615e476551a565f2119242b8e30ea3aeaf7c8307d7",
+      "head_eof": 518,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-04-delta.txt",
+      "delta_sha256": "741be193613e30f21bc6cab0a62e82dbabf0cada1326fdfbf197f88b23283369",
+      "delta_lines": 51,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            304
+          ],
+          "head": [
+            1,
+            304
+          ]
+        },
+        {
+          "base": [
+            306,
+            313
+          ],
+          "head": [
+            306,
+            313
+          ]
+        },
+        {
+          "base": [
+            315,
+            357
+          ],
+          "head": [
+            315,
+            357
+          ]
+        },
+        {
+          "base": [
+            359,
+            365
+          ],
+          "head": [
+            359,
+            365
+          ]
+        },
+        {
+          "base": [
+            367,
+            518
+          ],
+          "head": [
+            367,
+            518
+          ]
+        }
+      ],
+      "base_own_proof_locators": [
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 843,
+          "original": 726,
+          "ranges": [
+            [
+              1,
+              518
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "path": "crates/adventuresim-character-creator/src/device_frames/tests.rs",
+      "before_sha256": "10bca4c1bb7cc62d88939a0f0420714d8f441a19fd156e102deeced8ae0ec21c",
+      "head_sha256": "b178ed9f64a000436dc816d4e811966de89e28293321d599b16158c6d981f12a",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-05-base-10bca4c1bb7cc62d88939a0f0420714d8f441a19fd156e102deeced8ae0ec21c",
+      "base_eof": 153,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-05-head-b178ed9f64a000436dc816d4e811966de89e28293321d599b16158c6d981f12a",
+      "head_eof": 157,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-05-delta.txt",
+      "delta_sha256": "73c014c3360a1290292533e589cb10ceb372fce3f49508db8a860c3d10cf6d92",
+      "delta_lines": 22,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            145
+          ],
+          "head": [
+            1,
+            145
+          ]
+        },
+        {
+          "base": [
+            147,
+            153
+          ],
+          "head": [
+            151,
+            157
+          ]
+        }
+      ],
+      "base_own_proof_locators": [
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 852,
+          "original": 733,
+          "ranges": [
+            [
+              1,
+              153
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "path": "crates/adventuresim-character-creator/src/device_garment.rs",
+      "before_sha256": "33088136dedaa0cf15c3541ea4c9c3c2dd930c7cc1e4f8bb63c09c66680ccf6f",
+      "head_sha256": "895213b60ba9bc4762eeefb0a1b73958013e271dd9a8818448ffbb3caaf62973",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-06-base-33088136dedaa0cf15c3541ea4c9c3c2dd930c7cc1e4f8bb63c09c66680ccf6f",
+      "base_eof": 290,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-06-head-895213b60ba9bc4762eeefb0a1b73958013e271dd9a8818448ffbb3caaf62973",
+      "head_eof": 290,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-06-delta.txt",
+      "delta_sha256": "76dc5a88d8453db294a15f457163f3a2ed3488f1580d4354a5e30d67bfd20883",
+      "delta_lines": 18,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            23
+          ],
+          "head": [
+            1,
+            23
+          ]
+        },
+        {
+          "base": [
+            25,
+            290
+          ],
+          "head": [
+            25,
+            290
+          ]
+        }
+      ],
+      "base_own_proof_locators": [
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 853,
+          "original": 734,
+          "ranges": [
+            [
+              1,
+              290
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "path": "crates/adventuresim-character-creator/src/device_garment_skirt.rs",
+      "before_sha256": "963e22ca61e7f29b6424e65db9f7d987fca66e0e9543944b1584d9873ec8e285",
+      "head_sha256": "3acbc3c2ff55ab00d9db818a502874cedb6878b2e93d4a880cfbb864332affa0",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-07-base-963e22ca61e7f29b6424e65db9f7d987fca66e0e9543944b1584d9873ec8e285",
+      "base_eof": 461,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-07-head-3acbc3c2ff55ab00d9db818a502874cedb6878b2e93d4a880cfbb864332affa0",
+      "head_eof": 461,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-07-delta.txt",
+      "delta_sha256": "577695ce2f2004586b5aba6fd241dc86ff85c5ef97a38178166945c42db1d980",
+      "delta_lines": 18,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            15
+          ],
+          "head": [
+            1,
+            15
+          ]
+        },
+        {
+          "base": [
+            17,
+            461
+          ],
+          "head": [
+            17,
+            461
+          ]
+        }
+      ],
+      "base_own_proof_locators": [
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 856,
+          "original": 737,
+          "ranges": [
+            [
+              1,
+              461
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "path": "crates/adventuresim-character-creator/src/device_garment_torso.rs",
+      "before_sha256": "458442ee3b24c55c84a9ac0fbf3c4ec8c2923ff2b934b0dd2833c40b2ce89027",
+      "head_sha256": "1e18fa755a6820a35e6fbd3ac25599f1f43e0b80f583d1dbe944f8584c8187c8",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-08-base-458442ee3b24c55c84a9ac0fbf3c4ec8c2923ff2b934b0dd2833c40b2ce89027",
+      "base_eof": 379,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-08-head-1e18fa755a6820a35e6fbd3ac25599f1f43e0b80f583d1dbe944f8584c8187c8",
+      "head_eof": 379,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-08-delta.txt",
+      "delta_sha256": "0aa09e4a80ca2e7e5b77363198bf394abfb77d880c4901b7cd352ae553dda8c7",
+      "delta_lines": 18,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            18
+          ],
+          "head": [
+            1,
+            18
+          ]
+        },
+        {
+          "base": [
+            20,
+            379
+          ],
+          "head": [
+            20,
+            379
+          ]
+        }
+      ],
+      "base_own_proof_locators": [
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 858,
+          "original": 739,
+          "ranges": [
+            [
+              1,
+              379
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "before_sha256": "ee364aaa0d304eb120d6f91216c6da3e186f5e20809e28ffa74f5864e568d72d",
+      "head_sha256": "884384793bf2b01712fd7d56d337b05c1a761b4b5ae86b1a13acf1e9e7048bb7",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-09-base-ee364aaa0d304eb120d6f91216c6da3e186f5e20809e28ffa74f5864e568d72d",
+      "base_eof": 1841,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-09-head-884384793bf2b01712fd7d56d337b05c1a761b4b5ae86b1a13acf1e9e7048bb7",
+      "head_eof": 1819,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-09-delta.txt",
+      "delta_sha256": "47d5d9a144a762c1d8befa6be210271fc4ec3bee2a97f80cd1217799bbd1eed2",
+      "delta_lines": 40,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            672
+          ],
+          "head": [
+            1,
+            672
+          ]
+        },
+        {
+          "base": [
+            696,
+            1841
+          ],
+          "head": [
+            674,
+            1819
+          ]
+        }
+      ],
+      "base_own_proof_locators": [
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 883,
+          "original": 767,
+          "ranges": [
+            [
+              1,
+              1841
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "path": "crates/adventuresim-character-creator/src/export/shell.rs",
+      "before_sha256": "6d0c444527f9a25d6aaf8e23e15ab8d973c489f6edb3a75429444c15c4132038",
+      "head_sha256": "e7b3318bdb4f7567653217c780160f0aeaf9576b753bf473591aab010f0bc232",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-10-base-6d0c444527f9a25d6aaf8e23e15ab8d973c489f6edb3a75429444c15c4132038",
+      "base_eof": 80,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-10-head-e7b3318bdb4f7567653217c780160f0aeaf9576b753bf473591aab010f0bc232",
+      "head_eof": 108,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-10-delta.txt",
+      "delta_sha256": "79faf85eae24a449a37a2aa47879ba6ee7132056630c69d2803185f61f7a3a8a",
+      "delta_lines": 39,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            80
+          ],
+          "head": [
+            1,
+            80
+          ]
+        }
+      ],
+      "base_own_proof_locators": [
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 891,
+          "original": 773,
+          "ranges": [
+            [
+              1,
+              80
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "path": "crates/adventuresim-character-creator/src/garment/dressing.rs",
+      "before_sha256": "a5b190694f00f1dbc5e1895f5b40f65b6c1f7242da45ea844b59a6b6d6932523",
+      "head_sha256": "d9e49185a0d535f4dc1b7fb63850c927d5f59577fedf5d5f87ca8fc8b1e84a8a",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-11-base-a5b190694f00f1dbc5e1895f5b40f65b6c1f7242da45ea844b59a6b6d6932523",
+      "base_eof": 145,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-11-head-d9e49185a0d535f4dc1b7fb63850c927d5f59577fedf5d5f87ca8fc8b1e84a8a",
+      "head_eof": 145,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-11-delta.txt",
+      "delta_sha256": "5017780d40ca13a7d3986f94a03829e63d4db4dab884c6736818d3f59953ae2c",
+      "delta_lines": 18,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            96
+          ],
+          "head": [
+            1,
+            96
+          ]
+        },
+        {
+          "base": [
+            98,
+            145
+          ],
+          "head": [
+            98,
+            145
+          ]
+        }
+      ],
+      "base_own_proof_locators": [
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 898,
+          "original": 783,
+          "ranges": [
+            [
+              1,
+              145
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "path": "crates/adventuresim-character-creator/src/hair_preview/render_test.rs",
+      "before_sha256": "2e71abeddf4c5c176e026eeed2284cacb0139045128e6437ea97bbb1181e9bc3",
+      "head_sha256": "68d980d533f30f094dc511d8e0eef78f92090b3d51d9754c28e57f190b80c864",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-12-base-2e71abeddf4c5c176e026eeed2284cacb0139045128e6437ea97bbb1181e9bc3",
+      "base_eof": 513,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-12-head-68d980d533f30f094dc511d8e0eef78f92090b3d51d9754c28e57f190b80c864",
+      "head_eof": 513,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-12-delta.txt",
+      "delta_sha256": "6a93fbbb7cc6102794e5e150da912b70c0507a19330b1a47568add129d467818",
+      "delta_lines": 18,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            292
+          ],
+          "head": [
+            1,
+            292
+          ]
+        },
+        {
+          "base": [
+            294,
+            513
+          ],
+          "head": [
+            294,
+            513
+          ]
+        }
+      ],
+      "base_own_proof_locators": []
+    },
+    {
+      "index": 13,
+      "path": "crates/adventuresim-character-creator/src/main.rs",
+      "before_sha256": "41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "head_sha256": "076c2d6f80214f1546520c29f4a7d418a7e2d53f55708d2b7081841273769a5f",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-13-base-41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "base_eof": 667,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-13-head-076c2d6f80214f1546520c29f4a7d418a7e2d53f55708d2b7081841273769a5f",
+      "head_eof": 667,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-13-delta.txt",
+      "delta_sha256": "30c29de1dade493ba446ddcbf929cc43751086968a2675b05ca755d2193e52b0",
+      "delta_lines": 18,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            203
+          ],
+          "head": [
+            1,
+            203
+          ]
+        },
+        {
+          "base": [
+            205,
+            667
+          ],
+          "head": [
+            205,
+            667
+          ]
+        }
+      ],
+      "base_own_proof_locators": [
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 934,
+          "original": 819,
+          "ranges": [
+            [
+              1,
+              667
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 14,
+      "path": "crates/adventuresim-character-creator/src/wardrobe_tab.rs",
+      "before_sha256": "4cd80a0338aaafa8f2b1f80eca296ef22614825d8d1058692fb8c4fe7bbe9595",
+      "head_sha256": "ec1437075d1383eeae19ee3e2643e4d918de6a2032fe1e1ba83135d5f2353a0f",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-14-base-4cd80a0338aaafa8f2b1f80eca296ef22614825d8d1058692fb8c4fe7bbe9595",
+      "base_eof": 325,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-14-head-ec1437075d1383eeae19ee3e2643e4d918de6a2032fe1e1ba83135d5f2353a0f",
+      "head_eof": 325,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-14-delta.txt",
+      "delta_sha256": "f27568e30fe7f16722a227c5ade34cb22159df5ad203a2f6c5038918089c4404",
+      "delta_lines": 24,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            221
+          ],
+          "head": [
+            1,
+            221
+          ]
+        },
+        {
+          "base": [
+            226,
+            325
+          ],
+          "head": [
+            226,
+            325
+          ]
+        }
+      ],
+      "base_own_proof_locators": [
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 957,
+          "original": 844,
+          "ranges": [
+            [
+              1,
+              325
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 15,
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "before_sha256": "517f93978b1b2a9fe9debaaa7d6386aa3200cda88348cd23a9ef6e5e94b5004a",
+      "head_sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-15-base-517f93978b1b2a9fe9debaaa7d6386aa3200cda88348cd23a9ef6e5e94b5004a",
+      "base_eof": 3985,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-15-head-71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+      "head_eof": 3968,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-15-delta.txt",
+      "delta_sha256": "2aa698b1a33cf2ca3c82d2f5e105b33203a9034917474fcb88c0d451f6518f59",
+      "delta_lines": 47,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            3
+          ],
+          "head": [
+            1,
+            3
+          ]
+        },
+        {
+          "base": [
+            5,
+            2918
+          ],
+          "head": [
+            5,
+            2918
+          ]
+        },
+        {
+          "base": [
+            2937,
+            3985
+          ],
+          "head": [
+            2920,
+            3968
+          ]
+        }
+      ],
+      "base_own_proof_locators": []
+    },
+    {
+      "index": 16,
+      "path": "crates/adventuresim-stdb-module/src/character/weapon_carry.rs",
+      "before_sha256": "d6528de59338d56a9be46239ca4e7a55ba4f3dac2dcbb27948ac19aeaf8da711",
+      "head_sha256": "cb5f4c039d6cedda16a83650c94f72bdb0e12e45903dce4a835e8057b7ef2fbe",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-16-base-d6528de59338d56a9be46239ca4e7a55ba4f3dac2dcbb27948ac19aeaf8da711",
+      "base_eof": 157,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-16-head-cb5f4c039d6cedda16a83650c94f72bdb0e12e45903dce4a835e8057b7ef2fbe",
+      "head_eof": 182,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-16-delta.txt",
+      "delta_sha256": "dde474aca8f7ec31201acc180b3c589deb2415e7680d53e8d73184ffdd33d6bd",
+      "delta_lines": 36,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            157
+          ],
+          "head": [
+            1,
+            157
+          ]
+        }
+      ],
+      "base_own_proof_locators": [
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 1195,
+          "original": 1085,
+          "ranges": [
+            [
+              1,
+              157
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 17,
+      "path": "crates/adventuresim-tactical-client/Cargo.toml",
+      "before_sha256": "c57a0334ef2f29a999ad45e9d4714bc954669a429a1a95f3cd993b6cff8722e2",
+      "head_sha256": "2423c1f83aebd66d9432b5b8317ec10a6bf7b0824db9246e2e9b08041653b863",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-17-base-c57a0334ef2f29a999ad45e9d4714bc954669a429a1a95f3cd993b6cff8722e2",
+      "base_eof": 131,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-17-head-2423c1f83aebd66d9432b5b8317ec10a6bf7b0824db9246e2e9b08041653b863",
+      "head_eof": 131,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-17-delta.txt",
+      "delta_sha256": "a26c98811cfb74d046ecf0b5633f496fe23a8b7f2d7fe8bbb493e593845850ab",
+      "delta_lines": 27,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            17
+          ],
+          "head": [
+            1,
+            17
+          ]
+        },
+        {
+          "base": [
+            18,
+            128
+          ],
+          "head": [
+            19,
+            129
+          ]
+        },
+        {
+          "base": [
+            130,
+            131
+          ],
+          "head": [
+            130,
+            131
+          ]
+        }
+      ],
+      "base_own_proof_locators": [
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 1421,
+          "original": 1301,
+          "ranges": [
+            [
+              1,
+              131
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 18,
+      "path": "crates/adventuresim-tactical-client/examples/armor_browser_probe.rs",
+      "before_sha256": "4d0171a6cd7835711e211df50e71df5c0f143e6bba2b85b6e655dcf5f5af4892",
+      "head_sha256": "e84ff19544c1f4e8c6fbae3b322e5a342baf49981fd56e6b9c5f57ef1924a201",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-18-base-4d0171a6cd7835711e211df50e71df5c0f143e6bba2b85b6e655dcf5f5af4892",
+      "base_eof": 227,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-18-head-e84ff19544c1f4e8c6fbae3b322e5a342baf49981fd56e6b9c5f57ef1924a201",
+      "head_eof": 229,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-18-delta.txt",
+      "delta_sha256": "13577b844b5f8bdfa4942d70e56b6e242358b9992c9f4e12a7cac8d030208008",
+      "delta_lines": 58,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            10
+          ],
+          "head": [
+            1,
+            10
+          ]
+        },
+        {
+          "base": [
+            11,
+            59
+          ],
+          "head": [
+            26,
+            74
+          ]
+        },
+        {
+          "base": [
+            74,
+            227
+          ],
+          "head": [
+            76,
+            229
+          ]
+        }
+      ],
+      "base_own_proof_locators": [
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 1423,
+          "original": 1303,
+          "ranges": [
+            [
+              1,
+              227
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 19,
+      "path": "crates/adventuresim-tactical-client/src/camera.rs",
+      "before_sha256": "4d7aab7742753836f2384c8cd1095148537193d23ba45c3f5bac3762dabc6fa9",
+      "head_sha256": "7ee2de1823310c9341f42ddb4d1f016a619b7038b0f69aa4f1a316f22032026a",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-19-base-4d7aab7742753836f2384c8cd1095148537193d23ba45c3f5bac3762dabc6fa9",
+      "base_eof": 185,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-19-head-7ee2de1823310c9341f42ddb4d1f016a619b7038b0f69aa4f1a316f22032026a",
+      "head_eof": 184,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-19-delta.txt",
+      "delta_sha256": "64d79df25a839eadfebf9dadd343e286b861caa088cf58d1e2743d92409495e2",
+      "delta_lines": 28,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            12
+          ],
+          "head": [
+            1,
+            12
+          ]
+        },
+        {
+          "base": [
+            14,
+            17
+          ],
+          "head": [
+            13,
+            16
+          ]
+        },
+        {
+          "base": [
+            19,
+            21
+          ],
+          "head": [
+            18,
+            20
+          ]
+        },
+        {
+          "base": [
+            23,
+            185
+          ],
+          "head": [
+            22,
+            184
+          ]
+        }
+      ],
+      "base_own_proof_locators": [
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 175,
+          "original": 1460,
+          "ranges": [
+            [
+              1,
+              185
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 20,
+      "path": "crates/adventuresim-tactical-client/src/camera/collision/tests.rs",
+      "before_sha256": "64b2d4cf55741173468cc58b7c98013529ad4004d7aa164c6d9f0728e2616e64",
+      "head_sha256": "92f47bc1cf69d262c09d215bc35adf19d01216f98fd5fb35f2aceab0aa870e0c",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-20-base-64b2d4cf55741173468cc58b7c98013529ad4004d7aa164c6d9f0728e2616e64",
+      "base_eof": 296,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-20-head-92f47bc1cf69d262c09d215bc35adf19d01216f98fd5fb35f2aceab0aa870e0c",
+      "head_eof": 295,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-20-delta.txt",
+      "delta_sha256": "69c83aeef65e2d43d395bd4f4ca48fd29af5831d9b69554a7dfafa5a58f74835",
+      "delta_lines": 19,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            111
+          ],
+          "head": [
+            1,
+            111
+          ]
+        },
+        {
+          "base": [
+            114,
+            296
+          ],
+          "head": [
+            113,
+            295
+          ]
+        }
+      ],
+      "base_own_proof_locators": [
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 184,
+          "original": 1463,
+          "ranges": [
+            [
+              1,
+              296
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 21,
+      "path": "crates/adventuresim-tactical-client/src/camera/values.rs",
+      "before_sha256": "6a14958f0a7593181730db9d73a69a54302cf39b9706819553ee8edece85a19f",
+      "head_sha256": "a2f64c5b11f5551f2c7baae14dcb819408c25c075a3594694b06cf7ab40f1eaa",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-21-base-6a14958f0a7593181730db9d73a69a54302cf39b9706819553ee8edece85a19f",
+      "base_eof": 105,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-21-head-a2f64c5b11f5551f2c7baae14dcb819408c25c075a3594694b06cf7ab40f1eaa",
+      "head_eof": 107,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-21-delta.txt",
+      "delta_sha256": "a021068c15e89b49440de1d45e7fab97bfa143d1648fcf6944ed78603c37a44d",
+      "delta_lines": 18,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            45
+          ],
+          "head": [
+            1,
+            45
+          ]
+        },
+        {
+          "base": [
+            46,
+            105
+          ],
+          "head": [
+            48,
+            107
+          ]
+        }
+      ],
+      "base_own_proof_locators": [
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 181,
+          "original": 1469,
+          "ranges": [
+            [
+              1,
+              105
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "index": 22,
+      "path": "crates/adventuresim-tactical-client/src/equipment.rs",
+      "before_sha256": "c4df9aebd8ae04e6fb831345ab7b31df4c29be24de21d73067dd1273f690d827",
+      "head_sha256": "189c2e7491ed6395765d58dcd3ed3b115bc06895e114e26cb7a9954ed14464a5",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-22-base-c4df9aebd8ae04e6fb831345ab7b31df4c29be24de21d73067dd1273f690d827",
+      "base_eof": 1764,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-22-head-189c2e7491ed6395765d58dcd3ed3b115bc06895e114e26cb7a9954ed14464a5",
+      "head_eof": 1754,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-22-delta.txt",
+      "delta_sha256": "e327db0f6754c7995e1c0cdd759392cae05c4f60efa396749c267fe9d7a52d6e",
+      "delta_lines": 26,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            283
+          ],
+          "head": [
+            1,
+            283
+          ]
+        },
+        {
+          "base": [
+            294,
+            1764
+          ],
+          "head": [
+            284,
+            1754
+          ]
+        }
+      ],
+      "base_own_proof_locators": []
+    },
+    {
+      "index": 23,
+      "path": "crates/adventuresim-tactical-client/src/equipment/grab_world.rs",
+      "before_sha256": "458e3d73d56242705d9f851842b96b9e5b302ecfffac569a0da3a43a5b3bd392",
+      "head_sha256": "4b5e698d92f04c27f1c98dd09a71ddcab3ef0f38fec5bf5072dd917a1df5844b",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-23-base-458e3d73d56242705d9f851842b96b9e5b302ecfffac569a0da3a43a5b3bd392",
+      "base_eof": 141,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-23-head-4b5e698d92f04c27f1c98dd09a71ddcab3ef0f38fec5bf5072dd917a1df5844b",
+      "head_eof": 152,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-23-delta.txt",
+      "delta_sha256": "b76b5634f09a6aeb9a5465ac7358d6ea9264da4c87386c12b5206437ecb96fc0",
+      "delta_lines": 30,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            1
+          ],
+          "head": [
+            1,
+            1
+          ]
+        },
+        {
+          "base": [
+            2,
+            141
+          ],
+          "head": [
+            3,
+            142
+          ]
+        }
+      ],
+      "base_own_proof_locators": []
+    },
+    {
+      "index": 24,
+      "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers.rs",
+      "before_sha256": "f57dcb58da364002292182c580ca197bfaa3ad85fc820f2dc6ce95d078b25dc0",
+      "head_sha256": "aa37d6dd277f36960419f7eb6c96b50130f26dc152aef57d605af98dc99a66a4",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-24-base-f57dcb58da364002292182c580ca197bfaa3ad85fc820f2dc6ce95d078b25dc0",
+      "base_eof": 193,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-24-head-aa37d6dd277f36960419f7eb6c96b50130f26dc152aef57d605af98dc99a66a4",
+      "head_eof": 193,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-24-delta.txt",
+      "delta_sha256": "52b1d12b57d6b22cac80a132152f0c70d1c1e8783db989c8ab95054985f6ef8c",
+      "delta_lines": 20,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            184
+          ],
+          "head": [
+            1,
+            184
+          ]
+        },
+        {
+          "base": [
+            187,
+            193
+          ],
+          "head": [
+            187,
+            193
+          ]
+        }
+      ],
+      "base_own_proof_locators": []
+    },
+    {
+      "index": 25,
+      "path": "crates/adventuresim-tactical-client/src/strategic_scene/views.rs",
+      "before_sha256": "ccf553eb553150d9800d83d4f17b763f19de8547e3b57b46a9486a0782c330a9",
+      "head_sha256": "4bbc1929ef5a2b7b59aa29f7513940adb88c8804fa243ada08430f3c057540a0",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-25-base-ccf553eb553150d9800d83d4f17b763f19de8547e3b57b46a9486a0782c330a9",
+      "base_eof": 398,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-25-head-4bbc1929ef5a2b7b59aa29f7513940adb88c8804fa243ada08430f3c057540a0",
+      "head_eof": 401,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-25-delta.txt",
+      "delta_sha256": "939296ad4419dcc61a51eea71054d467c1a9c9d128d1dbaf98770602634f4ad1",
+      "delta_lines": 21,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            330
+          ],
+          "head": [
+            1,
+            330
+          ]
+        },
+        {
+          "base": [
+            332,
+            398
+          ],
+          "head": [
+            335,
+            401
+          ]
+        }
+      ],
+      "base_own_proof_locators": []
+    },
+    {
+      "index": 26,
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms.rs",
+      "before_sha256": "3891936e52f5d84f5970256e12a8cce2b3cf5990b15775b3512bab34ff1e21ac",
+      "head_sha256": "c042af2ce9602f7b34f3fbcb6ea10836f4f4f7c3cec6b1bed5a5c7d1bc9087e1",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-26-base-3891936e52f5d84f5970256e12a8cce2b3cf5990b15775b3512bab34ff1e21ac",
+      "base_eof": 438,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-26-head-c042af2ce9602f7b34f3fbcb6ea10836f4f4f7c3cec6b1bed5a5c7d1bc9087e1",
+      "head_eof": 437,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-26-delta.txt",
+      "delta_sha256": "f561a407c213bbda24b7b322461cdb2bc9bd5a5f1828f5b138c79490420ad5a9",
+      "delta_lines": 17,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            324
+          ],
+          "head": [
+            1,
+            324
+          ]
+        },
+        {
+          "base": [
+            326,
+            438
+          ],
+          "head": [
+            325,
+            437
+          ]
+        }
+      ],
+      "base_own_proof_locators": []
+    },
+    {
+      "index": 27,
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/manifest.rs",
+      "before_sha256": "90d78c0c708175d63d2b3654ce3d96a08c32444ff581cf53e94f78d5f971bb96",
+      "head_sha256": "d5ced13275995ed15eb02c87b8889992a0e5a2070e752a05c3bed45505651f92",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-27-base-90d78c0c708175d63d2b3654ce3d96a08c32444ff581cf53e94f78d5f971bb96",
+      "base_eof": 941,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-27-head-d5ced13275995ed15eb02c87b8889992a0e5a2070e752a05c3bed45505651f92",
+      "head_eof": 941,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-27-delta.txt",
+      "delta_sha256": "9bb8ed60e447569234d54de7f6cfaf6763e8a9e8fa264ac7fe9d171875f5031c",
+      "delta_lines": 28,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            820
+          ],
+          "head": [
+            1,
+            820
+          ]
+        },
+        {
+          "base": [
+            822,
+            829
+          ],
+          "head": [
+            822,
+            829
+          ]
+        },
+        {
+          "base": [
+            831,
+            941
+          ],
+          "head": [
+            831,
+            941
+          ]
+        }
+      ],
+      "base_own_proof_locators": []
+    },
+    {
+      "index": 28,
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/triangle_census.rs",
+      "before_sha256": "fb0fc3bbca6503d19caafadaef01a99600a6fdcd0ab42a316a90c94913284861",
+      "head_sha256": "7f564603c19a4d7f46601c6c56251a3d2177c3cf8854811bac529e6f3228c8ad",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-28-base-fb0fc3bbca6503d19caafadaef01a99600a6fdcd0ab42a316a90c94913284861",
+      "base_eof": 507,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-28-head-7f564603c19a4d7f46601c6c56251a3d2177c3cf8854811bac529e6f3228c8ad",
+      "head_eof": 507,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-28-delta.txt",
+      "delta_sha256": "82636109b6a4904e2c58e449dc0df151bed7bf445d1f5f0e391d7bf807978bda",
+      "delta_lines": 64,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            197
+          ],
+          "head": [
+            1,
+            197
+          ]
+        },
+        {
+          "base": [
+            200,
+            280
+          ],
+          "head": [
+            200,
+            280
+          ]
+        },
+        {
+          "base": [
+            282,
+            361
+          ],
+          "head": [
+            282,
+            361
+          ]
+        },
+        {
+          "base": [
+            364,
+            394
+          ],
+          "head": [
+            364,
+            394
+          ]
+        },
+        {
+          "base": [
+            396,
+            507
+          ],
+          "head": [
+            396,
+            507
+          ]
+        }
+      ],
+      "base_own_proof_locators": []
+    },
+    {
+      "index": 29,
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs.rs",
+      "before_sha256": "ee9206f01afa3ace0319c0d1098568b83cb983fe7240990836b13da56e045b16",
+      "head_sha256": "be10078a6ca459afe85ee55e84fc78ff7a0bc1c81c2172d6c17fb5f6c6030fa4",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-29-base-ee9206f01afa3ace0319c0d1098568b83cb983fe7240990836b13da56e045b16",
+      "base_eof": 1101,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-29-head-be10078a6ca459afe85ee55e84fc78ff7a0bc1c81c2172d6c17fb5f6c6030fa4",
+      "head_eof": 1101,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-29-delta.txt",
+      "delta_sha256": "83893785836e4a0e28dab54f40ff1b7721f2d5d603c47b7fa8f78af60f1d0b8d",
+      "delta_lines": 13,
+      "equal_maps": [
+        {
+          "base": [
+            2,
+            1101
+          ],
+          "head": [
+            2,
+            1101
+          ]
+        }
+      ],
+      "base_own_proof_locators": []
+    },
+    {
+      "index": 30,
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/fungi.rs",
+      "before_sha256": "bde10d85a38741896836a0e0bb333b05ab49f3ba3569cd0abadd2210d1781e31",
+      "head_sha256": "016e6c5593957fe9efed109b0de5a2f2b1e5f79b90f0f10f0bbe673f9f582b5a",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-30-base-bde10d85a38741896836a0e0bb333b05ab49f3ba3569cd0abadd2210d1781e31",
+      "base_eof": 83,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-30-head-016e6c5593957fe9efed109b0de5a2f2b1e5f79b90f0f10f0bbe673f9f582b5a",
+      "head_eof": 83,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-30-delta.txt",
+      "delta_sha256": "2d87f0ecfdabb58638552529b24716d5fbb41e0de8cb6906e447ce49f487b46b",
+      "delta_lines": 14,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            1
+          ],
+          "head": [
+            1,
+            1
+          ]
+        },
+        {
+          "base": [
+            3,
+            83
+          ],
+          "head": [
+            3,
+            83
+          ]
+        }
+      ],
+      "base_own_proof_locators": []
+    },
+    {
+      "index": 31,
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/plant_lods.rs",
+      "before_sha256": "b850100ae1740709302dacd1a36ee787c8fb3f7836ab5cc947c3d3814f923d8c",
+      "head_sha256": "2e175079130faa55ba0f0cff4ba918e88b7ef0a1e3239b534a55c644fccd6a0f",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-31-base-b850100ae1740709302dacd1a36ee787c8fb3f7836ab5cc947c3d3814f923d8c",
+      "base_eof": 149,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-31-head-2e175079130faa55ba0f0cff4ba918e88b7ef0a1e3239b534a55c644fccd6a0f",
+      "head_eof": 149,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-31-delta.txt",
+      "delta_sha256": "422a9de09c4a3205b0e075a0db03eccfa24e0876086be663f31a161d50164b5e",
+      "delta_lines": 14,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            1
+          ],
+          "head": [
+            1,
+            1
+          ]
+        },
+        {
+          "base": [
+            3,
+            149
+          ],
+          "head": [
+            3,
+            149
+          ]
+        }
+      ],
+      "base_own_proof_locators": []
+    },
+    {
+      "index": 32,
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/plants.rs",
+      "before_sha256": "60f01634eb5a6148da91a0723992f2e1ac569ab9eacfd993328f3c3005be1fe1",
+      "head_sha256": "2b72637010370a048795eb7eab6228aafe8fc1a9b240b32a0cb9b9338b116895",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-32-base-60f01634eb5a6148da91a0723992f2e1ac569ab9eacfd993328f3c3005be1fe1",
+      "base_eof": 96,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-32-head-2b72637010370a048795eb7eab6228aafe8fc1a9b240b32a0cb9b9338b116895",
+      "head_eof": 96,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-32-delta.txt",
+      "delta_sha256": "e8f0b39c78dc27716e77f00c7fa8de4ba180afc4665137842077a0ba8340d3f2",
+      "delta_lines": 15,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            2
+          ],
+          "head": [
+            1,
+            2
+          ]
+        },
+        {
+          "base": [
+            4,
+            96
+          ],
+          "head": [
+            4,
+            96
+          ]
+        }
+      ],
+      "base_own_proof_locators": []
+    },
+    {
+      "index": 33,
+      "path": "crates/fabelgeist-mhr/src/model.rs",
+      "before_sha256": "08275eee95012fbf2c20c185a7416b977f74c4181ad4362e704fafb847ae2c55",
+      "head_sha256": "40ffb38f7e31078dc362350d86467b2a82568d14153ad3e7eef940961b828f84",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-33-base-08275eee95012fbf2c20c185a7416b977f74c4181ad4362e704fafb847ae2c55",
+      "base_eof": 626,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-33-head-40ffb38f7e31078dc362350d86467b2a82568d14153ad3e7eef940961b828f84",
+      "head_eof": 609,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-33-delta.txt",
+      "delta_sha256": "2666e59990614fc653445bb5bce88a0548d96fab367e2436f938d233c440ca52",
+      "delta_lines": 65,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            13
+          ],
+          "head": [
+            1,
+            13
+          ]
+        },
+        {
+          "base": [
+            14,
+            79
+          ],
+          "head": [
+            16,
+            81
+          ]
+        },
+        {
+          "base": [
+            81,
+            275
+          ],
+          "head": [
+            83,
+            277
+          ]
+        },
+        {
+          "base": [
+            296,
+            626
+          ],
+          "head": [
+            279,
+            609
+          ]
+        }
+      ],
+      "base_own_proof_locators": []
+    },
+    {
+      "index": 34,
+      "path": "crates/fabelgeist-mhr/src/model/rig.rs",
+      "before_sha256": null,
+      "head_sha256": "bbc58fc45ff9a4337c0d9cca24cec87ef3a6165d041e2b7c3c56c57825c1824c",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-34-base-absent",
+      "base_eof": 0,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-34-head-bbc58fc45ff9a4337c0d9cca24cec87ef3a6165d041e2b7c3c56c57825c1824c",
+      "head_eof": 32,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-34-delta.txt",
+      "delta_sha256": "3953a87588279fcb9a64d38846dfe1cbd2df7d1ae0312246e59aa4aa2ca980cc",
+      "delta_lines": 38,
+      "equal_maps": [],
+      "base_own_proof_locators": [
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 20,
+          "original": 1,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 21,
+          "original": 2,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 22,
+          "original": 3,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 23,
+          "original": 6,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 24,
+          "original": 7,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 25,
+          "original": 8,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 26,
+          "original": 9,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 27,
+          "original": 10,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 28,
+          "original": 11,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 29,
+          "original": 12,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 30,
+          "original": 13,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 31,
+          "original": 14,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 37,
+          "original": 4,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 38,
+          "original": 5,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 41,
+          "original": 15,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 50,
+          "original": 16,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 51,
+          "original": 17,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 52,
+          "original": 25,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 53,
+          "original": 26,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 56,
+          "original": 18,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 57,
+          "original": 19,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 63,
+          "original": 1537,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 64,
+          "original": 20,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 65,
+          "original": 21,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 66,
+          "original": 22,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 67,
+          "original": 23,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 68,
+          "original": 24,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 79,
+          "original": 1204,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 80,
+          "original": 27,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 81,
+          "original": 28,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 82,
+          "original": 29,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 83,
+          "original": 30,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 84,
+          "original": 31,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 85,
+          "original": 32,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 86,
+          "original": 33,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 87,
+          "original": 34,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 88,
+          "original": 35,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 89,
+          "original": 36,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 90,
+          "original": 37,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 91,
+          "original": 38,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 102,
+          "original": 1573,
+          "ranges": [
+            [
+              74,
+              90
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 182,
+          "original": 486,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 183,
+          "original": 487,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 187,
+          "original": null,
+          "ranges": [
+            [
+              634,
+              822
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 188,
+          "original": null,
+          "ranges": [
+            [
+              1,
+              73
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 323,
+          "original": null,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 324,
+          "original": null,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 369,
+          "original": 272,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 561,
+          "original": 466,
+          "ranges": [
+            [
+              1,
+              80
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 562,
+          "original": 467,
+          "ranges": [
+            [
+              73,
+              170
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 563,
+          "original": 468,
+          "ranges": [
+            [
+              245,
+              280
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 564,
+          "original": 469,
+          "ranges": [
+            [
+              389,
+              440
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 565,
+          "original": 470,
+          "ranges": [
+            [
+              175,
+              290
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 566,
+          "original": 471,
+          "ranges": [
+            [
+              1,
+              145
+            ],
+            [
+              250,
+              277
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 567,
+          "original": 472,
+          "ranges": [
+            [
+              1,
+              40
+            ],
+            [
+              120,
+              133
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 568,
+          "original": 473,
+          "ranges": [
+            [
+              1,
+              137
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 569,
+          "original": 474,
+          "ranges": [
+            [
+              479,
+              507
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 570,
+          "original": 475,
+          "ranges": [
+            [
+              118,
+              209
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 571,
+          "original": 476,
+          "ranges": [
+            [
+              1,
+              170
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 572,
+          "original": 477,
+          "ranges": [
+            [
+              721,
+              747
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 573,
+          "original": 478,
+          "ranges": [
+            [
+              65,
+              169
+            ],
+            [
+              179,
+              268
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 574,
+          "original": 479,
+          "ranges": [
+            [
+              748,
+              809
+            ],
+            [
+              901,
+              939
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 575,
+          "original": 480,
+          "ranges": [
+            [
+              55,
+              104
+            ],
+            [
+              364,
+              381
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 576,
+          "original": 481,
+          "ranges": [
+            [
+              390,
+              441
+            ],
+            [
+              633,
+              810
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 577,
+          "original": 482,
+          "ranges": [
+            [
+              1,
+              70
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 578,
+          "original": 483,
+          "ranges": [
+            [
+              1,
+              85
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 579,
+          "original": 484,
+          "ranges": [
+            [
+              125,
+              146
+            ],
+            [
+              740,
+              745
+            ],
+            [
+              1051,
+              1074
+            ],
+            [
+              1092,
+              1114
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 580,
+          "original": 485,
+          "ranges": [
+            [
+              384,
+              410
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 581,
+          "original": 486,
+          "ranges": [
+            [
+              400,
+              612
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 582,
+          "original": 487,
+          "ranges": [
+            [
+              87,
+              155
+            ],
+            [
+              176,
+              229
+            ],
+            [
+              420,
+              493
+            ],
+            [
+              523,
+              609
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 583,
+          "original": 488,
+          "ranges": [
+            [
+              1,
+              48
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 584,
+          "original": 489,
+          "ranges": [
+            [
+              55,
+              90
+            ],
+            [
+              110,
+              127
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 585,
+          "original": 490,
+          "ranges": [
+            [
+              282,
+              300
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 586,
+          "original": 491,
+          "ranges": [
+            [
+              715,
+              805
+            ],
+            [
+              930,
+              975
+            ],
+            [
+              1138,
+              1180
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 587,
+          "original": 492,
+          "ranges": [
+            [
+              1,
+              104
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 588,
+          "original": 493,
+          "ranges": [
+            [
+              35,
+              65
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 589,
+          "original": 494,
+          "ranges": [
+            [
+              140,
+              190
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 590,
+          "original": 495,
+          "ranges": [
+            [
+              1,
+              343
+            ]
+          ]
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 597,
+          "original": 501,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 705,
+          "original": 669,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 706,
+          "original": 670,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 1151,
+          "original": null,
+          "ranges": []
+        },
+        {
+          "path": "target/recovery-20261025/audit08/predecessor/coverage.jsonl",
+          "row_1based": 1217,
+          "original": 1098,
+          "ranges": []
+        }
+      ]
+    },
+    {
+      "index": 35,
+      "path": "crates/fabelgeist-mhr/src/model_def/tests.rs",
+      "before_sha256": "8a4c3ccff3704053320170d56ccd92e1e3d449f9744b8993f0cebe87b7aef0a1",
+      "head_sha256": "d80611df9dffc2c832cb7a11f6aca369a90a3c6b53c5fe7f2afad3eb8770685f",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-35-base-8a4c3ccff3704053320170d56ccd92e1e3d449f9744b8993f0cebe87b7aef0a1",
+      "base_eof": 143,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-35-head-d80611df9dffc2c832cb7a11f6aca369a90a3c6b53c5fe7f2afad3eb8770685f",
+      "head_eof": 144,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-35-delta.txt",
+      "delta_sha256": "b0b545057641ecae6acca47a4a4351a5b46c395953285cdc2e8c1c65de1f0f1c",
+      "delta_lines": 13,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            1
+          ],
+          "head": [
+            1,
+            1
+          ]
+        },
+        {
+          "base": [
+            2,
+            143
+          ],
+          "head": [
+            3,
+            144
+          ]
+        }
+      ],
+      "base_own_proof_locators": []
+    },
+    {
+      "index": 36,
+      "path": "rust-quality-baseline.toml",
+      "before_sha256": "059d0c2bc687c8d7bd314cfa50fb863ac83959cc3483e74aee993980f47e3efe",
+      "head_sha256": "096c47ee96a9514cacdde1ed23c78518cfdbafff851f41989f7c617af9f02ac3",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-36-base-059d0c2bc687c8d7bd314cfa50fb863ac83959cc3483e74aee993980f47e3efe",
+      "base_eof": 12847,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-36-head-096c47ee96a9514cacdde1ed23c78518cfdbafff851f41989f7c617af9f02ac3",
+      "head_eof": 12842,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-36-delta.txt",
+      "delta_sha256": "9c32c6e62f1367f70b4cecf1bb01eec92174cc052946a67baf2882becd44cbf8",
+      "delta_lines": 43,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            2277
+          ],
+          "head": [
+            1,
+            2277
+          ]
+        },
+        {
+          "base": [
+            2283,
+            10036
+          ],
+          "head": [
+            2278,
+            10031
+          ]
+        },
+        {
+          "base": [
+            10038,
+            10043
+          ],
+          "head": [
+            10033,
+            10038
+          ]
+        },
+        {
+          "base": [
+            10045,
+            12847
+          ],
+          "head": [
+            10040,
+            12842
+          ]
+        }
+      ],
+      "base_own_proof_locators": []
+    },
+    {
+      "index": 37,
+      "path": "rust-quality.toml",
+      "before_sha256": "9d0d3916352c4808958a17c7c58e323d8f1a5cc4cc104ab40807be5ed6fa3c15",
+      "head_sha256": "596414de1f529bf660c72374ab78b2479ef444a374b64ca7f77cb1294b17ad02",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "base_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-37-base-9d0d3916352c4808958a17c7c58e323d8f1a5cc4cc104ab40807be5ed6fa3c15",
+      "base_eof": 983,
+      "head_local": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-37-head-596414de1f529bf660c72374ab78b2479ef444a374b64ca7f77cb1294b17ad02",
+      "head_eof": 989,
+      "delta_path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/merged-37-delta.txt",
+      "delta_sha256": "390137d2d81567a941a89386a721bb18bc85553385cbf4ae40ba5bf60b58755b",
+      "delta_lines": 17,
+      "equal_maps": [
+        {
+          "base": [
+            1,
+            983
+          ],
+          "head": [
+            1,
+            983
+          ]
+        }
+      ],
+      "base_own_proof_locators": []
+    }
+  ],
+  "body_review": "pending; exactequalmap/hashes and ownprooflocators alone are not actual coverage",
+  "gate": false
+}

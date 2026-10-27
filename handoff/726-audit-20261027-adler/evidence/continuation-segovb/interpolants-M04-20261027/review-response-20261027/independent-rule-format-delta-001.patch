@@ -1,0 +1,91 @@
+diff --git a/crates/adventuresim-tactical-client/src/animation/authored_cadence.rs b/crates/adventuresim-tactical-client/src/animation/authored_cadence.rs
+index 1782f9cb3..37ce84a60 100644
+--- a/crates/adventuresim-tactical-client/src/animation/authored_cadence.rs
++++ b/crates/adventuresim-tactical-client/src/animation/authored_cadence.rs
+@@ -62,7 +62,9 @@ impl CalibrationMotion {
+ impl AuthoredStrideMeasurement {
+     pub(super) fn lerp(self, other: Self, amount: UnitInterval) -> AnimationValueResult<Self> {
+         Ok(Self {
+-            step_distance: self.step_distance.checked_lerp(other.step_distance, amount)?,
++            step_distance: self
++                .step_distance
++                .checked_lerp(other.step_distance, amount)?,
+             maximum_stance_slip: self
+                 .maximum_stance_slip
+                 .checked_lerp(other.maximum_stance_slip, amount)?,
+diff --git a/crates/adventuresim-tactical-client/src/animation/procedural/height.rs b/crates/adventuresim-tactical-client/src/animation/procedural/height.rs
+index 485e57882..a8730ee31 100644
+--- a/crates/adventuresim-tactical-client/src/animation/procedural/height.rs
++++ b/crates/adventuresim-tactical-client/src/animation/procedural/height.rs
+@@ -253,7 +253,10 @@ pub(super) fn locomotion_height_wave(
+     let moving_weight = speed
+         .clamped_inverse_lerp(
+             playback_tuning().initial_locomotion_speed_metres_per_second,
+-            runtime_animation_config().locomotion.blend_speed.nonnegative(),
++            runtime_animation_config()
++                .locomotion
++                .blend_speed
++                .nonnegative(),
+         )?
+         .smoothstep();
+     if profile.flight_apex_metres <= HeightDistance::ZERO {
+@@ -282,7 +285,10 @@ pub(super) fn authored_height_compensation(
+     let moving_weight = speed
+         .clamped_inverse_lerp(
+             playback_tuning().initial_locomotion_speed_metres_per_second,
+-            runtime_animation_config().locomotion.blend_speed.nonnegative(),
++            runtime_animation_config()
++                .locomotion
++                .blend_speed
++                .nonnegative(),
+         )?
+         .smoothstep();
+     procedural_tuning()
+diff --git a/crates/adventuresim-tactical-core/src/combat_config.rs b/crates/adventuresim-tactical-core/src/combat_config.rs
+index 56094c0ba..e2e3eae6c 100644
+--- a/crates/adventuresim-tactical-core/src/combat_config.rs
++++ b/crates/adventuresim-tactical-core/src/combat_config.rs
+@@ -632,9 +632,11 @@ impl TacticalCombatConfig {
+         }
+ 
+         let animation = self.animation;
+-        animation
+-            .locomotion
+-            .validate(animation.playback.initial_locomotion_speed_metres_per_second)?;
++        animation.locomotion.validate(
++            animation
++                .playback
++                .initial_locomotion_speed_metres_per_second,
++        )?;
+         let guard = animation.guard_footwork;
+         if ![
+             guard.default_half_width_metres,
+diff --git a/crates/adventuresim-tactical-core/src/combat_config/locomotion.rs b/crates/adventuresim-tactical-core/src/combat_config/locomotion.rs
+index 454f5df22..405b26f38 100644
+--- a/crates/adventuresim-tactical-core/src/combat_config/locomotion.rs
++++ b/crates/adventuresim-tactical-core/src/combat_config/locomotion.rs
+@@ -32,7 +32,13 @@ impl AnimationLocomotionConfig {
+         &self,
+         initial_locomotion_speed: NonnegativeSpeed,
+     ) -> Result<(), TacticalCombatConfigError> {
+-        let gaits = [self.walk, self.run, self.raised_guard, self.prone, self.supine];
++        let gaits = [
++            self.walk,
++            self.run,
++            self.raised_guard,
++            self.prone,
++            self.supine,
++        ];
+         if gaits.into_iter().any(|gait| {
+             gait.support_phase_radius < CycleDelta::ZERO
+                 || gait.support_phase_radius >= CycleDelta::from_unit_cycles(UnitInterval::HALF)
+@@ -41,8 +47,7 @@ impl AnimationLocomotionConfig {
+                 "invalid animation locomotion tuning",
+             ));
+         }
+-        if self.run.reference_speed_metres_per_second
+-            <= self.walk.reference_speed_metres_per_second
++        if self.run.reference_speed_metres_per_second <= self.walk.reference_speed_metres_per_second
+         {
+             return Err(TacticalCombatConfigError::Validation(
+                 "run reference speed must exceed walk reference speed",

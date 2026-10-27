@@ -1,0 +1,103 @@
+{
+  "base": "35b18ec280a6884bb53996a2d859c4b27096f65c",
+  "review_parent": "837204c061adb97a2a62f43f7bcd841a223f0647",
+  "scope": "Full PR992 candidate008: third review signed arithmetic and endpoint-derived dive normalization; deferred interval type not implemented",
+  "files": [
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "850183741ff4a1b097b93fc6285055d135558894f5ebf9324b52031cb9aadfc4"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "58118b1b138af4f9feea993ea990dc334f63d30c4aa66f8b5597a0f1dfecfcf6"
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "sha256": "e046a24787a8fe5b26e80d4808b7c00c37bfdfb6a886b67d4287119850a80b29"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "sha256": "c1eedbdf2c145f30bb9da7cc8f8fd02fa22b7ee9d9cd821c49ac5a17c441da09"
+    },
+    {
+      "path": "crates/adventuresim-core/Cargo.toml",
+      "sha256": "e5e9c6ed987838be5b7fef72e25ba3e6b6e848bc84105c42f396fcdfd7d65f53"
+    },
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "sha256": "06bfd3a023ac0c22751466720321fe796aba122f605d621f16ba56b318c712f8"
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "7c44bfdf7648e528853e2e1c4d823e32d7ce37ec9a6d01f3db8f59c5b1934313"
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "cfe4ee137e0df1f150fcee66caeab50f963b3bb36ee2ca518c0208e4f43ef5e1"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "sha256": "12d4b4e5ed4ce3940c78b7ee4420ec94e5efa83776b14d60afdbf2ba0d501f5d"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "sha256": "815bfd27404840b0d69f337719c882adf65fea894e48a769670a582eb42faf1b"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/dive.rs",
+      "sha256": "c31ca562d4c25d843f4f4841ca0663f461cfafd474a1571ae31908d99be9fcad"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "sha256": "ae1dcc0043d5bd5a98744dfb43a3f172a259b3ac3b5e0fe0743c31b83e00327e"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "sha256": "93bf8878500fe7902fc616643b4678bfbc4c8f091c94dcd68b2a42a6ccb377af"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "sha256": "e54bd673db78d4b343707613e348b7d7fb4f74d34b8a454fefe73f426145a045"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "f26dc1059e4a9d133ac1fba9c80a1086753b20b54e5a5074dc8e557540cea67b"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "sha256": "37a5dba433aa5219b544716053897df30d3df49662fb5fd38794130c1b803946"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "sha256": "b2c7bc9609b8deb810b4c586a09fdf8186b60803f648009fc3ff74931b2df113"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "543ea955a72a4accf8550af44b35ad0a526fbcc6731bc5fb109ac38ceb609e17"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "sha256": "b394bde991895d6328b6f9f2be24fcb6d51c5c00e7f7143316339c372b7b5089"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "ada76a964c72b64d6bd3671a8ca2bde134da787f339914cc2091bd7994fac722"
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "8da5ee46241fe574e76a0b67391c30e5287f90a228995456a39b15cf00701262"
+    }
+  ],
+  "tests_added": false,
+  "existing_tests": "Only existing dive fixture constructors migrated after removing obsolete raw-factor constructor; no added tests/cases/helpers/assertions/doctests",
+  "local_project_execution": false,
+  "global_audit_complete": false
+}

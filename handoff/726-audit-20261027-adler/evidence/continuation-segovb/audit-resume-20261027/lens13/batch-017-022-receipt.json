@@ -1,0 +1,463 @@
+{
+  "at": "2026-10-27T11:08:23.328639+00:00",
+  "lens": 13,
+  "scope": "Orderedoriginal41-48 full effective requested unions, actualrequired geometry/nativeCargo/source-position receivers",
+  "registrations": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-017-registration.json",
+      "sha256": "41d30bc8ea7abda6d34d471ca93dc4e91b318cbd6613dcfa6d9d2bd1352da844"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-018-registration.json",
+      "sha256": "00aa1f454e721e89f81dc9db401a20f4ecaeb7d13a3c0f3827cf384acb8b504c"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-019-registration.json",
+      "sha256": "cbb85d6ec7760b981360c8b9d52c631790691b19874c632593f61c1a038d282e"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-020-registration.json",
+      "sha256": "49ab6f77251950feb7f25eaee31c6365915bd35ae64dbd678e769371085e1152"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-021-registration.json",
+      "sha256": "d16f33f18afb98f17d70b6a7f3291dd9fe8d7cc42467a2beba91566d703e7010"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-022-registration.json",
+      "sha256": "f5235257dcd87930c4ca6780a90b12de438c114d7309c46411e61e472aa7fe00"
+    }
+  ],
+  "source_consumption": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry.rs",
+      "sha256": "c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+      "new_consumed_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "prior_personal_source_access": null
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+      "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+      "new_consumed_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "prior_personal_source_access": null
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+      "sha256": "4ccc1188de7d5f8bdbf63b71160b8557f76fb524ae47f924381325da11198ee8",
+      "new_consumed_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "prior_personal_source_access": null
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "new_consumed_ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "prior_personal_source_access": null
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/Cargo.toml",
+      "sha256": "308714b71f7effc69b5f0d0314884b560472372f1746b1101147414253715b42",
+      "new_consumed_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "prior_personal_source_access": null
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/build.rs",
+      "sha256": "fc42ea1f2234144e94d6bfac86f254cd059799b9f9e5ae6de7f77e3125f19b7c",
+      "new_consumed_ranges": [
+        [
+          87,
+          300
+        ],
+        [
+          301,
+          509
+        ]
+      ],
+      "prior_personal_source_access": {
+        "registration": "batch-013-registration.json",
+        "ranges": [
+          [
+            1,
+            86
+          ]
+        ],
+        "own_lens13_consumed": true,
+        "no_prior_role_credit": true
+      }
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/build/combat_resolution.rs",
+      "sha256": "79ebf48add6f1035ba223c7d310864e958145bdb580ab8fd0189eac3700ff9c5",
+      "new_consumed_ranges": [],
+      "prior_personal_source_access": {
+        "registration": "batch-013-registration.json",
+        "ranges": [
+          [
+            1,
+            275
+          ]
+        ],
+        "own_lens13_consumed": true,
+        "no_prior_role_credit": true
+      }
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/animation_pack_id.rs",
+      "sha256": "f5933a0bf3fad1149d1f10c1e16ae4883fa626338fc6aa29723816dc8ae4e317",
+      "new_consumed_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "prior_personal_source_access": null
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+      "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+      "new_consumed_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "prior_personal_source_access": null
+    },
+    {
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/cuboid.rs",
+      "sha256": "7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a",
+      "new_consumed_ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "prior_personal_source_access": null
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+      "sha256": "4ccc1188de7d5f8bdbf63b71160b8557f76fb524ae47f924381325da11198ee8",
+      "new_consumed_ranges": [
+        [
+          101,
+          105
+        ]
+      ],
+      "prior_personal_source_access": null
+    },
+    {
+      "source_id": "native:Cargo@59800466c5c41c444d264b1010b4d57e85a7117f/crates/cargo-util-schemas/src/manifest/mod.rs",
+      "sha256": "fc503d6532663f2b0f3217b53f235b6c24690e9c85116f1364ec134ca78cd92c",
+      "new_consumed_ranges": [
+        [
+          336,
+          440
+        ],
+        [
+          668,
+          787
+        ],
+        [
+          1531,
+          1630
+        ]
+      ],
+      "prior_personal_source_access": null
+    },
+    {
+      "source_id": "native:Cargo@59800466c5c41c444d264b1010b4d57e85a7117f/crates/cargo-util-schemas/src/manifest/mod.rs",
+      "sha256": "fc503d6532663f2b0f3217b53f235b6c24690e9c85116f1364ec134ca78cd92c",
+      "new_consumed_ranges": [
+        [
+          620,
+          667
+        ]
+      ],
+      "prior_personal_source_access": null
+    },
+    {
+      "source_id": "native:Cargo@59800466c5c41c444d264b1010b4d57e85a7117f/src/cargo/core/dependency.rs",
+      "sha256": "abf4c10c7a19f8b13fbed2bee30710b19f16760e444ccddbc64e0b1bbc07fc25",
+      "new_consumed_ranges": [
+        [
+          1,
+          165
+        ],
+        [
+          197,
+          205
+        ]
+      ],
+      "prior_personal_source_access": null
+    },
+    {
+      "source_id": "native:Cargo@59800466c5c41c444d264b1010b4d57e85a7117f/src/cargo/util/toml/mod.rs",
+      "sha256": "940a2998ebff9915b4a0d050dcadc4d12e05615c7fcc3a5fb447b7d3fea4ea8e",
+      "new_consumed_ranges": [
+        [
+          1170,
+          1254
+        ],
+        [
+          2212,
+          2351
+        ]
+      ],
+      "prior_personal_source_access": null
+    },
+    {
+      "source_id": "native:Cargo@59800466c5c41c444d264b1010b4d57e85a7117f/src/cargo/core/dependency.rs",
+      "sha256": "abf4c10c7a19f8b13fbed2bee30710b19f16760e444ccddbc64e0b1bbc07fc25",
+      "new_consumed_ranges": [
+        [
+          166,
+          175
+        ],
+        [
+          300,
+          345
+        ]
+      ],
+      "prior_personal_source_access": null
+    },
+    {
+      "source_id": "native:Cargo@59800466c5c41c444d264b1010b4d57e85a7117f/src/cargo/util/toml/mod.rs",
+      "sha256": "940a2998ebff9915b4a0d050dcadc4d12e05615c7fcc3a5fb447b7d3fea4ea8e",
+      "new_consumed_ranges": [
+        [
+          2351,
+          2367
+        ]
+      ],
+      "prior_personal_source_access": null
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/road_encounter_catalog.rs",
+      "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "new_consumed_ranges": [
+        [
+          375,
+          388
+        ],
+        [
+          1029,
+          1043
+        ]
+      ],
+      "prior_personal_source_access": null
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_validation.rs",
+      "sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "new_consumed_ranges": [
+        [
+          1,
+          29
+        ],
+        [
+          133,
+          148
+        ]
+      ],
+      "prior_personal_source_access": null
+    }
+  ],
+  "independent_roles": [
+    {
+      "original": 41,
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry.rs",
+      "scope": [
+        [
+          1,
+          29
+        ]
+      ],
+      "disposition": "SOURCE_ACCOUNTED_SCOPED_CONTRACT",
+      "inventory": "Reexports neutralcanonicaltypes/typedframe/geometry modules; no rawnonstringfield/param/return/literal orarithmetic in29lines. cfg(test) isRustframeworkconfigurationpredicate, nativeunitmarker, nosemanticruntimeBool stored. Actualmodulebodyread, notno-numberfromhash/search. Reexportidentity SignedLength/PositiveLength proven by actualowner/import bridge; no wholechildmodulecredit."
+    },
+    {
+      "original": 42,
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+      "scope": [
+        [
+          1,
+          170
+        ]
+      ],
+      "actual": [
+        [
+          1,
+          140
+        ]
+      ],
+      "disposition": "SOURCE_ACCOUNTED_WITH_SCOPE_AND_CALLER_QUALIFICATIONS",
+      "inventory": "NativeVec3metres fields/constructor+getter ports forframe-taggedPosition/Displacement andf32Elevation withPhantomDataF. ORIGIN/ZERO/nativeVec3ZERO and0.0 elevation; coordinates signedfinite, typedzero displacementsvalid. translated typedDisplacement anddifference typedPosition performnativeVecadd/sub thenactualfiniteadmission; nouncheckednonfinite publication. CustomDeserialize callsnativeVec3/f32Deserialize thencheckedconstructor; opaqueReflect avoidsdirectprivateleaf edit. Actualfinite helper iteratesnamedXYZaxiscomponents andchecksis_finite. FrameMath/nativecodecports established, no allproducerframecorrectness orborrowedtrustedcallersclaim. Requested141-170absentatEOF140, notread/credited."
+    },
+    {
+      "original": 43,
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+      "scope": [
+        [
+          1,
+          100
+        ]
+      ],
+      "material_extension": [
+        [
+          101,
+          105
+        ]
+      ],
+      "disposition": "SOURCE_ACCOUNTED_WITH_FINDINGS",
+      "inventory": "LeafDimensionswrapcanonicalCuboidDimensions; strictpositivehelper nativeVec3literaladmission, actualcanonicalCuboidfrommetres validatesfinite/nonnegativeaxes. PlanDimensionsVec2positive->embedY1.0; half_extents .5 yieldsnonnegative inclsubnormalzero PlanExtents; PlanExtents embedY0.0/nonnegativepolicyfalse. NativeSerialize/Deserialize vector/tupleboundaries checked. Helper positiveBool islocaladmissionpredicate controllingzero rejection (trueleaf/plan,falseextents), notretaineddomainstate; role/policyredundancypossibleotherlensreview, no blanketBool exemption. XYZ array3/indices0-2 nativecanonicalfieldrecord supportedbyfixed3cardinality. Necessaryhelper101-105 readprospectivelyasextension, notsilenttruncateat100."
+    },
+    {
+      "original": 44,
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "scope": [
+        [
+          1,
+          148
+        ]
+      ],
+      "actual": [
+        [
+          1,
+          142
+        ]
+      ],
+      "disposition": "SOURCE_ACCOUNTED_WITH_NATIVE_LIMITS",
+      "inventory": "Radiansfiniteprivatef32/serdeadmission,ZERO andnamedquarter\u00b1PI/2/halfPI mathematicalidentities. Plan/SpatialDirections retainnativeDir2/Dir3 withframe; actualcheckedDirnewrejectsnonfinite/zero computedlength, localnormalize_or_zero andis_normalizedcheckedbeforeuncheckedtypedstorage. Plane liftx/0/z ismathematicalaxisembedding. RigidRotationprivatenativeQuat; actualis_finite/is_normalizedrejectbeforeconstruction, IDENTITY. Reflectopaque andcustomDeserializechecked. Own004nativeDiractualnew/new_and_length/uncheckeddebugpolicyranges reused viaexactidentity; noallglamnormalizationaccuracy/callers/uncheckedclients/runtimeguarantee. Requested143-148absentatEOF142, notread/credited."
+    },
+    {
+      "original": 45,
+      "source_id": "physical-p16:crates/adventuresim-core/Cargo.toml",
+      "scope": [
+        [
+          1,
+          43
+        ]
+      ],
+      "disposition": "SOURCE_ACCOUNTED_ACTUAL_NATIVE_FORMAT_BOUNDARY",
+      "inventory": "NativeCargo metadataBooleans:workspace=true packagefields/dependencies/dev/build/lints; optional=true dependency; default-features=falsebuildgeometry. Emptyfeaturearray cardinality0 nativefeaturelist. Numerictextwithinquoteddependencyrequirements1.3.0/.4.0/.5.0/.7.12 isnativeVersionReq grammar, notopaqueexemptionorPackageIdexactVersion. ActualCargo598schemas InheritableField enum/TomlInheritedField WorkspaceValue admitsonlytrue; InheritableDependency rejectsworkspacefalse andownsOptionBooloverrides; lintsvisitornativeWorkspaceValue. Actualdependency_inherit normalizeswithworkspace root andmergesflags/features; dep_to_dependency invokesDependency::parse VersionReq::parse andset_features/default_features/optional into privateDependencyrecord. SDKBoolactualprotocol/configflag, no firstpartygameplayBool. Actualrootworkspacevalues/featureengine/manifestcompletecompilation notcertified; memberfalsecaninvokeedition-dependentinherited-feature policy ratherthanunconditionallydisable."
+    },
+    {
+      "original": 46,
+      "source_id": "physical-p16:crates/adventuresim-core/build.rs",
+      "scope": [
+        [
+          1,
+          509
+        ]
+      ],
+      "disposition": "SOURCE_ACCOUNTED_WITH_POSITION_BOUNDS_FINDING",
+      "inventory": "All509lines actualownread:1-86retainedreg013plus87-509fresh. Catalogfileiteration/sort/Vecusizecardinalities/formatcodegen/digests; nativeSHA256.update([0]) isactualbyte-separatoradapter, notbusinessvalue. .is_some_and predicates/!is_empty andnativepath/genericUTF8read. Sourcecursorusize starts0, nativeStringfind/slices/len/whitespace/ASCIIcolonwidth1, line/column counts+1 (explicitone-basedsourceencoding), docordinalusize in generatedJSON map. Actualtokenstart positionsguaranteedfindboundariesbeforearithmetic/use; no unrelateddomainnumericcomputation. ActualitemsMAX_SOURCE_BYTES usize2*1024*1024sourceguard boundsiteminput; othercatalogbytesbudgetnotinthisbody. RoadEncounterSource.line narrowedasu32 ->serdeJSONsource-mapemission ->embeddedconst ->actualsources() deserialize Vec<EncounterSource> typedu32receiver. This isconcretesourcepositionport butuncheckedsource-countnarrowing remainsfinding, notalldiagclearance. OpaquecatalogJSONpayloadsremainnativecodecdatahere andtheiractualsemanticvalidator/sourcepopulations separatelymandatory, no businessfieldblanketexemption."
+    },
+    {
+      "original": 47,
+      "source_id": "physical-p16:crates/adventuresim-core/build/combat_resolution.rs",
+      "scope": [
+        [
+          1,
+          275
+        ]
+      ],
+      "disposition": "SOURCE_ACCOUNTED_WITH_RETAINED_40_FINDINGS",
+      "inventory": "Full275previouslyindependentlyconsumedfor40asmaterialsource; exacthash/fullsupplementunionregisterednowandownroleinventoryreconciled (notautomaticcreditfromaccess). Fieldsf64wirecodegenvalues/sharedcheckedfatigue/contact, finitepositive/fractions0..1/orderpredicates, emittedRustf32suffix nativeencoding andactualtypedElapsed/Speed/Lengthconstconstructors. Rawphysicalretainedcorefields andsiblingAI/movementprojectionauthorityfound40carryforward. Nativeformatfatigue_source actualvalueprojections; no generation/compile/execution orf64->f32all-inputsuccessclaim. No BC/roundoff/layoutconstraint imposed."
+    },
+    {
+      "original": 48,
+      "source_id": "physical-p16:crates/adventuresim-core/src/animation_pack_id.rs",
+      "scope": [
+        [
+          1,
+          43
+        ]
+      ],
+      "disposition": "SOURCE_ACCOUNTED_NO_NONSTRING_PRIMITIVE_ROLE",
+      "inventory": "CanonicalAnimationPackId wrapsCowstr, openString/&stradmission, Debug/Display/AsRef andowned/borrowedstringports. No nonstringprimitivefield/param/return/literal ornumericoperation inall43readlines; embedded2hcharactersareauthoredidentitytextstoredbycanonicaltype, no numericinterpretation inbody. Stringadmission/identity/consumerissuesremainotherlens, no blanketstring-nameexemptionorwholecatalogclearance."
+    }
+  ],
+  "retained_same_lens_proofs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit13-successor-004.json",
+      "sha256": "7a0823fb46074e517f2d0bb512c192b4f969204226f43ba5806c5c438b80d6f5"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-012-016-receipt.json",
+      "sha256": "8353fe3cb6093e1a6f232b05a1b8f505c9f2e9c7d79e3ab35755411ca0665d1d"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-012-016-qualification-001.json",
+      "sha256": "66156157bc443b488392978fa4cde86e32756aef5fd70eb7c988e78e34e7a725"
+    }
+  ],
+  "additional_material_inventory": [
+    "Errorfinite helper nativeVec3 ->axis-arrayXYZ ->componentis_finite->typedGeometryError; directionerrorsemanticenum mapsZero/Infinite/NaN. No epsilon/unitslost orboolstatepayload inthese28lines.",
+    "CanonicalCuboidDimensionsprivatethreeSignedLengtharray; nativefiniteXYZ input, axesnonnegativechecked; Zero/point/lineextentvalid. Rawaxisarray/gettersandVec3projection areexplicitnativecodec/engineadapters; customSerializeTupleStructVec3,length3 andDeserializeVisitorrequiredthreeelements0/1/2errorindices. Underlyingserdeall-format extraelement/borrowedcallback/enginebytevalidation notcertified.",
+    "NativeCargomanifestselectedfield/Boolowner and dependency actualparse/normalize/setter bodies fullyscopedread; SDKnativeflags/modeenumsnotreplacedwithfirstpartywrappers. Additionalfeature/URL/requirementalgorithm tailsunread; noallSDK.",
+    "SelectednativeCargo bodies introduceBoolworkspace/optional/defaultfeatures, generic Option/Result/cardinality checks andSerdeVisitorMap predicates; actualVersionReq ownerdistinctfromexactVersion. No currentworkspacegraphresolution/runtimebuildpromise."
+  ],
+  "observations_noncounted": [
+    {
+      "id": "L13-RESUME-BUILD-SOURCE-LINE-NARROWING-001",
+      "kind": "source-backedrepresentablediagnosticcount/APIgap, noordinaryruntimewitness",
+      "trace": "build.rs172 newlinecountusize+1 asu32 ->EncounterSource.lineu32 ->generatedJSON->sources()->Vec<EncounterSource>. Thisbuildroadpath hasno localsourcebyte/linecap. Prefixing anyotherwiseacceptedencounterdocumentwith2^32 newlinewhitespace keepsparsedJSONvalues butlinecount2^32+1 narrows to1 on64bit; actualcallerdependentcatalogvalidationnotexecuted.",
+      "limit": "No actual4GiB allocation/file/compilationrun/currentincidentornewuniqueclaim. Othercapsnotreadcannotbesilentlyassumed; reportmissinglocalcheckedconversion andretainfutureacceptanceproofseparate.",
+      "repair_candidate": "After globaldiscovery/currentalias, checkedsource-line owner/nativeconversionorinputbudget atactualsourceboundary; no wrapping/clamp/fallback."
+    }
+  ],
+  "accounting": {
+    "prior_proposed": 41,
+    "proposed": 49,
+    "newly_source_accounted": [
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48
+    ],
+    "partial": [],
+    "first_never_started": 49,
+    "next_original": 49,
+    "overlays_increment": 0,
+    "merged_increment": 0,
+    "old_shared_increment": 0,
+    "new_unique": 0
+  },
+  "qualifications": [
+    "Onlyexactfrozenobjects/reconstructedunchangedphysicalreceivers andfixedofficialCargo598selectednativeobjects. Original42requested170actual140;44requested148actual142; absenttailsnotreadorcredited. Original43fullrequested1-100retainedandcalledhelper101-105separatelyregistered.",
+    "Source47prioraccess wasownmagicnumberlensactualfullbody, reusedonlyafterexplicitfreshorderedroleinventory/effectiveunionreconciliation; nootherlensverdicttransferorpriorautomaticcredit.",
+    "Native selectedCargo metadataobject stagingwithoutbodycoverage; initiallyone stagingcommand exceededOSargumentlimit beforeprocesscreation, thenfourboundedbase64fragmentsverifiedSHA1/APIblob+SHA256beforebodyread. No projectexecution/probe orwholeCargoSDKsourceconsumption.",
+    "Allcurrentness/alias/acceptance/globalF1F2F6F9/native/borrowed/typeownershiplimitationsretained. SourceaccountedWITHfindingsdoesnotclaimdefectfree, runtimeproof,32bitcompatibilityorwholeapplicationclearance.",
+    "No product/Git/rootledger/history/publication/checks/tests/generators/probes/newtests/helpers/assertions/doctests. Existingcomments/tests/nativeBCpolicies areuntrustedsourcecontext, notapprequirements."
+  ],
+  "continue": "Proceed49+andotherregisteredpopulations; no self-imposedstop."
+}

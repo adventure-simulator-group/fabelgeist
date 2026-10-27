@@ -1,0 +1,50 @@
+{
+  "review": "source-only independent incremental Code Review",
+  "status": "completed_source_review",
+  "prior_report": "code-review-001.json",
+  "prospective_scope": [
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "lines": "1-590",
+      "sha256": "3f6e1cfe6c05f5f6a2bb39155e3bf0d8ec8cbdabe3f77e993971d42e56891b33"
+    },
+    {
+      "path": "crates/fabelgeist-rust-quality/src/main.rs",
+      "lines": "1-60",
+      "sha256": "88554dff8e59f2d11a96cb35e16b6a9c1c0ded514c17802df98c9f0b6982d42e",
+      "qualification": "main.rs baseline lookup lines read before pin; subsequent bodies prospectively registered"
+    },
+    {
+      "path": "crates/fabelgeist-rust-quality/src/analyze.rs",
+      "lines": "1-978",
+      "sha256": "c2493fa9ef6a4189e7e7f4e65dfe63895c952137311aa2ffac6e14e502fc46fa",
+      "qualification": "main.rs baseline lookup lines read before pin; subsequent bodies prospectively registered"
+    }
+  ],
+  "retained_source_pins": "code-review-001.json end_fingerprints; will verify unchanged",
+  "findings": [],
+  "limitations": [
+    "No project checks, product edits, tests or publication. Incremental workflow review only.",
+    "Retains all code-review-001.json qualifications; does not close inherited audit findings or replace hosted final-revision checks.",
+    "Source observations only; no workflow execution or checker invocation."
+  ],
+  "retained_source_verification": {
+    "changed_nonworkflow_pins": [],
+    "verified_count": 36
+  },
+  "actual_inspection": {
+    ".github/workflows/rust-quality.yml": "entire tracked diff against main; lines 140-205 read for insertion ordering; additive delta preserves all pre-existing lines",
+    "crates/fabelgeist-rust-quality/src/main.rs": "full file; run() loads config/checked baseline and creates report; baseline match prints report.snapshot to stdout",
+    "crates/fabelgeist-rust-quality/src/analyze.rs": "122-127 print_baseline serializes to stdout only"
+  },
+  "verdict": "No actionable finding in workflow-only follow-up; source-only qualified approval.",
+  "source_backed_trace": [
+    "Existing semantic check command remains before snapshot generation. On GitHub bash run steps the default failure handling stops the step if this check fails; added baseline generation cannot replace a failed check.",
+    "baseline command calls print_baseline(&report.snapshot), whose implementation only serializes and prints TOML. Shell stdout redirection writes ignored target/texture-view-validation/rust-quality-baseline.toml. Checked root rust-quality-baseline.toml is loaded, not replaced by this command.",
+    "Upload moved after semantic check so its always() condition uploads logs and generated snapshot on success, and partial evidence on failures. Artifact directory is created by earlier existing GPU contracts step. A failing earlier step may leave no snapshot; no snapshot acceptance claim is implied.",
+    "All pre-existing workflow lines remain unchanged against current main; #986/#987 gates, guards, counts and portability edits preserved."
+  ],
+  "checked_baseline_diff": "",
+  "workflow_diff_numstat": "47\t0\t.github/workflows/rust-quality.yml",
+  "workflow_final_sha256": "3f6e1cfe6c05f5f6a2bb39155e3bf0d8ec8cbdabe3f77e993971d42e56891b33"
+}

@@ -1,0 +1,286 @@
+{
+  "id": "PR988-ENUM-SHAPE-VALIDATION-OBSERVATION-001",
+  "at_utc": "2026-10-26T20:29:33.497443+00:00",
+  "scope": "Source-only initial disposition for WgpuContext.blocking_validation review comment, all current named consumers and materially related state/payload axes",
+  "base_source_reference": "ReviewedPRhead961d226be23a81d9731a11958d62fe8a04b93e81 source bytes for central files match retained reviews; no Git read/mutation in this task. Pinned exact worktree bytes below govern initial proposal.",
+  "skill": {
+    "path": "/home/brunosegovia/.codex/skills/audit-enum-shapes/SKILL.md",
+    "read": true
+  },
+  "rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "read_basis": "User-provided root rules and previously fully read matching hash"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "read_basis": "Root instructions provided/previously fully read; crates rules reread fully for this assignment"
+    }
+  ],
+  "verdict": "The carried bool is a closed semantic observation policy; replace it with the shared enum chosen by root. Two effective policy states suffice; ownership, target and presentation are separate axes. No product edits performed.",
+  "recommended_shape": {
+    "owner": "One shared owner under globals validation observation/scope responsibility, exported to fabelgeist-compute; reuse it in context field/getter and pipeline parameter.",
+    "declaration": "#[derive(Clone, Copy, Debug, PartialEq, Eq)] pub enum ValidationObservation { BlockingScopes, Uncaptured }",
+    "root_selected_native_adapter": "#[cfg(not(target_arch = \"wasm32\"))] fn start_scope(self, device: &wgpu::Device) -> Option<wgpu::ErrorScopeGuard> { match self { BlockingScopes => Some(device.push_error_scope(wgpu::ErrorFilter::Validation)), Uncaptured => None } }",
+    "field": "Prefer private validation_observation: ValidationObservation plus a copied enum getter when other crates need it. Do not retain public bool/compatibility accessor or pass a derived bool between application APIs.",
+    "factories": "from_parts => Uncaptured; native open/new/new_compute => BlockingScopes; wasm open/new/new_compute => Uncaptured. Clone retains policy unchanged. Public raw-device get_or_create_pipeline default currentlytrue becomes explicit BlockingScopes, preserving present default rather than inferring ownership from device handle.",
+    "validity": "Mode expresses scoped synchronous observation versus delegating to uncaptured/native provider policy. It does not certify device ownership, absence of other submitters, global device health or all constructor behavior.",
+    "payload": "No payload belongs in either policy variant: device exists in both. Keep device+same-thread guard in ValidationScope; start_scope returns the actual native optional guard without creating a bool adapter."
+  },
+  "closed_state_and_axis_inventory": [
+    {
+      "axis": "Validation observation carried state",
+      "source": "WgpuContext29,from_parts96-116,open258-269; pipeline48-56,175",
+      "current": "bool carried by context and a public pipeline parameter, driving scope creation in multiple crates. This is semantic choice, not a local primitive predicate.",
+      "disposition": "Replace all named producers/parameters/consumers with same enum; no repeated bool->enum admission at internal call sites."
+    },
+    {
+      "axis": "Platform",
+      "source": "Context13-14,68-74,193-225,268; native scope cfg; all native guard consumers",
+      "current": "Compile-time wasm/native conditional; browser does not run the synchronous guard/poll path.",
+      "disposition": "Do not add Browser as a third policy variant: browser ownership/presentation and absence of native path are independent/static. Preserve browser cfg and choose Uncaptured there. Two semantic policies remain useful; target controls availability of start_scope."
+    },
+    {
+      "axis": "Device provisioning/ownership",
+      "source": "Context from_parts; hair_preview67-72; hairGPU630-635; kernel context test386-391",
+      "current": "from_parts means externally supplied device/queue, not proof someone else currently submits. HairGPU actually creates a device itself then wraps it through from_parts and gets disabled observation.",
+      "disposition": "Do not rename modes Owned/Borrowed or derive observation from Arc count, surface presence or inferred exclusive usage. Policy stays explicit at owning constructors."
+    },
+    {
+      "axis": "Presentation creation intent",
+      "source": "Context new/new_compute/open178-270",
+      "current": "presentation bool passed from new(true)/new_compute(false), independently controls blitter and wasm canvas/surface. Native new_compute has no presentation and still allows blocking scopes; native new has blitter but no surface.",
+      "disposition": "Keep separate from observation. If separately migrated, a named PresentationRequest::{Enabled,ComputeOnly} is a distinct two-state semantic API, not additional validation states. No change required for this one reviewed policy repair."
+    },
+    {
+      "axis": "Presentation resource payload options",
+      "source": "Context13-17/from_parts/open",
+      "current": "native new:surfaceNone,blitterSome; native compute/from_parts:bothNone. wasm new:canvas+surface+blitterSome; wasm compute/from_parts:allNone. blit_lock allocated in all cases. Search found no downstream .blitter/.blit_lock/context.surface/context.canvas consumers in current crates.",
+      "disposition": "Do not collapse every None/Some combination with observation. A separate future payload-consolidating shape could be ComputeOnly | native OffscreenBlit{blitter} | wasm CanvasPresentation{canvas,surface,blitter}, retaining coordination ownership as appropriate. A binary HasSurface enum would be wrong for native new. Public fields permit more combinations than factories, so no global invalid-state clearance from current constructors."
+    },
+    {
+      "axis": "Native descriptor flags and local predicates",
+      "source": "Context request_adapter.force_fallback_adapter:false; optional_features.contains; cfg! target; shader is_glsl",
+      "current": "Required native flags or immediate ordinary predicates.",
+      "disposition": "Retain at actual native/local adapter; no semantic enum mechanically generated for each bool."
+    },
+    {
+      "axis": "Active scope state",
+      "source": "ValidationScope21-24,59-84 and consumer Option guards",
+      "current": "Option<ValidationScope>/Option<ErrorScopeGuard> wholly represents whether an actual scope exists. The scope owns same actual device plus guard; finish consumes it.",
+      "disposition": "Keep Option and owned payload; do not introduce redundant active/is_initialized flag or a payloadless Started/Skipped tag beside optional guard."
+    },
+    {
+      "axis": "Validation outcome and multiple retained causes",
+      "source": "ValidationScopeError28-31,finish73-84; ValidationProgressError13-16",
+      "current": "Result success; Native rejection; Progress required PollError with optional independently captured wgpu::Error. Poll failure and captured native rejection can coexist.",
+      "disposition": "Reuse ValidationScopeError and retain ValidationProgressError poll+nativeOption. Do not flatten into exclusive PollFailed/NativeRejected that discards the second cause or turn None into a fake error. No new generic observation-error enum needed."
+    },
+    {
+      "axis": "Texture operation versus observation-failure kind",
+      "source": "TextureViewOperation15-20,TextureViewError27-53,from_observation58-79",
+      "current": "Operation is dimension role; native observation errors have operation-specific variants, progress variant carries an operation tag. Requested format meaningful only in observation variants; missing resources have no requested payload.",
+      "disposition": "Existing variants correctly keep payload off missing-resource states. Optional separate consolidation: Observation{requested,operation,cause:ValidationScopeError} factors independent operation/failure-kind and reuses existing cause enum, preserving native/progress Error::source behavior explicitly. This is not necessary to repair context bool and must not be bundled as a hidden behavior change."
+    }
+  ],
+  "factory_matrix": [
+    {
+      "construction": "new native",
+      "presentation": "blitter/no surface",
+      "observation": "BlockingScopes"
+    },
+    {
+      "construction": "new_compute native",
+      "presentation": "none",
+      "observation": "BlockingScopes"
+    },
+    {
+      "construction": "from_parts native",
+      "presentation": "none",
+      "observation": "Uncaptured"
+    },
+    {
+      "construction": "new wasm",
+      "presentation": "canvas/surface/blitter",
+      "observation": "Uncaptured"
+    },
+    {
+      "construction": "new_compute/from_parts wasm",
+      "presentation": "none",
+      "observation": "Uncaptured"
+    }
+  ],
+  "all_actual_named_policy_producers_and_consumers": [
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "locations": "29,96-116,178-269,289-308",
+      "action": "Type field; assign semantic variants at constructors; update doc links and existing assertion expressions without adding tests/cases. Keep native and browser constructor behavior."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "locations": "58-84",
+      "action": "new matches/uses enum native start_scope, constructs device+guard together; finish/pop/error retention unchanged. All three view callers already use this owner; no duplicate policy enum."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "locations": "42,48-56,80-83,164-176",
+      "action": "Explicit BlockingScopes at raw-device default; enum public validated parameter carried intact from context; use start_scope, no bool helper forwarding. Existing raw-device default is a separate ownership/API limitation, not solved by enum rename."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "locations": "50-55,67-73",
+      "action": "Use same enum native adapter; preserve present pop/error path behavior for this shape repair."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "locations": "128-158",
+      "action": "Actual constructor bool consumer also must migrate; leaving it raw would miss owner propagation. Do not accidentally change constructor admission/descriptor behavior."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "locations": "121-157",
+      "action": "Cross-crate real policy consumer must migrate to exported same enum/native adapter; no duplicate compute-local enum."
+    },
+    {
+      "paths": [
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs"
+      ],
+      "locations": "ValidationScope::new callers34/34/32",
+      "action": "Indirect shared-owner consumers already classified in prior exact source reviews; no direct bool. Preserve cache-first and finish-before-cache behavior; not newly full-body audited here."
+    }
+  ],
+  "reuse_search": {
+    "terms": "enum .*Validation; enum .*Presentation; ValidationPolicy; ValidationMode; ContextOwnership; DeviceOwnership; plus all blocking_validation/get_or_create_pipeline_validated repository Rust occurrences",
+    "result": "No equivalent existing observation-policy enum found. Existing ValidationScopeError is outcome, wgpu PollType is poll operation and cannot replace decision to create/pop a scope. TextureViewOperation is texture dimension, not policy.",
+    "limits": "Search current repository Rust sources, no full global architecture/semantic lens clearance."
+  },
+  "serialization_and_transitions": {
+    "serialization": "WgpuContext derives Clone only; policy/scope/error have no Serde or Boolean wire encoding in inspected source. No wire bool conversion or migration required.",
+    "transitions": "Only constructors assign observation state; Clone copies it; consumers inspect it. Current public bool permits arbitrary mutation, but no in-tree setter/mutation found beyond constructor assignment. Private enum field/getter avoids trivial bypass without claiming immutable device/queue association.",
+    "histories": "Keep meaningful optional captured native cause even when poll failed. Presentation payload absence and cached shader/pipeline diagnostics are independent/historical concerns, not state derived from observation mode."
+  },
+  "acceptance_criteria_for_root_implementation": [
+    "No blocking_validation bool field, bool pipeline parameter or implicit true/false policy conversion remains at any listed real consumer; one shared enum flows through them.",
+    "Constructor matrix and wasm cfg match current behavior. No Owned/Borrowed/Browser policy mega-enum or presentation consolidation bundled into this fix.",
+    "ValidationScope continues owning matching actual device and guard and consumes pop once; required poll error plus optional captured native cause both retained.",
+    "No new compatibility alias/forwarder, tests/cases/helpers/assertions/doctests. Existing test expressions may be adjusted only to consume new API if authorized by root; no execution performed by reviewer.",
+    "Root independently runs only authorized existing required checks after implementation; this source proposal supplies no runtime evidence."
+  ],
+  "coverage_limits": [
+    "Initial source pass for this narrow reviewed enum family complete. No source/product/Git/ledger edits, project checks/tests/probes or external messages; only ignored report authored.",
+    "Current constructor/subresource validation-policy inconsistencies, public device/queue association, broader F9 commentary/SDK polling rationale and all audit families not closed.",
+    "No observation policy can by itself prove no other submitters or make wait_indefinitely safe globally; preserve source semantics/rationale and separately handle review comments about polling.",
+    "Optional presentation/error consolidation shapes are assessed as separate concerns, not implementation authorization or requirement to broaden the two-state policy fix."
+  ],
+  "source_fingerprints": [
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "54d61098a298f945c148669ff8a8ec432f7356259eb10be1a88c59cf19b4f30a",
+      "consumed_ranges": [
+        [
+          1,
+          309
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "78737ed29bb25ecca79c079f6676afa0719fa8bfe65a9051b56536de280cfd63",
+      "consumed_ranges": [
+        [
+          1,
+          113
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "642bfa7f9d9068c957e4f935600c0ab1eba0c91092060606392f9aa481dc9ad6",
+      "consumed_ranges": [
+        [
+          1,
+          120
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "41e1c33870e571e5f13f4376c04ac13374b8d6f4ec7e6a9cd0b91e17fb9a457a",
+      "consumed_ranges": [
+        [
+          1,
+          187
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+      "consumed_ranges": [
+        [
+          1,
+          88
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "e883e9bbfdcdb62065d26751a6135b65d6e3021604c9e6071ebdfbdf644457c5",
+      "consumed_ranges": [
+        [
+          110,
+          165
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "sha256": "352f06a1ddfc9d7be1813161e4ac2365ae813a2f0e751614464fc8adddf9a735",
+      "consumed_ranges": [
+        [
+          105,
+          167
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview/gpu.rs",
+      "sha256": "462eb12c93f953673bc177a3cef00835889022f59d278bf1884086fc328c2adc",
+      "consumed_ranges": [
+        [
+          45,
+          73
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+      "consumed_ranges": [
+        [
+          370,
+          406
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+      "consumed_ranges": [
+        [
+          610,
+          642
+        ]
+      ]
+    }
+  ],
+  "proposal_only": true,
+  "root_sole_implementation_owner": true,
+  "external_messages_sent": false,
+  "project_execution": "none",
+  "clear_global": false
+}

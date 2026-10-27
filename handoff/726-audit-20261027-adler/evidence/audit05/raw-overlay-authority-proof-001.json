@@ -1,0 +1,28 @@
+{
+  "ref": "origin/codex/774-audit-handoff-20261025",
+  "commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+  "proof": [
+    {
+      "git_path": "handoff/774/adler-original/audit/continuation/owner-range-extensions.jsonl",
+      "sha256": "c26e2def8f8520c870f359ef66919ce730fcddb65beb051365fce42371a7bc68",
+      "rows": 246,
+      "snapshot": "target\\recovery-20261025\\audit05\\raw-overlay-registration-000.jsonl",
+      "full_record_navigation_mismatches": []
+    },
+    {
+      "git_path": "handoff/774/audit/reconcile-adler-20261023/audit/continuation/owner-range-extensions.jsonl",
+      "sha256": "c26e2def8f8520c870f359ef66919ce730fcddb65beb051365fce42371a7bc68",
+      "rows": 246,
+      "snapshot": "target\\recovery-20261025\\audit05\\raw-overlay-registration-001.jsonl",
+      "full_record_navigation_mismatches": []
+    },
+    {
+      "git_path": "handoff/774/adler-original/audit/continuation/owner-range-extensions-through245-before072.jsonl",
+      "sha256": "0c78634dd798541a92df89237f9fac3470c7dd8928c81368cc11561a28308a3f",
+      "rows": 245,
+      "snapshot": "target\\recovery-20261025\\audit05\\raw-overlay-registration-002.jsonl",
+      "full_record_navigation_mismatches": []
+    }
+  ],
+  "qualification": "Exact full registration comparison only; no other-lens verdict or sourcebody coverage transfer."
+}

@@ -1,0 +1,238 @@
+{
+  "run": 40246244270,
+  "job": 121328308821,
+  "artifact": 12620053770,
+  "recorded_revision": "4440155643b52a17c07cb97cd873a34412880c84",
+  "whole_job_success": "Reportedbytrustedrootcurrenthostedresult; noindependentremoteAPIqueryorfullstep-logread.",
+  "logs": [
+    {
+      "file": "target\\recovery-20261025\\ci-recovery\\hosted-444015564\\target\\procedural-fixtures\\cloud-export.log",
+      "sha256": "430bdc7c5ace1f2c242724d7959f5ebd7523e2bcf1842656f26dcfab113ebd29",
+      "bytes": 362,
+      "lines": 8,
+      "bounded_results": [
+        {
+          "line": 4,
+          "text": "running 1 test"
+        },
+        {
+          "line": 5,
+          "text": "test art_demo::scenery::tests::regenerate_art_demo_cloud_assets ... ok"
+        },
+        {
+          "line": 7,
+          "text": "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 348 filtered out; finished in 608.05s"
+        }
+      ]
+    },
+    {
+      "file": "target\\recovery-20261025\\ci-recovery\\hosted-444015564\\target\\procedural-fixtures\\cloud-identity-after.log",
+      "sha256": "e6c8c526ba9f8d08a6703de5d64559ce8e93661b353fc9bd2cee2f8091be2ab1",
+      "bytes": 519,
+      "lines": 9,
+      "bounded_results": [
+        {
+          "line": 5,
+          "text": "running 1 test"
+        },
+        {
+          "line": 6,
+          "text": "test art_demo::scenery::tests::fixed_exhibits_embed_complete_nonempty_cloud_bakes ... ok"
+        },
+        {
+          "line": 8,
+          "text": "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 348 filtered out; finished in 1.06s"
+        }
+      ]
+    },
+    {
+      "file": "target\\recovery-20261025\\ci-recovery\\hosted-444015564\\target\\procedural-fixtures\\cloud-identity-before.log",
+      "sha256": "02fc0ca3439515609eaa7015081243f14cd13afcea03a5f6d25ecbb028e3e706",
+      "bytes": 1258,
+      "lines": 24,
+      "bounded_results": [
+        {
+          "line": 5,
+          "text": "running 1 test"
+        },
+        {
+          "line": 6,
+          "text": "test art_demo::scenery::tests::fixed_exhibits_embed_complete_nonempty_cloud_bakes ... FAILED"
+        },
+        {
+          "line": 12,
+          "text": "thread 'art_demo::scenery::tests::fixed_exhibits_embed_complete_nonempty_cloud_bakes' (31295) panicked at crates/adventuresim-tactical-client/src/art_demo/scenery.rs:257:13:"
+        },
+        {
+          "line": 13,
+          "text": "assertion `left == right` failed"
+        },
+        {
+          "line": 14,
+          "text": "  left: \"765676788c70edd0a44f67bec0378e10a4877249aaf60256926e3b39d66636a7\""
+        },
+        {
+          "line": 15,
+          "text": " right: \"ad11d5d56bac1df5b080d5a23e725f78557ca8c03ffc3b5e62143af416bba5e8\""
+        },
+        {
+          "line": 22,
+          "text": "test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 348 filtered out; finished in 1.06s"
+        }
+      ]
+    },
+    {
+      "file": "target\\recovery-20261025\\ci-recovery\\hosted-444015564\\target\\procedural-fixtures\\envelope-export.log",
+      "sha256": "67ad72a2e591ab5c883aec685021d224843966569b74ad8ffbca740bc7dcd6a0",
+      "bytes": 66159,
+      "lines": 1405,
+      "bounded_results": [
+        {
+          "line": 1401,
+          "text": "running 1 test"
+        },
+        {
+          "line": 1402,
+          "text": "test presentation::ground_scatter::specimens::tests::managed_hazel_matches_shared_envelope ... ok"
+        },
+        {
+          "line": 1404,
+          "text": "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 700 filtered out; finished in 0.05s"
+        }
+      ]
+    },
+    {
+      "file": "target\\recovery-20261025\\ci-recovery\\hosted-444015564\\target\\procedural-fixtures\\impostor-export.log",
+      "sha256": "a5526be37be0e5dcac5133164afc69250b382c937dab689f0ab154f3da2be1d4",
+      "bytes": 362,
+      "lines": 8,
+      "bounded_results": [
+        {
+          "line": 4,
+          "text": "running 1 test"
+        },
+        {
+          "line": 5,
+          "text": "test art_demo::scenery::tests::regenerate_art_demo_tree_impostors ... ok"
+        },
+        {
+          "line": 7,
+          "text": "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 348 filtered out; finished in 1.73s"
+        }
+      ]
+    },
+    {
+      "file": "target\\recovery-20261025\\ci-recovery\\hosted-444015564\\target\\procedural-fixtures\\leaves.log",
+      "sha256": "0668eaa6efe6c7617e452009c480ba28ad2feac53328c6d68da4632c9d83d836",
+      "bytes": 933,
+      "lines": 12,
+      "bounded_results": [
+        {
+          "line": 4,
+          "text": "running 5 tests"
+        },
+        {
+          "line": 5,
+          "text": "test presentation::obstacles::tree::geometry::leaves::tests::alpha_leaf_lod_uses_exactly_two_triangles_per_leaf ... ok"
+        },
+        {
+          "line": 6,
+          "text": "test presentation::obstacles::tree::geometry::leaves::tests::detailed_flat_cards_keep_a_stable_balanced_three_quarters_per_cluster ... ok"
+        },
+        {
+          "line": 7,
+          "text": "test presentation::obstacles::tree::geometry::leaves::tests::leaf_shadow_transmission_is_stable_per_shoot_and_well_distributed ... ok"
+        },
+        {
+          "line": 8,
+          "text": "test presentation::obstacles::tree::geometry::leaves::tests::production_oak_has_finite_cambered_leaf_geometry ... ok"
+        },
+        {
+          "line": 9,
+          "text": "test presentation::obstacles::tree::geometry::leaves::tests::textured_leaf_lod_uses_exactly_eight_triangles_per_leaf ... ok"
+        },
+        {
+          "line": 11,
+          "text": "test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 696 filtered out; finished in 1.29s"
+        }
+      ]
+    },
+    {
+      "file": "target\\recovery-20261025\\ci-recovery\\hosted-444015564\\target\\procedural-fixtures\\understory.log",
+      "sha256": "d4871c7672459da7ae4156c84156d4fa17511784c045fe3e43458485a654433e",
+      "bytes": 1300,
+      "lines": 15,
+      "bounded_results": [
+        {
+          "line": 5,
+          "text": "running 7 tests"
+        },
+        {
+          "line": 6,
+          "text": "test presentation::ground_scatter::understory::tests::habitat_weights_shift_species_composition_without_excluding_any_preset ... ok"
+        },
+        {
+          "line": 7,
+          "text": "test presentation::ground_scatter::understory::tests::managed_bare_ground_excludes_every_wild_shrub_species ... ok"
+        },
+        {
+          "line": 8,
+          "text": "test presentation::ground_scatter::understory::tests::minimal_shrub_cards_are_deterministic_when_source_order_changes ... ok"
+        },
+        {
+          "line": 9,
+          "text": "test presentation::ground_scatter::understory::tests::minimal_shrub_cards_pin_the_per_species_geometry_budget ... ok"
+        },
+        {
+          "line": 10,
+          "text": "test presentation::ground_scatter::understory::tests::shrub_communities_include_dense_thickets_and_open_relief ... ok"
+        },
+        {
+          "line": 11,
+          "text": "test presentation::ground_scatter::understory::tests::understory_species_form_coherent_four_by_four_communities ... ok"
+        },
+        {
+          "line": 12,
+          "text": "test presentation::ground_scatter::understory::tests::woodland_leaf_litter_accepts_hazel_and_gap_hawthorn_but_not_blackthorn ... ok"
+        },
+        {
+          "line": 14,
+          "text": "test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 694 filtered out; finished in 0.08s"
+        }
+      ]
+    }
+  ],
+  "actual_case_receiving_source": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/art_demo/scenery.rs",
+      "sha256": "95a004dde106af96c0cf9b12ff034f21fdca47458dcc594df12b52abac2c7857",
+      "fresh_read_ranges": [
+        [
+          237,
+          334
+        ]
+      ],
+      "unchanged_at_export_source": true,
+      "source_object": "target\\recovery-20261025\\ci-recovery\\batch-review-code\\8d6bc9672\\support\\crates\\adventuresim-tactical-client\\src\\art_demo\\scenery.rs"
+    }
+  ],
+  "cloud_before_earliest_failure": {
+    "source_line": 257,
+    "actual_old_digest": "ad11d5d56bac1df5b080d5a23e725f78557ca8c03ffc3b5e62143af416bba5e8",
+    "expected_new_digest": "765676788c70edd0a44f67bec0378e10a4877249aaf60256926e3b39d66636a7",
+    "cause": "Existingcloudidentityequality; notcompilefailure/missingfixture/zero-case/infrastructurefallback.",
+    "source_contract": "Case244-260 comparesactualpreparedfixtureenvironmentdigest againstbothcommittedidentitystrings, exactrawRGBA8len1025*257*4 andnonzerobytepresence."
+  },
+  "domain_result_scope": [
+    "Envelopeexistingexportcase1pass; nativeoutputexactrepeat1374bytescount97029reviewedpreviously.",
+    "Existingignoredtreeexport1pass; actualsource313-334compressesnativegeneratedsixbakesanddecodes count6 beforepass. Repeatbinarybytesexacta2c524...; ordinarymatches_art_demofinalcase stillrequired.",
+    "Existingignoredcloudexport1passgeneratesbothnativeOak/Cityfields/writespairedscene-digestsandassertsfilebytes equalsnativebake. Existingpostoracle1passchecks bothdigests/completebytepopulations/nonempty; onlyCitydigestchanged whilebothRGBAwereintentionallyregeneratedbyexistingtwo-exhibitgenerator.",
+    "Leaves5passandunderstory7passwithnonzeroexistingpopulations andsamecases; no testsorassertionsadded.",
+    "Threeexistingselectorsandpairedcitygenerator aredirectworkflowcommandswhoseactualgenerator/sourcevalidatesbeforewriting; wholejob reportedsuccess andall11outputsrevisionmatched. TheirdedicatedCLIfullstep logs arenotpartofthese7localcase logs; donotpretendJSONcounters substitutevalidatorevidence."
+  ],
+  "acceptance_qualification": [
+    "Exportdomainchecks providegenuineexistingnativegenerator/oracleevidence, notordinarynormalLinux/Windowscompletion.",
+    "Cloudcaseguardsdigest/size/nonempty; itdoesnotproveeverypixelortreeimagevisualquality/numericequivalence/Cross-platformreproducibility.",
+    "Source444->30bconlyequivalent9wordhashfold+strictbaselinecontrols, reviewedindependently; source30bc->8donly6generatedpayloads. No newgeneratoralgorithmintroducedduringimport."
+  ]
+}

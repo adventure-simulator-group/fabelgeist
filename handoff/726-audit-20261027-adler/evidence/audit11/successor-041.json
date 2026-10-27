@@ -1,0 +1,83 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-041",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 514,
+      "source_id": "pr-working:assets/shaders/tactical_pebble_billboard.wgsl",
+      "sha256": "c4644f87c9162b39d2fc1225d9912d8e7a0580cd7556d1333181defd62752b93",
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "source_basis": "Root personally read exact frozen full registered WGSL body with line numbers before this receipt.",
+      "concepts_actual_uses_and_mixup": [
+        "Distant patch billboard reuses normal attribute as per-pebble local center and position as quad offsets. World center transforms before camera-facing basis. UV derivatives derive per-physical-pebble pixel diameter and coverage; radius squared, physical quad offsets, normalized UV, pixel coverage and native pigment/irradiance are distinct quantities. Native packed mesh contract is explicit in shader, actual CPU packing/scale and degenerate camera vector not traced; no renderer/visual validity claim."
+      ],
+      "disposition": "Accounted with explicit native GPU/host producer limits; no new accepted finding or runtime clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 515,
+      "source_id": "pr-working:assets/shaders/tactical_shrub_bark_instanced.wgsl",
+      "sha256": "696467dcd07aed5f94b0dfb6d9605560daf85fd74e780da49e2449c840e15844",
+      "ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "source_basis": "Root personally read exact frozen full registered WGSL body with line numbers before this receipt.",
+      "concepts_actual_uses_and_mixup": [
+        "Instanced wood consumes native batch index/world-from-local, yaw and uniform-scale instance attributes. World normals use yaw rotation; vertex-color metric root height is intentionally excluded from pigment. Flat ambient and Lambert/pi with one clamped cascade shadow, signed complementary dither and exposure have distinct roles. Actual CPU instance admission, batch transform scale/normal contract and GPU execution remain separate."
+      ],
+      "disposition": "Accounted with explicit native GPU/host producer limits; no new accepted finding or runtime clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 516,
+      "source_id": "pr-working:assets/shaders/tactical_shrub_leaf_instanced.wgsl",
+      "sha256": "0f80c3f51e71056d7249e91d9dda6b82980138f76358602cf5aa887976e8aa52",
+      "ranges": [
+        [
+          1,
+          197
+        ]
+      ],
+      "source_basis": "Root personally read exact frozen full registered WGSL body with line numbers before this receipt.",
+      "concepts_actual_uses_and_mixup": [
+        "Instanced shrub leaf shader has paired opacity/front/back albedo plus normal maps and ARM texture bindings; normal maps are currently bound but unused by fast model. Named wind/surface/physical/shading uniform groups project native lanes; dynamic shader clock produces sway. Front/back gradient sample, vertex pigment interpolation, canopy visibility, transmission, shadow and exposure remain distinct continuous rendering concepts. CPU material/texture format/subresource/view admission and mesh UV/mask-kind associations not proved by this GPU body. No whole renderer or compatibility-policy clearance."
+      ],
+      "disposition": "Accounted with explicit native GPU/host producer limits; no new accepted finding or runtime clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 517,
+      "source_id": "pr-working:assets/shaders/tactical_stars.wgsl",
+      "sha256": "929fdce1cb1b288bcc885f481a2fd64d20f60dc513e16ebd534b84d700e7ca98",
+      "ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "source_basis": "Root personally read exact frozen full registered WGSL body with line numbers before this receipt.",
+      "concepts_actual_uses_and_mixup": [
+        "Equatorial-to-world rotation maps star direction independent of camera translation. Star visibility, brightness/radius scale, photometric radiance scale and distance use separate native uniform lanes. Angular direction projects at view-relative world point; corner offset becomes actual viewport pixel radius through clip.w, magnitude becomes flux via power10. Native GPU optical kernel is not proof of CPU astronomical catalog, viewport admission or shader runtime; no new accepted finding."
+      ],
+      "disposition": "Accounted with explicit native GPU/host producer limits; no new accepted finding or runtime clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

@@ -1,0 +1,67 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-221",
+  "at": "2026-10-25T21:50:01.692297+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2239,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/host_float/arithmetic.rs",
+      "sha256": "c1f92194b17274f4c4f616f05402724d6714024a31d791d3af256b08d7b7df51",
+      "personally_read_ranges": [
+        [
+          1,
+          175
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all175lines host_float/arithmetic.rs. Scalar/vector fenced operands/results use host_zero hook; host_dot order matches documented(x+y)+z. Division boundedresidualwalk and tie-even selection, square-root scaledtinybranch and4stepwalk preserve intended pairing. Specialvalues/zero/subnormal limitations are documented in2241; no universal numerical proof or deviceexecution credited. No independent retained aggregate except matching runtimezero contract."
+      ]
+    },
+    {
+      "scope_index": 2240,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/host_float/double_float.rs",
+      "sha256": "196e4e5928c8690f9c454f6df53c6923893063912d0e5ea63cddf199ab7f5688",
+      "personally_read_ranges": [
+        [
+          1,
+          360
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all360lines host_float/double_float.rs including existing test source. Fixedpositive series lengths9/10/14/17 supply nonempty Hornercoefficients; split preserves high/low association, generatedconstantsandfunctionsassembledonce2241. Doublefloat operations carry unevaluatedsum2floats rather than independentlymeaningful axes; quicksum preconditions/precision limits explicit. Log/pow positive normal inputs and quarterturn fewthousand range are scoped numeric assumptions, not arbitrarynativeinput production failure. Noexecution."
+      ]
+    },
+    {
+      "scope_index": 2241,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/host_float/mod.rs",
+      "sha256": "f584218ee80866588dc56bfddb3464f65635a41e317f6fbaa08a404143b42b39",
+      "personally_read_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all86lines host_float/mod.rs. OnceLock owns immutable completeWGSL; uniformhook name ZERO_FIELD and PARAMS_ZERO_HOOK reference same params.zero; caller must runtimezero explicitly. Actualmetal2191/2192/2194/2195 record zeros before dispatch. Module expresslyqualifies residual subnormal/deviceFMA and transcendentalboundary limits; this source review doesnotclaimbitforbit hardwareverification."
+      ]
+    },
+    {
+      "scope_index": 2242,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/host_float/tests.rs",
+      "sha256": "837d9a82e8851a69388f04459ab242107ad9facba9f662cf4e5f2219cb6c2a75",
+      "personally_read_ranges": [
+        [
+          1,
+          271
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all271lines host_float/tests.rs as sourceonly. Inputs fixednonempty SAMPLES2^18 and expressions count fixedpositive, corresponding outputstride matches allocation and mismatchgrouping. Tests intentionallyadmit20permillion transcendentalmismatches, testquotient/rootnormalranges and requiredhookcompilefailure; no run/passingresult/runtimeproof imported."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "4 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

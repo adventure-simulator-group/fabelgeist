@@ -1,0 +1,65 @@
+{
+  "at": "2026-10-26T07:03:15.422345+00:00",
+  "questions": [
+    {
+      "id": "AUDIT13-Q001",
+      "role": 0,
+      "source_sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "observed_fields": [
+        [
+          852,
+          853
+        ]
+      ],
+      "unread_receiver_locator": [
+        854,
+        877
+      ],
+      "question": "Actual nativeguard index bound/zero andpoppedflag operation requires pop/Drop receiving trace; not an accepted bug.",
+      "new_body_read": false
+    },
+    {
+      "id": "AUDIT13-Q002",
+      "role": 5,
+      "source_sha256": "90bfda65679fc6cfb046dda1e2e7b5795d39e73778a15d0bc1eb7ef8d3e9bd25",
+      "observed_call": 2031,
+      "signature_locator_only": [
+        741,
+        747
+      ],
+      "question": "Identify positionalfalse native load_internal mode and actual taskcounter field contract. Signature location metadata only; no742-747 semanticbody consumed, no guessedmeaning or overflowfinding.",
+      "new_body_read": false
+    },
+    {
+      "id": "AUDIT13-Q003",
+      "role": 9,
+      "source_sha256": "9a1c51dbb516b0cc08c33d8a5a714041eef55650447b4bb7efaf86ce537952b1",
+      "observed_defaults": [
+        [
+          240,
+          241
+        ]
+      ],
+      "identifier_positions_metadata_only": {
+        "last_trigger_id": [
+          212,
+          241,
+          279
+        ],
+        "despawned_watched_entities": [
+          213,
+          240,
+          278,
+          523,
+          530,
+          533,
+          538
+        ]
+      },
+      "question": "Counter/trigger fielddeclarations andactualreceivers needed to distinguishzero/initialization/sentinel semantics; no proposed enum/type or numericdefect fromnames. Additional consumer may live in other source, not read.",
+      "new_body_read": false
+    }
+  ],
+  "status": "Untracedprimitive receiving edges stay incomplete. All newbodyranges need prospective source authority before consumption.",
+  "accepted_issue_count": 0
+}

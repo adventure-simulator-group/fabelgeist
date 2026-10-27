@@ -1,0 +1,33 @@
+--- base
++++ frozen
+@@ -81,9 +81,10 @@
+                                 lod,
+                                 coarser,
+                                 terrain,
+-                                point,
++                                crate::scene_coordinates::PlanDisplacement::from_metres(point)?,
+                                 inner_half_extent,
+-                            )?,
++                            )?
++                            .metres(),
+                             z,
+                         ))
+                     };
+@@ -164,9 +165,14 @@
+             Vec2::new(-0.4, 1.6),
+             Vec2::new(3.1, 2.4),
+         ] {
+-            let expected =
+-                vista_triangle_height(&vista.lods[0], Some(&vista.lods[1]), &terrain, point)
+-                    .unwrap();
++            let expected = vista_triangle_height(
++                &vista.lods[0],
++                Some(&vista.lods[1]),
++                &terrain,
++                crate::scene_coordinates::ScenePlanPoint::try_from(point).unwrap(),
++            )
++            .unwrap()
++            .metres();
+             assert!(
+                 (source
+                     .elevation_at(

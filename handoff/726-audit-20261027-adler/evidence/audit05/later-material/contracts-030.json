@@ -1,0 +1,412 @@
+{
+  "registry_snapshot": "registry-181.json",
+  "registry_sha256": "65c29f91e57e2186573857b2db192d4e48840f19d048b6eeb0ff23e35750092f",
+  "members": [
+    {
+      "material_index": 122,
+      "registration": {
+        "source_id": "registry:derive_more-impl-2.1.1/src/from.rs",
+        "sha256": "dbcea1f655618518d366313124b59d50181928e1f0a092ff8796d5accec81fd6",
+        "ranges": [
+          [
+            1,
+            322
+          ]
+        ],
+        "package_sha256": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb",
+        "package_member_verified_exact": true,
+        "lock_reference": {
+          "scope_index": 39,
+          "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+          "ranges": [
+            [
+              4317,
+              4353
+            ]
+          ]
+        },
+        "semantics": "Struct default branch189\u2013209 moves exact sole field; expand_fields299\u2013319 omits tuple indexing for one field. Nongeneric wrapper adds no bounds, validation, native errors, borrow or wire changes.",
+        "object": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-impl-2.1.1/src/from.rs",
+        "line_count": 403,
+        "registration_evidence": "derivability/fresh-dependency-registration-185.json",
+        "reason": "Exact member-verified available derive_more::From semantics/dependency for sole-field TacticalAttributes. No new dependency or unchecked construction intended.",
+        "lenses": {
+          "producer-propagation": "Bounded material reconciliation pending; baseline retained.",
+          "existing-type-owners": "Bounded material reconciliation pending; baseline retained.",
+          "admission-contracts": "Bounded material reconciliation pending; baseline retained.",
+          "invariant-operations": "Bounded material reconciliation pending; baseline retained.",
+          "aggregate-states": "Bounded material reconciliation pending; baseline retained.",
+          "type-ownership": "Bounded material reconciliation pending; baseline retained.",
+          "redundant-authority": "Bounded material reconciliation pending; baseline retained.",
+          "behavior-preservation": "Bounded material reconciliation pending; baseline retained.",
+          "enum-shapes": "Bounded material reconciliation pending; baseline retained.",
+          "derivability": "Origin10 F004 optional mechanical derive comparison, checkpoint185.",
+          "type-granularity": "Bounded material reconciliation pending; baseline retained.",
+          "magic-strings": "Bounded material reconciliation pending; baseline retained.",
+          "magic-numbers": "Bounded material reconciliation pending; baseline retained."
+        },
+        "qualification": "No original role count or automatic cross-lens verdict. Preserve completed Adler baselines."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          322
+        ]
+      ],
+      "disposition": "Read registered1-322 in contiguous two chunks. From derive explicitly distinguishes structs/enums/unions and opt-in/skip/forward routes. Default conversion moves exact fields; sole-field omits tuple index, forward invokes native From with added generics. No validation is introduced, so validated leaf constructors cannot be replaced blindly. Exact member hash independently checked against frozen registration via local content cache; no archive/other-lens verdict transferred."
+    },
+    {
+      "material_index": 123,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/draw.rs",
+        "pin": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_blob": "cc6d2988ec10224c50d82ff9c7e1728912899cf8",
+        "sha256": "faca55a34e4a003497e4f3aa87dfcef3a25e20ffa7e6c7108785a2df225e7337",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/enum-shapes/source-objects/faca55a34e4a003497e4f3aa87dfcef3a25e20ffa7e6c7108785a2df225e7337",
+        "ranges": [
+          [
+            1,
+            134
+          ]
+        ],
+        "material_reason": "Actual changed GPU1518::CityGpuPlugin build75 installs draw::install; actual1514 prepared per-view slots/dispatch and1519 scratch geometry/indirect buffers are consumed by custom city draw render adapter. Need receiver to distinguish native policy flags/readiness and observed buffer association from enum-shape claims; actual connected consumer, not all namespace children.",
+        "line_count": 134,
+        "registration_evidence": "enum-shapes/source-registration-662.json",
+        "lenses": {
+          "producer-propagation": "Bounded material reconciliation pending; baseline retained.",
+          "existing-type-owners": "Bounded material reconciliation pending; baseline retained.",
+          "admission-contracts": "Bounded material reconciliation pending; baseline retained.",
+          "invariant-operations": "Bounded material reconciliation pending; baseline retained.",
+          "aggregate-states": "Bounded material reconciliation pending; baseline retained.",
+          "type-ownership": "Bounded material reconciliation pending; baseline retained.",
+          "redundant-authority": "Bounded material reconciliation pending; baseline retained.",
+          "behavior-preservation": "Bounded material reconciliation pending; baseline retained.",
+          "enum-shapes": "Origin09 exact draw receiver checkpoint664.",
+          "derivability": "Bounded material reconciliation pending; baseline retained.",
+          "type-granularity": "Bounded material reconciliation pending; baseline retained.",
+          "magic-strings": "Bounded material reconciliation pending; baseline retained.",
+          "magic-numbers": "Bounded material reconciliation pending; baseline retained."
+        },
+        "qualification": "Direct native receiving adapter. No baseline replay or other-lens source credit."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          134
+        ]
+      ],
+      "disposition": "Read full134. Render install registers main/shadow/prepass draw commands and scheduled material replacement. Arc::get_mut failure skips mutation. Draw searches material instance through owner/batch, selects same owner view/scratch and skips missing entries; binds group2 and indirect offset per view. Completeness, unique asset mapping and correct indirect sizes remain actual producer contracts, not Success proof of coverage."
+    },
+    {
+      "material_index": 124,
+      "registration": {
+        "source_id": "pinned-registry:serde_derive-1.0.229/src/internals/check.rs",
+        "sha256": "86ea817316638ec33f70ecdf9634a31c934fd3df84533e3e315816dc130f0bff",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/fresh-dependencies-226/serde_derive-1.0.229/src/internals/check.rs",
+        "ranges": [
+          [
+            369,
+            395
+          ]
+        ],
+        "package_checksum": "e7a5d71263a5a7d47b41f6b3f06ba276f10cc18b0931f1799f710578e2309348",
+        "reason": "Exact attribute compatibility for existing transparent Serialize and checked TryFrom String Deserialize wrapper; no library-wide credit.",
+        "line_count": 477,
+        "registration_evidence": "derivability/fresh-dependency-registration-226.json",
+        "qualification": "Bounded added material or explicit range amendment only; completed Adler admission/type-ownership baselines retained, no full reread requirement or coverage transfer.",
+        "lenses": {
+          "producer-propagation": "Bounded added material pending; adopted baseline retained.",
+          "existing-type-owners": "Bounded added material pending; adopted baseline retained.",
+          "admission-contracts": "Bounded added material pending; adopted baseline retained.",
+          "invariant-operations": "Bounded added material pending; adopted baseline retained.",
+          "aggregate-states": "Bounded added material pending; adopted baseline retained.",
+          "type-ownership": "Bounded added material pending; adopted baseline retained.",
+          "redundant-authority": "Bounded added material pending; adopted baseline retained.",
+          "behavior-preservation": "Bounded added material pending; adopted baseline retained.",
+          "enum-shapes": "Bounded added material pending; adopted baseline retained.",
+          "derivability": "Origin10 own exact macro/attribute semantics recorded, no otherlenscredit.",
+          "type-granularity": "Bounded added material pending; adopted baseline retained.",
+          "magic-strings": "Bounded added material pending; adopted baseline retained.",
+          "magic-numbers": "Bounded added material pending; adopted baseline retained."
+        }
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          369,
+          395
+        ]
+      ],
+      "disposition": "Read registered369-395. Serde transparent check rejects from/try_from/into attributes when transparent is selected, so those annotations cannot be assumed combinable. Remainder field-count/type checking uncredited."
+    },
+    {
+      "material_index": 125,
+      "registration": {
+        "source_id": "pinned-registry:serde_derive-1.0.229/src/ser.rs",
+        "sha256": "18b3a4d06cd721c402835b17f008a63fdbaad379734f0fd4132aa28d8ea5c1de",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/fresh-dependencies-006/serde_derive-1.0.229/src/ser.rs",
+        "ranges": [
+          [
+            514,
+            538
+          ]
+        ],
+        "package_checksum": "e7a5d71263a5a7d47b41f6b3f06ba276f10cc18b0931f1799f710578e2309348",
+        "reason": "Exact externally tagged unit-enum native serializer operation versus existing DirectionError serialize_str; range amendment only, no new source identity.",
+        "line_count": 1369,
+        "registration_evidence": "derivability/fresh-dependency-registration-228.json",
+        "qualification": "Bounded added material or explicit range amendment only; completed Adler admission/type-ownership baselines retained, no full reread requirement or coverage transfer.",
+        "lenses": {
+          "producer-propagation": "Bounded added material pending; adopted baseline retained.",
+          "existing-type-owners": "Bounded added material pending; adopted baseline retained.",
+          "admission-contracts": "Bounded added material pending; adopted baseline retained.",
+          "invariant-operations": "Bounded added material pending; adopted baseline retained.",
+          "aggregate-states": "Bounded added material pending; adopted baseline retained.",
+          "type-ownership": "Bounded added material pending; adopted baseline retained.",
+          "redundant-authority": "Bounded added material pending; adopted baseline retained.",
+          "behavior-preservation": "Bounded added material pending; adopted baseline retained.",
+          "enum-shapes": "Bounded added material pending; adopted baseline retained.",
+          "derivability": "Origin10 own exact macro/attribute semantics recorded, no otherlenscredit.",
+          "type-granularity": "Bounded added material pending; adopted baseline retained.",
+          "magic-strings": "Bounded added material pending; adopted baseline retained.",
+          "magic-numbers": "Bounded added material pending; adopted baseline retained."
+        },
+        "range_amendment_of": 108,
+        "kind": "Explicit effective range amendment; not new source identity"
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          514,
+          538
+        ]
+      ],
+      "disposition": "Read registered514-538 only. Serializer emits native variant APIs for style branches, including unit variant with explicit type/index/name. Newtype branch starts but body not complete; no claim of full enum/wire semantics."
+    },
+    {
+      "material_index": 126,
+      "registration": {
+        "source_id": "pinned-registry:serde_derive-1.0.229/src/de.rs",
+        "sha256": "a04fdb321ce47b479b42b2dd0ca1cfd57db88e06451d7dc95303c582fedc135c",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/fresh-dependencies-230/serde_derive-1.0.229/src/de.rs",
+        "ranges": [
+          [
+            300,
+            320
+          ],
+          [
+            435,
+            444
+          ]
+        ],
+        "package_checksum": "e7a5d71263a5a7d47b41f6b3f06ba276f10cc18b0931f1799f710578e2309348",
+        "reason": "Exact derive try_from expansion for existing SocialDuration/SocialActionId checked native input conversion.",
+        "line_count": 976,
+        "registration_evidence": "derivability/fresh-dependency-registration-230.json",
+        "qualification": "Bounded added material or explicit range amendment only; completed Adler admission/type-ownership baselines retained, no full reread requirement or coverage transfer.",
+        "lenses": {
+          "producer-propagation": "Bounded added material pending; adopted baseline retained.",
+          "existing-type-owners": "Bounded added material pending; adopted baseline retained.",
+          "admission-contracts": "Bounded added material pending; adopted baseline retained.",
+          "invariant-operations": "Bounded added material pending; adopted baseline retained.",
+          "aggregate-states": "Bounded added material pending; adopted baseline retained.",
+          "type-ownership": "Bounded added material pending; adopted baseline retained.",
+          "redundant-authority": "Bounded added material pending; adopted baseline retained.",
+          "behavior-preservation": "Bounded added material pending; adopted baseline retained.",
+          "enum-shapes": "Bounded added material pending; adopted baseline retained.",
+          "derivability": "Origin10 own exact macro/attribute semantics recorded, no otherlenscredit.",
+          "type-granularity": "Bounded added material pending; adopted baseline retained.",
+          "magic-strings": "Bounded added material pending; adopted baseline retained.",
+          "magic-numbers": "Bounded added material pending; adopted baseline retained."
+        }
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          300,
+          320
+        ],
+        [
+          435,
+          444
+        ]
+      ],
+      "disposition": "Read registered300-320,435-444. Deserialize body chooses transparent first, then From/TryFrom or shape dispatch. TryFrom actually maps checked conversion error through serde custom. Calls do not prove selected owner uses checked route; transparent construction body not read here."
+    },
+    {
+      "material_index": 127,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/growth_axes.rs",
+        "pin": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_blob": "aa5d35592bb7e5628cfc94af72e1214c23cde8b9",
+        "sha256": "6e61b607878f8e70160e9a63cb75f65b52faf8332fdfa148f7262c6321e7e76f",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/enum-shapes/source-objects/6e61b607878f8e70160e9a63cb75f65b52faf8332fdfa148f7262c6321e7e76f",
+        "ranges": [
+          [
+            1,
+            88
+          ]
+        ],
+        "material_reason": "Actual1598:114 oak_trunk_points produces native trunk polyline; actual1598:729\u2013736 append_shrub_shoots is additional TreeBranchSegment writer retaining primary/secondary membership and limb-tip facts. Need exact writer for F449 and form-specific F448 growth product, not module adjacency.",
+        "line_count": 88,
+        "registration_evidence": "enum-shapes/source-registration-676.json",
+        "qualification": "Bounded added material or explicit range amendment only; completed Adler admission/type-ownership baselines retained, no full reread requirement or coverage transfer.",
+        "lenses": {
+          "producer-propagation": "Bounded added material pending; adopted baseline retained.",
+          "existing-type-owners": "Bounded added material pending; adopted baseline retained.",
+          "admission-contracts": "Bounded added material pending; adopted baseline retained.",
+          "invariant-operations": "Bounded added material pending; adopted baseline retained.",
+          "aggregate-states": "Bounded added material pending; adopted baseline retained.",
+          "type-ownership": "Bounded added material pending; adopted baseline retained.",
+          "redundant-authority": "Bounded added material pending; adopted baseline retained.",
+          "behavior-preservation": "Bounded added material pending; adopted baseline retained.",
+          "enum-shapes": "Origin09 prospective producer/receiver source, own packet governs actual coverage.",
+          "derivability": "Bounded added material pending; adopted baseline retained.",
+          "type-granularity": "Bounded added material pending; adopted baseline retained.",
+          "magic-strings": "Bounded added material pending; adopted baseline retained.",
+          "magic-numbers": "Bounded added material pending; adopted baseline retained."
+        }
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "disposition": "Read full88 frozen growth_axes. Oak trunk geometry uses gnarling parameters and conditional sample count, shrub shoots derive deterministic per-index seed but pass raw group pair into append_branch_curve. Historical identity/float-derived shoot qualifications stay separate from current CI repair. No current-main replacement or geometry execution."
+    },
+    {
+      "material_index": 128,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_plan.rs",
+        "pin": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_blob": "f19bc5feab9c1288d8d8c7bf0a86f0908334d226",
+        "sha256": "8ed183b6e87bf3e20eee0d8d2bfd5ec5f08c3cfcc5a3352bd4005ce62643922b",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/enum-shapes/source-objects/8ed183b6e87bf3e20eee0d8d2bfd5ec5f08c3cfcc5a3352bd4005ce62643922b",
+        "ranges": [
+          [
+            1,
+            177
+          ]
+        ],
+        "material_reason": "Actual1598:130 procedural_oak_root_specs_with_gnarling constructs retained OakRootSpec dominant+fork payload; actual1598:530 append_beech_roots is another TreeBranchSegment writer for true ungrouped root membership. Both actual helpers necessary for root semantic role and F449 all-writer trace.",
+        "line_count": 177,
+        "registration_evidence": "enum-shapes/source-registration-676.json",
+        "qualification": "Bounded added material or explicit range amendment only; completed Adler admission/type-ownership baselines retained, no full reread requirement or coverage transfer.",
+        "lenses": {
+          "producer-propagation": "Bounded added material pending; adopted baseline retained.",
+          "existing-type-owners": "Bounded added material pending; adopted baseline retained.",
+          "admission-contracts": "Bounded added material pending; adopted baseline retained.",
+          "invariant-operations": "Bounded added material pending; adopted baseline retained.",
+          "aggregate-states": "Bounded added material pending; adopted baseline retained.",
+          "type-ownership": "Bounded added material pending; adopted baseline retained.",
+          "redundant-authority": "Bounded added material pending; adopted baseline retained.",
+          "behavior-preservation": "Bounded added material pending; adopted baseline retained.",
+          "enum-shapes": "Origin09 prospective producer/receiver source, own packet governs actual coverage.",
+          "derivability": "Bounded added material pending; adopted baseline retained.",
+          "type-granularity": "Bounded added material pending; adopted baseline retained.",
+          "magic-strings": "Bounded added material pending; adopted baseline retained.",
+          "magic-numbers": "Bounded added material pending; adopted baseline retained."
+        }
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "disposition": "Read full177 frozen root_plan. Positive unequal random gaps cover full circle and dominant roots select distinct nearest slots, clamp angular separation; forks bounded by counter and final roots sorted. Beech roots explicitly decorative beneath soil with sentinel group pair, not collider authority. Constants, finite gnarling and group/sentinel consumer contracts remain separate; no imported current CI edits."
+    },
+    {
+      "material_index": 129,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_profile.rs",
+        "pin": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_blob": "585331fc644adb78813266576a2642354ba92e78",
+        "sha256": "55e0e9789ade5938b62b9c929b4a8e6ccb49920e42ad85b38648c19fe315022b",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/enum-shapes/source-objects/55e0e9789ade5938b62b9c929b4a8e6ccb49920e42ad85b38648c19fe315022b",
+        "ranges": [
+          [
+            1,
+            53
+          ]
+        ],
+        "material_reason": "Actual1598:135/146 oak_root_points and oak_root_fork_points consume complete OakRootSpec and OakRootFork into retained native root/fork curves. Need exact receiver of dominant role versus continuous shared geometry and fork payload; material1\u201353 only, cfgtests beyond53 support only if read separately.",
+        "line_count": 117,
+        "registration_evidence": "enum-shapes/source-registration-676.json",
+        "qualification": "Bounded added material or explicit range amendment only; completed Adler admission/type-ownership baselines retained, no full reread requirement or coverage transfer.",
+        "lenses": {
+          "producer-propagation": "Bounded added material pending; adopted baseline retained.",
+          "existing-type-owners": "Bounded added material pending; adopted baseline retained.",
+          "admission-contracts": "Bounded added material pending; adopted baseline retained.",
+          "invariant-operations": "Bounded added material pending; adopted baseline retained.",
+          "aggregate-states": "Bounded added material pending; adopted baseline retained.",
+          "type-ownership": "Bounded added material pending; adopted baseline retained.",
+          "redundant-authority": "Bounded added material pending; adopted baseline retained.",
+          "behavior-preservation": "Bounded added material pending; adopted baseline retained.",
+          "enum-shapes": "Origin09 prospective producer/receiver source, own packet governs actual coverage.",
+          "derivability": "Bounded added material pending; adopted baseline retained.",
+          "type-granularity": "Bounded added material pending; adopted baseline retained.",
+          "magic-strings": "Bounded added material pending; adopted baseline retained.",
+          "magic-numbers": "Bounded added material pending; adopted baseline retained."
+        }
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "disposition": "Read registered1-53 only. Oak root shoulder and fork construct fixed array polylines from root spec; fork normalizes horizontal parent tangent then uses side sign and burial. Nonzero horizontal tangent/spec finite admission remains producer contract, uninspected later profile body not credited."
+    },
+    {
+      "material_index": 130,
+      "registration": {
+        "source_id": "physical-p16:crates/adventuresim-core/src/item_classification.rs",
+        "sha256": "a65529b45c53a783feaa8905b9fba38d95d28e97b01fe8198d4ffeee0a57c58d",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/fresh-dependencies-236/item_classification.rs",
+        "ranges": [
+          [
+            8,
+            22
+          ]
+        ],
+        "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+        "reason": "Exact CatalogItemKind derived Default=Simple dependency for native CatalogItemView manual Default comparison. Only enum8\u201322 material credit; further printed classifier/fixture context uncredited.",
+        "line_count": 125,
+        "registration_evidence": "derivability/fresh-dependency-registration-236.json",
+        "lenses": {
+          "producer-propagation": "Bounded added material reconciliation pending; baseline retained.",
+          "existing-type-owners": "Bounded added material reconciliation pending; baseline retained.",
+          "admission-contracts": "Bounded added material reconciliation pending; baseline retained.",
+          "invariant-operations": "Bounded added material reconciliation pending; baseline retained.",
+          "aggregate-states": "Bounded added material reconciliation pending; baseline retained.",
+          "type-ownership": "Bounded added material reconciliation pending; baseline retained.",
+          "redundant-authority": "Bounded added material reconciliation pending; baseline retained.",
+          "behavior-preservation": "Bounded added material reconciliation pending; baseline retained.",
+          "enum-shapes": "Bounded added material reconciliation pending; baseline retained.",
+          "derivability": "Origin10 bounded Default prerequisite only, exact source identity retained.",
+          "type-granularity": "Bounded added material reconciliation pending; baseline retained.",
+          "magic-strings": "Bounded added material reconciliation pending; baseline retained.",
+          "magic-numbers": "Bounded added material reconciliation pending; baseline retained."
+        },
+        "qualification": "Minimal enum8\u201322 prerequisite, not whole125 file or cross-lens verdict. Adler completed baselines retained."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          8,
+          22
+        ]
+      ],
+      "disposition": "Read registered8-22 independently at physical-P16 source role, exact same hash/body as M67. Ten closed CatalogItemKind variants with Simple default and optional SpacetimeType derive. Overlap has no distinct source-body credit; no codec invariant claim from derive alone."
+    }
+  ],
+  "first_unfinished_material_index": 131,
+  "new_findings": []
+}

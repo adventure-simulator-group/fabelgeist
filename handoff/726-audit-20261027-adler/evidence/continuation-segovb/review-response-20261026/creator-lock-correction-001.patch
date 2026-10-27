@@ -1,0 +1,12 @@
+diff --git a/crates/adventuresim-character-creator/Cargo.lock b/crates/adventuresim-character-creator/Cargo.lock
+index 4474e05db..8cad91a4a 100644
+--- a/crates/adventuresim-character-creator/Cargo.lock
++++ b/crates/adventuresim-character-creator/Cargo.lock
+@@ -5042,6 +5042,7 @@ dependencies = [
+  "anyhow",
+  "async-lock",
+  "bytemuck",
++ "derive_more 2.1.1",
+  "fabelgeist-color",
+  "fabelgeist-math",
+  "fabelgeist-timer",

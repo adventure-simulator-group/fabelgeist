@@ -1,0 +1,26 @@
+{
+  "lens": 13,
+  "packet": "012",
+  "at": "2026-10-26T23:28:12.604572+00:00",
+  "role": "Partial original31 only",
+  "prior_root_adopted_state": "audit13-successor-011-suggested-state-002.json",
+  "prior_state_sha256": "bb3cc11e39cf7a9a1b30543965d9e314f9a0f0c078b1b8f0dbce31da9b333500",
+  "original_scope_authority": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee original31SHAe2053ee2dbf1a837b1a4e80d2d2afa22c0ecc2231bf586041222082971b9cbea ranges1-193 retained; no completedoriginalreread",
+  "receivers": [
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/pipeline.rs",
+      "sha256": "d47a07104ac9b2333006bbacbc50b5f097b5fa7a57ba4a4d822a62fb3c64e16b",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/d47a07104ac9b2333006bbacbc50b5f097b5fa7a57ba4a4d822a62fb3c64e16b",
+      "actual_lines": 232,
+      "ranges": [
+        [
+          118,
+          232
+        ]
+      ],
+      "purpose": "Actual render vertexattribute layout/stride/format/offset receiving InstanceData fields; no future original-role credit",
+      "provenance": "Exact immutable nativeGit1a5aff supplement from audit12-successor-registration-012.json; exactGitobject/worktreebytes equal and known frozencomponentspeer matched. Locator/provenance reuse only; no string-lens verdict or unseen frozenidentity."
+    }
+  ],
+  "body_consumed_at_registration": false
+}

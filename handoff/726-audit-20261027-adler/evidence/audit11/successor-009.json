@@ -1,0 +1,28 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-009",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 399,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ranged/outcome.rs",
+      "sha256": "666e7ae0d0aaeeed9b53efc70bf96befd2ffbbfdc84adf176db63126431658f5",
+      "ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "source_basis": "Fresh root full exact frozen object read; no current-main or other-lens substitution.",
+      "concepts_actual_uses_and_mixup": [
+        "AuthorizedRangedShot preserves consumed firing authority and attacker identity; target transform and target entity describe the defender, not a second generic shot state.",
+        "RangedContact joins resolved AttackResult, body part, DefenderResponse, flanking and role-specific equipment slots; optional blocking slot represents actual absence. No stricter arbitrary nonzero bounds established.",
+        "publish sends the same SuccessfulAttackResponse into shared damage application and network feedback; intended zero contact time and no melee defense-alignment data are explicit ranged projection policy, not fabricated successful melee defense."
+      ],
+      "disposition": "Keep distinct authorization, participant, body-region, response and equipment roles. Source caller association was established by previous exact398 receipt; this file alone does not prove arbitrary API records cannot be mixed. Earlier hit/miss request shape remains qualified Q002, not duplicated as new issue. No new bespoke wrapper or strengthening established under this lens.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

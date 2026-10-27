@@ -1,0 +1,178 @@
+{
+  "at": "2026-10-27T12:29:09.283853+00:00",
+  "lens": 11,
+  "status": "907-909 independently source-accounted",
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-019.json",
+    "sha256": "fc90604e5071dda9b8156a5d36048cf877ee28b26f808e1823d8fc19ad17db6d"
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-020-registration.jsonl",
+    "sha256": "4fb0f3dd84226856aaa3bec88a5e0082ba11a37d9f1f2870323883e7576dea8a"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 907,
+      "source_id": "pr-working:crates/adventuresim-core/src/composite.rs",
+      "sha256": "d12458450a9186177a47c1b404529e9f6128dfd204fd63817b8a4fd8cf27e72f",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/d12458450a9186177a47c1b404529e9f6128dfd204fd63817b8a4fd8cf27e72f",
+      "actual_eof": 386,
+      "ranges": [
+        [
+          1,
+          386
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          386
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 908,
+      "source_id": "pr-working:crates/adventuresim-core/src/courtship.rs",
+      "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+      "actual_eof": 1153,
+      "ranges": [
+        [
+          1,
+          1153
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          1153
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 909,
+      "source_id": "pr-working:crates/adventuresim-core/src/courtship/child_identity.rs",
+      "sha256": "79e3e2273c83b841a9b8ad92bef203dfde9e3be24d063568921367c1ffe7f299",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/79e3e2273c83b841a9b8ad92bef203dfde9e3be24d063568921367c1ffe7f299",
+      "actual_eof": 97,
+      "ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          97
+        ]
+      ]
+    }
+  ],
+  "material_receivers": [
+    {
+      "kind": "connected-owner",
+      "original_index": 2158,
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "ranges": [
+        [
+          80,
+          145
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual admitted MAX and checked versus saturated recurrence successor state",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          80,
+          145
+        ]
+      ]
+    }
+  ],
+  "per_role": [
+    {
+      "original": 907,
+      "roles": "PlayerInfo component-presence generic record and separate attributes/body/essentials/equipment/skills facets; native absent unit type versus actual components; wrapper application methods.",
+      "trace": "Full386 read including existing doctests. Generic parameter positions and per-field types preserve five meaningful capability/component roles; with_* consumes missing () slot exactly once and moves unrelated fields. This is a useful product/typestate rather than redundant wrappers or one universal actor magnitude. Delegation derives actualtraits; no blanket actor-instance association guarantee or requirement invented. Methods forward actual own-component values into body/attribute/skill/combat APIs, preserving typed side/style/contact/clock while raw check/fatigue/hit/flanking/sample/result ports remain. Late ContactPrecision::new(raw equipment precision) at353-355 concretely supports prior875/018/019 propagation group. Sameconcrete Self constraint for defender is not proof sameactor or duplicatedauthority. Doctests consumed only, no execution or source/API compatibility requirement.",
+      "disposition": "source-accounted; component distinctions justified, rawport support retained"
+    },
+    {
+      "original": 908,
+      "roles": "Courtship rejection code versus human detail/native string ABI; housing tier and ownership, prices/currency versus morale multiplier, due-period counts/date availability, refreshable morale source/caps/expiration; realized co-located leisure intervals versus generic minute coverage; conception remainder/trial ordinal/offset and deterministic score; disposition threshold and daily sample.",
+      "trace": "Full1153 consumed. Rejection code actual closed behavior survives native envelope independently of mutable human detail; string ABI encode/parse boundaries are not internal reason to reparse prose. HousingTier3 has real ordered price/benefit catalog and validator, not arbitrary enum-of-numbers; ownedbool selects2 genuine ownership policies with independent tier. Housing multiplier11000-16000bps exceeds whole, not probability/UnitInterval. DuePeriods owns Option successor and terminates checked overflow; DueSettlementPlan loses that exhausted state with always-present saturating next_due field. Calendar2158 admits exactMAX and checked_add(None)/saturating(MAX), so precise frozen source witness exists, no executed recurrence/current persistence assertion. RefreshableMorale currentvalue+expiry and spec cap+duration have distinct authority, actual refresh/bounded functions deliberately join2source caps; source expiry distinct absoluteclock versus duration rawminutes. LeisureInterval location and realized span not identical to genericMinuteSpan uncoveredrange; reversed/empty spans intentionally returnzero/none, no arbitrarystrictintervalconstraint. ConceptionQuantumState remainder/ordinal versus crossing offset/count have different roles, modulo actual60; trialordinal saturating is finiteidentitycapacity question, not identical PregnancyOrdinal. Native score is u64ordering not normalizedprobability; dailytrial u16sample versus numerator distinct fixedpoint roles. Allfixtures read only.",
+      "disposition": "source-accounted with exhaustion/quantity/identity port questions"
+    },
+    {
+      "original": 909,
+      "roles": "ChildIdentitySeed, ChildNameSeed, HouseholdPlacementSeed and PregnancyOrdinal; structured ChildSeeds with Sex; parent/birth/home context and separated deterministic streams.",
+      "trace": "Full97 read. Distinct seed wrappers earn role even with everyu64/Seedadmitted: ChildSeeds fields and producer derive identity/name/sex/home from separate framed hash domains; parent lexicalorder canonicalized, home only adds home identity context. PregnancyOrdinal is lifecycleordinal not RNGseed or every conceptiontrial ordinal. Widening accessors are used only at hashing/native seed boundary here, and separate typedpayloads cannot be swapped directly. Actual908 producerfixture and909 returnrecord own immediate receiving contract; no claimallbirth/persistence/UIrecipients migrated. Domain strings including-v2 identify actualstream, not proven compatibility APIaliases. No arbitrary numeric validation to justify role wrappers; hashcollision-free/alluniqueguarantees notestablished.",
+      "disposition": "source-accounted; purposeful role distinctions preserved"
+    }
+  ],
+  "qualified_observations": [
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/courtship.rs@df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45#due-timeline-exhaustion-state",
+      "observation": "DuePeriods.next uses checked_add and Option, so last representable date yields then terminates. Settlement projection always next_due:StrategicMinute via saturating_add. At admitted next_due=through=MAX and paid one charge, internal next is absent but public plan retainsMAX; public API cannot express exhausted recurrence. Actual2158MAX/new/check/saturating bodies read, algebraic source witness only.",
+      "remedy": "Reconcile canonical finite recurrence owner/state so persistence/application plan preserves exhausted versus another due date, and paid/unpaid state coupling. Use existing calendar checked operations; no guessed clock cap or baseline behavior preservation.",
+      "acceptance": "A consumed final representable bill cannot be advertised again as a new due date; actual ordinary chunking/unpaid semantics and terminal timeline are explicit in returned state.",
+      "dependencies": [
+        "actual current recurrence/persistence callers and master clock/state aliases",
+        "aggregate/invariant/producer/enum lenses"
+      ],
+      "currentness": "concrete frozen source/API state witness, no executed/current/alias/accepted unique claim"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/courtship.rs@df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45#strategic-quantity-identity-granularity",
+      "observation": "Raw u64/u32/u16/f32 carries currency/cost per period, person/period counts, amount/relative-minute offset/duration/calendar-day/trial identity, milli-morale, over-one morale multiplier and daily probability sample/threshold; location/actor/target/domain are rawstrings. Actual billing, leisure overlap, modulo60 and deterministic scoring receivers use them differently.",
+      "remedy": "Reuse actual canonical money/calendar duration/day/identity/morale/fixedpoint and ordinal owners at state/application ports, sharing invariants without flattening distinct purposes. Preserve multiplier>whole, unnormalized hashscore, meaningful realized/location span versus genericcoverage and zero/reversed-span policy. Reconcile future orderedintervalcandidate only; no newimplementation in discovery.",
+      "acceptance": "Strategic retained/result ports cannot swap count/currency/minutes/day/ordinal or multiplier/probability; actual zerocharge and exhaustedtimeline policies explicit, no arbitrary probability cap on morale multiplier.",
+      "dependencies": [
+        "current canonical strategic quantity/identity owners",
+        "otherlens/master alias reconciliation"
+      ],
+      "currentness": "frozen scoped questions, no current unique promotion"
+    }
+  ],
+  "carried_own_proofs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-014-receipt.json",
+      "sha256": "9e2e5834705569d01b06c7e772fb7d82d07dbbad374f8f8245dc818eb7e68b87"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-018-receipt.json",
+      "sha256": "0f4346372944174f180d12722483bea2b3ee0a7130a0dda5bdc33e7623f0c0af"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-019-receipt.json",
+      "sha256": "f99ec163b4d7be8af81b66a3598fe3527c3381b405cb39281f6e7b9b28ffbf0b"
+    }
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer. Preserve180/181nativeSDK/Bevy scheduling/imagecopylimits andallpendingreceiverqueues. M04current903reviewsseparate; notfrozenoriginal/lenscounts. Packet182InventoryItemId graph erasure, catalogkey/recordidentity and wear/order-selector sourcequestions retained, alias/currentness/unique acceptance unresolved. M04build-target review003 atdf5 andhostedCIseparatefromfrozenauditcounts. 184 newpublicDrapedPiece association/sourcegroupingquestion remainsfrozenlocal, noalias/currentness/uniqueacceptance; producerpathcoherent. M04df5validationseparate. 185 capacityreservationstaticAPIgap retainedasfrozenevidence only; alias/currentness/accepteduniqueness unresolved. No runtimewrongID orauthoredcurrentinputwitness. ExistingID/key/wear/savedassociationquestionsremainqualified. Packet186 independently accounts existing test-source812 only; fixture expectations are not observed execution/whole authored catalog/native guarantees and do not clear185 capacity witness. Existing lower-pattern fixture uses canonical owners; no new current alias or unique finding. Packet187 original813 only. New frozen inventory_ui and catalog wrapper material extensions mandatory other lenses, zero extra shared/original credit. UI acquisition is not atomic/all-worn; inherited capacity, typedID erasure/key authority and public saved-association questions retain all currentness/alias/unique limits. Batch011 frozen attack-ID packed participant-width witness retained; no runtime/current/alias/accepted unique finding, no invented32bit capacity bound. Batch012 actual simultaneous fixture permits absent scheduled measure beside present start/contact/recovery; group only proved coupled facts, do not require every active schedule measure.",
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_adoption_required": true,
+  "read_limits": [
+    "Full1636 original source lines consumed. Calendar80-145 ends in partial next saturating_sub; only completeMAX/new/get/checked/saturating_add and clockstructure used.",
+    "Body/native hash/kernel/fixture commands never executed; no current persistence/birth/price/relativeidentity/global acceptance."
+  ],
+  "restrictions": "Ignored append-only evidence only; no product/Git mutations/rootledger/projectchecks/tests/probes/publication."
+}

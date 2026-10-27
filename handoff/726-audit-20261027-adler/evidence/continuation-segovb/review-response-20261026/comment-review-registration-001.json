@@ -1,0 +1,282 @@
+{
+  "id": "SEGOVB-PR988-COMMENT-REG-001",
+  "created_utc": "2026-10-26T20:31:36.002151+00:00",
+  "skill": "/home/brunosegovia/.codex/skills/comment-review/SKILL.md",
+  "base": "961d226be23a81d9731a11958d62fe8a04b93e81",
+  "manifest_sha256": "1c72d1be7a816d638706574f740d916494bc4236b3e74ec584b94cabdf740a62",
+  "sources": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be",
+      "current_sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be",
+      "matches_manifest": true,
+      "lines": 13106
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "sha256": "352f06a1ddfc9d7be1813161e4ac2365ae813a2f0e751614464fc8adddf9a735",
+      "current_sha256": "352f06a1ddfc9d7be1813161e4ac2365ae813a2f0e751614464fc8adddf9a735",
+      "matches_manifest": true,
+      "lines": 375
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "460e9c3fcc4cb794358e3a25ba96b2e877dbeffaac6404703ff493aa6cb58e18",
+      "current_sha256": "460e9c3fcc4cb794358e3a25ba96b2e877dbeffaac6404703ff493aa6cb58e18",
+      "matches_manifest": true,
+      "lines": 44
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+      "current_sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+      "matches_manifest": true,
+      "lines": 84
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "33fed8d0c2ea47e990b60ad9c2cc14962f130c66ed4328d134e8f7f15d9b1128",
+      "current_sha256": "33fed8d0c2ea47e990b60ad9c2cc14962f130c66ed4328d134e8f7f15d9b1128",
+      "matches_manifest": true,
+      "lines": 189
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "e883e9bbfdcdb62065d26751a6135b65d6e3021604c9e6071ebdfbdf644457c5",
+      "current_sha256": "e883e9bbfdcdb62065d26751a6135b65d6e3021604c9e6071ebdfbdf644457c5",
+      "matches_manifest": true,
+      "lines": 627
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "bb98de5214d48bd87519d09a702a5e8df2914c6a7d614d38b2c95ab13df51205",
+      "current_sha256": "bb98de5214d48bd87519d09a702a5e8df2914c6a7d614d38b2c95ab13df51205",
+      "matches_manifest": true,
+      "lines": 51
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "e8573dd939e0db024bb674e2647e14b10cdca9d5d4d141b9a39e2778a0e3aab8",
+      "current_sha256": "e8573dd939e0db024bb674e2647e14b10cdca9d5d4d141b9a39e2778a0e3aab8",
+      "matches_manifest": true,
+      "lines": 51
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "019e06bddeb3cf69b87f4a5ca9ed92b605d5a7e211490af27f36d3ae3a63422d",
+      "current_sha256": "019e06bddeb3cf69b87f4a5ca9ed92b605d5a7e211490af27f36d3ae3a63422d",
+      "matches_manifest": true,
+      "lines": 52
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "f64791a9b8ca3d2203ed6c04fd5e0f0028fd8855ea3bc5674840e646581b5135",
+      "current_sha256": "f64791a9b8ca3d2203ed6c04fd5e0f0028fd8855ea3bc5674840e646581b5135",
+      "matches_manifest": true,
+      "lines": 103
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "6369e5b4f4847db2e85cd5a105dd891f8a68dcbf584622731565d36d05b6cb4e",
+      "current_sha256": "6369e5b4f4847db2e85cd5a105dd891f8a68dcbf584622731565d36d05b6cb4e",
+      "matches_manifest": true,
+      "lines": 9
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "sha256": "14cccb953bd0b8466b7ad010219c4220d535ee7ed9e6e66cad981c37cc67df88",
+      "current_sha256": "14cccb953bd0b8466b7ad010219c4220d535ee7ed9e6e66cad981c37cc67df88",
+      "matches_manifest": true,
+      "lines": 24
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "1ff31e6f3269b22c90de858db5935591432e74f58199699a22a735aac532c68b",
+      "current_sha256": "1ff31e6f3269b22c90de858db5935591432e74f58199699a22a735aac532c68b",
+      "matches_manifest": true,
+      "lines": 97
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "baf15af7fdf3ecbc0776b475b3aadbd35c29a3d6e0185cef3b2f064803315381",
+      "current_sha256": "baf15af7fdf3ecbc0776b475b3aadbd35c29a3d6e0185cef3b2f064803315381",
+      "matches_manifest": true,
+      "lines": 321
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "0fe254434e5c065ab49a04ba8c522d7066b48802b37538b6840653f5b2e3e59d",
+      "current_sha256": "0fe254434e5c065ab49a04ba8c522d7066b48802b37538b6840653f5b2e3e59d",
+      "matches_manifest": true,
+      "lines": 71
+    }
+  ],
+  "additional_support": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "purpose": "Applicable repository/comment writing rules."
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "ranges": [
+        [
+          1,
+          192
+        ]
+      ],
+      "purpose": "Applicable repository/comment writing rules."
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/actual-diff-001.patch",
+      "sha256": "2ad6ac3b7cc94a499fa594374571fbdba54082c7c91e040176d99ba0608753af",
+      "ranges": [
+        [
+          1,
+          500
+        ]
+      ],
+      "purpose": "Parent supplied exact remediation diff; no direct Git commands."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-2.1.1/src/as_dyn_error.rs",
+      "sha256": "ba3767c6c95966583360f28cd59bfe20717d0f53c2041c2c534552fcb1b265d9",
+      "observed_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "provenance": "Current lock-checksummed archive member bytes equal inspected local source; not frozen audit-source identity",
+      "package": "derive_more-2.1.1",
+      "archive_sha256": "d751e9e49156b02b44f9c1815bcb94b984cdcc4396ecc32521c739452808b134",
+      "purpose": "Independent source-backed manual boxed Error source and polling documentation rationale; no broad SDK coverage."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-impl-2.1.1/src/error.rs",
+      "sha256": "40cfa53d126eae5284310d5814318d32269e482e3491bf561ec9cd6168646aeb",
+      "observed_ranges": [
+        [
+          93,
+          184
+        ],
+        [
+          185,
+          334
+        ]
+      ],
+      "provenance": "Current lock-checksummed archive member bytes equal inspected local source; not frozen audit-source identity",
+      "package": "derive_more-impl-2.1.1",
+      "archive_sha256": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb",
+      "purpose": "Independent source-backed manual boxed Error source and polling documentation rationale; no broad SDK coverage."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-impl-2.1.1/src/fmt/display.rs",
+      "sha256": "d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+      "observed_ranges": [
+        [
+          398,
+          467
+        ]
+      ],
+      "provenance": "Current lock-checksummed archive member bytes equal inspected local source; not frozen audit-source identity",
+      "package": "derive_more-impl-2.1.1",
+      "archive_sha256": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb",
+      "purpose": "Independent source-backed manual boxed Error source and polling documentation rationale; no broad SDK coverage."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "observed_ranges": [
+        [
+          787,
+          849
+        ]
+      ],
+      "provenance": "Current lock-checksummed archive member bytes equal inspected local source; not frozen audit-source identity",
+      "package": "wgpu-29.0.4",
+      "archive_sha256": "76e8840e1ba2881d4cbb18d2147627a56af426ff064c0401eb0c8410c6325d07",
+      "purpose": "Independent source-backed manual boxed Error source and polling documentation rationale; no broad SDK coverage."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-types-29.0.4/src/lib.rs",
+      "sha256": "af153576bce090b101f05d3d4fc35523d82e8f7fd2f935bd60d12956af50cb3b",
+      "observed_ranges": [
+        [
+          290,
+          324
+        ]
+      ],
+      "provenance": "Current lock-checksummed archive member bytes equal inspected local source; not frozen audit-source identity",
+      "package": "wgpu-types-29.0.4",
+      "archive_sha256": "84bf84cd9ca8ca45e2b223a3868f1adf9bfc0c66aeac212e76ee7e40fdadf8f5",
+      "purpose": "Independent source-backed manual boxed Error source and polling documentation rationale; no broad SDK coverage."
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/actual-diff-002-complete.patch",
+      "sha256": "28988c6f0025292f2d0cfe6eb6548ec068296e2031e1984fe0768f1709c9706d",
+      "ranges": [
+        [
+          1,
+          530
+        ]
+      ],
+      "purpose": "Parent complete diff, including new enum bytecopy; registered for comparison but prior tracked diff already read."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-types-29.0.4/src/lib.rs",
+      "sha256": "af153576bce090b101f05d3d4fc35523d82e8f7fd2f935bd60d12956af50cb3b",
+      "observed_ranges": [
+        [
+          229,
+          273
+        ]
+      ],
+      "provenance": "Current lock-checksummed archive member bytes equal inspected local source; not frozen audit-source identity",
+      "package": "wgpu-types-29.0.4",
+      "archive_sha256": "84bf84cd9ca8ca45e2b223a3868f1adf9bfc0c66aeac212e76ee7e40fdadf8f5",
+      "purpose": "Actual no-explicit-timeout/native poll source for scoped validation documentation. Already archive/member hash-verified; fresh bounded body read."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "observed_ranges": [
+        [
+          78,
+          101
+        ]
+      ],
+      "provenance": "Current lock-checksummed archive member bytes equal inspected local source; not frozen audit-source identity",
+      "package": "wgpu-29.0.4",
+      "archive_sha256": "76e8840e1ba2881d4cbb18d2147627a56af426ff064c0401eb0c8410c6325d07",
+      "purpose": "Actual no-explicit-timeout/native poll source for scoped validation documentation. Already archive/member hash-verified; fresh bounded body read."
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be",
+      "ranges": [
+        [
+          4319,
+          4354
+        ],
+        [
+          12069,
+          12076
+        ],
+        [
+          12222,
+          12229
+        ]
+      ],
+      "purpose": "Exact resolved derive_more2.1.1 and wgpu29.0.4 archive checksums for independent SDK-source provenance; remainder lock metadata only."
+    }
+  ],
+  "scope": "PR988 review remediation comments/docs/manual Box source rationale and template/cfg/policy consistency only. Exact whole bodies registered for15 changed files except Cargo.lock metadata only; new additional reached bodies registered separately before reads. No source edits/Git/project checks/tests/publication."
+}

@@ -1,0 +1,472 @@
+--- base
+
++++ frozen-head
+
+@@ -1,15 +1,22 @@
+
+ use crate::DEFAULT_SERVER_URL;
+ use crate::message::{
+     JoinRequest, JumpCommand, PlayerInputRequest, PostureActionRequest, PostureCommand,
+     ReconnectCapability, ReconnectToken, TacticalCombatConfigSnapshot,
++};
++use adventuresim_tactical_core::animation::{
++    AnimationElapsed, AnimationValueResult, PositiveAnimationDuration, UnitInterval,
+ };
+ use adventuresim_tactical_core::prelude::*;
+ use aeronet_replicon::client::{AeronetRepliconClient, AeronetRepliconClientPlugin};
+ use aeronet_websocket::client::{ClientConfig, WebSocketClient, WebSocketClientPlugin};
+ use bevy::ecs::system::SystemParam;
+ use bevy::prelude::*;
+ use bevy_replicon::prelude::*;
++
++use melee_preparation::AttackInputObservation;
++
++mod melee_preparation;
+ 
+ #[cfg(test)]
+ const SPRINT_HOLD_THRESHOLD_SECONDS: f32 = 0.25;
+ 
+@@ -97,9 +104,10 @@
+
+     pub attack_hand: AttackHand,
+     pub melee_preparation: MeleePreparationInput,
+     pub local_preparation_from: MeleePreparationInput,
+     pub local_preparation_to: MeleePreparationInput,
+-    pub local_preparation_progress: f32,
++    #[reflect(remote = adventuresim_tactical_core::animation::ReflectedUnitInterval)]
++    pub local_preparation_progress: UnitInterval,
+     pub dodge_just_pressed: bool,
+     pub quickstep_direction: Vec2,
+     pub roll_just_pressed: bool,
+     pub downed_align: bool,
+@@ -115,11 +123,13 @@
+
+     keyboard_quickstep_latched: bool,
+     space_jump_armed: bool,
+     jump_command: JumpCommand,
+     mouse_main_attack_armed: bool,
+-    mouse_main_attack_seconds: f32,
++    #[reflect(remote = adventuresim_tactical_core::animation::ReflectedAnimationElapsed)]
++    mouse_main_attack_seconds: AnimationElapsed,
+     mouse_offhand_attack_armed: bool,
+-    mouse_offhand_attack_seconds: f32,
++    #[reflect(remote = adventuresim_tactical_core::animation::ReflectedAnimationElapsed)]
++    mouse_offhand_attack_seconds: AnimationElapsed,
+ }
+ 
+ impl Default for DirectControlState {
+     fn default() -> Self {
+@@ -131,9 +141,9 @@
+
+             attack_hand: AttackHand::Main,
+             melee_preparation: MeleePreparationInput::Preferred,
+             local_preparation_from: MeleePreparationInput::Preferred,
+             local_preparation_to: MeleePreparationInput::Preferred,
+-            local_preparation_progress: 1.0,
++            local_preparation_progress: UnitInterval::ONE,
+             dodge_just_pressed: false,
+             quickstep_direction: Vec2::ZERO,
+             roll_just_pressed: false,
+             downed_align: false,
+@@ -149,53 +159,52 @@
+
+             keyboard_quickstep_latched: false,
+             space_jump_armed: false,
+             jump_command: JumpCommand::default(),
+             mouse_main_attack_armed: false,
+-            mouse_main_attack_seconds: 0.0,
++            mouse_main_attack_seconds: AnimationElapsed::ZERO,
+             mouse_offhand_attack_armed: false,
+-            mouse_offhand_attack_seconds: 0.0,
++            mouse_offhand_attack_seconds: AnimationElapsed::ZERO,
+         }
+     }
+ }
+ 
+ #[derive(Debug, Clone, Copy, Default, PartialEq, Reflect)]
+ struct SprintInputState {
+     active: bool,
+     shift_down: bool,
+-    held_seconds: f32,
++    #[reflect(remote = adventuresim_tactical_core::animation::ReflectedAnimationElapsed)]
++    held_seconds: AnimationElapsed,
+     deactivating_press: bool,
+ }
+ 
+ impl SprintInputState {
+-    #[cfg(test)]
+-    fn update(&mut self, shift_down: bool, delta_seconds: f32) {
+-        self.update_with_threshold(shift_down, delta_seconds, SPRINT_HOLD_THRESHOLD_SECONDS);
+-    }
+-
+     fn update_with_threshold(
+         &mut self,
+         shift_down: bool,
+-        delta_seconds: f32,
+-        hold_threshold_seconds: f32,
+-    ) {
++        elapsed: AnimationElapsed,
++        hold_threshold: PositiveAnimationDuration,
++    ) -> AnimationValueResult<()> {
++        let mut next = *self;
+         // The current frame's delta ends at this sample, so it belongs to a
+         // key that was already down. Counting it here includes the release
+         // frame without pretending a new press began at the frame's start.
+-        if self.shift_down && !self.deactivating_press {
+-            self.held_seconds += delta_seconds.max(0.0);
+-        }
+-        if shift_down && !self.shift_down {
+-            self.deactivating_press = self.active;
+-            self.active = !self.active;
+-            self.held_seconds = 0.0;
+-        } else if !shift_down && self.shift_down {
+-            if !self.deactivating_press && self.held_seconds > hold_threshold_seconds {
+-                self.active = false;
++        if next.shift_down && !next.deactivating_press {
++            next.held_seconds = next.held_seconds.checked_add(elapsed)?;
++        }
++        if shift_down && !next.shift_down {
++            next.deactivating_press = next.active;
++            next.active = !next.active;
++            next.held_seconds = AnimationElapsed::ZERO;
++        } else if !shift_down && next.shift_down {
++            if !next.deactivating_press && next.held_seconds > hold_threshold.elapsed() {
++                next.active = false;
+             }
+-            self.held_seconds = 0.0;
+-            self.deactivating_press = false;
+-        }
+-        self.shift_down = shift_down;
++            next.held_seconds = AnimationElapsed::ZERO;
++            next.deactivating_press = false;
++        }
++        next.shift_down = shift_down;
++        *self = next;
++        Ok(())
+     }
+ 
+     fn cancel_latch_when_idle(&mut self, moving: bool) {
+         if !moving && !self.shift_down {
+@@ -218,9 +227,9 @@
+
+     combat_config: Res<'w, TacticalCombatConfig>,
+ }
+ 
+ #[derive(Resource, Debug, Clone, Copy, Default)]
+-struct LocalInputTick(u32);
++struct LocalInputTick(PlayerInputTick);
+ 
+ fn update_direct_control_input(
+     time: Res<Time>,
+     keys: Res<ButtonInput<KeyCode>>,
+@@ -239,13 +248,18 @@
+
+     if keys.just_pressed(KeyCode::CapsLock) {
+         controls.caps_jog = !controls.caps_jog;
+     }
+     let shift_down = keys.pressed(KeyCode::ShiftLeft) || keys.pressed(KeyCode::ShiftRight);
+-    controls.sprint.update_with_threshold(
+-        shift_down,
+-        time.delta_secs(),
+-        input_config.sprint_hold_seconds,
+-    );
++    let elapsed = AnimationElapsed::from(time.delta());
++    if let Err(error) =
++        controls
++            .sprint
++            .update_with_threshold(shift_down, elapsed, input_config.sprint_hold_seconds)
++    {
++        controls.attack_just_pressed = false;
++        warn!(%error, "Rejected sprint hold clock");
++        return;
++    }
+     let keyboard_direction = Vec2::new(
+         (keys.pressed(KeyCode::KeyD) as u8 as f32) - (keys.pressed(KeyCode::KeyA) as u8 as f32),
+         (keys.pressed(KeyCode::KeyW) as u8 as f32) - (keys.pressed(KeyCode::KeyS) as u8 as f32),
+     );
+@@ -445,89 +459,28 @@
+
+         controls.posture_control_armed = false;
+         controls.posture_control_consumed = false;
+     }
+ 
+-    let mouse_guard = mouse.pressed(MouseButton::Right);
+-    if mouse_guard && mouse.just_pressed(MouseButton::Left) {
+-        controls.mouse_main_attack_armed = true;
+-        controls.mouse_main_attack_seconds = 0.0;
+-    }
+-    if mouse_guard && mouse.just_pressed(MouseButton::Middle) {
+-        controls.mouse_offhand_attack_armed = true;
+-        controls.mouse_offhand_attack_seconds = 0.0;
+-    }
+-    if controls.mouse_main_attack_armed && mouse.pressed(MouseButton::Left) {
+-        controls.mouse_main_attack_seconds += time.delta_secs();
+-    }
+-    if controls.mouse_offhand_attack_armed && mouse.pressed(MouseButton::Middle) {
+-        controls.mouse_offhand_attack_seconds += time.delta_secs();
+-    }
+-    let mouse_main_attack =
+-        controls.mouse_main_attack_armed && mouse.just_released(MouseButton::Left);
+-    let mouse_offhand_attack =
+-        controls.mouse_offhand_attack_armed && mouse.just_released(MouseButton::Middle);
+-    let mouse_alternate_attack = mouse_main_attack
+-        && controls.mouse_main_attack_seconds > input_config.alternate_attack_hold_seconds;
+-    let controller_attack = left_trigger && right_trigger_just_pressed && !rolling;
+-    controls.attack_just_pressed =
+-        mouse_main_attack || mouse_offhand_attack || controller_attack || force_attack.0;
+-    force_attack.0 = false;
+-    controls.alternate_attack = mouse_alternate_attack
+-        || (controller_attack && left_trigger_value < input_config.aim_trigger_threshold);
+-    controls.attack_hand = if mouse_offhand_attack {
+-        AttackHand::Offhand
+-    } else {
+-        AttackHand::Main
++    let prepared = match controls.prepare_attack_input(
++        AttackInputObservation {
++            mouse: &mouse,
++            left_trigger,
++            left_trigger_value,
++            controller_attack: left_trigger && right_trigger_just_pressed && !rolling,
++            forced_attack: force_attack.0,
++            elapsed,
++        },
++        input_config,
++    ) {
++        Ok(prepared) => prepared,
++        Err(error) => {
++            // Retire the previous frame's edge; rejected input must not replay it.
++            controls.attack_just_pressed = false;
++            warn!(%error, "Rejected attack preparation progress");
++            return;
++        }
+     };
+-
+-    let controller_preparation = if left_trigger_value >= input_config.aim_trigger_threshold {
+-        MeleePreparationInput::Preferred
+-    } else {
+-        MeleePreparationInput::Alternate
+-    };
+-    if controls.mouse_offhand_attack_armed && mouse.pressed(MouseButton::Middle) {
+-        controls.local_preparation_from = MeleePreparationInput::Preferred;
+-        controls.local_preparation_to = MeleePreparationInput::Offhand;
+-        controls.local_preparation_progress = (controls.mouse_offhand_attack_seconds
+-            / input_config.alternate_attack_hold_seconds)
+-            .clamp(0.0, 1.0);
+-        controls.melee_preparation =
+-            if controls.mouse_offhand_attack_seconds > input_config.alternate_attack_hold_seconds {
+-                MeleePreparationInput::Offhand
+-            } else {
+-                MeleePreparationInput::Preferred
+-            };
+-    } else if controls.mouse_main_attack_armed && mouse.pressed(MouseButton::Left) {
+-        controls.local_preparation_from = MeleePreparationInput::Preferred;
+-        controls.local_preparation_to = MeleePreparationInput::Alternate;
+-        controls.local_preparation_progress = (controls.mouse_main_attack_seconds
+-            / input_config.alternate_attack_hold_seconds)
+-            .clamp(0.0, 1.0);
+-        controls.melee_preparation =
+-            if controls.mouse_main_attack_seconds > input_config.alternate_attack_hold_seconds {
+-                MeleePreparationInput::Alternate
+-            } else {
+-                MeleePreparationInput::Preferred
+-            };
+-    } else {
+-        let preparation = if left_trigger {
+-            controller_preparation
+-        } else {
+-            MeleePreparationInput::Preferred
+-        };
+-        controls.local_preparation_from = preparation;
+-        controls.local_preparation_to = preparation;
+-        controls.local_preparation_progress = 1.0;
+-        controls.melee_preparation = preparation;
+-    }
+-    if mouse_main_attack {
+-        controls.mouse_main_attack_armed = false;
+-        controls.mouse_main_attack_seconds = 0.0;
+-    }
+-    if mouse_offhand_attack {
+-        controls.mouse_offhand_attack_armed = false;
+-        controls.mouse_offhand_attack_seconds = 0.0;
+-    }
++    prepared.publish(&mut controls, &mut force_attack);
+     let gamepad_quickstep = left_trigger
+         && right_bumper_just_pressed
+         && moving
+         && !controls.reserved_throw_chord
+@@ -679,9 +632,9 @@
+
+     controls: Res<DirectControlState>,
+     scripted: Res<PlayerInputOverride>,
+ ) {
+     let simulation_tick = input_tick.0;
+-    input_tick.0 = input_tick.0.wrapping_add(1);
++    input_tick.0 = input_tick.0.wrapping_next();
+     for (actions, look) in &players {
+         if let Some(mut request) = scripted.0 {
+             request.simulation_tick = simulation_tick;
+             commands.client_trigger(request);
+@@ -735,8 +688,22 @@
+
+ 
+ #[cfg(test)]
+ mod tests {
+     use super::*;
++
++    impl SprintInputState {
++        fn update(
++            &mut self,
++            shift_down: bool,
++            elapsed: AnimationElapsed,
++        ) -> AnimationValueResult<()> {
++            self.update_with_threshold(
++                shift_down,
++                elapsed,
++                PositiveAnimationDuration::try_from(SPRINT_HOLD_THRESHOLD_SECONDS)?,
++            )
++        }
++    }
+ 
+     #[test]
+     fn reconnect_credential_is_process_owned_not_transport_owned() {
+         let credential = ReconnectCredential(Some((CharacterId(42), ReconnectToken([5; 32]))));
+@@ -826,38 +793,65 @@
+
+ 
+     #[test]
+     fn shift_tap_latches_sprint_until_the_next_press() {
+         let mut sprint = SprintInputState::default();
+-        sprint.update(true, 0.0);
++        sprint
++            .update(true, AnimationElapsed::from_seconds(0.0).unwrap())
++            .unwrap();
+         assert!(sprint.active);
+-        sprint.update(true, 0.1);
+-        sprint.update(false, 0.0);
++        sprint
++            .update(true, AnimationElapsed::from_seconds(0.1).unwrap())
++            .unwrap();
++        sprint
++            .update(false, AnimationElapsed::from_seconds(0.0).unwrap())
++            .unwrap();
+         assert!(sprint.active);
+ 
+-        sprint.update(true, 0.0);
++        sprint
++            .update(true, AnimationElapsed::from_seconds(0.0).unwrap())
++            .unwrap();
+         assert!(!sprint.active);
+-        sprint.update(true, 1.0);
+-        sprint.update(false, 0.0);
++        sprint
++            .update(true, AnimationElapsed::from_seconds(1.0).unwrap())
++            .unwrap();
++        sprint
++            .update(false, AnimationElapsed::from_seconds(0.0).unwrap())
++            .unwrap();
+         assert!(!sprint.active);
+     }
+ 
+     #[test]
+     fn held_shift_sprints_immediately_and_stops_on_release() {
+         let mut sprint = SprintInputState::default();
+-        sprint.update(true, 0.0);
++        sprint
++            .update(true, AnimationElapsed::from_seconds(0.0).unwrap())
++            .unwrap();
+         assert!(sprint.active);
+-        sprint.update(true, SPRINT_HOLD_THRESHOLD_SECONDS + 0.01);
++        sprint
++            .update(
++                true,
++                AnimationElapsed::from_seconds(SPRINT_HOLD_THRESHOLD_SECONDS + 0.01).unwrap(),
++            )
++            .unwrap();
+         assert!(sprint.active);
+-        sprint.update(false, 0.0);
++        sprint
++            .update(false, AnimationElapsed::from_seconds(0.0).unwrap())
++            .unwrap();
+         assert!(!sprint.active);
+     }
+ 
+     #[test]
+     fn latched_sprint_cancels_when_movement_input_stops() {
+         let mut sprint = SprintInputState::default();
+-        sprint.update(true, 0.0);
+-        sprint.update(true, 0.1);
+-        sprint.update(false, 0.0);
++        sprint
++            .update(true, AnimationElapsed::from_seconds(0.0).unwrap())
++            .unwrap();
++        sprint
++            .update(true, AnimationElapsed::from_seconds(0.1).unwrap())
++            .unwrap();
++        sprint
++            .update(false, AnimationElapsed::from_seconds(0.0).unwrap())
++            .unwrap();
+         assert!(sprint.active);
+ 
+         sprint.cancel_latch_when_idle(true);
+         assert!(sprint.active);
+@@ -867,18 +861,27 @@
+
+ 
+     #[test]
+     fn held_sprint_can_begin_moving_after_an_idle_frame() {
+         let mut sprint = SprintInputState::default();
+-        sprint.update(true, 0.0);
++        sprint
++            .update(true, AnimationElapsed::from_seconds(0.0).unwrap())
++            .unwrap();
+         sprint.cancel_latch_when_idle(false);
+         assert!(sprint.active);
+     }
+ 
+     #[test]
+     fn shift_release_at_exact_hold_threshold_remains_toggled() {
+         let mut sprint = SprintInputState::default();
+-        sprint.update(true, 0.0);
+-        sprint.update(false, SPRINT_HOLD_THRESHOLD_SECONDS);
++        sprint
++            .update(true, AnimationElapsed::from_seconds(0.0).unwrap())
++            .unwrap();
++        sprint
++            .update(
++                false,
++                AnimationElapsed::from_seconds(SPRINT_HOLD_THRESHOLD_SECONDS).unwrap(),
++            )
++            .unwrap();
+         assert!(sprint.active);
+     }
+ 
+     #[test]
+@@ -1096,10 +1099,10 @@
+
+                 .begin_posture_transition(
+                     PostureTransitionKind::ProneToSupine {
+                         direction: RollDirection::Right,
+                     },
+-                    0,
+-                    2,
++                    adventuresim_tactical_core::animation::AnimationSampleTick::from(0u64),
++                    adventuresim_tactical_core::animation::AnimationSampleSpan::from(2u64),
+                 )
+         );
+         schedule.run(&mut world);
+         assert_eq!(
+@@ -1112,9 +1115,12 @@
+
+ 
+         world
+             .get_mut::<SkeletonState>(player)
+             .unwrap()
+-            .advance_posture_transition(2);
++            .advance_posture_transition(
++                adventuresim_tactical_core::animation::AnimationSampleTick::from(2u64),
++            )
++            .unwrap();
+         schedule.run(&mut world);
+         assert_eq!(
+             world.resource::<DirectControlState>().posture_command,
+             PostureCommand {

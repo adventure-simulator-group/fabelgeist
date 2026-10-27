@@ -1,0 +1,17 @@
+[1m[92m   Compiling[0m adventuresim-world-schema v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-world-schema)
+[1m[92m   Compiling[0m fabelgeist-determinism v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-determinism)
+[1m[92m   Compiling[0m fabelgeist-geometry v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-geometry)
+[1m[92m   Compiling[0m adventuresim-building-generator v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-building-generator)
+[1m[92m    Finished[0m `test` profile [optimized] target(s) in 58.70s
+[1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/adventuresim_building_generator-8a199176a2b825a7)
+
+running 6 tests
+test spatial_geometry::admission_tests::checked_point_arithmetic_retains_zero_and_rejects_overflow ... ok
+test spatial_geometry::admission_tests::decoded_and_reflected_measurements_cannot_bypass_admission ... ok
+test spatial_geometry::admission_tests::signed_lengths_and_areas_admit_their_distinct_zero_and_negative_contracts ... ok
+test spatial_geometry::tests::admission_and_decoding_enforce_roles_without_repairing_values ... ok
+test spatial_geometry::tests::bounds_distinguish_order_degeneracy_clearance_and_overflow ... ok
+test spatial_geometry::tests::normalized_directions_reject_bad_decoding_and_preserve_normalization_arithmetic ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 285 filtered out; finished in 0.00s
+

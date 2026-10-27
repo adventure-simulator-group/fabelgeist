@@ -1,0 +1,131 @@
+{
+  "at": "2026-10-27T04:52:43.145777+00:00",
+  "kind": "Independent M04 build-target remedy prospective source reads",
+  "head": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+  "extends_review": "code-review-002.json",
+  "sources": [
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+      "bytes": 19279,
+      "actual_lines": 511,
+      "ranges": [
+        [
+          1,
+          511
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "crates/adventuresim-core/Cargo.toml",
+      "sha256": "29e56014658d941895772dda71b9181863839eedf403c7d30b446186228c3441",
+      "bytes": 1121,
+      "actual_lines": 43,
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+      "bytes": 1740,
+      "actual_lines": 58,
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "b1561f750844b7395f96f8fe2ee767db88d73fb8d8b6e997779493130b09f877",
+      "bytes": 4953,
+      "actual_lines": 173,
+      "ranges": [
+        [
+          1,
+          173
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "crates/adventuresim-core/src/lib.rs",
+      "sha256": "fd09a838f8cfdd2da3d48800fe56d9bbfad7e9ad5556ba696be7908b4a000c2a",
+      "bytes": 3455,
+      "actual_lines": 138,
+      "ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "Cargo.toml",
+      "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+      "bytes": 8395,
+      "actual_lines": 221,
+      "ranges": [
+        [
+          130,
+          162
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/source-003.diff",
+      "sha256": "3976d9b626c989ab52c8e8d3a26a5d98e9e3d4ef44236fde113da41c2e307d56",
+      "bytes": 9728,
+      "actual_lines": 209,
+      "ranges": [
+        [
+          1,
+          209
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/hosted-linux-job-001.log",
+      "sha256": "413f6a4fb5162e841c5b0cacf5709eebdaed5e2287d612dd9a3c58658029a2b2",
+      "bytes": 103763,
+      "actual_lines": 1245,
+      "ranges": [
+        [
+          985,
+          1010
+        ],
+        [
+          1154,
+          1154
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/hosted-windows-job-001.log",
+      "sha256": "56b7405f14a55763973916d86bd42ab9476335cf27cee60de4723094de82e3dc",
+      "bytes": 68128,
+      "actual_lines": 784,
+      "ranges": [
+        [
+          595,
+          607
+        ]
+      ],
+      "body_read_at_registration": false
+    }
+  ],
+  "prior_navigation": "Source-reference rg located path inclusions/module names/dependency keys only before this registration; no body review coverage inferred. Full build root and actual canonical modules/manifest contexts are now registered before bounded body consumption. Initial in-memory planned lib.rs1-159 failed EOF138 metadata guard before any body output or registration write; corrected actual1-138.",
+  "limits": "Source-only no projectchecks/probes/tests/newtests/source/Git/rootledger/publication edits; no frozen audit advance."
+}

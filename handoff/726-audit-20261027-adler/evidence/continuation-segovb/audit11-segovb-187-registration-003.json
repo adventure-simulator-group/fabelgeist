@@ -1,0 +1,47 @@
+{
+  "packet": 187,
+  "lens": 11,
+  "registered_before_body_read": true,
+  "purpose": "Close wear return/error branch and actual wardrobe iter/insert/validate/name type admission boundary; stop813only",
+  "sources": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/inventory_ui.rs",
+      "sha256": "7826a8b7e47d4d72d87589c7c7e11d6054c7edbaa82bcc9f317f8ee949bad37b",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/7826a8b7e47d4d72d87589c7c7e11d6054c7edbaa82bcc9f317f8ee949bad37b",
+      "actual_eof": 256,
+      "ranges": [
+        [
+          211,
+          216
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/wardrobe.rs",
+      "sha256": "41051202a9da2998dcf73b5a1e095088d6838c1a849a66d080631ac8304951b9",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/41051202a9da2998dcf73b5a1e095088d6838c1a849a66d080631ac8304951b9",
+      "actual_eof": 154,
+      "ranges": [
+        [
+          41,
+          75
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/library_name.rs",
+      "sha256": "ecd978e94b850604d4345df1494e9536819e19d7a6d3b8921fde3d55bf54eb27",
+      "read_from": "crates/adventuresim-character-creator/src/library_name.rs",
+      "actual_eof": 52,
+      "ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "ordered_credit": false
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-363",
+  "at": "2026-10-25T23:39:33.509345+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 102,
+      "source_id": "physical-p16:crates/adventuresim-core/src/equipment/parametric_weapon.rs",
+      "sha256": "b86de57ce073e0c629d63bcb5e9b1cc92c18be2705b8954f4536c12db6fd0eb3",
+      "personally_read_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full65line P16 parametric weapon source read. Constructor checks finite positive mass/total/grip, grip<=total, head within total, nonnegative finite inertia/balance/precision; public fields permit later bypass. It does not prove common recipe derivation or material/shape membership solely from values.",
+        "melee_reach projects same grip-to-tip field. conditioned_precision looks up positive catalog base and multiplies instance precision by effective catalog precision before division; actual catalog ID correspondence, condition fraction bounds and f32 intermediate overflow remain external admission/receiving obligations. Expect can panic on invalid/nonpositive catalog precision; actual validated producer needed before finding. No execution."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

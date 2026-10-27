@@ -1,0 +1,300 @@
+{
+  "review": "Independent989 pre-edit code/design discovery",
+  "at": "2026-10-26T23:18:53.489186+00:00",
+  "base_reported_by_root": "b3810b8b5",
+  "branch_reported_by_root": "codex/989-texture-validation-policy",
+  "scope": "Texture2d::create,Texture3d::new,TextureCube::new constructor observation; CubeFace selection with optional context; actual shared policy/error/helper/return-wrapper/exports and direct blit receiving body. Source-only, no implementation verdict.",
+  "registration": [
+    "code-discovery-registration-001.json",
+    "code-discovery-registration-002.json",
+    "code-discovery-registration-003.json"
+  ],
+  "sources": [
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "read_snapshot_sha256": "e3ad593b83da185620d2729a5fde4a0f7bfda1c39993494432c55a0c989e0973",
+      "registered_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "current_sha256_at_receipt": "e3ad593b83da185620d2729a5fde4a0f7bfda1c39993494432c55a0c989e0973",
+      "changed_by_root_during_discovery": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "read_snapshot_sha256": "878a4144b4fecdc20291885050e30fe521a5294117046c282ef24d40c5e407d9",
+      "registered_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "current_sha256_at_receipt": "878a4144b4fecdc20291885050e30fe521a5294117046c282ef24d40c5e407d9",
+      "changed_by_root_during_discovery": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "read_snapshot_sha256": "e883e9bbfdcdb62065d26751a6135b65d6e3021604c9e6071ebdfbdf644457c5",
+      "registered_ranges": [
+        [
+          1,
+          627
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          167
+        ]
+      ],
+      "current_sha256_at_receipt": "d6cd017cc5d337a0ad47543cc51cc009cff84fa78bb65499b1cddfcb60afcb55",
+      "changed_by_root_during_discovery": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "read_snapshot_sha256": "d4d9df664fcd5207e09a8453fedfb5fae4ce9d139cd45d3bd8bc1e6a9f9ac12e",
+      "registered_ranges": [
+        [
+          1,
+          270
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "current_sha256_at_receipt": "5b020e16dadfbc30f2eb50b784552258d880c631376ffc1d62e9e25cae07c992",
+      "changed_by_root_during_discovery": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "read_snapshot_sha256": "b86ab932de453c75553ba6a915d830406ac142dd7fe544a5d9fe5be25b14431a",
+      "registered_ranges": [
+        [
+          1,
+          962
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          320
+        ],
+        [
+          423,
+          474
+        ]
+      ],
+      "current_sha256_at_receipt": "a5ec79b944808520b15bc649e4d54b14612859c9a5b1b1f8446a47c17bb6c1d6",
+      "changed_by_root_during_discovery": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "read_snapshot_sha256": "0a399f468fc53f30affbe132b31d3b33f0f2de3d766758bb4023e86fc3b0bbff",
+      "registered_ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "current_sha256_at_receipt": "c396c5486a664dbb5d1804963e21e76bbee671521319e625c38f0b7531f3a391",
+      "changed_by_root_during_discovery": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "read_snapshot_sha256": "ab5ff0debbab0de569e16562ea77ab30df38cb8b9632cfacd900aad0024fba98",
+      "registered_ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "current_sha256_at_receipt": "f0828dbc6755445932455e5aa9edf040f2222deca3c1fe38c44460da856565d8",
+      "changed_by_root_during_discovery": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "read_snapshot_sha256": "56a27351a1b6013319dc514e027250efd43b0538d34237835d656ddd0d1a7b43",
+      "registered_ranges": [
+        [
+          1,
+          130
+        ],
+        [
+          182,
+          283
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          130
+        ],
+        [
+          182,
+          283
+        ]
+      ],
+      "current_sha256_at_receipt": "14ac95339951ceb8b50cc3ab9452c251bbbce6122ebd7206a3961c406ff74858",
+      "changed_by_root_during_discovery": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/cube_face.rs",
+      "read_snapshot_sha256": "db49ac57de817ae29d6341288c341aacbe884102e4d98575a32590f334f90709",
+      "registered_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "current_sha256_at_receipt": "db49ac57de817ae29d6341288c341aacbe884102e4d98575a32590f334f90709",
+      "changed_by_root_during_discovery": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+      "read_snapshot_sha256": "45495b07095d77c0cb93ea88115508eeb2a1f083b9368e6d9b02dc6bee3a268c",
+      "registered_ranges": [
+        [
+          1,
+          313
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          313
+        ]
+      ],
+      "current_sha256_at_receipt": "45495b07095d77c0cb93ea88115508eeb2a1f083b9368e6d9b02dc6bee3a268c",
+      "changed_by_root_during_discovery": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/lib.rs",
+      "read_snapshot_sha256": "5a9039181baf9cc6a6b45e7810f99fd9811427b80e62c9d84f52cde5f3bfa9a6",
+      "registered_ranges": [
+        [
+          1,
+          14
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          14
+        ]
+      ],
+      "current_sha256_at_receipt": "5a9039181baf9cc6a6b45e7810f99fd9811427b80e62c9d84f52cde5f3bfa9a6",
+      "changed_by_root_during_discovery": false
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "read_snapshot_sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "registered_ranges": [
+        [
+          1,
+          5
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          5
+        ]
+      ],
+      "current_sha256_at_receipt": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "changed_by_root_during_discovery": false
+    }
+  ],
+  "proposal_disposition": "No design blocker found. SharedValidationScope is the correct existing owner; proposed route closes the visible policy bypasses and poll-error loss without new parallel policy or compatibility paths. Actual post-edit source correctness remains pending fresh diff/manifest review.",
+  "current_gaps_addressed": [
+    {
+      "location": "texture_2d/mod.rs128-155",
+      "evidence": "2D already uses ValidationObservation.start_scope, but discards device.poll result and stringifies only capturednativeerror.",
+      "proposed_correction": "Use native-cfg ValidationScope::new before texturecreation and finish after initialviewcreation; propagate finisherror via? into existinganyhowResult."
+    },
+    {
+      "location": "texture_3d/mod.rs90-115;texture_cube/mod.rs114-140",
+      "evidence": "3D/cube constructors unconditionallypush validation scopes on native, ignoring Uncaptured policy, then discard pollresult. Borrowed contexts therefore enter a synchronous nativewait despite from_parts selectingUncaptured.",
+      "proposed_correction": "Use optional sharednew/finish on both paths; absence means no push/poll/pop. Keep scope covering native texture and initialview creation."
+    },
+    {
+      "location": "texture_cube/mod.rs269-320",
+      "evidence": "face forwardsSome(context),face_view forwardsNone; face_view_with_format currentlymapsSomecontext straight to nativepush scope and discards pollresult.",
+      "proposed_correction": "Allthree APIs returnTextureViewResult<TextureView>; native scope=context.and_then(ValidationScope::new), finish ifSome, map failures toObservation{requested:format,operation:TextureCubeFace(face),cause}. Uninitialized returns existingtypedvariant."
+    }
+  ],
+  "source_backed_contract_traces": [
+    {
+      "family": "Observationpolicy",
+      "trace": "WgpuContext::from_parts98-117 selectsUncaptured; open260-275 selectsUncaptured onwasm andBlockingScopes native, independentlyof presentation. ValidationObservation21-25 is canonicalpush policy. ValidationScope::new38-45 delegates to it and retains samecontextdevice; finish53-63 attempts poll then alwayspops, exhaustivelyrepresents(Ok/Err)x(None/Some). No ownership/surface recheck needed in textureproducers."
+    },
+    {
+      "family": "Texturecreation",
+      "trace": "2D60-165,3D47-125,cube50-150 validate/build descriptors before nativecreation. Scopedsegment begins immediatelybefore create_texture, includes create_view, and ends before storing texture/viewArc metadata. ExistingResult<anyhow> permits typedValidationScopeError propagation throughstandarderrorconversion. Proposed helper retains Native,Progress orProgressWithNative and bothcauses without stringflattening. Local size/usage/viewformat/descriptor behavior need not change."
+    },
+    {
+      "family": "Cubefacerequest/descriptor/retainedvalue",
+      "trace": "CubeFace enum17-24 is closedCopyDebug role; index37-45 maps it to layers0-5 atwgpuboundary. face_view_with_format282-302 obtains texture beforeguard, keeps requestedformat separate from descriptorlinearadjustment, setsD2/base_array_layerface.index/array_layer_count1. Return312-319 retains textureArc/viewArc,size,actualadjustedformat,D2,layer. Moving these bodies toexistingviews.rs keeps responsibility cohesive; no newadapter/helperrequired."
+    },
+    {
+      "family": "Typedfailurepropagation",
+      "trace": "TextureViewError enum25-40 owns absence andObservation{requested,operation,cause}; derivedError marksValidationScopeError source. AddTextureCubeFace(CubeFace) toexistingoperation enum15-19. Face0..5 remains atclosedroleuntil nativeindex; originalrequestedformat andface retained onObservationerror, actualformat stored onsuccess. blit_texture_to_face423-437 uses? intoanyhowResult,so standardconversion accommodates narrowedproducererror."
+    },
+    {
+      "family": "Receivingwrapper",
+      "trace": "TextureView fields9-16 hold nativeview,underlyingtexture,size,actualformat,dimension,layer. read171-195 lateruseslayer ascopyoriginz; clear73-140 usesstorednativeview. FaceoutputmustpreservebothD2selectionandlayer for these consumers. Publiclib/prelude are plainreexports, not hardcodedfunctionregistries."
+    }
+  ],
+  "implementation_requirements": [
+    "Keep ValidationScope imports/new/finish blocks cfg(not(target_arch=\"wasm32\")); wasm must never refer to nativeonlymethods or block_on/poll waits. Optionalcontext may be named_ctx or useexistingcfgattr for wasm unused warning.",
+    "Use context.and_then(ValidationScope::new), notmap yieldingnestedOption. None andSome(Uncaptured) createview without synchronousobservation; Some(BlockingScopes) observes exactlyonce. Do not introducefallbackwait/policyinference fromownership orsurface.",
+    "Construct guards onlyafterlocalfalliblevalidation and resourceabsencechecks, and finish afterallguardednativecreation beforepublishingreturnedvalue. Avoidnewearly?returnsinsideguardthatdropwithout observing.",
+    "Use typederrorpropagation, originalformat inerror, TextureCubeFace(face) operationpayload. ConstructorsstayResult<anyhow>because their size/admissionerrors differ; faceproducers allshareTextureViewResult. No compatibilityalias/manualerror/stringclassificationneeded.",
+    "Update wholetexture-onlyview/erroroperation/resultprose and WgpuContext documentation20-30 whosecurrenttext explicitlydefersconstructor/faces. Keep documentation scopedtoactualpaths migrated; no broaderdevicehealth/rollbackguarantee. Remove outdated2Downership/drainingcomment in favorcanonicalobservationpolicy."
+  ],
+  "correctness_findings_against_proposed_design": [],
+  "migration_completeness": "Proposedincrement is coherent for the three constructors and threefaceentrypoints. Not implemented/reviewed as complete inthisdiscovery; rootwaseditingduringfinalreceiptassembly. No wholetexturesystem/auditclearance.",
+  "receiving_navigation_limits": "Root independently reported repositoryreference-navigationfoundnoexternalTextureCube::face/face_view/functionpointerregistrants, only wrappersandblit433. Thisreviewpersonallyread wrapper/blit and simpleexportbodies; no whole-repositorynavigationcoverageclaimed. ConstructorcallerstandardResult/? evidence is root-supplied, not personallyread/creditedhere.",
+  "limits": [
+    "Rootsoleproducteditor. Initial sourcehashes pinnedbeforereads; fiveproductfileschangedbyrootbefore receiptcompletion and arelistedwithcurrenthashes. Initialdesignfindingscommunicatedbeforeproductedits. Thisreceiptisnottheposteditreview.",
+    "Initialmetadataattemptusednonexistenttexture_view.rs,thenactualtexture_view/mod.rs registeredbeforebodyread. No nonexistentfilebodycredit. Laterextra cube599-618contextreadfoundshiftedcurrentWGSLlinesduringrootedits; excludedfrompolicycoverage andallrecordedreadranges.",
+    "No sourcecommandsbuilding/testing/linting/scanning/generating, no tests/probes/assertions/helpers/doctests added/run, no product/Git/ledgerchanges orpublication. Exactfilemetadata/sourcebodyreadsandevidenceJSONwritesonly.",
+    "NativeSDKimplementationand derivegeneratedbodiesnotfreshlyreadinthisproposalpacket; claimsrestrictedtovisiblefirstpartyhelper/errorbodies. No compile/runtimevalidation.",
+    "Existingpublictexturefieldcoherence,cache/deviceprovenance and suppliedcontextmatchingtexturedevice remainoutsideincrement; ValidationScopeobservescontextdevice,notanindependentlyprovedtextureowner. No inheritedF1/F2/F6/F9closure,wholeSDK/globalorotherlensclearance.",
+    "No historical API/layout/message/downcast compatibilityconstraint applied. No globallyuniquefindingcountinvented."
+  ]
+}

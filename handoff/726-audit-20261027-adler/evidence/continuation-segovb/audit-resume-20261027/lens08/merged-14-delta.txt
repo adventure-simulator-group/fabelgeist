@@ -1,0 +1,24 @@
+--- base
+
++++ head
+
+@@ -217,14 +217,14 @@
+
+         Showing::Saved(name) => fit_saved(wardrobe, &model, &studio, &name),
+     };
+     for entity in &garments {
+         scene.commands.entity(entity).despawn();
+     }
+-    if let Some((selection, garment)) = shown {
+-        if let Err(error) = spawn(&mut scene, &mut mail, &selection, garment) {
+-            wardrobe.fit_problems = Some(format!("{error:#}"));
+-        }
++    if let Some((selection, garment)) = shown
++        && let Err(error) = spawn(&mut scene, &mut mail, &selection, garment)
++    {
++        wardrobe.fit_problems = Some(format!("{error:#}"));
+     }
+ }
+ 
+ /// Take the running drape's progress, and show it when the design is shown.
+ fn collect(wardrobe: &mut WardrobeTab, studio: &mut Studio) {

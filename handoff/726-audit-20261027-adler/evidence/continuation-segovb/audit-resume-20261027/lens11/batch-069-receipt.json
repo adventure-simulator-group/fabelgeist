@@ -1,0 +1,385 @@
+{
+  "at": "2026-10-27T15:29:33.184047+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_qualified_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-069-registration.jsonl",
+    "sha256": "a6f7ae907663cd3f45c7ba4a4266bbb808c63cb820ef4a1481aec22cb3914511"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-068.json",
+    "sha256": "edcf32c507a4d7ccd4e43915e6c7f9be55f39af9e29009db4ba88f6079da0c9c"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1101,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/authority_tests.rs",
+      "sha256": "f42fe8c6e10d816198aba42f752d418582a0bf4268aa0a21ba9b6e2116e3dab3",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/f42fe8c6e10d816198aba42f752d418582a0bf4268aa0a21ba9b6e2116e3dab3",
+      "ranges": [
+        [
+          1,
+          207
+        ]
+      ],
+      "actual_eof": 207,
+      "prospective": true,
+      "purpose": "Full ordered1101/1102; exact food module/model receivers1107/1108 no automatic future ordered credit",
+      "actual_read_ranges": [
+        [
+          1,
+          207
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1102,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/consumption.rs",
+      "sha256": "6774eac9e912e8d500d0d9912545c2051fcc102d969f024be6dd157b22dea910",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/6774eac9e912e8d500d0d9912545c2051fcc102d969f024be6dd157b22dea910",
+      "ranges": [
+        [
+          1,
+          369
+        ]
+      ],
+      "actual_eof": 369,
+      "prospective": true,
+      "purpose": "Full ordered1101/1102; exact food module/model receivers1107/1108 no automatic future ordered credit",
+      "actual_read_ranges": [
+        [
+          1,
+          369
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected_original",
+      "original_index": 1107,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/mod.rs",
+      "sha256": "80bfa29d162de3dce0554d867093029ba6a5a3b02e405cafd0863a80692c0e7f",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/80bfa29d162de3dce0554d867093029ba6a5a3b02e405cafd0863a80692c0e7f",
+      "ranges": [
+        [
+          1,
+          84
+        ]
+      ],
+      "actual_eof": 84,
+      "prospective": true,
+      "purpose": "Full ordered1101/1102; exact food module/model receivers1107/1108 no automatic future ordered credit",
+      "actual_read_ranges": [
+        [
+          1,
+          84
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1108,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/model.rs",
+      "sha256": "b1ed41d6a51aaf7bcd77c4e36ad928b0ef533216ddc9efb1aa3a0f78a97c12d9",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/b1ed41d6a51aaf7bcd77c4e36ad928b0ef533216ddc9efb1aa3a0f78a97c12d9",
+      "ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "actual_eof": 151,
+      "prospective": true,
+      "purpose": "Full ordered1101/1102; exact food module/model receivers1107/1108 no automatic future ordered credit",
+      "actual_read_ranges": [
+        [
+          1,
+          151
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1106,
+      "sha256": "28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "ranges": [
+        [
+          149,
+          183
+        ],
+        [
+          207,
+          279
+        ],
+        [
+          504,
+          534
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Consumption retained fractional provenance, lot and contamination receiver actual bodies",
+      "actual_read_ranges": [
+        [
+          149,
+          183
+        ],
+        [
+          207,
+          279
+        ],
+        [
+          504,
+          534
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1109,
+      "sha256": "4f06d127e8d7d358ded01b2d1b7eba9116644b53146a476dd780e98344689613",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/4f06d127e8d7d358ded01b2d1b7eba9116644b53146a476dd780e98344689613",
+      "ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Authority fixture digest receiving constructor; no full upcoming original credit",
+      "actual_read_ranges": [
+        [
+          1,
+          35
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1116,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/herbalism.rs",
+      "sha256": "22a0312534bd03b91e900595bd44d7bffe8b159545dfd65c8eccfe207f8cb0b8",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/22a0312534bd03b91e900595bd44d7bffe8b159545dfd65c8eccfe207f8cb0b8",
+      "ranges": [
+        [
+          177,
+          235
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual proportional medicine retained-state/dose receiving body; no future ordered credit",
+      "actual_read_ranges": [
+        [
+          177,
+          235
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1116,
+      "sha256": "22a0312534bd03b91e900595bd44d7bffe8b159545dfd65c8eccfe207f8cb0b8",
+      "ranges": [
+        [
+          236,
+          238
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Close directly adjacent delete_food_medicine receiver",
+      "actual_read_ranges": [
+        [
+          236,
+          238
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1101,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/authority_tests.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              207
+            ]
+          ],
+          "roles": "Existing authority fixture actor/row/lot/object IDs, preparation Action, scope/place/custody, material revision versus retry generation, interrupted/completed states, request digest, numeric conservation observations and guarded reducer bootstrap token.",
+          "disposition": "Distinct identity namespaces/revision/generation and private receipt/public liveness semantics earned, even sameu64. Fixed actor/literal digest inputs are fixtures, not arbitrary production policies. prepare_and_replay boolean means terminal-interrupted versus complete workflow; payload-bearing outcome would communicate role better if retained in shared APIs. Scope/place/custody raw text at fixture entry decodes canonical authorities. Actual request_id constructor1109 frames all identity components with string lengths and stable action code.",
+          "remedy": "Reuse existing typed request/action/scope/custody/revision/generation owners in fixture calls when canonical production migration occurs; no duplicate helper/type for tests and no compatibility raw overload.",
+          "acceptance": "All fixture source consumed, none run or added. Production preparation implementation is upcoming separate full scope; source fixture assertions alone do not prove replay/conservation/terminal behavior. Do not claim feature-gate or bootstrap guard execution."
+        }
+      ]
+    },
+    {
+      "original": 1102,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/consumption.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              99
+            ]
+          ],
+          "roles": "Food/water exposure identity, lot/carrier identity, contribution digest, microbiological dose, consumed BPS fraction, innate/acquired immunity and protected dose; canonical DiseaseId before stable event string.",
+          "disposition": "Event envelope separates raw dose from protected dose and immunity/resistance, matching actual world_event1265 previously consumed051 validation/consequence boundary. Carrier ID broader than foodlotidentity because shared food/water function; do not narrow all toFoodLotId. Disease string literal serializes known Dysentery, not unknown disease authority. dose<=0 alone not finite admission, but downstream canonical event validates numeric envelope; no current/actualNaNclinical outcome established.",
+          "remedy": "Typed exposure/source/carrier sum or existing semantic IDs, canonical dose/magnitude/fraction/immunity roles; stable digest distinct from display/source labels. Carry checked fraction through actual event and medicine ports.",
+          "acceptance": "Preserve actual unresolved/acquired immunity checks, protection source and world-event commit gate; no duplicate direct infection mutation. Current/runtime/alias/unique all pending."
+        },
+        {
+          "ranges": [
+            [
+              101,
+              196
+            ],
+            [
+              198,
+              341
+            ]
+          ],
+          "roles": "Explicit meal versus automatic travel intake policy, signed needs calorie balance, nonnegative requested/available/consumed energy, lot fraction, inventory fraction, mass and contamination concentration; contribution and medicine proportional retention.",
+          "disposition": "explicitbool is domain intake policy, not primitive flag. f32MAX requests all available food rather than physicalcalories literal; bounded actual min prevents raw arithmetic use but semanticlimitowner clearer. Normalized consumed ratio carried naked into unlike BPS/fraction/medicine/provenance APIs. Both actual personal/party workflows guard wanted>0 then boundedratio, conserve lot fields through retain_lot_fraction and canonical measuredfraction scaling. Near-whole cutoff and minimum measured residue are explicit quantization decisions, not proof exact equality of independent floatmass/energy/measuredamount.",
+          "remedy": "Named IntakePolicy and requested energy limit, reuse canonical energy/balance/fraction owners with explicit rounded BPS/native adapters. Share proportional-retention operation across material/provenance/medicine state, retaining mass/energy/value/flavor potency as unlike quantities.",
+          "acceptance": "Preserve bounded traveltozero versus explicitmeal surplus policy, oldestlotorder, exclusion of fireplace-rooted items, actual fractional medicineDose conversion and partial provenance. Existing corefood927/native measurement933 consumed proofs reused; no local execution or actual resource duplication claim."
+        },
+        {
+          "ranges": [
+            [
+              343,
+              369
+            ]
+          ],
+          "roles": "Stomach fullness reset and explicit gateway eating action.",
+          "disposition": "clear_stomach_fullness truncates positive reserve while leaving deficit; signed balance is deliberate, not global nonnegative energy. eat_food checks gateway/living/tactical assignment and ownership later in consume; ordinary explicit action differs travel automatic policy.",
+          "remedy": "Canonical signed calorie-balance operation and typed intakepolicy; keep tactical assignment authority distinct from physiological hunger.",
+          "acceptance": "No unsupported fatigue speedpenalty claim, no inferred per-browserauthorization beyond actual gateway/living/ownership guards."
+        }
+      ]
+    }
+  ],
+  "connected_role_inventory": [
+    {
+      "original": 1107,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/mod.rs",
+      "ranges": [
+        [
+          1,
+          84
+        ]
+      ],
+      "inventory": "Food module/import/include assembly and existing fixture include references; exact full84 consumed, child paths not recursively credited. No independent ordered1107 credit."
+    },
+    {
+      "original": 1108,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/model.rs",
+      "ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "inventory": "FoodLot optional personal/partyrow association, ingredientparallelarrays, flavor/mass/energy/value/quality; private contamination/provenance; request receipt versus attemptcursor; fireplace instrument optionalassociatedpayload and immutable dish input snapshot. Meaningful historical capture vs mutable catalog, and private microbial cause vs public provenance. Product invalid associations representable, actual consumption selects relevant arm; full producer inventory deferred own ordered roles. No independent1108credit."
+    },
+    {
+      "original": 1106,
+      "ranges": [
+        [
+          149,
+          183
+        ],
+        [
+          207,
+          279
+        ],
+        [
+          504,
+          534
+        ]
+      ],
+      "inventory": "Personal/party lot deletion cleans medicine/provenance, typed material revision checkedadd, parallel ingredient amounts retained proportionally, concentrationclock nativekernel, contributionloads/digest updated by consumedratio. Distinct sourceunit provenance vsphysicalmass vsnutrition vsvalue; reuse named fraction/material roles. No whole1106credit."
+    },
+    {
+      "original": 1109,
+      "ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "inventory": "Request hash includes actor/scope/row/lot/object/revision/action/generation/place/custody with length-framed strings; fixed versiontag localformat authority. No whole1109credit."
+    },
+    {
+      "original": 1116,
+      "ranges": [
+        [
+          177,
+          238
+        ]
+      ],
+      "inventory": "Medicine fraction finitechecked/clamped, profile/version/potency checked, standarddose->existingDoseMilliunits rounded once at actual numerical adapter; usedpotency removed or retained, actual1093administer_intervention_component consumes typed dose. Potency and bounded fraction are distinct; repeated primitive fraction propagation candidate, no newduplicateDoseowner. No whole1116credit."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-025-receipt.json",
+        "sha256": "da2167395504955b78e9c36ddd77daeb4b3337f7a00fb6905b77d85b096ddaf4"
+      },
+      "contract": "927corefood full848 intake/retention/contamination/food roles."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-027-receipt.json",
+        "sha256": "871ad0df2778d657e3f880a3444f1c99f36a6d2b9258c12e6a57bb3c11a97b41"
+      },
+      "contract": "933measurement full804 canonical fraction/splitting operations."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-051-receipt.json",
+        "sha256": "4508fffb31dcaefc6f6add5364f45ce2ffc02869ede44688f6cdb633910fecb1"
+      },
+      "contract": "1265world_event283-811/941-1000 actual commit_food_water_infection, numeric envelope/fingerprint/consequence gate; no full future ordered credit."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-065-receipt.json",
+        "sha256": "cc2d8c7e71beb3d585b1f4e1ed6c043dc7e52df02e18703390ddbc78f272d397"
+      },
+      "contract": "1119inventory-container175-220/270-547 exact actual physical object IDs/custody receiver context; reconcile_consumed_row body not claimed read."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-067-receipt.json",
+        "sha256": "e02e209bcb9d7257a2a89762ff62094e269991a6d7e48af1897a8e10b7047e7f"
+      },
+      "contract": "1093direct typed dose component admission and boundary terminal receiver full source."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-064-receipt.json",
+        "sha256": "91c5c0fe2515a9d9782cbc7c18b53148b198e3ad2b331eccd6d26e78bc2b575c"
+      },
+      "contract": "1086full signed nutritional needs state and refresh."
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "All inherited qualifiers and mandatory queues retained; no tests/projectexecution/source/product/Git/rootledger/publication.",
+    "1107/1108 full source read as materially related context, no ordered accounting yet;1103-1106 must independently inventory.",
+    "No deeper unchanged containment/native clinical traversal required for type-role disposition; no graph algorithm/runtime claim or unsupported numericbounds.",
+    "Contamination/medicine/exposure tuples and canonical role gaps preserved as qualified source-key concerns, accepted unique0."
+  ]
+}

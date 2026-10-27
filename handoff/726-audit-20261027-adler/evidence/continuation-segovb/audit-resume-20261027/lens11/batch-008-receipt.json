@@ -1,0 +1,273 @@
+{
+  "at": "2026-10-27T11:23:29.929888+00:00",
+  "lens": 11,
+  "status": "852\u2013855 independently source-accounted with qualified findings",
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-007.json",
+    "sha256": "a7575c4ac0d7701caa8de7fe70d95cd8e2dbedc20055ba5fe55bc7b5c4678de5"
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-008-registration.jsonl",
+    "sha256": "f5c3a83b2dccdfa85e89774f7d9b1451cde6bfdc050eeb1c630aeb7b20bb8ee0"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 852,
+      "source_id": "pr-working:crates/adventuresim-core/src/activity.rs",
+      "sha256": "d8ee276214a67b09ca6571d03b1adce2dc200e6201284a9a8e25b6053aa72a15",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/d8ee276214a67b09ca6571d03b1adce2dc200e6201284a9a8e25b6053aa72a15",
+      "actual_eof": 243,
+      "ranges": [
+        [
+          1,
+          243
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          243
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 853,
+      "source_id": "pr-working:crates/adventuresim-core/src/alcohol.rs",
+      "sha256": "ead3354da78110069cabd335496a7e9ee16125ac302d7dece1d3684b0a1824ef",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/ead3354da78110069cabd335496a7e9ee16125ac302d7dece1d3684b0a1824ef",
+      "actual_eof": 776,
+      "ranges": [
+        [
+          1,
+          426
+        ]
+      ],
+      "scope_kind": "materially_reached_producer_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          426
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 854,
+      "source_id": "pr-working:crates/adventuresim-core/src/animation_pack_id.rs",
+      "sha256": "f5933a0bf3fad1149d1f10c1e16ae4883fa626338fc6aa29723816dc8ae4e317",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/f5933a0bf3fad1149d1f10c1e16ae4883fa626338fc6aa29723816dc8ae4e317",
+      "actual_eof": 43,
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          43
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 855,
+      "source_id": "pr-working:crates/adventuresim-core/src/attribute.rs",
+      "sha256": "a3a9b63b62a8ecc73b592de825f4ac0350567eeb093391bda9fb7f7723a64455",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/a3a9b63b62a8ecc73b592de825f4ac0350567eeb093391bda9fb7f7723a64455",
+      "actual_eof": 164,
+      "ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          164
+        ]
+      ]
+    }
+  ],
+  "material_receivers": [
+    {
+      "kind": "connected-owner",
+      "original_index": 884,
+      "source_id": "pr-working:crates/adventuresim-core/src/body.rs",
+      "sha256": "febe5d8b193afe3cefa2292965bb42c15d4a5d25aef8a2f3c9fea757b3720317",
+      "ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual BodyPart versus limb selector and LimbWeights/health receiving contracts",
+      "actual_read_ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "zero_extra_original_credit": true
+    },
+    {
+      "kind": "new-unchanged-owner",
+      "path": "crates/adventuresim-core/src/attribute/simple.rs",
+      "sha256": "ee811c460ae3fdb00f99b496a86b5dd9e0f9e060f4d210bb1df16d8cb015f5b6",
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual SimpleAttribute selector definition underlying855 typed dispatch",
+      "actual_read_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "zero_extra_original_credit": true
+    },
+    {
+      "kind": "connected-receiver",
+      "original_index": 939,
+      "sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "ranges": [
+        [
+          373,
+          430
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual AnimationPackId typed payload receiver and neighboring sum states",
+      "actual_read_ranges": [
+        [
+          373,
+          430
+        ]
+      ],
+      "zero_extra_original_credit": true
+    }
+  ],
+  "locator_only": [
+    {
+      "kind": "locator-only",
+      "original_index": 939,
+      "sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "query": "AnimationPackId",
+      "prospective": true,
+      "coverage_credit": false
+    }
+  ],
+  "per_role": [
+    {
+      "original": 852,
+      "roles": "ActivityLocation alternatives and Settlement has_inn payload; LocationActivity kind; StrategicMinute versus elapsed minutes/day indexes; raw duration/check/amount/chance ports.",
+      "trace": "All243 lines read. case_site makes current site eligibility from incident/distance facts, not observer ID alias. allows selects real policy; unavailable strings are human diagnostics. Morale/coin/probability formulas have actual different result roles, not justification for one generic numerical owner; tests show intended source examples without execution. Calendar call uses absolute typed minute and explicit elapsed count. No all-reducer/authoritative currentness guarantee.",
+      "disposition": "source-accounted with qualified duration/result question"
+    },
+    {
+      "original": 853,
+      "roles": "TemperancePreference closed behavioral alternatives; NightlyMoraleEffect kind/magnitude/absolute clock; fixed-point AlcoholProperties; independent potable/medical-focus facts; evening identity and interval iterators; scoped supply/demand owner roles.",
+      "trace": "Exact requested1-198/200-426 read with adjacent199 included, not whole776. Actual inventory forecast excludes protected nonpotable supplies, stable-sorts independent instance/catalog/owner axes, decrements whole units against owner-matched demand then computes hydration. Evening iterators bound time intervals to a year, preserve absolute minute versus day/evening semantics, and segment attribution by end-1. Best-disinfectant tuple separates effectiveness value from tie-break identity, returns actual collection ordinal. None/Some effectiveness is actual optional consumed resource; no arbitrary positivity/medical policy inferred. Existing fixture prefix read only, not execution.",
+      "disposition": "source-accounted with qualified ID/unit-role question"
+    },
+    {
+      "original": 854,
+      "roles": "AnimationPackId open authored identity, Cow borrowed constants/owned dynamic strings, Serde string boundary.",
+      "trace": "All43 lines read and actual item schema939373-430 proves Weapon optional animation_pack typed payload distinct from handling/carry/attack style. Borrowed canonical IDs and owned arbitrary authored identities share same namespace; an open newtype is useful even without numeric/string restrictions. Do not replace by enum limited to two constants or add unsupported name syntax policy. Handwritten Display/Debug derivability is another lens, not reason to erase identity.",
+      "disposition": "source-accounted; actual namespace distinction justified"
+    },
+    {
+      "original": 855,
+      "roles": "PlayerAttributeValues shared framework-neutral record; Attribute::Limb/::Simple with actual selector payloads; LimbAttribute strength/agility; SimpleAttribute seven canonical kinds; body-part health and LimbWeights.",
+      "trace": "Full164 lines read plus exact unchanged simple26 and body8841-179. SimpleAttribute maps to actual chest/stomach/head, limb aggregation weights only four limbs, so the two attribute families are genuine distinct selectors rather than arbitrary enum-of-numbers. Framework trait permits transport/ECS metadata without duplicate value record. Raw conditioning/check magnitude and raw health/weights remain different semantics; no new0..5 leaf bounds from prose alone. LimbWeights zero-default normalize can divide by zero as source API fact, but no ordinary normalization caller/runtime witness or accepted operations-family alias asserted here.",
+      "disposition": "source-accounted with overbroad limb selector finding and inherited raw-magnitude qualification"
+    }
+  ],
+  "qualified_observations": [
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/attribute.rs@a3a9b63b62a8ecc73b592de825f4ac0350567eeb093391bda9fb7f7723a64455#raw_limb_attr-BodyPart",
+      "observation": "The limb-only PlayerAttributes::raw_limb_attr and LimbWeights::by_part accept full BodyPart (four limbs plus Chest/Stomach/Head). Actual PlayerAttributeValues implementation has only four valid Strength/Agility cases and maps all other pairs to0; body884 confirms those extra selectors exist. Ordinary aggregate iterates BodyPart::LIMBS correctly. This is an overbroad representable API state, not a witnessed ordinary wrong-part call or runtime panic.",
+      "remedy": "Reconcile canonical existing limb/body selector owners; make actual limb-only ports take a four-limb role, with explicit widening to BodyPart where whole-body health is needed. Keep SimpleAttribute and LimbAttribute alternative payloads; do not invent additional value ranges or a duplicate generic enum wrapper.",
+      "acceptance": "Actual limb-only attribute/weight ports cannot accept head/chest/stomach; whole-body health remains broader and valid ordinary strength/agility aggregation preserved.",
+      "dependencies": [
+        "existing body/attribute/granularity finding alias reconciliation",
+        "current canonical owner and caller comparison"
+      ],
+      "currentness": "Frozen only, no accepted unique finding"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/alcohol.rs@ead3354da78110069cabd335496a7e9ee16125ac302d7dece1d3684b0a1824ef#EveningIds-ScopedAlcoholSupply",
+      "observation": "Absolute StrategicMinute is typed, but evening/day identities, liquid millilitres, ABV basis points, concrete supply IDs, character IDs, catalog item IDs and coin amounts remain same raw integer/string representations across public/retained ports. Their actual uses differ: nightly boundary conversion, demand-owner matching, stable supply ordering and catalog sorting. Option<u64> already expresses shared versus character-owned inventory with payload; no evidence it needs invented third state.",
+      "remedy": "Reuse canonical existing identities, strategic elapsed/date roles, fixed-point fraction/volume/currency owners at internal ports; preserve distinct item-definition versus concrete-instance versus character namespaces and actual fixed-point arithmetic boundary. Share scaling validation without one generic scalar erasing roles.",
+      "acceptance": "Actual owner/demand/nightly-history and quantity operations distinguish these roles; preserve exact deterministic ordering and existing work bound, no invented numeric policy.",
+      "dependencies": [
+        "inherited inventory ID/key/currentness questions, no unproved alias",
+        "other-lens admission/physical/fixed-point master findings"
+      ],
+      "currentness": "Qualified frozen source; no runtime wrong-ID witness or accepted uniqueness"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/activity.rs@d8ee276214a67b09ca6571d03b1adce2dc200e6201284a9a8e25b6053aa72a15#activity-duration-result-roles",
+      "observation": "Public activity numerical ports pass raw minutes/hours, attribute check results, population scale, morale/infamy changes, coin amounts and probabilities although these have different units/result meanings. ActivityLocation/LocationActivity are already meaningful policy sums; Settlement owns has_inn fact and allows uses it only for carousing.",
+      "remedy": "Reconcile canonical strategic duration/amount/probability/attribute-result owners; use actual units at application ports and keep numerical formulas local. Do not replace check-result scales with unit fractions or impose numeric bounds from comments alone.",
+      "acceptance": "Supported activity ports retain actual unit/result distinction, location authority stays shared between execution/presentation and native calendar conversion remains explicit.",
+      "dependencies": [
+        "existing strategic/activity/physical granularity master reconciliation",
+        "currentness and actual caller/schema population"
+      ],
+      "currentness": "Frozen scoped source only, no accepted unique finding"
+    }
+  ],
+  "new_material_extensions": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-core/src/attribute/simple.rs",
+      "sha256": "ee811c460ae3fdb00f99b496a86b5dd9e0f9e060f4d210bb1df16d8cb015f5b6",
+      "material_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "mandatory_other_lenses": true,
+      "provenance": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-008-receiver-staging.json",
+        "sha256": "a4724a58b8c8a1c986e4e25212ec05f67d7a7ebc5a8c85a6ffe9724929154663"
+      },
+      "zero_extra_original_shared_credit": true
+    }
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer. Preserve180/181nativeSDK/Bevy scheduling/imagecopylimits andallpendingreceiverqueues. M04current903reviewsseparate; notfrozenoriginal/lenscounts. Packet182InventoryItemId graph erasure, catalogkey/recordidentity and wear/order-selector sourcequestions retained, alias/currentness/unique acceptance unresolved. M04build-target review003 atdf5 andhostedCIseparatefromfrozenauditcounts. 184 newpublicDrapedPiece association/sourcegroupingquestion remainsfrozenlocal, noalias/currentness/uniqueacceptance; producerpathcoherent. M04df5validationseparate. 185 capacityreservationstaticAPIgap retainedasfrozenevidence only; alias/currentness/accepteduniqueness unresolved. No runtimewrongID orauthoredcurrentinputwitness. ExistingID/key/wear/savedassociationquestionsremainqualified. Packet186 independently accounts existing test-source812 only; fixture expectations are not observed execution/whole authored catalog/native guarantees and do not clear185 capacity witness. Existing lower-pattern fixture uses canonical owners; no new current alias or unique finding. Packet187 original813 only. New frozen inventory_ui and catalog wrapper material extensions mandatory other lenses, zero extra shared/original credit. UI acquisition is not atomic/all-worn; inherited capacity, typedID erasure/key authority and public saved-association questions retain all currentness/alias/unique limits.",
+  "source_accounting_not_clearance": true,
+  "accepted_unique_count_change": 0,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_adoption_required": true,
+  "read_limits": [
+    "853 only1-426; remaining427-776 outside this materially reached original scope, no whole-file claim.",
+    "Body884 connected179 lines does not earn ordered884 credit; schema939373-430 only actual reached weapon identity receiver.",
+    "No current source/alias reconciliation or all-caller/runtime guarantee; absence of a new local finding is not global clearance."
+  ],
+  "restrictions": "No product/Git mutations/root ledger/project execution/scans/probes/tests/new tests/publication."
+}

@@ -1,0 +1,295 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "172",
+  "predecessor": "receipt-171-originals913-919.json",
+  "sources": [
+    {
+      "original_index": 920,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment.rs",
+      "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "actual_eof": 1182,
+      "actual_ranges": [
+        [
+          1,
+          1182
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              1182
+            ]
+          ],
+          "role": "Full1182 read in four bounded chunks. InputAddressMapping.input staticstr27 ->all twenty native-key spellings52-189 mapped to typed EquipmentLocation/EquipmentChannel, actual client/native key admission callers unread; finite key owner fit pending, not constants exemption. EquipmentGraphEdge.attachment_point_id String211 retained/order/equality via BTreeSet241/257, actual811 point.id222 ->GraphEdge and children_on229 earlier read, canonical attachment owner/all ingress pending. equip Resultstaticstr220 ->failures222/239/243/255/258/266/275, unequip281 ->283; explicit finite graph error state remains raw text across API, actual UI/reducer wrappers pending. weapon_skill_distribution_for_item rawitem_id460 ->actual item_catalog::weapon_skills461, canonical item/catalog owner pending. Existingtests675-1182 nativeJSON fieldnames sword702/throw703/throw_skill704, actual item IDs longbow806/hand_axe813/halberd820/unknown826 ->460; key equality t943/backtick955/g,y,h,v,b971-975 and w/a/s/d986 actual finite input mapping comparisons. Human expect913/944/956, human diagnostics982/991/1000/1122; attachment point fixtures left/right1031/blade1040/contents1063/strap1107/1117/loop1128 ->actual retained edge1008/1078 and graph comparison; error text oracle1120/1131/1165 not BC requirement. Numeric/typed skill/armor/trait bodies consumed without numeric or broader behavior verdict.",
+          "disposition": "Source-accounted WITH explicit exact producer/native/recipient limits."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 921,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment/timing.rs",
+      "sha256": "2d07455dadf2a1893ef4a3867f0b5ada5170e81c3a279d347ee86c1cc6ab4dfd",
+      "actual_eof": 97,
+      "actual_ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              97
+            ]
+          ],
+          "role": "Full97 typed MeleeAttackTiming9/AnimationElapsed10-11/ElapsedResult21 actual owner imported/reexport92018; no production string API/literal. Existing fixture labels fists52/knife cut54/knife thrust61/sword68/mace75 ->human assertformat85 only; actual style/inertia typed inputs83. No runtime/test execution or numeric proof.",
+          "disposition": "Source-accounted WITH explicit exact producer/native/recipient limits."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 922,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment_assets.rs",
+      "sha256": "0c7bd7e45c9a145954daf97ac6f0c2caa23bda96e9731a5ff033a2a3ce4a9365",
+      "actual_eof": 107,
+      "actual_ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              107
+            ]
+          ],
+          "role": "Full107: native GLB_EXTENSION glb9/MHR release v1.0.111 ->manifest mhr_releaseString17; raw native manifest fields armor_design_hash24/file28/item_id29/placement_id32/surface_uv_domain34. from_json rawsource48 ->Serde49 ->CatalogItem::find53 and placement59 canonicalowner923; unknown item/placement and duplicate diagnostics55/61/68 constructed serde_json::Error causeclassification raw/narrow typederror candidate pending actual all error receivers. Rawfile73 retained EquipmentAssetEntry.file40 ->file_for89/93/default_file_for97/101 concrete file boundary readers not consumed. Actual sort79-85 lexical pair IDs; no BC nested-map preservation constraint from comment76. Unconsumed manifest release/hash/domain consumers and nativeSerde/path APIs explicit.",
+          "disposition": "Source-accounted WITH explicit exact producer/native/recipient limits."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 923,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment_assets/selection.rs",
+      "sha256": "162b898d78feeae3507d19844b4b11c999c50edd7609680e5ef7c2fac89486d6",
+      "actual_eof": 170,
+      "actual_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              170
+            ]
+          ],
+          "role": "Full170: CatalogItem private actualrecord12, find rawexternal id41 ->record ID equality44 first matching record; admit49 actualptr52, all36 retains everyrecord. CatalogPlacement privateitem/placement20-21, placement rawkey61 ->exact placement.id63, find externalpair114 ->two checked lookups115. OwnedCatalogPlacement Arcdefinition28/ordinal29 ->retained_placements80 clones snapshot86 and allocates actualordinal87-90 ->selection101 indexes same snapshot104/107. Pointer Eq129/143/Hash137/152 defines recordidentity distinct equal text. Exact actual922admission and prior typed CLI/export selection calls now canonical owner consumed, no blanket catalog validation/native admission/allcaller verdict. Duplicate-ID authored policy remains qualification, no BC requirement.",
+          "disposition": "Source-accounted WITH explicit exact producer/native/recipient limits."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 924,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment_presentation.rs",
+      "sha256": "7e48b429725c7241c26a7f4f83f3306b0b6c0372240e0c2e8310249ebf6ebe97",
+      "actual_eof": 48,
+      "actual_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              48
+            ]
+          ],
+          "role": "Full48: PresentationId publicString7/nativeSerde6 claims decimal transport5 but type has no grammar admission; source-proven generic raw payload/API not complete decimalcontract. EquipmentAppearance itemString12/placementString13 and AppearanceAnchor Attachment.pointString33 retainedsemantic IDs; existing CatalogItem/Placement923 own actualcatalog record but transport DTO native boundary/actualproducer+admission still unread, cannot blindly borrow pointer identities acrosswire. GeneratedAppearance.design_hashbytes40/recipebytes41 distinct rawStringmanifest92224. Parent PresentationId32 retained typed. Actual HTTP/Bevy producer/reader/decimal native JSboundary pending.",
+          "disposition": "Source-accounted WITH explicit exact producer/native/recipient limits."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 925,
+      "source_id": "pr-working:crates/adventuresim-core/src/essential.rs",
+      "sha256": "3d1b91f2f3bd1d9ffaeaa98eb8cf921fcbfee807aba9fd8bd16ca762448a10e0",
+      "actual_eof": 40,
+      "actual_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              40
+            ]
+          ],
+          "role": "Full40 no raw string literals/fields/params/returns; native blanket/ambassador attribute AST only, typed trait/numeric methods15-38. Actualcombat/strategic consumers earlier scoped; no numeric/current/global verdict.",
+          "disposition": "Source-accounted WITH explicit exact producer/native/recipient limits."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    }
+  ],
+  "connected_findings": [
+    {
+      "id": "L12-172-equipment-graph-identity-errors",
+      "source_indices": [
+        920
+      ],
+      "ranges": [
+        [
+          25,
+          37
+        ],
+        [
+          197,
+          318
+        ]
+      ],
+      "finding": "Equipment graph attachment point identity remains String in retained edges, finite graph failure variants are raw static text, and finite equipment input keys use raw strings. Exact native key boundary, canonical attachment owner and actual error/API consumers remain unread.",
+      "remedy": "Carry appropriate attachment/open identity and typed graph errors; decode native key once into owner at actual input producer.",
+      "acceptance": "Consume actual key producers, attachment schema/admission and graph error wrappers; retain native boundary only at actual necessary port.",
+      "unique_count_delta": 0
+    },
+    {
+      "id": "L12-172-equipment-manifest-presentation-ports",
+      "source_indices": [
+        922,
+        923,
+        924
+      ],
+      "ranges": [
+        [
+          13,
+          40
+        ],
+        [
+          48,
+          101
+        ],
+        [
+          5,
+          34
+        ]
+      ],
+      "finding": "Actual JSON loader admits item/placement strings to canonical catalog selection, but other manifest semantic hash/domain/release fields and presentation item/placement/attachment point strings cross retained APIs without proven canonical producer/admission. PresentationId decimal claim is not constructor enforcement.",
+      "remedy": "Use correct canonical owners through firstparty APIs and explicit native DTO conversion at actual transport/path boundaries; typed manifest error causes instead of early custom text where caller requires semantics.",
+      "acceptance": "Read actual producers and all transport/render/file consumers; distinguish borrowed record identity from stable serialized IDs and native open text.",
+      "aliases": "Prior export/catalog/attachment/manifest/presentation candidates may alias; no unique promotion.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actual native keyboard mapping producers/recipients, catalog/schema attachment point owner/all graph consumers/error boundaries.",
+    "Native manifest file/release/hash/domain and presentation decimal/item/placement/point producer/transport/renderer admission; actual catalog schema validation and all canonical selection callers.",
+    "Mandatory own independent REG132/134-136, prior semantic/native/caller contracts remain pending."
+  ],
+  "qualifications": [
+    "All six prospective exact scopes independently consumed in full including existing tests; no search/hash-only clearance.",
+    "Frozen exact requested variants only; no BC/native/runtime/current/unique/other-lens/global promotion. All20/P16/P17/F9/M09/aliases/separate populations retained."
+  ],
+  "proposed_count": {
+    "before": 920,
+    "after": 926,
+    "indices_completed": [
+      920,
+      921,
+      922,
+      923,
+      924,
+      925
+    ],
+    "next_original": 926,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment.rs",
+      "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "ranges": [
+        [
+          1,
+          1182
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment/timing.rs",
+      "sha256": "2d07455dadf2a1893ef4a3867f0b5ada5170e81c3a279d347ee86c1cc6ab4dfd",
+      "ranges": [
+        [
+          1,
+          97
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment_assets.rs",
+      "sha256": "0c7bd7e45c9a145954daf97ac6f0c2caa23bda96e9731a5ff033a2a3ce4a9365",
+      "ranges": [
+        [
+          1,
+          107
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment_assets/selection.rs",
+      "sha256": "162b898d78feeae3507d19844b4b11c999c50edd7609680e5ef7c2fac89486d6",
+      "ranges": [
+        [
+          1,
+          170
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment_presentation.rs",
+      "sha256": "7e48b429725c7241c26a7f4f83f3306b0b6c0372240e0c2e8310249ebf6ebe97",
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/essential.rs",
+      "sha256": "3d1b91f2f3bd1d9ffaeaa98eb8cf921fcbfee807aba9fd8bd16ca762448a10e0",
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ]
+    }
+  ],
+  "unique_count_delta": 0
+}

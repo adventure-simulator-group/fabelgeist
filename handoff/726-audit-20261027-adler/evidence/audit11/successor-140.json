@@ -1,0 +1,37 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-140",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 752,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_tasset_sections.wgsl",
+      "sha256": "25e8e4bad34876c629cbe03e94881db6f908393e145312d6e73ea6ad3e4665fd",
+      "ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "assessment": "Full79 exact unchanged reached shader body read after hash match. Native parameterized profile combines point/triangle collections and writes packed measured/fit slots; actual kernel checks hull vertex count before output. Source buffer offsets/capacity and measured-section count still need host producer contract Q009, not proven merely by shared helper750. Scalar section counts are intrinsic numerical kernel values. No ordinary range failure or physical/runtime/current-main/other-lens clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 753,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_torso.rs",
+      "sha256": "78af7acbb8b527b1d3f6ee10c15b101334e9423e7da77ad40283325c2e9579a5",
+      "ranges": [
+        [
+          1,
+          342
+        ]
+      ],
+      "assessment": "Full342 actual source read in two windows after hash match. TorsoSurfaceInput public associated geometry/rig/morph arrays retain Q009 despite local count checks and canonical joint bounds. Actual LANDMARKS and JOINT_PARAMETERS each nine slots and landmarks maps exact owning array; this provides local index bound, though semantic parallel constant mapping is Q008. TorsoOutputs named buffer roles improve field meaning, not device/shape validity. Entry/groups and bit/message tables remain semantic record/error classifications Q008; final external dispatch grid is native. Source substring binding matches generated WGSL grammar, not human prose. No current-main/runtime/physical/global or accepted unique finding.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

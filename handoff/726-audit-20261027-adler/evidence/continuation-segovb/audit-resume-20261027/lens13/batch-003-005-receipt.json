@@ -1,0 +1,182 @@
+{
+  "at": "2026-10-27T10:32:32.904973+00:00",
+  "lens": 13,
+  "scope": "Original36 remaining native conditional host/selected UV_B receiver and explicit unsupported/default outputs; propose source-accounted WITH observations",
+  "original_authority": {
+    "path": "target/recovery-20261025/audit05/original-scope-072.json",
+    "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "original36": {
+    "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/io_types.wgsl",
+    "sha256": "3529f71ec77f88963ee969691ef2dd2f871abf490a8a4beed073b98ff10974b9",
+    "full_effective_scope": [
+      [
+        1,
+        48
+      ]
+    ],
+    "independent_prior_body_inventory": {
+      "path": "target/recovery-20261025/continuation-segovb/audit13-successor-016.json",
+      "sha256": "70ff7123dab069b3c7c0a660c2f97ff15b3e0e05378fd3b13e4f0766ad7b885e"
+    },
+    "no_original_body_restart": true
+  },
+  "registrations": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-003-registration.json",
+      "sha256": "be64fa651ce36be744aed8881e9d95b576412f37b655f5d7dbce2d52aeb6c95b"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-004-registration.json",
+      "sha256": "b70f7e167df9a63d45d6839e920910998a626e2e1e60395da389f72f1f9a4792"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-005-registration.json",
+      "sha256": "c8cf8a195c86f030e250216f2ec2f975f95c2b0455140fffc07cabb471def7eb"
+    }
+  ],
+  "new_consumed_sources": [
+    {
+      "source_id": "native:bevy_pbr@0.19.1/src/render/mesh.rs",
+      "sha256": "cbff0dce6bc230b273b73a531d8c52dae05fb852a00af0c2cd8c79dc57d4ef3a",
+      "actual_consumed_ranges": [
+        [
+          3217,
+          3450
+        ],
+        [
+          3451,
+          3705
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass.rs",
+      "sha256": "d375436ca9d226ccb6fbc5b65afcaf94a6b9c3e4bfa90fc1016da8cb958a7281",
+      "actual_consumed_ranges": [
+        [
+          234,
+          295
+        ],
+        [
+          549,
+          691
+        ]
+      ]
+    },
+    {
+      "source_id": "native:bevy_mesh@0.19.1/src/mesh.rs",
+      "sha256": "ec29f4f6a1c1363092a912fe33d9556f9080d345ee84b74b264906926c7f4b02",
+      "actual_consumed_ranges": [
+        [
+          253,
+          335
+        ],
+        [
+          350,
+          395
+        ]
+      ]
+    },
+    {
+      "source_id": "native:bevy_mesh@0.19.1/src/vertex.rs",
+      "sha256": "0aebebe5528b2733381726ada9d08fe0fdcc6345266c22e78cdfe897ad15b2c0",
+      "actual_consumed_ranges": [
+        [
+          1,
+          155
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass.rs",
+      "sha256": "d375436ca9d226ccb6fbc5b65afcaf94a6b9c3e4bfa90fc1016da8cb958a7281",
+      "actual_consumed_ranges": [
+        [
+          441,
+          548
+        ]
+      ]
+    },
+    {
+      "source_id": "native:bevy_mesh@0.19.1/src/mesh.rs",
+      "sha256": "ec29f4f6a1c1363092a912fe33d9556f9080d345ee84b74b264906926c7f4b02",
+      "actual_consumed_ranges": [
+        [
+          396,
+          426
+        ]
+      ]
+    }
+  ],
+  "field_reconciliation": [
+    {
+      "field": "Vertex position/normal/UV_A/UV_B/tangent/color locations0-5",
+      "actual_trace": "Exact native MeshPipeline::specialize3297-3327 tests eachactualMesh attribute and pushes corresponding flag plus location. Actual Mesh constants give Float32x3 position/normal,Float32x2 UVs,Float32x4 tangent/color; insert_attribute->try_insert_attribute obtainsvaluesformat and panics on mismatch before retainingtypedmeshattribute. Actualget_layout copies storedformat/offset torequestedshaderlocation, returnsmissingattributeerror. Eidolon128 delegatesactualowner then188-228 instancebuffer layout asretained016. No universalcustomlayoutfield mutation guarantee."
+    },
+    {
+      "field": "UV_B actual firstparty grass role",
+      "actual_trace": "Exact grass_tuft_mesh257..295 builds blade grid and invokes ribbonmesh; fullfunction441-689 nowconsumed (composed priorbatch ranges). Positions/normals/UV_A/rootoffsetpairs/colors collected; grassblade_roots are [offset_x,offset_z] in localtuftxzmetres. Actualinsert_attribute UV_1 storespairs. Materialselectsgrassvertex; its actualVERTEX_UVS_B branch65-67 reconstructsblade_root_local andtransformsworld at72. Concrete producer->retainedMesh->nativeformat/conditionalflag->selectedshader recipient, not name-only native exemption."
+    },
+    {
+      "field": "SKINNED joints/weights locations6/7",
+      "actual_trace": "Bevyis_skinned3217-3219 requiresjoint index+weight attributes together. setupmorphandskinning3238-3277 addsSKINNED andindexat offset6/weightat7. Constants MeshIndexUint16x4 andWeightFloat32x4; integerfetch canfeed WGSLvec4u32 scalar role. Nativeget_layout usesstoredformat, M override remainsactualexternal shaderboundary. Prior016 fullDefaultvertex1-60 doesnotconsumejointindicesorweights despite conditionalVertex declarations/TODO. Source-backed unsupported/defaultskinning consumer gap recorded; not unexploredconsumer or silentlydroppedconditional variant. No active skinning/current visual witness."
+    },
+    {
+      "field": "Instance input locations8-12",
+      "actual_trace": "Retained016 actualinstanceformat/sizeofstride/offset source proof plus resumegrassproducer/selectedi_seed receiver; indexordinaltransport is nativepublicinterface, exactdefault/grassshaderdoesnotreadindex. Customshaderfunctions are explicit nativegenericextensionboundary; unknownapplicationsemanticadmission/currentness not silentlycleared."
+    },
+    {
+      "field": "VertexOutput clip/dither/world/normal/UV/tangent/batch",
+      "actual_trace": "Retained016 actualDefaultvertex assigns namedoutputs andselectedDefaultfragment readsbatchcolor/dither. Own022 actualBevyPBRditherbody source proof reused for declaredsigneddither receiver. Custom grass overridesoutputtype andmarksflat selectors. Floating matrices/vectors nativegraphics numericalports, sourcecount notGPUbyte/driver/activationcertification."
+    },
+    {
+      "field": "VertexOutput.local_pos and integerbatch varying",
+      "actual_trace": "Full016 Defaultvertex/defaultfragment previouslyindependentlyread show no explicitlocal_pos assignment/use despitedeclaredvec3f varying. This is a source-backed missing defaultproducer/meaning, not needprove arbitrarycustomM absence. Existingoutputi_batch_id integerhasno explicitflat attribute insharedtype; retainas conditional WGSLinterface-validation concern, not assertedactualshaderrejection becausecompiler/drivervalidationnotrun/read."
+    }
+  ],
+  "new_material_numeric_inventory": [
+    {
+      "source": "bevy_pbr mesh3217-3705",
+      "roles": "NativefeatureBoolkeypredicates, MSAA>1/motion/prepass/tonemap/formatselectors, rawoffset6/+1 andattribute locations0-7, numericshaderdef blur taps4/8/16/32, stencilmask0/depthbias0/0.0/multisamplemask!0/count; semanticnativepipeline-state enums andgraphics layout areactualreceivers. All featurebranchesread, not genericname-basedexemption. No wholewidget/UI/lightkernel/inputflagproducer audit; additional structs3664-3705 typedbindgroupregistry context only."
+    },
+    {
+      "source": "bevy_mesh mesh253-335/350-426 +vertex1-155",
+      "roles": "NativeattributeIDs0-7 throughMeshVertexAttributeId, formatsFloat32xN/Uint16x4, optionalAABB/Boolraytracing context, actualnumeric shaderlocation u32 argumentandstoredBufferAddress; nativeget_layout dynamicattribute index discoveredbyposition overparallel layout invariant. Publicconstructor acceptsarbitraryparallelvectors, so no universalindexsafe guarantee is inferred. Bodyformatcheck concreteadmission/panic, not user-facingbusinessvalidation."
+    },
+    {
+      "source": "grass234-295/441-689",
+      "roles": "Meshsideusize/rawdensity/Gridindex divisions/modulo/nativevectorgeometry/metres/radianangle; RNGfractions, jitter.46/clump.31/.17/.8/height.50..1.30/width.62+.76. rowslen*2+1/triangles*3/capacityproducts/positionslenasu32/indexarithmetic unchecked nativecounts. Rawtuple geometry, constantsstem.0025/branchscales/spikeletdistances/localframeUVs/ribboncubic/taper/age/senescence/pigment/luminance coefficients are authored/tuningvalues requiring owningcontract, not blanketauthored exemption. Actualgeometry/index/Float32array handoffnativeMesh. Configsideonlynonzero impliesuncheckedgrid_side*grid_side multiplication concern; nativeacceptancebounds notproven."
+    }
+  ],
+  "source_observations_noncounted": [
+    "NativeSKINNED declared/admittedbutDefaultvertexdoesnotapplyskininputs; source-backedmissingoperation, activation/currentness/uniquealiaspending.",
+    "local_pos varying hasno explicitdefaultassignment despitepositionname; source-backeddefinitionproducer mismatch/undefinedapplicationmeaning; no zero-init/compilerpromise inferred.",
+    "Nativeinteger varyingflatannotationvalidation andpublicMeshVertexBufferLayoutparallelvectorinvariant retainedqualifiedconcerns, no currentruntimeclaim.",
+    "Additionalgrassmeshcapacity/indexproductsandgrid_side*grid_side have no admissionbudget inreadconfig; source concern notactualallocationfailurewitness."
+  ],
+  "disposition": "Original36 all48 requestedlines plus everyconditionalvariant independently inventoried016 and materialhost/recipient obligations now source-assessed or recordedwithconcrete source-backedmismatch. Propose source-accounted WITH findings; unknowncurrentness/runtime/driver/generatedmacros/genericcustomM verification separateacceptance, notconditionforinventingallcustomsource or reopeningclosedproof.",
+  "accounting": {
+    "original_before": 37,
+    "original_proposed": 38,
+    "newly_accounted": [
+      36
+    ],
+    "partial": [
+      31,
+      39
+    ],
+    "earliest": 31,
+    "first_never_started": 40,
+    "overlays_increment": 0,
+    "merged_increment": 0,
+    "old_shared_increment": 0,
+    "new_unique": 0
+  },
+  "limits": [
+    "Lock-matching bevy_pbr/bevy_mesh0.19.1 cachedarchive checksum/member bytes independentlyverified; theseadditionalnativefilesnotclaimedunseenfrozenmemberidentity. Samepackageprovenance only, no wholeSDK read.",
+    "No local project/toolchain execution/tests/probes/source/Git/rootledger/history/publication or repairs.",
+    "Default/shaderbodymatching sources retainedfromown016/022; no another-lens verdict orrolecredit transfer. Actualrootadoptionrequired."
+  ],
+  "continue": "Continue31 delegatedallocator/API recipient disposition and39nativehandoff, then40+; do not stopatthispacket."
+}

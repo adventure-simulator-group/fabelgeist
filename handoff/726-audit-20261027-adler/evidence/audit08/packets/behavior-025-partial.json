@@ -1,0 +1,161 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-025-PARTIAL",
+  "lens": "08 behavior-preservation",
+  "completed_original": [
+    1499
+  ],
+  "partial_original": [
+    1498,
+    1500
+  ],
+  "source_pins": [
+    "source-pins-and-scope-030.json",
+    "support-pins-combat-clock-031.json",
+    "support-diff-combat-clock-032.json",
+    "support-pins-old-facing-lunge-033.json",
+    "support-pins-attack-admission-034.json",
+    "support-pins-timing-policy-035.json"
+  ],
+  "source_reads": {
+    "916": [
+      [
+        63,
+        96
+      ]
+    ],
+    "1776": [
+      [
+        1,
+        110
+      ]
+    ],
+    "1858": {
+      "head": [
+        [
+          1,
+          193
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          281
+        ]
+      ]
+    },
+    "1789": {
+      "head": [
+        [
+          1,
+          432
+        ]
+      ],
+      "base_deadline": [
+        [
+          1,
+          40
+        ]
+      ],
+      "actual_diff": "Pinned457; not separately read; full head/base personally read, old moved state functions2490-2630 compared. No whole1789accounting."
+    },
+    "old_state_base": [
+      [
+        2490,
+        2630
+      ]
+    ],
+    "old_combat_base": [
+      [
+        1,
+        110
+      ]
+    ],
+    "1767": [
+      [
+        1,
+        18
+      ],
+      [
+        70,
+        98
+      ]
+    ],
+    "1781": [
+      [
+        1790,
+        1838
+      ],
+      [
+        1840,
+        1930
+      ]
+    ],
+    "2035": [
+      [
+        35,
+        108
+      ],
+      [
+        150,
+        215
+      ],
+      [
+        271,
+        393
+      ],
+      [
+        425,
+        490
+      ]
+    ],
+    "1775": [
+      [
+        1,
+        86
+      ]
+    ],
+    "1891": [
+      [
+        1,
+        41
+      ]
+    ],
+    "2036": [
+      [
+        1,
+        175
+      ]
+    ],
+    "1499": {
+      "head": [
+        [
+          1,
+          201
+        ]
+      ],
+      "addition_diff": [
+        [
+          1,
+          207
+        ]
+      ],
+      "body_identity": "Exact201addedlines==pinnedhead; onlysixmetadataheaders."
+    }
+  },
+  "comparisons": [
+    "1499contact_arrival compares original surface closure and1e-5 tolerance before calling same melee_lunge geometry (old/new gap/window/quickstepbranch and max0 unchanged). Actual core arrival preserves acceleration/time/sqrt/order/quickstepduration+safety on finite arriving path. Old infinite nonarrival sentinel becomes CannotArrive and this acquisition returnsNone; ordinary swings without selected target use NotNeeded and original authored max/delay kernel. Rejected nonfinite computed arrival is explicit checked elapsed policy; no fabricated far-target arithmetic failure.",
+    "AnimationSampleRate stores original frequency word; reciprocal is hertz.recip and interval getter retains that once-admitted value. animation_ticks still max(interval),multiplyHz,round,native saturatingu64; delay_ticks still max0,multiply,round. Product overflow now Err before deadline and native Duration conversion now checked TryFrom without cap; these are declared finite/native-boundary policy differences, not asserted bitidentity for invalid/extremeoldinputs.",
+    "MeleePlaybackTiming preserves continuation source fallback, delay/contact/end operand order and sum-beforequantization; tick.saturating_add is actual u64saturating native operation (no wrap-to-past), an explicit extremeclock policy change from prior +. Contact-from-input actual count conversion f32 before divisionHz and saturatingsub unchanged. Original700/732 continuation0.5/noncontinuation0.3 fixture moved unchanged numericoracle.",
+    "1499 on_attack_fired_hook calls same entity/Main/nonalternate request and resources; new errorwarn consumes ownederror, doesnotpublish after failure. Actual1500prepared state read proves fallible timers/deadlines are prepared before skeleton begin and event trigger; no allocation/nativeIO transaction promised.",
+    "1498 body facing lower kernel same yaw extraction, wrapped shortest delta/stablepositivePI, quotient->elapsed product->PIcap order, zero/missing direction policy. Native quotient may transiently overflow before cap, deliberately not retained as admitted speed. New rotation admission occurs only at final yaw; rejected nonfinite result leaves localOption+Transform unchanged. Configured halfturn/camera/travel/downed formulas same.0.05stationary predicate confirmed exact canonical constant. All moved player-facing fixture inputs/oracles found unchanged in1789current343-432; no tests executed.",
+    "1500new incap gates are real added prediction admission. Actual skeleton action_admission only checks downed/posture; do not mistake it for incap gate. Actual2035defender gate is defender-only, no attackproof. Actual melee start recovery delegates2036incap-adjusted schedule andNone rejects before publication; exactlowerpolicy and ranged implication remain pending."
+  ],
+  "remaining": [
+    "1500/1498 finish explicit incap-gate intendedpolicy vs frozen base/native recovery owner and latestfindingaliases; no ordinaryvalidregression claimed",
+    "Remaining scalar wrapper return/native Timer convention can reuse exact own916 elapsed proof; no blanket nativeengine/attackfamily clearance"
+  ],
+  "new_unique_findings": [],
+  "completed_disposition": "1499 complete source comparison WITH listed zero/fullclock/overflow/nativeDuration and remainingparent-integration qualifications. Other supports not counted as whole original roles.",
+  "global_clearance": false,
+  "execution": "Source-only; no product/Gitmutations or localprojectchecks."
+}

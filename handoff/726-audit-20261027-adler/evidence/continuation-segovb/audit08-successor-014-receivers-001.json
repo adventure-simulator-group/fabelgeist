@@ -1,0 +1,419 @@
+{
+  "id": "SEGOVB-CONT08-SUCCESSOR-014-RECEIVERS-001",
+  "created_utc": "2026-10-27T01:39:23.818369+00:00",
+  "lens": "08 behavior-preservation",
+  "scope": "Append-only narrow014 provenance recovery and parent/JSON receiving trace. No full1793 reread, original1794 body access, native/generator broad expansion, root-ledger/history overwrite or implementation change. Stop at actual delegated planning/composition/admission frontier.",
+  "inputs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-014.json",
+      "sha256": "f2507f732b006fd9f22a56cfc8d81dbe114e172ae8783402608f7b12da643d07"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-014-proposed-state.json",
+      "sha256": "d87895ba87181df91b2eab3334b18bdfd084e31ba7a6f6fcdffab5f59d512ef7"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-014-completion-provenance.json",
+      "sha256": "beedab03b65576a665b0318b5d7618a971fb57acbcf5e2ce6e8d8e935ab4548f"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-014-completion-registration.json",
+      "sha256": "b14b0c2c93bc82b3c853d22bc90d4815537e16964cbc9a70632704740bf133f3"
+    }
+  ],
+  "frozen_identity": {
+    "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "qualification": "Frozen PR only, not current main/PR990 or unknown P16 dirty source. Exact unchanged aliases are limited to the three read-only recovered files and registered actual bodies."
+  },
+  "provenance_recovery": {
+    "receipt": "audit08-successor-014-completion-provenance.json",
+    "sha256": "beedab03b65576a665b0318b5d7618a971fb57acbcf5e2ce6e8d8e935ab4548f",
+    "read_only_git_scope": "Exact base/head ls-tree/show for tests.rs, grounded.rs and included asset; ls-tree limited to actual grounded subtree to resolve parent. Projection file names were metadata only, not staged/read.",
+    "manifest": {
+      "path": "target/recovery-20261025/continuation-segovb/audit12-frozen-source-manifest-019.json",
+      "sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa",
+      "pr_working_changed_variants": 747,
+      "dirty_count": 4,
+      "absence": "All three paths independently absent from747 and dirty4 before aliasing. Cached manifest used as source metadata only, no lens12 verdict transfer."
+    },
+    "include_path_proof": {
+      "consumed_source": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/grounded/tests.rs",
+      "ranges": [
+        [
+          6,
+          9
+        ]
+      ],
+      "CARGO_MANIFEST_DIR": "crates/adventuresim-tactical-core",
+      "literal": "/../../assets/tactical-grounding/goslar-1238.json",
+      "normalized_repository_path": "assets/tactical-grounding/goslar-1238.json",
+      "qualification": "Known package source is under this crate; joined compile-time include literal is normalized relative to its crate manifest directory, not test source subdirectory."
+    },
+    "source_hashes": [
+      {
+        "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/grounded/tests.rs",
+        "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+        "sha256": "c2dd6fd8bc29ddcbca5a79e0945e04db51766c5a40b72ed8bf5736664da8e16c",
+        "git_tree_entry": "100644 blob 7fc0c4356da83f86777c814bca49bf576f2f7642\tcrates/adventuresim-tactical-core/src/city_layout/compiled/grounded/tests.rs"
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/grounded/tests.rs",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "sha256": "c2dd6fd8bc29ddcbca5a79e0945e04db51766c5a40b72ed8bf5736664da8e16c",
+        "git_tree_entry": "100644 blob 7fc0c4356da83f86777c814bca49bf576f2f7642\tcrates/adventuresim-tactical-core/src/city_layout/compiled/grounded/tests.rs"
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/grounded.rs",
+        "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+        "sha256": "e9356eb1af7a7dc646c721b3ef5033a23924b28081e8c9a3f8917159b770b346",
+        "git_tree_entry": "100644 blob 7da35215803800364bfd0a0ec9bae6860aaef621\tcrates/adventuresim-tactical-core/src/city_layout/compiled/grounded.rs"
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/grounded.rs",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "sha256": "e9356eb1af7a7dc646c721b3ef5033a23924b28081e8c9a3f8917159b770b346",
+        "git_tree_entry": "100644 blob 7da35215803800364bfd0a0ec9bae6860aaef621\tcrates/adventuresim-tactical-core/src/city_layout/compiled/grounded.rs"
+      },
+      {
+        "path": "assets/tactical-grounding/goslar-1238.json",
+        "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+        "sha256": "1a842b2e8dcdaf157223be260d9f032ca33c50a0fe6fe4eee1a93fd2d86d64c6",
+        "git_tree_entry": "100644 blob 2bba77793377ed9d01e868cffefbf56c774ed261\tassets/tactical-grounding/goslar-1238.json"
+      },
+      {
+        "path": "assets/tactical-grounding/goslar-1238.json",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "sha256": "1a842b2e8dcdaf157223be260d9f032ca33c50a0fe6fe4eee1a93fd2d86d64c6",
+        "git_tree_entry": "100644 blob 2bba77793377ed9d01e868cffefbf56c774ed261\tassets/tactical-grounding/goslar-1238.json"
+      }
+    ],
+    "resolved_old_partial_parts": [
+      "CONT08-014-BASE-IDENTITY: exact base tests.rs matches full original head body already independently read.",
+      "CONT08-014-GROUNDING-RECEIVER: actual parent resolved as compiled/grounded.rs and all199 lines now independently read.",
+      "CONT08-014-ACTUAL-FIXTURE-INPUT: normalized included JSON path proved and all301 lines read;8KiB input was bounded, not a huge asset."
+    ]
+  },
+  "source_reads": [
+    {
+      "source_id": "pr-head:crates/adventuresim-tactical-core/src/city_layout/compiled/grounded.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_tree_entry": "100644 blob 7da35215803800364bfd0a0ec9bae6860aaef621\tcrates/adventuresim-tactical-core/src/city_layout/compiled/grounded.rs",
+      "sha256": "e9356eb1af7a7dc646c721b3ef5033a23924b28081e8c9a3f8917159b770b346",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/e9356eb1af7a7dc646c721b3ef5033a23924b28081e8c9a3f8917159b770b346",
+      "bytes": 7040,
+      "line_count": 199,
+      "frozen747_matches": [],
+      "dirty4_matches": [],
+      "body_coverage": false,
+      "canonical_source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-core/src/city_layout/compiled/grounded.rs",
+      "prospective_ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "reason": "Actual needed compact parent select/compile/retained-state body or complete bounded JSON fixture input; exact base/head alias proved in provenance, independent source body read now; no test execution.",
+      "actual_body_read_ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "base_head_same_body_alias": true,
+      "before_after_credit": "Exact equal base/head Git objects, absent747/dirty4; one actual body read establishes these exact aliases, no duplicate population credit."
+    },
+    {
+      "source_id": "pr-head:assets/tactical-grounding/goslar-1238.json",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_tree_entry": "100644 blob 2bba77793377ed9d01e868cffefbf56c774ed261\tassets/tactical-grounding/goslar-1238.json",
+      "sha256": "1a842b2e8dcdaf157223be260d9f032ca33c50a0fe6fe4eee1a93fd2d86d64c6",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/1a842b2e8dcdaf157223be260d9f032ca33c50a0fe6fe4eee1a93fd2d86d64c6",
+      "bytes": 8027,
+      "line_count": 301,
+      "frozen747_matches": [],
+      "dirty4_matches": [],
+      "body_coverage": false,
+      "canonical_source_id": "pr-working-unchanged-base-dependency:assets/tactical-grounding/goslar-1238.json",
+      "prospective_ranges": [
+        [
+          1,
+          301
+        ]
+      ],
+      "reason": "Actual needed compact parent select/compile/retained-state body or complete bounded JSON fixture input; exact base/head alias proved in provenance, independent source body read now; no test execution.",
+      "actual_body_read_ranges": [
+        [
+          1,
+          301
+        ]
+      ],
+      "base_head_same_body_alias": true,
+      "before_after_credit": "Exact equal base/head Git objects, absent747/dirty4; one actual body read establishes these exact aliases, no duplicate population credit."
+    }
+  ],
+  "retained_own_original_body_proof": {
+    "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/grounded/tests.rs",
+    "path": "target/recovery-20261025/audit10/successor-source-objects/c2dd6fd8bc29ddcbca5a79e0945e04db51766c5a40b72ed8bf5736664da8e16c",
+    "sha256": "c2dd6fd8bc29ddcbca5a79e0945e04db51766c5a40b72ed8bf5736664da8e16c",
+    "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "actual_body_read_ranges": [
+      [
+        1,
+        216
+      ]
+    ],
+    "prospective_registration": "audit08-successor-014-registration-original.json",
+    "hash_verified_before_and_after": true,
+    "scope_kind": "affected_unchanged_reached_contract",
+    "before_after_qualification": "Exact base source still unknown. No unchanged-source behavior claim from file presence/catalog label.",
+    "base_source_provenance": {
+      "source_id": "pr-base:crates/adventuresim-tactical-core/src/city_layout/compiled/grounded/tests.rs",
+      "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "git_tree_entry": "100644 blob 7fc0c4356da83f86777c814bca49bf576f2f7642\tcrates/adventuresim-tactical-core/src/city_layout/compiled/grounded/tests.rs",
+      "sha256": "c2dd6fd8bc29ddcbca5a79e0945e04db51766c5a40b72ed8bf5736664da8e16c",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/c2dd6fd8bc29ddcbca5a79e0945e04db51766c5a40b72ed8bf5736664da8e16c",
+      "bytes": 7979,
+      "line_count": 216,
+      "frozen747_matches": [],
+      "dirty4_matches": [],
+      "body_coverage": false
+    },
+    "new_body_read_ranges": [],
+    "qualification": "Own014 actual full216-line head read retained at fresh matching hash. Base/head exact object equality plus absence747/dirty4 now proves same actual body alias; no prior other-lens or presence-only credit."
+  },
+  "actual_traces": [
+    {
+      "id": "CONT08-014-VALIDATION-ORDER",
+      "source": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-core/src/city_layout/compiled/grounded.rs",
+      "ranges": [
+        [
+          53,
+          68
+        ],
+        [
+          146,
+          196
+        ]
+      ],
+      "fact": "select first calls validate_membership. That collects playable+distant IDs, sorts, rejects duplicate physical ID before support planning. It sorts properties by ID, rejects duplicate property, rejects missing building members, then detects repeated member with first/second owners, then checks every physical building bound. This actual local control flow supports the unchanged tests missing/duplicate binding and canonical diagnostic ordering intent.",
+      "qualification": "No universal changed-ID Ord/serde or planning error precedence proof; actual typed receiving owners not yet independently traced in this packet."
+    },
+    {
+      "id": "CONT08-014-RETAINED-SELECTION",
+      "source": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-core/src/city_layout/compiled/grounded.rs",
+      "ranges": [
+        [
+          28,
+          38
+        ],
+        [
+          53,
+          98
+        ]
+      ],
+      "fact": "After membership validation, selection delegates compound and single-property support planning, collects member supports in BTreeMap, obtains surfaces, then clones the exact input layout/geographic surface into SelectedCityGrounding. select accepts shared references and does not locally mutate caller layout. It retains embedment from policy.",
+      "qualification": "Floor values, complete member population, support-surface errors and permutation invariance depend on delegated bodies; not proved by cloning or unchanged source identity."
+    },
+    {
+      "id": "CONT08-014-ATOMIC-PUBLICATION",
+      "source": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-core/src/city_layout/compiled/grounded.rs",
+      "ranges": [
+        [
+          100,
+          143
+        ]
+      ],
+      "fact": "compile consumes selected value and calls BoundedSettlementTerrain::compile(...)? before moving or updating layout. Only after it succeeds does it update base_elevation_metres on playable and distant placements, then return retained layout/terrain/surfaces together. Program, horizontal transform and ID fields are not locally assigned. Accessors return shared references to retained layout/terrain. This source establishes the parent local publication order and field-update boundary.",
+      "qualification": "No actual OwnershipOverlap result or numeric terrain/floor witness yet. Direct member indexing relies on complete members from untraced planners. GeographicGeometryDigest helper also not expanded; no full projection-owner clearance."
+    },
+    {
+      "id": "CONT08-014-JSON-INPUT",
+      "source": "pr-working-unchanged-base-dependency:assets/tactical-grounding/goslar-1238.json",
+      "ranges": [
+        [
+          11,
+          144
+        ],
+        [
+          160,
+          173
+        ],
+        [
+          177,
+          190
+        ],
+        [
+          192,
+          219
+        ],
+        [
+          220,
+          289
+        ]
+      ],
+      "fact": "Actual test input contains compound1238 with front1238/rear17622, nonzero negative scene coordinates and orientation-0.19739556, Wealthy merchant front with seed7989866213631017260 and storage-range rear seed42, zero initial elevations, and four explicit nonflat geographic triangles. Doorway-solution annotations match test expected floors21.042906 and19.056694 and the authored policy dimensions/tolerances.",
+      "qualification": "fixture() consumes compound/front/rear/geographic_triangles, not doorway_solution. Matching annotation/expected numbers do not establish computed floors. Provenance/calibration prose is source material only, not independent execution, historical or native-controller evidence."
+    }
+  ],
+  "disposition": {
+    "original_index": 1793,
+    "status": "qualified partial",
+    "qualification_id": "SEGOVB-CONT08-014-1793-DELEGATED-CONTRACT-PARTIAL",
+    "supersedes_partial_frontier": "SEGOVB-CONT08-014-1793-BASE-RECEIVER-PARTIAL only for the resolved exact provenance/parent/input parts; historical014 remains immutable.",
+    "actionable_findings": [],
+    "progress": "Exact before/after input and full local parent now connected to the own independently read original. Local error ordering, retention and compile-before-floor-publication supported by actual source. Numeric selection, geometry composition/lookup and actual typed JSON admission remain at explicit delegated contracts.",
+    "untraced_frontier": [
+      {
+        "id": "CONT08-014-SUPPORT-PLANNING-RECEIVERS",
+        "source_backed_caller": {
+          "source": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-core/src/city_layout/compiled/grounded.rs",
+          "ranges": [
+            [
+              53,
+              80
+            ]
+          ]
+        },
+        "actual_symbols": [
+          "CitySceneLayout::plan_compound_support",
+          "CitySceneLayout::plan_single_property_support",
+          "CompoundSupportPlan::member_support",
+          "CompoundSupportPlan::support_surface"
+        ],
+        "candidate_locator": "crates/adventuresim-tactical-core/src/city_layout/compiled/support.rs is catalog original1796, SHA d28606e279ac45d8c65e8ec2eceacaddf20747af389761b9c2b1b6a5b4273c82; actual declaring path/symbol ranges still must be proved before body reads. Metadata mention gives no1796 credit.",
+        "needed": "Exact declaring source paths/base/head identities and registered bodies for floor/contact selection and surface/member production. Read actual changed leaf/signature receivers needed for retained programs, typed contact/elevation policy, error order and input-order behavior; no broad all-generator expansion."
+      },
+      {
+        "id": "CONT08-014-TERRAIN-COMPOSITION-RECEIVERS",
+        "source_backed_caller": {
+          "source": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-core/src/city_layout/compiled/grounded.rs",
+          "ranges": [
+            [
+              100,
+              118
+            ],
+            [
+              123,
+              128
+            ]
+          ]
+        },
+        "actual_symbols": [
+          "BoundedSettlementTerrain::compile",
+          "BoundedSettlementTerrain::foundations",
+          "BoundedSettlementTerrain::elevations_at"
+        ],
+        "needed": "Establish exact source declaring compile/ownership composition/elevation lookup before bounded registration/read. Actual compile errors and accepted floors/terrain equivalence remain untraced, including OwnershipOverlap and support-sample order. Parent code calls terrain compile before layout mutation, but does not prove delegated geometry semantics."
+      },
+      {
+        "id": "CONT08-014-ACTUAL-JSON-ADMISSION",
+        "source_backed_callers": [
+          {
+            "source": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/grounded/tests.rs",
+            "ranges": [
+              [
+                6,
+                23
+              ]
+            ]
+          },
+          {
+            "source": "pr-working-unchanged-base-dependency:assets/tactical-grounding/goslar-1238.json",
+            "ranges": [
+              [
+                11,
+                144
+              ],
+              [
+                160,
+                173
+              ],
+              [
+                177,
+                190
+              ],
+              [
+                220,
+                289
+              ]
+            ]
+          }
+        ],
+        "actual_symbols": [
+          "DistantBuildingPlacement serde admission",
+          "TacticalBuildingPlacement::from(DistantBuildingPlacement)",
+          "CitySceneLayout.compounds element serde admission",
+          "GeographicSurface::from_triangles"
+        ],
+        "needed": "Read exact changed typed decoding/conversion/admission owners needed by these actual records. JSON and test unchanged bytes establish source inputs, not decoder success or resulting programs/geometry. No old schema/malformed input compatibility requirement."
+      }
+    ],
+    "stop": "First remaining concrete delegated contract frontier saved; do not infer completion from source equality or unchanged tests. No arbitrary source expansion."
+  },
+  "coverage_delta": {
+    "prior_original_accounted": 1800,
+    "original_accounted": 1800,
+    "original_total": 2853,
+    "new_original_completions": [],
+    "newly_accounted_original_roles": 0,
+    "new_unique_finding_count_delta": 0,
+    "earliest_unfinished_original": 1462,
+    "partial1462": "CONT08-Q003 unchanged; packet012 pure-w Transform matrix erasure retained",
+    "next_ordered_original": 1793,
+    "ordered1793_status": "qualified partial SEGOVB-CONT08-014-1793-DELEGATED-CONTRACT-PARTIAL",
+    "material_contiguous": [
+      0,
+      51
+    ],
+    "next_material": 52,
+    "partial_material_indices": [
+      52
+    ],
+    "separate_material_interval": [
+      178,
+      195
+    ],
+    "new_material_completions": []
+  },
+  "inherited": {
+    "Q003": "009 direct admitted-contract local composition counterexample retained;012 pure-w candidate erased by Transform matrix route; no actual obstacle/cast/current witness or universal numeric bound.",
+    "material52": "Frozen P16 typed-error receiver partial unchanged; currentcomparison001 remains exact4fcc, not current main/PR990.",
+    "paid_withdrawn": "Preexisting SEGOVB-CONT08-007-M51-PAID-WITHDRAWN candidate unchanged partial.",
+    "preserve": "All20/P16/P17/#780/#826/M16 repair graph, source-keyed policies, aliases, partials and prior exact qualifications remain. Root sole ledger/product/unique-finding adoption owner.",
+    "new_shared_source_queue": "Prior Netlib45 and generator parent/support mandatory other-lens role queues retained; no new source body completion or duplicate identity population here."
+  },
+  "new_reached_shared_dependencies": [
+    {
+      "canonical_source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-core/src/city_layout/compiled/grounded.rs",
+      "sha256": "e9356eb1af7a7dc646c721b3ef5033a23924b28081e8c9a3f8917159b770b346",
+      "actual_body_read_ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "required": "Root reconcile mandatory applicable other-lens roles/source extension, preserve base/head aliases as one identity; no original denominator increase, no other-lens/full-family clearance."
+    },
+    {
+      "canonical_source_id": "pr-working-unchanged-base-dependency:assets/tactical-grounding/goslar-1238.json",
+      "sha256": "1a842b2e8dcdaf157223be260d9f032ca33c50a0fe6fe4eee1a93fd2d86d64c6",
+      "actual_body_read_ranges": [
+        [
+          1,
+          301
+        ]
+      ],
+      "required": "Root reconcile mandatory applicable other-lens roles/source extension, preserve base/head aliases as one identity; no original denominator increase, no other-lens/full-family clearance."
+    }
+  ],
+  "limits": [
+    "No project/test/fixture execution, tests/helpers/assertions/doctests or product/source additions, Git mutation, root-ledger/history edits or publication. Read-only Git exact requested objects authorized by parent; source staging/ignored evidence writes only.",
+    "No original1794 body read or count advance. No new unique findings. No support-plan/native/geometry source body or broad whole-source tree read.",
+    "Original1793 is unchanged at exact base/head, but changed callees/typed owners remain actual receiving obligations; equality alone never closes it.",
+    "No backward compatibility constraint on old malformed inputs, old schemas/APIs/result layouts. No failed assertion/regression fabricated without actual source contract evidence.",
+    "All20/P16/P17/#780/#826/M16, aliases, Q003 and material52 partials and prior qualifiers remain unchanged."
+  ],
+  "global_clearance": false,
+  "stop": true
+}

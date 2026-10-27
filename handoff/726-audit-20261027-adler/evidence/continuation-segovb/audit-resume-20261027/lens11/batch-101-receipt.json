@@ -1,0 +1,628 @@
+{
+  "at": "2026-10-27T17:35:44.249242+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-101-registration.jsonl",
+    "sha256": "cb1c8323d7d4e65d9e103d8e998b0ab6d11c544f220cd574d8cad3e3452daad8"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-100.json",
+    "sha256": "d11201d013f75eba933e3309cb015b99ac3d9be0e5d152741bc1703e49cec2a0"
+  },
+  "mandatory_inherited_qualification": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-097-native-time-qualification-001.json",
+    "sha256": "8b5d251d80cb880d50c2e21b28fe4ece9ac8d71dc4e0e9b3397d4aaed3e3f4b9"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1191,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/simulation.rs",
+      "sha256": "909ef3cba93d998d407876cc05fd8c4ad9933f39faec7de0ac45dd0893d9bd60",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/909ef3cba93d998d407876cc05fd8c4ad9933f39faec7de0ac45dd0893d9bd60",
+      "ranges": [
+        [
+          1,
+          610
+        ]
+      ],
+      "actual_eof": 610,
+      "prospective": true,
+      "purpose": "Independent full effective simulation authority/fixture/smithing inventory. Source only; no disposable-data operations or fixtures invoked.",
+      "actual_read_ranges": [
+        [
+          1,
+          610
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1192,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/simulation/disease_fixture.rs",
+      "sha256": "af0610c33fb37a1d05d9adba1b25ad6e4d99a40045194429a62acf7c711150fc",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/af0610c33fb37a1d05d9adba1b25ad6e4d99a40045194429a62acf7c711150fc",
+      "ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "actual_eof": 86,
+      "prospective": true,
+      "purpose": "Independent full effective simulation authority/fixture/smithing inventory. Source only; no disposable-data operations or fixtures invoked.",
+      "actual_read_ranges": [
+        [
+          1,
+          86
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1193,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/simulation/quest_fixture.rs",
+      "sha256": "bd0529ff5891ce948c1a824c58e17062149a9c16c36a0341036cc72f8fcccb58",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/bd0529ff5891ce948c1a824c58e17062149a9c16c36a0341036cc72f8fcccb58",
+      "ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "actual_eof": 105,
+      "prospective": true,
+      "purpose": "Independent full effective simulation authority/fixture/smithing inventory. Source only; no disposable-data operations or fixtures invoked.",
+      "actual_read_ranges": [
+        [
+          1,
+          105
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1194,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/smithing.rs",
+      "sha256": "aecea90ad65fd73946a24653499fdfe07a626491543cb20c57f5e70ae82e4d49",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/aecea90ad65fd73946a24653499fdfe07a626491543cb20c57f5e70ae82e4d49",
+      "ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "actual_eof": 119,
+      "prospective": true,
+      "purpose": "Independent full effective simulation authority/fixture/smithing inventory. Source only; no disposable-data operations or fixtures invoked.",
+      "actual_read_ranges": [
+        [
+          1,
+          119
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected_original",
+      "original_index": 1079,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+      "sha256": "806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+      "ranges": [
+        [
+          441,
+          485
+        ],
+        [
+          531,
+          590
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Exact native attribute/skill field schema passed wholesale to simulation configuration; compare manual bounded field admission with actual owned fields.",
+      "actual_read_ranges": [
+        [
+          441,
+          485
+        ],
+        [
+          531,
+          590
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 2802,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/personality.rs",
+      "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "ranges": [
+        [
+          22,
+          78
+        ],
+        [
+          437,
+          480
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual visible personality schema and reset receiver of simulation configuration; no full personality/native SDK traversal.",
+      "actual_read_ranges": [
+        [
+          22,
+          78
+        ],
+        [
+          437,
+          480
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 2802,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/personality.rs",
+      "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "ranges": [
+        [
+          172,
+          210
+        ],
+        [
+          305,
+          418
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Close actual from-visible score admission and projection/write identity normalization required by simulation reset; no wider personality development.",
+      "actual_read_ranges": [
+        [
+          172,
+          210
+        ],
+        [
+          305,
+          418
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 2802,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/personality.rs",
+      "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "ranges": [
+        [
+          211,
+          246
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Close remaining actual from_visible mappings/return, no full score-development module.",
+      "actual_read_ranges": [
+        [
+          211,
+          246
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1233,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/party_readiness.rs",
+      "sha256": "8b1c585d51e630d3195a7f27e41251c155466d7195ede4bac0810b2e39ad19b5",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/8b1c585d51e630d3195a7f27e41251c155466d7195ede4bac0810b2e39ad19b5",
+      "ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Exact ready-party power/capability projection consumed by quest fixture",
+      "actual_read_ranges": [
+        [
+          1,
+          120
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1257,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/weapon_instance.rs",
+      "sha256": "0366036a85f92aec26b1e205aa69edeb41afe565c118d2d5335e5cbb2ee4e983",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/0366036a85f92aec26b1e205aa69edeb41afe565c118d2d5335e5cbb2ee4e983",
+      "ranges": [
+        [
+          265,
+          335
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Exact forged design persistence receiving operation",
+      "actual_read_ranges": [
+        [
+          265,
+          335
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1245,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/advancement.rs",
+      "sha256": "4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+      "ranges": [
+        [
+          417,
+          500
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual wait completion/stopped policy used after forge stock consumption",
+      "actual_read_ranges": [
+        [
+          417,
+          500
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1227,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+      "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+      "ranges": [
+        [
+          1885,
+          1905
+        ],
+        [
+          1974,
+          2156
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual typed fixture receipt/power and full quest fixture leader/case/party receiving contract; no general mission bootstrap traversal",
+      "actual_read_ranges": [
+        [
+          1885,
+          1905
+        ],
+        [
+          1974,
+          2156
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1191,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/simulation.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              206
+            ]
+          ],
+          "roles": "Simulation singleton/run owner, bootstrap token and nonce, private/public fixture case receipt and policy seed.",
+          "disposition": "SDK Identity, CharacterId, agent ID, run ID and nonce identify different authorities. Singleton id zero is valid; do not introduce a NonZero bound. Bootstrap capability and public fixture projection differ private canonical case authority. Claimed gateway-only comment is not proof of a gateway guard: actual reducer permits the owning sender. Fixture source/case/catalog/location associations are explicitly validated.",
+          "remedy": "Admitted OwnedSimulationRun and named fixture receipts retaining canonical/public case identities; keep ordinary owner check separate from gateway privilege.",
+          "acceptance": "Actual bodies consumed, no secret values or operations invoked; no full SDK authorization claim."
+        },
+        {
+          "ranges": [
+            [
+              207,
+              348
+            ]
+          ],
+          "roles": "Claim, owned run, simulation character ownership, epoch/world-time advance and controlled death.",
+          "disposition": "Claim checks compiled token before freshness, rejects existing players/parties and permits only completed import. Nonce syntax 16..96 ASCII is not entropy proof. Owned run checks sender and nonce. sender_owns_simulation_character does not compare row.run_id, but scoped writers use singleton run zero; no ordinary cross-run flaw asserted. kill targets any existing character inside the owned disposable database; not assumed restricted to configured members. Wall microseconds, official minute and signed epoch are distinct clocks. The 1..100 year limit is harness policy, not a global time bound.",
+          "remedy": "OwnedRun/ConfiguredCharacter capability and explicit production-versus-run scope; typed epoch/duration conversion. Preserve checked arithmetic and isolation, no invented authority restriction.",
+          "acceptance": "Core1017 is arithmetic context only; native1245/1249/1246 receiver proof comes from097 and new417..500, never core substitution. No reset/seed/death/time operation run."
+        },
+        {
+          "ranges": [
+            [
+              349,
+              504
+            ]
+          ],
+          "roles": "Configuration target identity, bounded attributes, skill hours, personality projection, daily schedule, party/location and scope matching.",
+          "disposition": "Manual skill whitelist402..433 omits cooking, herbalism, six terrain skills, surgery and smithing present in actual CharacterSkills531..568; entire skills record is persisted at463. This corroborates parent locator ROOT-CAMERA-ADM03-F001, canonical record alias not independently pinned here and no new unique claim. Personality projection identity suspicion is rejected: actual project_scores normalizes both character_id and projection_character_id from scores.character_id. Continuous score authority versus categorical visible projection is meaningful; reset explicitly rebuilds it. Schedule minute allocation is not a probability. Production/SimulationRun scope states are meaningful; same-scope predicate is appropriate.",
+          "remedy": "One admitted PreparedSimulationConfiguration using canonical skill admission across every owned field, target-bound payloads and typed daily schedule. Preserve independent personality Sex/Presentation/Inclination and canonical reset.",
+          "acceptance": "Actual native schema1079 and personality2802 required bodies read. Stored skill hours versus Infinity training-requirement sentinel remains042-qualified. No actual injection/runtime/current/accepted alias witness."
+        },
+        {
+          "ranges": [
+            [
+              506,
+              610
+            ]
+          ],
+          "roles": "Existing source fixtures for isolation, initialization, privacy and ownership.",
+          "disposition": "Fixtures express contracts but are not execution evidence or implied coverage of included dependencies.",
+          "remedy": "Keep ordinary canonical constructors and explicit fixture-only capability boundaries.",
+          "acceptance": "All existing fixture source read; no new tests or execution."
+        }
+      ]
+    },
+    {
+      "original": 1192,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/simulation/disease_fixture.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              86
+            ]
+          ],
+          "roles": "Disease fixture run/character association, disease identity, fixture anchor, incubation duration, elapsed personal time and terminal outcome.",
+          "disposition": "Owned run and configured row.run_id are checked together. DiseaseId is parsed then original String persisted, an internal type erasure; no normalization collision asserted. ZERO contracted_at is fixture anchor versus current personal minute; advancing by incubation+60 is not proof of actual symptom onset for every late profile. Infection episode identity zero is not presumed invalid. Requested duration, clipped injury/disease elapsed and alive/completed outcome are distinct.",
+          "remedy": "Admitted DiseaseFixtureSeed retaining DiseaseId and explicit fixture clock anchor; retain canonical injury/disease/lifecycle outcomes rather than broad bool where outcome is needed.",
+          "acceptance": "Full86 read; personal core disease/surgery and native disease1093/condition1086/time097 exact prior proof reused. No clinical/current/runtime outcome or fixture execution."
+        }
+      ]
+    },
+    {
+      "original": 1193,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/simulation/quest_fixture.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              105
+            ]
+          ],
+          "roles": "Direct versus generated leader and party identities, public ready-party count/power, enemy threat, replay-bound fixture receipt.",
+          "disposition": "Leaders are directional roles, not an unordered pair; distinct IDs, configured run and party leadership are checked. Ready combatant count and aggregate power are different quantities even though primitive integer storage. Exact receiver1233 checks member life/readiness/illness and checked-adds power; fixture1227 returns named contract/canonical-case/party fields and uses typed objective/path constructors. Native String return erases existing typed strategic error distinctions.",
+          "remedy": "Named ReadyPartyAssessment count/power and role-bound fixture request/receipt retaining canonical case versus public contract identity; reuse existing semantic owners, no invented power bound.",
+          "acceptance": "Full105 plus1233:1..120 and1227:1885..1905/1974..2156 actual ports consumed. No general battle algorithm, full bootstrap, guaranteed safe runtime or cross-party clinical inference."
+        }
+      ]
+    },
+    {
+      "original": 1194,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/smithing.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              119
+            ]
+          ],
+          "roles": "Forge recipe/design admission, aggregate material requirement, bounded per-row consumable fraction, service availability, inventory/physical object identity and completed wait.",
+          "disposition": "Core quote total micros may exceed one whole; consume chunks bounded fractions per row, so aggregate stock quantity cannot be replaced by bounded fraction. Existing042 source-key mismatch corroborated: required micros are called milliunits in error100. Material mass and total-micros keyed maps retain042 parallel-map question. Weaponsmith/GeneralBlacksmith service and organization weapons are different availability facts, not automatically a single XOR state. Native wait417..500 returns false for terminal/dead while forge returns error; outer transaction semantics not observed. replace_design287..325 checks melee catalog kind and matching design.catalog_id before persistence; physical object differs inventory row.",
+          "remedy": "Canonical aggregate material amount and bounded per-row Fraction owners; fix unit label at receiving error, named requirements map, typed stock/row/object/catalog IDs. PreparedForge and typed Completed/Stopped policy should retain actual interrupted-time semantics; keep source design/recipe validation.",
+          "acceptance": "Full119 plus exact native wait/replace_design receivers consumed; existing042 same-hash semantic supplement is support, no new unique, economic/runtime/current partial-commit or whole saved-attachment graph claim."
+        }
+      ]
+    }
+  ],
+  "connected_role_inventory": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+      "sha256": "806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+      "ranges": [
+        [
+          441,
+          485
+        ],
+        [
+          531,
+          590
+        ]
+      ],
+      "disposition": "Exact native attribute/skill field schema passed wholesale to simulation configuration; compare manual bounded field admission with actual owned fields.",
+      "acceptance": "Exact registered receiving contracts personally consumed; no ordered credit for future original role."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/personality.rs",
+      "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "ranges": [
+        [
+          22,
+          78
+        ],
+        [
+          437,
+          480
+        ]
+      ],
+      "disposition": "Actual visible personality schema and reset receiver of simulation configuration; no full personality/native SDK traversal.",
+      "acceptance": "Exact registered receiving contracts personally consumed; no ordered credit for future original role."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/personality.rs",
+      "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "ranges": [
+        [
+          172,
+          210
+        ],
+        [
+          305,
+          418
+        ]
+      ],
+      "disposition": "Close actual from-visible score admission and projection/write identity normalization required by simulation reset; no wider personality development.",
+      "acceptance": "Exact registered receiving contracts personally consumed; no ordered credit for future original role."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/personality.rs",
+      "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "ranges": [
+        [
+          211,
+          246
+        ]
+      ],
+      "disposition": "Close remaining actual from_visible mappings/return, no full score-development module.",
+      "acceptance": "Exact registered receiving contracts personally consumed; no ordered credit for future original role."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/party_readiness.rs",
+      "sha256": "8b1c585d51e630d3195a7f27e41251c155466d7195ede4bac0810b2e39ad19b5",
+      "ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "disposition": "Exact ready-party power/capability projection consumed by quest fixture",
+      "acceptance": "Exact registered receiving contracts personally consumed; no ordered credit for future original role."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/weapon_instance.rs",
+      "sha256": "0366036a85f92aec26b1e205aa69edeb41afe565c118d2d5335e5cbb2ee4e983",
+      "ranges": [
+        [
+          265,
+          335
+        ]
+      ],
+      "disposition": "Exact forged design persistence receiving operation",
+      "acceptance": "Exact registered receiving contracts personally consumed; no ordered credit for future original role."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/advancement.rs",
+      "sha256": "4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+      "ranges": [
+        [
+          417,
+          500
+        ]
+      ],
+      "disposition": "Actual wait completion/stopped policy used after forge stock consumption",
+      "acceptance": "Exact registered receiving contracts personally consumed; no ordered credit for future original role."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+      "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+      "ranges": [
+        [
+          1885,
+          1905
+        ],
+        [
+          1974,
+          2156
+        ]
+      ],
+      "disposition": "Actual typed fixture receipt/power and full quest fixture leader/case/party receiving contract; no general mission bootstrap traversal",
+      "acceptance": "Exact registered receiving contracts personally consumed; no ordered credit for future original role."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-042-receipt.json",
+        "sha256": "679029c645bbe69075e5b0f1c297fdd91ece13e10c96c08197b5f264c7f19edc"
+      },
+      "contract": "Core996 skill full1165 and997 smithing full78; unit-label and aggregate-versus-fraction source identity"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-048-receipt.json",
+        "sha256": "45172eb33f46a6e35fe8c12f09f1b87fa6087f0e3029842e5421f6813eb6b2b1"
+      },
+      "contract": "Core1017 strategic_time full860 arithmetic only"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-049-receipt.json",
+        "sha256": "7c7a1bf82e75c5dbe9a67fb086ea7776db66160590f8435b8519b7479433d9df"
+      },
+      "contract": "Core1019 surgery full294"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-061-receipt.json",
+        "sha256": "1e26974b7e1795184974dca7f3ff4cd5094facd0c1717fab47d9ce7b8edbc633"
+      },
+      "contract": "Native1076 capability full694"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-062-receipt.json",
+        "sha256": "6f38488e18bb19f933f1bf16e5dbbc23fc0f3691f006b1d1d810fe84ce3f9c29"
+      },
+      "contract": "Native1079 Character full recorded scope"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-064-receipt.json",
+        "sha256": "91c5c0fe2515a9d9782cbc7c18b53148b198e3ad2b331eccd6d26e78bc2b575c"
+      },
+      "contract": "Native1086 condition full2627"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-067-receipt.json",
+        "sha256": "e02e209bcb9d7257a2a89762ff62094e269991a6d7e48af1897a8e10b7047e7f"
+      },
+      "contract": "Native1093 disease full2950 and connected children"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-074-receipt.json",
+        "sha256": "d20b4bfe67138220f9efc3d466679c022f1c5548662f22a5114a3f33b536009f"
+      },
+      "contract": "Native1118 inventory amount full241"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-075-receipt.json",
+        "sha256": "6b137e7e6d04ab2aa240fc17fe1e6600bb795b4e79fcfee1db06a458037e0b3b"
+      },
+      "contract": "Native1119 inventory container full1451"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-084-receipt.json",
+        "sha256": "a1e35a75e9eb2265261409dee6629fb2b7f627e223d182e4e78e33783dac9e21"
+      },
+      "contract": "Native1136 item full957"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-097-receipt.json",
+        "sha256": "d4262c0437e29c169933163243d685d8a4068a0f500277a615157b172a43ff32"
+      },
+      "contract": "Actual native1245 advancement1..149/266..301,1249 hook1..85,1246 lifecycle full11"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-042-semantic-supplement-001.json",
+        "sha256": "9f6eaf9364997c38224bd13c34b73edd8daf591acecc9b052689f11dae6e1c44"
+      },
+      "contract": "Exact source-backed smithing micros/milliunits mismatch; same source-key corroboration, no unique increment"
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Frozen source discovery with findings only; no operations, tests, probes or runtime/current/clinical/global clearance.",
+    "Skill omission supports ROOT-CAMERA-ADM03-F001 parent locator; canonical alias identity not independently consumed here. Personality identity mismatch rejected by actual normalization receiver.",
+    "Preserve all inherited capacity, identity, clock, privacy, source-key, other-population and mandatory-other-lens qualifications."
+  ]
+}

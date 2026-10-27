@@ -1,0 +1,136 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-055",
+  "at": "2026-10-22T21:42:17.157728+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+      "sha256": "be3851ecaa6b17fc8df5be03a931a840d86dde66294c07bb268dfe7aaa9cae4b",
+      "scope034_index": 1413,
+      "actual_EOF": 168,
+      "scoped_ranges_compared": [
+        [
+          1,
+          168
+        ]
+      ],
+      "actual05_comparison": "CaptureAdmission Open/Rejected(payload)/Terminated is single retained driving authority. All four actual gates save the specific error before returning None; can_drive_frame119-124 requires Open, notapplied, notinflight, index<plan.len. Required authored IK rejects missing bilateral observations; disabled/unowned IK with no solve targets intentionally retains cadence rather than inventing flight. reject_capture147-154 emits failure then terminal state, run condition blocks later drive/capture; file-write failure logged does not reopen. This closes actual plan indexing and rejected→drive consumer gaps in054; native event delivery remains external boundary.",
+      "source_body_proof": "Fresh full source personally read; truncated repeated-evaluation/report-parent middle was separately reread before credit. Existing fixtures only read, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/capture_schedule.rs",
+      "sha256": "fc43df34f82478bf3b387906033df195b64b4cdbc32c6b9c4e53415a51ee1308",
+      "scope034_index": 1414,
+      "actual_EOF": 57,
+      "scoped_ranges_compared": [
+        [
+          1,
+          57
+        ]
+      ],
+      "actual05_comparison": "Actual plugin declares PreUpdate drive then look freeze, PostUpdate camera before propagate/overlays after propagate, Last inspection→harness readiness→events→rejection→capture chained. Capture additionally requires harness ready and admission Open. This is source-backed intended schedule ordering only, not native executor proof or transactional rollback; readiness cannot revive Rejected/Terminated.",
+      "source_body_proof": "Fresh full source personally read; truncated repeated-evaluation/report-parent middle was separately reread before credit. Existing fixtures only read, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/frame_clock.rs",
+      "sha256": "d37afe5c70931612e23068f7982db7bac0b7aedbd2dfd726c6981aff6863b81f",
+      "scope034_index": 1415,
+      "actual_EOF": 58,
+      "scoped_ranges_compared": [
+        [
+          1,
+          58
+        ]
+      ],
+      "actual05_comparison": "Native fixed clock uses f64 reciprocal and Duration try_from_secs_f64 then rejects native zero before Time creation, preserving rounding distinct from f32 pose interval. Tick first absolute sample retains0, all later samples wrapping_next including scenario frame0; capture elapsed resets to0 per scenario but sample tick remains sequence-wide. Typed clock identities intentionally distinct, no monotonic unbounded tick guarantee. Original45-58 fixture read only.",
+      "source_body_proof": "Fresh full source personally read; truncated repeated-evaluation/report-parent middle was separately reread before credit. Existing fixtures only read, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/global_bones.rs",
+      "sha256": "974eb0a6fc0c028f246576cd03e2ba83b772d47befe3a2593663c1d38339dd68",
+      "scope034_index": 1416,
+      "actual_EOF": 59,
+      "scoped_ranges_compared": [
+        [
+          1,
+          59
+        ]
+      ],
+      "actual05_comparison": "GlobalBoneFrame captures scenario/frame/time/action+subject world transform and same-subject bones; bind.owner filter excludes foreign rigs; sort by(name,target ID) before emitting preserves deterministic association, no parallel arrays. Raw native translation/quaternion/scale serialized unvalidated; diagnostic trace is not a finite canonical pose seal or unique-name promise.",
+      "source_body_proof": "Fresh full source personally read; truncated repeated-evaluation/report-parent middle was separately reread before credit. Existing fixtures only read, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/readiness.rs",
+      "sha256": "2e535e01db3e5692c7f0955fab779a341ffe7d4edb246f4a987e288231223868",
+      "scope034_index": 1418,
+      "actual_EOF": 32,
+      "scoped_ranges_compared": [
+        [
+          1,
+          32
+        ]
+      ],
+      "actual05_comparison": "Private warmup decrements before frame admission; first frame requiring authored motion resets motion_ready_frames on either unavailable motion or unsettled presentation, then needs2 consecutive ready observations. Later scenario frames do not reapply first-frame gate; capture already requires actual current playback. Missing motion request is intentional procedural/no-authored case, not automatic error.",
+      "source_body_proof": "Fresh full source personally read; truncated repeated-evaluation/report-parent middle was separately reread before credit. Existing fixtures only read, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+      "sha256": "6255135aec06f6ce010b7bb960723b059db57684bf009fa48ad2fe9a8e754d23",
+      "scope034_index": 1419,
+      "actual_EOF": 214,
+      "scoped_ranges_compared": [
+        [
+          1,
+          214
+        ]
+      ],
+      "actual05_comparison": "Repeated snapshot binds same scenario+frame, complete bone map, contact/landing sequence,event count and IK diagnostic product at view0. Later views conjunct sticky validity with actual snapshot equality/tolerances; both-way key membership check precedes expect lookup. IK None/None matches but None/Some fails; finite numeric differences tested <= tolerances there. Bone numeric predicate uses > tolerances, so NaN deltas can evade repeated_bone_mismatch; separate report finite-transform gate rejects nonfinite raw bones, no normal whole-verdict false-pass claimed. Native quaternion rotation assumes canonical rotation, nonunit finite inputs are not validated here. Original182-214 fixtures source-only.",
+      "source_body_proof": "Fresh full source personally read; truncated repeated-evaluation/report-parent middle was separately reread before credit. Existing fixtures only read, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+      "sha256": "46e0169bf601414d1b5ab885a9fa69b0c32436dd3fb1269d28e06e18b5cde1bc",
+      "scope034_index": 1437,
+      "actual_EOF": 234,
+      "scoped_ranges_compared": [
+        [
+          1,
+          234
+        ]
+      ],
+      "actual05_comparison": "Report completion consumes one completed capture. Actual completeness102-111 requires equal frame/plan lengths, positional zip same scenario/frame and REPORT_BONES membership in EVERY frame. Actual artifacts113-123 requires every VIEWS slug exists and native metadata length>0; proves neither valid PNG pixels nor current file provenance beyond source naming/callback. Empty slices vacuous locally, but normal private capture constructor enforces nonempty plan. Actual writing serializes global trace then manifest then HTML then returns actual validation verdict, errors stop success; partial files possible, no atomic bundle publication promise. Prior report invalidation removes four known outputs, unrelated files preserved; original125-234 fixtures only read.",
+      "source_body_proof": "Fresh full source personally read; truncated repeated-evaluation/report-parent middle was separately reread before credit. Existing fixtures only read, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+      "sha256": "71dab9d14d4296c98d6828de5f19e3998f8b3716a32f4bb28d665196edb9c376",
+      "scope034_index": 1438,
+      "actual_EOF": 352,
+      "scoped_ranges_compared": [
+        [
+          1,
+          352
+        ]
+      ],
+      "actual05_comparison": "Raw serialized report product has typed scenario/clock/speed/phase/support leaves alongside raw diagnostic vectors and metadata. VIEWS12-13 actual nonempty fixed3 distinct enum cases, same slug factory supplies screenshot names and artifact readers; closes054 view length precondition. required_ik_support247-252 zip preserves bilateral presence or explicit unavailable error, not missing→zero. has_finite_bone_transforms292-297 checks every actual captured position/quaternion component, does not enforce nonempty/full required roster (separate completeness), quaternion unit norm, root arrays or diagnostic fields. PresentationEventSample advances_from302-307 requires payload order AND checked nonbackward tick, custom serialization keeps same source event tuple and labels. Raw report records not an accepted-state sealed model; normal factory/report gates carry aggregate validity.",
+      "source_body_proof": "Fresh full source personally read; truncated repeated-evaluation/report-parent middle was separately reread before credit. Existing fixtures only read, no execution."
+    }
+  ],
+  "comparison_groups": {
+    "terminal-lifecycle": "Private capture state/readiness/schedule consumers use same retained admission; typed error payload preserves missing vs invalid distinctions.",
+    "report-associated-evidence": "Fixed three view definitions, complete ordered frames+required roster and each nonempty artifact are separate conjuncts; raw finite-only bones are not complete admitted report.",
+    "clock-and-repeatability": "Scenario-local elapsed vs sequence-wide wrapping tick intentional; snapshot same-frame correlation compared before tolerances."
+  },
+  "new_unique_findings": [],
+  "finding_support": [
+    "F016 normal capture roster/finite/completeness/artifact gates now actual bodies proved; no normal false-pass from standalone jitter finding.",
+    "Additional raw nonfinite repeated-bone delta comparison qualification remains guarded by actual finite-transform conjunct; not separate global defect by count."
+  ],
+  "remaining_dependency_obligations": [
+    "Actual REPORT_BONES definition/collect_bones roster producer and scenario plan producer still own unread roles. Native callback/image/filesystem success are bounded ports, no foreign graph implied."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

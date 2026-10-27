@@ -1,0 +1,179 @@
+{
+  "at": "2026-10-27T10:28:54.408166+00:00",
+  "lens": 13,
+  "scope": "Original31 grass producer/config/selected shader/native allocation subset; progress continuing, no new original credit",
+  "authority": {
+    "frozen": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "native": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+    "parent_state": {
+      "path": "target/recovery-20261025/continuation-segovb/audit13-successor-033-suggested-state.json",
+      "sha256": "e4ef90e4e535c72f96410bd13ef729e92df70bfe8b89e42235dd73dee3848175"
+    }
+  },
+  "registration_pins": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-001-registration.json",
+      "sha256": "694ec02f7bc5bba5aa463dceb07fd0e70761ffc364771a2d01be5a3439801ec0"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-002-registration.json",
+      "sha256": "3d55f4baef4cae75c77340126f4dabb0e9d81d872bab85d75314bcfa1a734531"
+    }
+  ],
+  "consumed": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass.rs",
+      "sha256": "4ebc106478d263a859403c114c4711598dd570927f2706abf5e7123bc37a9c91",
+      "actual_consumed_ranges": [
+        [
+          1,
+          336
+        ],
+        [
+          472,
+          524
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/material.rs",
+      "sha256": "254f470bded28494465ba373831b3e8c80ce627e4480f65c9a5b49e05988b459",
+      "actual_consumed_ranges": [
+        [
+          1,
+          88
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/variation.rs",
+      "sha256": "26eeca7140343b37a83e417dd24a51470b41e153827cac511230b030e80a96cf",
+      "actual_consumed_ranges": [
+        [
+          1,
+          24
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:assets/shaders/tactical_grass_instanced.wgsl",
+      "sha256": "2d88c9d6787c5806e7c1bf6fde37f397e532773a16915e847af0ee5e12b07adc",
+      "actual_consumed_ranges": [
+        [
+          1,
+          315
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/config.rs",
+      "sha256": "e2ec96c28d8458610bba86df77c1adceae1cdfe0e71ab972e227c362f72f0fe1",
+      "actual_consumed_ranges": [
+        [
+          1,
+          195
+        ],
+        [
+          215,
+          400
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass.rs",
+      "sha256": "d375436ca9d226ccb6fbc5b65afcaf94a6b9c3e4bfa90fc1016da8cb958a7281",
+      "actual_consumed_ranges": [
+        [
+          296,
+          323
+        ]
+      ]
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/lib.rs",
+      "sha256": "f5eb30102f12d3bb4e1c6989fcec02b51814508a5c1a7ed77d9214ee517ec250",
+      "actual_consumed_ranges": [
+        [
+          49,
+          71
+        ]
+      ]
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/mod.rs",
+      "sha256": "7b8be56d6f6ea9285176e55efb88de7bcb8a15df4cdca7619d3038a92de56092",
+      "actual_consumed_ranges": [
+        [
+          227,
+          340
+        ]
+      ]
+    }
+  ],
+  "inventory": [
+    {
+      "source": "instanced_grass.rs1-336/472-524",
+      "roles": "Tier4/enum indices; nativeworldmetres Vec3/yaw/scale; ordinal indexu32/batch selector/coverage-seed bit packing; interaction Option<Vec3> state/rawf32 density/dryness/wind; native latticefloor/ceilIVec2casts/inclusive ranges, sideusize->i32, RNGhashsignedcoordinatecasts, jitter.35, rawfootprint/heightmargin1.5/slope.72, AABB\u00b1infinity/minmax/padding1/.2/half.5; index=batch.len asu32/emittedu32 starts0/add1; scale1,batch0 adapter defaults. Coverage0absence, shift8 packs lowbyte. Fixedfadebands4 and clamp.35..1; configuredfadepair indices0/1. Tests declaration523-524 only."
+    },
+    {
+      "source": "material1-88/variation1-24",
+      "roles": "NativeuniformVec4 fields withsemanticcomponent roles, groupliteral0; actual vertex/fragment shaderref selection and prepassfalse, cullNone, MSAA>1 Bool alpha coverage. Variation jittertwoRNGunitdraws-.5, yawunitdraw*TAU, truncatedu64shaderseed; Seed retainedtyped but yaw/bitpacking primitive contracts remain."
+    },
+    {
+      "source": "grass shader1-315",
+      "roles": "WGSLnative ABI groups/locations0-5, vectors/matrices/f32/u32/i32/Bool, homogeneous0/1 and clipview/nativegeometry. Coverage0xff/255 exact packreceiver; i_index notread in this complete selected body. Policygroups inventoried explicitly: spatialfrequencies73-74, clump/coverage/distance79-84, age/vigor94-101, wind103-118, interaction120-139, ribboncubic144-167, camerafacing178-208, skybias.76, dither16/hash250-263, root/rib/light/transmission.64/.36/BRDF.3183099/shadow.12 267-315. Native format does not exempt visualpolicy constants. Normalization biases.0001 at112/126/154/182/184 lack source-backed units/tolerancebudget; actual importedlight/math/derives beyondbounded consumers qualified."
+    },
+    {
+      "source": "config1-195/215-400",
+      "roles": "RawBoolean switches/nativeAPI dimensionsu8,usize,u32/Optionusize, arrays2f32, Vecf32/nativequality selectors; metres/fractions/scales. ActualYAMLparse->validate->config retention. Bytes0<length<=64*1024; headlessfalse+LOD1; MSAA2|4, shadowpoweroftwo256..8192/cascades1..4; cloud.35/.25..1/density0..1/jitter0...25/blade.001...25/featherpositive. Tierfadefinite/nonnegative/order allows equal endpoints. Ribbonrowslen>=2/first0/strictincrease/in0..1. Topologydimensionsonlynonzero; stratumside0<side<=32 divides32. These arepolicyowners/aggregatecontracts, not blanketconfig exemption; testmoduleintro396-400 no testcasebodycredit."
+    },
+    {
+      "source": "grass296-323/native lib49-71/prepare227-340",
+      "roles": "Actualfootprint spacing/tiernative_side asf32. Nativepubliccomponents/prelude exports; exactidentifier-only search returns declaration-only wrapper names, boundedlexicalabsence not universalproof. Allocationuses typedEntity/nativepageindices, optionalget/len guards, rawlenasu32->alloc.expect, free-before-reallocation, Writeoffset/batch_id andsyncpages. No localcheckedcast/countadmission."
+    }
+  ],
+  "actual_trace": [
+    "SceneTerrainwidth/depth->ScenePlacement lattice->eligiblecell/filter/typedScenePlanPoint->TuftVariation->coverage/height/community->per-species InstanceData vector->previouslyread spawn_tuft_batches/Arc->actualnativeinstance upload/vertexIO->selected grassshader lowbyte seedcoverage and worldmatrix/dither/color operations. Concrete index/seed/current selected shader path, not source role completion by names.",
+    "Reuse exact own021 historyproducer/retention/defaultmotionprepass recipient proof; no restart or other-lens verdict transfer. The old nativehistoryconsumer frontier is now resolvedWITH observation, not a continuingunreadfield.",
+    "Identifiernavigation over firstpartysrc locates grass/shrub/diagnostics names. No litterdirectory matches is merely metadata, not wholelitter/noalias/macro/unknownproducer absence."
+  ],
+  "observations_noncounted": [
+    {
+      "id": "L13-RESUME-GRASS-DIMENSION-NARROWING-001",
+      "kind": "source-backed representable64-bit API/config counterexample, alias/currentness pending",
+      "source": "config142/369-372 -> instanced_grass276-281/297-298",
+      "contract": "Validation onlyrejects zero usize side. On64-bit,4294967296 is positive/nonzero but narrows toi32 zero, so inner0..side ranges empty. Other >i32MAX values can be negative. Demonstrates loss of positive topology acrosscast, not executed/currentincident.",
+      "repair_candidate": "Canonical checked positive bounded topology owner plus checked nativei32/mesh/budget conversion at actual admission; no clamping/compatibility fallback. Need fullrelatedmesh/current/alias discovery before repair."
+    },
+    {
+      "id": "L13-RESUME-GRASS-COUNT-POLICY-001",
+      "kind": "missing sufficientcap, not actualpopulationoverflow/runtime witness",
+      "source": "scatter267-331/config291-319/369-382 -> nativeprepare260-334",
+      "contract": "Per-species vectors unboundedlocally, ordinallenasu32/emittedu32++ unguarded. Nativeactualreceiverlenasu32->allocator.expect read. Configfinitepositive spacing hasno minimum and sideonlynonzero. No <=1M/u32 successfulpopulationproof. Preserve018 distinction: largerallowedlattice alone doesnot disprove actualspecieslength cap afterfilters.",
+      "repair_candidate": "After rootalias/currentness, budgeted instance counts and checkedpublication across actualproducer/allocator/upload; no invented witness."
+    }
+  ],
+  "remaining_original31": [
+    "WrapperpublicAPI disposition: actualin-tree recipient notlocated, publicexport provesopenAPI; no inventedbyte/indexunits for unreadconsumer.",
+    "Delegated offset_allocator implementation and selectedCustom/independentpublicmutation/devicecoherence/currentness remainqualified.",
+    "Vista/otherTuftPlacement and correlated mesh/config count producers require material admission tracing; no actualpopulation witness needed toretainqualifiedsourcefinding."
+  ],
+  "accounting": {
+    "original_before": 37,
+    "original_proposed": 37,
+    "partial": [
+      31,
+      36,
+      39
+    ],
+    "first_never_started": 40,
+    "new_unique": 0,
+    "other_population_increment": 0
+  },
+  "qualifications": [
+    "Exact frozenchangedobjects or reconstructed unchangedbase/head peers absent changedmanifest/status only. Nativeexactcommit objects. No fulltree downloaded.",
+    "Lib registered49-74 actualEOF71: actual49-71only, nonexistent72-74notconsumed. One receipt script syntaxerror emittednoevidence and no source changes; corrected append below.",
+    "No project/toolchain execution/checks/tests/probes/newtesthelpers/assertions/doctests/product/Git/rootledger/history/publication. No global/native/other-lens clearance."
+  ],
+  "continue": "Remaining31 allocator/API,36/39,then original40+,no arbitraryonefile stop."
+}

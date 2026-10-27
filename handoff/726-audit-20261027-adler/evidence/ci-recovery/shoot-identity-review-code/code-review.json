@@ -1,0 +1,97 @@
+{
+  "base": "0dcca06bdab7f5aea543dd0ce49829156f75de36",
+  "head": "8dd44e74eb5109d95bb341f4729bebe69ca5a118",
+  "fingerprint": "3ccdcc06ab387e50c4436e5db557c6d1c40be5dad10798e2b73df0295e6049fb",
+  "scope": "Shoot identity producer-to-consumer family, direct oak-root extraction, replay revisions, and opt-in hosted export workflow only. All 18 diff paths are pinned; clouds.rs assertion removal is explicitly outside identity review. No whole-file or whole-audit clearance.",
+  "validation": "Source-only independent review. No project checks, tests, lint, build, runtime probe, source edits, Git mutation, publication, or other reviewer verdict reads.",
+  "kind": "INDEPENDENT_CODE_REVIEW",
+  "verdict": "Changes required: one existing test adaptation names the wrong module owner; hosted export and authoritative acceptance also remain pending.",
+  "findings": [
+    {
+      "id": "SHOOT-CODE-1",
+      "priority": 1,
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/raster.rs",
+      "line": 717,
+      "function": "tests::coarse_leaf_sampling_preserves_positions_across_every_shoot",
+      "problem": "Inside tree::impostor::raster::tests, super::super resolves to tree::impostor. That module does not define or import geometry. The new TreeShootId expression therefore names an unresolved module and prevents the existing test target from compiling.",
+      "evidence": "raster.rs mod tests300; imports301-309; changed expression717. impostor.rs imports geometry contents via use super::geometry::* at12, which does not import the geometry module name itself; presentation has no geometry module/import. Actual owner is tree::geometry.",
+      "correction": "Use crate::presentation::obstacles::tree::geometry::TreeShootId (or import that owner into existing test imports) and preserve the same existing seed fixture/cases/assertions."
+    }
+  ],
+  "source_assessment": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs",
+      "functions": [
+        "procedural_oak_skeleton_with_gnarling",
+        "procedural_beech_skeleton",
+        "procedural_multistem_shrub_skeleton",
+        "append_branch_curve"
+      ],
+      "evidence": "Oak OAK_SHOOT derives from per-secondary seed plus shoot_index; beech BEECH_TWIG from per-secondary seed plus twig_index; shrub terminal SHRUB_TIP from per-stem seed plus tip_index. Fourth producer is growth_axes::append_shrub_shoots with SHRUB_SHOOT from branch_seed plus shoot_index. These are existing fixed-width, domain-separated seed trees, before all native endpoint evaluation. All four original depth-3 terminal append sites attach Some; every other append site passes None. append_branch_curve stores Some only when index+1==segment_count while preserving is_limb_tip and the same lerp/powf order."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_plan.rs",
+      "functions": [
+        "append_oak_roots",
+        "append_beech_roots"
+      ],
+      "evidence": "The moved oak-root loop calls the same root plan, capacity assertion, root and fork point functions in the same order. trunk_base is supplied trunk_points[0], so subtraction by Y*0.07 is unchanged. All radius expressions and sentinel groups are preserved; new None declares no foliage. Splitting an already oversized producer adds no alternative implementation or compatibility path."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/identity.rs",
+      "functions": [
+        "TreeShootId::from_seed",
+        "TreeShootId::seed"
+      ],
+      "evidence": "Opaque private u64 identity has one source constructor using existing StreamId ownership and Seed. No default, serde, primitive From, mutable field, float conversion, or raw public getter. seed() is a native adapter used by actual StreamId seed/rng APIs requiring Seed and by the integer fingerprint input. Open identity permits zero/all bits; no false numeric bounds introduced. Hash collisions remain ordinary 64-bit identity risk, not a mathematical uniqueness promise."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/arrangement.rs",
+      "functions": [
+        "procedural_oak_leaves",
+        "procedural_beech_leaves",
+        "procedural_multistem_shrub_leaves"
+      ],
+      "evidence": "Each directly consumes stored Option identity, uses it as fixed-width RNG context with existing per-leaf ordinal and caller seed, and publishes TreeLeaf.shoot_id unchanged. No ID is reconstructed from position, transform, iteration order, or group ordinals. Existing leaf quantities, arithmetic and population loops are untouched; changed RNG inputs intentionally change leaf values."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/selection.rs",
+      "functions": [
+        "sparse_woody_far_card_leaves",
+        "detailed_flat_card_group_leaves",
+        "sparse_woody_far_card_retained",
+        "detailed_flat_card_leaf_retained"
+      ],
+      "evidence": "Tuple sorting keeps typed ID plus groups and ordinals. Integer four-lane sampling receives ID seed directly; masks and probabilities are unchanged. leaves::leaf_shadow_selector, raster::stratified_tree_bake_leaves, and obstacles::oak_review_terminal_specimen consume the same typed ID. Review specimen still selects by the same geometry score and translates copied branch/leaves without changing ID."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs",
+      "functions": [
+        "tree_source_geometry_hash"
+      ],
+      "evidence": "All existing coordinate f32 bit inputs preserve loop order; ID enters separately as the full u64 followed by the same intentional wrapping hash multiply. The prior lossy u64-as-f32 hash is removed. Bake revision18 invalidates old replay assets. Native geometry fingerprint can still differ across platform float math; this change guarantees stable source identity, not every geometric byte."
+    },
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "functions": [
+        "jobs.rust-quality",
+        "jobs.regenerate-fixtures"
+      ],
+      "evidence": "Boolean workflow_dispatch option defaults false. Ordinary push/PR inputs are absent/falsy so quality remains enabled; manual regeneration selects exporter job. Existing managed-hazel opt-in writer, ignored art-demo bake generator, and existing understory/leaves suites are invoked; source revision and artifacts/logs uploaded even on failure. A successful export is not authoritative full quality acceptance. Dependencies mirror the existing Linux job; no network-message action or automatic commit."
+    }
+  ],
+  "fixture_preservation": {
+    "branch_literals": "Only existing wood_mesh and weather fixtures gain foliage:None. No cases/assertions added or altered.",
+    "coarse_sampler": "Existing numeric ID fixture is adapted at authored seed boundary to TreeShootId. All existing range, population, repeatability and spatial coverage assertions stay intact.",
+    "bud_oracle": "Existing terminal count query follows new authoritative foliage membership; its population and vertex assertions remain unchanged. Production equivalence of membership is established by all four producer sites.",
+    "unrelated_cloud_delta": "Two WIP-only assertions removed per explicit root instruction; excluded from identity clearance.",
+    "exports": "garden-hazel metadata revision changes2\u21923; hull/count/geometry payload remains old until hosted export. oak.tree-impostors has not been regenerated in this candidate."
+  },
+  "acceptance_pending": [
+    "Run existing hosted export at this exact source commit; review generated envelope, source revision and bake provenance.",
+    "Use measured output for existing sparse budget literals without weakening assertions or introducing platform forks.",
+    "Run existing authoritative hosted quality after generated artifacts/expected literals are incorporated; re-review that exact delta.",
+    "Broader CI WIP batch and frozen774 audit remain separate incomplete obligations."
+  ],
+  "alternative_assessment": "Direct typed identity from the already canonical terminal source seeds is the smallest sound fix. Reusing group IDs would merge multiple shoots/twigs sharing a group; using rounded endpoints retains an arbitrary float-dependent identity; deriving from traversal would fail reordering. Reusing Seed alone as the application identity would discard the distinction from other RNG roots. No additional branding, lookup table, fallback, or new tests is needed."
+}

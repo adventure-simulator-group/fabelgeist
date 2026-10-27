@@ -1,0 +1,6 @@
+{
+  "before_sha256": "8b82644fdbb52e00c1b40a850239bb273c956668c89805efae19800b35f42487",
+  "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+  "repair": "remove parent smoothstep import used only by removed primitive dive normalization; ik subtree owns its own reexport, remaining terrain consumers use that owner",
+  "no_terrain_migration": true
+}

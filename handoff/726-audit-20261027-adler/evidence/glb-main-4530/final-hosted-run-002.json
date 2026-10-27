@@ -1,0 +1,466 @@
+{
+  "head": "2ef288d1085c249fa056156182ea626a060bb8d1",
+  "run": 40339807509,
+  "jobs": {
+    "jobs": [
+      {
+        "id": 121631099743,
+        "name": "rust-quality",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 40339807509,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Install pinned Rust toolchain",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Cache Rust build artifacts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Install pinned SpacetimeDB CLI",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Install configured Linux linker",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Check formatting",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Test generated bindings verifier",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Check building review presentation boundary",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Verify generated SpacetimeDB bindings",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Test shared schema and GPU readback boundaries",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          },
+          {
+            "name": "Test resolved Bevy guard",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Test checked FBX array encoding",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          },
+          {
+            "name": "Test existing FBX object-name consumers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14
+          },
+          {
+            "name": "Check semantic values and Rust growth",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          },
+          {
+            "name": "Check calendar API ownership",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Lint tactical client WASM target",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17
+          },
+          {
+            "name": "Test native and WASM deterministic draws",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18
+          },
+          {
+            "name": "Run Clippy with warnings denied",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19
+          },
+          {
+            "name": "Test constraint graph and shell consumers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 20
+          },
+          {
+            "name": "Upload constraint validation evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 21
+          },
+          {
+            "name": "Record rig contract revision",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 22
+          },
+          {
+            "name": "Test shared rig contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 23
+          },
+          {
+            "name": "Test shared scalar geometry contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 24
+          },
+          {
+            "name": "Test native iteration report producers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 25
+          },
+          {
+            "name": "Test autoresolve battle-time consumers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 26
+          },
+          {
+            "name": "Test MHR rig admission",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 27
+          },
+          {
+            "name": "Test strategic bootstrap failure contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 28
+          },
+          {
+            "name": "Test creator rig family contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 29
+          },
+          {
+            "name": "Test tactical animation and audio contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 30
+          },
+          {
+            "name": "Test existing animation report consumers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 31
+          },
+          {
+            "name": "Test tactical equipment contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 32
+          },
+          {
+            "name": "Test equipment chronology and mapped requests",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 33
+          },
+          {
+            "name": "Test gameplay camera contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 34
+          },
+          {
+            "name": "Test shared animation value contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 35
+          },
+          {
+            "name": "Test canonical combat configuration",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 36
+          },
+          {
+            "name": "Test server configuration startup",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 37
+          },
+          {
+            "name": "Test authoritative maneuver consumers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 38
+          },
+          {
+            "name": "Test shared terrain support contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 39
+          },
+          {
+            "name": "Test terrain presentation and retained scene consumers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 40
+          },
+          {
+            "name": "Test existing terrain capture and art-demo consumers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 41
+          },
+          {
+            "name": "Test dispatcher terrain selection and inspection consumers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 42
+          },
+          {
+            "name": "Export semantic family baseline snapshot",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 43
+          },
+          {
+            "name": "Verify required rig contract execution",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 44
+          },
+          {
+            "name": "Upload rig contract evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 45
+          },
+          {
+            "name": "Post Cache Rust build artifacts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 89
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 90
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 91
+          }
+        ]
+      },
+      {
+        "id": 121631099954,
+        "name": "foliage-portability",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 40339807509,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Install pinned Rust toolchain",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Expose the configured bundled Rust linker",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Cache Rust build artifacts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Verify existing foliage and prepared-asset contracts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Verify required existing cases executed",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Upload foliage portability evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Post Cache Rust build artifacts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          },
+          {
+            "name": "Post Run actions/checkout@v7",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17
+          }
+        ]
+      },
+      {
+        "id": 121631102285,
+        "name": "regenerate-fixtures",
+        "status": "completed",
+        "conclusion": "skipped",
+        "run_id": 40339807509,
+        "logs_url": null,
+        "steps": null
+      }
+    ]
+  },
+  "runs": {
+    "workflow_runs": [
+      {
+        "id": 40339807509,
+        "name": "Rust quality",
+        "status": "completed",
+        "conclusion": "success",
+        "run_number": 1193,
+        "jobs_url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/actions/runs/40339807509/jobs",
+        "logs_url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/actions/runs/40339807509/logs",
+        "workflow_id": 338912536
+      }
+    ]
+  },
+  "artifacts": {
+    "artifacts": [
+      {
+        "id": 12664610481,
+        "name": "rig-contracts-2ef288d1085c249fa056156182ea626a060bb8d1",
+        "size_in_bytes": 110986,
+        "url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/actions/artifacts/12664610481",
+        "archive_download_url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/actions/artifacts/12664610481/zip",
+        "expired": false,
+        "created_at": "2026-10-26T15:40:25Z",
+        "expires_at": "2027-01-24T14:27:24Z",
+        "updated_at": "2026-10-26T15:40:25Z",
+        "digest": "sha256:b7e6793fd918ef8e81674a82715700baadadd7226b2b2eb6eafe4684be3616e5",
+        "workflow_run": {
+          "id": 40339807509,
+          "repository_id": 1049441561,
+          "head_repository_id": 1049441561,
+          "head_branch": "codex/checked-glb-framing-review",
+          "head_sha": "2ef288d1085c249fa056156182ea626a060bb8d1"
+        }
+      },
+      {
+        "id": 12659837196,
+        "name": "constraint-validation-40339807509-1",
+        "size_in_bytes": 2510,
+        "url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/actions/artifacts/12659837196",
+        "archive_download_url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/actions/artifacts/12659837196/zip",
+        "expired": false,
+        "created_at": "2026-10-26T14:50:48Z",
+        "expires_at": "2027-01-24T14:27:24Z",
+        "updated_at": "2026-10-26T14:50:48Z",
+        "digest": "sha256:f28041c1ebef011e0adb0649be2f31c359975e7b87e416cca3e357a86ef98b7b",
+        "workflow_run": {
+          "id": 40339807509,
+          "repository_id": 1049441561,
+          "head_repository_id": 1049441561,
+          "head_branch": "codex/checked-glb-framing-review",
+          "head_sha": "2ef288d1085c249fa056156182ea626a060bb8d1"
+        }
+      },
+      {
+        "id": 12659234694,
+        "name": "foliage-portability-2ef288d1085c249fa056156182ea626a060bb8d1",
+        "size_in_bytes": 2827,
+        "url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/actions/artifacts/12659234694",
+        "archive_download_url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/actions/artifacts/12659234694/zip",
+        "expired": false,
+        "created_at": "2026-10-26T14:44:33Z",
+        "expires_at": "2027-01-24T14:27:24Z",
+        "updated_at": "2026-10-26T14:44:33Z",
+        "digest": "sha256:fd365f1002ff71cc984124a581ed770ab4cfd81e25d47bc2fd19392249f67002",
+        "workflow_run": {
+          "id": 40339807509,
+          "repository_id": 1049441561,
+          "head_repository_id": 1049441561,
+          "head_branch": "codex/checked-glb-framing-review",
+          "head_sha": "2ef288d1085c249fa056156182ea626a060bb8d1"
+        }
+      }
+    ]
+  }
+}

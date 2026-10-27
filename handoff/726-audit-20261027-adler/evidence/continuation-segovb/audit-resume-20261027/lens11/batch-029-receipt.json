@@ -1,0 +1,321 @@
+{
+  "at": "2026-10-27T13:04:02.029856+00:00",
+  "lens": 11,
+  "status": "937-945 independently source-accounted with findings",
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-028.json",
+    "sha256": "99548a84a439e5b0b2a3b8367cbd97675e513b80331f5aa304387b05705552e2"
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-029-registration.jsonl",
+    "sha256": "54ce9a3b6060f5fb15d1fccacd62f7fb3de6ecd385a27259d3dfcd9d55a8535a"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 937,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog.rs",
+      "sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+      "actual_eof": 614,
+      "ranges": [
+        [
+          1,
+          614
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          614
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 938,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_fit.rs",
+      "sha256": "a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "actual_eof": 46,
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          46
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 939,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "actual_eof": 618,
+      "ranges": [
+        [
+          1,
+          618
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          618
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 940,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_surface.rs",
+      "sha256": "9f49d61c21b245ad0793daea4f28f1f74769c76680ef383553454b688c9f6cbd",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/9f49d61c21b245ad0793daea4f28f1f74769c76680ef383553454b688c9f6cbd",
+      "actual_eof": 47,
+      "ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          47
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 941,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation.rs",
+      "sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "actual_eof": 2053,
+      "ranges": [
+        [
+          1,
+          2053
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          2053
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 942,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_material.rs",
+      "sha256": "823eb461e0534843b71a2b8199e6428fd9a558cf9bc1387beedf87500bf71f8a",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/823eb461e0534843b71a2b8199e6428fd9a558cf9bc1387beedf87500bf71f8a",
+      "actual_eof": 17,
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          17
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 943,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+      "sha256": "a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+      "actual_eof": 49,
+      "ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          49
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 944,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "sha256": "9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "actual_eof": 185,
+      "ranges": [
+        [
+          1,
+          185
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          185
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 945,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+      "sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+      "actual_eof": 219,
+      "ranges": [
+        [
+          1,
+          219
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          219
+        ]
+      ]
+    }
+  ],
+  "material_receivers": [],
+  "reused_personal_source_proofs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-024-receipt.json",
+      "sha256": "ca778635143938f2d880c6f080ce1b984ba4135d9686dd799c3adcc5734ea9c5"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-025-receipt.json",
+      "sha256": "da2167395504955b78e9c36ddd77daeb4b3337f7a00fb6905b77d85b096ddaf4"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-027-receipt.json",
+      "sha256": "871ad0df2778d657e3f880a3444f1c99f36a6d2b9258c12e6a57bb3c11a97b41"
+    }
+  ],
+  "per_role": [
+    {
+      "original": 937,
+      "roles": "Embedded compiled catalog versus authored document/source order; item ID/source-map ID/revision digest and native parser boundary; generated weapon physical/contact values; derived surface coverage versus authored spans; typed kind/carry/handling/animation pack.",
+      "trace": "Full614 consumed. JSON parser populates Vec<ItemDefinition> then melee recipes derive mass/reach/inertia/precision and mutate retained raw fields. Equipment surface spans derive placement mean then item coverage; armor/clothing authored coverage is rejected by941. Catalog sorts ID for lookup; authored_document_items uses source file and line/column for original order without reparsing. Exact schema939 and all validators941-945 consumed; existing test bodies are source only.",
+      "disposition": "ID, source-document file, line/column, revision hash and physical/calculation quantities remain raw strings/numbers at internal retained APIs. Reuse correct existing owners after authority/unit reconciliation, especially weapon_precision returning f32 instead of existing ContactPrecision proved014. Catalog and source-map rows are distinct derived authority views, not arbitrary duplicate catalog. Derived physical mass/reach and span coverage should not be independently writable authority; schema still permits it although actual loader/validator chooses canonical source. Do not infer runtime parser/build invocation or all generated properties solely from expect comments/tests."
+    },
+    {
+      "original": 938,
+      "roles": "EquipmentFitZone within broad sided location; channel layering/order versus anatomical fit conflict.",
+      "trace": "Full46. fits_location admits arm zones only on left/right arm and leg zones only left/right leg. conflicts_with requires same location/channel, singleton channel or equal order, plus whole-location or matching zone.944 directly applies both predicates.",
+      "disposition": "Keep zone, location and channel separate: they prevent concrete wrong-limb/overlap mixups. Optional zone means whole-location reservation, not missing malformed data. A coherent location-owned subzone could prevent invalid pairs currently validated at admission; no need to merge coarse equipment anatomy with seven-part health projection."
+    },
+    {
+      "original": 939,
+      "roles": "Item kind payload versus independent equipment/capability composition; handling/carry/mode; item/placement/attachment/tag/surface-domain identities; fine equipment locations, coarse health projection, fit regions; lengths/local offsets/inertia/mass/volume/value; protection fractions and resistance; food/book/alcohol/durability metadata.",
+      "trace": "Full618 read independently, including previously connected fragments.941-945 establish actual admissions and relationships. ItemKind carries weapon/armor/shield data; Capabilities independently permit food/alcohol/container/book/durability on allowed kinds. Weapon handling two states and carry two states are independent; melee+ranged may both true, but neither is rejected. EquipmentMaterial enum is same closed ten entries as942 lexical validator. AttachmentPointDefinition has paired Option surface_uv/tangent_direction;9411048-1052 rejects exactly one present. WeaponSkills nine floats have normalized finite nonnegative distribution admission in9411101-1145, directly copied to duplicate runtime distribution024.",
+      "disposition": "Share existing WeaponSkills/distribution and Food Flavors/FoodClass owners proven024/025 where exact representation/contract aligns; do not invent one giant item enum eliminating valid compositional capabilities. Raw schema leaves lose admitted positive distances, mass/volume/currency and bounded fractions, while public structs permit rejected combinations. Pair optional surface-coordinate+tangent into one surface attachment payload; tangent is finite nonzero direction, not arbitrary local offset. Material Option is broader than validator-required equipment material; striking material is separately required only for weapons, not alias of surface material. Keep location, combat-body-part and anatomical region distinctions, each has different granularity and explicit projection. EquipmentProtection zero-inclusive padding/resistance are not UnitInterval; flexibility/ROM and coverage are bounded fractions. Precision is nonnegative concentration with admitted values above1, not probability. Weapon mode needs three valid states Melee/Ranged/Hybrid or an admitted set, not mutually exclusive binary enum. Optional animation pack intentionally selects default shared pack when absent; no compatibility rationale assumed."
+    },
+    {
+      "original": 940,
+      "roles": "Ordered anatomical chain and proximal/distal/center anchor; positive bounded chain-length coverage; transient segment-count limit16.",
+      "trace": "Full47 consumed, actual validation in945 requires nonempty valid contiguous chain and positive f32 coverage<=1, restricts anatomical protection relation and total segments<=16.937 derives summary coverage.",
+      "disposition": "Surface span owns geometry coverage distinct from coarse protection designation and item summary fraction. Coherent nonempty bounded region-chain plus admitted positive coverage can retain validated contract through consumers; preserve region order and anchor. Do not reinterpret coverage as region count or require armor protection for accessory spans."
+    },
+    {
+      "original": 941,
+      "roles": "Strict JSON Value admission versus typed schema; diagnostic source index/path/message; supported registries/tags/icon keys; numeric policy and aggregate relationships.",
+      "trace": "Full2053 read. Strict visitor rejects duplicate mapping keys and nonfinite JSON numbers. validate_documents checks schema version1, global duplicate IDs, closed currency/medication registry, typed deserialization and bounded diagnostics. Equipment validation checks placement IDs, material roles, geometry, protection/surface relationship, attachment capacity and paired tangent/UV. Weapon validation permits hybrid mode, requires normalized weights and compatible positive mode share. Book maximum quality depends on target (1/2/4/5), not one universal rank cap. Alcohol serving/ABV/hydration relation and durability yield/fracture relation are explicit.",
+      "disposition": "Raw Value is an appropriate external representation boundary; diagnostic source index and line/column are indexing/presentation roles rather than gameplay IDs. Repeating finite/bounded admission in untyped JSON then discarding refined results into public primitive schema is a producer/retention migration gap. Preserve common invariants beneath role-specific units; policy maxima such as10000kg/1e6ml are actual authored limits here, not justified global physical-type maxima. Do not equate disinfectant_effectiveness(u16) with ABV bounded fraction: actual validator only limits former by u16. Book target/quality relation merits an admitted aggregate, preserving per-target maxima. No accepted unique/current finding derived solely from tests."
+    },
+    {
+      "original": 942,
+      "roles": "Lexical equipment material admission.",
+      "trace": "Full17; exact ten names match939 EquipmentMaterial.",
+      "disposition": "A lexical helper can share canonical enum parsing to prevent duplicated vocabulary drift; do not create a second material owner. Surface material and damaging-contact material retain distinct roles even same owner."
+    },
+    {
+      "original": 943,
+      "roles": "General finite interval versus positive-after-f32-conversion admission.",
+      "trace": "Full49; finite_in checks f64 input bounds, positive_f32_in casts to f32 then rejects nonfinite/zero/negative and max overflow.941 shield block and945 coverage use the latter.",
+      "disposition": "The distinction is meaningful: positive f64 can round to zero in f32. Common admission should retain final storage invariant and role errors, not collapse these checks under a broader validator. No blanket f32 representability guarantee for all other numeric ports is asserted."
+    },
+    {
+      "original": 944,
+      "roles": "Typed parent/layer dependency, channel/location/order/fit-zone occupancy; uniqueness/conflict aggregation.",
+      "trace": "Full185; parent and layer precedence deserialize canonical schema types; occupancy checks canonical location/channel strings, fit-zone membership via938, singleton order0, u16 order and conflicts against prior admitted requirements. Existing fixtures permit multiple disjoint zones, reject whole-zone overlap.",
+      "disposition": "Use canonical enum parsing rather than parallel raw-string sets where possible, while preserving source diagnostics. Keep order position distinct from channel categorical priority and fit-zone membership. Capacity witness185 is retained; catalog static occupancy validation does not establish runtime graph reservation correctness."
+    },
+    {
+      "original": 945,
+      "roles": "Serialized surface span admission and explicit region-to-health projection/adjacency.",
+      "trace": "Full219; validates nonempty region chain,16 total segments, material presence, supported anchors, positive-after-f32 coverage, region adjacency and protection membership; accessories may have surface without protection. anatomical_body_part performs intentional lossy projection of fine regions to seven parts.",
+      "disposition": "Keep fine geometry anatomy and coarse health roles distinct; move shared region vocabulary/projection/adjacency behind canonical owner to avoid raw-string duplication, not collapse the types. Coherent admitted chain can prevent public Vec invalid sequences. Existing source fixtures not executed."
+    }
+  ],
+  "qualified_findings": [
+    {
+      "source_key": "lens11:frozen:939:surface-attachment-paired-payload",
+      "support": "939233-257 plus941999-1053",
+      "status": "public Option pair broader than actual admitted states; alias/currentness unresolved",
+      "accepted_unique": false
+    },
+    {
+      "source_key": "lens11:frozen:939:weapon-skills-duplicate-runtime-shape",
+      "related_source_key": "lens11:batch024:920:weapon-skill-distribution",
+      "status": "actual duplicate fields and direct runtime projection; normalized authoring admission now additionally proven; canonical finding alias not asserted",
+      "accepted_unique": false
+    }
+  ],
+  "contract_limits": [
+    "All9 exact original bodies fully consumed, 3848 lines total; existing tests source only, never run.",
+    "Generated OUT_DIR payload, whole weapon derivation kernels, build compiler invocation and native math implementations are not inspected in this packet. Their actual raw receiving ports are identified; no native algorithm/global currentness claim.",
+    "Inherited185 graph capacity witness, item-key/record identity, saved drape association and prior raw-ID concerns remain qualified. No runtime wrong item/physical coordinate/input witness, accepted alias or unique count.",
+    "Prior personally consumed924/925 roles are reused only with exact frozen pins; this packet independently inventories937-945. No global family/current validation or other-lens clearance."
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_ledger_edited": false
+}

@@ -1,0 +1,54 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-194",
+  "at": "2026-10-25T21:27:44.313330+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2079,
+      "source_id": "pr-working:crates/adventuresim-terrain/src/builder.rs",
+      "sha256": "39502f30860a433c74e3d1309365d46fda323b7406ee627123dfcd50630442a1",
+      "personally_read_ranges": [
+        [
+          1,
+          646
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full offline pack compiler: chunk shape, tile dimensions and raster lengths checked before indexed sampling; elevation/surface/crossing/hill/cultivation bytes, compressed entry offsets and decoded/content/package digests are built together from the same source iteration.",
+        "Manifest and pack are written sequentially after all in-memory compilation. No atomic multi-file publication claim; runtime digest admission is a separate recipient. Native Features is raw offline input (support2080 full13); polygon masks use parity within/across polygons. Actual overlapping feature polygons or malformed ring producer/policy is required before alleging a normal mask defect. World-geographic bounds beyond finite ordered values remain native adapter preconditions, not an ordinary source-backed failure."
+      ]
+    },
+    {
+      "scope_index": 2083,
+      "source_id": "pr-working:crates/adventuresim-terrain/src/road_pack.rs",
+      "sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+      "personally_read_ranges": [
+        [
+          1,
+          344
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full bounded road package load/write/decode: matching final terrain/source/geometry digest, payload digest, byte/line/point limits, exact count/trailing-byte checks, finite in-bounds coordinates and private derived line bounds.",
+        "Source WGS84 f64 precision remains in canonical geometry digest before checked E7 conversion. Classification is retained in payload and content hash while terrain road-mask digest covers only geometry; no external classification authority or ordinary mismatch witness established. Existing inherited RIG-OWNER-REACHED-PRODUCER-F005 already owns typed source-digest propagation; no duplicate finding."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "support_sources": [
+    {
+      "scope_index": 2080,
+      "source_id": "pr-working:crates/adventuresim-terrain/src/builder/features.rs",
+      "ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "disposition": "full body support only; inherited coverage, no new role credit"
+    }
+  ]
+}

@@ -1,0 +1,171 @@
+{
+  "kind": "INDEPENDENT_COMMENT_REVIEW",
+  "at": "2026-10-25T21:31:07.310867+00:00",
+  "reviewer": "/root/glb_comment_review",
+  "source_author": "/root",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "branch": "codex/texture-view-error-contract",
+  "skill": "target/recovery-20261025/handoff/780/skills/comment-review/SKILL.md",
+  "verdict": "WITH_ACTIONABLE_DOCUMENTATION_FINDING",
+  "findings": [
+    {
+      "id": "COMMENT-TEXTURE-001",
+      "priority": 3,
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "line": 21,
+      "title": "Qualify owned-context observation as native-only",
+      "evidence": "open() sets blocking_validation to !cfg!(target_arch = \"wasm32\"); therefore owned browser contexts disable observation, whereas this added sentence says all owned contexts enable it. The guide already describes browser behavior correctly.",
+      "correction": "Say \u201cOwned native contexts enable this observation. Borrowed contexts and browser targets disable it \u2026\u201d, preserving the separate provider-policy distinction."
+    }
+  ],
+  "source_accounts": [
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "78737ed29bb25ecca79c079f6676afa0719fa8bfe65a9051b56536de280cfd63",
+      "scope": "whole file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "e29d771de75a14d0d916156b8d9772beeb1f0241068625cf23b6412d91fdd9bb",
+      "scope": "whole file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "58160e2de31dac304d596570c922a549b75999cfc5604aab1e63066a8b46946d",
+      "scope": "whole file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+      "sha256": "83ba1e1ca0719ccdc74c3bc70f4fdc197dca496600a89b41a5e18c7a020fece0",
+      "scope": "whole file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "10387cbd21a9e79c1f7cac87677c5eb870460659e1c67ba5ac1f548d13b2d193",
+      "scope": "changed doc/declaration responsibility; current native descriptors and relevant constructors/caller/source selection checked at recorded reads"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "d4d9df664fcd5207e09a8453fedfb5fae4ce9d139cd45d3bd8bc1e6a9f9ac12e",
+      "scope": "changed doc/declaration responsibility; current native descriptors and relevant constructors/caller/source selection checked at recorded reads"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "b86ab932de453c75553ba6a915d830406ac142dd7fe544a5d9fe5be25b14431a",
+      "scope": "changed doc/declaration responsibility; current native descriptors and relevant constructors/caller/source selection checked at recorded reads"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "2225e33ec3003ac3708ae6c9b9bbb51a48e52055f20efcee4b29a4187cfc9ffe",
+      "scope": "changed doc/declaration responsibility; current native descriptors and relevant constructors/caller/source selection checked at recorded reads"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/tests/texture_views.rs",
+      "sha256": "95e306d123114d0fd5179e10175ec4820cd0801377c499e1ea2d7a7765548d6a",
+      "scope": "whole file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/tests/fixtures/texture_views.json",
+      "sha256": "2fa289e171e23b95b647a08e4cda05155e304750376625a01ba8fb34802af800",
+      "scope": "whole file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "sha256": "6df2befe9397b790ad88233dee3fe7ed4f4aaf918a41b939585a5c633fe0f3db",
+      "scope": "whole file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "aefd85c07647fab825fdc409555029983347a756c01470b98fc6c442d9db4246",
+      "scope": "whole file"
+    },
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "7df64ed52df80c252acb7d215f51b3c502e2a04f0e8a4bfa7e550bb530830548",
+      "scope": "changed doc/declaration responsibility; current native descriptors and relevant constructors/caller/source selection checked at recorded reads"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "bd243ec55b3e201e8638dce05d5f1b3caf774f2b15e9db9be008a2c23bc717e5",
+      "scope": "whole file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "19158c8c4f43c34c0a7231e598714b09bb993df1598dce31ca525b53e3d7c6fd",
+      "scope": "whole file"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "fdc0ed1b1e8f6c7968a041f5c967caf146ca29624517f500c692dd39da57fccd",
+      "scope": "whole file"
+    }
+  ],
+  "checked_contracts": [
+    {
+      "claim": "Typed method/request/native cause retention and generic conversion",
+      "evidence": "TextureViewError stores requested format and operation-specific native cause; Progress stores operation/request plus actual ValidationProgressError; Error::source matches the guide. ComputePass three texture arms retain standard ? conversion.",
+      "disposition": "accurate"
+    },
+    {
+      "claim": "Cache-first identity, missing-cache/uninitialized distinction",
+      "evidence": "Three methods clone existing same-format Arc before native texture admission; absent cache returns MissingView; alternate absent texture returns Uninitialized. Existing4case fixture source/oracles explicitly assert these behaviors.",
+      "disposition": "accurate"
+    },
+    {
+      "claim": "Enabled polling, always-pop and dual causes",
+      "evidence": "Canonical ValidationScope::new uses context.blocking_validation, finish waits then unconditionally pops before matching the two results. Poll failure retains poll plus optional native cause; source prefers native while public fields retain both. Guide explicitly avoids global-health/rollback promises.",
+      "disposition": "accurate"
+    },
+    {
+      "claim": "Native/browser/borrowed policy and pending broader paths",
+      "evidence": "views.rs guards validation observation with native cfg and optional policy; borrowed from_parts false; ownedopen native true/browserfalse. Guide correctly bounds constructors/subresources and mutable metadata/device coherence; one context-field sentence needs qualification when still present in snapshot.",
+      "disposition": "guide accurate; field-prose finding as recorded"
+    },
+    {
+      "claim": "Descriptor projection and scoped storage comment",
+      "evidence": "Original requested format remains error context while native descriptor may select linear counterpart for storage; Cube label/dimension/layercount and default descriptor inference retained. Comments describe this specific whole-view responsibility.",
+      "disposition": "accurate within scope"
+    },
+    {
+      "claim": "Hosted execution evidence wording",
+      "evidence": "Workflow step runs original4integrationcases, package doctests and existing borrowed-context unit; compares actual/expected head, checks one nonempty passing result summary and publishes results. No source comment or guide claims a run has passed.",
+      "disposition": "accurate pending execution"
+    }
+  ],
+  "supporting_sources": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "read_ranges": [
+        [
+          261,
+          342
+        ]
+      ],
+      "sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "read_ranges": [
+        [
+          1,
+          43
+        ],
+        [
+          88,
+          124
+        ],
+        [
+          256,
+          309
+        ]
+      ],
+      "sha256": "2225e33ec3003ac3708ae6c9b9bbb51a48e52055f20efcee4b29a4187cfc9ffe"
+    }
+  ],
+  "proof_qualifications": [
+    "Original4integrationcases/JSON and compile_fail block are inherited case source, not new tests. They were read, not executed.",
+    "No local project checks or probes, new tests, source edits, PR mutations or other-reviewer verdict reads.",
+    "No compiled/runtime/browser/hardware-wide/PollError-injection or final hosted acceptance asserted.",
+    "No broader F2 mutable cache/resource/metadata/device coherence, constructor/subresource or complete780/826 acceptance."
+  ]
+}

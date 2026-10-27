@@ -1,0 +1,252 @@
+{
+  "at": "2026-10-27T14:30:24.110514+00:00",
+  "lens": 11,
+  "status": "1036-1040 independently source-accounted with findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-053-registration.jsonl",
+    "sha256": "e7a273b444c61b8f4aacdb7d52a86b720c1fefdf11fcf8bd9d3508a8a0f8a5e7"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-052.json",
+    "sha256": "d158c3c3953ebfa80b04d0e3137ea99b708d24ff7a7d6768481831d8ab7f39d0"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1036,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/Cargo.toml",
+      "sha256": "c62ef46d7f6ce6ce73bc52b18585d610a1417364a808ab3b0cd6d0ce5f8c4015",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/c62ef46d7f6ce6ce73bc52b18585d610a1417364a808ab3b0cd6d0ce5f8c4015",
+      "ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "actual_eof": 29,
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          29
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1037,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/flower/geometry.rs",
+      "sha256": "dafe7238b919cf1a908c2b419957324da29f30e3f3b505be20f54d8303161cc8",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/dafe7238b919cf1a908c2b419957324da29f30e3f3b505be20f54d8303161cc8",
+      "ranges": [
+        [
+          1,
+          261
+        ]
+      ],
+      "actual_eof": 261,
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          261
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1038,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/flower/mod.rs",
+      "sha256": "83c15bd86ae01aa5de6426169bfd4477ce693e0219aef61c0f9090fd25475432",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/83c15bd86ae01aa5de6426169bfd4477ce693e0219aef61c0f9090fd25475432",
+      "ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "actual_eof": 102,
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          102
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1039,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/flower/presets.rs",
+      "sha256": "5bd7f6a511df726897d0e5034dc6980b3bc00e6f070c5bf2cdcb38d3ef4278ee",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/5bd7f6a511df726897d0e5034dc6980b3bc00e6f070c5bf2cdcb38d3ef4278ee",
+      "ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "actual_eof": 155,
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          155
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1040,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/flower/tests.rs",
+      "sha256": "6c3cbd784899ccc09ffaabf648c7e39314e3c52f23e23d35553e08fc1a6fe9ba",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/6c3cbd784899ccc09ffaabf648c7e39314e3c52f23e23d35553e08fc1a6fe9ba",
+      "ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "actual_eof": 131,
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          131
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected",
+      "original_index": 1046,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/habitat.rs",
+      "sha256": "7f13a680943fdde1dbb0d8e39762bbc58003d47bc2937621fee8b6d61a390bc7",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/7f13a680943fdde1dbb0d8e39762bbc58003d47bc2937621fee8b6d61a390bc7",
+      "ranges": [
+        [
+          1,
+          94
+        ]
+      ],
+      "actual_eof": 94,
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "purpose": "Actual bounded scalar and native mesh/Pigment/LOD or habitat-weight receiving contract; no ordered credit",
+      "actual_read_ranges": [
+        [
+          1,
+          94
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1049,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/mesh.rs",
+      "sha256": "399bccce261a43c8d5333f82c29055d43c4d8200a896856fe0a020f5fdbc83b7",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/399bccce261a43c8d5333f82c29055d43c4d8200a896856fe0a020f5fdbc83b7",
+      "ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "actual_eof": 164,
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "purpose": "Actual bounded scalar and native mesh/Pigment/LOD or habitat-weight receiving contract; no ordered credit",
+      "actual_read_ranges": [
+        [
+          1,
+          164
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1050,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/parameters.rs",
+      "sha256": "35fbc88c4b1f0ad37667c3884bfc1839cc97fec15ecffe725aba5f1e096b52fe",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/35fbc88c4b1f0ad37667c3884bfc1839cc97fec15ecffe725aba5f1e096b52fe",
+      "ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "actual_eof": 41,
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "purpose": "Actual bounded scalar and native mesh/Pigment/LOD or habitat-weight receiving contract; no ordered credit",
+      "actual_read_ranges": [
+        [
+          1,
+          41
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original_index": 1036,
+      "inventory": "Cargo package identity/workspace metadata; viewer optional feature graph, Bevy mesh-only baseline dependency, Serde/error/determinism crates; feature-gated native binary.",
+      "disposition": "Cargo dependency/feature/package/path strings are native Cargo boundary vocabulary, not interchangeable gameplay identity or an omitted bespoke type. Workspace lint/dependency ownership explicit.",
+      "remedy": "Retain Cargo-native representations; no new type or architecture conclusion from manifest alone.",
+      "acceptance": "Full1-29 consumed as source only; no dependency resolver/build/check executed."
+    },
+    {
+      "original_index": 1037,
+      "inventory": "Seeded angular phase; metre dimensions versus dimensionless lean/width/cup/ripple coefficients and interpolation fractions; topology dispatch; leaf/head/petal/stamen counts and LOD/reduction sample indices; world/object local Y-up Vec3/Quat; native PlantMesh surfaces/tubes/ellipsoids and pigment.",
+      "disposition": "Geometry functions are appropriate explicit numerical kernels for Vec3/Quat/rawf32 math. Actual public generation validates scalar parameters first, private geometry accepts immutable recipe; no demonstrated bypassed invalid production geometry. Parameters contain per-topology irrelevant knobs: FusedBell bypasses free-petal cup/notch/ripple/base-color-boundary/stamen-count branches, whereas RayAndDisk differs in low-detail topology from FreePetals. Payload-owning corolla-specific parameters can avoid silently ignored authoring fields without deleting meaningful topology. Seed phase is angular cyclic, not UnitInterval; petal cup signed and width/height ratios can exceed1, no universal fraction. Sampling fractions constructed from bounded nonzero counts/native LOD preserve role; sampled original ordinal differs from reduced mesh ordinal.",
+      "remedy": "Separate raw authoring recipe from one admitted immutable geometry input; retain dimensions/radians/counts/dimensionless shape roles and payload-specific corolla controls. Keep native kernel math raw at actual math adapter rather than proliferating per-coordinate wrappers. Reuse canonical Pigment/PlantLod; no arbitrary tightened botany dimensions or randomized scalar bounds.",
+      "acceptance": "Full1-261 consumed. Actual1038 generate98-101 validates before dispatch;1049 mesh full native adapters consume points, normalized derivatives and color;1050 bounded36 rejects nonfinite/out-of-range. Scalar ranges bound allocation, but all topology budget/unreachable guarantees are source intent plus fixtures, not executed proof."
+    },
+    {
+      "original_index": 1038,
+      "inventory": "Corolla and LeafArrangement topology enums; publicSerde FlowerParameters dimensional controls/counts/Pigment and range-validation table; Result-returning generation.",
+      "disposition": "Authoring fields intentionally editable, but validation returns unit and internal geometry still takes raw authoring record; admitted aggregate proof is not a retained type. Metres, angles, integer counts and signed/unbounded-above1 shape ratios should not collapse into a generic normalizedfloat. Per-leaf ranges are actual authored recipe policy (not universal leaf/plant numeric bounds). Existing Pigment[u8;3] represents allvalid sRGB channels without extra scalar admission. Corolla/arrangement axes independent; do not combine them into huge product enum.",
+      "remedy": "Create/reuse one validated recipe owner after authoring validation, with purpose quantities where swapped operands matter and corolla payloads containing only meaningful controls. Share finite/range admission mechanics rather than inventing one tiny bespoke type per table bound.",
+      "acceptance": "Full1-102 consumed; actual geometry body and shared bounded/Pigment owner inspected. No current/runtime proof; no newtests added."
+    },
+    {
+      "original_index": 1039,
+      "inventory": "Five FlowerSpecies identities, display/scientific labels, canonical local preset parameters and topology/pigment selection.",
+      "disposition": "Generator species identity differs from display name and configurable recipe instance. Existing visual species enum is useful closedpreset authority, not automatically alias of foraging/resource/clinical plant identity with similar names. Presets assign positive dimensions and relevant topology; overwritten intermediate width assignments do not establish divergent retained authority.",
+      "remedy": "Keep closed preset enum with explicit parameters projection; reconcile actual catalog species identity before any proposed cross-subsystem reuse/alias, no new globally unique finding from matching botanical name alone.",
+      "acceptance": "Full1-155 consumed with1038 admissions and1037 consumers; no sources.md botanical-reference validation or all ecological behavior guarantee claimed."
+    },
+    {
+      "original_index": 1040,
+      "inventory": "Existing source fixtures for deterministic geometry/triangle budget/finite positions/unit normals/palette, invalid scalar input, LOD extent/seed/shape changes, Serde roundtrip and habitat/season exclusions.",
+      "disposition": "Position and normal/color/index buffers have separate native roles, triangle index and sampledorgan ordinal are not same identity. Fixture scalar examples are not universal source invariants beyond validated recipe. Habitat output is relative occurrence weight with zero exclusion, not foraging forecast/probability necessarilynormalized across species; leave scene ecological authority distinct.",
+      "remedy": "Retain canonical geometry/LOD/pigment/habitat owners at existing fixture ports; no new tests or bounds inferred from fixture IDs/ranges alone.",
+      "acceptance": "Full1-131 consumed; actual1046 habitat full1-94 confirms scene-only ground/canopy/cultivation/moisture/snow/day filters and relative weights. These connected bodies receive no ordered credit until own inventory. Fixtures not executed."
+    }
+  ],
+  "connected_observations": [
+    "1049 PlantMesh public parallel positions/normals/colors/indices and append arbitrary quaternion/uniformscale are broader than admitted geometry, while actual flower passes constructed unit rotations and scale1. Native into_bevy57-65 is terminal attribute/index adapter, not SDK-global validation. Public shape/transform proof question retained for later independent1049 inventory, no runtime malformed mesh claim.",
+    "1050 Pigment is solid sRGB bytecolor, converted once by explicit transfer function to linearRGBA alpha1 at native vertex adapter. It must not share generic raw RGBA storage semantics without color-space role. bounded helper owns common finite/range mechanism, not gameplay taxonomy."
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Frozen source-only discovery. No project execution/current/accepted unique/runtime/global or botanical-source clearance. No nested plant-generator AGENTS located by scoped metadata query; governing root/crates rules retained.",
+    "Connected1046/1049/1050 fully read for actual recipient context but no ordered coverage credit until independent role inventory. Bevy native descriptor calls read; no whole SDK/render pipeline/native triangle cap guarantee."
+  ]
+}

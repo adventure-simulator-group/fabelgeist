@@ -1,0 +1,27 @@
+{
+  "at": "2026-10-26T22:06:49.767498+00:00",
+  "locator": "audit13-native-render-locator-011.json",
+  "known_peer_proof": "audit13-native-cull-stage-011.json",
+  "members": [
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/mod.rs",
+      "path": "src/render/prepare/mod.rs",
+      "sha256": "7b8be56d6f6ea9285176e55efb88de7bcb8a15df4cdca7619d3038a92de56092",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/7b8be56d6f6ea9285176e55efb88de7bcb8a15df4cdca7619d3038a92de56092",
+      "lines": 340,
+      "basis": "Exact immutable Git object, same commit as frozen31/32/33 peer-proof",
+      "staging_is_body_coverage": false
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/mesh.wgsl",
+      "path": "src/render/mesh.wgsl",
+      "sha256": "bb8dc8d197bfd558464608bb447dc4224e67c0488e695270f44e1656c9c8fa70",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/bb8dc8d197bfd558464608bb447dc4224e67c0488e695270f44e1656c9c8fa70",
+      "lines": 60,
+      "basis": "Exact immutable Git object, same commit as frozen31/32/33 peer-proof",
+      "staging_is_body_coverage": false
+    }
+  ],
+  "input_collector_path": "No such src/render path in exact Git tree; InstanceUniforms constructor identifier located in src/render/prepare/mod.rs",
+  "scope": "Root staged only explicitly requested receiving members; register before actual bounded reads"
+}

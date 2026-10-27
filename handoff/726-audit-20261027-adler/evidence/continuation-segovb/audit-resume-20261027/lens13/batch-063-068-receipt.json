@@ -1,0 +1,445 @@
+{
+  "lens": 13,
+  "status": "source_accounted_with_qualified_observations",
+  "authority": {
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "source_manifest_sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa"
+  },
+  "registrations": [
+    {
+      "path": "audit-resume-20261027/lens13/batch-063-registration.json",
+      "sha256": "e280ce8be3892db67cc325af45783bc7f4883362a6acf6cadc6288ad3e61afc6"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-064-registration.json",
+      "sha256": "62523ba3e90d9ab5107acc9ba90538e1497f2d198aa0d52dfbe2c327a0e65b33"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-065-registration.json",
+      "sha256": "66233a870c301474ad5b33d69ba93f028e7aa7418520743b68c9b2f85116488c"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-066-registration.json",
+      "sha256": "0e58abbbfe3fcbfbb7e31bece17b3f1415f969345e54d5414087c9574f00e5ac"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-067-registration.json",
+      "sha256": "dc4175933f06ff93fe25c2b9953e7772568a9047d24bacbf998720c129ad71f5"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-068-registration.json",
+      "sha256": "2de4b8ad7b333f55e5ed477c7d0f8e786ec0fef1f0fd41529f9b8ea43dfff526"
+    }
+  ],
+  "actual_source_reads": [
+    {
+      "original": 135,
+      "source_id": "physical-p16:crates/adventuresim-core/src/settlement_economy.rs",
+      "sha256": "5ebaaf60d766322d2dc8bbd0cf1a54b0c790793a11d1d3f7b98e139861a3c54e",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/5ebaaf60d766322d2dc8bbd0cf1a54b0c790793a11d1d3f7b98e139861a3c54e",
+      "requested_range_variants": [
+        [
+          1,
+          112
+        ],
+        [
+          113,
+          200
+        ],
+        [
+          233,
+          250
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          200
+        ],
+        [
+          233,
+          250
+        ]
+      ],
+      "eof": 552,
+      "provenance": "Exact frozen f82 registered physical variant; prior receiver access is not original-role credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          200
+        ],
+        [
+          233,
+          250
+        ]
+      ],
+      "read_qualification": "Actual bounded source output consumed after prospective registration and SHA verification. Requested end beyond EOF supplies no coverage."
+    },
+    {
+      "original": 136,
+      "source_id": "physical-p16:crates/adventuresim-core/src/settlement_population.rs",
+      "sha256": "427a6f6e78d9b203d41f9186e0c4722a1622a9f1d3e2916b43e1b69b73ef601e",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/427a6f6e78d9b203d41f9186e0c4722a1622a9f1d3e2916b43e1b69b73ef601e",
+      "requested_range_variants": [
+        [
+          1,
+          667
+        ],
+        [
+          155,
+          170
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          667
+        ]
+      ],
+      "eof": 667,
+      "provenance": "Exact frozen f82 registered physical variant; prior receiver access is not original-role credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          667
+        ]
+      ],
+      "read_qualification": "Actual bounded source output consumed after prospective registration and SHA verification. Requested end beyond EOF supplies no coverage."
+    },
+    {
+      "original": 137,
+      "source_id": "physical-p16:crates/adventuresim-core/src/settlement_population/age.rs",
+      "sha256": "31003479452c3c598a403dfeb1cdbfb32d807c7fdf1863fa27c799461c67ab66",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/31003479452c3c598a403dfeb1cdbfb32d807c7fdf1863fa27c799461c67ab66",
+      "requested_range_variants": [
+        [
+          1,
+          64
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "eof": 64,
+      "provenance": "Exact frozen f82 registered physical variant; prior receiver access is not original-role credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "read_qualification": "Actual bounded source output consumed after prospective registration and SHA verification. Requested end beyond EOF supplies no coverage."
+    },
+    {
+      "original": 138,
+      "source_id": "physical-p16:crates/adventuresim-core/src/settlement_population/demographics.rs",
+      "sha256": "3e604f71e6a6d7875755c49f940f0111d1c75d75dae50344b335962f44f50202",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/3e604f71e6a6d7875755c49f940f0111d1c75d75dae50344b335962f44f50202",
+      "requested_range_variants": [
+        [
+          1,
+          36
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "eof": 36,
+      "provenance": "Exact frozen f82 registered physical variant; prior receiver access is not original-role credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "read_qualification": "Actual bounded source output consumed after prospective registration and SHA verification. Requested end beyond EOF supplies no coverage."
+    },
+    {
+      "original": 139,
+      "source_id": "physical-p16:crates/adventuresim-core/src/settlement_property.rs",
+      "sha256": "da9742eb9634c5f1b14cca267784dd6d55e2b08ff0434a6d1c265eaed145bdbf",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/da9742eb9634c5f1b14cca267784dd6d55e2b08ff0434a6d1c265eaed145bdbf",
+      "requested_range_variants": [
+        [
+          1,
+          226
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          226
+        ]
+      ],
+      "eof": 226,
+      "provenance": "Exact frozen f82 registered physical variant; prior receiver access is not original-role credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          226
+        ]
+      ],
+      "read_qualification": "Actual bounded source output consumed after prospective registration and SHA verification. Requested end beyond EOF supplies no coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/economy.rs",
+      "sha256": "ce7c60b4dca374b058a50d845ac3171642869aa47fc95b7873ac27392bff308e",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/ce7c60b4dca374b058a50d845ac3171642869aa47fc95b7873ac27392bff308e",
+      "ranges": [
+        [
+          117,
+          145
+        ]
+      ],
+      "eof": 358,
+      "provenance": "Reconstructed unchanged physical exact a120 base=head: pinned physical manifest files/status contain no path; not substituted current or pr-working bytes.",
+      "purpose": "Actual availability/age/profile/property admission and persistence recipients; no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          117,
+          145
+        ]
+      ],
+      "read_qualification": "Actual bounded source output consumed after prospective registration and SHA verification. Requested end beyond EOF supplies no coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/residence/properties.rs",
+      "sha256": "80864f0168cb8abf7dcd17c08ea7405e6124f2968ad6eb83dbca7e0a5aab4e26",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/80864f0168cb8abf7dcd17c08ea7405e6124f2968ad6eb83dbca7e0a5aab4e26",
+      "ranges": [
+        [
+          141,
+          224
+        ],
+        [
+          313,
+          385
+        ]
+      ],
+      "eof": 377,
+      "provenance": "Exact f82 registered physical source.",
+      "purpose": "Actual availability/age/profile/property admission and persistence recipients; no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          141,
+          224
+        ],
+        [
+          313,
+          377
+        ]
+      ],
+      "read_qualification": "Actual bounded source output consumed after prospective registration and SHA verification. Requested end beyond EOF supplies no coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population/resident_persistence.rs",
+      "sha256": "40ec2a78bdcbb5225ff5558a6bb8f186af189dc527eef024048495ec10df0e94",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/40ec2a78bdcbb5225ff5558a6bb8f186af189dc527eef024048495ec10df0e94",
+      "ranges": [
+        [
+          1,
+          51
+        ],
+        [
+          181,
+          240
+        ]
+      ],
+      "eof": 299,
+      "provenance": "Exact f82 registered physical source.",
+      "purpose": "Actual availability/age/profile/property admission and persistence recipients; no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          51
+        ],
+        [
+          181,
+          240
+        ]
+      ],
+      "read_qualification": "Actual bounded source output consumed after prospective registration and SHA verification. Requested end beyond EOF supplies no coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population.rs",
+      "sha256": "99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "ranges": [
+        [
+          62,
+          119
+        ],
+        [
+          147,
+          174
+        ]
+      ],
+      "eof": 759,
+      "provenance": "Exact f82 registered physical source.",
+      "purpose": "Actual availability/age/profile/property admission and persistence recipients; no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          62,
+          119
+        ],
+        [
+          147,
+          174
+        ]
+      ],
+      "read_qualification": "Actual bounded source output consumed after prospective registration and SHA verification. Requested end beyond EOF supplies no coverage."
+    },
+    {
+      "source_id": "physical-p16:core/strategic_place.rs",
+      "sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+      "ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "purpose": "Actual checked settlement identity component admitted by PropertyId; no future2720 credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+      "read_qualification": "Actual bounded source output consumed after prospective registration and SHA verification. Requested end beyond EOF supplies no coverage."
+    },
+    {
+      "source_id": "physical-p16:world-schema/economy.rs",
+      "sha256": "ce7c60b4dca374b058a50d845ac3171642869aa47fc95b7873ac27392bff308e",
+      "ranges": [
+        [
+          73,
+          116
+        ]
+      ],
+      "purpose": "Actual retained service availability canonical-set policy before binary_search; unchanged physical provenance064.",
+      "actual_consumed_ranges": [
+        [
+          73,
+          116
+        ]
+      ],
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/ce7c60b4dca374b058a50d845ac3171642869aa47fc95b7873ac27392bff308e",
+      "read_qualification": "Actual bounded source output consumed after prospective registration and SHA verification. Requested end beyond EOF supplies no coverage."
+    },
+    {
+      "source_id": "physical-p16:stdb/settlement_population/resident_persistence.rs",
+      "sha256": "40ec2a78bdcbb5225ff5558a6bb8f186af189dc527eef024048495ec10df0e94",
+      "ranges": [
+        [
+          114,
+          180
+        ]
+      ],
+      "purpose": "Actual chronology admission and retained weighted decision explanation from generated profile; no future original255 credit.",
+      "actual_consumed_ranges": [
+        [
+          114,
+          180
+        ]
+      ],
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/40ec2a78bdcbb5225ff5558a6bb8f186af189dc527eef024048495ec10df0e94",
+      "read_qualification": "Actual bounded source output consumed after prospective registration and SHA verification. Requested end beyond EOF supplies no coverage."
+    },
+    {
+      "source_id": "physical-p16:stdb/settlement_population/resident_persistence.rs",
+      "sha256": "40ec2a78bdcbb5225ff5558a6bb8f186af189dc527eef024048495ec10df0e94",
+      "ranges": [
+        [
+          267,
+          299
+        ]
+      ],
+      "purpose": "Actual generated profile receiving orchestration and trace recipient, if any; no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          267,
+          299
+        ]
+      ],
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/40ec2a78bdcbb5225ff5558a6bb8f186af189dc527eef024048495ec10df0e94",
+      "read_qualification": "Actual bounded source output consumed after prospective registration and SHA verification. Requested end beyond EOF supplies no coverage."
+    },
+    {
+      "source_id": "physical-p16:stdb/settlement_population/resident_persistence.rs",
+      "sha256": "40ec2a78bdcbb5225ff5558a6bb8f186af189dc527eef024048495ec10df0e94",
+      "ranges": [
+        [
+          241,
+          266
+        ]
+      ],
+      "purpose": "Actual typed schedule presence recipient; no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          241,
+          266
+        ]
+      ],
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/40ec2a78bdcbb5225ff5558a6bb8f186af189dc527eef024048495ec10df0e94",
+      "read_qualification": "Actual bounded source output consumed after prospective registration and SHA verification. Requested end beyond EOF supplies no coverage."
+    }
+  ],
+  "role_inventories": [
+    {
+      "original": 135,
+      "inventory": "Semantic availability predicates, has_keep input, optional service selection and collection lookup results; no numeric payload in effective1-200/233-250. Native iterator/lookup Boolean outputs drive a typed Storefront/SettlementActionService option and visible-tab vector.",
+      "trace": "Actual storefront match -> profile.has_service -> native binary_search on canonical sorted service vector. Read owning profile fields, limits and validate body: rules version/prosperity, bounded sorted unique services/specializations/stock and abundance1..5. Temple preferred over inn via explicit two-fact truth table.",
+      "qualification": "The public profile can be constructed unsorted; binary_search assumes its canonical-set admission. has_keep is a raw semantic fact with an untyped public port, not evidence of a verified keep record. Unread portions201-232/251-552 receive no original coverage."
+    },
+    {
+      "original": 136,
+      "inventory": "Raw u32 plausibility/curation weights, requires_bridge Boolean plus optional bridge, service-provider fact, chosen-age option, fixed zero/hard-zero and relative likelihood tables, u64 stable seed word, test fixture loop/count/corpus constants.",
+      "trace": "All choose/generate bodies independently read: filter zero weights and required bridge presence, canonical decision sorting/duplicate rejection, widen u32*u32 to safe u64 product, checked native weighted_index propagates error. Actual authored tables have at most5 candidates and p<=100 with curation10. Seven typed relations -> GeneratedPopulationProfile with seven retained RelationDecision records -> actual persistence orchestration serializes whole input/profile to explanation JSON and stores it. Profile appearance fields persist in resident projection; Schedule is passed to actual presence writer.",
+      "qualification": "Weights are relative masses, not bounded fractions. Public arbitrary candidates may overflow aggregate native sum, which returns error through checked sampler rather than unchecked arithmetic. Built-in finite table bounds differ from arbitrary API inputs. Existing tests were read as scoped source only, not executed or expanded; corpus counts are fixture expectations, not established runtime distributions. Stable hash is not proved collision-free identity."
+    },
+    {
+      "original": 137,
+      "inventory": "Raw u16 chronological years classify exhaustive thresholds0-12/13-17/18-59/60..MAX into typed AgeBand. Tests cover endpoints including u16MAX.",
+      "trace": "Actual resident resolution/view uses current character.age_years, recomputes AgeBand and retains typed band in returned projection; no stale persisted band is read there. PreparedResident maps planned exact u16 age through same classifier; fallback exact ages8/15/30/68 go through birth_year_for_age checked calendar admission before identity insertion.",
+      "qualification": "The classifier accepts the whole u16 domain and does not certify plausible human age or all upstream chronology mutation. Those policy bounds are separate from exhaustive classification. Raw years remain an owner-fit propagation question; no new chronology owner invented."
+    },
+    {
+      "original": 138,
+      "inventory": "Opaque settlement ID bytes become typed Seed through canonical building-plan StreamId. Planned-age override returns p100/curation0 and no bridge; otherwise delegates to checked relation selector.",
+      "trace": "Actual choose_age body; 136 generate subsequently uses selected typed age before hair and household relation context. Actual prepared resident input passes draft.exact_age, then returned typed profile is persisted.",
+      "qualification": "Forced planned-age metadata intentionally differs from positive weighted-choice metadata; do not treat curation0 there as a native weighted sample. Supplied underage provider age bypasses probabilistic adult-only selection: record aggregate admission/current producer question, not a proved activated violation. No security or collision-free proof for seed derivation."
+    },
+    {
+      "original": 139,
+      "inventory": "MAX_PROPERTY_CATALOG_BYTES4MiB, nonzero building u64 ID, string byte-length framing, positive resident capacitiesu32/populationu32, raw finite east/north metres/yaw radians and positive width/depth, market-reserve Boolean and one vacancy per HousingTier, widened u64 capacity/family sums and bounded allocation subtraction.",
+      "trace": "Actual PropertyId checks typed StrategicIdentityComponent (1..256 ASCII allowed identifier bytes) and nonzero building ID. Catalog parse size cap -> validate settlement/population/canonical building Seed -> uniqueness/finite positive geometry -> reserve per tier/capacity -> allocate unique positive families; known<=population makes known asu32 safe, free>=count makes subtraction safe, residents=min(free,remaining) makes decrement safe. Actual strategic property registration parses+validates with actual effective_population, builds family counts, invokes allocate, persists home geometry/capacity and actual household/occupancy assignments.",
+      "qualification": "Private PropertyId transparent derived Deserialize can bypass new; catalog validate compares against constructed canonical ID on this route. Public GeneratedHome fields do not individually carry metre/radian/count owners, and digest alone does not validate. Parse cap bounds that input path, not arbitrary direct structs/family slices; no universal u64 aggregate bound for arbitrary public collections. Actual DB family count uses count() asu32 without a proven preceding cardinality cap; qualified narrowing issue, no actual giant population/runtime witness. First-fit grouped allocation may reject fragmented capacity by policy; no bin-packing equivalence claim."
+    }
+  ],
+  "source_accounted_originals": [
+    135,
+    136,
+    137,
+    138,
+    139
+  ],
+  "scope_limits": [
+    "All effective original range variants retained in063; prior receiver access supplies no independent-role shortcut.",
+    "064 properties request313-385 actualEOF377:378-385 absent. No unread property or resident-source tails claimed.",
+    "World-schema economy is reconstructed exact unchanged physical a120 bytes, absent pinned physical manifest/status; not a substituted working-tree version. Other receiver hashes are exact frozen physical objects.",
+    "Future original253/255/249/2720 and new unchanged economy receiver gain no original or other-lens inventory credit here.",
+    "Shared deterministic Seed/weighted_index actual native arithmetic proof reused from earlier own lens13 receipts; no new independent native SDK or global credit.",
+    "Existing fixture/test bodies were read as original-scope source; no tests executed or added. All prior findings,031 correction/access qualifications, currentness/alias/runtime/018 lattice limits remain retained."
+  ],
+  "accepted_new_unique_count": 0,
+  "global_clearance": false,
+  "no_product_git_rootledger_or_project_execution": true
+}

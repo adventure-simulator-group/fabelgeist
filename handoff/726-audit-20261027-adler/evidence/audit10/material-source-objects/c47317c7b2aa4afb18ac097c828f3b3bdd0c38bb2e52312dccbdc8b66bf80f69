@@ -1,0 +1,254 @@
+//! Deterministic native capture harness for generated tactical environments.
+
+#![cfg_attr(
+    not(target_family = "wasm"),
+    expect(
+        dead_code,
+        reason = "the native scene viewer compiles shared gameplay presentation but exercises only deterministic capture paths"
+    )
+)]
+
+#[cfg(not(target_family = "wasm"))]
+mod camera;
+#[cfg(not(target_family = "wasm"))]
+mod presentation;
+#[cfg(not(target_family = "wasm"))]
+mod tactical_scene_viewer;
+
+#[cfg(not(target_family = "wasm"))]
+use std::path::PathBuf;
+
+#[cfg(not(target_family = "wasm"))]
+use clap::{Parser, ValueEnum};
+
+#[cfg(not(target_family = "wasm"))]
+fn resolve_scene_fixture(selector: &str) -> Result<PathBuf, String> {
+    Ok(adventuresim_core::fixture_path::resolve_fixture_path(
+        selector,
+        "assets/tactical-scenes",
+        "json",
+    ))
+}
+
+#[cfg(not(target_family = "wasm"))]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq, ValueEnum)]
+enum CaptureProfile {
+    /// Actual procedural flower/fungi roots at contact and gameplay distances.
+    PlantReview,
+    /// Actual placed fungi, one contact view per species and wider habitat views.
+    FungusReview,
+    /// Actual botanical LODs before, inside and after both crossfade bands.
+    PlantLodReview,
+    /// Same production roots and LODs with occluding vegetation hidden for diagnosis.
+    PlantLodIsolated,
+    /// Existing exhaustive semantic presentation suite (23 recorded views).
+    #[default]
+    Semantic,
+    /// Compact environment-art review suite; intended for matrix review.
+    EnvironmentReview,
+    /// Deterministic terrain and geological-landform material review suite.
+    LandformReview,
+    /// Eye-height views inside each civilian city-building archetype.
+    InteriorReview,
+    /// Facade, street, neighbourhood, and whole-settlement city review.
+    CityReview,
+    /// Fixed geographic cameras and matched production building LODs.
+    TerrainGrounding,
+    /// Outdoor furniture, market access and street surface review.
+    FurnitureReview,
+    /// Compact and broad interior furniture models rendered as catalog specimens.
+    InteriorFurnitureCatalog,
+    /// Furnished rooms with independently validated entrance access.
+    FurnishedRoomReview,
+    /// Storefront lettering, mounting, glass, plaster and distance review.
+    ShopSignReview,
+    /// Working-building exteriors, interiors and production distance LODs.
+    WorkplaceReview,
+    /// Capacity-scaled chapel and parish church architectural review.
+    ParishReview,
+    CompoundReview,
+    /// Supported fixed attic glazing across production building LODs.
+    GableReview,
+    HeatingReview,
+    FacadeReview,
+    /// Inspect owned garden plots and accepted planting specimens.
+    GardenReview,
+    /// Production third-person camera sweep on the unmodified animation scene.
+    AnimationPlay,
+    /// Cold first approach, retreat, and warm second approach across tree LODs.
+    TreeColdTraversal,
+    /// Consecutive fractional-pixel common-beech leaf-card slow zoom.
+    BeechLeafMotion,
+}
+
+#[cfg(not(target_family = "wasm"))]
+#[derive(Debug, Parser)]
+#[command(version, about = "Capture and validate a tactical environment fixture")]
+struct Args {
+    /// Fixture name from assets/tactical-scenes, without the .json suffix.
+    #[arg(long, conflicts_with = "scene_input")]
+    fixture: Option<String>,
+
+    /// TacticalSceneInput fixture stem or explicit JSON path.
+    #[arg(long, conflicts_with = "fixture", value_parser = resolve_scene_fixture)]
+    scene_input: Option<PathBuf>,
+
+    /// Fresh output directory. A timestamped directory is chosen when omitted.
+    #[arg(long)]
+    output: Option<PathBuf>,
+
+    /// Render frames allowed to settle between fixed camera views.
+    #[arg(long, default_value_t = 12)]
+    settle_frames: u32,
+
+    /// Test-only world canopy override in basis points (0..=10000).
+    #[arg(long, value_parser = clap::value_parser!(u16).range(0..=10_000))]
+    canopy_bps: Option<u16>,
+
+    /// Test-only celestial time override, in absolute world minutes.
+    #[arg(long)]
+    absolute_minute: Option<u64>,
+
+    /// Benchmark each leaf representation for this many frames in dense woodland.
+    #[arg(long, value_parser = clap::value_parser!(u32).range(30..))]
+    leaf_benchmark_frames: Option<u32>,
+
+    /// Benchmark baseline, canopy AO, shadows, and combined tree lighting.
+    #[arg(long, value_parser = clap::value_parser!(u32).range(30..), conflicts_with = "leaf_benchmark_frames")]
+    tree_lighting_benchmark_frames: Option<u32>,
+
+    /// Benchmark natural and isolated tree/LOD costs for this many frames per mode.
+    #[arg(long, value_parser = clap::value_parser!(u32).range(30..), conflicts_with_all = ["leaf_benchmark_frames", "tree_lighting_benchmark_frames"])]
+    scene_performance_benchmark_frames: Option<u32>,
+
+    /// Collect GPU timestamps and render diagnostics during the scene benchmark.
+    #[arg(long, requires = "scene_performance_benchmark_frames")]
+    scene_performance_render_diagnostics: bool,
+
+    /// Capture only terrain as color-coded wireframes and count visible triangles by LOD.
+    #[arg(long, conflicts_with_all = ["leaf_benchmark_frames", "tree_lighting_benchmark_frames", "scene_performance_benchmark_frames"])]
+    terrain_wireframe: bool,
+
+    /// Count resident and submitted terrain, building, and grass triangles without timing frames.
+    #[arg(long, conflicts_with_all = ["leaf_benchmark_frames", "tree_lighting_benchmark_frames", "scene_performance_benchmark_frames", "terrain_wireframe"])]
+    triangle_census: bool,
+
+    /// Azimuth around the review tree for locked leaf-LOD comparison views.
+    #[arg(long, default_value_t = 45.0)]
+    tree_review_azimuth_degrees: f32,
+
+    /// Named capture profile. The default preserves the exhaustive semantic suite.
+    #[arg(long, value_enum, default_value_t)]
+    profile: CaptureProfile,
+
+    /// Capture only these named views (repeatable). Unknown or unavailable views fail closed.
+    #[arg(long = "view")]
+    views: Vec<String>,
+
+    /// Frozen world-space city cameras; required for terrain-grounding captures.
+    #[arg(long)]
+    city_cameras: Option<PathBuf>,
+}
+
+#[cfg(not(target_family = "wasm"))]
+fn main() {
+    let args = Args::parse();
+    if args.fixture.is_none() && args.scene_input.is_none() {
+        clap::Error::raw(
+            clap::error::ErrorKind::MissingRequiredArgument,
+            "one of --fixture or --scene-input is required",
+        )
+        .exit();
+    }
+    tactical_scene_viewer::run(
+        args.fixture,
+        args.scene_input,
+        args.output,
+        args.settle_frames,
+        args.canopy_bps,
+        args.absolute_minute,
+        args.leaf_benchmark_frames,
+        args.tree_lighting_benchmark_frames,
+        args.scene_performance_benchmark_frames,
+        args.scene_performance_render_diagnostics,
+        args.terrain_wireframe,
+        args.triangle_census,
+        args.tree_review_azimuth_degrees,
+        match args.profile {
+            CaptureProfile::PlantReview => "plant-review",
+            CaptureProfile::FungusReview => "fungus-review",
+            CaptureProfile::PlantLodReview => "plant-lod-review",
+            CaptureProfile::PlantLodIsolated => "plant-lod-isolated",
+            CaptureProfile::Semantic => "semantic",
+            CaptureProfile::EnvironmentReview => "environment-review",
+            CaptureProfile::LandformReview => tactical_scene_viewer::LANDFORM_REVIEW_PROFILE,
+            CaptureProfile::InteriorReview => "interior-review",
+            CaptureProfile::CityReview => "city-review",
+            CaptureProfile::TerrainGrounding => tactical_scene_viewer::fixed_city_cameras::PROFILE,
+            CaptureProfile::FurnitureReview => "furniture-review",
+            CaptureProfile::InteriorFurnitureCatalog => "interior-furniture-catalog",
+            CaptureProfile::FurnishedRoomReview => "furnished-room-review",
+            CaptureProfile::ShopSignReview => "shop-sign-review",
+            CaptureProfile::WorkplaceReview => "workplace-review",
+            CaptureProfile::ParishReview => "parish-review",
+            CaptureProfile::CompoundReview => "compound-review",
+            CaptureProfile::HeatingReview => "heating-review",
+            CaptureProfile::FacadeReview => "facade-review",
+            CaptureProfile::GardenReview => "garden-review",
+            CaptureProfile::GableReview => "gable-review",
+            CaptureProfile::AnimationPlay => "animation-play",
+            CaptureProfile::TreeColdTraversal => "tree-cold-traversal",
+            CaptureProfile::BeechLeafMotion => "beech-leaf-motion",
+        },
+        args.views,
+        args.city_cameras,
+    );
+}
+
+#[cfg(all(test, not(target_family = "wasm")))]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn authored_building_review_profiles_are_available_from_the_cli() {
+        let fixtures =
+            PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../assets/tactical-scenes");
+        let mut reviews = 0;
+        for entry in std::fs::read_dir(fixtures).unwrap() {
+            let name = entry.unwrap().file_name();
+            let name = name.to_str().unwrap();
+            let Some(profile) = name.strip_suffix(".review.json") else {
+                continue;
+            };
+            Args::try_parse_from([
+                "tactical-scene-viewer",
+                "--scene-input",
+                profile,
+                "--profile",
+                profile,
+            ])
+            .unwrap_or_else(|error| panic!("authored review {profile} is inaccessible: {error}"));
+            reviews += 1;
+        }
+        assert!(reviews > 0, "building review fixtures must be present");
+    }
+
+    #[test]
+    fn landform_review_profile_parses_as_a_typed_cli_value() {
+        let args = Args::try_parse_from([
+            "tactical-scene-viewer",
+            "--fixture",
+            "fault-scarp-cliff",
+            "--profile",
+            "landform-review",
+        ])
+        .unwrap();
+
+        assert_eq!(args.profile, CaptureProfile::LandformReview);
+    }
+}
+
+#[cfg(target_family = "wasm")]
+fn main() {
+    panic!("tactical-scene-viewer is a native-only capture harness");
+}

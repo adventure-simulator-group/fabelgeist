@@ -1,0 +1,199 @@
+{
+  "at": "2026-10-27T09:06:23.275381+00:00",
+  "before_product_edits": true,
+  "head": "38ff1be52ea1d71c7b951730dbb2b77f8cb6d5a7",
+  "review": 5664041853,
+  "comments": [
+    {
+      "id": 4386433188,
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "body": "Don't play code golf with me, kid",
+      "html_url": "https://github.com/adventure-simulator-group/fabelgeist/pull/992#discussion_r4386433188"
+    },
+    {
+      "id": 4386446918,
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "body": "`.0` -- is there any alternative? would it be hard to implement addition, subtraction, multiplication, and division on the types themselves?",
+      "html_url": "https://github.com/adventure-simulator-group/fabelgeist/pull/992#discussion_r4386446918"
+    },
+    {
+      "id": 4386482418,
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "body": "Reflecting is unnecessary. $$x\\in[0,1]\\implies x^2(3-2x)\\in[0,1]$$",
+      "html_url": "https://github.com/adventure-simulator-group/fabelgeist/pull/992#discussion_r4386482418"
+    },
+    {
+      "id": 4386505033,
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "body": "magic number",
+      "html_url": "https://github.com/adventure-simulator-group/fabelgeist/pull/992#discussion_r4386505033"
+    },
+    {
+      "id": 4386536106,
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "body": "Why now `.nonnegative()`?",
+      "html_url": "https://github.com/adventure-simulator-group/fabelgeist/pull/992#discussion_r4386536106"
+    },
+    {
+      "id": 4386540098,
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "body": "Why now `.nonnegative()`?",
+      "html_url": "https://github.com/adventure-simulator-group/fabelgeist/pull/992#discussion_r4386540098"
+    },
+    {
+      "id": 4386678669,
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "body": "This `smoothstep01` function seems worthless: just call `smoothstep(half.fract().into())` if you must.",
+      "html_url": "https://github.com/adventure-simulator-group/fabelgeist/pull/992#discussion_r4386678669"
+    }
+  ],
+  "source_pins": [
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "0ad5e0e1b2b062d47f48af303bc97f1259f6d4ac99c62bef9b42588b183233b4"
+    },
+    {
+      "path": "crates/adventuresim-core/Cargo.toml",
+      "sha256": "29e56014658d941895772dda71b9181863839eedf403c7d30b446186228c3441"
+    },
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6"
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "ceb8c36c8e8abb4ac96fa0c61601d11145d28755fdb3e7af723aa20ae8dc58bf"
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "de48188cfd3789d9a2ac3d9239c4d62f7991191f0a07d88ad90faa5047f7f129"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "sha256": "12d4b4e5ed4ce3940c78b7ee4420ec94e5efa83776b14d60afdbf2ba0d501f5d"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "sha256": "fcc7c277f72f6a1004077bd04d3fb0c91607e17e8ee3977106aaa2c3cee38b98"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "sha256": "9ac62b342f4ffec934232478fb5e019d84228a3cb726e29ed9b6f62d91775f36"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "sha256": "5bb5172865b0ed718a1ecb1bf7378539725fc0afdbe8394d43ed23979c151d9e"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "d20c873dd470d03cd65d2c0da3d73dd050cde53f78dfc8bb81b1d237bf55ddcf"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "sha256": "37a5dba433aa5219b544716053897df30d3df49662fb5fd38794130c1b803946"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "sha256": "642983d4cdf24f5cda28f00740f180af4cc4e926b205df647057ef1194e9e32a"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "543ea955a72a4accf8550af44b35ad0a526fbcc6731bc5fb109ac38ceb609e17"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "c835a9611d133e6fbe72b9121632d5dca1752d4f22d1b0545792ff582844e68d"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "sha256": "024ec4e60675ea68c97e5ed11e89756356b724a7ea0519006227c58c6bfeefce"
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "8da5ee46241fe574e76a0b67391c30e5287f90a228995456a39b15cf00701262"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "sha256": "0814366f818cf580e09b015977170498c750f76174d620a866e602855a455597"
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "sha256": "05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "sha256": "201e0aa26a4ceec81c0caa799acc2dae96ad3d1600ed6184aef8f671e3becf1c"
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492"
+    },
+    {
+      "path": "crates/fabelgeist-math/Cargo.toml",
+      "sha256": "6aaf0cb94d1603d0d6cdd07f1bee8021c3c29c841d01d144143faa4be39a6321"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+      "sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "sha256": "5d254790fa2ec7e53bc749b18bfc8f4d89a1df367c3542f8f969403641c8a970"
+    }
+  ],
+  "discovery": {
+    "M04": "Existing canonical interpolation finding is extended through actual arithmetic leaves, Ratio admission, subtype widening and all smoothstep recipients. Prior source acceptance reopened by seven new review comments.",
+    "magic0.9": "Concrete zero-speed step-distance policy witness is newly explicit in review; same runtime-config owner/dependency as M03, not a duplicate of its exact IK/controller witnesses. M09 causal-categoryfinding is unrelated. No new acceptedunique count assigned.",
+    "operators": "Use existing SignedSpeed and canonical unrestricted fabelgeist-math Ratio. NonnegativeSpeed Sub -> SignedSpeed and SignedSpeed Mul<UnitInterval> are closed finite. Checked NonnegativeSpeed Add<SignedSpeed> rejects negative/nonfinite outputs. Checked SignedSpeed Div<Self> rejects zero/overflow but allows signed and above-one ratios. UnitInterval TryFrom<Ratio> owns bounded admission. Composite lerp/inverse use readable named typed intermediates; only leaf kernels inspect storage.",
+    "dependencies": "Add existing fabelgeist-math direct runtime/build edges to core, including catalog build root. Existing localpath package already appears in root+creator locks; only these coredependency arrays need one edge each, no package/checksum/version changes. Strict hosted locked commands and lock-diff guard must confirm exact metadata. No local Cargo/generator.",
+    "widening": "Standard From<PositiveSpeed> for NonnegativeSpeed, Into<Self> normalization bounds, remove redundant nonnegative getter and migrate all7actualcallers. Rawf32 has only TryFrom, not Into; no primitive overload.",
+    "smoothstep": "Direct cubic via checked UnitInterval result admission; fallible canonical method and all6direct production+3adapter recipients migrate. Remove reflection and smoothstep01; minimal existing cfgtest gait_pair call migration only, no newtests/assertions/helper. Dive helper callers establish phase>=HALF before direct transformed-phase admission.",
+    "config": "Rule source trace complete: required PositiveLength zero_speed_step_distance_metres YAML0.9 -> embedded YAML default/Serde -> server load/validation/digest/full ordered config snapshot -> client validates and installs -> runtime copy -> typed step distance/cadence consumers. No extra min/max/order constraints, no schema fallback/migration, no fixture/newtest addition."
+  },
+  "planned_product_paths": [
+    ".github/workflows/rust-quality.yml",
+    "crates/adventuresim-core/Cargo.toml",
+    "crates/adventuresim-core/build.rs",
+    "crates/adventuresim-core/src/linear_speed.rs",
+    "crates/adventuresim-core/src/unit_interval.rs",
+    "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+    "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+    "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+    "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+    "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+    "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+    "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+    "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+    "crates/adventuresim-tactical-core/src/combat_config.rs",
+    "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+    "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+    "rust-quality-baseline.toml",
+    "Cargo.lock",
+    "crates/adventuresim-character-creator/Cargo.lock",
+    "content/tactical/combat.yaml",
+    "crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs"
+  ],
+  "acceptance": [
+    "Independent exactsource Code/Rule/Comment reviews after edits",
+    "Finalsamehead hostedfullchecks and rawexistingtest/artifact evidence; earlier38ffrun cannot validate lateredits",
+    "Relevant hosted baseline reductions; no ceilingsraised",
+    "No newtests/cases/helpers/assertions/doctests, no localprojectchecks/toolchain/probes/scanners/generators",
+    "PRunmergeduserreviewcheckpoint; laterimplementation blockedbyglobal13-lensdiscoverygate"
+  ],
+  "global_discovery_complete": false,
+  "ready_for_product_edits": true,
+  "evidence": {
+    "arithmetic-discovery-002-design-refinement.json": "0f754f743f24fb1d444b74a286890afd9c1e0e9cdf81478c8fd45271488efa11",
+    "zero-speed-and-widening-discovery-001.json": "a88cc1b6a7df2e2e2148f96be64593e2753aba1df877d1b7356e60f17dcf1ec4",
+    "smoothstep-source-math-discovery-001.json": "864ee0013c908470cd20458f5d410698df44d91ba5633d08125b360faa59eb9b"
+  },
+  "dependency_lock_policy": "Only existing fabelgeist-math dependency edge is added to adventuresim-core package metadata in the two locks containing core; no resolved version/checksum/package change. Required hosted --locked commands and final lock-diff guard verify consistency. No local Cargo invocation."
+}

@@ -1,0 +1,84 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-139",
+  "at": "2026-10-23T03:30:41.871326+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/physical_object.rs",
+      "sha256": "906e67eed5acc9fbf6ab98e2e4bc7df11b8e9742c1ee148092c7d2061f64afab",
+      "scope052_index": 127,
+      "actual_EOF": 383,
+      "scoped_ranges_compared": [
+        [
+          1,
+          383
+        ]
+      ],
+      "actual05_comparison": "Fresh actual full383 includingoriginalfixtures, current ObjectCustody/private transfer relationship contrasted rawInventoryLocation native table payload. Actualsourcefull producer role1–383 alreadyglobal, not narrowedtooldowner140–240.",
+      "source_body_proof": "Fresh fullP16actualsource+completePRcounterpartdiff/currentrolecomparison."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/physical_object.rs",
+      "sha256": "906e67eed5acc9fbf6ab98e2e4bc7df11b8e9742c1ee148092c7d2061f64afab",
+      "scope052_index": 963,
+      "actual_EOF": 383,
+      "scoped_ranges_compared": [
+        [
+          1,
+          383
+        ]
+      ],
+      "actual05_comparison": "Complete actual full PR/P16 source diff empty, personally compared rawbackinglocation sum, exactstrictID leaves, privateObjectCustody/transfer/currentcarriedprojection and originalfixtures. Same semanticcontract not fingerprintclearance.",
+      "source_body_proof": "Fresh fullP16actualsource+completePRcounterpartdiff/currentrolecomparison."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "backing-location-shape",
+      "ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "comparison": "InventoryLocation closed4 payloadsum prevents Fireplace retainingrow, Personal/Party requiringownerkind; Repairhasrow+settlement butscopeNone intentional. Rawu64/String publicpayloads ordinarySerde/SATS deliberatelynotstrictIDseal: zero/blank/rawfixture strings canexist, receiving adapter mustadmit independently. Samecarriedcustody comparesownerwithinSamePersonal/Party only, ignoresrow bydesignbecausecontainmentdescendants sharebackingowner. Backingrow versus directparentcustody differentrelations, not redundancy. No legal ownership/permission guarantee, expresslyexcluded bydocs."
+    },
+    {
+      "id": "strict-leaf-identity",
+      "ranges": [
+        [
+          147,
+          231
+        ]
+      ],
+      "comparison": "PhysicalObjectId andCustodyCharacterId privateNonZeroU64, no rawserde/Reflect/default; PartyprivateString checkednonempty/canonicaltrim/max256bytes/nocontrol; no currentpartyDBmembership. OperationalCustody sum containscheckedleaves, exactmatches_carried_inventory equalityforCharacterID orPartyID; Container/Place/Fixturefalse intentional evencontainingplaceequal. Generalnamespaced CharacterId allword elsewhere doesnotweaken custodyNonZero contract."
+    },
+    {
+      "id": "object-custody-and-transfer",
+      "ranges": [
+        [
+          233,
+          285
+        ]
+      ],
+      "comparison": "PrivateObjectCustodytry_new forbids onlydirectselfparentContainer(object), retainsphysicalID. transfer consumesSelf and re-admits sameIDnewcustody; failedResult consumeslocaloldvalue but doesnotmutablewrite/globaltransfer. Noindependentsetters/rawdecoders. Doesnotprove longcycle/transitivecontainerdepth/legalrights/currentDBparent membership, whichbelonggraph/actualreceivers. Thisactuallowerpredicate closes135ToolReference/CustodyTransfer selfcontainmentdelegation only, not arbitrarytwo-objectcyclepromise."
+    },
+    {
+      "id": "existing-fixtures",
+      "ranges": [
+        [
+          287,
+          383
+        ]
+      ],
+      "comparison": "Allsourcefixturesreadnotrun: physicalidentitytransferinvariant, carriedownerequality, placevsfixturephysicalcustodydistinct, strictnonzero/selfcontainment, personalvsPartyneveralias, exactbackingstatepayload shape, rawscopeonlypersonal/party. These deliberatelydo notpromise legalownership or strictRawInventoryLocationpayloadleafvalidity."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Actual container graph cycle/depth and rawrow adapter gates remain exactsource obligations. Canonical strategicPlace/Fixture definitions remain independent queued definitions, no typename inference."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

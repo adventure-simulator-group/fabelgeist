@@ -1,0 +1,80 @@
+{
+  "id": "SEGOVB-INITIAL10-F004",
+  "classification": "source-backed maintenance suggestion",
+  "source_id": "physical-p16:crates/adventuresim-tactical-core/src/player.rs",
+  "sha256": "ebf883ac714ec8f48c9377495da01713b01e9f4ba9e7bd5e4edda78dc320ee68",
+  "ranges": [
+    [
+      448,
+      494
+    ]
+  ],
+  "problem": "Nongeneric TacticalAttributes manually implements an exact single-field From constructor despite existing derive_more::From in this crate.",
+  "equivalent_implementation": "Add derive_more::From to TacticalAttributes existing derive list and remove only From<PlayerAttributeValues>480\u2013484.",
+  "source_proof": [
+    "Public nongeneric tuple wrapper454 and manual From480\u2013484 move exactly PlayerAttributeValues into Self; no checks, normalization or error.",
+    "Frozen owning Cargo.toml16 already enables derive_more2.1.1 from feature. Existing same-crate AnimationSampleTick/Span use it; no dependency addition.",
+    "Exact package/lock verified derive_more-impl source from.rs189\u2013209/299\u2013319 generates From<PlayerAttributeValues> -> TacticalAttributes(value), without new generic bounds. See fresh-dependency-registration-185.json."
+  ],
+  "acceptance": [
+    "Preserve exact owned source type, infallible destination, field visibility and native representation; add no extra conversions or derives.",
+    "Keep semantic historical Default456\u2013478 and PlayerAttributes forwarding486\u2013494; default projects shared starting-character attributes and is not fieldwise.",
+    "Keep existing serde transparent/opaque reflection and all checked underlying APIs unchanged."
+  ],
+  "qualifications": [
+    "Optional mechanical cleanup only; no runtime defect, test or compiler claim.",
+    "Full frozen player650 source personally consumed; no child-module or other-lens coverage transfer.",
+    "No global unique issue count inferred."
+  ],
+  "additional_same_provider_projection_sites": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/reach.rs",
+      "sha256": "1cc9f3d9d7158bd2ad9c143ad3256ce97afd1e58516d4f968a224dbfb1e52a70",
+      "ranges": [
+        [
+          15,
+          39
+        ]
+      ],
+      "type": "ReachLimit",
+      "manual": "From<NonnegativeLength>35\u201339 -> Self::Fixed(length)",
+      "equivalent_implementation": "Add derive_more::From and annotate only Fixed with #[from]; remove only handwritten From35\u201339.",
+      "source_proof": [
+        "Exact already registered/pinned derive_more-impl2.1.1 from.rs44\u201386 sets has_explicit_from for #[from];155\u2013156 skips unmarked variants,189\u2013209 generates exact owned concrete field constructor and256\u2013258 omits all unmarked alternatives;299\u2013319 avoids tuple indexing for one field. Personally reconsumed1\u2013322, no macro execution.",
+        "Owning tactical-client manifest1301 already enables derive_more From (packet1237); nongeneric ReachLimit adds no bounds. Only Fixed explicitly annotated, so Flexed/Extended/Landing receive NO added conversion APIs."
+      ],
+      "acceptance": [
+        "Keep sole From<NonnegativeLength> selecting Fixed. Explicit #[from] is required; bare enum-wide derive would add tuple conversions.",
+        "Preserve all native reach policies/checked error categories and other variants. No new dependency, wire trait, unchecked primitive constructor or additional conversions."
+      ],
+      "qualification": "Optional mechanical cleanup; no runtime defect or compiler/macro/test assertion. Supersedes packet1323 tentative keep reason based on unverified variant control."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/art_demo/preparation.rs",
+      "sha256": "5c5a0fb15ea84f9280fac5580c45ad6471f2a8a2bc5fd61a4a92b63e143b5e33",
+      "ranges": [
+        [
+          10,
+          19
+        ],
+        [
+          41,
+          45
+        ]
+      ],
+      "type": "ArtDemoPreparationError",
+      "manual": "From<SceneInputError>41\u201345 -> SceneInput(Box::new(error))",
+      "equivalent_implementation": "Optional add derive_more::From to existing enum derives; add variant-level #[from(SceneInputError)] only on SceneInput; retain field-level thiserror #[from] Box<SceneInputError>, remove only handwritten41\u201345.",
+      "source_proof": [
+        "Exact previously registered derive_more2.1.1 from.rs1\u2013322 personally reconsumed: explicit Types branch158\u2013188 produces only specified input conversion via <Box<SceneInputError> as From<SceneInputError>>::from;44\u201386/155\u2013156/256\u2013258 omit unmarked variants;299\u2013319 sole field no tuple index. No generic forwarding.",
+        "Exact frozen-lock thiserror-impl2.0.20 attr69\u2013122 ignores Meta::List from attributes103\u2013106; ast85\u2013128 applies this same parser to variants120. Field-level path #[from] still retained, generates existing Box input. Cached archive checksum and member bytes verified.",
+        "Installed alloc boxed convert19\u201336 confirms exact Box::from(T) delegates Box::new(T). No project compiler/macro run. Owning manifest1301 existing from feature19."
+      ],
+      "acceptance": [
+        "Keep exactly current From<SceneInputError> and existing From<Box<SceneInputError>>; no generic blanket From or other enum conversion additions.",
+        "Retain thiserror transparent source/display behavior and all contextual errors; types, allocation, ownership, visibility and wire unchanged."
+      ],
+      "qualification": "Optional source-backed maintenance suggestion only, not correctness defect/new unique finding; supersedes packet1393 tentative keep rationale, which considered generic forwarding but not explicit input list."
+    }
+  ]
+}

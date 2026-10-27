@@ -1,0 +1,22 @@
+diff --git a/crates/adventuresim-tactical-client/src/tactical_scene_viewer/buildings.rs b/crates/adventuresim-tactical-client/src/tactical_scene_viewer/buildings.rs
+index 7bfb6511c..2340c1b7f 100644
+--- a/crates/adventuresim-tactical-client/src/tactical_scene_viewer/buildings.rs
++++ b/crates/adventuresim-tactical-client/src/tactical_scene_viewer/buildings.rs
+@@ -1,4 +1,5 @@
+ use adventuresim_tactical_core::prelude::*;
++use adventuresim_tactical_core::scene_coordinates::GateDatum;
+ use bevy::prelude::*;
+ 
+ /// Select each physical building once across playable and distant presentation.
+@@ -24,10 +25,7 @@ pub(super) fn spawn_boundaries(
+         let elevation = boundary.elevation_metres();
+         let scene = boundary.into_scene();
+         let door = scene.boundary().gate.door(scene.property_id())?;
+-        let pose = adventuresim_tactical_core::scene_coordinates::GateDatum::from_metres(
+-            elevation.metres(),
+-        )?
+-        .door(door)?;
++        let pose = GateDatum::new(elevation).door(door)?;
+         let door = pose.leaf();
+         let elevation = Vec3::Y * elevation.metres();
+         let centre = door.closed_centre.metres();

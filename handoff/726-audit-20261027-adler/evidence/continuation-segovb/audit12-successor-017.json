@@ -1,0 +1,52 @@
+{
+  "lens": "12 magic-strings",
+  "packet": "audit12-successor-017",
+  "owner": "/root",
+  "at": "2026-10-26T19:42:14.603868+00:00",
+  "original": 42,
+  "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+  "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+  "requested_scope": "Owner1-170,producer1-140,admission subranges; actualEOF140 only",
+  "actually_read": [
+    [
+      1,
+      140
+    ]
+  ],
+  "inventory": [
+    {
+      "locations": "9-20,31,41,51,54,74,128",
+      "role": "Rust documentation prose and existing compile-fail examples; concrete human/code-documentation boundary, not runtime identity or parsed gameplay state",
+      "disposition": "Retain prose/code spelling. Existing examples source-read only, not added/executed."
+    },
+    {
+      "locations": "23,34,44",
+      "role": "Three empty string Serde bound annotations",
+      "trace": "Empty compiler-macro bound override; derive controls generic frame bounds, not empty application identifier. Allthree have same native macro role; no bespoke string wrapper appropriate."
+    },
+    {
+      "locations": "1-140 remainder",
+      "role": "Canonical typed geometry roles/axes, std native type paths/lifetimes and attributes; no retained String or raw semantic string parsing",
+      "trace": "Position/Displacement/Elevation deserialize native numeric values then checked constructor, finite adapter returns structured GeometryError::NonFinite{role,axis}; map_err passes that typed Display value into D::Error::custom at generic Serde text-diagnostic boundary."
+    }
+  ],
+  "receiving_traces": [
+    "finite adapter exact28lines: ordered CoordinateAxis values zip vector components; nonfinite returns structured role+axis, no string tags or premature error rendering. Native InvalidDirectionError maps into closed DirectionError then GeometryError::Direction.",
+    "Canonical error owner exact95lines: CoordinateAxis/GeometryRole native serde snake_case spelling; DirectionError serializes explicit zero/infinite/nan mapping, fixedhuman Display messages; GeometryError stores typed payloads, renders via concrete thiserror formatstrings. These are diagnostic templates and serialized schema tags with existing enum owner, not duplicate independent application state strings.",
+    "Current lock/archive-proven serde_core Error::custom195-197 accepts T:Display; actual chosen D::Error is generic and not fixed by this source. No native implementation cause-retention/serialization guarantee inferred."
+  ],
+  "receiver_registration": "audit12-successor-registration-017.json",
+  "limits": [
+    "ActualEOF140 vs historical170 retained qualification, nonexistenttail uncredited.",
+    "Canonicalerror owner449/source bodies receiver-only, no ordered rolecredit.",
+    "Serde macro parse internals and concrete caller D::Error implementations unassessed; native trait declaration is the terminal generic text diagnostic contract, not universal cause preservation.",
+    "Frame PhantomData omitted at Serde boundary; no frame identity/wire shape/malformednumeric/admission/other-lens/current product clearance.",
+    "P16 erroradapter reconstructed from exactbasea120 plus fullmanifest absentphysicalpath/status; bytes happen matchprworking but identityproven separately.",
+    "Initial wrong serde_core1.0.228 package metadata lookup failed before body/navigation; actual1.0.229 separately hash/archiveproven registered and read160-201.",
+    "No tests/cases/assertions/helpers/doctests added, no projectexecution/source/Gitmutation."
+  ],
+  "new_unique_count": 0,
+  "next_original": 43,
+  "source_accounted": true,
+  "global_clearance": false
+}

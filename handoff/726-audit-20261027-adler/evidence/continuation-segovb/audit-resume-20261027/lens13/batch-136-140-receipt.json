@@ -1,0 +1,588 @@
+{
+  "lens": 13,
+  "status": "source-accounted WITH qualified findings; continuing",
+  "authority": {
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "manifest_sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa"
+  },
+  "registrations": [
+    {
+      "path": "audit-resume-20261027/lens13/batch-136-registration.json",
+      "sha256": "bd7e20ed31bc43d92d521ed95efca486eaf04280d5dad7e4ac3dcb4f1e3924a2"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-137-registration.json",
+      "sha256": "9f72964c0a4d600aacf416a1bb02c1596001eb7b6aff7ff27f8c251ffdbffefc"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-138-registration.json",
+      "sha256": "c0d2cf38784c6e4dc92b984e6559de30228f39802b635ffcb50572473c1dc60d"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-139-registration.json",
+      "sha256": "6eb275be2ee932a5f57376b09f100c8bcf285a02b008e03e1b3a8eddf3269134"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-140-registration.json",
+      "sha256": "57997c17b47ef4d0847343a700f8678d54f8ad6ec8b14a771e03824742f6911a"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-137-supplement-registration.json",
+      "sha256": "ecd598855ff2de7254d269056fb7e8867597ef665e25830b2eff7e51470477b1"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-139-supplement-registration.json",
+      "sha256": "ea30112a83216f6c049813238f0bb509dc7327799beead3f5c632aab6d105f4d"
+    }
+  ],
+  "additional_provenance": {
+    "path": "audit-resume-20261027/lens13/batch-137-staging-metadata.json",
+    "sha256": "223f4453bcb7d9bd6eb02901ff77ebddd966d9d1865582c6501fbc99a8dee3f6"
+  },
+  "original_indices": [
+    221,
+    222,
+    223,
+    224,
+    225,
+    226,
+    227
+  ],
+  "actual_source_reads": [
+    {
+      "original": 221,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/item.rs",
+      "sha256": "ceb03feba2b994ec10da5469e562e5a434a89ce36635aadb1d0ab11ccdc6b8ed",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/ceb03feba2b994ec10da5469e562e5a434a89ce36635aadb1d0ab11ccdc6b8ed",
+      "requested_range_variants": [
+        [
+          1,
+          946
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          946
+        ]
+      ],
+      "eof": 946,
+      "provenance": "Exact frozen f82 registered physical variant; every effective original/supplement range retained, independent numeric inventory. Prior source access not automatic original credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          946
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumption after this prospective registration. Original136 bodies were consumed before current context compaction; selected137-140 bodies afterward. Supplement139711-800 includes next helper and initial stage signature only; no remainder/whole-file claim."
+    },
+    {
+      "original": 222,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/item/authority_tests.rs",
+      "sha256": "ea66e08d18040b2a131cd6064cb78d96819930fa46b7e7026e406baab6785cd3",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/ea66e08d18040b2a131cd6064cb78d96819930fa46b7e7026e406baab6785cd3",
+      "requested_range_variants": [
+        [
+          1,
+          44
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "eof": 44,
+      "provenance": "Exact frozen f82 registered physical variant; every effective original/supplement range retained, independent numeric inventory. Prior source access not automatic original credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumption after this prospective registration. Original136 bodies were consumed before current context compaction; selected137-140 bodies afterward. Supplement139711-800 includes next helper and initial stage signature only; no remainder/whole-file claim."
+    },
+    {
+      "original": 223,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/lib.rs",
+      "sha256": "2760315ff2997c68a703203018538d642878cf5aa461b2a6d90e38ef0005e168",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/2760315ff2997c68a703203018538d642878cf5aa461b2a6d90e38ef0005e168",
+      "requested_range_variants": [
+        [
+          1,
+          95
+        ],
+        [
+          64,
+          85
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "eof": 95,
+      "provenance": "Exact frozen f82 registered physical variant; every effective original/supplement range retained, independent numeric inventory. Prior source access not automatic original credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumption after this prospective registration. Original136 bodies were consumed before current context compaction; selected137-140 bodies afterward. Supplement139711-800 includes next helper and initial stage signature only; no remainder/whole-file claim."
+    },
+    {
+      "original": 224,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/local_problem.rs",
+      "sha256": "49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942",
+      "requested_range_variants": [
+        [
+          1540,
+          1671
+        ],
+        [
+          1672,
+          1672
+        ]
+      ],
+      "ranges": [
+        [
+          1540,
+          1672
+        ]
+      ],
+      "eof": 2518,
+      "provenance": "Exact frozen f82 registered physical variant; every effective original/supplement range retained, independent numeric inventory. Prior source access not automatic original credit.",
+      "actual_consumed_ranges": [
+        [
+          1540,
+          1672
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumption after this prospective registration. Original136 bodies were consumed before current context compaction; selected137-140 bodies afterward. Supplement139711-800 includes next helper and initial stage signature only; no remainder/whole-file claim."
+    },
+    {
+      "original": 225,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/npc_causal.rs",
+      "sha256": "f148788fb9f35b6fd5762cb3905c229568da28a9fc3b0556b662fa5ec10b6532",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/f148788fb9f35b6fd5762cb3905c229568da28a9fc3b0556b662fa5ec10b6532",
+      "requested_range_variants": [
+        [
+          1,
+          635
+        ],
+        [
+          195,
+          264
+        ],
+        [
+          195,
+          265
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          635
+        ]
+      ],
+      "eof": 635,
+      "provenance": "Exact frozen f82 registered physical variant; every effective original/supplement range retained, independent numeric inventory. Prior source access not automatic original credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          635
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumption after this prospective registration. Original136 bodies were consumed before current context compaction; selected137-140 bodies afterward. Supplement139711-800 includes next helper and initial stage signature only; no remainder/whole-file claim."
+    },
+    {
+      "original": 226,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/npc_causal/romance_candidates.rs",
+      "sha256": "6957bd242c23a68763c5e05b3d1dfc3277adedadb0338b05613bc915c1f982e3",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/6957bd242c23a68763c5e05b3d1dfc3277adedadb0338b05613bc915c1f982e3",
+      "requested_range_variants": [
+        [
+          1,
+          28
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "eof": 28,
+      "provenance": "Exact frozen f82 registered physical variant; every effective original/supplement range retained, independent numeric inventory. Prior source access not automatic original credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumption after this prospective registration. Original136 bodies were consumed before current context compaction; selected137-140 bodies afterward. Supplement139711-800 includes next helper and initial stage signature only; no remainder/whole-file claim."
+    },
+    {
+      "original": 227,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/operation_error.rs",
+      "sha256": "f7a676c963f59e4691374c71e9f81caf252350a5c5c8f22da6a977beb97c62d4",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/f7a676c963f59e4691374c71e9f81caf252350a5c5c8f22da6a977beb97c62d4",
+      "requested_range_variants": [
+        [
+          1,
+          44
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "eof": 44,
+      "provenance": "Exact frozen f82 registered physical variant; every effective original/supplement range retained, independent numeric inventory. Prior source access not automatic original credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumption after this prospective registration. Original136 bodies were consumed before current context compaction; selected137-140 bodies afterward. Supplement139711-800 includes next helper and initial stage signature only; no remainder/whole-file claim."
+    },
+    {
+      "sha256": "e256eb33fd8ea25a8ef2d424cb1638ec08da0f6177bd5d6562cde1212a4b5b49",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/e256eb33fd8ea25a8ef2d424cb1638ec08da0f6177bd5d6562cde1212a4b5b49",
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "role": "Original238 exact frozen receiver only; lifecycle scheduling/global64 budget, not ordered original credit",
+      "eof": 217,
+      "actual_consumed_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumption after this prospective registration. Original136 bodies were consumed before current context compaction; selected137-140 bodies afterward. Supplement139711-800 includes next helper and initial stage signature only; no remainder/whole-file claim."
+    },
+    {
+      "sha256": "4247ba159aa9a5ceb6183f7a4e23023b27e47cd6c48c46e66565120fe89e1ca8",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/4247ba159aa9a5ceb6183f7a4e23023b27e47cd6c48c46e66565120fe89e1ca8",
+      "ranges": [
+        [
+          1,
+          195
+        ]
+      ],
+      "role": "Original313 exact frozen receiver; typed stationary target admission and advancement; no ordered credit",
+      "eof": 263,
+      "actual_consumed_ranges": [
+        [
+          1,
+          195
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumption after this prospective registration. Original136 bodies were consumed before current context compaction; selected137-140 bodies afterward. Supplement139711-800 includes next helper and initial stage signature only; no remainder/whole-file claim."
+    },
+    {
+      "sha256": "c7ba3678d9c73cdd365cf91f5e8b4d115c161f1b454f4508128e6dd16408461a",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/c7ba3678d9c73cdd365cf91f5e8b4d115c161f1b454f4508128e6dd16408461a",
+      "ranges": [
+        [
+          1115,
+          1256
+        ]
+      ],
+      "role": "Original245 exact frozen receiver only; residence causal policy",
+      "eof": 1455,
+      "actual_consumed_ranges": [
+        [
+          1115,
+          1256
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumption after this prospective registration. Original136 bodies were consumed before current context compaction; selected137-140 bodies afterward. Supplement139711-800 includes next helper and initial stage signature only; no remainder/whole-file claim."
+    },
+    {
+      "sha256": "99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "ranges": [
+        [
+          461,
+          516
+        ]
+      ],
+      "role": "Exact frozen settlement presence receiver; no future original credit",
+      "eof": 759,
+      "actual_consumed_ranges": [
+        [
+          461,
+          516
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumption after this prospective registration. Original136 bodies were consumed before current context compaction; selected137-140 bodies afterward. Supplement139711-800 includes next helper and initial stage signature only; no remainder/whole-file claim."
+    },
+    {
+      "sha256": "49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942",
+      "ranges": [
+        [
+          110,
+          146
+        ],
+        [
+          343,
+          350
+        ],
+        [
+          1030,
+          1078
+        ],
+        [
+          1470,
+          1539
+        ]
+      ],
+      "role": "Original224 bounded material schema/producer/generation admission/clock supplement; original requested1540\u20131672 retained",
+      "eof": 2518,
+      "actual_consumed_ranges": [
+        [
+          110,
+          146
+        ],
+        [
+          343,
+          350
+        ],
+        [
+          1030,
+          1078
+        ],
+        [
+          1470,
+          1539
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumption after this prospective registration. Original136 bodies were consumed before current context compaction; selected137-140 bodies afterward. Supplement139711-800 includes next helper and initial stage signature only; no remainder/whole-file claim."
+    },
+    {
+      "sha256": "3f03d0db1b9cf1860a021496c4a4442a607e0dc03f6eaa309ca7318e965e323c",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/3f03d0db1b9cf1860a021496c4a4442a607e0dc03f6eaa309ca7318e965e323c",
+      "ranges": [
+        [
+          283,
+          395
+        ]
+      ],
+      "role": "Reconstructed unchanged physical receiver per batch137 staging; numeric courtship causal context",
+      "eof": 685,
+      "actual_consumed_ranges": [
+        [
+          283,
+          395
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumption after this prospective registration. Original136 bodies were consumed before current context compaction; selected137-140 bodies afterward. Supplement139711-800 includes next helper and initial stage signature only; no remainder/whole-file claim."
+    },
+    {
+      "sha256": "ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+      "ranges": [
+        [
+          1270,
+          1338
+        ]
+      ],
+      "role": "Reconstructed unchanged physical receiver per batch137 staging; notice retained minute/ID",
+      "eof": 1399,
+      "actual_consumed_ranges": [
+        [
+          1270,
+          1338
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumption after this prospective registration. Original136 bodies were consumed before current context compaction; selected137-140 bodies afterward. Supplement139711-800 includes next helper and initial stage signature only; no remainder/whole-file claim."
+    },
+    {
+      "sha256": "99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "ranges": [
+        [
+          517,
+          556
+        ]
+      ],
+      "role": "Actual npc_is_present remaining-duration recipient; prior137 stopped516.",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "actual_consumed_ranges": [
+        [
+          517,
+          556
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumption after this prospective registration. Original136 bodies were consumed before current context compaction; selected137-140 bodies afterward. Supplement139711-800 includes next helper and initial stage signature only; no remainder/whole-file claim."
+    },
+    {
+      "sha256": "7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
+      "ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "role": "Re-read already full own038\u2013040 coredurability95 actual cap/removal body for221; not new original credit.",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
+      "actual_consumed_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumption after this prospective registration. Original136 bodies were consumed before current context compaction; selected137-140 bodies afterward. Supplement139711-800 includes next helper and initial stage signature only; no remainder/whole-file claim."
+    },
+    {
+      "status": "prospective",
+      "source_id": "reconstructed-unchanged-physical-p16:crates/adventuresim-stdb-module/src/investigation/claims.rs",
+      "sha256": "19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+      "eof": 1771,
+      "ranges": [
+        [
+          643,
+          710
+        ]
+      ],
+      "provenance": "Pinned534be manifest physical base=head a120, exact path omitted changed variants/status, exact Git object; selected development rumor bootstrap receiving body only; no future original/sharedcredit.",
+      "actual_consumed_ranges": [
+        [
+          643,
+          710
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumption after this prospective registration. Original136 bodies were consumed before current context compaction; selected137-140 bodies afterward. Supplement139711-800 includes next helper and initial stage signature only; no remainder/whole-file claim."
+    },
+    {
+      "status": "prospective",
+      "sha256": "19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+      "ranges": [
+        [
+          298,
+          463
+        ]
+      ],
+      "reason": "Actual grant_generated_witness_referral material retained resident ID/observer/world chronologies; unchanged physical authority139; no independent original/sharedcredit.",
+      "actual_consumed_ranges": [
+        [
+          298,
+          463
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumption after this prospective registration. Original136 bodies were consumed before current context compaction; selected137-140 bodies afterward. Supplement139711-800 includes next helper and initial stage signature only; no remainder/whole-file claim."
+    },
+    {
+      "sha256": "3f03d0db1b9cf1860a021496c4a4442a607e0dc03f6eaa309ca7318e965e323c",
+      "ranges": [
+        [
+          396,
+          427
+        ]
+      ],
+      "reason": "Complete selected establish_npc_courtship_and_wedding body before next function428; exact reconstructed source provenance137.",
+      "actual_consumed_ranges": [
+        [
+          396,
+          427
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumption after this prospective registration. Original136 bodies were consumed before current context compaction; selected137-140 bodies afterward. Supplement139711-800 includes next helper and initial stage signature only; no remainder/whole-file claim."
+    },
+    {
+      "sha256": "e256eb33fd8ea25a8ef2d424cb1638ec08da0f6177bd5d6562cde1212a4b5b49",
+      "ranges": [
+        [
+          111,
+          217
+        ]
+      ],
+      "reason": "Complete selected lifecycle dispatcher/continuations if material; future original238 role credit excluded.",
+      "actual_consumed_ranges": [
+        [
+          111,
+          217
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumption after this prospective registration. Original136 bodies were consumed before current context compaction; selected137-140 bodies afterward. Supplement139711-800 includes next helper and initial stage signature only; no remainder/whole-file claim."
+    },
+    {
+      "status": "prospective",
+      "sha256": "19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+      "ranges": [
+        [
+          711,
+          800
+        ]
+      ],
+      "reason": "Complete actual rumor impl continuation/retained numeric ID and learned minute; exact authority139.",
+      "actual_consumed_ranges": [
+        [
+          711,
+          800
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumption after this prospective registration. Original136 bodies were consumed before current context compaction; selected137-140 bodies afterward. Supplement139711-800 includes next helper and initial stage signature only; no remainder/whole-file claim."
+    }
+  ],
+  "numeric_inventory_and_actual_trace": [
+    {
+      "original": 221,
+      "inventory": "Full1-946: native DB Item and InventoryItem schema numeric floats (weight/reach/block/coverage/precision/resistance/padding/flex/range/inertia/balance/nutrition/durability), quality u8, volume/value/quantity u32, alcohol/attachment/order u16 and semantic weapon/food/alcohol/repair flags; typed catalog leaves extracted for storage but raw units/IDs/quantity/conditions continue in first-party APIs. Kind-irrelevant zero/default fields must not be judged against applicable weapon/quality constraints; discriminated payload owner opportunity remains. Catalog/weapon balance producer proofs retained by exact earlier own source, not new catalogue clearance.",
+      "operations": "Zero add returns None; nonfungible/measured/food rows quantity1 and autoID0 native adapter. Generic durable change uses core95 unsigned_abs and per-call64, stable equipped-last ID removal; native private rows require samekind. Personal currency total widens u32 row quantities to u64 then sums; no universal cardinality bound, but no feasible ordinary overflow alleged. Checked stack add spills new stack on overflow. Withdrawal preflights total, stable sorts denomination/itemID, takes min<=rowquantity before narrowing/subtracting; selected actual keyed DB rows avoid fabricated duplicate-vector underflow claim. i32MIN unsigned_abs is defined; measured/non-durable individual additions can still request up to positive i32MAX rows, unlike durable64. Missing per-operation work policy is a qualified public/API concern, not observed OOM or current exploit.",
+      "fixtures": "Existing inline fixtures all consumed, not executed: 1/3,.5,1 fractions; qualities1..5/coverage0..1; deterministic sourcecount/nth selectors, currency128 and row4/9 quantities3/2, withdrawals4/6, stack40+2=42/MAX+1 rejection. Numeric fixture role does not validate implementation."
+    },
+    {
+      "original": 222,
+      "inventory": "Full44 existing authority fixture: expected enum-class catalogue count10, native projected item rows, feature gate and test booleans; authored classification coverage assertions are fixture counts, not production caps. No execution/new tests."
+    },
+    {
+      "original": 223,
+      "inventory": "Full95 module/export list, cfg(test) source marker adapter, feature compile flags; no numeric application payload. Module presence/exports do not prove absence of hidden registration or global source completeness."
+    },
+    {
+      "original": 224,
+      "inventory": "Effective original1540-1672 retained exactly, not full2518. Character/source/contact resident IDs u64 become stable native rows and display strings; valid predicate Bool gates same-settlement+navigable contact. Observer learned_at and official_learned_at remain distinct StrategicMinute fields. Supplement producer1470-1539, schema110-146, official clock343-350 and generation1030-1078 actually read: exactly one deduplicated authority required before candidates[0], first witness checked before use; world_clock0/ZERO fallback is native singleton/missing-row policy.",
+      "receiver": "Exact reconstructed unchanged claims298-463/643-800 verifies actor/receipt/witness identity, checked u32 testimony index and initial index0 discriminated by grant_kind, preserves canonical vs public case IDs and typed minute. Native lead confidence5000 vs whole10000, coordinate0 placeholders paired with Textual/Unknown destination state are semantic representation/enum-shape opportunities; no valid geography assertion from zero. Journal1270-1338 validates summary<=1024/source_label<=160 and compares all retained fields including exact recorded_at on retry. Required numeric receiver source read; not arbitrary full investigation graph/schema/global SDK credit."
+    },
+    {
+      "original": 225,
+      "inventory": "Full635: schedule singletonID0, wall interval5_000_000 i64 microseconds, NPC/lifecycle64 work-selection caps, raw u64 IDs/day coordinates, age adulthood16/default0 fallback, 1day advancement, seed/native count conversion, named eligibility/presence predicates and typed phase/outcome roles. Canonical core NPC policy own prior full read reused for schedule initialization/ranking, not cross-lens verdict. Cohort stable sort and earliest clock frontier selected before truncate64; all policies/rows are collected before cap, so cap bounds processing only.",
+      "receiver": "Selected native3131-195 admits typed target>=starting, zero elapsed no-op, dead no advance; recursively splits lifecycle boundary then disease/injury clipping before typed clock write, convalescence saturating subtraction and realized socializing zero handling. Actual shared scheduler recipient is source-backed but all downstream disease/training implementation not globally certified. Lifecycle2381-217 independently builds/sorts full due events then processable filter/truncate(limit); wedding/birth ordinal IDs retained, failures typed dispatch. Native residence2451115-1256 uses enum outcomes, native raw monetary totals vs typed housing tier ranks0/1/2, selects affordable canonical core policy and shared acquisition. These are semantic IDs/money/count ports, not arbitrary primitive exemption. Courtship283-427 recomputes effective age at max personal times for both parties and revalidates pair before writes; narrows outer cached-age concern. No actual cached-age invalid courtship or unbounded due-event execution claim."
+    },
+    {
+      "original": 226,
+      "inventory": "Full28: raw actor/candidate u64 and stable seed carry identity; excludes self and invokes actual native presence at typed minute. Selected population461-556 feeds DailyPresenceWindow typed minute, context/health suppression predicates and Option<u64> remaining duration. Candidate collection cardinality is not bounded by outer64 cohort cap. Existing canonical core presence/NPC policy proofs retained; no whole outbreak or all custom schedules exemption."
+    },
+    {
+      "original": 227,
+      "inventory": "Full44: derived typed error variants/own alias retain bespoke causes. No raw nonstring application payload; format {0} is a string formatting selector, not numeric domain state. Wider error-erasure/native trait behavior remains separate, no new numeric clearance."
+    }
+  ],
+  "findings_and_dispositions": [
+    "Semantic native storage adapters do not justify naked first-party quantity/ID/money/condition APIs; carry existing canonical leaves through operations, or define missing owners only after owner/alias reconciliation. Constants alone do not close those migration gaps.",
+    "Qualified selected-work budget observation: stable collection/sort can exceed64 before truncation; no ordinary runtime exhaustion witness required to record source policy, no actual OOM assertion.",
+    "Public non-durable measured additions lack the durable64 cap in read221; retain request work-bound concern pending actual reachable policy/admission, currentness and alias checks.",
+    "Optional scalar states (zero coordinate with knowledge stage, testimony index0 with grant kind, item irrelevant numeric defaults) should be considered with enum/payload owners; do not impose nonzero/allquality constraints on intentionally inapplicable fields."
+  ],
+  "limits": [
+    "All136 original effective ranges accounted independently, supplements and future original238/245/313 access confer zero ordered credit. Exact unchanged physical claims/courtship/model reconstruct via pinned manifest omission and a120 objects; no current substitution or frozen changed identity invented.",
+    "Selected downstream opaque application/SDK callbacks remain outside full global proof; no runtime/current activation or acceptance validation performed. No original/overlay/merge/shared populations conflated. Accepted new unique0. No code/Git mutations/root ledger/checks/tests/publication.",
+    "Narrow metadata navigation output was truncated for function listings/full manifest statuses; no body coverage or absence evidence relies on truncated output. Actual body outputs retained bounded and complete for stated consumed ranges."
+  ]
+}

@@ -1,0 +1,678 @@
+{
+  "id": "SEGOVB-CONT08-SUCCESSOR-011",
+  "created_utc": "2026-10-27T00:47:43.462164+00:00",
+  "lens": "08 behavior-preservation",
+  "skill": "/home/brunosegovia/.codex/skills/audit-behavior-preservation/SKILL.md",
+  "scope": "One bounded actualfrozenclient/plugin/retainedcollider/rotation-synchronization receivingpacket continuing rootadopted010 Q003. Stop before defaultnetworkcodec and GlobalTransform decomposition internals. No orderedoriginal/materialqueue traversal or currentproductsource audit.",
+  "inputs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-010.json",
+      "sha256": "5196d775dfadf31b1518b2509eb273170dfd0ad038a806aee0d55a22a93477c4"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-010-proposed-state.json",
+      "sha256": "37bd31905ad6c905aa7c43bf652cdc7873e79b53a813bbdfb940621f0bfc0dc9"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-009.json",
+      "sha256": "5e60a6ef0dcf072d5301758a928908d8d9f14515a55031aa4d394287a014273d"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-008.json",
+      "sha256": "d416f521ab16a91874f18f17f3764ce7d02f576fc43ce3cf74b5605549943f04"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-root-net-plugin-staging-011.json",
+      "sha256": "ce4209331e3f165d300b91b0fdc7bdfd6acd082903c4b89afe7b0a37dabc27de"
+    },
+    {
+      "path": "target/recovery-20261025/audit05/original-scope-072.json",
+      "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+    },
+    {
+      "path": "target/recovery-20261025/audit08/predecessor/source-inventory.json",
+      "sha256": "bfbcfba87ab12644946de377b9cda227f3203ac836bcf4933d3ce099d8f21b97"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-011-registration.json",
+      "sha256": "251822b4ffc5aeef1f6728113d0815a03e7c9f33627f207bb6978d6ca50da721"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-011-registration-dependencies.json",
+      "sha256": "9cf2ef5ef22e3967401afd3b39d7a60a6850d85b9d46c0a8d2e27fea91cfb9c1"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-011-registration-retained.json",
+      "sha256": "c5944aebd0c519496fd5ee5cf35333895926a08900f50b4754f27cb0f5770566"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-011-registration-query.json",
+      "sha256": "a269d9de4e0aabbcb4081d4de68aa87d11bf095bf1ed16e7c2c604ffbc9518b5"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-011-registration-camera.json",
+      "sha256": "3958596467015a9192dbb1c26d3d8e89e1e12b94694d4fae8f1ef14de7fd965a"
+    }
+  ],
+  "source_reads": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/main.rs",
+      "original_index": 1496,
+      "path": "target/recovery-20261025/audit08/source/head/11642eae7fcc7b877302b99cb6eb0cb62ee45c7fe0df07541fb06607c159f875",
+      "sha256": "11642eae7fcc7b877302b99cb6eb0cb62ee45c7fe0df07541fb06607c159f875",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "prospective_ranges": [
+        [
+          1,
+          609
+        ]
+      ],
+      "reason": "Actualclient/plugininstallation and physicsretainedreceiver scope for CONT08-Q003; fullchangedvariant requestedscopes retained, no originalcountadvance fromsupportread",
+      "base_sha256": "cb7fe4eb4bfa13ce6b46fb031db325d1a2989e4cfeac55997a8aed70fd906a70",
+      "scope_kind": "frozen_requested_change",
+      "actual_body_read_ranges": [
+        [
+          1,
+          609
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/lib.rs",
+      "original_index": 1882,
+      "path": "target/recovery-20261025/audit10/successor-source-objects/244fd713d736e5e7da01d379afdcae5c77cd5705016504d882221057490eef26",
+      "sha256": "244fd713d736e5e7da01d379afdcae5c77cd5705016504d882221057490eef26",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "prospective_ranges": [
+        [
+          1,
+          159
+        ]
+      ],
+      "reason": "Actualclient/plugininstallation and physicsretainedreceiver scope for CONT08-Q003; fullchangedvariant requestedscopes retained, no originalcountadvance fromsupportread",
+      "base_sha256": "0a071dc72c479161113de382cd09227cb59e792f595d600f8f59b7d947dff180",
+      "scope_kind": "frozen_requested_change",
+      "actual_body_read_ranges": [
+        [
+          1,
+          159
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/plugin.rs",
+      "original_index": 2822,
+      "path": "target/recovery-20261025/audit10/successor-source-objects/c165c0efe7988bed6982ef9f1fe32fd78cd0fe603c3e5e4581435bad0bde0353",
+      "sha256": "c165c0efe7988bed6982ef9f1fe32fd78cd0fe603c3e5e4581435bad0bde0353",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "prospective_ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "reason": "Actualclient/plugininstallation and physicsretainedreceiver scope for CONT08-Q003; fullchangedvariant requestedscopes retained, no originalcountadvance fromsupportread",
+      "base_sha256": null,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "actual_body_read_ranges": [
+        [
+          1,
+          88
+        ]
+      ]
+    },
+    {
+      "source_id": "frozen-pr-head:crates/adventuresim-tactical-netcode/src/lib.rs",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/81b65a58f7ea1449d570ad5d18ead386e28179e307299964d530790974a818d7",
+      "sha256": "81b65a58f7ea1449d570ad5d18ead386e28179e307299964d530790974a818d7",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "base_revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "base_head_equal_per_root_provenance": true,
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "reason": "Newlyreached mandatoryfirstparty NetPlugins group installationowner; unchangedbase/headsource, notoriginalcountcredit",
+      "provenance": "audit08-root-net-plugin-staging-011.json",
+      "other_lens_queue": "Mandatorynewsharedsourceextension; rootownsqueueadoption, nootherlenscoveragefromthisread",
+      "actual_body_read_ranges": [
+        [
+          1,
+          45
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:avian3d-0.7.0/src/lib.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/lib.rs",
+      "sha256": "0ea68b072e300d13c001c092aa3945eb303c56d84e96a2fee7a56573891d409e",
+      "prospective_ranges": [
+        [
+          1,
+          852
+        ]
+      ],
+      "reason": "Necessary reachedPhysicsPlugins/colliderrequiredcomponents/hook/transformsync declaration and actualreceivingbody; onlysubsequentboundedbodyranges count",
+      "provenance": {
+        "archive_path": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0.crate",
+        "archive_sha256": "35a30cb730c72527ffaca7f8806881c7e4acc70a4a74c54eb1ffb56c27f64235",
+        "matches_frozen_head_lock_checksum": true,
+        "lock_source_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+        "lock_range": [
+          1228,
+          1252
+        ],
+        "member": "avian3d-0.7.0/src/lib.rs",
+        "member_bytes_equal": true
+      },
+      "actual_body_read_ranges": [
+        [
+          681,
+          790
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:avian3d-0.7.0/src/physics_transform/mod.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/physics_transform/mod.rs",
+      "sha256": "56022d7cec61d8ddcd7504ecdf782ce5e6f760ac840caae6fd80d18da9a8b36f",
+      "prospective_ranges": [
+        [
+          1,
+          349
+        ]
+      ],
+      "reason": "Necessary reachedPhysicsPlugins/colliderrequiredcomponents/hook/transformsync declaration and actualreceivingbody; onlysubsequentboundedbodyranges count",
+      "provenance": {
+        "archive_path": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0.crate",
+        "archive_sha256": "35a30cb730c72527ffaca7f8806881c7e4acc70a4a74c54eb1ffb56c27f64235",
+        "matches_frozen_head_lock_checksum": true,
+        "lock_source_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+        "lock_range": [
+          1228,
+          1252
+        ],
+        "member": "avian3d-0.7.0/src/physics_transform/mod.rs",
+        "member_bytes_equal": true
+      },
+      "actual_body_read_ranges": [
+        [
+          1,
+          167
+        ],
+        [
+          182,
+          270
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+      "sha256": "2a04ce7d6913b008e654905c96ead648efd840ddf102863532bc38bd187e3945",
+      "prospective_ranges": [
+        [
+          1,
+          1830
+        ]
+      ],
+      "reason": "Necessary reachedPhysicsPlugins/colliderrequiredcomponents/hook/transformsync declaration and actualreceivingbody; onlysubsequentboundedbodyranges count",
+      "provenance": {
+        "archive_path": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0.crate",
+        "archive_sha256": "35a30cb730c72527ffaca7f8806881c7e4acc70a4a74c54eb1ffb56c27f64235",
+        "matches_frozen_head_lock_checksum": true,
+        "lock_source_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+        "lock_range": [
+          1228,
+          1252
+        ],
+        "member": "avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+        "member_bytes_equal": true
+      },
+      "actual_body_read_ranges": [
+        [
+          335,
+          390
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:avian3d-0.7.0/src/collision/collider/mod.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/collision/collider/mod.rs",
+      "sha256": "ca5bb9f61dfc7660c62dc29f09ae251c62a366a405904fbb3bff2a418dd30d6f",
+      "prospective_ranges": [
+        [
+          1,
+          715
+        ]
+      ],
+      "reason": "Necessary reachedPhysicsPlugins/colliderrequiredcomponents/hook/transformsync declaration and actualreceivingbody; onlysubsequentboundedbodyranges count",
+      "provenance": {
+        "archive_path": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0.crate",
+        "archive_sha256": "35a30cb730c72527ffaca7f8806881c7e4acc70a4a74c54eb1ffb56c27f64235",
+        "matches_frozen_head_lock_checksum": true,
+        "lock_source_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+        "lock_range": [
+          1228,
+          1252
+        ],
+        "member": "avian3d-0.7.0/src/collision/collider/mod.rs",
+        "member_bytes_equal": true
+      },
+      "actual_body_read_ranges": []
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics.rs",
+      "original_index": 1886,
+      "path": "target/recovery-20261025/audit10/successor-source-objects/14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+      "sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "prospective_ranges": [
+        [
+          1,
+          1738
+        ]
+      ],
+      "reason": "Exactmodule/reexport bridge into actualPhysicsPlugin; onlymaterialheader readcredited, fulloriginalrequestedscoperemainsseparatewithnocountadvance",
+      "actual_body_read_ranges": [
+        [
+          1,
+          65
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:avian3d-0.7.0/src/collision/collider/backend.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/collision/collider/backend.rs",
+      "sha256": "30ba3c6d8e039ea26b76ca43ce4357d93ffb884192e05ccd60efcca2d92065fd",
+      "prospective_ranges": [
+        [
+          1,
+          619
+        ]
+      ],
+      "reason": "ActualrequiredColliderMarker/Position/Rotation hooks and retainedtreeeligibleproxy insertion; necessaryreachabledependency notblanketnative expansion",
+      "provenance": {
+        "archive_path": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0.crate",
+        "archive_sha256": "35a30cb730c72527ffaca7f8806881c7e4acc70a4a74c54eb1ffb56c27f64235",
+        "matches_frozen_head_lock_checksum": true,
+        "lock_source_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+        "member": "avian3d-0.7.0/src/collision/collider/backend.rs",
+        "member_bytes_equal": true
+      },
+      "actual_body_read_ranges": [
+        [
+          90,
+          174
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:avian3d-0.7.0/src/collider_tree/mod.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/collider_tree/mod.rs",
+      "sha256": "b7015009e24b51edec278ddd9e7f66e53e1ea37e5b8a4212d9a6ebd03e6f1642",
+      "prospective_ranges": [
+        [
+          1,
+          194
+        ]
+      ],
+      "reason": "ActualrequiredColliderMarker/Position/Rotation hooks and retainedtreeeligibleproxy insertion; necessaryreachabledependency notblanketnative expansion",
+      "provenance": {
+        "archive_path": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0.crate",
+        "archive_sha256": "35a30cb730c72527ffaca7f8806881c7e4acc70a4a74c54eb1ffb56c27f64235",
+        "matches_frozen_head_lock_checksum": true,
+        "lock_source_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+        "member": "avian3d-0.7.0/src/collider_tree/mod.rs",
+        "member_bytes_equal": true
+      },
+      "actual_body_read_ranges": [
+        [
+          48,
+          116
+        ],
+        [
+          126,
+          169
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:avian3d-0.7.0/src/collider_tree/update.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/collider_tree/update.rs",
+      "sha256": "44e67ab015f7b7393fd08b8a46cba7bf7bf6eee26e651d441bc91edf636d1759",
+      "prospective_ranges": [
+        [
+          1,
+          1024
+        ]
+      ],
+      "reason": "ActualrequiredColliderMarker/Position/Rotation hooks and retainedtreeeligibleproxy insertion; necessaryreachabledependency notblanketnative expansion",
+      "provenance": {
+        "archive_path": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0.crate",
+        "archive_sha256": "35a30cb730c72527ffaca7f8806881c7e4acc70a4a74c54eb1ffb56c27f64235",
+        "matches_frozen_head_lock_checksum": true,
+        "lock_source_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+        "member": "avian3d-0.7.0/src/collider_tree/update.rs",
+        "member_bytes_equal": true
+      },
+      "actual_body_read_ranges": [
+        [
+          48,
+          206
+        ],
+        [
+          404,
+          492
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:avian3d-0.7.0/src/dynamics/rigid_body/mod.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/dynamics/rigid_body/mod.rs",
+      "sha256": "eb3a7e85f3ce1aca1e6959e5d335dc72a1f1fdcf3cd4835344c9d410efb247bd",
+      "prospective_ranges": [
+        [
+          1,
+          662
+        ]
+      ],
+      "reason": "Complete actualRigidBodyon-add hook andquery traversal eligibility signature dependencies; boundedexactrolesonly",
+      "provenance": {
+        "archive_path": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0.crate",
+        "archive_sha256": "35a30cb730c72527ffaca7f8806881c7e4acc70a4a74c54eb1ffb56c27f64235",
+        "matches_exactfrozenheadlock_checksum": true,
+        "member": "avian3d-0.7.0/src/dynamics/rigid_body/mod.rs",
+        "member_bytes_equal": true
+      },
+      "actual_body_read_ranges": [
+        [
+          270,
+          347
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:avian3d-0.7.0/src/collider_tree/traverse.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/collider_tree/traverse.rs",
+      "sha256": "06441a48e72ef769e2b56c452eae28245cd6e73f798d1263f8e0c623451b5016",
+      "prospective_ranges": [
+        [
+          1,
+          246
+        ]
+      ],
+      "reason": "Complete actualRigidBodyon-add hook andquery traversal eligibility signature dependencies; boundedexactrolesonly",
+      "provenance": {
+        "archive_path": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0.crate",
+        "archive_sha256": "35a30cb730c72527ffaca7f8806881c7e4acc70a4a74c54eb1ffb56c27f64235",
+        "matches_exactfrozenheadlock_checksum": true,
+        "member": "avian3d-0.7.0/src/collider_tree/traverse.rs",
+        "member_bytes_equal": true
+      },
+      "actual_body_read_ranges": [
+        [
+          70,
+          155
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:avian3d-0.7.0/src/spatial_query/system_param.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/spatial_query/system_param.rs",
+      "sha256": "a568d6d6d411e2832b3efb91dfc919770712da09eae38e4a9dff53ffd8d72fea",
+      "prospective_ranges": [
+        [
+          1,
+          1293
+        ]
+      ],
+      "reason": "Complete actualRigidBodyon-add hook andquery traversal eligibility signature dependencies; boundedexactrolesonly",
+      "provenance": {
+        "archive_path": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0.crate",
+        "archive_sha256": "35a30cb730c72527ffaca7f8806881c7e4acc70a4a74c54eb1ffb56c27f64235",
+        "matches_exactfrozenheadlock_checksum": true,
+        "member": "avian3d-0.7.0/src/spatial_query/system_param.rs",
+        "member_bytes_equal": true
+      },
+      "actual_body_read_ranges": [
+        [
+          523,
+          594
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera.rs",
+      "original_index": 1460,
+      "path": "target/recovery-20261025/audit08/source/head/4d7aab7742753836f2384c8cd1095148537193d23ba45c3f5bac3762dabc6fa9",
+      "sha256": "4d7aab7742753836f2384c8cd1095148537193d23ba45c3f5bac3762dabc6fa9",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "ranges": [
+        [
+          1,
+          185
+        ]
+      ],
+      "reason": "ActualTacticalCameraPlugin installsystem join into retainedquery/colliderroute; fullchangedheadscope, no originalcount or oldcallerrestart",
+      "actual_body_read_ranges": [
+        [
+          1,
+          185
+        ]
+      ]
+    }
+  ],
+  "retained_own_body_proofs": [
+    {
+      "path": "target/recovery-20261025/audit10/successor-source-objects/3723f618b79b8e9c01b414c6fb374dd1f15e970c4182b2fa6d446c84924a33c8",
+      "sha256": "3723f618b79b8e9c01b414c6fb374dd1f15e970c4182b2fa6d446c84924a33c8",
+      "source_id": "pr-working:crates/adventuresim-tactical-netcode/src/replication.rs",
+      "own_receipt": "audit08-successor-010.json",
+      "actual_prior_body_ranges": [
+        [
+          1,
+          242
+        ]
+      ],
+      "new_body_read_ranges": [],
+      "qualification": "Own08 exactactualbodyproof retained at identicalfreshhash; nototherlensverdicttransfer, no newbodycount/globalcurrentcoverage."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/physics_transform/transform.rs",
+      "sha256": "5020a25a60cbe8b42d37cadf31c24a6d24dcde07df2c8f156ee45ff81e9c450b",
+      "source_id": "native-dependency:avian3d-0.7.0/src/physics_transform/transform.rs",
+      "own_receipt": "audit08-successor-009.json",
+      "actual_prior_body_ranges": [
+        [
+          1116,
+          1275
+        ]
+      ],
+      "new_body_read_ranges": [],
+      "qualification": "Own08 exactactualbodyproof retained at identicalfreshhash; nototherlensverdicttransfer, no newbodycount/globalcurrentcoverage."
+    }
+  ],
+  "provenance": "All16newlyregisteredsourcefiles and2retainedownbodyfiles match their exactSHA256 at completion. Nativefilesverifiedagainst exactcachedavian3d0.7.0 archive members beforebodyreads; archivechecksum35a30cb... matches exactfrozenheadlock82b8... original497. Rawsourcecopiesfromotherlensoutput get no verdicttransfer. No nativeexecution/download. Sourcegrep/navigation/truncatedoutput are notcreditedbodycoverage; nativecollider/mod.rs onlyreexportnavigation and no fullbodyread.",
+  "frozen_identity": {
+    "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "native_resolution": "Exactheadlock82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce, avian3d0.7.0",
+    "qualification": "Not currentPR990a21/main or committedP16039329/unknownAdlerdirtysource. No base-native-resolution or fullbeforeafterinstallationequivalence claim inthisreceivingpacket."
+  },
+  "actual_installation_and_retention": [
+    {
+      "id": "CONT08-Q003-INSTALL-011A",
+      "source": "pr-working:crates/adventuresim-tactical-client/src/main.rs",
+      "ranges": [
+        [
+          353,
+          368
+        ],
+        [
+          440,
+          451
+        ],
+        [
+          521,
+          535
+        ]
+      ],
+      "fact": "Gameplayrun adds AdventureSimulatorCorePlugins with enable_simulationfalse and enable_presentation_simulationtrue, adds AdventureSimulatorNetPlugins, then gameplayplugins including TacticalCameraPlugin. Initialtacticalstartup spawns AdventureSimulatorClient connectioncomponent. Browserentry also calls the same runfunction. Thisis actualfirstpartyconstruction, not just a plugin definition."
+    },
+    {
+      "id": "CONT08-Q003-NETGROUP-011B",
+      "source": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-netcode/src/lib.rs",
+      "sha256": "81b65a58f7ea1449d570ad5d18ead386e28179e307299964d530790974a818d7",
+      "ranges": [
+        [
+          16,
+          19
+        ],
+        [
+          36,
+          45
+        ]
+      ],
+      "fact": "AdventureSimulatorNetPlugins group includes AdventureSimulatorReplicationPlugin unconditionally and ClientPlugin underclientfeature. Thisconnects own010actualTransform/Collider/SceneObstacle replication registration to the gameclientinstalledgroup.",
+      "qualification": "Newlyreachedfirstpartysource, rootverified exactbase/head equality and absencefrom747changed/4dirtyrows. No originalcount or otherlenscoverage. Thisdoesnotbyitself trace defaultRepliconcodec/writer semantics or liveentityarrival."
+    },
+    {
+      "id": "CONT08-Q003-PHYSICS-INSTALL-011C",
+      "source": [
+        "pr-working:crates/adventuresim-tactical-core/src/lib.rs:151-156",
+        "pr-working:crates/adventuresim-tactical-core/src/physics.rs:31-37",
+        "pr-working:crates/adventuresim-tactical-core/src/physics/plugin.rs:32-68",
+        "native:avian3d0.7.0/src/lib.rs:757-788"
+      ],
+      "fact": "Coreplugin group resolves through actualphysicsmodule/reexport to AdventureSimulatorPhysicsPlugin. The selectedpresentationsimulationbranch installs PhysicsPlugins::new(FixedPostUpdate) andAhoyCameraPlugin, andregisters RigidBodyDisabled asrequiredforRigidBody. ActualnativePhysicsPlugins installs ColliderBackendPlugin<Collider>/ColliderTreePlugin<Collider>/NarrowPhase underdefaultcollider+parryfeatures, thenSpatialQueryPlugin andPhysicsTransformPlugin.",
+      "qualification": "Dependencyfeatureconditions explicitlyretained. No runtimeactivation/allfeatures proof or inferencefrom oldCI. Disablingbodydynamics isnot evidencefor removingcolliders fromqueries."
+    },
+    {
+      "id": "CONT08-Q003-CAMERA-SYSTEM-011D",
+      "source": "pr-working:crates/adventuresim-tactical-client/src/camera.rs",
+      "ranges": [
+        [
+          11,
+          26
+        ],
+        [
+          90,
+          121
+        ]
+      ],
+      "fact": "TacticalCameraPlugin installs update_camera_rig in PostUpdate beforeTransformSystems::Propagate; update_camera_aim isafterOffset. Thirdpersondefaultistrue. Thisjoins the actualinstalledcamera system to own010prepare/hardpredicate/errorpublication bodies.",
+      "qualification": "No globalBevyschedule timing or liveframewitness isclaimed; nativephysicspluginusesFixedPostUpdate andits ownconditions. Earlierown010errortocameratranslationtrace remains preciselyscoped."
+    },
+    {
+      "id": "CONT08-Q003-COLLIDER-STATE-011E",
+      "source": [
+        "native:avian3d0.7.0/src/collision/collider/parry/mod.rs:356-376",
+        "native:avian3d0.7.0/src/collision/collider/backend.rs:94-121",
+        "native:avian3d0.7.0/src/dynamics/rigid_body/mod.rs:270-325"
+      ],
+      "fact": "NativeColliderBackend registers Position/Rotation placeholders,ColliderMarker andAABB/layerrequirements. Collider-on-add invokes init_physics_transform unlessRigidBody ispresent; RigidBody requiresPosition/Rotation andits on-add invokes thatsameinit. Thisconnects receivednativeCollider/RigidBody components to actualquery-requiredposition/rotation state.",
+      "qualification": "Component-hookordering isshownby installednativecode, not exercised. The initbody itself is retained own009exact1116-1275 proof: it initializesmissing/placeholderstate fromglobaltransform/decomposition oridentity while retainingexplicitnonplaceholderstate. No arbitraryq admission/runtimeentityexistence follows."
+    },
+    {
+      "id": "CONT08-Q003-SYNC-011F",
+      "source": "native:avian3d0.7.0/src/physics_transform/mod.rs",
+      "ranges": [
+        [
+          69,
+          125
+        ],
+        [
+          127,
+          165
+        ],
+        [
+          182,
+          237
+        ]
+      ],
+      "fact": "PhysicsTransformPlugin initializesPhysicsTransformConfig, whose defaults enableprephysicspropagation andtransform_to_position. It schedules transformpropagation followedby transform_to_position inPhysicsSystems::Prepare. Thatreceiver computes GlobalTransform::compute_transform, derives Rotation::from(global_transform.rotation), andwritesrotation onlyif nativeRotationwasnotchanged andangle_difference exceeds0.1degrees.",
+      "implication": "The receivedTransform quaternion isnot shownas a directunmodifiedcomponentcopy into nativeRotation. GlobalTransform matrix/decomposition andconditionaloverwrite matter. Their internals/quantitativebound remain untraced; do not infer either repair or preservation.",
+      "qualification": "UntracedapplicationpluginscouldoverridePhysicsTransformConfig orwriteexplicitRotation. Thisis exactdefault/selectedcodepath, not a wholeapplication nooverride proof."
+    },
+    {
+      "id": "CONT08-Q003-QUERY-RETENTION-011G",
+      "source": [
+        "native:avian3d0.7.0/src/collider_tree/mod.rs:57-94,126-165",
+        "native:avian3d0.7.0/src/collider_tree/update.rs:74-124,193-204,404-473",
+        "native:avian3d0.7.0/src/collider_tree/traverse.rs:74-114",
+        "native:avian3d0.7.0/src/spatial_query/system_param.rs:523-594",
+        "native:avian3d0.7.0/src/dynamics/rigid_body/mod.rs:328-339"
+      ],
+      "fact": "ColliderTreePlugin initializes ColliderTrees andUpdatePlugin. Colliderinsertion observers excludeColliderDisabled; add_to_tree recordsRigidBodyDisabled as a proxyflag, not an insertionrejection. Treeiter_trees coversdynamic/kinematic/static/standalone. Shape-query traversal passes candidateproxyids toactualcastcallback; callback appliesnativefilter/layers+camera hardpredicate, obtainsPosition/Rotation/Collider andParrycasts, thenreturnsnormal1=obstaclepose.rotation*hit.normal1. RigidBodyDisabled docs explicitly distinguishsimulation fromcollision/spatialqueries, and the readretention/traversalbodies support thatdistinction.",
+      "qualification": "Thisestablishes a sourceconnectedeligible route for ordinarydisabledclientbodies, subjecttolayers/predicate/availability/AABBs andactualcasts. Itdoesnotproveentityarrival, fullBVHcorrectness, actualnormals orproductionof009counterexample."
+    }
+  ],
+  "new_dependency_obligations": [
+    {
+      "canonical_source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-netcode/src/lib.rs",
+      "registration_alias": "frozen-pr-head:crates/adventuresim-tactical-netcode/src/lib.rs",
+      "path": "crates/adventuresim-tactical-netcode/src/lib.rs",
+      "sha256": "81b65a58f7ea1449d570ad5d18ead386e28179e307299964d530790974a818d7",
+      "root_provenance": "audit08-root-net-plugin-staging-011.json",
+      "own08_actualread": [
+        1,
+        45
+      ],
+      "required": "Rootadopt as newlyreachedsharedfirstpartysource andqueuerequiredother-lensroleassessment. No changedoriginaldenominator increment, duplicatealias populationor automaticclearance."
+    },
+    {
+      "kind": "Native scopedextensions",
+      "required": "Exactnewnativepaths/provenance/ranges arelisted inprospectiveregistrations; rootreconcile mandatoryreachedcontract obligations with materialregistry. Only own08receivingcontracts read here; no wholesaleSDK/all-lens exemption."
+    }
+  ],
+  "Q003_disposition": {
+    "status": "CONT08-Q003 remains qualifiedpartial",
+    "local009": "AdmittednewRigidRotation+unitvector localscalarcompositioncounterexample retained unchanged. No oldmalformedinput/backwardcompatibilityrequirement andno normalizationrepair.",
+    "progress": "Actualfrozenclient Net/Physics/Camera installation nowconnected tonativeCollider Position/Rotation initialization, transformsync, retainedproxy andactualcamera castnormalproduction. Bodydynamicsdisabled state doesnot remove thequeriedcolliderroute.",
+    "not_established": "No actualfirstpartypose producing009q followedthroughcodec/GlobalTransform andParrycastnormal; no ordinaryruntime/currentmaincamera witness or universalnormal-lengthbound.",
+    "next_concrete_frontier": [
+      "Resolve exactfrozenhead dependencyversion/checksum for defaultReplicon Transform/Collider codec/writefunction; trace actualadmission orrepresentationchange at receivingboundary. Do not assume registration alone admits arbitraryquaternioncomponents.",
+      "Resolve exactBevyTransform/Glammatrixsource for Transform->GlobalTransform, GlobalTransform::compute_transform andto_scale_rotation_translation, including quaterniondecomposition/precision andnewvalueadmission. It mayalter the pure-w localcounterexample; do notassumecopy orrepair from names.",
+      "Trace actualotherhardcollider firstparty rotationproducers onlyifneeded afterthatboundary, including explicitnativeRotation writers versusgeneratedSceneObstacle yaw. Retainactualconditions/config/schedule andshapeadmission; do notsubstitutecamerarotation."
+    ],
+    "stop": "Boundedclient/plugin/retainedqueryroute saved; stopbefore defaultcodec andGlobalTransform decomposition internals."
+  },
+  "coverage_delta": {
+    "original_accounted": 1799,
+    "original_total": 2853,
+    "new_original_completions": [],
+    "earliest_unfinished_original": 1462,
+    "partial1462": "CONT08-Q003 unchangedqualifiedpartial with actualinstallation/retentionroute nowmapped",
+    "next_ordered_original": 1792,
+    "material_contiguous": [
+      0,
+      51
+    ],
+    "next_material": 52,
+    "partial_material_indices": [
+      52
+    ],
+    "separate_material_interval": [
+      178,
+      195
+    ],
+    "new_material_completions": [],
+    "accepted_unique_increment": 0
+  },
+  "inherited": {
+    "material52": "Frozen039329 typederrorreceiverpartial unchanged; currentcomparison001 remainsboundtoexact4fccsource, notcurrenta21/main.",
+    "paid_withdrawn": "SEGOVB-CONT08-007-M51-PAID-WITHDRAWN remainspreexistingpartialcandidate.",
+    "preserve": "All20/P16/P17/M16, aliases, originalpartial/native/policy/overflow qualifications and#780/#826 obligations retained; rootsoleledger/productowner."
+  },
+  "limits": [
+    "No product/source edits, Git commands, project execution/tests/checks, rootledger/historywrites orpublication. Onlyrootprovidedsourceprovenance, exactlocalhash/archiveverification, boundedsourcebodyreads andignoredevidencewrites.",
+    "Actualreadranges include fullfirstpartyhead1496/1882/2822/1460 andnewNetlib; corephysics1886 onlyreexportheader1-65 read. Remainingrequestedoriginalscope/earliercompletedbeforeafterevidence remainsseparate; no originalcompletionfromreceiveraccess.",
+    "NativeSDK expansion limitedtonecessaryinstalledplugin/hook/sync/tree/query bodies, witharchiveidentity provedbeforeeachbodyread. No wholeSDK orfullfrozen tree read/download.",
+    "No beforeafterwholeclientinstallation regression claim; Q003oldnormalraw/newstrictreceivingcomparison remainsown008, extendedonlybytheseactualnewcontractdependencies."
+  ],
+  "global_clearance": false,
+  "stop": true
+}

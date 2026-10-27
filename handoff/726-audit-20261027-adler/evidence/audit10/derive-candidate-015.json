@@ -1,0 +1,15 @@
+{
+ "id":"OWN10-DERIVE-CANDIDATE-015",
+ "classification":"Qualified mechanical error boilerplate suggestion; current labels/cause correct; global remedy dedup pending",
+ "revision":"6533e444fa37552927070cc8d8190907fd3b413e",
+ "scope_index":2380,
+ "path":"crates/strategic-web/src/routes/settlements/rest.rs",
+ "ranges":[[45,91]],
+ "existing_dependency":"Exact frozen strategic-web Cargo.toml already has workspace thiserror; serde derive availability separately supports candidate014. Source proof web-derive-availability.json, support only with no original/material coverage.",
+ "equivalence":"Eleven non-generic unit variants have only static message Display arms, with two formatting the same DAYS_PER_YEAR constant, plus empty Error. Existing thiserror::Error can emit equivalent Display and default source(None), without adding source variants or changing existing derives.",
+ "connected_repair":"Derive thiserror::Error on existing RestDurationError and attach each exact current message using error attributes, then remove manual Display/Error. For the two constant messages use explicit qualified positional expression, e.g. error(Rest cannot exceed {} days, adventuresim_world_schema::calendar::DAYS_PER_YEAR), retaining exact actual literal punctuation/case. No new fields, causes, tests or dependencies.",
+ "preserve":"Retain optional-string blank filtering/parsing in deserialize_optional_u64, admission/classifiers, arithmetic and requested-minutes consistency. Do not derive unchecked construction or add serialization to runtime selectors.",
+ "acceptance":"After exhaustive own10 ledger and global dedup, existing message/error trait and form boundaries must remain unchanged. No checks run and no new tests/cases requested.",
+ "new_unique_finding":false,
+ "clear":false
+}

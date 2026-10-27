@@ -1,0 +1,54 @@
+{
+  "lens": 13,
+  "role": 0,
+  "source_id": "dependency-wgpu29.0.4:src/api/device.rs",
+  "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+  "git_source": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+  "retained_qualification": "Inherited contracts-001 partial; extend only guard receiver to resolve Q001",
+  "previous_assessed_ranges": [
+    [
+      398,
+      428
+    ],
+    [
+      752,
+      853
+    ]
+  ],
+  "prospective_extension": [
+    [
+      854,
+      877
+    ],
+    [
+      429,
+      453
+    ],
+    [
+      454,
+      466
+    ]
+  ],
+  "read_status": "registered before read",
+  "boundary_current_use": "Current Cargo.lock pins wgpu29.0.4, actual byte identity to current SDK still to verify if claiming native-source/current execution",
+  "current_local_sdk_sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+  "prospective_native_receiver": {
+    "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/backend/wgpu_core.rs",
+    "sha256": "8c0e1fab257ef93a86f6d6c93f1970f9756dececcaf3cebaa398a90a9d58efa9",
+    "ranges": [
+      [
+        600,
+        660
+      ],
+      [
+        1832,
+        1875
+      ],
+      [
+        1876,
+        1892
+      ]
+    ],
+    "purpose": "Guard native index producer and pop consumer, zero/bounds/lifecycle operations; no full backend coverage"
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-230",
+  "at": "2026-10-25T21:57:28.504546+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2285,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/follicles.rs",
+      "sha256": "340bfe96a91d869c32ce69355977aa5d552d76fe8f27d48d566e6f78c4b1ad49",
+      "personally_read_ranges": [
+        [
+          1,
+          400
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all400lines follicles.rs includingtestsource. Follicles.field retainsgrowth+headcenter+whorl list fromsame Growthvariant, atmost2whorls; directionclosedmatchhandlesmissingwhorls by down fallback andnormalizesprojectedtangent. RawpublicGrowthField/Whorlmutablecounts no sealedvariantassociation, but semanticfallbackexplicitandnoordinarybadproducer. Head.hairlineadjustmentsuseclonedhead beforegrowth; samecanonicalproducerused bypacking2288. Noexecution."
+      ]
+    },
+    {
+      "scope_index": 2286,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow.rs",
+      "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+      "personally_read_ranges": [
+        [
+          1,
+          876
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all876lines gpu/grow.rs in ranges1..450/451..876. PrivatePingPongownsflippedstate, eachnon-inplaceoperationdispatchwritesdstthenswaps, Profile/skipcontinueavoidswrongflip; settlecopiescurrentscratchtoownbeforeoutput. Sharedcount/pointsderiveallpositionbufferpitchesandStrandSet.bytes, guidescheckednonempty aftersourceconstruction, interpolatedrootcountchecked0/<2^20. Raw count truncation/overflow exactRIG-ADMISSION03-F073, hairlengthmaxpathF067, publicoutputreadF068.",
+        "Guide-map reuseexplicitmappedflagpolicy; arbitrary lateroperationdistancepolicy notassumedderivedcorrectness. Rootcountscan usesn+1,compactiondispatchusesinterpolate.count asu32; actualinput::Interpolationvalidatorpendingbeforecount0mismatchclaim. Multi-stageResulterrorscanleaveprivate scratch modified butnogroompublisheduntilsubmit. Noexecution."
+      ]
+    },
+    {
+      "scope_index": 2287,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/guides.rs",
+      "sha256": "ff313e8605d4893263109f7c930fcc81eb6c71aae6a7cffdbcafd10a44137aea",
+      "personally_read_ranges": [
+        [
+          1,
+          357
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all357lines gpu/guides.rs. HairdoGpu privateWGSLrecordfieldscompared2288constructor; GuideRoots privatelykeepspositions/normals/UVcountsfromsameallocations andsingleplacedbatch. Hairdo guidepathallocation count*maxpath andattributes/roots allsamecounts/points; actualhairlength+max_pathoverflow exactF067. PublicGpuGuides independentlymutablemetadata/bufferread exactF068. Hostresample derivesattributes/root peractualguidecount; empty/nonemptyrejectionactualgrow2286established. Noexecution."
+      ]
+    },
+    {
+      "scope_index": 2288,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/guides/packed.rs",
+      "sha256": "eabbc4d66906c663bc661d3ac362b051fc301694f436b2fdd0613116e2e2249b",
+      "personally_read_ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all93lines guides/packed.rs. OneHairdoUpload packagesHairdoGpu+tieaxis fromsame Tied::new; axis_len derivesexactuploadedvec; Growth::ALLordinal0..6matchesclosedenumeration,fieldproducermax2whorlsso w0/w1retainallcurrentwhorls. Optionalfringe/hemline/tiedflags pairedwithzerodefaultpayloadexplicitly, nomissingvspresentfabricationclaimed. Rawhairlength/radiusnativeleavespreservedexistingF067, no newfinding."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "4 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "dedup": [
+    "RIG-ADMISSION03-F067",
+    "RIG-ADMISSION03-F068",
+    "RIG-ADMISSION03-F073"
+  ]
+}

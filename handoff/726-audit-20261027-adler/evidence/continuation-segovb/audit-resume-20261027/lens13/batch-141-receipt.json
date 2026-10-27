@@ -1,0 +1,89 @@
+{
+  "lens": 13,
+  "status": "source-accounted WITH qualified findings; continuing",
+  "registration": {
+    "path": "audit-resume-20261027/lens13/batch-141-registration.json",
+    "sha256": "22790bc406e5f737d3906c86978a69aaa10af269bd8d22b835173dbc1fe837ad"
+  },
+  "actual_source_reads": [
+    {
+      "original": 228,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/organization.rs",
+      "sha256": "c6543ebb001f40f15986ba54ee0f5a2d05fa72e12639504d65d963aa816b17fc",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/c6543ebb001f40f15986ba54ee0f5a2d05fa72e12639504d65d963aa816b17fc",
+      "eof": 655,
+      "requested_range_variants": [
+        [
+          1,
+          655
+        ],
+        [
+          500,
+          545
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          655
+        ]
+      ],
+      "provenance": "Exact f82 registered physical original; full effective union, no prior receiver credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          655
+        ]
+      ]
+    },
+    {
+      "original": 229,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/organization/membership.rs",
+      "sha256": "0d33ff33d3e12486c22e7724790e4c745f5f6e603ec06302c7e9fa161e3597a5",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/0d33ff33d3e12486c22e7724790e4c745f5f6e603ec06302c7e9fa161e3597a5",
+      "eof": 25,
+      "requested_range_variants": [
+        [
+          1,
+          25
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "provenance": "Exact f82 registered physical original; full effective union, no prior receiver credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          25
+        ]
+      ]
+    }
+  ],
+  "prior_actual_source_reuse": {
+    "path": "audit-resume-20261027/lens13/batch-049-053-receipt.json",
+    "sha256": "27c0a385ea4efda2b5ea950fcee5b2a39214b099ff38e3b7e1b80d8fbb696828"
+  },
+  "numeric_inventory_and_actual_trace": [
+    {
+      "original": 228,
+      "scope": "Full1-655, including registered500-545; independent role inventory after prior receiver-only access.",
+      "inventory": "Native auto-increment membership ID0, raw u64 character and duration accrual fields, typed StrategicMinute joined/paid-through, typed status, IDs/role reference via canonical assignment rather than duplicate rank. Gateway singleton0 and range0u64.. are native table selection. Raw f32 skill-hours -> Skill::training_rank vs authored minimum; existing same-hash core125 and validator051 actual source bounds skill0..5, fee/dues u32, positive intervaldays and finite-positive weight normalization retained. Membership rank/service logic canonical core roles; no new full125tailcredit.",
+      "trace": "join checks authority/living/local chapter/requirements, fees widened u64 into actual item221 checked personal currency debit. No-dues paid-throughMAX sentinel versus finite dues saturating_add_days. pay uses current deadline or now then saturating typed day addition; atMAX a further payment cannot extend deadline, qualified terminal-clock policy without ordinary unreachable-state/runtime assertion. Currentness is inclusive minute<=paid-through and Active status; settlement suspension uses strict now>deadline; no one-tick mismatch. Effective presentation joins membership/date/settlement recognition, clear removes primitive-ID selector then actual law authority. Activity increments raw u64 apprenticeship/practice via saturation; finite counter can stop distinguishing totals atMAX, no ordinaryoverflow claim. Selected time activity receiver was already actually read050/053 (same exact proof), day scaling and nonzero interval/reward guards retained.",
+      "fixtures": "Existing membership fixture ID1/actor7, time0/99/100 and Active/Suspended boundaries; source only, not executed.",
+      "owner_fit": "Reuse canonical minutes/duration/currency/character identity/rank owners across native schema operation APIs; storage requires primitives but not every first-party operation. Saturating accumulation and MAX no-dues sentinel require explicit owning policy rather than independent naked counters."
+    },
+    {
+      "original": 229,
+      "scope": "Full1-25",
+      "inventory": "Typed personal minute retrieved by native character u64 ID; Bool membership current predicate is ordinary named query, inclusive bound and status conjunct. Privilege check returns Bool after exact canonical role lookup, so no independently stored raw rank introduced. Source-backed recipient matches228 settlement strict expiry comparison."
+    }
+  ],
+  "limits": [
+    "Reused earlier own same-hash actual core/validator/activity proofs only for their exact consumed ranges; no source credit from root/other-lens conclusions or whole native SDK.",
+    "No new unique/current/runtime/global clearance; accepted unique0. All other populations/extensionqueues remain separate. No product/Git/rootledger/projectexecution/tests/publication."
+  ]
+}

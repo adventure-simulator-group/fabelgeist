@@ -1,0 +1,132 @@
+{
+  "lens": 12,
+  "authority": "Exact original owner ranges and union any producer observations; native reached scope, not full file except exactbounds",
+  "roles": [
+    {
+      "role": 28,
+      "source_id": "native-dependency:wgpu-29.0.4/src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "ranges": [
+        [
+          685,
+          750
+        ]
+      ],
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "actual_lines": 877,
+      "read": "registered before bounded consumption",
+      "extensions": [
+        {
+          "ranges": [
+            [
+              751,
+              757
+            ]
+          ],
+          "purpose": "Complete native RequestDeviceError conversion body"
+        }
+      ]
+    },
+    {
+      "role": 29,
+      "source_id": "native-dependency:wgpu-29.0.4/src/api/surface.rs",
+      "sha256": "c66e417d97814893f1293cd0f5e5e11443101a7aa3df4ffa0004f49079bb70b5",
+      "ranges": [
+        [
+          430,
+          505
+        ]
+      ],
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/c66e417d97814893f1293cd0f5e5e11443101a7aa3df4ffa0004f49079bb70b5",
+      "actual_lines": 517,
+      "read": "registered before bounded consumption",
+      "extensions": [
+        {
+          "ranges": [
+            [
+              506,
+              509
+            ]
+          ],
+          "purpose": "Complete native CreateSurfaceError source match"
+        }
+      ]
+    },
+    {
+      "role": 30,
+      "source_id": "native-dependency:wgpu-types-29.0.4/src/adapter.rs",
+      "sha256": "27486df080a81f4a668f47b4f68f1eb5b2fc72f14b51175db2fd678e0f5b7085",
+      "ranges": [
+        [
+          175,
+          300
+        ]
+      ],
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/27486df080a81f4a668f47b4f68f1eb5b2fc72f14b51175db2fd678e0f5b7085",
+      "actual_lines": 301,
+      "read": "registered before bounded consumption"
+    },
+    {
+      "role": 31,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/components.rs",
+      "sha256": "e2053ee2dbf1a837b1a4e80d2d2afa22c0ecc2231bf586041222082971b9cbea",
+      "ranges": [
+        [
+          1,
+          193
+        ]
+      ],
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/e2053ee2dbf1a837b1a4e80d2d2afa22c0ecc2231bf586041222082971b9cbea",
+      "actual_lines": 193,
+      "read": "registered before bounded consumption"
+    },
+    {
+      "role": 32,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/bindings.wgsl",
+      "sha256": "31551b31caac91e5decc47ac147154bba899d469dad8c0113e0a476ae53dc7d4",
+      "ranges": [
+        [
+          1,
+          12
+        ]
+      ],
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/31551b31caac91e5decc47ac147154bba899d469dad8c0113e0a476ae53dc7d4",
+      "actual_lines": 12,
+      "read": "registered before bounded consumption"
+    }
+  ],
+  "supplements": [
+    {
+      "path": "src/util/init.rs",
+      "sha256": "cf6aa4575989c16496cb79975398558047bd91b85272338e522791b5bd01c3cf",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/cf6aa4575989c16496cb79975398558047bd91b85272338e522791b5bd01c3cf",
+      "ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "archive_sha256": "76e8840e1ba2881d4cbb18d2147627a56af426ff064c0401eb0c8410c6325d07",
+      "authority": "New cached native member supplement, archive checksum from current Cargo.lock; original28/29 exact archive members match frozen bytes",
+      "read": "registered before bounded consumption"
+    },
+    {
+      "path": "src/backend/webgpu.rs",
+      "sha256": "9a8b7bbfd9208fde3b2a1d7ae4b5609f9d5de266e70b172516bb728566282fa3",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/9a8b7bbfd9208fde3b2a1d7ae4b5609f9d5de266e70b172516bb728566282fa3",
+      "ranges": [
+        [
+          977,
+          996
+        ],
+        [
+          1087,
+          1124
+        ]
+      ],
+      "archive_sha256": "76e8840e1ba2881d4cbb18d2147627a56af426ff064c0401eb0c8410c6325d07",
+      "authority": "New cached native member supplement, archive checksum from current Cargo.lock; original28/29 exact archive members match frozen bytes",
+      "read": "registered before bounded consumption"
+    }
+  ]
+}

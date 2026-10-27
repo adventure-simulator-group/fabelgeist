@@ -1,0 +1,732 @@
+{
+  "id": "SEGOVB-CONT08-SUCCESSOR-017",
+  "created_utc": "2026-10-27T02:49:10.747299+00:00",
+  "lens": "08 behavior-preservation",
+  "skill": "/home/brunosegovia/.codex/skills/audit-behavior-preservation/SKILL.md",
+  "scope": "One bounded017 checked Position/ScenePlanPoint constructor/accessor/frame projection/serde source-contract packet reached by actual own016 triangle sampler. No restart of completed discovery, no native/solver/terrain expansion or1794 traversal.",
+  "authoritative_start": {
+    "ledger_path": "target/recovery-20261025/continuation-segovb/ledger.json",
+    "ledger_sha256_at_start": "3d1b9da334b5b77badc1228394d4680f46aff0bd6ebacfab4210cc8aa592f0ed",
+    "adoption": {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-016-adoption-root.json",
+      "sha256": "84855f4228c5475413b7c83de204f8584e2500ea5074550615d4f4a31964ec02"
+    },
+    "adopted_receipt_sha256": "4ff48b5317a6fe7fe494f93d65e9d651a60cd31ef9efc9473dbe5e4c1b7ba21d",
+    "adopted_state_sha256": "62050eb8bc2b5f0eb5a1369087e8c210bf9f434280b8542e20ee22a7cac1bf11",
+    "original_accounted": 1800,
+    "ordered_original": 1793,
+    "earliest_unfinished": 1462,
+    "material_partial": 52
+  },
+  "inputs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-016.json",
+      "sha256": "4ff48b5317a6fe7fe494f93d65e9d651a60cd31ef9efc9473dbe5e4c1b7ba21d"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-016-proposed-state.json",
+      "sha256": "62050eb8bc2b5f0eb5a1369087e8c210bf9f434280b8542e20ee22a7cac1bf11"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-013.json",
+      "sha256": "9c75c2bc28d2e7b2733963242bb0a5b6413c89e265a3078583ded8727fc98658"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-root-position-base-staging-017.json",
+      "sha256": "9c6d651fb8ecb642e54dd1268f17a35a45c70e65bad67a0a277494bf931f2398"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-root-position-finite-base-staging-017.json",
+      "sha256": "90da495a7d83e45c4d37dc847415b4ab4eef6e8ac71df60d5696e442a1c0d34d"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-017-registration-position-head.json",
+      "sha256": "31f28655664fe3f4b78a89e3ff1e58120b2423f34a567609c52e41c0af4117eb"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-017-registration-leaf-ports.json",
+      "sha256": "eee6b6494a55821e375b40b5dbfaa2b4d901a612742b8c8839d5ad70790fe910"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-017-registration-finite-base-body.json",
+      "sha256": "d7a10314f4f866c73612fcf030628b3c97f1a90dc234eef6896ffa40dad1ab6c"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-017-registration-base-navigation.json",
+      "sha256": "0d2ea7a8ae268b300d483935c306434ac9e2df5dcbdc86a73a03684463073a4b"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-017-registration-finite-base-navigation.json",
+      "sha256": "0b6ca0b2f262570cf77bd596de5e9e7f8bbd6408307899c79886b8ff4036dec6"
+    }
+  ],
+  "frozen_identity": {
+    "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "catalog": "target/recovery-20261025/audit05/original-scope-072.json",
+    "catalog_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "qualification": "Exact catalog changed variants662/666/668/1907, base objects recovered by root exactGit source and matching catalog hashes, point proof same own prior bytes. No current-main/ff43 or P16 dirty alias. This reviewer ran no Git commands in017."
+  },
+  "source_reads": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry.rs",
+      "original_index": 662,
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+      "sha256": "c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+      "base_sha256": "bae5a90cacf4d5bdb2a30d57f25ab8f71fb51c36fbe8378568879b01174d617d",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "frozen_requested_change",
+      "prospective_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "reason": "Exact materially needed module bridge and complete requested changed head Position leaf owner; body use limited to triangle constructor/accessor/serde contracts, no original completion or native expansion.",
+      "actual_body_read_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "prospective_registration": "audit08-successor-017-registration-position-head.json",
+      "credit": "Actual reached leaf contract evidence only; no new original/other-lens completion or unique finding."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+      "original_index": 666,
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+      "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+      "base_sha256": "5d66826f5196f69a4cd6af52ed404fab55b4c9a001e77e7cee81f0751f477cb6",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "frozen_requested_change",
+      "prospective_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "reason": "Exact materially needed module bridge and complete requested changed head Position leaf owner; body use limited to triangle constructor/accessor/serde contracts, no original completion or native expansion.",
+      "actual_body_read_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "prospective_registration": "audit08-successor-017-registration-position-head.json",
+      "credit": "Actual reached leaf contract evidence only; no new original/other-lens completion or unique finding."
+    },
+    {
+      "source_id": "pr-base:crates/adventuresim-building-generator/src/spatial_geometry.rs",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/bae5a90cacf4d5bdb2a30d57f25ab8f71fb51c36fbe8378568879b01174d617d",
+      "sha256": "bae5a90cacf4d5bdb2a30d57f25ab8f71fb51c36fbe8378568879b01174d617d",
+      "requested_variant_scope": [
+        [
+          1,
+          29
+        ]
+      ],
+      "prospective_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "reason": "Actual before/after leaf ports, finite predicate owner and bounded verification of own013 point serializer/constructor/accessor/From projection proof; no original credit.",
+      "actual_body_read_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "prospective_registration": "audit08-successor-017-registration-leaf-ports.json",
+      "credit": "Actual reached leaf contract evidence only; no new original/other-lens completion or unique finding."
+    },
+    {
+      "source_id": "pr-base:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/5d66826f5196f69a4cd6af52ed404fab55b4c9a001e77e7cee81f0751f477cb6",
+      "sha256": "5d66826f5196f69a4cd6af52ed404fab55b4c9a001e77e7cee81f0751f477cb6",
+      "requested_variant_scope": [
+        [
+          1,
+          133
+        ]
+      ],
+      "prospective_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "reason": "Actual before/after leaf ports, finite predicate owner and bounded verification of own013 point serializer/constructor/accessor/From projection proof; no original credit.",
+      "actual_body_read_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "prospective_registration": "audit08-successor-017-registration-leaf-ports.json",
+      "credit": "Actual reached leaf contract evidence only; no new original/other-lens completion or unique finding."
+    },
+    {
+      "source_id": "pr-head:crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+      "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+      "requested_variant_scope": [
+        [
+          1,
+          28
+        ]
+      ],
+      "prospective_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "reason": "Actual before/after leaf ports, finite predicate owner and bounded verification of own013 point serializer/constructor/accessor/From projection proof; no original credit.",
+      "actual_body_read_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "prospective_registration": "audit08-successor-017-registration-leaf-ports.json",
+      "credit": "Actual reached leaf contract evidence only; no new original/other-lens completion or unique finding."
+    },
+    {
+      "source_id": "pr-head:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "path": "target/recovery-20261025/audit08/source/head/1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+      "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+      "requested_variant_scope": [
+        [
+          1,
+          122
+        ]
+      ],
+      "prospective_ranges": [
+        [
+          20,
+          64
+        ],
+        [
+          93,
+          105
+        ]
+      ],
+      "reason": "Actual before/after leaf ports, finite predicate owner and bounded verification of own013 point serializer/constructor/accessor/From projection proof; no original credit.",
+      "actual_body_read_ranges": [
+        [
+          20,
+          64
+        ],
+        [
+          93,
+          105
+        ]
+      ],
+      "prospective_registration": "audit08-successor-017-registration-leaf-ports.json",
+      "credit": "Actual reached leaf contract evidence only; no new original/other-lens completion or unique finding."
+    },
+    {
+      "source_id": "pr-base:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "path": "target/recovery-20261025/audit08/source/base/4444765495bc33a59a51b9a927463073ec4543d55a89b0a3f2651caeaba37a7c",
+      "sha256": "4444765495bc33a59a51b9a927463073ec4543d55a89b0a3f2651caeaba37a7c",
+      "requested_variant_scope": [
+        [
+          1,
+          109
+        ]
+      ],
+      "prospective_ranges": [
+        [
+          17,
+          49
+        ],
+        [
+          81,
+          86
+        ],
+        [
+          104,
+          109
+        ]
+      ],
+      "reason": "Actual before/after leaf ports, finite predicate owner and bounded verification of own013 point serializer/constructor/accessor/From projection proof; no original credit.",
+      "actual_body_read_ranges": [
+        [
+          17,
+          49
+        ],
+        [
+          81,
+          86
+        ],
+        [
+          104,
+          109
+        ]
+      ],
+      "prospective_registration": "audit08-successor-017-registration-leaf-ports.json",
+      "credit": "Actual reached leaf contract evidence only; no new original/other-lens completion or unique finding."
+    },
+    {
+      "source_id": "pr-base:crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/095fd3f98befa41a2c1fc9f6be5571d96cc2896c8c2365be7b2a3404b88ba4cc",
+      "sha256": "095fd3f98befa41a2c1fc9f6be5571d96cc2896c8c2365be7b2a3404b88ba4cc",
+      "prospective_ranges": [
+        [
+          106,
+          127
+        ]
+      ],
+      "requested_variant_scope": [
+        [
+          1,
+          127
+        ]
+      ],
+      "reason": "Exact base finite adapter used by Position sampler; no unrelated canonical error family or full original668 credit.",
+      "actual_body_read_ranges": [
+        [
+          106,
+          127
+        ]
+      ],
+      "prospective_registration": "audit08-successor-017-registration-finite-base-body.json",
+      "credit": "Actual reached leaf contract evidence only; no new original/other-lens completion or unique finding."
+    }
+  ],
+  "retained_own_point_evidence": [
+    {
+      "source_id": "pr-head:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "path": "target/recovery-20261025/audit08/source/head/1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+      "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+      "own_receipt": "audit08-successor-013.json",
+      "actual_prior_body_read_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "qualification": "Own full point owner proof verified at exact source bytes; only relevant constructor/accessor/projection/serde ports reread in017. Historical013 partial status does not supersede root-adopted1792 completion/current counts."
+    },
+    {
+      "source_id": "pr-base:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "path": "target/recovery-20261025/audit08/source/base/4444765495bc33a59a51b9a927463073ec4543d55a89b0a3f2651caeaba37a7c",
+      "sha256": "4444765495bc33a59a51b9a927463073ec4543d55a89b0a3f2651caeaba37a7c",
+      "own_receipt": "audit08-successor-013.json",
+      "actual_prior_body_read_ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "qualification": "Own full point owner proof verified at exact source bytes; only relevant constructor/accessor/projection/serde ports reread in017. Historical013 partial status does not supersede root-adopted1792 completion/current counts."
+    }
+  ],
+  "retained_own_actual_sampler_proof": [
+    {
+      "source_id": "pr-head:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source.rs",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/ff887ab06cf0892fa9f624f587e493319a93fc570898a890fb117a382061e3b3",
+      "sha256": "ff887ab06cf0892fa9f624f587e493319a93fc570898a890fb117a382061e3b3",
+      "own_receipt": "audit08-successor-015.json",
+      "actual_prior_body_read_ranges": [
+        [
+          1,
+          181
+        ]
+      ],
+      "new_body_read_ranges": []
+    },
+    {
+      "source_id": "pr-head:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/geometry.rs",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/35462629537232e291556fb180d6092e157ed718cf492f6a448d1c1c142cf0cb",
+      "sha256": "35462629537232e291556fb180d6092e157ed718cf492f6a448d1c1c142cf0cb",
+      "own_receipt": "audit08-successor-016.json",
+      "actual_prior_body_read_ranges": [
+        [
+          1,
+          147
+        ],
+        [
+          235,
+          240
+        ],
+        [
+          199,
+          212
+        ]
+      ],
+      "new_body_read_ranges": []
+    },
+    {
+      "source_id": "pr-head:crates/adventuresim-tactical-core/src/city_layout/grounding/planar/query.rs",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/6876c759c1e7a12a44cce57a8c372f1f7dcb4f926b9edc6e1486fc341a489cf6",
+      "sha256": "6876c759c1e7a12a44cce57a8c372f1f7dcb4f926b9edc6e1486fc341a489cf6",
+      "own_receipt": "audit08-successor-016.json",
+      "actual_prior_body_read_ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "new_body_read_ranges": []
+    }
+  ],
+  "exact_local_contract_comparisons": [
+    {
+      "contract": "Position definition/serialization",
+      "base_path": "target/recovery-20261025/continuation-segovb/source-objects/5d66826f5196f69a4cd6af52ed404fab55b4c9a001e77e7cee81f0751f477cb6",
+      "base_ranges": [
+        [
+          32,
+          40
+        ]
+      ],
+      "head_path": "target/recovery-20261025/continuation-segovb/source-objects/f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+      "head_ranges": [
+        [
+          21,
+          29
+        ]
+      ],
+      "exact_body_text_equal": true
+    },
+    {
+      "contract": "Position constructor/accessor",
+      "base_path": "target/recovery-20261025/continuation-segovb/source-objects/5d66826f5196f69a4cd6af52ed404fab55b4c9a001e77e7cee81f0751f477cb6",
+      "base_ranges": [
+        [
+          47,
+          57
+        ]
+      ],
+      "head_path": "target/recovery-20261025/continuation-segovb/source-objects/f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+      "head_ranges": [
+        [
+          67,
+          77
+        ]
+      ],
+      "exact_body_text_equal": true
+    },
+    {
+      "contract": "Position Deserialize",
+      "base_path": "target/recovery-20261025/continuation-segovb/source-objects/5d66826f5196f69a4cd6af52ed404fab55b4c9a001e77e7cee81f0751f477cb6",
+      "base_ranges": [
+        [
+          65,
+          69
+        ]
+      ],
+      "head_path": "target/recovery-20261025/continuation-segovb/source-objects/f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+      "head_ranges": [
+        [
+          85,
+          89
+        ]
+      ],
+      "exact_body_text_equal": true
+    },
+    {
+      "contract": "finite adapter",
+      "base_path": "target/recovery-20261025/continuation-segovb/source-objects/095fd3f98befa41a2c1fc9f6be5571d96cc2896c8c2365be7b2a3404b88ba4cc",
+      "base_ranges": [
+        [
+          106,
+          116
+        ]
+      ],
+      "head_path": "target/recovery-20261025/continuation-segovb/source-objects/c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+      "head_ranges": [
+        [
+          8,
+          18
+        ]
+      ],
+      "exact_body_text_equal": true
+    },
+    {
+      "contract": "point Serialize shape",
+      "base_path": "target/recovery-20261025/audit08/source/base/4444765495bc33a59a51b9a927463073ec4543d55a89b0a3f2651caeaba37a7c",
+      "base_ranges": [
+        [
+          17,
+          20
+        ]
+      ],
+      "head_path": "target/recovery-20261025/audit08/source/head/1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+      "head_ranges": [
+        [
+          20,
+          23
+        ]
+      ],
+      "exact_body_text_equal": true
+    },
+    {
+      "contract": "point Deserialize",
+      "base_path": "target/recovery-20261025/audit08/source/base/4444765495bc33a59a51b9a927463073ec4543d55a89b0a3f2651caeaba37a7c",
+      "base_ranges": [
+        [
+          81,
+          86
+        ]
+      ],
+      "head_path": "target/recovery-20261025/audit08/source/head/1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+      "head_ranges": [
+        [
+          93,
+          98
+        ]
+      ],
+      "exact_body_text_equal": true
+    },
+    {
+      "contract": "point projection",
+      "base_path": "target/recovery-20261025/audit08/source/base/4444765495bc33a59a51b9a927463073ec4543d55a89b0a3f2651caeaba37a7c",
+      "base_ranges": [
+        [
+          104,
+          109
+        ]
+      ],
+      "head_path": "target/recovery-20261025/audit08/source/head/1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+      "head_ranges": [
+        [
+          100,
+          105
+        ]
+      ],
+      "exact_body_text_equal": true
+    }
+  ],
+  "actual_contracts": [
+    {
+      "id": "CONT08-017-POSITION-OWNER",
+      "sources": [
+        "pr-base:crates/adventuresim-building-generator/src/spatial_geometry.rs:20-24",
+        "pr-working:crates/adventuresim-building-generator/src/spatial_geometry.rs:8-17",
+        "pr-base:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs:32-69",
+        "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs:21-29,62-89"
+      ],
+      "fact": "Actual Position owner remains coordinates::Position. GeometryFrame is a compile-time tag carried in PhantomData, not a numerical transform. Position.from_metres calls finite with rolePosition, then stores the supplied Vec3 unchanged. metres returns that same vector. ORIGIN stores Vec3::ZERO. These constructor/accessor bodies and data/serialization declaration are exact before/after text matches. Reordering unrelated coordinate declarations and geometry scalar/error reexports does not itself alter this local point port.",
+      "qualification": "No all-construction/mutation proof of pub(super) fields or other coordinate/bounds operations. Only actual triangle constructor/accessor chain used here is closed."
+    },
+    {
+      "id": "CONT08-017-FINITE-PREDICATE",
+      "sources": [
+        "pr-base:crates/adventuresim-building-generator/src/spatial_geometry/error.rs:106-116",
+        "pr-head:crates/adventuresim-building-generator/src/spatial_geometry/error.rs:8-18"
+      ],
+      "fact": "Actual finite adapter text is identical: zipX/Y/Z with vector components, reject first non-finite component with GeometryError::NonFinite{role,axis}, otherwiseOk. It does not reject finite signed coordinates/zero, clamp, wrap, normalize or change magnitudes. Combined with Position storage/accessor, the raw finite triangle points admitted by own016 do not encounter an extra coordinate-range restriction or changed coordinate payload in this leaf path.",
+      "qualification": "Head imports canonical shared GeometryError/role/axis owners while base owns old definitions; no claim of old diagnostic text/type/layout/downcast compatibility. Actual triangle caller discards admission errors via.ok()?; this source comparison addresses admission/result values, not whole error family."
+    },
+    {
+      "id": "CONT08-017-POSITION-SERDE",
+      "sources": [
+        "pr-base:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs:32-40,65-69",
+        "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs:21-29,85-89"
+      ],
+      "fact": "Position Serialize is transparent over Vec3 and skips PhantomData with an empty serde bound. Deserialize decodes native Vec3 then calls the same checked from_metres constructor, mapping admission errors through serde custom; the actual wrapper bodies match before/after. It does not bypass finite admission or add a serialized frame field.",
+      "qualification": "First-party wrapper semantics only, no executed serialization/JSON parse or whole serde/native Vec3 format/backend proof. Actual GroundTriangle construction uses from_metres, not Position deserialization; no wire branch is invented in that sampler."
+    },
+    {
+      "id": "CONT08-017-SCENE-POINT",
+      "sources": [
+        "pr-base:crates/adventuresim-tactical-core/src/scene_coordinates.rs:17-49,81-86,104-109",
+        "pr-head:crates/adventuresim-tactical-core/src/scene_coordinates.rs:20-64,93-105"
+      ],
+      "fact": "ScenePlanPoint stores private Vec2 with transparent Serialize. Base native Vec2.is_finite and head explicit x/y finite checks implement the declared finite point admission; accepted vector is stored and returned unchanged. TryFrom reports Position role and X-or-Z first failing axis. Deserialize calls from_metres after native Vec2 decoding and rejects non-finite input. Projection From<Position<Scene>> directly copies position.metres().x and.z into Vec2 in both revisions; exact projection/serde bodies match. It introduces no arithmetic, rounding, normalization, reordering or origin offset.",
+      "qualification": "Own013 full exact point-body proof verified and only actual ports reread. No native parser proof or all fields/translation-operation audit; no historical013 partial status is carried into the current already-adopted1792 completion."
+    },
+    {
+      "id": "CONT08-017-SAMPLER-CLOSURE",
+      "sources": [
+        "own016 geometry.rs:20-47,145-147",
+        "own016 geometry.rs:16-18",
+        "own016 planar/query.rs:14-19",
+        "own015 foundations/source.rs:138-177"
+      ],
+      "fact": "The actual reached chain is finite raw triangle points -> Position<Scene>::from_metres -> stored positions -> metres/points -> From<Position<Scene>> xz projection -> PlanarBounds.from_triangle. Those first-party leaf ports preserve admitted coordinate values and finite horizontal projection. Source elevation query likewise extracts ScenePlanPoint metres unchanged. Therefore the specific CONT08-016-CHECKED-POSITION-LEAF receiving frontier is resolved for this sampler, with no discovered additional rejection/coordinate transform.",
+      "qualification": "This is local source-contract closure, not an actual solver/floor/runtime witness, all-geometry arithmetic bound, all serde admission clearance or original1793 completion."
+    }
+  ],
+  "disposition": {
+    "original_index": 1793,
+    "status": "qualified partial",
+    "qualification_id": "SEGOVB-CONT08-017-1793-SOLVER-JSON-TERRAIN-PARTIAL",
+    "actionable_findings": [],
+    "resolved_subset": "CONT08-016-CHECKED-POSITION-LEAF closed for the materially reached actual triangle sampler through exact before/after constructors/accessors/finite adapter/projection/serde wrapper bodies.",
+    "untraced_frontier": [
+      {
+        "id": "CONT08-016-SOLVER-JSON-TERRAIN-INHERITED",
+        "frontiers": [
+          {
+            "id": "CONT08-015-PLANNING-INTERIOR",
+            "source_backed_callers": [
+              {
+                "source": "pr-head:crates/adventuresim-tactical-core/src/city_layout/compiled/support.rs",
+                "ranges": [
+                  [
+                    146,
+                    225
+                  ],
+                  [
+                    227,
+                    277
+                  ]
+                ]
+              },
+              {
+                "source": "own014 compiled/grounded.rs",
+                "ranges": [
+                  [
+                    53,
+                    80
+                  ]
+                ]
+              }
+            ],
+            "actual_symbols": [
+              "street::select",
+              "CityRecipePalette::for_program",
+              "Recipe::door_point",
+              "BuildingCollision::ground_floor_contact_bounds",
+              "CitySceneLayout::plan_single_property_support"
+            ],
+            "known_sources": [
+              "crates/adventuresim-tactical-core/src/city_layout/compiled/support/street.rs is declared at support.rs6, not read in015",
+              "Recipe palette and plan_single_property_support actual declaring paths/ranges still need exact locators; no guessed path credit."
+            ],
+            "needed": "Follow actual changed checked geometry/bounds/door-selection and support solver receivers for this fixed fixture, including floor outputs and permutations. No new native/generator-wide expansion; save next bounded declared contracts before reading."
+          },
+          {
+            "id": "CONT08-015-GEOGRAPHIC-NUMERIC-KERNEL",
+            "source_backed_caller": {
+              "source": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source.rs",
+              "ranges": [
+                [
+                  138,
+                  177
+                ]
+              ]
+            },
+            "actual_symbols": [
+              "GroundTriangle::new",
+              "GroundTriangle::compare",
+              "GroundTriangle::bounds",
+              "GroundTriangle::contains",
+              "GroundTriangle::height_at",
+              "GroundTriangle::boundary_extension_factor",
+              "PlanarQueryIndex::from_bounds",
+              "PlanarQueryIndex::intersections"
+            ],
+            "known_source_bridges": [
+              "foundations.rs11 reexports geometry::GroundTriangle, so actual declared module grounding/foundations/geometry.rs is identified but not read here",
+              "source.rs3 imports grounding/planar/query::{PlanarBounds,PlanarQueryIndex}; actual geometric predicates/index constructors not read here"
+            ],
+            "needed": "Exact frozen before/after numerical admission/canonical order/point sampling contracts. Current constructor outer source preserves ordering by compare and all-or-none new, but that does not prove exact admission or triangle-order independence through changed kernels."
+          },
+          {
+            "id": "CONT08-015-JSON-REMAINING-LEAVES",
+            "source_backed_callers": [
+              {
+                "source": "own014 grounded/tests.rs",
+                "ranges": [
+                  [
+                    11,
+                    23
+                  ]
+                ]
+              },
+              {
+                "source": "pr-head:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+                "ranges": [
+                  [
+                    111,
+                    148
+                  ]
+                ]
+              }
+            ],
+            "actual_symbols": [
+              "CityCompound serde admission and nested plot/access/boundary owners",
+              "SceneBuildingId serde/Ord",
+              "ScenePlanPoint serde",
+              "BuildingArchetype/BuildingUse/ServiceBuildingSize/ProsperityTier/Seed serialization",
+              "BuildingProgram::settlement",
+              "BuildingProgram::fixture",
+              "BuildingProgram::with_service_size"
+            ],
+            "progress": "Actual Distant/Tactical record fields and promotion body, orientation Deserialize and finite SupportElevation Deserialize are source-read before/after. Remaining leaves/program constructors not newly traversed; actual JSON decoded-success/program identity is not asserted from derive or old test assertions. ScenePlanPoint has own earlier013 evidence but no new independent015 leaf-body credit.",
+            "needed": "Narrow exact changed leaf/compound serialization and program-selection receivers needed by actual captured front/rear records. No requirement to support old malformed schema/inputs."
+          },
+          {
+            "id": "CONT08-015-TERRAIN-COMPOSITION",
+            "source_backed_caller": {
+              "source": "own014 compiled/grounded.rs",
+              "ranges": [
+                [
+                  100,
+                  118
+                ]
+              ]
+            },
+            "actual_symbols": [
+              "BoundedSettlementTerrain::compile",
+              "BoundedSettlementTerrain::elevations_at",
+              "PropertySupportSurface/CompoundSupportPlan member and surface extraction"
+            ],
+            "known_source_bridge": "foundations.rs13 reexports settlement::{BoundedSettlementTerrain,SettlementSupportError}; settlement module was listed as Git path metadata only, not staged/read.",
+            "needed": "Ownership composition and elevation lookup remain open; no actual numeric floor/terrain permutation witness or executed fixture."
+          }
+        ],
+        "qualification": "Packet016 resolves only requested local geometry/index bodies. Preserve actual street/recipe/single-property planning, remaining typed JSON/compound/program leaves, BoundedSettlementTerrain composition/elevation lookup and full geometry-clipping callers. These are not discharged by local canonical index order."
+      }
+    ],
+    "stop": "Save at retained solver/remaining typed JSON/terrain composition frontier. No further source/native/kernel expansion in017."
+  },
+  "coverage_delta": {
+    "prior_original_accounted": 1800,
+    "original_accounted": 1800,
+    "original_total": 2853,
+    "new_original_completions": [],
+    "newly_accounted_original_roles": 0,
+    "new_unique_finding_count_delta": 0,
+    "earliest_unfinished_original": 1462,
+    "partial1462": "CONT08-Q003 unchanged;012 pure-w matrix erasure and009 direct local counterexample retained",
+    "next_ordered_original": 1793,
+    "ordered1793_status": "qualified partial SEGOVB-CONT08-017-1793-SOLVER-JSON-TERRAIN-PARTIAL",
+    "material_contiguous": [
+      0,
+      51
+    ],
+    "next_material": 52,
+    "partial_material_indices": [
+      52
+    ],
+    "separate_material_interval": [
+      178,
+      195
+    ],
+    "new_material_completions": []
+  },
+  "inherited": {
+    "Q003": "009 direct admitted-contract local composition counterexample retained;012 pure-w candidate erased by Transform matrix route; no actual obstacle/cast/current witness or universal numeric bound.",
+    "material52": "Frozen P16 typed-error receiver partial unchanged; currentcomparison001 remains exact4fcc, not current main/PR990.",
+    "paid_withdrawn": "Preexisting SEGOVB-CONT08-007-M51-PAID-WITHDRAWN candidate unchanged partial.",
+    "preserve": "All20/P16/P17/#780/#826/M16 repair graph, source-keyed policies, aliases, partials and prior exact qualifications remain. Root sole ledger/product/unique-finding adoption owner.",
+    "new_shared_source_queue": "Prior Netlib45 and generator parent/support mandatory other-lens role queues retained; no new source body completion or duplicate identity population here."
+  },
+  "limits": [
+    "No product/source/Git/root-ledger/history changes, project/native/check/test/fixture execution or additions, helpers/assertions/doctests, or publication. Only exact local source/metadata/hash reads and ignored append-only evidence. Root staged absent base objects; no body credit from that staging.",
+    "Head coordinates.rs1-140 and module1-29 read; base coordinates.rs only1-71, module1-29; error head1-28/base106-127; point ports listed. Extra base direction-serialization helper118-127 was read in bounded tail but supplies no sampler/error-family clearance.",
+    "No original662/666/668/1907 completion or other-lens credit from receiver access, no1794 body/credit. Counts1800/2853 and zero new unique findings unchanged; Q003/material52 and all20/P16/P17/#780/#826/M16 aliases/qualifications retained.",
+    "No broad generator/native SDK or whole solver/terrain contract claim. Source attributes/delegation do not certify live JSON decode or native acceptance.",
+    "Backward compatibility unsupported; no old malformed-input/API/schema/error-message/layout preservation condition added. No hypothetical regression invented from untraced cases."
+  ],
+  "global_clearance": false,
+  "stop": true
+}

@@ -1,0 +1,247 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "035",
+  "predecessor": "receipt-034-originals211-214.json",
+  "manifest_prefix_sha256": "62422110ba8107cf1c126421118b50156b3678f1decc03285691b6fa98b155c2",
+  "sources": [
+    {
+      "original_index": 215,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/foraging.rs",
+      "sha256": "c58f33b486ca2344cd5e4a141065bf3f39de22d6dc739e48a217ae969173d604",
+      "actual_ranges": [
+        [
+          1,
+          1381
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              39,
+              139
+            ],
+            [
+              155,
+              185
+            ],
+            [
+              200,
+              231
+            ],
+            [
+              249,
+              465
+            ],
+            [
+              629,
+              789
+            ],
+            [
+              791,
+              1162
+            ]
+          ],
+          "role": "Raw source/request/item/location-context/digest schema and API roles; source membership179/205/638 validates existing ForageSource but retainsString",
+          "disposition": "Actual source producer canonical_sources172-184 -> licensing200/629 -> raw planner661/760 -> receipt75/1116; exact core108 own body source previously read, connected migration gap, no verdict transfer. Use existing ForageSource values through all actual interfaces, not constants or validate/discard. Context_kind44/83/252 plus context_id45/84/253 and separate typed place251: settlement340/case_site362/camp406 drive attestation equality438-439, replay777-779 and hash563-564. Use canonical context payload correlated with actual StrategicPlaceId; preserve open content IDs, not closed enum of settlements. Raw request hex validator165, late ActionRequestId731 canonical owner; item IDs store1062/1073 -> native table/projection225; native outer declaration constraints unread."
+        },
+        {
+          "ranges": [
+            [
+              155,
+              163
+            ],
+            [
+              212,
+              231
+            ]
+          ],
+          "role": "Legal outcome tokens legal/unnoticed/noticed are external projection semantic state",
+          "disposition": "safe_legal_outcome maps actual illegal/stealth pair to finite state157/159/161, stored public DTO138/228. Canonical outcome type owns meaning, wording separate; exact external consumer unread."
+        },
+        {
+          "ranges": [
+            [
+              518,
+              627
+            ],
+            [
+              654,
+              763
+            ],
+            [
+              1030,
+              1141
+            ]
+          ],
+          "role": "Native SHA domain literals526/561/607, hex547, expect539, typed place encoding609/1066/1110; action definition733",
+          "disposition": "Concrete native hash/byte/output kernels actual, length framing533/558/604. Admit typed identities before entering them; no cryptography/SDK/output preservation claim. Action literal733 immediately ActionDefinitionId, existing owner proof known, production definition catalog lookup beyond actual108 remains pending."
+        },
+        {
+          "ranges": [
+            [
+              172,
+              185
+            ],
+            [
+              313,
+              465
+            ],
+            [
+              467,
+              516
+            ],
+            [
+              629,
+              699
+            ],
+            [
+              727,
+              735
+            ],
+            [
+              791,
+              987
+            ],
+            [
+              1029,
+              1055
+            ]
+          ],
+          "role": "All raw missing/duplicate/source/admission/location/attestation/authority/plan/material failure strings; lint rationale587/652",
+          "disposition": "Exact failures175/181/322/324/333/336/339/357/359/372/378/384/392/398/401/403/431/435/443/452/477/483/489/495/638/640/678/680/732/734/805/827/832/843/847/881/912/927/941/945/947/959/976/987/1043/1049/1054 propagate String or actual227 Operation(String). Preserve typed failures/payloads to output; native .map_err(str::to_owned) surfaces actual core errors, exact core108 contract separately consumed. No permission/math/runtime verdict."
+        },
+        {
+          "ranges": [
+            [
+              1164,
+              1381
+            ]
+          ],
+          "role": "All existing semantic source/category/request/outcome fixtures and native source lexical paths/symbol/assertion text",
+          "disposition": "Fixtures1170-1174/1179-1188/1215/1219/1223 exercise actual canonical_sources/hex/outcome/privilege. All self includes1230/1254/1274/1295/1318/1358 and timing include1275 actual216 consumed independently. All split/find/contains/matches/expect/format diagnostics1232-1379 source-text boundaries, including exact field names1304-1310 and syntax. No runtime/test execution or fixture exemption."
+        },
+        {
+          "ranges": [
+            [
+              1,
+              38
+            ],
+            [
+              140,
+              154
+            ],
+            [
+              186,
+              199
+            ],
+            [
+              232,
+              248
+            ],
+            [
+              259,
+              312
+            ],
+            [
+              466,
+              466
+            ],
+            [
+              517,
+              517
+            ],
+            [
+              628,
+              628
+            ]
+          ],
+          "role": "Remaining declarations, typed/numeric calls and native macros",
+          "disposition": "No additional raw string roles omitted; declared timing independent. All other-lens/numeric/authority/readiness policy work remains separate."
+        }
+      ],
+      "status": "Full registered body independently read and inventoried with findings; actual delegated external producers/receivers explicit."
+    },
+    {
+      "original_index": 216,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/foraging/timing.rs",
+      "sha256": "30193f2454edfb59bb1c74ca3f63056accf4a4540bc7fd16260bdfc8ed5b7cbc",
+      "actual_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              43
+            ]
+          ],
+          "role": "Two failure literals14/38 and internal ResultString8/22",
+          "disposition": "Actual parent215 clock/terminal calls854/862; typed duration/clock return kept while missing/overflow cause becomes String. Retain typed failure until actual output. Disease preview193 actual read; surgery preview exact body pending, no algorithm/behavior verdict."
+        }
+      ],
+      "status": "Full registered body independently read and inventoried with findings; actual delegated external producers/receivers explicit."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "ForageSource and canonical location/request/digest propagation",
+      "sources": [
+        "215:39-139,172-208,249-465,629-789,1030-1141",
+        "108:previous own exact core source receipt011"
+      ],
+      "remedy": "Retain actual ForageSource and canonical correlated context/place/request/open item/digest values through source admission/state/planning/licensing/projections; raw encoding at real native boundaries, separate outcome label from semantic state.",
+      "acceptance": "Finish actual gateway attestation/request producer and external backend/world-event consumers before repair, plus exact canonical aliases. No BC.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actual gateway attestation/request producer, terrain-package digest owner and external forage receipt consumer.",
+    "Actual world_event commit_noticed_illegal_foraging and item.add_foraged_inventory_item_checked_rows recipients; native SDK constraints not inferred.",
+    "Actual surgery preview numeric/terminal body and policy unclaimed; all inherited aliases/currentness/all20/P16/P17/F9/M09/population obligations preserved."
+  ],
+  "qualifications": [
+    "Exact f82 physical-P16 frozen bytes; no current alias or old digest/input preservation.",
+    "No product/Git/rootledger/publication/project execution/tests/probes/new tests.",
+    "Own lens12 source accounting with findings; no global/native/runtime/unique-total/other-lens clearance."
+  ],
+  "proposed_count": {
+    "before": 215,
+    "after": 217,
+    "indices_completed": [
+      215,
+      216
+    ],
+    "next_original": 217,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/foraging.rs",
+      "sha256": "c58f33b486ca2344cd5e4a141065bf3f39de22d6dc739e48a217ae969173d604",
+      "ranges": [
+        [
+          1,
+          1381
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/foraging/timing.rs",
+      "sha256": "30193f2454edfb59bb1c74ca3f63056accf4a4540bc7fd16260bdfc8ed5b7cbc",
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ]
+    }
+  ]
+}

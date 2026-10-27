@@ -1,0 +1,567 @@
+pub(super) fn parse_surgery_limb(slug: &str) -> Option<BodyRegion> {
+    BodyRegion::parse_slug(slug)
+}
+
+pub(super) async fn required_surgery_rows<T>(
+    state: &AppState,
+    sql: &str,
+    data_kind: &'static str,
+) -> Result<Vec<T>, Html<String>>
+where
+    T: spacetimedb_sats::de::DeserializeOwned,
+{
+    state.db.query_sats(sql).await.map_err(|error| {
+        tracing::error!(%error, data_kind, "failed to load surgery data");
+        Html("<h1>Strategic medical data is unavailable</h1>".into())
+    })
+}
+
+pub(super) async fn surgery(
+    State(state): State<AppState>,
+    Path((kind, id, patient_id, limb)): Path<(String, String, u64, String)>,
+    Query(building): Query<BuildingQuery>,
+    session: Session,
+) -> Html<String> {
+    let Some(actor_id) = session.character_id_u64() else {
+        return Html("<h1>Choose a character first</h1>".into());
+    };
+    let Some(selected_limb) = parse_surgery_limb(&limb) else {
+        return Html("<h1>Limb not found</h1>".into());
+    };
+    let mut location = match resolve_location(&state, &kind, &id).await {
+        LocationLookup::Found(location) => location,
+        LocationLookup::NotFound => return Html("<h1>Location not found</h1>".into()),
+        LocationLookup::Unavailable => {
+            return Html("<h1>Strategic data is unavailable</h1>".into());
+        }
+    };
+    location.active_building = building.valid_for(&location).map(str::to_owned);
+    let Some((active, _)) = get_active_character(&state, Some(actor_id)).await else {
+        return Html("<h1>Choose a character first</h1>".into());
+    };
+    let party_members = get_active_party_members(&state, Some(&active)).await;
+    let patient = party_members
+        .iter()
+        .find(|member| member.id == patient_id)
+        .cloned();
+    let patient = match patient {
+        Some(patient) => patient,
+        None => match state
+            .db
+            .query_one_sats_into::<DbCharacter, CharacterView>(&db::character_by_id(patient_id))
+            .await
+        {
+            Ok(Some(patient)) => patient,
+            _ => return Html("<h1>Patient not found</h1>".into()),
+        },
+    };
+    let contextual_patient = state
+        .db
+        .query_sats::<BackendContextCharacter>(&format!(
+            "SELECT * FROM backend_context_characters WHERE character_id = {patient_id} AND party_id = {}",
+            sql_string_literal(active.party_id.as_deref().unwrap_or(""))
+        ))
+        .await
+        .unwrap_or_default()
+        .into_iter()
+        .any(|row| row.alive && row.location_id == id);
+    if !character_is_at_location(&active, &location)
+        || (!character_is_at_location(&patient, &location) && !contextual_patient)
+    {
+        return Html("<h1>Surgeon and patient must be together</h1>".into());
+    }
+    let injuries = match required_surgery_rows::<LimbInjury>(
+        &state,
+        &format!("SELECT * FROM limb_injury WHERE character_id = {patient_id}"),
+        "patient injuries",
+    )
+    .await
+    {
+        Ok(rows) => rows,
+        Err(response) => return response,
+    };
+    let projectiles = match required_surgery_rows::<RetainedProjectile>(
+        &state,
+        &format!("SELECT * FROM retained_projectile WHERE character_id = {patient_id}"),
+        "retained projectiles",
+    )
+    .await
+    {
+        Ok(rows) => rows,
+        Err(response) => return response,
+    };
+    let inventory = match required_surgery_rows::<InventoryItem>(
+        &state,
+        &format!("SELECT * FROM inventory_item WHERE character_id = {actor_id}"),
+        "surgeon inventory",
+    )
+    .await
+    {
+        Ok(rows) => rows,
+        Err(response) => return response,
+    };
+    let item_definitions = match state
+        .db
+        .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item")
+        .await
+        .map_err(|error| {
+            tracing::error!(%error, data_kind = "item definitions", "failed to load surgery data");
+            Html("<h1>Strategic medical data is unavailable</h1>".into())
+        }) {
+        Ok(rows) => rows,
+        Err(response) => return response,
+    };
+    let alcohol_count = inventory
+        .iter()
+        .filter(|entry| {
+            item_definitions
+                .iter()
+                .any(|def| def.id == entry.item_id && def.alcohol_disinfectant_effectiveness > 0)
+        })
+        .map(|entry| entry.quantity)
+        .sum();
+    let disinfectants = inventory
+        .iter()
+        .filter_map(|entry| {
+            item_definitions
+                .iter()
+                .find(|def| def.id == entry.item_id && def.alcohol_disinfectant_effectiveness > 0)
+                .map(|def| {
+                    (
+                        def.alcohol_disinfectant_effectiveness,
+                        entry.id,
+                        def.id.as_str(),
+                    )
+                })
+        })
+        .collect::<Vec<_>>();
+    let selected_alcohol = adventuresim_core::alcohol::best_disinfectant(
+        &disinfectants
+            .iter()
+            .map(|(effectiveness, id, _)| (*effectiveness, *id))
+            .collect::<Vec<_>>(),
+    )
+    .map(|index| disinfectants[index].2);
+    let actor_injuries = if actor_id == patient_id {
+        injuries.clone()
+    } else {
+        match required_surgery_rows::<LimbInjury>(
+            &state,
+            &format!("SELECT * FROM limb_injury WHERE character_id = {actor_id}"),
+            "surgeon injuries",
+        )
+        .await
+        {
+            Ok(rows) => rows,
+            Err(response) => return response,
+        }
+    };
+    let quantity = |item_id: &str| {
+        inventory
+            .iter()
+            .filter(|item| item.item_id == item_id)
+            .map(|item| item.quantity)
+            .sum()
+    };
+    let surgery_check = get_character_capability(&state, actor_id)
+        .await
+        .map_or(0.0, |capability| capability.surgery);
+    let available_splints = inventory
+        .iter()
+        .filter(|item| {
+            item.item_id == "splint"
+                && !actor_injuries
+                    .iter()
+                    .any(|injury| injury.splint_inventory_item_id == Some(item.id))
+        })
+        .map(|item| item.quantity)
+        .sum();
+    let dialog = surgery_dialog(
+        &location,
+        &active,
+        &patient,
+        &injuries,
+        &projectiles,
+        selected_limb,
+        quantity("bandage"),
+        quantity("surgery_kit"),
+        available_splints,
+        quantity("soft_soap"),
+        alcohol_count,
+        selected_alcohol,
+        surgery_check,
+    );
+    if patient_id == active.id {
+        render_party_personal(
+            &state,
+            &kind,
+            &id,
+            patient_id,
+            building,
+            &session,
+            Some(dialog),
+            Some(&limb),
+            false,
+        )
+        .await
+    } else {
+        render_party_stats(
+            &state,
+            &kind,
+            &id,
+            patient_id,
+            building,
+            &session,
+            Some(dialog),
+            Some(&limb),
+            false,
+        )
+        .await
+    }
+}
+
+#[derive(Deserialize)]
+pub(super) struct SurgeryProcedureForm {
+    procedure: adventuresim_core::surgery::SurgeryProcedure,
+    projectile_id: Option<u64>,
+    #[serde(default)]
+    use_soap: bool,
+    action_id: String,
+}
+
+pub(super) fn schedule_allocation_reducer_arg(schedule: &ScheduleAllocation) -> serde_json::Value {
+    serde_json::to_value(spacetimedb_sats::serde::SerdeWrapper::from_ref(schedule))
+        .expect("generated schedule allocation must serialize as SATS")
+}
+
+#[cfg(test)]
+mod surgery_reducer_argument_tests {
+    use super::{SurgeryProcedureForm, schedule_allocation_reducer_arg};
+    use crate::spacetimedb::ScheduleAllocation;
+    use adventuresim_core::surgery::SurgeryProcedure;
+    use serde_json::json;
+
+    #[test]
+    fn schedule_profession_ids_use_spacetime_option_encoding() {
+        let encoded = schedule_allocation_reducer_arg(&ScheduleAllocation {
+            reading_minutes: 0,
+            combat_training_minutes: 0,
+            carousing_minutes: 0,
+            socializing_minutes: 0,
+            apprenticeship_minutes: 0,
+            apprenticeship_organization_id: Some("armourers_guild".into()),
+            profession_practice_minutes: 0,
+            practice_organization_id: None,
+            labor_minutes: 0,
+            prayer_minutes: 0,
+            thievery_minutes: 0,
+            raiding_minutes: 0,
+        });
+        assert_eq!(
+            encoded["apprenticeship_organization_id"],
+            json!({ "some": "armourers_guild" })
+        );
+        assert_eq!(encoded["practice_organization_id"], json!({ "none": [] }));
+    }
+
+    #[test]
+    fn surgery_form_accepts_only_canonical_procedure_names() {
+        let form = serde_urlencoded::from_str::<SurgeryProcedureForm>(
+            "procedure=remove-splint&action_id=treatment-1",
+        )
+        .unwrap();
+        assert_eq!(form.procedure, SurgeryProcedure::RemoveSplint);
+        assert!(
+            serde_urlencoded::from_str::<SurgeryProcedureForm>(
+                "procedure=amputate&action_id=treatment-1"
+            )
+            .is_err()
+        );
+    }
+}
+
+pub(super) async fn perform_surgery(
+    State(state): State<AppState>,
+    Path((kind, id, patient_id, limb)): Path<(String, String, u64, String)>,
+    Query(building): Query<BuildingQuery>,
+    session: Session,
+    Form(form): Form<SurgeryProcedureForm>,
+) -> Redirect {
+    let destination = paths::SURGERY.url([&kind, &id, &patient_id, &limb]);
+    let Some(actor_id) = session.character_id_u64() else {
+        return Redirect::to(&building.append_to(&state, &kind, &id, destination).await);
+    };
+    if parse_surgery_limb(&limb).is_none() {
+        return Redirect::to(&building.append_to(&state, &kind, &id, destination).await);
+    }
+    if let Err(error) = state
+        .db
+        .call(
+            "treat_limb",
+            &[
+                json!(actor_id),
+                json!(patient_id),
+                json!(limb),
+                db::sats_unit_variant(form.procedure),
+                db::sats_option(form.projectile_id),
+                json!(form.use_soap),
+                json!(form.action_id),
+                db::sats_option(None::<String>),
+                db::sats_option(None::<u32>),
+            ],
+        )
+        .await
+    {
+        tracing::warn!(?error, "Manual surgery procedure failed");
+    }
+    Redirect::to(&building.append_to(&state, &kind, &id, destination).await)
+}
+
+pub(super) async fn alchemy(
+    State(_state): State<AppState>,
+    Path(id): Path<String>,
+    session: Session,
+) -> Response {
+    if session.character_id_u64().is_none() {
+        return StatusCode::UNAUTHORIZED.into_response();
+    }
+    Html(crate::templates::strategic_notice_page(
+        "Alchemy is not yet modelled",
+        "Physiology observes patients and administers existing preparations; it does not craft them. Herbalism issue #214 owns preparations, and chemistry issue #215 owns Alchemy.",
+        &paths::SETTLEMENT.url([&id]),
+        "Return to the settlement",
+        None,
+    ).into_string())
+    .into_response()
+}
+#[derive(Deserialize)]
+pub(super) struct RepairItemForm {
+    inventory_item_id: u64,
+}
+
+#[cfg(test)]
+mod repair_route_tests {
+    use adventuresim_core::durability::RepairService;
+
+    #[test]
+    fn repair_routes_dispatch_all_and_only_the_three_authoritative_services() {
+        assert_eq!(
+            RepairService::parse("weapons"),
+            Some(RepairService::Weapons)
+        );
+        assert_eq!(RepairService::parse("armor"), Some(RepairService::Armor));
+        assert_eq!(
+            RepairService::parse("clothing"),
+            Some(RepairService::Clothing)
+        );
+        assert_eq!(RepairService::parse("merchants"), None);
+        assert_eq!(RepairService::parse("smith"), None);
+    }
+}
+
+pub(super) async fn submit_repair(
+    State(state): State<AppState>,
+    Path((id, shop)): Path<(String, String)>,
+    session: Session,
+    Form(form): Form<RepairItemForm>,
+) -> Redirect {
+    if let Some(service) = crate::location_urls::repair_service(&shop)
+        && let Some((character, _)) = get_active_character(&state, session.character_id_u64()).await
+        && let Err(error) = state
+            .db
+            .call(
+                "submit_item_for_repair",
+                &[
+                    json!(character.id),
+                    json!(id),
+                    json!(service.as_str()),
+                    json!(form.inventory_item_id),
+                ],
+            )
+            .await
+    {
+        tracing::warn!(%error, character_id = character.id, settlement_id = %id, shop = service.as_str(), "failed to submit item for repair");
+    }
+    Redirect::to(&paths::SETTLEMENT_PLACE.url([&id, &shop]))
+}
+
+pub(super) async fn submit_all_repairs(
+    State(state): State<AppState>,
+    Path((id, shop)): Path<(String, String)>,
+    session: Session,
+) -> Redirect {
+    if let Some(service) = crate::location_urls::repair_service(&shop)
+        && let Some((character, _)) = get_active_character(&state, session.character_id_u64()).await
+        && let Err(error) = state
+            .db
+            .call(
+                "submit_all_repairable_items",
+                &[json!(character.id), json!(id), json!(service.as_str())],
+            )
+            .await
+    {
+        tracing::warn!(%error, character_id = character.id, settlement_id = %id, shop = service.as_str(), "failed to submit repairable items");
+    }
+    Redirect::to(&paths::SETTLEMENT_PLACE.url([&id, &shop]))
+}
+
+pub(super) async fn retrieve_repair(
+    State(state): State<AppState>,
+    Path((id, shop, order_id)): Path<(String, String, u64)>,
+    session: Session,
+) -> Redirect {
+    if crate::location_urls::repair_service(&shop).is_some()
+        && let Some((character, _)) = get_active_character(&state, session.character_id_u64()).await
+        && let Err(error) = state
+            .db
+            .call(
+                "retrieve_repaired_item",
+                &[json!(character.id), json!(order_id)],
+            )
+            .await
+    {
+        tracing::warn!(%error, character_id = character.id, settlement_id = %id, order_id, "failed to retrieve repaired item");
+    }
+    Redirect::to(&paths::SETTLEMENT_PLACE.url([&id, &shop]))
+}
+
+#[derive(Deserialize)]
+pub(super) struct RetrieveRepairsForm {
+    item_id: Option<String>,
+    limit: u32,
+}
+
+pub(super) async fn retrieve_repairs(
+    State(state): State<AppState>,
+    Path((id, shop)): Path<(String, String)>,
+    session: Session,
+    Form(form): Form<RetrieveRepairsForm>,
+) -> Redirect {
+    if let Some(service) = crate::location_urls::repair_service(&shop)
+        && let Some((character, _)) = get_active_character(&state, session.character_id_u64()).await
+        && let Err(error) = state
+            .db
+            .call(
+                "retrieve_repaired_items",
+                &[
+                    json!(character.id),
+                    json!(id),
+                    json!(service.as_str()),
+                    json!(form.item_id),
+                    json!(form.limit),
+                ],
+            )
+            .await
+    {
+        tracing::warn!(%error, character_id = character.id, settlement_id = %id, shop = service.as_str(), "failed to retrieve repaired items");
+    }
+    Redirect::to(&paths::SETTLEMENT_PLACE.url([&id, &shop]))
+}
+
+
+pub(super) async fn show_settlement_location(
+    State(state): State<AppState>,
+    Path(id): Path<String>,
+    Query(query): Query<BuildingQuery>,
+    session: Session,
+) -> Html<String> {
+    let settlement_literal = sql_string_literal(&id);
+    let settlement_query = settlement_by_id(&id);
+    let settlement = state
+        .db
+        .query_one_sats_into::<DbSettlement, SettlementView>(settlement_query.as_str())
+        .await;
+    let settlement = match settlement {
+        Ok(Some(settlement)) => settlement,
+        Ok(None) => return Html("<h1>Settlement not found</h1>".to_string()),
+        Err(error) => {
+            tracing::error!(%error, settlement_id = %id, "failed to load settlement");
+            return Html("<h1>Settlement data unavailable</h1>".to_string());
+        }
+    };
+    super::entry::activate_settlement(&state, &id);
+    let alias_sql =
+        format!("SELECT * FROM settlement_alias WHERE settlement_id = {settlement_literal}");
+    let description_sql =
+        format!("SELECT * FROM settlement_description WHERE settlement_id = {settlement_literal}");
+    let (aliases, descriptions, active_character) = tokio::join!(
+        state.db.query_sats::<SettlementAlias>(&alias_sql),
+        state
+            .db
+            .query_sats::<SettlementDescription>(&description_sql),
+        get_active_character(&state, session.character_id_u64()),
+    );
+    let party_members = get_active_party_members(
+        &state,
+        active_character.as_ref().map(|(character, _)| character),
+    )
+    .await;
+    let logged_in_as = active_character
+        .as_ref()
+        .map(|(character, _)| character.name.clone());
+    let mut corpses = if let Some((character, _)) = &active_character {
+        state
+            .db
+            .query_sats::<BackendCorpse>(&format!(
+                "SELECT * FROM backend_corpses WHERE owner_character_id = {}",
+                character.id
+            ))
+            .await
+            .unwrap_or_else(|error| {
+                tracing::warn!(%error, settlement_id = %id, "failed to load settlement corpses");
+                Vec::new()
+            })
+            .into_iter()
+            .filter(|corpse| corpse.settlement_id == id && corpse.location != "scene")
+            .collect::<Vec<_>>()
+    } else {
+        Vec::new()
+    };
+    corpses.sort_by(|left, right| left.corpse_id.cmp(&right.corpse_id));
+    let selected_corpse = query.corpse.as_deref().and_then(|corpse_id| {
+        corpses
+            .iter()
+            .position(|corpse| corpse.corpse_id == corpse_id)
+            .map(|index| {
+                (
+                    index,
+                    if query.medical.as_deref() == Some("surgery") {
+                        "surgery"
+                    } else {
+                        "physiology"
+                    },
+                )
+            })
+    });
+    let aliases = aliases.unwrap_or_else(|error| {
+        tracing::warn!(%error, settlement_id = %id, "failed to load settlement aliases");
+        Vec::new()
+    });
+    let descriptions = descriptions.unwrap_or_else(|error| {
+        tracing::warn!(%error, settlement_id = %id, "failed to load settlement descriptions");
+        Vec::new()
+    });
+    let mut aliases: Vec<_> = aliases
+        .into_iter()
+        .filter(|alias| alias.settlement_id == id)
+        .collect();
+    aliases.sort_by(|left, right| left.id.cmp(&right.id));
+    let mut descriptions: Vec<_> = descriptions
+        .into_iter()
+        .filter(|description| description.settlement_id == id)
+        .collect();
+    descriptions.sort_by(|left, right| left.id.cmp(&right.id));
+    Html(
+        settlement_overview_page(
+            &settlement,
+            &aliases,
+            &descriptions,
+            active_character.as_ref().map(|(character, _)| character),
+            &party_members,
+            logged_in_as.as_deref(),
+            &corpses,
+            selected_corpse.map(|(index, window)| (&corpses[index], window)),
+        )
+        .into_string(),
+    )
+}

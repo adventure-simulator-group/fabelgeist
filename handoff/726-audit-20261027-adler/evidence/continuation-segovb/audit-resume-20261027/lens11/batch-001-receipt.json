@@ -1,0 +1,536 @@
+{
+  "at": "2026-10-27T10:32:50.292621+00:00",
+  "lens": 11,
+  "name": "type granularity",
+  "status": "814-818 source-accounted independently with qualified observations; discovery only",
+  "authority": {
+    "registry": {
+      "path": "target/recovery-20261025/audit05/original-scope-072.json",
+      "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+    },
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "source_manifest": {
+      "path": "target/recovery-20261025/continuation-segovb/audit12-frozen-source-manifest-019.json",
+      "sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa"
+    },
+    "prior_state": {
+      "path": "target/recovery-20261025/continuation-segovb/audit11-segovb-187-proposed-state.json",
+      "sha256": "bda064c320e11c976479600e9d7f40a10c36e05cddd388874d3c1534b490f152"
+    }
+  },
+  "rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/AGENTS.md",
+      "sha256": "b222ba01455443717c807738e311b12d8ded9a33cd95084b35870943357898a7"
+    },
+    {
+      "path": "crates/fabelgeist-armor/AGENTS.md",
+      "sha256": "52390164bf3eb74a0160ee3ac19527fd43856aa998920d16824f2f41058cf47f"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-type-granularity/SKILL.md",
+      "sha256": "3a1fbf7f53c752e35eefe7763cbd49b9f280bd4b978ea998f74c3a68e45dc106"
+    }
+  ],
+  "registrations": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-001-registration.json",
+      "sha256": "2e0e6ddd01572949970c4a8d577f6b506d8af334cce8bef4da32747122fc0851"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-001-receivers-registration.json",
+      "sha256": "96db92e4a2c1168f6a038dbf7f736aa653c79a4456327e44a818b2aaf6a31260"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-001-native-receivers-registration.json",
+      "sha256": "9c1c83e196424501ec686ebaa6f4ae6b0359053e8116837acf89e7a593731055"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-001-admission-registration.json",
+      "sha256": "cdc6f4050d04926349ed41877dedc40fa086911b3ec1cdb843ae92b490bdee12"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-001-native-close-registration.json",
+      "sha256": "781b4b3115444b509c56d459261cec486decf187f727f869ec2c263bdc5c5895"
+    }
+  ],
+  "original_body_reads": [
+    {
+      "original_index": 814,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory_article_editor.rs",
+      "sha256": "bfaf8082b9b0e3aba214dbe23016ae3d83f78b3a66f777ea6e2601ddc5475cf9",
+      "path": "crates/adventuresim-character-creator/src/inventory_article_editor.rs",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/bfaf8082b9b0e3aba214dbe23016ae3d83f78b3a66f777ea6e2601ddc5475cf9",
+      "bytes": 6779,
+      "actual_eof": 199,
+      "registered_ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/bfaf8082b9b0e3aba214dbe23016ae3d83f78b3a66f777ea6e2601ddc5475cf9",
+      "actual_read_ranges": [
+        [
+          1,
+          199
+        ]
+      ]
+    },
+    {
+      "original_index": 815,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/item_design.rs",
+      "sha256": "a33bdf3bde70ed5a647c3968c9e9c04dd60402bca585d47a4d2555ce9e3802aa",
+      "path": "crates/adventuresim-character-creator/src/item_design.rs",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/a33bdf3bde70ed5a647c3968c9e9c04dd60402bca585d47a4d2555ce9e3802aa",
+      "bytes": 8214,
+      "actual_eof": 232,
+      "registered_ranges": [
+        [
+          1,
+          232
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/a33bdf3bde70ed5a647c3968c9e9c04dd60402bca585d47a4d2555ce9e3802aa",
+      "actual_read_ranges": [
+        [
+          1,
+          232
+        ]
+      ]
+    },
+    {
+      "original_index": 816,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/lib.rs",
+      "sha256": "dc0c4f7b59ecd62d3a8a4a6b00c5bfecfc15470df833fe4294e486d1ffa5393c",
+      "path": "crates/adventuresim-character-creator/src/lib.rs",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/dc0c4f7b59ecd62d3a8a4a6b00c5bfecfc15470df833fe4294e486d1ffa5393c",
+      "bytes": 6930,
+      "actual_eof": 238,
+      "registered_ranges": [
+        [
+          1,
+          238
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "existing exact hashcache",
+      "actual_read_ranges": [
+        [
+          1,
+          238
+        ]
+      ]
+    },
+    {
+      "original_index": 817,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/library_name.rs",
+      "sha256": "ecd978e94b850604d4345df1494e9536819e19d7a6d3b8921fde3d55bf54eb27",
+      "path": "crates/adventuresim-character-creator/src/library_name.rs",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/ecd978e94b850604d4345df1494e9536819e19d7a6d3b8921fde3d55bf54eb27",
+      "bytes": 1376,
+      "actual_eof": 52,
+      "registered_ranges": [
+        [
+          1,
+          52
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "provenance": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/ecd978e94b850604d4345df1494e9536819e19d7a6d3b8921fde3d55bf54eb27",
+      "actual_read_ranges": [
+        [
+          1,
+          52
+        ]
+      ]
+    },
+    {
+      "original_index": 818,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/lod.rs",
+      "sha256": "73ad82b91f4b15146231c922544a72466849407fc7fca6ebe2268d78f45d7fa3",
+      "path": "crates/adventuresim-character-creator/src/lod.rs",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/73ad82b91f4b15146231c922544a72466849407fc7fca6ebe2268d78f45d7fa3",
+      "bytes": 1007,
+      "actual_eof": 39,
+      "registered_ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "existing exact hashcache",
+      "actual_read_ranges": [
+        [
+          1,
+          39
+        ]
+      ]
+    }
+  ],
+  "connected_body_reads": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/armor_controls.rs",
+      "sha256": "ac2baaaccf0e5916474cdd3e7757078b567324b941e8dd4cb9144e1ee4fb3b23",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/ac2baaaccf0e5916474cdd3e7757078b567324b941e8dd4cb9144e1ee4fb3b23",
+      "ranges": [
+        [
+          31,
+          60
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          31,
+          60
+        ]
+      ],
+      "registration": "batch-001-receivers-registration.json"
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-mhr/src/lib.rs",
+      "sha256": "9d99fd95ed9ec73c741b282a32784af8c92b4a8d3abcbc8ae15914f94a50f06b",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/9d99fd95ed9ec73c741b282a32784af8c92b4a8d3abcbc8ae15914f94a50f06b",
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "registration": "batch-001-receivers-registration.json"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/character_morph.rs",
+      "sha256": "078e18702247381254e0d5970a170bf88f594487ea11fee98a44c1b01d849013",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/078e18702247381254e0d5970a170bf88f594487ea11fee98a44c1b01d849013",
+      "ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "registration": "batch-001-receivers-registration.json"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/model.rs",
+      "sha256": "08275eee95012fbf2c20c185a7416b977f74c4181ad4362e704fafb847ae2c55",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/08275eee95012fbf2c20c185a7416b977f74c4181ad4362e704fafb847ae2c55",
+      "ranges": [
+        [
+          1,
+          26
+        ],
+        [
+          434,
+          494
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          1,
+          26
+        ],
+        [
+          434,
+          494
+        ]
+      ],
+      "registration": "batch-001-native-receivers-registration.json"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_body.rs",
+      "sha256": "7f528ffbfd597a6199b1ef50c86f045e36ae230acb0b5957c2504f6285a99bd3",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/7f528ffbfd597a6199b1ef50c86f045e36ae230acb0b5957c2504f6285a99bd3",
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "registration": "batch-001-native-receivers-registration.json"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "ranges": [
+        [
+          397,
+          420
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          397,
+          420
+        ]
+      ],
+      "registration": "batch-001-native-receivers-registration.json"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/generation.rs",
+      "sha256": "eb3d54908cc923b9cd761ca5abaf748d4ad9ed9175289a2d3342d0e2d4c6a4a1",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/eb3d54908cc923b9cd761ca5abaf748d4ad9ed9175289a2d3342d0e2d4c6a4a1",
+      "ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "registration": "batch-001-admission-registration.json"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "ranges": [
+        [
+          99,
+          105
+        ],
+        [
+          408,
+          428
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          99,
+          105
+        ],
+        [
+          408,
+          428
+        ]
+      ],
+      "registration": "batch-001-admission-registration.json"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/model.rs",
+      "sha256": "08275eee95012fbf2c20c185a7416b977f74c4181ad4362e704fafb847ae2c55",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/08275eee95012fbf2c20c185a7416b977f74c4181ad4362e704fafb847ae2c55",
+      "ranges": [
+        [
+          28,
+          46
+        ],
+        [
+          111,
+          127
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          28,
+          46
+        ],
+        [
+          111,
+          127
+        ]
+      ],
+      "registration": "batch-001-admission-registration.json"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/model.rs",
+      "sha256": "08275eee95012fbf2c20c185a7416b977f74c4181ad4362e704fafb847ae2c55",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/08275eee95012fbf2c20c185a7416b977f74c4181ad4362e704fafb847ae2c55",
+      "ranges": [
+        [
+          154,
+          169
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          154,
+          169
+        ]
+      ],
+      "registration": "batch-001-native-close-registration.json"
+    }
+  ],
+  "carried_personal_source_proofs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit11-segovb-183-809-complete-001.json",
+      "sha256": "ec788fbe604cb3ca970a41ae1e3326ab39049156b5c8a7aed6df22e0bc7a1916"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit11-segovb-184-810-complete-001.json",
+      "sha256": "1efd23196f71ca4b5cdca49ef43277bf8637d2406faa019403b93d8e07f85328"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit11-segovb-185-811-complete-001.json",
+      "sha256": "47f2f0534b526d991c4e67c3000ccde2354de56e3c8f2ad97241cc4f198109b4"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit11-segovb-187-813-complete-001.json",
+      "sha256": "ae2930df55c5be6cec7a840c6d08e5889559c036fd7bc49dd969209bb2a18280"
+    }
+  ],
+  "per_role": [
+    {
+      "original": 814,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory_article_editor.rs",
+      "disposition": "source-accounted",
+      "roles": "InventoryItemId selected session identity; Article Catalog/Draped/Settled state sum; borrowed canonical CatalogPlacement, ItemDesign generator families, DecorationLibrary role, GarmentSelection and saved drape payload. Ordinary UI bools are named change/rebuild predicates and worn predicate, no newclosedstate universe inferred.",
+      "traces": [
+        "1-36 selected typedID looked up in recipe Inventory; failedmembership clearsselection. Each Articlevariant selects correct editor. dirty only for worn article and actual rebuild predicate; no all-edits rebuild guarantee claimed.",
+        "38-149 catalogkeys resolve actualplacement before editing; same providedselection determines default/design_for; own override/payload family enforcement retained own183 trace. UI design consumer ac2b31-58 dispatches same typed sum to actual family widgets; no primitive enumordinal handoff. `None` design means explicit no shapecontrols, not unknowndefault fabrication.",
+        "151-199 settledgarment keeps saved drape; editname/layer/mail appearance, requiresrefitonlylayer. Drapedselection clonesbeforeactualsame_simulation/layer comparison; restartDrapeJob onlyuseraction. Underlying public saved association and ID/key/currentness questions inherited, no universalownership guarantee."
+      ]
+    },
+    {
+      "original": 815,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/item_design.rs",
+      "disposition": "source-accounted",
+      "roles": "ItemDesign tagged payload Recipe(ParametricDesign)/Vambrace(BracerDesign)/Breastplate(BreastplateDesign); CatalogDesigns aggregates authored override sources; private DesignTarget Item/Placement records selection authority with its borrowed payload.",
+      "traces": [
+        "24-54 same_family delegates actualrecipefamilies and distinguishes dedicated generators; same underlying scalar fields do not justify flattening construction variants. No unsupported physical numeric bounds introduced.",
+        "90-138 typed item/placementdefault select dedicated generator or actualoverride/embeddedrecipe; set_default verifies existing family and validates payload before updating right map/dedicateddefault. Own183 actual693/688 traces retained. Dedicated breastplate/cuirass intentionally sharegeneratorfamily; no inferred item-specificdefault uniqueness contract.",
+        "141-143 save uses owning DesignPaths adapter; existing threeoptional path inputs have independent file-source roles at external filesystem boundary. 146-232 existing fixtures support expected family behavior as source only, not execution."
+      ]
+    },
+    {
+      "original": 816,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/lib.rs",
+      "disposition": "source-accounted with qualified role-collection suggestion",
+      "roles": "CharacterRecipe aggregate owns schema version, humanlabel, proportions, identitybasis45, expressionbasis72, optional hairstyle and Inventory; IdentityGroup Body/Head/Hands is closed semantic subset classification, distinct from arbitrary IdentityMorph ordinal. Native coefficient arrays/tensors retain basis length/ordering at explicit adapter.",
+      "traces": [
+        "94-170 validates version/counts/finitecoefficients/name/inventory. Defaultauthored clothing localinstanceIDs are typed but setsworn directly; underlying capacity API qualification185 retained, no new runtimewrongloadout claim. resetbody/face act on actual basis fields, no conflation of faceexpression with identityhead coefficients inferred.",
+        "172-188 IdentityGroup fixed ranges partition45 into20/20/5; actualcore IdentityMorph owner3-29 names one canonicalbasisordinal and checks externalnames. CharacterMorphWeights35-49 has different persistentdeterministic cosmetic authority, not interchangeable arbitrary authored editor coefficients.",
+        "Actual generation7941-28 validateswhole recipe, assembles identity[1,45] and expression[1,72] separately into nativeTensor, derivesposeparameters separately then calls MHR.forward. Actual2321434-492 accepts Tensor boundary and checks expected basis widths/batch; no fullmodel numeric/render guarantee."
+      ]
+    },
+    {
+      "original": 817,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/library_name.rs",
+      "disposition": "source-accounted",
+      "roles": "LibraryName private normalizednonempty String with Ord/Hash/checkedSerde; shared lexical invariant across independent library maps.",
+      "traces": [
+        "1-39 checked construction trims/rejectsblank, borrowedstr/Display and owningString conversions are text/UI/Serde boundaries. No evidence demands global cross-library identity or stricter path/filename policy. Same primitive storage as unrestricted labels does not make wrapper redundant: blocks blanks/space-inconsistent map keys.",
+        "Own187 actualWardrobe privateBTreeMap key/payloadname alignment/validation proof retained. Newordered full52 read includes existing tests, no automatic credit from prior39connectedread."
+      ]
+    },
+    {
+      "original": 818,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/lod.rs",
+      "disposition": "source-accounted with propagation observation",
+      "roles": "CharacterLod privateu8 restricted to actualnativeMIN4/MAX6, meaning export/runtime detail; vertex-count table directlyindexes derivedboundedordinal.",
+      "traces": [
+        "8-23 sameactualmodel4..6 constants at232123-24 prove index0..2 for3elementtable. Wrapper earnsplace via valid detail selection and tableindex; enumwithnumbers notrequired. No inventeddetaillevelpolicy.",
+        "Actualmain408-428 validates CharacterLod then forwards nativeu8 into MhrConfig/from_files and storesu8 BodyModel; actualnative154-161 revalidates same range beforefilelocation. This preserves actualvalid construction but discards type beforeretainedapplicationBodyModel field; recordqualifiedmigrationquestion, not currentinvalidLOD/runtimeincident. 26-39 fixtures sourceonly."
+      ]
+    }
+  ],
+  "qualified_observations": [
+    {
+      "source_key": "pr-working:crates/adventuresim-character-creator/src/lib.rs@dc0c4f7b59ecd62d3a8a4a6b00c5bfecfc15470df833fe4294e486d1ffa5393c#L94-L160:identity-expression-collection-roles",
+      "classification": "Granularity suggestion/unfinished role collection admission, not runtime defect",
+      "observation": "Public Vec<f32> identity/expression fields express different basis lengths and semantics; aggregate validate and actual nativeadapter keep them separate, but compile-time fieldassignment can mix them until validation. A basis-specific collection could prevent this without arbitrary numeric bounds. Existing CharacterMorphWeights is a different deterministicpersistent cosmetic authority and must not be reused just forstoragearity.",
+      "remedy": "Reconcile existing core/MHRbasis owners before choosing collections; retain exact45/72 counts, finite values and nativeTensoradapter, no blanketcoefficient clamp/newphysicalbounds.",
+      "dependencies": [
+        "current source comparison",
+        "canonicalfinding/alias reconciliation",
+        "existing-owner audit coordination"
+      ],
+      "acceptance": "Actual coefficientproducer/editor/Serde/retainedrecipe/nativeadapter remain basis-distinct, no competingowner or unsupportedcoefficientbounds.",
+      "currentness": "Frozen source only; currentness/alias/accepted unique unresolved"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-character-creator/src/main.rs@41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9#L99-L103,L408-L428:characterlod-validation-discard",
+      "classification": "Qualified producer/retention granularity observation",
+      "observation": "ExistingCharacterLod checkedleaf discarded by load_body_model; privateBodyModel retainsrawu8. Actualconstructor and nativeMhr receiver validate, so noinvalidcurrentobject witness. Validated detail concept couldremaintyped inapplicationstate and convert at actualnativeMhrConfig boundary.",
+      "remedy": "Reuse existingCharacterLod inapplication ports/state ifcurrentcanonicalsource confirms gap; reconcile samecheckedrange owner withnativeMHRwithout duplicatewrappers/validationpolicies.",
+      "dependencies": [
+        "wholeoriginal819 inventory pending",
+        "exactcurrentcomparison",
+        "canonicalalias reconciliation"
+      ],
+      "acceptance": "Actualapplicationdetailselection/retention retainscheckedleaf until model config/assetpath numerical boundary, existingnativevalidation remainscoherent.",
+      "currentness": "Frozen only; no runtimeincident/alias/current finding accepted"
+    }
+  ],
+  "new_material_extensions": [
+    {
+      "path": "crates/adventuresim-character-creator/src/armor_controls.rs",
+      "sha256": "ac2baaaccf0e5916474cdd3e7757078b567324b941e8dd4cb9144e1ee4fb3b23",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/armor_controls.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "base_head_equal": true,
+      "absent_prworking747_and_dirty4": true,
+      "manifest_sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/ac2baaaccf0e5916474cdd3e7757078b567324b941e8dd4cb9144e1ee4fb3b23",
+      "actual_eof": 189,
+      "no_body_credit_from_staging": true,
+      "mandatory_other_lenses": true,
+      "additional_original_shared_credit": 0
+    },
+    {
+      "path": "crates/fabelgeist-mhr/src/lib.rs",
+      "sha256": "9d99fd95ed9ec73c741b282a32784af8c92b4a8d3abcbc8ae15914f94a50f06b",
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-mhr/src/lib.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "base_head_equal": true,
+      "absent_prworking747_and_dirty4": true,
+      "manifest_sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/9d99fd95ed9ec73c741b282a32784af8c92b4a8d3abcbc8ae15914f94a50f06b",
+      "actual_eof": 43,
+      "no_body_credit_from_staging": true,
+      "mandatory_other_lenses": true,
+      "additional_original_shared_credit": 0
+    }
+  ],
+  "new_original_receiver_ranges": "2321,889,819,794,717 connectedranges listed, zero additional ordered/sharedoriginalcredit. Full originalscope forfuture roles remains mandatory.",
+  "process_qualifications": [
+    "Firstcombinedrules+sourceoutput truncated814earlylines; reread8141-61 fullybeforecompletion. All199lines and815232lines actuallyconsumed; no sampled/search/hash-onlycoverage.",
+    "Attemptedunchangedmodel/generationproofs rejected byactualchangedmanifest beforecaching/bodyread; exactregistered2321/794 recovered instead. Missingguessed source-manifest.json localpath wasmetadataonly, correctfrozenmanifest019 resolved.",
+    "DeviceBody7171-26 read afterprospectiveregistration aspossiblebodyreceiver; actualbody isuploadcache, notcoefficientadapter. No suchcontractcredit orneworiginalcount.",
+    "Sourcecache staging/hash/presence andother-lenspriorverdicts donotconfergranularitycoverage. No projectexecution/tests/scans/probes."
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer. Preserve180/181nativeSDK/Bevy scheduling/imagecopylimits andallpendingreceiverqueues. M04current903reviewsseparate; notfrozenoriginal/lenscounts. Packet182InventoryItemId graph erasure, catalogkey/recordidentity and wear/order-selector sourcequestions retained, alias/currentness/unique acceptance unresolved. M04build-target review003 atdf5 andhostedCIseparatefromfrozenauditcounts. 184 newpublicDrapedPiece association/sourcegroupingquestion remainsfrozenlocal, noalias/currentness/uniqueacceptance; producerpathcoherent. M04df5validationseparate. 185 capacityreservationstaticAPIgap retainedasfrozenevidence only; alias/currentness/accepteduniqueness unresolved. No runtimewrongID orauthoredcurrentinputwitness. ExistingID/key/wear/savedassociationquestionsremainqualified. Packet186 independently accounts existing test-source812 only; fixture expectations are not observed execution/whole authored catalog/native guarantees and do not clear185 capacity witness. Existing lower-pattern fixture uses canonical owners; no new current alias or unique finding. Packet187 original813 only. New frozen inventory_ui and catalog wrapper material extensions mandatory other lenses, zero extra shared/original credit. UI acquisition is not atomic/all-worn; inherited capacity, typedID erasure/key authority and public saved-association questions retain all currentness/alias/unique limits.",
+  "accepted_unique_count_change": 0,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "repairs": false,
+  "global_discovery_complete": false,
+  "root_adoption_required": true
+}

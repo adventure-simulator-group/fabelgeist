@@ -1,0 +1,272 @@
+{
+  "at": "2026-10-27T14:18:07.192909+00:00",
+  "lens": 11,
+  "status": "1023-1026 independently source-accounted with findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-050-registration.jsonl",
+    "sha256": "c183dbe8f4ef28330cc8bc9d2c3708a361bdba696470be5b9c49b2f83178f2d5"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-049.json",
+    "sha256": "0515788894acad65870ab70f282fe79be2b50c1641db11ae9787b9088ac677d1"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1023,
+      "source_id": "pr-working:crates/adventuresim-core/src/water_source.rs",
+      "sha256": "2892720bfed0f3280e91d03da01cf985b234731e8f08d449a76bf97f7cfdb556",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/2892720bfed0f3280e91d03da01cf985b234731e8f08d449a76bf97f7cfdb556",
+      "ranges": [
+        [
+          1,
+          500
+        ]
+      ],
+      "actual_eof": 500,
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          500
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1024,
+      "source_id": "pr-working:crates/adventuresim-core/src/weather.rs",
+      "sha256": "62c3d0b44fa30ce15dab8e231cc5ef90e631e633d9ef4ea34091c5c8c3f3fde9",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/62c3d0b44fa30ce15dab8e231cc5ef90e631e633d9ef4ea34091c5c8c3f3fde9",
+      "ranges": [
+        [
+          1,
+          958
+        ]
+      ],
+      "actual_eof": 958,
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          958
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1025,
+      "source_id": "pr-working:crates/adventuresim-core/src/weather/field.rs",
+      "sha256": "8f11cdffeb39e9e0ca929c9cf3ac853b89c6d926c5bdd4d42c0ec9208e36cede",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/8f11cdffeb39e9e0ca929c9cf3ac853b89c6d926c5bdd4d42c0ec9208e36cede",
+      "ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "actual_eof": 61,
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          61
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1026,
+      "source_id": "pr-working:crates/adventuresim-core/src/weather/streams.rs",
+      "sha256": "441a11bfce5d076e3dc78875c0f4bfbe8622178c5c1a4cba2c7e0077f5ea2ea8",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/441a11bfce5d076e3dc78875c0f4bfbe8622178c5c1a4cba2c7e0077f5ea2ea8",
+      "ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "actual_eof": 11,
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          11
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected",
+      "original_index": 2159,
+      "sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+      "ranges": [
+        [
+          200,
+          279
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Existing coordinate owner and actual private-material transfer/rights binding/simulator flow receivers",
+      "actual_read_ranges": [
+        [
+          200,
+          279
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1148,
+      "sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+      "ranges": [
+        [
+          160,
+          218
+        ],
+        [
+          460,
+          535
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Existing coordinate owner and actual private-material transfer/rights binding/simulator flow receivers",
+      "actual_read_ranges": [
+        [
+          160,
+          218
+        ],
+        [
+          460,
+          535
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 320,
+      "sha256": "9973408d3a3ebff65189a41a0537488dcf4ba9f88b667672e09543fc90318db4",
+      "ranges": [
+        [
+          1133,
+          1200
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Existing coordinate owner and actual private-material transfer/rights binding/simulator flow receivers",
+      "actual_read_ranges": [
+        [
+          1133,
+          1200
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1148,
+      "sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+      "ranges": [
+        [
+          420,
+          459
+        ],
+        [
+          536,
+          565
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual two rights-question producers and planned-effect receiving closure",
+      "actual_read_ranges": [
+        [
+          420,
+          459
+        ],
+        [
+          536,
+          565
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original_index": 1023,
+      "inventory": "Source-open simulator flow, source/holding/food millilitres, contamination load microunits, consumed dose, contribution digest vs request receipt, cook/split rational fraction; private/public projection; typed actor/object/material-lot/fixture/rights-question/digest; seven independent collection prerequisite booleans; duplicated coordinates in authority/PlanInput; collection amount, completed-time-gated effects; checked public-volume conservation and proportional microlitre/private-load transfer.",
+      "disposition": "Volume, dose and concentration are different roles despite u64; ml differs from canonical Microliters. Public volume projection intentionally excludes private contamination. Flow receipt tuple amount/load/holding-after has distinct fields; same request+sameamount/load replays prior result even after source closes, not fresh authority. Holding/food/consumed can coexist over repeated operations, so do not force one global phase enum. Pure simulator cook accepts denominator0/ratio>1 while split checksdenominator/numerator; raw fraction inputs need exact admitted-ratio ownership and checked math. draw updates source/holding before fallible load addition: qualified error-atomicity source candidate; no invoked overflow or database transaction failure proved. Core collection authority has duplicate coordinates overwritten and rights_allowed bool loses question binding at public API. Actual1148 creates collection+container questions from same actor/object/fixture locally and consumes their kinds; not evidence of an actual mismatched decision. Same qualified rights-binding family026/028/027, no accepted alias/unique promotion. Canonical rights digest frames complete typed question; preserve this useful identity.",
+      "remedy": "Use canonical volume and contamination/dose owners; exact ratio operations with positive denominator/bounded fraction where applicable, wide checked intermediates, and calculate complete state before committing mutation. Keep private load/provenance out of public quantity projection. Name receipt payload fields, unify coordinates at one owner, bind permission evidence to actual typed questions instead of boolean if public callers can supply it. Iterate admitted exact source/container quantities into native DB adapter, no arbitrary new dose or volume cap.",
+      "acceptance": "Full1-500 consumed. Actual1148 material transfer172-218 preserves Microliters and material-lot association while updating exact remainder;420-535 creates fresh actor/object rights and plan,536-565 shows time advance then partial explicit authority rechecks (tail unread). Actual physical-p16 simulator3201138-1184 uses ratio1/10000 for cooking,1/2for split, validates generated typed event and compares public projections: source fixture only, not execution. Previous material953 and rights985/action1006 proofs retained; no whole transaction/clinical infection proof."
+    },
+    {
+      "original_index": 1024,
+      "inventory": "Weather rules/domain seed/absolute interval and grid cells; distinct latitude/longitude microdegrees vs cell indices and elevationASL; temperature/dewpointdeciC, pressuredecihPa, windheading angle vs intensity/ground/snow/humidity/shear/instabilityBPS and signed lift; cloud form/coverage/density/base/top metresAGL; independent optional low/mid/high decks; precipitation tag+intensity; native fixed-point correlated signals and deterministic seed streams; snow terrain check blend and discounted underlying/snow training duration; existing fixtures.",
+      "disposition": "Most BPS share0..10000 numeric invariant under distinct purposes, while signed lift\u00b110000 and pressure/temperature/height/angle/grid indices do not. Weather field precision65535 differs from BPS10000. Public WeatherSnapshot/AtmosphericSnapshot/CloudLayer fields+Serde bypass useful relationships: Clear iff intensity0 in actual producer417-423; cloud top>=base/coverage>0 in actual diagnostic producers, but no public admission. Existing latitude/longitude canonical owners2159 validate WGS84 bounds, yet weather_at accepts raw i32 and uses imported LatitudeMicrodegrees only as units constant; role lost at input and cell-index pair may be swapped. Actual bounded generator clamps relevant BPS, so packet049 concern remains public-input admission candidate, not actual generated intensity overflow. Low/mid/high decks are independently optional, not all-or-none. Ground snow/moisture retains historical memory independent of current precipitation. Snapshot retention versus resampling current weather is deliberate.",
+      "remedy": "Use canonical LatitudeMicrodegrees/LongitudeMicrodegrees at public geographic input and distinguish derived grid-cell coordinates internally; retain ASL elevation versus AGL cloud heights. Share BPS admission under purpose fields; encode precipitation owning intensity and admit cloud-layer span privately. Keep continuous weather diagnosis/native fixed-point math at explicit adapter; do not impose fixture sample temperature[-800,500] as global climate bound. Use named snow/underlying duration result rather than raw tuple. Preserve source seed/version replay semantics without backward compatibility paths.",
+      "acceptance": "Full1-958 consumed.2159 actual200-279 proves coordinate owners and limits. Actual survival1020 full (049), and native condition1086300-388 consume temperature/rain/wind and independently clocked frostbite receipts. Full1025/1026 below supply actual fixed-point owner math/stream identities. No complete cloud-render/native GPU/cache family proof or all authored current inputs."
+    },
+    {
+      "original_index": 1025,
+      "inventory": "Seed/domain StreamId, time interval index, signed cell positions, fixed-point advection/lattice coordinates, fractional remainders and quintic-like smoothstep numerator scale65535, integer BPS samples, signed interpolation delta.",
+      "disposition": "Signed lattice hash coordinates cast to u64 are deterministic bit representation, not positive physical identity. Fraction16-scale65535 differs from UnitBasisPoints10000 and floating UnitInterval; common admitted fraction mechanics may be shared below exact representation, not by blind casts. fade_fraction expects0<=remainder<positive scale and lerp expectsboundedfraction, actual private callers use rem_euclid with positive static scales. Interval headroom clamp14 protects time product alone but not additional negative spatial offset at15: at clamped interval floor(i64MAX/(4*65536)) and valid cell longitude-8, x=-8*65536-interval*4*65536 falls belowi64MIN. Typed StrategicMinuteMAX reaches this clamped interval through weather_at; qualified static arithmetic/API witness, no executed panic or realistic clock occurrence asserted. Need operations-lens alias/currentness reconciliation before unique acceptance.",
+      "remedy": "Keep fixed-point time/cell/fraction roles explicit and account complete combined arithmetic range, e.g. wider checked kernel intermediate rather than inventing a tighter gameplay horizon. Admit fraction/positive scale once where public helper exposure would escape private kernel contract; no generic floating precision conversion requirement.",
+      "acceptance": "Full1-61 consumed; actual parent263-467/601-628 supplies cell/interval and uses outputs for weather. Arithmetic witness derived from exact source expression, no project probe/test/scanner executed; native RNG algorithm not audited here."
+    },
+    {
+      "original_index": 1026,
+      "inventory": "Eight named deterministic StreamId values owned by pressure/moisture/convection/precipitation/shear/temperature/middle/upper-moisture calculations.",
+      "disposition": "Purpose stream identity is distinct from user/entity ID, seed or an arbitrary gameplay string. Existing StreamId already carries proper representation; separate constants express independent random purposes used by actual parent field calls.",
+      "remedy": "Retain canonical StreamId and owner-local named purposes; do not create duplicate per-field string wrappers or merge streams because sample invariant matches.",
+      "acceptance": "Full1-11 consumed, parent full actual use read. No determinism-library-global proof."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-026-receipt.json",
+      "sha256": "a6a3bf715d71a10786994eea605f942cdb91f137578cb423ec0f81a23465904e"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-027-receipt.json",
+      "sha256": "871ad0df2778d657e3f880a3444f1c99f36a6d2b9258c12e6a57bb3c11a97b41"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-028-receipt.json",
+      "sha256": "45e9ec96599b408c85a36ae3ba0299bcdb195524537add323b6aba4a300c89b2"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-032-receipt.json",
+      "sha256": "1dd44f6a3c68698dbe73e37b15eb3605b87540976bc61d1326400284be4944ef"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-039-receipt.json",
+      "sha256": "e8dd9acd61a6e7ff4cf5551c460653184529319b1da16bdc63a269a7d90fb5e8"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-045-receipt.json",
+      "sha256": "ef84d892ee23b0f811e99ab6e951c2e0bb21e340b90207e80f2b1f5f367f357b"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-049-receipt.json",
+      "sha256": "7c7a1bf82e75c5dbe9a67fb086ea7776db66160590f8435b8519b7479433d9df"
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Frozen source only; source-accounted with findings, no execution/current/runtime/accepted unique/global clearance. Connected originals get zero future ordered credit.",
+    "Simulator3201133-1137 previous test tail and1187-1200 following fixture prefix incidental; only1138-1185 relevant flow fixture consumed, not full report.1148160-170 preceding cleanup tail;172-218complete transfer;420-565partial collection method (no full replay/authorization/revalidation/mutation proof).",
+    "Weather renderer/cloud/cache recipient populations remain independently pending; no all-native-family claim. Prior findings use source-key grouping until accepted aliases/currentness proven."
+  ]
+}

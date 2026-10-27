@@ -1,0 +1,283 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "083",
+  "predecessor": "receipt-082-originals388-390.json",
+  "manifest_prefix_sha256": "9654187d893f4c183c0ca11ba43f62fd56d036a23941ce413344ac113ecc3222",
+  "sources": [
+    {
+      "original_index": 391,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/timing.rs",
+      "sha256": "8e06350841fdbea99a6cf45ab7c1aca53485273d5b07a064c11ee956cee446f7",
+      "actual_eof": 168,
+      "actual_ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              168
+            ]
+          ],
+          "role": "Zero literals/String-valued APIs in168 including existingtests116-168. Native Time quantization to typed MeleeAttackKey/AnimationSampleTick18-22.",
+          "disposition": "Zero string role only, no key uniqueness/clock/overflow/behavior/runtime/native/other-lens acceptance."
+        }
+      ],
+      "status": "Requested independent exact full or material source inventory; scoped native text/zero roles."
+    },
+    {
+      "original_index": 392,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/work.rs",
+      "sha256": "6be424d70d473190c8983c7f8657d117cf7aedd39c7e13c8e3d0cd6021d8a3fa",
+      "actual_eof": 50,
+      "actual_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              50
+            ]
+          ],
+          "role": "Zero literals/String APIs in50, typed RecoveryTime/AnimationElapsed and combatwork enums.",
+          "disposition": "Zero string roles, no fatigue/policy/math/runtime acceptance."
+        }
+      ],
+      "status": "Requested independent exact full or material source inventory; scoped native text/zero roles."
+    },
+    {
+      "original_index": 393,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee.rs",
+      "sha256": "6fd64503e79c60d080ad7322bfdd270e451887f48d89c80898c47cd161532727",
+      "actual_eof": 363,
+      "actual_ranges": [
+        [
+          1,
+          363
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              363
+            ]
+          ],
+          "role": "Compiler reasons22/90/132/163; warning text60/225/259, expect305; tracing event melee_completion_rejected37/51/81/185/191/196/204/213, melee_attack_resolved38/52/82/248 and melee_completion_accepted289. Direct output labels miss38/52/82,authorization_consumed81-82,missing_authority185,missing_attacker_dimensions213,failed/missing_striking_side248; typed native rejection reason rendered?reason37/38/51/52. No String-valued API in363.",
+          "disposition": "Concrete native trace event/schema/diagnostic/compiler boundaries, no retained raw gameplay state. Exact log filtering/parser unread; no stable machine-code/prose identity promise or numerical/authorization/runtime acceptance."
+        }
+      ],
+      "status": "Requested independent exact full or material source inventory; scoped native text/zero roles."
+    },
+    {
+      "original_index": 394,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/active_defense.rs",
+      "sha256": "291b5d7171d5674bc929189b672bf92ee1b1348b9866f526f65d4377c8fbedbe",
+      "actual_eof": 186,
+      "actual_ranges": [
+        [
+          1,
+          186
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              186
+            ]
+          ],
+          "role": "Compiler reasons11/98 and warnings invalid defender performance37/cannot resolve defense timing59 only; typed PreparedMeleeDefense/DefenderResponse and canonical MeleeAttackKey retained.",
+          "disposition": "Native diagnostics/compiler output; no rawString state, no actual actor admission/runtime/causal verdict."
+        }
+      ],
+      "status": "Requested independent exact full or material source inventory; scoped native text/zero roles."
+    },
+    {
+      "original_index": 395,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/geometry.rs",
+      "sha256": "0e6bff7b2a9b88f916e90495f72d65ce3e854b21a05b6a59d30a684174dfe957",
+      "actual_eof": 137,
+      "actual_ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              137
+            ]
+          ],
+          "role": "Zero literals/String APIs in137. Checked geometry and completion facts remain typed.",
+          "disposition": "Zero string role only; no numerical/collision/math/admission/runtime/other-lens proof."
+        }
+      ],
+      "status": "Requested independent exact full or material source inventory; scoped native text/zero roles."
+    },
+    {
+      "original_index": 396,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+      "sha256": "b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+      "actual_eof": 129,
+      "actual_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              129
+            ]
+          ],
+          "role": "Compiler reason7; direct trace failed/ambiguous_striking_side31,failed107,connected121 and melee_attack_resolved31/109/126. Canonical typed MeleeContactLocation.anatomical_subregion55 copied to381Apply event then385resolved event66.",
+          "disposition": "Native trace/output schema boundary, typed anatomical source chain now read through actual outcome publication; later raw string projection368 remains gap, not closed by native event declaration. No collision/effect/network/runtime acceptance."
+        }
+      ],
+      "status": "Requested independent exact full or material source inventory; scoped native text/zero roles."
+    },
+    {
+      "original_index": 397,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/protocol.rs",
+      "sha256": "bdc79a977759c6bc89210af417c605af95bdf23d383bcf29a3e1f49552590c6a",
+      "actual_eof": 86,
+      "actual_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              86
+            ]
+          ],
+          "role": "Zero literals/String-valued APIs in86. Actual pending/contact/request/defense events typed; MeleeAttackStartedIntent49 lacks key until actual389publication.",
+          "disposition": "Zero-string source only; earlier root Started/keyNone qualification preserved, no claim event admission timing is fixed or global/protocol/lens08 clearance."
+        }
+      ],
+      "status": "Requested independent exact full or material source inventory; scoped native text/zero roles."
+    }
+  ],
+  "connected_findings": [],
+  "pending_contracts": [
+    "396typed anatomical publication\u2192381Apply\u2192385Resolved source chain now actual locally read; actual server iteration log projection to368rawmap remains unread.",
+    "External trace schema/consumer and canonical identity, all earlier findings remain; no repair/native/numerical/runtime proof."
+  ],
+  "qualifications": [
+    "Exact frozen f82 physical-P16 only, no current alias.",
+    "No backward compatibility/input preservation or tests/project/native/probe execution; no product/Git/root-ledger/publication mutation.",
+    "All20/P16/P17/F9/M09/aliases/currentness; source role inventory not repaired/global/runtime/unique-total/other-lens clearance."
+  ],
+  "proposed_count": {
+    "before": 391,
+    "after": 398,
+    "indices_completed": [
+      391,
+      392,
+      393,
+      394,
+      395,
+      396,
+      397
+    ],
+    "next_original": 398,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/timing.rs",
+      "sha256": "8e06350841fdbea99a6cf45ab7c1aca53485273d5b07a064c11ee956cee446f7",
+      "ranges": [
+        [
+          1,
+          168
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/work.rs",
+      "sha256": "6be424d70d473190c8983c7f8657d117cf7aedd39c7e13c8e3d0cd6021d8a3fa",
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee.rs",
+      "sha256": "6fd64503e79c60d080ad7322bfdd270e451887f48d89c80898c47cd161532727",
+      "ranges": [
+        [
+          1,
+          363
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/active_defense.rs",
+      "sha256": "291b5d7171d5674bc929189b672bf92ee1b1348b9866f526f65d4377c8fbedbe",
+      "ranges": [
+        [
+          1,
+          186
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/geometry.rs",
+      "sha256": "0e6bff7b2a9b88f916e90495f72d65ce3e854b21a05b6a59d30a684174dfe957",
+      "ranges": [
+        [
+          1,
+          137
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+      "sha256": "b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+      "ranges": [
+        [
+          1,
+          129
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/protocol.rs",
+      "sha256": "bdc79a977759c6bc89210af417c605af95bdf23d383bcf29a3e1f49552590c6a",
+      "ranges": [
+        [
+          1,
+          86
+        ]
+      ]
+    }
+  ]
+}

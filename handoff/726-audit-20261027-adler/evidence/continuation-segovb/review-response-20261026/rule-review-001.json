@@ -1,0 +1,284 @@
+{
+  "id": "PR988-RESPONSE-RULE-REVIEW-001",
+  "at_utc": "2026-10-26T20:36:24.347905+00:00",
+  "review": "Independent Rule Review of actual PR988 review-remediation diff/current responsibilities",
+  "status": "Source-only scoped review complete; no new actionable source-code finding; baseline and final-head CI acceptance pending",
+  "base": "961d226be23a81d9731a11958d62fe8a04b93e81",
+  "scope_manifest": "source-manifest-001.json",
+  "complete_diff": {
+    "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/actual-diff-002-complete.patch",
+    "sha256": "28988c6f0025292f2d0cfe6eb6548ec068296e2031e1984fe0768f1709c9706d",
+    "full_patch_read": true,
+    "all15manifestpaths_present": true,
+    "untracked_enum_included": true,
+    "new_enum_bytecopy_matches": true
+  },
+  "governing_sources": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "coverage": "Applicable root rules previously fully read/user-provided; crates rules freshly read in initial enum pass and hash retained"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "coverage": "Applicable root rules previously fully read/user-provided; crates rules freshly read in initial enum pass and hash retained"
+    }
+  ],
+  "skills": [
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/SKILL.md",
+      "read": true
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/references/bespoke-type-review.md",
+      "read": true
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-enum-shapes/SKILL.md",
+      "read": "Initial scoped pass retained"
+    }
+  ],
+  "findings": [],
+  "contract_traces": [
+    {
+      "family": "One canonical carried validation policy",
+      "owner": "globals/validation_observation.rs1-24",
+      "trace": "ValidationObservation::{BlockingScopes,Uncaptured} is the sole new closed role owner, reexported by globals. Native start_scope matches directly to SDK Validation ErrorScopeGuard or None. It owns actual policy/SDK admission, so24line responsibility module is not a pass-through wrapper. WgpuContext31 stores enum, from_parts116 selects Uncaptured, native open270-274 selects BlockingScopes and wasm selects Uncaptured; Clone preserves it. No old bool compatibility alias or repeated internal bool->enum conversion."
+    },
+    {
+      "family": "Complete producer/parameter/consumer migration of this named flag",
+      "owner": "Context, scope, shader, pipeline, texture2d constructor and compute fast path",
+      "trace": "Repository-wide named-reference search finds only the old test function name containing blocking_validation; field/parameter/docs moved. Pipeline public validated parameter56 is enum, direct-device convenience45 uses explicit BlockingScopes preserving priortrue default, compile177 carries actual context enum. Shader51, texture2d133, compute fast122 use same public native start_scope. Scope63 uses same adapter. Three current whole-view bodies consume ValidationScope and finish before returning newly created Arc. Every previously identified real flag consumer (including other crate) is connected; no policy copy stays primitive."
+    },
+    {
+      "family": "Independent ownership/target/presentation axes",
+      "owner": "WgpuContext98-117,182-275",
+      "trace": "from_parts continues externally supplied handles and no presentation; native new/new_compute both select BlockingScopes independent of blitter/canvas/surface choice. Browser selects Uncaptured and every native start_scope call remains cfg(not wasm); wasm pipeline accepts enum without synchronous use. Existing presentation bool/native descriptor flags unchanged under explicitly separate initial disposition. No invented third observation state, Owned/Borrowed mega-enum, dropped device payload or new platform/ownership guarantee."
+    },
+    {
+      "family": "Active native scope and two observed causes",
+      "owner": "ValidationScope21-26,61-88; ValidationProgressError12-17",
+      "trace": "new obtains optional guard using exact context.device and stores same Arc device with guard. finish still attempts wait, pops that consumed guard, then matches independent poll result/native rejection. Required PollError plus optional wgpu Error survives simultaneous failure. Native scope record is correct payload owner; no redundant active Boolean, mutually exclusive error simplification or global health claim."
+    },
+    {
+      "family": "Mechanical derive versus semantic Error::source policy",
+      "owner": "ValidationScopeError28-35; TextureViewError27-70/source90-105",
+      "trace": "ValidationScopeError derives Display+Error with explicit {_0} delegation and sole unboxed source field on each variant. Exact derive_more primary source chooses annotated field and transparent Display forwarding; unboxed wgpu Error/ValidationProgressError keep immediate dynamic source. TextureViewError derives Display only, exact six message templates/Debug placeholders retained. Its manual source still dereferences each Box for concrete native/progress downcasts, with separate progress arm for different concrete type. ValidationProgressError conditional suffix and captured-native-first/poll-fallback manual policy and into_anyhow direct admissions remain unchanged. No transparent source skipping or Box<dyn Error> widening."
+    },
+    {
+      "family": "Native view type imports and unchanged receiving semantics",
+      "owner": "texture_{2d,3d,cube}/views.rs full bodies",
+      "trace": "Imported wgpu::TextureView replaces only qualified result spelling. Whole bodies retain cache-first Arc clone/MissingView, native admission, storage-sRGB projection, descriptor/dimension/layer policies, exact native scope owner and typed original-request admission. Public TextureViewError variants/payloads unchanged. This is scoped behavior preservation, not global texture/cache/device coherence or full error-branch runtime coverage."
+    },
+    {
+      "family": "Dependency and lock boundary",
+      "owner": "GPUCargo.toml13; Cargo.lock GPUdependency entry",
+      "trace": "Direct derive_more2.1.1 adds display/error features; locked package version/checksum/source already existed and complete lock delta adds only its GPU dependency edge. Native crate manifest default is std only; omission of suggested default-features=false does not enable full derive suite and is consistent with current std-based Error/formatting API. No second derive dependency/new package upgrade, platform feature change or generated binding edit."
+    },
+    {
+      "family": "Module organization and explicit exceptions",
+      "owner": "new observation module, globals, pipeline imports/mods, WgpuContext top, error owners",
+      "trace": "New owner has docs, enum then impl; globals and modified pipeline/WgpuContext use/reexports precede module declarations. Scope file aliases/structs/enums/impl ordering and texture error alias/enums/impl ordering retained. Native return Arc/guard/Option and framework error traits are explicit external representations; the new helper has policy, not vacuous forwarding. Unchanged older free-helper placement, context presentation/API mutability and F9 comment/rationale concerns are not silently granted global cleanup/clearance."
+    },
+    {
+      "family": "Existing tests only and durable guide",
+      "owner": "Complete patch test hunk and texture-views.md44-56",
+      "trace": "Only existing borrowed-context test predicate expressions change from field bool/notbool to matches on two enum variants; same two assertion calls/messages and existing surface assertion remain. No test functions/cases/test helpers/assertions/doctests/fixtures added or restored. New start_scope is the authorized production policy adapter, not a test helper. Guide names canonical mode and independent axes, preserves runtime/error coverage caveats and existing text-fenced code example; no wiki/rootREADME or generated summary change."
+    }
+  ],
+  "initial_pass_reconciliation": {
+    "enum": "Matches root-selected initial two-state/shared native adapter and all real consumers. Public enum field preserves existing mutability; initial private-field suggestion was strengthening, not accepted requirement to invent device instance proof.",
+    "derive": "Matches derivability-response001/002 annotations and manual-source exception; actual macro receivers independently read for source selection/formatting/Box identity, not prior verdict-only acceptance.",
+    "no_backward_compatibility": "Old field/parameter removed directly; no shim, deprecated alias, dual runtime path or legacy fallback added."
+  },
+  "pending_acceptance": [
+    {
+      "item": "Relevant quality baseline reduction from this remediation",
+      "status": "Pending actual hosted snapshot consumption and reduction-only application by root",
+      "evidence": "Complete patch removes4production lines from previously oversized texture2dmod but has no baseline delta. Existing ceiling502 may now have lower relevant snapshot; exact count intentionally not guessed/edited or scanner run.",
+      "root_confirmed_plan": "Consume early hosted texture artifact baseline, apply only relevant2d reduction, then require new same-final-head CI. Root explicitly accepted as pending acceptance, not current source-code finding."
+    },
+    {
+      "item": "Required existing checks on new exact revision",
+      "status": "Pending root execution/hosted CI; previous961 success historical after these edits",
+      "limit": "No project checks/tests/compiler/macro expansion/probes run by this reviewer. Source-only no-new-defect verdict is not execution or merge-ready approval."
+    }
+  ],
+  "coverage_limits": [
+    "Review applies exact15pathmanifest001 and complete patch hash; source hashes reverified after reads. No source/Git/ledger/product/publication actions by reviewer.",
+    "Native derive source field/formatter contracts read; no comprehensive derive crate/SDK or all Error formatting modes/runtime proof claimed.",
+    "Prior native poll failures, shader/pipeline cache behavior, source/device/cache public mutability, constructor/subresource gaps, global geometry/family/thirteen-lens audit populations remain outside repair clearance.",
+    "No review/ledger/source accounting increments or canonical alias changes. Initial family accepted deferrals preserved."
+  ],
+  "source_fingerprints": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be",
+      "postread_matches_manifest": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "sha256": "352f06a1ddfc9d7be1813161e4ac2365ae813a2f0e751614464fc8adddf9a735",
+      "postread_matches_manifest": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "460e9c3fcc4cb794358e3a25ba96b2e877dbeffaac6404703ff493aa6cb58e18",
+      "postread_matches_manifest": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+      "postread_matches_manifest": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "33fed8d0c2ea47e990b60ad9c2cc14962f130c66ed4328d134e8f7f15d9b1128",
+      "postread_matches_manifest": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "e883e9bbfdcdb62065d26751a6135b65d6e3021604c9e6071ebdfbdf644457c5",
+      "postread_matches_manifest": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "bb98de5214d48bd87519d09a702a5e8df2914c6a7d614d38b2c95ab13df51205",
+      "postread_matches_manifest": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "e8573dd939e0db024bb674e2647e14b10cdca9d5d4d141b9a39e2778a0e3aab8",
+      "postread_matches_manifest": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "019e06bddeb3cf69b87f4a5ca9ed92b605d5a7e211490af27f36d3ae3a63422d",
+      "postread_matches_manifest": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "f64791a9b8ca3d2203ed6c04fd5e0f0028fd8855ea3bc5674840e646581b5135",
+      "postread_matches_manifest": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "6369e5b4f4847db2e85cd5a105dd891f8a68dcbf584622731565d36d05b6cb4e",
+      "postread_matches_manifest": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "sha256": "14cccb953bd0b8466b7ad010219c4220d535ee7ed9e6e66cad981c37cc67df88",
+      "postread_matches_manifest": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "1ff31e6f3269b22c90de858db5935591432e74f58199699a22a735aac532c68b",
+      "postread_matches_manifest": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "baf15af7fdf3ecbc0776b475b3aadbd35c29a3d6e0185cef3b2f064803315381",
+      "postread_matches_manifest": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "0fe254434e5c065ab49a04ba8c522d7066b48802b37538b6840653f5b2e3e59d",
+      "postread_matches_manifest": true
+    }
+  ],
+  "native_receivers": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-impl-2.1.1/src/error.rs",
+      "sha256": "40cfa53d126eae5284310d5814318d32269e482e3491bf561ec9cd6168646aeb",
+      "consumed_ranges": [
+        [
+          93,
+          225
+        ],
+        [
+          300,
+          385
+        ]
+      ]
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-impl-2.1.1/src/fmt/display.rs",
+      "sha256": "d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+      "consumed_ranges": [
+        [
+          398,
+          467
+        ]
+      ]
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-2.1.1/src/as_dyn_error.rs",
+      "sha256": "ba3767c6c95966583360f28cd59bfe20717d0f53c2041c2c534552fcb1b265d9",
+      "consumed_ranges": [
+        [
+          1,
+          64
+        ]
+      ]
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-impl-2.1.1/src/utils.rs",
+      "sha256": "4801ae8348907fa512f73283995d231bcafff1638729ff1de231f07ad18ace3f",
+      "consumed_ranges": [
+        [
+          1018,
+          1053
+        ]
+      ]
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-2.1.1/Cargo.toml",
+      "sha256": "f11dd5e6c080995c76e0916fc4e573b57457d145aff5c26e7bdcf243481a014c",
+      "consumed_ranges": [
+        [
+          55,
+          110
+        ]
+      ]
+    }
+  ],
+  "evidence_fingerprints": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/source-manifest-001.json",
+      "sha256": "1c72d1be7a816d638706574f740d916494bc4236b3e74ec584b94cabdf740a62"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/actual-diff-002-complete.patch",
+      "sha256": "28988c6f0025292f2d0cfe6eb6548ec068296e2031e1984fe0768f1709c9706d"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/new-validation-observation-001.rs",
+      "sha256": "14cccb953bd0b8466b7ad010219c4220d535ee7ed9e6e66cad981c37cc67df88"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/initial-dispositions-root-001.json",
+      "sha256": "c5e107a7fe212c283b379771bf1bb95f6fa24c8dd5757fdce2139d72f83a01f2"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/enum-shape-validation-observation-001.json",
+      "sha256": "0701649841392fda02c19058466b1d086d55ae8aadfdadc0a59710d63e8abd72"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/derivability-response-001.json",
+      "sha256": "fd9ddfdb53c3e08c7dad50219b901f976da516c33097d671f927d16c4eb17001"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/derivability-response-002-confirmation.json",
+      "sha256": "3c3af195740c8b51919ecac1f772cae138535042b109619312efd673f687bd6a"
+    }
+  ],
+  "no_project_execution": true,
+  "source_edits": false,
+  "git_commands_or_mutations": false,
+  "root_ledger_changed": false,
+  "publication": false,
+  "global_clear": false,
+  "stopped": true
+}

@@ -1,0 +1,20 @@
+{
+  "id": "OWN10-CANDIDATE015-OVERLAY043-OCCURRENCE",
+  "overlay_index": 43,
+  "source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "path": "crates/adventuresim-building-generator/src/plan_geometry.rs",
+  "source_sha256": "a767ca4e45d2c04ddf94d1f23452ecbb3a5c6c864bc8ce63fc673e6f39e5b92b",
+  "ranges": [
+    [
+      51,
+      100
+    ]
+  ],
+  "classification": "Qualified related mechanical error boilerplate suggestion; current behavior not reported defective; saved-remedy dedup pending",
+  "inventory": "PlanGeometryError manual Display forwards Geometry, formats SolidConstruction/vertex payloads and static labels; Error::source exposes exactly Geometry and SolidConstruction cause; From<GeometryError> wraps Geometry. No generic parameters.",
+  "existing_dependency": "Actual frozen BuildingGenerator Cargo22-35 personally read in overlay42 includes thiserror.workspace=true.",
+  "connected_repair": "Existing thiserror::Error derive can express exact current per-variant labels and causes. Geometry variant requires error(\"{0}\") with explicit source/from field, NOT error(transparent), because current source() returns Some(cause). SolidConstruction preserves solid debug formatting and explicit source on cause; do not add From for other variants. Preserve Serialize rename_all snake_case and every label exactly.",
+  "limits": "Candidate015 originally static unit errors; this is an extension of the same error-derive remedy with extra source/format constraints, not automatic unique-finding increment. Existing native GeometryError contract and derive expansion should be rechecked before repair. No project checks run.",
+  "new_unique_finding": false,
+  "clear": false
+}

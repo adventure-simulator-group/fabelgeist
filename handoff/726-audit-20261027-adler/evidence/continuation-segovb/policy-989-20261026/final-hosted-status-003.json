@@ -1,0 +1,542 @@
+{
+  "at": "2026-10-27 00:53:31 UTC",
+  "head": "a21f9ccaeba1e3947e22dc1f64106c4f2bc371b6",
+  "run": {
+    "id": 40421868169,
+    "name": "Rust quality",
+    "status": "completed",
+    "conclusion": "success",
+    "run_number": 1207,
+    "jobs_url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/actions/runs/40421868169/jobs",
+    "logs_url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/actions/runs/40421868169/logs",
+    "workflow_id": 338912536
+  },
+  "jobs": [
+    {
+      "id": 121918021458,
+      "name": "foliage-portability",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40421868169,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Install pinned Rust toolchain",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Expose the configured bundled Rust linker",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Cache Rust build artifacts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Verify existing foliage and prepared-asset contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Verify required existing cases executed",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Upload foliage portability evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Post Cache Rust build artifacts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17
+        }
+      ]
+    },
+    {
+      "id": 121918021668,
+      "name": "rust-quality",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 40421868169,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Install pinned Rust toolchain",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Cache Rust build artifacts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Install pinned SpacetimeDB CLI",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Install configured Linux linker",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Check formatting",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Test generated bindings verifier",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Check building review presentation boundary",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "Verify generated SpacetimeDB bindings",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10
+        },
+        {
+          "name": "Test shared schema and GPU readback boundaries",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11
+        },
+        {
+          "name": "Test existing GPU contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12
+        },
+        {
+          "name": "Test resolved Bevy guard",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13
+        },
+        {
+          "name": "Test checked FBX array encoding",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14
+        },
+        {
+          "name": "Test existing FBX object-name consumers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15
+        },
+        {
+          "name": "Check semantic values and Rust growth",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16
+        },
+        {
+          "name": "Upload texture-view validation evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17
+        },
+        {
+          "name": "Check calendar API ownership",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18
+        },
+        {
+          "name": "Lint tactical client WASM target",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19
+        },
+        {
+          "name": "Test native and WASM deterministic draws",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 20
+        },
+        {
+          "name": "Run Clippy with warnings denied",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 21
+        },
+        {
+          "name": "Test constraint graph and shell consumers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 22
+        },
+        {
+          "name": "Upload constraint validation evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 23
+        },
+        {
+          "name": "Record rig contract revision",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 24
+        },
+        {
+          "name": "Test shared rig contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 25
+        },
+        {
+          "name": "Test shared scalar geometry contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 26
+        },
+        {
+          "name": "Test native iteration report producers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 27
+        },
+        {
+          "name": "Test autoresolve battle-time consumers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 28
+        },
+        {
+          "name": "Test MHR rig admission",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 29
+        },
+        {
+          "name": "Test strategic bootstrap failure contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 30
+        },
+        {
+          "name": "Test creator rig family contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 31
+        },
+        {
+          "name": "Test tactical animation and audio contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 32
+        },
+        {
+          "name": "Test existing animation report consumers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 33
+        },
+        {
+          "name": "Test tactical equipment contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 34
+        },
+        {
+          "name": "Test equipment chronology and mapped requests",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 35
+        },
+        {
+          "name": "Test gameplay camera contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 36
+        },
+        {
+          "name": "Test shared animation value contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 37
+        },
+        {
+          "name": "Test canonical combat configuration",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 38
+        },
+        {
+          "name": "Test server configuration startup",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 39
+        },
+        {
+          "name": "Test authoritative maneuver consumers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 40
+        },
+        {
+          "name": "Test shared terrain support contracts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 41
+        },
+        {
+          "name": "Test terrain presentation and retained scene consumers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 42
+        },
+        {
+          "name": "Test existing terrain capture and art-demo consumers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 43
+        },
+        {
+          "name": "Test dispatcher terrain selection and inspection consumers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 44
+        },
+        {
+          "name": "Export semantic family baseline snapshot",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 45
+        },
+        {
+          "name": "Verify required rig contract execution",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 46
+        },
+        {
+          "name": "Upload rig contract evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 47
+        },
+        {
+          "name": "Post Cache Rust build artifacts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 93
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 94
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 95
+        }
+      ]
+    },
+    {
+      "id": 121918023256,
+      "name": "regenerate-fixtures",
+      "status": "completed",
+      "conclusion": "skipped",
+      "run_id": 40421868169,
+      "logs_url": null,
+      "steps": null
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 12701330803,
+      "name": "rig-contracts-a21f9ccaeba1e3947e22dc1f64106c4f2bc371b6",
+      "size_in_bytes": 110970,
+      "url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/actions/artifacts/12701330803",
+      "archive_download_url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/actions/artifacts/12701330803/zip",
+      "expired": false,
+      "created_at": "2026-10-27T00:50:41Z",
+      "expires_at": "2027-01-24T23:45:11Z",
+      "updated_at": "2026-10-27T00:50:41Z",
+      "digest": "sha256:f44591588d55e91cd6cdb8704f1c1ea7c2ff2177a087dc7de754a5fc3609f270",
+      "workflow_run": {
+        "id": 40421868169,
+        "repository_id": 1049441561,
+        "head_repository_id": 1049441561,
+        "head_branch": "codex/989-texture-validation-policy",
+        "head_sha": "a21f9ccaeba1e3947e22dc1f64106c4f2bc371b6"
+      }
+    },
+    {
+      "id": 12698645902,
+      "name": "texture-view-validation-40421868169-1",
+      "size_in_bytes": 29918,
+      "url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/actions/artifacts/12698645902",
+      "archive_download_url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/actions/artifacts/12698645902/zip",
+      "expired": false,
+      "created_at": "2026-10-26T23:51:31Z",
+      "expires_at": "2027-01-24T23:45:11Z",
+      "updated_at": "2026-10-26T23:51:31Z",
+      "digest": "sha256:8ee6c6978762d93e9ddd94dd4e201941f48f1fd9d7b816cdf8cff68da7bbd0c8",
+      "workflow_run": {
+        "id": 40421868169,
+        "repository_id": 1049441561,
+        "head_repository_id": 1049441561,
+        "head_branch": "codex/989-texture-validation-policy",
+        "head_sha": "a21f9ccaeba1e3947e22dc1f64106c4f2bc371b6"
+      }
+    },
+    {
+      "id": 12698123196,
+      "name": "foliage-portability-a21f9ccaeba1e3947e22dc1f64106c4f2bc371b6",
+      "size_in_bytes": 2833,
+      "url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/actions/artifacts/12698123196",
+      "archive_download_url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/actions/artifacts/12698123196/zip",
+      "expired": false,
+      "created_at": "2026-10-27T00:00:14Z",
+      "expires_at": "2027-01-24T23:45:11Z",
+      "updated_at": "2026-10-27T00:00:14Z",
+      "digest": "sha256:0ea3a7c7334292f297899e16309634d3baac10fe6a469da535a2f3f5a36f79c0",
+      "workflow_run": {
+        "id": 40421868169,
+        "repository_id": 1049441561,
+        "head_repository_id": 1049441561,
+        "head_branch": "codex/989-texture-validation-policy",
+        "head_sha": "a21f9ccaeba1e3947e22dc1f64106c4f2bc371b6"
+      }
+    },
+    {
+      "id": 12697958940,
+      "name": "constraint-validation-40421868169-1",
+      "size_in_bytes": 2508,
+      "url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/actions/artifacts/12697958940",
+      "archive_download_url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/actions/artifacts/12697958940/zip",
+      "expired": false,
+      "created_at": "2026-10-27T00:06:22Z",
+      "expires_at": "2027-01-24T23:45:11Z",
+      "updated_at": "2026-10-27T00:06:22Z",
+      "digest": "sha256:6842757cce3a7ad577b4302fb04600c6be30616d3b5786c48529baecd7005b3d",
+      "workflow_run": {
+        "id": 40421868169,
+        "repository_id": 1049441561,
+        "head_repository_id": 1049441561,
+        "head_branch": "codex/989-texture-validation-policy",
+        "head_sha": "a21f9ccaeba1e3947e22dc1f64106c4f2bc371b6"
+      }
+    }
+  ],
+  "user_review": [
+    {
+      "id": "PRR_kwDOPo01Gc8AAAABUWt6mw",
+      "state": "COMMENTED",
+      "body": "LGTM",
+      "submitted_at": "2026-10-27T00:46:15Z",
+      "author": {
+        "login": "segovb",
+        "name": "segovb",
+        "email": null,
+        "avatar_url": "https://avatars.githubusercontent.com/u/70238035?v=4",
+        "id": null
+      }
+    }
+  ],
+  "pr": {
+    "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/990",
+    "number": 990,
+    "state": "open",
+    "merged": false,
+    "mergeable": true,
+    "draft": false,
+    "body": "*Written by Codex on behalf of @segovb.*\n\nA context wrapping an existing GPU device selects `Uncaptured`, but 3D and\ncube texture construction and context-bearing cube-face selection still\nopened a validation scope and waited for device progress. Those operations\ncould wait on unrelated submissions from the device provider.\n\nRoute all three texture constructors and cube-face selection through the\nshared `ValidationScope`. `Uncaptured` creates no validation scope or\nvalidation-only wait. `BlockingScopes` always finishes the scope, preserving\npolling failures and captured validation errors together. This also fixes 2D\nconstruction discarding polling failures.\n\nCube-face APIs now return `TextureViewResult<TextureView>`. Observed failures\ncarry the selected `CubeFace`, original requested format and structured cause.\nFace selection lives beside whole-texture selection in the existing view\nmodule. Context-free face selection and browser targets omit synchronous\nobservation; readback and submission backpressure retain their required waits.\n\nCloses #989. Related: #826.\n\n## Validation\n\nIndependent Code, Rule and Comment Reviews found no actionable source defects\non `a21f9ccae`. The final-source GPU checks passed 13 library tests, 2 doctests\nand a separate exact borrowed-device run. Windows passed 10 selected foliage\nand prepared-asset tests. None of these tests failed or were ignored.\n\nThe cube file ceiling was reduced from 862 to 812 using the hosted baseline.\n[Remaining hosted checks](https://github.com/adventure-simulator-group/fabelgeist/actions/runs/40421868169)\nare still running. No tests, cases, helpers, assertions or doctests were added.\nThe issue is supported by source inspection; a hang was not reproduced.\n\n## Implementation context\n\nThe shared validation policy and scope-completion owner introduced in #988\nare reused directly. Texture constructors retain their generic error boundary;\ncube-face selection uses the existing bespoke view error owner with a face\npayload. The owning GPU guide and context documentation describe the covered\noperations and independent completion waits.\n\n",
+    "title": "Honor texture validation observation policy",
+    "base": "main",
+    "base_sha": "b3810b8b5db78c15cc51a0e1bef747a06450dffb",
+    "head": "codex/989-texture-validation-policy",
+    "head_sha": "a21f9ccaeba1e3947e22dc1f64106c4f2bc371b6",
+    "head_repo_id": 1049441561,
+    "head_repo_full_name": "adventure-simulator-group/fabelgeist",
+    "merge_commit_sha": "bde9b0fca41990b1eb0f13c96eb2d75f785c396a",
+    "user": {
+      "login": "segovb",
+      "name": "segovb",
+      "email": null,
+      "avatar_url": "https://avatars.githubusercontent.com/u/70238035?v=4",
+      "id": 70238035
+    },
+    "requested_reviewers": null,
+    "requested_team_reviewers": null,
+    "diff": null,
+    "comments": null,
+    "created_at": "2026-10-26T23:27:15Z",
+    "updated_at": "2026-10-27T00:46:16Z",
+    "closed_at": null,
+    "merged_at": null,
+    "commits": 3,
+    "changed_files": 9,
+    "additions": 130,
+    "deletions": 111,
+    "display_url": "https://github.com/adventure-simulator-group/fabelgeist/pull/990",
+    "display_title": "Honor texture validation observation policy"
+  }
+}

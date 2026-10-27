@@ -1,0 +1,45 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-337",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 2792,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/allocator/batch_buffer.rs",
+      "sha256": "f16e4c87e35b57bf6dfcd2f8315f055e665d5c7d07b36722e247a9b2be1c4721",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/f16e4c87e35b57bf6dfcd2f8315f055e665d5c7d07b36722e247a9b2be1c4721",
+      "ranges": [
+        [
+          1,
+          226
+        ]
+      ],
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "scope_limits": "Actual BatchData/BatchBuffer parallel arrays and capacity/update/clear/flush/typed write helpers; original tests228+ excluded. Exact direct pinned native storage/caller only; no whole package or other lens credit.",
+      "source_basis": "Fresh personal exact registered foreign native/macro source reads; immutable Git bytes/hash verified, no other-lens verdict coverage.",
+      "trait_inventory_and_semantics": "Fresh exact recovered eidolon registered1-226. BatchData/BatchBuffer Default already derived. Explicit dirty-range tracking/coalescing, native byte offsets, GPU queue writes and reset lifecycle. BatchBufferWritable macro centralizes exact type-to-buffer/context field binding; manual trait bodies encode native buffer layout, not clone/format boilerplate.",
+      "disposition": "Keep semantic batching/typed native write adapter. Macro invocations227+ and foreign backend bodies not credited; no runtime correctness clearance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2793,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/batcher.rs",
+      "sha256": "2d86931db56a5e517f84b400fb9e5a15968d553b5e543da880d12d6193920b84",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/2d86931db56a5e517f84b400fb9e5a15968d553b5e543da880d12d6193920b84",
+      "ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "scope_limits": "Actual Batcher current direct BatchData constructor/register methods; no other renderer module. Exact direct pinned native storage/caller only; no whole package or other lens credit.",
+      "source_basis": "Fresh personal exact registered foreign native/macro source reads; immutable Git bytes/hash verified, no other-lens verdict coverage.",
+      "trait_inventory_and_semantics": "Fresh exact recovered eidolon full118. Batcher queries actual allocator/mesh data, handles indexed/native-WASM draw layout, constructs indirect/uniform/metadata and associated batch identity lookup. No handwritten trait implementations/codecs.",
+      "disposition": "Keep semantic render batching/registration; no runtime/other-lens acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

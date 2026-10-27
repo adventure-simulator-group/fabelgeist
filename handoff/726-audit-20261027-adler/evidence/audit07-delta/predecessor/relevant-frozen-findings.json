@@ -1,0 +1,607 @@
+[
+  {
+    "id": "CONT07-F073",
+    "classification": "configuration authority propagation gap; source-backed representable authored policy discrepancy",
+    "title": "Accepted grass compensation and mask-feather settings are ignored by production policy",
+    "sources": [
+      {
+        "scope_index": 1530,
+        "sha256": "e2ec96c28d8458610bba86df77c1adceae1cdfe0e71ab972e227c362f72f0fe1",
+        "ranges": [
+          [
+            134,
+            154
+          ],
+          [
+            303,
+            312
+          ]
+        ]
+      },
+      {
+        "scope_index": 1550,
+        "sha256": "d375436ca9d226ccb6fbc5b65afcaf94a6b9c3e4bfa90fc1016da8cb958a7281",
+        "ranges": [
+          [
+            165,
+            184
+          ]
+        ]
+      },
+      {
+        "scope_index": 1555,
+        "sha256": "55a8f28f05846eea9e2cd7460a1a1aaecb83c64af31573ed82a2bb2f5bdaf196",
+        "ranges": [
+          [
+            46,
+            53
+          ]
+        ]
+      },
+      {
+        "scope_index": 1557,
+        "sha256": "137a4589cc0b7945de4fb4d552dd9dab6a3e4f0d42f426b4d5d439881a0f7bb9",
+        "ranges": [
+          [
+            34,
+            45
+          ]
+        ]
+      },
+      {
+        "scope_index": 1628,
+        "sha256": "bbf75ad65cfa71106ead637d07a5e9459e19e1d02733186f198acdb94db447f7",
+        "ranges": [
+          [
+            133,
+            167
+          ]
+        ]
+      },
+      {
+        "scope_index": 499,
+        "sha256": "b922faa3643a9e55508cbf50304273912d9be0b7e0282d271f1b243c75c40307",
+        "ranges": [
+          [
+            45,
+            90
+          ]
+        ]
+      }
+    ],
+    "disagreement": "Parser admits per-tier width_compensation/width_compensation_limit and positive transition.cover_mask_feather_m. Actual material and culling use GrassMeshLod::width_compensation(density), whose fixedNear/NearEdge/Vista constants andFar1.65 limit never consume config. Mask hardcodes4.8m when deriving radius. Set valid feather2.4 or vista compensation2.0 at initial YAML input; accepted config changes but corresponding native policy stays4.8/1.8. Current shipped values agree, so no claim default image already differs.",
+    "qualification": "Exact frozen git navigation confirms optional compensation fields only declared, no production config consumer; feather only declaration/validation while mask uses literal. terrain_gap_fill_fraction DOES have terrain/material consumer and is explicitly excluded. Legacy fade/row reference tables not falsely labeled current runtime authority.",
+    "connected_repair": "Choose one authored canonical policy: propagate admitted configuration to compensation/mask factories and conservative bounds, deriving shared results once, or remove unsupported settings/parallel policy. Preserve density normalizers, fixed replay bytes, native culling and intentional authored visual calibration.",
+    "acceptance": "Changing an admitted initial value changes same owned corresponding uniform/bound/mask policy, or unsupported field is rejected/removed by clean schema. Default configured rendering preserved. No added/executed tests.",
+    "repair_status": "frozen",
+    "validation_status": "not_run"
+  },
+  {
+    "id": "CONT07-F080",
+    "at": "2026-10-23T20:18:07.150282+00:00",
+    "classification": "source-backed configured LOD cohort disagreement; no rendered execution",
+    "title": "Retained vista height sampling morphs toward a ring omitted by the one-ring renderer",
+    "sources": [
+      {
+        "scope_index": 1530,
+        "sha256": "e2ec96c28d8458610bba86df77c1adceae1cdfe0e71ab972e227c362f72f0fe1",
+        "ranges": [
+          [
+            242,
+            249
+          ]
+        ]
+      },
+      {
+        "scope_index": 1636,
+        "sha256": "b571c37d64c20535df90dc5b14ebddd2cc22010885764fbeae66c78ad6970d6c",
+        "ranges": [
+          [
+            114,
+            151
+          ]
+        ]
+      },
+      {
+        "scope_index": 1656,
+        "sha256": "c3c5dda2b43208a48d70060c29d876025c47aca6e4fe836ea002b2ec651ca44d",
+        "ranges": [
+          [
+            20,
+            39
+          ]
+        ]
+      },
+      {
+        "scope_index": 1674,
+        "sha256": "b487f7c3b762586f17bebd06fd0a7cae7d415743566df637800b4056cc3441ac",
+        "ranges": [
+          [
+            29,
+            35
+          ],
+          [
+            93,
+            115
+          ]
+        ]
+      },
+      {
+        "scope_index": 1645,
+        "sha256": "724bf4201d7a9163847a097d79c1b60de6d72e529328bb507431b22e0e05661e",
+        "ranges": [
+          [
+            93,
+            119
+          ]
+        ]
+      },
+      {
+        "scope_index": 1964,
+        "sha256": "0238db91b3a926b53a353da8892a2e0ff17018d131529261be5a4cdf2cb8e405",
+        "ranges": [
+          [
+            22,
+            36
+          ],
+          [
+            287,
+            303
+          ],
+          [
+            384,
+            449
+          ]
+        ]
+      },
+      {
+        "scope_index": 1626,
+        "sha256": "e641530bea571c2b122e60d817a9ae562934f67c7488eae746bc1366af605599",
+        "ranges": [
+          [
+            265,
+            286
+          ]
+        ]
+      }
+    ],
+    "earliest_failed_contract": "Retained surface query and actual mesh must share the exact presented LOD/coarser cohort. Observer selects configuredvisiblelods forpreparation butActiveVistaSurface stores2 fullbundleentries independently.",
+    "counterexample": "Current low-quality preset setsmaximum_lods1. Validtwo-ringbundle finewidth5 spacing4 height12 andcoarsewidth5 spacing8 height38, bothorigin0; playableterrainextent2. Preparedfirstandonlyringhascoarser=None, sofineboundaryvertex at(8,0) emits12. ActiveVistaSurface retainsbothrings, queryat(8,0) hasmorphweight1 andfullyoutsideplayableseam, yielding38. A detailpatchcentredatplayableorigin contains(8,0) atits fullfine-weightboundary; sourcecoarseheightoutsideplayable isNone, so replacementdetailpositionuses38. Sameinputs,currentsettinganddistinctnormalconstructionpaths, no arbitrarypostconstructionmutation required.",
+    "actual_recipient": "terrain_detail_patch_mesh callsActiveVistaSurface.presented_height_at at270 andemits resultingfineheight into nativepositions286. At outsideplayablecoarseheightNone, itfallsbacktothatfinevalue, sooriginalrenderedringanddetailmesh canconsume differentcohorts. Sourceonly, nocamera/renderexecution.",
+    "qualification": "Finite representable validmetadata example and actualpreset/observer paths, not suppliedlivefixture/imagefailure or runtime reproduction. Originalone-ringrenderer maylegitimatelyomitcoarser; repair mustbindretainedquerytoactualselectedmeshpolicy, notsilentlyforceextrarenders. Generalcontinuousheightfieldversustriangle distinctionis separatequalifiedobservation below, not neededforprimaryproof.",
+    "secondary_surface_policy_observation": "Evenwhenringcohortsagree, directnative_sample_vista_height isbilinear while actual emittedquad usesindices[0,2,1]/[0,3,2]. Fora finite nonplanar cella=b=d0,c8 and(u,v)=(.75,.25), bilinear1.5 differsactualtriangle2 awayfromseam/morph. Existing1642fixture explicitlyexpectssampledheightfieldpolicy forgrass. Thus do notautomaticallyretire intentional smoothLODqueries; decidewhichconsumers promiseactualrenderplane (canonicalhelper sampled_vista_triangle_height exists) andkeepdeliberateapproximationnamed. No seconduniquefindingorblanketgrassfailureclaim.",
+    "connected_repair": "Publish one accepted presented-surface descriptor containingactualvisiblelods/coarser/seam policy and derive sampler plusmesh/scenery decisions fromit. Preserve maximumLODconfig, prepared-before-old-retirement, nativegeometry/ownedterrain priority and explicitcontinuousversustrianglequerypurpose.",
+    "acceptance": "One-ringpreset cannot samplecoarsermorph omittedfromactualmeshing; sameboundaries/nativevertices useidenticalcohortacrossretainedquery/detail/render. Existing multi-ring/owned/zero-ring policies retainedexplicitly; exacttriangleconsumers useactualplane while intentionalcontinuousqueries staydocumented. No tests added or executed.",
+    "repair_status": "frozen",
+    "validation_status": "not_run"
+  },
+  {
+    "id": "CONT07-F087",
+    "at": "2026-10-23T20:46:41.295425+00:00",
+    "classification": "source-backed current diagnostic isolation contradiction; no benchmark run",
+    "title": "Broad vista visibility writes undo tree and grass benchmark isolation",
+    "sources": [
+      {
+        "scope_index": 1699,
+        "sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+        "ranges": [
+          [
+            408,
+            415
+          ],
+          [
+            499,
+            505
+          ],
+          [
+            1879,
+            1892
+          ],
+          [
+            1956,
+            2023
+          ],
+          [
+            2271,
+            2337
+          ],
+          [
+            2629,
+            2655
+          ]
+        ],
+        "coverage": "source freshpartial1-2700; remainder notyetread"
+      },
+      {
+        "scope_index": 1637,
+        "sha256": "15095204e03f1e13f74d77b1afbd17e33489f798b7732c59acfbacdfcc219307",
+        "ranges": [
+          [
+            245,
+            259
+          ]
+        ]
+      },
+      {
+        "scope_index": 1641,
+        "sha256": "d6c99d033f27462e88a6c1dbafd194a210933ababf7450d35111f18e155ad01e",
+        "ranges": [
+          [
+            145,
+            159
+          ]
+        ]
+      },
+      {
+        "scope_index": 1555,
+        "sha256": "55a8f28f05846eea9e2cd7460a1a1aaecb83c64af31573ed82a2bb2f5bdaf196",
+        "ranges": [
+          [
+            54,
+            80
+          ]
+        ]
+      },
+      {
+        "scope_index": 1674,
+        "sha256": "b487f7c3b762586f17bebd06fd0a7cae7d415743566df637800b4056cc3441ac",
+        "ranges": [
+          [
+            20,
+            26
+          ],
+          [
+            77,
+            85
+          ]
+        ]
+      }
+    ],
+    "earliest_failed_contract": "A selectedbenchmark isolation mode must produceoneconsistent finalvisibility decisionforentitieswithmultiplerender-familymarkers. Separatecurrentvisibilitywriters targetoverlappingsets withdifferentdecisionfacts.",
+    "proof": [
+      "No vista trees sets hide_vista_trees=true andhidden_scene_layers0. p1 setsVisibilityHidden forVistaTreePresentation1981-1987. p5 lateriteratesWithVistaTerrain2017-2023 andsetsInheritedbecauseHIDE_VISTA_TERRAIN isunset. Actualvista trees carrybothVistaTreePresentation andVistaTerrain, sofinalwriteundoestheisolation.",
+      "No grass setsHIDE_GRASS; p2 hidesGroundScatterLayer::Grass. Actualvista spawn_tuft_batches gives grassmarker andVistaTerrain via callerbundle, so p5laterrestoresInherited forthesamevistagrassentities. ExistingplayablegrasswithoutVistaTerrainstayhidden; cannotlabelwholegrassfamilysuppressed."
+    ],
+    "actual_recipient": "Benchmarksamples andnamedmode results2271-2298 thennatural-minus-mode GPUattribution2311-2337 andMarkdownisolationtable2629-2655 claimhiddenfamilycost. FinalnativeVisibility stillenablesoverlappedtargets, contaminatingdiagnosticcausalcomparison.",
+    "qualification": "Exactcurrentmode data/queryoverlap/sequentialwrites/staticentitytags proof, no timing/GPU/nativebenchmarkexecution, screenshot, measuredwrongdelta or allmodesclaim. BroadNoVistaTerrain alsocoversscenerybycurrenttag, butitsintendedlabelscopeisrelatedpolicyquestion ratherthanaseconddistinctfinding. Unreadviewer2701-4477 notcredited.",
+    "connected_repair": "Useonecanonicalper-entity isolation decision that combinesallfamilyflags, ornarrowtheterrainquerytoactualVistaTerrainMesh so itcannotoverwriteotherfamilies. Preservebaselinevisibility, designedcross-familymodes, exactGPUattribution/nativescheduleandshadow/isolationownership.",
+    "acceptance": "NoVistaTrees leavesactualvista treeentitieshiddenafterallconfigurationwrites; NoGrass includesvistagrass; togglingonefamilydoesnotrestoreanotherhiddenfamily. DeliberateNoVistaTerrainmeaningexplicit. No tests added or executed.",
+    "repair_status": "frozen",
+    "validation_status": "not_run"
+  },
+  {
+    "id": "CONT07-F092",
+    "at": "2026-10-23T21:16:07.908046+00:00",
+    "classification": "source-backed explicit API/config divergence; no ordinary default bad frame asserted",
+    "title": "Accepted attack curves lose supplied limits when action admission and evaluation reread global limits",
+    "sources": [
+      {
+        "scope_index": 1781,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state.rs",
+        "sha256": "48d075954cf0381f63c73815380ed47c37be6c35e30c573b6839e74c21572557",
+        "ranges": [
+          [
+            641,
+            698
+          ],
+          [
+            764,
+            791
+          ],
+          [
+            1856,
+            1956
+          ]
+        ]
+      },
+      {
+        "scope_index": 1860,
+        "sha256": "5d114988a64595879b04e6f151d2a184cdf8f893f2f2b17a9987a3faf933d4ab",
+        "ranges": [
+          [
+            404,
+            420
+          ],
+          [
+            444,
+            449
+          ],
+          [
+            629,
+            653
+          ]
+        ],
+        "coverage": "fresh selected definition/validator excerpts only; not full source"
+      },
+      {
+        "scope_index": 1862,
+        "sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+        "ranges": [
+          [
+            1,
+            26
+          ]
+        ]
+      },
+      {
+        "scope_index": 1870,
+        "sha256": "5d254790fa2ec7e53bc749b18bfc8f4d89a1df367c3542f8f969403641c8a970",
+        "ranges": [
+          [
+            1,
+            71
+          ]
+        ]
+      },
+      {
+        "scope_index": 526,
+        "sha256": "05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+        "ranges": [
+          [
+            160,
+            176
+          ]
+        ],
+        "coverage": "fresh selected YAML tuning stanza; not new whole source credit"
+      }
+    ],
+    "earliest_failed_contract": "A curve produced under an explicit AttackCurveConfig must retain that policy through admission and evaluation, or the API must enforce that it is the installed runtime policy. The curve stores coefficients but omits the supplied limits; later methods independently select global limits.",
+    "counterexample": "With the frozen default runtime snapshot maximum_overshoot0.55, clone a valid config and set its curve overshoot_base1.0, overshoot_span0 and maximum_overshoot1.0. These are finite/nonnegative and leave all other validation unchanged. from_handling_with_config computes an admitted curve overshoot1.0. Pass it in an initial AttackSpec to begin_attack_timed: the method returnsOk while storing curve.normalized(), which clamps overshoot to global0.55. The accepted explicit curve is changed by unrelated global policy. This is source reasoning only; no config edit or API execution performed.",
+    "actual_recipient": "Current action creation1952 and queued action creation1919 normalize with global limits; queued recovery789 and coordinate admission use global limit helpers. The resulting AnimationEvaluation1759 samples the stored curve for visible attack motion.",
+    "connected_repair": "Bind a curve to its admitted limits or normalize once under an explicit canonical policy carried through action/queue/evaluation. Make supplied and installed snapshot identity coherent at the owning API. Remove independent default selection on these paths while preserving original finite/clamp policies, phase topology, continuation tangent and current default behavior.",
+    "acceptance": "A supplied valid curve cannot silently change because a different runtime snapshot is active. Queueing, direct admission, decoding and evaluation use the same policy or reject an explicit mismatch with its owning cause. Preserve current default scalar results and exact ordering. No tests added or run.",
+    "related_limits": "Runtime snapshot install/cache is a real canonical mechanism, not automatically a duplicated-default defect. Normal server/client default values may agree. Existing root M87/M01 overlap in configuration/contracts but do not establish equivalence to these exact consumers; global deduplication pending.",
+    "repair_status": "frozen",
+    "validation_status": "not_run"
+  },
+  {
+    "id": "CONT07-F110",
+    "lens": "audit-redundant-authority",
+    "classification": "source-confirmed public recipe policy mismatch; ordinary Look image-mask producer absent",
+    "title": "GPU interpolation silently substitutes uniform density for a valid image mask",
+    "sources": {
+      "2300": [
+        [
+          177,
+          237
+        ],
+        [
+          266,
+          288
+        ]
+      ],
+      "2286": [
+        [
+          118,
+          179
+        ],
+        [
+          654,
+          750
+        ]
+      ],
+      "CONT07-REG-024": [
+        [
+          1,
+          22
+        ]
+      ],
+      "CONT07-REG-022": [
+        [
+          114,
+          226
+        ]
+      ]
+    },
+    "fact": "One Groom/Interpolate recipe is accepted by bothCPUandGPU paths, but CPU applies DensityMask::Image while GPU match maps every non-Balding value to uniform. Interpolation::find imposes no supported-policy restriction.",
+    "counterexample": "Wellformed1x1 image values[0], countpositive, patchiness=edge0, keep_guidesfalse, nonemptywellformedscalp+guides:CPUretainpredicate dropsallroots, GPUrootskeep_here starts1andremains1soallcandidateflagskept. NoGPUexecution or specificordinaryLooktrigger asserted.",
+    "limits": [
+      "Normal Look.groom builds Uniform/Balding only; directpublicGrow recipe input is the established ingress.",
+      "CPU/GPU root sampling intentionally differs; finding targets ignored admitted policy, not exactpointwiseidentity.",
+      "GPU may fail forindependentdevice/resourceissues first; native successful execution is conditional, but nohostmaskgate restores image semantics."
+    ],
+    "suggested_connected_remedy": "One authoritative supported interpolation recipe contract beforeCPU/GPUexecution; preserve image semantics or explicitly reject unsupported image policy instead of silently changing it. Trace other fields separately.",
+    "acceptance_contract": "A valid allzero image cannot produce accepted uniformlydenseGPUgroom; maskshape/admission andempty-result policies explicit.",
+    "repair_status": "frozen",
+    "validation_status": "not_run",
+    "coordinator_dedup": "Exactalias confirmed by behavior09 owner reconcile_engine; independent07sourceproof/coverage retained; do not addglobalunique",
+    "global_alias": "SEGO-INITIAL09-F080"
+  },
+  {
+    "id": "CONT07-F122",
+    "contract": "CONT07-CONTRACT-648",
+    "at": "2026-10-24T01:05:47.970568+00:00",
+    "title": "Inventory text cache ignores mutations to the item fields it displays",
+    "classification": "source-confirmed API/change-invalidation defect; ordinary client replication occurrence unproven",
+    "sources": [
+      {
+        "scope_index": 1745,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/ui.rs",
+        "sha256": "2a2206d4b76e7db409e7cfa2b8e4337d5ea4a6fa606a95de4e8cf04ca85666e6",
+        "ranges": [
+          [
+            711,
+            766
+          ]
+        ]
+      },
+      {
+        "scope_index": 1877,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory.rs",
+        "sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+        "ranges": [
+          [
+            40,
+            106
+          ],
+          [
+            600,
+            651
+          ]
+        ]
+      },
+      {
+        "scope_index": 2044,
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ranged.rs",
+        "sha256": "1a644ecf10b57c8e5f34d503a9002cd71bd5ecdf4736d1dd689925c65a91f10e",
+        "ranges": [
+          [
+            85,
+            119
+          ]
+        ]
+      }
+    ],
+    "producer_and_recipient": "Text derives child quantity, slot and weapon/armor/shield state but update_items_ui only runs for owner Changed<InventoryItems>. Replacing TacticalItemQuantity or mutating public item properties retains same membership and holding caches; text becomes stale.",
+    "static_witness": "On a client-world owner whose inventory UI has rendered quantity3, replace the existing child TacticalItemQuantity with accepted quantity2 without changing ItemOf/EquipSlot. The changed relationship target filter is not satisfied, so previously built x3 text persists. Actual server ranged consume does exactly child quantity replacement for nonfinal shot, but transmission of quantity into ordinary client remains untraced.",
+    "normal_qualification": "Insertion/removal and holding-slot hooks can mark owner InventoryItems changed, so membership/equipment transitions may refresh. No actual gameplay/browser/client update executed; no blanket stale UI claim for every edit.",
+    "connected_repair": "Own the inventory presentation cache dependencies explicitly: update from changed relevant child data/relationship association, or derive display from a coherent item revision. Do not mark unrelated gameplay state changed merely as hidden UI invalidation.",
+    "acceptance": "Displayed quantity and shown combat stats refresh after accepted child-only mutations while insertion/removal/move roots also refresh correct lists. Preserve positive quantity and equipment identity contracts.",
+    "dedup": "Parent reports no exact accepted alias; root M07/M10 typed equipment selection/capacity are related semantics only. Global unique union pending.",
+    "repair_status": "frozen",
+    "validation_status": "not_run"
+  },
+  {
+    "id": "CONT07-F125",
+    "contract": "CONT07-CONTRACT-651",
+    "at": "2026-10-24T01:10:50.966722+00:00",
+    "title": "Packed input rank lets valid within-channel order override channel and attachment depth",
+    "classification": "source-confirmed ordering representation mismatch; API/admitted-catalog-extension conditional",
+    "sources": [
+      {
+        "scope_index": 2409,
+        "source_id": "pr-working:crates/strategic-web/src/templates/settlement/trade/equipment.rs",
+        "sha256": "3229ebb47a71f62dc45c5b0406a116e0785dcdf26ea485deff0f757edc4cdaac",
+        "ranges": [
+          [
+            276,
+            304
+          ],
+          [
+            344,
+            369
+          ],
+          [
+            549,
+            565
+          ]
+        ]
+      },
+      {
+        "scope_index": 2417,
+        "source_id": "pr-working:crates/strategic-web/static/equipment-toggle.js",
+        "sha256": "86df6350e2e09720ae1d8293a48a484f6e0aa4154787e29dd06156ee7c1e6b37",
+        "ranges": [
+          [
+            28,
+            99
+          ]
+        ]
+      },
+      {
+        "scope_index": 939,
+        "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs",
+        "sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+        "ranges": [
+          [
+            147,
+            171
+          ],
+          [
+            193,
+            204
+          ]
+        ]
+      },
+      {
+        "scope_index": 944,
+        "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+        "sha256": "9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+        "ranges": [
+          [
+            114,
+            140
+          ]
+        ]
+      },
+      {
+        "scope_index": 1880,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/ordering.rs",
+        "sha256": "a16a4fd249e9a9fa97fa44588caa57dc7a15e35ef78bfd5e194267419a507f20",
+        "ranges": [
+          [
+            7,
+            20
+          ],
+          [
+            49,
+            55
+          ]
+        ]
+      }
+    ],
+    "producer_and_recipient": "Canonical equipment ordering separates channel and within-channel u16 order. UI packs depth*100000+channel.order*1000+order and JS compares scalar to select placement/attachment and occupants, while Rust badges use same packed sort.",
+    "static_witness": "Same mapped location/depth: Accessory(channel60, order65535) produces125535, outranking Mount(channel70, order0)70000. Both nonsingleton channel orders satisfy actual PR validator. Lower channel therefore wins although canonical channel-first root ordering places Mount outermost. Rank125535 can also exceed a depth1 lower-channel rank100000. No oversized graph or JS number precision edge is needed.",
+    "normal_qualification": "No current authored catalogue item with such large order or gameplay reproduction established. Singleton channels require0, so invalid BaseClothing high-order witness is explicitly excluded. This is actual admitted API/catalogue extension range and source receiver behavior, not blanket current equipment malfunction.",
+    "connected_repair": "Carry structured depth/channel/order rank through native JSON and compare lexicographically in browser and badges, or use one canonical ordering owner whose accepted encoding proves injective order preservation for full admitted fields. Do not silently narrow all u16 order to1000 or rely on current catalogue samples.",
+    "acceptance": "Every admitted order range preserves channel priority and depth semantics without collisions/spill; Rust badges and JS selection agree for same roots/requirements. Preserve capacity, fit-zone, side, input mapping and deterministic tie policy.",
+    "dedup": "Root M10 already owns migration/capacity/ordering and leaves u16 protocol bounds open; this is additional exact arithmetic/recipient evidence, no automatic new global unique count. Parent previously no exact alias.",
+    "repair_status": "frozen",
+    "validation_status": "not_run"
+  },
+  {
+    "id": "CONT07-F128",
+    "contract": "CONT07-CONTRACT-656",
+    "at": "2026-10-24T01:20:48.773399+00:00",
+    "title": "Playable vista seam treats LOD-local coordinates as scene coordinates for nonzero origins",
+    "classification": "source-confirmed admitted-grid/API coordinate-authority mismatch; ordinary nonzero-origin producer unproven",
+    "sources": [
+      {
+        "scope_index": 1964,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/vista_surface.rs",
+        "sha256": "0238db91b3a926b53a353da8892a2e0ff17018d131529261be5a4cdf2cb8e405",
+        "ranges": [
+          [
+            81,
+            112
+          ],
+          [
+            115,
+            164
+          ],
+          [
+            217,
+            276
+          ],
+          [
+            384,
+            426
+          ]
+        ]
+      },
+      {
+        "scope_index": 1985,
+        "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/footprint/vista.rs",
+        "sha256": "afc09243786283c9ec9fbf8d0c66525bfae0998f3b4c10c3df6035813b8080b3",
+        "ranges": [
+          [
+            52,
+            114
+          ],
+          [
+            155,
+            202
+          ]
+        ]
+      }
+    ],
+    "producer_and_recipient": "VistaLod scene_point establishes local+origin world position. Vertex height samples vista at world, then samples zero-centered playable SceneTerrain using original local point. Clipping and subdivision also place playable rectangle at local0, while generated mesh adds LOD origin back.",
+    "static_witness": "Finite valid3x3 LOD origin(10,0), spacing1 and constant heights10; flat0 playable terrain full extent2, halfextent(1,1). presented_vista_vertex_height(local0) computes world(10,0), samples vista10 then stitch uses local0 as playable scene0, weight0, returns0. Actual scene point10 lies outside playable\u00b11 and should retain vista height10. Local rectangle clipping similarly excludes around scene10 rather than true scene0. No invalid count, NaN or extreme offset needed.",
+    "normal_qualification": "Current ordinary generated centered LOD origins0 remain coherent; no ordinary supported nonzero-origin generation path or render execution established. Existing diagnostic fixtures use nonzero origins but mostly sample away from shifted local seam and do not prove general correctness. This is coordinate frame mismatch, not bilinear interpolation or selected-ring cohort.",
+    "connected_repair": "Express playable cut/stitch in actual scene coordinates or transform the playable rectangle and grid sample coordinates consistently into each LOD local frame, deriving both clipping and height sampling from one bound surface descriptor. Preserve genuinely local LOD interpolation and final scene translation.",
+    "acceptance": "Nonzero and zero-origin admitted grids clip the same actual playable scene rectangle and sample the same scene boundary heights; mesh, diagnostic footprint and retained scenery query agree. Preserve coarser morph selection and intentional continuous/triangle policies.",
+    "dedup": "Separate from CONT07-F080 ring/coarser cohort and rootM64 broad admitted surface descriptor. Parent exact alias query pending; no automatic global count union.",
+    "repair_status": "frozen",
+    "validation_status": "not_run"
+  }
+]

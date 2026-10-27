@@ -1,0 +1,53 @@
+{
+  "lens": "type-granularity",
+  "historical_state_preserved": "target/recovery-20261025/audit11/STATE.json",
+  "proposed_original_accounted": 780,
+  "added_accounted_roles": [
+    778,
+    779
+  ],
+  "earliest_unfinished": 780,
+  "next_original": 780,
+  "active_partials": [
+    {
+      "scope_index": 780,
+      "sha256": "d6b09524be811c5e4202be50af529c941a917ff8f31ea61e2a73e4da17dc103e",
+      "read_ranges": [
+        [
+          1,
+          702
+        ]
+      ],
+      "reason": "body-read; required connected traces incomplete"
+    },
+    {
+      "scope_index": 781,
+      "sha256": "4c3ee7c251ed1a4d18681e0b05c0fcf35b3b61e7d6dd0decfda0708577469162",
+      "read_ranges": [
+        [
+          1,
+          324
+        ]
+      ],
+      "reason": "body-read; required connected traces incomplete"
+    },
+    {
+      "scope_index": 782,
+      "sha256": "c26b0508ccce30c3c2ca164e46327764ca4b133b418b5ea49e008b0a45613421",
+      "read_ranges": [
+        [
+          1,
+          334
+        ]
+      ],
+      "reason": "body-read; required connected traces incomplete"
+    }
+  ],
+  "packet": "audit11-successor-157.json",
+  "all_prior_qualifications_retained": true,
+  "overlays": "unchanged incomplete",
+  "merged": "unchanged incomplete",
+  "material": "own181-195 retained;0-180 pending separately",
+  "new_unique_findings": 0,
+  "clear": false
+}

@@ -1,0 +1,281 @@
+{
+  "review": "Independent Rule Review M05 scoped identity repair",
+  "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd",
+  "base": "d44a00cc9a0bed75b0d61a7b330a29fe8f0df83f",
+  "branch": "codex/780-retain-motion-error-identity",
+  "verdict": "approved_source_only_no_actionable_findings",
+  "findings": [],
+  "scope": "Only CatalogError::UnknownMotion(String)->existingMotionId andtwoPackBuildererrorproducer cloneexpressions; unchangedcanonicalowner, allCatalogErrorproducers/propagation relevanttothisresponsibility. Notlive tacticalplaydefect orwholeanimationaudit.",
+  "identity_evidence": {
+    "implementation_manifest": {
+      "path": "implementation-manifest-001.json",
+      "sha256": "bfebc595cf54e27f9df527a6956dae2d85a5d334f2855e0cec135271e03cebc1"
+    },
+    "delta_evidence": {
+      "path": "delta-evidence-001.json",
+      "sha256": "ea4342518ff70ac493f6a83b5c1c41215930b6b188f15fc69feca06212371de0"
+    },
+    "base_catalog": {
+      "path": "base-catalog.rs",
+      "sha256": "4621b2ac33e53d39be4866122ba41283261d01f8d007455c5266ef88916655a0",
+      "lines": 361
+    },
+    "complete_diff": {
+      "path": "source.diff",
+      "sha256": "24f60484213075b62f90714f8f75616f116cae3f820e10616dbde159565a402c"
+    },
+    "changed_paths_in_staged_complete_diff": [
+      "crates/adventuresim-tactical-client/src/animation/catalog.rs"
+    ],
+    "independent_full_base_current_bytecomparison_changes": [
+      {
+        "tag": "replace",
+        "base_lines": [
+          65,
+          65
+        ],
+        "head_lines": [
+          65,
+          65
+        ],
+        "base_text": [
+          "    UnknownMotion(String),"
+        ],
+        "head_text": [
+          "    UnknownMotion(MotionId),"
+        ]
+      },
+      {
+        "tag": "replace",
+        "base_lines": [
+          125,
+          125
+        ],
+        "head_lines": [
+          125,
+          125
+        ],
+        "base_text": [
+          "            return Err(CatalogError::UnknownMotion(motion.to_string()));"
+        ],
+        "head_text": [
+          "            return Err(CatalogError::UnknownMotion(motion.clone()));"
+        ]
+      },
+      {
+        "tag": "replace",
+        "base_lines": [
+          151,
+          151
+        ],
+        "head_lines": [
+          151,
+          151
+        ],
+        "base_text": [
+          "            return Err(CatalogError::UnknownMotion(motion.to_string()));"
+        ],
+        "head_text": [
+          "            return Err(CatalogError::UnknownMotion(motion.clone()));"
+        ]
+      }
+    ],
+    "head_ref_verification": "Rootrequest+manifest+deltaevidencepinff43/d44; currentfilebytesindependentlymatchmanifest andbase/fullpatchcomparisonabove. NoGitref/commitobject commandauthorizedorperformed; do notmisrepresentasindependentGitHEADattestation."
+  },
+  "source_pins": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/catalog.rs",
+      "sha256": "8d8a70c663bdd8e62c8e4636ec414e979852b1f469bffc9e70331d5947c165a4",
+      "lines": 361,
+      "sha256_reverified": "8d8a70c663bdd8e62c8e4636ec414e979852b1f469bffc9e70331d5947c165a4"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/catalog_id.rs",
+      "sha256": "349beedb860eef8c0f4e9b882e10824b343451085d654c20b7c001ea98a3b810",
+      "lines": 134,
+      "sha256_reverified": "349beedb860eef8c0f4e9b882e10824b343451085d654c20b7c001ea98a3b810"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "lines": 113,
+      "sha256_reverified": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "lines": 192,
+      "sha256_reverified": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/AGENTS.md",
+      "sha256": "f9633599a742ea38090fe2fb88e2dc464298d0ca4a70374f0851380e71e6910e",
+      "lines": 103,
+      "sha256_reverified": "f9633599a742ea38090fe2fb88e2dc464298d0ca4a70374f0851380e71e6910e"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/catalog/builtin.rs",
+      "sha256": "24dd229e7467ac0a4b6a11b398e06290949923b614b3deebfa972f03ab93e1d3",
+      "lines": 264
+    }
+  ],
+  "applicable_rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "requirements_applied": "CleanfinalAPIwithnocompatibilitypaths; ignoredlocalreviewevidence; soleimplementationowner. Rootrulespersonallyread177/sameexactbytesreverifiedthisreview."
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "requirements_applied": "Existingbespoketypeownerthroughproducer/errorpayload; semanticrawstringsonlyactualadmissionboundary; namedclosedstates+payload; traitderives/moduleownership; no addedunittests; nativeformat/checksonlywithinuserhostedconstraint. Personallyread177/sameexactbytesverified."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/AGENTS.md",
+      "sha256": "f9633599a742ea38090fe2fb88e2dc464298d0ca4a70374f0851380e71e6910e",
+      "personally_read": [
+        [
+          1,
+          103
+        ]
+      ],
+      "applicability": "Native diagnostic acceptance requirement isconditionalondefects reportedinlivetacticalplay. Thisis a sourceidentitypropagationrepair; notsuchareport. No tactical tuning orruntimecontroller changed. Userhostedchecks-only/no newtests independentlyprohibitlocalscenarios orprojectexecution."
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/SKILL.md",
+      "sha256": "ff68d5ccf9f2545336b105f987ae17bb1a1f55dfbf1afb035dba8bef7053f27a",
+      "personally_read": true
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/references/bespoke-type-review.md",
+      "sha256": "c6a71896616123559c0be4d318cbde751d8767dccc6009a943971dc3d4424f71",
+      "personally_read": true,
+      "execution_qualification": "Relevantexistingchecks remainwithinuserconstraints; no localtest/probe/check authorized here. Source-review approval doesnotclaimhosted/runtimeacceptance."
+    }
+  ],
+  "registrations": [
+    {
+      "path": "rule-review-registration-001.json",
+      "sha256": "2e918e1bf8a6862869911294a0e75d0f7ae98efb3102da5706537615f23fa2d3"
+    },
+    {
+      "path": "rule-review-registration-002.json",
+      "sha256": "50c77934c521df2c675f6d363fe622a73565b72febecaba3d7b51338c7d9f562"
+    },
+    {
+      "path": "rule-review-registration-003.json",
+      "sha256": "66f448f80c3e52bc5aa9147f73083c4aa68eca123a3cc43235e6147a7621cf43"
+    }
+  ],
+  "personally_consumed_current_bodies": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/catalog.rs",
+      "ranges": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          361
+        ]
+      ],
+      "full_file": true,
+      "production_scope": [
+        [
+          1,
+          164
+        ]
+      ],
+      "cfg_test_source": "Existingcfgtest166-361 sourceinspectedonly; notexecuted,added,restoredorclaimedfailurebranchcoverage."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/catalog_id.rs",
+      "ranges": [
+        [
+          1,
+          134
+        ]
+      ],
+      "full_file": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/catalog/builtin.rs",
+      "ranges": [
+        [
+          1,
+          43
+        ],
+        [
+          43,
+          170
+        ],
+        [
+          171,
+          264
+        ]
+      ],
+      "full_file": true
+    }
+  ],
+  "contract_traces": [
+    {
+      "role": "Canonical motion identity and admission",
+      "locations": "catalog_id.rs8-10,40-90",
+      "trace": "MotionId privatelyownsCow<static,str>, representsopenauthoredcatalogfilenamestem, notclosedSemanticPose/AnimationPackId/path. Authoredconstantsdirectlyadmitvalidstems; checkedTryFrom<&str>rejectsempty,dot/dotdot,controlcharsandpath/protocolseparators,retainingrejectedrawtextonlyasInvalidMotionStem. mirroredappendsonlyfixedsafeauthoredsuffixfromadmittedID. No rawFrom<String>,Default,DeserializeorReflectionpath newlyintroduced. Clonereusesexactexistingidentitywithoutformat/re-admission."
+    },
+    {
+      "role": "Canonical stored keys and correctlookup failure payload",
+      "locations": "catalog.rs27-46,60-67,98-158",
+      "trace": "PackCatalog.motions/referenceskeys andPoseAnchor.motion alreadycarryMotionId; variable_motionclonesadmittedIDandconstructsAnimationAssetPath onlyatassetpathformatadapter. pose/reference receive&MotionId andchecksameMotionIdkeymapbeforemutation; bothmissingbranches nowreturnUnknownMotion(motion.clone()). Neitherbranch extractsStringorcreatesparallelidentityowner. Theerror nowmeansadmittedmotionidentitymissingfromthispack; itdoesnotclaimIDismemberofeverypack."
+    },
+    {
+      "role": "Distinct malformed admission versus missing membership",
+      "locations": "catalog.rs60-67;catalog_id.rs76-89,101-118",
+      "trace": "InvalidMotionStem(String) andInvalidAssetDirectory(String) correctlyretainrawrejectedinput becauseno admittedMotionId/directoryexistsforinvalidtext. UnknownMotion nowownsMotionId becausecalleridentityisalreadyadmitted. DuplicatePose(SemanticPose) andInvalidPack(PackValidationError) keep theirindependentauthorities. Changinginvalid-inputvariantstoMotionIdwoulderaseorconflateadmissionfailure; preservingStringhere is phasecorrect, notcompatibilityfallback."
+    },
+    {
+      "role": "Unchanged producers, propagation and diagnostic boundary",
+      "locations": "catalog/builtin.rs1-264;catalog.rs69-75,118-158",
+      "trace": "BuiltincatalogusesexistingMotionIdconstants,motion/variable_motion,pose callswith?;unarmed/add_attack/add_locomotionandbiped_rootpropagateCatalogErrordirectly. InvalidPackmapsremainseparateforlibraryvalidation. Defaultmatchesbiped_rootandusesDebugonlyasfinalpanicdiagnostic; itdoesnotparseDebugorStringtoselectbehavior. FullclientCatalogError/UnknownMotionsymbolsearchfoundnoothermissing-motionproducerorconsumerpatternthatrequiresString; no hiddenwholepipelineclaim."
+    },
+    {
+      "role": "Trait derives and visibility",
+      "locations": "catalog.rs60-67;catalog_id.rs8-10,76-90",
+      "trace": "CatalogErroralreadyderivesDebug,Clone,PartialEq,Eq;MotionIdalreadyderivesthosecompatibletraitsplusDisplay/Ord. Payloadmigrationneedsnomanualtraitimpl/conversionwrapper/derivebypass. BotherrorandMotionIdarepub(crate),soexistingownerfitandvisibilityremaincoherent. Typederror isnotnewlyserialized; retainedMotionIdadmission/clonecontractunchanged."
+    },
+    {
+      "role": "Scope, moduleorder and no growth",
+      "locations": "complete source.diff3hunks;fullcatalog361lines",
+      "trace": "Independentbase/currentcomparisonhasexactly3singlelinereplacements: payload65 andproducers125/151. Filelinecount361unchanged, bytes11804->11798;no addedproductionlines,modules/helpers/imports/traitimpls/newAPI/suppressions/baselineentries. No reorderedmoduleitems ornewresponsibility. Completeprovidedchangedpathsetcontainscatalog.rs alone: noCargo/lock,workflow,tests,assertions,doctestsorcompatibilityaliaschange."
+    }
+  ],
+  "correctness": "No actionable defect found in changedresponsibility bysourceinspection. UnknownMotionnowretainscanonicalMotionId atbothactualproducerbranches withsame lookupguard/order.",
+  "migration_completeness": {
+    "claimed_M05_slice": "source-complete: MotionIdinput ->catalogkeymembershipcheck ->CatalogError::UnknownMotion typedpayload ->directCatalogErrorpropagation/Debugdiagnostic",
+    "invalid_input_raw_variants": "Correctdistinctadmission-rejectionboundary, notincompletemigrationofthisclaim.",
+    "broader_families": "Notreviewedorcleared: fullanimationloading/admission/revision/sample_plan/update_pose_buffers/sample_character_plan,othermasterfindings/sourceauditsandruntimeacceptance."
+  },
+  "verification": {
+    "project_execution": false,
+    "local_checks_tests_scanners_probes": [],
+    "hosted_checks": "Pending/managedbyroot; no passedhostedruninspectedorclaimedhere.",
+    "no_new_tests_cases_helpers_assertions_doctests": true,
+    "test_source_delta": "Noneincompletepatchorindependentbasecomparison; currentexistingcfgtestsourceinspecteddonotproveUnknownMotionfailurebranchesexecuted.",
+    "no_workflow_dependency_lock_baseline_change_in_provided_delta": true,
+    "no_ceiling_raise_or_linegrowth": true,
+    "baseline_execution": "Notrunlocally; noscannerresultorbaselineconsumptionclaimed. Hostedrequiredchecks/relevantbaselinepolicyremainrootacceptance responsibility."
+  },
+  "limits": [
+    "Sourceonlyreview ofexactM05repair, notanall-lens/currentcodebase/globalclearance.",
+    "No compiler/runtime/nativegameplayorhostedfailurebranchverification. Traitcompatibilityinspectedfromsource, notcompiled.",
+    "Base/headrefsandcompletechangedpathsetprovidedbyrootstagedmetadata; actualcurrentandbasefilehashes/diff independentlyconsumedwithoutGit.",
+    "No product/source/Git/rootledger/historymutation orpublication. Onlyappendignoredreviewevidence.",
+    "Audit178evidence/frontier andallinheritedsource/current/alias/capacityqualifications untouched."
+  ],
+  "root_sole_implementation_owner": true,
+  "accepted_unique_count_change": 0,
+  "global_goal_complete": false,
+  "runtime_validated": false,
+  "stop": "IndependentRuleReview saved; no furtherwork."
+}

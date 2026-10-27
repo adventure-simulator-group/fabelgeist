@@ -1,0 +1,67 @@
+{
+  "id": "PR988-DERIVABILITY-SOURCE-RESPONSE-001",
+  "at": "2026-10-26T20:28:41.084478+00:00",
+  "scope": "Manual ValidationScopeError Display/Error, TextureViewError Error::source and compatible message Display derivation; user review response, source only",
+  "skill": "/home/brunosegovia/.codex/skills/audit-derivability/SKILL.md",
+  "governing_rules": [
+    "Root AGENTS source-only review/one implementation owner/no test additions",
+    "crates/AGENTS prefer idiomatic readable APIs and existing owners, preserve bespoke errors/native causes; no source edits authorized for this reviewer"
+  ],
+  "registration": "source-registration-001.json",
+  "recommendation": "Use one derive_more2.1.1 direct dependency with display,error features; derive Display+Error for unboxed ValidationScopeError; derive Display only for TextureViewError and retain its small manual Error::source body. Preserve ValidationProgressError manual conditional Display/source and into_anyhow policy.",
+  "dependency": {
+    "existing_workspace_use": "derive_more2.1.1 used by fabelgeist-fbx/rig/xpbd and other crates; GPU currently has neither derive_more nor thiserror direct dependency",
+    "minimal_direct_manifest_entry": "derive_more = { version = \"2.1.1\", default-features = false, features = [\"display\", \"error\"] }",
+    "alternative": "thiserror.workspace=true is available (workspace requirement2.0.18, current lock2.0.20), but derives both Error/Display together and cannot keep a separate manual Error impl on the same type. Using it for ValidationScopeError plus derive_more Display on TextureViewError introduces two direct macro dependencies instead of one."
+  },
+  "candidate_snippets_not_applied": "#[derive(Debug, derive_more::Display, derive_more::Error)]\npub enum ValidationScopeError {\n    Native(wgpu::Error),\n    Progress(ValidationProgressError),\n}\n\n// On TextureViewError: derive Debug + derive_more::Display only;\n// retain the existing manual std::error::Error implementation.\n// Add these variant Display attributes (existing fields/Box types unchanged):\n// Uninitialized:\n#[display(\"Texture is not initialized\")]\n// MissingView:\n#[display(\"Texture has no view\")]\n// Progress:\n#[display(\"WGPU {operation:?} view validation observation Error (requested {requested:?}): {cause}\")]\n// Texture2d:\n#[display(\"WGPU Texture2d view_with_format Error (requested {requested:?}): {cause}\")]\n// Texture3d:\n#[display(\"WGPU Texture3d view_with_format Error (requested {requested:?}): {cause}\")]\n// TextureCube:\n#[display(\"WGPU TextureCube view_with_format Error (requested {requested:?}): {cause}\")]\n",
+  "assessments": [
+    {
+      "item": "ValidationScopeError Display/Error mechanical projection",
+      "disposition": "Derivable exactly with derive_more Display/Error. Native and Progress tuple variants each have one unboxed Error field. Display generator forwards fmt(field,sameformatter); Error inference selects sole tuple field and emits Some(field-as-dyn-Error). This preserves the current immediate source type and native/progress source chain, requires no new From conversion, no Box or error widening."
+    },
+    {
+      "item": "thiserror ordinary source vs transparent",
+      "disposition": "Alternative #[derive(Debug,thiserror::Error)] with Native(#[source]wgpu::Error) and Progress(#[source]ValidationProgressError), each #[error(\"{0}\")], preserves standard messages/immediate cause. Do not use #[error(transparent)]: exact locked macro calls inner Error::source, skipping the current immediate native/progress layer. No claim a transparent derive preserves current downcasts."
+    },
+    {
+      "item": "TextureViewError Error::source boxed concrete causes",
+      "disposition": "Retain manual body. Current source() explicitly calls cause.as_ref(), so dynamic concrete source is wgpu::Error or ValidationProgressError. Locked thiserror and derive_more source generation calls their AsDynError trait on the bound field. Blanket T:Error implementation accepts Box<ConcreteError>, exposing Box<ConcreteError> as dynamic source; ordinary boxed source derive is not equivalent for source().downcast_ref::<ConcreteError>(). Its own source forwarding may also skip concrete native/progress layer. Neither inspected source attribute accepts an arbitrary source.as_ref() expression: thiserror #[source] is path-only; derive_more supports source selection/optional/not flags, not expression customization."
+    },
+    {
+      "item": "TextureViewError Display",
+      "disposition": "Mechanical write_str/write! arms are replaceable by derive_more::Display with exact six variant strings. Keep public variant fields, requested format/operation Debug placeholders, Box types and existing manual Error impl unchanged. No Error derive on TextureViewError. No allocation/error conversion added by the displayed derive policy."
+    },
+    {
+      "item": "Why Progress has a separate source match arm",
+      "disposition": "Or-pattern bindings must share one type. Three native variants bind cause:&Box<wgpu::Error>; Progress binds cause:&Box<ValidationProgressError>. Their bodies separately coerce the as_ref result to &(dyn Error+static). Binding both to cause in one or-pattern cannot use that later trait-object coercion to unify the concrete Box types. Separate arm preserves closed typed causes; do not widen them to Box<dyn Error> just to merge it."
+    },
+    {
+      "item": "ValidationProgressError and into_anyhow",
+      "disposition": "Keep manual. Display conditionally appends captured native text; source chooses native if present, otherwise poll. A plain optional-source derive returns None when native absent; static poll source always ignores captured native. This is semantic fallback/priority, not mechanical field selection. into_anyhow intentionally admits actual cause variant, preserving concrete type at generic boundary; no new From blanket/transparent wrapper change recommended."
+    },
+    {
+      "item": "Native SDK and generic/target bounds",
+      "disposition": "wgpu::Error and PollError each implement std/core Error and Display; ValidationProgressError also does. Error derives need Error/Debug/Display/static rather than new Send/Sync bounds. Native-only into_anyhow remains gated and unchanged; boxed public TextureViewError storage and wasm compilation surface unchanged by proposal. No new target/backend lifetime/health guarantees claimed."
+    }
+  ],
+  "acceptance_criteria_without_new_tests": [
+    "Exactly retain six TextureViewError display messages/placeholders and ValidationScopeError direct delegated formatting.",
+    "Retain missing-resource sourceNone; native source dynamic wgpu::Error; progress source dynamic ValidationProgressError; nested fallback chooses captured native else poll. Do not replace with Box dynamic cause or transparent source skipping.",
+    "Keep all public variant/field shapes/boxes, requested format/operation, native target cfgs and into_anyhow admissions unchanged; no new blanket From/serialization/admission API.",
+    "Root sole implementer may apply connected derive annotations/dependency/removal of mechanical impls; reviewer does not perform compilation/project checks or add tests."
+  ],
+  "limitations": [
+    "Source recommendation only, no project checks/compiler/macro expansion executed; exact generator bodies and lock-matching package sources inspected.",
+    "Current source hashes remain the review snapshot; if root edits concurrently, post-read identity comparison discloses differences. No PR text/comment publication or PR API interaction.",
+    "Initial stale2.0.18 locator corrected to actual lock2.0.20 before final conclusions. No full SDK/derive-crate, other-lens or inherited audit clearance.",
+    "Derive macro receiver/blanket impl source proves the boxing risk; no experimental test snippet was created or run. Small manual source implementation is justified by observable cause/downcast preservation."
+  ],
+  "source_changes": false,
+  "git_mutations_or_commands": false,
+  "ledger_changes": false,
+  "project_execution": false,
+  "tests_added_or_run": false,
+  "publication": false,
+  "stopped": true
+}

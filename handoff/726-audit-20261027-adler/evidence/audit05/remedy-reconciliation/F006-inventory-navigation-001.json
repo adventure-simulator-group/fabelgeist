@@ -1,0 +1,36 @@
+{
+  "records": 1002,
+  "terms": [
+    "terrain_family_rank",
+    "average_effective_hours",
+    "character_skills.rs",
+    "correlated_hours"
+  ],
+  "matches": [
+    {
+      "archive_file": "audit/records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/findings.jsonl",
+      "record_index": 16,
+      "record": {
+        "id": "RIG-PPS-F017",
+        "trace_refs": [
+          "RIG-PPS-034",
+          "RIG-PPS-035"
+        ],
+        "classification": "Failed/malformed required clinical observation becomes successful empty/zero; related CAM-PROP-F023/F006",
+        "source_locations": [
+          "medical.rs137\u2013143 wrong array lengths filter_map drop",
+          "party/inventory_medical.rs707\u2013764 failed authorized medication query->empty history",
+          "encumbrance.rs296\u2013314 refresh ignored/query error->None",
+          "routes/medical.rs166\u2013169 missing/failed capability->0 skill",
+          "character_skills.rs574\u2013648 required live capability missing->default rates",
+          "routes/medical.rs show_settlement_location corpsequery failure->empty overview (camera CorpseUI related)"
+        ],
+        "producer_basis": "Actual real chart source457\u2013545 has four7-vectors; only explicit Gap has empty vectors+Some bounds. Low skill/redaction is not proof for arbitrary malformed row omission. Valid no observation/empty history/optional preview values remain distinct.",
+        "connected_repair": "Rig whole transferred medical observation/load/display + clinical live route/render; camera shared capability helper/canonical causes/DB clinical/CorpseUI. Coherent typed required/unavailable/cause/reading/gap to actual output, preserve privacy/order/FP/units/policy/all original fixture cases and assertions; no new tests or String/compatibility adapters.",
+        "acceptance": "Malformed/failed observations cannot be fabricated successful empty/zero records. Distinguish optional absence and realzero, preserve signed BPS/dose/fractional blood and every existing valid rendering behavior. No executed rejection/test/compile proof; Code/Rule/later13/hosted acceptance still pending.",
+        "ownership_limit": "Parent/camera exact shared helper/corpse overview metadata reconciliation outstanding, source frozen. All bounded actual bodies read, no silent source deferral."
+      }
+    }
+  ],
+  "qualification": "Saved metadata only; no source/verdict credit or blanket uniqueness."
+}

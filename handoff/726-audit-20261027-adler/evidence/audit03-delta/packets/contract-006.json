@@ -1,0 +1,192 @@
+{
+  "id": "ADLER-CONT03-DELTA151-159-006",
+  "lens": "admission-contracts",
+  "scope_registry_sha256": "6296b832759d1573d8b7eaaca6a952db548d204c1eb8558024c5b1a62bc398c8",
+  "receipts": [
+    {
+      "extension_index": 151,
+      "source_id": "pinned-registry:derive_more-impl-2.1.1/src/fmt/display.rs",
+      "sha256": "d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+      "source_ranges": [
+        [
+          1,
+          82
+        ],
+        [
+          233,
+          327
+        ],
+        [
+          398,
+          438
+        ],
+        [
+          499,
+          552
+        ]
+      ],
+      "actual_eof": 585,
+      "source_read_provenance": "Fresh independent exact registered body read; exact shared26 receiving guard body re-read for156/157.",
+      "admission_routes_and_contract": "Pinned Display expansion emits formatting implementations, enum variant matches and format/transparent delegation; bounds follow actual formatted generic arguments. Static unit labels can be represented by attributes without constructor code.",
+      "disposition": "Formatting is projection, not admission. Replacing matching manual Display must preserve label/formatter behavior and exact helper availability; deriving it creates no unchecked new value.",
+      "qualifications": "Existing findings and policy qualifications retained; native capability evidence is not owner admission. No baseline restart.",
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 152,
+      "source_id": "scope-amendment:pinned-registry:derive_more-impl-2.1.1/src/fmt/display.rs#tuple-struct-bindings",
+      "sha256": "d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+      "source_ranges": [
+        [
+          198,
+          232
+        ]
+      ],
+      "actual_eof": 585,
+      "source_read_provenance": "Fresh independent exact registered body read; exact shared26 receiving guard body re-read for156/157.",
+      "admission_routes_and_contract": "Tuple/named struct Display expansion binds each field by shared reference before generating the body. This amendment closes exact tuple binding evidence omitted from151.",
+      "disposition": "No mutation, conversion or validation route. Do not infer successful admission from formatting; shared field binding supports equivalent projection only.",
+      "qualifications": "Existing findings and policy qualifications retained; native capability evidence is not owner admission. No baseline restart.",
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 153,
+      "source_id": "pinned-registry:derive_more-impl-2.1.1/src/as/mod.rs",
+      "sha256": "767fe0f2cb67c57028ca69d138757c5fdd894ad6fa54fcb11ef8f4a7d4b4ef82",
+      "source_ranges": [
+        [
+          17,
+          68
+        ],
+        [
+          147,
+          306
+        ]
+      ],
+      "actual_eof": 306,
+      "source_read_provenance": "Fresh independent exact registered body read; exact shared26 receiving guard body re-read for156/157.",
+      "admission_routes_and_contract": "AsRef/AsMut implementation chooses direct field reference, trait forwarding or native autoref specialization; mutable receiver is selected only for AsMut expansion. Attribute placement and struct shape errors are compile-time macro validation.",
+      "disposition": "AsRef cannot construct an invalid owner. Deriving AsMut for invariant-bearing private raw storage could expose mutation, but this native capability alone identifies no such local owner or actual new bypass. Derive only matching intended public capability.",
+      "qualifications": "Existing findings and policy qualifications retained; native capability evidence is not owner admission. No baseline restart.",
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 154,
+      "source_id": "pinned-registry:derive_more-impl-2.1.1/src/as/ref.rs",
+      "sha256": "06f9f3379037f8002874119b864ca62c65d8dd785c821a1fdfd74b59d988f133",
+      "source_ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "actual_eof": 15,
+      "source_read_provenance": "Fresh independent exact registered body read; exact shared26 receiving guard body re-read for156/157.",
+      "admission_routes_and_contract": "AsRef entry delegates expansion with no mut token and exact as_ref method identifier.",
+      "disposition": "Confirms153 shared projection only for AsRef; not a blanket proof for AsMut or a checked conversion.",
+      "qualifications": "Existing findings and policy qualifications retained; native capability evidence is not owner admission. No baseline restart.",
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 155,
+      "source_id": "pinned-registry:derive_more-2.1.1/src/as.rs",
+      "sha256": "c51f277897f4a2a62c0824f00d6775814282673efd16d0c8df8f87d406f7e984",
+      "source_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "actual_eof": 78,
+      "source_read_provenance": "Fresh independent exact registered body read; exact shared26 receiving guard body re-read for156/157.",
+      "admission_routes_and_contract": "Native Conv contains PhantomData and Default; ExtractRef specializes identity reference or invokes existing Frm::AsRef<To>.",
+      "disposition": "Native helper preserves reference ownership and delegates the existing AsRef contract. PhantomData default is legitimate; no value owner is fabricated or admitted.",
+      "qualifications": "Existing findings and policy qualifications retained; native capability evidence is not owner admission. No baseline restart.",
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 156,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/hilt.rs",
+      "sha256": "8afb3bf2ceb343de66192b0c257b876deade739f32668e38e70244c3b6036f0b",
+      "source_ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "actual_eof": 414,
+      "source_read_provenance": "Fresh independent exact registered body read; exact shared26 receiving guard body re-read for156/157.",
+      "admission_routes_and_contract": "GuardParameters denies unknown fields and uses checked scalar leaves plus explicit-present optional decode hooks. It carries optional mirror mode, per-side overrides and separate optional terminal profile. Exact shared26 guards.rs SHA aa9d8fff8668ea79607a4037aced426da5be5f58d5ee3929008ee00c92994267 lines26-137 freshly re-read: side overrides only Independent; Profile selection requires profile or returns explicit error.",
+      "disposition": "Supports existing SEGO-INITIAL09-F490/F491 remedy, not a new unique defect. None mirror means Opposed; Independent missing sides legitimately inherits common width/sweep/terminal. Shape-level admitted selected payload should preserve editable inactive history and shared profile identity; no normal malformed authored state shown.",
+      "qualifications": "Existing findings and policy qualifications retained; native capability evidence is not owner admission. No baseline restart.",
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 157,
+      "source_id": "scope-amendment:pr-working:crates/adventuresim-weapon-model/src/recipe/choices.rs#guard-owner-enums",
+      "sha256": "32853562a79ddc5ae393bc38780b86583500e079c5ca22109b07f1a479e030c0",
+      "source_ranges": [
+        [
+          193,
+          199
+        ],
+        [
+          226,
+          282
+        ]
+      ],
+      "actual_eof": 367,
+      "source_read_provenance": "Fresh independent exact registered body read; exact shared26 receiving guard body re-read for156/157.",
+      "admission_routes_and_contract": "Guard mirror/terminal vocabulary is closed; terminal side choices include Profile, Shared, None and primitive kinds. Existing shared61 supplies adjacent Independent and GuardSection declarations; no new open string key.",
+      "disposition": "Confirms156 applicable-payload qualification and F490/F491. Shared inheritance and absent profile when no selected Profile are valid. Unit enum decode alone does not enforce parent profile dependency.",
+      "qualifications": "Existing findings and policy qualifications retained; native capability evidence is not owner admission. No baseline restart.",
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 158,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+      "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+      "source_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "actual_eof": 50,
+      "source_read_provenance": "Fresh independent exact registered body read; exact shared26 receiving guard body re-read for156/157.",
+      "admission_routes_and_contract": "Disease seed obtains phenotype key version through actual owner, constructs checked doses, typed strategic times and Oral route, then persists stable preparation/version/raw-dose projections. Fixture day multiplier and patient ID remain raw parameters.",
+      "disposition": "Existing fixture producer only: day multiplication/timestamp saturation belongs known time arithmetic policy, not new dose admission failure. Saturating_sub supports early-world zero time; do not forbid zero or assume stopped_at must differ. Producer physiology/version contract retained.",
+      "qualifications": "Existing findings and policy qualifications retained; native capability evidence is not owner admission. No baseline restart.",
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 159,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/authority_tests.rs",
+      "sha256": "9b8f6ef268561b6c24817749d89472e8024db82c7f13e4d837db84e0dba66e80",
+      "source_ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "actual_eof": 96,
+      "source_read_provenance": "Fresh independent exact registered body read; exact shared26 receiving guard body re-read for156/157.",
+      "admission_routes_and_contract": "Dev-bootstrap guarded authority reducers round-trip stable DiseaseId keys through actual episode owner, check settlement exposure ordering and reject intentionally malformed ShroudFever key; invalid-key reducer propagates episode error for caller-observed rollback.",
+      "disposition": "Malformed stored vocabulary is deliberately exercised, not normal authorized admission. Existing cases assert actual consumer rejection; source does not prove hosted rollback acceptance ran. Preserve dev guard and error propagation, no fixture/schema changes.",
+      "qualifications": "Existing findings and policy qualifications retained; native capability evidence is not owner admission. No baseline restart.",
+      "repair": "not_started",
+      "validation": "not_run"
+    }
+  ],
+  "new_unique_findings": 0,
+  "clear": false,
+  "continuation": 160
+}

@@ -1,0 +1,255 @@
+{
+  "id": "SEGOVB-CLEAN-ERROR-RULE-REVIEW-001",
+  "review_type": "fresh source-only Rule Review with enum-shape and derivability lenses",
+  "base": "323789dd1beca252d4515c580573596ca0c98143",
+  "scope": "Seven-file clean error composition delta supplied against323; complete patch and full current bodies personally read, plus actual unchanged policy/export/dependency/ComputePass receivers. No global audit clearance.",
+  "manifest": {
+    "path": "clean-error-source-manifest-001.json",
+    "sha256": "e15b95d5c3b025c624f53356243c537d0966078e3b2e69f3e70bbdd0a7cd232b"
+  },
+  "complete_patch": {
+    "path": "clean-error-actual-diff-001.patch",
+    "sha256": "c4086530fc7efafd8e4c967a24a2fd38288cbef91d62c3381435a4682cd1da0d",
+    "all_lines_read": true
+  },
+  "human_constraints": [
+    "Backward compatibility is forbidden until release; old Box layout, downcasts, public API, messages and source chain are not acceptance requirements.",
+    "Root is sole implementation owner. No product/Git/rootledger/history edits, checks/scanners/tests/probes or publication.",
+    "No new tests, assertions, helpers or doctests; assess source only and await final same-head hosted evidence."
+  ],
+  "verdict": "No actionable source-level rule, enum-shape or derivability finding in this bounded clean error delta. Hosted compilation/lint/runtime acceptance remains pending.",
+  "findings": [],
+  "source_contract_traces": [
+    {
+      "family": "ValidationScope outcome owner and required payload states",
+      "locations": "globals/validation_scope.rs19-32,53-63",
+      "trace": "finish records poll result then unconditionally pops/reads its owned guard before matching. The four observed products map explicitly: Ok/None=>Ok; Ok/Some(native)=>Native(native); Err(poll)/None=>Progress(poll); Err(poll)/Some(native)=>ProgressWithNative{poll,native}. Failure states require exactly their meaningful payloads; success is Result::Ok. No independently mutable native Option or parallel progress wrapper remains. Both actual failures are retained in the combined variant. PollError is the explicit primary Error source for both polling failures; native-only uses its native error. The required combined native failure remains directly accessible and appears in Display, without pretending std Error has two primary sources.",
+      "enum_disposition": "Three variants express the actual failure products; no invalid missing-cause state or redundant historical state. Construction is direct at authoritative SDK outcome match; no bespoke string parsing/serialization admission."
+    },
+    {
+      "family": "Validation scope authority, observation choice and platform boundary",
+      "locations": "globals/validation_scope.rs11-17,35-55; unchanged validation_observation.rs1-24",
+      "trace": "Native-only ValidationScope owns cloned actual Arc<Device> and same-thread SDK ErrorScopeGuard; new uses shared ValidationObservation.start_scope. BlockingScopes pushes Validation filter; Uncaptured returns None. Owned/borrowed provisioning and presentation are independent axes and are not merged into the error shape. Browser cfg keeps blocking scope construction/finish absent. New failure types remain shared error owners without adding another Boolean or device-ownership tag. Poll then pop ordering is source-visible; no global device-health or command rollback guarantee asserted.",
+      "migration_disposition": "Scoped shared error/payload migration complete at actual producers; unchanged broader constructor/subresource observation policies remain documented independent follow-up."
+    },
+    {
+      "family": "Whole texture error composition and direct producers",
+      "locations": "texture/view_error.rs7-43; texture_2d/views.rs13-54; texture_3d/views.rs13-54; texture_cube/views.rs13-55",
+      "trace": "TextureViewResult retains owning bespoke TextureViewError. Uninitialized and MissingView require no causes. Observation alone carries original requested TextureFormat, closed TextureViewOperation and direct shared ValidationScopeError. Each producer supplies its exact operation and original format at finish map_err, so storage sRGB linear descriptor conversion does not erase request identity. Cached same-format identity branch precedes native texture admission; different-format missing resource remains explicit. Alternate view returns only after successful observation; all error states propagate before Arc wrapping/return. Operation identity is independent of failure kind and belongs on the single composed record, avoiding per-operation duplicate error payload shapes.",
+      "enum_disposition": "No old per-operation native variants, Box wrappers, ValidationProgressError, from_observation facade, into_anyhow adapter or manual Error/Display implementations retained. No aliases/fallback paths added."
+    },
+    {
+      "family": "Actual unchanged generic recipients and exports",
+      "locations": "compute/pass/mod.rs249-348; texture/mod.rs1-17; globals/mod.rs1-9",
+      "trace": "Each of Texture2d,Texture3d,TextureCube ComputePass branches calls view_with_format(...)? at the matching reflected sRGB format path. Standard generic error conversion retains the concrete new error without message parsing, old-variant matching or obsolete helper. Canonical texture module exports the existing owning types; globals exports only ValidationScopeError/Result plus native scope and shared observation. Focused repository Rust reference search found no remaining ValidationProgressError/old TextureViewError native/progress variants or ValidationScopeError::into_anyhow callers. An unrelated tactical CaptureObstacle::from_observation is a separate owner and not a compatibility path."
+    },
+    {
+      "family": "Derivability and exact error-source semantics",
+      "locations": "texture/view_error.rs25-42; globals/validation_scope.rs20-32; derive_more2.1.1 primary implementation registered003/004",
+      "trace": "Both owners derive Debug,Display,Error using already enabled derive_more2.1.1 display/error dependency features. Explicit #[error(source)] selects the direct owned ValidationScopeError, wgpu::Error or PollError field; derive macro parses explicit selected source, generates per-variant source match and returns that direct field through AsDynError. Unit variants receive None fallback. Combined state explicitly chooses poll; native payload is neither dropped nor accidentally inferred as primary. Display interpolates typed fields; no semantic classifier/validation remains in mechanical manual traits. These direct fields remove the old reason to special-case boxed concrete source projections.",
+      "derivability_disposition": "Derives implement the intended final contract; no serialization derives or admission bypass introduced; dependency and Cargo.lock fingerprints unchanged in this delta."
+    },
+    {
+      "family": "Repository rules, module ownership and documentation",
+      "locations": "all seven complete current files; texture-views.md1-70",
+      "trace": "File-level ordering remains imports/reexports, modules/type alias, structs/enums, impls as applicable. Error modules own meaningful shared failure boundaries; direct enum construction removes pass-through wrappers. No module expansion/baseline increase, exception/suppression, compatibility API or native descriptor-policy change is introduced. Guide accurately describes composed Observation, required combined payload and poll-primary source, request preservation and native policy/receiver limits; example remains a text code block rather than a new doctest. Complete supplied patch contains no test/assertion/helper/doctest additions.",
+      "rules_disposition": "No actionable scoped rule violation found. Formatting, lint, compilation and runtime outcomes were not executed or inferred."
+    }
+  ],
+  "governing_sources": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "coverage": "full applicable rule body read; user clarification forbids any historical compatibility condition"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "coverage": "full applicable rule body read; user clarification forbids any historical compatibility condition"
+    }
+  ],
+  "skills": [
+    "/home/brunosegovia/.codex/skills/rule-review/SKILL.md",
+    "/home/brunosegovia/.codex/skills/rule-review/references/bespoke-type-review.md",
+    "/home/brunosegovia/.codex/skills/audit-enum-shapes/SKILL.md",
+    "/home/brunosegovia/.codex/skills/audit-derivability/SKILL.md"
+  ],
+  "source_fingerprints": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "a295f80fefc3035bf18c518b5ad9d1c379cd2473deacb33dad2c738bbf35e92f",
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "d15d73bd8fbf0410de7031e9c2cb7672153f24391614877fedd8f6766f37692c",
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "04110cf73034d74c5252361f77af470d11d289fc1a1106e9c42e975707ebdf04",
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "0c00273b8492fa0919e7264459cffbd80f97564784a292e7e88d28bf928cb244",
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "3dce5de96be36b2463daee4fb0ed823563d3f87e99bfc9a8ba3b1ddcdc37fca8",
+      "ranges": [
+        [
+          1,
+          9
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "e3ad593b83da185620d2729a5fde4a0f7bfda1c39993494432c55a0c989e0973",
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "3a3902b9981ae772df92c2df1a97d245196d25cd83f2eacf4a586005ea39a6cd",
+      "ranges": [
+        [
+          1,
+          70
+        ]
+      ]
+    }
+  ],
+  "connected_receivers": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "ranges": [
+        [
+          240,
+          350
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "sha256": "14cccb953bd0b8466b7ad010219c4220d535ee7ed9e6e66cad981c37cc67df88",
+      "ranges": [
+        [
+          1,
+          24
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+      "sha256": "83ba1e1ca0719ccdc74c3bc70f4fdc197dca496600a89b41a5e18c7a020fece0",
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "460e9c3fcc4cb794358e3a25ba96b2e877dbeffaac6404703ff493aa6cb58e18",
+      "ranges": [
+        [
+          1,
+          39
+        ]
+      ]
+    }
+  ],
+  "primary_dependency_sources": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-impl-2.1.1/src/error.rs",
+      "sha256": "40cfa53d126eae5284310d5814318d32269e482e3491bf561ec9cd6168646aeb",
+      "ranges": [
+        [
+          93,
+          225
+        ],
+        [
+          300,
+          385
+        ]
+      ]
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-2.1.1/src/as_dyn_error.rs",
+      "sha256": "ba3767c6c95966583360f28cd59bfe20717d0f53c2041c2c534552fcb1b265d9",
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ]
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-impl-2.1.1/src/error.rs",
+      "sha256": "40cfa53d126eae5284310d5814318d32269e482e3491bf561ec9cd6168646aeb",
+      "ranges": [
+        [
+          286,
+          299
+        ],
+        [
+          399,
+          473
+        ]
+      ],
+      "purpose": "explicit selected source parse and dyn source generation",
+      "registered_before_body_read": true
+    }
+  ],
+  "unchanged_lock": {
+    "path": "Cargo.lock",
+    "sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be",
+    "matches_prior_review_pin": true
+  },
+  "registrations": [
+    "clean-error-rule-review-registration-001.json",
+    "clean-error-rule-review-registration-002.json",
+    "clean-error-rule-review-registration-003.json",
+    "clean-error-rule-review-registration-004.json"
+  ],
+  "coverage_limits": [
+    "Complete supplied delta and seven pinned current bodies, plus named connected receivers; no independent Git range enumeration performed under source-only/no-Git instruction.",
+    "No full original bespoke audit/lens11 population, unrelated modules, constructor/subresource policy migration or public mutable-resource/device membership validation claimed.",
+    "No SDK backend failure execution: failed polling, failed pop completion and combined poll/native paths assessed from source only. Same-head hosted checks remain necessary.",
+    "Prior boxed-error preservation rationale is superseded by explicit user no-compatibility instruction; historical reports remain immutable evidence, not current acceptance constraints."
+  ],
+  "final_same_head_hosted_acceptance": "pending; this review grants source-only scoped approval, not CI/merge/global/goal completion",
+  "checks_tests_probes": "none",
+  "product_git_ledger_edits": false,
+  "external_publication": false,
+  "stop": true
+}

@@ -1,0 +1,173 @@
+{
+  "lens": 13,
+  "packet": "044-048",
+  "receipt_sha256": "dcc6437f0f0b08062b9b6ae584e54a7cabb4a00568ef0cc1d05b6bfdf5a56e3e",
+  "status": "mandatoryindependentotherlensqueue; zerootherpopulationcredit",
+  "source_dependencies": [
+    {
+      "source_id": "physical-p16:core/strategic_action.rs",
+      "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+      "ranges": [
+        [
+          250,
+          410
+        ],
+        [
+          602,
+          637
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:core/rights.rs",
+      "sha256": "452c9b104be14352c93d247f83a87de98fa79b10c86d3b51d28eaa252a927b07",
+      "ranges": [
+        [
+          1,
+          280
+        ],
+        [
+          295,
+          298
+        ],
+        [
+          720,
+          776
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:core/physical_object.rs",
+      "sha256": "906e67eed5acc9fbf6ab98e2e4bc7df11b8e9742c1ee148092c7d2061f64afab",
+      "ranges": [
+        [
+          146,
+          176
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:core/item_catalog_surface.rs",
+      "sha256": "9f49d61c21b245ad0793daea4f28f1f74769c76680ef383553454b688c9f6cbd",
+      "ranges": [
+        [
+          1,
+          47
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:core/item_catalog_validation.rs",
+      "sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "ranges": [
+        [
+          205,
+          545
+        ],
+        [
+          637,
+          1057
+        ],
+        [
+          1058,
+          1385
+        ],
+        [
+          1448,
+          1535
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:weapon-model/derive.rs",
+      "sha256": "c21331b47fbf9aff7837343abc27e7f572acb622fd7baaf8a86a3dfb0fc92edd",
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:weapon-model/derived_properties.rs",
+      "sha256": "fc35cb85ad750d9eb943b55cde7f20e3dc6cffd2d3ac119bef96732eb32402c5",
+      "ranges": [
+        [
+          1,
+          22
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:weapon-model/validation.rs",
+      "sha256": "fd79af94c541daf7519b52218301f4cc66dbd7614d444583271a2e955ed02aff",
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+      "sha256": "a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+      "ranges": [
+        [
+          1,
+          49
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+      "sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+      "ranges": [
+        [
+          1,
+          219
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "sha256": "9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "ranges": [
+        [
+          1,
+          185
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/mesh.rs",
+      "sha256": "13432d88e00f3227259bb5b938b0a72a40e300fa4cec4f0d92b020d07eca2418",
+      "ranges": [
+        [
+          62,
+          120
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:core/item_catalog_validation.rs",
+      "sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "ranges": [
+        [
+          1386,
+          1447
+        ]
+      ]
+    }
+  ],
+  "lenses": [
+    "admission-contracts",
+    "aggregate-states",
+    "invariant-operations",
+    "existing-type-owners",
+    "producer-propagation",
+    "enum-shapes",
+    "redundant-authority"
+  ],
+  "accepted_unique_count": 0,
+  "qualifications": "Unseenfutureoriginals notmarkedaccounted; nativeconstruction/currentalias/security/runtimeacceptance independent."
+}

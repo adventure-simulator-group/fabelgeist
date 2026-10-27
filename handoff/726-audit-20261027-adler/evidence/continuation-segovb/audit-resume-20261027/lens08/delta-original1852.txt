@@ -1,0 +1,25 @@
+--- base
++++ head
+@@ -94,7 +94,11 @@
+         let collider = Collider::cylinder(HUMANOID_COLLISION_RADIUS_METRES, 1.9);
+         let bottom = -collider.aabb(Vec3::ZERO, Rotation::default()).min.y;
+         let controller = CharacterController {
+-            speed: config.movement.speeds_metres_per_second.walk,
++            speed: config
++                .movement
++                .speeds_metres_per_second
++                .walk
++                .metres_per_second(),
+             gravity: motor.gravity_metres_per_second_squared,
+             step_size: motor.maximum_step_height_metres,
+             min_walk_cos: motor.maximum_walkable_slope_degrees.to_radians().cos(),
+@@ -133,7 +137,8 @@
+         let tick = self.app.world().resource::<Time<Fixed>>().delta_secs();
+         // Preserve the existing ten-second control window. Long geographic
+         // approaches need a route-length budget, not a larger movement limit.
+-        let route_ticks = ((start.distance(target) / speed * 2.0 + 1.0) / tick).ceil() as usize;
++        let route_ticks = ((start.distance(target) / speed.metres_per_second() * 2.0 + 1.0) / tick)
++            .ceil() as usize;
+         self.app
+             .world_mut()
+             .entity_mut(self.entity)

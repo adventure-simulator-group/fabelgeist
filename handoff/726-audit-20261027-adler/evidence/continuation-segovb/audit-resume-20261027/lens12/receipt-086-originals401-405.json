@@ -1,0 +1,206 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "086",
+  "predecessor": "receipt-085-original400.json",
+  "manifest_prefix_sha256": "102dee694088e43f9324a41f3b1de6d3503a3810f3e513fee54df94547b9747c",
+  "sources": [
+    {
+      "original_index": 401,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment/attachment.rs",
+      "sha256": "d111cafcd0fbd3cecae5a066f6da8ce3ca7eaed114bde19daffad836153faed2",
+      "actual_eof": 248,
+      "actual_ranges": [
+        [
+          1,
+          248
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-248",
+          "role": "AttachmentTarget.attachment_point_id String7; moving_tags &[String]13 with accepts_tags membership40-44 mechanically authorizes attachments. Raw item_id&str49\u2192catalog57; explicitly_selected Vec(Entity,String,u16)59/182; actual copied point identities67/70/85/90/106/114/122/153/161/167/199/215/236 and placement.id223 retained. Occupancyformat tactical:{parent}:{attachment}:{capacity}229 semantic state.",
+          "disposition": "Existing open catalog/tag/attachment/placement/occupancy owners must span actual catalog\u2192compatibility selection\u2192retained topology\u2192consumer, using named structured selected-capacity owner rather than tuple primitive identity. Actual400planner/355state/328socket receiver connected; no new finite item/tag enum or native-format exemption. Exact catalog schema tag openness/capability authority/alias needs reconciliation."
+        }
+      ],
+      "status": "Requested independent exact material source inventory WITH connected identifier/tag findings."
+    },
+    {
+      "original_index": 402,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment/environment.rs",
+      "sha256": "ef1f175feb5018520f404d2525f6354086adf4ecb8767ee54d841801fa0fbe37",
+      "actual_eof": 11,
+      "actual_ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-11",
+          "role": "Zero literals/String APIs; actual door/window grabbers typed framework queries.",
+          "disposition": "Zero string role only, no external opening/native/collision/runtime acceptance."
+        }
+      ],
+      "status": "Requested independent exact material source inventory WITH connected identifier/tag findings."
+    },
+    {
+      "original_index": 403,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment/fit.rs",
+      "sha256": "4ba486d38eabcb85c3aa9ac546cc93bef6a830b083952cfa839aeae22ec56ba6",
+      "actual_eof": 252,
+      "actual_ranges": [
+        [
+          1,
+          252
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-118",
+          "role": "Raw item_id&str7/candidate/current40/43/proposed65/94\u2192catalog14 and topology placement equality20; actual conflict owner selection54-55/78-84/107-113. unreachable only character anchors have fit zones12 diagnostic.",
+          "disposition": "Carry canonical open item/placement identity through fit API, material lookup and retained topology; actual405callers read, no privatehelper exemption. Fit/numeric/geometry predicates not certified."
+        },
+        {
+          "source_ranges": "119-252",
+          "role": "Existing harness Vec(&str,Topology)125 and two13item sets127-139/189-201: morion/gorget/cuirass/fauld/spaulder/rerebrace/couter/vambrace/mitten_gauntlet/cuisse/poleyn/greave/sabaton. Cataloglookup141/205 and ItemProperties.id218; diagnostic164/237/246 output.",
+          "disposition": "Fixtures share canonical catalog identity and typed topology production; no fixture/constant exemption or tests executed. All252 independentlyread."
+        }
+      ],
+      "status": "Requested independent exact material source inventory WITH connected identifier/tag findings."
+    },
+    {
+      "original_index": 404,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment/lifecycle.rs",
+      "sha256": "54bed0494270888424e8718a31f26020931eed7fe695d34f4bcd8b682042d857",
+      "actual_eof": 29,
+      "actual_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-29",
+          "role": "Zero literals/String APIs; numeric entity/sequence lifecycle state only.",
+          "disposition": "Zero string roles, no lifecycle/concurrency/state/native/runtime acceptance."
+        }
+      ],
+      "status": "Requested independent exact material source inventory WITH connected identifier/tag findings."
+    },
+    {
+      "original_index": 405,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment/transfer.rs",
+      "sha256": "23ec61b4fd0ed94e7f0a787e2d0e0c1f58bbc2f2146f99956be52819593fe945",
+      "actual_eof": 95,
+      "actual_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-95",
+          "role": "No literal strings, but raw ItemProperties.id passed actual attachment_topology38/52/placement_topology54/fit target_conflicts67/topology_conflicts75.",
+          "disposition": "Actual producer/receiver handoff proves raw catalog identity survives application mutation planning; canonical owner should propagate across400/401/403/355. No String exemption merely from no literal or private API; transferatomicity/runtime/other-lens acceptance excluded."
+        }
+      ],
+      "status": "Requested independent exact material source inventory WITH connected identifier/tag findings."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Attachment compatibility and fit carry catalog/tag/point identity as raw text",
+      "sources": [
+        "401:7,13,35,40-44,49,59,182,223-236",
+        "403:7,20,40-43,65,94,218",
+        "405:38,52,54,67,75",
+        "400:311,340-432",
+        "355:103-162",
+        "328:1044-1051"
+      ],
+      "remedy": "Carry existing canonical open catalog/tag/point/placement/occupancy identities and named selected-capacity record through source/state/compatibility/fit/mutation/renderer; encode only actual native boundary.",
+      "acceptance": "Reconcile exact schema tag/catalog authority, root-order/protocol/asset admission and all aliases before repair; no assumption closed tag universe or unique/current/native correctness.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actual root_order/EquipmentHand::id and canonical catalog/tag ingress/asset/rig owners still pending; 401closes local attachment planner receiver only.",
+    "ArmorLayerContact raw catalog projection, iteration/report/name/digest/cause and external native queues retained."
+  ],
+  "qualifications": [
+    "Exact frozen f82 physical-P16 source only; no current alias.",
+    "No backward compatibility/input preservation or project/native/test/probe execution; no product/Git/root-ledger/publication mutation.",
+    "All20/P16/P17/F9/M09/aliases/currentness; source WITH findings not repaired/global/runtime/unique-total/other-lens clearance."
+  ],
+  "proposed_count": {
+    "before": 401,
+    "after": 406,
+    "indices_completed": [
+      401,
+      402,
+      403,
+      404,
+      405
+    ],
+    "next_original": 406,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment/attachment.rs",
+      "sha256": "d111cafcd0fbd3cecae5a066f6da8ce3ca7eaed114bde19daffad836153faed2",
+      "ranges": [
+        [
+          1,
+          248
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment/environment.rs",
+      "sha256": "ef1f175feb5018520f404d2525f6354086adf4ecb8767ee54d841801fa0fbe37",
+      "ranges": [
+        [
+          1,
+          11
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment/fit.rs",
+      "sha256": "4ba486d38eabcb85c3aa9ac546cc93bef6a830b083952cfa839aeae22ec56ba6",
+      "ranges": [
+        [
+          1,
+          252
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment/lifecycle.rs",
+      "sha256": "54bed0494270888424e8718a31f26020931eed7fe695d34f4bcd8b682042d857",
+      "ranges": [
+        [
+          1,
+          29
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment/transfer.rs",
+      "sha256": "23ec61b4fd0ed94e7f0a787e2d0e0c1f58bbc2f2146f99956be52819593fe945",
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ]
+    }
+  ]
+}

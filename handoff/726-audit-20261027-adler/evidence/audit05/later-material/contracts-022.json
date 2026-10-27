@@ -1,0 +1,260 @@
+{
+  "registry_snapshot": "registry-181.json",
+  "registry_sha256": "65c29f91e57e2186573857b2db192d4e48840f19d048b6eeb0ff23e35750092f",
+  "members": [
+    {
+      "material_index": 74,
+      "registration": {
+        "source_id": "pr-working:vendor/bevy_ahoy/src/kcc.rs",
+        "sha256": "270d6b20992ae497744d528d70421ca20075b2f22be9c0dff36f2c41978e72ba",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/270d6b20992ae497744d528d70421ca20075b2f22be9c0dff36f2c41978e72ba",
+        "ranges": [
+          [
+            145,
+            195
+          ]
+        ],
+        "registration_evidence": "operations/contract-groups-583.json#fresh_dependencies",
+        "reason": "Actual strategic fetch/navigation/condition receiver or native KCC Stopwatch contract; dependency proof in operations/contract-groups-583.json#fresh_dependencies",
+        "qualification": "Only listed material ranges extend shared scope. Original2853 denominator and adopted completed baselines unchanged; no other-lens coverage transfer.",
+        "lenses": {
+          "producer-propagation": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "existing-type-owners": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "admission-contracts": "Personally source-compared exact ranges WITH retainedfindings/qualifications; admission-contracts/contract-groups-007.json. No clearance.",
+          "invariant-operations": "Originating invariant-operations exact source evidence in operations/contract-groups-583.json#fresh_dependencies; no full-lens clearance",
+          "aggregate-states": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "type-ownership": "Own06 independent concept/owner/dependency comparison at exact materialrange; type-ownership/contract-groups-015.json; no clearance.",
+          "redundant-authority": "Independent07 boundedsourcecomparison WITH findings/qualifications; redundant-authority/live-delta-013.json. No clearance.",
+          "behavior-preservation": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "enum-shapes": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "derivability": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "type-granularity": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "magic-strings": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "magic-numbers": "New material delta pending; inherited completed evidence remains adopted without replay."
+        },
+        "status": "Source bytes and bounded material verified; discovery remains incomplete globally"
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          145,
+          195
+        ]
+      ],
+      "disposition": "Read registered145-195 only. KCC skips corrupt collider transform, clears outputs and ticks four stopwatches with the same frame delta before collision/crouch/gravity. This is partial run_kcc, not proof of update ordering or absent later state transitions."
+    },
+    {
+      "material_index": 75,
+      "registration": {
+        "source_id": "pinned-registry:bevy_time-0.19.1/src/stopwatch.rs",
+        "sha256": "0f89469949a788d5c34a3e2608a6feb5af224c57692f0a421f1846fcfc51e87f",
+        "revision": "pinned native dependency checksum/bytes in operations/contract-groups-583.json#fresh_dependencies",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/0f89469949a788d5c34a3e2608a6feb5af224c57692f0a421f1846fcfc51e87f",
+        "ranges": [
+          [
+            115,
+            165
+          ]
+        ],
+        "registration_evidence": "operations/contract-groups-583.json#fresh_dependencies",
+        "reason": "Actual strategic fetch/navigation/condition receiver or native KCC Stopwatch contract; dependency proof in operations/contract-groups-583.json#fresh_dependencies",
+        "qualification": "Only listed material ranges extend shared scope. Original2853 denominator and adopted completed baselines unchanged; no other-lens coverage transfer.",
+        "lenses": {
+          "producer-propagation": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "existing-type-owners": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "admission-contracts": "Personally source-compared exact ranges WITH retainedfindings/qualifications; admission-contracts/contract-groups-007.json. No clearance.",
+          "invariant-operations": "Originating invariant-operations exact source evidence in operations/contract-groups-583.json#fresh_dependencies; no full-lens clearance",
+          "aggregate-states": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "type-ownership": "Own06 independent concept/owner/dependency comparison at exact materialrange; type-ownership/contract-groups-015.json; no clearance.",
+          "redundant-authority": "Independent07 boundedsourcecomparison WITH findings/qualifications; redundant-authority/live-delta-013.json. No clearance.",
+          "behavior-preservation": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "enum-shapes": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "derivability": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "type-granularity": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "magic-strings": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "magic-numbers": "New material delta pending; inherited completed evidence remains adopted without replay."
+        },
+        "status": "Source bytes and bounded material verified; discovery remains incomplete globally"
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          115,
+          165
+        ]
+      ],
+      "disposition": "Read registered115-165. Stopwatch set_elapsed assigns Duration; tick saturating-adds only when unpaused, pause changes flag. This receiving contract distinguishes paused elapsed state and overflow saturation; unfinished unpause documentation/body not credited."
+    },
+    {
+      "material_index": 76,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-plant-generator/src/viewer/capture.rs",
+        "sha256": "de950524563388fee6bf5f849cc9cf10683a7eb8befcacdb3ebb8a0d562b3521",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/de950524563388fee6bf5f849cc9cf10683a7eb8befcacdb3ebb8a0d562b3521",
+        "ranges": [
+          [
+            1,
+            56
+          ]
+        ],
+        "registration_evidence": "enum-shapes/registration-504A.json",
+        "reason": "Actual chained capture::capture receiver after rebuild receives Options and Editor whose selected Recipe and PlantLod now carry generated plant geometry. It owns output screenshot/sidecar publication of the same edited-versus-preset recipe, family and view contract. This is actual connected consumer of changed shared recipe/types, not module declaration or directory adjacency. Register full source prospectively to identify exact material ranges on first read; unrelated helper bodies will not automatically become all-lens scope.",
+        "qualification": "Only listed material ranges extend shared scope. Original2853 denominator and adopted completed baselines unchanged; no other-lens coverage transfer.",
+        "lenses": {
+          "producer-propagation": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "existing-type-owners": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "admission-contracts": "Personally source-compared exact ranges WITH retainedfindings/qualifications; admission-contracts/contract-groups-007.json. No clearance.",
+          "invariant-operations": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "aggregate-states": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "type-ownership": "Own06 independent concept/owner/dependency comparison at exact materialrange; type-ownership/contract-groups-015.json; no clearance.",
+          "redundant-authority": "Independent07 boundedsourcecomparison WITH findings/qualifications; redundant-authority/live-delta-013.json. No clearance.",
+          "behavior-preservation": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "enum-shapes": "Originating enum-shapes exact source evidence in enum-shapes/registration-504A.json; no full-lens clearance",
+          "derivability": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "type-granularity": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "magic-strings": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "magic-numbers": "New material delta pending; inherited completed evidence remains adopted without replay."
+        },
+        "status": "Source bytes and bounded material verified; discovery remains incomplete globally"
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "disposition": "Read full56. Capture waits three real seconds then schedules screenshot at local frame60/90, writes specimen manifest and exits success after calling save_to_disk on second callback. Save helper returns no result, so success does not by itself certify screenshot persistence; M78 actual helper supports error-log-only propagation. Actual IO failure not executed; dedup pending."
+    },
+    {
+      "material_index": 77,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-puzzles/src/choices/sigil.rs",
+        "sha256": "938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5",
+        "ranges": [
+          [
+            1,
+            61
+          ]
+        ],
+        "registration_evidence": "enum-shapes/registration-506A-material.json",
+        "reason": "Canonical Sigil owner is actual payload of changed OrderedSigilClue, private solution, public projection and submitted ordering; its ALL, label and finite membership are called by generator, clue text, solver and validation. This is concrete owner/callee support, beyond1059 module export. Register full owner prospectively; identify material ranges before shared import.",
+        "qualification": "Only listed material ranges extend shared scope. Original2853 denominator and adopted completed baselines unchanged; no other-lens coverage transfer.",
+        "lenses": {
+          "producer-propagation": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "existing-type-owners": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "admission-contracts": "Personally source-compared exact ranges WITH retainedfindings/qualifications; admission-contracts/contract-groups-007.json. No clearance.",
+          "invariant-operations": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "aggregate-states": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "type-ownership": "Own06 independent concept/owner/dependency comparison at exact materialrange; type-ownership/contract-groups-015.json; no clearance.",
+          "redundant-authority": "Independent07 boundedsourcecomparison WITH findings/qualifications; redundant-authority/live-delta-013.json. No clearance.",
+          "behavior-preservation": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "enum-shapes": "Originating enum-shapes exact source evidence in enum-shapes/registration-506A-material.json; no full-lens clearance",
+          "derivability": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "type-granularity": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "magic-strings": "New material delta pending; inherited completed evidence remains adopted without replay.",
+          "magic-numbers": "New material delta pending; inherited completed evidence remains adopted without replay."
+        },
+        "status": "Source bytes and bounded material verified; discovery remains incomplete globally"
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "disposition": "Read registered1-61. Five closed Sigil values have exact canonical case-sensitive submission IDs distinct in API from labels; FromStr delegates serde and maps unknown vocabulary to typed error. Tests after61 not credited."
+    },
+    {
+      "material_index": 78,
+      "registration": {
+        "source_id": "pinned-registry:bevy_render-0.19.1/src/view/window/screenshot.rs",
+        "sha256": "f49e4ca4f0929fc51a5c55fc002294c6009ae7a4c1c07dc6ef6c8ff737df0c5b",
+        "revision": "native Bevy0.19.1 exact cached crate checksum matching P17Cargo.lock in operations/contract-groups-589.json#fresh_dependencies",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/f49e4ca4f0929fc51a5c55fc002294c6009ae7a4c1c07dc6ef6c8ff737df0c5b",
+        "ranges": [
+          [
+            125,
+            240
+          ]
+        ],
+        "registration_evidence": "operations/contract-groups-589.json#fresh_dependencies",
+        "reason": "Actual same capture save_to_disk callback writes/error observation contract reached by P17report acceptance.",
+        "qualification": "Only exact material ranges; fixtures/unread SDK remainder excluded. No original2853 count increment or other-lens transfer.",
+        "lenses": {
+          "producer-propagation": "Bounded new-material delta pending; completed baseline retained without replay.",
+          "existing-type-owners": "Bounded new-material delta pending; completed baseline retained without replay.",
+          "admission-contracts": "Personally source-compared exact ranges WITH retainedfindings/qualifications; admission-contracts/contract-groups-007.json. No clearance.",
+          "invariant-operations": "Originating invariant-operations source evidence in operations/contract-groups-589.json#fresh_dependencies",
+          "aggregate-states": "Bounded new-material delta pending; completed baseline retained without replay.",
+          "type-ownership": "Own06 independent concept/owner/dependency comparison at exact materialrange; type-ownership/contract-groups-015.json; no clearance.",
+          "redundant-authority": "Independent07 boundedsourcecomparison WITH findings/qualifications; redundant-authority/live-delta-013.json. No clearance.",
+          "behavior-preservation": "Bounded new-material delta pending; completed baseline retained without replay.",
+          "enum-shapes": "Bounded new-material delta pending; completed baseline retained without replay.",
+          "derivability": "Bounded new-material delta pending; completed baseline retained without replay.",
+          "type-granularity": "Bounded new-material delta pending; completed baseline retained without replay.",
+          "magic-strings": "Bounded new-material delta pending; completed baseline retained without replay.",
+          "magic-numbers": "Bounded new-material delta pending; completed baseline retained without replay."
+        },
+        "status": "Source bytes verified and bounded material registered; no clearance"
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          125,
+          240
+        ]
+      ],
+      "disposition": "Read registered125-240. Screenshot save closure logs native IO/format/conversion failures and returns unit, including WASM download errors. Trigger marks captured then emits image independent from persistence; setup extraction continues beyond240 and is not credited. Supports M76 capture success/persistence admission question without runtime witness or unique increment."
+    },
+    {
+      "material_index": 79,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-puzzles/src/choices/witness_path.rs",
+        "sha256": "363a096f49e88a04b938d910c9e90e311dd1a25cf9eca34c0f5e79881c07bd8f",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/363a096f49e88a04b938d910c9e90e311dd1a25cf9eca34c0f5e79881c07bd8f",
+        "ranges": [
+          [
+            1,
+            53
+          ]
+        ],
+        "registration_evidence": "enum-shapes/registration-507A-material.json",
+        "reason": "Canonical WitnessPath actual payload of submitted safe path, typed WitnessClaim, private solution and public offered paths; generator calls ALL, text calls label and generic authority checks typed submitted choice. Concrete owner/callee contract beyond choices module export; register before first body.",
+        "qualification": "Only exact material ranges; fixtures/unread SDK remainder excluded. No original2853 count increment or other-lens transfer.",
+        "lenses": {
+          "producer-propagation": "Bounded new-material delta pending; completed baseline retained without replay.",
+          "existing-type-owners": "Bounded new-material delta pending; completed baseline retained without replay.",
+          "admission-contracts": "Personally source-compared exact ranges WITH retainedfindings/qualifications; admission-contracts/contract-groups-007.json. No clearance.",
+          "invariant-operations": "Bounded new-material delta pending; completed baseline retained without replay.",
+          "aggregate-states": "Bounded new-material delta pending; completed baseline retained without replay.",
+          "type-ownership": "Own06 independent concept/owner/dependency comparison at exact materialrange; type-ownership/contract-groups-015.json; no clearance.",
+          "redundant-authority": "Independent07 boundedsourcecomparison WITH findings/qualifications; redundant-authority/live-delta-013.json. No clearance.",
+          "behavior-preservation": "Bounded new-material delta pending; completed baseline retained without replay.",
+          "enum-shapes": "Originating enum-shapes source evidence in enum-shapes/registration-507A-material.json",
+          "derivability": "Bounded new-material delta pending; completed baseline retained without replay.",
+          "type-granularity": "Bounded new-material delta pending; completed baseline retained without replay.",
+          "magic-strings": "Bounded new-material delta pending; completed baseline retained without replay.",
+          "magic-numbers": "Bounded new-material delta pending; completed baseline retained without replay."
+        },
+        "status": "Source bytes verified and bounded material registered; no clearance"
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "disposition": "Read registered1-53. Three WitnessPath values expose stable capitalized IDs, visible path labels, and serde-backed typed FromStr error. Closed vocabulary does not prove caller transport or whole-file tests."
+    }
+  ],
+  "first_unfinished_material_index": 80,
+  "new_findings": []
+}

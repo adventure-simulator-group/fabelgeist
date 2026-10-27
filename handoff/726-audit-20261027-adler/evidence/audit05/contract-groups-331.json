@@ -1,0 +1,67 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-331",
+  "at": "2026-10-25T23:15:53.751801+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2731,
+      "source_id": "physical-p16:crates/strategic-web/src/routes/party_actions.rs",
+      "sha256": "061c7eda69f59c154573d983af84afe85c6aae215d4b4385473bd2331fa701ac",
+      "personally_read_ranges": [
+        [
+          1,
+          355
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1-355 exact physical-p16: closed tagged PartyAction excludes arbitrary reducer/caller selection; reducer_call rebinds actor_id supplied at approval rather than stored actor. Each typed variant maps own native argument sequence; readiness subsets explicit. Raw identifiers/float requirements remain transport payload until owning reducer validates. No arbitrary state mutation or leader authorization guarantee inferred from enum alone. Tests read notrun."
+      ]
+    },
+    {
+      "scope_index": 2732,
+      "source_id": "physical-p16:crates/strategic-web/src/location_urls.rs",
+      "sha256": "4cdfe5103f103f2628c55f1f8d3f9dd407342458647215a44b5add07c03dcb14",
+      "personally_read_ranges": [
+        [
+          1,
+          208
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1-208 exact physical-p16: Route private constructor/static pattern plus const N and component encoding correlate placeholder count at URL construction; canonical kind/venue/chapter middleware rejects unknown values. with_query inserts before fragment and percent-encodes components, relevant contrast to F005 caller manuallyappending query afterfragment. local_redirect_path accepts single-leading-slash/no-backslash and returnsownedpath; frameworkcontrol-char policy separate. service_place expects knowncatalogservice, no invalidcaller witness."
+      ]
+    },
+    {
+      "scope_index": 2733,
+      "source_id": "physical-p16:crates/adventuresim-stdb-client/src/journey_route_point_type.rs",
+      "sha256": "471cc151f0a3b11bec0a896e6b5b0f93c2a428a49d318e6121c5a366df529407",
+      "personally_read_ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1-16 generated physical-p16 JourneyRoutePoint wire scalar lat/lon read. Generated primitivefields do not themselves enforce geographicbounds; actual Wgs84 transport adapter2730 provides one checked path. No edits/generatedschema drift asserted."
+      ]
+    },
+    {
+      "scope_index": 2735,
+      "source_id": "physical-p16:crates/strategic-web/src/schedule.rs",
+      "sha256": "87bb6b40cc4c57605e3b8c0601b6db29818a0a548aa8d3d4c3b136f55411f001",
+      "personally_read_ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1-99 exact physical-p16: schedule validate passes organizationminutes from exactsame fields in tenminute array and org tuples, narrowing prior2675 factorycorrelation question for this realcaller. Normalizesblankorg Option then checkedfactorytrims acceptedids. effective/preview admit private ValidatedSchedule and preserve core deterministic location redistribution; preview leisure=day-validatedtotal safe. effective clones organizationidentities whileminutesupdated; context eligibility remains caller/DBpolicy, not proofallpersisted schedules checked."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "4 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

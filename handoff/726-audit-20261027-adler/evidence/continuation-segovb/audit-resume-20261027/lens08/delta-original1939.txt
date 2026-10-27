@@ -1,0 +1,41 @@
+--- base
+
++++ frozen-head
+
+@@ -1,5 +1,6 @@
+
+ use super::*;
++use crate::scene_coordinates::ScenePlanPoint;
+ use crate::{
+     city_layout::{CityStreetPatch, CityStreetSurface},
+     scene::{GroundCover, GroundSurface},
+     scene_input::{EnvironmentalSample, TacticalBuildingPlacement, TerrainSampleGrid},
+@@ -271,9 +272,12 @@
+
+             ) + instance
+                 .orientation
+                 .local_to_world(Vec2::new(support.metres().x, support.metres().z));
+             assert!(
+-                (terrain.height_at(point).unwrap()
++                (terrain
++                    .height_at(ScenePlanPoint::from_metres(point).unwrap())
++                    .unwrap()
++                    .metres()
+                     - instance.position_metres.metres().y
+                     - support.metres().y)
+                     .abs()
+                     < 0.001
+@@ -335,9 +339,11 @@
+
+ 
+ #[test]
+ fn unsupported_or_submerged_candidates_are_rejected_without_moving_terrain() {
+     let (input, buildings, mut terrain, ground) = fixture();
+-    assert!(terrain.rewrite_heights(|point, _| point.x * 0.3));
++    assert!(terrain.rewrite_heights(|point, _| {
++        crate::city_layout::grounding::SupportElevation::from_metres(point.metres().x * 0.3)
++    }));
+     assert!(
+         generate(
+             &input,
+             &buildings,

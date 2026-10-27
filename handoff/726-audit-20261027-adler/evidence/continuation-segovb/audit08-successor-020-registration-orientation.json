@@ -1,0 +1,31 @@
+{
+  "id": "CONT08-020-ORIENTATION-PORT-REGISTRATION",
+  "created_utc": "2026-10-27T05:09:43.847031+00:00",
+  "path": "crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+  "sources": [
+    {
+      "role": "base",
+      "sha256": "142ec022e368d366558d1191d278516343a415a48eb2a23c487d7cbe22e21e28",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/142ec022e368d366558d1191d278516343a415a48eb2a23c487d7cbe22e21e28",
+      "prospective_ranges": [
+        [
+          28,
+          95
+        ]
+      ]
+    },
+    {
+      "role": "head",
+      "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+      "prospective_ranges": [
+        [
+          27,
+          94
+        ]
+      ]
+    }
+  ],
+  "provenance": "own015-provenance001 exact before/after + fresh sourcebyte checks",
+  "reason": "Material local_to_world corners callee and from_frontage_tangent access constructor; bounded ports only in changed original, full original remains separate. ScenePlanPoint/Position and native SDK not reopened."
+}

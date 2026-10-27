@@ -1,0 +1,367 @@
+{
+  "at": "2026-10-27T13:33:24.295796+00:00",
+  "lens": 11,
+  "status": "975-982 independently source-accounted with findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-038-registration.jsonl",
+    "sha256": "a5f08446d4ffe442d5f7182463d6e25687d0d09f5bc58d0139413e550834547d"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-037.json",
+    "sha256": "2b78c0b8f794985809456b91eb0cce5826f70a45b802d428cfd47f06035d62bf"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 975,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/solver.rs",
+      "sha256": "5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+      "actual_eof": 979,
+      "ranges": [
+        [
+          1,
+          979
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "prior_personal_read_reuse": {
+        "receipt": "batch-037-receipt.json",
+        "ranges": [
+          [
+            1,
+            217
+          ],
+          [
+            528,
+            590
+          ],
+          [
+            603,
+            700
+          ]
+        ],
+        "identity_reverified": true
+      },
+      "actual_read_ranges": [
+        [
+          218,
+          527
+        ],
+        [
+          591,
+          602
+        ],
+        [
+          701,
+          979
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 976,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests.rs",
+      "sha256": "7cb3ba6a24f81afd052cf1c35d004918cfcf693f5e7c7655302b74a74cb731ba",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/7cb3ba6a24f81afd052cf1c35d004918cfcf693f5e7c7655302b74a74cb731ba",
+      "actual_eof": 10,
+      "ranges": [
+        [
+          1,
+          10
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          10
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 977,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests/outbreak.rs",
+      "sha256": "f71a35301c19050ae9f6cec34f321798d94fdf73554c6104b7c5af1d3f9281d3",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/f71a35301c19050ae9f6cec34f321798d94fdf73554c6104b7c5af1d3f9281d3",
+      "actual_eof": 288,
+      "ranges": [
+        [
+          1,
+          288
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          288
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 978,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests/projection_and_limits.rs",
+      "sha256": "8bb989bec981a22f6606c07380d29c36e09c7599dfb4183ac97014095c82ca6a",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/8bb989bec981a22f6606c07380d29c36e09c7599dfb4183ac97014095c82ca6a",
+      "actual_eof": 407,
+      "ranges": [
+        [
+          1,
+          407
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          407
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 979,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests/routes_and_evidence.rs",
+      "sha256": "1e63a6243b28e6299494477083e5ed5bed233a8a73c76fafded2475553a0ce10",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/1e63a6243b28e6299494477083e5ed5bed233a8a73c76fafded2475553a0ce10",
+      "actual_eof": 581,
+      "ranges": [
+        [
+          1,
+          581
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          581
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 980,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests/solver_and_generation.rs",
+      "sha256": "ad5412d471d6177851e63bed5f4986db65b6d3ef02f3f604b0517a5fb3f60c9f",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/ad5412d471d6177851e63bed5f4986db65b6d3ef02f3f604b0517a5fb3f60c9f",
+      "actual_eof": 603,
+      "ranges": [
+        [
+          1,
+          603
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          603
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 981,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests/testimony.rs",
+      "sha256": "e79eddae99132e27031816672096c14b61289ed47b7da80e984a82c1c8e3877b",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/e79eddae99132e27031816672096c14b61289ed47b7da80e984a82c1c8e3877b",
+      "actual_eof": 713,
+      "ranges": [
+        [
+          1,
+          713
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          713
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 982,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/validation.rs",
+      "sha256": "a58991cdececa54b76db9d44b4f5dd1702ef3c8d132e37350fcba62b5bf9e827",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/a58991cdececa54b76db9d44b4f5dd1702ef3c8d132e37350fcba62b5bf9e827",
+      "actual_eof": 1121,
+      "ranges": [
+        [
+          1,
+          1121
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "prior_personal_read_reuse": {
+        "receipt": "batch-037-receipt.json",
+        "ranges": [
+          [
+            197,
+            1121
+          ]
+        ],
+        "identity_reverified": true
+      },
+      "actual_read_ranges": [
+        [
+          1,
+          196
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "roles": [
+        975
+      ],
+      "source_locations": [
+        "solver.rs1-217 reused exact personally consumed037",
+        "218-527,528-590 reused,591-979 with603-700 reused"
+      ],
+      "inventory": "SolvedVariables separates chosen family/cause/site/demographic/circumstance/description, optional bridges and primary/secondary indices. Candidate<T> preserves value versus relative Weight and exclusion diagnostics. StreamId and Seed distinguish random stream purpose from entropy; witness ordering canonicalizes persistent IDs before shuffle.",
+      "findings": [
+        "The cause/family/site/catalog adapters repeatedly parse raw strings into existing typed mechanics; retained canonical types prevent inappropriate namespace substitution, while raw relation/bridge/factor keys remain migration ports.",
+        "Candidate eligibility and weight/reason fields still permit contradictory states; exact current implementations zero both weights and attach exclusion reason for impossible secondary circumstances/sites. Preserve source-specific reason and bridge role.",
+        "Physical build_actions binds segment authority separately to action kind/route/output and enforces exact two-segment inputs by runtime destructure. Validator1-195 re-proves ownership, ordinal/predecessor/successor and final versus intermediate destination. Coherent short immutable trail aggregate can own continuity; action target payload sum should preserve distinct Site/Route role even when same underlying SiteId."
+      ],
+      "remedy": "Propagate existing canonical mechanic/ID types through catalog adapters and group coupled eligibility/target/trail states. Keep unnormalized weights, route class, action kind and public versus private references distinct.",
+      "acceptance": "No unsupported bound on all IDs/weights; material graph references remain validated as graph invariants, and canonical identity stays typed to receiving lookup."
+    },
+    {
+      "roles": [
+        976
+      ],
+      "source_locations": [
+        "tests.rs1-10"
+      ],
+      "inventory": "Only cfg(test) shared test module and five included fixture fragments; no new independent bespoke owner.",
+      "findings": []
+    },
+    {
+      "roles": [
+        977
+      ],
+      "source_locations": [
+        "outbreak.rs1-288"
+      ],
+      "inventory": "Disease/source/remediation variants, canonical versus early presentation, patient/episode/reference identity, chronology and route target predicates, typed ObjectiveRequirement and OutcomeFact evaluate exact remediation matching.",
+      "findings": [
+        "These are intended assertions, not execution evidence. They preserve separate patient versus witness/episode identities and source intervention versus carrier combat resolution. Fixtures do not supply missing retained immunity from037 or prove all clinical outcomes."
+      ],
+      "acceptance": "Preserve exact source-remediation identity and survivor route contract during coupled-state repairs; do not infer family/kinship from adjacency."
+    },
+    {
+      "roles": [
+        978
+      ],
+      "source_locations": [
+        "projection_and_limits.rs1-407"
+      ],
+      "inventory": "AttackPattern table pairs opaque canonical marker, summary and learned condition; VictimProfile payload carries cohort demographics separately from actual resident/presence authority. Visible presentation remains separate from absent private Sex; raw u64 beyond JS exact-integer range intentionally exercises identity preservation. Candidate/byte limits remain capacity roles.",
+      "findings": [
+        "Placeholder empty fields in VictimProfile are only fixture shape selectors, not admission witnesses for live valid manifests. Hard-zero no-unused-target policy is explicit. Existing generation budget fixture does not prove every independent family path shares the same byte gate."
+      ],
+      "acceptance": "Retain exact cohort binding and presence-version checks, privacy projection, and capacity roles; no unsupported ID width or presentation-to-sex conversion."
+    },
+    {
+      "roles": [
+        979
+      ],
+      "source_locations": [
+        "routes_and_evidence.rs1-581"
+      ],
+      "inventory": "ReferredContactActionState transitions use exact owner/case/resident authority; failure alternate versus completed route distinct. Fixture adapters erase canonical action IDs/kinds/prerequisites to String and empty sentinel matching actual model receiver. Raw attribute thresholds carry milli-attribute values, not UnitInterval.",
+      "findings": [
+        "Terminal successful contact legitimately has no successors (165-192); do not require nonempty successor payload for every Applied transition. Successful and active are different state facts, though an admitted action lifecycle may constrain combinations. Existing fixture deliberately uses successful=true/active=false.",
+        "Kind/route/target/prerequisite mutations describe invalid aggregate combinations that owner sums/admitted graph can prevent. Exact contact identity differs from display name even when identical names."
+      ],
+      "acceptance": "Keep completion replay and failed-route behavior; preserve scoped authority and canonical typed action/prerequisite identity rather than empty-string sentinel internally."
+    },
+    {
+      "roles": [
+        980
+      ],
+      "source_locations": [
+        "solver_and_generation.rs1-603"
+      ],
+      "inventory": "Determinism, ambiguous observations, conditional evidence, eligibility/rare bridge, objective/finale/custody compatibility, private observer entropy, graph reachability and independence fixtures.",
+      "findings": [
+        "Counts and marginal sweeps are finite authored fixtures; no probability/global coverage guarantee. Public JSON fixture includes generated graph only and does not establish all persistence/public views. Cause and site do not determine all presentation modules, intentionally."
+      ],
+      "acceptance": "Retain conditional weighted evidence and opaque observer identity while removing independent raw authority; no backward compatibility requirement."
+    },
+    {
+      "roles": [
+        981
+      ],
+      "source_locations": [
+        "testimony.rs1-713"
+      ],
+      "inventory": "Accuracy, demeanor, reliability, delivery and incident weather independently represented; testimony challenge substring versus framing and optional claim-specific response map. Immutable trail topology; exact referral UI location labels versus authoritative location key; canonical versus opaque IDs.",
+      "findings": [
+        "Challenge responses charm/command/bluff may all be None;616-632 explicitly validates that, so do not require an all-present trio based on comments.",
+        "Presence of withheld private detail must not change initial output shape. Pipeline can process withheld draft on explicit legitimate access; that differs from initial projection, so do not equate available private data with disclosure.",
+        "Fixture character IDs intentionally exceed2^53 and are distinct from text labels; raw String receiving state remains a typed-propagation candidate, not witnessed runtime wrong identity."
+      ],
+      "acceptance": "Keep optional authored responses, exact challenge boundaries and privacy-authority axes. No test execution or proof of all consumer authorization."
+    },
+    {
+      "roles": [
+        982
+      ],
+      "source_locations": [
+        "validation.rs1-196 new,197-1121 personally consumed037 exact reused"
+      ],
+      "inventory": "Graph admission validates short2..4 segment trails, exact segment/action/finding ownership, topology and final destination; family entry graph, outbreak plan, optional payload coherence, authored challenge/referral contracts, rare candidate bridges and concrete objective/finale producers.",
+      "findings": [
+        "Validation is necessary graph authority but its input remains a fully public/Serde record whose independent fields represent invalid shapes; source admission does not replace canonical internal payload ownership. Reuse037 target/death/outbreak/finale findings without new accepted alias/count.",
+        "Short trail aggregate would reduce duplicated ordinal/predecessor/next facts tied to ordered IDs, while preserving standalone segment identity for learned projections. Graph-specific bounds are supported here; do not extend2..4 to generic tracks."
+      ],
+      "acceptance": "Admit coherent aggregate and preserve actual short-trail policy; validate references and authored graph reachability at one owner boundary."
+    }
+  ],
+  "connected_source_reuse": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-037-receipt.json",
+      "sha256": "9eba0cc942018e3348434818aa4201ceb3a5509ab2183eb34b9a6e117cc1c75a"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-036-receipt.json",
+      "sha256": "90e7b4610d042e6e11fa67ea95d1b67fa50b0d694f3aeb5061f65142b0a198d2"
+    }
+  ],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_ledger_edited": false,
+  "new_material_extensions": [],
+  "limits": [
+    "Frozen source-only fixture and receiving contracts; no execution/currentness/canonical alias proof.",
+    "Existing case, investigation, bestiary and catalog receiving bodies personally read earlier are reused at exact source pins; no other-lens coverage transfers."
+  ]
+}

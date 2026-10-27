@@ -1,0 +1,11 @@
+{
+ "id":"OWN10-QUALIFIED-CANDIDATE-007",
+ "scope_index":1781,
+ "path":"crates/adventuresim-tactical-core/src/animation/state.rs",
+ "ranges":[[478,505],[553,557]],
+ "implementation":"Manual Default for public ActionState returns Self(ActionKind::Idle). ActionKind is a private non-generic enum with unit Idle variant.",
+ "remedy":"Add standard #[derive(Default)] to private ActionKind and #[default] on Idle, then standard derive Default on ActionState and remove its manual Default553-557. Keep custom Deserialize507-551 unchanged.",
+ "semantic_comparison":"Both defaults construct identical ActionState(ActionKind::Idle); enum unit default has no payload defaults and the wrapper has no generics or added trait bounds. Private ActionKind gains only an internal implementation; public ActionState::default API and serde behavior remain identical. No configured defaults, normalization, allocation or error policy occurs in this implementation.",
+ "status":"EXACT_STANDARD_DERIVE_CANDIDATE_PENDING_GLOBAL_SAVED_REMEDY_DEDUP_NOT_YET_NEW_UNIQUE_FINDING",
+ "limits":"Do not generalize to data-bearing BodyState default, configured GuardContacts/AttackCurve defaults, AttackSpec midpoint, AttackPreparation completed progress, AttackAnimations true capability defaults or SkeletonState named pack/checked-owner initial values. No source edit/tests/checks performed."
+}

@@ -1,0 +1,98 @@
+{
+  "id": "SEGOVB-SOURCE-RECONCILIATION-004-REG",
+  "created_utc": "2026-10-26T21:02:17.042321+00:00",
+  "head": "323789dd1beca252d4515c580573596ca0c98143",
+  "comparison": "Parent-supplied4fcc source state; exact four lock bytes and correction patch independently pinned; no direct Git commands.",
+  "sources": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be",
+      "lines": 13106,
+      "purpose": "Prospective native lock metadata package/version/checksum and dependency-edge source; no Cargo execution."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "sha256": "0814366f818cf580e09b015977170498c750f76174d620a866e602855a455597",
+      "lines": 12310,
+      "purpose": "Prospective native lock metadata package/version/checksum and dependency-edge source; no Cargo execution."
+    },
+    {
+      "path": "crates/fabelgeist-mhr/Cargo.lock",
+      "sha256": "45961a0c74b57fb81e9429abc14d387a4e4a00ba18a771c17b0fd5e4ea09eaf4",
+      "lines": 7093,
+      "purpose": "Prospective native lock metadata package/version/checksum and dependency-edge source; no Cargo execution."
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/Cargo.lock",
+      "sha256": "32956d36e5397e3492b5de1e1b8fc6b13fef5cb25077cb6f49e0793f918304c4",
+      "lines": 6249,
+      "purpose": "Prospective native lock metadata package/version/checksum and dependency-edge source; no Cargo execution."
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/creator-lock-correction-001.json",
+      "sha256": "711902c25219cbfa049f25372988e9c15a051649e22e4ec61d12a0adcacf4d6c",
+      "purpose": "Parent bounded change/failure/source identity evidence; no broader log consumption."
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/creator-lock-correction-001.patch",
+      "sha256": "98b94798dfccbd594fa19204ad2bdcc48d38e3980030efa692877ed8a2cce1b9",
+      "purpose": "Parent bounded change/failure/source identity evidence; no broader log consumption."
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/hosted-creator-lock-failure-001.txt",
+      "sha256": "c61ad5a72b3fd83f0d08c316bbe6b0579614c69bde013672cab0da167c0204d0",
+      "purpose": "Parent bounded change/failure/source identity evidence; no broader log consumption."
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/source-manifest-001.json",
+      "sha256": "1c72d1be7a816d638706574f740d916494bc4236b3e74ec584b94cabdf740a62",
+      "purpose": "Parent bounded change/failure/source identity evidence; no broader log consumption."
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/combined-pr-source-manifest-003.json",
+      "sha256": "cdf71d88f04e95328a14ebccc3336af00154646d1fc5814ffa6a7e88b6c193a8",
+      "purpose": "Actual final4fcc source identity baseline; initial source-manifest001 predates the already-reviewed validation_scope Error import qualification."
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/review-response-20261026/combined-pr-source-manifest-002.json",
+      "sha256": "270b21cf562e9eb11b159be5b2cf0c3dd70620b64f9ed09f577f791d5568aa16",
+      "purpose": "Actual final4fcc source identity baseline; initial source-manifest001 predates the already-reviewed validation_scope Error import qualification."
+    }
+  ],
+  "ranges": {
+    "Cargo.lock": [
+      [
+        4319,
+        4354
+      ],
+      [
+        5008,
+        5038
+      ]
+    ],
+    "crates/adventuresim-character-creator/Cargo.lock": [
+      [
+        4303,
+        4338
+      ],
+      [
+        5038,
+        5067
+      ]
+    ],
+    "crates/fabelgeist-mhr/Cargo.lock": [
+      [
+        1997,
+        2020
+      ]
+    ],
+    "crates/fabelgeist-numpy-storage/Cargo.lock": [
+      [
+        1795,
+        1818
+      ]
+    ]
+  },
+  "scope": "Only one creator lock dependency edge and exact relevant nodes/checksums across four locks, plus prior15 source fingerprints. No broad source coverage or count changes.",
+  "metadata_parse": "Native TOML package list read to verify exact relevant-node multiplicity and GPU package absence in the two standalone non-GPU locks. No Cargo resolution/build/check or repository code execution."
+}

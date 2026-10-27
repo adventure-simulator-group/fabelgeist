@@ -1,0 +1,18 @@
+{
+  "run": 39901718104,
+  "head": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "job": 120244572697,
+  "url": "https://github.com/adventure-simulator-group/fabelgeist/actions/runs/39901718104",
+  "earliest_failed_step": "Test creator rig family contracts",
+  "first_failed_contract": "Existing settled-drape wearer fixture declares skin joint count1 but retains zero names and zero joint-state rows",
+  "log_lines": [
+    "2026-10-23T06:22:17.5766884Z test garment::selection::tests::garments_round_trip_and_reject_invalid_patterns ... ok",
+    "2026-10-23T06:22:17.5802301Z test garment::settled::tests::a_drape_follows_a_larger_moved_body_and_keeps_its_ease ... ",
+    "2026-10-23T06:22:17.5803329Z thread 'garment::settled::tests::a_drape_follows_a_larger_moved_body_and_keeps_its_ease' (94494) panicked at src/garment/settled/tests.rs:125:61:",
+    "2026-10-23T06:22:17.5804501Z called `Result::unwrap()` on an `Err` value: body skin references a missing rig joint",
+    "2026-10-23T06:22:17.5805295Z note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace",
+    "2026-10-23T06:22:17.5805880Z FAILED",
+    "2026-10-23T06:22:17.5815023Z test garment::settled::tests::a_drape_is_not_worn_on_another_body_mesh ... ok"
+  ],
+  "limits": "Historical hosted result at exact current main; no local project checks or inferred downstream acceptance."
+}

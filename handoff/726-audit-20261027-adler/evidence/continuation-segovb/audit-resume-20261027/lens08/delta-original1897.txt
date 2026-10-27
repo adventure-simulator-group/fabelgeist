@@ -1,0 +1,380 @@
+--- base
++++ head
+@@ -1,5 +1,3 @@
+-use core::f32;
+-
+ use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
+ use avian3d::prelude::*;
+ use bevy::prelude::*;
+@@ -8,6 +6,19 @@
+ 
+ #[cfg(test)]
+ use crate::terrain_transition::TerrainTransitionCollar;
++use crate::{city_layout::grounding::SupportElevation, scene_coordinates::ScenePlanPoint};
++
++pub use admission::TerrainAdmissionError;
++pub use grade::{TerrainGradeError, TerrainGradeLimit};
++pub use ground::*;
++use property_support::TerrainGeometry;
++pub use queries::{SceneElevationRange, TerrainSupportError, TerrainSupportResult};
++
++mod admission;
++pub(crate) mod grade;
++mod ground;
++mod property_support;
++mod queries;
+ 
+ /// Terrain generator shared by the authoritative server and deterministic
+ /// presentation fixtures. Keeping the implementation here prevents animation
+@@ -17,6 +28,29 @@
+     pub seed: fabelgeist_determinism::Seed,
+     pub period: f32,
+     pub grid_scale: f32,
++}
++
++/// Id of the scene in which the game takes place.
++#[derive(Component, Serialize, Deserialize, Default, Debug, Reflect, Clone, PartialEq, Eq)]
++#[reflect(Component)]
++#[component(immutable)]
++pub struct SceneId(pub String);
++
++#[derive(Component, Serialize, Deserialize, Debug, Reflect, Clone, PartialEq)]
++#[reflect(opaque, Component)]
++#[serde(try_from = "admission::TerrainWire")]
++pub struct SceneTerrain {
++    heightmap: Vec<f32>,
++    width: usize,
++    scale: f32,
++    /// Number of authoritative sample intervals represented by one vertex in
++    /// the coarse render LOD. Collision and spatial queries always use every
++    /// sample; this stride only avoids submitting the full-resolution field
++    /// outside the camera-local detail patch.
++    coarse_stride: usize,
++    /// Sampled ground or an explicitly compiled owned surface. This is a
++    /// generated geometry contract, not a second tactical simulation state.
++    geometry: TerrainGeometry,
+ }
+ 
+ impl TerrainGenerator {
+@@ -52,38 +86,6 @@
+             normal * height as f32
+         })
+     }
+-}
+-
+-/// Id of the scene in which the game takes place.
+-#[derive(Component, Serialize, Deserialize, Default, Debug, Reflect, Clone, PartialEq, Eq)]
+-#[reflect(Component)]
+-#[component(immutable)]
+-pub struct SceneId(pub String);
+-
+-mod ground;
+-pub use ground::*;
+-pub(crate) mod grade;
+-pub use grade::{TerrainGradeError, TerrainGradeLimit};
+-mod admission;
+-pub use admission::TerrainAdmissionError;
+-mod property_support;
+-use property_support::TerrainGeometry;
+-
+-#[derive(Component, Serialize, Deserialize, Debug, Reflect, Clone, PartialEq)]
+-#[reflect(opaque, Component)]
+-#[serde(try_from = "admission::TerrainWire")]
+-pub struct SceneTerrain {
+-    heightmap: Vec<f32>,
+-    width: usize,
+-    scale: f32,
+-    /// Number of authoritative sample intervals represented by one vertex in
+-    /// the coarse render LOD. Collision and spatial queries always use every
+-    /// sample; this stride only avoids submitting the full-resolution field
+-    /// outside the camera-local detail patch.
+-    coarse_stride: usize,
+-    /// Sampled ground or an explicitly compiled owned surface. This is a
+-    /// generated geometry contract, not a second tactical simulation state.
+-    geometry: TerrainGeometry,
+ }
+ 
+ impl SceneTerrain {
+@@ -150,7 +152,7 @@
+     pub fn refined(
+         &self,
+         target_spacing: f32,
+-        height_at: impl Fn(Vec2, f32) -> f32,
++        height_at: impl Fn(ScenePlanPoint, SupportElevation) -> Option<SupportElevation>,
+     ) -> Option<Self> {
+         if !matches!(self.geometry, TerrainGeometry::Sampled)
+             || !target_spacing.is_finite()
+@@ -175,13 +177,12 @@
+         let mut heights = Vec::with_capacity(width.checked_mul(depth)?);
+         for z in 0..depth {
+             for x in 0..width {
+-                let point = Vec2::new(x as f32 * scale, z as f32 * scale) - half_extent;
++                let point = ScenePlanPoint::from_metres(
++                    Vec2::new(x as f32 * scale, z as f32 * scale) - half_extent,
++                )?;
+                 let base_height = self.height_at(point)?;
+-                let height = height_at(point, base_height);
+-                if !height.is_finite() {
+-                    return None;
+-                }
+-                heights.push(height);
++                let height = height_at(point, base_height)?;
++                heights.push(height.metres());
+             }
+         }
+         let terrain = Self {
+@@ -240,130 +241,34 @@
+ 
+     /// Rewrites authoritative samples in centered world coordinates while
+     /// preserving the terrain dimensions and render/collider correspondence.
+-    pub fn rewrite_heights(&mut self, mut rewrite: impl FnMut(Vec2, f32) -> f32) -> bool {
++    /// Publish the replacement only after every sample is admitted.
++    pub fn rewrite_heights(
++        &mut self,
++        mut rewrite: impl FnMut(ScenePlanPoint, SupportElevation) -> Option<SupportElevation>,
++    ) -> bool {
+         if !matches!(self.geometry, TerrainGeometry::Sampled) {
+             return false;
+         }
+         let half_extent = Vec2::new(self.width(), self.depth()) * 0.5;
++        let mut replacement = Vec::with_capacity(self.heightmap.len());
+         for z in 0..self.grid_depth() {
+             for x in 0..self.grid_width() {
+                 let index = z * self.grid_width() + x;
+-                let point = Vec2::new(x as f32, z as f32) * self.scale - half_extent;
+-                let height = rewrite(point, self.heightmap[index]);
+-                if !height.is_finite() {
++                let Some(point) = ScenePlanPoint::from_metres(
++                    Vec2::new(x as f32, z as f32) * self.scale - half_extent,
++                ) else {
+                     return false;
+-                }
+-                self.heightmap[index] = height;
++                };
++                let Some(height) = SupportElevation::from_metres(self.heightmap[index])
++                    .and_then(|height| rewrite(point, height))
++                else {
++                    return false;
++                };
++                replacement.push(height.metres());
+             }
+         }
++        self.heightmap = replacement;
+         true
+-    }
+-
+-    pub fn minimum_height(&self) -> f32 {
+-        match &self.geometry {
+-            TerrainGeometry::Sampled => {
+-                self.heightmap.iter().copied().fold(f32::INFINITY, f32::min)
+-            }
+-            TerrainGeometry::Owned(surface) => {
+-                surface.support_heights().fold(f32::INFINITY, f32::min)
+-            }
+-        }
+-    }
+-
+-    pub fn maximum_height(&self) -> f32 {
+-        match &self.geometry {
+-            TerrainGeometry::Sampled => self
+-                .heightmap
+-                .iter()
+-                .copied()
+-                .fold(f32::NEG_INFINITY, f32::max),
+-            TerrainGeometry::Owned(surface) => {
+-                surface.support_heights().fold(f32::NEG_INFINITY, f32::max)
+-            }
+-        }
+-    }
+-
+-    pub fn height_at(&self, pos: Vec2) -> Option<f32> {
+-        self.surface_at_stride(pos, 1)
+-            .map(|sample| sample.elevation.metres())
+-    }
+-
+-    /// Samples the triangle surface used by the coarse render LOD.
+-    pub fn coarse_height_at(&self, pos: Vec2) -> Option<f32> {
+-        self.surface_at_stride(pos, self.coarse_stride.max(1))
+-            .map(|sample| sample.elevation.metres())
+-    }
+-
+-    /// Samples the same triangle surface used by the rendered mesh and
+-    /// authoritative collider. Returning the triangle normal alongside the
+-    /// height keeps terrain IK from fitting a foot to a different, bilinear
+-    /// surface than the one visible beneath it.
+-    fn surface_at_stride(
+-        &self,
+-        pos: Vec2,
+-        stride: usize,
+-    ) -> Option<crate::city_layout::grounding::SurfaceHit> {
+-        if let TerrainGeometry::Owned(surface) = &self.geometry {
+-            return surface
+-                .highest_surface_at(crate::scene_coordinates::ScenePlanPoint::from_metres(pos)?);
+-        }
+-        if self.scale <= 0.0 || self.grid_width() < 2 || self.grid_depth() < 2 {
+-            return None;
+-        }
+-        // offset pos because floor's origin is at the center
+-        let pos = pos + Vec2::new(self.width(), self.depth()) * 0.5;
+-        let grid = pos / self.scale;
+-        if grid.x < 0.0
+-            || grid.y < 0.0
+-            || grid.x > (self.grid_width() - 1) as f32
+-            || grid.y > (self.grid_depth() - 1) as f32
+-        {
+-            return None;
+-        }
+-        // The final vertex has no cell to its right/below. Sample its adjacent
+-        // cell with a coordinate of one so edges remain well-defined.
+-        let stride = stride.max(1);
+-        let last_cell_x = ((self.grid_width() - 2) / stride) * stride;
+-        let last_cell_y = ((self.grid_depth() - 2) / stride) * stride;
+-        let min_x = ((grid.x / stride as f32).floor() as usize * stride).min(last_cell_x);
+-        let min_y = ((grid.y / stride as f32).floor() as usize * stride).min(last_cell_y);
+-        let max_x = (min_x + stride).min(self.grid_width() - 1);
+-        let max_y = (min_y + stride).min(self.grid_depth() - 1);
+-        let cell_scale_x = (max_x - min_x) as f32 * self.scale;
+-        let cell_scale_z = (max_y - min_y) as f32 * self.scale;
+-        let fraction = Vec2::new(
+-            (grid.x - min_x as f32) / (max_x - min_x) as f32,
+-            (grid.y - min_y as f32) / (max_y - min_y) as f32,
+-        );
+-
+-        let x0y0 = *self.heightmap.get(min_x + min_y * self.width)?;
+-        let x1y0 = *self.heightmap.get(max_x + min_y * self.width)?;
+-        let x0y1 = *self.heightmap.get(min_x + max_y * self.width)?;
+-        let x1y1 = *self.heightmap.get(max_x + max_y * self.width)?;
+-
+-        let (height, tangent_x, tangent_z) = if fraction.x + fraction.y <= 1.0 {
+-            // Matches [x0y0, x0y1, x1y0] in `mesh_components_with_stride` and
+-            // Avian's default heightfield subdivision.
+-            (
+-                x0y0 + (x1y0 - x0y0) * fraction.x + (x0y1 - x0y0) * fraction.y,
+-                Vec3::new(cell_scale_x, x1y0 - x0y0, 0.0),
+-                Vec3::new(0.0, x0y1 - x0y0, cell_scale_z),
+-            )
+-        } else {
+-            // Matches [x1y0, x0y1, x1y1].
+-            (
+-                x1y1 + (x0y1 - x1y1) * (1.0 - fraction.x) + (x1y0 - x1y1) * (1.0 - fraction.y),
+-                Vec3::new(cell_scale_x, x1y1 - x0y1, 0.0),
+-                Vec3::new(0.0, x1y1 - x1y0, cell_scale_z),
+-            )
+-        };
+-        let normal = tangent_z.cross(tangent_x);
+-        crate::city_layout::grounding::SurfaceHit::from_geometry(height, normal)
+-    }
+-
+-    /// Returns the finite, normalized normal of the rendered/collided triangle.
+-    pub fn normal_at(&self, pos: Vec2) -> Option<Vec3> {
+-        self.surface_at_stride(pos, 1).map(|sample| *sample.normal)
+     }
+ 
+     /// Install each shape on its own static body. Owned foundation compounds
+@@ -568,68 +473,25 @@
+     }
+ 
+     #[test]
+-    fn ground_grid_queries_discrete_centered_samples_and_rejects_invalid_data() {
+-        let mut samples = vec![GroundSurface::default(); 9];
+-        samples[4] = GroundSurface {
+-            substrate: GroundSubstrate::Soil,
+-            cover: GroundCover::LeafLitter,
+-            cover_density_bps: 8_500,
+-            cover_height_cm: 6,
+-        };
+-        let ground = SceneGround::from_samples(3, 3, 2.0, samples).unwrap();
+-        assert_eq!(
+-            ground.ground_at(Vec2::ZERO).unwrap().cover,
+-            GroundCover::LeafLitter
+-        );
+-        assert!(ground.cover_intersects_square(Vec2::new(1.8, 0.0), 0.3, GroundCover::LeafLitter));
+-        assert!(ground.ground_at(Vec2::new(2.01, 0.0)).is_none());
+-        assert!(SceneGround::from_samples(1, 3, 1.0, vec![GroundSurface::default(); 3]).is_none());
+-    }
+-
+-    #[test]
+-    fn height_interpolation_respects_non_unit_grid_scale() {
+-        let terrain = SceneTerrain::new(2, 2, 2.0, |point| point.x + point.y * 2.0).unwrap();
+-        assert!((terrain.height_at(Vec2::new(-1.0, -1.0)).unwrap() - 1.5).abs() < 0.0001);
+-        assert_eq!(terrain.height_at(Vec2::new(-3.0, 0.0)), None);
+-    }
+-
+-    #[test]
+-    fn height_sampling_matches_each_mesh_triangle() {
+-        let terrain = SceneTerrain::new(
+-            1,
+-            1,
+-            1.0,
+-            |point| {
+-                if point == Vec2::ONE { 1.0 } else { 0.0 }
+-            },
+-        )
+-        .unwrap();
+-
+-        // Avian's heightfield diagonal joins the two zero-height off-diagonal
+-        // vertices. The high corner therefore affects only its own triangle,
+-        // and CPU queries and rendered indices must use that same split.
+-        assert_eq!(terrain.height_at(Vec2::new(0.25, -0.25)).unwrap(), 0.0);
+-        assert_eq!(terrain.height_at(Vec2::new(-0.25, 0.25)).unwrap(), 0.0);
+-        assert_eq!(terrain.height_at(Vec2::ZERO).unwrap(), 0.0);
+-        assert!((terrain.height_at(Vec2::new(0.25, 0.25)).unwrap() - 0.5).abs() < 0.0001);
+-    }
+-
+-    #[test]
+     fn refined_surface_keeps_a_coarse_lod_without_splitting_query_authority() {
+         let coarse = SceneTerrain::new(4, 4, 1.0, |_| 0.0).unwrap();
+         let refined = coarse
+             .refined(0.5, |point, base| {
+-                base + (point.x * core::f32::consts::PI).sin()
+-                    * (point.y * core::f32::consts::PI).sin()
+-                    * 0.04
++                let point = point.metres();
++                SupportElevation::from_metres(
++                    base.metres()
++                        + (point.x * core::f32::consts::PI).sin()
++                            * (point.y * core::f32::consts::PI).sin()
++                            * 0.04,
++                )
+             })
+             .unwrap();
+ 
+         assert_eq!(refined.grid_scale(), 0.5);
+         assert_eq!(refined.coarse_grid_scale(), 1.0);
+-        let point = Vec2::splat(0.5);
+-        assert!((refined.height_at(point).unwrap() - 0.04).abs() < 0.000_01);
+-        assert!(refined.coarse_height_at(point).unwrap().abs() < 0.000_01);
++        let point = ScenePlanPoint::from_metres(Vec2::splat(0.5)).unwrap();
++        assert!((refined.height_at(point).unwrap().metres() - 0.04).abs() < 0.000_01);
++        assert!(refined.coarse_height_at(point).unwrap().metres().abs() < 0.000_01);
+     }
+ 
+     #[test]
+@@ -665,7 +527,10 @@
+             Vec2::new(0.6, 0.2),
+             Vec2::ZERO,
+         ] {
+-            let expected_height = terrain.height_at(point).unwrap();
++            let expected_height = terrain
++                .height_at(ScenePlanPoint::from_metres(point).unwrap())
++                .unwrap()
++                .metres();
+             let ray_origin = Vec3::new(point.x, 30.0, point.y);
+             let (distance, _) = collider
+                 .cast_ray(
+@@ -685,15 +550,4 @@
+             );
+         }
+     }
+-
+-    #[test]
+-    fn normals_are_finite_at_center_and_boundary() {
+-        let terrain = SceneTerrain::new(2, 2, 2.0, |point| point.x * 0.25).unwrap();
+-        for position in [Vec2::ZERO, Vec2::new(2.0, 2.0)] {
+-            let normal = terrain.normal_at(position).unwrap();
+-            assert!(normal.is_finite());
+-            assert!((normal.length() - 1.0).abs() < 0.0001);
+-            assert!(normal.y > 0.0);
+-        }
+-    }
+ }

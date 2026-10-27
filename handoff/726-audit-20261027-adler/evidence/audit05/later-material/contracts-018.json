@@ -1,0 +1,134 @@
+{
+  "registry_snapshot": "registry-179.json",
+  "registry_sha256": "06d1e85af129d0513fbc0a5697d2d1f50c3e658c47b7d0dec766995f521adc46",
+  "members": [
+    {
+      "material_index": 61,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/choices.rs",
+        "sha256": "32853562a79ddc5ae393bc38780b86583500e079c5ca22109b07f1a479e030c0",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/32853562a79ddc5ae393bc38780b86583500e079c5ca22109b07f1a479e030c0",
+        "ranges": [
+          [
+            200,
+            225
+          ]
+        ],
+        "registration_evidence": "type-ownership/prospective-source-registration-002.json",
+        "registration_id": "SEGO-CONT06-REG002",
+        "reason": "Fresh registeredguards::section consumes GuardSection; exactoriginalcatalogue hasconstructionSection7variants but no recipechoices declaration. RegisterboundedrawauthoringGuardSection definition to distinguish restrictedguardvocabulary from genericconstructionsectionowner beforebodycomparison. Prior rg onlylocatedenum declaration; no bodycredit.",
+        "qualification": null,
+        "lenses": {
+          "producer-propagation": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "existing-type-owners": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "admission-contracts": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "invariant-operations": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "aggregate-states": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "type-ownership": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "redundant-authority": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "behavior-preservation": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "enum-shapes": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "derivability": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "type-granularity": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "magic-strings": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "magic-numbers": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative"
+        },
+        "status": "Exactsourceverifiedandrecovered only; unchanged2853historicaldenominator and no automaticlensclearance."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          200,
+          225
+        ]
+      ],
+      "disposition": "Registered200-225is mirror tail, complete GuardSection and partial GuardTerminal header/None/Profile. Exact serde tags align26section and terminal selectors, but other terminal variants outside225not excluded from enum; no full367line credit."
+    },
+    {
+      "material_index": 62,
+      "registration": {
+        "source_id": "pr-working:crates/fabelgeist-math/src/vector/vec3.rs",
+        "sha256": "83d359f9d5ae866cc3935577b48f93d9916081bceb05ac92748c91e98672c143",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/83d359f9d5ae866cc3935577b48f93d9916081bceb05ac92748c91e98672c143",
+        "ranges": [
+          [
+            1,
+            263
+          ]
+        ],
+        "registration_evidence": "operations/contract-groups-539.json#fresh_dependencies",
+        "reason": "Immediate actual Vec3 floating min/max receiver needed to establish BVH parallel-axis arithmetic. Scope extension only, no broad math expansion or original2853-count increment.",
+        "status": "Read under own04 by assignedinvestigator; allotherlenses pending exactsource-role disposition.",
+        "lenses": {
+          "producer-propagation": "Newsource material pending own-lens reconciliation; do not replaycompleted baseline.",
+          "existing-type-owners": "Newsource material pending own-lens reconciliation; do not replaycompleted baseline.",
+          "admission-contracts": "Own03 exact registered ranges dispositioned in contract-groups-006.json; inherited findings retained, no clearance.",
+          "invariant-operations": "Own04 packet539 personallyread263; sourceoperation support only, no whole04clearance",
+          "aggregate-states": "Newsource material pending own-lens reconciliation; do not replaycompleted baseline.",
+          "type-ownership": "Own06 complete exact registered ranges; contract-groups-014.json. Findings/qualifications retained; no all13 clearance.",
+          "redundant-authority": "Independent07 boundedsourcecomparison WITH findings/qualifications; redundant-authority/live-delta-013.json. No clearance.",
+          "behavior-preservation": "Newsource material pending own-lens reconciliation; do not replaycompleted baseline.",
+          "enum-shapes": "Newsource material pending own-lens reconciliation; do not replaycompleted baseline.",
+          "derivability": "Newsource material pending own-lens reconciliation; do not replaycompleted baseline.",
+          "type-granularity": "Newsource material pending own-lens reconciliation; do not replaycompleted baseline.",
+          "magic-strings": "Newsource material pending own-lens reconciliation; do not replaycompleted baseline.",
+          "magic-numbers": "Newsource material pending own-lens reconciliation; do not replaycompleted baseline."
+        }
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "disposition": "Read complete263line raw reprC Vec3 in twochunks: arithmetic/serde/bytemuck accept raw components; normalize divides only length>0, so zero returnsitself and overflowing finite magnitude may yieldzero. axis/set_axis map any index>=2toZ. Per-component IEEE division intentionally retains infinities; no unitvector/finiteness/indexboundary guarantee. Preserve ownF009interpolation numerical mechanism, no allvec3callers acceptance."
+    },
+    {
+      "material_index": 63,
+      "registration": {
+        "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+        "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+        "ranges": [
+          [
+            1,
+            209
+          ]
+        ],
+        "registration_evidence": "operations/contract-groups-548.json#fresh_dependencies",
+        "reason": "Immediate native allocation/interface owner personally read; no original scope credit and coordinator registry reconciliation requested if absent.",
+        "qualification": "Exact new material source/ranges; no original2853count increment or other-lens transfer.",
+        "lenses": {
+          "producer-propagation": "Newmaterial delta pending own-lens disposition; inheritedcompletedbaseline remainsusable withoutreplay.",
+          "existing-type-owners": "Newmaterial delta pending own-lens disposition; inheritedcompletedbaseline remainsusable withoutreplay.",
+          "admission-contracts": "Own03 exact registered ranges dispositioned in contract-groups-006.json; inherited findings retained, no clearance.",
+          "invariant-operations": "Owninvariant-operations sourceproof operations/contract-groups-548.json#fresh_dependencies; no full-lensclearance",
+          "aggregate-states": "Newmaterial delta pending own-lens disposition; inheritedcompletedbaseline remainsusable withoutreplay.",
+          "type-ownership": "Own06 complete exact registered ranges; contract-groups-014.json. Findings/qualifications retained; no all13 clearance.",
+          "redundant-authority": "Independent07 boundedsourcecomparison WITH findings/qualifications; redundant-authority/live-delta-013.json. No clearance.",
+          "behavior-preservation": "Newmaterial delta pending own-lens disposition; inheritedcompletedbaseline remainsusable withoutreplay.",
+          "enum-shapes": "Newmaterial delta pending own-lens disposition; inheritedcompletedbaseline remainsusable withoutreplay.",
+          "derivability": "Newmaterial delta pending own-lens disposition; inheritedcompletedbaseline remainsusable withoutreplay.",
+          "type-granularity": "Newmaterial delta pending own-lens disposition; inheritedcompletedbaseline remainsusable withoutreplay.",
+          "magic-strings": "Newmaterial delta pending own-lens disposition; inheritedcompletedbaseline remainsusable withoutreplay.",
+          "magic-numbers": "Newmaterial delta pending own-lens disposition; inheritedcompletedbaseline remainsusable withoutreplay."
+        },
+        "status": "Verifiedregisteredsource role; discovery partial globally, no clearance"
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          209
+        ]
+      ],
+      "disposition": "Fresh full209line reflection read independent of prior material-comparison-001. BTreeMap groups sorted but compact vectors omit sparse-index placeholders, while reflection retains original groupindex. Uniform metadata singular pergroup; texture dimension/class/sampler mapping ignores some native shape distinctions. Exact sparsegroup canonicalproducer mechanism remains source-backed and #826qualified, no scopedrepair\u2192wholefamily clearance or newfinding. No actual shadercompile/GPU call."
+    }
+  ],
+  "first_unfinished_material_index": 64,
+  "new_findings": []
+}

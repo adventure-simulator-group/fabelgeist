@@ -1,0 +1,280 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "090",
+  "predecessor": "receipt-089-original411.json",
+  "manifest_prefix_sha256": "1172dae7451485931c35c6d8c2cab72ba0dc30ae0f101061391c82d7a2c68902",
+  "sources": [
+    {
+      "original_index": 412,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/dive_launch.rs",
+      "sha256": "92c5c2966afd08f99f1107fb60067033371cb1a4139a5d3c348ad79f27ee7bd9",
+      "actual_eof": 101,
+      "actual_ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-101",
+          "role": "No string literals or string-valued application ports, including existing tests42-101. Typed dive values/native vectors only.",
+          "disposition": "No numerical/physics/test/lens08 proof."
+        }
+      ],
+      "status": "Full requested source independently read WITH findings where stated."
+    },
+    {
+      "original_index": 413,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/item_geometry.rs",
+      "sha256": "fd0e55979400ec53e6db4c76a659bca5f732e45e2431a7f66db35335c3472a75",
+      "actual_eof": 112,
+      "actual_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "14-37,49-96",
+          "role": "Retains native ConnectedPlayerItem; raw item.item.id drives catalog lookup55 and conditioned_precision96; clones into MissingEquipment81/MissingStrikingMaterial85.",
+          "disposition": "Canonical open item identity should persist through native admission and application lookup; geometry admission does not admit identity; precision owner remains qualified."
+        }
+      ],
+      "status": "Full requested source independently read WITH findings where stated."
+    },
+    {
+      "original_index": 414,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+      "sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+      "actual_eof": 162,
+      "actual_ranges": [
+        [
+          1,
+          162
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-162",
+          "role": "No string literals or string-valued APIs; typed facing intents and native rotation/vector operations.",
+          "disposition": "No numerical/physics/behavior-preservation proof or BC constraint."
+        }
+      ],
+      "status": "Full requested source independently read WITH findings where stated."
+    },
+    {
+      "original_index": 415,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/projection_equipment.rs",
+      "sha256": "5e4a989041915c8e90f822e9947824bb05615df6c4b4427d6ec00a9cad71a726",
+      "actual_eof": 176,
+      "actual_ranges": [
+        [
+          1,
+          176
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "17-32,36-78,111-143",
+          "role": "Typed error variants retain observed raw item_id String; raw &str50/design.catalog_id equality61 and119; raw catalog lookup133/placement.id equality142. Native recipe decode60/117 and recipe copies91/107 require codec owner trace.",
+          "disposition": "Use canonical open catalog/placement identity through actual admission and decoded design. Invalid observed text in diagnostic payload is distinct from accepted semantic API. Native recipe remains concrete encoding boundary, implementation unread."
+        },
+        {
+          "source_ranges": "90,106,118,126,134,138,143,162",
+          "role": "Expectations are native diagnostic messages; error templates17/19/21/23/25/27/29/31 format typed variants.",
+          "disposition": "No global string exemption or proof of expectation preconditions."
+        }
+      ],
+      "status": "Full requested source independently read WITH findings where stated."
+    },
+    {
+      "original_index": 416,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/spawn_admission.rs",
+      "sha256": "43080d2bf8aa77667af8dad133c2266cae1829c0b33d658e858391aaa93ab474",
+      "actual_eof": 119,
+      "actual_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "20-26,35-110",
+          "role": "AdmittedPlayer retains whole generated ConnectedPlayer21 after body/position/item admission; character.name46 is actual enemy_fixture.enemy_named semantic lookup, then player retained93 and projected110. No local name/catalog/placement admission.",
+          "disposition": "Connects411 raw retained name/item state to actual admission. Canonical personal-name/identity owners needed before application use; enemy fixture lookup owner still untraced."
+        },
+        {
+          "source_ranges": "63-65,72",
+          "role": "Native warning prints name/id; deterministic StreamId tactical.player-spawn72 is concrete native stream namespace.",
+          "disposition": "No random/physics/runtime proof; enemy_named matching semantics remain pending."
+        }
+      ],
+      "status": "Full requested source independently read WITH findings where stated."
+    },
+    {
+      "original_index": 417,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/scene_spawn.rs",
+      "sha256": "0ed8029897a512fc8ebb39248471b4febef60c0a7c7657673a9df6b393d9838a",
+      "actual_eof": 40,
+      "actual_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "14-28",
+          "role": "Native thiserror templates20/25/27 render canonical SceneSpawnError variants with CharacterId/cause.",
+          "disposition": "No raw string-valued gameplay state or API; no admission/command publication global proof."
+        }
+      ],
+      "status": "Full requested source independently read WITH findings where stated."
+    },
+    {
+      "original_index": 418,
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/digest.rs",
+      "sha256": "80e021f45fedb26ff313fe42e19a49503716be0c710173af5285e572bfe5ce98",
+      "actual_eof": 28,
+      "actual_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "9-27",
+          "role": "valid_digest accepts raw text then discards SourcePackageDigest admission into bool10; hex_sha13 and hex_sha_reader17 return raw String native SHA256 hex14/27.",
+          "disposition": "Hash formatting is concrete native text boundary; propagate existing SourcePackageDigest on internal package APIs. Actual downstream state/parse/cmp consumers pending."
+        }
+      ],
+      "status": "Full requested source independently read WITH findings where stated."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Native connected-player admission preserves raw personal/catalog/topology identities into tactical projection",
+      "sources": [
+        "413:14-37,55,81-96",
+        "415:50-78,119,133-143",
+        "416:20-26,46,89-110",
+        "411:738,808,820,838-841"
+      ],
+      "remedy": "Admit and retain canonical open identities/names through generated-boundary projection and actual fixture/catalog/placement recipients; encode/decode only native boundary.",
+      "acceptance": "Read enemy_named native fixture schema and recipe/default_design/conditioned_precision owners; preserve observed invalid text in errors without treating it as admitted identity.",
+      "unique_count_delta": 0
+    },
+    {
+      "family": "Existing digest owner admitted then discarded at shared hashing helper boundary",
+      "sources": [
+        "418:9-27"
+      ],
+      "remedy": "Return/retain canonical SourcePackageDigest through internal package state and compare APIs, format at native boundary.",
+      "acceptance": "Trace419 exact actual terrain consumers plus vector roads package graph; no native hash implementation concern asserted.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actual fixture.enemy_named, recipe decoder/catalog/precision owner contracts remain receiving obligations; source accounted WITH findings, not native/runtime clearance.",
+    "Original419 terrain digest recipients next; inherited armor query, reportdecision, default character and other receiver queues unchanged."
+  ],
+  "qualifications": [
+    "Exact frozen f82 physical-P16 source identities only; no current alias or global/unique-total/other-lens clearance.",
+    "No backward compatibility/input preservation obligation. No product/Git/rootledger/publication mutation or project/native/test/probe execution.",
+    "All20/P16/P17/F9/M09 inherited findings/aliases/qualifications retained."
+  ],
+  "proposed_count": {
+    "before": 412,
+    "after": 419,
+    "indices_completed": [
+      412,
+      413,
+      414,
+      415,
+      416,
+      417,
+      418
+    ],
+    "next_original": 419,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/dive_launch.rs",
+      "sha256": "92c5c2966afd08f99f1107fb60067033371cb1a4139a5d3c348ad79f27ee7bd9",
+      "ranges": [
+        [
+          1,
+          101
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/item_geometry.rs",
+      "sha256": "fd0e55979400ec53e6db4c76a659bca5f732e45e2431a7f66db35335c3472a75",
+      "ranges": [
+        [
+          1,
+          112
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+      "sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+      "ranges": [
+        [
+          1,
+          162
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/projection_equipment.rs",
+      "sha256": "5e4a989041915c8e90f822e9947824bb05615df6c4b4427d6ec00a9cad71a726",
+      "ranges": [
+        [
+          1,
+          176
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/spawn_admission.rs",
+      "sha256": "43080d2bf8aa77667af8dad133c2266cae1829c0b33d658e858391aaa93ab474",
+      "ranges": [
+        [
+          1,
+          119
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/scene_spawn.rs",
+      "sha256": "0ed8029897a512fc8ebb39248471b4febef60c0a7c7657673a9df6b393d9838a",
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/digest.rs",
+      "sha256": "80e021f45fedb26ff313fe42e19a49503716be0c710173af5285e572bfe5ce98",
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ]
+    }
+  ]
+}

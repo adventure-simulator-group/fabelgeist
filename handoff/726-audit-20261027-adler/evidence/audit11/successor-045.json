@@ -1,0 +1,26 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-045",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 524,
+      "source_id": "pr-working:content/dialogue/services.yaml",
+      "sha256": "72e3e18751e06c9334390f98ed3dec812147d32f089fd7dd4a03429b0c192556",
+      "ranges": [
+        [
+          1,
+          246
+        ]
+      ],
+      "source_basis": "Root personally read exact frozen authored246-line service dialogue data; initial1\u201380 excerpt lost29\u201335 to truncation, explicitly recovered before credit; then81\u2013130,131\u2013195,196\u2013246 complete.",
+      "concepts_actual_uses_and_mixup": [
+        "Service-profession and local/recruitment dialogue is structured authored wire data: role multiplicity, priority, prerequisite fact, topic, prompt, recipient/resolution, result turn and effects are distinct concepts. Profession/referral service variants separate merchants/weapons/armor/clothing/inn/herbalist/physician/surgeon with typed semantic action tags, selected-service and selected-service-contract references. Fact strings for state/time/circumstance/age/status are external authored tokens requiring actual parser/runtime ownership, not native Rust raw branching clearance. Medical fiction separates period_claim from authoritative_explanation+reference and measured observation prose; no actual diagnosis/treatment authority inferred. Apprenticeship first_response, report/accept contract, local-faith flag and testimony/quest effects require actual authoritative action admission and successful transaction before result prose. Runtime source obligations remain separate; no browser/DB execution."
+      ],
+      "disposition": "Accounted with explicit authored-boundary and receiving-action limits; no accepted new finding.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

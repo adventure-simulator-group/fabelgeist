@@ -1,0 +1,348 @@
+{
+  "at": "2026-10-27T14:13:22.315730+00:00",
+  "lens": 11,
+  "status": "1019-1022 independently source-accounted with findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-049-registration.jsonl",
+    "sha256": "c29b142c76de4af858e3d4db0b2bd1459917d479e685dc8c2a30712d9b660e0f"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-048.json",
+    "sha256": "9443ed57c706dda02e45067273ef673f75527107b479b47853d9ae9c18542a68"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1019,
+      "source_id": "pr-working:crates/adventuresim-core/src/surgery.rs",
+      "sha256": "c0b73f812166b3333b5611325539f8c850030c5db3ef7ff4b69b11c1bf9e34fd",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/c0b73f812166b3333b5611325539f8c850030c5db3ef7ff4b69b11c1bf9e34fd",
+      "ranges": [
+        [
+          1,
+          294
+        ]
+      ],
+      "actual_eof": 294,
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          294
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1020,
+      "source_id": "pr-working:crates/adventuresim-core/src/survival.rs",
+      "sha256": "63f604eeeca44d35f365c9daded84a61ca19b8c9c3976ead8503a2edbf4d1c57",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/63f604eeeca44d35f365c9daded84a61ca19b8c9c3976ead8503a2edbf4d1c57",
+      "ranges": [
+        [
+          1,
+          430
+        ]
+      ],
+      "actual_eof": 430,
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          430
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1021,
+      "source_id": "pr-working:crates/adventuresim-core/src/threat_escalation.rs",
+      "sha256": "87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+      "ranges": [
+        [
+          1,
+          593
+        ]
+      ],
+      "actual_eof": 593,
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          593
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1022,
+      "source_id": "pr-working:crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "actual_eof": 58,
+      "scope_kind": "frozen_requested_change",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          58
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected",
+      "original_index": 1079,
+      "sha256": "806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+      "ranges": [
+        [
+          805,
+          875
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Material surgery/blood/body, survival/native weather injury and combat multiplier receiving roles; zero ordered credit",
+      "actual_read_ranges": [
+        [
+          805,
+          875
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1086,
+      "sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+      "ranges": [
+        [
+          310,
+          400
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Material surgery/blood/body, survival/native weather injury and combat multiplier receiving roles; zero ordered credit",
+      "actual_read_ranges": [
+        [
+          310,
+          400
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1238,
+      "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+      "ranges": [
+        [
+          395,
+          505
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Material surgery/blood/body, survival/native weather injury and combat multiplier receiving roles; zero ordered credit",
+      "actual_read_ranges": [
+        [
+          395,
+          505
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1024,
+      "sha256": "62c3d0b44fa30ce15dab8e231cc5ef90e631e633d9ef4ea34091c5c8c3f3fde9",
+      "ranges": [
+        [
+          24,
+          48
+        ],
+        [
+          95,
+          130
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Material surgery/blood/body, survival/native weather injury and combat multiplier receiving roles; zero ordered credit",
+      "actual_read_ranges": [
+        [
+          24,
+          48
+        ],
+        [
+          95,
+          130
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 2678,
+      "sha256": "f6fd77cd38865e477731cf06914d6e576b6498e4b2847c2a586368b378073929",
+      "ranges": [
+        [
+          1,
+          7
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Material surgery/blood/body, survival/native weather injury and combat multiplier receiving roles; zero ordered credit",
+      "actual_read_ranges": [
+        [
+          1,
+          7
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1238,
+      "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+      "ranges": [
+        [
+          506,
+          565
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Complete materially reached retained blood and distinct physical/training multiplier native adapters",
+      "actual_read_ranges": [
+        [
+          506,
+          565
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1086,
+      "sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+      "ranges": [
+        [
+          300,
+          309
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Complete materially reached retained blood and distinct physical/training multiplier native adapters",
+      "actual_read_ranges": [
+        [
+          300,
+          309
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1079,
+      "sha256": "806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+      "ranges": [
+        [
+          876,
+          925
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Complete materially reached retained blood and distinct physical/training multiplier native adapters",
+      "actual_read_ranges": [
+        [
+          876,
+          925
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1238,
+      "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+      "ranges": [
+        [
+          566,
+          566
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Closing delimiter of reached settle_injuries",
+      "actual_read_ranges": [
+        [
+          566,
+          566
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original_index": 1019,
+      "inventory": "Closed surgery procedure; skill/check/self-treatment penalty, DC and depth/damage; duration; filth exposure; bandaged/stitched/quality independent wound protection; cut fraction/day-integrated exposure; blood fraction/recovery rate; BloodInterval elapsed/parallel per-cut state and exposure/terminal event.",
+      "disposition": "All procedures use Surgery directly, Knife/Tailoring only correlations; procedure_skill ignores its procedure argument by deliberate common contract, not different skill authority. Extraction DC deliberately0..unbounded (fixture175-178), not SkillRank0..5 or UnitInterval. Wound cut and blood fractions differ from accumulated cut-days, per-day recovery rate, depth, filth count and skill score. Stitched bool+quality can own quality payload while bandage remains independent protection. BloodInterval Vec cuts+cut_days preserve positional relationship only; actual native producer uses BodyRegion::ALL in both phases, no actual reordering bug. terminal indicates boundary reached during simulated requested interval, not necessarily an iff predicate on initial blood when request0.",
+      "remedy": "Use purpose damage/blood/rate/duration/exposure/DC owners over shared admitted numeric invariants; typed per-region record can own cut state+integrated exposure, avoiding independent parallel Vecs. Keep operative procedure enum and independent bandage/stitch states; use Stitched(quality) for correlated payload. Retain zero/unbounded DC and actual early-terminal elapsed semantics, no invented tighter difficulty bound.",
+      "acceptance": "Full1-294 consumed. Actual1238 preview395-437/settlement439-566 maps bloodml ratio, recovery minutes/request scaling, canonical BodyRegion ordering, returns elapsed, indexes integrated exposure, updates wounds and set_blood_fraction. This is actual receiving identity/unit proof, not medical efficacy or all infection/blood storage/native transaction proof."
+    },
+    {
+      "original_index": 1020,
+      "inventory": "SurvivalState wetnessBPS, signed hot/cold strain and frostbite duration remainder; clothing insulation/weatherproofing/peripheral protections; FieldShelter vs ExposureShelter; raw minute weather stream; threshold event offsets vs absolute event time; peripheral native index; thermal incapacitation fraction.",
+      "disposition": "Signed cold/heat strain is not a nonnegative fraction. Wetness/protection BPS share bounded integer invariant but independent purpose; insulation authored cap8000 differs fromwhole10000 and may reuse admitted common base. Public state/exposure records use primitives and can bypass range assumptions, while functions often clamp outputs: no actual malformed retained row established. Shelter payload shape correctly separates tent/bivouac from indoor; Indoor blocks ambient thermal loading rather than just rain. Frostbite accumulator is minute remainder under threshold360, not damage amount; offset returned is zero-based within interval, distinct from absolute observer/weather chronology. Four peripheral positions rely on named ordering.",
+      "remedy": "Retain signed strain and named hot/cold interpretation, integer fraction purpose owners, admitted frostbite remainder and separate elapsed-offset/absolute-clock ports. Use named peripheral/body-region keys to avoid raw index meaning. Admit native weather/clothing values at owners before arithmetic instead of assuming arbitrary public integers are bounded. No universal Celsius or physiology limits invented.",
+      "acceptance": "Full1-430 consumed. Actual1086 apply_weather_exposure300-388 builds consecutive weather inputs, persists state, converts offsets to personal absolute event minute and maps four indices arms-left/right then legs-left/right; conditional wilderness weather clock uses environment day-offset, not automatically same clock as personal injury receipt.1024 actual WeatherSnapshot104-121 defines wind as0..10000 strategic scale, temperaturedeciC and independent precipitation/intensity/ground/snow. Weather generation/clothing producer ranges not yet read, no unchecked native algorithm safety guarantee. These remaining population bodies still need their own ordered discovery; no actual bad input/runtime claim."
+    },
+    {
+      "original_index": 1021,
+      "inventory": "Escalation mode/profile progress, incident ordinal/follow-up count, investigability percentage vs awarenessBPS, enemy count/base/group normalized power, difficulty, escalation scaleBPS>=baseline vs countermeasureBPS<=baseline, paired physicalsqrt/traininglinear multipliers; source-receipt authority four-state diagnostic; public count-band/display/journal IDs, source booleans and closed string result; bounded chronological candidate queue and road hearing distance.",
+      "disposition": "Escalation scale can exceedwhole and countermeasure belowwhole must remain meaningful: a single generic UnitBPS/fraction owner would lose actual role. Normalized power is baseline-orc unit quantity, not percentage. Mob/Single controls count growth versus fixed base count, not necessarilyforcescount1 (base sanitized independently). Paired physical/training f32 tuple has distinct meaning and actual receiver applies separately; named struct reduces swap risk. Public awareness/relative growth/count/ordinal and investigability are distinct even when integers. Referral source four-state diagnostic correctly distinguishes both receipts conflict from missing; payload booleans cannot prove actual receipt binding alone. public_referral_source returns only innkeeper/organization but raw str broadens result, owner can narrow. Candidate tuple publication minute+settlement+problem identities independently sorted; no proof every raw ID namespace canonical.",
+      "remedy": "Reuse role-specific BPS wrappers for awareness/progress/growth/countermeasure and unbounded-abovewhole escalation multiplier; keep normalized enemy power/count/difficulty separate. Return named physical/training factors and typed closed referral source with authority payload at actual boundary rather than raw bool/string combinations. Keep observer-safe count bands separate from exact count and private identity; typed distance units for25km hearing allowance vs road metres.",
+      "acceptance": "Full1-593 consumed. Exact2678 limits1-7 gives min1000/max300000. Actual1079 temporary enemy scale827-916 consumes paired physical/training separately, applies physical to attributes AND limb health and training to hours. Thus enemy health can exceed1 by intentional scaling; do not apply a universal HealthFraction0..1 to all raw limb-health ports based only on surgery/convalescence use. Existing lower-level tactical/autoresolve counterpart consumers not reread here and no whole-family scale-once/runtime outcome guarantee. Prior bestiary/catalog966/967 validates policy context; no new unique/current claim."
+    },
+    {
+      "original_index": 1022,
+      "inventory": "Private finite closed0..1 f32 owner, FractionError NonFinite/OutsideUnitInterval, constantsZERO/ONE/HALF, invariant-preserving max, Serde TryFrom, raw fraction projection.",
+      "disposition": "Generic numeric invariant is usefully shared beneath role-specific confidence/interpolation/etc owners. This owner does not carry cyclic phase, signed coefficients, relative scale>1, power quantity, or chronology. max preserves membership; public raw projection is only justified at native arithmetic/boundary. Frozen version has no interpolation/complement operations; later PR992 merged operations are separate current source, so do not repeat frozen absence as current defect.",
+      "remedy": "Reuse canonical UnitInterval under correct purpose roles rather than duplicate finite[0,1] validators. Propagate typed operations through connected producer/receiver chains as actual contract requires; no backwards-compatible overloads, exact endpoint API preservation or current gap assertion.",
+      "acceptance": "Full1-58 consumed. Actual earlier934/948 confidence/source envelope and frozen952 operations context already recorded; current M04 source review not transferred into original counts/global clearance."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-028-receipt.json",
+      "sha256": "45e9ec96599b408c85a36ae3ba0299bcdb195524537add323b6aba4a300c89b2"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-031-receipt.json",
+      "sha256": "0e64c59e0e3b9b6f7f087017c110ec1dc0229cff16557910de8d5f001554dd99"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-036-receipt.json",
+      "sha256": "90e7b4610d042e6e11fa67ea95d1b67fa50b0d694f3aeb5061f65142b0a198d2"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-048-receipt.json",
+      "sha256": "45172eb33f46a6e35fe8c12f09f1b87fa6087f0e3029842e5421f6813eb6b2b1"
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Frozen source only, no execution/current/clinical outcome/accepted unique/global proof. Connected sources grant zero ordered credit.",
+    "Weather1024 registered24-48 includes complete Precipitation but only CloudForm prefix;95-130 includes WeatherSnapshot and partial default. No cloud/default/generation completeness claimed.",
+    "1079 range805-825 begins temporary-character creation tail;827-916 complete material scaler;918-925 unrelated deletion prefix only, no deletion authority claim.1086390-400 adjacent immersion method partial, not a live immersion caller claim.",
+    "Survival typed exposure raises qualified public API admission/role observations; actual weather/clothing/retained state safety not assumed from schema, and remaining registered ordered sources stay pending."
+  ]
+}

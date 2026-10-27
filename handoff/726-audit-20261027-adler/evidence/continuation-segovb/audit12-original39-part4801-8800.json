@@ -1,0 +1,258 @@
+{
+  "id": "audit12-original39-part4801-8800",
+  "lens": "12 magic strings",
+  "skill": "/home/brunosegovia/.codex/skills/audit-magic-strings/SKILL.md",
+  "role": 39,
+  "source_id": "physical-p16:Cargo.lock",
+  "source_sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+  "source": "target/recovery-20261025/continuation-segovb/source-objects/1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+  "full_registered_scope": [
+    1,
+    13103
+  ],
+  "assigned_prospective_range": [
+    4801,
+    8800
+  ],
+  "at": "2026-10-26T18:31:36.290187+00:00",
+  "consumed_ranges": [
+    [
+      4801,
+      5300
+    ],
+    [
+      5301,
+      5800
+    ],
+    [
+      5801,
+      6300
+    ],
+    [
+      6301,
+      6800
+    ],
+    [
+      6801,
+      7300
+    ],
+    [
+      7301,
+      7800
+    ],
+    [
+      7801,
+      8300
+    ],
+    [
+      8301,
+      8800
+    ]
+  ],
+  "status": "complete_assigned_support_range_only_original39_still_partial",
+  "role_completion_credit": false,
+  "global_clearance": false,
+  "lens13_credit": false,
+  "project_execution": false,
+  "findings": [],
+  "inventory": [
+    {
+      "range": [
+        4801,
+        5300
+      ],
+      "source_categories": [
+        "Cargo [[package]] table/name/version/source/checksum/dependencies syntax",
+        "source-less fabelgeist-* local/path package records without registry source/checksum",
+        "registry package IDs and SHA256 checksum strings",
+        "dependency selectors with versions for parallel resolutions"
+      ],
+      "observed_examples": [
+        "euclid0.22.14/event-listener5.4.2/event-listener-strategy0.5.4 registry records",
+        "fabelgeist animation/armor/bvh/cloth/color/compute/determinism/fbx/fs/garment-code/garment-fit/geometry/gpu/hair/math/mesh/physics/rig/rust-quality/shell/spatial-hash/timer/xpbd source-less local/path records (workspace membership not proven by this packet)",
+        "selectors indexmap2.14.1,rand0.8.8/0.9.5,derive_more2.1.1,strum0.27.2,thiserror2.0.20,syn2.0.119/3.0.4,miniz_oxide0.8.9/0.9.1,windows-sys0.60.2",
+        "fixedbitset0.4.2/0.5.7 and foldhash0.1.5/0.2.0 parallel package records"
+      ],
+      "unusual_sources_uris_selectors": "All source fields in this chunk are canonical registry+https://github.com/rust-lang/crates.io-index. No alternate registry/git/path/branch/rev URI or embedded application/game text observed. Version-disambiguating selectors are concrete native Cargo package identities, not application identifiers."
+    },
+    {
+      "range": [
+        5301,
+        5800
+      ],
+      "source_categories": [
+        "registry package name/version/source/checksum and dependency tables",
+        "parallel package version identities and version-qualified dependency selectors"
+      ],
+      "observed_examples": [
+        "font-types0.12.4/fontique0.9.0 font stack",
+        "foreign-types0.3.2/0.5.0 and foreign-types-shared0.1.1/0.3.1",
+        "futures0.3.34 family/futures-lite2.6.1",
+        "geo0.33.1/geo-types0.7.20/geographiclib-rs/geojson/geozero",
+        "getrandom0.2.17/0.3.4/0.4.3",
+        "glam0.32.1/0.33.6,glam_matrix_extras,glamx",
+        "gltf1.4.1 family and glutin_wgl_sys"
+      ],
+      "unusual_sources_uris_selectors": "Every source field read here uses crates.io registry source ID. Parallel-source selectors are versions e.g foreign-types-shared0.1.1/0.3.1,rand0.10.2/rand_core0.10.1,r-efi5.3.0/6.0.0,glam0.32.1,thiserror1.0.69/2.0.20,syn2.0.119/3.0.4. No application route/error/display strings or alternate source URI observed."
+    },
+    {
+      "range": [
+        5801,
+        6300
+      ],
+      "source_categories": [
+        "native registry package records/dependency selectors and opaque integrity checksums"
+      ],
+      "observed_examples": [
+        "gpu-allocator/gpu-descriptor/granit-parser/grid/guillotiere",
+        "hashbrown0.12.3/0.15.5/0.16.1/0.17.1",
+        "hdf5-core/hdf5-reader,heapless0.8.0/0.9.3,heck0.4.1/0.5.0",
+        "http/hyper/native-tls/rustls/tower dependency identities",
+        "i_overlay/i_float/i_shape/i_tree,iana-time-zone/haiku,initialICU records"
+      ],
+      "unusual_sources_uris_selectors": "All actual source strings here remain crates.io registry source IDs; all other strings are names/versions/checksums/selectors. Examples with deliberate package disambiguation:hashbrown0.15.5/0.16.1,foldhash0.1.5/0.2.0,bitflags2.13.1,windows-sys0.61.2,read-fonts0.39.2,glam0.32.1. No alternate URI or app semantic prose."
+    },
+    {
+      "range": [
+        6301,
+        6800
+      ],
+      "source_categories": [
+        "Cargo registry lock metadata, package identity/version strings, opaque checksums, dependency selectors"
+      ],
+      "observed_examples": [
+        "ICU locale/normalizer/properties/provider/segmenter2.3.x records",
+        "image0.25.10/imagesize/imgref; png0.18.1 selector",
+        "indexed_db_futures0.6.4 and macro internal1.0.0",
+        "indexmap1.9.3/2.14.1,hashbrown0.12.3/0.17.1 selectors",
+        "itertools0.10.5/0.12.1/0.14.0/0.15.0",
+        "jiff0.2.35/core/static/tzdb/platform records",
+        "jni0.21.1/0.22.4,jni-sys0.3.1/0.4.1 and macros,jobserver"
+      ],
+      "unusual_sources_uris_selectors": "No unusual source URI read; all source values canonical crates.io registry. Native disambiguators include macroific2.0.0,sealed0.6.0,derive_more2.1.1,thiserror1.0.69/2.0.20,windows-sys0.45.0/0.61.2,getrandom0.4.3. These are native dependency edges, not application semantic selector strings."
+    },
+    {
+      "range": [
+        6801,
+        7300
+      ],
+      "source_categories": [
+        "registry package names/exact version strings/source/checksum and dependency selectors",
+        "native macro/build-tool dependency identity strings"
+      ],
+      "observed_examples": [
+        "js-sys/khronos/kqueue/ktx2;kurbo0.11.3/0.13.1",
+        "libc/libloading/libm/libredox/libsqlite3-sys/libudev-sys",
+        "linux-raw-sys0.4.15/0.12.1",
+        "macroific family2.0.0/3.0.1 with attr_parse/core/macro variants",
+        "maud/maud_macros,matrixmultiply,microlp,mime/mime_guess,minicov"
+      ],
+      "unusual_sources_uris_selectors": "All source strings remain canonical crates.io registry. Versioned native selectors include cpufeatures0.2.17,redox_syscall0.9.3,hashbrown0.16.1,macroific_attr_parse/core/macro2.0.0/3.0.1,sealed0.6.0/0.7.0,syn2.0.119/3.0.4,axum-core0.4.5. No custom git/path/branch/rev source or app text observed."
+    },
+    {
+      "range": [
+        7301,
+        7800
+      ],
+      "source_categories": [
+        "registry package metadata/opaque checksum strings",
+        "native exact versions including build metadata",
+        "version-qualified multi-package dependency edges"
+      ],
+      "observed_examples": [
+        "miniz_oxide0.8.9/0.9.1,mio,moxcms,mutants",
+        "naga29.0.4/naga_oil0.22.0,native-tls,ndarray",
+        "ndk-sys0.6.0+11769913 exact version build metadata",
+        "netcdf-core/netcdf-reader,notify family",
+        "num-* and num_enum families",
+        "objc20.5.2/0.6.4 and objc2-app-kit0.2.2/0.3.2;audio/cloud/contacts bindings"
+      ],
+      "unusual_sources_uris_selectors": "No alternate source URI; all actual source values canonical crates.io registry. Preserve full ndk-sys build-metadata version. Version selectors disambiguate native packages including codespan-reporting0.12.0/0.13.1,rustc-hash1.1.0,security-framework2.11.1,jni-sys0.3.1,block20.5.1/0.6.2,objc2-foundation0.2.2/0.3.2; not an app enum/status space."
+    },
+    {
+      "range": [
+        7801,
+        8300
+      ],
+      "source_categories": [
+        "registry platform binding/package/dependency identity strings",
+        "opaque registry archive checksums",
+        "version-qualified parallel package edges"
+      ],
+      "observed_examples": [
+        "Objective-C core/audio/data/foundation/graphics/image/location/metal/quartz/ui binding packages",
+        "objc2-foundation0.2.2/0.3.2,objc2-metal0.2.2/0.3.2,objc2-quartz-core0.2.2/0.3.2",
+        "obvhs0.3.3 ->glam0.33.6",
+        "openssl/openssl-probe0.1.6/0.2.1/openssl-sys",
+        "parking_lot,parlance/parley,Parry3d0.27.0 record start"
+      ],
+      "unusual_sources_uris_selectors": "All source strings canonical crates.io registry. Native version qualifiers include objc20.5.2/0.6.4,block20.5.1/0.6.2,foreign-types0.3.2,redox_syscall0.5.18,skrifa0.42.1,downcast-rs2.0.2,hashbrown0.16.1/0.17.1. No alternative repository source or app policy string observed."
+    },
+    {
+      "range": [
+        8301,
+        8800
+      ],
+      "source_categories": [
+        "registry package identity/version/source/checksum/dependency strings",
+        "parallel native package versions and fully qualified dependency selectors"
+      ],
+      "observed_examples": [
+        "Parry3d0.27.0 tail and parry3d-f640.27.0 separate native package identity",
+        "petgraph0.6.5/0.8.3,phf family0.13.1",
+        "plotters/plotters-backend/plotters-svg0.3.7",
+        "png0.17.16/0.18.1",
+        "portable-atomic/postcard/proc-macro families;proc-macro-error/proc-macro-error3 distinct names",
+        "proj4rs0.1.10 and partialprometheus0.14.0 record at end8800"
+      ],
+      "unusual_sources_uris_selectors": "All source fields here canonical crates.io registry. Version-qualified selectors include fixedbitset0.4.2/0.5.7,hashbrown0.15.5,bitflags1.3.2/2.13.1,miniz_oxide0.8.9,embedded-io0.4.0/0.6.1,syn2.0.119/3.0.4. Names endingf64/error3 are distinct native package IDs, not app scalar/status literals. No git/rev/branch/custom URI or app prose observed."
+    }
+  ],
+  "qualifications": [
+    "Read actual source lines, not parser/scanner summary. This packet cannot complete original39; root must reconcile all full-scope parts and native receiving contract evidence.",
+    "This is only original39 assigned support4801-8800. No original39completion/accounted increment, first-unread update, broader lens/global clearance or lens13credit.",
+    "No claim about unconsumed-by-this-agent1-4800/8801-13103. Root owns coverage union and boundary reconciliation; packet may begin/end inside package records (prometheus dependencies continue beyond8800).",
+    "No package/string occurrence counts invented; consumed_line_count4000 is interval cardinality only. Literal grouping is only by identical concrete Cargo metadata role, not a blanket generated/catalog exemption.",
+    "No product/historical/rootledger/git edits, project checks/tests or publication. Only this ignored receipt written."
+  ],
+  "consumed_contiguous_union": [
+    4801,
+    8800
+  ],
+  "consumed_line_count": 4000,
+  "read_method": "Eight contiguous actual sed body outputs of500lines each,4801-5300/5301-5800/5801-6300/6301-6800/6801-7300/7301-7800/7801-8300/8301-8800; every emitted line consumed. No output truncation; no parser/scanner/search/summary substituted for actual source consumption.",
+  "grouped_string_dispositions": [
+    {
+      "occurrences": "All literal [[package]] table and name/version/source/checksum/dependencies key tokens in assigned lines",
+      "owner_or_boundary": "Native Cargo.lock TOML/package-graph representation boundary",
+      "assessment": "Format keys delimit package records and dependency edges; they are required external build metadata tokens. They are not application field IDs/routes/error classifiers and should not be replaced by local enums/constants in this file. Classification applies only to observed usage."
+    },
+    {
+      "occurrences": "All package name and dependency-name strings in assigned lines, including fabelgeist-* source-less records",
+      "owner_or_boundary": "Open native package identifiers and local/path/workspace package references",
+      "assessment": "Keep open identifiers with exact spelling, underscores/hyphens and case. No arbitrary package-name enum introduced. Source-less records do not by themselves prove workspace membership or source path; that must reconcile with manifests outside this packet."
+    },
+    {
+      "occurrences": "All version strings and version-qualified dependency selectors",
+      "owner_or_boundary": "Native Cargo package identity/disambiguation text",
+      "assessment": "Exact versions/parallel native packages and dependent selectors distinguish resolved package identities. Preserve build metadata such as ndk-sys0.6.0+11769913. Do not strip version/source qualification or merge identity strings. Resolving every edge to its package record across the full lockfile is outside this partial packet."
+    },
+    {
+      "occurrences": "All source fields in4801-8800",
+      "owner_or_boundary": "Native package source-ID representation",
+      "assessment": "Actual observed source text is registry+https://github.com/rust-lang/crates.io-index throughout; no source URI with git+/branch/tag/rev/custom registry/path was read in this interval. This is an observed string-category finding, not whole-file source census or remote-source authenticity verification."
+    },
+    {
+      "occurrences": "All checksum strings",
+      "owner_or_boundary": "Native registry package integrity metadata",
+      "assessment": "Opaque hexadecimal registry archive checksum text retained at native lockfile boundary. No app semantic status/tag. Source consumption is not a proof that each archive matches its checksum or that each package is safe/authentic; no such checks performed."
+    }
+  ],
+  "boundary_receiving_contract_limits": [
+    "No Cargo parser/resolver implementation or official format reference was consumed for this support packet; native-format classification is based on actual field/table placement and repeated concrete package graph roles. Root must reconcile necessary Cargo receiving-contract evidence before whole-role acceptance.",
+    "No current manifest or full lock graph/feature selection was read here, so package identity existence, edge resolution, buildability, desired versions, dependency provenance and runtime behavior are not asserted.",
+    "No application string-valued APIs occur in the observed interval; package IDs that resemble API/format names (http,mime,png,serde,glam) are used only as Cargo package graph identifiers in this source packet. No data-driven exemption for all catalogs/fixtures is asserted."
+  ],
+  "postread_sha256_matches": true,
+  "at_completed": "2026-10-26T18:34:44.059385+00:00"
+}

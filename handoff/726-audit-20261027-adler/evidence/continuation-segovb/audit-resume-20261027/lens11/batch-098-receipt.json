@@ -1,0 +1,407 @@
+{
+  "at": "2026-10-27T17:16:25.896385+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-098-registration.jsonl",
+    "sha256": "ee8a53f9a811f2164983487cce9f638fefaf2d4b8ded82e72d35643a9b61e1bb"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-097.json",
+    "sha256": "4cc88357500a4450f7e2d52d0457d4e2d5da82901f895e2d9abf4512cc947e10"
+  },
+  "mandatory_inherited_qualification": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-097-native-time-qualification-001.json",
+    "sha256": "8b5d251d80cb880d50c2e21b28fe4ece9ac8d71dc4e0e9b3397d4aaed3e3f4b9"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1180,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence.rs",
+      "sha256": "df7d47666e333785437d381321a5e7b85cd6e4c453067c83f8d86ea00a30ce35",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/df7d47666e333785437d381321a5e7b85cd6e4c453067c83f8d86ea00a30ce35",
+      "ranges": [
+        [
+          1,
+          1455
+        ]
+      ],
+      "actual_eof": 1455,
+      "prospective": true,
+      "purpose": "Independent full effective residence ownerinventory; exact prior086/093 narrowrecipient bodies reused explicitly, no automatic connectedcredit",
+      "actual_read_ranges": [
+        [
+          1,
+          490
+        ],
+        [
+          626,
+          1256
+        ],
+        [
+          1311,
+          1455
+        ]
+      ],
+      "personal_same_lens_reuse": [
+        {
+          "receipt": {
+            "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-093-receipt.json",
+            "sha256": "b678d140a2abbc2cd900379c0e6235bd4fc7ff0a52719fccd297d495321994e1"
+          },
+          "ranges": [
+            [
+              491,
+              625
+            ]
+          ]
+        },
+        {
+          "receipt": {
+            "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-086-receipt.json",
+            "sha256": "159dfc072922118236131cad060dc668cdb73d98fb95b2fc676a2b0836d4f015"
+          },
+          "ranges": [
+            [
+              1257,
+              1310
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1181,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/acquisition.rs",
+      "sha256": "0670403c3803ddc826babcb20784e88c5165152e9c2bbd986b4e0ef33d40580d",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/0670403c3803ddc826babcb20784e88c5165152e9c2bbd986b4e0ef33d40580d",
+      "ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "actual_eof": 99,
+      "prospective": true,
+      "purpose": "Independent full effective acquisition child role inventory andactual1180buy/rent recipient",
+      "actual_read_ranges": [
+        [
+          1,
+          99
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected_original",
+      "original_index": 1187,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/view.rs",
+      "sha256": "b481076a43b5a9e15f7ee78deb63fb3e81cf97989061300fa34168d9182c6053",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/b481076a43b5a9e15f7ee78deb63fb3e81cf97989061300fa34168d9182c6053",
+      "ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "actual_eof": 57,
+      "prospective": true,
+      "purpose": "Complete small view_character_ids_for_holding material visibility helper for1180view",
+      "actual_read_ranges": [
+        [
+          1,
+          57
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1183,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/occupancy.rs",
+      "sha256": "181a2ef44cc12c8b3d6393ed41ebe9a8e616923413382af26ffe28b090789d41",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/181a2ef44cc12c8b3d6393ed41ebe9a8e616923413382af26ffe28b090789d41",
+      "ranges": [
+        [
+          125,
+          139
+        ]
+      ],
+      "actual_eof": 282,
+      "prospective": true,
+      "purpose": "Actual occupancy at_view historical variant for1180observerprojection",
+      "actual_read_ranges": [
+        [
+          125,
+          139
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1184,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/properties.rs",
+      "sha256": "80864f0168cb8abf7dcd17c08ea7405e6124f2968ad6eb83dbca7e0a5aab4e26",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/80864f0168cb8abf7dcd17c08ea7405e6124f2968ad6eb83dbca7e0a5aab4e26",
+      "ranges": [
+        [
+          1,
+          70
+        ],
+        [
+          225,
+          264
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actualproperty/aggregatehouseholdoccupancy schema andexactavailable-property admission used1181; no wholeproperty generation",
+      "actual_read_ranges": [
+        [
+          1,
+          70
+        ],
+        [
+          225,
+          264
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1180,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              242
+            ],
+            [
+              311,
+              393
+            ]
+          ],
+          "roles": "HousingTier/tenure/legalstatus, physicalproperty versuslegalholding/holder andacquisitionordinal, designatedprimary vsactualoccupancy, currentstatuscheckpoint/transitionhistory, periodledgeramount/components/adults/dependents, gatewayprivateprojection.",
+          "disposition": "Meaningful legalholding/physicaloccupancy/primarychoice are independentauthorities notduplicates; manyownedholdings vsonecurrentprimary vsoneoccupiedhome intentional. Rent/maintenance/tax/purchase distinctcostrolesbutshareMoneyinvariant. Holdingstatus+resolvedtimestampneedsadmittedstate;Renter/Owner matterscharging/recoverypolicy, notjustcosmeticwrapper. ChargeoutcomePaid/Unpaid doesnotneedextraenumvariantswithoutactualpayload; charges ownnamedcomponentsandcounts. recorded_minute stored due later, so effective-vsactualrecordtime intent mustbenamed, no automaticaudit harm. Offer publiceconomyprojection iscoreHousingTier.economy, nosecondauthoredauthority claimed.",
+          "remedy": "CanonicalHoldingId/PropertyId/OfferId/AcquisitionOrdinal andTenureownerreusedinCoreHousingchargeinsteadOwnerbool. NamedadmittedHoldingState andMoney/ResidentCounts beneathroles; keep legal/current/history distinctions.",
+          "acceptance": "Full1455effectivebodyaccountedviafresh+exactpersonal086/093 reuse; core908full1153020 andnativeproperty/occupancy/View recipientsread; no current/runtime/alias/unique clearance."
+        },
+        {
+          "ranges": [
+            [
+              244,
+              309
+            ],
+            [
+              395,
+              608
+            ]
+          ],
+          "roles": "Owner-versusguestbillingvisibility, historicalactiveholding/occupancy query, exactResidencePresence coordinate/frontier, currentprimarypointer.",
+          "disposition": "Projectionprimaryflag reads latestPrimaryResidence withdesignated<=observer, unlikeholdingactivefoldandoccupancyfullhistory; a laterdesignation/deletion canhideearlierprimarychoice. ExistingDesignatedtransitionhistorycouldreconstructwherecontractneedsobserverpast, ordinaryUIruntime/currentnessunproved. Ownerbillingfieldsrealtimeprivateeconomystate, guestsgetZERO sentinel: accesspayloadownedbyOwner/Occupant variantwouldavoidzeroasabsence; donotassertguestshouldseebilling. active/primary/occupied independentboolfacts, doNOTforceoneenum. Holding+StrategicPresence tuplecouldnamedAdmittedResidenceAccess ifrecipientneedsassociatedfacts.",
+          "remedy": "TypedOwnerResidenceSummary{billing}/OccupantSummary andhistoricalPrimarySelection overcanonicalDesignatedevents; preserveexactpresencevsownership, conditionaldatapayloadnotfabricatedscalarbounds.",
+          "acceptance": "Actualview1187full57 andoccupancy1183at_view125\u2013139fresh;historicalfold/move/remove093materialproof reused. Gatewayidentityguardactual; upperper-characterauthorizationnotprovedhere."
+        },
+        {
+          "ranges": [
+            [
+              610,
+              822
+            ]
+          ],
+          "roles": "Actor/occupant/holder roles, pairwise-localclock/copresence/familyadmission, cachedagevsduehistoricaleffectiveage, activeoccupants andsupportedadults/dependentscounts.",
+          "disposition": "Publicadmission requiresliving+copresence andcurrentoccupancyabsence, respects separateownership/family; usesoccupant.age_yearswherebillingusescanonicaleffective_age_years(due). This is projection-vsdatedauthorityconsistencyquestion, ordinary staleage admissionnotproved. Parent/Child/Spouse role checksdistinctfromhouseholdmembership. Supportedcount(Adults,Dependents) u32pair canbeswapped; periodcharge returns count/count/namedcharge tuple. Unknown effectiveage classifiedAdultsourcepolicy ratherthanautomaticallyerror; no inventedmissingbirthrejection herewithoutpolicy. BillingcountpromotesDependent\u2192AdultChild viaactualageatdue.",
+          "remedy": "CanonicalResidentCounts{adults,dependents}/AdmissionContext withtypedCharacterId, signedbirth-derivedadmissionagewhereactualcontractrequires; retainnamedKinshipKind/HouseholdRole andspecificCopresenceowner.",
+          "acceptance": "Fullactualadmission/countbodyread, existingcorepresence1011046 andrelationship1153/1157091/092 actualhelpers; noordinaryunauthorizedadmission/clinical/currentclaim."
+        },
+        {
+          "ranges": [
+            [
+              824,
+              941
+            ],
+            [
+              1042,
+              1155
+            ]
+          ],
+          "roles": "Oneperiodcharge vsallholdingschronologicalbilling, availablebudget/totalspent, paidunpaidreceipt, dormantlegalstate/rentaloccupancyrelease, primarydesignation/recovery andeffectivedatedtransition.",
+          "disposition": "Paidreceipt andUnpaidreceipt forsameperiod canbothoccurasrecoveryretries, outcomesdistinctattemptfactsnotnecessarilyduplicatetruth. Billeddeadlinecheckpoint differsdurationelapsed/currentownerclock. Current Active owner recoverysetstemporaryActive thenbilling; errorpolicyreadbelow. Date-saturatingnext_duefixedwidthcapacityquestion, ordinaryzerocharge/exhaustioninfinite-loopwitnessnotprovedbecausecoreauthoredpricespositive. designate writesprimarythenfalliblemove; public? propagatesbutcaughtcallerpolicyneedrespectcommitfailure (093/086).",
+          "remedy": "PreparedCharge/SettlementBudget namedMoneyroles, admittedHoldingState transitions andtypedExpectedRecoveryUnavailablevsCommitFailure; canonicalperiodchargeanddeadlines notrawtuple/arbitrarydatebound.",
+          "acceptance": "CoreHousingcharge020, itemmoney1136084, occupancy/propertycapacity093/098 actualreceivers;native1249hook097qualificationcorrectpins. No sourceconclusionusingmistaken1017asnative."
+        },
+        {
+          "ranges": [
+            [
+              943,
+              1040
+            ],
+            [
+              1157,
+              1301
+            ]
+          ],
+          "roles": "LeisureMoraleSpouse sourceclassification versusother, milli-pointrefreshablecomfort/expiry, NPCResidenceOutcome payload, physicaloccupancy vslegallyactiveholding, missingoffer/error classification.",
+          "disposition": "Moralesourceparserclassifiesrealnamespace, notnameonlynewtype; numericmorale boundedpoints differsBasisPointsbonusfraction andclockexpiry. NPCAlreadyOccupant onlychecksphysicalhome+settlement, notactivelegalholding; itdoesNOTpromiseless-demandingusabletenure. Possible recoverownedpolicyshort-circuitifDormantownerremainsoccupant needsactualpolicy/runtime/currentness, no bugassertion. Rented(HousingTier) meaningfulpayload contrasts otherresultstates; resolved(id,tier,NpcHouseOffer)3tuple erasesassociation. recover.is_err\u2192NoAffordableOffer collapsesexpectedmoneyandunexpectedStringerrors, samequalified086case.",
+          "remedy": "NamedResolvedHousingOffer/TypedRecoveryError andPhysicalOccupancyvsUsableResidenceAccess operations; retainNPCOutcomealreadytyped ratherthanBoolean. SharedcanonicalMoraleSourceId/RefreshableMorale owner withexplicitpoint/millipointadapter.",
+          "acceptance": "NPCpolicycore959full296033 andNPCcausal1143086 receivers reused; full1180owninventory. Actualpublicadmit/remove source1257\u20131301086reuse; no allhousing/rest/runbound orcurrent/runtime/unique guarantee."
+        },
+        {
+          "ranges": [
+            [
+              1303,
+              1455
+            ]
+          ],
+          "roles": "Existing unit/source fixtures, nativeIDs/due-time/Moneyfixturetraces andsource-selectorstrings.",
+          "disposition": "Tests explicitlyseparatemanyholdings/oneprimary/oneoccupancy, andbirthfamilynotlegaltenure. Sourcecontains andsimulatedlocalvector billsnotexecutedactualdatabaseprocess; no sourceassertionclears093postwritecapacityorlatestprimaryhistoricalquestion.",
+          "remedy": "Preserve productionroleowners andnativefixtureboundaries, no newtests/helpers/assertions.",
+          "acceptance": "Everyexistingfixtureline personallyconsumedwith086prefix+fresh1311\u20131455, noexecutionorinclude-basedcoverage."
+        }
+      ]
+    },
+    {
+      "original": 1181,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/acquisition.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              99
+            ]
+          ],
+          "roles": "Exactavailablephysicalproperty, actorauthority, canonicalpersonalacquisitionminute, owner/renterinitialcharge, replacingrentalvsretainingownedholdings, acquisitionordinal+legalstate, primary/occupancydesignation.",
+          "disposition": "Publicbuy/rent distinctconvenienceentrypoints carryrealTenureconstant andcanonicalauthorityguard; noterasingroleintounvalidatedString. acquireinternal consumesMoney thenrelinquishescurrentrentals ifRenter, insertsnewholding andfallibledesignation; publicpropagatesResult, NPCcalleruses? foracquisition. ExistingRenterDormantrowalsoreplaced (statusnotRelinquished)intentional, notlosspurchasedproperty. AvailablePropertyadmissionaffirmsreservationoccupied/historyconditions, capacitycheckedlateroccupancymove; preparedresultshouldownbothifcallerwantsno-postwritefailures.",
+          "remedy": "AdmittedAvailableProperty/PreparedResidenceAcquisition owningtypedTenure/Money/actor andtargetproperty/capacitysnapshot; canonicalHoldingId/ordinal andatomiccommit withtypederrorpolicy. ReuseexistingcoreHousingTier, doNOTaddparallelowned/renterAPIaliases.",
+          "acceptance": "Full99read; actualpropertiesavailable225\u2013264,holdingoperationsfull1180 andcapacity1184265\u2013311093,actoradmission1204955\u2013966097. No ordinarywrongproperty/coinloss/current/unique claim."
+        }
+      ]
+    }
+  ],
+  "connected_role_inventory": [
+    {
+      "original": 1187,
+      "ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "roles": "HoldingvisibilitycandidateIDs fromcurrentoccupancy,owner,primaryandaffectedtransition/occupancyhistory.",
+      "disposition": "Helperretainslegalholdervisibilityevennonprimary/unoccupied andincludespastaffectedcharacters, so laterhistoricalactive/occupancyfiltercanreconstruct. Itdoesnotmerelyusecurrentoccupants; rejectprematureclaimallhistoricalresidentshidden. Doesnotfixprimaryflaglatestpointerquestion1180.",
+      "remedy": "NamedHoldingAudience/typedCharacterId andobserveraccesscontext, reuseexistinghistoricalrecords; nooverbroadpublictableexposure.",
+      "acceptance": "All57actualread, nofutureorderedcredit oruppergatewayprivacyclearance."
+    },
+    {
+      "original": 1183,
+      "ranges": [
+        [
+          125,
+          139
+        ]
+      ],
+      "roles": "View-contextcounterpart ofeffectiveoccupancylookup.",
+      "disposition": "Samefold/cutoffat<=minuteasReducerContext, preservingclockauthorityandpayload. Context-specificSDKlookupadaptersjustified, notduplicatedsemanticowner; corefoldalreadyshared.",
+      "remedy": "Keepfoldsingleowner, typedIDs/clockatSDKedge.",
+      "acceptance": "Complete15read;093actualfold/admit/record/refresh/residentsreused, nofull282orderedcredit."
+    },
+    {
+      "original": 1184,
+      "ranges": [
+        [
+          1,
+          70
+        ],
+        [
+          225,
+          264
+        ]
+      ],
+      "roles": "Immutablegeneratedphysicalpropertymanifest/geometry, namedaggregatehouseholdoccupancy, availablepropertyadmission, residentcapacity andSIgeometryaxes.",
+      "disposition": "Physicalproperty vslegalholding vsaggregatehouseholdactorsdifferentroles; rawString/u64/f32 values do notinfer interchangeability. Immutablemanifestdigestfixedparcels preventsreassigninggeometryexistingholdings, notBCshim. available_propertyexcludesheld/current-or-historyoccupancy/positiveunmaterializedresidents; rawgeometryschema notfinite/positivityproof.",
+      "remedy": "ExistingGeneratedHomeCatalog/canonicalPropertyId/BuildingId/Length/Yaw/capacityroles, distinguishnamedvsaggregatecounts toavoid doublecount; exactavailablepropertyreceipt.",
+      "acceptance": "Onlyregisteredactualranges; propertygeneration71\u2013224/313+unreadhere, nofutureordered/modelnumericclearance."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-020-receipt.json",
+        "sha256": "289492421de4bb2e396ebcf493c368175e64c3377ebf656fc75737c76f5accad"
+      },
+      "contract": "908corecourtshipfull1153 housingperiodcharges/morale/tier economics"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-033-receipt.json",
+        "sha256": "2fa5eddcfced7cfdc55209d38df689845b351ca17c3551e42c9bd3acc54dca86"
+      },
+      "contract": "959corenpcpolicyfull296 namedhouseoffer/affordabilityrank"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-046-receipt.json",
+        "sha256": "e17f1e9d4531b622e5ba299c3adf9ac637d9bc6e9c0c810c5545c6d8f08e3a46"
+      },
+      "contract": "1011corepresencefull662 explicitframe/frontier/co-presence, correctindex"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-084-receipt.json",
+        "sha256": "a1e35a75e9eb2265261409dee6629fb2b7f627e223d182e4e78e33783dac9e21"
+      },
+      "contract": "1136itemfull957 Money/coinchargeactualreceiver"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-086-receipt.json",
+        "sha256": "159dfc072922118236131cad060dc668cdb73d98fb95b2fc676a2b0836d4f015"
+      },
+      "contract": "1180actual1257\u20131310 publicadmit/remove+fixtureprefix;NPCcausal1143full635 authorityoutcome"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-091-receipt.json",
+        "sha256": "dce80385e774a4d5f1b84f60d2114e2bd33677c6630468284dd855f0db9b6650"
+      },
+      "contract": "1153historicalbirth/death/ageclock and1154lifecycle full"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-092-receipt.json",
+        "sha256": "c68c9452f59bc65a1dfe69bfb08ed7b26969d392fba02e43c18f174f4bf1108a"
+      },
+      "contract": "1157family/household/effectiveage full andactualpopulationgroups"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-093-receipt.json",
+        "sha256": "b678d140a2abbc2cd900379c0e6235bd4fc7ff0a52719fccd297d495321994e1"
+      },
+      "contract": "1180actual491\u2013625 and1183occupancy1\u2013124/140\u2013245/1184capacity265\u2013312 actualnativeports"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-097-receipt.json",
+        "sha256": "d4262c0437e29c169933163243d685d8a4068a0f500277a615157b172a43ff32"
+      },
+      "contract": "Correctnative-time1249lifecycle57\u201375/1245forward/investigation/1246cutoff, mandatory097qualification;1017coreonly"
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Frozenlegal/occupancy/economic/sourceauthorityfindingsonly, no runtime/current/clinical/alias/unique/globalclearance.",
+    "Allinheritedcapacity/Draping/currentDressing/sourcecrosswalk/native-timequalificationandremainingpopulationobligations retained.",
+    "Noprojectexecution/tests/newtests/product/Git/rootledger/publication."
+  ]
+}

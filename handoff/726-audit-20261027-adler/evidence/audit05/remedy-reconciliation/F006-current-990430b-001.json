@@ -1,0 +1,72 @@
+{
+  "at": "2026-10-26T04:47:22.817288+00:00",
+  "finding_id": "ADLER-RESUMED05-F006",
+  "phase": "Read-only global remedy/current-canonical reconciliation",
+  "finding_authority": "findings.jsonl#ADLER-RESUMED05-F006",
+  "current_canonical": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "sources": [
+    {
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "frozen_sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "current_sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "entire_blob_exact_equal": true,
+      "personally_read_ranges": [
+        [
+          88,
+          107
+        ],
+        [
+          1260,
+          1338
+        ],
+        [
+          1920,
+          1950
+        ],
+        [
+          1971,
+          1984
+        ],
+        [
+          1986,
+          1993
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills/rank.rs",
+      "frozen_sha256": "e9f11b0fa05841fb640d4c44507b6b8628ea52fdabffb0e657c88c96d888489c",
+      "current_sha256": "e9f11b0fa05841fb640d4c44507b6b8628ea52fdabffb0e657c88c96d888489c",
+      "entire_blob_exact_equal": true,
+      "personally_read_ranges": [
+        [
+          31,
+          81
+        ]
+      ]
+    }
+  ],
+  "disposition": "CURRENT_UNREPAIRED_QUALIFIED",
+  "mechanism": "Six terrain entries yield direct average/rank divided6, effective average divided5 and passed unchanged through SkillTooltip::aggregate/new to current tooltip/accessible output. Thus effective average is1.2 times mean of same six finite inputs; displayed correlated hours can be inflated, gameplay rank uses six.",
+  "dedup": {
+    "inventory_sha256": "473fc7ce6d08f96419a86d239410cf94fa1ba9b8cf8c93ef45ba2d7b44d6942d",
+    "records": 1002,
+    "navigation": "F006-inventory-navigation-001.json",
+    "candidate_ids": [
+      "RIG-PPS-F017"
+    ],
+    "assessment": "RIG-PPS-F017 concerns unavailable clinical observation/default rates in other character_skills ranges; no exact six-versus-five family aggregation remedy.",
+    "global_uniqueness": "Not closed from limited search; no new issue/count or blanket family clearance."
+  },
+  "retained_remedy_identity": "The family row combines six terrain skills. Its direct-hour average, effective-hour average and displayed rank must refer to that same six-member family.",
+  "qualifications": [
+    "No browser rendering/player database incident or gameplay rank inflation claimed; nonfinite/excessive values and source-observation defaults are separate contracts.",
+    "No materially reached new body or native intrinsic source consumed; existing source roles reread, no repair design/execution."
+  ],
+  "project_checks": false,
+  "source_or_git_mutations": false,
+  "new_issue": false,
+  "new_unique_count": 0,
+  "accepted_own_findings_unchanged": 10,
+  "global_clearance": false
+}

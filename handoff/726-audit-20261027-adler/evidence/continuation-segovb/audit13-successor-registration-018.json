@@ -1,0 +1,27 @@
+{
+  "at": "2026-10-27T01:00:49.980256+00:00",
+  "lens": 13,
+  "packet": "018",
+  "scope": "Original31 receiving continuation only: SceneTerrain dimension storage/construction/admission/public mutation path. Preserve31/36partials,35accounted,firstunread37; no future original credit.",
+  "prior_root_adopted_state": "audit13-successor-017-suggested-state.json",
+  "prior_state_sha256": "1a16789ba8bd007fc24c88d37f91c48ece2170f7207880e023c7993c4e082a63",
+  "frozen_authority": "Exact f82 recovered object, pr-working frozenhead6533 variant; not current/base/physical substitute",
+  "sources": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene.rs",
+      "sha256": "2661ce950659807c47c0de4fdc769ba1ba79825c47ba2985fcec32d7e4f38390",
+      "bytes": 20452,
+      "actual_lines": 553,
+      "ranges": [
+        [
+          1,
+          275
+        ]
+      ],
+      "purpose": "Module/owner fields; TerrainGenerator::new/generate; SceneTerrain::from_heightmap/new/refined; dimension/scale accessors and public grade/rewrite mutations; stop before collider/mesh and test tails",
+      "provenance": "audit13-root-terrain-staging-018.json + exact original registry identity",
+      "body_consumed_at_registration": false
+    }
+  ],
+  "excluded": "scene.rs276-553 including tests401+; scene_input/lib staged metadata only; prior read access is not original credit; no project/Git/tests/product/rootledger/publication"
+}

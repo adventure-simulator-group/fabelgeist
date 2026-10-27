@@ -1,0 +1,35 @@
+{
+  "packet": 181,
+  "lens": 11,
+  "registered_before_body_read": true,
+  "entries": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/hair_preview/scalp_upload.rs",
+      "sha256": "2204f09240707fa76e04f408ffdd9a1b1ab0f7b65b840c4a290db3f368156a63",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/2204f09240707fa76e04f408ffdd9a1b1ab0f7b65b840c4a290db3f368156a63",
+      "ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "purpose": "Locate canonical scalp_levels and concrete Buffer/native-copy signatures used by consumed descriptor/copy port",
+      "original_shared_credit": 0,
+      "mandatory_other_lens": true
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/hair_preview/scalp_shade.rs",
+      "sha256": "4bee07accb46e2b52d29da58644b4b620c69f55278774fcd1fff1d591d4c8779",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/4bee07accb46e2b52d29da58644b4b620c69f55278774fcd1fff1d591d4c8779",
+      "ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "purpose": "Concrete ScalpShading alias and extension owner metadata; shader referenced path is not shader body coverage",
+      "original_shared_credit": 0,
+      "mandatory_other_lens": true
+    }
+  ]
+}

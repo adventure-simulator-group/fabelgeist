@@ -1,0 +1,884 @@
+{
+  "at": "2026-10-27T14:51:55.092580+00:00",
+  "lens": 11,
+  "status": "1065-1072 independently source-accounted with qualified findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-059-registration.jsonl",
+    "sha256": "a5171e38a332c56ee9868982a578e209e9157384f6c2558a28002e18518ffe0a"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-058.json",
+    "sha256": "ff3d6ab834ac920a92d2bcbe2d1b1594208cc4966e712fbf0bfb4b1cab8b0914"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1065,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/backend_corpse_type.rs",
+      "sha256": "dd5944235209203975663dc19185603e5716f5e17b824378f5ae0b83243a7c98",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/dd5944235209203975663dc19185603e5716f5e17b824378f5ae0b83243a7c98",
+      "ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "actual_eof": 81,
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          81
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1066,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/backend_corpses_table.rs",
+      "sha256": "8ba1ad5097b419d8e42a9c46fb4d35e6e799de447a8be7ec3a8bf1abe0f826f7",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/8ba1ad5097b419d8e42a9c46fb4d35e6e799de447a8be7ec3a8bf1abe0f826f7",
+      "ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "actual_eof": 112,
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          112
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1067,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/continue_camp_travel_reducer.rs",
+      "sha256": "1b6c34fcc239973cbd97568ceaba3e60a04372b745ad88547dbf7a0de4468fca",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/1b6c34fcc239973cbd97568ceaba3e60a04372b745ad88547dbf7a0de4468fca",
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "actual_eof": 72,
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          72
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1068,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/end_tactical_server_reducer.rs",
+      "sha256": "45a56ae8f6a11c4f676604c9e3c69148174c0cd6c50178a693bd9ebe8d3d4e0e",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/45a56ae8f6a11c4f676604c9e3c69148174c0cd6c50178a693bd9ebe8d3d4e0e",
+      "ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "actual_eof": 88,
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          88
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1069,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/enter_mission_reducer.rs",
+      "sha256": "92a0024a27555a70ff4a28541bfacd19dae4f1ff89cbfbcdb12babfab28db71a",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/92a0024a27555a70ff4a28541bfacd19dae4f1ff89cbfbcdb12babfab28db71a",
+      "ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "actual_eof": 81,
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          81
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1070,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/leave_mission_reducer.rs",
+      "sha256": "f31d61010f0bf76ac7c53412482736cc1568dfec0b445db4fe8e9bf057a460e6",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/f31d61010f0bf76ac7c53412482736cc1568dfec0b445db4fe8e9bf057a460e6",
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "actual_eof": 72,
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          72
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1071,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/perform_investigation_action_reducer.rs",
+      "sha256": "13f9af96e0d72a0fad5af184e6c66424a2e09ea14ab3d35b45b35812ac767bf7",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/13f9af96e0d72a0fad5af184e6c66424a2e09ea14ab3d35b45b35812ac767bf7",
+      "ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "actual_eof": 103,
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          103
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1072,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/Cargo.toml",
+      "sha256": "88120e04c42c2e3a0dfa5100055838100a09da1e60fb3193f2aa8ab2a8867113",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/88120e04c42c2e3a0dfa5100055838100a09da1e60fb3193f2aa8ab2a8867113",
+      "ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "actual_eof": 31,
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          31
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected",
+      "original_index": 1090,
+      "sha256": "ae853a404a9463c18ad6bf2d0b06e86f6fc35061f88cd34e823fc3df0aebbc3f",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/ae853a404a9463c18ad6bf2d0b06e86f6fc35061f88cd34e823fc3df0aebbc3f",
+      "ranges": [
+        [
+          175,
+          210
+        ],
+        [
+          515,
+          622
+        ]
+      ],
+      "purpose": "Actual corpse view schema/projection with permission and decomposition semantics",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          175,
+          210
+        ],
+        [
+          515,
+          622
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1120,
+      "sha256": "00ea04f41c3b01c494fc44e24a3bd5b3720d239de26a71f896d3841e2677fafd",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/00ea04f41c3b01c494fc44e24a3bd5b3720d239de26a71f896d3841e2677fafd",
+      "ranges": [
+        [
+          1840,
+          1861
+        ]
+      ],
+      "purpose": "Actual investigation reducer typed admission adapter",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1840,
+          1861
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1090,
+      "sha256": "ae853a404a9463c18ad6bf2d0b06e86f6fc35061f88cd34e823fc3df0aebbc3f",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/ae853a404a9463c18ad6bf2d0b06e86f6fc35061f88cd34e823fc3df0aebbc3f",
+      "ranges": [
+        [
+          623,
+          654
+        ]
+      ],
+      "purpose": "Close corpse permission projection",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          623,
+          654
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1120,
+      "sha256": "00ea04f41c3b01c494fc44e24a3bd5b3720d239de26a71f896d3841e2677fafd",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/00ea04f41c3b01c494fc44e24a3bd5b3720d239de26a71f896d3841e2677fafd",
+      "ranges": [
+        [
+          1480,
+          1595
+        ]
+      ],
+      "purpose": "Actual investigation method admission/version/capability role boundary",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1480,
+          1595
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1242,
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "ranges": [
+        [
+          1,
+          130
+        ],
+        [
+          490,
+          620
+        ],
+        [
+          1000,
+          1120
+        ]
+      ],
+      "purpose": "Actual native consequence envelope/enter/leave/end ownership and resolution contract",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          130
+        ],
+        [
+          490,
+          620
+        ],
+        [
+          1000,
+          1120
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1242,
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "ranges": [
+        [
+          1121,
+          1335
+        ]
+      ],
+      "purpose": "Close native consequence validation/bounds/application and teardown handoff",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1121,
+          1335
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1237,
+      "sha256": "ff33eb4a42abbfa737b312019fdfc7c457688d66bd84fb81af2364ed30fa9cfe",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/ff33eb4a42abbfa737b312019fdfc7c457688d66bd84fb81af2364ed30fa9cfe",
+      "ranges": [
+        [
+          855,
+          1029
+        ]
+      ],
+      "purpose": "Actual continue camp reducer character/gateway/party/native plan and revision receiving contract",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          855,
+          1029
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1122,
+      "sha256": "6d55eb5793027527698cde4a38f3fe7849e2e1873112836ed2c37feb3b8ce4f1",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/6d55eb5793027527698cde4a38f3fe7849e2e1873112836ed2c37feb3b8ce4f1",
+      "ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Close actual string-method to canonical action/target admission",
+      "actual_read_ranges": [
+        [
+          1,
+          30
+        ]
+      ]
+    },
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-client/src/case_site_id_type.rs",
+      "sha256": "febd329f05411ea6f50d439a7390674cbf6fd20f5e2432241e4bde4ed9c39f6b",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/febd329f05411ea6f50d439a7390674cbf6fd20f5e2432241e4bde4ed9c39f6b",
+      "ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "actual_eof": 15,
+      "prospective": true,
+      "purpose": "Exact generated wire payload definitions for scoped reducer/view types",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "base_head_bytes_equal": true,
+      "absent_frozen_changed_variants_and_dirty4": true,
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          15
+        ]
+      ]
+    },
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-client/src/tactical_mission_resolution_type.rs",
+      "sha256": "3991d1aed65611bddf530bfe4b50594ff617d842b69c497581b616bb45e30cbf",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/3991d1aed65611bddf530bfe4b50594ff617d842b69c497581b616bb45e30cbf",
+      "ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "actual_eof": 24,
+      "prospective": true,
+      "purpose": "Exact generated wire payload definitions for scoped reducer/view types",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "base_head_bytes_equal": true,
+      "absent_frozen_changed_variants_and_dirty4": true,
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          24
+        ]
+      ]
+    },
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-client/src/tactical_consequence_receipt_type.rs",
+      "sha256": "4e3cf237e1ba3b1b2875a727f8f8edb298cc72ed38da361001e6ab3eca449257",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/4e3cf237e1ba3b1b2875a727f8f8edb298cc72ed38da361001e6ab3eca449257",
+      "ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "actual_eof": 19,
+      "prospective": true,
+      "purpose": "Exact generated wire payload definitions for scoped reducer/view types",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "base_head_bytes_equal": true,
+      "absent_frozen_changed_variants_and_dirty4": true,
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          19
+        ]
+      ]
+    },
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-client/src/tactical_character_consequence_type.rs",
+      "sha256": "3223bc3e2826ef9cea2ea6898f7c085f333ebdf57b82f3cb9f5d7019e2af5168",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/3223bc3e2826ef9cea2ea6898f7c085f333ebdf57b82f3cb9f5d7019e2af5168",
+      "ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "actual_eof": 20,
+      "prospective": true,
+      "purpose": "Exact generated wire payload definitions for scoped reducer/view types",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "base_head_bytes_equal": true,
+      "absent_frozen_changed_variants_and_dirty4": true,
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          20
+        ]
+      ]
+    },
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-client/src/tactical_hit_injury_type.rs",
+      "sha256": "f380f16c8611ecde73a92315098af05c625d9bb1cfd1d4181df7c0b61132c1b3",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/f380f16c8611ecde73a92315098af05c625d9bb1cfd1d4181df7c0b61132c1b3",
+      "ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "actual_eof": 20,
+      "prospective": true,
+      "purpose": "Exact generated wire payload definitions for scoped reducer/view types",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "base_head_bytes_equal": true,
+      "absent_frozen_changed_variants_and_dirty4": true,
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          20
+        ]
+      ]
+    },
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-client/src/tactical_receipt_body_part_type.rs",
+      "sha256": "80c9ab4f4f1ba3c828e647f2f7738715295c0b9fef70e9298ad025c24062ba7a",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/80c9ab4f4f1ba3c828e647f2f7738715295c0b9fef70e9298ad025c24062ba7a",
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "actual_eof": 28,
+      "prospective": true,
+      "purpose": "Exact generated wire payload definitions for scoped reducer/view types",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "base_head_bytes_equal": true,
+      "absent_frozen_changed_variants_and_dirty4": true,
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          28
+        ]
+      ]
+    },
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-client/src/tactical_equipment_contact_type.rs",
+      "sha256": "900c9b8e8b0ce5fd78796c3c3d6efb7e64a0b489fa025612d93cf9685782f3a2",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/900c9b8e8b0ce5fd78796c3c3d6efb7e64a0b489fa025612d93cf9685782f3a2",
+      "ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "actual_eof": 20,
+      "prospective": true,
+      "purpose": "Exact generated wire payload definitions for scoped reducer/view types",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "base_head_bytes_equal": true,
+      "absent_frozen_changed_variants_and_dirty4": true,
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          20
+        ]
+      ]
+    },
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-client/src/tactical_equipment_contact_role_type.rs",
+      "sha256": "803abcb0a73ee5cedd718f559927c7cc38410c565d6179996ee737cfac050b64",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/803abcb0a73ee5cedd718f559927c7cc38410c565d6179996ee737cfac050b64",
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "actual_eof": 18,
+      "prospective": true,
+      "purpose": "Exact generated wire payload definitions for scoped reducer/view types",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "base_head_bytes_equal": true,
+      "absent_frozen_changed_variants_and_dirty4": true,
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          18
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original_index": 1065,
+      "inventory": "Generated BackendCorpse observer-scoped row: viewer character, corpse/source/settlement IDs versus display label, creature/location/decomposition/permission tags, CaseSiteIdOption, opened/exhumation/burning independentflags, revision and observedfindings.",
+      "disposition": "Wire record faithfully preserves selected schema distinctions but erases existing CorpseLocation/PermissionKind/Decomposition roles into strings. owner_character_id is actual observing actor.id, not ownership of body. Buried observation intentionally blanks display identity/decomposition/source/site/findings while retaining separate exhumation permission; emptystrings encode redacted absence, not unknown invalid mechanical facts. Exhumation, physicalopened and penalty-freeburning are independent axes, not onecombinedpermission bool. Actual trustedgateway view filtersperparty and perobserverfindings.",
+      "remedy": "Represent canonical observer-safe corpse projection as payload-owning buried/exposed view and typed admitted semantic tags/IDs in schema/application adapter; regenerate SDK via schema workflow, never editgenerated file. Keep observeridentity separate from legal ownership/sourceID.",
+      "acceptance": "Full1-81 and actual1090schema185-201,view520-638 plus locationlabels203-210 consumed. CaseSiteId generatedwrapperfull15lines consumed. No full decomp/custodyauthorization/action or observerUI rendering proof."
+    },
+    {
+      "original_index": 1066,
+      "inventory": "Generated typed row table/query handles, PhantomData lifetime, Insert/Delete callback ID wrappers, native count/iterator/parse errors and symbolic tableidentifier.",
+      "disposition": "BackendCorpsesInsertCallbackId versus DeleteCallbackId prevent callback-operation swaps despite same SDKstorage; lifetime/same rowtype scoped handles earn distinction. Countu64 is nativecollectioncount, not CharacterId. Querycolumn generics preserve row/column storage types but inherit schema semantic erasures from1065, not independent domain validators.",
+      "remedy": "Keep generator-owned SDK wrappers and typed callback protocol; make schema/application semantic repairs upstream, regenerate. No aliasing insertion/deletion tokens or manual generated adapters.",
+      "acceptance": "Full1-112 consumed with1065actual row and native1090view; no whole SDK tablecache/callbackthread/runtime proof."
+    },
+    {
+      "original_index": 1067,
+      "inventory": "Generated ContinueCampTravel request characteru64, args\u2192Reducer projection, immediate send result versus async callback transport/internal error versus reducer Stringerror.",
+      "disposition": "Request identity rawwireprimitive but semanticallycharacter, not elapsedtime/party/server. Native1237actualcontinue860-1029 checks strategic character authority/living/partycontinuation, retains typed JourneyEndpoint and strategic legminutes; this is strategic transition, not persisted tactical tick. Send-success is distinct from reducer-success and callbacknestedresult captures it; fire-and-forget default intentionally discardscompletion.",
+      "remedy": "Retain canonicalCharacterId in application boundary until generated transport, and preserve async request/result distinction. Schema generation owns wire changes. Keep typed endpoint variants and time-unitroles through native planning; no generictravel-locationstring replacement.",
+      "acceptance": "Full1-72 and actual1237function860-1029 consumed. Deeper forecast/encounter/fireplace helpers not all consumed here; no all journey atomicity/current/runtime guarantee."
+    },
+    {
+      "original_index": 1068,
+      "inventory": "Generated EndTacticalServer args with closed resolutionenum and structured consequence receipt; async callbacks. Native counterpart has bodypart/contactrole, cut/blunt/maximumsinglehit/bloodloss/ammunition/contactstress records, party/equipment collections.",
+      "disposition": "Resolution5states retains distinct resultmeaning while derivedsuccessbool intentionally classifies Failed/CaptureTargetKilledfalse versusDefeated/DrivenOff/Capturedtrue. Receiptis sessiondelta aggregate, not ongoingposition/HP/tick/enemystate. Nativebounds distinguish damageunit from bloodfraction and enforce maxsingleblunt<=aggregateblunt, finitebounds, participant/item uniqueness and actualcustody/contactrole. Public rawnestedrecords still permit semantically malformed combinations and duplicate perlimb rows untilvalidation; no producer sendingmalformed proven. Emptyreceipt allowed bysource; participantcomplete accounting remains separate from here, no claimed actualomission. Terminalcallbacktransport errors distinct from domain rejection.",
+      "remedy": "Admit coherent typed consequence aggregate at tactical\u2192strategic boundary, using existing injury/blood/contact/identity owners, preserving maximumsingle versus total damage and meaningful contactroles. Keep purewiretypesgenerated and no BCwrappers. Actual delta production/complete participant policy/currentness must be traced independently before newunique claim.",
+      "acceptance": "Full1-88, exact8generatedleafdefinitions, native1242schema1-130,enter/leave490-605,end1005-1302 and bounds1142-1183 personally consumed. No full native damage/surgery/condition/repair implementation/transaction or tactical producer runtime proof."
+    },
+    {
+      "original_index": 1069,
+      "inventory": "Generated EnterMission request CharacterId-shapedu64 plus native SDKIdentity server; native server/party/mission/temporary state and idempotent assignment.",
+      "disposition": "Character identity distinct from serverIdentity; actualnative494-566 requires sender==server, registeredserver, permittedcapturedroster/party/missionassociation and disallows stealingactiveassignedcharacter. IdentityZERO encodesunassigned atnativeleave boundary, publicCharacter helper semantics outsidefullscope; preserve as boundarycandidate rather than claiming knownbad0. Temporarylifecycle independent from mission success.",
+      "remedy": "Keep applicationCharacterId and explicit server assignment state where ownssemanticlifecycle, widen/flattenonlygeneratedtransport. Preserve capturedroster authority versus currentparty and idempotency states; nocompatibilityalias.",
+      "acceptance": "Full1-81 and native494-566 consumed; no full bootstrap/claimauth or scheduler/runtime proof."
+    },
+    {
+      "original_index": 1070,
+      "inventory": "Generated LeaveMission characteru64 request and async transport/domain result; native server-assignment ownership, temporarydelete versus persistentassignmentclear.",
+      "disposition": "Leave reducer570-605 binds senderregisteredserver to actualcharacterassignment before temporarycleanup orIdentityZEROclear. Removal callbacktoken/result notsharedwithenter/continue. No arbitrary nonzerou64 proof needed to recognize existing persistentCharacter identity role.",
+      "remedy": "UsecanonicalCharacterId through app/schema semanticports and explicitserverassignmentstate ifschema migration; regenerate SDK rather than editgeneratedcallbacks. Keep temporary versus persistent cleanup role, not a general destructive permission.",
+      "acceptance": "Full1-72 and native570-605 consumed; delete_temporary_character body not read here/no claim destructiveworkflow globally approved."
+    },
+    {
+      "original_index": 1071,
+      "inventory": "Generated actoru64/actionIDstring/methodstring/expectedversionu32; actualnative method\u2192kind/targetterrain admission and observercapability/version/retry association.",
+      "disposition": "Actor/action/method/version are distinct roles though wireprimitive. Actual1120authorized1484-1595 compares stored capability method+owner+active+version and retryidentity before1122ValidatedActionRoute parsescanonical InvestigationActionKind/Terrain and validatesroutegraph. Thus no claim arbitrary string reaches unchecked gameplaymethod. expectedversion also used as deterministicattemptindex1581: derived purpose projection, separate from actoridentity/time. RightsdecisionAllowed is reduced toboolclassification from locallycreatedquestion; inherited questionbinding family qualifications retained, no newwrongquestionclaim.",
+      "remedy": "Use canonical actionkind/actioncapabilityID/revision in schema/application beforewire, retain validated routeaggregate from actualcurrentcapability rather than duplicateauthority. Preserve codederrorclassification despite terminalString transport.",
+      "acceptance": "Full1-103,1120wrapper1846-1861 and authorized1484-1595,1122full1-30 consumed. Native resolution/reissue/routegraph helpers notwhole; no all authorization/commit/clinical/current guarantees."
+    },
+    {
+      "original_index": 1072,
+      "inventory": "Schema modulecdylib/rlib, disabledunit/doctest harness, isolated authority-tests feature, canonical core/schema/determinism featuredeps and generated-client boundary.",
+      "disposition": "Build/feature/package roles distinct from gameplaydata; no duplicate scalarowner here. authority-tests faultinjection feature explicitly disposable acceptance workflow; featurepresence notauthorization to runprobes.",
+      "remedy": "Keep canonical typeowners in schema/core and regeneration workflow; no localcheck/test additions or directclientgeneratededits.",
+      "acceptance": "Full1-31 consumed, sourceonly/no manifestbuild/execution."
+    }
+  ],
+  "new_material_extensions": [
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-client/src/case_site_id_type.rs",
+      "sha256": "febd329f05411ea6f50d439a7390674cbf6fd20f5e2432241e4bde4ed9c39f6b",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/febd329f05411ea6f50d439a7390674cbf6fd20f5e2432241e4bde4ed9c39f6b",
+      "ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "actual_eof": 15,
+      "prospective": true,
+      "purpose": "Exact generated wire payload definitions for scoped reducer/view types",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "base_head_bytes_equal": true,
+      "absent_frozen_changed_variants_and_dirty4": true,
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          15
+        ]
+      ]
+    },
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-client/src/tactical_mission_resolution_type.rs",
+      "sha256": "3991d1aed65611bddf530bfe4b50594ff617d842b69c497581b616bb45e30cbf",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/3991d1aed65611bddf530bfe4b50594ff617d842b69c497581b616bb45e30cbf",
+      "ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "actual_eof": 24,
+      "prospective": true,
+      "purpose": "Exact generated wire payload definitions for scoped reducer/view types",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "base_head_bytes_equal": true,
+      "absent_frozen_changed_variants_and_dirty4": true,
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          24
+        ]
+      ]
+    },
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-client/src/tactical_consequence_receipt_type.rs",
+      "sha256": "4e3cf237e1ba3b1b2875a727f8f8edb298cc72ed38da361001e6ab3eca449257",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/4e3cf237e1ba3b1b2875a727f8f8edb298cc72ed38da361001e6ab3eca449257",
+      "ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "actual_eof": 19,
+      "prospective": true,
+      "purpose": "Exact generated wire payload definitions for scoped reducer/view types",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "base_head_bytes_equal": true,
+      "absent_frozen_changed_variants_and_dirty4": true,
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          19
+        ]
+      ]
+    },
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-client/src/tactical_character_consequence_type.rs",
+      "sha256": "3223bc3e2826ef9cea2ea6898f7c085f333ebdf57b82f3cb9f5d7019e2af5168",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/3223bc3e2826ef9cea2ea6898f7c085f333ebdf57b82f3cb9f5d7019e2af5168",
+      "ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "actual_eof": 20,
+      "prospective": true,
+      "purpose": "Exact generated wire payload definitions for scoped reducer/view types",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "base_head_bytes_equal": true,
+      "absent_frozen_changed_variants_and_dirty4": true,
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          20
+        ]
+      ]
+    },
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-client/src/tactical_hit_injury_type.rs",
+      "sha256": "f380f16c8611ecde73a92315098af05c625d9bb1cfd1d4181df7c0b61132c1b3",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/f380f16c8611ecde73a92315098af05c625d9bb1cfd1d4181df7c0b61132c1b3",
+      "ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "actual_eof": 20,
+      "prospective": true,
+      "purpose": "Exact generated wire payload definitions for scoped reducer/view types",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "base_head_bytes_equal": true,
+      "absent_frozen_changed_variants_and_dirty4": true,
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          20
+        ]
+      ]
+    },
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-client/src/tactical_receipt_body_part_type.rs",
+      "sha256": "80c9ab4f4f1ba3c828e647f2f7738715295c0b9fef70e9298ad025c24062ba7a",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/80c9ab4f4f1ba3c828e647f2f7738715295c0b9fef70e9298ad025c24062ba7a",
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "actual_eof": 28,
+      "prospective": true,
+      "purpose": "Exact generated wire payload definitions for scoped reducer/view types",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "base_head_bytes_equal": true,
+      "absent_frozen_changed_variants_and_dirty4": true,
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          28
+        ]
+      ]
+    },
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-client/src/tactical_equipment_contact_type.rs",
+      "sha256": "900c9b8e8b0ce5fd78796c3c3d6efb7e64a0b489fa025612d93cf9685782f3a2",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/900c9b8e8b0ce5fd78796c3c3d6efb7e64a0b489fa025612d93cf9685782f3a2",
+      "ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "actual_eof": 20,
+      "prospective": true,
+      "purpose": "Exact generated wire payload definitions for scoped reducer/view types",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "base_head_bytes_equal": true,
+      "absent_frozen_changed_variants_and_dirty4": true,
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          20
+        ]
+      ]
+    },
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-client/src/tactical_equipment_contact_role_type.rs",
+      "sha256": "803abcb0a73ee5cedd718f559927c7cc38410c565d6179996ee737cfac050b64",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/803abcb0a73ee5cedd718f559927c7cc38410c565d6179996ee737cfac050b64",
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "actual_eof": 18,
+      "prospective": true,
+      "purpose": "Exact generated wire payload definitions for scoped reducer/view types",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "base_head_bytes_equal": true,
+      "absent_frozen_changed_variants_and_dirty4": true,
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          18
+        ]
+      ]
+    }
+  ],
+  "provenance": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-059-generated-type-provenance.json",
+    "sha256": "74909ee92ccf5a6cd2c6f00c2fae52950a7e21b5e401d313668f0379ed2702fe"
+  },
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Frozen source-only; no runtime/current/alias/accepted unique/global clearance.",
+    "Generated repair belongs schema+regeneration, not manual generated edits.",
+    "Tactical/consequence/native guard bodies consumed to material ownership/bounds/application boundary; deeper numerical kernels/SDK/DBtransactions/tactical producer/completeparticipant policy are not proved by source reading here.",
+    "Locator-only stage1138/1227/1565 confers no body/ordered credit; connected native tails include partial unrelated helpers and1317-1335existingtestfragment, no extra scope completeness from those fragments."
+  ]
+}

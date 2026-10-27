@@ -1,0 +1,342 @@
+{
+  "packet": 174,
+  "lens": 11,
+  "lens_name": "type-granularity",
+  "status": "source_accounted_with_qualified_migration_observation",
+  "prior_state": "audit11-segovb-173-proposed-state.json",
+  "authority": {
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "registry": "target/recovery-20261025/audit05/original-scope-072.json",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "read_status": "prior personally consumed governing rules retained; exact bytes reverified174"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "read_status": "prior personally consumed governing rules retained; exact bytes reverified174"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-type-granularity/SKILL.md",
+      "sha256": "3a1fbf7f53c752e35eefe7763cbd49b9f280bd4b978ea998f74c3a68e45dc106",
+      "read_status": "prior personally consumed governing rules retained; exact bytes reverified174"
+    }
+  ],
+  "source": {
+    "original": 801,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/place/mod.rs",
+    "sha256": "4197c4d14aeac409495f9d91e21e2e69439a4a62bd9991804a5b8fe59ebaad8d",
+    "actual_eof": 365,
+    "consumed_ranges": [
+      [
+        1,
+        220
+      ],
+      [
+        221,
+        365
+      ]
+    ],
+    "full_requested_scope_consumed": true,
+    "exact_workspace_bytes_match_frozen": true
+  },
+  "registrations": [
+    {
+      "path": "audit11-segovb-174-registration-001.json",
+      "sha256": "9cde3199307efe33d81d00e1cacf9c3d25ea64a5f4c1f45fddf29cdef43283e4"
+    },
+    {
+      "path": "audit11-segovb-174-registration-002.json",
+      "sha256": "dd1531b0fb5f6403b44740eebef01ccf060312fa06f5b30bbfbdbf85136ab7bc"
+    },
+    {
+      "path": "audit11-segovb-174-registration-003.json",
+      "sha256": "660b7351460be70ea08cceb3f457572420fc0faffb34cbb275576912df171d38"
+    }
+  ],
+  "immutable_partial_checkpoint": {
+    "path": "audit11-segovb-174-801-partial-001.json",
+    "sha256": "6ae1a76f311460d455a64d27e3fd2b2a7f3f989b4ad106f3ad9ecc3dff9a7fbf",
+    "relationship": "saved after full801 and before any802 body read; superseded only by this append-only disposition"
+  },
+  "connected_new_reads": [
+    {
+      "original": 802,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/place/wgsl.rs",
+      "sha256": "21850bcf4f22d8cd055230bb6ac0c8b93f722a90a278d51568acb513894f88c3",
+      "eof": 274,
+      "ranges": [
+        [
+          1,
+          274
+        ]
+      ],
+      "read_from": "crates/adventuresim-character-creator/src/hair/gpu/place/wgsl.rs",
+      "ordered_credit": false
+    },
+    {
+      "original": 2306,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/parameters.rs",
+      "sha256": "e8ddc101f1ef8295f3ab1943b4cae0257e483fd9fb67e2255bf614c1e51557e2",
+      "eof": 140,
+      "ranges": [
+        [
+          1,
+          52
+        ],
+        [
+          110,
+          140
+        ]
+      ],
+      "read_from": "crates/fabelgeist-hair/src/parameters.rs",
+      "ordered_credit": false
+    },
+    {
+      "original": 2301,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/ops/mod.rs",
+      "sha256": "b5146988078e923f50a7c89002bacf7e8cee61f11e1f894b946aed9441c0d704",
+      "eof": 347,
+      "ranges": [
+        [
+          42,
+          77
+        ]
+      ],
+      "read_from": "crates/fabelgeist-hair/src/ops/mod.rs",
+      "ordered_credit": false
+    },
+    {
+      "original": 2303,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/ops/settle.rs",
+      "sha256": "1ea57e0acb96a13b8f2554315f14a7dd3cf70794266a900454c5e1189c2d3372",
+      "eof": 256,
+      "ranges": [
+        [
+          35,
+          67
+        ]
+      ],
+      "read_from": "crates/fabelgeist-hair/src/ops/settle.rs",
+      "ordered_credit": false
+    },
+    {
+      "original": 2304,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/ops/shrinkwrap.rs",
+      "sha256": "a2e81f30ca8aae925d31d5e2f99faf151775a528a0ac09105a1e9155c27b8ae5",
+      "eof": 99,
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "read_from": "crates/fabelgeist-hair/src/ops/shrinkwrap.rs",
+      "ordered_credit": false
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/gpu/collide.rs",
+      "sha256": "af851e973e6dd5ec0e0926e794e3765a70640e402fe32274dfade030971f541a",
+      "eof": 174,
+      "ranges": [
+        [
+          60,
+          174
+        ]
+      ],
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/af851e973e6dd5ec0e0926e794e3765a70640e402fe32274dfade030971f541a",
+      "proof": "audit11-segovb-173-field-staging.json",
+      "ordered_credit": false
+    },
+    {
+      "packet": 174,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow.rs",
+      "original": 2286,
+      "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+      "actual_eof": 876,
+      "ranges": [
+        [
+          87,
+          104
+        ],
+        [
+          349,
+          367
+        ],
+        [
+          524,
+          563
+        ]
+      ],
+      "purpose": "Native apply dispatch and output copy for only801 Shrinkwrap operation; incidental next arm excluded as policy inventory",
+      "registered_before_body_read": true,
+      "ordered_credit": false
+    }
+  ],
+  "inherited_personal_reads_material_to_this_packet": [
+    {
+      "original": 804,
+      "sha256": "6be15ac30dc63fd83b87ed48442b9fa9d403bb875737c7bafe13bdc19ac6c4c9",
+      "ranges": [
+        [
+          1,
+          186
+        ]
+      ],
+      "proof": "169 grow/place/retained GroomedHair; zero ordered804 credit"
+    },
+    {
+      "original": 805,
+      "sha256": "95f08e95fd0815ac957cb0578ef7291036b5d4a9b047e38da1a9f16bdebd4a7f",
+      "ranges": [
+        [
+          1,
+          127
+        ],
+        [
+          129,
+          184
+        ]
+      ],
+      "proof": "169/171 HeadPlacement point/inverse/normal/frame identity; zero ordered805 credit"
+    },
+    {
+      "original": 806,
+      "sha256": "d2da1edcace60e78eab855e992651bda223fcbab7bd832c0f00304ecdcbe7294",
+      "ranges": [
+        [
+          1,
+          229
+        ]
+      ],
+      "proof": "168 HairShape.apply policy producer; zero ordered806 credit"
+    },
+    {
+      "original": 2289,
+      "sha256": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+      "ranges": [
+        [
+          114,
+          175
+        ]
+      ],
+      "proof": "172 StrandGpu32byte/GpuGroom strandmajor vec4 and root metadata; native head_shape encoding"
+    },
+    {
+      "original": 2845,
+      "sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+      "ranges": [
+        [
+          51,
+          111
+        ],
+        [
+          117,
+          138
+        ]
+      ],
+      "proof": "172 shared context/kernel compile, native storage and upload adapters"
+    },
+    {
+      "original": 800,
+      "sha256": "1f537b363a614847b1ddf760ac719c5ed099171646ce606649e8b7ca79390264",
+      "ranges": [
+        [
+          1,
+          545
+        ]
+      ],
+      "proof": "173 body field sampling/nowhere and discriminated native field layout"
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/gpu/wgsl/common.rs",
+      "sha256": "ffd989fed5f4bc512ee53fc408db1d2ecb6bcd81464b5c3eecc8ce4e4eef71e0",
+      "ranges": [
+        [
+          209,
+          278
+        ]
+      ],
+      "proof": "173 HEAD field_distance/head_distance discriminator receiving body; equations do not establish complete numeric guarantees"
+    }
+  ],
+  "inventory": [
+    {
+      "role": "PlaceKernels and KernelSource",
+      "source": "80185-107",
+      "disposition": "Coherent private bundle of four actual placing stages; Arc<Kernel> native compiled capabilities, constructed in one context. Separate carry/gather/moves/follow names correspond to different buffer/count roles; no redundant wrapper finding."
+    },
+    {
+      "role": "placement Draping, canonical native Draping and retained drapes",
+      "source": "801108-157;804grow70-93/place103-125;806208-229;2306 37-44,117-140",
+      "disposition": "Qualified frozen migration gap described below; placement context groups independent bust/HeadPlacement/policy inputs but unnecessarily erases the existing named policy."
+    },
+    {
+      "role": "Carried buffers",
+      "source": "801118-122,161-199;80254-135",
+      "disposition": "Private positions/attributes/roots record owns one carrying result. Shader copies all points with perstrand root lift, transforms normal, retains StrandGpu id/uv/group/radius and vec4 w fields. Existing32/16byte host allocation matches actual receiver structures; no host-array universal type proposed."
+    },
+    {
+      "role": "strand count, points-per-strand, guide count, guide step and point slot",
+      "source": "801203-235,242-249,264-305;802138-159,179-188,212-272;2289 128-146;2306 6-19",
+      "disposition": "Roles are distinct despite u32 storage: point slot=s*points+j, guide source=g*step*points+j. step=max(count/2048,1),guides=ceil(count/step), so 2048 is sampling target rather than proven strict maximum. Existing StrandCount/PointsPerStrand/GuideNeighborCount owners are not interchangeable; guides here are sampled guide population, not neighbor count. Native u32 ABI conversion remains actual boundary; no unsupported new bounds or unique finding claimed."
+    },
+    {
+      "role": "metres, radius-relative fade thresholds, cosine, iteration count and byte strides",
+      "source": "80134-83,171-195,275-282;80296-113,217-218,243-244",
+      "disposition": "Roles remain conceptually distinct: .5/1 cranium radii converted via HeadPlacement.point into world Y; sink distances .03/.05 metres, incidence cosine .3,12 lift steps,16byte points/32byte attributes. All passed named actual parameter fields; storage equivalence does not justify one generic scalar owner. This read does not prove all finite/capacity/matrix assumptions."
+    },
+    {
+      "role": "Frame origin/scaled axes and inverse normal factors",
+      "source": "801321-365;80212-51,83-93,175-188;805point/normal",
+      "disposition": "Useful coordinate-frame adapter. origin=placement.point(0),axes=point(unit)-origin preserve translation vs displacement, native carry_move excludes origin, carry includes it; carry_normal applies inverse squared axis magnitude. Identity arrays/float values are actual native ABI, not duplicate authority. Exact active placement is retained rather than independently recomputed from another rig."
+    },
+    {
+      "role": "native Settle inputs and body/free equilibrium buffers",
+      "source": "801237-258;collide124-174;2303 35-67;802161-190",
+      "disposition": "Four deliberately distinct buffers: placed against body/free, groomed against bust/free. MOVES subtracts environmental response then transforms bust displacement into character frame. equilibrium documentation/signature explicitly consumes stiffness/iterations/offset plus explicit load; default gravity/wind/relative fields are not silently claimed to govern that API."
+    },
+    {
+      "role": "final Shrinkwrap payload and submission",
+      "source": "801150-156;2301 63-76;2304 19-42;collide86-116;grow524-542,87-93",
+      "disposition": "Canonical Op variant owns required Shrinkwrap payload, overrides preserve_length=true, retains default lock_roots=true etc. Native arm forwards smoothing/lock_roots/factor/offset/above_surface/preserve/body/moves, dispatches and settles ping-pong into own buffer. No compatibility constraint, no new local policy wrapper required."
+    },
+    {
+      "role": "GpuGroom retained result and bounds",
+      "source": "801128-157,309-319;2289 128-146",
+      "disposition": "count/points retain original cardinalities; transformed attrs/roots accompany placed position stream; bounds None forces later recalculation, root_bounds maps8corners with max-root-shift margin; head/guides None intentionally avoid stale bust/guide metadata. Source does not prove max fallback push distance or universal conservative-bound guarantee."
+    }
+  ],
+  "observations": [
+    {
+      "source_key": "SEGOVB11-174-801-DRAPING-POLICY-ERASURE",
+      "classification": "frozen source-backed migration gap; no new unique accepted finding",
+      "witness": "Native parameters::Draping Enabled/Disabled owns authored-drape policy; HairShape.apply uses it. GroomedHair.grow stores look.drape.enabled() as drapes:bool, carries that retained bool into placement::Draping.drapes, then placement checks it in Rust. This is not a GPU or Serde bool boundary. A different policy bool (for example preserve_length) can inhabit that field, whereas native Draping would reject that role substitution.",
+      "coherent_repair": "Retain the existing canonical parameters::Draping through GroomedHair and the placement context; convert or match at the actual branch. Rename the placement context only if necessary to distinguish context from policy, without introducing an alias/compatibility path.",
+      "acceptance": "Pin actual current equivalents and canonical aliases first; if still present, existing policy flows producer -> retained state -> placement decision without intermediate raw bool API. No API/layout/message compatibility requirement.",
+      "currentness": "Frozen exact identity only. Current whole-family identity and existing finding/alias authority not reconciled; do not promote to globally unique or accepted repair."
+    }
+  ],
+  "coverage_limits": [
+    "802 full body read solely as materially connected receiver after immutable801partial; zero ordered802 credit. Next original802 still needs independent ordered inventory.",
+    "Native receiving API/parameter and dispatch bodies consumed, not whole groom solver WGSL or collision algorithm/numerical proof. No GPU runtime/capacity/finite/degenerated-geometry guarantee.",
+    "No project execution, checks, tests, probes, Git commands/mutations, product edits, publication or ledger/history overwrite.",
+    "Original801 source-accounted with qualified observations is not clear/current/integrated/validated. No accepted unique count change.",
+    "All crosswalk/source population/current Dressing/795/F50/M108/M24/capacity/other-lens qualifications from173 preserved. HistoricalQ008/Q009 not reused as aliases.",
+    "173 unchanged collide dependency new60-174 range extends mandatory other-lens queue only; zero original/shared count. Other queued dependencies remain unfinished."
+  ],
+  "proposed_frontier": {
+    "original_accounted": 802,
+    "original_total": 2853,
+    "next_original": 802,
+    "active_partial": null,
+    "newly_source_accounted": [
+      801
+    ]
+  },
+  "stop": "174 bounded packet saved; no802 ordered inventory or next work."
+}

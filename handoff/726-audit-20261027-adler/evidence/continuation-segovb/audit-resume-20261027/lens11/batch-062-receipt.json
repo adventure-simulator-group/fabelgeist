@@ -1,0 +1,706 @@
+{
+  "at": "2026-10-27T15:05:23.612906+00:00",
+  "lens": 11,
+  "status": "1079 independently full requested source-accounted with findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-062-registration.jsonl",
+    "sha256": "76271112ca62dca2a5ae90e8efc16e3a93c39979c2f6f3c806b1d6ff8840abc2"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-061.json",
+    "sha256": "3b6ea35969e2f0ff89f623b9db1d712984a89b4bdb950700c63736c7d7c1a915"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1079,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+      "sha256": "806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+      "ranges": [
+        [
+          1,
+          3983
+        ]
+      ],
+      "actual_eof": 3983,
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "prior_personal_read": {
+        "receipt": "batch-049-receipt.json",
+        "ranges": [
+          [
+            805,
+            925
+          ]
+        ],
+        "no_automatic_ordered_credit": true
+      },
+      "actual_read_ranges": [
+        [
+          1,
+          3983
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected",
+      "original_index": 1080,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character/attachment_capacity.rs",
+      "sha256": "18c128dcb7feb81a25a316b32ebf5325c4ded21b8d9b049fc3f99be640860f9b",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/18c128dcb7feb81a25a316b32ebf5325c4ded21b8d9b049fc3f99be640860f9b",
+      "ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "actual_eof": 29,
+      "prospective": true,
+      "purpose": "Actual character naming/creation origin and equipment attachment/carry immediate contracts; future orderedinventory separate",
+      "actual_read_ranges": [
+        [
+          1,
+          29
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1081,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character/name_identity.rs",
+      "sha256": "1e4fa37b2fb89c3fa7ccca3c9c15a6c514044539ef4b97776e8ebb66cc7eccbc",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/1e4fa37b2fb89c3fa7ccca3c9c15a6c514044539ef4b97776e8ebb66cc7eccbc",
+      "ranges": [
+        [
+          1,
+          242
+        ]
+      ],
+      "actual_eof": 242,
+      "prospective": true,
+      "purpose": "Actual character naming/creation origin and equipment attachment/carry immediate contracts; future orderedinventory separate",
+      "actual_read_ranges": [
+        [
+          1,
+          242
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1082,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character/name_reducers.rs",
+      "sha256": "ce69b10b91846fd901ae6d97b470b4d96c592e96858032dedb6376b4b8b4cc17",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/ce69b10b91846fd901ae6d97b470b4d96c592e96858032dedb6376b4b8b4cc17",
+      "ranges": [
+        [
+          1,
+          8
+        ]
+      ],
+      "actual_eof": 8,
+      "prospective": true,
+      "purpose": "Actual character naming/creation origin and equipment attachment/carry immediate contracts; future orderedinventory separate",
+      "actual_read_ranges": [
+        [
+          1,
+          8
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1083,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character/name_types.rs",
+      "sha256": "698c97ddc6ffa8f8a1765775397dc10013ea5359f32a06b62845cf62ce0a946e",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/698c97ddc6ffa8f8a1765775397dc10013ea5359f32a06b62845cf62ce0a946e",
+      "ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "actual_eof": 111,
+      "prospective": true,
+      "purpose": "Actual character naming/creation origin and equipment attachment/carry immediate contracts; future orderedinventory separate",
+      "actual_read_ranges": [
+        [
+          1,
+          111
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1084,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character/origin.rs",
+      "sha256": "68cde880ac4ca70b55a5e3aed94f85463cacc3f2177a656c26d023abf7917ed6",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/68cde880ac4ca70b55a5e3aed94f85463cacc3f2177a656c26d023abf7917ed6",
+      "ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "actual_eof": 67,
+      "prospective": true,
+      "purpose": "Actual character naming/creation origin and equipment attachment/carry immediate contracts; future orderedinventory separate",
+      "actual_read_ranges": [
+        [
+          1,
+          67
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1085,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character/weapon_carry.rs",
+      "sha256": "d6528de59338d56a9be46239ca4e7a55ba4f3dac2dcbb27948ac19aeaf8da711",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/d6528de59338d56a9be46239ca4e7a55ba4f3dac2dcbb27948ac19aeaf8da711",
+      "ranges": [
+        [
+          1,
+          157
+        ]
+      ],
+      "actual_eof": 157,
+      "prospective": true,
+      "purpose": "Actual character naming/creation origin and equipment attachment/carry immediate contracts; future orderedinventory separate",
+      "actual_read_ranges": [
+        [
+          1,
+          157
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1165,
+      "sha256": "52318f2d0b66c1d88adaa38059b677829f263cfe6f2033fc92c2c59f6671563c",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/52318f2d0b66c1d88adaa38059b677829f263cfe6f2033fc92c2c59f6671563c",
+      "ranges": [
+        [
+          424,
+          530
+        ]
+      ],
+      "purpose": "Actual newborn call supplies age/life options and birth coordinates, retained child component state",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          424,
+          530
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1153,
+      "sha256": "ee9606893c2011c97cecde3bb8bef19e0b6354b96c165b66695c8f9e2b104646",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/ee9606893c2011c97cecde3bb8bef19e0b6354b96c165b66695c8f9e2b104646",
+      "ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "purpose": "Actual signedbirth baseline/effectiveage/update contracts",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          105
+        ]
+      ]
+    },
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-module/src/character/occupancy.rs",
+      "sha256": "b19bf8ef16841ed00b6e678e2ed26c12fb072ca49ec363a1c1e7172379e0c15e",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/b19bf8ef16841ed00b6e678e2ed26c12fb072ca49ec363a1c1e7172379e0c15e",
+      "actual_eof": 191,
+      "provenance": "frozen base3a50/head6533 exactbyteequal, absent747changes/dirty4",
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "ranges": [
+        [
+          1,
+          191
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual equipment normalized anchor/requirement contracts or native assignment sentinel adapter",
+      "actual_read_ranges": [
+        [
+          1,
+          191
+        ]
+      ]
+    },
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-module/src/character/tactical_assignment.rs",
+      "sha256": "aba1547a6cf046580545e45ed7b29cfa81e1e9a54c96cc0f7a6dc04a998982c7",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/aba1547a6cf046580545e45ed7b29cfa81e1e9a54c96cc0f7a6dc04a998982c7",
+      "actual_eof": 10,
+      "provenance": "frozen base3a50/head6533 exactbyteequal, absent747changes/dirty4",
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "ranges": [
+        [
+          1,
+          10
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual equipment normalized anchor/requirement contracts or native assignment sentinel adapter",
+      "actual_read_ranges": [
+        [
+          1,
+          10
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1157,
+      "sha256": "39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "ranges": [
+        [
+          57,
+          112
+        ]
+      ],
+      "purpose": "Actual birthschema/ageprojection producer and same-lens060 fallback reconciliation",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          57,
+          112
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1157,
+      "sha256": "39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "ranges": [
+        [
+          113,
+          115
+        ]
+      ],
+      "purpose": "Close cachedage update body",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          113,
+          115
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1153,
+      "sha256": "ee9606893c2011c97cecde3bb8bef19e0b6354b96c165b66695c8f9e2b104646",
+      "ranges": [
+        [
+          106,
+          107
+        ]
+      ],
+      "purpose": "Close lifecycle-boundary helper tail",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          106,
+          107
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original_index": 1079,
+      "inventory": "Complete Character schema/projections/death/attributes/stats/skills/limbs/equipmentanchors/creation/cleanup/fixtures and sourceassertions",
+      "responsibility_parts": [
+        {
+          "role": "character and projections",
+          "source_ranges": [
+            [
+              68,
+              263
+            ]
+          ],
+          "inventory": "Persistent CharacterId/rawu64 versus scanadapter; displayname versus semanticnameidentity, XP/derivedlevel, settlement/party pointers, nativeIdentity assignmentZERO, temporary/alive lifecyclefacts, cachedage and caredecision; gateway-only private rowviews and component IDs; StartingCharacterClaim requestkey/character/owner association.",
+          "disposition": "Namespaceidentity remains useful without bounds and an existing local CharacterId wrapper exists1083. Scanid, level, name, age, party pointer and selectedview are intentional derived projections; actualcreator initializesid/scanid together and nameupdatesthroughsemanticowner. Do notflatten character/party/settlement/inventoryID because primitive storage matches. Character publicnativecreation admitsraw0 while operationalcustodyrequiresnonzero (qualified finding below); no globalinventoryIDnonzero rule. Currentalive flag differs historicalbirth/deatheligibility and caredecision is independent authorityaxis.",
+          "remedy": "Canonical character/owner/pointer identities at internalports, native scalarcolumns and derivedadapters onlyat tableedge; one canonicalprojectionrefresh responsibility rather than unrelated validators.",
+          "acceptance": "Fullrequested body plus1081/1083naming and060browseractualconsumer,061capabilityactualconsumer; no wholeSDK/privacy proof."
+        },
+        {
+          "role": "death and personal chronology",
+          "source_ranges": [
+            [
+              265,
+              436
+            ]
+          ],
+          "inventory": "DeathCause versus DeathSource enums, optionalsourceID, immutablefirstknownCharacterDeath with StrategicMinute, alivecache and historicalbirth/death context.",
+          "disposition": "Causephysiology and sourceorchestrator are independent dimensions (Diseasecause/Strategicsource not inherently invalid), not blindly onecombinedenum. Firstdeath retainedidempotently evenchangedretryargs; no payloadconflictclaim absent requiredretrycontract. Deathcannotbefuturepersonalclock, chronologyquery1153uses birth/deathinterval independentfromcurrentalive. Missingtime mapsZERO intransition helper while canonical_now errors, an admission/errorauthority question; no actualmissingtimeproducerproof.",
+          "remedy": "Retain historyeventversuscurrentlifeprojection; use admitted contextwithactualpersonalclock and typed sourceidentity where sourcedependent. Preserve explicit missingclockerror ratherthan silentlyinventtemporalcoordinate ifrequiredfullcomponent.",
+          "acceptance": "Actualtransition336-436 and1153historicalquery1-29/boundaries36-106 consumed; cascade/inheritance/clinical internals notallneededforlens shape and notgloballycleared."
+        },
+        {
+          "role": "attributes, skills and anatomical values",
+          "source_ranges": [
+            [
+              438,
+              583
+            ],
+            [
+              827,
+              916
+            ],
+            [
+              2103,
+              2164
+            ],
+            [
+              2234,
+              2444
+            ]
+          ],
+          "inventory": "FrameworkneutralPlayerAttributeValues\u2194flat nativeCharacterAttributes; calories/focus, raw skillhours versus category/tradition/language collections; seven anatomicalhealthfields; enemyphysical/training scales and sociallanguage coefficient.",
+          "disposition": "Commonattribute owner reused bidirectionally, no competingDeref record. Storage f32 still conflates skillhours/rating/calories/focus/health; scoped knowledgecollections retain targetidentity. Temporaryenemyhealth multipliedabove1 intentionally, so notuniversal UnitInterval. Playerattributesmean baselinecalibration differs escalatedenemy values; no universal0..5 admittedbound. Physicalsqrt versus traininglinear scale purpose retained. Sharedlanguagecoefficient is boundedpurposeprojection, notrawhours; no all language collections interchangeable.",
+          "remedy": "Carry canonical hours/attribute/health/focus/energy owners and exacttargetcollections through internaloperations; retain physical/training scale distinctions and allow actualgreaterthan1health semantics untilhealthownerpolicyreconciled.",
+          "acceptance": "Allfullbody, starting1003/threat1021/core963 and061actualcapabilityreceiver personalproofreuse. No clinical/skilllearning/calibration/runtime correctness inference."
+        },
+        {
+          "role": "equipment identity and graph mutation",
+          "source_ranges": [
+            [
+              585,
+              795
+            ],
+            [
+              2787,
+              3284
+            ]
+          ],
+          "inventory": "Equippedinstance/placementID; EquipmentAttachmentTargetSelection(parentrequirementordinal,parentinstance,pointID); EquipmentAnchorKind+location/parent/pointOptions, channel/order, requirementordinal/capacitycellordinal; DFSactive/finished exitstate; equip law/replacementpolicies and starter/devloadout.",
+          "disposition": "Flat normalizedanchorrecord permitsinvalidcartesian combinations; actual3127-3163builderscoherentlywrite CharacterLocation withSomeLocation/noParent and ItemAttachment withSomeParent+Point/noLocation. Payloadown anchorprevents mixups, whilechannel/order remain distinct actualattachmentrequirements. Requirementindex versuscapacityindex versuscatalogplacementindex allu16different roles, rootenumerationcheckedu16 and parentbounds/duplicatechecksestablishfullselectioncoverage. Nativeoccupancy and privatecarrychildren prove channel/order/location/tag/cycle/displacement validation, notallgraphcorruption. FitZone absent fromstoredrow is notalone lostauthority: conflictcollector rereadscanonicalauthoredplacements. inventory_item_is_equipped ignores_character_id: storedfunction really asksanywearableinstance, unsafeAPIsemanticsquestion unlessallcallers alreadyowninstance; no actualwrongownerclaimed. replace_occupied andenforce_law are independentpolicyaxes; no broadoneenumforunrelatedflags.",
+          "remedy": "Payload-own anchor and scopedplacement/requirement/capacity identity under same canonicalgraph, preserve nativecolumnsasderivedadapter ifneeded. Rename/removeunusedcharacterport orrequireownerwherepromised. Keep sharedtag/fit/location/channel rules and coherent moveplan beforemutation; donotmergetopologicalcontainmentwithweargraphorintroduceBCaliases.",
+          "acceptance": "Fullbodyplus1080capacity29/1085carry157 and newoccupancy191 allconsumed; actualcapacityFree/Reserved/Occupied(allu64) preserves185qualification. Nativecontainerdetach2941 occursbeforegraphpreflight butDBrollbacknotprovedhere; no newatomicityverdict from comments/fixtures."
+        },
+        {
+          "role": "temporary cleanup and fixtures",
+          "source_ranges": [
+            [
+              797,
+              826
+            ],
+            [
+              918,
+              1289
+            ],
+            [
+              1409,
+              1880
+            ],
+            [
+              3286,
+              3983
+            ]
+          ],
+          "inventory": "Registeredserver-ownedtemporary creation, deterministicnameSeedversusidentity, boundedrandomIDbitpattern; persistent versus temporary deletion and worldimportpolicy; durablecomponentcleanup, repaircustodyowner0, fixturecharacter/item IDs, signedclinicaldamagebins/skillhours/laggedStrategicMinute, sourceassertions.",
+          "disposition": "Temporarycharacter guard actuallyrequired beforecascade, worldimport usesseparateownedcleanup context; sourcepermissiondoesnotauthorize execution/destructive action. Deletepartybool controlsdifferentcleanupresponsibility than name/dependentcomponents, potentialnamedpolicyhelpsclarity butnotuniversalpanicfix. FixedfixtureIDs are deliberatelocalidentities notgame numericbounds; damagebins5tieraggregate differentthanbody7health. Assertions/prodsourcechecksarefixtures notvalidationexecution orproofallcascaderowscovered.",
+          "remedy": "Retain explicit temporary/import authoritycontext and canonicalID/quantity owners through cleanup; named policy whereavoids booleanroleconfusion. Keep fixtureliteral calibrationseparatefromproductionadmission.",
+          "acceptance": "Fullsource consumed, noneexecuted; no DBreset/deleteauthorization or completeness/runtimecorruption claim."
+        },
+        {
+          "role": "starting/default/creation aggregate",
+          "source_ranges": [
+            [
+              1292,
+              1407
+            ],
+            [
+              1882,
+              2101
+            ],
+            [
+              2166,
+              2785
+            ]
+          ],
+          "inventory": "Versionedseed/ageTier/slot request, browserownerkey and regeneratedspec, separatecanonicaldefaultrequestnamespace; CharacterCreationModePlayer/PersistentNpc/TemporaryNpc/Newborn; optionalStartingSpec/NpcLife/personality/origin/time, fieldActor/soloParty/materializeCarry work policies; initialmembership signedbirth/language/literacy/personality/item projections and fullcomponentpresencevalidator.",
+          "disposition": "Modesmeaningful but independentlyoptionalstarting/npc_life and child-specificagefacts permit inconsistentcreationrequestshapes. ActualNewborn1165call suppliesage0/nosoloparty/nocarry/explicitdueclock, so earlierdefault25candidate doesNOTdescribe actualnewborn. FullcreationalwaysrecordsCharacterBirth fromage+initialclock2210-2214; ageisdisplaycache and1157settleupdatesfrombirth. 060viewbirthmissingfallbacktoage is broader than canonicaleffectiveage(None) andfullcomponentvalidatordoesnotrequirebirth; source-admission/cacheauthorityquestion, no actualordinarymissingbirthproved. Defaultcharacter is intentionalstableproductpreset, notBCfallback. Organization-awareorigin1084 fallsbacktoanyloadedsettlement ifnoeligiblechapter, explicitlydevworldpolicy butnotgatedbydevfeaturethere; qualifycurrentpolicy/contextreview before treatingguaranteedchapter. Startingclaims compareowner/regeneratedID andreturntypedbrowsergrant, no claimeduncheckedbrowserdataorparameterstaleproof.",
+          "remedy": "Coherent payload-owned creationrequestforgeneratedstarting, finalizedpersistentNPClife, temporary and reservednewborn facts, keepingindependentplacement/materializationpolicy onlywhereactualcontextsneed. Requirecanonicalbirth/ageprojection invariants anduseexistingname/spec/seed/typeowners; do notaddduplicateowners or preserveunnecessaryfallbacks forBC.",
+          "acceptance": "Fullbody and1084origin67,1081nameauthority242,1165actualnewborncall424-529,1157record/effectiveage/cachedage57-114 consumed. Reproductiontail530+notcomplete; noglobalbirth/pregnancy/organizationpermission/runtime/current claim."
+        }
+      ],
+      "disposition": "Source-accounted WITH qualified findings, notclearance",
+      "remedy": "See responsibility-specificcanonicalowner/payload/admission remedies",
+      "acceptance": "All3983linesconsumed plusregisteredactualreceiverproofs, sourceonly"
+    }
+  ],
+  "qualified_findings": [
+    {
+      "source_key": "L11-062-CHARACTER-ZERO-CUSTODY-BOUNDARY",
+      "classification": "qualified frozen source-backed admission/type-boundary mismatch",
+      "trace": [
+        "1079create_character1250/rawid\u2192insert_new_character1882\u2192insert_character_with_origin2166,Characterinsert2192",
+        "1079creation callsrefresh_character_capability2628 (starterequipmentrefreshalso792-794)",
+        "1076StrategicEquipment::load419-420 OperationalCustody::character(character_id).expect(nonzero)",
+        "core963CustodyCharacterId/OperationalCustody nonzero admission, exact035proof"
+      ],
+      "disposition": "Publiccaller-suppliedid0 not rejected byshownCharactercreatororlocalCharacterId1083new; itcanreachstrictercustodyboundary. Source/APIwitnessonly, no executedpanic/DBcommit/security/current/familyalias/accepteduniqueclaim.",
+      "remedy": "One canonicalCharacteridentityadmission consistentwithrequiredphysicalcustodyrole atcreation, propagatefallible typederror beforemutation; donotimposeinventoryIDnonzero (1080nativeallU64 valid).",
+      "acceptance": "Reconcile canonicalexistingCharacter/Custody identityowners andallcreationports, thencurrentness/alias andhostedacceptance separately."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-035-receipt.json",
+        "sha256": "4a35c1a6afd6d6ebf7e63867b4b939fc63ae5d55011f0f8f0151be0c4e2dd1e2"
+      },
+      "original_index": 963,
+      "sha256": "906e67eed5acc9fbf6ab98e2e4bc7df11b8e9742c1ee148092c7d2061f64afab",
+      "ranges": [
+        [
+          66,
+          139
+        ],
+        [
+          179,
+          199
+        ],
+        [
+          271,
+          383
+        ]
+      ],
+      "prior_personal_read_reuse": {
+        "receipts": [
+          "batch-027-receipt.json",
+          "batch-032-receipt.json"
+        ],
+        "ranges": [
+          [
+            1,
+            65
+          ],
+          [
+            140,
+            178
+          ],
+          [
+            200,
+            270
+          ]
+        ],
+        "identity_reverified": true
+      },
+      "identity_reverified": true
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-044-receipt.json",
+        "sha256": "5316b771defcf75d73c5dfe4d5ad876e3730e8894fb56e6d3ffd35895e29d724"
+      },
+      "original_index": 1003,
+      "sha256": "6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
+      "ranges": [
+        [
+          1,
+          1936
+        ]
+      ],
+      "prior_personal_read_reuse": null,
+      "identity_reverified": true
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-049-receipt.json",
+        "sha256": "7c7a1bf82e75c5dbe9a67fb086ea7776db66160590f8435b8519b7479433d9df"
+      },
+      "original_index": 1021,
+      "sha256": "87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+      "ranges": [
+        [
+          1,
+          593
+        ]
+      ],
+      "prior_personal_read_reuse": null,
+      "identity_reverified": true
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-060-receipt.json",
+        "sha256": "6f4d66ee0ace59f2431dcc84532f71662cf68c37b2a04a1477ff3917e5ea4b15"
+      },
+      "original_index": 1073,
+      "sha256": "c572b0014c6114020ee98d99a3cdfa1579b25a815ade34656bfeb8b6a421d1dc",
+      "ranges": [
+        [
+          1,
+          677
+        ]
+      ],
+      "prior_personal_read_reuse": null,
+      "identity_reverified": true
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-060-receipt.json",
+        "sha256": "6f4d66ee0ace59f2431dcc84532f71662cf68c37b2a04a1477ff3917e5ea4b15"
+      },
+      "original_index": 1074,
+      "sha256": "58bcbbfa28a430def36a47439a94587ab24f3fbdfe2eeca4b9c58e19a6e0ed4a",
+      "ranges": [
+        [
+          1,
+          567
+        ]
+      ],
+      "prior_personal_read_reuse": null,
+      "identity_reverified": true
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-060-receipt.json",
+        "sha256": "6f4d66ee0ace59f2431dcc84532f71662cf68c37b2a04a1477ff3917e5ea4b15"
+      },
+      "original_index": 1075,
+      "sha256": "4ee78100f46e24040c48bd9007e4a8892b04b81c6b351f77d1eb9fa701246a16",
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "prior_personal_read_reuse": null,
+      "identity_reverified": true
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-061-receipt.json",
+        "sha256": "1e26974b7e1795184974dca7f3ff4cd5094facd0c1717fab47d9ce7b8edbc633"
+      },
+      "original_index": 1076,
+      "sha256": "3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
+      "ranges": [
+        [
+          1,
+          694
+        ]
+      ],
+      "prior_personal_read_reuse": null,
+      "identity_reverified": true
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-061-receipt.json",
+        "sha256": "1e26974b7e1795184974dca7f3ff4cd5094facd0c1717fab47d9ce7b8edbc633"
+      },
+      "original_index": 1077,
+      "sha256": "afba3aaeb15ab41fe36d35221b5269a784098863766c03ad61ecd6532204bdbc",
+      "ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "prior_personal_read_reuse": null,
+      "identity_reverified": true
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-061-receipt.json",
+        "sha256": "1e26974b7e1795184974dca7f3ff4cd5094facd0c1717fab47d9ce7b8edbc633"
+      },
+      "original_index": 1078,
+      "sha256": "f8b4732bf544887996ecaf8ffba647c00a6a7f4c4d88728b7b5ac094a689c6af",
+      "ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "prior_personal_read_reuse": null,
+      "identity_reverified": true
+    }
+  ],
+  "new_material_extensions": [
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-module/src/character/occupancy.rs",
+      "sha256": "b19bf8ef16841ed00b6e678e2ed26c12fb072ca49ec363a1c1e7172379e0c15e",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/b19bf8ef16841ed00b6e678e2ed26c12fb072ca49ec363a1c1e7172379e0c15e",
+      "actual_eof": 191,
+      "provenance": "frozen base3a50/head6533 exactbyteequal, absent747changes/dirty4",
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "ranges": [
+        [
+          1,
+          191
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual equipment normalized anchor/requirement contracts or native assignment sentinel adapter",
+      "actual_read_ranges": [
+        [
+          1,
+          191
+        ]
+      ]
+    },
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-module/src/character/tactical_assignment.rs",
+      "sha256": "aba1547a6cf046580545e45ed7b29cfa81e1e9a54c96cc0f7a6dc04a998982c7",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/aba1547a6cf046580545e45ed7b29cfa81e1e9a54c96cc0f7a6dc04a998982c7",
+      "actual_eof": 10,
+      "provenance": "frozen base3a50/head6533 exactbyteequal, absent747changes/dirty4",
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "ranges": [
+        [
+          1,
+          10
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual equipment normalized anchor/requirement contracts or native assignment sentinel adapter",
+      "actual_read_ranges": [
+        [
+          1,
+          10
+        ]
+      ]
+    }
+  ],
+  "provenance": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-062-receiver-provenance.json",
+    "sha256": "d3b591c26572c5247815844aa2d52f3fc9c9a2605462060a35a510385e14dfc7"
+  },
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Frozen changed variant1079actualSHA806a50, notraw6533/currentCharacter variant. Full1-3983 consumed; earlier805-925 was context only.",
+    "Future1080-1085fullbodies personallyconsumedasreceivers but no orderedcredit yet; requiresindependentinventorynextpacket.",
+    "Reproduction424-530 only(actualnewborncallcomplete480-496), chronology1-107, family57-115 only; no allsubsystem/causality/birth/clinical/DBtransaction/runtimeclaims.",
+    "No unique/current/alias/global promotions;185capacity/nativeinventoryID0valid preserved separatelyfromCharacter0custodycandidate. Existingtests/sourceassertionsreadnotrun."
+  ]
+}

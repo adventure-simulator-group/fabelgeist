@@ -1,0 +1,172 @@
+{
+  "at": "2026-10-27T12:07:10.061395+00:00",
+  "lens": 11,
+  "status": "881\u2013882 full registered scopes independently source-accounted with identity/admission and granularity findings",
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-014.json",
+    "sha256": "8a7845d0afaba9b0d4a6017a207fe7218e05ee960a40ba571c50a04cb683c73e"
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-015-registration.jsonl",
+    "sha256": "ae2a36167a462a4b36452081a6b4754bd20646214772c49ccdb15f41066c95d9"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 881,
+      "source_id": "pr-working:crates/adventuresim-core/src/bestiary.rs",
+      "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "actual_eof": 1558,
+      "ranges": [
+        [
+          1,
+          1558
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          1558
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 882,
+      "source_id": "pr-working:crates/adventuresim-core/src/bestiary/error.rs",
+      "sha256": "279813fa320c4ce35bbef2229faa4367af4c93d97f074cec46e6984974245b6c",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/279813fa320c4ce35bbef2229faa4367af4c93d97f074cec46e6984974245b6c",
+      "actual_eof": 51,
+      "ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          51
+        ]
+      ]
+    }
+  ],
+  "per_role": [
+    {
+      "role": "Threat, report and evidence identities",
+      "locations": "12-137,210-286,483-500,730-744,877-897",
+      "trace": "ThreatId compact63ASCII-byte identity is open, with named constants for particular catalog members; complete population comes from actual catalog. ThreatId::try_new checks syntax only, FromStr/Serde also check catalog membership, while profile/regional_prior expect membership. ReportDescription/EvidenceKind are distinct public argument namespaces with real likelihood/evidence consumers, not inert wrappers; each privately stores ThreatId only to reuse syntax/compact storage, coupling unrelated semantic identities. Human display/aliases stay text and are not backward-compatibility forwarding aliases. Membership/granularity question recorded below; no all-catalog execution proof."
+    },
+    {
+      "role": "Independent behavioral/observation/countermeasure categories",
+      "locations": "139-209,287-306,317-380,397-480,713-727,838-875",
+      "trace": "RigTopology, AttackStyle, Protection, Temperament, ActivityTime, Habitat, observation visibility/distance/capability, CountermeasureHypothesis, RegionalContext and CausalBridge select actual distinct roles/matches. They are not enums of arbitrary numbers and should not collapse to one rank or flags scalar. Observation axes combine into numeric clarity only inside ranking kernel. Countermeasure hypotheses explicitly remain investigation leads; implemented combat lore derives only consumed physical/training/protection fields, so do not convert every hypothesis to an asserted live weakness. Primary versus secondary taxonomy has actual categories() and category listing use; CategorizedThreatProfile is a useful named observer projection."
+    },
+    {
+      "role": "Canonical authored schema to compiled process-lifetime profile",
+      "locations": "317-386,483-744,1063-1172",
+      "trace": "Actual compile_profile builds every field from &static authored Monster into cached Copy ThreatProfile; leaked string/slice projections reflect process-lifetime immutable catalog ownership, no mutable catalog shadow introduced. String rig/attack/protection/temperament/activity/habitat/countermeasure tags are explicitly mapped to existing closed runtime enums; unknown labels unreachable after upstream validation. Authored tusk normalizes to Blunt as actual coarse mapping, not assumed equivalent across all future physical behavior. Raw speeds m/min, mass kg, concentration, training scale, scores/percentages, joules, basis-point scale, loot definition ID, victim tags and human sound/advice text have different declared roles. Full authored parser/validation/currentness and unused external field consumers are separate pending populations, no global admission claim."
+    },
+    {
+      "role": "Physical protection and aggregate profile policy",
+      "locations": "308-343,516-539,594-631,1084-1123,1543-1552",
+      "trace": "InnateProtection resistance/padding are actual joule-based anatomy fields, separate from worn equipment/protection classification. Existing explicit validator rejects combined positive innate and Armored worn composition until layers are modeled; do not claim the current abstract profile composes all layers or require support contrary to this established policy. Other protection/tag/rig/ranged axes are independently used by actual threat producer877. Public Copy profile can represent unsupported aggregate combinations; ordinary catalog path and source fixtures are coherent, no runtime invalid authored profile witnessed."
+    },
+    {
+      "role": "Typed habitat relation and required bridge payload",
+      "locations": "746-836",
+      "trace": "select_habitat_relation returns four distinct error states for impossible/missing/invalid/unexpected bridge; supported rare skeleton/house relation owns actual bridge and derived explanatory evidence. Normal relation has no bridge/evidence; bridges/habitats have distinct semantic purposes. Returned HabitatRelation weight/optional bridge/explanatory slice is a named validated selection result, with public representability/admission qualification rather than a universal habitat-instance token. Internal Habitat as-u8 comparison is enum equality implementation, not interchangeability with arbitrary numeric categories."
+    },
+    {
+      "role": "Relative candidate score versus normalized marginals/curation",
+      "locations": "838-1056,1181-1224",
+      "trace": "Rank candidates uses actual typed threat/report/evidence and independent observation context; deduplicates at most32 clues, multiplies saturating integer relative weights then stable-sorts by score and ID. Relative plausibility likelihood/score can exceed1 and is not UnitInterval. distribution_summary derives separate plausibility and curated basis-point shares using curation weights; these are distinct authorities/policies. Do not infer exact probability mass preservation from clipping/saturating code or conflate score with a fixed-point fraction. evidence_limited_preparation accepts only observed report/evidence, not hidden actual threat, which meaningfully limits UI truth authority."
+    },
+    {
+      "role": "Human diagnostics and existing fixture source",
+      "locations": "1058-1201,1226-1558;8821-51",
+      "trace": "BestiaryCatalogDiagnostic messages are human observations, not gameplay selector strings. Whole1558 source including all existing tests plus full51-line concrete error module consumed, not executed. Fixtures express intended ID strictness, uncertain report ranking, typed bridges, independent category facets, physical lore and unsupported layering; no evidence of current/runtime/hosted pass. External catalog_tests/report_quality module references confer no body credit; report_quality algorithm cannot repair public ThreatId constructor membership contract and retains own material scope if required later. No historical downcast/message/Serde-layout constraints are imposed by old fixture text."
+    }
+  ],
+  "qualified_observations": [
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/bestiary.rs@223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7#ThreatId-syntax-v-catalog-membership",
+      "classification": "Source-backed overly broad admitted identity contract, frozen/current/alias qualified",
+      "observation": "Public ThreatId::try_new guarantees only nonempty63-byte ASCII syntax. FromStr/Deserialize additionally check authored membership; profile(id) and regional_prior(id) use expect assuming catalog-validated identity. Thus the same bespoke type has materially different admission guarantees. ReportDescription and EvidenceKind privately wrap syntax-only ThreatId to represent entirely different namespaces, and their constructors reuse UnknownThreatId error. Actual ordinary catalog/parse path is coherent; no chosen unknown-ID runtime call executed or current defect established.",
+      "remedy": "Reconcile canonical current identity owner/master alias. Share compact syntax/storage through an appropriately neutral private leaf while keeping threat/report/evidence role types distinct; ensure any ThreatId accepted by infallible profile lookup proves membership, or make lookup explicitly fallible for syntax-only identity. Do not restrict open authored vocabulary to named constants or duplicate the ASCII validator.",
+      "acceptance": "Every supported admission/profile/Serde/lookup path has one honest identity guarantee; report/evidence syntax cannot require or masquerade as catalog threat membership, and errors retain appropriate namespace/context.",
+      "dependencies": [
+        "existing canonical identity/admission/owner findings and alias reconciliation",
+        "actual current authored catalog/lookup/Serde recipients",
+        "remaining schema/material/currentness populations"
+      ],
+      "currentness": "Frozen source finding, no accepted unique count"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/bestiary.rs@223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7#authored-classification-and-physical-propagation",
+      "observation": "Runtime has genuine closed classification owners, yet authored Monster schema fields reach compile_profile as strings and are rematched; physical/fixed-point quantities stay raw across profile/consumer even where existing concentration/speed/elapsed owners exist. Victim selector tags, loot definition IDs, sound/advice prose and categorical evidence IDs are different roles and require actual recipient/namespace reconciliation, not one generic string validator.",
+      "remedy": "Reuse canonical neutral classification and physical/fixed-point owners in authored/build/runtime graph, preserving actual open versus closed vocabularies and existing purpose-specific bounds. Coordinate with schema/producer/owner lenses; do not infer all future tags closed or all ratios in0..1.",
+      "acceptance": "Actual supported authored profile/compiled cache/consumer graph retains shared meaningful types without mirrored classification authorities or erased physical units; native representation conversion is explicit.",
+      "dependencies": [
+        "batch014 concentration and scale support, master alias unknown",
+        "pending actual authored schema/external field recipients/currentness",
+        "other-lens producer/owner/admission coordination"
+      ],
+      "currentness": "Qualified frozen source, no runtime/unique promotion"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/bestiary.rs@223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7#relative-rank-score-v-fixed-point-marginal",
+      "observation": "Raw integer relative likelihood/rank score, sampling/curation weights and fixed-point plausibility/curated fractions have different semantic operations and ranges. Named CandidateScore and CandidateMarginal pair these with ThreatId, but leave scalar purpose/admission distinctions raw. Source deliberately separates curated from plausibility distributions; saturation/clipping alone does not establish exact normalization law.",
+      "remedy": "Reconcile canonical weight/score/fixed-point fraction owners and actual operations, sharing arithmetic without imposing a unit-fraction bound on unnormalized score or conflating curation authority. Validate any required normalization/overflow contracts at the owning operation rather than claim type wrappers alone repair arithmetic.",
+      "acceptance": "Actual ranking/summary/native presentation ports distinguish relative weights from normalized quantities and separate curation/plausibility purposes with honest numerical contracts.",
+      "dependencies": [
+        "invariant-operations/aggregate and master score/fraction aliases",
+        "current ranking/presentation/native schema recipients"
+      ],
+      "currentness": "Frozen scoped question, no accepted unique or numerical execution proof"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/bestiary.rs@223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7#unsupported-protection-state",
+      "observation": "Public CombatProfile independently stores Protection and InnateProtection; actual validate_catalog rejects positive innate protection with Protection::Armored because composition is unsupported. This is an established aggregate exclusion, while classification/rig/ranged/temperament remain separate axes.",
+      "remedy": "Reconcile actual current profile admission/shape owner and existing aggregate/enum findings; represent supported protection composition states coherently without conflating independent taxonomy or inventing layered support.",
+      "acceptance": "Unsupported innate+worn aggregate cannot bypass supported admission, ordinary authored profiles retain physical policy, no unrelated tag axes collapsed.",
+      "dependencies": [
+        "current canonical schema/profile validation",
+        "enum-shape/aggregate aliases and retained abstract-combat qualifications"
+      ],
+      "currentness": "Qualified frozen shape question, no actual authored invalid-state witness or accepted uniqueness"
+    }
+  ],
+  "carried_own_proofs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-007-receipt.json",
+      "sha256": "d47d3a4b9fb4daa1a830241c6ead725c3bbe461b7d56a83b1a5614bb640acf1f"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-014-receipt.json",
+      "sha256": "9e2e5834705569d01b06c7e772fb7d82d07dbbad374f8f8245dc818eb7e68b87"
+    }
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer. Preserve180/181nativeSDK/Bevy scheduling/imagecopylimits andallpendingreceiverqueues. M04current903reviewsseparate; notfrozenoriginal/lenscounts. Packet182InventoryItemId graph erasure, catalogkey/recordidentity and wear/order-selector sourcequestions retained, alias/currentness/unique acceptance unresolved. M04build-target review003 atdf5 andhostedCIseparatefromfrozenauditcounts. 184 newpublicDrapedPiece association/sourcegroupingquestion remainsfrozenlocal, noalias/currentness/uniqueacceptance; producerpathcoherent. M04df5validationseparate. 185 capacityreservationstaticAPIgap retainedasfrozenevidence only; alias/currentness/accepteduniqueness unresolved. No runtimewrongID orauthoredcurrentinputwitness. ExistingID/key/wear/savedassociationquestionsremainqualified. Packet186 independently accounts existing test-source812 only; fixture expectations are not observed execution/whole authored catalog/native guarantees and do not clear185 capacity witness. Existing lower-pattern fixture uses canonical owners; no new current alias or unique finding. Packet187 original813 only. New frozen inventory_ui and catalog wrapper material extensions mandatory other lenses, zero extra shared/original credit. UI acquisition is not atomic/all-worn; inherited capacity, typedID erasure/key authority and public saved-association questions retain all currentness/alias/unique limits. Batch011 frozen attack-ID packed participant-width witness retained; no runtime/current/alias/accepted unique finding, no invented32bit capacity bound. Batch012 actual simultaneous fixture permits absent scheduled measure beside present start/contact/recovery; group only proved coupled facts, do not require every active schedule measure.",
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_adoption_required": true,
+  "read_limits": [
+    "All1609 original source lines consumed; full material owner scope8811-1558 honored despite unchanged source classification. Hash/cache/search presence not coverage.",
+    "Direct constructors/lookup/typed behavior/classification/ranking/validation bodies accounted. Upstream authored validation and externally consumed profile fields retain independent pending populations; no all-caller/whole-catalog/current family clearance.",
+    "Existing native validation/test function names do not imply execution; no fixture, scanner, parser, catalog validation or gameplay call was run."
+  ],
+  "restrictions": "No product/Git mutations/root ledger/project execution/scans/probes/tests/new tests/publication."
+}

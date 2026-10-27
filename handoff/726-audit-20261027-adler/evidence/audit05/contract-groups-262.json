@@ -1,0 +1,29 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-262",
+  "at": "2026-10-25T22:20:51.194539+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2397,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_details.rs",
+      "sha256": "20df400f0369e7c2cb2ed08d3bd943f6ec5ac1ce6ee3d4db328401632767f82f",
+      "personally_read_ranges": [
+        [
+          1,
+          1065
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "CharacterSheetView retains one target character and optional independent capability/attributes/skills/limbs/medical/schedule projections; combined markup forwards each same field to all rails, but raw struct does not prove same character/time/privacy. Actual routes must supply relationships; preview-only candidate data has intentionally different authority from selected granted actor.",
+        "Personal page fixes target=active for portraits/actions/schedule/medical, enables self organization/religion controls, passes explicit activity location and same source religion fallback. Other stats page chooses target separate from actor and suppresses schedule/activity/organization controls, preserves target versus active in chat.",
+        "Party controls compare optional party IDs, so None==None can produce membership controls for two solo characters; actual selected_party/active_party/caller contract and reducer authority remain pending. No actual unauthorized mutation asserted, UI alone does not authorize.",
+        "Organization picker joins membership.organizationID to definition+role and presented organization, filters Active/paid-through/recognition at selected minute, uses same admitted choices for selected label/forms. Read-only organization display lacks minute/recognition input by design; no claim it grants privilege. Same actor ownership association remains caller obligation.",
+        "Personality tags rendered only when explicitly supplied; actual ordinary routes useNone to avoid private personality disclosure, candidate/owner context distinct. Visible canonical axes map fixed explanations, identity inclination/presentation retained; no native private disposition copied into ordinary path here. Full fixture source read, not executed."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

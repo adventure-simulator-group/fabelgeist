@@ -1,0 +1,63 @@
+{
+  "id": "RECOVERY826-LATER-09-001",
+  "lens": "09",
+  "reviewer": "recovery_826",
+  "registry": "../shared-material-successor/source-extensions-196.json",
+  "receipts": [
+    {
+      "material_index": 178,
+      "source_id": "scope-amendment:pinned-registry:derive_more-impl-2.1.1/src/fmt/display.rs#single-field-display-body",
+      "sha256": "d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+      "ranges": [
+        [
+          439,
+          498
+        ]
+      ],
+      "registration_evidence": "../audit10/derive-candidate-008-macro-registration.json",
+      "source_basis": "Fresh recovery_826 personal read of registered exact bytes/ranges, analyzed independently for this lens; no root-personal or other-lens verdict credit.",
+      "analysis": "shared_attr_is_wrapping/wrap_into_shared_attr/body.is_empty are native macro-generation predicates, and optional ident/shared_attr are syntax metadata. Branches select emitted native formatting operations; no carried gameplay/state Boolean or tag with invalid neighboring application payload is introduced by this bounded implementation.",
+      "disposition": "No additional accepted unique finding within bounded source; preserve existing qualifications."
+    },
+    {
+      "material_index": 179,
+      "source_id": "scope-amendment:pr-working:crates/strategic-web/static/strategic-navigation.js#navigation-lifecycle",
+      "sha256": "1419143934b4dacd73085c81a770534d63fbad34612ff6cc25bb886c430e6bff",
+      "ranges": [
+        [
+          1,
+          14
+        ],
+        [
+          91,
+          209
+        ]
+      ],
+      "registration_evidence": "../audit05/later-material/prospective-navigation-registration-001.json",
+      "source_basis": "Fresh recovery_826 personal read of registered exact bytes/ranges, analyzed independently for this lens; no root-personal or other-lens verdict credit.",
+      "analysis": "historyMode push/replace/none is carried browser navigation policy and alreadyUnmounted controls an independent lifecycle observation. navigate sends true only after its explicit unmount event; popstate supplies none plus restore state. No witnessed invalid combination from these callers. Unknown public historyMode is a qualified admission/string policy question, not a newly accepted enum defect. restore and DOM/history scroll observations need not become one mega-state. Header response/profile checks are boundary predicates. Broader lifecycle/error-order questions remain separate and unclosed.",
+      "disposition": "No additional accepted unique finding within bounded source; preserve existing qualifications."
+    },
+    {
+      "material_index": 180,
+      "source_id": "scope-amendment:pr-working:crates/strategic-web/src/templates/layout/shell.rs#persistent-live-shell",
+      "sha256": "f32130d3436df9a143d9be24ee09dba99ad5a9d4fbe01fb5663970119186ce6f",
+      "ranges": [
+        [
+          1,
+          134
+        ]
+      ],
+      "registration_evidence": "../audit05/later-material/prospective-navigation-registration-002.json",
+      "source_basis": "Fresh recovery_826 personal read of registered exact bytes/ranges, analyzed independently for this lens; no root-personal or other-lens verdict credit.",
+      "analysis": "ScriptProfile explicitly enumerates Entry/Live/Strategic; both head and shell exhaustively consume that one value, deriving live feed, canvas and scripts rather than carrying correlated flags. Optional presentation independently controls architectural/material outputs, not payload meaningful only for one script variant. No invalid state combination established; caller construction of presentation is not newly traced.",
+      "disposition": "No additional accepted unique finding within bounded source; preserve existing qualifications."
+    }
+  ],
+  "first_unfinished_material": 181,
+  "status": "IN_PROGRESS_SAFE_FRONTIER",
+  "new_unique_findings": 0,
+  "clear": false,
+  "checks": "not run",
+  "source_edits": false
+}

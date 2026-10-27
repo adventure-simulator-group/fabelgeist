@@ -1,0 +1,12 @@
+--- base/crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs
++++ head/crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs
+@@ -59,7 +59,8 @@
+     pub(super) fn bounded_floor_shift(
+         &self,
+         source: &GeographicSurface,
+-    ) -> Result<f32, SupportDiagnostic> {
++    ) -> Result<adventuresim_building_generator::spatial_geometry::SignedLength, SupportDiagnostic>
++    {
+         constraints::floor_shift(self, source)
+     }
+ }

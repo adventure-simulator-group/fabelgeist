@@ -1,0 +1,242 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "037",
+  "predecessor": "receipt-036-originals217-220.json",
+  "manifest_prefix_sha256": "cf6e29a29d4521e65140673a6139a3eba5cd7da44670a8098e2a57a3ad15b7cc",
+  "sources": [
+    {
+      "original_index": 221,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/item.rs",
+      "sha256": "ceb03feba2b994ec10da5469e562e5a434a89ce36635aadb1d0ab11ccdc6b8ed",
+      "actual_ranges": [
+        [
+          1,
+          946
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              18,
+              38
+            ],
+            [
+              40,
+              90
+            ],
+            [
+              140,
+              181
+            ],
+            [
+              254,
+              268
+            ],
+            [
+              305,
+              334
+            ],
+            [
+              351,
+              445
+            ],
+            [
+              447,
+              545
+            ],
+            [
+              552,
+              709
+            ]
+          ],
+          "role": "Raw item/settlement/currency/placement/point/tag IDs persisted/copied through application/native APIs, actual canonical catalog producer142-181",
+          "disposition": "Actual catalog113/116 schema/projection own source read earlier -> clone definition145,placement157,point167,tags152/171 -> Item82/89 and Persisted fields62/70/74. Native DB storage/query boundary concrete but internal APIs20/26/324/354/416/429/448/510/538/556 raw identity propagation gap. Currency membership29 and lexical ordering459 drives actual withdrawal selection; use canonical open currency/item owner tied to actual catalog, not fixed enum by known list. `waterskin`262 controls projected hydration capacity, not mere display; authored capability/canonical classification should own this condition. Surgery IDs307/308 and importedSOFTSOAP309 actual lookup311 nativecatalog; constants not exemption. Actual food207 and foraging215 callers now connected to native item insertion413-427."
+        },
+        {
+          "ranges": [
+            [
+              24,
+              38
+            ],
+            [
+              290,
+              334
+            ],
+            [
+              351,
+              427
+            ],
+            [
+              475,
+              545
+            ],
+            [
+              552,
+              709
+            ]
+          ],
+          "role": "All String failure literals/templates and native log",
+          "disposition": "Internal failures33/330/400/423/494/581/628/641/692 flatten missing-row/catalog/creation/payment/quantity causes before native output. Existing actual227Operation String conversion known. Log296 and expect312 native diagnostics; no external prose parser/native SDK constraints inferred."
+        },
+        {
+          "ranges": [
+            [
+              711,
+              946
+            ]
+          ],
+          "role": "All existing test item/currency/catalog IDs, assertion/expect templates, self-source lexical checks",
+          "disposition": "Semantic fixtures cooked_meal718/missing_food722/torch724/tincture_spirit767/halberd789/hand_axe797/heavy_crossbow803/viabundus812-813/demo821/lubeck_mark830/danish_mark830/waterskin902/arming_sword908/human_anatomy916/round_shield926/heater_shield929 actual lookup/constructor/ordering. bot_867 source validation policy fixture, not production admission. All self includes727/748/776 and lexical split/contains/matches729-783/assertion strings720/731/737/753/762/781/860/863/868/894 source boundary/prose. No fixture exemption or execution; typed/numeric remaining tests no new string role."
+        },
+        {
+          "ranges": [
+            [
+              1,
+              17
+            ],
+            [
+              91,
+              139
+            ],
+            [
+              182,
+              253
+            ],
+            [
+              269,
+              289
+            ],
+            [
+              336,
+              349
+            ],
+            [
+              546,
+              551
+            ]
+          ],
+          "role": "Remaining module path, feature string and declarations/typed mappings",
+          "disposition": "authority-tests1/item path2 actual native compiler boundary;222 read separately. No other string fields/APIs/literals omitted, no numerical/behavior/other-lens verdict."
+        }
+      ],
+      "status": "Full requested body independently read and inventoried with findings and pending external/native contracts."
+    },
+    {
+      "original_index": 222,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/item/authority_tests.rs",
+      "sha256": "ea66e08d18040b2a131cd6064cb78d96819930fa46b7e7026e406baab6785cd3",
+      "actual_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              44
+            ]
+          ],
+          "role": "Raw bootstrap input8 -> guard10; actual native catalog ID query30; three errors31/34/41",
+          "disposition": "Raw token at actual reducer ingress, precise token producer/guard remains pending, no secret read/security claim. Internal missing/classification/coverage failure prose, keep typed payload to boundary. typed CatalogItemKind actual mapping15-24 and stable_id38 but not native SDK proof. No test execution or catalog exemption."
+        }
+      ],
+      "status": "Full requested body independently read and inventoried with findings and pending external/native contracts."
+    },
+    {
+      "original_index": 223,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/lib.rs",
+      "sha256": "2760315ff2997c68a703203018538d642878cf5aa461b2a6d90e38ef0005e168",
+      "actual_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              95
+            ]
+          ],
+          "role": "Only literal newline cfg(test) marker93; source &str -> &str helper91; module/reexport declarations1-83",
+          "disposition": "Actual native source-text boundary production_source uses rsplit_once93, no gameplay authority state. All source bytes full95 independently consumed, previous fragments did not count full file. Modules/reexports no child coverage. No helper executed or blanket architecture-test verdict."
+        }
+      ],
+      "status": "Full requested body independently read and inventoried with findings and pending external/native contracts."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Catalog-to-native Item/reference/currency/error propagation",
+      "sources": [
+        "221:24-38,47-90,142-181,261-267,351-427,447-545",
+        "113/116:own catalog/schema receipts012"
+      ],
+      "remedy": "Keep canonical open item/placement/point/tag/currency/reference and typed failure owners throughout app/schema/projection; authored capability owns hydration classification, native text at verified lookup/output ports.",
+      "acceptance": "Finish exact canonical alias fit, generated references, bootstrap guard and outer native/transport consumers before repair. No old label/sort/hash/input preservation constraints.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actual generated item_references producer and canonical placement/tag/item aliases/native SDK representation constraints.",
+    "Actual bootstrap guard/token producer and external Item consumer; no security or transport-wide clearance.",
+    "All prior unread helpers/aliases/currentness/all20/P16/P17/F9/M09/population obligations preserved."
+  ],
+  "qualifications": [
+    "Exact f82 physical-P16 frozen bytes, no current alias or BC.",
+    "No project execution/tests/probes/new tests/product/Git/rootledger/publication.",
+    "Own lens12 source accounting with findings, no global/native/runtime/unique-total/other-lens clearance."
+  ],
+  "proposed_count": {
+    "before": 221,
+    "after": 224,
+    "indices_completed": [
+      221,
+      222,
+      223
+    ],
+    "next_original": 224,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/item.rs",
+      "sha256": "ceb03feba2b994ec10da5469e562e5a434a89ce36635aadb1d0ab11ccdc6b8ed",
+      "ranges": [
+        [
+          1,
+          946
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/item/authority_tests.rs",
+      "sha256": "ea66e08d18040b2a131cd6064cb78d96819930fa46b7e7026e406baab6785cd3",
+      "ranges": [
+        [
+          1,
+          44
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/lib.rs",
+      "sha256": "2760315ff2997c68a703203018538d642878cf5aa461b2a6d90e38ef0005e168",
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ]
+    }
+  ]
+}

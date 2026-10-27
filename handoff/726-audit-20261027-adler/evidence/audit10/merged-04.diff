@@ -1,0 +1,69 @@
+diff --git a/crates/adventuresim-character-creator/src/device_fit.rs b/crates/adventuresim-character-creator/src/device_fit.rs
+index 87efda285..653ce0c5b 100644
+--- a/crates/adventuresim-character-creator/src/device_fit.rs
++++ b/crates/adventuresim-character-creator/src/device_fit.rs
+@@ -295,30 +295,30 @@ pub async fn fit_recipe_async(
+                 faces: lower.indices.as_chunks::<3>().0,
+                 joint_indices: &fauld.skin.joint_indices,
+                 joint_weights: &fauld.skin.joint_weights,
+             });
+             device.record_wrapped_tassets(batch, &waist.tassets, &surfaces, Some(top))
+         })
+         .await?
+     } else {
+         fit(&ParametricDesign::Garment(waist.tassets.clone())).await?
+     };
+-    Ok(suspended_waist(fauld, tassets, &waist.tassets))
++    suspended_waist(fauld, tassets, &waist.tassets)
+ }
+ 
+ /// Hang the tassets below the fauld's hem on every realization, and join
+ /// both as one waist defense with a component each.
+ fn suspended_waist(
+     fauld: DevicePiece,
+     tassets: DevicePiece,
+     design: &fabelgeist_armor::GarmentArmorDesign,
+-) -> DevicePiece {
++) -> Result<DevicePiece> {
+     let join = |mut fauld: BuiltPart, mut tassets: BuiltPart| {
+         let hem = fauld
+             .positions
+             .iter()
+             .map(|p| p[1])
+             .fold(f32::INFINITY, f32::min);
+         let top = tassets
+             .positions
+             .iter()
+             .map(|p| p[1])
+@@ -348,29 +348,29 @@ fn suspended_waist(
+         tassets.components = vec![whole(&tassets, ArmorComponentRole::Tassets)];
+         fauld.append(tassets);
+         fauld
+     };
+     let DevicePiece {
+         base,
+         mut skin,
+         endpoints,
+     } = fauld;
+     skin.append(tassets.skin)?;
+-    DevicePiece {
++    Ok(DevicePiece {
+         base: join(base, tassets.base),
+         skin,
+         endpoints: endpoints
+             .into_iter()
+             .zip(tassets.endpoints)
+             .map(|(fauld, tassets)| join(fauld, tassets))
+             .collect(),
+-    }
++    })
+ }
+ 
+ /// Record a recipe fitted to one realization of the wearer, short of
+ /// thickening.
+ fn record_recipe(
+     wearer: &DeviceWearer,
+     batch: &mut KernelBatch,
+     design: &ParametricDesign,
+     placement: FittingPlacement,
+     layers: &[ArmorLayerSurface<'_>],

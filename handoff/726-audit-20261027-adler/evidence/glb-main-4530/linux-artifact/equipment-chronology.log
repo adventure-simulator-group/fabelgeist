@@ -1,0 +1,123 @@
+[1m[92m   Compiling[0m adventuresim-tactical-server v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-server)
+[1m[33mwarning[0m[1m: fields `combatant` and `decision` are never read[0m
+   [1m[94m--> [0mcrates/adventuresim-tactical-server/src/bot.rs:116:16
+    [1m[94m|[0m
+[1m[94m115[0m [1m[94m|[0m pub(crate) struct BotContinuationDecisionEvent {
+    [1m[94m|[0m                   [1m[94m----------------------------[0m [1m[94mfields in this struct[0m
+[1m[94m116[0m [1m[94m|[0m     pub(crate) combatant: Entity,
+    [1m[94m|[0m                [1m[33m^^^^^^^^^[0m
+[1m[94m117[0m [1m[94m|[0m     pub(crate) decision: BotContinuationDecision,
+    [1m[94m|[0m                [1m[33m^^^^^^^^[0m
+    [1m[94m|[0m
+    [1m[94m= [0m[1mnote[0m: `BotContinuationDecisionEvent` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+    [1m[94m= [0m[1mnote[0m: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+[1m[33mwarning[0m[1m: multiple fields are never read[0m
+   [1m[94m--> [0mcrates/adventuresim-tactical-server/src/combat.rs:243:9
+    [1m[94m|[0m
+[1m[94m242[0m [1m[94m|[0m pub struct MeleeAttackResolved {
+    [1m[94m|[0m            [1m[94m-------------------[0m [1m[94mfields in this struct[0m
+[1m[94m243[0m [1m[94m|[0m     pub attacker: Entity,
+    [1m[94m|[0m         [1m[33m^^^^^^^^[0m
+[1m[94m244[0m [1m[94m|[0m     pub target: Entity,
+    [1m[94m|[0m         [1m[33m^^^^^^[0m
+[1m[94m245[0m [1m[94m|[0m     pub body_part: BodyPart,
+    [1m[94m|[0m         [1m[33m^^^^^^^^^[0m
+[1m[94m246[0m [1m[94m|[0m     pub anatomical_subregion: AnatomicalSubregion,
+    [1m[94m|[0m         [1m[33m^^^^^^^^^^^^^^^^^^^^[0m
+[1m[94m247[0m [1m[94m|[0m     pub surface_coordinate: f32,
+    [1m[94m|[0m         [1m[33m^^^^^^^^^^^^^^^^^^[0m
+[1m[94m248[0m [1m[94m|[0m     pub result: AttackResult,
+    [1m[94m|[0m         [1m[33m^^^^^^[0m
+[1m[94m249[0m [1m[94m|[0m     pub defender_response: DefenderResponse,
+    [1m[94m|[0m         [1m[33m^^^^^^^^^^^^^^^^^[0m
+[1m[94m250[0m [1m[94m|[0m     pub defense_success_probability: Option<f32>,
+    [1m[94m|[0m         [1m[33m^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[1m[94m251[0m [1m[94m|[0m     pub defense_alignment_sample: Option<f32>,
+    [1m[94m|[0m         [1m[33m^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[1m[94m252[0m [1m[94m|[0m     pub defense_engagement: Option<f32>,
+    [1m[94m|[0m         [1m[33m^^^^^^^^^^^^^^^^^^[0m
+[1m[94m253[0m [1m[94m|[0m     pub defender_blocking_slot: Option<EquipSlot>,
+    [1m[94m|[0m         [1m[33m^^^^^^^^^^^^^^^^^^^^^^[0m
+[1m[94m254[0m [1m[94m|[0m     pub contact_at_time: MeleeContactAtTime,
+    [1m[94m|[0m         [1m[33m^^^^^^^^^^^^^^^[0m
+    [1m[94m|[0m
+    [1m[94m= [0m[1mnote[0m: `MeleeAttackResolved` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+
+[1m[33mwarning[0m[1m: fields `incoming_attacker`, `canceled_attack_key`, `response`, and `engagement` are never read[0m
+   [1m[94m--> [0mcrates/adventuresim-tactical-server/src/combat.rs:260:16
+    [1m[94m|[0m
+[1m[94m258[0m [1m[94m|[0m pub(crate) struct MeleeAttackCommittedToDefense {
+    [1m[94m|[0m                   [1m[94m-----------------------------[0m [1m[94mfields in this struct[0m
+[1m[94m259[0m [1m[94m|[0m     pub(crate) defender: Entity,
+[1m[94m260[0m [1m[94m|[0m     pub(crate) incoming_attacker: Entity,
+    [1m[94m|[0m                [1m[33m^^^^^^^^^^^^^^^^^[0m
+[1m[94m261[0m [1m[94m|[0m     pub(crate) canceled_attack_key: MeleeAttackKey,
+    [1m[94m|[0m                [1m[33m^^^^^^^^^^^^^^^^^^^[0m
+[1m[94m262[0m [1m[94m|[0m     pub(crate) response: DefenderResponse,
+    [1m[94m|[0m                [1m[33m^^^^^^^^[0m
+[1m[94m263[0m [1m[94m|[0m     pub(crate) engagement: f32,
+    [1m[94m|[0m                [1m[33m^^^^^^^^^^[0m
+    [1m[94m|[0m
+    [1m[94m= [0m[1mnote[0m: `MeleeAttackCommittedToDefense` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+
+[1m[33mwarning[0m[1m: fields `defender`, `incoming_attacker`, `attack_key`, `retained_power`, `response`, and `engagement` are never read[0m
+   [1m[94m--> [0mcrates/adventuresim-tactical-server/src/combat.rs:268:16
+    [1m[94m|[0m
+[1m[94m267[0m [1m[94m|[0m pub(crate) struct MeleeAttackTransformedByDefense {
+    [1m[94m|[0m                   [1m[94m-------------------------------[0m [1m[94mfields in this struct[0m
+[1m[94m268[0m [1m[94m|[0m     pub(crate) defender: Entity,
+    [1m[94m|[0m                [1m[33m^^^^^^^^[0m
+[1m[94m269[0m [1m[94m|[0m     pub(crate) incoming_attacker: Entity,
+    [1m[94m|[0m                [1m[33m^^^^^^^^^^^^^^^^^[0m
+[1m[94m270[0m [1m[94m|[0m     pub(crate) attack_key: MeleeAttackKey,
+    [1m[94m|[0m                [1m[33m^^^^^^^^^^[0m
+[1m[94m271[0m [1m[94m|[0m     pub(crate) retained_power: f32,
+    [1m[94m|[0m                [1m[33m^^^^^^^^^^^^^^[0m
+[1m[94m272[0m [1m[94m|[0m     pub(crate) response: DefenderResponse,
+    [1m[94m|[0m                [1m[33m^^^^^^^^[0m
+[1m[94m273[0m [1m[94m|[0m     pub(crate) engagement: f32,
+    [1m[94m|[0m                [1m[33m^^^^^^^^^^[0m
+    [1m[94m|[0m
+    [1m[94m= [0m[1mnote[0m: `MeleeAttackTransformedByDefense` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+
+[1m[33mwarning[0m[1m: fields `defender`, `choice`, and `accepted` are never read[0m
+  [1m[94m--> [0mcrates/adventuresim-tactical-server/src/combat/protocol.rs:30:9
+   [1m[94m|[0m
+[1m[94m29[0m [1m[94m|[0m pub struct DefendIntentResolved {
+   [1m[94m|[0m            [1m[94m--------------------[0m [1m[94mfields in this struct[0m
+[1m[94m30[0m [1m[94m|[0m     pub defender: Entity,
+   [1m[94m|[0m         [1m[33m^^^^^^^^[0m
+[1m[94m31[0m [1m[94m|[0m     pub choice: DefendRequest,
+   [1m[94m|[0m         [1m[33m^^^^^^[0m
+[1m[94m32[0m [1m[94m|[0m     pub accepted: bool,
+   [1m[94m|[0m         [1m[33m^^^^^^^^[0m
+   [1m[94m|[0m
+   [1m[94m= [0m[1mnote[0m: `DefendIntentResolved` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+
+[1m[33mwarning[0m: `adventuresim-tactical-server` (bin "adventuresim-tactical-server" test) generated 5 warnings
+[1m[92m    Finished[0m `test` profile [optimized] target(s) in 18.09s
+[1m[92m     Running[0m unittests src/main.rs (target/debug/deps/adventuresim_tactical_server-d4349a3fda3ee8f1)
+
+running 18 tests
+test equipment::fit::tests::slot_transfers_build_a_harness_without_swapping_neighbors_and_can_wear_gauntlets ... ok
+test equipment::fit::tests::tactical_harness_reservations_accept_neighbors_and_reject_duplicate_armor ... ok
+test equipment::tests::attachment_capacity_indices_are_distinct_even_with_same_requirement_order ... ok
+test equipment::tests::belt_locations_traverse_only_their_authored_attachment_points ... ok
+test equipment::tests::descendants_block_drop_and_graph_reparenting ... ok
+test equipment::tests::hand_only_root_authority_accepts_only_one_held_hand ... ok
+test equipment::tests::hand_only_weapons_fail_closed_for_parent_placement ... ok
+test equipment::tests::hand_topology_contains_only_the_selected_mapped_hand ... ok
+test equipment::tests::item_and_terrain_layers_are_isolated ... ok
+test equipment::tests::knee_voiders_follow_the_selected_hose_side_and_require_equipped_padding ... ok
+test equipment::tests::multi_location_catalog_placement_is_planned_as_one_topology ... ok
+test equipment::tests::multi_parent_attachment_is_atomic_and_capacity_fail_closed ... ok
+test equipment::tests::parent_only_stack_destination_fails_closed_in_body_planner ... ok
+test equipment::tests::per_actor_pending_work_is_rate_bounded ... ok
+test equipment::tests::pickup_box_center_accounts_for_nonzero_anchor_offset ... ok
+test equipment::tests::reconnect_rekeys_sequence_and_purges_old_pending_actions ... ok
+test equipment::tests::sequence_replay_and_old_half_range_are_rejected ... ok
+test equipment::tests::voiders_require_doublet_and_can_be_removed_and_laced_on_again ... ok
+
+test result: ok. 18 passed; 0 failed; 0 ignored; 0 measured; 119 filtered out; finished in 0.35s
+

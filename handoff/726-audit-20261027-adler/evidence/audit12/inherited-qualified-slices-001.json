@@ -1,0 +1,86 @@
+[
+  {
+    "ledger_json_pointer": "/lenses/magic-strings/examined_contracts/0",
+    "record": {
+      "file": "crates/fabelgeist-fbx/src/object_name.rs",
+      "start": 22,
+      "end": 46,
+      "disposition": "format source boundary inspected",
+      "evidence": "Separator/namespace bytes and lossy UTF-8 policy belong to FBX admission; exact open rig identity remains open.",
+      "source_sha256": "e3dada8ff669d491646dde601f0d483e72806176c28582aace3cf9d71cc73037"
+    },
+    "exact_original_hash_path_matches": [
+      {
+        "scope_index": 2258,
+        "source_id": "pr-working:crates/fabelgeist-fbx/src/object_name.rs",
+        "scope_kind": "frozen_requested_change",
+        "catalog_line_count": 46,
+        "range_exceeds_catalog_EOF": false
+      }
+    ],
+    "credit": "Saved scoped observation only; no whole source-role/other-lens credit inferred."
+  },
+  {
+    "ledger_json_pointer": "/lenses/magic-strings/examined_contracts/1",
+    "record": {
+      "file": "crates/adventuresim-character-creator/src/rig_parameters.rs",
+      "start": 95,
+      "end": 99,
+      "disposition": "shader binding adapter inspected",
+      "evidence": "Closed uniform parameter roles become text only in PassParameters insertion, a concrete reflected shader-name boundary.",
+      "source_sha256": "f16955ae53a597eebce8b190c050f47e10671e50fb6f8426ce7bbed3164f14cc"
+    },
+    "exact_original_hash_path_matches": [
+      {
+        "scope_index": 826,
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/rig_parameters.rs",
+        "scope_kind": "frozen_requested_change",
+        "catalog_line_count": 81,
+        "range_exceeds_catalog_EOF": true
+      }
+    ],
+    "credit": "Saved scoped observation only; no whole source-role/other-lens credit inferred."
+  },
+  {
+    "ledger_json_pointer": "/lenses/magic-strings/examined_contracts/2",
+    "record": {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+      "start": 94,
+      "end": 106,
+      "disposition": "report label boundary inspected",
+      "evidence": "BoneRole retained through internal map; lexical labels emitted at serialization and explicitly preserve report ordering.",
+      "source_sha256": "1178bf380da9126c00678608493b9d252af9746d853d347d5f334d451586b5bb"
+    },
+    "exact_original_hash_path_matches": [
+      {
+        "scope_index": 1431,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+        "scope_kind": "frozen_requested_change",
+        "catalog_line_count": 138,
+        "range_exceeds_catalog_EOF": false
+      }
+    ],
+    "credit": "Saved scoped observation only; no whole source-role/other-lens credit inferred."
+  },
+  {
+    "ledger_json_pointer": "/lenses/magic-strings/examined_contracts/3",
+    "record": {
+      "file": "crates/adventuresim-core/src/autoresolve/melee_iteration/error.rs",
+      "start": 22,
+      "end": 36,
+      "disposition": "rejected identity evidence retained",
+      "evidence": "Unknown weapon/shield/armor input strings are rejected source evidence, not admitted catalogue records; do not replace them with proven membership handles.",
+      "source_sha256": "9864f16e67033ea8f14d686f25f2b71c78ff6e8866be6f8459df6384c4c5b647"
+    },
+    "exact_original_hash_path_matches": [
+      {
+        "scope_index": 866,
+        "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration/error.rs",
+        "scope_kind": "frozen_requested_change",
+        "catalog_line_count": 46,
+        "range_exceeds_catalog_EOF": false
+      }
+    ],
+    "credit": "Saved scoped observation only; no whole source-role/other-lens credit inferred."
+  }
+]

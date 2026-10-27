@@ -1,0 +1,202 @@
+{
+  "at": "2026-10-27T03:05:45.805594+00:00",
+  "lens": "13 magic-numbers",
+  "packet": "024",
+  "status": "Original39partial continued1601-3200;ownlenscumulative1-3200,next3201. Full13103scope/nativeversion4receiverpartialpreserved;37/2853unchanged,partials31/36/39. Stop3200.",
+  "authority": {
+    "frozen_original_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "original_scope": "target/recovery-20261025/audit05/original-scope-072.json",
+    "original_registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "original_index": 39,
+    "prior_root_adopted_state": "audit13-successor-023-suggested-state.json",
+    "prior_state_sha256": "0ca73792ac7aa8a37982a082d26ffb90bc53bf49da42efac1e7682886a1cb070",
+    "root_adoption_required": true
+  },
+  "registration": {
+    "path": "audit13-successor-registration-024.json",
+    "sha256": "0888650cfa26f17919505bc76d8a606743f61365a4af16f99b6db92f06ae3d0e",
+    "before_actual_body_read": true
+  },
+  "source_fingerprint": {
+    "source_id": "physical-p16:Cargo.lock",
+    "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+    "base_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+    "bytes": 306149,
+    "actual_lines": 13103,
+    "full_effective_original_scope": [
+      [
+        1,
+        13103
+      ]
+    ],
+    "registered_and_consumed_ranges_this_packet": [
+      [
+        1601,
+        3200
+      ]
+    ],
+    "output_chunks": [
+      [
+        1601,
+        2000
+      ],
+      [
+        2001,
+        2400
+      ],
+      [
+        2401,
+        2800
+      ],
+      [
+        2801,
+        3200
+      ]
+    ],
+    "cumulative_independent_lens13_consumed_ranges": [
+      [
+        1,
+        3200
+      ]
+    ],
+    "post_read_hash_verified": true,
+    "unread_required_ranges": [
+      [
+        3201,
+        13103
+      ]
+    ],
+    "original39_completion_credit": 0
+  },
+  "source_consumption": {
+    "lines_this_packet": 1600,
+    "actual_ranges_this_packet": [
+      [
+        1601,
+        3200
+      ]
+    ],
+    "cumulative_actual_ranges": [
+      [
+        1,
+        3200
+      ]
+    ],
+    "all_registered_plan_lines_read": true,
+    "full_requested_original_scope_consumed": false,
+    "unregistered_actual_body_reads": false
+  },
+  "independent_nonstring_inventory": [
+    {
+      "lines": "1601-1619",
+      "role": "Prior023openbevy_assetdependenciescontinuation/closingarray.",
+      "actual_observation": "Quoteddependencyselectorsfromderive_more2.1.1throughweb-sysandclosingarray; completesprevioussourceboundarycontextwithoutinventingnewliteralroles.",
+      "assessment": "NativeCargoarray-oftextstructure; no unquotednumber/boolvalueappearsinthissubset. No wholepackageimplementation/graphvalidityclaim."
+    },
+    {
+      "lines": "1621-1902",
+      "role": "Bevyasset/audio/camera/color/core/derive/dev/diagnostic/ECS/eguipackage records.",
+      "actual_observation": "Packageversions,registryURLs,checksumsanddependencyversionselectorsallquoted. Names/native0.19.1stringsand.40.1eguiversionarepackageidentitytext,notnumericgameunits.",
+      "assessment": "Nonewrawnon-stringvalue literalidentified; actualquotedsemvertonumericconversionbodyunreadhere,notwholeCargo/TOML/semverclearance."
+    },
+    {
+      "lines": "1904-1931",
+      "role": "Pinnedbevy_eidolon packageidentity/source/dependencyedges.",
+      "actual_observation": "Quotedversion0.5.0andquotedgitURLbranch=fablegeist-0.19#1a5aff8d4809287e5f5713fb4cf72181b2285fff,followedbyquotedBevypackage/nativelibrarydependencies.",
+      "assessment": "ConfirmsobservedexactP16textualnativeGitpin; not a sourcehistory/runtime/currentfirstparty/SDKcompatibility ornumber-lensroleexemption. URI/version/commitdigitsarestringpayloads."
+    },
+    {
+      "lines": "1933-2538",
+      "role": "Bevyencase/input/feather/flair/gizmo/gltf/image/internal/light/log/material/math/mesh/outline/camerapackages.",
+      "actual_observation": "Quotedversions/source/checksums/nativearrayswithquotedselectorsincludingderive_more,itertools,glam,syn,andthiserrorvariants. Contextdeclarationrecordssomeunversioneddependencyrefsandothersnamespace-versionselectors.",
+      "assessment": "No unquotednumeric/Booleanvalue observed; no implicitfinite/range/gameplaypolicy inference orother-lensstringassessmentcredit."
+    },
+    {
+      "lines": "2540-2581",
+      "role": "bevy_pbr0.19.1 package/checksum/dependencytext.",
+      "actual_observation": "Quotedchecksum244ae7d618b51a59c913c36b0564a295cd85ea91a5e777b542bb7bdb846a23d6 and0.19.1recordobservedindependently; allremainingdependenciesquoted.",
+      "assessment": "Nativearchiveprovenanceassociationtextconsistentwithearlier022stagingmetadata,notnewPBRbody/ABI/device/semanticvalidationoracceptedfinding."
+    },
+    {
+      "lines": "2583-3176",
+      "role": "RemainingreadBevypicking/platform/postprocess/reflect/remote/render/macros/replicon/scene/shader/sprite/state/tasks/text/time/transform/UI/windowpackage records.",
+      "actual_observation": "Samequotedpackage-version-registry-checksum/dependencyarrayforms; packageversionandselectorformscontainnumericcharactersbutremainquotedtext.",
+      "assessment": "No newrawnonstringvalue literalobserved; fullnumericnative/applicationreceivingcontractsare notdeclaredcompletefromthissourceform."
+    },
+    {
+      "lines": "3178-3200",
+      "role": "Partialbevy_winit record.",
+      "actual_observation": "Headeranddependencyentriesreadthroughquotedbevy_tasks3200; remainder/dependencyarrayclosureunseen.",
+      "assessment": "Partialcontextonly. Lastcompletepackagebevy_window3159-3176; resume3201inopenbevy_winitarraywithoutassumingtail."
+    }
+  ],
+  "concrete_remaining_frontier": {
+    "source": {
+      "original": 39,
+      "next_body_line": 3201,
+      "remaining_ranges": [
+        [
+          3201,
+          13103
+        ]
+      ],
+      "open_context": "bevy_winit starts3178; lastreaddependencybevy_tasks3200"
+    },
+    "native_numeric_receiver": "Top-levelrawinteger version4from023stillawaitsactualCargoformatversiongeneration/owner/admission/receivingbody. No false closurefromnativeformatproseorother-lensdocverdict.",
+    "fullscope_supplements": [
+      [
+        10243,
+        10256
+      ],
+      [
+        10303,
+        10327
+      ],
+      [
+        10373,
+        10405
+      ]
+    ],
+    "new_dependency_body_reads": []
+  },
+  "source_observations_noncounted": [],
+  "accounting": {
+    "before_original_accounted": 37,
+    "after_proposed_original_accounted": 37,
+    "original_total": 2853,
+    "new_original_roles_inspected": [],
+    "new_original_roles_completed": [],
+    "partial_original_indices": [
+      31,
+      36,
+      39
+    ],
+    "earliest_unfinished_original": 31,
+    "first_unread_original": 40,
+    "first_never_started_original": 40,
+    "active_partial_source_original": 39,
+    "next_unread_body_line_in39": 3201,
+    "original40_access_credit": 0,
+    "overlays_increment": 0,
+    "merged_increment": 0,
+    "material_increment": 0,
+    "other_lens_credit": 0,
+    "new_unique_count": 0
+  },
+  "other_lens_extension_queue": {
+    "path": "audit13-successor-024-other-lens-extension-queue.json",
+    "sha256": "00e9b3ca678955d0d2ebf2cc6551c0d650c2bb3cf1e416e71a40de0f091baaa2",
+    "credit": 0
+  },
+  "qualifications": [
+    "024personallyconsumedexactCargo.lock1601-3200ineveryline,fourcontiguous400lineoutputsafterprospective registration;hashverifiedbefore/after. No parser/scanner/search/summary/hash-onlysubstitute; no sourcebodyoutsidebounds consumedin024.",
+    "Fulloriginal39effective1-13103preserved;admission03ranges10243-10256/10303-10327/10373-10405arecontainedinfullscopeandstillunread. Prior0231-1600retainedwithoutrestart;cumulatedownlensread1-3200,next3201,remaining3201-13103notcredited.",
+    "No unquotednumeric/float/Booleanvalue literalobservedin1601-3200. Digitswithinquotedversions,package/dependencyselectors,checksums/GitURIbranch/committext remain stringpayloadsyntaxinthisfile; anyactualnativeparser/applicationnumericalinterpretationneedsits ownreceivingbody,not inferredfromdigits.",
+    "Eidolon/PBRlockentriesfreshlyreadastextualpackageprovenanceonly; theydonotproveSDKimplementation/ABI/derivedGPUbytes/scheduler/runtime/currentfirstpartysemantics. EarliernativeSDK/otherlensreceipts supplynoautomatic13originalcreditorverdicttransfer.",
+    "023rawtop-levelversion4/nativeCargo generation/formatversionadmission/receivercontractstillpartial,not reread/resolvedhere. No newdependencybodyrequiredbyactualnewunquotedprimitiveinthissubset; no nativeCargo/TOML/semverbodyaddedorcredited. Other-lensqueuepreservedwithzero newpopulation.",
+    "Original31/36partial andall021/022debug/history/AsBindGroup/range/currentness/SDKqualifications retained.018largercandidatearea isnotanactualspeciesbudgetfailurewitness; no nativeID/reset/buffer/count/currentfirstpartyfinding closure oracceptednewuniquealias/count.",
+    "No original40body/metadataassessmentorcredit;index40onlyfirstneverstartedoriginal. No completed0-30/32-35/37/38restartorfull39countincrement; all global20/F1/F2/F6/F9/inherited/otherlens obligationsstayopen.",
+    "No product/source/repositoryGit/rootledger/historicaledits,projectexecution/check/build/lint/scan/generate/probe/tests/assertions/helpers/doctests addition/run orpublication. Ignoredappend-onlyregistration/receipt/queue/proposedstate only; no backwardcompatibilityorwholeSDK/lens13/globalclearance."
+  ],
+  "stop_reason": "Bounded1601-3200literalbodyread/inventorycomplete;stopafter3200withnextline3201/fullremaining39sourceandnativeversion4receiverpartial. No40ornewcount."
+}

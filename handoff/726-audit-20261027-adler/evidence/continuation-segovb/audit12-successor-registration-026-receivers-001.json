@@ -1,0 +1,42 @@
+{
+  "at": "2026-10-27T02:41:53.472653+00:00",
+  "lens": 12,
+  "original": 50,
+  "sources": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/threat.rs",
+      "sha256": "bf72fdd14fdc1fc1e4196b4c65172f6c71d0658f4bad6896cb41495acf889798",
+      "prospective_ranges": [
+        [
+          1,
+          46
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/commitment.rs",
+      "sha256": "52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
+      "prospective_ranges": [
+        [
+          104,
+          117
+        ],
+        [
+          205,
+          239
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "sha256": "4d44aec14335abdea2ad0899a2d41cf09c7b5677fcb850b2ede69174596d3a34",
+      "prospective_ranges": [
+        [
+          106,
+          193
+        ]
+      ]
+    }
+  ],
+  "scope": "Only concrete threat admission and phase/telemetry label producers required by original50; no future original completion/currentness/globalcredit. Navigation isolated lines not earlier body coverage."
+}

@@ -1,0 +1,198 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-064",
+  "at": "2026-10-22T21:58:29.059355+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "native-dependency:bevy_asset-0.19.1:event.rs",
+      "sha256": "22ff08ca5948660f8ea0ea2a1a0e9c977b3c9a44bd8c5c538014a9b8200ed0ca",
+      "scope038_index": 4,
+      "actual_EOF": 129,
+      "requested_original_ranges": [
+        [
+          1,
+          159
+        ]
+      ],
+      "scoped_ranges_compared": [
+        [
+          1,
+          129
+        ]
+      ],
+      "context_only_ranges": [],
+      "nonexistent_original_tail": [
+        [
+          130,
+          159
+        ]
+      ],
+      "actual05_comparison": "Actual native typed load-failure event holds matching AssetId<A>, path and AssetLoadError; untyped conversion clones same path/cause and converts same ID together, no independent lookup/rebinding. Event public fields are raw native notification data, not proof of validated application asset contents. AssetEvent payload-bearing cases each carry one matching typed ID; helpers match BOTH actual case+ID, Eq does not conflate cases; native lifecycle emission chronology not established by this declaration. Actual first-party loading/capture consumer038/055 still required asset readiness separately. MandatoryEOF130 preserves actual1-129, historical130-159 nonexistent.",
+      "source_body_proof": "Fresh exact native requested bytes personally read for05 after existing global source/range qualification; no unrelated module/package or foreign whole-file waiver."
+    },
+    {
+      "source_id": "native-dependency:png-0.17.16/src/encoder.rs",
+      "sha256": "2befe627874fd46476bca960d8f89038479403b9611cbba4b37aadc42ac3658d",
+      "scope038_index": 17,
+      "actual_EOF": 2429,
+      "requested_original_ranges": [
+        [
+          20,
+          165
+        ]
+      ],
+      "scoped_ranges_compared": [
+        [
+          20,
+          139
+        ]
+      ],
+      "context_only_ranges": [
+        [
+          140,
+          165
+        ]
+      ],
+      "nonexistent_original_tail": [],
+      "actual05_comparison": "Exact native EncodingError/Error/Display/From roles distinguish Io/Format/Parameter/Limits; private FormatErrorKind discriminant carries dimensional/color/missing-frame context with the cause, formatting reads the same payload. Native From<io::Error> retains typed cause; reverse From<EncodingError> creates ioError with display string intentionally native adapter. This is external diagnostic boundary, not an application checked image/aggregate seal; no encoder/APNG sequence or dimensions behavior inferred. Encoder struct/options148-161 and constructor prefix163-165 are original-range context only; caller-facing encoding aggregate arithmetic not in reached error contract.",
+      "source_body_proof": "Fresh exact native requested bytes personally read for05 after existing global source/range qualification; no unrelated module/package or foreign whole-file waiver."
+    },
+    {
+      "source_id": "native-dependency:wgpu-29.0.4/src/api/buffer.rs",
+      "sha256": "c7d2c13d8031a9416d5562ec970a46470da331544d3a5e15bc8fb7dae2a9de32",
+      "scope038_index": 27,
+      "actual_EOF": 1121,
+      "requested_original_ranges": [
+        [
+          835,
+          880
+        ]
+      ],
+      "scoped_ranges_compared": [
+        [
+          849,
+          870
+        ]
+      ],
+      "context_only_ranges": [
+        [
+          835,
+          848
+        ],
+        [
+          871,
+          880
+        ]
+      ],
+      "nonexistent_original_tail": [],
+      "actual05_comparison": "BufferAsyncError is actual native unit diagnostic (no dimension/range/owner correlation to validate), Display generic intentionally no erased richer application cause here; MapMode closedRead/Write tags. Native BufferDescriptor alias and partial previous function tail are navigation context, BufferView later implementation unreviewed. Application should retain this native cause at actual port, not infer mapped byte range validity from it.",
+      "source_body_proof": "Fresh exact native requested bytes personally read for05 after existing global source/range qualification; no unrelated module/package or foreign whole-file waiver."
+    },
+    {
+      "source_id": "native-dependency:wgpu-29.0.4/src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "scope038_index": 28,
+      "actual_EOF": 877,
+      "requested_original_ranges": [
+        [
+          685,
+          750
+        ]
+      ],
+      "scoped_ranges_compared": [
+        [
+          698,
+          745
+        ]
+      ],
+      "context_only_ranges": [
+        [
+          685,
+          697
+        ],
+        [
+          746,
+          750
+        ]
+      ],
+      "nonexistent_original_tail": [],
+      "actual05_comparison": "Actual RequestDeviceError retains private cfg-specific Core(native typederror)/WebGpu(string) payload; Display and source dispatch same retained variant, Clone preserves native cause role. Native WebGPU string case legitimate because boundary owns it, not proof application should erase early. cfg fallback unimplemented is unreachable-role metadata here, no supported build/run target claim. create_tlas685-695 and From constructor prefix747-750 are context only, no TLAS index/layout or fullconversion proof.",
+      "source_body_proof": "Fresh exact native requested bytes personally read for05 after existing global source/range qualification; no unrelated module/package or foreign whole-file waiver."
+    },
+    {
+      "source_id": "native-dependency:wgpu-29.0.4/src/api/surface.rs",
+      "sha256": "c66e417d97814893f1293cd0f5e5e11443101a7aa3df4ffa0004f49079bb70b5",
+      "scope038_index": 29,
+      "actual_EOF": 517,
+      "requested_original_ranges": [
+        [
+          430,
+          505
+        ]
+      ],
+      "scoped_ranges_compared": [
+        [
+          460,
+          505
+        ]
+      ],
+      "context_only_ranges": [
+        [
+          430,
+          459
+        ]
+      ],
+      "nonexistent_original_tail": [],
+      "actual05_comparison": "Actual nonexhaustive CreateSurfaceError private native Hal/WebString/RawHandle variants preserve actual cause distinction, Display dispatches variant and source() projected accordingstd/cfg exact observed arms. Native unsafe surface helper lines430-458 states external handle lifetime precondition; not an accepted application lifetime brand and not reviewed wholecreation pipeline. Error::source terminalmatchclosing beyond505 not read, so only exact conditional arms430-505 context qualified; no widerforeigncallback/lifetime proof.",
+      "source_body_proof": "Fresh exact native requested bytes personally read for05 after existing global source/range qualification; no unrelated module/package or foreign whole-file waiver."
+    },
+    {
+      "source_id": "native-dependency:wgpu-types-29.0.4/src/adapter.rs",
+      "sha256": "27486df080a81f4a668f47b4f68f1eb5b2fc72f14b51175db2fd678e0f5b7085",
+      "scope038_index": 30,
+      "actual_EOF": 301,
+      "requested_original_ranges": [
+        [
+          175,
+          300
+        ]
+      ],
+      "scoped_ranges_compared": [
+        [
+          182,
+          262
+        ]
+      ],
+      "context_only_ranges": [
+        [
+          175,
+          181
+        ],
+        [
+          263,
+          300
+        ]
+      ],
+      "nonexistent_original_tail": [],
+      "actual05_comparison": "Actual RequestAdapterError::NotFound holds diagnostic backend-bitset observations; Display uses explicit precedence requested→compiled→noadapter→surfaceincompatible→nofallback→inactive→unknown. Raw public error/optionalSerde may represent arbitrary bitsets but no accepted device/adapter-state guarantee depends on them: diagnostic native boundary only. EnvNotSet closed alternative. Cooperative scalar/matrix declarations264-300 and adapter-info tail175-180 incidental original context, not GPU matrix cross-dimension admission or unknown arithmetic exemption.",
+      "source_body_proof": "Fresh exact native requested bytes personally read for05 after existing global source/range qualification; no unrelated module/package or foreign whole-file waiver."
+    }
+  ],
+  "comparison_groups": {
+    "actual-native-boundary": "Native typed cause/message discriminants and one-step contextual projections are actual receiving/error contracts, not early application erasures or checked gameplay aggregate owners.",
+    "no-incidental-proof": "Original wide context and nonexistent BevyEOF tail expressly qualified, only semantically reached native error/event roles counted, not whole GPU/PNG runtimes."
+  },
+  "new_unique_findings": [],
+  "qualification_refs": [
+    "root/parallel-scope-qualification-130.json",
+    "Native actual loading/pipeline contract-groups-038.json",
+    "Native capture readiness contract-groups-055.json"
+  ],
+  "remaining_dependency_obligations": [
+    "Whole application GPU/encoding producers and admission recipients remain exact own scoped cells; this is no graph or later-lens clearance."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

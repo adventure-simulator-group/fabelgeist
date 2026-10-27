@@ -1,0 +1,46 @@
+{
+  "at": "2026-10-27T00:40:17.606189+00:00",
+  "source_registration": "audit12-current-M23-M25-registration-001.json",
+  "current_head": "a21f9ccaeba1e3947e22dc1f64106c4f2bc371b6",
+  "selected_actual_reads": [
+    {
+      "path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+      "ranges": [
+        [
+          510,
+          569
+        ]
+      ],
+      "source": "current-a21f9ccae"
+    },
+    {
+      "path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+      "sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+      "ranges": [
+        [
+          1386,
+          1446
+        ]
+      ],
+      "source": "current-a21f9ccae"
+    }
+  ],
+  "aliases": [
+    {
+      "id": "M23",
+      "basis": "Current BookTarget Terrain/Skill retainString, current valid_book_shape text-matches exact supported study vocabulary and quality maximum. Current schema512-557 matches frozen521-566; full actual validator1386-1446 matches exact frozen range. Inherited master M23 read in full; selected owner current gap supported, not full runtime/schedule/preview-family validation."
+    },
+    {
+      "id": "M25",
+      "basis": "Current Food.class remainsString in selected schema547; exact selected definition matches frozen557. Inherited M25 read in full. Actual current FOOD_CATALOG reconstruction and lot runtime receivers not re-read in this packet, so complete current family remains unverified."
+    }
+  ],
+  "unique_delta": 0,
+  "no_compatibility_requirement": true,
+  "no_project_execution": true,
+  "integrated": false,
+  "validated": false,
+  "global_clearance": false,
+  "supersedes_citation_only": "audit12-current-M23-M25-reconciliation-001.json"
+}

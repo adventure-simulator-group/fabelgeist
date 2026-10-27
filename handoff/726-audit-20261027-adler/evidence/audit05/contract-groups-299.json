@@ -1,0 +1,25 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-299",
+  "at": "2026-10-25T22:47:11.960729+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2574,
+      "source_id": "pinned-registry:serde-saphyr-1.2.0/src/de/options.rs",
+      "sha256": "d38d24ae1ae19df025ec4073c774a3eea48fcb85a0dad024b392e8c6899c40a8",
+      "personally_read_ranges": [
+        [
+          1,
+          760
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full760-line frozen serde-saphyr options/fixtures. Default duplicate keys Error, merge expansion enabled, budgets+alias replay caps enabled, legacy octal false, strict boolean false, unsupported tags accepted where possible, includes/properties unset. reject_non_finite_typeless_float defaults true but explicitly leaves concretef32/f64 YAML.nan/.inf targets permitted, so target finite admission cannot be inferred from parser default; decimaloverflow is separate. Options-derived serde uses field defaults that can differ from Options::default (e.g bool serde default false), but actual project options-from-serde caller absent. Rc/RefCell callbacks share state across clones; only indentation validated here, owning LiveEvents enforces budget. No resolver/file/parse or fixture execution and no resource-policy blanket clearance."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

@@ -1,0 +1,37 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-139",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 750,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_section_hull.wgsl",
+      "sha256": "8e5c9749f683eebbb88a1f1946bafc14ae3c6ac5c489c9ee9b740c60f1c7d43f",
+      "ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "assessment": "Full59 exact reached owner shader source read after hash match. Native sample/hull buffer offsets and counts are explicit shader numerical kernel. count<3 empty result is an intrinsic collection count, not Boolean domain state. Cross/point vec2 values are genuine mathematical vectors; interval and frame/source-buffer size ownership still requires host producers Q009. No all-finite, topology/continuous physical/runtime/current-main or other-lens clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 751,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_tasset_controls.wgsl",
+      "sha256": "32bc1fd7a7801d3b07d0548993ba36759133b5862c0e9555cb1d5a648335d0e5",
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "assessment": "Full46 exact unchanged reached shader body read after hash match. Measured/radii/fit-word arrays are actual packed native chart layout, while local vec4(center,radii) mixes semantic fields and requires Q008/Q009 purpose-record review beyond eventual native ABI. Literal node range/count correspondence depends on actual measured-profile host owner not read here. No ordinary out-of-range, physical fit, runtime/current-main/global clearance or accepted unique finding.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

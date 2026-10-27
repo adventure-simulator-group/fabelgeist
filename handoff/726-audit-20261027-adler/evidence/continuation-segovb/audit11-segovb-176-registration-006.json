@@ -1,0 +1,45 @@
+{
+  "packet": 176,
+  "prior_partial": "audit11-segovb-176-803-partial-001.json",
+  "staging_receipt": "audit11-root-packing-preview-staging-176.json",
+  "staging_receipt_sha256": "01b9d710c2c2b2f9d3ef02e2799adfd2cab768e5463880700d89d29e60476e1b",
+  "provenance": "Root exactunchanged3a50base/6533head andchangedmanifest/statusabsence, notcurrentsubstitution",
+  "registered_before_body_read": true,
+  "sources": [
+    {
+      "sha256": "84921c3738f17ead3b584e9957b4da132682a3a9c475c3b99a664b48ec245df7",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/84921c3738f17ead3b584e9957b4da132682a3a9c475c3b99a664b48ec245df7",
+      "actual_eof": 932,
+      "ranges": [
+        [
+          344,
+          435
+        ],
+        [
+          607,
+          750
+        ]
+      ],
+      "role": "nativelevel/card_build producer packing",
+      "body_read_before_registration": false,
+      "original_shared_credit": false,
+      "other_lenses": "mandatorynewdependencyqueuepending"
+    },
+    {
+      "sha256": "13592232826ab0676fdf0cf93edd150713c436e3c73f743bd5d828072e1224b9",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/13592232826ab0676fdf0cf93edd150713c436e3c73f743bd5d828072e1224b9",
+      "actual_eof": 133,
+      "ranges": [
+        [
+          41,
+          68
+        ]
+      ],
+      "role": "directStrandShadingfourbuffer binding retention",
+      "body_read_before_registration": false,
+      "original_shared_credit": false,
+      "other_lenses": "mandatorynewdependencyqueuepending"
+    }
+  ],
+  "stop": "missingactualformat/bindcontracts only; no803fullreread/no804orderedwork"
+}

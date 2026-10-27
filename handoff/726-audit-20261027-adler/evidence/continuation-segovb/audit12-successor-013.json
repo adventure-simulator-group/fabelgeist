@@ -1,0 +1,41 @@
+{
+  "id": "AUDIT12-CONTRACTS-013",
+  "lens": 12,
+  "at": "2026-10-26T18:28:30.166871+00:00",
+  "role": 38,
+  "registration": "audit12-successor-registration-013.json",
+  "source": {
+    "lens": 12,
+    "role": 38,
+    "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/utils.wgsl",
+    "sha256": "e681dfe05b5df31bfba37904eae24631e48be8a91e90910253cba046bdecfcc9",
+    "local": "target/recovery-20261025/continuation-segovb/source-objects/e681dfe05b5df31bfba37904eae24631e48be8a91e90910253cba046bdecfcc9",
+    "ranges": [
+      [
+        1,
+        43
+      ]
+    ],
+    "read": "registered before bounded consumption"
+  },
+  "inventory": [
+    {
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "occurrences": "Native #define_import_path render::utils, #ifdef VISIBILITY_RANGE_DITHER, #import bevy_pbr::mesh_view_bindings::view; adapted-source URL in comment and WGSL identifiers",
+      "trace": "Full43line native body read. Shader function parameter/member names are compile-time typed identity; actual calc_instance_world_matrix builds scaled rotation+translation and returns parent product with no runtime String. Visibility flag gates native view import and dither helper. Its actual producer was separately registered/read in012 native eidolon pipeline169-180, inserting same literal into vertex and fragment ShaderDefVal descriptors; shaderlibrary file utils.wgsl is actually loaded by012 plugin47. Native imported view.world_position used for distance calculation. Comment URL attributes provenance; no runtime network or semantic string classification. These compiler/shader definitions are actual boundary vocabulary."
+    }
+  ],
+  "findings": [],
+  "disposition": "ACCOUNTED exact original38full43line native shader string/compiler boundary",
+  "qualifications": [
+    "No dither bounds/zero-span/finite/numerical interpolation or world/local/camera coordinate guarantee inferred. ExistingM18LOD/physical/frame owner questions remain; text-role classification is not fullnativegeometry correctness.",
+    "Bevy view-import implementation and complete shader compilation/runtime acceptance not covered by this source scope. Native module/import identities at compiler boundary do not require applicationString wrappers.",
+    "No tests/cases/helpers/assertions/doctests added, project execution, product/git mutation, integrated/current/global clearance or other-lens credit."
+  ],
+  "global_clearance": false
+}

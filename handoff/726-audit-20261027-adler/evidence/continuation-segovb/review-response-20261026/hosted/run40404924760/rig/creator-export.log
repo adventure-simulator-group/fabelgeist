@@ -1,0 +1,20 @@
+[1m[92m    Finished[0m `test` profile [unoptimized] target(s) in 0.48s
+[1m[92m     Running[0m unittests src/lib.rs (crates/adventuresim-character-creator/target/debug/deps/adventuresim_character_creator-be3a462dd969b9d3)
+
+running 12 tests
+test export::assembly::tests::compact_components_keep_names_hinges_skin_and_all_morphs ... ok
+test export::morphs::tests::rejects_incompatible_channels_and_non_finite_deltas ... ok
+test export::skinning::tests::dropping_minor_influences_preserves_world_translation ... ok
+test export::tests::exports_clothing_as_a_separately_materialed_skinned_primitive ... ok
+test export::tests::exports_four_normalized_skin_influences_and_a_zero_animation_rig ... ok
+test export::tests::exports_independent_skinned_armor_topology_with_named_morph_targets ... ok
+test export::tests::exports_shell_only_equipment_without_character_attachment_geometry ... ok
+test export::tests::exports_textured_garment_with_independent_topology_and_skin ... [fabelgeist-gpu] adapter: llvmpipe (LLVM 20.1.2, 256 bits) | type: Cpu | backend: Vulkan | driver: llvmpipe Mesa 25.2.8-0ubuntu0.24.04.4 (LLVM 20.1.2)
+ok
+test export::tests::fitted_socket_resolves_uv_per_lod_and_bootstrap_recovers_the_anchor ... ok
+test export::tests::rejects_non_normalized_weights ... ok
+test export::textures::tests::normal_only_material_preserves_its_authored_metal_properties ... ok
+test export::textures::tests::separate_equipment_glbs_share_exact_surface_files_and_material_roles ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 136 filtered out; finished in 3.13s
+

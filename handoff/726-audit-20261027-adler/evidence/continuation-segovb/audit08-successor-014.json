@@ -1,0 +1,286 @@
+{
+  "id": "SEGOVB-CONT08-SUCCESSOR-014",
+  "created_utc": "2026-10-27T01:34:38.113442+00:00",
+  "lens": "08 behavior-preservation",
+  "skill": "/home/brunosegovia/.codex/skills/audit-behavior-preservation/SKILL.md",
+  "scope": "One ordered-original1793 packet; independent full exact registered216-line source inventory/read, stop at first concrete exact base/receiver/input provenance frontier. No1794 body read. No Q003 re-opening or parallel codec/geometry expansion.",
+  "inputs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-014-registration-original.json",
+      "sha256": "8e3849f6647e5547f23fd990e7faaa85e082c7db97f88c7b76e9daed1326c7cf"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-013-adoption-root.json",
+      "sha256": "62b1c8995f073a2ac2b53db6685cb40a096a935760d19894e0506084a4ea0cb0"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-013-completion.json",
+      "sha256": "0814433eb6cf0cc1f5cc96b0c6f523e85296a065f00ef4726d7c67885988e63b"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-013-completion-proposed-state.json",
+      "sha256": "e6e314882f6986d54472a50e1e3c9652743dab2f11674a125005359bd9c29fb2"
+    }
+  ],
+  "authoritative_state_at_start": {
+    "ledger_path": "target/recovery-20261025/continuation-segovb/ledger.json",
+    "ledger_sha256": "8c1a52bc150140c33536eca983d2faf03d48fc0e67c85bd8109ec4e63f847fe0",
+    "lens08_record": {
+      "number": 8,
+      "name": "behavior-preservation",
+      "state": "audit08/STATE.json",
+      "state_sha256_at_handoff": "b4f9c4a6c3c59966cfe3cde46ee814963aad9c3d3808e9928ce40620c7e46e7b",
+      "authoritative_receipts": [
+        "audit08/packets/behavior-093.json",
+        "audit08/predecessor/contract-groups-425-partial-handoff.json",
+        "audit08/material-receipts/earlier-024-031-001.json"
+      ],
+      "saved_coverage": "1799/2853originals accounted WITH findings and exact partial/out-of-order ranges retained; next sequential original1792; earliest unfinished1462. Overlay/merge/material populations remain separately incomplete.",
+      "incomplete_or_qualified_scope": "Saved earlier material contiguous0-31, next32, latest material-receipts/earlier-024-031-001.json; separate178-195 and selected exact receipts retained. Not all196complete. README1750/reflection1757/1762 and all saved partials/qualifications retained.",
+      "scope_complete_is_clearance": false,
+      "skill": {
+        "captured_path": "handoff/826/skills/audit-behavior-preservation/SKILL.md",
+        "sha256": "7413ca56a7a637a20cb56f6a35c7623253934e806415e26131af076050fa685c"
+      },
+      "receipt_presence": true,
+      "current_successor": "audit08-successor-013-completion-proposed-state.json",
+      "current_coverage": "1800/2853 originals source-accounted; earliest1462Q003 partial; next ordered1793; material52 partial",
+      "current_qualification": "Original1792 finite-point boundary and actual generator/grid/ground recipients source-accounted with no defect found. Q003 and material52 remain partial; no runtime/current-family clearance.",
+      "latest_receipt": "audit08-successor-013-completion.json",
+      "current_comparison": "audit08-current-comparison-001.json"
+    },
+    "adoption_path": "target/recovery-20261025/continuation-segovb/audit08-successor-013-adoption-root.json",
+    "adoption_sha256": "62b1c8995f073a2ac2b53db6685cb40a096a935760d19894e0506084a4ea0cb0",
+    "adopted_receipt_sha256": "0814433eb6cf0cc1f5cc96b0c6f523e85296a065f00ef4726d7c67885988e63b",
+    "adopted_state_sha256": "e6e314882f6986d54472a50e1e3c9652743dab2f11674a125005359bd9c29fb2",
+    "finding_count_interpretation": "Root adoption explicitly accepted0new unique findings; one newly accounted original1792 only."
+  },
+  "governing_rules": {
+    "user_root_AGENTS": "User-provided root instructions apply, especially clean final API/schema with no backward compatibility and ignored reports.",
+    "files": [
+      {
+        "path": "crates/AGENTS.md",
+        "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23"
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/AGENTS.md",
+        "sha256": "b3fd110d97bc871853458c38282d3d4c18369b6d0647e96e0de6d0641dca61c8"
+      },
+      {
+        "path": "/home/brunosegovia/.codex/skills/audit-behavior-preservation/SKILL.md",
+        "sha256": "7413ca56a7a637a20cb56f6a35c7623253934e806415e26131af076050fa685c"
+      }
+    ],
+    "user_override": "No project/test/fixture execution or additions, source/Git/root-ledger mutations or publication. Numeric fixtures/test names are not audit exemptions."
+  },
+  "catalog_identity": {
+    "path": "target/recovery-20261025/audit05/original-scope-072.json",
+    "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "original_index": 1793,
+    "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/grounded/tests.rs",
+    "scope_kind": "affected_unchanged_reached_contract",
+    "head_sha256": "c2dd6fd8bc29ddcbca5a79e0945e04db51766c5a40b72ed8bf5736664da8e16c",
+    "base_sha256": null,
+    "historical_role_ranges": [
+      [
+        69,
+        124
+      ]
+    ],
+    "requested_owner_scope": [
+      [
+        1,
+        216
+      ]
+    ],
+    "qualification": "Historical owner/producer receipts only locate requested scope; no other-lens or prior access coverage credit."
+  },
+  "source_reads": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/grounded/tests.rs",
+      "path": "target/recovery-20261025/audit10/successor-source-objects/c2dd6fd8bc29ddcbca5a79e0945e04db51766c5a40b72ed8bf5736664da8e16c",
+      "sha256": "c2dd6fd8bc29ddcbca5a79e0945e04db51766c5a40b72ed8bf5736664da8e16c",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_body_read_ranges": [
+        [
+          1,
+          216
+        ]
+      ],
+      "prospective_registration": "audit08-successor-014-registration-original.json",
+      "hash_verified_before_and_after": true,
+      "scope_kind": "affected_unchanged_reached_contract",
+      "before_after_qualification": "Exact base source still unknown. No unchanged-source behavior claim from file presence/catalog label."
+    }
+  ],
+  "full_item_inventory": [
+    {
+      "item": "fixture",
+      "ranges": [
+        [
+          5,
+          48
+        ]
+      ],
+      "producer_and_retention": "Compile-time include of assets/tactical-grounding/goslar-1238.json; serde_json Value decodes front/rear distant placements and compound, converts front to playable, constructs GeographicSurface from triangles, authors checked support/stair/embedment/apron policy. Returns layout/source/policy tuple.",
+      "needed_contracts": "Actual JSON bytes and serde/placement/geographic admission contracts at frozen base/head; not executed or inferred from existing test name."
+    },
+    {
+      "item": "placements",
+      "ranges": [
+        [
+          50,
+          66
+        ]
+      ],
+      "producer_and_retention": "Clones playable placements, converts copied distant placements through TacticalBuildingPlacement::from, collects id-keyed BTreeMap.",
+      "needed_contracts": "Actual distant-to-tactical conversion and identifier identity; duplicate handling belongs also to selection caller, not inferred from collect."
+    },
+    {
+      "item": "accepted_support_seats_both_detail_levels_without_changing_physical_identity",
+      "ranges": [
+        [
+          68,
+          122
+        ]
+      ],
+      "producer_and_retention": "Selects and compiles layout; checks original layout unchanged, retained collections equal, same ID population, and only base elevation differs. Expects floors21.042906/19.056694 within0.001; expects member IDs1238/17622 and contact-centre owned-terrain elevation within policy tolerance.",
+      "needed_contracts": "SelectedCityGrounding select/compile/layout/terrain, compiled foundation member ownership and support/elevations receiving bodies. Expected assertions are source intent, not passing evidence."
+    },
+    {
+      "item": "promotion_and_input_order_preserve_the_accepted_floors_and_terrain",
+      "ranges": [
+        [
+          124,
+          147
+        ]
+      ],
+      "producer_and_retention": "Compiles initial layout, promotes all distant to playable and reverses placements/triangles, recompiles and asserts equal placements/terrain.",
+      "needed_contracts": "Selection/compilation ordering and detail-level conversion; actual implementation not reviewed or proved by this test body."
+    },
+    {
+      "item": "missing_or_duplicate_physical_bindings_are_rejected_before_floor_selection",
+      "ranges": [
+        [
+          149,
+          168
+        ]
+      ],
+      "producer_and_retention": "Clears compounds, expects UnboundBuilding1238 and input immutability; duplicates playable placement and expects DuplicateBuilding1238.",
+      "needed_contracts": "Actual selection precondition/error-order bodies and typed error owner; no runtime rejection proof from matches assertion."
+    },
+    {
+      "item": "ownership_rejection_publishes_no_partial_floor_projection",
+      "ranges": [
+        [
+          170,
+          195
+        ]
+      ],
+      "producer_and_retention": "Adds another property/member identity pair over same geometry, selects successfully, expects compile OwnershipOverlap first1238/second1239, asserts original layout unchanged.",
+      "needed_contracts": "Actual selection-vs-compilation boundary, retained mutable state, ownership diagnostic ordering and failure publication semantics."
+    },
+    {
+      "item": "duplicate_ownership_diagnostics_are_independent_of_property_iteration_order",
+      "ranges": [
+        [
+          197,
+          216
+        ]
+      ],
+      "producer_and_retention": "Adds second compound ID1239 retaining duplicate members, expects Terrain(DuplicateMember building1238,first1238,second1239) before/after compound reverse.",
+      "needed_contracts": "Actual owner canonical ordering/dedup receiver, exact error conversions and generation contract."
+    }
+  ],
+  "disposition": {
+    "original_index": 1793,
+    "status": "qualified partial",
+    "qualification_id": "SEGOVB-CONT08-014-1793-BASE-RECEIVER-PARTIAL",
+    "actionable_findings": [],
+    "progress": "All seven helper/test bodies independently inventoried in full. Source defines physical identity retention, promotion/order invariance, missing/duplicate binding error order, atomic failure publication, and duplicate ownership canonical diagnostics. Actual changed implementation/admission contracts remain untraced at named provenance frontier.",
+    "untraced_frontier": [
+      {
+        "id": "CONT08-014-BASE-IDENTITY",
+        "requested_source": "crates/adventuresim-tactical-core/src/city_layout/compiled/grounded/tests.rs",
+        "base_revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+        "head_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "known_head_sha256": "c2dd6fd8bc29ddcbca5a79e0945e04db51766c5a40b72ed8bf5736664da8e16c",
+        "missing": "Catalog1793 supplies no base_sha256. Stage exact base bytes/absence and compare to known frozen head; affected-unchanged label and historical other-lens range receipts alone do not prove before/after identity."
+      },
+      {
+        "id": "CONT08-014-GROUNDING-RECEIVER",
+        "requested_symbols": [
+          "SelectedCityGrounding::select",
+          "SelectedCityGrounding::compile",
+          "grounded.layout",
+          "grounded.terrain"
+        ],
+        "candidate_source_paths": [
+          "crates/adventuresim-tactical-core/src/city_layout/compiled/grounded.rs",
+          "crates/adventuresim-tactical-core/src/city_layout/compiled/grounded/mod.rs"
+        ],
+        "candidate_qualification": "The test uses super::*; actual declaring module path must be established from exact frozen source metadata, not guessed. Neither candidate body was read.",
+        "missing": "Exact actual module path and pinned base/head bytes for selection/compilation/error-publication contract, plus necessary changed receiving type/serialization sources reached by those bodies. Request bounded staging, not full tree."
+      },
+      {
+        "id": "CONT08-014-ACTUAL-FIXTURE-INPUT",
+        "requested_source": "assets/tactical-grounding/goslar-1238.json",
+        "source_backed_reference": {
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/grounded/tests.rs",
+          "ranges": [
+            [
+              6,
+              23
+            ]
+          ]
+        },
+        "base_revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+        "head_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "missing": "Exact before/after asset identities and bytes for front/rear placements, compound and geographic_triangles. No fixture file was opened, decoded or executed in this packet; no old schema compatibility requirement."
+      }
+    ],
+    "intended_behavior_limit": "Assertions document intended contracts but are not actual execution/results or proof that implementation preserves them. No defect inferred from missing evidence or unsupported old malformed inputs.",
+    "stop": "Saved at first concrete partial; request exact source staging for a later append-only completion, no arbitrary source expansion."
+  },
+  "coverage_delta": {
+    "prior_original_accounted": 1800,
+    "original_accounted": 1800,
+    "original_total": 2853,
+    "new_original_completions": [],
+    "newly_accounted_original_roles": 0,
+    "new_unique_finding_count_delta": 0,
+    "earliest_unfinished_original": 1462,
+    "partial1462": "CONT08-Q003 unchanged; packet012 pure-w Transform matrix erasure retained",
+    "next_ordered_original": 1793,
+    "ordered1793_status": "qualified partial SEGOVB-CONT08-014-1793-BASE-RECEIVER-PARTIAL",
+    "material_contiguous": [
+      0,
+      51
+    ],
+    "next_material": 52,
+    "partial_material_indices": [
+      52
+    ],
+    "separate_material_interval": [
+      178,
+      195
+    ],
+    "new_material_completions": []
+  },
+  "inherited": {
+    "Q003": "009 direct admitted-contract local composition counterexample retained;012 pure-w candidate erased by Transform matrix route; no actual obstacle/cast/current witness or universal numeric bound.",
+    "material52": "Frozen P16 typed-error receiver partial unchanged; currentcomparison001 remains exact4fcc, not current main/PR990.",
+    "paid_withdrawn": "Preexisting SEGOVB-CONT08-007-M51-PAID-WITHDRAWN candidate unchanged partial.",
+    "preserve": "All20/P16/P17/#780/#826/M16 repair graph, source-keyed policies, aliases, partials and prior exact qualifications remain. Root sole ledger/product/unique-finding adoption owner.",
+    "new_shared_source_queue": "Prior Netlib45 and generator parent/support mandatory other-lens role queues retained; no new source body completion or duplicate identity population here."
+  },
+  "limits": [
+    "No new finding count, repair, source/product/Git changes, root-ledger/history edits, publication, project/test/fixture execution or additions. Python used only metadata/hash/line reads and ignored evidence writes.",
+    "Only full original1793 requested source body read. Receiver paths listed are requested/unknown, not body coverage; neither method names nor assertions establish implementation preservation.",
+    "No1794 source body read or later ordered progress. Metadata identifying neighboring catalog entries grants no body credit.",
+    "No global F9 or source/goal clearance. Unchanged source status does not exempt actual changed receiver contracts from this lens.",
+    "No backwards compatibility condition for old malformed values, old schema/API/error layouts or unchecked behavior. Final intended contract remains authoritative."
+  ],
+  "global_clearance": false,
+  "stop": true
+}

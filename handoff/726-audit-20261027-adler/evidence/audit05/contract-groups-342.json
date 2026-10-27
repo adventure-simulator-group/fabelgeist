@@ -1,0 +1,31 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-342",
+  "at": "2026-10-25T23:26:31.901773+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 5,
+      "source_id": "native-dependency:bevy_asset-0.19.1:server/mod.rs",
+      "sha256": "90bfda65679fc6cfb046dda1e2e7b5795d39e73778a15d0bc1eb7ef8d3e9bd25",
+      "personally_read_ranges": [
+        [
+          2010,
+          2160
+        ],
+        [
+          2340,
+          2510
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Exact original scope072 registered owner ranges2010-2160 and2340-2510 personally read; no whole2527line module credit. Asset event handler destructures Failed index/path/error once, records load failure then emits typed and untyped events from that same triple. Dependency-loaded notification resolves type-specific sender and wakes waiting tasks on matching index.",
+        "AssetLoadError variants keep path/type/loader/metadata/label and nested source in typed payloads. Private AssetLoaderError exposes its paired path and BevyError source via borrowing; WaitForAssetError distinguishes absent load, asset failure and dependency failure while retaining Arc cause.",
+        "Missing loader extension formatting derives plural/count/list from one vector; typed/missing-source native dependency implementation and project sanitization/display/readiness decisions remain separate. Hot-reload ancestor recursion excerpt is partial and earns no graph-cycle proof. No new finding, execution or unrelated source credit."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

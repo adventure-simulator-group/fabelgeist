@@ -1,0 +1,113 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "049",
+  "predecessor": "receipt-048-originals261-266.json",
+  "manifest_prefix_sha256": "a25a06f5330af31402848259424555dfb006a55911576ac020abb38e522cc8c3",
+  "sources": [
+    {
+      "original_index": 267,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social_roles.rs",
+      "sha256": "328d8285856568995cc423bb2ec74bb88bfa690af6e4defcbfc4aa8f9a355415",
+      "actual_ranges": [
+        [
+          1,
+          579
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              579
+            ]
+          ],
+          "role": "Raw organization definition/instance/role/settlement IDs18-31 and APIs34/46/47/103/104/167/277/278/315/316/333/334/343/356/391/392/447/484/508. Native templates36-41/123/173/359/369; raw family/origin prefixes135/141 control cleanup180/239/257. Authored template and role literal IDs92-94/194/196/220/222/370/511-513; religion map377-383 to authored orgIDs.",
+          "disposition": "Actual255ensure_roles70/73/78 and241copy_birth_family_roles497 recipients nowconsumed; existing OrganizationKind53andOfficialReligion owner should span semantic mapping and structured instance payload rather than rawprefix classification. Family key validation170discarded intoString173; canonical open FamilyId/OrganizationId/RoleId/SettlementId across actuallookup/state. Rawprofession447 equality451 confirms semanticprofession, notdisplay-only, connects actual190professionpermission and255CLERIC. Nativekeytext remainsfinalcodec. Errors50/59/63/66/79/111/113/116/171/210/261/281/289/299/325/350/395/398 internaltypedcause gaps; expect516 diagnostic. Fulltests521-579 allinclude/split/contains strings are source-text boundary, noexecution/child/nativecredit."
+        }
+      ],
+      "status": "Entire exact registered material/changed source independently read WITH findings."
+    },
+    {
+      "original_index": 268,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/approved_action.rs",
+      "sha256": "d950b13458eeb9181a8e5c13187b252a25adee7f26374e42ace4a85dd58c243f",
+      "actual_ranges": [
+        [
+          1,
+          173
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              173
+            ]
+          ],
+          "role": "Serde tag action and rename snake_case6 are native JSON schema boundary fortypedApprovedPartyAction. Payload settlement/casesite/contract/mission/item/party/scenekey/action/method rawString9/12/39/42/45/48/56/60/63/64/67/70/71, recruitment name18/25 prose. kind()returns17finite actionlabels79-95.",
+          "disposition": "Enumalreadyowns approvedaction+payload shape; retain canonicalopenreferenceowners and existing investigationmethod owner through app instead of raw strings afterDeserialize. CaseSiteId constructedlate110 (own2720ownerproof) showspropagationgap; actualremainingdelegatedtravel/contract/investigation/tacticalbodiespending. kind()projection consumer notread, cannot classifyboundary-only; likelysemanticpolicykey requiresactualrecipient269state/caller. Namesproseactualrecruitmentcalleeunread,noclosureguessed. Nootherstringliterals/errors; resulttypedoperation171retained. NoBC/schema-preservation requirement."
+        }
+      ],
+      "status": "Entire exact registered material/changed source independently read WITH findings."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Organization instance prefix semantics and profession/religion/role reference identity",
+      "sources": [
+        "267:34-84,126-225,228-269,353-400,444-451",
+        "255:52-85",
+        "241:497"
+      ],
+      "remedy": "Use structured canonical instance/family payloads and existing religion/profession/organization/role owners through production/state/mechanical selectors; serialize nativeidentity atDBboundary.",
+      "acceptance": "Reconcile actual125catalog and remainingexternalcaller/gateway ownership/aliases, no closedcatalog assumption or oldprefix compatibility.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "ActualApprovedPartyAction::kind recipient and delegatedstrategic/tactical/investigation/recruitment APIs pending; JSONschema actualtagprovedbut fullnativeimpl notclaimed.",
+    "Allinheritedcurrentness/aliases/F9/M09/all20/P16/P17/otherpopulations andunreadreceivers preserved."
+  ],
+  "qualifications": [
+    "Exactf82physical-P16frozen objects, no currentalias.",
+    "No project/native/testexecution/probes or product/Gitmutations/rootledger/publication.",
+    "SourceaccountingWITHfindingsonly; no repaired/global/runtime/native/unique-total/otherlensclearance. UsernoBC."
+  ],
+  "proposed_count": {
+    "before": 267,
+    "after": 269,
+    "indices_completed": [
+      267,
+      268
+    ],
+    "next_original": 269,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social_roles.rs",
+      "sha256": "328d8285856568995cc423bb2ec74bb88bfa690af6e4defcbfc4aa8f9a355415",
+      "ranges": [
+        [
+          1,
+          579
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/approved_action.rs",
+      "sha256": "d950b13458eeb9181a8e5c13187b252a25adee7f26374e42ace4a85dd58c243f",
+      "ranges": [
+        [
+          1,
+          173
+        ]
+      ]
+    }
+  ]
+}

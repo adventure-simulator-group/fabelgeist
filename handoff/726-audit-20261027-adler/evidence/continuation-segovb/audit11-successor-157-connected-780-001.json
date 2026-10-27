@@ -1,0 +1,85 @@
+{
+  "id": "SEGOVB-CONT11-SUCCESSOR-157-CONNECTED-780-001",
+  "lens": "type-granularity",
+  "earliest_unfinished": 780,
+  "frozen_source_reads": [
+    {
+      "connected_scope_index": 2226,
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/cpu/mod.rs",
+      "sha256": "c38b573a2cc782cf12b477bf67c5fd77c4b35c756c91569d8b2e0c36a75273b2",
+      "ranges": [
+        [
+          388,
+          462
+        ]
+      ],
+      "assessment": "TriangleBvh owns copied positions and triangles plus acceleration tree. new builds bounds from those exact triangles. closest_point returns index selected by same bvh and computes point through self.triangle(index); transfer_skin780480 indexes original input.faces whose clone constructed this bvh470-473. That particular receiving association is source-proven locally. Raw Vec3 positions/max_distance use caller coordinate units; no extra unit policy encoded. Public mutable arrays do not establish universal coherence and no instance identity is encoded by u32.",
+      "ordered_accounted": false
+    },
+    {
+      "connected_scope_index": 2263,
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/measure/mod.rs",
+      "sha256": "dbbbf373f7069a15074d0e348f36707aa24f9125146cc3cb60579a75fd5e3452",
+      "ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "assessment": "Actual measure contract requires standing closed body mesh in centimetres with +y up/+x body-left/+z front; Landmarks named shoulder/elbow/wrist/hip/knee pairs carry the same centimetre frame. garment780105/133 multiplies metre joint translations and vertices by100 before constructing these records. Measurer checks finite height>50 to detect metre-input confusion, but this is a heuristic, not a typed unit or validation of every coordinate. Distinct native measure-frame wrapper would prevent a real metre-versus-centimetre mixup, but canonical owner/recovered physical family reconciliation required before proposing one. Unrelated measurement body rest beyond170 not audited.",
+      "ordered_accounted": false
+    },
+    {
+      "connected_scope_index": 2336,
+      "source_id": "pr-working:crates/fabelgeist-rig/src/skin.rs",
+      "sha256": "c1c856dd707201d43249ad4e61576728edf4ff9a2a2d1dbf68f6c980a1c2d206",
+      "ranges": [
+        [
+          1,
+          226
+        ]
+      ],
+      "assessment": "RigJointCount is ordinal bound; doc6-7 expressly disclaims same rig instance. PackedRigSkin encodes words privately, checks every native admission against actual bound105-117, and push/set re-encode typed ordinals against same bound175-188/213-224. RigInfluences combines typed joints and raw weight row19-25 for numerical skin work. garment780 accumulation uses RigJointOrdinal keys and checked PackedRigSkin push/set, avoiding raw joint IDs through computation. Separate input/output weight Vec rows have no packed bound or association guarantee; same numerical storage is not reason to merge a joint extent, a joint ordinal and a dimensionless weight. Existing RigInfluences should be consumed where row association matters rather than inventing duplicate joint/weight row owner; collection-level topology association remains distinct.",
+      "ordered_accounted": false
+    },
+    {
+      "connected_scope_index": 793,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/validation.rs",
+      "sha256": "26ab01120c442d3d0f7fece4c338f28680fafcd633314036aeb853dc263e637e",
+      "ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "assessment": "DrapedGarment::contact_issues validates intersections and turns errors into arbitrary human warnings; validate_body_clearance computes metre margin from default centimetre body offset plus fabric radius. These are geometric contact checks and do not admit DrapeInput topology/weights/rig frame. No inherited selection or incoming-channel validator clearance inferred. Reached context only, no ordered role793 credit.",
+      "ordered_accounted": false
+    }
+  ],
+  "source_backed_new_observations": [
+    "Metre/centimetre conversion reaches actual owning measure constructor; valid role distinction, no unsupported universal physical wrapper proposed.",
+    "Same cloned triangle list source establishes local BVH-index-to-input-face association used by skin transfer; generic u32 remains unbranded elsewhere.",
+    "Packed joint ordinal/bound versus native weight row distinctions are intentional canonical owners. Do not flatten them or invent duplicate typed row owner.",
+    "Garment stage sum is meaningful; remaining raw progress/time/fit/clearance units need exact receiving contracts and canonical reconciliation."
+  ],
+  "pending": [
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/selection.rs",
+      "need": "Frozen exact bytes absent original scope inventory; establish unchanged frozen source identity before reading construction/selection admission. Git6533 contains path but cannot substitute without equivalence evidence."
+    },
+    {
+      "path": "DrapeInput authoritative producer",
+      "need": "Locate exact registered construction family to establish centimetre/metre body pose and topology association; raw public records alone cannot certify ordinary receiving source."
+    },
+    {
+      "path": "crates/fabelgeist-garment-code/src/measure/section.rs",
+      "need": "Exact BodyMesh definition/native shape if additional record-shape conclusion needed; known locator2264 SHA be4a376452c89f7275b6f7c4692168b16814d28e82539b5d76d13e2c0e02193f, unconsumed."
+    }
+  ],
+  "frontier_advanced": false,
+  "next_original": 780,
+  "accounted_original": 780,
+  "clear": false,
+  "no_other_lens_credit": true,
+  "validation": "none; no local project checks/tests/repairs/publication"
+}

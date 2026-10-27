@@ -1,0 +1,178 @@
+{
+  "lens": "derivability",
+  "registry": "../shared-material-successor/source-extensions-185.json",
+  "registry_sha256": "b21e9b158607315c3a4d033425273c3375d4df4e8ddee0587533e1042c1d4439",
+  "receipts": [
+    {
+      "material_index": 15,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs",
+        "sha256": "9db0cfc4b4c3053884d835faaca49a404c9942f7f0599b3069b89729fd8d7ae3",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            200,
+            209
+          ]
+        ],
+        "registration_evidence": "redundant-authority/prospective-source-registration-012.json",
+        "reason": "Complete current BoundaryAdmissionError tail200-204 and BoundarySupportProjection205-209 required by exact project return1812:60-63. Public mesh/gate_elevation compared with private mesh.binding.gate to inventory duplicate-datum candidate and coherent constructor. No defect promoted without actual admission/consumer proof."
+      },
+      "source_origin": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs",
+      "source_sha256": "9db0cfc4b4c3053884d835faaca49a404c9942f7f0599b3069b89729fd8d7ae3",
+      "read_ranges": [
+        [
+          200,
+          209
+        ]
+      ],
+      "inventory_and_semantics": "Boundary error source-field tail plus BoundarySupportProjection structural derives; no handwritten trait/codec. Projection gate/mesh coherence remains other-lens obligation, not accepted by this review.",
+      "disposition": "No new derivability candidate; retain semantic/native behavior and existing derives",
+      "evidence_basis": "Fresh personal exact registered body comparison for this material role; no other-lens verdict transfer",
+      "limits": "Only registered ranges, no unobserved callee/SDK/testexecution/runtime/global credit"
+    },
+    {
+      "material_index": 16,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/validate_city_support/projection.rs",
+        "sha256": "b76680bbe81ab56774ea8d7881c3ce266977abb71f95fd956c1c58007c0e46e5",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            1,
+            66
+          ]
+        ],
+        "registration_evidence": "redundant-authority/prospective-source-registration-013.json",
+        "reason": "Newly reached exact return contract of projection::check called by1996 Composition::compile before accepted=true; necessary to verify result versus acceptance authority."
+      },
+      "source_origin": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/examples/validate_city_support/projection.rs",
+      "source_sha256": "b76680bbe81ab56774ea8d7881c3ce266977abb71f95fd956c1c58007c0e46e5",
+      "read_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "inventory_and_semantics": "Projection check explicitly serializes via existing derive then reconstructs/compares accepted terrain and preserves rejection; native diagnostic boundary, not handwritten structural codec. No runtime/acceptance result inferred.",
+      "disposition": "No new derivability candidate; retain semantic/native behavior and existing derives",
+      "evidence_basis": "Fresh personal exact registered body comparison for this material role; no other-lens verdict transfer",
+      "limits": "Only registered ranges, no unobserved callee/SDK/testexecution/runtime/global credit"
+    },
+    {
+      "material_index": 17,
+      "registration": {
+        "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/rigged.rs",
+        "sha256": "2f337baa2edb2356e1f086aacf549696c63bfac639d03c5f0a9b564d675bb397",
+        "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+        "ranges": [
+          [
+            1,
+            60
+          ]
+        ],
+        "registration_evidence": "enum-shapes/source-extensions.jsonl#SEGO-INITIAL09-REGISTRATION-144A-rigged",
+        "reason": "Actual RiggedMesh/RiggedShell declarations defining export_body and optional custom skin/surface/texture payloads."
+      },
+      "source_origin": "cbbbca08c89a8768926799371f54cf6057312e5e:crates/adventuresim-character-creator/src/export/rigged.rs",
+      "source_sha256": "2f337baa2edb2356e1f086aacf549696c63bfac639d03c5f0a9b564d675bb397",
+      "read_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "inventory_and_semantics": "RiggedMesh/Shell/Morph payload definitions plus native global_transforms projection; no handwritten trait codec. Optional payload combinations and mesh correspondence remain separate correctness/enum-shape obligations.",
+      "disposition": "No new derivability candidate; retain semantic/native behavior and existing derives",
+      "evidence_basis": "Fresh personal exact registered body comparison for this material role; no other-lens verdict transfer",
+      "limits": "Only registered ranges, no unobserved callee/SDK/testexecution/runtime/global credit"
+    },
+    {
+      "material_index": 18,
+      "registration": {
+        "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/validation.rs",
+        "sha256": "61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb",
+        "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+        "ranges": [
+          [
+            1,
+            164
+          ]
+        ],
+        "registration_evidence": "enum-shapes/source-extensions.jsonl#SEGO-INITIAL09-REGISTRATION-144A-validation",
+        "reason": "Actual exported mesh/shell validation; required to distinguish invalid API shape from admitted normal product."
+      },
+      "source_origin": "cbbbca08c89a8768926799371f54cf6057312e5e:crates/adventuresim-character-creator/src/export/validation.rs",
+      "source_sha256": "61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb",
+      "read_ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "inventory_and_semantics": "Full164line rigged input/shell validator reads joint counts, parent/face/UV/weight/socket/finite constraints and paired skin selection. Semantic admission and contextual diagnostics, not structural derive duplication. No validation completeness/runtime claim.",
+      "disposition": "No new derivability candidate; retain semantic/native behavior and existing derives",
+      "evidence_basis": "Fresh personal exact registered body comparison for this material role; no other-lens verdict transfer",
+      "limits": "Only registered ranges, no unobserved callee/SDK/testexecution/runtime/global credit"
+    },
+    {
+      "material_index": 19,
+      "registration": {
+        "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/compact.rs",
+        "sha256": "4aa7045f30b54218cf1897ee3f74e1d8831a35debb7905ad3365a796e20f7ca9",
+        "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+        "ranges": [
+          [
+            1,
+            104
+          ]
+        ],
+        "registration_evidence": "enum-shapes/source-extensions.jsonl#SEGO-INITIAL09-REGISTRATION-144A-compact",
+        "reason": "Actual CompactShell constructor and rigged conversion may preserve/repair or flatten skin/surface payloads before shell writer."
+      },
+      "source_origin": "cbbbca08c89a8768926799371f54cf6057312e5e:crates/adventuresim-character-creator/src/export/compact.rs",
+      "source_sha256": "4aa7045f30b54218cf1897ee3f74e1d8831a35debb7905ad3365a796e20f7ca9",
+      "read_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "inventory_and_semantics": "Full104line CompactShell retains sorted used-vertex remapping across positions/normals/faces/joints/weights/morph channels then borrowed rigged projection. Semantic native topology adapter, no handwritten trait codec; skin/surface correspondence not globally cleared.",
+      "disposition": "No new derivability candidate; retain semantic/native behavior and existing derives",
+      "evidence_basis": "Fresh personal exact registered body comparison for this material role; no other-lens verdict transfer",
+      "limits": "Only registered ranges, no unobserved callee/SDK/testexecution/runtime/global credit"
+    },
+    {
+      "material_index": 20,
+      "registration": {
+        "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/textures.rs",
+        "sha256": "94523800edefb10ca1a28ebdf93b14b034f2b22b0900e406857bbfc8a5dbf99b",
+        "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+        "ranges": [
+          [
+            1,
+            170
+          ]
+        ],
+        "registration_evidence": "enum-shapes/source-extensions.jsonl#SEGO-INITIAL09-REGISTRATION-144A-textures",
+        "reason": "Actual GlbOutput/ShellTextures/SurfaceTextures and apply/apply_shell_textures needed to evaluate coexistence versus selection of texture sources."
+      },
+      "source_origin": "cbbbca08c89a8768926799371f54cf6057312e5e:crates/adventuresim-character-creator/src/export/textures.rs",
+      "source_sha256": "94523800edefb10ca1a28ebdf93b14b034f2b22b0900e406857bbfc8a5dbf99b",
+      "read_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "inventory_and_semantics": "GlbOutput/SurfaceTextures/TextureImages structural/default traits derive already. Native PNG/GPU image encoding, content-addressed file packaging and JSON glTF material/image assembly are semantic format adapters; no derive-equivalent custom serde trait. No I/O/generator/runtime or coexistence acceptance.",
+      "disposition": "No new derivability candidate; retain semantic/native behavior and existing derives",
+      "evidence_basis": "Fresh personal exact registered body comparison for this material role; no other-lens verdict transfer",
+      "limits": "Only registered ranges, no unobserved callee/SDK/testexecution/runtime/global credit"
+    }
+  ],
+  "checks": "not run",
+  "source_edits": false,
+  "clear": false
+}

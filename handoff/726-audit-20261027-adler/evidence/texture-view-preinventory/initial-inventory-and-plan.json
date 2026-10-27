@@ -1,0 +1,689 @@
+{
+  "kind": "BOUNDED_TEXTURE_VIEW_ALL13_INITIAL_DISCOVERY_WITH_FINDINGS_AND_IMPLEMENTATION_PLAN",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "original826": "d2e9f2f2984d33073386f0267a673fb7ac6478a3",
+  "canonical826": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+  "pins_read_only": true,
+  "source_accounts": [
+    {
+      "snapshot": "original",
+      "revision": "d2e9f2f2984d33073386f0267a673fb7ac6478a3",
+      "path": "crates/fabelgeist-gpu/README.md",
+      "sha256": "2950b32efa885b1c1cad27e6ed1939afd3a809fc0dce1b65e6870f624c34c2cd",
+      "actual_eof": 34,
+      "read_ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "qualification": "Exact bounded responsibility ranges only; whole-file credit not inferred from stored bytes when ranges are partial."
+    },
+    {
+      "snapshot": "original",
+      "revision": "d2e9f2f2984d33073386f0267a673fb7ac6478a3",
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "49bcdfe59e814d39c3f082ae348d60e7f04db04f7facf715d82c74eb0c450ab1",
+      "actual_eof": 53,
+      "read_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "qualification": "Exact bounded responsibility ranges only; whole-file credit not inferred from stored bytes when ranges are partial."
+    },
+    {
+      "snapshot": "original",
+      "revision": "d2e9f2f2984d33073386f0267a673fb7ac6478a3",
+      "path": "crates/fabelgeist-gpu/tests/texture_views.rs",
+      "sha256": "95e306d123114d0fd5179e10175ec4820cd0801377c499e1ea2d7a7765548d6a",
+      "actual_eof": 201,
+      "read_ranges": [
+        [
+          1,
+          201
+        ]
+      ],
+      "qualification": "Exact bounded responsibility ranges only; whole-file credit not inferred from stored bytes when ranges are partial."
+    },
+    {
+      "snapshot": "original",
+      "revision": "d2e9f2f2984d33073386f0267a673fb7ac6478a3",
+      "path": "crates/fabelgeist-gpu/tests/fixtures/texture_views.json",
+      "sha256": "2fa289e171e23b95b647a08e4cda05155e304750376625a01ba8fb34802af800",
+      "actual_eof": 19,
+      "read_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "qualification": "Exact bounded responsibility ranges only; whole-file credit not inferred from stored bytes when ranges are partial."
+    },
+    {
+      "snapshot": "original",
+      "revision": "d2e9f2f2984d33073386f0267a673fb7ac6478a3",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "bd83bf075dd74e6fad325c90670baca2525d83e74b6edaef7fd24189c95573f2",
+      "actual_eof": 107,
+      "read_ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "qualification": "Exact bounded responsibility ranges only; whole-file credit not inferred from stored bytes when ranges are partial.",
+      "read_method": "Exact original d2 error source personally consumed earlier in this intake at same immutable revision; full source compared with canonical successor and alias/doctest tail freshly consumed. No other reviewer verdict adopted."
+    },
+    {
+      "snapshot": "main",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "5fcedc2343591f9fdc806e66e0e0f619d352e9c1f19d615603fda80cc7168e64",
+      "actual_eof": 43,
+      "read_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "qualification": "Exact bounded responsibility ranges only; whole-file credit not inferred from stored bytes when ranges are partial."
+    },
+    {
+      "snapshot": "main",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "actual_eof": 5,
+      "read_ranges": [
+        [
+          1,
+          5
+        ]
+      ],
+      "qualification": "Exact bounded responsibility ranges only; whole-file credit not inferred from stored bytes when ranges are partial."
+    },
+    {
+      "snapshot": "main",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "6e2670fe84e2a52c6a3564e86e21afea029ca881107b7d239503c08e65779bcd",
+      "actual_eof": 2,
+      "read_ranges": [
+        [
+          1,
+          2
+        ]
+      ],
+      "qualification": "Exact bounded responsibility ranges only; whole-file credit not inferred from stored bytes when ranges are partial."
+    },
+    {
+      "snapshot": "main",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "dd7c6c3515b7f79314eccb5a4be41e3ec6856c0c5c26f3788df27473b1f12834",
+      "actual_eof": 314,
+      "read_ranges": [
+        [
+          1,
+          38
+        ],
+        [
+          88,
+          122
+        ],
+        [
+          250,
+          314
+        ]
+      ],
+      "qualification": "Exact bounded responsibility ranges only; whole-file credit not inferred from stored bytes when ranges are partial."
+    },
+    {
+      "snapshot": "main",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+      "sha256": "7c7b4670cbdd5847e69c0111c94c0d23c85efdda6425ab68a88c0aadeba59da0",
+      "actual_eof": 14,
+      "read_ranges": [
+        [
+          1,
+          14
+        ]
+      ],
+      "qualification": "Exact bounded responsibility ranges only; whole-file credit not inferred from stored bytes when ranges are partial."
+    },
+    {
+      "snapshot": "main",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "f39d58cf125a285049e50785f064d1d2ca80cfe654b9e593b5c62fc3670d246c",
+      "actual_eof": 675,
+      "read_ranges": [
+        [
+          1,
+          55
+        ],
+        [
+          402,
+          447
+        ]
+      ],
+      "qualification": "Exact bounded responsibility ranges only; whole-file credit not inferred from stored bytes when ranges are partial."
+    },
+    {
+      "snapshot": "main",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "54fd6bf08dac13bcf5ba8d9d64a54d6f6543a6a5e26beb1ff3a8d3f0989d81ea",
+      "actual_eof": 313,
+      "read_ranges": [
+        [
+          1,
+          55
+        ],
+        [
+          265,
+          313
+        ]
+      ],
+      "qualification": "Exact bounded responsibility ranges only; whole-file credit not inferred from stored bytes when ranges are partial."
+    },
+    {
+      "snapshot": "main",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "f0586f192d129825c11541db615cb1882433f862d473e768d8a224af53541bc0",
+      "actual_eof": 1003,
+      "read_ranges": [
+        [
+          1,
+          55
+        ],
+        [
+          274,
+          315
+        ],
+        [
+          601,
+          643
+        ]
+      ],
+      "qualification": "Exact bounded responsibility ranges only; whole-file credit not inferred from stored bytes when ranges are partial."
+    },
+    {
+      "snapshot": "main",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "actual_eof": 484,
+      "read_ranges": [
+        [
+          1,
+          88
+        ],
+        [
+          249,
+          415
+        ]
+      ],
+      "qualification": "Exact bounded responsibility ranges only; whole-file credit not inferred from stored bytes when ranges are partial."
+    },
+    {
+      "snapshot": "canonical",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "ea88edf6a0bafded0eb2036e091a1d30a9d027ba247359ee5024983a77cce77c",
+      "actual_eof": 11,
+      "read_ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "qualification": "Exact bounded responsibility ranges only; whole-file credit not inferred from stored bytes when ranges are partial."
+    },
+    {
+      "snapshot": "canonical",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "78737ed29bb25ecca79c079f6676afa0719fa8bfe65a9051b56536de280cfd63",
+      "actual_eof": 113,
+      "read_ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "qualification": "Exact bounded responsibility ranges only; whole-file credit not inferred from stored bytes when ranges are partial."
+    },
+    {
+      "snapshot": "canonical",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "79e4c931540af7e78e64ccb4819d93997800e554add2de78141df25c11f8040b",
+      "actual_eof": 165,
+      "read_ranges": [
+        [
+          1,
+          165
+        ]
+      ],
+      "qualification": "Exact bounded responsibility ranges only; whole-file credit not inferred from stored bytes when ranges are partial."
+    },
+    {
+      "snapshot": "canonical",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "0d8100e52a87510bab94ff9d3cad2d5428152ab3e3d74372376a82df3275881a",
+      "actual_eof": 112,
+      "read_ranges": [
+        [
+          12,
+          68
+        ]
+      ],
+      "qualification": "Exact bounded responsibility ranges only; whole-file credit not inferred from stored bytes when ranges are partial."
+    },
+    {
+      "snapshot": "canonical",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "d65e7afd1fd3c33a56a8df0661712768e562d6665e7e61eea7f61cd9ccdf4fee",
+      "actual_eof": 112,
+      "read_ranges": [
+        [
+          12,
+          68
+        ]
+      ],
+      "qualification": "Exact bounded responsibility ranges only; whole-file credit not inferred from stored bytes when ranges are partial."
+    },
+    {
+      "snapshot": "canonical",
+      "revision": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "cd05d6421bbca3cbc7692ed4fe9c5ff5d730a7da827247ab70f58f15a7d89d98",
+      "actual_eof": 202,
+      "read_ranges": [
+        [
+          16,
+          73
+        ]
+      ],
+      "qualification": "Exact bounded responsibility ranges only; whole-file credit not inferred from stored bytes when ranges are partial."
+    }
+  ],
+  "scope": "ThreewholeTexture2d/3d/Cube::view_with_format errorproducer/unchangedComputePassrecipients; canonicalnativeValidationScope; existingpublishedfixture/docrecovery; necessarymodule/docs/hostedselection. No broadGPU/privateTexture/generated/physicalmigration.",
+  "selected_initial_lenses": [
+    {
+      "lens": "01",
+      "name": "producer propagation",
+      "discovery": "COMPLETE_WITHIN_EXPLICIT_SCOPED_FAMILY",
+      "source_backed_dispositions": [
+        "main2d402-447/3d265-309/cube601-643 produce ArcView or generictext after native create_view; original source introduces typed producer result and realboxednativecause; same-format MissingView replaces unwrap.",
+        "mainComputePass272/301/329 consumes whole-view Result with? into existinganyhow Result at37-45; dispatch23-31 also uses? beforequeue.submit. Noapplication intermediary extracts/reconstructs error or format.",
+        "CanonicalValidationScope factories preserve actualdevice/guard and return actualSDK observation cause. from_observation keeps originalformat andclosedmethodrole, not effective linearformat. No #779 count/stride/Core producer needed."
+      ],
+      "required_repairs": [
+        "Recovertypedproducer/error owner and canonicalProgress receivingpath inall3bodies."
+      ],
+      "acceptance": [
+        "No genericString producer remains in scopedview operation; actualNativeandProgress causes reachunchangedcallers."
+      ]
+    },
+    {
+      "lens": "02",
+      "name": "existing type owners",
+      "discovery": "COMPLETE_WITHIN_EXPLICIT_SCOPED_FAMILY",
+      "source_backed_dispositions": [
+        "TextureFormat alreadyowns format vocabulary; wgpu::TextureView/Error/PollError/ErrorScopeGuard and ArcDevice are actualSDK roles; globals canonicalValidationScope/ProgressError/ScopeError from19a6 aretheexactexistingreceivers.",
+        "Scopedmaindefinition search finds no TextureViewError/ValidationScope/ValidationProgressError/ValidationScopeError. OriginalTextureViewResult is theexistingpublished826 owner to recover, not createparallelerror.",
+        "Do notborrowGPU BufferByteLength/WorkgroupGrid or add #780 dependency; no numericlaunch/bytequantity crosses thisslice."
+      ],
+      "required_repairs": [
+        "Usecanonicalhelperpathandtypenames; importonlyitsreexports, notcanonicalcallback_progress or entireWGPUcontextrewrite."
+      ],
+      "acceptance": [
+        "One sharedhelper; futurefull826 callers consumeit directly."
+      ]
+    },
+    {
+      "lens": "03",
+      "name": "admission contracts",
+      "discovery": "COMPLETE_WITHIN_EXPLICIT_SCOPED_FAMILY",
+      "source_backed_dispositions": [
+        "mainDefault exposes allfourcache/nativeabsencecombinations; matchingformat checks cachefirst andmustreturnMissingView beforeadmittingnative/context. Originaltests103-141 explicitlycoverthisprecedence anddetachedcache.",
+        "Alternateformat requiresnative beforecreatingview; formatadmission alreadyTextureFormat, storageusage+is_srgb maps onlyeffectiveSDKdescriptor; no newformatrestriction.",
+        "ValidationScope::new receivesactualcontext; disabledpolicy returnsNone beforeguard, nativeenabledclonescontextdevice andpushesguardthere. Error construction accepts actual SDKerror values, not parsed/fabricatedmessages."
+      ],
+      "required_repairs": [
+        "Replace3cacheunwraps; mapalternateNone totypedUninitialized; native-observationconstructoronlycfgnotwasm."
+      ],
+      "acceptance": [
+        "Preservevalidcached/nativeabsencestates and exactMissingView/Uninitialized priority. F2independentmutablemetadata/deviceprovenance remains explicitbroaderobligation."
+      ]
+    },
+    {
+      "lens": "04",
+      "name": "invariant operations",
+      "discovery": "COMPLETE_WITHIN_EXPLICIT_SCOPED_FAMILY",
+      "source_backed_dispositions": [
+        "Scopedview methodsborrow &self and neverreplacecache/metadata. Nativeview is returnedonlyafter successfulenabledobservation; failure drops localview.",
+        "Canonicalfinish78-90 performs device.poll before guard.pop unconditionally, thenmatches bothresults. PollerrorcannotreturnOk; optionalnativeerrorretained evenwhenpollfails. No early? discards scopepop/nativecause.",
+        "No arithmetic/indexing/narrowing added; SDKformatprojection andCube6layerdescriptor areunchangednative operations."
+      ],
+      "required_repairs": [
+        "Usecanonicalfinish exactordering and mappedProgress variant; neverignorepollresult orreturnbeforepop."
+      ],
+      "acceptance": [
+        "(Ok,None)=>Ok;(Ok,SomeNative)=>Native;(ErrPoll,optionalNative)=>Progress. No returnedview afterfailedobservation."
+      ]
+    },
+    {
+      "lens": "05",
+      "name": "aggregate states",
+      "discovery": "COMPLETE_WITHIN_EXPLICIT_SCOPED_FAMILY",
+      "source_backed_dispositions": [
+        "CanonicalValidationScope privatelyretains samefactoryArcDevice+SDKguard; no independentlywritableownerfields. ProgressError requiresactualPollError andoptionallytheNativeerror captured bysamescope.",
+        "TextureViewError per-dimNativevariants bindrequest+actualcause; Progress bindsrequest+closedoperation+ProgressError. No separateboolean indicatingpayloadvalidity.",
+        "ExistingTexture2d/3d/Cube publicview/native/format/usage can disagree; actualbindingconsumerreads themseparately. This isledgerF2existingaggregate migration and isnot fixedor certified bytypederrors."
+      ],
+      "required_repairs": [
+        "Keephelperprivatefields andcorrelatedpayload-bearingerrors."
+      ],
+      "acceptance": [
+        "No ad-hocguard/deviceparameters or Progresswithoutpollcause; F2 remainsvisible pending."
+      ]
+    },
+    {
+      "lens": "06",
+      "name": "type ownership",
+      "discovery": "COMPLETE_WITHIN_EXPLICIT_SCOPED_FAMILY",
+      "source_backed_dispositions": [
+        "Texture-ownedTextureViewError/Result/Operation fitformat-view domain; globalsValidationScope/Progress/ScopeError fit sharednative observation ratherthanoneTexturekind.",
+        "Canonical19a6 exacthelper source hasno#780imports andneedsonlyexisting WgpuContext/device/policy,pollster,wgpu,anyhow,std; importingitdoesnotstealreduction/layout owners.",
+        "Canonicallaterselect_view/device/privateTexturefields crossbroaderF2graph andmustnotoverwrite mainstructs or stale#780Map files duringthisextraction."
+      ],
+      "required_repairs": [
+        "Recovercanonicalowneronce; nolegacyalias/temporaryforwarder/secondvalidationhelper."
+      ],
+      "acceptance": [
+        "Futurefull826integration reusesglobals::ValidationScope; scopeerrors staygloballyavailable."
+      ]
+    },
+    {
+      "lens": "07",
+      "name": "redundant authority",
+      "discovery": "COMPLETE_WITHIN_EXPLICIT_SCOPED_FAMILY",
+      "source_backed_dispositions": [
+        "RequestedTextureFormat andeffectiveSDKformat intentionallydiffer forstorage-sRGB; originalrequestbelongsindiagnostic whileeffectiveformatbelongsindescriptor. Theyarenotcompetingauthorities.",
+        "Per-dimnativevariants ownoperationimplicitly; Progress requiresoperationbecauseitsnativecausemay beabsent. No duplicatedflagplusoptionalerror state.",
+        "Scopeowns actualdevice whenfactorycalled; borrowedpolicy isread once todecideguard. ExistingTexturemetadata/cache/nativeassociation ambiguity remainsF2, notsilentlycleared."
+      ],
+      "required_repairs": [
+        "Retainoriginalrequestthroughfrom_observation; descriptorusesprojectedformat only."
+      ],
+      "acceptance": [
+        "No cache mutation/invalidation added; no claimof F2coherence."
+      ]
+    },
+    {
+      "lens": "08",
+      "name": "behavior preservation",
+      "discovery": "COMPLETE_WITHIN_EXPLICIT_SCOPED_FAMILY",
+      "source_backed_dispositions": [
+        "Matchingformat/nativepresent shareidenticalcachedArc; missingcache changespanic toMissingView deliberately; matchingformat/detachednative stillreturns cache. Alternateformat/absentnative retainsUninitializedmessage.",
+        "Ownednativeformatdescriptor labels/dimensions/layers/storageprojection unchanged. Native-onlyerrors retain exactmethodprefix+originalrequest+nativeDisplay butnowpreserveactualSDKsource.",
+        "Disabledblocking_validation deliberatelyskipsnativeobservation for3wholeviewmethods, extendingexistingcontextpolicy. Nativepollfailure deliberatelybecomesProgress instead ofignoredsuccess. WASM retainsno synchronousnativewait.",
+        "MainCube face method haslaterWASMunusedcontextattribute; preserveit andalluntouchedbodies. Original4tests/JSON/compilefailcode remainexact; originalREADMEguidepollingclaims requireupdatefortheauthorizedpolicychange."
+      ],
+      "required_repairs": [
+        "Documentintentionalpolicy/failurechanges andpreservealluntouchedbytes; noexistingtestweakening."
+      ],
+      "acceptance": [
+        "Byteexactoriginalfixtures; exactsuccessdescriptorbehavior bysource, hostedexistingnativecases needed beforemerge."
+      ]
+    },
+    {
+      "lens": "09",
+      "name": "enum and state shapes",
+      "discovery": "COMPLETE_WITHIN_EXPLICIT_SCOPED_FAMILY",
+      "source_backed_dispositions": [
+        "Three meaningfulTextureViewOperation roles explainwhichviewmethodlostprogress; do not add CubeArray/WrongDevice/NotTexture/formatdimensionvariantswithouttheiractualproducergraph.",
+        "ValidationScopeError distinguishesobservedNativefailure fromfailedProgress; ProgressError.native Optionisrealindependentcaptureavailability, pollisrequired. OriginalMissingView/Uninitializeddistinctbecausepriorityisdifferent.",
+        "Existingcontextblocking_validation remainsconfigurationpolicy usedbynativefactory, notapair ofnew correlatedstateflags. No sentinel/prose/statusnumericcodes introduced."
+      ],
+      "required_repairs": [
+        "Useclosed3-roleoperation andpayloadvariants; no option/errorflag parallelstates."
+      ],
+      "acceptance": [
+        "Exactnamedvariantclassification reachescallers; no erasedmethodkind."
+      ]
+    },
+    {
+      "lens": "10",
+      "name": "derivability",
+      "discovery": "COMPLETE_WITHIN_EXPLICIT_SCOPED_FAMILY",
+      "source_backed_dispositions": [
+        "CanonicalmanualProgressError::source intentionallyprioritizescapturednative ifpresent elsepoll; ScopeError::source selectsactualcause. Amechanicalderive withonesourcefieldcannotexpresspriority.",
+        "Display bodies preserveoriginalmethodprefixes andconditionalnative+poll diagnostics; builtinDebug/Clone/Copy derives applytoroles. CurrentGPUMetadatahasno directderive_more/thiserrordependency; addingonejusttohide shortmanualcausepolicy unnecessary.",
+        "Originalcompilefail codebelongs onResultaliasandmustremainexact; no serde/Fromderive should admitfakeSDKfailure or metadata."
+      ],
+      "required_repairs": [],
+      "acceptance": [
+        "Retainnecessarymanualmapping/causepriority; no newdependency ordoctest."
+      ]
+    },
+    {
+      "lens": "11",
+      "name": "type granularity",
+      "discovery": "COMPLETE_WITHIN_EXPLICIT_SCOPED_FAMILY",
+      "source_backed_dispositions": [
+        "Per-kindNativeerrorvariants retainexistingpublicdiagnosticandfixtureclassification. Progress operationrole preventswrongmethoddiagnostic withoutmakingthreeidenticalprogressstructs.",
+        "Scopeguard/resourceassociation isonecohesiveprivateaggregate; progresscause isownstructbecausetwoactualindependentcauses cancoexist. No universalGPUError/countframework needed.",
+        "ArcSDKview isactualnativeproduct; wrappingitsidentitywithoutclosingF2wouldaddnoacceptedguarantee, so keeporiginalreturn shape andexplicitbroaderlimit."
+      ],
+      "required_repairs": [],
+      "acceptance": [
+        "No speculativefullselected-view/private-resourcecutover inthisslice; originaltypedResultandactualsharedguardonly."
+      ]
+    },
+    {
+      "lens": "12",
+      "name": "raw strings",
+      "discovery": "COMPLETE_WITHIN_EXPLICIT_SCOPED_FAMILY",
+      "source_backed_dispositions": [
+        "Errorformatstrings areterminalDisplayboundaries andfixtureNativeprefixes areexplicitexpecteddiagnostics; applicationcode doesnotbranchon them. MissingView/Uninitialized becomevariants ratherthanliteralclassification.",
+        "TextureCube View descriptorlabel remainsnativeSDKlabel. OriginalfixtureMethodserde snake_case andJSONstored/requestedformats areexistingtestwiredata; no productionvocabularyderivedfromprose.",
+        "Guide andcontextdocs muststate actualskip/progress/pollpolicy, exactnativelimits, andpendingF2/F6. No claimsofcurrentruntimepass fromhistoricalsoftwareVulkan report."
+      ],
+      "required_repairs": [
+        "Rewriteguideparagraph claimingpollingunchanged; correctcontextfieldpolicysummarywithoutclaimingalltextureconstructorsnowhonorpolicy."
+      ],
+      "acceptance": [
+        "No textmatchinglogic or newstringlyerror; 80-columnowningdocs only."
+      ]
+    },
+    {
+      "lens": "13",
+      "name": "raw primitives",
+      "discovery": "COMPLETE_WITHIN_EXPLICIT_SCOPED_FAMILY",
+      "source_backed_dispositions": [
+        "No new numeric arithmetic occurs inerror/nativeobservationpath. Cube layercount6 isexistingnativecubedescriptor; enumformats/layerdimension remaintypedSDK values.",
+        "Existingpublicfixtureextents2.0, casesarray3 and nativeformatnames areauthorednumerical/serializationboundarydata andstaybyteexact. No new magicprobability/unit/fatigue/movementpolicy introduced.",
+        "Contextbool andcfgpredicates governexistingproviderpolicy; actualpollresultusestypedSDKResult, neverzero/infinity/-1sentinel. No unitwrappersneededfornativeerror/storagebitflags."
+      ],
+      "required_repairs": [],
+      "acceptance": [
+        "Preserveallfixtures/descriptors/successbits; actualSDKboundaryjustifiesretainedrawlabels/flags/layers."
+      ]
+    }
+  ],
+  "initial_discovery_complete_within_this_scope": true,
+  "completed_postrepair_waves": 0,
+  "cleared_final_lenses": 0,
+  "implementation_status": "NOT_STARTED_BY_THIS_AGENT",
+  "required_repairs": [
+    {
+      "id": "TV-R1",
+      "classification": "bespokeproducer/errorandpaniccorrection",
+      "source": "mainviewcacheunwrap/erroranyhowbodies",
+      "repair": "Typedproducerresultsandnativecauses, MissingView/Uninitializedbranchnamesandpriority."
+    },
+    {
+      "id": "TV-R2",
+      "classification": "existingpolicyviolationinthreeaffectednativebodies",
+      "source": "mainunconditionalpush/pollvsWgpuContext::from_partsfalse;826F1",
+      "repair": "CanonicaloptionalnativeValidationScope; existingborrowedpolicyhonored."
+    },
+    {
+      "id": "TV-R3",
+      "classification": "ignorednativeprogressfailure",
+      "source": "mainlet_=device.poll;canonicalactualScopefinishandreceipt",
+      "repair": "Pollthenalwayspopscope; classifyactualPollErrorplusoptionalNative; preserveearlierNativeasprimarysourceifbothpresent."
+    },
+    {
+      "id": "TV-R4",
+      "classification": "documentationtruthfulnessandvalidationcoverage",
+      "source": "originalguidesayspollingunchanged/currentcontextonlyshaderpipeline;missingcurrenttextureworkflowcells",
+      "repair": "Scopedcurrentpolicy/progressdocsandhostedexistingfixture/docselection."
+    }
+  ],
+  "planned_patch": [
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "source": "19a6b62687713b9ecfa7aa137003f11bd662baf9",
+      "action": "Recover wholecanonicalhelper exactbytes. No newparallelAPI; keepinto_anyhowforitsactualcanonicalsharedreceivers."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "source": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "action": "Keepcurrentcontextmodule; addnativecfgValidationScope reexport plusProgressError/ScopeError/ScopeResult andmodvalidation_scope, allimports/reexportsbeforemods. Do notcopycanonicalcallback_progress."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "source": "original typedvariants +canonicalProgress/from_observation",
+      "action": "Recoveroriginalenum,Resultaliasandcompilefailcode; add3-roleOperationenum andProgresspayload; mapcanonicalScopeError actualcauses. PreserveNative-onlyvariants/source/Displayprefixexact. No unusedbroaderF2/CubeArrayvariants."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+      "source": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "action": "Register/reexportview_error owner; preserveexistingmodules."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "source": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "action": "Change only view_with_format andrequiredimports: typedResult, cacheok_orMissingView, nativeok_orUninitialized, canonicaloptionalValidationScope factory/finish\u2192from_observation withTexture2d. Preserveoriginaldescriptor/storageprojection/cachefirst andallotherbodies; cfg-nativeimports preventWASMunusedeffects."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "source": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "action": "Change only view_with_format andrequiredimports: typedResult, cacheok_orMissingView, nativeok_orUninitialized, canonicaloptionalValidationScope factory/finish\u2192from_observation withTexture3d. Preserveoriginaldescriptor/storageprojection/cachefirst andallotherbodies; cfg-nativeimports preventWASMunusedeffects."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "source": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "action": "Change only view_with_format andrequiredimports: typedResult, cacheok_orMissingView, nativeok_orUninitialized, canonicaloptionalValidationScope factory/finish\u2192from_observation withTextureCube. Preserveoriginaldescriptor/storageprojection/cachefirst andallotherbodies; cfg-nativeimports preventWASMunusedeffects."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "source": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "action": "Scopedpolicyprosecorrection aroundblocking_validation: shader/pipeline andwholetexturealternateviewsmayobservethenativepolicy, owned/borrowedpolicyintent; nofalseinstant/inevitablehangclaim. No constructor/submissioncode/testassertionchange; broaderF9commentsremainidentified."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/tests/texture_views.rs",
+      "source": "d2e9f2f2984d33073386f0267a673fb7ac6478a3",
+      "action": "Recoverbyteexactfourexistingpublishedcasesandhelpers/assertions; no edits/additions."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/tests/fixtures/texture_views.json",
+      "source": "d2e9f2f2984d33073386f0267a673fb7ac6478a3",
+      "action": "Recoverbyteexactfixture."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "source": "originaldiffonmain",
+      "action": "Owningcratelinktoformat-viewguide; keepothermainbytes."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "source": "d2e9f2f2984d33073386f0267a673fb7ac6478a3",
+      "action": "Recoverguidewithnativepolicy/progress/followuplimitsupdatedand80-columnprose. Existingrustexample unchanged; noprematurefreshvalidationclaim."
+    },
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "source": "canonicaltexture-viewcells106-122onlyonmain",
+      "action": "Recoverexistingtextureintegration/doccommandcells andsourceidentity/artifactcapture; preserveallmaingates. Existingborrowedcontextunitselection mayreuseactualcurrenttestfilter; no newtest/helper/probe. Strengthenexit/nonempty/sourceevidenceinlineasneeded."
+    }
+  ],
+  "broader_obligations_retained": [
+    {
+      "id": "826F2",
+      "scope": "Publiccache/native/metadata/devicecoherence andSelectedTextureView throughbinding/resourceconsumers",
+      "status": "EXISTING_BROADER_PENDING_NOT_CLEARED_BY_THIS_SLICE"
+    },
+    {
+      "id": "826F1-F6-untouched",
+      "scope": "Initialtextureconstructors,cubeface/arrayviewsnativepolicy/causepreservation",
+      "status": "EXISTING_BROADER_PENDING_NOT_CLEARED_BY_THIS_SLICE"
+    },
+    {
+      "id": "826F9-untouched",
+      "scope": "Othercontext/submission/pipeline/image-commentaccuracy",
+      "status": "EXISTING_BROADER_PENDING_NOT_CLEARED_BY_THIS_SLICE"
+    },
+    {
+      "id": "780-826combined",
+      "scope": "Generated/core/native/callers/lib/prelude/locks/body/fitting/material/exportgraph",
+      "status": "PENDING_CANONICAL_FUNCTION_LEVEL_COMPOSITION_NOT_IMPORTED"
+    }
+  ],
+  "native_observation_contract": {
+    "factory": "SamecontextactualArcDevice+SDKguard keptprivate; None whenblocking_validationfalse; nativeonlyguard/waitpaths.",
+    "finish_order": [
+      "pollwait_indefinitely withnoexplicitSDKtimeout",
+      "alwayspopguardwithpollsterblock_on, evenfailedpoll",
+      "matchbothactualresults"
+    ],
+    "classification": {
+      "pollOk_nativeNone": "Ok",
+      "pollOk_nativeSome": "Native(actualwgpuError)",
+      "pollErr_nativeOptional": "Progress{actualPollError,optionalactualwgpuError}"
+    },
+    "source_priority": "ProgressError::source usesactualcapturedNativewhenpresent, otherwiseactualpoll; bothpublicfieldsretained. TextureViewErrorNativeonlysourceisactualwgpuErrorasbeforeoriginaltest; ProgresssourceistypedProgressError.",
+    "publication": "NoArcview returnedafterfailedobservation; noTexturecachemutation; nativeproviderpanic/devicehealth notgloballycertified."
+  },
+  "acceptance": {
+    "existing_tests": [
+      "Fouroriginalpublishedtexture_views cases201lines/JSONfixturebyteexact",
+      "Originalcompile_failResultaliasguardcodeexact",
+      "Existingborrowedcontextunitactualfilterifselected; no newassertions/cases/helpers"
+    ],
+    "hosted_commands": [
+      "cargo test --locked --package fabelgeist-gpu --test texture_views -- --test-threads=1 --nocapture",
+      "cargo test --locked --package fabelgeist-gpu --doc",
+      "cargo test --locked --package fabelgeist-gpu --lib globals::wgpu_context::tests::a_borrowed_device_skips_blocking_validation -- --exact --test-threads=1 --nocapture",
+      "Requiredexistingformat/generatedbindings/semanticgrowth/native/WASMlintgatesatexactfinalPRhead"
+    ],
+    "source_reviews": "Successorcomplete13foractualpatch andindependentCode/Rule/Comment ononefrozenfilemanifest; thisinitialledger isnotfinalclearance.",
+    "validation_limits": [
+      "ExistingfixturesdonotdirectlyinducenativePollError orforeign-device/corruptedmetadata; staticfailuretraceonlyforthosebranches.",
+      "No newtests/cases/helpers/assertions/doctests. No localprojectchecks.",
+      "No broadsoftwareprovidernumerical/CreatorSIGSEGV passcurrentclaim; no browserruntime/hardwarewide/32bit/performance/calibratedrendererverdict."
+    ]
+  },
+  "publication_sequence": "PreparelocalsliceindependentlyfromcurrentmainwhilefirstPRpending; publishonlysourcecomplete/reviewed familywhenuserincrementalmergeflowallows, neverdeepunmergedstack.",
+  "source_edits": false,
+  "git_state_mutations": false,
+  "project_checks": false,
+  "implementation_summary": [
+    "Recover the existing typed whole-texture view-result contract and its four published integration cases.",
+    "Use the exact canonical ValidationScope helper, preserving poll-before-pop ordering and both actual causes on progress failure.",
+    "Adapt only the three whole-texture view methods. Keep cache-first behavior and descriptor projection, then reject failed enabled observations before returning the new view.",
+    "Keep current main structs and unchanged ComputePass callers. Do not import selected-view/device/private-field changes or generated compute files from either recovery branch.",
+    "Correct scoped policy documentation and recover only the existing hosted texture-view execution cells. Complete fresh source reviews before any publication.",
+    "Track public metadata/device coherence, untouched constructors and other native families separately; this increment does not grant broad #826 acceptance."
+  ]
+}

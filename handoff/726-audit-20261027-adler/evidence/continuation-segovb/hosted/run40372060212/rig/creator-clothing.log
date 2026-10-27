@@ -1,0 +1,18 @@
+[1m[92m    Finished[0m `test` profile [unoptimized] target(s) in 4.17s
+[1m[92m     Running[0m unittests src/lib.rs (crates/adventuresim-character-creator/target/debug/deps/adventuresim_character_creator-9aa74abd4e2be238)
+
+running 11 tests
+test clothing::admission_tests::absent_landmark_keeps_its_identity_and_error_classification ... ok
+test clothing::regions::tests::skin_queries_preserve_head_prefix_axilla_exactness_and_waist_twist_exclusions ... ok
+test clothing::rig_selection::tests::skin_family_retains_exact_and_unconstrained_twist_prefix_policy ... ok
+test clothing::tests::anchors_clip_the_requested_fraction ... ok
+test clothing::tests::catalog_material_class_controls_shell_offset ... ok
+test clothing::tests::concavity_relaxation_does_not_flatten_a_convex_peak ... ok
+test clothing::tests::concavity_relaxation_raises_a_valley_without_moving_its_opening ... ok
+test clothing::tests::coordinate_continues_across_multiple_bones ... ok
+test clothing::tests::offset_garment_positions_weld_split_source_vertices ... ok
+test clothing::tests::placeholder_faces_preserve_source_topology_after_arbitrary_deformation ... ok
+test clothing::tests::recomputed_surface_normals_are_unit_length ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 137 filtered out; finished in 0.00s
+

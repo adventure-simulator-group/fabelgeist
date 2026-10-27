@@ -1,0 +1,78 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-206",
+  "at": "2026-10-25T21:38:28.577571+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2164,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/lib.rs",
+      "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+      "personally_read_ranges": [
+        [
+          1,
+          4796
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full4796-line frozen world schema in12 bounded source packets, including all existing test bodies, no execution. Private drought history ties category counts/current year and feasible20-year mean; customSerde checks, while rawSATS route must be independently admitted.",
+        "Closed religious status/industry/soil/historical vegetation enums bind variant-specific payload. ReligionMinutes dedups/sorts<=7targets before splitting; raw ReligionHours accumulation retains finite/arithmetic admission qualification.",
+        "Private land use profile enforces exact sum10000 with widened arithmetic and derives intensity; private species profiles enforce bounded nonempty distinct identities and canonical sort. Suitability posterior independent scores deliberately not normalized (fixture uses six5000 values). SDK decoding guarantee not inferred from customSerde.",
+        "Historical vegetation context checks actual direct fraction and convergent wetland context while other derived/fallback categories intentionally returntrue; no generic full reconstruction equality claim.",
+        "Private RouteElevationProfile checks cardinality/endpoints/progress order; raw validation rechecks scalar leaves. RouteTerrain.validate and validate_context bind grade signs,mean/max,aspect/class,exact derived ascent/descent/grade/relief/risks/tags and canonical bounded sets. Native source observations still separate from full source provenance.",
+        "Retain inherited ROOT-ADM-F007/RIG-INITIAL06-F012/RIG-PPS-F008 raw public TravelGeometryPoint and enabledSATS bounded named-product/RouteTerrain gaps; source getters expectchecked axis despite public raw fields. No observed bad row/run or new duplicate.",
+        "Canonical industry inference derives context evidence/scale and caps peatLocal. NewF002 records only public InferredIndustryProfile::new vsvalidate mismatch for RegionalPeat, explicitly distinguishes ordinary inference path.",
+        "Complete raw CompiledWorld/metadata/node/edge/settlement/alias/description DTOs do not themselves perform whole-world graph/economy admission. Earlier2162 tier-score/specialization association question still awaits actual import validator/finalizer; this file does not close it."
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "ADLER-RESUMED05-F002",
+      "lens": "audit-aggregate-states",
+      "classification": "Public industry-profile constructor and validation disagree on a representable scale/evidence aggregate",
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/lib.rs",
+      "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+      "source_ranges": [
+        [
+          2081,
+          2086
+        ],
+        [
+          2099,
+          2109
+        ],
+        [
+          2145,
+          2168
+        ],
+        [
+          2175,
+          2189
+        ],
+        [
+          2233,
+          2242
+        ],
+        [
+          2472,
+          2481
+        ]
+      ],
+      "relationship": "A successfully constructed private-backed industry profile should obey the same scale restrictions enforced by its own validation and decoder.",
+      "source_counterexample": "InferredIndustryProfile::new(vec![IndustryEvidence::Derived(DerivedIndustry::PeatCutting(PeatCuttingIndustry{scale:ProductionScale::Regional}))]) returnsSome: nonempty,len1,no duplicate. Calling validate on that exact returned value rejects at2186..2187 because regional peat cutting is outside the model. Serializing then manually Serde decoding also rejects through validate at2241.",
+      "actual_path": "Source-only supported public constructor\u2192returned private-backed aggregate\u2192public validation/manual decoder mismatch. All individual enum payloads are representable; this is an API/admission contract inconsistency, not an observed world-import failure. Actual canonical infer_industries caps peat scale toLocal at2479, so that ordinary inference producer is not alleged bad.",
+      "dedup": "Inherited1002 metadata searched for exact InferredIndustryProfile, regional peat cutting and regionalpeat; no exact record found. ROOT-ADM-F007 routes cover travel_geometry,bounded_named_products,route_terrain and do not mention industry.",
+      "proof_ref": "contract-groups-206.json",
+      "repair": "not_started_initial_discovery_gate",
+      "validation": "not_run"
+    }
+  ],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "dedup_refs": [
+    "ROOT-ADM-F007",
+    "RIG-INITIAL06-F012",
+    "RIG-PPS-F008"
+  ]
+}

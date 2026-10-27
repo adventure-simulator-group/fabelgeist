@@ -1,0 +1,236 @@
+{
+  "kind": "Independent pre-edit typed arithmetic discovery for PR992 review5664041853",
+  "reviewed_commit_context": "38ff1be52ea1d71c7b951730dbb2b77f8cb6d5a7 per parent/comment metadata; actual inspected bytes pinned below, no Git source mutation or newhead assumption",
+  "comments": {
+    "artifact": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/user-comments-002.json",
+      "sha256": "189d7273a9a56c226d6b0d635a1b5c0e9ebabe1158b80866795b91c94b24f18f"
+    },
+    "ids": [
+      4386433188,
+      4386446918
+    ],
+    "meaning": "User rejects merely renaming extraction while keeping composite primitive formula and asks arithmetic on bespoke types themselves. This supersedes prior narrower acceptance as the requested implementation scope; do not infer backwards compatibility requirements."
+  },
+  "prospective_registration": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/arithmetic-discovery-registration-001.json",
+    "sha256": "5a9a28a7d13d9e899bac7320cad0ac4cea91f2e80db6484cf08ad297f56e9529"
+  },
+  "actual_source_consumption": [
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "ceb8c36c8e8abb4ac96fa0c61601d11145d28755fdb3e7af723aa20ae8dc58bf",
+      "eof": 191,
+      "ranges": [
+        [
+          1,
+          191
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "de48188cfd3789d9a2ac3d9239c4d62f7991191f0a07d88ad90faa5047f7f129",
+      "eof": 76,
+      "ranges": [
+        [
+          1,
+          76
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "eof": 120,
+      "ranges": [
+        [
+          1,
+          120
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-math/Cargo.toml",
+      "sha256": "6aaf0cb94d1603d0d6cdd07f1bee8021c3c29c841d01d144143faa4be39a6321",
+      "eof": 17,
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/Cargo.toml",
+      "sha256": "29e56014658d941895772dda71b9181863839eedf403c7d30b446186228c3441",
+      "eof": 43,
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/src/elapsed.rs",
+      "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "eof": 131,
+      "ranges": [
+        [
+          1,
+          113
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/src/material.rs",
+      "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "eof": 1869,
+      "ranges": [
+        [
+          78,
+          111
+        ],
+        [
+          285,
+          326
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-math/src/vector/vec3.rs",
+      "sha256": "83d359f9d5ae866cc3935577b48f93d9916081bceb05ac92748c91e98672c143",
+      "eof": 263,
+      "ranges": [
+        [
+          112,
+          148
+        ],
+        [
+          231,
+          263
+        ]
+      ]
+    }
+  ],
+  "retained_actual_receiving_body_proof": {
+    "prior_review": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/code-review-001.json",
+      "sha256": "bae3f378f0b48a353f9665ecdc247a0759abba529069c92f2eaec699f5942652"
+    },
+    "fresh_unchanged_source_hashes": [
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+        "sha256": "d20c873dd470d03cd65d2c0da3d73dd050cde53f78dfc8bb81b1d237bf55ddcf",
+        "actual_consumed_ranges": [
+          [
+            1,
+            255
+          ]
+        ],
+        "eof": 255
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+        "sha256": "c835a9611d133e6fbe72b9121632d5dca1752d4f22d1b0545792ff582844e68d",
+        "actual_consumed_ranges": [
+          [
+            1,
+            130
+          ],
+          [
+            250,
+            523
+          ]
+        ],
+        "eof": 523
+      },
+      {
+        "path": "crates/adventuresim-core/build.rs",
+        "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+        "actual_consumed_ranges": [
+          [
+            1,
+            75
+          ]
+        ],
+        "eof": 511
+      }
+    ]
+  },
+  "actual_owner_inventory": [
+    {
+      "source": "linear_speed.rs1-191",
+      "assessment": "NonnegativeSpeed admits finite>=0, SignedSpeed admits any finite sign, PositiveSpeed wraps NonnegativeSpeed and rejectszero. Current checked_lerp accepts UnitInterval but immediately extracts and computes full composite primitive formula; inverse computes difference/difference as primitives. Only raw checked_scale/max/min and SignedSpeed negation/magnitude/nonnegative_part are current arithmetic. Existing SignedSpeed already represents downward interpolation displacement; do not invent SpeedDelta owner."
+    },
+    {
+      "source": "unit_interval.rs1-76",
+      "assessment": "Finite[0,1] privatefield checkedconstructor/Serde. Correct output for explicitly normalized fraction and multiplicand for bounded scaling; incorrect output contract for arbitrary same-unit division (e.g.2/1 is dimensionless2). Existing dimensionless bounded owner should be reused."
+    },
+    {
+      "source": "fabelgeist-math units.rs1-120",
+      "assessment": "Canonical shared Ratio is dimensionless without numerical policy; from_ratio is infallible and transparent Deserialize unrestricted, so negative/NaN/infinity can be carried. No arithmetic traits/admission checks in inspected complete file. It cannot prove finite or bounded quotient/factor without validation at each checked speed operation. Do not introduce another generic Ratio owner or silently tighten this shared type based only on this local review."
+    },
+    {
+      "source": "elapsed.rs1-113; material.rs78-111,285-326",
+      "assessment": "Existing checked scalar/aggregate operations use named checked_add/checked_sub/checked_scale returning Result/Option and enforce overflow/underflow; no need force operator syntax. Elapsed saturating_sub explicitly names its floorpolicy rather than silently using it for generic subtraction."
+    },
+    {
+      "source": "fabelgeist-math vector/vec3.rs112-148,231-263",
+      "assessment": "Vector Add/Sub/Mul/Div return Self without checked scalar admission; component-wise Div explicitly preserves infinity atzero. These are unbounded numerical-kernel semantics and unsuitable as a checked speed policy precedent."
+    }
+  ],
+  "preferred_narrow_api": {
+    "principle": "Typed atomic operations own primitive scalar arithmetic; checked_lerp and clamped_inverse_lerp become meaningful compositions of those operations, with no getter/.0 formula at composite level. Existing owners suffice, no generic framework or ratio duplication.",
+    "operations": [
+      {
+        "operation": "NonnegativeSpeed::checked_add(Self)->SpeedResult<Self>",
+        "policy": "Reject nonfinite arithmetic as Overflow; no saturation. If a signed sum is needed, distinct checked_add_delta(SignedSpeed) rejects a negative retained result."
+      },
+      {
+        "operation": "NonnegativeSpeed::checked_sub(Self)->SpeedResult<Self>",
+        "policy": "Use for nonnegative differences; reject negative instead of clamping/flooring, reject nonfinite. This covers inverse interval offsets/spans after strict order and interior checks."
+      },
+      {
+        "operation": "NonnegativeSpeed::checked_difference(Self)->SpeedResult<SignedSpeed>",
+        "policy": "Use for general interpolation direction; both existing nonnegative endpoints can differ negatively. Reuse SignedSpeed, not a new displacement wrapper. Atomic difference of finite nonnegative operands cannot exceed max magnitude, but checked result admission still clear."
+      },
+      {
+        "operation": "SignedSpeed::scaled_by(UnitInterval)->SignedSpeed or SpeedResult<SignedSpeed>",
+        "policy": "Finite signed scalar times bounded finite unitfactor remains finite and preserves sign; direct owner multiplication is appropriate. A fallible checked_mul naming is also sound if consistency preferred. No primitive extraction in caller."
+      },
+      {
+        "operation": "NonnegativeSpeed::checked_add_delta(SignedSpeed)->SpeedResult<Self>",
+        "policy": "Final interpolation sum checked for finite and nonnegative; rejects overflow/negative rather than coercion. SignedSpeed checked_add/sub may also be useful if actually consumed, but avoid speculative unused operator matrix."
+      },
+      {
+        "operation": "NonnegativeSpeed::checked_fraction_of(Self)->SpeedResult<UnitInterval>",
+        "policy": "Explicitly bounded quotient operation, NOT generic Div: reject zero denominator (including signedzero), reject numerator>denominator; divide only admitted finite nonnegative values and admit UnitInterval. Named bounded semantic operation justifies output invariant. Arbitrary Div<Speed> must not pretend every quotient lies[0,1]. No clamp in generic arithmetic."
+      }
+    ],
+    "checked_lerp_composition": "self.checked_add_delta(other.checked_difference(self)?.scaled_by(factor)) (adjust ? if chosen scaling is fallible). This is signed difference\u2192typed scaling\u2192checked addition, and handles downward interpolation. Arithmetic remains in the atomic owners; composite no primitive extraction. No historical bitwise/operationorder constraint demanded.",
+    "inverse_composition": "Keep lower>=upper rejection FIRST and <=lower ZERO / >=upper ONE. Interior numerator=self.checked_sub(lower)?; denominator=upper.checked_sub(lower)?; numerator.checked_fraction_of(denominator). Strict increasing bounds/interior relation justify domain, and bounded division method independently checks its own public contract.",
+    "alternate_without_signed_arithmetic": "Typed bounded scaling plus checked_add can implement self\u00d7factor.complement()+other\u00d7factor; this changes kernel/roundoff without compatibility obligation and still must check final sum. Signed-difference route better directly reuses the existing signed speed owner and avoids disguising downward difference as nonnegative.",
+    "operator_syntax": "std::ops Add/Sub/Mul/Div may legally choose Result output, but supplied source shows named checked methods as local checked scalar precedent. Do not use infallible operators that panic, floor, clamp or publish invalid values. If adding traits, make fallibility visible and implement only meaningful dimensional signatures; Speed\u00d7Speed is speed\u00b2, not Speed. Do not add Div<Speed,Output=UnitInterval> as arbitrary division.",
+    "arbitrary_ratio_if_required": "If root/user actually requires general same-unit quotient beyond normalized fractions, reuse fabelgeist_math::units::Ratio and explicitly validate denominator/nonfinite quotient at producer plus arbitrary Ratio input at speed multiplication. The wrapper itself is unrestricted; do not claim its type proves finite or[0,1]. This adds math dependency to BOTH normal and separate build target because build.rs includes linear_speed; inspect/export/reconcile full concrete consumers before implementation. Broad canonical Ratio redesign not established by this bounded packet."
+  },
+  "producer_consumer_dependency_trace": [
+    "tactical_jog_speed low-endurance shaping produces UnitInterval; NonnegativeSpeed checked_lerp returns checked speed, used by breath/exhaustion and movement consumers. No rawfactor storage needed between those APIs.",
+    "locomotion_profile calls speed checked_lerp and clamped_inverse_lerp; result retained in typed profile reference_speed and fractions drive typed CycleDelta/Length/Height. All four runratio callers were independently traced in prior exact receipts, and root plans separate edited-source final review.",
+    "Existing general checked_scale has factors beyond[0,1], e.g. prone effort3.0 in movement_speed.rs; do not narrow arbitrary physical scaling to UnitInterval merely to implement interpolation. Broader rawfactor migration not certified here.",
+    "core Cargo.toml currently has no fabelgeist-math dependency; math defaults onlyserde/bytemuck and optionalwgpu, does not depend oncore in inspected manifest. Core build.rs directly includes linear_speed/unit_interval and has thiserror/serde builddeps. Preferred existing-core-owner API needs no math dependency. General Ratio route requires both dependency contexts and lock/source reconciliation."
+  ],
+  "checks_required_of_future_implementation": [
+    "Equal/reversed interval rejected before endpoint success, zero quotient divisor typedErr, numerator>denominator notclamped, invalid factor/nonfinite arithmetic never retained.",
+    "Negative generic nonnegative subtraction rejects; signed interpolation difference remains possible using SignedSpeed. Final interpolation result admitted, no silent saturating repairs.",
+    "Every new SpeedError matched at AnimationValueError and other actual exhaustive recipients; separate build target dependency/module closure.",
+    "Actual edited bodies and meaningful receiving callers independently reviewed before publication; hosted same-source execution separate. No newtests/helpers/assertions/doctests permitted."
+  ],
+  "limitations": [
+    "No product/source/Git/ledger edits or localproject execution/probes/scanners/tests/newtests/publication. Ignored evidence only.",
+    "Narrow rg navigation located owner/caller identifiers, including one repository-wide Ratio query with truncated output; no search-only absence or completeness claim, and no body/coverage credit for unregistered search hits.",
+    "All registered source hashes matched after actual bounded read. Native/math source bodies credited only stated ranges; no package/global/lens13/all20 clearance or acceptedunique finding count.",
+    "This is pre-edit recommendation, not approval of unimplemented API/entire numerical subsystem. Root remains sole implementation/adoption/publication owner; frozen audit frontier preserved."
+  ]
+}

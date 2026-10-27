@@ -1,0 +1,334 @@
+{
+  "authority": "raw-overlay-authority-proof-001.json",
+  "members": [
+    {
+      "overlay_index": 225,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-226",
+        "at": "2026-10-23T00:46:23.624218+00:00",
+        "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/allocator/batch_buffer.rs",
+        "sha256": "f16e4c87e35b57bf6dfcd2f8315f055e665d5c7d07b36722e247a9b2be1c4721",
+        "material_ranges": [
+          [
+            228,
+            230
+          ]
+        ],
+        "audit_owner": "native",
+        "reason": "Exact directly called native storage/construction/scheduling functions required to distinguish currentnormalarraycoherence from publicraw fields; samepinnedpackageonly.",
+        "scope_registration": [
+          {
+            "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+            "sha256": "be4de13c0087526fb48f225e3113291ff752609a986f4ae768660f8d617a16e2",
+            "row_1based": 16,
+            "id": "NATIVE-INITIAL05-REG016",
+            "original_record": {
+              "id": "NATIVE-INITIAL05-REG016",
+              "at": "2026-10-23T00:44:57.664174+00:00",
+              "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+              "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/allocator/batch_buffer.rs",
+              "snapshot": "pinned-native-git-1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+              "resolved_path": "CARGO_HOME\\git\\checkouts\\bevy_eidolon-e79c4d5f550cc2de\\1a5aff8\\src\\allocator\\batch_buffer.rs",
+              "sha256": "f16e4c87e35b57bf6dfcd2f8315f055e665d5c7d07b36722e247a9b2be1c4721",
+              "actual_EOF": 262,
+              "material_ranges": [
+                [
+                  228,
+                  230
+                ]
+              ],
+              "material_caller": "REG013 InstancePage.flush/update andREG015 BatchBuffer triplebuffers called from actual native pageprepare; global PR customgrass receives these samebuffers. Signature/callsite-only navigation sofar, no bodycredit.",
+              "reason": "Exact directly called native storage/construction/scheduling functions required to distinguish currentnormalarraycoherence from publicraw fields; samepinnedpackageonly.",
+              "exclusions": "Actual three typed macro invocations of alreadyregistered write helper, not tests; tests232+excluded.",
+              "status": "prospectively registered before body analysis; global pending"
+            }
+          }
+        ],
+        "limits": "Actual three typed macro invocations of alreadyregistered write helper, not tests; tests232+excluded.",
+        "source_qualifications": "Actual three typed macro invocations of alreadyregistered write helper, not tests; tests232+excluded. Exact direct pinned native storage/caller only; no whole package or other lens credit."
+      },
+      "personally_read_registered_ranges": [
+        [
+          228,
+          230
+        ]
+      ],
+      "disposition": "Three batch_buffer_writable applications bind concrete indirect/uniform/metadata types to matching allocator fields. Invocations alone do not prove macro synchronization/capacity; prior body receipts remain distinct."
+    },
+    {
+      "overlay_index": 226,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-227",
+        "at": "2026-10-23T01:26:10.841520+00:00",
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar.rs",
+        "sha256": "443ff701ad79a52b06623fc199de7ea1df011b7527ed2ef8056057b9b8fac059",
+        "material_ranges": [
+          [
+            69,
+            83
+          ]
+        ],
+        "audit_owner": "native",
+        "reason": null,
+        "scope_registration": [
+          {
+            "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+            "sha256": "dbdc7d368a7e5bba66029cb19fbde14b76d56f77dd0063ad0fa79c18c598a7d5",
+            "row_1based": 23,
+            "id": "NATIVE-INITIAL05-REG023",
+            "original_record": {
+              "id": "NATIVE-INITIAL05-REG023",
+              "at": "2026-10-23T01:23:46.454329+00:00",
+              "authority": "continuation/root/parallel-initial-audits-081.json",
+              "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar.rs",
+              "snapshot": "pr-working",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\city_layout\\grounding\\planar.rs",
+              "sha256": "443ff701ad79a52b06623fc199de7ea1df011b7527ed2ef8056057b9b8fac059",
+              "actual_EOF": 83,
+              "material_ranges": [
+                [
+                  69,
+                  83
+                ]
+              ],
+              "actual_reach": "Actual apron::prepare33 calls distance_outside; complete called helper before relying on threshold membership. Existingglobal3-66 unchanged.",
+              "exclusions": "1-68 alreadyqualified separate roles; no unrelatedmaterial.",
+              "status": "prospectively_registered_before_body_analysis"
+            }
+          }
+        ],
+        "limits": "1-68 alreadyqualified separate roles; no unrelatedmaterial.",
+        "source_qualifications": "Only69-83 directlycalled distance_outside; existing3-66 kept,67blank/68docexcluded, no implicitwholefilewaiver."
+      },
+      "personally_read_registered_ranges": [
+        [
+          69,
+          83
+        ]
+      ],
+      "disposition": "distance_outside returns zero for nonnegative edge half-plane tests, else nearest clamped segment distance. Convex counterclockwise nondegenerate outline is assumed; empty and zero-length/nonfinite edges are not admitted here. Actual outline producer/caller policies remain qualified."
+    },
+    {
+      "overlay_index": 227,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-228",
+        "at": "2026-10-23T01:36:49.377542+00:00",
+        "source_id": "physical-p16:crates/strategic-web/src/templates/recruitment.rs",
+        "sha256": "ac67b736f6b3d39a214a9d95831e20cbdbead9b95d1b5c8d34b11dff58001cd5",
+        "material_ranges": [
+          [
+            19,
+            35
+          ]
+        ],
+        "audit_owner": "camera",
+        "reason": "Direct RecruitmentApplicant/RecruitmentRolePanel shapes connecting registered request builder to registered warning/text; no neighboring template logic.",
+        "scope_registration": [
+          {
+            "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+            "sha256": "a606684d1b3b0317b659fbbc852021ba0da5b71765e34bd93880fc868c0d63fe",
+            "row_1based": 22,
+            "id": "CAMERA-INITIAL07-REG022",
+            "original_record": {
+              "registration_id": "CAMERA-INITIAL07-REG022",
+              "at": "2026-10-23T01:34:12.473482+00:00",
+              "authority": "continuation/root/parallel-initial-audits-081.json",
+              "source_id": "physical-p16:crates/strategic-web/src/templates/recruitment.rs",
+              "snapshot": "physical-p16",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\templates\\recruitment.rs",
+              "sha256": "ac67b736f6b3d39a214a9d95831e20cbdbead9b95d1b5c8d34b11dff58001cd5",
+              "actual_EOF": 587,
+              "material_ranges": [
+                [
+                  19,
+                  36
+                ]
+              ],
+              "reason": "Direct RecruitmentApplicant/RecruitmentRolePanel shapes connecting registered request builder to registered warning/text; no neighboring template logic.",
+              "exclusions": "Only direct current bool producer-to-recipient correlation; all surrounding route/template functions and unrelated gameplay excluded. Symbol navigation only before registration.",
+              "status": "prospectively_registered_before_body_analysis"
+            }
+          }
+        ],
+        "limits": "Only direct current bool producer-to-recipient correlation; all surrounding route/template functions and unrelated gameplay excluded. Symbol navigation only before registration.",
+        "source_qualifications": "Only19-35 applicant and rolepanel shapes;36blank excluded, no neighboring template logic."
+      },
+      "personally_read_registered_ranges": [
+        [
+          19,
+          35
+        ]
+      ],
+      "disposition": "Recruitment presentation groups request/character with optional attributes and computed combat/contribution/medical views. Public fields do not bind all identities; actual assembler ownership remains separate."
+    },
+    {
+      "overlay_index": 228,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-229",
+        "at": "2026-10-23T02:02:56.511590+00:00",
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/personality.rs",
+        "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+        "material_ranges": [
+          [
+            2,
+            5
+          ]
+        ],
+        "audit_owner": "rig",
+        "reason": "Direct canonical reexport only; existing04654\u201369 role does not cover it and P16reexport096 is not PR credit. Registered before actual body under081.",
+        "scope_registration": [
+          {
+            "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+            "sha256": "84723fe282f3f1d145445f649bea6246a716c2b2e050de168d58eaf09a886038",
+            "row_1based": 33,
+            "id": "RIG-INITIAL06-REG-033",
+            "original_record": {
+              "id": "RIG-INITIAL06-REG-033",
+              "at": "2026-10-23T01:53:46.963714+00:00",
+              "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/personality.rs",
+              "snapshot": "pr-working",
+              "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+              "actual_EOF": 1210,
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\personality.rs",
+              "material_ranges": [
+                [
+                  2,
+                  5
+                ]
+              ],
+              "material_caller": "Scoped PRtime/mod24\u201326 imports crate personality Sociability asCharacterSociability; time/schedule283\u2013287 maps all3 values to Core strategic_schedule::SocializingSociability, whose definition254\u2013259 duplicates canonical Core personality35\u201339. Exact current reexport needed before asserting same owner/type route.",
+              "reason": "Direct canonical reexport only; existing04654\u201369 role does not cover it and P16reexport096 is not PR credit. Registered before actual body under081.",
+              "exclusions": "No line1 gateway import or schema/score/mutation/generation/tail; prior54\u201369 retained separately.",
+              "status": "Prospectively registered before body analysis; global range reconciliation pending"
+            }
+          }
+        ],
+        "limits": "No line1 gateway import or schema/score/mutation/generation/tail; prior54\u201369 retained separately.",
+        "source_qualifications": "Only canonical Core leaf reexport2-5; no personality mutation/generation/schema bodies."
+      },
+      "personally_read_registered_ranges": [
+        [
+          2,
+          5
+        ]
+      ],
+      "disposition": "PR reexports canonical trait/demographic enums only; no mutation or duplicated declaration."
+    },
+    {
+      "overlay_index": 229,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-230",
+        "at": "2026-10-23T02:08:40.390051+00:00",
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/personality.rs",
+        "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+        "material_ranges": [
+          [
+            161,
+            666
+          ]
+        ],
+        "audit_owner": "camera",
+        "reason": "Close first unfinished P16source234 score-to-visible-personality redundant-authority contract: all actual visible projection/init/reset/axis/demographic/development/NPC/default/random producer and update paths plus direct getters/backend receiver, necessary complete score/receipt definitions. PR counterpart current consumers cannot inherit P16body/hash credit; directly compare actual equivalent roles.",
+        "scope_registration": [
+          {
+            "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+            "sha256": "ae719b7285ea649dcf26c2dee0908de407f1fd679635d005107160dd907358f8",
+            "row_1based": 26,
+            "id": "CAMERA-INITIAL07-REG026",
+            "original_record": {
+              "registration_id": "CAMERA-INITIAL07-REG026",
+              "at": "2026-10-23T01:56:43.007623+00:00",
+              "authority": "continuation/root/parallel-initial-audits-081.json",
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/personality.rs",
+              "snapshot": "physical-p16",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\personality.rs",
+              "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+              "actual_EOF": 1210,
+              "material_ranges": [
+                [
+                  161,
+                  677
+                ]
+              ],
+              "reason": "Close first unfinished P16source234 score-to-visible-personality redundant-authority contract: all actual visible projection/init/reset/axis/demographic/development/NPC/default/random producer and update paths plus direct getters/backend receiver, necessary complete score/receipt definitions. PR counterpart current consumers cannot inherit P16body/hash credit; directly compare actual equivalent roles.",
+              "exclusions": "Only exact state/projection lifecycle through assign_random_personality; morale reaction kernels678+ and tests excluded. No new source body read yet; previous1\u2013160 P16 and PR54\u201369/reexport roles remain separately preserved.",
+              "status": "prospectively_registered_before_body_analysis"
+            }
+          }
+        ],
+        "limits": "Only exact state/projection lifecycle through assign_random_personality; morale reaction kernels678+ and tests excluded. No new source body read yet; previous1\u2013160 P16 and PR54\u201369/reexport roles remain separately preserved.",
+        "source_qualifications": "Only exact personality lifecycle through assign_random_personality666;667blank/668-675 next MoraleStimulus/677next reaction doc uncredited. Prior source roles separately preserved, no whole1210 or morale/generation-helper credit."
+      },
+      "personally_read_registered_ranges": [
+        [
+          161,
+          666
+        ]
+      ],
+      "disposition": "Reused own fresh overlay230 full personal read with both exact pins and explicit empty full diff overlay229-230-exact-full.diff. Current P16 registered161-666 roles compare clamp/projection/init/reset/update/replay/seed receivers to personally read PR1-666. Same closed axis dispatch, continuous authority, demographic retention and private gateway. Fresh P16161-180 confirms setter/from_visible role. No inherited verdict imported. Replay excludes occurred_at_minute; mismatched demographic identity needs actual caller witness."
+    },
+    {
+      "overlay_index": 230,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-231",
+        "at": "2026-10-23T02:08:40.390051+00:00",
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/personality.rs",
+        "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+        "material_ranges": [
+          [
+            1,
+            666
+          ]
+        ],
+        "audit_owner": "camera",
+        "reason": "Close first unfinished P16source234 score-to-visible-personality redundant-authority contract: all actual visible projection/init/reset/axis/demographic/development/NPC/default/random producer and update paths plus direct getters/backend receiver, necessary complete score/receipt definitions. PR counterpart current consumers cannot inherit P16body/hash credit; directly compare actual equivalent roles.",
+        "scope_registration": [
+          {
+            "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+            "sha256": "ae719b7285ea649dcf26c2dee0908de407f1fd679635d005107160dd907358f8",
+            "row_1based": 27,
+            "id": "CAMERA-INITIAL07-REG027",
+            "original_record": {
+              "registration_id": "CAMERA-INITIAL07-REG027",
+              "at": "2026-10-23T01:56:43.007623+00:00",
+              "authority": "continuation/root/parallel-initial-audits-081.json",
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/personality.rs",
+              "snapshot": "pr-working",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\personality.rs",
+              "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+              "actual_EOF": 1210,
+              "material_ranges": [
+                [
+                  1,
+                  677
+                ]
+              ],
+              "reason": "Close first unfinished P16source234 score-to-visible-personality redundant-authority contract: all actual visible projection/init/reset/axis/demographic/development/NPC/default/random producer and update paths plus direct getters/backend receiver, necessary complete score/receipt definitions. PR counterpart current consumers cannot inherit P16body/hash credit; directly compare actual equivalent roles.",
+              "exclusions": "Only exact state/projection lifecycle through assign_random_personality; morale reaction kernels678+ and tests excluded. No new source body read yet; previous1\u2013160 P16 and PR54\u201369/reexport roles remain separately preserved.",
+              "status": "prospectively_registered_before_body_analysis"
+            }
+          }
+        ],
+        "limits": "Only exact state/projection lifecycle through assign_random_personality; morale reaction kernels678+ and tests excluded. No new source body read yet; previous1\u2013160 P16 and PR54\u201369/reexport roles remain separately preserved.",
+        "source_qualifications": "Only exact personality lifecycle through assign_random_personality666;667blank/668-675 next MoraleStimulus/677next reaction doc uncredited. Prior source roles separately preserved, no whole1210 or morale/generation-helper credit."
+      },
+      "personally_read_registered_ranges": [
+        [
+          1,
+          666
+        ]
+      ],
+      "disposition": "Personally read PR1-666 in four bounded chunks. Thirteen continuous signed score fields are durable behavioral authority; setters clamp and project threshold labels retaining demographics. Initialization preserves existing scores; fixture reset replaces them. Deed apply saturates/clamps then records event after projection. Replay compares character/axis/delta/deed/virtue but not minute. Gateway validates sender. Trusted caller source/time binding and transaction rollback remain qualified; malformed persisted rows not declared impossible."
+    }
+  ],
+  "first_unfinished_overlay_index": 231,
+  "new_findings": [],
+  "reuse_proof": {
+    "a_original": 234,
+    "b_original": 2802,
+    "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+    "exact_full_diff": "overlay229-230-exact-full.diff",
+    "fresh_body_read": "PR1-666 plus P16setter/receiving comparison; not hash-only coverage"
+  }
+}

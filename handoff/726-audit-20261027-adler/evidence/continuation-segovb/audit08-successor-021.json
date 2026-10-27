@@ -1,0 +1,551 @@
+{
+  "id": "SEGOVB-CONT08-SUCCESSOR-021",
+  "created_utc": "2026-10-27T05:23:41.946577+00:00",
+  "lens": 8,
+  "skill": "/home/brunosegovia/.codex/skills/audit-behavior-preservation/SKILL.md",
+  "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+  "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "scope": "One bounded contact-tolerance/framed-geometry leaf. Actual declaring module ports, tolerance getter and canonical PositiveLength move, diagnostic localnew/unitdispatch, attempted-point boundary andmaximumCount adapter. Stop beforeCompoundSupportRequest solver.",
+  "prior_authority": {
+    "path": "target/recovery-20261025/continuation-segovb/audit08-successor-020-proposed-state.json",
+    "sha256": "4e8c9166325cc16bb1569ad1dab0c84450ac46fac8ee2b34265a177b9662ea67"
+  },
+  "root_adoption": {
+    "path": "target/recovery-20261025/continuation-segovb/audit08-successor-020-adoption-root.json",
+    "sha256": "79109ecbb5a3ab3dfbef8513ab55737a26ba45db1650273642676c05a79008d7"
+  },
+  "ledger_observation": {
+    "path": "target/recovery-20261025/continuation-segovb/ledger.json",
+    "current_successor": "audit08-successor-020-proposed-state.json",
+    "current_coverage": "1800/2853 originals source-accounted;earliest1462Q003partial;ordered1793partial;material52partial",
+    "modified": false
+  },
+  "provenance": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-root-policy-diagnostic-staging-021.json",
+      "sha256": "d0f50d8f5fb413606fba1791db31b11a18833f0526f31b794009286e3c728990"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-021-provenance-helpers.json",
+      "sha256": "c5d6ab9b9d4867426d83b8f5aece1f862d130dd61b3867774a4ea41f9596f619"
+    }
+  ],
+  "prospective_registrations": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-021-registration-001.json",
+      "sha256": "a6a8b6000de5efae842ceef4fb8856821f74eacd5b63612133cb066ed7e92518"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-021-registration-length-navigation.json",
+      "sha256": "35e21e2a4eca51b5c90a1348ab2f877a785c3072ef00cf27cc66092e17be48d7"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-021-registration-helpers.json",
+      "sha256": "5ec767a63ea14191ca0b4799aad08217f78df86c2dff683dcdae123f4a9130b4"
+    }
+  ],
+  "read_only_git_authorization": "Root explicitly allowed exact read-only3a50/6533 source and metadata recovery for these already requested helpers/getter/declaration ports. gitshow and gitls-tree only; no fetch/branch/checkout/add/commit/push or other Git mutation. Existing source objects verified, never overwritten; absent objects appended underignoredsource-objects.",
+  "existing_source_reads": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/policy.rs",
+      "sha256": "2a2a18dafb072f8878e496462df0257b5bdaa9481895595affbee001b0e52e46",
+      "base_sha256": "2a2a18dafb072f8878e496462df0257b5bdaa9481895595affbee001b0e52e46",
+      "head_sha256": "2a2a18dafb072f8878e496462df0257b5bdaa9481895595affbee001b0e52e46",
+      "catalog_index": 1835,
+      "actual_before_after_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "material_ranges": [
+        [
+          35,
+          58
+        ]
+      ],
+      "qualification": "Existing unchanged scoped original read only for material receiving role; no original count/completion or other-lens credit. Unrelated displayed methods/traits/doc examples not cleared or executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/diagnostic.rs",
+      "sha256": "520b5ce55ac4b5404d138e55e4d055f098d08b02377b7779dbc54bd970f3db62",
+      "base_sha256": "520b5ce55ac4b5404d138e55e4d055f098d08b02377b7779dbc54bd970f3db62",
+      "head_sha256": "520b5ce55ac4b5404d138e55e4d055f098d08b02377b7779dbc54bd970f3db62",
+      "catalog_index": 1809,
+      "actual_before_after_ranges": [
+        [
+          1,
+          233
+        ]
+      ],
+      "material_ranges": [
+        [
+          12,
+          30
+        ],
+        [
+          44,
+          52
+        ],
+        [
+          63,
+          76
+        ],
+        [
+          172,
+          195
+        ],
+        [
+          198,
+          233
+        ]
+      ],
+      "qualification": "Existing unchanged scoped original read only for material receiving role; no original count/completion or other-lens credit. Unrelated displayed methods/traits/doc examples not cleared or executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/location.rs",
+      "sha256": "a11423ff0d43b8b2f1167c4fe16aa9b53f3da611fa697c38fb90105d69178f1d",
+      "base_sha256": "a11423ff0d43b8b2f1167c4fe16aa9b53f3da611fa697c38fb90105d69178f1d",
+      "head_sha256": "a11423ff0d43b8b2f1167c4fe16aa9b53f3da611fa697c38fb90105d69178f1d",
+      "catalog_index": 1827,
+      "actual_before_after_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "material_ranges": [
+        [
+          6,
+          32
+        ]
+      ],
+      "qualification": "Existing unchanged scoped original read only for material receiving role; no original count/completion or other-lens credit. Unrelated displayed methods/traits/doc examples not cleared or executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/measurement.rs",
+      "sha256": "6bf7e931e120e7f023858ffebeedc30845b61f861c39ec75d03c500564192bc1",
+      "base_sha256": "6bf7e931e120e7f023858ffebeedc30845b61f861c39ec75d03c500564192bc1",
+      "head_sha256": "6bf7e931e120e7f023858ffebeedc30845b61f861c39ec75d03c500564192bc1",
+      "catalog_index": 1828,
+      "actual_before_after_ranges": [
+        [
+          1,
+          261
+        ]
+      ],
+      "material_ranges": [
+        [
+          13,
+          16
+        ],
+        [
+          42,
+          50
+        ],
+        [
+          98,
+          155
+        ]
+      ],
+      "qualification": "Existing unchanged scoped original read only for material receiving role; no original count/completion or other-lens credit. Unrelated displayed methods/traits/doc examples not cleared or executed."
+    }
+  ],
+  "owner_migration_reads": {
+    "declaration_bridge": {
+      "source": "crates/adventuresim-building-generator/src/spatial_geometry.rs",
+      "before_sha256": "bae5a90cacf4d5bdb2a30d57f25ab8f71fb51c36fbe8378568879b01174d617d",
+      "after_sha256": "c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+      "actual_before_after_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "material_before_ranges": [
+        [
+          14,
+          18
+        ]
+      ],
+      "material_after_ranges": [
+        [
+          8,
+          11
+        ]
+      ],
+      "scope": "Declaration-only; closed Position/coordinate body not reopened."
+    },
+    "before": {
+      "source": "crates/adventuresim-building-generator/src/spatial_geometry/length.rs",
+      "sha256": "85b9e28a95b866246fdc9e3c87fbf6c59f3c8ab02b87d623ef1bdaeb3110411a",
+      "actual_ranges": [
+        [
+          1,
+          36
+        ]
+      ]
+    },
+    "after_declaration": {
+      "source": "crates/fabelgeist-geometry/src/lib.rs",
+      "sha256": "4be1dea1bfca250604d52c9c8ea026aac5e3608d4d8cf35168f0cdc60ff4a7ab",
+      "actual_ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "material_ranges": [
+        [
+          10,
+          15
+        ]
+      ]
+    },
+    "after": {
+      "source": "crates/fabelgeist-geometry/src/length.rs",
+      "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "actual_ranges": [
+        [
+          1,
+          40
+        ]
+      ]
+    },
+    "absence_proof": [
+      {
+        "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+        "path": "crates/fabelgeist-geometry/src/lib.rs",
+        "git_ls_tree": "",
+        "absent": true
+      },
+      {
+        "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+        "path": "crates/fabelgeist-geometry/src/length.rs",
+        "git_ls_tree": "",
+        "absent": true
+      },
+      {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/adventuresim-building-generator/src/spatial_geometry/length.rs",
+        "git_ls_tree": "",
+        "absent": true
+      }
+    ],
+    "qualification": "Full requested changed/new/deleted length variant bodies consumed as receiver context; no original669/2270/2271 or reflection/wholecanonicalfamily completion."
+  },
+  "prior_own_point_reuse": {
+    "receipt": {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-017.json",
+      "sha256": "f442adcb7f37ccd0836b024528cf2280201aa23baa0ec0d8a68e8d988336045d"
+    },
+    "fresh_hash_verification": true,
+    "ports": [
+      {
+        "source_id": "pr-head:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+        "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+        "actual_prior_ranges": [
+          [
+            20,
+            64
+          ],
+          [
+            93,
+            105
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-base:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+        "sha256": "4444765495bc33a59a51b9a927463073ec4543d55a89b0a3f2651caeaba37a7c",
+        "actual_prior_ranges": [
+          [
+            17,
+            49
+          ],
+          [
+            81,
+            86
+          ],
+          [
+            104,
+            109
+          ]
+        ]
+      }
+    ],
+    "contract": "Finite ScenePlanPoint TryFrom/from_metres/accessor before/after source proof reused only for actuallocationhelper caller. No source body reread, no native serde/parser or unrelated Position coverage."
+  },
+  "verified_trace": [
+    {
+      "source": "own019 grounding.rs28,45-52 (already own exact declaration proof)",
+      "contract": "Actual module declarations/reexports locateSupportLimits inpolicy.rs andSupportDiagnostic indiagnostic.rs. Root exact stagedbefore/head sourcesmatch catalogpins andare absent747dirty4; no guessed ownerpath/currentalias."
+    },
+    {
+      "source": "policy.rs35-57; spatial_geometry.rs base14-18/head8-11; canonicalgeometry lib.rs10,15; length.rs base14-34/head18-38",
+      "contract": "SupportLimitsnew stores passedtyped PositiveLength unchanged andcontact_tolerance_metres directly returnsitsmetres. Owner moved frombuildinggenerator local PositiveLength tocanonicalfabelgeistgeometry; exactconstructor before/head still rejectsnonfinite, thennegative, thenzero(including signedzero), andretains admittedpositivef32 unchanged. Getter isidenticalself.0, serdeDeserialize callsameconstructor. No raw re-admission/clamp/unitconversion/default atgetter, no reflected/PartialOrd trait blanketverdict."
+    },
+    {
+      "source": "diagnostic.rs172-195,198-212,215-233",
+      "contract": "framed_geometry callsnew withReservation/PropertyReservation, actual attemptedpoint, measured1.0/permitted0.0. new storesproperty.id andfront/rear memberIDs inthat order, noentrance, NotSelected treatment; it derivesunitfromconstraint and widensf32 controls tof64 beforemaximum. Thenframed_geometry attachesBoxFramedGeometry(cause), preserving theactual typedcause payload in thisrecord. Both frozenbodies match exactly; no claim ofold/currenterrorlayout, finalserializationorDisplay guarantees."
+    },
+    {
+      "source": "diagnostic.rs204-209; measurement.rs98-155",
+      "contract": "Reservation selectsCount. Actual fixedcontrols1.0and0.0 passfinite/nonnegativeCount guard and produceCount(Maximum{actualDiagnosticCount(1),permittedDiagnosticCount(0)}). NumericCount truncation/saturation forothercaller inputs isnot assessed as aglobalpolicy; thispath uses exactsmallinteger controls. NoSupportViolation getters/formatting orsolverflow completion fromdisplayed bodypresence."
+    },
+    {
+      "source": "location.rs6-32 andown017 checkedScenePlanPoint ports",
+      "contract": "Attemptedpoint goes throughScenePlanPoint::try_from; admittedfinitepoint isScene, rejectedpoint isRejected storingoriginalraw x/y. Thusnonfinite geometryfailureattempts areevidence ratherthan usablecoordinates onthisboundary. Exactbefore/headbody isidentical; no native serialization roundtrip orfinitevalue normalization claim."
+    },
+    {
+      "source": "own018 street.rs36-66; diagnostic.rs215-233",
+      "contract": "Street candidate mapsapron constructionfailure throughframed_geometry beforecalling supportsolver. Reservation isoutsidefour retryableconstraintsStairGoing/StairClearance/AccessGrade/CutFill; thereforelocalframed constructionfailure returnsfrompreferredattempt instead ofretryingmaximum. Thisis source-backedlocalclassification/order, unchangedfrozenbodies; complete solver/actual fixtureoutcomes remainopen."
+    }
+  ],
+  "disposition": "No actionable unintended delta demonstrated withinthistolerance andframeddiagnostic firstparty leaf, includingactual scalarownermigration/attemptpoint/countadapter. Complete1793planningsolverandJSON/terraincompositionremainpartial.",
+  "resolved_subset": "SupportLimits contact tolerance getter andPositiveLength admittedscalar ownercrosswalk; framed_geometry->new->diagnostic_unit->maximumCount/location firstpartybodychain source-assessed021.",
+  "findings": [],
+  "new_unique_finding_count_delta": 0,
+  "remaining_frontier": [
+    {
+      "id": "CONT08-021-SOLVER-RECIPE-PLANNING-PARTIAL",
+      "source_backed_calls": [
+        {
+          "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/access.rs",
+          "sha256": "cf8f7790613cc67bc1de9815eea5ef31cc30c35b571b64930902c42c8d0469ab",
+          "ranges": [
+            [
+              22,
+              42
+            ]
+          ]
+        },
+        {
+          "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/support/street.rs",
+          "sha256": "bfad206136bada1647f958a30c678a8adb4be33c01a967d3253aebde5f58de8b",
+          "ranges": [
+            [
+              15,
+              47
+            ]
+          ]
+        },
+        {
+          "source": "own015 compiled/support.rs",
+          "ranges": [
+            [
+              146,
+              277
+            ]
+          ]
+        }
+      ],
+      "actual_symbols": [
+        "CompoundSupportRequest::select",
+        "CityRecipePalette::for_program",
+        "Recipe::door_point",
+        "BuildingCollision::ground_floor_contact_bounds",
+        "CitySceneLayout::plan_single_property_support"
+      ],
+      "needed": "Contact tolerance getter and framed geometry diagnostic path through direct local maximum/location helpers now source-assessed021. Next actual support solver and retained recipe/collision/single-property contracts; remaining JSON/terrain composition still independent. No native/serialization/display/runtime broad clearance."
+    },
+    {
+      "id": "CONT08-015-JSON-REMAINING-LEAVES",
+      "source_backed_callers": [
+        {
+          "source": "own014 grounded/tests.rs",
+          "ranges": [
+            [
+              11,
+              23
+            ]
+          ]
+        },
+        {
+          "source": "pr-head:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+          "ranges": [
+            [
+              111,
+              148
+            ]
+          ]
+        }
+      ],
+      "actual_symbols": [
+        "CityCompound serde admission and nested plot/access/boundary owners",
+        "SceneBuildingId serde/Ord",
+        "BuildingArchetype/BuildingUse/ServiceBuildingSize/ProsperityTier/Seed serialization",
+        "BuildingProgram::settlement",
+        "BuildingProgram::fixture",
+        "BuildingProgram::with_service_size"
+      ],
+      "progress": "Actual Distant/Tactical record fields, promotion body, orientation/elevation leaf ports read in015; materially reached Position/ScenePlanPoint constructor/accessor/projection/serde wrapper bodies resolved by017. Remaining compound/ID/enum/Seed/program receiver bodies retain scoped obligations.",
+      "needed": "Narrow exact changed leaf/compound serialization and program-selection receivers needed by actual captured front/rear records. No requirement to support old malformed schema/inputs.",
+      "progress_020": "CityPlotBounds RegionWire->new first-party wrapper and PlanDimensions serde constructor have exact before/after source comparison; nested compound/access/boundary/ID/enum/Seed/program admission remains partial, no complete/native JSON parser or runtime fixture claim."
+    },
+    {
+      "id": "CONT08-015-TERRAIN-COMPOSITION",
+      "source_backed_caller": {
+        "source": "own014 compiled/grounded.rs",
+        "ranges": [
+          [
+            100,
+            118
+          ]
+        ]
+      },
+      "actual_symbols": [
+        "BoundedSettlementTerrain::compile",
+        "BoundedSettlementTerrain::elevations_at",
+        "PropertySupportSurface/CompoundSupportPlan member and surface extraction"
+      ],
+      "known_source_bridge": "foundations.rs13 reexports settlement::{BoundedSettlementTerrain,SettlementSupportError}; settlement module was listed as Git path metadata only, not staged/read.",
+      "needed": "Ownership composition and elevation lookup remain open; no actual numeric floor/terrain permutation witness or executed fixture."
+    }
+  ],
+  "mandatory_other_lens_queue": [
+    {
+      "canonical_source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/policy.rs",
+      "sha256": "2a2a18dafb072f8878e496462df0257b5bdaa9481895595affbee001b0e52e46",
+      "existing_original_index": 1835,
+      "actual08_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "material08_ranges": [
+        [
+          35,
+          58
+        ]
+      ],
+      "required": "Root reconcile newly reached receiver roles with existing original/source-extension aliases and mandatory applicable other-lens obligations. No duplicate population, original count or whole-family verdict transfer."
+    },
+    {
+      "canonical_source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/diagnostic.rs",
+      "sha256": "520b5ce55ac4b5404d138e55e4d055f098d08b02377b7779dbc54bd970f3db62",
+      "existing_original_index": 1809,
+      "actual08_ranges": [
+        [
+          1,
+          233
+        ]
+      ],
+      "material08_ranges": [
+        [
+          12,
+          30
+        ],
+        [
+          44,
+          52
+        ],
+        [
+          63,
+          76
+        ],
+        [
+          172,
+          195
+        ],
+        [
+          198,
+          233
+        ]
+      ],
+      "required": "Root reconcile newly reached receiver roles with existing original/source-extension aliases and mandatory applicable other-lens obligations. No duplicate population, original count or whole-family verdict transfer."
+    },
+    {
+      "canonical_source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/location.rs",
+      "sha256": "a11423ff0d43b8b2f1167c4fe16aa9b53f3da611fa697c38fb90105d69178f1d",
+      "existing_original_index": 1827,
+      "actual08_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "material08_ranges": [
+        [
+          6,
+          32
+        ]
+      ],
+      "required": "Root reconcile newly reached receiver roles with existing original/source-extension aliases and mandatory applicable other-lens obligations. No duplicate population, original count or whole-family verdict transfer."
+    },
+    {
+      "canonical_source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/measurement.rs",
+      "sha256": "6bf7e931e120e7f023858ffebeedc30845b61f861c39ec75d03c500564192bc1",
+      "existing_original_index": 1828,
+      "actual08_ranges": [
+        [
+          1,
+          261
+        ]
+      ],
+      "material08_ranges": [
+        [
+          13,
+          16
+        ],
+        [
+          42,
+          50
+        ],
+        [
+          98,
+          155
+        ]
+      ],
+      "required": "Root reconcile newly reached receiver roles with existing original/source-extension aliases and mandatory applicable other-lens obligations. No duplicate population, original count or whole-family verdict transfer."
+    },
+    {
+      "canonical_source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/length.rs",
+      "sha256": "85b9e28a95b866246fdc9e3c87fbf6c59f3c8ab02b87d623ef1bdaeb3110411a",
+      "existing_original_index": 669,
+      "role": "deleted base owner36lines",
+      "required": "Retain registered original and applicable other-lens roles for owner migration, derives/reflection/serde. Only materially called admission/getter assessed here. No physical-P16/current alias or original completion."
+    },
+    {
+      "canonical_source_id": "pr-working:crates/fabelgeist-geometry/src/lib.rs",
+      "sha256": "4be1dea1bfca250604d52c9c8ea026aac5e3608d4d8cf35168f0cdc60ff4a7ab",
+      "existing_original_index": 2271,
+      "role": "new head module16lines",
+      "required": "Retain registered original and applicable other-lens roles for owner migration, derives/reflection/serde. Only materially called admission/getter assessed here. No physical-P16/current alias or original completion."
+    },
+    {
+      "canonical_source_id": "pr-working:crates/fabelgeist-geometry/src/length.rs",
+      "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "existing_original_index": 2270,
+      "role": "new head canonical length40lines",
+      "required": "Retain registered original and applicable other-lens roles for owner migration, derives/reflection/serde. Only materially called admission/getter assessed here. No physical-P16/current alias or original completion."
+    }
+  ],
+  "counts": {
+    "before": 1800,
+    "after": 1800,
+    "total": 2853,
+    "new_original_completions": [],
+    "next_ordered_original": 1793,
+    "earliest_unfinished_original": 1462,
+    "material_contiguous": [
+      0,
+      51
+    ],
+    "material52": "partial",
+    "separate_material_interval": [
+      178,
+      195
+    ]
+  },
+  "qualifications": [
+    "Exact frozen3a50/6533 provenance only;747entries/dirty4 absence checked beforeunchangedaliases. Newcanonicalheadlibrary isabsent atbase, oldlocal lengthmodule absentathead. No currentdf5/P16dirty alias evenwhen hashesmatch inheritedphysicalrecords.",
+    "No street/access/planar/bounds/dimensions/orientation/Position restart. Existingdata wasreused only atown verifiedidentities/contracts, noother-lens credit.",
+    "Displayedunrelateddiagnostic constructors/SupportViolation formatting/GeographicGrade/SupportGrade do notsupplywholeoriginalcoverage. Existingcompile_fail doctesttext readonly, notaddedorexecuted.",
+    "No backwardcompatibility requirement foroldmalformedinputs/APIs/schemas/traits/errorstringsorlayouts. Actual intendedchecked/newowner contracts assessed.",
+    "Q003009directcounterexample/012matrixerasure/actualingress-cast-runtime limitations, material52andPaid-to-Withdrawnpartial unchanged. All20/P16/P17/#780/#826/M16/inheritedaliases/findings/broadF9 preserved.",
+    "No project/helper/native execution, scans/probes/tests/newtests/assertions/doctests, product/source/rootledger/history/publication changes. Only authorized exactread-onlyGit source recoveryandignoredappend-onlyevidence."
+  ],
+  "stop": "One bounded021 leaf source-assessed; stopatCompoundSupportRequest solver andretainedrecipe/collision/singleproperty/remainingJSON/terrainfrontier before1794; no current/runtime/globalclearance."
+}

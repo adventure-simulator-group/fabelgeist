@@ -1,0 +1,133 @@
+{
+  "at": "2026-10-27T17:52:08.951639+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-107-registration.jsonl",
+    "sha256": "d4c32c10f6f05d727a6329b51b8e644181d363c5bee0f32ccdf33f0d1270fe5d"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-106.json",
+    "sha256": "8c1a375f00bd3857e9911c284c080590f2bafd75f40918b24df7d40db28e77fc"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1206,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/battle_combatants.rs",
+      "sha256": "85a9cdeb34de89b6b81a65c512747b50771666aae4d1e6616345a617767a6706",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/85a9cdeb34de89b6b81a65c512747b50771666aae4d1e6616345a617767a6706",
+      "ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Independent full effective native battle combatant producer; armor/body/weapon/contact IDs, quantities, admitted inventory and numeric native role boundaries",
+      "actual_read_ranges": [
+        [
+          1,
+          24
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected_original",
+      "original_index": 1077,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/combatant.rs",
+      "sha256": "afba3aaeb15ab41fe36d35221b5269a784098863766c03ad61ecd6532204bdbc",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/afba3aaeb15ab41fe36d35221b5269a784098863766c03ad61ecd6532204bdbc",
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual native combatant load argument semantics and initial admission; prior061 full receiver proof retained",
+      "actual_read_ranges": [
+        [
+          1,
+          75
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1206,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/battle_combatants.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              24
+            ]
+          ],
+          "roles": "Party member Character IDs, refreshed strategic incapacitation/pain/blood-loss inputs, transient Combatant and propagated admission errors.",
+          "disposition": "This is a coherent native-to-pure batch seam: it refreshes each same Character and passes that exact member ID with its condition fields to load_combatant. Incapacitation, pain and blood loss are different roles despite f32 storage; a named admitted starting-condition payload prevents swapped tuple arguments and makes canonical operation ownership visible. Vec<Combatant> is a transient numerical-kernel input, not persisted tactical state. &[u64] does not itself establish unique living authorized party membership; this helper is a loader, not all-party authorization and must not be credited as such. Refresh is fallible and loader errors propagate through collect; no observed partial DB outcome claimed.",
+          "remedy": "Retain CharacterId and a canonical StrategicCombatStartingCondition/AdmittedPartyRoster where actual caller establishes membership; share existing core starting-condition owner/operations rather than duplicate broad numeric wrappers. Keep meaningful pain/blood/incapacitation distinctions until the pure native numerical adapter.",
+          "acceptance": "Full24 actualEOF independently consumed. Actual native1077 load signature/initial body1..75 reverified; prior061 full111 and1076/1078 actual receiver proof reused. Native1086 refresh full2627064/core857 full2878010 and1233 actual party-ready selection101 context retained. No new source edits/tests, all-caller roster/runtime/current/unique guarantee."
+        }
+      ]
+    }
+  ],
+  "connected_role_inventory": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/combatant.rs",
+      "sha256": "afba3aaeb15ab41fe36d35221b5269a784098863766c03ad61ecd6532204bdbc",
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "disposition": "Actual native combatant load argument semantics and initial admission; prior061 full receiver proof retained",
+      "acceptance": "Exact receiver personally read; prior full native body already personally source-accounted."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-061-receipt.json",
+        "sha256": "1e26974b7e1795184974dca7f3ff4cd5094facd0c1717fab47d9ce7b8edbc633"
+      },
+      "contract": "Native1076full694,1077full111,1078full85 admitted equipment/condition/Combatant receiver"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-064-receipt.json",
+        "sha256": "91c5c0fe2515a9d9782cbc7c18b53148b198e3ad2b331eccd6d26e78bc2b575c"
+      },
+      "contract": "Native1086 condition full2627 actual refresh and total incapacitation authority"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-010-receipt.json",
+        "sha256": "59d8ab785e544e91e87e1d58761594679196a96d9a1573cc6160f6ede4227829"
+      },
+      "contract": "Core857 autoresolve full2878 and actual transient starting-state numerical consumer"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-101-receipt.json",
+        "sha256": "3126c4ae02fb943f1a56167e4014d3c2be754805792fe73f0b32617b197047ed"
+      },
+      "contract": "Native1233:1..120 living ready-member/count/power selection; no whole party caller guarantee"
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Whole source24 actualEOF read; empty241..480 display confers no coverage.",
+    "Source discovery only; all inherited source/currentness/clinical/runtime/ID/clock/capacity and pending populations/queues retained. No unique accepted alias or global clearance."
+  ]
+}

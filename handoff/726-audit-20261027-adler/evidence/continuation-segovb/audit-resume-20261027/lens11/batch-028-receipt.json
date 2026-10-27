@@ -1,0 +1,213 @@
+{
+  "at": "2026-10-27T13:00:54.209435+00:00",
+  "lens": 11,
+  "status": "934-936 independently source-accounted at full effective requested scope",
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-027.json",
+    "sha256": "a52a632c737b28be07f372ad01f7a70fc905ef591a9c194388ae2aec0dd9adc6"
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-028-registration.jsonl",
+    "sha256": "bda9ef8a1a3332e53d17f38b5ee25e4dfaa415a355b42bd0e29c424e3c5d4d21"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 934,
+      "source_id": "pr-working:crates/adventuresim-core/src/investigation.rs",
+      "sha256": "670a2ae0df206f175978278ad2644e91d75c22a88cfa1ef89759171da672147b",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/670a2ae0df206f175978278ad2644e91d75c22a88cfa1ef89759171da672147b",
+      "actual_eof": 1154,
+      "ranges": [
+        [
+          1,
+          825
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          825
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 935,
+      "source_id": "pr-working:crates/adventuresim-core/src/investigation_action.rs",
+      "sha256": "717288409edb3210de986fef4dcf838525461956d2e686f59a78a781b5e354e2",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/717288409edb3210de986fef4dcf838525461956d2e686f59a78a781b5e354e2",
+      "actual_eof": 1291,
+      "ranges": [
+        [
+          1,
+          1291
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          1291
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 936,
+      "source_id": "pr-working:crates/adventuresim-core/src/investigation_action/vocabulary.rs",
+      "sha256": "8d67cde0fd321af7ee5bae1c5045bc1adeb4fbe118698c40d194878ed01f5b5e",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/8d67cde0fd321af7ee5bae1c5045bc1adeb4fbe118698c40d194878ed01f5b5e",
+      "actual_eof": 186,
+      "ranges": [
+        [
+          1,
+          186
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          186
+        ]
+      ]
+    }
+  ],
+  "material_receivers": [
+    {
+      "kind": "connected-owner",
+      "original_index": 948,
+      "sha256": "eff9843bb7a8c4e0459b990f5684deae4c827ec824b58334789ec8e1cce55ffd",
+      "ranges": [
+        [
+          1,
+          100
+        ],
+        [
+          140,
+          310
+        ]
+      ],
+      "prospective": true,
+      "reason": "Actual observer envelope admission/retention and shared bounded basis-point owner under investigation confidence",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          100
+        ],
+        [
+          140,
+          310
+        ]
+      ]
+    },
+    {
+      "kind": "connected-owner",
+      "original_index": 2156,
+      "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "prospective": true,
+      "reason": "Actual observer envelope admission/retention and shared bounded basis-point owner under investigation confidence",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          100
+        ]
+      ]
+    },
+    {
+      "kind": "connected-owner-closure",
+      "original_index": 948,
+      "sha256": "eff9843bb7a8c4e0459b990f5684deae4c827ec824b58334789ec8e1cce55ffd",
+      "ranges": [
+        [
+          101,
+          139
+        ]
+      ],
+      "prospective": true,
+      "reason": "Complete confidence band and subject/source payload definitions used by evidence adapter",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          101,
+          139
+        ]
+      ]
+    }
+  ],
+  "reused_personal_source_proofs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-026-receipt.json",
+      "sha256": "a6a3bf715d71a10786994eea605f942cdb91f137578cb423ec0f81a23465904e"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-015-receipt.json",
+      "sha256": "7004d53b1622eb7834523ad33453cba4658d03e5783c21c18f6742f91ad5c3b0"
+    }
+  ],
+  "per_role": [
+    {
+      "original": 934,
+      "roles": "Case/Event/Proposition/Observation/Recollection/Claim/Evidence/Belief/Lead/Revision/SharingReceipt/Source IDs; canonical event versus observer perception/memory/disclosure/transmission; private evidence knowledge envelope; confidence, retention, fidelity and relative-score support; destination disclosure and geography; provenance/receipt/revision identity.",
+      "trace": "Consumed1-825 of1154: union of all registered reached ranges, including complete production infer_threats790-821;823-825 only test prefix. Distinct IDs share syntax via macro while naming separate join authority. AdaptedEvidenceKnowledge preserves persisted string key beside hash-derived nonzero numeric adapter key and documents collision rejection at persistence.948 receiver validates source<=learning<=observer personal time and lineage; empty evidence visibility marker excludes shareable/public variants, guaranteeing ObserverPrivate at this concrete instantiation. Canonical truth is absent from InferenceInput and candidate products remain private, while qualitative_deductions projects six relative score bands. process_report couples typed provenance but accepts raw observer/speaker/receipt identities and bounded text; Omit returns no Claim while other disclosure modes permit optional disclosed text.",
+      "disposition": "Keep proposition-level perception, memory, disclosure and transmission as independent axes; do not replace with witness-wide truth/lying bool. Keep role IDs and canonical/observer distinction even same bytes. BasisPoints wraps generic UnitBasisPoints with no explicit purpose and serves confidence, fidelity, retention and relative support: unify common invariant beneath named roles where roles matter, rather than multiply identical generic fraction validators. KnowledgeConfidence is an existing meaningful observer-confidence owner. DestinationKnowledge properly owns state payload; separate Stage enum is a lossy disclosure summary, not inherently duplicate authority. Exact latitude/longitude E7 and location ID remain raw ports; no claim every pin is canonical truth or all coordinate bodies reconciled. Lead witness optionals are independent partial knowledge, not proved all-or-none. Public Belief duplicates current revision statement/confidence without association admission; qualify retained authority question, not live stale data.",
+      "remedy_acceptance": "Preserve observer privacy and source chronology; canonical IDs/coordinates and evidence-known relationship require correct scope. Reuse shared admitted fraction invariant and appropriate role names. If joining hash adapter key, prove collision rejection in actual persistence adapter before acceptance. No current or global disclosure guarantee."
+    },
+    {
+      "original": 935,
+      "roles": "Availability state and reason/travel/wait payload; method/target/environment; weather sum; skill contributions, signed modifiers, probability/uncertainty/progress, counts versus minutes/resource costs; private rights/capability/party authority and completion effects.",
+      "trace": "Full1291 consumed including fixtures as source. Weather owns rain/snow intensity payload while snow cover is independently present; weather arithmetic caps raw basis points. resolve clamps effective skill500..9500; random roll nativeindex10000, separate risk seed; success result_kind returns NoNewInformation only on failure. Bounded progress caps failure ordinal5, progress9500, threshold10000 and independently recomputes uncertainty. Plan tests Allowed only, discarding stored question digest; generic1006 receivers previously read in026 do not restore binding. AttemptPartyInterval uses resolution.cost.minutes while generic time uses separately supplied duration; completion gates CommitResolution.",
+      "disposition": "Qualified frozen binding pattern extends026 preparation question: typed evidence kind narrows which rights decision, but does not bind same actor/place/resource/question instance. No runtime auth exploit/current bypass asserted. Resolution exposes coupled result and success although result mapping proves success iff result!=NoNewInformation; own successful/unsuccessful outcome or derive flag. Risk probability and risk_triggered are independent chance/outcome, not redundant. Scalar uncertainty/probability/cover/intensity/progress have shared bounded fraction invariant, distinct semantic roles; signed weather modifier is not UnitBasisPoints. Raw SkillContribution fields are not all admitted skills: assistance is deliberately capped and effective aggregate bounded after modifiers; do not invent skill<=whole everywhere. ResolutionInput current uncertainty admits u16>10000, success branch can retain >10000 while failure caps, so bounded output claim needs actual admission. Duration/cost/elapsed are distinct but their authority association is unchecked in public plan input; no wrong runtime duration witness. Minimum members/requirement flags represent independent prerequisites; do not force a giant enum."
+    },
+    {
+      "original": 936,
+      "roles": "InvestigationActionKind nine canonical methods; Terrain eight action environments; typed parse failures and stable storage keys.",
+      "trace": "Full186 read. Serde/fromstr reject noncanonical casing/unknown strings.935 actual primary skill/result mapping covers all methods, tracking-edge predicate matches action/target pairs.",
+      "disposition": "Keep methods distinct from target categories and operation result, and keep action environment distinct from terrain-pack surface/forage biome: matching names do not prove interchangeable authority. Unit parse errors distinguish boundary vocabularies. No need for per-variant newtypes or generic terrain unification."
+    }
+  ],
+  "qualified_findings": [
+    {
+      "source_key": "lens11:frozen:935:investigation-rights-question-binding",
+      "related_source_key": "lens11:frozen:930:preparation-rights-question-binding",
+      "relationship": "same discarded-provenance pattern established by exact bodies, not accepted canonical finding alias",
+      "accepted_unique": false
+    },
+    {
+      "source_key": "lens11:frozen:935:result-success-coupling",
+      "status": "public state broader than actual result_kind producers; current/alias unresolved",
+      "accepted_unique": false
+    }
+  ],
+  "contract_limits": [
+    "9481-310 consumed; ObserverKnowledgeRecord::new307-309 complete, later mutation/share/disclosure APIs not read and no coverage claimed. Shared source binding is established in actual envelope body; no persistence/native SDK expansion.",
+    "2156 1-100 consumes complete UnitBasisPoints1-92 and only signed-fraction attribute prefix94-100; no signed owner body credit. Derived Serde can bypass named constructor bounds: admission-lens dependency retained, not a fresh accepted unique count here.",
+    "934 stable-ID derived serialization and public records do not globally guarantee constructor-only admission. Exact private observer envelope use is source-proved, not runtime validation.",
+    "Native RNG index boundary is local10000 range and not exhaustive SDK proof. Existing test expectations not executed. Rights/strategic plan exact hashes and bodies carried from personally consumed026 only.",
+    "No whole934 tail826-1154 credit; no ordered948/2156 credit, no whole current source or global finding clearance."
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_ledger_edited": false
+}

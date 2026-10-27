@@ -1,0 +1,44 @@
+{
+  "id": "SEGOVB-989-RULE-DISCOVERY-001",
+  "base": "b3810b8b5db78c15cc51a0e1bef747a06450dffb",
+  "scope": "989 canonical texture constructor validation and typed cube-face operation/error family only",
+  "timing": "Implementation became available during independent discovery; reviewed supplied original-to-final patch plus actual scoped bodies. This is not a claim that independent discovery finished before root edits.",
+  "rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "basis": "Applicable root/crates rules previously fully read; rule contents remain pinned"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "basis": "Applicable root/crates rules previously fully read; rule contents remain pinned"
+    }
+  ],
+  "skills": [
+    "rule-review",
+    "audit-enum-shapes",
+    "audit-derivability"
+  ],
+  "source_read_registrations": [
+    "rule-registration-001.json",
+    "rule-registration-002.json",
+    "rule-registration-003.json"
+  ],
+  "findings": [],
+  "design_dispositions": [
+    "Reuse canonical ValidationScope for2D/3D/cube construction rather than another policy Boolean or copied poll/pop routine. Actual optional scope absence expresses Uncaptured policy; scope presence owns actual device+guard.",
+    "Optional cube-face context is actual observation-resource availability, not a separate role tag requiring another enum. Supplied context must still choose canonical policy; None performs native creation without validation-only blocking. Browser cfg excludes synchronous scope creation.",
+    "Existing TextureViewOperation should own CubeFace only in its face variant, while shared TextureViewError::Observation owns requested format and actual scope cause. Avoid a second face error type, optional face field for unrelated operations, per-failure operation duplication or legacy API preservation.",
+    "Move face selectors to existing cube/views.rs responsibility; retain construction, readback, clearing and submission/backpressure ownership. Alias WgpuTextureView only disambiguates SDK type from application wrapper, not a compatibility alias.",
+    "Keep native cube layer indexing and descriptor layer counts at SDK boundary; preserve original typed requested format independently from effective native linear projection.",
+    "Generic texture constructor Result APIs may propagate canonical ValidationScopeError with standard conversion; typed view/face APIs retain TextureViewResult through all face selectors. No wrapper conversions/manual error traits required."
+  ],
+  "acceptance_pending": [
+    "Hosted final source checks and GPU/browser behavior evidence; no local checks/tests authorized.",
+    "After moving cube face methods, consume actual hosted baseline and apply only relevant cube debt reductions as required by crates/AGENTS.md; no guessed ceiling or local baseline scanner."
+  ],
+  "coverage_limit": "Bounded discovery of claimed989 changed responsibilities and direct receiver bodies; no broader audit or source population clearance.",
+  "source_git_rootledger_tests_publication": "none",
+  "complete_for_bounded_design_review": true
+}

@@ -1,0 +1,277 @@
+{
+  "lens": "derivability",
+  "registry": "../shared-material-successor/source-extensions-185.json",
+  "registry_sha256": "b21e9b158607315c3a4d033425273c3375d4df4e8ddee0587533e1042c1d4439",
+  "receipts": [
+    {
+      "material_index": 0,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials/palette.rs",
+        "sha256": "0ce1ea507bc49a06edff5175cc0638a0cc8e5cf7c3e33258fc41b01e5d97faa1",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            1,
+            69
+          ]
+        ],
+        "registration_evidence": "redundant-authority/prospective-source-registration-001.json",
+        "reason": "Immediate BuildingPalette get owning definition consumed by scoped assembly/input.rs79-107. Must verify whether the prototype-key TimberInfill material assetID uniquely identifies the complete material palette. This is a first-party helper body, not blanket materials/SDK expansion. Exclude unrelated fixture/helper material if actual body contains it."
+      },
+      "source_origin": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/buildings/materials/palette.rs",
+      "source_sha256": "0ce1ea507bc49a06edff5175cc0638a0cc8e5cf7c3e33258fc41b01e5d97faa1",
+      "read_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "inventory_and_semantics": "BuildingPalette derives Clone/Copy; get maps authored material/finish roles to native handle assets. No handwritten traits/codecs; not a one-handle-equivalence proof.",
+      "disposition": "No new derivability candidate; retain semantic/native behavior or existing structural derives",
+      "evidence_basis": "Fresh personal exact registered body comparison for this material role; no original/overlay/other-lens verdict transferred",
+      "limits": "Exact materially registered scope only; supporting whole-copy bytes are identity not source coverage. No extra SDK/callee/runtime/global credit"
+    },
+    {
+      "material_index": 1,
+      "registration": {
+        "source_id": "merged774:crates/adventuresim-weapon-model-browser/src/lib.rs",
+        "sha256": "c29071eeb95db76a0909330a53328dd39f1f2d2f1dddfcecff7c448fcffe344b",
+        "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+        "ranges": [
+          [
+            1,
+            250
+          ]
+        ],
+        "registration_evidence": "local774:PC90/M84, actual received source read recorded in file_reviews",
+        "reason": "Immediate authoring->Request::execute->WASMtext receiving graph, production and original fixtures; no blanket browsercrate expansion."
+      },
+      "source_origin": "13fc9dcc71ab879de364117e5462310673e43210:crates/adventuresim-weapon-model-browser/src/lib.rs",
+      "source_sha256": "c29071eeb95db76a0909330a53328dd39f1f2d2f1dddfcecff7c448fcffe344b",
+      "read_ranges": [
+        [
+          1,
+          250
+        ]
+      ],
+      "inventory_and_semantics": "Full250line native/WASM Request route read, including original fixtures. Request/Catalog derive serde; RequestError uses thiserror Display/Error/From derives. execute and diagnostic reread implement library dispatch/error-path context, not hand codec. No new derivability candidate.",
+      "disposition": "No new derivability candidate; retain semantic/native behavior or existing structural derives",
+      "evidence_basis": "Fresh personal exact registered body comparison for this material role; no original/overlay/other-lens verdict transferred",
+      "limits": "Exact materially registered scope only; supporting whole-copy bytes are identity not source coverage. No extra SDK/callee/runtime/global credit"
+    },
+    {
+      "material_index": 2,
+      "registration": {
+        "source_id": "native-dependency:bevy_render-0.19.1/src/storage.rs",
+        "sha256": "dcce6f3140c253231a106b1343c0dfa5e78e3175a78e9e78863e65ee3764b35a",
+        "registration_evidence": "redundant-authority/prospective-source-registration-002.json",
+        "reason": "Actual native storage buffer preparation needed to settle CityFrame allocation identity; exact scoped receiving body, not wholeSDKscope.",
+        "ranges": [
+          [
+            1,
+            231
+          ]
+        ]
+      },
+      "source_origin": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/dcce6f3140c253231a106b1343c0dfa5e78e3175a78e9e78863e65ee3764b35a",
+      "source_sha256": "dcce6f3140c253231a106b1343c0dfa5e78e3175a78e9e78863e65ee3764b35a",
+      "read_ranges": [
+        [
+          1,
+          231
+        ]
+      ],
+      "inventory_and_semantics": "Pinned native storage231 read. ShaderBuffer basic traits derive; Default fixes storage+copy usage flags and descriptor, not field defaults. Generic From<T> performs encase shader encoding with bounds, RenderAsset implements extraction/reuse/allocation/copy semantics; cannot replace those with structural derives.",
+      "disposition": "No new derivability candidate; retain semantic/native behavior or existing structural derives",
+      "evidence_basis": "Fresh personal exact registered body comparison for this material role; no original/overlay/other-lens verdict transferred",
+      "limits": "Exact materially registered scope only; supporting whole-copy bytes are identity not source coverage. No extra SDK/callee/runtime/global credit"
+    },
+    {
+      "material_index": 3,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/streaming.rs",
+        "sha256": "b8091bd1fe336c7162f6fcc4729bdd1e16cadf288fafe8ad4092029e2ea1fcc4",
+        "ranges": [
+          [
+            7,
+            97
+          ],
+          [
+            169,
+            174
+          ],
+          [
+            246,
+            272
+          ]
+        ],
+        "original_scope_index": 1524,
+        "kind": "existing-variant range extension, not new sourcevariant",
+        "registration_evidence": "redundant-authority/prospective-source-registration-003.json",
+        "reason": "Immediate construction/update/consumer closure for PendingCityBuildings.finished queried by existing1508GPU assembly gating and for CityBuildingAssets.spawn receiver. Source175..245 includes only spawn plus partial present, not the queue field/constructors/completion semantics nor full consumer. Original fixtures99..167 and unrelated module rows excluded."
+      },
+      "source_origin": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/buildings/streaming.rs",
+      "source_sha256": "b8091bd1fe336c7162f6fcc4729bdd1e16cadf288fafe8ad4092029e2ea1fcc4",
+      "read_ranges": [
+        [
+          7,
+          97
+        ],
+        [
+          169,
+          174
+        ],
+        [
+          246,
+          272
+        ]
+      ],
+      "inventory_and_semantics": "Pending building/resource records derive Clone/Resource/SystemParam; constructor ties placements to establishments, queue update/completion/failure and cleanup are semantic lifecycle. No handwritten trait codec.",
+      "disposition": "No new derivability candidate; retain semantic/native behavior or existing structural derives",
+      "evidence_basis": "Fresh personal exact registered body comparison for this material role; no original/overlay/other-lens verdict transferred",
+      "limits": "Exact materially registered scope only; supporting whole-copy bytes are identity not source coverage. No extra SDK/callee/runtime/global credit"
+    },
+    {
+      "material_index": 4,
+      "registration": {
+        "source_id": "native-dependency:bevy_render-0.19.1/src/render_resource/uniform_buffer.rs",
+        "sha256": "09c699b99ca5712b61dc38ce3703155701999ab75801a5f38172475c23b73d1c",
+        "ranges": [
+          [
+            1,
+            149
+          ]
+        ],
+        "registration_evidence": "redundant-authority/prospective-source-registration-004.json",
+        "reason": "Actual fixed CameraCullData uniformallocation native receiver, narrowextraSDKmaterial, not wholeSDKscope."
+      },
+      "source_origin": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/09c699b99ca5712b61dc38ce3703155701999ab75801a5f38172475c23b73d1c",
+      "source_sha256": "09c699b99ca5712b61dc38ce3703155701999ab75801a5f38172475c23b73d1c",
+      "read_ranges": [
+        [
+          1,
+          149
+        ]
+      ],
+      "inventory_and_semantics": "Pinned UniformBuffer149 read. From/Default create scratch and nondefault COPY_DST|UNIFORM flags; preserve native buffer semantics. IntoBinding begins framework borrow adapter, generic encoding/write/allocation methods explicit. Ordinary Default derive would lose usage policy; no candidate. Tail150+ not credited.",
+      "disposition": "No new derivability candidate; retain semantic/native behavior or existing structural derives",
+      "evidence_basis": "Fresh personal exact registered body comparison for this material role; no original/overlay/other-lens verdict transferred",
+      "limits": "Exact materially registered scope only; supporting whole-copy bytes are identity not source coverage. No extra SDK/callee/runtime/global credit"
+    },
+    {
+      "material_index": 5,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/streams.rs",
+        "sha256": "eb233a67ab87212ae64dd30075b41f4708529607aea29596bbea32c4a0acc93d",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            1,
+            53
+          ]
+        ],
+        "registration_evidence": "redundant-authority/prospective-source-registration-005.json",
+        "reason": "Actual imported named random stream constants required for deterministic seed-role comparison, especially twig fixture raw parity vs production TWIG_SIDES. Not in old2853 catalog."
+      },
+      "source_origin": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/streams.rs",
+      "source_sha256": "eb233a67ab87212ae64dd30075b41f4708529607aea29596bbea32c4a0acc93d",
+      "read_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "inventory_and_semantics": "Named replay-purpose StreamId constants only; no handwritten traits/codecs. No replay correctness/fixture equivalence claimed.",
+      "disposition": "No new derivability candidate; retain semantic/native behavior or existing structural derives",
+      "evidence_basis": "Fresh personal exact registered body comparison for this material role; no original/overlay/other-lens verdict transferred",
+      "limits": "Exact materially registered scope only; supporting whole-copy bytes are identity not source coverage. No extra SDK/callee/runtime/global credit"
+    },
+    {
+      "material_index": 6,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone/streams.rs",
+        "sha256": "80fc6b2fc6f287ef9c214f4492651b73006484371550db1c0ee58649f492d7ee",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            1,
+            18
+          ]
+        ],
+        "registration_evidence": "redundant-authority/prospective-source-registration-006.json",
+        "reason": "Actual imported named random purpose owner required to compare independent mesh/billboard reconstruction roles and literal production variant source; absent old catalog."
+      },
+      "source_origin": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone/streams.rs",
+      "source_sha256": "80fc6b2fc6f287ef9c214f4492651b73006484371550db1c0ee58649f492d7ee",
+      "read_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "inventory_and_semantics": "Named loose-stone replay-purpose StreamId constants only; no handwritten traits/codecs. No mesh/billboard equivalence claimed.",
+      "disposition": "No new derivability candidate; retain semantic/native behavior or existing structural derives",
+      "evidence_basis": "Fresh personal exact registered body comparison for this material role; no original/overlay/other-lens verdict transferred",
+      "limits": "Exact materially registered scope only; supporting whole-copy bytes are identity not source coverage. No extra SDK/callee/runtime/global credit"
+    },
+    {
+      "material_index": 7,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/understory/streams.rs",
+        "sha256": "af5f77b3bca6fcfb8ec098008e0b1cb339a495cf5bf3b423ad9c24c325caf916",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            1,
+            17
+          ]
+        ],
+        "registration_evidence": "redundant-authority/prospective-source-registration-007.json",
+        "reason": "Actual imported stream owner required for community/specimen/species identity cache dependency comparison, absent old2853 catalog."
+      },
+      "source_origin": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/understory/streams.rs",
+      "source_sha256": "af5f77b3bca6fcfb8ec098008e0b1cb339a495cf5bf3b423ad9c24c325caf916",
+      "read_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "inventory_and_semantics": "Named understory replay-purpose StreamId constants only; no handwritten traits/codecs. No species/cache equivalence claimed.",
+      "disposition": "No new derivability candidate; retain semantic/native behavior or existing structural derives",
+      "evidence_basis": "Fresh personal exact registered body comparison for this material role; no original/overlay/other-lens verdict transferred",
+      "limits": "Exact materially registered scope only; supporting whole-copy bytes are identity not source coverage. No extra SDK/callee/runtime/global credit"
+    },
+    {
+      "material_index": 8,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/model/building_program.rs",
+        "sha256": "2ecfe5491e448871f85d33e15bc04c197311aae741054b4587143531548063a2",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            1,
+            66
+          ]
+        ],
+        "registration_evidence": "enum-shapes/additional-source-044A.json",
+        "reason": "DistantBuildingPlacement (1915) mirrors usage/service_size/archetype; inspect actual owning program semantic choices before finding or exemption. Materially reached declaration absent from frozen2853 catalog."
+      },
+      "source_origin": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/model/building_program.rs",
+      "source_sha256": "2ecfe5491e448871f85d33e15bc04c197311aae741054b4587143531548063a2",
+      "read_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "inventory_and_semantics": "BuildingProgram structural/serde traits already derive; fixture maps archetypes to authored generators/service program. No handwritten trait/codecs. Actual validation/admission/callee bodies outside this69minus3line role not implied.",
+      "disposition": "No new derivability candidate; retain semantic/native behavior or existing structural derives",
+      "evidence_basis": "Fresh personal exact registered body comparison for this material role; no original/overlay/other-lens verdict transferred",
+      "limits": "Exact materially registered scope only; supporting whole-copy bytes are identity not source coverage. No extra SDK/callee/runtime/global credit"
+    }
+  ],
+  "checks": "not run",
+  "source_edits": false,
+  "clear": false
+}

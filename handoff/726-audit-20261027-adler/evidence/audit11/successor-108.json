@@ -1,0 +1,41 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-108",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 688,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_design_input.rs",
+      "sha256": "7491f2bed3feecf76fd4446b7a20ce1470ef026f6deb1409b36798c860497ed1",
+      "ranges": [
+        [
+          1,
+          400
+        ]
+      ],
+      "assessment": "Full400 read1-210/211-400 inclfixtures. ArmorPlacement closedserde/catalogIDrole usesCatalogPlacement atinput andstableIDstr projection, nothumanproseclassification. ArmorDesigns mapsStringitemkeys\u2192typedParametricDesign/placementmap remainsmeaningfulcatalog/selectioncollection withpublicmutable/default/serde values; parsevalidatesactualitem/family/placement butreturnsunvalidated-lookingrecordtype, existingcanonicalitemhandle/validatedIDs ownerquestion. encode serializesandparses validationbeforepublication; editable-vs-admittedstate distinctionneededbeforecallingredundantadmission. parseusessecondcatalogdocument inauthoring notruntime; no automaticdupownerbugclaim. SharedrecipeMillis/Permille/Milliradianfixtures explicitnativecataloginputs. No newtests/physical/currentmain/globalclearance.",
+      "source_basis": "Root personally read exact frozen source after SHA256 match.",
+      "disposition": "Scoped role accounted with producer/native/canonicalowner/context qualifications; no global or family clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 689,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_design_output.rs",
+      "sha256": "76a902a4473ed977521ac29b57a0fe40b7aa6961768097e1470fc19c2fbdf5e1",
+      "ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "assessment": "Full118 readinclfixture. DesignPaths names threephysicalfile roles usingactualPath/PathBuf; validation/serialization ofallrecipes andaliasresolution precedesfirstwrite; fixed3paths/byteszip preservingcorrespondence. Filesystemwritessequential/nontransactional,noall-or-nothingclaim. WindowscomparisonuseslossyStringlowercase afternativecanonicalization, qualifiedpathidentity/casepolicyedge requiringvalidnativefilename/currentmainproof beforeacceptedissue; actualwriteoriginalPaths retained. SameFSerrorcontextdoesnoteraseunderlyingcauses. Existingalias/reloadfixture onlysource, notexecuted. No newacceptedunique/sourceedit.",
+      "source_basis": "Root personally read exact frozen source after SHA256 match.",
+      "disposition": "Scoped role accounted with producer/native/canonicalowner/context qualifications; no global or family clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

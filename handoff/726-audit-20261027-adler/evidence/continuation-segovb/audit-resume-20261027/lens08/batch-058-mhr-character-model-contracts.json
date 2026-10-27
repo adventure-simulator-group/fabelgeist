@@ -1,0 +1,75 @@
+{
+  "at": "2026-10-27T13:33:30.983618+00:00",
+  "lens": 8,
+  "registration": "REGISTRATION-094-mhr-contracts.json",
+  "base_variant_reuse": {
+    "path": "lens08/base-maps-094.json",
+    "sha256": "4cd5c11605559e580321f0ae901c617fe185c8bc698f94aec725d028c40ae472",
+    "method": "All listed full heads and all complete source deltas personally read; exact unchanged old lines mapped to same-lens ownhead proof. No literalfullbase or hash-only claim."
+  },
+  "per_role": [
+    {
+      "original": 2314,
+      "behavior": "Full25 head + complete old/newdelta, exact unchanged-range ownhead reuse: adds canonicalrigdependency and licenseAGPL; nativeBurn dependency/features notexecuted. No implicitAPIcompat."
+    },
+    {
+      "original": 2315,
+      "behavior": "Full154head+completedelta/ownunchangedreuse: newdocsfirstmatchname lookup follows actualSkeleton/RigJointName boundary. Stale restREADME describes LOD0..6 and unsupported charactercreator/taskfeatures whereas actualmanifest lacksfeatures and modelonlyLOD4..6. Known gaps says normalsnotcomputed while actualMhrOutput/forward recomputes. Savedparity/accuracy/performance/nativeassetclaims notvalidated. Owningcrateguide update pending implementationallowed, no wikiedits."
+    },
+    {
+      "original": 2316,
+      "behavior": "Full315head and full497lineold/newdelta, exact same-lens unchanged reuse: typed Skeleton/PackedSkin extractedmodules; decodervertextriple/UVpair remainder checks preserved. Raw f64->f32 finiteoverflow unadmitted. Polygon rawi64->u32 truncates, face index not bounded byvertices; actualmodel only i32conversion, native select can receive invalidvertex. UV MappingInformationType ignored, referenceotherthanIndexToDirect assumed direct; negativeUVindicescastu32. Shape malformedoffset/index silentlyskip/zerofill, sourcepolicy notoldfallbackrequirement. Mesh/BlendShapes/Characterpublicparallelstate lacks aggregate/skeletonassociation. New typederror bounds change invalidinput intentionally, no compatibility."
+    },
+    {
+      "original": 2317,
+      "behavior": "Full136newfile no base. Builder pushes every correlatedjointcolumn together and parent precedeschild, ordinarybind_pose guarded byconstruction. Public Skeleton independentlymutable RigJointTables allow wrongcount/parentindex/cycle even withtypedordinals. ActualFBXobjectgraph maycycle/duplicatechild recursion lacksvisitedset; validordinaryasset notprovedcyclic. names conversion FBXnormalizedlabel->RigJointName direct, duplicates firstmatch deliberate lookup policy notdurableID. Native scaleprerotation finite/unit admission pending."
+    },
+    {
+      "original": 2318,
+      "behavior": "Full113newfile no base. Actualclusterobject mapping bounded jointordinal/PackedRigSkin from_native admittedskeletoncount; this closes rawuncheckedu32index narrowing path. Missing/nonpositiveweights skip, clampInf1, NaN survives <=0 andtotal<=0 thennormalizationNaN; actualmodel>1e-5 dropsNaN silently leaving zero-deformed contribution. Need finiteadmission and coherentweight/index rows plus normalization policy. Duplicate clustersjointinfluences notmerged beforetop8, potentiallysamejoint consumesmultiple slots; sourcepolicy no ordinaryassetclaim. Inversebind overridebeforelaterErr ownedlocal discarded, no durableprefix. TransformLinkwronglengthignoredfallback needs explicitadmissiondecision."
+    },
+    {
+      "original": 2319,
+      "behavior": "Full188 materialsource: basis shape [components,vertices,3]/vertexcount checked. Then posed_joints=num_joints-2 unchecked; Character only nonempty admitsonejoint, corrective nativebytes mayreachunderflow ifbasis exists. hidden/inputs/products unchecked, rawactivationfloat finitevalue/provenance/device unknown. Indicescount2*values and individualboundschecked, negativecastbecomesoutofbounds onusualnative width. Duplicate sparse indices overwritevsaccumulate needsexternalformatpolicy, noassetwitness. PublicforwardTensor<3> rank alone not [batch,joints,7]/device/finiteproof. GPU/Burn/NPZnativebodies pending."
+    },
+    {
+      "original": 2320,
+      "behavior": "Full357 mathinclreadonlyfixtures. Native f64 Quat/Vec3/Mat4 rawaliases no normalizedunit/finite/nonsingular proof; quat_normalize tiny\u2192identity butoverflow/NaN n passesdivision. from_matrix assumesuniformscale/noshear andusespositivecolumnnorm losesreflection; affine_inverse singular det\u2192zero matrix part instead structuredErr; no oldfallbackrequirement. inverse zeroScaleInf and conjugate onlyactualunitquaternion. PublicEuler order[usize;3] admits3/duplicate axes andmat4_from_column_major shortslice indexes, actualSkeletonusesrotation_order validpermutations andSkinlinkchecks16 closesordinarytheseports. Degree/radian andcm/metrehand-offs needcanonicalownertraces, no globalall-scalarboundedness."
+    },
+    {
+      "original": 2321,
+      "behavior": "Full626head+complete115linedelta/ownheadunchangedreuse. NewnativeTensorindexconversionschecked, propagateErrbeforepublishingMhr. ActualParameterMatrixtranspose/row nativeadapter read2323. Publiccharacter andparameter_transform editableafterprivatecachedtensorscreated; num_joints/vertices/faces useeditedhostmetadata, forwardreshape/selectcachedmetadata canmismatch. Inputdimschecked(identity45rows1orbatch,posecolumns,expression72rowsbatch), no finite/coefficientlimits/deviceassociation. Forwardlimitsnotapplied explicitAPIpolicy needsintendedcontract, no impose roughREADME[-3,3] hardbound. Skin drops weights<=1e-5 without renormalizing, slight massloss acceptedpolicyneedsdecision notinvalidinputBC. Unreferenced/degeneratevertices outputzero normal byintent despiteUnitnormdoc. URI fallback retries nested onallerrors andflattenssourcesintoString; fabelgeist_fs nativeHTTPstatus gap prior2259 dependency. CorrectiveNonebasis semantics deliberate. Actual runtimeLOD4..6, notREADME0..6."
+    },
+    {
+      "original": 2322,
+      "behavior": "Full348head+complete445linedelta plus exactownunchangedreuse. Typedjointrow/modelcolumn/name/set eliminate row-columnconfusion untilnativeadapter. Textparser permitsmissingtransformsection, silentlydropsmalformedterms/unsupportedlimits; unknown dottedreference maybecome modelparameter; bareoffsets overwrite andreferencedrowoffsetnotcopied. Existing numericalrules mostlyunchanged; intendedformatcontractmustdecide, no preservationofbadparse. parse_limits findsfirst[ and] independently then slicesopen+1..close withoutordering: knownparameter line limit a minmax ] [ reaches panic inResult-returningparse_model_definition. NaN/reversedlimitsstoredthenf32clampcanpanic, no finiteorderedadmission. Exponentialnotation1e+3 spliton+ silentlymisparse; representablefileformatquestion notexternalmanualchecked. append_blend count+current unchecked andpublictablescanmismatch. ActualMhr appends45 onceordinary; duplicate blendname firstlookup semantics intentional noBC."
+    },
+    {
+      "original": 2323,
+      "behavior": "Full303newfile no base. Modelcolumn onlyinsertion-produced but nottiedtableinstance, jointrow same; methodsindexpanic onforeignrow/column. Matrixzeros productsunchecked; append_columns publicnewcolumns<old can paniccopyoverlappingextent, tensor_transposecolumns>storedpanic. Ordinary2322 useslargerappend and2321leadingcolumns<=stored closesnormalports withcoherentobject. All7JointChannel exhaustive/nativecodec definitive; names exactcase/duplicatefirst purpose, notopaqueIDauthorization. PublicParameterTransformcancombineforeignmembers, noaggregateadmission."
+    },
+    {
+      "original": 2324,
+      "behavior": "Full143newreadonlyexistingfixtures: typedrow/columncorrelatedoffset andmatrixcontents/sourceparser/examples consumed. Tests coverwellformedweights/reference/duplicates/singleoffset/limits/append; no malformedlimitordering/NaN/aggregateproof andnoneexecuted. Sourceoraclecontentnobackwardcompatrequirement."
+    },
+    {
+      "original": 2325,
+      "behavior": "Full302head+complete127linedelta/ownheadunchangedreuse. TypedparentOption replaces-1sentinel, typedsource/targetvectors convertedcheckedinactualmodel. Publicparentscan selfcycle =>whileSome endless, outofbounds=>indexpanic; actualprivateSkeletonBuilderearlierparentforest closesnormalconstructedflow. PrefixMultiplicationLevelpublicparallelarrays canmismatch butprivateMhr buildsactualcoherentlevels, no ordinaryziptruncationclaim. Rank3 publictensoralgebra assumeschannels4/8/3 normalizedquaternions andcompatibledevice/batch; no nativewrappercertificate. f32tensor/f64host ordinaryequivalencefixturesreadonlynot executed."
+    }
+  ],
+  "partial": {
+    "original": 2313,
+    "read": "Complete62lineold/newlockdelta; fullhead7093/base7061 role source inventory remains pending. No completeoriginalcredit."
+  },
+  "connected_repair_requirements": [
+    "Admit coherent skeleton/mesh/skin/parameterlayout and bindcached tensors toimmutable admittedhostmetadata; finiteweights/nativescalar/count/index representability before allocation/upload.",
+    "Own structured parse errors for malformed bracket/finiteorderedlimits and native tensor shape/device/admission boundaries; retain finalschema directly.",
+    "Reconcile exact aliases/current producerchain for rig,FBX,NPZ/Burn and MHR ratherthan declaringsharedremedyduplicate."
+  ],
+  "acceptance_requirements": [
+    "Later source-guided checks for malformedFBX/NaNweights/foreignordinal/layout, malformedlimitordering, selfparentgraph, mutablemetadata/cachemismatch and ordinarysupportedassets. No execution now.",
+    "Currentness/nativeparser/backend contracts and savedparity evidence remain separate verification; no guaranteedoldwire/downcasts/invalidbehavior."
+  ],
+  "accepted_unique_count_change": 0,
+  "implementation_gate_complete": false
+}

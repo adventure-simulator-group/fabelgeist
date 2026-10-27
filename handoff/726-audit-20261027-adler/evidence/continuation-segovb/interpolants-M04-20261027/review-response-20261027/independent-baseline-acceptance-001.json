@@ -1,0 +1,411 @@
+{
+  "at": "2026-10-27T08:40:34.517117+00:00",
+  "review": "Final narrow independent baseline acceptance PR992 candidate005",
+  "candidate_manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/edited-source-manifest-005.json",
+    "sha256": "799d40f626f5035792226a3667787fbf6704eef1aaeb72cb87d500515f9c2f4b"
+  },
+  "prior_source_review": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-review-001.json",
+    "sha256": "798bcea068c8ad65d54eb9c94932f7885f082cb225b6206ef80ef72ca2a461c1"
+  },
+  "prior_exact_format_reconciliation": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-format-reconciliation-001.json",
+    "sha256": "45396a6391c67b1a6548cff0334288b27e73f1f0e54070fed823e5bab1119eb4"
+  },
+  "artifact_context": {
+    "run": 40473663095,
+    "artifact": 12720027040,
+    "root_download_provenance": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/baseline-reduction-001.json",
+      "sha256": "550753c467943ddc8a004367a64cfebda8238ab720d42826a46d8706f21f4602"
+    },
+    "export": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/early-hosted-001/rust-quality-baseline.toml",
+      "sha256": "a9127d69debeff4689deb3c9ef5b94d8ddd4df403e59d4760415fc34eb4271d1"
+    },
+    "source_identity": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/early-hosted-001/source.txt",
+      "sha256": "53d106c18848b308ef8fbdd2dbb31aa0b0abb44f679e402ed021d7d07d48b51c"
+    },
+    "PR_head_identity": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/early-hosted-001/pr-head.txt",
+      "sha256": "53d106c18848b308ef8fbdd2dbb31aa0b0abb44f679e402ed021d7d07d48b51c"
+    },
+    "actual_identity_text": "Both exactly f7681f248cfeb0634fcb9b46fc170ed2f6b01b82; independently consumed1lineeach. Priorformatreceipt independentlyties all16Gitobjectsourcepins to samef768head.",
+    "qualification": "Local downloadedartifact bytes/hash/sourcebinding independently inspected; run/artifact attribution follows rootdownloadreceipt, not a freshremote download or wholeCI acceptance."
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-baseline-registration-001.json",
+    "sha256": "0a4a6a7bf72fade010a27ab410ee488837c34fb8a0658f11246c697a796da74c"
+  },
+  "actual_scoped_evidence_reads": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-baseline-before-f768.toml",
+      "sha256": "8ccab96e129e4b873ed3f8ae3841afd6bf7cfa59809b69cbed46ec41855b171e",
+      "actual_eof": 12838,
+      "registered_ranges": [
+        [
+          581,
+          584
+        ],
+        [
+          1080,
+          1084
+        ],
+        [
+          2390,
+          2394
+        ],
+        [
+          3579,
+          3585
+        ]
+      ],
+      "purpose": "Existingbaselineentry blocks scoped to16changedpaths only; hostedexport not localRustscanner"
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "8da5ee46241fe574e76a0b67391c30e5287f90a228995456a39b15cf00701262",
+      "actual_eof": 12838,
+      "registered_ranges": [
+        [
+          581,
+          584
+        ],
+        [
+          1080,
+          1084
+        ],
+        [
+          2390,
+          2394
+        ],
+        [
+          3579,
+          3585
+        ]
+      ],
+      "purpose": "Existingbaselineentry blocks scoped to16changedpaths only; hostedexport not localRustscanner"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/early-hosted-001/rust-quality-baseline.toml",
+      "sha256": "a9127d69debeff4689deb3c9ef5b94d8ddd4df403e59d4760415fc34eb4271d1",
+      "actual_eof": 12834,
+      "registered_ranges": [
+        [
+          581,
+          584
+        ],
+        [
+          1078,
+          1082
+        ],
+        [
+          2388,
+          2392
+        ],
+        [
+          3575,
+          3581
+        ]
+      ],
+      "purpose": "Existingbaselineentry blocks scoped to16changedpaths only; hostedexport not localRustscanner"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/early-hosted-001/source.txt",
+      "sha256": "53d106c18848b308ef8fbdd2dbb31aa0b0abb44f679e402ed021d7d07d48b51c",
+      "registered_ranges": [
+        [
+          1,
+          1
+        ]
+      ],
+      "purpose": "Hosted artifact sourceidentity"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/early-hosted-001/pr-head.txt",
+      "sha256": "53d106c18848b308ef8fbdd2dbb31aa0b0abb44f679e402ed021d7d07d48b51c",
+      "registered_ranges": [
+        [
+          1,
+          1
+        ]
+      ],
+      "purpose": "Hosted artifact sourceidentity"
+    }
+  ],
+  "actual_delta": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-baseline-delta-001.patch",
+    "sha256": "693529272e3d69947a331f1bc373961b785781ca8734b0dd8ef2c4abaaf8edb5",
+    "personally_consumed_ranges": [
+      [
+        1,
+        22
+      ]
+    ],
+    "before_baseline": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-baseline-before-f768.toml",
+      "sha256": "8ccab96e129e4b873ed3f8ae3841afd6bf7cfa59809b69cbed46ec41855b171e"
+    },
+    "after_baseline": {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "8da5ee46241fe574e76a0b67391c30e5287f90a228995456a39b15cf00701262"
+    },
+    "scope": "Completebaseline-onlyGitdiff f768->candidate005current, exactly2numericreplacements; no otherentry or bytechange in diff."
+  },
+  "relevant_existing_entries": {
+    "before": [
+      [
+        "files",
+        {
+          "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+          "ceiling": 698
+        }
+      ],
+      [
+        "functions",
+        {
+          "path": "crates/adventuresim-core/build.rs",
+          "item": "compile_organizations",
+          "ceiling": 118
+        }
+      ],
+      [
+        "functions",
+        {
+          "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+          "item": "TacticalCombatConfig::validate",
+          "ceiling": 315
+        }
+      ],
+      [
+        "findings",
+        {
+          "rule": "raw-string-branch",
+          "path": "crates/adventuresim-core/build.rs",
+          "item": "compile_road_encounters",
+          "fingerprint": "string:items",
+          "occurrences": 1
+        }
+      ]
+    ],
+    "hosted_export": [
+      [
+        "files",
+        {
+          "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+          "ceiling": 642
+        }
+      ],
+      [
+        "functions",
+        {
+          "path": "crates/adventuresim-core/build.rs",
+          "item": "compile_organizations",
+          "ceiling": 118
+        }
+      ],
+      [
+        "functions",
+        {
+          "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+          "item": "TacticalCombatConfig::validate",
+          "ceiling": 278
+        }
+      ],
+      [
+        "findings",
+        {
+          "rule": "raw-string-branch",
+          "path": "crates/adventuresim-core/build.rs",
+          "item": "compile_road_encounters",
+          "fingerprint": "string:items",
+          "occurrences": 1
+        }
+      ]
+    ],
+    "current": [
+      [
+        "files",
+        {
+          "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+          "ceiling": 642
+        }
+      ],
+      [
+        "functions",
+        {
+          "path": "crates/adventuresim-core/build.rs",
+          "item": "compile_organizations",
+          "ceiling": 118
+        }
+      ],
+      [
+        "functions",
+        {
+          "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+          "item": "TacticalCombatConfig::validate",
+          "ceiling": 278
+        }
+      ],
+      [
+        "findings",
+        {
+          "rule": "raw-string-branch",
+          "path": "crates/adventuresim-core/build.rs",
+          "item": "compile_road_encounters",
+          "fingerprint": "string:items",
+          "occurrences": 1
+        }
+      ]
+    ],
+    "comparison": "Every previousbaselineentry scopedto16changedpaths, includingfunctioncompile_organizations118 andraw-stringbranchfindingunchanged, personallyreadactualblocks frompre/current/export. 4records each, no other scopedexportentry. Only2ceilingreductions differ; exactcurrententries equalhostedentries."
+  },
+  "accepted_reductions": [
+    {
+      "kind": "files",
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "item": null,
+      "before": 698,
+      "after": 642,
+      "hosted": 642
+    },
+    {
+      "kind": "functions",
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "item": "TacticalCombatConfig::validate",
+      "before": 315,
+      "after": 278,
+      "hosted": 278
+    }
+  ],
+  "source_pins": [
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "0ad5e0e1b2b062d47f48af303bc97f1259f6d4ac99c62bef9b42588b183233b4",
+      "unchanged_from004": true,
+      "verified": true
+    },
+    {
+      "path": "crates/adventuresim-core/Cargo.toml",
+      "sha256": "29e56014658d941895772dda71b9181863839eedf403c7d30b446186228c3441",
+      "unchanged_from004": true,
+      "verified": true
+    },
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+      "unchanged_from004": true,
+      "verified": true
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "ceb8c36c8e8abb4ac96fa0c61601d11145d28755fdb3e7af723aa20ae8dc58bf",
+      "unchanged_from004": true,
+      "verified": true
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "de48188cfd3789d9a2ac3d9239c4d62f7991191f0a07d88ad90faa5047f7f129",
+      "unchanged_from004": true,
+      "verified": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "sha256": "12d4b4e5ed4ce3940c78b7ee4420ec94e5efa83776b14d60afdbf2ba0d501f5d",
+      "unchanged_from004": true,
+      "verified": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "sha256": "fcc7c277f72f6a1004077bd04d3fb0c91607e17e8ee3977106aaa2c3cee38b98",
+      "unchanged_from004": true,
+      "verified": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "sha256": "9ac62b342f4ffec934232478fb5e019d84228a3cb726e29ed9b6f62d91775f36",
+      "unchanged_from004": true,
+      "verified": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "sha256": "5bb5172865b0ed718a1ecb1bf7378539725fc0afdbe8394d43ed23979c151d9e",
+      "unchanged_from004": true,
+      "verified": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "d20c873dd470d03cd65d2c0da3d73dd050cde53f78dfc8bb81b1d237bf55ddcf",
+      "unchanged_from004": true,
+      "verified": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027",
+      "unchanged_from004": true,
+      "verified": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "sha256": "37a5dba433aa5219b544716053897df30d3df49662fb5fd38794130c1b803946",
+      "unchanged_from004": true,
+      "verified": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "sha256": "642983d4cdf24f5cda28f00740f180af4cc4e926b205df647057ef1194e9e32a",
+      "unchanged_from004": true,
+      "verified": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "543ea955a72a4accf8550af44b35ad0a526fbcc6731bc5fb109ac38ceb609e17",
+      "unchanged_from004": true,
+      "verified": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "c835a9611d133e6fbe72b9121632d5dca1752d4f22d1b0545792ff582844e68d",
+      "unchanged_from004": true,
+      "verified": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "sha256": "024ec4e60675ea68c97e5ed11e89756356b724a7ea0519006227c58c6bfeefce",
+      "unchanged_from004": true,
+      "verified": true
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "8da5ee46241fe574e76a0b67391c30e5287f90a228995456a39b15cf00701262",
+      "unchanged_from004": "baseline-only addedpath",
+      "verified": true
+    }
+  ],
+  "actionable_findings": [],
+  "source_and_baseline_verdict": "Approved within narrow scope. combat_config.rs ceiling698->642 andTacticalCombatConfig::validate315->278 exactly matchauthoritativehostedexport for reviewedf768Rustsource. All16previoussourcepaths/workflow/Cargo/build identical004; only17thmanifestpathbaseline differs. Sourceapproval/previousresolvedcontactpairfinding carry, no newcode review needed forunchangedbytes. No ceilingraised, findingfingerprintweakened, arbitraryguess or unrelatedbaselinedifference adopted.",
+  "policy_support": "crates/AGENTS.md requires baseline after splitting/migrating and only relevantreductions, never ceilinggrowth. Rootusedhostedexport; reviewerusedno localbaseline/checker orprojectexecution. Extractedconfigowner andsmallerparentvalidator are theactualchanges reducingthese2entries.",
+  "acceptance_state": {
+    "baseline_export_consumption": "Satisfied for theseexact2entries on unchangedreviewedRustsource.",
+    "new_baseline_commit_and_fullsameheadCI": "Pending; candidate005hasnotbeenindependentlyboundtoafinalcommit/newrunhere. Earlierf768artifactisnot finalbaselineheadacceptance.",
+    "test_artifact_results": "Not re-read or accepted bythisbaseline-onlyreview; no passcounts claimed.",
+    "global_goal_or_audit038": "Unchangedunfinished; no global/unique/frozenoriginal/lenscount credit."
+  },
+  "verification_limits": [
+    "Onlybaselineartifact/sourcebinding/reductions and unchangedsourcefingerprints reviewed; not a freshglobalarchitecturalreview.",
+    "No localfmt/build/test/scanner/probe; no newtests/helpers/assertions/doctests, no product/Git/rootledger/history/publication mutation.",
+    "CurrentRust/workflow/Cargo/build bytes equal004 andprevious independentreviewpins; hostedbaselineentrycomparison usesdownloadedTOMLevidence, not localRustanalysis.",
+    "FinalhostedCInewbaselinehead andallrequiredartifacts remain root acceptance work."
+  ],
+  "root_adoption_required": true,
+  "reviewer_execution": {
+    "project_checks": [],
+    "tests": [],
+    "scanners": [],
+    "Git_mutations": [],
+    "source_edits": [],
+    "allowed_actions": "Read-only exactGitshow/diff and source/evidence hash/TOMLreads; appendonlyignoredevidence"
+  }
+}

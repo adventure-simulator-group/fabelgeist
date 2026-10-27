@@ -1,0 +1,48 @@
+{
+  "at": "2026-10-27T15:10:14.827950+00:00",
+  "lens": 8,
+  "registrations": [
+    "REGISTRATION-122-animation-observation-receivers.json"
+  ],
+  "per_role": [
+    {
+      "original": 2440,
+      "behavior": "Full59 head/all11 delta read, own equal-map REG122. Typed sample time retained; native global transform arrays remain capture boundary with finite/unit assumptions. Filter by rig owner then stable(name,targetID) ordering; unnamed display label is not identity. Actual global report receiver pending."
+    },
+    {
+      "original": 2441,
+      "behavior": "Full263 head/all179 delta plus equal-map. Missing baseline explicitly invalid; missing/unexpected bone enum replaces infinity sentinel. Position/angular admission failure retained as InvalidObservation. BTree keys preserve correspondence, Option IK distinguishes absence vs mismatch. Raw quaternion dot tolerance can hide mismatch for nonunit input; actual native transform admission pending, no ordinary bad quaternion claim. Repeated validity aggregated rather than immediate terminal; completed report must consume false."
+    },
+    {
+      "original": 2442,
+      "behavior": "Full140 head/all41 delta plus equal-map. collect_bones now GeometryResult and signed clearance admission rejects invalid arithmetic. ScenePlanPoint admission Option and terrain height Option still yield absent clearance; downstream must distinguish unavailable from not applicable. Duplicate BoneRole would overwrite in map if upstream rig admits duplicates, actual rig owner pending. Native root fixture origin/height and ragdoll four-frame lead intentional; overflow only arbitrary huge frame counts, not actual bounded scenario."
+    },
+    {
+      "original": 2443,
+      "behavior": "Full132 new head. Actual bouncy GeometryResult propagated to RejectedGeometry through capture, closing producer-only gap for this adapter. Body angle radians explicitly converted to checked SignedAngleDegrees; old degrees-named radians bug need not be preserved. IK, height, settle, yaw and release fields retain absence. Raw native position/quaternion/acceleration arrays still need actual owner admission and report checks. Zero travel normalization intentionally stationary; contact handoff and initialized flags require owner semantics, not inferred failure."
+    },
+    {
+      "original": 2444,
+      "behavior": "Full179 head/all11 delta plus equal-map. CaptureOptions scenario string becomes ScenarioMetadata then CaptureSequence; unknown filter still empty-plan assertion before typed Result, actual CLI parser pending. Fixed capture clock, physics disabled/presentation enabled and single local character are fixture setup. Native file creation panic and CapturePlugin scheduling are source contracts only, no runtime failure claimed."
+    },
+    {
+      "original": 2445,
+      "behavior": "Full288 head/all252 delta now read plus equal-map. ExpectedScenarioBounds admits purpose-specific positive lengths, terrain vertical range preserves Measured/Unavailable/NotApplicable relief. Visual range/peak expectations only four named walk/run scenarios; direct final schema, no aliases. All threshold dispatch and old removed expected_visual_height tuple read; no threshold relaxation inferred from type migration. Cadence signed adjusted distance admission now checked and Geometry cause reaches ReportResult. Empty cadence subset returns true by applicability policy, actual requested-plan completeness must be checked before claiming vacuous report success. Actual four successive alternating contacts and 1% or5mm tolerance preserved; arbitrary count/phase source validity remains upstream."
+    },
+    {
+      "original": 2446,
+      "behavior": "Full64 new head. Dive measured angle gate; posture/ragdoll/downed/getup/charge/camera pitch gait exclusions explicit, finite/continuity/penetration gates claimed in comment require actual receiver inspection. Ordinary vertical/pelvis/head/separation require measured values. Facing when_applicable and seam NotApplicable policy require Observation body next. Guard plant and procedural leg gates preserve scenario exceptions. Empty scenario iterator all=true is Boolean source fact; actual completed capture plan coverage pending, no empty ordinary report claim."
+    }
+  ],
+  "connected_repair_requirements": [
+    "Keep missing, unavailable, not-applicable and measured observations distinct through native telemetry, capture, metrics, scenario gates and final report/exit.",
+    "Bind complete requested scenario identity and sample set before universal acceptance; retain exact cause at terminal geometry/report failure.",
+    "Read actual Observation owner, FrameSample, CapturePlugin and completed report consumers before declaring chain complete."
+  ],
+  "acceptance_requirements": [
+    "All seven full heads read; all five changed base deltas read with exact own-head unchanged map REG122. New files no base. No runtime/current/CI certification or check execution.",
+    "Earlier affected bases, other populations, new extensions, all20 families, canonical dedup and connected acceptance remain pending."
+  ],
+  "accepted_unique_count_change": 0,
+  "implementation_gate_complete": false
+}

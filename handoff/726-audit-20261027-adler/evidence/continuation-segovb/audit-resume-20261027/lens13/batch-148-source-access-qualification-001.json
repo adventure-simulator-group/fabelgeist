@@ -1,0 +1,19 @@
+{
+  "status": "source access chronology disclosure",
+  "source_sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+  "original": 239,
+  "original_registered_ranges": [
+    [
+      250,
+      440
+    ]
+  ],
+  "actual_additional_output_before_prospective_range_registration": [
+    [
+      1,
+      200
+    ]
+  ],
+  "cause": "Read command started1-200 before checking model original effective bounded250-440; body output did occur. Do not retroactively describe this as prospectively registered. SHA identity was pinned before read; no source mutation/check/test.",
+  "accounting": "Original239 remains pending until actual250-440 read. Additional1-200 may be recorded as materially reached schema access only with this explicit chronology; zero original/shared/otherlens credit and no full496 coverage. No re-read claim or covert correction."
+}

@@ -1,0 +1,303 @@
+{
+  "at": "2026-10-27T14:08:52.056401+00:00",
+  "lens": 11,
+  "status": "1015-1018 independently source-accounted with findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-048-registration.jsonl",
+    "sha256": "8c0a252c054e280c7fae12df20d34e4989bf63bbf09b6013f4ae164b91ee1f4f"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-047.json",
+    "sha256": "7941f5db876d564d04fce4969ce1455681bb690a96674324dd238abfb98d86ce"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1015,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_state.rs",
+      "sha256": "b704a73eded4ae15345f15781c8f117d919e7f97e047e08e31bb068c912072f8",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/b704a73eded4ae15345f15781c8f117d919e7f97e047e08e31bb068c912072f8",
+      "ranges": [
+        [
+          1,
+          573
+        ]
+      ],
+      "actual_eof": 573,
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          573
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1016,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_state/vocabulary.rs",
+      "sha256": "87baee6fe0607a7000600790507d24701630db771b54e221ce571cd98db34c13",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/87baee6fe0607a7000600790507d24701630db771b54e221ce571cd98db34c13",
+      "ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "actual_eof": 104,
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          104
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1017,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_time.rs",
+      "sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+      "ranges": [
+        [
+          1,
+          860
+        ]
+      ],
+      "actual_eof": 860,
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          860
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1018,
+      "source_id": "pr-working:crates/adventuresim-core/src/stub.rs",
+      "sha256": "529a51987f2cef18ffc06af597e0dbe8aa6631e49c7a1b16d85002e9cfcd792d",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/529a51987f2cef18ffc06af597e0dbe8aa6631e49c7a1b16d85002e9cfcd792d",
+      "ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "actual_eof": 113,
+      "scope_kind": "materially_reached_producer_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          113
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected",
+      "original_index": 1162,
+      "sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+      "ranges": [
+        [
+          130,
+          182
+        ],
+        [
+          200,
+          230
+        ],
+        [
+          250,
+          287
+        ],
+        [
+          325,
+          365
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual lifecycle parsing/retained-state or strategic-clock/itinerary producer and native adapter; snapshot exact registry",
+      "actual_read_ranges": [
+        [
+          130,
+          182
+        ],
+        [
+          200,
+          230
+        ],
+        [
+          250,
+          287
+        ],
+        [
+          325,
+          365
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1204,
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "ranges": [
+        [
+          160,
+          194
+        ],
+        [
+          1230,
+          1268
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual lifecycle parsing/retained-state or strategic-clock/itinerary producer and native adapter; snapshot exact registry",
+      "actual_read_ranges": [
+        [
+          160,
+          194
+        ],
+        [
+          1230,
+          1268
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1226,
+      "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual lifecycle parsing/retained-state or strategic-clock/itinerary producer and native adapter; snapshot exact registry",
+      "actual_read_ranges": [
+        [
+          1,
+          100
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 308,
+      "sha256": "25673af055bc146c82eb0fcf5bcbde2db09174cc6bec4e4dc2ae081150e3a25c",
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual lifecycle parsing/retained-state or strategic-clock/itinerary producer and native adapter; snapshot exact registry",
+      "actual_read_ranges": [
+        [
+          1,
+          45
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1226,
+      "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+      "ranges": [
+        [
+          101,
+          126
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Complete itinerary camp retained payload adapter",
+      "actual_read_ranges": [
+        [
+          101,
+          126
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original_index": 1015,
+      "inventory": "Contract offered/accepted/ready/paid/withdrawn+optional prior acceptance; MissionBinding optional site/group, HostileResolution captured subject+CustodyVersion; flat status/options input; commitment reserved/effective vs resolved/reason; formal approval/dowry vs informal secrecy; active/exposed/ended courtship; active/widowed/ended marriage; active/born/ended pregnancy; closed-parser error text; existing fixtures.",
+      "disposition": "Parsed payload states improve flattened rows. Unaccepted withdrawn contract legitimately has no acceptance; committed captured result permits absent mission binding (fixture448-456), while captured requires subject+version and killed subject needs no version. CustodyVersion0 explicitly valid (508-517), no invented nonzero bound. Raw party/hostile/subject/character IDs remain semantically different. Courtship route and lifecycle are independent axes; formal approved father/dowry differs from informal secrecy, no force one route from ended status. Commitment effective is scheduled ceremony time, not universal historical start: cancellation need not wait until it. CommitmentState::Cancelled publicly accepts all CommitmentTerminalReason values although parser narrows to five cancellation reasons; payload owner can express that subset. Public Paid/other states similarly bypass chronology parser, a qualified static API shape issue, not an actual malformed retained row. Marriage widowed versus ended preserves cause; pregnancy birth requires child identity.",
+      "remedy": "Retain payload state enums and vocabulary at flat storage boundary. Use canonical party/subject/character/group IDs and narrowed cancellation payload/private admitted terminal states; avoid a generic terminal bool/reason string. Keep route separate from status and optional mission binding when supported. Derive fixed terminal reasons from parsed variants instead of redundantly retaining authoritative status+reason internally.",
+      "acceptance": "Full1-573 consumed. Actual1162 row parsed_state adapters163-175/216-223/259-277/336-347 and1204 contract171-183/mission1242-1258 wire fields into parsers; no claim every use calls parsed_state or all rows/adapters are validated, no runtime/current/unique finding."
+    },
+    {
+      "original_index": 1016,
+      "inventory": "Shared closed storage status/reason vocabularies for mission, capture, commitment, courtship, marriage and pregnancy; serialized stable commitment status ID.",
+      "disposition": "Flat status enums versus payload-owning parsed states have different wire/internal responsibilities. Generated client SDK enums are boundary representations, not a reason to create independent semantic taxonomies. Commitment terminal reasons constrain parsed state; subset relation is material, not all reasons valid in every variant.",
+      "remedy": "Keep one semantic vocabulary and explicit boundary conversions while carrying parsed state internally. Stable string projection is boundary-only; no backward-compatible aliases or migration paths proposed.",
+      "acceptance": "Full1-104 consumed and actual1015 mappings plus1162/1204 receiver adapters; no global generated-client coverage."
+    },
+    {
+      "original_index": 1017,
+      "inventory": "Bounded StrategicMinuteOfDay vs absolute StrategicMinute and elapsed/movement minutes; daily walking budget/day-night policy; real signed timestamps/microsecond durations vs official strategic clock; TravelFatigueInputs/ItineraryMember energy-like reservoir/capacity; camp and walking segment records, member-indexed final/peak fatigue; lunar cyclic phase/illumination; daily training rate and elapsed duration; normalized limb health/convalescence duration; existing fixtures.",
+      "disposition": "Existing minute-of-day owner0..<1440 differs from schedule end1440 sentinel (046); reuse with explicit end-of-day policy rather than conflate. Elapsed versus movement time deliberately differs (fixture674-697:12h movement28h elapsed), camp movement0 and walking movement==duration; public tag-plus-record can express inconsistent combinations, actual producer coherent. Forecast per-member final/maximum Vecs rely on same bounded input order; no actual reordered recipient proved. Fatigue ratios may exceed1 (exhausted9000/cap6000 fixture), so not UnitInterval or wheel display cut-off; capacity requires positive numeric role but raw input sanitization masks bad values. Calories_used and fatigue reservoir naming/units need canonical association; no second hidden impairment or speed penalty inferred: actual itinerary uses configured daily walking window and fixed movement duration, travel-leg threshold chooses stop duration, not speed factor. Lunar phase wraps cyclically, not an ordinary closed interpolation endpoint; illumination is bounded fraction. Public convalescence health raw finite/0..1 versus duration u64MAX sentinel for unreachable recovery are separate; do not force all raw health/limits through one numeric type. Real epoch timestamp, elapsed real micros and strategic minute distinct even when integers.",
+      "remedy": "Carry typed elapsed/movement/day-budget/time-of-day and positive capacity/nonnegative accumulated-fatigue quantities; use payload-owned Camp/Walking segments and member-associated fatigue result records when retained across APIs. Keep cyclic phase separate from fraction, represent convalescence finite duration vs unbounded outcome explicitly rather than generic u64MAX where consumed. Preserve native real-clock conversion at timestamp adapter and intended saturation. No arbitrary tightened physiology/time bounds, no prescriptive travel-speed penalty conclusion.",
+      "acceptance": "Full1-860 consumed. Actual1226 party members32-77 derive capacity from Endurance\u00d71000, saved fatigue and effective camp schedule; forecast1-29 consumes first walking segment; itinerary_camps79-111 persists movement vs elapsed anchors and peak fatigue. Exact physical-p16 clock3081-31 consumes epoch/raw SDK timestamp into typed official minute and persists it. Camp fatigue body154-169 actually calls1013 leisure result; training helper420-424 feeds prior031. No all sender configuration admission, live wall-clock conversion/runtime overflow or every recipient guarantee."
+    },
+    {
+      "original_index": 1018,
+      "inventory": "Documentation/test concrete player trait implementations: healthy attributes, body health/mass/side, used calories/focus, equipment weight/precision/armor mechanics/holding side/reach/balance/coverage and trained hours.",
+      "disposition": "Raw constants have distinct units and constraints despite many1.0 values: weight/reach are not normalized coverage, skills hours are not rank/focus. Stub health/body side and absent holding side are deliberate fixture choices, not production admission defaults. Existing PlayerSkills default leaf projection limitation remains qualified and actual starting override044 proves a correct family consumer.",
+      "remedy": "When migrating shared trait owners, update these concrete examples to canonical quantity/role return types; do not invent a production default/fallback policy or collapse all1.0 mechanics into a unit fraction.",
+      "acceptance": "Full1-113 independently consumed. Existing core trait operations996/1013/earlier equipment/body proof retained; no claim all production implementations are covered by stubs, no execution."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-031-receipt.json",
+      "sha256": "0e64c59e0e3b9b6f7f087017c110ec1dc0229cff16557910de8d5f001554dd99"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-033-receipt.json",
+      "sha256": "2fa5eddcfced7cfdc55209d38df689845b351ca17c3551e42c9bd3acc54dca86"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-042-receipt.json",
+      "sha256": "679029c645bbe69075e5b0f1c297fdd91ece13e10c96c08197b5f264c7f19edc"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-044-receipt.json",
+      "sha256": "5316b771defcf75d73c5dfe4d5ad876e3730e8894fb56e6d3ffd35895e29d724"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-046-receipt.json",
+      "sha256": "e17f1e9d4531b622e5ba299c3adf9ac637d9bc6e9c0c810c5545c6d8f08e3a46"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-047-receipt.json",
+      "sha256": "6d045d41fa116d1526005fb43721c66da9f941caf1d7ff4316e2a17b4c749fce"
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Frozen source only; source-accounted with findings, no accepted unique/current/runtime/global clearance. Connected sources receive no ordered credit.",
+    "1162 ranges start/end within some adjacent table declarations; only complete parsed_state methods and listed fields claimed, not all relationship lifecycle consumers/transaction ordering.1204 ranges contain complete parser adapters, not complete tables/authority graph.",
+    "1226 span1-111 complete relevant forecast/member/camp adapter; registered112-126 is adjacent unfinished start_party_journey context only.3081-31 complete initialize/refresh_clock;33-45 adjacent partial family propagation only."
+  ]
+}

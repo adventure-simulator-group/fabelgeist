@@ -1,0 +1,25 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-297",
+  "at": "2026-10-25T22:46:22.088340+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2572,
+      "source_id": "dependency-bevy_reflect0.19.1:src/type_registry.rs",
+      "sha256": "f3dd9ddf699c436941878566cd59d7dca62f67ccd4ddbdcea62b3aeb5afdb76d",
+      "personally_read_ranges": [
+        [
+          1,
+          1123
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read complete1123-line frozen bevy_reflect type registry in contiguous bounded chunks. Private TypeId registration and short/long-path indexes update together for ordinary register; recursive dependency registration runs only first insertion. Short-name collision removes lookup and marks ambiguous, long-name collision overwrites path mapping; actual custom-path uniqueness is caller/type-definition obligation. Overwrite updates indices again and same short name becomes ambiguous, an API behavior not an established project failure. TypeRegistration metadata is immutable type_info plus mutable TypeId-keyed type data; inserted ReflectFromPtr may belong to another type, so unsafe caller must verify embedded type_id as documented/read fixture. ReflectDeserialize delegates concrete serde T::deserialize, preserving any custom serde admission; ReflectSerialize can reconstruct via FromReflect if exact downcast unavailable. These distinct reconstruction paths cannot be treated as equivalent constructor validation. Fixtures read not run, no concrete project invariant breach or broad registry correctness verdict."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

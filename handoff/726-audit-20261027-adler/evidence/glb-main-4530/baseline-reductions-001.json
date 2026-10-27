@@ -1,0 +1,60 @@
+{
+  "source_head": "6431c2faf1b50608344d1031d0f9413830c271fa",
+  "base": "4530fc19ce16641df65eae28735d69e86bbaa8ae",
+  "run": 40274774510,
+  "artifact": 12634601650,
+  "official_baseline_sha256": "5d40373d7d7fe72d65593aeee0145998680524c10ef8c61743cfafb33d118afa",
+  "reductions": [
+    {
+      "kind": "files",
+      "before": {
+        "path": "crates/adventuresim-character-creator/src/export.rs",
+        "ceiling": 803
+      },
+      "after": {
+        "path": "crates/adventuresim-character-creator/src/export.rs",
+        "ceiling": 778
+      }
+    },
+    {
+      "kind": "functions",
+      "before": {
+        "path": "crates/adventuresim-character-creator/src/export.rs",
+        "item": "export_rigged_glb",
+        "ceiling": 268
+      },
+      "after": {
+        "path": "crates/adventuresim-character-creator/src/export.rs",
+        "item": "export_rigged_glb",
+        "ceiling": 247
+      }
+    }
+  ],
+  "source_blobs_unchanged": [
+    {
+      "path": "crates/adventuresim-character-creator/README.md",
+      "git_blob_sha256": "95e3abd4304b0585e8c5c4d5ec1d4585493c7ef5c15b4fe013c6523aa2357bdb"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "git_blob_sha256": "fe5c1027be20d6ab87b6bd34c3227d38b5eddaf7e33382917ff75e1459a37d69"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb.rs",
+      "git_blob_sha256": "54be7e4aa7f3cdef3e59c0ffd22ce5594034e9be9b15deb6c141586002d58c29"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb/error.rs",
+      "git_blob_sha256": "a9f6695f0d792b48a94a12333c437769a0b6f6f262484c402327018a0e491ecc"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb/layout.rs",
+      "git_blob_sha256": "c7598f12fd08c312d0422f86b062f038090e0a9527106a79b369a4e971cc469f"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/profiling.rs",
+      "git_blob_sha256": "e4bc8f373cddb24d0b8772fa66a004d59e8a69a5113d82b34f288e268bdfaf95"
+    }
+  ],
+  "scope": "Only two relevant baseline reductions from successful exact-source hosted run. No source edits, new cases, ceiling increases or local project checks."
+}

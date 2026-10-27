@@ -1,0 +1,147 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "046",
+  "predecessor": "receipt-045-originals252-256.json",
+  "manifest_prefix_sha256": "4d72681f665dce44209c13cba4ef9c71ba605c66c51e4744a3c080c99658c6be",
+  "sources": [
+    {
+      "original_index": 257,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/simulation/disease_fixture.rs",
+      "sha256": "f7a9183b1a46d23e9a981d895678917171d40b3ab22c6c9dfd9a7a6cca83d84b",
+      "actual_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              86
+            ]
+          ],
+          "role": "Nonce String10->actual256 owned_run14; disease String12 admitted DiseaseId35-37 yet original raw value inserted43; failures20/22/33/37/68.",
+          "disposition": "Canonical DiseaseId already owns finite identity (actual core/disease and193 recipient); retain admitted type across app/state/native codec rather than discard proof. Typed cause from parse is replaced37, other failures should be semantic. Actual disease193 hooks62/78 and surgery delegate54/69 are calls, not security/medical/runtime coverage."
+        }
+      ],
+      "status": "Full requested frozen source independently consumed and inventoried WITH findings."
+    },
+    {
+      "original_index": 258,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/simulation/quest_fixture.rs",
+      "sha256": "a2ed93e7f88ecd11faafba9372db83b889a3af59f2a5344fdc42d77974e919fe",
+      "actual_ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              105
+            ]
+          ],
+          "role": "Nonce String12->actual256 owned_run16; raw party reference36-40/56-68 and contract/canonicalcase/party results97/98/101/102 copied into native authority. Failure literals18/26/28/35/40/42/52/62/68/84.",
+          "disposition": "Canonical open nonce/party/contract/case owner propagation matches256; actual strategic seeded payload producer86 remains unread (no schema guessed). Failure causes typed until final boundary; no fixture exemption or execution, no party-power/security/behavior claim."
+        }
+      ],
+      "status": "Full requested frozen source independently consumed and inventoried WITH findings."
+    },
+    {
+      "original_index": 259,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/smithing.rs",
+      "sha256": "428e697ec583b24ab798b6dadd2c67abf251e6359ed5b26a9d4819f93e266ce3",
+      "actual_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              119
+            ]
+          ],
+          "role": "Raw item IDs11/30 and settlement String60; raw organization service weapons92 directly controlsforge availability, native chassis membership68; recipe bytes61/67. Failure and diagnostic strings46/53/65/67/69/77/79/95/100/108/111/117.",
+          "disposition": "Existing typed SettlementService81-89 used for economy branch but raw weapons92 used for organization branch; reuse actual135 service owner through actual125 organization lookup, canonical open item/settlement IDs through quote requirements97/104, inventory221 and material219/142 recipients. Native recipe decoder67 concrete bytes boundary, typed design catalog_id should remain typed until native storage. Existing failure causes typed to actual external projection; quote/native decoder internals/currentness remain qualified."
+        }
+      ],
+      "status": "Full requested frozen source independently consumed and inventoried WITH findings."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Typed disease admission discarded and organization service string authority",
+      "sources": [
+        "257:35-43",
+        "259:81-95"
+      ],
+      "remedy": "Retain canonical DiseaseId and service owner through producer/state/consumer ports; native field encoding only at DB boundary.",
+      "acceptance": "Reconcile existing193/125/135 owners and aliases; native decoder/strategic producer receiving gaps remain explicit before repair, no BC.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actual strategic quest fixture inner payload and core native recipe/quote declaring implementation not consumed in this packet.",
+    "All inherited source/currentness/aliases/F9/M09/all20/P16/P17 and unresolved receiving obligations preserved."
+  ],
+  "qualifications": [
+    "Exact frozen physical-P16 f82 objects, not current aliases.",
+    "No tests/project/native execution/probes/product/Git mutations/root ledger/publication.",
+    "Source-accounting only, no repaired/native/runtime/global/unique-total/other-lens clearance."
+  ],
+  "proposed_count": {
+    "before": 257,
+    "after": 260,
+    "indices_completed": [
+      257,
+      258,
+      259
+    ],
+    "next_original": 260,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/simulation/disease_fixture.rs",
+      "sha256": "f7a9183b1a46d23e9a981d895678917171d40b3ab22c6c9dfd9a7a6cca83d84b",
+      "ranges": [
+        [
+          1,
+          86
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/simulation/quest_fixture.rs",
+      "sha256": "a2ed93e7f88ecd11faafba9372db83b889a3af59f2a5344fdc42d77974e919fe",
+      "ranges": [
+        [
+          1,
+          105
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/smithing.rs",
+      "sha256": "428e697ec583b24ab798b6dadd2c67abf251e6359ed5b26a9d4819f93e266ce3",
+      "ranges": [
+        [
+          1,
+          119
+        ]
+      ]
+    }
+  ]
+}

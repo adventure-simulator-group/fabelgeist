@@ -1,0 +1,13 @@
+{
+ "id":"OWN10-QUALIFIED-CANDIDATE-010",
+ "scope_index":2132,
+ "path":"crates/adventuresim-weapon-model/src/recipe/validation.rs",
+ "revision":"6533e444fa37552927070cc8d8190907fd3b413e",
+ "implementation":"RecipeError manually implements Display via f.write_str of one fixed label per ten unit variants, and empty core Error. No fields, sources, allocations, generic bounds, normalization or external string parsing occur in these two impls.",
+ "potential_existing_remedy":"Use existing thiserror::Error derive with each exact static label as #[error(\"...\")], remove only manual Display/Error. Preserve enum variants, order, serde camelCase representation, validation decisions and exact display output. No error source exists to add/change.",
+ "available_dependency":"Registered original421 manifest039329518e264f19206cf5b0b98d177433f40c17 SHA3a08ad5b69e06fb586e1ff7ace785e9b53c79345119fddc49c3f162b5f2f3bdb personally read; thiserror.workspace enabled. Actual frozen codec, mesh and icon error declarations also use thiserror.",
+ "status":"QUALIFIED_EXISTING_DERIVE_CANDIDATE_PENDING_EXACT_STATIC_LABEL_MACRO_COMPARISON_AND_GLOBAL_REMEDY_DEDUP",
+ "needed_proof":"Personally compare already registered pinned thiserror2.0.20 static label Display/Error expansion before implementation recommendation becomes exact; no macro execution or new test. Historical/global saved-remedy dedup required.",
+ "new_unique_findings_claimed":0,
+ "qualification":"Current code correct. No runtime/global/merge acceptance; no source changes/checks. Finish own lens before repair."
+}

@@ -1,0 +1,70 @@
+{
+  "at": "2026-10-27T06:06:25.668977+00:00",
+  "head": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+  "base": "35b18ec280a6884bb53996a2d859c4b27096f65c",
+  "run": 40452560923,
+  "run_conclusion": "success",
+  "jobs": {
+    "rust-quality": "success",
+    "foliage-portability": "success",
+    "regenerate-fixtures": "skipped"
+  },
+  "check_runs": [
+    [
+      "regenerate-fixtures",
+      "skipped"
+    ],
+    [
+      "foliage-portability",
+      "success"
+    ],
+    [
+      "rust-quality",
+      "success"
+    ]
+  ],
+  "source_reviews": {
+    "code-review-003.json": "5125b3e23ef125cb99a09f77f3eb313150d9990bd723b95e023c4279056f2412",
+    "rule-review-003.json": "0a209aa3f8fd2d170cfbdadc25a98f83d9ee5ccb3bacc8e5663cece61bb03694",
+    "comment-review-003.json": "f8c8609063e369a1bf7f377bcbf09e008806ac341d0c57b47af800c789644fb5"
+  },
+  "raw_evidence": {
+    "hosted-partial-acceptance-001.json": "ca54a72dbb42c66413b3595a33664468d16a7866f0ecb8b108f8dae29e0494b6",
+    "constraint-raw-acceptance-001.json": "e5a5986b3b9efd15f3bb972c98c7be8160e8885ed79b418152e9942a3086a511",
+    "rig-raw-acceptance-001.json": "f0ab907c7f316cb1bfa2d31bb49c51549267ff3303b420c7acf54a1cacea6f51"
+  },
+  "required_rig_groups": 49,
+  "extra_rig_groups": 3,
+  "movement": [
+    4,
+    0,
+    0
+  ],
+  "core_animation": [
+    98,
+    0,
+    0
+  ],
+  "client_animation": [
+    260,
+    0,
+    0
+  ],
+  "existing_terrain_ignored": 14,
+  "windows_passed": 10,
+  "GPU": {
+    "library": 13,
+    "doc": 2,
+    "borrowed_repeat": 1
+  },
+  "constraints": {
+    "unit": 67,
+    "doc": 5,
+    "shell_doc": 0
+  },
+  "relevant_baseline_changes_required": false,
+  "tests_added_or_changed": false,
+  "all20_audits_complete": false,
+  "merge_authorized": false,
+  "review_checkpoint": "Finalbody review/publication and readytransition pending; do not merge."
+}

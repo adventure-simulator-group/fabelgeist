@@ -1,0 +1,163 @@
+{
+  "id": "SEGOVB-CONT11-SUCCESSOR-157-CONNECTED-780-003",
+  "lens": "type-granularity",
+  "frozen_scope_index": 780,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/garment.rs",
+  "sha256": "d6b09524be811c5e4202be50af529c941a917ff8f31ea61e2a73e4da17dc103e",
+  "original_ranges_read": [
+    [
+      1,
+      702
+    ]
+  ],
+  "status": "source-accounted-with-qualified-observations; not clear",
+  "prior_partial_receipts": [
+    "audit11-successor-157.json",
+    "audit11-successor-157-connected-780-001.json",
+    "audit11-successor-157-connected-780-002.json"
+  ],
+  "connected_reads": [
+    {
+      "connected_scope_index": 785,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/lining.rs",
+      "sha256": "693fb7bf790d8bfebd26304241c8dfd0e2b338bc37225a4d0795b0fe754e8b70",
+      "ranges_read": [
+        [
+          30,
+          158
+        ]
+      ],
+      "ordered_credit": false,
+      "assessment": "PlateLining privately owns native TriangleBvh and per-triangle rim flags; new filters PlateFace::Inner and constructs matching rims from same triangles. UnderPlate retains Arc lining and metre standoff, consumed by press and tuck_under. Distinction from obstacles/body collision is actual wearer-facing plate versus arbitrary cloth/body surface. Public standoff is role-bearing raw metre scalar; canonical physical-owner reconciliation remains, no new wrapper or bounds invented. Partial distance_to_segment156-158 is not claimed consumed body."
+    },
+    {
+      "connected_scope_index": 786,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/outfit.rs",
+      "sha256": "571784773d4506fa741fed5d4dab85c61bbf9dee836fab1833987b233a4ecdb9",
+      "ranges_read": [
+        [
+          1,
+          82
+        ]
+      ],
+      "ordered_credit": false,
+      "assessment": "Worker passes actual ordered DrapeInput vector into drape_outfit. Each input.obstacles becomes finished prefix; each saved drape wears same input or calls drape with matching previous.get(index). Finished vector pushes only successful garments; first failure returns prefix, warnings and error. DrapeOutcome result/warnings/checkpoints are simultaneous distinct outputs, so no unsupported single-state redesign inferred. No ordered786 credit despite full connected body read."
+    },
+    {
+      "connected_scope_index": 788,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/settled.rs",
+      "sha256": "3dbafb11ea673b81b72c6d8599bf9c1ac4c55b3e456982e39d16d38faef2e42d",
+      "ranges_read": [
+        [
+          49,
+          237
+        ],
+        [
+          239,
+          308
+        ]
+      ],
+      "ordered_credit": false,
+      "assessment": "BodyTopology stores vertex/triangle counts, not full topology identity; fit compares counts intentionally and binds using input body faces. SettledDrape retains saved cloth arrays and per-vertex SurfaceBinding with triangle ordinal, barycentric corner coordinates and tangent/bitangent/normal metre offsets. Capture validates lengths/bounds/finite arrays and wear rebuilds geometry through frame with typed saved-versus-current body role. This is a meaningful reusable saved-drape representation, not duplicate live DrapeInput/DrapedGarment owner. SurfaceBinding role distinctions are actual weighted barycentric reconstruction versus distance displacement, so flattening them would lose meaning. Capture/fit error and state transitions use DrapeStage::Settling/Worn; serialized arbitrary invalid shape/current use not fully admitted here, no universal topology identity proof or global saved-drape clearance."
+    },
+    {
+      "connected_scope_index": 792,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/stages.rs",
+      "sha256": "ccbbca63f8954cde1d15934b057edc40dfe382d36c273fed0acd0316f9a2fe2a",
+      "ranges_read": [
+        [
+          1,
+          273
+        ]
+      ],
+      "ordered_credit": false,
+      "assessment": "DrapeSettings owns sewing/settling settings, fit fraction and preview interval; StageSettings separately owns solver steps/substeps/iterations, m/s2 gravity, per-second damping and contact schedule roles. Validate permits zero stage steps but requires nonzero substeps/iterations/preview interval and bounded finite fit. DrapeStage carries progress only on Sewing/Settling and no payload on Placed/Worn; actual782 loops supply matching step/of. Checkpoints retain input clone plus optional sewn/settled outputs; start_for creates DrapeStart sum whose payload matches resume point and same_setup checks raw body/rig/skin arrays plus setup settings and obstacle geometry. These are distinct simulation/control roles and should not be collapsed because numeric representations match. Raw application counts/scalars/semantic toggles before solver mapping remain canonical type-propagation questions, no invalid invented stage bound. Lines256-273 are existing fixture prefix read only and confer no test correctness or full test-module credit."
+    },
+    {
+      "connected_scope_index": 844,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/wardrobe_tab.rs",
+      "sha256": "4cd80a0338aaafa8f2b1f80eca296ef22614825d8d1058692fb8c4fe7bbe9595",
+      "ranges_read": [
+        [
+          162,
+          200
+        ],
+        [
+          242,
+          267
+        ]
+      ],
+      "ordered_credit": false,
+      "assessment": "Actual wardrobe input delegates BodyModel and cached generated body into drape_preview::input, requests typed input through worker, and uses body.is_current before regenerating cached body. No broad BodyModel/generated instance equivalence proven by method naming; exact copied producer path only."
+    },
+    {
+      "connected_scope_index": 762,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/drape_preview.rs",
+      "sha256": "c6e605a97a1a017db71939375f50395488a049834eebd77c4a09ee1058360077",
+      "ranges_read": [
+        [
+          136,
+          163
+        ]
+      ],
+      "ordered_credit": false,
+      "assessment": "Producer constructs DrapeInput with generated.positions/global_joint_states, model character.mesh.faces/names/PackedRigSkin/weights, chosen selection and absent underplate/settled/obstacles. This is actual source pairing rather than arbitrary public record counterexample; no universal identity admission claimed."
+    },
+    {
+      "connected_scope_index": 763,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/drape_worker.rs",
+      "sha256": "6e96818d06560c10bd8f74d121d84fc812726274dedc89b59f85bce7d0e6ca73",
+      "ranges_read": [
+        [
+          55,
+          61
+        ],
+        [
+          77,
+          123
+        ]
+      ],
+      "ordered_credit": false,
+      "assessment": "Request stores actual typed vector; poll unzips tags/inputs from same pending collection and moves those inputs into spawned drape_outfit. Cancellation is primitive atomic predicate; no shape/version/state conversion or primitive re-admission of DrapeInput occurs."
+    },
+    {
+      "connected_scope_index": 2264,
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/measure/section.rs",
+      "sha256": "be4a376452c89f7275b6f7c4692168b16814d28e82539b5d76d13e2c0e02193f",
+      "ranges_read": [
+        [
+          16,
+          25
+        ]
+      ],
+      "ordered_credit": false,
+      "assessment": "BodyMesh is a borrowed native geometry record (vertices/faces arrays), matching explicit centimetre measurement adapter reached from780. Unit ownership comes from measure contract, not record type alone."
+    }
+  ],
+  "assessment": "Full frozen original7801-702 and exact connected owner/producer/receiver ranges now support role assessment. SkinTransfer names its typed packed-index collection and weight collection; DrapeInput retains selection, optional rigid lining, optional saved-drape Arc, cloth obstacles, metre body geometry, rig tables, packed influence indices and numeric weights. DrapeOutcome separates Result, human warnings and checkpoints. DrapeStage is a useful four-state sum: only sewing/settling own step/of. Distinguish genuine progress-count units from fixed influence-slot width and native topology indexes. measured_body adapts metre vertices/joint translations into explicitly centimetre native BodyMesh/Landmarks at same source frame; no universal unit framework proposed. SewnSurface privately keeps weld groups, sewn faces and render-face backmap, all built from same triangles; averaging/expansion respects source grouping. Normal generation and orient_faces are actual cross/dot/edge traversal kernels; undirected edge pairs and triangle arrays are homogeneous topology, while retained edge-use(face index,direction) and adjacency(face index,opposite) tuples represent semantic records that could be named before kernel use. Skin transfer retains RigJointOrdinal keys through barycentric/skirt blending and checked PackedRigSkin pushes/set_vertex; existing RigInfluences already owns numerical joint/weight rows, so any association remedy must reuse it rather than duplicate owner. Existing tests524-702 read as fixtures only. Public raw coordinate/normal/weight/PBR/progress collections remain qualified migration/owner-fit concerns; actual local source copying and native numerical operations do not establish arbitrary public-input admission. Imported UnderPlate, SettledDrape, DrapeSettings, DrapeCheckpoints and Construction were traced at exact ranges and preserve actual distinct roles; no evidence warrants flattening them or adding unsupported bounds.",
+  "qualified_observations": [
+    {
+      "id": "SEGOVB11-157-780-RECORDS",
+      "classification": "source-backed simplification/migration candidate; global accepted-finding/remedy reconciliation pending; no unique increment",
+      "source": "garment.rs328-343,432-440,493-519",
+      "observation": "Retained tuple members distinguish face ordinal/direction or influence joint/weight/factor roles. A named existing/reused row/edge-use record would prevent positional role swaps; native homogeneous triangle/edge arrays and immediate math tuples are not automatically defects."
+    },
+    {
+      "id": "SEGOVB11-157-780-UNITS",
+      "classification": "qualified source-backed role distinction; no new type owner or arbitrary numeric bounds invented",
+      "source": "garment.rs99-141; connected measure2263/section2264",
+      "observation": "Metre body coordinates and centimetre pattern-measure coordinates share primitive arrays. Actual conversion occurs once at explicit measurement adapter; keep these roles separate and reconcile any checked frame/unit owner under broad migration rather than flattening or multiplying conversion helpers."
+    }
+  ],
+  "qualification": "Source accounting with findings/questions is not clearance. No same-rig-instance, full body topology identity, all arithmetic finite, malformed deserialization, physical/artistic/runtime correctness or overall family completion claim. No future786/818/923 or other connected original role ordered credit. Prior Q008/Q009 export-label collision remains unresolved; source identities used instead. No other-lens verdict transfer.",
+  "next_original": 781,
+  "proposed_original_accounted": 781,
+  "remaining_partials": [
+    781,
+    782
+  ],
+  "new_unique_findings": 0,
+  "clear": false,
+  "product_edits": false,
+  "validation": "none; no project checks/tests/probes/publication"
+}

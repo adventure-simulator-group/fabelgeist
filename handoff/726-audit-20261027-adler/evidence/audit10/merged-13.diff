@@ -1,0 +1,27 @@
+diff --git a/crates/adventuresim-character-creator/src/main.rs b/crates/adventuresim-character-creator/src/main.rs
+index a48116cab..e29f2c729 100644
+--- a/crates/adventuresim-character-creator/src/main.rs
++++ b/crates/adventuresim-character-creator/src/main.rs
+@@ -194,21 +194,21 @@ fn main() -> Result<()> {
+         args.armor_designs.as_deref(),
+         args.bracer_design.as_deref(),
+         args.breastplate_design.as_deref(),
+     )?;
+     let catalog = EquipmentCatalog(ItemCatalog::load(&args.catalog, designs)?);
+     if let Some(path) = &args.write_armor_designs {
+         let defaults = catalog
+             .items
+             .iter()
+             .filter_map(|item| {
+-                let design = catalog.design(item)?;
++                let design = catalog.design(catalog.item(&item.id)?)?;
+                 Some((item.id.clone(), design.recipe()?.clone()))
+             })
+             .collect();
+         let designs = adventuresim_character_creator::armor_design_input::ArmorDesigns {
+             defaults,
+             placements: catalog.designs.overrides.placements.clone(),
+         };
+         std::fs::write(
+             path,
+             adventuresim_character_creator::armor_design_input::encode(&designs)?,

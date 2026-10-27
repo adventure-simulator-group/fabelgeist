@@ -1,0 +1,11 @@
+{
+  "review": 5665418830,
+  "comment": 4387446445,
+  "head": "0f1420b912bf71f9e298b6b574ba33243cea8901",
+  "file": "crates/adventuresim-core/src/linear_speed.rs",
+  "before_sha256": "605bea6b15bd684caa98b4253582088f2755a5054808d18745d2f9298563ea2b",
+  "repair": "Delete unused TryFrom<SignedSpeed> for NonnegativeSpeed; no replacement/alias. checked_lerp already directly constructs admittednonnegative result, no consumer remains.",
+  "authority": "User changed preference to delete untilneeded; explicit applythen squashmerge; CI errors deferred byuser",
+  "validation_status": "samehead hosted pending/deferred; no local projectexecution; no testsadded",
+  "global_audit_complete": false
+}

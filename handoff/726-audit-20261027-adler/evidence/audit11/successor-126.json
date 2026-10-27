@@ -1,0 +1,22 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-126",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 730,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_frames.rs",
+      "sha256": "e209739488d454a1565af4a6f3663940c07b0b56ce228bf1fff65297eafd8a2d",
+      "ranges": [
+        [
+          1,
+          246
+        ]
+      ],
+      "assessment": "Full246 actual source read in two windows after SHA256 match. DeviceFrame exposes native frame/status Buffers separately; read_async decodes first15 words without itself checking status, whereas read_frame_async records/submits/checks then reads. This establishes one valid sequence but leaves public staged/unchecked APIs and shape/device correspondence as Q009, not an ordinary bad-frame witness. Canonical table/membership and named Landmarks reach native parameter insertion; FRAME_WORDS allocates16 floats. Closed FrameFailure enum owns generated status constants, while native bitmask decoding chooses first known failure. Actual same-slot kernel array dispatch is native ordered pass graph. No current-main/runtime/physical/global clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

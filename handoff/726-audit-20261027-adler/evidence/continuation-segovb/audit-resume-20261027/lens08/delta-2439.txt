@@ -1,0 +1,51 @@
+--- base:be3851ecaa6b17fc8df5be03a931a840d86dde66294c07bb268dfe7aaa9cae4b
++++ head:6ea36de3b468aa2874ddb8b81039b2a85c7f77cc6beca0d15c2f957985cb4106
+@@ -86,13 +86,24 @@
+     /// Active IK owns these observations; absent observations cannot become flight.
+     pub(super) fn admit_ik_support(
+         &mut self,
+-        diagnostics: LegIkDiagnostics,
++        diagnostics: Option<LegIkDiagnostics>,
+         cadence: (UnitInterval, UnitInterval),
+         skeleton: &SkeletonState,
+         terrain_ik: TerrainIkMode,
+     ) -> Option<(UnitInterval, UnitInterval)> {
+         let ordinary_support_required =
+             terrain_ik.is_enabled() && crate::animation::authored_locomotion_ik_owns(skeleton);
++        let Some(diagnostics) = diagnostics else {
++            if !ordinary_support_required {
++                return Some(cadence);
++            }
++            self.admission = CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(
++                AnimationValueError::UnavailableObservation {
++                    quantity: AnimationQuantity::SupportObservation,
++                },
++            ));
++            return None;
++        };
+         if !ordinary_support_required
+             && diagnostics.left_solve_target.is_none()
+             && diagnostics.right_solve_target.is_none()
+@@ -111,6 +122,22 @@
+                     },
+                 ));
+                 None
++            }
++        }
++    }
++
++    /// Admit the existing distance + speed*elapsed kernel before retaining it.
++    pub(super) fn advance_distance(&mut self, speed: SignedSpeed, elapsed: AnimationElapsed) -> bool {
++        match fabelgeist_geometry::SignedLength::from_metres(
++            self.scenario_distance.metres() + speed.metres_per_second() * elapsed.seconds(),
++        ) {
++            Ok(distance) => {
++                self.scenario_distance = distance;
++                true
++            }
++            Err(error) => {
++                self.admission = CaptureAdmission::Rejected(RejectedCaptureAdmission::Geometry(error));
++                false
+             }
+         }
+     }

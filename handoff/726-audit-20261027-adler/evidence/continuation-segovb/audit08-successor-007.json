@@ -1,0 +1,607 @@
+{
+  "id": "SEGOVB-CONT08-SUCCESSOR-007",
+  "created_utc": "2026-10-26T19:27:59.879860+00:00",
+  "lens": "08 behavior-preservation",
+  "prior": "audit08-successor-006.json",
+  "skill": "audit-behavior-preservation applied from previously loaded exact skill",
+  "registry": {
+    "path": "shared-material-successor/source-extensions-196.json",
+    "sha256": "12adb62b53902f4e42f8e882ec18181d465c049956c8af8b5626d3d3192ff849",
+    "entries": 196,
+    "indices": [
+      51,
+      52
+    ]
+  },
+  "registration": {
+    "path": "audit08-successor-007-registration.json",
+    "sha256": "ef3a631aa5f4eb71d16b3ea01cbb8f7a454332fae33cec7507a339654615b9ec"
+  },
+  "materials": [
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/strategic/contracts.rs",
+      "sha256": "082a7174a1ca9b578bf1a52852a7d09d952c4af3c6d0705ee7b5442692175e33",
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/082a7174a1ca9b578bf1a52852a7d09d952c4af3c6d0705ee7b5442692175e33",
+      "ranges": [
+        [
+          1,
+          384
+        ]
+      ],
+      "registration_evidence": "enum-shapes/source-extensions.jsonl",
+      "registration_id": "SEGO-INITIAL09-REGISTRATION-324A-4",
+      "reason": "Connected calls in frozen P16 sources and pending-material-306/317; current parent source-provenance instruction authorizes prospective commit variant registration.",
+      "qualification": "Distinct committed-source extension, not byte-verified Adler dirty snapshot; unrecorded dirty bytes unknown. Frozen2853 denominator unchanged, no audit coverage from recovery.",
+      "status": "Exactsourceverifiedandrecovered only; unchanged2853historicaldenominator and no automaticlensclearance.",
+      "index": 51,
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "082a7174a1ca9b578bf1a52852a7d09d952c4af3c6d0705ee7b5442692175e33",
+          "lines": 384,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/082a7174a1ca9b578bf1a52852a7d09d952c4af3c6d0705ee7b5442692175e33"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "082a7174a1ca9b578bf1a52852a7d09d952c4af3c6d0705ee7b5442692175e33",
+          "lines": 384,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/082a7174a1ca9b578bf1a52852a7d09d952c4af3c6d0705ee7b5442692175e33"
+        }
+      },
+      "original_catalog_matches": []
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/strategic/tactical_enemy_fixture.rs",
+      "sha256": "241e5f1c12555a8ebde110fc10e4e426601efc263879c408aa57d5be05b395ec",
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/241e5f1c12555a8ebde110fc10e4e426601efc263879c408aa57d5be05b395ec",
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "registration_evidence": "enum-shapes/source-extensions.jsonl",
+      "registration_id": "SEGO-INITIAL09-REGISTRATION-324A-5",
+      "reason": "Connected calls in frozen P16 sources and pending-material-306/317; current parent source-provenance instruction authorizes prospective commit variant registration.",
+      "qualification": "Distinct committed-source extension, not byte-verified Adler dirty snapshot; unrecorded dirty bytes unknown. Frozen2853 denominator unchanged, no audit coverage from recovery.",
+      "status": "Exactsourceverifiedandrecovered only; unchanged2853historicaldenominator and no automaticlensclearance.",
+      "index": 52,
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "241e5f1c12555a8ebde110fc10e4e426601efc263879c408aa57d5be05b395ec",
+          "lines": 43,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/241e5f1c12555a8ebde110fc10e4e426601efc263879c408aa57d5be05b395ec"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "241e5f1c12555a8ebde110fc10e4e426601efc263879c408aa57d5be05b395ec",
+          "lines": 43,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/241e5f1c12555a8ebde110fc10e4e426601efc263879c408aa57d5be05b395ec"
+        }
+      },
+      "original_catalog_matches": []
+    }
+  ],
+  "support_registration": [
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "reason": "Prospective51-52 exact contract authority/receipt/policy producer-consumer or fixture admission/mission/loadout receiver source. Only listed body contracts, no whole original completion.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+          "lines": 1586,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+          "lines": 1586,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281"
+        }
+      },
+      "ranges": [
+        [
+          140,
+          190
+        ],
+        [
+          395,
+          440
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-core/src/strategic_state.rs",
+      "reason": "Prospective51-52 exact contract authority/receipt/policy producer-consumer or fixture admission/mission/loadout receiver source. Only listed body contracts, no whole original completion.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "b704a73eded4ae15345f15781c8f117d919e7f97e047e08e31bb068c912072f8",
+          "lines": 573,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/b704a73eded4ae15345f15781c8f117d919e7f97e047e08e31bb068c912072f8"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "b704a73eded4ae15345f15781c8f117d919e7f97e047e08e31bb068c912072f8",
+          "lines": 573,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/b704a73eded4ae15345f15781c8f117d919e7f97e047e08e31bb068c912072f8"
+        }
+      },
+      "ranges": [
+        [
+          1,
+          180
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-core/src/case.rs",
+      "reason": "Prospective51-52 exact contract authority/receipt/policy producer-consumer or fixture admission/mission/loadout receiver source. Only listed body contracts, no whole original completion.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0",
+          "lines": 921,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0",
+          "lines": 921,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0"
+        }
+      },
+      "ranges": [
+        [
+          90,
+          135
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/strategic/dialogue_effects.rs",
+      "reason": "Prospective51-52 exact contract authority/receipt/policy producer-consumer or fixture admission/mission/loadout receiver source. Only listed body contracts, no whole original completion.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "e86e2ae841e103433b835515ccaa96bca4bdf76b249feda73990195735993201",
+          "lines": 636,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/e86e2ae841e103433b835515ccaa96bca4bdf76b249feda73990195735993201"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "c6bac2c08cd45980d144ecdad1141a05dd9b0bd403b8ca1be015f9819b064ea5",
+          "lines": 636,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/c6bac2c08cd45980d144ecdad1141a05dd9b0bd403b8ca1be015f9819b064ea5"
+        }
+      },
+      "ranges": [
+        [
+          120,
+          210
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+      "reason": "Prospective51-52 exact contract authority/receipt/policy producer-consumer or fixture admission/mission/loadout receiver source. Only listed body contracts, no whole original completion.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+          "lines": 2973,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "4421b1617dbe612f0ac626645aea036d082746d7823e383da6492db3334517a3",
+          "lines": 2973,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/4421b1617dbe612f0ac626645aea036d082746d7823e383da6492db3334517a3"
+        }
+      },
+      "ranges": [
+        [
+          1,
+          105
+        ],
+        [
+          490,
+          665
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-core/src/tactical_fixture.rs",
+      "reason": "Prospective51-52 exact contract authority/receipt/policy producer-consumer or fixture admission/mission/loadout receiver source. Only listed body contracts, no whole original completion.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "563f1e6e038981b2f33a77d3291e761b7d1569335ddac5355278d04335c50670",
+          "lines": 202,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/563f1e6e038981b2f33a77d3291e761b7d1569335ddac5355278d04335c50670"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "563f1e6e038981b2f33a77d3291e761b7d1569335ddac5355278d04335c50670",
+          "lines": 202,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/563f1e6e038981b2f33a77d3291e761b7d1569335ddac5355278d04335c50670"
+        }
+      },
+      "ranges": [
+        [
+          1,
+          185
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/world_actor.rs",
+      "reason": "Prospective51-52 exact contract authority/receipt/policy producer-consumer or fixture admission/mission/loadout receiver source. Only listed body contracts, no whole original completion.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+          "lines": 1353,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "232be94a5acf0de9c374f0c16d546051e2d007c1005510b0adb7f3c0d41b28f6",
+          "lines": 1353,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/232be94a5acf0de9c374f0c16d546051e2d007c1005510b0adb7f3c0d41b28f6"
+        }
+      },
+      "ranges": [
+        [
+          325,
+          365
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/character.rs",
+      "reason": "Prospective51-52 exact contract authority/receipt/policy producer-consumer or fixture admission/mission/loadout receiver source. Only listed body contracts, no whole original completion.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "c0d449aad5116662aeb2f7dfb377d60e0e1753b043d529a8b871072fa36ea6de",
+          "lines": 3981,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/c0d449aad5116662aeb2f7dfb377d60e0e1753b043d529a8b871072fa36ea6de"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "1c346cbf22b4b7ad34cdd6b515b08d015c43e6489f953aa3a75ea40d8e3c675c",
+          "lines": 3987,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/1c346cbf22b4b7ad34cdd6b515b08d015c43e6489f953aa3a75ea40d8e3c675c"
+        }
+      },
+      "ranges": [
+        [
+          3250,
+          3330
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/simulation.rs",
+      "reason": "Prospective51-52 exact contract authority/receipt/policy producer-consumer or fixture admission/mission/loadout receiver source. Only listed body contracts, no whole original completion.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "909ef3cba93d998d407876cc05fd8c4ad9933f39faec7de0ac45dd0893d9bd60",
+          "lines": 610,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/909ef3cba93d998d407876cc05fd8c4ad9933f39faec7de0ac45dd0893d9bd60"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "caa8a155d38c326bf43174ed106f7b885196bcc23fcddb76af341a1acb380e0c",
+          "lines": 610,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/caa8a155d38c326bf43174ed106f7b885196bcc23fcddb76af341a1acb380e0c"
+        }
+      },
+      "ranges": [
+        [
+          250,
+          285
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/investigation/sites.rs",
+      "reason": "Prospective51-52 exact contract authority/receipt/policy producer-consumer or fixture admission/mission/loadout receiver source. Only listed body contracts, no whole original completion.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+          "lines": 617,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+          "lines": 617,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a"
+        }
+      },
+      "ranges": [
+        [
+          288,
+          355
+        ],
+        [
+          456,
+          510
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/strategic/mod.rs",
+      "reason": "Concrete52 typed-error migration mismatch: actual included module and exact error conversion owner before body read; stop at this unresolved receiver contract.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "32f47b926eea8c6d366a26c6d6f6e237595b9c0b44c84eb15b1150e49c980870",
+          "lines": 98,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/32f47b926eea8c6d366a26c6d6f6e237595b9c0b44c84eb15b1150e49c980870"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "f2c7bd8a10ef22ad1fc696786a18c09fa024604c9e249f13ce8a872362249246",
+          "lines": 97,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/f2c7bd8a10ef22ad1fc696786a18c09fa024604c9e249f13ce8a872362249246"
+        }
+      },
+      "ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "read_eof_correction": {
+        "prospective_upper_bound": 105,
+        "actual_eof": 97,
+        "actual_read_ranges": [
+          [
+            1,
+            97
+          ]
+        ],
+        "note": "Initial bounded print reached EOF then raised IndexError; no source beyond97 exists or was credited."
+      }
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/operation_error.rs",
+      "reason": "Concrete52 typed-error migration mismatch: actual included module and exact error conversion owner before body read; stop at this unresolved receiver contract.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "absent": true
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "f7a676c963f59e4691374c71e9f81caf252350a5c5c8f22da6a977beb97c62d4",
+          "lines": 44,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/f7a676c963f59e4691374c71e9f81caf252350a5c5c8f22da6a977beb97c62d4"
+        }
+      },
+      "ranges": [
+        [
+          1,
+          44
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/investigation/sites.rs",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+          "lines": 617,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+          "lines": 617,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a"
+        }
+      },
+      "ranges": [
+        [
+          356,
+          358
+        ],
+        [
+          511,
+          555
+        ]
+      ],
+      "reason": "Finish already reached exact51 disclosure/52 loadout function and roster signature; no deeper graph expansion."
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/character.rs",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "c0d449aad5116662aeb2f7dfb377d60e0e1753b043d529a8b871072fa36ea6de",
+          "lines": 3981,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/c0d449aad5116662aeb2f7dfb377d60e0e1753b043d529a8b871072fa36ea6de"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "1c346cbf22b4b7ad34cdd6b515b08d015c43e6489f953aa3a75ea40d8e3c675c",
+          "lines": 3987,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/1c346cbf22b4b7ad34cdd6b515b08d015c43e6489f953aa3a75ea40d8e3c675c"
+        }
+      },
+      "ranges": [
+        [
+          3240,
+          3297
+        ]
+      ],
+      "reason": "Finish already reached exact51 disclosure/52 loadout function and roster signature; no deeper graph expansion."
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/world_actor.rs",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+          "lines": 1353,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "232be94a5acf0de9c374f0c16d546051e2d007c1005510b0adb7f3c0d41b28f6",
+          "lines": 1353,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/232be94a5acf0de9c374f0c16d546051e2d007c1005510b0adb7f3c0d41b28f6"
+        }
+      },
+      "ranges": [
+        [
+          320,
+          324
+        ]
+      ],
+      "reason": "Finish already reached exact51 disclosure/52 loadout function and roster signature; no deeper graph expansion."
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/strategic/dialogue_effects.rs",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "e86e2ae841e103433b835515ccaa96bca4bdf76b249feda73990195735993201",
+          "lines": 636,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/e86e2ae841e103433b835515ccaa96bca4bdf76b249feda73990195735993201"
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "c6bac2c08cd45980d144ecdad1141a05dd9b0bd403b8ca1be015f9819b064ea5",
+          "lines": 636,
+          "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/c6bac2c08cd45980d144ecdad1141a05dd9b0bd403b8ca1be015f9819b064ea5"
+        }
+      },
+      "ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "reason": "Actual effect dispatch signature and live NPC gate for51 caller; old branch body reread in existing120-210 registration."
+    }
+  ],
+  "source_method": "Exact individual base/head Git source bytes were recovered and hashed before bounded reads. Identical body bytes were read once as shared byte sequences; actual changed dialogue branches and old/new loadout bodies were read separately. Wider file diffs supplied change locators, never whole-file semantic acceptance. No full frozen tree download/read. Metadata/fixtures/other lenses/CI give no verdict transfer.",
+  "analyses": {
+    "51": {
+      "status": "source-accounted WITH preexisting lifecycle candidate and receipt/provenance/transaction qualifications",
+      "scope": "Complete384-line committed P16 contracts.rs material; no original count increment or current/dirty acceptance.",
+      "old_new": "Exact base a120390947c89b703dc74c4255a13c035d054c50 and head039329518e264f19206cf5b0b98d177433f40c17 contracts bodies have the same082a7174...175e33 SHA256. The full body was read. Direct actual retained ContractAuthority/receipt/stage and ContractState parser bodies are likewise exact unchanged bytes and were read; affected dialogue accept/report branches were read separately in both variants, including the changed outer error signature/Ok(?)-wrapping.",
+      "traces": [
+        "record_contract_issuer_interaction16-116 requires living character, party and leader; finds/validates flattened contract state before matching typed stage Accept=>Offered or Report=>ReadyToReport, with Report additionally matching accepted_by. It checks the same settlement, persisted issuer/service/presence/location and NPC schedule presence at character time or fallback minute720. It upserts the stage-derived receipt ID with explicit contract/party/issuer/dialogue coordinates, refreshed StrategicMinute and consumed=false.",
+        "record_dialogue_contract_issuer_interaction118-153 rejects action start, requires live dialogue presence and the matching issuer/service/settlement, then delegates to the same writer. Actual dialogue_effects137-201 chooses an offered local contract or current party contract, records stage-specific interaction, then directly calls accept_contract or report_contract. Its P16 head changes the dispatch result to StrategicOperationResult and wraps native String results with Ok(...?); control-flow predicates and target operations in these two branches retain order. Native reducer/error egress is not proved by those wrappers.",
+        "simulate_contract_issuer_interaction160-191 is gated by sender_owns_simulation_character: simulation.rs266-278 requires the singleton run owner to equal ctx.sender plus a registered simulation character. It then resolves issuer presence and uses synthetic simulation dialogue coordinates before the common writer; no arbitrary ordinary-user receipt minting is established from this branch.",
+        "consume_contract_interaction193-215 resolves the same composite ID, rejects consumed or wrong-stage rows, marks consumed and updates. It does not revalidate all stored provenance columns, current issuer presence or age. accept_contract218-292 checks strategic authority, living character/party/leader, no active contract, valid Offered state, open case and matching settlement, then consumes Accept before setting Accepted/party/timestamp, disclosing the first configured exact case site and assigning the active contract.",
+        "Actual report_contract in mission_bootstrap11-103 checks strategic authority, living membership, active contract, parsed ReadyToReport/accepted party and settlement, consumes Report, refreshes time, computes nonnegative reward/XP distribution, sets Paid/paid_at, clears party active contract and removes obsolete report requests. This is the retained receipt-to-lifecycle recipient; token consumption alone is not an atomicity proof.",
+        "track_case_site297-336 is gateway/leader/living-character gated and requires exact_case_site_for_observer before upserting only PartyCaseSiteTracking with refreshed timestamp. The direct helper288-356 checks canonical site/provenance, observer-owned exact live lead, same coordinates and corrected-time status. disclose_exact_case_site456-552 validates case/alias identity, deduplicates same active disclosures, emits a new bounded checked revision when needed and writes the ExactBelieved lead. Its refresh_clock().unwrap_or_default fallback is existing behavior, not silently covered by typed StrategicMinute.",
+        "abandon_contract339-384 validates strategic/no-encounter/living/leader/current-site gates and parsed_state; checks accepted_by and rejects ReadyToReport, then assigns Withdrawn and clears the party active contract. The following preexisting Paid-row witness remains an actionable source observation rather than a preservation clearance."
+      ],
+      "candidate": {
+        "id": "SEGOVB-CONT08-007-M51-PAID-WITHDRAWN",
+        "classification": "Preexisting source-backed lifecycle defect candidate; root must reconcile inherited finding aliases. Not a new accepted refactor regression or current-state defect claim.",
+        "trigger": "A well-formed Paid contract retaining accepted_by for the same living party leader, with accepted_at<=paid_at and the existing no-encounter/current-case-site gates satisfied.",
+        "path": "contracts369 parsed_state accepts the Paid row;371-375 only reject wrong accepted_by or ReadyToReport. contracts378-379 writes Withdrawn while retaining accepted_by, accepted_at and paid_at. ContractState::parse strategic_state68-90 accepts Paid with paid_atSome but requires paid_atNone for both valid Withdrawn forms. The resulting row therefore fails its own parsed_state contract.",
+        "source_ranges": [
+          {
+            "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/strategic/contracts.rs",
+            "sha256": "082a7174a1ca9b578bf1a52852a7d09d952c4af3c6d0705ee7b5442692175e33",
+            "ranges": [
+              [
+                339,
+                384
+              ]
+            ]
+          },
+          {
+            "source_id": "physical-p16-commit039329:crates/adventuresim-core/src/strategic_state.rs",
+            "sha256": "b704a73eded4ae15345f15781c8f117d919e7f97e047e08e31bb068c912072f8",
+            "ranges": [
+              [
+                47,
+                93
+              ]
+            ]
+          }
+        ],
+        "old_new": "Present in both exact pinned variants. No ordinary runtime instance or current branch match was observed; no check/test run.",
+        "acceptance_question": "Root should classify/alias this existing defect and, when implementation is authorized in the owning scope, prevent an invalid Paid-to-Withdrawn transition or define a valid final lifecycle policy. Do not clear it solely because bytes are unchanged."
+      },
+      "limits": [
+        "Receipt IDs concatenate unescaped contract/party strings and stage. Identity grammar/injectivity, all producers and exact-source provenance are not proved; consumption checks only key/stage/consumed, so refresh/expiry/replay authority questions remain open.",
+        "Common writer upsert sets consumed=false, and accept/report consume before later fallible effects. Native reducer transaction rollback, reward helpers, all authority checks, NPC scheduling and temporal freshness remain delegated contracts. No global receipt or database safety clearance.",
+        "Only registered exact source contracts were read. Full changed mission_bootstrap/dialogue_effects/world_actor/simulation/character originals, entire strategic_state file and foreign codecs/macros are not complete. Incidental adjacent declarations/test source do not confer coverage.",
+        "Distinct committed P16 extension, not verified unknown dirty snapshot or current implementation. Preserve all inherited scopes/findings/aliases."
+      ]
+    },
+    "52": {
+      "status": "qualified partial at concrete typed-error receiving contract; not material-complete",
+      "partial_id": "SEGOVB-CONT08-007-M52-PARTIAL",
+      "scope": "Complete43-line committed P16 tactical_enemy_fixture.rs material body read, plus bounded actual parse/roster/loadout/mission/include/error owners. This body read is not enough to finish the material receiving graph.",
+      "old_new": "Material body is identical241e5f1c...395ec at base/head, but the connected P16 head changes character helper results and a roster producer to StrategicOperationResult. The old replace_development_loadout3259-3291 and head3262-3297 were read separately and the newly introduced44-line operation_error owner was read directly.",
+      "traces": [
+        "parse_tactical_enemy_fixture3-7 delegates to TacticalEnemyFixture::parse. Actual core tactical_fixture1-136 checks1..16KiB YAML, denies unknown fields on outer/spec/item structs, validates version1, bounded nonempty enemy count, trimmed nonempty name length<=64 with uniqueness, at most64 loadout items, and item IDs restricted to lowercase ASCII/digits/underscore. Typed behavior has four variants and snake_case serde. It does not resolve every catalog item/slot compatibility at parse; that is delegated to ordinary equipment placement.",
+        "configure9-43 obtains living context_character_ids, rejects an exact count mismatch before mutation, zips roster order to fixture order, updates each strategic character name, replaces its loadout via ordinary equipment helper, then optionally adds basic clothing. Actual world_actor320-347 filters well-formed open memberships, sorts by ordinal, then keeps only living character rows. Thus fixture names/loadouts are mapped by retained ordinal, not by preexisting character name; no tactical position/HP/damage tick fields are persisted by this helper.",
+        "Actual standalone mission entry499-665 authorizes the compiled development bootstrap token, parses the fixture/count before returning an existing mission/server request, validates mission identity/family, materializes a clamped hostile roster, and calls configure after materialization. Full mission creation/claim tail is not read or cleared.",
+        "Old loadout helper first unequips wearable roots, reuses distinct inventory rows by character/item and selected-row set, otherwise attempts add_inventory_item as an Option before generic failure, then delegates placement/equip. Head retains the order/selection but calls typed add_inventory_item(...)? before Option handling and returns StrategicOperationResult; its detailed new error/placement semantics remain untraced after the concrete receiver mismatch."
+      ],
+      "concrete_partial": {
+        "trigger": "Typecheck the exact committed included source at039329, or attempt to reason about loadout/basic-clothing errors through unchanged configure return type.",
+        "old_path": "tactical_enemy_fixture9-43 returns Result<(),String>; old character::replace_development_loadout returns Result<(),String>, so its ? error type matches the caller.",
+        "head_path": "The unchanged caller still returns Result<(),String> and uses ? at37/39. Head character::replace_development_loadout3262-3266 and add_and_equip_basic_clothing3243-3246 return StrategicOperationResult<()>, whose error is StrategicOperationError (operation_error10-35). The owner provides only From<String>/From<&str> into that error38-44; it does not provide the reverse conversion required by the caller error type. Bounded declaration navigation found no reverse conversion in this crate. The same typed roster boundary is reached from the String-result standalone mission caller.",
+        "include_proof": "strategic/mod.rs83 and92-93 unconditionally include contracts.rs, tactical_enemy_fixture.rs and mission_bootstrap.rs. Its module imports the new StrategicOperationError/Result at17. Therefore this is an actual retained receiving body, not an unreferenced snippet; no compiler/project check was run.",
+        "disposition": "Concrete frozen-P16 migration-gap/receiver ambiguity for root reconciliation. Do not assume typed errors serialize to String automatically, invent a legacy fallback, mark material52 complete or promote this as a current unique defect without alias/current-source assessment.",
+        "required_next_evidence": "Root must identify an actual applicable conversion/port or register and assess the intended typed result propagation across these included callers, preserving error causes and final reducer text boundary. Under source-only constraints no repair or check was attempted."
+      },
+      "remaining": [
+        "Native YAML/serde implementation, catalog/slot placement admission, full add_inventory_item error behavior, full world roster materialization, mission request/claim tail and tactical behavior consumer remain untraced.",
+        "No exact current/dirty P16 mapping, runtime witness or compilation claim. Existing fixture tests were source only and never executed; no test/case/doctest was added.",
+        "Stop at this concrete partial; do not proceed to53 or infer coverage from presence, hashes, prior lens packets or hosted CI."
+      ]
+    }
+  },
+  "accepted_new_unique_findings": [],
+  "preexisting_candidate_ids": [
+    "SEGOVB-CONT08-007-M51-PAID-WITHDRAWN"
+  ],
+  "new_partial_ids": [
+    "SEGOVB-CONT08-007-M52-PARTIAL"
+  ],
+  "coverage_delta": {
+    "newly_accounted_material_indices": [
+      51
+    ],
+    "partial_material_indices": [
+      52
+    ],
+    "material_earlier_contiguous_proposal": [
+      0,
+      51
+    ],
+    "next_material": 52,
+    "new_original_completions": [],
+    "original_accounted": 1799,
+    "original_first_unfinished": 1462,
+    "next_ordered_original": 1792,
+    "partial1462": "CONT08-Q003 unchanged qualified partial. Prior native normal proof is narrower than admitted camera/obstacle/simplex witness; no clearance.",
+    "qualification": "Root alone may adopt. Material51 accounted WITH finding/policy limits;52 remains partial. Read ranges do not silently complete untraced contracts."
+  },
+  "inherited": "Preserve all20/P16/P17/#780/#826/shared M16 canonical graph/all13 lenses, inherited findings/aliases and earlier overflow/custom tick, repeated hinge/public authority, hair/layout/group, F9 and other qualifications. Counts and original/material roles remain distinct.",
+  "global_clearance": false,
+  "stop": "Stopped at material52 concrete receiving partial. No53 or further material body/discovery. No merge-ready checkpoint was received before save.",
+  "validation": "Source-only and ignored evidence writes. No product/source edits, Git mutations, root ledger/history overwrite, project checks/tests/source execution or publication."
+}

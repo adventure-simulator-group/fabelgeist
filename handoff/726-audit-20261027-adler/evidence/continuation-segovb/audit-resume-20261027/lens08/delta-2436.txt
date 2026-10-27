@@ -1,0 +1,14 @@
+--- base:05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d
++++ head:10ec37a1c4a64e581565d0eb9c297d396a34c1c9134a8d210de29cecb77e88ee
+@@ -27,6 +27,11 @@
+         }
+         Ok(Self(value))
+     }
++    /// Native maximum of admitted finite radians, preserving signed zero.
++    pub fn max(self, other: Self) -> Self {
++        Self(self.0.max(other.0))
++    }
++
+     pub fn radians(self) -> f32 {
+         self.0
+     }

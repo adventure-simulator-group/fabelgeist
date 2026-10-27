@@ -1,0 +1,152 @@
+{
+  "id": "SEGOVB-CONT11-SUCCESSOR-161-PARTIAL-001",
+  "lens": "type-granularity",
+  "prior_state": "audit11-successor-160-proposed-state.json",
+  "crosswalk": "audit11-question-crosswalk-001.json",
+  "registration": "audit11-successor-161-registration.json",
+  "partials": [
+    {
+      "scope_index": 787,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/placement.rs",
+      "sha256": "7e744958c7df65097784318b313e51c658edae89fde9e0f80ba70ddce4fcaa81",
+      "source_ranges_read": [
+        [
+          1,
+          76
+        ]
+      ],
+      "source_body_read": true,
+      "source_complete": false,
+      "status": "partial; exact pose owner receiver remains unconsumed",
+      "accounting_increment": 0,
+      "source_backed_observations": [
+        {
+          "role": "Pattern placement versus already fitted construction",
+          "source": "12-35,43-52",
+          "trace": "Derived is_fitted predicate skips pattern floor/pelvis translation and clear_panels for fitted geometry, while both use same GarmentPose/Fit path. Pattern placement computes body floor from input y and pelvis centre from canonical RigJointName lookup returning RigJointOrdinal into input.joints. No primitive ordinal cast occurs here. Floor, lateral and forward offsets are metre coordinates; threshold0.005 snaps small lateral pelvis offset, not arbitrary semantic Boolean state."
+        },
+        {
+          "role": "Body versus combined obstacle surface",
+          "source": "36-63,66-76",
+          "trace": "collision_surface copies body geometry then appends each inner garment with vertex-index offset. Fit.set_body receives only wearer positions/faces and keeps its body BVH; if obstacles exist set_collision_mesh replaces collision mesh with combined surface, preserving body for body-specific operations. Both share native geometry shape but have distinct responsibilities. Returned Fit and TriangleBvh have different types and caller destructures them; no duplicate owner justified by tuple alone."
+        },
+        {
+          "role": "Actual receiving numerical ports inspected",
+          "source": "connected Fit433-574; original780157-212",
+          "trace": "Fit.set_pose calls pose.place on base_positions/pivots, writes positions, retains pose and resets frame count. placed_positions invokes same mapping. set_body sets body-only collision/BVH and clear_body; collision receiver builds MeshSurface from named body_offset_cm conversion and fabric friction. clear_body queries same body BVH and writes displaced positions. clear_panels moves each garment panel along a common face normal direction with metre margin; actual producer uses body_offset_cm*0.01+canonical fabric radius. Earlier particle native upload contract and BVH original triangle contract retained from158/160. Native arithmetic does not close physical-port owner questions."
+        }
+      ],
+      "required_exact_trace": {
+        "original_index": 2657,
+        "source_id": "pr-working:crates/fabelgeist-garment-fit/src/pose.rs",
+        "sha256": "2f61441a1ff287026cb6bbe667bb91ae6c60ae760a14632b433dc17cfaaafe36",
+        "needed": "GarmentPose::for_mesh/place and named transform/pivot owners; register concrete ranges after symbol locator once exact source is staged",
+        "cache_status": "Absent in continuation source-objects at check; parent asked to stage exact frozen object. No Git/read around restriction."
+      }
+    },
+    {
+      "scope_index": 788,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/settled.rs",
+      "sha256": "3dbafb11ea673b81b72c6d8599bf9c1ac4c55b3e456982e39d16d38faef2e42d",
+      "source_ranges_read": [
+        [
+          1,
+          308
+        ]
+      ],
+      "source_body_read": true,
+      "source_complete": false,
+      "status": "future partial; independently read prospective body while787 receiver pending, no ordered credit",
+      "accounting_increment": 0,
+      "source_backed_observations": [
+        {
+          "role": "SettledGarment versus SettledDrape and live drape",
+          "source": "20-43,89-127,172-226",
+          "trace": "SettledGarment coherently retains original selection plus reusable saved drape; capture copies same input selection and captures matching garment, validate delegates both owners. SettledDrape retains private saved positions/UV/faces/bindings/body compatibility metadata, then wear returns DrapeOutcome with fresh checkpoint. fit builds a Worn garment from saved surface conformation and current selection/skin. Distinction from live Fit, input and preview output is meaningful; not duplicate geometry authority by representation alone."
+        },
+        {
+          "role": "BodyTopology count compatibility versus identity",
+          "source": "45-61,184-198",
+          "trace": "BodyTopology stores u32 vertex/triangle counts. fit checks both counts through derived equality, while docs describe same MHR mesh level of detail. Count comparison is actual established local check, not proof of arbitrary topology/connectivity/version identity or universal body-instance association. Retain explicit inherited current/canonical comparison qualification; do not invent new bounds or assign unproved alias to M18/supporting master record."
+        },
+        {
+          "role": "SurfaceBinding triangle, barycentric coordinates and local frame offsets",
+          "source": "63-87,245-304",
+          "trace": "Private named record separates body triangle ordinal, dimensionless second/third-corner weights and metre tangent/bitangent/normal offsets. bind computes barycentrics and projects into interpolated frame; place reconstructs from same named values. frame uses same faces/BVH triangle index and smooth normals with explicit fallback bases. Native homogeneous arrays carry numerical frame components at this exact kernel; merging barycentric and offset arrays would erase meaningful roles. Raw public/cross-boundary unit/frame propagation remains qualified."
+        },
+        {
+          "role": "Packing and admission boundary not yet complete",
+          "source": "73-87,92-103,138-169",
+          "trace": "SurfaceBinding pack/unpack writes6u32 words: triangle ordinal then2f32 bit patterns then3offset bit patterns. SettledDrape applies packed Serde adapter to positions/UV/faces/bindings. validate checks nonempty data, per-vertex shape, face indices, finite scalar components and binding triangle<recorded count; it does not establish arbitrary topology identity or barycentric simplex bounds. Need exact Packed/Serde adapter arity/word admission before claiming full receiver contract."
+        },
+        {
+          "role": "Saved conformation and stage policy",
+          "source": "199-225,229-235",
+          "trace": "fit uses same SewnCloth original saved topology, limits transferred stretch, clears collision surface and optionally tucks under plate; prior781/785 source traces support actual consumers. capture permits final Settling step==of or Worn through ensure_settled; no new simulation-stage restrictions or runtime validation claims. Current skin transfer shares typed canonical rig receiver gap qualification from158, not resolved here."
+        }
+      ],
+      "required_exact_trace": {
+        "original_index": 789,
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/settled/packed.rs",
+        "sha256": "ca95a83317547915bbd839018cd6b1c766ff327327877fc02c6978d1bcaee0f7",
+        "needed": "Packed trait and Serde serialize/deserialize data/word shape receivers for SurfaceBinding six-word record",
+        "cache_status": "Absent in continuation source-objects at check; parent asked to stage exact frozen object. No future789 ordered credit."
+      }
+    }
+  ],
+  "new_connected_reads": [
+    {
+      "original_index": 2266,
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "ranges": [
+        [
+          433,
+          574
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "original_index": 780,
+      "sha256": "d6b09524be811c5e4202be50af529c941a917ff8f31ea61e2a73e4da17dc103e",
+      "ranges": [
+        [
+          157,
+          218
+        ]
+      ],
+      "ordered_credit": false,
+      "note": "Previously full-read body materially reused, no completed discovery restart."
+    }
+  ],
+  "metadata_only_pending_sources": [
+    {
+      "original_index": 809,
+      "sha256": "0f820bca06e27b164da010e95dc7d3500a79a6feb0b7be9411ed8a41e88feb18",
+      "body_consumed": false
+    },
+    {
+      "original_index": 810,
+      "sha256": "8b3ada636d68eaae16cf4ca2bab097cd918be93a52452d34dc3e2648add51691",
+      "body_consumed": false
+    }
+  ],
+  "stop_reason": "Concrete unconsumed exact receiver files currently absent local cache; no Git authorized in bounded packet. Parent staging requested. Save current partial rather than infer native receiver contracts.",
+  "newly_source_accounted": [],
+  "new_unique_findings": 0,
+  "proposed_original_accounted": 787,
+  "next_original": 787,
+  "active_partial": [
+    787,
+    788
+  ],
+  "qualifications": [
+    "No original787/788/789 or future923 ordered credit; prior0-786 not restarted.",
+    "Frozen ordinal receiver/current comparison and physical/frame scalar owner questions retained. Source-key crosswalk and uncertain question aliases preserved; no accepted unique count change.",
+    "Full-body reads alone are not contract-source completion. No current-source, validated or global clearance claim.",
+    "No rootledger/historical/product/Git/checks/tests/probes/publication actions."
+  ],
+  "clear": false,
+  "integrated": false,
+  "validated": false
+}

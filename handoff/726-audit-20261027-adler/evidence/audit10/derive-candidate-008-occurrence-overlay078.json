@@ -1,0 +1,23 @@
+{
+  "id": "OWN10-CANDIDATE008-OVERLAY078-QUALIFIED",
+  "overlay_index": 78,
+  "path": "crates/adventuresim-world-schema/src/calendar.rs",
+  "ranges": [
+    [
+      28,
+      41
+    ],
+    [
+      82,
+      97
+    ]
+  ],
+  "inventory": "CalendarYear Display delegates exactly i32 field; StrategicMinute Display delegates exactly u64 field. Non-generic mechanical format delegation; ordinary Debug derive would differ, an appropriate Display macro could preserve it.",
+  "dependency_qualification": "Exact owning WorldSchema Cargo full read has serde/strum but no derive_more Display dependency. Project existing derive_more can potentially supply Display, but adding owning dependency/feature is a separate global remedy decision; no immediate repair or claim that semantics make these underivable.",
+  "dependency_sha256": "3c5bed9bdba2fe4d9a73522f70749beccc5240021b04af3755167af288735655",
+  "preserve": "CalendarYear checked TryFrom and serde try_from, StrategicMinute transparent u64, SpacetimeType cfg and formatting flags remain exact. Do not replace checked CalendarYear admission with raw From.",
+  "classification": "Qualified existing single-field Display remedy occurrence; global dedup pending",
+  "new_unique_finding": false,
+  "clear": false,
+  "checks": "not run"
+}

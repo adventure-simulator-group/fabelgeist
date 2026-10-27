@@ -1,0 +1,75 @@
+{
+  "at": "2026-10-27T04:51:53.915952+00:00",
+  "finding": "M04",
+  "base": "35b18ec280a6884bb53996a2d859c4b27096f65c",
+  "source": [
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "base_sha256": "db3686060ebd8ce533fe48c88685c5643b024b8a92b2b617d97481196988f3e0",
+      "sha256": "b1561f750844b7395f96f8fe2ee767db88d73fb8d8b6e997779493130b09f877",
+      "base_lines": 178,
+      "lines": 173
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "base_sha256": "6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+      "sha256": "7cca5e5cef2f3c3a5a11c88dba547195f36d61f4665f157c8d55eedc30179eab",
+      "base_lines": 267,
+      "lines": 267
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "base_sha256": "61864d871215d4140f142c121202374b5a8e3434504d459b29e97d7e0a889033",
+      "sha256": "3acaf77c189e6ab8abcd972e5615276d945a1ca6772ee90246feef673e8a2c69",
+      "base_lines": 207,
+      "lines": 207
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "base_sha256": "18c3232bb01109cd7ec857f3c750d2c04ffb869dd52ca42cec82524816c41206",
+      "sha256": "09565d01fd8fabbf899d84f107bdbf9c16fd6149ec61f51714599d160c1260e0",
+      "base_lines": 217,
+      "lines": 218
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "base_sha256": "2bdf24f3de20d1901bfc475d799d3a07781d9c5e22733caaea0d2365250edd0f",
+      "sha256": "51a510d3c5f039d6b7eb4ce2b1511432fb3415bf0b15152d036ec01a6394f9c8",
+      "base_lines": 522,
+      "lines": 525
+    },
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "base_sha256": "3f6e1cfe6c05f5f6a2bb39155e3bf0d8ec8cbdabe3f77e993971d42e56891b33",
+      "sha256": "0ad5e0e1b2b062d47f48af303bc97f1259f6d4ac99c62bef9b42588b183233b4",
+      "base_lines": 590,
+      "lines": 595
+    },
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "base_sha256": "fc42ea1f2234144e94d6bfac86f254cd059799b9f9e5ae6de7f77e3125f19b7c",
+      "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+      "base_lines": 509,
+      "lines": 511
+    },
+    {
+      "path": "crates/adventuresim-core/Cargo.toml",
+      "base_sha256": "feb7d553952f711d1296803b07e2ec1b7ee1cb555df59648b5bdef7e2cf5d4a9",
+      "sha256": "29e56014658d941895772dda71b9181863839eedf403c7d30b446186228c3441",
+      "base_lines": 42,
+      "lines": 43
+    }
+  ],
+  "diff_sha256": "3976d9b626c989ab52c8e8d3a26a5d98e9e3d4ef44236fde113da41c2e307d56",
+  "changed_path_set_exact": true,
+  "tests_added_or_modified": false,
+  "workflow_manifest_lock_baseline_changes": "Workflow executes existing movement tests; core manifest adds existing workspace thiserror as build-dependency; no lock/baseline/test changes.",
+  "local_project_execution": false,
+  "source_discovery": "scoped-discovery-001.json",
+  "scope": "Complete bounded-interpolation producer/operation/error graph. M03configuration, M09categories and all20/global audit remain mandatory/open.",
+  "error_contract": "SpeedError::Fraction owns canonical FractionError source; AnimationValueError reuses canonical unit-fraction conversion, no legacyerror/downcastshape requirement.",
+  "numeric_contract": "Native interpolation kernels keep operationorder. Endurance polynomial unchanged thenclamped to intrinsic unitdomain beforeadmission; no unproved bitwise equality for former tinyroundoff extrapolation.",
+  "head": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+  "hosted_acceptance_delta": "tactical-core-movement-speed.log must show exactly four passing existing tests, zero failed/ignored at this source revision; existing required-cells verifier now includes this cell.",
+  "build_context": "Existing build.rs includes src/linear_speed.rs as a separate Cargo target. It now includes exact canonical src/unit_interval.rs and thiserror workspace build-dependency as well. No alternate implementation or cfg compatibility fork."
+}

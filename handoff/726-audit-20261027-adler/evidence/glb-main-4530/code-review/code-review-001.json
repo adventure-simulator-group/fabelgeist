@@ -1,0 +1,64 @@
+{
+  "review": "Independent Code Review001",
+  "head": "6431c2faf1b50608344d1031d0f9413830c271fa",
+  "base": "4530fc19ce16641df65eae28735d69e86bbaa8ae",
+  "fingerprint": "c4a7ae8811845d6a1621e287992173d16b74e609142accbec4546c53dbeeb2fc",
+  "verdict": "Source-clear for the defined checked GLB framing slice; hosted validation pending.",
+  "findings": [],
+  "scope": "Six changed paths; export.rs module declarations and final typed-error conversion, complete GLB writer/layout/error bodies, optional profiling record and owning README paragraph. Actual unchanged complete direct export_rigged_glb caller588-843 and existing roundtrip fixture849-1066 were read. Other exporter geometry/material/body/fitting producers are not cleared by this scoped result.",
+  "source_identity": "source-identity-001.json",
+  "reasoning": [
+    {
+      "topic": "Lengths, zero and full width",
+      "locations": [
+        "src/export/glb/layout.rs:25-55",
+        "src/export/glb.rs:25-45"
+      ],
+      "evidence": "Chunk padding uses checked_next_multiple_of(4); padded minus original cannot underflow and is0..3. Each padded chunk narrows only through u32::try_from. Total28 plus both raw lengths and paddings uses checked_add at every step, then checked u32 encoding. No signed32-bit cap, usize cast, wrap, truncation or fallback. Zero payload lengths admitted; actual serialized Value is nonempty JSON, zero BIN remains the existing two-chunk policy. Because total is four-aligned, the largest format-representable total is u32::MAX-3. On32-bit padding/total may return host Overflow; on64-bit out-of-format chunk/total returns Width with original usize and TryFromIntError."
+    },
+    {
+      "topic": "Reservation equals assembly requirement",
+      "locations": [
+        "src/export/glb.rs:29-44",
+        "src/export/glb/layout.rs:39-55"
+      ],
+      "evidence": "The only emitted components are12-byte file header,8-byte JSON header, original JSON, its exact padding,8-byte BIN header, original bytes, exact BIN padding. Their sum is the admitted byte_length. Empty Vec reserves at least that many u8 elements with try_reserve_exact before append. Every prefix remains within reserved capacity; standard append/reserve capacity contracts and actual checked_rounding source were read. On32-bit a format-valid frame above native Vec isize addressability fails the native reserve with TryReserveError; no false claim everyu32 frame allocates. Allocation can also fail on64-bit. Serialization/earlier buffer construction allocations are not made globally fallible by this slice."
+    },
+    {
+      "topic": "Successful bytes and existing fixtures",
+      "locations": [
+        "src/export/glb.rs:25-44",
+        "src/export.rs:821-842"
+      ],
+      "evidence": "For admitted sizes, preserve serializer input Value, header magic/version/little-endian layout, JSON/BIN tag order and original payload bytes, JSON spaces and BIN zeros. Serde reference forwarding proves old&&Value and new&Value serialization delegation identical. Original buffer byteLength remains unpadded while BIN header is padded as before. Existing empty-BIN emission preserved despite specification SHOULD-omit guidance. Entire existing test module byte-identical to merged base; actual existing full roundtrip/skin fixture body inspected, no new tests/assertions and no execution."
+    },
+    {
+      "topic": "Concrete errors and public visibility",
+      "locations": [
+        "src/export/glb/error.rs:21-55",
+        "src/export.rs:22",
+        "src/export.rs:842"
+      ],
+      "evidence": "No string-based classification. Serialize, Reserve and IO variants own their concrete errors; Width retains TryFromIntError and role/size. Overflow has a typed role because checked arithmetic supplies no native error object. Directory/write errors retain owned native PathBuf, including non-Unicode path identity. Public glb module exposes errors/result for downcasting while write, layout and PreparedGlb stay restricted. Caller Into converts GlbError to anyhow without formatting; actualanyhow From<E> preserves object/downcast. Layout is transparent, so Display/source forward to the inner layout error and its underlying cause; concrete GlbLayoutError remains stored in the Layout variant rather than guaranteed as a separate source-chain node."
+    },
+    {
+      "topic": "Publication staging and integration with merged986",
+      "locations": [
+        "src/export/glb.rs:47-64",
+        "src/export.rs:840-842",
+        "src/export/textures.rs:129-173"
+      ],
+      "evidence": "Within glb::write complete serialization/layout/reserve/assembly precedes directory creation and fs::write. Existing TextureImages.finish executes first and may publish shared PNGs or fail; therefore this is not a whole-export transaction. Existing partial filesystem write behavior retained and documented. Six-file diff against merged4530 changes no skin/fitting/tree/garden fixtures or configuration. Direct caller validation/geometry/metadata ordering is unchanged; added modules have no initialization effects. Same-function upstream generator/allocation/identity obligations remain out of scope."
+    },
+    {
+      "topic": "Optional profiling",
+      "locations": [
+        "src/profiling.rs:22-41"
+      ],
+      "evidence": "measure calls its operation exactly once and returns the original result in enabled and disabled paths. Existing label/event field names, Duration-to-millisecond arithmetic and PROFILE prefix retained. Failed optional event JSON encoding now skips its diagnostic instead of expect panic; operation error/value is not rewritten. Native stderr failure and other existing process allocation behavior are not globally hardened."
+    }
+  ],
+  "rules": "Root/crates/Creator and shared armor instructions read. Container/error/profiling maintenance does not change equipment shape or require artistic modeling cycle. No compatibility path introduced. No local project checks/source/Git mutations performed.",
+  "acceptance_pending": "Root-owned hosted ordinary quality pipeline at this exact candidate; source review does not assert execution, full exporter validity or global774/#780 clearance.",
+  "historic_review_transfer": "None. Preserved25fe equality recorded only as provenance; all current dispositions above independently assessed from actual current diff/bodies."
+}

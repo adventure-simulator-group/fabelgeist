@@ -1,0 +1,119 @@
+--- base
++++ frozen-head
+@@ -1,11 +1,13 @@
+ use fabelgeist_determinism::Seed;
+ use std::collections::HashMap;
+ 
+-use adventuresim_tactical_core::{inventory::ArmorLayerContact, prelude::*};
++use adventuresim_tactical_core::{
++    animation::NonnegativeLength, inventory::ArmorLayerContact, prelude::*,
++};
+ use bevy::prelude::*;
+ use serde::Serialize;
+ 
+-use super::TACTICAL_TICK_SECONDS;
++use super::TacticalElapsed;
+ use crate::combat::MeleeAttackResolved;
+ 
+ mod decisions;
+@@ -76,7 +78,7 @@
+ pub struct TacticalMeleeLogEntry {
+     pub sequence: u32,
+     pub tick: u64,
+-    pub elapsed_seconds: f32,
++    pub elapsed_seconds: TacticalElapsed,
+     pub attacker: String,
+     pub defender: String,
+     pub center_separation_metres: f32,
+@@ -120,7 +122,7 @@
+ #[derive(Clone, Debug, Serialize)]
+ pub struct TacticalConditionLogEntry {
+     pub tick: u64,
+-    pub elapsed_seconds: f32,
++    pub elapsed_seconds: TacticalElapsed,
+     pub combatant: String,
+     pub cause: String,
+     pub previous: f32,
+@@ -131,7 +133,7 @@
+ #[derive(Clone, Debug, Serialize)]
+ pub struct TacticalWoundLogEntry {
+     pub tick: u64,
+-    pub elapsed_seconds: f32,
++    pub elapsed_seconds: TacticalElapsed,
+     pub combatant: String,
+     pub body_part: String,
+     pub kind: adventuresim_core::combat::CombatWoundKind,
+@@ -141,14 +143,14 @@
+ #[derive(Clone, Debug, Serialize)]
+ pub struct TacticalDecisionLogEntry {
+     pub tick: u64,
+-    pub elapsed_seconds: f32,
++    pub elapsed_seconds: TacticalElapsed,
+     pub combatant: String,
+     pub decision: TacticalDecision,
+     pub status: TacticalDecisionStatus,
+     pub target: Option<String>,
+     pub center_separation_metres: Option<f32>,
+     pub preferred_melee_measure_metres: Option<f32>,
+-    pub attack_key: Option<u64>,
++    pub attack_key: Option<MeleeAttackKey>,
+     pub cause: Option<&'static str>,
+ }
+ 
+@@ -165,9 +167,9 @@
+     pub seed: Seed,
+     pub resolution: TacticalDuelResolution,
+     pub simulated_ticks: u64,
+-    pub simulated_seconds: f32,
++    pub simulated_seconds: TacticalElapsed,
+     pub initial_center_separation_metres: f32,
+-    pub final_center_separation_metres: f32,
++    pub final_center_separation_metres: Option<NonnegativeLength>,
+     pub attack_starts: u32,
+     pub resolved_attacks: u32,
+     pub events: Vec<TacticalMeleeLogEntry>,
+@@ -234,7 +236,7 @@
+     });
+     log.decision_events.push(TacticalDecisionLogEntry {
+         tick: clock.tick,
+-        elapsed_seconds: clock.tick as f32 * TACTICAL_TICK_SECONDS,
++        elapsed_seconds: TacticalElapsed::from_tick_count(clock.tick),
+         combatant: attacker.name.clone(),
+         decision: TacticalDecision::Attack,
+         status: TacticalDecisionStatus::Started,
+@@ -266,7 +268,7 @@
+     };
+     log.decision_events.push(TacticalDecisionLogEntry {
+         tick: clock.tick,
+-        elapsed_seconds: clock.tick as f32 * TACTICAL_TICK_SECONDS,
++        elapsed_seconds: TacticalElapsed::from_tick_count(clock.tick),
+         combatant: defender.name.clone(),
+         decision,
+         status: TacticalDecisionStatus::Attempted,
+@@ -278,7 +280,7 @@
+     });
+     log.decision_events.push(TacticalDecisionLogEntry {
+         tick: clock.tick,
+-        elapsed_seconds: clock.tick as f32 * TACTICAL_TICK_SECONDS,
++        elapsed_seconds: TacticalElapsed::from_tick_count(clock.tick),
+         combatant: defender.name.clone(),
+         decision,
+         status: if event.accepted {
+@@ -341,7 +343,7 @@
+         for wound in &wounds.0[already_logged..] {
+             log.wound_events.push(TacticalWoundLogEntry {
+                 tick: clock.tick,
+-                elapsed_seconds: clock.tick as f32 * TACTICAL_TICK_SECONDS,
++                elapsed_seconds: TacticalElapsed::from_tick_count(clock.tick),
+                 combatant: defender.name.clone(),
+                 body_part: format!("{:?}", wound.body_part).to_lowercase(),
+                 kind: wound.kind,
+@@ -410,7 +412,7 @@
+                 if (after - before).abs() > 1.0e-6 {
+                     log.condition_events.push(TacticalConditionLogEntry {
+                         tick: clock.tick,
+-                        elapsed_seconds: clock.tick as f32 * TACTICAL_TICK_SECONDS,
++                        elapsed_seconds: TacticalElapsed::from_tick_count(clock.tick),
+                         combatant: player.name.clone(),
+                         cause: cause.into(),
+                         previous: before,

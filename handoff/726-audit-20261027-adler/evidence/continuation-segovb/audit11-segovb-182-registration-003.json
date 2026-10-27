@@ -1,0 +1,61 @@
+{
+  "packet": 182,
+  "lens": 11,
+  "entries": [
+    {
+      "original": 920,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment.rs",
+      "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "read_from": "crates/adventuresim-core/src/equipment.rs",
+      "ranges": [
+        [
+          190,
+          276
+        ]
+      ],
+      "actual_eof": 1182,
+      "purpose": "Concrete EquipmentGraph record and equip receiver where typed local inventory IDs become primitiveu64; check whether external/native boundary actually requireserasure",
+      "ordered_original_shared_credit": 0
+    },
+    {
+      "original": 923,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment_assets/selection.rs",
+      "sha256": "162b898d78feeae3507d19844b4b11c999c50edd7609680e5ef7c2fac89486d6",
+      "read_from": "crates/adventuresim-core/src/equipment_assets/selection.rs",
+      "ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "actual_eof": 170,
+      "purpose": "Canonical borrowed CatalogItem/CatalogPlacement owner/find/admit/item/placement identity receiving APIs; no ordered923credit",
+      "ordered_original_shared_credit": 0
+    },
+    {
+      "original": 939,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "ranges": [
+        [
+          23,
+          77
+        ],
+        [
+          147,
+          250
+        ],
+        [
+          315,
+          350
+        ]
+      ],
+      "actual_eof": 618,
+      "purpose": "Correct pr-working schema variant only: item/equipment records, closed channel/location and occupancy/parent semantic receivers",
+      "ordered_original_shared_credit": 0
+    }
+  ],
+  "registered_before_body_read": true,
+  "limits": "No physical-p16schema116substitution. Scopedreceivers only; no new global/current/aliascredit."
+}

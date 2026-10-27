@@ -1,0 +1,214 @@
+{
+  "at": "2026-10-27T05:00:44.017045+00:00",
+  "lens": "13 magic-numbers",
+  "packet": "027",
+  "status": "Original39 continued6401-8000, cumulative own1-8000; next8001 precise partial.37/2853 unchanged;31/36/39partial.",
+  "authority": {
+    "frozen_original_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "original_registry": "target/recovery-20261025/audit05/original-scope-072.json",
+    "original_registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "original_index": 39,
+    "prior_root_adopted_state": "audit13-successor-026-suggested-state.json",
+    "prior_state_sha256": "8ba184dba02779eea9a89bc164c6cd90cf72a825a0ed09fb0810cb05219525f0",
+    "prior_root_adoption": "audit13-successor-026-adoption-root.json",
+    "prior_root_adoption_sha256": "9c2cff3eb78ce22d5375d67f11619c0628169625453cb9395535e6b95d736327",
+    "root_adoption_required": true
+  },
+  "skill": {
+    "path": "/home/brunosegovia/.codex/skills/audit-magic-numbers/SKILL.md",
+    "sha256": "d71feffe9ef2d777c5d447840f4d3fbcec2e1f4b2cc354fc331e0c899b558dee",
+    "read": "Full reload in025 retained for contiguous027. Applicable rules and prior qualifiers retained."
+  },
+  "registration": {
+    "path": "audit13-successor-registration-027.json",
+    "sha256": "b438238536249ff9da67c844843c30d2123071a864d60f7cfd43dcace27cd146",
+    "before_actual_body_read": true
+  },
+  "source_fingerprint": {
+    "source_id": "physical-p16:Cargo.lock",
+    "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+    "base_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+    "bytes": 306149,
+    "actual_lines": 13103,
+    "full_effective_original_scope": [
+      [
+        1,
+        13103
+      ]
+    ],
+    "contained_supplemental_ranges": [
+      [
+        10243,
+        10256
+      ],
+      [
+        10303,
+        10327
+      ],
+      [
+        10373,
+        10405
+      ]
+    ],
+    "registered_and_consumed_ranges_this_packet": [
+      [
+        6401,
+        8000
+      ]
+    ],
+    "output_chunks": [
+      [
+        6401,
+        6800
+      ],
+      [
+        6801,
+        7200
+      ],
+      [
+        7201,
+        7600
+      ],
+      [
+        7601,
+        8000
+      ]
+    ],
+    "cumulative_independent_lens13_consumed_ranges": [
+      [
+        1,
+        8000
+      ]
+    ],
+    "pre_and_post_read_hash_verified": true,
+    "unread_required_ranges": [
+      [
+        8001,
+        13103
+      ]
+    ],
+    "original39_completion_credit": 0
+  },
+  "source_consumption": {
+    "lines_this_packet": 1600,
+    "actual_ranges_this_packet": [
+      [
+        6401,
+        8000
+      ]
+    ],
+    "cumulative_actual_ranges": [
+      [
+        1,
+        8000
+      ]
+    ],
+    "all_registered_plan_lines_read": true,
+    "four_actual_400_line_outputs_untruncated": true,
+    "full_requested_original_scope_consumed": false,
+    "unregistered_actual_body_reads": false
+  },
+  "independent_nonstring_inventory": [
+    {
+      "lines": "6401-6404",
+      "role": "Open icu_segmenter dependencyarray continuation and closure",
+      "actual_observation": "Quoted utf8_iter/zerovec entries and closing array6403 complete prior026 open context.",
+      "assessment": "No numeric/Boolean value; no rest-of-ICU or text-segmentation numeric semantics inferred."
+    },
+    {
+      "lines": "6405-6561",
+      "role": "Complete ICU-data/identifier/domain/image/indexed-database/indexmap/filesystem-notification records",
+      "actual_observation": "All package version/source/checksum fields and optional dependency selectors quoted. image0.25.10 references png0.18.1; indexed_db_futures0.6.4 references derive_more2.1.1/thiserror2.0.20; indexmap1.9.3 and2.14.1 distinct.",
+      "assessment": "No visible unquoted primitive value. Native package source identity is textual; image dimensions, IndexedDB identifiers/counters and map index bounds not inferred from package name/version/dependency edges."
+    },
+    {
+      "lines": "6562-6799",
+      "role": "Complete insta through jobserver records",
+      "actual_observation": "Quoted snapshots/macro/inventory/network/terminal/iterator/time/JNI/job records. itertools0.10.5/0.12.1/0.14.0/0.15.0; jiff0.2.35 with core/tzdb components; jni0.21.1/0.22.4 and jni-sys0.3.1/0.4.1 remain qualified text records.",
+      "assessment": "No actual timestamps/counts/FFI constants/iteration bounds or raw Bool values occur. Existing test-package names are dependency identity text only, not execution or test evidence."
+    },
+    {
+      "lines": "6801-7046",
+      "role": "Complete js-sys through loom records",
+      "actual_observation": "Quoted versions/checksums/dependency arrays for browser,crypto,graphics,queue,geometry,libc/loading/math/SQLite/udev/Linux/lint/log/scheduling packages. libm0.2.16 and kurbo0.11.3/0.13.1 explicit; linux-raw-sys0.4.15/0.12.1 distinct.",
+      "assessment": "Digits in ktx2/libsqlite3/linux variants and versions remain quoted identifiers, not native numeric constants. No queue capacity, library ABI, geometry tolerance/frame, floating guarantees or concurrency semantics proved by lock identities."
+    },
+    {
+      "lines": "7047-7199",
+      "role": "Complete loop9 through matchit including macroific version families",
+      "actual_observation": "Quoted macroific2.0.0/3.0.1 and matching attr_parse/core/macro dependency selectors; syn2.0.119 versus3.0.4 and sealed0.6.0/0.7.0 qualified. lru/lru-slab/lz4_flex/mach2 names and all associated payloads quoted.",
+      "assessment": "No numeric cache/queue/codec parameter or macro-expanded primitive receiver observed; generated behavior and memory/handle assumptions not source-accounted from version strings."
+    },
+    {
+      "lines": "7200-7395",
+      "role": "Complete matrixmultiply through naga_oil records",
+      "actual_observation": "matrixmultiply starts at7200 cross-output delimiter; quoted0.3.11 package metadata/dependencies. Other records cover maud,maybe-rayon,memory/mime/coverage,compression,mio,moxcms,mutants and naga29.0.4/naga_oil0.22.0.",
+      "assessment": "No raw matrix dimensions, offsets, channel widths, shader constants or validation capabilities in the lock text. Prior native shader/source access not reused as credit from observed package identities."
+    },
+    {
+      "lines": "7396-7599",
+      "role": "Complete nanorand through ntapi records",
+      "actual_observation": "Quoted crypto/ndarray/Android/netcdf/native/noise/parser/notification records. ndk-sys version0.6.0+11769913 is a quoted version payload with build metadata.",
+      "assessment": "No actual RNG seed/range, array dimension, SDK API level constant, data count or syscall value admitted here. Interpretation of version metadata/ABI and downstream native primitives untraced; no blanket exemption."
+    },
+    {
+      "lines": "7600-8000",
+      "role": "Complete nu-ansi-term, numeric crates and Objective-C framework package records",
+      "actual_observation": "nu-ansi-term starts7600; number-family versions and macro edges all quoted. ObjC0.5.2/0.6.4 and framework0.2.2/0.3.2 selectors remain textual records; final objc2-quartz-core0.3.2 array closes7999, blank8000.",
+      "assessment": "No unquoted integer/float/Boolean literal, numeric value ranges, units or foreign-call representation in these records. Native numeric/ObjC implementations, type boundaries/current callers remain unassessed; next8001 unseen."
+    }
+  ],
+  "concrete_remaining_frontier": {
+    "source": {
+      "original": 39,
+      "next_body_line": 8001,
+      "remaining_ranges": [
+        [
+          8001,
+          13103
+        ]
+      ],
+      "last_complete_context": "objc2-quartz-core0.3.2 record7988-7999 plus blank8000; nextbodyline8001 unconsumed/not inferred"
+    },
+    "native_numeric_receiver": "Headerrawformatversion4 and actual Cargo/TOML/semver numerical interpretation/producer/admission/operations/receiving source remains unresolved. Quoted version/checksum payloads not exempted.",
+    "new_dependency_body_reads": []
+  },
+  "source_observations_noncounted": [],
+  "accounting": {
+    "before_original_accounted": 37,
+    "after_proposed_original_accounted": 37,
+    "original_total": 2853,
+    "new_original_roles_inspected": [],
+    "new_original_roles_completed": [],
+    "partial_original_indices": [
+      31,
+      36,
+      39
+    ],
+    "earliest_unfinished_original": 31,
+    "first_never_started_original": 40,
+    "active_partial_source_original": 39,
+    "next_unread_body_line_in39": 8001,
+    "original40_access_credit": 0,
+    "overlays_increment": 0,
+    "merged_increment": 0,
+    "material_increment": 0,
+    "other_lens_credit": 0,
+    "new_unique_count": 0
+  },
+  "other_lens_extension_queue": {
+    "path": "audit13-successor-027-other-lens-extension-queue.json",
+    "sha256": "2a89e8868aa53670014c95b18a88c65b7f308b2a1c77592a41facaa0af4e3de3",
+    "credit": 0
+  },
+  "qualifications": [
+    "027 personally consumed every actual line6401-8000 in four separate contiguous400-line outputs, after prospective exactsource registration and pre-read SHA verification; fresh post-read SHA unchanged. No truncation, scanner/parser/summary/search/hash-only substitute or source body outside registered bounds.",
+    "Full original39 physical-p16 Cargo.lock1-13103 and contained supplements10243-10256/10303-10327/10373-10405 retained mandatory. Own lens13 cumulative1-8000, next actual8001, unread8001-13103. No prior original restart or other-lens Cargo partition/body credit.",
+    "No unquoted numeric/float/Boolean value literal observed in6401-8000. Quoted versions/checksums/dependency selectors and numeric characters in package names are text payloads here; this does not exempt actual numeric semantics. Native Cargo/TOML/semver interpretation and any materially reached downstream numerical receiver must be traced at actual bodies, not inferred or cleared from textual syntax.",
+    "The quoted ndk-sys0.6.0+11769913 payload includes semver build metadata text, not an independently admitted numeric ABI/build selector in this source. Actual parser interpretation/ABI/consumer behavior remains untraced. No package identity text certifies native implementation, GPU codegen/layout or current first-party reachability/runtime behavior.",
+    "Top-level rawinteger formatversion4 producer/admission/generation/operations/receivers from023 remain unresolved. No Cargo/native-format/quoted-version blanket exemption or wholeSDK/lens13/global clearance; no new receiving dependency body read, new original/shared/material/other-lens population or accepted unique alias/count.",
+    "Counts37/2853 unchanged; partial31/36/39, earliest31, firstneverstarted40, no40 body/metadata access. All inherited/currentness/debug/history/AsBindGroup/custom-M/index/reset/count/buffer/range/F1/F2/F6/F9/global20/other-lens queues remain open and noncounted.018 larger allowed lattice does not demonstrate actual specieslen over budget or runtime panic.",
+    "No product/source/Git/rootledger/historical edits, project execution/build/check/lint/scan/generate/probe/tests/helpers/assertions/doctests additions/runs or publication. Ignored append-only registration/receipt/proposedstate/queue only; no backward-compatibility requirement."
+  ],
+  "stop_reason": "Bounded packet complete at8000; next8001, full original39/native numeric receivers partial. No40/newcount/newimplementation."
+}

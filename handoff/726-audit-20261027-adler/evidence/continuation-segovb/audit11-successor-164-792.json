@@ -1,0 +1,193 @@
+{
+  "id": "SEGOVB-CONT11-SUCCESSOR-164-792",
+  "lens": "type-granularity",
+  "scope_index": 792,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/stages.rs",
+  "sha256": "ccbbca63f8954cde1d15934b057edc40dfe382d36c273fed0acd0316f9a2fe2a",
+  "source_ranges": [
+    [
+      1,
+      352
+    ]
+  ],
+  "source_complete": true,
+  "status": "source-accounted-with-concrete-frozen-checkpoint-prefix-finding-and-qualified-physical-port-concerns; not clear",
+  "source_contracts": [
+    {
+      "role": "Stage settings numerical roles and independent controls",
+      "locations": "7-106",
+      "trace": "StageSettings owns step count, GPU substeps, solver sweeps, metre-per-second-squared gravity, per-second damping, self collision switch, host-contact substep interval/iteration count and host body geometry switch. These differ despite u32/f32 storage. Validated steps0..600 intentionally permit zero, substeps1..32, iterations1..8, gravity0..30 finite, damping0..20 finite, host interval<=substeps, contact iterations1..8. Host interval0 disables host contacts; do not invent nonzero steps or require inactive settings disappear. Named settings are not arbitrary universal counts."
+    },
+    {
+      "role": "Actual apply receiver and policy payload distinction",
+      "locations": "82-106; connected Shell1-76,167-190; Solver31-62,113-280",
+      "trace": "apply updates public SolverSettings.substeps/iterations/gravity/damping, SelfCollision.enabled, HostContactSchedule.interval_substeps/iterations with remaining default fields, and body surface geometry/clearance. Solver record_step/step_interleaved divides delta by substeps and iterates that count; record_substep loops iterations.max(1); record_predict passes numerical gravity/damping/substep to actual kernel parameter boundary. These are concrete lower numerical adapters, not blanket primitive exemptions. Self collision activation and host-body collision projection remain independent choices: GPU body collider remains active per declared policy, host_body_contacts chooses static host geometry or empty geometry. No >2-state policy established. Exact SelfCollision internal body is not available/claimed; receiving typed field boundary and Shell ownership suffice only to assess this producer assignment, not implementation correctness."
+    },
+    {
+      "role": "Stage grouping and fit/preview roles",
+      "locations": "111-170",
+      "trace": "DrapeSettings groups sewing/settling settings but retains shared type for genuinely same validator/apply semantics. for_fabric initializes both coherently then changes settling gravity/damping; canonical Fabric damping is consumed. body_fit is finite fraction0..1 distinct from potentially>1 stretch ratio; preview_interval is nonzero simulation-step interval1..60 distinct from GPU substeps/contact sweeps. Actual selection.validate207-223 invokes drape.validate; drape run45 validates selection before simulation loops. No extra max/min bounds proposed."
+    },
+    {
+      "role": "Checkpoint historical payloads versus resume command",
+      "locations": "176-253; connected drape19-64,137-173",
+      "trace": "DrapeCheckpoints retains input plus independent sewn/settled Options. DrapeStart::Placement, Settling{sewn}, Finish{sewn,settled} is a useful payload-owning resume decision. same_setup compares body/rig/skin/construction/fabric/resolution/obstacle geometry, sewing equality controls placement restart, settling equality controls settle rerun. Appearance/body_fit/underplate and human name are not automatically setup identity; existing finish-only consumers are preserved. Independent Options do not guarantee prefix: actual resumed settling producer creates settled-without-sewn (see observation). Distinguish history owner from transient resume command."
+    },
+    {
+      "role": "Existing source fixtures",
+      "locations": "256-352",
+      "trace": "Existing tests exercise appearance/settling/sewing/body setup invalidation, unfinished checkpoints and interval validation with canonical PackedRigSkin native bound. Source read as fixtures only; no test execution, addition, restoration or runtime success claim. Fixture numeric topology/counts and presentation names introduce no production bounds."
+    }
+  ],
+  "qualified_observations": [
+    {
+      "id": "SEGOVB11-164-792-CHECKPOINT-PREFIX",
+      "local_source_key": "pr-working:crates/adventuresim-character-creator/src/garment/stages.rs@sha256:ccbbca63f8954cde1d15934b057edc40dfe382d36c273fed0acd0316f9a2fe2a#L176-L232:checkpoint-prefix",
+      "classification": "concrete frozen historical-state granularity defect; current counterpart uninspected; no accepted unique alias",
+      "source_witness": [
+        "stages195-209 new clears both Options and record methods set them independently",
+        "drape19-20 computes resume then creates fresh empty checkpoints",
+        "drape53-64 Settling supplies Some(sewn) to simulate then records settled",
+        "drape137-173 Some branch returns sewn without record_sewn; only None branch records sewn171",
+        "stages218-220 missing sewn returns Placement before examining settled"
+      ],
+      "consequence": "A successful resumed settling outcome can retain settledSome/sewnNone; next resume selects Placement and loses the intended reusable sewn prefix. This is an actually produced mixed history state, not a hypothetical Option combination. Prior worker/outfit retention contracts from160/786 preserve the outcome checkpoints for subsequent requests.",
+      "coherent_repair_boundary": "Preserve reused sewn in the new checkpoint history before settling and/or make private history an ordered payload enum Empty | Sewn{sewn} | Settled{sewn,settled}. Retain DrapeStart as resume decision unless actual API consolidation proves useful; no code repair authorized here.",
+      "acceptance_criteria": "Every successful settling/finish history retains its sewn predecessor; start_for on an unchanged resumed outcome selects Finish; a settling-only change reuses sewn. Source criteria only, no new tests or checks authorized."
+    },
+    {
+      "local_source_key": "pr-working:crates/adventuresim-character-creator/src/garment/stages.rs@sha256:ccbbca63f8954cde1d15934b057edc40dfe382d36c273fed0acd0316f9a2fe2a#L14-L170:physical-progress-port-roles",
+      "classification": "retained M108/support physical and progress owner-propagation qualification, not new canonical alias",
+      "observation": "Scalar physical quantities, simulation steps, GPU substeps, sweeps and preview counts remain distinct roles even when native receivers require primitive values. Full lower SelfCollision/surface/kernel algorithms are outside registered boundaries; no clearance transferred."
+    }
+  ],
+  "connected_sources": [
+    {
+      "original_index": 782,
+      "sha256": "c26b0508ccce30c3c2ca164e46327764ca4b133b418b5ea49e008b0a45613421",
+      "consumed_ranges": [
+        [
+          1,
+          194
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "original_index": 2341,
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "consumed_ranges": [
+        [
+          1,
+          76
+        ],
+        [
+          167,
+          190
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "original_index": 2352,
+      "sha256": "a7918c0ebe5c6fa1de3ea8bd7bc9eb76f4983ecc9c2d83d8d7063c46a334afde",
+      "consumed_ranges": [
+        [
+          1,
+          68
+        ],
+        [
+          113,
+          280
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "original_index": 2597,
+      "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+      "consumed_ranges": [
+        [
+          99,
+          141
+        ],
+        [
+          201,
+          225
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "original_index": 2266,
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "prior_material_ranges": [
+        [
+          32,
+          98
+        ],
+        [
+          369,
+          432
+        ],
+        [
+          433,
+          574
+        ],
+        [
+          575,
+          625
+        ]
+      ],
+      "prior_receipts": [
+        "audit11-successor-158-registration.json",
+        "audit11-successor-161-787.json"
+      ],
+      "ordered_credit": false
+    },
+    {
+      "original_index": 2229,
+      "sha256": "37cf4430a9923bb91663a7eb0eadee8674fd3489e172a5f8d164a929d6ba1313",
+      "prior_material_ranges": [
+        [
+          1,
+          49
+        ],
+        [
+          117,
+          134
+        ]
+      ],
+      "prior_receipt": "audit11-successor-158-registration.json",
+      "ordered_credit": false
+    }
+  ],
+  "registrations": [
+    "audit11-successor-164-registration.json",
+    "audit11-successor-164-registration-002.json",
+    "audit11-successor-164-registration-003.json",
+    "audit11-successor-164-registration-004.json",
+    "audit11-successor-164-registration-005.json"
+  ],
+  "qualifications": [
+    "Exact frozen changed variant full1-352; not current4fcc counterpart, no present runtime failure asserted.",
+    "No bare Q008/Q009 canonical alias; crosswalk001 controls namespaces. No accepted unique count change.",
+    "Current Dressing reconciliation001 remains controlling; frozen cast defect not repeated as current.",
+    "Original0-791 not restarted; connected future roles do not receive ordered credit.",
+    "Other lenses, F50/M108 families, overlays/merged/material populations remain independently incomplete.",
+    "No product/Git/ledger/history mutations, tests/project checks/scanners or publication."
+  ],
+  "crosswalk": "audit11-question-crosswalk-001.json",
+  "current_reconciliation": "current-rig-dressing-reconciliation-001.json",
+  "applicable_rules": {
+    "AGENTS.md": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+    "crates/AGENTS.md": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23"
+  },
+  "new_unique_findings": 0,
+  "accepted_unique_count_change": 0,
+  "proposed_original_accounted": 793,
+  "next_original": 793,
+  "current_main_integrated": false,
+  "validated": false,
+  "clear": false
+}

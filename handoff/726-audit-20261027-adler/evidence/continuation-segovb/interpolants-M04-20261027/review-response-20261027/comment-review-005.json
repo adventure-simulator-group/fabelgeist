@@ -1,0 +1,499 @@
+{
+  "kind": "Independent scoped full PR992 Comment Review and source mathematical contract check, final candidate013",
+  "skill": "/home/brunosegovia/.codex/skills/comment-review/SKILL.md",
+  "identity": "All27 current working source byte hashes match manifest013. No final commit/hosted result inferred; root may bind committed identity later.",
+  "manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/edited-source-manifest-013.json",
+    "sha256": "2519ce16f00edad1cd0a4d198f184c6f9a439ab1bcb48155002d069214a3c81f"
+  },
+  "source_pins": [
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "850183741ff4a1b097b93fc6285055d135558894f5ebf9324b52031cb9aadfc4"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "58118b1b138af4f9feea993ea990dc334f63d30c4aa66f8b5597a0f1dfecfcf6"
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "sha256": "c1eedbdf2c145f30bb9da7cc8f8fd02fa22b7ee9d9cd821c49ac5a17c441da09"
+    },
+    {
+      "path": "crates/adventuresim-core/Cargo.toml",
+      "sha256": "e5e9c6ed987838be5b7fef72e25ba3e6b6e848bc84105c42f396fcdfd7d65f53"
+    },
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "sha256": "06bfd3a023ac0c22751466720321fe796aba122f605d621f16ba56b318c712f8"
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "605bea6b15bd684caa98b4253582088f2755a5054808d18745d2f9298563ea2b"
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "06bd726fb8282af0ad5c1f54f64b1bfe383842e284e948a6226240178de4b6bb"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "sha256": "12d4b4e5ed4ce3940c78b7ee4420ec94e5efa83776b14d60afdbf2ba0d501f5d"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "sha256": "815bfd27404840b0d69f337719c882adf65fea894e48a769670a582eb42faf1b"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/dive.rs",
+      "sha256": "777d81cd65a783e44930ba746488b1209406df1945d5a3fdefc236496549f7be"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "sha256": "ae1dcc0043d5bd5a98744dfb43a3f172a259b3ac3b5e0fe0743c31b83e00327e"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/resolver/span.rs",
+      "sha256": "1d9e43caff202030a311c016c3c4809bb3ad83868d2ad5ba458b2645ab36b1e1"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "sha256": "93bf8878500fe7902fc616643b4678bfbc4c8f091c94dcd68b2a42a6ccb377af"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "sha256": "e54bd673db78d4b343707613e348b7d7fb4f74d34b8a454fefe73f426145a045"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "f26dc1059e4a9d133ac1fba9c80a1086753b20b54e5a5074dc8e557540cea67b"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "sha256": "37a5dba433aa5219b544716053897df30d3df49662fb5fd38794130c1b803946"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state.rs",
+      "sha256": "9e7cc69882008ce20f35864f9df76654679d000d14b798c70232dee9190c65bb"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs",
+      "sha256": "fa0524663e7887d03d177c6fe99de81edd2eeb7b5c402ab1c0037ab953e788c7"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "sha256": "b2c7bc9609b8deb810b4c586a09fdf8186b60803f648009fc3ff74931b2df113"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "5fc4c31e00f464e255fd56f5681ae6d255646f90c74ab7c3bef4fd1a6c2a865b"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "sha256": "b394bde991895d6328b6f9f2be24fcb6d51c5c00e7f7143316339c372b7b5089"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/state_transitions.rs",
+      "sha256": "81c141f7ef6eed5eee0d19173709260dc3c91483868e73e7783fe3efbd000f61"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "ada76a964c72b64d6bd3671a8ca2bde134da787f339914cc2091bd7994fac722"
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "8da5ee46241fe574e76a0b67391c30e5287f90a228995456a39b15cf00701262"
+    }
+  ],
+  "registrations": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/comment-review-registration-009.json",
+      "sha256": "c44ae068cfdeff7e0c01c2bb3ee929859ab7b990407e05f39156a92611d26ec2"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/comment-review-registration-009-producer-tests.json",
+      "sha256": "0f72c5d8d2e3e2adc3f0cdb26ee77810cc238fce8d1827026044706e83576140"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/comment-review-registration-011.json",
+      "sha256": "e04c42fb23a91d1778b154fd7b59542d900ec7aa3f66c07e27277cfd7ca5db8e"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/comment-review-registration-011-receivers.json",
+      "sha256": "b398fa0510fcb4c0f17400d2df8458537fbf404db591b6a5bd1b81f007a8ca58"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/comment-review-registration-012.json",
+      "sha256": "d5b74493567db3937a6c4560ea707bd78ea483c5f1259251715e4229ed165fbd"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/comment-review-registration-012-receivers.json",
+      "sha256": "907084f12dfe4e425b5c55fba470eda2cab1437bc578919382a710332860380e"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/comment-review-registration-013.json",
+      "sha256": "95966eab79133b5aa06f977984745f92e3e591f3ddce7d55aad38be9ce4bd456"
+    }
+  ],
+  "complete_selected_path_delta": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/comment-review-delta-013.patch",
+    "sha256": "4bf78251a3b054bc7b4785a681fe2ce62b78537b1ba0a4da2c38278915287758",
+    "base": "c20cac0b49ac679ddd7a7be6535fa54f5e08bafb"
+  },
+  "prior_scoped_source_proof": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/comment-review-003.json",
+    "sha256": "6506d38486eaf91f96fb5279a5c827c6043d7c0ba8fae006235b7c1a6514a254",
+    "meaning": "Earlier candidate008 is superseded for final source acceptance. Only exact unchanged own affected-comment/caller proofs reused; newly connected root/Span and new speed contracts independently read here."
+  },
+  "reviewed_user_intent": [
+    {
+      "review": 5664856132,
+      "comments": [
+        4387031655,
+        4387152319,
+        4387198654
+      ],
+      "scope": "Endpoint-derived normalization/signed Add, reusable interval type explicitly deferred."
+    },
+    {
+      "review": 5665245278,
+      "comments": [
+        4387319084,
+        4387373378,
+        4387387764
+      ],
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/user-discussion-004.json",
+      "sha256": "f6cb883809e7f8b2527b9bd6b5d7e71f98a0665a336d8a9ad16131530452498a",
+      "scope": "Owning SignedSpeed arithmetic constructor, direct interpolation retention, general TryFrom retained per explicit preference."
+    }
+  ],
+  "actual_body_reads": {
+    "core/linear_speed.rs013": [
+      [
+        1,
+        260
+      ]
+    ],
+    "core/unit_interval.rs011_unchanged013": [
+      [
+        1,
+        97
+      ]
+    ],
+    "animation/state.rs011_unchanged013": [
+      [
+        1476,
+        1545
+      ]
+    ],
+    "animation/state.rs009_context": [
+      [
+        1470,
+        1575
+      ],
+      [
+        825,
+        855
+      ]
+    ],
+    "state/posture_transition.rs009": [
+      [
+        1,
+        159
+      ]
+    ],
+    "state/posture_transition.rs012_unchanged013": [
+      [
+        62,
+        86
+      ]
+    ],
+    "combat_config/state_transitions.rs009_unchanged013": [
+      [
+        1,
+        25
+      ]
+    ],
+    "combat_config.rs009_unchanged013": [
+      [
+        1,
+        85
+      ],
+      [
+        615,
+        646
+      ]
+    ],
+    "combat.yaml009_unchanged013": [
+      [
+        192,
+        203
+      ]
+    ],
+    "resolver/span.rs011": [
+      [
+        1,
+        142
+      ]
+    ],
+    "resolver/span.rs012_unchanged013": [
+      [
+        15,
+        60
+      ]
+    ],
+    "procedural/dive.rs012_unchanged013": [
+      [
+        85,
+        138
+      ]
+    ],
+    "existing_animation_tests.rs": [
+      [
+        500,
+        605
+      ]
+    ]
+  },
+  "actual_receiving_ports": [
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+      "sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+      "lines": 162,
+      "prospective_ranges": [
+        [
+          1,
+          220
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/subject_motion.rs",
+      "sha256": "863b3c4fafe43198495f75878f9544b5af7fd3cccd198a88c0cc37042c390981",
+      "lines": 126,
+      "prospective_ranges": [
+        [
+          1,
+          200
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/resolver.rs",
+      "sha256": "1b0873cd746e039bdbc6d22d4f55b28ffad8141f68f43fbdb9fb3be25eb7eeb0",
+      "lines": 217,
+      "prospective_ranges": [
+        [
+          100,
+          155
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/weighted.rs",
+      "sha256": "8453166436911f4394c507ec05f4e3bf3f52d0bb92cb9f388bb0cecbe64ceb7c",
+      "lines": 71,
+      "prospective_ranges": [
+        [
+          1,
+          150
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/playback_contributions.rs",
+      "sha256": "5c10fad61699ffe32bde91d9f48b833a2e6c42d30f7c77189f0da2a73a2823b1",
+      "lines": 43,
+      "prospective_ranges": [
+        [
+          1,
+          100
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/playback_state.rs",
+      "sha256": "e9898cf619d1bdfe9c8ad70bd80b0600961abfda3e5cd8158330df18b2c9424d",
+      "lines": 155,
+      "prospective_ranges": [
+        [
+          1,
+          140
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+      "sha256": "4544835a041e7c35f25b60d0b13e06ff22ea4ecc0efc90efdda1cd6963fb9638",
+      "lines": 1892,
+      "prospective_ranges": [
+        [
+          95,
+          180
+        ],
+        [
+          210,
+          235
+        ],
+        [
+          670,
+          745
+        ],
+        [
+          942,
+          985
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer/inertialization.rs",
+      "sha256": "8bf6f24386dae22c8e339928d6d9c90fbf89cfc3b438d0cd0e74468559e8cd84",
+      "lines": 443,
+      "prospective_ranges": [
+        [
+          1,
+          50
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/resolver.rs",
+      "sha256": "1b0873cd746e039bdbc6d22d4f55b28ffad8141f68f43fbdb9fb3be25eb7eeb0",
+      "prospective_ranges": [
+        [
+          1,
+          45
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/mod.rs",
+      "sha256": "cd54ed038a4131a947dff4db1a0310069b669800547e2f2b6456566e9c0ec4c4",
+      "prospective_ranges": [
+        [
+          120,
+          150
+        ],
+        [
+          465,
+          488
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+      "sha256": "4544835a041e7c35f25b60d0b13e06ff22ea4ecc0efc90efdda1cd6963fb9638",
+      "prospective_ranges": [
+        [
+          760,
+          812
+        ],
+        [
+          200,
+          265
+        ]
+      ]
+    }
+  ],
+  "comment_dispositions": [
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "range": [
+        43,
+        49
+      ],
+      "verdict": "Saturating subtraction comment accurately describes nonnegative clipped difference; checked_lerp comment explicitly advertises checked result instead of unsupported infallible rounded closure."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/state_transitions.rs",
+      "range": [
+        8,
+        20
+      ],
+      "verdict": "Both field docs correctly place fractions inside normalized contact recovery, not full timeline; strict start<airborne_end validation and error text match body."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs",
+      "range": [
+        70,
+        73
+      ],
+      "verdict": "Repaired code choice comment now accurately distinguishes terminal slide endpoint from configured airborne endpoint. No unencoded fixed settling-time claim or mandatory strictly-earlier endpoint remains."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs",
+      "range": [
+        50,
+        67
+      ],
+      "verdict": "Current canonical contact remainsHALF; phase producer holds that same endpoint while unsupported and derives both spans. Existing visual rationale/zero real endpoint slope retained; no fresh empirical/native validation inferred."
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "range": [
+        168,
+        206
+      ],
+      "verdict": "Add still permits signed negative results and rejects overflow through owning arithmetic constructor; Sub finite closure and Div unit-cancellation/wider Ratio comments remain accurate."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/resolver/span.rs",
+      "range": [
+        1,
+        50
+      ],
+      "verdict": "Module endpoint/reference priority description matches resolve_span and typed complement/weight conversion; no new superfluous commentary added."
+    }
+  ],
+  "resolved_observations": [
+    {
+      "source": "candidate009 posture_transition.rs70-73 SHA2f08587f...",
+      "observation": "Fixed settling time/larger normalized share was unsupported by shared start field; now actual endpoint choice documented."
+    },
+    {
+      "source": "candidate011 posture_transition.rs71 SHA819a153f...",
+      "observation": "Earlier endpoint wording stronger than admitted end<=ONE; final012 removes earlier rather than inventing stricter policy."
+    },
+    {
+      "source": "candidate009 state.rs1504/1516/1529/1534",
+      "observation": "Old producer HALF/literal0.5 authority duplication recorded as bounded qualification; final producer uses same DIVE contact endpoint and typed checked interpolation. No arbitrary contact retuning/global posture claim made."
+    }
+  ],
+  "mathematical_contracts": {
+    "signed_interpolation013": "Let a=self>=0,b=other>=0 and t in[0,1]. If b>=a, rounded difference/scaled offset are nonnegative; checked finite sum>=0. If b<a, rounded d=fl(b-a)>=fl(0-a)=-a by monotonic rounding, and d<=0. Multiplication by admitted0<=t<=1 cannot make a finite negative d more negative; rounded product>=d>=-a. Rounded sum fl(a+scaled)>=fl(a-a)=0. Add checks finiteness through SignedSpeed::from_arithmetic before direct NonnegativeSpeed construction. This proves nonnegativity of retained result, not exact endpoint bit preservation or every rounded value between endpoints.",
+    "signed_arithmetic_constructor": "SignedSpeed::from_arithmetic140-145 rejects nonfinite as Overflow; unit admission from_metres_per_second retains NonFinite classification for native input. Add calls arithmetic owner directly; general TryFrom<SignedSpeed> remains checked as requested.",
+    "unit_saturating_sub": "For admitted finite a,b in[0,1], a-b within[-1,1], finite rounded difference then max0 is within[0,1]. No upper clamp needed.",
+    "unit_checked_lerp": "Inputs/amount admitted finite0..1; direct numerical expression admitted through existing from_fraction. Public comment promises checked result only.",
+    "phase_producer": "Positive duration is ensured on new/normalized transition; decisive elapsed<duration/recovery_elapsed<duration branches themselves also ensure nonzero denominator. Native u64 sample counts cast to finitef32, monotone rounded ratio<=ONE, admitted once. Typed ZERO->CONTACT/CONTACT->ONE interpolation and holds use canonical endpoint; no retained raw phase.",
+    "root_handoff": "Typed phase normalizes CONTACT..ONE, then configured start..end. UnitInterval fields + start<airborne_end<=ONE imply start<ONE and valid positive slide span too. handoff cubic is checked. Typed saturating current-minus-previous delta extracted only at native yaw multiplication/Quat::from_rotation_y. Missing/finished current usesONE; non-dive previous returns identity, actual application receivers unchanged.",
+    "root_receivers": "Server advance_projected_posture captures previous then advances canonical state; advance_posture_transition_facing applies delta and writes same native rotation to Transform and physicsRotation. Viewer project_capture_motion applies same delta to its Transform after advance. No claim viewer substitutes native acceptance.",
+    "span_receiver": "Progress stays UnitInterval through complement and lossless widening to BlendWeight, checked sample weight product, checked coalescing and whole plan sum admission. Typed plan retained in AnimationPlayback. sample_plan forwards weights into accumulate_local_pose; checked sum then owning raw dimensionless quotient is admitted before LocalPose::interpolate, which extracts at native Vec3 lerp/hemisphere quaternion kernel. No intermediate raw fraction retained or passed to another application state API on this changed Span route.",
+    "existing_ops": "Direct cubic checked admission/no clamp/reflection; existing speed division finite guard ->canonical Ratio->bounded UnitInterval; positive widening and required distance YAML owner remain unchanged exact own source proofs."
+  },
+  "format_reconciliation": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/review3-hosted-format-diff-001.txt",
+    "sha256": "8ba6c3ddb24a51cc8e7f7ca1664b01dbaea0ff1a51102d29efd464404d64ce0d",
+    "scope": "Bounded formatter diagnostic130lines independently consumed; final dive fixture layout matches suggestions; short Span endpoint call is same typed expression. No local formatter or project check executed."
+  },
+  "known_limits": [
+    "Existing retained visual/anatomical/clip-masking historical rationale not independently re-proven by native runtime here; source/math conclusions only.",
+    "Supine get-up counter-yaw, unbounded CurveSpan extrapolation, other terrain/viewer smoothsteps and unrelated clock APIs are separate unchanged contracts; no global clearance.",
+    "Earlier evidence and frozen audit08/audit12 partials/counts/F9/all20/inherited aliases unchanged; no new unique finding count or other-lens credit.",
+    "No backward compatibility/input preservation requirement or new interval schema/alias/fallback.",
+    "No product/source/Git mutations/root ledger/publication, local formatter/check/compiler/tests/native probes/generators or new tests/helpers/assertions/doctests."
+  ],
+  "findings": [],
+  "verdict": "Accepted final candidate013 within full27pin affected source comment/math scope and explicitly consumed receiver graph; prior candidate008/009/010/011/012 final acceptance is superseded by these exact pins. No remaining actionable comment/source mathematical-contract finding.",
+  "body_status": "Body005 read as draft source context only and not accepted; its interpolation-admission sentence is outdated after013. Final rewritten body to receive independent exact review; hosted acceptance pending."
+}

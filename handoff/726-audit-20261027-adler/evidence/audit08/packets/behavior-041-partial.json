@@ -1,0 +1,119 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-041-PARTIAL",
+  "lens": "08 behavior-preservation",
+  "completed_original": [
+    1565,
+    1567,
+    1568,
+    1569,
+    1570
+  ],
+  "partial_original": [
+    1564,
+    1566
+  ],
+  "source_pin": "source-pins-and-scope-063.json",
+  "source_reads": {
+    "1564": {
+      "head": [
+        [
+          1,
+          964
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          442
+        ]
+      ]
+    },
+    "1565": {
+      "head": [
+        [
+          1,
+          68
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1566": {
+      "head": [
+        [
+          1,
+          129
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          72
+        ]
+      ]
+    },
+    "1567": {
+      "head": [
+        [
+          1,
+          122
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          128
+        ]
+      ]
+    },
+    "1568": {
+      "head": [
+        [
+          1,
+          58
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1569": {
+      "head": [
+        [
+          1,
+          257
+        ]
+      ],
+      "actual_diff": "empty"
+    },
+    "1570": {
+      "head": [
+        [
+          1,
+          78
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          84
+        ]
+      ]
+    }
+  },
+  "support": "support-litter-port-064.json",
+  "analysis": [
+    "1565 is byte-identical. prepare_meshes generates every missing family completely before installing any retained handle; existing retained vectors are cloned. The actual callers request four leaf, three twig and three plant variants, matching the private mesh-index consumers. This is a geometry-admission transaction, not a claim that native allocation can never fail.",
+    "1568/1569 are byte-identical. Renderer-owned patch frame and concrete rosette, cambered leaf, three-station twig, cross-section and cap enums feed native mesh equations. Native vertex/index/UV/color/root layouts, winding, camber burial/normal accumulation, twig rings/caps/apex and MAIN_WORLD prototype usage are unchanged. Actual producer recipes in1564 were read completely, including their bounded seeded lengths and roots.",
+    "1570 replaces old forest_floor_patch_transform and old1573 foliage_transform. Actual old397-425 plus deleted1564 helper in full diff establish same jitter .78, ground cover acceptance, height/normal order, .72 slope rejection, alignment*yaw, purpose labels, .72+.58 scale, then per-kind scales .8/.72/.7 and offsets .001/.006/.004. New finite point/root admission adds explicit rejection of invalid arithmetic; no ordinary valid-value or draw-order change identified.",
+    "1567 relocates old closest_litter_anchor_pairs. Actual old body in1564 diff preserves neighbor order, candidate distance comparison, stable total order by distance/leaf x,z/twig x,z and maximum take. Typed roots retain actual placements rather than batch origins. Fixed caller .55 matches old literal; zero maximum still returns empty. New finite separation rejects invalid arithmetic; large-cell i32 neighborhood overflow is preexisting, not established safe by the types.",
+    "1564 full964 and actual442 diff were personally read; unchanged recipes/materials and all existing fixture bodies/oracles accounted. Constants and helper order move, finite cell origin admission is new; Option<NonnegativeLength> replaces Infinity only as absence, with same valid minimum and outside0 behavior. Existing fixture case identities/oracles retained, typed fixture roots/adapted Result unwrap only. No case was executed.",
+    "1566 full129 and actual72 diff were personally read. Placement fields reconstruct the old Transform, fixed24m cell matches the only old production caller, native source clone/transformation and RENDER_WORLD upload remain. MeshMergeError previously panicked at expect, now propagates before batch entities/capture diagnostics are published. Native merge failure is an intentional failure-policy change, not normal-case mesh alteration. Missing source remains a successful omission. Existing prototype-preservation fixture fields reconstruct IDENTITY.",
+    "Actual1573 current350-407 contains native instanced-understory calls before litter, ? propagation at389 and loose-stone after. Earlier queued work and retained cache may already exist on failure; no whole-scene rollback promise. The outer Result receiver remains pending in original1573, so1564/1566 retain partial status until that handling is read."
+  ],
+  "findings": [],
+  "qualifications": [
+    "No renderer/native allocation or terrain-deserialization universal safety claim.",
+    "No current CI source or runtime results substituted for frozen6533.",
+    "Existing first unfinished1462 and all saved findings/policy qualifications remain.",
+    "Source-only; no local project checks/tests/builds or product/Git mutation."
+  ],
+  "global_clearance": false
+}

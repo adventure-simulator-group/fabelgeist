@@ -1,0 +1,328 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "091",
+  "predecessor": "receipt-090-originals412-418.json",
+  "manifest_prefix_sha256": "7a5bec32ce3221fb29281c32b1bd7ae7e8a5ae848b827d74cc66b7441aebd7a2",
+  "sources": [
+    {
+      "original_index": 419,
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/lib.rs",
+      "sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+      "actual_eof": 2059,
+      "actual_ranges": [
+        [
+          1,
+          100
+        ],
+        [
+          268,
+          577
+        ],
+        [
+          948,
+          994
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "43-52,268-315,332-437,476-573,948-994",
+          "role": "Raw Error::Validation(String)48 from prose335/345/349/353/360/363/366/382/392/466/481/485/495/503/512/521/550/554/566/955/961/964/976/989. Manifest digest String275-277/282/288 and Entry311; cultivation_grid_crs String279 compared EPSG:3035 at970; digest admission963-968/986 discards checked owner via418. Actual native SHA formatting compares344/352/511 then raw &str getters413-432. Package zero placeholder343 affects cloned unsigned JSON only.",
+          "disposition": "Propagate canonical digest owners, distinguish package/content/road/source namespaces, constrain CRS classification at actual manifest admission, typed validation reasons with payloads rather than raw error prose. Road420actual recipient read; terrain_feature::validate978 and other consumers pending."
+        },
+        {
+          "source_ranges": "38,58,292,537,567",
+          "role": "Feature builder, Serde snake_case/kebab-case/deny_unknown_fields and native unreachable/expect diagnostics.",
+          "disposition": "Concrete compiler/Serde/diagnostic boundaries, not application string clearance; no file contents outside exact union1-100/268-577/948-994 consumed."
+        }
+      ],
+      "status": "All requested material ranges and declared necessary dependency independently read WITH findings; unrelated file ranges unclaimed."
+    },
+    {
+      "original_index": 420,
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/road_pack.rs",
+      "sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+      "actual_eof": 344,
+      "actual_ranges": [
+        [
+          1,
+          344
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "17-18,33-40,85-109,134-174,178-194,278-283",
+          "role": "Native deployment filenames; RoadManifest source canonical SourcePackageDigest35 retained as RoadPack43 and ref107, whereas geometry/content remain String36/37. Actual terrain digest &str parsed135 and as_str compare182, road geometry compares136/183; native SHA JSONgeometry returns String278/282 and content hash161.",
+          "disposition": "Canonical source already retained after native admission; geometry/content roles should retain canonical digest owners through compare/write boundaries. Native filesystem filename constants are concrete deployment boundary, no blanket path exemption."
+        },
+        {
+          "source_ranges": "63-78,117,166,311",
+          "role": "Typed RoadPackError Display templates; native builder feature and NDJSON newline metadata166.",
+          "disposition": "No additional literal strings in344 full lines. No hashing/coordinate/native decoder runtime proof."
+        }
+      ],
+      "status": "All requested material ranges and declared necessary dependency independently read WITH findings; unrelated file ranges unclaimed."
+    },
+    {
+      "original_index": 421,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/Cargo.toml",
+      "sha256": "3a08ad5b69e06fb586e1ff7ace785e9b53c79345119fddc49c3f162b5f2f3bdb",
+      "actual_eof": 19,
+      "actual_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-19",
+          "role": "Cargo package name2, float_roundtrip feature10, glam version14 are native Cargo manifest vocabulary.",
+          "disposition": "No bespoke application role in this19line source; dependency parser/native compatibility policies unclaimed."
+        }
+      ],
+      "status": "All requested material ranges and declared necessary dependency independently read WITH findings; unrelated file ranges unclaimed."
+    },
+    {
+      "original_index": 422,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/codec.rs",
+      "sha256": "1a32ed016049692514041f1111820fc2513464dcd4f23b45a4f65f8b084c9b60",
+      "actual_eof": 111,
+      "actual_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "9-36,39-111",
+          "role": "Native JSON envelopes/deny_unknown_fields, CodecError typed variants and display27/29/31/33/35. Parse/read size/version checks preserve typed serde source. Actual415 decode60/117 calls this validate/validate_holder path.",
+          "disposition": "Native JSON boundary locally proved, but internal validation/deserialized design identities still require canonical owners. No JSON nativeimplementation/global string exemption."
+        }
+      ],
+      "status": "All requested material ranges and declared necessary dependency independently read WITH findings; unrelated file ranges unclaimed."
+    },
+    {
+      "original_index": 423,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/derive.rs",
+      "sha256": "c21331b47fbf9aff7837343abc27e7f572acb622fd7baaf8a86a3dfb0fc92edd",
+      "actual_eof": 47,
+      "actual_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "3-17,19-46",
+          "role": "part.component_id.as_str13 passed to mesh::derived; Construction error6/24 retains already-string cause, holder e.to_string46 explicitly erases error into Construction.",
+          "disposition": "Carry canonical open component identity to actual mesh recipient; retain typed construction error until output. Model/holder/mesh actual source remains next queue, no inferred classification."
+        }
+      ],
+      "status": "All requested material ranges and declared necessary dependency independently read WITH findings; unrelated file ranges unclaimed."
+    },
+    {
+      "original_index": 424,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/derived_properties.rs",
+      "sha256": "fc35cb85ad750d9eb943b55cde7f20e3dc6cffd2d3ac119bef96732eb32402c5",
+      "actual_eof": 22,
+      "actual_ranges": [
+        [
+          1,
+          22
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-22",
+          "role": "No literal strings or string-valued APIs; typed Material/raw numeric derived fields.",
+          "disposition": "No numeric contract or other-lens proof."
+        }
+      ],
+      "status": "All requested material ranges and declared necessary dependency independently read WITH findings; unrelated file ranges unclaimed."
+    },
+    {
+      "original_index": 425,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/design/generated.rs",
+      "sha256": "676cdac09cfd5549f08dcaad5876f3053c52b04c49fb59a70b09df15c766df03",
+      "actual_eof": 47,
+      "actual_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "14-35",
+          "role": "Anchor.name String15 and MeshPart.component_id String21 retained in generated output; GeneratedWeapon anchors34/parts32, holder parts44.",
+          "disposition": "Canonical open authored component/anchor identities should survive generation/application matching. Actual producers/consumers pending, no generated-output exemption."
+        }
+      ],
+      "status": "All requested material ranges and declared necessary dependency independently read WITH findings; unrelated file ranges unclaimed."
+    },
+    {
+      "original_index": 426,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/evaluation.rs",
+      "sha256": "bf99629f5204b4bcdab31adcee2f5029e28085143bb3b3e00e2987c1ad2e7b4d",
+      "actual_eof": 59,
+      "actual_ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-59",
+          "role": "No literals/String-valued APIs; owned WeaponDesign/Holder and physical memo preserved with typed CodecError wrappers. Native byte encode/decode delegates422.",
+          "disposition": "Does not clear nested raw identity fields or memo contracts; memo next. No numerical/caching/runtime proof."
+        }
+      ],
+      "status": "All requested material ranges and declared necessary dependency independently read WITH findings; unrelated file ranges unclaimed."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Terrain checked digest discarded and raw strings carried through actual road source comparison",
+      "sources": [
+        "418:9-27",
+        "419:275-288,311,343-353,413-432,963-986",
+        "420:35-44,135-136,182-187,278-282"
+      ],
+      "remedy": "Retain canonical package/content/geometry/source digest roles through state/getters/compare, serialize at concrete manifest/native hash boundary; retain CRS classification and typed validation cause.",
+      "acceptance": "Read actual SourcePackageDigest owner and all affected consumers/native schema contracts before repairs; avoid conflating digest namespaces.",
+      "unique_count_delta": 0
+    },
+    {
+      "family": "Generated weapon component/anchor identity and construction error erasure",
+      "sources": [
+        "423:13,46",
+        "425:15,21,32-44"
+      ],
+      "remedy": "Propagate canonical open recipe component/anchor identity and typed construction error into generation/application recipients.",
+      "acceptance": "Actual model/mesh/holder/recipe owner and consumers next; no speculative closed enum or claim all anchor names same identity.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "427-438 memo/hash/holders/mesh/model/recipe/validation actual bodies next; previous declared paths not body credit.",
+    "419 terrain_feature validator and remaining terrain routing/builder/unrelated ranges unread; actual digest owner API/native hashing semantics not inferred.",
+    "Other inherited receiver/alias obligations retained."
+  ],
+  "qualifications": [
+    "Exact frozen f82 physical-P16 only; no current alias, global clearance, unique total, runtime or other-lens proof.",
+    "No backwards compatibility/input preservation requirement or project/native/test/probe execution; no product/Git/rootledger/publication mutation.",
+    "All20/P16/P17/F9/M09 aliases and qualifications preserved."
+  ],
+  "proposed_count": {
+    "before": 419,
+    "after": 427,
+    "indices_completed": [
+      419,
+      420,
+      421,
+      422,
+      423,
+      424,
+      425,
+      426
+    ],
+    "next_original": 427,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/lib.rs",
+      "sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+      "ranges": [
+        [
+          1,
+          100
+        ],
+        [
+          268,
+          577
+        ],
+        [
+          948,
+          994
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/road_pack.rs",
+      "sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+      "ranges": [
+        [
+          1,
+          344
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/Cargo.toml",
+      "sha256": "3a08ad5b69e06fb586e1ff7ace785e9b53c79345119fddc49c3f162b5f2f3bdb",
+      "ranges": [
+        [
+          1,
+          19
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/codec.rs",
+      "sha256": "1a32ed016049692514041f1111820fc2513464dcd4f23b45a4f65f8b084c9b60",
+      "ranges": [
+        [
+          1,
+          111
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/derive.rs",
+      "sha256": "c21331b47fbf9aff7837343abc27e7f572acb622fd7baaf8a86a3dfb0fc92edd",
+      "ranges": [
+        [
+          1,
+          47
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/derived_properties.rs",
+      "sha256": "fc35cb85ad750d9eb943b55cde7f20e3dc6cffd2d3ac119bef96732eb32402c5",
+      "ranges": [
+        [
+          1,
+          22
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/design/generated.rs",
+      "sha256": "676cdac09cfd5549f08dcaad5876f3053c52b04c49fb59a70b09df15c766df03",
+      "ranges": [
+        [
+          1,
+          47
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/evaluation.rs",
+      "sha256": "bf99629f5204b4bcdab31adcee2f5029e28085143bb3b3e00e2987c1ad2e7b4d",
+      "ranges": [
+        [
+          1,
+          59
+        ]
+      ]
+    }
+  ]
+}

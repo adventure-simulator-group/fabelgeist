@@ -1,0 +1,138 @@
+{
+  "lens": "13 magic-numbers",
+  "packet": "013",
+  "at": "2026-10-26T23:49:58.836822+00:00",
+  "status": "One bounded allocation-producer trace advanced. Original 31 remains partial; counts and first unread original unchanged. Stop packet.",
+  "authority": {
+    "original_frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "original_registry": "target/recovery-20261025/audit05/original-scope-072.json",
+    "native_commit": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+    "original31": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/components.rs; SHAe2053ee2dbf1a837b1a4e80d2d2afa22c0ecc2231bf586041222082971b9cbea; full registered1-193 retained, not reread",
+    "prior_root_adopted_state": "audit13-successor-012-suggested-state.json",
+    "prior_state_sha256": "ebec709cf9121e5708b463260370eda47b8c47cc61a0534b78c9f909ea68a514",
+    "root_adoption_required": true
+  },
+  "registration": {
+    "path": "audit13-successor-registration-013.json",
+    "sha256": "e7ad6de71372b14aa3c82e2d86ce328417b6e073c85430e70f46ec211f9d4b58",
+    "registered_before_body_consumption": true
+  },
+  "source_fingerprint": {
+    "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/mod.rs",
+    "sha256": "7b8be56d6f6ea9285176e55efb88de7bcb8a15df4cdca7619d3038a92de56092",
+    "bytes": 10975,
+    "actual_lines": 340,
+    "registered_and_consumed_ranges": [
+      [
+        226,
+        340
+      ]
+    ],
+    "verified_before_and_after_read": true,
+    "provenance": "Exact immutable native Git1a5aff member staged in audit13-native-render-stage-011.json. Known frozen originals31/32/33 byte-match peer Git objects. No current alias substituted or unseen frozen identity asserted."
+  },
+  "trace_choice": "Actual InstanceMaterialData/BatchInput count, page, offset and batch-ID allocation producer; no wrapper or selected-shader expansion in this packet.",
+  "independent_numeric_inventory": [
+    {
+      "locations": "prepare/mod.rs227-242",
+      "roles": "Active entity membership and retained cached-state removal.",
+      "operations": "Iterate cached keys absent from active set, collect removed entities, free allocation, then remove cached entry. No numeric literal or new numeric admission occurs in this function.",
+      "disposition": "Actual retained-state lifecycle traced; active-set semantics and producer correctness remain bounded by prior read collect_inputs and application context."
+    },
+    {
+      "locations": "prepare/mod.rs244-258",
+      "roles": "Native page index usize from typed InstanceAllocation and cardinality pages.len().",
+      "operations": "Missing source allocation returns; if page<pages.len(), free per-page entity/batch state; always free source allocation afterward.",
+      "disposition": "The direct pages[page] index here is control-flow bounded. No promise that arbitrary custom backend/publicly mutated page state is coherent with per-page ID state."
+    },
+    {
+      "locations": "prepare/mod.rs260-298",
+      "roles": "Native allocation count u32 converted from instances.len():usize; native page usize retained as BTreeMap key.",
+      "operations": "First process dirty entities and sync pages. For each immutable inputs.keys() entity, use retained source allocation or allocate using inputs.get(entity).instances.len() asu32, expecting success; group entity by allocation.page.",
+      "disposition": "Actual raw-count conversion and page producer now read. Same immutable map iteration establishes the inputs.get(entity) key exists at282; allocator.expect286 has a different, unproved success precondition. No length<=u32MAX or count<=page_size admission occurs here."
+    },
+    {
+      "locations": "prepare/mod.rs300-303",
+      "roles": "ProcessedAllocations.pending:BTreeMap<usize,Vec<Write>>,entities:BTreeMap<usize,Vec<Entity>>.",
+      "operations": "Retains native page routing and structured Write records rather than positional offset/ID tuples.",
+      "disposition": "Native page-index collection boundary; same page key must remain consistent with allocator and actual page vector, not independently certified by collection type."
+    },
+    {
+      "locations": "prepare/mod.rs305-334",
+      "roles": "Actual instance-count narrowing, typed allocation page/offset, per-page batch ID and retained Write payload.",
+      "operations": "For each dirty entity that still has input: free old allocation, source_allocator.alloc(entity,input.instances.len() asu32).expect, sync native pages, pages[page].alloc(entity), retain Write{entity,offset,batch_id} under page key.",
+      "disposition": "Producer-to-retained-state trace closes the previous callsite-only allocation gap. Page validity follows only if backend.page_count/get/alloc agree; Custom backend and public state invariants are unproved. Old allocation is freed before potential allocation failure, so no transactional rollback guarantee."
+    },
+    {
+      "locations": "prepare/mod.rs336-340",
+      "roles": "Actual native page-count/cardinality relationship and default page creation.",
+      "operations": "If pages.len()<source_allocator.page_count(), resize with Default to that count. Never shrinks pages and does not directly check a returned allocation.page.",
+      "disposition": "Concrete native page-vector growth operation traced; Default page state and downstream methods were read in previous packets. No broader custom/backend consistency guarantee."
+    }
+  ],
+  "producer_to_receiver_trace": [
+    "Prior exact prepare/mod.rs133-218 creates BatchInput from nonempty InstanceMaterialData.instances and retains its Arc without a new length bound. Newly read dirty producer320 narrows len to u32 and calls InstanceAllocatorBackend.alloc.",
+    "Previously read backend29-33 dispatches to PagedAllocator or Custom. The actual default Paged body108-124 admits count0 specially asSome(0,0), rejects count>page_size, otherwise delegates to offset_allocator. Default page_size1_000_000 is native local policy. This packet does not reread or transfer another lens verdict for those bodies; it connects this new direct producer to their retained same-lens source proof.",
+    "Returned InstanceAllocation supplies native page and offset. sync_pages grows per-page storage; pages[page].alloc obtains an ID via the previously read IdAllocator; structured Write stores the entity, offset and batch ID.",
+    "Previously read InstanceBufferUpdater source writes replace each InstanceData.batch_id with Write.batch_id, convert Write.offset through data_offset to bytes and upload. The metadata/batch/indirect buffers and shader append remain the downstream native receivers recorded in011/012. No additional original population credit is gained by connecting these prior exact reads.",
+    "Removals and dirty replacement now have actual free/order bodies. Per-page ID cleanup is guarded by page vector bounds; source backend free follows. These operations do not establish all allocator, buffer, shader or public-state invariants."
+  ],
+  "source_observations_noncounted": [
+    {
+      "local_id": "NATIVE-013-COUNT-ADMISSION",
+      "locations": "prepare/mod.rs278-286,319-321; prior PagedAllocator29,108-124",
+      "observation": "Both allocation producers narrow instances.len() with asu32. There is no local checked narrowing or page-size admission. A native input with length1_000_001 reaches the default allocator oversized-count None and the allocation expect panics; dirty replacement frees the old allocation before that failure.",
+      "qualification": "Source counterexample for this exact native producer/default backend only. Actual first-party vector-length admission, chunking, currentness, selected backend and existing finding alias/reachability remain unverified; no new unique finding accepted or runtime claim."
+    },
+    {
+      "local_id": "NATIVE-013-PAGE-RELATION",
+      "locations": "prepare/mod.rs319-338; prior backend Custom variant",
+      "observation": "sync_pages grows to backend.page_count then pages[returned_page] is indexed. The source caller does not check that a custom backend returns page<page_count. Native typed allocation alone does not enforce that relationship.",
+      "qualification": "Delegated native trait contract, not evidence of a current first-party invalid custom implementation. No speculative new defect, global admission guarantee or unique-count increment."
+    }
+  ],
+  "resolved_previous_gap": "The actual allocation producer functions, count conversions, removal/free ordering, per-page ID creation and Write retention are now read. This resolves the unread prepare/mod.rs227-340 body frontier named in012; upstream first-party length policy, delegated allocator implementation and public wrapper meaning remain open.",
+  "remaining_partial_original31": [
+    {
+      "contract": "InstanceBuffer.length/capacity, GpuDrawIndexedIndirect.offset, InstancedComputeSourceBuffer.count/capacity, InstanceBatch.batch_id/offset",
+      "next_required_proof": "Actual wrapper recipients or bounded semantic absence proof. Existing declaration/identifier locators and unrelated InstanceBufferUpdater substring matches do not establish those contracts."
+    },
+    {
+      "contract": "Selected material shader index/seed role and first-party InstanceMaterialData producer admission",
+      "next_required_proof": "Exact frozen/currentness-proven first-party producer and selected M shader bodies carrying index/seed/length meanings. Native vertex formats and default mesh absence of index/seed reads do not confer application-level clearance."
+    },
+    {
+      "contract": "InstanceHistory consumer and previous-world semantics",
+      "next_required_proof": "Actual payload consumer/motion pipeline or justified bounded absence, not just updater/extraction registration. Prior read current-matrix assignment to both uniform fields remains qualified."
+    },
+    {
+      "contract": "Offset allocator and custom backend numerical guarantees",
+      "next_required_proof": "Exact pinned offset_allocator Allocation/Allocator allocate/free/bounds implementation and any materially reached Custom implementation. Local count narrowing, native page budget, sentinel reservation, public field mutation and current first-party reachability remain unproved."
+    }
+  ],
+  "accounting": {
+    "before_original_accounted": 33,
+    "after_proposed_original_accounted": 33,
+    "original_total": 2853,
+    "new_originals_inspected": [],
+    "new_originals_completed": [],
+    "partial_original_indices": [
+      31
+    ],
+    "first_unfinished_original": 31,
+    "first_unread_original": 34,
+    "next_original": 31,
+    "overlays_increment": 0,
+    "merged_increment": 0,
+    "material_increment": 0,
+    "new_unique_count": 0
+  },
+  "qualifications": [
+    "All adopted012 source/currentness/alias/partial qualifications retained. Original0-30/32/33 and completed discovery/989 work not restarted. Original31 declaration scope remains full1-193; this is a receiver-only continuation, not a newly inspected original or other-lens credit.",
+    "One exact immutable native source object,115 bounded lines226-340 personally consumed after prospective registration and hash verification. No new download, full source tree, broad native SDK or future original read.",
+    "NATIVE012 ID sentinel, Paged reset active_counts, unchecked buffer-bounds arithmetic and history observations remain non-counted until root alias/currentness/first-party reconciliation. New local observations also remain non-counted. No globally unique alias/count invented; inheritedF1/F2/F6/F9 remain open.",
+    "No product/source/Git/rootledger/historical edit, project execution/build/test/lint/scanner/generator/probe/assertion/helper/doctest or publication. Only ignored prospective registration/receipt/proposed state authored. Native existing expect calls were inspected as source, not executed.",
+    "No old API/layout/backward-compatibility constraint, global SDK/lens13/audit clearance, runtime admission guarantee or integrated repair claim."
+  ],
+  "stop_reason": "One bounded trace path completed; save concrete partial and stop as authorized. Root alone adopts successor state."
+}

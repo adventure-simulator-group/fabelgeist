@@ -1,0 +1,19 @@
+{
+  "id": "OWN10-CANDIDATE001-OVERLAY112-QUALIFIED",
+  "overlay_index": 112,
+  "path": "crates/adventuresim-stdb-module/src/operation_error.rs",
+  "ranges": [
+    [
+      38,
+      44
+    ]
+  ],
+  "inventory": "From<String>\u2192Operation(String) is mechanical variant construction; From<&str> explicitly owns the input via to_owned. Existing thiserror derives other typed cause conversions.",
+  "dependency_gap": "Owning P16 Cargo has thiserror but no derive_more normal dependency. Project derive_more can potentially express selected owned String From; adding dependency/feature requires separate global remedy decision.",
+  "cause_constraint": "Do NOT add thiserror #[from] to Operation(String): String is not an Error cause and existing Operation source is None. Preserve owned-string representation and borrowed to_owned adapter; do not invent source/transparent semantics.",
+  "cargo_sha256": "36987a2d79efdb7b873694038158a9b7ca916a8d1cf332427e2023b5311d487f",
+  "classification": "Qualified existing mechanical From remedy occurrence, no current correctness defect; global dedup pending",
+  "checks": "not run",
+  "new_unique_finding": false,
+  "clear": false
+}

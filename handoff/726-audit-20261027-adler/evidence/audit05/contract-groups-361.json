@@ -1,0 +1,41 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-361",
+  "at": "2026-10-25T23:37:42.344868+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 87,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/weapon_contact.rs",
+      "sha256": "6490cee01f9eeb43f5cb7201d193a93cb59f9e053ba093d3689c94008a24d140",
+      "personally_read_ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full113line P16 contact source read. Precision evaluates only working Head shapes, takes maximum candidate rather than additive duplicate heads, then if zero uses shaft/root structural-grip fallback; furniture does not contribute when usable head precision exists.",
+        "Finite positive authored Metres values convert f64 millimetres to f32 and multiply/square area denominators without target-range aggregate admission here; tiny dimensions can underflow denominator and produceInf panic at ContactPrecision::new, while large dimensions can become0 precision. Actual validated recipe bounds/current authored inputs plus existing findings required before promotion.",
+        "ContactPrecision private scalar asserts finite nonnegative, concentrated fraction maps x/(1+x), zero resistance returns intentionalInf sentinel. handling accuracy derives only lever/balance/control-length, not concentration. Parameter validate and recipe validation remain external; no source runtime clearance."
+      ]
+    },
+    {
+      "scope_index": 88,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/weapon_contact/tests.rs",
+      "sha256": "1f06000f7544b5eef15b06fbce033930014e96dc50812d8b9dadfd3c2b850af9",
+      "personally_read_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full111line existing P16 contact tests read. Covers shorter/better-balanced handling independent of precision, known recipe reference concentrations, thickness effect, duplicate-head nonaddition, staff broad contact, monotonic concentration/resistance and condition scaling once. Tests are finite authored examples and were not run; they do not establish arbitrary recipe arithmetic or loaded consumer acceptance."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

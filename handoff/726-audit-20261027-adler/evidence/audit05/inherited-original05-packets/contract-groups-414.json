@@ -1,0 +1,75 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-414",
+  "at": "2026-10-23T13:27:36.343479+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/courtship.rs",
+      "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+      "scope072_index": 908,
+      "actual_EOF": 1153,
+      "scoped_ranges_compared": [
+        [
+          1,
+          1153
+        ]
+      ],
+      "actual05_comparison": "Fresh full actual source including every original inline fixture; billing funds/deadline, interval conservation, trial occurrence identity and dialogue boundary payload states compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/dialogue_boundary.rs",
+      "sha256": "e68ecc33496a7820aad7f54bccb03d86b407e59c97759223fe80ed6205c8894b",
+      "scope072_index": 911,
+      "actual_EOF": 49,
+      "scoped_ranges_compared": [
+        [
+          1,
+          49
+        ]
+      ],
+      "actual05_comparison": "Fresh full actual source including every original inline fixture; billing funds/deadline, interval conservation, trial occurrence identity and dialogue boundary payload states compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "housing whole catalog ordering is separate from raw economy records",
+      "comparison": "908 full1153: fixed three HousingTier::ALL order and validator exact count/order, strictprices/rent/maintenance/tax/leisure ordering and cheaperownership. Saturated maintenance+tax in validator cannot hide violation against any u32rent: overflowMAX still>=rent rejects. Raw HousingEconomy public fields remain broader; normal authored tier economies small. Root120 F045 consumed then exact175-193: supportedadultMAX*4 saturatedu32 before u64 loses representable17179869180, and rawmaintenanceMAX+tax1 loses1. APIonly, normalpopulation bounds untraced; sameRootF045 noextraunique."
+    },
+    {
+      "id": "billing plan must carry finite iterator exhaustion into retained successor",
+      "comparison": "DuePeriods checkedadd advances/terminates, inclusivefrontier. Nonzerocharge affordability paid<=funds/charge bounds spend multiplication and subtraction; zerocharge explicitlyfree and spends0, no zero-divisor defect. Root120 F046 consumed, exact342-366 finalMAXpayment returns nextMAX although iterator exhausted, so carryingreturnedfields canpay sameperiodagain. APItwocalls/no normaltimeline/run. Raw DueSettlementPlan independent fields are not proof of matching debt/funds/deadline; one preparedaccepted result should carry exhaustible nextoccurrence. Large frontier work remains capacitydependency, no giant iteration executed."
+    },
+    {
+      "id": "morale caps and basispoints intentionally exceed whole in benefit policy",
+      "comparison": "Positive refresh discards expired state, saturating sum then cap preserves exactcapped value because cap<=u32MAX; zeroearned intentionallydoesnotrefreshexpiry. combined residence/spouse actualcaps8000/12000/16000 and other-live reservation bound stacking. Their distributions may differ byupdateorder while combinedcapconsistent; no promise identical per-sourceallocation. Housingpremium basispoints11000..16000 intentionalnotUnitInterval. Baselineu32*premiumu16 fitsu64 beforedivision; spouseu64*2 saturation then min(u32MAX) preservesfinalcap. Raw specs/publicsourcefields stillneed actual admittedpolicy and expiryrelationship, no new normalfailureclaimed."
+    },
+    {
+      "id": "joint spans and retry coverage use one actual clipped timeline",
+      "comparison": "LeisureInterval requires same location and positiveintersection; elapsed_since returns0 for reversed/nonoverlap. checkpointclipping uses sameintersection. uncovered_minute_spans clips positiveparts, sorts then advancesmaxcursor, so duplicate/overlapinput cannotmint additionalleisure and outputsorteddisjointinsidecandidate. This locallyproves arbitraryinputintervalunionconservation, not authorityoflocation IDs or DB writerownership."
+    },
+    {
+      "id": "trial remainder and unique ordinal have different capacity policies",
+      "comparison": "Conserved rawu8 remainder explicitly%60, firstcrossing1..60, count<=1+(MAX-1)/60, offset<=additionalminutes, carried+additional%60<=118 -> final0..59. Root120 F047 consumedthenexact650-675: nextordinalMAX plus120mins allocatestwotrialsordinalMAX, nextMAX. OccurrenceexhaustionAPI/noactualduplicatechild/RNG/run, saturationassociativitydoesNOTitselfbreakcheckpointpartitionequivalence. Publicplanvector/statecanbe independentlyfabricated, not acceptedpreparedproduct. Hugeallocationpossibleforhugeadditionaldurationrequiresboundedactualcaller; no runtimeallocationclaim."
+    },
+    {
+      "id": "stable identity framing and text transport preserve exact purpose",
+      "comparison": "Stablelifecycle hash usescanonicalSeedderive withseparatelyframedparts/domain plus StreamId, no colonconcatenationalias; fulltexttargettie breaks scorecollision deterministic. Generic scoreFn must actuallybe purefororderindependence; current daily scoreisdeterministic. Rejectparser usesfoundASCIIprefix andsplit delimiter tokeep UTF8boundaries; structured code/payloadretaineduntilstringABI. Dailyfirstday+1safe since StrategicMinute dayindex<=MAX/1440, not arbitraryu64day. All711-1153 fixturesreadsourceonly. Childseedhelper909alreadypriorcovered, not countedagain."
+    },
+    {
+      "id": "dialogue boundary avoids unrelated optional result fields",
+      "comparison": "911 full49 puregeneric payloadenum Started(Started) versusContactUnavailable; distinct SessionProjectionMissing/Reducer/Projectionerror retained. No independentlymutable successbool/session pair and no numeric/collectionlifecyclelocally, source-backednonapplicabilitybeyond payloadstateownership. Displayformats exactspecificcause; genericStarted validity and actualowner-scopedsession projectionremainactualcallercontracts. Fixture37-49 readnotrun."
+    }
+  ],
+  "existing_findings_supported": [
+    "ROOT-INITIAL04-F045",
+    "ROOT-INITIAL04-F046",
+    "ROOT-INITIAL04-F047"
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Normal householdcount/economy and due-state persistence admission; actualtrialrecipient uniqueness/exhaustion propagation; localhelper proofs do not clear DBauthority."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

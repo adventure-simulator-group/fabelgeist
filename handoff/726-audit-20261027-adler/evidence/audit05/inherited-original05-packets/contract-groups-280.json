@@ -1,0 +1,140 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-280",
+  "at": "2026-10-23T06:45:07.791862+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+      "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+      "scope065_index": 611,
+      "actual_EOF": 154,
+      "scoped_ranges_compared": [
+        [
+          1,
+          154
+        ]
+      ],
+      "actual05_comparison": "Fresh complete scoped sources and all existing fixtures; own current recipe/room/roof/fittings/identifier and physical append relationship comparison. Existing overlays032/147 merged into full154 source, no prior verdict credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/appearance_tests.rs",
+      "sha256": "0d36153306b8a78441d45e8227f2a2f54fa002346ed7328e16119d32af7a3697",
+      "scope065_index": 612,
+      "actual_EOF": 208,
+      "scoped_ranges_compared": [
+        [
+          1,
+          208
+        ]
+      ],
+      "actual05_comparison": "Fresh complete scoped sources and all existing fixtures; own current recipe/room/roof/fittings/identifier and physical append relationship comparison. Existing overlays032/147 merged into full154 source, no prior verdict credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/fittings.rs",
+      "sha256": "b404568b0b0300bd88d8b21396aadf4673ba65ebf8be5b21310ba6b3379e48b0",
+      "scope065_index": 613,
+      "actual_EOF": 285,
+      "scoped_ranges_compared": [
+        [
+          1,
+          285
+        ]
+      ],
+      "actual05_comparison": "Fresh complete scoped sources and all existing fixtures; own current recipe/room/roof/fittings/identifier and physical append relationship comparison. Existing overlays032/147 merged into full154 source, no prior verdict credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/programme.rs",
+      "sha256": "3999316d3d77475ab5209ad988d62b7832e63d0a97a70fe56bc903dc3fa8e36c",
+      "scope065_index": 614,
+      "actual_EOF": 84,
+      "scoped_ranges_compared": [
+        [
+          1,
+          84
+        ]
+      ],
+      "actual05_comparison": "Fresh complete scoped sources and all existing fixtures; own current recipe/room/roof/fittings/identifier and physical append relationship comparison. Existing overlays032/147 merged into full154 source, no prior verdict credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/storey.rs",
+      "sha256": "dce59e1f768ffe5e9d0c026d0eb717ca1dab99f11429a4ec8ab9eb7d04a7d8ed",
+      "scope065_index": 615,
+      "actual_EOF": 82,
+      "scoped_ranges_compared": [
+        [
+          1,
+          82
+        ]
+      ],
+      "actual05_comparison": "Fresh complete scoped sources and all existing fixtures; own current recipe/room/roof/fittings/identifier and physical append relationship comparison. Existing overlays032/147 merged into full154 source, no prior verdict credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/tests.rs",
+      "sha256": "e71079dff15d4781019f21c021a5fbb0bee5c2d30fb15ef860536a625e55b96c",
+      "scope065_index": 616,
+      "actual_EOF": 166,
+      "scoped_ranges_compared": [
+        [
+          1,
+          166
+        ]
+      ],
+      "actual05_comparison": "Fresh complete scoped sources and all existing fixtures; own current recipe/room/roof/fittings/identifier and physical append relationship comparison. Existing overlays032/147 merged into full154 source, no prior verdict credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/wall_derivation.rs",
+      "sha256": "c809e10e428aa6559cf4ef46101cd34e5f8040ce82fd4a4f85c586113d52824f",
+      "scope065_index": 619,
+      "actual_EOF": 403,
+      "scoped_ranges_compared": [
+        [
+          1,
+          403
+        ]
+      ],
+      "actual05_comparison": "Fresh complete scoped sources and all existing fixtures; own current recipe/room/roof/fittings/identifier and physical append relationship comparison. Existing overlays032/147 merged into full154 source, no prior verdict credit."
+    }
+  ],
+  "groups": [
+    {
+      "id": "one selected dimensions recipe across church products",
+      "comparison": "Dimensions private fields arise only from ParishChurch with no large church programme, explicit Chapel/Parish use and service size. Six fixed size cases width5/7, nave6/8 plus0/2/4, chancel0/4 and eaves3.9/5.1/4.2; no arbitrary user-created Dimensions. Programme overwrites footprint, primary storey height, rooms, pitches48/52, clears vertical links/timber/projection and large programme. Derived Room0Nave/optionalRoom1Chancel, wall heights, nave/chancel roof dimensions and belfry centre/floor all reuse same Dimensions. Configure method expect relies on already selected use/archetype; not an independent all-BuildingProgram validator."
+    },
+    {
+      "id": "roof order and belfry attachment relation",
+      "comparison": "Dimensions::roofs always pushes nave first, optional chancel second, belfry last. belfry_enclosure_top checks exactly index2 when chancel present else1, then computes same bell_floor from current pitch. Chancel front inset uses nave eave, depth reduced by same inset and centre adjusted so verge lies inside nave rear masonry. Bellfloor uses native tan(pitch), raw program pitch finite/physical envelope still separate; actual configured48/52 ordinary. No zero-normal or all-roof positivity inferred from this fixed recipe."
+    },
+    {
+      "id": "same assignment map builds room topology",
+      "comparison": "Small storey bounded private dimensions cast safely to i16; unique BTreeMap assigns nave0 and narrower chancel1. Actual cells keys, derived walls, room cell collections and opening wall indices use the same map/list. It removes only shared centre wall bands to produce actual wide chancel opening, adds floor bridge/pier/beam/bearing band in fittings. Frontdoor actual South centre; side windows odd z; eastwindow actual far North centre. No independent serialized wallindex zip. Existing public StoreyPlan can be changed independently; factory coherence is not a raw Serde seal."
+    },
+    {
+      "id": "fitting membership and bearing-wall tail",
+      "comparison": "assemble snapshots initial wall len, appends every physical part through Fittings, returns exact appended solid IDs and wall tail IDs, belfry stage from same centre/floor/cap, public route from same width/depth. It creates local ids vector but mutates borrowed geometry/walls; later Err can leave partial borrowed builder state. Actual generate_structure owns its candidate and discards failed envelope, no externally published partial result proved. SmallChurchPlan public fields/Serde not accepted immutable authority."
+    },
+    {
+      "id": "physical append exact support relation",
+      "comparison": "Fresh wall_derivation261–299 proves successful wall_solid appends exactly one ResolvedSolid with vec[support], then a matching SupportInterface with same owner/support and centre/size underside bounds; returns SAME solid ID. Thus successful Fittings.part leaves actual last solid with nonempty supported_by, and band252 unwrap/index0 justified on that same success path. StructuralNode before physical push and interface failure after solid push mean helper itself has no universal rollback. Current outer owned build handles error. Parents come from already-present spatially contacting solids, finite fixed recipe and supported nodes, not forced same-ID equality. Existing raw shape/envelope F005 not cleared."
+    },
+    {
+      "id": "wall and opening domain mapping",
+      "comparison": "derive_walls requires assignment for actual footprint and occupied neighbor, errors source cell missing, emits shared boundaries only North/East and differing rooms to avoid duplicate sides. derive_openings filters StairCore.serves before subtracting lowest_storey, closing packet276 landing precondition on actual shown caller. Current shared_boundaries checked room requirements before DisjointSets union; candidates are nonempty since map entries created on actual wall. Required landing joins plus spanning forest must reach one component; omitted windows remain deliberate HallHouse/corner/Storage/Pantry/Passage policy. Room requirement empty input remains upstream allocator precondition outside current partial scope."
+    },
+    {
+      "id": "semantic profiles and native identifier limits",
+      "comparison": "opening_profile derives selected Door/Gate/pointed/segmental/arrow/gun profile; dimensions may intentionally substitute archetype authored values rather than echo raw opening tuple. Two-centred arc computed from same span/rise, no universal raw width promise. Solid/void/surface IDs encode type+owner+slot through bit OR; unrestricted private slot/high-owner capacity not validated here, current small fittings fixed owner96000 and bounded count, no normal alias witness. Same indexed source-bearing solid/support graph is preserved; source capacity graph stays qualified."
+    },
+    {
+      "id": "original church fixtures as evidence only",
+      "comparison": "Read complete six size/use/seed matrix (explicit skips large parish), cross-detail/collider jamb membership, lower-poly LOD, aisle obstruction audit, belfry parent cut/ridge split tests, pointed/segmental panel silhouette, chancel verge and enclosure material tests. Helpers compare actual projected mesh triangles, use known immutable test inputs. No fixtures executed, no new cases or tests, and no complete audit_small_church implementation credit from module declaration."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Actual normal outer candidate ownership now source-backed276; no universal mutating-helper rollback guarantee.",
+    "SmallChurch validation and other called module bodies keep their exact source inventory duties; no declaration/include coverage."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

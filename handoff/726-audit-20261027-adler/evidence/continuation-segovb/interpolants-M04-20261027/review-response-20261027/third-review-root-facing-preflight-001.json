@@ -1,0 +1,48 @@
+{
+  "head": "c20cac0b49ac679ddd7a7be6535fa54f5e08bafb",
+  "review": 5664856132,
+  "finding": "M04 connected extension, no accepted unique delta",
+  "earlier_scope_limit": "Candidate008 source did not trace root-facing recipient; no complete divechain claim or finalacceptance transferred",
+  "files_before": {
+    "crates/adventuresim-core/src/unit_interval.rs": "cfe4ee137e0df1f150fcee66caeab50f963b3bb36ee2ca518c0208e4f43ef5e1",
+    "crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs": "bc8baae81a0a5a732df8dba8928b78d85c6b941c193ec50a31780d1a5b43f816",
+    "crates/adventuresim-tactical-core/src/animation/state.rs": "48d075954cf0381f63c73815380ed47c37be6c35e30c573b6839e74c21572557",
+    "crates/adventuresim-tactical-core/src/combat_config.rs": "543ea955a72a4accf8550af44b35ad0a526fbcc6731bc5fb109ac38ceb609e17",
+    "content/tactical/combat.yaml": "e046a24787a8fe5b26e80d4808b7c00c37bfdfb6a886b67d4287119850a80b29",
+    "crates/adventuresim-tactical-core/src/combat_config/defaults.rs": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+    "crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+    "crates/adventuresim-tactical-client/src/animation_viewer/capture/subject_motion.rs": "863b3c4fafe43198495f75878f9544b5af7fd3cccd198a88c0cc37042c390981"
+  },
+  "new_paths": [
+    {
+      "producer": "PostureTransitionState::phase UnitInterval",
+      "chain": "same DIVE_GROUND_CONTACT_PHASE -> dive_recovery -> typed DiveRecovery.progress -> dive_landing_facing_delta -> server transform/physicsRotation and viewer Transform nativeQuat",
+      "repair": "Use UnitInterval clamped_inverse_lerp contact..ONE then configured typed handoffstart/end smoothstep; keep typed delta via saturating_sub until native yawkernel",
+      "owner_changes": "UnitInterval::saturating_sub closed [0,1] finite difference flooredat0; remove state::smoothstep after sole rootconsumer migration"
+    },
+    {
+      "producer": "canonical combat YAML state_transitions",
+      "chain": "serde typed schema -> defaultsameYAML/server validated snapshot/digest -> runtime_animation_config -> dive_recovery; no partial config projection",
+      "repair": "dive_root_handoff_start_fraction UnitInterval; required dive_airborne_root_handoff_end_fraction UnitInterval YAML0.92; GroundedSlide end ONE means finishattransitionendpoint; stateconfig validate start<airborneend; no fallback or compat",
+      "structure": "Extract AnimationStateTransitionConfig and validation to combat_config/state_transitions.rs before adding responsibility; parent reexport/validation call; bind initial_locomotion_speed namedlocal to avoid validator growth; do not raise baselines"
+    }
+  ],
+  "outside_scope": [
+    {
+      "path": "supine_get_up_counter_yaw_delta",
+      "reason": "separate action with authored midpoint convention; no divecontact endpoint ownership. Remains broader audit pending; no claim typedallposture operations"
+    },
+    {
+      "path": "raw terrain/viewer smoothsteps",
+      "reason": "other quantity/range policies remain broader audit"
+    }
+  ],
+  "acceptance": [
+    "fresh fullPR source manifest + Code/Rule/Comment independent reviews",
+    "hosted samehead gates and raw positive existing tests",
+    "use hosted baseline export for relevant decreasesonly then validate finalhead"
+  ],
+  "local_project_execution": false,
+  "tests_added": false,
+  "global_discovery_complete": false
+}

@@ -1,0 +1,115 @@
+[1m[92m   Compiling[0m adventuresim-world-schema v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-world-schema)
+[1m[92m   Compiling[0m fabelgeist-determinism v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-determinism)
+[1m[92m   Compiling[0m fabelgeist-geometry v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-geometry)
+[1m[92m   Compiling[0m adventuresim-puzzles v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-puzzles)
+[1m[92m   Compiling[0m adventuresim-weapon-model v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-weapon-model)
+[1m[92m   Compiling[0m bevy_ahoy v0.2.0 (/home/runner/work/fabelgeist/fabelgeist/vendor/bevy_ahoy)
+[1m[92m   Compiling[0m adventuresim-dialogue v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-dialogue)
+[1m[92m   Compiling[0m adventuresim-core v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-core)
+[1m[92m   Compiling[0m adventuresim-building-generator v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-building-generator)
+[1m[92m   Compiling[0m adventuresim-tactical-core v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-core)
+[1m[92m    Finished[0m `test` profile [optimized] target(s) in 2m 30s
+[1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/adventuresim_tactical_core-c1ce08bb0ca7f595)
+
+running 98 tests
+test animation::evaluation::tests::attacks_keep_authored_weapon_upper_body_and_combat_lower_body_separate ... ok
+test animation::evaluation::tests::diagonal_quickstep_blends_directional_authored_timelines ... ok
+test animation::evaluation::tests::dive_blends_from_guard_to_directional_airborne_pose ... ok
+test animation::evaluation::tests::dive_contact_recovery_starts_with_zero_slope ... ok
+test animation::evaluation::tests::dive_lower_body_holds_guard_until_ground_contact ... ok
+test animation::evaluation::tests::forward_dive_airborne_pose_is_independent_of_guard_lead ... ok
+test animation::evaluation::tests::lateral_dives_recover_directly_into_the_matching_half_roll ... ok
+test animation::legacy_tests::attack_curve_reaches_contact_then_recovers_through_guard_contact_axis ... ok
+test animation::legacy_tests::attacking_and_ordinary_raised_guard_use_identical_locomotion ... ok
+test animation::legacy_tests::authoritative_action_clock_centers_contact_and_finishes_recovery ... ok
+test animation::legacy_tests::authoritative_attack_clock_supports_asymmetric_recovery ... ok
+test animation::legacy_tests::backward_dive_landing_transfers_the_supine_half_turn_to_the_root ... ok
+test animation::legacy_tests::child_attack_set_is_all_or_nothing_and_empty_child_inherits ... ok
+test animation::legacy_tests::continuation_enters_follow_up_preparation_at_full_backswing ... ok
+test animation::legacy_tests::deserialization_plants_invalid_raised_movement_body_combinations ... ok
+test animation::legacy_tests::empty_or_unknown_pack_uses_bind_pose_t ... ok
+test animation::legacy_tests::entering_raised_guard_resets_to_static_guard_endpoint_once ... ok
+test animation::legacy_tests::forward_diagonals_pair_skip_with_the_opposite_foot_order ... ok
+test animation::legacy_tests::gait_anchor_weights_use_monotone_cubic_quarters ... ok
+test animation::legacy_tests::gait_constructs_four_quarters_from_sparse_authoritative_anchors ... ok
+test animation::legacy_tests::gait_never_fractionally_mirrors_an_fk_blend ... ok
+test animation::legacy_tests::gait_phase_spans_two_steps_at_run_speed ... ok
+test animation::legacy_tests::held_guard_input_survives_zero_velocity_until_front_contact ... ok
+test animation::legacy_tests::horizontal_speed_drives_continuous_airborne_span ... ok
+test animation::legacy_tests::invalid_fallback_graph_is_rejected ... ok
+test animation::legacy_tests::jump_anticipation_does_not_change_upright_posture ... ok
+test animation::legacy_tests::lateral_dive_lands_at_its_half_roll_without_crossing_prone_idle ... ok
+test animation::legacy_tests::leaving_grounded_upright_plants_raised_movement ... ok
+test animation::legacy_tests::left_strafe_reverses_the_single_authored_strafe_cycle ... ok
+test animation::legacy_tests::locomotion_projection_uses_controller_frame_and_fixed_stride ... ok
+test animation::legacy_tests::locomotion_shares_phase_across_walk_and_run ... ok
+test animation::legacy_tests::locomotion_style_uses_current_physical_speed ... ok
+test animation::legacy_tests::low_speed_idle_and_complete_cycle_remain_unmirrored ... ok
+test animation::legacy_tests::mirrored_semantic_counterparts_are_involutions ... ok
+test animation::legacy_tests::missing_dive_pose_falls_back_to_guard ... ok
+test animation::legacy_tests::ordinary_attack_carries_acceleration_through_contact ... ok
+test animation::legacy_tests::ordinary_attack_crosses_contact_without_stopping_or_changing_velocity ... ok
+test animation::legacy_tests::ordinary_attack_remains_monotone_from_drawback_through_follow_through ... ok
+test animation::legacy_tests::ordinary_guard_movement_uses_authored_skip_even_above_guard_speed ... ok
+test animation::legacy_tests::ordinary_locomotion_blends_strafe_while_hips_turn_toward_velocity ... ok
+test animation::legacy_tests::pack_then_semantic_fallback_is_deterministic ... ok
+test animation::legacy_tests::planar_projection_ignores_camera_pitch ... ok
+test animation::legacy_tests::poor_handling_increases_readable_drawback_and_follow_through ... ok
+test animation::legacy_tests::preferred_attack_falls_back_to_the_available_family ... ok
+test animation::legacy_tests::projector_sequences_contacts_acceleration_and_one_landing_edge ... ok
+test animation::legacy_tests::quickstep_contact_returns_to_raised_guard_without_discarding_momentum ... ok
+test animation::legacy_tests::quickstep_holds_guard_while_block_returns_to_guard ... ok
+test animation::legacy_tests::quickstep_samples_the_complete_authored_timeline ... ok
+test animation::legacy_tests::raised_guard_contacts_are_committed_one_planned_landing_at_a_time ... ok
+test animation::legacy_tests::raised_guard_contacts_never_trail_the_body_and_handoffs_land_immediately ... ok
+test animation::legacy_tests::raised_guard_diagonal_blends_strafe_and_skip_beneath_static_guard ... ok
+test animation::legacy_tests::raised_guard_direction_change_places_a_new_contact_when_support_is_behind ... ok
+test animation::legacy_tests::raised_guard_freezes_lead_and_plans_each_direction_explicitly ... ok
+test animation::legacy_tests::raised_guard_jog_uses_walk_run_lower_body_blend ... ok
+test animation::legacy_tests::raised_guard_locomotion_keeps_guard_upper_body_and_authored_combat_legs ... ok
+test animation::legacy_tests::raised_guard_movement_front_foot_follows_direction ... ok
+test animation::legacy_tests::raised_guard_preserves_airborne_posture ... ok
+test animation::legacy_tests::raised_guard_release_finishes_the_authoritative_in_flight_step ... ok
+test animation::legacy_tests::raised_guard_reversal_updates_motion_without_snapping_visual_phase ... ok
+test animation::legacy_tests::raised_guard_step_deadline_tightens_with_speed ... ok
+test animation::legacy_tests::raised_guard_upper_body_stays_at_guard_through_authored_step_cycle ... ok
+test animation::legacy_tests::shared_profiles_own_cadence_support_and_flight ... ok
+test animation::legacy_tests::turning_acceleration_is_differenced_in_one_world_frame ... ok
+test animation::semantic::contract_tests::action_timeline_uses_saturating_arithmetic_at_u64_max ... ok
+test animation::semantic::contract_tests::aimed_downed_facing_holds_half_roll_and_reaches_supine ... ok
+test animation::semantic::contract_tests::aimed_downed_facing_interpolates_only_after_sector_commit ... ok
+test animation::semantic::contract_tests::aimed_downed_facing_uses_four_discrete_sticky_sectors ... ok
+test animation::semantic::contract_tests::backward_dive_recovers_to_supine_after_contact ... ok
+test animation::semantic::contract_tests::body_and_action_discriminants_own_their_valid_payloads ... ok
+test animation::semantic::contract_tests::complete_validation_requires_a_terminal_family_root ... ok
+test animation::semantic::contract_tests::deliberate_downed_turn_blends_directly_between_mirrored_contacts ... ok
+test animation::semantic::contract_tests::dive_holds_takeoff_until_contact_then_recovers_to_prone ... ok
+test animation::semantic::contract_tests::dive_transition_cancels_actions_and_rejects_new_action_payloads ... ok
+test animation::semantic::contract_tests::downed_body_transition_clears_action_and_raised_stance ... ok
+test animation::semantic::contract_tests::downed_turning_advances_contact_gait_without_planar_velocity ... ok
+test animation::semantic::contract_tests::evasion_explicitly_preempts_attack_while_other_actions_are_rejected ... ok
+test animation::semantic::contract_tests::humanoid_contract_resolves_from_twenty_nine_semantic_variants ... ok
+test animation::semantic::contract_tests::lowered_stance_cannot_retain_raised_motion_and_inputs_are_normalized ... ok
+test animation::semantic::contract_tests::projection_rejects_nonfinite_elapsed_before_mutating_body ... ok
+test animation::semantic::contract_tests::prone_and_supine_residual_velocity_slide_without_locomotion ... ok
+test animation::semantic::contract_tests::raised_intent_round_trip_preserves_valid_variants_and_normalizes_wire_input ... ok
+test animation::semantic::contract_tests::raised_stance_round_trips_through_replication_codec ... ok
+test animation::semantic::contract_tests::releasing_aim_settles_downed_roll_to_nearest_contact ... ok
+test animation::semantic::contract_tests::repeated_guard_writes_preserve_live_raised_footwork ... ok
+test animation::semantic::contract_tests::roll_transition_uses_directional_midpoint_and_commits_supine ... ok
+test animation::semantic::contract_tests::sparse_attack_evaluation_uses_guard_contact_guard ... ok
+test animation::semantic::contract_tests::supported_dive_timeout_enters_contact_recovery_without_pose_snap ... ok
+test animation::semantic::contract_tests::supported_prone_projection_does_not_repeat_landing_or_restore_upright ... ok
+test animation::state::downed_facing::tests::camera_yaw_maps_quarter_and_half_turns_to_downed_roll ... ok
+test animation::state::guard_geometry::tests::guard_stride_scales_with_leg_length_from_the_five_eleven_reference ... ok
+test animation::state::turn_deadline::tests::attack_facing_reaches_the_target_at_canonical_contact_without_snapping ... ok
+test animation::state::turn_deadline::tests::body_facing_is_bounded_and_uses_stable_half_turn ... ok
+test animation::state::turn_deadline::tests::dive_launch_root_maps_every_procedural_axis_to_camera_relative_travel ... ok
+test animation::state::turn_deadline::tests::downed_camera_alignment_turns_slowly_and_stops_at_the_observed_step ... ok
+test animation::state::turn_deadline::tests::guard_faces_look_while_locomotion_faces_world_velocity ... ok
+test animation::state::turn_deadline::tests::local_aim_facing_advances_on_every_render_frame ... ok
+test animation::state::turn_deadline::tests::local_travel_facing_advances_toward_world_velocity ... ok
+test animation::state::turn_deadline::tests::paused_turns_do_not_advance_and_small_deadlines_remain_meaningful ... ok
+
+test result: ok. 98 passed; 0 failed; 0 ignored; 0 measured; 312 filtered out; finished in 0.01s
+

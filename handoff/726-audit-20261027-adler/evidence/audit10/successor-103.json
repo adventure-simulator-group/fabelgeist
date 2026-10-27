@@ -1,0 +1,39 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-103",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1779,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/shaping_time.rs",
+      "sha256": "daf4c6b1cf6f43edc45f91ac44fb6fe70ae0848a2e1b23b8bc313ba24d887a87",
+      "ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete63line signed shaping-time owner. Mechanical serde/Debug/Into/basic traits derived; validating TryFrom delegates finite constructor. Settle/guard update and interpolation preserve explicit operation/clamp order.",
+      "disposition": "KEEP checked TryFrom and semantic kernels. A direct scalar derive would bypass admission/error distinction; no new candidate.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1780,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/skeleton_family.rs",
+      "sha256": "526f6b40dbe2b1a94aac7807e7ca9cb7f2fab69bd0a86f074319e7fd4f4e00bc",
+      "ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete24line open SkeletonFamily Cow static owner. Mechanical AsRef/From<String>/Debug/Display/order/hash/serde already derive. Manual From<&str>20-24 deliberately copies arbitrary borrowed text to owned Cow.",
+      "disposition": "KEEP ownership-changing borrowed From. Direct derive forwarding would use Cow conversion and require source lifetime compatible with static rather than the existing arbitrary borrowed input; adding a static bound or preserving a borrowed path changes API/ownership. No exact derive equivalence established, no new candidate.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

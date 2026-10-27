@@ -1,0 +1,123 @@
+diff --git a/crates/adventuresim-tactical-client/src/tactical_scene_viewer/manifest.rs b/crates/adventuresim-tactical-client/src/tactical_scene_viewer/manifest.rs
+index 7da0bc681..14bef7755 100644
+--- a/crates/adventuresim-tactical-client/src/tactical_scene_viewer/manifest.rs
++++ b/crates/adventuresim-tactical-client/src/tactical_scene_viewer/manifest.rs
+@@ -1,4 +1,10 @@
++use crate::presentation::TreePresentationSpecies;
++use adventuresim_building_generator::spatial_geometry::SignedLength;
++use adventuresim_tactical_core::animation::NonnegativeLength;
+ use adventuresim_tactical_core::prelude::{SceneRepairReport, SceneSource, WeatherSnapshot};
++use adventuresim_tactical_core::{
++    city_layout::grounding::SupportElevation, scene::TerrainSupportResult,
++};
+ use fabelgeist_determinism::Seed;
+ use serde::Serialize;
+ 
+@@ -29,12 +35,12 @@ pub(super) struct CaptureRecord {
+     pub(super) canopy_pixel_bps: u16,
+     pub(super) forced_tree_lod: Option<u8>,
+     pub(super) focused_tree_lod_queued: Option<bool>,
+-    pub(super) focused_tree_species: Option<String>,
++    pub(super) focused_tree_species: Option<TreePresentationSpecies>,
+     pub(super) focused_understory_species: Option<String>,
+     pub(super) diagnostic_leaf_suppression: bool,
+     pub(super) diagnostic_grass_suppression: bool,
+-    pub(super) debris_leaf_distance_metres: Option<f32>,
+-    pub(super) debris_twig_distance_metres: Option<f32>,
++    pub(super) debris_leaf_distance_metres: Option<NonnegativeLength>,
++    pub(super) debris_twig_distance_metres: Option<NonnegativeLength>,
+     pub(super) lighting_luminance_samples: Vec<f32>,
+     pub(super) lighting_luminance_delta: f32,
+     pub(super) lighting_ready: bool,
+@@ -76,25 +82,26 @@ pub(super) struct TerrainSummary {
+     pub(super) spacing_metres: f32,
+     pub(super) source_samples: usize,
+     pub(super) generated_samples: usize,
+-    pub(super) minimum_height_metres: f32,
+-    pub(super) maximum_height_metres: f32,
++    pub(super) minimum_height_metres: SupportElevation,
++    pub(super) maximum_height_metres: SupportElevation,
+ }
+ 
+ impl TerrainSummary {
+     pub(super) fn new(
+         input: &adventuresim_tactical_core::prelude::TacticalSceneInput,
+         terrain: &adventuresim_tactical_core::prelude::SceneTerrain,
+-    ) -> Self {
+-        Self {
++    ) -> TerrainSupportResult<Self> {
++        let bounds = terrain.required_elevation_range()?;
++        Ok(Self {
+             width_metres: terrain.width(),
+             depth_metres: terrain.depth(),
+             source_spacing_metres: input.playable.spacing_metres,
+             spacing_metres: terrain.grid_scale(),
+             source_samples: input.playable.heights_metres.len(),
+             generated_samples: terrain.grid_width() * terrain.grid_depth(),
+-            minimum_height_metres: terrain.minimum_height(),
+-            maximum_height_metres: terrain.maximum_height(),
+-        }
++            minimum_height_metres: bounds.minimum(),
++            maximum_height_metres: bounds.maximum(),
++        })
+     }
+ }
+ 
+@@ -158,10 +165,10 @@ pub(super) struct VistaSummary {
+     pub(super) supplied_lods: usize,
+     pub(super) presented_lods: Vec<adventuresim_tactical_core::scene_input::VistaLevelIndex>,
+     pub(super) presented_chunks: usize,
+-    pub(super) diameter_metres: f32,
+-    pub(super) minimum_height_metres: f32,
+-    pub(super) peak_height_metres: f32,
+-    pub(super) relief_metres: f32,
++    pub(super) diameter_metres: Option<SignedLength>,
++    pub(super) minimum_height_metres: Option<SupportElevation>,
++    pub(super) peak_height_metres: Option<SupportElevation>,
++    pub(super) relief_metres: Option<SignedLength>,
+     pub(super) collider_count: usize,
+ }
+ 
+@@ -303,7 +310,7 @@ fn finalize_screenshot_validation(
+             && captures.len() == expected_beech_motion.len()
+             && captures.iter().all(|capture| {
+                 capture.temporal_motion_frame
+-                    && capture.focused_tree_species.as_deref() == Some("common beech")
++                    && capture.focused_tree_species == Some(TreePresentationSpecies::CommonBeech)
+             });
+     validation.settled_readback_pairs_identical = requested_views.iter().all(|requested| {
+         let requires_pair = views
+@@ -717,7 +724,11 @@ mod tests {
+         let views = [CaptureViewSpec::new(
+             "animation-play-obstruction-000",
+             "Tree obstruction",
+-            CapturePose::AnimationPlayObstruction { yaw_degrees: 0.0 },
++            CapturePose::AnimationPlayObstruction {
++                yaw_degrees:
++                    adventuresim_tactical_core::animation::SignedAngleDegrees::from_degrees(0.0)
++                        .unwrap(),
++            },
+             80.0,
+             100,
+         )];
+@@ -806,14 +817,18 @@ mod tests {
+             CaptureViewSpec::new(
+                 "tree-cold-first-050",
+                 "Cold",
+-                CapturePose::TreeColdTraversal { distance: 50.0 },
++                CapturePose::TreeColdTraversal {
++                    distance: crate::camera::authored_metres(50.0),
++                },
+                 80.0,
+                 100,
+             ),
+             CaptureViewSpec::new(
+                 "tree-warm-second-050",
+                 "Warm",
+-                CapturePose::TreeColdTraversal { distance: 50.0 },
++                CapturePose::TreeColdTraversal {
++                    distance: crate::camera::authored_metres(50.0),
++                },
+                 80.0,
+                 100,
+             ),

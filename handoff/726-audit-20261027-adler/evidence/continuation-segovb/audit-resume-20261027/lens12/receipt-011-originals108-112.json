@@ -1,0 +1,543 @@
+{
+  "schema": "lens12-source-discovery-receipt-v1",
+  "id": "L12-RESUME-011",
+  "created_utc": "2026-10-27T11:16:17.933064+00:00",
+  "predecessor": "receipt-010-originals104-107.json",
+  "prospective_manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens12/prospective-sources-001.jsonl",
+    "sha256_prefix": "7bd4758f745bd9c3931890b47f31497145ad23cdf77a9045974bb15117a5fedd",
+    "bytes_prefix": 75948
+  },
+  "source_reads": [
+    {
+      "original_index": 108,
+      "source_id": "physical-p16:crates/adventuresim-core/src/foraging.rs",
+      "sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+      "actual_ranges": [
+        [
+          1,
+          1278
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            41,
+            50,
+            60,
+            68
+          ],
+          "occurrences": 4,
+          "role": "Serde enum naming configuration.",
+          "disposition": "Concrete serializer configuration; the corresponding policies, biomes, rarity and source categories remain enums."
+        },
+        {
+          "ranges": [
+            [
+              77,
+              123
+            ]
+          ],
+          "occurrences": 15,
+          "role": "Five source IDs, five names and five descriptions; raw from_id and text projections.",
+          "disposition": "Existing ForageSource is the canonical closed category. Its ID is erased into &[String] resolve399, preview571 and authority702, then reparsed419 or compared with a typed license binding731. This is an internal categorical string gap. Names/descriptions are human text projections; their eventual UI consumers remain unread, so no blanket text-boundary clearance."
+        },
+        {
+          "ranges": [
+            [
+              135,
+              284
+            ],
+            [
+              316,
+              341
+            ],
+            [
+              431,
+              472
+            ]
+          ],
+          "occurrences": 30,
+          "role": "Fifteen raw item IDs and fifteen human resource names, retained in ForageResource and ForageYield.",
+          "disposition": "Item IDs feed resource equality340, food catalog lookup436, seed context455/463 and yield state470. Keep the appropriate canonical open item ID through these ports. Names are separate presentation data, with eventual consumers still pending; a static catalog is not an exemption."
+        },
+        {
+          "lines": [
+            333,
+            406,
+            409,
+            414,
+            419,
+            425,
+            663,
+            667,
+            675
+          ],
+          "occurrences": 9,
+          "role": "Raw validation and rights-binding error results.",
+          "disposition": "Application APIs return &static str; resolve and ForageLicenseDecision::try_new collapse distinct semantic failures to prose. Exact server215:699 converts the error to owned String. Use typed errors through application callers, rendering only at the actual diagnostic boundary; final outer caller remains pending."
+        },
+        {
+          "lines": [
+            495
+          ],
+          "occurrences": 2,
+          "role": "Empty source/item strings supplied to a stealth draw.",
+          "disposition": "ForageDraw already distinguishes Stealth, but below109:11 always accepts raw source/item strings. Model the draw-specific context with typed category/item inputs or no context for Stealth; do not preserve empty-string sentinel arguments as a compatibility requirement."
+        },
+        {
+          "lines": [
+            632,
+            636,
+            641
+          ],
+          "occurrences": 3,
+          "role": "Byte-string purpose and frame tags for a rights-question digest.",
+          "disposition": "Actual CanonicalRightsQuestionDigest::new/frame and typed subject/resource/operation encoders2783:39-169 were read. These strings are consumed at the explicit length-framed native digest boundary; source.id bytes637 are extracted there from the typed enum, rather than retained as application category text. No cryptographic or global protocol correctness claim."
+        },
+        {
+          "ranges": [
+            [
+              841,
+              883
+            ],
+            [
+              916,
+              937
+            ],
+            [
+              980,
+              1048
+            ],
+            [
+              1050,
+              1066
+            ],
+            [
+              1084,
+              1278
+            ]
+          ],
+          "role": "All remaining test literals: 20 source-category inputs/expectations; 11 item IDs; six checked place/request/action ID inputs; three panic diagnostics; one hex format and one expected digest.",
+          "disposition": "Category and item IDs have the same semantic roles as production and belong to the connected canonical-owner repairs. Checked IDs1098/1110/1111/1214/1225/1226 reach existing constructors whose bodies were inspected. Panic/hex output text is a concrete diagnostic/encoding boundary. Existing test bodies were read, never executed; digest expectations do not impose old-format preservation."
+        }
+      ],
+      "status": "Full registered source consumed; accounted with findings and explicit unresolved receivers."
+    },
+    {
+      "original_index": 109,
+      "source_id": "physical-p16:crates/adventuresim-core/src/foraging/sampling.rs",
+      "sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+      "actual_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            13,
+            14,
+            15,
+            23
+          ],
+          "occurrences": 4,
+          "role": "Three native StreamId purpose labels and one expect message.",
+          "disposition": "Typed ForageDraw selects a canonical StreamId immediately. Raw source/item parameters11 are application identity inputs passed to native framed bytes20, reached from108:455/463 and two empty sentinel arguments495. Keep semantic values typed until the byte boundary; the expect is final human diagnostic text."
+        }
+      ],
+      "status": "Full registered source consumed; accounted with findings and explicit unresolved receivers."
+    },
+    {
+      "original_index": 110,
+      "source_id": "physical-p16:crates/adventuresim-core/src/herbalism.rs",
+      "sha256": "501c6cf8ba05522213c175784f28e6ddecd14aaab72a490fcb4bfa846eccb203",
+      "actual_ranges": [
+        [
+          1,
+          405
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              44,
+              49
+            ],
+            [
+              104,
+              123
+            ],
+            [
+              187,
+              205
+            ],
+            [
+              245,
+              287
+            ]
+          ],
+          "role": "MedicinalMaterialComponent.intervention_profile_id String; next_display_name String in authority and completion effect.",
+          "disposition": "The intervention profile is semantic identity, copied from actual DB row210:204-206 into retained material state; proper existing owner and admission remain pending. Display text is moved from authority249 into completion effect274. Actual producer210:490-519 trims human prefixes and formats a new label; eventual persisted/display consumer is still unread. Do not infer a semantic identity owner from a field merely named display."
+        },
+        {
+          "lines": [
+            176
+          ],
+          "occurrences": 1,
+          "role": "Rights digest purpose byte string.",
+          "disposition": "Immediate explicit canonical digest encoder boundary, with actual frame implementation inspected2783:39-169."
+        },
+        {
+          "lines": [
+            348,
+            361,
+            363,
+            369,
+            370,
+            388,
+            390
+          ],
+          "occurrences": 7,
+          "role": "Checked place/request/action test inputs, hex formatter/expected digest, human prepared-item label and panic message.",
+          "disposition": "Actual existing StrategicPlaceId and canonical action-ID constructor bodies were read. Text label feeds the same completion effect; its final receiver remains pending. Hex/panic are actual encoding/diagnostic boundaries. No test execution or old-output compatibility requirement."
+        }
+      ],
+      "status": "Full registered source consumed; accounted with findings and explicit unresolved receivers."
+    },
+    {
+      "original_index": 111,
+      "source_id": "physical-p16:crates/adventuresim-core/src/ingredient_preparation.rs",
+      "sha256": "ae086fd226814d3e6a5085e053f4e16a02c4a46ecbfbe9e0c2bf7063e6edf170",
+      "actual_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            7
+          ],
+          "occurrences": 1,
+          "role": "SpacetimeDB feature token.",
+          "disposition": "Compiler configuration boundary."
+        },
+        {
+          "ranges": [
+            [
+              13,
+              44
+            ]
+          ],
+          "occurrences": 4,
+          "role": "Cut/grind parser tokens and two raw action-definition ID returns.",
+          "disposition": "IngredientPreparationAction is the existing canonical category. Parse is an explicit string admission API. definition_id returns &str despite existing ActionDefinitionId, and the actual caller210:499 immediately readmits it with ActionDefinitionId::try_new. Return/carry the existing action-definition owner through internal APIs, selecting actual native text adapters only when needed. Lowercase parse tokens versus default Serde variant spellings are observed separate encodings; no same-protocol mismatch or compatibility requirement is inferred."
+        },
+        {
+          "lines": [
+            67,
+            70
+          ],
+          "occurrences": 5,
+          "role": "Four rejected parser inputs and a rejected JSON input in existing tests.",
+          "disposition": "Concrete parser/Serde text ingress; full constructor/parser body read. Source-only tests provide no execution evidence."
+        }
+      ],
+      "status": "Full registered source consumed; accounted with findings and explicit unresolved receivers."
+    },
+    {
+      "original_index": 112,
+      "source_id": "physical-p16:crates/adventuresim-core/src/inventory_measurement.rs",
+      "sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+      "actual_ranges": [
+        [
+          1,
+          804
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            48,
+            455
+          ],
+          "occurrences": 2,
+          "role": "Two assert/expect diagnostic messages.",
+          "disposition": "Immediate macro diagnostic boundaries. Numeric state and MeasurementError remain typed; no string-valued semantic API in the rest of the full804 body."
+        },
+        {
+          "lines": [
+            379,
+            380,
+            381
+          ],
+          "occurrences": 3,
+          "role": "JSON number text in serialization/admission tests.",
+          "disposition": "Actual serializer/parser boundary for ItemQuantity; NonZeroU32 construction and transparent Serde owner were read. No runtime/native library or numerical-invariant verdict."
+        }
+      ],
+      "status": "Full registered source consumed; accounted with findings and explicit unresolved receivers."
+    }
+  ],
+  "actual_material_receivers": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/rights.rs",
+      "sha256": "452c9b104be14352c93d247f83a87de98fa79b10c86d3b51d28eaa252a927b07",
+      "ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "trace": "Actual native rights digest framing, typed input encoders and SHA-256 invocation. Every byte-string tag is part of this encoder, not a free-form application identity. Place/fixture .to_string paths are concrete codec extraction; underlying place encoder helpers remain bounded dependencies, not whole SDK coverage.",
+      "credit": "Material receiving context only; no future original completion or other-lens transfer."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_action.rs",
+      "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+      "ranges": [
+        [
+          450,
+          535
+        ]
+      ],
+      "trace": "canonical_id macro463-488 owns checked ActionRequestId/ActionDefinitionId: rejects empty, surrounding whitespace, control characters and >256 bytes; PlanProvenance retains these owners. No actual full strategic planner/other original coverage.",
+      "credit": "Material receiving context only; no future original completion or other-lens transfer."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_place.rs",
+      "sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+      "ranges": [
+        [
+          200,
+          290
+        ],
+        [
+          1,
+          110
+        ],
+        [
+          425,
+          512
+        ],
+        [
+          555,
+          600
+        ]
+      ],
+      "trace": "StrategicPlaceId checked construction, StrategicIdentityComponent validation25-36, CaseSiteId55-73, native Display455-506/555-585 and error Display437-451. Body starts of FromStr/Deserialize outside completed methods are context only. Existing CaseSiteId and place owners may fit earlier raw site/location fields, but role-by-role comparison is still required; no automatic alias.",
+      "credit": "Material receiving context only; no future original completion or other-lens transfer."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/preparation_authority.rs",
+      "sha256": "4f06d127e8d7d358ded01b2d1b7eba9116644b53146a476dd780e98344689613",
+      "ranges": [
+        [
+          180,
+          220
+        ],
+        [
+          490,
+          545
+        ]
+      ],
+      "trace": "Medicinal component DB identity copy205 and prepared display label trim/format491-519; existing action definition readmission499. Incidental carrier_kind food_lot String comparison198 is an additional semantic category gap, requiring actual carrier owner/producer trace; raw String errors/labels in context are not globally cleared.",
+      "credit": "Material receiving context only; no future original completion or other-lens transfer."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/foraging.rs",
+      "sha256": "c58f33b486ca2344cd5e4a141065bf3f39de22d6dc739e48a217ae969173d604",
+      "ranges": [
+        [
+          695,
+          770
+        ]
+      ],
+      "trace": "Actual resolve error String conversion699, source-ID digest argument718, license decision argument727, ForagePlanAuthority.source_ids copy760 and checked request/action IDs731-734. Outer native reducer/schema and full digest/license helpers remain unread.",
+      "credit": "Material receiving context only; no future original completion or other-lens transfer."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Inherited categorical-state / M09 owner propagation",
+      "sources": [
+        "108:399-427,571,702,717-747",
+        "109:11-23",
+        "111:39-44",
+        "210:499"
+      ],
+      "remedy": "Carry existing ForageSource and ActionDefinitionId through internal state/APIs; represent stealth context without empty identity strings. Reuse appropriate open item and medicinal-profile owners after exact owner-fit/ingress review.",
+      "acceptance": "All actual producers, retained fields and receivers typed; native text/byte extraction at real codec/render/hash boundaries. No backwards-compatibility constraints.",
+      "unique_count_delta": 0
+    },
+    {
+      "family": "Raw semantic validation failures transported as prose",
+      "sources": [
+        "108:329-335,396-425,657-682",
+        "215:699"
+      ],
+      "remedy": "Canonical typed failure results through application callers, with human rendering at output. Identify actual suitable error owner and outer receiver before repair.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actual outer forage reducer/schema and full license/authority digest helpers; medicinal-profile ID admission and downstream prepared-label storage/display consumer.",
+    "Forage source names/descriptions/resource labels final UI receivers; raw item-ID identity admission and the proper shared owner remain pending.",
+    "Rights digest direct framing was consumed, but complete StrategicPlaceId encode/decode helpers, all variant policies and external native hash implementations were not expanded.",
+    "All earlier exact untraced roles, aliases, currentness and all20/P16/P17 obligations remain."
+  ],
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/foraging.rs",
+      "sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+      "ranges": [
+        [
+          1,
+          1278
+        ]
+      ],
+      "coverage": "Only lens12 source roles; all applicable remaining lenses and future original scopes stay independently required."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/foraging/sampling.rs",
+      "sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "coverage": "Only lens12 source roles; all applicable remaining lenses and future original scopes stay independently required."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/herbalism.rs",
+      "sha256": "501c6cf8ba05522213c175784f28e6ddecd14aaab72a490fcb4bfa846eccb203",
+      "ranges": [
+        [
+          1,
+          405
+        ]
+      ],
+      "coverage": "Only lens12 source roles; all applicable remaining lenses and future original scopes stay independently required."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/ingredient_preparation.rs",
+      "sha256": "ae086fd226814d3e6a5085e053f4e16a02c4a46ecbfbe9e0c2bf7063e6edf170",
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "coverage": "Only lens12 source roles; all applicable remaining lenses and future original scopes stay independently required."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/inventory_measurement.rs",
+      "sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+      "ranges": [
+        [
+          1,
+          804
+        ]
+      ],
+      "coverage": "Only lens12 source roles; all applicable remaining lenses and future original scopes stay independently required."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/rights.rs",
+      "sha256": "452c9b104be14352c93d247f83a87de98fa79b10c86d3b51d28eaa252a927b07",
+      "ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "coverage": "Only lens12 source roles; all applicable remaining lenses and future original scopes stay independently required."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_action.rs",
+      "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+      "ranges": [
+        [
+          450,
+          535
+        ]
+      ],
+      "coverage": "Only lens12 source roles; all applicable remaining lenses and future original scopes stay independently required."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_place.rs",
+      "sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+      "ranges": [
+        [
+          200,
+          290
+        ],
+        [
+          1,
+          110
+        ],
+        [
+          425,
+          512
+        ],
+        [
+          555,
+          600
+        ]
+      ],
+      "coverage": "Only lens12 source roles; all applicable remaining lenses and future original scopes stay independently required."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/preparation_authority.rs",
+      "sha256": "4f06d127e8d7d358ded01b2d1b7eba9116644b53146a476dd780e98344689613",
+      "ranges": [
+        [
+          180,
+          220
+        ],
+        [
+          490,
+          545
+        ]
+      ],
+      "coverage": "Only lens12 source roles; all applicable remaining lenses and future original scopes stay independently required."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/foraging.rs",
+      "sha256": "c58f33b486ca2344cd5e4a141065bf3f39de22d6dc739e48a217ae969173d604",
+      "ranges": [
+        [
+          695,
+          770
+        ]
+      ],
+      "coverage": "Only lens12 source roles; all applicable remaining lenses and future original scopes stay independently required."
+    }
+  ],
+  "qualifications": [
+    "Frozen physical-P16 exact f82 bytes remain distinct from current main/HEAD and other snapshots.",
+    "No project execution, tests, probes, new tests/helpers, source/Git mutations, root-ledger edits or publication.",
+    "User no-BC instruction overrides skill preserve-wire/accepted-input clause.",
+    "Source-accounted findings are not repair, runtime, global, current or unique-total clearance. Registered original/overlay/merged/material/new-extension populations remain separate."
+  ],
+  "proposed_count": {
+    "before": 108,
+    "after": 113,
+    "indices_completed": [
+      108,
+      109,
+      110,
+      111,
+      112
+    ],
+    "next_original": 113,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  }
+}

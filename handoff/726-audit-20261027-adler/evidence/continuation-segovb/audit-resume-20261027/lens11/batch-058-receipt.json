@@ -1,0 +1,93 @@
+{
+  "at": "2026-10-27T14:47:10.797945+00:00",
+  "lens": 11,
+  "status": "1063-1064 independently source-accounted with findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-058-registration.jsonl",
+    "sha256": "7041afe0ec16c7ac7f3e82962bcbf72a4db2ea5845dcd7876202a650d97ae58e"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-057.json",
+    "sha256": "0b8cf9b2fd9586bcc5b9f6b26e53db9d8eebb2d5e5e8a9188eb9f7052c16f39e"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1063,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/puzzles.rs",
+      "sha256": "e3eb46b050e02df31df84a6d18ded142d748383d0e9611c55bc720d086bbbfbe",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/e3eb46b050e02df31df84a6d18ded142d748383d0e9611c55bc720d086bbbfbe",
+      "ranges": [
+        [
+          1,
+          1131
+        ]
+      ],
+      "actual_eof": 1131,
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          1131
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1064,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/resource_allocation.rs",
+      "sha256": "d2ec402f714f075538152f588064e8025bd2436fac765d8168e09980f4fa911b",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/d2ec402f714f075538152f588064e8025bd2436fac765d8168e09980f4fa911b",
+      "ranges": [
+        [
+          1,
+          373
+        ]
+      ],
+      "actual_eof": 373,
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          373
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [],
+  "personal_proof_reuse": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-057-receipt.json",
+      "sha256": "9c77b0d5c5ee9373398c1d55b2ba6545ab7c85af20211b545aa4eee3fc71f72d"
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original_index": 1063,
+      "inventory": "Five payload-own puzzle-family sums for specs/privateauthority/observerprojections/answers; kind/slug projection; shared seed and family-specific versions; malformed-versus-wrongkind errors; Witness versus WitnessPath/Sigil, claims and truth assignments; RuneOperation/Gate/Example/Law, route and gate map, typed sigil transformation; raw counts/minimumambiguity/spec booleans, private permutation helpers, native rng adapter, existingfixtures.",
+      "disposition": "Family sums correctly bind variant payload and keep hidden seed/solution/law authority out of observer projections. Witness, WitnessPath and Sigil overlap names but mean different roles, and path uniqueness is independent from liar uniqueness; default permits multiple liars with one safe path. Claim polarity is genuine binary behavior, and separate claimfamily/unique/irredundant policies must not be conflated. RuneGateLaw Vec acts as keyed map, examples are grouped evidence, route is ordered and canrepeat under policy; raw Vec permits duplicate/missing gate association and standalone validate840-885 does not enforce all generator policies (gate-law uniqueness or repeated-operations/route-gates flags). Actual generator764-825 enforces these and native1207replay comparison rejects altered retained authority, so no live acceptance gap claimed. One unit-returning validate leaves public/Serde mutable authority/spec shapes rather than retaining admitted aggregate. Ordered answer wrapper stillcarriesunusedrevision while nativeenvelope guards it (057).",
+      "remedy": "Retain distinct family/payload and observer/private layers; admit family-specific nonempty/ordered/count and gate-law association aggregates, sharing numeric bounds beneath purpose fields rather than universal ID/count owner. One canonical admitted RuneSpec should govern generator and standalone admission, with native replay retained as deterministic authority check. Keep WitnessClaim subject payloads and pure answers separate from native revision envelope. Avoid duplicate universal label vocabulary and unsupported requirements that liar always be unique.",
+      "acceptance": "Full1-1131 consumed, including existingfixtures readnotrun; exact1061/1062/2595/2596 and native1207submission1 complete function1270-1458 from057 personally reused. Complexity-analysis implementation remains unconsumed; no claim all measured complexity/budget semantics validated, nor scope transfer to a distinct unchanged analysis module."
+    },
+    {
+      "original_index": 1064,
+      "inventory": "Puzzle-local JourneyHazard and ProvisionId closed7choice catalog; abstract weight versus readiness versus hazard coverage, projection ProvisionProfile duplicate derivedfacts; bounded offered/hazard counts and capacity, irredundancy/capacity-matters policies; unique sorted solution/submission sets; u16subset masks and summedscores.",
+      "disposition": "These provisions are symbolic puzzle choices, not proven aliases to physical itemcatalog IDs or kg/mass; do not force global inventory units from labels. Weight/capacity share abstract puzzleload unit, readiness different ranking score; bothu8storage must not erase meaning. Profile public fields can contradict itsid, but actual projection uses From<ProvisionId> canonical facts. Offered/hazard Vec public mutable/Serde needs unique bounded set admission; actualvalidate/generate enforce<=7 and strictordering. Public allocation_legal_packs accepts arbitrary slice length and shifts1u16 bythatlength (>=16 boundary), bypassing closed-catalog set assumption; qualified APIwidth/association candidate with actual canonical callers<=7 safe. Answerordersemanticallyignored bysort butduplicatesrejected; emptyanswer structurallyallowed butnotcorrectunlesssolutionempty. u8MAX counterfactualcapacity deliberately means nonbinding budget, outside authoredspec3..14, so do not universallyreuseboundedAuthoredCapacity forsolvercounterfactual.",
+      "remedy": "Canonical admitted offered provision/hazard sets and private derived profiles; name abstract load/readiness at API boundary and keep counterfactual unbounded capacity distinct from authored finite puzzle capacity. Preserve payloadchoiceowner, sorting/canonicalset meaning, and native bitmaskkernel with checkedwidth if public arbitrary collections remain.",
+      "acceptance": "Full1-373 personally consumed; all local producers/solver/checkreceivers complete,1063submission sum and057native validation/replay source. No runtime execution,physicalinventoryalias, global optimum proof or hypothetical oversized actual request."
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Frozen source-only; no current/runtime/unique/alias/global inference.",
+    "Standalone admitted-shape/policy/capacity candidates separate from live native validate+deterministic replay gate.",
+    "Complexity analysis implementation not consumed or globally covered by fixture calls/assertions; no whole solver correctness proof."
+  ]
+}

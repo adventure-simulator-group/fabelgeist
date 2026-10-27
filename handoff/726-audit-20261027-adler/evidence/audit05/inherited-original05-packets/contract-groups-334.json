@@ -1,0 +1,50 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-334",
+  "at": "2026-10-23T08:02:28.943652+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_wrapped_tasset.rs",
+      "sha256": "dc575790bf67f066d6c4dfd64c61f158383fc04efb95bc5dfd3633fe2ce17033",
+      "scope071_index": 761,
+      "actual_EOF": 339,
+      "scoped_ranges_compared": [
+        [
+          1,
+          339
+        ]
+      ],
+      "actual05_comparison": "Fresh full wrapped tasset host source plus explicit current comparison to previously read750-752 hull/sections/controls. Original inline fixture read only."
+    }
+  ],
+  "groups": [
+    {
+      "id": "support span bound before recording",
+      "comparison": "Support::new reads exact side hip/knee/root joints, computes suspension/top/bottom, requires finite strict top>bottom, actual thigh count>=3 and hip/torso count>=3, triangle low/high finite strict increasing. Normal nodes ceil(span/.025)+1 are at least2 for finite representable native count. This does not independently bound difference, float-to-u32 conversion or allocation products at extreme public geometry; no normal huge-body/GPU witness."
+    },
+    {
+      "id": "sample and hull capacities now traced",
+      "comparison": "Each side packs thigh points first, hip/torso next, layer points last plus duplicated hip/torso to supply lower layers. Source triangle selection uses same owned-vertex set and actual body faces. Capacity=max(9*triangle_count, point_count)+1 accommodates at most nine sliced samples per triangle or every selected point, plus hull construction endpoint slot under ordinary finite ordering. Exact buffers capacity*sectioncount*8 and same capacity uniform bind both kernels; no general native u32 capacity proof from casts. Actual fixed RADII/MEASURED/HULL constants remain separately queued native layout body."
+    },
+    {
+      "id": "whole side failure forwarded and final shell checked",
+      "comparison": "Design.validate then actual WrappedTassets variant required. Left/right support independently built then passed in fixed order to native wrapped generator. COPY_STATUS atomicORs both support statuses into returned part.status, so750-752 low-cardinality errors are retained. Mesh closure requires exactly two components and checks each component vertex slice against that side's measured inclusive low/high AFTER gauge/fluting/lap lift. This is positive whole-result checking, not automatic native DevicePart range validity."
+    },
+    {
+      "id": "normal layer policy and raw input qualification",
+      "comparison": "No nonempty lower layers means zero layer stations; otherwise packed layer low and lateral extent derive requested upper envelope and native LAYER_STATIONS count. Public layer positions may be nonfinite or unrelated to this body; actual normal ArmorLayerSurface source691 has its own checked factory route. Side membership, component-range correctness and finite current body joint/skin input remain exact native/source contracts. No raw independent layer/body pair accepted-state seal is inferred."
+    },
+    {
+      "id": "source fixture and freeze",
+      "comparison": "Inline328-339 checks final y just inside/outside measured span; freshly read without execution. No additional whole native wrapped_tassets body, no normal generated failure, no new unique finding. Resolves the parent allocation/status obligations left in330 only within stated native capacity/layout qualifications."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Native wrapped_tassets layout/constants and DevicePart generator/finish source bodies remain separately queued.",
+    "Raw extreme span/count narrowing is not a normal accepted feasible allocation witness."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

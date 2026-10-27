@@ -1,0 +1,196 @@
+{
+  "lens": 13,
+  "status": "source-accounted with qualified findings; continuing ordered inventory",
+  "authority": {
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "manifest_sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa"
+  },
+  "registrations": [
+    {
+      "path": "audit-resume-20261027/lens13/batch-111-registration.json",
+      "sha256": "bc4b39c03621afa4eec339cbed3b2fe941b6087349ebfaa1c69d8f5f6ea8e3f9"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-112-registration.json",
+      "sha256": "2635702a4951fb86b8f92ebd1de40c6431d853f2d205af35b2370c9ac9c0a35a"
+    }
+  ],
+  "actual_source_reads": [
+    {
+      "original": 190,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/corpse.rs",
+      "sha256": "7c9ccbcd887b073dab9e1e468d3e89b3b491124213383e12957c5e5736f06242",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/7c9ccbcd887b073dab9e1e468d3e89b3b491124213383e12957c5e5736f06242",
+      "requested_range_variants": [
+        [
+          1,
+          2122
+        ],
+        [
+          704,
+          790
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          2122
+        ]
+      ],
+      "eof": 2122,
+      "provenance": "Exact frozen f82 registered physical variant, full effective owner/producer/admission scope, independent lens13 numeric inventory.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          2122
+        ]
+      ]
+    },
+    {
+      "original": 191,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/corpse/autopsy_context.rs",
+      "sha256": "3b26e430df2bfed7d8872f969645bf2f86aa1792c64fcf0dfdb95834c793c6ab",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/3b26e430df2bfed7d8872f969645bf2f86aa1792c64fcf0dfdb95834c793c6ab",
+      "requested_range_variants": [
+        [
+          1,
+          25
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "eof": 25,
+      "provenance": "Exact frozen f82 registered physical variant, full effective owner/producer/admission scope, independent lens13 numeric inventory.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          25
+        ]
+      ]
+    },
+    {
+      "original": 192,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/corpse/draws.rs",
+      "sha256": "3a497fff6699e3e757043e6c8b448fbac0a1fb0c182489a328a9cba84f2776d2",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/3a497fff6699e3e757043e6c8b448fbac0a1fb0c182489a328a9cba84f2776d2",
+      "requested_range_variants": [
+        [
+          1,
+          27
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "eof": 27,
+      "provenance": "Exact frozen f82 registered physical variant, full effective owner/producer/admission scope, independent lens13 numeric inventory.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          27
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/reputation.rs",
+      "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+      "ranges": [
+        [
+          1,
+          110
+        ],
+        [
+          258,
+          375
+        ]
+      ],
+      "provenance": "Exact frozen f82 registered physical object; receiver access only, no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          110
+        ],
+        [
+          258,
+          375
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social.rs",
+      "sha256": "93e446648725e961aaac7377e920dd07a8fcef4b7c0ff243ad9b054801f2ca41",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/93e446648725e961aaac7377e920dd07a8fcef4b7c0ff243ad9b054801f2ca41",
+      "ranges": [
+        [
+          420,
+          468
+        ]
+      ],
+      "provenance": "Exact frozen f82 registered physical object; receiver access only, no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          420,
+          468
+        ]
+      ]
+    }
+  ],
+  "originals": [
+    {
+      "original": 190,
+      "status": "source_accounted_with_qualified_findings",
+      "role": "Corpse authority, examination, handling, permissions and persistence",
+      "inventory_and_trace": [
+        "Full 1-2122 independently consumed, including existing source fixtures. Raw u64 actor/subject/family identity, Option subject IDs, u32 injury sequence/revision, u16 handling/opening quality/obscuration basis points, bool burial/exhumation/burned/enemy/opened flags, f32 health/blood/damage/contact stress and social/check quantities are inventoried. Typed StrategicMinute death/discovery/operation dates remain retained. These semantic quantities and state relationships are owner/aggregate-state candidates; native row serialization alone does not justify keeping every intermediate raw.",
+        "Physical producers: autoresolve outcome -> canonical post_combat_body -> native health Vec, blood fraction and injury rows. Strategic death -> seven canonical limb fields, blood ratio clamp and native injury enumeration as u32. Native Vec admission checks exactly seven health entries before fixed array copy. Sequence enumeration has no independently established all-row bound; no actual multi-billion injury witness is claimed. Original49 full autopsy and original50 full autoresolve own source proofs are reused at identical hashes, including injury sorting/truncation32 and actual reporting kernels, not other-lens verdicts.",
+        "Actual reducer bodies require living/access/provenance/time/revision and permission confirmation, advance typed actor clock before retained findings, and insert retry receipts. Durations20/45/60/120/120/240 are minute policies. Handling /8,+800,+200 uses u16 saturation, not a checked 0..10000 owner. Core original49 intentionally accepts raw u16 and saturates decomposition arithmetic; this does not prove a universally bounded basis-point invariant. Quality percentage /100 is display conversion after actual core opening-quality output.",
+        "Revision starts0, saturating_add1; receipt key includes expected revision. After MAX is reached, distinct later actions of the same kind reuse a receipt key and can return early without performing their current state change. This is an extreme source-policy concern, not an ordinary runtime/reachable current DB incident or accepted unique finding. A revision owner must define exhaustion rather than implicitly promise uniqueness after saturation.",
+        "Corpse family admission checks raw input length<=8 before sort/dedup, verifies each actual resident and settlement, then retains native IDs. Empty family is explicitly valid. Unauthorized examination/exhumation and burning apply fixed infamy/family deltas, not hidden random values. Actual new recipients112 reject negative reputation deltas, retain immutable action event and feed original133 canonical spreading/contribution and capped aggregate addition. Social receiver adds affinity delta then existing put_affinity/current_affinity path; own prior1572-1623 source proof clamps/retains it. Morale receives actual existing record_morale_event, with original186 finite/overflow qualifications retained.",
+        "Permission attempt retains bool granted and typed minute, keyed by corpse/party/resident/scope/approach; actual core143 petition consumes skill/check/difficulty, roll and social values. Familiarity uses saturated minutes*10000/6000 then min10000; the early product saturation does not invalidate the final cap because saturated quotient is still far above10000. Language is actual effective oral hours / canonical oral fluency constant with instinct cap. Raw language/check/difficulty ports remain ownership candidates; no assertion all arbitrary native skill rows are finite.",
+        "Demo source is production-local fixture helper, not cfg(test): reserved near-MAX identities, typed seeds, skills20000/8000, minclock4000, elapsed150/120/3000/1500, attackerID minus100, difficulty12/1, whole BPS and retrybudget128 are explicitly staged demonstration policies. Actual native runtime activation is not claimed. Existing cfg(test) booleans, authority source checks, count>=2 and permission difficulty ordering were read only; no tests were added or executed."
+      ]
+    },
+    {
+      "original": 191,
+      "status": "source_accounted_with_owner_candidates",
+      "role": "Corpse to autopsy evidence context",
+      "inventory_and_trace": [
+        "Full1-25: typed minute/corpse retained state -> actual canonical corpse_location/decomposition_band -> enum decomposition, at_scene bool and raw u16 opening obscuration. All actual core49 receiver bodies were independently read in023-033 at identical SHA. Flags and BPS are semantic aggregate/owner candidates; this adapter does not introduce a separate numerical kernel or native boundary. No future source credit."
+      ]
+    },
+    {
+      "original": 192,
+      "status": "source_accounted_with_native_boundary_qualification",
+      "role": "Deterministic corpse operation draws",
+      "inventory_and_trace": [
+        "Full1-27: raw actor u64/revision u32 converted to fixed little-endian bytes at actual Seed derivation; native UTF8 bytes are source identities. Domain-separated StreamId and receipt values remain retained until actual RNG. Native bounded index(10000+1) yields0..10000, so u16 cast is bounded; permission divides by10000 into0..1 inclusive. Own seed/stream/native Uniform source proofs from023-033 and090 reused at matching hashes, not mere naming or cross-lens transfer. An existing corrected UnitBasisPoints/UnitInterval admission could own the result; original160 frozen UnitInterval checked construction is available, while basis_points derived Deserialize limitation remains. No new current/native/runtime guarantee."
+      ]
+    }
+  ],
+  "specific_boundary_proofs": [
+    "Own original49 SHA590a02732db6f33532c882ce0d6a6686de3f4bad9e3368242999cc3c30f9fd35 full1-648 in023-033; own original133/143 full receivers in054-062/069-076; own original178 character full,156 time full,186 condition full, and native social1572-1623 reused as exact existing source proofs. No reread/restart original credit.",
+    "Actual190 first1-700 consumed before context compaction under111; continuation701-2122 and191/192 full consumed after fresh hash verification.112 newly registered before reputation1-110/258-375 and social420-468 actual reads. Extra neighbouring signatures do not complete future original244/260."
+  ],
+  "qualified_observations": [
+    {
+      "id": "corpse-revision-saturation-policy",
+      "source": "190:receipt key and opening/exhumation/burial/burning mutation bodies",
+      "claim": "A saturated revision ceases distinguishing subsequent action attempts; retained receipts can suppress later same-kind handling. Extreme source witness only; current activation, alias reconciliation and acceptance remain open.",
+      "accepted_new_unique": false
+    }
+  ],
+  "limits": [
+    "Source discovery with findings is distinct from repair, runtime, currentness, alias and all-SDK validation. No globally unique count or global clearance.",
+    "No full future original244/260 or other-lens credit. All inherited disclosures/corrections, larger-lattice versus actual species population distinction and independent overlay/merge/shared queues persist.",
+    "No product/Git/root ledger/project execution/tests/probes/publication changes."
+  ]
+}

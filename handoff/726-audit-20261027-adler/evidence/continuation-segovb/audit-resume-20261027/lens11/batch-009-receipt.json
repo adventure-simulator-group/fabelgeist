@@ -1,0 +1,155 @@
+{
+  "at": "2026-10-27T11:25:59.023965+00:00",
+  "lens": 11,
+  "status": "856 independently source-accounted with qualified role findings",
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-008.json",
+    "sha256": "57cc943d026dea242f1f27097def1cf46230767f9e9d462c58cc508614d70e4e"
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-009-registration.jsonl",
+    "sha256": "6c86de3125ae2d0db4c0de10a382fd6bba444b94efdb2a456ff32d62b3523115"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 856,
+      "source_id": "pr-working:crates/adventuresim-core/src/autopsy.rs",
+      "sha256": "590a02732db6f33532c882ce0d6a6686de3f4bad9e3368242999cc3c30f9fd35",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/590a02732db6f33532c882ce0d6a6686de3f4bad9e3368242999cc3c30f9fd35",
+      "actual_eof": 648,
+      "ranges": [
+        [
+          1,
+          648
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          648
+        ]
+      ]
+    }
+  ],
+  "material_receivers": [
+    {
+      "kind": "connected-producer-payload",
+      "original_index": 875,
+      "sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+      "ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual strategic outcome/log/body health record consumed by durable autopsy projection",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          90
+        ]
+      ]
+    },
+    {
+      "kind": "connected-producer-payload",
+      "original_index": 857,
+      "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "ranges": [
+        [
+          305,
+          415
+        ],
+        [
+          453,
+          480
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual strategic outcome/log/body health record consumed by durable autopsy projection",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          305,
+          415
+        ],
+        [
+          453,
+          480
+        ]
+      ]
+    }
+  ],
+  "locator_only": [
+    {
+      "kind": "locator-only",
+      "originals": [
+        857,
+        875
+      ],
+      "sha256s": [
+        "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+        "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72"
+      ],
+      "queries": [
+        "struct CombatantOutcome",
+        "struct BattleLogEntry",
+        "struct CombatBody",
+        "struct BattleOutcome"
+      ],
+      "prospective": true,
+      "coverage_credit": false
+    }
+  ],
+  "per_role": [
+    {
+      "original": 856,
+      "roles": "CorpseLocation and DecompositionBand distinct state classifications; committed strategic PostCombatBody versus battle live state; BodyInjury named bounded retained evidence; SystemicPathologySnapshot; evidence context and external/internal examination role; deterministic StreamId/Seed attempt policy.",
+      "trace": "Full648 lines including existing fixture sources read. post_combat_body selects only same-defender damage logs, retains sequence/body-region/damage/projectile fact/contact stress, sorts/truncates injuries and deliberately discards attacker/weapon identity. Actual BattleLogEntry and CombatantOutcome payload857 plus CombatBody875 receiving fields personally read; this is durable strategic outcome projection, not tactical tick persistence. Lethality distinguishes incapacitation from health/blood-loss conditions. Death-required incident uses ordinary resolver with bounded deterministic derived seeds, no fabricated wound/canonical killer answer. Surgery/physiology/bestiary consume same physical evidence with distinct skill interpretation, emitted findings are human descriptions rather than gameplay dispatch strings. Systemic snapshots intentionally omit disease/source identity, no overconsolidation with transient live disease state. All declared state/flag/array/numeric roles inventoried; no actual game execution or medical factual guidance."
+    }
+  ],
+  "qualified_observations": [
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/autopsy.rs@590a02732db6f33532c882ce0d6a6686de3f4bad9e3368242999cc3c30f9fd35#health-and-fixed-point-evidence-roles",
+      "observation": "PostCombatBody stores raw seven-element health array; lethal-body uses indices4/5/6 and physiology reconstructs corresponding BodyPart labels via explicit same-order array. This is semantic body-region indexing, distinct from local numerical axes. Damage shares, blood-loss fraction, contact stress and fixed-point systemic/obscuration severity retain unlike value roles though sharing f32/u16. Actual producer and rendering use matching layout; no observed swap or malformed live source claim.",
+      "remedy": "Reconcile canonical body-region-indexed health and physical/fixed-point owners; retain typed region and distinct magnitude/quality roles across committed snapshot/interpretation APIs, convert only at actual persistence/numerical boundaries. Do not reuse RigJointOrdinal for body regions or infer stricter disease policy from this snapshot.",
+      "acceptance": "Supported durable health/evidence ports cannot confuse region ordinals with array axes or severity/quality with physical contact/damage magnitudes; preserve deliberately bounded non-diagnostic evidence authority.",
+      "dependencies": [
+        "existing master body-health/physical/identity aliases",
+        "actual current strategic snapshot and downstream persistence source"
+      ],
+      "currentness": "Frozen only, no accepted unique count"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/autopsy.rs@590a02732db6f33532c882ce0d6a6686de3f4bad9e3368242999cc3c30f9fd35#examination-scope",
+      "observation": "The same raw internal bool controls opening-obscuration use and external/internal morphology for surgery/physiology/bestiary. AutopsyEvidenceContext separately retains decomposition/scene fact and raw obscuration. These are actual examination/view roles; independent custody/decomposition and historical buried/exhumed facts are not one universal enum. Source gives no established rule that every bool combination is an impossible runtime state.",
+      "remedy": "Reconcile existing examination owner/enum-shape finding; use focused shared examination scope if useful at actual application ports and attach only payloads exclusive by established contract. Keep independent custody/time/decomposition authorities distinct, no invented illegal-history policy.",
+      "acceptance": "Actual examination kind is consistently represented across physical-finding consumers without collapsing distinct custody/decomposition axes.",
+      "dependencies": [
+        "enum-shape/aggregate lens coordination",
+        "current source/policy/alias reconciliation"
+      ],
+      "currentness": "Qualified source design question, not accepted unique/runtime finding"
+    }
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer. Preserve180/181nativeSDK/Bevy scheduling/imagecopylimits andallpendingreceiverqueues. M04current903reviewsseparate; notfrozenoriginal/lenscounts. Packet182InventoryItemId graph erasure, catalogkey/recordidentity and wear/order-selector sourcequestions retained, alias/currentness/unique acceptance unresolved. M04build-target review003 atdf5 andhostedCIseparatefromfrozenauditcounts. 184 newpublicDrapedPiece association/sourcegroupingquestion remainsfrozenlocal, noalias/currentness/uniqueacceptance; producerpathcoherent. M04df5validationseparate. 185 capacityreservationstaticAPIgap retainedasfrozenevidence only; alias/currentness/accepteduniqueness unresolved. No runtimewrongID orauthoredcurrentinputwitness. ExistingID/key/wear/savedassociationquestionsremainqualified. Packet186 independently accounts existing test-source812 only; fixture expectations are not observed execution/whole authored catalog/native guarantees and do not clear185 capacity witness. Existing lower-pattern fixture uses canonical owners; no new current alias or unique finding. Packet187 original813 only. New frozen inventory_ui and catalog wrapper material extensions mandatory other lenses, zero extra shared/original credit. UI acquisition is not atomic/all-worn; inherited capacity, typedID erasure/key authority and public saved-association questions retain all currentness/alias/unique limits.",
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_adoption_required": true,
+  "read_limits": [
+    "Only exact material outcome/log/body declarations reached; remaining autoresolve857 and model875 bodies retain pending ordered scopes.",
+    "Actual BattleLogEntry force comment does not prove all physical contact units globally; exact consumer operations/raw roles identified only.",
+    "No current source or canonical alias/unique reconciliation, full clinical/persistence/gameplay acceptance or execution claim."
+  ],
+  "restrictions": "No product/Git mutations/root ledger/project checks/scans/probes/tests/new tests/publication."
+}

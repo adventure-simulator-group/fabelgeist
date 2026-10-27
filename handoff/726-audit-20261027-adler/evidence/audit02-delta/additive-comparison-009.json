@@ -1,0 +1,44 @@
+{
+  "lens": "02 existing type owners",
+  "registry": "../shared-material-successor/source-extensions-192.json",
+  "registry_sha256": "8afe49cf6220f57c71de14e01c389f9f6ad686e6e3855fc4978ae622bc0f0116",
+  "receipts": [
+    {
+      "material_index": 191,
+      "registration": {
+        "source_id": "native-support:http-1.5.0/src/uri/mod.rs#maximum-length",
+        "sha256": "adf4235a0d72b03ca71582f4acab50fff8a146f2b92517a227806d372300186b",
+        "revision": "Cargo.lock pinned http1.5.0",
+        "archive_checksum": "918d3568bebf352712bc2ef3d46a8bcf1a75b373be6539de198e9105cbbf9ce0",
+        "ranges": [
+          [
+            145,
+            145
+          ]
+        ],
+        "actual_EOF": 1132,
+        "registration_evidence": "registration-015.json",
+        "reason": "Exact MAX_LEN bound directly used by registered Uri/PathAndQuery constructors; necessary for concrete short fragment witness admission, not whole SDK.",
+        "prior_reads": "05 declaration locator only; constant value notconsumed. Coordinator hash/metadata only."
+      },
+      "source_sha256": "adf4235a0d72b03ca71582f4acab50fff8a146f2b92517a227806d372300186b",
+      "read_ranges": [
+        [
+          145,
+          145
+        ]
+      ],
+      "exact_source": "const MAX_LEN: usize = (u16::MAX - 1) as usize;",
+      "source_basis": "Fresh independent one-line source read and exact hash verification for this lens. No other-lens coverage or verdict transfer.",
+      "analysis": "MAX_LEN is exactly (u16::MAX - 1) as usize, or65,534 bytes. This is native parser capacity, not a game distance, time, revision, or semantic identifier owner. It completes the selected capacity dependency for a concrete short URI witness while preserving URI versus original browser-URL representation distinctions.",
+      "disposition": "Selected native capacity dependency reconciled; no new source issue, repair, or unique finding.",
+      "limits": "Only line145 and explicitly cited same-lens earlier registered contracts. Historical limits for whole-module unsafe code, Authority/parse_full, native feature/platform behavior and actual application callers remain; no runtime acceptance or project checks.",
+      "new_unique_finding_claimed": false
+    }
+  ],
+  "previous_closure": "additive-closure-004.json",
+  "first_unfinished_material": null,
+  "final_clearance": false,
+  "source_edits": false,
+  "checks": "not run"
+}

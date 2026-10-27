@@ -1,0 +1,637 @@
+diff --git a/crates/adventuresim-core/src/linear_speed.rs b/crates/adventuresim-core/src/linear_speed.rs
+index cec74074b..b6cce2b65 100644
+--- a/crates/adventuresim-core/src/linear_speed.rs
++++ b/crates/adventuresim-core/src/linear_speed.rs
+@@ -27,6 +27,8 @@ pub enum SpeedError {
+     NonPositive,
+     #[error("linear speed arithmetic overflowed")]
+     Overflow,
++    #[error("linear speed interpolation bounds must be strictly increasing")]
++    NonIncreasingBounds,
+     #[error("invalid speed interpolation fraction: {0}")]
+     Fraction(#[from] FractionError),
+ }
+@@ -66,7 +68,6 @@ impl NonnegativeSpeed {
+ 
+     pub fn checked_lerp(self, other: Self, factor: UnitInterval) -> SpeedResult<Self> {
+         let factor = factor.fraction();
+-        // Same scalar operation order as the pinned Bevy/glam FloatExt kernel.
+         Self::from_metres_per_second(self.0 + (other.0 - self.0) * factor).map_err(|error| {
+             if error == SpeedError::NonFinite {
+                 SpeedError::Overflow
+@@ -75,6 +76,23 @@ impl NonnegativeSpeed {
+             }
+         })
+     }
++
++    /// Normalize speed within an increasing interval, saturating at its endpoints.
++    pub fn clamped_inverse_lerp(self, lower: Self, upper: Self) -> SpeedResult<UnitInterval> {
++        if lower >= upper {
++            return Err(SpeedError::NonIncreasingBounds);
++        }
++        if self <= lower {
++            return Ok(UnitInterval::ZERO);
++        }
++        if self >= upper {
++            return Ok(UnitInterval::ONE);
++        }
++        // Metres per second cancel inside this scalar normalization kernel.
++        Ok(UnitInterval::from_fraction(
++            (self.0 - lower.0) / (upper.0 - lower.0),
++        )?)
++    }
+ }
+ 
+ impl SignedSpeed {
+diff --git a/crates/adventuresim-core/src/unit_interval.rs b/crates/adventuresim-core/src/unit_interval.rs
+index 085636b1e..9fb38d42e 100644
+--- a/crates/adventuresim-core/src/unit_interval.rs
++++ b/crates/adventuresim-core/src/unit_interval.rs
+@@ -1,7 +1,7 @@
+ //! Checked finite fractions, independent of each producer's clamp policy.
+ 
+ use serde::{Deserialize, Serialize};
+-use std::fmt;
++use std::{fmt, ops::Mul};
+ 
+ pub type FractionResult<T> = Result<T, FractionError>;
+ 
+@@ -32,10 +32,28 @@ impl UnitInterval {
+     pub fn max(self, other: Self) -> Self {
+         Self(self.0.max(other.0))
+     }
++    pub fn complement(self) -> Self {
++        Self(1.0 - self.0)
++    }
++    /// Evaluate the cubic on a half interval, then reflect its upper half.
++    /// This keeps the result in the unit interval without an output clamp.
++    pub fn smoothstep(self) -> Self {
++        let reflected = self.0 > 0.5;
++        let value = if reflected { self.complement() } else { self };
++        let value = Self(value.0 * value.0 * (3.0 - 2.0 * value.0));
++        if reflected { value.complement() } else { value }
++    }
+     pub fn fraction(self) -> f32 {
+         self.0
+     }
+ }
++impl Mul for UnitInterval {
++    type Output = Self;
++
++    fn mul(self, other: Self) -> Self {
++        Self(self.0 * other.0)
++    }
++}
+ impl From<UnitInterval> for f32 {
+     fn from(value: UnitInterval) -> Self {
+         value.0
+diff --git a/crates/adventuresim-tactical-client/src/animation/authored_cadence.rs b/crates/adventuresim-tactical-client/src/animation/authored_cadence.rs
+index 4a83333b5..1782f9cb3 100644
+--- a/crates/adventuresim-tactical-client/src/animation/authored_cadence.rs
++++ b/crates/adventuresim-tactical-client/src/animation/authored_cadence.rs
+@@ -62,16 +62,10 @@ impl CalibrationMotion {
+ impl AuthoredStrideMeasurement {
+     pub(super) fn lerp(self, other: Self, amount: UnitInterval) -> AnimationValueResult<Self> {
+         Ok(Self {
+-            step_distance: NonnegativeLength::from_arithmetic(
+-                self.step_distance
+-                    .metres()
+-                    .lerp(other.step_distance.metres(), amount.fraction()),
+-            )?,
+-            maximum_stance_slip: NonnegativeLength::from_arithmetic(
+-                self.maximum_stance_slip
+-                    .metres()
+-                    .lerp(other.maximum_stance_slip.metres(), amount.fraction()),
+-            )?,
++            step_distance: self.step_distance.checked_lerp(other.step_distance, amount)?,
++            maximum_stance_slip: self
++                .maximum_stance_slip
++                .checked_lerp(other.maximum_stance_slip, amount)?,
+         })
+     }
+ }
+@@ -140,23 +134,17 @@ impl AuthoredLocomotionStrides {
+         let Some(walk) = self.walk else {
+             return Ok(None);
+         };
+-        let blend = ((speed.metres_per_second()
+-            - walk_locomotion_profile()
+-                .reference_speed
+-                .metres_per_second())
+-            / (run_locomotion_profile().reference_speed.metres_per_second()
+-                - walk_locomotion_profile()
+-                    .reference_speed
+-                    .metres_per_second()))
+-        .clamp(0.0, 1.0);
+-        if blend <= 0.0 {
++        let blend = speed.clamped_inverse_lerp(
++            walk_locomotion_profile().reference_speed,
++            run_locomotion_profile().reference_speed,
++        )?;
++        if blend == UnitInterval::ZERO {
+             Ok(Some(walk))
+         } else {
+             let Some(run) = self.run else {
+                 return Ok(None);
+             };
+-            walk.lerp(run, UnitInterval::from_fraction(blend)?)
+-                .map(Some)
++            walk.lerp(run, blend).map(Some)
+         }
+     }
+ 
+diff --git a/crates/adventuresim-tactical-client/src/animation/procedural/height.rs b/crates/adventuresim-tactical-client/src/animation/procedural/height.rs
+index 93a479e29..485e57882 100644
+--- a/crates/adventuresim-tactical-client/src/animation/procedural/height.rs
++++ b/crates/adventuresim-tactical-client/src/animation/procedural/height.rs
+@@ -6,7 +6,7 @@ use super::height_values::{
+ use super::*;
+ use crate::animation::presentation::playback_tuning;
+ use adventuresim_building_generator::spatial_geometry::SignedLength;
+-use adventuresim_tactical_core::animation::{CyclePhase, UnitInterval};
++use adventuresim_tactical_core::animation::CyclePhase;
+ 
+ impl LocomotionHeightState {
+     /// Apply the landing-only metre offset in the actual pelvis parent frame.
+@@ -250,25 +250,18 @@ pub(super) fn locomotion_height_wave(
+         return Ok(HeightDistance::ZERO);
+     }
+     let profile = locomotion_profile(skeleton, speed)?;
+-    let moving_weight = smoothstep(
+-        playback_tuning()
+-            .initial_locomotion_speed_metres_per_second
+-            .metres_per_second(),
+-        runtime_animation_config()
+-            .locomotion
+-            .blend_speed
+-            .metres_per_second(),
+-        speed.metres_per_second(),
+-    );
++    let moving_weight = speed
++        .clamped_inverse_lerp(
++            playback_tuning().initial_locomotion_speed_metres_per_second,
++            runtime_animation_config().locomotion.blend_speed.nonnegative(),
++        )?
++        .smoothstep();
+     if profile.flight_apex_metres <= HeightDistance::ZERO {
+         return Ok(HeightDistance::ZERO);
+     }
+-    profile.flight_apex_metres.flight_wave(
+-        skeleton.gait_phase,
+-        UnitInterval::from_fraction(moving_weight).map_err(|error| {
+-            AnimationValueError::from(error).for_quantity(AnimationQuantity::HeightDistance)
+-        })?,
+-    )
++    profile
++        .flight_apex_metres
++        .flight_wave(skeleton.gait_phase, moving_weight)
+ }
+ pub(super) fn authored_height_compensation(
+     skeleton: &SkeletonState,
+@@ -281,33 +274,21 @@ pub(super) fn authored_height_compensation(
+     {
+         return Ok(HeightDistance::ZERO);
+     }
+-    let run_weight = locomotion_profile(skeleton, skeleton.animation_speed()?)?
+-        .flight_apex_metres
+-        .metres()
+-        / run_locomotion_profile().flight_apex_metres.metres();
+-    if !run_weight.is_finite() {
+-        return Err(AnimationValueError::Overflow {
+-            quantity: AnimationQuantity::HeightDistance,
+-        });
+-    }
++    let speed = skeleton.animation_speed()?;
++    let run_weight = speed.clamped_inverse_lerp(
++        walk_locomotion_profile().reference_speed,
++        run_locomotion_profile().reference_speed,
++    )?;
++    let moving_weight = speed
++        .clamped_inverse_lerp(
++            playback_tuning().initial_locomotion_speed_metres_per_second,
++            runtime_animation_config().locomotion.blend_speed.nonnegative(),
++        )?
++        .smoothstep();
+     procedural_tuning()
+         .authored_ordinary_passing_rise_metres
+-        .scaled_by(UnitInterval::from_fraction(run_weight.clamp(0.0, 1.0))?)?
+-        .scaled_by(
+-            UnitInterval::from_fraction(smoothstep(
+-                playback_tuning()
+-                    .initial_locomotion_speed_metres_per_second
+-                    .metres_per_second(),
+-                runtime_animation_config()
+-                    .locomotion
+-                    .blend_speed
+-                    .metres_per_second(),
+-                skeleton.animation_speed()?.metres_per_second(),
+-            ))
+-            .map_err(|error| {
+-                AnimationValueError::from(error).for_quantity(AnimationQuantity::HeightDistance)
+-            })?,
+-        )
++        .scaled_by(run_weight)?
++        .scaled_by(moving_weight)
+ }
+ pub(super) fn landing_compression_for_impact(
+     profile: LocomotionProfile,
+diff --git a/crates/adventuresim-tactical-core/src/animation/evaluation.rs b/crates/adventuresim-tactical-core/src/animation/evaluation.rs
+index ff981ac6e..8ec8ae5f8 100644
+--- a/crates/adventuresim-tactical-core/src/animation/evaluation.rs
++++ b/crates/adventuresim-tactical-core/src/animation/evaluation.rs
+@@ -370,10 +370,7 @@ fn raised_guard_locomotion_samples(state: &SkeletonState) -> Vec<PoseSample> {
+ }
+ 
+ fn smoothstep01(value: f32) -> AnimationValueResult<UnitInterval> {
+-    let value = value.clamp(0.0, 1.0);
+-    Ok(UnitInterval::from_fraction(
+-        value * value * (3.0 - 2.0 * value),
+-    )?)
++    Ok(UnitInterval::from_fraction(value.clamp(0.0, 1.0))?.smoothstep())
+ }
+ 
+ fn airborne_sample(horizontal_speed: NonnegativeSpeed) -> AnimationValueResult<PoseSample> {
+@@ -381,12 +378,12 @@ fn airborne_sample(horizontal_speed: NonnegativeSpeed) -> AnimationValueResult<P
+         pose: SemanticPose::AirborneCenter,
+         sampling: PoseSampling::Span {
+             end: SemanticPose::AirborneTravel,
+-            progress: smoothstep01(
+-                horizontal_speed.metres_per_second()
+-                    / walk_locomotion_profile()
+-                        .reference_speed
+-                        .metres_per_second(),
+-            )?,
++            progress: horizontal_speed
++                .clamped_inverse_lerp(
++                    NonnegativeSpeed::ZERO,
++                    walk_locomotion_profile().reference_speed,
++                )?
++                .smoothstep(),
+         },
+         weight: BlendWeight::ONE,
+         mirror_lower_body: ClipMirror::Original,
+diff --git a/crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs b/crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs
+index 48fa5a63f..95cb83926 100644
+--- a/crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs
++++ b/crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs
+@@ -121,14 +121,15 @@ pub(super) fn upright_locomotion_samples(
+         return locomotion_samples(speed, phase);
+     }
+ 
+-    let locomotion = smoothstep01(
+-        speed.metres_per_second()
+-            / crate::combat_config::runtime_animation_config()
++    let locomotion = speed
++        .clamped_inverse_lerp(
++            NonnegativeSpeed::ZERO,
++            crate::combat_config::runtime_animation_config()
+                 .locomotion
+                 .blend_speed
+-                .metres_per_second(),
+-    )?
+-    .fraction();
++                .nonnegative(),
++        )?
++        .smoothstep();
+     let longitudinal_weight = longitudinal / total;
+     let lateral_weight = lateral / total;
+     let mut samples = locomotion_samples(speed, phase)?;
+@@ -149,7 +150,8 @@ pub(super) fn upright_locomotion_samples(
+             strafe_phase
+         },
+     );
+-    strafe.weight = BlendWeight::from_factor(locomotion * lateral_weight)?;
++    strafe.weight = BlendWeight::from(locomotion)
++        .checked_scale(BlendWeight::from_factor(lateral_weight)?)?;
+     samples.push(strafe);
+     samples.retain(|sample| !sample.weight.is_absent());
+     Ok(samples)
+@@ -219,23 +221,19 @@ fn locomotion_samples(
+     speed: NonnegativeSpeed,
+     phase: CyclePhase,
+ ) -> AnimationValueResult<Vec<PoseSample>> {
+-    let locomotion = smoothstep01(
+-        speed.metres_per_second()
+-            / crate::combat_config::runtime_animation_config()
++    let locomotion = speed
++        .clamped_inverse_lerp(
++            NonnegativeSpeed::ZERO,
++            crate::combat_config::runtime_animation_config()
+                 .locomotion
+                 .blend_speed
+-                .metres_per_second(),
+-    )?
+-    .fraction();
+-    let run = ((speed.metres_per_second()
+-        - walk_locomotion_profile()
+-            .reference_speed
+-            .metres_per_second())
+-        / (run_locomotion_profile().reference_speed.metres_per_second()
+-            - walk_locomotion_profile()
+-                .reference_speed
+-                .metres_per_second()))
+-    .clamp(0.0, 1.0);
++                .nonnegative(),
++        )?
++        .smoothstep();
++    let run = speed.clamped_inverse_lerp(
++        walk_locomotion_profile().reference_speed,
++        run_locomotion_profile().reference_speed,
++    )?;
+     let mut samples = Vec::with_capacity(5);
+     append_scaled(
+         &mut samples,
+@@ -245,17 +243,17 @@ fn locomotion_samples(
+             weight: BlendWeight::ONE,
+             mirror_lower_body: ClipMirror::Original,
+         }],
+-        BlendWeight::from_factor(1.0 - locomotion)?,
++        BlendWeight::from(locomotion.complement()),
+     )?;
+     append_scaled(
+         &mut samples,
+         vec![cycle_sample(SemanticPose::WalkContact, phase)],
+-        BlendWeight::from_factor(locomotion * (1.0 - run))?,
++        BlendWeight::from(locomotion * run.complement()),
+     )?;
+     append_scaled(
+         &mut samples,
+         vec![cycle_sample(SemanticPose::RunContact, phase)],
+-        BlendWeight::from_factor(locomotion * run)?,
++        BlendWeight::from(locomotion * run),
+     )?;
+     samples.retain(|sample| !sample.weight.is_absent());
+     Ok(samples)
+diff --git a/crates/adventuresim-tactical-core/src/animation/locomotion.rs b/crates/adventuresim-tactical-core/src/animation/locomotion.rs
+index 223f0051e..87aee0203 100644
+--- a/crates/adventuresim-tactical-core/src/animation/locomotion.rs
++++ b/crates/adventuresim-tactical-core/src/animation/locomotion.rs
+@@ -143,12 +143,7 @@ pub fn locomotion_profile(
+     }
+     let walk = walk_locomotion_profile();
+     let run_profile = run_locomotion_profile();
+-    let run = UnitInterval::from_fraction(
+-        ((speed.metres_per_second() - walk.reference_speed.metres_per_second())
+-            / (run_profile.reference_speed.metres_per_second()
+-                - walk.reference_speed.metres_per_second()))
+-        .clamp(0.0, 1.0),
+-    )?;
++    let run = speed.clamped_inverse_lerp(walk.reference_speed, run_profile.reference_speed)?;
+     Ok(LocomotionProfile {
+         gait: if run >= UnitInterval::HALF {
+             LocomotionGait::Run
+@@ -162,34 +157,27 @@ pub fn locomotion_profile(
+         support_phase_radius: walk
+             .support_phase_radius
+             .checked_lerp(run_profile.support_phase_radius, run)?,
+-        bounce_metres: walk
+-            .bounce_metres
+-            .scaled_by(UnitInterval::from_fraction(1.0 - run.fraction())?)?,
++        bounce_metres: walk.bounce_metres.scaled_by(run.complement())?,
+         flight_apex_metres: run_profile.flight_apex_metres.scaled_by(run)?,
+         landing: landing_profile(),
+     })
+ }
+ 
+-/// Shared distance model through authored walk/run reference points. This
+-/// replaces duplicated cadence arithmetic without changing current timing.
++/// Shared distance model through authored walk/run reference points.
+ pub fn ordinary_step_distance(speed: NonnegativeSpeed) -> AnimationValueResult<NonnegativeLength> {
+-    let speed = speed.metres_per_second().max(0.0);
+     let walk = walk_locomotion_profile();
+     let run = run_locomotion_profile();
+-    let distance = if speed <= walk.reference_speed.metres_per_second() {
+-        0.9_f32.lerp(
+-            walk.step_distance.metres(),
+-            speed / walk.reference_speed.metres_per_second(),
++    if speed <= walk.reference_speed {
++        NonnegativeLength::from_metres(0.9)?.checked_lerp(
++            walk.step_distance,
++            speed.clamped_inverse_lerp(NonnegativeSpeed::ZERO, walk.reference_speed)?,
+         )
+     } else {
+-        let blend = ((speed - walk.reference_speed.metres_per_second())
+-            / (run.reference_speed.metres_per_second() - walk.reference_speed.metres_per_second()))
+-        .clamp(0.0, 1.0);
+-        walk.step_distance
+-            .metres()
+-            .lerp(run.step_distance.metres(), blend)
+-    };
+-    NonnegativeLength::from_arithmetic(distance)
++        walk.step_distance.checked_lerp(
++            run.step_distance,
++            speed.clamped_inverse_lerp(walk.reference_speed, run.reference_speed)?,
++        )
++    }
+ }
+ 
+ pub fn gait_cycle_phase_delta(
+diff --git a/crates/adventuresim-tactical-core/src/animation/measurement.rs b/crates/adventuresim-tactical-core/src/animation/measurement.rs
+index 32a405bbe..a6af10e54 100644
+--- a/crates/adventuresim-tactical-core/src/animation/measurement.rs
++++ b/crates/adventuresim-tactical-core/src/animation/measurement.rs
+@@ -1,7 +1,10 @@
+ //! Checked animation measurements shared by configuration and presentation.
+ 
+-use super::{AnimationElapsed, AnimationQuantity, AnimationValueError, AnimationValueResult};
++use super::{
++    AnimationElapsed, AnimationQuantity, AnimationValueError, AnimationValueResult, UnitInterval,
++};
+ use adventuresim_building_generator::spatial_geometry::PositiveLength;
++use bevy::math::FloatExt;
+ use serde::{Deserialize, Serialize};
+ 
+ #[derive(
+@@ -36,6 +39,10 @@ impl NonnegativeLength {
+     pub fn metres(self) -> f32 {
+         self.0
+     }
++    /// Metre scalars and the admitted fraction meet at Bevy's native interpolation kernel.
++    pub fn checked_lerp(self, other: Self, fraction: UnitInterval) -> AnimationValueResult<Self> {
++        Self::from_arithmetic(self.0.lerp(other.0, fraction.fraction()))
++    }
+     /// Halving remains finite/nonnegative; subnormal underflow may validly reach zero.
+     pub fn half(self) -> Self {
+         Self(self.0 * 0.5)
+diff --git a/crates/adventuresim-tactical-core/src/animation/sample_values.rs b/crates/adventuresim-tactical-core/src/animation/sample_values.rs
+index 0551a8427..318bc19a9 100644
+--- a/crates/adventuresim-tactical-core/src/animation/sample_values.rs
++++ b/crates/adventuresim-tactical-core/src/animation/sample_values.rs
+@@ -4,6 +4,7 @@ use super::{
+     AnimationQuantity, AnimationValueError, AnimationValueResult, LOCOMOTION_SECOND_CONTACT_PHASE,
+     LeadFoot, UnitInterval,
+ };
++use bevy::math::FloatExt;
+ use serde::{Deserialize, Serialize};
+ 
+ /// Finite cycles, deliberately signed and unwrapped until a periodic operation.
+@@ -94,9 +95,8 @@ impl CycleDelta {
+     pub fn from_unit_cycles(value: super::UnitInterval) -> Self {
+         Self(value.fraction())
+     }
+-    /// Native interpolation of two cycle displacements using an admitted fraction.
++    /// Cycle scalars and the admitted fraction meet at Bevy's native interpolation kernel.
+     pub fn checked_lerp(self, other: Self, fraction: UnitInterval) -> AnimationValueResult<Self> {
+-        use bevy::math::FloatExt;
+         Self::from_arithmetic(self.0.lerp(other.0, fraction.fraction()))
+     }
+ 
+@@ -191,6 +191,11 @@ impl TryFrom<f32> for BlendWeight {
+         Self::from_factor(value)
+     }
+ }
++impl From<UnitInterval> for BlendWeight {
++    fn from(fraction: UnitInterval) -> Self {
++        Self(fraction.fraction())
++    }
++}
+ impl From<bool> for ClipMirror {
+     fn from(mirrored: bool) -> Self {
+         if mirrored {
+diff --git a/crates/adventuresim-tactical-core/src/animation/value_error.rs b/crates/adventuresim-tactical-core/src/animation/value_error.rs
+index 6683dea03..e2ac23c50 100644
+--- a/crates/adventuresim-tactical-core/src/animation/value_error.rs
++++ b/crates/adventuresim-tactical-core/src/animation/value_error.rs
+@@ -149,6 +149,8 @@ pub enum AnimationValueError {
+     OutsideSignedUnitInterval { quantity: AnimationQuantity },
+     #[error("{quantity} bounds are inverted")]
+     InvertedBounds { quantity: AnimationQuantity },
++    #[error("{quantity} bounds must be strictly increasing")]
++    NonIncreasingBounds { quantity: AnimationQuantity },
+     #[error("{quantity} arithmetic overflowed")]
+     Overflow { quantity: AnimationQuantity },
+ }
+@@ -169,6 +171,7 @@ impl AnimationValueError {
+             Self::OutsideUnitInterval { .. } => Self::OutsideUnitInterval { quantity },
+             Self::OutsideSignedUnitInterval { .. } => Self::OutsideSignedUnitInterval { quantity },
+             Self::InvertedBounds { .. } => Self::InvertedBounds { quantity },
++            Self::NonIncreasingBounds { .. } => Self::NonIncreasingBounds { quantity },
+             Self::Overflow { .. } => Self::Overflow { quantity },
+         }
+     }
+@@ -183,6 +186,7 @@ impl From<adventuresim_core::linear_speed::SpeedError> for AnimationValueError {
+             SpeedError::Negative => Self::Negative { quantity },
+             SpeedError::NonPositive => Self::NonPositive { quantity },
+             SpeedError::Overflow => Self::Overflow { quantity },
++            SpeedError::NonIncreasingBounds => Self::NonIncreasingBounds { quantity },
+             SpeedError::Fraction(error) => Self::from(error),
+         }
+     }
+diff --git a/crates/adventuresim-tactical-core/src/combat_config.rs b/crates/adventuresim-tactical-core/src/combat_config.rs
+index 5b8b9c62f..56094c0ba 100644
+--- a/crates/adventuresim-tactical-core/src/combat_config.rs
++++ b/crates/adventuresim-tactical-core/src/combat_config.rs
+@@ -1,19 +1,20 @@
+ use crate::animation::{
+-    AngularMagnitudeDegrees, CycleDelta, KneeTargetAmplification, ResponseRate,
+-    ResponseShapingTime, SignedAngleDegrees, SignedAngularSpeedDegrees,
++    AngularMagnitudeDegrees, KneeTargetAmplification, ResponseRate, ResponseShapingTime,
++    SignedAngleDegrees, SignedAngularSpeedDegrees,
+ };
+ use crate::animation::{
+-    AngularSpeedRadians, AnimationElapsed, AnimationFrequency, AnimationSampleRate, HeightDistance,
+-    NonnegativeLength, PositiveAnimationDuration, SignedHalfTurns, UnitInterval,
++    AngularSpeedRadians, AnimationElapsed, AnimationFrequency, NonnegativeLength,
++    PositiveAnimationDuration, SignedHalfTurns, UnitInterval,
+ };
+ use adventuresim_building_generator::spatial_geometry::{PositiveLength, SignedLength};
+-use adventuresim_core::linear_speed::{NonnegativeSpeed, PositiveSpeed, SignedSpeed};
++use adventuresim_core::linear_speed::{NonnegativeSpeed, SignedSpeed};
+ use adventuresim_core::{
+     body::BodyPart,
+     combat::{AutoresolveParameters, CombatResolutionParameters},
+ };
+ use bevy::prelude::Resource;
+ pub use landing::AnimationLandingConfig;
++pub use locomotion::{AnimationGaitConfig, AnimationLocomotionConfig};
+ pub use maneuvers::ManeuverTimingConfig;
+ pub use playback::AnimationPlaybackConfig;
+ use serde::{Deserialize, Serialize};
+@@ -38,6 +39,7 @@ mod ai_offense;
+ mod defaults;
+ mod incapacitation_forecast;
+ mod landing;
++mod locomotion;
+ mod maneuvers;
+ mod playback;
+ mod pose_buffer;
+@@ -76,29 +78,6 @@ pub struct TacticalAnimationConfig {
+     pub ragdoll: RagdollConfig,
+ }
+ 
+-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+-#[serde(deny_unknown_fields)]
+-pub struct AnimationLocomotionConfig {
+-    pub sample_hz: AnimationSampleRate,
+-    pub landing: AnimationLandingConfig,
+-    pub walk: AnimationGaitConfig,
+-    pub run: AnimationGaitConfig,
+-    pub raised_guard: AnimationGaitConfig,
+-    pub prone: AnimationGaitConfig,
+-    pub supine: AnimationGaitConfig,
+-    pub blend_speed: PositiveSpeed,
+-}
+-
+-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+-#[serde(deny_unknown_fields)]
+-pub struct AnimationGaitConfig {
+-    pub reference_speed_metres_per_second: PositiveSpeed,
+-    pub step_distance_metres: PositiveLength,
+-    pub support_phase_radius: CycleDelta,
+-    pub bounce_metres: HeightDistance,
+-    pub flight_apex_metres: HeightDistance,
+-}
+-
+ #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+ #[serde(deny_unknown_fields)]
+ pub struct GuardFootworkConfig {
+@@ -653,31 +632,9 @@ impl TacticalCombatConfig {
+         }
+ 
+         let animation = self.animation;
+-        let locomotion = animation.locomotion;
+-        let gait_values = [
+-            locomotion.walk,
+-            locomotion.run,
+-            locomotion.raised_guard,
+-            locomotion.prone,
+-            locomotion.supine,
+-        ];
+-        if gait_values.into_iter().any(|gait| {
+-            ![
+-                gait.step_distance_metres.metres(),
+-                gait.support_phase_radius.cycles(),
+-                gait.bounce_metres.metres(),
+-                gait.flight_apex_metres.metres(),
+-            ]
+-            .into_iter()
+-            .all(finite_nonnegative)
+-                || gait.step_distance_metres.metres() == 0.0
+-                || !(0.0..0.5).contains(&gait.support_phase_radius.cycles())
+-        }) {
+-            return Err(TacticalCombatConfigError::Validation(
+-                "invalid animation locomotion tuning",
+-            ));
+-        }
+-        locomotion.landing.validate()?;
++        animation
++            .locomotion
++            .validate(animation.playback.initial_locomotion_speed_metres_per_second)?;
+         let guard = animation.guard_footwork;
+         if ![
+             guard.default_half_width_metres,
+diff --git a/crates/adventuresim-tactical-core/src/physics/movement_speed.rs b/crates/adventuresim-tactical-core/src/physics/movement_speed.rs
+index 732830d5c..ca004a477 100644
+--- a/crates/adventuresim-tactical-core/src/physics/movement_speed.rs
++++ b/crates/adventuresim-tactical-core/src/physics/movement_speed.rs
+@@ -41,9 +41,7 @@ pub(super) const UNATTRIBUTED_JOG_SPEED: NonnegativeSpeed = authored_speed(3.75)
+ pub fn tactical_jog_speed(endurance: f32) -> SpeedResult<NonnegativeSpeed> {
+     let endurance = endurance.clamp(0.0, 5.0);
+     if endurance <= 1.0 {
+-        let smooth_endurance = UnitInterval::from_fraction(
+-            (endurance * endurance * (3.0 - 2.0 * endurance)).clamp(0.0, 1.0),
+-        )?;
++        let smooth_endurance = UnitInterval::from_fraction(endurance)?.smoothstep();
+         return TACTICAL_WALK_SPEED_METRES_PER_SECOND
+             .checked_lerp(MINIMUM_JOG_SPEED_METRES_PER_SECOND, smooth_endurance);
+     }

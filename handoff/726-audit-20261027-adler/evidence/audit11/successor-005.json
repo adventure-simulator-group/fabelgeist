@@ -1,0 +1,41 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-005",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 391,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/timing.rs",
+      "sha256": "8e06350841fdbea99a6cf45ab7c1aca53485273d5b07a064c11ee956cee446f7",
+      "ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "source_basis": "Fresh root personal complete exact frozen physical-p16 source read, independent own11 comparison.",
+      "concepts_actual_uses_and_mixup": "ObservedMeleeStart pairs MeleeAttackKey identity and AnimationSampleTick time from one native observed word; equal underlying u64 does not make roles redundant. Delayed contact/start/end are sample coordinates, durations convert to AnimationSampleSpan. The helper deliberately distinguishes minimum-one duration spans from zero-valid arrival spans.",
+      "disposition": "Preserve attack identity independently of delayed sample coordinates and preserve tick/span/CombatDuration distinctions. This prevents using delayed contact as attack identity or adding sample coordinates as duration. Shared native quantization is not duplicate authority. minimum_one is local rounding policy with actual different consumers; no mandatory extra wrapper suggested absent concrete mix-up. Numerical saturation/representability remains other-lens admission/operation obligation, not cleared by granularity. Existing tests read only.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 392,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/work.rs",
+      "sha256": "6be424d70d473190c8983c7f8657d117cf7aedd39c7e13c8e3d0cd6021d8a3fa",
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "source_basis": "Fresh root personal complete exact frozen physical-p16 source read, independent own11 comparison.",
+      "concepts_actual_uses_and_mixup": "RecoveryTime::After retains zero-valid/finite recovery, performance derives from total incapacitation, and missing combat state uses unchanged recovery. Attack workload distinguishes time, weapon mass/inertia, carried/body mass and endurance before charge_work.",
+      "disposition": "Preserve explicit recovery outcome and distinct physical roles beneath any shared checked leaves; zero weapon workload/unarmed values are legitimate and human mass bounds must not constrain generic item/creature mass. No separate fatigue pool or direct fatigue performance path is introduced; actual source reads total incapacitation. Support inherited M01/P16 physical/source/operation propagation, no new unique finding or runtime pass.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

@@ -1,0 +1,810 @@
+{
+  "lens": 13,
+  "status": "source_accounted_with_findings_and_retained_validation_limits",
+  "authority": {
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "manifest_sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa"
+  },
+  "registrations": [
+    {
+      "path": "batch-085-registration.json",
+      "sha256": "0b82e8e3c1303102e437ac81a764bf9aa466dec10d86df0a29b6d32cf120d9f0"
+    },
+    {
+      "path": "batch-086-registration.json",
+      "sha256": "8c5bdcc3114959a79ad8d2aed13757b04c94111392b37d1bb8cdd6b23f1ee687"
+    },
+    {
+      "path": "batch-087-registration.json",
+      "sha256": "4ffe1b8a603b32ef583ea9b6f09b9ce80465bf29b0054390af1f643a88839465"
+    },
+    {
+      "path": "batch-088-registration.json",
+      "sha256": "0a298fe447537cc35f543d02df0bd67b180d08515f09134ddf06a2536fcf6bc2"
+    },
+    {
+      "path": "batch-089-registration.json",
+      "sha256": "32365c2799cd87247ae48c9e0deb6683e27e9641336e9706b8bccc0836c0ccd2"
+    },
+    {
+      "path": "batch-090-registration.json",
+      "sha256": "b2e53efd1e9085cf9176393c182be32b8b0a609e41f3726149589c52f076cc77"
+    }
+  ],
+  "actual_source_reads": [
+    {
+      "original": 154,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_state.rs",
+      "sha256": "b704a73eded4ae15345f15781c8f117d919e7f97e047e08e31bb068c912072f8",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/b704a73eded4ae15345f15781c8f117d919e7f97e047e08e31bb068c912072f8",
+      "requested_range_variants": [
+        [
+          1,
+          65
+        ],
+        [
+          1,
+          573
+        ],
+        [
+          399,
+          450
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          573
+        ]
+      ],
+      "eof": 573,
+      "provenance": "Exact frozen f82 registered physical variant; prior receiver access is not original-role credit. No current type-repair verdict transfer.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          573
+        ]
+      ],
+      "read_qualification": "Actual bounded body consumed after this prospective registration and SHA verification. 085 bodies preceded context compaction; 086-090 bodies consumed after resumption. No future original or other-lens role credit from receiver access."
+    },
+    {
+      "original": 155,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_state/vocabulary.rs",
+      "sha256": "87baee6fe0607a7000600790507d24701630db771b54e221ce571cd98db34c13",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/87baee6fe0607a7000600790507d24701630db771b54e221ce571cd98db34c13",
+      "requested_range_variants": [
+        [
+          1,
+          104
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "eof": 104,
+      "provenance": "Exact frozen f82 registered physical variant; prior receiver access is not original-role credit. No current type-repair verdict transfer.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "read_qualification": "Actual bounded body consumed after this prospective registration and SHA verification. 085 bodies preceded context compaction; 086-090 bodies consumed after resumption. No future original or other-lens role credit from receiver access."
+    },
+    {
+      "original": 156,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_time.rs",
+      "sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+      "requested_range_variants": [
+        [
+          1,
+          16
+        ],
+        [
+          1,
+          34
+        ],
+        [
+          1,
+          860
+        ],
+        [
+          16,
+          16
+        ],
+        [
+          17,
+          17
+        ],
+        [
+          354,
+          408
+        ],
+        [
+          377,
+          423
+        ],
+        [
+          378,
+          396
+        ],
+        [
+          382,
+          394
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          860
+        ]
+      ],
+      "eof": 860,
+      "provenance": "Exact frozen f82 registered physical variant; prior receiver access is not original-role credit. No current type-repair verdict transfer.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          860
+        ]
+      ],
+      "read_qualification": "Actual bounded body consumed after this prospective registration and SHA verification. 085 bodies preceded context compaction; 086-090 bodies consumed after resumption. No future original or other-lens role credit from receiver access."
+    },
+    {
+      "original": 157,
+      "source_id": "physical-p16:crates/adventuresim-core/src/stub.rs",
+      "sha256": "ad0fb93704e78d160c5f6275292d92be0367afd4a2bc55a9c212e373fe9fe4dc",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/ad0fb93704e78d160c5f6275292d92be0367afd4a2bc55a9c212e373fe9fe4dc",
+      "requested_range_variants": [
+        [
+          1,
+          117
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          117
+        ]
+      ],
+      "eof": 117,
+      "provenance": "Exact frozen f82 registered physical variant; prior receiver access is not original-role credit. No current type-repair verdict transfer.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          117
+        ]
+      ],
+      "read_qualification": "Actual bounded body consumed after this prospective registration and SHA verification. 085 bodies preceded context compaction; 086-090 bodies consumed after resumption. No future original or other-lens role credit from receiver access."
+    },
+    {
+      "original": 158,
+      "source_id": "physical-p16:crates/adventuresim-core/src/surgery.rs",
+      "sha256": "c0b73f812166b3333b5611325539f8c850030c5db3ef7ff4b69b11c1bf9e34fd",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/c0b73f812166b3333b5611325539f8c850030c5db3ef7ff4b69b11c1bf9e34fd",
+      "requested_range_variants": [
+        [
+          1,
+          294
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          294
+        ]
+      ],
+      "eof": 294,
+      "provenance": "Exact frozen f82 registered physical variant; prior receiver access is not original-role credit. No current type-repair verdict transfer.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          294
+        ]
+      ],
+      "read_qualification": "Actual bounded body consumed after this prospective registration and SHA verification. 085 bodies preceded context compaction; 086-090 bodies consumed after resumption. No future original or other-lens role credit from receiver access."
+    },
+    {
+      "original": 159,
+      "source_id": "physical-p16:crates/adventuresim-core/src/survival.rs",
+      "sha256": "63f604eeeca44d35f365c9daded84a61ca19b8c9c3976ead8503a2edbf4d1c57",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/63f604eeeca44d35f365c9daded84a61ca19b8c9c3976ead8503a2edbf4d1c57",
+      "requested_range_variants": [
+        [
+          1,
+          430
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          430
+        ]
+      ],
+      "eof": 430,
+      "provenance": "Exact frozen f82 registered physical variant; prior receiver access is not original-role credit. No current type-repair verdict transfer.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          430
+        ]
+      ],
+      "read_qualification": "Actual bounded body consumed after this prospective registration and SHA verification. 085 bodies preceded context compaction; 086-090 bodies consumed after resumption. No future original or other-lens role credit from receiver access."
+    },
+    {
+      "original": 160,
+      "source_id": "physical-p16:crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+      "requested_range_variants": [
+        [
+          1,
+          58
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "eof": 58,
+      "provenance": "Exact frozen f82 registered physical variant; prior receiver access is not original-role credit. No current type-repair verdict transfer.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "read_qualification": "Actual bounded body consumed after this prospective registration and SHA verification. 085 bodies preceded context compaction; 086-090 bodies consumed after resumption. No future original or other-lens role credit from receiver access."
+    },
+    {
+      "original": 161,
+      "source_id": "physical-p16:crates/adventuresim-core/src/water_source.rs",
+      "sha256": "2892720bfed0f3280e91d03da01cf985b234731e8f08d449a76bf97f7cfdb556",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/2892720bfed0f3280e91d03da01cf985b234731e8f08d449a76bf97f7cfdb556",
+      "requested_range_variants": [
+        [
+          1,
+          500
+        ],
+        [
+          27,
+          105
+        ],
+        [
+          287,
+          323
+        ],
+        [
+          390,
+          430
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          500
+        ]
+      ],
+      "eof": 500,
+      "provenance": "Exact frozen f82 registered physical variant; prior receiver access is not original-role credit. No current type-repair verdict transfer.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          500
+        ]
+      ],
+      "read_qualification": "Actual bounded body consumed after this prospective registration and SHA verification. 085 bodies preceded context compaction; 086-090 bodies consumed after resumption. No future original or other-lens role credit from receiver access."
+    },
+    {
+      "registry_index": 300,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/surgery.rs",
+      "sha256": "e3beacbecc62d9b55e495bf21e6b2b430a08d0e464e6374a16047a4babf5ef08",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/e3beacbecc62d9b55e495bf21e6b2b430a08d0e464e6374a16047a4babf5ef08",
+      "ranges": [
+        [
+          1,
+          125
+        ],
+        [
+          360,
+          540
+        ]
+      ],
+      "eof": 1435,
+      "provenance": "Exact frozen registered physical bytes. Weather originals162-164 full effective scope; other entries receiver access only.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          125
+        ],
+        [
+          360,
+          540
+        ]
+      ],
+      "read_qualification": "Actual bounded body consumed after this prospective registration and SHA verification. 085 bodies preceded context compaction; 086-090 bodies consumed after resumption. No future original or other-lens role credit from receiver access."
+    },
+    {
+      "registry_index": 186,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/condition.rs",
+      "sha256": "48d1fbefb0cc475a98585e46dc0f4dabdef2c47eaa4bbb1ffb699ba604dc3758",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/48d1fbefb0cc475a98585e46dc0f4dabdef2c47eaa4bbb1ffb699ba604dc3758",
+      "ranges": [
+        [
+          285,
+          420
+        ]
+      ],
+      "eof": 2628,
+      "provenance": "Exact frozen registered physical bytes. Weather originals162-164 full effective scope; other entries receiver access only.",
+      "actual_consumed_ranges": [
+        [
+          285,
+          420
+        ]
+      ],
+      "read_qualification": "Actual bounded body consumed after this prospective registration and SHA verification. 085 bodies preceded context compaction; 086-090 bodies consumed after resumption. No future original or other-lens role credit from receiver access."
+    },
+    {
+      "registry_index": 269,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "ranges": [
+        [
+          140,
+          245
+        ],
+        [
+          1210,
+          1320
+        ]
+      ],
+      "eof": 1586,
+      "provenance": "Exact frozen registered physical bytes. Weather originals162-164 full effective scope; other entries receiver access only.",
+      "actual_consumed_ranges": [
+        [
+          140,
+          245
+        ],
+        [
+          1210,
+          1320
+        ]
+      ],
+      "read_qualification": "Actual bounded body consumed after this prospective registration and SHA verification. 085 bodies preceded context compaction; 086-090 bodies consumed after resumption. No future original or other-lens role credit from receiver access."
+    },
+    {
+      "registry_index": 118,
+      "source_id": "physical-p16:crates/adventuresim-core/src/lib.rs",
+      "sha256": "fd09a838f8cfdd2da3d48800fe56d9bbfad7e9ad5556ba696be7908b4a000c2a",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/fd09a838f8cfdd2da3d48800fe56d9bbfad7e9ad5556ba696be7908b4a000c2a",
+      "ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "eof": 138,
+      "provenance": "Exact frozen registered physical bytes. Weather originals162-164 full effective scope; other entries receiver access only.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "read_qualification": "Actual bounded body consumed after this prospective registration and SHA verification. 085 bodies preceded context compaction; 086-090 bodies consumed after resumption. No future original or other-lens role credit from receiver access."
+    },
+    {
+      "registry_index": 162,
+      "source_id": "physical-p16:crates/adventuresim-core/src/weather.rs",
+      "sha256": "62c3d0b44fa30ce15dab8e231cc5ef90e631e633d9ef4ea34091c5c8c3f3fde9",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/62c3d0b44fa30ce15dab8e231cc5ef90e631e633d9ef4ea34091c5c8c3f3fde9",
+      "ranges": [
+        [
+          1,
+          958
+        ]
+      ],
+      "eof": 958,
+      "provenance": "Exact frozen registered physical bytes. Weather originals162-164 full effective scope; other entries receiver access only.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          958
+        ]
+      ],
+      "read_qualification": "Actual bounded body consumed after this prospective registration and SHA verification. 085 bodies preceded context compaction; 086-090 bodies consumed after resumption. No future original or other-lens role credit from receiver access."
+    },
+    {
+      "registry_index": 163,
+      "source_id": "physical-p16:crates/adventuresim-core/src/weather/field.rs",
+      "sha256": "8f11cdffeb39e9e0ca929c9cf3ac853b89c6d926c5bdd4d42c0ec9208e36cede",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/8f11cdffeb39e9e0ca929c9cf3ac853b89c6d926c5bdd4d42c0ec9208e36cede",
+      "ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "eof": 61,
+      "provenance": "Exact frozen registered physical bytes. Weather originals162-164 full effective scope; other entries receiver access only.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "read_qualification": "Actual bounded body consumed after this prospective registration and SHA verification. 085 bodies preceded context compaction; 086-090 bodies consumed after resumption. No future original or other-lens role credit from receiver access."
+    },
+    {
+      "registry_index": 164,
+      "source_id": "physical-p16:crates/adventuresim-core/src/weather/streams.rs",
+      "sha256": "441a11bfce5d076e3dc78875c0f4bfbe8622178c5c1a4cba2c7e0077f5ea2ea8",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/441a11bfce5d076e3dc78875c0f4bfbe8622178c5c1a4cba2c7e0077f5ea2ea8",
+      "ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "eof": 11,
+      "provenance": "Exact frozen registered physical bytes. Weather originals162-164 full effective scope; other entries receiver access only.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "read_qualification": "Actual bounded body consumed after this prospective registration and SHA verification. 085 bodies preceded context compaction; 086-090 bodies consumed after resumption. No future original or other-lens role credit from receiver access."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/model.rs",
+      "sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+      "ranges": [
+        [
+          225,
+          325
+        ]
+      ],
+      "eof": 496,
+      "provenance": "Reconstructed unchanged physical exact a120 base=head; pinned physical manifest files/status no path; no current or PR substitution.",
+      "actual_consumed_ranges": [
+        [
+          225,
+          325
+        ]
+      ],
+      "read_qualification": "Actual bounded body consumed after this prospective registration and SHA verification. 085 bodies preceded context compaction; 086-090 bodies consumed after resumption. No future original or other-lens role credit from receiver access."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+      "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+      "ranges": [
+        [
+          1,
+          190
+        ],
+        [
+          640,
+          735
+        ]
+      ],
+      "eof": 908,
+      "provenance": "Reconstructed unchanged physical exact a120 base=head; pinned physical manifest files/status no path; no current or PR substitution.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          190
+        ],
+        [
+          640,
+          735
+        ]
+      ],
+      "read_qualification": "Actual bounded body consumed after this prospective registration and SHA verification. 085 bodies preceded context compaction; 086-090 bodies consumed after resumption. No future original or other-lens role credit from receiver access."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/investigation_eval/report.rs",
+      "sha256": "9973408d3a3ebff65189a41a0537488dcf4ba9f88b667672e09543fc90318db4",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/9973408d3a3ebff65189a41a0537488dcf4ba9f88b667672e09543fc90318db4",
+      "ranges": [
+        [
+          1090,
+          1220
+        ]
+      ],
+      "eof": 1659,
+      "provenance": "Reconstructed unchanged physical exact a120 base=head; pinned physical manifest files/status no path; no current or PR substitution.",
+      "actual_consumed_ranges": [
+        [
+          1090,
+          1220
+        ]
+      ],
+      "read_qualification": "Actual bounded body consumed after this prospective registration and SHA verification. 085 bodies preceded context compaction; 086-090 bodies consumed after resumption. No future original or other-lens role credit from receiver access."
+    },
+    {
+      "registry_index": 300,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/surgery.rs",
+      "sha256": "e3beacbecc62d9b55e495bf21e6b2b430a08d0e464e6374a16047a4babf5ef08",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/e3beacbecc62d9b55e495bf21e6b2b430a08d0e464e6374a16047a4babf5ef08",
+      "ranges": [
+        [
+          541,
+          620
+        ]
+      ],
+      "eof": 1435,
+      "provenance": "Exact frozen registered physical bytes. Weather originals162-164 full effective scope; other entries receiver access only.",
+      "purpose": "Finish actual wound settlement and blood recipient body",
+      "actual_consumed_ranges": [
+        [
+          541,
+          620
+        ]
+      ],
+      "read_qualification": "Actual bounded body consumed after this prospective registration and SHA verification. 085 bodies preceded context compaction; 086-090 bodies consumed after resumption. No future original or other-lens role credit from receiver access."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+      "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+      "ranges": [
+        [
+          191,
+          225
+        ]
+      ],
+      "eof": 908,
+      "provenance": "Reconstructed unchanged physical exact a120 base=head; pinned physical manifest files/status no path; no current or PR substitution.",
+      "purpose": "Finish actual itinerary retention constructor",
+      "actual_consumed_ranges": [
+        [
+          191,
+          225
+        ]
+      ],
+      "read_qualification": "Actual bounded body consumed after this prospective registration and SHA verification. 085 bodies preceded context compaction; 086-090 bodies consumed after resumption. No future original or other-lens role credit from receiver access."
+    },
+    {
+      "registry_index": 300,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/surgery.rs",
+      "sha256": "e3beacbecc62d9b55e495bf21e6b2b430a08d0e464e6374a16047a4babf5ef08",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/e3beacbecc62d9b55e495bf21e6b2b430a08d0e464e6374a16047a4babf5ef08",
+      "ranges": [
+        [
+          185,
+          225
+        ],
+        [
+          870,
+          900
+        ],
+        [
+          965,
+          1135
+        ]
+      ],
+      "eof": 1435,
+      "provenance": "Exact frozen registered physical bytes. Weather originals162-164 full effective scope; other entries receiver access only.",
+      "actual_consumed_ranges": [
+        [
+          185,
+          225
+        ],
+        [
+          870,
+          900
+        ],
+        [
+          965,
+          1135
+        ]
+      ],
+      "read_qualification": "Actual bounded body consumed after this prospective registration and SHA verification. 085 bodies preceded context compaction; 086-090 bodies consumed after resumption. No future original or other-lens role credit from receiver access."
+    },
+    {
+      "registry_index": 186,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/condition.rs",
+      "sha256": "48d1fbefb0cc475a98585e46dc0f4dabdef2c47eaa4bbb1ffb699ba604dc3758",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/48d1fbefb0cc475a98585e46dc0f4dabdef2c47eaa4bbb1ffb699ba604dc3758",
+      "ranges": [
+        [
+          2144,
+          2235
+        ]
+      ],
+      "eof": 2628,
+      "provenance": "Exact frozen registered physical bytes. Weather originals162-164 full effective scope; other entries receiver access only.",
+      "actual_consumed_ranges": [
+        [
+          2144,
+          2235
+        ]
+      ],
+      "read_qualification": "Actual bounded body consumed after this prospective registration and SHA verification. 085 bodies preceded context compaction; 086-090 bodies consumed after resumption. No future original or other-lens role credit from receiver access."
+    },
+    {
+      "registry_index": 300,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/surgery.rs",
+      "sha256": "e3beacbecc62d9b55e495bf21e6b2b430a08d0e464e6374a16047a4babf5ef08",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/e3beacbecc62d9b55e495bf21e6b2b430a08d0e464e6374a16047a4babf5ef08",
+      "ranges": [
+        [
+          800,
+          885
+        ],
+        [
+          900,
+          964
+        ],
+        [
+          1136,
+          1175
+        ]
+      ],
+      "eof": 1435,
+      "provenance": "Exact frozen registered physical bytes. Weather originals162-164 full effective scope; other entries receiver access only.",
+      "actual_consumed_ranges": [
+        [
+          800,
+          885
+        ],
+        [
+          900,
+          964
+        ],
+        [
+          1136,
+          1175
+        ]
+      ],
+      "read_qualification": "Actual bounded body consumed after this prospective registration and SHA verification. 085 bodies preceded context compaction; 086-090 bodies consumed after resumption. No future original or other-lens role credit from receiver access."
+    },
+    {
+      "source_id": "physical-p16:determinism/stream.rs",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "provenance": "Exact frozen source already staged; previous own body range91-169 did not establish index receiver. Newly read actual native RNG arithmetic/selection owner.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "read_qualification": "Actual bounded body consumed after this prospective registration and SHA verification. 085 bodies preceded context compaction; 086-090 bodies consumed after resumption. No future original or other-lens role credit from receiver access."
+    }
+  ],
+  "originals": [
+    {
+      "original": 154,
+      "role": "Typed lifecycle and flattened persistence",
+      "inventory_and_trace": "Inventory covers every raw identifier/revision/dowry/entropy/count, optional payload, minute comparison and literal/test value in full573. StrategicMinute owns absolute clocks; enums own lifecycle alternatives; parser checks paid>=accepted and field coexistence. CustodyVersion deliberately admits allu32 including0 (existing source case); no invented nonzero policy. Courtship informal dowry0 and approved-father payload are retained. Actual ContractAuthority/MissionAuthority/CourtshipRecord parsed_state bodies reconstruct these owners from flattened native rows. Raw character IDs/dowry/custody version remain possible owner propagation candidates; no assertion that every resolved timestamp must follow effective time, because cancellation before effectiveness can be valid.",
+      "status": "source_accounted_with_qualifications"
+    },
+    {
+      "original": 155,
+      "role": "Lifecycle enum vocabulary",
+      "inventory_and_trace": "Full104 contains enum alternatives/derive attributes and no author-supplied raw numeric payload or explicit integer discriminant. Match/serialization derives consume enum values; macro expansion/native storage not independently certified.",
+      "status": "source_accounted_with_qualifications"
+    },
+    {
+      "original": 156,
+      "role": "Strategic clock, forecast and physiological numerical kernels",
+      "inventory_and_trace": "Full860: minute-of-day privateu16 <1440; hour<24/minute<60, night360/1200; u64 minute/count windows, max512 segments; travel/calendar conversion u128 and checked/saturating clocks; rawfatigue/calories/capacity, percent threshold, boolnight; lunar42524 phase/cos kernel; convalescence fixed7 limbs,64doublings/u64MAX sentinel/binary search; training allocations constN and hours ratio. Actual journey caller derives capacity=max(endurance,.01)*1000, calories=max(raw,0), typed schedule then retains forecast camps/raw fatigue and elapsed fields in DB. No blanket fatigue<=1 or trainingN cap. Actual maximum-clock forecast liveness witness retained below.",
+      "status": "source_accounted_with_qualifications"
+    },
+    {
+      "original": 157,
+      "role": "Public documentation stub",
+      "inventory_and_trace": "Full117 constants: attributes1, health1, weight70, calories0, focus1, equipment1, inventory10, skills1000, checked1m reach. Native PlayerInfo trait receivers use these numbers as fixture/document defaults; corelib full138 shows doc(hidden) pubmod without cfg gating, so not claimed test-only/unreachable in production. Every literal/default/trait return covered; no invented admission guarantees for arbitrary real players.",
+      "status": "source_accounted_with_qualifications"
+    },
+    {
+      "original": 158,
+      "role": "Treatment difficulty, durations and wound progression",
+      "inventory_and_trace": "Full294 covers procedure enum, self penalty2.5, DC1 kit rule, .025/day worsening, .08/day blood loss, exposure2u16/0, duration30/60/45 with ExtractDC*10-skill*5 min10 ceil\u2192u64, stitch attenuation .4/.12/.2 and cut/blood clamping0..1/terminal.1. Difficulty is not bounded to5; zero valid. Actual STDB treatment checks skill>=DC/equipment, passes duration to clock alignment+clipped disease/injury waits, then commits wound/blood/exposure/receipt. Blood simulation input is exact BodyRegion::ALL collection, actual outputs indexed back to same limb array; no unlimited real wound vector claim. Actual set_blood_fraction clamps then updates DB and death threshold. Primitive numerical kernels and typed minute boundary coexist with raw retained DC/skill/fraction fields; NaN/admission/current activation remain qualified.",
+      "status": "source_accounted_with_qualifications"
+    },
+    {
+      "original": 159,
+      "role": "Survival exposure and damage progress",
+      "inventory_and_trace": "Full430: wetness basispoints0..10000, signedstrain\u00b110000, insulationmax8000/weatherproof10000/outer resistance20, shelterWind10000/2500/0; frostbite counter threshold360 and .01 damage; nativeweather iterator and state fold; tied peripheral array4 and modulo length1..4. Actual condition producer calls weather_at per actually committed elapsed minute, loads canonical clothing, persists outcome and applies offset-specific limb damage. Generated weather arithmetic is bounded apart from separately retained extreme signed-coordinate issue; public WeatherSnapshot rawfields/derivedserde can bypass generator bounds. Public invalid strain/progress and weather extremes are separate source API risks, not claimed ordinary DB admission/runtime events.",
+      "status": "source_accounted_with_qualifications"
+    },
+    {
+      "original": 160,
+      "role": "Frozen bounded-fraction owner",
+      "inventory_and_trace": "Full58 independently read: private finite inclusive[0,1] f32, signedzero valid, checkednew/TryFrom/Serde try_from; ZERO/ONE/HALF/default0/max are range-closed. Own prior exact physical autoresolve/melee/defense/incap bodies trace actual typed parameter retention and final f32 combat kernels. Frozen owner is distinct from current M04 API; no current repair/other-lens verdict transfer.",
+      "status": "source_accounted_with_qualifications"
+    },
+    {
+      "original": 161,
+      "role": "Water conservation, infection load and rights-plan primitives",
+      "inventory_and_trace": "Full500: rawu64 ml/microunit counters, boolopen, receipt map, fixedSHA256 digest; checkeddraw amount/holding plus later load addition; unchecked transfer/cook/split/consume operations, numerator/denominator policy; fixed event IDs/minute1/immunity3000/consumed10000; required facts7 and action completion; typedMicroliters material transfer uses guarded total/nonzero/moved<=total andu128 ratio. Every literal/cast/default/fixture occurrence inventoried. Actual discovered caller is existing #[test] outbreak_fixture, bounded500000/1000/12000000,cook1/10000,split1/2, validated event; no live-tactical/production incidence claimed. Public arithmetic/error-atomicity findings retained below. Zero-volume-positive-load material contribution invariants and full material persistence are not assumed.",
+      "status": "source_accounted_with_qualifications"
+    },
+    {
+      "original": 162,
+      "role": "Weather numeric state, generation and overlays",
+      "inventory_and_trace": "Full958 independently includes runtime bodies plus existing source fixtures, not execution: rulesu16=4/seedword/interval360/cell250000/history16; fixedpoint65536/spatial8/time4; rawweather/atmosphere/cloud snapshot fields and derivedserde; means/season/diurnal/elevation, pressure/humidity/wind/precip/cloud classification thresholds/heights; bounded basispoint outputs, ground decay3/4,7/8; i64nativefield call; typedStrategicMinute period/checkedfloor; atan2/degrees/remainder native angular kernel; overlay convex integer ratio and widened u64 training split. Actual generated result feeds survival exposure and same-file retained snapshot getters; caller current path read. Public raw snapshot/coords allow values outside generated policy; suggested owners for units/basispoint/signedtemperature/angles not mechanical UnitInterval conversion. Existing fixed-point and output budget arithmetic inventoried; extreme-time overflow below. No full weather frontend/render SDK claim.",
+      "status": "source_accounted_with_qualifications"
+    },
+    {
+      "original": 163,
+      "role": "Fixed-point correlated weather field",
+      "inventory_and_trace": "Full61: i64 interval cap, spatial/time lattice, signed coordinates, nonnegative remainder/scale, fade cubic denominator65535 and interpolation.clamp0..10000; typed StreamId/Seed plus u64 entropy words. Actual seed owner prior full213 reused; actual RNG index newly read1-90, prior91-169 sample_below proof reused: nonzero10001 selection \u2192nativeUniform below bound\u2192u16 then fixedpoint numerical kernel. u64 signed-coordinate casts are replay bit representation, not claimed nonnegative physical coordinates. Interval cap insufficient to reserve signedlongitude offset; preserve finding. Private functions/constant names alone are not native-boundary exemptions.",
+      "status": "source_accounted_with_qualifications"
+    },
+    {
+      "original": 164,
+      "role": "Weather random purpose IDs",
+      "inventory_and_trace": "Full11 contains no raw nonstring literal/field/argument; typed StreamId constants are used by exact field producer and seed-framed RNG. No independent numeric admission or SDK blanket clearance from string names.",
+      "status": "source_accounted_with_qualifications"
+    }
+  ],
+  "findings": [
+    {
+      "id": "L13-156-MAX-CLOCK-NONPROGRESS",
+      "kind": "qualified source defect",
+      "trace": "forecast_itinerary(StrategicMinute::MAX, movement1, walking480, nightfalse, one finite member) passes public inputs. Scheduled window saturates to(MAX,MAX); duration0 branch saturating_add_minutes(1) retainsMAX and continues without segment/movement progress, so512 segment cap cannot terminate this branch.",
+      "qualification": "Source deduction only; no execution/currentness/ordinary game-clock reachability/runtime witness. Distinct loop-progress contract from cumulative-share saturation-before-division; not automatic alias/accepted unique.",
+      "repair_contract": "At admitted terminal clock, return bounded failure/truncation or checked progress rather than repeating unchanged state; preserve valid zero movement behavior."
+    },
+    {
+      "id": "L13-161-DRAW-ERROR-ATOMICITY",
+      "kind": "qualified public API defect",
+      "trace": "new(3); successful draw(a,1,u64::MAX); draw(b,1,1) reaches checked load overflow after source_remaining_ml and holding_ml already mutate, returning error with water movement retained.",
+      "qualification": "Representable source API case; no execution. Actual read caller is bounded cfg-test fixture. No live gameplay incident or accepted unique.",
+      "repair_contract": "Admit/check complete next water+load state before mutation or use a state-owning checked transfer operation."
+    },
+    {
+      "id": "L13-161-UNCHECKED-LOAD-RATIO",
+      "kind": "qualified arithmetic contract gaps",
+      "trace": "transfer_all/cook_all/consume_all use unchecked additions; cook_all load*numerator/denominator has no zero denominator admission. split_food validates denominator>0 and numerator<=denominator but multipliesu64 before division; validfood2 and numerator=denominator=u64::MAX mathematically means full fraction yet multiplication exceedsu64.",
+      "qualification": "API source witnesses only, bounded existing fixture does not activate them. No runtimepanic/currentness/ordinary load witness or unique promotion. u128 proportional_material_transfer is a separate widened guarded kernel, not evidence all water helpers safe.",
+      "repair_contract": "Use checked/widened arithmetic and canonical admitted ratio/quantity owners; retain validzero loads and full-share semantics."
+    },
+    {
+      "id": "L13-163-SIGNED-ADVECTED-X-OVERFLOW",
+      "kind": "qualified source defect",
+      "trace": "weather_at accepts StrategicMinute::MAX and longitude -180000000, giving celllon-720. correlated_field interval cap floor(i64::MAX/262144)=35184372088831 leaves262143 slack after interval*262144. lon*65536=-47185920, so x=offset-product is belowi64::MIN before lattice division. Rawlatitude i32::MIN also warrants checked cell-to-microdegree multiplication; not asserted ordinary location.",
+      "qualification": "Source arithmetic deduction, no local execution. Exact frozen source only; valid representable raw longitude and time accepted by public weather_at. Currentness/ordinary gameplay/aliases unvalidated.",
+      "repair_contract": "Bound complete coordinate arithmetic, use checked or widened numerical kernel and explicit terminal-time policy; preserve signed spatial coordinates and replay framing."
+    }
+  ],
+  "prior_proof_reuse": [
+    "Own physical UnitInterval consumers in batch023-033 and034-037; exact frozen hashes retained, no currentM04 transfer.",
+    "Own seed213 and stream91-169 in038-040, with metadata erratum retained; NEW stream1-90 consumed090 because previous range did not include index.",
+    "StrategicMinute/calendar prior native actual owner proof077-081 reused; saturation policy is directly material to156."
+  ],
+  "limitations": [
+    "Every original requested range remains full:154-164 as registered085/086; receiver snippets only get actual consumed ranges, not future-role credit.",
+    "No current source equivalence, all possible callers, macro expansion/native SDK entirety, runtime acceptance or universal numerical bounds are claimed. Public material flow contribution admissibility remains conditional.",
+    "031 authority correction, all access qualifications, prior findings/aliases, larger terrain lattice versus actual species population distinction, all20 global/inherited limits remain.",
+    "No code/Git/root ledger/project execution/tests/publication; no accepted new unique count."
+  ],
+  "metadata_only_future_hint": {
+    "originals": [
+      2294,
+      2306
+    ],
+    "locator": "Root08 groom/HairSeed seed+i i32MAX overflow hint, SHA3dffaa4b35a78c1b5f3d8e07b5698d2f273f563741c9250883f74701d5572818 and e8ddc101f1ef8295f3ab1943b4cae0257e483fd9fb67e2255bf614c1e51557e2",
+    "credit": "none; no own body/role/lens coverage"
+  }
+}

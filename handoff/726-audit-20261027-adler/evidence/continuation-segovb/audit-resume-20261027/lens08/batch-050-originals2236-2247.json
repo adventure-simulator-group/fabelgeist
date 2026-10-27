@@ -1,0 +1,64 @@
+{
+  "at": "2026-10-27T13:01:57.205820+00:00",
+  "lens": 8,
+  "registration": "REGISTRATION-084-original2236-2255.json",
+  "consumed_original_subset": [
+    2236,
+    2247
+  ],
+  "source_read": "Full registered head bodies2236\u20132247 and changed2238 base personally consumed.2248 onward remains unread and uncredited. Existing test source only.",
+  "per_role": [
+    {
+      "original": 2236,
+      "behavior": "Full356 source read. Public Chromaticity/ColorPrimaries/Serde have no finite/nonsingular admission. to_xyz_matrix/from_xyz_matrix silently substitute identity inverse on singular input; invert_3x3 only det.abs()<epsilon admits NaN determinant to Some(NaN). Concrete publicAPI cause erasure/invalid transform, ordinary predefined constants separate. ACES2065 negative blue-y is deliberate imaginary primary: no global0..1 orpositive-y constraint. to_linear_space returns DciP3/AdobeRgb unchanged though both encoded, contradicting unqualified linear-variant doc; representation cannot own those linear primaries without additional variant/payload. Existing tests read only."
+    },
+    {
+      "original": 2237,
+      "behavior": "Full271 actualEOF read, prior owner range210 not mistaken for wholebody. Transfer enum meaningful canonical dispatch; linear/HDR channels can exceed1 and signed sRGB/709 branch intentional. PQ/HLG normalized signal limits differ and gamma clampsnegative, so no universal fraction policy. hlg_from_linear allows>1 despite normalized doc; public host math finite/extreme admission separate. Tests read only, constants/formula/doc not verified against external standards or runtime."
+    },
+    {
+      "original": 2238,
+      "behavior": "Full33 head/base read: GPL to AGPL only. Native/wasm targetfeatures and dependencies no shader/compiler/device execution coverage."
+    },
+    {
+      "original": 2239,
+      "behavior": "Full175 WGSL string body consumed. Fence depends on runtime u32zero hook and nativecompiler/fma/subnormal behavior;4-step walk bound/native approximation assumption not proven by source comment. Division/root explicit special paths, signedzero/roundties behavior has specific math purpose; host_lerp admits extrapolation, smoothstep clamps0..1. No requirement to preserve old rounded output/BC and no device correctness certificate."
+    },
+    {
+      "original": 2240,
+      "behavior": "Full360 including fixed-series generator, WGSL and test-source read. Private nonempty Horner term constants close coefficients[0] ordinaryroute; factorial bounded<=19 sourceconstants, not arbitrary public count. Doublefloat pair refined |low|<=halfULP represented only raw vec2 and operations assume valid normalized input. Quarter-turn limited few-thousand radians and positive-normal logarithm/pow are documented domain assumptions. Public included host_pow(0,negative) returns0 whereas ordinary host zero negative power differs; zero base needs exponent-domain policy, not universal host-pow promise. Subnormal/log special behavior and native fma/compiler guarantees remain qualified, no execution."
+    },
+    {
+      "original": 2241,
+      "behavior": "Full86 source. Actual WGSL cache OnceLock safe immutable source, includes matching2 children now read. ZERO_FIELD raw semantic shaderlayout name/nativecode string boundary; hook contract runtime zero not encoded/verified in Rust. Documentation acknowledges fused fma/subnormal and trig range limits, so prior armorGPU claim bit-identical must carry these limits; no universal compiler/device certification."
+    },
+    {
+      "original": 2242,
+      "behavior": "Full271 fixture source ONLY. Actual sample exponents/ranges and per-million tolerance cover selected normal-number domains, not every native argument/backend; fixture zero uniform provided explicitly. mismatches zip/cardinality assumption and source assertions not observed results. No tests/probes/device calls executed."
+    },
+    {
+      "original": 2243,
+      "behavior": "Full379 source. Batch-owned UniformArena fixes crossbatch overwrite structurally, not a native barrier/runtime certificate. Reflection restricts fast path onegroup/no texture/sampler/<=256bytes; dynamic offsets devicealignment and64KiBchunk implicit stride<=chunk contract needs native limits. write_uniform matches supplied value variant but not reflected expected type, silently skips out-of-range writes then Ok despite reject-unsupplied/unsupported policy; a public parameter type/shape API gap, normalcallersnotshownmalformed. Number f64->f32 narrowing and Mat4 layout nativeassumptions distinct. Typed causes still flattened anyhow; actual native creationvalidation scope only pipeline controlled blocking path. Arena reservation before error is local bookkeeping, no failing dispatch submitted."
+    },
+    {
+      "original": 2244,
+      "behavior": "Full406 source. Compile mutex serializes Kernel constructors/run pipeline creation, cannot certify other native compilation callers. Public pipeline/workgroup_size/entry_point can diverge from private fast pipeline and parsed shape; workgroupwidth0 manualmutation makes groups_for dividezero despite ctor check. KernelCache keyedonly sourceString yet get accepts arbitrary WgpuContext: same source/newdevice returns firstdevice kernel, concrete publicAPI association gap; ordinary armor cache percontext separate. KernelPartialEq ignores device/entrypoint/publicmutatedshape. Folded flat u32 index may wrap on final overshooting row for admitted u32MAXitems, despite caller boundscheck; actual ordinary capacity/client paths pending, no huge normalmesh claim. Zero groups intentionalnoop. Batchcopy checks byteextent butnativealignment/usage/device stillunread. Prior recorded dispatches remain if later record Err and caller subsequently submits, callpolicy needsreconciliation. Submit callbacks ordered/dropunrun, no completionstatus certificate."
+    },
+    {
+      "original": 2245,
+      "behavior": "Full16 source prelude keeps GPU types pub(crate), canonical math/native owner reuse; anyhow Error/Result public erasesclassification at genericboundary, no childbody credit."
+    },
+    {
+      "original": 2246,
+      "behavior": "Full294 exactWindows-mapped source body incl fixtures read, SHA remainsvariantidentity. Checked aligned staging offsets retain per-source typedlength and order, closes arithmetic wrap locally beforeallocation. Native copies use original length (notpadded); alignment/usage/maxsize need actual Buffer admission. context and producing batch supplied separately with no device/submit association; read may be called without recordedbatchsubmission, actual known callers submitbefore read. Pending state enum correctly separatesPending/Ready/Failed/Taken and maperrors typed; droppedunsubmittedbatch leavesPending according to callback drop policy, cancellation acceptance requirescallertrace. Raw Vec<Vec<u8>> erases slot/schema/generation association, connects prior ArmorStaging.prefixtruncate concern. Fixture odd lengths12/8/4 all actuallycopyaligned; not proof arbitrary oddbyte count. No execution/currentnativeclearance."
+    },
+    {
+      "original": 2247,
+      "behavior": "Full327 source incl generated histogram/scatter WGSL. Stable same-digit rank and pingpong ownership local; PrefixSum delegate unread here. Scratch publicbuffers+privatecapacity can diverge, count/byte checks only sourcearrays not mutatedscratch/context association. count0/1 intentionalnoop, bits clamps1..32 and requires higherbitszero for sortingpromise; validated key-width owner candidate. RADIX*tiles u32 multiplication at maximum capacity canoverflow, but hugeGPUallocations precede computation so no established runnablefailure route. Direct tile dispatch exceeds MAX_GROUPS at sufficientlylargecount withoutfolding/admission; ordinarydocumented tens-thousands distinct. Native bufferlimit/alignment/aliases/differentdevice/caller error-discard policy required; no sourcecheck substitute for actualGPUcertificate."
+    }
+  ],
+  "accepted_unique_count_change": 0,
+  "global_clearance": false,
+  "no_product_code_tests_or_execution": true,
+  "remaining_contracts": "Native/device/caller/current proof and other populations/extensions/all20/dedup/connected acceptance pending. Source discovery WITH findings, not repair/validation."
+}

@@ -1,0 +1,363 @@
+{
+  "kind": "FRESH_BOUNDED_ALL13_INITIAL_FIXTURE_METADATA_PREINVENTORY",
+  "reviewer": "/root/recovery_780",
+  "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "fixture_unchanged_from_main": true,
+  "source_accounts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/settled/tests.rs",
+      "sha256": "18961b0116bbc93358501df011ca5a6a31d912a61f357c201ed56f9ff61f3476",
+      "read_ranges": [
+        [
+          1,
+          244
+        ]
+      ],
+      "actual_eof": 244,
+      "qualification": "Whole affected existing fixture source, 8cases/13assertions, all wearer paths."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/settled.rs",
+      "sha256": "3dbafb11ea673b81b72c6d8599bf9c1ac4c55b3e456982e39d16d38faef2e42d",
+      "read_ranges": [
+        [
+          1,
+          308
+        ]
+      ],
+      "actual_eof": 308,
+      "qualification": "Full capture/wear/fit path and surface geometry operations personally consumed; untouched production outside repair."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment.rs",
+      "sha256": "3a53a6a40c78d926e2f50031f319b7fb338014633b6c73431b891b85a308c828",
+      "read_ranges": [
+        [
+          1,
+          54
+        ],
+        [
+          379,
+          399
+        ],
+        [
+          477,
+          499
+        ]
+      ],
+      "actual_eof": 592,
+      "qualification": "Typed DrapeInput, actual transfer_skin dispatch, existing coherent fixture precedent."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/selection.rs",
+      "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+      "read_ranges": [
+        [
+          9,
+          39
+        ],
+        [
+          123,
+          145
+        ],
+        [
+          184,
+          187
+        ]
+      ],
+      "actual_eof": 271,
+      "qualification": "Closed GarmentForm, construction dispatch, actual default selection and form method."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/pattern.rs",
+      "sha256": "f04e842dbfdef80aa9e6cc4c86494a7fddb61b095c38803bf0b8947d598c56d4",
+      "read_ranges": [
+        [
+          19,
+          43
+        ],
+        [
+          128,
+          138
+        ],
+        [
+          146,
+          158
+        ]
+      ],
+      "actual_eof": 328,
+      "qualification": "Crotch threshold, actual defaultshortupperlength1.2/lowerNone, exact Upper classifier."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/skin_transfer.rs",
+      "sha256": "49c7efbe7fc82d0cda47656cf2d90e877c50703da1355f5243a09100051b7b53",
+      "read_ranges": [
+        [
+          1,
+          189
+        ],
+        [
+          227,
+          266
+        ]
+      ],
+      "actual_eof": 277,
+      "qualification": "Whole transfer and admission plus normalization/accumulation; skirt source personallyread but outofexistingcasepath."
+    },
+    {
+      "path": "crates/fabelgeist-rig/src/skin.rs",
+      "sha256": "c1c856dd707201d43249ad4e61576728edf4ff9a2a2d1dbf68f6c980a1c2d206",
+      "read_ranges": [
+        [
+          1,
+          226
+        ]
+      ],
+      "actual_eof": 226,
+      "qualification": "Canonical packed bound admission and output push/encode including zero-weight indices."
+    },
+    {
+      "path": "crates/fabelgeist-rig/src/table.rs",
+      "sha256": "491cfcace087aef015067a75e218e3bee9dc3c1e8bf681b40afa840f806da282",
+      "read_ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "actual_eof": 108,
+      "qualification": "Typed columns retainactualextent; Default empties; From Vec establishesrecordedcolumns."
+    },
+    {
+      "path": "crates/fabelgeist-rig/src/names.rs",
+      "sha256": "94146b1b91f11d9711a5439e607b357cd8bb2fe828de4763cb432f58b0225554",
+      "read_ranges": [
+        [
+          70,
+          78
+        ]
+      ],
+      "actual_eof": 78,
+      "qualification": "Canonical ROOT exactopenidentity stringowner."
+    },
+    {
+      "path": "crates/fabelgeist-mhr/src/math.rs",
+      "sha256": "20b8033a4cd2771f494d9a73e0820bd9c27c5cdce23c097687360719bfc46b0a",
+      "read_ranges": [
+        [
+          1,
+          11
+        ],
+        [
+          140,
+          158
+        ],
+        [
+          208,
+          221
+        ]
+      ],
+      "actual_eof": 357,
+      "qualification": "Actual native skeletonstateorder and canonical identity definition/encoding."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/placement.rs",
+      "sha256": "7e744958c7df65097784318b313e51c658edae89fde9e0f80ba70ddce4fcaa81",
+      "read_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "actual_eof": 76,
+      "qualification": "Only collision_surface usedbywear; geometryonly, nohip placementcall."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/drape.rs",
+      "sha256": "c26b0508ccce30c3c2ca164e46327764ca4b133b418b5ea49e008b0a45613421",
+      "read_ranges": [
+        [
+          275,
+          280
+        ]
+      ],
+      "actual_eof": 334,
+      "qualification": "Bodyclearance dependsfabric/defaultoffset, notjointsmetadata."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/stages.rs",
+      "sha256": "ccbbca63f8954cde1d15934b057edc40dfe382d36c273fed0acd0316f9a2fe2a",
+      "read_ranges": [
+        [
+          175,
+          253
+        ]
+      ],
+      "actual_eof": 352,
+      "qualification": "Checkpoints clonesinput, same_setup comparescoherent unchangedfixturemetadata; no productionchange needed."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/shading.rs",
+      "sha256": "8d9236c7e60922d5e12987557077f6554b1061d171f0b4d783576711c71f56b3",
+      "read_ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "actual_eof": 70,
+      "qualification": "Normals dependonlyactualgeometry; no rig metadata effect."
+    }
+  ],
+  "earliest_failed_contract": {
+    "reported_exact_main_hosted_run": 39901718104,
+    "test": "garment::settled::tests::a_drape_follows_a_larger_moved_body_and_keeps_its_ease",
+    "reason": "SkinSource::validate rejects packedjointbound1while names/states areempty. This is provenindependentlybysource; parentownsboundedhostedlogreceipt, notrereadbythisagent.",
+    "qualification": "No current GLBregressionornewruntimeclaim; exactmainbasefailureandsourcecounterexample."
+  },
+  "history": {
+    "skin_admission_blame_commit": "5f6ae458d0",
+    "fixture_native_bound_and_empty_columns_blame": "13fc9dcc71",
+    "meaning": "#774mergednativefixtureadaptation introducedpackedbound1withoutmatchingnames/states. Existingoldergeometrictesthelper mustfollowmergedproductioncontract."
+  },
+  "classification": "Necessary directadaptationofexistingfixtureinputs after774, notnewtest/newbehavior/newhelperorassertionweakening.",
+  "minimal_repair": {
+    "file": "crates/adventuresim-character-creator/src/garment/settled/tests.rs",
+    "existing_fields_only": {
+      "names": "vec![RigJointName::ROOT].into()",
+      "joints": "vec![[0., 0., 0., 0., 0., 0., 1., 1.]].into()"
+    },
+    "fully_qualified_root_alternative": "vec![fabelgeist_rig::RigJointName::ROOT].into()",
+    "keep_exact": [
+      "Allsphere/cap/thighsgeometry andpositions/faces",
+      "Existingpackedskinwords/declaredbound1 andweights",
+      "Selection/stage/defaults/absence/obstacles",
+      "All8casefunctions and13assertioninvocations/oracles/tolerances",
+      "ProductionSkinSource/Rig/SettledDrapefunctions andtheirguards"
+    ],
+    "no_extra_joint_policy": "Uppertransferonlyrequirescorrectcolumnrelationship; itdoesnotrequirethelabelROOTorreadstatecomponents. CanonicalROOTandidentitystate arethehonestminimal syntheticrig, notanewproductionconstraint."
+  },
+  "actual_downstream_trace": [
+    "SettledDrape::capture bindsclothtopositions/facesonly; rigmetadata doesnotchangebindings.",
+    "wear -> fit establishesbodytopology andgeometry/clearance, then transfer_skin(input,garment.positions).",
+    "GarmentSelection::default -> Construction::Sewn(Pattern::default); upperStraight1.2,nolower => GarmentForm::Upper.",
+    "transfer_skin constructsSkinSourcewithsamecolumns; Upper uses transfer, notskirt/landmark/hipplacement.",
+    "transfer invokesvalidate -> allcolumn/boundchecks, thennearesttriangles andsameexistingweights; normalized rowindicesall0pushwithinbound1.",
+    "Checkpointsnew clonescoherentinput; noactivehistoriesornewmutationpolicy."
+  ],
+  "lenses": [
+    {
+      "order": 1,
+      "lens": "producer-propagation",
+      "initial_discovery": "COMPLETE_WITH_ONE_SHARED_FIXTURE_FINDING",
+      "trace": "Existing wearer fixture is actualnativefixtureproducer of mesh rows0/bound1, not a validemptyrig. Carryone canonical name andoneidentityrow through DrapeInput -> SkinSource unchanged. NointernaladapterorprimitiveAPIchange."
+    },
+    {
+      "order": 2,
+      "lens": "existing-type-owners",
+      "initial_discovery": "COMPLETE_WITH_ONE_SHARED_FIXTURE_FINDING",
+      "trace": "UseexistingRigJointName::ROOT, RigJointTable::From<Vec<_>>, PackedRigSkin/RigJointCount existingowners. Identity [tx,ty,tz,qx,qy,qz,qw,s] belongsnativefixtureboundary, matchesMHRTransform::IDENTITY/to_skel_state; no newtypes/deps/helpers."
+    },
+    {
+      "order": 3,
+      "lens": "admission-contracts",
+      "initial_discovery": "COMPLETE_WITH_ONE_SHARED_FIXTURE_FINDING",
+      "trace": "SkinSource::validate requiresnameslen==jointslen, bound==namescount andall8ordinals<nameslen; current0names0states/bound1failsdeterministically. Two existingfieldreplacements produce1name1state/bound1/indices0valid. No guard relaxed/bypassed."
+    },
+    {
+      "order": 4,
+      "lens": "invariant-operations",
+      "initial_discovery": "COMPLETE_WITH_ONE_SHARED_FIXTURE_FINDING",
+      "trace": "No geometry/math/count/arithmeticoperation changes. Nativecolumnlen1matches all8existingzeroordinals. Transfer barycentricweights/normalization/outputpush staysidentical; encode preservesmembership0<1."
+    },
+    {
+      "order": 5,
+      "lens": "aggregate-states",
+      "initial_discovery": "COMPLETE_WITH_ONE_SHARED_FIXTURE_FINDING",
+      "trace": "This ispreciselyfixturecorrelatedcolumnsrepair: name/state/skinbound agree. Existingrowcount==positionslen andsameweights retained. No parentcolumn isrequired byDrapeInput, noadjacentmetadata invented."
+    },
+    {
+      "order": 6,
+      "lens": "type-ownership",
+      "initial_discovery": "COMPLETE_WITH_ONE_SHARED_FIXTURE_FINDING",
+      "trace": "Fixture tests ownsyntheticrigfacts. SharedRigowners alreadydefineidentitytable/bounds and canonicalROOT; do not moveorchange SkinSource validation. Separateprerequisitefix doesnot broaden GLB or780ownership."
+    },
+    {
+      "order": 7,
+      "lens": "redundant-authority",
+      "initial_discovery": "COMPLETE_WITH_ONE_SHARED_FIXTURE_FINDING",
+      "trace": "One existingboundedrig has1joint; addingthe missingrelatedcolumns reconciles actualsourcefacts. Keepnativefixturebound1unchanged; no duplicatedcountconstant/cache/presentationauthority."
+    },
+    {
+      "order": 8,
+      "lens": "behavior-preservation",
+      "initial_discovery": "COMPLETE_WITH_ONE_SHARED_FIXTURE_FINDING",
+      "trace": "All eightcasesremainexistingcottonshortupperdefault. Pattern::STRAIGHTlength1.2<1.8withnolower=>Upper=>source.transfer, notskirt. Uppertransferneverreadstransformvalues ormatchesname; onlycurrentadmissionusescolumnsizes. geometry/clearance/normal/weights/earliererrors/13assertionsremainidentical."
+    },
+    {
+      "order": 9,
+      "lens": "enum-shapes",
+      "initial_discovery": "COMPLETE_WITH_ONE_SHARED_FIXTURE_FINDING",
+      "trace": "No enum/state/API change. ExistingdefaultselectionstillUpper. ROOT isjointidentity, notanewanatomyclassificationrequirement; Upperguardacceptsanysinglelabel, canonicalROOTisappropriateauthoredfixtureidentity."
+    },
+    {
+      "order": 10,
+      "lens": "derivability",
+      "initial_discovery": "COMPLETE_WITH_ONE_SHARED_FIXTURE_FINDING",
+      "trace": "No impl/derive/serde changes. Existing RigJointTable From Vec remainscanonical; do notderive awayadmission oraddconstructors/testhelpers."
+    },
+    {
+      "order": 11,
+      "lens": "type-granularity",
+      "initial_discovery": "COMPLETE_WITH_ONE_SHARED_FIXTURE_FINDING",
+      "trace": "Exactlyone root andoneidentitystate areenoughfor thesinglejointsyntheticfixture. A fullanatomicalMHRrig, hipjoints, brandedriginstanceornewfixturebuilder isunnecessary andwouldaltercasescope."
+    },
+    {
+      "order": 12,
+      "lens": "magic-strings",
+      "initial_discovery": "COMPLETE_WITH_ONE_SHARED_FIXTURE_FINDING",
+      "trace": "NewlabelusesthecanonicalRigJointName::ROOT ratherthanrawrootstring. Existingtestnames/prose/oracles andalltextunchanged; no sourceerrorproseclassification added."
+    },
+    {
+      "order": 13,
+      "lens": "magic-numbers",
+      "initial_discovery": "COMPLETE_WITH_ONE_SHARED_FIXTURE_FINDING",
+      "trace": "Newidentitywords [0,0,0,0,0,0,1,1] aredocumentednativefixture state forzero translation, identityxyzwrotationandunit scale. Existingbound1,ordinal0,8slots/weights unchanged. No tolerances, sample counts, geometricconstants orassertions altered."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SETTLED-FIXTURE-RIG-1",
+      "priority": 2,
+      "file": "crates/adventuresim-character-creator/src/garment/settled/tests.rs",
+      "lines": [
+        49,
+        50
+      ],
+      "contract": "One declaredrigjoint andallzeroordinalrows requireone matchingname/statecolumnentry.",
+      "remedy": "Replaceexistingemptydefaultname/statefieldswithcanonicalROOTandidentitysingletons.",
+      "acceptance": "Existingguardpassesforthesame8cases; productiongeometry unchanged;8cases/13assertions unchanged; existinghostedCreator garmentselection passesnonempty atsamefinalSHA."
+    }
+  ],
+  "test_population": {
+    "cases": 8,
+    "assertion_invocations": 13,
+    "new_tests_cases_helpers_assertions": 0
+  },
+  "recommended_hosted_acceptance": {
+    "existing_selection": "creator_contract garment --lib garment:: -- --test-threads=1 --nocapture",
+    "targeted_case": "cargo test --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml --lib garment::settled::tests:: -- --test-threads=1",
+    "full_required_workflow": ".github/workflows/rust-quality.yml exactfinalhead;inspectearliestfailureandboundedtestsummaryonly",
+    "limits": "Sourcecorrectionnotexecutedlocally; furtherunrelatedmainfailures mayremain. Do not claimwholegreenbeforehostedresult."
+  },
+  "production_or_glb_edits": false,
+  "project_checks_performed": false,
+  "final_clearance": false,
+  "next": "Root applytwominimalfieldadaptations onseparateprerequisitebranch/PR, thenfreshexactpostrepairreview/hostedvalidation. ExistingGLBreportsremainunchanged.",
+  "feature_guard": {
+    "contract": "garment/tests available without offline-creator; fabelgeist-mhr optional and only enabled by offline-creator.",
+    "risk": "Unconditionally spelling fabelgeist_mhr::math::Transform::IDENTITY.to_skel_state() in the fixture would add an unavailable optional dependency to no-default-feature test compilation.",
+    "minimal_safe_plan": "Keep native identity fixture literal already confirmed against canonical Transform and existing garment.rs native fixture; no extra helper/dependency/cfg split.",
+    "status": "Raised to coordinator before implementation; no new sourcefamilyinvestigation."
+  }
+}

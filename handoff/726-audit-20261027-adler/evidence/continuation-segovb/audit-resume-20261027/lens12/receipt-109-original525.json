@@ -1,0 +1,100 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "109",
+  "predecessor": "receipt-108-originals522-524.json",
+  "manifest_prefix_sha256": "020777800f1ee6d1879db451227623f43d01bedcb544bd76556933817ac577d6",
+  "sources": [
+    {
+      "original_index": 525,
+      "source_id": "pr-working:content/items/catalog.yaml",
+      "sha256": "87e0f51292d42ab62beeabc9f2624f635c27acf8b28ae3d8c2931eb9297f491b",
+      "actual_eof": 5632,
+      "actual_ranges": [
+        [
+          1,
+          5632
+        ]
+      ],
+      "read_evidence": "original525-read-progress.jsonl",
+      "roles": [
+        {
+          "source_ranges": "1-5632",
+          "role": "Every nativeJSON key and string value independently consumed in contiguous rawreads1-500/501-1000/1001-1500/1501-2000/2001-2500/2501-3000/3001-3500/3501-4000/4001-4500/4501-5000/5001-5632. Grouped by identical actual roles: open catalog item IDs, human display_name, native icon slug; tags/attachment_tags/accepts_tags; closed kind/preferred_attack/handling/slot/carry/class; material/striking_material; placementid vs occupancy/bodylocation/channel/fit_zone/protection/surface anatomicalregions/anchor/parentattachment; native fieldkeys and skill/flavor mapkeys. No catalog/constant/fixture exemption.",
+          "disposition": "Keep open catalog/placement/attachment identities purpose-specific and scoped, narrative/display text separate from finite categories and native file/icon/JSON boundaries. Native data alone does not prove owner missing, admission success, category policy correctness or runtime gameplay."
+        },
+        {
+          "source_ranges": "363-375,2686-2695,4582-4611,4670-4818,5237-5359,5453-5561",
+          "role": "Actual compatibility authority data: accepts_tags mail_voiders374/mail_knee_voider2692 matches attachment_tags5341/5543; belt4604-4607 permits sheath/bag by mount/location/order and surfaceUVdomainmhr_body_v1; holderblade accepted sheathable_weapon4688/4717/4739/4794/4814. Distinct typed/native roles, not free-form prose.",
+          "disposition": "Actual internal tag comparison/policy needs canonical owner fit. Prior own401 physicalP16 attachment accepts_tags comparison40-44 is context; exact PR-working producer/native consumers not transferred. Canonical-tag/private/open-catalog policy and alias classification remain qualified."
+        },
+        {
+          "source_ranges": "2034,4291,4318-4580",
+          "role": "animation_pack humanoid_2h_close2034/4291 internal assetreference; book medium German/Latin/Low and target discriminators written/religion/bestiary/skill/terrain, payloadlanguage/religion/category/skill/terrain values through4580. These select gameplay/knowledge owners, not narrative text.",
+          "disposition": "Reuse actual canonical animation-pack/Language/Religion/Skill/Terrain/Bestiary owners at catalog admission and propagate; producer-only receiver/canonical fit proof not complete."
+        },
+        {
+          "source_ranges": "2062-2063,4319-4320,4343-4344,4367-4368,4391-4392,4439-4440,4475-4476,4499-4500,4523-4524",
+          "role": "Authored display_name mojibake for lubeck_mark and eight book displaynames. Raw frozen text visibly includes repeated misdecoded UTF8 sequences; no rendering needed to establish source content.",
+          "disposition": "Source-backed text correction candidate: replace accidental encoded text with intended Unicode/human punctuation after confirming authored spelling. Do not impose ASCII or rewrite valid open IDs, and do not claim current UI/runtime exposure without receiver proof."
+        }
+      ],
+      "status": "Fullchangedvariant source-accounted WITH source-text finding and explicit actualreceiving/canonical-policy obligations."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Frozen authored equipment catalog display text contains mojibake",
+      "sources": [
+        "525:2063,4320,4344,4368,4392,4440,4476,4500,4524"
+      ],
+      "remedy": "Correct unintended decoded Unicode in exact authored display_name source after intendedspelling confirmation; keep semantic catalog IDs separate, no compatibility or ASCII limitation.",
+      "acceptance": "Exact bytes/wholecatalog read establishes source finding. Exact current source/loader/UI display recipients not verified, aliases/dedup unresolved, no runtime proof or uniqueincrement.",
+      "unique_count_delta": 0
+    },
+    {
+      "family": "Authored catalog compatibility tags, slot/material/body/skill/book/animation selectors require precise canonical owners",
+      "sources": [
+        "525:1-5632",
+        "401:40-44 priorP16contextonly",
+        "502:1-694 manifestproducercontext"
+      ],
+      "remedy": "Trace actual loader/state/lookup/compatibility/animation/knowledge receivers and reuse canonical owners for closed vocabularies, typed open scoped IDs for references, native JSON/icon/file text only at concrete I/O.",
+      "acceptance": "All producer string occurrences inventoried, retained typed fitting requires exactvariant recipients; source accounted WITH findings/qualifiedpolicy, no source/unique/currentotherlensclearance.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actual PR-working catalog schema/loader/tag matching/material/anatomical/knowledge/animationpack/runtime/UI recipients remain receiving obligations, priorP16 own source context not current equivalence.",
+    "Source text candidate needs intended authored Unicode and actual display consumer/currentness reconciliation; no speculative localization or sanitization policy.",
+    "All inherited receivers/native/aliases/otherpopulations retained."
+  ],
+  "qualifications": [
+    "Exact frozen PR-working catalog only, not physicalP16/current/global/runtime/unique-total/otherlensclearance.",
+    "No BC/API/schema/input preservation requirement; no project/native/test/probe execution or product/Git/rootledger/publication mutation.",
+    "All20/P16/P17/F9/M09 and inheritedaliases retained; unique delta0."
+  ],
+  "proposed_count": {
+    "before": 525,
+    "after": 526,
+    "indices_completed": [
+      525
+    ],
+    "next_original": 526,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "pr-working:content/items/catalog.yaml",
+      "sha256": "87e0f51292d42ab62beeabc9f2624f635c27acf8b28ae3d8c2931eb9297f491b",
+      "ranges": [
+        [
+          1,
+          5632
+        ]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "at": "2026-10-27T04:46:32.806292+00:00",
+  "lens": "13 magic-numbers",
+  "packet": "025",
+  "authority": {
+    "frozen_original_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "original_registry": "target/recovery-20261025/audit05/original-scope-072.json",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "prior_state": "audit13-successor-024-suggested-state.json",
+    "prior_state_sha256": "2ea2ecb5e1b82c42584d452663d24d2f4c4b2cc8d8ce12a48a045489644cfb32",
+    "root_adoption": "audit13-successor-024-adoption-root.json",
+    "root_adoption_sha256": "1cb1f5df92763f62979752a33796c1105f17b973aa8ac432a3f0637e58b313c9"
+  },
+  "source": {
+    "original": 39,
+    "source_id": "physical-p16:Cargo.lock",
+    "object_path": "target/recovery-20261025/continuation-segovb/source-objects/1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+    "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+    "bytes": 306149,
+    "actual_lines": 13103,
+    "full_effective_ranges": [
+      [
+        1,
+        13103
+      ]
+    ],
+    "contained_supplemental_ranges": [
+      [
+        10243,
+        10256
+      ],
+      [
+        10303,
+        10327
+      ],
+      [
+        10373,
+        10405
+      ]
+    ],
+    "prior_consumed_ranges": [
+      [
+        1,
+        3200
+      ]
+    ],
+    "registered_ranges_this_packet": [
+      [
+        3201,
+        4800
+      ]
+    ],
+    "planned_actual_output_chunks": [
+      [
+        3201,
+        3600
+      ],
+      [
+        3601,
+        4000
+      ],
+      [
+        4001,
+        4400
+      ],
+      [
+        4401,
+        4800
+      ]
+    ],
+    "body_read_at_registration": false
+  },
+  "purpose": "Independently inventory each actual non-string primitive and reached concrete operation/receiving contract in this contiguous subset; quoted numeric-looking payloads remain subject to native receiver tracing, no blanket format exemption. No scanner/parser/summary substitute for actual line consumption.",
+  "limits": "Source-only ignored evidence. No product/Git/rootledger/historical edits, project execution/checks/tests/probes/helpers/assertions/doctests/publication; no original40, new source role completion or unique count. Preserve31/36/39 partials and native header version4 receiver pending; stop4800."
+}

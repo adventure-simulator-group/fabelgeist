@@ -1,0 +1,53 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-288",
+  "at": "2026-10-25T22:40:57.838301+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2511,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/building_closures.rs",
+      "sha256": "af2c9b3d3279b11ed2414d2f698f3c3eeae0d7f71ffff09fd4cffc894826bfbb",
+      "personally_read_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read complete 150-line frozen P16 closure presentation owner and fixture bodies, without execution. PresentedBuildingClosureMesh keeps building/opening identities private and a facade boolean cache. sync joins capabilities by building identity and opening set, changes only VisibilityRange when cached facade state changes, and preserves transform. Missing building currently continues with previous presentation state; whether that stale state is reachable requires actual lifecycle ownership. External changes to range independent of cached bool are representable but have no ordinary writer witness. Fixtures describe all matching batches, capability clear, transform preservation, and overlap boundary; they were read, not run."
+      ]
+    },
+    {
+      "scope_index": 2512,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/buildings/materials.rs",
+      "sha256": "b40a4b3063040003cdd4e0cfee6573ce1e51f131dde1d14cf4dbf25c13295916",
+      "personally_read_ranges": [
+        [
+          1,
+          568
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read complete 568-line P16 building materials owner and fixtures. Closed BuildingAppearance variants and ALL ordering align enum indexing with constructor-populated private material vector. Seeded building ID selects the closed appearance and associated facade/infill/timber/tile palette. Surface textures combine albedo, normal and packed ARM channels from one texture set and scale detail UVs by physical tile size. Window glass explicitly uses scalar thickness, with packed R not interpreted as thickness. Palette-reference and tile-size divisors are positive in the actual constants; no universal raw-helper safety or generated-texture validation is claimed. Distribution and material fixture bodies were read, not executed."
+      ]
+    },
+    {
+      "scope_index": 2513,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs",
+      "sha256": "39104be92a09f4e09bc38db7353d77a82f5fe5457067c9c6c08da3d88a46e41f",
+      "personally_read_ranges": [
+        [
+          1,
+          148
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read complete 148-line P16 closure mesh owner and fixtures. Leaf dimension f32 bit patterns key separate door, glass and shutter caches. Door cuboid dimensions and window compilation batch geometry/material selection derive from the same dimensions and leaf kind; returned parts preserve that pairing. Cache keys omit Assets<Mesh> resource identity, so cross-resource reuse is representable; actual resource lifetime ownership is needed before any stale-handle defect claim. Structured construction errors are preserved. Fixtures assert geometry reuse with independent transforms and matching canonical window batches; read only, no compilation or tests."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

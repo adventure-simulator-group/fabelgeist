@@ -1,0 +1,458 @@
+{
+  "id": "SEGOVB-CONT08-SUCCESSOR-020",
+  "created_utc": "2026-10-27T05:11:16.250860+00:00",
+  "lens": 8,
+  "skill": "/home/brunosegovia/.codex/skills/audit-behavior-preservation/SKILL.md",
+  "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+  "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "scope": "One coherent bounds/corners/PlanDimensions receiving leaf for previously assessed street/access. Two exact declaration bridges, CityPlotBounds constructor/accessors/corners/serde wrapper, full changed dimensions before/after bodies, materially called orientation ports. No whole planning solver/generator/native expansion.",
+  "prior_authority": {
+    "path": "target/recovery-20261025/continuation-segovb/audit08-successor-019-proposed-state.json",
+    "sha256": "0b9b29455fc0b6a0aa70ccbece23b16a1c29c6fd30805ad70fb5b3d654451689"
+  },
+  "root_adoption": {
+    "path": "target/recovery-20261025/continuation-segovb/audit08-successor-019-adoption-root.json",
+    "sha256": "07b63ffae42873c05a878ffaf059201a676c8785ec555f410c609dda203e3017"
+  },
+  "ledger_observation": {
+    "path": "target/recovery-20261025/continuation-segovb/ledger.json",
+    "current_successor": "audit08-successor-019-proposed-state.json",
+    "current_coverage": "1800/2853 originals source-accounted;earliest1462Q003partial;ordered1793partial;material52partial",
+    "modified": false
+  },
+  "provenance": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-root-bounds-dimensions-staging-020.json",
+      "sha256": "4060f6d2749b8060e7b482dc4a51fc3330adbf198a1f5147b3cefdf953ba78fd"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-root-compound-staging-020.json",
+      "sha256": "d0ab0dc6fd3fe0810dc2c0483130780d3264b5b363b9fdbb7d91a03290bbe8d2"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-root-region-staging-020.json",
+      "sha256": "d4ffdb8c19abcff6cc755ecd1342a4b783dfc62691324a175b316b07d8fdff87"
+    }
+  ],
+  "prospective_registrations": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-020-registration-dimensions-head.json",
+      "sha256": "dff5a4f880ee952f41b879ba2b807ae07445d5496665cfb02ee3cb1d2279004e"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-020-registration-owners.json",
+      "sha256": "a27f0e87c383b9eaaa8cd30776fdd835a8718e92a6ace70d5abbaf287dd72487"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-020-registration-compound.json",
+      "sha256": "9176ea627db01f41568111f174e5bbb758fdf4863addcf80f5fb3bb169fa0989"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-020-registration-region.json",
+      "sha256": "eea080b768757603edb2fe4542f39339828afef2a2b2e47d876f761a91e3a306"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-020-registration-orientation.json",
+      "sha256": "280f5caf7bc0b3f714c64e4d37cadda825ad56a867254458822eef96d0ed73dd"
+    }
+  ],
+  "new_shared_sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout.rs",
+      "sha256": "d5aacb8a24fecfd5dadee9361c1b6c3d32bd19171bfc0bc984cd8b2efb183c8f",
+      "actual_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "material_ranges": [
+        [
+          10,
+          10
+        ],
+        [
+          18,
+          36
+        ]
+      ],
+      "provenance": "audit08-root-bounds-dimensions-staging-020.json",
+      "canonical_source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-core/src/city_layout.rs",
+      "base_alias": "base:crates/adventuresim-tactical-core/src/city_layout.rs",
+      "head_alias": "head:crates/adventuresim-tactical-core/src/city_layout.rs",
+      "body_source_scope": "Exact frozen before/after equal; only materially reached declarations/bounds methods assessed. Unrelated displayed bodies are not granted behavior coverage.",
+      "required": "Root reconcile newly reached shared first-party identity and mandatory applicable other-lens role/source-extension queue. No original denominator increment or whole-file/other-lens/current/P16 verdict transfer."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+      "sha256": "8d64dedb165f7ed83c658f1f3126c264e7d67aef759ccaeed83843d99190c86b",
+      "actual_ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "material_ranges": [
+        [
+          21,
+          25
+        ]
+      ],
+      "provenance": "audit08-root-compound-staging-020.json",
+      "canonical_source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+      "base_alias": "base:crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+      "head_alias": "head:crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+      "body_source_scope": "Exact frozen before/after equal; only materially reached declarations/bounds methods assessed. Unrelated displayed bodies are not granted behavior coverage.",
+      "required": "Root reconcile newly reached shared first-party identity and mandatory applicable other-lens role/source-extension queue. No original denominator increment or whole-file/other-lens/current/P16 verdict transfer."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compound/region.rs",
+      "sha256": "b9459edfa26900b54302dd7fc9e9c0ccf3db2871e9c7789af6a479af2baf871b",
+      "actual_ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "material_ranges": [
+        [
+          3,
+          60
+        ],
+        [
+          99,
+          112
+        ]
+      ],
+      "provenance": "audit08-root-region-staging-020.json",
+      "canonical_source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-core/src/city_layout/compound/region.rs",
+      "base_alias": "base:crates/adventuresim-tactical-core/src/city_layout/compound/region.rs",
+      "head_alias": "head:crates/adventuresim-tactical-core/src/city_layout/compound/region.rs",
+      "body_source_scope": "Exact frozen before/after equal; only materially reached declarations/bounds methods assessed. Unrelated displayed bodies are not granted behavior coverage.",
+      "required": "Root reconcile newly reached shared first-party identity and mandatory applicable other-lens role/source-extension queue. No original denominator increment or whole-file/other-lens/current/P16 verdict transfer."
+    }
+  ],
+  "existing_source_reads": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+      "catalog_index": 667,
+      "base_sha256": "2d2939444a886b9c8e24716c41c21844e44abe8f18b2f6607d881ef75090c89d",
+      "head_sha256": "4ccc1188de7d5f8bdbf63b71160b8557f76fb524ae47f924381325da11198ee8",
+      "actual_before_ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "actual_after_ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "material_before_ranges": [
+        [
+          8,
+          22
+        ],
+        [
+          70,
+          93
+        ]
+      ],
+      "material_after_ranges": [
+        [
+          36,
+          64
+        ],
+        [
+          91,
+          105
+        ]
+      ],
+      "qualification": "Full changed variant bodies read as receiving context; moved CuboidDimensions/LeafDimensions obligations not completed or expanded here. No original667 count credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "base_sha256": "142ec022e368d366558d1191d278516343a415a48eb2a23c487d7cbe22e21e28",
+      "head_sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+      "actual_before_ranges": [
+        [
+          28,
+          95
+        ]
+      ],
+      "actual_after_ranges": [
+        [
+          27,
+          94
+        ]
+      ],
+      "qualification": "Exact orientation constructor and transform callee ports only; larger changed original remains independent."
+    }
+  ],
+  "prior_own_leaf_reuse": {
+    "authority": {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-017.json",
+      "sha256": "f442adcb7f37ccd0836b024528cf2280201aa23baa0ec0d8a68e8d988336045d"
+    },
+    "finite_adapter_before": {
+      "sha256": "095fd3f98befa41a2c1fc9f6be5571d96cc2896c8c2365be7b2a3404b88ba4cc",
+      "ranges": [
+        [
+          106,
+          116
+        ]
+      ]
+    },
+    "finite_adapter_after": {
+      "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+      "ranges": [
+        [
+          8,
+          18
+        ]
+      ]
+    },
+    "fresh_hash_identity_check": true,
+    "contract": "Own017 exact finite adapter body equality reused for dimensions(value,role): same native Vec3 finite check and coordinate traversal. No source reread or new owner/full error-family credit. Checked ScenePlanPoint ctor/accessor already source-assessed017 remains closed."
+  },
+  "actual_contracts": [
+    {
+      "source": "city_layout.rs18-36 -> compound.rs21-25",
+      "contract": "Actual source declares compound module and reexports region::CityPlotBounds; root narrow Git provenance establishes the concrete region.rs leaf. No guessed owner path or current-source alias."
+    },
+    {
+      "source": "compound/region.rs9-26,29-43",
+      "contract": "Base/head CityPlotBounds byte-identical. Private fields retain typed ScenePlanPoint, PlanDimensions and BuildingOrientation; RegionWire denies unknown fields and TryFrom callsnew. Constructor first stores the typed values, computes all fourcorners, rejects any nonfinite corner asInvalidProjection, otherwise returns retained values. Thus dimension/point scalar admission alone is not the aggregate bound; actual finite projected corner check was traced. No successful decode or actual fixture execution inferred."
+    },
+    {
+      "source": "compound/region.rs44-60,99-112",
+      "contract": "Accessors copy typed values or expose unchanged raw metre vectors. Corner order is(-1,-1),(1,-1),(1,1),(-1,1). Each corner is centre+orientation.local_to_world(sign_vector*dimensions*0.5), retaining multiplication,rotation,addition andf32order. This exact caller does not use the newPlanDimensions.half_extents helper. Old/new local operation/endpoint order unchanged; no universal rotated-rectangle geometry or native bitwise proof."
+    },
+    {
+      "source": "dimensions.rs base8-22,70-93 / head36-64,91-105",
+      "contract": "PlanDimensionsfrom_metres embeds(width,1,depth), checks all componentsfinite first, then X/Y/Z order fornegative and==0 positive dimensions, then retains originalVec2. Constructor/metres/Deserialize and localdimensions helper bodies are source-identical modulo movement. Zero/signedzero are rejected; positive finite/subnormal components meet these predicates. PlanExtents finite/nonnegative helper path is unchanged in displayed bodies. Additional headhalf_extents directly multiplies0.5 and explicitly permits zero subnormal halves; not called by this corner route."
+    },
+    {
+      "source": "scene_input/buildings.rs base28-95 / head27-94",
+      "contract": "Material orientation ports are identical text modulo line shifts. from_frontage_tangent usestry_normalize then(-tangent.y).atan2(tangent.x), mapping exact+PI to-PI. local_to_world uses(sin,cos)=(yaw.sin_cos()) then(cos*x+sin*y,-sin*x+cos*y); world_to_local inverse expression unchanged. Deserialize requires finite[-PI,PI). These source predicates/operation orders are assessed without auditing native normalization/trig/serde implementation."
+    },
+    {
+      "source": "compound/region.rs39-42,99-112 andPlanDimensionsadmission",
+      "contract": "Aggregate finite-corner rejection prevents returning a newly constructed bound whose native corner output is nonfinite. It does not add a positive-area/corner-distinctness check; underflow/degenerate-corner cases are not shown to be regressions because both exact bodies use the same predicates/expressions. No requirement to preserve old malformed/unchecked inputs or API shapes was applied."
+    }
+  ],
+  "disposition": "No actionable unintended delta demonstrated in materially reached typed bounds/corners/positive plan dimensions/first-party orientation leaf. Full transitive1793 planning and native/runtime geometry guarantees remain qualified.",
+  "resolved_subset": "CONT08-019 typed CityPlotBounds construction/metre accessors/corners and PlanDimensions admission, with local orientation callee and first-party bounds serde wrapper source-assessed020.",
+  "findings": [],
+  "new_unique_finding_count_delta": 0,
+  "remaining_frontier": [
+    {
+      "id": "CONT08-020-SOLVER-PLANNING-DELEGATES-PARTIAL",
+      "source_backed_calls": [
+        {
+          "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/access.rs",
+          "sha256": "cf8f7790613cc67bc1de9815eea5ef31cc30c35b571b64930902c42c8d0469ab",
+          "ranges": [
+            [
+              22,
+              42
+            ]
+          ]
+        },
+        {
+          "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/support/street.rs",
+          "sha256": "bfad206136bada1647f958a30c678a8adb4be33c01a967d3253aebde5f58de8b",
+          "ranges": [
+            [
+              15,
+              47
+            ]
+          ]
+        },
+        {
+          "source": "own015 compiled/support.rs",
+          "ranges": [
+            [
+              146,
+              277
+            ]
+          ]
+        }
+      ],
+      "actual_symbols": [
+        "SupportLimits::contact_tolerance_metres",
+        "CompoundSupportRequest::select",
+        "SupportDiagnostic::framed_geometry",
+        "CityRecipePalette::for_program",
+        "Recipe::door_point",
+        "BuildingCollision::ground_floor_contact_bounds",
+        "CitySceneLayout::plan_single_property_support"
+      ],
+      "needed": "Remaining actual solver/error-framing/tolerance and recipe/collision/single-property receiving contracts. Bounds/PlanDimensions and first-party orientation ports materially reached by street/access now source-assessed020. Native math precision/runtime ingress/fixture output remain qualifications, not an arbitrary whole-SDK expansion demand."
+    },
+    {
+      "id": "CONT08-015-JSON-REMAINING-LEAVES",
+      "source_backed_callers": [
+        {
+          "source": "own014 grounded/tests.rs",
+          "ranges": [
+            [
+              11,
+              23
+            ]
+          ]
+        },
+        {
+          "source": "pr-head:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+          "ranges": [
+            [
+              111,
+              148
+            ]
+          ]
+        }
+      ],
+      "actual_symbols": [
+        "CityCompound serde admission and nested plot/access/boundary owners",
+        "SceneBuildingId serde/Ord",
+        "BuildingArchetype/BuildingUse/ServiceBuildingSize/ProsperityTier/Seed serialization",
+        "BuildingProgram::settlement",
+        "BuildingProgram::fixture",
+        "BuildingProgram::with_service_size"
+      ],
+      "progress": "Actual Distant/Tactical record fields, promotion body, orientation/elevation leaf ports read in015; materially reached Position/ScenePlanPoint constructor/accessor/projection/serde wrapper bodies resolved by017. Remaining compound/ID/enum/Seed/program receiver bodies retain scoped obligations.",
+      "needed": "Narrow exact changed leaf/compound serialization and program-selection receivers needed by actual captured front/rear records. No requirement to support old malformed schema/inputs.",
+      "progress_020": "CityPlotBounds RegionWire->new first-party wrapper and PlanDimensions serde constructor have exact before/after source comparison; nested compound/access/boundary/ID/enum/Seed/program admission remains partial, no complete/native JSON parser or runtime fixture claim."
+    },
+    {
+      "id": "CONT08-015-TERRAIN-COMPOSITION",
+      "source_backed_caller": {
+        "source": "own014 compiled/grounded.rs",
+        "ranges": [
+          [
+            100,
+            118
+          ]
+        ]
+      },
+      "actual_symbols": [
+        "BoundedSettlementTerrain::compile",
+        "BoundedSettlementTerrain::elevations_at",
+        "PropertySupportSurface/CompoundSupportPlan member and surface extraction"
+      ],
+      "known_source_bridge": "foundations.rs13 reexports settlement::{BoundedSettlementTerrain,SettlementSupportError}; settlement module was listed as Git path metadata only, not staged/read.",
+      "needed": "Ownership composition and elevation lookup remain open; no actual numeric floor/terrain permutation witness or executed fixture."
+    }
+  ],
+  "mandatory_other_lens_queue": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout.rs",
+      "sha256": "d5aacb8a24fecfd5dadee9361c1b6c3d32bd19171bfc0bc984cd8b2efb183c8f",
+      "actual_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "material_ranges": [
+        [
+          10,
+          10
+        ],
+        [
+          18,
+          36
+        ]
+      ],
+      "provenance": "audit08-root-bounds-dimensions-staging-020.json",
+      "canonical_source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-core/src/city_layout.rs",
+      "base_alias": "base:crates/adventuresim-tactical-core/src/city_layout.rs",
+      "head_alias": "head:crates/adventuresim-tactical-core/src/city_layout.rs",
+      "body_source_scope": "Exact frozen before/after equal; only materially reached declarations/bounds methods assessed. Unrelated displayed bodies are not granted behavior coverage.",
+      "required": "Root reconcile newly reached shared first-party identity and mandatory applicable other-lens role/source-extension queue. No original denominator increment or whole-file/other-lens/current/P16 verdict transfer."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+      "sha256": "8d64dedb165f7ed83c658f1f3126c264e7d67aef759ccaeed83843d99190c86b",
+      "actual_ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "material_ranges": [
+        [
+          21,
+          25
+        ]
+      ],
+      "provenance": "audit08-root-compound-staging-020.json",
+      "canonical_source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+      "base_alias": "base:crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+      "head_alias": "head:crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+      "body_source_scope": "Exact frozen before/after equal; only materially reached declarations/bounds methods assessed. Unrelated displayed bodies are not granted behavior coverage.",
+      "required": "Root reconcile newly reached shared first-party identity and mandatory applicable other-lens role/source-extension queue. No original denominator increment or whole-file/other-lens/current/P16 verdict transfer."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compound/region.rs",
+      "sha256": "b9459edfa26900b54302dd7fc9e9c0ccf3db2871e9c7789af6a479af2baf871b",
+      "actual_ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "material_ranges": [
+        [
+          3,
+          60
+        ],
+        [
+          99,
+          112
+        ]
+      ],
+      "provenance": "audit08-root-region-staging-020.json",
+      "canonical_source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-core/src/city_layout/compound/region.rs",
+      "base_alias": "base:crates/adventuresim-tactical-core/src/city_layout/compound/region.rs",
+      "head_alias": "head:crates/adventuresim-tactical-core/src/city_layout/compound/region.rs",
+      "body_source_scope": "Exact frozen before/after equal; only materially reached declarations/bounds methods assessed. Unrelated displayed bodies are not granted behavior coverage.",
+      "required": "Root reconcile newly reached shared first-party identity and mandatory applicable other-lens role/source-extension queue. No original denominator increment or whole-file/other-lens/current/P16 verdict transfer."
+    },
+    {
+      "canonical_source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+      "sha256": "4ccc1188de7d5f8bdbf63b71160b8557f76fb524ae47f924381325da11198ee8",
+      "base_sha256": "2d2939444a886b9c8e24716c41c21844e44abe8f18b2f6607d881ef75090c89d",
+      "existing_original_index": 667,
+      "required": "Keep existing original/other-lens obligations including moved owner/LeafDimensions routes; body access does not transfer original completion or all-lens verdict."
+    }
+  ],
+  "counts": {
+    "before": 1800,
+    "after": 1800,
+    "total": 2853,
+    "new_original_completions": [],
+    "next_ordered_original": 1793,
+    "earliest_unfinished_original": 1462,
+    "material_contiguous": [
+      0,
+      51
+    ],
+    "material52": "partial",
+    "separate_material_interval": [
+      178,
+      195
+    ]
+  },
+  "qualifications": [
+    "Exact frozen3a50/6533 before/after identities, changed747 anddirty4 absence/entry checks from rootstaging, own byteverification before bodies. No currentdf5/P16dirty source alias.",
+    "Only materially called/reached methods assessed: displayed CitySite generation, unrelated compound fields/methods and region relocation/intersection/plan_polygon bodies get no semantic completion.",
+    "Prior016-019 triangle/Position/street/access/planar source closures preserved without restart; finite helper reused only after own exactidentity/contract verification.",
+    "Q003009directcomposition/012matrix-erasure actual ingress/cast/runtime qualifications andmaterial52/Paid-to-Withdrawnpartial unchanged.",
+    "All20/P16/P17/#780/#826/M16repairgraph, inheritedaliases/findings and broadF9 obligations preserved; no globalclearance.",
+    "No project/test/fixture/helper/native execution, scans/probes/newtests/assertions/doctests; no product/source/Git/rootledger/history/publication changes. Only ignored evidence appended."
+  ],
+  "stop": "Bounded020 complete as source leaf; save atactualSupportLimits/solver/errorframing/recipe/collision/singleproperty andremainingJSON/terrainfrontier, before1794."
+}

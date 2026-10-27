@@ -1,0 +1,85 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-183",
+  "at": "2026-10-23T04:22:23.630394+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/language.rs",
+      "sha256": "1475b920cad83e1f040a2c19627f288508d660a9d771bd72cf8993fa34b9a05f",
+      "scope056_index": 442,
+      "actual_EOF": 756,
+      "scoped_ranges_compared": [
+        [
+          1,
+          205
+        ],
+        [
+          214,
+          243
+        ]
+      ],
+      "actual05_comparison": "Fresh actual PR1-310/311-563 bounded source and complete actual P16/PR source diffempty; personallycomparedP16only1-205+214-243 roles including newRig036 material. P16 206-213/244+ remain uncredited; PR564+ fixtures/initialization lower bodies excluded. Initial failedcp1252display stopped79 and givesno missingbodycredit; successfulUTF8 bounded reread complete."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/language.rs",
+      "sha256": "1475b920cad83e1f040a2c19627f288508d660a9d771bd72cf8993fa34b9a05f",
+      "scope056_index": 2163,
+      "actual_EOF": 756,
+      "scoped_ranges_compared": [
+        [
+          1,
+          563
+        ]
+      ],
+      "actual05_comparison": "Fresh actual PR1-310/311-563 bounded source and complete actual P16/PR source diffempty; personallycomparedP16only1-205+214-243 roles including newRig036 material. P16 206-213/244+ remain uncredited; PR564+ fixtures/initialization lower bodies excluded. Initial failedcp1252display stopped79 and givesno missingbodycredit; successfulUTF8 bounded reread complete."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "closed-language-column-membership",
+      "comparison": "OralLanguage8/WrittenLanguage7 explicitALL fixedarrays, indexmatchesdeclaration acrossdirect/direct_mut and correlationmatrix square8x8/7x7. Matrixsymmetricdiagonal1 and weights0..1 sourcevalues; direct_values iteratescanonicalALL and readsSAMEfields, so no zippedindependentlength/order. Descriptor English/native/monogram/germanic purpose-specificbundle derivesSAMEvariant, monogram collisionsLow/Latin andEast/Elvenintentionaldisplaynotidentity. Serde/SATS closedenumroute separatelymacrocontracts, no blanketforeignderivecredit. PRWritten337+only, noP16credit."
+    },
+    {
+      "id": "raw-hours-versus-derived-effective-hours",
+      "comparison": "PublicHoursDefaultzero/Serde/SATS/direct_mutpermitrawNaN/negative/extremehours; direct_fields_valid requiresfinitepositivecap andeachdirect0..cap butdoesnotsealaftervalidation orboundeffectiveweightedSUM. Oral percolumnvalid(MAX) still .7/.3+.55 weightedcorrelationSUMoverflowInf (Root04F016 actual independentlysupported), currentnormaladd_direct caps5000 and all8weights<=1 boundssum<=40000finite. Writteneffective additionallyrequirespositiveOWNdirect beforecorrelatedliteracy, notoraloralpolicy; preserveintentionalunlockgate. add_direct finitepositiveaward, handlesinvalidcurrentbyreplace, min5000afteraddition ensuresnormalfinitecap even intermediateInf; no blanketavoidallpostaddminfinding. Negativecurrentfinite mayremainnegative aftersmallaward rawAPI, acceptedinitialstatecallerowned."
+    },
+    {
+      "id": "pair-common-language-coefficient",
+      "comparison": "best_common_capped computes SAMElanguage pair min(left effective,left nonnegativecap,right effective,rightcap)/positive5000 clamp[0,1]. All8languages nonempty, max coefficient andlowerindex tie; fallbackEastCentral0 unreachablewithcanonicalALL butgenuinelyzero shared proficiency maychooseEastCentral display, notmissingmandatoryevidence. language_scaled_effect finite-checksvalue/shared, clampsshared0..1thenproduct cannotincreasefinitevalueabsoluteMAX, zerosharednoeffect. P16onlythispair214-243+newdefinitions1-205, no unscopedwrapper207-212orpartytrainingimplementationcredit."
+    },
+    {
+      "id": "party-top-two-correlated-retained-state",
+      "comparison": "PRparty function computes top2perlanguage fromSAMEimmutable speaker tuples, then perrow chooses otherIDslot, computesowncoefficient andemitsSAMEid/language/value. Fixed8languagearrayindexsafe; top sentinel coefficient-1 meansnobody, notID0forbidden. Unique-ID input makes self-exclusioncorrect; duplicateIDsbreakit F041. Training functions derivewholeVec fromSAMEchoice output and finiteelapsed>=0, coeff<=1sofiniteproduct<=elapsed; no parallelarray mismatch. PRcaps individualfloatraw maynonfinite but max/minclampsnotwholeprivateseal; actualcallerboundedcaps stillownsource."
+    },
+    {
+      "id": "settlement-normalized-vernacular-profile",
+      "comparison": "PRSettlementLanguageProfile publicrawu16s/Default0/Serde/SATS exposes independentfields. is_valid widens3Germanweightsu32(max196605safe), requiresSUM10000 andYiddishincidence<=1000; incidence is independent perperson overlapsvernacular, NOTfourthprobabilitycomponent. dominantGerman deterministicEasttie>West>Low hasno internalvalidation; rawallzero yieldsEast butacceptedprofilefactoryrequiresnormalization. Inference checksfinitePLAYABLE_BOUNDS then WGS84microdegrees, widenedlimitedlon/latlinearweights andi128northernquadratic; low<=9000, central10000-low, eastShare500..9500, roundedEast<=central thenWest=central-East, so allGermanweightsSAME10000 andYiddish75. It returnscoherentproductatomically. Actualrawdecoderreceivers mustvalidateprofilebeforeassumingnormalization, no wholeforeigncoordinatehelperguarantee inferred. PR563end; alltests565+/initializationhelperbody remainexcluded."
+    }
+  ],
+  "new_unique_findings": [
+    {
+      "id": "NATIVE-INITIAL05-F041",
+      "relationship": "Best oral-language counterpart must have a distinct character identity from the speaker",
+      "source_refs": [
+        "pr-working:crates/adventuresim-world-schema/src/language.rs:256-304",
+        "pr-working:crates/adventuresim-world-schema/src/language.rs:322-334"
+      ],
+      "counterexample": "speakers[(1,Hours{east_central:5000,others0},5000),(1,sameHours,5000)] populates BOTH retained top slots withID1. Per-ID evaluation rejects first slot asself but takessecond SAMEID, yieldingsharedcoefficient1 although no distinctcounterpart exists; capped training returnspositive hours for both duplicatedself entries.",
+      "qualification": "Public aggregate/API membership weakness only; actual normal DB speaker-list identity uniqueness/current caller admission not yet05traced. PRONLY currentpartyhelper scope; P16 currentmaterial1-205/214-243 does not coverpartyhelper244+. No ordinary self-training/run claim. Root04/Camera07 exactdedup queries bothnegative, no independent peer sourcecredit.",
+      "connected_repair": "Use one immutable unique-character speaker snapshot, dedup identical snapshots and reject conflicting same-ID hours/caps, or retain distinct IDs in top-two plus per-output uniqueness. Preserve ordered stable ID ties, language-index tie policy, solo0/empty and bounded coefficients; actualDBsnapshot membership remainscaller authority.",
+      "acceptance": "Every nonzero shared counterpart has distinct identity, duplicate self entries cannot create training partner or repeated accepted training row; preserve normal unique-party results. No new tests/execution."
+    }
+  ],
+  "supporting_existing_findings": [
+    "Root04F016 finite oral effective sum overflow, currentPR actualbody independentcompare+P16qualifiednewprefix. No additionalNativeunique numericfinding."
+  ],
+  "scope_qualifications": [
+    "Global0562825+241 newRig036 source-role1-205 comparedhere, excludes206-213/244+P16. Mandatory188 EOF and all earlier117/130/149/151/158/170/173/176/184 preserved."
+  ],
+  "remaining_dependency_obligations": [
+    "Actual normal DB party speaker ID uniqueness/snapshot/cap source requiredbeforeordinary F041 claim; raw settlement profile recipients and language initialization remains exactqueuedbodies."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

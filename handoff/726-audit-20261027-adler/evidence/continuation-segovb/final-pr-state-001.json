@@ -1,0 +1,24 @@
+{
+  "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/988",
+  "state": "open",
+  "draft": false,
+  "merged": false,
+  "mergeable": true,
+  "head": "961d226be23a81d9731a11958d62fe8a04b93e81",
+  "base": "a411abb4370bb6f6609622cef5da59988a37aee9",
+  "body": "Whole-texture format-view requests currently erase native validation causes into\ntext, panic when a matching-format cached view is absent, and ignore failed\ndevice polling. `Texture2d`, `Texture3d` and `TextureCube::view_with_format` now\nreturn a shared `TextureViewResult` preserving the requested format and native\ncause. Missing resources return typed errors, and failed observation returns a\ntyped progress error before caching a new view.\n\nThe shared `ValidationScope` keeps its device and guard together, attempts\npolling before always popping the scope, and retains both polling and captured\nvalidation errors. Alternate-format views honor the borrowed-context policy.\nCached Arc identity, cache-first precedence, storage sRGB projection,\ndescriptors and the three ComputePass error recipients retain their existing\nbehavior.\n\nThe workflow preserves the existing Linux, Windows, fixture-exporter and\npositive-execution gates. At final commit\n`961d226be23a81d9731a11958d62fe8a04b93e81`, [hosted run\n40372060212](https://github.com/adventure-simulator-group/fabelgeist/actions/runs/40372060212)\nhas passed the existing 13 GPU library tests, two GPU doctests, exact\nborrowed-context case, ten Windows foliage cases, 67 constraint/shell library\ntests and five constraint doctests, with zero failures or ignored cases in those\npopulations. Formatting, generated bindings, semantic/growth checks and Clippy\nhave also passed. The complete Linux and Windows jobs succeeded. The final\nsource-pinned artifact confirms positive execution in all 48 required rig and\nconsumer groups: 1,461 passed, zero failed, and 14 ignored cases across five\nterrain groups. The fixture-regeneration job was skipped by its existing opt-in\ncondition.\n\nThe hosted baseline supports only two relevant ceiling reductions: 2D texture\n538 to 502 and cube texture 899 to 862. No ceiling is raised. No tests, cases,\nhelpers, assertions or doctests are added; the saved WIP test/fixture files and\nnew doctests are excluded because they are absent from current main.\n\n## Implementation context\n\nIndependent Code, Rule and Comment source reviews checked the scoped producers,\nshared observation owner, unchanged receiving bodies, native SDK contracts and\nworkflow composition. They found no new scoped source defect after the baseline\nrepair. Existing tests do not directly exercise the new view-error or\npolling-failure branches; their behavior is supported by source traces. Final\nfingerprint reconciliation matches all 15 changed files and all 45 reviewed\nsource/SDK paths to the reviewed identities. Required hosted checks passed at\nthe final revision.\n\nThis is an independent increment toward #826, connected to #780 and #726. Public\ntexture/cache/metadata/device coherence, constructor and subresource validation,\nremaining migrations and the complete audit remain open.\n",
+  "workflow": {
+    "workflow_runs": [
+      {
+        "id": 40372060212,
+        "name": "Rust quality",
+        "status": "completed",
+        "conclusion": "success",
+        "run_number": 1196,
+        "jobs_url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/actions/runs/40372060212/jobs",
+        "logs_url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/actions/runs/40372060212/logs",
+        "workflow_id": 338912536
+      }
+    ]
+  }
+}

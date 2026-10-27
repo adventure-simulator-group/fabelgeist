@@ -1,0 +1,16 @@
+{
+  "status": "Append-only source chronology correction; historical receipts remain unchanged.",
+  "affected_receipts": [
+    {
+      "path": "batch-117-122-receipt.json",
+      "sha256": "ecec445329f3211bca23b30e73da2ce57f087842f05c46b33be6fb0694062204"
+    },
+    {
+      "path": "batch-123-129-receipt.json",
+      "sha256": "c7e01e22a7a8ff18234d0a858724f0156c661690fb0fa501d9ece6d1bf838997"
+    }
+  ],
+  "correction": "The117-122 original203 description cited own core food requested1-440 as proof of explicit_meal_consumption, travel_consumption and retained_component. Those actual helper bodies are at529-556 and were not in that prior requested range. Their full actual bodies were prospectively registered124 at441-557 and read during123-129. Do not treat117-122 as having consumed those helper bodies earlier. This corrects an overbroad proof-reuse claim, not the source identity.",
+  "current_source_accounting": "Source original107 earlier requested1-440 status is unchanged. Original203 receiving trace is now completed by actual124 read plus123-129 receipt, including finite guards and zero-no-op boundaries. STATE025 proposal should be adopted only with this later receiving completion/qualification and STATE026, not as proof that those helper bodies were read before its creation. No fresh original or unique count arises from the correction.",
+  "unchanged_limits": "No tests/runtime/source edits/checks. Currentness, aliases, native SDK and whole-file coverage remain qualified."
+}

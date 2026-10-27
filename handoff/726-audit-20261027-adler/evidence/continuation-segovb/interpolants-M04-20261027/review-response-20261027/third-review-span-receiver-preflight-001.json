@@ -1,0 +1,30 @@
+{
+  "scope": "Actual PoseSampling::Span receiving chain",
+  "head": "bca8a656440564fb7d486224115520fa5d317599",
+  "files_before": {
+    "crates/adventuresim-tactical-client/src/animation/resolver/span.rs": "6d417f317e9d6c150d1b588395132d72996b5645a9ede00a68c0f2eeac51e433",
+    "crates/adventuresim-tactical-client/src/animation/resolver.rs": "1b0873cd746e039bdbc6d22d4f55b28ffad8141f68f43fbdb9fb3be25eb7eeb0",
+    "crates/adventuresim-tactical-client/src/animation/weighted.rs": "8453166436911f4394c507ec05f4e3bf3f52d0bb92cb9f388bb0cecbe64ceb7c",
+    "crates/adventuresim-tactical-client/src/animation/playback_contributions.rs": "5c10fad61699ffe32bde91d9f48b833a2e6c42d30f7c77189f0da2a73a2823b1",
+    "crates/adventuresim-tactical-client/src/animation/playback_state.rs": "e9898cf619d1bdfe9c8ad70bd80b0600961abfda3e5cd8158330df18b2c9424d",
+    "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs": "4544835a041e7c35f25b60d0b13e06ff22ea4ecc0efc90efdda1cd6963fb9638",
+    "crates/adventuresim-tactical-client/src/animation/pose_buffer/inertialization.rs": "8bf6f24386dae22c8e339928d6d9c90fbf89cfc3b438d0cd0e74468559e8cd84",
+    "crates/adventuresim-tactical-client/src/animation/foot_influence.rs": "132728572eda6899b6d6f9ebe07e1c1dae458a7f8347e66f86d692edf4af3a1c",
+    "crates/adventuresim-tactical-client/src/animation/procedural.rs": "815bfd27404840b0d69f337719c882adf65fea894e48a769670a582eb42faf1b",
+    "crates/adventuresim-core/src/linear_speed.rs": "7c44bfdf7648e528853e2e1c4d823e32d7ce37ec9a6d01f3db8f59c5b1934313"
+  },
+  "chain": "evaluation diveSpan -> resolver append_layer -> append_interpolated_span -> typed weighted anchors/coalescing -> PlaybackContributions sumadmission -> retained AnimationPlayback -> sample_plan -> typed LocalPose::interpolate -> Vec3 lerp and native quaternion hemisphere/slerp numericalkernel -> Transform",
+  "other_weight_paths": [
+    "mirror_fraction typed weights are summed; native scalar dimensionless division+bounded outputadmission in same owning reduction; typed whole_bodymirror retained to BTreeMap and final native Vec3/Quat Transform operations",
+    "accumulate_local_pose accepts checkedBlendWeights, checked sums thennative scalar quotient yields bounded newinterpolationfraction; LocalPose.interpolate accepts UnitInterval, extracts at actual Vec3lerp/native quaternion kernel. hemisphere_slerp actualbody dot/antipode selection/slerp/normalize read, no retained primitive state or downstream domainAPI",
+    "FootIkInfluence actualVec2 multiply/add/divide reduction, admissionbefore retained typedleft/right; alreadydocumented numericalkernel"
+  ],
+  "gap": "span method extracts guaranteed UnitInterval then reconstructs eachBlendWeight despite existing losslessFrom and complement; first-party weight preparation notnativeboundary",
+  "repair": "remove progressfraction extraction; typed complement then BlendWeight::from at checkedscale forstart; BlendWeight::from(progress) forend",
+  "extra_readability": "Name checked interpolation sum as interpolated_speed before explicit typed narrow, same admitted result, no changed policy",
+  "unrelated": "CurveSpan extrapolation coordinate intentionallyunbounded; Timeline playbacktime branch distinct, not diveSpan; global discovery incomplete",
+  "discovery_complete_for_scoped_receiving_paths": true,
+  "new_unique_delta": 0,
+  "local_project_execution": false,
+  "tests_added": false
+}

@@ -1,0 +1,243 @@
+{
+  "id": "SEGOVB-CONT11-171-797-COMPLETE",
+  "lens": "type-granularity",
+  "original": 797,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/geometry.rs",
+  "sha256": "58e56192a203d08a0cff3e0d1b4a037df09a24a86b969555bb1f2b6faf8a5fa0",
+  "actually_read_original": [
+    [
+      1,
+      172
+    ]
+  ],
+  "prior_state": "audit11-segovb-170-proposed-state.json",
+  "source_accounted": true,
+  "source_complete_for_requested_role": true,
+  "status": "source-accounted with qualified public geometry/frame/share/atlas channel concerns; not clear",
+  "contract_traces": [
+    {
+      "role": "HairGeometry channels and AtlasLevel output owner",
+      "locations": "geometry.rs15-37,123-160",
+      "trace": "HairGeometry keeps model-space metre positions, normals, UVs, occlusion, per-card sampling randoms, root-to-tip tangents and triangle topology as named parallel channels. Normals and tangents need different transforms despite same triples; positions need translation as well as frame map. AtlasLevel groups one mip width/height and output RGBA bytes, a distinct image adapter responsibility rather than redundant geometry wrapper. empty constructs every geometry stream empty together. Public vectors/dimensions remain independently mutable and do not certify universal association/finite/unit guarantees. No existing equivalent checked geometric/image owner contract was established that would justify replacing these records solely from similar storage."
+    },
+    {
+      "role": "Canonical requested Form versus resolved Representation",
+      "locations": "geometry.rs39-74,84-98; native lod.rs250-287,336-386,470-477,519-544",
+      "trace": "Form is canonical requested Cards{level} or Strands{level,share}; card variant cannot accidentally carry a strand share. Native Representation instead carries resolved strand count/widthscale or card level and answers a different draw-time question; no duplicate owner or role sum should be merged solely because variants sound similar. Desktop authored producers use explicit strand shares1,0.5,0.2 and card levels; fixed retains arbitrary caller Form. Native policy resolves counts/widthscale with its own interpolation while geometry resolves per-level count and ribbon budget. These distinct requested/resolved roles earn their payload shapes. level is arbitrary collection ordinal selected by variant, not a closed semantic enum of numeric levels. Raw f32 share remains an unproved finite/checked invariant at public Form boundary; no new admission policy or unique finding imposed."
+    },
+    {
+      "role": "Actual form selection, absence and count/row budget",
+      "locations": "geometry.rs41-98; strips.rs104-121,125-183",
+      "trace": "geometry uses optional GPU geometry and returns coherent empty host geometry when unavailable. Cards get requested level or last available cut; no cards=>None. Strands require exact requested level; missing level=>None. Last-card fallback is current rendering selection policy, not compatibility scaffolding. strands_drawn distinguishes total strandcount, wanted sharecount, strip rowcount and vertexbudget. Rows derive from native point count and bounded subdivision; two vertices per row converts budget into affordable strands. wanted clamp ensures at leastone for a nonempty affordable level even when requestedshare0; native policy also chooses at leastone when total>0. No new positive-share requirement invented; zero affordable budget may still yield0. Widening uses total/drawn.max1, not a capped share. Zero/invalid/native mutable counts are not globally validated by this local selection algorithm."
+    },
+    {
+      "role": "Actual GPU geometry construction, packing and readback receiver",
+      "locations": "strips.rs89-109,111-218,220-302,418-435",
+      "trace": "StripSource owns body field and longest strand metre length, separate from strand/card level and count. cards/ribbons build a shared native strip representation with source_rows/pieces/strips; build derives one common rows count and vertex byte length for four buffer streams and dispatches native kernel with all buffers/counts. Exact WGSL write_point stores positionxyz/occlusionw, normalxyz/randomw, tangentxyz/pad andUVxy/pad at one index; out_index derives same strip/row/edge slot. GpuGeometry.read reads native padded vec4 arrays and truncates each to common vertices count, then explicitly splits those roles into HairGeometry channels. faces builds two triangles for each consecutive pair of rows using same ordered strip topology. This is a source-backed native geometry byte/slot adapter; no blanket primitive exemption or shader/collision/driver validity guarantee, index-overflow/finite proof or universal arbitrary-buffer admission follows."
+    },
+    {
+      "role": "Carrying the same hair through distinct geometric transforms",
+      "locations": "geometry.rs136-159; placement.rs107-126 retained169,129-176 newlyread",
+      "trace": "carried maps model positions through from.bust_point then to.point; normals through inverse normal map then normal; tangent directions through inverse direction then direction. UVs, occlusion, randoms and faces clone unchanged because the same hair topology/texture identity is retained while head frame changes. Actual HeadPlacement point includes origin translation, normal uses inverse-transpose under nonuniform scale and direction uses ordinary affine axes with normalization. This concrete distinction prevents treating normal and tangent transforms interchangeably under nonuniform head stretching; named field alone does not enforce the distinction on arbitrary public input vectors. No new universal frame/type system proposed and no degenerate-placement correctness claim."
+    },
+    {
+      "role": "Native atlas owner, authored packing and exact mip adapter",
+      "locations": "geometry.rs100-120,163-172; native gpu/lods.rs18-72,219-260; cards.rs211-268,320-329",
+      "trace": "GpuLods retains canonical CardAtlas shared byArc; native producer caches it under variants plus per-variant width/height and invokes CardAtlas::paint. paint sets total atlas width=per-variantwidth*variants, copies bundle columns into rows, and stores RGBA8 coverage,shade,depth,coverage. Exact output assignments320-329 verify channel meanings. Mips halve both dimensions with floor/max1 over actual levels, using per-channel2x2 byte averaging while dimensions remain>1 and levelcount<12. geometry.atlas_levels follows stored totalwidth/height and same halve/max1 rule, converting each complete four-byte texel to shadeRGB pluscoveragealpha. It does not reinterpret colour as another unit interval or require new per-byte wrappers at the image-format boundary. Native generated arrays have explicit dimension/count layout; public atlas mutation, invalid dimensions/overflow, procedural painting quality, full mip completeness and partial trailing-byte admission are not universally certified. as_chunks4 ignores a malformed partial final texel; actual native generated size is width*height*4, no ordinary malformed current producer witness claimed."
+    }
+  ],
+  "qualified_observations": [
+    {
+      "local_source_key": "pr-working:crates/adventuresim-character-creator/src/hair/geometry.rs@sha256:58e56192a203d08a0cff3e0d1b4a037df09a24a86b969555bb1f2b6faf8a5fa0#L15-L37,L136-L172:geometry-frame-and-atlas-channel-roles",
+      "classification": "qualified public role/frame/channel association concern; no accepted unique finding or canonical alias",
+      "observation": "Positions, normals, tangents, occlusion, sampling randoms, UVs and output atlasRGBA have source-backed different uses. Local GPU generation/readback and carried transformations preserve an identified association; public raw channels remain a broader semantic ownership/admission question. Purpose-specific leaves/collections could prevent an actual normal-vs-tangent transform mixup under nonuniform scale, but any repair must reuse matching canonical owners after owner-fit/alias reconciliation, not mechanically wrap every number."
+    },
+    {
+      "local_source_key": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/lod.rs@sha256:858dfb6b573d078ef1ecec3d6a2d8a0f16e80b1780e213259d8fe27946a6acc6#L277-L287:requested-form-share",
+      "classification": "retained primitive share/progress role distinction; no new unique finding",
+      "observation": "Requested strand share, resolved count, inverse coverage widening, point/row counts and mip/LOD ordinal are different roles. Exact native Form keeps semantic choice typed but share is raw; no proven alias/current regression or requirement for invented bounds beyond actual producers/consumers."
+    }
+  ],
+  "source_fingerprints_and_reads": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/geometry.rs",
+      "sha256": "58e56192a203d08a0cff3e0d1b4a037df09a24a86b969555bb1f2b6faf8a5fa0",
+      "consumed_ranges": [
+        [
+          1,
+          172
+        ]
+      ],
+      "symbol_locator": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/strips.rs",
+      "sha256": "018591fdd7fdc9288f16a0ed5ed2f2ef6e3649448afa564b58358a3987144bba",
+      "consumed_ranges": [
+        [
+          1,
+          71
+        ],
+        [
+          89,
+          300
+        ],
+        [
+          301,
+          303
+        ],
+        [
+          418,
+          437
+        ]
+      ],
+      "symbol_locator": true
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+      "consumed_ranges": [],
+      "symbol_locator": true
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/lib.rs",
+      "sha256": "57c7525f7e70077874384b0491220ff8d9dd427cc3b5e18b8e0f43d5ef5ddff0",
+      "consumed_ranges": [],
+      "symbol_locator": true
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/lod.rs",
+      "sha256": "858dfb6b573d078ef1ecec3d6a2d8a0f16e80b1780e213259d8fe27946a6acc6",
+      "consumed_ranges": [
+        [
+          250,
+          289
+        ],
+        [
+          336,
+          375
+        ],
+        [
+          470,
+          482
+        ],
+        [
+          518,
+          546
+        ],
+        [
+          376,
+          389
+        ]
+      ],
+      "symbol_locator": true
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/placement.rs",
+      "sha256": "95f08e95fd0815ac957cb0578ef7291036b5d4a9b047e38da1a9f16bdebd4a7f",
+      "consumed_ranges": [
+        [
+          129,
+          184
+        ]
+      ],
+      "symbol_locator": false
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/gpu/lods.rs",
+      "sha256": "4c4942bcc61f37168061524da5455ca10cfd712e6611f8128f2cf45cf1c58fb9",
+      "consumed_ranges": [
+        [
+          1,
+          74
+        ],
+        [
+          210,
+          261
+        ]
+      ],
+      "symbol_locator": true
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/cards.rs",
+      "sha256": "94362357c99bfe3788518e391eeb66986b7ab8f5bf85608c6e2ffb09b916c2a0",
+      "consumed_ranges": [
+        [
+          211,
+          270
+        ],
+        [
+          318,
+          361
+        ]
+      ],
+      "symbol_locator": true
+    }
+  ],
+  "reused_precise_prior_contracts": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/placement.rs",
+      "sha256": "95f08e95fd0815ac957cb0578ef7291036b5d4a9b047e38da1a9f16bdebd4a7f",
+      "ranges": [
+        [
+          38,
+          47
+        ],
+        [
+          107,
+          126
+        ]
+      ],
+      "receipt": "audit11-segovb-169-796-partial-002.json",
+      "new_discovery_credit": false
+    }
+  ],
+  "new_material_provenance": [
+    {
+      "path": "audit11-segovb-171-form-staging.json",
+      "sha256": "2db77b21ffa96da4e156b073605a3dd2715b4f47fa731eed17151d2a46738cde",
+      "basis": "Root exact frozen unchanged dependency provenance: base3a50b708381ad00c116445c2c999a49c3943088b/head6533e444fa37552927070cc8d8190907fd3b413e bytes equal; path absent frozenpr-working changed manifest and all four dirty status sets; no current substitution."
+    },
+    {
+      "path": "audit11-segovb-171-atlas-staging.json",
+      "sha256": "ffd72cc1fc00aa3a1f4e41dd5b369fb55642928bf16b8912dab522ba5e1268ce",
+      "basis": "Root exact frozen unchanged dependency provenance: base3a50b708381ad00c116445c2c999a49c3943088b/head6533e444fa37552927070cc8d8190907fd3b413e bytes equal; path absent frozenpr-working changed manifest and all four dirty status sets; no current substitution."
+    }
+  ],
+  "new_material_extension_ids": [
+    "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/lod.rs",
+    "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/gpu/lods.rs",
+    "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/cards.rs"
+  ],
+  "other_lenses_queue": "All three newly reached unchanged dependencies require root mandatory other-lens queue; zero original/shared discovery count. Prior796 scalp/scalp-layout extensions remain queued incomplete independently.",
+  "incidental_source_read_limit": "Registered cards.rs318-361 window exposed existing unrelated test prefix331-361 after required packing body ended329. No semantic/discovery/test coverage credited, no test executed/added/restored, and remainder of that unrelated test not pursued.",
+  "registrations": [
+    "audit11-segovb-171-registration-001.json",
+    "audit11-segovb-171-registration-002.json",
+    "audit11-segovb-171-registration-003.json",
+    "audit11-segovb-171-registration-004.json",
+    "audit11-segovb-171-registration-005.json",
+    "audit11-segovb-171-registration-006.json"
+  ],
+  "currentness": "Original797 workspace bytes exactly matched frozen source SHA before and after full-body read; that file identity is established. Matching current frozen receiving files and unchanged dependency proof do not establish complete current family integration/runtime validity or a new regression. No broad current tree/Git audit.",
+  "qualifications": [
+    "Original0-796 retained and not restarted; connected803/804/805/2845 etc have zero early ordered credit. No798 ordered read.",
+    "795 HairPigmentNaN remains frozen local qualified candidate with unresolved current/unique/alias acceptance; not promoted here.",
+    "Crosswalk001 source-key namespaces and current Dressing reconciliation001 preserved; no invalid bareQ008/Q009 aliases or broader family clearance.",
+    "Source-accounted is bounded role/producer/receiver assessment, not clear/integrated/validated. Native byte/geometry/atlas adapters inspected do not establish all shader/numerical/kernel/driver/data mutation contracts or other-lens verdicts.",
+    "No backward compatibility requirements or historical API/layout preservation constraints.",
+    "No product/Git/rootledger/historical mutation, project execution/checks/tests/probes/scanners or publication; ignored append-only evidence only."
+  ],
+  "new_unique_findings": 0,
+  "accepted_unique_count_change": 0,
+  "proposed_original_accounted": 798,
+  "original_total": 2853,
+  "next_original": 798,
+  "active_partial": null,
+  "integrated": false,
+  "validated": false,
+  "clear": false,
+  "crosswalk": "audit11-question-crosswalk-001.json",
+  "current_reconciliation": "current-rig-dressing-reconciliation-001.json",
+  "stop_boundary": "Original797 completed only;798 unstarted."
+}

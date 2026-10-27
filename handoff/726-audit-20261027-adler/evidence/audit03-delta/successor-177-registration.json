@@ -1,0 +1,23 @@
+{
+  "registry": "target\\recovery-20261025\\shared-material-successor\\source-extensions-178.json",
+  "registry_sha256": "587593ed5b26f10459dd9fff45e467b07cfe22ea55002ee27cb25095b1c054d5",
+  "entries": [
+    {
+      "index": 177,
+      "source_id": "scope-amendment:pr-working:crates/strategic-web/static/art-demo/viewer.mjs#runtime-origin-header",
+      "sha256": "18e08b3c82909fa45a67ca5baeb0ecb0eb69b93db8f372d420940b8374effb78",
+      "source_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "actual_eof": 327,
+      "local_object": "target\\recovery-20261025\\audit01-delta\\source-objects\\18e08b3c82909fa45a67ca5baeb0ecb0eb69b93db8f372d420940b8374effb78",
+      "verified_source_origin": "target\\recovery-20261025\\shared-material-successor\\source-extensions-178.json",
+      "reason": "M174 module receives result of loadRuntime and M175 forwards JSON to runtime.command. Inspect immediate module/runtime declaration header before identifying that call as a native/WASM port; helper name alone is insufficient. Prospectively registered before semantic header read.",
+      "semantic_status": "registered_before_own177body_read"
+    }
+  ],
+  "qualification": "Root prospective exact range registration retained; no source/body/lens credit frommetadata."
+}

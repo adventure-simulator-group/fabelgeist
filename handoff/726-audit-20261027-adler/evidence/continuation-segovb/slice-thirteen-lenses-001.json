@@ -1,0 +1,130 @@
+{
+  "scope": "Recovered whole-texture view errors and shared native observation only; successor scoped wave, NOT full global audit wave",
+  "base": "a411abb4370bb6f6609622cef5da59988a37aee9",
+  "source_identity": "working files fingerprints in ledger; saved production bytes unchanged except prohibited doctest removal; workflow composition differs as recorded",
+  "lenses": [
+    {
+      "number": "01",
+      "name": "producer propagation",
+      "source_backed_trace": "views.rs14-50 in each texture kind returns TextureViewResult<Arc<wgpu::TextureView>>; native observation map calls TextureViewError::from_observation with original TextureFormat and closed operation. ComputePass::record272/301/329 uses ? directly into anyhow, then binding vector retains native Arc until create_bind_group; dispatch23-33 propagates before queue submission. No string adapter or reconstructed type.",
+      "limits": "Existing broad error lifecycle/cache/state graph remains outside this increment.",
+      "discovery": "complete within this defined error-result responsibility",
+      "repair": "integrated source; hosted acceptance pending",
+      "global_clearance": false
+    },
+    {
+      "number": "02",
+      "name": "existing type owners",
+      "source_backed_trace": "TextureFormat owns format vocabulary; unchanged From<TextureFormat> for wgpu at format.rs50-81 and linear counterpart384-391 are descriptor adapters. Canonical ValidationScope/ScopeError/ProgressError recovered exact saved source; no new competing owner. Native Arc<Device>, ErrorScopeGuard, PollError, Error are SDK values.",
+      "limits": "Public resource-device association remains inherited F2.",
+      "discovery": "complete within this defined error-result responsibility",
+      "repair": "integrated source; hosted acceptance pending",
+      "global_clearance": false
+    },
+    {
+      "number": "03",
+      "name": "admission",
+      "source_backed_trace": "Three view methods cache-first: same-format returns cloned Option Arc or MissingView; alternate requires native or Uninitialized before any scope. ValidationScope::new consults existing blocking_validation and privately captures same context device+guard. Error variants accept real SDK causes, no decoding/string classification.",
+      "limits": "Public native/cache/metadata mutation and foreign-context admission remain F2; type error result does not certify textures.",
+      "discovery": "complete within this defined error-result responsibility",
+      "repair": "integrated source; hosted acceptance pending",
+      "global_clearance": false
+    },
+    {
+      "number": "04",
+      "name": "operations",
+      "source_backed_trace": "ValidationScope::finish74-88 polls then always pops; (Ok,None) success; (Ok,Some) Native; (Err,any) Progress retaining both. Failed observation returns via ? before Arc publication; &self view creation changes no application retained cache. Arc cloning preserves shared identity.",
+      "limits": "SDK panics/device health and prior submissions not rolled back; no claim of global transactional behavior.",
+      "discovery": "complete within this defined error-result responsibility",
+      "repair": "integrated source; hosted acceptance pending",
+      "global_clearance": false
+    },
+    {
+      "number": "05",
+      "name": "aggregate states",
+      "source_backed_trace": "Scope stores exact factory device and guard privately; ProgressError holds actual poll and same observation optional native. Native error variants bind requested format and actual error; Progress additionally binds operation. No independent payload flag.",
+      "limits": "Existing cache/native/format/usage can still disagree; F2 remains actionable broader obligation.",
+      "discovery": "complete within this defined error-result responsibility",
+      "repair": "integrated source; hosted acceptance pending",
+      "global_clearance": false
+    },
+    {
+      "number": "06",
+      "name": "type ownership",
+      "source_backed_trace": "TextureViewError/Operation/Result are defined once under texture/view_error.rs, re-exported once through texture/mod.rs; native shared ValidationScope owner under globals. Three producer files consume same owners and unchanged receiving calls use standard conversion.",
+      "limits": "Later #780/#826 composed callers must consume canonical helper rather than overwrite/reintroduce equivalents.",
+      "discovery": "complete within this defined error-result responsibility",
+      "repair": "integrated source; hosted acceptance pending",
+      "global_clearance": false
+    },
+    {
+      "number": "07",
+      "name": "redundant authority",
+      "source_backed_trace": "Original request is retained for error diagnostics, effective linear request selects native storage-compatible descriptor; these differ by purpose. Per-kind Native variants encode operation once, Progress carries operation because scope cause is shared. No new cache or duplicated state.",
+      "limits": "Existing texture mutable cache/metadata authority F2 remains open.",
+      "discovery": "complete within this defined error-result responsibility",
+      "repair": "integrated source; hosted acceptance pending",
+      "global_clearance": false
+    },
+    {
+      "number": "08",
+      "name": "behavior preservation",
+      "source_backed_trace": "Compared saved delta against unchanged main GPU source: cache-first identity intact; absent cached view now typed MissingView instead of panic; alternate absent texture same diagnostic; descriptors, storage projection, Cube layers/label unchanged. Borrowed false skips observation; owned failed poll now typed Progress after pop.",
+      "limits": "These deliberate changes are explicit; no live native PollError/foreign-device/browser runtime acceptance.",
+      "discovery": "complete within this defined error-result responsibility",
+      "repair": "integrated source; hosted acceptance pending",
+      "global_clearance": false
+    },
+    {
+      "number": "09",
+      "name": "enum shapes",
+      "source_backed_trace": "Three closed operation roles describe actual methods; native variants own requested format/native error; Progress owns requested/operation/ProgressError; absence variants have no irrelevant payload. bool blocking_validation remains existing policy input to helper, not new parallel lifecycle state.",
+      "limits": "Broader carried bool policy/type findings retained; not global enum clearance.",
+      "discovery": "complete within this defined error-result responsibility",
+      "repair": "integrated source; hosted acceptance pending",
+      "global_clearance": false
+    },
+    {
+      "number": "10",
+      "name": "derivability",
+      "source_backed_trace": "Clone/Copy/Debug for operation and Debug for typed errors use derives. Display retains operation-specific context and source chooses native vs poll appropriately. source/Display matches are semantic projections; project has no equivalent derive already owning these projections.",
+      "limits": "No speculative derive dependency; inherited candidate families remain unreviewed current-source.",
+      "discovery": "complete within this defined error-result responsibility",
+      "repair": "integrated source; hosted acceptance pending",
+      "global_clearance": false
+    },
+    {
+      "number": "11",
+      "name": "type granularity",
+      "source_backed_trace": "Error distinguishes cache absence, native absence, actual validation rejection, failed progress; prevents producer-level anyhow erasure and source loss. Native operation variants preserve established context; shared scope helper has a clear independent policy/observation responsibility.",
+      "limits": "No quantity wrappers invented for SDK indices/layers; broader type distinctions remain separate.",
+      "discovery": "complete within this defined error-result responsibility",
+      "repair": "integrated source; hosted acceptance pending",
+      "global_clearance": false
+    },
+    {
+      "number": "12",
+      "name": "magic strings",
+      "source_backed_trace": "All new Rust strings are Display diagnostics or fixed native descriptor label; no application branch compares prose. Module docs state contracts. Workflow paths/artifact names/commands/regex/result keys are concrete GitHub Actions, shell, filesystem, Cargo test-output, and JSON evidence boundaries; exact expected-source strings compare commit identities at Git boundary.",
+      "limits": "Global original12 frontier10 unchanged; current slice does not fill frozen registry coverage.",
+      "discovery": "complete within this defined error-result responsibility",
+      "repair": "integrated source; hosted acceptance pending",
+      "global_clearance": false
+    },
+    {
+      "number": "13",
+      "name": "magic numbers",
+      "source_backed_trace": "Cube array_layer_count6 is unchanged native Cube descriptor extent, verified against CubeFace::ALL six signed axes. New Error::source Option and finish() unit are Rust trait/API boundaries; Option/Result branches encode named states; policy bool feeds SDK guard creation only. Workflow13/2/1 counts are existing test populations verified by independent source review; chmod700 runtime filesystem boundary.",
+      "limits": "Global original13 Q001 independently resolved with native index/pop/Drop trace; Q002/Q003 and other populations remain pending.",
+      "discovery": "complete within this defined error-result responsibility",
+      "repair": "integrated source; hosted acceptance pending",
+      "global_clearance": false
+    }
+  ],
+  "review_limits": [
+    "Root self assessment is not independent review; three separate reports supply independent Code/Rule/Comment scope",
+    "Parent texture files contain unchanged responsibilities not certified wholesale by extraction",
+    "All20families/P16/P17/780/826 broader scope and saved global lens frontiers remain mandatory"
+  ],
+  "project_checks": "none locally"
+}

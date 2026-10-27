@@ -1,0 +1,262 @@
+{
+  "id": "M05-COMMENT-REVIEW-001",
+  "created_utc": "2026-10-27T02:09:34.603407+00:00",
+  "skill": {
+    "path": "/home/brunosegovia/.codex/skills/comment-review/SKILL.md",
+    "sha256": "31dc8dc28441a5b643e534a631b5d50444fb1b4d48a305c91e8a32519a2827a4"
+  },
+  "review_type": "Independent scoped source-only Comment Review and contributor PR-body accuracy review",
+  "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd",
+  "base": "d44a00cc9a0bed75b0d61a7b330a29fe8f0df83f",
+  "branch": "codex/780-retain-motion-error-identity",
+  "manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/implementation-manifest-001.json",
+    "sha256": "bfebc595cf54e27f9df527a6956dae2d85a5d334f2855e0cec135271e03cebc1"
+  },
+  "scope": "Only M05 CatalogError::UnknownMotion payload and two PackBuilder producers, canonical MotionId/admission owners, bounded actual callers/diagnostics and relevant existing test intent, affected comments/API claims and final proposed contributor body003. No product edits or broader motion-pipeline/global clearance.",
+  "governing_rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "actual_body_read_ranges": [
+        [
+          1,
+          113
+        ]
+      ]
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "actual_body_read_ranges": [
+        [
+          1,
+          192
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/AGENTS.md",
+      "sha256": "f9633599a742ea38090fe2fb88e2dc464298d0ca4a70374f0851380e71e6910e",
+      "actual_body_read_ranges": [
+        [
+          1,
+          103
+        ]
+      ]
+    }
+  ],
+  "prospective_registrations": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/comment-review-001-registration.json",
+      "sha256": "e9a175605e49f01b1d14f9d32b30954c69603c6eaee4cfb2e2051796792dc20a"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/comment-review-001-registration-callers.json",
+      "sha256": "40ac3fdeaac12da608e181f49cb3429a7579deb62a3475053d2ce7fea68d60a3"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/comment-review-001-registration-body003.json",
+      "sha256": "bf4010eec09b059701131031dd91331fea19ef65fcb0ecb549777cd6223705af"
+    }
+  ],
+  "primary_source_reads": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/catalog.rs",
+      "sha256": "8d8a70c663bdd8e62c8e4636ec414e979852b1f469bffc9e70331d5947c165a4",
+      "actual_body_read_ranges": [
+        [
+          1,
+          361
+        ]
+      ],
+      "identity": "Pinned manifest source at ff43; exact hashes verified before and after."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/catalog_id.rs",
+      "sha256": "349beedb860eef8c0f4e9b882e10824b343451085d654c20b7c001ea98a3b810",
+      "actual_body_read_ranges": [
+        [
+          1,
+          134
+        ]
+      ],
+      "identity": "Pinned manifest source at ff43; exact hashes verified before and after."
+    }
+  ],
+  "caller_reads": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/catalog/builtin.rs",
+      "sha256": "24dd229e7467ac0a4b6a11b398e06290949923b614b3deebfa972f03ab93e1d3",
+      "line_count": 264,
+      "prospective_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "reason": "Actual unchanged producer callers and Debug/unwrap diagnostic consumption plus existing related test intent, source only. No runtime/native or whole-animation credit.",
+      "actual_body_read_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "identity_limit": "Actual local source with exact captured hash, bounded receiving context only; not an independently Git-proved base/head diff."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/tests.rs",
+      "sha256": "244ceaa77e510437e0f435b2ebc89eec78e610e1f67b74abc45382634fa4246f",
+      "line_count": 1524,
+      "prospective_ranges": [
+        [
+          576,
+          635
+        ]
+      ],
+      "reason": "Actual unchanged producer callers and Debug/unwrap diagnostic consumption plus existing related test intent, source only. No runtime/native or whole-animation credit.",
+      "actual_body_read_ranges": [
+        [
+          576,
+          635
+        ]
+      ],
+      "identity_limit": "Actual local source with exact captured hash, bounded receiving context only; not an independently Git-proved base/head diff."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/mod.rs",
+      "sha256": "cd54ed038a4131a947dff4db1a0310069b669800547e2f2b6456566e9c0ec4c4",
+      "line_count": 810,
+      "prospective_ranges": [
+        [
+          630,
+          682
+        ]
+      ],
+      "reason": "Actual unchanged producer callers and Debug/unwrap diagnostic consumption plus existing related test intent, source only. No runtime/native or whole-animation credit.",
+      "actual_body_read_ranges": [
+        [
+          630,
+          682
+        ]
+      ],
+      "identity_limit": "Actual local source with exact captured hash, bounded receiving context only; not an independently Git-proved base/head diff."
+    }
+  ],
+  "verified_traces": [
+    {
+      "id": "M05-COMMENT-TYPED-IDENTITY",
+      "sources": [
+        "crates/adventuresim-tactical-client/src/animation/catalog.rs:7-9,60-67,118-158",
+        "crates/adventuresim-tactical-client/src/animation/catalog_id.rs:8-10,40-89"
+      ],
+      "fact": "The error payload is the existing canonical MotionId, imported from catalog_id. Both pose and reference accept &MotionId and clone it only after the pack motion lookup misses. MotionId has a private Cow-backed field, authored constants and checked native-string admission; no second identity owner or new string conversion is present at either rejection producer."
+    },
+    {
+      "id": "M05-COMMENT-RAW-REJECTIONS",
+      "sources": [
+        "crates/adventuresim-tactical-client/src/animation/catalog.rs:60-67",
+        "crates/adventuresim-tactical-client/src/animation/catalog_id.rs:76-89,101-119"
+      ],
+      "fact": "InvalidMotionStem and InvalidAssetDirectory still carry rejected raw input String. MotionId invalid stem path uses name.to_owned, directory invalid path uses original path.to_owned rather than trimmed directory. Final body raw-input distinction matches actual source."
+    },
+    {
+      "id": "M05-COMMENT-CALLERS-DIAGNOSTICS",
+      "sources": [
+        "crates/adventuresim-tactical-client/src/animation/catalog/builtin.rs:5-39,43-58",
+        "crates/adventuresim-tactical-client/src/animation/catalog.rs:69-75",
+        "crates/adventuresim-tactical-client/src/animation/mod.rs:650-682"
+      ],
+      "fact": "Built-in catalog construction propagates CatalogError through Result/?; actual builder call uses MotionId constants. AnimationPackCatalog Default presents construction failures with Debug formatting. Existing biped-root test callers consume Result through unwrap. Thus contributor-body construction diagnostic trace is grounded in actual source. No claim of Display/Error traits, stable text/layout/downcast behavior, or runtime exercise is made."
+    },
+    {
+      "id": "M05-COMMENT-COMMENTS-INTENT",
+      "sources": [
+        "crates/adventuresim-tactical-client/src/animation/catalog.rs:19-20,188-195",
+        "crates/adventuresim-tactical-client/src/animation/catalog_id.rs:1,27-30,70-73"
+      ],
+      "fact": "No affected comment documents a String payload for UnknownMotion. Checked motion/asset ownership comments remain consistent with the typed source boundaries and fixed authored mirrored suffix. Frame/editor-preflight comments concern separate existing contracts and are not broadened into native acceptance claims. Existing duplicate-pose/specialized-path tests were source-read only; their assertions still concern their named behavior, not new UnknownMotion coverage."
+    },
+    {
+      "id": "M05-COMMENT-FINAL-BODY",
+      "source": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/pr-body-003.md",
+      "ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "fact": "Body003 stands alone: explains admitted MotionId lost at unknown-motion rejection, names both producers and canonical owner, distinguishes raw rejected inputs, and describes actual source diagnostic trace. Validation explicitly marks independent reviews and hosted checks pending at this draft capture. It makes no CI/native/live-play success, reproduced-defect, broad audit clearance or compatibility rationale claim. Every prose line is<=80columns."
+    }
+  ],
+  "body_reviews": {
+    "original": {
+      "path": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/pr-body-001.md",
+      "sha256": "ae81346d7615e1448fe1cf0192fe2eb8d7115f14ddfdc028c7122fc3b855464f",
+      "actual_read_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "observation": {
+        "id": "M05-COMMENT-BODY-001",
+        "severity": "P3 editorial",
+        "ranges": [
+          [
+            18,
+            19
+          ]
+        ],
+        "quote": "This addresses the inherited motion-error identity finding without adding a second identity owner or compatibility API.",
+        "reason": "Inherited-finding/process phrasing and compatibility rationale were unnecessary to contributor scope and explicitly excluded by the requested body review.",
+        "suggestion": "End context after the canonical-owner/clone explanation, or replace the final sentence with the actual diagnostic trace.",
+        "status": "Resolved in body003; historical original body/observation preserved."
+      }
+    },
+    "final": {
+      "path": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/pr-body-003.md",
+      "sha256": "aae483ef703c0279660e7f73cb10252e1842d3acc69feac6f25b8890ac829232",
+      "prospective_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "reason": "Parent-authorized replacement contributor body only, source remainsff43",
+      "actual_body_read_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "wrap_violations": [],
+      "observation_resolved_at": [
+        [
+          17,
+          19
+        ]
+      ],
+      "verdict": "No actionable findings in final body003."
+    }
+  },
+  "findings": [],
+  "source_comment_verdict": "No actionable source-comment/API-claim accuracy defect found in the scoped final source.",
+  "final_verdict": "No actionable findings against same ff43 source and final proposed body003. One original-body editorial observation resolved; no product-source repair requested by this review.",
+  "validation_authority": {
+    "source_only": true,
+    "runtime_validated": false,
+    "hosted_checks_run_by_this_reviewer": false,
+    "native_guide": "Animation AGENTS12-14 names native acceptance for defects reported in live tactical play. This is an inherited source identity propagation repair, not such a live-play defect report. User/parent explicitly permits source-only review and hosted checks elsewhere; no native acceptance or project execution is invented.",
+    "reviews_pending_wording": "Body003 accurately represents its draft pending review/check status. Root may update validation wording later after independently verified evidence; this review does not certify live remote CI."
+  },
+  "limits": [
+    "No source/product edits, Git commands/mutations, root-ledger/history edits, tests/checks/project/native scenario execution, helpers/assertions/doctests added, publication or external messages. Only bounded raw source/metadata reads, local hash checks and ignored review evidence writes.",
+    "Head/base attribution and three-code-site/no-comment/no-added-test delta scope are parent-provided manifest/task evidence; this reviewer did not independently read a Git diff or execute project checks. Actual final source/body hashes are independently verified.",
+    "Related issue numbers are supplemental only; no unconsumed issue content was assumed or used as evidence. No shared-conversation publication was requested or performed.",
+    "No whole animation pipeline, native controller, unchanged editor-preflight behavior, global F9, all20/P16/P17/#780/#826/M16 or broad audit clearance. Audit08 packet015 remains immutable with1793/Q003/material52 partials and counts1800/2853.",
+    "Backward compatibility remains unsupported; no preservation requirement added for old error payload/text/layout/formatting or APIs."
+  ],
+  "global_clearance": false,
+  "stop": true
+}

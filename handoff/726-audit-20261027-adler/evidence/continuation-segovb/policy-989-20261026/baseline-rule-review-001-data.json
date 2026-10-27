@@ -1,0 +1,70 @@
+{
+  "baseline_inverse_proof": {
+    "current_sha256": "8ccab96e129e4b873ed3f8ae3841afd6bf7cfa59809b69cbed46ec41855b171e",
+    "old_sha256": "6144a5ab4e1f3132caf4c5b0aee92b151f093153e3e5bed8e4d6fadd7f12edb1",
+    "inverse_812_to_862_sha256": "6144a5ab4e1f3132caf4c5b0aee92b151f093153e3e5bed8e4d6fadd7f12edb1",
+    "exact_old_hash_restored": true,
+    "only_mutation": "Cube file ceiling862->812; no other baseline bytes changed"
+  },
+  "snapshot_sha256": "bdf6580dab45e25f9de25a94f2e5b1888f1b316b2104b028b64b98d9f671481f",
+  "cube_entry_comparison": {
+    "artifact": {
+      "files": [
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "ceiling": 812
+        }
+      ],
+      "functions": [
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "item": "TextureCube::blit_texture_to_face",
+          "ceiling": 161
+        },
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "item": "TextureCube::render_face_shader_raw",
+          "ceiling": 149
+        },
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "item": "TextureCube::render_shader_raw",
+          "ceiling": 142
+        }
+      ]
+    },
+    "current": {
+      "files": [
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "ceiling": 812
+        }
+      ],
+      "functions": [
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "item": "TextureCube::blit_texture_to_face",
+          "ceiling": 161
+        },
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "item": "TextureCube::render_face_shader_raw",
+          "ceiling": 149
+        },
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "item": "TextureCube::render_shader_raw",
+          "ceiling": 142
+        }
+      ]
+    }
+  },
+  "format_inverse_proof": {
+    "current_sha256": "3adc6454ec9a8cada8428ebd2b800f5b7374028ce73a52df204e54aab3750a93",
+    "prior_review_sha256": "c396c5486a664dbb5d1804963e21e76bbee671521319e625c38f0b7531f3a391",
+    "inverse_nested_import_wrapping_sha256": "c396c5486a664dbb5d1804963e21e76bbee671521319e625c38f0b7531f3a391",
+    "exact_prior_bytes_restored": true
+  },
+  "all_seven_other_prior_manifest_files_unchanged": true,
+  "current_nine_manifest_pins_match": true
+}

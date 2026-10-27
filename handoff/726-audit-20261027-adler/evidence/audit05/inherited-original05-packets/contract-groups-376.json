@@ -1,0 +1,147 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-376",
+  "at": "2026-10-23T12:52:01.161256+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/surface_cut.rs",
+      "sha256": "a62fc268fef2024b832c7557c089daee6d948bfa8296b12f128bdbf5fea7b849",
+      "scope072_index": 835,
+      "actual_EOF": 277,
+      "scoped_ranges_compared": [
+        [
+          1,
+          277
+        ]
+      ],
+      "actual05_comparison": "Fresh complete sources and original inline fixtures; source barycentric/UV identity, raw topology preconditions, torso eligibility and coupled hypothetical-probe constraints compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/torso_domain.rs",
+      "sha256": "d00dd8818cff04db09a6da07ec1bb8e88270b85d88677532a01352ce9ad68209",
+      "scope072_index": 836,
+      "actual_EOF": 188,
+      "scoped_ranges_compared": [
+        [
+          1,
+          188
+        ]
+      ],
+      "actual05_comparison": "Fresh complete sources and original inline fixtures; source barycentric/UV identity, raw topology preconditions, torso eligibility and coupled hypothetical-probe constraints compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer/mail_regions.rs",
+      "sha256": "97d08f8f347891423424441d17e6d421f2b1855d184ac6c03aedc2914eab4dca",
+      "scope072_index": 837,
+      "actual_EOF": 94,
+      "scoped_ranges_compared": [
+        [
+          1,
+          94
+        ]
+      ],
+      "actual05_comparison": "Fresh complete sources and original inline fixtures; source barycentric/UV identity, raw topology preconditions, torso eligibility and coupled hypothetical-probe constraints compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer/pattern.rs",
+      "sha256": "4b445b7dcd85806cde575fa40320b08412e87a18f12ff30c5e7de2648d8c3cab",
+      "scope072_index": 838,
+      "actual_EOF": 258,
+      "scoped_ranges_compared": [
+        [
+          1,
+          258
+        ]
+      ],
+      "actual05_comparison": "Fresh complete sources and original inline fixtures; source barycentric/UV identity, raw topology preconditions, torso eligibility and coupled hypothetical-probe constraints compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer_armor.rs",
+      "sha256": "2e8a0fab854290874e3eda648d5a957f93d4ea0efe16bf0d12797d68099085d2",
+      "scope072_index": 839,
+      "actual_EOF": 186,
+      "scoped_ranges_compared": [
+        [
+          1,
+          186
+        ]
+      ],
+      "actual05_comparison": "Fresh complete sources and original inline fixtures; source barycentric/UV identity, raw topology preconditions, torso eligibility and coupled hypothetical-probe constraints compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer_equipment.rs",
+      "sha256": "91acbb6c6ec41a6642c3ef9ab51d184ef615cb1cf631662d719f12a9b8f8b35d",
+      "scope072_index": 840,
+      "actual_EOF": 99,
+      "scoped_ranges_compared": [
+        [
+          1,
+          99
+        ]
+      ],
+      "actual05_comparison": "Fresh complete sources and original inline fixtures; source barycentric/UV identity, raw topology preconditions, torso eligibility and coupled hypothetical-probe constraints compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer_equipment/proportions.rs",
+      "sha256": "b70d923027be5cb02b9771a3f8932728114177bc62c8b3b128a21c869cfeb651",
+      "scope072_index": 841,
+      "actual_EOF": 129,
+      "scoped_ranges_compared": [
+        [
+          1,
+          129
+        ]
+      ],
+      "actual05_comparison": "Fresh complete sources and original inline fixtures; source barycentric/UV identity, raw topology preconditions, torso eligibility and coupled hypothetical-probe constraints compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer_equipment/proportions/probe_bounds.rs",
+      "sha256": "721a06c6ea10f1a278dacc94ffe003927da1662e139783ce5ac1f023d89ba7a7",
+      "scope072_index": 842,
+      "actual_EOF": 125,
+      "scoped_ranges_compared": [
+        [
+          1,
+          125
+        ]
+      ],
+      "actual05_comparison": "Fresh complete sources and original inline fixtures; source barycentric/UV identity, raw topology preconditions, torso eligibility and coupled hypothetical-probe constraints compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "surface cut retains original triangle barycentrics and UV seam identity",
+      "comparison": "835 full277 includes originals. For each sourceface source positions indexed by rawu32; kept volume union subtracts previously retained regions from remaining before nextinclude, subtract volumes clip kept polygons. Actual triangulation::conforming callee body not scoped/read here, so no universal conforming/manifold guarantee. Dedupkey uses sorted sourcevertex+correspondingUVcorner+roundedbaryweight, retaining seam-specific identities while borders separately weldsphysical positions. Public constructor accepts raw mismatched faces/uv_faces/positions without whole admission: ordinary finite triangle [[0,1,2]], three positions but emptyuv_faces reaches82 indexing. This is additional source/API membership strengthening for canonical indexed-geometry F060 graph, not new unique, no malformed normal body. Public SurfaceCut points/faces mutable; borders separately requires its provided positions correspond to retained faces. Nativeu32 count and quantization range remain raw capacitypreconditions, no giganticnormalmesh claim."
+    },
+    {
+      "id": "torso eligibility admits topology before classification",
+      "comparison": "836 triangle_indices checks skin rows==weightrows, nonempty names, shared joint_count, facecount<=u32MAX and every facecorner membership BEFORE indexing. Each eightweight finite0..1 and referenced joint exists; fixed8\u00d73 means sums bounded24, no unbounded scalar sum failure. It doesnot claim weights sum1 because task is meanownership eligibility, not canonical deforming skin normalization. Original triangle ordinals preserved including duplicates, nonempty selected required. This eligibility explicitly not bearing footprint/sliding permission; no cross-contract inference. Entire original fixtures read, no run."
+    },
+    {
+      "id": "anatomical region recipe depends on same wearer and exact design validation",
+      "comparison": "837/838 full94/258. required_frames exactly matches frames used by each kind; side-dependentHose/Knee fallibly demand pairedplacement, voiders noframe. regions derives joints by name then indexes same wearerstate, adds designcuts asaxisboxes, calls kind-specific include union. Public Wearer/Dynframe/rawdesign can supply inconsistent or degenerate landmark relationships; frame positivity, jointstate membership and cutsordered are required lower predicates. Standard slope divides half_width from frame+patchwidth; nozero/nonfinite guarantee fromname, actual accepted frame/design needed. unit normalize_or_zero intentionally yieldszero fordegenerateaxis, not successfulnonzero tube proof. Normal authored anatomical directions/side coordinate convention retained; no universal invalidpose admission claim."
+    },
+    {
+      "id": "underlayer fitted columns share one device result",
+      "comparison": "839 full186. fit_underlayer maps ordered input morphs to shapes then zips returnedendpoints with original names; actual own332 deviceunderlayer fit stores one endpoint per ordered input and sameCutPlan correspondence, closes normalzipshorter concern. Base arrays and samefitted UV/skin/indices copied into GeneratedArmor; fabric component owns full vertex/index ranges and is omitted for mail intentionally. Public UnderlayerBody can still mismatch wearer/domain/proportion morph arrays; native fit canonical gate remains independently compared332, no raw acceptedcertificate claim. Trunkhose validates actualdesign before constructingcarrier, replaces designhash afterfit, partitions currenttriangle indices by centroid into primary/secondaryruns and replaces components withsamefullvertexdomain. Faceindex/panel_count/bodyfinite/nonempty preconditions derive from validateddesign/devicefit; not assumed fromlocalmodulo. Existing index-associated grids/faces empty forcarrier, so this reordering doesnot discard nonemptytopology correspondence."
+    },
+    {
+      "id": "studio underlayer binds current body UV and named morph sequence",
+      "comparison": "840 constructs Wearer from generatedpositions/normals/joints plus sameMHRfaces/skin/names, BodyShapes from same ordered ForearmMorphSample. UVfaces/texcoords and domain identity fromsame model. It passes three staticproportionprobes separately from exported morphs; skeletal correction afterward retains orderedmorphs. No assertion hypotheticalprobes are outputmorphs orbodyedits."
+    },
+    {
+      "id": "probe positions and joints scaled by one accepted fraction",
+      "comparison": "841 full129 and842 full125 originalfixtures read. Three fixed hypotheticalproportions derive joint shifts in actual skeletonparent order, skin strongestfour then positions. Oriented_area_fraction computes each face signed projected-area quadratic in f64 with operanddifference widenedfirst; checks endpoints and interiorstationaryminimum across[0,end], binarysearch24 and next_down avoids roundingbeyond acceptedfraction. Invalid/degenerate sourceface returns0; doesnot repair selectedbody. Hip adds independent quartermedialgap bound. Samefraction uniformly scales positions displacement and jointtranslation before preserving originalnormals. These are localorientation/separation constraints, explicitly not nonadjacentcollision/editor-endpointcertificates; normals intentionallyoriginal reference directions. Parent/column/skinmembership still actualmodelproduct preconditions, no currentextremeoverflow/runclaim."
+    }
+  ],
+  "new_unique_findings": [],
+  "existing_finding_support": [
+    "NATIVE-INITIAL05-F060 canonical indexed geometry membership: additional SurfaceCut raw caller port only"
+  ],
+  "remaining_dependency_obligations": [
+    "surface_cut/triangulation::conforming exact body uncredited and pending if needed; no blanket triangulation guarantee. Native canonical model/design bounds remain own independent cells."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

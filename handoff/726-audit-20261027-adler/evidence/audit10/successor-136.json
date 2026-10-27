@@ -1,0 +1,45 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-136",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1887,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/controller_config.rs",
+      "sha256": "56773ae80325116c0e2383940bec1f3f8a05d95d97a2c76596982c717b5dbc62",
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh full18line requested native controller configuration adapter. No type/trait/codec. apply_motor_config deliberately disables Ahoy's parallel horizontal acceleration/friction and copies supplied gravity/step/slope controls into native controller representation, converting angle to cosine.",
+      "disposition": "No derivability candidate. Native policy assignment and angle representation conversion are semantic functions; no derive API or motor/runtime clearance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1888,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "2bdf24f3de20d1901bfc475d799d3a07781d9c5e22733caaea0d2365250edd0f",
+      "ranges": [
+        [
+          1,
+          522
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh full522line requested movement-speed source read1-230/231-390/391-522. No handwritten traits or custom codecs. Built-in speeds are admitted through checked constant helper; runtime functions resolve endurance/strength/health/burden, intentional effort versus observed velocity, pace/guard/posture and analog magnitude through canonical checked speed owners. Existing cases inspect authored reference pace, injury/burden, prone effort and stick magnitude.",
+      "disposition": "No derivability candidate. Numeric calibration, source-dependent speed classification, checked admission and fatigue contribution are semantic functions. No source change, project execution, new tests or gameplay/numeric/runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

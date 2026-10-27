@@ -1,0 +1,101 @@
+{
+  "lens": 11,
+  "frontier_before": 814,
+  "registry": {
+    "path": "target/recovery-20261025/audit05/original-scope-072.json",
+    "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "sources": [
+    {
+      "original_index": 814,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory_article_editor.rs",
+      "sha256": "bfaf8082b9b0e3aba214dbe23016ae3d83f78b3a66f777ea6e2601ddc5475cf9",
+      "path": "crates/adventuresim-character-creator/src/inventory_article_editor.rs",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/bfaf8082b9b0e3aba214dbe23016ae3d83f78b3a66f777ea6e2601ddc5475cf9",
+      "bytes": 6779,
+      "actual_eof": 199,
+      "registered_ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/bfaf8082b9b0e3aba214dbe23016ae3d83f78b3a66f777ea6e2601ddc5475cf9"
+    },
+    {
+      "original_index": 815,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/item_design.rs",
+      "sha256": "a33bdf3bde70ed5a647c3968c9e9c04dd60402bca585d47a4d2555ce9e3802aa",
+      "path": "crates/adventuresim-character-creator/src/item_design.rs",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/a33bdf3bde70ed5a647c3968c9e9c04dd60402bca585d47a4d2555ce9e3802aa",
+      "bytes": 8214,
+      "actual_eof": 232,
+      "registered_ranges": [
+        [
+          1,
+          232
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/a33bdf3bde70ed5a647c3968c9e9c04dd60402bca585d47a4d2555ce9e3802aa"
+    },
+    {
+      "original_index": 816,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/lib.rs",
+      "sha256": "dc0c4f7b59ecd62d3a8a4a6b00c5bfecfc15470df833fe4294e486d1ffa5393c",
+      "path": "crates/adventuresim-character-creator/src/lib.rs",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/dc0c4f7b59ecd62d3a8a4a6b00c5bfecfc15470df833fe4294e486d1ffa5393c",
+      "bytes": 6930,
+      "actual_eof": 238,
+      "registered_ranges": [
+        [
+          1,
+          238
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "existing exact hashcache"
+    },
+    {
+      "original_index": 817,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/library_name.rs",
+      "sha256": "ecd978e94b850604d4345df1494e9536819e19d7a6d3b8921fde3d55bf54eb27",
+      "path": "crates/adventuresim-character-creator/src/library_name.rs",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/ecd978e94b850604d4345df1494e9536819e19d7a6d3b8921fde3d55bf54eb27",
+      "bytes": 1376,
+      "actual_eof": 52,
+      "registered_ranges": [
+        [
+          1,
+          52
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "provenance": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/ecd978e94b850604d4345df1494e9536819e19d7a6d3b8921fde3d55bf54eb27"
+    },
+    {
+      "original_index": 818,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/lod.rs",
+      "sha256": "73ad82b91f4b15146231c922544a72466849407fc7fca6ebe2268d78f45d7fa3",
+      "path": "crates/adventuresim-character-creator/src/lod.rs",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/73ad82b91f4b15146231c922544a72466849407fc7fca6ebe2268d78f45d7fa3",
+      "bytes": 1007,
+      "actual_eof": 39,
+      "registered_ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "existing exact hashcache"
+    }
+  ],
+  "registered_before_actual_bodies": true,
+  "scope": "814-818 changed fullactualscope and requested whole owner contracts, no future credit until own inventory/receiving trace complete",
+  "inherited_state": {
+    "path": "target/recovery-20261025/continuation-segovb/audit11-segovb-187-proposed-state.json",
+    "sha256": "bda064c320e11c976479600e9d7f40a10c36e05cddd388874d3c1534b490f152"
+  }
+}

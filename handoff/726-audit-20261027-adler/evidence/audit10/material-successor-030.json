@@ -1,0 +1,168 @@
+{
+  "lens": "derivability",
+  "registry": "../shared-material-successor/source-extensions-187.json",
+  "registry_sha256": "afd8158f9381deffcb264daf382e4db681880cd51b120b9a3fcc9b8bfc2ea3b9",
+  "receipts": [
+    {
+      "material_index": 136,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/connections.rs",
+        "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_blob": "6682608b13a48ef846c4cc0c88d4ffd476ed3c46",
+        "sha256": "96d604645187dd0d74c64974f909dbb8cc14a6ee8c5d8a6d56e71b29597d3970",
+        "ranges": [
+          [
+            1,
+            217
+          ]
+        ],
+        "reason": "Actual scheduled connections::present receiver1621:54 and retained MapState.presented_connections1621:33; inspect its construction/retirement together to determine which absence/history combinations are meaningful.",
+        "line_count": 217,
+        "registration_evidence": "enum-shapes/source-registration-682.json",
+        "qualification": "Minimal actual contract/receiver material only. No fresh2853+246 baseline replay, SDK source repair or imported cross-lens verdict."
+      },
+      "source_origin": "../audit02-delta/sources/96d604645187dd0d74c64974f909dbb8cc14a6ee8c5d8a6d56e71b29597d3970",
+      "source_sha256": "96d604645187dd0d74c64974f909dbb8cc14a6ee8c5d8a6d56e71b29597d3970",
+      "read_ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "inventory_and_semantics": "Presented connection state binds source/window/width/city to coverage; present constructs native assets and replaces/removes prior state, geometry enforces totalcap and class colors. No handwritten structural trait/serde; keep explicit lifecycle and classifier.",
+      "disposition": "No derivability candidate; existing derives or semantic/native behavior retained",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no geometry/admission/lifecycle/runtime/global acceptance"
+    },
+    {
+      "material_index": 137,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/routes.rs",
+        "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_blob": "517e6683f7bcf499f74fad944c33744eb62506e7",
+        "sha256": "afe345727adbff233fdc700aa56b6a3b15104e18a24218e64bf33529335c4f8d",
+        "ranges": [
+          [
+            1,
+            177
+          ]
+        ],
+        "reason": "Actual scheduled routes::present receiver1621:55 and retained MapState.presented_route1621:37; inspect request/route/mesh state construction and lifecycle so aggregate MapState review does not assume unavailable route means stale/inapplicable.",
+        "line_count": 177,
+        "registration_evidence": "enum-shapes/source-registration-682.json",
+        "qualification": "Minimal actual contract/receiver material only. No fresh2853+246 baseline replay, SDK source repair or imported cross-lens verdict."
+      },
+      "source_origin": "../audit02-delta/sources/afe345727adbff233fdc700aa56b6a3b15104e18a24218e64bf33529335c4f8d",
+      "source_sha256": "afe345727adbff233fdc700aa56b6a3b15104e18a24218e64bf33529335c4f8d",
+      "read_ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "inventory_and_semantics": "Selected route state binds observer-admitted route and terrain source/request/width/city, native installation selects kindcolor and coverage publication removes oldassets. No handwritten structural trait/codec; retain semantics.",
+      "disposition": "No derivability candidate; existing derives or semantic/native behavior retained",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no geometry/admission/lifecycle/runtime/global acceptance"
+    },
+    {
+      "material_index": 138,
+      "registration": {
+        "id": "SEGO-INITIAL09-REG683",
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/path_geometry.rs",
+        "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_blob": "7b6beb569e352a783f8dd7c382dde92ce0ce5b6c",
+        "sha256": "08afd9a444a46f1add41fd92ff00d046203e0991c24041ae11bf4033c714fb76",
+        "ranges": [
+          [
+            1,
+            241
+          ]
+        ],
+        "reason": "Actual helper called routes.rs129\u2013144 and connections.rs168\u2013179; defines GeographicLine payload choice, PathGeometryError mapped to CapacityExceeded and Option<Mesh> mapped to Uncovered/Drawn. Needed actual alternative semantics through builder to classify loss/coverage shape; registration follows actual body trace, not module export.",
+        "line_count": 241,
+        "registration_evidence": "enum-shapes/source-registration-683.json",
+        "qualification": "Minimal actual contract/receiver material only. No fresh2853+246 baseline replay, SDK source repair or imported cross-lens verdict."
+      },
+      "source_origin": "../audit02-delta/sources/08afd9a444a46f1add41fd92ff00d046203e0991c24041ae11bf4033c714fb76",
+      "source_sha256": "08afd9a444a46f1add41fd92ff00d046203e0991c24041ae11bf4033c714fb76",
+      "read_ranges": [
+        [
+          1,
+          241
+        ]
+      ],
+      "inventory_and_semantics": "PathMeshBuilder already derives Default; PathGeometryError already derives thiserror Error. GeographicLine segments/dashed/clearance classify semantic source kinds; builder clips/subdivides terrain path, limits vertices and constructs native mesh/ribbon. No additional derive candidate or numerical coverage verdict.",
+      "disposition": "No derivability candidate; existing derives or semantic/native behavior retained",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no geometry/admission/lifecycle/runtime/global acceptance"
+    },
+    {
+      "material_index": 139,
+      "registration": {
+        "id": "SEGO-INITIAL09-REG683B",
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/path_geometry/city.rs",
+        "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_blob": "6a677b3c855c2de55128b347b1b66987aa14d3a2",
+        "sha256": "b7ecb82d2b5d2e208f81ac48422b040c186340cf8ff33d407ea5cbd8ec71e4d5",
+        "ranges": [
+          [
+            1,
+            78
+          ]
+        ],
+        "reason": "Actual PathMeshBuilder::add_city called path_geometry.rs86\u201387 when admittedCitySurface exists; receives GeographicLine Route|Connection and returns same single capacity error/retainedmesh; needed complete branch semantics for route and connection coverage.",
+        "line_count": 78,
+        "registration_evidence": "enum-shapes/source-registration-683B.json",
+        "qualification": "Minimal actual contract/receiver material only. No fresh2853+246 baseline replay, SDK source repair or imported cross-lens verdict."
+      },
+      "source_origin": "../audit02-delta/sources/b7ecb82d2b5d2e208f81ac48422b040c186340cf8ff33d407ea5cbd8ec71e4d5",
+      "source_sha256": "b7ecb82d2b5d2e208f81ac48422b040c186340cf8ff33d407ea5cbd8ec71e4d5",
+      "read_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "inventory_and_semantics": "City path adapter projects geographic grid into city frame, clips shared support, enforces capacity and reverses winding into world frame. Semantic/native geometry, no trait/codec.",
+      "disposition": "No derivability candidate; existing derives or semantic/native behavior retained",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no geometry/admission/lifecycle/runtime/global acceptance"
+    },
+    {
+      "material_index": 140,
+      "registration": {
+        "id": "SEGO-INITIAL09-REG685",
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/landform_product.rs",
+        "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_blob": "925a0e9c5cec210a02f748bb9439779e7f6f1670",
+        "sha256": "5f34b8da039a49d218521a208782d301f7095b7e0092698b5309f3d3b0a369c4",
+        "ranges": [
+          [
+            1,
+            17
+          ]
+        ],
+        "reason": "Actual existing PreparedTerrainLandform owner reexported terrain1626:18 and earlier complete preparation pipeline; compare with spawn_base_and_fault1634:151\u2013159/173\u2013179 independent optional recipe+patch to verify whether prepared product retains complete relation or contract is erased before renderer. This is owner definition for concrete candidate, not exported sibling adjacency.",
+        "line_count": 17,
+        "registration_evidence": "enum-shapes/source-registration-685.json",
+        "qualification": "Minimal actual contract/receiver material only. No fresh2853+246 baseline replay, SDK source repair or imported cross-lens verdict."
+      },
+      "source_origin": "../audit02-delta/sources/5f34b8da039a49d218521a208782d301f7095b7e0092698b5309f3d3b0a369c4",
+      "source_sha256": "5f34b8da039a49d218521a208782d301f7095b7e0092698b5309f3d3b0a369c4",
+      "read_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "inventory_and_semantics": "PreparedTerrainLandform already derives Clone/serde. From<Option<SceneTerrainPatch>> deliberately maps absence to Natural and presence to Patch; semantic enum selection, not direct From projection. Retain small implementation.",
+      "disposition": "No derivability candidate; existing derives or semantic/native behavior retained",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no geometry/admission/lifecycle/runtime/global acceptance"
+    }
+  ],
+  "checks": "not run",
+  "source_edits": false,
+  "clear": false
+}

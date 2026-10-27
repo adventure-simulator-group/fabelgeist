@@ -1,0 +1,332 @@
+{
+  "registry_snapshot": "registry-181.json",
+  "registry_sha256": "65c29f91e57e2186573857b2db192d4e48840f19d048b6eeb0ff23e35750092f",
+  "members": [
+    {
+      "material_index": 104,
+      "registration": {
+        "source_id": "pinned-registry:bevy_render_macros-0.19.1/src/extract_component.rs",
+        "sha256": "2deb41c36880e96baffe3899ba832ae528a5cd97eb5bd611272651e032223932",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/fresh-dependencies-005/bevy_render_macros-0.19.1/src/extract_component.rs",
+        "ranges": [
+          [
+            1,
+            76
+          ]
+        ],
+        "package_checksum": "6be6eba0ce9770ae4576693804d6c605f8afd9c4769787414254efcf92196a90",
+        "reason": "ActualavailableExtractComponent derive macro body/docs necessary to compare nativeEidolon MaterialBindGroupData manualimpl exactgenericbounds andSyncComponenttarget, not an unrelatedSDK expansion.",
+        "line_count": 76,
+        "revision": "Exact frozen P16 lock/native revision; provenance in registration005",
+        "registration_evidence": "derivability/fresh-dependency-registration-005.json",
+        "qualification": "Actual derive/manual impl generic bounds comparison; exact selected ranges only. No automatic other-lens credit or completed baseline replay.",
+        "lenses": {
+          "producer-propagation": "Bounded new material reconciliation pending; completed baseline retained.",
+          "existing-type-owners": "Bounded new material reconciliation pending; completed baseline retained.",
+          "admission-contracts": "Bounded new material reconciliation pending; completed baseline retained.",
+          "invariant-operations": "Bounded new material reconciliation pending; completed baseline retained.",
+          "aggregate-states": "Bounded new material reconciliation pending; completed baseline retained.",
+          "type-ownership": "Bounded new material reconciliation pending; completed baseline retained.",
+          "redundant-authority": "Bounded new material reconciliation pending; completed baseline retained.",
+          "behavior-preservation": "Bounded new material reconciliation pending; completed baseline retained.",
+          "enum-shapes": "Bounded new material reconciliation pending; completed baseline retained.",
+          "derivability": "Origin10 exact source/trait/derive bound comparison packet005",
+          "type-granularity": "Bounded new material reconciliation pending; completed baseline retained.",
+          "magic-strings": "Bounded new material reconciliation pending; completed baseline retained.",
+          "magic-numbers": "Bounded new material reconciliation pending; completed baseline retained."
+        },
+        "status": "Material source registered, no clearance"
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "disposition": "Read full76. ExtractComponent derive adds Clone, optional parsed filter and sync target, emits QueryData static Self, Out Self and Some(item.clone()). It enables trait behavior but contains no scheduling/registration guarantee."
+    },
+    {
+      "material_index": 105,
+      "registration": {
+        "source_id": "pinned-registry:bevy_render_macros-0.19.1/src/lib.rs",
+        "sha256": "9f94ce2c2e61634a28dedcca4a440c9ba5332efa3bede22b30d3b0a563d89884",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/fresh-dependencies-005/bevy_render_macros-0.19.1/src/lib.rs",
+        "ranges": [
+          [
+            27,
+            62
+          ]
+        ],
+        "package_checksum": "6be6eba0ce9770ae4576693804d6c605f8afd9c4769787414254efcf92196a90",
+        "reason": "ActualavailableExtractComponent derive macro body/docs necessary to compare nativeEidolon MaterialBindGroupData manualimpl exactgenericbounds andSyncComponenttarget, not an unrelatedSDK expansion.",
+        "line_count": 111,
+        "revision": "Exact frozen P16 lock/native revision; provenance in registration005",
+        "registration_evidence": "derivability/fresh-dependency-registration-005.json",
+        "qualification": "Actual derive/manual impl generic bounds comparison; exact selected ranges only. No automatic other-lens credit or completed baseline replay.",
+        "lenses": {
+          "producer-propagation": "Bounded new material reconciliation pending; completed baseline retained.",
+          "existing-type-owners": "Bounded new material reconciliation pending; completed baseline retained.",
+          "admission-contracts": "Bounded new material reconciliation pending; completed baseline retained.",
+          "invariant-operations": "Bounded new material reconciliation pending; completed baseline retained.",
+          "aggregate-states": "Bounded new material reconciliation pending; completed baseline retained.",
+          "type-ownership": "Bounded new material reconciliation pending; completed baseline retained.",
+          "redundant-authority": "Bounded new material reconciliation pending; completed baseline retained.",
+          "behavior-preservation": "Bounded new material reconciliation pending; completed baseline retained.",
+          "enum-shapes": "Bounded new material reconciliation pending; completed baseline retained.",
+          "derivability": "Origin10 exact source/trait/derive bound comparison packet005",
+          "type-granularity": "Bounded new material reconciliation pending; completed baseline retained.",
+          "magic-strings": "Bounded new material reconciliation pending; completed baseline retained.",
+          "magic-numbers": "Bounded new material reconciliation pending; completed baseline retained."
+        },
+        "status": "Material source registered, no clearance"
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          27,
+          62
+        ]
+      ],
+      "disposition": "Read registered27-62 independently. Macro docs explicitly distinguish enabling extraction from execution via plugin, matching M104 generated clone body. Examples are noncompiling documentation and not executed validation."
+    },
+    {
+      "material_index": 106,
+      "registration": {
+        "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/material.rs",
+        "sha256": "67733383aa74089a84e76448e23b6911132a2a298ab684e44655f8e85fa0765c",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/fresh-dependencies-005/eidolon-material.rs",
+        "ranges": [
+          [
+            1,
+            70
+          ]
+        ],
+        "reason": "ActualInstancedMaterial supertraits Clone andAsBindGroup decide derive-bound comparison.",
+        "line_count": 203,
+        "revision": "Exact frozen P16 lock/native revision; provenance in registration005",
+        "registration_evidence": "derivability/fresh-dependency-registration-005.json",
+        "qualification": "Actual derive/manual impl generic bounds comparison; exact selected ranges only. No automatic other-lens credit or completed baseline replay.",
+        "lenses": {
+          "producer-propagation": "Bounded new material reconciliation pending; completed baseline retained.",
+          "existing-type-owners": "Bounded new material reconciliation pending; completed baseline retained.",
+          "admission-contracts": "Bounded new material reconciliation pending; completed baseline retained.",
+          "invariant-operations": "Bounded new material reconciliation pending; completed baseline retained.",
+          "aggregate-states": "Bounded new material reconciliation pending; completed baseline retained.",
+          "type-ownership": "Bounded new material reconciliation pending; completed baseline retained.",
+          "redundant-authority": "Bounded new material reconciliation pending; completed baseline retained.",
+          "behavior-preservation": "Bounded new material reconciliation pending; completed baseline retained.",
+          "enum-shapes": "Bounded new material reconciliation pending; completed baseline retained.",
+          "derivability": "Origin10 exact source/trait/derive bound comparison packet005",
+          "type-granularity": "Bounded new material reconciliation pending; completed baseline retained.",
+          "magic-strings": "Bounded new material reconciliation pending; completed baseline retained.",
+          "magic-numbers": "Bounded new material reconciliation pending; completed baseline retained."
+        },
+        "status": "Material source registered, no clearance"
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "disposition": "Read registered1-70. InstancedMaterial requires Asset/AsBindGroup/Clone/Send/Sync and defaults shaders, prepass/debug/double-sided/polygon policy plus no-op specialization. Trait does not add equality, finite material data or per-instance identity admission; remainder203 not credited."
+    },
+    {
+      "material_index": 107,
+      "registration": {
+        "source_id": "pinned-registry:bevy_render-0.19.1/src/render_resource/bind_group.rs",
+        "sha256": "c0efbc7a55dffa8e71f5a7ff158b5123b2b031f44db99275a61ad6c008dda14f",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/fresh-dependencies-005/bevy-bind-group.rs",
+        "ranges": [
+          [
+            500,
+            504
+          ]
+        ],
+        "reason": "ImmediateAsBindGroup::Data bound isSend+Sync, not Eq/Hash; no wholemodule bodycredit.",
+        "provenance_qualification": "Exactcachedpackagechecksum matches frozenphysicalP16 Cargo.lock andactualmemberbytes. Selected500\u2013504 only.",
+        "package_checksum": "fc86a32b2eef9859e1e7d323c6d1a9150fe77aa17c30fd05abebc12f645929dc",
+        "line_count": 740,
+        "revision": "Exact frozen P16 lock/native revision; provenance in registration005",
+        "registration_evidence": "derivability/fresh-dependency-registration-005.json",
+        "qualification": "Actual derive/manual impl generic bounds comparison; exact selected ranges only. No automatic other-lens credit or completed baseline replay.",
+        "lenses": {
+          "producer-propagation": "Bounded new material reconciliation pending; completed baseline retained.",
+          "existing-type-owners": "Bounded new material reconciliation pending; completed baseline retained.",
+          "admission-contracts": "Bounded new material reconciliation pending; completed baseline retained.",
+          "invariant-operations": "Bounded new material reconciliation pending; completed baseline retained.",
+          "aggregate-states": "Bounded new material reconciliation pending; completed baseline retained.",
+          "type-ownership": "Bounded new material reconciliation pending; completed baseline retained.",
+          "redundant-authority": "Bounded new material reconciliation pending; completed baseline retained.",
+          "behavior-preservation": "Bounded new material reconciliation pending; completed baseline retained.",
+          "enum-shapes": "Bounded new material reconciliation pending; completed baseline retained.",
+          "derivability": "Origin10 exact source/trait/derive bound comparison packet005",
+          "type-granularity": "Bounded new material reconciliation pending; completed baseline retained.",
+          "magic-strings": "Bounded new material reconciliation pending; completed baseline retained.",
+          "magic-numbers": "Bounded new material reconciliation pending; completed baseline retained."
+        },
+        "status": "Material source registered, no clearance"
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          500,
+          504
+        ]
+      ],
+      "disposition": "Read registered500-504. AsBindGroup only bounds prepared Data Send+Sync and Param SystemParam static here. No equality/hash requirement inferred from wider material trait or blanket derive behavior."
+    },
+    {
+      "material_index": 108,
+      "registration": {
+        "source_id": "pinned-registry:serde_derive-1.0.229/src/ser.rs",
+        "sha256": "18b3a4d06cd721c402835b17f008a63fdbaad379734f0fd4132aa28d8ea5c1de",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/fresh-dependencies-006/serde_derive-1.0.229/src/ser.rs",
+        "ranges": [
+          [
+            191,
+            212
+          ]
+        ],
+        "package_checksum": "e7a5d71263a5a7d47b41f6b3f06ba276f10cc18b0931f1799f710578e2309348",
+        "reason": "Exact immediate serialization wire/transparent derive dependency for LeafDimensions equivalence; only stated ranges read.",
+        "line_count": 1369,
+        "revision": "FrozenP16 exact native package; registration006 contains lock checksum proof",
+        "registration_evidence": "derivability/fresh-dependency-registration-006.json",
+        "qualification": "Exact derive versus manual wire semantics; bounded ranges only; no automatic other-lens credit or baseline replay.",
+        "lenses": {
+          "producer-propagation": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "existing-type-owners": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "admission-contracts": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "invariant-operations": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "aggregate-states": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "type-ownership": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "redundant-authority": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "behavior-preservation": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "enum-shapes": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "derivability": "Origin10 exact semantic wire comparison packet006",
+          "type-granularity": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "magic-strings": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "magic-numbers": "Bounded new material reconciliation pending; adopted baselines retained."
+        },
+        "status": "Material source registered, no clearance"
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          191,
+          212
+        ]
+      ],
+      "disposition": "Read registered191-212. Transparent serde serialization delegates exactly the selected field or explicit serialize_with to serializer; it does not serialize wrapper metadata or validate invariants. Container parsing and Deserialize implementation are separate."
+    },
+    {
+      "material_index": 109,
+      "registration": {
+        "source_id": "pinned-registry:glam-0.32.1/src/features/impl_serde.rs",
+        "sha256": "da9b8a13b57b257793481f554e6888a8fb0c82a7669e52d7e2d2af74701f0061",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/fresh-dependencies-006/glam-0.32.1/src/features/impl_serde.rs",
+        "ranges": [
+          [
+            73,
+            86
+          ],
+          [
+            730,
+            748
+          ],
+          [
+            1044,
+            1062
+          ]
+        ],
+        "package_checksum": "f70749695b063ecbf6b62949ccccde2e733ec3ecbbd71d467dca4e5c6c97cca0",
+        "reason": "Exact immediate serialization wire/transparent derive dependency for LeafDimensions equivalence; only stated ranges read.",
+        "line_count": 1638,
+        "revision": "FrozenP16 exact native package; registration006 contains lock checksum proof",
+        "registration_evidence": "derivability/fresh-dependency-registration-006.json",
+        "qualification": "Exact derive versus manual wire semantics; bounded ranges only; no automatic other-lens credit or baseline replay.",
+        "lenses": {
+          "producer-propagation": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "existing-type-owners": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "admission-contracts": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "invariant-operations": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "aggregate-states": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "type-ownership": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "redundant-authority": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "behavior-preservation": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "enum-shapes": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "derivability": "Origin10 exact semantic wire comparison packet006",
+          "type-granularity": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "magic-strings": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "magic-numbers": "Bounded new material reconciliation pending; adopted baselines retained."
+        },
+        "status": "Material source registered, no clearance"
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          73,
+          86
+        ],
+        [
+          730,
+          748
+        ],
+        [
+          1044,
+          1062
+        ]
+      ],
+      "disposition": "Read registered73-86,730-748,1044-1062. glam vec3 serde writes x/y/z as tuple fields, macro expansion instantiated for f32 vectors. No finite check here; backend serializer controls scalar result. Registered snippets do not establish Deserialize or other math types semantics."
+    },
+    {
+      "material_index": 110,
+      "registration": {
+        "source_id": "pinned-registry:bevy_math-0.19.1/Cargo.toml",
+        "sha256": "55eaac570fdbe4828cebd617d6feb73ce13af0fb030f5c4cba99417c967a2a2f",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/fresh-dependencies-006/bevy_math-0.19.1/Cargo.toml",
+        "ranges": [
+          [
+            118,
+            121
+          ]
+        ],
+        "package_checksum": "98ead494dcfaa9b4594eed7f09a27d868b7cc7fc9ebd655c5643322778f4a8a2",
+        "reason": "Exact immediate serialization wire/transparent derive dependency for LeafDimensions equivalence; only stated ranges read.",
+        "line_count": 208,
+        "revision": "FrozenP16 exact native package; registration006 contains lock checksum proof",
+        "registration_evidence": "derivability/fresh-dependency-registration-006.json",
+        "qualification": "Exact derive versus manual wire semantics; bounded ranges only; no automatic other-lens credit or baseline replay.",
+        "lenses": {
+          "producer-propagation": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "existing-type-owners": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "admission-contracts": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "invariant-operations": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "aggregate-states": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "type-ownership": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "redundant-authority": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "behavior-preservation": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "enum-shapes": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "derivability": "Origin10 exact semantic wire comparison packet006",
+          "type-granularity": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "magic-strings": "Bounded new material reconciliation pending; adopted baselines retained.",
+          "magic-numbers": "Bounded new material reconciliation pending; adopted baselines retained."
+        },
+        "status": "Material source registered, no clearance"
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          118,
+          121
+        ]
+      ],
+      "disposition": "Read registered manifest118-121 only. Bevy math requests glam semver0.32.0, bytemuck and disables default features. Exact resolution and serde feature unification require frozen lock/dependency provenance; no standalone feature-graph clearance."
+    }
+  ],
+  "first_unfinished_material_index": 111,
+  "new_findings": []
+}

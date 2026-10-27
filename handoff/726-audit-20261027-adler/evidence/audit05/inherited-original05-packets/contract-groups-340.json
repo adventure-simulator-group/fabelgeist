@@ -1,0 +1,70 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-340",
+  "at": "2026-10-23T08:07:03.014642+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/mounts.rs",
+      "sha256": "524bc66482c68f2d286db6de9a009b408c0eaa9863689ea78f21bfe00e0ed9dd",
+      "scope071_index": 2851,
+      "actual_EOF": 293,
+      "scoped_ranges_compared": [
+        [
+          1,
+          79
+        ],
+        [
+          133,
+          228
+        ]
+      ],
+      "effective_material_ranges": [
+        [
+          1,
+          2
+        ],
+        [
+          4,
+          79
+        ],
+        [
+          133,
+          225
+        ]
+      ],
+      "context_only": [
+        [
+          3,
+          3
+        ],
+        [
+          226,
+          228
+        ]
+      ],
+      "actual05_comparison": "Fresh exact071 registered ranges; socket receiving shaft and transformed assembly contact relationships independently compared. No80-132/229+ helper-body or P16 credit."
+    }
+  ],
+  "groups": [
+    {
+      "id": "socket construction has conditional receiver contract",
+      "comparison": "socket_fit applies only Spear with socket; resolves explicit owner to prior resolved Shaft, or implicit weapon/shaft only when actual root shaft supplied, or legacy-named mount construction with supplied shaft. No receiver returns Ok: this is a conditional receiving-shaft constraint, not proof every component connects to an extant parent. Anchor/assembly owner admission must remain actual caller obligations, not inferred from this gate."
+    },
+    {
+      "id": "whole inserted interval compared in receiver coordinates",
+      "comparison": "Offset and child axial direction transformed into parent shaft frame before alignment tolerance; receiving socket cannot overlap wrapping beyond rim; insertion depth/rim checked. Bore clearance compares rim/end and all shaft profile breakpoints using conservative low-detail polygon apothem. Exact proof relies on actual piecewise-linear shaft/bore profile methods and stable radial count; those omitted helpers/native generators are not cleared from method names."
+    },
+    {
+      "id": "explicit attachment contact uses resolved geometry",
+      "comparison": "attachment_contact returns early for absent/unqualified attachment or no matching explicit/implicit parent. When parent exists it invokes mortised_guard and optional axial shaft check, constructs both actual shapes, transforms child bounds into parent frame, checks non-Origin anchor axial location using seating radius, then rejects separate axes unless actual connected_through_assembly permits. Native AABB overlap is necessary contact envelope test, not proof continuous surface mating; omitted connection helper is pending independently."
+    },
+    {
+      "id": "source-role and peer finding limits",
+      "comparison": "Own326 establishes Shape::range axial seat semantics and local attachment anchor values, not transverse bounds; current helper constructs geometry for actual bounds. Root04F061 single root-attached LoftedBlade/no shaft bypasses these conditional gates as reported, but own05 has not read entire model/physical/forge graph and does not award cross-lens accepted witness. No new own unique finding, execution or caller normality claim. Mandatory246 context limits retained."
+    }
+  ],
+  "new_unique_findings": [],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

@@ -1,0 +1,286 @@
+diff --git a/crates/adventuresim-core/src/linear_speed.rs b/crates/adventuresim-core/src/linear_speed.rs
+index 9fdc52d32..ee4bb9cfd 100644
+--- a/crates/adventuresim-core/src/linear_speed.rs
++++ b/crates/adventuresim-core/src/linear_speed.rs
+@@ -67,7 +67,7 @@ impl NonnegativeSpeed {
+     pub fn checked_lerp(self, other: Self, fraction: UnitInterval) -> SpeedResult<Self> {
+         let difference = other - self;
+         let scaled_difference = difference * fraction;
+-        self + scaled_difference
++        Self::try_from((self + scaled_difference)?)
+     }
+ 
+     /// Normalize speed within an increasing interval, saturating at its endpoints.
+@@ -157,12 +157,12 @@ impl PositiveSpeed {
+     }
+ }
+ 
+-/// Adding a signed offset can cross zero or overflow, so its result is checked.
++/// Adding a signed offset permits negative results and rejects overflow.
+ impl Add<SignedSpeed> for NonnegativeSpeed {
+-    type Output = SpeedResult<Self>;
++    type Output = SpeedResult<SignedSpeed>;
+ 
+     fn add(self, offset: SignedSpeed) -> Self::Output {
+-        Self::from_arithmetic(self.0 + offset.0)
++        SignedSpeed::from_metres_per_second(self.0 + offset.0).map_err(|_| SpeedError::Overflow)
+     }
+ }
+ 
+@@ -210,6 +210,13 @@ impl From<NonnegativeSpeed> for SignedSpeed {
+         Self(speed.0)
+     }
+ }
++impl TryFrom<SignedSpeed> for NonnegativeSpeed {
++    type Error = SpeedError;
++
++    fn try_from(speed: SignedSpeed) -> SpeedResult<Self> {
++        Self::from_metres_per_second(speed.0)
++    }
++}
+ impl From<NonnegativeSpeed> for f32 {
+     fn from(speed: NonnegativeSpeed) -> Self {
+         speed.0
+diff --git a/crates/adventuresim-core/src/unit_interval.rs b/crates/adventuresim-core/src/unit_interval.rs
+index 72ecb003f..1d7e3a52e 100644
+--- a/crates/adventuresim-core/src/unit_interval.rs
++++ b/crates/adventuresim-core/src/unit_interval.rs
+@@ -2,7 +2,7 @@
+ 
+ use fabelgeist_math::units::Ratio;
+ use serde::{Deserialize, Serialize};
+-use std::{fmt, ops::Mul};
++use std::ops::Mul;
+ 
+ pub type FractionResult<T> = Result<T, FractionError>;
+ 
+@@ -10,10 +10,14 @@ pub type FractionResult<T> = Result<T, FractionError>;
+ #[serde(try_from = "f32", into = "f32")]
+ pub struct UnitInterval(f32);
+ 
+-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++#[derive(Clone, Copy, Debug, PartialEq, Eq, thiserror::Error)]
+ pub enum FractionError {
++    #[error("unit fraction must be finite")]
+     NonFinite,
++    #[error("unit fraction must lie in [0, 1]")]
+     OutsideUnitInterval,
++    #[error("unit fraction interpolation bounds must be strictly increasing")]
++    NonIncreasingBounds,
+ }
+ 
+ impl UnitInterval {
+@@ -36,6 +40,19 @@ impl UnitInterval {
+     pub fn complement(self) -> Self {
+         Self(1.0 - self.0)
+     }
++    /// Normalize within an increasing interval, saturating at its endpoints.
++    pub fn clamped_inverse_lerp(self, lower: Self, upper: Self) -> FractionResult<Self> {
++        if lower >= upper {
++            return Err(FractionError::NonIncreasingBounds);
++        }
++        if self <= lower {
++            return Ok(Self::ZERO);
++        }
++        if self >= upper {
++            return Ok(Self::ONE);
++        }
++        Self::from_fraction((self.0 - lower.0) / (upper.0 - lower.0))
++    }
+     /// Evaluate cubic smoothstep and admit the resulting fraction.
+     pub fn smoothstep(self) -> FractionResult<Self> {
+         let fraction = self.0;
+@@ -70,12 +87,3 @@ impl TryFrom<Ratio> for UnitInterval {
+         Self::from_fraction(value.ratio())
+     }
+ }
+-impl fmt::Display for FractionError {
+-    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+-        formatter.write_str(match self {
+-            Self::NonFinite => "unit fraction must be finite",
+-            Self::OutsideUnitInterval => "unit fraction must lie in [0, 1]",
+-        })
+-    }
+-}
+-impl std::error::Error for FractionError {}
+diff --git a/crates/adventuresim-tactical-client/src/animation/procedural.rs b/crates/adventuresim-tactical-client/src/animation/procedural.rs
+index a46e3c5ca..06ad7f011 100644
+--- a/crates/adventuresim-tactical-client/src/animation/procedural.rs
++++ b/crates/adventuresim-tactical-client/src/animation/procedural.rs
+@@ -33,7 +33,7 @@ pub(crate) use ik::{
+ };
+ use ik::{
+     FootTrackSide, LimbSegments, TwoBoneChain, apply_two_bone_solution, canonical_knee_pole,
+-    constrain_rendered_leg_pole, smoothstep, snapshot_chain, solve_landing_two_bone,
++    constrain_rendered_leg_pole, snapshot_chain, solve_landing_two_bone,
+ };
+ #[cfg(test)]
+ use ik::{
+diff --git a/crates/adventuresim-tactical-client/src/animation/procedural/dive.rs b/crates/adventuresim-tactical-client/src/animation/procedural/dive.rs
+index 9d0177f7a..a633520c4 100644
+--- a/crates/adventuresim-tactical-client/src/animation/procedural/dive.rs
++++ b/crates/adventuresim-tactical-client/src/animation/procedural/dive.rs
+@@ -7,17 +7,18 @@ use super::*;
+ struct DiveInfluence(adventuresim_tactical_core::animation::UnitInterval);
+ 
+ impl DiveInfluence {
+-    fn from_factor(factor: f32) -> AnimationValueResult<Self> {
+-        if !factor.is_finite() {
+-            return Err(AnimationValueError::NonFinite {
+-                quantity: AnimationQuantity::DiveInfluence,
+-            });
+-        }
+-        adventuresim_tactical_core::animation::UnitInterval::from_fraction(factor.clamp(0.0, 1.0))
+-            .map(Self)
+-            .map_err(|error| {
+-                AnimationValueError::from(error).for_quantity(AnimationQuantity::DiveInfluence)
+-            })
++    fn from_phase(phase: UnitInterval) -> AnimationValueResult<Self> {
++        let influence = if phase <= DIVE_GROUND_CONTACT_PHASE {
++            phase
++                .clamped_inverse_lerp(UnitInterval::ZERO, DIVE_GROUND_CONTACT_PHASE)?
++                .smoothstep()?
++        } else {
++            phase
++                .clamped_inverse_lerp(DIVE_GROUND_CONTACT_PHASE, UnitInterval::ONE)?
++                .smoothstep()?
++                .complement()
++        };
++        Ok(Self(influence))
+     }
+     fn fraction(self) -> f32 {
+         self.0.fraction()
+@@ -45,13 +46,7 @@ pub(in crate::animation) fn apply_procedural_dive_lower_body(
+         let PostureTransitionKind::DiveToDowned { direction, .. } = transition.kind() else {
+             continue;
+         };
+-        let phase = transition.phase().fraction().clamp(0.0, 1.0);
+-        let amount = if phase <= DIVE_GROUND_CONTACT_PHASE.fraction() {
+-            smoothstep(0.0, DIVE_GROUND_CONTACT_PHASE.fraction(), phase)
+-        } else {
+-            1.0 - smoothstep(DIVE_GROUND_CONTACT_PHASE.fraction(), 1.0, phase)
+-        };
+-        let amount = match DiveInfluence::from_factor(amount) {
++        let amount = match DiveInfluence::from_phase(transition.phase()) {
+             Ok(amount) => amount,
+             Err(error) => {
+                 warn!(%error, "Rejected dive pelvis contribution");
+@@ -95,19 +90,19 @@ mod tests {
+     fn dive_pelvis_lean_tips_up_axis_exactly_toward_travel() {
+         let forward = dive_pelvis_lean(
+             DiveDirection::Forward,
+-            DiveInfluence::from_factor(1.0).unwrap(),
++            DiveInfluence(UnitInterval::ONE),
+         ) * Vec3::Y;
+         let backward = dive_pelvis_lean(
+             DiveDirection::Backward,
+-            DiveInfluence::from_factor(1.0).unwrap(),
++            DiveInfluence(UnitInterval::ONE),
+         ) * Vec3::Y;
+         let left = dive_pelvis_lean(
+             DiveDirection::Left,
+-            DiveInfluence::from_factor(1.0).unwrap(),
++            DiveInfluence(UnitInterval::ONE),
+         ) * Vec3::Y;
+         let right = dive_pelvis_lean(
+             DiveDirection::Right,
+-            DiveInfluence::from_factor(1.0).unwrap(),
++            DiveInfluence(UnitInterval::ONE),
+         ) * Vec3::Y;
+         assert!(forward.z > 0.64 && forward.y > 0.76);
+         assert!(backward.z < -0.64 && backward.y > 0.76);
+@@ -129,9 +124,9 @@ mod tests {
+                 guard,
+                 bind,
+                 direction,
+-                DiveInfluence::from_factor(1.0).unwrap(),
++                DiveInfluence(UnitInterval::ONE),
+             );
+-            let expected = (dive_pelvis_lean(direction, DiveInfluence::from_factor(1.0).unwrap())
++            let expected = (dive_pelvis_lean(direction, DiveInfluence(UnitInterval::ONE))
+                 * bind)
+                 .normalize();
+             assert!(actual.angle_between(expected) < 0.0001);
+@@ -145,7 +140,7 @@ mod tests {
+             contact,
+             Quat::IDENTITY,
+             DiveDirection::Backward,
+-            DiveInfluence::from_factor(0.0).unwrap(),
++            DiveInfluence(UnitInterval::ZERO),
+         );
+         assert!(actual.angle_between(contact) < 0.0001);
+     }
+diff --git a/crates/adventuresim-tactical-core/src/animation/evaluation.rs b/crates/adventuresim-tactical-core/src/animation/evaluation.rs
+index 3930c0552..6bb0d3cae 100644
+--- a/crates/adventuresim-tactical-core/src/animation/evaluation.rs
++++ b/crates/adventuresim-tactical-core/src/animation/evaluation.rs
+@@ -265,14 +265,13 @@ fn dive_transition_samples(
+     phase: UnitInterval,
+ ) -> AnimationValueResult<Vec<PoseSample>> {
+     let dive = dive_pose(direction);
+-    let progress = phase;
+-    let phase = progress.fraction();
+-    if phase < DIVE_GROUND_CONTACT_PHASE.fraction() {
++    if phase < DIVE_GROUND_CONTACT_PHASE {
+         return Ok(vec![PoseSample {
+             pose: SemanticPose::GuardThrust,
+             sampling: PoseSampling::Span {
+                 end: dive,
+-                progress: UnitInterval::from_fraction(phase * 2.0)?,
++                progress: phase
++                    .clamped_inverse_lerp(UnitInterval::ZERO, DIVE_GROUND_CONTACT_PHASE)?,
+             },
+             weight: BlendWeight::ONE,
+             mirror_lower_body: ClipMirror::Original,
+@@ -288,7 +287,7 @@ fn dive_transition_samples(
+     // pelvis release and the authoritative directional root handoff. Starting
+     // this span linearly made the complete upper-body chain visibly twist on
+     // the first grounded frame, including on forward dives with no root yaw.
+-    let recovery = dive_contact_pose_progress(progress)?;
++    let recovery = dive_contact_pose_progress(phase)?;
+     Ok(vec![PoseSample {
+         pose: dive,
+         sampling: PoseSampling::Span {
+@@ -307,9 +306,7 @@ fn dive_lower_body_samples(
+     direction: DiveDirection,
+     phase: UnitInterval,
+ ) -> AnimationValueResult<Vec<PoseSample>> {
+-    let progress = phase;
+-    let phase = progress.fraction();
+-    let sampling = if phase < DIVE_GROUND_CONTACT_PHASE.fraction() {
++    let sampling = if phase < DIVE_GROUND_CONTACT_PHASE {
+         PoseSampling::Anchor
+     } else {
+         let contact = match direction {
+@@ -320,7 +317,7 @@ fn dive_lower_body_samples(
+         };
+         PoseSampling::Span {
+             end: contact,
+-            progress: dive_contact_pose_progress(progress)?,
++            progress: dive_contact_pose_progress(phase)?,
+         }
+     };
+     Ok(vec![PoseSample {
+@@ -332,9 +329,7 @@ fn dive_lower_body_samples(
+ }
+ 
+ fn dive_contact_pose_progress(phase: UnitInterval) -> AnimationValueResult<UnitInterval> {
+-    let progress = UnitInterval::from_fraction(
+-        (phase.fraction() - DIVE_GROUND_CONTACT_PHASE.fraction()) * 2.0,
+-    )?;
++    let progress = phase.clamped_inverse_lerp(DIVE_GROUND_CONTACT_PHASE, UnitInterval::ONE)?;
+     Ok(progress.smoothstep()?)
+ }
+ 
+diff --git a/crates/adventuresim-tactical-core/src/animation/value_error.rs b/crates/adventuresim-tactical-core/src/animation/value_error.rs
+index 3f6bccdcb..bb17e4918 100644
+--- a/crates/adventuresim-tactical-core/src/animation/value_error.rs
++++ b/crates/adventuresim-tactical-core/src/animation/value_error.rs
+@@ -221,6 +221,7 @@ impl From<adventuresim_core::unit_interval::FractionError> for AnimationValueErr
+         match error {
+             FractionError::NonFinite => Self::NonFinite { quantity },
+             FractionError::OutsideUnitInterval => Self::OutsideUnitInterval { quantity },
++            FractionError::NonIncreasingBounds => Self::NonIncreasingBounds { quantity },
+         }
+     }
+ }

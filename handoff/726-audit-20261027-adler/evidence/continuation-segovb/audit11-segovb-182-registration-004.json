@@ -1,0 +1,35 @@
+{
+  "packet": 182,
+  "lens": 11,
+  "registered_before_body_read": true,
+  "entries": [
+    {
+      "original": 920,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment.rs",
+      "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "read_from": "crates/adventuresim-core/src/equipment.rs",
+      "ranges": [
+        [
+          277,
+          318
+        ]
+      ],
+      "purpose": "Close equip return and actual has_children/would_cycle identity receiving helpers",
+      "ordered_original_shared_credit": 0
+    },
+    {
+      "original": 780,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment.rs",
+      "sha256": "d6b09524be811c5e4202be50af529c941a917ff8f31ea61e2a73e4da17dc103e",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/d6b09524be811c5e4202be50af529c941a917ff8f31ea61e2a73e4da17dc103e",
+      "ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "purpose": "Locate canonical GarmentSelection/Construction declarations/reexports for actualArticle alternative; reuse prior full780 sourceproof without broad restart",
+      "ordered_original_shared_credit": 0
+    }
+  ]
+}

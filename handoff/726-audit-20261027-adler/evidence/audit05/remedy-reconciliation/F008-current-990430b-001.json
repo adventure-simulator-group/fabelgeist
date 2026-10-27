@@ -1,0 +1,161 @@
+{
+  "at": "2026-10-26T04:56:11.788529+00:00",
+  "finding_id": "ADLER-RESUMED05-F008",
+  "phase": "Read-only global remedy/current-canonical reconciliation",
+  "finding_authority": [
+    {
+      "scope_index": 2704,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+      "sha256": "44e7ffb24f89b628a6aa80e5d207018770c558bef8aafacf8e9e6dfa91962bcb",
+      "ranges": [
+        [
+          713,
+          755
+        ],
+        [
+          2336,
+          2368
+        ],
+        [
+          2392,
+          2454
+        ],
+        [
+          2544,
+          2567
+        ],
+        [
+          4360,
+          4404
+        ]
+      ]
+    }
+  ],
+  "current_canonical": {
+    "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "sources": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+        "original_scope_index": 1699,
+        "scope_kind": "frozen_requested_change",
+        "sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+        "entire_blob_exact_equal_to_frozen_finding_variant": false,
+        "exact_equal_to_registered_original_variant": true,
+        "registered_scope": [
+          [
+            1,
+            4477
+          ]
+        ],
+        "own_prior_receipt": "contract-groups-158.json",
+        "personally_read_ranges": [
+          [
+            713,
+            756
+          ],
+          [
+            2345,
+            2377
+          ],
+          [
+            2401,
+            2463
+          ],
+          [
+            2553,
+            2576
+          ],
+          [
+            4433,
+            4477
+          ]
+        ],
+        "precise_frozen_current_equal_slice_pairs": [
+          [
+            [
+              713,
+              755
+            ],
+            [
+              713,
+              755
+            ]
+          ],
+          [
+            [
+              2336,
+              2368
+            ],
+            [
+              2345,
+              2377
+            ]
+          ],
+          [
+            [
+              2392,
+              2454
+            ],
+            [
+              2401,
+              2463
+            ]
+          ],
+          [
+            [
+              2544,
+              2567
+            ],
+            [
+              2553,
+              2576
+            ]
+          ],
+          [
+            [
+              4360,
+              4404
+            ],
+            [
+              4433,
+              4477
+            ]
+          ]
+        ]
+      }
+    ]
+  },
+  "disposition": "CURRENT_UNREPAIRED_QUALIFIED",
+  "source_relationship": "Same declared base8-core GPU/16GiB/fanless target, host onlyOS/architecture/chip/GPU/memory/release, substring AppleM5 and memory>=16 admission, target acceptance Option/report projection. Known mapped target sections are exact equal despite changed rest-of-file. Synthetic AppleM5Pro/32GiB record still passes these predicates.",
+  "dedup": {
+    "inventory": "target\\recovery-20261025\\audit05\\inherited\\adler-finding-records.json",
+    "inventory_sha256": "473fc7ce6d08f96419a86d239410cf94fa1ba9b8cf8c93ef45ba2d7b44d6942d",
+    "records": 1002,
+    "navigation": "F008-inventory-navigation-001.json",
+    "candidate_ids": [],
+    "assessment": "No matches for bounded target/host-specific terms in1002 records. This does not establish global uniqueness or decide broader target-class policy.",
+    "global_uniqueness": "Not established by limited inventory search; final connected remedy grouping remains pending."
+  },
+  "qualifications": [
+    "Declared base hardware versus broader class policy remains unresolved; no factual claim a particular machine exists or observed benchmark passed.",
+    "No benchmark/profile/native command executed; no source outside registered original1699 credited."
+  ],
+  "project_checks": false,
+  "source_or_git_mutations": false,
+  "new_issue": false,
+  "new_unique_count": 0,
+  "accepted_own_findings_unchanged": 10,
+  "global_clearance": false,
+  "prior_exposure_disclosure": {
+    "incorrect_offset_read": [
+      4369,
+      4413
+    ],
+    "cause": "Applied earlier+9 line offset to tests before named declaration remapping; current tests moved+73.",
+    "exposed_roles": "Unrelated existing lighting/capture/vista test snippets.",
+    "coverage_credit": false,
+    "correspondence_credit": false,
+    "parent_disclosed": true,
+    "source_authority": "Same exact original1699 requested change full1-4477 was independently confirmed from catalog/scope072 and prior own contract158. No new source registration needed, no backdating or extra scope credit."
+  }
+}

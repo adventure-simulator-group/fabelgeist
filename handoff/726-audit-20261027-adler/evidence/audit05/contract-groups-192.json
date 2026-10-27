@@ -1,0 +1,97 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-192",
+  "at": "2026-10-25T21:23:17.495567+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2001,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/scene_input/establishments.rs",
+      "sha256": "b7ca5ef8c7f9a34070cc1ad19fe19a3cdc9915fd5d10cd6c2d2ee3b51ce519a1",
+      "personally_read_ranges": [
+        [
+          1,
+          42
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full42 lines read. Establishment binder keys operators by exact business key only after verifying settlement scope; duplicate key rejects. Each placed business removes exactly one operator, pairs building/business/character/name and derives ShopName from same name+usage. Missing and extra operators both reject; final sort uses physical building ID. Full input validation1923 additionally checks zero/duplicate actor assignments, so local binder alone is not advertised as complete actor admission."
+      ]
+    },
+    {
+      "scope_index": 2002,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/scene_input/geological_landforms.rs",
+      "sha256": "7068eadeb46eb4e50b00a5f3a45e0e200e43c38afe3bfafd8d84709bbd79ae5a",
+      "personally_read_ranges": [
+        [
+          1,
+          534
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full534 lines read. Standalone landform selection derives one matching grade/downhill/tangent/relief from actual source terrain then binds mapped lithology to closed allowed process kind, constructs admitted recipe and excludes unsafe whole footprint/protected cover/corridor before returning. Actualcaller2000 uses101x101 positive1m grid, closing native stride subtraction/dimension and gradient-normalization preconditions; arbitrary tiny native grids are not admitted by this path.",
+        "mapped_lithology projects same scene point and bounded footprint3x3 samples into one containment-verified source window with explicit2m projection margin; absent coverage returnsNone rather than fabricated geology. Fault surface selection admits all valid lithology families independently from standalone-kind whitelist. Mapped labels still mean plausible procedural realization, not measured event/bedding. Numerical projection validity near pole/error returns absence; no scientific containment guarantee beyond implemented sampling policy asserted.",
+        "Source fixtures cover deterministic safe placement, lithology eligibility, geological family distinction, coarse-source repaired morphology and road/water/cultivation exclusion. Assertions read only; no landform mesh or projection execution."
+      ]
+    },
+    {
+      "scope_index": 2003,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/scene_input/terrain_capture.rs",
+      "sha256": "f5121eacfb30ddcea6841d7b6fe1b4b1d29b213befb32f006e727040b8a0b92c",
+      "personally_read_ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full164 lines read. SourceElevationSample constructor retains exact admitted scene point with actual cell absolute elevation, reports owning point/value when elevation rejects, and custom JSON serializer projects scalar metres only at wire boundary. sample_points and fixed transects use same pack/coordinate origin and offset mapping, requiring every requested cell; ImportedTerrainCapture binds actual digest/centre elevation and same seed-driven vista resampler before publication. Missing source remains error, not zero/default. Fixture read only."
+      ]
+    },
+    {
+      "scope_index": 2004,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/scene_input/tests/startup_fixtures.rs",
+      "sha256": "5861efab34c5c52becfe579f62be7ba57e67b8f3c83a9b8c79e761259ae76272",
+      "personally_read_ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full108-line ignored export fixture read. Each of two distinct named settlements keeps exact origin/profile/seed-derived programme population, fixture operator identity offset and source digest together through RegionalCityInput and paired neighborhood/district captures. Actor/city/environment files derive same input/source/origin; differing programme assertion checks unseen destination workload. This fixture intentionally exports offline and is not source of persistent resident actors; no execution or generated files."
+      ]
+    },
+    {
+      "scope_index": 2005,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/settlement_buildings.rs",
+      "sha256": "cd7c7620ecad6eea71eb5e453d882bce444f9308ab4f6d2cee08423609964585",
+      "personally_read_ranges": [
+        [
+          1,
+          42
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full42 lines read. Settlement profile retains id/population/economy/operators, and physical layout generation uses canonical settlement seed, same effective population/economy then same seed for compilation and explicit playable partition radius. Operators are bound later2001, not independent geometry authority. Public profile/native radius can be malformed, but actual2000 radius is fixed positive50 and owning generation/binding validates resulting input; no ordinary invalid result proved."
+      ]
+    },
+    {
+      "scope_index": 2006,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/terrain_sampling.rs",
+      "sha256": "be0e11404dadb950d9b751312555425b25e836bc3e3b0063664512290012f8c8",
+      "personally_read_ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full38 lines read. Shared environment projection maps each actual source cell once to full coverage tuple, converts percent to basis points with100 multiplier and keeps independent canopy/wetland/cultivation/hilly/crossing meanings. Water fraction deliberately excludes crossing while surface kind remains original; base-ground ownership gives crossing/road priority, so independent fields are not required mutually exclusive labels. Actual terrain-cell admission owns percent bounds; arbitrary u8>100 is representational until pack decoder/producer proof, not accepted bad regional capture."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "6 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

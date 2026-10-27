@@ -1,0 +1,52 @@
+{
+  "id": "M04-comment-review-body-005",
+  "created_utc": "2026-10-27T04:55:45.878633+00:00",
+  "head": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+  "review_type": "Focused body-only validation-status and80column review",
+  "body": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/pr-body-005.md",
+    "sha256": "c478bb5a8c5958716fea4054bcf5d050b6793a413fa6cf22f72f9ea534ac3f50"
+  },
+  "prospective_registration": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/comment-review-body-005-registration.json",
+    "sha256": "1996ab6df8f393e72cccafb1f2c932629dbdd0ce17d301fd2f5cdfae3c34b846"
+  },
+  "source_authority": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/comment-review-003.json",
+    "sha256": "f8c8609063e369a1bf7f377bcbf09e008806ac341d0c57b47af800c789644fb5"
+  },
+  "comparison_body": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/pr-body-004.md",
+    "sha256": "cdcab2460237ee12dfee46188f89f9a442ae4804fb92dc4187ee815a7cff2834"
+  },
+  "actual_read_ranges": [
+    [
+      1,
+      24
+    ]
+  ],
+  "verified": [
+    "Only validation paragraph status text and wrapping changed from accepted body004.",
+    "Hosted checks pending for the final revision accurately qualifies the proposed rerun status and makes no success claim. No remote CI status fetched.",
+    "The remaining workflow/four-existing-tests/no-new-tests text and all implementation prose match prior source-backed review003; no source reread performed."
+  ],
+  "findings": [
+    {
+      "id": "M04-BODY005-WRAP01",
+      "kind": "contributor prose formatting",
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/pr-body-005.md",
+      "line": 14,
+      "line_length": 93,
+      "source_quote": "Hosted checks are pending for the final revision. The workflow now executes the four existing",
+      "rule": "RootAGENTS: Wrap Markdown prose at80columns, preserving codeblocks,tables,links.",
+      "correction": "End line14 after revision.; wrap the next workflow sentence to80columns. No wording or source/API change needed."
+    }
+  ],
+  "verdict": "Accuracy accepted; one concrete80column wrapping correction required before publication. Root notified; reviewer made no edits.",
+  "limits": [
+    "No source re-review/project execution/checks/tests/Git/product/ledger/publication.",
+    "No hosted-success or global audit/F9 clearance.",
+    "Frozen08 remains held."
+  ],
+  "stop": true
+}

@@ -1,0 +1,79 @@
+--- base
++++ frozen-head
+@@ -1,4 +1,76 @@
+ use super::*;
++
++pub(super) struct RangedContact<'a> {
++    pub(super) shot: &'a authority::AuthorizedRangedShot,
++    pub(super) target_transform: &'a Transform,
++    pub(super) target: Entity,
++    pub(super) body_part: BodyPart,
++    pub(super) result: AttackResult,
++    pub(super) defender_response: DefenderResponse,
++    pub(super) flanking: f32,
++    pub(super) attacker_weapon_slot: EquipSlot,
++    pub(super) defender_blocking_slot: Option<EquipSlot>,
++}
++
++impl RangedContact<'_> {
++    pub(super) fn publish(
++        self,
++        commands: &mut Commands,
++        viewer: &TacticalPlayerViewer,
++        attacker_transform: &Transform,
++        attacker_view: &TacticalPlayerView<'_, '_, '_>,
++        defender_view: &TacticalPlayerView<'_, '_, '_>,
++        config: &TacticalCombatConfig,
++    ) {
++        let Self {
++            target,
++            body_part,
++            result,
++            defender_response,
++            flanking,
++            attacker_weapon_slot,
++            defender_blocking_slot,
++            ..
++        } = self;
++        let (impact_recipient, impact_velocity_change, impact_point, impact_normal) =
++            authoritative_impact(
++                result,
++                self.shot.attacker(),
++                attacker_transform.translation,
++                attacker_view.body_weight() + attacker_view.inventory_weight(),
++                target,
++                self.target_transform,
++                defender_view.body_weight() + defender_view.inventory_weight(),
++                body_part,
++                config,
++            );
++        let impact_effects = authoritative_impact_effects(
++            &viewer.inventory,
++            self.shot.attacker(),
++            AttackHand::Main,
++            result,
++        );
++        publish(
++            commands,
++            target,
++            attacker_weapon_slot,
++            defender_blocking_slot,
++            SuccessfulAttackResponse {
++                attacker: self.shot.attacker(),
++                hit: vec![target],
++                body_part,
++                result,
++                flanking,
++                defender_response,
++                impact_recipient,
++                impact_velocity_change,
++                impact_point,
++                impact_normal,
++                impact_effects,
++            },
++        );
++    }
++}
+ 
+ /// Commit the same resolved ranged contact to gameplay and client feedback.
+ pub(super) fn publish(

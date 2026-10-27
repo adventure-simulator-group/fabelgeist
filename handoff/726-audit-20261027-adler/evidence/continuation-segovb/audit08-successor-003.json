@@ -1,0 +1,363 @@
+{
+  "id": "SEGOVB-CONT08-SUCCESSOR-003",
+  "lens": "08 behavior-preservation",
+  "created_utc": "2026-10-26T18:03:23.017140+00:00",
+  "prior_receipt": "audit08-successor-002.json",
+  "registry": {
+    "path": "shared-material-successor/source-extensions-196.json",
+    "sha256": "12adb62b53902f4e42f8e882ec18181d465c049956c8af8b5626d3d3192ff849",
+    "count": 196,
+    "qualification": "Exact append-only material37-40; overlapping original/support/source roles are not additional unique population."
+  },
+  "skill": "/home/brunosegovia/.codex/skills/audit-behavior-preservation/SKILL.md previously loaded; exact old/new/source receiving contracts applied",
+  "rules_read": [
+    "AGENTS.md",
+    "crates/AGENTS.md",
+    "crates/strategic-web/AGENTS.md",
+    "crates/adventuresim-tactical-core/AGENTS.md"
+  ],
+  "registration": "audit08-successor-003-registration.json",
+  "materials": [
+    {
+      "index": 37,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow/profile.rs",
+      "sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+      "local_object": "target/recovery-20261025/continuation-segovb/audit08-source/952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+      "registered_ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "read_ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "comparison": {
+        "index": 37,
+        "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow/profile.rs",
+        "registered_ranges": [
+          [
+            1,
+            56
+          ]
+        ],
+        "base": {
+          "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+          "sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+          "lines": 56
+        },
+        "head": {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+          "lines": 56
+        },
+        "head_expected_match": true
+      },
+      "read_mode": "Exact own08 successor002 support body1-56 reused after identity recheck; no body replay needed",
+      "current_path_sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+      "current_path_matches_frozen": true,
+      "current_scope_qualification": "Current file identity alone establishes neither surrounding current receiver contracts nor integrated/final same-revision validation."
+    },
+    {
+      "index": 38,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/identity.rs",
+      "sha256": "9e6bb30bdee39ecc35561aa4a286e46a7645129f179f7734fcba0e78d433dc48",
+      "local_object": "target/recovery-20261025/continuation-segovb/audit08-source/9e6bb30bdee39ecc35561aa4a286e46a7645129f179f7734fcba0e78d433dc48",
+      "registered_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "read_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "comparison": {
+        "index": 38,
+        "source_id": "pr-working:crates/fabelgeist-hair/src/identity.rs",
+        "registered_ranges": [
+          [
+            1,
+            64
+          ]
+        ],
+        "base": {
+          "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+          "sha256": "9e6bb30bdee39ecc35561aa4a286e46a7645129f179f7734fcba0e78d433dc48",
+          "lines": 64
+        },
+        "head": {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "sha256": "9e6bb30bdee39ecc35561aa4a286e46a7645129f179f7734fcba0e78d433dc48",
+          "lines": 64
+        },
+        "head_expected_match": true
+      },
+      "read_mode": "Fresh actual registered bounded body personally read",
+      "current_path_sha256": "9e6bb30bdee39ecc35561aa4a286e46a7645129f179f7734fcba0e78d433dc48",
+      "current_path_matches_frozen": true,
+      "current_scope_qualification": "Current file identity alone establishes neither surrounding current receiver contracts nor integrated/final same-revision validation."
+    },
+    {
+      "index": 39,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "local_object": "target/recovery-20261025/continuation-segovb/audit08-source/38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "registered_ranges": [
+        [
+          661,
+          805
+        ]
+      ],
+      "read_ranges": [
+        [
+          661,
+          805
+        ]
+      ],
+      "comparison": {
+        "index": 39,
+        "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+        "registered_ranges": [
+          [
+            661,
+            805
+          ]
+        ],
+        "base": {
+          "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+          "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+          "lines": 3812
+        },
+        "head": {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+          "lines": 3812
+        },
+        "head_expected_match": true
+      },
+      "read_mode": "Fresh actual registered bounded body personally read",
+      "current_path_sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "current_path_matches_frozen": true,
+      "current_scope_qualification": "Current file identity alone establishes neither surrounding current receiver contracts nor integrated/final same-revision validation."
+    },
+    {
+      "index": 40,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+      "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+      "local_object": "target/recovery-20261025/continuation-segovb/audit08-source/3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+      "registered_ranges": [
+        [
+          61,
+          66
+        ]
+      ],
+      "read_ranges": [
+        [
+          61,
+          66
+        ]
+      ],
+      "comparison": {
+        "index": 40,
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+        "registered_ranges": [
+          [
+            61,
+            66
+          ]
+        ],
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+          "lines": 66
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+          "lines": 66
+        },
+        "head_expected_match": true
+      },
+      "read_mode": "Fresh actual registered bounded body personally read",
+      "current_path_sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+      "current_path_matches_frozen": true,
+      "current_scope_qualification": "Current file identity alone establishes neither surrounding current receiver contracts nor integrated/final same-revision validation."
+    }
+  ],
+  "support_reads": [
+    {
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "read_ranges": [
+        [
+          651,
+          660
+        ],
+        [
+          2103,
+          2130
+        ]
+      ],
+      "comparison_base_sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "comparison_head_sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "qualification": "Support ranges only, no original-role completion. Character_skills uses explicit original PR base/head; procedural1-60 uses exact physicalP16 a120/039 pins, not substitution from PR source.",
+      "local_object": "target/recovery-20261025/continuation-segovb/audit08-source/38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+      "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+      "read_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "comparison_base_sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+      "comparison_head_sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+      "qualification": "Support ranges only, no original-role completion. Character_skills uses explicit original PR base/head; procedural1-60 uses exact physicalP16 a120/039 pins, not substitution from PR source.",
+      "local_object": "target/recovery-20261025/continuation-segovb/audit08-source/3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/ops/interpolate.rs",
+      "sha256": "695c1097efb81ad14d92b7d55949e67524b0e3949da155df54fac940c6f5b92a",
+      "read_ranges": [
+        [
+          101,
+          176
+        ]
+      ],
+      "comparison_base_sha256": "695c1097efb81ad14d92b7d55949e67524b0e3949da155df54fac940c6f5b92a",
+      "comparison_head_sha256": "695c1097efb81ad14d92b7d55949e67524b0e3949da155df54fac940c6f5b92a",
+      "qualification": "Support ranges only, no original-role completion. Character_skills uses explicit original PR base/head; procedural1-60 uses exact physicalP16 a120/039 pins, not substitution from PR source.",
+      "local_object": "target/recovery-20261025/continuation-segovb/audit08-source/695c1097efb81ad14d92b7d55949e67524b0e3949da155df54fac940c6f5b92a"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/book.rs",
+      "sha256": "1b4aac417b1f0ea794ff7f2832552b2ce1561a7d2cbede9129b274e29dc394ef",
+      "read_ranges": [
+        [
+          1,
+          79
+        ],
+        [
+          246,
+          299
+        ],
+        [
+          300,
+          314
+        ]
+      ],
+      "comparison_base_sha256": "1b4aac417b1f0ea794ff7f2832552b2ce1561a7d2cbede9129b274e29dc394ef",
+      "comparison_head_sha256": "1b4aac417b1f0ea794ff7f2832552b2ce1561a7d2cbede9129b274e29dc394ef",
+      "qualification": "Support ranges only, no original-role completion. Character_skills uses explicit original PR base/head; procedural1-60 uses exact physicalP16 a120/039 pins, not substitution from PR source.",
+      "local_object": "target/recovery-20261025/continuation-segovb/audit08-source/1b4aac417b1f0ea794ff7f2832552b2ce1561a7d2cbede9129b274e29dc394ef"
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/schedule.rs",
+      "sha256": "87bb6b40cc4c57605e3b8c0601b6db29818a0a548aa8d3d4c3b136f55411f001",
+      "read_ranges": [
+        [
+          1,
+          68
+        ],
+        [
+          69,
+          99
+        ]
+      ],
+      "comparison_base_sha256": "87bb6b40cc4c57605e3b8c0601b6db29818a0a548aa8d3d4c3b136f55411f001",
+      "comparison_head_sha256": "87bb6b40cc4c57605e3b8c0601b6db29818a0a548aa8d3d4c3b136f55411f001",
+      "qualification": "Support ranges only, no original-role completion. Character_skills uses explicit original PR base/head; procedural1-60 uses exact physicalP16 a120/039 pins, not substitution from PR source.",
+      "local_object": "target/recovery-20261025/continuation-segovb/audit08-source/87bb6b40cc4c57605e3b8c0601b6db29818a0a548aa8d3d4c3b136f55411f001"
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/party/location_personal.rs",
+      "sha256": "ba5a8c93dc9d1b62072610c5b016d87ce2db0c85f953822d5730ad4e9651f1f9",
+      "read_ranges": [
+        [
+          186,
+          247
+        ]
+      ],
+      "comparison_base_sha256": "ba5a8c93dc9d1b62072610c5b016d87ce2db0c85f953822d5730ad4e9651f1f9",
+      "comparison_head_sha256": "ba5a8c93dc9d1b62072610c5b016d87ce2db0c85f953822d5730ad4e9651f1f9",
+      "qualification": "Support ranges only, no original-role completion. Character_skills uses explicit original PR base/head; procedural1-60 uses exact physicalP16 a120/039 pins, not substitution from PR source.",
+      "local_object": "target/recovery-20261025/continuation-segovb/audit08-source/ba5a8c93dc9d1b62072610c5b016d87ce2db0c85f953822d5730ad4e9651f1f9"
+    }
+  ],
+  "reused_own08_source": "Exact own002 full material33-36 and support receipts reused at proven hashes/ranges; no body restart or other-lens clearance transfer. Material37 previously support-read within own002, now explicitly reconciled under registry role37.",
+  "analyses": {
+    "37": {
+      "status": "accounted WITH source/CPU policy/receiving-family qualifications retained from own002",
+      "reuse_authority": "audit08-successor-002.json#/support_reads original2642 exact952ded...e36 read1-56 and analyses36; reverified material37 declaredsha and both base/head identities before adopting exact own08 source read.",
+      "analysis": "record_profile5-27 dispatches only attributes/count/seed/relative/radius/random/grown; actual GPU Profile radius update M34:1310-1314 and CPU Profile apply source2301:146-154 agree on positive-grown conditional and random max.05 expression. record_ops own002 source2286:642-649 retains in-place Profile with continue before position swap. record_guide_pack32-54 consumes post-operation guide.positions and guide.attributes, emits requested Parting via host parting_parameters and counts/points. These are exact retained actual caller/receiver source traces from own002, not another-lens verdict.",
+      "qualifications": [
+        "No source change in this receiver or checked actual dispatch paths across original frozen revisions.",
+        "Canonical attribute/resource/population provenance and complete CPU/GPU supported-stack equivalence remain separate shared M16 and policy obligations. M36 missing/repeated interpolation distinction remains explicit and unchanged."
+      ]
+    },
+    "38": {
+      "status": "accounted WITH preexisting native group-slot compression qualification",
+      "analysis": "Full64 identity body read. StrandId accepts all u32 at word adapter and retains it; no arithmetic normalization. PartingGroup::from_gpu_word31-36 maps every negativei32 to Unassigned and nonnegative words to private Assigned(u32); gpu_word40-44 emits -1 or same assigned signedword. Default60-63 remains Assigned0, not Unassigned. lane48-52 retains assigned modulo lanes and unassigned lanes-1; zero-lane behavior is not repaired or cleared here. Exact actual Parting::group132-163 maps None/Plane/Fringe and arbitrary Lanes count to this admission. compatible169-170 preserves same-assigned/either-unassigned policy. Earlier own002 host parting_parameters848-875 and WGSL M34 parting/map671-768 remain actual native receiving bodies: map_slot clamps group+1 into0..4, so IDs3 and4 share native slot4. Public from_gpu_word(3/4) can express both; typed identity itself does not guarantee distinct map storage. Hairdo built-in braid source2291:131-145 supplies3 lanes and fringe group0..2, which excludes that compression for that specific built-in producer, not every public Groom/Host input.",
+      "qualifications": [
+        "No newly introduced behavior difference or unique finding: identity.rs, Parting source, host record_map and native shader receiver bytes are identical at base3a50/head6533. The group3/4 comparison is the existing material38 registration question, not an invented refactor regression.",
+        "Keep future policy/repair reconciliation explicit: determine supported arbitrary parting population and preserve or intentionally replace native five-slot policy using canonical M16 layout/identity owners. Do not independently duplicate type owners or silently restrict lanes based only on the shader clamp.",
+        "Actual caller guarantees for PartingGroup::lane nonzero lanes remain untraced here; no original/source-family or current API admission clearance."
+      ]
+    },
+    "39": {
+      "status": "accounted WITH strategic preview/schedule producer qualifications",
+      "analysis": "Fresh registered661-805 plus entry651-660 and actual2103-2130 receiver source read. Missing attributes/skills returns existing self before owned/BTreeSet and bookkeeping; bookstore eligibility and allowlist precedence are unchanged. Written/religion/bestiary/terrain/ordinary-skill rank and aptitude paths preserve effective-hour calls; unknown terrain/skill returnsNone. Actual Book source1-73/257-313 retains qualityband(quality-1 saturating,quality), written maxhours0/1000 min intelligence clamp0..5, reading rate clamp rank/5. select_candidate266-282 filters usefulness then personal-first, ascendingquality,stable itemID sort/dedup beforefirst. Preview preserves READABLE>=1, rank+.00001>=lower, exclusive upper.minaptitude and aptitude>lower, catalog title fallback and source readingrate. Actual route2378:195-218 constructs ActivityPreviewRates then professions then reading, supplying only positive-quantity inventory item IDs. effective_schedule781-803 clones saved schedule, zeros apprenticeship/practice minutes when no retained matching profession/permission, and passes Seed unchanged to effective_preview_schedule. Its actual Some(location) path calls schedule::effective and expects previously validated saved data; None clones. Schedule adapter effective42-61 validates exact DailySchedule conversion, calls core effective_at and maps returnedminute fields while cloning remaining native fields. No hidden mutable redistribution seed or changed endpoint/order in these receiver sources.",
+      "qualifications": [
+        "All compared exact base/head source files and bounded helper/caller support are byte-identical; no new local regression established.",
+        "Core strategic_schedule::ValidatedSchedule/effective_at lower policy, actual saved-write/database admission and injury/rank/effective-hour producers remain their separately registered original/family obligations. The expect text is not proof that every public/native ScheduleAllocation is valid.",
+        "No renderer/HTTP/database/runtime execution or global clinical/schedule validation. Character_skills full3812 lines are not read or cleared; exact read scope only."
+      ]
+    },
+    "40": {
+      "status": "accounted WITH P16 source-local guard/typed-leaf qualifications",
+      "analysis": "Fresh terminal61-66 read with prospectively registered actual guard1-60. In exact physicalP16 source ProceduralAnimationConfig::validate copies body_response and rejects zero maximum_presentation_sample_gap_ticks or maximum_response_degrees.radians()<=BODY_RESPONSE_DEGREE_REPORT_MARGIN_RADIANS(.000001), returning TacticalCombatConfigError::Validation with existing literal; all other cases returnOk at64. No mutation occurs. Same typedconfig field declarations/serde deny_unknown_fields and guard expression/order at both P16 basea120 and preserved039. This exact physicalP16 source hash also equals current samepath but no receiving-variant acceptance is inferred.",
+      "qualifications": [
+        "Material40 closes only previously unconsumed terminal6lines; supporting original2483:1-60 read does not complete original2483 or P16 whole authoredYAML/leaf-admission/runtime-consumer trace.",
+        "The terminalOk is not proof of every independently typed field construction invariant or body-response relationships. Body angle/reference/rate/duration owners, YAML defaults and all current receiving paths remain separate mandatory P16/P17/shared family obligations.",
+        "No PRsource substituted for physicalP16; no inferred public-invalid-config ordinary failure or gameplay/animation success."
+      ]
+    }
+  },
+  "findings": "No new unique finding/regression. Preserve all inherited findings/aliases, existing native group-slot policy question, all20 migration families, P16/P17, M16 shared canonical layout/identity remedies, #780/#826 integration and all earlier registered native support dependencies. Earliest1462Q003 and ordered1792 remain unchanged.",
+  "current_revision_observed": "961d226be23a81d9731a11958d62fe8a04b93e81",
+  "current_qualification": "Four current material file hashes equal frozen source but current affected contracts were not re-audited as a complete receiving family; no integrated/validated/accepted status promoted.",
+  "coverage_delta": {
+    "kind": "Additive proposed state only; root owns authoritative ledger, historical states untouched",
+    "receipt": "audit08-successor-003.json",
+    "prior_receipt": "audit08-successor-002.json",
+    "newly_accounted_material_indices": [
+      37,
+      38,
+      39,
+      40
+    ],
+    "material_earlier_contiguous_proposal": [
+      0,
+      40
+    ],
+    "next_material": 41,
+    "new_original_completions": [],
+    "original_accounted": 1799,
+    "original_first_unfinished": 1462,
+    "next_ordered_original": 1792,
+    "partial1462": "CONT08-Q003 qualifiedpartial unchanged; prior narrower GJK/EPA normal producer proof retained",
+    "broad_goal_complete": false
+  },
+  "global_clearance": false,
+  "repair": "None; exhaustive lens remains incomplete",
+  "validation": "Source-only actual body/identity/comparison and ignored evidence writes. No product/source changes, local project checks, tests, helpers, assertions, doctests, SDK/runtime/GPU/browser/strategic execution, publication or hosted CI performed. Historical CI has no clearance role."
+}

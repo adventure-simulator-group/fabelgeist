@@ -1,0 +1,107 @@
+[1m[92m   Compiling[0m fabelgeist-timer v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-timer)
+[1m[92m   Compiling[0m fabelgeist-color v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-color)
+[1m[92m   Compiling[0m fabelgeist-math v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-math)
+[1m[92m   Compiling[0m fabelgeist-gpu v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-gpu)
+[1m[92m   Compiling[0m fabelgeist-compute v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-compute)
+[1m[92m   Compiling[0m fabelgeist-mesh v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-mesh)
+[1m[92m   Compiling[0m fabelgeist-xpbd v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-xpbd)
+[1m[92m   Compiling[0m fabelgeist-bvh v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-bvh)
+[1m[92m   Compiling[0m fabelgeist-physics v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-physics)
+[1m[92m   Compiling[0m fabelgeist-shell v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-shell)
+[1m[92m    Finished[0m `test` profile [optimized] target(s) in 10.83s
+[1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/fabelgeist_shell-3b9df1580bca49af)
+
+running 40 tests
+test ccd::tests::conservative_advancement_never_misses_sampled_moving_contacts ... ok
+test ccd::tests::coplanar_and_degenerate_edge_crossings_are_detected ... ok
+test ccd::tests::crossing_and_exiting_triangle_is_detected_between_clear_endpoints ... ok
+test ccd::tests::deforming_triangle_is_checked_throughout_the_interval ... ok
+test ccd::tests::exhausted_budget_returns_a_safe_time_not_a_missed_collision ... ok
+test ccd::tests::fast_edges_cross_with_no_close_endpoints ... ok
+test ccd::tests::moving_triangle_hits_a_stationary_vertex ... ok
+test ccd::tests::parallel_near_miss_and_common_translation_do_not_collide ... ok
+test ccd::tests::rotating_triangle_crossing_is_detected_even_when_it_collapses_midstep ... ok
+test outer_layer::surface::mass_tests::preserves_original_layer_projection_and_residual_words ... ok
+test outer_layer::surface::tests::plate_inside_a_cloth_triangle_cannot_be_missed_by_vertex_queries ... ok
+test outer_layer::tests::an_open_edge_does_not_hide_an_overlapping_plate ... ok
+test outer_layer::tests::confines_the_surface_but_leaves_its_open_edges_free ... ok
+test outer_layer::tests::residual_uses_the_innermost_overlapping_plate ... ok
+test outer_layer::tests::sloped_contact_moves_normally_and_preserves_tangential_velocity ... ok
+test surface_contact::fixed_bounds_regression::replacing_and_removing_an_obstacle_rebuilds_cached_bounds ... ok
+test surface_contact::fold_regression::opposite_vertex_cannot_fold_through_its_adjacent_triangle ... ok
+test surface_contact::gpu_contact_regression::interval_start_catches_a_crossing_before_the_last_substep ... ok
+test surface_contact::gpu_contact_regression::sewn_panel_copies_do_not_repel_each_other ... ok
+test surface_contact::gpu_contact_regression::triangle_interior_crossing_preserves_slide_and_pins ... ok
+test surface_contact::obstacle_clearance_regression::resting_cloth_reaches_body_ease_without_inflating_self_contacts ... ok
+test surface_contact::obstacle_regression::fixed_triangle_interior_blocks_a_cloth_face_without_vertex_overlap ... ok
+test surface_contact::relative_velocity_regression::dynamic_contact_preserves_momentum_and_common_velocity ... ok
+test surface_contact::solve::tests::preserves_original_mass_weighted_contact_words ... ok
+test surface_contact::tests::adjacent_faces_are_not_inflated ... ok
+test surface_contact::tests::corrected_deforming_triangle_path_does_not_cross_the_vertex ... ok
+test surface_contact::tests::edge_interiors_separate_without_close_endpoints ... ok
+test surface_contact::tests::swept_edge_bounds_find_fast_crossings_and_preserve_pinned_edges ... ok
+test surface_contact::tests::translating_body_pushes_a_stationary_vertex_to_the_approach_side ... ok
+test surface_contact::tests::vertex_crossing_triangle_interior_is_returned_to_approach_side ... ok
+test topology::tests::a_lone_triangle_has_no_hinge ... ok
+test topology::tests::a_massless_vertex_is_pinned ... ok
+test topology::tests::bending_weights_annihilate_affine_maps ... ok
+test topology::tests::bending_weights_grow_with_the_fold ... ok
+test topology::tests::bending_weights_reject_degenerate_quads ... ok
+test topology::tests::counts_a_grid_correctly ... ok
+test topology::tests::finds_the_hinge_of_a_pair ... ok
+test topology::tests::is_deterministic ... ok
+test topology::tests::masses_follow_area_not_vertex_count ... ok
+test topology::tests::skips_non_manifold_edges ... ok
+
+test result: ok. 40 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+
+[1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/fabelgeist_xpbd-355f9d03ecc27095)
+
+running 27 tests
+test coloring::tests::colors_a_chain ... ok
+test coloring::tests::colors_a_grid ... ok
+test coloring::tests::colors_a_star ... ok
+test coloring::tests::colors_mixed_arity ... ok
+test coloring::tests::colors_nothing ... ok
+test coloring::tests::fixed_arity_matches_the_general_form ... ok
+test coloring::tests::independent_constraints_share_one_color ... ok
+test coloring::tests::preserves_frozen_original_order_and_ranges_for_309_graphs ... ok
+test constraint::tests::preserves_native_upload_allocation_admission_and_recording ... ok
+test dynamics::mass::tests::areal_density_admission_is_separate_from_native_construction ... ok
+test dynamics::mass::tests::inverse_native_words_are_preserved_before_cpu_admission ... ok
+test dynamics::mass::tests::massless_threshold_retains_strict_admission_and_signed_zero_policy ... ok
+test dynamics::mass::tests::preserves_original_triangle_mass_inverse_policy_and_native_sum_words ... ok
+test incidence::tests::rejects_zero_arity_and_incomplete_records_before_upload ... ok
+test incidence::tests::uploads_the_original_color_order_and_native_empty_sentinel ... ok
+test particles::tests::preserves_original_particle_words_and_admission_priority ... ok
+test tests::a_colored_grid_solves_without_racing ... ok
+test tests::a_stiff_chain_holds_its_length ... ok
+test tests::compliance_orders_the_stretch ... ok
+test tests::free_fall_matches_the_analytic_drop ... ok
+test tests::handles_empty_constraint_sets ... ok
+test tests::matches_the_host_solver_across_repeated_sweeps ... ok
+test tests::matches_the_host_solver_on_a_chain ... ok
+test tests::matches_the_host_solver_with_compliance ... ok
+test tests::pinned_particles_never_move ... ok
+test tests::rejects_mismatched_inputs ... ok
+test tests::the_substep_hook_runs_every_substep ... ok
+
+test result: ok. 27 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 11.00s
+
+[1m[92m   Doc-tests[0m fabelgeist_shell
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+[1m[92m   Doc-tests[0m fabelgeist_xpbd
+
+running 5 tests
+test crates/fabelgeist-xpbd/src/coloring.rs - coloring::ConstraintSlot (line 21) - compile fail ... ok
+test crates/fabelgeist-xpbd/src/dynamics/mass.rs - dynamics::mass::ParticleInverseMass (line 25) - compile fail ... ok
+test crates/fabelgeist-xpbd/src/dynamics/projection.rs - dynamics::projection::BarycentricWeight (line 32) - compile fail ... ok
+test crates/fabelgeist-xpbd/src/incidence.rs - incidence::ParticleIndex (line 9) - compile fail ... ok
+test crates/fabelgeist-xpbd/src/particles/packed.rs - particles::packed::ParticleVelocities (line 64) - compile fail ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.28s
+

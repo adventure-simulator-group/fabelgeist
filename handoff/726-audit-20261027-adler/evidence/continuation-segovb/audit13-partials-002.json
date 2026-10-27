@@ -1,0 +1,564 @@
+{
+  "id": "audit13-partials-002",
+  "lens": "13 magic numbers",
+  "skill": "/home/brunosegovia/.codex/skills/audit-magic-numbers/SKILL.md",
+  "source_authority": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+  "scope": "Only original partials5 and9; do not restart other roles; first unread10 unchanged",
+  "status": "source_assessed_scoped_partials_resolved",
+  "prospective_ranges": [
+    {
+      "role": 5,
+      "sha256": "90bfda65679fc6cfb046dda1e2e7b5795d39e73778a15d0bc1eb7ef8d3e9bd25",
+      "ranges": [
+        [
+          741,
+          850
+        ],
+        [
+          2000,
+          2160
+        ],
+        [
+          2340,
+          2510
+        ]
+      ]
+    },
+    {
+      "role": 9,
+      "sha256": "9a1c51dbb516b0cc08c33d8a5a714041eef55650447b4bb7efaf86ce537952b1",
+      "ranges": [
+        [
+          190,
+          300
+        ],
+        [
+          500,
+          583
+        ]
+      ]
+    },
+    {
+      "role": 5,
+      "sha256": "90bfda65679fc6cfb046dda1e2e7b5795d39e73778a15d0bc1eb7ef8d3e9bd25",
+      "ranges": [
+        [
+          1,
+          100
+        ],
+        [
+          2205,
+          2235
+        ]
+      ]
+    },
+    {
+      "receiver_only_for_role": 9,
+      "original_role_no_credit": 10,
+      "sha256": "ebea03dbd974a67dc92c11ae4232a2a25a9e653c6df28eaea70e26a5f964c78a",
+      "ranges": [],
+      "stage": "retrieve and identifier-locator search only; ranges registered before read"
+    },
+    {
+      "receiver_only_for_role": 9,
+      "original_role_no_credit": 11,
+      "sha256": "e8a6dca4f1ae317b6653d6f1c5fdf175fdb6ed42a5d4a6125730bc9e716f43dd",
+      "ranges": [],
+      "stage": "retrieve and identifier-locator search only; ranges registered before read"
+    },
+    {
+      "receiver_only_for_role": 9,
+      "original_role_no_credit": 10,
+      "sha256": "ebea03dbd974a67dc92c11ae4232a2a25a9e653c6df28eaea70e26a5f964c78a",
+      "ranges": [
+        [
+          125,
+          180
+        ]
+      ]
+    },
+    {
+      "receiver_only_for_role": 9,
+      "original_role_no_credit": 11,
+      "sha256": "e8a6dca4f1ae317b6653d6f1c5fdf175fdb6ed42a5d4a6125730bc9e716f43dd",
+      "ranges": [
+        [
+          1,
+          85
+        ]
+      ]
+    },
+    {
+      "receiver_only_for_role": 9,
+      "original_role_no_credit": 14,
+      "sha256": "34963c05abcc51517c1db6cf1a3e1f90ae365409f75a9ceb54d6a892505681b6",
+      "ranges": [],
+      "stage": "retrieve/hash and identifier locator only before registering relevant bodies"
+    },
+    {
+      "role": 9,
+      "sha256": "9a1c51dbb516b0cc08c33d8a5a714041eef55650447b4bb7efaf86ce537952b1",
+      "ranges": [
+        [
+          300,
+          370
+        ]
+      ]
+    },
+    {
+      "receiver_only_for_role": 9,
+      "original_role_no_credit": 14,
+      "sha256": "34963c05abcc51517c1db6cf1a3e1f90ae365409f75a9ceb54d6a892505681b6",
+      "ranges": [
+        [
+          80,
+          145
+        ],
+        [
+          3195,
+          3210
+        ]
+      ]
+    }
+  ],
+  "consumed_ranges": [
+    {
+      "role": 5,
+      "sha256": "90bfda65679fc6cfb046dda1e2e7b5795d39e73778a15d0bc1eb7ef8d3e9bd25",
+      "ranges": [
+        [
+          1,
+          100
+        ],
+        [
+          741,
+          850
+        ],
+        [
+          2000,
+          2160
+        ],
+        [
+          2205,
+          2235
+        ],
+        [
+          2340,
+          2510
+        ]
+      ]
+    },
+    {
+      "role": 9,
+      "sha256": "9a1c51dbb516b0cc08c33d8a5a714041eef55650447b4bb7efaf86ce537952b1",
+      "ranges": [
+        [
+          190,
+          300
+        ],
+        [
+          300,
+          370
+        ],
+        [
+          500,
+          583
+        ]
+      ]
+    },
+    {
+      "receiver_only_for_role": 9,
+      "original_role_no_credit": 10,
+      "sha256": "ebea03dbd974a67dc92c11ae4232a2a25a9e653c6df28eaea70e26a5f964c78a",
+      "ranges": [
+        [
+          125,
+          180
+        ]
+      ]
+    },
+    {
+      "receiver_only_for_role": 9,
+      "original_role_no_credit": 11,
+      "sha256": "e8a6dca4f1ae317b6653d6f1c5fdf175fdb6ed42a5d4a6125730bc9e716f43dd",
+      "ranges": [
+        [
+          1,
+          85
+        ]
+      ]
+    },
+    {
+      "receiver_only_for_role": 9,
+      "original_role_no_credit": 14,
+      "sha256": "34963c05abcc51517c1db6cf1a3e1f90ae365409f75a9ceb54d6a892505681b6",
+      "ranges": [
+        [
+          80,
+          145
+        ],
+        [
+          3195,
+          3210
+        ]
+      ]
+    }
+  ],
+  "findings": [],
+  "new_unique_count": 0,
+  "global_clearance": false,
+  "project_execution": false,
+  "product_edit": false,
+  "supplement_authorization": "Root expressly authorized local same-version exact newly reached receiver supplements; no substitution for registered frozen objects.",
+  "local_supplements": [
+    {
+      "role": 5,
+      "package": "bevy_asset",
+      "version": "0.19.1",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_asset-0.19.1/src/server/info.rs",
+      "sha256": "6c6d4d79051bd8abf92d8f9a25548f7a89ebea7df384b9f1d41091b3ddb42b65",
+      "source": "current-local native supplement; not claimed frozen identity",
+      "lock_package": [
+        {
+          "name": "bevy_asset",
+          "version": "0.19.1",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "checksum": "1624eddbf2293441b2158506aba75e523432b898d9da26eb6ed3e20af4c7fd38",
+          "dependencies": [
+            "async-broadcast",
+            "async-channel",
+            "async-fs",
+            "async-io",
+            "async-lock",
+            "atomicow",
+            "bevy_android",
+            "bevy_app",
+            "bevy_asset_macros",
+            "bevy_diagnostic",
+            "bevy_ecs",
+            "bevy_platform",
+            "bevy_reflect",
+            "bevy_tasks",
+            "bevy_utils",
+            "bitflags 2.13.1",
+            "blake3",
+            "crossbeam-channel",
+            "derive_more 2.1.1",
+            "disqualified",
+            "downcast-rs 2.0.2",
+            "either",
+            "futures-io",
+            "futures-lite",
+            "futures-util",
+            "js-sys",
+            "notify-debouncer-full",
+            "ron",
+            "serde",
+            "stackfuture",
+            "thiserror 2.0.20",
+            "tracing",
+            "uuid",
+            "wasm-bindgen",
+            "wasm-bindgen-futures",
+            "web-sys"
+          ]
+        }
+      ],
+      "cargo_checksum_package": null,
+      "cargo_checksum_file": null,
+      "checksum_file_exists": false,
+      "ranges": [
+        [
+          65,
+          108
+        ]
+      ],
+      "stage": "registered source identity before identifier-locator lookup; bounded bodies to register next",
+      "crate_archive_exists": true,
+      "crate_sha256": "1624eddbf2293441b2158506aba75e523432b898d9da26eb6ed3e20af4c7fd38",
+      "archive_matches_lock": true,
+      "archive_member_sha256": "6c6d4d79051bd8abf92d8f9a25548f7a89ebea7df384b9f1d41091b3ddb42b65",
+      "local_file_matches_archive": true,
+      "same_package_registered_peer_matches_frozen": true,
+      "postread_hash_matches": true,
+      "consumed_ranges": [
+        [
+          65,
+          108
+        ]
+      ]
+    },
+    {
+      "role": 9,
+      "package": "bevy_ecs",
+      "version": "0.19.1",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_ecs-0.19.1/src/world/unsafe_world_cell.rs",
+      "sha256": "1bbae930c41571c70803df1484db4c99c1cb928709e839ddefcdf4083a746ab6",
+      "source": "current-local native supplement; not claimed frozen identity",
+      "lock_package": [
+        {
+          "name": "bevy_ecs",
+          "version": "0.19.1",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "checksum": "a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354",
+          "dependencies": [
+            "arrayvec",
+            "bevy_ecs_macros",
+            "bevy_platform",
+            "bevy_ptr",
+            "bevy_reflect",
+            "bevy_tasks",
+            "bevy_utils",
+            "bitflags 2.13.1",
+            "bumpalo",
+            "concurrent-queue",
+            "derive_more 2.1.1",
+            "fixedbitset 0.5.7",
+            "indexmap 2.14.1",
+            "log",
+            "nonmax",
+            "serde",
+            "slotmap",
+            "smallvec",
+            "thiserror 2.0.20",
+            "tracing",
+            "variadics_please 1.1.0"
+          ]
+        }
+      ],
+      "cargo_checksum_package": null,
+      "cargo_checksum_file": null,
+      "checksum_file_exists": false,
+      "ranges": [
+        [
+          328,
+          343
+        ],
+        [
+          740,
+          760
+        ]
+      ],
+      "stage": "registered source identity before identifier-locator lookup; bounded bodies to register next",
+      "crate_archive_exists": true,
+      "crate_sha256": "a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354",
+      "archive_matches_lock": true,
+      "archive_member_sha256": "1bbae930c41571c70803df1484db4c99c1cb928709e839ddefcdf4083a746ab6",
+      "local_file_matches_archive": true,
+      "same_package_registered_peer_matches_frozen": true,
+      "postread_hash_matches": true,
+      "consumed_ranges": [
+        [
+          328,
+          343
+        ],
+        [
+          740,
+          760
+        ]
+      ]
+    }
+  ],
+  "at": "2026-10-26T17:38:28.533804+00:00",
+  "answers": [
+    {
+      "id": "AUDIT13-Q002",
+      "role": 5,
+      "disposition": "resolved for scoped native contract",
+      "source_trace": [
+        {
+          "source": "90bfda...",
+          "ranges": [
+            [
+              2028,
+              2033
+            ]
+          ],
+          "fact": "Native AssetServerLoadBuilder::load_untyped_async increments started-load statistic, then calls native load_internal(None,path,false,None)."
+        },
+        {
+          "source": "90bfda...",
+          "ranges": [
+            [
+              741,
+              747
+            ],
+            [
+              839,
+              843
+            ]
+          ],
+          "fact": "Third argument is force: bool; load_internal returns existing fetched handle when !should_load && !force. false selects ordinary nonforced native load; literal sits at the actual native implementation call, not a project semantic adapter."
+        },
+        {
+          "source": "6c6d4d... local-native supplement",
+          "ranges": [
+            [
+              73,
+              79
+            ],
+            [
+              99,
+              99
+            ]
+          ],
+          "fact": "AssetServerStats derives Default; started_load_tasks: usize is documented cumulative started-task cardinality; AssetInfos retains this stats record."
+        },
+        {
+          "source": "90bfda...",
+          "ranges": [
+            [
+              2128,
+              2145
+            ],
+            [
+              2219,
+              2227
+            ]
+          ],
+          "fact": "Local new_loads starts at0, increments once per folder-handle scheduled, then contributes to started statistic. Native diagnostics export that cardinality via Diagnostic measurement conversion. No game unit, tolerance, hidden policy or bespoke project identifier is introduced."
+        }
+      ],
+      "primitive_assessment": {
+        "false": "native named predicate argument force; consumed by observed Boolean early-return condition",
+        "1": "one started load-task or scheduled folder-handle cardinality",
+        "0": "empty local reload cardinality / derived native statistic initialization",
+        "skip(1)": "Path::ancestors native iteration excludes path itself, already observed in original packet",
+        "counter_arithmetic": "Native cumulative usize statistic; no checked overflow guarantee claimed, no overflow defect inferred from type alone."
+      },
+      "finding": null,
+      "acceptance": "Exact scoped original5 ranges personally reread; force receiver, counter owner, retained stats and diagnostic consumer traced. Does not clear whole bevy_asset or unseen producers."
+    },
+    {
+      "id": "AUDIT13-Q003",
+      "role": 9,
+      "disposition": "resolved for scoped native contract",
+      "source_trace": [
+        {
+          "source": "9a1c51...",
+          "ranges": [
+            [
+              207,
+              215
+            ],
+            [
+              224,
+              243
+            ],
+            [
+              276,
+              281
+            ]
+          ],
+          "fact": "Observer native record retains last_trigger_id:u32 and despawned_watched_entities:u32; normal/dynamic constructors initialize both to0."
+        },
+        {
+          "source": "9a1c51...",
+          "ranges": [
+            [
+              300,
+              312
+            ],
+            [
+              517,
+              539
+            ]
+          ],
+          "fact": "Watched Entity identities append/extend native descriptor collection. ObservedBy removal increments observer despawn count then compares as usize to descriptor.entities.len(); equality schedules observer despawn. Zero means no recorded removals, one is one notified lifecycle removal, native usize conversion matches collection cardinality comparison."
+        },
+        {
+          "source": "e8a6dc... receiver-only original11",
+          "ranges": [
+            [
+              42,
+              55
+            ]
+          ],
+          "fact": "Runner obtains world.last_trigger_id; equality with observer generation returns early; otherwise it updates cached generation before conditions/system execution. u32 is native event-generation identity, not ordering, elapsed time or magnitude."
+        },
+        {
+          "source": "34963c... receiver-only original14",
+          "ranges": [
+            [
+              113,
+              113
+            ],
+            [
+              135,
+              135
+            ],
+            [
+              3199,
+              3205
+            ]
+          ],
+          "fact": "World generation is u32 initialized0 and its getter returns native latest-event generation for deduplication."
+        },
+        {
+          "source": "ebea03... receiver-only original10",
+          "ranges": [
+            [
+              155,
+              180
+            ]
+          ],
+          "fact": "Native dynamic trigger increments world generation before invoking global observer runners."
+        },
+        {
+          "source": "1bbae9... local-native supplement",
+          "ranges": [
+            [
+              332,
+              340
+            ],
+            [
+              748,
+              757
+            ]
+          ],
+          "fact": "UnsafeWorldCell forwards getter to World and increments generation by wrapping_add(1). Initial world0 becomes1 for first increment; rollover is explicit native sequence behavior. Zero is not a permanently reserved impossible generation."
+        }
+      ],
+      "primitive_assessment": {
+        "last_trigger_id0": "native initial cached generation, equality-dedup receiver observed; no claim of collision-free history across rollover",
+        "despawned_watched_entities0": "native lifecycle cardinality begins with no removals",
+        "+=1": "one lifecycle callback counted",
+        "as usize": "native collection cardinality comparison boundary",
+        "wrapping_add(1)": "explicit native generation rollover; preserve actual arithmetic order/semantics",
+        "booleans/Option/marker tuples": "Existing original9 range predicates and framework markers reread; native predicates/default installation and trait type-shapes, no project semantic bool mode introduced."
+      },
+      "finding": null,
+      "acceptance": "Exact original9 ranges personally reread; counter receiving body and trigger generation owner/getter/increment/consumer traced. Does not clear original10/11/14 populations or all trigger entry points."
+    }
+  ],
+  "scope_qualifications": [
+    "No original0-4/6-8 rediscovery; inherited completed roles and qualifications preserved. No accounting credit for originals10/11/14 merely because bounded receiving ranges were reached.",
+    "Metadata identifier-position searches only located next ranges. They are not coverage; semantic conclusions use separately prospectively registered bounded body reads.",
+    "Known original frozen sources retrieved as exact SHA objects and verified before body reads. Only newly reached supplements use current-local source; cached archive checks prove lock package/member correspondence but are not claims that unseen frozen copies have those bytes.",
+    "Both newly reached .cargo-checksum.json files absent; cached .crate archive SHA256 matches Cargo.lock and member bytes match pinned local file SHA256. Same-package original peers also byte-match frozen source objects.",
+    "Source-only review, no project execution, no code or git mutation, no inherited finding closure, no global SDK clearance, no thirteen-lens verdict transfer.",
+    "Audit role accounting is exact original registered ranges plus observed receiving dependencies; additional unrelated defaults visible in bounded context are not whole-source clearance."
+  ],
+  "source_hashes_verified_after_read": [
+    {
+      "sha256": "90bfda65679fc6cfb046dda1e2e7b5795d39e73778a15d0bc1eb7ef8d3e9bd25",
+      "matches": true
+    },
+    {
+      "sha256": "9a1c51dbb516b0cc08c33d8a5a714041eef55650447b4bb7efaf86ce537952b1",
+      "matches": true
+    },
+    {
+      "sha256": "ebea03dbd974a67dc92c11ae4232a2a25a9e653c6df28eaea70e26a5f964c78a",
+      "matches": true
+    },
+    {
+      "sha256": "e8a6dca4f1ae317b6653d6f1c5fdf175fdb6ed42a5d4a6125730bc9e716f43dd",
+      "matches": true
+    },
+    {
+      "sha256": "34963c05abcc51517c1db6cf1a3e1f90ae365409f75a9ceb54d6a892505681b6",
+      "matches": true
+    }
+  ]
+}

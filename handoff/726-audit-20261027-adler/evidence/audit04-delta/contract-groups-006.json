@@ -1,0 +1,72 @@
+{
+  "id": "ADLER-CONT04-MATERIAL-006",
+  "lens": "04 invariant operations",
+  "sources": [
+    {
+      "index": 145,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/gardens.rs",
+      "sha256": "5936937971ea96478c9d052b5421c59c54e8866c41c7ed76fee9f3023f04371d",
+      "ranges": [
+        [
+          6,
+          115
+        ]
+      ],
+      "line_count": 115,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\5936937971ea96478c9d052b5421c59c54e8866c41c7ed76fee9f3023f04371d",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\5936937971ea96478c9d052b5421c59c54e8866c41c7ed76fee9f3023f04371d",
+      "disposition": "Garden observer checks expected/actual populations and identities before children and GPU membership, with no retained scene mutation. Distance and angle comparisons use >epsilon; nonfinite native transforms would make comparisons unordered and can escape this particular check. This is conditional evidence-limit support for the existing native graphics owner question, not proof normal generated plants become invalid. Child counts are bounded by actual query iteration; each mesh/texture readiness miss returns Err.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 146,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/lod.rs",
+      "sha256": "4fd2d2aefa94b99bee1c8d2784f8399ed4f70bec9c3dfe9431d737192ef4a0e1",
+      "ranges": [
+        [
+          9,
+          98
+        ]
+      ],
+      "line_count": 98,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\4fd2d2aefa94b99bee1c8d2784f8399ed4f70bec9c3dfe9431d737192ef4a0e1",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\4fd2d2aefa94b99bee1c8d2784f8399ed4f70bec9c3dfe9431d737192ef4a0e1",
+      "disposition": "Closed LOD enum maps all production variants. Select indexes the capture view via driver invariant, records original range before override, uses fixed finite0/MAX margins, and restores/removes original when override ends. Counts derive from query populations. Evidence bookkeeping marks recorded before fallible filesystem write and then expects; diagnostic write failure is terminal rather than a recoverable partial production-state contract. No new arithmetic result admission issue.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 147,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/gpu_readiness.rs",
+      "sha256": "3fc7f599e45d69c79994c4044060d1cb7552f2d501830a6661d033a4fff9441e",
+      "ranges": [
+        [
+          14,
+          50
+        ]
+      ],
+      "line_count": 50,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\3fc7f599e45d69c79994c4044060d1cb7552f2d501830a6661d033a4fff9441e",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\3fc7f599e45d69c79994c4044060d1cb7552f2d501830a6661d033a4fff9441e",
+      "disposition": "Shared readiness mutex protects replacement of mesh and image sets and membership observation. Both sets replaced under one lock, so reader cannot observe inter-set partial replacement. No quantity arithmetic/index cast; poisoned-lock expect is native synchronization failure, not a newly observed normal GPU readiness error. Membership uses actual IDs and all supplied textures.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 148,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/furniture/visibility.rs",
+      "sha256": "5a042944716f1246446ff570ea2d6bbf2bfff1a245ecda53087b881153302ef2",
+      "ranges": [
+        [
+          9,
+          63
+        ]
+      ],
+      "line_count": 211,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\5a042944716f1246446ff570ea2d6bbf2bfff1a245ecda53087b881153302ef2",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\5a042944716f1246446ff570ea2d6bbf2bfff1a245ecda53087b881153302ef2",
+      "disposition": "Interior furniture visibility derives owner map from actual camera/building native transform distances; missing owner defaults hidden except explicit exhibition resource. Nonfinite distance compares false and hides rather than publishes derived transform. Each changed visibility assignment is final infallible enum mutation; no numerical retained state produced. Graphic transform admission remains outside registered9-63, so no blanket scene validity claim.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    }
+  ],
+  "new_unique_findings_claimed": 0,
+  "execution": "No project execution, source edits or Git changes"
+}

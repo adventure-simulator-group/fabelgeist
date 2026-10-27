@@ -1,0 +1,65 @@
+{
+  "head": "837204c061adb97a2a62f43f7bcd841a223f0647",
+  "run": 40479184224,
+  "artifact": 12723380530,
+  "source_and_pr_head_match": true,
+  "raw_GPU": {
+    "library": {
+      "passed": 13,
+      "failed": 0,
+      "ignored": 0,
+      "sha256": "f77b4daca45f46bc1366bf9167eb07e7def5fc907f33550d66ca7c61692ef5a2"
+    },
+    "doctests": {
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0,
+      "sha256": "625b0c923ef56ec6ca8ba831208fc7cf2821a25eba80a1e968d5d57dae3a6f05"
+    },
+    "borrowed": {
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "sha256": "f84d727866d504214b80f78b35bd042dcec22f642f5ae3ab5d9c2c06f39764b1"
+    }
+  },
+  "relevant_baseline_entries_matching": [
+    {
+      "kind": "files",
+      "entry": {
+        "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+        "ceiling": 642
+      }
+    },
+    {
+      "kind": "functions",
+      "entry": {
+        "path": "crates/adventuresim-core/build.rs",
+        "item": "compile_organizations",
+        "ceiling": 118
+      }
+    },
+    {
+      "kind": "functions",
+      "entry": {
+        "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+        "item": "TacticalCombatConfig::validate",
+        "ceiling": 278
+      }
+    },
+    {
+      "kind": "findings",
+      "entry": {
+        "rule": "raw-string-branch",
+        "path": "crates/adventuresim-core/build.rs",
+        "item": "compile_road_encounters",
+        "fingerprint": "string:items",
+        "occurrences": 1
+      }
+    }
+  ],
+  "relevant_baseline_differences": [],
+  "export_sha256": "a9127d69debeff4689deb3c9ef5b94d8ddd4df403e59d4760415fc34eb4271d1",
+  "remaining": "FinalLinuxjob/constraint/52rigrawgroups pending; Windowsaccepted separately",
+  "global_audit_clearance": false
+}

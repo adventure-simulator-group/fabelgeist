@@ -1,0 +1,115 @@
+{
+  "at": "2026-10-27T00:47:24.632205+00:00",
+  "lens": 12,
+  "original": 46,
+  "prior": "audit12-successor-022-partial-008.json",
+  "registrations": [
+    "audit12-successor-registration-022-receiver-010.json",
+    "audit12-successor-registration-022-receiver-011.json"
+  ],
+  "actual_reads": [
+    {
+      "path": "crates/adventuresim-core/src/organization_catalog_validation.rs",
+      "sha256": "45b87fa13f86c8805f2b4f974fd1f629f5da068a07b3b7c4af17115aaa339846",
+      "consumed_ranges": [
+        [
+          1,
+          722
+        ]
+      ],
+      "current_frozen_byte_identity": true
+    },
+    {
+      "path": "crates/adventuresim-core/src/organization.rs",
+      "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+      "consumed_ranges": [
+        [
+          1,
+          175
+        ],
+        [
+          226,
+          499
+        ]
+      ],
+      "current_frozen_byte_identity": true
+    }
+  ],
+  "current_selected_source_comparison": [
+    {
+      "path": "crates/adventuresim-core/src/organization_catalog_validation.rs",
+      "sha256": "45b87fa13f86c8805f2b4f974fd1f629f5da068a07b3b7c4af17115aaa339846",
+      "consumed_ranges": [
+        [
+          1,
+          722
+        ]
+      ],
+      "current_frozen_byte_identity": true
+    },
+    {
+      "path": "crates/adventuresim-core/src/organization.rs",
+      "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+      "consumed_ranges": [
+        [
+          1,
+          175
+        ],
+        [
+          226,
+          499
+        ]
+      ],
+      "current_frozen_byte_identity": true
+    },
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "sha256": "fc42ea1f2234144e94d6bfac86f254cd059799b9f9e5ae6de7f77e3125f19b7c",
+      "consumed_ranges": [
+        [
+          1,
+          509
+        ]
+      ],
+      "current_frozen_byte_identity": true
+    }
+  ],
+  "contracts": [
+    {
+      "role": "Build validation strings",
+      "trace": "Organization validator actual production1-722 checks nativeJSON keys, openorganization/role IDs, chapterlocation organization-* grammar, semantic closed skill/religion/bestiary/terrain/language/profession/kind/reward/privilege vocabularies and role/policy crossreferences. Source/path/error classification is collapsed to String throughout. Stableid grammar is open lowercaseASCII/digit/underscore without itemcatalog64bytebound; do not falsely reuse narrowIDconstraints without actual role fit."
+    },
+    {
+      "role": "Generated and runtime organization receiving model",
+      "trace": "Actual runtime include OUT_DIR organization_catalog.rs; catalog487-492 nativeJSON decodes to OrganizationCatalog withexpect. Organization/role/promotion/chapter/service/settlement IDs retainedString; definitions expose lookup/promotion APIs taking &str. Closed OrganizationKind, ChapterBuildingKind, StartingProfession, Recognition, ActivityReward, Privilege and WrittenLanguage are present. Requirement skill/leaf/religion and TrainingTarget skill/religion/category/terrain retainString after authoringvocabularycheck. Free names/descriptions/address titles/pronoun words are actual presentation data and must stay open, not closed institution-enumeration."
+    },
+    {
+      "role": "Actual schema admission failure",
+      "trace": "Validator permits service_id/historical_fantasy_note/address_title keys but does not validate their actual string types; build509 exactcurrent retains Values instead of typedOrganizationCatalog. Runtime model requires Option<String>/String and expectsdecoding. Source-backed F23 example service_id:7 still passes selected checks then fails runtime model; no authored fixture/test/runtimeexecution added."
+    }
+  ],
+  "master_alias_reconciliation": [
+    {
+      "id": "F23",
+      "status": "same current selected authoring/runtime admission mismatch; actualthreefiles byteequal to exact frozen sources; no new unique issue or observed currentvalidcontent crash"
+    },
+    {
+      "id": "M53",
+      "status": "same selected current retainedorganization role/skill/leaf/ID graph gap; full nativeassignment/curriculum/UI/family scopes not reread/validated"
+    },
+    {
+      "id": "M24",
+      "status": "same source/path/stringerror producers; structuredcatalog diagnostic repair shared, not a new independent errorowner"
+    }
+  ],
+  "limits": [
+    "Organization runtime ranges176-225 and500-1251 unread in this packet; selected data methods only. Line499 nextfunctionheader no bodycredit.",
+    "Other two build validators/runtime recipients and weapon recipe/canonicalID/tag/icon roles remain pending.",
+    "Oldmaster statements preserving source business rules are not backwardcompatibility API/schema/message constraints; implement clean finalshared owners directly."
+  ],
+  "original_count": 46,
+  "active_partial": 46,
+  "new_unique_delta": 0,
+  "no_project_execution": true,
+  "global_clearance": false
+}

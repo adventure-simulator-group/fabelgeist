@@ -1,0 +1,148 @@
+{
+  "at": "2026-10-27T01:16:11.772575+00:00",
+  "origin": "audit13 original37 shaderuniforms andbounded native producers/receivers packet019",
+  "sources": [
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/types.wgsl",
+      "sha256": "9bd27e4a4bb61b319e4ee13ae7e1407be2fdd432471ef6e9aede72e206321d90",
+      "bytes": 332,
+      "actual_lines": 15,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "role": 37,
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/components.rs",
+      "sha256": "e2053ee2dbf1a837b1a4e80d2d2afa22c0ecc2231bf586041222082971b9cbea",
+      "bytes": 5033,
+      "actual_lines": 193,
+      "registered_and_consumed_ranges": [
+        [
+          129,
+          148
+        ]
+      ],
+      "role": "receiver-only",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/mod.rs",
+      "sha256": "7b8be56d6f6ea9285176e55efb88de7bcb8a15df4cdca7619d3038a92de56092",
+      "bytes": 10975,
+      "actual_lines": 340,
+      "registered_and_consumed_ranges": [
+        [
+          118,
+          225
+        ]
+      ],
+      "role": "receiver-only",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/batcher.rs",
+      "sha256": "2d86931db56a5e517f84b400fb9e5a15968d553b5e543da880d12d6193920b84",
+      "bytes": 3927,
+      "actual_lines": 118,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "role": "receiver-only",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/bindings.wgsl",
+      "sha256": "8fdf638edbf13ddc04a1a8392f3b873ec730f86f085522de471108c623ac129b",
+      "bytes": 275,
+      "actual_lines": 6,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          6
+        ]
+      ],
+      "role": "receiver-only",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/compute.wgsl",
+      "sha256": "246690e6a0c32e6055ac10b318925eb4eeff64b41f025d345a3f84cd839608e2",
+      "bytes": 1775,
+      "actual_lines": 55,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "role": "receiver-only",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/mesh.wgsl",
+      "sha256": "bb8dc8d197bfd558464608bb447dc4224e67c0488e695270f44e1656c9c8fa70",
+      "bytes": 1494,
+      "actual_lines": 60,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "role": "receiver-only",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/shading.wgsl",
+      "sha256": "965586e6cee62b7fe7623cafbd9a173ce271c14cd982466b73eb69a718dca6e9",
+      "bytes": 531,
+      "actual_lines": 21,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "role": "receiver-only",
+      "post_read_hash_verified": true
+    }
+  ],
+  "status": "Pending root source/range alias reconciliation and independent materially reached contracts across other lenses; no source-read or verdict timing invented for other lenses. Known originals and reused receivers supply zero new population/material credit.",
+  "other_lenses_pending": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "material_families": [
+    "Native shader uniform payload ownership/current-versus-previous transform authority and history consumer",
+    "Primitive visibility tuple/color/AABB propagation into concrete GPU operations; host ABI/upload limits",
+    "Material debugconditional producer and live shaderfeature reachability"
+  ],
+  "retained_queues": [
+    "audit13-successor-014-other-lens-extension-queue.json",
+    "audit13-successor-015-other-lens-extension-queue.json",
+    "audit13-successor-017-other-lens-extension-queue.json",
+    "audit13-successor-018-other-lens-extension-queue.json"
+  ],
+  "original_increment": 0,
+  "other_lens_credit": 0,
+  "material_increment": 0,
+  "new_unique_count": 0
+}

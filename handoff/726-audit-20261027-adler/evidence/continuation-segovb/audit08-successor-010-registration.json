@@ -1,0 +1,69 @@
+{
+  "id": "SEGOVB-CONT08-SUCCESSOR-010-REG",
+  "at": "2026-10-27T00:24:02.903925+00:00",
+  "question": "Actualfirstpartycamera hard_obstacle and selectedobstaclerotation ingress for CONT08-Q003; intendednewcontracts only, nobackcompat requirement",
+  "sources": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/rig.rs",
+      "original_index": 1465,
+      "path": "target/recovery-20261025/audit08/source/head/1ec50b293b57a16a3f213a4e26d2a6a6f3d69500f61d3f586939745bc2978d01",
+      "sha256": "1ec50b293b57a16a3f213a4e26d2a6a6f3d69500f61d3f586939745bc2978d01",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "reason": "Fullchangedoriginalhead source requestedscope while following Q003materialcaller/admissionrole; no completioncount transfer",
+      "base_status": "new",
+      "base_sha256": null
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/rig/observation.rs",
+      "original_index": 1466,
+      "path": "target/recovery-20261025/audit08/source/head/a0a88df02f4d557950c09e55645900e75731a2817d9d422b636fe3126f062ef1",
+      "sha256": "a0a88df02f4d557950c09e55645900e75731a2817d9d422b636fe3126f062ef1",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "reason": "Fullchangedoriginalhead source requestedscope while following Q003materialcaller/admissionrole; no completioncount transfer",
+      "base_status": "new",
+      "base_sha256": null
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/mod.rs",
+      "original_index": 1590,
+      "path": "target/recovery-20261025/audit08/source/head/30d5e6301edce9013871f2322401b5a982a0a0cdd70aa556bc1404b1452a3c8f",
+      "sha256": "30d5e6301edce9013871f2322401b5a982a0a0cdd70aa556bc1404b1452a3c8f",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "reason": "Fullchangedoriginalhead source requestedscope while following Q003materialcaller/admissionrole; no completioncount transfer",
+      "base_status": "modified",
+      "base_sha256": "80c5f7cb094978282ef49e0ebab2ca68769b01cac6ea1604e25325422ccc722b"
+    },
+    {
+      "source_id": "pr-base:crates/adventuresim-tactical-client/src/presentation/obstacles/mod.rs",
+      "original_index": 1590,
+      "path": "target/recovery-20261025/audit08/source/base/80c5f7cb094978282ef49e0ebab2ca68769b01cac6ea1604e25325422ccc722b",
+      "sha256": "80c5f7cb094978282ef49e0ebab2ca68769b01cac6ea1604e25325422ccc722b",
+      "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "reason": "Fullbeforebody for changedoriginal1590policy/admissioncomparison"
+    }
+  ]
+}

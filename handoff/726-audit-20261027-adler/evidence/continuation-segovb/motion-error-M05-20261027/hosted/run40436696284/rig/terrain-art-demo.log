@@ -1,0 +1,23 @@
+[1m[92m   Compiling[0m adventuresim-tactical-client v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client)
+[1m[92m    Finished[0m `test` profile [optimized] target(s) in 1m 02s
+[1m[92m     Running[0m unittests src/art_demo_main.rs (target/debug/deps/art_demo-7d63bf893a29e275)
+
+running 15 tests
+test art_demo::camera::tests::extreme_input_preserves_a_finite_camera_and_zoom_recovers ... ok
+test art_demo::camera::tests::pan_follows_camera_and_has_no_diagonal_speed_bonus ... ok
+test art_demo::district::tests::complete_city_keeps_thousands_of_inspectable_buildings_and_connected_surfaces ... ok
+test art_demo::exhibits::tests::catalog_resolves_shipped_assets_and_generatable_weapon_designs ... ok
+test art_demo::exhibits::tests::studio_exhibits_request_no_environment_textures ... ok
+test art_demo::residency::tests::navigating_away_cancels_deferred_scenery_without_replacing_the_new_exhibit ... ok
+test art_demo::residency::tests::studio_cache_evicts_the_least_recent_inactive_exhibit ... ok
+test art_demo::residency::tests::switching_weapons_reuses_entities_and_geometry_and_restores_camera ... ok
+test art_demo::scenery::tests::fixed_exhibits_embed_complete_nonempty_cloud_bakes ... ok
+test art_demo::scenery::tests::fixed_oak_exhibit_has_every_matching_prebaked_impostor ... ok
+test art_demo::scenery::tests::regenerate_art_demo_cloud_assets ... ignored, offline asset generator performs the full deterministic cloud bakes
+test art_demo::scenery::tests::regenerate_art_demo_tree_impostors ... ignored, offline asset generator performs all deterministic tree impostor bakes
+test art_demo::scenery::tests::woodland_exhibit_selects_one_oak_on_nonflat_terrain ... ok
+test art_demo::tests::boundary_rejects_unknown_assets_and_keeps_latest_navigation ... ok
+test art_demo::tests::gpu_failure_reports_terminal_status_before_the_runner_exits ... ok
+
+test result: ok. 13 passed; 0 failed; 2 ignored; 0 measured; 334 filtered out; finished in 4.44s
+

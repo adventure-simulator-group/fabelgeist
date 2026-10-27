@@ -1,0 +1,90 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-079",
+  "at": "2026-10-23T01:14:39.876925+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/constraints.rs",
+      "sha256": "09c5be604238aa229f500445a67b533b8ef1d012d81e5627dd8b5aeeb7825fc9",
+      "scope041_index": 1816,
+      "actual_EOF": 141,
+      "scoped_ranges_compared": [
+        [
+          1,
+          141
+        ]
+      ],
+      "actual05_comparison": "Fresh full141. Floor shift builds original surface and private cloned unittranslation basis, then intersects each matching support face with actual geographic source. Interval holds minimum/maximum plus actual controlling evidence; each constraint uses coefficient0 separate before division, intersects bounds, choose rejects minimum>maximum before clamp and checked SignedLength rejects completed nonfinite/out-of-f32 result. Infinite initial interval intentionally unbounded before observations, not admitted physical infinity. Actual original/private basis horizontal cell correspondence compared using grounding321-376 plus mesh/grid077: clone changes only levels/profile elevations/stairs, horizontal cuts/order/streetentry remain, support grid topology retained; retaining faces are a separate domain. No zip-count guarantee inferred for arbitrary two meshes. Summed geographic area reuses F024 weakness. No normal extreme coefficient/runtime claim.",
+      "source_body_proof": "Fresh complete scoped body personally read; original external test declarations do not cover separate fixture bodies."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement/query.rs",
+      "sha256": "df8bdf7862fa0f4e105fc553679c0bc6c4555bf21001b8d1ae52c3f9f166fba7",
+      "scope041_index": 1820,
+      "actual_EOF": 322,
+      "scoped_ranges_compared": [
+        [
+          1,
+          322
+        ]
+      ],
+      "actual05_comparison": "Fresh complete322 including externaltest declaration only. Query validator checks index existence before dereference, visited nodes reject cycles/repeated children, finite ordered node bounds, child containment, actual enum-specific source/foundation membership, UNIQUE references, exact total coverage and no orphan nodes. Thus equal reference count is backed by membership+uniqueness, not count-only provenance. Actual compile creates balanced nonempty partitions and matching source order; decoded tree depth neednotbalance so traversal explicitly iterative. Prepared cache from same immutable surface by OnceLock; positive current route, while pubsuper sibling mutation can stale existing cache (known lower encapsulation graph). Ownership uses stricter represented-point margin separately from contact margin; actual implication cases valid, naturalfaces min(rounding,contact). Candidates include only same owners known to own representedpoint, preserving nearterrace distinction. No native geometry/foreign proofs inferred.",
+      "source_body_proof": "Fresh complete scoped body personally read; original external test declarations do not cover separate fixture bodies."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement/query/prepared.rs",
+      "sha256": "33ddca39e36f0f095f87736f1200a55a65bc0fc7d99ed0a0f92494bc92f4b985",
+      "scope041_index": 1821,
+      "actual_EOF": 83,
+      "scoped_ranges_compared": [
+        [
+          1,
+          83
+        ]
+      ],
+      "actual05_comparison": "Fresh full83. PreparedSupportTriangles constructs natural vector one Option per exact source element, foundation outer vector one per owner and inner vector one per exact support triangle; invalid/degenerate retains None slot instead of collapsing ordinals. Reference lookup therefore preserves positions established by index validator and actual current immutable source. Each PreparedTriangle derives geometry and all three edge lengths in one constructor from same canonical triple; immutable, clone only, no independent mutation or wire. contains reuses exact unnormalized edge order and units, preserves sharededge rounding policy. Arc cache shares canonical-source derivatives; internal source mutation remains parent invariant, not Arc identity proof.",
+      "source_body_proof": "Fresh complete scoped body personally read; original external test declarations do not cover separate fixture bodies."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/transport.rs",
+      "sha256": "09a9c25e0a7dafb032f9ea8aff1047088315596a4ffc23bcda809a40bd5574e8",
+      "scope041_index": 1825,
+      "actual_EOF": 115,
+      "scoped_ranges_compared": [
+        [
+          1,
+          115
+        ]
+      ],
+      "actual05_comparison": "Fresh complete115 including externaltest declaration only. Human readable codec carries explicit coupled indices then runs whole mesh validate before return. Binary codec requires complete sixvertex cells/u32 capacity, reconstructs exact closedtemplate support/solid indices from cells, then validates whole mesh. Serialization ALSO validates actual mesh and exact template before omitting redundant indices, so binary storage optimization cannot erase arbitrary custom topology. Borrowed encoder view refers to same mesh buffers, no clone mixup. Empty legitimate temporary cells not automatically invalid; ownership/member/prism gates separate. Native binary geometry codec contract remains exact own obligation, not generic Serde guarantee.",
+      "source_body_proof": "Fresh complete scoped body personally read; original external test declarations do not cover separate fixture bodies."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+      "scoped_ranges_compared": [
+        [
+          260,
+          407
+        ]
+      ],
+      "actual_EOF": 407,
+      "actual05_comparison": "Focused fresh re-read of already compared075 body. Private floor_translation_basis321-376 clones wholeplan, offset1 checked, translates front/rear/court, translated profiles with role-specific affine response, and shifts every stair; route geometry/orientation/ownership/cut coordinates/streetentry unchanged. mesh278-287 regenerates same grid from that private clone before entrymesh append. This supplies actual basis/current support correspondence to constraints, no new source variant credit.",
+      "source_body_proof": "Actual focused fresh re-read supplement to075, not new coverage count."
+    }
+  ],
+  "comparison_groups": {
+    "tree-and-reference-integrity": "Existence, uniqueness, coverage, containment and cycle/orphan checks on complete decoded acceleration graph.",
+    "derived-cache-correspondence": "Optional invalid triangles preserve source ordinals; same-source immutable cache fields derived together.",
+    "compact-transport": "Both codec routes run same whole mesh topology gate before publish; compactbinary derives template from validated cells.",
+    "affine-floor-basis": "Actual private clone changes elevations only; matching support topology/current grid traced, no generic zip proof."
+  },
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Actual banks, query transport, SourceCutRegions and scene refinement remain unread; no native decoder/kernel waiver."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

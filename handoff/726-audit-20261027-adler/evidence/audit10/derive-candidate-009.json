@@ -1,0 +1,18 @@
+{
+ "id":"OWN10-QUALIFIED-CANDIDATE-009",
+ "scope_index":2082,
+ "path":"crates/adventuresim-terrain/src/lib.rs",
+ "revision":"6533e444fa37552927070cc8d8190907fd3b413e",
+ "source_hash":"Pinned by catalog2082 and successor193 receipt",
+ "implementation":"Private nongeneric Queue has exactly f:u64, g:u64, index:u32 in this declaration order. Manual Ord compares f then g then index, each native integer total order. Manual PartialOrd returns Some(self.cmp(other)); structural Eq/PartialEq already derive.",
+ "equivalent_repair":"Add core Ord and PartialOrd to existing Queue derive list, remove only its two handwritten ordering impls. Derived lexicographic field ordering is identical for all three total-ordered integer fields. Preserve declaration order and Reverse(Queue) BinaryHeap use so f/g/index tie breaks remain unchanged. Remove cmp::Ordering import only if unused after repair.",
+ "availability":"Built-in core derives require no dependency, generic bounds or feature. RoutingGrid impls are separate custom indexing/native-distance contracts and remain handwritten.",
+ "receiving_trace":"Actual astar kernel pushes Reverse Queue with f=heuristic/total cost, g=known path cost, index=row-major cell; current best/g stale-entry admission and neighbor queue publication traced. Existing ties_are_deterministic and route search cases read unchanged, not executed.",
+ "status":"EXACT_EXISTING_DERIVE_MAINTAINABILITY_CANDIDATE_PENDING_GLOBAL_SAVED_REMEDY_DEDUP",
+ "dedup":"Local successor candidate001-008 contain no ordering remedy. Inherited ScenarioMetadata ordering intentionally label-only and correctly retained; unrelated. Historical/global saved-remedy dedup remains required before new unique claim; current Queue code is correct.",
+ "new_unique_findings_claimed":0,
+ "acceptance":"Existing terrain route/tie acceptance only following exhaustive own lens completion before repair. No new tests/cases/helpers/assertions authorized.",
+ "source_edits":false,
+ "checks":"not run",
+ "qualification":"No routing runtime/global audit/merge clearance. Full role source covered personally; other lenses/materials remain pending."
+}

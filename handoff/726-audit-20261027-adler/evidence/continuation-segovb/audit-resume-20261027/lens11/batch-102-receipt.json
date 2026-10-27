@@ -1,0 +1,607 @@
+{
+  "at": "2026-10-27T17:40:11.355627+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-102-registration.jsonl",
+    "sha256": "0e21b30ca19f3c210dfddef52d95753d0c2a5f344abeac05d2dca551f09f8881"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-101.json",
+    "sha256": "ffb606a4b7f0847f5f57a034826d9ea93a26698abf431823c3bedfa694e52881"
+  },
+  "mandatory_inherited_qualification": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-097-native-time-qualification-001.json",
+    "sha256": "8b5d251d80cb880d50c2e21b28fe4ece9ac8d71dc4e0e9b3397d4aaed3e3f4b9"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1195,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social.rs",
+      "sha256": "a09342196732b00b8520e9a446aa9fdef60e8fd44a439032ebdadc21e6e8e4c5",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/a09342196732b00b8520e9a446aa9fdef60e8fd44a439032ebdadc21e6e8e4c5",
+      "ranges": [
+        [
+          1,
+          3800
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Independent full effective social authority/affinity/familiarity/knowledge/time inventory. Prior material reads are context only, no automatic ordered credit.",
+      "actual_read_ranges": [
+        [
+          1,
+          3800
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected_original",
+      "original_index": 1197,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social/admission.rs",
+      "sha256": "69e421c97648b448a374ac32ca30481cb6d0599800f9fbfa88d27dd6fb0f9137",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/69e421c97648b448a374ac32ca30481cb6d0599800f9fbfa88d27dd6fb0f9137",
+      "ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual social action admission, personality discovery context, named deterministic draws; no ordered future role credit",
+      "actual_read_ranges": [
+        [
+          1,
+          31
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1200,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social/discovery.rs",
+      "sha256": "848aa99d18243a4679c4c3ef1cbe3e9e1556f5c93b1a5cf83cd6c9a04c545198",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/848aa99d18243a4679c4c3ef1cbe3e9e1556f5c93b1a5cf83cd6c9a04c545198",
+      "ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual social action admission, personality discovery context, named deterministic draws; no ordered future role credit",
+      "actual_read_ranges": [
+        [
+          1,
+          47
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1201,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social/draws.rs",
+      "sha256": "788653b52576c63a07a52065f8742eb6b63bc0268cb64ce16441cdea693f8c09",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/788653b52576c63a07a52065f8742eb6b63bc0268cb64ce16441cdea693f8c09",
+      "ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual social action admission, personality discovery context, named deterministic draws; no ordered future role credit",
+      "actual_read_ranges": [
+        [
+          1,
+          54
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1212,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+      "sha256": "775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+      "ranges": [
+        [
+          1,
+          215
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual observer-bound referred witness/claim/release payload producers and receiving event mutation",
+      "actual_read_ranges": [
+        [
+          1,
+          215
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1216,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_provenance.rs",
+      "sha256": "f9a27db833d675b23a449676ecfd6d878c0357f2a5190f6a649341766c5ee33c",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/f9a27db833d675b23a449676ecfd6d878c0357f2a5190f6a649341766c5ee33c",
+      "ranges": [
+        [
+          265,
+          291
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual session-member admission contract",
+      "actual_read_ranges": [
+        [
+          265,
+          291
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1217,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+      "sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+      "ranges": [
+        [
+          117,
+          179
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual dialogue session identity/state/revision schema",
+      "actual_read_ranges": [
+        [
+          117,
+          179
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1090,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/corpse.rs",
+      "sha256": "ae853a404a9463c18ad6bf2d0b06e86f6fc35061f88cd34e823fc3df0aebbc3f",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/ae853a404a9463c18ad6bf2d0b06e86f6fc35061f88cd34e823fc3df0aebbc3f",
+      "ranges": [
+        [
+          300,
+          350
+        ],
+        [
+          1535,
+          1585
+        ],
+        [
+          1730,
+          1785
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual corpse-family offense retry guards and event-bound receiving call sites; reverify prior066 full body context",
+      "actual_read_ranges": [
+        [
+          300,
+          350
+        ],
+        [
+          1535,
+          1585
+        ],
+        [
+          1730,
+          1785
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1086,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/condition.rs",
+      "sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+      "ranges": [
+        [
+          1695,
+          1785
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual event receipt dedup and morale mutation receiving operation; reverify prior064 full body context",
+      "actual_read_ranges": [
+        [
+          1695,
+          1785
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1204,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "ranges": [
+        [
+          955,
+          966
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Exact canonical actor authorization contrast for automatic-chat preference/manual action ports",
+      "actual_read_ranges": [
+        [
+          955,
+          966
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1195,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              266
+            ]
+          ],
+          "roles": "Directed affinity, canonical symmetric pair familiarity, chat target/outcome and qualitative bands; private session concern/claim authority versus safe gateway projections.",
+          "disposition": "CharacterAffinity(subject,actor) is directional; Familiarity(low,high) is symmetric with aggregate shared duration and separate joint-clock anchor. Do not flatten to one pair wrapper. SocialChatTargetKind distinguishes resident/party validity although target String encodes CharacterId in both cases: the kind should own its target payload. Claim event_sequence, claim_order, proposition identity, opaque challenge token and session revision are distinct identifiers. Private factual accuracy and demeanor are absent from public claim projection. Concern presence and release are coupled states (NoConcern/Unreleased/Released), not unrelated bools; continuous learned testimony is not session completion.",
+          "remedy": "Canonical DirectedCharacterPair/UnorderedCharacterPair, typed chat target payload, typed SessionId/PropositionId/ChallengeToken/EventSequence/ClaimOrder/Revision. Retain safe projection and session-local capability; use closed concern state rather than flattening durable testimony.",
+          "acceptance": "Full definitions and producers/receivers consumed; actual dialogue session and referred claim source supplied below. No privacy leak/global authorization or random collision claim."
+        },
+        {
+          "ranges": [
+            [
+              267,
+              441
+            ]
+          ],
+          "roles": "Affinity/familiarity/morale qualitative projection, decayed affinity clock, exact replay capture and heard event lookup.",
+          "disposition": "Bands are intentional lossy public classifications of distinct quantities, not redundant competing authority. Uses_familiar_address is a derived predicate combining kinship/courtship/familiarity/precedence. Projection reads subject personal clock, although fixture later names observer elapsed time; clock-policy/name question is retained without assuming affinity decay must use observer clock. Replay checks observer+approach+challenge token; resulting revision is captured separately. AssessmentDirection enum is converted into String then later copied/clamped strength at gateway, premature internal erasure.",
+          "remedy": "Retain typed bands with threshold owners; canonical typed assessment payload and explicit subject-clock operation. Named immutable replay capture; do not collapse timing/idempotency coordinates into arbitrary String.",
+          "acceptance": "Exact projection body and shared core998043 decay/assessment contracts read. No observed wrong historical projection, runtime retry or currentness conclusion."
+        },
+        {
+          "ranges": [
+            [
+              442,
+              610
+            ]
+          ],
+          "roles": "Corpse-family consequence operation, action ID/duration admission, raw personality code adapter, segmented chat numeric result.",
+          "disposition": "apply_corpse_family_offense unconditionally adds affinity then records morale; actual record_morale_event1695..1722 always inserts and does not deduplicate source_id. Stable event ID alone does not make this helper retry-safe. Actual corpse callers have outer permission/receipt control, so API-contract/idempotency responsibility gap, not demonstrated ordinary double application. Chat duration 15-minute multiples in15..480 is a genuine request refinement; action ID syntax is a different invariant. CasualChatDisposition encodes existing native Sociability/Outlook enums as raw0/1/2, and result tuple mixes MoraleDelta/AffinityDelta/qualitative outcome.",
+          "remedy": "Event-bound admitted/receipt-owned consequence operation covering both effects, rather than textual source key alone. Canonical ChatDuration/ChatActionId, typed disposition variants or one explicit code adapter at native boundary; named ChatResolution with separate morale/affinity quantities.",
+          "acceptance": "Actual three corpse call sites and native morale insert receiver consumed, prior066 entire corpse context retained. No caller retry failure, DB transaction behavior/current/unique claim."
+        },
+        {
+          "ranges": [
+            [
+              611,
+              862
+            ]
+          ],
+          "roles": "Resident availability at personal date, ordinary chat, synchronized two-person chat, requested/completed elapsed time and receipt capture.",
+          "disposition": "Resident personal-date window uses character_alive_at and presence remaining, but reducer separately requires latest actor/target alive and current settlement. These are distinct current/historical facts; no global historical interaction guarantee inferred. Both reducers compare immutable replay before mutable admission. Completed wait bool is checked, and receipts record requested duration separately from actual completion minute. Mental checks, language coefficient, shared hours and directed affinity use same primitive float for different roles.",
+          "remedy": "Admitted ResidentChatWindow and CoLocatedPartyChat participant records, typed requested duration/completed outcome, SkillCheck/LanguageCoefficient/FamiliarityHours/Affinity owners through ordinary resolver boundary; avoid tuple or arbitrary fraction substitution.",
+          "acceptance": "Actual native wait417..500101 and historical presence1011046/1188100/1153091 contracts reused. No completed conversation when wait false asserted; no direct local execution."
+        },
+        {
+          "ranges": [
+            [
+              863,
+              1281
+            ]
+          ],
+          "roles": "Observer-bound witness capability, authored response matrix, passive assessment, active challenge and release checkpoint.",
+          "disposition": "Actual producer1212 binds referred witness to observer/session/location and checks exact emitted claim order/text against private authority. Claim response Options are independently authored availability, not all-required fields. require_witness_social_action validates revision, unresolved token ownership, event existence and authored approach; named returned tuple should express admitted challenge association. Approach enum is parsed then original String persisted in receipt; assessment enum likewise erased. Session-local bound release differs claim resolution and durable learned testimony. Revision saturating_add is source capacity behavior, not evidence of ordinary exhaustion.",
+          "remedy": "AdmittedWitnessChallenge owns session/capability/claim/approach and matched revision; retain typed approach, ClaimAssessment and independent authored response capabilities. Preserve factual accuracy versus perceived judgment, session-local release versus durable memory.",
+          "acceptance": "Exact receiving require_session_member/live-presence call, session schema and referred release/event bodies consumed; core998043 challenge/assessment full source reused. No full dialogue subsystem/event count capacity/runtime truth inference."
+        },
+        {
+          "ranges": [
+            [
+              1283,
+              1569
+            ]
+          ],
+          "roles": "Pair presence spans and frozen observer capability band, observer-specific dependent personality belief, compact current address state, opt-in preference row and cooldown.",
+          "disposition": "Presence span captures historical observation capability and every join interval; symmetric familiarity aggregate cannot replace it. PersonalityAxis+i8 permits invalid combinations; put_belief/view explicitly filter legal values. Confidence, physiological band and affinity ranges differ. Row existence is opt-in, so no redundant retained enabled bool; preference update bool is an ordinary command predicate. Suspected missing actor authorization is rejected: canonical1204:955..966 accepts every strategic gateway, and setter/manual action already require gateway. Address row is current successful-source projection, durable attempts separate lifetime history.",
+          "remedy": "Axis-owned perceived value payload and bounded Confidence; canonical ObserverCapabilityBand and open/closed span payload, scoped cooldown/action/topic IDs. Preserve compact derived current projection and independent immutable attempt history; no invented authority defect.",
+          "acceptance": "Actual canonical actor guard freshly consumed. Co-location/life guards and cleanup bodies consumed; no wider browser or gateway policy inference."
+        },
+        {
+          "ranges": [
+            [
+              1571,
+              1992
+            ]
+          ],
+          "roles": "Affinity operations; asynchronous directed gain and optional familiarity; simultaneous shared-clock minimum; join/rejoin anchors, presentation observation and physiology contact spans.",
+          "disposition": "Subject-clock affinity and unordered shared-time are different authorities. record_familiarity bool selects whether separate shared-clock path already owns duration; avoid duplicate accounting rather than merge all clocks. Shared minutes saturate; joint_minute_anchor excludes time apart on join. Raw low/high observer band captures per-person capability at contact. Presentation is observed independently biological sex; ambiguous presentation uses diagnosis. Missing mental checks are silently unavailable observation, not necessarily zero skill. Open span end Option is meaningful lifecycle payload.",
+          "remedy": "Distinct AffinityValue/Delta, SharedMinutes/StrategicMinute, canonical pair and observer-band payload; named FamiliarityAccounting policy for internal operation if needed. Retain separate asynchronous versus simultaneous history, no forced single global social clock.",
+          "acceptance": "Full actual interval operations read, source guards do not establish every lifecycle call occurs. Prior1093/physiology consumers retained; no clinical/chunk invariance/global scheduling guarantee."
+        },
+        {
+          "ranges": [
+            [
+              1994,
+              2412
+            ]
+          ],
+          "roles": "Typed action/topic/personality-fit kernel, religion-specific direct admission and effective knowledge check, numeric personality value projection and automatic candidate selection.",
+          "disposition": "Personality fit is a signed score, not probability or skill check; ReligionHours.direct positive finite admits action while .effective contributes correlated knowledge. These separate semantic roles must not be merged. Available action/topic list is closed, typed core candidates already meaningful. .ok/Err continue collapses unavailable target religion or failed check into no candidate; source error classification question, not proof that malformed DB is ordinary. Expect sites follow local predicates but do not establish whole catalog invariants. personality_truth maps15 axes to differently legal raw i8 codes; dependent payload would remove invalid representable combinations.",
+          "remedy": "Keep canonical religion and knowledge skill owners, named PersonalityFit/KnowledgeCheck values, typed Candidate eligibility/error outcome where policy requires distinction. Canonical axis-value enum can share storage codec without merging presentation/inclination/conscience semantics.",
+          "acceptance": "Actual source mapping and core998043/996042/886016 receiver operations personally read; no invented policy bound or direct religion practice runtime claim."
+        },
+        {
+          "ranges": [
+            [
+              2414,
+              2536
+            ]
+          ],
+          "roles": "Training split, self-versus-two-person mutation, legal belief replacement and co-location participant admission.",
+          "disposition": "Self training deliberately updates one skills row with two training contributions; other case updates distinct observer/subject roles. Finite stored hours differ Infinity training requirement (042 qualification). Existing belief replacement compares confidence only, not recency; observed_at remains historical provenance rather than automatic latest authority. is_self bool is derived actor==target at actual callers, not independently authored disagreement. A body-level AdmittedSocialPair can own this relationship rather than accepting a flag separately.",
+          "remedy": "Axis-value-confidence admitted belief, canonical training-hours operations, explicit SelfReflection/Companion participant payload; preserve confidence-based knowledge replacement policy rather than invent timestamp precedence.",
+          "acceptance": "Actual operations read and canonical skill/source043 proof reused; no actual nonfinite stored-hour producer, wrong row or currentness claim."
+        },
+        {
+          "ranges": [
+            [
+              2538,
+              2878
+            ]
+          ],
+          "roles": "Manual/shared authoritative social action, typed admission, source ownership/topic, prayer/reassurance payload, time consumption and resolved morale/affinity/knowledge writes.",
+          "disposition": "Raw action is admitted to SocialActionKind but String flows through cooldown/interaction storage; typed topic also erased. Prayer and reassurance are mutually selected action payloads, internal option triples should be owned by admitted action where it simplifies impossible combinations. is_self derives identity; consume_time selects preconsumed automatic downtime versus manual response and deserves explicit operation/context, not unrelated bool coupling with outcome. Reflect intentionally writes succeeded=true and zero morale even if computed outcome differs, a self-knowledge action versus companion response, requiring explicit variant to avoid broad-result ambiguity. Morale delta, realized positive gain and affinity delta are distinct.",
+          "remedy": "AdmittedSocialAction with SelfReflection/Companion and ManualTime/AlreadyElapsed context, typed topic/source/action IDs and named resolution. Keep canonical time/condition mutation and typed values until native numerical/SDK adapters.",
+          "acceptance": "Full action and native admission/time/condition receiver proof consumed. Automatic path propagates fallible errors rather than ignoring them; no observed rollback/partial-commit outcome or actual malformed source/current claim."
+        },
+        {
+          "ranges": [
+            [
+              2880,
+              3047
+            ]
+          ],
+          "roles": "Bounded automatic target planner, optional source/availability tuple, authoritative execution, compact state pruning and cleanup.",
+          "disposition": "Candidate tuple combines target, pair availability and optional source; planner receives source.is_some then reconstructs source by target ID. Named admitted candidate can retain source with eligibility and avoid redundant lookup/expect. At most3 attempts is downtime policy, not number of all social events. Automatic path calls same action authority with consume_time=false and propagates errors. Cleanup removes current social rows; physiology/history and witness tables are separate retention responsibilities, not automatically all deletion omissions.",
+          "remedy": "Named AutomaticSocialCandidate with real source binding and preconsumed downtime; retain typed action through shared API. Explicit lifecycle cleanup contract for each retained history, no blanket delete history remedy.",
+          "acceptance": "Actual planner and core998043 body read; no claim every caller invokes cleanup or every residual row is invalid."
+        },
+        {
+          "ranges": [
+            [
+              3049,
+              3800
+            ]
+          ],
+          "roles": "Closed demo source IDs, guarded-fixture assumptions, explicit demographic/religion/hour setup, ordinary owner operations and existing source fixtures.",
+          "disposition": "Demo source enum is useful finite fixture identity codec, not global morale-source type. Fixed character IDs and authored morale/hours are scoped fixture parameters, not global numeric bounds. Source fixtures inspect selectors and expectations but are not execution or coverage of include_str targets. Some names overstate observer-clock or helper retry contracts; actual bodies remain authority.",
+          "remedy": "Keep isolated fixture values and real canonical owner operations; no new tests/helpers/assertions or compatibility preservation.",
+          "acceptance": "Every line1..3800 personally read; all existing fixture bodies read without execution; full source-accounting does not validate current behavior."
+        }
+      ]
+    }
+  ],
+  "connected_role_inventory": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social/admission.rs",
+      "sha256": "69e421c97648b448a374ac32ca30481cb6d0599800f9fbfa88d27dd6fb0f9137",
+      "ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "disposition": "Actual social action admission, personality discovery context, named deterministic draws; no ordered future role credit",
+      "acceptance": "Exact personally consumed material contracts, no early ordered credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social/discovery.rs",
+      "sha256": "848aa99d18243a4679c4c3ef1cbe3e9e1556f5c93b1a5cf83cd6c9a04c545198",
+      "ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "disposition": "Actual social action admission, personality discovery context, named deterministic draws; no ordered future role credit",
+      "acceptance": "Exact personally consumed material contracts, no early ordered credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social/draws.rs",
+      "sha256": "788653b52576c63a07a52065f8742eb6b63bc0268cb64ce16441cdea693f8c09",
+      "ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "disposition": "Actual social action admission, personality discovery context, named deterministic draws; no ordered future role credit",
+      "acceptance": "Exact personally consumed material contracts, no early ordered credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+      "sha256": "775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+      "ranges": [
+        [
+          1,
+          215
+        ]
+      ],
+      "disposition": "Actual observer-bound referred witness/claim/release payload producers and receiving event mutation",
+      "acceptance": "Exact personally consumed material contracts, no early ordered credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_provenance.rs",
+      "sha256": "f9a27db833d675b23a449676ecfd6d878c0357f2a5190f6a649341766c5ee33c",
+      "ranges": [
+        [
+          265,
+          291
+        ]
+      ],
+      "disposition": "Actual session-member admission contract",
+      "acceptance": "Exact personally consumed material contracts, no early ordered credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+      "sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+      "ranges": [
+        [
+          117,
+          179
+        ]
+      ],
+      "disposition": "Actual dialogue session identity/state/revision schema",
+      "acceptance": "Exact personally consumed material contracts, no early ordered credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/corpse.rs",
+      "sha256": "ae853a404a9463c18ad6bf2d0b06e86f6fc35061f88cd34e823fc3df0aebbc3f",
+      "ranges": [
+        [
+          300,
+          350
+        ],
+        [
+          1535,
+          1585
+        ],
+        [
+          1730,
+          1785
+        ]
+      ],
+      "disposition": "Actual corpse-family offense retry guards and event-bound receiving call sites; reverify prior066 full body context",
+      "acceptance": "Exact personally consumed material contracts, no early ordered credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/condition.rs",
+      "sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+      "ranges": [
+        [
+          1695,
+          1785
+        ]
+      ],
+      "disposition": "Actual event receipt dedup and morale mutation receiving operation; reverify prior064 full body context",
+      "acceptance": "Exact personally consumed material contracts, no early ordered credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "ranges": [
+        [
+          955,
+          966
+        ]
+      ],
+      "disposition": "Exact canonical actor authorization contrast for automatic-chat preference/manual action ports",
+      "acceptance": "Exact personally consumed material contracts, no early ordered credit."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-016-receipt.json",
+        "sha256": "8a08d4a7a68768b9c1813ab799897da5c4422ede6cf9a388279d8d3c27eb92d0"
+      },
+      "contract": "Core886 capability full552 and admitted skill/check consumers"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-042-receipt.json",
+        "sha256": "679029c645bbe69075e5b0f1c297fdd91ece13e10c96c08197b5f264c7f19edc"
+      },
+      "contract": "Core996 skill full1165, finite hours versus unbounded requirement; source semantic supplement retained"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-043-receipt.json",
+        "sha256": "b82b6ad36c17396bc9156fb55b7ff194266c614eea286c038c4ad8b2e8abaf1c"
+      },
+      "contract": "Core998 social full1909: actual affinity, belief, action, challenge, prayer, candidate and cooldown operations"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-046-receipt.json",
+        "sha256": "e17f1e9d4531b622e5ba299c3adf9ac637d9bc6e9c0c810c5545c6d8f08e3a46"
+      },
+      "contract": "Core1011 presence full662"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-061-receipt.json",
+        "sha256": "1e26974b7e1795184974dca7f3ff4cd5094facd0c1717fab47d9ce7b8edbc633"
+      },
+      "contract": "Native1076 capability full694"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-064-receipt.json",
+        "sha256": "91c5c0fe2515a9d9782cbc7c18b53148b198e3ad2b331eccd6d26e78bc2b575c"
+      },
+      "contract": "Native1086 condition full2627; fresh receiver subset independently reverified"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-066-receipt.json",
+        "sha256": "16f2aecb0b7d7a148ae2a27e02d5a1a4d0e9ca26a56196b0142c49eeef35acbd"
+      },
+      "contract": "Native1090 corpse full2121; fresh three call-site subsets reverified, no ordinary retry claim"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-091-receipt.json",
+        "sha256": "dce80385e774a4d5f1b84f60d2114e2bd33677c6630468284dd855f0db9b6650"
+      },
+      "contract": "Native1153 personal-date alive/chronology full200"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-094-receipt.json",
+        "sha256": "dea422bd7e7dd4570611cc60e69f6c0efefae41e8cbfe97fb9db9305a1ec7938"
+      },
+      "contract": "Native1166 scheduled socializing full325; shared-time ownership independent"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-097-receipt.json",
+        "sha256": "d4262c0437e29c169933163243d685d8a4068a0f500277a615157b172a43ff32"
+      },
+      "contract": "Actual native investigation time1245:266..301 and lifecycle1249:1..85/1246full11"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-101-receipt.json",
+        "sha256": "3126c4ae02fb943f1a56167e4014d3c2be754805792fe73f0b32617b197047ed"
+      },
+      "contract": "Actual native wait1245:417..500 and personality2802 exact registered score/projection normalization"
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Source-only frozen discovery with findings. No product, project execution, clinical/runtime/currentness or globally unique/alias claim.",
+    "Authorization omission concern rejected by actual gateway-sufficient canonical guard. Corpse-family helper idempotency gap is API-only, actual caller guards may prevent repeat effects.",
+    "Preserve all earlier clock, capacity, identity, legal/physical, private/observer, other-population and mandatory receiver obligations."
+  ]
+}

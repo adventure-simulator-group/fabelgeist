@@ -1,0 +1,95 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-240",
+  "at": "2026-10-23T05:52:41.413919+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs.rs",
+      "sha256": "495d427c43e115c3500736607942c7f99cd34f8e3044ce73028de1c6c8080054",
+      "scope062_index": 673,
+      "actual_EOF": 175,
+      "scoped_ranges_compared": [
+        [
+          1,
+          175
+        ]
+      ],
+      "actual05_comparison": "Fresh entire registered/scoped PR actual body. Independent current05 relationship analysis of raw recipe, compiled flight, floor/landing policy and consumed geometry, not Camera07 verdict/bodystamp. No P16 counterpart inferred."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/flight.rs",
+      "sha256": "0818457e8abbc4f4e47e831e9ecb51fa917ee6573d45329a524982523b982d3f",
+      "scope062_index": 674,
+      "actual_EOF": 197,
+      "scoped_ranges_compared": [
+        [
+          1,
+          197
+        ]
+      ],
+      "actual05_comparison": "Fresh entire registered/scoped PR actual body. Independent current05 relationship analysis of raw recipe, compiled flight, floor/landing policy and consumed geometry, not Camera07 verdict/bodystamp. No P16 counterpart inferred."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/landing_policy.rs",
+      "sha256": "e054b33865a02762e480744ec0074a04fe71d7bf73e61c10ca5357f493eaf7d3",
+      "scope062_index": 2838,
+      "actual_EOF": 62,
+      "scoped_ranges_compared": [
+        [
+          1,
+          62
+        ]
+      ],
+      "actual05_comparison": "Fresh entire registered/scoped PR actual body. Independent current05 relationship analysis of raw recipe, compiled flight, floor/landing policy and consumed geometry, not Camera07 verdict/bodystamp. No P16 counterpart inferred."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/floors.rs",
+      "sha256": "8a2961c2a6d64a997bc81cf6cc94ac1647dbe32afa1093446f97f6de93cedca4",
+      "scope062_index": 2839,
+      "actual_EOF": 101,
+      "scoped_ranges_compared": [
+        [
+          1,
+          101
+        ]
+      ],
+      "actual05_comparison": "Fresh entire registered/scoped PR actual body. Independent current05 relationship analysis of raw recipe, compiled flight, floor/landing policy and consumed geometry, not Camera07 verdict/bodystamp. No P16 counterpart inferred."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "one recipe and completed flight",
+      "comparison": "Raw StairSpiral leaves centre/base/rise/radii/turns/handedness/treadcount. compile_flight derives top, radial coordinates, members and metadata from SAME source. requiredtreads basedstoreybreaks, checked_subrejectsinsufficientauthoredtreads, extrasdividedamong SAMEintervalcount (levels startsbaseandpushestop so>=2, intervalcount>=1). Landing member/slab and portal descriptor generated SAME loop level/theta; no parallelrowzip assumptions. Raw compiledpublicfields notvalidatedimmutablebrand; zero/negative/nonfinite relationships notadmitted before equation =>F056. Arrivalangleclosure matches finalturnsense forvalidpositiveflight."
+    },
+    {
+      "id": "occupied destination versus crown",
+      "comparison": "landing_policy has_floor firstactualarchetypeownsoccupiedstoreys thenexactstoreylevel andpositionwithinactualroomcell ChebyshevhalfCELL. resolve computeskeepheightsfromsame acceptedlandings, retains physicalLanding bytopheight anddescriptorbyhas_floor. Ifnolandingdescriptors remain, auxiliarytower appendscrownslabfromlastactualtread ratherthaninventingintermediatefloor; noportalmustexistforcrownpromise. Distinguish recipeinputs fromacceptedresolvedassembly, do notrequireeverystaleinputfieldmirrorphysicaloutput. Exact owns_occupied_storeys lowerstillowninventory."
+    },
+    {
+      "id": "panel subtraction and topology",
+      "comparison": "floors Rectangleprivatefactoryfromactualcell square, intersection min/max; emptyintersection returnself, otherwisefourstrips withdisjointx/yregions thenfilter thickness>.001. Repeatedholesflat_map same currentpanels, sorteduniqueBTreeSet cells avoidsduplicatedroomcellfloorpanels. Onlystoreylevel>0 cutsflightwell atheightinsidebase/top interval; groundfloor preserved. resolve mutatesONLY plan.resolved_geometry; rooms/cells/source stairs remainoriginal. Centre/size reductionsfinite/domainlimitsdependactualsourcepositionvalues; no globalfinite guarantee frommin/max. Full source101 nofixtures."
+    },
+    {
+      "id": "owned staged mutation and physical publication",
+      "comparison": "parent resolve TAKES BuildingPlanbyvalue; compiles flights/filterlandings beforefloorappend, foundations/eachcheckedsolid theninterfaces thenbearingresolve, returnsplan onlyallsuccess. Fallibleappend aftersolid mayleavepartiallymodified LOCALownedplan onErr, butoutsidecallercannotobtainit fromResult; no universalrollbackdefect. CollisionCuboid/StructuralNode/SpatialBounds actuallychecked lower currentowner proofsseparate. Return path preservesphysicalsolid/sourceowner/bearingnode relationship; supportinterface same member lowercontactslab. No nativeDBtransaction inference."
+    },
+    {
+      "id": "portal reconstruction exact qualified graph",
+      "comparison": "landings31–50 onlychecksANY resolvedphysicalLanding forFIRST+stairindex owner, thenrecompiles sourceStair andhas_floor; no binding of EACH returnedportal pose/ID toactual retainedlanding. Current generation uses sameinputs soinitialproductscoordinated; rawone-sidedstair orphysicaledit can diverge. This independentlysupports Camera07 exact retained-portal graph whenpinned, notnewNativeunique/noordinaryeditor/runclaim. Every accepted assemblyneedcanonicalphysicalportalreceiver, notblanketequalityofrecipes."
+    },
+    {
+      "id": "owner and native capacity qualification",
+      "comparison": "Reservedflightowner97001..98000 andu32castfromusize index requireactualcount/capacity; resolve assigns97001+index withoutlocalreservedrangegate whileowns_landingclassifiesonlyrange. No currentnormal1000flightproducerknown, no newuniqueclassifierbugorallocationclaim. Item/support/node topdomainbits andowner/indexsuffix shareprefixassumptions, preserveeachnamespace andcanonicalboundedownerallocationinthebuildingIDgraph. Exact callercounts/keepcore/bearings/testsremainowninventory, nobodycreditfrommoduledecls."
+    }
+  ],
+  "new_unique_findings": [
+    "NATIVE-INITIAL05-F056"
+  ],
+  "remaining_dependency_obligations": [
+    "keep_core/bearings/externalexistingtests actualbodiesremainindependentinventory; normalgeneratedrecipeboundsnotinferred.",
+    "Camera portalfinding precise immutableIDpending, preserve actualsupportwithoutinventingfinalverdict."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

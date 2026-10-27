@@ -1,0 +1,99 @@
+--- base
+
++++ frozen-head
+
+@@ -1,5 +1,6 @@
+
+ use super::*;
++use crate::scene_coordinates::ScenePlanPoint;
+ use bevy::math::Vec3Swizzles;
+ use candidates::Candidate;
+ use fabelgeist_determinism::StreamId;
+ use ground::PlacementGround;
+@@ -70,24 +71,20 @@
+
+         return false;
+     }
+     let samples = corners
+         .into_iter()
+-        .chain([footprint.centre().metres()])
++        .map(ScenePlanPoint::from_metres)
++        .chain([Some(footprint.centre())])
+         .map(|point| {
+-            if input.landform.is_some_and(|landform| {
+-                crate::scene_coordinates::ScenePlanPoint::try_from(point)
+-                    .is_ok_and(|point| landform.transition_collar().contains(point))
+-            }) {
++            let point = point?;
++            if input
++                .landform
++                .is_some_and(|landform| landform.transition_collar().contains(point))
++                || !support.allows_activity(point)
++            {
+                 return None;
+             }
+-            support
+-                .allows_activity(point)
+-                .then(|| {
+-                    support.height_at(crate::scene_coordinates::ScenePlanPoint::from_metres(
+-                        point,
+-                    )?)
+-                })
+-                .flatten()
++            support.height_at(point)
+         })
+         .collect::<Option<Vec<_>>>();
+     let Some(samples) = samples else {
+         return false;
+@@ -129,29 +126,29 @@
+
+         .items
+         .iter()
+         .enumerate()
+         .map(|(index, item)| {
+-            let centre = candidate.footprint.centre().metres()
+-                + candidate
+-                    .footprint
+-                    .orientation()
+-                    .local_to_world(item.offset.metres().xz());
++            let centre = ScenePlanPoint::from_metres(
++                candidate.footprint.centre().metres()
++                    + candidate
++                        .footprint
++                        .orientation()
++                        .local_to_world(item.offset.metres().xz()),
++            )?;
+             let supports = &item.recipe.support_points_metres;
+             if supports.is_empty() {
+                 return None;
+             }
+             let heights = supports
+                 .iter()
+                 .map(|point| {
+-                    let position = centre
++                    let position = centre.metres()
+                         + candidate
+                             .footprint
+                             .orientation()
+                             .local_to_world(Vec2::new(point.metres().x, point.metres().z));
+                     support
+-                        .height_at(crate::scene_coordinates::ScenePlanPoint::from_metres(
+-                            position,
+-                        )?)
++                        .height_at(ScenePlanPoint::from_metres(position)?)
+                         .map(|height| height.metres() - point.metres().y)
+                 })
+                 .collect::<Option<Vec<_>>>()?;
+             let min = heights.iter().copied().fold(f32::INFINITY, f32::min);
+@@ -172,9 +169,9 @@
+
+                     },
+                 },
+                 position_metres:
+                     adventuresim_building_generator::spatial_geometry::Position::from_metres(
+-                        Vec3::new(centre.x, max, centre.y),
++                        Vec3::new(centre.metres().x, max, centre.metres().y),
+                     )
+                     .ok()?,
+                 orientation: candidate.footprint.orientation(),
+             })

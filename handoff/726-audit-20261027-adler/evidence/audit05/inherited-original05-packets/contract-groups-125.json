@@ -1,0 +1,105 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-125",
+  "at": "2026-10-23T03:09:05.460357+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory_armor.rs",
+      "sha256": "6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b",
+      "scope052_index": 2818,
+      "actual_EOF": 205,
+      "scoped_ranges_compared": [
+        [
+          1,
+          78
+        ]
+      ],
+      "actual05_comparison": "Fresh exact P16 production1–78 and complete PR1–78 counterpart diff empty, personally compared P16 actual inventory355/ArmorItem356/server spawn/selected-contact recipients. Sort descending layer_order, first geometry.contains(sample) selected, every observational contact field derives same item/material/geometry/ID. Public ArmorItem can have covered part+positive scalar coverage but missing optional geometry; both actual expects require correlation before accepted actor, same existing Native03F004 graph. Empty/no-intersection intentionally no selected layer. Scalar fold differs from anatomical selected surface: union coverage, additive resistance/padding, resistance-weighted flexibility, minROM, zero resistance→flex0. Two finiteMAX resistance/flex1 entries yield Inf/Inf; exact support for existing Root04F011 graph, not new unique finding. Exact0..6 parent BodyPart mapping supplies valid array index; no arbitrary pub(super) index guarantee. 79blank/80+tests excluded, no whole-file waiver.",
+      "source_body_proof": "Fresh exact P16 material body and full actual production diff; source-specific current-role comparison."
+    }
+  ],
+  "independent_cross_lens_support": [
+    {
+      "id": "NATIVE-INITIAL05-SUPPORT-CAMERA-F032",
+      "finding": "CAMERA-INITIAL07-F032",
+      "invariant": "After accepted drop, owner list/hand slot/held shield observation must describe same current graph.",
+      "actual_source_trace": "Fresh existing PR drop_hand504–561 admits held leaf/physical/collision clearance then queues separate remove<ItemOf>551 followed remove<EquipSlot>552 while retaining queryable scene item. Inventory on_equip_slot_removed637–651 requires ItemOf at638 or returns without clearing holding_shield. equipped_shield369–375 trusts retained pointer without current ownership/slot recheck; shield_block_bonus532–536 can remain positive while shield_holding_side539–547 becomesNone.",
+      "P16_comparison": "Existing complete actual equipment400 vs2048 comparison112 and inventory355 vs1877 comparison113 preserve same removal order, hook and observer logic; P16 finitephysical leaf strengthening does not repair cache relation.",
+      "qualification": "Static normal drop path with native deferred command/hook application assumption explicit; no execution, installed stale actor or always-effective downstream block claim. Normal reconnect rebuild_inventory_holding_cache is a distinct positive repair route, not drop cleanup.",
+      "repair_acceptance": "Canonical current graph-derived held shield or operation that keeps owner-dependent cache lifecycle coherent. Do not add new parallel bool/probe around every consumer. Preserve legitimate missing shield, same-actor native entity remapping, one equipment action/frame and raw observation fixtures.",
+      "prior_receipt_qualification": "Packets111/112 normal topology transition and113 cache comparison do not establish drop-cache cleanup. This supplement supplies exact omitted join; no new unique finding counted.",
+      "sources": [
+        {
+          "source_id": "pr-working:crates/adventuresim-tactical-server/src/equipment.rs",
+          "sha256": "294ef27435a3d5286f596695c442fb8bd28041af6d7b9ab24a27e1d8c4d2526f",
+          "ranges": [
+            [
+              504,
+              561
+            ]
+          ]
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory.rs",
+          "sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+          "ranges": [
+            [
+              369,
+              375
+            ],
+            [
+              532,
+              547
+            ],
+            [
+              637,
+              651
+            ]
+          ]
+        },
+        {
+          "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment.rs",
+          "sha256": "56528e5adcad8261b414b53f196d12dee6548aa5f75c494b6a92c087d016446a",
+          "ranges": [
+            [
+              504,
+              561
+            ]
+          ]
+        },
+        {
+          "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory.rs",
+          "sha256": "a1b3b6e0f7f1d9884a53f8306a3e0e9e6c1a8deb26e2b13fb163f73edd39900d",
+          "ranges": [
+            [
+              365,
+              371
+            ],
+            [
+              528,
+              543
+            ],
+            [
+              633,
+              647
+            ]
+          ]
+        }
+      ],
+      "other_lens_credit": false
+    }
+  ],
+  "comparison_groups": {
+    "selected-versus-folded-armor": "Same P16 selected contact product, positive-coverage geometry precondition and separate scalar aggregate operation.",
+    "equipment-cache-lifecycle": "Exact normal drop removes owner before slot cleanup; graph/cache observer inconsistency supported with native application qualification."
+  },
+  "new_unique_findings": [],
+  "support_findings": [
+    "NATIVE-CAMERA-SUPPORT03-F004",
+    "ROOT-INITIAL04-F011",
+    "CAMERA-INITIAL07-F032"
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

@@ -1,0 +1,86 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-379",
+  "at": "2026-10-25T23:57:25.703253+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 179,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/character/name_identity.rs",
+      "sha256": "1e4fa37b2fb89c3fa7ccca3c9c15a6c514044539ef4b97776e8ebb66cc7eccbc",
+      "personally_read_ranges": [
+        [
+          1,
+          242
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full registered nameidentity1-242 read. Assignment firstrenderssharedsemanticidentity usingactualpersonalitysex/nativeculture/Everyday, serializes, requiresCharacter thenupdatesdisplayandprivateidentityrow. Falliblepreparationprecedesdisplaywrite exceptDBupdate/insert nativefailures; fullreducertransaction semantics not replacedbylocalpartialmutationclaim.",
+        "Authorednames preserveinheritedsurname, generatedhistoricalnames requiregeneratedsurname andderivebirthyearfromactualcharacterage/frontier. Newbornupdatessex/presentation theninheritsfatherelsemother surname andassignsduedatecalendarname; DBrollbackonlaterErr remainscallertransactioncontract. Privateidentityreadsparseandrender beforehereditarysurnameoutput, notdisplaytextparsing.",
+        "Missingidentity iserror evenfortemporaryread, whereas persistent_has_name treatsabsentCharacter or temporaryasvacuouscomplete. These aredifferentread/integrityroles, notautomaticallyfallback. Sharednamecatalogsemanticvalidity/deferredunresolvedidentitypolicy requireactualowner, no guessednamehistory/currentUIclaim."
+      ]
+    },
+    {
+      "scope_index": 181,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/character/name_types.rs",
+      "sha256": "698c97ddc6ffa8f8a1765775397dc10013ea5359f32a06b62845cf62ce0a946e",
+      "personally_read_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full registered nametypes1-111 read. CharacterId purposeidentityacceptsallu64, nofalseNonZero/persistedmembershipguarantee. NameIdentityJson privateString SDKadapter serializesexactsharedidentity; assignment179rendersbeforeconstruction, parseonlyserde thenconsumer179renders. DeriveSpacetimeType nativecanmaterializewirefield, so privateRustfielddoesnotprovetrustedpersistentbytes. Errorenum retainsdecode/cataloguecauses but Error::source defaultnone isseparatelensquestion, notaggregateacceptance."
+      ]
+    },
+    {
+      "scope_index": 183,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/character/origin.rs",
+      "sha256": "68cde880ac4ca70b55a5e3aed94f85463cacc3f2177a656c26d023abf7917ed6",
+      "personally_read_ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full registered origin1-67 read. Loadedsettlementsnonempty andsortedIDbeforeseededindex; explicitorigin requiresactualexistence andtakesprecedenceoverstartingorganization. NPCusesstable_seed, playerusesrandomSeed unlessspecsuppliesselector. Organizationbranchprefersrecognizedchaptersettlement; ifnone explicitcurrentdevelopment-worldchoicekeepsprofessionalpackageinanyloadedsettlement. This is actualdeliberatefallback withmembership/recognition consequencesrequiringstartingassignment/authoritypolicy, not silentlytreatedasrecognizedchapter. No sourceedit/compatibilityrepairplannedbeforeallinitialinventories."
+      ]
+    },
+    {
+      "scope_index": 185,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/character/weapon_carry.rs",
+      "sha256": "a2cebb11efa2e01cd7ec03b83131d6a176426be95d156ab8f426da0a552011d4",
+      "personally_read_ranges": [
+        [
+          1,
+          157
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full frozen requested weaponcarry1-157 read. Collectssheathableinventoryrows andadmits<=2 beforebelt/holders, thenfitsper-instanceholder andequipsactualauthoredplacements. Rowcount differsfromquantity, anditerationorderassignshipswithoutsort; generatedinventory/stackadmissionmustestablishuniqueinstancedweapons andorderingbeforeordinarybugclaim.",
+        "Noalready-equippedweaponisrelocated, anyequippedplacementcountsasheldforthehelper despitecommenthandwording; actualfreshgeneratedloadoutneeded. FirstsingleContainmentparent/order0 placement selectedwithcheckedu16index; holderparentpoints andrecipefit checkedbyactualequipreceiver. AnyafterwriteErr reliesoncallerDBrollback, notlocalatomicityproof."
+      ]
+    },
+    {
+      "scope_index": 189,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/continuity/curriculum.rs",
+      "sha256": "c28ca94bdb3400052f552aee2311ad7fa2956bf5eebcc7b3395df407e85ecdc1",
+      "personally_read_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full registered curriculum1-61 read. Closedchildfocus usesindependentnamedstream/index4; eachfocusallocatestwofixedskillsharesand2/3dailyhours. Realhours clipsabsoluteinterval intoage6-12/12-16 andseparatelyweightsbeforereturn; start>endrawinput treatedbyclamp/elapsed semanticsneedactualcontinuity188caller.",
+        "trackusize directlyindexesfixed2arrays, so caller0..2preconditionrequired; moduleprivate notpublicwirebutnoprooffromprivacyalone. NearclockMAX saturatingbirthanniversaries cancollapsewindows; canonicaldate/inputconstraintsseparate. No runtime/newtest."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "5 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "scope_authority": "original-scope-072.json fullmaterial179/181/183/189 andfullrequested185. Role180alreadyinheritednotreread, no duplicatecredit."
+}

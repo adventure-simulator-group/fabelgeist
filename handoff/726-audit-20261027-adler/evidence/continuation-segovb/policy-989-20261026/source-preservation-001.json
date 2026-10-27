@@ -1,0 +1,66 @@
+{
+  "base": "b3810b8b5db78c15cc51a0e1bef747a06450dffb",
+  "manifest": "implementation-manifest-001.json",
+  "checks": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "unchanged_tail_from": "    pub fn size(&self)",
+      "sha256": "43c1a1454fe4054e48aa5c4049d28a5fddd6f3ef5a0365da25065b2e15260cbe",
+      "equal": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "unchanged_tail_from": "    pub fn size(&self)",
+      "sha256": "579118bb13130a1bd4dbf1737aa004b09a96c1c6059ad579ff95152ec5fb403d",
+      "equal": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "unchanged_tail_from": "    pub fn set_side_image(",
+      "sha256": "e72638d88f2ad3690aa0cc04f6dd4567b92e3b84ff6536ad25c042fa7df299f0",
+      "equal": true
+    },
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "entire_file_equal_base": true,
+      "sha256": "3f6e1cfe6c05f5f6a2bb39155e3bf0d8ec8cbdabe3f77e993971d42e56891b33"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "entire_file_equal_base": true,
+      "sha256": "e3ad593b83da185620d2729a5fde4a0f7bfda1c39993494432c55a0c989e0973"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "entire_file_equal_base": true,
+      "sha256": "878a4144b4fecdc20291885050e30fe521a5294117046c282ef24d40c5e407d9"
+    },
+    {
+      "path": "Cargo.lock",
+      "entire_file_equal_base": true,
+      "sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "entire_file_equal_base": true,
+      "sha256": "0814366f818cf580e09b015977170498c750f76174d620a866e602855a455597"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/Cargo.lock",
+      "entire_file_equal_base": true,
+      "sha256": "45961a0c74b57fb81e9429abc14d387a4e4a00ba18a771c17b0fd5e4ea09eaf4"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/Cargo.lock",
+      "entire_file_equal_base": true,
+      "sha256": "32956d36e5397e3492b5de1e1b8fc6b13fef5cb25077cb6f49e0793f918304c4"
+    }
+  ],
+  "scope": "source identity bookkeeping only; no runtime or project tooling",
+  "stashes": [
+    "6c109560050d97dd6deeb842b1d71ec8a280949b",
+    "5d123a896914dae269833c473330d63d454aff7b",
+    "b6da4b4bdb70def66126f540ea8bb828e4c80d49",
+    "c0b78fa61cc4a893ce66ad4aa54850621c73aee4"
+  ]
+}

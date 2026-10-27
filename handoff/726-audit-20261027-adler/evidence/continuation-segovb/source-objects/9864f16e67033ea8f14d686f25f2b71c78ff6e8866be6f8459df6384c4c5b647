@@ -1,0 +1,46 @@
+//! Failures from building the authored melee roster and its acceptance evidence.
+
+use super::super::{AuthoredMeleeWeaponError, BattleResolutionError};
+use crate::elapsed::ElapsedError;
+use crate::unit_interval::FractionError;
+use adventuresim_world_schema::person_names::NameCatalogError;
+
+pub type MeleeIterationResult<T> = Result<T, MeleeIterationError>;
+
+#[derive(Debug, thiserror::Error)]
+pub enum MeleeIterationError {
+    #[error(transparent)]
+    Name(#[from] NameCatalogError),
+    #[error(transparent)]
+    Weapon(#[from] AuthoredMeleeWeaponError),
+    #[error(transparent)]
+    Resolution(#[from] BattleResolutionError),
+    #[error(transparent)]
+    Timing(#[from] ElapsedError),
+    #[error(transparent)]
+    Performance(#[from] FractionError),
+    #[error("unknown weapon {weapon}")]
+    UnknownWeapon { weapon: String },
+    #[error("unknown shield {shield}")]
+    UnknownShield { shield: String },
+    #[error("{shield} is not a shield")]
+    NotShield { shield: String },
+    #[error("unknown armor {armor}")]
+    UnknownArmor { armor: String },
+    #[error("armor {armor} has no equipment projection")]
+    ArmorProjectionUnavailable { armor: String },
+    #[error("armor {armor} has no authored placement")]
+    ArmorPlacementUnavailable { armor: String },
+    #[error("armor {armor} placement protects no body part")]
+    EmptyArmorProtection { armor: String },
+    #[error("missing {key}")]
+    MissingOpponent { key: &'static str },
+    #[error("missing {item}")]
+    MissingEvidenceItem { item: &'static str },
+    #[error("{item} has no equipment metadata")]
+    MissingEvidenceEquipment { item: &'static str },
+    #[error("John has no melee weapon")]
+    MissingEvidenceMeleeWeapon,
+    #[error("bounded hammer seeds produced no cancellation evidence")]
+    CancellationUnavailable,
+}

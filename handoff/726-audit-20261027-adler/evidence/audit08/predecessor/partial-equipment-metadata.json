@@ -1,0 +1,63 @@
+[
+  {
+    "record": "004",
+    "row": {
+      "scope_index": 1474,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": "7e814de4d7c4a949912538a6d63f5fad3fc23ff23c367634f3034f7cca17cbf9",
+      "before_status": "present",
+      "after_sha256": "c7869ebb6e2c2a67a4c47e9504c0ced6da6566f95fba9320181d49b1142a54fd",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1474-base-7e814de4d7c4a949912538a6d63f5fad3fc23ff23c367634f3034f7cca17cbf9",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/c7869ebb6e2c2a67a4c47e9504c0ced6da6566f95fba9320181d49b1142a54fd",
+      "diff": "source-evidence/1474.diff",
+      "diff_sha256": "f04b36691dd3a751d3c9400f31da689c056cf165ebdda52d126f4124f7d2c8c1",
+      "head_ranges_read": [
+        [
+          105,
+          166
+        ]
+      ],
+      "base_ranges_read": [
+        [
+          1,
+          160
+        ],
+        [
+          225,
+          274
+        ]
+      ],
+      "status": "Partial native manifest recipient, not full1745-line source credit."
+    }
+  },
+  {
+    "record": "007",
+    "row": {
+      "scope_index": 1476,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/icons.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": "94274e424c780dc22b24886e76d2b800121be6032b9859aadb3bd59680ec0239",
+      "after_sha256": "1932b164b861910e18306e412564384cf8d4f1e057432b047eb4c1abd71b1804",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1476-base-94274e424c780dc22b24886e76d2b800121be6032b9859aadb3bd59680ec0239",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/1932b164b861910e18306e412564384cf8d4f1e057432b047eb4c1abd71b1804",
+      "diff": "source-evidence/1476.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "body_read_ranges": [
+        [
+          1,
+          206
+        ]
+      ],
+      "actual_comparison": [
+        "Entire current206-line body and actual empty diff read. Recipe length/version checks, decode and recomputed hash validation precede cache hits exactly as before.",
+        "Weapon versus holder namespace/key fields, fixed size/supersampling, fallback None on invalid generation, Image upload format and native flags remain unchanged. Missing entity/icon still uses atlas fallback and original slug-first/index0 policy.",
+        "Equipment armour texture selection still puts carried records after scene records so collection overwrite favors exact carried placement. Actual procedural_equipment_file signature/manifest lookup in parent changed and remains a connected dependency; no claim of parent1745 role closure."
+      ],
+      "disposition": "Local unchanged image-cache helper compared using own body proof, with changed parent lookup dependency explicit.",
+      "acceptance": "Preserve authenticate-before-cache ordering, fallback behavior, source namespace and native image format. No icon/image execution."
+    }
+  }
+]

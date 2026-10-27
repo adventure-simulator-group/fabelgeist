@@ -1,0 +1,258 @@
+--- base:71dab9d14d4296c98d6828de5f19e3998f8b3716a32f4bb28d665196edb9c376
++++ head:b25c00d6c145fc8ff6ba17b58925569f5377ec0ff736dd1ff61b53d6199d2a68
+@@ -2,8 +2,10 @@
+ 
+ use super::*;
+ use crate::animation_viewer::scenarios::PlannedFrame;
++use fabelgeist_geometry::SignedLength;
+ use adventuresim_tactical_core::animation::{
+-    AnimationQuantity, AnimationValueError, AnimationValueResult, UnitInterval,
++    AngularMagnitudeDegrees, AnimationQuantity, AnimationValueError, AnimationValueResult,
++    NonnegativeLength, SignedAngleDegrees, UnitInterval,
+ };
+ use adventuresim_tactical_core::animation::{
+     AnimationSampleTick, ContactSequence, LandingSequence,
+@@ -41,7 +43,7 @@
+ 
+ #[derive(Debug, Serialize)]
+ pub(in crate::animation_viewer) struct AnimationCaptureManifest {
+-    pub(in crate::animation_viewer) sample_hz: f32,
++    pub(in crate::animation_viewer) sample_hz: adventuresim_tactical_core::animation::AnimationSampleRate,
+     pub(in crate::animation_viewer) playback_backend: &'static str,
+     pub(in crate::animation_viewer) global_bone_trace: &'static str,
+     pub(in crate::animation_viewer) pose_buffer: PoseBufferMetrics,
+@@ -59,7 +61,7 @@
+ pub(in crate::animation_viewer) struct QualityScore {
+     pub(in crate::animation_viewer) weighted_defect_score: u8,
+     pub(in crate::animation_viewer) maximum_weighted_defect_score: u8,
+-    pub(in crate::animation_viewer) quality_percent: f32,
++    pub(in crate::animation_viewer) quality_percent: Observation<QualityPercent>,
+     pub(in crate::animation_viewer) acceptance_passed: bool,
+     pub(in crate::animation_viewer) categories: QualityCategories,
+ }
+@@ -111,7 +113,7 @@
+     pub(in crate::animation_viewer) run_contact_acquisition_valid: bool,
+     pub(in crate::animation_viewer) stop_settle_capture_valid: bool,
+     pub(in crate::animation_viewer) final_support_balance_valid: bool,
+-    pub(in crate::animation_viewer) hard_stop_maximum_pelvis_step_metres: Option<f32>,
++    pub(in crate::animation_viewer) hard_stop_maximum_pelvis_step_metres: Observation<HeightDistance>,
+     pub(in crate::animation_viewer) hard_stop_height_continuity_valid: bool,
+     pub(in crate::animation_viewer) repeated_evaluation_valid: bool,
+     pub(in crate::animation_viewer) semantic_route_paths_exercised: bool,
+@@ -125,59 +127,96 @@
+ pub(in crate::animation_viewer) struct ScenarioMetrics {
+     pub(in crate::animation_viewer) scenario: ScenarioMetadata<'static>,
+     pub(in crate::animation_viewer) frame_count: usize,
+-    pub(in crate::animation_viewer) maximum_root_relative_step_metres: f32,
+-    pub(in crate::animation_viewer) maximum_leg_root_relative_step_metres: f32,
+-    pub(in crate::animation_viewer) maximum_foot_root_relative_step_metres: f32,
+-    pub(in crate::animation_viewer) maximum_knee_root_relative_step_metres: f32,
+-    pub(in crate::animation_viewer) worst_displacement: Option<ContinuityLocation>,
+-    pub(in crate::animation_viewer) maximum_bone_rotation_step_degrees: f32,
+-    pub(in crate::animation_viewer) maximum_foot_rotation_step_degrees: f32,
+-    pub(in crate::animation_viewer) worst_rotation: Option<ContinuityLocation>,
+-    pub(in crate::animation_viewer) loop_seam_position_metres: Option<f32>,
+-    pub(in crate::animation_viewer) loop_seam_rotation_degrees: Option<f32>,
+-    pub(in crate::animation_viewer) pelvis_vertical_range_metres: f32,
+-    pub(in crate::animation_viewer) maximum_pelvis_vertical_step_metres: f32,
+-    pub(in crate::animation_viewer) controller_vertical_range_metres: f32,
+-    pub(in crate::animation_viewer) phase_height_range_metres: f32,
+-    pub(in crate::animation_viewer) contact_to_passing_height_gain_metres: f32,
+-    pub(in crate::animation_viewer) visual_height_peak_count: usize,
+-    pub(in crate::animation_viewer) visual_height_peaks_in_passing_windows: bool,
+-    pub(in crate::animation_viewer) maximum_no_support_seconds: f32,
+-    pub(in crate::animation_viewer) minimum_flight_sole_clearance_metres: f32,
+-    pub(in crate::animation_viewer) minimum_contact_sole_clearance_metres: f32,
+-    pub(in crate::animation_viewer) maximum_contact_sole_clearance_metres: f32,
+-    pub(in crate::animation_viewer) minimum_flight_toe_clearance_metres: f32,
+-    pub(in crate::animation_viewer) minimum_contact_toe_clearance_metres: f32,
+-    pub(in crate::animation_viewer) head_vertical_range_metres: f32,
+-    pub(in crate::animation_viewer) foot_terrain_relief_metres: f32,
+-    pub(in crate::animation_viewer) minimum_knee_forward_bend_metres: f32,
+-    pub(in crate::animation_viewer) minimum_signed_foot_track_metres: f32,
+-    pub(in crate::animation_viewer) minimum_inter_foot_separation_metres: f32,
+-    pub(in crate::animation_viewer) minimum_knee_flexion_degrees: f32,
+-    pub(in crate::animation_viewer) minimum_knee_hemisphere_dot: f32,
+-    pub(in crate::animation_viewer) maximum_knee_foot_yaw_offset_degrees: f32,
+-    pub(in crate::animation_viewer) maximum_facing_motion_error_degrees: f32,
+-    pub(in crate::animation_viewer) maximum_facing_tracking_excess_degrees: f32,
+-    pub(in crate::animation_viewer) maximum_guard_facing_error_degrees: f32,
+-    pub(in crate::animation_viewer) final_facing_motion_error_degrees: f32,
+-    pub(in crate::animation_viewer) maximum_dive_axis_motion_error_degrees: f32,
+-    pub(in crate::animation_viewer) maximum_supported_foot_slip_metres_per_frame: f32,
+-    pub(in crate::animation_viewer) maximum_planted_foot_drift_metres: f32,
+-    pub(in crate::animation_viewer) guard_step_liveness_required: bool,
+-    pub(in crate::animation_viewer) completed_guard_half_step_count: usize,
+-    pub(in crate::animation_viewer) visible_guard_half_step_count: usize,
+-    pub(in crate::animation_viewer) minimum_guard_swing_travel_metres: f32,
+-    pub(in crate::animation_viewer) minimum_guard_swing_clearance_gain_metres: f32,
+-    pub(in crate::animation_viewer) minimum_foot_clearance_metres: f32,
++    pub(in crate::animation_viewer) expected: ExpectedScenarioBounds,
++    #[serde(flatten)]
++    pub(in crate::animation_viewer) height: ScenarioHeightMetrics,
++    pub(in crate::animation_viewer) continuity: Observation<ScenarioContinuityMetrics>,
++    pub(in crate::animation_viewer) loop_seam: Observation<LoopSeamMetrics>,
++    #[serde(flatten)]
++    pub(in crate::animation_viewer) clearance: ScenarioClearanceMetrics,
++    #[serde(flatten)]
++    pub(in crate::animation_viewer) pose: ScenarioPoseMetrics,
++    #[serde(flatten)]
++    pub(in crate::animation_viewer) facing: ScenarioFacingMetrics,
++    pub(in crate::animation_viewer) maximum_planted_foot_drift_metres: Observation<NonnegativeLength>,
++    pub(in crate::animation_viewer) guard_step_liveness: Observation<GuardStepLivenessMetrics>,
++}
++
++#[derive(Debug, Serialize)]
++pub(in crate::animation_viewer) struct ScenarioHeightMetrics {
++    pub(in crate::animation_viewer) pelvis_vertical_range_metres: Observation<HeightDistance>,
++    pub(in crate::animation_viewer) maximum_pelvis_vertical_step_metres: Observation<HeightDistance>,
++    pub(in crate::animation_viewer) controller_vertical_range_metres: Observation<HeightDistance>,
++    pub(in crate::animation_viewer) phase_height_range_metres: Observation<HeightDistance>,
++    pub(in crate::animation_viewer) contact_to_passing_height_gain_metres: Observation<SignedLength>,
++    pub(in crate::animation_viewer) visual_height_peaks: Observation<VisualHeightPeaks>,
++    pub(in crate::animation_viewer) maximum_no_support_seconds: Observation<AnimationElapsed>,
++    pub(in crate::animation_viewer) head_vertical_range_metres: Observation<HeightDistance>,
++}
++
++#[derive(Debug, Serialize)]
++pub(in crate::animation_viewer) struct ScenarioClearanceMetrics {
++    pub(in crate::animation_viewer) minimum_flight_sole_clearance_metres: Observation<SignedLength>,
++    pub(in crate::animation_viewer) contact_sole_clearance_metres: Observation<SignedLengthRange>,
++    pub(in crate::animation_viewer) minimum_flight_toe_clearance_metres: Observation<SignedLength>,
++    pub(in crate::animation_viewer) minimum_contact_toe_clearance_metres: Observation<SignedLength>,
++    pub(in crate::animation_viewer) foot_terrain_relief_metres: Observation<HeightDistance>,
++    pub(in crate::animation_viewer) minimum_foot_clearance_metres: Observation<SignedLength>,
++}
++
++#[derive(Debug, Serialize)]
++pub(in crate::animation_viewer) struct ScenarioPoseMetrics {
++    pub(in crate::animation_viewer) minimum_knee_forward_bend_metres: Observation<SignedLength>,
++    pub(in crate::animation_viewer) minimum_signed_foot_track_metres: Observation<SignedLength>,
++    pub(in crate::animation_viewer) minimum_inter_foot_separation_metres: Observation<NonnegativeLength>,
++    pub(in crate::animation_viewer) minimum_knee_flexion_degrees: Observation<AngularMagnitudeDegrees>,
++    pub(in crate::animation_viewer) minimum_knee_hemisphere_dot: Observation<KneeHemisphereDot>,
++    pub(in crate::animation_viewer) maximum_knee_foot_yaw_offset_degrees: Observation<AngularMagnitudeDegrees>,
++}
++
++#[derive(Debug, Serialize)]
++pub(in crate::animation_viewer) struct ScenarioFacingMetrics {
++    pub(in crate::animation_viewer) maximum_facing_motion_error_degrees: Observation<AngularMagnitudeDegrees>,
++    pub(in crate::animation_viewer) maximum_facing_tracking_excess_degrees: Observation<AngularMagnitudeDegrees>,
++    pub(in crate::animation_viewer) maximum_guard_facing_error_degrees: Observation<AngularMagnitudeDegrees>,
++    pub(in crate::animation_viewer) final_facing_motion_error_degrees: Observation<AngularMagnitudeDegrees>,
++    pub(in crate::animation_viewer) maximum_dive_axis_motion_error_degrees: Observation<AngularMagnitudeDegrees>,
++}
++
++#[derive(Debug, Serialize)]
++pub(in crate::animation_viewer) struct ScenarioContinuityMetrics {
++    pub(in crate::animation_viewer::report) maximum_root_relative_step_metres: NonnegativeLength,
++    pub(in crate::animation_viewer::report) maximum_leg_root_relative_step_metres: NonnegativeLength,
++    pub(in crate::animation_viewer::report) maximum_foot_root_relative_step_metres: NonnegativeLength,
++    pub(in crate::animation_viewer::report) maximum_knee_root_relative_step_metres: NonnegativeLength,
++    pub(in crate::animation_viewer::report) worst_displacement: Option<ContinuityLocation<NonnegativeLength>>,
++    pub(in crate::animation_viewer::report) maximum_bone_rotation_step_degrees: AngularMagnitudeDegrees,
++    pub(in crate::animation_viewer::report) maximum_foot_rotation_step_degrees: AngularMagnitudeDegrees,
++    pub(in crate::animation_viewer::report) worst_rotation: Option<ContinuityLocation<AngularMagnitudeDegrees>>,
++    pub(in crate::animation_viewer::report) maximum_supported_foot_slip_metres_per_frame: Observation<NonnegativeLength>,
++}
++
++#[derive(Debug, Clone, Copy, Serialize)]
++pub(in crate::animation_viewer) struct LoopSeamMetrics {
++    pub(in crate::animation_viewer::report) position_metres: NonnegativeLength,
++    pub(in crate::animation_viewer::report) rotation_degrees: AngularMagnitudeDegrees,
++}
++
++#[derive(Debug, Serialize)]
++pub(in crate::animation_viewer) struct GuardStepLivenessMetrics {
++    pub(in crate::animation_viewer::report) completed_half_steps: usize,
++    pub(in crate::animation_viewer::report) visible_half_steps: usize,
++    pub(in crate::animation_viewer::report) minimum_swing_travel_metres: NonnegativeLength,
++    pub(in crate::animation_viewer::report) minimum_swing_clearance_gain_metres: SignedLength,
+ }
+ 
+ #[derive(Debug, Clone, Serialize)]
+-pub(in crate::animation_viewer) struct ContinuityLocation {
++pub(in crate::animation_viewer) struct ContinuityLocation<T> {
+     #[serde(serialize_with = "serialize_report_bone")]
+     pub(in crate::animation_viewer) bone: BoneRole,
+     pub(in crate::animation_viewer) from_frame: usize,
+     pub(in crate::animation_viewer) to_frame: usize,
+-    pub(in crate::animation_viewer) value: f32,
++    pub(in crate::animation_viewer) value: T,
+ }
+ 
+ #[derive(Debug, Clone, Serialize)]
+@@ -191,17 +230,15 @@
+     pub(in crate::animation_viewer) body_acceleration: [f32; 3],
+     pub(in crate::animation_viewer) world_acceleration: [f32; 3],
+     pub(in crate::animation_viewer) bouncy_active_springs: u32,
+-    pub(in crate::animation_viewer) bouncy_maximum_deflection_radians: f32,
++    pub(in crate::animation_viewer) bouncy_maximum_deflection_radians: adventuresim_building_generator::spatial_geometry::Radians,
+     pub(in crate::animation_viewer) contact_sequence: ContactSequence,
+     pub(in crate::animation_viewer) contact_foot: LeadFoot,
+     pub(in crate::animation_viewer) landing_sequence: LandingSequence,
+     pub(in crate::animation_viewer) landing_impact_speed: LandingImpactSpeed,
+-    #[serde(serialize_with = "serialize_body_degrees")]
+-    pub(in crate::animation_viewer) body_lean_pitch_degrees: BodyAngle,
+-    #[serde(serialize_with = "serialize_body_degrees")]
+-    pub(in crate::animation_viewer) body_lean_roll_degrees: BodyAngle,
+-    pub(in crate::animation_viewer) landing_compression_metres: HeightDistance,
+-    pub(in crate::animation_viewer) root_distance_metres: f32,
++    pub(in crate::animation_viewer) body_lean_pitch_degrees: Option<SignedAngleDegrees>,
++    pub(in crate::animation_viewer) body_lean_roll_degrees: Option<SignedAngleDegrees>,
++    pub(in crate::animation_viewer) landing_compression_metres: Option<HeightDistance>,
++    pub(in crate::animation_viewer) root_distance_metres: SignedLength,
+     pub(in crate::animation_viewer) root_position_metres: [f32; 3],
+     pub(in crate::animation_viewer) world_travel_direction: [f32; 3],
+     pub(in crate::animation_viewer) desired_body_forward_direction: [f32; 3],
+@@ -228,13 +265,14 @@
+     pub(in crate::animation_viewer) ik_right_solve_target: Option<[f32; 3]>,
+     pub(in crate::animation_viewer) ik_left_support_weight: Option<UnitInterval>,
+     pub(in crate::animation_viewer) ik_right_support_weight: Option<UnitInterval>,
+-    pub(in crate::animation_viewer) ik_left_release_active: bool,
+-    pub(in crate::animation_viewer) ik_right_release_active: bool,
++    pub(in crate::animation_viewer) ik_left_release_active: Option<bool>,
++    pub(in crate::animation_viewer) ik_right_release_active: Option<bool>,
+     pub(in crate::animation_viewer) ik_left_release_target: Option<[f32; 3]>,
+     pub(in crate::animation_viewer) ik_right_release_target: Option<[f32; 3]>,
+-    pub(in crate::animation_viewer) ik_settle_progress: Option<f32>,
+-    pub(in crate::animation_viewer) ik_left_knee_foot_yaw_offset_degrees: f32,
+-    pub(in crate::animation_viewer) ik_right_knee_foot_yaw_offset_degrees: f32,
++    #[serde(serialize_with = "serialize_settle_progress")]
++    pub(in crate::animation_viewer) ik_settle_progress: Option<adventuresim_tactical_core::animation::SettleProgress>,
++    pub(in crate::animation_viewer) ik_left_knee_foot_yaw_offset_degrees: Option<AngularMagnitudeDegrees>,
++    pub(in crate::animation_viewer) ik_right_knee_foot_yaw_offset_degrees: Option<AngularMagnitudeDegrees>,
+     pub(in crate::animation_viewer) semantic_route_requested_path: SemanticRoutePath,
+     pub(in crate::animation_viewer) semantic_route_selected_path: SemanticRoutePath,
+     pub(in crate::animation_viewer) semantic_route_runtime_evaluated: bool,
+@@ -257,14 +295,14 @@
+ pub(in crate::animation_viewer) struct BoneSample {
+     pub(in crate::animation_viewer) position: [f32; 3],
+     pub(in crate::animation_viewer) rotation_xyzw: [f32; 4],
+-    pub(in crate::animation_viewer) terrain_clearance_metres: Option<f32>,
++    pub(in crate::animation_viewer) terrain_clearance_metres: Option<SignedLength>,
+ }
+ 
+ #[derive(Debug, Serialize)]
+ pub(in crate::animation_viewer) struct GlobalBoneFrame {
+     pub(in crate::animation_viewer) scenario: String,
+     pub(in crate::animation_viewer) scenario_frame: usize,
+-    pub(in crate::animation_viewer) time_seconds: f32,
++    pub(in crate::animation_viewer) time_seconds: AnimationElapsed,
+     pub(in crate::animation_viewer) action: SkeletonAction,
+     pub(in crate::animation_viewer) action_phase:
+         adventuresim_tactical_core::animation::UnitInterval,
+@@ -344,9 +382,9 @@
+     }
+ }
+ 
+-fn serialize_body_degrees<S: serde::Serializer>(
+-    angle: &BodyAngle,
++fn serialize_settle_progress<S: serde::Serializer>(
++    progress: &Option<adventuresim_tactical_core::animation::SettleProgress>,
+     serializer: S,
+ ) -> Result<S::Ok, S::Error> {
+-    serializer.serialize_f32(angle.radians().to_degrees())
+-}
++    progress.map(|progress| progress.fraction()).serialize(serializer)
++}

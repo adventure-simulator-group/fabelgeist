@@ -1,0 +1,215 @@
+{
+  "at": "2026-10-27T04:47:46.656113+00:00",
+  "lens": "13 magic-numbers",
+  "packet": "025",
+  "status": "Original39 continued3201-4800, own cumulative1-4800; exact partial next4801. Counts37/2853 unchanged; partial31/36/39.",
+  "authority": {
+    "frozen_original_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "original_registry": "target/recovery-20261025/audit05/original-scope-072.json",
+    "original_registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "original_index": 39,
+    "prior_root_adopted_state": "audit13-successor-024-suggested-state.json",
+    "prior_state_sha256": "2ea2ecb5e1b82c42584d452663d24d2f4c4b2cc8d8ce12a48a045489644cfb32",
+    "prior_root_adoption": "audit13-successor-024-adoption-root.json",
+    "prior_root_adoption_sha256": "1cb1f5df92763f62979752a33796c1105f17b973aa8ac432a3f0637e58b313c9",
+    "root_adoption_required": true
+  },
+  "skill": {
+    "path": "/home/brunosegovia/.codex/skills/audit-magic-numbers/SKILL.md",
+    "sha256": "d71feffe9ef2d777c5d447840f4d3fbcec2e1f4b2cc354fc331e0c899b558dee",
+    "read": "Full reloaded before this packet; previously applicable root/crates rules and qualifications retained."
+  },
+  "registration": {
+    "path": "audit13-successor-registration-025.json",
+    "sha256": "04fe2560075ab9ef22a051ac5e6c16b84648471148b755d5eae8aeff43401687",
+    "before_actual_body_read": true
+  },
+  "source_fingerprint": {
+    "source_id": "physical-p16:Cargo.lock",
+    "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+    "base_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+    "bytes": 306149,
+    "actual_lines": 13103,
+    "full_effective_original_scope": [
+      [
+        1,
+        13103
+      ]
+    ],
+    "contained_supplemental_ranges": [
+      [
+        10243,
+        10256
+      ],
+      [
+        10303,
+        10327
+      ],
+      [
+        10373,
+        10405
+      ]
+    ],
+    "registered_and_consumed_ranges_this_packet": [
+      [
+        3201,
+        4800
+      ]
+    ],
+    "output_chunks": [
+      [
+        3201,
+        3600
+      ],
+      [
+        3601,
+        4000
+      ],
+      [
+        4001,
+        4400
+      ],
+      [
+        4401,
+        4800
+      ]
+    ],
+    "cumulative_independent_lens13_consumed_ranges": [
+      [
+        1,
+        4800
+      ]
+    ],
+    "pre_and_post_read_hash_verified": true,
+    "unread_required_ranges": [
+      [
+        4801,
+        13103
+      ]
+    ],
+    "original39_completion_credit": 0
+  },
+  "source_consumption": {
+    "lines_this_packet": 1600,
+    "actual_ranges_this_packet": [
+      [
+        3201,
+        4800
+      ]
+    ],
+    "cumulative_actual_ranges": [
+      [
+        1,
+        4800
+      ]
+    ],
+    "all_registered_plan_lines_read": true,
+    "full_requested_original_scope_consumed": false,
+    "unregistered_actual_body_reads": false,
+    "metadata_output_note": "Initial prior-state/receipt metadata output was truncated; it was not source-body consumption. Target lockfile body was output in four separately bounded400-line calls without truncation."
+  },
+  "independent_nonstring_inventory": [
+    {
+      "lines": "3201-3209",
+      "role": "Continuation and closure of bevy_winit dependency array",
+      "actual_observation": "Quoted bevy_window/bytemuck/js-sys/tracing/wasm-bindgen/web-sys/wgpu-types/winit selectors followed by closing array.",
+      "assessment": "Completes prior open context only; no unquoted numeric or Boolean value; no implementation or dependency-graph validity inference."
+    },
+    {
+      "lines": "3211-3594",
+      "role": "Complete bevy_world_serialization through chiapos-chacha8 package records",
+      "actual_observation": "Package name/version/source/checksum fields and optional arrays of quoted dependency selectors. Multiple bit-vec/bitflags/block2/brotli/brotli-decompressor/calloop/calloop-wayland-source versions remain explicitly quoted. bytemuck_derive references syn3.0.4, while other macros reference syn2.0.119.",
+      "assessment": "Actual version-qualified selectors distinguish package identities in text, not scalar game quantities. No visible raw nonstring value literal; quoted semantic-version parser and native consumers untraced."
+    },
+    {
+      "lines": "3595-3605",
+      "role": "Complete chrono record across first/second output boundary",
+      "actual_observation": "Version0.4.45 quoted; registry/checksum text and dependency array iana-time-zone,num-traits,serde,windows-link close at3605.",
+      "assessment": "No raw time/duration/count value from the crate name/version; actual chrono time representations or consumers not reached."
+    },
+    {
+      "lines": "3607-3998",
+      "role": "Complete ciborium through cpufeatures records",
+      "actual_observation": "Quoted identities/checksums/dependency arrays cover CBOR/CLI/codecs/concurrency/console/constant/math/conversion/cookie/Apple audio and cross-platform audio packages. Distinct codespan-reporting,convert_case,core-foundation and cpufeatures versions use quoted selectors.",
+      "assessment": "No unquoted numeric/Boolean payload observed. A package name suggesting numerical behavior does not establish that behavior, units, admission or a safe native boundary."
+    },
+    {
+      "lines": "3999-4006",
+      "role": "Complete crc32fast record across second/third output boundary",
+      "actual_observation": "Quoted crc32fast name/version1.5.1/registry/checksum; quoted cfg-if dependency.",
+      "assessment": "Digits in the name do not constitute a primitive CRC polynomial or numeric parameter here; actual checksum algorithm not read."
+    },
+    {
+      "lines": "4008-4396",
+      "role": "Complete criterion through dispatch package records",
+      "actual_observation": "Benchmark, crossbeam, crypto, CSS/CSV, ctrlc, macro, data, derive and filesystem records have quoted versions/source/checksums and dependency arrays. derive_more0.99.20 and2.1.1 are distinct records; derive_more-impl2.1.1 references quoted convert_case0.10.0 and syn2.0.119.",
+      "assessment": "No new raw nonstring value observed. Presence of testing/benchmark packages is dependency text only, no test execution or performance evidence; derive package identities do not prove generated trait behavior."
+    },
+    {
+      "lines": "4397-4407",
+      "role": "Complete dispatch2 record across third/fourth output boundary",
+      "actual_observation": "Version0.3.1 and source/checksum strings; dependencies include quoted bitflags2.13.1/block20.6.2/libc/objc20.6.4.",
+      "assessment": "No native dispatch priority, queue count or version-to-number receiver read or implied."
+    },
+    {
+      "lines": "4409-4800",
+      "role": "Complete displaydoc through ethnum package records",
+      "actual_observation": "Quoted identities, registry/checksum fields and optional dependency arrays include downcast-rs1.2.1/2.0.2,egui/epaint0.34.3,embedded-io0.4.0/0.6.1,encase0.12.1 macro chain,enum macro families,errno,error-code and ethnum1.5.3. Last ethnum dependency array closes4800.",
+      "assessment": "No unquoted number/Boolean value in this subset; names/versions cannot substitute for numeric role/operation proofs of those packages. No GPU layout/codegen/enum-count/large-integer/native implementation exemption or source coverage from these records."
+    }
+  ],
+  "concrete_remaining_frontier": {
+    "source": {
+      "original": 39,
+      "next_body_line": 4801,
+      "remaining_ranges": [
+        [
+          4801,
+          13103
+        ]
+      ],
+      "last_complete_context": "ethnum record4793-4800; next line not consumed or inferred"
+    },
+    "native_numeric_receiver": "Top-level raw integer version4 from023 still awaits actual native Cargo generation/admission/format-version/receiving bodies; quoted numeric-looking payload interpretation not cleared by source syntax.",
+    "new_dependency_body_reads": []
+  },
+  "source_observations_noncounted": [],
+  "accounting": {
+    "before_original_accounted": 37,
+    "after_proposed_original_accounted": 37,
+    "original_total": 2853,
+    "new_original_roles_inspected": [],
+    "new_original_roles_completed": [],
+    "partial_original_indices": [
+      31,
+      36,
+      39
+    ],
+    "earliest_unfinished_original": 31,
+    "first_never_started_original": 40,
+    "active_partial_source_original": 39,
+    "next_unread_body_line_in39": 4801,
+    "original40_access_credit": 0,
+    "overlays_increment": 0,
+    "merged_increment": 0,
+    "material_increment": 0,
+    "other_lens_credit": 0,
+    "new_unique_count": 0
+  },
+  "other_lens_extension_queue": {
+    "path": "audit13-successor-025-other-lens-extension-queue.json",
+    "sha256": "138f8f89523ea0e5eb9d354c0d8dcc586dd55485080fb2450e1a45f55f0ac146",
+    "credit": 0
+  },
+  "qualifications": [
+    "Packet025 personally consumed every actual line3201-4800 in four contiguous400-line outputs after exact prospective registration and pre-read hash verification; post-read fingerprint unchanged. No scanner/parser/summary/search/hash-only coverage substitute. No source body outside these bounds consumed in025.",
+    "Original39 full effective1-13103 and all contained admission03 supplements10243-10256/10303-10327/10373-10405 remain mandatory. Prior own lens13 reads1-3200 retained without restart; cumulative1-4800, next4801 and unread4801-13103. No earlier lens12 partition credit transferred.",
+    "This subset contains no observed unquoted numeric/float/Boolean value. Digits in quoted versions, checksums, package names and version-qualified dependency selectors are source string payloads. This lexical inventory is not a native numeric-role exemption: actual semver/dependency/source parser or downstream numerical interpretation must be traced at actual receiving bodies when material. No such receiving body was read or cleared in025.",
+    "Original023 top-level raw integer version4 and native Cargo generation/format-version owner/admission/operations/receivers remain partial. No whole Cargo/TOML/semver/native or first-party contract exemption inferred from this lockfile subset.",
+    "Quoted registry URLs/checksums and versions provide observed package identity text, not ABI/layout/GPU-byte proof, native implementation or current first-party/runtime behavior. No new dependency body, future original, shared-source population or other-lens coverage credit.",
+    "Original31/36 partials and all native/currentness/debug/history/AsBindGroup/index/count/buffer/range/custom-M qualifications retained. Packet018 allowed larger candidate lattice and missing sufficient cap do not prove actual specieslen exceeds budget or a runtime panic. Native observations remain noncounted pending root alias/currentness/reachability reconciliation.",
+    "37/2853 accounted unchanged; partial31/36/39; earliest31; first never started40, no40 body/metadata assessment. Existing F1/F2/F6/F9/global20/inherited obligations and mandatory other-lens queues remain open, no accepted new unique alias/count.",
+    "No product/source/repository Git/root ledger/historical edits, local project checks/build/lint/scan/generate/probe/tests/helpers/assertions/doctests addition or execution, or publication. Only ignored append-only evidence written. No backward-compatibility condition or global/lens13/whole-SDK clearance."
+  ],
+  "stop_reason": "Bounded3201-4800 actual source inventory complete; stop at4800, next4801. Full original39/native numeric receivers partial; no40 or count increment."
+}

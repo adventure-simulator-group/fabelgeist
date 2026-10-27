@@ -1,0 +1,188 @@
+{
+  "lens": "type-granularity",
+  "status": "registered-before-new-source-consumption",
+  "selected_prior_state": "audit11-successor-158-proposed-state.json",
+  "selected_crosswalk": "audit11-question-crosswalk-001.json",
+  "ordered_roles": [
+    {
+      "scope_index": 783,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/dressing.rs",
+      "sha256": "a5b190694f00f1dbc5e1895f5b40f65b6c1f7242da45ea844b59a6b6d6932523",
+      "ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "read_status": "783 full body already consumed under158, pending independent ordered disposition"
+    },
+    {
+      "scope_index": 784,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/fitted.rs",
+      "sha256": "90a73376395b601a39a8d4a51fe9004d62176ce2ac236c578bee720bab2007a6",
+      "ranges": [
+        [
+          1,
+          588
+        ]
+      ],
+      "read_status": "registered full original changed scope; not read yet"
+    }
+  ],
+  "connected_extensions": [
+    {
+      "connected_original_index": 2335,
+      "source_id": "pr-working:crates/fabelgeist-rig/src/part.rs",
+      "sha256": "bb324df83dafc6706069ecbe3e4fa829c21af0de463166169f96904089a034b7",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "783 canonical atomic joint part/membership vocabulary versus local grouped body-part mask role"
+    },
+    {
+      "connected_original_index": 2335,
+      "sha256": "bb324df83dafc6706069ecbe3e4fa829c21af0de463166169f96904089a034b7",
+      "ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "783 canonical joint-part vocabulary and serialized part tokens are owning classification lookup, not duplicate local BodyPart meaning"
+    },
+    {
+      "connected_original_index": 2332,
+      "sha256": "7e73efb0a5ce824e111c2d28e54a5422b75bdca12e0c7553423dc0dfab8f563b",
+      "ranges": [
+        [
+          61,
+          83
+        ],
+        [
+          109,
+          127
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "783 exact RigJointName.contains_part canonical predicate conversion and enum membership role"
+    },
+    {
+      "connected_original_index": 722,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_coif.rs",
+      "sha256": "462aea2bd0f7f1a5dc8b365a394bacdaa8f01919a15bd385494f52b7044cf32e",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "784 exact CoifCarrier local geometry/PartFrame producing pair and coordinate point transformation"
+    },
+    {
+      "connected_original_index": 2178,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/frame.rs",
+      "sha256": "3f26803970af96abe7f16ff9d245230a7718e93f657f8868d605623716356c5e",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "784 exact CoifCarrier local geometry/PartFrame producing pair and coordinate point transformation"
+    },
+    {
+      "connected_original_index": 722,
+      "sha256": "462aea2bd0f7f1a5dc8b365a394bacdaa8f01919a15bd385494f52b7044cf32e",
+      "ranges": [
+        [
+          213,
+          237
+        ],
+        [
+          352,
+          395
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "784 producer returns actual head frame with local GPU carrier and exact readback decode"
+    },
+    {
+      "connected_original_index": 2178,
+      "sha256": "3f26803970af96abe7f16ff9d245230a7718e93f657f8868d605623716356c5e",
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "784 actual PartFrame local->body numerical transform and frame validation semantics"
+    },
+    {
+      "connected_original_index": 722,
+      "sha256": "462aea2bd0f7f1a5dc8b365a394bacdaa8f01919a15bd385494f52b7044cf32e",
+      "ranges": [
+        [
+          240,
+          351
+        ]
+      ],
+      "symbol_locator_only": false,
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "784 exact recording producer associates carrier output with frame"
+    },
+    {
+      "connected_original_index": 2345,
+      "sha256": "98444936697b73035be3e07e0464a3e4a031ad0b1f28084275206b1b8ae7eb91",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "784 symbol lookup for mass and bending weight receiver/producer"
+    },
+    {
+      "connected_original_index": 2345,
+      "sha256": "98444936697b73035be3e07e0464a3e4a031ad0b1f28084275206b1b8ae7eb91",
+      "ranges": [
+        [
+          32,
+          122
+        ],
+        [
+          153,
+          216
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "784 actual Topology.edges/BendQuad construction, canonical density-to-mass production and numeric bend-affine weight role"
+    },
+    {
+      "connected_original_index": 2345,
+      "sha256": "98444936697b73035be3e07e0464a3e4a031ad0b1f28084275206b1b8ae7eb91",
+      "ranges": [
+        [
+          217,
+          232
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "784 finish actual bending_weights return contract; preceding registered body ended mid-array"
+    },
+    {
+      "connected_original_index": 2345,
+      "sha256": "98444936697b73035be3e07e0464a3e4a031ad0b1f28084275206b1b8ae7eb91",
+      "ranges": [
+        [
+          233,
+          238
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "784 finish bounded bending_weights body"
+    }
+  ],
+  "no_original_credit_before783": true
+}

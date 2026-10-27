@@ -1,0 +1,254 @@
+{
+  "at": "2026-10-27T15:32:36.866755+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-070-registration.jsonl",
+    "sha256": "e2a54610933d828699a4f6de9b9354563febc0c58d7ef0e61b397087bbda2216"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-069.json",
+    "sha256": "ec3fa84cc16cecbfc8c140db107d7329b98306b96dc68ca089851016f3b250a7"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1103,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "ranges": [
+        [
+          1,
+          868
+        ]
+      ],
+      "actual_eof": 868,
+      "prospective": true,
+      "purpose": "Full independently ordered cooking type-granularity inventory",
+      "actual_read_ranges": [
+        [
+          1,
+          868
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1104,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+      "sha256": "91a13115f15cf32eabd8971f881e1eb15a9177e089cc8e72d8c7ef0495cdb168",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/91a13115f15cf32eabd8971f881e1eb15a9177e089cc8e72d8c7ef0495cdb168",
+      "actual_eof": 656,
+      "ranges": [
+        [
+          1,
+          656
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Independently ordered full fireplace custody inventory, material receiving contracts for1103",
+      "actual_read_ranges": [
+        [
+          1,
+          656
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected_original",
+      "original_index": 1145,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/object_custody.rs",
+      "sha256": "a9bb1a3335b7d10b135f817c54c903577af4b2df12ca9d1c10a9ca52d48b2d5c",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/a9bb1a3335b7d10b135f817c54c903577af4b2df12ca9d1c10a9ca52d48b2d5c",
+      "ranges": [
+        [
+          1,
+          159
+        ],
+        [
+          405,
+          430
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Canonical persisted custody decode/encode and exact owner/fixture receiving boundaries, no whole future credit",
+      "actual_read_ranges": [
+        [
+          1,
+          159
+        ],
+        [
+          405,
+          430
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1103,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              103
+            ],
+            [
+              219,
+              315
+            ]
+          ],
+          "roles": "CookingMethod/FoodPreparation/display names, cooking check versus herbalism check, ABI raw fraction list admitted existing ConsumableFractionMicros, personal/party scope, loose versus vessel station selection.",
+          "disposition": "Existing method/preparation enums serve different operation/result roles and useful mapping; names presentation only. Fractions admitted once at ABI then retained typed; no new fraction type. Raw inventory-ID/fraction parallel vectors enforce alignment/unique/positive32 for loose lane; vessel limit policy differs explicitly. is_vessel derived from Option then separate station is a payload-state simplification candidate.",
+          "remedy": "Named ingredient selection entries and explicit cooking lane payload, canonical scope/fixture/actor IDs and check/duration roles; reuse existing method/preparation/fraction owners.",
+          "acceptance": "Preserve scope guards, typed fraction admission and separate vessel/loose policy; no unsupported32limit on all nested material."
+        },
+        {
+          "ranges": [
+            [
+              105,
+              216
+            ],
+            [
+              317,
+              448
+            ]
+          ],
+          "roles": "Exact vessel and direct ingredient selection, contained object IDs versus row IDs, captured lot values/provenance, ingredient sourceunit fractions, physical/flavor/fat mass, energy/value, contamination concentration/load/growth, medicinal profilepotency.",
+          "disposition": "Actual implementation selects direct contents150-156 while comment105-108 claims any nesting depth; source discrepancy needs documentation reconciliation, not type permission to traverse nested containers. named tuple(id,fraction,available,lot) and parallel contribution/ingredient arrays lose role association. Raw f32 material fields include unlike units despite finite/nonnegative preflight. Actual fraction<=available and positive fraction imply nonzero denominator. Ingredient-ID medicinal mapping closes selected authorship vocab but reuses profile strings instead of canonical profile identity.",
+          "remedy": "Named SelectedIngredient and captured material/provenance component records, canonical units/identity/check roles, shared typed fraction ratio at numerical boundary; retain directness policy explicitly.",
+          "acceptance": "Preserve rejection cooked inputs/foreigncustody/equipped materials; actual no selected out-of-bound index. No runtime nested-input behavior/currentness claim beyond exact frozen loop."
+        },
+        {
+          "ranges": [
+            [
+              449,
+              608
+            ]
+          ],
+          "roles": "Container water volume/Microliters/material provenance, captured load/growth, cooking target/quality/retention, selected inventory mutation and immutable dish snapshot.",
+          "disposition": "Microliters is meaningful existing owner, not interchangeable with water kilograms. Quantity fields collect cooked material snapshot distinct from mutable catalog; historical contributor_name intentionally frozen. Dish parallel medicinal profile/version/potency arrays built from same sorted map, coherent actual builder, broad stored shape. fraction==available vs partial exact branch preserves measured fractions, partial raw retained ratio should remain typed internally.",
+          "remedy": "Reuse canonical volume/mass/load/rate/quality/duration/energy owners; named medicinal/contribution payload collection and selected material state, retaining immutable snapshot versus current catalog authority.",
+          "acceptance": "Preserve water conservation preflight and finite materials, original exact custody, mutation order and snapshot-at-start; no DB transaction/executed conservation guarantee inferred."
+        },
+        {
+          "ranges": [
+            [
+              611,
+              818
+            ]
+          ],
+          "roles": "Dish selector/lane, exact storedfixture/current actor, captured operational returncustody, elapsed/target time, doneness progress/quality/calorie/kill factors, resulting lot destination and medicine/contamination retention.",
+          "disposition": "Captured original party custody deliberately survives current party changes. personal_id/party_id Option pair generated exclusively by match but public FoodLot schema permits invalid combinations; canonical sum + adapter appropriate. Doneness progress may>1 unlike kill/calorie fractions; do not flatten into UnitInterval. Source mass/value/energy/flavor and clinical potency remain different roles; numeric conservation tolerance is owned by microbial load comparison not machineepsilon.",
+          "remedy": "Named resulting inventory destination and cooking outcome/material snapshot with canonical roles; preserve meaningful native numeric kernels and exact time/return custody. Remove redundant raw decode/reencode between internal owners when actual boundary permits.",
+          "acceptance": "Retain exact party existence/current fixture checks, original inventory destination, ready/raw doneness and one-time dish deletion; no false exact floating conservation or runtime clinical claim."
+        },
+        {
+          "ranges": [
+            [
+              819,
+              868
+            ]
+          ],
+          "roles": "Preview method/tool availability and selected personal food fractions -> predicted duration.",
+          "disposition": "Preview is a different semantic input shape from actual station-derived commit. Concrete frozen difference: commit383-390 applies Cut/Ground preparation factor to safetyminutes, preview856-858 uses raw catalog safety; commit also accounts selected containedwater449-470, preview onlyfoodmass859. No actual caller proves preview promises identical exact station duration, so classify source authority/contract integration question rather than observed UI defect.",
+          "remedy": "Share canonical cooking input planner for preview/commit or explicitly type/document narrower preview assumptions; do not duplicate normalization with drift.",
+          "acceptance": "Reconcile actual preview caller before current/runtime/unique claim; accepted fix preserves authored preparation and water inputs at actual committed boundary."
+        }
+      ]
+    },
+    {
+      "original": 1104,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              79
+            ],
+            [
+              329,
+              506
+            ]
+          ],
+          "roles": "Canonical StrategicFixtureId::Fireplace and StrategicPlaceId payloads, stored station/dish identity, actor-scoped station/lane key, instrument item/object/returncustody association, cooking method dispatch.",
+          "disposition": "Canonical fixture/place types earn distinctions across SettlementVenue/ChapterVenue/JourneyCamp authorities; actual parse/admission occurs at stored/raw boundary and exact camp epoch/movement identity is checked. Same string storage is not equivalent role. Station key duplicates identity by deterministic derivation and actual validatorchecks equality. Instrument item/object/returncustody Options allow invalid products; actual placement builds allSome and loose station allNone; validator enforces item/custody pair and object identity when present. No proven SDK inability or compatibility rationale for broad shape. dish_inventory_destination2-7 directly forwards carried_destination unchanged, concrete simplification.",
+          "remedy": "Canonical fireplace-only refinement/lane key and Empty/Vessel payload with required exactobject/item/custody association as established; reuse existing custody owner and canonical adapter directly. Preserve empty loose station legitimate state, no invented tool requirement.",
+          "acceptance": "Exact storedfixture/actor/object/custody bindings source-backed1145, no arbitrary IDaliases or current/global claim."
+        },
+        {
+          "ranges": [
+            [
+              81,
+              327
+            ]
+          ],
+          "roles": "Camp occupied predicates, member-scoped departure gate, death cleanup preflight and Delete/Abandon/Return payload.",
+          "disposition": "StationCleanup useful payload enum owns applicable fields and destination; Abandon distinct from Delete/Return. Actor death does not imply current party membership; exact original party or personal estate fallback is intentional exceptional custody policy, not backward-compatibility fallback. Raw keys/item/object IDs remain semantic. Actual cleanup prevalidates all tools, then deletes dishes and rehomes selected objects through typed custody.",
+          "remedy": "Retain focused cleanup sum and canonical IDs; eliminate redundant Option object association only after reconciling actual no-object instrument producers. Do not preserve old schemas/APIs for BC.",
+          "acceptance": "Preserve exact-source-party return, eligible estate fallback/abandon policy and prevalidation; prior1119receiver whole relevant body consumed065. No physical graph/runtime global guarantees."
+        },
+        {
+          "ranges": [
+            [
+              508,
+              656
+            ]
+          ],
+          "roles": "Place/retrieve exact physical vessel, carried scope/custody versus installed fixture, root backing row replacement, stable object/subtree and party existence.",
+          "disposition": "Object IDs remain stable while row IDs change; no aliasing of those identities. Existing PersistedOperationalCustody is explicit DB transport for core vocabulary, not second independent meaning; typeddecode validates nonzerocharacter and canonicalplace/fixture. Actual carried_destination only admits expectedpersonalcharacter or pinnedparty; retrieval checks party existence separately. Product station payload broader than actual constructor; closed vessel kind can replace itemstringdispatch at internal policy.",
+          "remedy": "Carry existing physical/operational/lane identities and payload association through APIs, rawstring only actual ABI/DB adapter; keep custody separate from legal ownership.",
+          "acceptance": "Preserve nested-vessel placement rejection, exact fixture proof and original source return, cooking dish mustretrievebeforevessel, root/subtree rehome checks; no current theft/runtime claim."
+        }
+      ]
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-025-receipt.json",
+        "sha256": "da2167395504955b78e9c36ddd77daeb4b3337f7a00fb6905b77d85b096ddaf4"
+      },
+      "contract": "927corefood full848 native cooking duration/safety/quality/doneness/contamination/material operations; no universalfractionprogress."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-069-receipt.json",
+        "sha256": "a49b031e734015fe2681e2ae5fe186811d8cf99151ef6f401af95f4699301781"
+      },
+      "contract": "1107/1108 full module/model exact body context;1106 retainedlot/provenance and1116medicine consumed exact receiving ranges; no orderedcredittransferred."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-065-receipt.json",
+        "sha256": "cc2d8c7e71beb3d585b1f4e1ed6c043dc7e52df02e18703390ddbc78f272d397"
+      },
+      "contract": "1119rehome/prevalidate relevant175-220/270-547 actualnativecustodyreceiver."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-035-receipt.json",
+        "sha256": "4a35c1a6afd6d6ebf7e63867b4b939fc63ae5d55011f0f8f0151be0c4e2dd1e2"
+      },
+      "contract": "963canonical PhysicalObjectId/OperationalCustody full effective source."
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "All inherited qualifications/other-lens/source-current-alias queues retained; no source/product/Git/rootledger/publication/projectchecks/probes/tests.",
+    "1145 actual1-159/405-430 only: covers custodyadapter/carriedestination/exactfixture receiver, includes existingtestopening425-430 but no whole tests/file claim. resolve_object_custody deeper graph body unread, no global containment guarantee.",
+    "Containedwater material source API consumed at call/tuple boundary only; no claimed full outbreak algorithm proof. Native source expansion unnecessary for quantity/identity/disposition inventory here.",
+    "Comment nesting discrepancy and preview/commit planner differences are qualified source observations with actual receiving contracts, not observed current runtime defects/acceptedunique."
+  ]
+}

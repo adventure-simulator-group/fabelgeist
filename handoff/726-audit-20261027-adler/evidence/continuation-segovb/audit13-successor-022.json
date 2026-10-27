@@ -1,0 +1,342 @@
+{
+  "at": "2026-10-27T02:26:11.361564+00:00",
+  "lens": "13 magic-numbers",
+  "packet": "022",
+  "status": "Original38 proposed source-accounted WITH retained numericadmission/operation observations;actualnative16levelreceiver traced.37/2853 proposed,partials31/36,firstunread39. Stop before39.",
+  "authority": {
+    "frozen_original_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "native_eidolon_commit": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+    "original_scope": "target/recovery-20261025/audit05/original-scope-072.json",
+    "original_registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "prior_root_adopted_state": "audit13-successor-021-suggested-state.json",
+    "prior_state_sha256": "c2fb6bae16f6aa133a9dca3aa7e3af68b59b83935ce1da2b61326c9ef4672043",
+    "root_adoption_required": true,
+    "native_pbr_staging": "audit13-root-pbr-dither-staging-022.json",
+    "native_pbr_staging_sha256": "8e4a2079253fdc2e7af4ed69515d8b07812fe28b494a8a0b007c3e8534f6f549",
+    "native_pbr_package_provenance": [
+      {
+        "snapshot": "pr-working",
+        "lock_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+        "package": {
+          "name": "bevy_pbr",
+          "version": "0.19.1",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "checksum": "244ae7d618b51a59c913c36b0564a295cd85ea91a5e777b542bb7bdb846a23d6"
+        }
+      },
+      {
+        "snapshot": "physical-p16",
+        "lock_sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+        "package": {
+          "name": "bevy_pbr",
+          "version": "0.19.1",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "checksum": "244ae7d618b51a59c913c36b0564a295cd85ea91a5e777b542bb7bdb846a23d6"
+        }
+      }
+    ],
+    "native_pbr_archive_sha256_independently_verified": "244ae7d618b51a59c913c36b0564a295cd85ea91a5e777b542bb7bdb846a23d6",
+    "native_pbr_exact_archive_member_equals_staged_bytes": true,
+    "native_pbr_member": "bevy_pbr-0.19.1/src/render/pbr_functions.wgsl",
+    "native_pbr_provenance_qualification": "Exactlockpackage/archive supplement,not a claimunseenfrozenlocalmember/currentmainidentity; no .cargo-checksum.json proof asserted"
+  },
+  "registration_files": [
+    {
+      "path": "audit13-successor-registration-022.json",
+      "sha256": "f892b1e8bb3d97ca09e5fddc4e86207adcdf8ac4f5de4bb984371b7b4ffe9983",
+      "before_actual_body_reads": true
+    },
+    {
+      "path": "audit13-successor-registration-022-receivers-001.json",
+      "sha256": "2fe69db97bc848fd29206f2369a9e37055c17ccef07d6b4d0edc1b9b31d70d20",
+      "before_actual_body_reads": true
+    },
+    {
+      "path": "audit13-successor-registration-022-receivers-002.json",
+      "sha256": "04dca9263efc4ec96df966407ad5c89aa9ea9384333a3852dbb8c3f51b2c18be",
+      "before_actual_body_reads": true
+    },
+    {
+      "path": "audit13-successor-registration-022-receivers-003.json",
+      "sha256": "f7b5bf7edbcf59bdea621def58a1cba0c87f698b0f325a5d8995122035ab0cf0",
+      "before_actual_body_reads": true
+    }
+  ],
+  "source_fingerprints": [
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/utils.wgsl",
+      "sha256": "e681dfe05b5df31bfba37904eae24631e48be8a91e90910253cba046bdecfcc9",
+      "bytes": 1618,
+      "actual_lines": 43,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "role": 38,
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/components.rs",
+      "sha256": "e2053ee2dbf1a837b1a4e80d2d2afa22c0ecc2231bf586041222082971b9cbea",
+      "bytes": 5033,
+      "actual_lines": 193,
+      "registered_and_consumed_ranges": [
+        [
+          43,
+          76
+        ],
+        [
+          128,
+          148
+        ]
+      ],
+      "role": "receiver-only",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/mod.rs",
+      "sha256": "7b8be56d6f6ea9285176e55efb88de7bcb8a15df4cdca7619d3038a92de56092",
+      "bytes": 10975,
+      "actual_lines": 340,
+      "registered_and_consumed_ranges": [
+        [
+          179,
+          225
+        ]
+      ],
+      "role": "receiver-only",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/mesh.wgsl",
+      "sha256": "bb8dc8d197bfd558464608bb447dc4224e67c0488e695270f44e1656c9c8fa70",
+      "bytes": 1494,
+      "actual_lines": 60,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "role": "receiver-only",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/prepass/prepass.wgsl",
+      "sha256": "d55568e08bd83b5db11110f851fba531d10e170ad6c0bf0a4c5acda1a8c58695",
+      "bytes": 4212,
+      "actual_lines": 155,
+      "registered_and_consumed_ranges": [
+        [
+          49,
+          106
+        ],
+        [
+          114,
+          155
+        ]
+      ],
+      "role": "receiver-only",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/pipeline.rs",
+      "sha256": "d47a07104ac9b2333006bbacbc50b5f097b5fa7a57ba4a4d822a62fb3c64e16b",
+      "bytes": 7419,
+      "actual_lines": 232,
+      "registered_and_consumed_ranges": [
+        [
+          169,
+          232
+        ]
+      ],
+      "role": "receiver-only",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/shading.wgsl",
+      "sha256": "965586e6cee62b7fe7623cafbd9a173ce271c14cd982466b73eb69a718dca6e9",
+      "bytes": 531,
+      "actual_lines": 21,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "role": "receiver-only",
+      "post_read_hash_verified": true
+    },
+    {
+      "source_id": "native:bevy_pbr@0.19.1/src/render/pbr_functions.wgsl",
+      "sha256": "13a5344ef4e0fa967e05978489d0909dd0c1862cf7a989ce0882dbc8de9a55dd",
+      "bytes": 44800,
+      "actual_lines": 1030,
+      "registered_and_consumed_ranges": [
+        [
+          65,
+          85
+        ],
+        [
+          87,
+          106
+        ]
+      ],
+      "role": "receiver-only",
+      "post_read_hash_verified": true
+    }
+  ],
+  "consumption": {
+    "unique_files": 8,
+    "registered_lines": 431,
+    "all_registered_ranges_consumed": true,
+    "post_read_hash_verified": true,
+    "unregistered_actual_body_reads": false,
+    "metadata_search_or_staging_is_coverage": false
+  },
+  "original38_independent_inventory": [
+    {
+      "lines": "3-7",
+      "roles": "i_pos_scale vec4<f32>,i_rotation f32,parent_transform mat4x4<f32>,returned mat4x4<f32>.",
+      "actual_native_role": "Per-instance floattransport from RustInstanceData packedpositionxyz+scalew androtationvertexattribute; per-batchtransform fromInstanceUniforms. Actualselectednativevertex/prepass accepts theseGPUfloatmatrix/vectorports.",
+      "assessment": "Concreteformatandmathreceiver,notproofeveryfirstpartyscale/angle/position/frame/admission policy."
+    },
+    {
+      "lines": "8-9",
+      "roles": "Vec4.wscalar scale and.xyztranslation extraction.",
+      "actual_operations": "Packsreusedatvertexboundary;nativeinputmeaningisexplicitlyposition+scale inactualRustvertexlayout/InstanceDatafields. No String/number bespoke extraction/re-admission withinapplicationperformedbythisnativehelper.",
+      "assessment": "ConcreteGPUpacking/kernelboundary only; datadefaults/nonfinite/negative/zeroscales andapplicationownersnotgloballyadmitted."
+    },
+    {
+      "lines": "11-12",
+      "roles": "cos(i_rotation)*scale,sin(i_rotation)*scale rawf32arithmetic.",
+      "actual_operations": "Constructs trigonometricYrotation/scalebasis. Actualfrozen014shrubproducer previouslyreademitsyawunitdraw*TAUandpositive.72+draw*.58scale; thisisonequalifiedproducerexample,notcurrent/allcallerbounds.",
+      "assessment": "Nativefloattrig/scalemathrequiresnativefloat;noerrorbudget/anglewrapping/finiteinput/currentgeneralpolicycertification."
+    },
+    {
+      "lines": "14-21",
+      "roles": "Fourvec4matrixconstructorcolumns;0.0padding,Yscale,-s sign,translation,w1; parent*instance_localmatrixreturn.",
+      "actual_operations": "Buildsuniformscale/Yrotation/translation homogeneousmatrix,thenpremultipliesparent. Selectedforward/prepassmultiplymeshpositionhomogeneous1 byresult,projectviaViewclipmatrix,andusefornormals/tangents. Prepassusescurrentandpreviousbatchparentsseparately.",
+      "assessment": "Actualnativeaffinematrixpipeline and0/1homogeneousrolesestablished. Noallaffine/normal-inversetranspose/finite/singular/currentprevious correctness orcustomshader guarantees."
+    },
+    {
+      "lines": "24-30",
+      "roles": "ConditionalVISIBILITY_RANGE_DITHERhelper;lod_rangevec4f32,world_positionvec4f32;returni32;distance length(view.world_position.xyz-world_position.xyz).",
+      "actual_operations": "Selectedcallerspassvisibilitytupleandfinal_matrix[3]translationcolumn; usesinstanceorigin/camera distance. NativeViewframeworkproducerandfirstpartycoordinateframeadmissionnotnewlyexpanded.",
+      "assessment": "Concreteforward/prepass/world-distance receivingedge; actualcameraorigin/frame/finiteviewboundsnotcertified."
+    },
+    {
+      "lines": "32-41",
+      "roles": "Signed16-levelditherprotocol;near/farbranchpredicate distance>=lod_range.z;offsetselect(-16,0);boundsselect(xy,zw);round((distance-lower)/(upper-lower)*16.) as i32;clamp0..16;offset+level.",
+      "actual_operations": "Nearrange mapsnegativelevels,plateau0,farrangepositivelevels whenvalidorderedfiniteinputs. Round/castoccursbeforeclamp. Selectedxy/zw intervalwidth isunguarded. ActualBevyPBRreceiverbelowmatcheszero/\u00b116signedprotocol.",
+      "assessment": "16/sign/0/clamp/rawi32rolesareactualnativeprotocolrequirement,notarbitraryapplicationliteral. Nozero/order/finite/castsafetyadmission; no broadvariance/distribution orallLODpolicyproof. Conditional finalboundedoutputonlyifintermediateconversionexecutionisdefined."
+    }
+  ],
+  "producer_retention_operation_receiver_traces": [
+    {
+      "trace": "Native instance producer ->GPUvertex ports ->matrixhelper ->selected geometric outputs",
+      "sources": "components.rs43-76;render/pipeline.rs188-232;render/mesh.wgsl1-60;prepass/prepass.wgsl49-106;original38calc1-22",
+      "proof": "RustInstanceDatareprC/ShaderType/Podfields positionVec3+scalef32/rotationf32 correspond toFloat32x4loc8/Float32loc9withnativeoffsets/stride. NativeVertexi_pos_scale/i_rotation enterhelper. Helperresult feedsactualworld/clip positionandconditionalnormal/tangentmath. Retained011sourceupload/bytebuffers and016IOlayoutactualproofs reusedasqualifiedsame-lenscontext,notextraorderedrolecredit.",
+      "limits": "Derivedcompiledlayout/encoding/device/driver,allposition/angle/scaleadmissions/nativeframepolicies andcustomM bypassesnotcertified."
+    },
+    {
+      "trace": "Perbatch transform/visibility producer ->retaineduniform ->helperinputs",
+      "sources": "components.rs128-148;prepare/mod.rs179-225;retained019batcher/bufferproof;mesh.wgsl14-51/prepass49-96",
+      "proof": "ActualproducerwritescurrentGTFtobothcurrent/previousuniformmatrices andcopiesrawInstanceMaterialData.visibility_range;actualbatch/uniformbuffertransport retained. Forwardmatrixhelperusescurrent;motionprepassusespreviousalso;ditherhelperusesactualvisibilitytuple+matrixtranslationcolumn.",
+      "limits": "021source-backedhistorymismatchretained;cache/freshness/uniformcoherence/currentselectedcaller/allfirstpartyboundsnotclosed."
+    },
+    {
+      "trace": "Helperditherreturn ->nativeflatvarying ->actualBevyPBRdiscardreceiver",
+      "sources": "original38utils29-41;mesh47-51/shading15-17;prepass92-96/117-122;bevy_pbrpbr_functions65-85/87-106",
+      "proof": "NativepipelinepushesVISIBILITY_RANGE_DITHERforvertex/fragment;selectedcallersretainhelperi32invaryingandactualfragmentscallPBRvisibility_range_dither(clipposition,dither). Receiverreturnsfor0,discards<=-16or>=16,otherwiseuses4x4thresholdmapandactualsignedcomparisonsagainst16.",
+      "limits": "Specificselectednativeprotocolproved,notprobabilityvariance/visualquality/pixelalignment/allcurrentview/customshader/execution guarantee. PBR1-64/86/107-1030tailsnotbodyread/credited."
+    }
+  ],
+  "actual_pbr_receiving_contract": {
+    "source": "native:bevy_pbr@0.19.1/src/render/pbr_functions.wgsl",
+    "sha256": "13a5344ef4e0fa967e05978489d0909dd0c1862cf7a989ce0882dbc8de9a55dd",
+    "ranges": [
+      [
+        65,
+        85
+      ],
+      [
+        87,
+        106
+      ]
+    ],
+    "operations": "Packedthresholdmapvec4u32 constants0x0a020800,0x060e040c,0x09010b03,0x050d070f encodeactual4x4thresholds. dither0returns;dither<=-16or>=16discards. coords=vec2u32(floor(frag_coord.xy))%4;threshold=i32((map[coords.y]>>(coords.x*8))&0xff);nonnegativeconditiondither+threshold>=16,negativecondition1+dither+threshold<=0 discards.",
+    "numeric_policy": "Actualpixelperiod4/bytewidth8/maskff/addressed4rowmap andsigned16stepacceptance correspondtomatchedhelper. Givenvalidnativecoordconversion,mod4boundsthevectorindex/shiftbyteposition;tablebytesseenarethresholds0..15. NoarbitraryreconstructionofapplicationLODownerorvarianceproof.",
+    "provenance_limit": "Matchingfrozenlockpackage/checkedarchivebytes,specificnativefunctiononly. HistoricalGitHubmainURLinEidoloncommentnotconsultedorusedassourceauthority."
+  },
+  "source_observations_noncounted": [
+    {
+      "family": "RetainedNATIVE011-RANGE",
+      "source": "original38lines29-41;rawvisibilityproducercomponents75/143",
+      "observation": "No localendpointordering/nonzerointervalwidth/finiteness guard precedes divide/round/f32toi32 conversion. Clampoccursafterconversionandcannotestablishfiniteintermediatevalues. Selectednativeforward/prepassunconditionallyenablehelperfeaturebeforecustomM specialization.",
+      "status": "Source-backednumericadmission/operationobservation,notanewacceptedunique/currentfirstpartyfailure/runtimepanic/undefinedbehaviorclaim. Actualallcaller/valuewitness/nativeconversionsemantics/currentselection/rootdedupremainqualified."
+    }
+  ],
+  "matching_prior_proof_reuse": [
+    {
+      "source": "audit13-successor-011.json actualsource_backed_traces andfingerprints",
+      "purpose": "Actualsourceupload/batchretention/matrixkernel/ditherinputpolicycontext; earlierhelperreadnot38orderedcredit."
+    },
+    {
+      "source": "audit13-successor-014.json",
+      "purpose": "OneexactfrozenqualifiedshrubPosition/yaw/scale/visibilityproducer;notfreshcoverage/allapplication/currentguarantee."
+    },
+    {
+      "source": "audit13-successor-016.json",
+      "purpose": "NativeIOpacking/flatvarying actualsourcecontext; original36partialnotcleared."
+    },
+    {
+      "source": "audit13-successor-020.json +021.json",
+      "purpose": "Actualdefaultshaderresolution/genericM/nativeprepassselection/debug/history qualifiedsourcepaths;notruntime/currentactivationclaims."
+    }
+  ],
+  "scope_disposition": {
+    "original38": "Proposed source-accounted full1-43withqualifiednumericobservations;actualrawroles/operations/nativeproducerselectedreceiversestablished.",
+    "original31": "Partialunchanged;doesnotcertifyallgrass/litter/wrappers/counts/seed/index/currentfirstpartyroles.",
+    "original36": "Partialunchanged;noindependentconditionalhost/UV/skinning/local_posclosure.",
+    "original39": "Unreadandnotassessed;stopbefore39."
+  },
+  "accounting": {
+    "before_original_accounted": 36,
+    "after_proposed_original_accounted": 37,
+    "original_total": 2853,
+    "new_original_roles_completed": [
+      38
+    ],
+    "partial_original_indices": [
+      31,
+      36
+    ],
+    "earliest_unfinished_original": 31,
+    "first_unread_original": 39,
+    "new_unique_count": 0,
+    "overlays_increment": 0,
+    "merged_increment": 0,
+    "material_increment": 0,
+    "other_lens_credit": 0
+  },
+  "other_lens_extension_queue": {
+    "path": "audit13-successor-022-other-lens-extension-queue.json",
+    "sha256": "b7bc7fee0a57960e5059ef96708d1af9f02fd4a49b901c6a4018eefaf06de1a4",
+    "credit": 0
+  },
+  "qualifications": [
+    "Original38full effectiveowner range1-43/1618bytes independently inventoried in022; no supplementaryeffectiveintervals inoriginalregistry38. Earlier011helperreceiveraccess isnotoriginal38orderedcredit. Freshbodyread/hash/independentinventory plusactualreceivingoperations supplythisproposedcompletion.",
+    "Eight exactobjects/431 registeredlines personallyconsumed in boundedoutputafterprospective registration;hashverifiedbefore/after. KnownEidolonoriginal/receivers retainexactf82/nativeGit1a5affprovenance. No39body/orderedassessment,completedoriginal0-30/32-35/37restart or31/36completion.",
+    "NewBevyPBRsupplement islock-matchingnativearchive member,notclaimedunseenfrozenlocalobject/currentmainidentity. Rootstagingrecords bothfrozenpr-working/physicalCargo.lock version0.19.1+checksum; reviewerindependentlyverifiedcached.crate SHA andexactmemberbytes equalsstagedobjectbeforeboundedread. No .cargo-checksum.json guarantee orwholeSDK/filecredit.",
+    "Actualmatrix/ditheroperations andconcreteforward/prepass/nativePBRreceivers identified. Thisisnot ablanketWGSL/nativeprimitive exemption: actualapplicationPosition/angle/scale/visibilityowner/admission/finite/frame policies remainqualified,original31/Bespoke/globalfamiliesopen. NativeGPUfloat/integerports areestablishedonlyforselectedtrace.",
+    "Dither16hasactualnativeprotocolsupport: PBR0returns,\u00b116discards,and4x4packedthresholdlogicuses16. Thisdoesnotprovevisualquality,statistical/spatialvariance,allLODcrossfade/currentviewport alignment orruntimecompiler/driverbehavior. No GitHubmain/comment-only authority used.",
+    "Original38selectedintervaldivisionhasnozero-width/order/finiteness guard; roundandf32toi32 conversionprecedeclamp. Postcastclampisnotinputadmission orproofallintermediatevaluesdefined. Source-backedobservationextendsretainedNATIVE011-RANGE,noacceptednewunique/actualfirstpartyfailure/runtimepanicclaim.",
+    "Prior021currentversuspreviousmatrixsource mismatch/debugenable/AsBindGroup/codegen/currentfirstparty/customM/IO36 qualifications retained. AllnativeID/reset/count/buffer/history/F1/F2/F6/F9/global20observations andother-lensqueues remainopen/non-counteduntilrootalias/currentness/reachability reconciliation.",
+    "018allowedlargercandidate latticeandmissing sufficientcap arenotanactualspecieslen>1M/u32overflow/nativepanicwitness. Populationlowerbounds,allscenevalidators/currentselectedbackend andremaining31partialscopenotweakened.",
+    "No projectexecution/check/build/lint/scan/generate/probe/tests/assertions/helpers/doctests addition/run; no product/source/repositoryGit/rootledger/historicaledits/publication. Onlyignoredappend-onlyregistration/receipt/queue/proposedstate authored. No backwardcompatibilitycondition,wholeSDK/lens13/globalclearanceoruniqueacceptedfindingcount."
+  ],
+  "stop_reason": "Fullindependentoriginal38inventory/actualnumericnativeproduceroperationselectedreceivertracecompleteWITHqualifiedobservations;saveproposedstateandstopbefore39withoutbroaderSDK/appgraph."
+}

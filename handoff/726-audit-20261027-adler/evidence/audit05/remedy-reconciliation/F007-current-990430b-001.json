@@ -1,0 +1,74 @@
+{
+  "at": "2026-10-26T04:47:22.829621+00:00",
+  "finding_id": "ADLER-RESUMED05-F007",
+  "phase": "Read-only global remedy/current-canonical reconciliation",
+  "finding_authority": "findings.jsonl#ADLER-RESUMED05-F007",
+  "current_canonical": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "sources": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-physics/src/collider.rs",
+      "frozen_sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+      "current_sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+      "entire_blob_exact_equal": true,
+      "personally_read_ranges": [
+        [
+          34,
+          40
+        ],
+        [
+          100,
+          132
+        ],
+        [
+          135,
+          197
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-physics/src/wgsl.rs",
+      "frozen_sha256": "a1f915887fcad485606bdc80aae9a12f5224233a774693b02d40df0f1d1ebb95",
+      "current_sha256": "a1f915887fcad485606bdc80aae9a12f5224233a774693b02d40df0f1d1ebb95",
+      "entire_blob_exact_equal": true,
+      "personally_read_ranges": [
+        [
+          77,
+          98
+        ],
+        [
+          109,
+          139
+        ],
+        [
+          164,
+          194
+        ]
+      ]
+    }
+  ],
+  "disposition": "CURRENT_UNREPAIRED_QUALIFIED",
+  "mechanism": "Finite centered unit-quaternion box packs unchanged; shader inside branch selects sign(local.x) at zero, while host signed_distance uses native signum. Zero shader direction gives zero penetration correction for stationary center particle; actual shader response/output path personally read.",
+  "dedup": {
+    "inventory_sha256": "473fc7ce6d08f96419a86d239410cf94fa1ba9b8cf8c93ef45ba2d7b44d6942d",
+    "records": 1002,
+    "navigation": "F007-inventory-navigation-001.json",
+    "candidate_ids": [
+      "RIG-ADMISSION03-F081",
+      "RIG-ADMISSION03-F073-SUPPLEMENT-001",
+      "RIG-ADMISSION03-F054-SUPPLEMENT-001"
+    ],
+    "assessment": "RIG-ADMISSION03-F081 covers raw invalid/nonfinite/unit-quaternion admission, while F073/F054 supplements cover GPU count/buffer-topology coherence. Valid centered box mechanism differs from malformed shape and those extent contracts; may share remediation scope but not exact same witness.",
+    "global_uniqueness": "Not closed from limited search; no new issue/count or blanket family clearance."
+  },
+  "retained_remedy_identity": "Packed analytic box and host/shader surface queries promise an outward direction for penetrating points; collision response requires nonzero normal to separate particle.",
+  "qualifications": [
+    "Static valid-input API/shader proof only; no ordinary cloth particle at exact center/GPU dispatch or platform execution. No radius/quaternion/nonfinite counterexample conflation.",
+    "No materially reached new body or native intrinsic source consumed; existing source roles reread, no repair design/execution."
+  ],
+  "project_checks": false,
+  "source_or_git_mutations": false,
+  "new_issue": false,
+  "new_unique_count": 0,
+  "accepted_own_findings_unchanged": 10,
+  "global_clearance": false
+}

@@ -1,0 +1,42 @@
+--- base
+
++++ frozen-head
+
+@@ -143,23 +143,28 @@
+
+ 
+ fn remove_building_obstacles(
+     input: &TacticalSceneInput,
+     terrain: &SceneTerrain,
+-    building_pads: &[buildings::BuildingPad],
++    reservations: &[buildings::ObstacleReservation],
+     obstacles: &mut Vec<GeneratedObstacle>,
+     repairs: &mut SceneRepairReport,
+-) {
++) -> SceneInputResult<()> {
+     let before = obstacles.len();
+     let terrain_extent = bevy::math::Vec2::new(terrain.width(), terrain.depth());
+-    obstacles.retain(|obstacle| {
+-        !buildings::obstacle_intersects_building(
+-            *obstacle,
++    let mut retained = Vec::with_capacity(obstacles.len());
++    for obstacle in obstacles.iter().copied() {
++        if !buildings::obstacle_intersects_building(
++            obstacle,
+             input.playable.spacing_metres,
+             terrain_extent,
+-            building_pads,
+-        )
+-    });
++            reservations,
++        )? {
++            retained.push(obstacle);
++        }
++    }
++    *obstacles = retained;
+     repairs.removed_building_obstacles = (before - obstacles.len()) as u32;
++    Ok(())
+ }
+ 
+ #[cfg(test)]
+ mod landform_tests {

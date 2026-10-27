@@ -1,0 +1,68 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-325",
+  "at": "2026-10-25T23:11:48.358737+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2704,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+      "sha256": "44e7ffb24f89b628a6aa80e5d207018770c558bef8aafacf8e9e6dfa91962bcb",
+      "personally_read_ranges": [
+        [
+          1,
+          4404
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-4404 personallyread boundedcontiguouschunks, historicalphysicalp16bytes only. Twoappend-onlypartials preserve ranges1-1000,1001-3450; allremainder3451-4404nowread, no truncation. Setup/effectivereviewstate, deterministicviewprefix, mode/warmup/result benchmarkaggregates, nativecamera/geometry, asyncConfigure/Settling/Readback guards andboundedlighting/hashretries comparedcapture_state2702/requirements2703. Pendingmanifest finalizes afterscreenshot rather thanclaiming pre-readbackpixelcomplete; fullPendingSceneCaptureManifestownerreceivingpolicy remains separate. Source-backedF008targets benchmarkhost/basehardware acceptance correlation only; notrealrun. HTMLcaptureindexrawfixture/labels andenvironmentoverrideprovenance remain caller/consumerquestions. Includedtestsreadnotrun, no visual/hosted/compilerclearance."
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "ADLER-RESUMED05-F008",
+      "lens": "audit-aggregate-states",
+      "classification": "Benchmark host aggregate omits declared base-target identity while reporting target acceptance",
+      "sources": [
+        {
+          "scope_index": 2704,
+          "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+          "sha256": "44e7ffb24f89b628a6aa80e5d207018770c558bef8aafacf8e9e6dfa91962bcb",
+          "ranges": [
+            [
+              713,
+              755
+            ],
+            [
+              2336,
+              2368
+            ],
+            [
+              2392,
+              2454
+            ],
+            [
+              2544,
+              2567
+            ],
+            [
+              4360,
+              4404
+            ]
+          ]
+        }
+      ],
+      "relationship": "BenchmarkTargetHardware declares one13inch2026baseMacBookAir, AppleM5/8coreGPU/16GiB/fanless, while BenchmarkHost retains onlyOS/arch/chip/GPUtext/memory/release. host_matches_target gates authoritative optionaltarget_acceptance_passes, so that predicate must distinguish requiredtargetconstraints.",
+      "source_counterexample": "A BenchmarkHost record withmacos/aarch64,chip_or_cpu=Apple M5 Pro,gpu=Apple M5 Pro,memory=32 GB,release_build=true passes every2437-2453predicate becausebothstrings contain Apple M5 and32>=16. No model, GPUcorecount, exactmemoryconfiguration orcooling field is retained/tested. Withrenderdiagnosticsandpassingfirstmeasuredresult,2338-2344canemitSome(true)target_acceptance although recorddoesnotmatchstatedbase8core16GiBtarget.",
+      "actual_path": "benchmark_host parsesnativeprofilerChip/ChipsetModel/Memory andconstructsBenchmarkHost; benchmark_host_matches_target->target_acceptance_passes->JSON/Markdown targetacceptance. Static source-level input/decisioncounterexample; no claim a realM5Pro machine/run exists inthissession or an actualreporthaspassed, no hardwarerecommendation.",
+      "dedup": "All1002inheritedfindingmetadata searchedbenchmark_host,host_matches,target_acceptance,target-hardware,target hardware,base m5,macbook air:0matches. Distinctfromrenderfeature/readback ornativegeometryauthority findings.",
+      "qualification": "A broader target-class policy might be intended, but code/report/test specifically namebase configuration andminimum8core/16GiB/fanless contract; exactpolicyneedsreview. No external factualhardwareavailability claim.",
+      "proof_ref": "contract-groups-325.json",
+      "repair": "not_started_initial_discovery_gate",
+      "validation": "not_run"
+    }
+  ],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

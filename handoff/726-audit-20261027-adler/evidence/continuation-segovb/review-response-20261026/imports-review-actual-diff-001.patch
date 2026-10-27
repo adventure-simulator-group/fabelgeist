@@ -1,0 +1,131 @@
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs
+index b1159679d..ed202c684 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs
+@@ -8,7 +8,7 @@ use crate::{
+     globals::WgpuContext,
+ };
+ use std::sync::Arc;
+-use wgpu::TextureView;
++use wgpu::{TextureUsages, TextureView, TextureViewDescriptor};
+ 
+ impl Texture2d {
+     pub fn view_with_format(
+@@ -27,14 +27,14 @@ impl Texture2d {
+         let mut requested_format = format;
+ 
+         // The default view inherits storage usage, which excludes sRGB formats.
+-        if self.usage.contains(wgpu::TextureUsages::STORAGE_BINDING) && format.is_srgb() {
++        if self.usage.contains(TextureUsages::STORAGE_BINDING) && format.is_srgb() {
+             requested_format = format.linear_counterpart();
+         }
+ 
+         #[cfg(not(target_arch = "wasm32"))]
+         let error_scope = ValidationScope::new(_context);
+ 
+-        let view = texture.create_view(&wgpu::TextureViewDescriptor {
++        let view = texture.create_view(&TextureViewDescriptor {
+             format: Some(requested_format.into()),
+             ..Default::default()
+         });
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs
+index 51df3b118..7e3ca54f0 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs
+@@ -8,7 +8,7 @@ use crate::{
+     globals::WgpuContext,
+ };
+ use std::sync::Arc;
+-use wgpu::TextureView;
++use wgpu::{TextureUsages, TextureView, TextureViewDescriptor};
+ 
+ impl Texture3d {
+     pub fn view_with_format(
+@@ -27,14 +27,14 @@ impl Texture3d {
+         let mut requested_format = format;
+ 
+         // The default view inherits storage usage, which excludes sRGB formats.
+-        if self.usage.contains(wgpu::TextureUsages::STORAGE_BINDING) && format.is_srgb() {
++        if self.usage.contains(TextureUsages::STORAGE_BINDING) && format.is_srgb() {
+             requested_format = format.linear_counterpart();
+         }
+ 
+         #[cfg(not(target_arch = "wasm32"))]
+         let error_scope = ValidationScope::new(_context);
+ 
+-        let view = texture.create_view(&wgpu::TextureViewDescriptor {
++        let view = texture.create_view(&TextureViewDescriptor {
+             format: Some(requested_format.into()),
+             ..Default::default()
+         });
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs
+index 2135a8630..42512daad 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs
+@@ -8,7 +8,7 @@ use crate::{
+     globals::WgpuContext,
+ };
+ use std::sync::Arc;
+-use wgpu::TextureView;
++use wgpu::{TextureUsages, TextureView, TextureViewDescriptor, TextureViewDimension};
+ 
+ impl TextureCube {
+     pub fn view_with_format(
+@@ -25,16 +25,16 @@ impl TextureCube {
+             .ok_or(TextureViewError::Uninitialized)?;
+ 
+         let mut requested_format = format;
+-        if self.usage.contains(wgpu::TextureUsages::STORAGE_BINDING) && format.is_srgb() {
++        if self.usage.contains(TextureUsages::STORAGE_BINDING) && format.is_srgb() {
+             requested_format = format.linear_counterpart();
+         }
+ 
+         #[cfg(not(target_arch = "wasm32"))]
+         let error_scope = ValidationScope::new(_ctx);
+ 
+-        let view = texture.create_view(&wgpu::TextureViewDescriptor {
++        let view = texture.create_view(&TextureViewDescriptor {
+             label: Some("TextureCube View"),
+-            dimension: Some(wgpu::TextureViewDimension::Cube),
++            dimension: Some(TextureViewDimension::Cube),
+             array_layer_count: Some(6),
+             format: Some(requested_format.into()),
+             ..Default::default()
+diff --git a/crates/fabelgeist-gpu/src/globals/validation_observation.rs b/crates/fabelgeist-gpu/src/globals/validation_observation.rs
+index d8279d68f..7d3ea629d 100644
+--- a/crates/fabelgeist-gpu/src/globals/validation_observation.rs
++++ b/crates/fabelgeist-gpu/src/globals/validation_observation.rs
+@@ -1,5 +1,8 @@
+ //! Select how native validation errors are observed.
+ 
++#[cfg(not(target_arch = "wasm32"))]
++use wgpu::{Device, ErrorFilter, ErrorScopeGuard};
++
+ /// Whether creation may synchronously observe a native validation scope.
+ ///
+ /// Borrowed devices and browser contexts leave errors to the provider's
+@@ -15,9 +18,9 @@ impl ValidationObservation {
+     /// Begin a native validation scope only when synchronous observation is
+     /// allowed.
+     #[cfg(not(target_arch = "wasm32"))]
+-    pub fn start_scope(self, device: &wgpu::Device) -> Option<wgpu::ErrorScopeGuard> {
++    pub fn start_scope(self, device: &Device) -> Option<ErrorScopeGuard> {
+         match self {
+-            Self::BlockingScopes => Some(device.push_error_scope(wgpu::ErrorFilter::Validation)),
++            Self::BlockingScopes => Some(device.push_error_scope(ErrorFilter::Validation)),
+             Self::Uncaptured => None,
+         }
+     }
+diff --git a/crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs b/crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs
+index 5dd6cd39d..e14758000 100644
+--- a/crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs
++++ b/crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs
+@@ -313,7 +313,7 @@ mod tests {
+                 borrowed.validation_observation,
+                 ValidationObservation::Uncaptured
+             ),
+-            "a borrowed device may have someone else submitting to it; draining              its queue would block until the driver gives up"
++            "a borrowed device may have someone else submitting to it; draining its queue would block until the driver gives up"
+         );
+         assert!(borrowed.surface.is_none());
+         Ok(())

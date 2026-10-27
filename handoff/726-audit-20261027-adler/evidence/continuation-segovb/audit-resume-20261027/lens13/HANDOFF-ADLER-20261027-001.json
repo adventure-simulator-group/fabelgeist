@@ -1,0 +1,218 @@
+{
+  "status": "Paused by user; handoff only. No further audit, source reading, code, checks or publication.",
+  "recipient": "Adler Halbe",
+  "lens": 13,
+  "latest_complete_proposal": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/STATE-062-proposal.json",
+    "sha256": "27e68eaaf5e51071c16628cf01f7246c3a000b3e76cfccbcfa7e3f41fd78d5fa"
+  },
+  "latest_complete_receipt": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-223-230-receipt.json",
+    "sha256": "a2f67e4566f6860c13dbffadc49498103c6bd7aab322a3b1960809623beee111"
+  },
+  "latest_complete_extension_queue": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/OTHER-LENS-EXTENSIONS-062.json",
+    "sha256": "6ae3eccf5eecf74bc083bfb2da28f0124d35e64c3428ecad91b2567df3592777"
+  },
+  "proposal_frontier": {
+    "originals_source_accounted": 360,
+    "accounted_indices": [
+      0,
+      359
+    ],
+    "next_original": 360,
+    "original_total": 2853,
+    "status": "Proposal only; root adoption not confirmed in this agent conversation."
+  },
+  "latest_root_adoption_confirmed_to_agent": {
+    "adoption": "ADOPTION-066",
+    "state": {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/STATE-061-proposal.json",
+      "sha256": "7aeb67d38f6a6cb4603d950d26f04f58b5727d1619107e233a80858a61317ba3"
+    },
+    "originals_source_accounted": 350,
+    "accounted_indices": [
+      0,
+      349
+    ],
+    "next_original": 350,
+    "root_message": "Root adopted212\u2013222 as ADOPTION-066; authoritative STATE061 next350 WITH findings."
+  },
+  "authoritative_root_ledger": "target/recovery-20261025/continuation-segovb/ledger.json",
+  "in_flight": {
+    "registrations": [
+      {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-231-registration.json",
+        "sha256": "5aed599564b5b5096816854694a91810cf41d23b986697db919f8c973c671c4a"
+      },
+      {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-232-registration.json",
+        "sha256": "87578edeb3f89c595d0a8f16d92e5bb1ab27b0668e2e40625b39b41409161ea8"
+      }
+    ],
+    "receipt_status": "No completion receipt or state proposal for231\u2013232 has been saved. Registration alone is not coverage.",
+    "actual_body_consumption": [
+      {
+        "original": 360,
+        "sha256": "35c74e188c90bf25618bfb0170d513f1c0b342473c22acccaca79c50447c857f",
+        "fresh_ranges": [
+          [
+            1,
+            149
+          ],
+          [
+            371,
+            1762
+          ],
+          [
+            350,
+            380
+          ]
+        ],
+        "prior_own_actual_proof_reuse": {
+          "receipt": "batch-204-206-receipt.json",
+          "ranges": [
+            [
+              150,
+              370
+            ]
+          ]
+        },
+        "status": "Full original1762 lines actually consumed across these ranges; independent final inventory/receiver reconciliation not yet saved."
+      },
+      {
+        "original": 361,
+        "sha256": "b14b69313123c2918b34a7aaa2c076821c05d7756edcfbee08561a4071504278",
+        "prior_actual_ranges": [
+          [
+            1,
+            81
+          ]
+        ],
+        "prior_receipt": "batch-204-206-receipt.json",
+        "status": "231 prospectively registered; prior receiver access only. No fresh ordered inventory/completion receipt yet."
+      },
+      {
+        "original": 362,
+        "sha256": "ebf883ac714ec8f48c9377495da01713b01e9f4ba9e7bd5e4edda78dc320ee68",
+        "actual_ranges": [
+          [
+            1,
+            650
+          ]
+        ],
+        "status": "Full fresh body read; receiving reconciliation/inventory not yet saved."
+      },
+      {
+        "original": 363,
+        "sha256": "e3b88b223ae8d99d6fbcb634fbb1dd3990f9f42f4440309a341f3da3b8c0a0ce",
+        "actual_ranges": [
+          [
+            1,
+            122
+          ]
+        ],
+        "status": "Full fresh scoped body read; no ordered completion receipt yet."
+      },
+      {
+        "original": 364,
+        "sha256": "f961ea0bc8da4a4bb23bba732b32f43172c9ab2aaa83bd4ff8319efb4faaf077",
+        "actual_ranges": [
+          [
+            1,
+            38
+          ]
+        ],
+        "requested_range": [
+          1,
+          44
+        ],
+        "absent_requested_tail": [
+          39,
+          44
+        ],
+        "status": "All actual lines read; no fictional absent-tail coverage or ordered completion receipt."
+      },
+      {
+        "source": "physical-p16:crates/adventuresim-tactical-core/src/physics/controller_config.rs",
+        "sha256": "56773ae80325116c0e2383940bec1f3f8a05d95d97a2c76596982c717b5dbc62",
+        "actual_ranges": [
+          [
+            1,
+            18
+          ]
+        ]
+      },
+      {
+        "source": "physical-p16:crates/adventuresim-tactical-core/src/physics/plugin.rs",
+        "sha256": "c165c0efe7988bed6982ef9f1fe32fd78cd0fe603c3e5e4581435bad0bde0353",
+        "actual_ranges": [
+          [
+            1,
+            88
+          ]
+        ]
+      },
+      {
+        "source": "physical-p16:crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+        "sha256": "2bdf24f3de20d1901bfc475d799d3a07781d9c5e22733caaea0d2365250edd0f",
+        "actual_ranges": [
+          [
+            1,
+            300
+          ]
+        ],
+        "unread_tail": [
+          301,
+          522
+        ]
+      },
+      {
+        "source": "physical-p16:crates/adventuresim-tactical-core/src/player/combat_state.rs",
+        "sha256": "bfc02321b1d2716ffaf92d38902b547713a76a9de7a350ece7f35449e9dddf37",
+        "actual_ranges": [
+          [
+            1,
+            211
+          ]
+        ]
+      },
+      {
+        "source": "physical-p16:crates/adventuresim-tactical-core/src/player/attack_timing.rs",
+        "sha256": "b12efd1cc517a4644ee8742fcde084e4fec7ecf93bf35234fd1d7ba0b3ffaf31",
+        "actual_ranges": [
+          [
+            1,
+            41
+          ]
+        ]
+      },
+      {
+        "source": "physical-p16:crates/adventuresim-tactical-core/src/player/input_tick.rs",
+        "sha256": "e9d4d32a4beaa8f4a1631034abbb4cdd7db4e43bccd80935b3eb7e7674d4e27f",
+        "actual_ranges": [
+          [
+            1,
+            33
+          ]
+        ]
+      }
+    ],
+    "unconsumed_locator_only": "AttackCurve methods in exact physical animation/state.rs SHA82a59a...: definitions638, from_handling671, from_handling_with_config681, normalized705/709. These were identifier locators only; no new body registration/read for those methods.",
+    "own_reuse_located_not_restarted": [
+      "Original90 composite.rs SHAd12458450a9186177a47c1b404529e9f6128dfd204fd63817b8a4fd8cf27e72f: own038\u2013040 full1\u2013386; PlayerEquipment delegation annotation149 targets equipment.362 concrete TacticalPlayerView contains InventoryView,360 burden uses its inventory_weight.",
+      "Own017\u2013022 coordinates.rs SHA f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e fullactual1\u2013140 (requested141\u2013170 absent); orientation.rs SHA05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d fullactual1\u2013142 (requested143\u2013148 absent). Checked finite Position/Displacement/Dir/RigidRotation proofs may be reused with their limits."
+    ],
+    "unsaved_observations_for_reviewer": "360 applies body_weight+inventory_weight to native Mass and motor/jump calculations, connecting prior stack-mass finding to actual physics. Ordinary motor calls ordinary_controller_speed: its prone/supine branch uses input magnitude without configured prone lateral scaling; separate tactical_prone_movement_speed_for_pace applies a lateral constant. Classify only after reconciling actual selected path. Missing-actuator braking divides by native fixed delta; ordinary FixedPostUpdate delivery and native zero-time guarantees are unproven here, so do not claim a runtime NaN.362 raw limbs/skills/attributes and explicit zero cooking/herbalism/terrain projections need their own inventory qualifications."
+  },
+  "mandatory_qualifications": [
+    "Root alone adopts/writes ledger. Read ledger/adoption metadata to reconcile whether062 was adopted after the last message; do not assume it.",
+    "Exact f82 frozen SHA objects and explicit unchanged physical a120 reconstruction only; register new ranges prospectively and hash before body reads. No current dirty substitution, scanner/hash/search coverage, other-lens verdict transfer, future-original credit or SDK-wide clearance.",
+    "Retain031 manifest hash correction;018 larger-lattice does not prove actual species count; all prior metadata/source-access errata including003 and020/021; STATE058 stale frontier corrected by059.",
+    "350\u2013359 WITH findings includes exact unit-weight/quantity loss trace; public/MAX and raw config admission concerns remain source-qualified. No live/current/runtime/ordinary huge-mass claim; aliases not accepted as new unique findings.",
+    "Root08 completion of its populations does not give lens13 any coverage. Original2853, overlays246, merged38, old shared196 and new material extensions remain separate inventories.",
+    "Accepted unique additions0; no global/all20 clearance. Runtime/repair acceptance is separate from completed source discovery WITH findings.",
+    "No product/Git/root-ledger changes, project execution/checks/probes/tests/new helpers/assertions/doctests or publication. Generated SDK source read only; schema changes require regeneration, never manual generated-file edits."
+  ],
+  "exact_next_action": "Remain paused. On explicit resume, reconcile root adoption of STATE062, then prepare a source-backed231\u2013232 inventory/receipt for360\u2013364 from the actual ranges above. Complete only materially required receivers (e.g. register AttackCurve body if needed); do not reread already closed source proofs or credit unconsumed tails. Root adopts proposed state. No audit resumes merely because this checkpoint exists."
+}

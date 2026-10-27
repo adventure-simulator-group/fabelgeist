@@ -1,0 +1,118 @@
+{
+  "source_head": "6431c2faf1b50608344d1031d0f9413830c271fa",
+  "successor_head": "2ef288d1085c249fa056156182ea626a060bb8d1",
+  "official_hosted_run": 40274774510,
+  "linux_artifact": 12634601650,
+  "official_baseline_sha256": "5d40373d7d7fe72d65593aeee0145998680524c10ef8c61743cfafb33d118afa",
+  "successor_baseline_sha256": "8c5c32abd7cba706fcff7fa24cf8407a53cd9378c86af2bf4e720e1d2da9e0ab",
+  "official_matches_successor_full_baseline": false,
+  "actual_delta": [
+    {
+      "kind": "files",
+      "before": {
+        "path": "crates/adventuresim-character-creator/src/export.rs",
+        "ceiling": 803
+      },
+      "after": {
+        "path": "crates/adventuresim-character-creator/src/export.rs",
+        "ceiling": 778
+      }
+    },
+    {
+      "kind": "functions",
+      "before": {
+        "path": "crates/adventuresim-character-creator/src/export.rs",
+        "item": "export_rigged_glb",
+        "ceiling": 268
+      },
+      "after": {
+        "path": "crates/adventuresim-character-creator/src/export.rs",
+        "item": "export_rigged_glb",
+        "ceiling": 247
+      }
+    }
+  ],
+  "linux": {
+    "revision": "6431c2faf1b50608344d1031d0f9413830c271fa",
+    "required_cells_sha256": "32858a27a09a82aaa2ff6c002803619f0dcd90d7ff6d5a994d9bee5f6b1d54f6",
+    "cells": 48,
+    "all_revision_match": true,
+    "all_accepted_positive_passed_zero_failed": true,
+    "creator_export": {
+      "cell": "creator-export",
+      "log": "target/rig-contracts/creator-export.log",
+      "revision": "6431c2faf1b50608344d1031d0f9413830c271fa",
+      "passed": 12,
+      "failed": 0,
+      "ignored": 0,
+      "accepted": true
+    }
+  },
+  "windows": {
+    "revision": "6431c2faf1b50608344d1031d0f9413830c271fa",
+    "logs": [
+      {
+        "file": "envelope.log",
+        "sha256": "32c8860625e3da75458ed0503a5d16c1e4192d4f08527dd0239085e65295ac24",
+        "summaries": [
+          [
+            1,
+            0,
+            0
+          ]
+        ],
+        "case_count": 1
+      },
+      {
+        "file": "leaves.log",
+        "sha256": "8924968190dbd458b9c0362af6ea1ef8359224e1b2ec8b3b3a9f41975ca2f354",
+        "summaries": [
+          [
+            5,
+            0,
+            0
+          ]
+        ],
+        "case_count": 5
+      },
+      {
+        "file": "prepared-impostors.log",
+        "sha256": "05484494e8b760f19827ed28d5e135cdb69acc494a2ead2e28e63e6467496ee6",
+        "summaries": [
+          [
+            1,
+            0,
+            0
+          ]
+        ],
+        "case_count": 1
+      },
+      {
+        "file": "sampling.log",
+        "sha256": "6ac913b976e1e98a2e09d02b53eadd04153a88f383263e87f4d4c469e8495edf",
+        "summaries": [
+          [
+            1,
+            0,
+            0
+          ]
+        ],
+        "case_count": 1
+      },
+      {
+        "file": "understory.log",
+        "sha256": "c7091396398d2e99ddbeb093b784d44886fbaa4c944520ec610ff5a031e4db95",
+        "summaries": [
+          [
+            2,
+            0,
+            0
+          ]
+        ],
+        "case_count": 2
+      }
+    ],
+    "total_passed": 10
+  },
+  "qualification": "This independently reads the downloaded official artifact, not a locally executed acceptance check. Root reported full hosted Linux/Windows success at6431; exact successor2ef hosted acceptance remains pending. Earlier summary Windows scope text was a run-time snapshot, not the final acceptance authority."
+}

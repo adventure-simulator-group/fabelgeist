@@ -1,0 +1,124 @@
+{
+  "id": "ADLER-CONT04-MATERIAL-009",
+  "lens": "04 invariant operations",
+  "sources": [
+    {
+      "index": 167,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/Cargo.toml",
+      "sha256": "6c4b6aca99dd4eacdda5f4723be9bd9a87b9cab7cb08b18f54ba170826b1bff5",
+      "ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "line_count": 23,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\6c4b6aca99dd4eacdda5f4723be9bd9a87b9cab7cb08b18f54ba170826b1bff5",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\6c4b6aca99dd4eacdda5f4723be9bd9a87b9cab7cb08b18f54ba170826b1bff5",
+      "disposition": "Manifest dependency/lint declarations only; no arithmetic operation or admission implementation. Presence of serde/thiserror does not certify all consumers.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 168,
+      "source_id": "pinned-registry:thiserror-2.0.20/src/lib.rs",
+      "sha256": "817cfdb6c24d60de78f399d4db84f2910c543dec9a9d75d191215b4308e19823",
+      "ranges": [
+        [
+          60,
+          97
+        ]
+      ],
+      "line_count": 291,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\817cfdb6c24d60de78f399d4db84f2910c543dec9a9d75d191215b4308e19823",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\817cfdb6c24d60de78f399d4db84f2910c543dec9a9d75d191215b4308e19823",
+      "disposition": "thiserror documentation permits arbitrary formatting expressions and field shorthand. Example first_char unwrap is documentation support, not project input admission or proof error formatting always total. No production quantity operation in registered excerpt; project error expression callers retain responsibility for their own arithmetic/panic behavior.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 169,
+      "source_id": "native-dependency:bevy_time-0.19.1/src/fixed.rs",
+      "sha256": "c3e4e4bee5d4cdde83d23e3016d7c8532b2ca00f98fbea93f34c23d316bfb963",
+      "ranges": [
+        [
+          70,
+          108
+        ],
+        [
+          116,
+          180
+        ]
+      ],
+      "line_count": 367,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\c3e4e4bee5d4cdde83d23e3016d7c8532b2ca00f98fbea93f34c23d316bfb963",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\c3e4e4bee5d4cdde83d23e3016d7c8532b2ca00f98fbea93f34c23d316bfb963",
+      "disposition": "Fixed native clock checks zero Duration before retained timestep assignment; seconds checks sign and finite then Duration conversion and zero admission, frequency checks sign and finite then reciprocal through same setter. Tiny positive seconds/huge hz may round to zero and panic; tiny hz may reciprocate infinity and panic. All reject before retained mutation, so native panic policy preserves stored clock. No admitted project caller failure witness; ordinary64Hz default is nonzero15625us.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 170,
+      "source_id": "registry:thiserror-impl-2.0.20/src/attr.rs",
+      "sha256": "d3c7fa9e8269973f140e5382f753664ac32bee44c09875f678100b890aea4d06",
+      "ranges": [
+        [
+          69,
+          122
+        ]
+      ],
+      "line_count": 358,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\d3c7fa9e8269973f140e5382f753664ac32bee44c09875f678100b890aea4d06",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\d3c7fa9e8269973f140e5382f753664ac32bee44c09875f678100b890aea4d06",
+      "disposition": "Error attribute collection initializes absent options, rejects duplicate source/backtrace/from attributes, delegates error attribute parsing, and only returns final Attrs after success. Span get_ident unwrap follows is_ident classification, not numerical range. No field/value arithmetic or semantic source replacement.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 171,
+      "source_id": "registry:thiserror-impl-2.0.20/src/ast.rs",
+      "sha256": "c717fffeb2923b2840d58fd02923a1926a48fa8336039f57a9e94f9275ae7ec6",
+      "ranges": [
+        [
+          85,
+          128
+        ]
+      ],
+      "line_count": 185,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\c717fffeb2923b2840d58fd02923a1926a48fa8336039f57a9e94f9275ae7ec6",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\c717fffeb2923b2840d58fd02923a1926a48fa8336039f57a9e94f9275ae7ec6",
+      "disposition": "Enum/variant AST admission propagates errors before returning complete variants. Inherited container display/transparent/fmt fills only variants lacking those roles, then expands shorthand against actual parsed fields. No raw numerical result or runtime mutation; compile-time partial AST work is unpublished on Err.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 172,
+      "source_id": "installed-rust-src:nightly-2026-07-13/alloc/src/boxed/convert.rs",
+      "sha256": "1534b6cd36659f2753a6633dd4bd25d7f9bbccb0ff1d83e3adc5fb52569fb45e",
+      "ranges": [
+        [
+          19,
+          36
+        ]
+      ],
+      "line_count": 748,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\1534b6cd36659f2753a6633dd4bd25d7f9bbccb0ff1d83e3adc5fb52569fb45e",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\1534b6cd36659f2753a6633dd4bd25d7f9bbccb0ff1d83e3adc5fb52569fb45e",
+      "disposition": "Box<T>::from moves actual T into Box::new without field conversion, arithmetic, normalization or altered discriminant. Native allocation behavior is not a fresh bespoke value validation boundary; existing invariant value is preserved.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 173,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/workplace/surfaces.rs",
+      "sha256": "7c0ffb3f7478e0ac8fcb9893cb5c9b741562a98e7c92cb24d54c09fac7bc1b30",
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "line_count": 48,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\7c0ffb3f7478e0ac8fcb9893cb5c9b741562a98e7c92cb24d54c09fac7bc1b30",
+      "recovered_from": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\shared-material-successor\\7c0ffb3f7478e0ac8fcb9893cb5c9b741562a98e7c92cb24d54c09fac7bc1b30",
+      "disposition": "Actual workplace table is total for all fourteen explicit166 roles and furniture165 endgrain/painted branches, resolving their expect/unwrap preconditions. Closed match produces fixed3 finite srgb components, finite roughness0.28..1, metallic0/0.85; no derived arithmetic. Other roles return None intentionally. Public WorkplaceSurface raw fields allow externally authored invalid records, but these consumers take const match-produced values; no observed native material defect from this table.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    }
+  ],
+  "new_unique_findings_claimed": 0,
+  "execution": "No project execution, source edits or Git changes"
+}

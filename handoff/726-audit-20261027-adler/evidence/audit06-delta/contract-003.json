@@ -1,0 +1,124 @@
+{
+  "id": "ADLER-CONT06-LATER-003",
+  "lens": "type-ownership",
+  "receipts": [
+    {
+      "material_index": 120,
+      "source_id": "pinned-registry:glam-0.32.1/src/features/impl_serde.rs",
+      "sha256": "da9b8a13b57b257793481f554e6888a8fb0c82a7669e52d7e2d2af74701f0061",
+      "ranges": [
+        [
+          87,
+          140
+        ]
+      ],
+      "source_basis": "Fresh root personal read of all registered bounded ranges, verified exact bytes. Own06 analysis; no inherited other-lens verdict.",
+      "owners_and_users": "glam Vec3 deserialize visitor constructs native vector from three scalar components; no frame or semantic validation is generated.",
+      "disposition": "Native wire/math boundary. Existing first-party semantic owner must validate its own invariant; no second owner introduced by vector serializer/deserializer.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 121,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/Cargo.toml",
+      "sha256": "a514b1eccfff839c875aaa5148d8299f119beb39ce645dc828e653399b6ef320",
+      "ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "source_basis": "Fresh root personal read of all registered bounded ranges, verified exact bytes. Own06 analysis; no inherited other-lens verdict.",
+      "owners_and_users": "P16 tactical-core manifest depends on shared adventuresim-core/world-schema/building-generator and lower fabelgeist geometry/determinism; derives and Bevy remain numerical/native adapters.",
+      "disposition": "Dependency directions support shared owners below tactical consumers. Frozen P16 manifest is not current main or whole-family graph completion; no inappropriate duplicate definition shown in manifest.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 122,
+      "source_id": "registry:derive_more-impl-2.1.1/src/from.rs",
+      "sha256": "dbcea1f655618518d366313124b59d50181928e1f0a092ff8796d5accec81fd6",
+      "ranges": [
+        [
+          1,
+          322
+        ]
+      ],
+      "source_basis": "Fresh root personal read of all registered bounded ranges, verified exact bytes. Own06 analysis; no inherited other-lens verdict.",
+      "owners_and_users": "derive_more From expansion implements conversion on declared struct/variant, either direct field transfer, selected conversion types, or forwarded field From. Outer declared type retains ownership; generated raw From can bypass checked constructor when chosen.",
+      "disposition": "Macro mechanics are native generation, not a semantic owner. Do not erase distinct first-party roles merely because conversions exist. Any first-party invariant bypass remains existing admission/owner-propagation obligation at actual declaration; this body does not validate those uses. Legacy syntax handling is external dependency implementation, not first-party compatibility debt to edit.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 123,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/draw.rs",
+      "sha256": "faca55a34e4a003497e4f3aa87dfcef3a25e20ffa7e6c7108785a2df225e7337",
+      "ranges": [
+        [
+          1,
+          134
+        ]
+      ],
+      "source_basis": "Fresh root personal read of all registered bounded ranges, verified exact bytes. Own06 analysis; no inherited other-lens verdict.",
+      "owners_and_users": "CityDraw and CityShadowDraw are local native render-command composition aliases; DrawCity consumes CityGpuScenes, compute::CityViews, scratch::Scratch and Bevy RenderMaterialInstances. It chooses PresentationOwner once from batch material identity, then indexes views/scratch using same owner.",
+      "disposition": "Local aliases name different render passes, no duplicated semantic owner. Shared owner coordinate reused across scene/view/scratch. Possible first-match/material identity or cross-batch coherence questions need retained scene/producer proof; reviewed body alone establishes no competing owner definition or ordinary mismatch. Existing aggregate/authority obligations remain, no broad rendering clearance.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 124,
+      "source_id": "pinned-registry:serde_derive-1.0.229/src/internals/check.rs",
+      "sha256": "86ea817316638ec33f70ecdf9634a31c934fd3df84533e3e315816dc130f0bff",
+      "ranges": [
+        [
+          369,
+          395
+        ]
+      ],
+      "source_basis": "Fresh root personal read of all registered bounded ranges, verified exact bytes. Own06 analysis; no inherited other-lens verdict.",
+      "owners_and_users": "Serde derive prohibits transparent combined with from/try_from/into at attribute check. Native macro owns representation strategy; outer declared first-party type remains semantic owner.",
+      "disposition": "A checked wire conversion must select appropriate Serde route rather than stack contradictory attributes. This body proves rejection, not a new first-party owner or that every existing declaration selected validation.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 125,
+      "source_id": "pinned-registry:serde_derive-1.0.229/src/ser.rs",
+      "sha256": "18b3a4d06cd721c402835b17f008a63fdbaad379734f0fd4132aa28d8ea5c1de",
+      "ranges": [
+        [
+          514,
+          538
+        ]
+      ],
+      "source_basis": "Fresh root personal read of all registered bounded ranges, verified exact bytes. Own06 analysis; no inherited other-lens verdict.",
+      "owners_and_users": "Serde enum serializer emits declared unit variant name/index with containing type name; newtype variant follows separate branch.",
+      "disposition": "Native wire discriminant adapter preserves declared semantic enum owner. Equal primitive tags do not merge distinct enums or establish cross-protocol equivalence; registered excerpt is not entire newtype implementation.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 126,
+      "source_id": "pinned-registry:serde_derive-1.0.229/src/de.rs",
+      "sha256": "a04fdb321ce47b479b42b2dd0ca1cfd57db88e06451d7dc95303c582fedc135c",
+      "ranges": [
+        [
+          300,
+          320
+        ],
+        [
+          435,
+          444
+        ]
+      ],
+      "source_basis": "Fresh root personal read of all registered bounded ranges, verified exact bytes. Own06 analysis; no inherited other-lens verdict.",
+      "owners_and_users": "Serde deserialize dispatch selects transparent, From, TryFrom, then shape-specific path; TryFrom route deserializes intermediate owner and maps actual conversion error into deserializer custom error.",
+      "disposition": "Native intermediate wire type and checked semantic owner have distinct legitimate roles. Validation belongs to outer TryFrom implementation; macro does not create alternate retained owner or prove all caller/declaration coverage.",
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "new_unique_findings": 0,
+  "clear": false
+}

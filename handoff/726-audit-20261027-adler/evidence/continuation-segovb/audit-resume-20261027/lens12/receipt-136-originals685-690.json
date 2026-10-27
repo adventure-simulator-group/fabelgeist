@@ -1,0 +1,287 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "136",
+  "predecessor": "receipt-135-originals681-684.json",
+  "manifest_prefix_sha256": "028936e3b081c393ac6c90fd857374060c6e6650b011ab062c958010b6c0aa7b",
+  "sources": [
+    {
+      "original_index": 685,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/cloth_motion.rs",
+      "sha256": "6ffc24ed612481adda0151e6c87d8c0980ecbe05f9c1cbcfccab08174af16d61",
+      "actual_eof": 201,
+      "actual_ranges": [
+        [
+          1,
+          201
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              201
+            ]
+          ],
+          "role": "Full201 noquotedliteral/StringAPI. ClothMotion13-16 actualtypedSkinned/Simulated ownership27-29; actual683simulate_outfit348 receives68596-136 andsimulate138-201, no stringclassification. SurfaceContacts native implementation/numeric solverunread.",
+          "disposition": "Source-accounted WITH actual native/typed/raw identity roles and receiving obligations."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 686,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/cloth_render.rs",
+      "sha256": "d691d43dfb3aa93344f65824b6c08ab7addcacf92e003099dde936d8b26e47ab",
+      "actual_eof": 68,
+      "actual_ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              68
+            ]
+          ],
+          "role": "Full68 noquotedliteral/StringAPI; actual683update_render_mesh374\u219244-67 usesnativeMeshATTRIBUTE_POSITION50/NORMAL58/TANGENT64. Weldedbinding27-40 retainsClothBinding typedstate andPackedRigSkin. Geometry/weld/tangentnative/math claims otherlenses.",
+          "disposition": "Source-accounted WITH actual native/typed/raw identity roles and receiving obligations."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 687,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/colliders.rs",
+      "sha256": "2b26b6da1361090bfe1dbefbc45cba4a9d6dd1bc13b22ca18e351e6ef3018718",
+      "actual_eof": 26,
+      "actual_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              26
+            ]
+          ],
+          "role": "Full26 noquotedliteral/StringAPI; actual683posed_colliders313\u21926-26 typedBodySkin/PackedRigSkin/table passesactualskinned_positions683420-438; numeric/aggregate/nativeunproved.",
+          "disposition": "Source-accounted WITH actual native/typed/raw identity roles and receiving obligations."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 688,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_design_input.rs",
+      "sha256": "7491f2bed3feecf76fd4446b7a20ce1470ef026f6deb1409b36798c860497ed1",
+      "actual_eof": 400,
+      "actual_ranges": [
+        [
+          1,
+          400
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              400
+            ]
+          ],
+          "role": "Full400. FiniteArmorPlacement12-16 nativeSerde11 andas_str28-34 labelsleft/right/worn; actualfrom_catalog19-26 re-parses placementdefinitionid text. ArmorDesigns41-42/defaults+placements rawString keys retained viaSerdeparse69-119/decode123-133\u2192CatalogItem::find79/111/item.id87 andselected46-50. Open authored item IDs notfiniteenum; qualifiedcanonicalIDownerfit unresolved. Nativepathinclude76/381 andSerdeJSONkeys/variant/testfixtures161/181/194-200/213-214/225/240/251-254/263-264/277-278/291-300/308/312/320-321/330-331/342-343/358/367/370-374 areexistingcodeactualsemanticID/enum/native-schema roles nottestexempt. Dynamicfieldnames143-147 nativeJSONschema validation. anyhowdiagnosticformat66/82/88/92/99/113/116/138/146 propagates errors, no stringclassifierinthisbody. Allotherconsumers/schemaowner/ParametricDesignvalidator queued.",
+          "disposition": "Source-accounted WITH actual native/typed/raw identity roles and receiving obligations."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 689,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_design_output.rs",
+      "sha256": "76a902a4473ed977521ac29b57a0fe40b7aa6961768097e1470fc19c2fbdf5e1",
+      "actual_eof": 118,
+      "actual_ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              118
+            ]
+          ],
+          "role": "Registered1-118 fullactualEOF118. encode20 callsactual68855-59; thennativeSerde35-36\u2192filesystemwrite39. Diagnostic31/39/55 humanerror; Pathdot52 actualnativefilesystemrelativepath. Windowsnativepathcaseconversion58-59 semantics notproved here. Existingfixture filenames69-75 andbytesoriginal75/91 nativefilesystem/assertioncontent, no semanticgameIDs. Otherdesign_input validators100/104 andfsplatformimplementationunread.",
+          "disposition": "Source-accounted WITH actual native/typed/raw identity roles and receiving obligations."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 690,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_frames.rs",
+      "sha256": "f5c8d7cf65f9cdc3472f6944d83c5d8340c2380bf19320be39b2613c3c9bc352",
+      "actual_eof": 316,
+      "actual_ranges": [
+        [
+          1,
+          316
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              316
+            ]
+          ],
+          "role": "Full316. Finite rawleft/right match23-25 classifies CatalogPlacement.definition.id text into actualcanonicalFittingPlacement::Lateral(Side)/Unpaired15-17; side34humanerror. CanonicalRigJointName/RigJointPart/RigSide49-56/82-139/164-183 retainedthroughWearer148 andmembership203-225,actualskin_family209 delegatedunread. skin_support_wgsl156-158 producesString WGSLconstantidentifier/template nativecodegenrole; actualshaderinclusion/recipientunread. ensure201 native diagnostic. Existingtests usecanonicaljointconstants,noquotedfixturelabels.",
+          "disposition": "Source-accounted WITH actual native/typed/raw identity roles and receiving obligations."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    }
+  ],
+  "connected_findings": [
+    {
+      "candidate_key": "L12-136-catalog-placement-text-classification",
+      "source_keys": [
+        {
+          "original": 688,
+          "sha256": "7491f2bed3feecf76fd4446b7a20ce1470ef026f6deb1409b36798c860497ed1",
+          "ranges": [
+            [
+              19,
+              34
+            ],
+            [
+              41,
+              50
+            ],
+            [
+              69,
+              119
+            ]
+          ]
+        },
+        {
+          "original": 690,
+          "sha256": "f5c8d7cf65f9cdc3472f6944d83c5d8340c2380bf19320be39b2613c3c9bc352",
+          "ranges": [
+            [
+              12,
+              35
+            ]
+          ]
+        }
+      ],
+      "observation": "Actual application code recovers finite lateral meaning from CatalogPlacement definition text: ArmorPlacement deserialization in68819-26, FittingPlacement match left/right in69022-25. ArmorDesigns retains open item identity as rawString maps68841-42, actuallookupconsumer46-50/79/87/111 demonstrated.",
+      "remedy_direction": "Inspect canonical catalog placement and item identity owner before repair; carry checked identity/side through these receivers. Keep open item IDs open, and preserve intended Unpaired admission policy as a domain decision, not compatibility. ArmorPlacement and FittingPlacement have different accepted populations; do not substitute blindly.",
+      "acceptance": "Trace exact canonicalCatalogPlacement/definitionid admission andallproducers/retainers/consumers; prove intended finite-side andopen-ID contracts before code. No newtests or execution here.",
+      "limits": "Canonical owner body and other schema/runtime recipients unconsumed. Frozen source concern only; currentness/canonicalalias/M09 overlap/unique total unresolved.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actual canonicalCatalogItem/Placement identity/admission definitions andallretained identity/Serde consumers; actualarmor_recipes::recipe/ParametricDesignvalidate remainqueued, not inferred from handle names.",
+    "690skin_family andskin_support_wgsl recipients/nativeWGSLcompiler, nativefsWindows pathcase equality andclothcollision/nativegeometry unconsumed.",
+    "All prior inherited queues/current/aliases/otherlenses remain."
+  ],
+  "qualifications": [
+    "Exact frozen PR-working scopes only; no current/global/runtime/other-lens clearance or unique count. Source WITH findings valid; unread receivers explicit.",
+    "No BC requirement; no product/Git/rootledger/publication/project/native/tests/probes execution. All20/P16/P17/F9/M09 preserved."
+  ],
+  "proposed_count": {
+    "before": 685,
+    "after": 691,
+    "indices_completed": [
+      685,
+      686,
+      687,
+      688,
+      689,
+      690
+    ],
+    "next_original": 691,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/cloth_motion.rs",
+      "sha256": "6ffc24ed612481adda0151e6c87d8c0980ecbe05f9c1cbcfccab08174af16d61",
+      "ranges": [
+        [
+          1,
+          201
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/cloth_render.rs",
+      "sha256": "d691d43dfb3aa93344f65824b6c08ab7addcacf92e003099dde936d8b26e47ab",
+      "ranges": [
+        [
+          1,
+          68
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/colliders.rs",
+      "sha256": "2b26b6da1361090bfe1dbefbc45cba4a9d6dd1bc13b22ca18e351e6ef3018718",
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_design_input.rs",
+      "sha256": "7491f2bed3feecf76fd4446b7a20ce1470ef026f6deb1409b36798c860497ed1",
+      "ranges": [
+        [
+          1,
+          400
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_design_output.rs",
+      "sha256": "76a902a4473ed977521ac29b57a0fe40b7aa6961768097e1470fc19c2fbdf5e1",
+      "ranges": [
+        [
+          1,
+          118
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_frames.rs",
+      "sha256": "f5c8d7cf65f9cdc3472f6944d83c5d8340c2380bf19320be39b2613c3c9bc352",
+      "ranges": [
+        [
+          1,
+          316
+        ]
+      ]
+    }
+  ],
+  "unique_count_delta": 0
+}

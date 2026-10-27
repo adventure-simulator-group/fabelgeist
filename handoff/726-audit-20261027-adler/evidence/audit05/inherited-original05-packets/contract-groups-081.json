@@ -1,0 +1,190 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-081",
+  "at": "2026-10-23T01:19:08.744136+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/access/tests.rs",
+      "sha256": "95d01208f51eef1ecd658d46f278a2653900f5d066b8dbd204b06f92568df4fa",
+      "scope043_index": 1805,
+      "actual_EOF": 92,
+      "scoped_ranges_compared": [
+        [
+          1,
+          92
+        ]
+      ],
+      "actual05_comparison": "Fresh full92 existingfixture source-only. Sharedstreet test permits union of adjacent owners, rejects actualgap/singleinsufficientowner and preserves inputreordering; repeatedpointpolygon area0notblocked. DatedJSONfixture checks fullnearapproach3, not genericfilename/verdict proof or executed acceptance. No production aggregate defined here; actual union geometry relation compared077/078.",
+      "source_body_proof": "Actual complete scoped body freshly read; existing tests source-only, no new cases or execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/transport/tests.rs",
+      "sha256": "f1626212844a10fa14c660515f8ee6d36ce40b28dbd366ce85dac26e3db59243",
+      "scope043_index": 1826,
+      "actual_EOF": 98,
+      "scoped_ranges_compared": [
+        [
+          1,
+          98
+        ]
+      ],
+      "actual05_comparison": "Fresh full98 existingfixture source-only. Roundtrip compares actual vertices/cutfaces bytes, topology, volume, members across JSON/CBOR/postcard and expects binary fourfields without redundantindices. Explicit malformedcases alter solid/support topology, incompletecells,nonfinitepositions,unpairedXZ,reversedheight,duplicatemember andnonfinitecutface. This is substantive intended aggregate contract support for actual transport079, not test execution or fullcodec proof.",
+      "source_body_proof": "Actual complete scoped body freshly read; existing tests source-only, no new cases or execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar/query/tests.rs",
+      "sha256": "544ce48792225f7185f51cc90b4bc2e30be076ddb813b5011a2f3204e5cfba84",
+      "scope043_index": 1834,
+      "actual_EOF": 51,
+      "scoped_ranges_compared": [
+        [
+          1,
+          51
+        ]
+      ],
+      "actual05_comparison": "Fresh full51 existingfixture source-only. Queries compared to exhaustive samebounds enumeration acrosscentres/extents, preserves sourceorder. Touching bounds and duplicate source references deliberately retained; emptyindex yieldsnone. Thus broadphase intentionally doesnotdeduplicate sourcegeometry, supporting F024 applicability rather than supposed overlap rejection. No productiondefinition/testrun.",
+      "source_body_proof": "Actual complete scoped body freshly read; existing tests source-only, no new cases or execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/geographic/tests.rs",
+      "sha256": "567fff2185681d5767893b4a091f52e5d133ddd6a8576921b248cdd6e342bcbd",
+      "scope043_index": 1946,
+      "actual_EOF": 39,
+      "scoped_ranges_compared": [
+        [
+          1,
+          39
+        ]
+      ],
+      "actual05_comparison": "Fresh full39 fixture source-only. prepare_geographic sourceidentity retained, oneplacementperactualinputbuilding, source inputclone unchanged, completedterrain retains authoredcrossslope and repeatedsameobstacles. Test predefines validgrid count, so doesnot establish generic count validity independently. Actualnormal source gate073 remains primary proof; no executedclaim.",
+      "source_body_proof": "Actual complete scoped body freshly read; existing tests source-only, no new cases or execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/refinement/road/tests.rs",
+      "sha256": "8cc0d5b3274e48cdd009c4542d066bc186465d1a5787d53adcc9afdd320fd2e7",
+      "scope043_index": 1953,
+      "actual_EOF": 32,
+      "scoped_ranges_compared": [
+        [
+          1,
+          32
+        ]
+      ],
+      "actual05_comparison": "Fresh full32 fixture source-only. Moved native/browser road replay still uses exactsame seed/corridor/sourcepoint and expectedheightbits; now ScenePlanPoint checked atport and actual helper ownermoduleimports explicit. This is the current counterpart to deleted27-line original, no lostfixture contract asserted and no execution/newtest.",
+      "source_body_proof": "Actual complete scoped body freshly read; existing tests source-only, no new cases or execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/rock_recipe.rs",
+      "sha256": "93b82b73cb6f4f9c0501c47b0d15f1be447ab434585eb6bbb1ae6af22db8b40c",
+      "scope043_index": 1954,
+      "actual_EOF": 39,
+      "scoped_ranges_compared": [
+        [
+          1,
+          39
+        ]
+      ],
+      "actual05_comparison": "Fresh full39. Rockrecipe samples fixed threecase enum alternatives and eachdimension in exact actual array3 viafrom_fn. Positive authoredcentimetre bases72..142 with boundedoffset-8..8 preserve positiveordinarydimensions; actualrng indexpositive17/3 lowerleafproof existingcanonical, notunitrandomassumption. Dimensions/seed/archetype/lithology retained in one recipe, rawpublic broader gate separate. ROCK_RADIUS_METRES constant remains exact lowerdefinition ifnotpreviouslyread; no castvalidity inferred solelyname. wrappedangle uses positiveTAU foractualfiniteangles, notglobalrawnonfinite admission.",
+      "source_body_proof": "Actual complete scoped body freshly read; existing tests source-only, no new cases or execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/rock_streams.rs",
+      "sha256": "205990ee005c5d1990c0527ec632f8929a4cc10aa44cde11498ade7a4dc974a3",
+      "scope043_index": 1955,
+      "actual_EOF": 7,
+      "scoped_ranges_compared": [
+        [
+          1,
+          7
+        ]
+      ],
+      "actual05_comparison": "Fresh full7. Three nonempty StreamId constants are independent deterministic purpose owners; no correlatedmutable aggregate/state/lifecycle here. Actual consumersrock_recipe uses archetype/lithology/dimension-specific stream and dimensionaxis key, not sharedadvancingglobalgenerator. Not a justification for entropy/provenance or additionalruntime/foreigncontracts.",
+      "source_body_proof": "Actual complete scoped body freshly read; existing tests source-only, no new cases or execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/urban.rs",
+      "sha256": "0636460b78d2af66faa57a8483f4a89a9b99c84cd19c3f7f90615635734fe95b",
+      "scope043_index": 1959,
+      "actual_EOF": 20,
+      "scoped_ranges_compared": [
+        [
+          1,
+          20
+        ]
+      ],
+      "actual05_comparison": "Fresh full20. Urbanvalidator gates counts and individualstreet/yard validpredicates, THENactualplacementvalidators/compound/garden/parishwholecorrelation. This file has no private acceptedproduct, no caching or partialmutation; returns originalerrorordered. Delegation names alone do not prove exactlowerpredicate, these remainown inventoryobligations untilactual bodies compared. No global urban seal from functionname.",
+      "source_body_proof": "Actual complete scoped body freshly read; existing tests source-only, no new cases or execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/recipes.rs",
+      "sha256": "cce4ce937c53b3edbb8c3ebc7e76f14b65139f4acc63770d448ed6712398e60e",
+      "scope043_index": 1950,
+      "actual_EOF": 112,
+      "scoped_ranges_compared": [
+        [
+          1,
+          112
+        ]
+      ],
+      "actual05_comparison": "Fresh full112 includingoriginalinlinefixture source-only. GeneratedBuildingRecipe::generate derives planfromactualprogram, collisionfromsameplan, then publishes allthree together. Cache get_or_generate inserts only successfullycompleted factory record, exactprogram lookup and take uses matchedindex; normalgenerated path coherent. HOWEVER publicfields/derivedSerde and publicinsert accept record with declaredprogram changed independently from retainedplan/collision; insert replaces bysuppliedprogram thenlaterget returns thatrecordwithoutrecompute (F025). Sites public separatevector has no implicitrecipe-membership guarantee. Currentfixture tests sameprogram stablepointer,differentseed separateentries,takeownership andfreshgeometry; not bypassclosure or executedtest.",
+      "source_body_proof": "Actual complete scoped body freshly read; existing tests source-only, no new cases or execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/tests/road.rs",
+      "sha256": null,
+      "base_sha256": "d35e66e32b787fd9b115f5aead54a0f66ea2c69a2a150e3a2816293600f7ce60",
+      "scope043_index": 1958,
+      "state": "deleted",
+      "actual_current_EOF": 0,
+      "actual_base_EOF": 27,
+      "scoped_ranges_compared": [
+        [
+          1,
+          27
+        ]
+      ],
+      "actual05_comparison": "Actual frozen deletedbase27 personally read plus actualcurrentabsence checked; NOTanemptyexistingfile. Sourcefixture moved to scene_input/refinement/road/tests.rs32 with samecorridor/seed/point/heightbits, newcheckedScenePlanPointport andmoduleimports. No remaining currentaggregate atoldpath, positivefixture-retention sourceevidence only; no oldpath currentruntime/coverage body fabricated.",
+      "source_body_proof": "Actualbase bytes pinned d35e66e32b787fd9b115f5aead54a0f66ea2c69a2a150e3a2816293600f7ce60, currentdeletedstate plus source-backed movedfixture comparison."
+    }
+  ],
+  "comparison_groups": {
+    "existing-fixture-relationships": "Exact fixture contracts support union/order/codec/coherence policies, no executioncredit.",
+    "deleted-source-disposition": "Deleted oldroadfixture compared againstactualbase andnewcurrentchecked-point fixture, notemptyfile waiver.",
+    "recipe-cache-correlation": "Normalcompletefactory coherent, publicmutabletriple can be mismatched through actualcache insertion/getter.",
+    "purpose-stream-roster": "Stable fixedstream/arrayindices andbounded authoredrockdimensions compared, no nativekernel inference."
+  },
+  "new_unique_findings": [
+    {
+      "id": "NATIVE-INITIAL05-F025",
+      "lens": "audit-aggregate-states",
+      "classification": "public cached building recipe does not bind program to retained plan and collision",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/recipes.rs",
+      "sha256": "cce4ce937c53b3edbb8c3ebc7e76f14b65139f4acc63770d448ed6712398e60e",
+      "source_ranges": [
+        [
+          7,
+          23
+        ],
+        [
+          39,
+          61
+        ]
+      ],
+      "relationship": "A cached exact program lookup must return a plan generated for that program and collision compiled from that same plan, not merely three independently valid payloads.",
+      "source_counterexample": "Source-level API construction: take normally generated recipe for validprogram withseed42; independently change its publicprogram.seed to47 retaining originalplan/collision; publicinsert keys/replaces bydeclared47, and get_or_generate(47) returns storedrecord without reconstructing or validating relation. The normalfactory demonstrates intended program→plan→collision relationship. No claim particularseed outputs differ on anexecutedrun, and no newtest/execution.",
+      "actual_path": "Representable publicrecord/Serde/cache-insertion weakness, actualcache getter directlyrelies on exactprogramkey. Normalget_or_generate miss usescompletefactory andis coherent; no badnormalinsertion/runtime shown. Other manual clientpreparation records maybe deliberatelycorrelated, not presumedbad.",
+      "connected_repair": "Join buildingprogram/retainedrecipe/collision aggregate authority graph; Root owns repair. Controlled factory/privatecorrelatedstorage or validating exactsourceconstruction at ingestion; preserve intentional editedplans by naming source/edit authority rather than hashing/rebuilding blindly.",
+      "acceptance": "Cache admission cannot silently relabel originalplan/collision as another program. All supported manualedited/generated paths establish actual intended relationship before insertion, and access preserves it. Keep exactprogramkey/reuse/removal/ownership semantics; no redundant fullrevalidation at every nativegetter.",
+      "proof_ref": "contract-groups-081.json",
+      "repair": "frozen",
+      "validation": "not_established"
+    }
+  ],
+  "remaining_dependency_obligations": [
+    "Actual lower urbanvalidators/rockradiusconstant and manualclientrecipeconstructors remain specific obligations where relied upon; no broadsourceclosure."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

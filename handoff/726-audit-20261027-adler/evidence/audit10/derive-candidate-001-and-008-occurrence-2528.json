@@ -1,0 +1,15 @@
+{
+ "role":2528,
+ "revision":"039329518e264f19206cf5b0b98d177433f40c17",
+ "path":"crates/adventuresim-tactical-core/src/scene_input/buildings/identity.rs",
+ "ranges":[[30,40]],
+ "classification":"Additional exact mechanical From/Display occurrence in existing candidate001/008 families; current behavior correct, global remedy dedup pending",
+ "implementation":"SceneBuildingId is a nongeneric public transparent single-u64 wrapper. From<u64> returns Self(value); Display delegates unchanged self.0.fmt(f). No validation, conversion, alternate text, altered formatter, borrowed output or generic bounds.",
+ "repair":"Existing derive_more::From and Display on SceneBuildingId replace only those manual implementations. Preserve all structural/serde/Reflect/repr traits, visibility and complete identity API.",
+ "dependency_evidence":"Personally read complete frozen039329 TacticalCore Cargo.toml; derive_more2.1.1 explicitly enables from/display. No new dependency/features needed.",
+ "macro_evidence":"Own prior exact pinned From evidence candidate001 and Display macro source/receipt candidate008 reused for identical macro+shape only; no historical verdict/source-role credit. Display proof forwards original formatter and fmt result for nongeneric single field.",
+ "navigation_correction":"Existing candidate008 text says material157 for macro binding but exact macro blob d890... corresponds existing151/152 and additive178; see derive-candidate-008-navigation-successor.json. No cross-lens/material completion inferred.",
+ "acceptance":"Only after exhaustive own10/global remedy dedup, use existing identity/format/feature acceptance; no new tests/cases/assertions/helpers and no checks or source edits here.",
+ "new_unique_findings_claimed":0,
+ "clear":false
+}

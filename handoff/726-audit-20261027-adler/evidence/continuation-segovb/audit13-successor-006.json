@@ -1,0 +1,475 @@
+{
+  "id": "audit13-successor-006",
+  "lens": "13 magic numbers",
+  "skill": "/home/brunosegovia/.codex/skills/audit-magic-numbers/SKILL.md",
+  "source_authority": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+  "predecessor": "audit13-successor-005-suggested-state.json adopted by root",
+  "roles": [
+    {
+      "index": 20,
+      "source_id": "native-dependency:spacetimedb-2.6.1/src/rt.rs",
+      "path": "CARGO_REGISTRY/spacetimedb-2.6.1/src/rt.rs",
+      "sha256": "9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+      "registered_ranges": [
+        [
+          1,
+          228
+        ],
+        [
+          330,
+          465
+        ],
+        [
+          560,
+          655
+        ],
+        [
+          660,
+          695
+        ],
+        [
+          703,
+          712
+        ],
+        [
+          1025,
+          1065
+        ],
+        [
+          1086,
+          1098
+        ],
+        [
+          1228,
+          1308
+        ],
+        [
+          1374,
+          1393
+        ]
+      ],
+      "state": "ACCOUNTED_REGISTERED_NATIVE_CONTRACT_WITH_QUALIFICATIONS",
+      "scope_union_authority": "Original proof ranges plus producer200-228 and admission03 effective560-628/703-712/1290-1308 retained in full.",
+      "personally_consumed_registered_ranges": [
+        [
+          1,
+          228
+        ],
+        [
+          330,
+          465
+        ],
+        [
+          560,
+          655
+        ],
+        [
+          660,
+          695
+        ],
+        [
+          703,
+          712
+        ],
+        [
+          1025,
+          1065
+        ],
+        [
+          1086,
+          1098
+        ],
+        [
+          1228,
+          1308
+        ],
+        [
+          1374,
+          1393
+        ]
+      ],
+      "primitive_inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              228
+            ],
+            [
+              330,
+              465
+            ]
+          ],
+          "values": [
+            "native Result<()> and IntoReducerResult unit",
+            "u8 encoded byte slices/Vec",
+            "FnInfo optional lifecycle/return/primary-key metadata",
+            "View/AnonymousView native Vec/Option outputs and typed ViewResultHeader"
+          ],
+          "assessment": "Native reducer ABI requires no success payload; errors map Display to Box<str> only at IntoReducerResult external SDK result adapter. View output is serialized native row/query data with typed ViewResultHeader. Bytes are concrete BSATN wire buffers; generic Args/row types remain named trait parameters, not extracted application primitive values. Optional metadata has explicit native None/empty collection defaults; no game numeric fallback inferred."
+        },
+        {
+          "ranges": [
+            [
+              540,
+              560
+            ]
+          ],
+          "values": [
+            "ScheduledTablePrimaryKey for u64 only",
+            "native trait _ITEM:() and no-output static type checks"
+          ],
+          "assessment": "Actual native SDK sealed trait explicitly limits scheduled-table primary key to u64. This is concrete schema/framework representation boundary, not permission for first-party helpers to erase existing IDs or introduce primitive adapters elsewhere. Unit associated constant is a compile-time signature assertion shape."
+        },
+        {
+          "ranges": [
+            [
+              560,
+              720
+            ]
+          ],
+          "values": [
+            "Args::LEN usize",
+            "macro arity0+one per parameter",
+            "deserializer field i0 theni+1",
+            "fixed tuple arity expansion A..AF",
+            "SeqProduct length metadata",
+            "SerDeArgs.0 tuple-wrapper projection"
+          ],
+          "assessment": "Native variadic emulation implements typed tuple arguments; compile-time arity is actual count of type parameters,0 is empty tuple,1 counts one field. Missing-field i is0-based ordinal used only by native deserializer error callback. ArgsVisitor reports same A::LEN and delegates typed SeqProduct reading; named products explicitly rejected. Serialization receives actual tuple count and typed fields. No promise that arbitrary SpacetimeType/Deserialize implements additional first-party finite/unit validation. Macro token list has32 distinct generic placeholders; this is native supported function-arity expansion, not an application numeric limit."
+        },
+        {
+          "ranges": [
+            [
+              1025,
+              1098
+            ]
+          ],
+          "values": [
+            "host id:usize index",
+            "sender fouru64 chunks -> [u8;32]",
+            "connection twou64 chunks -> [u8;16]",
+            "ConnectionId::ZERO => None",
+            "timestamp:u64 as i64 -> Timestamp::from_micros_since_unix_epoch",
+            "i16 errno0/HOST_CALL_FAILURE"
+          ],
+          "assessment": "Actual C ABI receiver admits raw host representations and immediately assembles canonical native Identity/ConnectionId/Timestamp before ReducerContext.32/16 are fixed native identity widths; chunk order and byte casting are preserved, with no big-endian portability guarantee inferred. All-zero connection uses named canonical owner sentinel. Timestamp unit is microseconds since Unix epoch at this native callback boundary; Rust u64->i64 as cast does not reject >i64::MAX and may yield negative signed value. Host ID dispatch uses native vector indexing, so this code does not establish validity of arbitrary externally forged IDs. Result success0 and named native errno represent host callback return status, not game state."
+        },
+        {
+          "ranges": [
+            [
+              1228,
+              1308
+            ]
+          ],
+          "values": [
+            "caller/anonymous view idusize",
+            "native ABI i16 return2 vs documented historical0",
+            "native identity [u8;32] assembly",
+            "BytesSource::INVALID -> empty byte slice"
+          ],
+          "assessment": "Actual native host view callbacks return ABI marker2 after writing typed-header rows/query output. Host function index selects typed callback vector directly; no unchecked application index is newly introduced here. INVALID byte source means no encoded arguments and invokes logic with empty &[u8]. Historical upstream ABI0 comments are SDK protocol context, not a first-party compatibility path or migration implementation."
+        },
+        {
+          "ranges": [
+            [
+              1309,
+              1393
+            ]
+          ],
+          "values": [
+            "native errno aliasesu16/i16",
+            "remaining len initialized0 as out-parameter",
+            "buflen/sparelen byte cardinalities",
+            "ret<=0 with -1 EOF/0 progress",
+            "reserve1024",
+            "write status0 and consumed prefix len"
+          ],
+          "assessment": "Concrete host byte-source/sink APIs consume u8 pointers/slices and mutable byte counts. Zero is success/progress or initial out count; -1 is receiver exhaustion branch. Bytes are appended using host returned count, source loops reserve1024 bytes when capacity filled, sink slices off exactly native returned consumed-byte prefix until empty. Native errno constants handle invalid source/sink/no-space cases. Safety/progress depends on host ABI promises about returned length/status; no all-input pointer/capacity/liveness guarantee inferred. Existing reserve arithmetic is buf.len().saturating_sub(len as usize), recorded unchanged rather than assumed to reserve full advertised length. Commented initial64KiB buffer claim is not independently verified allocation evidence."
+        }
+      ],
+      "source_backed_traces": [
+        "invoke_reducer/invoke_view/invoke_anonymous_view BSATN byte boundary -> SerDeArgs deserialize product -> ArgsVisitor A::LEN -> typed tuple field next_element -> actual Reducer/View closure call -> native reducer error Box<str> or ViewReturn typed-header serialization.",
+        "ABI raw sender/connection/timestamp -> actual reconstruct helper/primitive cast -> canonical native context -> callback dispatch; with_read_args handles INVALID or native byte source and write_to_sink consumes output bytes/status.",
+        "Source count/error ordinal macros and actual field serialization callbacks consumed independently; no trait-name/search/CI inference of validator behavior."
+      ],
+      "guarantees": "Only exact effective native role20 contracts and listed receiving extensions assessed. Required primitive representations justified by actual native codec/C ABI/serializer operations.",
+      "application_role_qualification": "Does not certify first-party database fields, tactical/strategic authority, game time/identifier owners, generic SATS finite validation, client input acceptance or all host ABI validity. Application migration obligations remain open.",
+      "untraced_paths": [
+        "Host engine implementation, external raw syscall declaration contracts and provider-enforced IDs/count bounds not independently read; no forged-input safety/ABI progress guarantee.",
+        "Underlying Identity/Timestamp endianness/range methods and IterBuf initial capacity not broadly certified beyond observed calls/code/comments.",
+        "Unregistered SDK runtime/schema/lifecycle callbacks and all affected first-party producer/caller bodies remain uncredited."
+      ],
+      "hash_verified_before_after_read": true
+    },
+    {
+      "index": 21,
+      "source_id": "native-dependency:spacetimedb-bindings-macro-2.6.1/src/reducer.rs",
+      "path": "CARGO_REGISTRY/spacetimedb-bindings-macro-2.6.1/src/reducer.rs",
+      "sha256": "5d9af3fa69cda0c4377ddc6e3da0ead36b83bcb5f7cda7e53d78534b9bfd0fba",
+      "registered_ranges": [
+        [
+          1,
+          204
+        ]
+      ],
+      "state": "ACCOUNTED_REGISTERED_NATIVE_MACRO_CONTRACT_WITH_QUALIFICATIONS",
+      "personally_consumed_registered_ranges": [
+        [
+          1,
+          204
+        ]
+      ],
+      "primitive_inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              95
+            ]
+          ],
+          "values": [
+            "Option native attribute fields",
+            "LifecycleReducer closed enum",
+            "ordinary AST/context predicates",
+            "native parser Result<()>"
+          ],
+          "assessment": "Native proc-macro grammar admits typed metadata/lifecycle cases and reports typed syn::Error; no numeric lifecycle code or game semantic Boolean. Unit is parser callback no-success-payload shape."
+        },
+        {
+          "ranges": [
+            [
+              96,
+              179
+            ]
+          ],
+          "values": [
+            "arg_tys.first() and .skip(1)",
+            "compile-time const_:()/_ITEM checks",
+            "argument byte slice &[u8]",
+            "Option argument names and ReturnType defaults",
+            "Infallible generated struct marker"
+          ],
+          "assessment": "1 excludes actual leading ReducerContext argument from user Args tuple; first()/iterators avoid arbitrary indexing. Generated trait/const checks retain native context/argument/return owners. No numeric ID or unit cast occurs between original function and generated invoke_reducer; bytes cross actual native codec boundary traced under20. Empty tuple markers are required compiler/trait shapes."
+        },
+        {
+          "ranges": [
+            [
+              180,
+              204
+            ]
+          ],
+          "values": [
+            "conditional explicit-name Option",
+            "native generated named map default"
+          ],
+          "assessment": "Native macro fills metadata map only when explicit name exists; no numeric sentinel or duplicate game state. Protocol order20 appears inside generated symbol text and belongs to independently pending string audit, not a non-string literal disposition."
+        }
+      ],
+      "source_backed_traces": [
+        "ReducerArgs parser -> typed lifecycle/metadata -> typed Args extraction/context skip1 -> generated FnInfo constants/callback -> actual runtime role20 decoder/invocation.",
+        "Macro matching and duplicate Option predicate receivers in prospectively registered util.rs1-118; typed Symbol comparison/printing receivers in registered lib.rs114-199."
+      ],
+      "application_role_qualification": "Native macro signature checks do not prove first-party bespoke-type admission or correct stored schema/values. No contextual error prose/keyword policy clearance outside numeric lens.",
+      "untraced_paths": [
+        "Unregistered macro crate/Serde/SATS internals and first-party generated invocation fields not cleared."
+      ],
+      "hash_verified_before_after_read": true
+    },
+    {
+      "index": 22,
+      "source_id": "native-dependency:spacetimedb-bindings-macro-2.6.1/src/view.rs",
+      "path": "CARGO_REGISTRY/spacetimedb-bindings-macro-2.6.1/src/view.rs",
+      "sha256": "48fc81bd0f4780c85900aac82084c05599116c565c7beecd4d26239cf7d0a78a",
+      "registered_ranges": [
+        [
+          190,
+          361
+        ]
+      ],
+      "state": "ACCOUNTED_REGISTERED_NATIVE_MACRO_CONTRACT_WITH_QUALIFICATIONS",
+      "personally_consumed_registered_ranges": [
+        [
+          190,
+          361
+        ]
+      ],
+      "primitive_inventory": [
+        {
+          "ranges": [
+            [
+              190,
+              361
+            ]
+          ],
+          "values": [
+            "native AST/reference/context shape predicates",
+            "Option/Vec/RawQuery typed return alternatives",
+            "const_:()/_ITEM no-payload assertions",
+            "generated &[u8] args/Vec<u8> encoded result",
+            "optional primary-key metadata slice"
+          ],
+          "assessment": "Exact registered native view generation keeps typed row/context and native trait checks. Query emission uses typed RawQuery/SQL native codec path, no numeric status inferred from text. Unit constants assert native signatures; u8 buffers are actual native view wire output. Default primary-key absence/one field metadata are typed collection roles, not numeric aliases."
+        },
+        {
+          "ranges": [
+            [
+              1,
+              189
+            ],
+            [
+              362,
+              364
+            ]
+          ],
+          "values": [
+            "public:bool assignedtrue after required public attribute presence",
+            "Some(()) attribute presence marker",
+            "context/remaining argument slice split",
+            "!arg_tys.is_empty rejection",
+            "first generic arg via .first()"
+          ],
+          "assessment": "Native macro requires public attribute at parsing boundary, stores true in unused native field; no runtime privacy enforcement or false-state policy follows from it. Some(()) is grammar occurrence marker for duplicate checks. Context is exactly leading typed argument; additional args rejected through collection emptiness. Helper Type/Ident/TokenStream objects remain native framework structures, not naked game primitives."
+        }
+      ],
+      "source_backed_traces": [
+        "ViewArgs parsing/requiredpublic presence -> AST context split/no additionalargs -> generated ViewKind/ViewRegistrar/ViewDispatcher -> actual runtime canonical view-context codec roles read under20.",
+        "Return type extraction uses checked native AST .last/.first/Option matches; generated invoke retains &[u8]/Vec<u8> at explicit native ABI."
+      ],
+      "application_role_qualification": "No first-party row/PK type ownership, actual query security/correctness, database access policy or all view return values proved by token generation.",
+      "untraced_paths": [
+        "Full generic builder/RawQuery SQL execution and host schema registration semantics uncredited."
+      ],
+      "hash_verified_before_after_read": true
+    }
+  ],
+  "new_receiving_ranges": [
+    {
+      "role": 20,
+      "sha256": "9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+      "ranges": [
+        [
+          540,
+          560
+        ],
+        [
+          656,
+          659
+        ],
+        [
+          696,
+          702
+        ],
+        [
+          713,
+          720
+        ],
+        [
+          1066,
+          1085
+        ],
+        [
+          1309,
+          1374
+        ]
+      ],
+      "purpose": "Finish reached macro/ABI return count and sender/connection reconstruction, source bytes length handle receiving operation",
+      "hash_verified_before_after_read": true
+    },
+    {
+      "role": 22,
+      "sha256": "48fc81bd0f4780c85900aac82084c05599116c565c7beecd4d26239cf7d0a78a",
+      "ranges": [
+        [
+          1,
+          189
+        ],
+        [
+          362,
+          364
+        ]
+      ],
+      "purpose": "Actual macro argument context-count predicate/return type extraction and complete generated-body wrapper",
+      "hash_verified_before_after_read": true
+    },
+    {
+      "roles": [
+        21,
+        22
+      ],
+      "path": "src/util.rs",
+      "sha256": "f738ede5b1f13210deca5f22f5dc82e90834dee12b56bfe09f7f38f5763fc9ab",
+      "source": "new cached native archive supplement, not assumed frozen registration",
+      "archive_sha256": "fce86c7657dcb42a33ce55f0100f98964dc15b64e79f06803a478676b74d6c82",
+      "matches_current_lock": true,
+      "original21_22_same_archive_bytes_match_frozen": true,
+      "ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "procedure_qualification": "Root prior util42-83 accidental access retained from reg008; this agent registers current bounded read now, no backdating.",
+      "hash_verified_before_after_read": true
+    },
+    {
+      "roles": [
+        21,
+        22
+      ],
+      "path": "src/lib.rs",
+      "sha256": "4ddcdb3edbf28ff93e4d013fa71135ce98698acc219481abaadf9a27005193ff",
+      "source": "new cached native archive supplement, not assumed frozen registration",
+      "archive_sha256": "fce86c7657dcb42a33ce55f0100f98964dc15b64e79f06803a478676b74d6c82",
+      "matches_current_lock": true,
+      "original21_22_same_archive_bytes_match_frozen": true,
+      "ranges": [
+        [
+          114,
+          199
+        ]
+      ],
+      "procedure_qualification": "Root prior util42-83 accidental access retained from reg008; this agent registers current bounded read now, no backdating.",
+      "hash_verified_before_after_read": true
+    }
+  ],
+  "status": "source_assessed_originals20-22_exact_effective_native_contracts",
+  "findings": [],
+  "new_unique_count": 0,
+  "global_clearance": false,
+  "project_execution": false,
+  "product_edit": false,
+  "at": "2026-10-26T18:25:03.249517+00:00",
+  "procedure_qualification": "Root lens12 registration008 discloses util.rs42-83 previously consumed after registration update failed on missing guessed sym.rs. This receipt does not backdate that access. Root metadata source access is provenance only, no numeric-lens verdict/credit. My future util reads will be separately registered before consumption.",
+  "native_receiving_inventory": [
+    {
+      "path": "src/util.rs",
+      "ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "assessment": "Native token arrays/tuples preserve compile-error/item order; unit no-payload parser callbacks; duplicate checking uses ordinary Option presence. Slice patterns0/1/2/many choose display grammar for expected metadata alternatives. match_meta uses required native unit tuple and Symbol predicate, not a semantic numeric game mode."
+    },
+    {
+      "path": "src/lib.rs",
+      "ranges": [
+        [
+          114,
+          199
+        ]
+      ],
+      "assessment": "Symbol(&staticstr) canonical native compiler-keyword owner; .0 is fixed tuple-struct field projection. bool returns required PartialEq predicate; Rust primitive type names such as u8/f32 are identifiers/strings in macro grammar, not numeric values/constants."
+    }
+  ],
+  "at_completed": "2026-10-26T18:30:20.197233+00:00",
+  "qualifications": [
+    "Original20 all supplementary producer/admission effective intervals preserved; original21/22 requested scopes unchanged. No first-party full changed variant narrowed to this native packet.",
+    "Exact known frozen SHA objects retrieved/hash-verified before bounded reads; new util/lib native members extracted from archive matching current Cargo.lock and original21/22samearchive frozen bytes. New members are not presumed frozen registrations.",
+    "Root lens12 locators/provenance only; no source-language/number-lens verdict transfer. Independent rawprimitive inventory/actual native operations recorded.",
+    "Root registration008 historical util.rs42-83 access preceded successful range update; disclosure preserved. This agent separately registered current exactutil1-118 before consuming its body. No backdating that historical source access or claiming it gained audit credit automatically.",
+    "No accepted new numerical defect/unique-count increment from native ABI trust, raw enum counts or type/keyword names. Existing finding/dependency/application obligations stay open.",
+    "No project/source/git changes, checks/tests/cases/helpers/assertions/doctests/publication. Native scope complete does not mean integrated/current runtime validation or SDK/global clearance."
+  ]
+}

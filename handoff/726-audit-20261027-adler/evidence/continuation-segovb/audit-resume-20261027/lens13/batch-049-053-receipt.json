@@ -1,0 +1,930 @@
+{
+  "lens": 13,
+  "status": "original120-128 scoped source-accounted WITH findings; continuing",
+  "registrations": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-049-registration.json",
+      "sha256": "2da8dac01fbae533eb7f9b7f3219d5d6d9e860f93043c365a065be4c5569701e"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-050-registration.json",
+      "sha256": "af5f91261204f4e8f3b53ccdbafc7648bc473235023de8870ea206294070ff50"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-051-registration.json",
+      "sha256": "2706653aba08922bfd67d78853d9471fc0958096703c284907cdf3627da81ef0"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-052-registration.json",
+      "sha256": "a2fbf5595f229b553494de2c031eceb8283a1c5653dbf61b631fe9c2af9285ee"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-053-registration.json",
+      "sha256": "58b68a35f0a627bc431aee7527d2ad7a33f2feadc2266bfb248ee37806e4debf"
+    }
+  ],
+  "actual_source_reads": [
+    {
+      "original": 120,
+      "source_id": "physical-p16:crates/adventuresim-core/src/mission.rs",
+      "sha256": "998416982a504559c519dabf8fecf7612eb946283441b9644c073ac500a62e62",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/998416982a504559c519dabf8fecf7612eb946283441b9644c073ac500a62e62",
+      "requested_range_variants": [
+        [
+          1,
+          106
+        ],
+        [
+          1,
+          114
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          114
+        ]
+      ],
+      "eof": 106,
+      "provenance": "exactf82 registeredphysical object; allrequestedrangevariants retained; priorreceiverreads only matchingownproof access, not orderedcredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "actual_status": "bounded body consumed after prospective registration",
+      "requested_beyond_eof": [
+        [
+          107,
+          114
+        ]
+      ]
+    },
+    {
+      "original": 121,
+      "source_id": "physical-p16:crates/adventuresim-core/src/mission/enemy_roster.rs",
+      "sha256": "c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+      "requested_range_variants": [
+        [
+          1,
+          96
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "eof": 96,
+      "provenance": "exactf82 registeredphysical object; allrequestedrangevariants retained; priorreceiverreads only matchingownproof access, not orderedcredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "actual_status": "bounded body consumed after prospective registration"
+    },
+    {
+      "original": 122,
+      "source_id": "physical-p16:crates/adventuresim-core/src/mission/roster.rs",
+      "sha256": "2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
+      "requested_range_variants": [
+        [
+          1,
+          91
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          91
+        ]
+      ],
+      "eof": 91,
+      "provenance": "exactf82 registeredphysical object; allrequestedrangevariants retained; priorreceiverreads only matchingownproof access, not orderedcredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          91
+        ]
+      ],
+      "actual_status": "bounded body consumed after prospective registration"
+    },
+    {
+      "original": 123,
+      "source_id": "physical-p16:crates/adventuresim-core/src/morale.rs",
+      "sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "requested_range_variants": [
+        [
+          1,
+          527
+        ],
+        [
+          175,
+          280
+        ],
+        [
+          288,
+          325
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          527
+        ]
+      ],
+      "eof": 527,
+      "provenance": "exactf82 registeredphysical object; allrequestedrangevariants retained; priorreceiverreads only matchingownproof access, not orderedcredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          527
+        ]
+      ],
+      "actual_status": "bounded body consumed after prospective registration"
+    },
+    {
+      "original": 124,
+      "source_id": "physical-p16:crates/adventuresim-core/src/npc_policy.rs",
+      "sha256": "51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+      "requested_range_variants": [
+        [
+          1,
+          296
+        ],
+        [
+          126,
+          136
+        ],
+        [
+          126,
+          139
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          296
+        ]
+      ],
+      "eof": 296,
+      "provenance": "exactf82 registeredphysical object; allrequestedrangevariants retained; priorreceiverreads only matchingownproof access, not orderedcredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          296
+        ]
+      ],
+      "actual_status": "bounded body consumed after prospective registration"
+    },
+    {
+      "original": 125,
+      "source_id": "physical-p16:crates/adventuresim-core/src/organization.rs",
+      "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+      "requested_range_variants": [
+        [
+          1,
+          36
+        ],
+        [
+          88,
+          157
+        ],
+        [
+          158,
+          226
+        ],
+        [
+          227,
+          246
+        ],
+        [
+          316,
+          388
+        ],
+        [
+          385,
+          445
+        ],
+        [
+          385,
+          515
+        ],
+        [
+          450,
+          634
+        ],
+        [
+          600,
+          640
+        ],
+        [
+          615,
+          645
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          36
+        ],
+        [
+          88,
+          246
+        ],
+        [
+          316,
+          645
+        ]
+      ],
+      "eof": 1251,
+      "provenance": "exactf82 registeredphysical object; allrequestedrangevariants retained; priorreceiverreads only matchingownproof access, not orderedcredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          36
+        ],
+        [
+          88,
+          246
+        ],
+        [
+          316,
+          645
+        ]
+      ],
+      "actual_status": "bounded body consumed after prospective registration"
+    },
+    {
+      "original": 126,
+      "source_id": "physical-p16:crates/adventuresim-core/src/personality.rs",
+      "sha256": "3251416fba119a8dbdfb3ce1f48abfd7bda014d55dd3ec2b3e38e4dd7e3e9b15",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/3251416fba119a8dbdfb3ce1f48abfd7bda014d55dd3ec2b3e38e4dd7e3e9b15",
+      "requested_range_variants": [
+        [
+          1,
+          202
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          202
+        ]
+      ],
+      "eof": 202,
+      "provenance": "exactf82 registeredphysical object; allrequestedrangevariants retained; priorreceiverreads only matchingownproof access, not orderedcredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          202
+        ]
+      ],
+      "actual_status": "bounded body consumed after prospective registration"
+    },
+    {
+      "original": 127,
+      "source_id": "physical-p16:crates/adventuresim-core/src/physical_object.rs",
+      "sha256": "906e67eed5acc9fbf6ab98e2e4bc7df11b8e9742c1ee148092c7d2061f64afab",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/906e67eed5acc9fbf6ab98e2e4bc7df11b8e9742c1ee148092c7d2061f64afab",
+      "requested_range_variants": [
+        [
+          1,
+          155
+        ],
+        [
+          1,
+          383
+        ],
+        [
+          140,
+          240
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          383
+        ]
+      ],
+      "eof": 383,
+      "provenance": "exactf82 registeredphysical object; allrequestedrangevariants retained; priorreceiverreads only matchingownproof access, not orderedcredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          383
+        ]
+      ],
+      "actual_status": "bounded body consumed after prospective registration"
+    },
+    {
+      "original": 128,
+      "source_id": "physical-p16:crates/adventuresim-core/src/physiology.rs",
+      "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+      "requested_range_variants": [
+        [
+          1,
+          110
+        ],
+        [
+          1,
+          315
+        ],
+        [
+          55,
+          114
+        ],
+        [
+          100,
+          175
+        ],
+        [
+          186,
+          248
+        ],
+        [
+          188,
+          257
+        ],
+        [
+          315,
+          405
+        ],
+        [
+          406,
+          407
+        ],
+        [
+          447,
+          486
+        ],
+        [
+          447,
+          664
+        ],
+        [
+          656,
+          721
+        ],
+        [
+          656,
+          723
+        ],
+        [
+          665,
+          790
+        ],
+        [
+          722,
+          723
+        ],
+        [
+          850,
+          935
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          407
+        ],
+        [
+          447,
+          790
+        ],
+        [
+          850,
+          935
+        ]
+      ],
+      "eof": 1169,
+      "provenance": "exactf82 registeredphysical object; allrequestedrangevariants retained; priorreceiverreads only matchingownproof access, not orderedcredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          407
+        ],
+        [
+          447,
+          790
+        ],
+        [
+          850,
+          935
+        ]
+      ],
+      "actual_status": "bounded body consumed after prospective registration"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/settlement_economy.rs",
+      "sha256": "5ebaaf60d766322d2dc8bbd0cf1a54b0c790793a11d1d3f7b98e139861a3c54e",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/5ebaaf60d766322d2dc8bbd0cf1a54b0c790793a11d1d3f7b98e139861a3c54e",
+      "eof": 552,
+      "provenance": "exactf82registeredphysical source",
+      "future_original_no_credit": 135,
+      "ranges": [
+        [
+          1,
+          58
+        ],
+        [
+          233,
+          251
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          58
+        ],
+        [
+          233,
+          251
+        ]
+      ],
+      "actual_status": "bounded body consumed after prospective registration"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/settlement_population.rs",
+      "sha256": "427a6f6e78d9b203d41f9186e0c4722a1622a9f1d3e2916b43e1b69b73ef601e",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/427a6f6e78d9b203d41f9186e0c4722a1622a9f1d3e2916b43e1b69b73ef601e",
+      "eof": 667,
+      "provenance": "exactf82registeredphysical source",
+      "future_original_no_credit": 136,
+      "ranges": [
+        [
+          155,
+          174
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          155,
+          174
+        ]
+      ],
+      "actual_status": "bounded body consumed after prospective registration"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_schedule.rs",
+      "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "eof": 1363,
+      "provenance": "exactf82registeredphysical source",
+      "future_original_no_credit": 153,
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "actual_status": "bounded body consumed after prospective registration"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/organization.rs",
+      "sha256": "c6543ebb001f40f15986ba54ee0f5a2d05fa72e12639504d65d963aa816b17fc",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/c6543ebb001f40f15986ba54ee0f5a2d05fa72e12639504d65d963aa816b17fc",
+      "eof": 655,
+      "provenance": "exactf82registeredphysical source",
+      "future_original_no_credit": 228,
+      "ranges": [
+        [
+          278,
+          309
+        ],
+        [
+          331,
+          373
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          278,
+          309
+        ],
+        [
+          331,
+          373
+        ]
+      ],
+      "actual_status": "bounded body consumed after prospective registration"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/activities.rs",
+      "sha256": "04dc828b86ab6bc354e9242ef33f6d1d75902cc5d9fad656c5192540167ec18a",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/04dc828b86ab6bc354e9242ef33f6d1d75902cc5d9fad656c5192540167ec18a",
+      "eof": 445,
+      "provenance": "exactf82registeredphysical source",
+      "future_original_no_credit": 304,
+      "ranges": [
+        [
+          365,
+          442
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          365,
+          442
+        ]
+      ],
+      "actual_status": "bounded body consumed after prospective registration"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/consequence.rs",
+      "sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+      "eof": 308,
+      "provenance": "exactf82registeredphysical source",
+      "future_original_no_credit": 385,
+      "ranges": [
+        [
+          176,
+          217
+        ],
+        [
+          243,
+          274
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          176,
+          217
+        ],
+        [
+          243,
+          274
+        ]
+      ],
+      "actual_status": "bounded body consumed after prospective registration"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/tactical.rs",
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "eof": 1515,
+      "provenance": "exactf82registeredphysical source",
+      "future_original_no_credit": 2788,
+      "ranges": [
+        [
+          940,
+          977
+        ],
+        [
+          1037,
+          1095
+        ],
+        [
+          1142,
+          1187
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          940,
+          977
+        ],
+        [
+          1037,
+          1095
+        ],
+        [
+          1142,
+          1187
+        ]
+      ],
+      "actual_status": "bounded body consumed after prospective registration"
+    },
+    {
+      "source_id": "physical-p16:core/physiology.rs",
+      "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+      "ranges": [
+        [
+          408,
+          446
+        ],
+        [
+          791,
+          849
+        ]
+      ],
+      "provenance": "exactf82registeredphysical128; needednumericrecipientbodies, supplementaryaccess notadditionalrolecredit",
+      "actual_consumed_ranges": [
+        [
+          408,
+          446
+        ],
+        [
+          791,
+          849
+        ]
+      ],
+      "actual_status": "bounded body consumed after prospective registration"
+    },
+    {
+      "source_id": "physical-p16:core/organization_catalog_validation.rs",
+      "sha256": "45b87fa13f86c8805f2b4f974fd1f629f5da068a07b3b7c4af17115aaa339846",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/45b87fa13f86c8805f2b4f974fd1f629f5da068a07b3b7c4af17115aaa339846",
+      "ranges": [
+        [
+          132,
+          194
+        ],
+        [
+          207,
+          220
+        ],
+        [
+          308,
+          368
+        ],
+        [
+          490,
+          529
+        ],
+        [
+          590,
+          655
+        ]
+      ],
+      "provenance": "reconstructedunchangedphysical exacta120 no manifest/statuspath",
+      "credit": "receiveraccessonly, no futureoriginal/otherlenscredit",
+      "actual_consumed_ranges": [
+        [
+          132,
+          194
+        ],
+        [
+          207,
+          220
+        ],
+        [
+          308,
+          368
+        ],
+        [
+          490,
+          529
+        ],
+        [
+          590,
+          655
+        ]
+      ],
+      "actual_status": "bounded body consumed after prospective registration"
+    },
+    {
+      "source_id": "physical-p16:core/strategic_schedule/allocation.rs",
+      "sha256": "031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+      "ranges": [
+        [
+          113,
+          177
+        ]
+      ],
+      "provenance": "exactf82future2675",
+      "credit": "receiveraccessonly, no futureoriginal/otherlenscredit",
+      "actual_consumed_ranges": [
+        [
+          113,
+          177
+        ]
+      ],
+      "actual_status": "bounded body consumed after prospective registration"
+    },
+    {
+      "source_id": "physical-p16:tactical-server/combat/consequence.rs",
+      "sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+      "ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "provenance": "exactf82future385",
+      "credit": "receiveraccessonly, no futureoriginal/otherlenscredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "actual_status": "bounded body consumed after prospective registration"
+    },
+    {
+      "source_id": "physical-p16:stdb/strategic/mission_roster.rs",
+      "sha256": "f67d08c1d5b6f22ad63de5ab13e46c5b4f2cd5d7512a7d90de2d1c1cc538a292",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/f67d08c1d5b6f22ad63de5ab13e46c5b4f2cd5d7512a7d90de2d1c1cc538a292",
+      "ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "eof": 101,
+      "provenance": "exactf82registeredphysical source, materialreceiveronly nooriginalcredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "actual_status": "bounded body consumed after prospective registration"
+    },
+    {
+      "source_id": "physical-p16:stdb/strategic/mission_bootstrap.rs",
+      "sha256": "4421b1617dbe612f0ac626645aea036d082746d7823e383da6492db3334517a3",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/4421b1617dbe612f0ac626645aea036d082746d7823e383da6492db3334517a3",
+      "ranges": [
+        [
+          742,
+          790
+        ]
+      ],
+      "eof": 2973,
+      "provenance": "exactf82registeredphysical source, materialreceiveronly nooriginalcredit",
+      "actual_consumed_ranges": [
+        [
+          742,
+          790
+        ]
+      ],
+      "actual_status": "bounded body consumed after prospective registration"
+    },
+    {
+      "source_id": "physical-p16:stdb/tactical.rs",
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "ranges": [
+        [
+          815,
+          856
+        ]
+      ],
+      "eof": 1515,
+      "provenance": "exactf82registeredphysical source, materialreceiveronly nooriginalcredit",
+      "actual_consumed_ranges": [
+        [
+          815,
+          856
+        ]
+      ],
+      "actual_status": "bounded body consumed after prospective registration"
+    },
+    {
+      "source_id": "physical-p16:core/item_references.rs",
+      "sha256": "e794dc0ede51c9d53d64155ee9ce8d551347ec8f659e2461c0b3d5d31b34cb6b",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/e794dc0ede51c9d53d64155ee9ce8d551347ec8f659e2461c0b3d5d31b34cb6b",
+      "ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "eof": 76,
+      "provenance": "exactf82registeredphysical source, materialreceiveronly nooriginalcredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "actual_status": "bounded body consumed after prospective registration"
+    },
+    {
+      "source_id": "physical-p16:core/strategic_schedule.rs",
+      "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "ranges": [
+        [
+          499,
+          581
+        ]
+      ],
+      "provenance": "exactf82 registeredphysical necessaryrecipient; nootherpopulationcredit",
+      "actual_consumed_ranges": [
+        [
+          499,
+          581
+        ]
+      ],
+      "actual_status": "bounded body consumed after prospective registration"
+    },
+    {
+      "source_id": "physical-p16:stdb/organization.rs",
+      "sha256": "c6543ebb001f40f15986ba54ee0f5a2d05fa72e12639504d65d963aa816b17fc",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/c6543ebb001f40f15986ba54ee0f5a2d05fa72e12639504d65d963aa816b17fc",
+      "ranges": [
+        [
+          195,
+          233
+        ]
+      ],
+      "provenance": "exactf82 registeredphysical necessaryrecipient; nootherpopulationcredit",
+      "actual_consumed_ranges": [
+        [
+          195,
+          233
+        ]
+      ],
+      "actual_status": "bounded body consumed after prospective registration"
+    }
+  ],
+  "scope": "All049effective unions and requested variants retained. Original125 boundeduniononly (EOF1251); original128effectiveunion plus actualsupplementaryrecipients totals1-935 (EOF1169), no unreadtailcredit. Original120actualEOF106, requested107-114 absent.",
+  "role_inventory": [
+    {
+      "original": 120,
+      "roles": "limitsusize16participants/64injuries/128contacts; f32perhit1/stress10000; ammunitionu32limit1024; IDstringlength128 +BoolASCII predicate, typedbinding/victor/resolutionenums",
+      "trace": "actualMissionId/others newprefix+ASCII+length\u2192publictypedauthority; derivedtransparentStringSerde bypassesnew (stringlensqueued, numericlengthguardnotownedonSerde). ActualMAXconstants\u2192STDbreceiptbounds source2788:1142-1183 (read050) checksrecordlimits, uniqueness,finiteblood/combinedcut+blunt<=1/maxsingle<=blunt/stress; actualserverrecordammo/stress source385 saturation/cap/128-contact retentionread050. Currenttransientinjuryaccumulation391? exact385:176-199read; no receiptfinalization/allserverpersistenceacceptanceclaim. NativeSpacetimeDBtransportimplementationnotcertified."
+    },
+    {
+      "original": 121,
+      "roles": "privateVec<rawu64enemyIDs>, usize cardinality\u2192NonZeroU32,duplicateBTreeSetcount,0emptyerror",
+      "trace": "TryFromVec checked_countu32conversion+nonempty+unique\u2192privateimmutablevec\u2192enemy_countrecheckexpect/into_ids. ActualMissionRoster52capture validateslivegroupcount once; MissionAuthority storesIDs thenenemy_rosterrevalidatesstoredsnapshotandDBexistence\u2192bootstrap andtacticalrequest carrysamecountu32+exactIDs (actual052read). Enemyrosterdeliberatelynot16partycap. ZeroenemyID notexplicitlyrejectedbycoreowner; receiver DBexistence is independent, no inventednonzeroallIDsrequirement."
+    },
+    {
+      "original": 122,
+      "roles": "privateVecu64partymembers, usize1..16 unique cardinality\u2192NonZeroU32launchcount; exactIDsremainraw",
+      "trace": "TryFromVec\u2192nonempty/max16/unique\u2192privateimmutablemembers\u2192expectedcountcheckedconversionexpect safeunder16\u2192IDs. ActualpartyTryFrom inSTDbreceivingserverregistration050:954 alsoenforcesbeforestoredstate; actualbootstrap/tacticalrequest052carrycapturedIDs. Cardinalityclosed; exactdurableIDownerfit separate fromcount. No usingthiscap tocleararbitraryautoresolve/otherpublicslices."
+    },
+    {
+      "original": 123,
+      "roles": "rawf32signedmorale/events/nonnegativecontributions; strategicincap sevenf32fields,1full/.5stagger/2slope; Willfloor.25,exp scales10/5/40,command.05/1.6,discord3,neglect8,fervor2.5,masterylimit4,bloodloss.30/recovery.01; relativeage/durationu64; Boolnormalizedrolloutcome",
+      "trace": "actualfinitepositiveeventfilter\u2192sort/harmonic/indexdivisor\u2192rawsum\u2192negative/Willmitigation\u2192morale;actualincaprawsum\u2192thresholdenum+multiplier. Masterysanitation0..4/excessfinite>=0\u2192durationdecay+expsaturation\u2192boundedscalar; religiouspressure/fervor/neglect actualsamefile exp/clamps\u2192Boolcomparison; pain/blood/hunger/thirst divisions\u2192strategicincap, actualown75-89 combat/party/disease receiverproofreuse matched exactfunctions. Signedmorale andincap>1 legitimate, not allUnitInterval. PublicInput f32 mostlynotfiniteadmitted; genericnativearithmetic kernels do not independently establishsemanticinputs."
+    },
+    {
+      "original": 124,
+      "roles": "rawu64actor/candidateID/day/costs, u8housecomfort rank, typedSeed, Bool10eligibilityflags, usizecandidatecap16,quantum15u16,reserveperiod1u64; scheduleminuteu16",
+      "trace": "Candidatecollect\u2192sort ID+fullSeed\u2192rejectsameID/conflictingseed\u2192dedup\u2192nativeSeedStreamranku64+IDtie\u2192truncate16. ExactearlierSeed/Stream.read039 reused; truncationofseedto_u64 notclaimedcollisionfreeidentity/security. ActualcourtshipBoolgate\u2192threeenumroutes prior91 sourcefit. Initialsocializing60+15*index5=>60..120, labor360, otherDailyScheduleDefault0 actualallocationreceiver051\u2192total420..480<1440. Housing publicrawcosts\u2192saturatingrequiredsum\u2192filter\u2192rankselection; qualifiedoverflowobservation below."
+    },
+    {
+      "original": 125,
+      "roles": "Boolpublicthreat/errantry/practice/recognition/legalprivileges; i16addresspriority/socialprecedence; u32joiningfee/duesamount/dayinterval/practiceminutes; f32requiredskillminimum/trainingweight; rawu64representativeIDs; numericmod4socialrole/OR1<<63identitynamespace; OnceLock catalogue",
+      "trace": "schema/publicSerde\u2192generatedcatalogOnceLock (scoped487-493)\u2192role/privilege/transition/service getters\u2192actualSTDbrequirements anddues/activities recipients050/053. Exactunchangedphysicalorganizationvalidator051 checks skill0..5, i16 range, practicepositiveu32 iffallowedelse0, feeu32, positiveu32dues/day, trainingweightfinitepositive,sum1\u00b11e-6 (emptyallowed). TrainingEntry actualrecipientstrategic_schedule::apply_curriculum_training multipliesworkhours*weight then skillowneraward andnormalizedweaponweights, actual053. Dues amountwidenedcurrency,days typedStrategicMinute.saturating_add_days, practiceu64scaleddayaccrual+nonzerointervalguard/rewarddivisions/saturatingconversions source050. Samefileinitialsocial/representative\u2192actualstable_hashrecipient136:163-170 Seedderive\u2192u64 thenmod4 orhighbit, exactnumericidentityformat roles; no collisionfreepromise. Service Boolactualrecipient135 matchesprofile.has_service, no allprofile/SDKproof. Boundedsourceunion1-36/88-246/316-645 only, no authoring/consumerunreadtailcredit."
+    },
+    {
+      "original": 126,
+      "roles": "closedpersonalityenums; Conviction rawf32 strength0/2.5/5; 13Boolcomparisons castusize/sum",
+      "trace": "closedZealous/Neutral/Irreverent\u2192strength\u2192actualmorale/fervor source123 andearliercourtship91/skillnativecontracts; exactmax5, notUnitInterval. non_neutral_count thirteenaxes=>0..13fitsusize, excludesinclination/presentation/sex intentionallybyexplicitlist. Booleansinmacro cfg/serde no numericpayload; source-onlymacrobody andallvariantsread."
+    },
+    {
+      "original": 127,
+      "roles": "rawu64inventoryrow/character IDs inlocationrecords; privateNonZeroU64 PhysicalObjectId/CustodyCharacterId; stringpartybound256; Boolscope/holdermatches; typedcustodyenum/objectstate",
+      "trace": "rawbackinglocationconstructors retainfieldsdirectly (not allIDs sameidentitykind); operationalcustodycheckednonzeroobject/character constructors\u2192privateIDs\u2192ObjectCustody rejectsContainer(self)\u2192transferreusesconstructor\u2192actualrights frames/sourcebinding prior045 andforage108 typedactorreceiver. Scopedfull383freshread after049 (priorreceiver146-176 notautomaticcredit). OptionalrowIDAbsentforfireplace isstate-owned enumshape, not numeric0sentinel. PhysicalObjectId istypedviewexistingidentity notsecondallocator. GeneratedDBserializationlocationrawschema separatefromnonzerooperationalview; no wholeSDKguarantee."
+    },
+    {
+      "original": 128,
+      "roles": "rules/keyversionu16=1; privateBodyMassKg20..300/default70 +70ml/kg; privateDoseMilliunits0..8000/1000standard; fixedmeter10/region7/humour4 indexedenums; rawMeterVector[f32;10], signedlossbounded-1..2/amplitudes-16..16; curveageu64/rawlossf32/regionalweights7; 14interventionprofiles/durations180..720/version1; rawIDsu64/sensitivityi16/adverseu16; HMAC64/32bytes/top53bits; publicpresenceclockspan/bandu8 andquantizedsignedBPSi16",
+      "trace": "bodymasscheckedfinite/range\u2192estimatedblood1400..21000 finite; dosecheckedfinite/nonnegative roundedmicro +max8dose\u2192Administration retainedtypedDose\u2192actualversionedprofile+route/timecheck\u2192sensitivityclamp\u00b12500/adverse<=2500\u2192effect dose<=10/adverse<=2.5\u2192MeterVector boundedkernels. All14actualstaticprofiles+actualMEDICATION_IDS14 owner052read; constvectorprivatefactory setsfixedvalidMeterindices, no rawindexinput. MeterVectorpublictuple rawconstruction\u2192from_entries/add_bounded/scaled sanitizer/clamps\u2192terminal/humours nativefixedarrays; original93 disease actualselectedrecipient proofs reused. Actualpiecewise408-446 anddisease/combined/firstterminalreceivers791-849 fresh050: age-signed curve interpolationf64butright-leftf32; sourcepubliccurvesnotvalidatedowner. Piecewiseauthoredstaticdiseases bounded source93, notallpublicAPIfiniteguarantee. Firstterminal assumesallstructuralbreaks andlinearstatebetween; arbitraryFnMutnotprovenbytype. Phenotypeactualkeyedhashfullbody\u2192LEIDs/version/discriminator\u219253bitfraction\u2192.72..1.28beforemean10normalization; baseline0episode and\u00b1.02. SamefileHMACsourceobserved, crypto/keyoperationalpolicy/runtimeSDKnotvalidated. Presencecanonicalstartmin/endmax ensuresnonreversedclosedspan thencontainsinclusive; publicfields/Serdecanbypass; bandclamp5\u2192quantizesteps1000/500/250/100/50/25, finiteclamped[-1,1]*10000\u2192safei32roundthen\u00b110000i16. Thesearesigneddeviations, not UnitInterval orunsignedBPS."
+    }
+  ],
+  "qualified_observations": [
+    {
+      "id": "OBS13-NPC-HOUSE-RESERVE-SATURATION",
+      "source": "124:140-153",
+      "observation": "availableMAX, offerinitialMAX/recurring1/reserve1 passes saturatedsumMAX<=MAX although mathematicalcostplusreserve>MAX. ActualpublicAPIreceivingfilter/maxselectionread; no realMAXwealth/currentactivation/execution/uniqueclaim."
+    },
+    {
+      "id": "OBS13-MORALE-FINITE-AGGREGATE",
+      "source": "123:247-267",
+      "observation": "cumulative_morale([MAX,MAX]) filtersbothfinitepositive but MAX+MAX/2 overflows. Analogouscapabilityaggregationobservationsretained, deduprootrequired. RawStrategicIncapacitation cancontainNaN; statusmatchfallsReadyforNaN, multipliernotguaranteedfinite. No claimthatadmittedcurrentcharacterrouteproducesNaN."
+    },
+    {
+      "id": "OBS13-PHYSIOLOGY-CURVE-PUBLIC",
+      "source": "128:410-444;790-799",
+      "observation": "PublicMeterCurve permits finiteendpointloss -MAX,+MAX atminutes0,2. age1 computes right-left asf32=infinity before widening, so resultinfinite ratherthan midpoint0; disease_meter_state thenclampspositiveinfinity2. ActualstaticDiseaseDefinitioncurvesoriginal93 doNOTuse thesehugeendpoints; sourceAPI/invariantclosureconcern only, no authored/runtimeincident."
+    },
+    {
+      "id": "OBS13-RAW-OWNERS-120-128",
+      "observation": "Separate rawID, clockduration, curriculum/rank/money/mass/blood/meter/weight fields remainprimitive alongsidecheckedrosters/clock/dose/mass/custody owners. Useexistingowneronlywithactualfit, respect0validness/signedmeter>1loss; nativearraydimension/wireintegerencodingboundariesareactualrepresentation roles, not blanket exemption."
+    }
+  ],
+  "qualifications": [
+    "Source-accountedWITHfindings only; currenttreealiases/runtime/repairacceptance/uniquealias/security/nativeSDKallpending. No tests/probes/projectchecks/newhelperorproduct/Git/rootledger/history edits.",
+    "Exactfrozenobjects; organizationvalidation reconstructedunchangedphysicalexacta120base=head, absentpinnedphysicalmanifest/status. Numericguardsreadselectedranges, notall986linevalidationimplementation.",
+    "Original125tail646-1251 and128tail936-1169 uncredited; dependencyfull/boundedrangesdo notgrantfutureoriginal135/136/153/228/289/292/304/385/2675/2744/2788credit. Allotherpopulationcountsunchanged.",
+    "Receipt120 has correctedexplicitactualrange1-106; initialrequested114 retainedasabsenttailqualification. Allread registrationsprecedeactualread; nothingclaimedfromhash/searchpresence.",
+    "AllpriorSTATE001-010, metadataerrata,031authoritycorrection/unregisteredpatch/accessincident andinheritedF1/F2/F6/F9/nativecurrentness/acceptancelimitsretained."
+  ],
+  "no_project_execution_or_mutation": true
+}

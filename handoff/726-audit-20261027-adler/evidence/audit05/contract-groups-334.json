@@ -1,0 +1,41 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-334",
+  "at": "2026-10-25T23:19:58.593592+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2745,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/personality/generation.rs",
+      "sha256": "7341d3b9b18f9637f05016688ed33225a49ec7596151813d96b8804c4e42ca84",
+      "personally_read_ranges": [
+        [
+          1,
+          204
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Stable personality production splits sex, presentation, inclination and behavior entropy streams by character identity; supplied demographic sex/presentation overwrite temporary random fields while inclination is regenerated from explicit sex. random_personality shuffles all thirteen axes and takes two through four, so axis distinctness is constructive in this producer.",
+        "Static source comparison only. Enum variant nonemptiness and shared RNG index/shuffle contracts remain separate dependencies; public/persisted personality admission is not proved by this generator. No new finding."
+      ]
+    },
+    {
+      "scope_index": 2781,
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_generation/sampling.rs",
+      "sha256": "3c679c4e5177ee4462d6286d81cdd3e3cfaa9b6e2d91e844d3d45b8e2f666a44",
+      "personally_read_ranges": [
+        [
+          1,
+          213
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Candidate indexes are canonicalized by stable ID before traces and accepted positive-weight selection; duplicate identities reject even excluded candidates. weighted_order maps shared weighted indexes back into original candidate positions, and canonical_context sorts witnesses then rejects duplicate resident IDs.",
+        "Candidate cap checked before ordering/allocation; empty choose errors with diagnostics whereas weighted_order returns empty. Shared weighted overflow becomes Sampling error. Existing tests read, not run. Trace append-on-error and caller reuse policy remain separate aggregate receiving questions; no duplicate/order finding established."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

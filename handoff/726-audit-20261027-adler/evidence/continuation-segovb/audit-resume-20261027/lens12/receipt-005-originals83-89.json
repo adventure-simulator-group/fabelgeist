@@ -1,0 +1,420 @@
+{
+  "schema": "lens12-source-discovery-receipt-v1",
+  "id": "L12-RESUME-005",
+  "created_utc": "2026-10-27T10:53:58.625075+00:00",
+  "predecessor": "receipt-004-originals79-82.json",
+  "prospective_manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens12/prospective-sources-001.jsonl",
+    "sha256_prefix": "0cb2d29fc846c200c9e3ae5a1b312aa9ff435553b92d38fad5bcd1c37bb1ada9",
+    "bytes_prefix": 50822
+  },
+  "source_reads": [
+    {
+      "original_index": 83,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/defense.rs",
+      "sha256": "a3019cfa64106abc38bbfa7b0962e406cc6cb1a1a663a8a0dfdee71f874201e1",
+      "actual_ranges": [
+        [
+          1,
+          444
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            331,
+            350
+          ],
+          "role": "2 existing test panic literals",
+          "disposition": "immediate panic diagnostic boundary; complete444 other production fields/parameters/results use DefenderResponse/BodyPart/BodySide/CommittedThreatChoice and numericalbespoke values, no raw string API. Exact typed DefResponse owner79:184-198 consumed004."
+        }
+      ],
+      "status": "source-accounted with findings; exact full registered original owner/producer bodies"
+    },
+    {
+      "original_index": 84,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/fatigue.rs",
+      "sha256": "823dc22517760aafcf6f7107becb2e1d9c647c685bfe5022f7865d7739cb52f5",
+      "actual_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              263
+            ]
+          ],
+          "occurrences": 0,
+          "role": "numerical workload/fatigue and typed work categories incl existing tests",
+          "disposition": "complete independently read263 contains no rawstring/string-valued field/param/return/default/extraction; actualvalidate().is_err test ignores error text, no stringbranch. Not other-lens numeric/behavior clearance."
+        }
+      ],
+      "status": "source-accounted with findings; exact full registered original owner/producer bodies"
+    },
+    {
+      "original_index": 85,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/fatigue_config.rs",
+      "sha256": "a899b7bacdfbcbc116a93ff6adc283bfb56bea396687713dc3677ff505522ce9",
+      "actual_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            23,
+            42
+          ],
+          "occurrences": 1,
+          "role": "raw string-valued fatigue validation error",
+          "disposition": "one semanticfailure collapsed to prose &staticstr, propagated directly by80:58 ? into same rawerror type; fullbody proves internal stringerror transport not merely Display-ownedtemplate. Connected typed validation error family; actualfinal root caller remains pending."
+        }
+      ],
+      "status": "source-accounted with findings; exact full registered original owner/producer bodies"
+    },
+    {
+      "original_index": 86,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/incapacitation.rs",
+      "sha256": "a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+      "actual_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            7
+          ],
+          "occurrences": 1,
+          "role": "serde into Option<AnimationElapsed> token",
+          "disposition": "derive/wire type configuration boundary; actual availability enum->Option conversion22-26 consumed; no retained application text elsewhere full115."
+        }
+      ],
+      "status": "source-accounted with findings; exact full registered original owner/producer bodies"
+    },
+    {
+      "original_index": 87,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/weapon_contact.rs",
+      "sha256": "6490cee01f9eeb43f5cb7201d193a93cb59f9e053ba093d3689c94008a24d140",
+      "actual_ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            92
+          ],
+          "occurrences": 1,
+          "role": "invalid contact precision assert diagnostic",
+          "disposition": "immediate native panic boundary in numericconstructor; no category/stringstate/API elsewhere full113; native WeaponDesign fields/Shape pattern categories kepttyped. No numerical admission/invariant conclusion."
+        }
+      ],
+      "status": "source-accounted with findings; exact full registered original owner/producer bodies"
+    },
+    {
+      "original_index": 88,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/weapon_contact/tests.rs",
+      "sha256": "1f06000f7544b5eef15b06fbce033930014e96dc50812d8b9dadfd3c2b850af9",
+      "actual_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            32,
+            33,
+            34,
+            35,
+            42,
+            85,
+            106,
+            110
+          ],
+          "occurrences": 8,
+          "role": "raw weapon chassis/item catalog identity inputs to default_design/weapon_precision/conditioned_precision; retained loop IDs72",
+          "disposition": "same inherited open catalog identity family. Actual weaponmodel catalog82-87 finds design.catalog_id==catalog_id then clones; JSON gameplay source yields WeaponDesign typed record with raw catalogID. Actualitemcatalog74-78 calls rawdefinition; parametric59-64 reuses same ID for lookup/condition formula; no humantext boundary or blanket test exemption. Carry canonical interoperable open identity across these APIs/arrays/schema, reconcile catalog-chassis vs inventoryinstance role; do not create enum closing authorable catalog."
+        },
+        {
+          "lines": [
+            40,
+            77
+          ],
+          "occurrences": 2,
+          "role": "format assertion diagnostics for humanreadable ID/value",
+          "disposition": "actual macro diagnostic boundary, use canonical ID Display at final formatting after semantic pathmigrates; not reason to retain rawID internally."
+        }
+      ],
+      "status": "source-accounted with findings; exact full registered original owner/producer bodies"
+    },
+    {
+      "original_index": 89,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/weapon_contact_config.rs",
+      "sha256": "ad51483d70e3e95165e16c92b3d3e270e381db2c9aa9135056cb6484e3e1b287",
+      "actual_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            15,
+            25,
+            28
+          ],
+          "occurrences": 2,
+          "role": "two raw validation errors for contact calibration/unarmed precision",
+          "disposition": "two distinct authoredconditions collapsed to &staticstr ininternal Result, direct80:59 ? preserves same rawtype. Use canonical typed validation errors/causes through internalcaller then Display; no existing acceptable owner invented."
+        }
+      ],
+      "status": "source-accounted with findings; exact full registered original owner/producer bodies"
+    }
+  ],
+  "actual_material_receivers": [
+    {
+      "original_index": 430,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/lib.rs",
+      "sha256": "617d4da8bd91ac58b857ad94c1a1d44d417e90055976d46637e567caeb218bad",
+      "ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "trace": "weaponmodel declared catalog reexport",
+      "credit": "material receiving context only, not future ordered original inventory verdict"
+    },
+    {
+      "original_index": 2591,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/catalog.rs",
+      "sha256": "0f579abd98b3de2924ebba3a1addc74b37c30c098af4667ae23b6fdaaef398e2",
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "trace": "PRESET_IDS/MELEE_CATALOG_IDS rawconstantidentity arrays; rawdefault_design lookup82-87 and gameplay JSON77; preset/openrecommendedholder matches88-107 incidental context mandatoryfutureinventory, no full original2591count",
+      "credit": "material receiving context only, not future ordered original inventory verdict"
+    },
+    {
+      "original_index": 113,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog.rs",
+      "sha256": "12a6191433c61dae833826429a9ebacc2c043cce0fe593831e65f6ec10a132f6",
+      "ranges": [
+        [
+          66,
+          85
+        ]
+      ],
+      "trace": "actual weaponprecision74-78->definition lookup, numericaloutput, rawIDparameter",
+      "credit": "material receiving context only, not future ordered original inventory verdict"
+    },
+    {
+      "original_index": 102,
+      "source_id": "physical-p16:crates/adventuresim-core/src/equipment/parametric_weapon.rs",
+      "sha256": "b86de57ce073e0c629d63bcb5e9b1cc92c18be2705b8954f4536c12db6fd0eb3",
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "trace": "actual conditioned_precision59-64 receivesrawcatalogkey, weaponprecision lookup andnative diagnostic62; constructor retainednumericfields; fullbodyreadreceivingcontext no futureoriginalcount",
+      "credit": "material receiving context only, not future ordered original inventory verdict"
+    }
+  ],
+  "findings": [
+    {
+      "family": "raw internal string-valued validation failures",
+      "sources": [
+        "80:57-73",
+        "85:23-45",
+        "89:15-31"
+      ],
+      "remedy": "canonical typed validation error(s) carrying distinct physics/order/calibration failure and typeddelegated causes; expose human prose through Display at output boundary",
+      "acceptance": "source trace actual callers and errorowner fit before rootimplementation; no errorprose comparisons/internal string failures afterrepair",
+      "unique_delta": 0
+    },
+    {
+      "family": "inherited open item/chassis catalog identity aliases",
+      "sources": [
+        "88:31-42,72-85,106-110",
+        "2591:48-87",
+        "102:59-64",
+        "113:74-78"
+      ],
+      "remedy": "reuse canonical appropriate catalog-ID owner after resolving sharedsemanticidentity vs separatecatalogchassis/inventoryinstance; native strings only at JSON/Display/lookup adapter boundary",
+      "limits": "gameplay.json contents/generated catalog schema+validation/nativecodec not consumed; no assumption const catalog wholepopulation/completeness/open-IDgrammar",
+      "unique_delta": 0
+    }
+  ],
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/defense.rs",
+      "sha256": "a3019cfa64106abc38bbfa7b0962e406cc6cb1a1a663a8a0dfdee71f874201e1",
+      "ranges": [
+        [
+          1,
+          444
+        ]
+      ],
+      "coverage": "only lens12 role inventory, mandatory remaining lenses preservefullauthority"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/fatigue.rs",
+      "sha256": "823dc22517760aafcf6f7107becb2e1d9c647c685bfe5022f7865d7739cb52f5",
+      "ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "coverage": "only lens12 role inventory, mandatory remaining lenses preservefullauthority"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/fatigue_config.rs",
+      "sha256": "a899b7bacdfbcbc116a93ff6adc283bfb56bea396687713dc3677ff505522ce9",
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "coverage": "only lens12 role inventory, mandatory remaining lenses preservefullauthority"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/incapacitation.rs",
+      "sha256": "a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+      "ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "coverage": "only lens12 role inventory, mandatory remaining lenses preservefullauthority"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/weapon_contact.rs",
+      "sha256": "6490cee01f9eeb43f5cb7201d193a93cb59f9e053ba093d3689c94008a24d140",
+      "ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "coverage": "only lens12 role inventory, mandatory remaining lenses preservefullauthority"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/weapon_contact/tests.rs",
+      "sha256": "1f06000f7544b5eef15b06fbce033930014e96dc50812d8b9dadfd3c2b850af9",
+      "ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "coverage": "only lens12 role inventory, mandatory remaining lenses preservefullauthority"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/weapon_contact_config.rs",
+      "sha256": "ad51483d70e3e95165e16c92b3d3e270e381db2c9aa9135056cb6484e3e1b287",
+      "ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "coverage": "only lens12 role inventory, mandatory remaining lenses preservefullauthority"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/lib.rs",
+      "sha256": "617d4da8bd91ac58b857ad94c1a1d44d417e90055976d46637e567caeb218bad",
+      "ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "coverage": "new materialreceivers mandatory allapplicable lenses; no futureoriginal transfer"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/catalog.rs",
+      "sha256": "0f579abd98b3de2924ebba3a1addc74b37c30c098af4667ae23b6fdaaef398e2",
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "coverage": "new materialreceivers mandatory allapplicable lenses; no futureoriginal transfer"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog.rs",
+      "sha256": "12a6191433c61dae833826429a9ebacc2c043cce0fe593831e65f6ec10a132f6",
+      "ranges": [
+        [
+          66,
+          85
+        ]
+      ],
+      "coverage": "new materialreceivers mandatory allapplicable lenses; no futureoriginal transfer"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/equipment/parametric_weapon.rs",
+      "sha256": "b86de57ce073e0c629d63bcb5e9b1cc92c18be2705b8954f4536c12db6fd0eb3",
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "coverage": "new materialreceivers mandatory allapplicable lenses; no futureoriginal transfer"
+    }
+  ],
+  "pending_contracts": [
+    "actual outer validation caller and typed errorowner for80/85/89; directdelegated propagation now read",
+    "weapon gameplay JSON data/admission and actual WeaponDesign ID owner fullscope; lookup semantic equality established only",
+    "all earlier state037 and local001-004 untraced receiver/currentness/alias qualifications preserved"
+  ],
+  "qualifications": [
+    "Frozen physical-P16 exactf82 sourcebytes only; currenttree not compared.",
+    "User no backward compatibility; no old wire/error/schema preservation constraint.",
+    "Existing test bodies inspected as source only; no tests/probes/execution/additions.",
+    "No unique/global/other-lens clearance; all20/P16/P17 and inherited findings preserved."
+  ],
+  "proposed_count": {
+    "before": 83,
+    "after": 90,
+    "indices_completed": [
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89
+    ],
+    "next_original": 90,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  }
+}

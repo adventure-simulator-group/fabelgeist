@@ -1,0 +1,26 @@
+{
+  "1485": {
+    "inventory": "Existing generation fixtures are test functions and setup/assertion helpers only; no handwritten traits or codecs, including emptybody/cache/key/material constructors. They exercise live readiness/failure, hold/drop/newwearer association and cacheeviction rather than defining publicconstruction semantics.",
+    "disposition": "No derive opportunity. Do not replace contextualfixturebuilders by newFrom or addserialization; keep existingcases/assertions unchanged. Read-onlyexistingfixtures provide sourcecontext, no execution/acceptanceclearance and no newtests."
+  },
+  "1486": {
+    "inventory": "LayerSelection derives Clone/Copy/Debug. Handwritten From<CatalogPlacement<'static>> constructs Self{selection} directly; existing tactical-client derive_more2.1.1 has from feature enabled. Manual PartialEq/Eq/Hash/PartialOrd/Ord deliberately project lexical(itemID,placementID) through key(), preserving cachevalueidentity independent of fullcatalogrecords. OutfitPlan/FitKey/cache impls are semantic inherentadmission/dependency planning.",
+    "disposition": "Concrete mechanicalderive candidate: add derive_more::From to LayerSelection and remove only directFrom<CatalogPlacement<'static>> impl; pinned derive_more From onefieldnamed expansion retains same input/lifetime/output/publictraitmethod and infallibleconstruction. Keep semantickey equality/hash/order manual: deriving fromCatalogPlacement couldchange bounds or compare additionalcatalogdata. Keep OutfitPlan admission/support ordering explicit. Candidate pending sharedremedy dedup, no globallyunique count asserted."
+  },
+  "1487": {
+    "inventory": "Existing layer fixtures are selection/key helpers and two runtimedependency/order/failure tests, with no handwritten trait or codec. Values use actualadmittedLayerSelection and productionFitKey/OutfitPlan.",
+    "disposition": "No derive opportunity in fixturefile; preservecases verifying semanticlexicalkey/supportrules when directFrom derive candidate1486 is integrated. No addedtests/assertions or execution."
+  },
+  "1488": {
+    "inventory": "Existing meshfixture builds actualGeneratedArmor/material/skin and inspectsnativeBevyAssets/Transforms to provepartcompaction andsharedcarryorigin. No handwritten trait orcodec; functions only.",
+    "disposition": "No derive opportunity. Retain explicitfixturetopology/weightedskin/material boundary and assertions, not rawconstructionderive or newserialization. Broader mesh/skin validation remainsother auditobligations."
+  },
+  "1489": {
+    "inventory": "CachedPart already derives Clone. equipment_parts/reference_center/runtime_equipment_mesh/material are inherentnativegeometry/material classification andcheckedjoint narrowing, not handwritten traits/codecs.",
+    "disposition": "No derive opportunity. Keep materialpartition, referencedvertex compaction, strongest-four nativeu16projection andactualPBRmapping explicit; genericFrom would hide semanticconversion/failure and codecderive would addunrequestedAPI."
+  },
+  "1490": {
+    "inventory": "BodyShapeKey already derives Clone/Debug/PartialEq/Eq/Hash. new converts admittedproportions andcontextualmorph weights tobitkeys; proportions() readmits decodednativefloatarray; apply() validatesdimensions andupdatesmorphedbody/normals. No handwritten trait orcodec.",
+    "disposition": "No derive opportunity. Preserve bitidentity/signedzero semantics, contextualmorphselection andcheckedproportionconversion, ratherthan From/Into/serde onrawkey arrays. Numericalmeshclosure remainsotherlensobligation, not cleared."
+  }
+}

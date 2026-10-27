@@ -1,0 +1,205 @@
+{
+  "id": "SEGOVB-CONT11-173-800-COMPLETE",
+  "lens": "type-granularity",
+  "original": 800,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/field.rs",
+  "sha256": "1f537b363a614847b1ddf760ac719c5ed099171646ce606649e8b7ca79390264",
+  "actually_read": [
+    [
+      1,
+      545
+    ]
+  ],
+  "prior_state": "audit11-segovb-172-proposed-state.json",
+  "source_accounted": true,
+  "source_complete_for_requested_role": true,
+  "status": "Source-accounted with source-backed local packed-triangle capacity gap and qualified physical/grid ownership concerns; not clear.",
+  "contract_traces": [
+    {
+      "role": "Sampled field owner versus canonical header and native collision shape",
+      "locations": "53-57,78-150,197-220; collide.rs16-57; common.rs209-235,263-275",
+      "trace": "BodyField owns a prepared native collision buffer and its construction policy. It reuses canonical FieldHeader rather than duplicating header meaning. Header names model-space lower corner, metre cell width, three grid dimensions and metre reach; entries encodes three vec4 header words followed by four signed distances per entry, x-fastest. First entryw1 identifies sampled field; commonHEAD checks that actual discriminator and decodes the same cell/dimension/reach slots. Alternate mannequin tape has w0 per previously traced head_shape. This flag is native tagged-buffer encoding at an explicit adapter, not an application Boolean that establishes another independent state owner. BodyField::nowhere produces a one-cell far-outside sampled field with an actual header, a meaningful no-body input rather than legacy compatibility."
+    },
+    {
+      "role": "Actual grid admission and layout derivation",
+      "locations": "35-51,78-133,197-280; canonical header cells/len",
+      "trace": "sample derives extent from explicit lower/upper bounds, aims for metre CELL and scales toward MAX_CELLS target; ceil/max1 derives each native dimension. Header.entries, cells and len drive allocated vec4 field payload and dispatch length. Grid retains this header plus NearMesh; params adapts named lower corner/cell/dimensions/cellcount and native buffers to actual WGSL layout. These are different roles despite primitive f32/u32. Sampled grid dimensions, cell count, vec4 entry count, byte allocation length and spatial positions should not be interchanged. Source does not prove an exact cell-count ceiling, finite positive extents/cell, product/cast overflow freedom or lossless large-dimension float encoding for arbitrary inputs; no extra limits invented in this lens."
+    },
+    {
+      "role": "Filtered triangle ordinal versus body vertex slots",
+      "locations": "152-195; surface.rs216-225; existing BodySurface/groom804 contract169",
+      "trace": "NearMesh converts same BodySurface positions, computes one normal per body vertex with canonical vertex_normals, and filters faces by expanded query bounds. Its filtered triangle list retains original body vertex indices, with native padded fourth lane. Thus filtered triangle ordinal differs from body vertex slot or original unfiltered face ordinal. Points and normals remain in the same source order; shader corner(t,k) resolves filtered face then original vertex. Valid source topology follows this particular association. Public BodySurface does not encode universal index membership, finite vertices, closed winding or normal validity; no ordinary malformed-mesh incident or global admission clearance inferred."
+    },
+    {
+      "role": "Packed seed capacity and one-based nearest transport",
+      "locations": "44-49,162-193,369-425",
+      "trace": "SEED computes quantized proximity and packs it above TRIANGLE_BITS20 with raw filtered triangle ordinalt. FLOOD_START masks exactly20lowbits then adds1, reserving0 for none. Nearest buffers carry this one-based ordinal and flood/finish subtract1 before resolving the same filtered triangle array. These encodings are native numerical workspaces with meaningful distinct roles. Host upload casts faces.len to u32 but has no corresponding<=2^20 count check; the local source-backed capacity gap below is not erased by a raw primitive field name or by the shader/native boundary."
+    },
+    {
+      "role": "Flood state and signed distance production",
+      "locations": "222-280,283-536",
+      "trace": "Grid.flood uses two equal native buffers and an internal0/1 array selector while halving neighbour step lengths, then an additional step1. Native cell coordinates/indexes, neighbourhood offsets, triangle candidates and metre distances remain different roles; the selector is a local scheduling index. FINISH computes nearest point/normal sign and emits four distances per vec4 after FieldHeader::ENTRIES. Common field_value decodes that exact padded layout; field_distance uses eight samples and trilinear blending, returns reach outside grid, and dispatches from common head_distance under header discriminator. Source-aware read/write representation is established. Full jump-flood nearest accuracy, continuous collision clearance, degenerate triangle behavior, normal/finite arithmetic, dimension overflows and error tolerances remain outside this type-granularity verdict."
+    },
+    {
+      "role": "Actual producer, typed receiving API and native field-reader linkage",
+      "locations": "retained groom804103-125,143-185 from169; place801128-199,34-55,85-107",
+      "trace": "GroomedHair.place passes model-space body plus carried hair bounds into sample, passes typed BodyField to Draping.place, and later retains its buffer alongside placed hair. carry binds field.buffer as head_shape; PlaceKernels compilation explicitly includes commonHEAD, linking actual field decoder to this native input. place forwards field.buffer to native shrinkwrap too. This bounds the typed owner up to actual native shader/operation buffer adapters; no duplicate body Boolean or required backward-compatibility path. The rest of801 drape/guide algorithm remains unread and receives zero ordered credit."
+    },
+    {
+      "role": "Shader construction and local numerical representations",
+      "locations": "282-545",
+      "trace": "grid_kernel splices per-kernel uniform declarations into a shared Params source then appends actual binding/body text. @group and EXTRA are local shader-format tokens, not user prose classifications. Raw vec4 point/normal/triangle tapes, native integer bitfields, barycentric triples and fold dimensions are explicit numerical/protocol representations. Positional spatial bound pairs are destructured into lower/upper names. Native shader code does not grant blanket primitive authority for retained physical quantities before/after this boundary or other-lens invariant clearance."
+    }
+  ],
+  "qualified_observations": [
+    {
+      "local_source_key": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/field.rs@sha256:1f537b363a614847b1ddf760ac719c5ed099171646ce606649e8b7ca79390264#L44-L49,L162-L193,L369-L425:packed-filtered-triangle-capacity",
+      "classification": "Source-backed local receiving-capacity/admission gap; master alias/current-family/global uniqueness and acceptance not established.",
+      "source_witness": "TRIANGLE_BITS=20 declares native capacity. NearMesh::upload retains filtered faces and only casts count to u32. SEED packs(near<<20)|t; FLOOD_START decodes(mark & ((1<<20)-1))+1. No host check prevents t>=2^20.",
+      "counterexample": "Symbolic native ordinalt=2^20 has low20bits0. For a nonzero seed mark it decodes nearest1 (triangle0), not nearest(2^20+1). Its high ordinal bit also overlaps proximity bits. This establishes representable loss of identity, not an executed GPU/current-player incident.",
+      "consequence": "An oversized retained mesh can associate a cell with a different filtered triangle and hence a different distance/sign result; ordinary character meshes being smaller is not an API capacity proof. GPU/device acceptance of a particular huge mesh and actual occurrence are not validated here.",
+      "proportionate_repair_boundary": "At actual filtered-mesh/native packing admission, require count<=2^TRIANGLE_BITS (everyt<count then fits), or change packed representation and both producer/decoder coherently. Reuse an existing matching checked ordinal/capacity owner if one exists; do not introduce an enum enumerating arbitrary triangle numbers.",
+      "acceptance_limits": "Source-only qualified finding locator; no code or tests authorized, no new accepted unique finding/alias. No claim this is distinct from inherited capacity families or root-reportedM24 alias."
+    },
+    {
+      "local_source_key": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/field.rs@sha256:1f537b363a614847b1ddf760ac719c5ed099171646ce606649e8b7ca79390264#L78-L150:sampled-field-grid-physical-and-layout-roles",
+      "classification": "Retained qualified physical/grid owner-propagation concern, not additional accepted finding.",
+      "observation": "Metre bounds/cell/reach, three axis dimensions, totalcells, vec4 header/entry offsets and byte lengths are distinct. Canonical header and exact shader adapter clarify local roles but do not prove checked admissibility/arithmetic closure of every public FieldHeader or source mesh."
+    }
+  ],
+  "connected_sources": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/gpu/collide.rs",
+      "sha256": "af851e973e6dd5ec0e0926e794e3765a70640e402fe32274dfade030971f541a",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/af851e973e6dd5ec0e0926e794e3765a70640e402fe32274dfade030971f541a",
+      "ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "registered_before_body_read": true,
+      "original_shared_count_credit": false
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/gpu/wgsl/common.rs",
+      "sha256": "ffd989fed5f4bc512ee53fc408db1d2ecb6bcd81464b5c3eecc8ce4e4eef71e0",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/ffd989fed5f4bc512ee53fc408db1d2ecb6bcd81464b5c3eecc8ce4e4eef71e0",
+      "ranges": [
+        [
+          209,
+          278
+        ]
+      ],
+      "registered_before_body_read": true,
+      "original_shared_count_credit": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/place/mod.rs",
+      "sha256": "4197c4d14aeac409495f9d91e21e2e69439a4a62bd9991804a5b8fe59ebaad8d",
+      "read_from": "crates/adventuresim-character-creator/src/hair/gpu/place/mod.rs",
+      "ranges": [
+        [
+          128,
+          204
+        ]
+      ],
+      "registered_before_body_read": true,
+      "original_shared_count_credit": false
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/surface.rs",
+      "sha256": "117cfab53d13fbb84de5149685248b1c6a0b6d5578fb8ffdb522d08af10ccd60",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/117cfab53d13fbb84de5149685248b1c6a0b6d5578fb8ffdb522d08af10ccd60",
+      "ranges": [
+        [
+          216,
+          228
+        ]
+      ],
+      "registered_before_body_read": true,
+      "original_shared_count_credit": false
+    },
+    {
+      "original": 800,
+      "connected_original": 801,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/place/mod.rs",
+      "sha256": "4197c4d14aeac409495f9d91e21e2e69439a4a62bd9991804a5b8fe59ebaad8d",
+      "ranges": [
+        [
+          34,
+          55
+        ],
+        [
+          85,
+          107
+        ]
+      ],
+      "registered_before_body_read": true,
+      "ordered_credit": false,
+      "purpose": "Exact typed field consumer kernel compilation links commonHEAD discriminator/field reader; no unrelated drape algorithm or early801credit"
+    }
+  ],
+  "new_material_extensions": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/gpu/collide.rs",
+      "sha256": "af851e973e6dd5ec0e0926e794e3765a70640e402fe32274dfade030971f541a",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/af851e973e6dd5ec0e0926e794e3765a70640e402fe32274dfade030971f541a",
+      "ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "registered_before_body_read": true,
+      "original_shared_count_credit": false
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/gpu/wgsl/common.rs",
+      "sha256": "ffd989fed5f4bc512ee53fc408db1d2ecb6bcd81464b5c3eecc8ce4e4eef71e0",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/ffd989fed5f4bc512ee53fc408db1d2ecb6bcd81464b5c3eecc8ce4e4eef71e0",
+      "ranges": [
+        [
+          209,
+          278
+        ]
+      ],
+      "registered_before_body_read": true,
+      "original_shared_count_credit": false
+    }
+  ],
+  "new_material_provenance": {
+    "path": "audit11-segovb-173-field-staging.json",
+    "sha256": "7b2bd5b7f80e750e20a768448bde7d68397d1f95eed4d12be0d4841140bae7b1",
+    "basis": "Root exact frozen unchanged dependency proof: base3a50/head6533 bytes identical, absent frozen changed manifest/all four dirty status sets; no current source substitution."
+  },
+  "other_lenses_queue": "Both new collide/common dependency extensions require mandatory root other-lens queue; no original/shared count. All prior796 and171 extension obligations remain pending independently.",
+  "reused_prior_reads": "169 exact BodySurface/GroomedHair/HeadPlacement carried-bound producer ranges;172 actual HairGpu context/storage/upload kernel helpers. Precise role reuse, no restart/discovery count.",
+  "registrations": [
+    "audit11-segovb-173-registration-001.json",
+    "audit11-segovb-173-registration-002.json",
+    "audit11-segovb-173-registration-003.json",
+    "audit11-segovb-173-registration-004.json"
+  ],
+  "qualifications": [
+    "Original800 full545 personally consumed and independently inventoried; original0-799 not restarted.",
+    "801 material ranges consumed only as recipient;801 full requested changed scope remains unreviewed.802 metadata only. Neither gets early ordered credit.",
+    "Workspace byte match is a way to access exact frozen800; no broader current source/family/alias/validated behavior transfer. Root currentM24 selected-owner alias remains separate and contributes no finding count or proof here.",
+    "795NaN, current Dressing and crosswalk001 namespace/source-key qualifications retained; no bareQ008/Q009 canonical alias or F50/M108/global family closure.",
+    "Source-accounted with a qualified capacity gap is not clear/current/integrated/validated, and not other-lens numerical/aggregate/admission clearance.",
+    "No backward-compatibility API/layout constraints. No new tests/assertions/helpers/doctests, project execution/checks/tests/probes/scanners, product/Git/rootledger/history edits or publication."
+  ],
+  "source_postread_pins_stable": true,
+  "new_unique_findings": 0,
+  "accepted_unique_count_change": 0,
+  "proposed_original_accounted": 801,
+  "original_total": 2853,
+  "next_original": 801,
+  "active_partial": null,
+  "integrated": false,
+  "validated": false,
+  "clear": false,
+  "crosswalk": "audit11-question-crosswalk-001.json",
+  "current_reconciliation": "current-rig-dressing-reconciliation-001.json",
+  "stop_boundary": "Bounded one-cell800 field/header/reader packet complete; no ordered801/802 inventory."
+}

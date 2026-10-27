@@ -1,0 +1,81 @@
+[1m[92m   Compiling[0m bytemuck v1.25.2
+[1m[92m   Compiling[0m bevy_platform v0.19.1
+[1m[92m   Compiling[0m uuid v1.26.0
+[1m[92m   Compiling[0m rustix v1.1.4
+[1m[92m   Compiling[0m glam v0.32.1
+[1m[92m   Compiling[0m bevy_utils v0.19.1
+[1m[92m   Compiling[0m bevy_tasks v0.19.1
+[1m[92m   Compiling[0m encase_derive_impl v0.12.1
+[1m[92m   Compiling[0m half v2.7.1
+[1m[92m   Compiling[0m raw-window-handle v0.6.2
+[1m[92m   Compiling[0m futures-task v0.3.34
+[1m[92m   Compiling[0m futures-util v0.3.34
+[1m[92m   Compiling[0m encase_derive v0.12.1
+[1m[92m   Compiling[0m encase v0.12.1
+[1m[92m   Compiling[0m wgpu-types v29.0.4
+[1m[92m   Compiling[0m ron v0.12.2
+[1m[92m   Compiling[0m polling v3.11.0
+[1m[92m   Compiling[0m async-io v2.6.0
+[1m[92m   Compiling[0m bevy_reflect v0.19.1
+[1m[92m   Compiling[0m bevy_asset_macros v0.19.1
+[1m[92m   Compiling[0m image v0.25.10
+[1m[92m   Compiling[0m hexasphere v18.0.0
+[1m[92m   Compiling[0m bevy_encase_derive v0.19.1
+[1m[92m   Compiling[0m safe_arch v0.7.4
+[1m[92m   Compiling[0m wide v0.7.33
+[1m[92m   Compiling[0m tiny-skia-path v0.11.4
+[1m[92m   Compiling[0m simba v0.9.1
+[1m[92m   Compiling[0m glam v0.33.6
+[1m[92m   Compiling[0m bevy_math v0.19.1
+[1m[92m   Compiling[0m bevy_ecs v0.19.1
+[1m[92m   Compiling[0m bevy_color v0.19.1
+[1m[92m   Compiling[0m bevy_app v0.19.1
+[1m[92m   Compiling[0m bevy_time v0.19.1
+[1m[92m   Compiling[0m bevy_diagnostic v0.19.1
+[1m[92m   Compiling[0m bevy_asset v0.19.1
+[1m[92m   Compiling[0m bevy_transform v0.19.1
+[1m[92m   Compiling[0m bevy_log v0.19.1
+[1m[92m   Compiling[0m bevy_input v0.19.1
+[1m[92m   Compiling[0m bevy_image v0.19.1
+[1m[92m   Compiling[0m bevy_mesh v0.19.1
+[1m[92m   Compiling[0m bevy_internal v0.19.1
+[1m[92m   Compiling[0m glamx v0.2.0
+[1m[92m   Compiling[0m bevy v0.19.1
+[1m[92m   Compiling[0m glam_matrix_extras v0.3.0
+[1m[92m   Compiling[0m parry3d v0.27.0
+[1m[92m   Compiling[0m bevy_heavy v0.5.0
+[1m[92m   Compiling[0m bevy_transform_interpolation v0.5.0
+[1m[92m   Compiling[0m fabelgeist-geometry v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-geometry)
+[1m[92m   Compiling[0m obvhs v0.3.3
+[1m[92m   Compiling[0m tiny-skia v0.11.4
+[1m[92m   Compiling[0m ciborium-ll v0.2.2
+[1m[92m   Compiling[0m bevy_enhanced_input v0.26.0
+[1m[92m   Compiling[0m avian3d v0.7.0
+[1m[92m   Compiling[0m adventuresim-weapon-model v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-weapon-model)
+[1m[92m   Compiling[0m adventuresim-building-generator v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-building-generator)
+[1m[92m   Compiling[0m bevy_ahoy v0.2.0 (/home/runner/work/fabelgeist/fabelgeist/vendor/bevy_ahoy)
+[1m[92m   Compiling[0m adventuresim-core v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-core)
+[1m[92m   Compiling[0m ciborium v0.2.2
+[1m[92m   Compiling[0m noiz v0.5.0
+[1m[92m   Compiling[0m adventuresim-tactical-core v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-core)
+[1m[92m    Finished[0m `test` profile [optimized] target(s) in 4m 25s
+[1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/adventuresim_tactical_core-1c1f0e01b14fa6e8)
+
+running 14 tests
+test scene::grade::tests::diagonal_triangle_grade_is_bounded_without_changing_valid_axis_relief ... ok
+test scene::grade::tests::dirty_sweeps_preserve_the_complete_unconditional_projection_result ... ok
+test scene::grade::tests::invalid_grade_request_preserves_samples ... ok
+test scene::grade::tests::neighboring_triangles_converge_and_repair_is_deterministic ... ok
+test scene::ground::tests::ground_grid_queries_discrete_centered_samples_and_rejects_invalid_data ... ok
+test scene::ground::urban::tests::spatial_lookup_matches_exact_urban_ownership_across_bucket_boundaries ... ok
+test scene::ground::urban::tests::subcell_garden_ownership_survives_transport_without_clearing_neighbouring_grass ... ok
+test scene::queries::tests::height_interpolation_respects_non_unit_grid_scale ... ok
+test scene::queries::tests::height_sampling_matches_each_mesh_triangle ... ok
+test scene::queries::tests::normals_are_finite_at_center_and_boundary ... ok
+test scene::tests::collider_heightfield_matches_the_rendered_surface_without_transposing_axes ... ok
+test scene::tests::mesh_vertices_follow_heightmap_row_major_order ... ok
+test scene::tests::refined_surface_keeps_a_coarse_lod_without_splitting_query_authority ... ok
+test scene::tests::transition_collar_removes_only_the_heightfield_interior ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 396 filtered out; finished in 0.01s
+

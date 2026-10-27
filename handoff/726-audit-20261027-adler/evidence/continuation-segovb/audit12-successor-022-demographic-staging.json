@@ -1,0 +1,28 @@
+{
+  "at": "2026-10-27T00:59:42.101972+00:00",
+  "source_id": "physical-p16-unchanged-base:crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+  "path": "crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+  "staged_path": "target/recovery-20261025/continuation-segovb/source-objects/e34eb575d8091df0f4e9d8242066c7734b986d888d7a54c51aaaf1681a53ed34",
+  "sha256": "e34eb575d8091df0f4e9d8242066c7734b986d888d7a54c51aaaf1681a53ed34",
+  "lines": 79,
+  "provenance": "Exacta120base,absent159changed/status rows",
+  "locators_only": [
+    [
+      8,
+      "pub(super) enum SexSelectorError {"
+    ],
+    [
+      34,
+      "pub(super) fn parse_sexes(rule: &Map<String, Value>) -> Result<Vec<Sex>, SexSelectorError> {"
+    ],
+    [
+      52,
+      "pub(super) fn sex_selectors_overlap(left: &[Sex], right: &[Sex]) -> bool {"
+    ],
+    [
+      56,
+      "#[cfg(test)]"
+    ]
+  ],
+  "body_credit": false
+}

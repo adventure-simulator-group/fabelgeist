@@ -1,0 +1,152 @@
+{
+  "id": "ADLER-CONT01-LATER-001",
+  "lens": "producer-propagation",
+  "registry_sha256": "01e11726b2c32ab6f86d513d62a5aa88980e29a8b2ccaf8716319bf0e7629459",
+  "receipts": [
+    {
+      "extension_index": 62,
+      "source_id": "pr-working:crates/fabelgeist-math/src/vector/vec3.rs",
+      "sha256": "83d359f9d5ae866cc3935577b48f93d9916081bceb05ac92748c91e98672c143",
+      "source_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "actual_eof": 263,
+      "trace": {
+        "producer": "Generic fabelgeist_math::Vec3 constructors/raw components/serde/Pod produce native f32 vector, not a checked finite position or normal owner.",
+        "retained_and_operations": "Publicx/y/z and arithmetic/min/max/component/divide helpers retain generic IEEE behavior. Division explicitly permits infinity; normalize returns self for nonpositive/NaN length.",
+        "actual_receiver": "Fresh frozen BVH aabb.rs168-192 SHA0074a09a772019820c52e9b1e4cb603c12473a575d992332cf89844c4d1fff36: Ray caches reciprocal direction, hits computes slab near/far through min/max, reduces max/min components and returns hit distance.",
+        "boundary_and_disposition": "This is actual native mathematical slab kernel; replacing generic Vec3 with universally finite/positive owner would break intended parallel-axis infinities. Raw metres/frame admission remains owning BVH/physical callers, not automatically completed by serializer. Existing boundary-NaN/parallel-axis arithmetic obligations remain04; no new01 unique finding from component access syntax."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 63,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+      "source_ranges": [
+        [
+          1,
+          209
+        ]
+      ],
+      "actual_eof": 209,
+      "trace": {
+        "producer": "ReflectedInterface::new parses Naga WGSL, captures first compute entry, groups native bindings by actual u32 groupID, produces native reflected UniformMember offsets/sizes and TextureBinding format/dimension.",
+        "retained_and_operations": "Native schema data survives in ReflectionData and layouts. Materially distinct buffer, uniform, sampled/storage/depth image and sampler routes project directly to native descriptor entries. Sorted existing groups are pushed densely into layouts while reflection retains original index.",
+        "actual_receiver": "Frozen ComputePass::record at same80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d bytes personally reviewed earlier; fresh70-113 confirms layouts.get(bg.index asusize), uniform allocation/offset byte packing. Texture paths use actual native reflection format as binding policy and native create_bind_group consumes descriptors.",
+        "boundary_and_disposition": "Shader identifiers, offsets, dimensions and formats are actual native compiler/descriptor schema boundaries, not gameplay strings. Existing sparse-group identity propagation failure is concrete: groups0,2 produce layouts length2 yet consumer asks index2. Keep group ordinal/slot association through producer and consumers; wrapper-only change cannot fix. Deduplicate known774/826 sparse-group reconciliation; frozen source is not current WIP clearance. Generic text parse errors/native validation cause loss remain existing lower-family obligations."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 64,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+      "source_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "actual_eof": 138,
+      "trace": {
+        "producer": "BufferDefinition public constructors and with_usage accept closed BufferUse; with_label accepts canonical BufferLabel; length is canonical BufferByteLength at allocation receiving port.",
+        "retained_and_operations": "Private UsageSelection preserves Unspecified versusExplicit flags; capability combination is native bitflag policy, Storage adds both copy capabilities. No primitive length stored then re-admitted.",
+        "actual_receiver": "allocate_native119-133 passes label sharedstr, u64::from(length), usage and mappedfalse directly into actual device.create_buffer BufferDescriptor. Those conversions terminate at native SDK, not another application API.",
+        "boundary_and_disposition": "Typed label/byte producer propagation is complete within this bounded descriptor route. Native capability validation/observation and context/device/lower error cause family remain existing826 obligations; do not claim whole allocation or host-read combination safety from this descriptor owner."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 65,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/collider.rs",
+      "sha256": "a6c42473a9969568f6eb700df01cc6753b92bb2034ade7d129733d1a550c2021",
+      "source_ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "actual_eof": 171,
+      "trace": {
+        "producer": "Collider::query returns raw positional tuple(signed distance,outward Vec3); MeshCollider retains raw reach and mesh columns, produces sign from BVH closest point and interpolated normal; NoCollider deliberately returns positive infinity.",
+        "retained_and_operations": "push_out and keep_clear immediately consume same raw distance/direction in numerical displacement/clearance loops. MeshCollider clones admitted-or-raw mesh into private snapshot, but constructor validates no topology/finite association.",
+        "actual_receiver": "Own body30-105 is actual math receiver, with upstream CPU hair/cards/LOD/settle and GPU readback smoothing callers located at frozen revision (navigation not whole caller coverage). NoCollider infinity and far-outside reach fallback are supported distinct policies.",
+        "boundary_and_disposition": "Existing physical/query API family still needs source-backed frame/unit/sampling/payload decision across Head/MeshCollider, trait and callers before a coherent migration; do not invent a finite-only signed-distance type that rejects NoCollider. Numerical kernels may consume primitives, but public raw query/carried reach and unclear frame cannot earn global completion from private storage. Deduplicate retained780 Head/Surface/collider physical family; exact semantics and current lower WIP remain open."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 66,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_material.rs",
+      "sha256": "27f68197aed8fbddabadd7cf19e14bee176fbd01746a4dce9e3706a55c86e10a",
+      "source_ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "actual_eof": 15,
+      "trace": {
+        "producer": "EquipmentMaterial enum owns authored material identity; is_metal classifies five closed enum variants.",
+        "retained_and_operations": "Returns ordinary named bool predicate only; no new stored semantic selection or raw material string.",
+        "actual_receiver": "Native material/catalog classification role consumes bool to choose metal capability, while actual enum remains authoritative. Bounded method has no extraction or reconstructing new owner.",
+        "boundary_and_disposition": "No unfinished primitive producer established in this predicate; bool is legitimate named classification, not a lost carried closed choice. Actual caller/catalog coherence retained from completed baseline, no broader material clearance."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 67,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_classification.rs",
+      "sha256": "a65529b45c53a783feaa8905b9fba38d95d28e97b01fe8198d4ffeee0a57c58d",
+      "source_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "actual_eof": 125,
+      "trace": {
+        "producer": "Canonical catalog loader materializes CatalogItemKind from stat-bearing definition; this bounded owner supplies closed enum and stable_id/economy_kind projections.",
+        "retained_and_operations": "Concrete kind remains typed. stable_id emits static wire identity only at encoding; economy_kind maps Container withSimple intentionally, not a replacement fullclassification.",
+        "actual_receiver": "Actual native/generated persistence adapters consume stable schema projection; economic CatalogKind is distinct lossy stock policy owner. No caller reconstructing Container from lossySimple shown.",
+        "boundary_and_disposition": "Preserve distinction between item classification and stocking group. Producer propagation must carry CatalogItemKind through actual item/storage/view APIs and encode at native boundaries; bounded methods do not alone prove all paths migrated. No new unique finding for intentional enum projection."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 68,
+      "source_id": "pr-working:crates/adventuresim-core/src/errantry.rs",
+      "sha256": "c745b617fe6b91b054b4f968565f295d03f9839eb329c4957d86306d65969858",
+      "source_ranges": [
+        [
+          62,
+          98
+        ]
+      ],
+      "actual_eof": 827,
+      "trace": {
+        "producer": "tactical_insight_for accepts actual ThreatId, obtains combat profile/lore, rejects ranged, then gates on mutable weakness prose and returns TacticalInsight(kind,raw threat_id String,finding,preparation).",
+        "retained_and_operations": "Typed ThreatId is flattened at91 before returned application record. Mutable exact prose from implemented_combat_lore is interpreted as mechanic at85 rather than merely displayed.",
+        "actual_receiver": "Fresh exact strategic/challenges.rs369-391 and422-443 SHAb7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906: bound_tactical_insight parses stored hostile enemy_type toThreatId then calls producer; backend emits only finding/preparation text at public view boundary. Unused returned threat_id is not reparsed on this concrete path.",
+        "boundary_and_disposition": "Display text extraction ends at real BackendChallenge wire/presentation port. Threat identity flattening earlier in helper and prose-as-mechanic gate remain source-backed producer/semantic-classifier migration candidate; carry existingThreatId where retained and derive mechanical fact from canonical typed combat/lore owner, not narrative string equality. Deduplicate known bestiary/classification F150 family and original receipts before unique count. Do not add hidden combat modifier or claim an ordinary wrong insight was executed."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    }
+  ],
+  "global_clearance": false,
+  "new_unique_count": "not asserted; existing-remedy dedup required",
+  "extra": {
+    "findings": "Existing sparse-group propagation and physical/query/native causes remain open; potential rawTacticalInsight/prose gate supports known classification family; no new unique count."
+  }
+}

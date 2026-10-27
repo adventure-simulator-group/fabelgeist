@@ -1,0 +1,23 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-110",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 693,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_recipes.rs",
+      "sha256": "a6c834971b1cd263330dea65a4a48a826dda0b767e3e16b49dc26c8a7405c725",
+      "ranges": [
+        [
+          1,
+          262
+        ]
+      ],
+      "assessment": "Root personally read full frozen source after SHA256 verification before context compaction. ParametricDesign enum delegates recipe validation; same_family uses closed variants/kinds as a named predicate. LazyLock catalog decodes embedded data; no ordinary invalid embedded witness established. Catalog IDs select dedicated generators at their owning catalog boundary; canonical ID ownership and validated collection questions remain qualified Q008/Q009. Fit region maps typed placement and side, propagating unsupported combinations. Existing tests 124\u2013262 read only. No current-main, runtime, physical, or global clearance.",
+      "source_basis": "Actual full source read, retained through summary; no metadata coverage inference.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

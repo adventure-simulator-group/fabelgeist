@@ -1,0 +1,332 @@
+{
+  "review": "Independent Rule Review",
+  "finding_scope": "M04 bounded interpolation producer/operation/error graph",
+  "at": "2026-10-27T04:34:52.508903+00:00",
+  "base": "35b18ec280a6884bb53996a2d859c4b27096f65c",
+  "head": "5ceaa9bd5738b8b01e7d488df55c172cd4f8593d",
+  "branch": "not separately queried; exact HEAD and changed path set verified",
+  "verdict": "source-only approved; hosted acceptance pending",
+  "findings": [],
+  "source_correctness": "No actionable defect established in changed responsibility and material receiving contracts.",
+  "migration_completeness": "Complete within NonnegativeSpeed.checked_lerp and CycleDelta.checked_lerp caller graph: two speed callers and one cycle caller found; no raw overload remains. This does not complete all interpolation/tuning/quantity migrations.",
+  "identity": {
+    "manifest_sha256": "a3c6d937060b6e252e642fc2f609e62e0399c3504ce1c9095e4b725d7748cf60",
+    "source_diff_sha256": "051d1466a1e6aacae17135c4156ed4a95a562a52f47dda01ec7f46e4ed035396",
+    "actual_git_diff_matches_provided_bytes": true,
+    "exact_changed_paths": [
+      "crates/adventuresim-core/src/linear_speed.rs",
+      "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "crates/adventuresim-tactical-core/src/physics/movement_speed.rs"
+    ],
+    "working_tree_clean_at_initial_and_final_read": true,
+    "all_five_local_files_equal_committed_head": true,
+    "all_base_and_head_hashes_match_manifest": true
+  },
+  "rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "actual_eof": 113,
+      "read": "full actual current body; no nested AGENTS found in affected source trees"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "actual_eof": 192,
+      "read": "full actual current body; no nested AGENTS found in affected source trees"
+    },
+    {
+      "path": "crates/adventuresim-core/AGENTS.md",
+      "sha256": "7d2a3dd7507a8405fded5577a7f406273ab835389b52b189415d0878c39d8a73",
+      "actual_eof": 9,
+      "read": "full actual current body; no nested AGENTS found in affected source trees"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/AGENTS.md",
+      "sha256": "b3fd110d97bc871853458c38282d3d4c18369b6d0647e96e0de6d0641dca61c8",
+      "actual_eof": 17,
+      "read": "full actual current body; no nested AGENTS found in affected source trees"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/SKILL.md",
+      "sha256": "ff68d5ccf9f2545336b105f987ae17bb1a1f55dfbf1afb035dba8bef7053f27a",
+      "actual_eof": 58,
+      "read": "full actual current body; no nested AGENTS found in affected source trees"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/references/bespoke-type-review.md",
+      "sha256": "c6a71896616123559c0be4d318cbde751d8767dccc6009a943971dc3d4424f71",
+      "actual_eof": 130,
+      "read": "full actual current body; no nested AGENTS found in affected source trees"
+    }
+  ],
+  "changed_source_reads": [
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "b1561f750844b7395f96f8fe2ee767db88d73fb8d8b6e997779493130b09f877",
+      "actual_eof": 173,
+      "actually_read": [
+        [
+          1,
+          173
+        ]
+      ],
+      "base_sha256": "db3686060ebd8ce533fe48c88685c5643b024b8a92b2b617d97481196988f3e0"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "7cca5e5cef2f3c3a5a11c88dba547195f36d61f4665f157c8d55eedc30179eab",
+      "actual_eof": 267,
+      "actually_read": [
+        [
+          1,
+          267
+        ]
+      ],
+      "base_sha256": "6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "sha256": "3acaf77c189e6ab8abcd972e5615276d945a1ca6772ee90246feef673e8a2c69",
+      "actual_eof": 207,
+      "actually_read": [
+        [
+          1,
+          207
+        ]
+      ],
+      "base_sha256": "61864d871215d4140f142c121202374b5a8e3434504d459b29e97d7e0a889033"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "sha256": "09565d01fd8fabbf899d84f107bdbf9c16fd6149ec61f51714599d160c1260e0",
+      "actual_eof": 218,
+      "actually_read": [
+        [
+          1,
+          218
+        ]
+      ],
+      "base_sha256": "18c3232bb01109cd7ec857f3c750d2c04ffb869dd52ca42cec82524816c41206"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "51a510d3c5f039d6b7eb4ce2b1511432fb3415bf0b15152d036ec01a6394f9c8",
+      "actual_eof": 525,
+      "actually_read": [
+        [
+          1,
+          525
+        ]
+      ],
+      "base_sha256": "2bdf24f3de20d1901bfc475d799d3a07781d9c5e22733caaea0d2365250edd0f"
+    }
+  ],
+  "connected_source_reads": [
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+      "actual_eof": 58,
+      "actually_read": [
+        [
+          1,
+          58
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/fraction_reflection.rs",
+      "sha256": "07b2507c55331e27ceb0838e9e340f751961f35d74d29738a121e64c119297e7",
+      "actual_eof": 14,
+      "actually_read": [
+        [
+          1,
+          14
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/shaping_time.rs",
+      "sha256": "daf4c6b1cf6f43edc45f91ac44fb6fe70ae0848a2e1b23b8bc313ba24d887a87",
+      "actual_eof": 63,
+      "actually_read": [
+        [
+          1,
+          63
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/mod.rs",
+      "sha256": "de9811b3907cc3d97cd41b77b27c02d459a32275b5e813ee589b0cf1b8b9e4c9",
+      "actual_eof": 90,
+      "actually_read": [
+        [
+          1,
+          90
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+      "sha256": "60c9a6b987e30fcff66d01e8afadaaf41ffde91b9d1285c46bd88ec6a1678a39",
+      "actual_eof": 138,
+      "actually_read": [
+        [
+          1,
+          105
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "5d114988a64595879b04e6f151d2a184cdf8f893f2f2b17a9987a3faf933d4ab",
+      "actual_eof": 826,
+      "actually_read": [
+        [
+          80,
+          125
+        ],
+        [
+          640,
+          700
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/error.rs",
+      "sha256": "e3bd3bd8fb753b33e583e5cba64967ca07539dd8b4b0032a2153a330b59a01df",
+      "actual_eof": 19,
+      "actually_read": [
+        [
+          1,
+          19
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/camera/values.rs",
+      "sha256": "a2f64c5b11f5551f2c7baae14dcb819408c25c075a3594694b06cf7ab40f1eaa",
+      "actual_eof": 107,
+      "actually_read": [
+        [
+          1,
+          90
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/Cargo.toml",
+      "sha256": "feb7d553952f711d1296803b07e2ec1b7ee1cb555df59648b5bdef7e2cf5d4a9",
+      "actual_eof": 42,
+      "actually_read": [
+        [
+          1,
+          42
+        ]
+      ]
+    }
+  ],
+  "support_artifacts": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/implementation-manifest-001.json",
+      "sha256": "a3c6d937060b6e252e642fc2f609e62e0399c3504ce1c9095e4b725d7748cf60",
+      "actual_eof": 51
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/source.diff",
+      "sha256": "051d1466a1e6aacae17135c4156ed4a95a562a52f47dda01ec7f46e4ed035396",
+      "actual_eof": 161
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/preflight-001.json",
+      "sha256": "924adf8e99b37e942f3b27406f4af6ece71797e9e2cd8e1bf704e26efb917d39",
+      "actual_eof": 75
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/scoped-discovery-001.json",
+      "sha256": "5dbfe433a0ce599c1794a10e4318a4e44cacd742f8bdf8d5118aa5548ee89fe3",
+      "actual_eof": 90
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/connected-error-contract-001.json",
+      "sha256": "9540a7c3b1be48da8b0590229105f71e43d6237f987dbae3eddc73b6bdce1616",
+      "actual_eof": 13
+    }
+  ],
+  "contract_traces": [
+    {
+      "family": "Canonical bounded factor",
+      "owner": "crates/adventuresim-core/src/unit_interval.rs:8-49",
+      "trace": "Private UnitInterval(f32) admits only finite [0,1], including valid zero/one and native signed zero. Public from_fraction and TryFrom share checks; serde Deserialize routes through TryFrom, Serialize through float; default and named constants are admitted. Tactical animation reexports this owner. Opaque ReflectedUnitInterval delegates Serde to the canonical type and exposes no mutable primitive field. Existing unconstrained contribution BlendWeight and signed unwrapped CycleDelta express different meanings and are not replaced by the bounded fraction."
+    },
+    {
+      "family": "Speed interpolation operation",
+      "locations": [
+        "linear_speed.rs:20-32",
+        "linear_speed.rs:35-77"
+      ],
+      "trace": "NonnegativeSpeed endpoints remain finite and >=0. checked_lerp now accepts UnitInterval and extracts fraction only inside scalar interpolation self+(other-self)*factor, with same textual operation order. Result is admitted through from_metres_per_second; nonfinite result becomes SpeedError::Overflow, negative result stays distinguished. No infallible arithmetic or unchecked output retention is introduced; no raw forwarding overload/backward-compatibility path."
+    },
+    {
+      "family": "Cycle interpolation operation",
+      "locations": [
+        "sample_values.rs:94-101",
+        "sample_values.rs:103-124"
+      ],
+      "trace": "CycleDelta checked_lerp now accepts the same UnitInterval and hands primitive factor to actual Bevy FloatExt scalar kernel, then uses from_arithmetic to reject nonfinite result. Cycle displacement remains finite signed/unwrapped, not bounded or implicitly cyclic; finite endpoints can still overflow subtraction and the fallible operation correctly retains that possibility."
+    },
+    {
+      "family": "Locomotion producer through all affected consumers",
+      "locations": [
+        "locomotion.rs:129-173",
+        "height_measurement.rs:44-56,75-82"
+      ],
+      "trace": "Run ratio uses raw speed magnitudes only within native difference/division/clamp calculation, then admits once as UnitInterval. Same run is compared with canonical HALF, passed to speed lerp, cycle lerp and flight-apex scaled_by. Bounce uses a mathematically different complement 1-run.fraction(), admitted at its arithmetic result before HeightDistance.scaled_by; this is not extracting/re-admitting the unchanged run. HeightDistance scales locally then re-admits physical output. No retained primitive duplicate factor or factor-specific custom type."
+    },
+    {
+      "family": "Jog producer and error propagation",
+      "locations": [
+        "movement_speed.rs:41-57",
+        "linear_speed.rs:20-32",
+        "value_error.rs:177-188,209-218"
+      ],
+      "trace": "Endurance is clamped to existing [0,5] policy; low branch computes unchanged t*t*(3-2*t), clamps computed smooth factor to intrinsic [0,1], admits once, and directly passes typed factor to checked_lerp. New SpeedError::Fraction owns FractionError through #[from], deriving Error/Display/source instead of handwritten traits. Exhaustive animation conversion delegates Fraction to existing From<FractionError>, preserving UnitInterval quantity and nonfinite/outside classification, while speed errors remain speed quantities. BattleResolutionError and CameraError retain SpeedError as typed source; no string/downcast API is introduced."
+    },
+    {
+      "family": "Remaining raw paths and explicit limits",
+      "locations": [
+        "linear_speed.rs:57-65",
+        "locomotion.rs:176-203",
+        "sample_values.rs:19-22,132-174",
+        "movement_speed.rs:50-56"
+      ],
+      "trace": "General checked_scale can amplify beyond1, BlendWeight contributions may exceed1, and local physical cadence/step-distance/native scalar kernels have different contracts from a bounded interpolation parameter. The remaining local FloatExt calculations do not call a raw application checked_lerp overload; outputs are admitted to checked physical values. Existing endurance/configuration/tuning/raw measurement families are not newly certified and remain separate mandatory work (M03/M09 and broader audit)."
+    }
+  ],
+  "rule_assessment": {
+    "ownership": "Reuses lowest shared core UnitInterval and canonical FractionError; no new owner/helper/module/passthrough API.",
+    "operation_and_numeric_bounds": "Unit interval endpoints are intrinsic constants; existing HALF used for threshold. Polynomial3/2 identities and arithmetic order preserved; added output clamp is deliberate intended-domain normalization, not an epsilon/tolerance or tuning replacement. No universal bitwise equality/roundoff or pinned glam implementation proof asserted.",
+    "error_derivability": "SpeedError derives thiserror::Error; FractionError implements Error and compatible Copy/Eq traits. No handwritten SpeedError Display/Error/From or optional unmatched tag/payload. Canonical AnimationValueError conversion is necessary semantic mapping, not derivable identity forwarding.",
+    "imports_modules": "Changed imports precede definitions; no file split/re-export compatibility alias/new wrapper or module growth concern introduced. Existing cohesive files not materially expanded by a new responsibility.",
+    "configuration_and_authority": "No tactical data persistence, hidden penalty/fatigue pool, new authored YAML parameter, or strategic/tactical authority change. Existing tuning constants/config relations are separate M03 scope, not claimed fixed.",
+    "tests_dependencies_enforcement": "Actual five-file diff adds no tests/cases/assertions/helpers/doctests, Cargo/dependency/lock/workflow/baseline/suppression changes. Existing movement tests259-525 read only; unchanged. Core already depends on thiserror. Parsed current baseline contains no entries for the five changed paths; local scanner/baseline not run."
+  },
+  "coverage_and_acceptance_limits": [
+    "Source-only review; no compilation, rustfmt, Clippy, unit/integration tests, scanner, probes, numeric experimentation or local project execution. Relevant existing checks and semantic-migration baseline export/relevant reductions must be consumed from hosted same-head validation before final acceptance; no guessed baseline edit requested.",
+    "Read-only Git used only for exact head/status, path set, committed/base source hashes and byte-for-byte provided diff reconciliation. No product/Git/root-ledger/history/publication mutation. Only this ignored append-only receipt written.",
+    "Existing configuration permits public positive reference speeds; this review does not establish walk/run ordering or every malformed-config behavior. Run NaN after raw ratio is rejected by UnitInterval; preservation of former malformed-input errors/output/downcast/layout/messages is explicitly not required.",
+    "Remaining M03 tuning/calibration, M09 catalogue categories, broader quantities/ordinary kernels and all20/global/frozen original populations remain open/unverified; no source-only verdict or prior scoped13 claims become global clearance.",
+    "Search attempted nonexistent animation/values.rs and height_values.rs names; no body coverage there; actual owners were located/read. Search results are reference discovery, not full source coverage of listed unmodified files.",
+    "No nested rule file found in affected animation/physics/core source trees. Rules reviewed full at root, crates, core and tactical-core.",
+    "Full changed bodies and exact connected ranges above are actual source reads. Source manifest/scoped discovery/preflight are corroborating claims, not substituted proof. No new unique/global audit finding or current/frozen alias/count disposition."
+  ],
+  "global_clearance": false,
+  "runtime_validated": false,
+  "hosted_same_head_acceptance": "pending, not polled or claimed",
+  "new_tests_authored_or_run": false,
+  "frozen_lens11_frontier": "held at809; no packet182/original809 work in this review",
+  "stop": "Independent M04 Rule Review complete; root sole implementation/ledger owner"
+}

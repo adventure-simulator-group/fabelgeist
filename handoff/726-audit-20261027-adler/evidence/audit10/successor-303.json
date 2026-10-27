@@ -1,0 +1,54 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-303",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 2601,
+      "source_id": "dependency-serde_json1.0.151:src/de.rs",
+      "sha256": "4998d7e252eb513be85b298e287048b4fb283882e9ba7df905f572f07200f3f3",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/4998d7e252eb513be85b298e287048b4fb283882e9ba7df905f572f07200f3f3",
+      "ranges": [
+        [
+          109,
+          142
+        ],
+        [
+          319,
+          359
+        ],
+        [
+          462,
+          529
+        ],
+        [
+          567,
+          674
+        ],
+        [
+          880,
+          913
+        ],
+        [
+          933,
+          959
+        ],
+        [
+          1341,
+          1362
+        ],
+        [
+          1505,
+          1515
+        ]
+      ],
+      "scope_kind": "materially_reached_admission_contract",
+      "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+      "source_basis": "Fresh personal exact registered foreign native/macro source reads; immutable Git bytes/hash verified, no other-lens verdict coverage.",
+      "trait_inventory_and_semantics": "Fresh pinned serde_json1.0.151 parser exact registered numeric union. Native ParserNumber variants/visitor/errors; numeric lexical sign/integer/exponent/overflow routes; float_roundtrip precision mode and infinity rejection; arbitrary-precision representation; actual f32/f64 Deserialize dispatch macro/read selectors. Boundaries359/880/913/959/674 retain only registered partial declarations/context, no omitted tails.",
+      "disposition": "Native numeric decoder implementation remains explicit, no downstream derive candidate. Preserve precision/range/visitor semantics; no unobserved long/decimal/scanner helpers, lexical library, whole JSON/numeric/runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

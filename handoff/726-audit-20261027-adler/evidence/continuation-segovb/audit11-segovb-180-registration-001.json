@@ -1,0 +1,40 @@
+{
+  "packet": 180,
+  "lens": 11,
+  "at": "2026-10-27T02:45:59.881214+00:00",
+  "authority": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+  "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+  "prior_state": "audit11-segovb-179-proposed-state-002.json",
+  "original": 807,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/hair_preview.rs",
+  "sha256": "800207ff944cfc7487b00bfbaa888dbe254ec85340094e9104c392b54b14ea78",
+  "bytes": 11395,
+  "actual_eof": 343,
+  "ranges": [
+    [
+      1,
+      343
+    ]
+  ],
+  "purpose": "Independent full effective original807 type-granularity inventory. Prior partial receiver access gives no ordered credit. Trace only material concrete ownership/frame/native/retention receivers.",
+  "read_from": "crates/adventuresim-character-creator/src/hair_preview.rs",
+  "identity": "exact local bytes match frozen registry; not current-family proof",
+  "rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "status": "prior personally read; hash reverified; no new rule-body credit"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "status": "prior personally read; hash reverified; no new rule-body credit"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-type-granularity/SKILL.md",
+      "sha256": "3a1fbf7f53c752e35eefe7763cbd49b9f280bd4b978ea998f74c3a68e45dc106",
+      "status": "prior personally read; hash reverified; no new rule-body credit"
+    }
+  ],
+  "stop": "before808; no product/Git/project/tests/rootledger/publication"
+}

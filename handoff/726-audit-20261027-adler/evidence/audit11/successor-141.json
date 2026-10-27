@@ -1,0 +1,22 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-141",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 754,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_torso_wgsl.rs",
+      "sha256": "4dffbe38bb680f965cffc46852aae9e943835b6757ac34145233a7cc8c25d467",
+      "ranges": [
+        [
+          1,
+          258
+        ]
+      ],
+      "assessment": "Full258 exact unchanged reached source read in two windows after SHA256 match. Native frame/rig/width/support buffers use declared layouts and shared host status constants. Internal unit helper returns vec4(direction,validity), consumed through xyz/w; like qualified745 hit/depth helper, this internal result is not mandated packed host ABI and merits named outcome record Q008. Raw coordinates carry lateral length versus normalized vertical ratio in vec2 within real shader numerical kernel, requiring precise frame/unit ownership Q009 rather than blanket native exemption. No ordinary wrong-result/overflow/physical/current-main/runtime or other-lens clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

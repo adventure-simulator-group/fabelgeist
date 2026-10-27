@@ -1,0 +1,102 @@
+{
+  "id": "AUDIT12-CONTRACTS-011",
+  "lens": 12,
+  "at": "2026-10-26T18:23:13.187598+00:00",
+  "roles": [
+    28,
+    29,
+    30,
+    31,
+    32
+  ],
+  "registration": "audit12-successor-registration-011.json",
+  "source_identities": [
+    {
+      "source_id": "native-dependency:wgpu-29.0.4/src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "ranges": [
+        [
+          685,
+          750
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:wgpu-29.0.4/src/api/surface.rs",
+      "sha256": "c66e417d97814893f1293cd0f5e5e11443101a7aa3df4ffa0004f49079bb70b5",
+      "ranges": [
+        [
+          430,
+          505
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:wgpu-types-29.0.4/src/adapter.rs",
+      "sha256": "27486df080a81f4a668f47b4f68f1eb5b2fc72f14b51175db2fd678e0f5b7085",
+      "ranges": [
+        [
+          175,
+          300
+        ]
+      ]
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/components.rs",
+      "sha256": "e2053ee2dbf1a837b1a4e80d2d2afa22c0ecc2231bf586041222082971b9cbea",
+      "ranges": [
+        [
+          1,
+          193
+        ]
+      ]
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/bindings.wgsl",
+      "sha256": "31551b31caac91e5decc47ac147154bba899d469dad8c0113e0a476ae53dc7d4",
+      "ranges": [
+        [
+          1,
+          12
+        ]
+      ]
+    }
+  ],
+  "inventory": [
+    {
+      "role": 28,
+      "occurrences": "RequestDeviceErrorKind::WebGpu(String),cfg wgpu_core/webgpu, fixed unsupported-kind panic label and Display{error}",
+      "trace": "Native RequestDeviceError wraps named Core or WebGpu cases.719-744 delegates Core formatting/source and formats stored WebGpu String while returning None source forWebGpu.748-754 native From preserves Core payload. Registered webgpu991-994 actually Debug-formats returned native JS rejection into String; retains diagnostic text, loses structured JS value. Native formatter is final sink, not app error-code matching. Initial685-695 create_tlas uses native descriptor and no string payload."
+    },
+    {
+      "role": 29,
+      "occurrences": "CreateSurfaceErrorKind::Web(String), Hal and RawHandle typed variants, cfg std and WebGpu flags",
+      "trace": "430-458 native window/display handle adapters use typed native HandleError and RawHandle.485-508 delegates Display of each variant; Web has no source. Registered webgpu1089-1120 branches on getContext result: null produces fixed explanatory String; thrown js_error Debug-formatted into String. Both feed native Web variant. No app string classification or mixed numeric/errorcode authority."
+    },
+    {
+      "role": 30,
+      "occurrences": "fixed diagnostic per-backend reason strings, separator empty/comma, WGPU_ADAPTER_NAME diagnostic, rustdoc link macro tokens, cfg serde",
+      "trace": "Native RequestAdapterErrorNotFound retains six typed Backends sets.215-262 walks Backend::ALL, chooses a displayed reason by typed membership predicates, emits labels to Formatter. No parsing of reason text. EnvNotSet formatting names native env key. Registered util/init1-54 proves actual env::var of same key; Unicode/nonpresent map to EnvNotSet, lowercases adapter substring request, filters compatible surface then selects first name containing substring. Native selected-name absence panics with fixed label. Typed CooperativeScalarType enum and raw cooperative matrix fields after264 add no raw string contract."
+    },
+    {
+      "role": 31,
+      "occurrences": "InstanceMaterialData Debug struct/field labels InstanceMaterialData/instances/color/visibility_range; derive/reflection metadata, Rust module/field names",
+      "trace": "Entire exact193line source read. Debug78-85 writes static type/field labels to fmt::DebugStruct and final finish; instances reports len, color and visibility_range use native Debug. These labels are presentation, not runtime semantic keys. Component/Reflect metadata is native Rust/Bevy type identity. Named public instance/transform/buffer/visibility structures and ordinary ECS predicates have no string-valued runtime fields. No gameplay identifier string adapter."
+    },
+    {
+      "role": 32,
+      "occurrences": "WGSL/Naga #define_import_path and #import module path/type identifiers; @group/@binding globalvariable identifiers",
+      "trace": "Entire exact12line shader binding source read. Preprocessor module name and imports identify bevy_eidolon cull types; explicit native WGSL storage/uniform declarations bind array<InstanceData>,array<InstanceUniforms>,indirectargs,batchoffsets andcamera. Tokens are shader compilation/binding grammar, not separately stored String game facts. No app bespoke string owner warranted by these exact declarations."
+    }
+  ],
+  "findings": [],
+  "disposition": "ACCOUNTED original28-32 exact native ranges plus necessary native string producers/consumers",
+  "qualifications": [
+    "Native WebGPU request/surface errors deliberately stringify JS rejection/exception values and return no structured source in these variants. A typed wrapper in firstparty code cannot restore discarded native cause; no blanket cause-preservation claim.",
+    "Native EnvNotSet can also represent invalidUnicode and no-std/no-core path; no environment validator or application config policy inferred. Nonmatching nonempty native adapter name may panic; this is native utility behavior, not a demonstrated reached firstparty regression.",
+    "Only registered28/29/30scopes plus supplements read; not wholewgpu/wgpu-types. Native source() delegation may skip nested outer native error; no promised source shape beyond actual body. Supplementmembers cachedarchiveSHA matches currentCargo.lock and frozen28/29member bytes; supplements not historic frozen entries.",
+    "Original31 full source and32 full12lines source-assessed for strings only. No host/GPU layout, unit/admission/instanceassociation, shaderimportresolution/runtime contract acceptance transferred from other lenses or inferred from syntax.",
+    "No tests/cases/helpers/assertions/doctests added; no project execution/productchanges. All other populations and newreceiver additions remain pending for otherlenses; no fullSDK/currentapplication/global clearance."
+  ],
+  "global_clearance": false
+}

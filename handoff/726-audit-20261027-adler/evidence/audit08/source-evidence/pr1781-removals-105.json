@@ -1,0 +1,7799 @@
+{
+  "head_sha256": "48d075954cf0381f63c73815380ed47c37be6c35e30c573b6839e74c21572557",
+  "base_sha256": "47c04943f11bc1d221e680cfdf8a44b05c9face66c7aa14279e6d7eee807aa7b",
+  "diff_sha256": "33004d88fdb7d4b45302aaf161ea5c09e41442ecacae557babb35d7ab5b0f956",
+  "counts": {
+    "added": 278,
+    "context": 519,
+    "removed": 1246
+  },
+  "entries": [
+    {
+      "diff_line": 5,
+      "kind": "hunk",
+      "text": "@@ -1,5 +1,37 @@"
+    },
+    {
+      "diff_line": 7,
+      "old_line": 2,
+      "kind": "removed",
+      "text": "pub use turn_deadline::body_turn_speed_for_deadline;"
+    },
+    {
+      "diff_line": 44,
+      "kind": "hunk",
+      "text": "@@ -34,15 +66,6 @@ pub enum GroundedPosture {"
+    },
+    {
+      "diff_line": 48,
+      "old_line": 37,
+      "kind": "removed",
+      "text": "/// Presentation-only anticipation for a release-triggered jump. Charging a"
+    },
+    {
+      "diff_line": 49,
+      "old_line": 38,
+      "kind": "removed",
+      "text": "/// jump does not change authoritative posture or movement speed."
+    },
+    {
+      "diff_line": 50,
+      "old_line": 39,
+      "kind": "removed",
+      "text": "#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize)]"
+    },
+    {
+      "diff_line": 51,
+      "old_line": 40,
+      "kind": "removed",
+      "text": "pub enum JumpAnticipation {"
+    },
+    {
+      "diff_line": 52,
+      "old_line": 41,
+      "kind": "removed",
+      "text": "    #[default]"
+    },
+    {
+      "diff_line": 53,
+      "old_line": 42,
+      "kind": "removed",
+      "text": "    Inactive,"
+    },
+    {
+      "diff_line": 54,
+      "old_line": 43,
+      "kind": "removed",
+      "text": "    Charging,"
+    },
+    {
+      "diff_line": 55,
+      "old_line": 44,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 56,
+      "old_line": 45,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 60,
+      "kind": "hunk",
+      "text": "@@ -98,95 +121,6 @@ pub enum StanceState {"
+    },
+    {
+      "diff_line": 64,
+      "old_line": 101,
+      "kind": "removed",
+      "text": "/// Compact authoritative input for client-side raised-guard foot placement."
+    },
+    {
+      "diff_line": 65,
+      "old_line": 102,
+      "kind": "removed",
+      "text": "/// The authority replicates only observed motion. Exact visual plants, swing"
+    },
+    {
+      "diff_line": 66,
+      "old_line": 103,
+      "kind": "removed",
+      "text": "/// ownership, and progress are client presentation state, as in Overgrowth's"
+    },
+    {
+      "diff_line": 67,
+      "old_line": 104,
+      "kind": "removed",
+      "text": "/// velocity-driven foot stance."
+    },
+    {
+      "diff_line": 68,
+      "old_line": 105,
+      "kind": "removed",
+      "text": "/// This invariant-bearing type intentionally does not implement Bevy reflection;"
+    },
+    {
+      "diff_line": 69,
+      "old_line": 106,
+      "kind": "removed",
+      "text": "/// reflected field mutation would bypass its validated constructors."
+    },
+    {
+      "diff_line": 70,
+      "old_line": 107,
+      "kind": "removed",
+      "text": "#[derive(Debug, Clone, Copy, PartialEq, Serialize)]"
+    },
+    {
+      "diff_line": 71,
+      "old_line": 108,
+      "kind": "removed",
+      "text": "pub struct RaisedLocomotionIntent(RaisedLocomotionKind);"
+    },
+    {
+      "diff_line": 72,
+      "old_line": 109,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 73,
+      "old_line": 110,
+      "kind": "removed",
+      "text": "#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]"
+    },
+    {
+      "diff_line": 74,
+      "old_line": 111,
+      "kind": "removed",
+      "text": "#[serde(rename_all = \"snake_case\")]"
+    },
+    {
+      "diff_line": 75,
+      "old_line": 112,
+      "kind": "removed",
+      "text": "enum RaisedLocomotionKind {"
+    },
+    {
+      "diff_line": 76,
+      "old_line": 113,
+      "kind": "removed",
+      "text": "    Planted,"
+    },
+    {
+      "diff_line": 77,
+      "old_line": 114,
+      "kind": "removed",
+      "text": "    Moving { local_direction: Vec2, speed: f32 },"
+    },
+    {
+      "diff_line": 78,
+      "old_line": 115,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 79,
+      "old_line": 116,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 80,
+      "old_line": 117,
+      "kind": "removed",
+      "text": "#[derive(Deserialize)]"
+    },
+    {
+      "diff_line": 81,
+      "old_line": 118,
+      "kind": "removed",
+      "text": "struct RaisedLocomotionWire(RaisedLocomotionKind);"
+    },
+    {
+      "diff_line": 82,
+      "old_line": 119,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 83,
+      "old_line": 120,
+      "kind": "removed",
+      "text": "impl<'de> Deserialize<'de> for RaisedLocomotionIntent {"
+    },
+    {
+      "diff_line": 84,
+      "old_line": 121,
+      "kind": "removed",
+      "text": "    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>"
+    },
+    {
+      "diff_line": 85,
+      "old_line": 122,
+      "kind": "removed",
+      "text": "    where"
+    },
+    {
+      "diff_line": 86,
+      "old_line": 123,
+      "kind": "removed",
+      "text": "        D: serde::Deserializer<'de>,"
+    },
+    {
+      "diff_line": 87,
+      "old_line": 124,
+      "kind": "removed",
+      "text": "    {"
+    },
+    {
+      "diff_line": 88,
+      "old_line": 125,
+      "kind": "removed",
+      "text": "        let RaisedLocomotionWire(value) = RaisedLocomotionWire::deserialize(deserializer)?;"
+    },
+    {
+      "diff_line": 89,
+      "old_line": 126,
+      "kind": "removed",
+      "text": "        Ok(match value {"
+    },
+    {
+      "diff_line": 90,
+      "old_line": 127,
+      "kind": "removed",
+      "text": "            RaisedLocomotionKind::Planted => Self::planted(),"
+    },
+    {
+      "diff_line": 91,
+      "old_line": 128,
+      "kind": "removed",
+      "text": "            RaisedLocomotionKind::Moving {"
+    },
+    {
+      "diff_line": 92,
+      "old_line": 129,
+      "kind": "removed",
+      "text": "                local_direction,"
+    },
+    {
+      "diff_line": 93,
+      "old_line": 130,
+      "kind": "removed",
+      "text": "                speed,"
+    },
+    {
+      "diff_line": 94,
+      "old_line": 131,
+      "kind": "removed",
+      "text": "            } => Self::moving(local_direction, speed),"
+    },
+    {
+      "diff_line": 95,
+      "old_line": 132,
+      "kind": "removed",
+      "text": "        })"
+    },
+    {
+      "diff_line": 96,
+      "old_line": 133,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 97,
+      "old_line": 134,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 98,
+      "old_line": 135,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 99,
+      "old_line": 136,
+      "kind": "removed",
+      "text": "impl Default for RaisedLocomotionIntent {"
+    },
+    {
+      "diff_line": 100,
+      "old_line": 137,
+      "kind": "removed",
+      "text": "    fn default() -> Self {"
+    },
+    {
+      "diff_line": 101,
+      "old_line": 138,
+      "kind": "removed",
+      "text": "        Self::planted()"
+    },
+    {
+      "diff_line": 102,
+      "old_line": 139,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 103,
+      "old_line": 140,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 104,
+      "old_line": 141,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 105,
+      "old_line": 142,
+      "kind": "removed",
+      "text": "impl RaisedLocomotionIntent {"
+    },
+    {
+      "diff_line": 106,
+      "old_line": 143,
+      "kind": "removed",
+      "text": "    pub fn planted() -> Self {"
+    },
+    {
+      "diff_line": 107,
+      "old_line": 144,
+      "kind": "removed",
+      "text": "        Self(RaisedLocomotionKind::Planted)"
+    },
+    {
+      "diff_line": 108,
+      "old_line": 145,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 109,
+      "old_line": 146,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 110,
+      "old_line": 147,
+      "kind": "removed",
+      "text": "    /// Creates validated moving intent. Invalid or effectively stationary"
+    },
+    {
+      "diff_line": 111,
+      "old_line": 148,
+      "kind": "removed",
+      "text": "    /// input becomes planted while retaining its handoff identity."
+    },
+    {
+      "diff_line": 112,
+      "old_line": 149,
+      "kind": "removed",
+      "text": "    pub fn moving(local_direction: Vec2, speed: f32) -> Self {"
+    },
+    {
+      "diff_line": 113,
+      "old_line": 150,
+      "kind": "removed",
+      "text": "        let direction = local_direction.normalize_or_zero();"
+    },
+    {
+      "diff_line": 114,
+      "old_line": 151,
+      "kind": "removed",
+      "text": "        if !local_direction.is_finite()"
+    },
+    {
+      "diff_line": 115,
+      "old_line": 152,
+      "kind": "removed",
+      "text": "            || !speed.is_finite()"
+    },
+    {
+      "diff_line": 116,
+      "old_line": 153,
+      "kind": "removed",
+      "text": "            || direction == Vec2::ZERO"
+    },
+    {
+      "diff_line": 117,
+      "old_line": 154,
+      "kind": "removed",
+      "text": "            || speed <= 0.05"
+    },
+    {
+      "diff_line": 118,
+      "old_line": 155,
+      "kind": "removed",
+      "text": "        {"
+    },
+    {
+      "diff_line": 119,
+      "old_line": 156,
+      "kind": "removed",
+      "text": "            return Self::planted();"
+    },
+    {
+      "diff_line": 120,
+      "old_line": 157,
+      "kind": "removed",
+      "text": "        }"
+    },
+    {
+      "diff_line": 121,
+      "old_line": 158,
+      "kind": "removed",
+      "text": "        Self(RaisedLocomotionKind::Moving {"
+    },
+    {
+      "diff_line": 122,
+      "old_line": 159,
+      "kind": "removed",
+      "text": "            local_direction: direction,"
+    },
+    {
+      "diff_line": 123,
+      "old_line": 160,
+      "kind": "removed",
+      "text": "            speed,"
+    },
+    {
+      "diff_line": 124,
+      "old_line": 161,
+      "kind": "removed",
+      "text": "        })"
+    },
+    {
+      "diff_line": 125,
+      "old_line": 162,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 126,
+      "old_line": 163,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 127,
+      "old_line": 164,
+      "kind": "removed",
+      "text": "    pub fn is_moving(self) -> bool {"
+    },
+    {
+      "diff_line": 128,
+      "old_line": 165,
+      "kind": "removed",
+      "text": "        matches!(self.0, RaisedLocomotionKind::Moving { .. })"
+    },
+    {
+      "diff_line": 129,
+      "old_line": 166,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 130,
+      "old_line": 167,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 131,
+      "old_line": 168,
+      "kind": "removed",
+      "text": "    pub fn local_direction(self) -> Vec2 {"
+    },
+    {
+      "diff_line": 132,
+      "old_line": 169,
+      "kind": "removed",
+      "text": "        match self.0 {"
+    },
+    {
+      "diff_line": 133,
+      "old_line": 170,
+      "kind": "removed",
+      "text": "            RaisedLocomotionKind::Moving {"
+    },
+    {
+      "diff_line": 134,
+      "old_line": 171,
+      "kind": "removed",
+      "text": "                local_direction, .."
+    },
+    {
+      "diff_line": 135,
+      "old_line": 172,
+      "kind": "removed",
+      "text": "            } => local_direction,"
+    },
+    {
+      "diff_line": 136,
+      "old_line": 173,
+      "kind": "removed",
+      "text": "            RaisedLocomotionKind::Planted => Vec2::ZERO,"
+    },
+    {
+      "diff_line": 137,
+      "old_line": 174,
+      "kind": "removed",
+      "text": "        }"
+    },
+    {
+      "diff_line": 138,
+      "old_line": 175,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 139,
+      "old_line": 176,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 140,
+      "old_line": 177,
+      "kind": "removed",
+      "text": "    pub fn speed(self) -> f32 {"
+    },
+    {
+      "diff_line": 141,
+      "old_line": 178,
+      "kind": "removed",
+      "text": "        match self.0 {"
+    },
+    {
+      "diff_line": 142,
+      "old_line": 179,
+      "kind": "removed",
+      "text": "            RaisedLocomotionKind::Moving { speed, .. } => speed,"
+    },
+    {
+      "diff_line": 143,
+      "old_line": 180,
+      "kind": "removed",
+      "text": "            RaisedLocomotionKind::Planted => 0.0,"
+    },
+    {
+      "diff_line": 144,
+      "old_line": 181,
+      "kind": "removed",
+      "text": "        }"
+    },
+    {
+      "diff_line": 145,
+      "old_line": 182,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 146,
+      "old_line": 183,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 147,
+      "old_line": 184,
+      "kind": "removed",
+      "text": "    pub fn local_velocity(self) -> Vec3 {"
+    },
+    {
+      "diff_line": 148,
+      "old_line": 185,
+      "kind": "removed",
+      "text": "        let direction = self.local_direction();"
+    },
+    {
+      "diff_line": 149,
+      "old_line": 186,
+      "kind": "removed",
+      "text": "        Vec3::new(direction.x, 0.0, direction.y) * self.speed()"
+    },
+    {
+      "diff_line": 150,
+      "old_line": 187,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 151,
+      "old_line": 188,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 152,
+      "old_line": 189,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 156,
+      "kind": "hunk",
+      "text": "@@ -260,8 +194,8 @@ pub struct GuardStepPlan {"
+    },
+    {
+      "diff_line": 160,
+      "old_line": 263,
+      "kind": "removed",
+      "text": "    start_tick: u64,"
+    },
+    {
+      "diff_line": 161,
+      "old_line": 264,
+      "kind": "removed",
+      "text": "    contact_tick: u64,"
+    },
+    {
+      "diff_line": 167,
+      "kind": "hunk",
+      "text": "@@ -281,17 +215,20 @@ impl GuardStepPlan {"
+    },
+    {
+      "diff_line": 171,
+      "old_line": 284,
+      "kind": "removed",
+      "text": "    pub fn start_tick(self) -> u64 {"
+    },
+    {
+      "diff_line": 176,
+      "old_line": 288,
+      "kind": "removed",
+      "text": "    pub fn contact_tick(self) -> u64 {"
+    },
+    {
+      "diff_line": 181,
+      "old_line": 292,
+      "kind": "removed",
+      "text": "    pub fn progress(self, tick: u64) -> f32 {"
+    },
+    {
+      "diff_line": 182,
+      "old_line": 293,
+      "kind": "removed",
+      "text": "        let duration = self.contact_tick.saturating_sub(self.start_tick).max(1);"
+    },
+    {
+      "diff_line": 183,
+      "old_line": 294,
+      "kind": "removed",
+      "text": "        tick.saturating_sub(self.start_tick) as f32 / duration as f32"
+    },
+    {
+      "diff_line": 193,
+      "kind": "hunk",
+      "text": "@@ -316,7 +253,9 @@ impl GuardStepPlan {"
+    },
+    {
+      "diff_line": 197,
+      "old_line": 319,
+      "kind": "removed",
+      "text": "        self.contact_tick = self.contact_tick.max(self.start_tick.saturating_add(1));"
+    },
+    {
+      "diff_line": 204,
+      "kind": "hunk",
+      "text": "@@ -382,7 +321,7 @@ pub fn guard_contact_margin_metres() -> f32 {"
+    },
+    {
+      "diff_line": 208,
+      "old_line": 385,
+      "kind": "removed",
+      "text": "pub fn guard_maximum_unsupported_contact_seconds() -> f32 {"
+    },
+    {
+      "diff_line": 213,
+      "kind": "hunk",
+      "text": "@@ -482,269 +421,6 @@ impl PostureTransitionKind {"
+    },
+    {
+      "diff_line": 217,
+      "old_line": 485,
+      "kind": "removed",
+      "text": "/// Discrete camera-facing pose selected while a character is downed."
+    },
+    {
+      "diff_line": 218,
+      "old_line": 486,
+      "kind": "removed",
+      "text": "/// Interpolation occurs only while moving between these four sector centers."
+    },
+    {
+      "diff_line": 219,
+      "old_line": 487,
+      "kind": "removed",
+      "text": "#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize)]"
+    },
+    {
+      "diff_line": 220,
+      "old_line": 488,
+      "kind": "removed",
+      "text": "pub enum DownedFacingPose {"
+    },
+    {
+      "diff_line": 221,
+      "old_line": 489,
+      "kind": "removed",
+      "text": "    #[default]"
+    },
+    {
+      "diff_line": 222,
+      "old_line": 490,
+      "kind": "removed",
+      "text": "    Prone,"
+    },
+    {
+      "diff_line": 223,
+      "old_line": 491,
+      "kind": "removed",
+      "text": "    RollRight,"
+    },
+    {
+      "diff_line": 224,
+      "old_line": 492,
+      "kind": "removed",
+      "text": "    Supine,"
+    },
+    {
+      "diff_line": 225,
+      "old_line": 493,
+      "kind": "removed",
+      "text": "    RollLeft,"
+    },
+    {
+      "diff_line": 226,
+      "old_line": 494,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 227,
+      "old_line": 495,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 228,
+      "old_line": 496,
+      "kind": "removed",
+      "text": "impl DownedFacingPose {"
+    },
+    {
+      "diff_line": 229,
+      "old_line": 497,
+      "kind": "removed",
+      "text": "    fn from_half_turns(value: f32) -> Self {"
+    },
+    {
+      "diff_line": 230,
+      "old_line": 498,
+      "kind": "removed",
+      "text": "        match (value * 2.0).round() as i64 % 4 {"
+    },
+    {
+      "diff_line": 231,
+      "old_line": 499,
+      "kind": "removed",
+      "text": "            0 => Self::Prone,"
+    },
+    {
+      "diff_line": 232,
+      "old_line": 500,
+      "kind": "removed",
+      "text": "            1 | -3 => Self::RollRight,"
+    },
+    {
+      "diff_line": 233,
+      "old_line": 501,
+      "kind": "removed",
+      "text": "            2 | -2 => Self::Supine,"
+    },
+    {
+      "diff_line": 234,
+      "old_line": 502,
+      "kind": "removed",
+      "text": "            3 | -1 => Self::RollLeft,"
+    },
+    {
+      "diff_line": 235,
+      "old_line": 503,
+      "kind": "removed",
+      "text": "            _ => unreachable!(\"remainder is bounded to four downed poses\"),"
+    },
+    {
+      "diff_line": 236,
+      "old_line": 504,
+      "kind": "removed",
+      "text": "        }"
+    },
+    {
+      "diff_line": 237,
+      "old_line": 505,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 238,
+      "old_line": 506,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 239,
+      "old_line": 507,
+      "kind": "removed",
+      "text": "    fn canonical_half_turns(self) -> f32 {"
+    },
+    {
+      "diff_line": 240,
+      "old_line": 508,
+      "kind": "removed",
+      "text": "        match self {"
+    },
+    {
+      "diff_line": 241,
+      "old_line": 509,
+      "kind": "removed",
+      "text": "            Self::Prone => 0.0,"
+    },
+    {
+      "diff_line": 242,
+      "old_line": 510,
+      "kind": "removed",
+      "text": "            Self::RollRight => 0.5,"
+    },
+    {
+      "diff_line": 243,
+      "old_line": 511,
+      "kind": "removed",
+      "text": "            Self::Supine => 1.0,"
+    },
+    {
+      "diff_line": 244,
+      "old_line": 512,
+      "kind": "removed",
+      "text": "            Self::RollLeft => -0.5,"
+    },
+    {
+      "diff_line": 245,
+      "old_line": 513,
+      "kind": "removed",
+      "text": "        }"
+    },
+    {
+      "diff_line": 246,
+      "old_line": 514,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 247,
+      "old_line": 515,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 248,
+      "old_line": 516,
+      "kind": "removed",
+      "text": "    fn half_turns_near(self, reference: f32) -> f32 {"
+    },
+    {
+      "diff_line": 249,
+      "old_line": 517,
+      "kind": "removed",
+      "text": "        let canonical = self.canonical_half_turns();"
+    },
+    {
+      "diff_line": 250,
+      "old_line": 518,
+      "kind": "removed",
+      "text": "        canonical + ((reference - canonical) / 2.0).round() * 2.0"
+    },
+    {
+      "diff_line": 251,
+      "old_line": 519,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 252,
+      "old_line": 520,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 253,
+      "old_line": 521,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 254,
+      "old_line": 522,
+      "kind": "removed",
+      "text": "/// Camera-driven roll around a downed character's head-to-feet axis. The"
+    },
+    {
+      "diff_line": 255,
+      "old_line": 523,
+      "kind": "removed",
+      "text": "/// target is one of four sticky sectors; `half_turns` is the transient"
+    },
+    {
+      "diff_line": 256,
+      "old_line": 524,
+      "kind": "removed",
+      "text": "/// interpolation coordinate. Values remain unwrapped so crossing the rear"
+    },
+    {
+      "diff_line": 257,
+      "old_line": 525,
+      "kind": "removed",
+      "text": "/// camera seam does not reverse an in-progress roll."
+    },
+    {
+      "diff_line": 258,
+      "old_line": 526,
+      "kind": "removed",
+      "text": "#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]"
+    },
+    {
+      "diff_line": 259,
+      "old_line": 527,
+      "kind": "removed",
+      "text": "pub struct DownedFacingState {"
+    },
+    {
+      "diff_line": 260,
+      "old_line": 528,
+      "kind": "removed",
+      "text": "    half_turns: f32,"
+    },
+    {
+      "diff_line": 261,
+      "old_line": 529,
+      "kind": "removed",
+      "text": "    target: DownedFacingPose,"
+    },
+    {
+      "diff_line": 262,
+      "old_line": 530,
+      "kind": "removed",
+      "text": "    lateral_motion: f32,"
+    },
+    {
+      "diff_line": 263,
+      "old_line": 531,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 264,
+      "old_line": 532,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 265,
+      "old_line": 533,
+      "kind": "removed",
+      "text": "impl DownedFacingState {"
+    },
+    {
+      "diff_line": 266,
+      "old_line": 534,
+      "kind": "removed",
+      "text": "    fn normalized(mut self) -> Self {"
+    },
+    {
+      "diff_line": 267,
+      "old_line": 535,
+      "kind": "removed",
+      "text": "        self.half_turns = if self.half_turns.is_finite() {"
+    },
+    {
+      "diff_line": 268,
+      "old_line": 536,
+      "kind": "removed",
+      "text": "            self.half_turns"
+    },
+    {
+      "diff_line": 269,
+      "old_line": 537,
+      "kind": "removed",
+      "text": "        } else {"
+    },
+    {
+      "diff_line": 270,
+      "old_line": 538,
+      "kind": "removed",
+      "text": "            0.0"
+    },
+    {
+      "diff_line": 271,
+      "old_line": 539,
+      "kind": "removed",
+      "text": "        };"
+    },
+    {
+      "diff_line": 272,
+      "old_line": 540,
+      "kind": "removed",
+      "text": "        self.lateral_motion = if self.lateral_motion.is_finite() {"
+    },
+    {
+      "diff_line": 273,
+      "old_line": 541,
+      "kind": "removed",
+      "text": "            self.lateral_motion.clamp(-1.0, 1.0)"
+    },
+    {
+      "diff_line": 274,
+      "old_line": 542,
+      "kind": "removed",
+      "text": "        } else {"
+    },
+    {
+      "diff_line": 275,
+      "old_line": 543,
+      "kind": "removed",
+      "text": "            0.0"
+    },
+    {
+      "diff_line": 276,
+      "old_line": 544,
+      "kind": "removed",
+      "text": "        };"
+    },
+    {
+      "diff_line": 277,
+      "old_line": 545,
+      "kind": "removed",
+      "text": "        self.target ="
+    },
+    {
+      "diff_line": 278,
+      "old_line": 546,
+      "kind": "removed",
+      "text": "            DownedFacingPose::from_half_turns(self.target.half_turns_near(self.half_turns));"
+    },
+    {
+      "diff_line": 279,
+      "old_line": 547,
+      "kind": "removed",
+      "text": "        self"
+    },
+    {
+      "diff_line": 280,
+      "old_line": 548,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 281,
+      "old_line": 549,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 282,
+      "old_line": 550,
+      "kind": "removed",
+      "text": "    pub fn half_turns(self) -> f32 {"
+    },
+    {
+      "diff_line": 283,
+      "old_line": 551,
+      "kind": "removed",
+      "text": "        self.half_turns"
+    },
+    {
+      "diff_line": 284,
+      "old_line": 552,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 285,
+      "old_line": 553,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 286,
+      "old_line": 554,
+      "kind": "removed",
+      "text": "    pub fn lateral_motion(self) -> f32 {"
+    },
+    {
+      "diff_line": 287,
+      "old_line": 555,
+      "kind": "removed",
+      "text": "        self.lateral_motion"
+    },
+    {
+      "diff_line": 288,
+      "old_line": 556,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 289,
+      "old_line": 557,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 290,
+      "old_line": 558,
+      "kind": "removed",
+      "text": "    pub fn target(self) -> DownedFacingPose {"
+    },
+    {
+      "diff_line": 291,
+      "old_line": 559,
+      "kind": "removed",
+      "text": "        self.target"
+    },
+    {
+      "diff_line": 292,
+      "old_line": 560,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 293,
+      "old_line": 561,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 294,
+      "old_line": 562,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 295,
+      "old_line": 563,
+      "kind": "removed",
+      "text": "#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]"
+    },
+    {
+      "diff_line": 296,
+      "old_line": 564,
+      "kind": "removed",
+      "text": "pub struct PostureTransitionState {"
+    },
+    {
+      "diff_line": 297,
+      "old_line": 565,
+      "kind": "removed",
+      "text": "    kind: PostureTransitionKind,"
+    },
+    {
+      "diff_line": 298,
+      "old_line": 566,
+      "kind": "removed",
+      "text": "    start_tick: u64,"
+    },
+    {
+      "diff_line": 299,
+      "old_line": 567,
+      "kind": "removed",
+      "text": "    duration_ticks: u64,"
+    },
+    {
+      "diff_line": 300,
+      "old_line": 568,
+      "kind": "removed",
+      "text": "    phase: f32,"
+    },
+    {
+      "diff_line": 301,
+      "old_line": 569,
+      "kind": "removed",
+      "text": "    dive_was_airborne: bool,"
+    },
+    {
+      "diff_line": 302,
+      "old_line": 570,
+      "kind": "removed",
+      "text": "    dive_landing_tick: Option<u64>,"
+    },
+    {
+      "diff_line": 303,
+      "old_line": 571,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 304,
+      "old_line": 572,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 305,
+      "old_line": 573,
+      "kind": "removed",
+      "text": "impl PostureTransitionState {"
+    },
+    {
+      "diff_line": 306,
+      "old_line": 574,
+      "kind": "removed",
+      "text": "    fn new(kind: PostureTransitionKind, start_tick: u64, duration_ticks: u64) -> Self {"
+    },
+    {
+      "diff_line": 307,
+      "old_line": 575,
+      "kind": "removed",
+      "text": "        Self {"
+    },
+    {
+      "diff_line": 308,
+      "old_line": 576,
+      "kind": "removed",
+      "text": "            kind,"
+    },
+    {
+      "diff_line": 309,
+      "old_line": 577,
+      "kind": "removed",
+      "text": "            start_tick,"
+    },
+    {
+      "diff_line": 310,
+      "old_line": 578,
+      "kind": "removed",
+      "text": "            duration_ticks: duration_ticks.max(1),"
+    },
+    {
+      "diff_line": 311,
+      "old_line": 579,
+      "kind": "removed",
+      "text": "            phase: 0.0,"
+    },
+    {
+      "diff_line": 312,
+      "old_line": 580,
+      "kind": "removed",
+      "text": "            dive_was_airborne: false,"
+    },
+    {
+      "diff_line": 313,
+      "old_line": 581,
+      "kind": "removed",
+      "text": "            dive_landing_tick: None,"
+    },
+    {
+      "diff_line": 314,
+      "old_line": 582,
+      "kind": "removed",
+      "text": "        }"
+    },
+    {
+      "diff_line": 315,
+      "old_line": 583,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 316,
+      "old_line": 584,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 317,
+      "old_line": 585,
+      "kind": "removed",
+      "text": "    fn normalized(mut self) -> Self {"
+    },
+    {
+      "diff_line": 318,
+      "old_line": 586,
+      "kind": "removed",
+      "text": "        self.duration_ticks = self.duration_ticks.max(1);"
+    },
+    {
+      "diff_line": 319,
+      "old_line": 587,
+      "kind": "removed",
+      "text": "        self.phase = if self.phase.is_finite() {"
+    },
+    {
+      "diff_line": 320,
+      "old_line": 588,
+      "kind": "removed",
+      "text": "            self.phase.clamp(0.0, 1.0)"
+    },
+    {
+      "diff_line": 321,
+      "old_line": 589,
+      "kind": "removed",
+      "text": "        } else {"
+    },
+    {
+      "diff_line": 322,
+      "old_line": 590,
+      "kind": "removed",
+      "text": "            0.0"
+    },
+    {
+      "diff_line": 323,
+      "old_line": 591,
+      "kind": "removed",
+      "text": "        };"
+    },
+    {
+      "diff_line": 324,
+      "old_line": 592,
+      "kind": "removed",
+      "text": "        self"
+    },
+    {
+      "diff_line": 325,
+      "old_line": 593,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 326,
+      "old_line": 594,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 327,
+      "old_line": 595,
+      "kind": "removed",
+      "text": "    pub fn kind(self) -> PostureTransitionKind {"
+    },
+    {
+      "diff_line": 328,
+      "old_line": 596,
+      "kind": "removed",
+      "text": "        self.kind"
+    },
+    {
+      "diff_line": 329,
+      "old_line": 597,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 330,
+      "old_line": 598,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 331,
+      "old_line": 599,
+      "kind": "removed",
+      "text": "    pub fn phase(self) -> f32 {"
+    },
+    {
+      "diff_line": 332,
+      "old_line": 600,
+      "kind": "removed",
+      "text": "        self.phase"
+    },
+    {
+      "diff_line": 333,
+      "old_line": 601,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 334,
+      "old_line": 602,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 335,
+      "old_line": 603,
+      "kind": "removed",
+      "text": "    /// Returns the dive recovery progress after terrain contact."
+    },
+    {
+      "diff_line": 336,
+      "old_line": 604,
+      "kind": "removed",
+      "text": "    /// The first half of a dive is guard-to-airborne and remains fixed at its"
+    },
+    {
+      "diff_line": 337,
+      "old_line": 605,
+      "kind": "removed",
+      "text": "    /// airborne endpoint until impact; only the second half transfers the"
+    },
+    {
+      "diff_line": 338,
+      "old_line": 606,
+      "kind": "removed",
+      "text": "    /// directional pose into its canonical downed contact pose."
+    },
+    {
+      "diff_line": 339,
+      "old_line": 607,
+      "kind": "removed",
+      "text": "    pub fn dive_recovery(self) -> Option<(DiveDirection, f32)> {"
+    },
+    {
+      "diff_line": 340,
+      "old_line": 608,
+      "kind": "removed",
+      "text": "        let PostureTransitionKind::DiveToDowned {"
+    },
+    {
+      "diff_line": 341,
+      "old_line": 609,
+      "kind": "removed",
+      "text": "            direction,"
+    },
+    {
+      "diff_line": 342,
+      "old_line": 610,
+      "kind": "removed",
+      "text": "            trajectory,"
+    },
+    {
+      "diff_line": 343,
+      "old_line": 611,
+      "kind": "removed",
+      "text": "        } = self.kind"
+    },
+    {
+      "diff_line": 344,
+      "old_line": 612,
+      "kind": "removed",
+      "text": "        else {"
+    },
+    {
+      "diff_line": 345,
+      "old_line": 613,
+      "kind": "removed",
+      "text": "            return None;"
+    },
+    {
+      "diff_line": 346,
+      "old_line": 614,
+      "kind": "removed",
+      "text": "        };"
+    },
+    {
+      "diff_line": 347,
+      "old_line": 615,
+      "kind": "removed",
+      "text": "        // The authored body first settles out of its tilted dive pose, then"
+    },
+    {
+      "diff_line": 348,
+      "old_line": 616,
+      "kind": "removed",
+      "text": "        // expresses the planar yaw of the downed contact. Starting root yaw at"
+    },
+    {
+      "diff_line": 349,
+      "old_line": 617,
+      "kind": "removed",
+      "text": "        // contact gets ahead of that anatomical turn and visibly twists the"
+    },
+    {
+      "diff_line": 350,
+      "old_line": 618,
+      "kind": "removed",
+      "text": "        // whole character before the supine pose catches up. Reserve the first"
+    },
+    {
+      "diff_line": 351,
+      "old_line": 619,
+      "kind": "removed",
+      "text": "        // part of recovery for settling, then transfer root yaw with zero"
+    },
+    {
+      "diff_line": 352,
+      "old_line": 620,
+      "kind": "removed",
+      "text": "        // endpoint velocity. The endpoint remains the complete canonical turn."
+    },
+    {
+      "diff_line": 353,
+      "old_line": 621,
+      "kind": "removed",
+      "text": "        let root_handoff_start_fraction = crate::combat_config::runtime_animation_config()"
+    },
+    {
+      "diff_line": 354,
+      "old_line": 622,
+      "kind": "removed",
+      "text": "            .state_transitions"
+    },
+    {
+      "diff_line": 355,
+      "old_line": 623,
+      "kind": "removed",
+      "text": "            .dive_root_handoff_start_fraction;"
+    },
+    {
+      "diff_line": 356,
+      "old_line": 624,
+      "kind": "removed",
+      "text": "        let root_handoff_end_fraction = match trajectory {"
+    },
+    {
+      "diff_line": 357,
+      "old_line": 625,
+      "kind": "removed",
+      "text": "            // The shorter slide devotes a larger normalized share to the same"
+    },
+    {
+      "diff_line": 358,
+      "old_line": 626,
+      "kind": "removed",
+      "text": "            // fixed presentation settling time, so its handoff finishes with"
+    },
+    {
+      "diff_line": 359,
+      "old_line": 627,
+      "kind": "removed",
+      "text": "            // the transition. The longer airborne recovery can finish just"
+    },
+    {
+      "diff_line": 360,
+      "old_line": 628,
+      "kind": "removed",
+      "text": "            // before the terminal pose without outrunning the authored turn."
+    },
+    {
+      "diff_line": 361,
+      "old_line": 629,
+      "kind": "removed",
+      "text": "            DiveTrajectory::GroundedSlide => 1.0,"
+    },
+    {
+      "diff_line": 362,
+      "old_line": 630,
+      "kind": "removed",
+      "text": "            DiveTrajectory::Airborne => 0.92,"
+    },
+    {
+      "diff_line": 363,
+      "old_line": 631,
+      "kind": "removed",
+      "text": "        };"
+    },
+    {
+      "diff_line": 364,
+      "old_line": 632,
+      "kind": "removed",
+      "text": "        let recovery = ((self.phase - 0.5) * 2.0).clamp(0.0, 1.0);"
+    },
+    {
+      "diff_line": 365,
+      "old_line": 633,
+      "kind": "removed",
+      "text": "        let handoff = ((recovery - root_handoff_start_fraction)"
+    },
+    {
+      "diff_line": 366,
+      "old_line": 634,
+      "kind": "removed",
+      "text": "            / (root_handoff_end_fraction - root_handoff_start_fraction))"
+    },
+    {
+      "diff_line": 367,
+      "old_line": 635,
+      "kind": "removed",
+      "text": "            .clamp(0.0, 1.0);"
+    },
+    {
+      "diff_line": 368,
+      "old_line": 636,
+      "kind": "removed",
+      "text": "        Some((direction, smoothstep(handoff)))"
+    },
+    {
+      "diff_line": 369,
+      "old_line": 637,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 370,
+      "old_line": 638,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 371,
+      "old_line": 639,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 372,
+      "old_line": 640,
+      "kind": "removed",
+      "text": "/// Incremental root-yaw handoff for the directional downed contact pose."
+    },
+    {
+      "diff_line": 373,
+      "old_line": 641,
+      "kind": "removed",
+      "text": "/// Applying this after each posture-transition advance keeps the character's"
+    },
+    {
+      "diff_line": 374,
+      "old_line": 642,
+      "kind": "removed",
+      "text": "/// world-space head-to-feet direction fixed from contact through the final"
+    },
+    {
+      "diff_line": 375,
+      "old_line": 643,
+      "kind": "removed",
+      "text": "/// downed pose."
+    },
+    {
+      "diff_line": 376,
+      "old_line": 644,
+      "kind": "removed",
+      "text": "pub fn dive_landing_facing_delta("
+    },
+    {
+      "diff_line": 377,
+      "old_line": 645,
+      "kind": "removed",
+      "text": "    previous: Option<PostureTransitionState>,"
+    },
+    {
+      "diff_line": 378,
+      "old_line": 646,
+      "kind": "removed",
+      "text": "    current: Option<PostureTransitionState>,"
+    },
+    {
+      "diff_line": 379,
+      "old_line": 647,
+      "kind": "removed",
+      "text": ") -> Quat {"
+    },
+    {
+      "diff_line": 380,
+      "old_line": 648,
+      "kind": "removed",
+      "text": "    let Some((direction, previous_progress)) ="
+    },
+    {
+      "diff_line": 381,
+      "old_line": 649,
+      "kind": "removed",
+      "text": "        previous.and_then(PostureTransitionState::dive_recovery)"
+    },
+    {
+      "diff_line": 382,
+      "old_line": 650,
+      "kind": "removed",
+      "text": "    else {"
+    },
+    {
+      "diff_line": 383,
+      "old_line": 651,
+      "kind": "removed",
+      "text": "        return Quat::IDENTITY;"
+    },
+    {
+      "diff_line": 384,
+      "old_line": 652,
+      "kind": "removed",
+      "text": "    };"
+    },
+    {
+      "diff_line": 385,
+      "old_line": 653,
+      "kind": "removed",
+      "text": "    let current_progress = current"
+    },
+    {
+      "diff_line": 386,
+      "old_line": 654,
+      "kind": "removed",
+      "text": "        .and_then(PostureTransitionState::dive_recovery)"
+    },
+    {
+      "diff_line": 387,
+      "old_line": 655,
+      "kind": "removed",
+      "text": "        .filter(|(current_direction, _)| *current_direction == direction)"
+    },
+    {
+      "diff_line": 388,
+      "old_line": 656,
+      "kind": "removed",
+      "text": "        .map_or(1.0, |(_, progress)| progress);"
+    },
+    {
+      "diff_line": 389,
+      "old_line": 657,
+      "kind": "removed",
+      "text": "    let total_yaw = match direction {"
+    },
+    {
+      "diff_line": 390,
+      "old_line": 658,
+      "kind": "removed",
+      "text": "        DiveDirection::Forward => 0.0,"
+    },
+    {
+      "diff_line": 391,
+      "old_line": 659,
+      "kind": "removed",
+      "text": "        // The authored backward-dive-to-supine blend contains the body's"
+    },
+    {
+      "diff_line": 392,
+      "old_line": 660,
+      "kind": "removed",
+      "text": "        // half-turn. Transfer the inverse half-turn to the gameplay root over"
+    },
+    {
+      "diff_line": 393,
+      "old_line": 661,
+      "kind": "removed",
+      "text": "        // the same contact-recovery interval so visible facing stays fixed"
+    },
+    {
+      "diff_line": 394,
+      "old_line": 662,
+      "kind": "removed",
+      "text": "        // while the root reaches the canonical supine orientation. This must"
+    },
+    {
+      "diff_line": 395,
+      "old_line": 663,
+      "kind": "removed",
+      "text": "        // not be omitted or applied as a single completion-tick correction."
+    },
+    {
+      "diff_line": 396,
+      "old_line": 664,
+      "kind": "removed",
+      "text": "        DiveDirection::Backward => std::f32::consts::PI,"
+    },
+    {
+      "diff_line": 397,
+      "old_line": 665,
+      "kind": "removed",
+      "text": "        DiveDirection::Left => std::f32::consts::FRAC_PI_2,"
+    },
+    {
+      "diff_line": 398,
+      "old_line": 666,
+      "kind": "removed",
+      "text": "        DiveDirection::Right => -std::f32::consts::FRAC_PI_2,"
+    },
+    {
+      "diff_line": 399,
+      "old_line": 667,
+      "kind": "removed",
+      "text": "    };"
+    },
+    {
+      "diff_line": 400,
+      "old_line": 668,
+      "kind": "removed",
+      "text": "    Quat::from_rotation_y(total_yaw * (current_progress - previous_progress).clamp(0.0, 1.0))"
+    },
+    {
+      "diff_line": 401,
+      "old_line": 669,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 402,
+      "old_line": 670,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 403,
+      "old_line": 671,
+      "kind": "removed",
+      "text": "/// Returns the incremental root counter-yaw for a supine get-up."
+    },
+    {
+      "diff_line": 404,
+      "old_line": 672,
+      "kind": "removed",
+      "text": "///"
+    },
+    {
+      "diff_line": 405,
+      "old_line": 673,
+      "kind": "removed",
+      "text": "/// Supine contact poses use the head-facing orientation required by the"
+    },
+    {
+      "diff_line": 406,
+      "old_line": 674,
+      "kind": "removed",
+      "text": "/// continuous prone/supine roll coordinate. Interpolating that convention"
+    },
+    {
+      "diff_line": 407,
+      "old_line": 675,
+      "kind": "removed",
+      "text": "/// into canonical upright poses therefore contains an implicit positive-pi"
+    },
+    {
+      "diff_line": 408,
+      "old_line": 676,
+      "kind": "removed",
+      "text": "/// turn during the midpoint-to-upright half of the transition. Applying the"
+    },
+    {
+      "diff_line": 409,
+      "old_line": 677,
+      "kind": "removed",
+      "text": "/// equivalent negative root turn only during that same half cancels the turn"
+    },
+    {
+      "diff_line": 410,
+      "old_line": 678,
+      "kind": "removed",
+      "text": "/// in world space while leaving the root in the correct upright orientation at"
+    },
+    {
+      "diff_line": 411,
+      "old_line": 679,
+      "kind": "removed",
+      "text": "/// the endpoint. No other posture transition receives this correction."
+    },
+    {
+      "diff_line": 412,
+      "old_line": 680,
+      "kind": "removed",
+      "text": "pub fn supine_get_up_counter_yaw_delta("
+    },
+    {
+      "diff_line": 413,
+      "old_line": 681,
+      "kind": "removed",
+      "text": "    previous: Option<PostureTransitionState>,"
+    },
+    {
+      "diff_line": 414,
+      "old_line": 682,
+      "kind": "removed",
+      "text": "    current: Option<PostureTransitionState>,"
+    },
+    {
+      "diff_line": 415,
+      "old_line": 683,
+      "kind": "removed",
+      "text": ") -> Quat {"
+    },
+    {
+      "diff_line": 416,
+      "old_line": 684,
+      "kind": "removed",
+      "text": "    let Some(previous) ="
+    },
+    {
+      "diff_line": 417,
+      "old_line": 685,
+      "kind": "removed",
+      "text": "        previous.filter(|transition| transition.kind() == PostureTransitionKind::SupineToUpright)"
+    },
+    {
+      "diff_line": 418,
+      "old_line": 686,
+      "kind": "removed",
+      "text": "    else {"
+    },
+    {
+      "diff_line": 419,
+      "old_line": 687,
+      "kind": "removed",
+      "text": "        return Quat::IDENTITY;"
+    },
+    {
+      "diff_line": 420,
+      "old_line": 688,
+      "kind": "removed",
+      "text": "    };"
+    },
+    {
+      "diff_line": 421,
+      "old_line": 689,
+      "kind": "removed",
+      "text": "    let previous_progress = ((previous.phase() - 0.5) * 2.0).clamp(0.0, 1.0);"
+    },
+    {
+      "diff_line": 422,
+      "old_line": 690,
+      "kind": "removed",
+      "text": "    let current_progress = current"
+    },
+    {
+      "diff_line": 423,
+      "old_line": 691,
+      "kind": "removed",
+      "text": "        .filter(|transition| transition.kind() == PostureTransitionKind::SupineToUpright)"
+    },
+    {
+      "diff_line": 424,
+      "old_line": 692,
+      "kind": "removed",
+      "text": "        .map_or(1.0, |transition| {"
+    },
+    {
+      "diff_line": 425,
+      "old_line": 693,
+      "kind": "removed",
+      "text": "            ((transition.phase() - 0.5) * 2.0).clamp(0.0, 1.0)"
+    },
+    {
+      "diff_line": 426,
+      "old_line": 694,
+      "kind": "removed",
+      "text": "        });"
+    },
+    {
+      "diff_line": 427,
+      "old_line": 695,
+      "kind": "removed",
+      "text": "    Quat::from_rotation_y("
+    },
+    {
+      "diff_line": 428,
+      "old_line": 696,
+      "kind": "removed",
+      "text": "        -std::f32::consts::PI * (current_progress - previous_progress).clamp(0.0, 1.0),"
+    },
+    {
+      "diff_line": 429,
+      "old_line": 697,
+      "kind": "removed",
+      "text": "    )"
+    },
+    {
+      "diff_line": 430,
+      "old_line": 698,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 431,
+      "old_line": 699,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 432,
+      "old_line": 700,
+      "kind": "removed",
+      "text": "#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]"
+    },
+    {
+      "diff_line": 433,
+      "old_line": 701,
+      "kind": "removed",
+      "text": "struct ActionTimeline {"
+    },
+    {
+      "diff_line": 434,
+      "old_line": 702,
+      "kind": "removed",
+      "text": "    start_tick: u64,"
+    },
+    {
+      "diff_line": 435,
+      "old_line": 703,
+      "kind": "removed",
+      "text": "    preparation_ticks: u64,"
+    },
+    {
+      "diff_line": 436,
+      "old_line": 704,
+      "kind": "removed",
+      "text": "    recovery_ticks: u64,"
+    },
+    {
+      "diff_line": 437,
+      "old_line": 705,
+      "kind": "removed",
+      "text": "    phase: f32,"
+    },
+    {
+      "diff_line": 438,
+      "old_line": 706,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 439,
+      "old_line": 707,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 440,
+      "old_line": 708,
+      "kind": "removed",
+      "text": "impl ActionTimeline {"
+    },
+    {
+      "diff_line": 441,
+      "old_line": 709,
+      "kind": "removed",
+      "text": "    fn new(start_tick: u64, contact_tick: u64) -> Self {"
+    },
+    {
+      "diff_line": 442,
+      "old_line": 710,
+      "kind": "removed",
+      "text": "        let preparation_ticks = contact_tick.saturating_sub(start_tick).max(1);"
+    },
+    {
+      "diff_line": 443,
+      "old_line": 711,
+      "kind": "removed",
+      "text": "        Self {"
+    },
+    {
+      "diff_line": 444,
+      "old_line": 712,
+      "kind": "removed",
+      "text": "            start_tick,"
+    },
+    {
+      "diff_line": 445,
+      "old_line": 713,
+      "kind": "removed",
+      "text": "            preparation_ticks,"
+    },
+    {
+      "diff_line": 446,
+      "old_line": 714,
+      "kind": "removed",
+      "text": "            recovery_ticks: preparation_ticks,"
+    },
+    {
+      "diff_line": 447,
+      "old_line": 715,
+      "kind": "removed",
+      "text": "            phase: 0.0,"
+    },
+    {
+      "diff_line": 448,
+      "old_line": 716,
+      "kind": "removed",
+      "text": "        }"
+    },
+    {
+      "diff_line": 449,
+      "old_line": 717,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 450,
+      "old_line": 718,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 451,
+      "old_line": 719,
+      "kind": "removed",
+      "text": "    fn with_recovery(start_tick: u64, contact_tick: u64, end_tick: u64) -> Self {"
+    },
+    {
+      "diff_line": 452,
+      "old_line": 720,
+      "kind": "removed",
+      "text": "        Self {"
+    },
+    {
+      "diff_line": 453,
+      "old_line": 721,
+      "kind": "removed",
+      "text": "            start_tick,"
+    },
+    {
+      "diff_line": 454,
+      "old_line": 722,
+      "kind": "removed",
+      "text": "            preparation_ticks: contact_tick.saturating_sub(start_tick).max(1),"
+    },
+    {
+      "diff_line": 455,
+      "old_line": 723,
+      "kind": "removed",
+      "text": "            recovery_ticks: end_tick.saturating_sub(contact_tick).max(1),"
+    },
+    {
+      "diff_line": 456,
+      "old_line": 724,
+      "kind": "removed",
+      "text": "            phase: 0.0,"
+    },
+    {
+      "diff_line": 457,
+      "old_line": 725,
+      "kind": "removed",
+      "text": "        }"
+    },
+    {
+      "diff_line": 458,
+      "old_line": 726,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 459,
+      "old_line": 727,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 460,
+      "old_line": 728,
+      "kind": "removed",
+      "text": "    fn normalized(mut self) -> Self {"
+    },
+    {
+      "diff_line": 461,
+      "old_line": 729,
+      "kind": "removed",
+      "text": "        self.preparation_ticks = self.preparation_ticks.max(1);"
+    },
+    {
+      "diff_line": 462,
+      "old_line": 730,
+      "kind": "removed",
+      "text": "        self.recovery_ticks = self.recovery_ticks.max(1);"
+    },
+    {
+      "diff_line": 463,
+      "old_line": 731,
+      "kind": "removed",
+      "text": "        self.phase = if self.phase.is_finite() {"
+    },
+    {
+      "diff_line": 464,
+      "old_line": 732,
+      "kind": "removed",
+      "text": "            self.phase.clamp(0.0, 1.0)"
+    },
+    {
+      "diff_line": 465,
+      "old_line": 733,
+      "kind": "removed",
+      "text": "        } else {"
+    },
+    {
+      "diff_line": 466,
+      "old_line": 734,
+      "kind": "removed",
+      "text": "            0.0"
+    },
+    {
+      "diff_line": 467,
+      "old_line": 735,
+      "kind": "removed",
+      "text": "        };"
+    },
+    {
+      "diff_line": 468,
+      "old_line": 736,
+      "kind": "removed",
+      "text": "        self"
+    },
+    {
+      "diff_line": 469,
+      "old_line": 737,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 470,
+      "old_line": 738,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 471,
+      "old_line": 739,
+      "kind": "removed",
+      "text": "    fn contact_tick(self) -> u64 {"
+    },
+    {
+      "diff_line": 472,
+      "old_line": 740,
+      "kind": "removed",
+      "text": "        self.start_tick.saturating_add(self.preparation_ticks)"
+    },
+    {
+      "diff_line": 473,
+      "old_line": 741,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 474,
+      "old_line": 742,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 475,
+      "old_line": 743,
+      "kind": "removed",
+      "text": "    fn end_tick(self) -> u64 {"
+    },
+    {
+      "diff_line": 476,
+      "old_line": 744,
+      "kind": "removed",
+      "text": "        self.contact_tick().saturating_add(self.recovery_ticks)"
+    },
+    {
+      "diff_line": 477,
+      "old_line": 745,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 478,
+      "old_line": 746,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 479,
+      "old_line": 747,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 483,
+      "kind": "hunk",
+      "text": "@@ -753,8 +429,9 @@ struct QueuedAttack {"
+    },
+    {
+      "diff_line": 487,
+      "old_line": 756,
+      "kind": "removed",
+      "text": "    start_coordinate: f32,"
+    },
+    {
+      "diff_line": 488,
+      "old_line": 757,
+      "kind": "removed",
+      "text": "    incoming_tangent: f32,"
+    },
+    {
+      "diff_line": 495,
+      "kind": "hunk",
+      "text": "@@ -766,17 +443,7 @@ impl QueuedAttack {"
+    },
+    {
+      "diff_line": 499,
+      "old_line": 769,
+      "kind": "removed",
+      "text": "        self.start_coordinate = finite_clamp("
+    },
+    {
+      "diff_line": 500,
+      "old_line": 770,
+      "kind": "removed",
+      "text": "            self.start_coordinate,"
+    },
+    {
+      "diff_line": 501,
+      "old_line": 771,
+      "kind": "removed",
+      "text": "            -AttackCurve::maximum_drawback(),"
+    },
+    {
+      "diff_line": 502,
+      "old_line": 772,
+      "kind": "removed",
+      "text": "            1.0 + AttackCurve::maximum_overshoot(),"
+    },
+    {
+      "diff_line": 503,
+      "old_line": 773,
+      "kind": "removed",
+      "text": "            1.0,"
+    },
+    {
+      "diff_line": 504,
+      "old_line": 774,
+      "kind": "removed",
+      "text": "        );"
+    },
+    {
+      "diff_line": 505,
+      "old_line": 775,
+      "kind": "removed",
+      "text": "        self.incoming_tangent = if self.incoming_tangent.is_finite() {"
+    },
+    {
+      "diff_line": 506,
+      "old_line": 776,
+      "kind": "removed",
+      "text": "            self.incoming_tangent.max(0.0)"
+    },
+    {
+      "diff_line": 507,
+      "old_line": 777,
+      "kind": "removed",
+      "text": "        } else {"
+    },
+    {
+      "diff_line": 508,
+      "old_line": 778,
+      "kind": "removed",
+      "text": "            0.0"
+    },
+    {
+      "diff_line": 509,
+      "old_line": 779,
+      "kind": "removed",
+      "text": "        };"
+    },
+    {
+      "diff_line": 514,
+      "kind": "hunk",
+      "text": "@@ -785,8 +452,11 @@ impl QueuedAttack {"
+    },
+    {
+      "diff_line": 518,
+      "old_line": 788,
+      "kind": "removed",
+      "text": "        start_coordinate: f32,"
+    },
+    {
+      "diff_line": 519,
+      "old_line": 789,
+      "kind": "removed",
+      "text": "        incoming_tangent: f32,"
+    },
+    {
+      "diff_line": 528,
+      "kind": "hunk",
+      "text": "@@ -798,17 +468,8 @@ impl AttackSequence {"
+    },
+    {
+      "diff_line": 532,
+      "old_line": 801,
+      "kind": "removed",
+      "text": "                start_coordinate: finite_clamp("
+    },
+    {
+      "diff_line": 533,
+      "old_line": 802,
+      "kind": "removed",
+      "text": "                    start_coordinate,"
+    },
+    {
+      "diff_line": 534,
+      "old_line": 803,
+      "kind": "removed",
+      "text": "                    -AttackCurve::maximum_drawback(),"
+    },
+    {
+      "diff_line": 535,
+      "old_line": 804,
+      "kind": "removed",
+      "text": "                    1.0 + AttackCurve::maximum_overshoot(),"
+    },
+    {
+      "diff_line": 536,
+      "old_line": 805,
+      "kind": "removed",
+      "text": "                    1.0,"
+    },
+    {
+      "diff_line": 537,
+      "old_line": 806,
+      "kind": "removed",
+      "text": "                ),"
+    },
+    {
+      "diff_line": 538,
+      "old_line": 807,
+      "kind": "removed",
+      "text": "                incoming_tangent: if incoming_tangent.is_finite() {"
+    },
+    {
+      "diff_line": 539,
+      "old_line": 808,
+      "kind": "removed",
+      "text": "                    incoming_tangent.max(0.0)"
+    },
+    {
+      "diff_line": 540,
+      "old_line": 809,
+      "kind": "removed",
+      "text": "                } else {"
+    },
+    {
+      "diff_line": 541,
+      "old_line": 810,
+      "kind": "removed",
+      "text": "                    0.0"
+    },
+    {
+      "diff_line": 542,
+      "old_line": 811,
+      "kind": "removed",
+      "text": "                },"
+    },
+    {
+      "diff_line": 548,
+      "kind": "hunk",
+      "text": "@@ -951,6 +612,7 @@ pub enum ActionTransitionError {"
+    },
+    {
+      "diff_line": 556,
+      "kind": "hunk",
+      "text": "@@ -1039,8 +701,8 @@ impl AttackCurve {"
+    },
+    {
+      "diff_line": 560,
+      "old_line": 1042,
+      "kind": "removed",
+      "text": "    pub fn coordinate(self, phase: f32) -> f32 {"
+    },
+    {
+      "diff_line": 561,
+      "old_line": 1043,
+      "kind": "removed",
+      "text": "        let phase = finite_clamp(phase, 0.0, 1.0, 0.0);"
+    },
+    {
+      "diff_line": 567,
+      "kind": "hunk",
+      "text": "@@ -1048,7 +710,7 @@ impl AttackCurve {"
+    },
+    {
+      "diff_line": 571,
+      "old_line": 1051,
+      "kind": "removed",
+      "text": "        if phase <= tell_end {"
+    },
+    {
+      "diff_line": 576,
+      "kind": "hunk",
+      "text": "@@ -1092,17 +754,22 @@ impl AttackCurve {"
+    },
+    {
+      "diff_line": 580,
+      "old_line": 1095,
+      "kind": "removed",
+      "text": "        }"
+    },
+    {
+      "diff_line": 588,
+      "old_line": 1101,
+      "kind": "removed",
+      "text": "    pub fn queued_recovery_coordinate(self, phase: f32) -> f32 {"
+    },
+    {
+      "diff_line": 589,
+      "old_line": 1102,
+      "kind": "removed",
+      "text": "        let phase = finite_clamp(phase, 0.0, 1.0, 0.0);"
+    },
+    {
+      "diff_line": 597,
+      "old_line": 1104,
+      "kind": "removed",
+      "text": "        if phase <= 0.5 {"
+    },
+    {
+      "diff_line": 598,
+      "old_line": 1105,
+      "kind": "removed",
+      "text": "            self.coordinate(phase)"
+    },
+    {
+      "diff_line": 604,
+      "kind": "hunk",
+      "text": "@@ -1120,7 +787,8 @@ impl AttackCurve {"
+    },
+    {
+      "diff_line": 608,
+      "old_line": 1123,
+      "kind": "removed",
+      "text": "        }"
+    },
+    {
+      "diff_line": 614,
+      "kind": "hunk",
+      "text": "@@ -1168,16 +836,6 @@ impl AttackCurve {"
+    },
+    {
+      "diff_line": 618,
+      "old_line": 1171,
+      "kind": "removed",
+      "text": "/// The follow-ready pose lies roughly halfway along the authored preparation"
+    },
+    {
+      "diff_line": 619,
+      "old_line": 1172,
+      "kind": "removed",
+      "text": "/// path. Global weapon-rotation measurements put the constant-acceleration"
+    },
+    {
+      "diff_line": 620,
+      "old_line": 1173,
+      "kind": "removed",
+      "text": "/// crossover at about 58% of the fixed preparation interval, independently of"
+    },
+    {
+      "diff_line": 621,
+      "old_line": 1174,
+      "kind": "removed",
+      "text": "/// the source file's arbitrary equal four-frame spacing."
+    },
+    {
+      "diff_line": 622,
+      "old_line": 1175,
+      "kind": "removed",
+      "text": "const FOLLOW_READY_PREPARATION_FRACTION: f32 = 7.0 / 12.0;"
+    },
+    {
+      "diff_line": 623,
+      "old_line": 1176,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 624,
+      "old_line": 1177,
+      "kind": "removed",
+      "text": "pub(super) fn continuation_ready_phase() -> f32 {"
+    },
+    {
+      "diff_line": 625,
+      "old_line": 1178,
+      "kind": "removed",
+      "text": "    0.5 * FOLLOW_READY_PREPARATION_FRACTION"
+    },
+    {
+      "diff_line": 626,
+      "old_line": 1179,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 627,
+      "old_line": 1180,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 631,
+      "kind": "hunk",
+      "text": "@@ -1297,9 +955,9 @@ impl ActionState {"
+    },
+    {
+      "diff_line": 635,
+      "old_line": 1300,
+      "kind": "removed",
+      "text": "    pub fn phase(self) -> f32 {"
+    },
+    {
+      "diff_line": 638,
+      "old_line": 1302,
+      "kind": "removed",
+      "text": "            Self(ActionKind::Idle) => 0.0,"
+    },
+    {
+      "diff_line": 643,
+      "kind": "hunk",
+      "text": "@@ -1333,7 +991,8 @@ pub enum MeleePreparationInput {"
+    },
+    {
+      "diff_line": 647,
+      "old_line": 1336,
+      "kind": "removed",
+      "text": "    pub progress: f32,"
+    },
+    {
+      "diff_line": 653,
+      "kind": "hunk",
+      "text": "@@ -1348,7 +1007,7 @@ impl AttackPreparation {"
+    },
+    {
+      "diff_line": 657,
+      "old_line": 1351,
+      "kind": "removed",
+      "text": "            progress: 1.0,"
+    },
+    {
+      "diff_line": 662,
+      "kind": "hunk",
+      "text": "@@ -1356,18 +1015,9 @@ impl AttackPreparation {"
+    },
+    {
+      "diff_line": 666,
+      "old_line": 1359,
+      "kind": "removed",
+      "text": "            progress: 1.0,"
+    },
+    {
+      "diff_line": 670,
+      "old_line": 1362,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 671,
+      "old_line": 1363,
+      "kind": "removed",
+      "text": "    fn normalized(mut self) -> Self {"
+    },
+    {
+      "diff_line": 672,
+      "old_line": 1364,
+      "kind": "removed",
+      "text": "        self.progress = if self.progress.is_finite() {"
+    },
+    {
+      "diff_line": 673,
+      "old_line": 1365,
+      "kind": "removed",
+      "text": "            self.progress.clamp(0.0, 1.0)"
+    },
+    {
+      "diff_line": 674,
+      "old_line": 1366,
+      "kind": "removed",
+      "text": "        } else {"
+    },
+    {
+      "diff_line": 675,
+      "old_line": 1367,
+      "kind": "removed",
+      "text": "            0.0"
+    },
+    {
+      "diff_line": 676,
+      "old_line": 1368,
+      "kind": "removed",
+      "text": "        };"
+    },
+    {
+      "diff_line": 677,
+      "old_line": 1369,
+      "kind": "removed",
+      "text": "        self"
+    },
+    {
+      "diff_line": 678,
+      "old_line": 1370,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 682,
+      "kind": "hunk",
+      "text": "@@ -1496,23 +1146,23 @@ pub struct SkeletonState {"
+    },
+    {
+      "diff_line": 686,
+      "old_line": 1499,
+      "kind": "removed",
+      "text": "    pub gait_phase: f32,"
+    },
+    {
+      "diff_line": 687,
+      "old_line": 1500,
+      "kind": "removed",
+      "text": "    pub locomotion_sample_tick: u64,"
+    },
+    {
+      "diff_line": 691,
+      "old_line": 1502,
+      "kind": "removed",
+      "text": "    pub contact_sequence: u64,"
+    },
+    {
+      "diff_line": 695,
+      "old_line": 1505,
+      "kind": "removed",
+      "text": "    pub landing_sequence: u64,"
+    },
+    {
+      "diff_line": 696,
+      "old_line": 1506,
+      "kind": "removed",
+      "text": "    pub landing_impact_speed: f32,"
+    },
+    {
+      "diff_line": 700,
+      "old_line": 1508,
+      "kind": "removed",
+      "text": "    guarded_sprint_locomotion: bool,"
+    },
+    {
+      "diff_line": 707,
+      "old_line": 1514,
+      "kind": "removed",
+      "text": "    downed_turning: bool,"
+    },
+    {
+      "diff_line": 708,
+      "old_line": 1515,
+      "kind": "removed",
+      "text": "    pub animation_pack: String,"
+    },
+    {
+      "diff_line": 714,
+      "kind": "hunk",
+      "text": "@@ -1522,24 +1172,24 @@ struct SkeletonStateWire {"
+    },
+    {
+      "diff_line": 718,
+      "old_line": 1525,
+      "kind": "removed",
+      "text": "    gait_phase: f32,"
+    },
+    {
+      "diff_line": 719,
+      "old_line": 1526,
+      "kind": "removed",
+      "text": "    locomotion_sample_tick: u64,"
+    },
+    {
+      "diff_line": 723,
+      "old_line": 1528,
+      "kind": "removed",
+      "text": "    contact_sequence: u64,"
+    },
+    {
+      "diff_line": 728,
+      "old_line": 1532,
+      "kind": "removed",
+      "text": "    landing_sequence: u64,"
+    },
+    {
+      "diff_line": 729,
+      "old_line": 1533,
+      "kind": "removed",
+      "text": "    landing_impact_speed: f32,"
+    },
+    {
+      "diff_line": 733,
+      "old_line": 1535,
+      "kind": "removed",
+      "text": "    guarded_sprint_locomotion: bool,"
+    },
+    {
+      "diff_line": 740,
+      "old_line": 1541,
+      "kind": "removed",
+      "text": "    downed_turning: bool,"
+    },
+    {
+      "diff_line": 741,
+      "old_line": 1542,
+      "kind": "removed",
+      "text": "    animation_pack: String,"
+    },
+    {
+      "diff_line": 747,
+      "kind": "hunk",
+      "text": "@@ -1555,26 +1205,18 @@ impl<'de> Deserialize<'de> for SkeletonState {"
+    },
+    {
+      "diff_line": 751,
+      "old_line": 1558,
+      "kind": "removed",
+      "text": "            gait_phase: if wire.gait_phase.is_finite() {"
+    },
+    {
+      "diff_line": 752,
+      "old_line": 1559,
+      "kind": "removed",
+      "text": "                wire.gait_phase.rem_euclid(1.0)"
+    },
+    {
+      "diff_line": 753,
+      "old_line": 1560,
+      "kind": "removed",
+      "text": "            } else {"
+    },
+    {
+      "diff_line": 754,
+      "old_line": 1561,
+      "kind": "removed",
+      "text": "                0.0"
+    },
+    {
+      "diff_line": 755,
+      "old_line": 1562,
+      "kind": "removed",
+      "text": "            },"
+    },
+    {
+      "diff_line": 763,
+      "old_line": 1569,
+      "kind": "removed",
+      "text": "            landing_impact_speed: if wire.landing_impact_speed.is_finite() {"
+    },
+    {
+      "diff_line": 764,
+      "old_line": 1570,
+      "kind": "removed",
+      "text": "                wire.landing_impact_speed.max(0.0)"
+    },
+    {
+      "diff_line": 765,
+      "old_line": 1571,
+      "kind": "removed",
+      "text": "            } else {"
+    },
+    {
+      "diff_line": 766,
+      "old_line": 1572,
+      "kind": "removed",
+      "text": "                0.0"
+    },
+    {
+      "diff_line": 767,
+      "old_line": 1573,
+      "kind": "removed",
+      "text": "            },"
+    },
+    {
+      "diff_line": 772,
+      "old_line": 1577,
+      "kind": "removed",
+      "text": "            attack_preparation: wire.attack_preparation.normalized(),"
+    },
+    {
+      "diff_line": 777,
+      "kind": "hunk",
+      "text": "@@ -1585,8 +1227,8 @@ impl<'de> Deserialize<'de> for SkeletonState {"
+    },
+    {
+      "diff_line": 781,
+      "old_line": 1588,
+      "kind": "removed",
+      "text": "        state.set_jump_anticipation(wire.jump_anticipation == JumpAnticipation::Charging);"
+    },
+    {
+      "diff_line": 782,
+      "old_line": 1589,
+      "kind": "removed",
+      "text": "        state.set_guarded_sprint_locomotion(wire.guarded_sprint_locomotion);"
+    },
+    {
+      "diff_line": 788,
+      "kind": "hunk",
+      "text": "@@ -1598,23 +1240,23 @@ impl Default for SkeletonState {"
+    },
+    {
+      "diff_line": 792,
+      "old_line": 1601,
+      "kind": "removed",
+      "text": "            gait_phase: 0.0,"
+    },
+    {
+      "diff_line": 793,
+      "old_line": 1602,
+      "kind": "removed",
+      "text": "            locomotion_sample_tick: 0,"
+    },
+    {
+      "diff_line": 797,
+      "old_line": 1604,
+      "kind": "removed",
+      "text": "            contact_sequence: 0,"
+    },
+    {
+      "diff_line": 801,
+      "old_line": 1607,
+      "kind": "removed",
+      "text": "            landing_sequence: 0,"
+    },
+    {
+      "diff_line": 802,
+      "old_line": 1608,
+      "kind": "removed",
+      "text": "            landing_impact_speed: 0.0,"
+    },
+    {
+      "diff_line": 806,
+      "old_line": 1610,
+      "kind": "removed",
+      "text": "            guarded_sprint_locomotion: false,"
+    },
+    {
+      "diff_line": 813,
+      "old_line": 1616,
+      "kind": "removed",
+      "text": "            downed_turning: false,"
+    },
+    {
+      "diff_line": 814,
+      "old_line": 1617,
+      "kind": "removed",
+      "text": "            animation_pack: \"humanoid_unarmed\".to_owned(),"
+    },
+    {
+      "diff_line": 820,
+      "kind": "hunk",
+      "text": "@@ -1629,7 +1271,7 @@ pub fn set_weapon_guard(skeleton: &mut SkeletonState, weapon_guard: WeaponGuardS"
+    },
+    {
+      "diff_line": 824,
+      "old_line": 1632,
+      "kind": "removed",
+      "text": "            skeleton.gait_phase = 0.0;"
+    },
+    {
+      "diff_line": 829,
+      "kind": "hunk",
+      "text": "@@ -1638,7 +1280,7 @@ pub fn set_weapon_guard(skeleton: &mut SkeletonState, weapon_guard: WeaponGuardS"
+    },
+    {
+      "diff_line": 833,
+      "old_line": 1641,
+      "kind": "removed",
+      "text": "            skeleton.guarded_sprint_locomotion = false;"
+    },
+    {
+      "diff_line": 838,
+      "kind": "hunk",
+      "text": "@@ -1671,15 +1313,11 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 842,
+      "old_line": 1674,
+      "kind": "removed",
+      "text": "    pub fn with_gait_phase(mut self, phase: f32) -> Self {"
+    },
+    {
+      "diff_line": 843,
+      "old_line": 1675,
+      "kind": "removed",
+      "text": "        self.gait_phase = if phase.is_finite() {"
+    },
+    {
+      "diff_line": 844,
+      "old_line": 1676,
+      "kind": "removed",
+      "text": "            phase.rem_euclid(1.0)"
+    },
+    {
+      "diff_line": 845,
+      "old_line": 1677,
+      "kind": "removed",
+      "text": "        } else {"
+    },
+    {
+      "diff_line": 846,
+      "old_line": 1678,
+      "kind": "removed",
+      "text": "            0.0"
+    },
+    {
+      "diff_line": 847,
+      "old_line": 1679,
+      "kind": "removed",
+      "text": "        };"
+    },
+    {
+      "diff_line": 852,
+      "old_line": 1682,
+      "kind": "removed",
+      "text": "    pub fn with_locomotion_sample_tick(mut self, tick: u64) -> Self {"
+    },
+    {
+      "diff_line": 857,
+      "kind": "hunk",
+      "text": "@@ -1697,10 +1335,10 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 861,
+      "old_line": 1700,
+      "kind": "removed",
+      "text": "            self.downed_turning = false;"
+    },
+    {
+      "diff_line": 865,
+      "old_line": 1703,
+      "kind": "removed",
+      "text": "            self.guarded_sprint_locomotion = false;"
+    },
+    {
+      "diff_line": 870,
+      "kind": "hunk",
+      "text": "@@ -1724,17 +1362,22 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 874,
+      "old_line": 1727,
+      "kind": "removed",
+      "text": "    pub fn set_guarded_sprint_locomotion(&mut self, enabled: bool) {"
+    },
+    {
+      "diff_line": 875,
+      "old_line": 1728,
+      "kind": "removed",
+      "text": "        self.guarded_sprint_locomotion = enabled"
+    },
+    {
+      "diff_line": 876,
+      "old_line": 1729,
+      "kind": "removed",
+      "text": "            && self.body == BodyState::Grounded(GroundedPosture::Upright)"
+    },
+    {
+      "diff_line": 877,
+      "old_line": 1730,
+      "kind": "removed",
+      "text": "            && self.weapon_guard() == WeaponGuardState::Raised;"
+    },
+    {
+      "diff_line": 888,
+      "old_line": 1732,
+      "kind": "removed",
+      "text": "    pub fn with_guarded_sprint_locomotion(mut self, enabled: bool) -> Self {"
+    },
+    {
+      "diff_line": 889,
+      "old_line": 1733,
+      "kind": "removed",
+      "text": "        self.set_guarded_sprint_locomotion(enabled);"
+    },
+    {
+      "diff_line": 894,
+      "old_line": 1736,
+      "kind": "removed",
+      "text": "    pub fn guarded_sprint_locomotion(&self) -> bool {"
+    },
+    {
+      "diff_line": 895,
+      "old_line": 1737,
+      "kind": "removed",
+      "text": "        self.guarded_sprint_locomotion"
+    },
+    {
+      "diff_line": 901,
+      "kind": "hunk",
+      "text": "@@ -1769,8 +1412,8 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 905,
+      "old_line": 1772,
+      "kind": "removed",
+      "text": "    pub fn set_jump_anticipation(&mut self, charging: bool) {"
+    },
+    {
+      "diff_line": 906,
+      "old_line": 1773,
+      "kind": "removed",
+      "text": "        self.jump_anticipation = if charging"
+    },
+    {
+      "diff_line": 912,
+      "kind": "hunk",
+      "text": "@@ -1785,32 +1428,38 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 916,
+      "old_line": 1788,
+      "kind": "removed",
+      "text": "    pub fn downed_turning(&self) -> bool {"
+    },
+    {
+      "diff_line": 917,
+      "old_line": 1789,
+      "kind": "removed",
+      "text": "        self.downed_turning && self.body.is_downed() && self.posture_transition.is_none()"
+    },
+    {
+      "diff_line": 923,
+      "old_line": 1791,
+      "kind": "removed",
+      "text": "    pub fn set_downed_turning(&mut self, turning: bool) {"
+    },
+    {
+      "diff_line": 924,
+      "old_line": 1792,
+      "kind": "removed",
+      "text": "        self.downed_turning = turning && self.body.is_downed() && self.posture_transition.is_none();"
+    },
+    {
+      "diff_line": 932,
+      "old_line": 1794,
+      "kind": "removed",
+      "text": "    pub fn downed_lateral_motion(&self) -> f32 {"
+    },
+    {
+      "diff_line": 938,
+      "old_line": 1799,
+      "kind": "removed",
+      "text": "                    RollDirection::Left => -1.0,"
+    },
+    {
+      "diff_line": 939,
+      "old_line": 1800,
+      "kind": "removed",
+      "text": "                    RollDirection::Right => 1.0,"
+    },
+    {
+      "diff_line": 943,
+      "old_line": 1802,
+      "kind": "removed",
+      "text": "                _ => 0.0,"
+    },
+    {
+      "diff_line": 949,
+      "old_line": 1807,
+      "kind": "removed",
+      "text": "            .unwrap_or(0.0)"
+    },
+    {
+      "diff_line": 955,
+      "old_line": 1812,
+      "kind": "removed",
+      "text": "        start_tick: u64,"
+    },
+    {
+      "diff_line": 956,
+      "old_line": 1813,
+      "kind": "removed",
+      "text": "        duration_ticks: u64,"
+    },
+    {
+      "diff_line": 962,
+      "kind": "hunk",
+      "text": "@@ -1818,10 +1467,10 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 966,
+      "old_line": 1821,
+      "kind": "removed",
+      "text": "        self.guarded_sprint_locomotion = false;"
+    },
+    {
+      "diff_line": 970,
+      "old_line": 1824,
+      "kind": "removed",
+      "text": "        self.downed_turning = false;"
+    },
+    {
+      "diff_line": 975,
+      "kind": "hunk",
+      "text": "@@ -1829,9 +1478,12 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 979,
+      "old_line": 1832,
+      "kind": "removed",
+      "text": "    pub fn advance_posture_transition(&mut self, current_tick: u64) {"
+    },
+    {
+      "diff_line": 985,
+      "old_line": 1834,
+      "kind": "removed",
+      "text": "            return;"
+    },
+    {
+      "diff_line": 990,
+      "kind": "hunk",
+      "text": "@@ -1843,30 +1495,34 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 994,
+      "old_line": 1846,
+      "kind": "removed",
+      "text": "                return;"
+    },
+    {
+      "diff_line": 997,
+      "old_line": 1848,
+      "kind": "removed",
+      "text": "            transition.phase = elapsed as f32 / transition.duration_ticks as f32;"
+    },
+    {
+      "diff_line": 1002,
+      "old_line": 1850,
+      "kind": "removed",
+      "text": "            return;"
+    },
+    {
+      "diff_line": 1008,
+      "old_line": 1855,
+      "kind": "removed",
+      "text": "                transition.phase = 0.5;"
+    },
+    {
+      "diff_line": 1011,
+      "old_line": 1857,
+      "kind": "removed",
+      "text": "                return;"
+    },
+    {
+      "diff_line": 1019,
+      "old_line": 1864,
+      "kind": "removed",
+      "text": "                    return;"
+    },
+    {
+      "diff_line": 1022,
+      "old_line": 1866,
+      "kind": "removed",
+      "text": "                transition.phase ="
+    },
+    {
+      "diff_line": 1023,
+      "old_line": 1867,
+      "kind": "removed",
+      "text": "                    0.5 + 0.5 * recovery_elapsed as f32 / transition.duration_ticks as f32;"
+    },
+    {
+      "diff_line": 1029,
+      "old_line": 1869,
+      "kind": "removed",
+      "text": "                return;"
+    },
+    {
+      "diff_line": 1034,
+      "kind": "hunk",
+      "text": "@@ -1875,21 +1531,26 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 1038,
+      "old_line": 1878,
+      "kind": "removed",
+      "text": "                transition.phase = 0.5;"
+    },
+    {
+      "diff_line": 1041,
+      "old_line": 1880,
+      "kind": "removed",
+      "text": "                return;"
+    },
+    {
+      "diff_line": 1044,
+      "old_line": 1882,
+      "kind": "removed",
+      "text": "            transition.phase = 0.5 * elapsed as f32 / transition.duration_ticks as f32;"
+    },
+    {
+      "diff_line": 1049,
+      "old_line": 1884,
+      "kind": "removed",
+      "text": "            return;"
+    },
+    {
+      "diff_line": 1055,
+      "old_line": 1889,
+      "kind": "removed",
+      "text": "            return;"
+    },
+    {
+      "diff_line": 1058,
+      "old_line": 1891,
+      "kind": "removed",
+      "text": "        transition.phase = elapsed as f32 / transition.duration_ticks as f32;"
+    },
+    {
+      "diff_line": 1067,
+      "kind": "hunk",
+      "text": "@@ -1903,119 +1564,17 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 1071,
+      "old_line": 1906,
+      "kind": "removed",
+      "text": "            } => Some(DownedFacingState {"
+    },
+    {
+      "diff_line": 1072,
+      "old_line": 1907,
+      "kind": "removed",
+      "text": "                half_turns: -0.5,"
+    },
+    {
+      "diff_line": 1073,
+      "old_line": 1908,
+      "kind": "removed",
+      "text": "                target: DownedFacingPose::RollLeft,"
+    },
+    {
+      "diff_line": 1074,
+      "old_line": 1909,
+      "kind": "removed",
+      "text": "                lateral_motion: 0.0,"
+    },
+    {
+      "diff_line": 1075,
+      "old_line": 1910,
+      "kind": "removed",
+      "text": "            }),"
+    },
+    {
+      "diff_line": 1080,
+      "old_line": 1914,
+      "kind": "removed",
+      "text": "            } => Some(DownedFacingState {"
+    },
+    {
+      "diff_line": 1081,
+      "old_line": 1915,
+      "kind": "removed",
+      "text": "                half_turns: 0.5,"
+    },
+    {
+      "diff_line": 1082,
+      "old_line": 1916,
+      "kind": "removed",
+      "text": "                target: DownedFacingPose::RollRight,"
+    },
+    {
+      "diff_line": 1083,
+      "old_line": 1917,
+      "kind": "removed",
+      "text": "                lateral_motion: 0.0,"
+    },
+    {
+      "diff_line": 1084,
+      "old_line": 1918,
+      "kind": "removed",
+      "text": "            }),"
+    },
+    {
+      "diff_line": 1092,
+      "old_line": 1925,
+      "kind": "removed",
+      "text": "    /// Follows or settles the downed roll. Held aim selects one of four sticky"
+    },
+    {
+      "diff_line": 1093,
+      "old_line": 1926,
+      "kind": "removed",
+      "text": "    /// camera sectors; only a sector change interpolates the pose. After"
+    },
+    {
+      "diff_line": 1094,
+      "old_line": 1927,
+      "kind": "removed",
+      "text": "    /// release, the raw camera angle selects the nearer whole contact pose."
+    },
+    {
+      "diff_line": 1095,
+      "old_line": 1928,
+      "kind": "removed",
+      "text": "    /// Returns true while the camera-driven state remains active."
+    },
+    {
+      "diff_line": 1096,
+      "old_line": 1929,
+      "kind": "removed",
+      "text": "    pub fn advance_downed_facing("
+    },
+    {
+      "diff_line": 1097,
+      "old_line": 1930,
+      "kind": "removed",
+      "text": "        &mut self,"
+    },
+    {
+      "diff_line": 1098,
+      "old_line": 1931,
+      "kind": "removed",
+      "text": "        camera_target_half_turns: f32,"
+    },
+    {
+      "diff_line": 1099,
+      "old_line": 1932,
+      "kind": "removed",
+      "text": "        aim_held: bool,"
+    },
+    {
+      "diff_line": 1100,
+      "old_line": 1933,
+      "kind": "removed",
+      "text": "        maximum_step: f32,"
+    },
+    {
+      "diff_line": 1101,
+      "old_line": 1934,
+      "kind": "removed",
+      "text": "    ) -> bool {"
+    },
+    {
+      "diff_line": 1102,
+      "old_line": 1935,
+      "kind": "removed",
+      "text": "        if !matches!(self.body, BodyState::Prone | BodyState::Supine)"
+    },
+    {
+      "diff_line": 1103,
+      "old_line": 1936,
+      "kind": "removed",
+      "text": "            || self.posture_transition.is_some()"
+    },
+    {
+      "diff_line": 1104,
+      "old_line": 1937,
+      "kind": "removed",
+      "text": "        {"
+    },
+    {
+      "diff_line": 1105,
+      "old_line": 1938,
+      "kind": "removed",
+      "text": "            self.downed_facing = None;"
+    },
+    {
+      "diff_line": 1106,
+      "old_line": 1939,
+      "kind": "removed",
+      "text": "            return false;"
+    },
+    {
+      "diff_line": 1107,
+      "old_line": 1940,
+      "kind": "removed",
+      "text": "        }"
+    },
+    {
+      "diff_line": 1108,
+      "old_line": 1941,
+      "kind": "removed",
+      "text": "        let camera_target = if camera_target_half_turns.is_finite() {"
+    },
+    {
+      "diff_line": 1109,
+      "old_line": 1942,
+      "kind": "removed",
+      "text": "            camera_target_half_turns"
+    },
+    {
+      "diff_line": 1110,
+      "old_line": 1943,
+      "kind": "removed",
+      "text": "        } else {"
+    },
+    {
+      "diff_line": 1111,
+      "old_line": 1944,
+      "kind": "removed",
+      "text": "            0.0"
+    },
+    {
+      "diff_line": 1112,
+      "old_line": 1945,
+      "kind": "removed",
+      "text": "        };"
+    },
+    {
+      "diff_line": 1113,
+      "old_line": 1946,
+      "kind": "removed",
+      "text": "        let initial_target = match self.body {"
+    },
+    {
+      "diff_line": 1114,
+      "old_line": 1947,
+      "kind": "removed",
+      "text": "            BodyState::Prone => DownedFacingPose::Prone,"
+    },
+    {
+      "diff_line": 1115,
+      "old_line": 1948,
+      "kind": "removed",
+      "text": "            BodyState::Supine => DownedFacingPose::Supine,"
+    },
+    {
+      "diff_line": 1116,
+      "old_line": 1949,
+      "kind": "removed",
+      "text": "            _ => unreachable!(\"downed body checked above\"),"
+    },
+    {
+      "diff_line": 1117,
+      "old_line": 1950,
+      "kind": "removed",
+      "text": "        };"
+    },
+    {
+      "diff_line": 1118,
+      "old_line": 1951,
+      "kind": "removed",
+      "text": "        let initial = initial_target.half_turns_near(camera_target);"
+    },
+    {
+      "diff_line": 1119,
+      "old_line": 1952,
+      "kind": "removed",
+      "text": "        let previous = self.downed_facing;"
+    },
+    {
+      "diff_line": 1120,
+      "old_line": 1953,
+      "kind": "removed",
+      "text": "        let current = previous"
+    },
+    {
+      "diff_line": 1121,
+      "old_line": 1954,
+      "kind": "removed",
+      "text": "            .map(DownedFacingState::half_turns)"
+    },
+    {
+      "diff_line": 1122,
+      "old_line": 1955,
+      "kind": "removed",
+      "text": "            .unwrap_or(initial);"
+    },
+    {
+      "diff_line": 1123,
+      "old_line": 1956,
+      "kind": "removed",
+      "text": "        let target = if aim_held {"
+    },
+    {
+      "diff_line": 1124,
+      "old_line": 1957,
+      "kind": "removed",
+      "text": "            let tuning = crate::combat_config::runtime_animation_config().state_transitions;"
+    },
+    {
+      "diff_line": 1125,
+      "old_line": 1958,
+      "kind": "removed",
+      "text": "            let committed = previous.map(|state| state.target).unwrap_or(initial_target);"
+    },
+    {
+      "diff_line": 1126,
+      "old_line": 1959,
+      "kind": "removed",
+      "text": "            let committed_half_turns = committed.half_turns_near(current);"
+    },
+    {
+      "diff_line": 1127,
+      "old_line": 1960,
+      "kind": "removed",
+      "text": "            let camera_unwrapped ="
+    },
+    {
+      "diff_line": 1128,
+      "old_line": 1961,
+      "kind": "removed",
+      "text": "                camera_target + ((committed_half_turns - camera_target) / 2.0).round() * 2.0;"
+    },
+    {
+      "diff_line": 1129,
+      "old_line": 1962,
+      "kind": "removed",
+      "text": "            let target_pose = if (camera_unwrapped - committed_half_turns).abs()"
+    },
+    {
+      "diff_line": 1130,
+      "old_line": 1963,
+      "kind": "removed",
+      "text": "                > tuning.downed_facing_sector_half_width + tuning.downed_facing_edge_stickiness"
+    },
+    {
+      "diff_line": 1131,
+      "old_line": 1964,
+      "kind": "removed",
+      "text": "            {"
+    },
+    {
+      "diff_line": 1132,
+      "old_line": 1965,
+      "kind": "removed",
+      "text": "                DownedFacingPose::from_half_turns(camera_unwrapped)"
+    },
+    {
+      "diff_line": 1133,
+      "old_line": 1966,
+      "kind": "removed",
+      "text": "            } else {"
+    },
+    {
+      "diff_line": 1134,
+      "old_line": 1967,
+      "kind": "removed",
+      "text": "                committed"
+    },
+    {
+      "diff_line": 1135,
+      "old_line": 1968,
+      "kind": "removed",
+      "text": "            };"
+    },
+    {
+      "diff_line": 1136,
+      "old_line": 1969,
+      "kind": "removed",
+      "text": "            target_pose.half_turns_near(camera_unwrapped)"
+    },
+    {
+      "diff_line": 1137,
+      "old_line": 1970,
+      "kind": "removed",
+      "text": "        } else {"
+    },
+    {
+      "diff_line": 1138,
+      "old_line": 1971,
+      "kind": "removed",
+      "text": "            let lower = current.floor();"
+    },
+    {
+      "diff_line": 1139,
+      "old_line": 1972,
+      "kind": "removed",
+      "text": "            if (current - lower - 0.5).abs() <= 1.0e-4 {"
+    },
+    {
+      "diff_line": 1140,
+      "old_line": 1973,
+      "kind": "removed",
+      "text": "                match self.body {"
+    },
+    {
+      "diff_line": 1141,
+      "old_line": 1974,
+      "kind": "removed",
+      "text": "                    BodyState::Prone => (current / 2.0).round() * 2.0,"
+    },
+    {
+      "diff_line": 1142,
+      "old_line": 1975,
+      "kind": "removed",
+      "text": "                    BodyState::Supine => ((current - 1.0) / 2.0).round() * 2.0 + 1.0,"
+    },
+    {
+      "diff_line": 1143,
+      "old_line": 1976,
+      "kind": "removed",
+      "text": "                    _ => unreachable!(\"downed body checked above\"),"
+    },
+    {
+      "diff_line": 1144,
+      "old_line": 1977,
+      "kind": "removed",
+      "text": "                }"
+    },
+    {
+      "diff_line": 1145,
+      "old_line": 1978,
+      "kind": "removed",
+      "text": "            } else {"
+    },
+    {
+      "diff_line": 1146,
+      "old_line": 1979,
+      "kind": "removed",
+      "text": "                current.round()"
+    },
+    {
+      "diff_line": 1147,
+      "old_line": 1980,
+      "kind": "removed",
+      "text": "            }"
+    },
+    {
+      "diff_line": 1148,
+      "old_line": 1981,
+      "kind": "removed",
+      "text": "        };"
+    },
+    {
+      "diff_line": 1149,
+      "old_line": 1982,
+      "kind": "removed",
+      "text": "        let target_pose = if aim_held {"
+    },
+    {
+      "diff_line": 1150,
+      "old_line": 1983,
+      "kind": "removed",
+      "text": "            DownedFacingPose::from_half_turns(target)"
+    },
+    {
+      "diff_line": 1151,
+      "old_line": 1984,
+      "kind": "removed",
+      "text": "        } else if (target as i64).rem_euclid(2) == 0 {"
+    },
+    {
+      "diff_line": 1152,
+      "old_line": 1985,
+      "kind": "removed",
+      "text": "            DownedFacingPose::Prone"
+    },
+    {
+      "diff_line": 1153,
+      "old_line": 1986,
+      "kind": "removed",
+      "text": "        } else {"
+    },
+    {
+      "diff_line": 1154,
+      "old_line": 1987,
+      "kind": "removed",
+      "text": "            DownedFacingPose::Supine"
+    },
+    {
+      "diff_line": 1155,
+      "old_line": 1988,
+      "kind": "removed",
+      "text": "        };"
+    },
+    {
+      "diff_line": 1156,
+      "old_line": 1989,
+      "kind": "removed",
+      "text": "        let step = if maximum_step.is_finite() {"
+    },
+    {
+      "diff_line": 1157,
+      "old_line": 1990,
+      "kind": "removed",
+      "text": "            maximum_step.max(0.0)"
+    },
+    {
+      "diff_line": 1158,
+      "old_line": 1991,
+      "kind": "removed",
+      "text": "        } else {"
+    },
+    {
+      "diff_line": 1159,
+      "old_line": 1992,
+      "kind": "removed",
+      "text": "            0.0"
+    },
+    {
+      "diff_line": 1160,
+      "old_line": 1993,
+      "kind": "removed",
+      "text": "        };"
+    },
+    {
+      "diff_line": 1161,
+      "old_line": 1994,
+      "kind": "removed",
+      "text": "        let next = current + (target - current).clamp(-step, step);"
+    },
+    {
+      "diff_line": 1162,
+      "old_line": 1995,
+      "kind": "removed",
+      "text": "        self.downed_facing = Some(DownedFacingState {"
+    },
+    {
+      "diff_line": 1163,
+      "old_line": 1996,
+      "kind": "removed",
+      "text": "            half_turns: next,"
+    },
+    {
+      "diff_line": 1164,
+      "old_line": 1997,
+      "kind": "removed",
+      "text": "            target: target_pose,"
+    },
+    {
+      "diff_line": 1165,
+      "old_line": 1998,
+      "kind": "removed",
+      "text": "            lateral_motion: if (next - current).abs() > 1.0e-5 {"
+    },
+    {
+      "diff_line": 1166,
+      "old_line": 1999,
+      "kind": "removed",
+      "text": "                (next - current).signum()"
+    },
+    {
+      "diff_line": 1167,
+      "old_line": 2000,
+      "kind": "removed",
+      "text": "            } else {"
+    },
+    {
+      "diff_line": 1168,
+      "old_line": 2001,
+      "kind": "removed",
+      "text": "                0.0"
+    },
+    {
+      "diff_line": 1169,
+      "old_line": 2002,
+      "kind": "removed",
+      "text": "            },"
+    },
+    {
+      "diff_line": 1170,
+      "old_line": 2003,
+      "kind": "removed",
+      "text": "        });"
+    },
+    {
+      "diff_line": 1171,
+      "old_line": 2004,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 1172,
+      "old_line": 2005,
+      "kind": "removed",
+      "text": "        if (next - next.round()).abs() <= 1.0e-4 {"
+    },
+    {
+      "diff_line": 1173,
+      "old_line": 2006,
+      "kind": "removed",
+      "text": "            let contact = next.round() as i64;"
+    },
+    {
+      "diff_line": 1174,
+      "old_line": 2007,
+      "kind": "removed",
+      "text": "            self.transition_body(if contact.rem_euclid(2) == 0 {"
+    },
+    {
+      "diff_line": 1175,
+      "old_line": 2008,
+      "kind": "removed",
+      "text": "                BodyState::Prone"
+    },
+    {
+      "diff_line": 1176,
+      "old_line": 2009,
+      "kind": "removed",
+      "text": "            } else {"
+    },
+    {
+      "diff_line": 1177,
+      "old_line": 2010,
+      "kind": "removed",
+      "text": "                BodyState::Supine"
+    },
+    {
+      "diff_line": 1178,
+      "old_line": 2011,
+      "kind": "removed",
+      "text": "            });"
+    },
+    {
+      "diff_line": 1179,
+      "old_line": 2012,
+      "kind": "removed",
+      "text": "            if !aim_held {"
+    },
+    {
+      "diff_line": 1180,
+      "old_line": 2013,
+      "kind": "removed",
+      "text": "                self.downed_facing = None;"
+    },
+    {
+      "diff_line": 1181,
+      "old_line": 2014,
+      "kind": "removed",
+      "text": "                return false;"
+    },
+    {
+      "diff_line": 1182,
+      "old_line": 2015,
+      "kind": "removed",
+      "text": "            }"
+    },
+    {
+      "diff_line": 1183,
+      "old_line": 2016,
+      "kind": "removed",
+      "text": "        }"
+    },
+    {
+      "diff_line": 1184,
+      "old_line": 2017,
+      "kind": "removed",
+      "text": "        true"
+    },
+    {
+      "diff_line": 1185,
+      "old_line": 2018,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 1189,
+      "kind": "hunk",
+      "text": "@@ -2028,7 +1587,7 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 1193,
+      "old_line": 2031,
+      "kind": "removed",
+      "text": "    pub fn action_phase(&self) -> f32 {"
+    },
+    {
+      "diff_line": 1198,
+      "kind": "hunk",
+      "text": "@@ -2068,35 +1627,21 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 1202,
+      "old_line": 2071,
+      "kind": "removed",
+      "text": "        matches!("
+    },
+    {
+      "diff_line": 1203,
+      "old_line": 2072,
+      "kind": "removed",
+      "text": "            self.action,"
+    },
+    {
+      "diff_line": 1204,
+      "old_line": 2073,
+      "kind": "removed",
+      "text": "            ActionState(ActionKind::Attack {"
+    },
+    {
+      "diff_line": 1205,
+      "old_line": 2074,
+      "kind": "removed",
+      "text": "                sequence: AttackSequence::Continuation { .. },"
+    },
+    {
+      "diff_line": 1206,
+      "old_line": 2075,
+      "kind": "removed",
+      "text": "                .."
+    },
+    {
+      "diff_line": 1207,
+      "old_line": 2076,
+      "kind": "removed",
+      "text": "            })"
+    },
+    {
+      "diff_line": 1208,
+      "old_line": 2077,
+      "kind": "removed",
+      "text": "        )"
+    },
+    {
+      "diff_line": 1211,
+      "old_line": 2079,
+      "kind": "removed",
+      "text": "    pub fn attack_continuation_incoming_tangent(&self) -> Option<f32> {"
+    },
+    {
+      "diff_line": 1217,
+      "old_line": 2084,
+      "kind": "removed",
+      "text": "                        incoming_tangent, .."
+    },
+    {
+      "diff_line": 1222,
+      "old_line": 2087,
+      "kind": "removed",
+      "text": "            }) => Some(incoming_tangent),"
+    },
+    {
+      "diff_line": 1223,
+      "old_line": 2088,
+      "kind": "removed",
+      "text": "            _ => None,"
+    },
+    {
+      "diff_line": 1224,
+      "old_line": 2089,
+      "kind": "removed",
+      "text": "        }"
+    },
+    {
+      "diff_line": 1225,
+      "old_line": 2090,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 1226,
+      "old_line": 2091,
+      "kind": "removed",
+      "text": "    pub fn attack_continuation_start_coordinate(&self) -> Option<f32> {"
+    },
+    {
+      "diff_line": 1227,
+      "old_line": 2092,
+      "kind": "removed",
+      "text": "        match self.action {"
+    },
+    {
+      "diff_line": 1228,
+      "old_line": 2093,
+      "kind": "removed",
+      "text": "            ActionState(ActionKind::Attack {"
+    },
+    {
+      "diff_line": 1229,
+      "old_line": 2094,
+      "kind": "removed",
+      "text": "                sequence:"
+    },
+    {
+      "diff_line": 1230,
+      "old_line": 2095,
+      "kind": "removed",
+      "text": "                    AttackSequence::Continuation {"
+    },
+    {
+      "diff_line": 1231,
+      "old_line": 2096,
+      "kind": "removed",
+      "text": "                        start_coordinate, .."
+    },
+    {
+      "diff_line": 1232,
+      "old_line": 2097,
+      "kind": "removed",
+      "text": "                    },"
+    },
+    {
+      "diff_line": 1233,
+      "old_line": 2098,
+      "kind": "removed",
+      "text": "                .."
+    },
+    {
+      "diff_line": 1234,
+      "old_line": 2099,
+      "kind": "removed",
+      "text": "            }) => Some(start_coordinate),"
+    },
+    {
+      "diff_line": 1242,
+      "kind": "hunk",
+      "text": "@@ -2118,7 +1663,7 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 1246,
+      "old_line": 2121,
+      "kind": "removed",
+      "text": "        self.attack_preparation = preparation.normalized();"
+    },
+    {
+      "diff_line": 1251,
+      "kind": "hunk",
+      "text": "@@ -2166,7 +1711,7 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 1255,
+      "old_line": 2169,
+      "kind": "removed",
+      "text": "    pub fn action_start_tick(&self) -> Option<u64> {"
+    },
+    {
+      "diff_line": 1260,
+      "kind": "hunk",
+      "text": "@@ -2174,7 +1719,7 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 1264,
+      "old_line": 2177,
+      "kind": "removed",
+      "text": "    pub fn action_preparation_ticks(&self) -> Option<u64> {"
+    },
+    {
+      "diff_line": 1269,
+      "kind": "hunk",
+      "text": "@@ -2191,7 +1736,7 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 1273,
+      "old_line": 2194,
+      "kind": "removed",
+      "text": "    pub fn action_recovery_ticks(&self) -> Option<u64> {"
+    },
+    {
+      "diff_line": 1278,
+      "kind": "hunk",
+      "text": "@@ -2200,7 +1745,7 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 1282,
+      "old_line": 2203,
+      "kind": "removed",
+      "text": "    pub fn action_end_tick(&self) -> Option<u64> {"
+    },
+    {
+      "diff_line": 1287,
+      "kind": "hunk",
+      "text": "@@ -2212,7 +1757,7 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 1291,
+      "old_line": 2215,
+      "kind": "removed",
+      "text": "    pub fn attack_continuation_tick(&self) -> Option<u64> {"
+    },
+    {
+      "diff_line": 1296,
+      "kind": "hunk",
+      "text": "@@ -2222,9 +1767,14 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 1300,
+      "old_line": 2225,
+      "kind": "removed",
+      "text": "                let follow_through_ticks ="
+    },
+    {
+      "diff_line": 1301,
+      "old_line": 2226,
+      "kind": "removed",
+      "text": "                    (timeline.recovery_ticks as f64 * recovery_progress as f64).ceil() as u64;"
+    },
+    {
+      "diff_line": 1302,
+      "old_line": 2227,
+      "kind": "removed",
+      "text": "                Some(timeline.contact_tick().saturating_add(follow_through_ticks))"
+    },
+    {
+      "diff_line": 1314,
+      "kind": "hunk",
+      "text": "@@ -2233,18 +1783,14 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 1318,
+      "old_line": 2236,
+      "kind": "removed",
+      "text": "    pub fn set_presentation_action_phase(&mut self, phase: f32) {"
+    },
+    {
+      "diff_line": 1326,
+      "old_line": 2243,
+      "kind": "removed",
+      "text": "        timeline.phase = if phase.is_finite() {"
+    },
+    {
+      "diff_line": 1327,
+      "old_line": 2244,
+      "kind": "removed",
+      "text": "            phase.clamp(0.0, 1.0)"
+    },
+    {
+      "diff_line": 1328,
+      "old_line": 2245,
+      "kind": "removed",
+      "text": "        } else {"
+    },
+    {
+      "diff_line": 1329,
+      "old_line": 2246,
+      "kind": "removed",
+      "text": "            timeline.phase"
+    },
+    {
+      "diff_line": 1330,
+      "old_line": 2247,
+      "kind": "removed",
+      "text": "        };"
+    },
+    {
+      "diff_line": 1335,
+      "kind": "hunk",
+      "text": "@@ -2253,28 +1799,8 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 1339,
+      "old_line": 2256,
+      "kind": "removed",
+      "text": "    /// Presentation motion finishes an in-flight raised-guard step after"
+    },
+    {
+      "diff_line": 1340,
+      "old_line": 2257,
+      "kind": "removed",
+      "text": "    /// gameplay velocity stops. Speed otherwise follows authoritative motion."
+    },
+    {
+      "diff_line": 1341,
+      "old_line": 2258,
+      "kind": "removed",
+      "text": "    pub fn animation_local_velocity(&self) -> Vec3 {"
+    },
+    {
+      "diff_line": 1342,
+      "old_line": 2259,
+      "kind": "removed",
+      "text": "        let raised = self.raised_locomotion();"
+    },
+    {
+      "diff_line": 1343,
+      "old_line": 2260,
+      "kind": "removed",
+      "text": "        if self.weapon_guard() == WeaponGuardState::Raised && raised.is_moving() {"
+    },
+    {
+      "diff_line": 1344,
+      "old_line": 2261,
+      "kind": "removed",
+      "text": "            raised.local_velocity()"
+    },
+    {
+      "diff_line": 1345,
+      "old_line": 2262,
+      "kind": "removed",
+      "text": "        } else {"
+    },
+    {
+      "diff_line": 1346,
+      "old_line": 2263,
+      "kind": "removed",
+      "text": "            self.local_velocity"
+    },
+    {
+      "diff_line": 1347,
+      "old_line": 2264,
+      "kind": "removed",
+      "text": "        }"
+    },
+    {
+      "diff_line": 1348,
+      "old_line": 2265,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 1349,
+      "old_line": 2266,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 1350,
+      "old_line": 2267,
+      "kind": "removed",
+      "text": "    pub fn animation_speed(&self) -> f32 {"
+    },
+    {
+      "diff_line": 1351,
+      "old_line": 2268,
+      "kind": "removed",
+      "text": "        let physical = self.animation_local_velocity().xz().length();"
+    },
+    {
+      "diff_line": 1352,
+      "old_line": 2269,
+      "kind": "removed",
+      "text": "        if self.downed_turning() {"
+    },
+    {
+      "diff_line": 1353,
+      "old_line": 2270,
+      "kind": "removed",
+      "text": "            physical.max(0.8)"
+    },
+    {
+      "diff_line": 1354,
+      "old_line": 2271,
+      "kind": "removed",
+      "text": "        } else {"
+    },
+    {
+      "diff_line": 1355,
+      "old_line": 2272,
+      "kind": "removed",
+      "text": "            physical"
+    },
+    {
+      "diff_line": 1356,
+      "old_line": 2273,
+      "kind": "removed",
+      "text": "        }"
+    },
+    {
+      "diff_line": 1357,
+      "old_line": 2274,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 1358,
+      "old_line": 2275,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 1360,
+      "old_line": 2277,
+      "kind": "removed",
+      "text": "        self.is_quickstep() && self.action_phase() >= 0.50"
+    },
+    {
+      "diff_line": 1365,
+      "kind": "hunk",
+      "text": "@@ -2292,8 +1818,8 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 1369,
+      "old_line": 2295,
+      "kind": "removed",
+      "text": "        start_tick: u64,"
+    },
+    {
+      "diff_line": 1370,
+      "old_line": 2296,
+      "kind": "removed",
+      "text": "        contact_tick: u64,"
+    },
+    {
+      "diff_line": 1376,
+      "kind": "hunk",
+      "text": "@@ -2311,10 +1837,12 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 1380,
+      "old_line": 2314,
+      "kind": "removed",
+      "text": "        start_tick: u64,"
+    },
+    {
+      "diff_line": 1381,
+      "old_line": 2315,
+      "kind": "removed",
+      "text": "        contact_tick: u64,"
+    },
+    {
+      "diff_line": 1385,
+      "old_line": 2317,
+      "kind": "removed",
+      "text": "        let preparation_ticks = contact_tick.saturating_sub(start_tick).max(1);"
+    },
+    {
+      "diff_line": 1392,
+      "kind": "hunk",
+      "text": "@@ -2328,9 +1856,9 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 1396,
+      "old_line": 2331,
+      "kind": "removed",
+      "text": "        start_tick: u64,"
+    },
+    {
+      "diff_line": 1397,
+      "old_line": 2332,
+      "kind": "removed",
+      "text": "        contact_tick: u64,"
+    },
+    {
+      "diff_line": 1398,
+      "old_line": 2333,
+      "kind": "removed",
+      "text": "        end_tick: u64,"
+    },
+    {
+      "diff_line": 1405,
+      "kind": "hunk",
+      "text": "@@ -2349,9 +1877,13 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 1409,
+      "old_line": 2352,
+      "kind": "removed",
+      "text": "            let transition_tick = timeline.contact_tick().saturating_add("
+    },
+    {
+      "diff_line": 1410,
+      "old_line": 2353,
+      "kind": "removed",
+      "text": "                (timeline.recovery_ticks as f64 * recovery_progress as f64).ceil() as u64,"
+    },
+    {
+      "diff_line": 1411,
+      "old_line": 2354,
+      "kind": "removed",
+      "text": "            );"
+    },
+    {
+      "diff_line": 1422,
+      "kind": "hunk",
+      "text": "@@ -2360,13 +1892,25 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 1426,
+      "old_line": 2363,
+      "kind": "removed",
+      "text": "                let incoming_tangent = curve.overshoot"
+    },
+    {
+      "diff_line": 1427,
+      "old_line": 2364,
+      "kind": "removed",
+      "text": "                    * queued_timeline.preparation_ticks as f32"
+    },
+    {
+      "diff_line": 1428,
+      "old_line": 2365,
+      "kind": "removed",
+      "text": "                    * FOLLOW_READY_PREPARATION_FRACTION"
+    },
+    {
+      "diff_line": 1429,
+      "old_line": 2366,
+      "kind": "removed",
+      "text": "                    / (curve.follow_through_fraction * timeline.recovery_ticks as f32);"
+    },
+    {
+      "diff_line": 1441,
+      "old_line": 2368,
+      "kind": "removed",
+      "text": "                    + 0.5 * transition_tick.saturating_sub(timeline.contact_tick()) as f32"
+    },
+    {
+      "diff_line": 1442,
+      "old_line": 2369,
+      "kind": "removed",
+      "text": "                        / timeline.recovery_ticks.max(1) as f32;"
+    },
+    {
+      "diff_line": 1454,
+      "kind": "hunk",
+      "text": "@@ -2374,7 +1918,13 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 1458,
+      "old_line": 2377,
+      "kind": "removed",
+      "text": "                    start_coordinate: curve.queued_recovery_coordinate(transition_phase),"
+    },
+    {
+      "diff_line": 1469,
+      "kind": "hunk",
+      "text": "@@ -2390,8 +1940,11 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 1473,
+      "old_line": 2393,
+      "kind": "removed",
+      "text": "                    start_coordinate: 1.0 + spec.curve.overshoot,"
+    },
+    {
+      "diff_line": 1474,
+      "old_line": 2394,
+      "kind": "removed",
+      "text": "                    incoming_tangent: 0.0,"
+    },
+    {
+      "diff_line": 1483,
+      "kind": "hunk",
+      "text": "@@ -2406,8 +1959,8 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 1487,
+      "old_line": 2409,
+      "kind": "removed",
+      "text": "        start_tick: u64,"
+    },
+    {
+      "diff_line": 1488,
+      "old_line": 2410,
+      "kind": "removed",
+      "text": "        contact_tick: u64,"
+    },
+    {
+      "diff_line": 1494,
+      "kind": "hunk",
+      "text": "@@ -2421,25 +1974,32 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 1498,
+      "old_line": 2424,
+      "kind": "removed",
+      "text": "    pub fn advance_action(&mut self, current_tick: u64) {"
+    },
+    {
+      "diff_line": 1499,
+      "old_line": 2425,
+      "kind": "removed",
+      "text": "        let queued = match self.action {"
+    },
+    {
+      "diff_line": 1512,
+      "old_line": 2432,
+      "kind": "removed",
+      "text": "                >= timeline.contact_tick().saturating_add("
+    },
+    {
+      "diff_line": 1513,
+      "old_line": 2433,
+      "kind": "removed",
+      "text": "                    (timeline.recovery_ticks as f64 * curve.follow_through_fraction as f64).ceil()"
+    },
+    {
+      "diff_line": 1514,
+      "old_line": 2434,
+      "kind": "removed",
+      "text": "                        as u64,"
+    },
+    {
+      "diff_line": 1515,
+      "old_line": 2435,
+      "kind": "removed",
+      "text": "                ) =>"
+    },
+    {
+      "diff_line": 1529,
+      "old_line": 2442,
+      "kind": "removed",
+      "text": "            self.action = ActionState(ActionKind::Attack {"
+    },
+    {
+      "diff_line": 1534,
+      "kind": "hunk",
+      "text": "@@ -2453,334 +2013,28 @@ impl SkeletonState {"
+    },
+    {
+      "diff_line": 1538,
+      "old_line": 2456,
+      "kind": "removed",
+      "text": "        let timeline = match &mut self.action {"
+    },
+    {
+      "diff_line": 1539,
+      "old_line": 2457,
+      "kind": "removed",
+      "text": "            ActionState(ActionKind::Idle) => return,"
+    },
+    {
+      "diff_line": 1546,
+      "old_line": 2462,
+      "kind": "removed",
+      "text": "        let preparation = timeline.preparation_ticks.max(1);"
+    },
+    {
+      "diff_line": 1547,
+      "old_line": 2463,
+      "kind": "removed",
+      "text": "        let recovery = timeline.recovery_ticks.max(1);"
+    },
+    {
+      "diff_line": 1548,
+      "old_line": 2464,
+      "kind": "removed",
+      "text": "        let contact_tick = timeline.start_tick.saturating_add(preparation);"
+    },
+    {
+      "diff_line": 1549,
+      "old_line": 2465,
+      "kind": "removed",
+      "text": "        let end_tick = contact_tick.saturating_add(recovery);"
+    },
+    {
+      "diff_line": 1550,
+      "old_line": 2466,
+      "kind": "removed",
+      "text": "        if current_tick >= end_tick {"
+    },
+    {
+      "diff_line": 1551,
+      "old_line": 2467,
+      "kind": "removed",
+      "text": "            if current_tick > end_tick || end_tick == u64::MAX {"
+    },
+    {
+      "diff_line": 1552,
+      "old_line": 2468,
+      "kind": "removed",
+      "text": "                self.action = ActionState::default();"
+    },
+    {
+      "diff_line": 1553,
+      "old_line": 2469,
+      "kind": "removed",
+      "text": "                return;"
+    },
+    {
+      "diff_line": 1554,
+      "old_line": 2470,
+      "kind": "removed",
+      "text": "            }"
+    },
+    {
+      "diff_line": 1555,
+      "old_line": 2471,
+      "kind": "removed",
+      "text": "            timeline.phase = 1.0;"
+    },
+    {
+      "diff_line": 1556,
+      "old_line": 2472,
+      "kind": "removed",
+      "text": "            return;"
+    },
+    {
+      "diff_line": 1561,
+      "old_line": 2474,
+      "kind": "removed",
+      "text": "        timeline.phase = if current_tick <= contact_tick {"
+    },
+    {
+      "diff_line": 1562,
+      "old_line": 2475,
+      "kind": "removed",
+      "text": "            0.5 * current_tick.saturating_sub(timeline.start_tick) as f32 / preparation as f32"
+    },
+    {
+      "diff_line": 1563,
+      "old_line": 2476,
+      "kind": "removed",
+      "text": "        } else {"
+    },
+    {
+      "diff_line": 1564,
+      "old_line": 2477,
+      "kind": "removed",
+      "text": "            0.5 + 0.5 * current_tick.saturating_sub(contact_tick) as f32 / recovery as f32"
+    },
+    {
+      "diff_line": 1565,
+      "old_line": 2478,
+      "kind": "removed",
+      "text": "        };"
+    },
+    {
+      "diff_line": 1571,
+      "old_line": 2482,
+      "kind": "removed",
+      "text": "/// One authoritative fixed-tick locomotion observation. The tactical server"
+    },
+    {
+      "diff_line": 1572,
+      "old_line": 2483,
+      "kind": "removed",
+      "text": "/// supplies this from its character controller; deterministic presentation"
+    },
+    {
+      "diff_line": 1573,
+      "old_line": 2484,
+      "kind": "removed",
+      "text": "/// fixtures replay the same boundary without inventing gait phase directly."
+    },
+    {
+      "diff_line": 1574,
+      "old_line": 2485,
+      "kind": "removed",
+      "text": "#[derive(Debug, Clone, Copy, PartialEq)]"
+    },
+    {
+      "diff_line": 1575,
+      "old_line": 2486,
+      "kind": "removed",
+      "text": "pub struct SkeletonLocomotionInput {"
+    },
+    {
+      "diff_line": 1576,
+      "old_line": 2487,
+      "kind": "removed",
+      "text": "    pub orientation: Quat,"
+    },
+    {
+      "diff_line": 1577,
+      "old_line": 2488,
+      "kind": "removed",
+      "text": "    pub linear_velocity: Vec3,"
+    },
+    {
+      "diff_line": 1578,
+      "old_line": 2489,
+      "kind": "removed",
+      "text": "    pub grounded: bool,"
+    },
+    {
+      "diff_line": 1579,
+      "old_line": 2490,
+      "kind": "removed",
+      "text": "    pub delta_seconds: f32,"
+    },
+    {
+      "diff_line": 1580,
+      "old_line": 2491,
+      "kind": "removed",
+      "text": "    pub tick: u64,"
+    },
+    {
+      "diff_line": 1581,
+      "old_line": 2492,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 1582,
+      "old_line": 2493,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 1583,
+      "old_line": 2494,
+      "kind": "removed",
+      "text": "pub fn body_turn_speed_radians() -> f32 {"
+    },
+    {
+      "diff_line": 1584,
+      "old_line": 2495,
+      "kind": "removed",
+      "text": "    std::f32::consts::PI"
+    },
+    {
+      "diff_line": 1585,
+      "old_line": 2496,
+      "kind": "removed",
+      "text": "        / crate::combat_config::runtime_combat_presentation_config().body_turn_seconds_per_half_turn"
+    },
+    {
+      "diff_line": 1586,
+      "old_line": 2497,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 1587,
+      "old_line": 2498,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 1588,
+      "old_line": 2499,
+      "kind": "removed",
+      "text": "pub fn downed_turn_speed_radians() -> f32 {"
+    },
+    {
+      "diff_line": 1589,
+      "old_line": 2500,
+      "kind": "removed",
+      "text": "    crate::combat_config::runtime_combat_presentation_config().downed_turn_radians_per_second"
+    },
+    {
+      "diff_line": 1590,
+      "old_line": 2501,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 1591,
+      "old_line": 2502,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 1592,
+      "old_line": 2503,
+      "kind": "removed",
+      "text": "/// Returns the controller's yaw without allowing camera pitch or roll to tilt"
+    },
+    {
+      "diff_line": 1593,
+      "old_line": 2504,
+      "kind": "removed",
+      "text": "/// planar locomotion into or out of the ground plane."
+    },
+    {
+      "diff_line": 1594,
+      "old_line": 2505,
+      "kind": "removed",
+      "text": "pub fn controller_yaw(orientation: Quat) -> Quat {"
+    },
+    {
+      "diff_line": 1595,
+      "old_line": 2506,
+      "kind": "removed",
+      "text": "    let forward = orientation * Vec3::NEG_Z;"
+    },
+    {
+      "diff_line": 1596,
+      "old_line": 2507,
+      "kind": "removed",
+      "text": "    let Some(flat_forward) = forward.xz().try_normalize() else {"
+    },
+    {
+      "diff_line": 1597,
+      "old_line": 2508,
+      "kind": "removed",
+      "text": "        return Quat::IDENTITY;"
+    },
+    {
+      "diff_line": 1598,
+      "old_line": 2509,
+      "kind": "removed",
+      "text": "    };"
+    },
+    {
+      "diff_line": 1599,
+      "old_line": 2510,
+      "kind": "removed",
+      "text": "    Quat::from_rotation_y((-flat_forward.x).atan2(-flat_forward.y))"
+    },
+    {
+      "diff_line": 1600,
+      "old_line": 2511,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 1601,
+      "old_line": 2512,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 1602,
+      "old_line": 2513,
+      "kind": "removed",
+      "text": "/// Root orientation committed when a procedural directional dive launches."
+    },
+    {
+      "diff_line": 1603,
+      "old_line": 2514,
+      "kind": "removed",
+      "text": "/// Dive travel and pelvis tilt are both camera-relative, so they must capture"
+    },
+    {
+      "diff_line": 1604,
+      "old_line": 2515,
+      "kind": "removed",
+      "text": "/// the same controller frame before posture-transition facing locks."
+    },
+    {
+      "diff_line": 1605,
+      "old_line": 2516,
+      "kind": "removed",
+      "text": "pub fn dive_launch_root_rotation(controller_orientation: Quat) -> Quat {"
+    },
+    {
+      "diff_line": 1606,
+      "old_line": 2517,
+      "kind": "removed",
+      "text": "    let forward = controller_yaw(controller_orientation) * Vec3::NEG_Z;"
+    },
+    {
+      "diff_line": 1607,
+      "old_line": 2518,
+      "kind": "removed",
+      "text": "    Quat::from_rotation_y(forward.x.atan2(forward.z))"
+    },
+    {
+      "diff_line": 1608,
+      "old_line": 2519,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 1609,
+      "old_line": 2520,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 1610,
+      "old_line": 2521,
+      "kind": "removed",
+      "text": "/// Advances the authored body's +Z forward axis toward its single desired"
+    },
+    {
+      "diff_line": 1611,
+      "old_line": 2522,
+      "kind": "removed",
+      "text": "/// world direction. Attack and block are the current guard boundary and keep"
+    },
+    {
+      "diff_line": 1612,
+      "old_line": 2523,
+      "kind": "removed",
+      "text": "/// look-facing; all other moving states face authoritative planar velocity."
+    },
+    {
+      "diff_line": 1613,
+      "old_line": 2524,
+      "kind": "removed",
+      "text": "/// At exactly 180 degrees the positive turn direction is chosen consistently,"
+    },
+    {
+      "diff_line": 1614,
+      "old_line": 2525,
+      "kind": "removed",
+      "text": "/// avoiding a normalize-through-zero snap."
+    },
+    {
+      "diff_line": 1615,
+      "old_line": 2526,
+      "kind": "removed",
+      "text": "pub fn advance_body_facing("
+    },
+    {
+      "diff_line": 1616,
+      "old_line": 2527,
+      "kind": "removed",
+      "text": "    current: Quat,"
+    },
+    {
+      "diff_line": 1617,
+      "old_line": 2528,
+      "kind": "removed",
+      "text": "    controller_orientation: Quat,"
+    },
+    {
+      "diff_line": 1618,
+      "old_line": 2529,
+      "kind": "removed",
+      "text": "    linear_velocity: Vec3,"
+    },
+    {
+      "diff_line": 1619,
+      "old_line": 2530,
+      "kind": "removed",
+      "text": "    action: SkeletonAction,"
+    },
+    {
+      "diff_line": 1620,
+      "old_line": 2531,
+      "kind": "removed",
+      "text": "    weapon_guard: WeaponGuardState,"
+    },
+    {
+      "diff_line": 1621,
+      "old_line": 2532,
+      "kind": "removed",
+      "text": "    delta_seconds: f32,"
+    },
+    {
+      "diff_line": 1622,
+      "old_line": 2533,
+      "kind": "removed",
+      "text": ") -> Quat {"
+    },
+    {
+      "diff_line": 1623,
+      "old_line": 2534,
+      "kind": "removed",
+      "text": "    advance_body_facing_with_speed("
+    },
+    {
+      "diff_line": 1624,
+      "old_line": 2535,
+      "kind": "removed",
+      "text": "        current,"
+    },
+    {
+      "diff_line": 1625,
+      "old_line": 2536,
+      "kind": "removed",
+      "text": "        controller_orientation,"
+    },
+    {
+      "diff_line": 1626,
+      "old_line": 2537,
+      "kind": "removed",
+      "text": "        linear_velocity,"
+    },
+    {
+      "diff_line": 1627,
+      "old_line": 2538,
+      "kind": "removed",
+      "text": "        action,"
+    },
+    {
+      "diff_line": 1628,
+      "old_line": 2539,
+      "kind": "removed",
+      "text": "        weapon_guard,"
+    },
+    {
+      "diff_line": 1629,
+      "old_line": 2540,
+      "kind": "removed",
+      "text": "        delta_seconds,"
+    },
+    {
+      "diff_line": 1630,
+      "old_line": 2541,
+      "kind": "removed",
+      "text": "        body_turn_speed_radians(),"
+    },
+    {
+      "diff_line": 1631,
+      "old_line": 2542,
+      "kind": "removed",
+      "text": "    )"
+    },
+    {
+      "diff_line": 1632,
+      "old_line": 2543,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 1633,
+      "old_line": 2544,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 1634,
+      "old_line": 2545,
+      "kind": "removed",
+      "text": "pub fn advance_body_facing_with_speed("
+    },
+    {
+      "diff_line": 1635,
+      "old_line": 2546,
+      "kind": "removed",
+      "text": "    current: Quat,"
+    },
+    {
+      "diff_line": 1636,
+      "old_line": 2547,
+      "kind": "removed",
+      "text": "    controller_orientation: Quat,"
+    },
+    {
+      "diff_line": 1637,
+      "old_line": 2548,
+      "kind": "removed",
+      "text": "    linear_velocity: Vec3,"
+    },
+    {
+      "diff_line": 1638,
+      "old_line": 2549,
+      "kind": "removed",
+      "text": "    action: SkeletonAction,"
+    },
+    {
+      "diff_line": 1639,
+      "old_line": 2550,
+      "kind": "removed",
+      "text": "    weapon_guard: WeaponGuardState,"
+    },
+    {
+      "diff_line": 1640,
+      "old_line": 2551,
+      "kind": "removed",
+      "text": "    delta_seconds: f32,"
+    },
+    {
+      "diff_line": 1641,
+      "old_line": 2552,
+      "kind": "removed",
+      "text": "    turn_speed_radians: f32,"
+    },
+    {
+      "diff_line": 1642,
+      "old_line": 2553,
+      "kind": "removed",
+      "text": ") -> Quat {"
+    },
+    {
+      "diff_line": 1643,
+      "old_line": 2554,
+      "kind": "removed",
+      "text": "    let current_yaw = body_yaw(current);"
+    },
+    {
+      "diff_line": 1644,
+      "old_line": 2555,
+      "kind": "removed",
+      "text": "    let desired_forward = if weapon_guard == WeaponGuardState::Raised"
+    },
+    {
+      "diff_line": 1645,
+      "old_line": 2556,
+      "kind": "removed",
+      "text": "        || matches!(action, SkeletonAction::Attack | SkeletonAction::Block)"
+    },
+    {
+      "diff_line": 1646,
+      "old_line": 2557,
+      "kind": "removed",
+      "text": "    {"
+    },
+    {
+      "diff_line": 1647,
+      "old_line": 2558,
+      "kind": "removed",
+      "text": "        controller_yaw(controller_orientation) * Vec3::NEG_Z"
+    },
+    {
+      "diff_line": 1648,
+      "old_line": 2559,
+      "kind": "removed",
+      "text": "    } else {"
+    },
+    {
+      "diff_line": 1649,
+      "old_line": 2560,
+      "kind": "removed",
+      "text": "        if linear_velocity.xz().length() <= 0.05 {"
+    },
+    {
+      "diff_line": 1650,
+      "old_line": 2561,
+      "kind": "removed",
+      "text": "            return Quat::from_rotation_y(current_yaw);"
+    },
+    {
+      "diff_line": 1651,
+      "old_line": 2562,
+      "kind": "removed",
+      "text": "        }"
+    },
+    {
+      "diff_line": 1652,
+      "old_line": 2563,
+      "kind": "removed",
+      "text": "        let Some(direction) = linear_velocity.xz().try_normalize() else {"
+    },
+    {
+      "diff_line": 1653,
+      "old_line": 2564,
+      "kind": "removed",
+      "text": "            return Quat::from_rotation_y(current_yaw);"
+    },
+    {
+      "diff_line": 1654,
+      "old_line": 2565,
+      "kind": "removed",
+      "text": "        };"
+    },
+    {
+      "diff_line": 1655,
+      "old_line": 2566,
+      "kind": "removed",
+      "text": "        Vec3::new(direction.x, 0.0, direction.y)"
+    },
+    {
+      "diff_line": 1656,
+      "old_line": 2567,
+      "kind": "removed",
+      "text": "    };"
+    },
+    {
+      "diff_line": 1657,
+      "old_line": 2568,
+      "kind": "removed",
+      "text": "    advance_body_facing_toward(current, desired_forward, delta_seconds, turn_speed_radians)"
+    },
+    {
+      "diff_line": 1658,
+      "old_line": 2569,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 1659,
+      "old_line": 2570,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 1660,
+      "old_line": 2571,
+      "kind": "removed",
+      "text": "/// Advances the authored body's +Z axis toward an explicit planar target."
+    },
+    {
+      "diff_line": 1661,
+      "old_line": 2572,
+      "kind": "removed",
+      "text": "/// Attack target acquisition uses this lower-level seam to share the ordinary"
+    },
+    {
+      "diff_line": 1662,
+      "old_line": 2573,
+      "kind": "removed",
+      "text": "/// bounded facing actuator while choosing a target independently of camera yaw."
+    },
+    {
+      "diff_line": 1663,
+      "old_line": 2574,
+      "kind": "removed",
+      "text": "pub fn advance_body_facing_toward("
+    },
+    {
+      "diff_line": 1664,
+      "old_line": 2575,
+      "kind": "removed",
+      "text": "    current: Quat,"
+    },
+    {
+      "diff_line": 1665,
+      "old_line": 2576,
+      "kind": "removed",
+      "text": "    desired_forward: Vec3,"
+    },
+    {
+      "diff_line": 1666,
+      "old_line": 2577,
+      "kind": "removed",
+      "text": "    delta_seconds: f32,"
+    },
+    {
+      "diff_line": 1667,
+      "old_line": 2578,
+      "kind": "removed",
+      "text": "    turn_speed_radians: f32,"
+    },
+    {
+      "diff_line": 1668,
+      "old_line": 2579,
+      "kind": "removed",
+      "text": ") -> Quat {"
+    },
+    {
+      "diff_line": 1669,
+      "old_line": 2580,
+      "kind": "removed",
+      "text": "    let current_yaw = body_yaw(current);"
+    },
+    {
+      "diff_line": 1670,
+      "old_line": 2581,
+      "kind": "removed",
+      "text": "    let desired_yaw = desired_forward.x.atan2(desired_forward.z);"
+    },
+    {
+      "diff_line": 1671,
+      "old_line": 2582,
+      "kind": "removed",
+      "text": "    let mut delta = (desired_yaw - current_yaw + std::f32::consts::PI)"
+    },
+    {
+      "diff_line": 1672,
+      "old_line": 2583,
+      "kind": "removed",
+      "text": "        .rem_euclid(std::f32::consts::TAU)"
+    },
+    {
+      "diff_line": 1673,
+      "old_line": 2584,
+      "kind": "removed",
+      "text": "        - std::f32::consts::PI;"
+    },
+    {
+      "diff_line": 1674,
+      "old_line": 2585,
+      "kind": "removed",
+      "text": "    if (delta + std::f32::consts::PI).abs() <= 1.0e-5 {"
+    },
+    {
+      "diff_line": 1675,
+      "old_line": 2586,
+      "kind": "removed",
+      "text": "        delta = std::f32::consts::PI;"
+    },
+    {
+      "diff_line": 1676,
+      "old_line": 2587,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 1677,
+      "old_line": 2588,
+      "kind": "removed",
+      "text": "    let maximum = (turn_speed_radians * delta_seconds.max(0.0)).min(std::f32::consts::PI);"
+    },
+    {
+      "diff_line": 1678,
+      "old_line": 2589,
+      "kind": "removed",
+      "text": "    Quat::from_rotation_y(current_yaw + delta.clamp(-maximum, maximum))"
+    },
+    {
+      "diff_line": 1679,
+      "old_line": 2590,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 1680,
+      "old_line": 2591,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 1681,
+      "old_line": 2592,
+      "kind": "removed",
+      "text": "/// Rotates a downed body's fixed head direction toward camera yaw only while"
+    },
+    {
+      "diff_line": 1682,
+      "old_line": 2593,
+      "kind": "removed",
+      "text": "/// the caller keeps the alignment modifier held."
+    },
+    {
+      "diff_line": 1683,
+      "old_line": 2594,
+      "kind": "removed",
+      "text": "pub fn advance_downed_body_facing("
+    },
+    {
+      "diff_line": 1684,
+      "old_line": 2595,
+      "kind": "removed",
+      "text": "    current: Quat,"
+    },
+    {
+      "diff_line": 1685,
+      "old_line": 2596,
+      "kind": "removed",
+      "text": "    controller_orientation: Quat,"
+    },
+    {
+      "diff_line": 1686,
+      "old_line": 2597,
+      "kind": "removed",
+      "text": "    delta_seconds: f32,"
+    },
+    {
+      "diff_line": 1687,
+      "old_line": 2598,
+      "kind": "removed",
+      "text": ") -> Quat {"
+    },
+    {
+      "diff_line": 1688,
+      "old_line": 2599,
+      "kind": "removed",
+      "text": "    advance_downed_body_facing_with_speed("
+    },
+    {
+      "diff_line": 1689,
+      "old_line": 2600,
+      "kind": "removed",
+      "text": "        current,"
+    },
+    {
+      "diff_line": 1690,
+      "old_line": 2601,
+      "kind": "removed",
+      "text": "        controller_orientation,"
+    },
+    {
+      "diff_line": 1691,
+      "old_line": 2602,
+      "kind": "removed",
+      "text": "        delta_seconds,"
+    },
+    {
+      "diff_line": 1692,
+      "old_line": 2603,
+      "kind": "removed",
+      "text": "        downed_turn_speed_radians(),"
+    },
+    {
+      "diff_line": 1693,
+      "old_line": 2604,
+      "kind": "removed",
+      "text": "    )"
+    },
+    {
+      "diff_line": 1694,
+      "old_line": 2605,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 1695,
+      "old_line": 2606,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 1696,
+      "old_line": 2607,
+      "kind": "removed",
+      "text": "pub fn advance_downed_body_facing_with_speed("
+    },
+    {
+      "diff_line": 1697,
+      "old_line": 2608,
+      "kind": "removed",
+      "text": "    current: Quat,"
+    },
+    {
+      "diff_line": 1698,
+      "old_line": 2609,
+      "kind": "removed",
+      "text": "    controller_orientation: Quat,"
+    },
+    {
+      "diff_line": 1699,
+      "old_line": 2610,
+      "kind": "removed",
+      "text": "    delta_seconds: f32,"
+    },
+    {
+      "diff_line": 1700,
+      "old_line": 2611,
+      "kind": "removed",
+      "text": "    turn_speed_radians: f32,"
+    },
+    {
+      "diff_line": 1701,
+      "old_line": 2612,
+      "kind": "removed",
+      "text": ") -> Quat {"
+    },
+    {
+      "diff_line": 1702,
+      "old_line": 2613,
+      "kind": "removed",
+      "text": "    let current_yaw = body_yaw(current);"
+    },
+    {
+      "diff_line": 1703,
+      "old_line": 2614,
+      "kind": "removed",
+      "text": "    let desired_forward = controller_yaw(controller_orientation) * Vec3::NEG_Z;"
+    },
+    {
+      "diff_line": 1704,
+      "old_line": 2615,
+      "kind": "removed",
+      "text": "    let desired_yaw = desired_forward.x.atan2(desired_forward.z);"
+    },
+    {
+      "diff_line": 1705,
+      "old_line": 2616,
+      "kind": "removed",
+      "text": "    let mut delta = (desired_yaw - current_yaw + std::f32::consts::PI)"
+    },
+    {
+      "diff_line": 1706,
+      "old_line": 2617,
+      "kind": "removed",
+      "text": "        .rem_euclid(std::f32::consts::TAU)"
+    },
+    {
+      "diff_line": 1707,
+      "old_line": 2618,
+      "kind": "removed",
+      "text": "        - std::f32::consts::PI;"
+    },
+    {
+      "diff_line": 1708,
+      "old_line": 2619,
+      "kind": "removed",
+      "text": "    if (delta + std::f32::consts::PI).abs() <= 1.0e-5 {"
+    },
+    {
+      "diff_line": 1709,
+      "old_line": 2620,
+      "kind": "removed",
+      "text": "        delta = std::f32::consts::PI;"
+    },
+    {
+      "diff_line": 1710,
+      "old_line": 2621,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 1711,
+      "old_line": 2622,
+      "kind": "removed",
+      "text": "    let maximum = (turn_speed_radians * delta_seconds.max(0.0)).min(std::f32::consts::PI);"
+    },
+    {
+      "diff_line": 1712,
+      "old_line": 2623,
+      "kind": "removed",
+      "text": "    Quat::from_rotation_y(current_yaw + delta.clamp(-maximum, maximum))"
+    },
+    {
+      "diff_line": 1713,
+      "old_line": 2624,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 1714,
+      "old_line": 2625,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 1715,
+      "old_line": 2626,
+      "kind": "removed",
+      "text": "fn body_yaw(rotation: Quat) -> f32 {"
+    },
+    {
+      "diff_line": 1716,
+      "old_line": 2627,
+      "kind": "removed",
+      "text": "    let forward = rotation * Vec3::Z;"
+    },
+    {
+      "diff_line": 1717,
+      "old_line": 2628,
+      "kind": "removed",
+      "text": "    forward.x.atan2(forward.z)"
+    },
+    {
+      "diff_line": 1718,
+      "old_line": 2629,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 1719,
+      "old_line": 2630,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 1720,
+      "old_line": 2631,
+      "kind": "removed",
+      "text": "/// Converts camera yaw into the continuous downed-roll coordinate relative to"
+    },
+    {
+      "diff_line": 1721,
+      "old_line": 2632,
+      "kind": "removed",
+      "text": "/// the body's fixed head direction. A quarter turn is the half-roll pose and a"
+    },
+    {
+      "diff_line": 1722,
+      "old_line": 2633,
+      "kind": "removed",
+      "text": "/// half turn is the opposite contact pose."
+    },
+    {
+      "diff_line": 1723,
+      "old_line": 2634,
+      "kind": "removed",
+      "text": "pub fn downed_camera_roll_target(body_rotation: Quat, controller_orientation: Quat) -> f32 {"
+    },
+    {
+      "diff_line": 1724,
+      "old_line": 2635,
+      "kind": "removed",
+      "text": "    let body = body_yaw(body_rotation);"
+    },
+    {
+      "diff_line": 1725,
+      "old_line": 2636,
+      "kind": "removed",
+      "text": "    let camera_forward = controller_yaw(controller_orientation) * Vec3::NEG_Z;"
+    },
+    {
+      "diff_line": 1726,
+      "old_line": 2637,
+      "kind": "removed",
+      "text": "    let camera = camera_forward.x.atan2(camera_forward.z);"
+    },
+    {
+      "diff_line": 1727,
+      "old_line": 2638,
+      "kind": "removed",
+      "text": "    let mut delta = (camera - body + std::f32::consts::PI).rem_euclid(std::f32::consts::TAU)"
+    },
+    {
+      "diff_line": 1728,
+      "old_line": 2639,
+      "kind": "removed",
+      "text": "        - std::f32::consts::PI;"
+    },
+    {
+      "diff_line": 1729,
+      "old_line": 2640,
+      "kind": "removed",
+      "text": "    if (delta + std::f32::consts::PI).abs() <= 1.0e-5 {"
+    },
+    {
+      "diff_line": 1730,
+      "old_line": 2641,
+      "kind": "removed",
+      "text": "        delta = std::f32::consts::PI;"
+    },
+    {
+      "diff_line": 1731,
+      "old_line": 2642,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 1732,
+      "old_line": 2643,
+      "kind": "removed",
+      "text": "    delta / std::f32::consts::PI"
+    },
+    {
+      "diff_line": 1733,
+      "old_line": 2644,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 1734,
+      "old_line": 2645,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 1735,
+      "old_line": 2646,
+      "kind": "removed",
+      "text": "/// Projects controller motion into the compact replicated animation state."
+    },
+    {
+      "diff_line": 1736,
+      "old_line": 2647,
+      "kind": "removed",
+      "text": "/// Bone evaluation remains client-only; this is the shared server seam that"
+    },
+    {
+      "diff_line": 1737,
+      "old_line": 2648,
+      "kind": "removed",
+      "text": "/// keeps deterministic captures on the same stride and posture rules."
+    },
+    {
+      "diff_line": 1738,
+      "old_line": 2649,
+      "kind": "removed",
+      "text": "pub fn project_skeleton_locomotion(skeleton: &mut SkeletonState, input: SkeletonLocomotionInput) {"
+    },
+    {
+      "diff_line": 1739,
+      "old_line": 2650,
+      "kind": "removed",
+      "text": "    project_skeleton_locomotion_with_intent(skeleton, input, None);"
+    },
+    {
+      "diff_line": 1740,
+      "old_line": 2651,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 1741,
+      "old_line": 2652,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 1742,
+      "old_line": 2653,
+      "kind": "removed",
+      "text": "/// Server projection variant that preserves held movement intent while the"
+    },
+    {
+      "diff_line": 1743,
+      "old_line": 2654,
+      "kind": "removed",
+      "text": "/// physical motor temporarily brakes to zero between guard contacts."
+    },
+    {
+      "diff_line": 1744,
+      "old_line": 2655,
+      "kind": "removed",
+      "text": "pub fn project_skeleton_locomotion_with_intent("
+    },
+    {
+      "diff_line": 1745,
+      "old_line": 2656,
+      "kind": "removed",
+      "text": "    skeleton: &mut SkeletonState,"
+    },
+    {
+      "diff_line": 1746,
+      "old_line": 2657,
+      "kind": "removed",
+      "text": "    input: SkeletonLocomotionInput,"
+    },
+    {
+      "diff_line": 1747,
+      "old_line": 2658,
+      "kind": "removed",
+      "text": "    requested_local_direction: Option<Vec2>,"
+    },
+    {
+      "diff_line": 1748,
+      "old_line": 2659,
+      "kind": "removed",
+      "text": ") {"
+    },
+    {
+      "diff_line": 1749,
+      "old_line": 2660,
+      "kind": "removed",
+      "text": "    let body_rotation = controller_yaw(input.orientation);"
+    },
+    {
+      "diff_line": 1750,
+      "old_line": 2661,
+      "kind": "removed",
+      "text": "    project_skeleton_locomotion_with_body_rotation("
+    },
+    {
+      "diff_line": 1751,
+      "old_line": 2662,
+      "kind": "removed",
+      "text": "        skeleton,"
+    },
+    {
+      "diff_line": 1752,
+      "old_line": 2663,
+      "kind": "removed",
+      "text": "        input,"
+    },
+    {
+      "diff_line": 1753,
+      "old_line": 2664,
+      "kind": "removed",
+      "text": "        body_rotation,"
+    },
+    {
+      "diff_line": 1754,
+      "old_line": 2665,
+      "kind": "removed",
+      "text": "        requested_local_direction,"
+    },
+    {
+      "diff_line": 1755,
+      "old_line": 2666,
+      "kind": "removed",
+      "text": "    );"
+    },
+    {
+      "diff_line": 1756,
+      "old_line": 2667,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 1757,
+      "old_line": 2668,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 1758,
+      "old_line": 2669,
+      "kind": "removed",
+      "text": "/// Projection variant for the authoritative server, which owns both the"
+    },
+    {
+      "diff_line": 1759,
+      "old_line": 2670,
+      "kind": "removed",
+      "text": "/// camera/controller frame and the independently rotating body root."
+    },
+    {
+      "diff_line": 1760,
+      "old_line": 2671,
+      "kind": "removed",
+      "text": "pub fn project_skeleton_locomotion_with_body_rotation("
+    },
+    {
+      "diff_line": 1761,
+      "old_line": 2672,
+      "kind": "removed",
+      "text": "    skeleton: &mut SkeletonState,"
+    },
+    {
+      "diff_line": 1762,
+      "old_line": 2673,
+      "kind": "removed",
+      "text": "    input: SkeletonLocomotionInput,"
+    },
+    {
+      "diff_line": 1763,
+      "old_line": 2674,
+      "kind": "removed",
+      "text": "    body_rotation: Quat,"
+    },
+    {
+      "diff_line": 1764,
+      "old_line": 2675,
+      "kind": "removed",
+      "text": "    requested_local_direction: Option<Vec2>,"
+    },
+    {
+      "diff_line": 1765,
+      "old_line": 2676,
+      "kind": "removed",
+      "text": ") {"
+    },
+    {
+      "diff_line": 1766,
+      "old_line": 2677,
+      "kind": "removed",
+      "text": "    let linear_velocity = if input.linear_velocity.is_finite() {"
+    },
+    {
+      "diff_line": 1767,
+      "old_line": 2678,
+      "kind": "removed",
+      "text": "        input.linear_velocity"
+    },
+    {
+      "diff_line": 1768,
+      "old_line": 2679,
+      "kind": "removed",
+      "text": "    } else {"
+    },
+    {
+      "diff_line": 1769,
+      "old_line": 2680,
+      "kind": "removed",
+      "text": "        Vec3::ZERO"
+    },
+    {
+      "diff_line": 1770,
+      "old_line": 2681,
+      "kind": "removed",
+      "text": "    };"
+    },
+    {
+      "diff_line": 1771,
+      "old_line": 2682,
+      "kind": "removed",
+      "text": "    let delta_seconds = if input.delta_seconds.is_finite() {"
+    },
+    {
+      "diff_line": 1772,
+      "old_line": 2683,
+      "kind": "removed",
+      "text": "        // Preserve coalesced fixed-step handoffs across a bounded hitch. A"
+    },
+    {
+      "diff_line": 1773,
+      "old_line": 2684,
+      "kind": "removed",
+      "text": "        // quarter-second clamp can erase a complete raised-guard half-step"
+    },
+    {
+      "diff_line": 1774,
+      "old_line": 2685,
+      "kind": "removed",
+      "text": "        // and make sequence identity disagree with phase parity."
+    },
+    {
+      "diff_line": 1775,
+      "old_line": 2686,
+      "kind": "removed",
+      "text": "        input.delta_seconds.clamp(0.0, 1.0)"
+    },
+    {
+      "diff_line": 1776,
+      "old_line": 2687,
+      "kind": "removed",
+      "text": "    } else {"
+    },
+    {
+      "diff_line": 1777,
+      "old_line": 2688,
+      "kind": "removed",
+      "text": "        0.0"
+    },
+    {
+      "diff_line": 1778,
+      "old_line": 2689,
+      "kind": "removed",
+      "text": "    };"
+    },
+    {
+      "diff_line": 1779,
+      "old_line": 2690,
+      "kind": "removed",
+      "text": "    let previous_world_velocity = skeleton.world_velocity;"
+    },
+    {
+      "diff_line": 1780,
+      "old_line": 2691,
+      "kind": "removed",
+      "text": "    let was_supported = skeleton.body.is_surface_supported();"
+    },
+    {
+      "diff_line": 1781,
+      "old_line": 2692,
+      "kind": "removed",
+      "text": "    let controller_local_velocity = controller_yaw(input.orientation).inverse() * linear_velocity;"
+    },
+    {
+      "diff_line": 1782,
+      "old_line": 2693,
+      "kind": "removed",
+      "text": "    let body_rotation = if body_rotation.is_finite() {"
+    },
+    {
+      "diff_line": 1783,
+      "old_line": 2694,
+      "kind": "removed",
+      "text": "        body_rotation"
+    },
+    {
+      "diff_line": 1784,
+      "old_line": 2695,
+      "kind": "removed",
+      "text": "    } else {"
+    },
+    {
+      "diff_line": 1785,
+      "old_line": 2696,
+      "kind": "removed",
+      "text": "        Quat::IDENTITY"
+    },
+    {
+      "diff_line": 1786,
+      "old_line": 2697,
+      "kind": "removed",
+      "text": "    };"
+    },
+    {
+      "diff_line": 1787,
+      "old_line": 2698,
+      "kind": "removed",
+      "text": "    let body_local_velocity = body_rotation.inverse() * linear_velocity;"
+    },
+    {
+      "diff_line": 1788,
+      "old_line": 2699,
+      "kind": "removed",
+      "text": "    let local_velocity = if skeleton.weapon_guard() == WeaponGuardState::Raised {"
+    },
+    {
+      "diff_line": 1789,
+      "old_line": 2700,
+      "kind": "removed",
+      "text": "        controller_local_velocity"
+    },
+    {
+      "diff_line": 1790,
+      "old_line": 2701,
+      "kind": "removed",
+      "text": "    } else {"
+    },
+    {
+      "diff_line": 1791,
+      "old_line": 2702,
+      "kind": "removed",
+      "text": "        body_local_velocity"
+    },
+    {
+      "diff_line": 1792,
+      "old_line": 2703,
+      "kind": "removed",
+      "text": "    };"
+    },
+    {
+      "diff_line": 1793,
+      "old_line": 2704,
+      "kind": "removed",
+      "text": "    let physical_speed = linear_velocity.xz().length();"
+    },
+    {
+      "diff_line": 1794,
+      "old_line": 2705,
+      "kind": "removed",
+      "text": "    let contiguous_sample = input.tick == skeleton.locomotion_sample_tick.wrapping_add(1);"
+    },
+    {
+      "diff_line": 1795,
+      "old_line": 2706,
+      "kind": "removed",
+      "text": "    skeleton.world_acceleration = if contiguous_sample {"
+    },
+    {
+      "diff_line": 1796,
+      "old_line": 2707,
+      "kind": "removed",
+      "text": "        ((linear_velocity - previous_world_velocity) * locomotion_sample_hz())"
+    },
+    {
+      "diff_line": 1797,
+      "old_line": 2708,
+      "kind": "removed",
+      "text": "            .clamp_length_max(80.0)"
+    },
+    {
+      "diff_line": 1798,
+      "old_line": 2709,
+      "kind": "removed",
+      "text": "    } else {"
+    },
+    {
+      "diff_line": 1799,
+      "old_line": 2710,
+      "kind": "removed",
+      "text": "        Vec3::ZERO"
+    },
+    {
+      "diff_line": 1800,
+      "old_line": 2711,
+      "kind": "removed",
+      "text": "    };"
+    },
+    {
+      "diff_line": 1801,
+      "old_line": 2712,
+      "kind": "removed",
+      "text": "    skeleton.local_velocity = local_velocity;"
+    },
+    {
+      "diff_line": 1802,
+      "old_line": 2713,
+      "kind": "removed",
+      "text": "    skeleton.world_velocity = linear_velocity;"
+    },
+    {
+      "diff_line": 1803,
+      "old_line": 2714,
+      "kind": "removed",
+      "text": "    skeleton.locomotion_sample_tick = input.tick;"
+    },
+    {
+      "diff_line": 1804,
+      "old_line": 2715,
+      "kind": "removed",
+      "text": "    if skeleton.body == BodyState::Ragdolled {"
+    },
+    {
+      "diff_line": 1805,
+      "old_line": 2716,
+      "kind": "removed",
+      "text": "        skeleton.set_raised_locomotion(RaisedLocomotionIntent::planted());"
+    },
+    {
+      "diff_line": 1806,
+      "old_line": 2717,
+      "kind": "removed",
+      "text": "        skeleton.action = ActionState::default();"
+    },
+    {
+      "diff_line": 1807,
+      "old_line": 2718,
+      "kind": "removed",
+      "text": "        return;"
+    },
+    {
+      "diff_line": 1808,
+      "old_line": 2719,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 1809,
+      "old_line": 2720,
+      "kind": "removed",
+      "text": "    let landed = !was_supported && input.grounded;"
+    },
+    {
+      "diff_line": 1810,
+      "old_line": 2721,
+      "kind": "removed",
+      "text": "    if landed {"
+    },
+    {
+      "diff_line": 1811,
+      "old_line": 2722,
+      "kind": "removed",
+      "text": "        skeleton.landing_sequence = skeleton.landing_sequence.wrapping_add(1);"
+    },
+    {
+      "diff_line": 1812,
+      "old_line": 2723,
+      "kind": "removed",
+      "text": "        skeleton.landing_impact_speed = (-previous_world_velocity.y).max(0.0);"
+    },
+    {
+      "diff_line": 1813,
+      "old_line": 2724,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 1814,
+      "old_line": 2725,
+      "kind": "removed",
+      "text": "    skeleton.transition_body(if input.grounded {"
+    },
+    {
+      "diff_line": 1815,
+      "old_line": 2726,
+      "kind": "removed",
+      "text": "        match skeleton.body {"
+    },
+    {
+      "diff_line": 1816,
+      "old_line": 2727,
+      "kind": "removed",
+      "text": "            BodyState::Prone | BodyState::Supine => skeleton.body,"
+    },
+    {
+      "diff_line": 1817,
+      "old_line": 2728,
+      "kind": "removed",
+      "text": "            _ => BodyState::Grounded(GroundedPosture::Upright),"
+    },
+    {
+      "diff_line": 1818,
+      "old_line": 2729,
+      "kind": "removed",
+      "text": "        }"
+    },
+    {
+      "diff_line": 1819,
+      "old_line": 2730,
+      "kind": "removed",
+      "text": "    } else {"
+    },
+    {
+      "diff_line": 1820,
+      "old_line": 2731,
+      "kind": "removed",
+      "text": "        BodyState::Airborne"
+    },
+    {
+      "diff_line": 1821,
+      "old_line": 2732,
+      "kind": "removed",
+      "text": "    });"
+    },
+    {
+      "diff_line": 1822,
+      "old_line": 2733,
+      "kind": "removed",
+      "text": "    if landed && skeleton.action_kind() == SkeletonAction::Dodge {"
+    },
+    {
+      "diff_line": 1823,
+      "old_line": 2734,
+      "kind": "removed",
+      "text": "        // Contact ends presentation ownership immediately. Residual horizontal"
+    },
+    {
+      "diff_line": 1824,
+      "old_line": 2735,
+      "kind": "removed",
+      "text": "        // velocity remains authoritative and can continue through ordinary"
+    },
+    {
+      "diff_line": 1825,
+      "old_line": 2736,
+      "kind": "removed",
+      "text": "        // raised locomotion while the server applies its landing drag."
+    },
+    {
+      "diff_line": 1826,
+      "old_line": 2737,
+      "kind": "removed",
+      "text": "        skeleton.action = ActionState::default();"
+    },
+    {
+      "diff_line": 1827,
+      "old_line": 2738,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 1828,
+      "old_line": 2739,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 1829,
+      "old_line": 2740,
+      "kind": "removed",
+      "text": "    let ground_speed = if skeleton.downed_turning() {"
+    },
+    {
+      "diff_line": 1830,
+      "old_line": 2741,
+      "kind": "removed",
+      "text": "        // Turning in place has no physical velocity, but its crawl/scamper"
+    },
+    {
+      "diff_line": 1831,
+      "old_line": 2742,
+      "kind": "removed",
+      "text": "        // cycle should run at twice the former synthetic cadence."
+    },
+    {
+      "diff_line": 1832,
+      "old_line": 2743,
+      "kind": "removed",
+      "text": "        physical_speed.max(0.8) * 2.0"
+    },
+    {
+      "diff_line": 1833,
+      "old_line": 2744,
+      "kind": "removed",
+      "text": "    } else if matches!(skeleton.body, BodyState::Prone | BodyState::Supine) {"
+    },
+    {
+      "diff_line": 1834,
+      "old_line": 2745,
+      "kind": "removed",
+      "text": "        // Residual impulses and collision correction may translate a downed"
+    },
+    {
+      "diff_line": 1835,
+      "old_line": 2746,
+      "kind": "removed",
+      "text": "        // body, but prone/supine presentation deliberately slides in its idle"
+    },
+    {
+      "diff_line": 1836,
+      "old_line": 2747,
+      "kind": "removed",
+      "text": "        // pose. Velocity-driven locomotion belongs only to upright bodies."
+    },
+    {
+      "diff_line": 1837,
+      "old_line": 2748,
+      "kind": "removed",
+      "text": "        0.0"
+    },
+    {
+      "diff_line": 1838,
+      "old_line": 2749,
+      "kind": "removed",
+      "text": "    } else {"
+    },
+    {
+      "diff_line": 1839,
+      "old_line": 2750,
+      "kind": "removed",
+      "text": "        physical_speed"
+    },
+    {
+      "diff_line": 1840,
+      "old_line": 2751,
+      "kind": "removed",
+      "text": "    };"
+    },
+    {
+      "diff_line": 1841,
+      "old_line": 2752,
+      "kind": "removed",
+      "text": "    if skeleton.weapon_guard() == WeaponGuardState::Raised && skeleton.posture() == Posture::Upright"
+    },
+    {
+      "diff_line": 1842,
+      "old_line": 2753,
+      "kind": "removed",
+      "text": "    {"
+    },
+    {
+      "diff_line": 1843,
+      "old_line": 2754,
+      "kind": "removed",
+      "text": "        advance_raised_locomotion_intent(skeleton, local_velocity, requested_local_direction);"
+    },
+    {
+      "diff_line": 1844,
+      "old_line": 2755,
+      "kind": "removed",
+      "text": "        advance_guard_footwork(skeleton, delta_seconds, input.tick);"
+    },
+    {
+      "diff_line": 1845,
+      "old_line": 2756,
+      "kind": "removed",
+      "text": "    } else {"
+    },
+    {
+      "diff_line": 1846,
+      "old_line": 2757,
+      "kind": "removed",
+      "text": "        skeleton.set_raised_locomotion(RaisedLocomotionIntent::planted());"
+    },
+    {
+      "diff_line": 1847,
+      "old_line": 2758,
+      "kind": "removed",
+      "text": "        if input.grounded && ground_speed > 0.05 {"
+    },
+    {
+      "diff_line": 1848,
+      "old_line": 2759,
+      "kind": "removed",
+      "text": "            let profile = locomotion_profile(skeleton);"
+    },
+    {
+      "diff_line": 1849,
+      "old_line": 2760,
+      "kind": "removed",
+      "text": "            let phase = skeleton.gait_phase.rem_euclid(1.0);"
+    },
+    {
+      "diff_line": 1850,
+      "old_line": 2761,
+      "kind": "removed",
+      "text": "            let next_phase = phase + gait_cycle_phase_delta(profile, ground_speed, delta_seconds);"
+    },
+    {
+      "diff_line": 1851,
+      "old_line": 2762,
+      "kind": "removed",
+      "text": "            let handoffs = ((next_phase * 2.0).floor() - (phase * 2.0).floor()).max(0.0) as u32;"
+    },
+    {
+      "diff_line": 1852,
+      "old_line": 2763,
+      "kind": "removed",
+      "text": "            skeleton.gait_phase = next_phase.rem_euclid(1.0);"
+    },
+    {
+      "diff_line": 1853,
+      "old_line": 2764,
+      "kind": "removed",
+      "text": "            advance_contact_identity(skeleton, handoffs, None);"
+    },
+    {
+      "diff_line": 1854,
+      "old_line": 2765,
+      "kind": "removed",
+      "text": "            if skeleton.weapon_guard() == WeaponGuardState::Lowered {"
+    },
+    {
+      "diff_line": 1855,
+      "old_line": 2766,
+      "kind": "removed",
+      "text": "                skeleton.lead_foot = if skeleton.gait_phase < 0.5 {"
+    },
+    {
+      "diff_line": 1856,
+      "old_line": 2767,
+      "kind": "removed",
+      "text": "                    LeadFoot::Left"
+    },
+    {
+      "diff_line": 1857,
+      "old_line": 2768,
+      "kind": "removed",
+      "text": "                } else {"
+    },
+    {
+      "diff_line": 1858,
+      "old_line": 2769,
+      "kind": "removed",
+      "text": "                    LeadFoot::Right"
+    },
+    {
+      "diff_line": 1859,
+      "old_line": 2770,
+      "kind": "removed",
+      "text": "                };"
+    },
+    {
+      "diff_line": 1860,
+      "old_line": 2771,
+      "kind": "removed",
+      "text": "            }"
+    },
+    {
+      "diff_line": 1861,
+      "old_line": 2772,
+      "kind": "removed",
+      "text": "        }"
+    },
+    {
+      "diff_line": 1862,
+      "old_line": 2773,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 1863,
+      "old_line": 2774,
+      "kind": "removed",
+      "text": "    skeleton.advance_action(input.tick);"
+    },
+    {
+      "diff_line": 1864,
+      "old_line": 2775,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 1865,
+      "old_line": 2776,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 1872,
+      "old_line": 2783,
+      "kind": "removed",
+      "text": "        skeleton.contact_sequence = skeleton.contact_sequence.wrapping_add(1);"
+    },
+    {
+      "diff_line": 1877,
+      "kind": "hunk",
+      "text": "@@ -2796,178 +2050,6 @@ pub(super) fn opposite_foot(foot: LeadFoot) -> LeadFoot {"
+    },
+    {
+      "diff_line": 1881,
+      "old_line": 2799,
+      "kind": "removed",
+      "text": "fn advance_raised_locomotion_intent("
+    },
+    {
+      "diff_line": 1882,
+      "old_line": 2800,
+      "kind": "removed",
+      "text": "    skeleton: &mut SkeletonState,"
+    },
+    {
+      "diff_line": 1883,
+      "old_line": 2801,
+      "kind": "removed",
+      "text": "    observed_local_velocity: Vec3,"
+    },
+    {
+      "diff_line": 1884,
+      "old_line": 2802,
+      "kind": "removed",
+      "text": "    requested_local_direction: Option<Vec2>,"
+    },
+    {
+      "diff_line": 1885,
+      "old_line": 2803,
+      "kind": "removed",
+      "text": ") {"
+    },
+    {
+      "diff_line": 1886,
+      "old_line": 2804,
+      "kind": "removed",
+      "text": "    let intent = skeleton.raised_locomotion();"
+    },
+    {
+      "diff_line": 1887,
+      "old_line": 2805,
+      "kind": "removed",
+      "text": "    let observed_speed = observed_local_velocity.xz().length();"
+    },
+    {
+      "diff_line": 1888,
+      "old_line": 2806,
+      "kind": "removed",
+      "text": "    let observed = (observed_speed > 0.05).then(|| {"
+    },
+    {
+      "diff_line": 1889,
+      "old_line": 2807,
+      "kind": "removed",
+      "text": "        RaisedLocomotionIntent::moving("
+    },
+    {
+      "diff_line": 1890,
+      "old_line": 2808,
+      "kind": "removed",
+      "text": "            Vec2::new(observed_local_velocity.x, observed_local_velocity.z),"
+    },
+    {
+      "diff_line": 1891,
+      "old_line": 2809,
+      "kind": "removed",
+      "text": "            observed_speed,"
+    },
+    {
+      "diff_line": 1892,
+      "old_line": 2810,
+      "kind": "removed",
+      "text": "        )"
+    },
+    {
+      "diff_line": 1893,
+      "old_line": 2811,
+      "kind": "removed",
+      "text": "    });"
+    },
+    {
+      "diff_line": 1894,
+      "old_line": 2812,
+      "kind": "removed",
+      "text": "    let requested = requested_local_direction.and_then(|direction| direction.try_normalize());"
+    },
+    {
+      "diff_line": 1895,
+      "old_line": 2813,
+      "kind": "removed",
+      "text": "    let moving = observed.or_else(|| {"
+    },
+    {
+      "diff_line": 1896,
+      "old_line": 2814,
+      "kind": "removed",
+      "text": "        requested"
+    },
+    {
+      "diff_line": 1897,
+      "old_line": 2815,
+      "kind": "removed",
+      "text": "            .map(|direction| RaisedLocomotionIntent::moving(direction, intent.speed().max(0.051)))"
+    },
+    {
+      "diff_line": 1898,
+      "old_line": 2816,
+      "kind": "removed",
+      "text": "    });"
+    },
+    {
+      "diff_line": 1899,
+      "old_line": 2817,
+      "kind": "removed",
+      "text": "    skeleton.set_raised_locomotion(match moving {"
+    },
+    {
+      "diff_line": 1900,
+      "old_line": 2818,
+      "kind": "removed",
+      "text": "        Some(moving) => moving,"
+    },
+    {
+      "diff_line": 1901,
+      "old_line": 2819,
+      "kind": "removed",
+      "text": "        None if skeleton.raised_footwork.step().is_some() => intent,"
+    },
+    {
+      "diff_line": 1902,
+      "old_line": 2820,
+      "kind": "removed",
+      "text": "        None => RaisedLocomotionIntent::planted(),"
+    },
+    {
+      "diff_line": 1903,
+      "old_line": 2821,
+      "kind": "removed",
+      "text": "    });"
+    },
+    {
+      "diff_line": 1904,
+      "old_line": 2822,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 1905,
+      "old_line": 2823,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 1906,
+      "old_line": 2824,
+      "kind": "removed",
+      "text": "fn advance_guard_footwork(skeleton: &mut SkeletonState, delta_seconds: f32, tick: u64) {"
+    },
+    {
+      "diff_line": 1907,
+      "old_line": 2825,
+      "kind": "removed",
+      "text": "    let displacement = skeleton.local_velocity.xz() * delta_seconds.max(0.0);"
+    },
+    {
+      "diff_line": 1908,
+      "old_line": 2826,
+      "kind": "removed",
+      "text": "    let physical_velocity = skeleton.local_velocity.xz();"
+    },
+    {
+      "diff_line": 1909,
+      "old_line": 2827,
+      "kind": "removed",
+      "text": "    let physical_speed = physical_velocity.length();"
+    },
+    {
+      "diff_line": 1910,
+      "old_line": 2828,
+      "kind": "removed",
+      "text": "    let physical_direction = physical_velocity.normalize_or_zero();"
+    },
+    {
+      "diff_line": 1911,
+      "old_line": 2829,
+      "kind": "removed",
+      "text": "    let mut plan = match skeleton.raised_footwork {"
+    },
+    {
+      "diff_line": 1912,
+      "old_line": 2830,
+      "kind": "removed",
+      "text": "        GuardFootworkPlan::Uninitialized => GuardFootworkPlan::Planted {"
+    },
+    {
+      "diff_line": 1913,
+      "old_line": 2831,
+      "kind": "removed",
+      "text": "            contacts: GuardContacts::default(),"
+    },
+    {
+      "diff_line": 1914,
+      "old_line": 2832,
+      "kind": "removed",
+      "text": "            next_swing: guard_movement_front_foot("
+    },
+    {
+      "diff_line": 1915,
+      "old_line": 2833,
+      "kind": "removed",
+      "text": "                skeleton.lead_foot,"
+    },
+    {
+      "diff_line": 1916,
+      "old_line": 2834,
+      "kind": "removed",
+      "text": "                skeleton.raised_locomotion().local_direction(),"
+    },
+    {
+      "diff_line": 1917,
+      "old_line": 2835,
+      "kind": "removed",
+      "text": "            ),"
+    },
+    {
+      "diff_line": 1918,
+      "old_line": 2836,
+      "kind": "removed",
+      "text": "        },"
+    },
+    {
+      "diff_line": 1919,
+      "old_line": 2837,
+      "kind": "removed",
+      "text": "        GuardFootworkPlan::Planted {"
+    },
+    {
+      "diff_line": 1920,
+      "old_line": 2838,
+      "kind": "removed",
+      "text": "            contacts,"
+    },
+    {
+      "diff_line": 1921,
+      "old_line": 2839,
+      "kind": "removed",
+      "text": "            next_swing,"
+    },
+    {
+      "diff_line": 1922,
+      "old_line": 2840,
+      "kind": "removed",
+      "text": "        } => GuardFootworkPlan::Planted {"
+    },
+    {
+      "diff_line": 1923,
+      "old_line": 2841,
+      "kind": "removed",
+      "text": "            contacts: contacts.advected(displacement),"
+    },
+    {
+      "diff_line": 1924,
+      "old_line": 2842,
+      "kind": "removed",
+      "text": "            next_swing,"
+    },
+    {
+      "diff_line": 1925,
+      "old_line": 2843,
+      "kind": "removed",
+      "text": "        },"
+    },
+    {
+      "diff_line": 1926,
+      "old_line": 2844,
+      "kind": "removed",
+      "text": "        GuardFootworkPlan::Stepping(step) => {"
+    },
+    {
+      "diff_line": 1927,
+      "old_line": 2845,
+      "kind": "removed",
+      "text": "            GuardFootworkPlan::Stepping(step.advected(displacement))"
+    },
+    {
+      "diff_line": 1928,
+      "old_line": 2846,
+      "kind": "removed",
+      "text": "        }"
+    },
+    {
+      "diff_line": 1929,
+      "old_line": 2847,
+      "kind": "removed",
+      "text": "    };"
+    },
+    {
+      "diff_line": 1930,
+      "old_line": 2848,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 1931,
+      "old_line": 2849,
+      "kind": "removed",
+      "text": "    if let GuardFootworkPlan::Stepping(mut step) = plan {"
+    },
+    {
+      "diff_line": 1932,
+      "old_line": 2850,
+      "kind": "removed",
+      "text": "        let direction = if physical_direction == Vec2::ZERO {"
+    },
+    {
+      "diff_line": 1933,
+      "old_line": 2851,
+      "kind": "removed",
+      "text": "            step.direction()"
+    },
+    {
+      "diff_line": 1934,
+      "old_line": 2852,
+      "kind": "removed",
+      "text": "        } else {"
+    },
+    {
+      "diff_line": 1935,
+      "old_line": 2853,
+      "kind": "removed",
+      "text": "            physical_direction"
+    },
+    {
+      "diff_line": 1936,
+      "old_line": 2854,
+      "kind": "removed",
+      "text": "        };"
+    },
+    {
+      "diff_line": 1937,
+      "old_line": 2855,
+      "kind": "removed",
+      "text": "        let leading_contact = step"
+    },
+    {
+      "diff_line": 1938,
+      "old_line": 2856,
+      "kind": "removed",
+      "text": "            .contacts"
+    },
+    {
+      "diff_line": 1939,
+      "old_line": 2857,
+      "kind": "removed",
+      "text": "            .left"
+    },
+    {
+      "diff_line": 1940,
+      "old_line": 2858,
+      "kind": "removed",
+      "text": "            .dot(direction)"
+    },
+    {
+      "diff_line": 1941,
+      "old_line": 2859,
+      "kind": "removed",
+      "text": "            .max(step.contacts.right.dot(direction));"
+    },
+    {
+      "diff_line": 1942,
+      "old_line": 2860,
+      "kind": "removed",
+      "text": "        let contact_due = tick >= step.contact_tick || leading_contact <= 0.0;"
+    },
+    {
+      "diff_line": 1943,
+      "old_line": 2861,
+      "kind": "removed",
+      "text": "        if contact_due {"
+    },
+    {
+      "diff_line": 1944,
+      "old_line": 2862,
+      "kind": "removed",
+      "text": "            let contact_margin = guard_footwork_config().contact_margin_metres;"
+    },
+    {
+      "diff_line": 1945,
+      "old_line": 2863,
+      "kind": "removed",
+      "text": "            if step.landing.dot(direction) < contact_margin {"
+    },
+    {
+      "diff_line": 1946,
+      "old_line": 2864,
+      "kind": "removed",
+      "text": "                step.landing += direction * (contact_margin - step.landing.dot(direction));"
+    },
+    {
+      "diff_line": 1947,
+      "old_line": 2865,
+      "kind": "removed",
+      "text": "            }"
+    },
+    {
+      "diff_line": 1948,
+      "old_line": 2866,
+      "kind": "removed",
+      "text": "            let contacts = step.contacts.with_contact(step.swing_foot, step.landing);"
+    },
+    {
+      "diff_line": 1949,
+      "old_line": 2867,
+      "kind": "removed",
+      "text": "            skeleton.contact_foot = step.swing_foot;"
+    },
+    {
+      "diff_line": 1950,
+      "old_line": 2868,
+      "kind": "removed",
+      "text": "            skeleton.contact_sequence = skeleton.contact_sequence.wrapping_add(1);"
+    },
+    {
+      "diff_line": 1951,
+      "old_line": 2869,
+      "kind": "removed",
+      "text": "            plan = GuardFootworkPlan::Planted {"
+    },
+    {
+      "diff_line": 1952,
+      "old_line": 2870,
+      "kind": "removed",
+      "text": "                contacts,"
+    },
+    {
+      "diff_line": 1953,
+      "old_line": 2871,
+      "kind": "removed",
+      "text": "                next_swing: opposite_foot(step.swing_foot),"
+    },
+    {
+      "diff_line": 1954,
+      "old_line": 2872,
+      "kind": "removed",
+      "text": "            };"
+    },
+    {
+      "diff_line": 1955,
+      "old_line": 2873,
+      "kind": "removed",
+      "text": "        }"
+    },
+    {
+      "diff_line": 1956,
+      "old_line": 2874,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 1957,
+      "old_line": 2875,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 1958,
+      "old_line": 2876,
+      "kind": "removed",
+      "text": "    if let GuardFootworkPlan::Planted {"
+    },
+    {
+      "diff_line": 1959,
+      "old_line": 2877,
+      "kind": "removed",
+      "text": "        contacts,"
+    },
+    {
+      "diff_line": 1960,
+      "old_line": 2878,
+      "kind": "removed",
+      "text": "        next_swing,"
+    },
+    {
+      "diff_line": 1961,
+      "old_line": 2879,
+      "kind": "removed",
+      "text": "    } = plan"
+    },
+    {
+      "diff_line": 1962,
+      "old_line": 2880,
+      "kind": "removed",
+      "text": "        && physical_speed > 0.05"
+    },
+    {
+      "diff_line": 1963,
+      "old_line": 2881,
+      "kind": "removed",
+      "text": "    {"
+    },
+    {
+      "diff_line": 1964,
+      "old_line": 2882,
+      "kind": "removed",
+      "text": "        plan = GuardFootworkPlan::Stepping(plan_guard_step("
+    },
+    {
+      "diff_line": 1965,
+      "old_line": 2883,
+      "kind": "removed",
+      "text": "            contacts,"
+    },
+    {
+      "diff_line": 1966,
+      "old_line": 2884,
+      "kind": "removed",
+      "text": "            next_swing,"
+    },
+    {
+      "diff_line": 1967,
+      "old_line": 2885,
+      "kind": "removed",
+      "text": "            physical_velocity,"
+    },
+    {
+      "diff_line": 1968,
+      "old_line": 2886,
+      "kind": "removed",
+      "text": "            tick,"
+    },
+    {
+      "diff_line": 1969,
+      "old_line": 2887,
+      "kind": "removed",
+      "text": "        ));"
+    },
+    {
+      "diff_line": 1970,
+      "old_line": 2888,
+      "kind": "removed",
+      "text": "        skeleton.contact_foot = opposite_foot(next_swing);"
+    },
+    {
+      "diff_line": 1971,
+      "old_line": 2889,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 1972,
+      "old_line": 2890,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 1973,
+      "old_line": 2891,
+      "kind": "removed",
+      "text": "    skeleton.gait_phase = match plan {"
+    },
+    {
+      "diff_line": 1974,
+      "old_line": 2892,
+      "kind": "removed",
+      "text": "        GuardFootworkPlan::Stepping(step) => {"
+    },
+    {
+      "diff_line": 1975,
+      "old_line": 2893,
+      "kind": "removed",
+      "text": "            let progress = step.progress(tick).clamp(0.0, 1.0);"
+    },
+    {
+      "diff_line": 1976,
+      "old_line": 2894,
+      "kind": "removed",
+      "text": "            match step.swing_foot {"
+    },
+    {
+      "diff_line": 1977,
+      "old_line": 2895,
+      "kind": "removed",
+      "text": "                LeadFoot::Left => (0.5 + 0.5 * progress).rem_euclid(1.0),"
+    },
+    {
+      "diff_line": 1978,
+      "old_line": 2896,
+      "kind": "removed",
+      "text": "                LeadFoot::Right => 0.5 * progress,"
+    },
+    {
+      "diff_line": 1979,
+      "old_line": 2897,
+      "kind": "removed",
+      "text": "            }"
+    },
+    {
+      "diff_line": 1980,
+      "old_line": 2898,
+      "kind": "removed",
+      "text": "        }"
+    },
+    {
+      "diff_line": 1981,
+      "old_line": 2899,
+      "kind": "removed",
+      "text": "        GuardFootworkPlan::Uninitialized | GuardFootworkPlan::Planted { .. } => {"
+    },
+    {
+      "diff_line": 1982,
+      "old_line": 2900,
+      "kind": "removed",
+      "text": "            match skeleton.contact_foot {"
+    },
+    {
+      "diff_line": 1983,
+      "old_line": 2901,
+      "kind": "removed",
+      "text": "                LeadFoot::Left => 0.0,"
+    },
+    {
+      "diff_line": 1984,
+      "old_line": 2902,
+      "kind": "removed",
+      "text": "                LeadFoot::Right => 0.5,"
+    },
+    {
+      "diff_line": 1985,
+      "old_line": 2903,
+      "kind": "removed",
+      "text": "            }"
+    },
+    {
+      "diff_line": 1986,
+      "old_line": 2904,
+      "kind": "removed",
+      "text": "        }"
+    },
+    {
+      "diff_line": 1987,
+      "old_line": 2905,
+      "kind": "removed",
+      "text": "    };"
+    },
+    {
+      "diff_line": 1988,
+      "old_line": 2906,
+      "kind": "removed",
+      "text": "    skeleton.raised_footwork = plan;"
+    },
+    {
+      "diff_line": 1989,
+      "old_line": 2907,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 1990,
+      "old_line": 2908,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 1991,
+      "old_line": 2909,
+      "kind": "removed",
+      "text": "fn plan_guard_step("
+    },
+    {
+      "diff_line": 1992,
+      "old_line": 2910,
+      "kind": "removed",
+      "text": "    contacts: GuardContacts,"
+    },
+    {
+      "diff_line": 1993,
+      "old_line": 2911,
+      "kind": "removed",
+      "text": "    swing_foot: LeadFoot,"
+    },
+    {
+      "diff_line": 1994,
+      "old_line": 2912,
+      "kind": "removed",
+      "text": "    local_velocity: Vec2,"
+    },
+    {
+      "diff_line": 1995,
+      "old_line": 2913,
+      "kind": "removed",
+      "text": "    start_tick: u64,"
+    },
+    {
+      "diff_line": 1996,
+      "old_line": 2914,
+      "kind": "removed",
+      "text": ") -> GuardStepPlan {"
+    },
+    {
+      "diff_line": 1997,
+      "old_line": 2915,
+      "kind": "removed",
+      "text": "    let speed = local_velocity.length().max(0.05);"
+    },
+    {
+      "diff_line": 1998,
+      "old_line": 2916,
+      "kind": "removed",
+      "text": "    let direction = local_velocity.normalize_or_zero();"
+    },
+    {
+      "diff_line": 1999,
+      "old_line": 2917,
+      "kind": "removed",
+      "text": "    let tuning = guard_footwork_config();"
+    },
+    {
+      "diff_line": 2000,
+      "old_line": 2918,
+      "kind": "removed",
+      "text": "    let available_reach = tuning.planning_reach_metres - tuning.contact_margin_metres;"
+    },
+    {
+      "diff_line": 2001,
+      "old_line": 2919,
+      "kind": "removed",
+      "text": "    let reach_seconds = available_reach / speed;"
+    },
+    {
+      "diff_line": 2002,
+      "old_line": 2920,
+      "kind": "removed",
+      "text": "    let leading_contact = contacts"
+    },
+    {
+      "diff_line": 2003,
+      "old_line": 2921,
+      "kind": "removed",
+      "text": "        .left"
+    },
+    {
+      "diff_line": 2004,
+      "old_line": 2922,
+      "kind": "removed",
+      "text": "        .dot(direction)"
+    },
+    {
+      "diff_line": 2005,
+      "old_line": 2923,
+      "kind": "removed",
+      "text": "        .max(contacts.right.dot(direction));"
+    },
+    {
+      "diff_line": 2006,
+      "old_line": 2924,
+      "kind": "removed",
+      "text": "    let support_seconds = if leading_contact > 0.0 {"
+    },
+    {
+      "diff_line": 2007,
+      "old_line": 2925,
+      "kind": "removed",
+      "text": "        leading_contact / speed"
+    },
+    {
+      "diff_line": 2008,
+      "old_line": 2926,
+      "kind": "removed",
+      "text": "    } else {"
+    },
+    {
+      "diff_line": 2009,
+      "old_line": 2927,
+      "kind": "removed",
+      "text": "        1.0 / locomotion_sample_hz()"
+    },
+    {
+      "diff_line": 2010,
+      "old_line": 2928,
+      "kind": "removed",
+      "text": "    };"
+    },
+    {
+      "diff_line": 2011,
+      "old_line": 2929,
+      "kind": "removed",
+      "text": "    let duration_seconds = reach_seconds"
+    },
+    {
+      "diff_line": 2012,
+      "old_line": 2930,
+      "kind": "removed",
+      "text": "        .min(support_seconds)"
+    },
+    {
+      "diff_line": 2013,
+      "old_line": 2931,
+      "kind": "removed",
+      "text": "        .clamp(tuning.minimum_step_seconds, tuning.maximum_step_seconds);"
+    },
+    {
+      "diff_line": 2014,
+      "old_line": 2932,
+      "kind": "removed",
+      "text": "    let duration_ticks = (duration_seconds * locomotion_sample_hz()).ceil().max(1.0) as u64;"
+    },
+    {
+      "diff_line": 2015,
+      "old_line": 2933,
+      "kind": "removed",
+      "text": "    let forward = (speed * duration_ticks as f32 / locomotion_sample_hz()"
+    },
+    {
+      "diff_line": 2016,
+      "old_line": 2934,
+      "kind": "removed",
+      "text": "        + tuning.contact_margin_metres)"
+    },
+    {
+      "diff_line": 2017,
+      "old_line": 2935,
+      "kind": "removed",
+      "text": "        .min(tuning.planning_reach_metres);"
+    },
+    {
+      "diff_line": 2018,
+      "old_line": 2936,
+      "kind": "removed",
+      "text": "    let side = match swing_foot {"
+    },
+    {
+      "diff_line": 2019,
+      "old_line": 2937,
+      "kind": "removed",
+      "text": "        LeadFoot::Left => -tuning.default_half_width_metres,"
+    },
+    {
+      "diff_line": 2020,
+      "old_line": 2938,
+      "kind": "removed",
+      "text": "        LeadFoot::Right => tuning.default_half_width_metres,"
+    },
+    {
+      "diff_line": 2021,
+      "old_line": 2939,
+      "kind": "removed",
+      "text": "    };"
+    },
+    {
+      "diff_line": 2022,
+      "old_line": 2940,
+      "kind": "removed",
+      "text": "    let mut landing = direction * forward + Vec2::X * side;"
+    },
+    {
+      "diff_line": 2023,
+      "old_line": 2941,
+      "kind": "removed",
+      "text": "    let along_shortfall = forward - landing.dot(direction);"
+    },
+    {
+      "diff_line": 2024,
+      "old_line": 2942,
+      "kind": "removed",
+      "text": "    if along_shortfall > 0.0 {"
+    },
+    {
+      "diff_line": 2025,
+      "old_line": 2943,
+      "kind": "removed",
+      "text": "        landing += direction * along_shortfall;"
+    },
+    {
+      "diff_line": 2026,
+      "old_line": 2944,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 2027,
+      "old_line": 2945,
+      "kind": "removed",
+      "text": "    landing = landing.clamp_length_max(tuning.planning_reach_metres);"
+    },
+    {
+      "diff_line": 2028,
+      "old_line": 2946,
+      "kind": "removed",
+      "text": "    let swing_start = match swing_foot {"
+    },
+    {
+      "diff_line": 2029,
+      "old_line": 2947,
+      "kind": "removed",
+      "text": "        LeadFoot::Left => contacts.left,"
+    },
+    {
+      "diff_line": 2030,
+      "old_line": 2948,
+      "kind": "removed",
+      "text": "        LeadFoot::Right => contacts.right,"
+    },
+    {
+      "diff_line": 2031,
+      "old_line": 2949,
+      "kind": "removed",
+      "text": "    };"
+    },
+    {
+      "diff_line": 2032,
+      "old_line": 2950,
+      "kind": "removed",
+      "text": "    GuardStepPlan {"
+    },
+    {
+      "diff_line": 2033,
+      "old_line": 2951,
+      "kind": "removed",
+      "text": "        contacts,"
+    },
+    {
+      "diff_line": 2034,
+      "old_line": 2952,
+      "kind": "removed",
+      "text": "        swing_foot,"
+    },
+    {
+      "diff_line": 2035,
+      "old_line": 2953,
+      "kind": "removed",
+      "text": "        swing_start,"
+    },
+    {
+      "diff_line": 2036,
+      "old_line": 2954,
+      "kind": "removed",
+      "text": "        landing,"
+    },
+    {
+      "diff_line": 2037,
+      "old_line": 2955,
+      "kind": "removed",
+      "text": "        start_tick,"
+    },
+    {
+      "diff_line": 2038,
+      "old_line": 2956,
+      "kind": "removed",
+      "text": "        contact_tick: start_tick.saturating_add(duration_ticks),"
+    },
+    {
+      "diff_line": 2039,
+      "old_line": 2957,
+      "kind": "removed",
+      "text": "    }"
+    },
+    {
+      "diff_line": 2040,
+      "old_line": 2958,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 2041,
+      "old_line": 2959,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 2042,
+      "old_line": 2960,
+      "kind": "removed",
+      "text": "// Measured hip-knee-ankle chain of the current humanoid rig. The animation"
+    },
+    {
+      "diff_line": 2043,
+      "old_line": 2961,
+      "kind": "removed",
+      "text": "// client uses its live rig measurement; this is the server-side fallback until"
+    },
+    {
+      "diff_line": 2044,
+      "old_line": 2962,
+      "kind": "removed",
+      "text": "// anatomical dimensions become part of character state."
+    },
+    {
+      "diff_line": 2045,
+      "old_line": 2963,
+      "kind": "removed",
+      "text": "/// Ground distance covered by one procedural combat-stance contact interval."
+    },
+    {
+      "diff_line": 2046,
+      "old_line": 2964,
+      "kind": "removed",
+      "text": "pub fn guard_step_length(_speed: f32) -> f32 {"
+    },
+    {
+      "diff_line": 2047,
+      "old_line": 2965,
+      "kind": "removed",
+      "text": "    guard_contact_travel_distance("
+    },
+    {
+      "diff_line": 2048,
+      "old_line": 2966,
+      "kind": "removed",
+      "text": "        guard_footwork_config().reference_leg_length_metres,"
+    },
+    {
+      "diff_line": 2049,
+      "old_line": 2967,
+      "kind": "removed",
+      "text": "        Vec2::NEG_Y,"
+    },
+    {
+      "diff_line": 2050,
+      "old_line": 2968,
+      "kind": "removed",
+      "text": "    )"
+    },
+    {
+      "diff_line": 2051,
+      "old_line": 2969,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 2052,
+      "old_line": 2970,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 2056,
+      "kind": "hunk",
+      "text": "@@ -2985,53 +2067,3 @@ pub fn guard_movement_front_foot(lead: LeadFoot, local_direction: Vec2) -> LeadF"
+    },
+    {
+      "diff_line": 2060,
+      "old_line": 2988,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 2061,
+      "old_line": 2989,
+      "kind": "removed",
+      "text": "/// Maximum lateral open stance. Like the longitudinal opening, this is the"
+    },
+    {
+      "diff_line": 2062,
+      "old_line": 2990,
+      "kind": "removed",
+      "text": "/// leg-length-scaled one-yard reference stance: the moving-side foot reaches"
+    },
+    {
+      "diff_line": 2063,
+      "old_line": 2991,
+      "kind": "removed",
+      "text": "/// outward while the support foot remains behind the projected COM."
+    },
+    {
+      "diff_line": 2064,
+      "old_line": 2992,
+      "kind": "removed",
+      "text": "pub fn guard_maximum_lateral_foot_separation(leg_length_metres: f32) -> f32 {"
+    },
+    {
+      "diff_line": 2065,
+      "old_line": 2993,
+      "kind": "removed",
+      "text": "    guard_maximum_foot_separation(leg_length_metres)"
+    },
+    {
+      "diff_line": 2066,
+      "old_line": 2994,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 2067,
+      "old_line": 2995,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 2068,
+      "old_line": 2996,
+      "kind": "removed",
+      "text": "/// Direction-specific open stance, blended continuously for diagonals."
+    },
+    {
+      "diff_line": 2069,
+      "old_line": 2997,
+      "kind": "removed",
+      "text": "pub fn guard_open_foot_separation(leg_length_metres: f32, local_direction: Vec2) -> f32 {"
+    },
+    {
+      "diff_line": 2070,
+      "old_line": 2998,
+      "kind": "removed",
+      "text": "    let direction = local_direction.normalize_or_zero();"
+    },
+    {
+      "diff_line": 2071,
+      "old_line": 2999,
+      "kind": "removed",
+      "text": "    let longitudinal = direction.y.abs();"
+    },
+    {
+      "diff_line": 2072,
+      "old_line": 3000,
+      "kind": "removed",
+      "text": "    guard_maximum_lateral_foot_separation(leg_length_metres).lerp("
+    },
+    {
+      "diff_line": 2073,
+      "old_line": 3001,
+      "kind": "removed",
+      "text": "        guard_maximum_foot_separation(leg_length_metres),"
+    },
+    {
+      "diff_line": 2074,
+      "old_line": 3002,
+      "kind": "removed",
+      "text": "        longitudinal,"
+    },
+    {
+      "diff_line": 2075,
+      "old_line": 3003,
+      "kind": "removed",
+      "text": "    )"
+    },
+    {
+      "diff_line": 2076,
+      "old_line": 3004,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 2077,
+      "old_line": 3005,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 2078,
+      "old_line": 3006,
+      "kind": "removed",
+      "text": "/// Direction-specific closed stance. Lateral shuffles retain normal"
+    },
+    {
+      "diff_line": 2079,
+      "old_line": 3007,
+      "kind": "removed",
+      "text": "/// anatomical width; the three-inch contract applies along the guard's"
+    },
+    {
+      "diff_line": 2080,
+      "old_line": 3008,
+      "kind": "removed",
+      "text": "/// longitudinal axis."
+    },
+    {
+      "diff_line": 2081,
+      "old_line": 3009,
+      "kind": "removed",
+      "text": "pub fn guard_closed_foot_separation(leg_length_metres: f32, local_direction: Vec2) -> f32 {"
+    },
+    {
+      "diff_line": 2082,
+      "old_line": 3010,
+      "kind": "removed",
+      "text": "    let direction = local_direction.normalize_or_zero();"
+    },
+    {
+      "diff_line": 2083,
+      "old_line": 3011,
+      "kind": "removed",
+      "text": "    let longitudinal = direction.y.abs();"
+    },
+    {
+      "diff_line": 2084,
+      "old_line": 3012,
+      "kind": "removed",
+      "text": "    (leg_length_metres.max(0.0) * 0.25).lerp("
+    },
+    {
+      "diff_line": 2085,
+      "old_line": 3013,
+      "kind": "removed",
+      "text": "        guard_rear_contact_separation(leg_length_metres),"
+    },
+    {
+      "diff_line": 2086,
+      "old_line": 3014,
+      "kind": "removed",
+      "text": "        longitudinal,"
+    },
+    {
+      "diff_line": 2087,
+      "old_line": 3015,
+      "kind": "removed",
+      "text": "    )"
+    },
+    {
+      "diff_line": 2088,
+      "old_line": 3016,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 2089,
+      "old_line": 3017,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 2090,
+      "old_line": 3018,
+      "kind": "removed",
+      "text": "/// COM travel between centered open and closed contacts."
+    },
+    {
+      "diff_line": 2091,
+      "old_line": 3019,
+      "kind": "removed",
+      "text": "pub fn guard_contact_travel_distance(leg_length_metres: f32, local_direction: Vec2) -> f32 {"
+    },
+    {
+      "diff_line": 2092,
+      "old_line": 3020,
+      "kind": "removed",
+      "text": "    (guard_open_foot_separation(leg_length_metres, local_direction)"
+    },
+    {
+      "diff_line": 2093,
+      "old_line": 3021,
+      "kind": "removed",
+      "text": "        - guard_closed_foot_separation(leg_length_metres, local_direction))"
+    },
+    {
+      "diff_line": 2094,
+      "old_line": 3022,
+      "kind": "removed",
+      "text": "    .max(0.0)"
+    },
+    {
+      "diff_line": 2095,
+      "old_line": 3023,
+      "kind": "removed",
+      "text": "        * 0.5"
+    },
+    {
+      "diff_line": 2096,
+      "old_line": 3024,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 2097,
+      "old_line": 3025,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 2098,
+      "old_line": 3026,
+      "kind": "removed",
+      "text": "/// Maximum fore-aft guard stance immediately before the following foot lifts."
+    },
+    {
+      "diff_line": 2099,
+      "old_line": 3027,
+      "kind": "removed",
+      "text": "/// The ratio maps a 0.851688 m average-male thigh-plus-shank chain at 5'11\" to"
+    },
+    {
+      "diff_line": 2100,
+      "old_line": 3028,
+      "kind": "removed",
+      "text": "/// the requested one-yard stance, then scales directly with the actual rig."
+    },
+    {
+      "diff_line": 2101,
+      "old_line": 3029,
+      "kind": "removed",
+      "text": "pub fn guard_maximum_foot_separation(leg_length_metres: f32) -> f32 {"
+    },
+    {
+      "diff_line": 2102,
+      "old_line": 3030,
+      "kind": "removed",
+      "text": "    leg_length_metres.max(0.0) * 1.073_632_5"
+    },
+    {
+      "diff_line": 2103,
+      "old_line": 3031,
+      "kind": "removed",
+      "text": "}"
+    },
+    {
+      "diff_line": 2104,
+      "old_line": 3032,
+      "kind": "removed",
+      "text": ""
+    },
+    {
+      "diff_line": 2105,
+      "old_line": 3033,
+      "kind": "removed",
+      "text": "/// Maximum fore-aft separation when the rear foot returns beside the front"
+    },
+    {
+      "diff_line": 2106,
+      "old_line": 3034,
+      "kind": "removed",
+      "text": "/// foot. This maps the same 5'11\" reference leg to the requested three inches."
+    },
+    {
+      "diff_line": 2107,
+      "old_line": 3035,
+      "kind": "removed",
+      "text": "pub fn guard_rear_contact_separation(leg_length_metres: f32) -> f32 {"
+    },
+    {
+      "diff_line": 2108,
+      "old_line": 3036,
+      "kind": "removed",
+      "text": "    leg_length_metres.max(0.0) * 0.089_469_37"
+    },
+    {
+      "diff_line": 2109,
+      "old_line": 3037,
+      "kind": "removed",
+      "text": "}"
+    }
+  ],
+  "qualification": "Source-coordinate mapping only; old removed bodies still require personal reads in bounded packets. Current2069head personally consumed."
+}

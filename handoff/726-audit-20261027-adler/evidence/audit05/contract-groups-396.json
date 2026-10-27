@@ -1,0 +1,56 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-396",
+  "at": "2026-10-26T00:16:00.424576+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 267,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social_roles.rs",
+      "sha256": "328d8285856568995cc423bb2ec74bb88bfa690af6e4defcbfc4aa8f9a355415",
+      "personally_read_ranges": [
+        [
+          1,
+          579
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full579 lines. Explicit organization instance ties definition+optional settlement; local social templates require scoped IDs; unknown kind/scope fails. One character role per instance validated against actual definition and character; update requires existing assignment. Family birth identity separate from current household, provisional origin family replaced and unreferenced cleanup; later error relies transaction propagation. Raw family-key prefix origin is reserved by parser; arbitrary caller family_key origin:... needs actual producer policy before ambiguity finding.",
+        "Birth role copying finds parent family assignments and inserts exact role into child after provisional cleanup; empty parent family error propagates. Precedence chooses same recognizable titled role by addresspriority/id, rather than max arbitraryscalar. Actual profession/literacy aggregate full role list with deterministic winner. No blanket validity/security/run clearance."
+      ]
+    },
+    {
+      "scope_index": 268,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/approved_action.rs",
+      "sha256": "d950b13458eeb9181a8e5c13187b252a25adee7f26374e42ace4a85dd58c243f",
+      "personally_read_ranges": [
+        [
+          1,
+          173
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full173 lines. Internally tagged request enum retains variant-specific request coordinates, kind groups only intended approval categories; execute consumes request to actual reducers, using leader actor except investigation retains requester plus authorized flag. Raw strings/u32/f32 successful constraints are receiving-reducer obligations, not enum-wide validation proof. Autoresolve early return preserves structured result; other string errors map at operation boundary."
+      ]
+    },
+    {
+      "scope_index": 272,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/combat_error.rs",
+      "sha256": "58e6e2c18b7b24c5ca48112d598be60bec75a889ebfbf494562073baa85b318f",
+      "personally_read_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Explicit frozen deletion/base disposition: no present source body; read all29 historical base lines pinned verified_object hash. Old combat error preserves typed authored-threat/resolution plus requireddeath/static operation strings. Deletion does not itself prove cause loss; current strategic error receiving owner is separate role. No current-body or error-family correctness credit."
+      ],
+      "source_state": "deleted",
+      "coverage_kind": "explicit absence/base disposition; no current-body credit"
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

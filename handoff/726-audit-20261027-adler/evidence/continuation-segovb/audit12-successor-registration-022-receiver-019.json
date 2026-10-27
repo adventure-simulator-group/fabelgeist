@@ -1,0 +1,109 @@
+{
+  "at": "2026-10-27T01:19:31.429766+00:00",
+  "for_original": 46,
+  "sources": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/build/combat_resolution.rs",
+      "path": "crates/adventuresim-core/build/combat_resolution.rs",
+      "staged_path": "target/recovery-20261025/continuation-segovb/source-objects/79ebf48add6f1035ba223c7d310864e958145bdb580ab8fd0189eac3700ff9c5",
+      "sha256": "79ebf48add6f1035ba223c7d310864e958145bdb580ab8fd0189eac3700ff9c5",
+      "lines": 275,
+      "provenance": "Exactf82frozenchangedobject",
+      "locators_only": [
+        [
+          13,
+          "struct CombatBuildConfig {"
+        ],
+        [
+          21,
+          "struct MovementValues {"
+        ],
+        [
+          27,
+          "struct MovementSpeedValues {"
+        ],
+        [
+          33,
+          "struct MovementMotorValues {"
+        ],
+        [
+          42,
+          "struct AiValues {"
+        ],
+        [
+          47,
+          "struct OrdinaryAiValues {"
+        ],
+        [
+          53,
+          "struct AiDefenseValues {"
+        ],
+        [
+          58,
+          "struct AiOffenseValues {"
+        ],
+        [
+          64,
+          "struct ResolutionValues {"
+        ],
+        [
+          72,
+          "struct AutoresolveValues {"
+        ],
+        [
+          92,
+          "pub fn compile(root: &Path) {"
+        ],
+        [
+          260,
+          "fn fatigue_source(value: CombatFatigueParameters) -> String {"
+        ]
+      ],
+      "body_credit": false,
+      "ranges": [
+        [
+          1,
+          275
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-unchanged-base:crates/adventuresim-weapon-model/src/catalog.rs",
+      "path": "crates/adventuresim-weapon-model/src/catalog.rs",
+      "staged_path": "target/recovery-20261025/continuation-segovb/source-objects/0f579abd98b3de2924ebba3a1addc74b37c30c098af4667ae23b6fdaaef398e2",
+      "sha256": "0f579abd98b3de2924ebba3a1addc74b37c30c098af4667ae23b6fdaaef398e2",
+      "lines": 131,
+      "provenance": "Exacta120base,absent159changed/status entries",
+      "locators_only": [
+        [
+          74,
+          "fn gameplay() -> &'static [WeaponDesign] {"
+        ],
+        [
+          82,
+          "pub fn default_design(catalog_id: &str) -> Option<WeaponDesign> {"
+        ],
+        [
+          88,
+          "pub fn preset_design(id: &str) -> Option<WeaponDesign> {"
+        ],
+        [
+          99,
+          "pub fn recommended_holder(catalog_id: &str) -> Option<WeaponHolderKind> {"
+        ],
+        [
+          110,
+          "pub fn default_holder_design(weapon: &WeaponDesign) -> Option<WeaponHolderDesign> {"
+        ]
+      ],
+      "body_credit": false,
+      "ranges": [
+        [
+          1,
+          131
+        ]
+      ]
+    }
+  ],
+  "purpose": "Actual additional build compiler and generatedweapon recipe key lookup; no future original47/recipe source credit. All actualproduction ranges required, tests absent by metadata."
+}

@@ -1,0 +1,102 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-226",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 2238,
+      "source_id": "pr-working:crates/fabelgeist-compute/Cargo.toml",
+      "sha256": "f7da2a134b0c98ad462cb8a5ac6a9e422ef5a49f9406993beb83a950f5991560",
+      "ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh requested Compute manifest33: native GPU/math/anyhow/thiserror/bytemuck/serde/strum/naga/regex, target-specific WGPU/pollster and WASM flags, existing Tokio dev dependency.",
+      "disposition": "Metadata only, no handwritten trait/codec or feature/runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2239,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/host_float/arithmetic.rs",
+      "sha256": "c1f92194b17274f4c4f616f05402724d6714024a31d791d3af256b08d7b7df51",
+      "ranges": [
+        [
+          1,
+          175
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh whole arithmetic175 underlayer033/PPS025. Native WGSL string, no Rust trait/codec. Actual runtime integer fence, adjacent-float/tie-even quotient walk, residual square-root/scaling and ordered vector arithmetic read.",
+      "disposition": "No derivability candidate. Semantic native floating-point algorithms remain explicit; no numerical/host-device acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2240,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/host_float/double_float.rs",
+      "sha256": "196e4e5928c8690f9c454f6df53c6923893063912d0e5ea63cddf199ab7f5688",
+      "ranges": [
+        [
+          1,
+          360
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh whole double-float360 underlayer033/PPS025. No handwritten traits/codecs. Actual Rust WGSL literal/split/coefficient/Horner source generation plus native error-free transforms, range reduction/series, transcendental special-value branches and existing constant/literal cases read.",
+      "disposition": "No derivability candidate. Explicit semantic numerical/source generation remains necessary; no accuracy or device acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2241,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/host_float/mod.rs",
+      "sha256": "f584218ee80866588dc56bfddb3464f65635a41e317f6fbaa08a404143b42b39",
+      "ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh whole host-float mod86. No handwritten trait/codec. Actual OnceLock concatenation and runtime zero-hook source API plus precision/subnormal/range narratives read.",
+      "disposition": "No derivability candidate. Source assembly and semantic runtime fence contract remain explicit, no numerical narrative acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2242,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/host_float/tests.rs",
+      "sha256": "837d9a82e8851a69388f04459ab242107ad9facba9f662cf4e5f2219cb6c2a75",
+      "ranges": [
+        [
+          1,
+          271
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh whole existing host-float tests271. No handwritten trait/codec. Actual deterministic native-word fixture, generated device expressions/uniform zero, readback mismatch accounting and four existing rounding/hook cases read.",
+      "disposition": "No derivability candidate. Existing test helpers/cases/assertions unmodified and unexecuted; no GPU acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

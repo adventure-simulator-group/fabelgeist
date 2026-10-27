@@ -1,0 +1,111 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "084",
+  "predecessor": "receipt-083-originals391-397.json",
+  "manifest_prefix_sha256": "9654187d893f4c183c0ca11ba43f62fd56d036a23941ce413344ac113ecc3222",
+  "sources": [
+    {
+      "original_index": 398,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ranged.rs",
+      "sha256": "e960a4f52cd7fa6f8d28da2983c5f066e216f0b74828295faa41b66bd436659e",
+      "actual_eof": 335,
+      "actual_ranges": [
+        [
+          1,
+          335
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "85-119",
+          "role": "RangedAmmunition::find compares properties.id == ARROW_ID92, raw catalog identity from355103 and374506fixture producer, availability37781. Actual selected entity/typedquantity consumed100-119; canonical item reference erased through actual tactical inventory state.",
+          "disposition": "Extend existing catalog-identity finding with actual ranged consumer, no constant exemption; carry canonical open catalog reference or intended capability owner through producer/state/query/nativecodec. Exact ARROW_ID declaration/capability fit and all producers remain qualified."
+        },
+        {
+          "source_ranges": "1-335",
+          "role": "Only literal strings warning62/72/206/245/debug214/235/expect309/compilerreason124. No other String API. Authorized shot body and canonical enumreject retained throughout.",
+          "disposition": "Concrete diagnostics/compiler output boundary. No admission/quantity/concurrency/geometry/runtime/native or other-lens acceptance."
+        }
+      ],
+      "status": "Requested full changed source independently read WITH catalog finding or zero strings."
+    },
+    {
+      "original_index": 399,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ranged/outcome.rs",
+      "sha256": "666e7ae0d0aaeeed9b53efc70bf96befd2ffbbfdc84adf176db63126431658f5",
+      "actual_eof": 105,
+      "actual_ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-105",
+          "role": "Zero literal strings/String APIs. Typed SuccessfulAttackResponse/ApplyMeleeAttackResult keep BodyPart and actual AnatomicalSubregion derived87 to canonical event.",
+          "disposition": "Zero string role from actual full105; no network/consequence/math/runtime/other-lens clearance."
+        }
+      ],
+      "status": "Requested full changed source independently read WITH catalog finding or zero strings."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Raw catalog ammo identity spans actual tactical ranged consumer",
+      "sources": [
+        "398:88-96",
+        "355:103,322-324",
+        "374:506",
+        "377:81"
+      ],
+      "remedy": "Carry canonical open catalog identity or authored ammo capability across producer/retainedstate/query; native text only at actual codec/asset lookup.",
+      "acceptance": "Resolve exact catalog owner/capability/constant declaration/all producers and aliases before repair; no finite catalog closure or unique count.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Earlier catalog, topology, ArmorLayerContact, name/report/Debugmap and digest/cause receiver obligations retained; actual ranged consumer access closes only local lookup.",
+    "External native serde/trace/readers and gameplay/numerical/other-lens runtime contracts unclaimed."
+  ],
+  "qualifications": [
+    "Exact frozen f82 physical-P16 only; no current alias.",
+    "No backward compatibility/input preservation or project/native/test/probe execution; no product/Git/root-ledger/publication mutation.",
+    "All20/P16/P17/F9/M09/aliases/currentness preserved; source WITH findings not repaired/global/runtime/unique-total/other-lens clearance."
+  ],
+  "proposed_count": {
+    "before": 398,
+    "after": 400,
+    "indices_completed": [
+      398,
+      399
+    ],
+    "next_original": 400,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ranged.rs",
+      "sha256": "e960a4f52cd7fa6f8d28da2983c5f066e216f0b74828295faa41b66bd436659e",
+      "ranges": [
+        [
+          1,
+          335
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ranged/outcome.rs",
+      "sha256": "666e7ae0d0aaeeed9b53efc70bf96befd2ffbbfdc84adf176db63126431658f5",
+      "ranges": [
+        [
+          1,
+          105
+        ]
+      ]
+    }
+  ]
+}

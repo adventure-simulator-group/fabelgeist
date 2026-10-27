@@ -1,0 +1,18 @@
+--- base
+
++++ head
+
+@@ -199,11 +199,11 @@
+
+     if let Some(path) = &args.write_armor_designs {
+         let defaults = catalog
+             .items
+             .iter()
+             .filter_map(|item| {
+-                let design = catalog.design(item)?;
++                let design = catalog.design(catalog.item(&item.id)?)?;
+                 Some((item.id.clone(), design.recipe()?.clone()))
+             })
+             .collect();
+         let designs = adventuresim_character_creator::armor_design_input::ArmorDesigns {
+             defaults,

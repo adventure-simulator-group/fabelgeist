@@ -1,0 +1,62 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-331",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 2757,
+      "source_id": "native-rand0.9.5:src/distr/weighted/weighted_index.rs",
+      "sha256": "b4559037354bcb9e0b1eab569c867dd70053de382232c7ed4d9aef3d5b049003",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/b4559037354bcb9e0b1eab569c867dd70053de382232c7ed4d9aef3d5b049003",
+      "ranges": [
+        [
+          1,
+          145
+        ],
+        [
+          358,
+          369
+        ]
+      ],
+      "scope_kind": "materially_reached_parallel_initial_dependency",
+      "scope_limits": [
+        "u64 WeightedIndex private cumulative vector+total and actual checkednew/Distribution<usize>sample only; update_weights/remove/float/customWeight/testgraphs excluded"
+      ],
+      "source_basis": "Fresh personal exact registered foreign native/macro source reads; immutable Git bytes/hash verified, no other-lens verdict coverage.",
+      "trait_inventory_and_semantics": "Fresh exact recovered rand0.9.5 registered1-145/358-369. WeightedIndex structural and optional serde derives; new constructs checked cumulative weights/native sampler, Distribution<usize> selects partition point above sampled weight. This semantic sampling law differs from field delegation.",
+      "disposition": "Keep native distribution implementation and checked construction. No blanket SDK exemption; excluded update implementation and rest of module have no coverage.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2758,
+      "source_id": "native-rand0.9.5:src/distr/uniform.rs",
+      "sha256": "04efcc061e1904b824e3feb68541c4e8259a46ecd2c118af6fb383b3ad37f73c",
+      "immutable_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/04efcc061e1904b824e3feb68541c4e8259a46ecd2c118af6fb383b3ad37f73c",
+      "ranges": [
+        [
+          190,
+          260
+        ],
+        [
+          268,
+          312
+        ],
+        [
+          399,
+          415
+        ]
+      ],
+      "scope_kind": "materially_reached_parallel_initial_dependency",
+      "scope_limits": [
+        "ActualUniform<u64> wrapper constructor/sample andstaticSampleUniform/UniformSampler/SampleBorrow bindings usedbycheckedzero-to-nonzeroupper; ranges mayendincontext, allunselectedsingle_range/testgraphs excluded",
+        "AttachedUniformdefinitionattrs/derivecontext neededforrepresentation versus canonicalconstructor guarantee; exactheader only, notextraalgorithm/testgraph."
+      ],
+      "source_basis": "Fresh personal exact registered foreign native/macro source reads; immutable Git bytes/hash verified, no other-lens verdict coverage.",
+      "trait_inventory_and_semantics": "Fresh exact union of registered190-219/219-260/268-312/399-415. Uniform derives structural/optional serde with explicit associated-sampler bounds; constructors and Distribution delegate the associated native sampler. SampleUniform/UniformSampler define generic external contracts; SampleBorrow blanket implementations preserve ownership/lifetimes via self reborrow.",
+      "disposition": "Keep tiny native generic distribution/borrow adapters and exact associated bounds. No application dependency or generic derive expansion proposed for external SDK; no excluded sampler implementations/runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

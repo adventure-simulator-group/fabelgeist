@@ -1,0 +1,320 @@
+{
+  "id": "SEGOVB-POLICY989-COMMENT-REVIEW-001",
+  "created_utc": "2026-10-26T23:20:22.587865+00:00",
+  "base": "b3810b8b5db78c15cc51a0e1bef747a06450dffb",
+  "phase": "Independent post-edit source-only Comment Review",
+  "verdict": "No actionable comment or guide accuracy defect found in the pinned eight-file implementation. Discovery DOC01-DOC05 addressed. Inherited F9 remains qualified pending; this is not global comment or audit clearance.",
+  "findings": [],
+  "skill": {
+    "path": "/home/brunosegovia/.codex/skills/comment-review/SKILL.md",
+    "sha256": "31dc8dc28441a5b643e534a631b5d50444fb1b4d48a305c91e8a32519a2827a4"
+  },
+  "inputs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/implementation-manifest-001.json",
+      "sha256": "8c486b63a1e69b7abbe7aedf242b6fe40b3b45294642bc8903ed2be110dce59e"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/implementation-001.patch",
+      "sha256": "46d4bae33d770841be8dacbf7458074958328ad034ad44b6e945e5e47120b7ab"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/comment-discovery-001.json",
+      "sha256": "aca247d9f3037f6369ee886274a429654e7a2f0983b275cf004a8ba5b9b5d29a"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/comment-discovery-001-issue989.json",
+      "sha256": "d8bfa2de3c31b502de5174c2368f7e1fd70cff44068773c601f4949156f511e9"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/comment-review-001-registration.json",
+      "sha256": "7a04de7402e103b75180e1306484128537c8a69bbd6f6c8e1d11c7eb4f534059"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/comment-review-001-registration-supplement.json",
+      "sha256": "fe4328d71e104d2ff8a14d77ad927dfc2a21ea1d1edfb39ab6a476d1b0634f93"
+    }
+  ],
+  "sources": [
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "sha256": "a7d4fc3525525acbcfa7ea6d88f751261132fc912cd26696d4975897a5f8b97e",
+      "lines": 34,
+      "ranges": [
+        [
+          1,
+          5
+        ]
+      ],
+      "scope": "Changed source; complete changed comment and affected implementation body scope."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "d6cd017cc5d337a0ad47543cc51cc009cff84fa78bb65499b1cddfcb60afcb55",
+      "lines": 620,
+      "ranges": [
+        [
+          1,
+          161
+        ]
+      ],
+      "scope": "Changed source; complete changed comment and affected implementation body scope."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "5b020e16dadfbc30f2eb50b784552258d880c631376ffc1d62e9e25cae07c992",
+      "lines": 264,
+      "ranges": [
+        [
+          1,
+          125
+        ]
+      ],
+      "scope": "Changed source; complete changed comment and affected implementation body scope."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "a5ec79b944808520b15bc649e4d54b14612859c9a5b1b1f8446a47c17bb6c1d6",
+      "lines": 905,
+      "ranges": [
+        [
+          1,
+          147
+        ],
+        [
+          245,
+          270
+        ]
+      ],
+      "scope": "Changed source; complete changed comment and affected implementation body scope."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "c396c5486a664dbb5d1804963e21e76bbee671521319e625c38f0b7531f3a391",
+      "lines": 123,
+      "ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "scope": "Changed source; complete changed comment and affected implementation body scope."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "f0828dbc6755445932455e5aa9edf040f2222deca3c1fe38c44460da856565d8",
+      "lines": 42,
+      "ranges": [
+        [
+          1,
+          42
+        ]
+      ],
+      "scope": "Changed source; complete changed comment and affected implementation body scope."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "14ac95339951ceb8b50cc3ab9452c251bbbce6122ebd7206a3961c406ff74858",
+      "lines": 323,
+      "ranges": [
+        [
+          1,
+          33
+        ],
+        [
+          91,
+          118
+        ],
+        [
+          260,
+          277
+        ]
+      ],
+      "scope": "Changed source; complete changed comment and affected implementation body scope."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "022b9d73dd2cfc76963f3945bc7b7c89e6bbb8322889adccf3599a7b4b0e83e7",
+      "lines": 87,
+      "ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "scope": "Changed source; complete changed comment and affected implementation body scope."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "e3ad593b83da185620d2729a5fde4a0f7bfda1c39993494432c55a0c989e0973",
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "scope": "Actual unchanged shared owner/receiving format-view body; prospective fresh source registration."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "sha256": "878a4144b4fecdc20291885050e30fe521a5294117046c282ef24d40c5e407d9",
+      "ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "scope": "Actual unchanged shared owner/receiving format-view body; prospective fresh source registration."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "5b5fe5e4ff2f4e7d2ec8daf2e852ea0c6f5de112716d6d1695502b1304318106",
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "scope": "Actual unchanged shared owner/receiving format-view body; prospective fresh source registration."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "786f4f75b779e92f2a1b2e521e672606b4fa3b6bf9176530903dd6a4edf7f84b",
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "scope": "Actual unchanged shared owner/receiving format-view body; prospective fresh source registration."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "d6cd017cc5d337a0ad47543cc51cc009cff84fa78bb65499b1cddfcb60afcb55",
+      "ranges": [
+        [
+          248,
+          350
+        ]
+      ],
+      "purpose": "Actual separate readback/submission completion bodies for new documentation distinction; no global safety verdict."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "5b020e16dadfbc30f2eb50b784552258d880c631376ffc1d62e9e25cae07c992",
+      "ranges": [
+        [
+          125,
+          225
+        ]
+      ],
+      "purpose": "Actual separate readback/submission completion bodies for new documentation distinction; no global safety verdict."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "14ac95339951ceb8b50cc3ab9452c251bbbce6122ebd7206a3961c406ff74858",
+      "ranges": [
+        [
+          120,
+          167
+        ]
+      ],
+      "purpose": "Actual separate readback/submission completion bodies for new documentation distinction; no global safety verdict."
+    }
+  ],
+  "freshness": "All8 changed-source files match manifest001; all12 distinct source files match prospectively registered SHA256 at completion. Full patch read. Actual body coverage is the exact registered ranges; no whole-file verdict inferred for unrelated unchanged bodies. These are working-source fingerprints against the supplied base, not an invented final commit identity.",
+  "discovery_dispositions": [
+    {
+      "id": "989-DOC01",
+      "status": "addressed",
+      "docs": "crates/fabelgeist-gpu/texture-views.md:1-35,49-87",
+      "source": "texture_cube/views.rs:59-122; texture_2d/mod.rs:62-158; texture_3d/mod.rs:48-119; texture_cube/mod.rs:52-145; globals/validation_scope.rs:35-63",
+      "evidence": "Guide broadens its title, names allthree face helpers and canonical typed result, explains native-texture requirement and face/original-format payload, qualifies cached/MissingView behavior as whole-texture-only, and names exact constructor coverage. Constructor errors remain generic via standard conversion from ValidationScopeError. Native BlockingScopes admission, context-free and browser behavior are explicit. Separate readback/backpressure waits and mutable-device/cache-coherence limits remain."
+    },
+    {
+      "id": "989-DOC02",
+      "status": "addressed",
+      "docs": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs:20-32",
+      "source": "globals/wgpu_context/mod.rs:91-118,260-277; globals/validation_observation.rs:17-25; globals/validation_scope.rs:35-63; allthree affectedconstructor bodies; texture_cube/views.rs:59-122",
+      "evidence": "Field contract names covered creation paths, replaces completed gap note with shared completion/structured failures, and keeps independent readback/backpressure and global-health/rollback qualifications. Actual admission authority is policy; existing-device/browser defaults and native default match implementation."
+    },
+    {
+      "id": "989-DOC03",
+      "status": "addressed",
+      "docs": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs:1-42",
+      "source": "texture_cube/views.rs:75-122; globals/validation_scope.rs:19-32,53-63",
+      "evidence": "Owner docs cover whole-texture and cube-face views. TextureCubeFace owns existing CubeFace. Observation retains original format, operation and direct ValidationScopeError; botherrors derive traits and combined progress state retains both native/poll causes with pollprimary. No wrapper, compatibility API or old prefix/downcast promise added."
+    },
+    {
+      "id": "989-DOC04",
+      "status": "addressed",
+      "docs": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs:66-74",
+      "source": "samefile:59-122",
+      "evidence": "face passes Some(context); face_view passes None; face_view_with_format admits ValidationScope only on native targets using and_then. Some with Uncaptured returns no scope. Error mapping preserves requested face/original format, wrapper retains effectiveformat/parent/layer; documentation accurately describes these boundaries without implying all asynchronous device errors are synchronously caught."
+    },
+    {
+      "id": "989-DOC05",
+      "status": "addressed locally; inherited F9 remains pending",
+      "docs": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs:128-147",
+      "source": "implementation-001.patch texture_2d hunk",
+      "evidence": "The touched constructor absolute queue-never-empties/ownership explanation was removed. Native path now visibly uses ValidationScope::new and finish; no replacement universal hang or ownership guarantee introduced. This does not resolve earlier submitted_work_done/test rationale qualifications."
+    }
+  ],
+  "verified_traces": [
+    {
+      "ranges": [
+        "texture_2d/mod.rs:128-158",
+        "texture_3d/mod.rs:89-119",
+        "texture_cube/mod.rs:114-145",
+        "globals/validation_scope.rs:35-63"
+      ],
+      "result": "Scope starts before native texture and initialview creation, and finish ? executes before constructedtexture return. Pop happens after attempted poll on all normal outcome branches, including pollerror; Native/Progress/ProgressWithNative propagate unchanged through generic constructor boundary."
+    },
+    {
+      "ranges": [
+        "texture_cube/views.rs:16-56,59-122",
+        "texture_2d/views.rs:13-54",
+        "texture_3d/views.rs:13-54"
+      ],
+      "result": "Whole-view matching-format paths clone cache before native admission and never poll. Face always admits native texture and creates D2 view with one selectedlayer, then finishes optional observation before wrapper return. Storage sRGB projection changes descriptor/effective wrapper format but retains original request in failure."
+    },
+    {
+      "ranges": [
+        "texture_2d/mod.rs:248-345",
+        "texture_3d/mod.rs:125-225",
+        "globals/wgpu_context/mod.rs:134-167"
+      ],
+      "result": "Actual readback mapping completion loops and submitted-work native index/browser callback completion remain independent of validation_observation. Full patch leaves those bodies unchanged. This confirms the new documentation distinction, not absolute safety/timing claims in inherited comments."
+    },
+    {
+      "ranges": [
+        "texture-views.md:37-47",
+        "README.md:1-5"
+      ],
+      "result": "Owning guide example remains text-fenced; README points to correct broadened guide. No new executable doctest/example verification is claimed."
+    }
+  ],
+  "qualifications": [
+    {
+      "id": "F9-inherited-pending",
+      "current_source": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs:122-140",
+      "quotes": [
+        "which never returns while something else keeps submitting",
+        "Windows is the system tick rather than a millisecond."
+      ],
+      "disposition": "Inherited queue/watchdog/tick rationale remains qualified pending with its original source authority. These unchanged claims were not proven or cleared by the policy completion; no SDK-global or timing assertion follows from this narrow review. Existing borrowed-test rationale remains separately inherited, not newly approved."
+    },
+    {
+      "id": "coverage-boundary",
+      "disposition": "Full eight-file patch and every changed comment/document block reviewed with actual affected bodies. Unchanged READMEbuffer prose, broad shader/pipeline/fastpath/ComputePass code and other array/clear/subresource internals not re-audited in thispacket; their existing coverage and qualifications do not transfer to globalclearance."
+    },
+    {
+      "id": "runtime-boundary",
+      "disposition": "No product edits, Git commands, project checks, tests, doctest execution, native SDK downloads or runtime hang reproduction. Root owns validation/publication. This report is source accuracy evidence only."
+    },
+    {
+      "id": "audit-boundary",
+      "disposition": "All20/P16/P17/M16, aliases, frozen/current distinctions and earlier partials/counts remain unchanged; no rootledger or historical evidence overwritten."
+    }
+  ]
+}

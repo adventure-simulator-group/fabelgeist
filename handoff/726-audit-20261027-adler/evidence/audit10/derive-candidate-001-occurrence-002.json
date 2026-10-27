@@ -1,0 +1,13 @@
+{
+  "candidate_family": "derive-candidate-001.json",
+  "scope_index": 1890,
+  "path": "crates/adventuresim-tactical-core/src/player.rs",
+  "implementation": "Manual From<PlayerAttributeValues> for TacticalAttributes constructs Self(attributes), with identical owned non-generic field type and no validation/transformation.",
+  "equivalent_repair": "Add the owning crate's already enabled derive_more::From to TacticalAttributes and remove only this manual From. Existing transparent serde, Bevy Reflect/Component and Deref/DerefMut remain unchanged.",
+  "proof": "Same direct single-field construction family as001. Fresh pinned macro shared122 explicit field constructor uses identity From for identical PlayerAttributeValues type; same owned input/output, no lifetime/generic/error/visibility/native-index changes. Owning frozen manifest1749 enables from.",
+  "retained_semantics": "Keep TacticalAttributes Default projecting shared authored character attributes and manual arbitrary PlayerAttributes trait forwarding; derive_more::From only replaces the infallible owned field constructor. No generic custom trait delegation derive is enabled in owning manifest.",
+  "new_unique_findings_claimed": 0,
+  "status": "EXACT_MECHANICAL_FROM_OCCURRENCE_PENDING_SHARED_HISTORICAL_REMEDY_DEDUP",
+  "checks": "not run",
+  "source_edits": false
+}

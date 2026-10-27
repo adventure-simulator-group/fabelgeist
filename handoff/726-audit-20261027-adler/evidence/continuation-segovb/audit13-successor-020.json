@@ -1,0 +1,253 @@
+{
+  "at": "2026-10-27T01:38:02.029587+00:00",
+  "lens": "13 magic-numbers",
+  "packet": "020",
+  "status": "Original37 native Standard materialproducer/defaultshader/binding source subset traced; previous/historyconsumer andactualconditionalactivation/currentness remainpartial. No original count increment or38orderedassessment. Stopboundedpacket.",
+  "authority": {
+    "frozen_original_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "native_git_commit": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+    "root_adoption": "audit13-successor-019-adoption-root.json",
+    "root_adoption_sha256": "5eac070d139c548e2a3d81c1e9d87b314972bc3cc2d83c8d7e668d68c288994e",
+    "prior_state": "audit13-successor-019-suggested-state.json",
+    "prior_state_sha256": "1a8676034b6c17a331e0f72e34aa4bc98b10cd7d959e293cce5337f72d5164cc",
+    "native_staging": "audit13-native-material-staging-020.json",
+    "native_staging_sha256": "46385b8d794475600605d5f19c1169b4a250baf88977b81c3a940e20696bf047",
+    "root_adoption_required": true
+  },
+  "registration_files": [
+    {
+      "path": "audit13-successor-registration-020.json",
+      "sha256": "d4865de9bb17b9f2d3ab2bed890bc2d20afe2d9396cff2715ed13264d0e9d18c",
+      "before_actual_body_reads": true
+    },
+    {
+      "path": "audit13-successor-registration-020-receivers-001.json",
+      "sha256": "f072a81df86d2f62e314be34be11f502b90ebb2b3ff7742aa662793d4ca8baaa",
+      "before_actual_body_reads": true
+    }
+  ],
+  "source_fingerprints": [
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/material.rs",
+      "sha256": "67733383aa74089a84e76448e23b6911132a2a298ab684e44655f8e85fa0765c",
+      "bytes": 5459,
+      "actual_lines": 203,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          203
+        ]
+      ],
+      "post_read_hash_verified": true,
+      "population_credit": 0
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepared_material.rs",
+      "sha256": "768aee9dc6ac7401d6c33c3b40196b416a56ace65352de1419e8a7c26472f813",
+      "bytes": 3950,
+      "actual_lines": 109,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "post_read_hash_verified": true,
+      "population_credit": 0
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/pipeline.rs",
+      "sha256": "d47a07104ac9b2333006bbacbc50b5f097b5fa7a57ba4a4d822a62fb3c64e16b",
+      "bytes": 7419,
+      "actual_lines": 232,
+      "registered_and_consumed_ranges": [
+        [
+          85,
+          186
+        ]
+      ],
+      "post_read_hash_verified": true,
+      "population_credit": 0
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/utils.rs",
+      "sha256": "e0a8eea086cbad536b325d44c69e689280c931ddc1587e051167ec128bd4a383",
+      "bytes": 1049,
+      "actual_lines": 31,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "post_read_hash_verified": true,
+      "population_credit": 0
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/plugin.rs",
+      "sha256": "1e686092ec02c418795c2e1bed451a9aba8c196608d1b1fa2c334310d17f9b09",
+      "bytes": 9257,
+      "actual_lines": 262,
+      "registered_and_consumed_ranges": [
+        [
+          42,
+          74
+        ],
+        [
+          100,
+          159
+        ]
+      ],
+      "post_read_hash_verified": true,
+      "population_credit": 0
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/draw/set_material_bind_group.rs",
+      "sha256": "b4b73c9c1d6331880fe2939dd1487aaf1c97aad0b30c3144eaacbc13a6136638",
+      "bytes": 1730,
+      "actual_lines": 52,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          52
+        ]
+      ],
+      "post_read_hash_verified": true,
+      "population_credit": 0
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/bindings.wgsl",
+      "sha256": "8fdf638edbf13ddc04a1a8392f3b873ec730f86f085522de471108c623ac129b",
+      "bytes": 275,
+      "actual_lines": 6,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          6
+        ]
+      ],
+      "post_read_hash_verified": true,
+      "population_credit": 0
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/shading.wgsl",
+      "sha256": "965586e6cee62b7fe7623cafbd9a173ce271c14cd982466b73eb69a718dca6e9",
+      "bytes": 531,
+      "actual_lines": 21,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "post_read_hash_verified": true,
+      "population_credit": 0
+    }
+  ],
+  "consumption": {
+    "files": 8,
+    "registered_lines": 607,
+    "all_registered_ranges_consumed": true,
+    "post_read_hash_verified": true,
+    "unregistered_actual_body_reads": false,
+    "native_git_staging_metadata_is_coverage": false
+  },
+  "independent_numeric_inventory": [
+    {
+      "source": "material.rs1-203",
+      "raw_roles": "Namednativefeaturebools disable_prepass/debug/double_sided; typedColor/PolygonMode; GPUuniformdebug_colorVec4; AsBindGroup binding0; nativebitmask InstancedMaterialKeyu64 withDEBUG1<<0,LINES1<<2,POINTS1<<3,DOUBLE_SIDED1<<4; multisamplecount>1 togglesalpha_to_coverage; nativekeycontains/empty predicates andOptionalfragment.",
+      "actual_operations": "Trait defaults useShaderRef::Default forvertex/fragment/prepass/cull, falseforfeaturebools,Fillmode,WHITEtraitdebugcolor. Standard ownsfeaturefields, derivesAsBindGroup withuniform0/InstancedMaterialUniforms andbind_group_dataInstancedMaterialKey. FromStandard producesfeaturebitkey; Standard specialize togglescull/polygon/alpha_to_coverage andMATERIAL_DEBUG conditional. Uniformproducer convertsmaterial.debug_color.to_linear().to_vec4(), retainingtypedColor untilnativeGPUVec4port. New(Vec4)storespayloadwithoutfinite/rangeadmission.",
+      "qualification": "Concrete namednativepipeline switches/bitmask andactualGPUuniform transport identified; notallapplicationsemanticbool/type/granularity clearance orfiniteColor/bitflagserializability/derivedbyteABI proof. Traitdefaultdebug_colorWHITE isdistinct fromunreadColorDefault used byStandardderive."
+    },
+    {
+      "source": "render/prepared_material.rs1-109",
+      "raw_roles": "disable_prepassboolretained,preparedtypedDrawFunctionIds/BindGroup/M::Data; unprepared_bind_group flagfalse; pairbindingindexresource conversion; Optionalpreviousassetignored; success/retry/error branches.",
+      "actual_operations": "prepare_asset calls sourceasset.unprepared_bind_group(actualpipeline materiallayout,RenderDevice,materialparams,false), mapsreturnedbindings toBindGroupEntry(bindingindex,resource.get_binding()), createsmaterialbindgroup, resolvesdrawIDs andretainskey=source_asset.bind_group_data()/disable_prepass. RetryNextUpdate returnsexactsourceasset;otherbindgrouperrorpropagates.",
+      "qualification": "Actualframeworkreceiving call/resourcebindingconstruction andretention prove thenative path,not unseen generateduniformencoding/bufferupload ordevicecompletion;nofirstpartycaller/currentruntime claim."
+    },
+    {
+      "source": "render/pipeline.rs85-186 +utils.rs1-21",
+      "raw_roles": "Group/layoutindices0/2/3,lengthguards2/3,storage read-onlybindingfalseflag; ShaderRefnativevariant; meshfeaturebitkey; shaderdefines/conditionalfragment;depthwritebooltrue; optionaltargetindex0.",
+      "actual_operations": "Materiallayout derives fromM::bind_group_layout_entries;commonlayout typedstorageInstanceUniforms. ResolveM shaderrefs: Defaultloadsembedded render/mesh.wgsl orrender/shading.wgsl,HandlepassesHandle,Pathloadspath. Pipelinefillsnativegroup2/3 layouts,setsdepthcompare/ditherdefines,invokesM::specialize(key.bind_group_data),then installsresolvedshaderhandles.",
+      "qualification": "Actualdefaultshader/bodyselection sourcepath identified; no loader/linker/compiledshaderguarantee,allkeyproducer/cachedpipelinecoherence orallcustomMlayout guarantee."
+    },
+    {
+      "source": "render/plugin.rs42-74/100-159 +draw/set_material_bind_group.rs1-52",
+      "raw_roles": "GenerictypedpluginM defaultPhantomData,pluginpresencebool,Optionalrenderassetlookup/missingresourceSkip,RenderCommandgenericgroupindexI,constusize.",
+      "actual_operations": "RegistersWGSLlibraries/defaultembeddedmesh+shading,materialRenderAssetPlugin andpipelineinitialization/queue/rendercommands. Actualdrawlooks upmaterialinstance/preparedasset andpassesprepared.bind_group toTrackedRenderPass.set_bind_group(I,..,emptyoffsets). Prior015actualdrawtuple suppliesI=3; nofreshwholemodulecredit.",
+      "qualification": "Genericnativeinstallationpath,notproofanycurrentapplicationchoosesStandard. Unreadqueue/currentcaller/keyextraction/scheduling/runtimepresence remainsqualified."
+    },
+    {
+      "source": "render/bindings.wgsl1-6 +shading.wgsl1-21",
+      "raw_roles": "Group3binding0 MaterialUniforms; group2binding0 InstanceUniformsarray; fragmentfront_facingboolunused;outputlocation0vec4f32;conditionaldebug/dither;dynamicbatchindex.",
+      "actual_operations": "FragmentMATERIAL_DEBUG branchassigns material.debug_color tofinal_color,withnolocaldeclarationinthereadmodule;unconditionaltailreturnsinstance_uniforms[in.i_batch_id].color. DitherconditionalcallsnativeBevyfunction.",
+      "qualification": "Sourceconditionalconcern,notnativecompiler/currentactivationfailurewitness; all prior015/019sourceobservationqualificationsretained. Finalcode source returnsbatchcolorregardlessof debugbranch assignment; no debugcoloroutputguarantee."
+    }
+  ],
+  "resolved_subset": [
+    {
+      "prior019": "MaterialUniforms actualnativehostproducer unresolved",
+      "new_source_proof": "StandardInstancedMaterial Color ->to_linear().to_vec4()->InstancedMaterialUniforms.debug_color:Vec4 viaFrom and#[uniform(0,...)] AsBindGroupderive. TypehasreprC/ShaderType/Pod/Zeroablederives. NativeWGSLMaterialUniforms hasmatchingnamedvec4transportfield.",
+      "limit": "Concreteproducer/typeport resolved forStandard only; macro-generatedbyteencoding/bufferallocationinternals notread,notallgenericmaterials orapplicationfinite/rangepolicy."
+    },
+    {
+      "prior019": "Native material upload/defaultselection call path unresolved",
+      "new_source_proof": "PreparedRenderAsset callsnativeAsBindGroup withmateriallayout/device,convertsreturnedboundresourcesintoBindGroupEntry,createsBindGroupandretainsit;actualdrawsetsit. Genericpluginregistersassetprep+pipeline;traitDefaultshaderrefsresolveexactembeddedmesh/shadingpath.",
+      "limit": "Sourceinvocation/retention/devicebindingpath resolved; actualnativecodegen/GPUbytes/AssetServer/driverexecution andqueuekeyreceipt/currentfirstpartyselection unproved."
+    },
+    {
+      "prior019": "No demonstratednativeMATERIAL_DEBUG enablingcondition",
+      "new_source_proof": "Standard publicdebugtrue ->FromStandard keyDEBUGbit ->Standard::specialize seesDEBUG+Some(fragment) ->pushMATERIAL_DEBUG. Standardinheritsdefaultfragmentshading.wgsl;nativepipelinecallsM::specializeandinstallsdefaultshaderhandle.",
+      "limit": "A source-definedenablingconfigurationexists;noactualinstantiatedmaterial/currentcaller/compiledruntimeactivation asserted. StandardderivedDefault hasdebugfalse; generictraitdebugmethod aloneisnotemissionpolicy."
+    }
+  ],
+  "retained_observations_noncounted": [
+    {
+      "prior_observation": "015/019 defaultfragmentdebugfinal_color",
+      "update": "PreviouslycontextualfragmentassignmentnowhasconcretenativeStandarddebug-key enablingconfiguration. Readfragmenthasno final_color declarationandunconditionallyreturnsbatch.color;debugcolorbranch doesnot visiblyreplace output.",
+      "qualification": "No newuniquefinding/activefirstparty/nativecompiledfailureclaim. Rootsourcealias/currentness/reachability/compilerreconciliationrequired. Existingobservationretained,notacceptednewcount."
+    }
+  ],
+  "remaining_partial_original37": [
+    "Previous_world_from_local actualselectedhistory/motionconsumer remainsunresolved; knownproducerwritescurrentgtftobothmatrices. No allshaderabsence orhistoricalmeaning proof.",
+    "Conditional activation/compiler/linking/currentmaterialchoice andnativekeyqueuepathnotexecuted/proved; debugsourceconcernretainednon-counted. NativeAsBindGroup/ShaderType generatedupload implementation isunreadnativeboundary,notassumedbytecorrect for allM."
+  ],
+  "preserved_original31_36_018": "All prior31/36wrapper/seed/index/history/count/IOpaths remainpartial;018permittedlargercandidatearea isnotactualspeciesbudgetfailure/lowerbound witness. No neworiginal37sourceaccounted completion,38or39assessment,global/SDKrepairclaim.",
+  "accounting": {
+    "before_original_accounted": 35,
+    "after_proposed_original_accounted": 35,
+    "original_total": 2853,
+    "partial_original_indices": [
+      31,
+      36,
+      37
+    ],
+    "earliest_unfinished_original": 31,
+    "first_unread_original": 38,
+    "new_original_roles_inspected": [],
+    "new_original_roles_completed": [],
+    "original38_ordered_credit": 0,
+    "overlays_increment": 0,
+    "merged_increment": 0,
+    "material_increment": 0,
+    "other_lens_credit": 0,
+    "new_unique_count": 0
+  },
+  "other_lens_extension_queue": {
+    "path": "audit13-successor-020-other-lens-extension-queue.json",
+    "sha256": "b2ef7d0e937fb38b43099b04b800cc86afe30bbe15f64986493dd34ec974f099",
+    "credit": 0
+  },
+  "qualifications": [
+    "Eight exact native source objects/607 registered lines consumed after prospective range registration, hash verified before andafter. New material.rs/prepared_material.rs staged from authorized read-only exact cachedGit1a5aff objects; src/render/types.wgsl peer byte-matches original37knownf82SHA. This doesnot prove every unseen frozen member/currentmainidentity. Only selectedmemberbytes staged; no fullnative/frozentree read/download.",
+    "Native cachedGit commands were read-only tree/path identifiers andexactobject extraction, explicitly authorized inpacket020. No repositoryGit command/mutation, checkout/ref/index/workingtree mutation ornetwork. Staging/identifier locators are metadata-only; bodycoverage begins after savedregistrations.",
+    "No original38 body read/independent inventory/orderedcredit in020, no39; original0-30/32-35 not restarted orcredited.31/36/37partials and35accounted retained; sourcebodyreceivers do notcreate neworiginal/sharedmaterial/otherlenscredit.",
+    "Producer/defaultshader/materialbindgroup source subset is nowconnected; nativeAsBindGroup derive-generated binding/encoding/bufferallocation internals, GPU devicevalidation/uploadcompletion, ShaderType/Pod layout, nativeAssetServer loader/linker andactualqueue/keygeneration receiver internals are notnewlyread. Sourcecall/delegation observations are not compiled/runtimebyte-layout correctness orallgenericM guarantees.",
+    "StandardInstancedMaterial uses traitdefaultshaderrefs becauseitsimpl doesnot override shader methods. InstancedMaterialPlugin isgeneric; this doesnot prove any firstpartycaller choosesStandard ordebugtrue. Standard derivesDefault; rawbooldefaultfalse is identified, but actualColor::default isunread andnot assumed equal traitdebug_color defaultWHITE. Generic traitdebug() getter alone doesnot emitMATERIAL_DEBUG; observed emission isStandard specialize implementation.",
+    "Native debug=true ->DEBUGkey ->MATERIAL_DEBUG conditional path is source-backed configuration availability, notactualfirstparty activation/compile/run. Undeclaredfinal_color/wrongreturnedvalue observation is retained/non-counted pendingrootdedup/currentness/reachability andcompiler evidence; no newunique/runtimefailureclaim.",
+    "Previous_world_from_local/historyconsumer remainsunresolved, withproducer stillknown towritecurrentgtf. No universalunused/allshader orhistoricalmotion guarantee. All priornativeID/reset/count/buffer/history andinherited F1/F2/F6/F9/global20 findings/other-lensqueues remainopen.",
+    "018 allowedlargercandidate lattice andmissing sufficienthardcap do notprove actualspecieslen>1M/u32overflow/nativepanic; populationlowerbound/witness/sourcevalidators/currentselectedbackend remainunproved. No weakening ofthatqualification.",
+    "No projectcodeexecution/build/check/test/lint/scan/generate/probe/assertion/helper/doctest addition/run, source/product/rootledger/historical edit, publication orbackwardcompatibility condition. Ignored staging/prospective registration/receipt/queue/proposedstate only. No wholeSDK/lens13/globalaudit clearance."
+  ],
+  "stop_reason": "BoundednativeMaterialUniformsproducer/defaultselection/bindingpathsubsetresolvedwithlistednativeboundarylimits;original37historyconsumer/conditionalcurrentness remainsconcretepartial. Stop020without38orbroaderSDK/firstpartyexpansion."
+}

@@ -1,0 +1,556 @@
+{
+  "id": "AUDIT13-CONTRACTS-001",
+  "at": "2026-10-26T07:03:15.422345+00:00",
+  "lens": "13 magic-numbers",
+  "skill": {
+    "git_path": "handoff/774/skills/audit-magic-numbers/SKILL.md",
+    "sha256": "d71feffe9ef2d777c5d447840f4d3fbcec2e1f4b2cc354fc331e0c899b558dee"
+  },
+  "applicable_rules": "Current crates/AGENTS.md previously personally read; source review only no edits/checks.",
+  "source_members": [
+    {
+      "scope_index": 0,
+      "source_id": "dependency-wgpu29.0.4:src/api/device.rs",
+      "source_sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "registered_ranges": [
+        [
+          398,
+          428
+        ],
+        [
+          752,
+          853
+        ]
+      ],
+      "source_body_personally_read_and_reused_ranges": [
+        [
+          398,
+          428
+        ],
+        [
+          752,
+          853
+        ]
+      ],
+      "actual_EOF": 877,
+      "reuse_authority": "Same agent personally consumed exact bodies in prior audit12 pass, SHA/ranges rechecked. This is source access reuse only; independent13 inventory/verdict below.",
+      "lens13_disposition": "PARTIAL_RECEIVING_TRACE_PENDING",
+      "primitive_inventory": [
+        {
+          "ranges": [
+            [
+              405,
+              419
+            ],
+            [
+              759,
+              785
+            ],
+            [
+              819,
+              835
+            ]
+          ],
+          "values": "Native Fn(Error)->unit, typed ErrorFilter/Error variants and standard Error::source Option",
+          "assessment": "Callbacks/Error source trait return values are concrete native Rust ABI and typed error channels; equality/marker/config operations are intrinsic Rust protocol operands, not application quantities."
+        },
+        {
+          "ranges": [
+            [
+              850,
+              853
+            ]
+          ],
+          "values": "ErrorScopeGuard index:u32 and popped:bool",
+          "assessment": "Names/types alone do not prove index bounds, validzero or pop/drop state role. Actual pop/Drop receivers lie outside registered tail; no completed number verdict or new defect."
+        }
+      ],
+      "qualification": null,
+      "pending_trace_question": "Q001"
+    },
+    {
+      "scope_index": 1,
+      "source_id": "native-anyhow1.0.104:error.rs",
+      "source_sha256": "2a78ee4e5f8d6b4476c761f77473362b9ed12f5402e4701001e7d04d628ba030",
+      "registered_ranges": [
+        [
+          32,
+          87
+        ],
+        [
+          138,
+          190
+        ],
+        [
+          780,
+          810
+        ]
+      ],
+      "source_body_personally_read_and_reused_ranges": [
+        [
+          32,
+          87
+        ],
+        [
+          138,
+          190
+        ],
+        [
+          780,
+          810
+        ]
+      ],
+      "actual_EOF": 1060,
+      "reuse_authority": "Same agent personally consumed exact bodies in prior audit12 pass, SHA/ranges rechecked. This is source access reuse only; independent13 inventory/verdict below.",
+      "lens13_disposition": "ACCOUNTED_REGISTERED_CONTRACT_WITH_QUALIFICATIONS",
+      "primitive_inventory": [
+        {
+          "ranges": [
+            [
+              32,
+              35
+            ],
+            [
+              77,
+              81
+            ],
+            [
+              140,
+              188
+            ]
+          ],
+          "values": "Generic StdError/Display payloads, Box/Option pointers and compile cfg predicates",
+          "assessment": "Type-erased native Rust error container uses concrete E/M vtables, not numerical domain values. Source generic payload is preserved under actual native Error construction, not reinterpretation as arbitrary integer identity."
+        },
+        {
+          "ranges": [
+            [
+              788,
+              810
+            ]
+          ],
+          "values": "TypeId equality bool, Ref<()> unit erasure, raw ptr.addr_of/cast operations and None",
+          "assessment": "Actual native type identity/downcast memory operations require pointer/unit/Boolean forms; named _object member and equality use correct E vtable without numerical casts or applicationunits. No unsafe memory/source/backtrace correctness clearance beyond role classification."
+        },
+        {
+          "ranges": [
+            [
+              50,
+              73
+            ]
+          ],
+          "values": "Doctest FFIunit/Result/Vec outputs",
+          "assessment": "Explicit generic native interface example, not productquantity/tuning/sentinel. No fixture exemption assumed; role is demonstrated error conversion."
+        }
+      ],
+      "qualification": "No unrelated unsafe helper/source/downcast bodies or application callers reviewed; raw-pointer numerical bounds correctness not certified.",
+      "pending_trace_question": null
+    },
+    {
+      "scope_index": 2,
+      "source_id": "native-anyhow1.0.104:wrapper.rs",
+      "source_sha256": "079218e1d8c9374f52311b1c7971f7fbdeba4d7af1b0749c0d535010f1232697",
+      "registered_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "source_body_personally_read_and_reused_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "actual_EOF": 84,
+      "reuse_authority": "Same agent personally consumed exact bodies in prior audit12 pass, SHA/ranges rechecked. This is source access reuse only; independent13 inventory/verdict below.",
+      "lens13_disposition": "ACCOUNTED_REGISTERED_CONTRACT_WITH_QUALIFICATIONS",
+      "primitive_inventory": [
+        {
+          "ranges": [
+            [
+              10,
+              31
+            ],
+            [
+              33,
+              40
+            ]
+          ],
+          "values": "Single generic tuple field .0, transparent repr and native fmt Resultunit",
+          "assessment": "Actual MessageError<M>(M) exactly has one member; .0 is fixed-field native representation and forwards sameM into standard Debug/Display methods. It is not an arbitraryordinal or positional domainrecord with independentmembers. Generic DisplayError signature nativefmt shape likewise scoped."
+        }
+      ],
+      "qualification": "Body40endsmidmethod; no unregistered41-84 receiverbehavior or broad tuple/native exemption. Source-preserving string/error semantics remain other lens, not borrowed.",
+      "pending_trace_question": null
+    },
+    {
+      "scope_index": 3,
+      "source_id": "native-dependency:bevy_app-0.19.1/src/app.rs",
+      "source_sha256": "0240f4b60c9848fcb5386998381c7b8f0be4fef83bfb574b19d818b99fc5e668",
+      "registered_ranges": [
+        [
+          1468,
+          1483
+        ]
+      ],
+      "source_body_personally_read_and_reused_ranges": [
+        [
+          1468,
+          1483
+        ]
+      ],
+      "actual_EOF": 2120,
+      "reuse_authority": "Same agent personally consumed exact bodies in prior audit12 pass, SHA/ranges rechecked. This is source access reuse only; independent13 inventory/verdict below.",
+      "lens13_disposition": "ACCOUNTED_REGISTERED_CONTRACT_WITH_QUALIFICATIONS",
+      "primitive_inventory": [
+        {
+          "ranges": [
+            [
+              1468,
+              1483
+            ]
+          ],
+          "values": "Typed native Observer/Event/Entity and Option<ErrorHandler>; &mutSelf API chaining",
+          "assessment": "No bare numeric field, bound, unit, threshold, sentinel or numeric literal occurs in this registered slice. Rust unit callback/chain type forms are concrete native framework API requirements. Actual Option represents optional handler directly, not an inventedzero/default scalar."
+        }
+      ],
+      "qualification": "Only1468-1483; no unseen observer/scheduler defaults or event lifecycle credited.",
+      "pending_trace_question": null
+    },
+    {
+      "scope_index": 4,
+      "source_id": "native-dependency:bevy_asset-0.19.1:event.rs",
+      "source_sha256": "22ff08ca5948660f8ea0ea2a1a0e9c977b3c9a44bd8c5c538014a9b8200ed0ca",
+      "registered_ranges": [
+        [
+          1,
+          159
+        ]
+      ],
+      "source_body_personally_read_and_reused_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "actual_EOF": 129,
+      "reuse_authority": "Same agent personally consumed exact bodies in prior audit12 pass, SHA/ranges rechecked. This is source access reuse only; independent13 inventory/verdict below.",
+      "lens13_disposition": "ACCOUNTED_ACTUAL_REGISTERED_INTERSECTION_WITH_QUALIFICATION",
+      "primitive_inventory": [
+        {
+          "ranges": [
+            [
+              10,
+              44
+            ],
+            [
+              50,
+              88
+            ],
+            [
+              113,
+              129
+            ]
+          ],
+          "values": "Typed AssetId/UntypedAssetId/AssetPath/AssetLoadError, bool-returning native is_* predicates and native PartialEq true/false",
+          "assessment": "Existing typed native IDs carry identity through untyped conversion; comparison results are ordinary named predicates over actual enum variant+sameAssetId, with false only when equality fails. No arithmetic count/scale/unit or naked assetinteger replacement in scoped source. Debug/fmt::Result and zero-sized default outputs are standard Rust adapters."
+        }
+      ],
+      "qualification": "Pinned actualEOF129 vsregistered1-159: allactual1-129 reused, nonexistent130-159 uncredited. No nativeidencoding/cross-appnumeric correctness or other-lens verdict.",
+      "pending_trace_question": null
+    },
+    {
+      "scope_index": 5,
+      "source_id": "native-dependency:bevy_asset-0.19.1:server/mod.rs",
+      "source_sha256": "90bfda65679fc6cfb046dda1e2e7b5795d39e73778a15d0bc1eb7ef8d3e9bd25",
+      "registered_ranges": [
+        [
+          2010,
+          2160
+        ],
+        [
+          2340,
+          2510
+        ]
+      ],
+      "source_body_personally_read_and_reused_ranges": [
+        [
+          2010,
+          2160
+        ],
+        [
+          2340,
+          2510
+        ]
+      ],
+      "actual_EOF": 2527,
+      "reuse_authority": "Same agent personally consumed exact bodies in prior audit12 pass, SHA/ranges rechecked. This is source access reuse only; independent13 inventory/verdict below.",
+      "lens13_disposition": "PARTIAL_RECEIVING_TRACE_PENDING",
+      "primitive_inventory": [
+        {
+          "ranges": [
+            [
+              2019,
+              2033
+            ]
+          ],
+          "values": "started_load_tasks+=1, load_internal None/path/false/None arguments",
+          "assessment": "Taskcountincrement is observed but full counter owner/overflow semantics not inferred. The positional false mode requires actual native load_internal signature/role before a concreteprimitive disposition. No Boolean-mode label guessed."
+        },
+        {
+          "ranges": [
+            [
+              2061,
+              2107
+            ]
+          ],
+          "values": "Native structured asset index.type_id/index projection, waitingtasks drain/wake, empty typedfailure Vec",
+          "assessment": "Identifier membership stays typed through native maps/event callbacks as observed; exact primitive index field type/receiver outsidepacket not assumed. No asset identity erasure allegation from .index name alone."
+        },
+        {
+          "ranges": [
+            [
+              2112,
+              2160
+            ]
+          ],
+          "values": "watching_for_changes predicate; new_loads=0 and+=1; Path::ancestors.skip(1); typed path HashSet/Vec empties",
+          "assessment": "Local new_loads counts actualfolderloop entries andskip1 excludescurrentpath under nativepath iteration. This is observed discrete cardinality, not a length/time/tolerance. Coupling to started_load_tasks and native boolload mode remain pending rather than whole count-family approval."
+        },
+        {
+          "ranges": [
+            [
+              2341,
+              2348
+            ],
+            [
+              2473,
+              2489
+            ],
+            [
+              2499,
+              2508
+            ]
+          ],
+          "values": "Native loaded/failed boolpredicates; extlist len()>1 choosesgrammar; typed WaitForAssetError/cause and fmtunit",
+          "assessment": "Derived ordinary native predicates and finalformatter cardinality/grammar have concrete uses. No primitive state result replaces existing load-state enum."
+        }
+      ],
+      "qualification": null,
+      "pending_trace_question": "Q002"
+    },
+    {
+      "scope_index": 6,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/bevy_error.rs",
+      "source_sha256": "ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+      "registered_ranges": [
+        [
+          40,
+          105
+        ],
+        [
+          395,
+          415
+        ]
+      ],
+      "source_body_personally_read_and_reused_ranges": [
+        [
+          40,
+          105
+        ],
+        [
+          395,
+          415
+        ]
+      ],
+      "actual_EOF": 567,
+      "reuse_authority": "Same agent personally consumed exact bodies in prior audit12 pass, SHA/ranges rechecked. This is source access reuse only; independent13 inventory/verdict below.",
+      "lens13_disposition": "ACCOUNTED_REGISTERED_CONTRACT_WITH_QUALIFICATIONS",
+      "primitive_inventory": [
+        {
+          "ranges": [
+            [
+              46,
+              50
+            ],
+            [
+              71,
+              86
+            ]
+          ],
+          "values": "Doctest usizeparse and i64 val<0; typed Severity enum constructor",
+          "assessment": "Source example checks negative rawinteger exactly at demonstration ingress and returns native generic error; zero is ordinary sign boundary here, not game threshold or positive-length invariant. These are inspected examples, no blanketfixture exemption."
+        },
+        {
+          "ranges": [
+            [
+              82,
+              105
+            ],
+            [
+              400,
+              415
+            ]
+          ],
+          "values": "Box<dynError> native From<E>, typedSeverity and optionalBacktrace",
+          "assessment": "Actual genericbox conversion retains typed error object and native namedseverity. No raw numerical severitycode or synthetic missing observation0 is introduced."
+        }
+      ],
+      "qualification": "No omitted severity/downcast/backtrace/application body verdict; Boxnative memoryrepresentation itself not software unit.",
+      "pending_trace_question": null
+    },
+    {
+      "scope_index": 7,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/handler.rs",
+      "source_sha256": "800c43a7bcf3956170973151045546484c9546e3bb50635f9fab8cba7fed353d",
+      "registered_ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "source_body_personally_read_and_reused_ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "actual_EOF": 187,
+      "reuse_authority": "Same agent personally consumed exact bodies in prior audit12 pass, SHA/ranges rechecked. This is source access reuse only; independent13 inventory/verdict below.",
+      "lens13_disposition": "ACCOUNTED_REGISTERED_CONTRACT_WITH_QUALIFICATIONS",
+      "primitive_inventory": [
+        {
+          "ranges": [
+            [
+              10,
+              40
+            ],
+            [
+              43,
+              88
+            ]
+          ],
+          "values": "Tick last_run and DebugName owners; on_set:bool selectsdisplaygrammar",
+          "assessment": "Existing native Tick/DebugName retained; on_set is explicitly documented ordinarypredicate and actual receiver only picks optionalphrase inside RunCondition display. Role is not an arbitrary numeric state index or applicationtwo-state policy."
+        },
+        {
+          "ranges": [
+            [
+              93,
+              120
+            ],
+            [
+              130,
+              187
+            ]
+          ],
+          "values": "ErrorHandler fn(BevyError,ErrorContext)->unit, nativeSeverity match and returnunit",
+          "assessment": "Concrete native callback ABI takes typedfailure/context, defaultselects actualfunctionpointer, and severity is an enum. No tuningconstant or Boolean/number used to dispatch from errorprose. ignore unit is explicit actualnative terminal handler, not missingmeasurement default."
+        }
+      ],
+      "qualification": "No firstparty callback/error policy approval or hidden severity values inspected. Deprecated versionstring is string metadata outside this non-string-lens verdict.",
+      "pending_trace_question": null
+    },
+    {
+      "scope_index": 8,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/mod.rs",
+      "source_sha256": "1647c35091db53ccde7cfd43e7b106f40942404b814f599015db776308ddfd3d",
+      "registered_ranges": [
+        [
+          70,
+          82
+        ]
+      ],
+      "source_body_personally_read_and_reused_ranges": [
+        [
+          70,
+          82
+        ]
+      ],
+      "actual_EOF": 82,
+      "reuse_authority": "Same agent personally consumed exact bodies in prior audit12 pass, SHA/ranges rechecked. This is source access reuse only; independent13 inventory/verdict below.",
+      "lens13_disposition": "ACCOUNTED_REGISTERED_CONTRACT_WITH_QUALIFICATIONS",
+      "primitive_inventory": [
+        {
+          "ranges": [
+            [
+              79,
+              82
+            ]
+          ],
+          "values": "Result<T=(),E=BevyError> native unit default",
+          "assessment": "Concrete native fallible system/command/observer result contract usesstandard Rustunit where no successpayload exists; Error typeddefault preserved. No numericmeaning/quantity/absencevalue erased by unit."
+        }
+      ],
+      "qualification": "Module tailonly; no producer/application semantics or other module defaults transferred.",
+      "pending_trace_question": null
+    },
+    {
+      "scope_index": 9,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/observer/distributed_storage.rs",
+      "source_sha256": "9a1c51dbb516b0cc08c33d8a5a714041eef55650447b4bb7efaf86ce537952b1",
+      "registered_ranges": [
+        [
+          216,
+          275
+        ],
+        [
+          554,
+          583
+        ]
+      ],
+      "source_body_personally_read_and_reused_ranges": [
+        [
+          216,
+          275
+        ],
+        [
+          554,
+          583
+        ]
+      ],
+      "actual_EOF": 638,
+      "reuse_authority": "Same agent personally consumed exact bodies in prior audit12 pass, SHA/ranges rechecked. This is source access reuse only; independent13 inventory/verdict below.",
+      "lens13_disposition": "PARTIAL_RECEIVING_TRACE_PENDING",
+      "primitive_inventory": [
+        {
+          "ranges": [
+            [
+              224,
+              243
+            ]
+          ],
+          "values": "!system.is_exclusive Boolean precondition; descriptorDefault, errorhandlerNone, despawned_watched_entities0, last_trigger_id0, conditions emptyVec",
+          "assessment": "Exclusive predicate guards actual nativeobserver admissibility and panic presentation. However the two zero-initialized fields need declarations/receivingcounter or trigger meaning; zero cannot be called valid/nohistory solely byname. NativeDescriptor defaults not recursively cleared."
+        },
+        {
+          "ranges": [
+            [
+              247,
+              275
+            ]
+          ],
+          "values": "Optionhandler is_none and Somefallback; event_keys.is_empty; mem::take conditions; typed observerEntity",
+          "assessment": "Actual ordinary nativeOption/collection predicates determineinstallation, preservingtypedhandler and conditions. No hiddennumeric interpretation needed for those predicates, but lifecyclecounter/trigger receivers outside range remain pending."
+        },
+        {
+          "ranges": [
+            [
+              554,
+              583
+            ]
+          ],
+          "values": "Native Observer tuple markers(),(E,B,M), typed construction returns",
+          "assessment": "Framework trait markers andfixedgeneric tuple shapes are Rust inference/interface requirements, not positional game records or arbitrarynumerical enum values."
+        }
+      ],
+      "qualification": null,
+      "pending_trace_question": "Q003"
+    }
+  ],
+  "new_findings": [],
+  "new_unique_count": 0,
+  "other_lens_verdict_transfer": false,
+  "global_clearance": false
+}

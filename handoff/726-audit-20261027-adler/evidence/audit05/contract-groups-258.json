@@ -1,0 +1,26 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-258",
+  "at": "2026-10-25T22:17:53.788239+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2388,
+      "source_id": "pr-working:crates/strategic-web/src/spacetimedb/queries.rs",
+      "sha256": "d0c3d034f86164b2ffc1acbe66095411629ed45e670ddb95938feea0c5c3e97e",
+      "personally_read_ranges": [
+        [
+          1,
+          466
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "SqlQuery private owned string constructed only fixed table/key prefixes and native key projection; string values apostrophe-escaped once, numeric keys formatted u64 directly. No runtime table/key selection. Genuine SQL boundary may consume scalar native keys; this wrapper does not itself retain authorization or distinguish every application identity role.",
+        "Owner-specific case-site helper includes exact site+owner predicate, while generic site helper omits owner intentionally and cannot confer observer knowledge. World clock fixed id0 distinct from character time. All helper definitions and full fixed-query fixtures personally read; no SQL executed."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

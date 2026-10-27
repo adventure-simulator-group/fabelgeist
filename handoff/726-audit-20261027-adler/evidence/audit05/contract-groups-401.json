@@ -1,0 +1,28 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-401",
+  "at": "2026-10-26T00:18:09.965822+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 278,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+      "sha256": "d00168e23c47224b67755629192618e89fd66e2dc3c2f2440e4e2193acacaf4e",
+      "personally_read_ranges": [
+        [
+          1,
+          616
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full616 lines. Promotion prompt dynamically clones actual direct promotion targets and one waittemplate, singlechoice. Other prompt bounds copied from authored validator. Corpse permission topic parser splits twofixedprefixcoordinates leaving corpse remainder; verifies currentoption then normal grant and records action/revision. Actualgrantcaller gate separate corpse owner.",
+        "choose_topic action-row existence returnsOk before comparing topicID/actor/request; answer retry only compares action_kind=answer:<prompt>, not immutable chosenballot/actor. Source-backed API conflict-capture question retained pending intended idempotency semantics/ordinary requestproducer, contrasted explicit social exact-replay capture; no duplicate sideeffect claimed. Membership/live/catalog gates still precede replay and can reject later retries.",
+        "Normal topic validates knownconditions/cardinality, selectsresponse, resolves structuredturns/sourcealignment, rejects morethanoneheardclaim event; fallibleeffects/prompt creation propagate transaction. Plain revision+=1 vs saturation in otherpaths has terminaloverflow policyquestion only, no normalMAXwitness.",
+        "Answer validates eligible respondent, uniqueallowedchoices/minmax/mode, oneanswer percharacter, then currentauthoritative ballots. filter_map malformedballots->omitted but answer_count unchanged supports existing RIG-PPS-F016, not newfinding. Majority/AllRespondents choose one winningchoice; unanimous compares vectororder. Actual authored Multi/policy combinations required before semantic inconsistency claim. Choiceeffects execute using finalrespondingcharacter; actualgroup effectowner promise separate. No tests/checks."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

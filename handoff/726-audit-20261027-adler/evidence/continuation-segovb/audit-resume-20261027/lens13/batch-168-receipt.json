@@ -1,0 +1,184 @@
+{
+  "lens": 13,
+  "status": "source-accounted with qualified limits; continuing",
+  "registration": {
+    "path": "audit-resume-20261027/lens13/batch-168-registration.json",
+    "sha256": "719a82f0dc091f376d0dfe27797c9649f047c8a09e1f2b10c63abdaf897bdafc"
+  },
+  "original_indices": [
+    262,
+    263,
+    264,
+    265,
+    266
+  ],
+  "actual_source_reads": [
+    {
+      "original": 262,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social/admission.rs",
+      "sha256": "69e421c97648b448a374ac32ca30481cb6d0599800f9fbfa88d27dd6fb0f9137",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/69e421c97648b448a374ac32ca30481cb6d0599800f9fbfa88d27dd6fb0f9137",
+      "eof": 31,
+      "requested_range_variants": [
+        [
+          1,
+          31
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "provenance": "Exact f82 physical registered original; full effective requested union; own prior recipient access is not automatic original accounting.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          31
+        ]
+      ]
+    },
+    {
+      "original": 263,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social/authority_tests.rs",
+      "sha256": "7d9764fa811d072a8b73d6cff64f240b384f8a04d87654fa95c97a8f06a72231",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/7d9764fa811d072a8b73d6cff64f240b384f8a04d87654fa95c97a8f06a72231",
+      "eof": 379,
+      "requested_range_variants": [
+        [
+          1,
+          379
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          379
+        ]
+      ],
+      "provenance": "Exact f82 physical registered original; full effective requested union; own prior recipient access is not automatic original accounting.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          379
+        ]
+      ]
+    },
+    {
+      "original": 264,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social/automatic_authority_tests.rs",
+      "sha256": "005d1418c985d41f95a7556250dba755b766afd37f61192b5750025194eec271",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/005d1418c985d41f95a7556250dba755b766afd37f61192b5750025194eec271",
+      "eof": 85,
+      "requested_range_variants": [
+        [
+          1,
+          85
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "provenance": "Exact f82 physical registered original; full effective requested union; own prior recipient access is not automatic original accounting.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          85
+        ]
+      ]
+    },
+    {
+      "original": 265,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social/discovery.rs",
+      "sha256": "848aa99d18243a4679c4c3ef1cbe3e9e1556f5c93b1a5cf83cd6c9a04c545198",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/848aa99d18243a4679c4c3ef1cbe3e9e1556f5c93b1a5cf83cd6c9a04c545198",
+      "eof": 47,
+      "requested_range_variants": [
+        [
+          1,
+          47
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "provenance": "Exact f82 physical registered original; full effective requested union; own prior recipient access is not automatic original accounting.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          47
+        ]
+      ]
+    },
+    {
+      "original": 266,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social/draws.rs",
+      "sha256": "788653b52576c63a07a52065f8742eb6b63bc0268cb64ce16441cdea693f8c09",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/788653b52576c63a07a52065f8742eb6b63bc0268cb64ce16441cdea693f8c09",
+      "eof": 54,
+      "requested_range_variants": [
+        [
+          1,
+          54
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "provenance": "Exact f82 physical registered original; full effective requested union; own prior recipient access is not automatic original accounting.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          54
+        ]
+      ]
+    }
+  ],
+  "numeric_inventory_and_actual_trace": [
+    {
+      "original": 262,
+      "scope": "Full31 independently after167 recipient read",
+      "inventory": "Raw u64 actor/target IDs, named is_self predicate, typed SocialActionKind parse and closure Reflect iff self. No arithmetic/literal numeric field beyond identity equality.",
+      "trace": "Actual260 caller parses before actor read, joins full living characters and validates same-party/co-location; admitted action used by manual/automatic shared resolver. Boolean self-role could be owned by admitted participant shape rather than repeated primitive distinction; no new invented owner/behavior change."
+    },
+    {
+      "original": 263,
+      "scope": "Full379 existing guarded authority fixture",
+      "inventory": "Raw observer732041/732960/resident732004 IDs, full-day presence0..1440, session/event sequence/revision/time0, pair2 distinct roles, order0/1 and succeededfalse/true, raw signals0/confidence0, challenge affinity-.4 and five-minute actual response constant. Retry expectedrevision0/MAX deliberately tests replay-before-stale-check, not ordinaryMAXrevision mutation.",
+      "trace": "Uses actual260 claim resolution, receipt replay, immutable result and exact no-op rejection receivers. Existing fixture creates native rows directly with explicit values, so does not certify every production constructor. Fixed response keys and authored Option fields gate each outcome; no new tests/probes/execution."
+    },
+    {
+      "original": 264,
+      "scope": "Full85 existing guarded authority fixture",
+      "inventory": "Actor732071/target732072, negative morale-15, enabledtrue/false toggles, repeated enrollment count1, opt-out attempts0, ten discretionary minutes and exactlyone selected source. Party None and alivefalse fixture transitions.",
+      "trace": "Actual260 preference row existence controls opt-in; valid pair/private projection guards and pruning remove invalid pairs, target planner core143 stable selection receives max3. Ten-minute fixture uses automatic discretionary policy rather than manual15-minute chat duration; these are different operation contracts, no contradictory minimum claim. Existing outcomes random but attempt count source asserted, not executed."
+    },
+    {
+      "original": 265,
+      "scope": "Full47",
+      "inventory": "Typed action/topic/axis roles, raw is_self policy input and variable Vec axes. Arrays contain fixed one/two axes, no arbitrary dynamic index.",
+      "trace": "Self yields SelfKnowledge plus relevant axis/Outlook; Listen yields relevant axis or FatigueOutlook/HungerTemperance plus Transparency, other actions return authored axis sets or empty Reassure. Actual core143 axis_for_topic536 has six closed topics: DefeatDrive, InjurySelfRegard, FaithConviction, FilthHygiene, Fatigue/HungerNone. Therefore actual Listen never duplicates Transparency via wildcard fallback; no fabricated double discovery-training finding. Reflect nonself unreachable is protected by actual262 admitted action iff-self and260 call. Whole core143 prior1909 proof reused, no extra role credit."
+    },
+    {
+      "original": 266,
+      "scope": "Full54 independently after prior069-076 receiver access",
+      "inventory": "Seed, raw u64 actor/target/observer/subject roles and fixed participant array2, f32 inclusive-unit draws; typed PersonalityAxis castu64 for hash coordinate. This cast assigns discriminant-derived identity to stream input, so ordinal stability is a deterministic protocol policy, not incidental integer.",
+      "trace": "Different named streams isolate testimony proposition, claim challenge, casual chat, contact presentation, social action and per-axis discovery. ActionDraws retains typed Seed plus actor/target IDs; resolution and discovery call actual deterministic stream and155 unit conversion kernels, inclusive0..1 endpoints intentional. Arrays preserve directional participant roles rather than canonical unordered pair; no universal collision/distribution/SDK guarantee. Consumers actual260/core143 use bounded numerical checks and diagnosis kernels; canonical UnitInterval/identity ports still ownership opportunities through first-party APIs."
+    }
+  ],
+  "limits": [
+    "All effective original scopes preserved. Existing fixture bodies consumed but never executed/edited; no newly added tests/helpers/assertions/doctests.",
+    "Actual own core143 full1909, deterministic seed213/stream169/lib58 proof reused only exact source hashes/ranges. No cross-lens verdict transfer or current/native/runtime/global/all20 clearance. Accepted unique0; remaining populations/extensions separate mandatory.",
+    "No product/Git/rootledger/project execution/checks/probes/publication."
+  ]
+}

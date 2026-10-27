@@ -1,0 +1,120 @@
+{
+  "id": "ADLER-CONT06-LATER-005",
+  "lens": "type-ownership",
+  "receipts": [
+    {
+      "material_index": 134,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation/diagnostics.rs",
+      "sha256": "7b710acb4e5d608182be6f5eac8e432a9109877fb987d15e61f8685bd30695e8",
+      "ranges": [
+        [
+          1,
+          84
+        ]
+      ],
+      "source_basis": "Fresh root complete personal read of registered bounded body, exact hash verified; own06 interpretation, no other-lens verdict transfer.",
+      "owners_and_users": "TreeAssetResidencyDiagnostics is presentation-owned active/retained asset accounting, not Assets total or cumulative generation owner. Per-LOD texture counts and overall total share measurement, but source leaves/retained leaves and active/retained scenes are distinct populations.",
+      "disposition": "No competing bespoke diagnostics owner shown. Keep generation time distinct from resident quantities and scene retirement counts. Total/per-LOD representation simplification is not inferred as an observed bug; redundant-authority candidate reconciliation remains separate evidence.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 135,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/focus.rs",
+      "sha256": "0e170d10cea11d48678f3c192e21fb6f2273e9cd1edcdc93fecb2d908e8386d0",
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "source_basis": "Fresh root complete personal read of registered bounded body, exact hash verified; own06 interpretation, no other-lens verdict transfer.",
+      "owners_and_users": "MapState consumes shared StrategicPlaceId and tactical MapMarker; distance uses world-schema NativeTerrainCoordinate continuous east/north offsets from marker geographic origin. Settlement identity remains shared core owner.",
+      "disposition": "Correct lower shared identity/projection owners; focus radius and visible span have different roles despite equal configured2000. Native squared-distance reduction is legitimate, not an alternate retained coordinate owner. No new competing owner in body.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 136,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/connections.rs",
+      "sha256": "96d604645187dd0d74c64974f909dbb8cc14a6ee8c5d8a6d56e71b29597d3970",
+      "ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "source_basis": "Fresh root complete personal read of registered bounded body, exact hash verified; own06 interpretation, no other-lens verdict transfer.",
+      "owners_and_users": "PresentedConnections retains SourcePackageDigest, RegionalTerrainRequest and classified RegionalConnectionKind from shared schema/tactical-core, with native Bevy asset/entity handles. Geometry uses shared PathMeshBuilder/GeographicLine, not duplicate clipping implementation.",
+      "disposition": "Retained source/window certificate and rendered assets are separate roles; ConnectionCoverage distinguishes drawn/capacity failure. Source connections are authoritative input, rendered geometry is projection. No owner conflict shown. Wider current city invalidation and capacity arithmetic remain other-lens qualifications.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 137,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/routes.rs",
+      "sha256": "afe345727adbff233fdc700aa56b6a3b15104e18a24218e64bf33529335c4f8d",
+      "ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "source_basis": "Fresh root complete personal read of registered bounded body, exact hash verified; own06 interpretation, no other-lens verdict transfer.",
+      "owners_and_users": "PresentedRoute retains shared MapRoute, SourcePackageDigest and RegionalTerrainRequest while native RouteAssets owns rendered handles; route kind is canonical MapRouteKind. Shared path_geometry provides mesh adapter.",
+      "disposition": "Selected route semantics and rendered resources are distinct; local RouteCoverage distinguishes uncovered/capacity/drawn. Route versus source connection types intentionally differ despite shared renderer. Native width derives from physical pixels at projection boundary; no wrong-role wrapper or duplicate owner proved.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 138,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/path_geometry.rs",
+      "sha256": "08afd9a444a46f1add41fd92ff00d046203e0991c24041ae11bf4033c714fb76",
+      "ranges": [
+        [
+          1,
+          241
+        ]
+      ],
+      "source_basis": "Fresh root complete personal read of registered bounded body, exact hash verified; own06 interpretation, no other-lens verdict transfer.",
+      "owners_and_users": "GeographicLine borrows shared MapRoute or RegionalConnection, produces shared world-schema Wgs84CoordinateE7, NativeTerrainCoordinate/Offset and then native grid DVec2/mesh arrays. PathMeshBuilder is sole local bounded renderer used by routes and connections.",
+      "disposition": "Shared numeric clipping kernel does not merge strategic route policy with source road policy. E7 geographic positions, continuous offsets, grid cells and east/up/south mesh coordinates remain distinct in explicit conversion sequence; no second projection owner defined. Raw arithmetic/frame admission obligations remain with connected lens findings.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 139,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/path_geometry/city.rs",
+      "sha256": "b7ecb82d2b5d2e208f81ac48422b040c186340cf8ff33d407ea5cbd8ec71e4d5",
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "source_basis": "Fresh root complete personal read of registered bounded body, exact hash verified; own06 interpretation, no other-lens verdict transfer.",
+      "owners_and_users": "City path renderer extends same PathMeshBuilder, uses canonical CitySurface.frame/support, world-schema projection and shared clipping. Explicit city_from_world/world_from_city transforms surround canonical city-support triangles.",
+      "disposition": "Terrain window offsets and city coordinates meet at native matrix adapter rather than an independently invented conversion type. City versus world frame meanings must remain distinct; exact body comments do not establish external matrix correctness or all frame admission. No competing owner defined here.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 140,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/landform_product.rs",
+      "sha256": "5f34b8da039a49d218521a208782d301f7095b7e0092698b5309f3d3b0a369c4",
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "source_basis": "Fresh root complete personal read of registered bounded body, exact hash verified; own06 interpretation, no other-lens verdict transfer.",
+      "owners_and_users": "PreparedTerrainLandform is presentation transport owner representing explicit Natural or Patch payload; patch uses existing tactical-core SceneTerrainPatch. From<Option<SceneTerrainPatch>> lowers canonical producer absence into explicit transport enum.",
+      "disposition": "Natural/patch envelope and canonical patch payload are different responsibilities; no duplicate patch owner. Native producer Option conversion is not evidence of a compatibility fallback or erased patch semantics. Mandatory transport-field admission/Serde behavior remains separate.",
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "new_unique_findings": 0,
+  "clear": false
+}

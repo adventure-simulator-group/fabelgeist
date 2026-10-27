@@ -1,0 +1,52 @@
+{
+  "lens": "10 audit-derivability",
+  "status": "INCOMPLETE",
+  "original_count": 2853,
+  "original_completed": 1473,
+  "overlays_count": 246,
+  "overlays_completed": 0,
+  "merged_delta_count": 38,
+  "merged_delta_completed": 0,
+  "live_registry_count": 173,
+  "live_completed": 0,
+  "retained_prior_slices": 4,
+  "last_packet": "SEGOVB-INITIAL10-CONTRACT-1404",
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1464,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/config.rs"
+  },
+  "execution": "none",
+  "other_lens_coverage_transferred": false,
+  "fresh_partial_original_slices": [
+    {
+      "scope_index": 2671,
+      "ranges": [
+        [
+          156,
+          160
+        ]
+      ],
+      "evidence": "fresh-dependency-registration-017.json",
+      "status": "PARTIAL_ONLY_NOT_WHOLE_ROLE"
+    },
+    {
+      "scope_index": 2562,
+      "ranges": [
+        [
+          1,
+          144
+        ],
+        [
+          728,
+          752
+        ]
+      ],
+      "evidence": "contract-groups-598.json",
+      "status": "PARTIAL_ONLY_NOT_WHOLE_ROLE"
+    }
+  ],
+  "live_registry_snapshot_note": "Parent registration037 adds shared170\u2013172 for exact1394 dependencies;170 is range supplement of113, not widened older source coverage. All shared0\u2013172 remain pending own10 material reconciliation except explicitly retained bounded dependency proof. No whole-role credit from registration.",
+  "handoff_status": "DISCOVERY_STOPPED_AT_USER_REQUEST_HANDOFF_READY",
+  "portable_handoff": "FINAL-HANDOFF.json"
+}

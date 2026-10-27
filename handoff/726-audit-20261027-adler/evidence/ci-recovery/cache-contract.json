@@ -1,0 +1,8 @@
+{
+  "source_reference": "https://github.com/Swatinem/rust-cache/blob/v2/README.md",
+  "source_contract": "shared-key replaces job-specific key; cache-on-failure defaults false. Dependency/toolchain/environment keys remain action-owned.",
+  "problem": "Separate export job uses a different default job key; failed validation discards useful dependency cache by default.",
+  "change": "Use shared-key rust-quality and cache-on-failure true for both Linux jobs. No commands/gates/fixture/acceptance change. Current in-progress old-source run remains unchanged.",
+  "local_project_checks": "none",
+  "review": "pending"
+}

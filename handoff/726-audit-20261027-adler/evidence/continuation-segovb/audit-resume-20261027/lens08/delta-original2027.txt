@@ -1,0 +1,457 @@
+--- base
++++ frozen-head
+@@ -1,6 +1,11 @@
+-use std::{ops::Add, time::Duration};
+-
+-use adventuresim_tactical_core::prelude::{BodyPart, melee_interaction_range};
++use adventuresim_core::combat::ContactTimingOffset;
++use adventuresim_core::elapsed::AnimationElapsed;
++#[cfg(test)]
++use std::time::Duration;
++
++pub(crate) use clock::{CombatDuration, CombatInstant};
++
++use adventuresim_tactical_core::prelude::{BodyPart, MeleeAttackKey, melee_interaction_range};
+ use bevy::prelude::*;
+ 
+ use super::{
+@@ -8,62 +13,18 @@
+     TacticalCombatSide,
+ };
+ 
++pub(crate) use ranged::RangedAttackAuthority;
++
++mod clock;
+ mod ranged;
+-pub(crate) use ranged::RangedAttackAuthority;
+-
+-#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, PartialOrd, Ord)]
+-pub(crate) struct CombatInstant(Duration);
+-
+-impl CombatInstant {
+-    #[cfg(test)]
+-    pub(crate) const fn from_duration(duration: Duration) -> Self {
+-        Self(duration)
+-    }
+-
+-    pub(crate) fn from_elapsed(time: &Time<()>) -> Self {
+-        Self(time.elapsed())
+-    }
+-
+-    pub(crate) fn elapsed_since(self, earlier: Self) -> Duration {
+-        self.0.saturating_sub(earlier.0)
+-    }
+-}
+-
+-#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+-pub(crate) struct CombatDuration(Duration);
+-
+-impl CombatDuration {
+-    #[cfg(test)]
+-    pub(crate) const fn from_duration(duration: Duration) -> Self {
+-        Self(duration)
+-    }
+-
+-    /// Clamped to a sane range for non-finite, negative, or absurd input -
+-    /// `Duration::from_secs_f32` panics on any of those, and a malformed or
+-    /// unset per-weapon windup must not be able to crash the server.
+-    pub(crate) fn from_secs_f32(secs: f32) -> Self {
+-        Self(Duration::from_secs_f32(secs.clamp(0.0, 30.0)))
+-    }
+-
+-    pub(crate) fn as_secs_f32(self) -> f32 {
+-        self.0.as_secs_f32()
+-    }
+-
+-    pub(crate) fn saturating_sub(self, rhs: Self) -> Self {
+-        Self(self.0.saturating_sub(rhs.0))
+-    }
+-}
+-
+-impl Add<CombatDuration> for CombatInstant {
+-    type Output = Self;
+-
+-    fn add(self, rhs: CombatDuration) -> Self::Output {
+-        Self(self.0.saturating_add(rhs.0))
+-    }
+-}
+ 
+ #[derive(Clone, Copy, Debug, PartialEq)]
+ pub(crate) struct ReportedPrecision(f32);
++
++pub(crate) struct TransformedMeleeAttack {
++    pub(crate) attack_key: MeleeAttackKey,
++    pub(crate) retained_power: f32,
++}
+ 
+ impl ReportedPrecision {
+     /// Accepts every finite client report exactly as supplied. Precision is a
+@@ -103,16 +64,28 @@
+     pub(super) fn target_position(&self) -> Vec3 {
+         self.target_position
+     }
++    pub(super) fn reported_precision(&self) -> ReportedPrecision {
++        self.reported_precision
++    }
++    pub(super) fn attacker_yaw(&self) -> f32 {
++        self.attacker_yaw
++    }
++    pub(super) fn target_yaw(&self) -> f32 {
++        self.target_yaw
++    }
+ }
+ 
+ #[derive(Clone, Copy, Debug)]
+ pub(super) struct AuthorizedMeleeAttack {
++    attack_key: MeleeAttackKey,
+     attack: ValidatedMeleeAttack,
+-    started_at: CombatInstant,
+     power_multiplier: f32,
+ }
+ 
+ impl AuthorizedMeleeAttack {
++    pub(super) fn attack_key(&self) -> MeleeAttackKey {
++        self.attack_key
++    }
+     pub(super) fn attacker(&self) -> Entity {
+         self.attack.attacker
+     }
+@@ -124,15 +97,6 @@
+     }
+     pub(super) fn reported_precision(&self) -> ReportedPrecision {
+         self.attack.reported_precision
+-    }
+-    pub(super) fn attacker_yaw(&self) -> f32 {
+-        self.attack.attacker_yaw
+-    }
+-    pub(super) fn target_yaw(&self) -> f32 {
+-        self.attack.target_yaw
+-    }
+-    pub(super) fn started_at(&self) -> CombatInstant {
+-        self.started_at
+     }
+     pub(super) fn power_multiplier(&self) -> f32 {
+         self.power_multiplier
+@@ -170,6 +134,9 @@
+     pub(super) fn impact(&self) -> ValidatedRangedImpact {
+         self.impact
+     }
++    pub(super) fn attacker_yaw(&self) -> f32 {
++        self.attacker_yaw
++    }
+ }
+ 
+ #[derive(Clone, Copy, Debug)]
+@@ -182,9 +149,6 @@
+     pub(super) fn attacker_side(&self) -> TacticalCombatSide {
+         self.0.attacker_side
+     }
+-    pub(super) fn attacker_yaw(&self) -> f32 {
+-        self.0.attacker_yaw
+-    }
+     pub(super) fn reported_precision(&self) -> ReportedPrecision {
+         self.0.reported_precision
+     }
+@@ -195,7 +159,7 @@
+ 
+ #[derive(Debug, Clone)]
+ struct ObservedMeleeWindup {
+-    attack_key: u64,
++    attack_key: MeleeAttackKey,
+     target: Option<Entity>,
+     body_part: Option<BodyPart>,
+     ready_at: CombatInstant,
+@@ -223,8 +187,8 @@
+ pub(super) struct ReciprocalAttackOpportunity {
+     pub input_reflex: f32,
+     pub precision: ReportedPrecision,
+-    pub own_contact_after_incoming_seconds: f32,
+-    pub own_windup_seconds: f32,
++    pub own_contact_after_incoming_seconds: ContactTimingOffset,
++    pub own_windup_seconds: AnimationElapsed,
+     pub decision_sample: f32,
+     pub consecutive_intercepts: u8,
+ }
+@@ -236,7 +200,7 @@
+     )]
+     pub(crate) fn observe(
+         &mut self,
+-        attack_key: u64,
++        attack_key: MeleeAttackKey,
+         target: Option<Entity>,
+         body_part: Option<BodyPart>,
+         now: CombatInstant,
+@@ -262,8 +226,12 @@
+         });
+     }
+ 
+-    pub(crate) fn attack_key(&self) -> Option<u64> {
++    pub(crate) fn attack_key(&self) -> Option<MeleeAttackKey> {
+         self.windup.as_ref().map(|windup| windup.attack_key)
++    }
++
++    pub(super) fn started_at(&self) -> Option<CombatInstant> {
++        self.active.as_ref().map(|attack| attack.started_at)
+     }
+ 
+     pub(crate) fn scheduled_measure_metres(&self) -> Option<f32> {
+@@ -272,12 +240,12 @@
+             .map(|attack| attack.scheduled_measure_metres)
+     }
+ 
+-    pub(crate) fn complete_miss(&mut self) -> Option<u64> {
++    pub(crate) fn complete_miss(&mut self) -> Option<MeleeAttackKey> {
+         self.active = None;
+         self.windup.take().map(|windup| windup.attack_key)
+     }
+ 
+-    pub(crate) fn commit_attack_to_defense(&mut self) -> Option<u64> {
++    pub(crate) fn commit_attack_to_defense(&mut self) -> Option<MeleeAttackKey> {
+         self.consecutive_intercepts = self.consecutive_intercepts.saturating_add(1);
+         self.complete_miss()
+     }
+@@ -289,7 +257,7 @@
+     pub(crate) fn transform_attack_for_offhand_defense(
+         &mut self,
+         effectiveness: f32,
+-    ) -> Option<(u64, f32)> {
++    ) -> Option<TransformedMeleeAttack> {
+         let active = self.active.as_mut()?;
+         let attack_key = self.windup.as_ref()?.attack_key;
+         // Keeping the sword committed while the off hand intercepts costs
+@@ -298,38 +266,10 @@
+         // disturb it proportionally less.
+         let retained = 1.0 - 0.4 * effectiveness.clamp(0.0, 1.0);
+         active.power_multiplier *= retained;
+-        Some((attack_key, active.power_multiplier))
+-    }
+-
+-    fn authorize(
+-        &mut self,
+-        target: Entity,
+-        body_part: BodyPart,
+-        now: CombatInstant,
+-        cooldown: CombatDuration,
+-    ) -> Option<(CombatInstant, f32)> {
+-        let authorized = self.windup.as_ref().and_then(|windup| {
+-            (windup.target.is_none_or(|observed| observed == target)
+-                && windup
+-                    .body_part
+-                    .is_none_or(|observed| observed == body_part)
+-                && now >= windup.ready_at
+-                && now <= windup.expires_at
+-                && now >= self.cooldown_until)
+-                .then(|| {
+-                    let active = self
+-                        .active
+-                        .as_ref()
+-                        .expect("an observed windup has active attack metadata");
+-                    (active.started_at, active.power_multiplier)
+-                })
+-        });
+-        if authorized.is_some() {
+-            self.windup = None;
+-            self.active = None;
+-            self.cooldown_until = now + cooldown;
+-        }
+-        authorized
++        Some(TransformedMeleeAttack {
++            attack_key,
++            retained_power: active.power_multiplier,
++        })
+     }
+ 
+     pub(super) fn authorize_attack(
+@@ -338,11 +278,11 @@
+         now: CombatInstant,
+         cooldown: CombatDuration,
+     ) -> Option<AuthorizedMeleeAttack> {
+-        let (started_at, power_multiplier) =
+-            self.authorize(attack.target, attack.body_part, now, cooldown)?;
++        let attack_key = self.attack_key()?;
++        let power_multiplier = self.authorize(attack.target, attack.body_part, now, cooldown)?;
+         Some(AuthorizedMeleeAttack {
++            attack_key,
+             attack,
+-            started_at,
+             power_multiplier,
+         })
+     }
+@@ -377,25 +317,53 @@
+             let decision_sample = fabelgeist_determinism::Seed::derive(
+                 &windup.attack_key.to_le_bytes(),
+                 fabelgeist_determinism::StreamId::new("combat.reciprocal-attack"),
+-                &[&active.started_at.0.as_nanos().to_le_bytes()],
++                &[&active.started_at.native_nanos().to_le_bytes()],
+             )
+             .rng()
+             .inclusive_unit_f32();
+             ReciprocalAttackOpportunity {
+                 input_reflex: (1.0 - delay.as_secs_f32() / window).clamp(0.0, 1.0),
+                 precision: active.reported_precision,
+-                own_contact_after_incoming_seconds: windup
+-                    .ready_at
+-                    .elapsed_since(now)
+-                    .as_secs_f32(),
+-                own_windup_seconds: windup
+-                    .ready_at
+-                    .elapsed_since(active.started_at)
+-                    .as_secs_f32(),
++                own_contact_after_incoming_seconds: ContactTimingOffset::from(
++                    windup.ready_at.elapsed_since(now),
++                ),
++                own_windup_seconds: AnimationElapsed::from(
++                    windup.ready_at.elapsed_since(active.started_at),
++                ),
+                 decision_sample,
+                 consecutive_intercepts: self.consecutive_intercepts,
+             }
+         })
++    }
++    fn authorize(
++        &mut self,
++        target: Entity,
++        body_part: BodyPart,
++        now: CombatInstant,
++        cooldown: CombatDuration,
++    ) -> Option<f32> {
++        let authorized = self.windup.as_ref().and_then(|windup| {
++            (windup.target.is_none_or(|observed| observed == target)
++                && windup
++                    .body_part
++                    .is_none_or(|observed| observed == body_part)
++                && now >= windup.ready_at
++                && now <= windup.expires_at
++                && now >= self.cooldown_until)
++                .then(|| {
++                    let active = self
++                        .active
++                        .as_ref()
++                        .expect("an observed windup has active attack metadata");
++                    active.power_multiplier
++                })
++        });
++        if authorized.is_some() {
++            self.windup = None;
++            self.active = None;
++            self.cooldown_until = now + cooldown;
++        }
++        authorized
+     }
+ }
+ 
+@@ -420,10 +388,10 @@
+     #[test]
+     fn authority_boundaries_are_inclusive_and_duration_typed() {
+         let target = Entity::from_bits(7);
+-        let start = CombatInstant(Duration::ZERO);
++        let start = CombatInstant::from_duration(Duration::ZERO);
+         let mut authority = MeleeAttackAuthority::default();
+         authority.observe(
+-            7,
++            MeleeAttackKey::from(7),
+             Some(target),
+             Some(BodyPart::Chest),
+             start,
+@@ -443,16 +411,16 @@
+         let target = Entity::from_bits(7);
+         let mut authority = MeleeAttackAuthority::default();
+         authority.observe(
+-            42,
++            MeleeAttackKey::from(42),
+             Some(target),
+             Some(BodyPart::Head),
+-            CombatInstant(Duration::ZERO),
++            CombatInstant::from_duration(Duration::ZERO),
+             SECOND,
+             SECOND,
+             1.0,
+             ReportedPrecision::new(0.75).unwrap(),
+         );
+-        assert_eq!(authority.complete_miss(), Some(42));
++        assert_eq!(authority.complete_miss(), Some(MeleeAttackKey::from(42)));
+         assert_eq!(authority.attack_key(), None);
+     }
+ 
+@@ -460,12 +428,12 @@
+     fn only_later_reciprocal_attacks_supply_parry_reflex_and_precision() {
+         let incoming_attacker = Entity::from_bits(7);
+         let other_target = Entity::from_bits(9);
+-        let incoming_started_at = CombatInstant(Duration::ZERO);
+-        let later_started_at = CombatInstant(Duration::from_millis(100));
++        let incoming_started_at = CombatInstant::from_duration(Duration::ZERO);
++        let later_started_at = CombatInstant::from_duration(Duration::from_millis(100));
+         let precision = ReportedPrecision::new(0.25).unwrap();
+         let mut authority = MeleeAttackAuthority::default();
+         authority.observe(
+-            8,
++            MeleeAttackKey::from(8),
+             Some(incoming_attacker),
+             Some(BodyPart::Chest),
+             later_started_at,
+@@ -510,10 +478,10 @@
+     #[test]
+     fn committing_a_reciprocal_attack_to_parry_consumes_its_contact() {
+         let incoming_attacker = Entity::from_bits(7);
+-        let start = CombatInstant(Duration::from_millis(100));
++        let start = CombatInstant::from_duration(Duration::from_millis(100));
+         let mut authority = MeleeAttackAuthority::default();
+         authority.observe(
+-            19,
++            MeleeAttackKey::from(19),
+             Some(incoming_attacker),
+             Some(BodyPart::Chest),
+             start,
+@@ -526,19 +494,22 @@
+             authority
+                 .reciprocal_attack_opportunity(
+                     incoming_attacker,
+-                    CombatInstant(Duration::ZERO),
++                    CombatInstant::from_duration(Duration::ZERO),
+                     start + SECOND,
+                     SECOND,
+                 )
+                 .is_some()
+         );
+-        assert_eq!(authority.commit_attack_to_defense(), Some(19));
++        assert_eq!(
++            authority.commit_attack_to_defense(),
++            Some(MeleeAttackKey::from(19))
++        );
+         assert!(!authority.permits(incoming_attacker, BodyPart::Chest, start + SECOND));
+         assert!(
+             authority
+                 .reciprocal_attack_opportunity(
+                     incoming_attacker,
+-                    CombatInstant(Duration::ZERO),
++                    CombatInstant::from_duration(Duration::ZERO),
+                     start + SECOND,
+                     SECOND,
+                 )
+@@ -550,10 +521,10 @@
+     fn offhand_intercept_preserves_but_depowers_committed_attack() {
+         let attacker = Entity::from_bits(3);
+         let target = Entity::from_bits(7);
+-        let start = CombatInstant(Duration::ZERO);
++        let start = CombatInstant::from_duration(Duration::ZERO);
+         let mut authority = MeleeAttackAuthority::default();
+         authority.observe(
+-            23,
++            MeleeAttackKey::from(23),
+             Some(target),
+             Some(BodyPart::Chest),
+             start,
+@@ -562,8 +533,11 @@
+             1.0,
+             ReportedPrecision::new(0.75).unwrap(),
+         );
+-        let (key, retained) = authority.transform_attack_for_offhand_defense(1.0).unwrap();
+-        assert_eq!(key, 23);
++        let TransformedMeleeAttack {
++            attack_key: key,
++            retained_power: retained,
++        } = authority.transform_attack_for_offhand_defense(1.0).unwrap();
++        assert_eq!(key, MeleeAttackKey::from(23));
+         assert_eq!(retained, 0.6);
+         let authorized = authority
+             .authorize_attack(

@@ -1,0 +1,13 @@
+--- base
+
++++ head
+
+@@ -1,6 +1,7 @@
+
+ use super::*;
++use fabelgeist_rig::RigJointOrdinal;
+ 
+ fn skeleton() -> Skeleton {
+     Skeleton {
+         names: vec!["root".into(), "child".into()].into(),
+         parents: vec![None, Some(RigJointOrdinal::from(0usize))].into(),

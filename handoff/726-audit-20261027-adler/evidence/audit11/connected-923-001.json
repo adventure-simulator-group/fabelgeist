@@ -1,0 +1,17 @@
+{
+  "id": "ADLER-CONT11-CONNECTED-923-001",
+  "lens": "type-granularity",
+  "scope_index": 923,
+  "source_id": "pr-working:crates/adventuresim-core/src/equipment_assets/selection.rs",
+  "sha256": "162b898d78feeae3507d19844b4b11c999c50edd7609680e5ef7c2fac89486d6",
+  "ranges": [
+    [
+      1,
+      170
+    ]
+  ],
+  "source_basis": "Root personally read exact full170 through union of bounded windows after SHA256 checks;922 hash/name search printed no body and receives no semantic credit.",
+  "assessment": "CatalogItem/CatalogPlacement private fields prove actual source definition association; OwnedCatalogPlacement retains an immutable Arc snapshot and private ordinal derived from that exact placement count. retained_placements yields every actual equipment placement, and selection indexes the same immutable snapshot; no index re-admission. Record equality/hash are pointer identities intentionally preserving duplicate IDs, with retained-clone recipient identity semantics not globally cleared. Actual764 is_wearable any(nonempty surface),694 filter over all retained placements and per-placement fitted result construction now prove nonempty and matching lengths for the read constructor/update path. This narrows prior694/695 first-element/slice concern; arbitrary public field mutation elsewhere remains outside proof. Type representation Q009 remains qualified, no ordinary panic/current-main/global/unique finding.",
+  "frontier_accounting": "Full connected role saved but defer ordered original counting until frontier reaches923; do not reread unchanged exact body merely for advancement.",
+  "validation": "not run"
+}

@@ -1,0 +1,229 @@
+{
+  "id": "AUDIT12-CONTRACTS-003",
+  "at": "2026-10-26T17:36:18.229664+00:00",
+  "lens": 12,
+  "source_registration": "audit12-successor-registration-003.json",
+  "source_members": [
+    {
+      "index": 10,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/observer/mod.rs",
+      "path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/observer/mod.rs",
+      "sha256": "ebea03dbd974a67dc92c11ae4232a2a25a9e653c6df28eaea70e26a5f964c78a",
+      "ranges": [
+        [
+          45,
+          64
+        ]
+      ],
+      "read": "personally consumed all actual registered ranges",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/ebea03dbd974a67dc92c11ae4232a2a25a9e653c6df28eaea70e26a5f964c78a",
+      "actual_EOF": 1916,
+      "inventory": [
+        {
+          "ranges": [
+            [
+              45,
+              54
+            ],
+            [
+              59,
+              62
+            ]
+          ],
+          "occurrences": "Rustdoc prose, method/event identifiers, Markdown code fence tail",
+          "trace": "Documentation boundary only. add_observer55-57 consumes typed IntoObserver and spawns typed Observer. trigger63-64 accepts E:Event and starts typed trigger_ref forwarding; no compiled raw string or string-valued API in registered45-64.",
+          "limit": "No full trigger body or full1916-line module credit."
+        }
+      ],
+      "disposition": "ACCOUNTED exact registered owner contract; limitations retained"
+    },
+    {
+      "index": 11,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/observer/runner.rs",
+      "path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/observer/runner.rs",
+      "sha256": "e8a6dca4f1ae317b6653d6f1c5fdf175fdb6ed42a5d4a6125730bc9e716f43dd",
+      "ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "read": "personally consumed all actual registered ranges",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/e8a6dca4f1ae317b6653d6f1c5fdf175fdb6ed42a5d4a6125730bc9e716f43dd",
+      "actual_EOF": 186,
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              34
+            ],
+            [
+              56,
+              59
+            ],
+            [
+              70,
+              76
+            ],
+            [
+              87,
+              100
+            ],
+            [
+              126,
+              139
+            ]
+          ],
+          "occurrences": "Module/safety/TODO prose, identifiers, external source link, cfg test metadata; hotpatching feature string at102",
+          "trace": "Rustdoc/comment and Cargo cfg(feature) boundaries. Actual native runner carries Entity, TriggerContext, Event/Trigger pointers, ObserverSystem; string feature literal selects Cargo compile capability. No display string controls observer state."
+        },
+        {
+          "ranges": [
+            [
+              110,
+              122
+            ]
+          ],
+          "occurrences": "System.name() -> ErrorContext::Observer.name",
+          "trace": "runner admits typed name directly in typed ErrorContext::Observer then invokes typed error handler; retained audit12/contracts-002 role7 proves canonical DebugName and actual panic/log sinks145-181. This is linked existing source-backed receiver evidence, not new role7 discovery."
+        },
+        {
+          "ranges": [
+            [
+              138,
+              149
+            ]
+          ],
+          "occurrences": "expected=\"I failed!\" and Err(\"I failed!\".into())",
+          "trace": "Native dependency fixture intentionally emits an error and checks final panic diagnostic; typed native Result alias/BevyError admission retained in completed original6/8 receipts. Text is exact fixture/error presentation boundary; no application enum fabricated."
+        }
+      ],
+      "disposition": "ACCOUNTED exact registered owner contract; limitations retained"
+    },
+    {
+      "index": 12,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/system/function_system.rs",
+      "path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/system/function_system.rs",
+      "sha256": "a8c0b778125f2da28ada5005a40c2bc2ab5d783fd9d080aad99361cb55641c3a",
+      "ranges": [
+        [
+          570,
+          630
+        ]
+      ],
+      "read": "personally consumed all actual registered ranges",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/a8c0b778125f2da28ada5005a40c2bc2ab5d783fd9d080aad99361cb55641c3a",
+      "actual_EOF": 991,
+      "inventory": [
+        {
+          "ranges": [
+            [
+              572,
+              574
+            ],
+            [
+              589,
+              593
+            ],
+            [
+              614,
+              617
+            ]
+          ],
+          "occurrences": "Rustdoc explanations and identifier tokens",
+          "trace": "Native IntoResult generic trait carries Out or RunSystemError/BevyError; impls596-610 preserve existing typed output/cause; no raw string in compiled signatures or operations570-630. Doc(hidden) compiler boundary.",
+          "limit": "No whole FunctionSystem/module or additional name metadata coverage."
+        }
+      ],
+      "disposition": "ACCOUNTED exact registered owner contract; limitations retained"
+    },
+    {
+      "index": 13,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/system/observer_system.rs",
+      "path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/system/observer_system.rs",
+      "sha256": "a5ec50cfa2fdb29a0f86a8bfb1c42a266bbd199da74e8c60c30384bf59409ac6",
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "read": "personally consumed all actual registered ranges",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/a5ec50cfa2fdb29a0f86a8bfb1c42a266bbd199da74e8c60c30384bf59409ac6",
+      "actual_EOF": 85,
+      "inventory": [
+        {
+          "ranges": [
+            [
+              9,
+              11
+            ],
+            [
+              20,
+              30
+            ],
+            [
+              33,
+              37
+            ]
+          ],
+          "occurrences": "Rustdoc and diagnostic::on_unimplemented message/label/note strings, type placeholders",
+          "trace": "Native trait solver diagnostic boundary; {Self} interpolation and literal On<T>/SystemParam terms rendered by compiler, not runtime control state. IntoObserverSystem associated type34 and conversion49-51 carry existing ObserverSystem/System owner, no string adapter. cfg(test) is compiler selection; registered fixture tail54-75 has typed entities/functions only.",
+          "limit": "Actual85-lineEOF exceeds registered75; last10unread and uncredited."
+        }
+      ],
+      "disposition": "ACCOUNTED exact registered owner contract; limitations retained"
+    },
+    {
+      "index": 14,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/world/mod.rs",
+      "path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/world/mod.rs",
+      "sha256": "34963c05abcc51517c1db6cf1a3e1f90ae365409f75a9ceb54d6a892505681b6",
+      "ranges": [
+        [
+          3448,
+          3475
+        ]
+      ],
+      "read": "personally consumed all actual registered ranges",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/34963c05abcc51517c1db6cf1a3e1f90ae365409f75a9ceb54d6a892505681b6",
+      "actual_EOF": 4740,
+      "inventory": [
+        {
+          "ranges": [
+            [
+              3448,
+              3448
+            ],
+            [
+              3454,
+              3454
+            ],
+            [
+              3458,
+              3460
+            ],
+            [
+              3470,
+              3475
+            ]
+          ],
+          "occurrences": "API/Safety prose and backtick/native identifier tokens",
+          "trace": "Rustdoc/comments only. register_dynamic_bundle3450-3455 carries checked ComponentId/BundleInfo and typed bundle store; fallback_error_handler3461-3465 returns ErrorHandler from typed resource or default; actual name/text presentation sink retained role7. No raw string-valued record/API or branching literal in compiled registered3448-3475.",
+          "limit": "Tail is resource-pointer API docs only, no whole4740-lineWorld review."
+        }
+      ],
+      "disposition": "ACCOUNTED exact registered owner contract; limitations retained"
+    }
+  ],
+  "findings": [],
+  "limits": [
+    "Native SDK scoped text contracts only, not current application wrapper/error/identity propagation clearance. No inference of current native source equivalence from package naming.",
+    "Prior original0-9 dispositions and inherited range anomaly remain unchanged; no complete baseline reread or other-lens credit.",
+    "Original13EOF85 vsregistered75 means76-85unread, not a missing scope discrepancy. Original10registered45-64 starts with a prior code-fence tail, but only actual requested range classified."
+  ],
+  "global_clearance": false,
+  "checks": "none",
+  "new_unique_finding_count": "not established"
+}

@@ -1,0 +1,604 @@
+[
+  {
+    "index": 2067,
+    "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+    "head_sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+    "base_sha256": "7d56f25736a01ae495fddd7a316eb3f22b1e63939eb48585ee6291efde5c3b9d",
+    "scope": {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "snapshot": "pr-working",
+      "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "owner": "camera",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "base_sha256": "7d56f25736a01ae495fddd7a316eb3f22b1e63939eb48585ee6291efde5c3b9d",
+      "state": "modified",
+      "bytes": 132880,
+      "audit_owner": "camera",
+      "scope_kind": "frozen_requested_change",
+      "producer_source_proof": [
+        {
+          "shard": "camera",
+          "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+          "ranges": [
+            [
+              1,
+              3497
+            ]
+          ],
+          "source_read_status": null,
+          "trace_refs": [
+            "CAM-PROP-PLAYER-PROJECTION-001"
+          ]
+        },
+        {
+          "shard": "native",
+          "record": "wave-01/audit-producer-propagation/native/progress.json",
+          "ranges": [
+            [
+              180,
+              310
+            ],
+            [
+              1086,
+              1513
+            ],
+            [
+              1534,
+              1740
+            ],
+            [
+              800,
+              921
+            ]
+          ],
+          "source_read_status": "exact connected functions only; whole file remains camera/root assigned",
+          "trace_refs": []
+        },
+        {
+          "shard": "native",
+          "record": "wave-01/audit-producer-propagation/native/unchanged-receivers-005.json",
+          "ranges": [
+            [
+              180,
+              310
+            ],
+            [
+              1086,
+              1513
+            ],
+            [
+              1534,
+              1740
+            ],
+            [
+              800,
+              921
+            ]
+          ],
+          "source_read_status": "exact connected functions only; whole file remains camera/root assigned",
+          "trace_refs": []
+        }
+      ],
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+          "row": 401,
+          "read_ranges": [
+            [
+              1,
+              3497
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-SERVER-PLAYER-PROJECTION-066"
+          ],
+          "read_status": null,
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server/src/player_projection.rs"
+        },
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 533,
+          "read_ranges": [
+            [
+              1,
+              3497
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-SERVER-PLAYER-PROJECTION-066"
+          ],
+          "read_status": "full_physical_plus_complete_reversePRdelta_or_samepathSHAequality",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server/src/player_projection.rs"
+        }
+      ],
+      "current_owner_suppliers": [
+        "camera"
+      ],
+      "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "producer_reached_contract_observations": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+          "receipt": "CAM-PPS-TACTICAL-RECEIVERS-044",
+          "json_pointer": "/additional_actual_source_proofs/30",
+          "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+          "read_ranges_as_recorded": [
+            [
+              199,
+              274
+            ]
+          ],
+          "source_context": {
+            "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+            "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+            "actual_line_count": 3497,
+            "read_ranges": [
+              [
+                199,
+                274
+              ]
+            ],
+            "resolved_path": "RECORDS/final-acceptance-20261021/frozen-inputs.zip!/pr-working/files/crates/adventuresim-tactical-server/src/player_projection.rs",
+            "method": "Fresh current material body; PR/P16 paired attack_start/action_clock/offense source plus complete exact delta, duplicate defense bytes compared. Bounded ranges stay bounded; incidental partial fixture prefixes do not imply whole fixtures."
+          },
+          "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+          "receipt": "CAM-PPS-SERVER-PROJECTION-EQUIPMENT-055",
+          "json_pointer": "/current_sources/11",
+          "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              3497
+            ]
+          ],
+          "source_context": {
+            "assigned_camera_index": 375,
+            "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server/src/player_projection.rs",
+            "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+            "read_ranges": [
+              [
+                1,
+                3497
+              ]
+            ],
+            "read_mode": "fresh complete actual specified bodies; no execution",
+            "actual_contract": "Native ConnectedPlayer row -> mailbox -> complete batch preparation -> components/reconnect/snapshots -> input/facing/skeleton/native physics/Replicon. Whole bodies/fixtures and all materially distinct paths in026; F037 checked biological mass loss distinct generic total physicalmass. Current PR/P16 union and native typed error policies preserved.",
+            "source_trace_refs": [
+              "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+              "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+            ],
+            "disposition": "Accounted WITH FINDINGS and actual bounded receiver closure; Camera716 explicit credit only"
+          },
+          "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+          "receipt": "NATIVE-PS-COMBAT-RECEIVER-CLOSURE-020",
+          "json_pointer": "/source_reads/30",
+          "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+          "read_ranges_as_recorded": [
+            [
+              199,
+              274
+            ]
+          ],
+          "source_context": {
+            "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+            "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+            "actual_line_count": 3497,
+            "read_ranges": [
+              [
+                199,
+                274
+              ]
+            ],
+            "resolved_path": "RECORDS/final-acceptance-20261021/frozen-inputs.zip!/pr-working/files/crates/adventuresim-tactical-server/src/player_projection.rs",
+            "method": "Fresh current material body; PR/P16 paired attack_start/action_clock/offense source plus complete exact delta, duplicate defense bytes compared. Bounded ranges stay bounded; incidental partial fixture prefixes do not imply whole fixtures."
+          },
+          "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+          "receipt": "NATIVE-PS-SERVER-PLAYER-PROJECTION-026",
+          "json_pointer": "/source_reads/0",
+          "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              3497
+            ]
+          ],
+          "source_context": {
+            "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server/src/player_projection.rs",
+            "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+            "read_ranges": [
+              [
+                1,
+                3497
+              ]
+            ],
+            "actual_line_count": 3497,
+            "read_kind": "fresh complete actual specified bodies; no execution"
+          },
+          "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+          "receipt": "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-CLOSURE-027",
+          "json_pointer": "/source_dispositions/11",
+          "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              3497
+            ]
+          ],
+          "source_context": {
+            "assigned_camera_index": 375,
+            "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server/src/player_projection.rs",
+            "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+            "read_ranges": [
+              [
+                1,
+                3497
+              ]
+            ],
+            "read_mode": "fresh complete actual specified bodies; no execution",
+            "actual_contract": "Native ConnectedPlayer row -> mailbox -> complete batch preparation -> components/reconnect/snapshots -> input/facing/skeleton/native physics/Replicon. Whole bodies/fixtures and all materially distinct paths in026; F037 checked biological mass loss distinct generic total physicalmass. Current PR/P16 union and native typed error policies preserved.",
+            "source_trace_refs": [
+              "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+              "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+            ],
+            "disposition": "Accounted WITH FINDINGS and actual bounded receiver closure; Camera716 explicit credit only"
+          },
+          "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+        },
+        {
+          "record": "continuation/camera/traces.jsonl",
+          "receipt": "CONT-CAMERA-PP-008",
+          "json_pointer": "/normalized_fresh_seams/2",
+          "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+          "read_ranges_as_recorded": [
+            [
+              537,
+              874
+            ]
+          ],
+          "source_context": {
+            "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+            "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+            "read_ranges": [
+              [
+                537,
+                874
+              ]
+            ]
+          },
+          "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+        },
+        {
+          "record": "continuation/rig/range-schema-errata-043.json",
+          "receipt": "RIG-CONT-PPS-RANGE-SCHEMA-ERRATA-043",
+          "json_pointer": "/normalized_fresh_seam_proofs/2",
+          "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+          "read_ranges_as_recorded": [
+            [
+              537,
+              874
+            ]
+          ],
+          "source_context": {
+            "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+            "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+            "read_ranges": [
+              [
+                537,
+                874
+              ]
+            ]
+          },
+          "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+        },
+        {
+          "record": "continuation/rig/web-request-reconciliation-039.json",
+          "receipt": "RIG-CONT-PPS-WEB-REQUEST-RECONCILIATION-039",
+          "json_pointer": "/fresh_bounded_seam_proofs/2",
+          "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+          "read_ranges_as_recorded": [
+            [
+              537,
+              874
+            ]
+          ],
+          "source_context": {
+            "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-server\\src\\player_projection.rs",
+            "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+            "read_ranges": [
+              537,
+              874
+            ],
+            "proof_origin": "Fresh bounded actual seam read in continuation; no whole-file inference beyond explicit ranges"
+          },
+          "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+        },
+        {
+          "record": "continuation/rig/web-request-reconciliation-039.json",
+          "receipt": "RIG-CONT-PPS-WEB-REQUEST-RECONCILIATION-039",
+          "json_pointer": "/native027_exact_receiver_proofs/11",
+          "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              3497
+            ]
+          ],
+          "source_context": {
+            "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+            "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+            "read_ranges": [
+              [
+                1,
+                3497
+              ]
+            ],
+            "proof": [
+              "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+              "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+            ],
+            "material_contract": "Native ConnectedPlayer row -> mailbox -> complete batch preparation -> components/reconnect/snapshots -> input/facing/skeleton/native physics/Replicon. Whole bodies/fixtures and all materially distinct paths in026; F037 checked biological mass loss distinct generic total physicalmass. Current PR/P16 union and native typed error policies preserved."
+          },
+          "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+        }
+      ],
+      "producer_inventory_accounting": {
+        "initial946_cell": true,
+        "frozen1650_supplement_index": 901,
+        "new158_material_role_packet": false,
+        "expanded36_context_variant": false,
+        "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+        "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+      },
+      "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+    }
+  },
+  {
+    "index": 2069,
+    "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+    "head_sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+    "base_sha256": null,
+    "scope": {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+      "snapshot": "pr-working",
+      "path": "crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+      "owner": "camera",
+      "sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+      "base_sha256": null,
+      "state": "new",
+      "bytes": 6582,
+      "audit_owner": "camera",
+      "scope_kind": "frozen_requested_change",
+      "producer_source_proof": [
+        {
+          "shard": "camera",
+          "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+          "ranges": [
+            [
+              1,
+              162
+            ]
+          ],
+          "source_read_status": null,
+          "trace_refs": [
+            "CAM-PROP-PLAYER-PROJECTION-001"
+          ]
+        },
+        {
+          "shard": "native",
+          "record": "wave-01/audit-producer-propagation/native/progress.json",
+          "ranges": [
+            [
+              1,
+              162
+            ]
+          ],
+          "source_read_status": "full",
+          "trace_refs": []
+        },
+        {
+          "shard": "native",
+          "record": "wave-01/audit-producer-propagation/native/unchanged-receivers-005.json",
+          "ranges": [
+            [
+              1,
+              162
+            ]
+          ],
+          "source_read_status": "full",
+          "trace_refs": []
+        }
+      ],
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+          "row": 403,
+          "read_ranges": [
+            [
+              1,
+              162
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-SERVER-PLAYER-PROJECTION-066"
+          ],
+          "read_status": null,
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs"
+        },
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 542,
+          "read_ranges": [
+            [
+              1,
+              162
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-SERVER-PLAYER-PROJECTION-066"
+          ],
+          "read_status": "full_physical_plus_complete_reversePRdelta_or_samepathSHAequality",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs"
+        }
+      ],
+      "current_owner_suppliers": [
+        "camera"
+      ],
+      "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "producer_reached_contract_observations": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+          "receipt": "CAM-PPS-SERVER-PROJECTION-EQUIPMENT-055",
+          "json_pointer": "/current_sources/13",
+          "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              162
+            ]
+          ],
+          "source_context": {
+            "assigned_camera_index": 377,
+            "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+            "sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+            "read_ranges": [
+              [
+                1,
+                162
+              ]
+            ],
+            "read_mode": "full current body or complete fullPR+P16delta with unchanged bytes reconciled; existing fixture body source only",
+            "actual_contract": "Authoritative time/tick/state -> typed deadlines/rotation -> native body/physics Transform; intentional warn-and-skip errors preserve projection policy distinct required capture failure.",
+            "source_trace_refs": [
+              "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+              "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+            ],
+            "disposition": "Accounted WITH FINDINGS and actual bounded receiver closure; Camera716 explicit credit only"
+          },
+          "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+          "receipt": "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+          "json_pointer": "/source_reads/11",
+          "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              162
+            ]
+          ],
+          "source_context": {
+            "index": 377,
+            "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+            "sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+            "read_ranges": [
+              [
+                1,
+                162
+              ]
+            ],
+            "actual_line_count": 162,
+            "assignment_sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+            "fingerprint_matches_assignment": true,
+            "read_kind": "full current body or complete fullPR+P16delta with unchanged bytes reconciled; existing fixture body source only",
+            "counterpart_sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+            "counterpart_byte_equal": true
+          },
+          "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+          "receipt": "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-CLOSURE-027",
+          "json_pointer": "/source_dispositions/13",
+          "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              162
+            ]
+          ],
+          "source_context": {
+            "assigned_camera_index": 377,
+            "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+            "sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+            "read_ranges": [
+              [
+                1,
+                162
+              ]
+            ],
+            "read_mode": "full current body or complete fullPR+P16delta with unchanged bytes reconciled; existing fixture body source only",
+            "actual_contract": "Authoritative time/tick/state -> typed deadlines/rotation -> native body/physics Transform; intentional warn-and-skip errors preserve projection policy distinct required capture failure.",
+            "source_trace_refs": [
+              "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+              "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+            ],
+            "disposition": "Accounted WITH FINDINGS and actual bounded receiver closure; Camera716 explicit credit only"
+          },
+          "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+        },
+        {
+          "record": "continuation/rig/web-request-reconciliation-039.json",
+          "receipt": "RIG-CONT-PPS-WEB-REQUEST-RECONCILIATION-039",
+          "json_pointer": "/native027_exact_receiver_proofs/13",
+          "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              162
+            ]
+          ],
+          "source_context": {
+            "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+            "sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+            "read_ranges": [
+              [
+                1,
+                162
+              ]
+            ],
+            "proof": [
+              "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+              "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+            ],
+            "material_contract": "Authoritative time/tick/state -> typed deadlines/rotation -> native body/physics Transform; intentional warn-and-skip errors preserve projection policy distinct required capture failure."
+          },
+          "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+        }
+      ],
+      "producer_inventory_accounting": {
+        "initial946_cell": true,
+        "frozen1650_supplement_index": 903,
+        "new158_material_role_packet": false,
+        "expanded36_context_variant": false,
+        "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+        "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+      },
+      "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+    }
+  }
+]

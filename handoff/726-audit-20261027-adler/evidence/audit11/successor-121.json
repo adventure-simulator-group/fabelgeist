@@ -1,0 +1,37 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-121",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 724,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_equipment.rs",
+      "sha256": "5bf6b375e4fd7df25eda09134cfbd116ea893e21f87a040af51a1aef467c4d12",
+      "ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "assessment": "Full98 source read after hash match. Actual studio adapter builds FitBody and Realization from same model/generated fields and preserves canonical packed skin/joint tables. Morphs are collected as semantic name/realization tuples Q008; FitBody/Realization expose association-bearing raw arrays Q009. vertex_texcoords flattens per-corner UV into per-vertex slots with last assignment, so seam/identity semantics require downstream purpose context; it is not an ordinary seam failure finding from source alone. Native index bounds depend on actual loaded mesh admission. No runtime/current-main/global clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 725,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_extremities.rs",
+      "sha256": "0e277141754711abaee5c1cd2d1452918f562aa332c657717d7495c401289d0e",
+      "ranges": [
+        [
+          1,
+          248
+        ]
+      ],
+      "assessment": "Full248 exact reached body read after hash match. Closed limb design and anatomical region pair are checked at dispatch; invalid pair returns error, not silently retargeted. Real ClearanceFit producer projects checked gauge lengths early into raw model fields Q009. BootLayers names leg/garments/hems association, built by fixed BOOT_LAYERS enumeration with same slot used for bounds and push. Actual ordinal cast bounded by two-entry array. Native carrier/shell counts and first/last shell assumptions require actual DevicePart constructors; no empty-shell ordinary witness. DeviceCheck retains deferred GPU status handling, not whole fit/artistic/physical acceptance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

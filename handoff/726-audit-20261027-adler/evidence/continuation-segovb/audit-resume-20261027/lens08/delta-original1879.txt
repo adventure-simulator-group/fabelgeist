@@ -1,0 +1,79 @@
+--- base
++++ head
+@@ -0,0 +1,76 @@
++//! Equipment command ordering and authoritative mutation revisions.
++
++use bevy::prelude::*;
++use serde::{Deserialize, Serialize};
++
++/// Forward distances below half the wrapping u32 space are unambiguous.
++const MAX_FORWARD_SEQUENCE_DISTANCE: u32 = u32::MAX / 2;
++
++/// Client equipment-command chronology, independent of simulation input ticks.
++/// Zero is a valid command sequence after wraparound.
++#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize, Reflect)]
++#[serde(transparent)]
++#[reflect(opaque)]
++#[reflect(Serialize, Deserialize)]
++pub struct EquipmentSequence(u32);
++
++/// Replicated equipment mutation revision; zero is the actual initial state.
++#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize, Reflect)]
++#[serde(transparent)]
++#[reflect(opaque)]
++#[reflect(Serialize, Deserialize)]
++pub struct EquipmentRevision(u32);
++
++impl Default for EquipmentSequence {
++    fn default() -> Self {
++        Self::FIRST
++    }
++}
++
++impl EquipmentSequence {
++    pub const FIRST: Self = Self(1);
++
++    /// Admit the complete native u32 protocol representation, including zero.
++    pub const fn from_encoded(value: u32) -> Self {
++        Self(value)
++    }
++
++    pub const fn encoded(self) -> u32 {
++        self.0
++    }
++
++    pub const fn next(self) -> Self {
++        Self(self.0.wrapping_add(1))
++    }
++
++    pub const fn is_newer_than(self, previous: Self) -> bool {
++        let distance = self.0.wrapping_sub(previous.0);
++        distance != 0 && distance <= MAX_FORWARD_SEQUENCE_DISTANCE
++    }
++
++    /// Preserve the initial command window without inventing a prior command.
++    /// The first client send is one; later first observations may also lie in
++    /// the forward half-window. A wrapped zero needs an actual prior sequence.
++    pub const fn is_admissible_after(self, previous: Option<Self>) -> bool {
++        match previous {
++            Some(previous) => self.is_newer_than(previous),
++            None => self.0 >= Self::FIRST.0 && self.0 <= MAX_FORWARD_SEQUENCE_DISTANCE,
++        }
++    }
++}
++
++impl EquipmentRevision {
++    pub const INITIAL: Self = Self(0);
++
++    pub const fn from_encoded(value: u32) -> Self {
++        Self(value)
++    }
++
++    pub const fn encoded(self) -> u32 {
++        self.0
++    }
++
++    pub const fn next(self) -> Self {
++        Self(self.0.wrapping_add(1))
++    }
++}

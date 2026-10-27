@@ -1,0 +1,153 @@
+{
+  "at": "2026-10-26T04:52:33.295353+00:00",
+  "finding_id": "ADLER-RESUMED05-F005",
+  "phase": "Read-only current canonical/remedy reconciliation",
+  "finding_authority": [
+    {
+      "scope_index": 2363,
+      "source_id": "pr-working:crates/strategic-web/src/routes/foraging.rs",
+      "sha256": "53f53a7e7a04ffb7a52a677421b41ebba0b7f934c94822eb08f4bf9333c34836",
+      "ranges": [
+        [
+          263,
+          268
+        ],
+        [
+          284,
+          289
+        ],
+        [
+          466,
+          527
+        ]
+      ]
+    },
+    {
+      "scope_index": 2370,
+      "source_id": "pr-working:crates/strategic-web/src/routes/mod.rs",
+      "sha256": "4adf3c28275906a5a006f13438074aa6c5b525d53e57d25855f4d5195cbaf2c2",
+      "ranges": [
+        [
+          127,
+          145
+        ],
+        [
+          152,
+          159
+        ]
+      ]
+    }
+  ],
+  "current_canonical": {
+    "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "sources": [
+      {
+        "scope_index": 2363,
+        "source_id": "pr-working:crates/strategic-web/src/routes/foraging.rs",
+        "sha256": "53f53a7e7a04ffb7a52a677421b41ebba0b7f934c94822eb08f4bf9333c34836",
+        "ranges": [
+          [
+            263,
+            268
+          ],
+          [
+            284,
+            289
+          ],
+          [
+            466,
+            527
+          ]
+        ],
+        "entire_blob_exact_equal_to_frozen": true,
+        "personally_read_ranges": [
+          [
+            263,
+            268
+          ],
+          [
+            284,
+            289
+          ],
+          [
+            466,
+            527
+          ]
+        ]
+      },
+      {
+        "scope_index": 2370,
+        "source_id": "pr-working:crates/strategic-web/src/routes/mod.rs",
+        "sha256": "4adf3c28275906a5a006f13438074aa6c5b525d53e57d25855f4d5195cbaf2c2",
+        "ranges": [
+          [
+            127,
+            145
+          ],
+          [
+            152,
+            159
+          ]
+        ],
+        "entire_blob_exact_equal_to_frozen": true,
+        "personally_read_ranges": [
+          [
+            127,
+            145
+          ],
+          [
+            152,
+            159
+          ]
+        ]
+      }
+    ]
+  },
+  "native_admission_proof": {
+    "at": "2026-10-26T04:52:33.295353+00:00",
+    "material_indices": [
+      190,
+      191
+    ],
+    "finding": "ADLER-RESUMED05-F005",
+    "native_package": "http1.5.0",
+    "package_checksum": "918d3568bebf352712bc2ef3d46a8bcf1a75b373be6539de198e9105cbbf9ce0",
+    "proof": "Literal # is classified fragment; PathAndQuery::from_shared truncates its parsed-copy buffer there; Uri::from_shared leading slash path has empty scheme/authority. local_return_url returns original borrowed value rather than this truncated parsed copy. The21-byte ASCII witness is below65534. Existing appended feedback fields therefore remain after original # in resulting href.",
+    "limits": [
+      "No runtime/browser/request test or actual template fragment caller established.",
+      "No full native URI parser, authority, UTF8/index safety or arbitrary-length acceptance clearance.",
+      "Frozen original finding optional fragment test is source-only authored assertion, not itself native parser proof; this prospective dependency trace supplies missing native admission proof for concrete short witness.",
+      "No new accepted finding/unique increment; original2853/overlays246/deltas38 unchanged."
+    ],
+    "source_authorities": [
+      "registry-192.json",
+      "contracts-042.json",
+      "contracts-043.json"
+    ],
+    "new_unique_count": 0
+  },
+  "disposition": "CURRENT_UNREPAIRED_QUALIFIED",
+  "relationship": "The admitted raw return string retains #party while only the temporary parsed URI copy truncates it. Both success/error href builders append fields after original fragment. Short concrete witness native admission is established; current template caller and observed incident remain unestablished.",
+  "dedup": {
+    "inventory": "target\\recovery-20261025\\audit05\\inherited\\adler-finding-records.json",
+    "inventory_sha256": "473fc7ce6d08f96419a86d239410cf94fa1ba9b8cf8c93ef45ba2d7b44d6942d",
+    "records": 1002,
+    "navigation": "F005-inventory-navigation-001.json",
+    "related_findings": {
+      "CAMERA-INITIAL07-F038": "Related accepted local destination owner with explicit path/query/fragment projections; may share remedy owner, different predicate disagreement mechanism.",
+      "RIG-PPS-F009": "Same helper scope structured cause erasure, different retained state contract.",
+      "ROOT-INITIAL04-F026": "Forage whole-hour request admission, different contract.",
+      "NATIVE-CAMERA-ROOT169-OWNER-SUPPORT-160/476": "Related ForageSource/order/duration owner support only, not receipt fragment placement.",
+      "CAM-PROP-F009/F018": "CaseSiteId and ForageSource propagation, different value ownership."
+    },
+    "global_uniqueness": "Not established by limited metadata search; connected local-navigation remedy grouping remains pending."
+  },
+  "retained_remedy_identity": "Admitted local destination path/query/fragment must remain distinct when adding feedback query fields.",
+  "qualification_correction": "The original optional fragment test was not runtime/native parser proof. Exact prospectively registered http1.5.0 bodies now establish native admission for the short concrete source witness; no observed HTTP/browser or actual template fragment caller claim.",
+  "project_checks": false,
+  "source_or_git_mutations": false,
+  "new_issue": false,
+  "new_unique_count": 0,
+  "accepted_own_findings_unchanged": 10,
+  "global_clearance": false
+}

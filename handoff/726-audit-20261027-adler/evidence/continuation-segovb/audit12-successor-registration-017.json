@@ -1,0 +1,63 @@
+{
+  "lens": 12,
+  "role": 42,
+  "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+  "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+  "local": "target/recovery-20261025/continuation-segovb/source-objects/f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+  "ranges": [
+    [
+      1,
+      140
+    ]
+  ],
+  "requested_scope": "Owner1-170; producer1-140 and admission exactsubranges union. ActualEOF140: nonexistent141-170 excluded, not silently substituted.",
+  "registered_before_read": true,
+  "at": "2026-10-26T19:21:53.074850+00:00",
+  "new_receivers": [
+    {
+      "source_id": "physical-p16-unchanged-base:crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+      "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "registered_before_read": true,
+      "recovery_basis": "Full frozen manifest physical159 changed entries/status do not list this path; exact basea120 source retrieved, not pr-working alias",
+      "purpose": "Actual finite validator and error text receiver from coordinates"
+    },
+    {
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/error.rs",
+      "original_role_no_credit": 449,
+      "sha256": "78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "registered_before_read": true,
+      "purpose": "GeometryError concrete Display/native Serde custom error boundary"
+    },
+    {
+      "source_id": "new-native-current:serde_core-1.0.229/src/de/mod.rs",
+      "sha256": "5ec8602d593915e0cf480b0ce67b02f6ab066dac34725237d2c7b4a6ef12a845",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/5ec8602d593915e0cf480b0ce67b02f6ab066dac34725237d2c7b4a6ef12a845",
+      "ranges": [
+        [
+          160,
+          201
+        ]
+      ],
+      "identifier_locator_only": true,
+      "registered_before_navigation": true,
+      "source_basis": "Current lock checksum matches cachedarchive and exactmember; not frozenidentity",
+      "archive_sha256": "67dca2c9c51e58a4791a4b1ed58308b39c64224d349a935ab5039aa360942a48",
+      "registered_before_read": true
+    }
+  ],
+  "metadata_error_disclosure": "Native serde_core1.0.228 path located, but current Cargo.lock package lookup raised StopIteration before registration/navigation/body read; no credit. Select actual lock version before receiver read."
+}

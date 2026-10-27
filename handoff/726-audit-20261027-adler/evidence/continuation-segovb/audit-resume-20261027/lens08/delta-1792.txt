@@ -1,0 +1,14 @@
+--- base
++++ head
+@@ -144,6 +144,11 @@
+                             .placement
+                             .orientation
+                             .local_to_world(half * Vec2::new(x, z));
++                    let point =
++                        adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
++                            point,
++                        )
++                        .unwrap();
+                     assert!(generated.terrain.height_at(point).is_some());
+                     let ground = generated.ground.ground_at(point).unwrap();
+                     assert_eq!(ground.cover, GroundCover::Bare);

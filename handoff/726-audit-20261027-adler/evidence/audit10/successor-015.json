@@ -1,0 +1,55 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-015",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1499,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/player/action_clock.rs",
+      "sha256": "1b21e39987ef8116d961373662e3566233e45bff974103bf29e399d4defaa9dd",
+      "ranges": [
+        [
+          1,
+          201
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "MeleeAcquisitionTiming and MeleePlaybackTiming alreadyderive Clone/Copy. Handwritten TryFrom<&TacticalMovementConfig> selects actualrunspeed and quickstepduration plus fallibleconservative_forward_lunge_acceleration. Remainingfunctions perform checkedtimeline/deadline arithmetic, nativeclockprojection and eventadmission. No handwrittencodec.",
+      "disposition": "Keep TryFrom manual: contextualnestedfield selection and computedcheckedacceleration with AnimationValueError are semanticadmission, not equivalent derive_more fieldFrom or rawconversion. Preserve exactzero/duration/tick/saturation policies and existingcontinuationfixture; no addedserialization or newtests.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1500,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/player/attack_start.rs",
+      "sha256": "9217876cb451796dde9e82c22f7a9533fbe263ebe21068756fb672e66eb622cf",
+      "ranges": [
+        [
+          1,
+          453
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Attackfacts/request/prepared/ranged/melee structs have no handwrittentraits or codecs. Inherent observe/admit/prepare/start and controlflush methods resolve actualviewerfacts, typedtiming, availability and transitionfailures beforepublication.",
+      "disposition": "No derive opportunity. Keep semanticrequest preparation and state-transition/failure/buffering policy explicit; introducingFrom/serde would bypasscontext anderrorhandling. No attack/numeric/authorityclearance beyond10.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1501,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/player/quickstep_trace.rs",
+      "sha256": "d4c445ad8881a51294103c9f7ee9ef4024f1a3d64692356dfa8ac21f93604346",
+      "ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "LocalQuickstepTrace Component/Debug/Clone/Copy/Default and observation/actuator Clone/Copy/Debug alreadyderive. has_changed_since/is_active/start_tick are inherentsemanticclassification/projection; tracing function comparesauthoritativeanimation/actuator states and emitsdiagnostics. No handwrittentrait orcodec.",
+      "disposition": "No derive opportunity. Do notaddSerialization justtoreplace runtimeis_active/start_tick classifier; retain distinctinactive retainedstart andactivestart semantics. Observationchange is selectedsemanticprojection ratherthan fullPartialEq, so no equivalentderive recommended.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

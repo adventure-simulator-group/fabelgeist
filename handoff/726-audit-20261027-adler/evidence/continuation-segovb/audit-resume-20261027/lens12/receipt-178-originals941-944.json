@@ -1,0 +1,224 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "178",
+  "predecessor": "receipt-177-originals937-940.json",
+  "sources": [
+    {
+      "original_index": 941,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation.rs",
+      "sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "actual_eof": 2053,
+      "actual_ranges": [
+        [
+          1,
+          2053
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              2053
+            ]
+          ],
+          "role": "Full2053 independently consumed1-290/291-580/581-870/871-1160/1161-1450/1451-1740/1741-2053. StrictJSON visitor133-203 rejectsduplicateStringmapkeys194-195. Actualvalidate_documents212 build850caller read; validate_item267 then native typedSchema269. CatalogDiagnostic.pathString31/messageString32 andfiles/sources48-49 ->humanDisplay58-90 BUT source_coordinates107 parses item prefix109/splitdotcolon110 ->findformatted sourceid112/field121: path encodes semanticlocator notsolehumanprose. All Valuefieldkeys inventoriedby actualnative structures root238/258-263,item331-357,presentation421,equipment651-657/physical686,placement781/789/794,protection815/887,points937-944/domainuv1005,weapon1060-1138,capabilities1156/durability1164-1194/food1220-1270/alcohol1288-1328/container1339/book1363. Finite semanticvalues duplicate consumedcanonical939/927owners: ItemKind443-454->461-535;carry551-552/sheathable617/hand_only625 withcontainment583/held604/sidedhands603;sheathable_weapon615;material662/670->942;locations729-754/channels757-769->944;bodyparts824-830;handling1061/preferred_attack1090;skills1111/1117/1132/1136;FoodClass1235-1246->retained939551->late927271;bookskill/terrain1405-1438->retained939529/532->885ordinary_skill. valid_id1447-1453 onlylowercaseASCII/digit/underscore,length1..64; applieditem362/duplicate367,tags389,placement786,point950,domain1010,animationpack1069. Thus exactvalidatedPRitem/placement cannotcontain doublehyphen delimiter ofprior765filename; directItemDefinition/CatalogItemall/admit923 separate, noallruntimeingress proof. valid_icon_slug1455-1463 allowsinternalhyphens/noends, actualiconreceiverpending. Currency/medication expectedIDs276-299 item_references ownerunread. Booksettlement1389-1399 allowsdifferenthyphengrammar; nootherroletransfer. Humanmessageerrors170/195/allpushsites ->Display58, diagnosticspublic53/testclassifier1555/1559 means externalconsumersstillunread. NativeSerde failures272/1381 flattenedintomessage potentialcauseerasure pendingactualconsumers. Fulltests1493-2053 inventoried includingnativeJSONkeyfixtures: shield1507-1522; duplicate same1568/1574,mystery1571,sourcefiles1578; duplicatekeysource1591/errorcontains1596; BAD-ID1604/laser1614/exactdiagnosticpair1646; badsource1654/coordinates1670;typed1676/currency1687;bookGerman/Latin1703-1704/sword1721;dragon_wing1751,left_leg/padding1770-1771/hidden_under_boot1781;left/rightmaterials/regions1804-1832;fittedbelt1854/worn1865/left1874/domainmhr_body_v11878/1902 retained;defaultclothing1923;carry/tag/parent fixtures1968-2053. Humanassert/expect/formattext distinguished fromsemanticfixtureIDs/nativepayloads; noBC/testexecution. Surfacehelper945/nativeSerde/JSON/allactualcallers stillpending.",
+          "disposition": "Source-accounted WITH exact native/direct-ingress/caller/canonical/diagnostic qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 942,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_material.rs",
+      "sha256": "823eb461e0534843b71a2b8199e6428fd9a558cf9bc1387beedf87500bf71f8a",
+      "actual_eof": 17,
+      "actual_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              17
+            ]
+          ],
+          "role": "Full17 rawOptionstr1 matches tenEquipmentMaterialstrings5-14 ->actual941663/671, consumed939EquipmentMaterial128 canonicalowner duplicated. Serializedadmissionvocabulary notprivate/constants exemption; reusecanonicaltypedparsefit before retention. NativeSerde/allcallerspending.",
+          "disposition": "Source-accounted WITH exact native/direct-ingress/caller/canonical/diagnostic qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 943,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+      "sha256": "a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+      "actual_eof": 49,
+      "actual_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              49
+            ]
+          ],
+          "role": "Full49 rawfield/path&str9/12/29/31 ->actualValue.get16/35 anddiagnosticformatpath21/45/message22/46. Actual941allnumericcalls403/516/520/523/1077/1099/1186/1194/1255/1270 read. Nativefieldselectors/structuredlocators distincthumanmessages, source_coordinates941107 consumespath. Numericf64->f3240-41 sourceonly nootherlens/runtimeproof.",
+          "disposition": "Source-accounted WITH exact native/direct-ingress/caller/canonical/diagnostic qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 944,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "sha256": "9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "actual_eof": 185,
+      "actual_ranges": [
+        [
+          1,
+          185
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              185
+            ]
+          ],
+          "role": "Full185 actual941805/812 ->nativeallowedfieldlist5-12/76,parentSerde22/layerSerde46->error.to_string26/52 storedmessages. Rawsetsvalid_locations/channels61-62 ->rawlocation/channel80-87,classify88/94 ->typedOccupancy100 ->typedfit107/conflicts132; duplicatedrawsingletonchannelset120 vscanonical939174. Fulltests145-185 nativeJSON left_arm/rigid_armor/forearm/elbow/shin andtestpath158/sets159-160 actualvalidatorinputs. NativeSerde/allproduction/errorconsumerspending; noBC/native/runtimeclaim.",
+          "disposition": "Source-accounted WITH exact native/direct-ingress/caller/canonical/diagnostic qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    }
+  ],
+  "connected_findings": [
+    {
+      "id": "L12-178-catalog-semantic-vocabulary-and-diagnostics",
+      "source_indices": [
+        941,
+        942,
+        943,
+        944
+      ],
+      "ranges": [
+        [
+          28,
+          131
+        ],
+        [
+          313,
+          372
+        ],
+        [
+          442,
+          535
+        ],
+        [
+          546,
+          635
+        ],
+        [
+          729,
+          769
+        ],
+        [
+          1058,
+          1145
+        ],
+        [
+          1216,
+          1253
+        ],
+        [
+          1386,
+          1453
+        ]
+      ],
+      "finding": "Serializedvalidator duplicates canonical item/channel/location/material/food/skill/terrain rawstring vocabularies andretains primitivefields afteradmission. Diagnosticpath isconstructedString thenparsedforsourcelocation; nativeSerdecauses flattenedintomessage. ExactvalidatedPRitem/placementgrammar excludeshyphens, narrowing doublehyphenfilenamecollision onlyforthisingress.",
+      "remedy": "Reusecanonicalowners atactualadmission andcarrythroughschema/mechanics; structuredlocator/typeddiagnosticcause untilrealhumanrender. KeepopenIDowners andnativefieldkeys atactualboundary.",
+      "acceptance": "Consume surfacehelper/JSON/nativeassets/source-map/directrecordingress/externaldiagnosticconsumers; neverextend validatedgrammar tootherinputs/snapshots.",
+      "aliases": "Earliercatalog/filename/diagnostic/lateclassification candidates unresolved; no unique/currentpromotion.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actualsurfacevalidator945 declared16/callee857,item_references registry,authoredJSON/nativeassets/icon/codegenreaders/directrecordingresses.",
+    "Externaldiagnosticconsumers/coordinateidentityproducers,nativeSerde/SHA/JSONinternals andallproductionadmission.",
+    "Mandatoryindependent REG132/134-136 andall inheritedactualsource/native/current/aliasqueues."
+  ],
+  "qualifications": [
+    "Full2053+17/49/185 exactprospectivescopes independentlyread, no scanner/search/test/native/projectexecution.",
+    "ExactPRvalidatedgrammar provenindependently; P16/current/directinputs separate. NoBC/global/unique/otherlens promotion; all20/P16/P17/F9/M09/separatepopulations preserved."
+  ],
+  "proposed_count": {
+    "before": 941,
+    "after": 945,
+    "indices_completed": [
+      941,
+      942,
+      943,
+      944
+    ],
+    "next_original": 945,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation.rs",
+      "sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "ranges": [
+        [
+          1,
+          2053
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_material.rs",
+      "sha256": "823eb461e0534843b71a2b8199e6428fd9a558cf9bc1387beedf87500bf71f8a",
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+      "sha256": "a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+      "ranges": [
+        [
+          1,
+          49
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "sha256": "9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "ranges": [
+        [
+          1,
+          185
+        ]
+      ]
+    }
+  ],
+  "unique_count_delta": 0
+}

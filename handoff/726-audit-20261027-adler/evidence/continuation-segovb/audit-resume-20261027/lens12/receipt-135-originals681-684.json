@@ -1,0 +1,176 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "135",
+  "predecessor": "receipt-134-original680.json",
+  "manifest_prefix_sha256": "7d23ad2abdbfb202cb189f28b4dd485b48fdeca6ed7580919a7cd4441ccff47e",
+  "sources": [
+    {
+      "original_index": 681,
+      "source_id": "pr-working:crates/adventuresim-character-creator/Cargo.toml",
+      "sha256": "b44ae2d0177b2c835054b53f233a12d93f7fffdce8ecbf20fad37d99796840a4",
+      "actual_eof": 79,
+      "actual_ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              79
+            ]
+          ],
+          "role": "Full79 Cargo-native package/version/edition/license/repository/binpath/feature/dependency/patch/lint strings. offline-creator9-15 finite Cargo feature graph; derive features23/serde43/bevy30 native feature names; Burn Gitrev33-36 andpliron76 source locators. First-party CLI/build version policies not inferred from manifest.",
+          "disposition": "Source-accounted WITH native/documentation/typed-owner roles and explicit receiving limits."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 682,
+      "source_id": "pr-working:crates/adventuresim-character-creator/README.md",
+      "sha256": "55f93e5212f2f7c60bb6017806be7139b91bb51fed4f4b6cc7c30848ee7da7cd",
+      "actual_eof": 1336,
+      "actual_ranges": [
+        [
+          1,
+          1336
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              1336
+            ]
+          ],
+          "role": "Full1336 Markdown independently read in five bounded chunks. Human UI labels43-95/304-325/367-434/458-489/892-898; shell/CLI/env/path examples11-24/252-270/436-444/684-688/786-810/917-978/990-1028/1138-1168/1255-1278/1325-1336 are documentation text only, none executed. Rig attachment names36-41/c_head272, morph names615-617/669-671,glTF extras652/UVsemantic995-1009/1163 andnativeFBX449 identify external serialization/rig boundaries, not actual application owner proof. Finite hair/pattern/layer/placement/construction/material/axis/harness choices66-95/279-302/329-363/458-505/788-800/936-938/970-977/1044-1075 andopen catalog IDs1092-1102/1228/1258-1259 require actual parser/typedowner andreceiving traces. Displaynames/open paths/descriptions/museumURLs1194-1216/1234-1239/1313-1315 stay open/human; linked pages not read andhistorical/performance/geometry/typing/current claims not verified by prose. Nativebase64 garmentbindings430 recorded astextencoding claim only, actual owner unconsumed.",
+          "disposition": "Source-accounted WITH native/documentation/typed-owner roles and explicit receiving limits."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 683,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview.rs",
+      "sha256": "8c21b357f6f90a1c9c297c9e1c4306e63872daa3ccb32e060651f5df878b7ba3",
+      "actual_eof": 699,
+      "actual_ranges": [
+        [
+          1,
+          699
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              699
+            ]
+          ],
+          "role": "Full699 preview source. expect109/ensure128/assert615/620/693 native diagnostics. Asset path153 passed directlyAssetServer::load; loader/installation/current identity unconsumed. NameCharacterwalkplayer195 humanentitylabel. Skeleton202 alsoactualAnimationTargetIdfrom_names208 andpath228-242: concrete native animation-target identity input, clip/export root-name agreement unconsumed. CanonicalRigJointName flows fromcharacter.skeleton.names222/235-240 throughactualadapter379-384 toBevyName; no rawretainedjointordinal/name conflation in this body. Existingtests467-699 consumedtextonly, noexecution. Native math/skinning/cloth simulation descendants not globalcleared.",
+          "disposition": "Source-accounted WITH native/documentation/typed-owner roles and explicit receiving limits."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 684,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/binding.rs",
+      "sha256": "1d37cdfbe3438b86643502d8f147cec1c22cfb04ba2ccdf09da1c30aacac7152",
+      "actual_eof": 58,
+      "actual_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              58
+            ]
+          ],
+          "role": "Full58 noquotedliteral/StringAPI. CanonicalClothBinding7-12 keepsPackedRigSkin andweights. NativeMeshATTRIBUTE_JOINT_INDEX45-48/ATTRIBUTE_JOINT_WEIGHT49 explicit existing APIselectors; actualnativepackadapter15-50/readers53-58 consumed. Numericweights/len/order/admission andnativeBevy semantics remainotherlens/unread implementation obligations.",
+          "disposition": "Source-accounted WITH native/documentation/typed-owner roles and explicit receiving limits."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    }
+  ],
+  "connected_findings": [],
+  "pending_contracts": [
+    "682finite recipe/CLI categories need actual owners/parsers/consumers; all external historical/performance/numerical/native/current claims remain unverified here.",
+    "683Skeleton native animation target ID input proved; exported/loadedclip naming agreement andactualAssetServer loader/asset installation remainunread. SharedRigJointName owner/admission andnativeBevy implementation no transferred clearance.",
+    "All inherited first-party lockpolicy/StreamId2250/AuditIssue/GenerationError/ShopName/675spawn_box/current/aliases preserved."
+  ],
+  "qualifications": [
+    "Exact frozen PR-working requested scopes only. No current/global/runtime/other-lens clearance; no native/project/test/probe execution. No BC requirement.",
+    "Current armorAGENTS SHA52390164bf3eb74a0160ee3ac19527fd43856aa998920d16824f2f41058cf47f read for scope; source-only inventory does not perform modeling/visual acceptance. All20/P16/P17/F9/M09 andalias obligations retained."
+  ],
+  "proposed_count": {
+    "before": 681,
+    "after": 685,
+    "indices_completed": [
+      681,
+      682,
+      683,
+      684
+    ],
+    "next_original": 685,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/Cargo.toml",
+      "sha256": "b44ae2d0177b2c835054b53f233a12d93f7fffdce8ecbf20fad37d99796840a4",
+      "ranges": [
+        [
+          1,
+          79
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/README.md",
+      "sha256": "55f93e5212f2f7c60bb6017806be7139b91bb51fed4f4b6cc7c30848ee7da7cd",
+      "ranges": [
+        [
+          1,
+          1336
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview.rs",
+      "sha256": "8c21b357f6f90a1c9c297c9e1c4306e63872daa3ccb32e060651f5df878b7ba3",
+      "ranges": [
+        [
+          1,
+          699
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/binding.rs",
+      "sha256": "1d37cdfbe3438b86643502d8f147cec1c22cfb04ba2ccdf09da1c30aacac7152",
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ]
+    }
+  ],
+  "unique_count_delta": 0
+}

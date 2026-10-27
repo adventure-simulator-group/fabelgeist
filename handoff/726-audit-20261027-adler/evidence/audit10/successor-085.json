@@ -1,0 +1,55 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-085",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1704,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+      "sha256": "c9727fc74c74134d8b6f7b5beb407f9cea87d594ee426c04f3c3b93789ce7bb2",
+      "ranges": [
+        [
+          1,
+          373
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Capture camera/lighting records already derive CloneCopyDebug; SceneCaptureState Resource; CaptureReadback/CapturePhase/LightingConvergence CloneCopyDebugEqPartialEq. Inherent phase accessors and free pixel/luminance/convergence/hash operations; complete373lines including existing fixtures read. No handwritten trait/customrecord codec.",
+      "disposition": "No derivability candidate. Explicit FNV raw readback witness, selected image metrics and native phase classification are semantic representation/operations rather than omitted Hash/serde. Derived phase traits already present; no numerical/admission/readback acceptance inferred and fixtures not executed.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1705,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_terrain.rs",
+      "sha256": "e900f86c48e53d3a6ca276cb50c94a1f0630dc8738d0a1f1c56bd8828d55b580",
+      "ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "LightingObservationParams inherent required_capture_terrain/boundary_camera plus reject writes explicit failure artifact and exit message. No handwritten trait/codec.",
+      "disposition": "No derivability candidate. Fallible native query/camera selection and presentation failure effects remain explicit; Display bound is a boundary contract, not a manual trait implementation.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1706,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_visibility.rs",
+      "sha256": "327d3a435905a1e7bd3a748bc4cc1b881d82dced9cc1c656d1839620810f6098",
+      "ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "ProductionLeaves framework query alias excludes review specimens; complete existing visibility fixture read. No handwritten traits/codecs.",
+      "disposition": "No derivability candidate. Framework query/selected specimen ownership semantics remain explicit; no fixture execution.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

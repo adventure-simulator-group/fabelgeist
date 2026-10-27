@@ -1,0 +1,47 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-350",
+  "at": "2026-10-25T23:31:31.460779+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 56,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_defense.rs",
+      "sha256": "6fffe49da3ec9f55c7b6dfcdeb723ef065569b78b004db991367d44329ee7fe9",
+      "personally_read_ranges": [
+        [
+          1,
+          221
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full221line P16 defender response/timing source read. Decision retains optional committed-threat record with selected response; reaction dodge precedes phase-specific committed/recovery logic. Intercept requires later defender start within incoming contact/reflex window, derives relative contact/windup/recovery and same defender skill/impairment facets into decision.",
+        "ScheduledMeleeTiming commit sets start/contact/measure/recovery and resets adaptation together. Its attack_id shifts full u64 attacker ID32 bits and XORs quantized start tick; exact existing ROOT-INITIAL04-F027 already records admitted ID1 vs4294967297 collision plus simultaneous batch/order receiving effect. Deduplicated, not new finding; frozen P16 source distinction retained.",
+        "Reaction/reflex/guard scalar fractions rely on ordered positive embedded timing and normalized samples. Zero windup/floating NaN raw input observations need admitted producer contract; no runtime/whole timing clearance."
+      ]
+    },
+    {
+      "scope_index": 57,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_exchange.rs",
+      "sha256": "cfc25332b52f4fc560e46cefc37fe47517c27237a47cd1d54f512161635b229b",
+      "personally_read_ranges": [
+        [
+          1,
+          293
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full293line P16 exchange source including existing tests read. Same participant snapshots and equipment projections derive contact, defense alignment/effective response and resolve_melee_attack outcome. Measure-adjusted precision participates in alignment, while shared attack resolution receives contact-at-time and base impairment-scaled precision.",
+        "Final AttackResult is scaled by attacker performance after shared resolution; actual shared physics and defense-side impairment convention require full receiving comparison before treating asymmetry/double application as defect. MeleeExchangeOutcome preserves contact/result/alignment/response but does not itself enforce external authored material/geometry admission.",
+        "Existing matrix compares hit boolean against shared margin over432 combinations and out-of-range contactless case; source intent only, no execution or full result-magnitude equivalence claim."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "existing_finding_support": [
+    "ROOT-INITIAL04-F027"
+  ],
+  "deduplication": "All1002 frozen finding metadata searched for wrapping_shl or attack_id plus collision/truncate/alias/32; one exact existing match."
+}

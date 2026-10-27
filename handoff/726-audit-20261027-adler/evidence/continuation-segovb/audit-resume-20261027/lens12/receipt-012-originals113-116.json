@@ -1,0 +1,550 @@
+{
+  "schema": "lens12-source-discovery-receipt-v1",
+  "id": "L12-RESUME-012",
+  "created_utc": "2026-10-27T11:23:21.110908+00:00",
+  "predecessor": "receipt-011-originals108-112.json",
+  "prospective_manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens12/prospective-sources-001.jsonl",
+    "sha256_prefix": "b61791900f09097e099616b5af0ccbb995a90edbf0a8f8506d24cd253a6d4d2f",
+    "bytes_prefix": 83305
+  },
+  "source_reads": [
+    {
+      "original_index": 113,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog.rs",
+      "sha256": "12a6191433c61dae833826429a9ebacc2c043cce0fe593831e65f6ec10a132f6",
+      "actual_ranges": [
+        [
+          1,
+          544
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            11,
+            14
+          ],
+          "role": "Projection module path, OUT_DIR and generated include filename.",
+          "disposition": "Concrete compiler path/environment/include boundaries, with actual declared projection body115 consumed. The generated include producer itself remains unread."
+        },
+        {
+          "ranges": [
+            [
+              16,
+              28
+            ],
+            [
+              39,
+              57
+            ],
+            [
+              94,
+              131
+            ]
+          ],
+          "role": "Authored document source key, ItemSourceRef raw id/file fields, lookup parameters, raw digest return and missing-reference IDs.",
+          "disposition": "Open item IDs remain raw through binary lookup53-57, source map94-104 and validation118-130; missing references are returned as Vec<String>. Source file String is compared with an authored-document path46 to select source order, so it is also application provenance identity, not merely an OS API string. revision107 exposes a semantic digest as text. Keep proper canonical item/source/digest owners through application APIs, distinguishing syntax from membership and human diagnostics; actual generated producer and complete owner fit remain pending."
+        },
+        {
+          "lines": [
+            34,
+            97,
+            163,
+            175,
+            201,
+            232,
+            247,
+            268,
+            270,
+            302,
+            303,
+            310,
+            371,
+            381,
+            386,
+            392,
+            415,
+            451,
+            479,
+            490,
+            506,
+            521,
+            526,
+            529
+          ],
+          "role": "All panic/expect/assert human diagnostic templates in the full body.",
+          "disposition": "Immediate diagnostic formatting boundaries. Canonical item IDs can implement Display there after semantic paths are migrated; the diagnostic role does not justify raw IDs earlier."
+        },
+        {
+          "lines": [
+            150,
+            153,
+            154,
+            158,
+            211,
+            214,
+            235,
+            274,
+            275,
+            276,
+            277,
+            278,
+            283,
+            284,
+            285,
+            286,
+            287,
+            314,
+            327,
+            333,
+            339,
+            357,
+            400,
+            430,
+            453,
+            538,
+            540,
+            541
+          ],
+          "role": "Every item ID fixture input, including two literals on453/538/540; missing IDs and missing-reference expectation541.",
+          "disposition": "Actual definition/source/weapon/reference lookup or result identity, not arbitrary human prose. Same connected open catalog identity family as prior receipts. No static/test exemption and no requirement to preserve unknown-input behavior."
+        },
+        {
+          "lines": [
+            204,
+            205,
+            265,
+            331,
+            338,
+            344,
+            349,
+            355,
+            365,
+            370,
+            391,
+            397,
+            414
+          ],
+          "role": "Raw semantic item tags, attachment tags, point IDs and placement IDs used in equality/membership.",
+          "disposition": "Actual schema116 retains these as String collections/IDs; graph100 also stores attachment point IDs. Reuse appropriate open tag/placement/point owners, preserving authorable vocabulary rather than constructing a closed enum from these examples."
+        },
+        {
+          "lines": [
+            151,
+            155,
+            170,
+            171,
+            173,
+            174
+          ],
+          "role": "Human display-name expectation, source-file identity expectation, newline/hex/digest text.",
+          "disposition": "Name expectation is presentation data; final display consumer is still pending. Source path participates the provenance role above. Newline joining and hex digest formatting are explicit test encoding boundaries; no old golden-output compatibility or hash-uniqueness proof is inferred."
+        }
+      ],
+      "status": "Full changed original independently inventoried; source-accounted with findings and explicit unresolved recipients."
+    },
+    {
+      "original_index": 114,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_physical_serde.rs",
+      "sha256": "f260cac7fddd136d2fd754e6f147a3fcecaa67eb107b87d506121e3c60016671",
+      "actual_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              18
+            ]
+          ],
+          "occurrences": 0,
+          "role": "Native Serde array adapter for CuboidDimensions.",
+          "disposition": "Full18 body has no raw string literal/field/API. Typed geometry error is converted through serde::de::Error::custom at the actual native deserializer error boundary; no native serializer implementation or geometry-invariant verdict."
+        }
+      ],
+      "status": "Full changed original independently inventoried; source-accounted with findings and explicit unresolved recipients."
+    },
+    {
+      "original_index": 115,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_projection.rs",
+      "sha256": "771a265b992561a0094e1b16784b8ca544e4192546e3f06396d35b4bde8b3e30",
+      "actual_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            12,
+            14
+          ],
+          "occurrences": 2,
+          "role": "CatalogProjectionError Display templates and raw item ID payloads13/16.",
+          "disposition": "Typed enum and nested typed causes are retained through the projection result; actual113:34 renders it in a panic diagnostic. Item payloads are copied from the semantic raw schema ID, so that identity gap remains connected, rather than introducing an extra diagnostic-only ID wrapper."
+        },
+        {
+          "ranges": [
+            [
+              23,
+              77
+            ]
+          ],
+          "role": "Serde JSON -> retained raw ItemDefinition IDs; sorting33; default_design raw ID48.",
+          "disposition": "Actual WeaponDesign.catalog_id:String is now proven by exact declared recipe child1-16. Source115 sorts retained raw ID state and feeds raw catalog identity into the native recipe lookup. Canonical open item/chassis identity owner fit remains required; numeric projection helpers and generated input validation are not granted other-lens coverage."
+        }
+      ],
+      "status": "Full changed original independently inventoried; source-accounted with findings and explicit unresolved recipients."
+    },
+    {
+      "original_index": 116,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f",
+      "actual_ranges": [
+        [
+          1,
+          623
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            7,
+            10,
+            13,
+            80,
+            282,
+            284
+          ],
+          "role": "Three module paths, physical Serde adapter name and two default-function names.",
+          "disposition": "Compiler/Serde configuration boundaries; actual physical adapter114 and default bodies288-294 read. Fit/surface child implementations not consumed here, so only their declaration boundary is accounted."
+        },
+        {
+          "lines": [
+            132,
+            148,
+            151,
+            194,
+            213,
+            298,
+            301,
+            316,
+            319,
+            386,
+            438,
+            445,
+            453,
+            456,
+            522
+          ],
+          "role": "All enum naming strategies, native feature strings and ItemKind/BookTarget kind discriminator tokens (386/522 each contain two literals).",
+          "disposition": "Concrete compiler or serializer configuration for already typed categories and enum payloads. No blanket native/schema correctness claim."
+        },
+        {
+          "ranges": [
+            [
+              347,
+              377
+            ]
+          ],
+          "occurrences": 24,
+          "role": "EquipmentLocation.stable_id raw return and 24 topology tokens.",
+          "disposition": "Canonical EquipmentLocation already owns the closed vocabulary. Exact internal/native consumers of this projection remain pending; do not treat the stable_id name as proof all application extraction is appropriate."
+        },
+        {
+          "lines": [
+            28,
+            29,
+            35,
+            65,
+            97,
+            239,
+            251,
+            268,
+            382,
+            518,
+            534,
+            537,
+            556
+          ],
+          "role": "All thirteen raw String or Vec<String> schema fields: item ID/display/tags, attachment tags, placement/point IDs, accepted tags, UV domain, icon reference, settlement allowlist, book terrain/skill and food class.",
+          "disposition": "Semantic IDs/tags/reference/domain values require proper canonical owners through retained schema; display text is separate and needs actual presentation-consumer confirmation. Food.class has an existing FoodClass owner and a late string matcher107:271-285. Book skill/terrain now have exact operational consumers and existing Skill variants: book19-65/285-313, validator1403-1445 and schedule429-439/477-515/583-620. Carry typed skill/terrain targets, preserving the intended teachable subset through explicit admission; do not make an open identifier vocabulary closed merely because examples are finite. Presentation.icon and UV domain actual decoder/native consumers remain unread."
+        }
+      ],
+      "status": "Full changed original independently inventoried; source-accounted with findings and explicit unresolved recipients."
+    }
+  ],
+  "actual_material_receivers": [
+    {
+      "source_id": "physical-p16-unchanged-receiver:crates/adventuresim-core/src/book.rs",
+      "sha256": "1b4aac417b1f0ea794ff7f2832552b2ce1561a7d2cbede9129b274e29dc394ef",
+      "ranges": [
+        [
+          1,
+          90
+        ],
+        [
+          280,
+          315
+        ]
+      ],
+      "provenance": "Exact declared a120 commit bytes, path absent complete frozen physical159 dirty metadata.",
+      "trace": "Raw BookTarget skill strings drive training ceilings22-51 and rematch into Skill289-313. Terrain strings determine valid shape59-62. Typed Skill is the actual semantic result, not display prose. Incidental labels/error/header/selection tail280-282 remain mandatory context, not whole book completion."
+    },
+    {
+      "source_id": "physical-p16-unchanged-receiver:crates/adventuresim-weapon-model/src/design.rs",
+      "sha256": "2aa5f680719615d50daf20b45c8d07c2a9bdadfd5f282783af3d08c4c5b888f0",
+      "ranges": [
+        [
+          1,
+          10
+        ]
+      ],
+      "trace": "Actual recipe child declaration and reexport only."
+    },
+    {
+      "source_id": "physical-p16-unchanged-receiver:crates/adventuresim-weapon-model/src/design/recipe.rs",
+      "sha256": "cf98c39d3507e4f13116cf175ca4555950d82e4cafdebefd7600e7856bbdc3a4",
+      "ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "provenance": "Exact a120 bytes, absent physical159 dirty; declared through design recipe module. A prospective1-30 bound was capped to actual EOF16 and corrected in the append-only manifest; no17-30 source credit.",
+      "trace": "WeaponDesign13-16 actually stores catalog_id:String. This supplies exact type proof for the earlier default_design identity trace; no whole recipe/native geometry audit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/skill.rs",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "ranges": [
+        [
+          15,
+          117
+        ],
+        [
+          625,
+          665
+        ]
+      ],
+      "trace": "Actual existing Skill enum includes book skills and six terrain leaves; from_training_id is already a canonical vocabulary parser. Preserve teachable-subset rules rather than treating all Skill values as valid book targets automatically."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_validation.rs",
+      "sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "ranges": [
+        [
+          1395,
+          1445
+        ]
+      ],
+      "trace": "Actual second string-based book ceiling/terrain whitelist table at build/catalog validation. This corroborates a connected categorical string/authority duplication concern; no whole validator or schema acceptance claim."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/schedule.rs",
+      "sha256": "6cbe8772bb5c9f5bd4f48d7dffa099df1b8a39a8a1cf69a83bc4a5ad0b938c73",
+      "ranges": [
+        [
+          429,
+          445
+        ],
+        [
+          475,
+          520
+        ],
+        [
+          575,
+          620
+        ]
+      ],
+      "trace": "Terrain strings rematch into Skill429-439; typed result drives rank/aptitude and real training application. ordinary_skill is also called for skill targets. Remaining solver/training functions are not independently covered outside these ranges."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Inherited open catalog/attachment/provenance identity and M09 category gaps",
+      "sources": [
+        "113:16-131",
+        "115:23-77",
+        "116:28-35,65,97,239-268,518-556"
+      ],
+      "remedy": "Carry appropriate existing open item/placement/point/tag/source/digest owners through actual application state, use FoodClass and typed book skill/terrain targets at schema admission, and extract text only at real native codecs/diagnostic/render boundaries. Distinguish grammar, catalog membership and teachable subset validity.",
+      "acceptance": "Finish actual owner and ingress/receiver comparisons, aliases and clean final schema/API before any future implementation; no compatibility shims or old format preservation.",
+      "unique_count_delta": 0
+    },
+    {
+      "family": "Book vocabulary duplicated across retained String state, validator and runtime",
+      "sources": [
+        "116:521-538",
+        "book:19-65,285-313",
+        "2587:1403-1445",
+        "311:429-439,477-515,583-620",
+        "141:20-117,628-664"
+      ],
+      "remedy": "Reuse canonical typed skill/terrain owner, enforce the intended book subset once in its owning contract, and retain it through ceiling/training calculations. Separate mathematical training policy from parsing and rendering.",
+      "limits": "No runtime defect, new unique finding or current-tree claim; source-backed alias candidate only.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Generated item include/build source-map identity producer and catalog digest owner; exact icon decoder/native renderer and surface UV domain/fit/surface children.",
+    "Actual remaining EquipmentLocation.stable_id and all raw ID/tag/reference consumers and syntax admission; no closed enum assumption for open content IDs.",
+    "Book read-route state, full validator/teaching functions and precise canonical teachable-subset owner remain bounded future roles; current tree not compared.",
+    "All previous unfinished contracts, all20/P16/P17/currentness and alias qualifications are preserved."
+  ],
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog.rs",
+      "sha256": "12a6191433c61dae833826429a9ebacc2c043cce0fe593831e65f6ec10a132f6",
+      "ranges": [
+        [
+          1,
+          544
+        ]
+      ],
+      "coverage": "Own lens12 source roles only. All applicable other lenses and future ordered original scopes remain independent."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_physical_serde.rs",
+      "sha256": "f260cac7fddd136d2fd754e6f147a3fcecaa67eb107b87d506121e3c60016671",
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "coverage": "Own lens12 source roles only. All applicable other lenses and future ordered original scopes remain independent."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_projection.rs",
+      "sha256": "771a265b992561a0094e1b16784b8ca544e4192546e3f06396d35b4bde8b3e30",
+      "ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "coverage": "Own lens12 source roles only. All applicable other lenses and future ordered original scopes remain independent."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f",
+      "ranges": [
+        [
+          1,
+          623
+        ]
+      ],
+      "coverage": "Own lens12 source roles only. All applicable other lenses and future ordered original scopes remain independent."
+    },
+    {
+      "source_id": "physical-p16-unchanged-receiver:crates/adventuresim-core/src/book.rs",
+      "sha256": "1b4aac417b1f0ea794ff7f2832552b2ce1561a7d2cbede9129b274e29dc394ef",
+      "ranges": [
+        [
+          1,
+          90
+        ],
+        [
+          280,
+          315
+        ]
+      ],
+      "coverage": "Own lens12 source roles only. All applicable other lenses and future ordered original scopes remain independent."
+    },
+    {
+      "source_id": "physical-p16-unchanged-receiver:crates/adventuresim-weapon-model/src/design.rs",
+      "sha256": "2aa5f680719615d50daf20b45c8d07c2a9bdadfd5f282783af3d08c4c5b888f0",
+      "ranges": [
+        [
+          1,
+          10
+        ]
+      ],
+      "coverage": "Own lens12 source roles only. All applicable other lenses and future ordered original scopes remain independent."
+    },
+    {
+      "source_id": "physical-p16-unchanged-receiver:crates/adventuresim-weapon-model/src/design/recipe.rs",
+      "sha256": "cf98c39d3507e4f13116cf175ca4555950d82e4cafdebefd7600e7856bbdc3a4",
+      "ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "coverage": "Own lens12 source roles only. All applicable other lenses and future ordered original scopes remain independent."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/skill.rs",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "ranges": [
+        [
+          15,
+          117
+        ],
+        [
+          625,
+          665
+        ]
+      ],
+      "coverage": "Own lens12 source roles only. All applicable other lenses and future ordered original scopes remain independent."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_validation.rs",
+      "sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "ranges": [
+        [
+          1395,
+          1445
+        ]
+      ],
+      "coverage": "Own lens12 source roles only. All applicable other lenses and future ordered original scopes remain independent."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/schedule.rs",
+      "sha256": "6cbe8772bb5c9f5bd4f48d7dffa099df1b8a39a8a1cf69a83bc4a5ad0b938c73",
+      "ranges": [
+        [
+          429,
+          445
+        ],
+        [
+          475,
+          520
+        ],
+        [
+          575,
+          620
+        ]
+      ],
+      "coverage": "Own lens12 source roles only. All applicable other lenses and future ordered original scopes remain independent."
+    }
+  ],
+  "qualifications": [
+    "No project/check/test/probe execution, new tests, source/Git mutations, root-ledger edits or publication.",
+    "User no-BC override applies to every old input, wire, output and API rationale.",
+    "Frozen f82 physical-P16 and unchanged a120 sources remain distinct from current main/HEAD and PR-working sources.",
+    "Source-accounted with findings does not imply repaired, runtime-accepted, globally clear or unique-total complete. All registered populations remain separate."
+  ],
+  "proposed_count": {
+    "before": 113,
+    "after": 117,
+    "indices_completed": [
+      113,
+      114,
+      115,
+      116
+    ],
+    "next_original": 117,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  }
+}

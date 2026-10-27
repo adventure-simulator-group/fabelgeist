@@ -1,0 +1,178 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "179",
+  "predecessor": "receipt-178-originals941-944.json",
+  "sources": [
+    {
+      "original_index": 945,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+      "sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+      "actual_eof": 219,
+      "actual_ranges": [
+        [
+          1,
+          219
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              219
+            ]
+          ],
+          "role": "Full219 actual941surface857 caller now consumed. NativeJSON keys regions44/84,regions/anchor/coverage82,anchor121,coverage129; protected rawBTreeSetstr13/58 from941bodypartvalidation824-830. CanonicalRegion94031 imported4 but valid_regions rawfinite15tokens62-76 ->classification92 ->region_namesVecstr101 ->raw contiguous_regions147-158 stringpair predicates150-156. anatomical_body_part raw&str132 ->nativeSerde Region133 ->rawbodypart strings137-143 or empty134 ->membership113; canonical EquipmentBodyPart939297 already available. SurfaceAnchor parsedtyped122 actual94023, usefulcontrastingcanonicalboundaryproof. Rawitem_kind11->armor/clothing17 exists939ItemKindowner. Human diagnostics22/31/39/48/79/97/108/116/126 andhumanfixtureformat188 vsnativefixturechest/center174/200/test178/210/armor211/chest213. Existingtests160-219 readsource-only, nativeSerde/allpubliccatalognumeric/current/recipientlimits retained.",
+          "disposition": "Source-accounted WITH exact canonical/native/actualproducer andrecipient limits."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 946,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_references.rs",
+      "sha256": "e794dc0ede51c9d53d64155ee9ce8d551347ec8f659e2461c0b3d5d31b34cb6b",
+      "actual_eof": 76,
+      "actual_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              76
+            ]
+          ],
+          "role": "Full76changedvariant. CURRENCY_IDS3 sixrawitemIDs4-9,MEDICATION_IDS12 fourteenraw13-26 actual941validatorregistry276-299; constants remain semantic finite-supported registry ratherthanownerAPI. Carrykit rawitem/placement/point identities30-37; rawstandardgameplayrefs39-48,required19IDs51-69 ->actual947references16. Existingliteral copies notblanketconstants exemption; opencatalogIDowner vsmechanicssupportedcurrency/medicine distinction andallactualconsumers pending. Actualnativepath item_references/gameplay.rs73 undercfg runtime_catalog72/75 ->947. No tests/bodyother execution.",
+          "disposition": "Source-accounted WITH exact canonical/native/actualproducer andrecipient limits."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 947,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_references/gameplay.rs",
+      "sha256": "5ea6b74abe83e50e450510c6e28499ad7597e7dddf14a93428184b5ece767263",
+      "actual_eof": 30,
+      "actual_ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              30
+            ]
+          ],
+          "role": "Full30 actualruntimecrosscatalogvalidation13 typedquestCatalog14 ->rawrequiredrefs16+strategiccurrencyIDs17+physiologyprofile.preparation_id21+questMonster.combat.loot_item_id26 ->actual937validate_references28 ->MissingGameplayItemReferences.idsVecString8/29. MissingIDssemanticreferencesnoterrorprose. Exactexternalprofile/quest/currencyproducerowners/schema/allcallers/errorrenderers pending; actualclosedregistryconsumerbridge nowread, no globalcatalogadmission proof.",
+          "disposition": "Source-accounted WITH exact canonical/native/actualproducer andrecipient limits."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    }
+  ],
+  "connected_findings": [
+    {
+      "id": "L12-179-surface-region-projection",
+      "source_indices": [
+        945
+      ],
+      "ranges": [
+        [
+          55,
+          158
+        ]
+      ],
+      "finding": "Canonical anatomical region exists yet surface validator classifies/retains strings, parsesintoRegion thenprojectsbodypartbacktorawstring andmatchescontiguityrawpairs. CanonicalEquipmentBodyPart adjacent; actual serializedboundary need not extendtextthroughinternalrelationships.",
+      "remedy": "Parse canonicalregion once atnativeinput, performcontiguity/bodypartcoverage withtypedowners, formatdiagnostic atactualboundary.",
+      "acceptance": "Keepactualserializedfieldkeys/nativeboundary and exactauthoredregioncoverage contracts; verifyalltypedhelpercallers andactualschemaadmission beforeconnectedrepair.",
+      "unique_count_delta": 0
+    },
+    {
+      "id": "L12-179-gameplay-item-references",
+      "source_indices": [
+        946,
+        947
+      ],
+      "ranges": [
+        [
+          3,
+          69
+        ],
+        [
+          5,
+          29
+        ]
+      ],
+      "finding": "Gameplay/currency/medicinal/loot reference identities remain rawstrings acrossregistry aggregation, lookup andmissing-reference errorpayload; actualcanonicalcatalogrecordlookup exists but stableopenID/referenceowner/callerfit remainspending.",
+      "remedy": "Carrycorrectcanonicalstableitemidentity throughactualproducers/referenceaggregation andtypedmissing-IDpayload; keepfinitecurrencymechanicsregistry separate fromopenitemIDowner.",
+      "acceptance": "Consume actualstrategiccurrency,physiologyprofiles,questmonsterloot authoredsource/admission andallerrorconsumers. Constants/private/catalog notexempt, nofiniteopenIDwhitelist.",
+      "aliases": "Prior catalog/food/medicinal/loot reference candidates mayalias;no uniquepromotion.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actualcanonicalstable item/reference producerfit acrosscurrency/physiology/questcatalog/native authoredinputs andalllookup/errorconsumers.",
+    "NativeSerde/JSONimplementations andallactualsurface/calldatarecipients notimplied by ownerimports.",
+    "MandatoryREG132/134-136 ownmaterial andallprior receiver/current/alias/scopes retained."
+  ],
+  "qualifications": [
+    "Full219/76/30 exactprospective scopes independentlyread; nosearch/hash/verdicttransfer/native/test/projectexecution.",
+    "FrozenPRsourceonly, no BC/current/global/otherlens/unique promotion; all20/P16/P17/F9/M09/separatepopulation obligations preserved."
+  ],
+  "proposed_count": {
+    "before": 945,
+    "after": 948,
+    "indices_completed": [
+      945,
+      946,
+      947
+    ],
+    "next_original": 948,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+      "sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+      "ranges": [
+        [
+          1,
+          219
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_references.rs",
+      "sha256": "e794dc0ede51c9d53d64155ee9ce8d551347ec8f659e2461c0b3d5d31b34cb6b",
+      "ranges": [
+        [
+          1,
+          76
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_references/gameplay.rs",
+      "sha256": "5ea6b74abe83e50e450510c6e28499ad7597e7dddf14a93428184b5ece767263",
+      "ranges": [
+        [
+          1,
+          30
+        ]
+      ]
+    }
+  ],
+  "unique_count_delta": 0
+}

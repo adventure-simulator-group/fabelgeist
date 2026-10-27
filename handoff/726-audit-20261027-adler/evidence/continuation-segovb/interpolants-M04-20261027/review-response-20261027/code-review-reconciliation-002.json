@@ -1,0 +1,209 @@
+{
+  "kind": "Independent narrow source review reconciliation after hosted formatting failure",
+  "verdict": "No actionable source defect in exact four-file formatting delta; code-review001 scoped source conclusions remain applicable to candidate004.",
+  "findings": [],
+  "source_identity": {
+    "reviewed_base_commit": "4303418bbce7c01407ddf6ef22b39fb7d44e3b9a",
+    "base_manifest": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/edited-source-manifest-003.json",
+      "sha256": "b05ad41890a4b409717962a417ca5247a7e528c90b493e95bad32ca0b93424ff"
+    },
+    "current_manifest": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/edited-source-manifest-004.json",
+      "sha256": "53eb2c0c7a06d56ff5cab4c487c9d6b69dee06347675242872591658fa9fbb67"
+    },
+    "current_revision": "exact current candidate004 bytes; new committed head not claimed",
+    "prior_review": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/code-review-001.json",
+      "sha256": "bae3f378f0b48a353f9665ecdc247a0759abba529069c92f2eaec699f5942652"
+    },
+    "registration": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/code-review-format-registration-001.json",
+      "sha256": "fbf015d7cb69f01e2ebacb979c3a61352517f55b113d014153a753f2528985db"
+    },
+    "actual_readonly_git_delta": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-format-delta-001.patch",
+      "sha256": "2e341c772f2ff7f99363d5d2008fe05753cdf1d467d1ecc064d894b3d21862c7"
+    },
+    "exact_tracked_changed_path_set": [
+      "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs"
+    ],
+    "all16_current_fingerprints": [
+      {
+        "path": ".github/workflows/rust-quality.yml",
+        "sha256": "0ad5e0e1b2b062d47f48af303bc97f1259f6d4ac99c62bef9b42588b183233b4",
+        "before_sha256": "0ad5e0e1b2b062d47f48af303bc97f1259f6d4ac99c62bef9b42588b183233b4",
+        "changed": false
+      },
+      {
+        "path": "crates/adventuresim-core/Cargo.toml",
+        "sha256": "29e56014658d941895772dda71b9181863839eedf403c7d30b446186228c3441",
+        "before_sha256": "29e56014658d941895772dda71b9181863839eedf403c7d30b446186228c3441",
+        "changed": false
+      },
+      {
+        "path": "crates/adventuresim-core/build.rs",
+        "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+        "before_sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+        "changed": false
+      },
+      {
+        "path": "crates/adventuresim-core/src/linear_speed.rs",
+        "sha256": "ceb8c36c8e8abb4ac96fa0c61601d11145d28755fdb3e7af723aa20ae8dc58bf",
+        "before_sha256": "ceb8c36c8e8abb4ac96fa0c61601d11145d28755fdb3e7af723aa20ae8dc58bf",
+        "changed": false
+      },
+      {
+        "path": "crates/adventuresim-core/src/unit_interval.rs",
+        "sha256": "de48188cfd3789d9a2ac3d9239c4d62f7991191f0a07d88ad90faa5047f7f129",
+        "before_sha256": "de48188cfd3789d9a2ac3d9239c4d62f7991191f0a07d88ad90faa5047f7f129",
+        "changed": false
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+        "sha256": "12d4b4e5ed4ce3940c78b7ee4420ec94e5efa83776b14d60afdbf2ba0d501f5d",
+        "before_sha256": "7510f380b30f9476c5a6fb1c685a1cb4311061f24a07616b1f7a054d95af04fc",
+        "changed": true
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+        "sha256": "fcc7c277f72f6a1004077bd04d3fb0c91607e17e8ee3977106aaa2c3cee38b98",
+        "before_sha256": "47f1910a4f6a6f9ef3e0cc4bc75e39527a72a18babc94b34a9fea6c0647be39c",
+        "changed": true
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+        "sha256": "9ac62b342f4ffec934232478fb5e019d84228a3cb726e29ed9b6f62d91775f36",
+        "before_sha256": "9ac62b342f4ffec934232478fb5e019d84228a3cb726e29ed9b6f62d91775f36",
+        "changed": false
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+        "sha256": "5bb5172865b0ed718a1ecb1bf7378539725fc0afdbe8394d43ed23979c151d9e",
+        "before_sha256": "5bb5172865b0ed718a1ecb1bf7378539725fc0afdbe8394d43ed23979c151d9e",
+        "changed": false
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+        "sha256": "d20c873dd470d03cd65d2c0da3d73dd050cde53f78dfc8bb81b1d237bf55ddcf",
+        "before_sha256": "d20c873dd470d03cd65d2c0da3d73dd050cde53f78dfc8bb81b1d237bf55ddcf",
+        "changed": false
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+        "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027",
+        "before_sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027",
+        "changed": false
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+        "sha256": "37a5dba433aa5219b544716053897df30d3df49662fb5fd38794130c1b803946",
+        "before_sha256": "37a5dba433aa5219b544716053897df30d3df49662fb5fd38794130c1b803946",
+        "changed": false
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+        "sha256": "642983d4cdf24f5cda28f00740f180af4cc4e926b205df647057ef1194e9e32a",
+        "before_sha256": "642983d4cdf24f5cda28f00740f180af4cc4e926b205df647057ef1194e9e32a",
+        "changed": false
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+        "sha256": "543ea955a72a4accf8550af44b35ad0a526fbcc6731bc5fb109ac38ceb609e17",
+        "before_sha256": "a70dd7aa43995b5393dc2adbca58b231fd5d455c466b5ba926d1a65ef2d2232d",
+        "changed": true
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+        "sha256": "c835a9611d133e6fbe72b9121632d5dca1752d4f22d1b0545792ff582844e68d",
+        "before_sha256": "c835a9611d133e6fbe72b9121632d5dca1752d4f22d1b0545792ff582844e68d",
+        "changed": false
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+        "sha256": "024ec4e60675ea68c97e5ed11e89756356b724a7ea0519006227c58c6bfeefce",
+        "before_sha256": "42b5532ca3f4d22095a3612e77ec5d3f3c4d3b9b8058bdc54ce9432a8e895dad",
+        "changed": true
+      }
+    ],
+    "base_verification": "Read-only git show of each exact430 file independently SHA256-matched candidate003 source pin before actual final comparison."
+  },
+  "actual_source_consumption": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "ranges": [
+        [
+          62,
+          75
+        ]
+      ],
+      "assessment": "AuthoredStrideMeasurement checked_lerp chain wrapped across lines; same field access, arguments, error propagation and retained field."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "ranges": [
+        [
+          236,
+          298
+        ]
+      ],
+      "assessment": "Two runtime config member-access chains wrapped; same typed bounds/native operations and height gates. No source change in runweight or output semantics."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "ranges": [
+        [
+          630,
+          659
+        ]
+      ],
+      "assessment": "Locomotion validate method chain/argument wrapped; optional trailing comma added after sole explicit argument. This is a Rust call argument separator before closing parenthesis, not a tuple or changed parameter."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "assessment": "Five same typed gait values expanded into array and optional trailing comma after last element; unchanged cardinality/order. Run/walk comparison joins lines; same operands/operator. Support range, strict spans, landing delegation unchanged."
+    }
+  ],
+  "format_evidence": {
+    "run": 40473139582,
+    "earliest_reported_failure": "Check formatting",
+    "bounded_log": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/format-failure-001.txt",
+      "sha256": "b5b0f85af5992feab4352b9dbf6531545b3bbe597b5bfaf2f2ac59d000f4ffb7"
+    },
+    "log_lines_consumed": [
+      [
+        1,
+        146
+      ]
+    ],
+    "assessment": "Hosted formatter requested exactly the source wrapping and optional trailing commas observed in direct diff. Last bounded line reports exit1. This receipt does not diagnose downstream skipped gates or claim rerun success.",
+    "root_comparison": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/format-reconciliation-001.json",
+      "sha256": "bc54c07281809ed5fdf6d3d8ed96b1df39bbc86ea7ba7313504700df32da0581"
+    },
+    "normalization_qualification": "Initial strict whitespace-only check correctly rejected optional commas. I independently inspected concrete diff and Rust contexts; no blanket generic comma-removal rule or whitespace-only claim used."
+  },
+  "retained_contracts": [
+    "Four typed normalized speed producers and scoped recipient coverage remain as code-review001.",
+    "Zero flight remains admitted without amplitude division; typed height retention/errors unchanged.",
+    "UnitInterval closure/complement/Mul/symmetric smoothstep and strict speed bounds errors unchanged.",
+    "Native FloatExt interpolation and checked typed output admission unchanged.",
+    "Separate build-root modules/dependencies and existing hosted commands/positive gates byte-unchanged."
+  ],
+  "limits": [
+    "Source-only. No local project builds/tests/fmt/lint/scanners/probes/new tests/helpers/assertions/doctests, source/Git/ledger mutations or publication. Only read-only Git source queries and ignored append evidence.",
+    "Twelve other manifest paths byte-identical to candidate003; prior evidence coverage reused exactly, not broad reread/clearance.",
+    "Hosted final same-source compilation/tests and baseline reductions remain separate acceptance work. No global audit/lens13/all20 or acceptedunique count credit.",
+    "Any further source changes require reconciliation. Parent sole implementer/adopter/publisher."
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "packet": 182,
+  "lens": 11,
+  "entries": [
+    {
+      "original": 810,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory/loadout.rs",
+      "sha256": "8b3ada636d68eaae16cf4ca2bab097cd918be93a52452d34dc3e2648add51691",
+      "read_from": "crates/adventuresim-character-creator/src/inventory/loadout.rs",
+      "actual_eof": 110,
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "purpose": "Concrete Loadout retained Article families and inventory-instance IDs, actual worn receiver",
+      "ordered_original_shared_credit": 0
+    },
+    {
+      "original": 811,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory/occupancy.rs",
+      "sha256": "dbd62cb0c402bcb0903b4bcebdc159c2d2f35f266e4dff77c359796db40231b8",
+      "read_from": "crates/adventuresim-character-creator/src/inventory/occupancy.rs",
+      "actual_eof": 287,
+      "ranges": [
+        [
+          1,
+          287
+        ]
+      ],
+      "purpose": "Actual Occupancy and WornGraph Candidate/build/support/place receiver, Article occupancy alternatives and dependents",
+      "ordered_original_shared_credit": 0
+    },
+    {
+      "original": 764,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "sha256": "da3139ef3625393db9041ad0680dc244b0f81235b86ea4519a87c9299763bdd6",
+      "read_from": "crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "actual_eof": 146,
+      "ranges": [
+        [
+          1,
+          91
+        ]
+      ],
+      "purpose": "Concrete ItemCatalog/catalog placement admission/lookups reached by CatalogArticle.resolve",
+      "ordered_original_shared_credit": 0
+    },
+    {
+      "original": 815,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/item_design.rs",
+      "sha256": "a33bdf3bde70ed5a647c3968c9e9c04dd60402bca585d47a4d2555ce9e3802aa",
+      "read_from": "crates/adventuresim-character-creator/src/item_design.rs",
+      "actual_eof": 232,
+      "ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "purpose": "Actual ItemDesign variant validation/samefamily and CatalogDesigns default_at receiving contracts",
+      "ordered_original_shared_credit": 0
+    }
+  ],
+  "registered_before_body_read": true,
+  "locator_only": "Named declarations in exactmatched files locate material methods; no semantic coverage from rg declarations.",
+  "limits": "Changed original809 alone receivesorderedassessment; no fullforeign/SDK exemption or currentfamilyproof"
+}

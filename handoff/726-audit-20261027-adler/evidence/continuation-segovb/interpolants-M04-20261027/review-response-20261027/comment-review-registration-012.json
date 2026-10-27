@@ -1,0 +1,42 @@
+{
+  "manifest_sha256": "55a151beb9a438ef839863966558da34a78a1998232af3784a5f326dce53095e",
+  "changed": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/dive.rs",
+      "before": "c31ca562d4c25d843f4f4841ca0663f461cfafd474a1571ae31908d99be9fcad",
+      "after": "777d81cd65a783e44930ba746488b1209406df1945d5a3fdefc236496549f7be"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/resolver/span.rs",
+      "before": "07d821fecf924daf31fc058ba5cadf682d41053ed6529c7406fbc0988a2304d6",
+      "after": "1d9e43caff202030a311c016c3c4809bb3ad83868d2ad5ba458b2645ab36b1e1"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs",
+      "before": "819a153f16a8e2525c18d0a1066df334d85e7730aad9d165ccf6ecf0f923c52f",
+      "after": "fa0524663e7887d03d177c6fe99de81edd2eeb7b5c402ab1c0037ab953e788c7"
+    }
+  ],
+  "prospective_ranges": {
+    "procedural/dive.rs": [
+      [
+        85,
+        147
+      ]
+    ],
+    "resolver/span.rs": [
+      [
+        15,
+        60
+      ]
+    ],
+    "state/posture_transition.rs": [
+      [
+        62,
+        86
+      ]
+    ],
+    "review3-hosted-format-diff-001.txt": "full bounded diagnostic",
+    "pr-body-005.md": "full proposed body, separate verdict"
+  }
+}

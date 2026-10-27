@@ -1,0 +1,37 @@
+{
+  "at": "2026-10-27T04:38:13.857485+00:00",
+  "kind": "M04 source-only review rangecorrection/unchangedportregistration",
+  "head": "5ceaa9bd5738b8b01e7d488df55c172cd4f8593d",
+  "extends": "code-review-registration-002.json",
+  "sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state/projection.rs",
+      "sha256": "1c3d107a1b048fc5397ff0bd4ce896e703fd748296193bf90bea403fe7af7bab",
+      "bytes": 10398,
+      "actual_lines": 272,
+      "ranges": [
+        [
+          202,
+          272
+        ]
+      ],
+      "purpose": "Correct earlierplanned202-279toactualEOF272; repeatedcompleteactualfunctionreadonly; nonexistenttail273-279uncredited",
+      "body_consumed_at_registration": false
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/camera/smoothing.rs",
+      "sha256": "6f9948b9cd1412b7351a88e92a460780579e7d89ad0a9ae6bbfb4dd99102842a",
+      "bytes": 9153,
+      "actual_lines": 269,
+      "ranges": [
+        [
+          112,
+          146
+        ]
+      ],
+      "purpose": "ExistingcanonicalUnitInterval camerainterpolationcaller/ResponseShapingTime receivingport; no productchange",
+      "body_consumed_at_registration": false
+    }
+  ],
+  "read_chronology": "Earlierregisteredprojection202-279 emittedactual202-272underprospectiverange thenIndexErroratEOF. No273-279contentexists/credited; followingpresentation82-177bodywasnotprinted. Correctactual202-272nowregisteredbeforefreshread; presentationremainsregisteredandwillreadseparately. No product/check/testexecution impact."
+}

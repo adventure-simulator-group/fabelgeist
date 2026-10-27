@@ -1,0 +1,654 @@
+{
+  "lens": 13,
+  "status": "original97-107 source-accounted WITH findings; continuing",
+  "registrations": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-041-registration.json",
+      "sha256": "0959fc41f752609e229da0dfbccd7ad79c768a6274a027815cf83545208f4852"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-042-registration.json",
+      "sha256": "dc549578f9f369f8d18db3042f1fab45bc83b180b6263d204039f1b0717ef321"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-043-registration.json",
+      "sha256": "9b7a1df27f55620de38b437956d6703a86159a6b5fe7ce24b855ae42830a0b83"
+    }
+  ],
+  "actual_source_reads": [
+    {
+      "original": 97,
+      "source_id": "physical-p16:crates/adventuresim-core/src/encounter.rs",
+      "sha256": "aad69b12c6ade6caa59828876caede30c0a0fe2577b11fdd91f84594d2471dd5",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/aad69b12c6ade6caa59828876caede30c0a0fe2577b11fdd91f84594d2471dd5",
+      "requested_range_variants": [
+        [
+          1,
+          1019
+        ],
+        [
+          460,
+          555
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          1019
+        ]
+      ],
+      "eof": 1019,
+      "provenance": "exactf82registeredphysicalsource; fullrequestedunionspreserved; receiveraccessnotorderedcredit",
+      "reuse": null,
+      "actual_consumed_ranges": [
+        [
+          1,
+          1019
+        ]
+      ],
+      "read_status": "actual bounded body read after prospective registration"
+    },
+    {
+      "original": 98,
+      "source_id": "physical-p16:crates/adventuresim-core/src/encounter/choice.rs",
+      "sha256": "3a327aeb8ec9f72d67960b0cdc94f7ece677c4a963d5ce8e1db7af3fd8025206",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/3a327aeb8ec9f72d67960b0cdc94f7ece677c4a963d5ce8e1db7af3fd8025206",
+      "requested_range_variants": [
+        [
+          1,
+          72
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "eof": 72,
+      "provenance": "exactf82registeredphysicalsource; fullrequestedunionspreserved; receiveraccessnotorderedcredit",
+      "reuse": null,
+      "actual_consumed_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "read_status": "actual bounded body read after prospective registration"
+    },
+    {
+      "original": 99,
+      "source_id": "physical-p16:crates/adventuresim-core/src/encounter/receipt.rs",
+      "sha256": "79edfeebdc4b5bdd4dfd8272b5b15981bf986c1acdcc4bca4b92d3fe3022b1b1",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/79edfeebdc4b5bdd4dfd8272b5b15981bf986c1acdcc4bca4b92d3fe3022b1b1",
+      "requested_range_variants": [
+        [
+          1,
+          36
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "eof": 36,
+      "provenance": "exactf82registeredphysicalsource; fullrequestedunionspreserved; receiveraccessnotorderedcredit",
+      "reuse": null,
+      "actual_consumed_ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "read_status": "actual bounded body read after prospective registration"
+    },
+    {
+      "original": 100,
+      "source_id": "physical-p16:crates/adventuresim-core/src/equipment.rs",
+      "sha256": "635ee67da06496157b5b091eb40535af2493a554d2b69f6b82023886b9b2a1e0",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/635ee67da06496157b5b091eb40535af2493a554d2b69f6b82023886b9b2a1e0",
+      "requested_range_variants": [
+        [
+          1,
+          675
+        ],
+        [
+          1,
+          1182
+        ],
+        [
+          520,
+          565
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          1182
+        ]
+      ],
+      "eof": 1182,
+      "provenance": "exactf82registeredphysicalsource; fullrequestedunionspreserved; receiveraccessnotorderedcredit",
+      "reuse": "103full1-97ownactualbodyunder029; original100onlyboundedreceiver1-45/430-465previously; remainingfullbodyfresh",
+      "actual_consumed_ranges": [
+        [
+          1,
+          1182
+        ]
+      ],
+      "read_status": "actual bounded body read after prospective registration"
+    },
+    {
+      "original": 101,
+      "source_id": "physical-p16:crates/adventuresim-core/src/equipment/armor.rs",
+      "sha256": "1eb52192b9ef4b1d23b4a696a3f4b370baf3076b3184e4b576ec681f426e47f1",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/1eb52192b9ef4b1d23b4a696a3f4b370baf3076b3184e4b576ec681f426e47f1",
+      "requested_range_variants": [
+        [
+          1,
+          94
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          94
+        ]
+      ],
+      "eof": 94,
+      "provenance": "exactf82registeredphysicalsource; fullrequestedunionspreserved; receiveraccessnotorderedcredit",
+      "reuse": null,
+      "actual_consumed_ranges": [
+        [
+          1,
+          94
+        ]
+      ],
+      "read_status": "actual bounded body read after prospective registration"
+    },
+    {
+      "original": 102,
+      "source_id": "physical-p16:crates/adventuresim-core/src/equipment/parametric_weapon.rs",
+      "sha256": "b86de57ce073e0c629d63bcb5e9b1cc92c18be2705b8954f4536c12db6fd0eb3",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/b86de57ce073e0c629d63bcb5e9b1cc92c18be2705b8954f4536c12db6fd0eb3",
+      "requested_range_variants": [
+        [
+          1,
+          65
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "eof": 65,
+      "provenance": "exactf82registeredphysicalsource; fullrequestedunionspreserved; receiveraccessnotorderedcredit",
+      "reuse": null,
+      "actual_consumed_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "read_status": "actual bounded body read after prospective registration"
+    },
+    {
+      "original": 103,
+      "source_id": "physical-p16:crates/adventuresim-core/src/equipment/timing.rs",
+      "sha256": "2d07455dadf2a1893ef4a3867f0b5ada5170e81c3a279d347ee86c1cc6ab4dfd",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/2d07455dadf2a1893ef4a3867f0b5ada5170e81c3a279d347ee86c1cc6ab4dfd",
+      "requested_range_variants": [
+        [
+          1,
+          97
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "eof": 97,
+      "provenance": "exactf82registeredphysicalsource; fullrequestedunionspreserved; receiveraccessnotorderedcredit",
+      "reuse": "103full1-97ownactualbodyunder029; original100onlyboundedreceiver1-45/430-465previously; remainingfullbodyfresh",
+      "actual_consumed_ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "read_status": "prior receiver029 full1-97 independently role-inventoried and also freshly consumed1-97 after041 registration; one original credit"
+    },
+    {
+      "original": 104,
+      "source_id": "physical-p16:crates/adventuresim-core/src/errantry.rs",
+      "sha256": "c745b617fe6b91b054b4f968565f295d03f9839eb329c4957d86306d65969858",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/c745b617fe6b91b054b4f968565f295d03f9839eb329c4957d86306d65969858",
+      "requested_range_variants": [
+        [
+          1,
+          445
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          445
+        ]
+      ],
+      "eof": 827,
+      "provenance": "exactf82registeredphysicalsource; fullrequestedunionspreserved; receiveraccessnotorderedcredit",
+      "reuse": null,
+      "actual_consumed_ranges": [
+        [
+          1,
+          445
+        ]
+      ],
+      "read_status": "actual bounded body read after prospective registration"
+    },
+    {
+      "original": 105,
+      "source_id": "physical-p16:crates/adventuresim-core/src/essential.rs",
+      "sha256": "3d1b91f2f3bd1d9ffaeaa98eb8cf921fcbfee807aba9fd8bd16ca762448a10e0",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/3d1b91f2f3bd1d9ffaeaa98eb8cf921fcbfee807aba9fd8bd16ca762448a10e0",
+      "requested_range_variants": [
+        [
+          1,
+          40
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "eof": 40,
+      "provenance": "exactf82registeredphysicalsource; fullrequestedunionspreserved; receiveraccessnotorderedcredit",
+      "reuse": null,
+      "actual_consumed_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "read_status": "actual bounded body read after prospective registration"
+    },
+    {
+      "original": 106,
+      "source_id": "physical-p16:crates/adventuresim-core/src/filth.rs",
+      "sha256": "a9e459f3c532b5661b495beff45dbdabd7946cf34bacf8e05f0d852d0f36e446",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/a9e459f3c532b5661b495beff45dbdabd7946cf34bacf8e05f0d852d0f36e446",
+      "requested_range_variants": [
+        [
+          1,
+          631
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          631
+        ]
+      ],
+      "eof": 631,
+      "provenance": "exactf82registeredphysicalsource; fullrequestedunionspreserved; receiveraccessnotorderedcredit",
+      "reuse": null,
+      "actual_consumed_ranges": [
+        [
+          1,
+          631
+        ]
+      ],
+      "read_status": "actual bounded body read after prospective registration"
+    },
+    {
+      "original": 107,
+      "source_id": "physical-p16:crates/adventuresim-core/src/food.rs",
+      "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "requested_range_variants": [
+        [
+          7,
+          8
+        ],
+        [
+          9,
+          9
+        ],
+        [
+          10,
+          10
+        ],
+        [
+          171,
+          179
+        ],
+        [
+          309,
+          335
+        ],
+        [
+          336,
+          338
+        ]
+      ],
+      "ranges": [
+        [
+          7,
+          10
+        ],
+        [
+          171,
+          179
+        ],
+        [
+          309,
+          338
+        ]
+      ],
+      "eof": 848,
+      "provenance": "exactf82registeredphysicalsource; fullrequestedunionspreserved; receiveraccessnotorderedcredit",
+      "reuse": null,
+      "actual_consumed_ranges": [
+        [
+          7,
+          10
+        ],
+        [
+          171,
+          179
+        ],
+        [
+          309,
+          338
+        ]
+      ],
+      "read_status": "actual bounded body read after prospective registration"
+    },
+    {
+      "source_id": "physical-p16:core/item_catalog_schema.rs",
+      "sha256": "115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f",
+      "ranges": [
+        [
+          143,
+          231
+        ],
+        [
+          470,
+          504
+        ]
+      ],
+      "provenance": "exact f82 physical registry source object",
+      "purpose": "material actual recipient, validation/producer or retained-state contract; receiver access only, no future original/other-lens credit",
+      "actual_consumed_ranges": [
+        [
+          143,
+          231
+        ],
+        [
+          470,
+          504
+        ]
+      ],
+      "read_status": "actual bounded body read after prospective registration"
+    },
+    {
+      "source_id": "physical-p16:core/road_encounter_catalog.rs",
+      "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "ranges": [
+        [
+          19,
+          59
+        ],
+        [
+          387,
+          410
+        ],
+        [
+          986,
+          1005
+        ]
+      ],
+      "provenance": "exact f82 physical registry source object",
+      "purpose": "material actual recipient, validation/producer or retained-state contract; receiver access only, no future original/other-lens credit",
+      "actual_consumed_ranges": [
+        [
+          19,
+          59
+        ],
+        [
+          387,
+          410
+        ],
+        [
+          986,
+          1005
+        ]
+      ],
+      "read_status": "actual bounded body read after prospective registration"
+    },
+    {
+      "source_id": "physical-p16:puzzles/ordered_sigils.rs",
+      "sha256": "663ef1d62d85a2b952a6be5d496949ae0b71d293110c14d6d7d123319559ee6b",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/663ef1d62d85a2b952a6be5d496949ae0b71d293110c14d6d7d123319559ee6b",
+      "ranges": [
+        [
+          1,
+          100
+        ],
+        [
+          155,
+          230
+        ]
+      ],
+      "provenance": "exact f82 physical registry source object",
+      "purpose": "material actual recipient, validation/producer or retained-state contract; receiver access only, no future original/other-lens credit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          100
+        ],
+        [
+          155,
+          230
+        ]
+      ],
+      "read_status": "actual bounded body read after prospective registration"
+    },
+    {
+      "source_id": "physical-p16:core/food.rs",
+      "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "ranges": [
+        [
+          1,
+          170
+        ],
+        [
+          180,
+          308
+        ],
+        [
+          339,
+          440
+        ]
+      ],
+      "provenance": "exact f82 physical registry source object",
+      "purpose": "material actual recipient, validation/producer or retained-state contract; receiver access only, no future original/other-lens credit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          170
+        ],
+        [
+          180,
+          308
+        ],
+        [
+          339,
+          440
+        ]
+      ],
+      "read_status": "actual bounded body read after prospective registration"
+    },
+    {
+      "source_id": "physical-p16:core/item_catalog_fit.rs",
+      "sha256": "a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "provenance": "exactf82 registeredphysical source",
+      "credit": "receiveronly no futureoriginal orotherlenscredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "read_status": "actual bounded body read after prospective registration",
+      "requested_beyond_eof": [
+        [
+          47,
+          65
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:puzzles/lib.rs",
+      "sha256": "710b7464b874f4a7d13e47772786ff780a13d4b4689a613d6f7fbc0efa2b5f28",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/710b7464b874f4a7d13e47772786ff780a13d4b4689a613d6f7fbc0efa2b5f28",
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "provenance": "exactf82 registeredphysical source",
+      "credit": "receiveronly no futureoriginal orotherlenscredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "read_status": "actual bounded body read after prospective registration",
+      "requested_beyond_eof": [
+        [
+          20,
+          100
+        ]
+      ]
+    }
+  ],
+  "authority": {
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "source_manifest_sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa"
+  },
+  "role_inventory": [
+    {
+      "original": 97,
+      "roles": "u64 minute cursor, boundary and roll index; u16 membership/awareness/count/rolls; u32 metres/minute and encounter weights; fatigue percentu8/encumbranceBPS; Bool night/settlement/pending; fixed3archetype slots, 4awareness cases, 180/240minute frequencies, 10000BPS whole, 1000roll span, 500awareness threshold, weighted catalog and numeric test fixtures",
+      "trace": "public context\u2192select_at/with_problem\u2192minute-derived domain RNG\u2192selection retained raw fields\u2192available_choices, enemy_count and awareness; actual same-file bodies plus bestiary75/validation prior034-037 and native Seed/Stream actual039 reuse. Narrative context\u2192fixed interval\u2192catalog definitions OnceLock JSON/validate weight1..10000\u2192positive candidates\u2192weighted index\u2192retained selection. Body558+ fixtures read source only, not executed.",
+      "guarantees": "Actual visited index*interval<=saturated end; first quotient+1 safe for interval>=180. enemy_count spread<=32767, spread+1<=32768; native result fitsu16, capable addition saturates. scale count*u16BPS<=65535\u00b2 fitsu32 before cap. Weight base*u32 habitat/activity with percentages<=100 fitsu32; frequency rawu16bonus can exceed10000 causing certainty, not necessarily bounded fraction. Strategic travel speed product max83*10000^4 fitsu64; denominator whole^4 fitsu64, output1..83. No tactical fatigue-rule violation inferred from explicitly strategic overland policy."
+    },
+    {
+      "original": 98,
+      "roles": "closed enum choice + parse success/error; no raw numeric production fields/literals beyond unit return and test values",
+      "trace": "closed five-value array and stable tokens\u2192parse\u2192choice enum\u2192original97 actual match; helper Eq Bool actual comparator, no invented numeric owner"
+    },
+    {
+      "original": 99,
+      "roles": "u64rollindex/native random words/character IDs, u32 expectedrevision, Bool retry result; format width016 two words",
+      "trace": "typed Seed\u2192separate streams actual39/2531+stream prior039\u2192two next_u64\u219232hex chars (enc prefix4)\u2192opaqueString; receipt full equality compares identity/character/choice/revision. 128-bit representation not collision-free/security promise."
+    },
+    {
+      "original": 100,
+      "roles": "u8keyboardrow/column fixed QWERTY table; u64item IDs/u16capacityindex/order; graph collection indices/Bool reachability; nine rawf32 skill weights and melee/ranged/unarmed Bool; rawmass/inertia/precision/balance/resistance/flexibility/coverage/range/multiplier/joules; typedSignedLength and AnimationElapsed retained; coefficients5/30/powi3/default.3s/40joules/.5weight; fixture tolerances and IDs source-only",
+      "trace": "graph publicplacements\u2192singletonorder0 + actual OccupancyRequirement.conflicts_with\u2192duplicatebody/edge,parent,cycle checks\u2192map retention; unequip refuses children. Canonical EquipmentChannel ordered enum method and exact fit recipient read. Publicnodes can bypass mutations. WeaponSkills actual schema f32\u2192distribution\u2192sanitize/validate\u2192weighted_check; original skill141 selected check actual036/037 and combat/autoresolve49-89 callers reused. PlayerEquipment methods\u2192actual earlier combat/armor/skill operations; physical native powi/sqrt only after actual numerical kernels, not generic trait-bound guarantee. Encumbrance new/combined sanitizes NaN/negative0/positiveinfinityMAX; ratio resultclamps0..1; zero capacity intentionally returns0 evenzero burden. Publicfields can bypass new; not universally checked owner."
+    },
+    {
+      "original": 101,
+      "roles": "rawu64item IDs/u16order and optional ID; rawf32 protection attributes; 0/1 initializes/complements/weights; Bool implicit filters",
+      "trace": "WearableProtection public\u2192bodypart filter\u2192coverage complement product/clamps,resistance+padding sums, weightedflexibility\u2192LayeredArmor public; outermost max channel order/withinorder/itemID actualcanonical channel owner\u2192contact target. Actualcombat79 and equipment100 recipients read; rawpublic finite guarantees absent."
+    },
+    {
+      "original": 102,
+      "roles": "rawmass/inertia/balance/precision plus typed finite signed geometry lengths; Bool constructor predicate and Option; zero mass invalid, zero inertia/headlength/balance/precision valid",
+      "trace": "new checks all rawf32finite, mass>0, total/grip>0 and ordered bounds, head0..total; retains public fields\u2192melee_reach and conditioned_precision. Actualcatalog lookup path shown and samefile expectpositive; previous weapondesign/catalog numerical contracts retained. Publicliteral construction and unchecked effectiveprecision permit invalidstates; no validated-shape type. Plainconditioned product/division mayoverflow under finite public inputs."
+    },
+    {
+      "original": 103,
+      "roles": "raw momentf32/unarmedBool; coefficients.3fallback,.36unarmed,.24+.40sqrt(inertia/(inertia+.45)), stab1.18/contact.56 vs swing1/.55; private intermediary seconds",
+      "trace": "rawmoment finite+max0 orfallback\u2192actualsqrt physicalkernel\u2192style branch\u2192boundedcycle/contactshare\u2192checked AnimationElapsed receiver full96. Duration result retains typed values; styleenum existingowner. Does not reclassify meaningful native numerical kernel as propagation defect; publicmoment itself lacks physical owner."
+    },
+    {
+      "original": 104,
+      "roles": "u16trialordering; raw movement/elapsedminuteu64 beside typed StrategicMinute, Bool campmembership/eligibility; clue Sigil\u21920..4 nativearraycoordinates, rawu8position convertedusize; fixed5x5 table dimensions and test-free scoped prose tables",
+      "trace": "campidentity actual equality/contains plus availableelapsed>= threshold; typedabsolute departure vs rawrelativemovement/elapsed remaindistinct opportunity. FeyClue public OrderedSigilClue receiver\u2192actualfive-sigil array/table indexes; actualcluedeclaration/Serde, generator positions from five-array, puzzle validator rejects>=5 read. Directfey API doesnotinvoke validator. Onlyregistered1-445 original104; EOF827 tail uncredited."
+    },
+    {
+      "original": 105,
+      "roles": "raw calories/focus/fatigue/condition f32; 1000calories/endurance and powi5",
+      "trace": "PlayerEssentials publicgetter\u2192fatigue calories/(actualPlayerAttributes endurance*1000)\u2192powi5 +max0\u2192strategic skillcondition*equipmentencumbrance; prioractualattributes/skill receivers retained. Zero/negative/nonfinite endurance not excluded bygenerictrait and divisionkernel alone doesnotadmit domain; zero/negativecalories policies unresolved owner finding, not actualcombatparallelpenalty (commentexplicitlystrategic)."
+    },
+    {
+      "original": 106,
+      "roles": "u16filthamount/max100/soap25, u64IDs/episode/cursor/age, u32stackcleansingpoints and routecounters, u8ranking0..4/sentinel5, Boolforeign/compatible/has_cut; rawf32risk/exposure/infectiousfraction/travel8perday; nullableactiveu64 vstypedabsolute clock; u128accrualnumerator",
+      "trace": "Deposit public\u2192boundedamount\u2192infectionforeign filter/actualDisease definition vector enum\u2192inclusivewindow merge/agefraction\u2192dose\u2192clampedrisk; TimedCutRoute retained states\u2192active_elapsedfilter\u2192counts\u2192exp exposure; washpriority\u2192actuallexicographic sort; planwash\u2192stable personalfirst stackbudget\u2192risk/age/ID deposits\u2192rawpointplan. u128(minutes*8+u16) cannot overflow fromu64minutes; modulo1440 fitsu16; quotientexplicitlysaturates. 25 soap conversion exists at fixture stack helper; productionplan speaks capacitypoints, not wholeunits\u2014do not reportmissing25factor. Route countu32 anddeposit totalu32 sums lack publicslice bound; zeroamount/quantity valid no-op. AbsoluteWindowsinclusive, not strict ordered intervaldefault."
+    },
+    {
+      "original": 107,
+      "roles": "nonstring requested constants1e-8..1e-5 initial concentration,floor1e-9,max1e9, four CookingMethodenum, rawanchor/growthf32 elapsedu64\u2192f64exp/(60minutesperhour), cap80 exponent andmaxload; thermal killcoefficients1e-5/2e-6/4e-6; native RNGunitf64 and convertedf32result",
+      "trace": "Seed\u2192actual priorStream::unit_f64\u2192ln endpoints\u2192exp\u2192f32 boundedinitialrange. contamination_at rejectsnonfiniteanchor/growthtomax, maxnegative0, f64exponentcap80 andoutputcap1e9\u2192publicconcentration. cooked\u2192method-specific kill\u2192floor/cap\u2192partially_cooked_contamination actualsanitizer/nativepowf\u2192scale contributions actualbody; FoodDefinition rawcatalogprojection fromitemcapability retained, no blanketcatalogadmissionproof. Supplemental actualfood1-440 only; original107effectiveunion7-10/171-179/309-338 exactlypreserved. No otherfoodtail/globalcredit."
+    }
+  ],
+  "qualified_observations": [
+    {
+      "id": "OBS13-ENCOUNTER-SNEAK-U16-ADD",
+      "source": "97:408-411",
+      "observation": "Publicparty_stealth/enemy_awarenessu16 acceptMAX; addingrandom0..999 canoverflowu16. awareness_from_rolls uses saturating addition but sneak doesnot. SourceAPIcontract concern, no runtime/random witness or currentparty-capability claim."
+    },
+    {
+      "id": "OBS13-WEAPON-WEIGHTS-SUM",
+      "source": "100:403-432",
+      "observation": "TwoMAX finite nonnegative weights passvalidate(true,false); summedweights becomesinfinity and check=1 producesinfinite numerator/infinite denominator\u2192NaN. Actualpublicconstruction\u2192validate\u2192weighted_check source counterexample; no executedtest or currentcatalogbadvalue claim. Similar raw layer resistance/weighted flexibility finite sums101:69-77 canoverflow; per-entry clampnotaggregateproof."
+    },
+    {
+      "id": "OBS13-FEY-COORDINATE",
+      "source": "104:270-288; receiver2826:7-12,156-176,193-225",
+      "observation": "Direct fey_clue_text withpublic Exact/NotAt position5 indexesbeyond5-slotrow. Actualgeneratedcluepositions0..4 and separatevalidatedpuzzle routearebounded; rawpublic/derivedSerdeclue doesnotownthatinvariant. No currentuntrustedrouteactivationclaimed."
+    },
+    {
+      "id": "OBS13-RAW-PROJECTION-PORTS-97-107",
+      "observation": "IDs, relative times, unit-bearing physicalvalues, normalizedweights/fractions and ranks remainprimitive inpublicretainedstate/APIs despite typedgeometry/elapsed/StrategicMinute neighbors. Existing UnitBasisPoints admission hole from023-033 stillretained; cannot claim reuse closesit. Existing BodyMassKg20..300 onlylivingcharactercandidate, not everyweapon/creaturemass. Separatepolicybonuses andgrowth/contaminationvalues mayexceedone; no blanketUnitInterval proposal."
+    },
+    {
+      "id": "OBS13-FILTH-CLOCK-SATURATION",
+      "source": "106:81-118",
+      "observation": "For deposited_at close toStrategicMinuteMAX, saturating_add(2880).saturating_sub(1) yieldsMAX-1 even though infectious_fraction atMAX mayremainpositive. This is an extreme representableclock boundary discrepancy between two actualhelpers; no currenttimeline/runtimeincident claim."
+    }
+  ],
+  "qualifications": [
+    "Exact frozen source only; current source rg used solely as path/navigation hint before exactf82materialread; no currentidentity or absence inference.",
+    "Allscoped fixture/testsource read as authoring evidence only; no tests/helpers/assertions added or executed.",
+    "Only literal mathematical source examples; all compiler/runtime/RNG/catalogactivation/currentness/security/SDK validation remains separate.",
+    "Prior own13proofs reused bymatchingexacthash/contracts only, no otherlens verdicttransfer. No futureoriginal116/134/2581/2826/2829 rolecredit fromrecipient reads.",
+    "042/043 receiver tails endingmiddeclaration not claimed beyondactualconsumedline ranges. Requested043ranges beyondEOF disclosed absent, not coverage.",
+    "All031authoritycorrection/unregisteredpatch/accessqualification andinheritedF1/F2/F6/F9/nativecurrentness/aliaslimits retained. Zero globallyunique/acceptedfinding count."
+  ],
+  "no_project_execution_or_mutation": true
+}

@@ -1,0 +1,55 @@
+{
+  "id": "CONT08-014-original1793-registration",
+  "created_utc": "2026-10-27T01:32:38.487140+00:00",
+  "authority": {
+    "ledger_path": "target/recovery-20261025/continuation-segovb/ledger.json",
+    "ledger_sha256": "8c1a52bc150140c33536eca983d2faf03d48fc0e67c85bd8109ec4e63f847fe0",
+    "lens08_record": {
+      "number": 8,
+      "name": "behavior-preservation",
+      "state": "audit08/STATE.json",
+      "state_sha256_at_handoff": "b4f9c4a6c3c59966cfe3cde46ee814963aad9c3d3808e9928ce40620c7e46e7b",
+      "authoritative_receipts": [
+        "audit08/packets/behavior-093.json",
+        "audit08/predecessor/contract-groups-425-partial-handoff.json",
+        "audit08/material-receipts/earlier-024-031-001.json"
+      ],
+      "saved_coverage": "1799/2853originals accounted WITH findings and exact partial/out-of-order ranges retained; next sequential original1792; earliest unfinished1462. Overlay/merge/material populations remain separately incomplete.",
+      "incomplete_or_qualified_scope": "Saved earlier material contiguous0-31, next32, latest material-receipts/earlier-024-031-001.json; separate178-195 and selected exact receipts retained. Not all196complete. README1750/reflection1757/1762 and all saved partials/qualifications retained.",
+      "scope_complete_is_clearance": false,
+      "skill": {
+        "captured_path": "handoff/826/skills/audit-behavior-preservation/SKILL.md",
+        "sha256": "7413ca56a7a637a20cb56f6a35c7623253934e806415e26131af076050fa685c"
+      },
+      "receipt_presence": true,
+      "current_successor": "audit08-successor-013-completion-proposed-state.json",
+      "current_coverage": "1800/2853 originals source-accounted; earliest1462Q003 partial; next ordered1793; material52 partial",
+      "current_qualification": "Original1792 finite-point boundary and actual generator/grid/ground recipients source-accounted with no defect found. Q003 and material52 remain partial; no runtime/current-family clearance.",
+      "latest_receipt": "audit08-successor-013-completion.json",
+      "current_comparison": "audit08-current-comparison-001.json"
+    },
+    "adoption_path": "target/recovery-20261025/continuation-segovb/audit08-successor-013-adoption-root.json",
+    "adoption_sha256": "62b1c8995f073a2ac2b53db6685cb40a096a935760d19894e0506084a4ea0cb0",
+    "adopted_receipt_sha256": "0814433eb6cf0cc1f5cc96b0c6f523e85296a065f00ef4726d7c67885988e63b",
+    "adopted_state_sha256": "e6e314882f6986d54472a50e1e3c9652743dab2f11674a125005359bd9c29fb2",
+    "finding_count_interpretation": "Root adoption explicitly accepted0new unique findings; one newly accounted original1792 only."
+  },
+  "catalog_path": "target/recovery-20261025/audit05/original-scope-072.json",
+  "catalog_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+  "original_index": 1793,
+  "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/grounded/tests.rs",
+  "path": "target/recovery-20261025/audit10/successor-source-objects/c2dd6fd8bc29ddcbca5a79e0945e04db51766c5a40b72ed8bf5736664da8e16c",
+  "sha256": "c2dd6fd8bc29ddcbca5a79e0945e04db51766c5a40b72ed8bf5736664da8e16c",
+  "scope_kind": "affected_unchanged_reached_contract",
+  "prospective_ranges": [
+    [
+      1,
+      216
+    ]
+  ],
+  "catalog_qualification": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+  "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "base_sha256": null,
+  "base_qualification": "Catalog marks affected unchanged reached contract, no base SHA supplied. Exact old identity must be independently staged/proved, not inferred from designation or prior other-lens review.",
+  "reason": "Independent full216line requested receiving test contract inventory/read; no fixture/test exemption and no execution/additions."
+}

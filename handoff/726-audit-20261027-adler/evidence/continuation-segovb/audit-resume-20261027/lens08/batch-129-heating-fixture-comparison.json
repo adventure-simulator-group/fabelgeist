@@ -1,0 +1,34 @@
+{
+  "at": "2026-10-27T17:35:13.817524+00:00",
+  "lens": 8,
+  "registration": "audit-resume-20261027/REGISTRATION-155-lens08-heating-base-comparison.json",
+  "original": 1792,
+  "source_id": "pr-working:crates/adventuresim-tactical-core/src/bin/generate_scene_fixtures/heating.rs",
+  "head_sha256": "b92ee2d412b4ce07eeae5e08de9f482ccb8226d8a4e76b0fe3200e014acae923",
+  "base_sha256": "deab8a8b54485ffbcd6a8276a7424a0f7907af7776e72e190d9dd9550e2cbcaf",
+  "actual_reads": {
+    "head": [
+      [
+        1,
+        160
+      ]
+    ],
+    "actual_delta": [
+      [
+        1,
+        14
+      ]
+    ],
+    "base_unchanged_regions": "Exact REG155 maps to freshly read full head; removed/changed region fully present in actual delta."
+  },
+  "assessment": [
+    "Full fixture builds nine deterministic production heating specimens, overrides two heating programmes, admits zero finite centres and identity orientation, then uses the existing fallible catalogue-grid arrangement. Existing fixed catalogue order bounds index conversion and the positional assertions. No runtime generation or test was executed.",
+    "Only old/new change wraps the test-computed centre+rotated-local point in ScenePlanPoint::from_metres(...).unwrap before existing terrain/ground receivers. Native arithmetic order, sample grid, assertion ordering and bare-ground expectations remain unchanged for admitted finite points. Invalid generated coordinates now fail at explicit admission; invalid old behaviour is not a compatibility guarantee.",
+    "Initial generic mention of animation1756\u20131792 or a coincidental hexadecimal1792 substring does not supply this body/comparison proof. This receipt supplies the exact role proof explicitly."
+  ],
+  "source_accounting": "WITH findings/qualifications; original head count unchanged",
+  "accepted_unique_count_change": 0,
+  "repair": false,
+  "validation": false,
+  "implementation_gate_complete": false
+}

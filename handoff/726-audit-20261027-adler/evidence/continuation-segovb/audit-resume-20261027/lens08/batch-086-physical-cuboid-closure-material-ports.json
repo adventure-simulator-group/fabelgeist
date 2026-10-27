@@ -1,0 +1,80 @@
+{
+  "registrations": [
+    "REGISTRATION-129-roof-drainage-material-contracts.json"
+  ],
+  "per_role": [
+    {
+      "original": 2498,
+      "behavior": "Only31\u201378/448. PublicCollisionCuboid retains typed frameposition/nonnegative dimensions/finite angles and explicitsource; from_metres constructs all fields beforereturn, maps exact GeometryError withsource. Does not enforce sizepositive, angles bounded, or external identity uniqueness. Remaining collision operations excluded."
+    },
+    {
+      "original": 2499,
+      "behavior": "Only1\u20136/11\u201333. CuboidCorners private8positions signcoded i bits gives fixed topology. CheckedPosition each centre+rotation*(size*sign*.5) catches nonfinite corners, returns whole array onlyafterall successful. Finite inputs mayoverflow but admitted before escape. RigidRotation actual invariant remains canonicalowner, no boundary permutation compatibility constraint."
+    },
+    {
+      "original": 2500,
+      "behavior": "Only1\u201373/120\u2013224. DoorSpec fields independently checked onSerde; no tangent/outward orthogonality, hinge/centre/width consistency or inward-angle aggregate guarantee fromdecoding. Actualcompile selects exterior operableDoorLeaf, BTreeMap duplicate IDs lastwins, first existing closure ID not rolefiltered (window actual2507doesrolefilter). Canonical acceptedplan/audit needed before wrong ordinarysolid claim. door_from_solid normalizes directions, projects size usingabs components, deriveshinge/closedyaw and100degree sign from0.01probe, fallible geometry with opening/member cause. Independent finite direction canbeparallel and still admitted through raw API; coherent frame owner needed. Door transforms74\u2013119 excluded."
+    },
+    {
+      "original": 2501,
+      "behavior": "Exact1\u201356/74\u2013161/176\u2013217 of305. Member checks position/dimensions/rigidrotation and all corners beforemesh mutation; later cuboid error retained firsterror, into_meshes rejects fulloutput. Actualown caller2508 closes finisherror path. Furniturefinish/quad/triangle nativeUV remainsunchecked; zero dimensions allowed but degenerate tangent normalize_or_zero and directUV possible. Prefixmesh after laterfailure cannot escape into_meshes, otherfinish paths218+notcredited. IDs colliders.len+1 reused byDecoration because notpushed into colliders; intended onlydiagnostic/member scope and actualconsumer uniqueness unresolved, no false actualcollision. Support1mm dedup is physicalpolicy notidentityproof."
+    },
+    {
+      "original": 2502,
+      "behavior": "Only1\u201329/54\u201388 of193. WearFace region4rawf32 describedzeroone but noadmission here; actualworn_face excluded cannotcertify clipping/range. Face picks endgrain bycanonical member_uv grainaxis and localnormal, swapsmaterial typedvariants, actual builder2501calls withpermuted sharedcorners. Wear normal exactequality intentional authoredface selector, nativecalculation comparescanonical axis normals ordinarily. UV/helper checked onlyactual2504scope; no BC."
+    },
+    {
+      "original": 2503,
+      "behavior": "Only95\u2013137 of666. LodMesh publicvertex/index/raw vectors and Serde derive allow invalid finite/unit/index/cardinality state; push_quad appends4 and6indices using len asu32 thenuncheckedbase+3. Verylarge APIcount truncation/overflow qualified notordinaryallocation. Winding flips basedcross.dot<0, degenerate/NaNnonnegativebranch neither rejects. Actualfurniture cornerschecked butUV/normalmathnotautomaticallyfinite. Existingvertexrawretention same asproducerpropagation familycandidate, no newunique."
+    },
+    {
+      "original": 2504,
+      "behavior": "Only1\u201344/68. grain_axis deterministic Xtie thenYtie, axeslocal. member_uvs inverse rawQuat andsubtract/phase dot/length then UVscale; no finite/unitresultcheck. Actual2501rawrotation validated throughRigidRotation for corners butoriginalQuaternion reused couldnearunit accordingcanonical policy, finite centrelengthcanoverflow. Consumer2503retains rawUV, actualboundedrecipe needed beforeordinarynonfinite. Phasefrequency constants decorativeintent, notshared physicalauthority."
+    },
+    {
+      "original": 2505,
+      "behavior": "Exact3\u20134/6\u201325/27\u201330/344\u2013356/358\u2013380/393\u2013428. Nominal IDs preserve namespaces butall primitivevaluesvalid incl0. ResolvedSolid fromcheckedCollisionCuboidcopies exact geometryidentity, keepsowner/role/shape/supports independentrawassociations; Serde route samechecked geometry beforeSelf. Geometrycannotprove support/nodeownerreferences/materialshape coherence; graphadmission is separate. No requirement existingserializedrepresentation retained because comment, finalschema direct."
+    },
+    {
+      "original": 2506,
+      "behavior": "Only119\u2013126/136\u2013144/257\u2013283/311\u2013343. RawWallLocalFrame origin/tangent/outward+OptionalroomIDs; closurelayerVec/state/thickness/clearance and OpeningAssembly complete graphpayload public/Serde. Invalidparallel directions, duplicate layers/incoherent use/state/solidreferences representable, actualgenerators/audit still needed. Paired jambIDs/nodes cardinality2 meaningful architecture. sectional_void is explicit subtractionauthority vsconservative broadvoidbounds intentional, notredundant equalgeometry requirement."
+    },
+    {
+      "original": 2507,
+      "behavior": "Only1\u201336/43\u201345/103\u2013209 of259. compile selects exteriorOperableWindow, unlikeDoor filters selectedclosure solidrole toglazing/closure; duplicateID mapstilllastwins. Carries bars presencefromlayers canonicalenum. from_solid computes checked directions, width/thicknessprojected, clampsminimum2.5cm thickness, swing80degrees inwardprobe; positiveLeafDimensions finaladmission. Rawsolid geometry yawignoredwhen projectingdimensions requiresactual axisalignedopening generationcontract; no rotatedordinarybugasserted. Exacttyped WindowErroropening/source/cause propagated collectResult. Leafkind mapsmaterialcanonicalenum."
+    },
+    {
+      "original": 2508,
+      "behavior": "Only1\u2013108/150 fullproduction compile_window_leaf. Cuboid nonnegative allowszero fixedglazing; shutterceilwidth/.19 asusize, hugecountunboundedAPIwork. Narrowpositive shutterwidth<=.002 makes oneboard widthnegative and builderreturnsCollisionError atfinish, ratherthan universalLeafDimensions guaranteescompilablegeometry. Zero shutterwidth skipsboards butstillstraps; intendedfixeddegeneratepolicy differsoperablepositive. Cames/hardware extendcollider byexplicitdesign. ActualBuilderfirsterror\u2192into_meshesResult closes partialmesh escape for this path. Tests109+excluded."
+    },
+    {
+      "original": 2509,
+      "behavior": "Only1\u201346/56\u2013118 of147. WindowSpec independent typedgeometry and identity/barspresence fields; Deserialize allnativefields admit together withwindow/member error but no aggregateframe orthogonality/hingecentre/yaw/size/swing relationship. Docs explicit generatorchoosesswing do notpromise decoder inward. LeafDimensions strictlypositive distinctCuboid permitsfixedzero. Existing compile_fail examplesreadonly notexecuted. actualconversion47\u201355excluded."
+    },
+    {
+      "original": 2510,
+      "behavior": "Only1\u201385/124\u2013147 of211. BodyAngle finiteRadians exactbodyquantityerror; authoredratio*angle thenchecked construction, clamp/scaled operations finalchecked. BodyLocalAcceleration finitecomponents plusplanarsquared explicitlyrejectsoverflow, actualroot2487callerusesit. TypedAngularMagnitude declarationalone no nonnegativeconstructorproof, body86\u2013123excluded. Transientpresentation frame signed velocities/angles distinct fromcombat/fatigue."
+    },
+    {
+      "original": 2511,
+      "behavior": "Only1\u201352/150. Building+opening compositeidentity retained, FacadeOpeningssetmembership drivescachedfacadebool andvisibilityrangeonlyonchange. Missingbuildingcontinuesleavesoldrange, actualdespawn/callerlifecyclepending. Constructorfalse assumesinitialLod0range installed coherent actualcaller needed; facadeboolsemantic enumcandidate but no need newtag solelytwointernalstates. visibilityfunction53+excluded."
+    },
+    {
+      "original": 2512,
+      "behavior": "Only1\u20132/70\u201384/219\u2013225 of568. NamedcanonicalStreamId visualappearance exactu64building seed, index100partition23/12/15/15/15/10/5/5 distribution. ActualindexAPIboundedcontractneedsownproof, fallthroughlastvariant coversremaining95\u201399if0..100; no universalerrorhandling from_ branch. appearanceenum asusize indexesstoredassets, canonicalarrayorder/population unread. RawbuildingIDnativeprojection shouldretainSceneBuildingId untildeterminism boundary wherefit, no wholematerialscoverage."
+    }
+  ],
+  "connected_repair_requirements": [
+    "Keep finite/nonnegative cuboid admission distinct from positive operable leaf and coherent orthogonal frame/hinge geometry; checked independent fields do not establish shared frame association.",
+    "Carry exact geometry errors with member/opening identity to owning boundary; builder first-error accumulation can preserve transactional output only where all finish paths consume it.",
+    "Consume actual footprint/admission and graph audit before ordinary count/UV/width/ID failure claims; no blanket requirement to preserve malformed historic values."
+  ],
+  "acceptance_requirements": [
+    "Exact15 materially reached scopes read after registration129; filename mentions roofs but actual source/scope inventory is authoritative physical consumers. All excluded gaps remain uncredited.",
+    "No code/check/test/probe execution, no current/native/other lens credit, +0 unique. Earlier bases/otherpopulations/extensions/all20/dedupacceptance pending."
+  ],
+  "at": "2026-10-27T15:38:26.325626+00:00",
+  "lens": 8,
+  "accepted_unique_count_change": 0,
+  "implementation_gate_complete": false
+}

@@ -1,0 +1,144 @@
+--- base
++++ frozen-head
+@@ -59,7 +59,7 @@
+     defender_look: &'a CharacterLook,
+     defense: ReactiveDefenseAi,
+     chances: DefenseChances,
+-    windup_seconds: f32,
++    windup_seconds: AnimationElapsed,
+ }
+ 
+ /// Predicts whether the nearest opposing AI facing a client attacker notices
+@@ -106,7 +106,17 @@
+     let Some((bot, bot_look, _, _, _, Some(defense), chances)) = nearest else {
+         return;
+     };
+-    try_start_reaction(
++    let Ok(view) = viewer.get_for_attack(attacker, hand) else {
++        return;
++    };
++    let windup = match attack_preparation_secs(&view, strike_family.melee_style()) {
++        Ok(windup) => windup,
++        Err(error) => {
++            warn!(?attacker, %error, "cannot admit observed attack windup");
++            return;
++        }
++    };
++    if let Err(error) = try_start_reaction(
+         &mut cmd,
+         BotReactionAttempt {
+             defender: bot,
+@@ -114,14 +124,13 @@
+             defender_look: bot_look,
+             defense: *defense,
+             chances: chances.copied().unwrap_or_default(),
+-            windup_seconds: viewer
+-                .get_for_attack(attacker, hand)
+-                .map(|view| attack_preparation_secs(&view, strike_family.melee_style()))
+-                .unwrap_or(0.3),
++            windup_seconds: windup,
+         },
+         &combat_config.ai.ordinary.defense,
+         &mut random,
+-    );
++    ) {
++        warn!(%error, "cannot schedule bot reaction");
++    }
+ }
+ 
+ pub(super) fn on_targeted_attack_started(
+@@ -145,8 +154,7 @@
+     };
+     if let Ok((_, state, defense, chances)) = q_ai.get(target)
+         && !state.is_incapacitated()
+-    {
+-        try_start_reaction(
++        && let Err(error) = try_start_reaction(
+             &mut cmd,
+             BotReactionAttempt {
+                 defender: target,
+@@ -154,11 +162,13 @@
+                 defender_look,
+                 defense: *defense,
+                 chances: chances.copied().unwrap_or_default(),
+-                windup_seconds: event.windup.as_secs_f32(),
++                windup_seconds: event.windup.elapsed(),
+             },
+             &combat_config.ai.ordinary.defense,
+             &mut random,
+-        );
++        )
++    {
++        warn!(%error, "cannot schedule bot reaction");
+     }
+ }
+ 
+@@ -183,8 +193,7 @@
+     };
+     if let Ok((_, state, defense, chances)) = q_ai.get(target)
+         && !state.is_incapacitated()
+-    {
+-        try_start_reaction(
++        && let Err(error) = try_start_reaction(
+             &mut cmd,
+             BotReactionAttempt {
+                 defender: target,
+@@ -192,11 +201,13 @@
+                 defender_look,
+                 defense: *defense,
+                 chances: chances.copied().unwrap_or_default(),
+-                windup_seconds: event.animation_windup.as_secs_f32(),
++                windup_seconds: event.animation_windup.elapsed(),
+             },
+             &combat_config.ai.ordinary.defense,
+             &mut random,
+-        );
++        )
++    {
++        warn!(%error, "cannot schedule bot reaction");
+     }
+ }
+ 
+@@ -205,31 +216,32 @@
+     attempt: BotReactionAttempt<'_>,
+     config: &AiDefenseConfig,
+     random: &mut CombatRandom,
+-) {
++) -> ElapsedResult<()> {
+     let (a2, a1) = attempt.attacker_look.yaw.sin_cos();
+     let (d2, d1) = attempt.defender_look.yaw.sin_cos();
+     if attempt.defense.requires_facing
+         && flanking_from_dir((a1, a2), (d1, d2)) > config.frontal_flanking_max
+     {
+-        return;
++        return Ok(());
+     }
+     let Some(choice) = roll_defend_choice(attempt.chances, random) else {
+-        return;
++        return Ok(());
+     };
+     let delay = if attempt.chances.dodge_chance >= 1.0 {
+         // The authored test dodger is deliberately anticipatory. Leave enough
+         // of even a fast fist windup for the quickstep's launch phase.
+-        (attempt.windup_seconds - 0.16).clamp(0.02, 0.12)
++        (attempt.windup_seconds.seconds() - 0.16).clamp(0.02, 0.12)
+     } else {
+         random.range_f32(
+-            config.reaction_delay_min_seconds,
+-            config.reaction_delay_max_seconds,
++            config.reaction_delay_min_seconds.seconds(),
++            config.reaction_delay_max_seconds.seconds(),
+         )
+     };
+-    cmd.entity(attempt.defender).insert(PendingBotReaction {
+-        timer: Timer::from_seconds(delay, TimerMode::Once),
+-        choice,
+-    });
++    let delay = AnimationElapsed::from_seconds(delay)?;
++    let timer = Timer::new(delay.native_duration()?, TimerMode::Once);
++    cmd.entity(attempt.defender)
++        .insert(PendingBotReaction { timer, choice });
++    Ok(())
+ }
+ 
+ pub(super) fn roll_defend_choice(

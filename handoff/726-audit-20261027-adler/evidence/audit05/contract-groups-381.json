@@ -1,0 +1,145 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-381",
+  "at": "2026-10-26T00:00:22.792900+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 198,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/equipment_law.rs",
+      "sha256": "4a28fc949987aabb9f0ee687dac1381cdfc8423ee40c431715c89d6d6863e3b0",
+      "personally_read_ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full frozenrequested equipmentlaw1-81 read. Coarsesettlementpresence/policymissing returnsOkbeforeinventorylookup, otherwisejoinsactualcharacter+inventory+typeditemkind andpresentedprivilege. Missingreferenceerrors andactuallegaldenialbothcauseauto-unequip, thencapability/conditionrefreshafterchanges. This iscoarsecompliancehelper, actualeligibility/custody/recognitionownersmustsupplyfacts; noownershipmutationclaimed."
+      ]
+    },
+    {
+      "scope_index": 200,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/filth/blood_attempts.rs",
+      "sha256": "c62050a86c8ae93213b5e6dfe2ec5137f050ff790ee91b2889f477e69b9c7f7e",
+      "personally_read_ranges": [
+        [
+          1,
+          157
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full registered bloodattempts1-157 read. Nonforwardinterval returnsnone, activecompatibleforeigndepositgate, thenperBloodsupporteddiseasecheckpointstart=max(from+1,checkpoint+1), boundedwork beforeeachminute, actualwoundroute andphysiologyatminute, residualexposure thenepisodeidentity. Allowsplan vsdirectcheck distinctinputpaths butsamefacttime; actualPartydiseaseplanmatchingcharacter/intervalpolicy external.",
+        "Checkpointwrittenafterdiseaseloop torequestedto ifpersist; publichelperdoesnotrequireto>=existingcheckpoint, so arbitraryretrointerval canregresscursor orMAXsaturationrevisit, actualmonotoniccallers neededbeforeduplicateacquisitionfinding. Err afterearlierdiseasecheckpoint reliesDBrollback toavoidpartialpublication. Existingarchitecturetestsource readnotrun; source-stringpresence notexecutionproof."
+      ]
+    },
+    {
+      "scope_index": 219,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+      "personally_read_ranges": [
+        [
+          1,
+          241
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full registered measuredamount1-241 read. Wholeinitialization producesvalidfraction; readmaps persistedu32 throughcheckedleafbutexpectoninvalid row, so ordinarycorruptionneedswritertrace. Consumerequest0noopswithoutrow; otherwisetakesminrequestedavailable, checkedsubtractestablishedbymin, deletesamount+inventoryat0 orupdatesboundedremainder. This helperdoesnotdeletephysicalobject/foodprovenance/equipmentlinks; actualcallers mustclosethegraph.",
+        "Personal/partyamountmoves requireexistingamount, deletesource beforeinsertdest withintransaction; noquantity/identity/custodyauthorization checkedlocally. Canonicalone-rowquantity1 establishedbyactual221add_inventory_item measured branch; otherSDKwriters/adaptersseparate. Definitionsfood/alcohol/soap/stock explicitratherthanglobalallitems. Testsreadnotrun."
+      ]
+    },
+    {
+      "scope_index": 220,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "personally_read_ranges": [
+        [
+          1030,
+          1085
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read exact originalrange1030-1085 only, notfull1451. contained_water_ml scanswaterliquids, requiresphysicalobject andresolvesactualrootcustody beforecheckedu64sum; missingobject/custodyErr propagates evenbeforematch, butnoordinaryorphanclaim. Actual173loader turnsErrintoInf, so combinederrorasvaluequestionexplicitlyretained.",
+        "remaining_container_capacity prefix joinsobject/item, derivesnativecapacity, typedgraphusedvolume plusliquidcheckedadd; finalsubtraction/outcomeafter1085 isunreadandnotcleared. Initial1030-1032onlyprecedingfunctiontail, noheader/bodycredit. Fullgraph/custody/inventorydeletecontractsremainrequiredseparate."
+      ]
+    },
+    {
+      "scope_index": 221,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/item.rs",
+      "sha256": "ceb03feba2b994ec10da5469e562e5a434a89ce36635aadb1d0ab11ccdc6b8ed",
+      "personally_read_ranges": [
+        [
+          1,
+          946
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full frozenrequested item1-946 read. Typedcatalogueprojection retainsclassification/explicitattachment/protectionandderivedweaponfacts, capabilitiescanoverwritequality infood->book->durabilityorder; actualauthoredmulti-capabilitypolicy neededbeforeconflictclaim. Init insertsallcurrentdefinitions; surgeryupsert narrowexistingitemprojection. Currencylookupchecksstoreddenominationbutmissing settlementusesdeterministicassignedcurrency, explicitcurrentpolicy notproofexistentsettlement.",
+        "Inventoryadd0noops, fooddefinitionpreflight beforewrites, individual food/measured/repairable/medication/meleeweapon/container/attachment items quantity1 withphysicalobject/condition/weapon/fraction/foodlotlinks. Othersfungiblestackquantity. Positiveunknownitemroute notgloballygatedbecauseoptionaldefinitionNone, alreadyRIG-CAMERA-ADM03-F001 candidate; no newfinding. Afterwriteerrors dependtransactionrollback, notcalledcheckedname. Perunitforagingreturnsallactualrows, maxallocationboundedcallerquestion.",
+        "Currencywithdrawalpreflightsu64sum, sortdenomination/ID, usesknownminbeforeu32cast andDBstacklookupguaranteefromsamecollection; totalaggregationoverflowrequiresimplausiblymanyrows andactualbound. Creditcheckedmergeoverflowcreatesanotherstack, consistentactualmultiple-stackcounterexamplefor173F036.",
+        "change_inventory_item requireslivingcharacter thenbranchesdurable/measured/generic, sorted/preflightremovals, checkedpositivefungiblemerge; measurednegativebranchdeletesamount/inventorybutnotphysicalobjecthere, caller/helpercleanupnotshown. Actualentryhasnoexplicitsender/character-authorityguard inthisbody, and178315-329requiresonlyexistence/alive. FullSDK/globalingresspolicy mustbeconfirmedbeforeordinaryunauthorizedmutationclassification. Noexternalreducerinvocationornewtest. All946line testsource readnotrun."
+      ]
+    },
+    {
+      "scope_index": 222,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/item/authority_tests.rs",
+      "sha256": "ea66e08d18040b2a131cd6064cb78d96819930fa46b7e7026e406baab6785cd3",
+      "personally_read_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full registered authoritytest1-44 read. Bootstrap-token gate beforecatalogueiteration, comparesactualDBandprojectedclassificationagainstclosedauthoredkindmapping andexpects10kindcoverage. This isfeature-gated actualexistingtestentry, sourceintentnotexecutedpass, noallcapabilityfields/authoritycoverageearned."
+      ]
+    },
+    {
+      "scope_index": 223,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/lib.rs",
+      "sha256": "2760315ff2997c68a703203018538d642878cf5aa461b2a6d90e38ef0005e168",
+      "personally_read_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full frozenrequested modulelib1-95 read. ModuleexportsandsingletypeStrategicOperationError/Result establishsharedownerreferences, notbodycoverage. Testonlyproduction_source splitslastnewlinecfg(test) marker, reliesexplicitlasttestmodulelayout; multiplemarkersearlierproductiontesthelpersremainpossible. Noarbitraryarchitecturestringtestproof or projectexecution."
+      ]
+    },
+    {
+      "scope_index": 224,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/local_problem.rs",
+      "sha256": "49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942",
+      "personally_read_ranges": [
+        [
+          1540,
+          1672
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read exact registered1540-1672 only, notwhole2518. Referralreceiptdeliveryprefix tiescharacter/problem/session/contact/observerandworldtimes withsafe_summary; prefixsourceassemblyprior1540unread. Developmentdiscovery requiresliving/currentsettlement,exactproblem scope, validatedgeneration andwitness/resident, usesobserverclock andprivateofficialtime, thensurfacesrumor/receivesjournalnotice/deletespreference.",
+        "surface_new_problemboolreturnignored, thenexistingreceiptused; replay/freshgenerationcorrelationandsessioncollisiondependcallee, notprovenbydevelopmenthelper. SourcecommentdevelopmentbootstrapdoesnotselfauthorizeSDKaccess becausepub(crate) caller ownsdevgate. Existingproductioncallergraph mustbecheckedbeforeclaimnewfrontierorauthorityviolation."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "8 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "scope_authority": "original-scope-072.json fullrequested198/221/223, registeredfull200/219/222, bounded2201030-1085 and2241540-1672.",
+  "support_only": [
+    {
+      "scope_index": 178,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/character.rs",
+      "sha256": "1c346cbf22b4b7ad34cdd6b515b08d015c43e6489f953aa3a75ea40d8e3c675c",
+      "personally_read_ranges": [
+        [
+          300,
+          345
+        ]
+      ],
+      "qualification": "Necessary actual guard receiving trace only; no newwhole role/indexcredit."
+    }
+  ]
+}

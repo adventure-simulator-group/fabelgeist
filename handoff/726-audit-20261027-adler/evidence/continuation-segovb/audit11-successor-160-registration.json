@@ -1,0 +1,257 @@
+{
+  "lens": "type-granularity",
+  "selected_prior_state": "audit11-successor-159-proposed-state.json",
+  "crosswalk": "audit11-question-crosswalk-001.json",
+  "ordered_roles": [
+    {
+      "scope_index": 785,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/lining.rs",
+      "sha256": "693fb7bf790d8bfebd26304241c8dfd0e2b338bc37225a4d0795b0fe754e8b70",
+      "ranges": [
+        [
+          1,
+          227
+        ]
+      ],
+      "registered_before_new_read": true,
+      "prior_source_access": "78530-158 and7861-82 connected under157; independently inventory in order now",
+      "ordered_credit_before_receipt": false
+    },
+    {
+      "scope_index": 786,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/outfit.rs",
+      "sha256": "571784773d4506fa741fed5d4dab85c61bbf9dee836fab1833987b233a4ecdb9",
+      "ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "registered_before_new_read": true,
+      "prior_source_access": "78530-158 and7861-82 connected under157; independently inventory in order now",
+      "ordered_credit_before_receipt": false
+    }
+  ],
+  "connected_extensions": [
+    {
+      "original_index": 766,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/equipment_layers.rs",
+      "sha256": "2b9b34141b3bd8d1b9bc98b9db3af749035fa68190e135d31183a2c89fd70b86",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "785 exact PlateLining/UnderPlate producer, semantic channel order, PlateFace and BVH result/ordinal owner contracts"
+    },
+    {
+      "original_index": 821,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/outfit.rs",
+      "sha256": "4d3281fb80e63eeb57bf3caaec77e63eb33d75c62e6ec5d7053e2fd76ebd95f2",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "785 exact PlateLining/UnderPlate producer, semantic channel order, PlateFace and BVH result/ordinal owner contracts"
+    },
+    {
+      "original_index": 840,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer_equipment.rs",
+      "sha256": "91acbb6c6ec41a6642c3ef9ab51d184ef615cb1cf631662d719f12a9b8f8b35d",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "785 exact PlateLining/UnderPlate producer, semantic channel order, PlateFace and BVH result/ordinal owner contracts"
+    },
+    {
+      "original_index": 843,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/wardrobe.rs",
+      "sha256": "41051202a9da2998dcf73b5a1e095088d6838c1a849a66d080631ac8304951b9",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "785 exact PlateLining/UnderPlate producer, semantic channel order, PlateFace and BVH result/ordinal owner contracts"
+    },
+    {
+      "original_index": 939,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "785 exact PlateLining/UnderPlate producer, semantic channel order, PlateFace and BVH result/ordinal owner contracts"
+    },
+    {
+      "original_index": 2226,
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/cpu/mod.rs",
+      "sha256": "c38b573a2cc782cf12b477bf67c5fd77c4b35c756c91569d8b2e0c36a75273b2",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "785 exact PlateLining/UnderPlate producer, semantic channel order, PlateFace and BVH result/ordinal owner contracts"
+    },
+    {
+      "catalog_index_only": 2606,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/lib.rs",
+      "sha256": "80124b8fa3d698044166b5f4226391835bde877e6e3e55904a8e6ab149a5fdcd",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "785 exact PlateLining/UnderPlate producer, semantic channel order, PlateFace and BVH result/ordinal owner contracts"
+    },
+    {
+      "original_index": 821,
+      "sha256": "4d3281fb80e63eeb57bf3caaec77e63eb33d75c62e6ec5d7053e2fd76ebd95f2",
+      "ranges": [
+        [
+          36,
+          97
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "785 exact under-plate producer/surface receiver and canonical layer order"
+    },
+    {
+      "original_index": 939,
+      "sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "ranges": [
+        [
+          137,
+          181
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "785 exact under-plate producer/surface receiver and canonical layer order"
+    },
+    {
+      "original_index": 2226,
+      "sha256": "c38b573a2cc782cf12b477bf67c5fd77c4b35c756c91569d8b2e0c36a75273b2",
+      "ranges": [
+        [
+          378,
+          477
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "785 exact under-plate producer/surface receiver and canonical layer order"
+    },
+    {
+      "original_index": 821,
+      "sha256": "4d3281fb80e63eeb57bf3caaec77e63eb33d75c62e6ec5d7053e2fd76ebd95f2",
+      "ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "symbol_locator_only": false,
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "785 exact PlateFace semantic enum/GeneratedArmor geometry schema and named standoff unit policy"
+    },
+    {
+      "original_index": 2768,
+      "sha256": "7c7d222066ebe81219e45b4ac4086acc9de7da36c7633f662027be299d93ba71",
+      "ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "symbol_locator_only": false,
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "785 exact PlateFace semantic enum/GeneratedArmor geometry schema and named standoff unit policy"
+    },
+    {
+      "original_index": 2175,
+      "sha256": "8e37cfc29b43f781bc5f265fc6f263c2625aa32cdffbc21e289268437d772ecb",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "785 exact PlateFace semantic enum/GeneratedArmor geometry schema and named standoff unit policy"
+    },
+    {
+      "original_index": 2175,
+      "sha256": "8e37cfc29b43f781bc5f265fc6f263c2625aa32cdffbc21e289268437d772ecb",
+      "ranges": [
+        [
+          108,
+          153
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "785 exact generated plate geometry/face classification relationship schema"
+    },
+    {
+      "original_index": 2226,
+      "sha256": "c38b573a2cc782cf12b477bf67c5fd77c4b35c756c91569d8b2e0c36a75273b2",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "785 exact BVH hit index original triangle mapping contract, not full BVH audit"
+    },
+    {
+      "original_index": 2226,
+      "sha256": "c38b573a2cc782cf12b477bf67c5fd77c4b35c756c91569d8b2e0c36a75273b2",
+      "ranges": [
+        [
+          41,
+          92
+        ],
+        [
+          292,
+          357
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "785 BVH build initial original IDs and closest hit winner original primitive ordinal"
+    },
+    {
+      "original_index": 2226,
+      "sha256": "c38b573a2cc782cf12b477bf67c5fd77c4b35c756c91569d8b2e0c36a75273b2",
+      "ranges": [
+        [
+          358,
+          383
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "785 finish actual leaf visitor index source; precise rim correspondence contract"
+    },
+    {
+      "original_index": 763,
+      "sha256": "6e96818d06560c10bd8f74d121d84fc812726274dedc89b59f85bce7d0e6ca73",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "786 actual OutfitOutcome checkpoint/garment/warning receiving and tagged input/preview association boundary"
+    },
+    {
+      "original_index": 763,
+      "sha256": "6e96818d06560c10bd8f74d121d84fc812726274dedc89b59f85bce7d0e6ca73",
+      "ranges": [
+        [
+          12,
+          53
+        ],
+        [
+          55,
+          75
+        ],
+        [
+          77,
+          139
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "786 actual owned worker state/outcome retaining checkpoint and equal-source tag pairing through receiver poll"
+    }
+  ],
+  "no_restart_through784": true
+}

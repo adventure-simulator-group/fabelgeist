@@ -1,0 +1,70 @@
+{
+  "source_id": "native:Cargo@59800466c5c41c444d264b1010b4d57e85a7117f/src/cargo/core/dependency.rs",
+  "local": "target/recovery-20261025/continuation-segovb/source-objects/abf4c10c7a19f8b13fbed2bee30710b19f16760e444ccddbc64e0b1bbc07fc25",
+  "sha256": "abf4c10c7a19f8b13fbed2bee30710b19f16760e444ccddbc64e0b1bbc07fc25",
+  "git_blob": "29853420da991b61bd3030a771187486a827f33e",
+  "eof": 709,
+  "locators": [
+    {
+      "line": 2,
+      "text": "use semver::VersionReq;"
+    },
+    {
+      "line": 14,
+      "text": "use crate::util::OptVersionReq;"
+    },
+    {
+      "line": 28,
+      "text": "struct Inner {"
+    },
+    {
+      "line": 38,
+      "text": "req: OptVersionReq,"
+    },
+    {
+      "line": 118,
+      "text": "pub fn parse("
+    },
+    {
+      "line": 125,
+      "text": "Some(v) => match VersionReq::parse(v) {"
+    },
+    {
+      "line": 126,
+      "text": "Ok(req) => (true, OptVersionReq::Req(req)),"
+    },
+    {
+      "line": 134,
+      "text": "None => (false, OptVersionReq::Any),"
+    },
+    {
+      "line": 147,
+      "text": "pub fn new_override(name: InternedString, source_id: SourceId) -> Dependency {"
+    },
+    {
+      "line": 154,
+      "text": "req: OptVersionReq::Any,"
+    },
+    {
+      "line": 197,
+      "text": "pub fn version_req(&self) -> &OptVersionReq {"
+    },
+    {
+      "line": 345,
+      "text": "pub fn set_version_req(&mut self, req: OptVersionReq) -> &mut Dependency {"
+    },
+    {
+      "line": 507,
+      "text": "pub(crate) fn parse("
+    },
+    {
+      "line": 554,
+      "text": "pub fn parse(target: &str, unstable_json: bool) -> CargoResult<ArtifactTarget> {"
+    },
+    {
+      "line": 644,
+      "text": "pub fn parse(kind: &str) -> CargoResult<Self> {"
+    }
+  ],
+  "body_read": false
+}

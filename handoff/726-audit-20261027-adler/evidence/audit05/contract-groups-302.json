@@ -1,0 +1,53 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-302",
+  "at": "2026-10-25T22:49:05.155731+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2582,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_surface.rs",
+      "sha256": "9f49d61c21b245ad0793daea4f28f1f74769c76680ef383553454b688c9f6cbd",
+      "personally_read_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full47-line P16 equipment anatomical span schema. Span publicly pairs region chain, closed anchor and rawf32coverage; serde rejects unknown fields but does not validate nonempty/contiguous region chain or coverage itself. Limit16segments constant belongs to admission/projection contract, compared2586validator. Raw construction/serde capability is not proof invalid catalog passes owning validator."
+      ]
+    },
+    {
+      "scope_index": 2585,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "sha256": "9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "personally_read_ranges": [
+        [
+          1,
+          185
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full185-line P16 occupancy validation and fixtures. Location/channel whitelist and unknown-field diagnostics combine typed fit-zone/location and pairwise conflicts. Singleton-channel order0 andu16bounds explicit; parsing typed OccupancyRequirement uses.ok so conversion failures are not locally diagnosed unless other check catches them. Main2587finaltypedparse/admission must be read before claiming negative/noninteger order or field-shape acceptance. Parent requirements and precedence separately deserialize into closed schema. Tests reserve disjoint limbzones and rejectwholelimb overlap, readnotrun."
+      ]
+    },
+    {
+      "scope_index": 2586,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+      "sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+      "personally_read_ranges": [
+        [
+          1,
+          219
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full219-line P16 surface validator/fixtures. Armor/clothing require nonemptyspanarray and material; combined regioncount bounded16; eachspanunknownfields, nonemptyvalidregions, directional adjacency, protectedbodypartmembership and closedanchor checked. positive_f32_in owner2587validatescoverage>0\u22641 aftertargetconversion; fixture explicitlytestsunderflow and limit. Nonrequired kinds with nonarray surface return here, but finaltypedparse stillrequired. Protection mismatch checks onlyifprotectednonempty, a policycondition not demonstrated defect. No sourcefix, fixtureexecution or generatedcatalogclearance."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

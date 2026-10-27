@@ -1,0 +1,87 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-105",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1782,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/action_timeline.rs",
+      "sha256": "01140a5ec824cf8258598462f8d99cde62732bf1901ffaddcafcef6ee65e66a5",
+      "ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete89line ActionTimeline owner. Basic/serde derives, checked progress decode hook; no manual traits/codecs. Explicit source deadlines, normalization and inclusive saturated sample semantics.",
+      "disposition": "No derivability candidate. Timeline constructor/phase mapping is semantic, codecs already derive with required normalization hook.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1783,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/downed_facing.rs",
+      "sha256": "a9750618561952fe5915714dea2b3d942edf076b37f122e4c7518920255d7d63",
+      "ranges": [
+        [
+          1,
+          353
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete353line downed-facing role and existing fixture. Scalar/basic/serde/Into derives and state serde from wire. Manual From<DownedFacingWire>122-139 retains nonfinite-zero sanitation and finite command clamp; three TryFrom adapters enforce strict scalar contracts.",
+      "disposition": "KEEP wire normalization and strict validating TryFrom adapters. Direct derive changes accepted set/normalization; sector lattice/hysteresis, camera sanitation and native geometry remain behaviorful. No new candidate or fixture execution.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1784,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/guard_footwork.rs",
+      "sha256": "6ee51d617e6768c1552325294a976d780baa694c28386d909d913ef01475aea0",
+      "ranges": [
+        [
+          1,
+          153
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete153line authoritative footwork integration/planning, no manual traits/codecs.",
+      "disposition": "No derivability candidate. Configured contact planning, elapsed integration and publication sequencing are semantic algorithms. Numeric/atomicity obligations not cleared by this lens.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1785,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/guard_geometry.rs",
+      "sha256": "c0b137fbc417c7f671619a3cc9cc4b76cd30973682db603b40b27a6729ef5f2f",
+      "ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete123line guard geometry and existing fixture; no manual traits/codecs.",
+      "disposition": "No derivability candidate. Rig-local checked geometry/configured references and anatomical/native calculations are semantic; no test execution or rule-clearance claim.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1786,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs",
+      "sha256": "bc8baae81a0a5a732df8dba8928b78d85c6b941c193ec50a31780d1a5b43f816",
+      "ranges": [
+        [
+          1,
+          158
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete158line posture transition owner. Basic/serde derives; progress uses explicit normalize decoder. Constructors/normalization and recovery/root-yaw handoff kernels, no manual trait/custom codec.",
+      "disposition": "No derivability candidate; codecs already derive and contextual geometry/timeline behavior remains explicit. Broader parameter policy not accepted by this lens.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

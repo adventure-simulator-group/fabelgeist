@@ -1,0 +1,13 @@
+{
+  "candidate_family": "derive-candidate-002.json",
+  "scope_index": 1860,
+  "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+  "implementation": "Manual From<&'static str> for TacticalCombatConfigError wraps the identical borrowed static string in Validation. No validation, normalization, allocation or cause decoration occurs in this adapter.",
+  "equivalent_repair": "Add existing derive_more::From to the error enum and explicitly select only Validation with #[from(&'static str)]; remove only the manual adapter. Do not derive unspecified Serialization(String) conversion or change thiserror source annotations.",
+  "proof": "Fresh personal hash-verified macro shared122 (dbcea1f655618518d366313124b59d50181928e1f0a092ff8796d5accec81fd6)23-86 enum explicit selection,160-185 field From construction,256-258 skip unspecified variants. Explicit static borrowed field invokes identity From for the identical type; input lifetime, owned output enum, error/display/source behavior and nongeneric bounds are preserved. Frozen owning manifest1749 enables from.",
+  "retained_semantics": "Manual TacticalCombatConfig::default clones validated compiled canonical YAML; retain it. Validation/digest kernels and error source policy remain explicit. Current adapter is correct; same mechanical conversion remedy family, no globally new finding count.",
+  "new_unique_findings_claimed": 0,
+  "material_credit": "Only bounded macro evidence reused as source; shared material queue remains pending.",
+  "source_edits": false,
+  "checks": "not run"
+}

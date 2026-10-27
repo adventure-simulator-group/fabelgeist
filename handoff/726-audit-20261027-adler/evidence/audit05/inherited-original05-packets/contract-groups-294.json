@@ -1,0 +1,80 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-294",
+  "at": "2026-10-23T06:59:08.131930+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_wall_opening.rs",
+      "sha256": "660dfa713c666751b218e80dbb4137ab1288791fc49c65f2b813f3cb57e4108e",
+      "scope066_index": 606,
+      "actual_EOF": 416,
+      "scoped_ranges_compared": [
+        [
+          1,
+          416
+        ]
+      ],
+      "actual05_comparison": "Fresh complete exact production source; own caller recipe/actual member reuse/frame/section/bearing/paired wall-opening publication and child support graph comparison."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_wall_opening/surfaces.rs",
+      "sha256": "6629b1c563e91250df52b20f9165459f9e5d413ec424f2f2cc246839c7ac94ea",
+      "scope066_index": 607,
+      "actual_EOF": 274,
+      "scoped_ranges_compared": [
+        [
+          1,
+          274
+        ]
+      ],
+      "actual05_comparison": "Fresh complete exact production source; own caller recipe/actual member reuse/frame/section/bearing/paired wall-opening publication and child support graph comparison."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_child_fronts.rs",
+      "sha256": "bfc0adfdc7ef954824b16575482226a60207a37fc09f9df184c033c1ab6ec06f",
+      "scope066_index": 605,
+      "actual_EOF": 159,
+      "scoped_ranges_compared": [
+        [
+          1,
+          159
+        ]
+      ],
+      "actual05_comparison": "Fresh complete exact production source; own caller recipe/actual member reuse/frame/section/bearing/paired wall-opening publication and child support graph comparison."
+    }
+  ],
+  "groups": [
+    {
+      "id": "one consumed roof-window recipe publishes paired products",
+      "comparison": "RectangularRoofWindow build consumes same recipe, creates nodes then solids then opening, returns wall built from exact same WindowSolids. Both wall/opening share supplied IDs, owner, source, origin/tangent/outward/storey and opening width/clearheight. Fixed2 loops fill bothjambs; walls host list deliberately excludes reused originalheadsolid when head_memberSome but Opening head_kind identifies exact original TimberMemberId. This borrowing preserves existingmemberidentity rather than duplicating physical lintel; new semantic OpeningHead node and physical originalhead support relation not asserted one-to-one without receiving audit contract."
+    },
+    {
+      "id": "cardinal geometry source and linked closure",
+      "comparison": "local_size handles currentcardinalX/Y frames without later doubleyaw. Void bounds use same outward/tangent/opening dimensions and base+sill/clearheight, same exterior_depth_sign; reveals use same band and mouth offsets. All generatedsection9 slices actualfraction/8, no parallel array mismatch. Fixed-window policy read actual620 is one glazing layer/Closed0swing; closure initially reducedlocalpanel before caller-specific gable resize292, with intendedframe margins distinct from clear-opening relation. No generic manual rawrecipe dimensioncorrelation check, actualgables supply preselected fits."
+    },
+    {
+      "id": "original head and bearing updates",
+      "comparison": "head_memberSome directly references originalmember.solid and actualheadkindmember.id, avoids appending a duplicateheadhost; gable caller afterwards resolves that exacthead and each actualjamb/spandrel, replacing head-bearing bounds by measuredintersection. When noheadmember, helper creates its own paired newheadsolid/node. Bearings returns exactly2IDs plusaboveID from sameowner fixedslots, checkedbounds; current caller may refine nominal .08areas. Originalsupport/memberaura not universally replaced by these newnodeIDs."
+    },
+    {
+      "id": "child front mapping and support direction",
+      "comparison": "Child fronts resolve actual childID1000+dormerindex and exactfrontenclosureID, otherwise skip. Samefront gives width/base/top; actualdormerfacing cardinal tangent, parent owner/support nodes looked up through child.parent. Removes front before building replacementwall/opening, then appendsmatchingwall/opening and passes actuallastwall to bond_front_wall (push makes len>0). Childsupportnodes gain wallnode and sort/dedup; wallnode is supported by actualfacade support or parent supports, deliberately not childroof toavoidcycle. Transverse parentlink facadeID updated only actualmatchingchild. Raw cycles/missingnode silentlyskipped not a universal graphseal; normalderivedparent promise remains current earlierroofsource qualified."
+    },
+    {
+      "id": "generation mutation publication limits",
+      "comparison": "Rectangular builder/child resolver mutate geometry, removeface and counters before laterResult failures. Actual owned outer generation/editor276 publication means Err discardsfailedcandidate, not rollback guarantee for arbitrarydirect&mutcaller. Childfront recipe clamps opening width.48..82 andheight.68..1.12, base+heightderivedfront; arbitrarysmall/nonfinitefront can still violatewallrelations, checkednative leavesrefuse negatives/nonfinite at physical boundaries butnotwholetrace. No normal malformedchild/build/auditexecutionclaimed."
+    },
+    {
+      "id": "ornament policy is a distinct physical recipe",
+      "comparison": "ornamental_frame adds fourcompactpieces only when callerasks; actualchildfrontcaller uses archetype.timber_frame_program().is_none, gablecallerfalse. Accepted civilian timberprograms use opening-first actualTimberFrameAssembly members, avoidingparallel decorativeoverlaythere. Comment legacy alone is not proof of a compatibility API; two explicitproductcontexts distinguished. No new aliases/fallbacks implemented or source edited."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Bond_front_wall and broader child-parent graph have separate current source roles; no called-body waiver.",
+    "Actual accepted scene physically consistent glazing versus architecturalclearance remains recipe-specific, no blanket sealed arbitraryrawbuilder."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

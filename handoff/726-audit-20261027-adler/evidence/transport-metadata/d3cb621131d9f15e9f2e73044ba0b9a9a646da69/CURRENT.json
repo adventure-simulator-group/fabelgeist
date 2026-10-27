@@ -1,0 +1,123 @@
+{
+  "kind": "Authoritative segovb continuation handoff",
+  "prepared_at_utc": "2026-10-26T16:23:53.539847+00:00",
+  "handoff_branch": "codex/774-continuation-handoff-20261026",
+  "main_at_handoff": "a411abb4370bb6f6609622cef5da59988a37aee9",
+  "user_instruction": "Hand work back to segovb using one or more branches, not ZIP; use main physical worktree; stop for user review at individual merge-ready PRs, no deep stack.",
+  "status": "Implementation remains stopped for handoff; user merged #987. Next implementation is #826 texture-view WIP on fresh main. Audit incomplete.",
+  "implementation": [
+    {
+      "topic": "GLB framing",
+      "branch": "codex/checked-glb-framing-review",
+      "head": "2ef288d1085c249fa056156182ea626a060bb8d1",
+      "pr": 987,
+      "status": "merged_by_user",
+      "base": "4530fc19ce16641df65eae28735d69e86bbaa8ae",
+      "checks": "full hosted run40339807509success;48requiredgroups;11namedexportcases;10Windowscases",
+      "reviews": [
+        "evidence/glb-main-4530/code-review/CURRENT.json",
+        "evidence/glb-main-4530/rule-review/review-002.json",
+        "evidence/glb-main-4530/comment-review/body-review-002-final.json"
+      ],
+      "merge_commit": "a411abb4370bb6f6609622cef5da59988a37aee9",
+      "merged_at": "2026-10-26T16:33:57Z",
+      "merge_confirmation": "evidence/glb-main-4530/published-merged-001.json"
+    },
+    {
+      "topic": "GPU whole-texture view errors and canonical validation scope",
+      "branch": "codex/826-view-error-wip-handoff-20261026",
+      "head": "2e8b0cb0728bbcde65bb91c6e04c5488aac6fa23",
+      "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "status": "saved WIP, not integrated onto post-987 main, not freshly validated, not merge-ready",
+      "preflight": "evidence/gpu-main-4530/preflight/integration-plan-001.json"
+    }
+  ],
+  "audit": {
+    "original_roles": 2853,
+    "overlay_entries": 246,
+    "merged_paths": 38,
+    "family_obligations": 20,
+    "shared_material_entries": 196,
+    "lens_map": "evidence/HANDOFF-LENS-MAP.json",
+    "source_portability": "evidence/HANDOFF-SOURCE-PORTABILITY.json",
+    "own08": {
+      "accounted": 1799,
+      "next_ordered": 1792,
+      "earliest_unfinished": 1462,
+      "state": "evidence/audit08/STATE.json",
+      "material_frontier": {
+        "contiguous_assessed": [
+          0,
+          31
+        ],
+        "next": 32,
+        "separate_assessed": [
+          178,
+          195
+        ],
+        "latest": "evidence/audit08/material-receipts/earlier-024-031-001.json",
+        "full_registry_complete": false,
+        "status": "Saved checkpoint; implementation/audit agent stopped. Original frontier unchanged."
+      }
+    },
+    "own11": {
+      "accounted": 778,
+      "next": 778,
+      "latest": "evidence/audit11/successor-156.json",
+      "active_partial": null,
+      "separate_connected_reads": [
+        786,
+        923
+      ],
+      "materials_assessed": [
+        181,
+        195
+      ],
+      "materials_pending": [
+        0,
+        180
+      ]
+    },
+    "own12": {
+      "registered_originals_assessed": [
+        0,
+        9
+      ],
+      "next": 10,
+      "other_populations": "pending"
+    },
+    "own13": {
+      "inspected": [
+        0,
+        9
+      ],
+      "assessed": [
+        1,
+        2,
+        3,
+        4,
+        6,
+        7,
+        8
+      ],
+      "partial": [
+        0,
+        5,
+        9
+      ],
+      "earliest_unfinished": 0,
+      "first_unread": 10
+    },
+    "clear": false,
+    "new_global_unique_count": "Not established; preserve inherited findings and alias reconciliation."
+  },
+  "next_steps": [
+    "Fetch current main including a411abb4370bb6f6609622cef5da59988a37aee9; #987 is already merged and needs no further merge action. Keep the handoff branch separate from main.",
+    "Recover only the saved2e8b0cb delta onto that main; recheck preflight paths and reconcile current workflow, lock and callers, preserving #986/#987.",
+    "Fresh affected reviews and full hosted CI on integrated GPU slice, then pause for the next user merge checkpoint.",
+    "Continue each unfinished lens from exact receipt; preserve partials and source qualifications, then connected repairs/successor waves/global acceptance."
+  ],
+  "supersedes": "Historical current/status aliases in evidence/STATE.json and prior handoff records. Exact source and receipt facts remain preserved.",
+  "initial_main_at_handoff": "4530fc19ce16641df65eae28735d69e86bbaa8ae",
+  "updated_at_utc": "2026-10-26T16:35:18Z"
+}

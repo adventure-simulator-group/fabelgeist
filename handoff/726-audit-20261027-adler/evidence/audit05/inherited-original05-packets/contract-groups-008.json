@@ -1,0 +1,55 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-008",
+  "at": "2026-10-22T18:55:53.144349+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_contacts.rs",
+      "sha256": "4cd1f8a5d9662f277ac4d7707ddefda519e4cf56d107132f8c7a403c3a3c28d1",
+      "scope016_index": 2537,
+      "actual_EOF": 106,
+      "scoped_ranges_compared": [
+        [
+          1,
+          106
+        ]
+      ],
+      "fresh_source_proof": "Fresh whole exact initial05 source, current03Native roof002 actual source narrative personally reanalyzed for retention/cardinality/recipient relationships; no hash or verdict credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/dormer_layout.rs",
+      "sha256": "ac744d01f3dada293a02952e68c7f68a18395eb0dd035cccb85298a703d3d5a4",
+      "scope016_index": 2535,
+      "actual_EOF": 171,
+      "scoped_ranges_compared": [
+        [
+          1,
+          171
+        ]
+      ],
+      "fresh_source_proof": "Fresh whole exact initial05 source, current03Native roof002 actual source narrative personally reanalyzed for retention/cardinality/recipient relationships; no hash or verdict credit."
+    }
+  ],
+  "groups": {
+    "fixed-wall-contact-index": {
+      "relationship": "Owner-to-hostbounds index mustincludeonlyactualwalls andtheirphysicalsolidbounds, stayfixedwhileweatheringemitted, andreportownersactuallypositivelycontactingcurrentweatherproducts. Cardinalityisowner→manybounds, notonewallperowner.",
+      "construction_retention": "PrivateBTreeMap.new13–25 initializeskeysfromactualwalls thenallsolidsonlymatchingkeys appendfalliblechecked yaw_bounds. Duplicatewallowner keyscoalesceintentionallybeforeappend, soallmatchingphysicalsolidsretained; absentphysicalwalls produceemptyhostsandnocontribution. Mapprivate/noSerdeDefaultReflectorpublicmutation, boundingcopyindexunchangedbygrowingweatheringlist. Actualcurrentwallssliceimmutableandroutineemitsroofsolidsratherthanmutatingwallrecords; globalarbitrarygeometrymutationsnotendorsed.",
+      "operations_and_relyingconsumer": "touching27–51 readmitsALLweatheringboundsbeforeoutput, thenhost/weatherpairintersectionusescomponentmaxmin andstrict>actual.025 depthallaxes beforeownerselected. BTreeSetdedups multiplephysicalcontactsunderoneowner; thisisexplicitsetsemantics, notparallel-arrayzip/cardinalityloss. Actualroof_abutments127–145 passeslast3successfullyemittedpiecesandcreatesdeclaredbondforeachpositivehostowner. abutment_host55–106 borrowsactualsamewalls andfilterskind/normaloffset/alongspan/yband, thenChurchArcadepriority+distance; returnedSomeisactualmemberofslice, notfabricatedID.",
+      "invalid_combo_and_limits": "Separatelyvalidowner/solidleavesneednothaveactualmatchingowner; constructorignoresunmatchedsolidratherthanassertingwallownershipofallgeometry. Rawwallframesmaynonfinite/invalid; geometricquerypredicatecontextbelongsacceptedgraph, notindexconstructor. CoordinateyawfiniteoutputandRootbackingqualificationpreserved. No independentacceptednormalizedwallframepromise orglobaluniquewallIDasserted.",
+      "disposition": "Snapshotrelationshipandpositive-contactsetcontractcoherentunderactualimmutablewallconstructioncontext. RootF002IDaliasescanbreakretainedgraphoutsideindex; no newindexaggregateweaknessproved. No cacheinvalidationauthority07credit."
+    },
+    "dormer-derived-layout-workrecord": {
+      "relationship": "Facing selectsperpendicularnativeinward/tangent andridgeaxis; halfwidth/top/depth/recipegeometrymustderivefromsameDormer/context. Transversegable ridge depth differsenclosuredepth intentionally; shedstoredridge-axisrotatedasrequiredbyitsrecipeorientation.",
+      "construction_retention": "Private-moduleDormerLayoutnew13–106 computesALLfieldsfromclosedfacing/kind andsame rawdormer/parent. Cardinaldirectionsgiveunitperpendicularaxes, widthscale2.2onlyTransverse; toprawbase+heightrule, eave.16vs.10, depthfallback.84source. ShedrequiresSomeexactseamelseInvalidRoofDormer; nongableusesauthoredfallback, transversehigher48degreeridgequeriesseparatelywithenclosurefallback. No universalfinite/positivedepthpromise fromResult because rawinputsbroad.",
+      "operations_and_relyingconsumers": "seam_depth_at_height109–130 usesfixedtwo-sideall torequirebothparentheightqueriesandfinitegeometricordinarycomparisonbeforechosenfirst1cmcandidate; finaldepthmaxminimumauthoredrule. recipe132–171 samecomputeddepth/top/eave/scale plusridgedirectionconstructssize/centreandkindtogether, shedrotatesstoredridgeaxis. Actualroof_dormers consumesworkrecordfields toresolvechildgeometryandupdatesridge/enclosures; notanadmittedmutablewholegraph.",
+      "invalid_combo_and_limits": "Pubsuperworkrecordfieldspermitparentmoduleindependentmutationafternew, so cannot claimsealedlayoutprojectionagainstrawrecipe. Currentactualrecipe/new/callerconstructioncomputessamerelationship; noactualindependentmutation/badcalleridentified. Rawnegative/nonfiniteoriginaldimensionscanflowtoeventualcheckedphysical/polygonbounderrors; do notrelabelaslossfromcheckedleaf. PublicRoofAssemblymaylackvalidparent/polygons; existingRootF001contextgap remains.",
+      "disposition": "Currentlocalderivedworkrecordcoherentfornormalconstruction, rawratherthanacceptedgeometrytoken. No newweaknessrequiringseparatebrand; preserveconstruct-all-at-onceandactualconsumption, enforcewholegraphatowningpublicationboundary."
+    }
+  },
+  "connected_repair_acceptance": "Root023wholefunctionownership; keeponeactualcompletecontextwhenconstructingindices/layouts, preserveowner-group/setsemantics, borrowedactualhostmembership, two-sidechecks, distinctkindfallbacks andnativeFP/errororder. Any acceptedroofstrengtheningmustnotforcezero/concave/nativeworkstateintoincompatibleowners. No edits/newtests/checks/laterlenscredit.",
+  "new_unique_findings": [],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

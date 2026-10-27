@@ -1,0 +1,82 @@
+{
+  "at": "2026-10-27T00:43:07.516478+00:00",
+  "lens": 12,
+  "original": 46,
+  "prior": "audit12-successor-022-partial-006.json",
+  "source_registration": "audit12-successor-registration-022-receiver-008.json",
+  "actual_new_reads": [
+    {
+      "source_id": "physical-p16-unchanged-base:crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+      "sha256": "a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+      "ranges": [
+        [
+          1,
+          49
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-unchanged-base:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "sha256": "9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "ranges": [
+        [
+          1,
+          144
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-unchanged-base:crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+      "sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+      "ranges": [
+        [
+          1,
+          159
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-unchanged-base:crates/adventuresim-core/src/item_catalog_validation_material.rs",
+      "sha256": "823eb461e0534843b71a2b8199e6428fd9a558cf9bc1387beedf87500bf71f8a",
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ]
+    }
+  ],
+  "contracts": [
+    {
+      "role": "Native numeric field keys and diagnostics",
+      "source": "numeric1-49",
+      "trace": "finite_in and positive_f32_in receive actual JSON key and human diagnostic path; no text classification of value errors occurs here. They append dotted path and formatted range text to CatalogDiagnostics; M24 structured path/cause owner repair must include these producers. f64-to-f32 positivity is explicit sourceadmission behavior, no numeric-lens clearance."
+    },
+    {
+      "role": "Typed occupancy and remaining text policy",
+      "source": "occupancy1-144",
+      "trace": "ParentRequirement/EquipmentLayerPrecedence/OccupancyRequirement decode canonical schema types. Serialized location/channel spellings validated at source; singleton membership independently matched on rawchannel text although EquipmentChannel::singleton_per_location exists. Fit-zone/conflict operations use typed recipients; actual fit/conflict bodies remain connectedfrontier. Serde failures forparent/layer become String diagnostics; M24support, unknown raw keysremain true JSONboundary values."
+    },
+    {
+      "role": "Surface chain semantic vocabulary",
+      "source": "surface1-159",
+      "trace": "Raw anatomical names checked against finite allowed array, converted again to canonical EquipmentAnatomicalRegion to determine string bodypart, then compared against protected BTreeSet<&str>. Contiguity is separate rawpair match. SurfaceAnchor uses typed serde atsource; retained EquipmentSurfaceSpan schema children need actual tracing. Semantic anonymous string chain/bodypart roles are source-backed local migration candidates, no unique alias/currentfamily claim."
+    },
+    {
+      "role": "Material vocabulary",
+      "source": "material1-17",
+      "trace": "Procedural material strings are finite native authoring vocabulary matching canonical EquipmentMaterial variants. Helper is a Boolean predicate at boundary; actual final schema stores typedmaterial. Any consolidation should reuse same owner and not introduce a duplicate CatalogMaterial. Canonical enum parse/metadata policy/current owner reconciliation pending."
+    }
+  ],
+  "remaining": [
+    "Actual schema fit/surface methods and physicalSerde modules; canonical conflicts owner.",
+    "Other build catalog validators/runtime receivers plus weapon recipe lookup/ID owner.",
+    "Master/current reconciliation for surface/bodypart/chain/singleton rawpolicy; no globally unique conclusion from missing searchtoken."
+  ],
+  "original_count": 46,
+  "active_partial": 46,
+  "new_unique_delta": 0,
+  "no_project_execution": true,
+  "no_product_mutation": true,
+  "global_clearance": false
+}

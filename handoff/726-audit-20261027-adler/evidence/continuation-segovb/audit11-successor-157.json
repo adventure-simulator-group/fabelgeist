@@ -1,0 +1,156 @@
+{
+  "id": "SEGOVB-CONT11-SUCCESSOR-157",
+  "lens": "type-granularity",
+  "owner": "texture_rule_review source-only delegated reviewer",
+  "authority": {
+    "manifest": "target/recovery-20261025/audit05/original-scope-072.json",
+    "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "prior_state": "audit11/STATE.json",
+    "prior_receipt": "audit11/successor-156.json"
+  },
+  "receipts": [
+    {
+      "scope_index": 778,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/textures/tests.rs",
+      "sha256": "3443c2f0ebaff8646fa3ac613ba770ea48024c53e850ce0dc8fbad014bc48072",
+      "ranges": [
+        [
+          1,
+          191
+        ]
+      ],
+      "status": "accounted-with-qualifications; not clear",
+      "assessment": "Full191 personally read after byte/hash verification. Existing test-only maps/export helpers use native PNG Vec<u8>, filesystem Paths, authored position/normal/UV/color/weight arrays and literal metallic/roughness values as explicit fixtures. Canonical RigJointName ROOT, PackedRigSkin plus rig joint_count and GlbOutput::SharedTextures retain meaningful identity and packaging distinctions; no additional wrapper for these fixture literals is warranted. Parsed glTF enums distinguish URI source and AlphaMode::Mask; image/texture numeric indices0/1/2 are expected native-format ordering in assertions. shared_uris Option<Vec<String>> represents first-export absence then comparison payload, not duplicated independent flags. cutout/export_body primitive booleans are fixture arguments to public records, whose broader semantic mode question remains qualified; no test execution or production correctness inferred. Corrupt-file diagnostic matching183 is a test assertion, no production branch or raw-string lens clearance.",
+      "new_unique_finding": false,
+      "validation": "frozen source not run; source-only"
+    },
+    {
+      "scope_index": 779,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/validation.rs",
+      "sha256": "61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb",
+      "ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "status": "accounted-with-qualifications; not clear",
+      "assessment": "Full164 personally read after hash verification. RiggedMesh/RiggedShell definitions (connected7721-60) preserve canonical typed rig tables/ordinals/PackedRigSkin while geometry/normals/UVs/weights/material factors retain distinct semantic roles represented in native arrays/scalars. Validator checks nonempty/equal channel counts, packed rig joint-count association, parent-before-child ordering, face-index bounds, finite normalized weight sums, paired optional skin arrays with intentional same-body-topology selection, shell finite channels, and socket uniqueness/finite transform/UV state. These checks partly establish relationships but do not turn public raw record shapes into admitted types. Export entry767633-667 calls validate before compaction/native byte serialization. Raw lod u8 is checked by CharacterLod::try_from then discarded; exact connected8181-24 proves existing bounded LOD owner and vertex-index consumer, supporting a qualified producer/retained-role distinction gap rather than inventing new bounds. Texture surface tuple, optional separate skin channels, texture/texcoord correlation, socket attachment-ID vs UV-domain raw strings, and artist sRGB vs scalar metallic/roughness distinguish actual roles and merit canonical-owner/record reconciliation. No unobserved per-weight positivity, body-coordinate finiteness, [0,1] material range or global skeleton-identity guarantee is claimed. No new accepted/global-unique finding; prior Q008/Q009 export aliases cannot safely identify canonical question records due ID collision.",
+      "new_unique_finding": false,
+      "validation": "frozen source not run; source-only"
+    }
+  ],
+  "partials": [
+    {
+      "scope_index": 780,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment.rs",
+      "sha256": "d6b09524be811c5e4202be50af529c941a917ff8f31ea61e2a73e4da17dc103e",
+      "consumed_ranges": [
+        [
+          1,
+          702
+        ]
+      ],
+      "ordered_accounted": false,
+      "status": "body-read; required connected traces incomplete",
+      "assessment_so_far": "Full702 read; raw/bespoke roles inventoried: DrapeInput/DrapedGarment/SkinTransfer typed rig names/tables/packed indices paired with untyped weight channels; stage sum distinguishes Placed/Sewing/Settling/Worn but progress uses raw u32 step/of; metre garment vertices versus centimetre measurement arrays at99-141; private SewnSurface maps render/sewn topology and retains correspondence groups/faces/render_faces; local cross/dot/normals and orientation edge/face adjacency kernels; skirt/direct barycentric skin transfer maintains RigJointOrdinal through weighted maps and PackedRigSkin output. Need exact connected measure/BVH/packed-skin/settings contracts and actual garment caller admission before granularity verdict. No ordinary wrong-frame/wrong-topology witness claimed yet."
+    },
+    {
+      "scope_index": 781,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/conform.rs",
+      "sha256": "4c3ee7c251ed1a4d18681e0b05c0fcf35b3b61e7d6dd0decfda0708577469162",
+      "consumed_ranges": [
+        [
+          1,
+          324
+        ]
+      ],
+      "ordered_accounted": false,
+      "status": "body-read; required connected traces incomplete",
+      "assessment_so_far": "Full registered1-324 read; SewnCloth owns sewn topology plus neighbour/edge derivation distinct from SewnSurface mapping, meaningful rather than redundant wrapper. stretch multiplier, metre clearance, fit fraction, Vec3 pushes and contribution counts have different roles; local pulls/lifts positional tuples merit named accumulator record consideration, not new accepted unique finding. Barycentric and unit kernels locally use native Vec3/scalar operations. Pending earliest780 connected topology/frame/settings proof and actual callers before accounting."
+    },
+    {
+      "scope_index": 782,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/drape.rs",
+      "sha256": "c26b0508ccce30c3c2ca164e46327764ca4b133b418b5ea49e008b0a45613421",
+      "consumed_ranges": [
+        [
+          1,
+          334
+        ]
+      ],
+      "ordered_accounted": false,
+      "status": "body-read; required connected traces incomplete",
+      "assessment_so_far": "Full334 read; DrapeStart checkpoint sum and DrapeStage distinguish actual resume/progress states; cancellation AtomicBool is a threading predicate, warnings Vec<String> is human prose. SeamClosure.gaps (metres), bends/open_bends (solver weights) have meaningfully different roles despite f32 Vec storage; source creates them from mesh and reorders only at concrete solver calls. STEP_SECONDS versus SEAM_CLOSING_SHARE and clearance-centimetre conversion are distinct numerical roles. Exact Fit/GPU attach/rest_lengths/weights receiving contracts, stages/selection/checkpoint association remain untraced; no accounting credit."
+    }
+  ],
+  "connected_reads": [
+    {
+      "connected_scope_index": 767,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "ee364aaa0d304eb120d6f91216c6da3e186f5e20809e28ffa74f5864e568d72d",
+      "ranges": [
+        [
+          1,
+          220
+        ]
+      ],
+      "ordered_credit": false,
+      "reason": "Trace779 validation record distinction/LOD and export entry boundary; completed earlier role not recounted and future818 not credited"
+    },
+    {
+      "connected_scope_index": 772,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/rigged.rs",
+      "sha256": "2f337baa2edb2356e1f086aacf549696c63bfac639d03c5f0a9b564d675bb397",
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "ordered_credit": false,
+      "reason": "Trace779 validation record distinction/LOD and export entry boundary; completed earlier role not recounted and future818 not credited"
+    },
+    {
+      "connected_scope_index": 818,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/lod.rs",
+      "sha256": "73ad82b91f4b15146231c922544a72466849407fc7fca6ebe2268d78f45d7fa3",
+      "ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "ordered_credit": false,
+      "reason": "Trace779 validation record distinction/LOD and export entry boundary; completed earlier role not recounted and future818 not credited"
+    },
+    {
+      "connected_scope_index": 767,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "ee364aaa0d304eb120d6f91216c6da3e186f5e20809e28ffa74f5864e568d72d",
+      "ranges": [
+        [
+          625,
+          680
+        ]
+      ],
+      "ordered_credit": false,
+      "reason": "Validation779 actual called before serialization"
+    }
+  ],
+  "qualifications": [
+    "No completed original0-777 discovery restarted or recounted; selected earlier source rereads only779 reached boundaries.",
+    "No other-lens verdict transferred. No current-main/final runtime clearance or repair proposed without canonical reconciliation.",
+    "Frozen existing test sources read only; no tests/helpers/assertions/doctests/cases authored or executed.",
+    "Earlier successors150-156 label export questions Q008/Q009 but current question-008/009 records own glazing/timber scopes. This apparent identifier collision is unresolved; export observations retained by source identity without alias or unique-count assertion.",
+    "Original786/923 connected receipts remain pending their exact ordered roles; neither credited.",
+    "Future818 connected1-39 read for LOD contract only, not ordered-accounted."
+  ],
+  "new_unique_findings": 0,
+  "source_edits": false,
+  "clear": false,
+  "validation": "none; hosted-only restriction honored",
+  "next_original": 780,
+  "original_accounted_proposed": 780
+}

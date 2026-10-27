@@ -1,0 +1,122 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-366",
+  "at": "2026-10-23T12:45:50.449531+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory_acquire.rs",
+      "sha256": "38c1ff570b3617b06af25f869d5ccd0f82d4827a6c4d0f9c4298e14c04ec145f",
+      "scope072_index": 813,
+      "actual_EOF": 138,
+      "scoped_ranges_compared": [
+        [
+          1,
+          138
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source bodies including original inline fixtures; creator recipe, acquisition, shared-design edit, name admission and LOD indexed projection relationships personally compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory_article_editor.rs",
+      "sha256": "bfaf8082b9b0e3aba214dbe23016ae3d83f78b3a66f777ea6e2601ddc5475cf9",
+      "scope072_index": 814,
+      "actual_EOF": 199,
+      "scoped_ranges_compared": [
+        [
+          1,
+          199
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source bodies including original inline fixtures; creator recipe, acquisition, shared-design edit, name admission and LOD indexed projection relationships personally compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/item_design.rs",
+      "sha256": "a33bdf3bde70ed5a647c3968c9e9c04dd60402bca585d47a4d2555ce9e3802aa",
+      "scope072_index": 815,
+      "actual_EOF": 232,
+      "scoped_ranges_compared": [
+        [
+          1,
+          232
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source bodies including original inline fixtures; creator recipe, acquisition, shared-design edit, name admission and LOD indexed projection relationships personally compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/lib.rs",
+      "sha256": "dc0c4f7b59ecd62d3a8a4a6b00c5bfecfc15470df833fe4294e486d1ffa5393c",
+      "scope072_index": 816,
+      "actual_EOF": 238,
+      "scoped_ranges_compared": [
+        [
+          1,
+          238
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source bodies including original inline fixtures; creator recipe, acquisition, shared-design edit, name admission and LOD indexed projection relationships personally compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/library_name.rs",
+      "sha256": "ecd978e94b850604d4345df1494e9536819e19d7a6d3b8921fde3d55bf54eb27",
+      "scope072_index": 817,
+      "actual_EOF": 52,
+      "scoped_ranges_compared": [
+        [
+          1,
+          52
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source bodies including original inline fixtures; creator recipe, acquisition, shared-design edit, name admission and LOD indexed projection relationships personally compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/lod.rs",
+      "sha256": "73ad82b91f4b15146231c922544a72466849407fc7fca6ebe2268d78f45d7fa3",
+      "scope072_index": 818,
+      "actual_EOF": 39,
+      "scoped_ranges_compared": [
+        [
+          1,
+          39
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source bodies including original inline fixtures; creator recipe, acquisition, shared-design edit, name admission and LOD indexed projection relationships personally compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "acquisition binds catalogue entry and requested placement",
+      "comparison": "813 catalog_item receives actual wearable enumeration, so equipment.expect has the normal catalogue filter witness rather than a type-name assumption. Each requested authored placement is captured with same item ID; both-side acquisition intentionally performs per-article add/select/wear operations, not one atomic batch. Stable IDs use 809 add: F064 applies only representable exhaustion, no ordinary inventory-size claim. Actual wear helper body remains separately queued."
+    },
+    {
+      "id": "shared design edit and current-preview invalidation",
+      "comparison": "814 destructures same Studio inventory/designs; selection lookup failure clears current selection. Design edits propagate dirty only when rebuild && item.worn. Make catalog default131\u2013142 successfully mutates shared defaults but does not set changed. Personally consumed CAMERA-INITIAL07-F058 / CONTRACT269 and compared actual814/815: opposite-side default-following worn article can resolve changed shared design while dirty remains false. This supports existing normal-UI source finding, no new unique or executed rendered-output claim. Selected own override remains intentional. Settled editor appearance/name changes differ from simulation layer change; draped editor compares simulation selection plus layer, with same_simulation lower predicate separately queued."
+    },
+    {
+      "id": "design-family replacement validates before mutation",
+      "comparison": "815 public ItemDesign/CatalogDesigns are broad editable records, not accepted-fit certificates. set_default resolves current family, rejects mismatch, validates candidate then commits exact recipe or dedicated family default. Vambrace/Breastplate use shared defaults intentionally; other catalogue recipe precedence is per-placement, per-item then authored recipe. Dedicated defaults across sides explain F058 receiver dependency. save/load native predicates remain exact prior registered lower roles, no blanket trust. Original fixtures compare routing, mismatch rejection and accepted edited ridge, read only."
+    },
+    {
+      "id": "recipe whole-product admission and intentional reset scope",
+      "comparison": "816 CharacterRecipe public Serde record admits raw combinations. validate checks exact version, identity/expression column sizes, nonblank trimmed name, all coefficients finite then inventory.validate. It does not claim accepted fitted/loadout or every lower hair invariant. Default appends four authored worn items with actual just-inserted ID lookup, zero coefficient arrays and no hair. reset_body/reset_face preserve current vector lengths and cannot repair malformed raw lengths; normal accepted recipe is precondition. IdentityGroup ranges0..20/20..40/40..45 are disjoint contiguous authored partitions; imported global count remains actual lower constant dependency. Entire inline tests read, no execution."
+    },
+    {
+      "id": "library name leaf owns complete local admission",
+      "comparison": "817 private String with TryFrom trim and reject empty; checked Deserialize uses that route, no raw setter, Default or Reflect. Consuming String conversion/getters expose output only. No independent cross-field collection relationship in this exact source; name-to-library identity/uniqueness remains parent concern. Original trim/blank/Serde fixtures read only."
+    },
+    {
+      "id": "LOD leaf-to-native lookup depends on exact imported bounds",
+      "comparison": "818 private u8 constructor checks imported MIN_LOD..=MAX_LOD; vertices indexes three-entry array by value-MIN_LOD. Local safety requires imported interval width exactly2; error text and fixture4..6 do not independently establish the actual imported constant body. Thus exact canonical MHR constants remain pending queued lower source, no universal safe-index claim. No public raw construction or independent setter. Full original256-case fixture source read, not run."
+    }
+  ],
+  "new_unique_findings": [],
+  "existing_finding_support": [
+    "CAMERA-INITIAL07-F058 / CONTRACT269 shared-default invalidation",
+    "NATIVE-INITIAL05-F064 allocator API exhaustion receiver"
+  ],
+  "remaining_dependency_obligations": [
+    "Canonical MIN_LOD/MAX_LOD exact body; creator wear helper and draped same_simulation remain separately queued."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

@@ -1,0 +1,54 @@
+{
+  "at": "2026-10-27T01:04:10.550489+00:00",
+  "lens": 13,
+  "packet": "018",
+  "extension_of": "audit13-successor-registration-018.json",
+  "sources": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/geographic.rs",
+      "sha256": "b0a7c91fd0c9c09870ebcacd16ae968638ba3381e66e7d44b9ee6c7e6235236c",
+      "bytes": 3790,
+      "actual_lines": 96,
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "purpose": "Actual ungraded owner/prepare_geographic validation,upsampling,newterrain,refinement scene-source edge; stopbefore obstacle reservation helper",
+      "body_consumed_at_registration": false,
+      "provenance": "audit13-root-terrain-staging-018-final.json exact f82 original registry object"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/supported.rs",
+      "sha256": "951ac796fe6192eccfebbeca4317a11c29f0ac3697424ddc46973810d05db06b",
+      "bytes": 2242,
+      "actual_lines": 56,
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "purpose": "SupportedTerrain owner andactual geographic->grounded terrain receiving path",
+      "body_consumed_at_registration": false,
+      "provenance": "audit13-root-terrain-staging-018-final.json exact f82 original registry object"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/property_support.rs",
+      "sha256": "4eb5b88b6059d622bb8663f784c3cd8eab5289a4928d2c51ab38031acc6a354a",
+      "bytes": 7361,
+      "actual_lines": 181,
+      "ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "purpose": "TerrainGeometry representation andSceneTerrain propertysurface constructor/mutation contract; stopbefore unrelated supportquery tail",
+      "body_consumed_at_registration": false,
+      "provenance": "audit13-root-terrain-staging-018-final.json exact f82 original registry object"
+    }
+  ],
+  "stop_contract": "Finish bounded018 afterthese exactreceiving contracts; no further graph expansion. Unreadgrounding/refinement/ownedphysicsvalidators explicit; no neworiginalcredit."
+}

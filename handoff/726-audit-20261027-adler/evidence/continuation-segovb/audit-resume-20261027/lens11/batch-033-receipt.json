@@ -1,0 +1,161 @@
+{
+  "at": "2026-10-27T13:15:59.368213+00:00",
+  "lens": 11,
+  "status": "958-959 independently source-accounted at effective scope and material closures",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-033-registration.jsonl",
+    "sha256": "946a47953dae086dc8df2c41ca92fe95ef6cc09c5a34a5320e26fb8f2402b1ff"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-032.json",
+    "sha256": "8f663c063661d6a61f66e6580b05154d5bed24f5c61b0ffbd53745457b0ab391"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 958,
+      "source_id": "pr-working:crates/adventuresim-core/src/morale.rs",
+      "sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "actual_eof": 527,
+      "ranges": [
+        [
+          1,
+          145
+        ],
+        [
+          180,
+          330
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          145
+        ],
+        [
+          180,
+          330
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 959,
+      "source_id": "pr-working:crates/adventuresim-core/src/npc_policy.rs",
+      "sha256": "51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+      "actual_eof": 296,
+      "ranges": [
+        [
+          1,
+          296
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          296
+        ]
+      ]
+    }
+  ],
+  "material_closures": [
+    {
+      "kind": "original-material-closure",
+      "original_index": 958,
+      "sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "ranges": [
+        [
+          146,
+          179
+        ],
+        [
+          331,
+          345
+        ]
+      ],
+      "prospective": true,
+      "reason": "Complete earlier decay signature/body and reached pain operation closure at requested330 frontier",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          146,
+          179
+        ],
+        [
+          331,
+          345
+        ]
+      ]
+    }
+  ],
+  "material_receivers": [
+    {
+      "kind": "connected-owner",
+      "original_index": 1007,
+      "sha256": "837f9fd6f0198b1141b6908e9a329a770104cb67be25e2234764977af3db85df",
+      "actual_eof": 40,
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "prospective": true,
+      "reason": "Canonical strategic currency module owner boundary; no assumed Money type without body",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          40
+        ]
+      ]
+    }
+  ],
+  "per_role": [
+    {
+      "original": 958,
+      "roles": "Durable event versus projected morale-source vocabulary; signed morale versus positive/negative pools; prebonus surplus/command/check; bounded fervor/decay versus morale bonus; strategic incapacitation contributors, total/status/check multiplier; mastery real/effective hours.",
+      "trace": "Requested1-145/180-330 plus146-179/331-345 consumed, union1-345 of527. Event has21 variants, Source adds persistent contributors; explicit From maps events into broader projection. cumulative_morale filters positive finite terms then harmonic rank. resolve separates positive andnegative effects, Will minimumdivisor. Fervor output uses bounded exponential; morale_bonus_fraction includes command multiplier and is not globally<=1 absent command admission. StrategicIncapacitation total sums7rawf32 terms inclfatigue; status Staggered>0.5 andIncapacitated>=1, check_multiplier decreases for totals>0.5. Mastery uses rejected effective-hour budget and interval decay rather than direct training credit.",
+      "disposition": "Keep event and source roles even overlapping vocabularies; no duplicate authority finding solely from explicit widening. Keep signed morale, nonnegative effect magnitude, Will/Command checks, bounded meter probability, unbounded contribution and dimensionless multiplier distinct. Shared UnitInterval fits proved bounded decay/fervor/roll only after admission; do not force morale_bonus_fraction under1 when actual input unbounded. StrategicIncapacitation public rawfields and projected status allow invalid nonfinite/signed contributors; admitted contributions/total operations can own policy. Frozen check_multiplier policy conflicts with user instruction against pre-incapacitation general movement-speed penalties; source only, actual current caller/use/alias unproved. Pain/blood-loss denominators and aggregate can exceedunitfraction: not all impairment scalars are UnitInterval."
+    },
+    {
+      "original": 959,
+      "roles": "NPC character/seed candidate snapshot, day ordinal and deterministic ranking; independent courtship prerequisites and formal/informal/ineligible result; daily schedule allocation; housing comfort rank/initial andrecurring currency cost/reserve.",
+      "trace": "Full296 consumed. Stable candidate order rejects conflicting seeds for same character, deduplicates identical snapshots, domain-separated sort and caps16. Courtship independently checks NPC/co-location/adulthood/attraction/nonkin/conflicts; formal pairing/approval/affinity selectsFormal elseinformal affinity. Initialschedule socializing60..120 in15minute increments+labor360, returning canonical DailySchedule. Housing compares initial+recurringreserve using saturating arithmetic thenmaxcomfort/tiecost.",
+      "disposition": "Keep identity+seed association: barecharacter count cannotreplace snapshot. Common Seed owner adequate; day rawu64 andcharacter rawu64 remain clock/identity ports. Independent eligibilitybools should not become a universal two-state mode; finalresultenum useful. Housing rank relativeordinal differs quality/check, money costs share unit but no amount owner found in1007 currencyregistrymodule. Saturating affordability may accept mathematicalinitial+reserve>u64MAX when availableMAX (e.ginitialMAX,recurring1); checked amount arithmetic should reject overflow at admission/operation. This is a frozen API witness, not current runtime funds exploit. Do not invent arbitrary cap on money or rank."
+    }
+  ],
+  "qualified_findings": [
+    {
+      "source_key": "lens11:frozen:958:strategic-check-multiplier-preincapacitation",
+      "status": "scoped frozen policy conflict candidate; actual current/use/alias unresolved",
+      "accepted_unique": false
+    },
+    {
+      "source_key": "lens11:frozen:959:housing-reserve-saturation",
+      "status": "source arithmetic admitted-input witness, no execution/current/runtime/alias acceptance",
+      "accepted_unique": false
+    }
+  ],
+  "contract_limits": [
+    "958146-179 closes requested decay context; pain327-334 andbloodloss336-342 complete. fear344-345 partial only;346-527 uncredited.",
+    "1007 full40 source consumed as connected owner only; it owns denomination IDs/catalog lookup, not a numeric currency amount type. No extra ordered credit. DailySchedule receiver body/hash reused031.",
+    "No current caller, player-facing policy or authoritative DB affordability guarantees inspected; preserve source/current distinction and unfinished queues. Fixtures read not run; no current/unique/global clearance."
+  ],
+  "accepted_unique_count_change": 0,
+  "new_material_extensions": [],
+  "source_accounting_not_clearance": true,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_ledger_edited": false
+}

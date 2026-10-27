@@ -1,0 +1,55 @@
+{
+  "at": "2026-10-27T05:20:13.995472+00:00",
+  "head": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+  "run": 40452560923,
+  "artifact_id": 12711837826,
+  "zip": "constraints-df5-001.zip",
+  "sha256": "115327d3514db600ac49dde384dfa0125fe7771551acb6541e3b92bd6f584f4b",
+  "reported_digest_matches": true,
+  "source_bindings": {
+    "source.txt": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+    "pr-head.txt": "df5f37abc8db96c3db69dd805f32ef1cf635dd59"
+  },
+  "members": [
+    {
+      "name": "pr-head.txt",
+      "sha256": "a097b06c8b58e1b9f4f2d81b72dbb41c22a9baacf6746db5affd13457b8e1848"
+    },
+    {
+      "name": "source.txt",
+      "sha256": "a097b06c8b58e1b9f4f2d81b72dbb41c22a9baacf6746db5affd13457b8e1848"
+    },
+    {
+      "name": "tests.log",
+      "sha256": "7b2debfb71dde4fd3696aefc371ce8a420e58b8ff25b36a0486d97c6f2ebfe65"
+    }
+  ],
+  "raw_harness_results": [
+    {
+      "label": "shell-unit",
+      "passed": 40,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "label": "xpbd-unit",
+      "passed": 27,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "label": "shell-doc",
+      "passed": 0,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "label": "xpbd-doc",
+      "passed": 5,
+      "failed": 0,
+      "ignored": 0
+    }
+  ],
+  "disposition": "40shell+27xpbdunit =67unit;5xpbd-docpass;0shell-doc transparent; nofailure/ignore. Fullhostedacceptancepending remainingrig/movement/finalstatus.",
+  "bookkeeping_correction": "Firstinlineparser incorrectlyexpected67 asoneharnessrow; actual40+27rawharnessrows read andcorrectedbeforeanyacceptancereceipt written. No projecttestfailure/retry/CIrerun causedbythisparsecorrection."
+}

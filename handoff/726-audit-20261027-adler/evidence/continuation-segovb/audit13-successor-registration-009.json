@@ -1,0 +1,567 @@
+{
+  "lens": 13,
+  "packet": "009",
+  "at": "2026-10-26T19:21:00.458287+00:00",
+  "roles": [
+    {
+      "original": 25,
+      "source_id": "native-dependency:tiny-skia-0.11.4/Cargo.toml",
+      "sha256": "76370c68002a8cf88f605f06e1d645d11045ae2bae97a7d8b490acf47362e6ad",
+      "ranges": [
+        [
+          46,
+          47
+        ]
+      ],
+      "read_ranges": [
+        [
+          46,
+          47
+        ]
+      ],
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/76370c68002a8cf88f605f06e1d645d11045ae2bae97a7d8b490acf47362e6ad",
+      "extensions": [],
+      "extension_read_ranges": [],
+      "hash_verified_after_read": true
+    },
+    {
+      "original": 26,
+      "source_id": "native-dependency:tiny-skia-0.11.4/src/pixmap.rs",
+      "sha256": "a7845a931a40b5b24eaa24b6053121e61bfe8b3fffa4c0db89f58c368fb9bc56",
+      "ranges": [
+        [
+          155,
+          182
+        ],
+        [
+          385,
+          430
+        ]
+      ],
+      "read_ranges": [
+        [
+          155,
+          182
+        ],
+        [
+          385,
+          430
+        ]
+      ],
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/a7845a931a40b5b24eaa24b6053121e61bfe8b3fffa4c0db89f58c368fb9bc56",
+      "extensions": [
+        {
+          "ranges": [
+            [
+              1,
+              154
+            ],
+            [
+              183,
+              252
+            ],
+            [
+              287,
+              334
+            ]
+          ],
+          "purpose": "Actual decoder admission, retained size/data and mutable pixels receivers"
+        },
+        {
+          "ranges": [
+            [
+              600,
+              603
+            ]
+          ],
+          "purpose": "Actual checked native pixel buffer length calculation"
+        },
+        {
+          "ranges": [
+            [
+              580,
+              599
+            ]
+          ],
+          "purpose": "Native row-byte and total-buffer-length arithmetic receivers"
+        }
+      ],
+      "extension_read_ranges": [
+        [
+          1,
+          154
+        ],
+        [
+          183,
+          252
+        ],
+        [
+          287,
+          334
+        ],
+        [
+          600,
+          603
+        ],
+        [
+          580,
+          599
+        ]
+      ],
+      "hash_verified_after_read": true
+    },
+    {
+      "original": 27,
+      "source_id": "native-dependency:wgpu-29.0.4/src/api/buffer.rs",
+      "sha256": "c7d2c13d8031a9416d5562ec970a46470da331544d3a5e15bc8fb7dae2a9de32",
+      "ranges": [
+        [
+          835,
+          880
+        ]
+      ],
+      "read_ranges": [
+        [
+          835,
+          880
+        ]
+      ],
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/c7d2c13d8031a9416d5562ec970a46470da331544d3a5e15bc8fb7dae2a9de32",
+      "extensions": [
+        {
+          "ranges": [
+            [
+              745,
+              834
+            ],
+            [
+              881,
+              943
+            ],
+            [
+              601,
+              613
+            ]
+          ],
+          "purpose": "Actual subrange/index removal producer, mapped byte view retention and Deref body"
+        },
+        {
+          "ranges": [
+            [
+              680,
+              744
+            ],
+            [
+              945,
+              953
+            ]
+          ],
+          "purpose": "Actual range predicates, immutable/mutable compatibility, subrange arithmetic, drop removal"
+        }
+      ],
+      "extension_read_ranges": [
+        [
+          745,
+          834
+        ],
+        [
+          881,
+          943
+        ],
+        [
+          601,
+          613
+        ],
+        [
+          680,
+          744
+        ],
+        [
+          945,
+          953
+        ]
+      ],
+      "hash_verified_after_read": true
+    }
+  ],
+  "new_receivers": [
+    {
+      "path": "tiny-skia-0.11.4/src/color.rs",
+      "sha256": "41a25664ba67f30823dc48781fa35fd344d7f3cfd0c02a83e736c3fe6c18bc7d",
+      "local": "target/recovery-20261025/continuation-segovb/audit13-successor-009-sources/41a25664ba67f30823dc48781fa35fd344d7f3cfd0c02a83e736c3fe6c18bc7d",
+      "ranges": [
+        [
+          1,
+          181
+        ],
+        [
+          414,
+          426
+        ]
+      ],
+      "read_ranges": [
+        [
+          1,
+          181
+        ],
+        [
+          414,
+          426
+        ]
+      ],
+      "source_basis": "Current lock-matching native archive member, no unseen frozen identity asserted",
+      "package": {
+        "name": "tiny-skia",
+        "version": "0.11.4",
+        "source": "registry+https://github.com/rust-lang/crates.io-index",
+        "checksum": "83d13394d44dae3207b52a326c0c85a8bf87f1541f23b0d143811088497b09ab",
+        "dependencies": [
+          "arrayref",
+          "arrayvec",
+          "bytemuck",
+          "cfg-if",
+          "log",
+          "png 0.17.16",
+          "tiny-skia-path"
+        ]
+      },
+      "archive_sha256": "83d13394d44dae3207b52a326c0c85a8bf87f1541f23b0d143811088497b09ab",
+      "hash_verified_after_read": true
+    },
+    {
+      "path": "wgpu-types-29.0.4/src/buffer.rs",
+      "sha256": "d86234bd209e47644671ca80f94d830f8445999b1ab7aa59780449994b4fcea9",
+      "local": "target/recovery-20261025/continuation-segovb/audit13-successor-009-sources/d86234bd209e47644671ca80f94d830f8445999b1ab7aa59780449994b4fcea9",
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "read_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "source_basis": "Current lock-matching native archive member, no unseen frozen identity asserted",
+      "package": {
+        "name": "wgpu-types",
+        "version": "29.0.4",
+        "source": "registry+https://github.com/rust-lang/crates.io-index",
+        "checksum": "84bf84cd9ca8ca45e2b223a3868f1adf9bfc0c66aeac212e76ee7e40fdadf8f5",
+        "dependencies": [
+          "bitflags 2.13.1",
+          "bytemuck",
+          "js-sys",
+          "log",
+          "raw-window-handle",
+          "serde",
+          "web-sys"
+        ]
+      },
+      "archive_sha256": "84bf84cd9ca8ca45e2b223a3868f1adf9bfc0c66aeac212e76ee7e40fdadf8f5",
+      "hash_verified_after_read": true
+    },
+    {
+      "path": "tiny-skia-path-0.11.4/src/size.rs",
+      "sha256": "2a887b25bee4194b730283f3e09ea8647af1f4584c2ba5d415024b0485022107",
+      "local": "target/recovery-20261025/continuation-segovb/audit13-successor-009-sources/2a887b25bee4194b730283f3e09ea8647af1f4584c2ba5d415024b0485022107",
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "read_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "source_basis": "Current lock-matching native member; no unseen frozen identity asserted",
+      "package": {
+        "name": "tiny-skia-path",
+        "version": "0.11.4",
+        "source": "registry+https://github.com/rust-lang/crates.io-index",
+        "checksum": "9c9e7fc0c2e86a30b117d0462aa261b72b7a99b7ebd7deb3a14ceda95c5bdc93",
+        "dependencies": [
+          "arrayref",
+          "bytemuck",
+          "strict-num"
+        ]
+      },
+      "archive_sha256": "9c9e7fc0c2e86a30b117d0462aa261b72b7a99b7ebd7deb3a14ceda95c5bdc93",
+      "hash_verified_after_read": true
+    },
+    {
+      "path": "tiny-skia-0.11.4/src/geom.rs",
+      "sha256": "b93fdae6878e40c4b8b7b0e4f608634c78c6281e30f18e399d093b5b9c945ab9",
+      "local": "target/recovery-20261025/continuation-segovb/audit13-successor-009-sources/b93fdae6878e40c4b8b7b0e4f608634c78c6281e30f18e399d093b5b9c945ab9",
+      "ranges": [
+        [
+          183,
+          210
+        ]
+      ],
+      "read_ranges": [
+        [
+          183,
+          210
+        ]
+      ],
+      "source_basis": "Current lock-matching native member; no unseen frozen identity asserted",
+      "package": {
+        "name": "tiny-skia",
+        "version": "0.11.4",
+        "source": "registry+https://github.com/rust-lang/crates.io-index",
+        "checksum": "83d13394d44dae3207b52a326c0c85a8bf87f1541f23b0d143811088497b09ab",
+        "dependencies": [
+          "arrayref",
+          "arrayvec",
+          "bytemuck",
+          "cfg-if",
+          "log",
+          "png 0.17.16",
+          "tiny-skia-path"
+        ]
+      },
+      "archive_sha256": "83d13394d44dae3207b52a326c0c85a8bf87f1541f23b0d143811088497b09ab",
+      "hash_verified_after_read": true
+    },
+    {
+      "path": "wgpu-types-29.0.4/src/lib.rs",
+      "sha256": "af153576bce090b101f05d3d4fc35523d82e8f7fd2f935bd60d12956af50cb3b",
+      "local": "target/recovery-20261025/continuation-segovb/audit13-successor-009-sources/af153576bce090b101f05d3d4fc35523d82e8f7fd2f935bd60d12956af50cb3b",
+      "ranges": [
+        [
+          128,
+          148
+        ]
+      ],
+      "read_ranges": [
+        [
+          128,
+          148
+        ]
+      ],
+      "source_basis": "Current lock-matching native member; no unseen frozen identity asserted",
+      "package": {
+        "name": "wgpu-types",
+        "version": "29.0.4",
+        "source": "registry+https://github.com/rust-lang/crates.io-index",
+        "checksum": "84bf84cd9ca8ca45e2b223a3868f1adf9bfc0c66aeac212e76ee7e40fdadf8f5",
+        "dependencies": [
+          "bitflags 2.13.1",
+          "bytemuck",
+          "js-sys",
+          "log",
+          "raw-window-handle",
+          "serde",
+          "web-sys"
+        ]
+      },
+      "archive_sha256": "84bf84cd9ca8ca45e2b223a3868f1adf9bfc0c66aeac212e76ee7e40fdadf8f5",
+      "hash_verified_after_read": true
+    },
+    {
+      "path": "wgpu-29.0.4/src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "local": "target/recovery-20261025/continuation-segovb/audit13-successor-009-sources/e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "ranges": [
+        [
+          266,
+          290
+        ]
+      ],
+      "read_ranges": [
+        [
+          266,
+          290
+        ]
+      ],
+      "source_basis": "Current lock-matching native member; no unseen frozen identity asserted",
+      "package": {
+        "name": "wgpu",
+        "version": "29.0.4",
+        "source": "registry+https://github.com/rust-lang/crates.io-index",
+        "checksum": "76e8840e1ba2881d4cbb18d2147627a56af426ff064c0401eb0c8410c6325d07",
+        "dependencies": [
+          "arrayvec",
+          "bitflags 2.13.1",
+          "bytemuck",
+          "cfg-if",
+          "cfg_aliases",
+          "document-features",
+          "hashbrown 0.16.1",
+          "js-sys",
+          "log",
+          "naga",
+          "portable-atomic",
+          "profiling",
+          "raw-window-handle",
+          "smallvec",
+          "static_assertions",
+          "wasm-bindgen",
+          "wasm-bindgen-futures",
+          "web-sys",
+          "wgpu-core",
+          "wgpu-hal",
+          "wgpu-types"
+        ]
+      },
+      "archive_sha256": "76e8840e1ba2881d4cbb18d2147627a56af426ff064c0401eb0c8410c6325d07",
+      "hash_verified_after_read": true
+    },
+    {
+      "path": "png-0.17.16/src/encoder.rs",
+      "sha256": "2befe627874fd46476bca960d8f89038479403b9611cbba4b37aadc42ac3658d",
+      "local": "target/recovery-20261025/continuation-segovb/audit13-successor-009-sources/2befe627874fd46476bca960d8f89038479403b9611cbba4b37aadc42ac3658d",
+      "ranges": [
+        [
+          164,
+          184
+        ],
+        [
+          293,
+          312
+        ],
+        [
+          561,
+          618
+        ],
+        [
+          661,
+          725
+        ],
+        [
+          503,
+          560
+        ]
+      ],
+      "read_ranges": [
+        [
+          164,
+          184
+        ],
+        [
+          293,
+          312
+        ],
+        [
+          561,
+          618
+        ],
+        [
+          661,
+          725
+        ],
+        [
+          503,
+          560
+        ]
+      ],
+      "source_basis": "Exact known original17 frozen SHA object independently reused only as receiver, no new role credit",
+      "package": {
+        "name": "png",
+        "version": "0.17.16",
+        "source": "registry+https://github.com/rust-lang/crates.io-index",
+        "checksum": "82151a2fc869e011c153adc57cf2789ccb8d9906ce52c0b39a6b5697749d7526",
+        "dependencies": [
+          "bitflags 1.3.2",
+          "crc32fast",
+          "fdeflate",
+          "flate2",
+          "miniz_oxide 0.8.9"
+        ]
+      },
+      "archive_sha256": "82151a2fc869e011c153adc57cf2789ccb8d9906ce52c0b39a6b5697749d7526",
+      "hash_verified_after_read": true
+    },
+    {
+      "path": "tiny-skia-path-0.11.4/src/lib.rs",
+      "sha256": "497bff2609b15972184c9730facc3d08082d7371c6e23f40065f45b5acf66135",
+      "local": "target/recovery-20261025/continuation-segovb/audit13-successor-009-sources/497bff2609b15972184c9730facc3d08082d7371c6e23f40065f45b5acf66135",
+      "ranges": [
+        [
+          61,
+          64
+        ]
+      ],
+      "read_ranges": [
+        [
+          61,
+          64
+        ]
+      ],
+      "source_basis": "Current lock-matching native archive member, no frozen identity asserted",
+      "package": {
+        "name": "tiny-skia-path",
+        "version": "0.11.4",
+        "source": "registry+https://github.com/rust-lang/crates.io-index",
+        "checksum": "9c9e7fc0c2e86a30b117d0462aa261b72b7a99b7ebd7deb3a14ceda95c5bdc93",
+        "dependencies": [
+          "arrayref",
+          "bytemuck",
+          "strict-num"
+        ]
+      },
+      "archive_sha256": "9c9e7fc0c2e86a30b117d0462aa261b72b7a99b7ebd7deb3a14ceda95c5bdc93",
+      "hash_verified_after_read": true
+    },
+    {
+      "path": "png-0.17.16/src/common.rs",
+      "sha256": "b3986553255abbc1f613dcb87469ce07bd750a9a2ca3087226c9b1f00e449129",
+      "local": "target/recovery-20261025/continuation-segovb/audit13-successor-009-sources/b3986553255abbc1f613dcb87469ce07bd750a9a2ca3087226c9b1f00e449129",
+      "ranges": [
+        [
+          1,
+          107
+        ],
+        [
+          650,
+          673
+        ],
+        [
+          715,
+          735
+        ]
+      ],
+      "read_ranges": [
+        [
+          1,
+          107
+        ],
+        [
+          650,
+          673
+        ],
+        [
+          715,
+          735
+        ]
+      ],
+      "source_basis": "Current lock-matching native archive member, no frozen identity asserted",
+      "package": {
+        "name": "png",
+        "version": "0.17.16",
+        "source": "registry+https://github.com/rust-lang/crates.io-index",
+        "checksum": "82151a2fc869e011c153adc57cf2789ccb8d9906ce52c0b39a6b5697749d7526",
+        "dependencies": [
+          "bitflags 1.3.2",
+          "crc32fast",
+          "fdeflate",
+          "flate2",
+          "miniz_oxide 0.8.9"
+        ]
+      },
+      "archive_sha256": "82151a2fc869e011c153adc57cf2789ccb8d9906ce52c0b39a6b5697749d7526",
+      "hash_verified_after_read": true
+    }
+  ],
+  "authority": "Exact original-scope-072 effective ranges; frozen f82 SHA objects; root12registration010 locators only",
+  "metadata_read_error_disclosure": [
+    "Pixmap prospective600-613 exceeded actualEOF603. Failed output join emitted no600+source; corrected600-603 registered before successful source consumption. Nonexistent604-613 uncredited.",
+    "Geom prospective183-211 exceeded actualEOF210. Failed output join emitted no geom body; corrected183-210 registered before successful consumption. Nonexistent211 uncredited."
+  ]
+}

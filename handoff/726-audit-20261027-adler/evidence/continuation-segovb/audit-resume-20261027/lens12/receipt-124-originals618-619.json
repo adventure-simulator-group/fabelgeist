@@ -1,0 +1,94 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "124",
+  "predecessor": "receipt-123-originals610-617.json",
+  "manifest_prefix_sha256": "ba6f26de873eefba28083163e54eb3cf7ff82d421192d661eaf525d60fe94ac0",
+  "sources": [
+    {
+      "original_index": 618,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/wall_assemblies.rs",
+      "sha256": "1322181abd1444dbae65d1cc024a19b0077f253a65a6e5d1780dc71f1da47e30",
+      "actual_eof": 1185,
+      "actual_ranges": [
+        [
+          1,
+          1185
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-1185",
+          "role": "Full1185 independentlyread chunks1-400/401-800/801-1185. No quoted literals/String API. WallSourceId15, typed material/structural_role32-33, OpeningUse71/157/1012/1035, all OpeningProfile matches80-310/428-504/607-622/713-735/801-807/886-958, StructuralNodeKind46/351, SolidRole400/419/520/542/824/843/910/929/931/1044, SurfaceRole676/678/706/753/760/767/1031 remain typed through actual OpeningAssembly1088-1133 and WallAssembly1155-1180. Actual helper619 wall_solid/void/surface read; numeric/aggregate/native and closure helper recipients separate.",
+          "disposition": "All exact requested source read WITH namespace/native/numerical/aggregate/current/receiving qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 619,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/wall_derivation.rs",
+      "sha256": "c809e10e428aa6559cf4ef46101cd34e5f8040ce82fd4a4f85c586113d52824f",
+      "actual_eof": 403,
+      "actual_ranges": [
+        [
+          1,
+          403
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-403",
+          "role": "Full403 only quoted literal building.window-placement3 admitted through StreamId::new2-3, retained canonical StreamId constant2 then actual cell_random129-135. Underlying StreamId owner2250 and cell_random definition unconsumed. Canonical RoomIndex/RoomKind/Direction/BuildingArchetype/OpeningKind and OpeningProfile169-259 retain categories; actual wall_solid261-299/void301-330/surface332-366 retain typed IDs/roles/shapes and directly receive own prior artillery/church/window calls. Numeric packing/admission/math separate.",
+          "disposition": "All exact requested source read WITH namespace/native/numerical/aggregate/current/receiving qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    }
+  ],
+  "connected_findings": [],
+  "pending_contracts": [
+    "619 StreamId namespace constant actualcell_random receiver129-135 proven; underlying canonical owner2250/exports2248 and cell_random body still queued together with608 namespaces. No typed-wrapper exemption.",
+    "Actual opening_closure/closure_solid_layers/wall_material/spans/closedwall/nativeconstructor admission and aggregate receivers remain separate obligations.",
+    "All inherited raw diagnostic-code/GenerationError context candidates and canonical alias/currentness limits retained."
+  ],
+  "qualifications": [
+    "Exact frozen PR-working scopes only; no P16/current/global/runtime/unique-total/other-lens clearance.",
+    "No backward compatibility/API/schema/input preservation requirement. No project/native/test/probe execution or product/Git/root ledger/publication mutation.",
+    "All20/P16/P17/F9/M09 aliases retained; unique delta0."
+  ],
+  "proposed_count": {
+    "before": 618,
+    "after": 620,
+    "indices_completed": [
+      618,
+      619
+    ],
+    "next_original": 620,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/wall_assemblies.rs",
+      "sha256": "1322181abd1444dbae65d1cc024a19b0077f253a65a6e5d1780dc71f1da47e30",
+      "ranges": [
+        [
+          1,
+          1185
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/wall_derivation.rs",
+      "sha256": "c809e10e428aa6559cf4ef46101cd34e5f8040ce82fd4a4f85c586113d52824f",
+      "ranges": [
+        [
+          1,
+          403
+        ]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,601 @@
+{
+  "review": "source-only independent Code Review",
+  "status": "completed_source_review",
+  "base": "a411abb4370bb6f6609622cef5da59988a37aee9",
+  "prospective_scope": [
+    {
+      "path": "AGENTS.md",
+      "lines": "1-113",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "lines": "1-192",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23"
+    },
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "lines": "1-589",
+      "sha256": "0d368f04a02ceb22ae56b05cfce5fe7c37fbd0fffdcc6f70f041b64c49c940e5"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "lines": "1-34",
+      "sha256": "6df2befe9397b790ad88233dee3fe7ed4f4aaf918a41b939585a5c633fe0f3db"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "lines": "1-68",
+      "sha256": "8d10bcef1e3605699a1b1eda95b5732e7b294453ffadd8ea2843369a024d9fce"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "lines": "1-43",
+      "sha256": "5fcedc2343591f9fdc806e66e0e0f619d352e9c1f19d615603fda80cc7168e64"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+      "lines": "1-17",
+      "sha256": "83ba1e1ca0719ccdc74c3bc70f4fdc197dca496600a89b41a5e18c7a020fece0"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "lines": "1-120",
+      "sha256": "642bfa7f9d9068c957e4f935600c0ab1eba0c91092060606392f9aa481dc9ad6"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs",
+      "lines": "1-450",
+      "sha256": "370add54d9307c5cbd778de771a6e2d98d0b0dbdb7b4e4b02d1245315458b11d"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+      "lines": "1-313",
+      "sha256": "45495b07095d77c0cb93ea88115508eeb2a1f083b9368e6d9b02dc6bee3a268c"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "lines": "1-7",
+      "sha256": "e29d771de75a14d0d916156b8d9772beeb1f0241068625cf23b6412d91fdd9bb"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "lines": "1-309",
+      "sha256": "d225e430430ae842eb2b27a62da4e320547fbc9f07b67d0209b2579e3614896d"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "lines": "1-113",
+      "sha256": "78737ed29bb25ecca79c079f6676afa0719fa8bfe65a9051b56536de280cfd63"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "lines": "1-484",
+      "sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+      "lines": "1-195",
+      "sha256": "9f1884bfd6533e8e9b0706c4972039e03c4f6dedc25970875e416392938569a5"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "lines": "1-631",
+      "sha256": "10387cbd21a9e79c1f7cac87677c5eb870460659e1c67ba5ac1f548d13b2d193"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "lines": "1-50",
+      "sha256": "511194c4de7587bb7a66be59a5f2762c628354ea57f15b809804a22b47b7db67"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "lines": "1-270",
+      "sha256": "d4d9df664fcd5207e09a8453fedfb5fae4ce9d139cd45d3bd8bc1e6a9f9ac12e"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "lines": "1-50",
+      "sha256": "a94fcf69d2535906362378a5d753a9daf5898790120012fdc97a27037c0923cc"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "lines": "1-962",
+      "sha256": "b86ab932de453c75553ba6a915d830406ac142dd7fe544a5d9fe5be25b14431a"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "lines": "1-51",
+      "sha256": "b2ed5473c8f358bdddfb0f88344ef0380027d83cbbd6b94ee1384d577bf791f9"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "lines": "1-58",
+      "sha256": "fc1fbee2e072e88d28d41f4f7422b7d7eae85e5307406406722b378fdf4bbbc9",
+      "qualification": "Register full range; actual inspection will be bounded ranges only, recorded separately."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+      "lines": "1-28",
+      "sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "qualification": "Register full range; actual inspection will be bounded ranges only, recorded separately."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition/tests.rs",
+      "lines": "1-49",
+      "sha256": "990a77c5be95d46846d6f096e3a185f080d5975c1b92e6a6f831f9351db33b8f",
+      "qualification": "Register full range; actual inspection will be bounded ranges only, recorded separately."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs",
+      "lines": "1-62",
+      "sha256": "29c6416f82022dc58dc4990783ef1b94b0690777c6669e7ec50d2cbdac3d760d",
+      "qualification": "Register full range; actual inspection will be bounded ranges only, recorded separately."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "lines": "1-89",
+      "sha256": "3e25d7e25d9d85032c723926167bf505637c2e31d7f05503b9e4d5f08bd12600",
+      "qualification": "Register full range; actual inspection will be bounded ranges only, recorded separately."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs",
+      "lines": "1-232",
+      "sha256": "8896b8082c799551488e2498f8bffdddd6c7cdfa344a73c9df0adcd726a75930",
+      "qualification": "Register full range; actual inspection will be bounded ranges only, recorded separately."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/device.rs",
+      "lines": "1-877",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "qualification": "Register full range; actual inspection will be bounded ranges only, recorded separately."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/texture.rs",
+      "lines": "1-188",
+      "sha256": "aee3469d3d722c85521b64a770de20105e49aa64c6f56342442c7335f79505cd",
+      "qualification": "Register full range; actual inspection will be bounded ranges only, recorded separately."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/device/resource.rs",
+      "lines": "1-5273",
+      "sha256": "796858f878f290e872a113cb474d7ff947dfdd61f5dcf38f6f64b9e69c959644",
+      "qualification": "Register full range; actual inspection will be bounded ranges only, recorded separately."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-types-29.0.4/src/lib.rs",
+      "lines": "1-612",
+      "sha256": "af153576bce090b101f05d3d4fc35523d82e8f7fd2f935bd60d12956af50cb3b",
+      "qualification": "Register full range; actual inspection will be bounded ranges only, recorded separately."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/lib.rs",
+      "lines": "1-14",
+      "sha256": "5a9039181baf9cc6a6b45e7810f99fd9811427b80e62c9d84f52cde5f3bfa9a6",
+      "qualification": "Prospective full range, bounded relevant bodies only inspected."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "lines": "1-5",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "qualification": "Prospective full range, bounded relevant bodies only inspected."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "lines": "1-178",
+      "sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+      "qualification": "Prospective full range, bounded relevant bodies only inspected."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "lines": "1-138",
+      "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+      "qualification": "Prospective full range, bounded relevant bodies only inspected."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+      "lines": "1-42",
+      "sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+      "lines": "1-129",
+      "sha256": "8057e3bc54fcc2941ab0b231989785cbbff9c222088d96a10920c55572a4bf24"
+    }
+  ],
+  "findings": [],
+  "limitations": [
+    "No project checks run. No audit clearance for inherited F2 cache/device/coherence or wider F1/F6/F9.",
+    "Registration command initially failed because python absent. Tracked diff and full view_error.rs/validation_scope.rs were read before registration; these reads are retrospectively pinned, not prospective coverage. Other full-file ranges registered before reading.",
+    "Existing 13/2/1 execution populations do not exercise new alternate-format error variants or polling-failure branch; new tests forbidden by user. Hosted checks still required on final commit.",
+    "No blanket clearance of constructors, subresource methods, mutable cache/device coherence F2, wider F1/F6/F9, registered populations, or thirteen lenses.",
+    "SDK ranged review only; no downloaded or entire frozen source tree inspected.",
+    "No product code edited; only ignored report written. git diff --check was a whitespace source inspection, not a project execution gate."
+  ],
+  "verdict": "No actionable new correctness finding in reviewed delta; qualified source-only result, no runtime or broad audit clearance.",
+  "actual_inspection": {
+    ".github/workflows/rust-quality.yml": [
+      "full tracked delta; lines 1-180 including insertion 115-160; all pre-existing lines unchanged by git diff (46 additions, zero deletions)"
+    ],
+    "crates/fabelgeist-gpu/README.md": [
+      "full file"
+    ],
+    "crates/fabelgeist-gpu/texture-views.md": [
+      "full file"
+    ],
+    "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs": [
+      "full tracked diff"
+    ],
+    "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs": [
+      "full file; retrospective pin due registration-command failure"
+    ],
+    "crates/fabelgeist-gpu/src/globals/validation_scope.rs": [
+      "full file; retrospective pin due registration-command failure"
+    ],
+    "crates/fabelgeist-gpu/src/globals/mod.rs": [
+      "full tracked diff"
+    ],
+    "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs": [
+      "1-309 full file"
+    ],
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs": [
+      "full file"
+    ],
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs": [
+      "full file"
+    ],
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs": [
+      "full file"
+    ],
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs": [
+      "full tracked diff",
+      "1-165",
+      "590-631"
+    ],
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs": [
+      "full tracked diff",
+      "1-145"
+    ],
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs": [
+      "full tracked diff",
+      "1-170"
+    ],
+    "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs": [
+      "1-86 From<TextureFormat> to wgpu mapping",
+      "360-399 sRGB and linear conversions",
+      "430-end ancillary capability tail; earlier attempted full output truncated, not claimed full coverage"
+    ],
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs": [
+      "full file emitted in initial batch; relevant records/conversions read; no readback correctness clearance"
+    ],
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs": [
+      "1-85",
+      "245-484"
+    ],
+    "crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs": [
+      "1-135"
+    ],
+    "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs": [
+      "full file"
+    ],
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/definition/tests.rs": [
+      "full file"
+    ],
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs": [
+      "full file"
+    ],
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs": [
+      "full file"
+    ],
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs": [
+      "150-244"
+    ],
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs": [
+      "1-45"
+    ],
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs": [
+      "1-30"
+    ],
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs": [
+      "160-178 test module registration"
+    ],
+    "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs": [
+      "last 12 lines test module registration"
+    ],
+    "crates/fabelgeist-gpu/src/lib.rs": [
+      "full file"
+    ],
+    "crates/fabelgeist-gpu/src/prelude.rs": [
+      "full file"
+    ],
+    "crates/fabelgeist-gpu/Cargo.toml": [
+      "full file"
+    ],
+    "wgpu-29.0.4/src/api/device.rs": [
+      "70-105 poll",
+      "420-470 scope stack contract",
+      "839-885 guard and immediate pop"
+    ],
+    "wgpu-29.0.4/src/api/texture.rs": [
+      "75-105 create_view"
+    ],
+    "wgpu-types-29.0.4/src/lib.rs": [
+      "229-320 PollType/PollError"
+    ],
+    "wgpu-core-29.0.4/src/device/resource.rs": [
+      "1712-1835 create_texture_view default resolution and format/usage checks"
+    ]
+  },
+  "source_backed_traces": [
+    {
+      "contract": "Whole-texture admission order",
+      "evidence": [
+        "all three views.rs:13-end",
+        "texture_{2d,3d,cube}/mod.rs default and constructor records"
+      ],
+      "trace": "Stored-format match clones cached Arc or returns MissingView before admitting the native texture. Alternate format admits texture or returns Uninitialized. Public mutable texture/cache/usage/format retain inherited coherence limitations; this slice introduces no claim to certify them."
+    },
+    {
+      "contract": "Retained request and SDK cause",
+      "evidence": [
+        "view_error.rs full",
+        "validation_scope.rs full",
+        "views.rs full"
+      ],
+      "trace": "Requested TextureFormat remains original when the native descriptor uses linear_counterpart. SDK wgpu::Error remains owned, boxed and exposed as Error::source in operation-specific variants. Poll failure retains actual PollError plus optional SDK rejection under Progress; both values remain fields even when source selects one."
+    },
+    {
+      "contract": "Native observation and borrowed/browser policy",
+      "evidence": [
+        "validation_scope.rs:59-89",
+        "wgpu_context/mod.rs:94-120,268",
+        "wgpu SDK device.rs:420-470,839-885",
+        "wgpu-types lib.rs:229-320"
+      ],
+      "trace": "Owned native alternate-format call acquires thread-bound guard on context device, creates view, polls same device, always pops then resolves scope, and rejects view on native error or failed wait. Borrowed from_parts disables guard and wait; browser cfg excludes them. Guard remains same-thread, and pop consumes it once. SDK Wait without index means most recent submission at time of poll; older surrounding comments about a never-empty queue are inherited and are not corroborated as SDK semantics."
+    },
+    {
+      "contract": "Format descriptor semantics",
+      "evidence": [
+        "format.rs:51-86,367-391",
+        "all three views.rs",
+        "wgpu-core resource.rs:1712-1835"
+      ],
+      "trace": "Existing TextureFormat owner supplies native conversion and linear/sRGB counterparts. Default view usage inherits texture usage; SDK forbids storage usage when view format lacks storage capability. Existing linear selection, default inference, cube dimension/layer count/label are preserved."
+    },
+    {
+      "contract": "Retained textures through receiving body",
+      "evidence": [
+        "parameters/parameter.rs:10-50",
+        "parameters/mod.rs:5-25",
+        "compute/pass/mod.rs:1-85,245-484"
+      ],
+      "trace": "PassParameter retains concrete Texture2d/3d/Cube values. PassParameters lookup returns shared references. Three reflection-selected counterpart branches call producer with existing format type and convert bespoke Error via ? to existing anyhow boundary, without string reconstruction. Receiving body retains view Arc in texture_views until bind_group creation; errors return before that bind group and final dispatch. record propagates; dispatch submits only after successful record. Prior work outside scope is not rolled back."
+    },
+    {
+      "contract": "Main preservation",
+      "evidence": [
+        "HEAD a411abb4370bb6f6609622cef5da59988a37aee9",
+        "git log: a411abb43 #987; 4530fc19c #986",
+        "workflow diff:46 added/0 removed"
+      ],
+      "trace": "Current HEAD includes both main merges. Delta only adds existing-test execution and evidence artifact steps to workflow; prior gates, exporter guards, positive-execution checks and Windows adjustments have no tracked removal or edit in this source delta."
+    }
+  ],
+  "existing_execution_population": {
+    "library": {
+      "total": 13,
+      "components": {
+        "buffer/definition/tests.rs": 2,
+        "buffer/tests.rs": 2,
+        "buffer/readback.rs": 3,
+        "texture/texture_2d/image.rs": 4,
+        "texture/texture_2d/mod.rs": 1,
+        "globals/wgpu_context/mod.rs": 1
+      }
+    },
+    "doctests": {
+      "total": 2,
+      "files": [
+        "buffer/upload.rs compile_fail",
+        "buffer/label.rs compile_fail"
+      ],
+      "qualification": "Existing compile_fail snippets contain crate::prelude paths; no claim that they exercise intended type contract instead of import failure."
+    },
+    "borrowed": {
+      "total": 1,
+      "exact": "globals::wgpu_context::tests::a_borrowed_device_skips_blocking_validation",
+      "qualification": "Existing test verifies policy fields; does not call alternate-format view producer."
+    },
+    "workflow": "Runs complete lib tests serially, docs, and exact borrowed test; pipefail and positive exact counts 13/2/1 reject zero, ignored or failing populations. Revision check compares recorded HEAD to PR head. No new tests, cases, helpers, assertions, fixtures or doctests in delta."
+  },
+  "end_fingerprints": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "0d368f04a02ceb22ae56b05cfce5fe7c37fbd0fffdcc6f70f041b64c49c940e5",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "sha256": "6df2befe9397b790ad88233dee3fe7ed4f4aaf918a41b939585a5c633fe0f3db",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "8d10bcef1e3605699a1b1eda95b5732e7b294453ffadd8ea2843369a024d9fce",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "5fcedc2343591f9fdc806e66e0e0f619d352e9c1f19d615603fda80cc7168e64",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+      "sha256": "83ba1e1ca0719ccdc74c3bc70f4fdc197dca496600a89b41a5e18c7a020fece0",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "642bfa7f9d9068c957e4f935600c0ab1eba0c91092060606392f9aa481dc9ad6",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs",
+      "sha256": "370add54d9307c5cbd778de771a6e2d98d0b0dbdb7b4e4b02d1245315458b11d",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+      "sha256": "45495b07095d77c0cb93ea88115508eeb2a1f083b9368e6d9b02dc6bee3a268c",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "e29d771de75a14d0d916156b8d9772beeb1f0241068625cf23b6412d91fdd9bb",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "d225e430430ae842eb2b27a62da4e320547fbc9f07b67d0209b2579e3614896d",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "78737ed29bb25ecca79c079f6676afa0719fa8bfe65a9051b56536de280cfd63",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+      "sha256": "9f1884bfd6533e8e9b0706c4972039e03c4f6dedc25970875e416392938569a5",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "10387cbd21a9e79c1f7cac87677c5eb870460659e1c67ba5ac1f548d13b2d193",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "511194c4de7587bb7a66be59a5f2762c628354ea57f15b809804a22b47b7db67",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "d4d9df664fcd5207e09a8453fedfb5fae4ce9d139cd45d3bd8bc1e6a9f9ac12e",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "a94fcf69d2535906362378a5d753a9daf5898790120012fdc97a27037c0923cc",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "b86ab932de453c75553ba6a915d830406ac142dd7fe544a5d9fe5be25b14431a",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "b2ed5473c8f358bdddfb0f88344ef0380027d83cbbd6b94ee1384d577bf791f9",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "sha256": "fc1fbee2e072e88d28d41f4f7422b7d7eae85e5307406406722b378fdf4bbbc9",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+      "sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition/tests.rs",
+      "sha256": "990a77c5be95d46846d6f096e3a185f080d5975c1b92e6a6f831f9351db33b8f",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs",
+      "sha256": "29c6416f82022dc58dc4990783ef1b94b0690777c6669e7ec50d2cbdac3d760d",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "sha256": "3e25d7e25d9d85032c723926167bf505637c2e31d7f05503b9e4d5f08bd12600",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs",
+      "sha256": "8896b8082c799551488e2498f8bffdddd6c7cdfa344a73c9df0adcd726a75930",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/texture.rs",
+      "sha256": "aee3469d3d722c85521b64a770de20105e49aa64c6f56342442c7335f79505cd",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/device/resource.rs",
+      "sha256": "796858f878f290e872a113cb474d7ff947dfdd61f5dcf38f6f64b9e69c959644",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-types-29.0.4/src/lib.rs",
+      "sha256": "af153576bce090b101f05d3d4fc35523d82e8f7fd2f935bd60d12956af50cb3b",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/lib.rs",
+      "sha256": "5a9039181baf9cc6a6b45e7810f99fd9811427b80e62c9d84f52cde5f3bfa9a6",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+      "sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+      "unchanged_since_pin": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+      "sha256": "8057e3bc54fcc2941ab0b231989785cbbff9c222088d96a10920c55572a4bf24",
+      "unchanged_since_pin": true
+    }
+  ],
+  "tracked_diff_sha256": "bcc9f6542452d58bee50c0ecfaf25eaf222c273048001291a4be58118eb13a05",
+  "reviewed_head": "a411abb4370bb6f6609622cef5da59988a37aee9"
+}

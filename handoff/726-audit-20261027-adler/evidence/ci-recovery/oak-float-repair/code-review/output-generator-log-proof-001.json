@@ -1,0 +1,209 @@
+{
+  "head": "f7305d139126e3f0a07a5df8869152b772947007",
+  "export_source": "c94b96d9a47453538985bbfb1ce2bd2b4874e627",
+  "coordinator_report": "target/recovery-20261025/ci-recovery/math-export-output-review-002.json",
+  "coordinator_report_sha256": "8803e1c2f450438406958ebc4578a6f932da9615dcc24423c772909900ec0109",
+  "source_pins": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/art_demo/scenery.rs",
+      "sha256": "95a004dde106af96c0cf9b12ff034f21fdca47458dcc594df12b52abac2c7857",
+      "ranges": [
+        [
+          250,
+          339
+        ]
+      ],
+      "equals_export_source_and_final_head": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor_assets.rs",
+      "sha256": "792c336a1d9612c83b4ae0f385c94a35175009ae202f71d4e3231d10179f899a",
+      "ranges": [
+        [
+          36,
+          180
+        ],
+        [
+          177,
+          207
+        ],
+        [
+          300,
+          345
+        ]
+      ],
+      "equals_export_source_and_final_head": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/specimens.rs",
+      "sha256": "fc7ff2bd7a82b647f3d159373a29f47dbed689557c87cfddb5d3a0233a064beb",
+      "ranges": [
+        [
+          60,
+          147
+        ]
+      ],
+      "equals_export_source_and_final_head": true
+    }
+  ],
+  "logs": [
+    {
+      "path": "target/recovery-20261025/ci-recovery/hosted-c94b96d9a/target/procedural-fixtures/cloud-identity-before.log",
+      "sha256": "0095ad6937ed7d1602d59994da52aa5ca62d0a33d5598f72ce899189c0f04c7e",
+      "selected_existing_case_evidence": [
+        {
+          "line": 5,
+          "text": "running 1 test"
+        },
+        {
+          "line": 6,
+          "text": "test art_demo::scenery::tests::fixed_exhibits_embed_complete_nonempty_cloud_bakes ... ok"
+        },
+        {
+          "line": 8,
+          "text": "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 348 filtered out; finished in 1.07s"
+        }
+      ]
+    },
+    {
+      "path": "target/recovery-20261025/ci-recovery/hosted-c94b96d9a/target/procedural-fixtures/envelope-export.log",
+      "sha256": "97b310c8d3021e5c716c524fdc12d2f678b77bd71673d07028a524772cbd724a",
+      "selected_existing_case_evidence": [
+        {
+          "line": 1401,
+          "text": "running 1 test"
+        },
+        {
+          "line": 1402,
+          "text": "test presentation::ground_scatter::specimens::tests::managed_hazel_matches_shared_envelope ... ok"
+        },
+        {
+          "line": 1404,
+          "text": "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 700 filtered out; finished in 0.05s"
+        }
+      ]
+    },
+    {
+      "path": "target/recovery-20261025/ci-recovery/hosted-c94b96d9a/target/procedural-fixtures/impostor-export.log",
+      "sha256": "e9355fc0d1b16232ff28318fecabc5dfe61f59fee0b3ff681a1c0b5f89ce5019",
+      "selected_existing_case_evidence": [
+        {
+          "line": 4,
+          "text": "running 1 test"
+        },
+        {
+          "line": 5,
+          "text": "test art_demo::scenery::tests::regenerate_art_demo_tree_impostors ... ok"
+        },
+        {
+          "line": 7,
+          "text": "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 348 filtered out; finished in 1.73s"
+        }
+      ]
+    },
+    {
+      "path": "target/recovery-20261025/ci-recovery/hosted-c94b96d9a/target/procedural-fixtures/leaves.log",
+      "sha256": "c8a9ba4ee6624fdda4609f01ed9658db337af5718b8c6d66b218a46bd64f3b06",
+      "selected_existing_case_evidence": [
+        {
+          "line": 4,
+          "text": "running 5 tests"
+        },
+        {
+          "line": 5,
+          "text": "test presentation::obstacles::tree::geometry::leaves::tests::alpha_leaf_lod_uses_exactly_two_triangles_per_leaf ... ok"
+        },
+        {
+          "line": 6,
+          "text": "test presentation::obstacles::tree::geometry::leaves::tests::detailed_flat_cards_keep_a_stable_balanced_three_quarters_per_cluster ... ok"
+        },
+        {
+          "line": 7,
+          "text": "test presentation::obstacles::tree::geometry::leaves::tests::leaf_shadow_transmission_is_stable_per_shoot_and_well_distributed ... ok"
+        },
+        {
+          "line": 8,
+          "text": "test presentation::obstacles::tree::geometry::leaves::tests::production_oak_has_finite_cambered_leaf_geometry ... ok"
+        },
+        {
+          "line": 9,
+          "text": "test presentation::obstacles::tree::geometry::leaves::tests::textured_leaf_lod_uses_exactly_eight_triangles_per_leaf ... ok"
+        },
+        {
+          "line": 11,
+          "text": "test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 696 filtered out; finished in 1.30s"
+        }
+      ]
+    },
+    {
+      "path": "target/recovery-20261025/ci-recovery/hosted-c94b96d9a/target/procedural-fixtures/understory.log",
+      "sha256": "5bce865e9abe312dfb629e9123637b501208e211b935ad1822ba2256982fbb34",
+      "selected_existing_case_evidence": [
+        {
+          "line": 5,
+          "text": "running 7 tests"
+        },
+        {
+          "line": 6,
+          "text": "test presentation::ground_scatter::understory::tests::habitat_weights_shift_species_composition_without_excluding_any_preset ... ok"
+        },
+        {
+          "line": 7,
+          "text": "test presentation::ground_scatter::understory::tests::managed_bare_ground_excludes_every_wild_shrub_species ... ok"
+        },
+        {
+          "line": 8,
+          "text": "test presentation::ground_scatter::understory::tests::minimal_shrub_cards_are_deterministic_when_source_order_changes ... ok"
+        },
+        {
+          "line": 9,
+          "text": "test presentation::ground_scatter::understory::tests::minimal_shrub_cards_pin_the_per_species_geometry_budget ... ok"
+        },
+        {
+          "line": 10,
+          "text": "test presentation::ground_scatter::understory::tests::shrub_communities_include_dense_thickets_and_open_relief ... ok"
+        },
+        {
+          "line": 11,
+          "text": "test presentation::ground_scatter::understory::tests::understory_species_form_coherent_four_by_four_communities ... ok"
+        },
+        {
+          "line": 12,
+          "text": "test presentation::ground_scatter::understory::tests::woodland_leaf_litter_accepts_hazel_and_gap_hawthorn_but_not_blackthorn ... ok"
+        },
+        {
+          "line": 14,
+          "text": "test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 694 filtered out; finished in 0.08s"
+        }
+      ]
+    }
+  ],
+  "existing_generator_and_oracle_shape": {
+    "exporter_test": "art_demo::scenery::tests::regenerate_art_demo_tree_impostors",
+    "test_count": 1,
+    "generated_bakes": {
+      "playable": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "vista_species": [
+        "EnglishOak",
+        "CommonBeech"
+      ],
+      "vista_lod": 4,
+      "total": 6
+    },
+    "actual_generator": "Existing scenery313-334 constructs same oak exhibit input/supported terrain/environment/site point as ordinary oracle264-280, calls prepare_art_demo_tree_impostor_asset, serializes gzip/postcard Vec and writes bytes, then decodes these bytes and asserts bake_count6.",
+    "ordinary_matching_oracle": "fixed_oak_exhibit_has_every_matching_prebaked_impostor264-280 separately asserts matches_art_demo. Actual matches_art_demo98-144 checks4 playable usage/species/seed/lod records and2 vista species records against recomputed source hash XOR bake version. It has not been established passed by this export-only log.",
+    "envelope_export_mode": "Existing specimens72-146 computes vertices for four woody mesh representations, checks every source vertex finite, derives point count/min/max and sorted convex hull>=3. With UPDATE env it writes the complete six-field document. It skips loaded-envelope contains/count/hull comparisons in update mode; those ordinary checks remain final acceptance obligations.",
+    "qualifications": [
+      "Binary gzip CRC/decompression and exact bytes inspected using standard library; no local postcard/project decode or source matching executed.",
+      "Log records are imported hosted existing-case evidence only; new final ordinary Linux/Windows run and no-growth remain pending.",
+      "Run/job/artifact numbers supplied by coordinator report; extracted revision/log/11output byte identities independently verified, no independent network API query."
+    ]
+  },
+  "independent_envelope_delta_norm_metres": 2.4027400458748785e-07,
+  "no_source_or_acceptance_gate_change": "Actual final-head versus export-source Git changed-path set contains only the two generated outputs; source-proposal and restored workflow/source hashes remain verified."
+}

@@ -1,0 +1,261 @@
+{
+  "review": "Independent M04 supplemental Rule Review: separate build-target dependency repair",
+  "at": "2026-10-27T04:56:00.894933+00:00",
+  "head": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+  "base": "35b18ec280a6884bb53996a2d859c4b27096f65c",
+  "previous_failed_head": "903174935e1d8a07293105a9bccff17325489f3d",
+  "verdict": "source-only approved; exact repaired-head hosted acceptance pending",
+  "findings": [],
+  "corrected_prior_coverage": "Reviews001/002 missed the existing build.rs crate root that compiles linear_speed.rs via #[path]. Their unchanged semantic/body and workflow proofs carry only at exact matching hashes; their prior completeness wording did not establish build-target closure. This receipt adds actual build root, shared leaves, manifest, generator connection and target discovery. Hosted903 failure remains historical, not accepted validation.",
+  "identity": {
+    "manifest": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/implementation-manifest-003.json",
+      "sha256": "1f13cba776d0819a38a88e28b5bc6c3255565ea4544bf0fff89ad0831798d01f",
+      "actual_eof": 75
+    },
+    "actual_complete_diff": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/source-003.diff",
+      "sha256": "3976d9b626c989ab52c8e8d3a26a5d98e9e3d4ef44236fde113da41c2e307d56",
+      "actual_eof": 209
+    },
+    "eight_exact_changed_paths": [
+      "crates/adventuresim-core/src/linear_speed.rs",
+      "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      ".github/workflows/rust-quality.yml",
+      "crates/adventuresim-core/build.rs",
+      "crates/adventuresim-core/Cargo.toml"
+    ],
+    "all_eight_local_bytes_equal_committedhead_and_manifest": true,
+    "all_base_hashes_match_manifest": true,
+    "actual_git_base_to_head_diff_equals_source003bytes": true,
+    "only_increment_since903": [
+      "crates/adventuresim-core/Cargo.toml",
+      "crates/adventuresim-core/build.rs"
+    ],
+    "old_sixfile_hashes_unchanged": true,
+    "connected_leaves_hash_equal_to001_except_Cargo_manifest_intentionally_changed": true,
+    "rule_skill_hashes_unchanged": true,
+    "working_tree_clean": true
+  },
+  "rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "actual_eof": 113,
+      "read": "full actual current body; no nested AGENTS found in affected source trees"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "actual_eof": 192,
+      "read": "full actual current body; no nested AGENTS found in affected source trees"
+    },
+    {
+      "path": "crates/adventuresim-core/AGENTS.md",
+      "sha256": "7d2a3dd7507a8405fded5577a7f406273ab835389b52b189415d0878c39d8a73",
+      "actual_eof": 9,
+      "read": "full actual current body; no nested AGENTS found in affected source trees"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/AGENTS.md",
+      "sha256": "b3fd110d97bc871853458c38282d3d4c18369b6d0647e96e0de6d0641dca61c8",
+      "actual_eof": 17,
+      "read": "full actual current body; no nested AGENTS found in affected source trees"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/SKILL.md",
+      "sha256": "ff68d5ccf9f2545336b105f987ae17bb1a1f55dfbf1afb035dba8bef7053f27a",
+      "actual_eof": 58,
+      "read": "full actual current body; no nested AGENTS found in affected source trees"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/references/bespoke-type-review.md",
+      "sha256": "c6a71896616123559c0be4d318cbde751d8767dccc6009a943971dc3d4424f71",
+      "actual_eof": 130,
+      "read": "full actual current body; no nested AGENTS found in affected source trees"
+    }
+  ],
+  "fresh_full_source_reads": [
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+      "actual_eof": 511,
+      "actually_read": [
+        [
+          1,
+          511
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/Cargo.toml",
+      "sha256": "29e56014658d941895772dda71b9181863839eedf403c7d30b446186228c3441",
+      "actual_eof": 43,
+      "actually_read": [
+        [
+          1,
+          43
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+      "actual_eof": 58,
+      "actually_read": [
+        [
+          1,
+          58
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "b1561f750844b7395f96f8fe2ee767db88d73fb8d8b6e997779493130b09f877",
+      "actual_eof": 173,
+      "actually_read": [
+        [
+          1,
+          173
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/build/combat_resolution.rs",
+      "sha256": "edfd993d879e1cb771859c76510e7e78e3f612d2f22bacdff5a8ce923970d2ce",
+      "actual_eof": 275,
+      "actually_read": [
+        [
+          1,
+          275
+        ]
+      ]
+    }
+  ],
+  "carried_rust_and_receiver_contracts": {
+    "receipt": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/rule-review-001.json",
+      "sha256": "c3c52021cc24d895fddd7ef7294ea7386b6774de5772eb7c105a1d96b54dc131",
+      "actual_eof": 332
+    },
+    "relationship": "Exact unchanged Rustsource/receiver proofs, except supersededCargo manifest and expandedtargetclosure as above. No fresh broad re-read or alltargetpassing claim."
+  },
+  "carried_workflow_contract": {
+    "receipt": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/rule-review-002.json",
+      "sha256": "e61742c2340b46c8a0f1496012b6dcde6d5a4393e636bd99d96aa2e4acf4ba53",
+      "actual_eof": 351
+    },
+    "workflow_sha256": "0ad5e0e1b2b062d47f48af303bc97f1259f6d4ac99c62bef9b42588b183233b4",
+    "relationship": "Exactbyteidentical, priorinsert-only gatepreservation/sourcebinding/positiveexecution proof retained. Four/0/0 artifact check remainspending."
+  },
+  "failure_evidence": {
+    "receipt": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/hosted-failure-001.json",
+      "sha256": "4e298a338de7d17cee3711f76642dec09a3a150329195df79033c0cf59d5329e",
+      "actual_eof": 44
+    },
+    "basis": "Parent bounded earliest-failure evidence reports903 Linux/Windows build target missing UnitInterval module and thiserror. Reviewer independently establishes same unresolved source dependencies in903 via exactdiff/base roots, but did not read hostedrawlogs/download/poll run. No downstreammissingartifactsymptomsinvestigated."
+  },
+  "pr_body_inspected": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/pr-body-004.md",
+    "sha256": "cdcab2460237ee12dfee46188f89f9a442ae4804fb92dc4187ee815a7cff2834",
+    "actual_eof": 25
+  },
+  "contract_traces": [
+    {
+      "family": "Cargo targets and canonical module ownership",
+      "locations": [
+        "Cargo.toml:7,13-15,31-37",
+        "build.rs:25-33",
+        "src/lib.rs:54,100 source-reference discovery"
+      ],
+      "trace": "Package explicitlysetsbuild=build.rs. Library and build-script binary aredifferentcrate roots. Both compile exactsame src/linear_speed.rs and src/unit_interval.rs module sources; buildtargetaddition resolves crate::unit_interval in sharedspeedleaf. This issharedsource reuse, not anindependent fractionowner/uncheckedwrapper/compatibilityschema. Source-reference search across firstparty Rust/Cargo roots locatedonly corebuild.rs pathinclude and corelibmoduledeclarations for thesetwoleaves; no otherliteralfirstparty directrootfound. No claim about generated/dynamic includes not expressibleinthissource search."
+    },
+    {
+      "family": "Complete newly reached leaf dependency closure",
+      "locations": [
+        "src/linear_speed.rs:3-4,20-32,67-77",
+        "src/unit_interval.rs:3-58",
+        "Cargo.toml:31-37"
+      ],
+      "trace": "Sharedlinear_speed imports crate::unit_interval::{FractionError,UnitInterval}, derivesSerde scalarcontracts and thiserror::Error withstructuredFraction source. Canonicalunit_interval depends onlyonserde andstd; fieldsprivate, finite[0,1]checkedconstructor/TryFrom/serde, admittedconstants/default, FractionErrorstdErrorimplementation sourcecompatible. Existingbuild-dependencyserde alreadyenablesderive, stdavailable; addedworkspace thiserror suppliesmacro to hosttarget. No alternateadmissionimplementation/manualSpeedErrortraits or uncheckedfactorpath."
+    },
+    {
+      "family": "Workspace dependency and locked graph",
+      "locations": [
+        "Cargo.toml workspace.dependencies thiserror",
+        "coreCargo.toml:15,32",
+        "Cargo.lock adventuresim-core/thiserror package metadata"
+      ],
+      "trace": "Core alreadyuses thiserror asnormaldependency; repair adds sameworkspace declaration tobuild-dependencies. Workspaceconstraint2.0.18 permits lockresolvedthiserror2.0.20, andexistingcore lockdependency alreadyrecords2.0.20. No dependencyversion/familyfork, newlockentry, unlockedfetchcommand orlockmutation. Buildtarget serde/serde_json/serde-saphyr/sha2/world-schema dependencies otherwiseunchanged."
+    },
+    {
+      "family": "Why host graph reaches speed type and schema emission",
+      "locations": [
+        "build.rs:35-36,main combat_resolution::compile",
+        "build/combat_resolution.rs fullactualbody",
+        "combat/fatigue_config.rs sourceinclude declaration only"
+      ],
+      "trace": "Existingbuildrootcompiles combatresolution generator; itincludes sharedfatigueconfig and emits canonicalPositiveSpeed constructor expressions forauthoredmovement/autoresolve/fatigue values. Entire sharedlinear_speed module musttypecheck inbuildcrate even if lerpnotcalledbygenerator. Canonicalunit_interval module anderrorproc-macrothusrequired before any runtimeconsumerbuild. Generatedsource stillusescheckedPositiveSpeed/Elapsed constructors; generator contentunchanged. Doesnotcertifyallunchangedfatigue/contact/catalogvalidator internals orauthoredconfig policies."
+    },
+    {
+      "family": "Unchanged bounded interpolation producer/operation graph",
+      "locations": [
+        "rule-review001 exactpins/traces",
+        "rule-review002 workflow exactpin"
+      ],
+      "trace": "SamefiveRustfiles retainUnitInterval interfaces, once-admitted locomotionrun reuse, clamped/admitted endurancefactor, checked speed/cycle/height outputs andcanonicalFractionError->SpeedError->AnimationValueError mapping. Sameworkflowrunsfour existingmovementcases andpositive requiredcell. Original malformedinput/errorlayout/downcast/message compatibility isnotanacceptanceconstraint. Newtarget wiringintroducesno newlogical path/owner orraw overload."
+    }
+  ],
+  "rule_assessment": {
+    "source_ownership": "One canonicalfractiondefinition physicallysharedbetweenseparateCargo targets; needed targetmodule declaration isnot pass-throughbusinessAPI orduplicateowner.",
+    "derive_error_payload": "Existingthiserrorderive onSpeedError nowhasactual hostdependency; requiredFractionErrorcauseimplementsstdError andEq/Copytraits. No handwrittenerrorformatting,alias,compatibilityfallback,cfgfork orsource-stringmatching added.",
+    "modules_growth": "Two moduledeclarationlines andone manifestdependency line only; no newfunction/helper/responsibility expansion, importreordering orlint suppression. Fullbuildfile511lineshasunchangedcatalogbuilder responsibility; no line-count-onlyfinding.",
+    "baseline_enforcement": "No rust-qualitybaseline changeor ceilingraise. Source-only parsed entries forbuild.rs are existing compile_organizations functionceiling118 andraw-string-branch exception oncompile_road_encounters; unchanged byrepair. Hostedbaselineexport/relevantreductions stillacceptancepending; scanner notrunlocally.",
+    "tests_workflows": "No tests/cases/assertions/helpers/doctests/generatedbindings addedorchanged; workflows unchangedfrom903. Existingbuild asserts/unwraps were notintroduced andtheir unrelatedcleanup notexpandedinto thisrepair.",
+    "governing_rules": "Root/crates/core/tacticalAGENTS+rule-review reference remain exacthash-equal fromfullpriorreads. No buildsubdirectoryAGENTS found. No backwardscompatibility consideration orglobalbespokeauditverdicttransfer."
+  },
+  "fingerprints": {
+    "Cargo_lock": {
+      "path": "Cargo.lock",
+      "sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be",
+      "actual_eof": 13106
+    },
+    "workspace_manifest": {
+      "path": "Cargo.toml",
+      "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+      "actual_eof": 221
+    },
+    "rust_quality_baseline": {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "8ccab96e129e4b873ed3f8ae3841afd6bf7cfa59809b69cbed46ec41855b171e",
+      "actual_eof": 12838
+    },
+    "build_combat_generator": {
+      "path": "crates/adventuresim-core/build/combat_resolution.rs",
+      "sha256": "edfd993d879e1cb771859c76510e7e78e3f612d2f22bacdff5a8ce923970d2ce",
+      "actual_eof": 275
+    }
+  },
+  "acceptance_pending": [
+    "Rerun exactdf5f37a hostedLinux/Windows compile/requiredgates;903failedrun isnotvalidation forrepair.",
+    "Collectexpected4existingmovementtests passed/0failed/0ignored andallotherrequiredpositivecells atdf5f37a. Genericverifier enforcesnonempty/passed>0/failed0, notexactcountorignoredzero; artifactreviewstillneeded.",
+    "Consumeactual hostedsemanticbaseline snapshot andapplyonly relevantreductionsifany; no localcheckor guessedceilingchange."
+  ],
+  "coverage_limits": [
+    "Freshreviewcompleteforconcretehosttargetmodule/dependencyrepair; fiveunchangedRustfunctionsandworkflow proofs areexplicitcarryforward, notnewglobalarchitecturalreview.",
+    "No compilation,cargo/rustfmt/Clippy/scanner/baseline/test/probe execution or numericexperiments. Source-only metadata/hash/Gitreadqueries only.",
+    "No product/source/Git/rootledger/history/publication mutation. Onlythisignoredappendonlyreceipt written. Old001/002receiptskeptimmutable andtheir missedtargetqualificationexplicit.",
+    "No guaranteeofallCargo targetcfg/features/procmacro/toolchain/compilerbehavior withoutsamehead hostedresults. No completebuildscriptcataloglogic/nativeSDK/schema validationaudit.",
+    "M03/M09/all20/global/frozenlensesremainunfinished. Packet182809partialalready saved; noadditionalfrozendiscoveryornewuniquecreditduringreview."
+  ],
+  "global_clearance": false,
+  "runtime_validated": false,
+  "hosted_acceptance": "pending exactdf5f37abc8db96c3db69dd805f32ef1cf635dd59",
+  "new_unique_findings": 0,
+  "stop": "Priority build-target supplementalRuleReview saved; rootsoleimplementation/ledgerowner; frozenworkheld"
+}

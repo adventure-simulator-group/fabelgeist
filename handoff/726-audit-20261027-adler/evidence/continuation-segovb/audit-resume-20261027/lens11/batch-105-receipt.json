@@ -1,0 +1,428 @@
+{
+  "at": "2026-10-27T17:48:57.853846+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-105-registration.jsonl",
+    "sha256": "3ff1dab68383b66942bf2547c5eaf05ea758e514d82a9dec304b8094d0f3cefb"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-104.json",
+    "sha256": "6ffa874573be75df766b617d010567da16588327fda4ed042325c6fd7156ceae"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1204,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "ranges": [
+        [
+          1,
+          1586
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Independent full effective strategic authority model/table/contract/case/party schema and receiving boundary inventory; prior connected reads no automatic ordered credit",
+      "actual_read_ranges": [
+        [
+          1,
+          1586
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected_original",
+      "original_index": 1205,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/autoresolve.rs",
+      "sha256": "b475a0317b7ceda238789e057c6c302ca8ca83924b7cb09b13807a2e70b63782",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/b475a0317b7ceda238789e057c6c302ca8ca83924b7cb09b13807a2e70b63782",
+      "ranges": [
+        [
+          82,
+          160
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual canonical threat parsing/enemy/drop receiving ports for hostile snapshot construction and backend power projection",
+      "actual_read_ranges": [
+        [
+          82,
+          160
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1260,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor.rs",
+      "sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "ranges": [
+        [
+          355,
+          423
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual persistent context roster producer receiving hostile count/site identity",
+      "actual_read_ranges": [
+        [
+          355,
+          423
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1212,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+      "sha256": "775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+      "ranges": [
+        [
+          335,
+          364
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual validated generated manifest recipient used by public mission-case projection",
+      "actual_read_ranges": [
+        [
+          335,
+          364
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1021,
+      "source_id": "pr-working:crates/adventuresim-core/src/threat_escalation.rs",
+      "sha256": "87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+      "ranges": [
+        [
+          1,
+          54
+        ],
+        [
+          154,
+          204
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Exact native roster u16 capacity versus canonical hostile count ceiling/escalation producer; prior049 context reverified",
+      "actual_read_ranges": [
+        [
+          1,
+          54
+        ],
+        [
+          154,
+          204
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1204,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              137
+            ]
+          ],
+          "roles": "Case identity/provenance/objective/resolution, private immutable generation manifest/context/trace and validated receipt.",
+          "disposition": "Case ID, investigation-case ID, generated canonical/public case ID and local-problem ID are different identities. Provenance kind plus generated_case_id sentinel/local_problem Option is flattened origin payload; typed provenance should own required IDs. Context/manifest/factor metadata duplication is an indexed immutable adapter with exact consistency checks and replay, not independently recomputed live truth. ValidatedQuestGenerationAuthority meaningfully owns admitted context+manifest. Developer-versus-ordinary context JSON is parsed by two attempts; explicit source variant would retain intended origin, but two genuine generation modes are not automatically compatibility fallback. Context digest/version and catalog revision differ.",
+          "remedy": "Typed CaseOrigin and immutable generation source context enum, canonical typed IDs/digest/revision and ValidatedQuestGenerationAuthority throughout internal consumers. Preserve actual digest binding and full manifest replay; no generic validator for unrelated quantities.",
+          "acceptance": "Full1586 read and actual dialogue validation receiver1212:335..364 consumed. Existing core generation972037 plus adjacent original catalogs/policies and case/strategic-state contracts retained; no replay execution or currentness validation."
+        },
+        {
+          "ranges": [
+            [
+              139,
+              294
+            ]
+          ],
+          "roles": "Private agreement lifecycle and gateway aggregate threat/distance projection.",
+          "disposition": "ContractState existing owner parsed from status/accepted party/times; flat record allows combinations rejected at lifecycle boundary. Public contract remains trusted-gateway data requiring observer filtering elsewhere, not ordinary direct disclosure. Actual enemy count, combat power, display wording, base difficulty, gold, XP and conservative maximum one-way distance are distinct quantities. Power/count aggregation checks overflow; unknown threat/overflow removes projection via Option, an unavailable-versus-malformed distinction question. Backend projection need not persist another independently mutable power authority.",
+          "remedy": "Retain canonical ContractState and typed reward/count/power/distance owners through internal projection; named aggregate assessment outcome with explicit malformed versus absent policy where needed. Never use bounded probability for scale or power.",
+          "acceptance": "Actual native threat parse/enemy/drop adapter1205:82..160 consumed; no full battle/world/privacy or ordinary missing-posting runtime guarantee."
+        },
+        {
+          "ranges": [
+            [
+              296,
+              429
+            ]
+          ],
+          "roles": "Terminal case outcome/fact, custody holder/state, continuity history, finale candidate versus immutable execution receipt and issuer interaction consumption.",
+          "disposition": "OutcomeFact payload owns semantic content and indexed source/case/party keys are storage adapters. Holder kind+String holder ID, continuity kind+site/subject/custody version, and finale kind+eligible path/status are payload correlations that broad flat fields obscure. Continuous through/broken deadline history differs completed fact-ingestion checkpoint; do not derive completion from passing deadline alone. Finale authority candidate state differs immutable execution receipt, and terminal CaseOutcome is not a second execution checkpoint. Issuer interaction stage is good closed state; consumed predicate can remain independent usage state.",
+          "remedy": "Canonical typed fact/custody/continuity/finale payload owners, explicit Open/Broken/Completed histories where required, retain source-bound receipt and indexed metadata. Keep contract acceptance/report stages and typed dialogue revision/time coordinates.",
+          "acceptance": "Existing core1015 strategic-state048 and core case/source contracts personally read earlier; source receipt architecture inventoried without claiming all native ingestion/commit paths or runtime delivery."
+        },
+        {
+          "ranges": [
+            [
+              431,
+              535
+            ]
+          ],
+          "roles": "Incident versus incident-source IDs and opaque action token; random persisted activity entropy; social-only recruiting offer ID/source and expiration.",
+          "disposition": "IncidentId/IncidentSourceId and RecruitmentOfferId/RecruitmentSourceId separate lookup identity from durable dedup source, earning distinct types even public String payload is not more numerically constrained. id_key duplicates typed ID for query adaptation, not independently authored identity. Source-derived incident ID versus random action capability must not collapse. Private entropy Seed is independent from deterministic public interval identity. Recruitment party, leader, resident and location are different association roles; status/time fields form lifecycle payload.",
+          "remedy": "Canonical private fields/constructors for identity codecs and named admitted association receipts; typed action token and offer lifecycle retaining creation/expiry. Preserve private entropy versus public source identity and social-only offer projection.",
+          "acceptance": "Full definitions read; no SDK hash-collision/randomness guarantee, no ordinary wrong offer binding/current/unique finding. Future ordered incident/governance consumers retain independent scope."
+        },
+        {
+          "ranges": [
+            [
+              537,
+              683
+            ]
+          ],
+          "roles": "Party current location and governance projections; travel preferences, canonical excursion anchor, subjective movement/elapsed coordinates, camp state, journey actual versus forecast and private encounter entropy.",
+          "disposition": "Party is_solo is living-membership projection, not authority to erase actual membership. Camp fatigue percent is stopping policy, not a hidden movement-speed multiplier; no speed-rule conflict inferred. walking budget/day-vs-night/start-of-day/wilderness canonical anchor/elapsed and leg movement progress are distinct units and frames. Party current location differs original journey endpoints and historical completed camps. JourneyEndpoint correctly owns Settlement/CaseSite/Camp alternatives. camp_destination+camp_remaining is a coupled payload while fatigue and nighttime policy remain independent axes. Actual camps and forecast camps are different evidence, not duplicate records.",
+          "remedy": "Canonical typed DailyWalkingBudget/TimeOfDay/MovementMinutes/ElapsedMinutes/CanonicalAnchor, journey location/progress/camp payloads preserving real lifecycle, derived solo projection. Keep Seed and roll ordinal separate.",
+          "acceptance": "Schema and constructors here inventoried; no universal scheduling/chunk guarantee or all route recipient coverage claimed. Existing core calendar/time/strategic action owners reused, no arbitrary new limits."
+        },
+        {
+          "ranges": [
+            [
+              685,
+              848
+            ]
+          ],
+          "roles": "Encounter loss owner, public strategic interruption state and choice receipt; route geometry, terrain weights, training/check magnitudes and weather snapshot.",
+          "disposition": "Encounter owner_kind+owner_id should retain ownership payload; inventory row/item/count/value are different units. Awareness party/enemy bools are independent facts, not one enum. AwaitingChoice/Resolved should own selected choice/outcome where lifecycle requires, and available choices are a closed action vocabulary erased to String. Geographic longitude/latitude E7 axes must not swap. RoutePoint, spans, leg and full plan are useful structural distinctions; terrain weights/intensity/moisture/snow fractions differ training multiplier permille and check millirank. Version/digest/weather interval are different source authority, and return route is optional itinerary, not false duplicate.",
+          "remedy": "Canonical encounter choice/outcome/ownership IDs and payload, existing coordinates/weather/terrain owners and distinct multipliers/ratings. Named admitted route ties geometry/spans/timing/package snapshot, keep numerical/native serialization adapters local.",
+          "acceptance": "Full source fields read. No native geometry validity, all sums, weather algorithm, authority replay or current runtime guarantee; actual route consumers remain mandatory separate ordered scope."
+        },
+        {
+          "ranges": [
+            [
+              850,
+              966
+            ]
+          ],
+          "roles": "Gateway singleton Identity, optional terrain package with schema version, gateway views and simulation-owner alternative.",
+          "disposition": "Singleton zero is intentional. Registration only requires nonzero authenticated identity on first claim and pins subsequent updates to same identity; calling it trusted gateway does not itself prove an external privileged allowlist. No additional restriction is invented without policy. Optional digest and schema0/3 are dependent payload with exact64lowerhex syntax; keep unavailable package versus configured V3 package distinct. Canonical actor-authority helper explicitly accepts gateway OR owned simulation character, so gateway-only reducer already satisfies it; rejected missing actor-check suspicion102 remains authoritative.",
+          "remedy": "GatewayAuthority with explicit TerrainPackage::Unavailable/Version3Digest payload and admitted Identity; explicit trusted-registration policy if required separately. Preserve actual owner/simulation distinction, no BC schema alias.",
+          "acceptance": "Actual complete registration and guards read; no service invoked or first-claim exploit/current claim."
+        },
+        {
+          "ranges": [
+            [
+              968,
+              1104
+            ]
+          ],
+          "roles": "Party member role association, stack versus individual durable condition, inventory desired quantity scope, contribution stake and reserve ledger.",
+          "disposition": "Membership row ID differs CharacterId/PartyId and optional recruitment role association. Party durable inventory requires quantity1 by comment; primitive row shape alone does not prove writers enforce it. Five condition tiers form structured durability state rather than five interchangeable probabilities. Inventory targets deliberately owned by leader Character so survive party recreation; do not call it wrong PartyId. party_scope bool and owner ID could be Personal/PartyLeader target payload. Contribution entitlement and unallocated reserve differ current physical coin count and should not be removed as duplicate monetary authority.",
+          "remedy": "Canonical membership/role and inventory row/object/item IDs, typed durability/quantity and explicit TargetScope payload, distinct Money-valued Stake/Reserve quantities with actual transfer owners.",
+          "acceptance": "Existing native inventory1118/1119/1136 and core durability915023/core currency1007045 consumers personally read; source ownership distinctions only, no asset conservation/runtime proof."
+        },
+        {
+          "ranges": [
+            [
+              1106,
+              1337
+            ]
+          ],
+          "roles": "Battle receipt/diagnostics/loot/participants, safe public case battle, mission bound/unbound state, immutable enemy roster and objective outcome candidate.",
+          "disposition": "Mission parsed_state reuses existing core MissionAttemptState; site/group binding and capture subject/version alternatives should stay typed through internals rather than repeatedly flattened. Mission snapshot exact enemy_character_ids owns bound cardinality independent later live escalation. Battle diagnostics and final outcome are different retained facts; they are not persisted tactical tick state. Observer-safe public case is selected through actual validated generated-manifest receiver. Mission approach/current active capability differs immutable sampled-candidate snapshot. Capture resolution/payload and loot eligibility are related; validate_hostile_resolution_contract rejects killed-capture and nondefeat loot, but its Option signature alone does not prove every capture ID exists.",
+          "remedy": "Keep core MissionAttemptState, typed BoundMission/UnboundEncounter and resolution payloads; named snapshot/candidate with canonical IDs/weight, retain actual battle receipt/projection privacy.",
+          "acceptance": "Actual native generated manifest recipient read. Core1015 state048 and core authored threat/autoresolve earlier own-lens proofs retained. No all tactical result writers/clinical/runtime guarantee."
+        },
+        {
+          "ranges": [
+            [
+              1339,
+              1451
+            ]
+          ],
+          "roles": "Hostile baseline versus live escalation snapshot, canonical ThreatId, typed case-site/index key and persistent context roster cardinality.",
+          "disposition": "Raw enemy_type is parsed to existing ThreatId then erased in stored field; carry canonical ID internally. Base count/difficulty/power differ live count/difficulty/progress/multiplier/normalized power; do not merge just because same integers. Progress basis points bounded fraction differs u32 combat scale which may exceed one whole. Initial enemy count clamps1..MAX_MOB_COUNT30 and actual core combat_for_incident uses same count cap; native context roster min(count,u16MAX) does not truncate this inspected path. Do not infer all other roster callers fit. Materialize compares immutable baseline/site/type fields then may extend roster; actual physical Character construction is strategic identity, no tactical position/HP persistence shown here.",
+          "remedy": "Canonical admitted HostileSnapshot with ThreatId, distinct count/incident ordinal/progress/scale/power owners and site identity; preserve query-key derivation. Reuse existing named escalation profile/result rather than invent global unit framework.",
+          "acceptance": "Actual core1021:1..54/154..204 and prior049 full593, native1260:355..423 recipient read. No full field-character/death lifecycle/whole roster numerical or current guarantees."
+        },
+        {
+          "ranges": [
+            [
+              1453,
+              1586
+            ]
+          ],
+          "roles": "Victorious outcome attribution versus battle-independent hostile transition receipt; recruitment role purpose, joins, action envelope and resolved action/vote IDs.",
+          "disposition": "OutcomeSourceAuthority and HostileResolutionReceipt own different attributions: precombat withdrawal may have no battle while tactical victory adds battle/loot/morale. Mission Option and capture payload should preserve variants. GeneralJoin versus Specialized purpose earns typed distinction, but requirements remain publicly unadmitted primitives;104 actual create/update mismatch retained. Join meets_requirements is a cached admission fact separate from immutable identity, requires actual receiver freshness not type alone. Action_kind+JSON envelope and resolved request ID keep104 approval association question; not automatically idempotent all changed payloads because request IDs are generated. Votes are directional voter\u2192candidate within party.",
+          "remedy": "Typed source/battle/mission/capture payloads and request/vote identities, admitted RoleRequirements and action request capture. Preserve current live guard versus immutable outcome receipt, do not flatten unrelated records.",
+          "acceptance": "104 actual native request and numeric recipients and core886 requirements consumed. Source-only no new unique/current/runtime/accepted alias and no whole governance clearance."
+        }
+      ]
+    }
+  ],
+  "connected_role_inventory": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/autoresolve.rs",
+      "sha256": "b475a0317b7ceda238789e057c6c302ca8ca83924b7cb09b13807a2e70b63782",
+      "ranges": [
+        [
+          82,
+          160
+        ]
+      ],
+      "disposition": "Actual canonical threat parsing/enemy/drop receiving ports for hostile snapshot construction and backend power projection",
+      "acceptance": "Actual material source ports read; no early ordered coverage of future sources or full SDK/algorithms."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor.rs",
+      "sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "ranges": [
+        [
+          355,
+          423
+        ]
+      ],
+      "disposition": "Actual persistent context roster producer receiving hostile count/site identity",
+      "acceptance": "Actual material source ports read; no early ordered coverage of future sources or full SDK/algorithms."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+      "sha256": "775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+      "ranges": [
+        [
+          335,
+          364
+        ]
+      ],
+      "disposition": "Actual validated generated manifest recipient used by public mission-case projection",
+      "acceptance": "Actual material source ports read; no early ordered coverage of future sources or full SDK/algorithms."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/threat_escalation.rs",
+      "sha256": "87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+      "ranges": [
+        [
+          1,
+          54
+        ],
+        [
+          154,
+          204
+        ]
+      ],
+      "disposition": "Exact native roster u16 capacity versus canonical hostile count ceiling/escalation producer; prior049 context reverified",
+      "acceptance": "Actual material source ports read; no early ordered coverage of future sources or full SDK/algorithms."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-016-receipt.json",
+        "sha256": "8a08d4a7a68768b9c1813ab799897da5c4422ede6cf9a388279d8d3c27eb92d0"
+      },
+      "contract": "Core886 capability full552; typed skill/check/count receiver"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-023-receipt.json",
+        "sha256": "03b30b384e3206d060da613d1da2619503e1dfed244ee67fa51bcd8aaddc4a42"
+      },
+      "contract": "Core915 durability full454"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-037-receipt.json",
+        "sha256": "9eba0cc942018e3348434818aa4201ceb3a5509ab2183eb34b9a6e117cc1c75a"
+      },
+      "contract": "Core972 generation model full1230; source role distinctions"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-045-receipt.json",
+        "sha256": "ef84d892ee23b0f811e99ab6e951c2e0bb21e340b90207e80f2b1f5f367f357b"
+      },
+      "contract": "Core1006 strategic action full1209,1007 currency full40 and1009 inventory"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-048-receipt.json",
+        "sha256": "45172eb33f46a6e35fe8c12f09f1b87fa6087f0e3029842e5421f6813eb6b2b1"
+      },
+      "contract": "Core1015 strategic-state full573 and1017 strategic-time arithmetic"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-049-receipt.json",
+        "sha256": "7c7a1bf82e75c5dbe9a67fb086ea7776db66160590f8435b8519b7479433d9df"
+      },
+      "contract": "Core1021 threat escalation full593; new exact initial/scale sections reverified"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-074-receipt.json",
+        "sha256": "d20b4bfe67138220f9efc3d466679c022f1c5548662f22a5114a3f33b536009f"
+      },
+      "contract": "Native1118 inventory amounts full241"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-075-receipt.json",
+        "sha256": "6b137e7e6d04ab2aa240fc17fe1e6600bb795b4e79fcfee1db06a458037e0b3b"
+      },
+      "contract": "Native1119 container full1451"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-079-receipt.json",
+        "sha256": "ef70dff17f6462ef0ab28482eab61adec5e63bdd0e3b4735583c02bcbbc3b04e"
+      },
+      "contract": "Native1127 investigation model full requested scope"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-084-receipt.json",
+        "sha256": "a1e35a75e9eb2265261409dee6629fb2b7f627e223d182e4e78e33783dac9e21"
+      },
+      "contract": "Native1136 item full957"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-101-receipt.json",
+        "sha256": "3126c4ae02fb943f1a56167e4014d3c2be754805792fe73f0b32617b197047ed"
+      },
+      "contract": "Actual fixture generation/ready-party numeric recipient and personality normalization"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-102-receipt.json",
+        "sha256": "4e87e3eb5300b6e467f587f37901d200fa66656accb00451864edf5cd1f2ad47"
+      },
+      "contract": "Social1195 full3800 directed/observer clocks and opaque witness authority"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-104-receipt.json",
+        "sha256": "adb3d27108be33387260ef3bdcfbe50f1911ea4f1d015bca55136e06713ae8c9"
+      },
+      "contract": "Actual action-envelope/approval and core requirement versus native create/update mismatch"
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Frozen source discovery with findings; original whole1586 consumed, material helper ranges only for future original sources.",
+    "Rejected inspected-path roster count truncation:30 fits u16; no generic all-caller capacity claim.",
+    "Full original scope source-accounting does not clear all future operation/native recipient, runtime, currentness, alias, extension or other-population gates. Preserve all inherited qualifications."
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "104",
+  "predecessor": "receipt-103-original497.json",
+  "manifest_prefix_sha256": "91ac65af51f359c6873bb439f126648dbb5bdd55b9974f4dbce8eab0027edd5a",
+  "sources": [
+    {
+      "original_index": 498,
+      "source_id": "pr-working:Cargo.toml",
+      "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+      "actual_eof": 221,
+      "actual_ranges": [
+        [
+          1,
+          221
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-221",
+          "role": "Native Cargo workspace membership/path/exclusions4-60; version/edition/repository/license63-66; dependency names/semver/features/path/Git source69-202; lint/profile selectors183-221. All literal paths, feature names and profile/native tool words inventoried. Actual frozen Bevy requirement0.19.0 at95 vs selected0.19.1 original497; fixed wasm0.2.126176/Spacetime2.6.1178-181; fork source202 matches lock Git source1906.",
+          "disposition": "Concrete native Cargo format/tool boundary, open package/version/path vocabulary; no enum restriction for package identifiers. Comments193-201 assert fork fixes but fork bodies/native acceptance not reviewed here. Profile comment214 is scope rationale, not user BC constraint. Native Cargo interpretation/installed version/build acceptability unclaimed."
+        }
+      ],
+      "status": "Exact requested source independently inventoried WITH native/config receiver qualifications."
+    },
+    {
+      "original_index": 499,
+      "source_id": "pr-working:assets/config/tactical-graphics.yaml",
+      "sha256": "b922faa3643a9e55508cbf50304273912d9be0b7e0282d271f1b243c75c40307",
+      "actual_eof": 96,
+      "actual_ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-96",
+          "role": "All YAML keys1-96 are schema field/native Serde textual names; finite rendering option values msaa3/gaussian8/aces_fitted24/windowed91/auto_vsync96. Hierarchical near/near_edge/far/vista keys36-83 identify grass LOD roles, not arbitrary prose.",
+          "disposition": "Actual finite configuration policy requires canonical typed owner/parser and downstream native mapping. This producer source is accounted WITH receiving obligation; no claim current parser accepts, every option owner reused, numeric/bounds correctness, or native renderer behavior. Unknown schema parser/default/receiver bodies remain explicit."
+        }
+      ],
+      "status": "Exact requested source independently inventoried WITH native/config receiver qualifications."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Finite tactical graphics configuration vocabulary requires canonical typed schema owner and native conversion",
+      "sources": [
+        "499:3,8,24,36-83,91,96"
+      ],
+      "remedy": "Trace actual config loader/typed option owners and native conversions before deciding whether bespoke enums are missing; retain open native strings only at concrete renderer/Serde boundary.",
+      "acceptance": "Producer literal set fully source-inventoried; actual schema/option/consumer bodies remain explicit receiving obligations. No demonstrated missing-owner defect or unique increment from YAML alone.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actual499 configuration schema loader/finite variant owners/native renderer mappings not read in this packet.",
+    "NativeCargo parser/solver and fork fix assertions not independently verified; all original497 actual lock consumer obligations preserved.",
+    "All inherited unread receivers, aliases and other populations retained."
+  ],
+  "qualifications": [
+    "Frozen PR-working variants only, not current/P16/global/runtime/other-lens clearance.",
+    "No BC/input/schema/API preservation requirement; no project/native/test/probe execution or product/Git/rootledger/publication mutation.",
+    "All20/P16/P17/F9/M09 and inherited aliases retained; unique delta0."
+  ],
+  "proposed_count": {
+    "before": 498,
+    "after": 500,
+    "indices_completed": [
+      498,
+      499
+    ],
+    "next_original": 500,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "pr-working:Cargo.toml",
+      "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+      "ranges": [
+        [
+          1,
+          221
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:assets/config/tactical-graphics.yaml",
+      "sha256": "b922faa3643a9e55508cbf50304273912d9be0b7e0282d271f1b243c75c40307",
+      "ranges": [
+        [
+          1,
+          96
+        ]
+      ]
+    }
+  ]
+}

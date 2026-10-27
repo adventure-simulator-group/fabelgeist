@@ -1,0 +1,646 @@
+{
+  "packet": 187,
+  "lens": 11,
+  "lens_name": "type-granularity",
+  "at": "2026-10-27T05:49:30.455285+00:00",
+  "status": "813 source-accounted; inherited qualified identity/capacity/currentness questions retained",
+  "authority": {
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "prior_authoritative_state": {
+    "path": "audit11-segovb-186-proposed-state.json",
+    "sha256": "3da2058039baab6f7ef6fe7123f51033c517058aea7a57de3c46596a0e8f6e91"
+  },
+  "root_adoption": {
+    "path": "audit11-segovb-186-adoption-root.json",
+    "sha256": "ac6149a452ea46b77276e8b712f81550807440b89ca4e8454bd0e7962304e5f2"
+  },
+  "source": {
+    "original": 813,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory_acquire.rs",
+    "sha256": "38c1ff570b3617b06af25f869d5ccd0f82d4827a6c4d0f9c4298e14c04ec145f",
+    "bytes": 5032,
+    "actual_eof": 138,
+    "effective_requested_scope": [
+      [
+        1,
+        138
+      ]
+    ],
+    "personally_consumed": [
+      [
+        1,
+        138
+      ]
+    ],
+    "read_from": "crates/adventuresim-character-creator/src/inventory_acquire.rs",
+    "scope_kind": "affected_unchanged_reached_contract canonical original813",
+    "full_independent_inventory": true,
+    "source_accounted": true
+  },
+  "rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "read_status": "Prior personally read exact governing text retained; hash reverified; source-only, no backwards compatibility constraints"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "read_status": "Prior personally read exact governing text retained; hash reverified; source-only, no backwards compatibility constraints"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-type-granularity/SKILL.md",
+      "sha256": "3a1fbf7f53c752e35eefe7763cbd49b9f280bd4b978ea998f74c3a68e45dc106",
+      "read_status": "Prior personally read exact governing text retained; hash reverified; source-only, no backwards compatibility constraints"
+    }
+  ],
+  "registrations": [
+    {
+      "path": "audit11-segovb-187-registration-001.json",
+      "sha256": "982f289ed6d7bcdbee6b71115ffb81b4f17c129171a85694f19a042ac26f5e80"
+    },
+    {
+      "path": "audit11-segovb-187-registration-002.json",
+      "sha256": "42ac7f6a6358ba47f6aecf0bc6b47c69115fb8c29a8dcc31f2d4c49c4c51c979"
+    },
+    {
+      "path": "audit11-segovb-187-registration-003.json",
+      "sha256": "7fe0c3fbb07a3281edef2dadafe2b43a27a66abeccf13d09cd8be670ae7d9d2c"
+    },
+    {
+      "path": "audit11-segovb-187-registration-004.json",
+      "sha256": "b78f14f895b8aa196502233dfd06a9f5a16e319ca01b803b615553a70990d707"
+    },
+    {
+      "path": "audit11-segovb-187-registration-005.json",
+      "sha256": "16ec439002188b6cbde7868e545a6b6e77716a39a2c45dac607c8e461c2ea27a"
+    }
+  ],
+  "new_source_reads": [
+    {
+      "original": 813,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory_acquire.rs",
+      "sha256": "38c1ff570b3617b06af25f869d5ccd0f82d4827a6c4d0f9c4298e14c04ec145f",
+      "read_from": "crates/adventuresim-character-creator/src/inventory_acquire.rs",
+      "actual_eof": 138,
+      "actually_read": [
+        [
+          1,
+          138
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          138
+        ]
+      ],
+      "ordered_credit": true
+    },
+    {
+      "original": 819,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "actual_eof": 667,
+      "ordered_credit": false,
+      "actually_read": [
+        [
+          106,
+          145
+        ]
+      ],
+      "extra_original_shared_credit": 0
+    },
+    {
+      "original": 843,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/wardrobe.rs",
+      "sha256": "41051202a9da2998dcf73b5a1e095088d6838c1a849a66d080631ac8304951b9",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/41051202a9da2998dcf73b5a1e095088d6838c1a849a66d080631ac8304951b9",
+      "actual_eof": 154,
+      "ordered_credit": false,
+      "actually_read": [
+        [
+          1,
+          42
+        ]
+      ],
+      "extra_original_shared_credit": 0
+    },
+    {
+      "original": 844,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/wardrobe_tab.rs",
+      "sha256": "4cd80a0338aaafa8f2b1f80eca296ef22614825d8d1058692fb8c4fe7bbe9595",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/4cd80a0338aaafa8f2b1f80eca296ef22614825d8d1058692fb8c4fe7bbe9595",
+      "actual_eof": 325,
+      "ordered_credit": false,
+      "actually_read": [
+        [
+          1,
+          38
+        ],
+        [
+          69,
+          112
+        ]
+      ],
+      "extra_original_shared_credit": 0
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/inventory_ui.rs",
+      "sha256": "7826a8b7e47d4d72d87589c7c7e11d6054c7edbaa82bcc9f317f8ee949bad37b",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/7826a8b7e47d4d72d87589c7c7e11d6054c7edbaa82bcc9f317f8ee949bad37b",
+      "actual_eof": 256,
+      "ordered_credit": false,
+      "provenance": "audit11-segovb-187-inventory-ui-staging-001.json; exactbase/head equal, absent747/dirty4",
+      "mandatory_other_lenses": "newmaterialranges pending; zeroextraoriginal/sharedcredit",
+      "actually_read": [
+        [
+          1,
+          32
+        ],
+        [
+          177,
+          210
+        ]
+      ],
+      "extra_original_shared_credit": 0
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/inventory_ui.rs",
+      "sha256": "7826a8b7e47d4d72d87589c7c7e11d6054c7edbaa82bcc9f317f8ee949bad37b",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/7826a8b7e47d4d72d87589c7c7e11d6054c7edbaa82bcc9f317f8ee949bad37b",
+      "actual_eof": 256,
+      "ordered_credit": false,
+      "actually_read": [
+        [
+          211,
+          216
+        ]
+      ],
+      "extra_original_shared_credit": 0
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/wardrobe.rs",
+      "sha256": "41051202a9da2998dcf73b5a1e095088d6838c1a849a66d080631ac8304951b9",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/41051202a9da2998dcf73b5a1e095088d6838c1a849a66d080631ac8304951b9",
+      "actual_eof": 154,
+      "ordered_credit": false,
+      "actually_read": [
+        [
+          41,
+          75
+        ]
+      ],
+      "extra_original_shared_credit": 0
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/library_name.rs",
+      "sha256": "ecd978e94b850604d4345df1494e9536819e19d7a6d3b8921fde3d55bf54eb27",
+      "read_from": "crates/adventuresim-character-creator/src/library_name.rs",
+      "actual_eof": 52,
+      "ordered_credit": false,
+      "actually_read": [
+        [
+          1,
+          39
+        ]
+      ],
+      "extra_original_shared_credit": 0
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "ordered_credit": false,
+      "actually_read": [
+        [
+          1,
+          80
+        ]
+      ],
+      "extra_original_shared_credit": 0
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "sha256": "da3139ef3625393db9041ad0680dc244b0f81235b86ea4519a87c9299763bdd6",
+      "read_from": "crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "ordered_credit": false,
+      "actually_read": [
+        [
+          1,
+          91
+        ]
+      ],
+      "extra_original_shared_credit": 0
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/catalog.rs",
+      "sha256": "cd1472baf8c4e367dfe78a98f6331acd05cf86f5d9b93e945ba6040b60253627",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/cd1472baf8c4e367dfe78a98f6331acd05cf86f5d9b93e945ba6040b60253627",
+      "ordered_credit": false,
+      "extra_original_shared_credit": 0,
+      "actually_read": [
+        [
+          1,
+          6
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "sha256": "da3139ef3625393db9041ad0680dc244b0f81235b86ea4519a87c9299763bdd6",
+      "read_from": "crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "ordered_credit": false,
+      "extra_original_shared_credit": 0,
+      "actually_read": [
+        [
+          90,
+          112
+        ]
+      ]
+    }
+  ],
+  "carried_actual_source_proofs": [
+    {
+      "path": "audit11-segovb-182-809-partial-001.json",
+      "sha256": "eaa345f977d03d0d81fbd8a50ceda01280c6c591fec32347d23bef132d3c0c74"
+    },
+    {
+      "path": "audit11-segovb-183-809-complete-001.json",
+      "sha256": "ec788fbe604cb3ca970a41ae1e3326ab39049156b5c8a7aed6df22e0bc7a1916"
+    },
+    {
+      "path": "audit11-segovb-184-810-complete-001.json",
+      "sha256": "1efd23196f71ca4b5cdca49ef43277bf8637d2406faa019403b93d8e07f85328"
+    },
+    {
+      "path": "audit11-segovb-185-811-complete-001.json",
+      "sha256": "47f2f0534b526d991c4e67c3000ccde2354de56e3c8f2ad97241cc4f198109b4"
+    },
+    {
+      "path": "audit11-segovb-186-812-complete-001.json",
+      "sha256": "14a9d7521dab687cc39184e262b4f8b764e86d9ab690e322224a079848f85600"
+    },
+    {
+      "path": "audit11-successor-157-connected-780-003.json",
+      "sha256": "fa0a6faef8a06976d46ad2d289dd8548c0a83df6c7ff62f4d758076a4e89ecab"
+    }
+  ],
+  "independent_role_inventory": [
+    {
+      "lines": [
+        1,
+        28
+      ],
+      "roles": "show accepts actual EquipmentCatalog and Studio; free search String is user text, trim/lowercase/contains predicates are textual filtering, not catalogidentity admission. New cloth chooses Article::Draped canonical GarmentSelection default. UI button labels/hoverprose are display, no branch on their rendered text. clicked/is_empty/default_open booleans are predicate/native UI interaction flags, not additional retained domain-state axes."
+    },
+    {
+      "lines": [
+        30,
+        58
+      ],
+      "roles": "wearable yields canonical CatalogItem; first placement outermost typed EquipmentChannel determines UI grouping, Accessory covers absent channel. Tuple layer+borrowed item is temporary grouping, not duplicated persisted authority. layer.order numeric sort key, display_name lexicographic sort, BTreeSet Ord channel grouping are separate collection operations; no claim enum Ord equals canonical channel.order. Native id_salt includes static acquire namespace+typedchannel; labels are not sole app identity. No native egui global ID uniqueness guarantee inferred."
+    },
+    {
+      "lines": [
+        60,
+        91
+      ],
+      "roles": "Wardrobe.iter yields canonical LibraryName and complete SettledGarment, clones both while gathering selected display entries. name.as_ref is search/presentation view, not raw replacement key. actual Article::Settled consumes cloned complete saved payload, preserving selection+drape association. Each acquire allocates a fresh typed inventory instance, independent from library key, so copy remains usable without retained library reference. Fabric/layer labels display independent canonical axes, not variant-to-string behavioral routing."
+    },
+    {
+      "lines": [
+        93,
+        124
+      ],
+      "roles": "catalog_item receives borrowed ItemDefinition through canonical CatalogItem deref at current callsite; actual wearable filter guarantees equipment Some, making expect limited to that callpath. Actual placement count controls add versus per-placement labels; both means all placements when len>1, not a numeric2 admission limit. Raw item key+placement key form CatalogArticle lookup reference, not InventoryItemId. Per-placement iteration and batchVec<Article> preserve multiple article instances; existing persistent-key/record-authority qualification applies, no canonical closed item enum inferred."
+    },
+    {
+      "lines": [
+        126,
+        138
+      ],
+      "roles": "acquire consumes collection of independent Article payloads, Inventory.add allocates each local instance ID, selected retains Some(InventoryItemId), then wear receives same typed ID. No single batch ID, ordinal/identity merger or optional saved payload reconstruction. No all-or-nothing batch guarantee: add and selection precede wear; failure is reported by actual wrapper and can leave newly carried selected item. This is actual source limit, not fabricated aggregate transaction contract."
+    }
+  ],
+  "actual_contract_traces": [
+    {
+      "role": "Real catalog owner and selected identity",
+      "sources": [
+        "8196-7,106-130",
+        "newcatalog1-6",
+        "76472-94,103-110",
+        "923 prior1-132",
+        "81330-58,93-124"
+      ],
+      "trace": "Binary imports catalog::EquipmentCatalog, exact6line wrapper derives BevyResource/Deref/DerefMut around existing ItemCatalog. It is an adapter for resource placement, not competing catalog schema. Canonical wearable returns CatalogItem after actual material+any nonempty surface predicate; catalog_item sees actual definition via deref. CatalogArticle then stores authored keys and resolves canonical placement at fit/loadout. Raw-to-key phase retains182 record-v-key identity qualification, not new accepted alias."
+    },
+    {
+      "role": "Acquisition -> selected local instance -> wear result",
+      "sources": [
+        "813128-138",
+        "newinventory_ui18-21,187-215",
+        "809 prior208-240,264-350",
+        "811 prior131-287"
+      ],
+      "trace": "Session-only InventoryView holds Option<InventoryItemId> and free search String; Studio recipe Inventory owns application instances. add returns typed ID, selection stores same ID; wrapper calls Inventory.wear. Success marks dirty and formats displaced typed IDs, failure calls inventory.explain with typed ID/conflict. No selection ownership token/membership proof universally inferred from publicOption, no batch atomicity or unconditional success. Existing185 capacity question remains in underlying receiver."
+    },
+    {
+      "role": "Saved library ownership -> independent article copy",
+      "sources": [
+        "81360-91",
+        "84416-38",
+        "8431-75",
+        "8171-39",
+        "prior780/157 connected003",
+        "809 prior43-67,174-199",
+        "810 prior45-110"
+      ],
+      "trace": "Wardrobe private BTreeMap<LibraryName,SettledGarment> is actual payload owner. LibraryName admission trims/rejects empty and Serde uses checked TryFrom; AsRef/Display explicitly reveal its text at UI boundary. Wardrobe load validates name/payload and saved garment; insert makes payload name equal key then validates; iter borrows actual paired entry. UI clones complete savedgarment then Article::Settled owns it, no independently selected saved-drape pair introduced here. Core loadout producer coherence and publicDrapedPiece association limit184 remain. No full saved geometry/native algorithm guarantee."
+    }
+  ],
+  "qualified_observations": [
+    {
+      "source_key": "pr-working:crates/adventuresim-character-creator/src/inventory_acquire.rs@sha256:38c1ff570b3617b06af25f869d5ccd0f82d4827a6c4d0f9c4298e14c04ec145f#L93-L100,L128-L136:catalog-key-phase-and-instance-selection",
+      "classification": "Support for existing identity-phase questions and source behavior limits, not new accepted unique finding",
+      "observation": "UI receives exact canonical selected definition then persists item/placement text for later lookup. Newly allocated InventoryItemId remains typed into selection/wear. Existing catalog key-v-record authority question remains unresolved; current source/aliases not inspected. Actual wrapper can reject wear after addition; no automatic all-worn or batch transaction claim."
+    }
+  ],
+  "new_unique_findings": 0,
+  "accepted_unique_count_change": 0,
+  "new_material_receiver_extensions": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/inventory_ui.rs",
+      "sha256": "7826a8b7e47d4d72d87589c7c7e11d6054c7edbaa82bcc9f317f8ee949bad37b",
+      "actual_eof": 256,
+      "actual_access": [
+        [
+          1,
+          32
+        ],
+        [
+          177,
+          216
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          21
+        ],
+        [
+          187,
+          215
+        ]
+      ],
+      "provenance": {
+        "path": "audit11-segovb-187-inventory-ui-staging-001.json",
+        "sha256": "eb78a87440a7e37540a3bf8f8f902b046418d4021100e054e2819c227cdf2dff"
+      },
+      "proof": "Exact frozen3a50base/6533head bytes equal, absent747manifestchanges and all4dirty paths; no current substitution/body credit from staging",
+      "mandatory_other_lenses": "pending",
+      "original_shared_credit": 0
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/catalog.rs",
+      "sha256": "cd1472baf8c4e367dfe78a98f6331acd05cf86f5d9b93e945ba6040b60253627",
+      "actual_eof": 6,
+      "actual_access": [
+        [
+          1,
+          6
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          6
+        ]
+      ],
+      "provenance": {
+        "path": "audit11-segovb-187-catalog-staging-001.json",
+        "sha256": "bd454452006c2edce39b878c419e2bea3b3d7217bc69718c83e107156c690f2c"
+      },
+      "proof": "Exact frozen3a50base/6533head bytes equal, absent747manifestchanges and all4dirty paths; no current substitution/body credit from staging",
+      "mandatory_other_lenses": "pending",
+      "original_shared_credit": 0
+    }
+  ],
+  "mandatory_other_lens_extensions": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/garment/selection.rs",
+      "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+      "actual_eof": 271,
+      "actual_access": [
+        [
+          1,
+          79
+        ],
+        [
+          111,
+          225
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          79
+        ],
+        [
+          111,
+          225
+        ]
+      ],
+      "root_provenance": {
+        "path": "audit11-root-garment-selection-staging-182.json",
+        "sha256": "5e81fcb5f5ca2e8dd9a56703c3cdc10911de94615516d90ed59eb5718d4d1ba4"
+      },
+      "proof": "Exact frozenbase3a50/head6533bytes equal, absent747changes/dirty4; no currentalias or bodycredit fromstaging",
+      "mandatory_other_lenses": "pending",
+      "original_shared_credit": 0
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/inventory_ui.rs",
+      "sha256": "7826a8b7e47d4d72d87589c7c7e11d6054c7edbaa82bcc9f317f8ee949bad37b",
+      "actual_eof": 256,
+      "actual_access": [
+        [
+          1,
+          32
+        ],
+        [
+          177,
+          216
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          21
+        ],
+        [
+          187,
+          215
+        ]
+      ],
+      "provenance": {
+        "path": "audit11-segovb-187-inventory-ui-staging-001.json",
+        "sha256": "eb78a87440a7e37540a3bf8f8f902b046418d4021100e054e2819c227cdf2dff"
+      },
+      "proof": "Exact frozen3a50base/6533head bytes equal, absent747manifestchanges and all4dirty paths; no current substitution/body credit from staging",
+      "mandatory_other_lenses": "pending",
+      "original_shared_credit": 0
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/catalog.rs",
+      "sha256": "cd1472baf8c4e367dfe78a98f6331acd05cf86f5d9b93e945ba6040b60253627",
+      "actual_eof": 6,
+      "actual_access": [
+        [
+          1,
+          6
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          6
+        ]
+      ],
+      "provenance": {
+        "path": "audit11-segovb-187-catalog-staging-001.json",
+        "sha256": "bd454452006c2edce39b878c419e2bea3b3d7217bc69718c83e107156c690f2c"
+      },
+      "proof": "Exact frozen3a50base/6533head bytes equal, absent747manifestchanges and all4dirty paths; no current substitution/body credit from staging",
+      "mandatory_other_lenses": "pending",
+      "original_shared_credit": 0
+    }
+  ],
+  "new_original_receiver_ranges_for_other_lenses": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "actual_access": [
+        [
+          106,
+          145
+        ]
+      ],
+      "extra_original_shared_credit": 0,
+      "qualification": "Existing original scope remains mandatory other lenses; receiver access is not ordered credit"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/wardrobe.rs",
+      "sha256": "41051202a9da2998dcf73b5a1e095088d6838c1a849a66d080631ac8304951b9",
+      "actual_access": [
+        [
+          1,
+          42
+        ]
+      ],
+      "extra_original_shared_credit": 0,
+      "qualification": "Existing original scope remains mandatory other lenses; receiver access is not ordered credit"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/wardrobe_tab.rs",
+      "sha256": "4cd80a0338aaafa8f2b1f80eca296ef22614825d8d1058692fb8c4fe7bbe9595",
+      "actual_access": [
+        [
+          1,
+          38
+        ],
+        [
+          69,
+          112
+        ]
+      ],
+      "extra_original_shared_credit": 0,
+      "qualification": "Existing original scope remains mandatory other lenses; receiver access is not ordered credit"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/wardrobe.rs",
+      "sha256": "41051202a9da2998dcf73b5a1e095088d6838c1a849a66d080631ac8304951b9",
+      "actual_access": [
+        [
+          41,
+          75
+        ]
+      ],
+      "extra_original_shared_credit": 0,
+      "qualification": "Existing original scope remains mandatory other lenses; receiver access is not ordered credit"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/library_name.rs",
+      "sha256": "ecd978e94b850604d4345df1494e9536819e19d7a6d3b8921fde3d55bf54eb27",
+      "actual_access": [
+        [
+          1,
+          39
+        ]
+      ],
+      "extra_original_shared_credit": 0,
+      "qualification": "Existing original scope remains mandatory other lenses; receiver access is not ordered credit"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "actual_access": [
+        [
+          1,
+          80
+        ]
+      ],
+      "extra_original_shared_credit": 0,
+      "qualification": "Existing original scope remains mandatory other lenses; receiver access is not ordered credit"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "sha256": "da3139ef3625393db9041ad0680dc244b0f81235b86ea4519a87c9299763bdd6",
+      "actual_access": [
+        [
+          1,
+          91
+        ]
+      ],
+      "extra_original_shared_credit": 0,
+      "qualification": "Existing original scope remains mandatory other lenses; receiver access is not ordered credit"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "sha256": "da3139ef3625393db9041ad0680dc244b0f81235b86ea4519a87c9299763bdd6",
+      "actual_access": [
+        [
+          90,
+          112
+        ]
+      ],
+      "extra_original_shared_credit": 0,
+      "qualification": "Existing original scope remains mandatory other lenses; receiver access is not ordered credit"
+    }
+  ],
+  "process_qualifications": [
+    "All actual new body reads followed successful append-only registration; exact hashes checked before consumption.",
+    "One symbol-only rg locator included absent guessed inventory_tab.rs and returned path-not-found; no body consumption or coverage inferred from absence. Actual inventory_ui.rs resolved narrowly via main module and exact frozen base/head proof.",
+    "Receiver main106-145 includes incidental Studio fields and constructor prefix; material owner scope106-130. WardrobeTab69-112 was prospectively read context but unnecessary to acquisition; no wardrobe simulation/worker verdict or coverage transfer inferred. Actual read ranges preserved, not silently omitted.",
+    "Receiver inventory_ui1-32 and177-216 includes incidental UI color/function tails; material ownership/wear scope1-21,187-215. No whole UI/native SDK body clearance.",
+    "No project execution/checks/tests/probes or new tests/helpers/assertions/doctests; read-only exact Git object recovery for2unchanged dependencies only."
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer. Preserve180/181nativeSDK/Bevy scheduling/imagecopylimits andallpendingreceiverqueues. M04current903reviewsseparate; notfrozenoriginal/lenscounts. Packet182InventoryItemId graph erasure, catalogkey/recordidentity and wear/order-selector sourcequestions retained, alias/currentness/unique acceptance unresolved. M04build-target review003 atdf5 andhostedCIseparatefromfrozenauditcounts. 184 newpublicDrapedPiece association/sourcegroupingquestion remainsfrozenlocal, noalias/currentness/uniqueacceptance; producerpathcoherent. M04df5validationseparate. 185 capacityreservationstaticAPIgap retainedasfrozenevidence only; alias/currentness/accepteduniqueness unresolved. No runtimewrongID orauthoredcurrentinputwitness. ExistingID/key/wear/savedassociationquestionsremainqualified. Packet186 independently accounts existing test-source812 only; fixture expectations are not observed execution/whole authored catalog/native guarantees and do not clear185 capacity witness. Existing lower-pattern fixture uses canonical owners; no new current alias or unique finding. Packet187 original813 only. New frozen inventory_ui and catalog wrapper material extensions mandatory other lenses, zero extra shared/original credit. UI acquisition is not atomic/all-worn; inherited capacity, typedID erasure/key authority and public saved-association questions retain all currentness/alias/unique limits.",
+  "coverage_limits": [
+    "No814orderedinventory/body consumed.",
+    "Prior source proofs retained with exact frozen identities; no current-source validation or alias acceptance.",
+    "Original813 type-granularity source-accounted, not full catalogdata/wholeStudio/nativeSDK/global or other-lens clearance.",
+    "No claim point.locations legality, combinedcapacity, arbitrarypublicstate validation, batchtransaction or global ID uniqueness.",
+    "All185qualified frozen capacity API witness/currentness/alias/acceptedunique limits retained; no new unique accepted finding."
+  ],
+  "clear": false,
+  "current_reconciled": false,
+  "integrated": false,
+  "validated": false,
+  "root_adoption_required": true,
+  "product_source_git_ledger_tests_checks_publication": "none; only append-only ignored evidence and hash-verified ignored frozen object caching; read-only exactGitqueries",
+  "stop": "813complete; no814orderedwork"
+}

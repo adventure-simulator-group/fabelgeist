@@ -1,0 +1,72 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-013",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 407,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/equipment.rs",
+      "sha256": "734717189e02b8266dcc04626015d9fee4bb6e32d7a5816040db8d0a94d0f379",
+      "ranges": [
+        [
+          1,
+          163
+        ]
+      ],
+      "source_basis": "Fresh root complete exact frozen physical-P16 source read; related verdicts only dedup existing obligations.",
+      "concepts_actual_uses_and_mixup": [
+        "Iteration spawn projects a selected weapon/shield and authored armor placement into transient Bevy items. Owner Entity, TacticalInventoryItemId and catalog ID name different identities; same numeric synthetic item slots are scoped to each owner. Native skill-weight/body-part arrays are indexed framework/geometry projections, not enums of arbitrary numbers.",
+        "Actual armor projection selects a catalog placement by repeated item occurrence but reads broad build.combatant.equipment.armor[body_part_index(part)] for fit/resistance/coverage/padding. This supports existing own11 ALIAS003 selected equipment-view obligation; do not introduce another broad-loadout proxy or claim current selected owner migration is unnecessary.",
+        "Grip/head/dimensions/anchor displacement carry distinct geometric meanings at native collider/projection boundaries. ArmorSlot intentionally combines broad armor region and side, while BodyPart identifies anatomy; preserve explicit mapping and authored covered-parts/coverage geometry rather than merging their roles."
+      ],
+      "disposition": "Retain meaningful participant/attack/selected equipment, timing, geometry, action/status/outcome, armor and condition-unit distinctions. Support existing own11 aliases001/003/004 and F001 where traced, without new unique issue count. Native DTO/Bevy adapters are not whole input/graph/state clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 408,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/logging.rs",
+      "sha256": "cee413f196e6709475af3c4f68ba65471662d2dbc16d1fe978946ecbf362ca2d",
+      "ranges": [
+        [
+          1,
+          431
+        ]
+      ],
+      "source_basis": "Fresh root complete exact frozen physical-P16 source read; related verdicts only dedup existing obligations.",
+      "concepts_actual_uses_and_mixup": [
+        "TacticalDecision describes an action role; TacticalDecisionStatus describes its lifecycle stage; TacticalContactOutcome and TacticalCoverageContact describe different result dimensions. Keep meaningful stages and explicit no-defense/no-armor/gap distinctions. Whole decision/event payload combinations remain existing own11ALIAS004 obligation, not cleared by the mere presence of enums.",
+        "IterationClock.tick is a tick ordinal; simulated_ticks is an execution count; TacticalElapsed is a seconds projection. Existing source406 timeout count defect remains CAMERA-INITIAL07-F034; no new chrono-owner implementation coverage from imports/calls here. Event sequence and attack key are distinct ordinal versus attack association.",
+        "Participant names are presentation labels and lose framework Entity association in retained diagnostic records; preserve existing full combatant/attack identity obligation (own11ALIAS001), not assume uniqueness from the fixture roster. Numeric incapacitation/fraction/energy/flow/distance columns retain distinct semantics at serialized report boundary.",
+        "Current record_attack_start derives actual centre-to-centre XZ distance, not surface gap. record_condition_changes retains per-cause previous/current/delta, log_new_wounds retains blood-fraction flow and body region; source values are real condition projections, not extra hidden combat impairment. Existing broad scalar/prose cause and cross-stage payload obligations remain separate."
+      ],
+      "disposition": "Retain meaningful participant/attack/selected equipment, timing, geometry, action/status/outcome, armor and condition-unit distinctions. Support existing own11 aliases001/003/004 and F001 where traced, without new unique issue count. Native DTO/Bevy adapters are not whole input/graph/state clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 409,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs",
+      "sha256": "3454be3e36e9ce85770800d62425263aa87627bdcea264b6ab2803d24d3eeb02",
+      "ranges": [
+        [
+          1,
+          167
+        ]
+      ],
+      "source_basis": "Fresh root complete exact frozen physical-P16 source read; related verdicts only dedup existing obligations.",
+      "concepts_actual_uses_and_mixup": [
+        "ResolvedEnergyLog projects AttackResult into defended/avoided versus hit and armor-surface/gap roles; these are not interchangeable flags. Optional ArmorImpact supplies correlated armor identity/material/outcome/energy. No new strictly-positive energy bound justified for legitimate zero damage or absent armor.",
+        "Resolved log projection currently samples defender inventory slots for implement/catalog/inventory identity and armor layer chain while contact event owns resolved contact/geometry. Preserve selected immutable receipt versus live inventory distinction for connected admission/identity reconciliation; no actual concurrent mutation or wrong emitted item is proved here.",
+        "Scheduled/ideal/actual contact measure, contact lever arm, energy fraction and accuracy multiplier are different meanings despite compatible underlying scalar representations. Current logged center separation is actual XZ distance; do not replace it with signed surface gap during physical owner migration.",
+        "Defensive implement None means no slot; Other means a present slot not classified as current shield/weapon, and BodySide::Both cannot project one hand slot. Native enum-to-serialized text is an explicit diagnostic boundary, not proof of public typed admission."
+      ],
+      "disposition": "Retain meaningful participant/attack/selected equipment, timing, geometry, action/status/outcome, armor and condition-unit distinctions. Support existing own11 aliases001/003/004 and F001 where traced, without new unique issue count. Native DTO/Bevy adapters are not whole input/graph/state clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

@@ -1,0 +1,52 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-114",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 700,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/character_export.rs",
+      "sha256": "c9393d3d4e81d9809e517eab1d8e1de81eb24c37ab646a009d44f0f3449dd4a3",
+      "ranges": [
+        [
+          1,
+          248
+        ]
+      ],
+      "assessment": "Actual full248 read in two bounded windows after SHA256 match. Entry gathers generated rig/body/morphs, clothing, catalog armor, drape and hair before existing GLB call. CatalogGeometry faces/targets produced by same armor iteration and unzip, then indexed with same unmodified armor; catalog_metals collects matching plates/trims before lookup. These are actual local correspondence proofs. Vec semantic pairs, nested parallel targets, native mesh arrays and material triples retain Q008/Q009 qualifications. Fitted drape index is associated with loadout.draped index in mail_surfaces despite prepare permitting omitted failed garments; actual omission ordering/source identity and global remedy dedup require producer786 trace, so no accepted finding or ordinary failure claim. Existing GLB PR changes are separate/current, frozen body not current acceptance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 701,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/character_export/draped.rs",
+      "sha256": "2c0a2e659aa914d0b575343dc1ae1fd7216cfa370462be0bfb1308745105526e",
+      "ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "assessment": "Actual full79 unchanged reached-contract body read after SHA256 check. prepare borrows supplied drape slice or uses outcome.garments, records only missing count and warnings, not a source garment index. Whether removing unsuccessful garments breaks later source-index mail association is qualified pending producer786; no inferred producer implementation. validate emits warnings while accumulating collision meshes; raw count cast to u32 and shifted face indices are native BVH boundary without complete overflow/index invariant proof. No runtime/physical/global clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 702,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "sha256": "e4d9f41ddc4a5dfcddc44b953c10e1f987005360152375c435731e2220ae2526",
+      "ranges": [
+        [
+          1,
+          133
+        ]
+      ],
+      "assessment": "Actual full133 read after SHA256 match. Private ExportedHair constructor derives cards count, repeated typed packed head-joint skin and equal-length weights from actual count. Public shell method private module supplies borrowed targets and native RiggedShell arrays; meaningful collection/channel alignment remains Q009. OnceLock caches Result<HairGpu,String>, intentionally strips error type at this local cache boundary but typed native cause loss/closed-state owner requires error-lens reconciliation. No string branching. Atlas uses first actual level then RGBA as_chunks and native PNG encoder; kernel owns color conversion. No current-main/runtime/artistic/physical acceptance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

@@ -1,0 +1,39 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-327",
+  "at": "2026-10-25T23:12:59.065522+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2706,
+      "source_id": "physical-p16:crates/strategic-web/src/routes/settlements/encumbrance.rs",
+      "sha256": "1b05e35b79269c08ac5183beede6022f00ca9cb2ffa3c3b0ca9e2121a62a4035",
+      "personally_read_ranges": [
+        [
+          1,
+          484
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1-484 exact physical-p16: deduplicated row IDs include active character plus living members; bounded member lookups preserve character-keyed joins, global object/containment/liquid results separately collected. Personal load combines body, inventory/foodlot and custody water; party totals living personal summaries plus pool/custody water once. Query failures default absent/zero and body mass admission expects persisted validity; no atomic data snapshot guarantee. Party visibility rejects ahead-of-observer characters, reprojects alive state and suppresses future-death disclosure on chronology failure. Combat capability collects held inventory/catalog rows then derives profile; refresh failure can leave stale projection, no actual failure witness."
+      ]
+    },
+    {
+      "scope_index": 2707,
+      "source_id": "physical-p16:crates/strategic-web/src/routes/settlements/service_quests.rs",
+      "sha256": "94a890ee2893205a08de7ba3635a88574f23aab5a628f88a0a08bfc5d74c55d5",
+      "personally_read_ranges": [
+        [
+          1,
+          725
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1-725 exact physical-p16: service apprenticeship resolves catalog organization/chapter and exact representative identity/location before direct fallback, session selected settlement checked before reducer. Presence helper checks identities/location but does not inspect its timing/suppression fields; actual SettlementResidentPresence query producer must establish current eligible projection before new finding. Recruitment joins offers/party/leader/roles and computes remaining via saturated subtraction; can_accept and role recommendation matches are presentation facts, reducer authorization remains separate. Requirements label/match enumerate same flags/positive thresholds. Unknown service prose defaults speaker only; generated quest description/threat preserved. Tests read not run."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

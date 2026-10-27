@@ -1,0 +1,67 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-118",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 716,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/design_input.rs",
+      "sha256": "9140c84ddc9d85554f2a063e1ccf8e162cf046d680f663bf44c91986a4589904",
+      "ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "assessment": "Full119 exact materially reached owner source read after hash match including existing fixtures only. Actual load/parse boundary decodes JSON then calls owning breastplate/bracer validation for authored or supplied recipes; absent optional path intentionally selects authored recipe, malformed supplied content never silently defaults. Typed path and bespoke model returned; concrete payload validation is delegated, not inferred complete from calling validate. Anyhow contexts retain causes; no prose branching or accepted new granularity finding.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 717,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_body.rs",
+      "sha256": "7f528ffbfd597a6199b1ef50c86f045e36ae230acb0b5957c2504f6285a99bd3",
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "assessment": "Full26 unchanged reached source read after hash match. DeviceBody owns OnceLock<GpuBody>, uses passed upload once logically while racing closures may both allocate, then retains single winner. Cached-result validity is actual body-realization owner/lifetime precondition, not established solely by public type; no ordinary mismatched-body/device witness. Closure/native GpuBody port is genuine adapter; no accepted new granularity issue.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 718,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_bracer.rs",
+      "sha256": "ff37e035a52f79f4970f87fb21acef7702a0e9cf0ab288cf551e1c35d78365c4",
+      "ranges": [
+        [
+          1,
+          248
+        ]
+      ],
+      "assessment": "Full248 actual changed source read in two windows after hash match, including WGSL source. Typed ForearmSide, canonical ordinal/table/membership and RigJointParameter survive host logic until pass adapter. Native u32/f32 buffers, status bitmask, four-byte scratch layout and WGSL encoded joints are actual hardware boundary; source-shader shape/provenance still needs owning kernel contract, no blanket primitive exemption for upstream model. Forearm input length checks plus GpuBody/SeamTopology admissions called; their full invariants not inferred. Host lowarm/wrist homogeneous pair carries semantically distinct ends Q008; helper self.joint has no receiver-dependent policy but not evaluated as other-lens clearance. Shader guard handles collapsed length only, no GPU finite/physical/runtime clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 719,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_chausses.rs",
+      "sha256": "54ba768eb44e2df346af31606eaf56854b463e8f4bedad25d42c16ee4a8523fb",
+      "ranges": [
+        [
+          1,
+          334
+        ]
+      ],
+      "assessment": "Full334 actual changed source read in two windows incl WGSL. Named WGSL Station/Section records and present bool are constrained by shader language/native ABI rather than ordinary Rust enum omission; closed Rust Side/FitRegion/GarmentArmorKind map canonical RigJointPart/Ordinal then native uniforms. record_leg_cage returns semantic DeviceFrame/support Buffer pair Q008; meaningful buffer correspondence remains Q009 until actual producers. World-length parameter projects typed design leaves at kernel adapter. Actual shader section fallback selects nearest supported vertices and native bounds; degeneracy/finite/geometry/artistic acceptance not proven by source read. No current-main/runtime/new unique finding.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

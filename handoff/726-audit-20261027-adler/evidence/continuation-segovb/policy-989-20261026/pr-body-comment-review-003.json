@@ -1,0 +1,111 @@
+{
+  "id": "SEGOVB-PR990-PR-BODY-COMMENT-REVIEW-003",
+  "at": "2026-10-27T00:55:23.994069+00:00",
+  "head": "a21f9ccaeba1e3947e22dc1f64106c4f2bc371b6",
+  "run": 40421868169,
+  "scope": "Final validation counts, wording, wrap and capturedremote preservation only. No whole-source restart.",
+  "verdict": "No findings. Proposed body005 accurately reports the scoped final evidence, keeps execution totals distinct from unique tests, and preserves all remote prose outside Validation.",
+  "findings": [],
+  "fingerprints": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/pr-body-005.md",
+      "sha256": "c31be176cae8bec78e9897ce20065a7378d24ec8ab18b98488b4a11a1520d41b"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/pr-remote-before-validation-005.json",
+      "sha256": "c5763d7fe08159daf97c09f62f1ae6232e73e451feec3e3d3067aac84adab01e"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/final-gpu-artifact-001.json",
+      "sha256": "53143f238b49665256f47216b64c3030f4c1ad684cb06778aa044604a273758a"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/final-windows-artifact-001.json",
+      "sha256": "5ba0bd9e8104546719233e0b2aca944d804f67c7ca7912681d1c2fd9d6e5b112"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/final-constraints-artifact-001.json",
+      "sha256": "924704517a8b01e156f1464eb8817bb406cb1fe8a377edb4e5f0dfd781dd56a2"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/final-rig-artifact-001.json",
+      "sha256": "c13c2aab759fc129a0a4331e3be182f29614b8bcdf641e14227046040a0bd856"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/pr-body-comment-review-003-registration.json",
+      "sha256": "a3fe7f49e542549c198865f4abf082bd681c9f9e8b09e56a6a0110bedcda9054"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/final-comment-review-002.json",
+      "sha256": "568fad55ae39c781a44e347718691015d9c90f08e5cc96f34a978692bc80e022"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/implementation-manifest-004.json",
+      "sha256": "bdc4ae1576bd074c1fde967a2c90747380f2027c91e36cd94cc7c943070da5b9"
+    }
+  ],
+  "verified_counts": {
+    "GPU": {
+      "library": {
+        "passed": 13,
+        "failed": 0,
+        "ignored": 0
+      },
+      "doctests": {
+        "passed": 2,
+        "failed": 0,
+        "ignored": 0
+      },
+      "borrowed": {
+        "passed": 1,
+        "failed": 0,
+        "ignored": 0
+      }
+    },
+    "constraints": {
+      "library_passed": 67,
+      "doctest_passed": 5,
+      "failed": 0,
+      "ignored": 0,
+      "qualification": "Shell zero-doctest population is not represented as a positive group; aggregate5comesfromXPBD."
+    },
+    "Windows": {
+      "passed": 10,
+      "failed": 0,
+      "ignored": 0
+    },
+    "required_consumer_groups": {
+      "groups": 48,
+      "passed": 1461,
+      "failed": 0,
+      "ignored": 14,
+      "every_group_positive": true,
+      "exact_unique_label_set_matches_required_labels": true
+    },
+    "additional_guarded_groups": {
+      "groups": 3,
+      "passed": 106,
+      "failed": 0,
+      "ignored": 0
+    },
+    "ignored_policy": "Final rigreceipt reports exactper-group ignoredcounts equal acceptedprecedingsource; existingtest/workflowsource unchanged. No broader ignored-test acceptance is implied.",
+    "totals_meaning": "Executions; overlap acrosspackage/groupinvocations not deduplicated, matching bodyline35."
+  },
+  "wording_checks": {
+    "same_head": "All4artifacts andcapturedremote identify exacta21; bodyabbreviation a21f9ccae iscorrect.",
+    "terminal_status": "Allrequiredcheckspassed claim uses parentverifiedterminalCIstatus forrun40421868169 plus finalsameheadrigreceipt. Thispacket didnot independentlyfetchlivecheckstatuses; olderGPU/Windows/constraints pending-limit fields are historicalcapturelimits, not a currentfailure/pendingclaim.",
+    "source_review_scope": "Body reviewlanguage is boundedby thisPR/sourceincrement; previousfinalsourceCommentReview002 and9filemanifest retained without re-reading source. No wholeaudit/F9/Q003 clearance.",
+    "baseline": "862->812 matches finalartifact and priorfinalsourceinversebyteproof inreview002.",
+    "coverage_limit": "No newtests/cases/helpers/assertions/doctests, no reproducedhang claim retained; testpassesdo not claim direct newpoll/viewfailure-branch runtimecoverage.",
+    "remote_preservation": "BeforeValidation andafterImplementationcontext bytes match actualcapturedremote exactly. Only Validation changes.",
+    "wrap": "All ordinaryproselines <=80columns. Long hostedrunlink preserved as an indivisibleMarkdownlink.",
+    "checkpoint": "Capturedremote is open,draftfalse,mergedfalse at exacta21. Thisreview authorizes no publication or merge."
+  },
+  "limits": [
+    "Read artifactreceiptmetadata/counts, including all48compactcell counts; didnot rerun tests, re-download logs or re-attest archive digests.",
+    "No product/source/Git/publication/rootledger/history changes or projectexecution/checks/tests. Ignoredevidencewrittenonly.",
+    "No broader audit work resumed; all priorcounts/partials/aliases and newdependency obligations remainunchanged.",
+    "Stop all goal work at the ready, unmerged checkpoint as instructed."
+  ],
+  "stop": true
+}

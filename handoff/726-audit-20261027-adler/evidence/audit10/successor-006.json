@@ -1,0 +1,23 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-006",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1474,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment.rs",
+      "sha256": "c7869ebb6e2c2a67a4c47e9504c0ced6da6566f95fba9320181d49b1142a54fd",
+      "ranges": [
+        [
+          1,
+          1745
+        ]
+      ],
+      "source_basis": "Fresh root complete exact-object read in1-320,321-700,701-1050,1051-1400,1401-1745; only credited after tail.",
+      "trait_inventory_and_semantics": "Only manual trait is TacticalEquipmentPlugin::build with actual systems/plugin/resource registration. GrabSession, mesh/icon caches and attachment sockets derive appropriate Resource/Default; cached records/keys/selection/source already derive Clone/Copy/Debug/Eq/Hash as applicable. Remaining code is checked catalog/decode/hash cache authentication, native mesh/material assembly, input/HUD policy, bone/socket/topology mapping and source tests.",
+      "disposition": "No mechanical handwritten trait/codec opportunity. Keep Plugin scheduling and runtime key/bone/material selection; do not add Serde to replace classifiers or raw From to bypass checked cache admission. Identical field assembly follows distinct weapon/holder generation/authentication contracts and is outside derive substitution. Existing geometry/primitive/admission obligations remain; tests read without execution or additions.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

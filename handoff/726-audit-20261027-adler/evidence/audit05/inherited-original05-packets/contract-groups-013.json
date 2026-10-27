@@ -1,0 +1,99 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-013",
+  "at": "2026-10-22T19:25:32.807555+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_dormers.rs",
+      "sha256": "6484f99b8bdfc8cd1fc1f9aae444f6a56feaee41546a24d97109c317bba4c5f1",
+      "scope019_index": 2538,
+      "actual_EOF": 305,
+      "scoped_ranges_compared": [
+        [
+          1,
+          305
+        ]
+      ],
+      "fresh_source_proof": "Actual complete initial05 bodies read, focused relationships manually compared; prior03 roof narrative consumed as actual source facts, never a verdict or hash credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_drainage.rs",
+      "sha256": "78f6495882663da6c57047c052bf85c818f6640300a5c9e3819a1958e3393f1f",
+      "scope019_index": 2539,
+      "actual_EOF": 265,
+      "scoped_ranges_compared": [
+        [
+          1,
+          265
+        ]
+      ],
+      "fresh_source_proof": "Actual complete initial05 bodies read, focused relationships manually compared; prior03 roof narrative consumed as actual source facts, never a verdict or hash credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_split_drainage.rs",
+      "sha256": "3b490e81578cef157900d07954f9fb8d077058299d752879ba933ba0a604576a",
+      "scope019_index": 2546,
+      "actual_EOF": 223,
+      "scoped_ranges_compared": [
+        [
+          1,
+          223
+        ]
+      ],
+      "fresh_source_proof": "Actual complete initial05 bodies read, focused relationships manually compared; prior03 roof narrative consumed as actual source facts, never a verdict or hash credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_outlets.rs",
+      "sha256": "a867ca903db8d40b4576b9e1985a40c0483f6f75f5a69efde7b6aa35d6a36ba4",
+      "scope019_index": 2544,
+      "actual_EOF": 1005,
+      "scoped_ranges_compared": [
+        [
+          1,
+          1005
+        ]
+      ],
+      "fresh_source_proof": "Actual complete initial05 bodies read, focused relationships manually compared; prior03 roof narrative consumed as actual source facts, never a verdict or hash credit."
+    }
+  ],
+  "groups": {
+    "dormer-child-parent-and-weather-retention": {
+      "relationship": "Child parent backlink, parent child-link kind/split edges, opening cuts, physical weather pieces and parent roof polygon must describe the same attachment; fallible draft mutation is distinct from published accepted state.",
+      "source_trace": "roof_dormers1-77 constructs child from DormerLayout using assemblies[0], extends ridge36, removes rear gable37, appends enclosures46, attaches58 and only then pushes child73. Parent Option11 does not guard unconditional assemblies[0]21; nonempty principal assembly is an actual caller precondition, not a Vec guarantee. Existing RootF001 accepted-graph admission covers public/raw missing parent. Generated ID1000+index and owner61000+index have conditional namespace capacity limits, no current extreme caller established.",
+      "retention": "extend_ridge78-123 changes rear high polygon points and matching edge endpoints; for a gable ridge-axis extension the original coupled plane can remain algebraically correct, so changed polygon alone is not evidence of a bad plane. It does not rebuild all previously generated surfaces/catchment extents. remove_reargable125-169 retires rear physical weather plus matching 0x9 interface and makes rear verge OpeningCut; append171-237 creates exactly front/two cheek enclosures using actual child face and parent height/fallback. attach239-305 adds actual void cut, invokes cut/valley helpers, then matching kind-specific reciprocal child link. Cross-gable split returns actual three role IDs. No broad guarantee that every raw independently mutable link is reciprocal.",
+      "qualification": "Geometry/parent can be modified before helper Err in this draft; external rollback cannot be inferred from helper mutability. Framed builder/publication and editor clone contracts remain separate. A potential stale old extent after ridge extension needs an actual final consumer/rebuild invariant; retained as an explicit relationship limitation, not a new proven runtime defect.",
+      "disposition": "Actual coordinated attachment/retirement with unsealed raw graph and qualified caller preconditions; support RootF001/F002, no new unique finding."
+    },
+    "face-drainage-same-source-products-and-route-binding": {
+      "relationship": "Network, catchment, route, channel floor/two lips, spout and edge terminal must refer to the same owner/face and actual generated products.",
+      "source_trace": "roof_drainage1-265 removes owner networks and RoofGutter solids before rebuilding. Per face it selects actual lowest Eave/Valley edge or skips, creates floor/two lip IDs from one serial face_index*8, uses fixed [2] lip IDs zipped with exactly [-1,+1], and uses that face support_nodes. Sampling can be empty in this main routine; firstsample fallback to high end is intentional. Generated valid faces have nonempty support node arrays under roof_resolution actual plate derivation, while raw face literals do not.",
+      "retention": "Actual matching catchment->route->outlet lookup updates toe IDs/tangent/outward and route inlet/outlet before appending network. It does not reconstruct every pre-existing catchment centre/width/inner elevation or weather surface when parent polygons have changed. Original physical support interfaces are not removed by initial RoofGutter removal; repeated arbitrary rebuilding is not inherently idempotent. Current intended once-through caller sequencing is separate; no repeated normal call or mismatching field consumer proven here.",
+      "disposition": "Current coherent constructor linkage established for actual selected records; broad public accepted state/independent mutation and ID capacity remain RootF001/F002. No whole-geometry transactional guarantee or newly proven repeated-call defect."
+    },
+    "split-eave-role-membership-and-nonempty-sampling": {
+      "relationship": "A cross-gable child split denotes two retained eaves and a recessed apron, not three interchangeable IDs; each supplemented network must belong to an actual retained edge/face and positive sample set.",
+      "source_trace": "roof_split_drainage6-18 gates CrossGable and len==3 BEFORE indexing. existing_edges19-24 is owner-filtered actual network set; each candidate skips an already represented edge, missing actual edge29 or adjacent actual face32. Sampling65-67 skips empty BEFORE samples[0]150/172. Fixed floor/lips/spout IDs, route/catchment/network products are derived together and same actual face/node.",
+      "valid_leaf_counterexamples": "len3 alone does not prove distinct/matching member IDs; raw children can contain duplicate or unrelated IDs. Snapshot existing_edges is not updated inside the loop, so duplicate raw receiver IDs could append repeated products. Actual split helper yields three distinct role products under ordinary non-colliding allocation; do not invent a normal duplicate caller. Child ID low-byte truncation and namespace OR at68 preserve F002 conditional capacity concern.",
+      "disposition": "Positive cardinality/membership/empty-sample safeguards, not a sealed graph. Preserve apron role, sample order, physical units, empty skip and original error ordering; no forced convex polygon or generic zero prohibition."
+    },
+    "outlet-disposition-payloads-and-shared-product-binding": {
+      "relationship": "A station disposition, host/contact/recipient, physical optional pipe, common void, member network IDs and each network edge terminal/route must describe one outlet.",
+      "source_trace": "roof_outlets1-1005 reads immutable assembly snapshot; owner-filtered nonempty network_indices51 sorted around roof centre, station_count max1/minlen and positive div_ceil chunk72-79 ensure every actual chunk nonempty. Thus chunk[0], middle, means and member indexes use the same current network vector, which is not resized here. Comment says principal roofs at most two but actual cap is four for all72-75; no invented two-station invariant.",
+      "whole_payload": "Tuple481-800 constructs FreeDripToParentRoof => None host/contact/pipe + actual selected parent/face recipient; BoundDownspout => Some selected actual host/contact, GroundSplashApron, old_spouts.min; FreeDripToGround => None host/contact/pipe and ground recipient. Bound pipe is conditional on both Some(spout),Some(host)825; actual normal source networks supply spout, raw independent state could lack it. Lookup host expect829 follows same immutable actual wall selection, collector face expect905 follows generated network.face; raw nonexistent face remains RootF001, not a checked leaf guarantee.",
+      "retention": "Old member spouts and corresponding interfaces802-809 retired together, old voids replaced by common first-member outlet813. Each actual member943-974 gets same station/void/spout/discharge, actual receiving edge terminal and catchment route outlet updated; actual collectors appended to toe IDs. Station final payload989-1001 uses exact member list/current recipient surface. Does not clear all old recipient surfaces or collectors on arbitrary repeat; current once-through caller versus general idempotence must remain distinct. Raw public network/station fields admit mismatched host/recipient/member references despite valid leaf IDs.",
+      "clearance_qualification": "Parent fallback229-255 searches weather/downhill without all obstacle checks of the first search; ground candidate find624-783 falls back784-788 to final ordered offset even when all clearance predicates fail. Construction is not a universal clear-fall admission gate; comments explicitly delegate drainage clearance to audit. Preserve ordered native tolerances, obstacle exceptions, roof/child specific routing and free-drip valid absence.",
+      "capacity": "Collector ID898-899 masks member_slot to5bits. With more than32 members in one station chunk, actual generated products can alias conditionally; roof/resolution bounded current cases not proven to reach that capacity. Same F002 allocator dependency, not another deduplicated defect.",
+      "disposition": "Actual one-pass correlated mutation positive proof with raw aggregate and audit-delegated physical clearance qualifications. No claim that checking individual Bounds/Cuboid leaves seals topology, drainage path, current weather extents or arbitrary repeated invocation."
+    }
+  },
+  "connected_repair_acceptance": "Root retains whole-function repair authority under023. Coherent accepted roof graph/payload factories and operations must preserve cross-record identity, same-source membership, role-specific absence, reciprocal links and physical descriptor updates. Keep raw recipe/source evidence separate from accepted assemblies, current clone publication behavior, concave/hole geometry and exact native numerical/selection/error ordering. Conditional ID capacities share F002 rather than adding per-helper counters as unrelated fixes. No edits or new tests.",
+  "new_unique_findings": [],
+  "finding_support": [
+    "RootADM-F001",
+    "NATIVE-INITIAL05-F002 conditional capacities"
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

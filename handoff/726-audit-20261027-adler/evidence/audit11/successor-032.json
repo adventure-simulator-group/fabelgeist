@@ -1,0 +1,129 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-032",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 470,
+      "source_id": "pinned-bevy-replicon-0.41.1:src/shared/replication/registry/rule_fns.rs",
+      "sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+      "ranges": [
+        [
+          175,
+          290
+        ]
+      ],
+      "source_basis": "FreshrootexactpinnedregisteredSDKcontractranges, notforeignwholelibrarysweep.",
+      "concepts_actual_uses_and_mixup": [
+        "SDKRuleFns defaultactuallychoosesSerde/Postcardserialize/deserialize thencomponententitymapping; serializedrepresentationC/TconversionusesInto/Fromunderactualframeworkboundary. ApplicationcheckedincomingDeserialize remainsnecessary. Inplaceassignsafterdeserializesucceeds; consumechangesmappingflagwithErrpropagation, no wholeWriteCtxlifecycle/errorcleanupclearance. DiffsSnapshotversusDiffswholepayload hasindexedphase; finalfunctiontailnotread."
+      ],
+      "disposition": "Own11accountedWITHactualdecoder/application/SDKsafetylimits; no newuniquefinding or runtime/fullSDKclearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 471,
+      "source_id": "pinned-bevy-replicon-0.41.1:src/shared/replication/rules.rs",
+      "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+      "ranges": [
+        [
+          1,
+          145
+        ],
+        [
+          250,
+          277
+        ]
+      ],
+      "source_basis": "FreshrootexactpinnedregisteredSDKcontractranges, notforeignwholelibrarysweep.",
+      "concepts_actual_uses_and_mixup": [
+        "AppRuleExtactualreplicate/filtered/once/diffregistrationusesRuleFnsdefault/customfunctions, genericboundsrequireSerialize/DeserializeOwnedandnativeComponent. Documentationquantization/Transformexamplesareexamples,nottargetapplicationorproofnumericalbounds. Registered1-145/250-277only, no full1386bodyordispatchpipelineclearance."
+      ],
+      "disposition": "Own11accountedWITHactualdecoder/application/SDKsafetylimits; no newuniquefinding or runtime/fullSDKclearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 472,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/postcard_utils.rs",
+      "sha256": "4a9f413f61885f1581e0a3ddadb2528459e45bd2ea029a7a08ad3b2ab085d537",
+      "ranges": [
+        [
+          1,
+          40
+        ],
+        [
+          120,
+          133
+        ]
+      ],
+      "source_basis": "FreshrootexactpinnedregisteredSDKcontractranges, notforeignwholelibrarysweep.",
+      "concepts_actual_uses_and_mixup": [
+        "Postcardadapterto_extend_mut callsSerializethroughwriterflavor; from_buf callsactualT::deserializewithnativebufflavor, preservingstructuredincomingchecksintheapplicationDeserialize. Completebufferconsumption orwholemessageframingnotimpliedbyfrom_bufhere; actualflavorbodyoutsideassignedrangesunread."
+      ],
+      "disposition": "Own11accountedWITHactualdecoder/application/SDKsafetylimits; no newuniquefinding or runtime/fullSDKclearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 473,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/message/client_event.rs",
+      "sha256": "aab1a187ebfe12274e2d36a8e87e658429edf99f9570fd9f8381141e6ea7a18b",
+      "ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "source_basis": "FreshrootexactpinnedregisteredSDKcontractranges, notforeignwholelibrarysweep.",
+      "concepts_actual_uses_and_mixup": [
+        "ClienteventregistrationkeepsEventtypeID, channel, serializationfns andtriggeradapterassociated. MappedregistrationexplicitmapsEntitiesbeforeSend; FromClientclientIDisactualsessionorigin, notgameplayCharacterIdauthority. Unsafeerasedtriggerrequiresmessage/typeassociationandtypedtriggerforwardspayload/clienttogether. SDKsafetypreconditions/lifecyclebeyondregisteredrangesnotcertified; noallnetworkauthorizationclearance."
+      ],
+      "disposition": "Own11accountedWITHactualdecoder/application/SDKsafetylimits; no newuniquefinding or runtime/fullSDKclearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 474,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/message/client_message.rs",
+      "sha256": "49ffa8758c206f00ed3ec3250015a7b76ee4fe5f0308151c368078185c7926e2",
+      "ranges": [
+        [
+          479,
+          507
+        ]
+      ],
+      "source_basis": "FreshrootexactpinnedregisteredSDKcontractranges, notforeignwholelibrarysweep.",
+      "concepts_actual_uses_and_mixup": [
+        "Clientdefaultserialize/mappedserialize\u2192Postcard, mapEntitiesbeforeencode; defaultdeserialize\u2192actualM::Deserializefrombufwitherrorpropagation. Nativewiregeometry/IDsareadmittedonlyifspecificMdecoderdoesit; no inferredvalidationfromDeserializeOwnedbound."
+      ],
+      "disposition": "Own11accountedWITHactualdecoder/application/SDKsafetylimits; no newuniquefinding or runtime/fullSDKclearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 475,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/message/message_fns.rs",
+      "sha256": "bd043879e363b91cda3145415f64244ee5b85707c33bc0bdcea4ecd3e4085f62",
+      "ranges": [
+        [
+          118,
+          209
+        ]
+      ],
+      "source_basis": "FreshrootexactpinnedregisteredSDKcontractranges, notforeignwholelibrarysweep.",
+      "concepts_actual_uses_and_mixup": [
+        "MessageFns<S,D,M,I> groupsserialize/deserializetypeparametersandadapters. with_convert requires AsRef<I>+From<I>, fallibleownershipchecks muststayactualincomingIdecoder/customDeserializefns, notunprovedinfallibleFrom. Helpersforwardexactregisteredfunctions/context/payload, conversiononlyafterdeserializeOk. ThisisexplicitSDKnativeadapter, noapplicationtypecoupling/prooftransfer."
+      ],
+      "disposition": "Own11accountedWITHactualdecoder/application/SDKsafetylimits; no newuniquefinding or runtime/fullSDKclearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

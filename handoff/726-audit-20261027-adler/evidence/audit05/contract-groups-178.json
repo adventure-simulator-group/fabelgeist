@@ -1,0 +1,173 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-178",
+  "at": "2026-10-25T21:04:52.827834+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1925,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/candidates.rs",
+      "sha256": "3d43e5f1ea3eaa2b4ef34c3b21965f23981802c64eea068ee61ae184c69e6a00",
+      "personally_read_ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full143 lines read. LocalCandidate derives deterministic group ID from seed plus anchor tag/ID/kind/slot; variant derives from that identity. Each LocalItem retains key and exact fallible recipe plus admitted local displacement. Reservation extrema include every recipe clearance and kit gap, then all offsets are recentered against the same extrema before checked PlanExtents retention.",
+        "Current composition1926 returns nonempty fixed arrangements, so initial infinite extrema cannot survive empty production composition. place consumes this complete local candidate and binds one admitted scene footprint/pose; native key/recipe mutation is possible through module fields but actual producers retain equality. Hash collision/enum-ordinal stability require separate evidence, not assumed collisions."
+      ]
+    },
+    {
+      "scope_index": 1926,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/candidates/composition.rs",
+      "sha256": "05750ce7d6a8f3afd88276d9baebd4bc1d7f523692648055c76682c740f901c1",
+      "personally_read_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full24 lines read. Closed group-kind composition always includes one or more physical furniture kinds; vendor random index has four bounded arrangements, others have explicit kits. Identity-keyed random branch controls full composition; no independent optional-key collection can leave unmatched offsets."
+      ]
+    },
+    {
+      "scope_index": 1927,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/candidates/frontage.rs",
+      "sha256": "41fde4d65e80d763b05b87610fd7abd7b749f080370869c1d57eebb153b30131",
+      "personally_read_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full71 lines read. Building use determines a single group kind and shared group limit. Each of20 bounded slots creates a full LocalCandidate, derives gap/offset from that candidate extent and same building envelope, then applies the same admitted orientation and placement centre. Candidate generation proposes positions; actual clearance/ownership acceptance remains queued1935 and is not implied by this helper."
+      ]
+    },
+    {
+      "scope_index": 1928,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/candidates/market.rs",
+      "sha256": "dd69ac02f15fd9ea319e4936ca043f3d44bb7c3c17ee086a3bddefa939c70236",
+      "personally_read_ranges": [
+        [
+          1,
+          208
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full208 lines read. MarketFrame derives centre, orientation and min/max in one frame from the selected market corners, then computes each boundary inset from reservations. Error becomes absent frame and skips proposals; no successful proof from the Option alone. Bounded paired rows/columns carry patch index, actual patch, direction/y/slot and anchor together; original candidate extent drives advance and central through-route avoidance.",
+        "Reversed row facing adds half-turn through BuildingOrientation::from_radians; actual support1915 lines27-94 normalizes finite radians, so positive-pi is not an error here. Frame is conservative rectangle around arbitrary quadrilateral; final candidate.market contains original patch for acceptance1935. Customer aisle placement near final row boundary and arbitrary invalid market geometry require final recipient/policy trace before defect claim."
+      ]
+    },
+    {
+      "scope_index": 1929,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/collision.rs",
+      "sha256": "f62042f52b90927aa161dcd0af4e4fd714c15b0e1732e8e93a7a2cff98aed060",
+      "personally_read_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full29 lines read. Collider recipe is resolved once from exact FurnitureKey, and each physical cuboid retains centre, composed yaw/crossfall/longfall quaternion and dimensions as one compound element. Canvas/water are intentionally absent. Owning recipe validates geometry; function returns recipe errors before constructing compound. No normal mismatch between display key and collision recipe proved."
+      ]
+    },
+    {
+      "scope_index": 1930,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/footprint.rs",
+      "sha256": "2d944f76903a993e6124e546880e4e4b294c89ab1967f5f89b23e9413919ac11",
+      "personally_read_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full122 lines read. Private FurnitureFootprint pairs admitted scene centre/PlanExtents/orientation through one native and serde constructor, checks orientation and every computed corner finite before publication, and exposes read-only accessors. Contains and SAT intersection use same frame axes/extents, with strict overlap so boundary contact is not intersecting. Native extent positivity is owning PlanExtents contract; constructor does not fabricate site ownership or whole-layout nonoverlap."
+      ]
+    },
+    {
+      "scope_index": 1931,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/ground.rs",
+      "sha256": "0309759636f548b7fc109f9743cbb1dd6a5a7ad5d3f41e24ef4a1521ef83b9b5",
+      "personally_read_ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full97 lines read. PlacementGround keeps input/terrain/ground references together. Height chooses actual playable support, else triangle height from first vista grid plus optional next grid. Scope requires all footprint corners inside playable; intersecting straddlers reject, fully outside goes Vista. This prevents assigning one group across physical/vista authority boundary at this classifier.",
+        "Activity excludes landform collar, water/mud playable substrate and vista cells with any of four samples too wet. Grid indexing relies source validation dimensions/cardinality established1960 and1914, so arbitrary malformed raw TacticalSceneInput is not independently certified by this helper. Larger vista grid support/material policy remains recipient-specific; only firstLOD material lookup is explicit, no proof it must accept farther rings."
+      ]
+    },
+    {
+      "scope_index": 1932,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/interior.rs",
+      "sha256": "bafc30c78120a7b81fdf782b1d30782169a0f8632dcb973eac202b39c69847f0",
+      "personally_read_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full103 lines read. append furnishes each actual building plan/program then installs its placements. instance derives scene X/Z from local centre minus matching collision origin and building orientation; floor height comes from same building plan plus admitted base elevation; IDs seed building/room/storey/local pose/key kind together; emitted FurnitureLocation retains same building/room/storey.",
+        "install appends instances one-by-one and appends InteriorBuildingLayout only after all conversions succeed; a later error can leave prefix instances on caller-owned mutable layout. Public install_interior assumes worker-prepared layout matches actual destination plan; no validate_layout call here. Actual caller failure/publication behavior and prepared-source association must be traced before accepting stale/mismatched installed layout. Current fixture does not establish invalid production output."
+      ]
+    },
+    {
+      "scope_index": 1933,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/interior/tests.rs",
+      "sha256": "503801e4a1878c3ff962d59f4526020b82b8d798fbb60de2c5e232b686c7d11f",
+      "personally_read_ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full87-line fixture body read. Matching admitted programme/building produces interior layout, compares world-to-local centre, floor datum, facing and building/room/storey identity per zipped placement, asserts unique IDs and deterministic repetition. It independently calls generator validate_layout for proof. Reading assertions is not an executed pass or proof that arbitrary worker layout matches destination."
+      ]
+    }
+  ],
+  "support_reads": [
+    {
+      "scope_index": 1915,
+      "ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "role_credit": "none; inherited bounded source support"
+    }
+  ],
+  "qualified_dependencies": [
+    {
+      "source_index": 1932,
+      "range": [
+        20,
+        48
+      ],
+      "contract": "Interior layout identity and partial installation publication",
+      "status": "actual caller handling and prepared-source association pending; no accepted new defect"
+    },
+    {
+      "source_index": 1928,
+      "range": [
+        119,
+        129
+      ],
+      "contract": "Final customer aisle inside market reservation",
+      "status": "actual recipient/required complete-aisle policy pending; no accepted defect"
+    }
+  ],
+  "findings": [],
+  "discovery": "9 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

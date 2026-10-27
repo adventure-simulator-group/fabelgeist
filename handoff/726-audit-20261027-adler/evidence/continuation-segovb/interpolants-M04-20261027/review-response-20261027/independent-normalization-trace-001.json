@@ -1,0 +1,196 @@
+{
+  "task": "PR992 bounded independent producer/owner/receiver normalization discovery",
+  "reviewer": "texture_code_review",
+  "status": "source-backed recommendation; not final edited-head Code Review",
+  "registrations": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-normalization-registration-001.json",
+      "sha256": "32b4d20776648762208a11ccfb6fe64ad26bb2176dc09092059302ff17af24a0"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-normalization-registration-002.json",
+      "sha256": "6c5db6585c18387bab41a46ef869787dfa5f00b4bb3f53d2107e65d4c3b49eab"
+    }
+  ],
+  "consumed_sources": [
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "b1561f750844b7395f96f8fe2ee767db88d73fb8d8b6e997779493130b09f877",
+      "eof": 173,
+      "ranges": [
+        [
+          1,
+          145
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "7cca5e5cef2f3c3a5a11c88dba547195f36d61f4665f157c8d55eedc30179eab",
+      "eof": 267,
+      "ranges": [
+        [
+          1,
+          267
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "3e29916a9d570f6e0d12ffb54541ee018fb068902a4e5b6c0f744db9971d9ba9",
+      "eof": 100,
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "sha256": "2767919da7545eecbaab9b212fc6a8e52802f6a61f3862c447903f75cf1ec6e7",
+      "eof": 327,
+      "ranges": [
+        [
+          200,
+          275
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "sha256": "fe34810c16d01e6e72cb6550444fb14d00245023b73d532a7bd87f5582897fc3",
+      "eof": 200,
+      "ranges": [
+        [
+          1,
+          200
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/presentation/cadence.rs",
+      "sha256": "9d7d6ca4239a97970517ad7b8b388d8173ce2cba9872f725316af92899489e9f",
+      "eof": 90,
+      "ranges": [
+        [
+          1,
+          90
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer/contact_calibration.rs",
+      "sha256": "818826cc05de685d9d918e9e1ec5693f18cf7544fd36a7777ffa191f80e7de32",
+      "eof": 447,
+      "ranges": [
+        [
+          153,
+          225
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer/stride_calibration.rs",
+      "sha256": "f3474e23dc4875712eb9e3c3a0ad4da0bd71e840ff758ae43ab1b877231e05e4",
+      "eof": 297,
+      "ranges": [
+        [
+          133,
+          235
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "sha256": "2767919da7545eecbaab9b212fc6a8e52802f6a61f3862c447903f75cf1ec6e7",
+      "eof": 327,
+      "ranges": [
+        [
+          275,
+          292
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "sha256": "7b026fd31eb9c09c84b446dbb0b71faea9717f93c027226dfbe357c5150dd704",
+      "eof": 591,
+      "ranges": [
+        [
+          1,
+          35
+        ],
+        [
+          366,
+          390
+        ]
+      ]
+    }
+  ],
+  "basis": {
+    "native_boundary_receipt": {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/interpolation-boundary-trace-001.json",
+      "sha256": "f769e5e161104396b5effa80f954f00194ccb4667dd6bd1584ac4496afa48591"
+    },
+    "rules": "Previously freshly read producer-propagation, existing-type-owners and invariant-operations skills plus root/crates/core/tactical-core AGENTS. Client animation AGENTS newly read for these recipients; no live-play incident diagnosed and no scenario/test execution authorized."
+  },
+  "actual_four_producers": [
+    {
+      "site": "animation/locomotion.rs129-170 locomotion_profile",
+      "trace": "SkeletonState::animation_speed native horizontal norm is checked and admitted NonnegativeSpeed72-84. Ordinary upright/non-raised path computes clamped speed-minus-walk / run-minus-walk146-151; admitted UnitInterval drives gait selection, typed speed and CycleDelta interpolation, HeightDistance scaling; profile retains typed fields. Preserve downed/guard early returns."
+    },
+    {
+      "site": "animation/locomotion.rs175-193 ordinary_step_distance",
+      "trace": "Extracts speed; <=walk branch interpolates raw0.9metres to walkdistance with rawspeed/walk; >walk branch duplicates same clamped runfraction and extracts typed endpoint lengths before native scalar lerp, then re-admits final NonnegativeLength. Both low-speed and run fractions can be produced by NonnegativeSpeed owner; typed length endpoints should reach existing NonnegativeLength checked_lerp."
+    },
+    {
+      "site": "animation/evaluation/locomotion.rs218-261 locomotion_samples",
+      "trace": "speed/blend_speed enters raw smoothstep01 then factor is extracted; runfraction230-238 duplicates speedrange. Factors become BlendWeight idle/walk/run then append_scaled275-288 receives typed BlendWeight, checks multiplication before extending samples. PoseSample.weight retained as BlendWeight in evaluation.rs15-34. Typed UnitInterval complement/multiply/smoothstep can keep bounded coordinate until explicit lossless widening into the existing BlendWeight owner; do not narrow generally unbounded BlendWeight."
+    },
+    {
+      "site": "client animation/authored_cadence.rs133-161 AuthoredLocomotionStrides::ordinary",
+      "trace": "Same fourth runfraction143-151; requires current CalibrationInputs and walk measurement first; blend<=0 returns walk; positive blend requires run, then admits UnitInterval and lerps. Preserve absent/current-configuration gates and return type Result<Option<AuthoredStrideMeasurement>>. New typed speed inverse operation replaces raw normalization; no extra retained rawfactor."
+    }
+  ],
+  "owners_and_receivers": [
+    {
+      "owner": "NonnegativeSpeed",
+      "source": "core/linear_speed.rs1-145",
+      "contract": "Private f32, finite nonnegative constructor, typed ZERO/endpoints; current checked_lerp accepts UnitInterval and checks output. Appropriate owner for self.clamped_inverse_lerp(lower,upper)->SpeedResult<UnitInterval>. Reject upper<=lower before division, handle <=lower asZERO and >=upper asONE. Only interior admitted nonnegative finite values subtract/divide. With ordered endpoints, upper-lower is positive finite; interior numerator nonnegative finite and monotone<=denominator. Admission still explicit; define nonincreasing-range error rather than silently accepting reversed/equal ranges. Configuration aggregate proof must independently ensure intended ordered walk/run/fade endpoints."
+    },
+    {
+      "owner": "NonnegativeLength",
+      "source": "animation/measurement.rs1-100",
+      "contract": "Private finite nonnegative f32; from_arithmetic maps nonfinite to Length Overflow and validates nonnegative; positive-config conversion and half existing. Add checked_lerp(Self,Self,UnitInterval)->AnimationValueResult<Self> to this existing owner, native f32 computation then immediate from_arithmetic. No new length type/generic math abstraction needed."
+    },
+    {
+      "owner": "AuthoredStrideMeasurement",
+      "source": "client animation/authored_cadence.rs8-27,62-76",
+      "contract": "Both step_distance and maximum_stance_slip already retain NonnegativeLength; lerp currently extracts and re-admits each. Delegate each field to NonnegativeLength::checked_lerp with same typed factor; retain both independent fields, no schema change needed."
+    },
+    {
+      "producer": "contact calibration",
+      "source": "pose_buffer/contact_calibration.rs154-224",
+      "contract": "Native fitted slope/residual statistics lead to finite checked stepdistance/slip, positive cycle-distance filter, both NonnegativeLength admissions, configured foot-range check, typed stride returned. This bounded trace does not certify earlier fitting inputs/all callers."
+    },
+    {
+      "retention": "stride calibration",
+      "source": "pose_buffer/stride_calibration.rs133-235",
+      "contract": "Loaded clip/calibration errors skip publication; walk/run use contactcalibration; strafe/skip range plus typed ZERO slip; clears prior motion after prepare, logs/qualifies slip then assigns Some(stride) to selected typed option and clip identity. No new fallback should be added."
+    },
+    {
+      "consumer": "presentation cadence",
+      "source": "presentation/cadence.rs25-86",
+      "contract": "Upright/nonquickstep gate, ordinary/combat selection, absent-measurement/continuing-stationary policy, typed stepdistance passed to select_for_motion, typed slip compared to budget, typed applied cadence advances CyclePhase. Keep typed receiving path and errors; underlying cadence-limit body not freshly reread in this supplemental packet."
+    }
+  ],
+  "recommendation": "Proceed with narrow existing-owner operations and four migrated producer calls. Keep CycleDelta direct Bevy/glam boundary as independently proven. Typed lengths remain typed through authored stride interpolation; only owner/native kernels extract. Root planned changes require separate exact edited-source review, including all range validators/error propagation and build-script inclusion contexts.",
+  "limitations": [
+    "No product/Git/root-ledger edits, project commands, tests/probes/helpers/assertions/doctests or publication. Evidence-only reads/writes.",
+    "No final source completeness/currentness verdict, no global13/all20 clearance, no accepted unique count.",
+    "Authored combat weighted-mean native kernel is read as connected context but not proposed migrated or universally proven.",
+    "All registered sources rehashed after reads with exact unchanged hashes. Other agent preflight used only as source locator/planning context; source bodies above independently consumed.",
+    "No numerical execution; inverse-range arithmetic argument is source/math reasoning. No runtime manifestation or live tactical incident claim."
+  ]
+}

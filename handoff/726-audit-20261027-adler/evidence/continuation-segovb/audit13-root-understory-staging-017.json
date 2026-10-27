@@ -1,0 +1,50 @@
+{
+  "source_manifest": {
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/understory.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/understory.rs",
+    "owner": "root",
+    "sha256": "2d5aaa58b592f7182c148c4bcdd572837c6e85df8e036e622c604c92bb594d96",
+    "base_sha256": "d548990d368227fc02b40b6c9dea344b435a81e2a3ad8882a4709a9761fb0a6e",
+    "state": "modified",
+    "bytes": 12616
+  },
+  "path": "target/recovery-20261025/continuation-segovb/source-objects/2d5aaa58b592f7182c148c4bcdd572837c6e85df8e036e622c604c92bb594d96",
+  "sha256": "2d5aaa58b592f7182c148c4bcdd572837c6e85df8e036e622c604c92bb594d96",
+  "actual_lines": 357,
+  "locators_only": [
+    [
+      11,
+      "pub(super) struct UnderstoryHabitat {"
+    ],
+    [
+      20,
+      "pub(super) struct ShrubPlacement {"
+    ],
+    [
+      27,
+      "pub(super) enum UnderstorySpecies {"
+    ],
+    [
+      33,
+      "pub(super) fn select_species(hash: Seed, habitat: UnderstoryHabitat) -> UnderstorySpecies {"
+    ],
+    [
+      62,
+      "pub(super) fn placements("
+    ],
+    [
+      107,
+      "fn community_hash(base_seed: Seed, x: i32, z: i32) -> Seed {"
+    ],
+    [
+      119,
+      "fn community_density_multiplier(hash: Seed) -> f32 {"
+    ],
+    [
+      135,
+      "fn ground_allows_species(surface: GroundSurface, species: UnderstorySpecies) -> bool {"
+    ]
+  ],
+  "body_coverage": false
+}

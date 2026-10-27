@@ -1,0 +1,53 @@
+--- base:630f8e3e98411ed571b011cdd36f22ff53ea367770a459c0fd16617077b05a1c
++++ head:f1e1fe557065da98b1e80397aeb190dfacdbeaa1d9ab5c240094e27f8cfb7adf
+@@ -1,6 +1,40 @@
+-//! Reject unusable fitted vertices and missing triangle slots.
++//! Admit aligned body inputs and reject unusable fitted garment geometry.
+ 
+ use super::{ClothingError, ClothingFaceContext, ClothingPieceName};
++use fabelgeist_rig::{PackedRigSkin, RigJointName, RigJointTable};
++
++type Result<T> = std::result::Result<T, ClothingError>;
++
++/// The fitting kernels consume rest-frame XYZ points/normals and native vertex
++/// slots alongside admitted rig slots. Check their shared surface and joint
++/// extents before any garment selection or rest-frame numerical operation.
++pub(super) fn validate_body_inputs(
++    positions: &[[f32; 3]],
++    normals: &[[f32; 3]],
++    faces: &[[u32; 3]],
++    joint_indices: &PackedRigSkin<8>,
++    joint_weights: &[[f32; 8]],
++    joint_names: &RigJointTable<RigJointName>,
++    global_joint_states: &RigJointTable<[f32; 8]>,
++) -> Result<()> {
++    let vertices = positions.len();
++    if normals.len() != vertices
++        || joint_indices.len() != vertices
++        || joint_weights.len() != vertices
++        || global_joint_states.len() != joint_names.len()
++        || joint_indices.joint_count() != joint_names.joint_count()
++    {
++        return Err(ClothingError::InconsistentBodyInputs);
++    }
++    if faces
++        .iter()
++        .flatten()
++        .any(|vertex| *vertex as usize >= vertices)
++    {
++        return Err(ClothingError::MissingBodyVertex);
++    }
++    Ok(())
++}
+ 
+ /// `positions` are fitted XYZ points in metres in the body's rest frame;
+ /// `faces` hold three encoded vertex slots per triangle. Rejected triangles
+@@ -9,7 +43,7 @@
+     name: &ClothingPieceName,
+     faces: &[[u32; 3]],
+     positions: &[[f32; 3]],
+-) -> Result<Vec<[u32; 3]>, ClothingError> {
++) -> Result<Vec<[u32; 3]>> {
+     if positions.iter().flatten().any(|value| !value.is_finite()) {
+         return Err(ClothingError::NonFiniteFittedVertex {
+             garment: name.clone(),

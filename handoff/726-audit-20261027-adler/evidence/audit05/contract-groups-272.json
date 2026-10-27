@@ -1,0 +1,37 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-272",
+  "at": "2026-10-25T22:29:25.164206+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2415,
+      "source_id": "pr-working:crates/strategic-web/static/equipment-icons/belt--worn.png",
+      "sha256": "5b4ab9883c3153a5f2aaff6dc07d118e75eb7f8b1f17e99a562c9186f2fa438c",
+      "personally_read_ranges": [],
+      "coverage_kind": "binary visual/nonsemantic asset inventory disposition",
+      "source_state": "present",
+      "aggregate_trace_and_dispositions": [
+        "Exact frozen binary13625bytes SHA5b4ab9883c3153a5f2aaff6dc07d118e75eb7f8b1f17e99a562c9186f2fa438c cached from handoff Git object. Personally inspected PNG pixels via view_image:128x128 belt material/strap texture on transparent/dark background. No source-bearing aggregate state or executable contract in raster bytes. Asset role accounted as visual/nonsemantic disposition, no code/consumer path clearance."
+      ],
+      "visual_evidence": "view_image exact source2415; source2416 has identical bytes",
+      "semantic_credit": "none for Rust/JS or consumer linkage"
+    },
+    {
+      "scope_index": 2416,
+      "source_id": "pr-working:crates/strategic-web/static/equipment-icons/leather_belt--worn.png",
+      "sha256": "5b4ab9883c3153a5f2aaff6dc07d118e75eb7f8b1f17e99a562c9186f2fa438c",
+      "personally_read_ranges": [],
+      "coverage_kind": "explicit deleted binary absence/base disposition; no current-body credit",
+      "source_state": "deleted",
+      "aggregate_trace_and_dispositions": [
+        "Deleted role: recovered exact base13625byte PNG has same SHA as2415 and identity verified byte-for-byte. Personally inspected shared identical image via2415. Current filename absence is authoritative recovered deletion metadata; no current-body credit, no semantic inference that all consumers use replacement name."
+      ],
+      "visual_evidence": "view_image exact source2415; source2416 has identical bytes",
+      "semantic_credit": "none for Rust/JS or consumer linkage"
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

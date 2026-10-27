@@ -1,0 +1,68 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-343",
+  "at": "2026-10-25T23:27:10.565044+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 16,
+      "source_id": "native-dependency:parry3d-0.27.0/Cargo.toml",
+      "sha256": "e9a4996484162b4fcda871bf170f0224ad27e1fff77ef5c88a8d8eafdfc89b9a",
+      "personally_read_ranges": [
+        [
+          60,
+          87
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Exact registered feature ranges60-87 read. Default enables required-features/std/spade; required-features enables dim3 and f32; enhanced-determinism enables simba/libm_force,indexmap,glamx/libm. This is a feature declaration relation, not proof of resolved project feature graph or cross-platform deterministic collision semantics; no whole manifest/dependency source credit."
+      ]
+    },
+    {
+      "scope_index": 18,
+      "source_id": "native-dependency:serde-saphyr-1.2.0/src/de/error.rs",
+      "sha256": "f814896313ec178ed4f0ee14ab60e358b354814e4019564a42d1f75f2f0d4713",
+      "personally_read_ranges": [
+        [
+          676,
+          1100
+        ],
+        [
+          1960,
+          1985
+        ],
+        [
+          2227,
+          2270
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Exact registered ranges676-1100,1960-1985,2227-2270 read. Error enum retains typed failure kind plus related path/location/expected/actual/budget/alias/include/snippet fields; WithSnippet stores cropped regions and nested boxed error. Arbitrary public payload construction does not establish valid producer correlation.",
+        "Display delegates default rendered error formatting and Debug delegates Display. std::error::Error impl has no custom source method: typed nested causes remain structurally retained but are not automatically exposed through generic source chaining here. Actual project error handling/downcast/rendering determines impact; no new finding inferred.",
+        "Serde custom hook redacts text and leaves locationless by default; invalid_type attaches known thread-local fallback location and redacts unexpected text. Redactor, with_location, complete formatter and further hooks are outside registered body ranges and remain separate receiving dependencies; no implementation credit from call names."
+      ]
+    },
+    {
+      "scope_index": 23,
+      "source_id": "native-dependency:spacetimedb-sats-2.6.1/src/timestamp.rs",
+      "sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+      "personally_read_ranges": [
+        [
+          1,
+          95
+        ],
+        [
+          210,
+          251
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Exact registered Timestamp1-95/210-251 read: private signed i64 epoch microseconds, direct constructor/conversion, derived serialization and ordering. Negative to_duration path negates raw signed micros; i64::MIN boundary is not rejected here, so overflow-profile/raw-API question remains without ordinary project producer witness.",
+        "Sub Duration unwraps checked_sub_duration, assignment delegates arithmetic; Display unwraps to_rfc3339. Necessary arithmetic/rendering bodies outside registered ranges must be traced separately before any accepted aggregate failure finding. Source ranges end inside to_system_time/From declaration; no missing tail/body credit or actual clock behavior established."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

@@ -1,0 +1,129 @@
+{
+  "lens": "type-granularity",
+  "prior_state": "audit11-successor-160-proposed-state.json",
+  "partial_receipt_preserved": "audit11-successor-161-partial-001.json",
+  "registrations": [
+    "audit11-successor-161-registration.json",
+    "audit11-successor-161-completion-registration.json"
+  ],
+  "crosswalk": "audit11-question-crosswalk-001.json",
+  "source_complete": true,
+  "current_main_integrated": false,
+  "validated": false,
+  "clear": false,
+  "new_unique_findings": 0,
+  "validation": "none; no project checks/tests/probes/publication",
+  "id": "SEGOVB-CONT11-SUCCESSOR-161-788",
+  "scope_index": 788,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/settled.rs",
+  "sha256": "3dbafb11ea673b81b72c6d8599bf9c1ac4c55b3e456982e39d16d38faef2e42d",
+  "source_ranges": [
+    [
+      1,
+      308
+    ]
+  ],
+  "status": "source-accounted-with-qualified-topology/physical/admission-questions; not clear",
+  "source_read_basis": "Previously connected49-237/239-308 under157. Full1-308 independently inventoried under161; no ordered credit while787 pending. Ordered788 disposition after787 completion and exact packing receiver read.",
+  "source_contracts": [
+    {
+      "role": "SettledGarment selection+drape versus SettledDrape saved geometry and live drape",
+      "locations": "20-43,89-127,172-226",
+      "trace": "SettledGarment captures the same input selection and garment saved-drape data; validate delegates selection and drape owners. SettledDrape stores body compatibility metadata, original settled positions, material UV, cloth faces and one surface binding per saved vertex. Live input/Fit/output have different responsibilities; saved bindings are a reusable conformation description, not a second mutable simulation authority. Actual outfit78639-54 consumes saved.wear or live drape under one DrapeOutcome contract; producer outfit82158-65 puts the piece saved drape beside its selected input. No extra parallel saved garment owner proposed."
+    },
+    {
+      "role": "BodyTopology vertex/triangle counts versus complete mesh identity",
+      "locations": "45-61,134-169,184-198",
+      "trace": "BodyTopology explicitly names vertices and triangles as separate u32 count roles; BodyTopology::of derives both from the actual input. fit requires equality of both counts before binding reconstruction. Documentation refers to the same MHR mesh level of detail; the implemented count compatibility check alone does not prove arbitrary connectivity or canonical level-of-detail identity. No actual producer collision/mismatch established by this bounded trace, so retain this as qualified canonical compatibility-owner question, not an accepted defect or demand for universal instance branding."
+    },
+    {
+      "role": "SurfaceBinding named triangle, barycentric and frame-offset components",
+      "locations": "63-87,245-304",
+      "trace": "Private named record separates native body triangle ordinal from dimensionless weights of second/third corners and metre offsets along tangent/bitangent/normal. bind queries same wearer BVH, computes barycentric weights, obtains its frame and projects point-origin into axes. place reconstructs origin+axis*distance using same ordered fields. frame gets triangle from same BVH/faces and interpolates normals, then uses explicit smooth/face/fallback normal and projected/fallback tangent. Named record preserves unlike roles; homogeneous arrays are actual local numerical basis data. Anatomical PartFrame from2178 additionally owns placement half-extents/reflection semantics and is not automatically interchangeable with this interpolated surface basis."
+    },
+    {
+      "role": "Meaningful wire record versus native u32/float bits",
+      "locations": "73-103; connected packed1-78",
+      "trace": "SurfaceBinding packs6words: triangle then2barycentric f32 bit patterns then3offset f32 bit patterns. Existing Packed implementations separately encode Vec2/Vec3 float arrays through to_bits and triangle arrays through native u32 words. Serde adapter serializes these as one STANDARD base64 string over little-endian u32 bytes, preserving channel/record type through each generic field adapter. Shared u32 storage does not mean triangle identity and numerical float bits are one domain type; adding application wrappers around wire words would duplicate the actual boundary."
+    },
+    {
+      "role": "Exact packing arity admission and separate value validation",
+      "locations": "73-87,138-169; connected packed59-78",
+      "trace": "deserialize reads string, base64 decodes, requires byte length modulo (T::WORDS*size_of u32)==0, decodes little-endian four-byte chunks, then calls T::unpack only on chunks_exact(T::WORDS). Reached WORDS are2/3/6, so SurfaceBinding receives exactly6words before its direct word indices. This establishes concrete record-shape receiver, not semantic validity. SettledDrape.validate separately requires nonempty cloth, one position/UV/binding per vertex, bounded cloth faces, bounded body triangle and finite floats. Derive deserialization does not itself establish the explicit validation was called by every downstream caller; full recipe/inventory admission is not newly cleared."
+    },
+    {
+      "role": "Captured bindings and same-topology numerical receiver",
+      "locations": "107-127,184-225",
+      "trace": "capture requires settled stage, matches UV/position length, builds all bindings from actual garment positions against input wearer geometry, copies corresponding saved arrays and calls drape.validate. fit builds current Wearer after count check, reconstructs bound vertices, uses SewnCloth from original saved topology to limit stretch, clears combined body/inner garments and optional UnderPlate, restores saved UV/faces, computes current normals/typed rig transfer and contact warnings. Previous781/785/786 and new787 exact consumers support this same local flow. No arbitrary deserialized record or public mutation equivalence claim."
+    },
+    {
+      "role": "Stage sum, warning results and human diagnostics",
+      "locations": "172-181,229-235",
+      "trace": "ensure_settled accepts final Settling{step==of} or Worn and rejects other stage payloads. wear returns Result with separate human warnings and fresh DrapeCheckpoints; failure and useful warning/checkpoint information may coexist. These are already canonical stage/outcome owners, not reason to collapse into booleans, add unsupported nonzero-stage bounds or create duplicate closed error-string types."
+    },
+    {
+      "role": "Wearer borrowed faces, owned BVH and smooth normals",
+      "locations": "238-304",
+      "trace": "Private Wearer retains owned BVH geometry, borrowed original faces and normals from the same passed positions/faces; original BVH primitive index mapping was traced under160. This local association provides frame construction roles without a universal body-instance proof. normal interpolation and fallback axes are actual numerical policy; no all-degeneracy/finite/surface-quality guarantee follows from this lens."
+    },
+    {
+      "role": "External test module declaration",
+      "locations": "307-308",
+      "trace": "Only cfg(test) module declaration is part of this source body. Test source is separate future original790 and was not consumed/credited by this packet; no tests run or authored."
+    }
+  ],
+  "qualified_observations": [
+    {
+      "local_source_key": "pr-working:crates/adventuresim-character-creator/src/garment/settled.rs@sha256:3dbafb11ea673b81b72c6d8599bf9c1ac4c55b3e456982e39d16d38faef2e42d#L45-L61:body-topology-count-compatibility",
+      "classification": "source-backed granularity/owner question; no accepted unique finding",
+      "observation": "Named vertex/triangle counts represent actual compatibility admission, but do not encode full topology or canonical MHR LOD identity. Preserve distinction and compare actual canonical current owner/producers before remedy; no unsupported identity invariant, exact M18 alias or global count increment."
+    },
+    {
+      "local_source_key": "pr-working:crates/adventuresim-character-creator/src/garment/settled.rs@sha256:3dbafb11ea673b81b72c6d8599bf9c1ac4c55b3e456982e39d16d38faef2e42d#L63-L103:surface-binding-wire-frame",
+      "classification": "justified named record and scoped native packing; retained physical/frame owner qualification",
+      "observation": "Dimensionless barycentric weights, metre local offsets, native triangle ordinal and packed float bits retain distinct purposes. Reconcile physical/frame propagation under existing crosswalk/M108 support; native serialization/math boundary is not whole-source permission to discard those roles."
+    }
+  ],
+  "connected_source_traces": [
+    {
+      "original_index": 789,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/settled/packed.rs",
+      "sha256": "ca95a83317547915bbd839018cd6b1c766ff327327877fc02c6978d1bcaee0f7",
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "ordered_credit": false,
+      "reason": "Exact whole materially reached fixed-word serde adapter, no future ordered789 credit."
+    },
+    {
+      "receipt": "audit11-successor-160-786.json",
+      "trace": "Outfit invokes saved.wear with actual current input and receives saved/live DrapeOutcome; worker retains checkpoints separately."
+    },
+    {
+      "receipt": "audit11-successor-161-787.json",
+      "trace": "Current combined collision surface body/inner garment producer and canonical BVH boundary."
+    },
+    {
+      "receipt": "audit11-successor-160-785.json",
+      "trace": "UnderPlate producer and lining numerical receiver."
+    },
+    {
+      "receipt": "audit11-successor-158-781.json",
+      "trace": "SewnCloth conformation/skin transfer actual receiving contracts and inherited qualified frozen ordinal gap."
+    }
+  ],
+  "qualifications": [
+    "Frozen packed object staged by root; exact cached bytes independently hashed and body consumed. No root coverage transfer or Git use.",
+    "Serde wire arity proved for reached implementations; arbitrary recipe/inventory deserialization, all value validation invocation, representable counts/overflow and malformed public input remain other-lens/end-to-end qualifications.",
+    "Exact role distinction classified; numerical barycentric/simplex/fallback behavior, physical fit/appearance, deformation quality and topology identity are not globally cleared.",
+    "Metadata-only809/810 bodies remain unconsumed and confer no coverage or ordered credit. Future789/790/792/821/923 remain uncredited.",
+    "Question-ID namespace collision and source-key crosswalk preserved; no bare Q008/Q009 alias, new accepted unique count or unproved canonical finding equivalence.",
+    "No current canonical source comparison. Frozen rig receiver and broad physical/frame owner work remain open; no current/validated/global clearance."
+  ],
+  "proposed_original_accounted": 789,
+  "next_original": 789,
+  "active_partial": null
+}

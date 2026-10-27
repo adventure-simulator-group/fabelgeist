@@ -1,0 +1,237 @@
+{
+  "id": "SEGOVB-CONT08-SUCCESSOR-018",
+  "created_utc": "2026-10-27T04:48:58.464510+00:00",
+  "lens": 8,
+  "skill": "/home/brunosegovia/.codex/skills/audit-behavior-preservation/SKILL.md",
+  "scope": "One bounded actual street::select planning-receiver trace reached from ordered1793; stop at declared access/solver/bounds delegate frontier.",
+  "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+  "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "prior_authority": {
+    "path": "target/recovery-20261025/continuation-segovb/audit08-successor-017-proposed-state-002.json",
+    "sha256": "81d4226ee612d8bf40d99182037154832c40a9e43492f666bc5b51e9364f206c"
+  },
+  "root_adoption": {
+    "path": "target/recovery-20261025/continuation-segovb/audit08-successor-017-adoption-root.json",
+    "sha256": "9cb786f431f4271ba273ce32400e5ea044d2fcd2f65666e536c249206e0cacb3"
+  },
+  "authoritative_ledger_observation": {
+    "path": "target/recovery-20261025/continuation-segovb/ledger.json",
+    "observed_lens08_current_successor": "audit08-successor-017-proposed-state-002.json",
+    "current_coverage": "1800/2853;ordered1793partial;earliest1462Q003partial;material52partial",
+    "qualification": "Ledger read only; no historical saved_coverage overwritten."
+  },
+  "prospective_registrations": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-018-registration-001.json",
+      "sha256": "111eda2ef165defd664b32270cf3c4edf80fff3e60cde1fcad5fa7a6ce6b1d3f"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-018-registration-002.json",
+      "sha256": "940550aca0b1312ff3f46448cb821277918a84d2357fbc7a8c8c3e562ad33b76"
+    }
+  ],
+  "provenance": {
+    "path": "target/recovery-20261025/continuation-segovb/audit08-root-street-base-staging-018.json",
+    "sha256": "7a65749ebbde1b627ac7276b9d2ad22eb15afacd8514ca499fb5851c06f18453"
+  },
+  "source_inventory": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/support/street.rs",
+      "catalog_index": 1797,
+      "sha256": "bfad206136bada1647f958a30c678a8adb4be33c01a967d3253aebde5f58de8b",
+      "base_sha256": "bfad206136bada1647f958a30c678a8adb4be33c01a967d3253aebde5f58de8b",
+      "head_sha256": "bfad206136bada1647f958a30c678a8adb4be33c01a967d3253aebde5f58de8b",
+      "actual_before_after_ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "physical_shared_byte_read": "Head catalog object first read after registration001; exact base/head object reread after root provenance and registration002. Same bytes independently assessed for actual old/new roles, not merely counted from hash equality.",
+      "original_completion_credit": false
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-core/src/city_layout/compiled/support.rs",
+      "sha256": "d28606e279ac45d8c65e8ec2eceacaddf20747af389761b9c2b1b6a5b4273c82",
+      "actual_recall_ranges": [
+        [
+          1,
+          40
+        ],
+        [
+          146,
+          277
+        ]
+      ],
+      "prior_before_after_authority": "own015-provenance001; no duplicate original credit"
+    }
+  ],
+  "actual_trace": [
+    {
+      "ranges": {
+        "support.rs": [
+          [
+            146,
+            225
+          ],
+          [
+            227,
+            277
+          ]
+        ]
+      },
+      "contract": "plan_property obtains exact front/rear generated members, samples threshold/court/gate/street values and calls street::select with the typed threshold and retained policy. Recipe/palette/ground-floor admission bodies remain separately pending; caller recall does not close them."
+    },
+    {
+      "ranges": {
+        "street.rs": [
+          [
+            13,
+            35
+          ]
+        ]
+      },
+      "contract": "Threshold raw metres only feed plot-local conversion. The front edge uses local threshold x and negative half plot depth, transformed back to world; forward/width-offset use rotated -Y/+X. Maximum is the retained positive apron run. access_regions is evaluated before available_run; one contact tolerance is subtracted and the result lower-clamped at0. These expressions and evaluation order are identical in exact base/head body; delegated arithmetic/admission validity not proved."
+    },
+    {
+      "ranges": {
+        "street.rs": [
+          [
+            36,
+            48
+          ]
+        ]
+      },
+      "contract": "For each attempted run the request retains property, observations, original typed threshold, geographic surface, limits, stairs and embedment. Only apron run/centre vary. Apron centre expression edge+direction*run*0.5 keeps its multiplication/addition order. Checked point, dimensions and bounds construction propagate framed geometry diagnostic before the support solver. Both roles contain the same exact typed construction; no unchecked old API preservation requirement."
+    },
+    {
+      "ranges": {
+        "street.rs": [
+          [
+            49,
+            67
+          ]
+        ]
+      },
+      "contract": "Shortened candidate is attempted only when preferred>0 and preferred<maximum. Its success returns immediately. Only StairGoing, StairClearance, AccessGrade or CutFill constraint errors allow retry with maximum; every other error returns immediately. Otherwise maximum candidate is the sole attempt. This exact local precedence is unchanged; full result depends on actual solver/error definitions still pending."
+    }
+  ],
+  "disposition": "No actionable unintended delta demonstrated in the local street-selection front end at these exact frozen bytes. This is a narrower source-assessed subset, not whole1793 completion or a claim of identical transitive behavior.",
+  "findings": [],
+  "candidate_count_delta": 0,
+  "remaining_frontier": {
+    "id": "CONT08-018-STREET-DELEGATES-PARTIAL",
+    "source": {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/support/street.rs",
+      "sha256": "bfad206136bada1647f958a30c678a8adb4be33c01a967d3253aebde5f58de8b",
+      "before_after_read_ranges": [
+        [
+          1,
+          67
+        ]
+      ]
+    },
+    "remaining": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/access.rs",
+        "sha256": "cf8f7790613cc67bc1de9815eea5ef31cc30c35b571b64930902c42c8d0469ab",
+        "declared_symbols": [
+          "access_regions",
+          "available_run"
+        ],
+        "source_backed_calls": {
+          "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/support/street.rs",
+          "sha256": "bfad206136bada1647f958a30c678a8adb4be33c01a967d3253aebde5f58de8b",
+          "ranges": [
+            [
+              3,
+              3
+            ],
+            [
+              26,
+              35
+            ]
+          ]
+        },
+        "metadata_only": true,
+        "needed": "Exact frozen before/after bodies and materially reached helpers; current018 did not read this body or clear its geometric policy."
+      },
+      {
+        "symbols": [
+          "CompoundSupportRequest::select",
+          "SupportDiagnostic::framed_geometry"
+        ],
+        "source_backed_call_ranges": [
+          [
+            36,
+            47
+          ],
+          [
+            52,
+            66
+          ]
+        ],
+        "needed": "Actual support solver, constraint/error classification and geometry error framing; declaring owner not newly guessed or body-read in018."
+      },
+      {
+        "symbols": [
+          "CityPlotBounds::new",
+          "CityPlotBounds accessors/orientation",
+          "PlanDimensions::from_metres",
+          "SupportLimits::contact_tolerance_metres"
+        ],
+        "source_backed_call_ranges": [
+          [
+            15,
+            41
+          ]
+        ],
+        "needed": "Exact materially reached bounds/dimension/orientation/tolerance owner bodies. ScenePlanPoint wrapper itself was source-assessed017; it is not reopened."
+      }
+    ],
+    "qualification": "Street selection local control/data flow source-assessed at both exact frozen roles. Whole selection result not cleared until actual delegate contracts are assessed."
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/support/street.rs",
+      "sha256": "bfad206136bada1647f958a30c678a8adb4be33c01a967d3253aebde5f58de8b",
+      "already_original_catalog_index": 1797,
+      "actual08_ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "action": "Root reconcile existing shared source identity/aliases and applicable other-lens role obligations; no duplicate source population, new original count or verdict transfer."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/access.rs",
+      "sha256": "cf8f7790613cc67bc1de9815eea5ef31cc30c35b571b64930902c42c8d0469ab",
+      "action": "Existing catalog dependency newly made explicit in actual008 trace; body unassessed here. Retain applicable producer/admission/aggregate/invariant/magic primitive/ownership roles rather than infer clearance."
+    }
+  ],
+  "preserved_qualifications": [
+    "Frozen pr-working identity and exact committed base/head relation established only for street path, which is absent changed747 and dirty4. No current903 or P16dirty source alias, no current runtime witness.",
+    "Geometry/triangle sampler/checked Position leaves closed016/017 remain closed within their original exact scopes; no restart or broad numeric/native proof.",
+    "Original1793 remains partial at access/support delegates, palette/recipe/collision/single-property support, compound/ID/enum/Seed/program JSON and terrain composition. Body presence/search/equal SHA/other-lens review grants no completion.",
+    "Earliest1462CONT08-Q003 local009 counterexample and012matrix-erasure qualifications unchanged; actual ingress/cast/runtime witness not claimed. Material52 andPaid-to-Withdrawn candidate unchangedpartial.",
+    "All20/P16/P17/#780/#826/M16 repair graph, inherited findings/aliases and separate material178-195 obligations preserved; no globalF9 clearance.",
+    "No backward compatibility constraint for old malformed input/API/schema or unchecked behavior. Intended checked contracts are the comparison basis.",
+    "No project execution/tests/probes/helpers/assertions/doctests, product/source/Git/root-ledger/history changes or publication. Only ignored evidence appended."
+  ],
+  "counts": {
+    "before": 1800,
+    "after": 1800,
+    "total": 2853,
+    "new_original_completions": [],
+    "next_ordered_original": 1793,
+    "earliest_unfinished_original": 1462,
+    "material_contiguous": [
+      0,
+      51
+    ],
+    "material52": "partial",
+    "new_unique_findings": 0
+  },
+  "stop": "One bounded street front-end trace complete; save at actual delegated frontier without reading access/solver/new native bodies or1794."
+}

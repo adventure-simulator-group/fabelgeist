@@ -1,0 +1,34 @@
+use serde::{Deserialize, Serialize};
+use sha2::{Digest, Sha256};
+
+use crate::{
+    GENERATOR_VERSION, HOLDER_GENERATOR_VERSION, HOLDER_SCHEMA_VERSION, SCHEMA_VERSION,
+    WeaponDesign, WeaponHolderDesign,
+};
+
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+pub struct DesignHash(pub [u8; 32]);
+
+impl DesignHash {
+    pub fn to_hex(self) -> String {
+        self.0.iter().map(|byte| format!("{byte:02x}")).collect()
+    }
+}
+
+pub fn holder_design_hash(design: &WeaponHolderDesign) -> DesignHash {
+    let mut hash = Sha256::new();
+    hash.update(b"fabelgeist.weapon-holder-design\0");
+    hash.update(HOLDER_SCHEMA_VERSION.to_le_bytes());
+    hash.update(HOLDER_GENERATOR_VERSION.to_le_bytes());
+    hash.update(serde_json::to_vec(design).expect("WeaponHolderDesign is JSON-serializable"));
+    DesignHash(hash.finalize().into())
+}
+
+pub fn design_hash(design: &WeaponDesign) -> DesignHash {
+    let mut hash = Sha256::new();
+    hash.update(b"fabelgeist.weapon-design\0");
+    hash.update(SCHEMA_VERSION.to_le_bytes());
+    hash.update(GENERATOR_VERSION.to_le_bytes());
+    hash.update(serde_json::to_vec(design).expect("WeaponDesign is JSON-serializable"));
+    DesignHash(hash.finalize().into())
+}

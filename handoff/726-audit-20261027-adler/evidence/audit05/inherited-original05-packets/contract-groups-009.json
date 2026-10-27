@@ -1,0 +1,68 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-009",
+  "at": "2026-10-22T18:59:33.520729+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+      "sha256": "91328984a11b2f161fe96001c235234a6d0ff01037d253cecac5a2dabf59e20e",
+      "scope016_index": 2492,
+      "actual_EOF": 470,
+      "scoped_ranges_compared": [
+        [
+          1,
+          34
+        ],
+        [
+          56,
+          470
+        ]
+      ],
+      "fresh_source_proof": "Fresh exact actual initial05 bodies: geometry1–34/56–235 then236–470, resolution1–250/251–500/501–738. Sourcegeometry35–55 unrelatedfixtureexcluded. Actual03source-narratives personallyconsumed onlyasevidence/navigation, new relationship analysis below."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+      "sha256": "28e7fdd050516198f0b523e4cc1e05f5485f1797fa94776c17e749acd33edc22",
+      "scope016_index": 2493,
+      "actual_EOF": 738,
+      "scoped_ranges_compared": [
+        [
+          1,
+          738
+        ]
+      ],
+      "fresh_source_proof": "Fresh exact actual initial05 bodies: geometry1–34/56–235 then236–470, resolution1–250/251–500/501–738. Sourcegeometry35–55 unrelatedfixtureexcluded. Actual03source-narratives personallyconsumed onlyasevidence/navigation, new relationship analysis below."
+    }
+  ],
+  "groups": {
+    "raw-contour-coupled-plane-and-native-topology-queries": {
+      "relationship": "A roof weatherface needs meaningful ordered boundary andmatching coupledplane; finitepoints/count>=3 do not aloneprove nondegenerate/coplanar/non-selfintersectinggeometry or cutoutholemembership. Convexclip/query andgeneralconcaveweatherquery have distinct assumptions.",
+      "actual_construction": "roof_plane1–12 crossfirst3 thennormalize_or_zero andflipnormalup, constant=-normal.dotpoint changeswithnormal. Actualresolvercallsroof_polygon_bounds14–33 beforeplane, whichguardslen>=3 andadmitsEACHpointfinite thenzero-capableorderedBounds. Plane normal mayzero forcollinear/repeatedpoints, not acheckedunitDirection. roof_face_polygons56–269 emitsfixedclosedkindfamilies: flat1quad, gable2quads, shed1quad, hip/halfhip/pavilionfinitefixedsets/conical24sectors; rawrecipecontrols dimensions/angle, no meaningful-planarity/sourcefinitewholegate. This isworkingcontourproducer, notprivateacceptedPolygonconstructor.",
+      "retained_and_consumed": "RawVec<Vec3>returnedforactualresolver; nativecliprect275–314 andconvexclip363–399 earlyempty/shortcliphandle0 andretainauthoredintersectiontolerance/fraction0fallback. signedarea316–326 emptyiter0 beforemodbody, rawf32notstrictf64PlanPolygon. convexhull328–361 nativeepssort/dedup/hull intentionallydifferentstrictPoint/Segment/Areaowner. convexcontains405–414 expectsadequateconvexboundary, generalparity416–434 worksconcavewithmin3guard; actualweathercontainsusesgeneralsubtractholes whereasroof_surface_height_at436–457 usesfirstmatchingconvexprojectedfaceanddoesNOTcheckcutouts. Retainthese actualdifferentconsumersemantics ratherthanclaimoneuniversalvalidpolygon.",
+      "otherwise_valid_combo": "Finitefourrepeatedpoints passroof_polygon_bounds len+finite+zeroBoundsbutderivezeroPlane. ForflatRecipe size0/eave0 cornersallcoincide; individuallyvalidzero-capablephysicalextent/finitepoint leaves donotprovevalidweatherface. This isconditionalactualrawproducer→partialcheckedbounds path, existingRootF001aggregate strengthening support; notinvalidcheckedBounds orclaimcurrentnormalauthoredprogram uses0size. Nonunitpositivecommon-scaled(n,c) denotesameplane; replacingonlynwithunit changesgeometry.",
+      "acceptance": "Admitwholeweatherfaceatactualacceptedpublicationwithrole-specificnondegeneracy/plane/holes/crossrefs, preservenativef32tolerance/errororder/None/firstmatch behaviorunlessdeliberatebehaviorchangeauthorizedafterallinitials. Do not globallyreplaceconcave/holeswithstrictconvexPlanPolygon, orrawclipswithfiniteacceptedpointstheyhavenotadmitted."
+    },
+    "resolver-parallel-products-and-context-invariants": {
+      "relationships": [
+        "plate_specs/support_nodes have matchingorder/count; everyphysicalplate/interfaceusescorrespondingactualnode.",
+        "Face/catchment/surface/route/outlet recordsbindsameactualfacecontext, andsharededgeadjacency/classificationrequiresactualdistinctnondegeneratefaces.",
+        "ReturnedRoofAssembly source/kind/parent/high-side/support/footprint must agree withconstructedcollections, notjust individuallyvalidgeometryleaves."
+      ],
+      "actual_construction_and_indexproof": "plate_specs65–171 always2 byridge,4hip/halfhip/pavilion,8conical,5onlyactualApsewith5wallcontext; vectorofsupport_nodes172–174 derivesSAMElen beforeconsumingenumeration175, guaranteeingcorrespondingindexandnonempty support_nodes[0] at486/564. host_nodes sorted/dedup; host_top folds actualsame-nodewalls from-Inf, host_nodes[0]262 isinsidehost_top.is_finite guard259 soabsencecannotmakethatindexpath. SupportsareactualgeneratednodeIDs; missinghostsupportsallowedrawunsupportedcontext, notclaimedgroundedgraph. CompletednodePosition/Bounds/Cuboid admitted beforeeachpush; earliermutationcanprecedelaterErr.",
+      "face_graph_products": "Eachpolygon338 finitebounds/min3gatebeforelow/mean/plane. DerivedIDsforface/catchment/route/outletbuiltfromsamefaceindex, thenmatchingrecordfieldssetsurface/catchment/outlet-route/context. Supportnodesclonedfromsameperroofplan. Namedwalk_solid mayreferapplicablerooffaceID ratherthanphysicalsolid; no inventedcrosscategoryphysicalmembershiprulefromfieldname. Cornersame_roof_vertex mergesdirect/reverseedges, pushfaceIDs; classifyexactadjacencylen2Ridge/Hip elseEave/Gable/etc. No duplicatefaceID/3+-face/zeroedgevalidationatclassification. GenericfiniteboundsandphysicalCuboidcanacceptdegenerateweathercontext; acceptedgraphstillneedscompletepredicate.",
+      "conditional_degenerate_constructor_support": "Rawflatrecipe centre0,size0,eave0,finitebase/angle yields1polygon4coincidentpoints. Boundsgateacceptszero extent; edgeconstruction403–426 createssamezeroedgeandappendssamefaceIDfourtimes. Kindclassificationlen2failsandcanstillclassifyboundaryEave. This suppliesactualconditionalrawrecipeconstructionmechanismforexistingRootF001one-boundary-onefacecontractgap, beyondpublicliteralweakness. No newexecutedcase, actualnormalauthoredcallerorcompletedouterpipelineguaranteeclaimed; allinterveningfactory/contextrequirementsremainstated.",
+      "retention_and_consumers": "Assembly706–737copiesonecoherentconstructioncontextbutpublicrawgraphcanmutateafterreturn. Emptyholes/children/abutmentsvalidintermediates. Gablepair583–591 usesfixed2enclosures; halfhip2+potentialraisedclerestory2 extraenclosures/sourceIDsorder, laterpitch/splitsmustrespectrole-specificsubcollections. Outerfootprintgridrounding574–579 explicitnativeprojection, notproofitsloopremainsnondegenerateorcoincidentwithweatheroutercontour. Actualroofassemblies/dormer/cut/drainageconsumethiscontext; nominalpitch15–75commentnotactualadmissiongate. Fixedsupportcountvaliddoesnotsealglobalreference/IDcapacity.",
+      "disposition": "Source-specificindex/countretentionproofispositive; wholeacceptedweathergraphgapRootF001remainswithconcreteconditionaldegenerateconstructionevidence. Allocatorprefix/capacitysupportF002retained; do notcountsatisfyingGeometryErrorfactoryasentiregraphadmission.",
+      "connected_repair_acceptance": "Root023wholefunctionclaims unchanged. Constructoneacceptedface/edge/roofsourcedraft withactualrole-specificcorrelationsatpublication; bindIDswithinjectiveactualcapacity, maintainparallelproductconstruction, preserve0validgenericBounds/physicaltemporarydimensions andactual2/4/5/8supportcontext. Rejectinvalidweathergeometrythroughmeaningfultypedcause ratherthanweakeninggenericgeometryorblind unitnormalconversion. Keeporiginalsource/control-flow/errororderuntilall13initialreviewcomplete."
+    }
+  },
+  "finding_support": [
+    "RootADM-F001 actualrawweatherdegeneracy/edgecardinality support, notnewuniquedefectcount",
+    "NATIVE-INITIAL05-F002 allocatorcapacitycontext"
+  ],
+  "new_unique_findings": [],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

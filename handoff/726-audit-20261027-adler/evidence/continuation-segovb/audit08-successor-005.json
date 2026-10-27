@@ -1,0 +1,540 @@
+{
+  "id": "SEGOVB-CONT08-SUCCESSOR-005",
+  "lens": "08 behavior-preservation",
+  "created_utc": "2026-10-26T18:31:51.800738+00:00",
+  "prior": "audit08-successor-004.json",
+  "registry": {
+    "path": "shared-material-successor/source-extensions-196.json",
+    "sha256": "12adb62b53902f4e42f8e882ec18181d465c049956c8af8b5626d3d3192ff849",
+    "entries": 196,
+    "qualification": "Exact entries45-48 source identities/ranges compared against this196 prefix. Registry presence and byte equality are not review verdicts."
+  },
+  "registration": {
+    "path": "audit08-successor-005-registration.json",
+    "sha256": "1c30876ce6bd864d4c7f4a9ddb8be70dfdb395b295d6790ade8b8c6901179fd7"
+  },
+  "skill": {
+    "path": "/home/brunosegovia/.codex/skills/audit-behavior-preservation/SKILL.md",
+    "reloaded": true
+  },
+  "rules_read": [
+    "AGENTS.md",
+    "crates/AGENTS.md",
+    "prior applicable tactical-core and equipment source rules retained"
+  ],
+  "scope_pins": {
+    "pr_base": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "pr_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "p16_base": "a120390947c89b703dc74c4255a13c035d054c50",
+    "p16_committed_extension": "039329518e264f19206cf5b0b98d177433f40c17",
+    "original_inventory": "audit05/original-scope-072.json",
+    "original_inventory_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "historical_state_sha256": "b4f9c4a6c3c59966cfe3cde46ee814963aad9c3d3808e9928ce40620c7e46e7b"
+  },
+  "materials": [
+    {
+      "index": 45,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/roofs.rs",
+      "sha256": "cb1b28e1acae9488d9a5022e46476dc3693e8947fe3e30f1444769d4015fcc5f",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/cb1b28e1acae9488d9a5022e46476dc3693e8947fe3e30f1444769d4015fcc5f",
+      "ranges": [
+        [
+          485,
+          530
+        ],
+        [
+          1200,
+          1295
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-033.json",
+      "reason": "Exact current roof child valley_edges/final flashing-link receiving validator reached by mixed Wall/Tower abutment overwrite candidate; prospectively register bounded1200\u20131265 before actual body analysis. Other roof auditor branches excluded.",
+      "status": "Exactsourceverifiedandrecovered only; unchanged2853historicaldenominator and no automaticlensclearance.",
+      "range_extension_evidence": [
+        {
+          "prior_ranges": [
+            [
+              1200,
+              1295
+            ]
+          ],
+          "new_ranges": [
+            [
+              485,
+              530
+            ]
+          ],
+          "registration": "redundant-authority/prospective-source-registration-041.json",
+          "id": "CONT07-REG-041"
+        }
+      ],
+      "comparison": {
+        "base": {
+          "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+          "sha256": "cb1b28e1acae9488d9a5022e46476dc3693e8947fe3e30f1444769d4015fcc5f",
+          "lines": 1489
+        },
+        "head": {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "sha256": "cb1b28e1acae9488d9a5022e46476dc3693e8947fe3e30f1444769d4015fcc5f",
+          "lines": 1489
+        }
+      },
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/cb1b28e1acae9488d9a5022e46476dc3693e8947fe3e30f1444769d4015fcc5f",
+      "disposition": "accounted WITH qualifications for this registered material role only"
+    },
+    {
+      "index": 46,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/geology.rs",
+      "sha256": "c72ee80ae9c285fe5cc3b6346b58bfe4eb550ba70cb22dc0ed9cd6bef4f62a09",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/c72ee80ae9c285fe5cc3b6346b58bfe4eb550ba70cb22dc0ed9cd6bef4f62a09",
+      "ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-034.json",
+      "reason": "Actual enum owner reached by scoped TerrainSurfaceRecipe explicit ALL_LITHOLOGIES45 test roster and exhaustive classification. Exact owner absent original inventory; prospective bounded enum declaration comparison before body read, no whole geology parser scope.",
+      "status": "Exactsourceverifiedandrecovered only; unchanged2853historicaldenominator and no automaticlensclearance.",
+      "range_extension_evidence": [
+        {
+          "prior_ranges": [
+            [
+              35,
+              130
+            ]
+          ],
+          "new_ranges": [
+            [
+              1,
+              34
+            ]
+          ],
+          "registration": "admission-contracts/prospective-source-registration-002.json",
+          "id": "CONT03-REG-002"
+        }
+      ],
+      "comparison": {
+        "base": {
+          "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+          "sha256": "c72ee80ae9c285fe5cc3b6346b58bfe4eb550ba70cb22dc0ed9cd6bef4f62a09",
+          "lines": 195
+        },
+        "head": {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "sha256": "c72ee80ae9c285fe5cc3b6346b58bfe4eb550ba70cb22dc0ed9cd6bef4f62a09",
+          "lines": 195
+        }
+      },
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/c72ee80ae9c285fe5cc3b6346b58bfe4eb550ba70cb22dc0ed9cd6bef4f62a09",
+      "disposition": "accounted WITH qualifications for this registered material role only"
+    },
+    {
+      "index": 47,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/timber.rs",
+      "sha256": "10ebf86610fc1cb874862c7b0251c39d8de75bc476fa97a569a6cd5ece7ecb3c",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/10ebf86610fc1cb874862c7b0251c39d8de75bc476fa97a569a6cd5ece7ecb3c",
+      "ranges": [
+        [
+          1228,
+          1305
+        ],
+        [
+          1450,
+          1495
+        ],
+        [
+          1535,
+          1615
+        ],
+        [
+          2255,
+          2310
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-035.json",
+      "registration_id": "CONT07-REG-035",
+      "reason": "Actual roof_underside_height_at consumer for structural timber support top, needed to distinguish nominal covering planes from physical cutout query; prospective bounded receiver before body read, excludes remainder timber builder.",
+      "qualification": null,
+      "status": "Exactsourceverifiedandrecovered only; unchanged2853historicaldenominator and no automaticlensclearance.",
+      "range_extension_evidence": [
+        {
+          "prior_ranges": [
+            [
+              1228,
+              1305
+            ]
+          ],
+          "new_ranges": [
+            [
+              1450,
+              1495
+            ],
+            [
+              1535,
+              1615
+            ],
+            [
+              2255,
+              2310
+            ]
+          ],
+          "registration": "redundant-authority/prospective-source-registration-040.json",
+          "id": "CONT07-REG-040"
+        }
+      ],
+      "comparison": {
+        "base": {
+          "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+          "sha256": "10ebf86610fc1cb874862c7b0251c39d8de75bc476fa97a569a6cd5ece7ecb3c",
+          "lines": 2709
+        },
+        "head": {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "sha256": "10ebf86610fc1cb874862c7b0251c39d8de75bc476fa97a569a6cd5ece7ecb3c",
+          "lines": 2709
+        }
+      },
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/10ebf86610fc1cb874862c7b0251c39d8de75bc476fa97a569a6cd5ece7ecb3c",
+      "disposition": "accounted WITH qualifications for this registered material role only"
+    },
+    {
+      "index": 48,
+      "source_id": "physical-p16-commit039329:crates/adventuresim-tactical-client/src/equipment/slot_selection.rs",
+      "sha256": "95cb7d00f5f9c53287ed626304bd1914c958f7ee38933a8906a354ca12610678",
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/95cb7d00f5f9c53287ed626304bd1914c958f7ee38933a8906a354ca12610678",
+      "ranges": [
+        [
+          1,
+          243
+        ]
+      ],
+      "registration_evidence": "enum-shapes/source-extensions.jsonl",
+      "registration_id": "SEGO-INITIAL09-REGISTRATION-324A-1",
+      "reason": "Connected calls in frozen P16 sources and pending-material-306/317; current parent source-provenance instruction authorizes prospective commit variant registration.",
+      "qualification": "Distinct committed-source extension, not byte-verified Adler dirty snapshot; unrecorded dirty bytes unknown. Frozen2853 denominator unchanged, no audit coverage from recovery.",
+      "status": "Exactsourceverifiedandrecovered only; unchanged2853historicaldenominator and no automaticlensclearance.",
+      "comparison": {
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "95cb7d00f5f9c53287ed626304bd1914c958f7ee38933a8906a354ca12610678",
+          "lines": 243
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "95cb7d00f5f9c53287ed626304bd1914c958f7ee38933a8906a354ca12610678",
+          "lines": 243
+        }
+      },
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/95cb7d00f5f9c53287ed626304bd1914c958f7ee38933a8906a354ca12610678",
+      "disposition": "accounted WITH qualifications for this registered material role only"
+    }
+  ],
+  "support_reads": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+      "reason": "Material45-48 exact roof query/lithology classifier/equipment admission and selection receiving context, not full source family.",
+      "base": {
+        "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+        "sha256": "91328984a11b2f161fe96001c235234a6d0ff01037d253cecac5a2dabf59e20e",
+        "lines": 470
+      },
+      "head": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "sha256": "91328984a11b2f161fe96001c235234a6d0ff01037d253cecac5a2dabf59e20e",
+        "lines": 470
+      },
+      "sha256": "91328984a11b2f161fe96001c235234a6d0ff01037d253cecac5a2dabf59e20e",
+      "ranges": [
+        [
+          401,
+          458
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/surface_recipe.rs",
+      "reason": "Material45-48 exact roof query/lithology classifier/equipment admission and selection receiving context, not full source family.",
+      "base": {
+        "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+        "sha256": "62dd60826db3c1d29b8ec6160d09985646410cb2b2b612e36b5370b3df1d891e",
+        "lines": 490
+      },
+      "head": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "sha256": "62dd60826db3c1d29b8ec6160d09985646410cb2b2b612e36b5370b3df1d891e",
+        "lines": 490
+      },
+      "sha256": "62dd60826db3c1d29b8ec6160d09985646410cb2b2b612e36b5370b3df1d891e",
+      "ranges": [
+        [
+          1,
+          177
+        ],
+        [
+          189,
+          244
+        ],
+        [
+          299,
+          334
+        ],
+        [
+          358,
+          416
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-tactical-client/src/equipment/preview.rs",
+      "reason": "Material45-48 exact roof query/lithology classifier/equipment admission and selection receiving context, not full source family.",
+      "base": {
+        "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+        "sha256": "650387466e93e9e4fca78192a92d693a82d7df3669d21a2e4bf8990921d48e17",
+        "lines": 437
+      },
+      "head": {
+        "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+        "sha256": "650387466e93e9e4fca78192a92d693a82d7df3669d21a2e4bf8990921d48e17",
+        "lines": 437
+      },
+      "sha256": "650387466e93e9e4fca78192a92d693a82d7df3669d21a2e4bf8990921d48e17",
+      "ranges": [
+        [
+          1,
+          150
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-tactical-client/src/equipment.rs",
+      "reason": "Material45-48 exact roof query/lithology classifier/equipment admission and selection receiving context, not full source family.",
+      "base": {
+        "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+        "sha256": "d341ec9a750f801013db4593ed67fe8925d3185c5cbbd7ba01ae23786b352899",
+        "lines": 1761
+      },
+      "head": {
+        "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+        "sha256": "de5de9948499820d3cad696afbcdc3f1d2473f3abac518c580de6440f3f8dd8a",
+        "lines": 1764
+      },
+      "sha256": "de5de9948499820d3cad696afbcdc3f1d2473f3abac518c580de6440f3f8dd8a",
+      "ranges": {
+        "base": [
+          [
+            135,
+            240
+          ],
+          [
+            302,
+            337
+          ]
+        ],
+        "head": [
+          [
+            135,
+            240
+          ],
+          [
+            305,
+            340
+          ]
+        ]
+      }
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/roofs.rs",
+      "sha256": "cb1b28e1acae9488d9a5022e46476dc3693e8947fe3e30f1444769d4015fcc5f",
+      "base_sha256": "cb1b28e1acae9488d9a5022e46476dc3693e8947fe3e30f1444769d4015fcc5f",
+      "ranges": [
+        [
+          1296,
+          1338
+        ]
+      ],
+      "reason": "Complete actual roof-child conditional receiving audit block after registered1295 tail; no whole roof auditor read."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/roofs.rs",
+      "sha256": "cb1b28e1acae9488d9a5022e46476dc3693e8947fe3e30f1444769d4015fcc5f",
+      "ranges": [
+        [
+          1339,
+          1385
+        ]
+      ],
+      "reason": "Complete current roof-child receiving conditional for bounded45."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/surface_recipe.rs",
+      "sha256": "62dd60826db3c1d29b8ec6160d09985646410cb2b2b612e36b5370b3df1d891e",
+      "ranges": [
+        [
+          178,
+          188
+        ],
+        [
+          245,
+          298
+        ],
+        [
+          335,
+          357
+        ]
+      ],
+      "reason": "Complete reached normal validation, preset parameters, and inferred structure producer."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/layout.rs",
+      "base": {
+        "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+        "sha256": "f19587b5c651091d18b720268e43f9bdef0e2ca083b33b57d53cbdbccb1be298",
+        "lines": 452
+      },
+      "head": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "sha256": "f19587b5c651091d18b720268e43f9bdef0e2ca083b33b57d53cbdbccb1be298",
+        "lines": 452
+      },
+      "ranges": [
+        [
+          160,
+          204
+        ]
+      ],
+      "reason": "Actual RoofFace nominal underside plane query reached by timber trimmers; prospective register before body read."
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-tactical-client/src/equipment/preview.rs",
+      "sha256": "650387466e93e9e4fca78192a92d693a82d7df3669d21a2e4bf8990921d48e17",
+      "ranges": [
+        [
+          152,
+          295
+        ]
+      ],
+      "reason": "Complete actual ordered/HUD preview recursive receiver bodies; source oracles after295 excluded from this dependency read."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/roofs.rs",
+      "sha256": "cb1b28e1acae9488d9a5022e46476dc3693e8947fe3e30f1444769d4015fcc5f",
+      "ranges": [
+        [
+          1386,
+          1489
+        ]
+      ],
+      "reason": "Complete actual mixed Wall/Tower abutment receiving validator and drain tail after reached1385 block; other roof audit branches remain excluded."
+    }
+  ],
+  "source_read_method": "Exact Git revision bytes were recovered individually and SHA256 verified before bounded reads. Identical base/head identities share the same bytes and bounded body read; changed equipment.rs variants were read separately. No full frozen tree recovered or read. Declaration navigation, metadata and equal hashes are not credited as semantic coverage.",
+  "analyses": {
+    "45": {
+      "status": "accounted WITH mixed-abutment producer and geometry-authority qualifications",
+      "read_ranges": [
+        [
+          485,
+          530
+        ],
+        [
+          1200,
+          1489
+        ]
+      ],
+      "old_new_trace": "Exact roof auditor bytes are identical at frozen PR base/head. Registered stair-clearance/drainage context485-530 and child validator1200-1295 were read, then prospectively registered1296-1489 completed the reached child and mixed Wall/Tower abutment receivers. Child validation1226-1289 requires matching child/parent identity, a subtracting RoofOpening cut, child-dependent Valley versus TowerAbutment edge kinds with flashing, owned RoofFlashing solids, a face cutout geometrically inside the void bounds, and trimmer nodes. Cross-gable/front validation1290-1351 requires facade/opening and split-eave topology. Abutment1353-1486 independently maps Wall to WallAbutment and Tower to TowerAbutment, resolves all edge IDs, samples each contour at up to0.10m stations within0.14m, requires nonempty hosted samples and owned weathering pieces, checks seating/host type/opening clearance, and validates a descending route to the lower Drain void. Failure emits invalid_roof_abutment_contour; roof_graph::audit is delegated at1488.",
+      "qualifications": [
+        "This adds the actual receiving distinctions to the registered mixed Wall/Tower overwrite candidate; it does not prove the producer cannot overwrite a shared edge or establish that every final plan is audited before use. No new accepted regression is inferred from equal bytes or another lens.",
+        "Other roof-auditor branches and roof_graph, bounds_overlap_3d/resolved_solid_bounds helpers, complete topology producers, and public policy remain untraced here. The contour empty-edge vacuity alone is not a malformed-plan witness: nonempty samples/drainage and other conditions are separate. Retain inherited building authority findings/aliases."
+      ]
+    },
+    "46": {
+      "status": "accounted WITH whole-geology, codec, renderer and random-source qualifications",
+      "read_ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "old_new_trace": "Exact geology owner bytes are identical at frozen base/head. GeologicUnitId1-34 retains constructor rejection of empty values, byte length above255, trim mismatch and controls; deserialization delegates to that constructor. The nested lithology declarations35-126 contain45 leaves across unconsolidated10/sedimentary13/igneous11/metamorphic8/mixed3. Actual receiving surface_recipe.rs189-243 exhaustively matches all45 without a fallback, and existing source roster367-413 contains those same leaves. This is a source comparison, not a run of its tests. Actual new/from_structure constructors94-125 and validate136-185 retain parameter and structure checks before publication. Preset parameter tables245-297 keep finite authored roughness/grain/relief values within validate bounds. Inferred structure299-360 uses named seeded streams, rounded permyriad normals and bed/band ranges inside the authored validate ranges; normal admission sums i64 squared components and accepts98000000..=102000000.",
+      "qualifications": [
+        "Only geology1-130 is this material, not complete195-line era/definition/parser ownership. Exhaustive current matches/roster are not a whole schema or native/SATS/serde-wire compatibility proof.",
+        "Exact unchanged caller/producer bodies were freshly assessed as scoped support. Deterministic stream implementation, seed/identifier transport and full renderer/material consumption were not followed; existing terrain codec/F52 and public authority qualifications remain. No tests ran and no test result or current whole-family coverage is inferred."
+      ]
+    },
+    "47": {
+      "status": "accounted WITH nominal-plane versus physical-cutout and partial-generator qualifications",
+      "read_ranges": [
+        [
+          1228,
+          1305
+        ],
+        [
+          1450,
+          1495
+        ],
+        [
+          1535,
+          1615
+        ],
+        [
+          2255,
+          2310
+        ]
+      ],
+      "old_new_trace": "Exact timber bytes are identical at frozen base/head. The registered trimmer producer1228-1305 finds the child cut/depth interval, chooses the first parentless roof and asks roof_underside_height_at, then falls back to authored dormer base height. Actual roof_geometry.rs401-458 resolves the first face containing the projected point; roof_surface_height_at uses its plane and roof_underside_height_at448-456 delegates to RoofFace::underside_height_at. That owner layout.rs175-199 stores cutouts separately and computes the inward-offset infinite plane from normal, constant and thickness divided by normal.y. Neither query subtracts cutouts. Thus this path supplies a nominal containing-face plane rather than proof that weather-face material exists at that point. The registered stair portions1450-1495/1535-1615 retain preferred-flight/programme selection, fixed width/treads, candidate clearance and fallback;2255-2310 retains18-tread support placement with omitted duplicate landing tread and packed identifiers.",
+      "qualifications": [
+        "The nominal/physical distinction is explicit source behavior in both frozen variants, not a newly introduced refactor regression. Whether trimmer supports should use an uncut support plane is an unresolved producer/geometry policy; no structural safety or visual acceptance is claimed.",
+        "Only four registered ranges of2709 lines were requested. Some begin/end inside larger functions; surrounding plan construction, all candidate collection, identifier bounds, other receiver branches and full stair/circulation graph remain outside this material role. The exact reads do not clear those paths or raise original completion counts."
+      ]
+    },
+    "48": {
+      "status": "accounted WITH committed-P16, topology-authority, narrowing and parent-delta qualifications",
+      "read_ranges": [
+        [
+          1,
+          243
+        ]
+      ],
+      "old_new_trace": "Full slot_selection1-243 was read at exact committed P16 base/head identity. eligible_mapped_slot18-39 scans mapped locations cyclically, obtains ordered layers, distinguishes held Defined/Empty/Unknown, and narrows depth with u16::try_from before selection. Empty locations skip the closure and avoid modulo by zero. keyboard_slots41-61 starts after the last stored location for repeated input and flashes on failure; hud_slot63-78 starts at the selected location when present; apply_slot80-90 stores the bounded location index and selected u16 depth. Actual preview1-292 is also byte-identical at committed base/head: item-definition admission preserves Unknown separately from Empty; direct occupancy yields depth0, attachment eligibility otherwise scans accepted attachment capacities. Ordered keyboard/HUD layers sort root order, then attachment points by(order,id), traverse capacities, guard visited entities, recurse child before parent, and address empty attachment capacity by parent. Missing item/catalog data yields occupied Detached. Existing slot tests103-243 were read only as source oracles, not executed.",
+      "qualifications": [
+        "This is the distinct physical-p16-commit039329 extension, not verified unknown Adler dirty bytes or current source acceptance. Frozen PR original1495 with a different snapshot identity remains separately accounted; no new original completion.",
+        "The parent equipment.rs has different exact source hashes: base d341...2899 and head de5d...dd8a. Bounded old/new GrabSession/GrabSelection/key_code ranges were read. Its diff changes PICKUP_RANGE_M to checked SignedLength and adapts existing physical fixture fields; this packet does not assess the entire changed parent, pickup receiver, constructor or full changed-original scope.",
+        "Depth above u16::MAX yields no selected slot; no assumption of unlimited capacities. The stored repeated-input index comes from the selected mapping index, but malformed/private mutation and arbitrary enormous mappings are not a universal arithmetic proof. Topology root_order/catalog uniqueness, duplicate occupants, cross-actor child ownership, and server protocol depth resolution are separate authority/admission contracts not cleared by the traversal or equal hashes."
+      ]
+    }
+  },
+  "qualified_observations": [
+    "No new accepted unique regression. Materials45-48 source-accounted only with explicit receiving/producer and policy boundaries above. Whole-family coverage remains incomplete.",
+    "Retain packet004 custom odd/tiny duration and overflow differences, public repeated hinge-transform question, earlier shared hair/layout/group identity authority questions, and all inherited findings/aliases. No reclassification without new evidence.",
+    "Original1462 remains CONT08-Q003 qualified partial, including exact prior native GJK/EPA normal proof and missing admitted camera/obstacle/simplex witness. Ordered original1792 and original-accounted1799 are unchanged.",
+    "Preserve all20 Goal726 families, P16/P17 including source provenance/unknown dirty limits, #780/#826, shared M16 canonical repair graph, all13 lens obligations, and comment F9 pending. This packet does not imply current-source or cross-lens acceptance."
+  ],
+  "coverage_delta": {
+    "newly_accounted_material_indices": [
+      45,
+      46,
+      47,
+      48
+    ],
+    "material_earlier_contiguous_proposal": [
+      0,
+      48
+    ],
+    "next_material": 49,
+    "new_original_completions": [],
+    "original_accounted": 1799,
+    "original_first_unfinished": 1462,
+    "next_ordered_original": 1792,
+    "qualification": "Only root may adopt this proposal into the authoritative ledger. Materials retain qualifications and do not close untraced scoped paths."
+  },
+  "findings": [],
+  "global_clearance": false,
+  "repair": "None; root is sole implementation owner. No root ledger or historical state overwritten.",
+  "validation": "Source-only review. No project checks, tests, added cases/doctests, publication or Git mutations."
+}

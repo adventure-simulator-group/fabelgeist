@@ -1,0 +1,54 @@
+{
+  "lens": 12,
+  "original": 43,
+  "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+  "sha256": "4ccc1188de7d5f8bdbf63b71160b8557f76fb524ae47f924381325da11198ee8",
+  "actually_read_ranges": [
+    [
+      1,
+      105
+    ]
+  ],
+  "registration": "audit12-successor-registration-018.json",
+  "observations": [
+    "No raw string literal in local owner; serde transparent attribute is identifier syntax",
+    "Deserialize routes Vec2/Vec3 into constructors then GeometryError through serde custom",
+    "Leaf serialization calls CuboidDimensions metres; its exact frozen receiver body remains pending",
+    "finite/GeometryError owners previously registered and read in017; no automatic broader clearance"
+  ],
+  "next_required": "Resolve exact frozen CuboidDimensions owner and required constructors/metres receiving bodies before completion",
+  "status": "partial",
+  "original_accounted_delta": 0,
+  "project_execution": false,
+  "additional_receiver_observation": {
+    "module_locator": {
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/lib.rs",
+      "sha256": "4be1dea1bfca250604d52c9c8ea026aac5e3608d4d8cf35168f0cdc60ff4a7ab",
+      "read": [
+        [
+          1,
+          16
+        ]
+      ],
+      "registration": "audit12-successor-registration-018-receiver-001.json",
+      "result": "Canonical CuboidDimensions re-export from cuboid module"
+    },
+    "base_cuboid": {
+      "source_id": "physical-p16-unchanged-base-candidate:crates/fabelgeist-geometry/src/cuboid.rs",
+      "sha256": "7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a",
+      "read": [
+        [
+          1,
+          90
+        ]
+      ],
+      "registration": "audit12-successor-registration-018-receiver-002.json",
+      "provenance": "Exact basea120 source; path absent from159/159 recorded snapshot statuses. Full frozen source-manifest identity remains required before final physical counterpart reconstruction acceptance. pr-working Cuboid sha1fe1 differs and is not substituted.",
+      "source_trace": "from_metres checks finite axes then delegates SignedLength admission and from_axis_lengths nonnegative checks; native metres projects axis array to Bevy Vec3. Incidental cuboid Serialize Vec3 tuple-struct name is native schema identity, not a LeafDimensions string classifier; Leaf serializes projected Vec3 separately."
+    },
+    "remaining": [
+      "Exact physical frozen manifest provenance proof for unchanged base cuboid",
+      "SignedLength constructor/metres contracts as materially needed; native generic serialization boundary qualifications retained"
+    ]
+  }
+}

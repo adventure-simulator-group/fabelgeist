@@ -1,0 +1,228 @@
+{
+  "lens": 11,
+  "packet": 185,
+  "prior_authoritative_state": {
+    "path": "audit11-segovb-184-proposed-state.json",
+    "sha256": "afd68daebbe19d393f657d6aaef88eddeb1e9e3140c9266fd12e1a711d31420d"
+  },
+  "receipt": "audit11-segovb-185-811-complete-001.json",
+  "receipt_sha256": "47f2f0534b526d991c4e67c3000ccde2354de56e3c8f2ad97241cc4f198109b4",
+  "original_accounted": 812,
+  "original_total": 2853,
+  "next_original": 812,
+  "newly_source_accounted": [
+    811
+  ],
+  "active_partial": null,
+  "source_accounting_not_clearance": true,
+  "new_unique_findings": 0,
+  "accepted_unique_count_change": 0,
+  "qualified_source_key": "pr-working:crates/adventuresim-character-creator/src/inventory/occupancy.rs@sha256:dbd62cb0c402bcb0903b4bcebdc159c2d2f35f266e4dff77c359796db40231b8#L172-L237:same-candidate-attachment-capacity-reservation",
+  "mandatory_other_lens_extensions": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/garment/selection.rs",
+      "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+      "actual_eof": 271,
+      "actual_access": [
+        [
+          1,
+          79
+        ],
+        [
+          111,
+          225
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          79
+        ],
+        [
+          111,
+          225
+        ]
+      ],
+      "root_provenance": {
+        "path": "audit11-root-garment-selection-staging-182.json",
+        "sha256": "5e81fcb5f5ca2e8dd9a56703c3cdc10911de94615516d90ed59eb5718d4d1ba4"
+      },
+      "proof": "Exact frozenbase3a50/head6533bytes equal, absent747changes/dirty4; no currentalias or bodycredit fromstaging",
+      "mandatory_other_lenses": "pending",
+      "original_shared_credit": 0
+    }
+  ],
+  "new_material_receiver_ranges_for_other_lenses": [
+    {
+      "original": 939,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "actual_eof": 618,
+      "actually_read": [
+        [
+          90,
+          146
+        ],
+        [
+          193,
+          255
+        ],
+        [
+          1,
+          22
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          22
+        ],
+        [
+          90,
+          139
+        ],
+        [
+          193,
+          250
+        ]
+      ],
+      "ordered_credit": false,
+      "extra_original_shared_credit": 0,
+      "status": "existingoriginalscope/ranges remainmandatory otherlenses, no transferoradditionaloriginal/sharedcredit"
+    },
+    {
+      "original": 941,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation.rs",
+      "sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "actual_eof": 2053,
+      "actually_read": [
+        [
+          560,
+          625
+        ],
+        [
+          915,
+          1000
+        ],
+        [
+          637,
+          675
+        ],
+        [
+          780,
+          881
+        ],
+        [
+          1447,
+          1454
+        ]
+      ],
+      "material_scope": [
+        [
+          560,
+          625
+        ],
+        [
+          924,
+          998
+        ],
+        [
+          637,
+          675
+        ],
+        [
+          785,
+          812
+        ],
+        [
+          869,
+          875
+        ],
+        [
+          1447,
+          1453
+        ]
+      ],
+      "ordered_credit": false,
+      "extra_original_shared_credit": 0,
+      "status": "existingoriginalscope/ranges remainmandatory otherlenses, no transferoradditionaloriginal/sharedcredit"
+    },
+    {
+      "original": 938,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_fit.rs",
+      "sha256": "a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "actual_eof": 46,
+      "actually_read": [
+        [
+          1,
+          46
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          46
+        ]
+      ],
+      "ordered_credit": false,
+      "extra_original_shared_credit": 0,
+      "status": "existingoriginalscope/ranges remainmandatory otherlenses, no transferoradditionaloriginal/sharedcredit"
+    },
+    {
+      "original": 944,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "sha256": "9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "actual_eof": 185,
+      "actually_read": [
+        [
+          1,
+          31
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          31
+        ]
+      ],
+      "ordered_credit": false,
+      "extra_original_shared_credit": 0,
+      "status": "existingoriginalscope/ranges remainmandatory otherlenses, no transferoradditionaloriginal/sharedcredit"
+    },
+    {
+      "original": 920,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment.rs",
+      "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "read_from": "crates/adventuresim-core/src/equipment.rs",
+      "actual_eof": 1182,
+      "actually_read": [
+        [
+          197,
+          279
+        ]
+      ],
+      "material_scope": [
+        [
+          197,
+          279
+        ]
+      ],
+      "ordered_credit": false,
+      "extra_original_shared_credit": 0,
+      "status": "existingoriginalscope/ranges remainmandatory otherlenses, no transferoradditionaloriginal/sharedcredit"
+    }
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer. Preserve180/181nativeSDK/Bevy scheduling/imagecopylimits andallpendingreceiverqueues. M04current903reviewsseparate; notfrozenoriginal/lenscounts. Packet182InventoryItemId graph erasure, catalogkey/recordidentity and wear/order-selector sourcequestions retained, alias/currentness/unique acceptance unresolved. M04build-target review003 atdf5 andhostedCIseparatefromfrozenauditcounts. 184 newpublicDrapedPiece association/sourcegroupingquestion remainsfrozenlocal, noalias/currentness/uniqueacceptance; producerpathcoherent. M04df5validationseparate. 185 capacityreservationstaticAPIgap retainedasfrozenevidence only; alias/currentness/accepteduniqueness unresolved. No runtimewrongID orauthoredcurrentinputwitness. ExistingID/key/wear/savedassociationquestionsremainqualified.",
+  "clear": false,
+  "current_reconciled": false,
+  "integrated": false,
+  "validated": false,
+  "root_adoption_required": true,
+  "root_ledger_history_overwritten": false,
+  "product_source_git_checks_tests_publication": "none",
+  "stop": "811complete;no812orderedinventory"
+}

@@ -1,0 +1,173 @@
+{
+  "lens": 13,
+  "receipt": {
+    "path": "audit-resume-20261027/lens13/batch-144-146-receipt.json",
+    "sha256": "02fbfda74304a135e6bdf5e79ec9a0cad27e47d284f86aa030fedff4b6453edd"
+  },
+  "status": "mandatory independent other-lens queue",
+  "sources": [
+    {
+      "original": 234,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/personality.rs",
+      "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "eof": 1210,
+      "requested_range_variants": [
+        [
+          1,
+          160
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "provenance": "Exact f82 registered physical original; all effective requested scope, prior receiver access not independent rolecredit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          160
+        ]
+      ]
+    },
+    {
+      "original": 235,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/chronology.rs",
+      "sha256": "9bd03249bc0fbc1de28571a08035a777f3ab8fe1ddd0ac177d6e32b3693ee621",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/9bd03249bc0fbc1de28571a08035a777f3ab8fe1ddd0ac177d6e32b3693ee621",
+      "eof": 200,
+      "requested_range_variants": [
+        [
+          1,
+          200
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "provenance": "Exact f82 registered physical original; all effective requested scope, prior receiver access not independent rolecredit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          200
+        ]
+      ]
+    },
+    {
+      "original": 236,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/family.rs",
+      "sha256": "39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "eof": 267,
+      "requested_range_variants": [
+        [
+          1,
+          105
+        ],
+        [
+          106,
+          114
+        ],
+        [
+          106,
+          117
+        ],
+        [
+          115,
+          117
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          117
+        ]
+      ],
+      "provenance": "Exact f82 registered physical original; all effective requested scope, prior receiver access not independent rolecredit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          117
+        ]
+      ]
+    },
+    {
+      "original": 237,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/lifecycle.rs",
+      "sha256": "e07c9d7949a4086798ee405ba1deac19e4adcbb4e5dc5cf618eba028b229415d",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/e07c9d7949a4086798ee405ba1deac19e4adcbb4e5dc5cf618eba028b229415d",
+      "eof": 138,
+      "requested_range_variants": [
+        [
+          1,
+          138
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "provenance": "Exact f82 registered physical original; all effective requested scope, prior receiver access not independent rolecredit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          138
+        ]
+      ]
+    },
+    {
+      "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "ranges": [
+        [
+          161,
+          246
+        ],
+        [
+          315,
+          478
+        ]
+      ],
+      "role": "Complete set_score private assignment/clamp and actual score projection/native writers; original234 requested1-160 preserved, no full1210/tailcredit. Already-own actual516-577 and707-840 reused only exactranges.",
+      "actual_consumed_ranges": [
+        [
+          161,
+          246
+        ],
+        [
+          315,
+          478
+        ]
+      ]
+    },
+    {
+      "status": "prospective",
+      "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "ranges": [
+        [
+          300,
+          314
+        ]
+      ],
+      "role": "Actual bipolar threshold recipient used by project_scores; same frozen original234 source, no wholefileclaim.",
+      "actual_consumed_ranges": [
+        [
+          300,
+          314
+        ]
+      ]
+    }
+  ],
+  "items": [
+    "Admission/owner/invariant/producer on signed personality scalar public fields vs clamped helper writes and lossy cached enums; signedbirth/age identities.",
+    "Enum-shapes/aggregate/behavior on lifecycle ordering 0/1 and exact death/personal-frontier precedence; independently trace, no source/verdict transfer."
+  ],
+  "accepted_new_unique_count": 0
+}

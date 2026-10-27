@@ -1,0 +1,87 @@
+{
+  "at": "2026-10-27T04:43:10.577132+00:00",
+  "lens": 12,
+  "original": 50,
+  "prior_state": "audit12-state-successor-026-root-005.json",
+  "registration": {
+    "path": "audit12-successor-registration-027-receiver-001.json",
+    "sha256": "95f55df309d3560db53ae4b70dd5b1e72a12f8433c6d109ec86870f15088ecea"
+  },
+  "actual_source": {
+    "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs",
+    "sha256": "61fe528d93435e9e3d2d263110bc870e10ee25ea61c84196be203e4e771d6741",
+    "actual_body_read": [
+      [
+        80,
+        130
+      ],
+      [
+        190,
+        261
+      ]
+    ]
+  },
+  "contracts": [
+    {
+      "range": [
+        85,
+        123
+      ],
+      "fact": "run creates output directory then writes acceptance evidence, summary, acceptance audit, reviewer index via write_json; stdout pretty-serializes summaries. Filenames are concrete filesystem output boundaries; reviewer gate is descriptive prose. This is summaries, not proof BattleLogEntry telemetry labels are emitted."
+    },
+    {
+      "range": [
+        192,
+        240
+      ],
+      "fact": "record_autoresolve_combatant_causal branches on typed attack outcome and requested defender response for event counters; optional melee telemetry forwarded to already-read causal::record_autoresolve_telemetry. No direct reading of effective_defender_response/defender_attack_commitment in this receiving body. Distinct requested vs effective response semantics retained; no assertion they are identical."
+    },
+    {
+      "range": [
+        255,
+        261
+      ],
+      "fact": "write_json accepts Path and Serialize, calls serde_json::to_vec_pretty then fs::write, retaining typed WriteReport with owned path and source on IO failure. Actual serialization entry point established, not whole serde/native or full report provenance."
+    }
+  ],
+  "remaining": [
+    "Need actual run_matchup/autoresolve logging serialization outputs before concluding telemetry label finalowner, canonical M09 alias/currentness still open.",
+    "Quest catalog membership implementation/entries remain untraced beyond prior predicate.",
+    "No51 body/credit; no full mod.rs read/clearance or all strings exemption from selected receiver boundary."
+  ],
+  "mandatory_other_lens_extension": {
+    "registration": "audit12-successor-registration-027-receiver-001.json",
+    "source_identity": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs",
+    "sha256": "61fe528d93435e9e3d2d263110bc870e10ee25ea61c84196be203e4e771d6741",
+    "ranges": [
+      [
+        80,
+        130
+      ],
+      [
+        190,
+        261
+      ]
+    ],
+    "pending_lenses": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      13
+    ],
+    "no_automatic_coverage_or_population_transfer": true
+  },
+  "original_count_before": 50,
+  "original_count_after": 50,
+  "new_unique_delta": 0,
+  "global_clearance": false,
+  "local_project_execution": false
+}

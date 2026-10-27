@@ -1,0 +1,97 @@
+diff --git a/crates/adventuresim-tactical-client/src/art_demo/residency.rs b/crates/adventuresim-tactical-client/src/art_demo/residency.rs
+index ac586d6d7..9df99a26d 100644
+--- a/crates/adventuresim-tactical-client/src/art_demo/residency.rs
++++ b/crates/adventuresim-tactical-client/src/art_demo/residency.rs
+@@ -1,7 +1,11 @@
+ //! Keep recently used studio exhibits resident in a bounded navigation cache.
+ //! Scenery shares prepared facades, but releases terrain and inspection detail.
+ 
+-use std::collections::{HashMap, VecDeque};
++use super::preparation::{ArtDemoPreparationError, ArtDemoPreparationResult, SharedArtDemoResult};
++use std::{
++    collections::{HashMap, VecDeque},
++    sync::Arc,
++};
+ 
+ use super::*;
+ 
+@@ -18,7 +22,7 @@ pub(super) struct PendingScenery(ExhibitId);
+ 
+ #[derive(Default, Resource)]
+ pub(super) struct ExhibitCache {
+-    studio: HashMap<ExhibitId, Result<Option<Handle<WorldAsset>>, String>>,
++    studio: HashMap<ExhibitId, SharedArtDemoResult<Option<Handle<WorldAsset>>>>,
+     views: HashMap<ExhibitId, OrbitView>,
+     recency: VecDeque<ExhibitId>,
+ }
+@@ -78,12 +82,12 @@ pub(super) fn show(world: &mut World, id: ExhibitId) {
+         Ok(None)
+     } else {
+         match scenery_ready(world, &exhibit) {
+-            Ok(true) => exhibit.spawn(world),
++            Ok(true) => exhibit.spawn(world).map_err(Arc::new),
+             Ok(false) => {
+                 world.insert_resource(PendingScenery(id));
+                 Ok(None)
+             }
+-            Err(error) => Err(error),
++            Err(error) => Err(Arc::new(error)),
+         }
+     };
+     world.flush();
+@@ -120,13 +124,13 @@ pub(super) fn spawn_pending(world: &mut World) {
+             Ok(false) => return,
+             Err(error) => {
+                 world.remove_resource::<PendingScenery>();
+-                world.resource_mut::<CurrentExhibit>().scene = Err(error);
++                world.resource_mut::<CurrentExhibit>().scene = Err(Arc::new(error));
+                 return;
+             }
+         }
+     }
+     if let Some(pending) = world.remove_resource::<PendingScenery>() {
+-        let result = Exhibit::get(pending.0).spawn(world);
++        let result = Exhibit::get(pending.0).spawn(world).map_err(Arc::new);
+         if let Some(view) = world
+             .resource::<ExhibitCache>()
+             .views
+@@ -145,7 +149,7 @@ fn textures_ready(world: &World, exhibit: &Exhibit) -> bool {
+         .is_none_or(|residency| residency.is_ready(exhibit.texture_recipes().iter().copied()))
+ }
+ 
+-fn scenery_ready(world: &World, exhibit: &Exhibit) -> Result<bool, String> {
++fn scenery_ready(world: &World, exhibit: &Exhibit) -> ArtDemoPreparationResult<bool> {
+     if !textures_ready(world, exhibit) {
+         return Ok(false);
+     }
+@@ -155,15 +159,18 @@ fn scenery_ready(world: &World, exhibit: &Exhibit) -> Result<bool, String> {
+     let residency = world.resource::<crate::presentation::PreparedTreeImpostorAssets>();
+     let handle = residency
+         .handle()
+-        .ok_or("oak impostor asset was not requested")?;
++        .ok_or(ArtDemoPreparationError::ImpostorNotRequested)?;
+     let server = world.resource::<AssetServer>();
+     if let Some(bevy::asset::LoadState::Failed(error)) = server.get_load_state(handle.id()) {
+-        return Err(format!("prepared oak impostors failed: {error}"));
++        return Err(ArtDemoPreparationError::ImpostorLoad { source: error });
+     }
+     Ok(server.is_loaded_with_dependencies(handle.id()))
+ }
+ 
+-fn load_studio(world: &mut World, exhibit: &Exhibit) -> Result<Option<Handle<WorldAsset>>, String> {
++fn load_studio(
++    world: &mut World,
++    exhibit: &Exhibit,
++) -> SharedArtDemoResult<Option<Handle<WorldAsset>>> {
+     if let Some(result) = world
+         .resource::<ExhibitCache>()
+         .studio
+@@ -174,7 +181,7 @@ fn load_studio(world: &mut World, exhibit: &Exhibit) -> Result<Option<Handle<Wor
+         return result;
+     }
+     evict_for(world, exhibit.id());
+-    let result = exhibit.spawn(world);
++    let result = exhibit.spawn(world).map_err(Arc::new);
+     let mut cache = world.resource_mut::<ExhibitCache>();
+     cache.studio.insert(exhibit.id(), result.clone());
+     cache.recency.push_back(exhibit.id());

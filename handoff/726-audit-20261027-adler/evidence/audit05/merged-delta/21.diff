@@ -1,0 +1,15 @@
+--- 6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/camera/values.rs
++++ 13fc9dcc71ab879de364117e5462310673e43210:crates/adventuresim-tactical-client/src/camera/values.rs
+@@ -41,10 +41,12 @@
+ #[derive(Clone, Copy, Debug, Default)]
+ pub(super) struct SignedBlendVelocity(f32);
+ 
+ #[derive(Debug, thiserror::Error)]
+ pub enum CameraError {
++    #[error(transparent)]
++    Fraction(#[from] adventuresim_core::unit_interval::FractionError),
+     #[error(transparent)]
+     Geometry(#[from] GeometryError),
+     #[error(transparent)]
+     Speed(#[from] SpeedError),
+     #[error(transparent)]

@@ -1,0 +1,53 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-301",
+  "at": "2026-10-25T22:48:44.528648+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2576,
+      "source_id": "pinned-registry:serde-saphyr-1.2.0/src/parse_scalars.rs",
+      "sha256": "cf724ec89b4f506fa46193c9b2c1917b43356e02a342f11c9ccf45483dc3bebb",
+      "personally_read_ranges": [
+        [
+          1,
+          699
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full699-line frozen scalar parser including fixtures. Integer digits use checkedu128/i128 accumulation and targetTryFrom, negative decimal accumulation admitsi128MIN without negation overflow. Radix/underscore handling guarded by legacy option and lexical checks. Concrete float explicitly admits YAML.nan/\u00b1.inf, otherwise Rust parse must remainfinite in target width; typelessoverflow helper permits numeric-shapedf64overflow separately. Nullish plain/style/tag distinctions retained; Option empty unquoted rules differ from general scalar. Confirms earlier2574\u201375 default-finiteness qualification with actual implementation. Fixture bodies read, not run; no project nonfinite producer finding."
+      ]
+    },
+    {
+      "scope_index": 2578,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/model/placement.rs",
+      "sha256": "243d594fbb5904b60ec01daa6e25decb1ace121320b548926f0400a909222fc3",
+      "personally_read_ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full156-line P16 weapon placement owner. Resolve clones recipe, applies opposed directions, builds frames/rotation/components in recipe order, validates contact and optional grip clearance against computed frame distance, then returns coherent mutated recipe/frames/components/grip. Resolved component fields captured from same post-fitting component and effective pose. Public source recipe identifiers/attachment ordering must be admitted upstream: references to later component/duplicateID can be represented, no ordinary validated input evidence yet. Grip width chosen before facing application, which only changes direction/offset, preserving widths. Pommel profile scaling and side fitting guarded by typed scalar admissions/shaft presence; no model generation executed."
+      ]
+    },
+    {
+      "scope_index": 2579,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/recipe/facing.rs",
+      "sha256": "1a50ad5faa518b5ed479870cc03f08e55cd30322c639cd308608aa827fd78d7f",
+      "personally_read_ranges": [
+        [
+          1,
+          116
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full116-line P16 facing graph owner/fixture. Recursive resolution keeps visiting index set, rejects cycles, missing target and nondirectional working ends; opposite directions resolved against original recipe before mutations, then each selected shape and both local/attachment X offsets updated consistently. IDs resolved via index fallback, firstmatch ifduplicate; actual recipe duplicate-ID validation remains required. apply computes full directions Result before edits; later typed offset conversion could fail after earlier edits for nonfinite existing raw state, canonical scalar invariants needed. Fixture compares mount/attachment equivalence, read not run."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

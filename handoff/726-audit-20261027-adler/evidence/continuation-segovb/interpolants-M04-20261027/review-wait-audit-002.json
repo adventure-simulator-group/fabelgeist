@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-27T06:12:20.669097+00:00",
+  "checkpoint": 992,
+  "head": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+  "previous_turn_classification": "Progress: completed samehead CI/raw acceptance, finalbodyreview/publication and ready transition; stopped for requested userreview.",
+  "current_turn_classification": "No progress: fresh authoritative PR/review/inline/discussion reads confirm same unresolved userreviewcheckpoint; no live process remains to classify as verifiedwait.",
+  "state": {
+    "open": true,
+    "ready": true,
+    "merged": false,
+    "mergeable": true,
+    "mergeable_state": "clean",
+    "reviews": 0,
+    "inline_comments": 0,
+    "discussion_comments": 0
+  },
+  "evidence": {
+    "review-wait-pr-002.json": "3e3bc7fde677625c673d735ff1d52d678acc76e49afa60d4c7e7b295f5157d46",
+    "review-wait-reviews-002.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "review-wait-comments-002.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "review-wait-discussion-002.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "blocking_condition": "User explicitly requires stop for review at each merge-ready PR and subsequent work only after checkpoint. Automatic continuation supplies no review approval. No new code/frozen audit work or merge authorized past this checkpoint.",
+  "safe_next_action": "Wait for user review/feedback or external checkpoint resolution; current pending038packet retained for later adoption, zero newcredit.",
+  "same_condition_consecutive_goal_turns": 2,
+  "blocked_threshold": 3,
+  "goal_status": "active",
+  "overall_goal_complete": false
+}

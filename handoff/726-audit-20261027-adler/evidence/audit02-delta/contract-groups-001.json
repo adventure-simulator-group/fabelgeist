@@ -1,0 +1,144 @@
+{
+  "id": "ADLER-OWN02-MATERIAL-001",
+  "lens": "02 existing type owners",
+  "sources": [
+    {
+      "index": 62,
+      "source_id": "pr-working:crates/fabelgeist-math/src/vector/vec3.rs",
+      "sha256": "83d359f9d5ae866cc3935577b48f93d9916081bceb05ac92748c91e98672c143",
+      "ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\83d359f9d5ae866cc3935577b48f93d9916081bceb05ac92748c91e98672c143",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/83d359f9d5ae866cc3935577b48f93d9916081bceb05ac92748c91e98672c143",
+      "line_count": 263,
+      "disposition": "Vec3 is the existing unframed generic numeric/GPU POD owner, public f32 components and arithmetic intentionally permit IEEE infinities (component division259). No physical units/frame claim, so architectural Position or unit direction would narrow supported use without proof. max_axis returns0/1/2 while axis/set_axis acceptusize and mapother toZ; no existing same-layer Axis owner found in frozen math search. A separate bounded-axis owner is a missing-role/API question, not grounds to import game coordinates. Signed distances/directions at Collider65 remain distinct semantic roles needing caller policy.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 63,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+      "ranges": [
+        [
+          1,
+          209
+        ]
+      ],
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+      "line_count": 209,
+      "disposition": "Actual Naga native module handles, binding.group/binding index, uniform span/offset/size and wgpu format/dimension enums are the immediate producers/receivers. Existing ReflectionData/BindGroupReflection/UniformMember/TextureBinding/BufferBinding in shader.rs4-43 retain native reflection metadata; string entry/member names are actual WGSL keys, not BufferLabel diagnostic identity. BufferByteOffset/Length (extent.rs5-8) are reusable byte leaves for offset/size but not binding/group ordinal or shader entry name; retaining them would require connected shader/reflection/uniform writers, preserving nativeu32 representability at extraction. No exact existing semantic owner for binding/group/entry names found in bounded GPU search; do not claim all metadata admitted by aggregate names.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 64,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+      "ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+      "line_count": 138,
+      "disposition": "Existing BufferDefinition privately retains actual BufferLabel diagnostic spelling and closed UsageSelection/BufferUse; native flag combination has explicit unspecified/general vs selected semantics. allocate_native accepts canonical BufferByteLength then erases to u64 only in actual wgpu descriptor. extent.rs supports validzero/fullu64; label.rs accepts exactempty/arbitrary spelling. Reuse already fits. Reflection binding-name metadata63 is a different role; no label conflation or unnecessary usage wrapper.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 65,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/collider.rs",
+      "sha256": "a6c42473a9969568f6eb700df01cc6753b92bb2034ade7d129733d1a550c2021",
+      "ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\a6c42473a9969568f6eb700df01cc6753b92bb2034ade7d129733d1a550c2021",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/a6c42473a9969568f6eb700df01cc6753b92bb2034ade7d129733d1a550c2021",
+      "line_count": 171,
+      "disposition": "Collider query carries signed distance (negativeinside), outward direction and unframed generic Vec3; NoCollider intentionally returns positiveinfinity sentinel. Generic Vec3 is actual BVH/native math owner. Positive finite Metres/architectural Position cannot replace all values or frames, and hair Cargo lacks game geometry dependency. Same-layer searches find no existing exact signed-distance/query-result/clearance owner. Missing coherent collider query/mesh relation owner must define far/nohit, direction and retained position/index association before reuse proposals; existing PointsPerStrand is not numberofpasses. No invented finite-only wrapper or claim that a tuple retains normal/distance relationship.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 66,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_material.rs",
+      "sha256": "27f68197aed8fbddabadd7cf19e14bee176fbd01746a4dce9e3706a55c86e10a",
+      "ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\27f68197aed8fbddabadd7cf19e14bee176fbd01746a4dce9e3706a55c86e10a",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/27f68197aed8fbddabadd7cf19e14bee176fbd01746a4dce9e3706a55c86e10a",
+      "line_count": 15,
+      "disposition": "is_metal takes canonical EquipmentMaterial, exhaustively expresses actual authored material categories with matches, and returns a derived classification bool. EquipmentMaterial is already reused from item_catalog_schema1, with no primitive ID or representation conversion here. This is material classification, not numeric physical conductivity/roughness ownership.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 67,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_classification.rs",
+      "sha256": "a65529b45c53a783feaa8905b9fba38d95d28e97b01fe8198d4ffeee0a57c58d",
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\a65529b45c53a783feaa8905b9fba38d95d28e97b01fe8198d4ffeee0a57c58d",
+      "recovery": "target\\recovery-20261025\\audit03-delta\\source-objects\\a65529b45c53a783feaa8905b9fba38d95d28e97b01fe8198d4ffeee0a57c58d",
+      "line_count": 125,
+      "disposition": "CatalogItemKind is the materialized item-classification owner; stable_id strings are terminal wire spelling. Existing CatalogKind dependency at3 is deliberately lossy economic stocking projection that mergesContainerwithSimple. Therefore replacing CatalogItemKind with CatalogKind would discard classification; current separate owner is justified. Typed source and enum projection fit; SDK adaptation remains separate port rather than duplicating classifier.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 68,
+      "source_id": "pr-working:crates/adventuresim-core/src/errantry.rs",
+      "sha256": "c745b617fe6b91b054b4f968565f295d03f9839eb329c4957d86306d65969858",
+      "ranges": [
+        [
+          62,
+          98
+        ]
+      ],
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\c745b617fe6b91b054b4f968565f295d03f9839eb329c4957d86306d65969858",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/c745b617fe6b91b054b4f968565f295d03f9839eb329c4957d86306d65969858",
+      "line_count": 827,
+      "disposition": "TacticalInsight.threat_id:String69 has exact same-crate reusable ThreatId (bestiary.rs13-69,124-134), already input76 and convertedback toString91. ThreatId admits1..63 lowerASCII stableidentity and serializes as same string, so retaining it in this public intermediate is a concrete fit with no dependency barrier; finding/preparation are authored display prose and not IDs. Immediate strategic/challenges.rs377-391 parses hostile identity before calling,425/442-443 projects onlyfinding/preparation. Preserve existing RIG-INITIAL06-F052 typed mechanic/prose authority remedy; eligibility sentence comparison83-85 is a distinct existing gap. Treat identity propagation as source-backed reuse candidate pending shared-remedy dedup, no new globally unique count.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    }
+  ],
+  "new_unique_findings_claimed": 0,
+  "execution": "Read-only source evidence; no project checks, source edits or Git changes",
+  "owner_support": [
+    "Frozen6533 fabelgeist-gpu buffer/extent.rs1-54 and label.rs1-28 personally read: actual byte length/offset fullu64 validzero and exact diagnostic string semantics.",
+    "Frozen6533 fabelgeist-gpu shader.rs1-65 personally read: actual reflection records/metadata and Naga boundary, no invented binding owner.",
+    "Frozen6533 core/bestiary.rs1-69,123-142 personally read: ThreatId admission/wire semantics; exact owner for errantry identity.",
+    "Frozen6533 stdb-module/strategic/challenges.rs374-396 and actual consumer grep425/442-443: typed hostile parse to intermediate then display projection.",
+    "Frozen6533 hair Cargo.toml1-45 and bounded hair/math type search: low-level dependency barrier and no exact existing signed-distance owner located."
+  ],
+  "dedup": {
+    "RIG-INITIAL06-F052": "Existing modeled combat fact controlled by display sentence; preserve remedy and do not re-count as new02 finding. Identity reuse candidate is linked but not silently asserted same complete repair."
+  },
+  "repair_and_acceptance_candidates": [
+    {
+      "material": 68,
+      "scope": "If accepted into shared identity remedy, retain ThreatId in TacticalInsight from producer through serialization/intermediate callers; terminal display strings stay prose. No stringcompatibility alias.",
+      "acceptance": "Existing stable-ID wire spelling preserved; malformed identities rejected by existing ThreatId admission; existing tactical-insight caller/fixtures remain connected. No new tests authorized."
+    }
+  ]
+}

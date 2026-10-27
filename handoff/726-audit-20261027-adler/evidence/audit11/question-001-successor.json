@@ -1,0 +1,26 @@
+{
+  "id": "ADLER-CONT11-Q001-SUCCESSOR",
+  "supersedes": "question-001.json concrete example and suggested owner; original retained as provenance, not authoritative producer claim",
+  "source_support": {
+    "scope_index": 83,
+    "source_id": "physical-p16:crates/adventuresim-core/src/combat/defense.rs",
+    "sha256": "a3019cfa64106abc38bbfa7b0962e406cc6cb1a1a663a8a0dfdee71f874201e1",
+    "ranges": [
+      [
+        1,
+        199
+      ],
+      [
+        220,
+        272
+      ]
+    ],
+    "credit": "Fresh personal supporting reread within already-completed original0-384; no new role or cross-lens credit"
+  },
+  "correction": "Actual native scaled_for_alignment235-250 preserves Block/Parry variant, so earlier attemptedBlock/effectiveNone example is only API-manufacturable, not demonstrated output of this alignment producer. It must not be described as actual failed-alignment output.",
+  "concrete_source_backed_pair": "Original83 resolve_weapon_defense_alignment(attempted=Block{effectiveness1},attack_value0,alignment_sample0.5) gives logistic alignment_error0, engagement0.5 and effectiveBlock{effectiveness0.5} by source145-161/235-241. No execution. Current caller393 passes correct attempted/effective fields. Swapping same-typed positional arguments394100-105 would feed1 rather than0.5 into transform_attack_for_offhand_defense132; full downstream numerical effect is not claimed here.",
+  "existing_owner": "WeaponDefenseAlignment already defined at original83113-123 groups attempted,effective,success_probability,alignment_sample and engagement. Prefer carrying existing canonical record through commit boundary if strengthening is chosen, rather than introducing duplicate response enum or stage wrappers. For nonweapon response alignment=None, current commit branches already do nothing; verify complete consumers before any signature change.",
+  "disposition": "Qualified operation-boundary API simplification/association strengthening only. Native producer and current caller coherent; no observed wrong defense, no new unique issue counted, exact whole-remedy/current-variant reconciliation still pending.",
+  "repair": "not started",
+  "validation": "not run"
+}

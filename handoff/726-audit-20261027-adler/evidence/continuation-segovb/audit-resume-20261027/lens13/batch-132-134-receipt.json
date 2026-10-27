@@ -1,0 +1,288 @@
+{
+  "lens": 13,
+  "status": "source-accounted with qualified findings; continuing",
+  "authority": {
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "manifest_sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa"
+  },
+  "registrations": [
+    {
+      "path": "audit-resume-20261027/lens13/batch-132-registration.json",
+      "sha256": "4eaa4399bb6a95b5ad64c044cdf54ecffe40507c1886aa6f64ace6f00f2c1097"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-133-registration.json",
+      "sha256": "bb783980aade5242e1f3fc078be597123374aebe1ff67498eca5792bbd9bc75d"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-134-registration.json",
+      "sha256": "faea992b8ce4f427254fb9cf034c2a14464df3950be84d97d882fe076a895dcf"
+    }
+  ],
+  "actual_source_reads": [
+    {
+      "original": 217,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/herbalism.rs",
+      "sha256": "98a9b9265a294f16c734dc7a90ca9cbb9f7770b359a71fdbdc4e19a3736ad934",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/98a9b9265a294f16c734dc7a90ca9cbb9f7770b359a71fdbdc4e19a3736ad934",
+      "requested_range_variants": [
+        [
+          1,
+          600
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          600
+        ]
+      ],
+      "eof": 600,
+      "provenance": "Exact frozen f82 registered physical variant; full effective original union preserved. Prior receiver read is not independent original inventory credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          600
+        ]
+      ]
+    },
+    {
+      "original": 218,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/herbalism/ingredient.rs",
+      "sha256": "0da336a33dfe2ce0319629649c1fe2192f15f73e04a7899d12cc9613f2f49156",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/0da336a33dfe2ce0319629649c1fe2192f15f73e04a7899d12cc9613f2f49156",
+      "requested_range_variants": [
+        [
+          1,
+          21
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "eof": 21,
+      "provenance": "Exact frozen f82 registered physical variant; full effective original union preserved. Prior receiver read is not independent original inventory credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          21
+        ]
+      ]
+    },
+    {
+      "original": 219,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+      "requested_range_variants": [
+        [
+          1,
+          241
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          241
+        ]
+      ],
+      "eof": 241,
+      "provenance": "Exact frozen f82 registered physical variant; full effective original union preserved. Prior receiver read is not independent original inventory credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          241
+        ]
+      ]
+    },
+    {
+      "original": 220,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "requested_range_variants": [
+        [
+          1030,
+          1085
+        ]
+      ],
+      "ranges": [
+        [
+          1030,
+          1085
+        ]
+      ],
+      "eof": 1451,
+      "provenance": "Exact frozen f82 registered physical variant; full effective original union preserved. Prior receiver read is not independent original inventory credit.",
+      "actual_consumed_ranges": [
+        [
+          1030,
+          1085
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/clock.rs",
+      "sha256": "25673af055bc146c82eb0fcf5bcbde2db09174cc6bec4e4dc2ae081150e3a25c",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/25673af055bc146c82eb0fcf5bcbde2db09174cc6bec4e4dc2ae081150e3a25c",
+      "ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "provenance": "Exact frozen f82 registered physical variant, narrow materially reached receiver/producer, no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          32
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "ranges": [
+        [
+          988,
+          1029
+        ],
+        [
+          1086,
+          1090
+        ]
+      ],
+      "provenance": "Exact frozen f82 registered physical variant, narrow materially reached receiver/producer, no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          988,
+          1029
+        ],
+        [
+          1086,
+          1090
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/inventory_containers.rs",
+      "sha256": "4feda6b091c108a9cb8def2cfa8cd63c6fd7123d64c3584d308dec283048d50a",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/4feda6b091c108a9cb8def2cfa8cd63c6fd7123d64c3584d308dec283048d50a",
+      "ranges": [
+        [
+          29,
+          176
+        ]
+      ],
+      "provenance": "Exact frozen f82 physical registered variant, narrow selected volume/clock receiving definitions and operations only, no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          29,
+          176
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "ranges": [
+        [
+          953,
+          987
+        ]
+      ],
+      "provenance": "Exact frozen f82 physical registered variant, narrow selected volume/clock receiving definitions and operations only, no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          953,
+          987
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/mod.rs",
+      "sha256": "0e0aec9ef7cae2e967e3e7018f1c6a823c847e11839fb43bf5c2fee295c404bc",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/0e0aec9ef7cae2e967e3e7018f1c6a823c847e11839fb43bf5c2fee295c404bc",
+      "ranges": [
+        [
+          1,
+          22
+        ]
+      ],
+      "provenance": "Exact frozen f82 physical registered variant, narrow selected volume/clock receiving definitions and operations only, no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          22
+        ]
+      ]
+    }
+  ],
+  "originals": [
+    {
+      "original": 217,
+      "status": "source_accounted_with_qualified_quantization_finding",
+      "role": "Tincture material lifecycle and measured administration",
+      "inventory_and_trace": [
+        "Full1-600 freshly consumed after132 for independent original numeric inventory, beyond prior receiver-only excerpts. Native raw u64 vessel/actor/ingredient/carrier IDs, u32 ingredient grams/dose, u16 pinned profileversion1, rawf32 potency/fraction/check, bool matured/private/public flags and typed shared-world ready/start clocks inventoried. Setup10minutes, threshold check.5, exact150ml spirit, one direct ingredient quantity1,50grams as.05kg tolerance.0001, check/5 potency clamp.1..1 and depletionepsilon1e-6 are gameplay/unit/quantization policy, not mere constants/native serialization exemptions.",
+        "Actual217->218 consumes exact ingredient native row/object/lot; actual127 canonical custody and selected220 native custody recipients verify personal root. Quantity decrement1 guarded>0; volume cap>=150 then exact150maturation recipe. Skill141 actual bounded rank and ten-minute114 wait/check terminal guard precede shared world refresh133 and checked ready-date addition using core110 maturation duration. Finite/positive source guards and possible malformed native row states remain qualified; e.g abs mass tolerance alone does not rejectNaN, but ordinary Ground preparation210 rejects invalid measure, so no ordinary malformed-lot admission asserted.",
+        "Actual native clock133 initializes singleton0 and stores SDK timestamp microseconds; imported canonical core156 official_minute implementation was independently read085-090. Shared world maturation is intentional chronology distinct from personal setup duration. No full SDK timestamp implementation, universal epoch/current clock correctness or restart migration claim. No backward compatibility assumptions.",
+        "After maturity component carries pinned raw standard-dose potency into actual typed DoseMilliunits receiver128/193. Public dose1..1000 typed, as_standard_doses fraction0.001..1. Existing food medicine checks finite fraction/potency and typed rounded dose; splitting rejects nonfinite/out-of-unit fraction. Raw fractions/potency retained through first-party ports remain owner/propagation candidates, no new ratio wrapper imposed.",
+        "Quantization/source witness: at accepted threshold check0.5, pinned potency0.1 standards. Request1milli => fraction0.001, unrounded used<=0.0001 standards; DoseMilliunits rounding yieldszero, then MINIMUM_NONZERO1milli is administered/stored by193, while component debit is only the unrounded0.0001 standards (0.1milli). Thus recorded physiological dose and material debit differ already in one source operation. Over a conditionally admitted150-call sequence, liquid150..1ml loses one ml each call throughceil/max1; encoded cumulative dose150milli could exceed initial100milli before bottle deletion. No execution, actual current activation, full patient-survival/repeated-authorization witness or accepted unique claim. This is an explicit quantization/conservation policy concern, not a proved ordinary live incident.",
+        "Valid zero: standalone tincture dosezero rejected, consumed-food componentzero no-op193, rounded-zero tincture forcedpositive is distinct policy; do not silently conflate them. Actual saturation removes at least1ml, typed standardized dose<=1 prevents negative fractional consumption for selected finite source, final epsilon/empty-volume removes component/process/liquid and canonical merge. Existing cfg(test) source assertions consumed only."
+      ]
+    },
+    {
+      "original": 218,
+      "status": "source_accounted_with_identity_candidates",
+      "role": "Exact tincture ingredient native deletion",
+      "inventory_and_trace": [
+        "Full1-21 raw inventory/ingredient u64 IDs arrive from actual217 validated single direct stable object and measured lot. Deletes food medicine/provenance through actual207 deletion body, amount state, containment edge, stable object and inventory row. These distinct identities can carry canonical types internally; actual native deletion keys are concrete final SDK ports. No arithmetic/quantization or generic arbitrary deletion authorization guarantee."
+      ]
+    },
+    {
+      "original": 219,
+      "status": "source_accounted_with_checked_fraction_retention",
+      "role": "Native fixed-point remaining amount rows",
+      "inventory_and_trace": [
+        "Full1-241 independent ordered inventory. Raw native personal/partyu64 row keys, stored remainingu32micros, fixed four stock-ID collection and bool definition classification inventoried. Canonical ConsumableFractionMicros owns<=one whole and validzero; native field extraction/readmission is actual SDK storage boundary, not an exemption for arbitrary first-party primitive retention. Fixed WHOLE initialization and direct transfer retain same value; selected consumption clamps requested<=available then checked_sub, deleting empty rows.",
+        "Raw persisted field read uses checked constructor with expect, so malformed out-of-range native storage could panic at API; all selected own writers initializeWHOLE, consume typed, or copy prior state, and203 preserves bounded minimum. No current/native external malformed write or ordinary panic claimed. Native table public visibility is read access, not proof clients can arbitrarily write it.",
+        "Existing definitions fixture food/alcohol500/soap/sword/steel uses native default fields and boolean classification, not new gameplay magnitude admission. No tests added/executed. Transfer preserves raw fractions without changing measures; all custody/transaction/source object graph behavior outside selected bodies remains qualified."
+      ]
+    },
+    {
+      "original": 220,
+      "status": "source_accounted_for_exact_effective_union_with_receiver_extensions",
+      "role": "Contained water total and remaining physical container capacity",
+      "inventory_and_trace": [
+        "Original requested full effective union is ONLY1030-1085 of exact1451-line source, not full file. Actual owner signature/closure extended133 at988-1029/1086-1090 and measured-volume producer134953-987; all original lines consumed. Prior selected ranges from other packets are access reuse only. Raw native objectIDu64, exact stored wateru64ml, authored capacityu32ml and checked totalu64 are inventoried; typed OperationalCustody/PhysicalObjectId/Milliliters are actual semantic boundaries.",
+        "contained_water_ml filters actual water identity and resolved root custody, checked_add per native volume, returns error on overflow. remaining capacity loads exact object/catalog, typed graph used-volume + liquid via checked addition then checked_sub authored capacity; no raw unchecked total or universal count bound asserted.",
+        "Actual134 graph receiver core2747 production29-176 read: positive exterior and measured<=exterior, duplicate-ID rejection; direct children sum checked Milliliters; insertion rejects self/cycle/depth>16, checks descendant/ancestor bound and checked capacity addition; subtree tracks visited results and bounded cursor. Actual native graph reconstructs checked object IDs, catalogu32 capacities/displacement and typed measured fraction scaled floor. Zero measured meansNone fallback exterior by source policy; no independent full physical-model/runtime validation.",
+        "Newly read core2747 raw usize depth/index/cursor, bool existence and Vec/map cardinality are concrete local graph operations with actual bound16 and checked volume. Public arbitrary collection size/product MAX_DEPTH*object_count still lacks universal allocation/usize proof; no feasible native overflow incident or whole future original2747 credit. Other graph/calibration/custody paths and native SDK implementation remain separately qualified."
+      ]
+    }
+  ],
+  "specific_boundary_proofs": [
+    "Own core110 herbalism,128 physiology DoseMilliunits,141 skill,156 strategic_time,127 physical identity and193 disease actual admission/effect receivers reused by identical SHA. New132 full native herbalism/ingredient/amount inventory independent of prior receiving excerpts.",
+    "Actual133 clock1-32 and134 time import source bind refresh_clock to canonical official_minute; no SDK or runtime verification inherited from names. Actual134 core containment production receiver read after prospective registration, no future original2747 credit.",
+    "Original220 exact limited registry union retained, neighbouring selected receiving ranges are additional source dependencies rather than whole-file clearance."
+  ],
+  "qualified_observations": [
+    {
+      "id": "tincture-dose-quantization-versus-material-debit",
+      "source": "217 start potency and administer rounding/minimum; core128 dose; native193 administration",
+      "claim": "Positive minimum typed dose after rounded-zero conversion exceeds smaller unrounded material debit for small accepted requests. One-operation arithmetic source witness; repeated150-call illustration conditional on authorization/survival/current route. Aliases/currentness/runtime acceptance open."
+    }
+  ],
+  "limits": [
+    "No accepted unique count, current/runtime/SDK/global clearance. All prior metadata/source chronology corrections and qualified source findings retained.",
+    "No product/Git/root ledger/project checks/tests/probes/publication. Existing source fixtures only.",
+    "Original221 onward and own material extension queue027 remain mandatory. Overlay/merge/shared/other-lens populations receive zero credit from selected receiver reads."
+  ]
+}

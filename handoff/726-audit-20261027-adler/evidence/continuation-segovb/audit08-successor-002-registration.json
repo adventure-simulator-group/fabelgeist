@@ -1,0 +1,241 @@
+{
+  "lens": "08 behavior preservation",
+  "prior_receipt": "audit08-successor-001.json",
+  "materials": [
+    {
+      "index": 33,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/wgsl/common.rs",
+      "sha256": "ffd989fed5f4bc512ee53fc408db1d2ecb6bcd81464b5c3eecc8ce4e4eef71e0",
+      "ranges": [
+        [
+          1,
+          446
+        ]
+      ],
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "reason": "Actual receiving shader generation for Growth/Flow/parting codes, root map policy and HairdoGpu ABI from original2286/2287/2288/2291; no source consumption or audit credit from recovery"
+    },
+    {
+      "index": 34,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/wgsl/groom.rs",
+      "sha256": "955f005be356cd5dac7fef18bd1c669d248c1fdf2632f5a787a7b10222be2ae2",
+      "ranges": [
+        [
+          1,
+          1609
+        ]
+      ],
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "reason": "Actual receiving shader generation for Growth/Flow/parting codes, root map policy and HairdoGpu ABI from original2286/2287/2288/2291; no source consumption or audit credit from recovery"
+    },
+    {
+      "index": 35,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/wgsl/guides.rs",
+      "sha256": "bcd60aee22ae82fae270b38599aca660f0432c0a6baf72d58241a88da4cfa840",
+      "ranges": [
+        [
+          1,
+          1129
+        ]
+      ],
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "reason": "Actual receiving shader generation for Growth/Flow/parting codes, root map policy and HairdoGpu ABI from original2286/2287/2288/2291; no source consumption or audit credit from recovery"
+    },
+    {
+      "index": 36,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow/input.rs",
+      "sha256": "79df824a0c6fc00d93e45308c1d6f5a24ecb35216bab4b22b51d271d96a6f9e3",
+      "ranges": [
+        [
+          1,
+          22
+        ]
+      ],
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "reason": "Actual GPU Interpolation admission for CPU policy equivalence and mutable profile attributes/root maps; prospective registration beforebodyanalysis"
+    }
+  ],
+  "scope": "Full registered material ranges; exact old/new identities first; no original-role completion inferred; no product/check/test execution",
+  "prospective_host_support": [
+    {
+      "original_index": 2286,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow.rs",
+      "head_sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+      "role": "exact affected host support only; original full requested audit remains queued",
+      "base": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+      "base_lines": 876,
+      "head": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+      "head_lines": 876,
+      "ranges": [
+        [
+          100,
+          348
+        ],
+        [
+          656,
+          753
+        ],
+        [
+          842,
+          876
+        ],
+        [
+          349,
+          655
+        ],
+        [
+          754,
+          841
+        ]
+      ]
+    },
+    {
+      "original_index": 2287,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/guides.rs",
+      "head_sha256": "ff313e8605d4893263109f7c930fcc81eb6c71aae6a7cffdbcafd10a44137aea",
+      "role": "exact affected host support only; original full requested audit remains queued",
+      "base": "ff313e8605d4893263109f7c930fcc81eb6c71aae6a7cffdbcafd10a44137aea",
+      "base_lines": 357,
+      "head": "ff313e8605d4893263109f7c930fcc81eb6c71aae6a7cffdbcafd10a44137aea",
+      "head_lines": 357,
+      "ranges": [
+        [
+          1,
+          148
+        ],
+        [
+          149,
+          356
+        ]
+      ]
+    },
+    {
+      "original_index": 2288,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/guides/packed.rs",
+      "head_sha256": "eabbc4d66906c663bc661d3ac362b051fc301694f436b2fdd0613116e2e2249b",
+      "role": "exact affected host support only; original full requested audit remains queued",
+      "base": "eabbc4d66906c663bc661d3ac362b051fc301694f436b2fdd0613116e2e2249b",
+      "base_lines": 93,
+      "head": "eabbc4d66906c663bc661d3ac362b051fc301694f436b2fdd0613116e2e2249b",
+      "head_lines": 93,
+      "ranges": [
+        [
+          1,
+          93
+        ]
+      ]
+    },
+    {
+      "original_index": 2291,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/hairdo.rs",
+      "head_sha256": "7adbce20aa4fb6390748d4a83ad91e4c31a976db817f0a26c321f5c415393f14",
+      "role": "exact affected host support only; original full requested audit remains queued",
+      "base": "7adbce20aa4fb6390748d4a83ad91e4c31a976db817f0a26c321f5c415393f14",
+      "base_lines": 710,
+      "head": "7adbce20aa4fb6390748d4a83ad91e4c31a976db817f0a26c321f5c415393f14",
+      "head_lines": 710,
+      "ranges": [
+        [
+          131,
+          268
+        ],
+        [
+          539,
+          581
+        ]
+      ]
+    }
+  ],
+  "prospective_cpu_support": [
+    {
+      "original_index": 2290,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/groom.rs",
+      "head_sha256": "083ab47dd800216d8bbcd584b64aa7851587f5e88bd459c449d0d429793f23cf",
+      "role": "CPU interpolation boundary/policy support; original complete role uncredited",
+      "base": "083ab47dd800216d8bbcd584b64aa7851587f5e88bd459c449d0d429793f23cf",
+      "base_lines": 79,
+      "head": "083ab47dd800216d8bbcd584b64aa7851587f5e88bd459c449d0d429793f23cf",
+      "head_lines": 79,
+      "ranges": [
+        [
+          1,
+          79
+        ]
+      ]
+    }
+  ],
+  "additional_prospective_support": [
+    {
+      "original_index": 2285,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/follicles.rs",
+      "sha256": "340bfe96a91d869c32ce69355977aa5d552d76fe8f27d48d566e6f78c4b1ad49",
+      "reason": "Exact Growth discriminant, Profile mutable state or CPU Op::apply receiver reached by registered material33-36; support only.",
+      "base": "340bfe96a91d869c32ce69355977aa5d552d76fe8f27d48d566e6f78c4b1ad49",
+      "base_lines": 400,
+      "head": "340bfe96a91d869c32ce69355977aa5d552d76fe8f27d48d566e6f78c4b1ad49",
+      "head_lines": 400,
+      "ranges": [
+        [
+          32,
+          62
+        ],
+        [
+          171,
+          205
+        ],
+        [
+          251,
+          330
+        ]
+      ]
+    },
+    {
+      "original_index": 2642,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow/profile.rs",
+      "sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+      "reason": "Exact Growth discriminant, Profile mutable state or CPU Op::apply receiver reached by registered material33-36; support only.",
+      "base": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+      "base_lines": 56,
+      "head": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+      "head_lines": 56,
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ]
+    },
+    {
+      "original_index": 2301,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/ops/mod.rs",
+      "sha256": "b5146988078e923f50a7c89002bacf7e8cee61f11e1f894b946aed9441c0d704",
+      "reason": "Exact Growth discriminant, Profile mutable state or CPU Op::apply receiver reached by registered material33-36; support only.",
+      "base": "b5146988078e923f50a7c89002bacf7e8cee61f11e1f894b946aed9441c0d704",
+      "base_lines": 347,
+      "head": "b5146988078e923f50a7c89002bacf7e8cee61f11e1f894b946aed9441c0d704",
+      "head_lines": 347,
+      "ranges": [
+        [
+          1,
+          156
+        ]
+      ]
+    },
+    {
+      "original_index": 2289,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+      "reason": "Common WGSL StrandGpu structure references native host record; definition and layout only, no original completion.",
+      "base": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+      "base_lines": 1562,
+      "head": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+      "head_lines": 1562,
+      "ranges": [
+        [
+          113,
+          127
+        ]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,377 @@
+{
+  "registry_snapshot": "registry-181.json",
+  "registry_sha256": "65c29f91e57e2186573857b2db192d4e48840f19d048b6eeb0ff23e35750092f",
+  "members": [
+    {
+      "material_index": 146,
+      "registration": {
+        "id": "SEGO-INITIAL09-REG698-52",
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/lod.rs",
+        "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_blob": "b7f0eb98d3e3023a31d4cce466fd5d2f379d44d5",
+        "sha256": "4fd2d2aefa94b99bee1c8d2784f8399ed4f70bec9c3dfe9431d737192ef4a0e1",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/enum-shapes/source-objects/4fd2d2aefa94b99bee1c8d2784f8399ed4f70bec9c3dfe9431d737192ef4a0e1",
+        "ranges": [
+          [
+            9,
+            98
+          ]
+        ],
+        "reason": "Actual1701 plugin installs select after BuildingClosureVisibility; source1700 cameras and1701 three-renderedlevel observation depend on this concrete selector. Exact connected callee/type/retained-state contract, not directory adjacency. Full own09 support ranges; shared affected ranges will be narrowed from actual definitions.",
+        "line_count": 98,
+        "registration_evidence": "enum-shapes/source-registration-698.json",
+        "lenses": {
+          "producer-propagation": "Bounded added material pending; completed baseline retained.",
+          "existing-type-owners": "Bounded added material pending; completed baseline retained.",
+          "admission-contracts": "Bounded added material pending; completed baseline retained.",
+          "invariant-operations": "Bounded added material pending; completed baseline retained.",
+          "aggregate-states": "Bounded added material pending; completed baseline retained.",
+          "type-ownership": "Bounded added material pending; completed baseline retained.",
+          "redundant-authority": "Bounded added material pending; completed baseline retained.",
+          "behavior-preservation": "Bounded added material pending; completed baseline retained.",
+          "enum-shapes": "Origin09 exact source trace; own contracts govern coverage.",
+          "derivability": "Bounded added material pending; completed baseline retained.",
+          "type-granularity": "Bounded added material pending; completed baseline retained.",
+          "magic-strings": "Bounded added material pending; completed baseline retained.",
+          "magic-numbers": "Bounded added material pending; completed baseline retained."
+        },
+        "qualification": "Actual connected producer/callee contract only, narrowed affected ranges. No cross-lens coverage or full baseline replay."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          9,
+          98
+        ]
+      ],
+      "disposition": "Read registered9-98. Review LOD enum is exhaustive over three production levels. Overrides retain original VisibilityRange and restore when absent; evidence writes once per view only after selected batches exist and configuration phase ends. Batched deferred OriginalRange insertion and state reuse require schedule/lifecycle trace; no observed image or fixture acceptance."
+    },
+    {
+      "material_index": 147,
+      "registration": {
+        "id": "SEGO-INITIAL09-REG698-53",
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/gpu_readiness.rs",
+        "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_blob": "942902fabe916a0dad6e3e3b8554f5cd3bb5b929",
+        "sha256": "3fc7f599e45d69c79994c4044060d1cb7552f2d501830a6661d033a4fff9441e",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/enum-shapes/source-objects/3fc7f599e45d69c79994c4044060d1cb7552f2d501830a6661d033a4fff9441e",
+        "ranges": [
+          [
+            14,
+            50
+          ]
+        ],
+        "reason": "Actual1701 plugin installs GpuReadiness and assets_ready118\u2013130 calls contains mesh+materialtexture handles; concrete native observation adapter determines availability versus current accepted readiness. Exact connected callee/type/retained-state contract, not directory adjacency. Full own09 support ranges; shared affected ranges will be narrowed from actual definitions.",
+        "line_count": 50,
+        "registration_evidence": "enum-shapes/source-registration-698.json",
+        "lenses": {
+          "producer-propagation": "Bounded added material pending; completed baseline retained.",
+          "existing-type-owners": "Bounded added material pending; completed baseline retained.",
+          "admission-contracts": "Bounded added material pending; completed baseline retained.",
+          "invariant-operations": "Bounded added material pending; completed baseline retained.",
+          "aggregate-states": "Bounded added material pending; completed baseline retained.",
+          "type-ownership": "Bounded added material pending; completed baseline retained.",
+          "redundant-authority": "Bounded added material pending; completed baseline retained.",
+          "behavior-preservation": "Bounded added material pending; completed baseline retained.",
+          "enum-shapes": "Origin09 exact source trace; own contracts govern coverage.",
+          "derivability": "Bounded added material pending; completed baseline retained.",
+          "type-granularity": "Bounded added material pending; completed baseline retained.",
+          "magic-strings": "Bounded added material pending; completed baseline retained.",
+          "magic-numbers": "Bounded added material pending; completed baseline retained."
+        },
+        "qualification": "Actual connected producer/callee contract only, narrowed affected ranges. No cross-lens coverage or full baseline replay."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          14,
+          50
+        ]
+      ],
+      "disposition": "Read registered14-50. GPU readiness shares mutex-backed current sets across worlds and replaces them from render asset registries in Cleanup; contains requires mesh and every image. Residency does not prove pipeline readiness, current draw visibility or pixel completeness; no GPU execution."
+    },
+    {
+      "material_index": 148,
+      "registration": {
+        "id": "SEGO-INITIAL09-REG701",
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/furniture/visibility.rs",
+        "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_blob": "bf039b63eaf7abadfa7cc1f0f631c85c27a82b9d",
+        "sha256": "5a042944716f1246446ff570ea2d6bbf2bfff1a245ecda53087b881153302ef2",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/enum-shapes/source-objects/5a042944716f1246446ff570ea2d6bbf2bfff1a245ecda53087b881153302ef2",
+        "ranges": [
+          [
+            9,
+            63
+          ]
+        ],
+        "reason": "Actual catalog1715:18 inserts InteriorFurnitureExhibition while1715:43\u201350/179\u2013185 and1716:52\u201360 invent Interior{building_id:0}; production1533:38 installs update_interior_visibility and reexports Exhibition12. Need actual receiving contract to qualify physical interior versus review specimen semantic owner, not module adjacency.",
+        "line_count": 211,
+        "registration_evidence": "enum-shapes/source-registration-701.json",
+        "lenses": {
+          "producer-propagation": "Bounded later material pending, adopted completed baseline retained.",
+          "existing-type-owners": "Bounded later material pending, adopted completed baseline retained.",
+          "admission-contracts": "Bounded later material pending, adopted completed baseline retained.",
+          "invariant-operations": "Bounded later material pending, adopted completed baseline retained.",
+          "aggregate-states": "Bounded later material pending, adopted completed baseline retained.",
+          "type-ownership": "Bounded later material pending, adopted completed baseline retained.",
+          "redundant-authority": "Bounded later material pending, adopted completed baseline retained.",
+          "behavior-preservation": "Bounded later material pending, adopted completed baseline retained.",
+          "enum-shapes": "Origin09 actual receiver; contracts701 coverage authoritative.",
+          "derivability": "Bounded later material pending, adopted completed baseline retained.",
+          "type-granularity": "Bounded later material pending, adopted completed baseline retained.",
+          "magic-strings": "Bounded later material pending, adopted completed baseline retained.",
+          "magic-numbers": "Bounded later material pending, adopted completed baseline retained."
+        },
+        "qualification": "Actual specimen-versus-physical owner visibility consumer only; no tests/module adjacency or baseline replay."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          9,
+          63
+        ]
+      ],
+      "disposition": "Read registered9-63. Interior furniture visible only for explicit exhibition or a building owner within active appropriate camera detail range; cloud offscreen camera excluded. Owner map assumes unique IDs; distance uses building root consistent with stated fade policy. Later gate/access behavior not credited."
+    },
+    {
+      "material_index": 149,
+      "registration": {
+        "id": "SEGO-INITIAL05-REG088-149",
+        "source_id": "native-dependency:spacetimedb-sdk-2.6.1/src/client_cache.rs",
+        "sha256": "1815445657f053bf0d24bdf218219eed822e9626511eade5d3afa0aca3fa7ff1",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/aggregate-states/source-objects/1815445657f053bf0d24bdf218219eed822e9626511eade5d3afa0aca3fa7ff1",
+        "ranges": [
+          [
+            22,
+            79
+          ],
+          [
+            196,
+            214
+          ],
+          [
+            340,
+            406
+          ],
+          [
+            409,
+            452
+          ]
+        ],
+        "line_count": 636,
+        "reason": "native local pinned2.6.1 SDK; actual table cache/iter receiver for frozen simulator queries",
+        "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spacetimedb-sdk-2.6.1/src/client_cache.rs",
+        "registration_evidence": "aggregate-states/source-registration-088.json",
+        "lenses": {
+          "producer-propagation": "Bounded actual receiver material pending; adopted baseline retained.",
+          "existing-type-owners": "Bounded actual receiver material pending; adopted baseline retained.",
+          "admission-contracts": "Bounded actual receiver material pending; adopted baseline retained.",
+          "invariant-operations": "Bounded actual receiver material pending; adopted baseline retained.",
+          "aggregate-states": "Bounded actual receiver material pending; adopted baseline retained.",
+          "type-ownership": "Bounded actual receiver material pending; adopted baseline retained.",
+          "redundant-authority": "Bounded actual receiver material pending; adopted baseline retained.",
+          "behavior-preservation": "Bounded actual receiver material pending; adopted baseline retained.",
+          "enum-shapes": "Bounded actual receiver material pending; adopted baseline retained.",
+          "derivability": "Bounded actual receiver material pending; adopted baseline retained.",
+          "type-granularity": "Bounded actual receiver material pending; adopted baseline retained.",
+          "magic-strings": "Bounded actual receiver material pending; adopted baseline retained.",
+          "magic-numbers": "Bounded actual receiver material pending; adopted baseline retained."
+        },
+        "qualification": "Registered before source-body read; no source coverage inferred, actual cache/query contract only."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          22,
+          79
+        ],
+        [
+          196,
+          214
+        ],
+        [
+          340,
+          406
+        ],
+        [
+          409,
+          452
+        ]
+      ],
+      "disposition": "Read exact registered22-79,196-214,340-406,409-452. SDK cache keys raw BSATN bytes with subscription ref counts and separately keyed table types/names. Handle clones shared lock and iter snapshots cloned unique row entries, not query multiplicities. Registered handle_delete starts but decrement/event branch uninspected; no inferred delete or whole-cache algorithm clearance."
+    },
+    {
+      "material_index": 150,
+      "registration": {
+        "id": "SEGO-INITIAL05-REG088-150",
+        "source_id": "pr-working:crates/adventuresim-stdb-client/src/backend_hostile_negotiations_table.rs",
+        "sha256": "ef0878fa2f385c6e35e1b4ef8e3702bbb114a81520c8cc3b6c35ddab4319065e",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/aggregate-states/source-objects/ef0878fa2f385c6e35e1b4ef8e3702bbb114a81520c8cc3b6c35ddab4319065e",
+        "ranges": [
+          [
+            24,
+            57
+          ],
+          [
+            85,
+            90
+          ],
+          [
+            106,
+            120
+          ]
+        ],
+        "line_count": 120,
+        "reason": "Actual frozen generated native table accessor invoked by1281:2405\u20132410; verify no implicit query/subscription",
+        "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-client/src/backend_hostile_negotiations_table.rs",
+        "registration_evidence": "aggregate-states/source-registration-088.json",
+        "lenses": {
+          "producer-propagation": "Bounded actual receiver material pending; adopted baseline retained.",
+          "existing-type-owners": "Bounded actual receiver material pending; adopted baseline retained.",
+          "admission-contracts": "Bounded actual receiver material pending; adopted baseline retained.",
+          "invariant-operations": "Bounded actual receiver material pending; adopted baseline retained.",
+          "aggregate-states": "Bounded actual receiver material pending; adopted baseline retained.",
+          "type-ownership": "Bounded actual receiver material pending; adopted baseline retained.",
+          "redundant-authority": "Bounded actual receiver material pending; adopted baseline retained.",
+          "behavior-preservation": "Bounded actual receiver material pending; adopted baseline retained.",
+          "enum-shapes": "Bounded actual receiver material pending; adopted baseline retained.",
+          "derivability": "Bounded actual receiver material pending; adopted baseline retained.",
+          "type-granularity": "Bounded actual receiver material pending; adopted baseline retained.",
+          "magic-strings": "Bounded actual receiver material pending; adopted baseline retained.",
+          "magic-numbers": "Bounded actual receiver material pending; adopted baseline retained."
+        },
+        "qualification": "Registered before source-body read; no source coverage inferred, actual cache/query contract only."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          24,
+          57
+        ],
+        [
+          85,
+          90
+        ],
+        [
+          106,
+          120
+        ]
+      ],
+      "disposition": "Read registered24-57,85-90,106-120. Generated hostile negotiation access maps exact table name, count/iter delegates native handle, registration precreates same table and query builder uses same literal. No ordering guarantee from cached HashMap, no server authority/visibility or manual binding edit."
+    },
+    {
+      "material_index": 151,
+      "registration": {
+        "source_id": "pinned-registry:derive_more-impl-2.1.1/src/fmt/display.rs",
+        "sha256": "d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/fresh-dependencies-401/derive_more-impl-2.1.1/src/fmt/display.rs",
+        "ranges": [
+          [
+            1,
+            82
+          ],
+          [
+            233,
+            327
+          ],
+          [
+            398,
+            438
+          ],
+          [
+            499,
+            552
+          ]
+        ],
+        "actual_EOF": 585,
+        "package_checksum": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb",
+        "reason": "Exact available derive_more Display enum body/generic bound equivalence for nongeneric DrapeStage literal and u32 progress formatting only; bounded macro implementation ranges, no whole-library coverage.",
+        "line_count": 585,
+        "registration_evidence": "derivability/fresh-dependency-registration-401.json",
+        "lenses": {
+          "producer-propagation": "Bounded added material pending; adopted baseline retained.",
+          "existing-type-owners": "Bounded added material pending; adopted baseline retained.",
+          "admission-contracts": "Bounded added material pending; adopted baseline retained.",
+          "invariant-operations": "Bounded added material pending; adopted baseline retained.",
+          "aggregate-states": "Bounded added material pending; adopted baseline retained.",
+          "type-ownership": "Bounded added material pending; adopted baseline retained.",
+          "redundant-authority": "Bounded added material pending; adopted baseline retained.",
+          "behavior-preservation": "Bounded added material pending; adopted baseline retained.",
+          "enum-shapes": "Bounded added material pending; adopted baseline retained.",
+          "derivability": "Origin10 bounded macro equivalence evidence; own401/F008 governs semantic comparison.",
+          "type-granularity": "Bounded added material pending; adopted baseline retained.",
+          "magic-strings": "Bounded added material pending; adopted baseline retained.",
+          "magic-numbers": "Bounded added material pending; adopted baseline retained."
+        },
+        "qualification": "Exact external macro mechanism only; no SDK style repair or macro execution."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          82
+        ],
+        [
+          233,
+          327
+        ],
+        [
+          398,
+          438
+        ],
+        [
+          499,
+          552
+        ]
+      ],
+      "disposition": "Read registered1-82,233-327,398-438,499-552. Display derive parses actual enum variants, optional rename/shared format and emits standard trait method; unit implicit branch writes identifier with optional rename. Generic bounds depend field formatting. Body439-498 remains separately registered M178; no inferred fieldful formatting from the unit branch."
+    },
+    {
+      "material_index": 152,
+      "registration": {
+        "source_id": "scope-amendment:pinned-registry:derive_more-impl-2.1.1/src/fmt/display.rs#tuple-struct-bindings",
+        "sha256": "d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/fresh-dependencies-401/derive_more-impl-2.1.1/src/fmt/display.rs",
+        "ranges": [
+          [
+            198,
+            232
+          ]
+        ],
+        "actual_EOF": 585,
+        "package_checksum": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb",
+        "reason": "Only additional struct-derive binding body198\u2013232: tuple field0 becomes borrowed _0, then existing explicit Display format body. InventoryItemId exact optional equivalent; not full macro source credit.",
+        "range_amendment_of": 151,
+        "line_count": 585,
+        "registration_evidence": "derivability/fresh-dependency-registration-419.json",
+        "lenses": {
+          "producer-propagation": "Only additional bounded material pending; completed source snapshot retained.",
+          "existing-type-owners": "Only additional bounded material pending; completed source snapshot retained.",
+          "admission-contracts": "Only additional bounded material pending; completed source snapshot retained.",
+          "invariant-operations": "Only additional bounded material pending; completed source snapshot retained.",
+          "aggregate-states": "Only additional bounded material pending; completed source snapshot retained.",
+          "type-ownership": "Only additional bounded material pending; completed source snapshot retained.",
+          "redundant-authority": "Only additional bounded material pending; completed source snapshot retained.",
+          "behavior-preservation": "Only additional bounded material pending; completed source snapshot retained.",
+          "enum-shapes": "Only additional bounded material pending; completed source snapshot retained.",
+          "derivability": "Origin10 exact optional Display tuple-field equivalence, own419 governs.",
+          "type-granularity": "Only additional bounded material pending; completed source snapshot retained.",
+          "magic-strings": "Only additional bounded material pending; completed source snapshot retained.",
+          "magic-numbers": "Only additional bounded material pending; completed source snapshot retained."
+        },
+        "qualification": "Explicit added range198\u2013232 of shared151 verified macro, not another source identity or changed completed scope. Earlier151 ranges remain unchanged."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          198,
+          232
+        ]
+      ],
+      "disposition": "Read registered198-232 on same hash as M151. Struct Display binds named fields or underscore ordinals by reference before generated body, preserving borrow shape. This amendment completes tuple binding evidence only; no new original role or blanket formatting equivalence."
+    }
+  ],
+  "first_unfinished_material_index": 153,
+  "new_findings": []
+}

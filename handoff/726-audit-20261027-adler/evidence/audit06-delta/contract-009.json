@@ -1,0 +1,108 @@
+{
+  "id": "ADLER-CONT06-LATER-009",
+  "lens": "type-ownership",
+  "receipts": [
+    {
+      "material_index": 154,
+      "source_id": "pinned-registry:derive_more-impl-2.1.1/src/as/ref.rs",
+      "sha256": "06f9f3379037f8002874119b864ca62c65d8dd785c821a1fdfd74b59d988f133",
+      "ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "source_basis": "Fresh root complete bounded personal source read, exact hash verified; own06 analysis.",
+      "owners_and_users": "derive_more AsRef entry delegates to shared reference-conversion expansion with immutable-reference mode.",
+      "disposition": "Native macro plumbing, no first-party duplicate owner. Material153 contains actual direct/forwarded generation; no local adapter shim introduced.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 155,
+      "source_id": "pinned-registry:derive_more-2.1.1/src/as.rs",
+      "sha256": "c51f277897f4a2a62c0824f00d6775814282673efd16d0c8df8f87d406f7e984",
+      "ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "source_basis": "Fresh root complete bounded personal source read, exact hash verified; own06 analysis.",
+      "owners_and_users": "derive_more Conv/ExtractRef implement autoref specialization: identical T returns same reference, distinct Frm requires native AsRef<To>. PhantomData tracks representation types only.",
+      "disposition": "Reference adaptation preserves Rust ownership and role types; reference identity does not prove semantic equality. This dependency glue is not retained first-party state or authority; no type move indicated.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 156,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/hilt.rs",
+      "sha256": "8afb3bf2ceb343de66192b0c257b876deade739f32668e38e70244c3b6036f0b",
+      "ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "source_basis": "Fresh root complete bounded personal source read, exact hash verified; own06 analysis.",
+      "owners_and_users": "GuardParameters belongs to canonical weapon recipe/kernel, reuses its Metres/Degrees/Ratio and distinct terminal/mirror/section choice owners. Optional fields encode applicability/override choices; left/right role fields stay distinct.",
+      "disposition": "No competing manufacturing owner introduced here. Existing guard applicability/unsupported payload obligations (F490/F491) remain; do not mistake same storage for interchangeable width/sweep/set roles, or null/presence adapter for whole checked aggregate admission.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 157,
+      "source_id": "scope-amendment:pr-working:crates/adventuresim-weapon-model/src/recipe/choices.rs#guard-owner-enums",
+      "sha256": "32853562a79ddc5ae393bc38780b86583500e079c5ca22109b07f1a479e030c0",
+      "ranges": [
+        [
+          193,
+          199
+        ],
+        [
+          226,
+          282
+        ]
+      ],
+      "source_basis": "Fresh root complete bounded personal source read, exact hash verified; own06 analysis.",
+      "owners_and_users": "GuardMirrorMode plus GuardTerminal/GuardLeftTerminal/GuardRightTerminal live in same weapon recipe owner. Left/right enums add explicit Profile/Shared/None to terminal shapes; mirror mode is symmetric/opposed.",
+      "disposition": "Shape vocabularies overlap but side override role differs from standalone terminal. Consolidation requires preserving side applicability and profile/shared semantics; existing shape/aggregate findings remain with canonical kernel. Registered226 starts within GuardTerminal tail, no unread heading/variant credit or broad declaration clearance.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 158,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+      "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "source_basis": "Fresh root complete bounded personal source read, exact hash verified; own06 analysis.",
+      "owners_and_users": "Disease fixture administration uses physiology DoseMilliunits, shared StrategicMinute, InterventionRoute, profile/ruleset/key version identities. It lowers dose.get into stored PhysiologyAdministration field.",
+      "disposition": "Dose physical owner and stored row representation are distinct boundary roles; raw persisted field must be reconciled with canonical physiology owner rather than invent duplicate dose type. Existing admission/retained-source findings remain. Demonstration administration is strategic disease data, not tactical tick state. No fixture execution or database mutation.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 159,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/authority_tests.rs",
+      "sha256": "9b8f6ef268561b6c24817749d89472e8024db82c7f13e4d837db84e0dba66e80",
+      "ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "source_basis": "Fresh root complete bounded personal source read, exact hash verified; own06 analysis.",
+      "owners_and_users": "Guarded authority reducers use canonical DiseaseId/StrategicMinute/physiology versions and stored string vocabularies through episode/exposure_sources decoders. Intentional malformed row tests rejection/rollback under bootstrap guard.",
+      "disposition": "Native stored identifiers adapt to canonical disease owner; fixture malformed input is not competing production vocabulary or evidence of bypass. Distinguish deliberate rollback fixture from accepted retained state. No runtime rollback guarantee inferred from source alone; no database execution.",
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "new_unique_findings": 0,
+  "clear": false
+}

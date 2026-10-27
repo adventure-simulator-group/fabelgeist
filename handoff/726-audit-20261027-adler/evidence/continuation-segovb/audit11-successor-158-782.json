@@ -1,0 +1,306 @@
+{
+  "id": "SEGOVB-CONT11-SUCCESSOR-158-782",
+  "lens": "type-granularity",
+  "scope_index": 782,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/drape.rs",
+  "sha256": "c26b0508ccce30c3c2ca164e46327764ca4b133b418b5ea49e008b0a45613421",
+  "source_ranges": [
+    [
+      1,
+      334
+    ]
+  ],
+  "prior_full_body_read": "audit11-successor-157.json#/partials/2",
+  "status": "source-accounted-with-qualified-observations; not clear",
+  "source_complete": true,
+  "current_main_integrated": false,
+  "validated": false,
+  "source_contracts": [
+    {
+      "family": "drape/resume result distinction",
+      "trace": "Original78213-35 creates fresh checkpoints and returns Result plus human warnings/checkpoints together. run37-92 validates selection, consumes DrapeStart::{Finish,Settling,Placement} with corresponding saved payload, records settled output, conforms geometry and transfers skin. Earlier exact connected792173-253 defines immutable input/setup comparison and payload-owning resume enum; saved fit788174-225 emits Worn, live run183-190 emits Settling. These named states prevent using sewn-only data as fully settled output without flattening simultaneous result/preview information."
+    },
+    {
+      "family": "stage counts/time/fit/clearance",
+      "trace": "simulate95-194 keeps stage step/of in matching loops and preview interval from validated DrapeSettings. Sewing1..=steps closes seams over max(steps*SEAM_CLOSING_SHARE,1), permitting valid zero steps with no division-by-zero loop body; settling0..=steps includes initial state. STEP_SECONDS1/60 is native Fit.step time parameter passed directly to actual interleaved solver. These simulation step counts differ from GPU substeps, contact iterations, timestep seconds and fit fraction; same primitive representation does not justify merging them. fit_settings267-273 carries named centimetre resolution/body height into owning FitSettings; body_clearance276-279 converts centimetre offset with CM_TO_M and adds half fabric thickness. Connected fit226632-93 and fabric2229124-127 confirm actual unit conversion/radius. No additional stage bounds invented."
+    },
+    {
+      "family": "same mesh into seam/bend native constraints",
+      "trace": "Connected placement7871-76 constructs Fit::new from same build and applies only pose/body/collision data. Fit2266391-432 passes build.mesh to Cloth::new. Connected cloth22281-93 copies geometry/edges/rest/bends/bend_weights/seams/masses into ShellMesh then Shell::new. Connected mesh source941830...validate84-132 checks nonempty bounded finite positions, mass length/validity, edge/rest and bend/weight equal lengths, all geometry/constraint indexes and finite rest data. Shell234176-166 constructs seams from same seam list and zero rest lengths, bending from BendQuad.particles and matched weight rows, preserving source-to-constraint sequence. This establishes actual local paired data provenance before SeamClosure consumes those collections, not universal public-field coherence."
+    },
+    {
+      "family": "SeamClosure distinct data and native payload",
+      "trace": "SeamClosure198-264 retains gaps:Vec<f32> measured in metres separately from bends/open_bends flattened native weight payloads. new208-245 computes initial seam distances in original mesh seam order; derives per-hinge open weight records by testing actual shared/wings triangles; reorders both original and slack records with that same fit.cloth.bending coloring then flattens. Canonical BendQuad shared/wings record (shell topology1-28) prevents hinge-versus-wing role swaps and only flattens at kernel particle adapter. GarmentMesh130-162 explicitly documents eight-float bend rows: four affine weights, rest value, three padding. These packed bytes are native payload, not eight independent domain roles needing numeric enums or duplicate wrappers."
+    },
+    {
+      "family": "ordered attachments actual receiving body",
+      "trace": "SeamClosure.set257-264 scales original-order metre gaps by open fraction, reorders through fit.cloth.seams, attaches one rest length per seam, and attaches already-reordered flat bend payload with attach_raw. ConstraintSet2349154-218 uses immutable Coloring order of typed original ConstraintIndex, attach checks exact per-constraint count, attach_raw checks integral multiple for nonempty set, and BufferUpload::from_elements feeds native GPU Buffer. Coloring source1f97...89-149 constructs each original index once in color order; distinct ConstraintSlot versus ConstraintIndex/ConstraintColor/ColorCount keep address/order/role separate. Generic attachment API does not prove eight-float schema independently; actual constructor and native payload source above supply that evidence. Empty set allocates one unused native word; no active constraint count invented."
+    },
+    {
+      "family": "time and position numerical/GPU boundary",
+      "trace": "Fit.step2266583-588 calls Cloth.step_interleaved, which updates material thickness and calls Shell.step_interleaved253-296. Shell rejects nonfinite/nonpositive native delta as no work, derives substep interval and records/submits same stretch/seams/bending sets with actual solver; this is native numeric-kernel handoff, no typed-duration wrapper duplication proposed. Fit.positions618-625 calls shell/particles readback. Particle source99b469...125-145 checks current count, restores retained inverse mass vector after write, and decodes native ParticlePositionRecord into Vec3 positions. write87-115 packs positions with typed inverse masses and uploads position/previous/at-rest velocity buffers, then updates count. Count casts/general overflow policy remain separate audit concerns, not globally cleared by bounded source path."
+    },
+    {
+      "family": "preview render versus sewn topology",
+      "trace": "show_unsewn284-305 admits finite particle positions with material vertex count before recomputing faces/normals and publishing stage. show_sewn309-333 uses private SewnSurface groups and render_faces from original780; source sewn face enumeration selects exact backmapped render-face slot before winding swap. Same source topology proves this particular correspondence. Cloth material coordinates, simulation particles and welded render coordinates differ despite primitive arrays; existing private mapping owns that distinction, so no universal vertex-index framework or ordinal enum proposed."
+    }
+  ],
+  "qualified_observations": [
+    {
+      "id": "SEGOVB11-158-782-PHYSICAL-PORTS",
+      "classification": "canonical type-propagation/owner-fit question retained; not accepted unique finding",
+      "observation": "Raw application stage counts, per-second damping, acceleration, timestep seconds, centimetre resolution and metre clearance remain meaningful distinct roles before/around explicit numerical ports. Reconcile existing physical/configuration family owners before any repair; native payload/solver adapters are scoped exceptions, not broad raw-primitive exemption."
+    },
+    {
+      "id": "SEGOVB11-158-782-CONSTRUCTION-PAIRING",
+      "classification": "source-backed distinction is justified; no new finding",
+      "observation": "SeamClosure gap lengths and packed bending payloads share Vec<f32> storage but differ in units, ordering, length scale and shader schema. Preserve separate named fields and same-set reorder/admission; do not collapse them or create duplicate particle/constraint identity owners."
+    }
+  ],
+  "connected_source_fingerprints": [
+    {
+      "sha256": "a5b190694f00f1dbc5e1895f5b40f65b6c1f7242da45ea844b59a6b6d6932523",
+      "source_id": null,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "source_id": null,
+      "registered_and_consumed_ranges": [
+        [
+          32,
+          98
+        ],
+        [
+          369,
+          385
+        ],
+        [
+          575,
+          625
+        ],
+        [
+          391,
+          432
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "sha256": "37cf4430a9923bb91663a7eb0eadee8674fd3489e172a5f8d164a929d6ba1313",
+      "source_id": null,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          31
+        ],
+        [
+          117,
+          134
+        ],
+        [
+          29,
+          49
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "sha256": "7e73efb0a5ce824e111c2d28e54a5422b75bdca12e0c7553423dc0dfab8f563b",
+      "source_id": null,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          61
+        ],
+        [
+          90,
+          109
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "sha256": "491cfcace087aef015067a75e218e3bee9dc3c1e8bf681b40afa840f806da282",
+      "source_id": null,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "sha256": "2318544fe5a77b517ae01b26f7d4b65b288c0be78c63aa9a90034bd2a7385c05",
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/cloth/mod.rs",
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "sha256": "73854d3247aafeacaca9882c0d9666e5b83e482dd9924374ff0dec2b6a77cef9",
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/lib.rs",
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "sha256": "f56675ce9e64d8c46ee028e405abd261b969614531a211b4c75471ba5b714f10",
+      "source_id": "pr-working:crates/fabelgeist-shell/src/lib.rs",
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "source_id": null,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          48
+        ],
+        [
+          76,
+          166
+        ],
+        [
+          253,
+          304
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "sha256": "184f9ec53d0daec144a6c90408ef84fab86f29e62aa48c0d6c5377d45173f6e4",
+      "source_id": null,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          115
+        ],
+        [
+          154,
+          229
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "sha256": "98444936697b73035be3e07e0464a3e4a031ad0b1f28084275206b1b8ae7eb91",
+      "source_id": null,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "sha256": "d5124bc81c37905a779feea7e56a120ed5fadda9448cad8cf907a61c938b1da6",
+      "source_id": null,
+      "registered_and_consumed_ranges": [
+        [
+          130,
+          164
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+      "source_id": "pr-working:crates/fabelgeist-shell/src/mesh.rs",
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "sha256": "7e744958c7df65097784318b313e51c658edae89fde9e0f80ba70ddce4fcaa81",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/placement.rs",
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "sha256": "99b46998863ca413643469afd3b2108707428e366d63088af8f759a515bcf37b",
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/particles.rs",
+      "registered_and_consumed_ranges": [
+        [
+          21,
+          34
+        ],
+        [
+          125,
+          171
+        ],
+        [
+          87,
+          118
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "sha256": "1f97fcaab5611d5acf757c551732b3e02485babc05c3ad976d05407da73f3a2a",
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/coloring.rs",
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          46
+        ],
+        [
+          68,
+          149
+        ]
+      ],
+      "ordered_credit": false
+    }
+  ],
+  "retained_prior_connections": [
+    "audit11-successor-157-connected-780-003.json",
+    "audit11-successor-158-781.json"
+  ],
+  "inherited_concrete_gap": "Frozen Dressing receiving cast recorded in158-781 remains unresolved/current-source-uncompared; not promoted to universal or current runtime failure.",
+  "qualifications": [
+    "Source-complete for this original782 body and materially reached contracts; integration, required hosted validation, broader families and global audit clearance remain unproven.",
+    "Native schemas/field names are identified at specific BufferUpload/ConstraintSet boundaries only; not permission to keep arbitrary application primitives.",
+    "Other-lens admission/operations/magic-string/correctness verdicts were not transferred or granted.",
+    "No arbitrary public mutation/topology/rig instance equivalence or extreme numeric guarantee inferred.",
+    "No original783/785/786/788/792/818/923 or other future connected role credited from reached ranges. Prior0-781 not restarted.",
+    "Question-ID collision in prior export Q008/Q009 remains unresolved; this packet uses exact source IDs.",
+    "No product edits, local project checks, new tests/cases/helpers/assertions/doctests, runtime execution or publication."
+  ],
+  "proposed_original_accounted": 783,
+  "next_original": 783,
+  "active_partial": null,
+  "new_unique_findings": 0,
+  "clear": false,
+  "validation": "none"
+}

@@ -1,0 +1,318 @@
+{
+  "schema": "lens12-source-discovery-receipt-v1",
+  "id": "L12-RESUME-008",
+  "created_utc": "2026-10-27T11:03:15.857703+00:00",
+  "predecessor": "receipt-007-originals93-96.json",
+  "prospective_manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens12/prospective-sources-001.jsonl",
+    "sha256_prefix": "8c8956541a068523c1f57400213287924375701ba3535fde856ac48ef818d9a1",
+    "bytes_prefix": 61194
+  },
+  "source_reads": [
+    {
+      "original_index": 97,
+      "source_id": "physical-p16:crates/adventuresim-core/src/encounter.rs",
+      "sha256": "aad69b12c6ade6caa59828876caede30c0a0fe2577b11fdd91f84594d2471dd5",
+      "actual_ranges": [
+        [
+          1,
+          1019
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            43,
+            44
+          ],
+          "occurrences": 2,
+          "role": "spacetimedbfeature/serde rename_all tokens",
+          "disposition": "compiler/serializerconfiguration boundaries"
+        },
+        {
+          "lines": [
+            334,
+            550
+          ],
+          "occurrences": 2,
+          "role": "expect diagnostic templates",
+          "disposition": "nativepanic humantext boundary; validatedweights claims not independently acceptedbytestexecutions"
+        },
+        {
+          "ranges": [
+            [
+              414,
+              453
+            ]
+          ],
+          "occurrences": 11,
+          "role": "EncounterRollDomain enum -> StreamId11literalpurposes430-445",
+          "disposition": "actual typed enum/payload retaineduntil native StreamId.rng(seed,&[index])452. Canonical StreamId.new/seed actual2531:28-42 consumed006, rawnames neverretainedasapplicationcategory inthisroute. No need add duplicateclosedenum beyond existing."
+        },
+        {
+          "ranges": [
+            [
+              470,
+              475
+            ],
+            [
+              526,
+              555
+            ]
+          ],
+          "role": "NarrativeSelection.catalog_id String474 retained fromdefinition.id.clone554 and rawas_str sort536",
+          "disposition": "finding: semantic open roadcatalogidentity remains String across producer/retainedselection. Actual134 EncounterDefinition.idString38 and definitions993-1002 JSONloader inspected; typecheck/appsemanticowner needed, not blanket authorablecatalog exemption. Enum choice98 isstrategiccombat choice distinct from roadcatalog::EncounterChoice struct113; do notconflate byname."
+        },
+        {
+          "ranges": [
+            [
+              562,
+              614
+            ]
+          ],
+          "occurrences": 13,
+          "role": "enc: prefix578;12 retryfixture strings585-611 (6encIDs,5surrender+1attack)",
+          "disposition": "actual99 rawencounter/choice equality32-35, so semantic keys+closedchoice values infixtures too. Prefix test78 isnativeformat expectation, notBCrequirement; canonicalID+EncounterChoice API acrossretryreceipt needed."
+        },
+        {
+          "lines": [
+            803,
+            804,
+            835
+          ],
+          "occurrences": 3,
+          "role": "assertion format diagnostics",
+          "disposition": "immediate text boundary, numericaltestbodyreadonly no execution."
+        }
+      ],
+      "status": "source-accounted with findings and pending owner/ingress/recipient qualification"
+    },
+    {
+      "original_index": 98,
+      "source_id": "physical-p16:crates/adventuresim-core/src/encounter/choice.rs",
+      "sha256": "3a327aeb8ec9f72d67960b0cdc94f7ece677c4a963d5ce8e1db7af3fd8025206",
+      "actual_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              12,
+              49
+            ]
+          ],
+          "occurrences": 6,
+          "role": "5 closedchoice stable_id labels15-19 and typedParseErrorDisplay29; rawFromStr38",
+          "disposition": "canonicalEncounterChoice exists. FromStr direct5variantstableidlookup is actualtextadmission; native reducer281:1103-1104 Stringchoice entersparse1155 then some typedbranch but getserased back before retainedchoices291-293/1178/1182 andrawreceipt1236/1265. Carryenumthrough application/supportednative schema whenpossible; no closed stringstateinternalAPIexcuse."
+        },
+        {
+          "lines": [
+            68
+          ],
+          "occurrences": 1,
+          "role": "negative parser inputwithdraw existingtest",
+          "disposition": "actualFromStr nativeingress test, no newtests/probes/execution/oldtokencompat obligation."
+        }
+      ],
+      "status": "source-accounted with findings and pending owner/ingress/recipient qualification"
+    },
+    {
+      "original_index": 99,
+      "source_id": "physical-p16:crates/adventuresim-core/src/encounter/receipt.rs",
+      "sha256": "79edfeebdc4b5bdd4dfd8272b5b15981bf986c1acdcc4bca4b92d3fe3022b1b1",
+      "actual_ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            9,
+            12
+          ],
+          "occurrences": 2,
+          "role": "typedStreamId identityhigh/low purpose names",
+          "disposition": "existingcanonicalStreamId owner immediatelyadmitted nativepurpose usesseed+numericroll context"
+        },
+        {
+          "lines": [
+            15
+          ],
+          "occurrences": 1,
+          "role": "enc: high/low hex identifiertextgeneration; Stringreturn8",
+          "disposition": "finding: generated IDtext returnedraw tointernal retainedencounter state and retryequality, actual281:211-213/259-325/1099-1271. Retainappropriate canonical opaque encounterID owner from producer to schema/receipts; formatonly atactualwire/codec. No uniqueness proof from128-bitwordformat or prefix; no runtimecollisionclaim."
+        },
+        {
+          "lines": [
+            20
+          ],
+          "occurrences": 1,
+          "role": "lint rationale",
+          "disposition": "compilerattribute boundary"
+        },
+        {
+          "ranges": [
+            [
+              22,
+              36
+            ]
+          ],
+          "role": "4rawstrparams receipt_encounter_id23/receipt_choice25/encounter_id27/choice29 compared32/34",
+          "disposition": "finding: internal retrycontract shouldtakecanonicalencounterID and existingEncounterChoice. Actual281 caller1119-1128 transports persistedrawchoice beforeparse1155, reachesrawDBreceipt writes1230-1240/1259-1268. No rationale preserveoldreceipt schema; source-backedfamilyaliases notnewunique."
+        }
+      ],
+      "status": "source-accounted with findings and pending owner/ingress/recipient qualification"
+    }
+  ],
+  "actual_material_receivers": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/road_encounter_catalog.rs",
+      "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "ranges": [
+        [
+          1,
+          55
+        ],
+        [
+          985,
+          1015
+        ]
+      ],
+      "trace": "realEncounterDefinition.idString38 andschema, actualJSONdefinitions993-1002; rawlookup1006-1008. Catalogvalidator andremainingbody/wholeJSONnotconsumed; source134futureoriginal stillpending. Includedfilemacro envnames22 are compilerboundary, errorprose986/997/998/1000 diagnostic; reachedforeignmacro/headercontextnotglobalclearance."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+      "sha256": "3c9ffa24338de25378c4f5b46c684ed6e4dbe34e70b4edff6badc1df3f025340",
+      "ranges": [
+        [
+          205,
+          217
+        ],
+        [
+          259,
+          325
+        ],
+        [
+          1095,
+          1290
+        ]
+      ],
+      "trace": "opaqueIDforward211-213/rawStringparam262 ->actualStrategicEncounter fields301/302/310/321; EncounterChoice erasedby stable_id291-293 andcomparedraw1178; reducerchoice String1104 ->nativeparse1155; storedreceiptchoice1236/1265 andoutcome closedstrings1193/1210/1239/1245/1268. Additionalrawstatus/archetype/terrain/action/partyIDs/errors inrangesmandatoryotherlens+futureownlens queue; no whole281orcalleescompleted. DBrowdeclaringmodule andothernativeproducerpoliciesnotread."
+    }
+  ],
+  "findings": [
+    {
+      "family": "inherited raw open ID/enum erasure/M09 canonical aliases",
+      "sources": [
+        "97:470-475,526-555",
+        "98:12-49",
+        "99:8-36",
+        "281:259-325,1099-1271"
+      ],
+      "remedy": "retaincanonical open encounter/catalog IDs and canonicalclosedEncounterChoice inproduction+retainedreceipt/schema; no text equality forcategoricalstate; normalizeonly actualnativeingress/codec/output",
+      "acceptance": "all sourceproducers/retainedstate/API/receivers traced; rootreconcilealiasesandnativeSpacetime/DBschema capability before cleanfinalrepair; original134/281fullscope stillrequired",
+      "limits": "no currenttreecomparison/runtimeclaim/uniqueacceptance; generatedidentityunique/collisionnotproved; trueunreadschema/nativecalleesexplicit",
+      "unique_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Roadcatalog validate_definitions/actualIDgrammar andentireproducer134 remainingroleinventory.",
+    "StrategicEncounter andStrategicEncounterResolutionReceipt declarations/fullfieldpolicy; nativeDBSDK schemaadmission implementation notread.",
+    "Raw ID/choice/application APIs/current owner comparison acrossallremainingoriginals; samepath/metadata/grep nottransfer."
+  ],
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/encounter.rs",
+      "sha256": "aad69b12c6ade6caa59828876caede30c0a0fe2577b11fdd91f84594d2471dd5",
+      "ranges": [
+        [
+          1,
+          1019
+        ]
+      ],
+      "coverage": "lens12 rolesonly; allapplicableotherlensesmandatory, futureoriginalsdonotinheritwholeverdict"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/encounter/choice.rs",
+      "sha256": "3a327aeb8ec9f72d67960b0cdc94f7ece677c4a963d5ce8e1db7af3fd8025206",
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "coverage": "lens12 rolesonly; allapplicableotherlensesmandatory, futureoriginalsdonotinheritwholeverdict"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/encounter/receipt.rs",
+      "sha256": "79edfeebdc4b5bdd4dfd8272b5b15981bf986c1acdcc4bca4b92d3fe3022b1b1",
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "coverage": "lens12 rolesonly; allapplicableotherlensesmandatory, futureoriginalsdonotinheritwholeverdict"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/road_encounter_catalog.rs",
+      "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "ranges": [
+        [
+          1,
+          55
+        ],
+        [
+          985,
+          1015
+        ]
+      ],
+      "coverage": "lens12 rolesonly; allapplicableotherlensesmandatory, futureoriginalsdonotinheritwholeverdict"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+      "sha256": "3c9ffa24338de25378c4f5b46c684ed6e4dbe34e70b4edff6badc1df3f025340",
+      "ranges": [
+        [
+          205,
+          217
+        ],
+        [
+          259,
+          325
+        ],
+        [
+          1095,
+          1290
+        ]
+      ],
+      "coverage": "lens12 rolesonly; allapplicableotherlensesmandatory, futureoriginalsdonotinheritwholeverdict"
+    }
+  ],
+  "qualifications": [
+    "Allpriororiginal/material/overlay/merged/newextension andall20/P16/P17scopeobligationspreserved.",
+    "Source-accountwithfinding differsfromrepair/runtimeacceptance; no projectexecution/tests/probes/source/Gitmutations/rootledger/publication.",
+    "No backward compatibility; oldnativewire/choice/identityformats notrequirements.",
+    "Frozenphysical exactf82 bytes remain distinctfromcurrentmain/HEAD."
+  ],
+  "proposed_count": {
+    "before": 97,
+    "after": 100,
+    "indices_completed": [
+      97,
+      98,
+      99
+    ],
+    "next_original": 100,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  }
+}

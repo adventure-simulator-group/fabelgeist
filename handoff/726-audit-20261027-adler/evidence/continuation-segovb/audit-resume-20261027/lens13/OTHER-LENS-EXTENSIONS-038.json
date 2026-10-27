@@ -1,0 +1,151 @@
+{
+  "lens": 13,
+  "receipt": {
+    "path": "audit-resume-20261027/lens13/batch-159-161-receipt.json",
+    "sha256": "bf36b59458903433b3c05da971ec4a3e6d4fe47740f073c5a3245fba710b1f88"
+  },
+  "status": "mandatory independent otherlensqueue; zerooriginal/sharedcredit",
+  "sources": [
+    {
+      "original": 253,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population.rs",
+      "sha256": "99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "eof": 759,
+      "requested_range_variants": [
+        [
+          1,
+          759
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          759
+        ]
+      ],
+      "provenance": "Exact frozen f82 physical registered source; preservefullrequestedunion; priorrecipientaccessnotoriginalcredit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          759
+        ]
+      ]
+    },
+    {
+      "original": 254,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population/resident_drafts.rs",
+      "sha256": "0bdbeb8d3d35fb200d35d06429d177a9311b5e71207f89a3644fadcd6e72d959",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/0bdbeb8d3d35fb200d35d06429d177a9311b5e71207f89a3644fadcd6e72d959",
+      "eof": 585,
+      "requested_range_variants": [
+        [
+          1,
+          585
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          585
+        ]
+      ],
+      "provenance": "Exact frozen f82 physical registered source; preservefullrequestedunion; priorrecipientaccessnotoriginalcredit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          585
+        ]
+      ]
+    },
+    {
+      "original": 255,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population/resident_persistence.rs",
+      "sha256": "40ec2a78bdcbb5225ff5558a6bb8f186af189dc527eef024048495ec10df0e94",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/40ec2a78bdcbb5225ff5558a6bb8f186af189dc527eef024048495ec10df0e94",
+      "eof": 299,
+      "requested_range_variants": [
+        [
+          1,
+          299
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          299
+        ]
+      ],
+      "provenance": "Exact frozen f82 physical registered source; preservefullrequestedunion; priorrecipientaccessnotoriginalcredit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          299
+        ]
+      ]
+    },
+    {
+      "source_id": "reconstructed-unchanged-physical-p16:crates/adventuresim-world-schema/src/settlement_buildings.rs",
+      "sha256": "ee6bdc44d99872bbf35493a9d1b3195e6ed7c5c94a5524c0cedea93096a68a94",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/ee6bdc44d99872bbf35493a9d1b3195e6ed7c5c94a5524c0cedea93096a68a94",
+      "eof": 248,
+      "provenance": "Pinned534be physicalmanifest base=head a120; exactpathabsentchanged/status, exactGitbytes. Metadataonly; no bodycredit.",
+      "ranges": [
+        [
+          1,
+          248
+        ]
+      ],
+      "role": "Actual business-demand count/ordinal producer reached254; own material dependency, no original/sharedcredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          248
+        ]
+      ]
+    },
+    {
+      "sha256": "39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "ranges": [
+        [
+          118,
+          267
+        ]
+      ],
+      "role": "Exact frozen native family236 actual required household producer->retained receiver reached253; supplementary receiver scope not original236 fullfilecredit.",
+      "actual_consumed_ranges": [
+        [
+          118,
+          267
+        ]
+      ]
+    },
+    {
+      "status": "prospective",
+      "source_id": "reconstructed-unchanged-physical-p16:crates/adventuresim-world-schema/src/settlement_buildings/parish.rs",
+      "sha256": "e1ef72b55859f234152049ee1b6c44d4ecb9a833fc2a4bc347b86713872a702a",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/e1ef72b55859f234152049ee1b6c44d4ecb9a833fc2a4bc347b86713872a702a",
+      "ranges": [
+        [
+          1,
+          136
+        ]
+      ],
+      "eof": 136,
+      "provenance": "Pinned534be physicalmanifest a120 base=head; exactpathabsentphysicalchanged/status, exactGitbytes. Actual initial parish plan capacity required by reached service-plan guard, ownmaterialextension only, no original/sharedcredit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          136
+        ]
+      ]
+    }
+  ],
+  "items": [
+    "Newexactworldschema building/parish numericcapacity/divisor/countpolicy, CapacityRangepublicfieldadmission andscalarowner distinctservicevsresident capacity; allotherlenses independent.",
+    "Producer/aggregate/owner on native finalizedresidentdraft->identity/demographic/household/census/presence chain, cachedage/typedtime/privateflags.",
+    "Invariant/behavior/enum-shapes on familymax4/10edges and firstpartialfamilyroles, newsource tail includesfixedwealthdowrytiers300/100/30->100/45/15/0. No independentotherlenscredit."
+  ],
+  "accepted_new_unique_count": 0
+}

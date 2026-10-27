@@ -1,0 +1,313 @@
+{
+  "at": "2026-10-27T13:09:54.314618+00:00",
+  "lens": 11,
+  "status": "951-953 independently source-accounted",
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-030.json",
+    "sha256": "3d91e910e32661abb24fbc4ccb9bc006280107e159bca0afa8abd4a5d58d8a0a"
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-031-registration.jsonl",
+    "sha256": "5cc16b40ba828425224e919a43cb6c5ba4d02110b93f71ecc7f96a4989a56bcb"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 951,
+      "source_id": "pr-working:crates/adventuresim-core/src/life_simulation.rs",
+      "sha256": "de8b909f4a6436e5f21c9828322d80f19905b15764e7f0b54fca2b1f0079457a",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/de8b909f4a6436e5f21c9828322d80f19905b15764e7f0b54fca2b1f0079457a",
+      "actual_eof": 552,
+      "ranges": [
+        [
+          1,
+          552
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          552
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 952,
+      "source_id": "pr-working:crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "db3686060ebd8ce533fe48c88685c5643b024b8a92b2b617d97481196988f3e0",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/db3686060ebd8ce533fe48c88685c5643b024b8a92b2b617d97481196988f3e0",
+      "actual_eof": 178,
+      "ranges": [
+        [
+          1,
+          178
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          178
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 953,
+      "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+      "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+      "actual_eof": 865,
+      "ranges": [
+        [
+          1,
+          865
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          865
+        ]
+      ]
+    }
+  ],
+  "material_receivers": [
+    {
+      "kind": "connected-owner",
+      "original_index": 960,
+      "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+      "ranges": [
+        [
+          330,
+          405
+        ]
+      ],
+      "prospective": true,
+      "reason": "Actual training target/weight and retained direct/effective hours and receiving life simulation operations",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          330,
+          405
+        ]
+      ]
+    },
+    {
+      "kind": "connected-owner",
+      "original_index": 1013,
+      "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "ranges": [
+        [
+          1,
+          95
+        ],
+        [
+          235,
+          300
+        ],
+        [
+          390,
+          610
+        ]
+      ],
+      "prospective": true,
+      "reason": "Actual training target/weight and retained direct/effective hours and receiving life simulation operations",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          95
+        ],
+        [
+          235,
+          300
+        ],
+        [
+          390,
+          610
+        ]
+      ]
+    },
+    {
+      "kind": "connected-owner",
+      "original_index": 996,
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "ranges": [
+        [
+          1020,
+          1068
+        ]
+      ],
+      "prospective": true,
+      "reason": "Actual training target/weight and retained direct/effective hours and receiving life simulation operations",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          1020,
+          1068
+        ]
+      ]
+    },
+    {
+      "kind": "connected-owner-closure",
+      "original_index": 1013,
+      "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "ranges": [
+        [
+          96,
+          115
+        ],
+        [
+          301,
+          389
+        ],
+        [
+          611,
+          640
+        ]
+      ],
+      "prospective": true,
+      "reason": "Complete directly reached training target selectors/profile weights and accepted/excess training operation",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          96,
+          115
+        ],
+        [
+          301,
+          389
+        ],
+        [
+          611,
+          640
+        ]
+      ]
+    },
+    {
+      "kind": "connected-owner-closure",
+      "original_index": 996,
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "ranges": [
+        [
+          1069,
+          1115
+        ]
+      ],
+      "prospective": true,
+      "reason": "Complete directly reached training target selectors/profile weights and accepted/excess training operation",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          1069,
+          1115
+        ]
+      ]
+    },
+    {
+      "kind": "connected-owner",
+      "original_index": 1014,
+      "sha256": "031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+      "ranges": [
+        [
+          1,
+          68
+        ],
+        [
+          130,
+          180
+        ]
+      ],
+      "prospective": true,
+      "reason": "Actual daily allocation and elapsed minute to real-hour boundary used by life phases",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          68
+        ],
+        [
+          130,
+          180
+        ]
+      ]
+    },
+    {
+      "kind": "connected-owner",
+      "original_index": 1017,
+      "sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+      "ranges": [
+        [
+          415,
+          428
+        ]
+      ],
+      "prospective": true,
+      "reason": "Actual daily allocation and elapsed minute to real-hour boundary used by life phases",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          415,
+          428
+        ]
+      ]
+    }
+  ],
+  "reused_personal_source_proofs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-028-receipt.json",
+      "sha256": "45e9ec96599b408c85a36ae3ba0299bcdb195524537add323b6aba4a300c89b2"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-029-receipt.json",
+      "sha256": "b5f69edf443b8875a00e648ec25fe4ceeb5c35862c1aa03b273538ce355aec36"
+    }
+  ],
+  "per_role": [
+    {
+      "original": 951,
+      "roles": "Life phase/activity, age and duration, work hours versus effective training, organization curriculum and language acquisition.",
+      "trace": "Full552 read. Childhood6..12/study12..16/professional phases are analytical and at most3. Native oral copied; written literacy uses aptitude-aware training. Exact1013 receiving operations convert elapsed/daily minutes to real hours and call996 direct training; accepted/excess effective hours remain distinct. Professional entries merge max weight per target then normalize; organization emphasis can multiply weight4.",
+      "disposition": "Keep phase/activity eligibility and oral acquisition versus literacy study distinctions. Real hours/effective hours/direct storage/transfer/rank differ. Raw f32 work/weight/gain/target ports lose those units. Relative pre-normalized weights may exceed1, not UnitInterval. Reuse admitted hours/numeric invariant below correct purposes. Do not force coarse creation minutes through quarter-hour ActivityMinutes: childhood emphasis45..75 deliberately includes other minute values. DailySchedule bound/life interval can be coherent owners; no unsupported global age cap."
+    },
+    {
+      "original": 952,
+      "roles": "Signed, nonnegative and positive scalar speeds, raw factor operations, unit serialization/admission.",
+      "trace": "Full178 independently read. Serde routes through finite constructors. Signed magnitude, forward-only nonnegative policy, positive reference and lossless widening are explicit. Frozen checked_scale/checked_lerp accept raw factors then re-admit results, mapping nonfinite result to Overflow.",
+      "disposition": "Keep three speed distinctions; they prevent direction/magnitude and zero-reference mixups. Share finite numeric admission; typed interpolation fraction differs from unbounded scale ratio. Frozen raw-operation/error classification questions predate merged PR992. Do not repeat them as current defects or transfer M04 current review into frozen counts/unique findings; no operation-order compatibility requirement."
+    },
+    {
+      "original": 953,
+      "roles": "Problem/scope identity, cause/symptom authority, relative weights/bridges, lifecycle/incidents, trade/encounter/disease/mitigation units, public referral identity/display/topic.",
+      "trace": "Full865 read. Route helper sorts endpoints. Generation filters hard-zero and bridge-gated candidates; native weighted index takes positive u64 products. ID derives seed+ordinal, scope separately stored. Active window checks typed StrategicMinute start/end/resolution. Positive incident interval/max are asserted; severity can exceedwhole (5=>20000). Aggregates clamp selected3 rows and outputs. Disease exposure uses typed mitigation complement but raw intensity. Referral compares source/contact IDs before names; topic label/ID tuple is paired.",
+      "disposition": "Keep private causes distinct from ambiguous symptoms and curation separate from plausibility. Relative weights and severity multipliers are not UnitInterval; mitigation is bounded fraction. Raw public ProblemId/route endpoints/bridge identities and public lifecycle permit bypassing helper invariants. Cross-scope ID uniqueness depends on seed authority: no runtime collision proved. Public route variant can bypass ordering. Nonzero duration/count and coherent active-window state can express actual contracts; no invented horizon. Optional encounter archetype/frequency relation remains source question, not proved runtime loss through reduced ConsequenceInput. Existing contact/topic/location owners should replace matching raw ports after namespace reconciliation."
+    }
+  ],
+  "contract_limits": [
+    "1013 complete receiving operations397-580, selectors582-620, profile301-393 and values73-108. is_finite110-115 and unrelated ActivityOutcome634-640 are partial adjacent context, not completed contracts.",
+    "960330-405 completes Requirement/TrainingEntry/TrainingTarget and Dues/ActivityReward, not full organization/catalog admission. Skill target raw strings resolve canonical enums or no award in actual1013 receiver.",
+    "996 completes language1032-1057 and direct1061-1087 training; aptitude helper tail1020 and effective_skill_hours1106-1115 are partial. No full cap/correlation proof.",
+    "1014 ActivityMinutes constructor and OrganizationAllocation parse39-59 complete; getter68 partial. DailySchedule136-175 complete; ValidatedSchedule only declaration179. No whole allocation admission/redistribution credit.",
+    "1017 training_hours_increment420-424 complete; adjacent healed_health427-428 partial. No native RNG implementation/global weighted-index guarantee.",
+    "Fixtures source only, no execution. All prior currentness/alias/capacity/ID/saved association and other-lens queues retained; no whole current or unique findings.",
+    "First receipt serialization command failed with SyntaxError before creating report; prospective registration and actual source reads had already succeeded independently. No source coverage inferred from failed write."
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_ledger_edited": false
+}

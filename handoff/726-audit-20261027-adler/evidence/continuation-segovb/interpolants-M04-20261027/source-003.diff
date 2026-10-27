@@ -1,0 +1,209 @@
+diff --git a/.github/workflows/rust-quality.yml b/.github/workflows/rust-quality.yml
+index 88c35275f..0a0045a09 100644
+--- a/.github/workflows/rust-quality.yml
++++ b/.github/workflows/rust-quality.yml
+@@ -306,6 +306,10 @@ jobs:
+         run: |
+           set -euo pipefail
+           cargo test --locked --package adventuresim-tactical-core --lib animation:: -- --test-threads=1 2>&1 | tee target/rig-contracts/tactical-core-animation.log
++      - name: Test existing movement speed consumers
++        run: |
++          set -euo pipefail
++          cargo test --locked --package adventuresim-tactical-core --lib physics::movement_speed::tests:: -- --test-threads=1 2>&1 | tee target/rig-contracts/tactical-core-movement-speed.log
+       - name: Test canonical combat configuration
+         env:
+           EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
+@@ -391,6 +395,7 @@ jobs:
+               "rig", "autoresolve", "contact-defense", "mhr", "strategic-bootstrap",
+               "geometry-admission", "geometry-doc", "native-iteration",
+               "camera", "equipment-chronology", "equipment-mapping",
++              "tactical-core-movement-speed",
+               "animation", "audio", "weather-audio", "animation-reports", "equipment", "maneuver-consumers",
+               "creator-armor-frames", "creator-clothing",
+               "creator-device-frames", "creator-gorget-bib",
+diff --git a/crates/adventuresim-core/Cargo.toml b/crates/adventuresim-core/Cargo.toml
+index 836dbedec..43d0c68f6 100644
+--- a/crates/adventuresim-core/Cargo.toml
++++ b/crates/adventuresim-core/Cargo.toml
+@@ -29,6 +29,7 @@ fabelgeist-determinism.workspace = true
+ spacetimedb = { workspace = true, optional = true }
+ 
+ [build-dependencies]
++thiserror.workspace = true
+ serde = { workspace = true, features = ["derive"] }
+ serde_json.workspace = true
+ serde-saphyr.workspace = true
+diff --git a/crates/adventuresim-core/build.rs b/crates/adventuresim-core/build.rs
+index f198fe7cf..61fccd9b8 100644
+--- a/crates/adventuresim-core/build.rs
++++ b/crates/adventuresim-core/build.rs
+@@ -29,6 +29,8 @@ pub mod animation_pack_id;
+ pub mod elapsed;
+ #[path = "src/linear_speed.rs"]
+ pub mod linear_speed;
++#[path = "src/unit_interval.rs"]
++pub mod unit_interval;
+ 
+ #[path = "build/combat_resolution.rs"]
+ mod combat_resolution;
+diff --git a/crates/adventuresim-core/src/linear_speed.rs b/crates/adventuresim-core/src/linear_speed.rs
+index e3c74bf63..cec74074b 100644
+--- a/crates/adventuresim-core/src/linear_speed.rs
++++ b/crates/adventuresim-core/src/linear_speed.rs
+@@ -1,7 +1,7 @@
+ //! Checked scalar linear speeds shared by tactical and strategic mechanics.
+ 
++use crate::unit_interval::{FractionError, UnitInterval};
+ use serde::{Deserialize, Serialize};
+-use std::fmt;
+ 
+ pub type SpeedResult<T> = Result<T, SpeedError>;
+ 
+@@ -17,12 +17,18 @@ pub struct SignedSpeed(f32);
+ #[serde(try_from = "f32", into = "f32")]
+ pub struct PositiveSpeed(NonnegativeSpeed);
+ 
+-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++#[derive(Clone, Copy, Debug, PartialEq, Eq, thiserror::Error)]
+ pub enum SpeedError {
++    #[error("linear speed must be finite")]
+     NonFinite,
++    #[error("linear speed must be nonnegative")]
+     Negative,
++    #[error("linear speed must be positive")]
+     NonPositive,
++    #[error("linear speed arithmetic overflowed")]
+     Overflow,
++    #[error("invalid speed interpolation fraction: {0}")]
++    Fraction(#[from] FractionError),
+ }
+ 
+ impl NonnegativeSpeed {
+@@ -58,7 +64,8 @@ impl NonnegativeSpeed {
+         })
+     }
+ 
+-    pub fn checked_lerp(self, other: Self, factor: f32) -> SpeedResult<Self> {
++    pub fn checked_lerp(self, other: Self, factor: UnitInterval) -> SpeedResult<Self> {
++        let factor = factor.fraction();
+         // Same scalar operation order as the pinned Bevy/glam FloatExt kernel.
+         Self::from_metres_per_second(self.0 + (other.0 - self.0) * factor).map_err(|error| {
+             if error == SpeedError::NonFinite {
+@@ -126,18 +133,6 @@ impl PositiveSpeed {
+     }
+ }
+ 
+-impl fmt::Display for SpeedError {
+-    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+-        formatter.write_str(match self {
+-            Self::NonFinite => "linear speed must be finite",
+-            Self::Negative => "linear speed must be nonnegative",
+-            Self::NonPositive => "linear speed must be positive",
+-            Self::Overflow => "linear speed arithmetic overflowed",
+-        })
+-    }
+-}
+-impl std::error::Error for SpeedError {}
+-
+ impl From<NonnegativeSpeed> for SignedSpeed {
+     fn from(speed: NonnegativeSpeed) -> Self {
+         Self(speed.0)
+diff --git a/crates/adventuresim-tactical-core/src/animation/locomotion.rs b/crates/adventuresim-tactical-core/src/animation/locomotion.rs
+index f55ac992d..223f0051e 100644
+--- a/crates/adventuresim-tactical-core/src/animation/locomotion.rs
++++ b/crates/adventuresim-tactical-core/src/animation/locomotion.rs
+@@ -143,12 +143,14 @@ pub fn locomotion_profile(
+     }
+     let walk = walk_locomotion_profile();
+     let run_profile = run_locomotion_profile();
+-    let run = ((speed.metres_per_second() - walk.reference_speed.metres_per_second())
+-        / (run_profile.reference_speed.metres_per_second()
+-            - walk.reference_speed.metres_per_second()))
+-    .clamp(0.0, 1.0);
++    let run = UnitInterval::from_fraction(
++        ((speed.metres_per_second() - walk.reference_speed.metres_per_second())
++            / (run_profile.reference_speed.metres_per_second()
++                - walk.reference_speed.metres_per_second()))
++        .clamp(0.0, 1.0),
++    )?;
+     Ok(LocomotionProfile {
+-        gait: if run >= 0.5 {
++        gait: if run >= UnitInterval::HALF {
+             LocomotionGait::Run
+         } else {
+             LocomotionGait::Walk
+@@ -162,10 +164,8 @@ pub fn locomotion_profile(
+             .checked_lerp(run_profile.support_phase_radius, run)?,
+         bounce_metres: walk
+             .bounce_metres
+-            .scaled_by(UnitInterval::from_fraction(1.0 - run)?)?,
+-        flight_apex_metres: run_profile
+-            .flight_apex_metres
+-            .scaled_by(UnitInterval::from_fraction(run)?)?,
++            .scaled_by(UnitInterval::from_fraction(1.0 - run.fraction())?)?,
++        flight_apex_metres: run_profile.flight_apex_metres.scaled_by(run)?,
+         landing: landing_profile(),
+     })
+ }
+diff --git a/crates/adventuresim-tactical-core/src/animation/sample_values.rs b/crates/adventuresim-tactical-core/src/animation/sample_values.rs
+index f7b9aa708..0551a8427 100644
+--- a/crates/adventuresim-tactical-core/src/animation/sample_values.rs
++++ b/crates/adventuresim-tactical-core/src/animation/sample_values.rs
+@@ -2,7 +2,7 @@
+ 
+ use super::{
+     AnimationQuantity, AnimationValueError, AnimationValueResult, LOCOMOTION_SECOND_CONTACT_PHASE,
+-    LeadFoot,
++    LeadFoot, UnitInterval,
+ };
+ use serde::{Deserialize, Serialize};
+ 
+@@ -94,10 +94,10 @@ impl CycleDelta {
+     pub fn from_unit_cycles(value: super::UnitInterval) -> Self {
+         Self(value.fraction())
+     }
+-    /// Native interpolation of two cycle displacements, before retaining the result.
+-    pub fn checked_lerp(self, other: Self, fraction: f32) -> AnimationValueResult<Self> {
++    /// Native interpolation of two cycle displacements using an admitted fraction.
++    pub fn checked_lerp(self, other: Self, fraction: UnitInterval) -> AnimationValueResult<Self> {
+         use bevy::math::FloatExt;
+-        Self::from_arithmetic(self.0.lerp(other.0, fraction))
++        Self::from_arithmetic(self.0.lerp(other.0, fraction.fraction()))
+     }
+ 
+     pub const ZERO: Self = Self(0.0);
+diff --git a/crates/adventuresim-tactical-core/src/animation/value_error.rs b/crates/adventuresim-tactical-core/src/animation/value_error.rs
+index cecdbebfe..6683dea03 100644
+--- a/crates/adventuresim-tactical-core/src/animation/value_error.rs
++++ b/crates/adventuresim-tactical-core/src/animation/value_error.rs
+@@ -183,6 +183,7 @@ impl From<adventuresim_core::linear_speed::SpeedError> for AnimationValueError {
+             SpeedError::Negative => Self::Negative { quantity },
+             SpeedError::NonPositive => Self::NonPositive { quantity },
+             SpeedError::Overflow => Self::Overflow { quantity },
++            SpeedError::Fraction(error) => Self::from(error),
+         }
+     }
+ }
+diff --git a/crates/adventuresim-tactical-core/src/physics/movement_speed.rs b/crates/adventuresim-tactical-core/src/physics/movement_speed.rs
+index 388c701c6..732830d5c 100644
+--- a/crates/adventuresim-tactical-core/src/physics/movement_speed.rs
++++ b/crates/adventuresim-tactical-core/src/physics/movement_speed.rs
+@@ -5,6 +5,7 @@ use crate::animation::{BodyState, WeaponGuardState};
+ use crate::{combat_config::TacticalMovementConfig, player::TacticalPlayerView};
+ use adventuresim_core::linear_speed::{NonnegativeSpeed, SpeedResult};
+ use adventuresim_core::prelude::*;
++use adventuresim_core::unit_interval::UnitInterval;
+ use bevy::prelude::Vec2;
+ 
+ pub const TACTICAL_WALK_SPEED_METRES_PER_SECOND: NonnegativeSpeed = authored_speed(1.7);
+@@ -40,7 +41,9 @@ pub(super) const UNATTRIBUTED_JOG_SPEED: NonnegativeSpeed = authored_speed(3.75)
+ pub fn tactical_jog_speed(endurance: f32) -> SpeedResult<NonnegativeSpeed> {
+     let endurance = endurance.clamp(0.0, 5.0);
+     if endurance <= 1.0 {
+-        let smooth_endurance = endurance * endurance * (3.0 - 2.0 * endurance);
++        let smooth_endurance = UnitInterval::from_fraction(
++            (endurance * endurance * (3.0 - 2.0 * endurance)).clamp(0.0, 1.0),
++        )?;
+         return TACTICAL_WALK_SPEED_METRES_PER_SECOND
+             .checked_lerp(MINIMUM_JOG_SPEED_METRES_PER_SECOND, smooth_endurance);
+     }

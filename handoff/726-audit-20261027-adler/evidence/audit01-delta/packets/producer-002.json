@@ -1,0 +1,162 @@
+{
+  "id": "ADLER-CONT01-LATER-002",
+  "lens": "producer-propagation",
+  "registry_sha256": "01e11726b2c32ab6f86d513d62a5aa88980e29a8b2ccaf8716319bf0e7629459",
+  "receipts": [
+    {
+      "extension_index": 69,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/bevy_error.rs",
+      "sha256": "ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+      "source_ranges": [
+        [
+          7,
+          25
+        ],
+        [
+          228,
+          285
+        ],
+        [
+          381,
+          421
+        ]
+      ],
+      "actual_eof": 567,
+      "trace": {
+        "producer": "Native BevyError blanket From<E> boxes original Error+Send+Sync and sets advisory Severity::Panic by default; with_severity/map_severity preserve original error and change metadata.",
+        "retained_and_operations": "Native InnerBevyError keeps typed boxed payload, severity and optional native backtrace; Display delegates actual error. Explicit error severity is separate policy, not proof of recovery.",
+        "actual_receiver": "This is real Bevy system error boundary referenced by completed original caller410/411. Scoped native source demonstrates default conversion behavior; actual configured fallback handler still determines response.",
+        "boundary_and_disposition": "Standard typed error\u2192framework conversion is legitimate terminal error adapter and need not stringify. Do not describe returningErr as graceful recovery or automatically lower severity: default is Panic, local handler policy must be traced if promised. No new custom wrapper needed; existing cause/application failure families remain open."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 70,
+      "source_id": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-client/src/character_settlement_reputation_type.rs",
+      "sha256": "fb0c3f00ff6ec75a99d6053871e23ef12e31108af4342f236de077e4d8f2e881",
+      "source_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "actual_eof": 65,
+      "trace": {
+        "producer": "SpacetimeDB generated CharacterSettlementReputation wire row encodes IDs as String/u64 and fame/infamy as i32, with native SATS derives.",
+        "retained_and_operations": "Generated query column and indexed accessors preserve exact row field widths and static schema column names.",
+        "actual_receiver": "SDK/native persistence boundary; database schema owns these generated types, and application reputation owner must adapt at ingestion/output.",
+        "boundary_and_disposition": "Do not hand-edit generated bindings or infer an unsigned bounded reputation type from native i32 representation. Retain original producer/storage/view identity/quantity family obligations; this source establishes exact transport width only."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 71,
+      "source_id": "pr-working:crates/strategic-web/static/background-fetch.js",
+      "sha256": "00cfcd2e251b7d8b3020a2493c94a0907b7cf2afbeccc841331a2f81aabf2c86",
+      "source_ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "actual_eof": 83,
+      "trace": {
+        "producer": "Browser fetch and navigation return URL strings enter explicit JS WebAPI adapter; strategicLocalReturnUrl rejects nonlocal forms and returns canonical local pathname+query+hash.",
+        "retained_and_operations": "Native AbortController per request key, shared Promise initial queue and error context strings. Existing controller is aborted and finalizer deletes only matching active controller, preserving newer request.",
+        "actual_receiver": "Actual fetch receives URL/input and AbortSignal, DOM return_to input.value receives canonical path, CustomEvent/console receive Error+context. These are concrete native text/signal boundaries, not bespoke Rust record reconstruction.",
+        "boundary_and_disposition": "No new primitive escape gap from URL/DOM encoding. AbortError name is native stable error classification. Open task keys/paths remain open; no invented closed enum for arbitrary URL/query values. HTTP failure/source-cause policies remain as encoded; no runtime navigation verdict."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 72,
+      "source_id": "pr-working:crates/strategic-web/static/strategic-navigation.js",
+      "sha256": "1419143934b4dacd73085c81a770534d63fbad34612ff6cc25bb886c430e6bff",
+      "source_ranges": [
+        [
+          1,
+          209
+        ]
+      ],
+      "actual_eof": 209,
+      "trace": {
+        "producer": "Actual DOM link/history events produce native URL plus structured focus/scroll snapshots; navigate receives same URL/string at fetch boundary.",
+        "retained_and_operations": "Dynamic tagged focus records, generation token, AbortController and History state retain browser navigation-specific data. Hard boundaries check origin/path; negotiated response profile/root selects soft-page flow; source canonical URL parsed through URL.",
+        "actual_receiver": "fetch/DOMParser/history.pushState/replaceState/location.assign/scrollTo/focus consume native browser representations directly. Source payload tags restore concrete DOM id/service/equipment/control/href with no Rust checked-type re-admission.",
+        "boundary_and_disposition": "These are real browser interfaces. Strings for HTTP header/negotiated script profile/DOM selectors are protocol/code tokens, not mutable display prose classification. Original navigation concurrency/error lifecycle remains baseline scope; do not claim complete routing/runtime success or new numeric token bounds from this source trace."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 73,
+      "source_id": "pr-working:crates/strategic-web/src/routes/characters.rs",
+      "sha256": "10dd792473dbbed42eb10675903a838cb0858f13323b7029982c0c7e08a0e0b0",
+      "source_ranges": [
+        [
+          1,
+          15
+        ],
+        [
+          52,
+          87
+        ]
+      ],
+      "actual_eof": 452,
+      "trace": {
+        "producer": "Axum Path<u64> and authenticated session ID enter HTTP/native boundary; observed viewer+subject records gate shared frontier/party/location before condition query.",
+        "retained_and_operations": "Raw IDs are passed to actual data/database query ports. CharacterStrategicCondition remains native generated row, Option absence/errors mapped through ok().flatten.",
+        "actual_receiver": "Json(SerdeWrapper) is explicit SATS/HTTP serialization endpoint86, not an intermediate application quantity API. StatusCode gates preserve unauthorized/notfound/forbidden distinctions before query.",
+        "boundary_and_disposition": "Bounded receiving path does not reconstruct bespoke identity/condition numbers repeatedly; upstream ID and condition producer migration remains original family. Failedquery\u2192null erasure is existing response policy, not evidence of a validated successful condition or whole error-family clearance."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 74,
+      "source_id": "pr-working:vendor/bevy_ahoy/src/kcc.rs",
+      "sha256": "270d6b20992ae497744d528d70421ca20075b2f22be9c0dff36f2c41978e72ba",
+      "source_ranges": [
+        [
+          145,
+          195
+        ]
+      ],
+      "actual_eof": 1645,
+      "trace": {
+        "producer": "Vendor character-controller system receives actual native Time and mutable physics/KCC query components.",
+        "retained_and_operations": "Before physics kernels it ticks last_ground/last_tac/last_step_up/down with time.delta(), passes native Time further into update_grounded/start_gravity.",
+        "actual_receiver": "M75 actual Stopwatch::tick(Duration) is concrete native clock receiving port; no seconds extraction and re-admission at this call. Physics Transform/position queries are genuine vendor interfaces.",
+        "boundary_and_disposition": "Keep tactical native duration distinct from strategic minutes and per-event elapsed stopwatches. Bounded native input route is source-backed, not a new primitive time producer gap. No whole vendor kinematics or schedule/clock policy clearance from these51lines."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 75,
+      "source_id": "pinned-registry:bevy_time-0.19.1/src/stopwatch.rs",
+      "sha256": "0f89469949a788d5c34a3e2608a6feb5af224c57692f0a421f1846fcfc51e87f",
+      "source_ranges": [
+        [
+          115,
+          165
+        ]
+      ],
+      "actual_eof": 210,
+      "trace": {
+        "producer": "Native Stopwatch::set_elapsed accepts Duration, tick accepts same Duration and pause is ordinary native flag.",
+        "retained_and_operations": "tick uses elapsed.saturating_add(delta) only when unpaused; elapsed stays native Duration, no internal raw f32 producer in inspected route.",
+        "actual_receiver": "Actual KCC74 passes native Time.delta directly into four tick calls. Example from_secs_f32 is native literal/fixture boundary, not new application API.",
+        "boundary_and_disposition": "Saturation is actual native overflow policy and must not be reported as unchecked addition/panic. No fresh bespoke clock required around framework stopwatch; bounded source does not clear broader timers or conversions outside selected ranges."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    }
+  ],
+  "global_clearance": false,
+  "new_unique_count": "not asserted; existing-remedy dedup required",
+  "extra": null
+}

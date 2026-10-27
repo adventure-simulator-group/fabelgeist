@@ -1,0 +1,42 @@
+diff --git a/crates/adventuresim-tactical-client/src/presentation/buildings/boundaries/projection.rs b/crates/adventuresim-tactical-client/src/presentation/buildings/boundaries/projection.rs
+index 316506343..7ba015e91 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/buildings/boundaries/projection.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/buildings/boundaries/projection.rs
+@@ -1,7 +1,9 @@
+ //! Distant walls wait for the exact scene support rather than using a house floor.
+ use super::*;
+ use crate::presentation::ownership::PresentationOwner;
+-use adventuresim_tactical_core::{city_layout::CityCompound, prelude::GeneratedBoundary};
++use adventuresim_tactical_core::{
++    city_layout::CityCompound, prelude::GeneratedBoundary, scene_coordinates::GateDatum,
++};
+ 
+ #[derive(Component)]
+ pub(super) struct DistantBoundaryPresentation;
+@@ -90,21 +92,18 @@ pub(super) fn project_pending(
+     };
+     let mut batches = BoundaryBatches::default();
+     for boundary in boundaries {
+-        fixed(
+-            &mut batches,
++        let datum = GateDatum::new(boundary.elevation_metres());
++        batches.insert_boundary(
+             boundary.scene(),
+-            boundary.elevation_metres().metres(),
++            BoundaryPlacement::Scene(datum),
+             &materials,
+-        );
++        )?;
+         let door = boundary
+             .scene()
+             .boundary()
+             .gate
+             .door(boundary.scene().property_id())?;
+-        let pose = adventuresim_tactical_core::scene_coordinates::GateDatum::from_metres(
+-            boundary.elevation_metres().metres(),
+-        )?
+-        .door(door)?;
++        let pose = datum.door(door)?;
+         let door = pose.leaf();
+         commands
+             .spawn((

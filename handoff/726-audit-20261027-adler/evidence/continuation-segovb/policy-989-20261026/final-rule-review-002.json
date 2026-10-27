@@ -1,0 +1,524 @@
+{
+  "id": "SEGOVB-PR990-FINAL-RULE-REVIEW-002",
+  "review_mode": "Bounded final committed-source reconciliation; prior exact source-backed Rule Review traces retained, not a new global audit.",
+  "base": "b3810b8b5db78c15cc51a0e1bef747a06450dffb",
+  "head": "a21f9ccaeba1e3947e22dc1f64106c4f2bc371b6",
+  "head_tree": "efcfff8cd1f234ee90094794a68a77fa5cf9460a",
+  "actual_diff": {
+    "path": "final-source-002.patch",
+    "sha256": "3b12f8d201f130134f2d6b0cdd2e27137b78191c69491d80c2a04cce261fe619",
+    "reviewer_generated_same_diff": "final-rule-diff-002.patch",
+    "full_actual_diff_personally_read": true
+  },
+  "manifest": {
+    "path": "implementation-manifest-004.json",
+    "sha256": "bdc4ae1576bd074c1fde967a2c90747380f2027c91e36cd94cc7c943070da5b9"
+  },
+  "verdict": "No actionable finding at exact final committed source. Scoped Rule Review source conditions and relevant baseline reduction are satisfied. Full hosted CI acceptance remains pending.",
+  "findings": [],
+  "git_source_identity": {
+    "head_verified": "a21f9ccaeba1e3947e22dc1f64106c4f2bc371b6",
+    "tracked_worktree_clean": true,
+    "changed_paths_exactly_nine_manifest_paths": true,
+    "all_committed_blobs_match_manifest_and_worktree": true,
+    "read_only_git_operations": "rev-parse,status,diff,show only; no Git mutation or publication"
+  },
+  "final_source_pins": [
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "sha256": "a7d4fc3525525acbcfa7ea6d88f751261132fc912cd26696d4975897a5f8b97e",
+      "lines": 34,
+      "head_sha256": "a7d4fc3525525acbcfa7ea6d88f751261132fc912cd26696d4975897a5f8b97e",
+      "worktree_matches_head": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "d6cd017cc5d337a0ad47543cc51cc009cff84fa78bb65499b1cddfcb60afcb55",
+      "lines": 620,
+      "head_sha256": "d6cd017cc5d337a0ad47543cc51cc009cff84fa78bb65499b1cddfcb60afcb55",
+      "worktree_matches_head": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "5b020e16dadfbc30f2eb50b784552258d880c631376ffc1d62e9e25cae07c992",
+      "lines": 264,
+      "head_sha256": "5b020e16dadfbc30f2eb50b784552258d880c631376ffc1d62e9e25cae07c992",
+      "worktree_matches_head": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "a5ec79b944808520b15bc649e4d54b14612859c9a5b1b1f8446a47c17bb6c1d6",
+      "lines": 905,
+      "head_sha256": "a5ec79b944808520b15bc649e4d54b14612859c9a5b1b1f8446a47c17bb6c1d6",
+      "worktree_matches_head": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "3adc6454ec9a8cada8428ebd2b800f5b7374028ce73a52df204e54aab3750a93",
+      "lines": 125,
+      "head_sha256": "3adc6454ec9a8cada8428ebd2b800f5b7374028ce73a52df204e54aab3750a93",
+      "worktree_matches_head": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "f0828dbc6755445932455e5aa9edf040f2222deca3c1fe38c44460da856565d8",
+      "lines": 42,
+      "head_sha256": "f0828dbc6755445932455e5aa9edf040f2222deca3c1fe38c44460da856565d8",
+      "worktree_matches_head": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "14ac95339951ceb8b50cc3ab9452c251bbbce6122ebd7206a3961c406ff74858",
+      "lines": 323,
+      "head_sha256": "14ac95339951ceb8b50cc3ab9452c251bbbce6122ebd7206a3961c406ff74858",
+      "worktree_matches_head": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "022b9d73dd2cfc76963f3945bc7b7c89e6bbb8322889adccf3599a7b4b0e83e7",
+      "lines": 87,
+      "head_sha256": "022b9d73dd2cfc76963f3945bc7b7c89e6bbb8322889adccf3599a7b4b0e83e7",
+      "worktree_matches_head": true
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "8ccab96e129e4b873ed3f8ae3841afd6bf7cfa59809b69cbed46ec41855b171e",
+      "lines": 12838,
+      "head_sha256": "8ccab96e129e4b873ed3f8ae3841afd6bf7cfa59809b69cbed46ec41855b171e",
+      "worktree_matches_head": true
+    }
+  ],
+  "retained_connected_committed_pins": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "d6cd017cc5d337a0ad47543cc51cc009cff84fa78bb65499b1cddfcb60afcb55",
+      "ranges": [
+        [
+          1,
+          161
+        ],
+        [
+          256,
+          336
+        ]
+      ],
+      "head_sha256": "d6cd017cc5d337a0ad47543cc51cc009cff84fa78bb65499b1cddfcb60afcb55",
+      "retained_prior_read_ranges": [
+        [
+          1,
+          161
+        ],
+        [
+          256,
+          336
+        ]
+      ],
+      "no_new_body_read_claimed": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "5b020e16dadfbc30f2eb50b784552258d880c631376ffc1d62e9e25cae07c992",
+      "ranges": [
+        [
+          1,
+          122
+        ],
+        [
+          134,
+          218
+        ]
+      ],
+      "head_sha256": "5b020e16dadfbc30f2eb50b784552258d880c631376ffc1d62e9e25cae07c992",
+      "retained_prior_read_ranges": [
+        [
+          1,
+          122
+        ],
+        [
+          134,
+          218
+        ]
+      ],
+      "no_new_body_read_claimed": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "a5ec79b944808520b15bc649e4d54b14612859c9a5b1b1f8446a47c17bb6c1d6",
+      "ranges": [
+        [
+          1,
+          152
+        ],
+        [
+          366,
+          390
+        ]
+      ],
+      "head_sha256": "a5ec79b944808520b15bc649e4d54b14612859c9a5b1b1f8446a47c17bb6c1d6",
+      "retained_prior_read_ranges": [
+        [
+          1,
+          152
+        ],
+        [
+          366,
+          390
+        ]
+      ],
+      "no_new_body_read_claimed": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "14ac95339951ceb8b50cc3ab9452c251bbbce6122ebd7206a3961c406ff74858",
+      "ranges": [
+        [
+          1,
+          33
+        ],
+        [
+          100,
+          164
+        ],
+        [
+          259,
+          282
+        ]
+      ],
+      "head_sha256": "14ac95339951ceb8b50cc3ab9452c251bbbce6122ebd7206a3961c406ff74858",
+      "retained_prior_read_ranges": [
+        [
+          1,
+          33
+        ],
+        [
+          100,
+          164
+        ],
+        [
+          259,
+          282
+        ]
+      ],
+      "no_new_body_read_claimed": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "e3ad593b83da185620d2729a5fde4a0f7bfda1c39993494432c55a0c989e0973",
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "head_sha256": "e3ad593b83da185620d2729a5fde4a0f7bfda1c39993494432c55a0c989e0973",
+      "retained_prior_read_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "no_new_body_read_claimed": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "sha256": "878a4144b4fecdc20291885050e30fe521a5294117046c282ef24d40c5e407d9",
+      "ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "head_sha256": "878a4144b4fecdc20291885050e30fe521a5294117046c282ef24d40c5e407d9",
+      "retained_prior_read_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "no_new_body_read_claimed": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/cube_face.rs",
+      "sha256": "db49ac57de817ae29d6341288c341aacbe884102e4d98575a32590f334f90709",
+      "ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "head_sha256": "db49ac57de817ae29d6341288c341aacbe884102e4d98575a32590f334f90709",
+      "retained_prior_read_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "no_new_body_read_claimed": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "sha256": "878a4144b4fecdc20291885050e30fe521a5294117046c282ef24d40c5e407d9",
+      "ranges": [
+        [
+          25,
+          27
+        ]
+      ],
+      "head_sha256": "878a4144b4fecdc20291885050e30fe521a5294117046c282ef24d40c5e407d9",
+      "retained_prior_read_ranges": [
+        [
+          25,
+          27
+        ]
+      ],
+      "no_new_body_read_claimed": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "5b5fe5e4ff2f4e7d2ec8daf2e852ea0c6f5de112716d6d1695502b1304318106",
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "head_sha256": "5b5fe5e4ff2f4e7d2ec8daf2e852ea0c6f5de112716d6d1695502b1304318106",
+      "retained_prior_read_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "no_new_body_read_claimed": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "786f4f75b779e92f2a1b2e521e672606b4fa3b6bf9176530903dd6a4edf7f84b",
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "head_sha256": "786f4f75b779e92f2a1b2e521e672606b4fa3b6bf9176530903dd6a4edf7f84b",
+      "retained_prior_read_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "no_new_body_read_claimed": true
+    }
+  ],
+  "retained_prior_proofs": [
+    {
+      "path": "rule-review-001.json",
+      "sha256": "2e316d7c42c44016e9d6399e141177af7e67d61bc39fb7d376fcb12202aae7db"
+    },
+    {
+      "path": "baseline-rule-review-001.json",
+      "sha256": "c935b41149bc105ac667959820b8f590112692275e6d807eaa3501c3d177f2da"
+    },
+    {
+      "path": "baseline-rule-review-001-data.json",
+      "sha256": "34b855542e473db8f70e8c0e6f66ca68f7fa374b4497a5901230975969a259a2"
+    },
+    {
+      "path": "hosted-format-fix-001.patch",
+      "sha256": "a0177de5ab47e02bda17cc9bc742906124de6c46d1664557c43f6edad273d070"
+    }
+  ],
+  "carried_contract_traces": [
+    {
+      "family": "Three texture constructors",
+      "locations": "texture_2d/mod.rs51-159; texture_3d/mod.rs48-120; texture_cube/mod.rs52-146",
+      "trace": "Each constructor creates optional canonical ValidationScope before native create_texture, keeps the initial create_view inside the same scope, and calls finish()? before wrapping/publishing the texture/view. ValidationObservation::Uncaptured producesNone through shared owner; cfg excludes scope handling onwasm. Native BlockingScopes waits/pops through one shared implementation. Native rejection, failed polling and combined outcome remain typed ValidationScopeError and pass through constructor anyhow boundary with standard conversion. Removed _wgpu_format locals were unused eager conversions; actual native descriptor conversion remains. Descriptor formats/usages, dimensions, initial view inference, limits and constructor dimension admission policy are unchanged in supplied patch. No new global dimension/owner validation claim."
+    },
+    {
+      "family": "Canonical observation admission/completion",
+      "locations": "validation_observation.rs1-27; validation_scope.rs1-65; wgpu_context/mod.rs20-33,100-119,259-277",
+      "trace": "WgpuContext carried policy remains separate from ownership/presentation. from_parts defaultsUncaptured; newly created context defaultsBlockingScopes native/Uncapturedwasm. start_scope admits onlyBlockingScopes by pushingValidation filter. Scope owns actual cloned device/SDKguard. finish polls then always pops, maps allfour poll/capture outcomes tosuccess/Native/Progress/ProgressWithNative. Both actual errors survivecombinedstate and poll remainsprimary source. No second policy owner, Boolean translation, manual error trait or optional failure payload added. Public mutable resources still lack cross-device association certification, explicitly documented and outside989 guarantee."
+    },
+    {
+      "family": "Cube face typed operation, wrappers and native adapter",
+      "locations": "texture_cube/views.rs59-122; view_error.rs1-42; cube_face.rs1-70",
+      "trace": "face suppliesSomecontext and storedformat; face_view suppliesNone; face_view_with_format is authoritative selector. Allthree public APIs returnTextureViewResult<TextureView>. Native texture presence checked withexistingUninitialized. Optional context.and_then(ValidationScope::new) obeys both resource availability and policy, with no manual unconditionalpush or native wait retained. CubeFace is canonical six-role enum and .index is actual SDK layer adapter. DescriptorD2,onearraylayer,label,inferredsubresource defaults and sRGBlinear projection retained. Observed failure constructs Observation{requested originalformat,operation:TextureCubeFace(face),cause}; face-specific payload cannot appear onunrelated operation variants. Successwrapper retains parenttexture, nativeview, size, effectiveformat, dimensionD2 and matching layer. No cache promise added tofacepaths."
+    },
+    {
+      "family": "Actual receiving caller and unchanged whole-view paths",
+      "locations": "texture_cube/mod.rs366-380; texture_cube/views.rs16-57; texture_2d/views.rs1-55; texture_3d/views.rs1-55",
+      "trace": "blit_texture_to_face has genericResult<()> and receives face_view_with_format(...)? withstandard conversion; no old errorvariant/prose inspection. Focused crate Rust reference search locatedonlythe three selectors andthisactual caller; no external obsoleteface returntype adapters found. Whole-texture2D/3D/cube methods retain cached-format precedence, MissingView admission, originalrequest identity andcanonical scopecompletion. Sharederror owner usesexisting derives anddirectValidationScopeError cause. TextureViewOperation gainsonlyCubeFacepayload; nomanualDisplay/Error, conversionfacade, compatibilityalias orduplicateowner isneeded."
+    },
+    {
+      "family": "Readback and backpressure waits",
+      "locations": "texture_2d/mod.rs256-336; texture_3d/mod.rs134-218; wgpu_context/mod.rs122-164",
+      "trace": "Readback still submits texturecopy, maps stagingbuffer asynchronously, polls native device withPoll untilmap callback result, and awaits callback onbrowser. These waits dependonmap completion, notvalidation policy. submitted_work_done still submitsanemptycheckpoint thenwaitsonitsSubmissionIndexnative; browserregisterscompletioncallback andpolls/yields. Suppliedpatch removesonlyvalidation-scopedmanual waits inconstructors/face; itdoesnotremoveorconditionrequired readback/backpressure paths. No broader GPU liveness or numerical/readback layout verificationclaimed."
+    },
+    {
+      "family": "Module, type/derive and raw-boundary rules",
+      "locations": "all suppliedpatch; completecube/views.rs/view_error.rs; relevantconstructor/policyheaders",
+      "trace": "Views responsibility movesintotheexistingfocusedcubeviewmodule ratherthanaddingpass-through layers. File-levelitemordering remainsimports/reexports,modules/types,impls. Cube descriptorlayercounts/singlemip/singlesample andnativeSDKformatconversions areactualframeworkrepresentation boundaries; CubeFace stays typed before .index. Labelformatting ispresentation prose anddoesnotdrivebehavior. ExistingTextureViewError/ValidationScopeError derives mechanically projectdirecttypedcauses; no newdependency/manifest/lock/suppression/baselinechangein eight-filepatch. No newtest/assertion/helper/doctest additionsin supplieddelta. ExistingREADMEdoctestunchanged; guideexample remains textblock."
+    },
+    {
+      "family": "Durable documentation and acceptance",
+      "locations": "fabelgeist-gpu/README.md1-4; texture-views.md1-87; wgpu_context/mod.rs20-32; rust-quality-baseline.toml697-699",
+      "trace": "Crate README linksowningguide; rootREADMEandwikiprose untouched. Guide describes typedfacepayload, effectivewrapperformat andoriginalrequestedfailureformat; constructor sharedscope, optional-contextpolicy, browseromissionandrequiredreadback/backpressure waits matchsource. No document promisescaller-mutatedresourcecoherence orglobaldevicehealth. Existingcube file ceiling862 remainsinthebaselinewhileface responsibilitywasextracted;actualhostedbaselineconsumption/applicable reductionremainsrequiredacceptancework, notanunverifiedguessedsourcefix."
+    }
+  ],
+  "trace_carry_qualification": "All named unchanged connected files match their prior actual-read hashes at a21. All seven original implementation files other than cube/views remain exact prior reviewed bytes; cube/views exact import-wrap inverse restores prior reviewed bytes. No new/fabricated read ranges are claimed here. Full final diff read; source body coverage is the actual prior registered constructor/face/scope/policy/receiver/readback/backpressure ranges retained in reg002/reg003.",
+  "source_delta_reconciliation": {
+    "format_proof": {
+      "current_sha256": "3adc6454ec9a8cada8428ebd2b800f5b7374028ce73a52df204e54aab3750a93",
+      "prior_review_sha256": "c396c5486a664dbb5d1804963e21e76bbee671521319e625c38f0b7531f3a391",
+      "inverse_nested_import_wrapping_sha256": "c396c5486a664dbb5d1804963e21e76bbee671521319e625c38f0b7531f3a391",
+      "exact_prior_bytes_restored": true
+    },
+    "baseline_proof": {
+      "current_sha256": "8ccab96e129e4b873ed3f8ae3841afd6bf7cfa59809b69cbed46ec41855b171e",
+      "old_sha256": "6144a5ab4e1f3132caf4c5b0aee92b151f093153e3e5bed8e4d6fadd7f12edb1",
+      "inverse_812_to_862_sha256": "6144a5ab4e1f3132caf4c5b0aee92b151f093153e3e5bed8e4d6fadd7f12edb1",
+      "exact_old_hash_restored": true,
+      "only_mutation": "Cube file ceiling862->812; no other baseline bytes changed"
+    },
+    "semantic_delta_since_original_rule_review": "None beyond exact import whitespace and relevant baseline reduction already independently reviewed.",
+    "module_error_state_derive_owner_disposition": "Canonical ValidationScope/Observation policy shared by constructors and context-provided face views; CubeFace payload belongs only on corresponding TextureViewOperation; TextureViewResult remains through all face selectors; direct shared error derives/source ownership unchanged. No compatibility path, duplicate error owner, new manual trait, added test/assertion/helper/doctest, dependency/lock or exception weakening in full final diff."
+  },
+  "baseline_final_source": {
+    "path": "rust-quality-baseline.toml",
+    "sha256": "8ccab96e129e4b873ed3f8ae3841afd6bf7cfa59809b69cbed46ec41855b171e",
+    "cube_entries": {
+      "files": [
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "ceiling": 812
+        }
+      ],
+      "functions": [
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "item": "TextureCube::blit_texture_to_face",
+          "ceiling": 161
+        },
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "item": "TextureCube::render_face_shader_raw",
+          "ceiling": 149
+        },
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "item": "TextureCube::render_shader_raw",
+          "ceiling": 142
+        }
+      ]
+    },
+    "two_d_file_entry_absent": true,
+    "snapshot_sha256": "bdf6580dab45e25f9de25a94f2e5b1888f1b316b2104b028b64b98d9f671481f",
+    "actual_final_head_snapshot_matches_relevant_current_entries": true,
+    "meaning": "Only cube file ceiling862->812; functions161/149/142 unchanged. Exact inverse restores old baseline bytes. Baseline source-repair acceptance item is closed; no ceiling raised or unrelated debt mutation."
+  },
+  "final_head_hosted_subset_evidence": {
+    "run": 40421868169,
+    "gpu": {
+      "source": "a21f9ccaeba1e3947e22dc1f64106c4f2bc371b6",
+      "pr_head": "a21f9ccaeba1e3947e22dc1f64106c4f2bc371b6",
+      "results": {
+        "library": {
+          "passed": 13,
+          "failed": 0,
+          "ignored": 0
+        },
+        "doctests": {
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        "borrowed": {
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        }
+      },
+      "evidence_files": [
+        {
+          "path": "hosted/run40421868169/gpu/source.txt",
+          "sha256": "8b149adb078384a665b966dac2f116929df0b627c8c3581b9c9fed99c6018b14"
+        },
+        {
+          "path": "hosted/run40421868169/gpu/pr-head.txt",
+          "sha256": "8b149adb078384a665b966dac2f116929df0b627c8c3581b9c9fed99c6018b14"
+        },
+        {
+          "path": "hosted/run40421868169/gpu/results.json",
+          "sha256": "dc601a3759e3ec06b43546bfc77ce03d7a00dafca9d8022929be236e27fc6b40"
+        },
+        {
+          "path": "hosted/run40421868169/gpu/rust-quality-baseline.toml",
+          "sha256": "bdf6580dab45e25f9de25a94f2e5b1888f1b316b2104b028b64b98d9f671481f"
+        }
+      ],
+      "qualification": "Downloaded final-head identity/results/baseline content checked. Artifact remote/archive attestation not newly repeated."
+    },
+    "windows": {
+      "source": "a21f9ccaeba1e3947e22dc1f64106c4f2bc371b6",
+      "results": {
+        "understory": {
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        "envelope": {
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        "leaves": {
+          "passed": 5,
+          "failed": 0,
+          "ignored": 0
+        },
+        "sampling": {
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        },
+        "prepared-impostors": {
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        }
+      },
+      "total_passed": 10,
+      "evidence": "final-windows-artifact-001.json",
+      "sha256": "5ba0bd9e8104546719233e0b2aca944d804f67c7ca7912681d1c2fd9d6e5b112",
+      "qualification": "Provided local final artifact wrapper identity/positive counts independently checked; raw Windows execution not rerun by reviewer."
+    },
+    "limits": "GPU13library/2doc/1exact and Windows10 positive subset at final source; overall Linux/full CI run still active per latest parent status. No whole CI success, unexercised failure-branch success, merge/goaldone or global audit clearance asserted."
+  },
+  "governing_rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "basis": "Applicable previously fully read source rules; unchanged final contract, no historical backward-compatibility condition"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "basis": "Applicable previously fully read source rules; unchanged final contract, no historical backward-compatibility condition"
+    }
+  ],
+  "coverage_limits": [
+    "This closes only PR990 final-source Rule Review reconciliation at exacta21; not broader original bespoke/type granularity audit. Root172 audit adoption is separate and untouched.",
+    "Source inspection and local downloaded evidence only. No reviewer project execution, formatting/lint/build/test/scanner/probe, failure injection or browser/GPU execution.",
+    "Prior native SDK/derive source proofs retained only where exact source contracts unchanged; no invented fresh SDK/whole dependency source coverage.",
+    "Device association/public resource mutation, arbitrary finite dimensions, array/clearing/readback architecture and unmodified external families remain outside claimed989 migration scope."
+  ],
+  "acceptance_pending": [
+    "Remaining final hosted run40421868169 gates at exacta21; only reported positive subset verified here."
+  ],
+  "registration": "final-rule-review-registration-002.json",
+  "source_product_git_rootledger_mutations": false,
+  "new_tests_assertions_helpers_doctests": false,
+  "external_publication": false,
+  "global_clearance": false,
+  "stop": true
+}

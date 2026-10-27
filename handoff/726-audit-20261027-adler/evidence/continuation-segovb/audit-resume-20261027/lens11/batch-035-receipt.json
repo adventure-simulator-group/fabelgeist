@@ -1,0 +1,300 @@
+{
+  "at": "2026-10-27T13:22:04.633954+00:00",
+  "lens": 11,
+  "status": "962-965 independently source-accounted",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-035-registration.jsonl",
+    "sha256": "7ccddb328ed247f296226633b3046c6de49aecc24caff168897d7a81b318bc26"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-034.json",
+    "sha256": "cb64e28bfebc201916f544f19109ec8b42ae2aa2d93d4f306fd893e1196d3419"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 962,
+      "source_id": "pr-working:crates/adventuresim-core/src/personality.rs",
+      "sha256": "3251416fba119a8dbdfb3ce1f48abfd7bda014d55dd3ec2b3e38e4dd7e3e9b15",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/3251416fba119a8dbdfb3ce1f48abfd7bda014d55dd3ec2b3e38e4dd7e3e9b15",
+      "actual_eof": 202,
+      "ranges": [
+        [
+          1,
+          202
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          202
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 963,
+      "source_id": "pr-working:crates/adventuresim-core/src/physical_object.rs",
+      "sha256": "906e67eed5acc9fbf6ab98e2e4bc7df11b8e9742c1ee148092c7d2061f64afab",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/906e67eed5acc9fbf6ab98e2e4bc7df11b8e9742c1ee148092c7d2061f64afab",
+      "actual_eof": 383,
+      "ranges": [
+        [
+          1,
+          383
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "personal_prior_body_reuse": {
+        "receipts": [
+          "batch-027-receipt.json",
+          "batch-032-receipt.json"
+        ],
+        "ranges": [
+          [
+            1,
+            65
+          ],
+          [
+            140,
+            178
+          ],
+          [
+            200,
+            270
+          ]
+        ],
+        "identity_reverified": true
+      },
+      "new_reads": [
+        [
+          66,
+          139
+        ],
+        [
+          179,
+          199
+        ],
+        [
+          271,
+          383
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          66,
+          139
+        ],
+        [
+          179,
+          199
+        ],
+        [
+          271,
+          383
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 964,
+      "source_id": "pr-working:crates/adventuresim-core/src/physiology.rs",
+      "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+      "actual_eof": 1169,
+      "ranges": [
+        [
+          1,
+          1169
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "personal_prior_body_reuse": {
+        "receipt": "batch-022-receipt.json",
+        "ranges": [
+          [
+            115,
+            160
+          ],
+          [
+            188,
+            220
+          ],
+          [
+            257,
+            290
+          ],
+          [
+            320,
+            455
+          ],
+          [
+            640,
+            675
+          ],
+          [
+            715,
+            765
+          ]
+        ],
+        "identity_reverified": true
+      },
+      "new_reads": [
+        [
+          1,
+          114
+        ],
+        [
+          161,
+          187
+        ],
+        [
+          221,
+          256
+        ],
+        [
+          291,
+          319
+        ],
+        [
+          456,
+          639
+        ],
+        [
+          676,
+          714
+        ],
+        [
+          766,
+          1169
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          1,
+          114
+        ],
+        [
+          161,
+          187
+        ],
+        [
+          221,
+          256
+        ],
+        [
+          291,
+          319
+        ],
+        [
+          456,
+          639
+        ],
+        [
+          676,
+          714
+        ],
+        [
+          766,
+          1169
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 965,
+      "source_id": "pr-working:crates/adventuresim-core/src/provisioning.rs",
+      "sha256": "438b45a44c51026e751788a6ef9da9c40ee88ae53eac79a64ca0845d5170cd68",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/438b45a44c51026e751788a6ef9da9c40ee88ae53eac79a64ca0845d5170cd68",
+      "actual_eof": 118,
+      "ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          118
+        ]
+      ]
+    }
+  ],
+  "material_receivers": [],
+  "reused_personal_source_proofs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-022-receipt.json",
+      "sha256": "f458ef20c08ccdb0e8388ebcc7109ff5d0acde5015789e0fa1067fe3c42d3ac0"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-027-receipt.json",
+      "sha256": "871ad0df2778d657e3f880a3444f1c99f36a6d2b9258c12e6a57bb3c11a97b41"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-031-receipt.json",
+      "sha256": "0e64c59e0e3b9b6f7f087017c110ec1dc0229cff16557910de8d5f001554dd99"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-032-receipt.json",
+      "sha256": "1dd44f6a3c68698dbe73e37b15eb3605b87540976bc61d1326400284be4944ef"
+    }
+  ],
+  "per_role": [
+    {
+      "original": 962,
+      "roles": "Thirteen independent personality axes, inclination, observed gender presentation and biological sex; canonical closed Serde vocabulary; derived nonneutral trait count and conviction strength.",
+      "trace": "Full202. Each axis uses its own nominal enum despite repeated Neutral label. non_neutral_count counts only13personality axes, excluding inclination/presentation/sex by actualimplementation. Conviction derives0/2.5/5 strength. Existing031 SocializingSociability duplicates sameNeutral/Gregarious/Solitary vocabulary in actual socializing_training_weights receiver.",
+      "disposition": "Keep independent purposes and sex/presentation/inclination distinctions; identical storage/neutral labels are not aliases. Conviction strength can reuse common bounded check/strength invariant below its role without pretending every personalityaxisnumeric. SocializingSociability versus canonical Sociability is a concrete duplicate-shape reuse candidate, but actual policy transformation/adapters must be reconciled before a canonical duplication finding. Personality::neutral is a selected defaults profile, not claim absenceofsex/inclination/presentation. ChivalricVirtue reexport does not grant child-body coverage."
+    },
+    {
+      "original": 963,
+      "roles": "Persistent backing inventory location versus operational custody versus legal rights; closed carried scope; physical/character/party IDs; selfcontainment aggregate.",
+      "trace": "Full383 inventory with personally consumed exact prior fragments027/032 reverified. InventoryLocation sum ownsPersonal{character,row},Party{party,row},Fireplace{fixture},Repair{settlement,row}; methodsprojectscope/optionalrow without staleirrelevantfields. OperationalCustody variants Character/Party/Container/Place/Fixture each own canonicalmatchingID; ObjectCustody rejectsobject==containerandtransferpreservesobjectID. Material954 andcontainer932 actualretainedreceivers alreadyread.",
+      "disposition": "Keep backing row/location separate from directholder and title/permission; they are different relations, not redundantauthorities. RawInventoryLocationpayloads still acceptcharacteru64/partyString/fixtureString/settlementString despiteexistingCustodyCharacterId/CustodyPartyId/StrategicFixtureId/Place owners. This weakens admission at backingadapter ports; clean schema can use correct IDs, preserving rowidentitytablepurpose. Do not conflate rowIDwithphysicalobjectID orimposeoneglobalIDshape. ClosedCarriedInventoryScope is a lossyprojection, not duplicatecompletecustodyenum. PrivateObjectCustody validatesonlylocalselfcontainment, notallgraphcycles/locationexistence/legalownership."
+    },
+    {
+      "original": 964,
+      "roles": "Admitted living body mass, fixedpoint medicinal dose; signed private MeterVector and region versus lossy public humours; profile/preparation identity+version/route; administration/timing/sensitivity/adverse/dose; private phenotype and observernoise; presencechronology/capability; clinical structural crossing.",
+      "trace": "Full1169 independent inventory via022 exactpersonalfragments plusnewremainder. BodyMassKg20..300 producesestimatedbloodml; DoseMilliunits0..8000 quantizesstandarddoses. MeterVector private signed[-1,2] states and boundedadd; humoursclampmany-to-one andkeepcausehidden. Administration resolvesprofileID/version, routematch, interval, bounded sensitivity/adverse andappliesdosedelta; profilecatalog14 sharesMEDICATION_IDS. Secret-derivedphenotype normalizedmean1 andkeyedobservernoise separatedfromprivateeffects. PresenceSpancapturesobserver/patient,minpersonalclock,historicalband andoptionalend, close>=start; chartReadingownsreadingpayload andGapownstimewindow. first_terminal_crossing sorts/dedupsminutes, looksatintervalends thenbinarysearcharbitraryFnMutstate.",
+      "disposition": "Preserve privateclinicaltruth versusobservations, bodymassrolepolicy versusgenericmaterialmass, fixedmedicinaldose versusunboundedexposureintensity, signedmeterloss versusboundedprobability, profileversion versusruleset/keyversions. Existingrawbloodvolumereturn canretainMicroliters/Milliliters units atnativeboundary. ProfileID+version+route admitunknown/mismatchedpublicAdministration returningZero; coherent admittedprofile reference canretainassociation throughstate, withcorrectdiagnosticpolicy. Presencepublicrecord/Serde canbypasscanonicalchronology/capabilityband; useactualtimewindowandbandownerifcontractrequired. first_terminal_crossing accepts arbitrary callback andunverifiedstructuralpoints, which donotencode claimedlinear/appropriatecrossing assumptions. Record structural-kernelprecondition/typedtrajectory associationgap; noactual current/runtimewrongdeath witness ornewuniqueclaim. RegionOption has downstreamregionalpolicyunprovedhere; do notclaimignoredregionaltreatmentbug. Snapshot/privatepresentationauthority retained; no arbitraryhidden oxygen-debt/fatiguepool or clinicalruleinvented."
+    },
+    {
+      "original": 965,
+      "roles": "Communal/personal consumed unit counts; planningminutes and signedtargetsurplusdays; calories/volume/ration andwaterskincount; ordinary versusemergencyalcoholreserves andforecastpurchases.",
+      "trace": "Full118. requestedunits consumedsharedfirst thenpersonal withsaturatingremaining. Forecastusesmax(livingmembers,1), aggregatesfoodandwater, computesdaysfrompositiveconstantdailyneeds, subtractsreservesandceilpurchases. Targetsurplusdays intentionallynegativeinfixture; ration/capacityzero=>nopurchase.",
+      "disposition": "Keep caloricreserve, liquidvolume, inventorycount, time duration and signedplanningoffset distinct; do notboundallsurplus topositiveorUnitInterval. Reusecanonicaladmittedquantityowners after units/roundingreconcile. Tuple(shared_used,personal_used) sameunderlyingcount but meaningfulnamedresult prevents reorder. Ordinarywaterandemergencyalcohol sharehydrationunitbut distinctplanningauthority; forecastseparatelyreportsbothandtotal. Rawf32inputs/nonfinite/negative/defaultzeroandceilcasttosaturatingu32remain admission/operationquestions, not actualruntimeinventorycreation. livingmember0normalizationis explicitpreviewpolicy, notprooftheauthoritativepartyisnonempty."
+    }
+  ],
+  "qualified_findings": [
+    {
+      "source_key": "lens11:frozen:964:terminal-crossing-structural-callback",
+      "status": "rawcallback/points cannotexpressclaimedtrajectoryassumptions; actualcaller/currentness/alias unresolved",
+      "accepted_unique": false
+    }
+  ],
+  "contract_limits": [
+    "962/963/964/965 fullrequestedbodyunion accounted; onlyhash-equal personallyreadfragmentsreused andindependentlyassessed. Existingtests sourceonly,notrun.",
+    "964 first_terminal_crossing body is accounted withqualifiedassumptionfinding, not proof all possiblecallbacksarelinear/monotone orcurrentepisodeboundarycollectioncomplete. NativeSHA256/HMACalgorithm/security/globalnoiseproperties notvalidated.",
+    "Physicalmaterial/volume receiving owner954 anddirectcustody/containment actualsources are consumed; no wholeDB serialization/transaction/authenticationguarantee. Personalitychildvirtue not bodyread throughreexport; existingregisteredchildobligationsretainindependentaccounting.",
+    "CurrentBodyRegion/EquipmentBodyPart/BodyPart labels have distinctclinical/topology/healthroles; noautomaticalias basedonsevensimilarvariants. PreserveF50/795/currentDressing andallinheritedassociation/currentness/uniquequalifications."
+  ],
+  "accepted_unique_count_change": 0,
+  "new_material_extensions": [],
+  "source_accounting_not_clearance": true,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_ledger_edited": false
+}

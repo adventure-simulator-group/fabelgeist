@@ -1,0 +1,55 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-043",
+  "lens": "08 behavior-preservation",
+  "completed_original": [
+    1571,
+    1572
+  ],
+  "source_pin": "source-pins-and-scope-065.json",
+  "source_reads": {
+    "1571": {
+      "head": [
+        [
+          1,
+          676
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          52
+        ]
+      ]
+    },
+    "1572": {
+      "head": [
+        [
+          1,
+          250
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          36
+        ]
+      ]
+    }
+  },
+  "support": "support-urban-overlap-066.json",
+  "analysis": [
+    "1571 scree_patch_coverage changes only its retained point/normal signatures and a metre getter before the unchanged downhill/across dot products, seed XORs, scale constants, floor/cubic interpolation and native noise equations. Actual1572 supplies the same terrain normal already normalized at the canonical SupportQuery boundary; no extra production normalization is introduced. Fixture Dir3 construction replaces its explicit normalize using the same input vector, while cases and oracles remain.",
+    "Both entire source bodies and actual diffs were read. Native hero/near/billboard mesh equations, candidate selection, geometry counts/winding/attribute roles, density asset offsets, uniform slots, shader paths and visibility transitions are unchanged. All existing fixture bodies/oracles were inspected, without executing them or reading shader contents as implied coverage.",
+    "1572 admits the computed grid coordinate to ScenePlanPoint before exact managed-ground exclusion. Actual1903 public/lookup overlaps_disk is old body with the same getter: same radius, street/yard/building bucket tests and edge calls. This is selected support only, not a whole1903 audit or proof of all lower polygon kernels.",
+    "1572 keeps identical asset generation order for three densities/eight variants, full-u64 seed contexts, per-index scatter/variant/yaw purposes, woodland thresholds and scale/offsets, no woodland billboard, native rotation-safe billboard AABB and hero physical-count bookkeeping. Failure to obtain finite point/height/normal or acceptable slope omits the same individual patch; finite point admission newly excludes invalid arithmetic. Valid native height/normal getter values reach Transform unchanged.",
+    "Raw radius/configuration/deserialization invariants and large-coordinate/native allocation behavior are not proven universally safe by this signature refactor. These were already separate obligations rather than newly observed behavior regressions."
+  ],
+  "findings": [],
+  "qualifications": [
+    "Frozen6533 source only; no current CI source or hosted acceptance credited.",
+    "1903 remains partial selected support; other native recipients retain their own registered roles.",
+    "Existing findings/policy qualifications preserved; no global clearance.",
+    "No project checks/tests/builds or source/Git mutations."
+  ],
+  "global_clearance": false
+}

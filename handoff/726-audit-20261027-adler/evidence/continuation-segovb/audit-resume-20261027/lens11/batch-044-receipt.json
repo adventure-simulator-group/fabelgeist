@@ -1,0 +1,179 @@
+{
+  "at": "2026-10-27T13:55:48.218527+00:00",
+  "lens": 11,
+  "status": "1003-1005 independently source-accounted with findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-044-registration.jsonl",
+    "sha256": "128502e7b2e3e548b1aafbc4ae275f72f9d103eba9f8ac96439dea4f042f4c59"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-043.json",
+    "sha256": "d0610c30f49742974b7e90a267da256cb3ceedc736761a4496edd27cf74b3c12"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1003,
+      "source_id": "pr-working:crates/adventuresim-core/src/starting_character.rs",
+      "sha256": "6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
+      "actual_eof": 1936,
+      "ranges": [
+        [
+          1,
+          1936
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "previous_registration": "batch-043-registration.jsonl",
+      "prior_body_read": false,
+      "actual_read_ranges": [
+        [
+          1,
+          1936
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1004,
+      "source_id": "pr-working:crates/adventuresim-core/src/starting_character/names.rs",
+      "sha256": "feeb666963f06197194f5ee981cf808dfbf3915173ca838aaa04de5b03ab2bf5",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/feeb666963f06197194f5ee981cf808dfbf3915173ca838aaa04de5b03ab2bf5",
+      "ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "actual_eof": 141,
+      "prospective": true,
+      "purpose": "Independent full scope names/professional; directly receiving starting-character contracts",
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          141
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1005,
+      "source_id": "pr-working:crates/adventuresim-core/src/starting_character/professional.rs",
+      "sha256": "c0b4700f02ec367c49f7a3db0dc7646f19be07fabef65f0945e051ef058e4a60",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/c0b4700f02ec367c49f7a3db0dc7646f19be07fabef65f0945e051ef058e4a60",
+      "ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "actual_eof": 24,
+      "prospective": true,
+      "purpose": "Independent full scope names/professional; directly receiving starting-character contracts",
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          24
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected",
+      "original_indices": [
+        444,
+        2168
+      ],
+      "source_id": "crates/adventuresim-world-schema/src/person_names.rs",
+      "sha256": "e41326d6c8ae20b958581c0027d3b5bdd79a58faf43a142e446f52dc4a8f70ec",
+      "ranges": [
+        [
+          71,
+          132
+        ],
+        [
+          160,
+          266
+        ],
+        [
+          274,
+          410
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Name identity, deterministic seed, rendering boundary and generation policy; no ordered credit",
+      "actual_read_ranges": [
+        [
+          71,
+          132
+        ],
+        [
+          160,
+          266
+        ],
+        [
+          274,
+          410
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original_index": 1003,
+      "inventory": "Starting tier/version/seed/slot coordinates, reserved character ID, catalog item selectors and quantities/LoadoutSlot; nine healthy aptitudes; duplicated StartingSkills hours record; profession/organization/role/religion identities; sparse personality trait list and independent Sex/Presentation/Inclination; currency; settlement seed; deterministic loadout/personality/life-simulation/default projections; existing fixtures.",
+      "disposition": "Young/Adult/Old are selection presets16/22/40, not the canonical chronological AgeBand. Default20/Adult is not by itself contradictory. Generator version, slot and32-lowercase-hex seed have different admitted roles. Canonical default character is a complete product default, not a compatibility fallback. Public raw strings/integers and publicSerde records can express combinations the private generator never produces: professional role requires a non-young tier and matching organization role; sparse trait Vec can carry opposite/same-axis duplicates, whereas young generator chooses2-4distinct axes and professional presets choose compatible traits. Canonical trait/axis owners already exist. StartingSkills repeats SkillHours fields alongside written-language state; from_life_simulation maps one-to-one and the actual bestiary-category override correctly selects each leaf, qualifying the earlier default-trait concern. Healthy aptitudes, hours, currency amount and fraction are not one numeric role.",
+      "remedy": "Admit generation coordinates once; use canonical catalog/organization/skill/religion/character identity owners and keep quantities/currency/time separate. Consolidate shared training-hours state under canonical SkillHours with written-language projection instead of a duplicate30-field owner. Reuse canonical personality-axis/value payloads for sparse selected traits, preserving independent sex/presentation/inclination. Model generated young versus professional start as payload-owning states if that is the public contract; preserve default selection intentionally rather than infer every tier has exact preset age. Coherent loadout recipes can own item-plus-slot/auxiliary-ammunition relationships. No new tighter attribute/rank bound is justified by this lens.",
+      "acceptance": "Full1-1936 personally consumed; production helpers through1489 and existing fixtures1491-1936. Professional assignments1382-1397/1469-1477 actually resolve catalog roles, requirement1453-1461 raises governing aptitudes before life simulation rather than patching credentials; old roles can legitimately have fewer total hours than adult roles (fixture1720-1724). Names assigned through1004 typed identity; organization selected through1005 catalog filter. Prior actual full951 life simulation/960organization/961validation/962personality/996skill and1013 strategic schedule ranges retained via exact pinned receipts031,034,035,042. No runtime/all-authored catalog proof."
+    },
+    {
+      "original_index": 1004,
+      "inventory": "Sex, age-years, profession-specific education/class, stable-generation seed, semantic PersonalNameIdentity and RenderedPersonalName; pending authored empty identity; everyday rendering boundary.",
+      "disposition": "Purpose-specific stable seed differs from form-selection seed; identity differs from rendered string. assign installs historical identity using actual sex/age/profession. Pending authored empty name is temporary before assignment, while native_everyday_name returns checked rendering errors for malformed public identities. Full-name authored versus resolved catalog family/native form versus unresolved historical evidence are meaningful payload states; do not force all names into one parsed family ID. Clergy social class and education are independent.",
+      "remedy": "Keep semantic identity through internal consumers and render at display/persistence boundary. Use explicit pending construction state if a publicly returned spec can escape before assign; no actual such escape was established. No generic string wrapper should replace existing semantic identity or collapse sex into presentation.",
+      "acceptance": "Full1-141 consumed, fixtures source-only. Exact owner e41326.. read71-132/160-266/274-410: validates rendered text, distinct GivenNameResolution payloads, independent NameGenerationContext fields, typed generation result, render calls identity.validate and RenderedPersonalName::new. Range410 ends inside matching_repertoire, so no claim to that selector body/catalog completeness/whole-name global validation."
+    },
+    {
+      "original_index": 1005,
+      "inventory": "StartingProfession, seed/tier/slot, canonical OrganizationDefinition reference, optional starting-role payload, empty eligibility and random eligible index.",
+      "disposition": "Existing typed profession is correctly matched against optional starting_role.profession; empty eligibility is distinct failure, nonempty selection retains canonical organization reference. Later1003 resolves adult/old role IDs, young explicitly errors. Stable random index is an ephemeral native adapter, not persistent organization identity.",
+      "remedy": "Keep canonical OrganizationDefinition/role payload through professional setup and admitted generation coordinates through deterministic selection; no new organization wrapper or boolean eligibility state is needed.",
+      "acceptance": "Full1-24 consumed; static catalog build validation/actual membership under prior034 proof, no current/runtime execution inferred."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-031-receipt.json",
+      "sha256": "0e64c59e0e3b9b6f7f087017c110ec1dc0229cff16557910de8d5f001554dd99"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-034-receipt.json",
+      "sha256": "1c32165aeec548d529c12cad8746034abe727fc5e73834f77ce581d3338e1510"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-035-receipt.json",
+      "sha256": "4a35c1a6afd6d6ebf7e63867b4b939fc63ae5d55011f0f8f0151be0c4e2dd1e2"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-042-receipt.json",
+      "sha256": "679029c645bbe69075e5b0f1c297fdd91ece13e10c96c08197b5f264c7f19edc"
+    }
+  ],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "new_material_extensions": [],
+  "limits": [
+    "Frozen source only; proposed state requires root adoption. All inherited alias/currentness/capacity/ID/saved-association qualifications remain.",
+    "Read-only mistyped cache pathname returned no source at1521 continuation; corrected exact registered object consumed1521-1936. No failed-read coverage inferred.",
+    "Connected original444/2168 read only specified ranges and receives no new ordered credit. No current replacement or backwards compatibility constraint."
+  ]
+}

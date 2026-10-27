@@ -1,0 +1,71 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-012",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 404,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment/lifecycle.rs",
+      "sha256": "54bed0494270888424e8718a31f26020931eed7fe695d34f4bcd8b682042d857",
+      "ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "source_basis": "Fresh root complete personal exact frozen physicalP16 body, in bounded windows. Prior verdicts used only for finding dedup, not coverage.",
+      "concepts_actual_uses_and_mixup": [
+        "Reconnect old/new Entity roles are intentionally distinct: pending requests for both are purged before prior command sequence is rekeyed to the new controlled entity. Purge removes both queue and chronology for the same actor. Actual sequence owner stays the parent map type; do not invent a second lifecycle chronology."
+      ],
+      "disposition": "Retain meaningful identity/authority/slot/ordinal/count/duration/geometry/terminal-state distinctions. Preserve newer canonical equipment chronology owners. Own11 source support for existing CAMERA-INITIAL07-F034 timeout tick count and existing identity/centre-gap obligations, not a new unique finding or runtime incident.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 405,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment/transfer.rs",
+      "sha256": "23ec61b4fd0ed94e7f0a787e2d0e0c1f58bbc2f2146f99956be52819593fe945",
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "source_basis": "Fresh root complete personal exact frozen physicalP16 body, in bounded windows. Prior verdicts used only for finding dedup, not coverage.",
+      "concepts_actual_uses_and_mixup": [
+        "Selected EquipmentHand, destination EquipmentLocation and reachable depth ordinal are different concepts; Occupied versus EmptyAttachment carries action-specific state. Empty hand can take only an occupied leaf without children; held item requests a catalog root or compatible attachment topology.",
+        "Actual receiver of fit::target_conflicts confirms its EmptyAttachment=true policy retains the selected free slot for identity-based conflict exclusion, without treating its parent as the item to swap. Only Occupied state can rebind a displaced item to the source hand. All validation precedes deferred mutations; native query/entity/Commands tuples remain framework boundaries."
+      ],
+      "disposition": "Retain meaningful identity/authority/slot/ordinal/count/duration/geometry/terminal-state distinctions. Preserve newer canonical equipment chronology owners. Own11 source support for existing CAMERA-INITIAL07-F034 timeout tick count and existing identity/centre-gap obligations, not a new unique finding or runtime incident.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 406,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration.rs",
+      "sha256": "5ebb42e36e764cd3adee88c336b2976f42db557494a436e8fa2eef2f79fdef61",
+      "ranges": [
+        [
+          1,
+          649
+        ]
+      ],
+      "source_basis": "Fresh root complete personal exact frozen physicalP16 body, in bounded windows. Prior verdicts used only for finding dedup, not coverage.",
+      "concepts_actual_uses_and_mixup": [
+        "MeleeIterationBuild distinguishes source combatant and selection/loadout; TacticalCombatSide distinguishes party/enemy, while the human-facing build name is used in diagnostic labels. The final resolution enum correctly separates Victory, MutualIncapacitation and Timeout rather than conflating both terminal combatants with no terminal combatants.",
+        "Zero-based tick ordinal, executed tick count and elapsed duration are distinct. Actual full-timeout control flow uses final_tick=maximum_ticks=11520, runs exclusive0..11520 updates and reports final_tick+1=11521; early break reports its zero-based ordinal+1 correctly. Existing CAMERA-INITIAL07-F034 matched by exact defect/remedy in preserved metadata; own source proof supports it, not a new unique finding or an executed timeout run. Clock-owner implementation was not newly read, so no additional elapsed-conversion-body coverage.",
+        "Initial/final centre separation, preferred melee measure and contact surface gap retain different geometry roles; new checked NonnegativeLength/SignedLength adapters must not overwrite their meanings. Existing own11F001/earlier identity support remain open. Raw names in diagnostic result/events do not establish stable combatant association; keep existing identity-reconciliation obligation rather than assuming name uniqueness.",
+        "Production harness registers real bot/combat/movement observers, fixed native cadence and transient equipment/physics state; original deterministic/defense/condition/polearm/withdrawal/terminal-resolution fixtures personally read only, not executed."
+      ],
+      "disposition": "Retain meaningful identity/authority/slot/ordinal/count/duration/geometry/terminal-state distinctions. Preserve newer canonical equipment chronology owners. Own11 source support for existing CAMERA-INITIAL07-F034 timeout tick count and existing identity/centre-gap obligations, not a new unique finding or runtime incident.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "existing_finding_support": [
+    "CAMERA-INITIAL07-F034"
+  ],
+  "clear": false
+}

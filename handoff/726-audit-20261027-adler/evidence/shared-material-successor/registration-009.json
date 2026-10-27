@@ -1,0 +1,47 @@
+{
+  "at": "2026-10-26T03:35:39.528771+00:00",
+  "previous": "source-extensions-182.json",
+  "successor": "source-extensions-183.json",
+  "prefix_immutable": true,
+  "new_index": 182,
+  "new_entry": {
+    "source_id": "scope-amendment:native:glam-0.32.1/src/f32/vec3.rs#normalization-contract",
+    "sha256": "28708ec95e5481d1673cbff86f8cafc8d19a50b5ea32fdd030cdbdb9d0601b4c",
+    "revision": "Pinned glam0.32.1 native object, exact hash equal existing registered source",
+    "ranges": [
+      [
+        573,
+        579
+      ],
+      [
+        626,
+        658
+      ]
+    ],
+    "actual_EOF": 2238,
+    "object": "source-objects/28708ec95e5481d1673cbff86f8cafc8d19a50b5ea32fdd030cdbdb9d0601b4c",
+    "registration_evidence": "registration-009.json",
+    "related_material_indices": [
+      83
+    ],
+    "reason": "Original1645 changes native Vec3 normalize to try_normalize. Read only common reciprocal length and the two actual API bodies to compare valid arithmetic and degenerate rejection policy; no unrelated Vec3/SDK sweep.",
+    "prior_reads": "Requester08 performed declaration-only navigation and hash identity verification; these two requested API bodies remain unread in its lens before shared registration. Earlier CI reviewers may have separate current-source reads; none transfers frozen-lens coverage.",
+    "lenses": {
+      "producer-propagation": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+      "existing-type-owners": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+      "admission-contracts": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+      "invariant-operations": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+      "aggregate-states": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+      "type-ownership": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+      "redundant-authority": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+      "behavior-preservation": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+      "enum-shapes": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+      "derivability": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+      "type-granularity": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+      "magic-strings": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+      "magic-numbers": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage."
+    },
+    "status": "Prospective shared additive material182, queue183. Source file identity reused; no new original role or duplicate full-file coverage."
+  },
+  "coordinator_action": "Metadata/hash/copy only; no API body read or lens credit."
+}

@@ -1,0 +1,363 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "023",
+  "predecessor": "receipt-022-originals170-171.json",
+  "manifest_prefix_sha256": "7ace531fd523b637ca7dc1d6e1e08985bf47a202fee0c4ee3a463edafc96e2d9",
+  "sources": [
+    {
+      "original_index": 172,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/Cargo.toml",
+      "sha256": "36987a2d79efdb7b873694038158a9b7ca916a8d1cf332427e2023b5311d487f",
+      "actual_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            2,
+            7,
+            16,
+            19,
+            21,
+            23,
+            25
+          ],
+          "role": "Package name, two library target kinds, three dependency feature strings, logversion,petnameversion+feature",
+          "disposition": "Actual native Cargo manifest syntax/target/dependency configuration. No packageparser/buildexecution, dependencyversionchange, lockfile/currentness or full native package proof."
+        }
+      ],
+      "status": "Full requested body independently read and inventoried; source-accounted withfindings/pendingcontracts."
+    },
+    {
+      "original_index": 173,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability.rs",
+      "sha256": "78dedc50a9d6ed96ba7f2bb88a85ff2c1f762296d8c7867acc99ea2e7aed98bd",
+      "actual_ranges": [
+        [
+          1,
+          555
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            88,
+            95,
+            101,
+            107
+          ],
+          "role": "Four operational failure literal producers into StrategicOperationResult",
+          "disposition": "Actual227From<&str>43 stores owned Operation(String), so wrapper enum does not classify these four missing-row causes. Existing domain failure variants should retain precise cause/payload until actual reducerDisplayboundary; native table lookup does not make message production external."
+        },
+        {
+          "lines": [
+            276
+          ],
+          "role": "Arrow itemID equality selects ammunition quantity",
+          "disposition": "Actual raw catalog identity gameplay branch. Carry canonical open item/ammunition capability owner; exact intended authored membership not inferred from one literal. Prior ItemCatalog113/116 rawproducer gap connected."
+        },
+        {
+          "ranges": [
+            [
+              269,
+              327
+            ],
+            [
+              492,
+              555
+            ]
+          ],
+          "role": "Inventory/item raw ID receiver flows, four halberd fixture occurrences499/522/525? actualthree, nativeinclude551 and two source-symbol strings552-553",
+          "disposition": "Correction directlines show three halberd literal occurrences499/522/525; they are semanticfixtureinputs to Item/catalog. Raw item state actually feeds174/176/177receivers nowread; no blanket databaseboundaryexemption. Source-only include/source.contains tests are native source metadata comparisons, helpers not executed."
+        }
+      ],
+      "status": "Full requested body independently read and inventoried; source-accounted withfindings/pendingcontracts."
+    },
+    {
+      "original_index": 174,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability/armor.rs",
+      "sha256": "027f27a4294fe1574bcb9c7f376db05904519094f99936be09bcf66d5459b7e0",
+      "actual_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              18,
+              22
+            ],
+            [
+              54,
+              102
+            ]
+          ],
+          "role": "No literal strings; raw item/placement IDs extracted from native rows drive definition lookup and equality",
+          "disposition": "Actual semantic reuse across retained Item/equipment schema already113/116rawStringproof. NativeDBtypedcodecs notread; canonical item/placement owner should remain between actual DB admission and application calculation; native table query may require text at query port only."
+        }
+      ],
+      "status": "Full requested body independently read and inventoried; source-accounted withfindings/pendingcontracts."
+    },
+    {
+      "original_index": 175,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability/combatant.rs",
+      "sha256": "70185e2b1fa6e8e4ca7406ef36aa13c78ac0517e4ff69e7132036a63fcb7d2f2",
+      "actual_ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            17,
+            24,
+            30,
+            36,
+            42
+          ],
+          "role": "Five missing-row operational failure literals",
+          "disposition": "Actual227From<&str>rawOperation branch; same connected typedcause gap as173. Other load_combatant bodies no strings/raw string APIs; numerictrait/combat validity not assessed."
+        }
+      ],
+      "status": "Full requested body independently read and inventoried; source-accounted withfindings/pendingcontracts."
+    },
+    {
+      "original_index": 176,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability/equipment_projection.rs",
+      "sha256": "4a77425e90eace3b800f13d7f8e81ad2ba781bfda422b9a0decbba0de870eae9",
+      "actual_ranges": [
+        [
+          1,
+          266
+        ]
+      ],
+      "roles": [
+        {
+          "lines": [
+            114
+          ],
+          "role": "Only literal: item.id.contains(arquebus) selects ProjectileKindBall vsArrowhead",
+          "disposition": "Concrete semantic substring classification from open itemID despite existing ProjectileKind output. Model authored projectile capability should carry canonical typed value into Item/selection; do not infer projectile physics from catalog name. No requirement preserve old name-based behavior."
+        },
+        {
+          "ranges": [
+            [
+              147,
+              163
+            ],
+            [
+              175,
+              205
+            ],
+            [
+              219,
+              247
+            ]
+          ],
+          "role": "Raw itemID propagated to recipe/native catalog/conditioned precision and retained typed error item payloads",
+          "disposition": "Actual internal identity paths, canonical open catalogitem owner propagation needs producer repair; typed error variants retain cause but raw payload same identitygap. default_design exact nativefirstpartylookup previouslyread2591, no wholeweaponSDK."
+        }
+      ],
+      "status": "Full requested body independently read and inventoried; source-accounted withfindings/pendingcontracts."
+    },
+    {
+      "original_index": 177,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability/mass.rs",
+      "sha256": "f041c03c0717ed86e0918d7002f19d097d720976ff98ad591ad80a10711add01",
+      "actual_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              9,
+              29
+            ]
+          ],
+          "role": "Zero literalstrings; rawinventory/item identity toDBfind/default_design/combat_geometry/fitted_holder_mass and MissingWeaponRecipe payload",
+          "disposition": "Actual receiver path proves item identity shared through application, no renderer/serialization boundary. Exact typedmaterial/weapon-nativeleaf algorithms notread, no numericmasscoverage."
+        }
+      ],
+      "status": "Full requested body independently read and inventoried; source-accounted withfindings/pendingcontracts."
+    }
+  ],
+  "actual_material_receivers": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/lib.rs",
+      "sha256": "2760315ff2997c68a703203018538d642878cf5aa461b2a6d90e38ef0005e168",
+      "ranges": [
+        [
+          20,
+          25
+        ],
+        [
+          60,
+          66
+        ]
+      ],
+      "trace": "Actual operation_error declaration23/reexport65, no childbodycredit from declaration."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/operation_error.rs",
+      "sha256": "f7a676c963f59e4691374c71e9f81caf252350a5c5c8f22da6a977beb97c62d4",
+      "ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "trace": "Actual typedleaf variants plus Operation(String)35 and From<String>/From<&str>38-44. Six authored error templates24/26/28/30/32/34 at deriveDisplay; raw item payloads27/29/31/33 retain canonicalidentitygap. Native thiserror expansion uninspected. ExactEOF44caps1-60prospectivebound,nofutureoriginalcompletion."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Open item ID used to classify projectile purpose and raw operational error authority",
+      "sources": [
+        "173:88-107,276",
+        "175:17-42",
+        "176:113-118",
+        "227:13-44"
+      ],
+      "disposition": "Actual projectile substring branch and Operation(String)generic cause conversion are source-backed gaps. Existing ProjectileKind enum and precise errorowner alreadyavailable; aliases/unique totals unresolved.",
+      "remedy": "Admit authored typed projectile capability at actualcatalogproducer and carry through selectedItem; carry precise missingrow failure enums/payloads until native reducer formatting. Keep catalogIDs open and canonical across receivers.",
+      "acceptance": "Finish native Item/source metadata fields, authored projectile producer/allweaponcases and actual reducererror transport recipient before futurecode. No backwardscompatibility/oldnamebehavior requirement.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Exact nativeItem declaration/admission, projectile metadata/catalogproducer and intended ammo category/availabilitypolicy remain unread; no inferred finiteallweaponroster.",
+    "Reducer/nativeDisplay transport for StrategicOperationError and current sourcecomparison remainunread; sourceconvertedgenericerrorconfirmed onlyexactfrozenbody.",
+    "All inherited roles/aliases/currentness/all20/P16/P17/F9/M09 andotherpopulationobligationspreserved."
+  ],
+  "navigation_limits": [
+    "One navigation command accidentally used gitgrep across recovered objectdirectory instead of the exact declaring object. It returned only selectedmatching lines, truncated; no body/completion/source-scope credit claimed from it. Subsequent declaration/export query restricted exactobject223 and actual source227 prospectivelyregistered/hashverified before boundedbodyread. No fullfrozenbody/tree download or execution occurred."
+  ],
+  "qualifications": [
+    "Source/metadata/ignored evidence only; no project/check/test/probe execution, source/Git/root-ledger/publication mutation or newtests.",
+    "Exact f82 frozenphysicalP16 identities, no currentmain/HEAD/PR-working alias; no otherlens/nativealgorithm/security/runtime/globalclearance.",
+    "All source roles accountedwithfindings/pendingreceivers; no newuniquecount. Userno-BCoverrideapplies."
+  ],
+  "proposed_count": {
+    "before": 172,
+    "after": 178,
+    "indices_completed": [
+      172,
+      173,
+      174,
+      175,
+      176,
+      177
+    ],
+    "next_original": 178,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/Cargo.toml",
+      "sha256": "36987a2d79efdb7b873694038158a9b7ca916a8d1cf332427e2023b5311d487f",
+      "ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "coverage": "Ownlens12rolesonly; no futureoriginal or otherlenscredit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability.rs",
+      "sha256": "78dedc50a9d6ed96ba7f2bb88a85ff2c1f762296d8c7867acc99ea2e7aed98bd",
+      "ranges": [
+        [
+          1,
+          555
+        ]
+      ],
+      "coverage": "Ownlens12rolesonly; no futureoriginal or otherlenscredit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability/armor.rs",
+      "sha256": "027f27a4294fe1574bcb9c7f376db05904519094f99936be09bcf66d5459b7e0",
+      "ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "coverage": "Ownlens12rolesonly; no futureoriginal or otherlenscredit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability/combatant.rs",
+      "sha256": "70185e2b1fa6e8e4ca7406ef36aa13c78ac0517e4ff69e7132036a63fcb7d2f2",
+      "ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "coverage": "Ownlens12rolesonly; no futureoriginal or otherlenscredit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability/equipment_projection.rs",
+      "sha256": "4a77425e90eace3b800f13d7f8e81ad2ba781bfda422b9a0decbba0de870eae9",
+      "ranges": [
+        [
+          1,
+          266
+        ]
+      ],
+      "coverage": "Ownlens12rolesonly; no futureoriginal or otherlenscredit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability/mass.rs",
+      "sha256": "f041c03c0717ed86e0918d7002f19d097d720976ff98ad591ad80a10711add01",
+      "ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "coverage": "Ownlens12rolesonly; no futureoriginal or otherlenscredit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/lib.rs",
+      "sha256": "2760315ff2997c68a703203018538d642878cf5aa461b2a6d90e38ef0005e168",
+      "ranges": [
+        [
+          20,
+          25
+        ],
+        [
+          60,
+          66
+        ]
+      ],
+      "coverage": "Ownlens12rolesonly; no futureoriginal or otherlenscredit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/operation_error.rs",
+      "sha256": "f7a676c963f59e4691374c71e9f81caf252350a5c5c8f22da6a977beb97c62d4",
+      "ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "coverage": "Ownlens12rolesonly; no futureoriginal or otherlenscredit."
+    }
+  ]
+}

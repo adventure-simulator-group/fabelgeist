@@ -1,0 +1,255 @@
+{
+  "id": "audit13-successor-007",
+  "lens": "13 magic numbers",
+  "skill": "/home/brunosegovia/.codex/skills/audit-magic-numbers/SKILL.md",
+  "source_authority": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+  "predecessor": "audit13-successor-006-suggested-state.json adopted by root",
+  "roles": [
+    {
+      "index": 23,
+      "source_id": "native-dependency:spacetimedb-sats-2.6.1/src/timestamp.rs",
+      "sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+      "registered_ranges": [
+        [
+          1,
+          95
+        ],
+        [
+          210,
+          251
+        ]
+      ],
+      "state": "SOURCE_ASSESSED_REGISTERED_NATIVE_CONTRACT_WITH_LIMITATIONS_RETAINED",
+      "personally_consumed_registered_ranges": [
+        [
+          1,
+          95
+        ],
+        [
+          210,
+          251
+        ]
+      ],
+      "primitive_inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              59
+            ]
+          ],
+          "values": [
+            "canonical private i64 microseconds-since-Unix-epoch field",
+            "UNIX_EPOCH0",
+            "to/from_micros i64 leaf methods",
+            "to/from canonical TimeDuration"
+          ],
+          "assessment": "Actual native Timestamp owner stores all supplied i64 values unchanged;0 is Unix epoch, negative means before epoch, positive after. Unit named leaf constructor/getter is actual native time boundary, and TimeDuration transfer reuses canonical owner. No separate positivity/chrono/SystemTime range invariant is established by this constructor or derived traits."
+        },
+        {
+          "ranges": [
+            [
+              60,
+              95
+            ]
+          ],
+          "values": [
+            "micros>=0 predicate",
+            "i64->u64 duration magnitude casts",
+            "negative branch unary-micros",
+            "Duration.as_micros() u128->i64 try_into",
+            "SystemTime checked_add/checked_sub"
+          ],
+          "assessment": "Sign is ordinary epoch-side predicate at standard-library unsigned Duration adapter. Positive magnitude cast is nonnegative; negative magnitude uses signed negation before cast and has a concrete MIN overflow limitation recorded below. Duration->Timestamp conversion uses checked integer conversion but panics on failure; SystemTime adapter uses checked operation then expect. Native adapters are not total Result-returning range admissions."
+        },
+        {
+          "ranges": [
+            [
+              210,
+              243
+            ]
+          ],
+          "values": [
+            "AddAssign/SubAssign delegate native operators",
+            "MICROSECONDS_PER_SECOND i64=1_000_000"
+          ],
+          "assessment": "Assignment uses actual native operator semantics; it does not silently clamp. Shared named native scale is exactly one million microseconds per second, consumed by canonical TimeDuration formatting via quotient/remainder. No first-party duplicate unit constant/type introduced."
+        },
+        {
+          "ranges": [
+            [
+              245,
+              251
+            ]
+          ],
+          "values": [
+            "Display native formatter Result<()>",
+            "self.to_rfc3339().unwrap()"
+          ],
+          "assessment": "Standard formatter callback unit shape is concrete Rust boundary. Display delegates fallible chrono/RFC3339 conversion then unwraps; it is not proof that every admitted native i64 timestamp is formattable. Actual conversion bodies read prospectively."
+        }
+      ],
+      "source_backed_numeric_traces": [
+        {
+          "source": "src/timestamp.rs",
+          "ranges": [
+            [
+              96,
+              137
+            ]
+          ],
+          "trace": "from_system_time first duration_since(UNIX_EPOCH).expect rejects pre-epoch SystemTime, then uses Duration->i64 microsecond conversion; native Timestamp itself permits negative values. Signed delta time_duration_since uses checked_sub and canonical TimeDuration; duration_since maps negative native duration to None via actual TimeDuration::to_duration. No larger unsigned delta is promised when i64 subtraction fails."
+        },
+        {
+          "source": "src/timestamp.rs",
+          "ranges": [
+            [
+              139,
+              185
+            ],
+            [
+              186,
+              209
+            ],
+            [
+              210,
+              267
+            ]
+          ],
+          "trace": "Checked signed TimeDuration arithmetic uses i64 checked_add/sub and maps back to native Timestamp. checked_*_duration first converts std Duration through TimeDuration::from_duration, whose conversion may panic before arithmetic. +,-,+=,-= unwrap or delegate unwrapped native checked operations. Native RFC3339 parsing obtains chrono microseconds then native signed leaf; to_chrono_date_time turns chrono Option into anyhow error; to_rfc3339 propagates, Display unwraps. Native AlgebraicValue conversion preserves microseconds in required one-field native product shape."
+        },
+        {
+          "source": "src/time_duration.rs",
+          "sha256": "e78605fb6eb9b18a8c886cb41c1fbc9d60d66ef43a0e654e7069a7e6c89e2b30",
+          "ranges": [
+            [
+              1,
+              84
+            ],
+            [
+              115,
+              141
+            ]
+          ],
+          "trace": "Canonical TimeDuration stores full signed i64 microseconds and exposes ZERO0. to_duration uses micros.unsigned_abs(), preserving MIN absolute magnitude as native unsigned Duration; sign chooses Ok/Err. to_duration_abs preserves either magnitude. Explicit to_duration_saturating clamps negative to Duration::ZERO; abs uses saturating_abs, so MIN becomes MAX. from_duration uses as_micros().try_into().expect. Display uses signed abs then shared one-million quotient/remainder and six-digit microsecond fractional formatting, with MIN overflow limitation below."
+        }
+      ],
+      "guarantees": "All original23 requested intervals preserved and independently numeric-assessed, with actual necessary signed/unsigned/chrono/operator receivers. Canonical native owners/conversions retained. Full i64 storage does not imply total conversion/formatting/arithmetic APIs.",
+      "application_role_qualification": "No first-party migration/type guarantee/repair accepted from this packet. Affected first-party time producers/callers must reconcile these native limits at their actual input/operation boundaries. Do not introduce duplicate time owners/primitive adapters based only on native hazards.",
+      "untraced_paths": [
+        "Actual first-party callers/input reachability, current product error policy and historical finding alias reconciliation not performed in this native-only packet.",
+        "Chrono internal accepted date range and SystemTime platform precision/bounds not independently read; source comments about292years/Windows100microsecond precision are not promoted to proven platform guarantees.",
+        "Derived native Serialize/Deserialize internals and unregistered timestamp.rs268-end are not covered; no whole-native-library/global admission or operation clearance."
+      ],
+      "postread_hash_matches": true
+    }
+  ],
+  "new_receiving_ranges": [
+    {
+      "role": 23,
+      "sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+      "ranges": [
+        [
+          96,
+          209
+        ],
+        [
+          251,
+          267
+        ]
+      ],
+      "purpose": "Complete signed epoch/SystemTime conversion, actual checked arithmetic and RFC3339 Display receiving bodies",
+      "postread_hash_matches": true
+    },
+    {
+      "role": 23,
+      "path": "src/time_duration.rs",
+      "sha256": "e78605fb6eb9b18a8c886cb41c1fbc9d60d66ef43a0e654e7069a7e6c89e2b30",
+      "source": "new cached native archive member, no unseen frozen identity claimed",
+      "archive_sha256": "6cefb87b7d5e760d43cb65855591e25af772bdcca19562e5796ae797240d1998",
+      "matches_current_lock": true,
+      "same_archive_original23_matches_frozen": true,
+      "ranges": [
+        [
+          1,
+          84
+        ],
+        [
+          115,
+          141
+        ]
+      ],
+      "stage": "identity registered before locator search; body ranges register next",
+      "purpose": "Actual microsecond signed/unsigned Duration conversion and named microseconds-per-second consumer",
+      "postread_hash_matches": true
+    }
+  ],
+  "status": "source_assessed_original23_native_numeric_limits_retained",
+  "findings": [],
+  "new_unique_count": 0,
+  "global_clearance": false,
+  "project_execution": false,
+  "product_edit": false,
+  "at": "2026-10-26T18:43:54.972878+00:00",
+  "qualifications": [
+    "Root lens12registration009 used only for source/range locator metadata, no numeric verdict transferred.",
+    "Original0-22 not restarted/read. New TimeDuration receiver member recovered from cached spacetimedb-sats2.6.1 archive matching current Cargo.lock; same archive timestamp.rs bytes equal frozen original23. Exact TimeDuration SHA object absent from frozen recovered objects; new-source identity explicitly qualified, not presumed frozen.",
+    "Native observed limitations retained as non-counted observations requiring root alias/first-party reachability reconciliation; source-accounted does not mean numerically defect-free SDK or all lenses clear.",
+    "No tests/cases/helpers/assertions/doctests added to project, no project execution, source/product/git mutation, rootledger or historical overwrite, external publication/message. Only ignored packet/proposedstate written."
+  ],
+  "native_observations_requiring_root_reconciliation": [
+    {
+      "id": "A13-NATIVE-TIMESTAMP-NEGMIN-OBS007",
+      "status": "source-backed native limitation; not counted unique first-party finding",
+      "source_sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+      "ranges": [
+        [
+          42,
+          49
+        ],
+        [
+          60,
+          68
+        ]
+      ],
+      "contract": "Admitted negative timestamp should return Err(magnitude) from to_duration_since_unix_epoch per its documented Result behavior.",
+      "trace": "from_micros_since_unix_epoch stores i64::MIN without validation. Negative branch evaluates -micros in i64 before u64 cast. Mathematical magnitude2^63 is outside signed i64; signed negation overflows under overflow checks. Thus this adapter is not total on its admitted domain. This is source arithmetic evidence; no test/case executed or added.",
+      "related_canonical_receiver": "TimeDuration::to_duration uses unsigned_abs and handles same absolute magnitude; do not invent equivalent primitive conversion owner.",
+      "limits": "Native upstream source only. First-party reachability and inherited alias match unresolved; no accepted repair/unique finding count until root reconciles."
+    },
+    {
+      "id": "A13-NATIVE-DURATION-CONVERSION-OBS007",
+      "status": "source-backed native operation limitation; alias/first-party reachability unreviewed",
+      "source_sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+      "ranges": [
+        [
+          157,
+          177
+        ]
+      ],
+      "receiver_sha256": "e78605fb6eb9b18a8c886cb41c1fbc9d60d66ef43a0e654e7069a7e6c89e2b30",
+      "receiver_ranges": [
+        [
+          70,
+          80
+        ]
+      ],
+      "trace": "Timestamp checked_add_duration/checked_sub_duration call TimeDuration::from_duration before checked arithmetic. That conversion expects u128 microseconds fit i64 and panics otherwise; checked_*_duration is not a total None-returning boundary for arbitrary std Duration. Native +,- and assignment operators likewise use unwrap/delegation and may panic out of range.",
+      "limits": "Do not infer support for arbitrary standard Duration magnitudes or repair application callers without source reachability/ownership reconciliation."
+    },
+    {
+      "id": "A13-NATIVE-DURATION-FMT-ABS-OBS007",
+      "status": "source-backed same-class native signed-minimum hazard; no unique count",
+      "source_sha256": "e78605fb6eb9b18a8c886cb41c1fbc9d60d66ef43a0e654e7069a7e6c89e2b30",
+      "ranges": [
+        [
+          123,
+          132
+        ]
+      ],
+      "trace": "TimeDuration from_micros admits MIN, Display computes micros.abs() in signed i64 before quotient/remainder. Signed MIN magnitude does not fit i64 and overflows under checks. to_duration uses unsigned_abs correctly, so formatter cannot inherit totality from that conversion.",
+      "limits": "New reached receiver observation only, not a separate original population credit or accepted first-party finding."
+    }
+  ],
+  "at_completed": "2026-10-26T18:48:47.172062+00:00"
+}

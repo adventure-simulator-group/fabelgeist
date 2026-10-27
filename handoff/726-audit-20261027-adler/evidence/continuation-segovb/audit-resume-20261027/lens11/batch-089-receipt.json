@@ -1,0 +1,306 @@
+{
+  "at": "2026-10-27T16:38:48.304879+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-089-registration.jsonl",
+    "sha256": "8b37eb5c41132c3d3346daa941d2555ec7dff778cf5f3ff46615b6deffae5c71"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-088.json",
+    "sha256": "cdb7741660cd385e1b752918d1900e32bf579c24ee19929b1e1a3e306ff0d6be"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1148,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak.rs",
+      "sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+      "ranges": [
+        [
+          1,
+          2111
+        ]
+      ],
+      "actual_eof": 2111,
+      "prospective": true,
+      "purpose": "Independent complete full effective outbreak inventory, with prior personal receiver context not automatic ordered credit",
+      "actual_read_ranges": [
+        [
+          1,
+          2111
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected_original",
+      "original_index": 1150,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak/patient_chronology.rs",
+      "sha256": "13d2838fd47720c3645d3c0cba3875699b4ad7984159ddeded1b2a23a32f15ee",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/13d2838fd47720c3645d3c0cba3875699b4ad7984159ddeded1b2a23a32f15ee",
+      "ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "actual_eof": 37,
+      "prospective": true,
+      "purpose": "Exact patient temporal death resolution / collection-time concentration child contract for1148; no ordered credit",
+      "actual_read_ranges": [
+        [
+          1,
+          37
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1151,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak/water_time.rs",
+      "sha256": "de713cf1a7816326fcc398a37c9194736867f984202e5efaa22e7ac944bb1390",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/de713cf1a7816326fcc398a37c9194736867f984202e5efaa22e7ac944bb1390",
+      "ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "actual_eof": 13,
+      "prospective": true,
+      "purpose": "Exact patient temporal death resolution / collection-time concentration child contract for1148; no ordered credit",
+      "actual_read_ranges": [
+        [
+          1,
+          13
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1148,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              155
+            ]
+          ],
+          "roles": "Private case/problem/settlement/fixture/place/patient/episode identities, material source/output/contribution identities, snapshot and chronology roles.",
+          "disposition": "Existing core DiseaseId/OutbreakSource/TransmissionRoute/StrategicFixtureId/StrategicPlaceId are meaningful separate owners. Durable SDK row flattening does not justify internal string/JSON operations. source_kind plus source_json plus carrier_threat_id duplicate a payload-bearing source enum; responsible+culpability and remediated time+party+source are coupled optional payloads in actual writers. Patient health_active is cleanup checkpoint, distinct from observer historical health/context suppression.",
+          "remedy": "Admit named typed OutbreakAuthority and WaterMaterialContribution records at SDK edge; reuse canonical source enum; own remediation receipt as Option<RemediationReceipt>. Preserve material source versus output lot and container object ID distinctions; share material numeric invariants without flattening roles.",
+          "acceptance": "Actual source constructors1025\u20131419, remediation1422\u20131537/1765\u20131796 and historical receivers1542\u20131649 read; no universal boolean collapse, no public release of private cause. SDK raw layout not compatibility requirement."
+        },
+        {
+          "ranges": [
+            [
+              157,
+              290
+            ],
+            [
+              658,
+              793
+            ]
+          ],
+          "roles": "Material transfer and contamination preview tuples: lot identity, Microliters, contaminant load; concentration versus growth/hour; private knowledge provenance digest.",
+          "disposition": "Take/expose tuples (u64,Microliters,u64), preview tuples (u64,f32,f32,Microliters) erase distinct lot/load/concentration/rate roles before internal consumers. Native f32 dose kernel legitimately combines quantity and time, but no universal UnitInterval bound for concentration/growth/dose. Existing Microliters and Milliliters are distinct conversions, source/output hashes are bounded deterministic IDs with explicit collision checks at insertion.",
+          "remedy": "Use named contribution/contamination sample records with canonical MaterialLotId and purpose-specific load/concentration/rate owners; convert to raw at contamination numerical kernel. Keep volume unit conversion and immutable original lot separate from remaining contribution.",
+          "acceptance": "Core water_source original1023 full500 personally050 (qualified index correction); corefood927 full848 personally025; food consumption1102 full369 personally069 and container1119 full1451 personally075 reuse exact pins. No observed hash collision, floating overflow or clinical outcome claimed."
+        },
+        {
+          "ranges": [
+            [
+              292,
+              655
+            ]
+          ],
+          "roles": "Request ID/capability ID+version, container custody, source revision and amount snapshot, source authority+container alter rights, exact presence, time advance and replay.",
+          "disposition": "Independent policy predicates are meaningful facts, not one multi-state enum. Actual complete receipt replay precedes private reads; coordinates/authority binding/time plan canonical owners used, then raw amounts/IDs reused internally. conserved tuple source_after/container_after are both u64 but different roles. Post-time revalidation checks source revision/lot/presence/custody/mutable/capacity/capability/liquid state.",
+          "remedy": "Retain admitted WaterCollectionRequest/ConservedCollection record and typed volume/revision IDs through planning and commit; named before/after source/container fields prevent swaps. Keep request digest/source revision/capability version distinct, reusing existing strategic-action owners.",
+          "acceptance": "Actual typed core plan recipients personally050 and strategic_action1006 personally045; custody1145 personally087; container1119 personally075. No bypass inferred from raw SDK signature; no project execution/replay observation."
+        },
+        {
+          "ranges": [
+            [
+              796,
+              974
+            ],
+            [
+              1025,
+              1420
+            ]
+          ],
+          "roles": "Knowledge receipt time versus immutable exposure chronology, authored symptomatic/death times, private physiology terminal, corpse pathology and canonical kinship, context ordinals.",
+          "disposition": "Canonical infection/patient identity distinct from public case knowledge. Source enum death_kind and Option died_at are correlated payload: resolver1150 resolves authored Disease/CarrierAttack against private terminal and now. Core pathology uses named system fractions/BPS, independent symptom bools appropriate. Original authored chronology_json differs resolved private episode/death materialization; do not treat as identical authority. health_active initialization uses died_at.is_none(), not died_at<=now; future disease terminal can make checkpoint false at API level even before death, while historical presence explicitly reconstructs chronology. Ordinary generated future-terminal witness/current effect unproved.",
+          "remedy": "Use one admitted patient course/death outcome with explicit predicted versus occurred death; derive cleanup checkpoint from intended current frontier rather than overload Option-death presence. Keep observer visible knowledge, symptom onset, course end and terminal time distinct. Reuse canonical death/episode/core pathology owners.",
+          "acceptance": "Full parent and1150 resolver read. Corpse1090 full2121 personally066, disease1093 full2950 personally067, generation972 full1230 personally037, presence1011 full662 personally046 reused. API shape concern only for future-terminal checkpoint; no new clinical/runtime/current finding or invented death bound."
+        },
+        {
+          "ranges": [
+            [
+              977,
+              1023
+            ],
+            [
+              1422,
+              1649
+            ],
+            [
+              1689,
+              1796
+            ]
+          ],
+          "roles": "Exact remediation selector, source type branch, remediation receipt, current cleanup checkpoint versus historical suppression, source disabled time.",
+          "disposition": "Source and carrier remediation update same coupled receipt facts; noncarrier replay includes exact timestamp whereas carrier replay ignores at_minute when source/party equal, an operation-policy difference requiring explicit contract rather than assume either wrong. Remediation releases context without curing infection; health and context suppression remain independent booleans. Historical reducer/view reconstruction uses episode course+remediation+observer minute, not health_active checkpoint.",
+          "remedy": "Typed RemediationReceipt and typed operation/source variants should own payload and replay comparison policy; named PatientSuppression preserves context/health axes. Use canonical source enum to remove repeated raw threat_vector/dysentery strings.",
+          "acceptance": "Actual setters/replayers and recipients read; exact necessary native presence original1011 previously046. Do not claim remission from source disable, do not require equal clocks or turn independent booleans into one enum."
+        },
+        {
+          "ranges": [
+            [
+              1799,
+              1991
+            ]
+          ],
+          "roles": "Hostile accepted-outcome subtype, settlement-wide versus exact-source exposure intervals, half-open source presence spans, party-scoped corpse discovery.",
+          "disposition": "OutcomeFactKind and OutbreakCarrierOutcome preserve defeated/driven-off states; remediation helper converts missing exact objective to None via ok(), conflating unmatched and malformed API outcome. exposure_windows tuple String represents problem ID for sanitation/behavior, span ID for exact environmental/threat source; named variant gives actual role distinction. Existing current-settlement check used for whole requested sanitation interval, unlike exact source history; historical residency misattribution needs actual movement recipient/runtime reconciliation before defect claim. Party discovery is first party authority and does not transfer knowledge on later visit.",
+          "remedy": "Named ExposureWindow with typed SourceIdentity::Problem/PresenceSpan and interval record; retain accepted hostile payload owner; Result<Option<RemediationId>,AuthorityError> distinguishes irrelevant from malformed. Preserve personal clock/observer time and exact fixture-place membership.",
+          "acceptance": "Disease1093 actual exposure_windows recipients1247/1612 full personally067; presence transition full read. No ordinary wrong-settlement interval witness, no global/clinical/current inference."
+        },
+        {
+          "ranges": [
+            [
+              1651,
+              1687
+            ],
+            [
+              1993,
+              2111
+            ]
+          ],
+          "roles": "Existing source-text fixtures and boundary assertions.",
+          "disposition": "All existing fixture bodies consumed as source; structural source-contains assertions and local arithmetic predicates are not executed behavior/security proof or included-file coverage. String field-name lists are native source-test selectors, not gameplay IDs.",
+          "remedy": "Keep native fixture boundaries explicit; source-only discovery may recommend production owners without adding test helpers/assertions.",
+          "acceptance": "No tests/project checks run or added; no inclusion transfers full other source coverage."
+        }
+      ]
+    }
+  ],
+  "connected_role_inventory": [
+    {
+      "original": 1150,
+      "ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "roles": "Authored Disease/CarrierAttack death kind, private terminal optional time and now limit; cloned exposure death timestamp/kind correlated state.",
+      "disposition": "Resolve authored causal proposal against private terminal; disease may resolve future terminal without occurring now, carrier attack capped before private terminal and now with symptomatic lower bound. Kind/time payload correlation should be owned, do not merge authored/private/occurred authorities.",
+      "remedy": "Canonical resolved patient course enum/record reused by parent; preserve carrier versus disease causality and prediction versus observation.",
+      "acceptance": "Complete actual37line child read; no future ordered credit, no guaranteed ordinary future-death witness."
+    },
+    {
+      "original": 1151,
+      "ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "roles": "Absolute anchor time and collection minute adapted to elapsed duration for concentration kernel.",
+      "disposition": "Meaningful clock-versus-duration distinction already explicit; raw concentration/growth rates remain distinct roles. Small adapter earns purpose converting durable anchor to elapsed native kernel.",
+      "remedy": "Typed concentration/rate record may retain adapter; no trivial-forward removal because elapsed conversion is real.",
+      "acceptance": "Complete child13lines read, numerical core927 personally025; no future ordered credit."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-025-receipt.json",
+        "sha256": "da2167395504955b78e9c36ddd77daeb4b3337f7a00fb6905b77d85b096ddaf4"
+      },
+      "contract": "927 corefood full848 actual contamination_at numerical kernel"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-037-receipt.json",
+        "sha256": "9eba0cc942018e3348434818aa4201ceb3a5509ab2183eb34b9a6e117cc1c75a"
+      },
+      "contract": "972 generation/model full1230 canonical OutbreakSource/Exposure/Remediation producers"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-045-receipt.json",
+        "sha256": "ef84d892ee23b0f811e99ab6e951c2e0bb21e340b90207e80f2b1f5f367f357b"
+      },
+      "contract": "1006 strategic_action full1209 admitted plan and commit recipient"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-046-receipt.json",
+        "sha256": "e17f1e9d4531b622e5ba299c3adf9ac637d9bc6e9c0c810c5545c6d8f08e3a46"
+      },
+      "contract": "1011 strategic_presence full662 canonical historical suppression; correct1011, not1008"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-050-receipt.json",
+        "sha256": "0f23acc687c49d5da235bff7f543610cceab01a8e151173da1289b445ff24dd6"
+      },
+      "contract": "1023 water_source full500 canonical water quantities/rights/plan/proportional material transfer; required050 index qualification retained"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-066-receipt.json",
+        "sha256": "16f2aecb0b7d7a148ae2a27e02d5a1a4d0e9ca26a56196b0142c49eeef35acbd"
+      },
+      "contract": "1090 corpse full2121 canonical death/pathology/family retention"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-067-receipt.json",
+        "sha256": "e02e209bcb9d7257a2a89762ff62094e269991a6d7e48af1897a8e10b7047e7f"
+      },
+      "contract": "1093 disease full2950 private terminal/exposure windows receivers"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-069-receipt.json",
+        "sha256": "a49b031e734015fe2681e2ae5fe186811d8cf99151ef6f401af95f4699301781"
+      },
+      "contract": "1102 food consumption full369 actual water dose admission and replay receiver"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-075-receipt.json",
+        "sha256": "6b137e7e6d04ab2aa240fc17fe1e6600bb795b4e79fcfee1db06a458037e0b3b"
+      },
+      "contract": "1119 inventory_container full1451 actual transfer/preview/consume recipients"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-087-receipt.json",
+        "sha256": "559267d7935601c2ad01dde05896a068e15e43a42a797f9b61a43ff4da11157a"
+      },
+      "contract": "1145 custody full501 actual carried-object admission"
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Exact frozen1148 source only; no current comparison, runtime/clinical outcome, canonical alias, accepted unique or other-lens clearance.",
+    "All inherited qualifications and pending original/overlay/merged/material/unchanged/currentness populations retained.",
+    "No project execution/tests/probes/source/Git/root-ledger mutation/publication."
+  ]
+}

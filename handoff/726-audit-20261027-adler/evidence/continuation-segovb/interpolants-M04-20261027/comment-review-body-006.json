@@ -1,0 +1,53 @@
+{
+  "id": "M04-comment-review-body-006",
+  "created_utc": "2026-10-27T04:56:42.887632+00:00",
+  "head": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+  "review_type": "Focused body whitespace and80column reconciliation",
+  "body": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/pr-body-006.md",
+    "sha256": "f19502e1018532a36d6b3d2bad510ed60eda0afb4654c69520e80ec38b9874cb"
+  },
+  "prospective_registration": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/comment-review-body-006-registration.json",
+    "sha256": "f6730b7ed66a63a1298dcefa288f221d47b9c85e8b305e5cb5ccf2a2d575451d"
+  },
+  "prior_body": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/pr-body-005.md",
+    "sha256": "c478bb5a8c5958716fea4054bcf5d050b6793a413fa6cf22f72f9ea534ac3f50"
+  },
+  "prior_review": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/comment-review-body-005.json",
+    "sha256": "babeca52eaf47b9dd9a489bd3a69cf1adb7435157c31144c92cb8dfd7599c815"
+  },
+  "actual_read_ranges": [
+    [
+      1,
+      24
+    ]
+  ],
+  "verified": {
+    "nonwhitespace_character_identity": true,
+    "whitespace_normalized_word_token_identity": false,
+    "maximum_line_length": 80,
+    "all_lines_at_most80": true
+  },
+  "resolved_finding": "M04-BODY005-WRAP01",
+  "findings": [
+    {
+      "id": "M04-BODY006-HYPHEN-WRAP01",
+      "kind": "Mechanical reflow split inside compound word",
+      "line": 4,
+      "continuation_line": 5,
+      "source_quote": "the low-\nendurance speed producer",
+      "prior_token": "low-endurance",
+      "issue": "Markdown soft line break inserts whitespace between low- andendurance; nonwhitespace character identity holds but the original word token is not preserved.",
+      "correction": "Wrap before low-endurance, keeping that compound on one line."
+    }
+  ],
+  "verdict": "Original over80 issue resolved; one narrow reflow correction remains. Root notified. No semantic/API claim change otherwise.",
+  "limits": [
+    "Source unchanged per root atdf5; no source re-review/project execution/checks/tests/Git/product/ledger/publication.",
+    "No hosted-success or global audit/F9 clearance."
+  ],
+  "stop": true
+}

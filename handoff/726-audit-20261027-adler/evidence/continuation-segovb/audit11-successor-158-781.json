@@ -1,0 +1,224 @@
+{
+  "id": "SEGOVB-CONT11-SUCCESSOR-158-781",
+  "lens": "type-granularity",
+  "scope_index": 781,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/conform.rs",
+  "sha256": "4c3ee7c251ed1a4d18681e0b05c0fcf35b3b61e7d6dd0decfda0708577469162",
+  "source_ranges": [
+    [
+      1,
+      324
+    ]
+  ],
+  "prior_full_read": "audit11-successor-157.json#/partials/1",
+  "status": "source-accounted-with-qualified-findings; not clear",
+  "source_complete": true,
+  "current_main_integrated": false,
+  "validated": false,
+  "source_contracts": [
+    {
+      "owner": "SewnCloth44-48 and SewnSurface original780214-298",
+      "trace": "new51-69 derives undirected edges and per-sewn-vertex neighbours from the same private surface.faces/groups; self.sewn77-83 maps original vertices to sewn vertices and expand85-88 maps them back. This wrapper owns edge/neighbour constraints in addition to topology correspondence and is useful, not a redundant pass-through."
+    },
+    {
+      "owner": "stretch/clearance/fit numerical roles",
+      "trace": "limits91-96 computes same-edge-order rest lengths times stretch; limit_stretch100-110 computes both rest limits and current points through same sewn mapping before hold112-134. Actual consumers are saved-fit788199-203 using TRANSFER_STRETCH1.25 and live drape78275-81. Stretch may exceed1 and cannot reuse bounded fit fraction. Raw metre clearance computes default FitSettings.body_offset_cm*CM_TO_M plus Fabric.particle_radius in782276-279; exact fit226632-93 and fabric2229124-127 confirm units/conversion and half thickness. draw_in198-229 receives validated DrapeSettings.body_fit in0..=1 (prior connected792156-168, live run78245) and closes each round by computed rate; no arbitrary extra physical limits invented."
+    },
+    {
+      "owner": "push/drawing/cover kernels",
+      "trace": "clear138-146 and push_clear149-177 retain Vec<Option<Vec3>> same sewn vertex order; bool spread is a local round predicate. draw_in208 mask is actual Dressing::dresses(point) predicate, not a semantic state forced into bool. cover236-296 builds native TriangleBvh from same sewn points/faces; nearest returned triangle indexes same self.surface.faces. Surface normal alignment and barycentric weights are different dimensionless roles, and metre depth/clearance differ from normalized weights. Scalar dot/cross/normalization and homogeneous three-corner arrays are actual native numerical work. Vec<(Vec3,u32)> pulls/lifts are semantic displacement/count accumulators112-132,257-291, a source-backed named-record simplification candidate; no accepted unique issue yet."
+    },
+    {
+      "owner": "Dressing connected783",
+      "trace": "Exact full1-145 SHAa5b190... inspected. BodyPart enum distinguishes Trunk/Head/Hand/Leg/Foot; canonical RigJointPart/RigJointMembership drive classification20-58, GarmentForm determines dressed_by61-67. Dressing retains same body positions/faces and a per-vertex predicate mask80-107; dresses111-124 consumes same triangle list and nearest corner. No need to replace ordinary predicate mask with a role enum. Input row/rig ordering remains caller contract; no universal instance branding inferred."
+    },
+    {
+      "owner": "unit308-311 and barycentric314-324",
+      "trace": "Option<Vec3> represents missing usable direction after length test; barycentric native three-corner numeric kernel returns two computed weights plus remainder, with first-corner fallback for near-zero determinant. These local outputs do not prove all finite/extreme-input behavior; no invariant-operations or numerical-policy clearance granted."
+    }
+  ],
+  "qualified_findings": [
+    {
+      "id": "SEGOVB11-158-781-RIG-RECEIVER",
+      "classification": "concrete frozen typed-receiver migration gap; canonical/global finding alias pending; not new unique count",
+      "location": "connected original783 dressing.rs97",
+      "evidence": "PackedRigSkin::iter original2336154-155 yields [RigJointOrdinal;WIDTH]; RigJointOrdinal original2332lib.rs50-52 is opaque struct, with derived From/Into and explicit checked native conversion94-106. Dressing uses parts.get(*joint as usize), a non-primitive cast. Canonical RigJointTable::get original233749-50 already accepts ordinal directly, and map57-59 preserves typed column order.",
+      "consequence": "Frozen receiving body still assumes primitive ordinal after producer migration; this source family is not integration-complete even though the distinction itself is useful. This is static source incompatibility evidence, no local compile/runtime/current-main regression claim.",
+      "coherent_repair": "Reconcile shared rig receiving migration, carry canonical RigJointTable<bool> from input.names.map and use typed ordinal lookup, retaining intended absent-membership policy until owning admission decision. Do not create a duplicate ordinal/predicate wrapper or primitive adapter."
+    },
+    {
+      "id": "SEGOVB11-158-781-ACCUMULATORS",
+      "classification": "qualified source-backed record simplification candidate; no accepted unique finding",
+      "location": "conform.rs114,257-291",
+      "evidence": "Accumulated vector displacement and contributing-neighbour count are distinct pair members retained across loops; named record could prevent .0/.1 role swaps. Native geometric corner pairs remain homogeneous and do not need invented heterogeneous wrappers."
+    }
+  ],
+  "new_connected_reads": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/dressing.rs",
+      "connected_original_index": 783,
+      "sha256": "a5b190694f00f1dbc5e1895f5b40f65b6c1f7242da45ea844b59a6b6d6932523",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "781 dressing predicate role /782 fit settings native solver and fabric clearance ports"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-garment-fit/src/lib.rs",
+      "connected_original_index": 2266,
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "781 dressing predicate role /782 fit settings native solver and fabric clearance ports"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/fabric.rs",
+      "connected_original_index": 2229,
+      "sha256": "37cf4430a9923bb91663a7eb0eadee8674fd3489e172a5f8d164a929d6ba1313",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "781 dressing predicate role /782 fit settings native solver and fabric clearance ports"
+    },
+    {
+      "connected_original_index": 783,
+      "sha256": "a5b190694f00f1dbc5e1895f5b40f65b6c1f7242da45ea844b59a6b6d6932523",
+      "ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "ordered_credit": false,
+      "registered_before_read": true,
+      "reason": "781 Dressing constructor and d resses predicate actually classifies checked rig roles, not extra impairment/state"
+    },
+    {
+      "connected_original_index": 2266,
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "ranges": [
+        [
+          32,
+          98
+        ]
+      ],
+      "ordered_credit": false,
+      "registered_before_read": true,
+      "reason": "781/782 owning centimetre FitSettings offset/default to explicit metre clearance"
+    },
+    {
+      "connected_original_index": 2229,
+      "sha256": "37cf4430a9923bb91663a7eb0eadee8674fd3489e172a5f8d164a929d6ba1313",
+      "ranges": [
+        [
+          1,
+          31
+        ],
+        [
+          117,
+          134
+        ]
+      ],
+      "ordered_credit": false,
+      "registered_before_read": true,
+      "reason": "Fabric thickness frame and actual particle radius numerical contract"
+    },
+    {
+      "connected_original_index": 2337,
+      "source_id": "pr-working:crates/fabelgeist-rig/src/table.rs",
+      "sha256": "491cfcace087aef015067a75e218e3bee9dc3c1e8bf681b40afa840f806da282",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "Actual Dressing78397 casts packed returned RigJointOrdinal; verify canonical ordinal representation before recording receiving migration qualification"
+    },
+    {
+      "connected_original_index": 2229,
+      "sha256": "37cf4430a9923bb91663a7eb0eadee8674fd3489e172a5f8d164a929d6ba1313",
+      "ranges": [
+        [
+          29,
+          49
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "Read explicit Fabric thickness metre/damping declarations omitted by prior narrow header range"
+    },
+    {
+      "connected_original_index": 2334,
+      "source_id": "pr-working:crates/fabelgeist-rig/src/names.rs",
+      "sha256": "94146b1b91f11d9711a5439e607b357cd8bb2fe828de4763cb432f58b0225554",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "Canonical RigJointOrdinal representation to distinguish valid native conversion from impossible primitive cast in Dressing"
+    },
+    {
+      "connected_original_index": 2332,
+      "source_id": "pr-working:crates/fabelgeist-rig/src/lib.rs",
+      "sha256": "7e73efb0a5ce824e111c2d28e54a5422b75bdca12e0c7553423dc0dfab8f563b",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "Locate canonical RigJointOrdinal definition/export; names2334 locator absent symbol, not source coverage"
+    },
+    {
+      "connected_original_index": 2332,
+      "sha256": "7e73efb0a5ce824e111c2d28e54a5422b75bdca12e0c7553423dc0dfab8f563b",
+      "ranges": [
+        [
+          1,
+          61
+        ],
+        [
+          90,
+          109
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "Canonical ordinal opaque struct and supported conversions; direct casting is not valid native admission"
+    },
+    {
+      "connected_original_index": 2337,
+      "sha256": "491cfcace087aef015067a75e218e3bee9dc3c1e8bf681b40afa840f806da282",
+      "ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "Canonical typed indexed/get receiving APIs for rig tables"
+    }
+  ],
+  "retained_prior_connections": [
+    "audit11-successor-157-connected-780-001.json",
+    "audit11-successor-157-connected-780-003.json"
+  ],
+  "qualifications": [
+    "Do not treat source accounting as correctness/integration/validation clearance.",
+    "Frozen Dressing receiving cast must be reconciled against current canonical repair graph; no overall current-main finding or duplicate uniqueness count.",
+    "Questions Q008/Q009 label collision from older export successors remains unresolved; new observations keyed by source identity.",
+    "Connected783/2229/2266/2332/2337 ranges add no ordered role credit. Prior0-780 not restarted or recounted.",
+    "Existing Dressing fixture127-145 read only; no tests/cases/helpers/assertions/doctests authored or executed.",
+    "No product/source edits, local project checks or publication."
+  ],
+  "proposed_original_accounted": 782,
+  "next_original": 782,
+  "active_partial": {
+    "scope_index": 782,
+    "body_ranges_already_read": [
+      [
+        1,
+        334
+      ]
+    ],
+    "remaining": "Fit.step/positions, cloth seam reorder/attach, bend typed topology and GPU boundary receiving contracts before source-complete claim"
+  },
+  "clear": false,
+  "validation": "none"
+}

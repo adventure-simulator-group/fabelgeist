@@ -1,0 +1,46 @@
+{
+  "purpose": "Complete unchanged policy match and relevant baseline/whole-view sibling boundary",
+  "sources": [
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "sha256": "878a4144b4fecdc20291885050e30fe521a5294117046c282ef24d40c5e407d9",
+      "ranges": [
+        [
+          25,
+          27
+        ]
+      ]
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "6144a5ab4e1f3132caf4c5b0aee92b151f093153e3e5bed8e4d6fadd7f12edb1",
+      "ranges": [
+        [
+          691,
+          705
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "5b5fe5e4ff2f4e7d2ec8daf2e852ea0c6f5de112716d6d1695502b1304318106",
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "786f4f75b779e92f2a1b2e521e672606b4fa3b6bf9176530903dd6a4edf7f84b",
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ]
+    }
+  ],
+  "registered_before_body_read": true
+}

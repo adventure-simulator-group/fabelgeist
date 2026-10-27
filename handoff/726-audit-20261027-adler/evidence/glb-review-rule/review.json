@@ -1,0 +1,112 @@
+{
+  "review": "Independent Rule Review of checked binary glTF framing",
+  "reviewer": "/root/recovery_826",
+  "author": "/root",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "head": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "branch": "codex/checked-glb-framing",
+  "snapshot": "Uncommitted six-file working snapshot pinned by exact SHA-256 below; not a pushed revision.",
+  "source": [
+    {
+      "path": "crates/adventuresim-character-creator/README.md",
+      "sha256": "95e3abd4304b0585e8c5c4d5ec1d4585493c7ef5c15b4fe013c6523aa2357bdb",
+      "lines": 1468
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "9afc4164c6c6204bfcd69ae9f48ff3d68a5b3d6b9a4adf26b38dc00598c748fb",
+      "lines": 1782
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb.rs",
+      "sha256": "54be7e4aa7f3cdef3e59c0ffd22ce5594034e9be9b15deb6c141586002d58c29",
+      "lines": 64
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb/error.rs",
+      "sha256": "9cb508b5ed56eba213175501febe3b3b7171eae47da89b186047abd5de1ec912",
+      "lines": 61
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/glb/layout.rs",
+      "sha256": "c7598f12fd08c312d0422f86b062f038090e0a9527106a79b369a4e971cc469f",
+      "lines": 87
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/profiling.rs",
+      "sha256": "e4bc8f373cddb24d0b8772fa66a004d59e8a69a5113d82b34f288e268bdfaf95",
+      "lines": 41
+    }
+  ],
+  "instructions": [
+    {
+      "path": "AGENTS.md",
+      "applied": "Clean final API, preserve unrelated work, reports ignored, contributor prose and main/wiki boundaries."
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "applied": "Bespoke types and native adapter boundaries; checked arithmetic and native errors; responsibility/module/item order; no new tests or inflated quality ceilings."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/AGENTS.md",
+      "applied": "Shared armor rules consulted for export scope."
+    },
+    {
+      "path": "crates/fabelgeist-armor/AGENTS.md",
+      "applied": "This slice changes container framing and error routing, not equipment shape/fitting; artistic/modeling loop not applicable."
+    },
+    {
+      "path": "target/recovery-20261025/handoff/826/skills/rule-review/SKILL.md",
+      "applied": "Fresh exact-source semantic family inspection and independent evidence, no inherited verdict."
+    },
+    {
+      "path": "origin/codex/774-audit-handoff-20261025:handoff/774/skills/rule-review/references/bespoke-type-review.md",
+      "sha256": "c6a71896616123559c0be4d318cbde751d8767dccc6009a943971dc3d4424f71",
+      "applied": "Mandatory bespoke-type review reference; absent from826 package, recovered exact captured774 copy and read."
+    }
+  ],
+  "traces": [
+    {
+      "family": "Container/chunk lengths and padding",
+      "owner": "export/glb/layout.rs private GlbLayout and ChunkLayout",
+      "producer": "export.rs:614-630,823-844 builds document and BufferBuilder.bytes; PreparedGlb::new receives actual serialized JSON Vec length and actual binary Vec length.",
+      "admission": "ChunkLayout.checked_next_multiple_of4 rejects host overflow; encode_length TryFromusize->u32 rejects external field overflow. Container sum useschecked_add for28-byte overhead plus actual payload and padding and finalu32 admission.",
+      "storage": "Private correlated records have sole checked constructors, no mutation/bypassing decode/default; role distinguishes Json/Binary/Container. Nativeusize/u32 fields remain at actual format/Vec length adapter; GPU BufferByteLengthu64 owner is neither same contract nor required dependency.",
+      "operations": "PreparedGlb reserves fullchecked size then emits fixed header, admittedLEu32 lengths, exact payloads and0..3padding bytes; nouncheckedas narrowing remains.",
+      "boundary": "Veclen/reserve and little-endian GLB headers; nativeformat constants are named, fixed and preserve baseline."
+    },
+    {
+      "family": "Concrete error routing",
+      "owner": "public export::glb::{GlbError,GlbLayoutError,GlbLengthRole,GlbResult}",
+      "producer": "serde_json::to_vec, TryFromu32, Vec::try_reserve_exact, fs::create_dir_all/fs::write actual returned causes",
+      "storage": "Typedvariants retain Serialize,Layout,Reserve and path+ioError; Width retains bytes,role and actual TryFromIntError. Overflow is checked arithmetic classification without fabricated source.",
+      "consumers": "export_rigged_glb return converts GlbError once into existing anyhow throughInto, preserving downcast/source. Character export:75-95 and equipment export:93-101 use? withoutmessage conversion.",
+      "boundary": "No compatibility path/string matching/newgeneric internal failure or blanket error widening."
+    },
+    {
+      "family": "Publication and profiling",
+      "owner": "PreparedGlb and glb::write; existingprofiling::measure",
+      "producer": "Complete serialized/layoutchecked/allocated packet precedesdirectory orGLBwrite; preexistingTextureImages::finish runs earlier and maywriteimages.",
+      "operations": "GLB failure cannot create/open its outputbeforeframepreparation; filesystemwrite remainsnontransactional asREADME/module docs explicitlystate. Profiling measure preservesreturned operation result; removal ofproductionexpect adds no test or fallbackproduct output.",
+      "limits": "Earlier upstreamVec/JSON allocations and sharedimagewrites not globallytransactional; no claimofcompleteexportadmission or allallocationfallibility."
+    }
+  ],
+  "enforcement_and_scope": {
+    "imports_itemorder": "Newglb/layout/error files imports/reexports beforemod/const/types/impl/functions. Existingexport.rs ordering debt not expanded materially; two-line API/return adaptation adds no new responsibility to oversized file.",
+    "module_boundaries": "error owns structured failures; layout owns private nativeformat arithmetic; glb owns preparation/emission/filesystem; no pass-through abstraction or duplicated semantic owner.",
+    "quality_policy": "NoCargo/lock/rust-quality orbaseline changes; newfiles87/61lines, glb64 andprofiling41. Noceilings raised,nobroadadapter exemption introduced.",
+    "tests": "Existingexport.rs cfg(test)module byteidentical afterline-ending normalization; no newtests/cases/assertions/helpers/doctests in slice. Existingfixtures read actualGLB via read_document/gltf::Gltf and inspectbinaryaccessors/images.",
+    "README": "Owningcrateguide80-columnprose; no rootREADME/wiki change and no claims offinalCI/runtime/all13 completion.",
+    "other_reviewers": "No otherreviewer reports read."
+  },
+  "findings": [],
+  "verdict": "CLEAR_WITHIN_REVIEWED_SOURCE_SCOPE",
+  "migration_completeness": "Checked finalGLB framing/error-routing family complete atsourcelevel within thisslice. Broaderexportinputadmission/bodyfinite/UV/material/fitting migrations remainoutofscope and unverified, not implicitlycleared.",
+  "validation_limits": [
+    "No localprojectchecks/builds/tests/scanners/generators executed. Source/Git/stdlibhash inspection only.",
+    "Nohostedcurrenthead result supplied/verified; notmergeacceptance.",
+    "Noexecutedoversized/allocationfailure/filesystemfailure/32-bit/renderer evidence; arithmetic/failureclaims are sourcereasoning.",
+    "Initial13preinventory used only forscope/navigation, no finalverdict imported."
+  ],
+  "source_edits": false
+}

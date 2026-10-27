@@ -1,0 +1,711 @@
+{
+  "head": "961d226be23a81d9731a11958d62fe8a04b93e81",
+  "base": "a411abb4370bb6f6609622cef5da59988a37aee9",
+  "checks": [
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "3f6e1cfe6c05f5f6a2bb39155e3bf0d8ec8cbdabe3f77e993971d42e56891b33",
+      "expected_sha256": "3f6e1cfe6c05f5f6a2bb39155e3bf0d8ec8cbdabe3f77e993971d42e56891b33",
+      "origins": [
+        "Code003 current workflow pin",
+        "Rule003 workflow pin",
+        "Comment003 source_identity_comparison",
+        "Final source manifest001"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "88c35275f91c73dc38a5bd17f37a668b916bda57"
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "expected_sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints",
+        "Rule003 source_fingerprints",
+        "Comment003 source_identity_comparison"
+      ],
+      "matches": true
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/texture.rs",
+      "sha256": "aee3469d3d722c85521b64a770de20105e49aa64c6f56342442c7335f79505cd",
+      "expected_sha256": "aee3469d3d722c85521b64a770de20105e49aa64c6f56342442c7335f79505cd",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints"
+      ],
+      "matches": true
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/device/resource.rs",
+      "sha256": "796858f878f290e872a113cb474d7ff947dfdd61f5dcf38f6f64b9e69c959644",
+      "expected_sha256": "796858f878f290e872a113cb474d7ff947dfdd61f5dcf38f6f64b9e69c959644",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints",
+        "Comment003 source_identity_comparison"
+      ],
+      "matches": true
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-types-29.0.4/src/lib.rs",
+      "sha256": "af153576bce090b101f05d3d4fc35523d82e8f7fd2f935bd60d12956af50cb3b",
+      "expected_sha256": "af153576bce090b101f05d3d4fc35523d82e8f7fd2f935bd60d12956af50cb3b",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints",
+        "Comment003 source_identity_comparison"
+      ],
+      "matches": true
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "expected_sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints",
+        "Rule003 source_fingerprints",
+        "Comment003 source_identity_comparison"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "bcbd30c924ef6af16333fc0a7f34bcc322efcd67"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "197d8605659fa581961b37f9c18f2a46b04db822a666d3abefe5653b4204401a",
+      "expected_sha256": "197d8605659fa581961b37f9c18f2a46b04db822a666d3abefe5653b4204401a",
+      "origins": [
+        "Comment003 source_identity_comparison"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "377c20e84eb7a34c54507573f72a2d418f080179"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "expected_sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints",
+        "Rule003 source_fingerprints",
+        "Comment003 source_identity_comparison"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "b890bfd0f628b3aae3d417cb8d0a4070bf7b3117"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "5fcedc2343591f9fdc806e66e0e0f619d352e9c1f19d615603fda80cc7168e64",
+      "expected_sha256": "5fcedc2343591f9fdc806e66e0e0f619d352e9c1f19d615603fda80cc7168e64",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints",
+        "Rule003 source_fingerprints",
+        "Comment003 source_identity_comparison"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "147cd8b21a649ac5a24067843d5dd6997b3c1958"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "sha256": "6df2befe9397b790ad88233dee3fe7ed4f4aaf918a41b939585a5c633fe0f3db",
+      "expected_sha256": "6df2befe9397b790ad88233dee3fe7ed4f4aaf918a41b939585a5c633fe0f3db",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints",
+        "Rule003 source_fingerprints",
+        "Comment003 source_identity_comparison",
+        "Final source manifest001"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "0e3026441132a049c2472bbccbc294cf7a279b82"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+      "expected_sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "cfcb7405a863ce860abc2eba4b5faecc29898845"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition/tests.rs",
+      "sha256": "990a77c5be95d46846d6f096e3a185f080d5975c1b92e6a6f831f9351db33b8f",
+      "expected_sha256": "990a77c5be95d46846d6f096e3a185f080d5975c1b92e6a6f831f9351db33b8f",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "509736b034eeaf6ee79207ee0e127de661336d2d"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+      "sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "expected_sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "a3c17d52b6f1ed01c79f8000ec754fb80faddc8c"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+      "expected_sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "4c1982bd2804730df56574d30429cd3a17adab17"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "sha256": "3e25d7e25d9d85032c723926167bf505637c2e31d7f05503b9e4d5f08bd12600",
+      "expected_sha256": "3e25d7e25d9d85032c723926167bf505637c2e31d7f05503b9e4d5f08bd12600",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "aaa1c0645df5f8181ea8ff2bb3134b6b959ab4f8"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs",
+      "sha256": "29c6416f82022dc58dc4990783ef1b94b0690777c6669e7ec50d2cbdac3d760d",
+      "expected_sha256": "29c6416f82022dc58dc4990783ef1b94b0690777c6669e7ec50d2cbdac3d760d",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "bbeb9f350b0458bdde60cfb41923e7f9bf28b08e"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "sha256": "fc1fbee2e072e88d28d41f4f7422b7d7eae85e5307406406722b378fdf4bbbc9",
+      "expected_sha256": "fc1fbee2e072e88d28d41f4f7422b7d7eae85e5307406406722b378fdf4bbbc9",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "d01b5ec7a10f45da81f1ebb8835554bd671aa1c2"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "expected_sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints",
+        "Rule003 source_fingerprints",
+        "Comment003 source_identity_comparison"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "a39503e1db512795dfc92e29b6bf39f87491eef0"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "1c55bd7318aad5de90e1269947be86e50e89d12439d37c0bba301f30d05a7668",
+      "expected_sha256": "1c55bd7318aad5de90e1269947be86e50e89d12439d37c0bba301f30d05a7668",
+      "origins": [
+        "Comment003 source_identity_comparison"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "0a287a846c08fbc9a054bfd6f5a23fea642e2db8"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "f795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204",
+      "expected_sha256": "f795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204",
+      "origins": [
+        "Comment003 source_identity_comparison"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "625ab4bace7a6c9cdd30faa7bd560fa5234cc1ca"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+      "sha256": "9f1884bfd6533e8e9b0706c4972039e03c4f6dedc25970875e416392938569a5",
+      "expected_sha256": "9f1884bfd6533e8e9b0706c4972039e03c4f6dedc25970875e416392938569a5",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints",
+        "Rule003 source_fingerprints"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "182c5efbc3a2c747edb0bafca314e854c524fb95"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+      "sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+      "expected_sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "5d5eb3c72af4212be2c0a02e557d49b3853bb010"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+      "sha256": "8057e3bc54fcc2941ab0b231989785cbbff9c222088d96a10920c55572a4bf24",
+      "expected_sha256": "8057e3bc54fcc2941ab0b231989785cbbff9c222088d96a10920c55572a4bf24",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "fa04b886db9c36beccd4ebf8be9f38945936e55d"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "sha256": "d43420951ea5f0f3ca07b9e7945387e830a858e14314cc634dde30079018a17a",
+      "expected_sha256": "d43420951ea5f0f3ca07b9e7945387e830a858e14314cc634dde30079018a17a",
+      "origins": [
+        "Comment003 source_identity_comparison"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "18c495f577677d2813ce6007489fdec391c673fc"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs",
+      "sha256": "370add54d9307c5cbd778de771a6e2d98d0b0dbdb7b4e4b02d1245315458b11d",
+      "expected_sha256": "370add54d9307c5cbd778de771a6e2d98d0b0dbdb7b4e4b02d1245315458b11d",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints",
+        "Rule003 source_fingerprints"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "e843f894ffd9989bab40db5f82dd1b236a0e229b"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+      "sha256": "83ba1e1ca0719ccdc74c3bc70f4fdc197dca496600a89b41a5e18c7a020fece0",
+      "expected_sha256": "83ba1e1ca0719ccdc74c3bc70f4fdc197dca496600a89b41a5e18c7a020fece0",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints",
+        "Rule003 source_fingerprints",
+        "Comment003 source_identity_comparison",
+        "Final source manifest001"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "ae680d919df5352dd3fe2aeefa7a9eaf2dd614e0"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs",
+      "sha256": "8896b8082c799551488e2498f8bffdddd6c7cdfa344a73c9df0adcd726a75930",
+      "expected_sha256": "8896b8082c799551488e2498f8bffdddd6c7cdfa344a73c9df0adcd726a75930",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints",
+        "Comment003 source_identity_comparison"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "10d69c0f5dd91fccb0ff47e1098cd1edc86594d3"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "10387cbd21a9e79c1f7cac87677c5eb870460659e1c67ba5ac1f548d13b2d193",
+      "expected_sha256": "10387cbd21a9e79c1f7cac87677c5eb870460659e1c67ba5ac1f548d13b2d193",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints",
+        "Rule003 source_fingerprints",
+        "Comment003 source_identity_comparison",
+        "Final source manifest001"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "b4c0357f3039588132ec78b9477f9ab9a709bcdd"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "511194c4de7587bb7a66be59a5f2762c628354ea57f15b809804a22b47b7db67",
+      "expected_sha256": "511194c4de7587bb7a66be59a5f2762c628354ea57f15b809804a22b47b7db67",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints",
+        "Rule003 source_fingerprints",
+        "Comment003 source_identity_comparison",
+        "Final source manifest001"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "72fa66f1609e75fc7da85fcfcee7839498011df4"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "d4d9df664fcd5207e09a8453fedfb5fae4ce9d139cd45d3bd8bc1e6a9f9ac12e",
+      "expected_sha256": "d4d9df664fcd5207e09a8453fedfb5fae4ce9d139cd45d3bd8bc1e6a9f9ac12e",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints",
+        "Rule003 source_fingerprints",
+        "Comment003 source_identity_comparison",
+        "Final source manifest001"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "e7f51eabca236ff910d45d61b7926b95a68546d5"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "a94fcf69d2535906362378a5d753a9daf5898790120012fdc97a27037c0923cc",
+      "expected_sha256": "a94fcf69d2535906362378a5d753a9daf5898790120012fdc97a27037c0923cc",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints",
+        "Rule003 source_fingerprints",
+        "Comment003 source_identity_comparison",
+        "Final source manifest001"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "51f1976f97861f022441d14dfe2b2ceb156aeb14"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "b86ab932de453c75553ba6a915d830406ac142dd7fe544a5d9fe5be25b14431a",
+      "expected_sha256": "b86ab932de453c75553ba6a915d830406ac142dd7fe544a5d9fe5be25b14431a",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints",
+        "Rule003 source_fingerprints",
+        "Comment003 source_identity_comparison",
+        "Final source manifest001"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "42b1a63f5bc1c1e207163b820d5985d0d9d39f34"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "b2ed5473c8f358bdddfb0f88344ef0380027d83cbbd6b94ee1384d577bf791f9",
+      "expected_sha256": "b2ed5473c8f358bdddfb0f88344ef0380027d83cbbd6b94ee1384d577bf791f9",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints",
+        "Rule003 source_fingerprints",
+        "Comment003 source_identity_comparison",
+        "Final source manifest001"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "25ad6ce45801d221e5ffd9acdce61a84151c75f7"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+      "sha256": "45495b07095d77c0cb93ea88115508eeb2a1f083b9368e6d9b02dc6bee3a268c",
+      "expected_sha256": "45495b07095d77c0cb93ea88115508eeb2a1f083b9368e6d9b02dc6bee3a268c",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints",
+        "Rule003 source_fingerprints"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "81bd6939c0a9554f618648391c15feba7dd553d6"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "642bfa7f9d9068c957e4f935600c0ab1eba0c91092060606392f9aa481dc9ad6",
+      "expected_sha256": "642bfa7f9d9068c957e4f935600c0ab1eba0c91092060606392f9aa481dc9ad6",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints",
+        "Rule003 source_fingerprints",
+        "Comment003 source_identity_comparison",
+        "Final source manifest001"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "a9745304d4f94980dbdee26394b9458c13c091c8"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "e29d771de75a14d0d916156b8d9772beeb1f0241068625cf23b6412d91fdd9bb",
+      "expected_sha256": "e29d771de75a14d0d916156b8d9772beeb1f0241068625cf23b6412d91fdd9bb",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints",
+        "Rule003 source_fingerprints",
+        "Comment003 source_identity_comparison",
+        "Final source manifest001"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "d124c8b8bfac9cd00253d2e1c6541a8a5361c6d6"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "78737ed29bb25ecca79c079f6676afa0719fa8bfe65a9051b56536de280cfd63",
+      "expected_sha256": "78737ed29bb25ecca79c079f6676afa0719fa8bfe65a9051b56536de280cfd63",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints",
+        "Rule003 source_fingerprints",
+        "Comment003 source_identity_comparison",
+        "Final source manifest001"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "fd6300086bbe288e72a23935d0eaa066ecbd6341"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "d225e430430ae842eb2b27a62da4e320547fbc9f07b67d0209b2579e3614896d",
+      "expected_sha256": "d225e430430ae842eb2b27a62da4e320547fbc9f07b67d0209b2579e3614896d",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints",
+        "Rule003 source_fingerprints",
+        "Comment003 source_identity_comparison",
+        "Final source manifest001"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "3a540cc7fc3c763bdf6a5f808616df81ab99a2cb"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/lib.rs",
+      "sha256": "5a9039181baf9cc6a6b45e7810f99fd9811427b80e62c9d84f52cde5f3bfa9a6",
+      "expected_sha256": "5a9039181baf9cc6a6b45e7810f99fd9811427b80e62c9d84f52cde5f3bfa9a6",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints",
+        "Rule003 source_fingerprints"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "082854901a81b34ca1c5ed306013d0cbd63c15dd"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "expected_sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints",
+        "Rule003 source_fingerprints",
+        "Comment003 source_identity_comparison"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "ff679ab14a5f2826ae5b1214865dd250e6800035"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "8d10bcef1e3605699a1b1eda95b5732e7b294453ffadd8ea2843369a024d9fce",
+      "expected_sha256": "8d10bcef1e3605699a1b1eda95b5732e7b294453ffadd8ea2843369a024d9fce",
+      "origins": [
+        "Code003 inherited unchanged Code001 end_fingerprints",
+        "Rule003 source_fingerprints",
+        "Comment003 source_identity_comparison",
+        "Final source manifest001"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "0f8c2dfc399b96fa9b5f10de30ea566b3ea6dc9f"
+    },
+    {
+      "path": "crates/fabelgeist-rust-quality/src/analyze.rs",
+      "sha256": "c2493fa9ef6a4189e7e7f4e65dfe63895c952137311aa2ffac6e14e502fc46fa",
+      "expected_sha256": "c2493fa9ef6a4189e7e7f4e65dfe63895c952137311aa2ffac6e14e502fc46fa",
+      "origins": [
+        "Code002 inspector sources inherited Code003",
+        "Rule003 source_fingerprints"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "77afa49dc19ca67c89c66ab6bc97e772dd521dc9"
+    },
+    {
+      "path": "crates/fabelgeist-rust-quality/src/main.rs",
+      "sha256": "88554dff8e59f2d11a96cb35e16b6a9c1c0ded514c17802df98c9f0b6982d42e",
+      "expected_sha256": "88554dff8e59f2d11a96cb35e16b6a9c1c0ded514c17802df98c9f0b6982d42e",
+      "origins": [
+        "Code002 inspector sources inherited Code003",
+        "Rule003 source_fingerprints"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "f22782bbbdf02bb0e4f85d663823109c096d3a6a"
+    },
+    {
+      "path": "crates/fabelgeist-rust-quality/src/scan.rs",
+      "sha256": "e7e87476917f162adedf94b0e9c279796b3ecb0e1e867c51717a3aa37a03f500",
+      "expected_sha256": "e7e87476917f162adedf94b0e9c279796b3ecb0e1e867c51717a3aa37a03f500",
+      "origins": [
+        "Rule003 source_fingerprints"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "a3bab8c0ee970d5393621dd8890cdc3d06e02ad1"
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "37048dd0f6d5655c517af9c3bbf9f33eed0dd43fc05cf3ff61228d80b779d20c",
+      "expected_sha256": "37048dd0f6d5655c517af9c3bbf9f33eed0dd43fc05cf3ff61228d80b779d20c",
+      "origins": [
+        "Rule003 baseline pin",
+        "Final source manifest001"
+      ],
+      "matches": true,
+      "matches_committed_tree": true,
+      "tree_blob": "d8a3f7690643f08eed5844a7ed8ec7a82668ea7e"
+    }
+  ],
+  "mismatches": [],
+  "manifest_checks": [
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256_matches": true,
+      "blob_matches": true,
+      "working_matches_tree": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "sha256_matches": true,
+      "blob_matches": true,
+      "working_matches_tree": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+      "sha256_matches": true,
+      "blob_matches": true,
+      "working_matches_tree": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256_matches": true,
+      "blob_matches": true,
+      "working_matches_tree": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256_matches": true,
+      "blob_matches": true,
+      "working_matches_tree": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256_matches": true,
+      "blob_matches": true,
+      "working_matches_tree": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256_matches": true,
+      "blob_matches": true,
+      "working_matches_tree": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256_matches": true,
+      "blob_matches": true,
+      "working_matches_tree": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256_matches": true,
+      "blob_matches": true,
+      "working_matches_tree": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256_matches": true,
+      "blob_matches": true,
+      "working_matches_tree": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256_matches": true,
+      "blob_matches": true,
+      "working_matches_tree": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256_matches": true,
+      "blob_matches": true,
+      "working_matches_tree": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256_matches": true,
+      "blob_matches": true,
+      "working_matches_tree": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256_matches": true,
+      "blob_matches": true,
+      "working_matches_tree": true
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "sha256_matches": true,
+      "blob_matches": true,
+      "working_matches_tree": true
+    }
+  ],
+  "changed_paths": [
+    ".github/workflows/rust-quality.yml",
+    "crates/fabelgeist-gpu/README.md",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+    "crates/fabelgeist-gpu/src/globals/mod.rs",
+    "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+    "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+    "crates/fabelgeist-gpu/texture-views.md",
+    "rust-quality-baseline.toml"
+  ],
+  "manifest_paths": [
+    ".github/workflows/rust-quality.yml",
+    "crates/fabelgeist-gpu/README.md",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+    "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+    "crates/fabelgeist-gpu/src/globals/mod.rs",
+    "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+    "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+    "crates/fabelgeist-gpu/texture-views.md",
+    "rust-quality-baseline.toml"
+  ],
+  "workflow_opcodes": [
+    {
+      "operation": "insert",
+      "base_lines": [
+        115,
+        114
+      ],
+      "current_lines": [
+        115,
+        153
+      ]
+    },
+    {
+      "operation": "insert",
+      "base_lines": [
+        128,
+        127
+      ],
+      "current_lines": [
+        167,
+        174
+      ]
+    }
+  ],
+  "workflow_all_existing_lines_retained": true,
+  "baseline_delta": "diff --git a/rust-quality-baseline.toml b/rust-quality-baseline.toml\nindex 5d3807995..d8a3f7690 100644\n--- a/rust-quality-baseline.toml\n+++ b/rust-quality-baseline.toml\n@@ -699 +699 @@ path = \"crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs\"\n-ceiling = 538\n+ceiling = 502\n@@ -703 +703 @@ path = \"crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs\"\n-ceiling = 899\n+ceiling = 862\n",
+  "tracked_and_nonignored_worktree_clean": true
+}

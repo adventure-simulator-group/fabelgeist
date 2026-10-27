@@ -1,0 +1,38 @@
+{
+  "kind": "INDEPENDENT_CODE_REVIEW_CACHE_DELTA_SUCCESSOR",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "head": "3c5a10cebca9ac15c7d944a68529a316fa4d1ae7",
+  "fingerprint": "d3dab5fd5077433700d2c63cb397d110742ef2d0bb60233b389ca9d644d60213",
+  "path_count": 46,
+  "verdict": "No additional actionable source code defect found. SHOOT-CODE-1 closed. Current batch is not merge-ready: source-matched generated assets/budgets and authoritative hosted acceptance are unfinished.",
+  "findings": [],
+  "closed_findings": [
+    {
+      "id": "SHOOT-CODE-1",
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/raster.rs",
+      "head_line": 717,
+      "proof": "Current existing fixture uses absolute crate::presentation::obstacles::tree::geometry::TreeShootId constructor, matching actual geometry module and reexport visibility. Same seed/cases/oracles preserved."
+    }
+  ],
+  "source_account": "source-family-account.json",
+  "exact_ranges": "changed-range-account.json",
+  "supporting_sources": "support-source-pins.json",
+  "generated_account": "../ea6762b9c/json-structural-account.json",
+  "review_limits": [
+    "No source or Git mutation; no local tests, builds, lints, checks, probes, extra tests/cases/assertions, or publication.",
+    "No other reviewer verdicts read. Root preimplementation plan used only to establish scope/acceptance.",
+    "Generated/binary payloads are pinned and traced to actual consumers; no runtime validity, visual success or exact current producer match claimed.",
+    "Exact sparse budgets, garden envelope and tree impostor assets currently require new hosted output after intentional source identity changes.",
+    "No global774/780/826 or unrelated family clearance; lens08 remains checkpointed at original1441."
+  ],
+  "required_before_merge": [
+    "Check corrected export40242912915 exact source revision and both exporter success; review output and provenance, including changed current budget literals.",
+    "Commit required regenerated assets/expectations without per-platform forks, compatibility fallback or weakened assertions; independently review that exact delta.",
+    "Run full normal Rust quality workflow on final merged candidate revision; positive required-cell execution and all source identity/population checks must pass.",
+    "Broader independent Rule/Comment reviews and any required existing body/native evidence remain root-owned."
+  ],
+  "source_parent_report": "target\\recovery-20261025\\ci-recovery\\batch-review-code\\ea5b4c28a\\code-review.json",
+  "delta_assessment": "Only six YAML input lines at existing two rust-cache steps. Both share the intended job-neutral namespace and save failed-job dependency work. Action-owned compiler/environment inputs remain enabled. No command, fixture, acceptance verifier, output guard, source payload or product behavior changes. No actionable finding.",
+  "official_contract": "cache-source-contract.json",
+  "exact_source_proof": "snapshot.json and delta.diff"
+}

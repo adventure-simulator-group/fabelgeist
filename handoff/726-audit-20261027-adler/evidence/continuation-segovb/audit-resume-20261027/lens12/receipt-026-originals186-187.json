@@ -1,0 +1,468 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "026",
+  "predecessor": "receipt-025-originals182-185.json",
+  "manifest_prefix_sha256": "a27fab48d296d989d707c898c9af65882072b4902a05cd44f99721db817fad04",
+  "sources": [
+    {
+      "original_index": 186,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/condition.rs",
+      "sha256": "48d1fbefb0cc475a98585e46dc0f4dabdef2c47eaa4bbb1ffb699ba604dc3758",
+      "actual_ranges": [
+        [
+          1,
+          2628
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              30,
+              42
+            ],
+            [
+              72,
+              84
+            ],
+            [
+              124,
+              151
+            ],
+            [
+              786,
+              809
+            ],
+            [
+              852,
+              918
+            ],
+            [
+              1022,
+              1079
+            ],
+            [
+              2243,
+              2291
+            ]
+          ],
+          "role": "Raw religion ID storage, cohort keys, API input and reconstruction; source identity and prose fields distinct",
+          "disposition": "OfficialReligion is the actual existing owner parsed at party_religion_context and matched through represented_religions at ingress. Carry typed optional religion through state and cohort APIs, not trim/empty/string/reparse within application state. Exact external SDK admission/renderer remains unread."
+        },
+        {
+          "ranges": [
+            [
+              30,
+              31
+            ],
+            [
+              1152,
+              1177
+            ],
+            [
+              1186,
+              1236
+            ],
+            [
+              1696,
+              1818
+            ],
+            [
+              1833,
+              1879
+            ],
+            [
+              2027,
+              2073
+            ]
+          ],
+          "role": "Morale source IDs select decay, replacement and duplicate checks; raw Option<String>/&str/String producers and recipients",
+          "disposition": "LEISURE and MASTERY strings choose different arithmetic at1156-1161, match/update1205/1746/1781/2042. Typed source payload variants should own refreshability and source identity alongside existing MoraleEventKind; arbitrary producer IDs remain open where needed. Actual outside producers pending; source-local decision proven."
+        },
+        {
+          "ranges": [
+            [
+              137,
+              151
+            ],
+            [
+              1458,
+              1515
+            ],
+            [
+              1565,
+              1694
+            ]
+          ],
+          "role": "Religious-demand kind/status/resolution strings and reducer choice drive finite state transitions",
+          "disposition": "holy_day/pending/resolved/observe/refuse directly govern admission, expiration, reward and penalty. Model kind-owned payload and resolution state/choice canonically, admit once at reducer ingress. Title/description are authored presentation prose, not enum keys. No BC requirement."
+        },
+        {
+          "ranges": [
+            [
+              813,
+              842
+            ],
+            [
+              918,
+              1019
+            ],
+            [
+              1022,
+              1177
+            ],
+            [
+              1296,
+              1333
+            ],
+            [
+              1425,
+              1444
+            ],
+            [
+              1592,
+              1606
+            ],
+            [
+              1664,
+              1688
+            ],
+            [
+              1855,
+              1861
+            ],
+            [
+              1942,
+              1951
+            ],
+            [
+              1979,
+              1989
+            ],
+            [
+              2165,
+              2172
+            ],
+            [
+              2200,
+              2207
+            ]
+          ],
+          "role": "Projected morale source composite identities, generated public labels, and critical-blood-loss death source tag",
+          "disposition": "String key formats combine typed character/group/event/demand/time/kind inputs then become native DB key1439; carry semantic source identity through internal state and encode at actual native key boundary. Human labels remain text (religion_label splits underscore and joins spaces; other.as_str replace). DeathSource parent178 contract read but source tag downstream interpretation untraced."
+        },
+        {
+          "ranges": [
+            [
+              240,
+              320
+            ],
+            [
+              397,
+              466
+            ],
+            [
+              468,
+              505
+            ],
+            [
+              613,
+              689
+            ],
+            [
+              713,
+              791
+            ],
+            [
+              813,
+              824
+            ],
+            [
+              879,
+              881
+            ],
+            [
+              918,
+              925
+            ],
+            [
+              1265,
+              1277
+            ],
+            [
+              1301,
+              1306
+            ],
+            [
+              1349,
+              1363
+            ],
+            [
+              1517,
+              1526
+            ],
+            [
+              1612,
+              1694
+            ],
+            [
+              1884,
+              1899
+            ],
+            [
+              1918,
+              1923
+            ],
+            [
+              2088,
+              2093
+            ],
+            [
+              2132,
+              2138
+            ],
+            [
+              2144,
+              2155
+            ],
+            [
+              2181,
+              2192
+            ],
+            [
+              2214,
+              2235
+            ],
+            [
+              2243,
+              2302
+            ]
+          ],
+          "role": "All raw missing-row, permission, interval, religious-demand validation strings and Result<String>/typed-error.to_string bridges",
+          "disposition": "Internal failures flattened to text before external output; actual227 Operation(String) adapter already proven. Preserve typed causes and actual IDs/payloads across these internal APIs; final diagnostic formatting at native/error output. Inventory_quantity and water item constant lookup are raw reference contracts, not constant exemption. Generated item reference owner pending."
+        },
+        {
+          "ranges": [
+            [
+              2305,
+              2628
+            ]
+          ],
+          "role": "Existing test section: four religion literals2355/2356/2359/2363 and four key/label fixtures2477/2479/2483/2485; no other test string literals",
+          "disposition": "Semantic fixtures use raw same production APIs; labels are text. Independently read entire section as source, no execution/new cases or fixture exemption. All other bodies in this section numeric/typed."
+        },
+        {
+          "ranges": [
+            [
+              1,
+              29
+            ],
+            [
+              43,
+              71
+            ],
+            [
+              85,
+              123
+            ],
+            [
+              152,
+              239
+            ],
+            [
+              321,
+              396
+            ],
+            [
+              506,
+              612
+            ],
+            [
+              690,
+              712
+            ],
+            [
+              792,
+              812
+            ],
+            [
+              843,
+              851
+            ],
+            [
+              919,
+              1000
+            ],
+            [
+              1180,
+              1185
+            ],
+            [
+              1238,
+              1264
+            ],
+            [
+              1334,
+              1348
+            ],
+            [
+              1364,
+              1424
+            ],
+            [
+              1445,
+              1457
+            ],
+            [
+              1516,
+              1564
+            ],
+            [
+              1819,
+              1832
+            ],
+            [
+              1880,
+              1883
+            ],
+            [
+              1900,
+              1917
+            ],
+            [
+              1924,
+              1941
+            ],
+            [
+              1952,
+              1978
+            ],
+            [
+              1990,
+              2026
+            ],
+            [
+              2074,
+              2087
+            ],
+            [
+              2094,
+              2143
+            ],
+            [
+              2156,
+              2164
+            ],
+            [
+              2173,
+              2180
+            ],
+            [
+              2193,
+              2199
+            ],
+            [
+              2208,
+              2213
+            ],
+            [
+              2236,
+              2242
+            ],
+            [
+              2292,
+              2304
+            ]
+          ],
+          "role": "Remaining declarations, numeric/typed projection, module/attribute/comment text",
+          "disposition": "No additional semantic string role omitted by blanket exemption. Fear child separately read; outside helper bodies not inferred from calls; no numeric/behavior/other-lens verdict."
+        }
+      ],
+      "status": "Full requested body independently read and inventoried; source-accounted with findings and explicit pending contracts."
+    },
+    {
+      "original_index": 187,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/condition/fear.rs",
+      "sha256": "8cefb00626e1f5cf3f9eb57fb0e412503aecbd64597f2bbb63d04a97c0eda958",
+      "actual_ranges": [
+        [
+          1,
+          8
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              8
+            ]
+          ],
+          "role": "Raw enemy_type &str parsed to existing ThreatId, then typed profile fear lookup; formatted String error7",
+          "disposition": "Actual parent1861141 passes raw hostile-group enemy_type. Canonical ThreatId should survive group/application APIs into fear helper; retain parse failure cause rather than internal prose. Exact hostile-group producer pending; existing bestiary owner source context proven, no whole catalog/runtime claim."
+        }
+      ],
+      "status": "Full requested body independently read and inventoried; source-accounted with findings and explicit pending contracts."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Condition semantic identity/state and structured failures",
+      "sources": [
+        "186:30-151,852-918,1152-1236,1458-1818,2243-2291",
+        "187:3-7"
+      ],
+      "remedy": "Carry OfficialReligion, ThreatId and canonical morale-source/demand state payloads through actual internal APIs; keep open reference IDs open and authored prose separate; format text at real native boundaries.",
+      "acceptance": "Complete actual outside producers/consumers and canonical alias fit before implementation. Source-derived finding, no runtime claim or unique count.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actual morale source producers in time/social/residence/disease; native SDK table/reducer constraints and UI religious-demand consumer.",
+    "Actual generated item reference producer/Item schema and inventory-container calls.",
+    "Hostile-group enemy_type producer and death source tag consumers.",
+    "All inherited unresolved roles/aliases/currentness/all20/P16/P17/F9/M09/other populations remain."
+  ],
+  "qualifications": [
+    "Exact f82 physical-P16 frozen bytes; no current or committed frozen-base alias.",
+    "No product/Git/rootledger/publication/project execution/tests/probes/new tests. User no-BC override.",
+    "Own lens12 source accounting with findings only, no global/native/runtime/unique-total/other-lens clearance."
+  ],
+  "proposed_count": {
+    "before": 186,
+    "after": 188,
+    "indices_completed": [
+      186,
+      187
+    ],
+    "next_original": 188,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/condition.rs",
+      "sha256": "48d1fbefb0cc475a98585e46dc0f4dabdef2c47eaa4bbb1ffb699ba604dc3758",
+      "ranges": [
+        [
+          1,
+          2628
+        ]
+      ],
+      "coverage": "Own lens12 roles only; all other lenses independent."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/condition/fear.rs",
+      "sha256": "8cefb00626e1f5cf3f9eb57fb0e412503aecbd64597f2bbb63d04a97c0eda958",
+      "ranges": [
+        [
+          1,
+          8
+        ]
+      ],
+      "coverage": "Own lens12 roles only; all other lenses independent."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "id": "ADLER-CONT11-Q011",
+  "classification": "Qualified raw church-room identity/index propagation; no accepted/global-unique finding or current-main regression.",
+  "scope_index": 593,
+  "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/church_ground.rs",
+  "sha256": "9d5eb0be97cc353483ebe92f8d4580ec238d1c1cf2f0693fe2b1b9888dff5278",
+  "ranges": [
+    [
+      103,
+      139
+    ],
+    [
+      178,
+      213
+    ]
+  ],
+  "observation": "Envelope::room returns Option<u16>, carried as tile-map value, vote-array index and Room.id. Actual roomID values0-4 refer to persistent church spatial room identities, distinct from intrinsic five-element array ordinal and RoomKind role. Native tilegrid(x,z) is geometric coordinate kernel; roomidentity survives across room/tile/occupied_storey/frame APIs. RoomIndex declaration imported in588 is a navigation hint only, not proof it is the correct canonical ID owner.",
+  "qualification": "Existing roomidentity/index owner bodies, prior acceptedfamily findings and P16/P17/currentmain not reconciled. Current local roomproducer returns only0-4, so no ordinary vote-array outofbounds witness or enum-every-ID remedy is inferred.",
+  "next": "Reconcile canonical room identity versus collection index ownership and accepted findings before designing or repairing.",
+  "new_unique_finding": false,
+  "repair": "not started",
+  "validation": "not run"
+}

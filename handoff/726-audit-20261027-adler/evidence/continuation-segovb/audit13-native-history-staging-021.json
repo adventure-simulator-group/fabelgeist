@@ -1,0 +1,192 @@
+{
+  "at": "2026-10-27T01:44:37.260111+00:00",
+  "packet": "021",
+  "native_commit": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+  "authority": "Exact immutablecachedGit native commit; onlyselected prepass/history receivers staged,read-onlynativeGitcommands. Original31/37 known frozenpeers retained;newmemberidentitydoesnotclaimunseenfrozencopies/currentmain.",
+  "metadata_identifier_search": {
+    "query": "previous_world_from_local|InstanceHistory",
+    "scope": "exact1a5aff src tree",
+    "coverage": false,
+    "purpose": "Locate producers/receivers only; lexicalsearch isnot universalconsumer/absence/semanticproof"
+  },
+  "sources": [
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/prepass/prepass.wgsl",
+      "git_blob_oid": "34088b0f6bfe47704c0d8a22886b9fef7f249b79",
+      "sha256": "d55568e08bd83b5db11110f851fba531d10e170ad6c0bf0a4c5acda1a8c58695",
+      "bytes": 4212,
+      "actual_lines": 155,
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/d55568e08bd83b5db11110f851fba531d10e170ad6c0bf0a4c5acda1a8c58695",
+      "identifier_only_locators": [
+        [
+          18,
+          "#ifdef MOTION_VECTOR_PREPASS"
+        ],
+        [
+          24,
+          "struct PrepassVertexOutput {"
+        ],
+        [
+          27,
+          "    @location(1) previous_world_position: vec4<f32>,"
+        ],
+        [
+          49,
+          "fn vertex(vertex: Vertex) -> PrepassVertexOutput {"
+        ],
+        [
+          62,
+          "#ifdef MOTION_VECTOR_PREPASS"
+        ],
+        [
+          66,
+          "        batch.previous_world_from_local"
+        ],
+        [
+          68,
+          "    let previous_world_position = prev_final_matrix * vec4<f32>(vertex.position, 1.0);"
+        ],
+        [
+          69,
+          "    out.previous_world_position = previous_world_position;"
+        ],
+        [
+          114,
+          "fn fragment(in: PrepassVertexOutput) -> FragmentOutput {"
+        ],
+        [
+          132,
+          "#ifdef MOTION_VECTOR_PREPASS"
+        ],
+        [
+          133,
+          "    out.motion_vector = calculate_motion_vector(in.world_position, in.previous_world_position);"
+        ]
+      ],
+      "body_read_coverage": false
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/prepass/pipeline.rs",
+      "git_blob_oid": "2b53c8d2b837130fcd8356f36c80f960789145cf",
+      "sha256": "8e3f4e39a664ef4ce7965f53f8a0d93da7d3ccd0b3312b003b27a23255e87dbc",
+      "bytes": 10547,
+      "actual_lines": 283,
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/8e3f4e39a664ef4ce7965f53f8a0d93da7d3ccd0b3312b003b27a23255e87dbc",
+      "identifier_only_locators": [
+        [
+          25,
+          "pub struct InstancedPrepassPipeline<M: InstancedMaterial> {"
+        ],
+        [
+          36,
+          "    pub prepass_shader: Handle<Shader>,"
+        ],
+        [
+          41,
+          "pub fn init_instanced_prepass_pipeline<M: InstancedMaterial>(mut cmd: Commands) {"
+        ],
+        [
+          45,
+          "impl<M: InstancedMaterial> FromWorld for InstancedPrepassPipeline<M> {"
+        ],
+        [
+          46,
+          "    fn from_world(world: &mut World) -> Self {"
+        ],
+        [
+          62,
+          "        let prepass_shader = M::prepass_shader().resolve(asset_server, \"prepass/prepass.wgsl\");"
+        ],
+        [
+          72,
+          "            prepass_shader,"
+        ],
+        [
+          78,
+          "impl<M> SpecializedMeshPipeline for InstancedPrepassPipeline<M>"
+        ],
+        [
+          85,
+          "    fn specialize("
+        ],
+        [
+          141,
+          "            .contains(MeshPipelineKey::MOTION_VECTOR_PREPASS)"
+        ],
+        [
+          143,
+          "            shader_defs.push(\"MOTION_VECTOR_PREPASS\".into());"
+        ],
+        [
+          148,
+          "            .intersects(MeshPipelineKey::MOTION_VECTOR_PREPASS | MeshPipelineKey::DEFERRED_PREPASS)"
+        ],
+        [
+          150,
+          "            shader_defs.push(\"MOTION_VECTOR_PREPASS_OR_DEFERRED_PREPASS\".into());"
+        ],
+        [
+          159,
+          "                | MeshPipelineKey::MOTION_VECTOR_PREPASS"
+        ],
+        [
+          169,
+          "            .contains(MeshPipelineKey::MOTION_VECTOR_PREPASS)"
+        ],
+        [
+          186,
+          "                .contains(MeshPipelineKey::MOTION_VECTOR_PREPASS),"
+        ],
+        [
+          202,
+          "                shader: self.prepass_shader.clone(),"
+        ],
+        [
+          211,
+          "                    shader: self.prepass_shader.clone(),"
+        ]
+      ],
+      "body_read_coverage": false
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/prepass/plugin.rs",
+      "git_blob_oid": "84c4af3e6525965f487474923a1d76b7b6dc9eae",
+      "sha256": "962b5cd44b2de30e93febfd431c1c538530d121e1e2dd514f63ec8dc3ccc0bf0",
+      "bytes": 1701,
+      "actual_lines": 51,
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/962b5cd44b2de30e93febfd431c1c538530d121e1e2dd514f63ec8dc3ccc0bf0",
+      "identifier_only_locators": [
+        [
+          6,
+          "use bevy_asset::embedded_asset;"
+        ],
+        [
+          19,
+          "pub struct InstancedPrepassPlugin<M>(PhantomData<M>);"
+        ],
+        [
+          21,
+          "impl<M> Default for InstancedPrepassPlugin<M> {"
+        ],
+        [
+          22,
+          "    fn default() -> Self {"
+        ],
+        [
+          27,
+          "impl<M> Plugin for InstancedPrepassPlugin<M>"
+        ],
+        [
+          32,
+          "    fn build(&self, app: &mut App) {"
+        ],
+        [
+          33,
+          "        embedded_asset!(app, \"prepass.wgsl\");"
+        ]
+      ],
+      "body_read_coverage": false
+    }
+  ],
+  "body_coverage_from_staging": false
+}

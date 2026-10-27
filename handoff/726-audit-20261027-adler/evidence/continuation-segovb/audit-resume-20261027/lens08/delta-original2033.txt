@@ -1,0 +1,26 @@
+--- base
++++ frozen-head
+@@ -1,4 +1,5 @@
+ use super::*;
++use adventuresim_tactical_core::animation::AnimationSampleTick;
+ 
+ pub(super) fn canonical_impact_surface(
+     attacker_position: Vec3,
+@@ -101,10 +102,13 @@
+         .has_striking_item()
+ }
+ 
+-pub(super) fn windup_duration(contact_tick: u64, start_tick: u64) -> CombatDuration {
+-    CombatDuration::from_secs_f32(
+-        contact_tick.saturating_sub(start_tick) as f32 / locomotion_sample_hz(),
+-    )
++pub(super) fn windup_duration(
++    contact_tick: AnimationSampleTick,
++    start_tick: AnimationSampleTick,
++) -> ElapsedResult<CombatDuration> {
++    CombatDuration::from_elapsed(AnimationElapsed::from_seconds(
++        contact_tick.saturating_sub(start_tick).samples() as f32 / locomotion_sample_rate().hertz(),
++    )?)
+ }
+ 
+ #[expect(

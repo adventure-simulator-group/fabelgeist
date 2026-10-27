@@ -1,0 +1,216 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-224",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 2224,
+      "source_id": "pr-working:crates/fabelgeist-bvh/Cargo.toml",
+      "sha256": "fc9b1f379eeea4867b58375107863be9dc93fead720fa2598f2a3a9f319fd73b",
+      "ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh requested BVH manifest23: native math/GPU/bytemuck derive, anyhow, optional compute/default GPU, existing Tokio dev feature and workspace lints.",
+      "disposition": "No handwritten trait/codec; metadata does not add availability of arbitrary delegation macros.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2225,
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/aabb.rs",
+      "sha256": "0074a09a772019820c52e9b1e4cb603c12473a575d992332cf89844c4d1fff36",
+      "ranges": [
+        [
+          110,
+          299
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh exact registered Aabb110-299 union of owner proofs and PPS023, not unobserved1-109. Existing Ray structural derives; no handwritten traits/codecs in reached range. Actual contains/clamp/empty-distance/degenerate normalization, reciprocal direction slab hit, closest triangle regions and two-sided ray triangle read.",
+      "disposition": "No derivability candidate in registered reached range. Numerical geometry remains explicit; no finite/ray/degeneracy acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2226,
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/cpu/mod.rs",
+      "sha256": "c38b573a2cc782cf12b477bf67c5fd77c4b35c756c91569d8b2e0c36a75273b2",
+      "ranges": [
+        [
+          270,
+          462
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh exact reached CPU270-462. Structural TriangleBvh default/debug/clone already derived; no handwritten traits/codecs. Actual point candidate filtering, shared Cell nearest/raycast limit, explicit DFS callbacks, triangle bounds/refit/closest-point native adapters read.",
+      "disposition": "No derivability candidate in registered range. Semantic traversal/geometry/mutable synchronization remains explicit; no indexing/invariant clearance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2227,
+      "source_id": "pr-working:crates/fabelgeist-cloth/Cargo.toml",
+      "sha256": "4d25ce0c957fc08ea17964e695728d4c47251e88e98ad2eace19233a20128a2d",
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh requested Cloth manifest21: shell/compute/math/GPU/anyhow and existing physics/XPBD/Tokio dev dependencies; no delegation/default macro dependency.",
+      "disposition": "No handwritten trait/codec. Do not introduce dependency solely to replace tiny native facade adapters.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2228,
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/cloth/mod.rs",
+      "sha256": "2318544fe5a77b517ae01b26f7d4b65b288c0be78c63aa9a90034bd2a7385c05",
+      "ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh whole Cloth93 stage038/solver086/PPS023. Manual Deref and DerefMut borrow shell directly; no codec. Actual new ShellMesh projection, Fabric conversion, material/thickness updates, settings and synchronous/recorded/interleaved step forwarding read.",
+      "disposition": "Keep tiny native shell borrow adapters: existing Cloth manifest lacks delegation derive; new dependency not justified. Explicit material/solver boundary policy remains semantic, no runtime coherence clearance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2229,
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/fabric.rs",
+      "sha256": "37cf4430a9923bb91663a7eb0eadee8674fd3489e172a5f8d164a929d6ba1313",
+      "ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh whole Fabric156 stage038/PPS023. Existing structural derives, manual Default=COTTON authored physical preset, manual From Fabric to foreign ShellMaterial selecting six solver fields and intentionally excluding density; actual presets/builders read.",
+      "disposition": "Keep authored cotton default and small selective native material projection; not direct structural derive over Fabric and no available field-delegation macro dependency. No solver/material acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2230,
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/lib.rs",
+      "sha256": "73854d3247aafeacaca9882c0d9666e5b83e482dd9924374ff0dec2b6a77cef9",
+      "ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh whole Cloth lib34 owning module/public reexports and narrative shell/fabric/mesh architecture; no handwritten trait/codec.",
+      "disposition": "No derivability candidate; module narrative is not runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2231,
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/surface_contact.rs",
+      "sha256": "fe0e9ecb46d3101535274523f58c8b35f92d8e1f4d69d6b37b5826cac9120001",
+      "ranges": [
+        [
+          1,
+          1
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh exact single surface_contact reexport to shell owner; no trait/codec body.",
+      "disposition": "No derivability candidate, no imported shell-body coverage.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2232,
+      "source_id": "pr-working:crates/fabelgeist-color/Cargo.toml",
+      "sha256": "a6c66c1e272fc13f282c7b0c03cb1a3291cac8af10876bccdbc1a44a85504f46",
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh requested Color manifest25: feature optional serde/bytemuck derives, optional native WGPU29, existing thiserror and default std/serde/bytemuck; no arbitrary field-default/delegation crate.",
+      "disposition": "Metadata only, no trait/codec body or feature acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2233,
+      "source_id": "pr-working:crates/fabelgeist-color/src/color.rs",
+      "sha256": "ec95ce41e0de2b14f31c2d8a206461d2ed69f95183e18ae020c7ce956de86c74",
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh whole Color80 color014/armory029/PPS022. Existing structural/feature serde/Pod/Zeroable derives; manual Default=WHITE with alpha1, actual channel arrays/constructors and lerp plus existing case read.",
+      "disposition": "Keep authored white default; structural zero/default changes RGBA contract. Native inherent channel/array methods are not handwritten trait boilerplate.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2235,
+      "source_id": "pr-working:crates/fabelgeist-color/src/lib.rs",
+      "sha256": "2aa390bfe12f98f358c698461b399a3f3f02d3dfc2a2edf6be3c761b88d556fa",
+      "ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh whole Color lib24 module/feature gates and canonical native color conversion/pixel/space/transfer/YUV exports.",
+      "disposition": "No handwritten trait/codec; no feature/runtime coverage inferred from exports.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

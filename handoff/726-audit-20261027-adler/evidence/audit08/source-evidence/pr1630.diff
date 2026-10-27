@@ -1,0 +1,102 @@
+diff --git a/crates/adventuresim-tactical-client/src/presentation/terrain/heightmap.rs b/crates/adventuresim-tactical-client/src/presentation/terrain/heightmap.rs
+new file mode 100644
+index 000000000..293474ae8
+--- /dev/null
++++ b/crates/adventuresim-tactical-client/src/presentation/terrain/heightmap.rs
+@@ -0,0 +1,96 @@
++//! Admit a complete physical-support raster together with its encoding range.
++
++use adventuresim_tactical_core::{
++    city_layout::grounding::SupportElevation,
++    prelude::SceneTerrain,
++    scene::{SceneElevationRange, TerrainSupportError},
++    scene_coordinates::ScenePlanPoint,
++};
++use bevy::{
++    asset::RenderAssetUsages,
++    prelude::{Image, Vec2},
++    render::render_resource::{Extent3d, TextureDimension, TextureFormat},
++};
++
++pub(crate) type TerrainHeightmapResult<T> = Result<T, TerrainHeightmapError>;
++
++pub(crate) struct TerrainContactHeightmap {
++    image: Image,
++    range: SceneElevationRange,
++}
++
++#[derive(Debug, thiserror::Error)]
++pub(crate) enum TerrainHeightmapError {
++    #[error(transparent)]
++    Support(#[from] TerrainSupportError),
++    #[error("terrain heightmap dimensions {width} by {depth} exceed the image boundary")]
++    Dimensions { width: usize, depth: usize },
++    #[error("terrain heightmap texel ({column}, {row}) has nonfinite scene coordinates")]
++    TexelPoint { column: u32, row: u32 },
++    #[error("terrain elevation range exceeds the finite heightmap encoding range")]
++    EncodingRange,
++}
++
++impl TerrainContactHeightmap {
++    pub(crate) fn from_terrain(terrain: &SceneTerrain) -> TerrainHeightmapResult<Self> {
++        let range = terrain.required_elevation_range()?;
++        let dimensions = || TerrainHeightmapError::Dimensions {
++            width: terrain.grid_width(),
++            depth: terrain.grid_depth(),
++        };
++        let width = u32::try_from(terrain.grid_width()).map_err(|_| dimensions())?;
++        let height = u32::try_from(terrain.grid_depth()).map_err(|_| dimensions())?;
++        let image = encoded_terrain_heightmap_image(width, height, range, |column, row| {
++            let metres = Vec2::new(
++                column as f32 * terrain.grid_scale() - terrain.width() * 0.5,
++                row as f32 * terrain.grid_scale() - terrain.depth() * 0.5,
++            );
++            let point = ScenePlanPoint::from_metres(metres)
++                .ok_or(TerrainHeightmapError::TexelPoint { column, row })?;
++            Ok(terrain.required_height_at(point)?)
++        })?;
++        Ok(Self { image, range })
++    }
++
++    pub(crate) fn range(&self) -> SceneElevationRange {
++        self.range
++    }
++
++    pub(crate) fn into_image(self) -> Image {
++        self.image
++    }
++}
++
++// Texture coordinates, channel quantization and byte layout are native image
++// ports. The callback retains checked physical support until the normalization.
++fn encoded_terrain_heightmap_image(
++    width: u32,
++    height: u32,
++    bounds: SceneElevationRange,
++    mut height_at: impl FnMut(u32, u32) -> TerrainHeightmapResult<SupportElevation>,
++) -> TerrainHeightmapResult<Image> {
++    let minimum = bounds.minimum().metres();
++    let range = (bounds.maximum().metres() - minimum).max(0.001);
++    if !range.is_finite() {
++        return Err(TerrainHeightmapError::EncodingRange);
++    }
++    let mut pixels = Vec::with_capacity(width as usize * height as usize * 4);
++    for row in 0..height {
++        for column in 0..width {
++            let normalized = ((height_at(column, row)?.metres() - minimum) / range).clamp(0.0, 1.0);
++            let encoded = (normalized * 65_535.0).round() as u16;
++            pixels.extend_from_slice(&[(encoded & 0xff) as u8, (encoded >> 8) as u8, 0, 255]);
++        }
++    }
++    Ok(Image::new(
++        Extent3d {
++            width,
++            height,
++            depth_or_array_layers: 1,
++        },
++        TextureDimension::D2,
++        pixels,
++        TextureFormat::Rgba8Unorm,
++        RenderAssetUsages::RENDER_WORLD,
++    ))
++}

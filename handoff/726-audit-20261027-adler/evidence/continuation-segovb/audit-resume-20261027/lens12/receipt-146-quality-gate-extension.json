@@ -1,0 +1,174 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "146",
+  "predecessor": "receipt-145-originals745-751.json",
+  "registration_authorities": [
+    "REGISTRATION-120-quality-baseline-admission-and-gate.json",
+    "REGISTRATION-121-quality-baseline-scan-receiver.json"
+  ],
+  "identity": "Exact frozen6533 bytes independently hash-verified; no P16/current alias or verdict transfer.",
+  "sources": [
+    {
+      "source_id": "frozen-pr-head-required-dependency:crates/fabelgeist-rust-quality/src/config.rs",
+      "sha256": "39c47caab802ebfd7fac9e7fe4431c95f850b82fe4aed4ad144fc623b474aa83",
+      "actual_eof": 166,
+      "actual_ranges": [
+        [
+          1,
+          166
+        ]
+      ],
+      "roles": [
+        "15-21,28-30,45-48,54-59,66-88: native TOML Serde input retains path/item/fingerprint open identity text, human reason, regex and literal code/data patterns; ScopeKind34-40 already typed finite category. Exception rule54 and baseline rule84 remain raw rule identity through actual analyze158-223 and scan153/162/173/223/295 producers.",
+        "100-166: native file read/TOML decode and Regex construction concrete boundary; Result<Self,String> and format diagnostics are human error output through actual main56. Exceptions tuple duplicates rejected123-130; baseline148-155 has no corresponding duplicate-key validation. Native serde default attribute selectors are source/macro names."
+      ],
+      "status": "source-accounted WITH findings and receiving qualifications"
+    },
+    {
+      "source_id": "frozen-pr-head-required-dependency:crates/fabelgeist-rust-quality/src/analyze.rs",
+      "sha256": "c2493fa9ef6a4189e7e7f4e65dfe63895c952137311aa2ffac6e14e502fc46fa",
+      "actual_eof": 978,
+      "actual_ranges": [
+        [
+          1,
+          978
+        ]
+      ],
+      "roles": [
+        "17-39,363-435: census raw source values and native relative path/item IDs retained in ordered maps; FindingKey has raw rule/path/item/fingerprint. Concrete actual producer scan14-19/153-178/223-228/295-300 and consumer164-223; dynamic semantic-family rule name is configured namespace, not arbitrary user status.",
+        "41-92,129-317,438-454: native filesystem paths crates/rs/target/tests suffix grammars, relative separator normalization and path_matches concrete receiver452-456 scan. Findings/baseline equality controls acceptance; raw machine-epsilon rule comparison native sibling owner remains unread. Snapshot319-360 serializes same keys; duplicate map construction167-168/235-236/278-282 is source-visible last-wins admission candidate.",
+        "94-127 and every format diagnostic141-312/453: human stdout/stderr rendered text, main35/40/44/56 proves output recipient. Tests456-978 contain native Rust/TOML fixture strings, paths and diagnostic-substring assertions; all consumed as source only, no production status parsing claim. Literal raw-string-branch872/string:pending875 intentionally exercises retained key role. EPSILON/module/nested aliases exercise syntax identity."
+      ],
+      "status": "source-accounted WITH findings and receiving qualifications"
+    },
+    {
+      "source_id": "frozen-pr-head-required-dependency:crates/fabelgeist-rust-quality/src/main.rs",
+      "sha256": "88554dff8e59f2d11a96cb35e16b6a9c1c0ded514c17802df98c9f0b6982d42e",
+      "actual_eof": 60,
+      "actual_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "roles": [
+        "13-47: native argv command text check/census/baseline -> as_str finite match -> typed bool/ExitCode result; finite command owner candidate, no requirement to enum arbitrary paths. root argument PathBuf and rust-quality.toml/baseline names reach actual native fs/TOML load. usage/error text human stderr, census/baseline native serialization stdout. No execution."
+      ],
+      "status": "source-accounted WITH findings and receiving qualifications"
+    },
+    {
+      "source_id": "frozen-pr-head-required-dependency:crates/fabelgeist-rust-quality/src/scan.rs",
+      "sha256": "e7e87476917f162adedf94b0e9c279796b3ecb0e1e867c51717a3aa37a03f500",
+      "actual_eof": 537,
+      "actual_ranges": [
+        [
+          1,
+          537
+        ]
+      ],
+      "roles": [
+        "14-41,44-231: raw rule/path/item/fingerprint/census values generated/retained. Module sentinel <module>49, impl fallback274, qualify ::136 and cfg suffix417 are native Rust source identity conventions; open source names should not be finite enum. Raw rule finite prefixes153/162/173/223/295 feed actual analyze grouping/exception matching. Semantic family literals/owners/regex218 -> native Regex/context source line comparison.",
+        "234-456: source/token strings are concrete syn/quote parser grammar boundary, including generated match357->syn358, normalized string/int/float349-351, debug macro identifiers format/format_args338, token substrings339/387 and test/cfg names398-404. is_test contains(test) and debug-local substring171 are source classification findings, not human diagnostics. path_matches exact or ** suffix452-456 concrete minimal path pattern grammar; native glob semantics not assumed.",
+        "458-537: all quoted fixture TOML/Rust source/native path patterns and expected rule/fingerprint strings inventoried; tests are text only. Scope suppression for if140-147 vs match289-304 differs: fixture/catalog/shader scopes suppress if branch but match pattern only BoundaryAdapter. Intended policy unread; no automatic global defect conclusion."
+      ],
+      "status": "source-accounted WITH findings and receiving qualifications"
+    }
+  ],
+  "connected_findings": [
+    {
+      "candidate": "L12-146-quality-rule-text-identity",
+      "sources": [
+        "config.rs:54-58,84-88",
+        "scan.rs:153-178,223-228,295-300",
+        "analyze.rs:164-223,386-435"
+      ],
+      "evidence": "Internal rule identity is produced as raw string, retained in FindingKey and matched against unvalidated configuration rule text. Existing ScopeKind demonstrates finite categories; dynamic semantic family names require payload rather than finite enum of arbitrary names.",
+      "remedy": "Investigate a shared rule owner with finite built-ins and semantic-family payload, carrying open source path/item/fingerprint separately. Reject unknown rule identities at config admission when full rule registry established.",
+      "acceptance": "Consume remaining sibling rule producers/canonical owner and config data before choosing full variants; no runtime/current/global assertion.",
+      "aliases": "Root078 related quality gate candidates; unique attribution unresolved."
+    },
+    {
+      "candidate": "L12-146-quality-source-syntax-classification",
+      "sources": [
+        "scan.rs:169-178,396-405",
+        "scan.rs:140-147,289-304"
+      ],
+      "evidence": "is_test accepts cfg metadata token text containing test, including syntactically negative cfg(not(test)); visit_item_mod/fn/impl-fn returns without walking237-239/250-252/267-269. Debug local matching compares compact branch substring with identifier171. Match arm suppression differs from if.",
+      "remedy": "Use parsed cfg/identifier semantics for actual intended production policy; clarify scope policy before harmonizing branches.",
+      "acceptance": "Source-local classification demonstrated; intended cfg evaluation and all actual affected repository recipients remain unconsumed; no executed counterexample.",
+      "aliases": "Root078 cfg/scope candidates, no new unique count."
+    },
+    {
+      "candidate": "L12-146-baseline-key-admission",
+      "sources": [
+        "config.rs:148-155",
+        "analyze.rs:164-168,232-236,274-282"
+      ],
+      "evidence": "Baseline deserialization admits repeated semantic keys; collect BTreeMap silently selects last value for findings/file/function debt. Exception duplicate rejection config123-130 does not apply to baseline.",
+      "remedy": "Canonical baseline key/admission contract should reject duplicate retained identities instead of allowing text/key collision to override allowance.",
+      "acceptance": "Inspect real baseline/canonical key owner before full policy/current impact claim.",
+      "aliases": "Root078 same source candidate; unique attribution unresolved."
+    }
+  ],
+  "pending_contracts": [
+    "Actual calendar_flow/float_epsilon/manifests rule producers and canonical shared rule owner, config/baseline real entries and all external consumers remain mandatory queue.",
+    "All inherited morph/catalog/domain/native/compiler/alias/current queues preserved."
+  ],
+  "qualifications": [
+    "Full requested166/978/60/537 bodies independently consumed after prospective146 registration; no CLI/scanner/project/native/test execution.",
+    "No BC constraints; all20/P16/P17/F9/M09 and original/shared/overlay/merged populations distinct."
+  ],
+  "proposed_count": {
+    "before": 752,
+    "after": 752,
+    "indices_completed": [],
+    "next_original": 752,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "frozen-pr-head-required-dependency:crates/fabelgeist-rust-quality/src/config.rs",
+      "sha256": "39c47caab802ebfd7fac9e7fe4431c95f850b82fe4aed4ad144fc623b474aa83",
+      "ranges": [
+        [
+          1,
+          166
+        ]
+      ]
+    },
+    {
+      "source_id": "frozen-pr-head-required-dependency:crates/fabelgeist-rust-quality/src/analyze.rs",
+      "sha256": "c2493fa9ef6a4189e7e7f4e65dfe63895c952137311aa2ffac6e14e502fc46fa",
+      "ranges": [
+        [
+          1,
+          978
+        ]
+      ]
+    },
+    {
+      "source_id": "frozen-pr-head-required-dependency:crates/fabelgeist-rust-quality/src/main.rs",
+      "sha256": "88554dff8e59f2d11a96cb35e16b6a9c1c0ded514c17802df98c9f0b6982d42e",
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ]
+    },
+    {
+      "source_id": "frozen-pr-head-required-dependency:crates/fabelgeist-rust-quality/src/scan.rs",
+      "sha256": "e7e87476917f162adedf94b0e9c279796b3ecb0e1e867c51717a3aa37a03f500",
+      "ranges": [
+        [
+          1,
+          537
+        ]
+      ]
+    }
+  ],
+  "unique_count_delta": 0
+}

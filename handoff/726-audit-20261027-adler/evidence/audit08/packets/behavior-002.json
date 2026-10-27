@@ -1,0 +1,288 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-002",
+  "lens": "08 behavior-preservation",
+  "completed_original_rows": [
+    {
+      "index": 1441,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs",
+      "sha256": "256fd3e5455eea95b629cf6ee1f856cb2149bb522d91b81d8bd9820c801161e6",
+      "lines": 1409,
+      "object": "target\\recovery-20261025\\audit08\\source\\head\\256fd3e5455eea95b629cf6ee1f856cb2149bb522d91b81d8bd9820c801161e6",
+      "semantic_status": "inheritedpartial",
+      "status": "COMPLETE_WITH_INHERITED_FINDINGS_AND_QUALIFICATIONS"
+    },
+    {
+      "index": 1442,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/admission.rs",
+      "sha256": "7d0001581edb1446088662238b20c1f4e4d2f8f30f69d47aac54402e9af2dc80",
+      "lines": 43,
+      "object": "target\\recovery-20261025\\audit08\\source\\head\\7d0001581edb1446088662238b20c1f4e4d2f8f30f69d47aac54402e9af2dc80",
+      "semantic_status": "inheritedpartial",
+      "status": "COMPLETE_WITH_INHERITED_FINDINGS_AND_QUALIFICATIONS"
+    },
+    {
+      "index": 1443,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/plan_families.rs",
+      "sha256": "8e07b8a223fec8cbfa46b35aedc1732f3ff056c3000abf8db68f322517119d66",
+      "lines": 190,
+      "object": "target\\recovery-20261025\\audit08\\source\\head\\8e07b8a223fec8cbfa46b35aedc1732f3ff056c3000abf8db68f322517119d66",
+      "semantic_status": "inheritedpartial",
+      "status": "COMPLETE_WITH_INHERITED_FINDINGS_AND_QUALIFICATIONS"
+    },
+    {
+      "index": 1444,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/quickstep.rs",
+      "sha256": "33077519d29facefe510e67394af05f51874b1324ce3b4a8de4f27b657852e9c",
+      "lines": 183,
+      "object": "target\\recovery-20261025\\audit08\\source\\head\\33077519d29facefe510e67394af05f51874b1324ce3b4a8de4f27b657852e9c",
+      "semantic_status": "inheritedpartial",
+      "status": "COMPLETE_WITH_INHERITED_FINDINGS_AND_QUALIFICATIONS"
+    }
+  ],
+  "parent_partial": "predecessor/contract-groups-425-partial-handoff.json",
+  "prior_own_partial": "packets/behavior-001-partial.json",
+  "facts": [
+    "Actual PR default now clones validated compiled YAML via1862 LazyLock. Frozen YAML73-110 and178 preserves old motor constants and64Hz sample rate; old gravity alias is9.81 at physics95. Default player leg length0.840348 is identical. Existing916/952 exact leaf semantics reused from own completed proof.",
+    "Quickstep tracking new292-330 vsold390-425 preserves every error/acceleration/mass/clamp/stopping/reversal operation and0.02 guard, with typed velocity/elapsed extracted exactly. Peak force and target displacement new196-227 vsold296-327 preserve formula/fallback. Quickstep curve new169 vsold275 preserves0.31 edge and cubic.",
+    "Current1444 entire183 compact lines compared with old1441:729-865; all planar/vertical/release/landing/action-distance loops, force update order, sampling and existing fixture oracles remain. Native1/hz vs storedreciprocal agrees at actual64Hz; saturating span*2 differs only outside authored bounded defaults. No trajectory executed.",
+    "1441 steady new65-95 vsold179-205, guardsteady897-931 vsold1187-1219 preserve duration/frame-count/direction order. Actual ordinary distance old143-153 first clampsnegative speed to0; new175-192 receives nonnegative_part then same formula. Guard old speed parameter was unused per425 proof. Zero/tiny/negative/custom cycle native frame-count hazards remain old behavior, not new defects; ordinary authored steady inputs are positive/finite. Error-returning computed leaf admissions reject nonfinite instead of publishing raw output; no ordinary failure established.",
+    "425 exact full1441 head1409/diff2116 and1443 ordered families already consumed; fresh numerical supplier comparison completes that contract without rereading baseline. Prior001 actual canonical sprint formula and sample-rate provider comparison retained WITH findings. No new unique issue or global type/behavior clearance."
+  ],
+  "support_source_ranges": [
+    {
+      "role": 1860,
+      "side": "head",
+      "sha256": "5d114988a64595879b04e6f151d2a184cdf8f893f2f2b17a9987a3faf933d4ab",
+      "object": "target\\recovery-20261025\\audit08\\source\\head\\5d114988a64595879b04e6f151d2a184cdf8f893f2f2b17a9987a3faf933d4ab",
+      "read_ranges": [
+        [
+          1,
+          99
+        ],
+        [
+          766,
+          826
+        ]
+      ],
+      "exact_bytes_verified": true,
+      "scope": "Support only, no whole role credit;526 already completed and not recounted."
+    },
+    {
+      "role": "old1860",
+      "side": "base",
+      "sha256": "52fc52b4c407472083f24acbc0233ee3ceb4e1f98774490dbdc74b9d1e53ab21",
+      "object": "target\\recovery-20261025\\audit08\\source\\base\\52fc52b4c407472083f24acbc0233ee3ceb4e1f98774490dbdc74b9d1e53ab21",
+      "read_ranges": [
+        [
+          1,
+          14
+        ],
+        [
+          999,
+          1016
+        ],
+        [
+          1022,
+          1167
+        ]
+      ],
+      "exact_bytes_verified": true,
+      "scope": "Support only, no whole role credit;526 already completed and not recounted."
+    },
+    {
+      "role": 1862,
+      "side": "head",
+      "sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+      "object": "target\\recovery-20261025\\audit08\\source\\head\\970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+      "read_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "exact_bytes_verified": true,
+      "scope": "Support only, no whole role credit;526 already completed and not recounted."
+    },
+    {
+      "role": 1865,
+      "side": "head",
+      "sha256": "619803fcb9f24448df76fd87b28028c86c520edd9b41dbc7b29033c8b432234f",
+      "object": "target\\recovery-20261025\\audit08\\source\\head\\619803fcb9f24448df76fd87b28028c86c520edd9b41dbc7b29033c8b432234f",
+      "read_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "exact_bytes_verified": true,
+      "scope": "Support only, no whole role credit;526 already completed and not recounted."
+    },
+    {
+      "role": 526,
+      "side": "head",
+      "sha256": "05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+      "object": "target\\recovery-20261025\\audit08\\source\\head\\05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+      "read_ranges": [
+        [
+          73,
+          111
+        ],
+        [
+          176,
+          190
+        ]
+      ],
+      "exact_bytes_verified": true,
+      "scope": "Support only, no whole role credit;526 already completed and not recounted."
+    },
+    {
+      "role": 1886,
+      "side": "head",
+      "sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+      "object": "target\\recovery-20261025\\audit08\\source\\head\\14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+      "read_ranges": [
+        [
+          165,
+          178
+        ],
+        [
+          196,
+          231
+        ],
+        [
+          292,
+          330
+        ]
+      ],
+      "exact_bytes_verified": true,
+      "scope": "Support only, no whole role credit;526 already completed and not recounted."
+    },
+    {
+      "role": "old1886",
+      "side": "base",
+      "sha256": "c5a6375bda8f1a0a4f6c7249d87392c59af18ce57d321fb79deaf1119d85ce36",
+      "object": "target\\recovery-20261025\\audit08\\source\\base\\c5a6375bda8f1a0a4f6c7249d87392c59af18ce57d321fb79deaf1119d85ce36",
+      "read_ranges": [
+        [
+          95,
+          95
+        ],
+        [
+          269,
+          285
+        ],
+        [
+          296,
+          331
+        ],
+        [
+          390,
+          425
+        ]
+      ],
+      "exact_bytes_verified": true,
+      "scope": "Support only, no whole role credit;526 already completed and not recounted."
+    },
+    {
+      "role": 1767,
+      "side": "head",
+      "sha256": "6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+      "object": "target\\recovery-20261025\\audit08\\source\\head\\6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+      "read_ranges": [
+        [
+          135,
+          200
+        ]
+      ],
+      "exact_bytes_verified": true,
+      "scope": "Support only, no whole role credit;526 already completed and not recounted."
+    },
+    {
+      "role": "old1767",
+      "side": "base",
+      "sha256": "ce2ac88da3f6719c53fe2980e255b7142d41011e3e95453b4ace4dc89ee44c73",
+      "object": "target\\recovery-20261025\\audit08\\source\\base\\ce2ac88da3f6719c53fe2980e255b7142d41011e3e95453b4ace4dc89ee44c73",
+      "read_ranges": [
+        [
+          105,
+          171
+        ]
+      ],
+      "exact_bytes_verified": true,
+      "scope": "Support only, no whole role credit;526 already completed and not recounted."
+    },
+    {
+      "role": 1890,
+      "side": "head",
+      "sha256": "7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+      "object": "target\\recovery-20261025\\audit08\\source\\head\\7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+      "read_ranges": [
+        [
+          43,
+          65
+        ]
+      ],
+      "exact_bytes_verified": true,
+      "scope": "Support only, no whole role credit;526 already completed and not recounted."
+    },
+    {
+      "role": "old1890",
+      "side": "base",
+      "sha256": "992a1360b91614a143629876cbdefcae530e628e49d1eb430f7c8a5dd1868958",
+      "object": "target\\recovery-20261025\\audit08\\source\\base\\992a1360b91614a143629876cbdefcae530e628e49d1eb430f7c8a5dd1868958",
+      "read_ranges": [
+        [
+          40,
+          61
+        ]
+      ],
+      "exact_bytes_verified": true,
+      "scope": "Support only, no whole role credit;526 already completed and not recounted."
+    }
+  ],
+  "fresh_additional_scope": {
+    "1441_head": [
+      [
+        1,
+        58
+      ],
+      [
+        65,
+        105
+      ],
+      [
+        897,
+        957
+      ]
+    ],
+    "1441_base_saved": [
+      [
+        179,
+        217
+      ],
+      [
+        740,
+        869
+      ],
+      [
+        1187,
+        1249
+      ]
+    ],
+    "1444_head": [
+      [
+        1,
+        183
+      ]
+    ]
+  },
+  "retained_questions": "All predecessor findings, open Q002/Q003/Q008/Q009/Q010/Q011/Q012/Q014/Q015/Q017/Q019/Q022/Q023/Q024/Q025 and resolved aliases unchanged.",
+  "next_original": 1446,
+  "no_replay": [
+    1445,
+    1448
+  ],
+  "validation": "not run",
+  "repair": "not started",
+  "global_clearance": false
+}

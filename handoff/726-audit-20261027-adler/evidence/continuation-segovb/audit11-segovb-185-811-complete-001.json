@@ -1,0 +1,633 @@
+{
+  "packet": 185,
+  "lens": 11,
+  "lens_name": "type-granularity",
+  "at": "2026-10-27T05:28:10.783198+00:00",
+  "status": "811 source-accounted with qualified frozen capacity/identity/role questions",
+  "authority": {
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "prior_authoritative_state": {
+    "path": "audit11-segovb-184-proposed-state.json",
+    "sha256": "afd68daebbe19d393f657d6aaef88eddeb1e9e3140c9266fd12e1a711d31420d"
+  },
+  "root_adoption": {
+    "path": "audit11-segovb-184-adoption-root.json",
+    "sha256": "49942eeb8226ba642b568ec4058526b5c09ff0a657324379efdd5aceb78bc350"
+  },
+  "source": {
+    "original": 811,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory/occupancy.rs",
+    "sha256": "dbd62cb0c402bcb0903b4bcebdc159c2d2f35f266e4dff77c359796db40231b8",
+    "bytes": 10299,
+    "actual_eof": 287,
+    "effective_requested_scope": [
+      [
+        1,
+        287
+      ]
+    ],
+    "personally_consumed": [
+      [
+        1,
+        145
+      ],
+      [
+        146,
+        287
+      ]
+    ],
+    "full_independent_inventory": true,
+    "prior182receiveraccess": "Contextonlyafterexactidentityreverify; freshfull287 inventory performed,noautomaticcompletioncredit",
+    "source_accounted": true
+  },
+  "rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "read_status": "Prior personally read rules/skill retained, exacthashreverified; user boundedsource-only/no backwardscompatibilityconstraints apply"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "read_status": "Prior personally read rules/skill retained, exacthashreverified; user boundedsource-only/no backwardscompatibilityconstraints apply"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-type-granularity/SKILL.md",
+      "sha256": "3a1fbf7f53c752e35eefe7763cbd49b9f280bd4b978ea998f74c3a68e45dc106",
+      "read_status": "Prior personally read rules/skill retained, exacthashreverified; user boundedsource-only/no backwardscompatibilityconstraints apply"
+    }
+  ],
+  "registrations": [
+    {
+      "path": "audit11-segovb-185-registration-001.json",
+      "sha256": "93d8ca32606e2a90cf2753a2b8e3222926fb26980539229ae1b9985aaa935e58"
+    },
+    {
+      "path": "audit11-segovb-185-registration-002.json",
+      "sha256": "fd7abe28a04a538bc30751a95e198f8e6e520d6aef98341e1e115a3ad7a1587f"
+    },
+    {
+      "path": "audit11-segovb-185-registration-003.json",
+      "sha256": "7064aa65792405adc11a2994696f0c9ad09e1bc92f48a976dbd46062c5ada404"
+    },
+    {
+      "path": "audit11-segovb-185-registration-004.json",
+      "sha256": "a814478fff852f53fdd5a1fddf203856b9e05d68ffeb94377c6ddebae63b2bce"
+    },
+    {
+      "path": "audit11-segovb-185-registration-005.json",
+      "sha256": "2be193f20c35f53afe3c9675965940b39feebf694d1d242cf57cd3e05eac0858"
+    },
+    {
+      "path": "audit11-segovb-185-registration-006.json",
+      "sha256": "ac2016454bc3a78b191b414f429f055a4cc119ee1b3eade13aaab4a6e6ad5354"
+    }
+  ],
+  "new_source_reads": [
+    {
+      "original": 811,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory/occupancy.rs",
+      "sha256": "dbd62cb0c402bcb0903b4bcebdc159c2d2f35f266e4dff77c359796db40231b8",
+      "read_from": "crates/adventuresim-character-creator/src/inventory/occupancy.rs",
+      "actual_eof": 287,
+      "actually_read": [
+        [
+          1,
+          145
+        ],
+        [
+          146,
+          287
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          287
+        ]
+      ],
+      "ordered_credit": true,
+      "extra_original_shared_credit": 0
+    },
+    {
+      "original": 939,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "actual_eof": 618,
+      "actually_read": [
+        [
+          90,
+          146
+        ],
+        [
+          193,
+          255
+        ],
+        [
+          1,
+          22
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          22
+        ],
+        [
+          90,
+          139
+        ],
+        [
+          193,
+          250
+        ]
+      ],
+      "ordered_credit": false,
+      "extra_original_shared_credit": 0
+    },
+    {
+      "original": 941,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation.rs",
+      "sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "actual_eof": 2053,
+      "actually_read": [
+        [
+          560,
+          625
+        ],
+        [
+          915,
+          1000
+        ],
+        [
+          637,
+          675
+        ],
+        [
+          780,
+          881
+        ],
+        [
+          1447,
+          1454
+        ]
+      ],
+      "material_scope": [
+        [
+          560,
+          625
+        ],
+        [
+          924,
+          998
+        ],
+        [
+          637,
+          675
+        ],
+        [
+          785,
+          812
+        ],
+        [
+          869,
+          875
+        ],
+        [
+          1447,
+          1453
+        ]
+      ],
+      "ordered_credit": false,
+      "extra_original_shared_credit": 0
+    },
+    {
+      "original": 938,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_fit.rs",
+      "sha256": "a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "actual_eof": 46,
+      "actually_read": [
+        [
+          1,
+          46
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          46
+        ]
+      ],
+      "ordered_credit": false,
+      "extra_original_shared_credit": 0
+    },
+    {
+      "original": 944,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "sha256": "9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "actual_eof": 185,
+      "actually_read": [
+        [
+          1,
+          31
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          31
+        ]
+      ],
+      "ordered_credit": false,
+      "extra_original_shared_credit": 0
+    },
+    {
+      "original": 920,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment.rs",
+      "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "read_from": "crates/adventuresim-core/src/equipment.rs",
+      "actual_eof": 1182,
+      "actually_read": [
+        [
+          197,
+          279
+        ]
+      ],
+      "material_scope": [
+        [
+          197,
+          279
+        ]
+      ],
+      "ordered_credit": false,
+      "extra_original_shared_credit": 0
+    }
+  ],
+  "carried_actual_source_proofs": [
+    {
+      "path": "audit11-segovb-182-809-partial-001.json",
+      "sha256": "eaa345f977d03d0d81fbd8a50ceda01280c6c591fec32347d23bef132d3c0c74"
+    },
+    {
+      "path": "audit11-segovb-183-809-complete-001.json",
+      "sha256": "ec788fbe604cb3ca970a41ae1e3326ab39049156b5c8a7aed6df22e0bc7a1916"
+    },
+    {
+      "path": "audit11-segovb-184-810-complete-001.json",
+      "sha256": "1efd23196f71ca4b5cdca49ef43277bf8637d2406faa019403b93d8e07f85328"
+    }
+  ],
+  "role_inventory": [
+    {
+      "lines": [
+        1,
+        65
+      ],
+      "roles": "Occupancy coherently groups abstract bodycell reservations and unresolved parentrequirements. Itdiffers meaningfully fromresolvedEquipmentGraphPlacement bodycells+actualparentedges. CanonicalEquipmentLocation/Channel andEquipmentFitZone distinguishanatomicalsite/layer/zone, orderwithinsite, optionalwhole-locationreservation. from_catalog clonessameactualCatalogPlacement fields; on_body createswholelocationorder0reservationsandnoparentsforgarments. layer returnscanonicaloutermostchannel, Accessory forempty, notenumordinal reinterpretation. locations combinesbodylocations andspecifiedparentlocations; no point-specific ortransitivelyresolved locationclosure isclaimed."
+    },
+    {
+      "lines": [
+        67,
+        100
+      ],
+      "roles": "ArticleCatalog resolvesactualplacement; liveDraped andSettled sharetheirselectionoccupancy semantics whilekeepinglifecycle elsewhere. Coif mapsHead+Neck; sewnPattern componentpresence mapsTorso/arms/legs. GarmentConstruction distinguishesCoif versusSewn, separatefromarmorConstruction. ClosedLocationvalues notstrings; no phantomspatialframes/numericalbounds introduced."
+    },
+    {
+      "lines": [
+        102,
+        129
+      ],
+      "roles": "Candidate retainslocalInventoryItemId, unresolvedOccupancy, optionalcatalogEquipmentDefinition andattachment-tagborrow. Actualcatalogproducer derivesequipment/tagsfromsameitem; garmentcandidatebuiltby809usesNone/emptytags. WornGraph privatelyownscoregraph andpublictyped supportsmap; typed supports IDs differfromrawsharedcorekeys. Publicsupportmapmutation doesnotcertifygraph-cacheassociation universally."
+    },
+    {
+      "lines": [
+        131,
+        170
+      ],
+      "roles": "build maintainsorderedplacedreferences andpendingrequirements; attacheswhenparentsofferpoints, defersotherwise, reportsfirstunsupportedrequirementwhenno progress. Theprogresscount iscollectionlength, notdomainID. TypedEquipConflict payloadcarrieschannel+optional location. Existingexpect reliesonindividualsupport-failure interpretation; capacityrepairmustconsiderthisrelation."
+    },
+    {
+      "lines": [
+        172,
+        238
+      ],
+      "roles": "attach allocatesactualEquipmentGraphEdge for eachunresolvedParentRequirement. support matchestypedchannel/order, optionalparent-occupancy location, acceptedtagintersection, existingpointusage<capacity. PointID andtag areopenstableauthoredstrings withdifferentnamespaces, notdisplaylabels orclosedenum ordinals. capacitycount, capacityslotordinal andchannelorder aredifferentu16roles. Existingcommittedcount andsame-candidatereservationcount aredifferentstages ofone allocation fact; theirmissingboundassociationisrecordedbelow."
+    },
+    {
+      "lines": [
+        240,
+        287
+      ],
+      "roles": "place derives typedparentIDlistfromedges, sendsabstractbodycells+resolvededgestocoregraph, remapsbodyoverlaptoOccupied orothercoreprosetoInvalid, andrecordschild->parent supports. CanonicalID is projectedto u64 atinternalgraphboundary/reconstructedafter; notanidentifiednativeformatnecessity. dependents queriesdirecttyped supportmembership, notrecursivedescendants. Errorpresentation doesnotdrivebranching."
+    }
+  ],
+  "contract_traces": [
+    {
+      "role": "Abstract vs resolved topology and actual constructor/callers",
+      "locations": [
+        "809308-334 via182/183",
+        "81117-42,67-118,133-169,240-277",
+        "810loadout via184"
+      ],
+      "trace": "Inventory::fit suppliesonlywornarticles asCatalogPlacement candidates or garmentoccupancycandidates; outputWornGraph isconsumedbyfit/loadoutwearpolicy. Occupancy ParentRequirement containsrequiredchannel/order/optionallocation, while EquipmentGraphEdge recordsactualparentinstance/point/allocatedslot. Thosephases areusefulbespokedistinctions, notduplicate wrappers tocollapse merelybyvectorstorage."
+    },
+    {
+      "role": "Anatomical fit, layer order and occupancy conflict receiving contract",
+      "locations": [
+        "93990-123,193-219 plus182channel/locationread",
+        "9381-46",
+        "920224-255",
+        "81146-63,257-267"
+      ],
+      "trace": "EquipmentFitZone restrictsarmzones toleft/rightarm andlegzones toleft/rightleg initsfit predicate. conflicts_with requiresmatchinglocation+channel andsingletonchannelormatchingorder; whole-locationNone conflictswithanyzone, otherwiseequalzone. Coregraph normalizessingletonorder0 andusesexactsameconflict predicate forinternal andother-itembodycells; localOccupiedmapping usessamepredicate. Channel isnotanatomicalzone andorderisnotenumdeclarationordinal; raworderstoredu16 remainsrole-bearing, not automatically an arbitraryindexenum. No proofall callersvalidatezone/locationpair orpublicrecordmutations."
+    },
+    {
+      "role": "Actual parent, tag, point-key and capacity admission",
+      "locations": [
+        "939212-250",
+        "941785-812,869-875,924-998,1447-1453",
+        "9441-31",
+        "811194-237"
+      ],
+      "trace": "Genericcatalogvalidation delegates eachparentValue tocanonicalParentRequirement deserializer andvalidatesplacementnonemptyoccupancy-or-parents. ItvalidatespointIDuniqueperitem andnonempty<=64 lowercaseASCII/digit/underscore grammar, channelclosedvocabulary, capacity1..u16MAX, pointlocationsvalidunique, tagstringssameopenIDgrammar. TypedParentRequirement permits repeatedsamechannel/order requirements; no validationofcombinedpointreservationoccurs inthatfunction. Localmatcher checksparentoccupancy-reachedrequiredlocation, channel/order/tag andcommittedusedcount. Itdoesnotreadpoint.locations inthislocalmatch; no wholegraphslot-traversal/locationlegalityclaim follows."
+    },
+    {
+      "role": "Internal identity and graph acceptance receiver",
+      "locations": [
+        "811220-255",
+        "920197-279 plus182has_children/would_cycle279-318"
+      ],
+      "trace": "CoreEquipmentGraph ownsBTreeMap<u64,EquipmentGraphPlacement>, fullEq/Ord parentedges(parentu64,pointString,capacityu16). equipchecksbodyconflicts, duplicateedgekeys, conflictswithexistingedgekeys, parentnodeexistence andcycles; no pointdefinition/capacitypayloadatthisport. ExistinglocalInventoryItemId iserasedacrossanapplicationAPI, notnativeencoding; inheritedqualifiedownership/namespacequestionretained. Slotcountmustnotbeconflatedwithallocatedslot merelybecausebothu16."
+    }
+  ],
+  "qualified_source_findings": [
+    {
+      "source_key": "pr-working:crates/adventuresim-character-creator/src/inventory/occupancy.rs@sha256:dbd62cb0c402bcb0903b4bcebdc159c2d2f35f266e4dff77c359796db40231b8#L172-L237:same-candidate-attachment-capacity-reservation",
+      "classification": "Qualified frozen source-API contract gap/cross-lens evidence; notaccepted globallyunique/current/runtimefinding",
+      "severity_in_frozen_API": "P2: overbooked attachment capacity is representable and accepted at the inspected API",
+      "actual_contract": "AttachmentPointDefinition.capacity is declared positiveu16count; supportrequiresexistingused<capacity. capacity_index is the allocated slot ordinal within one(parentinstance,pointID), a differentrole fromcount/channelorder. ParentRequirementdeserializer permits two same-channel/order requirements, and graph stores full edge tuple includingcapacity_index.",
+      "trace": [
+        "811172-190 attach adjustsordinal after support",
+        "811194-237 support and existingcount-onlychildren_on",
+        "939212-246 parent/pointcapacity semantics",
+        "941966-974 positivecapacity1..u16MAX admission",
+        "94414-29 eachparentdeserialized withoutduplicate/cardinalitycrosscheck",
+        "920208-213,241-277 graph edge equality andactualacceptance"
+      ],
+      "symbolic_static_counterexample": [
+        "One alreadyplacedparentP offerspoint q, requestedchannel/order, capacity1, noexistingedgesonq; point accepts alltags. ChildC hasemptybodyoccupancy andtwo same-channel/order parentrequirements. These ParentRequirement values are individuallySerde-representable; no runtime/catalogincident implied.",
+        "First support observeschildren_on(P,q)=0<1, producesedge(P,q,0).",
+        "Second support observesunchangedcommittedgraphcount0<1, producesedge0; attachaddsonepriorlocaledge, yieldingedge(P,q,1).",
+        "Coregraph edge_keys contains two distinctfulltuples; no duplicate body/capacityedge, bothparentsPexist, childnotancestor. Itinsertsthechildplacementwithoutcarrying/checkingpointcapacity. Cthereforeoccupiesslots0and1ofcapacity1."
+      ],
+      "consequence": "The API can return a WornGraph described as conflict-free while allocating beyond one point capacity; rawu16 does not distinguish admittedallocationordinal fromcapacitycount orretainreceivingpoint association.",
+      "proportionate_reconciliation": "Use the existing point capacity when reserving each same-candidate edge, including prior local reservations and checkedcount/ordinal conversion. Propagate a structured offending requirement/capacity failure through attach/build: merelyreturningNone onaggregatecapacity failure whilebuild151-158re-searches individualsupportcanreach its expect, since eachindividualsupport maystill beSome. Reconcile shared owner/API withcanonicalfindingbeforeimplementation; no arbitrarynewcapacitylimit/genericquantityframework.",
+      "limits": [
+        "Static source reasoning only; no tests/probes/fixture/code authored or executed.",
+        "Does not assert all authored catalog admission paths currently accept a particular complete itemdocument or that real gameplay produced this state. Typed source API/deserializer and receivinggraph witness only.",
+        "No canonicalfinding/alias/current-source repair status proved; accepted_unique_count_change0. No other-lens verdict transferred. children_on count-as-u16/overflow is separate unprovededgecase, notdemonstrated by this capacity1 witness."
+      ]
+    }
+  ],
+  "qualified_source_questions": [
+    {
+      "source_key": "pr-working:crates/adventuresim-character-creator/src/inventory/occupancy.rs@sha256:dbd62cb0c402bcb0903b4bcebdc159c2d2f35f266e4dff77c359796db40231b8#L125-L128,L240-L285:typed-supports-versus-core-graph",
+      "observation": "Public typed supportsmap andprivate rawID graph representrelatedassociation; actualplaceconstructsbothfromsameedges. Arbitrarypublicsupports mutation/lostnamespace notcertified. ReusecanonicalsharedInventoryItemIdorappropriateauthoritypreservingAPI afterreconciliation; do notmergecreator andstrategicIDs bynumericwidth. Existing182sourcekey iscarried, notnewunique."
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-character-creator/src/inventory/occupancy.rs@sha256:dbd62cb0c402bcb0903b4bcebdc159c2d2f35f266e4dff77c359796db40231b8#L194-L224:point-and-tag-role-boundaries",
+      "observation": "ParentinstanceID, attachmentpointlocalID, childattachmenttag, channel/order, requiredparentlocation andpointpermittedlocations aredistinctroles. OpenStringvocabularies arenotclosedstateenums, butrawstringstorage alone givesno namespace/receivingitemmembershipproof. Thispacket documentsactualeq/tagmatching/admissionports, notallpossibleowner/namespace/pointlocationremedies oracceptedcanonicalaliases."
+    }
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer. Preserve180/181nativeSDK/Bevy scheduling/imagecopylimits andallpendingreceiverqueues. M04current903reviewsseparate; notfrozenoriginal/lenscounts. Packet182InventoryItemId graph erasure, catalogkey/recordidentity and wear/order-selector sourcequestions retained, alias/currentness/unique acceptance unresolved. M04build-target review003 atdf5 andhostedCIseparatefromfrozenauditcounts. 184 newpublicDrapedPiece association/sourcegroupingquestion remainsfrozenlocal, noalias/currentness/uniqueacceptance; producerpathcoherent. M04df5validationseparate. 185 capacityreservationstaticAPIgap retainedasfrozenevidence only; alias/currentness/accepteduniqueness unresolved. No runtimewrongID orauthoredcurrentinputwitness. ExistingID/key/wear/savedassociationquestionsremainqualified.",
+  "mandatory_other_lens_extensions": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/garment/selection.rs",
+      "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+      "actual_eof": 271,
+      "actual_access": [
+        [
+          1,
+          79
+        ],
+        [
+          111,
+          225
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          79
+        ],
+        [
+          111,
+          225
+        ]
+      ],
+      "root_provenance": {
+        "path": "audit11-root-garment-selection-staging-182.json",
+        "sha256": "5e81fcb5f5ca2e8dd9a56703c3cdc10911de94615516d90ed59eb5718d4d1ba4"
+      },
+      "proof": "Exact frozenbase3a50/head6533bytes equal, absent747changes/dirty4; no currentalias or bodycredit fromstaging",
+      "mandatory_other_lenses": "pending",
+      "original_shared_credit": 0
+    }
+  ],
+  "new_material_receiver_ranges_for_other_lenses": [
+    {
+      "original": 939,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "actual_eof": 618,
+      "actually_read": [
+        [
+          90,
+          146
+        ],
+        [
+          193,
+          255
+        ],
+        [
+          1,
+          22
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          22
+        ],
+        [
+          90,
+          139
+        ],
+        [
+          193,
+          250
+        ]
+      ],
+      "ordered_credit": false,
+      "extra_original_shared_credit": 0,
+      "status": "existingoriginalscope/ranges remainmandatory otherlenses, no transferoradditionaloriginal/sharedcredit"
+    },
+    {
+      "original": 941,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation.rs",
+      "sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "actual_eof": 2053,
+      "actually_read": [
+        [
+          560,
+          625
+        ],
+        [
+          915,
+          1000
+        ],
+        [
+          637,
+          675
+        ],
+        [
+          780,
+          881
+        ],
+        [
+          1447,
+          1454
+        ]
+      ],
+      "material_scope": [
+        [
+          560,
+          625
+        ],
+        [
+          924,
+          998
+        ],
+        [
+          637,
+          675
+        ],
+        [
+          785,
+          812
+        ],
+        [
+          869,
+          875
+        ],
+        [
+          1447,
+          1453
+        ]
+      ],
+      "ordered_credit": false,
+      "extra_original_shared_credit": 0,
+      "status": "existingoriginalscope/ranges remainmandatory otherlenses, no transferoradditionaloriginal/sharedcredit"
+    },
+    {
+      "original": 938,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_fit.rs",
+      "sha256": "a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "actual_eof": 46,
+      "actually_read": [
+        [
+          1,
+          46
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          46
+        ]
+      ],
+      "ordered_credit": false,
+      "extra_original_shared_credit": 0,
+      "status": "existingoriginalscope/ranges remainmandatory otherlenses, no transferoradditionaloriginal/sharedcredit"
+    },
+    {
+      "original": 944,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "sha256": "9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "actual_eof": 185,
+      "actually_read": [
+        [
+          1,
+          31
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          31
+        ]
+      ],
+      "ordered_credit": false,
+      "extra_original_shared_credit": 0,
+      "status": "existingoriginalscope/ranges remainmandatory otherlenses, no transferoradditionaloriginal/sharedcredit"
+    },
+    {
+      "original": 920,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment.rs",
+      "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "read_from": "crates/adventuresim-core/src/equipment.rs",
+      "actual_eof": 1182,
+      "actually_read": [
+        [
+          197,
+          279
+        ]
+      ],
+      "material_scope": [
+        [
+          197,
+          279
+        ]
+      ],
+      "ordered_credit": false,
+      "extra_original_shared_credit": 0,
+      "status": "existingoriginalscope/ranges remainmandatory otherlenses, no transferoradditionaloriginal/sharedcredit"
+    }
+  ],
+  "new_unchanged_source_extensions": [],
+  "new_unique_findings": 0,
+  "accepted_unique_count_change": 0,
+  "pending_material_receivers_for811": null,
+  "process_qualifications": [
+    "Parent authorizedexactread-onlyGit source recovery forpendingfit leaf. One gitshow of guessedconventionalpath crates/adventuresim-core/src/item_catalog_schema/fit.rs atbase3a50 failed(pathabsent) beforeanysourcebody/staging/provenancereceiptwrite. Actualregistered939header proved#[path=\"item_catalog_fit.rs\"]; that existingregistry938objectalreadycachedandexacthashmatched. No newobjectstaged, no Gitmutations, no sourceunavailability/blockerclaim.",
+    "Tofindfrozenmanifestauthority, metadataonly historicalstagingreceipts were read; packing-preview176containslocatorentries (truncated output), no frozenbody/semanticcoverageinferred. Manifest019SHA534be48... verified, onlypathabsence/metadataexamined; snapshotmetadataoutputincludedotherstatuslists butconfersno original/otherlenscoverage.",
+    "First941560-625 range isweapon-carrysubset, notgeneralparentvalidator; explicitlater941785-812 +94414-31 actualdelegation nowconsumed. Do notmislabelweapononlysubsetascompleteparentadmission."
+  ],
+  "coverage_limits": [
+    "Original811 full287 freshindependentbodyinventory afterexactSHAverification, earlier182connectedbodyreadnotautomaticorderedcredit. Only811+1proposed; no812orderedinventory orrecount938/939/941/944/920.",
+    "Newbodiesprospectivelyregistered exactranges. Fullschema939618lines/coregraph1182lines/catalog9412053linesnotconsumedthispacket. Existingexact182/183/184producer andgraphhelperproofscarriedatprecisepins.",
+    "No fullauthoritativecatalogJSONacceptedruntimewitness, currentcounterpartcomparison, gameplayincident, completevalidation/reference/capacityadmission/numericaloverflow/allpointlocationtraversal/SDK guarantee. SourcecounterexampleacceptancecarefullylimitedtotypedlocalAPI/deserializer/graphports.",
+    "941rangeactualaccessincludesunrelatedweaponcarry/protection/surfacefieldprefixes; onlymaterialscopesabovecredited. 939141-146nextenumattributes/251-255tangentfieldprefix notwholecontractcoverage. No testsafter9411494read/executed, no newtest/probe/case/helper/assertion/doctest.",
+    "No newoutsidepopulationunchangedextensionin185; correct938isexistingoriginal. Previouspendingotherlensextensionsremainmandatorywithzeroextraoriginal/sharedcount.",
+    "No product/source/projectexecution/checks/scans/probes/tests/Gitmutations/rootledger/history/publication. Read-onlyGitfailedmetadataqueryonly; appendignoredevidence/proposedstate. No compatibility/API/messagepreservationconstraint added."
+  ],
+  "source_accounted": true,
+  "source_complete_for_requested_role": true,
+  "clear": false,
+  "current_reconciled": false,
+  "integrated": false,
+  "validated": false,
+  "global_clearance": false,
+  "root_adoption_required": true,
+  "stop": "811coherentfile/receivingtrace accountedwithqualifiedcapacityevidence; stopbefore812orderedwork; rootsoleadoption"
+}

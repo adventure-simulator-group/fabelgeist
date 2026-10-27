@@ -1,0 +1,303 @@
+{
+  "at": "2026-10-27T12:56:34.165380+00:00",
+  "lens": 11,
+  "status": "928-930 independently source-accounted with qualified findings",
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-025.json",
+    "sha256": "b281378750cf5c45ae39c368def84191dac8c9a0070faadf10c92b93ddfda21d"
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-026-registration.jsonl",
+    "sha256": "e175096a50a306ac27ec47dc4be115d3a0dd0455f67f41a39f9e1abfc7e69e27"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 928,
+      "source_id": "pr-working:crates/adventuresim-core/src/foraging.rs",
+      "sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+      "actual_eof": 1278,
+      "ranges": [
+        [
+          1,
+          1278
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          1278
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 929,
+      "source_id": "pr-working:crates/adventuresim-core/src/foraging/sampling.rs",
+      "sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+      "actual_eof": 25,
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          25
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 930,
+      "source_id": "pr-working:crates/adventuresim-core/src/herbalism.rs",
+      "sha256": "501c6cf8ba05522213c175784f28e6ddecd14aaab72a490fcb4bfa846eccb203",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/501c6cf8ba05522213c175784f28e6ddecd14aaab72a490fcb4bfa846eccb203",
+      "actual_eof": 405,
+      "ranges": [
+        [
+          1,
+          405
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          405
+        ]
+      ]
+    }
+  ],
+  "material_receivers": [
+    {
+      "kind": "connected-owner",
+      "original_index": 985,
+      "sha256": "452c9b104be14352c93d247f83a87de98fa79b10c86d3b51d28eaa252a927b07",
+      "ranges": [
+        [
+          200,
+          260
+        ],
+        [
+          715,
+          835
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual generic rights binding and plan duration/completion/requirements receiving contracts",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          200,
+          260
+        ],
+        [
+          715,
+          835
+        ]
+      ]
+    },
+    {
+      "kind": "connected-owner",
+      "original_index": 1006,
+      "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+      "ranges": [
+        [
+          305,
+          392
+        ],
+        [
+          500,
+          560
+        ],
+        [
+          590,
+          710
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual generic rights binding and plan duration/completion/requirements receiving contracts",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          305,
+          392
+        ],
+        [
+          500,
+          560
+        ],
+        [
+          590,
+          710
+        ]
+      ]
+    },
+    {
+      "kind": "connected-owner-closure",
+      "original_index": 1006,
+      "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+      "ranges": [
+        [
+          393,
+          420
+        ],
+        [
+          711,
+          721
+        ]
+      ],
+      "prospective": true,
+      "reason": "complete time outcome and commit receiving body closures",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          393,
+          420
+        ],
+        [
+          711,
+          721
+        ]
+      ]
+    },
+    {
+      "kind": "connected-owner",
+      "original_index": 931,
+      "sha256": "ae086fd226814d3e6a5085e053f4e16a02c4a46ecbfbe9e0c2bf7063e6edf170",
+      "ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual preparation operation and material generic axes/policy contract",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          30
+        ]
+      ]
+    },
+    {
+      "kind": "connected-owner",
+      "original_index": 954,
+      "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "ranges": [
+        [
+          1,
+          22
+        ],
+        [
+          365,
+          415
+        ],
+        [
+          735,
+          815
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual preparation operation and material generic axes/policy contract",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          22
+        ],
+        [
+          365,
+          415
+        ],
+        [
+          735,
+          815
+        ]
+      ]
+    },
+    {
+      "kind": "connected-owner-closure",
+      "original_index": 954,
+      "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "ranges": [
+        [
+          816,
+          825
+        ]
+      ],
+      "prospective": true,
+      "reason": "Complete conservation result construction and error closure; no broader material traversal",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          816,
+          825
+        ]
+      ]
+    }
+  ],
+  "per_role": [
+    {
+      "original": 928,
+      "roles": "ForageBiome/Rarity/Source, seasonality policy, source and item identity; terrain shares, expected discovery rate, bonus, hours, yields; rights binding, plan time and completion; private resolution versus public preview.",
+      "trace": "Full1278 consumed. Normalized four-way terrain shares require each <=1000 and total1000. Expected discoveries can exceed1000 and split guaranteed integer yield from fractional remainder: this is a rate, not UnitInterval. Native draw purpose is a closed enum selecting distinct Seed/StreamId streams in929; actual upper bounds are1000/1001 or positive catalog min/max span. ForageLicenseDecision binds actor/source/Harvest/Global question to stored digest, while revision retains authority identity. Plan validates sorted unique sources and paired bindings. Generic plan time is checked in1006.",
+      "disposition": "Preserve independent environment flags and empty domain markers: generic rights permits built-in alternatives while excluding unsupported Domain variants. Preserve distinct units, rates, expected-yield counts and training-hour roles. ForageResolution has paired optional stealth DC/result in every producer and can consolidate to NotNeeded/Checked{dc,succeeded}. Public build accepts positive elapsed with resolution None although its field contract says None iff no elapsed; retain qualified association question, not a runtime violation. RequestedDuration accepts any positive minute count whereas resolve requires whole hours60..1440; duration-policy admission remains split.",
+      "remedy_acceptance": "Use an existing or focused admitted forage duration at the actual operation boundary; preserve partial elapsed boundary behavior. Group only the paired stealth outcome, and bind completed/elapsed calculation to its payload when actual producer policy requires it. Confirm trusted adapters/current source and aliases before accepting any unique finding."
+    },
+    {
+      "original": 929,
+      "roles": "FractionalYield/BaseYield/Stealth native sampling purposes, Seed and StreamId, source/item identities, nonzero upper bound.",
+      "trace": "Full25 consumed. Purpose enum selects distinct stream names; Seed derives from seed/source/item bytes; NonZeroU64 guards native below. Return is native sample/index rather than a probability owner.",
+      "disposition": "Purpose enum and canonical Seed prevent concrete stream mixups. Raw source and item string namespaces and nonzero upper-bound port remain questions; actual928 call sites establish positive fixed/catalog spans. Do not require separate wrappers for each random scalar or infer all RNG bounds."
+    },
+    {
+      "original": 930,
+      "roles": "Preparation action versus result material state; ingredient physical ID and profile ID/version; governing check, time, spirit volume and mass; private rights, plan requirements/effects and public preview.",
+      "trace": "Full405 consumed. Cut/Grind operation in931 differs from resulting Raw/Cut/Ground/Cooked/Tincture state in954. Empty domain markers exclude unsupported extensions. Singleton Exact conservation policy is a meaningful generic domain-authority token, not a duplicate built-in Exact case. Generic954 policy constructor rejects duplicate property keys and conservation verifies checked input/output/loss/tolerance before constructing receipt. Preparation rights builder tests only Allowed; unlike928 it never checks question_digest against actor/object/place/Alter. Generic1006 plan/commit verifies provenance/snapshot/replanning but receives no rights question and adds no missing binding.",
+      "disposition": "Qualified frozen API granularity/association gap: a generic Allowed decision for a different question can be supplied at this public builder boundary; trusted hydration may bind earlier, and no live exploit/current bypass/accepted unique count is asserted. Keep request action, receipt and public presentation distinct. Raw unit/rank/duration ports and u64 plan to clamped u32 preview are qualified propagation questions.",
+      "remedy_acceptance": "Reuse canonical question-bound authorization or a validated preparation-specific binding at the actual coordinates/admission boundary; do not invent generic booleans or duplicate rights owners. Reconcile aliases/currentness and trusted adapter guarantees before an accepted unique claim."
+    }
+  ],
+  "contract_limits": [
+    "985 RightsDecisionKind is exactly Allowed/Denied; no broader-kind claim. Private provenance owns RightsRevision and digest; sanitized public decision deliberately removes private evidence.",
+    "1006 resolve_time and build_plan/validate_commit consumed to complete closures; no database/authentication or live schedule execution claim.",
+    "954 verify_conservation closes at818; checked_sum820-825 is only a partial adjacent helper read and is not claimed complete. Material owner prefix ends at declaration22 and unrelated vessel/crypto/physiology bodies remain unread.",
+    "931 connected1-30 is not ordered/full72 credit. Other future receivers985/1006/954 confer no ordered credit. Existing fixtures were read as source only, never run."
+  ],
+  "qualified_findings": [
+    {
+      "source_key": "lens11:frozen:930:preparation-rights-question-binding",
+      "status": "frozen API association question; alias/current/trusted-hydration unresolved",
+      "support": [
+        "930 build_preparation_plan/decide_preparation_rights",
+        "985 PrivateRightsDecision/DecisionProvenance",
+        "928 ForageLicenseDecision contrast",
+        "1006 build_plan/validate_commit"
+      ],
+      "accepted_unique": false
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_ledger_edited": false
+}

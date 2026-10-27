@@ -1,0 +1,196 @@
+{
+  "at": "2026-10-27T04:45:02.287217+00:00",
+  "kind": "Independent source-only supplemental Code Review and final-source reconciliation",
+  "finding_family": "M04 admitted interpolation fractions",
+  "head": "903174935e1d8a07293105a9bccff17325489f3d",
+  "base": "35b18ec280a6884bb53996a2d859c4b27096f65c",
+  "initial_review_head": "5ceaa9bd5738b8b01e7d488df55c172cd4f8593d",
+  "verdict": "No actionable source defects found in the exact six-file final M04 change and scoped connected contracts. Initial Rust verdict retained after exact byte reconciliation; hosted acceptance remains pending.",
+  "findings": [],
+  "initial_review": {
+    "path": "code-review-001.json",
+    "sha256": "29f7a85f94d9fb507d0fb8bcc12e9cd6a55fcd0e61cc5118141995194e6a7161",
+    "status": "Immutable retained source review; all five Rust source hashes and exact committed bytes unchanged."
+  },
+  "scope": {
+    "manifest": "implementation-manifest-002.json",
+    "manifest_sha256": "96d764066b163106ad0d4da4c11ccf3f9da8ca6f3334076e6584b1344681dd62",
+    "full_diff": "source-002.diff",
+    "full_diff_sha256": "b65a637241a90525b10c8b0b7badce3e5705a7cdb80bf8fa81cd58137b3141a8",
+    "incremental_diff": "code-review-workflow-delta-001.patch",
+    "incremental_diff_sha256": "1913103b7aa127ceab4e6ba05ef120a41192d646f24fab65a722673e17f3918d",
+    "changed_paths": [
+      {
+        "path": "crates/adventuresim-core/src/linear_speed.rs",
+        "base_sha256": "db3686060ebd8ce533fe48c88685c5643b024b8a92b2b617d97481196988f3e0",
+        "sha256": "b1561f750844b7395f96f8fe2ee767db88d73fb8d8b6e997779493130b09f877",
+        "base_lines": 178,
+        "lines": 173,
+        "current_equals_final_commit": true,
+        "unchanged_since_initial_review": true
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+        "base_sha256": "6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+        "sha256": "7cca5e5cef2f3c3a5a11c88dba547195f36d61f4665f157c8d55eedc30179eab",
+        "base_lines": 267,
+        "lines": 267,
+        "current_equals_final_commit": true,
+        "unchanged_since_initial_review": true
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+        "base_sha256": "61864d871215d4140f142c121202374b5a8e3434504d459b29e97d7e0a889033",
+        "sha256": "3acaf77c189e6ab8abcd972e5615276d945a1ca6772ee90246feef673e8a2c69",
+        "base_lines": 207,
+        "lines": 207,
+        "current_equals_final_commit": true,
+        "unchanged_since_initial_review": true
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+        "base_sha256": "18c3232bb01109cd7ec857f3c750d2c04ffb869dd52ca42cec82524816c41206",
+        "sha256": "09565d01fd8fabbf899d84f107bdbf9c16fd6149ec61f51714599d160c1260e0",
+        "base_lines": 217,
+        "lines": 218,
+        "current_equals_final_commit": true,
+        "unchanged_since_initial_review": true
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+        "base_sha256": "2bdf24f3de20d1901bfc475d799d3a07781d9c5e22733caaea0d2365250edd0f",
+        "sha256": "51a510d3c5f039d6b7eb4ce2b1511432fb3415bf0b15152d036ec01a6394f9c8",
+        "base_lines": 522,
+        "lines": 525,
+        "current_equals_final_commit": true,
+        "unchanged_since_initial_review": true
+      },
+      {
+        "path": ".github/workflows/rust-quality.yml",
+        "base_sha256": "3f6e1cfe6c05f5f6a2bb39155e3bf0d8ec8cbdabe3f77e993971d42e56891b33",
+        "sha256": "0ad5e0e1b2b062d47f48af303bc97f1259f6d4ac99c62bef9b42588b183233b4",
+        "base_lines": 590,
+        "lines": 595,
+        "current_equals_final_commit": true,
+        "unchanged_since_initial_review": false
+      }
+    ],
+    "prospective_registrations": [
+      {
+        "path": "code-review-registration-004.json",
+        "sha256": "73314c6ef56ebad8a75d449936f6c027573a6b4ad5bba23f158da7c63441bedd"
+      },
+      {
+        "path": "code-review-registration-005.json",
+        "sha256": "b057d030c8cd22dfbe94c3d2ef53f6ec13158c09fbd62998e11fa9d0bac8050f"
+      }
+    ]
+  },
+  "identity_evidence": {
+    "exact_head_verified": true,
+    "working_tree_clean": true,
+    "actual_base_to_final_diff_equals_staged_bytes": true,
+    "changed_paths_exactly_six_manifest_paths": true,
+    "current_sources_equal_exact_final_commit_blobs": true,
+    "all_five_Rust_sources_equal_initial_review_commit_bytes": true,
+    "only_initial_to_final_path": ".github/workflows/rust-quality.yml",
+    "removing_exact_new_test_step_and_required_cell_recovers_entire_initial_workflow_bytes": true
+  },
+  "fresh_source_consumption": [
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "0ad5e0e1b2b062d47f48af303bc97f1259f6d4ac99c62bef9b42588b183233b4",
+      "actual_lines": 595,
+      "consumed_ranges": [
+        [
+          1,
+          74
+        ],
+        [
+          215,
+          226
+        ],
+        [
+          245,
+          317
+        ],
+        [
+          380,
+          455
+        ]
+      ],
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "code-review-workflow-delta-001.patch",
+      "sha256": "1913103b7aa127ceab4e6ba05ef120a41192d646f24fab65a722673e17f3918d",
+      "consumed_ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "post_read_hash_verified": true
+    }
+  ],
+  "source_backed_assessment": [
+    {
+      "contract": "Existing tests selected and executed by hosted job",
+      "sources": "movement_speed.rs259-525 retained full-body source review; workflow309-312",
+      "assessment": "The unchanged tests module contains exactly four #[test] functions, all under physics::movement_speed::tests and without ignore annotations. The new --lib substring filter physics::movement_speed::tests:: selects those four by source. The command uses --locked, the owning package, one test thread, strict shell/pipefail and tee to a dedicated log. No new or modified test source, helper, assertion or doctest."
+    },
+    {
+      "contract": "Source revision binding and artifact recipient",
+      "sources": "workflow28-74,215-226,380-455",
+      "assessment": "Checkout selects the pull-request head SHA or github.sha. The recorded Git HEAD must equal that expected revision. The required-results verifier rereads revision.txt, validates its 40-hex shape and exact expected revision, and associates the new log cell with it. The existing always-upload artifact includes target/rig-contracts and is named for that expected head."
+    },
+    {
+      "contract": "Positive execution gate and preservation",
+      "sources": "workflow394-455; exact incremental patch1-23",
+      "assessment": "The new tactical-core-movement-speed label is in the existing required-cell list. The verifier requires parseable successful test-result rows, summed passed>0 and failed==0, otherwise fails the job; Cargo failure is also propagated by pipefail. The actual entire workflow delta is additive: the four-line execution step and one required label. Prior gates, commands, path filters, permissions, source bindings, baselines and exclusions are unchanged."
+    },
+    {
+      "contract": "Count precision",
+      "sources": "workflow424-446; unchanged movement tests264/393/403/488",
+      "assessment": "Source proves the filter matches four existing non-ignored tests. The generic verifier records ignored counts and permits any positive pass count with zero failures; it does not hardcode exactly four or ignored==0. Final acceptance must independently verify the source-bound hosted log/artifact shows four passed, zero failed and zero ignored. No hosted execution result is claimed in this review."
+    }
+  ],
+  "matching_existing_tests": [
+    {
+      "name": "character_paces_are_reference_normalized_and_guard_sprint_becomes_jog",
+      "line": 264
+    },
+    {
+      "name": "sprint_speed_retains_injury_and_burden_penalties",
+      "line": 393
+    },
+    {
+      "name": "prone_walk_is_fixed_jog_is_neutral_and_sprint_costs_exhaustion",
+      "line": 403
+    },
+    {
+      "name": "movement_speed_preserves_stick_magnitude_and_caps_diagonals",
+      "line": 488
+    }
+  ],
+  "validation": {
+    "source_review_complete": true,
+    "hosted_acceptance_pending": true,
+    "expected_movement_results": {
+      "passed": 4,
+      "failed": 0,
+      "ignored": 0
+    },
+    "local_project_execution": false,
+    "new_tests_helpers_assertions_doctests": false,
+    "product_or_Git_edits": false,
+    "root_ledger_edits": false,
+    "publication": false
+  },
+  "limitations": [
+    "Retains every initial001 source, arithmetic, error-propagation, rules and range-correction qualification. This is not compiler/test/runtime/visual acceptance.",
+    "No compatibility scaffolding or old incidental error/roundoff behavior was required. Existing M03/M09 and inherited/global audit obligations remain open.",
+    "Audit13 frontier remains untouched: 37/2853 accounted; originals31/36/39 partial; original39 lines1-3200 consumed, next3201 and native version4 receiver/full tail pending. No original40 or global/lens13/all20 clearance or accepted-unique count."
+  ],
+  "stop_reason": "Bounded final M04 review complete; awaiting root-owned hosted evidence, no further source-audit packet started."
+}

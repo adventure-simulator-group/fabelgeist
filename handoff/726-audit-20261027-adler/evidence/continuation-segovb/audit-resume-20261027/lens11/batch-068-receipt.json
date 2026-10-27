@@ -1,0 +1,300 @@
+{
+  "at": "2026-10-27T15:27:10.074334+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-068-registration.jsonl",
+    "sha256": "0185d3efc229577156a01f6dad28d8d9d560f4aad17e83e468b01fefaa23c4f9"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-067.json",
+    "sha256": "a296329b984eb1a3635c79befc9f84272cbf250587502ca9a9188571dd77cc9a"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1097,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/equipment_law.rs",
+      "sha256": "0b9934bea4ea2409d1927ae01c670626d26a700fc2a8c268e9aa8d21c9faa90e",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/0b9934bea4ea2409d1927ae01c670626d26a700fc2a8c268e9aa8d21c9faa90e",
+      "ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "actual_eof": 81,
+      "prospective": true,
+      "purpose": "Independent full ordered type-granularity inventory",
+      "actual_read_ranges": [
+        [
+          1,
+          81
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1098,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/filth.rs",
+      "sha256": "5b1b42cf0757533e9b4591a203615729ea9ebd91da1891cadabb8bde74dec69a",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/5b1b42cf0757533e9b4591a203615729ea9ebd91da1891cadabb8bde74dec69a",
+      "ranges": [
+        [
+          1,
+          769
+        ]
+      ],
+      "actual_eof": 769,
+      "prospective": true,
+      "purpose": "Independent full ordered type-granularity inventory",
+      "actual_read_ranges": [
+        [
+          1,
+          769
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1099,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/filth/blood_attempts.rs",
+      "sha256": "c62050a86c8ae93213b5e6dfe2ec5137f050ff790ee91b2889f477e69b9c7f7e",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/c62050a86c8ae93213b5e6dfe2ec5137f050ff790ee91b2889f477e69b9c7f7e",
+      "ranges": [
+        [
+          1,
+          157
+        ]
+      ],
+      "actual_eof": 157,
+      "prospective": true,
+      "purpose": "Independent full ordered type-granularity inventory",
+      "actual_read_ranges": [
+        [
+          1,
+          157
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1100,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/filth/exposure_windows.rs",
+      "sha256": "f83042cfd787c6df04d003db5af5c1ba3e7b3d1fe04a5077969d3f08bd3d2ea4",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/f83042cfd787c6df04d003db5af5c1ba3e7b3d1fe04a5077969d3f08bd3d2ea4",
+      "ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "actual_eof": 27,
+      "prospective": true,
+      "purpose": "Independent full ordered type-granularity inventory",
+      "actual_read_ranges": [
+        [
+          1,
+          27
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected_original",
+      "original_index": 1146,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/organization.rs",
+      "sha256": "39842ba122cf2240e36f267f8db415dd2b54bfcc0dbd2478e813ef3c374a9645",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/39842ba122cf2240e36f267f8db415dd2b54bfcc0dbd2478e813ef3c374a9645",
+      "ranges": [
+        [
+          475,
+          536
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual presented-privilege receiving authority for equipment law; no whole future ordered credit",
+      "actual_read_ranges": [
+        [
+          475,
+          536
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1097,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/equipment_law.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              81
+            ]
+          ],
+          "roles": "Character and inventory-row identity, local settlement arms/armor policy, existing CatalogItemKind/Privilege, legal decision versus missing-data errors, removed equipped row IDs.",
+          "disposition": "BearArms/WearArmor remain useful existing closed privileges, not one broad allowedflag or per-item enum. Raw character/inventory/settlement IDs distinct. require_item_legal returns same String error channel for prohibited item and missing character/row/catalog; actual enforce71 uses all is_err as grounds to unequip. This is concrete error-classification loss with API/data-missing witness, no claim ordinary runtime data is missing.",
+          "remedy": "Canonical typed legal decision versus operational/admission failure, preserving typed Privilege and identity through owner ports; propagate data failures while separately handling prohibited equipment.",
+          "acceptance": "Legality cannot confuse restriction with unavailable authority; preserve local recognition plus actual active membership, equipment-only removal and capability/condition refresh. Prior exact core960 and character062 source reused; no global privilege policy proof or current/runtime/unique alias claim."
+        }
+      ]
+    },
+    {
+      "original": 1098,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/filth.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              20,
+              205
+            ],
+            [
+              207,
+              349
+            ]
+          ],
+          "roles": "Sanitized public filth deposit versus private source/disease snapshots, FilthSubstance/Origin, typed DiseaseId decode, depositionclock, deposit capacity and travel dirt-minute remainder.",
+          "disposition": "Private provenance/public coarse origin is meaningful authority separation, not duplication to collapse. Actual origin derives source identity at insertion and reconstruction requires provenance row. Filth amount, remainder numerator, minutes and row/episode/character IDs share raw integers but different units/roles. Actual accrual/total/deposit kernel applies canonical bounds; no malformed persisted remainder/deposit asserted.",
+          "remedy": "Reuse canonical filth amount/accrual remainder/identity owners and typed source snapshot; keep exact disease identity private and serialize only at table boundary.",
+          "acceptance": "Preserve source infection snapshot-at-deposition, absolute deposition time, no tactical replay state. Existing core926 full source proof reused; no current privacy/runtime/unique finding."
+        },
+        {
+          "ranges": [
+            [
+              79,
+              138
+            ],
+            [
+              351,
+              572
+            ]
+          ],
+          "roles": "Predicted cut-route state and duration, healing policy, personal/shared SoapStackId, cleansing-point stock, measured consumable fraction and per-character wash assignment/priority.",
+          "disposition": "Open/Bandaged/Stitched enum meaningful; boolean healing controls prediction policy. Soap source+ID prevents same numeric ID across inventory namespaces. WashSummary fields named units actually cleansing points, established core926 and conversion359-363/375-378; not whole soap units. Same cleanser amount and deposit amount relate by cleaning operation but differ inventory fraction. Actual percharacter/planned records meaningful; positional stack tuples lose count role. plan_party_wash picks first party ID468 without establishing all input IDs belong to same party; actual rest consumers048 supply ordinary party cohort, so API scope witness only.",
+          "remedy": "Canonical cleansing-point count and named SoapUse entry, preserve existing ConsumableFractionMicros conversion; admitted same-party wash cohort or explicit perparty pool, not unqualified arbitrary character slice.",
+          "acceptance": "Actual stock conversion and exact namespace preflight retained; no soap overconsumption runtime allegation or accepted alias. Avoid universalUnitInterval on aggregate stock/counts."
+        },
+        {
+          "ranges": [
+            [
+              575,
+              711
+            ]
+          ],
+          "roles": "Preview versus mutation, exact tagged stock preflight, cleaned deposit count, custody and amount checks, summary totals and scalar preview.",
+          "disposition": "Preview summary is deliberately distinct from planned mutations. Actual consumption rechecks tagged soap identity/fraction and filth owner/amount, deletes source/snapshot only on full cleaning. Raw totals duplicate derivable stack totals but built together once, no divergent actual mutation established. preview_soap_units single-character availability projection is not guaranteed equal to multi-character shared allocation.",
+          "remedy": "Name result/entries by cleansing-point semantics and retain plan+summary association where reused; typed errors distinguish unavailable stock from malformed fraction instead of unwrap_or_default silence.",
+          "acceptance": "Preserve preflight before stock mutation, exact partial-fraction consumption and private provenance cleanup; no transaction/rollback runtime guarantee inferred."
+        },
+        {
+          "ranges": [
+            [
+              713,
+              769
+            ]
+          ],
+          "roles": "Development seeded dirt/foreign blood/soap/personality fixture.",
+          "disposition": "All body consumed; fixtures not acceptance execution. Demo deletion omits provenance cleanup but fixture-only retained-state question, no run or live corruption claim.",
+          "remedy": "No changes authorized.",
+          "acceptance": "No execution/deletion/publication permission inferred."
+        }
+      ]
+    },
+    {
+      "original": 1099,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/filth/blood_attempts.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              157
+            ]
+          ],
+          "roles": "Absolute blood window, preview/persist cursor mode, healing prediction, optional party plan, work budget/count, DiseaseId/episode/deposit identities, cut affordance/residual exposure, acquisition proposal and checkpoint.",
+          "disposition": "Source separates proposed exposure attempt from committed infection and cursor; existing AcquisitionAttempt::exposure owner retained. persist_checkpoint and allow_healing are separate domain policy axes; raw bools obscure call meaning. Optional plan selects pinned versus lookup check source, not no clinical exposure. from exclusive/to inclusive and checkpoint monotonic boundary explicit. Checkpoint derived stringkey+character+disease duplicates same fact but actual writer coherent.",
+          "remedy": "Typed evaluation/commit policy and healing/check-source roles, canonical identity/window/work units; named checkpoint key deriving stored association. Reuse existing AcquisitionAttempt and dose/affordance owners; no second clinical owner.",
+          "acceptance": "Preserve deterministic absolute-minute seed/checkpoint, bounded work and private foreign-blood filtering; final clinical acceptance/runtime/currentness separate. Existing fixture source read, no tests run or added."
+        }
+      ]
+    },
+    {
+      "original": 1100,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/filth/exposure_windows.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              27
+            ]
+          ],
+          "roles": "Native core blood-window adapter and disease-route predicate.",
+          "disposition": "blood_infectious_windows is direct forwarding wrapper with identical types/behavior; concrete simplification import canonical function directly while retaining module predicate if needed. Predicate meaningfully narrows starter definitions to Blood vector and checks actual windows. Tuple absolute window endpoints can reuse canonical window owner without inventing duration/age equivalence.",
+          "remedy": "Remove unnecessary forwarding path within future repair, share canonical interval/identity owners beneath actual window policy.",
+          "acceptance": "Preserve exact core926 evaluator and closed compatible route selection; no SDK/execution or whole native algorithm proof claimed."
+        }
+      ]
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-025-receipt.json",
+        "sha256": "da2167395504955b78e9c36ddd77daeb4b3337f7a00fb6905b77d85b096ddaf4"
+      },
+      "contract": "926core filth full631, actual cleansing points vs whole-unit contract, blood window/exposure/route/provenance native bodies."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-027-receipt.json",
+        "sha256": "871ad0df2778d657e3f880a3444f1c99f36a6d2b9258c12e6a57bb3c11a97b41"
+      },
+      "contract": "933inventory measurement full804 existing canonical fraction owner."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-060-receipt.json",
+        "sha256": "6f4d66ee0ace59f2431dcc84532f71662cf68c37b2a04a1477ff3917e5ea4b15"
+      },
+      "contract": "1118inventory amount actual1-162 read, real measured fraction consume ports; no whole future ordered credit."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-034-receipt.json",
+        "sha256": "1c32165aeec548d529c12cad8746034abe727fc5e73834f77ce581d3338e1510"
+      },
+      "contract": "960organization canonical Privilege/settlement policy exact full source."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-048-receipt.json",
+        "sha256": "45172eb33f46a6e35fe8c12f09f1b87fa6087f0e3029842e5421f6813eb6b2b1"
+      },
+      "contract": "1017time full860 actual ordinary party rest wash callers."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-067-receipt.json",
+        "sha256": "e02e209bcb9d7257a2a89762ff62094e269991a6d7e48af1897a8e10b7047e7f"
+      },
+      "contract": "1093full disease shared interval plan and exposure receiver roles."
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Inherited qualifications, mandatory other-lens/source/currentness/alias queues retained.",
+    "No product/Git/rootledger/publication or project checks/probes/tests executed.",
+    "1146 only475-536 actually consumed; begins with effective-presentation helper tail, then reconcile_presentation and presented_privilege complete; global_presented_privilege signature/body not consumed. No whole future ordered credit.",
+    "Public arbitrary party-wash slice/missing-data law errors are qualified API witnesses, not observed runtime or security incidents."
+  ]
+}

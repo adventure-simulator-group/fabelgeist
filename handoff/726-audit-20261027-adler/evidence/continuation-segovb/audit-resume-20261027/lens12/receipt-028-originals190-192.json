@@ -1,0 +1,445 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "028",
+  "predecessor": "receipt-027-originals188-189.json",
+  "manifest_prefix_sha256": "c3b84367f17463e09911e5e6ef5e336dfd8de7830fb9833d3e84d3bb458f3c44",
+  "sources": [
+    {
+      "original_index": 190,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/corpse.rs",
+      "sha256": "7c9ccbcd887b073dab9e1e468d3e89b3b491124213383e12957c5e5736f06242",
+      "actual_ranges": [
+        [
+          1,
+          2122
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              64,
+              202
+            ],
+            [
+              222,
+              303
+            ],
+            [
+              641,
+              747
+            ],
+            [
+              756,
+              814
+            ],
+            [
+              958,
+              1092
+            ],
+            [
+              1120,
+              1599
+            ],
+            [
+              1601,
+              1777
+            ],
+            [
+              1827,
+              1977
+            ]
+          ],
+          "role": "Raw corpse/source/party/settlement/action/injury/family/permission/receipt IDs in fields, inputs, equality, lookup and composite formats",
+          "disposition": "Canonical open identity should survive application APIs; actual native DB key formats371/669/713/779/780/983/1007/1077/1648/1660/1750/1767/1920/1931 are concrete output ports. Action ID grammar351-360 validates but discards admission proof. Exact outer reducer/topic producer and native SDK constraints unread; keep open IDs open."
+        },
+        {
+          "ranges": [
+            [
+              112,
+              125
+            ],
+            [
+              427,
+              452
+            ],
+            [
+              699,
+              724
+            ],
+            [
+              1069,
+              1118
+            ]
+          ],
+          "role": "Body region erased from BodyPart or BodyRegion to raw labels at storage then matched back433-441",
+          "disposition": "Existing BodyPart/BodyRegion owners concrete at producers716/1080 and parser434-440. Carry canonical region variant through corpse injury state; convert typed owners explicitly without text roundtrip. Stomach/abdomen acceptance is source inventory, not a preservation requirement."
+        },
+        {
+          "ranges": [
+            [
+              170,
+              202
+            ],
+            [
+              204,
+              220
+            ],
+            [
+              363,
+              413
+            ],
+            [
+              415,
+              518
+            ],
+            [
+              567,
+              635
+            ],
+            [
+              1120,
+              1241
+            ],
+            [
+              1243,
+              1599
+            ]
+          ],
+          "role": "Discipline, examination stage, action kind, location, decomposition and permission raw strings",
+          "disposition": "surgery/physiology/bestiary choose capability, interpretation and systemic evidence; external/internal choose duration and opened-state admission. Existing typed CorpseLocation/DecompositionBand/PermissionKind are erased into DTO labels; optional permission none token. Receipt action_kind confusingly stores discipline1235/1339 but action literal1426/1490/1591. Define canonical action payload with discipline/stage ownership; admit once at ingress, retain typed state and project/encode at real native boundary."
+        },
+        {
+          "ranges": [
+            [
+              102,
+              110
+            ],
+            [
+              476,
+              487
+            ],
+            [
+              726,
+              745
+            ]
+          ],
+          "role": "Pathology snapshot raw JSON String with actual native serde encode742 and decode483",
+          "disposition": "Concrete serialization boundary proven. Use bespoke snapshot codec/checked wrapper across storage rather than arbitrary String; do not claim serde/native implementation correctness or whole pathology admission."
+        },
+        {
+          "ranges": [
+            [
+              306,
+              347
+            ],
+            [
+              1548,
+              1579
+            ],
+            [
+              1601,
+              1777
+            ],
+            [
+              1799,
+              1949
+            ]
+          ],
+          "role": "Permission approach parsed to existing PermissionPetitionApproach then immediately erased, profession/local-role/service and organization text drive authority; reputation event labels",
+          "disposition": "personal/command/professional/religious/guild actual enum conversion1631-1645 then retained1745 and generatedtopic1931. Use existing approach throughout including typed topic payload. professional_fit1715-1717 and titledpermission1811-1815 use raw authored demographics/service IDs to control permission, not presentation. Exact resident producer and topic decoder unread. Reputation unauthorized_autopsy323/corpse_burning1556 are semantic event kinds; exact recipient pending."
+        },
+        {
+          "ranges": [
+            [
+              406,
+              518
+            ],
+            [
+              592,
+              635
+            ],
+            [
+              674,
+              680
+            ],
+            [
+              752,
+              954
+            ],
+            [
+              1020,
+              1027
+            ],
+            [
+              1339,
+              1344
+            ],
+            [
+              1426,
+              1429
+            ],
+            [
+              1490,
+              1492
+            ],
+            [
+              1591,
+              1595
+            ],
+            [
+              1874,
+              1893
+            ],
+            [
+              1930,
+              1940
+            ]
+          ],
+          "role": "Human wording/name/description versus semantic catalog IDs, demo source suffixes and lint rationale",
+          "disposition": "Finding wording is presentation with actual typed AutopsyFindingKind controlling evidence412; no claim prose drives evidence. Buried body596 and formatted finding messages1342/1428/1492/1594 and choice labels are text. Demo threat names872-885/922 pass actual autoresolve_enemy; surgery_kit856/858 actual inventory lookup, human1027 creature tag, fixtures are not exemption. Display names893/907/921 prose; caller/native catalog dependencies pending. Two lint reason strings754/1123 are source explanatory text."
+        },
+        {
+          "ranges": [
+            [
+              222,
+              303
+            ],
+            [
+              351,
+              398
+            ],
+            [
+              641,
+              696
+            ],
+            [
+              726,
+              745
+            ],
+            [
+              756,
+              814
+            ],
+            [
+              819,
+              954
+            ],
+            [
+              961,
+              1092
+            ],
+            [
+              1120,
+              1599
+            ],
+            [
+              1601,
+              1688
+            ]
+          ],
+          "role": "All raw String validation/failure producers and fallible text APIs",
+          "disposition": "Missing rows, authority/location/permission/revision/stage/discipline/state/capacity/encoding failures are internal prose via String and actual227 Operation(String). Grouped exact body ranges include every failure occurrence; retain typed causes and relevant payloads to actual native output. No claim errors parsed by external consumers."
+        },
+        {
+          "ranges": [
+            [
+              1979,
+              2122
+            ]
+          ],
+          "role": "All existing test strings: wording fixtures1986-2001; self include paths2008/2028/2071/2095/2110/2117; lexical source assertion templates and symbols2009-2045/2072-2075/2096-2100/2111-2112/2118-2120; demographic and empty-ID fixtures2051-2067",
+          "disposition": "Source-sensitive strings compare source bytes, not gameplay text authority; existing tests source read only, no execution. Demographic fixtures exercise actual raw authority selector1799. No test/catalog/constant exemption."
+        },
+        {
+          "ranges": [
+            [
+              1,
+              63
+            ],
+            [
+              203,
+              221
+            ],
+            [
+              304,
+              305
+            ],
+            [
+              348,
+              350
+            ],
+            [
+              374,
+              377
+            ],
+            [
+              399,
+              405
+            ],
+            [
+              519,
+              566
+            ],
+            [
+              636,
+              640
+            ],
+            [
+              697,
+              698
+            ],
+            [
+              748,
+              755
+            ],
+            [
+              815,
+              818
+            ],
+            [
+              955,
+              957
+            ],
+            [
+              1093,
+              1094
+            ],
+            [
+              1119,
+              1119
+            ],
+            [
+              1778,
+              1798
+            ],
+            [
+              1950,
+              1978
+            ]
+          ],
+          "role": "Remaining declarations, typed arithmetic/calls, native macros and comments",
+          "disposition": "No additional string fields/APIs/literals beyond individually grouped exact source roles. No sibling/generator/native/behavior/math/authority clearance."
+        }
+      ],
+      "status": "Full requested source body read independently and accounted with findings; delegated dependencies explicit."
+    },
+    {
+      "original_index": 191,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/corpse/autopsy_context.rs",
+      "sha256": "3b26e430df2bfed7d8872f969645bf2f86aa1792c64fcf0dfdb95834c793c6ab",
+      "actual_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              25
+            ]
+          ],
+          "role": "Zero string literals or string-valued APIs",
+          "disposition": "Actual corpse typed timestamp/context projection only. No autopsy math or other-lens verdict."
+        }
+      ],
+      "status": "Full requested source body read independently and accounted with findings; delegated dependencies explicit."
+    },
+    {
+      "original_index": 192,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/corpse/draws.rs",
+      "sha256": "3a497fff6699e3e757043e6c8b448fbac0a1fb0c182489a328a9cba84f2776d2",
+      "actual_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              27
+            ]
+          ],
+          "role": "Two stream names7/21 immediately StreamId; receipt_id4 and attempt_id18 raw &str feed native Seed bytes6/11/20",
+          "disposition": "Actual native byte/hash boundary is proven by body, with typed actor/revision little-endian byte framing9-10. Source identity should remain typed to that port. Existing own2531 native constructor evidence applies exact helper contract, no whole SDK/hash output preservation claim."
+        }
+      ],
+      "status": "Full requested source body read independently and accounted with findings; delegated dependencies explicit."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Corpse examination/permission semantic owners and open reference identity",
+      "sources": [
+        "190:64-220,351-518,1069-1239,1601-1949",
+        "192:4-27"
+      ],
+      "remedy": "Carry typed corpse identity, region, examination/discipline/stage and PermissionPetitionApproach payloads through state/application APIs and dialogue topics; convert at native text boundary. Preserve finding wording as presentation.",
+      "acceptance": "Finish resident demographics/service owner fit, actual topic decoding and external reducer/native schema receivers before repair. Keep no BC, no runtime claims.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actual dialogue corpse-permission topic decoder/approach caller and external backend corpse projection receiver.",
+    "Actual resident profession/local role/service/organization producer, hostile/catalog threat/creature producer and canonical ID alias fit.",
+    "Actual reputation event-kind receiver, investigation evidence knowledge recipient and native Item producer; serde/native SDK implementation unclaimed.",
+    "All inherited aliases/all20/P16/P17/F9/M09/currentness/population obligations preserved."
+  ],
+  "qualifications": [
+    "Exact f82 physical-P16 bytes only; no current alias or old input/output preservation.",
+    "No product/Git/rootledger/publication/project execution/tests/probes/new tests.",
+    "Own lens12 source accounting with findings; no global/native/runtime/unique-total/other-lens clearance."
+  ],
+  "proposed_count": {
+    "before": 190,
+    "after": 193,
+    "indices_completed": [
+      190,
+      191,
+      192
+    ],
+    "next_original": 193,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/corpse.rs",
+      "sha256": "7c9ccbcd887b073dab9e1e468d3e89b3b491124213383e12957c5e5736f06242",
+      "ranges": [
+        [
+          1,
+          2122
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/corpse/autopsy_context.rs",
+      "sha256": "3b26e430df2bfed7d8872f969645bf2f86aa1792c64fcf0dfdb95834c793c6ab",
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/corpse/draws.rs",
+      "sha256": "3a497fff6699e3e757043e6c8b448fbac0a1fb0c182489a328a9cba84f2776d2",
+      "ranges": [
+        [
+          1,
+          27
+        ]
+      ]
+    }
+  ]
+}

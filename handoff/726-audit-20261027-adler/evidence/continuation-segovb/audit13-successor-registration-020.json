@@ -1,0 +1,43 @@
+{
+  "at": "2026-10-27T01:33:33.426244+00:00",
+  "lens": 13,
+  "packet": "020",
+  "scope": "Resolve bounded original37 native MaterialUniforms producer/upload/MATERIAL_DEBUG/default material selection subset; stopremaininghistoryorconditionalfrontier; no38orderedread/credit",
+  "prior_root_adoption": "audit13-successor-019-adoption-root.json",
+  "prior_adoption_sha256": "5eac070d139c548e2a3d81c1e9d87b314972bc3cc2d83c8d7e668d68c288994e",
+  "prior_state": "audit13-successor-019-suggested-state.json",
+  "prior_state_sha256": "1a8676034b6c17a331e0f72e34aa4bc98b10cd7d959e293cce5337f72d5164cc",
+  "native_staging": "audit13-native-material-staging-020.json",
+  "native_staging_sha256": "46385b8d794475600605d5f19c1169b4a250baf88977b81c3a940e20696bf047",
+  "sources": [
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/material.rs",
+      "sha256": "67733383aa74089a84e76448e23b6911132a2a298ab684e44655f8e85fa0765c",
+      "bytes": 5459,
+      "actual_lines": 203,
+      "ranges": [
+        [
+          1,
+          203
+        ]
+      ],
+      "purpose": "Actual native material trait/default/featurekey/specialization/AsBindGroup uniform producer",
+      "body_consumed_at_registration": false
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepared_material.rs",
+      "sha256": "768aee9dc6ac7401d6c33c3b40196b416a56ace65352de1419e8a7c26472f813",
+      "bytes": 3950,
+      "actual_lines": 109,
+      "ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "purpose": "Actual RenderAsset preparation/AsBindGroup upload anddefault shader handle resolution",
+      "body_consumed_at_registration": false
+    }
+  ],
+  "qualifications": "ExactimmutableGit1a5aff members,knownfrozenoriginal37peer equalitydoesnotproveallunseenfrozen/currentmembers. Newreceivingmembersonly; nofutureoriginal/otherlens/globalcredit, noprojectexecution/productGitedits."
+}

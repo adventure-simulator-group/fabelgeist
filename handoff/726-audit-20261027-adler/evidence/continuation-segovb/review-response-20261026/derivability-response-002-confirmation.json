@@ -1,0 +1,14 @@
+{
+  "id": "PR988-DERIVABILITY-CONFIRMATION-002",
+  "at": "2026-10-26T20:29:02.451417+00:00",
+  "initial_receipt": "derivability-response-001.json",
+  "initial_sha256": "fd9ddfdb53c3e08c7dad50219b901f976da516c33097d671f927d16c4eb17001",
+  "root_candidate": "One derive_more2.1.1 dependency display,error; ValidationScopeError deriveDisplay+Error, each tuplevariant #[display(\"{_0}\")] and solefield #[error(source)]; TextureViewError deriveDisplay only and retain manualError with cause.as_ref().",
+  "disposition": "Confirmed equivalent to initial recommendation. Explicit tuple field/source annotations choose the same field as inference. derive_more Display transparent single-field format detection calls Display::fmt(field,sameformatter), preserving delegated formatting; explicit Error source keeps immediate unboxed native/progress type. Texture boxed source manual impl remains necessary for current downcast identity.",
+  "rationale_comment": "Document that manual TextureViewError::source deliberately dereferences Box so callers see concrete wgpu::Error/ValidationProgressError rather than Box<...> as dynamic immediate cause. Progress needs its own arm because the boxed concrete type differs.",
+  "scope_limit": "No review of root proposed shared ValidationObservation refactor or altered producer/poll/guard behavior implied. This receipt covers trait derivation only; native limits and prior source pins retained.",
+  "source_changes": false,
+  "project_checks_or_tests": false,
+  "git_or_ledger_changes": false,
+  "publication": false
+}

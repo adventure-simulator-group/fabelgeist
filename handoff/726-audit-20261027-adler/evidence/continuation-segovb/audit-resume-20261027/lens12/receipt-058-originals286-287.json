@@ -1,0 +1,197 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "058",
+  "predecessor": "receipt-057-originals283-285.json",
+  "manifest_prefix_sha256": "5ecc8bf17bf36bd7c00ad446ab4a08b0c947e3e48129f1f4c1c1d6d687f7114b",
+  "sources": [
+    {
+      "original_index": 286,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/incidents.rs",
+      "sha256": "51e52195d492033c61465104cf8ec4a29e9b3f64fa7cd6cd13a141b8028a5a16",
+      "actual_ranges": [
+        [
+          1,
+          703
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              703
+            ]
+          ],
+          "role": "All raw party/settlement/site/hostile/action-token fields and ports6/15/16/18/122/125/262/387/525/606/652/653/659-661/673/674. IncidentId/SourceId wrappers value162-166/219/232 and native action token hexadecimal232. Title4 and description5 retained210-211 are narrative text. CaseSiteId constructed207/255 after raw helpers.",
+          "disposition": "Canonical open IDs and action token should span application/native projection. Narrative title/description retain text owner and output semantics. Native hash/key formatting162/166/219/232/307/370/497/508/627/638/667/679/684/687 is exact encoding boundary, not finite gameplay enum. No old key/digest/seed output preservation requirement."
+        },
+        {
+          "ranges": [
+            [
+              120,
+              227
+            ],
+            [
+              260,
+              325
+            ],
+            [
+              387,
+              514
+            ],
+            [
+              604,
+              690
+            ]
+          ],
+          "role": "Threat raw IncidentSpec.enemy_type6 parse129 discards owner then raw224 into existing269 materialize; authored angry_mob323/armed_retainer401/town_watch409/417/432. Activity raw kind closure387 and raiding396/398,thievery404/406,carousing_disorder412/414,authority_arrest429 then rematch439-443 to existing IncidentKind plus raw kind_key; raw source identity454/667, reputation500 and offense511; resisting_authority630/641. Religion string equality287 selects religious incident. StreamId incident.fervor302 and hash domain389 are native deterministic boundaries.",
+          "disposition": "Carry existing ThreatId/IncidentKind or canonical incident subtype through generation, source identity, reputation and offense state; actual244 raw reputation/offense recipients previously read. Avoid transient raw tuple and default branch used to reconstruct known typed incident. Canonical OfficialReligion spans character condition/settlement equality; existing186 owner evidence. Deterministic API may encode typed eventkind at kernel, not untyped internal roll API."
+        },
+        {
+          "ranges": [
+            [
+              1,
+              703
+            ]
+          ],
+          "role": "All error literals175/179/181/339/352/362/486/533/538/545/549/564/577. No tests or additional string constants in703. Native hash domain authority-arrest679 and fingerprint684, sourceformats above.",
+          "disposition": "Keep typed error causes until external rendering. Remaining source is typed/numeric or rawreference roles above; actual finish_incident_for_hostile_group604-647 receives raw group identity and typed IncidentKind, connected actual287 resolution commit1181. Full reputation native getters/helper internals outside earlier ranges stay pending."
+        }
+      ],
+      "status": "Full requested changed703 independently read; source-accounted WITH findings."
+    },
+    {
+      "original_index": 287,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "sha256": "85c8f2c699beb1c00311678bbe179a5cc75bb33c607051bd967e91c9e6eba749",
+      "actual_ranges": [
+        [
+          1,
+          3250
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              3250
+            ]
+          ],
+          "role": "Entire open item/party/settlement/mission/battle/source/group/case/objective/subject ID and service/location ports: item163/274/282/475/484,party474/483/565/595/859/1705/1717/1755/1767/1801/3095/3112,mission781/907,commit928-948, storefront2209/2210/2246/2247/2249/2290/2291/2293/2368-2373/2478-2480/2508-2509, battle1442. Native state/copy/map joins throughout, including dropped item String935/HashMap1361. Typed CaseId constructed674/881, SubjectId1163, native-key CaseSiteId remains typed in commit946.",
+          "disposition": "Canonical open identity owners span application/state/joins and collections; actual native DB encoding may be raw only at final boundary. Existing core151 BuyLine raw item plus parse contract,269 raw retained authority and273 producers connected. Storefront route typed late2380/2556 should enter at actual ingress and stay typed in execution rather than raw service_id2509; service/location provider equality2490/2498/2598/2600 actual recipients."
+        },
+        {
+          "ranges": [
+            [
+              619,
+              1435
+            ]
+          ],
+          "role": "Mission candidate raw IDs compared625-649/685/710/715 and892; CaseId constructed674/881; native ObjectiveExpression/fact JSON661/669/868/876. mission_approach_capability_id744-758 formats raw case/site/group/objective/subject references, optional absence dash756-757. StreamId mission.outcome-candidates733/mission.outcome-selection770 receives ID bytes725/726/732 at actual deterministic kernel. Bound/battle/outcome native formats831/832; resolution fact suffixes1112/1123/1154.",
+          "disposition": "Actual missing273 capability ID helper now read, no future-original transfer. Existing canonical mission/case/objective/subject IDs should span candidate/state/capability/evaluate; native codec/hash derivation owns final bytes/absence encoding. Actual core120 constructor style must be reconciled before repair; no old key/hash/seed/output compatibility requirement."
+        },
+        {
+          "ranges": [
+            [
+              939,
+              1435
+            ]
+          ],
+          "role": "Shared HostileResolutionCommit raw references940-948 copied into receipt1185-1193; typed resolution947 preserved. Existing OutcomeSourceId1221/BattleId1222/MissionId1224/HostileGroupId1227 admission discarded before same raw retry1235-1239 and retained1290-1299. store_battle_loot admits BattleId1447 then keeps raw comparisons/joins1466-1475. Actual commit receives283 negotiation and285 surrender and calls286 incident completion1181.",
+          "disposition": "Concrete checked-owner erasure; keep canonical admitted IDs through commit/retry/state/ingestion. Shared resolution typed variants1096-1168 already own finite outcome; do not invent strings for these. Actual ingestion/transition/roster helpers and native public projections remain separately pending, not authority/runtime cleared."
+        },
+        {
+          "ranges": [
+            [
+              2201,
+              2998
+            ]
+          ],
+          "role": "Merchant convenience raw merchants2217/2224 and market2217, execution service String2509 reparsed2556 into existing MerchantStorefrontRoute, raw IDs passed and compared against NPC profiles2598 and location2600/default provider2490/2498. Typed SettlementService Market/GeneralStore1989/1996 and typed TradeScope2525-2528 already retained.",
+          "disposition": "Use existing canonical MerchantStorefrontRoute/Storefront/SettlementService/PopulationLocation owners through producer/execution/provider recipient rather than close open IDs or multiply enums. Concrete own253/254/255 raw service/location producer evidence connected. Actual151 owner API previously fully read; final native representation/gateway/request producer migration still required."
+        },
+        {
+          "ranges": [
+            [
+              1,
+              3250
+            ]
+          ],
+          "role": "All production error/prose/format strings grouped across transfer20-85,valuation170-270,add518,stake582,reserve608,mission662/670/674/740/788/794/818/820/869/877/881/922,commit987-1164/1243-1284/1307/1314/1404/1410/1417,loot1450-1546,deposit1573-1666,currency1733/1778/1813,withdraw1848-1916,liquidation1975-2043,discard2083-2112,offer2168-2186,storefront2204/2241/2285/2315-2445/2563-2620/2648-2827/2850/2880/2910/2950/2954/2963/2968/2971/2980/2993,party-removal3018-3056/disband3116-3179. OperationalCustody typed errors flattened52/1604/1894; parsed mission state789/809/851/912/916 and offer2155/payment2325 errors flattened.",
+          "disposition": "All diagnostic literals have concrete error-rendering context; keep canonical typed causes and coded ReducerErrorCode2435/2604 until final output rather than application String. No hidden finite enum exemption. String messages and lint reasons are prose, not mechanically compared in production here. Full source read does not prove numeric/transaction/custody semantics or other lenses."
+        },
+        {
+          "ranges": [
+            [
+              290,
+              470
+            ]
+          ],
+          "role": "All existing test strings: semantic catalog fixture linen_tunic295; source symbol/path markers304/307/310-312/314-333,367-411,421-468; test helper section(source,start,end)&str347 is literal source extraction. Includes item.rs441 only pathtext, no new child coverage. Medication error-message substring456/467 couples test to prose.",
+          "disposition": "Source lexemes and paths are concrete source inspection boundary; linen_tunic remains semantic authored open catalog ref requiring canonical owner as any fixture. Read only, no execution/additions or test-acceptance claim. Remaining3250 sections typed/numeric/reference/error roles above."
+        }
+      ],
+      "status": "Full requested changed3250 independently read in four contiguous outputs1-820/821-1640/1641-2460/2461-3250; source-accounted WITH findings."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Incident kind/threat and canonical strategic IDs erased before internal state/selection/retry",
+      "sources": [
+        "286:6,129,224,323,387-454,500-511,630-667",
+        "287:744-758,928-948,1163,1221-1239,1447-1475,2217-2224,2380,2490-2509,2556-2600"
+      ],
+      "remedy": "Carry existing typed incident/threat/mission/case/item/reference/service owners across connected producers, retained state and actual recipients; encode only at concrete native boundary.",
+      "acceptance": "Reconcile earlier actual core120/151 and schema269/producer273/hostile283-285 aliases, native gateway codecs and unread ingestion/helper contracts before implementation.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actual mission capture parser273 tail, ingestion/custody/roster/native projection and gateway request contracts remain qualified; shared resolution commit953 now read but not runtime/authority certified.",
+    "Open PartyMember.role downstream semantic consumer still unread; inventory remove/disband body read does not interpret role text.",
+    "Native hash/seed/codec implementation beyond own prior exact ports unclaimed.",
+    "288 limited material ranges are next; no whole foreign body scope."
+  ],
+  "qualifications": [
+    "Frozen f82 physical-P16 bytes, not current alias.",
+    "User no backward compatibility; no old result/schema/key/hash/seed/message preservation requirement.",
+    "No project/native/tests/probes, source/Git mutations/root ledger/publication.",
+    "Source-accounted WITH findings only; all inherited F9/M09/all20/P16/P17 aliases/currentness and other-lens obligations preserved; no unique-total/global clearance."
+  ],
+  "proposed_count": {
+    "before": 286,
+    "after": 288,
+    "indices_completed": [
+      286,
+      287
+    ],
+    "next_original": 288,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/incidents.rs",
+      "sha256": "51e52195d492033c61465104cf8ec4a29e9b3f64fa7cd6cd13a141b8028a5a16",
+      "ranges": [
+        [
+          1,
+          703
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "sha256": "85c8f2c699beb1c00311678bbe179a5cc75bb33c607051bd967e91c9e6eba749",
+      "ranges": [
+        [
+          1,
+          3250
+        ]
+      ]
+    }
+  ]
+}

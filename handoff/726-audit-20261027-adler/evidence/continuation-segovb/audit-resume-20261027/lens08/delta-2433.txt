@@ -1,0 +1,11 @@
+--- base:8371a3ca914ea92fbfa4f0c2f57b2e8a7e8babf5d5414a4ef96b0ef7e766494e
++++ head:d81e56d4369d714a8cb955a4da905fcda52f0596641fc14329768b4fd5f74c91
+@@ -78,7 +78,7 @@
+         const equipment = [
+         ["linen_tunic", "chest", "base_clothing"],
+         ["linen_breeches", "left_leg", "base_clothing"],
+-        ["leather_belt", "front_belt", "accessory"],
++        ["belt", "front_belt", "accessory"],
+         ...(Number(id) % 2 ? [["barbute", "head", "rigid_armor"], ["breastplate", "chest", "rigid_armor"]] : []),
+       ].map(([item, location, channel], index) => ({id: `${id}${index}`, item, placement: "worn",
+         occupancies: [{anchor: {Character: location}, channel, order: 0, requirement_index: 0, capacity_index: 0}], weapon: null, holder: null}));

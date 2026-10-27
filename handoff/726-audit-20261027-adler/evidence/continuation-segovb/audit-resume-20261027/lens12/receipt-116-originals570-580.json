@@ -1,0 +1,372 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "116",
+  "predecessor": "receipt-115-originals558-569.json",
+  "manifest_prefix_sha256": "4ae4b1501e95bf3cd67868e212a970eb2f21eca243221e5b8978b1785360bda6",
+  "sources": [
+    {
+      "original_index": 570,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/finish.rs",
+      "sha256": "dac29dae17db4b4f9d76d11d1b0abef36af636b365631f550a9fa90a4f81f072",
+      "actual_eof": 193,
+      "actual_ranges": [
+        [
+          1,
+          193
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-193",
+          "role": "Native Serde snake_case11 and canonical FurnitureWoodSurface12-17; typed FurnitureWoodState flows to handled_timber167-181. No String-valued semantic state.",
+          "disposition": "Exact requested source inventoried WITH explicit delegated/native/numerical/runtime limits; no fixture/private exemption."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 571,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/finish_tests.rs",
+      "sha256": "85e4b7e1566dd001bdbae642f55c1453fea3a09135e4d50d6cc5885f2a404a26",
+      "actual_eof": 86,
+      "actual_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-86",
+          "role": "Native Serde JSON fixture keys/kind/variant/wood_state15-17; roundtrip/rejection tests19-86 and assert format36/41/45/50/53/54/55/68/79 are native diagnostics, not runtime semantic identities. No execution.",
+          "disposition": "Exact requested source inventoried WITH explicit delegated/native/numerical/runtime limits; no fixture/private exemption."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 572,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/horse_stop.rs",
+      "sha256": "c912d7782b20603d3658528b6eb6b704dc8dea59daea250fde1dabc45fbeb5db",
+      "actual_eof": 66,
+      "actual_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-66",
+          "role": "No quoted literals or String-valued APIs; typed material/FurnitureVariant/CollisionPolicy/clearance with native Builder geometry.",
+          "disposition": "Exact requested source inventoried WITH explicit delegated/native/numerical/runtime limits; no fixture/private exemption."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 573,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/key.rs",
+      "sha256": "68560fd1d33b92db2a172c28b5f9c20be60302d1251f468f861368384fac6b34",
+      "actual_eof": 174,
+      "actual_ranges": [
+        [
+          1,
+          174
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-174",
+          "role": "Canonical FurnitureWoodState9-16, FinishableFurnitureKind23-59, FurnitureKey65-102. Native Serde try_from/into KeyFields66; private deny_unknown_fields KeyFields146-159. TryFrom Error=&static str164 finite rejection171 is actual native Serde custom diagnostic, not retained application state. Broader consumers unproved.",
+          "disposition": "Exact requested source inventoried WITH explicit delegated/native/numerical/runtime limits; no fixture/private exemption."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 574,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/placement.rs",
+      "sha256": "3046dce9dd37537c97964d0329a71828e4312db4cbfd7828e582a5716dbe213d",
+      "actual_eof": 37,
+      "actual_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-37",
+          "role": "No quoted literals/String API. Typed pose and CollisionError retain local.source21/33; runtime placement identity scoping remains unproved.",
+          "disposition": "Exact requested source inventoried WITH explicit delegated/native/numerical/runtime limits; no fixture/private exemption."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 575,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/seating.rs",
+      "sha256": "8d36b46a7aedc90cfe1ae2337dc58055b84b5e032ce7c8992e1436235d389586",
+      "actual_eof": 89,
+      "actual_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-89",
+          "role": "No quoted literals/String API; typed FurnitureVariant/material/CollisionPolicy/clearance to native geometry.",
+          "disposition": "Exact requested source inventoried WITH explicit delegated/native/numerical/runtime limits; no fixture/private exemption."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 576,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/spec.rs",
+      "sha256": "a00ea9a2b6d58eddb090e18a78a9ef0c3b205ab9329ea61d2f4f3a7faf8ce2c6",
+      "actual_eof": 143,
+      "actual_ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-143",
+          "role": "No quoted literals/String API; canonical FurnitureAccessFace6-11, typed spec dimensions15-17, typed MissingInteriorSpecification104/Specification121, Interior/Outdoor127-141.",
+          "disposition": "Exact requested source inventoried WITH explicit delegated/native/numerical/runtime limits; no fixture/private exemption."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 577,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/stall.rs",
+      "sha256": "5b82553e30a9eb80b27718205a79b793c11975d8db18ce9d453f9ecafe144515",
+      "actual_eof": 127,
+      "actual_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-127",
+          "role": "No quoted literals/String API; typed variant/material/collision/clearance, stock child578 independently consumed.",
+          "disposition": "Exact requested source inventoried WITH explicit delegated/native/numerical/runtime limits; no fixture/private exemption."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 578,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/stall/stock.rs",
+      "sha256": "5f4859c84a4369dc1bb3f94402adb82d1425e024140b61768522778cb2371fb8",
+      "actual_eof": 73,
+      "actual_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-73",
+          "role": "No quoted literals/String API; typed material/variant/collision; containers::sack13 actual own source561 consumed. Numerical/native behavior separate.",
+          "disposition": "Exact requested source inventoried WITH explicit delegated/native/numerical/runtime limits; no fixture/private exemption."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 579,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/tests.rs",
+      "sha256": "1656026306b4403e83e63f74b395479f8bccaec9c510ccc45f372c4218411113",
+      "actual_eof": 382,
+      "actual_ranges": [
+        [
+          1,
+          382
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-382",
+          "role": "Every literal is native assertion/debug/eprintln diagnostic25/30/52/170/190/198/204/216/223/233/262/305/331/338. Typed FurnitureKey/Kind/Variant/material producers remain typed; existing support oracle source59-140 read without execution or native mathematical proof.",
+          "disposition": "Exact requested source inventoried WITH explicit delegated/native/numerical/runtime limits; no fixture/private exemption."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 580,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/trade.rs",
+      "sha256": "2f720c25a8f2e4eca05908e821f89b4e643124d1db3a7d09440b21f7df61e655",
+      "actual_eof": 60,
+      "actual_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-60",
+          "role": "No quoted literals/String API. Typed FurnitureKind dispatch18-30 to declared counters/racks/storage/work children still queued; MissingRecipe retains typed key30. Native geometry legs/beam35-60 not mathematical clearance.",
+          "disposition": "Exact requested source inventoried WITH explicit delegated/native/numerical/runtime limits; no fixture/private exemption."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    }
+  ],
+  "connected_findings": [],
+  "pending_contracts": [
+    "Actual native Serde parser implementation, mathematical admission/geometry invariants and runtime local collider identity scoping remain separate. Trade children581-585 unread at this boundary.",
+    "Inherited diagnostic/catalog/config/native/canonical alias/producer/receiver obligations remain."
+  ],
+  "qualifications": [
+    "Exact frozen PR-working scopes only; no P16/current/global/runtime/unique-total/other-lens clearance.",
+    "No backward compatibility/API/schema/input preservation requirement. No project/native/test/probe execution or product/Git/root ledger/publication mutation.",
+    "All20/P16/P17/F9/M09 aliases retained; unique delta0."
+  ],
+  "proposed_count": {
+    "before": 570,
+    "after": 581,
+    "indices_completed": [
+      570,
+      571,
+      572,
+      573,
+      574,
+      575,
+      576,
+      577,
+      578,
+      579,
+      580
+    ],
+    "next_original": 581,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/finish.rs",
+      "sha256": "dac29dae17db4b4f9d76d11d1b0abef36af636b365631f550a9fa90a4f81f072",
+      "ranges": [
+        [
+          1,
+          193
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/finish_tests.rs",
+      "sha256": "85e4b7e1566dd001bdbae642f55c1453fea3a09135e4d50d6cc5885f2a404a26",
+      "ranges": [
+        [
+          1,
+          86
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/horse_stop.rs",
+      "sha256": "c912d7782b20603d3658528b6eb6b704dc8dea59daea250fde1dabc45fbeb5db",
+      "ranges": [
+        [
+          1,
+          66
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/key.rs",
+      "sha256": "68560fd1d33b92db2a172c28b5f9c20be60302d1251f468f861368384fac6b34",
+      "ranges": [
+        [
+          1,
+          174
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/placement.rs",
+      "sha256": "3046dce9dd37537c97964d0329a71828e4312db4cbfd7828e582a5716dbe213d",
+      "ranges": [
+        [
+          1,
+          37
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/seating.rs",
+      "sha256": "8d36b46a7aedc90cfe1ae2337dc58055b84b5e032ce7c8992e1436235d389586",
+      "ranges": [
+        [
+          1,
+          89
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/spec.rs",
+      "sha256": "a00ea9a2b6d58eddb090e18a78a9ef0c3b205ab9329ea61d2f4f3a7faf8ce2c6",
+      "ranges": [
+        [
+          1,
+          143
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/stall.rs",
+      "sha256": "5b82553e30a9eb80b27718205a79b793c11975d8db18ce9d453f9ecafe144515",
+      "ranges": [
+        [
+          1,
+          127
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/stall/stock.rs",
+      "sha256": "5f4859c84a4369dc1bb3f94402adb82d1425e024140b61768522778cb2371fb8",
+      "ranges": [
+        [
+          1,
+          73
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/tests.rs",
+      "sha256": "1656026306b4403e83e63f74b395479f8bccaec9c510ccc45f372c4218411113",
+      "ranges": [
+        [
+          1,
+          382
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/trade.rs",
+      "sha256": "2f720c25a8f2e4eca05908e821f89b4e643124d1db3a7d09440b21f7df61e655",
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ]
+    }
+  ]
+}

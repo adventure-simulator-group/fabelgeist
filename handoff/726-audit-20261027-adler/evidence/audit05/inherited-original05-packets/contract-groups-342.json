@@ -1,0 +1,101 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-342",
+  "at": "2026-10-23T08:08:33.931367+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment.rs",
+      "sha256": "d6b09524be811c5e4202be50af529c941a917ff8f31ea61e2a73e4da17dc103e",
+      "scope071_index": 780,
+      "actual_EOF": 702,
+      "scoped_ranges_compared": [
+        [
+          1,
+          702
+        ]
+      ],
+      "actual05_comparison": "Fresh entire production and original inline fixture source in bounded displays; sewn/render correspondence, garment stage progression and body/cloth collision/skin relationships compared. No simulation or tests executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/conform.rs",
+      "sha256": "4c3ee7c251ed1a4d18681e0b05c0fcf35b3b61e7d6dd0decfda0708577469162",
+      "scope071_index": 781,
+      "actual_EOF": 324,
+      "scoped_ranges_compared": [
+        [
+          1,
+          324
+        ]
+      ],
+      "actual05_comparison": "Fresh entire production and original inline fixture source in bounded displays; sewn/render correspondence, garment stage progression and body/cloth collision/skin relationships compared. No simulation or tests executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/drape.rs",
+      "sha256": "c26b0508ccce30c3c2ca164e46327764ca4b133b418b5ea49e008b0a45613421",
+      "scope071_index": 782,
+      "actual_EOF": 334,
+      "scoped_ranges_compared": [
+        [
+          1,
+          334
+        ]
+      ],
+      "actual05_comparison": "Fresh entire production and original inline fixture source in bounded displays; sewn/render correspondence, garment stage progression and body/cloth collision/skin relationships compared. No simulation or tests executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/dressing.rs",
+      "sha256": "a5b190694f00f1dbc5e1895f5b40f65b6c1f7242da45ea844b59a6b6d6932523",
+      "scope071_index": 783,
+      "actual_EOF": 145,
+      "scoped_ranges_compared": [
+        [
+          1,
+          145
+        ]
+      ],
+      "actual05_comparison": "Fresh entire production and original inline fixture source in bounded displays; sewn/render correspondence, garment stage progression and body/cloth collision/skin relationships compared. No simulation or tests executed."
+    }
+  ],
+  "groups": [
+    {
+      "id": "sewn topology keeps render correspondence",
+      "comparison": "780 SewnSurface unions only roots, builds nonempty groups from all original vertices and a complete original-to-sewn map. Faces collapsed by seams are omitted from sewn solver but their original render face ordinals retained separately. expand assigns each original group member same sewn point; show_sewn flips original face at exact retained render ordinal when solved winding changes, normals expand by same groups. Current simulation provides matching particle count; public raw topology/normals helpers still assume face membership, related F060 rather than a new normal factory defect."
+    },
+    {
+      "id": "stages are chronological and cancellation explicit",
+      "comparison": "782 start selection comes from queued checkpoint owner, always validates garment selection and checks cancel before work. It stores sewn checkpoint before settling and settled checkpoint before final symmetrize/draw/clear/tuck/skin, enabling final-stage edits to resume from prefinish data. Sewing1..=steps changes seam gaps gradually, then explicitly shuts seams; settling0..=steps includes initial preview without step. preview_interval must be positive via actual lower selection/stage validation, not inferred from modulo. Saved-drape Worn route remains separate queued source."
+    },
+    {
+      "id": "particle and attribute binding checks",
+      "comparison": "show_unsewn requires position count equal material UV vertices and finite values before normals/face commit. show_sewn preserves original positions and face order via private SewnSurface, checks finite expanded positions. Fit rebuilt from same input/pattern when checkpoint resumes; checkpoint body/topology/key equality remains actual stages source obligation. DrapeInput/DrapedGarment public arrays are not accepted complete products merely by construction."
+    },
+    {
+      "id": "canonical spatial units and source skin",
+      "comparison": "780 measured_body converts current joint translations and positions metres->centimetres for pattern measurement with exact named shoulders/elbows/wrists/hips/knees/neck. Skin transfer uses closest current body triangle and its current barycentric weights, merges joint IDs, keeps strongest eight with deterministic lower ID tie and rejects nonfinite/nonpositive total before normalized rows. Skirt branch intentionally blends direct and two side samples across hip span, changes construction on recursive input so recursion terminates and retains opposing-leg motion. Actual rows generated by those successful transfers have same output vertex count; arbitrary raw source skin sums/nonnegative/current rig association remain caller contract."
+    },
+    {
+      "id": "geometry conforming shares seam owner",
+      "comparison": "781 SewnCloth derives unique undirected edges and per-sewn-vertex neighbours from same private sewn topology. Stretch limits computed from same edge order and zipped with those edges; pushes computed from one state before simultaneous application, neighbour divisor only used after a nonempty pushed subset. Cover computes source outward normals with same collision vertices and weights over current sewn triangles; positive interior/facing guards protect ordinary division, not a universal finite-arithmetic theorem at raw extreme geometry."
+    },
+    {
+      "id": "fixed passes are heuristics with reported problems",
+      "comparison": "Drawing rounds alternate draw, hold and clearance; keep_out performs fixed clear/cover rounds. Final outer drape tucks under plate after keep_out, recomputes normals and skin, and reports contact issues as warnings while returning usable garment. No assertion every continuous surface is collision-free from bounded iterations; actual near-facing samples and finite typical body dimensions are separate accepted supplier conditions. Raw API numeric overflow or malformed body-index risks are not mislabeled observed simulation failures."
+    },
+    {
+      "id": "dressing has intentional semantic selection",
+      "comparison": "783 classification uses named rig parts, strongest of fixed eight influences (nonempty expect justified), and current garment form. Trunk always dressed, hands/feet excluded, head only fitted, legs only legged. dresses resolves nearest body triangle and its nearest corner, then corresponding boolean from current same body. Missing raw joint label lookup defaults trunk/dressed rather than validating rig; normal named rig input contract preserved. Original fixture compares twist and named parts; no execution."
+    },
+    {
+      "id": "fixtures and small metadata correction",
+      "comparison": "780 full original fixtures cover pattern build, hem length, flat mail contact, barycentric skin, opposing winding and skirt continuity; all source-only. Packet340 phrase legacy-named mount was imprecise editorial wording: actual code simply tests component.mount.is_some, with no inferred compatibility/fallback classification. The exact condition and scope comparison in340 remain unchanged."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Queued stages/checkpoint key, selection validation and current garment_fit native mesh topology/solver contracts remain distinct.",
+    "No total raw finite-arithmetic or continuous collision-free result inferred from fixed pass counts."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

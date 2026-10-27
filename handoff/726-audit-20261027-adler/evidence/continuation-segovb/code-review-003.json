@@ -1,0 +1,416 @@
+{
+  "id": "code-review-003",
+  "review": "source-only independent incremental Code Review",
+  "prior_report": "code-review-002.json",
+  "prospective_scope": [
+    {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "37048dd0f6d5655c517af9c3bbf9f33eed0dd43fc05cf3ff61228d80b779d20c",
+      "ranges": "metadata/text evidence; relevant baseline entries only for baseline files"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/pr-body-001.md",
+      "sha256": "62f9395790f512c380345eec643dae34ec764d952fbfde1a70cbd3f5d8450b4a",
+      "ranges": "metadata/text evidence; relevant baseline entries only for baseline files"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/hosted/run40369750022/library.log",
+      "sha256": "6e8cc2580acb242befa8fcd69fea672c8c7cf5e450bf04cfbdb1f7d832d3874a",
+      "ranges": "metadata/text evidence; relevant baseline entries only for baseline files"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/hosted/run40369750022/pr-head.txt",
+      "sha256": "dccf697e8644bf1688b2438e7d291f30effc96b6f1d60e8566d7fcb4b3d4a912",
+      "ranges": "metadata/text evidence; relevant baseline entries only for baseline files"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/hosted/run40369750022/source.txt",
+      "sha256": "dccf697e8644bf1688b2438e7d291f30effc96b6f1d60e8566d7fcb4b3d4a912",
+      "ranges": "metadata/text evidence; relevant baseline entries only for baseline files"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/hosted/run40369750022/doctests.command.txt",
+      "sha256": "d6ab4cb9f496a0d1838a8455caa4f86b1e8bad8d301558033e24cb7fcdf7f154",
+      "ranges": "metadata/text evidence; relevant baseline entries only for baseline files"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/hosted/run40369750022/doctests.log",
+      "sha256": "c38f244d7c86ea80b1b6b9fb971184fd758bcbbc928b26bc5b2c9f0ea645c387",
+      "ranges": "metadata/text evidence; relevant baseline entries only for baseline files"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/hosted/run40369750022/borrowed.command.txt",
+      "sha256": "ac753c838d8ff9782d898b9dfb0a3e82479a4354d34cdde1447a3d82fba19c5b",
+      "ranges": "metadata/text evidence; relevant baseline entries only for baseline files"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/hosted/run40369750022/library.command.txt",
+      "sha256": "db18db08c53fe13e1b5f758450500af3bf7f0ad70b06caab2c65882d62bd205d",
+      "ranges": "metadata/text evidence; relevant baseline entries only for baseline files"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/hosted/run40369750022/rust-quality-baseline.toml",
+      "sha256": "9227c2c90c0d837d4f6cba5d9cd457e1be24e0710c942f503b5152a6e11a4c0e",
+      "ranges": "metadata/text evidence; relevant baseline entries only for baseline files"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/hosted/run40369750022/results.json",
+      "sha256": "b0502227615a7a980a75f3a52d791f7fe3adfa3f1325b639981cf6c19c81aa5a",
+      "ranges": "metadata/text evidence; relevant baseline entries only for baseline files"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/hosted/run40369750022/borrowed.log",
+      "sha256": "3a5bc7cb169b47cb45cb6bd3eb4d1759fc135b8faff8080da11b707112233c7b",
+      "ranges": "metadata/text evidence; relevant baseline entries only for baseline files"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/pr-body-002.md",
+      "sha256": "305d9783da68ef412bae4b85af644a19f5637feece392770b1e73116f6cf7033",
+      "ranges": "1-39",
+      "stage": "candidate002 prospectively registered before full read"
+    }
+  ],
+  "status": "completed_source_review",
+  "findings": [],
+  "limits": [
+    "No checks, product edits, tests or publication. Baseline-only and PR prose accuracy review."
+  ],
+  "retained_source_pins": {
+    "nonworkflow_files": [
+      {
+        "path": "AGENTS.md",
+        "unchanged": true
+      },
+      {
+        "path": "crates/AGENTS.md",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/README.md",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/texture-views.md",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/Cargo.toml",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition/tests.rs",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs",
+        "unchanged": true
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/device.rs",
+        "unchanged": true
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/texture.rs",
+        "unchanged": true
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-core-29.0.4/src/device/resource.rs",
+        "unchanged": true
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-types-29.0.4/src/lib.rs",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/lib.rs",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/prelude.rs",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+        "unchanged": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+        "unchanged": true
+      }
+    ],
+    "workflow_sha256": "3f6e1cfe6c05f5f6a2bb39155e3bf0d8ec8cbdabe3f77e993971d42e56891b33",
+    "workflow_matches_prior_review": true,
+    "artifact_source_commit_files": [
+      {
+        "path": "AGENTS.md",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/AGENTS.md",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/README.md",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/texture-views.md",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/Cargo.toml",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition/tests.rs",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/tests.rs",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/image.rs",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/lib.rs",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/prelude.rs",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+        "matches_artifact_source_commit": true
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+        "matches_artifact_source_commit": true
+      }
+    ]
+  },
+  "baseline_review": {
+    "only_changes": [
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+        "before": 538,
+        "after": 502
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+        "before": 899,
+        "after": 862
+      }
+    ],
+    "matches_hosted_snapshot_relevant_entries": true,
+    "meaning": "Only lowers existing file growth ceilings for extracted producer methods. No ceiling added/raised and no unrelated snapshot reductions copied. Product source unchanged from artifact source commit."
+  },
+  "artifact_identity": {
+    "hosted_run": 40369750022,
+    "artifact_id": 12672692320,
+    "source": "bb0c5c1603639bbd6768d4774dcf980a2ffae634",
+    "source_pr_head_results_agree": true,
+    "qualification": "Run/artifact association supplied by root; extracted source/pr-head/results agreement and relevant snapshot entries verified locally. No API provenance re-query or project execution."
+  },
+  "runtime_population_review": {
+    "library_passed": 13,
+    "doctests_passed": 2,
+    "exact_borrowed_passed": 1,
+    "failed": 0,
+    "ignored": 0,
+    "qualification": "Read command files and named result/log lines. 13 are existing library tests; none are the four saved WIP runtime tests, none directly exercise new TextureViewError/poll-failure branches. Two doctests are existing buffer compile_fail snippets; retain prior coverage limitations. This is preliminary source commit evidence, not final-revision hosted gate clearance."
+  },
+  "verdict": "No actionable finding in baseline-only change or updated PR body candidate002; source-only approval with required final-revision hosted CI pending.",
+  "actual_reads": [
+    "git diff of rust-quality-baseline.toml (two lowerings only)",
+    "hosted source.txt/pr-head.txt/results.json and command files in full",
+    "hosted baseline TOML parsed; only two relevant entries consumed",
+    "hosted named test/result log lines bounded by regex",
+    "PR draft full file",
+    "pr-body-002.md full file after prospective registration"
+  ],
+  "postread_fingerprints_unchanged": true,
+  "historical_draft_findings": [
+    {
+      "id": "CR003-DOC001",
+      "priority": "P2 status accuracy before publication",
+      "path": "target/recovery-20261025/continuation-segovb/pr-body-001.md",
+      "lines": [
+        20,
+        28
+      ],
+      "issue": "Draft describes hosted baseline reductions as pending although relevant values are now applied; it also omits preliminary exact-source existing GPU test success.",
+      "required_change": "Describe applied reductions538->502 and899->862 from hosted run40369750022/sourcebb0c5c1603639bbd6768d4774dcf980a2ffae634; report preliminary existing13/2/1 test success with exact commit; state final-revision hosted checks remain pending. Preserve explicit no-new-tests and no direct new-branch runtime coverage limits.",
+      "classification": "Ignored PR draft prose only; baseline delta itself has no correctness finding.",
+      "status": "resolved_by_pr-body-002.md"
+    }
+  ],
+  "reviewed_pr_body": "pr-body-002.md",
+  "pr_body_assessment": "Candidate002 accurately distinguishes historical bb0c5c160363 GPU13/doc2/borrowed1 pass from pending required final-revision checks, states both applied reductions, preserves exclusion of saved WIP added tests and direct runtime-coverage limitation, and keeps overall audit/migrations/coherence open."
+}

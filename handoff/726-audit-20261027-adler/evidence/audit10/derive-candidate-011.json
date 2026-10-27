@@ -1,0 +1,11 @@
+{
+ "id":"OWN10-QUALIFIED-011",
+ "scope_index":2249,
+ "path":"crates/fabelgeist-determinism/src/seed.rs",
+ "source":"6533e444fa37552927070cc8d8190907fd3b413e",
+ "status":"qualified; global saved-remedy dedup pending; not counted unique",
+ "observed":"Seed has exactly one private word:u64 field, derives Eq/PartialEq, and manual Ord calls self.to_u64().cmp(other.to_u64()); PartialOrd returns Some(self.cmp(other)). to_u64 returns word directly.",
+ "proposed_remedy":"Derive built-in Ord and PartialOrd on Seed and remove only those two manual impls. Single-field u64 declaration-order comparison is identical, with no dependencies/bounds/ownership/output/error/wire changes.",
+ "retain":"Manual Hash feeds canonical eight-byte little-endian array, distinct from structural word Hash; preserve. Display/LowerHex/FromStr/From and two Rand distributions remain tiny native adapters with draw/representation contracts. No available formatter/conversion macro dependency observed in fresh exact manifest support; no new dependency proposed.",
+ "limits":"Current manual code is semantically correct. This is boilerplate removal, not runtime defect or acceptance. Existence in prior global finding/remedy corpus has not been checked. No local probes/tests/checks run. Reached manifest support not part of original2853 coverage or shared material credit."
+}

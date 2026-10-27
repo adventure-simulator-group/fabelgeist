@@ -1,0 +1,31 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-224",
+  "at": "2026-10-25T21:52:20.110918+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2260,
+      "source_id": "pr-working:crates/fabelgeist-fs/src/lib.rs",
+      "sha256": "b0eda40872d0165cc3a1524083dc60e23ec7a9ee0e88d7bd88fa26e7f3a4ed6f",
+      "personally_read_ranges": [
+        [
+          1,
+          944
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all944lines fabelgeist-fs/lib.rs in boundedranges1..480/481..944. NativeDirectory retainsprivatePathBuf, WebDirectory/browserhandle objects use actualplatformrequest methods, globalroot clones oneArcunderMutex. Persist/restore root mapping losesabsolutePOSIXidentity: new ADLER-RESUMED05-F004.",
+        "Read/write project-relative path walks samepartlist underclonedroot; raw native childnames cancontainparent/absolutepaths whilewebAPI handles rejectseparators. No universal confinementpolicy established and arbitraryadversarialname not claimedauthorizedcurrentworkflow. Nativehttpbyteswithoutstatuscheck andbrowserresponse.ok differ, but caller expectedHTTPstatuspolicy not established here. Errorcause/failedblobcache ownership exact RIG-OWNER-F009. Noexecution, nofiles opened/written/deleted byreview."
+      ]
+    }
+  ],
+  "findings": [
+    "ADLER-RESUMED05-F004"
+  ],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "dedup": [
+    "RIG-OWNER-F009"
+  ]
+}

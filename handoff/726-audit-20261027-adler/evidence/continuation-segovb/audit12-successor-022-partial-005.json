@@ -1,0 +1,75 @@
+{
+  "at": "2026-10-27T00:37:48.110021+00:00",
+  "lens": 12,
+  "original": 46,
+  "prior": "audit12-successor-022-partial-004.json",
+  "state": "partial; original count46 unchanged",
+  "source_reads": [
+    {
+      "original": 115,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_projection.rs",
+      "sha256": "771a265b992561a0094e1b16784b8ca544e4192546e3f06396d35b4bde8b3e30",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/771a265b992561a0094e1b16784b8ca544e4192546e3f06396d35b4bde8b3e30",
+      "lines": 122,
+      "ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "purpose": "Actual generated catalog projection and next schema boundary; connected receiver access only, no future original or other-lens credit.",
+      "actually_read": [
+        [
+          1,
+          122
+        ]
+      ],
+      "registered_before_read": true,
+      "full_original_credit": false
+    },
+    {
+      "original": 116,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f",
+      "lines": 623,
+      "ranges": [],
+      "purpose": "Actual generated catalog projection and next schema boundary; connected receiver access only, no future original or other-lens credit.",
+      "actually_read": [
+        [
+          1,
+          320
+        ]
+      ],
+      "registered_before_read": true,
+      "full_original_credit": false
+    }
+  ],
+  "actual_traces": [
+    {
+      "source": "projection1-122",
+      "contract": "Generated ITEM_CATALOG_JSON decodes to Vec<ItemCatalogDocument>; documents flatten into ItemDefinition and ID-sort after generated physical and coverage projection. Decode/Geometry causes retained by transparent derived errors. MissingRecipe and Recipe store item:String; actual default_design receives &item.id. Display strings are presentation at CatalogProjectionError; not match/classification inputs in this body. Canonical weapon recipe owner and current ID migration remain pending."
+    },
+    {
+      "source": "schema1-320",
+      "contract": "Actual ItemDefinition.id/display_name/tags, equipment attachment_tags, placement.id, attachment point.id/accepts_tags and SurfaceUvCoordinate.domain retain raw String/Vec<String> across typed catalog storage. First320 includes native Serde rename/unknown-field/default module/function tokens and closed Material/Channel/Location representation. No claim every raw string is arbitrary presentation or that all identifiers need closed enums. Current canonical identifier/tag/surface owner reconciliation and producer/consumer scopes remain pending."
+    }
+  ],
+  "qualified_findings": [
+    {
+      "scope": "catalog ID/tag/surface producer propagation",
+      "status": "candidate support only; no unique count/alias accepted",
+      "evidence": "Decoded authoring IDs retained raw through actual runtime projection and ID lookup, crossing generated native-text boundary into first-party catalogs. Existing master findings/canonical current owners must be reconciled before repair."
+    }
+  ],
+  "M24": "Earlier diagnostic path finding remains deduplicated to inheritedM24 with selectedcurrent owner byte-match; this packet does not complete/remedy it.",
+  "remaining": [
+    "Schema321-623 and actual ID/tag/surface owner/caller contracts.",
+    "Remaining item validator helpers; quest/organization/encounter validators and generated runtime recipients.",
+    "No completion46/115/116 or shared population; actual build foreign module combat_resolution and other connected dependencies still pending."
+  ],
+  "no_local_project_execution": true,
+  "new_unique_delta": 0,
+  "global_clearance": false,
+  "no_compatibility_constraints": true
+}

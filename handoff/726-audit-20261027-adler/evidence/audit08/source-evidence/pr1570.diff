@@ -1,0 +1,84 @@
+diff --git a/crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/placement.rs b/crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/placement.rs
+new file mode 100644
+index 000000000..1f928a164
+--- /dev/null
++++ b/crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/placement.rs
+@@ -0,0 +1,78 @@
++//! Retain scene roots until the mesh batching port consumes the placement.
++use super::super::{PLACEMENT_SCALE, PLACEMENT_YAW};
++use super::{BatchKind, streams};
++use adventuresim_building_generator::spatial_geometry::Position;
++use adventuresim_tactical_core::{
++    prelude::{GroundCover, SceneGround, SceneTerrain},
++    scene_coordinates::{Scene, ScenePlanPoint},
++};
++use bevy::prelude::{Quat, Vec2, Vec3};
++use fabelgeist_determinism::Seed;
++
++pub(super) struct LitterPlacement {
++    pub(super) root: Position<Scene>,
++    pub(super) rotation: Quat,
++    pub(super) scale: Vec3,
++    pub(super) kind: BatchKind,
++}
++
++impl LitterPlacement {
++    pub(super) fn new(
++        terrain: &SceneTerrain,
++        ground: &SceneGround,
++        cell_origin: ScenePlanPoint,
++        hash: Seed,
++        kind: BatchKind,
++    ) -> Option<Self> {
++        // Native seeded jitter and slope alignment share the original draw and
++        // arithmetic order; the completed root is admitted before retaining it.
++        let jitter = ground.grid_scale() * 0.78;
++        let position = cell_origin.metres()
++            + Vec2::new(
++                streams::CELL_JITTER_X.rng(hash, &[]).inclusive_unit_f32() - 0.5,
++                streams::CELL_JITTER_Z.rng(hash, &[]).inclusive_unit_f32() - 0.5,
++            ) * jitter;
++        let point = ScenePlanPoint::from_metres(position)?;
++        if ground.ground_at(point).is_none_or(|sample| {
++            !matches!(
++                sample.cover,
++                GroundCover::LeafLitter | GroundCover::TallGrass
++            )
++        }) {
++            return None;
++        }
++        let height = terrain.height_at(point)?;
++        let normal = terrain.normal_at(point)?;
++        if normal.y < 0.72 {
++            return None;
++        }
++        let terrain_rotation = Quat::from_rotation_arc(Vec3::Y, *normal);
++        let yaw = Quat::from_rotation_y(
++            PLACEMENT_YAW.rng(hash, &[]).inclusive_unit_f32() * core::f32::consts::TAU,
++        );
++        let scale = 0.72 + PLACEMENT_SCALE.rng(hash, &[]).inclusive_unit_f32() * 0.58;
++        let height_offset = match kind {
++            BatchKind::Leaves => 0.001,
++            BatchKind::Twigs => 0.006,
++            BatchKind::Plants => 0.004,
++        };
++        let root = Position::from_metres(Vec3::new(
++            point.metres().x,
++            height.metres() + height_offset,
++            point.metres().y,
++        ))
++        .ok()?;
++        let scale = Vec3::splat(scale)
++            * match kind {
++                BatchKind::Leaves => 0.8,
++                BatchKind::Twigs => 0.72,
++                BatchKind::Plants => 0.7,
++            };
++        Some(Self {
++            root,
++            rotation: terrain_rotation * yaw,
++            scale,
++            kind,
++        })
++    }
++}

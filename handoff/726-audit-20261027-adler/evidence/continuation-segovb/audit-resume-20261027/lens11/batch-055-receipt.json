@@ -1,0 +1,128 @@
+{
+  "at": "2026-10-27T14:41:40.243430+00:00",
+  "lens": 11,
+  "status": "1052-1054 independently source-accounted with qualified findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-055-registration.jsonl",
+    "sha256": "1ac05c14512874c634813d308aabcefd3ee9ca99ad02d4d1015990a331104152"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-054.json",
+    "sha256": "8d5378a85e58a57ce0ee038d466920c190733a852d212c806ae5cfa79807836a"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1052,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/viewer/controls.rs",
+      "sha256": "a39473cd592fe4ab63fdbc183ac4004fb7572b4d5820a74996342da6befb8042",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/a39473cd592fe4ab63fdbc183ac4004fb7572b4d5820a74996342da6befb8042",
+      "ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "actual_eof": 151,
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          151
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1053,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/viewer/main.rs",
+      "sha256": "a82177376083409276cc58189b2edcc8320c03798f8ff1f29d5009a8c1b214e6",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/a82177376083409276cc58189b2edcc8320c03798f8ff1f29d5009a8c1b214e6",
+      "ranges": [
+        [
+          1,
+          215
+        ]
+      ],
+      "actual_eof": 215,
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          215
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1054,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/viewer/recipe.rs",
+      "sha256": "737948e69d20a10db0d1674d42befec8fccae79a74844a3abd6c7d448e5f30d6",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/737948e69d20a10db0d1674d42befec8fccae79a74844a3abd6c7d448e5f30d6",
+      "ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "actual_eof": 90,
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          90
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [],
+  "personal_proof_reuse": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-053-receipt.json",
+      "sha256": "284ad7da2bbe98ced97ba3b3712eb74372b8b0d57ddff25ceb668be10a4e576a"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-054-receipt.json",
+      "sha256": "7969b38d178c3ccd9bcb41bad71ebc59d97755856c233945bf9ac919ffee3b36"
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original_index": 1052,
+      "inventory": "Family and preset selectors; LOD dirty/reframe requests; raw serde_json authoring document with integer/f64/color/string controls; save path, display errors and retained RecipeOrigin.",
+      "disposition": "JSON editor is a draft-admission boundary: successful Serde replacement is not semantic Recipe.validate, so invalid dimensional drafts can remain in Editor while generate fails and prior mesh remains. This can be valid editor behavior but Editor.parameters/preset/origin do not explicitly distinguish draft versus successfully rendered profile. Save writes current draft without semantic validation. Array-as-RGB and enum-string editor dispatch are broad helpers but actual closed recipe JSON uses Pigment RGB and the named topology enums; no demonstrated arbitrary-array corruption. LOD dirty-only versus preset dirty+reframe are independent work requests, not redundant booleans.",
+      "remedy": "Represent draft document separately from last validated/rendered recipe and its identity; decide whether Save means draft export or valid production document and preserve that distinction. Use canonical topology/preset owners for controls rather than duplicating variant vocabularies as raw strings. Retain independent rebuild/reframe requests.",
+      "acceptance": "Full1-151 personally consumed. Generation validation/retained old mesh are traced in1053 and prior053/054 parameter/geometry contracts. No UI/runtime execution or claim all user edits are invalid."
+    },
+    {
+      "original_index": 1053,
+      "inventory": "CLI family/preset/seed/document/output/view/LOD; Editor Recipe, usize preset, RecipeOrigin tag, independent dirty/reframe and error String; native camera framing and Specimen mesh replacement.",
+      "disposition": "Preset and Custom are meaningful provenance states, but separate usize preset remains0/stale for Custom; payload-owning Preset species identity would prevent meaningless combinations. Actual family/preset UI producers update coherently and no wrong-preset runtime incident is claimed. Startup validates documents before geometry; rebuild validates through generate, retaining old Specimen on error but new draft parameters, an explicit draft/rendered association gap. View Full/Head/Underside is presentation intent, not recipe family. Native Vec3/Transform/PBR material quantities are terminal rendering boundaries.",
+      "remedy": "RecipeOrigin::Preset(canonical family-scoped preset identity) versus Custom, coupled to validated rendered recipe where provenance is published. Keep authoring drafts separate, and retain typed metre/frame quantities or named framing fields up to the native camera adapter. Optional error state can retain typed generation/IO classification instead of empty-string absence if later consumers distinguish them.",
+      "acceptance": "Full1-215 personally consumed; capture module is not consumed, so no capture lifecycle/metadata correctness claim. Camera/rebuild owners materially suffice for this lens disposition; no deeper native capture traversal needed to establish draft/provenance shape. Options preset guard also runs for supplied documents; source usability observation only."
+    },
+    {
+      "original_index": 1054,
+      "inventory": "Family enum and preset count/name/recipe lookup; Recipe payload sum Flower/Fungus; inner JSON serialization/admission, validate/generate dispatch; raw framing tuple height/target/extent.",
+      "disposition": "Recipe sum correctly owns family-specific parameter payload; Family is a lossy UI selector derivable from Recipe, useful for authoring but not independent mechanical authority. Raw usize preset lookup exposes family/index association, whereas existing FlowerSpecies/FungusSpecies/PlantSpecies own identity. Metre height, target position and extent share raw float storage but distinct framing roles. Validation is unit-returning over a raw recipe, so callers can retain/modify unadmitted profiles.",
+      "remedy": "Reuse canonical preset identity and admitted recipe aggregate from053/054, with named framing result where it prevents target/extent swaps. Do not flatten distinct flower/fungus payloads or invent a separate preset catalog owner.",
+      "acceptance": "Full1-90 personally consumed; canonical species/parameters/mesh and all direct family generation bodies already personally read exact pins in053/054."
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Frozen source only; no runtime/current/alias/accepted unique inference.",
+    "Unregistered capture module not consumed; no capture output/metadata/native scheduling correctness claim. Terminal presentation/native SDK internals are not needed to change the recipe/draft/provenance granularity findings."
+  ]
+}

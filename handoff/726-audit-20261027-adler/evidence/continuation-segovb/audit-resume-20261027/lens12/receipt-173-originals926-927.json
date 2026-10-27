@@ -1,0 +1,125 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "173",
+  "predecessor": "receipt-172-originals920-925.json",
+  "sources": [
+    {
+      "original_index": 926,
+      "source_id": "pr-working:crates/adventuresim-core/src/filth.rs",
+      "sha256": "a9e459f3c532b5661b495beff45dbdabd7946cf34bacf8e05f0d852d0f36e446",
+      "actual_eof": 631,
+      "actual_ranges": [
+        [
+          1,
+          631
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              631
+            ]
+          ],
+          "role": "Full631 independently consumed1-320/321-631. No raw string literals/fields/parameters/return API in full requested source, including existing tests331-631. NativeSerde derives16/23 and optional SpacetimeType17/24 on canonical FilthSubstance18/FilthOrigin25; actualDiseaseId33/TransmissionVector59 already owner-read, typed CutRouteState143 and SoapSource212/SoapStackId218 retained. All deposit/window/wash calculations and fixtures read source-only, no numeric/medical/authority/nativeSerde/current/other-lens verdict.",
+          "disposition": "Source-accounted WITH native/canonical/caller qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 927,
+      "source_id": "pr-working:crates/adventuresim-core/src/food.rs",
+      "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "actual_eof": 848,
+      "actual_ranges": [
+        [
+          1,
+          848
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              848
+            ]
+          ],
+          "role": "Full848 independently consumed1-300/301-580/581-848. Canonical FoodClass157/CookingMethod174/FoodPreparation183/nativeSerde156/172/181. FoodDefinition.idstaticstr249 <-actual item.id287 and name250 <-actual display_name288 distinctsemanticidentity/humanprose. FOOD_CATALOG actualauthoring271 matches raw food.class.as_str into all12canonical FoodClass variants272-283; unreachable validated food class284 is not proof of actual schema admission. definition rawid309 ->food.id equality310; is_cookable_ingredient rawitem_id528 ->cooked_meal inequality529 uses catalog identity as terminal preparation policy selector, exact catalog output/producer/consumers pending. Native StreamId food.initial-contamination314 ->rng315 and unit_f64316 concrete native entropy API, implementation/policy unread. Existingtests557-848 raw apple571/raw_fowl574/raw_venison585/hazelnuts620/cooked_meal621/625/683/692/raw_venison+raw_fowl+raw_fish+raw_beast_meat700/salt719-720 ->actual definition309 orcookability528. Human expect standard cooked meal683 and format {} item.id716-717 finaltestdiagnostics. Other numeric/typed food math read no medical/numeric/runtime guarantees. Exact prior852fixture cooked_meal187 now same owner API/selector source connected, caller/storage/admission incomplete.",
+          "disposition": "Source-accounted WITH native/canonical/caller qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    }
+  ],
+  "connected_findings": [
+    {
+      "id": "L12-173-food-catalog-identity-class-and-policy",
+      "source_indices": [
+        927
+      ],
+      "ranges": [
+        [
+          247,
+          310
+        ],
+        [
+          526,
+          530
+        ]
+      ],
+      "finding": "Food catalog canonical FoodClass is reconstructed from retained raw authored class text; food identities remain raw across catalog retention/lookup and cooked_meal ID equality selects terminal cooking eligibility. Existing FoodPreparation canonical enum is adjacent but actual lot/output/catalog/admission contracts must be consumed before determining correct policy owner.",
+      "remedy": "Carry canonical food class and open catalog item identity from actual admission; use intended typed preparation/cookability owner through mechanics if that is actual policy, not human display text or an assumed enum whitelist.",
+      "acceptance": "Read actual item catalog FoodCapability schema/validator and food-lot/output/cooking callers; prove intended identity-specific vs preparation policy before exact connected repair.",
+      "aliases": "Prior catalog/food/cooked_meal candidates unresolved aliases; no unique promotion.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actual FoodCapability schema/admission/validator and catalog item owner; all definition/cookability/food lot and cooking output producers/consumers.",
+    "Native StreamId/Seed and nativeSerde/Spacetime contracts not reviewed merely from declarations.",
+    "Mandatory independent REG132/134-136, all earlier receiver/current/alias obligations retained."
+  ],
+  "qualifications": [
+    "Full prospective exact declared requested scopes independently consumed; no scanner/search/hash-only clearance.",
+    "Frozen exact source only; no BC/native/runtime/current/global/unique/other-lens promotion; all20/P16/P17/F9/M09 and separate populations remain."
+  ],
+  "proposed_count": {
+    "before": 926,
+    "after": 928,
+    "indices_completed": [
+      926,
+      927
+    ],
+    "next_original": 928,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/filth.rs",
+      "sha256": "a9e459f3c532b5661b495beff45dbdabd7946cf34bacf8e05f0d852d0f36e446",
+      "ranges": [
+        [
+          1,
+          631
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/food.rs",
+      "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "ranges": [
+        [
+          1,
+          848
+        ]
+      ]
+    }
+  ],
+  "unique_count_delta": 0
+}

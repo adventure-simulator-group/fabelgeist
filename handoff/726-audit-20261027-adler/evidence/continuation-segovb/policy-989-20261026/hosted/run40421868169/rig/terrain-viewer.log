@@ -1,0 +1,71 @@
+[1m[92m   Compiling[0m adventuresim-tactical-client v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client)
+[1m[92m    Finished[0m `test` profile [optimized] target(s) in 1m 18s
+[1m[92m     Running[0m unittests src/tactical_scene_viewer_main.rs (target/debug/deps/tactical_scene_viewer-f238945c9a9f63e2)
+
+running 63 tests
+test tactical_scene_viewer::building_review::cameras::tests::plot_camera_height_is_above_architectural_ground_not_buried_slab ... ok
+test tactical_scene_viewer::capture_lighting_tests::animation_play_profile_covers_a_natural_unforced_camera_orbit ... ok
+test tactical_scene_viewer::capture_lighting_tests::beech_leaf_motion_profile_is_consecutive_and_fail_closed ... ok
+test tactical_scene_viewer::capture_lighting_tests::capture_profiles_have_one_implicit_leading_warmup ... ok
+test tactical_scene_viewer::capture_lighting_tests::cold_tree_profile_repeats_the_same_inward_distances_after_retreat ... ok
+test tactical_scene_viewer::capture_lighting_tests::diagnostic_views_suppress_only_the_occluding_layer ... ok
+test tactical_scene_viewer::capture_lighting_tests::environment_profile_has_deterministic_grazing_debris_target ... ok
+test tactical_scene_viewer::capture_lighting_tests::forced_tree_lod_comparison_views_share_the_lod0_projection ... ok
+test tactical_scene_viewer::capture_lighting_tests::forced_tree_lod_views_map_exactly_and_fail_closed ... ok
+test tactical_scene_viewer::capture_lighting_tests::landform_profile_has_only_geological_review_views_and_stable_pairs ... ok
+test tactical_scene_viewer::capture_lighting_tests::lighting_readiness_requires_two_stable_finite_readbacks ... ok
+test tactical_scene_viewer::capture_lighting_tests::mac_system_profiler_fields_tolerate_indentation ... ok
+test tactical_scene_viewer::capture_lighting_tests::named_moonlit_minute_has_risen_illuminated_moon_and_dark_sky ... ok
+test tactical_scene_viewer::capture_lighting_tests::overhead_plate_uses_its_detail_sentinel_for_uniform_terrain ... ok
+test tactical_scene_viewer::capture_lighting_tests::qhd60_benchmark_contract_matches_the_base_target ... ok
+test tactical_scene_viewer::capture_lighting_tests::requested_cold_tree_view_preserves_its_temporal_prefix ... ok
+test tactical_scene_viewer::capture_lighting_tests::requested_lighting_documents_every_production_default ... ok
+test tactical_scene_viewer::capture_lighting_tests::requested_views_are_ordered_and_fail_closed ... ok
+test tactical_scene_viewer::capture_lighting_tests::root_detail_suppresses_only_occluding_floor_vegetation ... ok
+test tactical_scene_viewer::capture_lighting_tests::scene_performance_baseline_attribution_is_independent_of_label_wording ... ok
+test tactical_scene_viewer::capture_lighting_tests::semantic_profile_isolates_each_supported_understory_species ... ok
+test tactical_scene_viewer::capture_lighting_tests::semantic_profile_records_lod_transition_controls ... ok
+test tactical_scene_viewer::capture_lighting_tests::target_acceptance_rejects_non_target_hosts ... ok
+test tactical_scene_viewer::capture_lighting_tests::vista_metrics_report_both_extremes_and_total_relief ... ok
+test tactical_scene_viewer::capture_resolution::tests::capture_restores_physical_dimensions_after_native_host_scaling ... ok
+test tactical_scene_viewer::capture_state::lighting_tests::delayed_lighting_convergence_retains_initial_readback_evidence ... ok
+test tactical_scene_viewer::capture_state::lighting_tests::unstable_lighting_exhausts_its_budget_without_becoming_ready ... ok
+test tactical_scene_viewer::capture_state::tests::canopy_metric_requires_upper_centre_render_content ... ok
+test tactical_scene_viewer::capture_state::tests::capture_phase_encodes_readback_exclusivity ... ok
+test tactical_scene_viewer::capture_state::tests::deterministic_readback_hash_detects_any_byte_change ... ok
+test tactical_scene_viewer::capture_state::tests::foliage_metric_rejects_zero_sized_images ... ok
+test tactical_scene_viewer::capture_visibility::tests::production_visibility_excludes_isolated_review_specimens ... ok
+test tactical_scene_viewer::city_capture::tests::city_packet_spans_close_and_whole_settlement_views ... ok
+test tactical_scene_viewer::city_capture::tests::eye_level_views_stay_in_rotated_street_outside_both_rows_of_buildings ... ok
+test tactical_scene_viewer::fixed_city_cameras::promotion::tests::altering_the_source_partition_still_rejects_a_stale_projection ... ok
+test tactical_scene_viewer::fixed_city_cameras::promotion::tests::capture_near_edge_promotion_preserves_accepted_surface_and_complete_bindings ... ok
+test tactical_scene_viewer::fixed_city_cameras::promotion::tests::ordinary_and_empty_capture_selection_preserve_complete_renderer_inputs ... ok
+test tactical_scene_viewer::fixed_city_cameras::promotion::tests::promoted_garden_owner_retains_planting_and_accepted_root_elevations ... ok
+test tactical_scene_viewer::fixed_city_cameras::promotion::tests::required_capture_members_preserve_all_accepted_production_terrain ... ignored, requires the frozen production fixture/camera manifest
+test tactical_scene_viewer::fixed_city_cameras::tests::camera_contract_rejects_degenerate_and_nonfinite_poses ... ok
+test tactical_scene_viewer::fixed_city_cameras::tests::forced_foundation_levels_have_identical_pose_fov_and_lighting ... ok
+test tactical_scene_viewer::furniture_readiness::tests::terrain_grounding_profile_installs_production_building_lod_review ... ok
+test tactical_scene_viewer::interior_capture::tests::city_archetypes_produce_two_finite_interior_cameras_and_one_plaster_proof ... ok
+test tactical_scene_viewer::interior_furniture_capture::rooms::sightlines::tests::broad_bounds_preserve_hits_on_rotated_sloping_and_padded_shapes ... ok
+test tactical_scene_viewer::interior_furniture_capture::rooms::sightlines::tests::sightlines_respect_partition_rotation_and_clear_doorway_space ... ok
+test tactical_scene_viewer::interior_furniture_capture::rooms::sightlines::tests::signature_view_rejects_farthest_route_point_behind_partition ... ok
+test tactical_scene_viewer::interior_furniture_capture::rooms::tests::closed_keep_door_blocks_a_camera_ray_that_static_navigation_allows ... ok
+test tactical_scene_viewer::interior_furniture_capture::rooms::tests::semantic_room_selection_does_not_choose_a_denser_shop_for_a_house_view ... ok
+test tactical_scene_viewer::interior_furniture_capture::rooms::tests::semantic_room_signatures_prioritize_work_and_living_furniture_over_storage ... ok
+test tactical_scene_viewer::interior_furniture_capture::tests::catalog_framing_contains_every_variant_envelope_corner ... ok
+test tactical_scene_viewer::interior_furniture_capture::tests::every_interior_recipe_family_has_a_unique_catalog_plate ... ok
+test tactical_scene_viewer::manifest::tests::boundary_capture_requires_all_views_and_bounds_every_visible_vista_tree ... ok
+test tactical_scene_viewer::manifest::tests::complete_cold_tree_traversal_compares_every_first_and_warm_approach ... ok
+test tactical_scene_viewer::manifest::tests::final_screenshot_metrics_drive_manifest_validation ... ok
+test tactical_scene_viewer::manifest::tests::landform_settled_readback_gate_fails_closed ... ok
+test tactical_scene_viewer::manifest::tests::observed_presentation_capture_json_has_a_fixed_typed_vector ... ok
+test tactical_scene_viewer::manifest::tests::obstruction_capture_fails_closed_without_a_tree_hit ... ok
+test tactical_scene_viewer::manifest::tests::partial_cold_tree_traversal_fails_closed ... ok
+test tactical_scene_viewer::plant_lods::tests::other_camera_or_shadow_visibility_does_not_contaminate_capture ... ok
+test tactical_scene_viewer::vista_validation::tests::actual_renderer_bounds_include_chunk_translation_and_reject_missing_bounds ... ok
+test tactical_scene_viewer::vista_validation::tests::one_and_three_declared_rings_require_exact_levels_and_complete_extent ... ok
+test tactical_scene_viewer::vista_validation::tests::renderer_lod_cap_is_explicit_and_missing_extra_or_moved_rings_reject ... ok
+test tactical_scene_viewer::vista_validation::tests::renderer_ring_bounds_reject_nonfinite_world_coordinates ... ok
+
+test result: ok. 62 passed; 0 failed; 1 ignored; 0 measured; 336 filtered out; finished in 30.82s
+

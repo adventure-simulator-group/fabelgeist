@@ -1,0 +1,407 @@
+{
+  "at": "2026-10-27T15:35:45.442128+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-071-registration.jsonl",
+    "sha256": "ae8d4c838fa7dcbd684e43f32b2145402cd0bf0a4b01b30e0d775f6c0e84d177"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-070.json",
+    "sha256": "fb588c06520babacdd6074c99e452a8a80f23bbae2a5853fedcd76a96431c149"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1105,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs",
+      "sha256": "8424b8d20fe3619b57687d4e31b3715b141fe47d21a1f21d7c78ed11958c0b9f",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/8424b8d20fe3619b57687d4e31b3715b141fe47d21a1f21d7c78ed11958c0b9f",
+      "ranges": [
+        [
+          1,
+          652
+        ]
+      ],
+      "actual_eof": 652,
+      "prospective": true,
+      "purpose": "Independent full ordered source type-granularity inventory; earlier1106partial connected context not automatic ordered credit",
+      "actual_read_ranges": [
+        [
+          1,
+          652
+        ]
+      ],
+      "effective_personally_consumed_ranges": [
+        [
+          1,
+          652
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1106,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+      "sha256": "28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "ranges": [
+        [
+          1,
+          534
+        ]
+      ],
+      "actual_eof": 534,
+      "prospective": true,
+      "purpose": "Independent full ordered source type-granularity inventory; earlier1106partial connected context not automatic ordered credit",
+      "actual_read_ranges": [
+        [
+          1,
+          534
+        ]
+      ],
+      "effective_personally_consumed_ranges": [
+        [
+          1,
+          534
+        ]
+      ]
+    },
+    {
+      "kind": "ordered_independent_inventory_using_exact_personal_source_reuse",
+      "original_index": 1107,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/mod.rs",
+      "sha256": "80bfa29d162de3dce0554d867093029ba6a5a3b02e405cafd0863a80692c0e7f",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/80bfa29d162de3dce0554d867093029ba6a5a3b02e405cafd0863a80692c0e7f",
+      "ranges": [
+        [
+          1,
+          84
+        ]
+      ],
+      "actual_eof": 84,
+      "prospective": true,
+      "purpose": "Independent own-lens ordered role assessment now reached consecutively; not automatic connected credit",
+      "personal_read_proof": "batch-069-receipt.json",
+      "new_body_reads_claimed": false,
+      "actual_read_ranges": [],
+      "effective_personally_consumed_ranges": [
+        [
+          1,
+          84
+        ]
+      ]
+    },
+    {
+      "kind": "ordered_independent_inventory_using_exact_personal_source_reuse",
+      "original_index": 1108,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/model.rs",
+      "sha256": "b1ed41d6a51aaf7bcd77c4e36ad928b0ef533216ddc9efb1aa3a0f78a97c12d9",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/b1ed41d6a51aaf7bcd77c4e36ad928b0ef533216ddc9efb1aa3a0f78a97c12d9",
+      "ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "actual_eof": 151,
+      "prospective": true,
+      "purpose": "Independent own-lens ordered role assessment now reached consecutively; not automatic connected credit",
+      "personal_read_proof": "batch-069-receipt.json",
+      "new_body_reads_claimed": false,
+      "actual_read_ranges": [],
+      "effective_personally_consumed_ranges": [
+        [
+          1,
+          151
+        ]
+      ]
+    },
+    {
+      "kind": "ordered_independent_inventory_using_exact_personal_source_reuse",
+      "original_index": 1109,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/preparation_authority.rs",
+      "sha256": "4f06d127e8d7d358ded01b2d1b7eba9116644b53146a476dd780e98344689613",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/4f06d127e8d7d358ded01b2d1b7eba9116644b53146a476dd780e98344689613",
+      "ranges": [
+        [
+          1,
+          635
+        ]
+      ],
+      "actual_eof": 635,
+      "prospective": true,
+      "purpose": "Independent own-lens ordered role assessment now reached consecutively; not automatic connected credit",
+      "personal_read_proof": "this batch registered full connected source personally consumed",
+      "new_body_reads_claimed": false,
+      "actual_read_ranges": [],
+      "effective_personally_consumed_ranges": [
+        [
+          1,
+          635
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected_original",
+      "original_index": 1109,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/preparation_authority.rs",
+      "sha256": "4f06d127e8d7d358ded01b2d1b7eba9116644b53146a476dd780e98344689613",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/4f06d127e8d7d358ded01b2d1b7eba9116644b53146a476dd780e98344689613",
+      "ranges": [
+        [
+          1,
+          635
+        ]
+      ],
+      "actual_eof": 635,
+      "prospective": true,
+      "purpose": "Actual preparation authoritative source/digest/planner/material receivers; no automatic future ordered credit",
+      "actual_read_ranges": [
+        [
+          1,
+          635
+        ]
+      ],
+      "effective_personally_consumed_ranges": [
+        [
+          1,
+          635
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1116,
+      "sha256": "22a0312534bd03b91e900595bd44d7bffe8b159545dfd65c8eccfe207f8cb0b8",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/22a0312534bd03b91e900595bd44d7bffe8b159545dfd65c8eccfe207f8cb0b8",
+      "ranges": [
+        [
+          240,
+          272
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual split retained medicine component receiving body for1106; no whole future credit",
+      "actual_read_ranges": [
+        [
+          240,
+          272
+        ]
+      ],
+      "effective_personally_consumed_ranges": [
+        [
+          240,
+          272
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1105,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              159
+            ]
+          ],
+          "roles": "Preparation skill/check, cutting tool catalog/row/scope/precision/edge/damage binding, grinding tool versus hands, actor carried rows.",
+          "disposition": "Existing Skill/DamageBins/CarriedInventoryScope meaningful; naked tuple(scope,row,item) hides row/item/physical identity and String toolbinding conflates digest/materialstate with Hands/Tool role, selected by equality to hands in1109. Tool availability filters operational errors into None, qualified classification loss. Actual cutting qualification tests precision both before/after durability and excludes unknown/unavailable object custody; no invalid actual tool asserted.",
+          "remedy": "Named carriedtool/material binding payload and explicit Tool/Hands role with canonical digest/identity/check owners; keep stable hash bytes at adapter and reuse canonical weapon stats.",
+          "acceptance": "Preserve carried accessible non-fireplace tool selection, deterministic chosenbinding and effective precision; no invented strictercheckbounds or current/runtime/uniqueclaim."
+        },
+        {
+          "ranges": [
+            [
+              161,
+              283
+            ],
+            [
+              285,
+              455
+            ]
+          ],
+          "roles": "Terminalminute preview, attempt-state key versus generation/material revision, immutable request replay, authority/planned/fresh material binding, rejected vs ready plan.",
+          "disposition": "Requested elapsed and absolute terminalminute are different clocks. Exact replay checks immutable submitted tuple before consulting live state; generation/currentrevision distinct, not universalversion. Broad raw IDs/scope/digest and repeated tuple framing invite swaps; native core strategic/material types already retain useful authority. Completedflag/generation and receiptinterrupted/resultrevision are sumshape candidates, actual writers coherent.",
+          "remedy": "Canonical typed requestcoordinates and outcome payload, preserving distinct retrycursor/immutable receipt/materialstate; carry existing authority/snapshot owners rather than decoding rawtext in multipleinternalports.",
+          "acceptance": "Preserve actual generation/stalerevision checks, replan/commit/material validation and exact replay; existing core930 and954 fullsource proof reused, no assertions substitute for execution."
+        },
+        {
+          "ranges": [
+            [
+              457,
+              652
+            ]
+          ],
+          "roles": "Plan effects waitactor/duration versus preparationcompletion, surviving/clipped result, postwait authority snapshot, typed action/revision, skill training real/effective hours and mastery mood.",
+          "disposition": "Two optional positional effect payloads reconstruct closed plan states; actual core930 builder emits applicableeffects, so no actual duplicate/losteffect claim. Survived false and omitted completion are distinct terminal evidence combined deliberately. Postwait compares place/custody/tool/material source and typed nextpreparation, not just display. General Skill accepts more than actualKnife/Bludgeon; actual action match restricts and unreachable branch source-coherent, focused preparation skill role can simplify.",
+          "remedy": "Preserve native typed effect records and a named completed/interrupted result; canonical realhours/duration vs effectivehours, action-derived skill/nextstate from singleowner.",
+          "acceptance": "Clipped attempt leaves material untouched, advances distinct generation and exactreplays; completion revalidates material and changesonly preparation/name/revision before training. No runtime/globalconservation/current alias claim."
+        }
+      ]
+    },
+    {
+      "original": 1106,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              205
+            ]
+          ],
+          "roles": "Quantity-one stable physical backing object vs perlot sourceunit quantity, personal/party rowassociation, catalog baseline/material state, creationclock/seed and deletion of linked medicine/provenance.",
+          "disposition": "Object ID differs backing row ID and material lot ID. ensure_food_material_object validates quantityone/item/location, while create_* quantity parameter scales capturedbatch material; not proof all sourceunit counts must1. Existing table Option personal/party pair broader than actual constructors. Party creation returns Option, collapsing definitionnotfound and physicalobject errors through ok().",
+          "remedy": "Typed lotdestination and capturedbatch material; canonical sourcecount and identity/frame owners. Result<Option> or typed classification for notfood versus missing/malformed physicalstate; no duplicate semantic owners.",
+          "acceptance": "Preserve snapshot versus latercatalog distinction, individual stable row/object and deterministic initial contamination, cleanup of all linked private material. No actual malformed row/runtimeclaim."
+        },
+        {
+          "ranges": [
+            [
+              207,
+              442
+            ]
+          ],
+          "roles": "Split/remove/transfer source/destination row IDs, taken/original counts, normalized retained fraction, materialrevision, source/child ingredientprovenance and clinicalcomponent state.",
+          "disposition": "split_lot/remove_lot_quantity validate positive original/taken bounds, but remove_party_lot_quantity and move_or_split transfer APIs omit equivalent localguards; nakedcounts allow zero/overdraw ratio at API boundary. Actual1119 rehome uses1/1, no observed badcaller. Retain_lot_fraction changes derived amount fields but not linked medicine/provenance; actual splits call those separately, while remove_* partial path doesnot: source association/conservation integration question, no accepted runtime resourceclaim. String destination_party_id is actuallyu64party-inventory row, distinct from PartyId.",
+          "remedy": "Admitted Portion/typed splitrequest and named scopedrowdestination; share canonical material splitting with all relevant retained components, reuse existing core954 Portion rather than new ratio owner. Distinguish removephysicalquantity from consumeeffects.",
+          "acceptance": "Actual callers cannot confuse partyrow with partyidentity or use unadmitted denominator/portion; source/current/alias/runtime acceptance pending. No global unitfraction bound on aggregate materials."
+        },
+        {
+          "ranges": [
+            [
+              444,
+              534
+            ]
+          ],
+          "roles": "Contribution ID/load parallelvectors, content digest, source/child split and retainedprovenance.",
+          "disposition": "Digest derived from zipped pairs means unmatched IDs/loads ignored if malformed publicstoredrecord; actual ordinary builders alignvectors. Fingerprint and source identity are different roles, load is extensive amount not concentration. raw ratio broad without canonical admission in private function, actual splitcallerbounds source proof differs across APIs above.",
+          "remedy": "Named Contribution record collection and typed admitted portion with canonical digest; propagate materialidentity/loadunits and keep private source truth separatepublicknowledge.",
+          "acceptance": "Preserve exact load splitting/retention and digestregeneration; no executed hashcollision/malformed ordinary record claim."
+        }
+      ]
+    },
+    {
+      "original": 1107,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/mod.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              84
+            ]
+          ],
+          "roles": "Scope assembly of food schema, preparations, projections, lot/custody/cooking/consumption and existing fixture includes; canonical imports.",
+          "disposition": "Module assembly has real owning responsibility; include fragments shareframework scope but remain distinct source identities. Not a newtype duplication or exemption for constituentbodies. Native module declarations/imports and fixture include strings are format boundaries.",
+          "remedy": "Retain coherentowner boundaries and canonical importedtypes; no pass-through service/newwrapperneeded.",
+          "acceptance": "Full84 personally consumed069 and exact hashreverified now; independent orderedinventory here, no claimed recursivechild coverage/execution."
+        }
+      ]
+    },
+    {
+      "original": 1108,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/model.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              151
+            ]
+          ],
+          "roles": "Public FoodLot material/provenance/flavor/quality/energy/value and rawpersonal/partyrowassociation; private microbial concentration/rate/cause; requestreceipt vs livenesscursor; fireplace instrument payload and immutable dish snapshot.",
+          "disposition": "Historical captureddish differs mutable catalog and public material differs privatepathogentruth. FoodLot twoOptionIDs, instrument threeOptions, interrupted/resultrevision/generation and parallelingredient/contribution/medicine arrays are broad productshapes, actual buildersmostlycoherent in1103/4/5/6. Fiveflavor potencykg fields duplicate existingFlavorProfile projectionshape (core927), physicalmass differentquantity. qualityu8tier differentcheckrating andboundedfractions; allrawf32/u64fields require semanticrole notsameuniversalowner.",
+          "remedy": "Reuse canonical FlavorProfile/material quantity owners, scopedinventorysum, named provenance/medicinecomponent records, focused receiptoutcome and stationpayload. Preserve private/public and historical/live boundaries.",
+          "acceptance": "Invalid associations cannotcross ownerports, no unsupported numericbounds/clinicaldiagnosis/currentclaim; exact069full151 bodyreuse qualifiesindependentinventory, no freshbodyreadclaimed."
+        }
+      ]
+    },
+    {
+      "original": 1109,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/preparation_authority.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              635
+            ]
+          ],
+          "roles": "Request vs source/current/authority/material digests, namedPreparationAuthority, checked core material snapshot/receipt and immutableidentity, rawscope/toolbinding/nextstate/skill/duration, rightsquestion/decision and planprovenance.",
+          "disposition": "Namedauthority isusefulcheckedaggregate, but retainsrawscopeafteradmission, nakedidentity/duration/digest and toolbindinghands sentinel. Source/currentdigest different timeauthority, not duplicates tocollapse. Source/currentmaterial and lottruth checks deliberately separate contaminationtimeevolution from unchangedsource. Core MaterialSnapshot/Portion/ActionCoordinates/RequestedDuration typedowners correctly reused; rawcontaminant concentration->rounded nonzero u64load is native numericaladapter with independent finite/headroompolicy question, not proof canonicalNondiagnosticMeter. Plan validity booleans are generatedfromjustperformedguardchecks, notunchecked clientclaims. Stable materialprocessID fromlotID has distinct processnamespace despite equalbits.",
+          "remedy": "Canonical checked leaves in PreparationAuthority and native effect/planner API, explicit toolpayload; keep distinct digest authorities and shared materialowners. Avoid overnarrowing generalMaterialProcessId intoFoodLotId merelyequalordinaryvalue.",
+          "acceptance": "Preserve actual positive/nonzeromass/identity and exactconservation admission, rightsquestion binding, source/nextpreparation transitions and lengthframed fingerprintinputs. Source rawrole inventorywith findings, no acceptedunique/current/runtime/fullclinicalorcryptographicclaim."
+        }
+      ]
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-069-receipt.json",
+        "sha256": "a49b031e734015fe2681e2ae5fe186811d8cf99151ef6f401af95f4699301781"
+      },
+      "contract": "1107/1108 full84/151 personally read and sourcehashreverified before independent inventory; no automaticconnectedcredit."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-026-receipt.json",
+        "sha256": "a6a3bf715d71a10786994eea605f942cdb91f137578cb423ec0f81a23465904e"
+      },
+      "contract": "930coreherbalism full405 actual PreparationPlanEffect/authority/planner/duration contracts."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-032-receipt.json",
+        "sha256": "1dd44f6a3c68698dbe73e37b15eb3605b87540976bc61d1326400284be4944ef"
+      },
+      "contract": "954corematerial full1869 actual PrivateMaterialSnapshot/Portion/receipt/validatecommit native types and operations."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-042-receipt.json",
+        "sha256": "679029c645bbe69075e5b0f1c297fdd91ece13e10c96c08197b5f264c7f19edc"
+      },
+      "supplement": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-042-semantic-supplement-001.json",
+        "sha256": "9f6eaf9364997c38224bd13c34b73edd8daf591acecc9b052689f11dae6e1c44"
+      },
+      "contract": "996coreSkill full1165 real/effectivetraining and accepted/excess gain."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-067-receipt.json",
+        "sha256": "e02e209bcb9d7257a2a89762ff62094e269991a6d7e48af1897a8e10b7047e7f"
+      },
+      "contract": "1093terminalpreview flags/elapsed/finish and privatecondition sources."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-070-receipt.json",
+        "sha256": "bfce24727f8ea5bb00152c3bb85ae8d66e718fcf5c24521c667befcc6bf76c83"
+      },
+      "contract": "1104full fireplace and1145exact typedcustody ports."
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "All inherited qualifications and mandatory otherlens/newmaterial/currentness queues retained.",
+    "No source/product/Git/rootledger/publication or localprojectchecks/tests/probes.",
+    "1109 full635 actuallyread thispacket connectedthen independentlyinventoryordered;1107/8 reused exact personalfullreads069 no newbodyreadclaimed.",
+    "1116 only240-272 additionalread; earlier177-238personal069. No fullfutureorderedcredit.",
+    "Clinical/containment/math/crypto deeperunchangedbodies not expanded unless canchange thislensrole disposition; runtimeacceptance remainsunproven."
+  ]
+}

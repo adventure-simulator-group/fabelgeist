@@ -1,0 +1,23 @@
+{
+  "lens": "type-granularity",
+  "prior_state": "audit11-successor-161-proposed-state.json",
+  "crosswalk": "audit11-question-crosswalk-001.json",
+  "ordered_roles": [
+    {
+      "scope_index": 789,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/settled/packed.rs",
+      "sha256": "ca95a83317547915bbd839018cd6b1c766ff327327877fc02c6978d1bcaee0f7",
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "registered_before_new_read": true,
+      "prior_read": "Connected whole body under161; no automatic ordered credit",
+      "verification": "Exact SHA256 verified before body consumption; actualEOF78"
+    }
+  ],
+  "connected_extensions": [],
+  "stop_after": 789
+}

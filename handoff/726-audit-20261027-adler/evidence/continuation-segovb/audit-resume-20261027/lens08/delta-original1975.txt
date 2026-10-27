@@ -1,0 +1,100 @@
+--- base
+
++++ frozen-head
+
+@@ -69,9 +69,9 @@
+
+     /// Client fixed tick that sampled this complete input state. The server
+     /// rejects older samples so reordering on the unreliable channel cannot
+     /// restore stale movement or look intent. It is also the reconciliation
+     /// acknowledgement key for future client rollback.
+-    pub simulation_tick: u32,
++    pub simulation_tick: PlayerInputTick,
+     pub movement: Option<Vec2>,
+     pub look: Vec2,
+     pub jump: JumpCommand,
+     pub jump_charge: bool,
+@@ -117,10 +117,10 @@
+
+ #[derive(Debug, Clone, Copy, Event, Serialize, Deserialize, MapEntities)]
+ pub struct EquipmentActionRequest {
+     #[entities]
+     pub actor: Entity,
+-    pub sequence: u32,
+-    pub expected_revision: u32,
++    pub sequence: EquipmentSequence,
++    pub expected_revision: EquipmentRevision,
+     pub hand: EquipmentHand,
+     #[entities]
+     pub expected_hand_item: Option<Entity>,
+     #[entities]
+@@ -228,9 +228,11 @@
+
+ 
+ #[cfg(test)]
+ mod equipment_action_mapping_tests {
+     use super::{EquipmentAction, EquipmentActionRequest, EquipmentHand};
+-    use adventuresim_tactical_core::prelude::EquipmentLocation;
++    use adventuresim_tactical_core::prelude::{
++        EquipmentLocation, EquipmentRevision, EquipmentSequence,
++    };
+     use bevy::ecs::entity::{EntityHashMap, MapEntities};
+     use bevy::prelude::Entity;
+ 
+     #[test]
+@@ -253,10 +255,10 @@
+
+         mapper.insert(destination, mapped_destination);
+ 
+         let mut request = EquipmentActionRequest {
+             actor,
+-            sequence: 1,
+-            expected_revision: 0,
++            sequence: EquipmentSequence::from_encoded(1),
++            expected_revision: EquipmentRevision::from_encoded(0),
+             hand: EquipmentHand::Left,
+             expected_hand_item: Some(hand_item),
+             action: EquipmentAction::Slot {
+                 location: EquipmentLocation::LeftBelt,
+@@ -282,10 +284,10 @@
+
+         let item = Entity::from_bits(4);
+         let mapped_item = Entity::from_bits(14);
+         let mut request = EquipmentActionRequest {
+             actor: Entity::from_bits(1),
+-            sequence: 1,
+-            expected_revision: 0,
++            sequence: EquipmentSequence::from_encoded(1),
++            expected_revision: EquipmentRevision::from_encoded(0),
+             hand: EquipmentHand::Left,
+             expected_hand_item: None,
+             action: EquipmentAction::Pickup { item },
+         };
+@@ -303,10 +305,10 @@
+
+         let door = Entity::from_bits(5);
+         let mapped_door = Entity::from_bits(15);
+         let mut request = EquipmentActionRequest {
+             actor: Entity::from_bits(1),
+-            sequence: 1,
+-            expected_revision: 0,
++            sequence: EquipmentSequence::from_encoded(1),
++            expected_revision: EquipmentRevision::from_encoded(0),
+             hand: EquipmentHand::Right,
+             expected_hand_item: None,
+             action: EquipmentAction::OpenDoor { door },
+         };
+@@ -324,10 +326,10 @@
+
+         let window = Entity::from_bits(6);
+         let mapped_window = Entity::from_bits(16);
+         let mut request = EquipmentActionRequest {
+             actor: Entity::from_bits(1),
+-            sequence: 1,
+-            expected_revision: 0,
++            sequence: EquipmentSequence::from_encoded(1),
++            expected_revision: EquipmentRevision::from_encoded(0),
+             hand: EquipmentHand::Left,
+             expected_hand_item: None,
+             action: EquipmentAction::ToggleWindow { window },
+         };

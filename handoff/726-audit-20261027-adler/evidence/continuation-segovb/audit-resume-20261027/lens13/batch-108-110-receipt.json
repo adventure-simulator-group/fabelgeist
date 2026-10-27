@@ -1,0 +1,273 @@
+{
+  "lens": 13,
+  "status": "source_accounted_with_owner_and_state_qualifications",
+  "authority": {
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "manifest_sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa"
+  },
+  "registrations": [
+    {
+      "path": "batch-108-registration.json",
+      "sha256": "aa7d662d2979cd87edb0e23e77ecd572790315c0059ca5a3078378f39cb660e7"
+    },
+    {
+      "path": "batch-109-registration.json",
+      "sha256": "99d3943605e07d9da466bdf51c3535c47667e21982d54684ac5706f7795a46da"
+    },
+    {
+      "path": "batch-110-registration.json",
+      "sha256": "b7beb5689319e5230ea92a610e29ced5e0a241ae27d0ac17ce21570299bc7f31"
+    }
+  ],
+  "actual_source_reads": [
+    {
+      "original": 188,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/continuity.rs",
+      "sha256": "c93e1acda81c6f3f48403b86443fefb4e8244339b5e99a22ea5825a4233010a0",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/c93e1acda81c6f3f48403b86443fefb4e8244339b5e99a22ea5825a4233010a0",
+      "requested_range_variants": [
+        [
+          1,
+          908
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          908
+        ]
+      ],
+      "eof": 908,
+      "provenance": "Exact frozen f82 registered physical variant, all original effective ranges preserved. Independent lens13 inventory, no other-lens credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          908
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumed after prospective registration and hash verification. Receivers do not receive future original or other-lens credit."
+    },
+    {
+      "original": 189,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/continuity/curriculum.rs",
+      "sha256": "c28ca94bdb3400052f552aee2311ad7fa2956bf5eebcc7b3395df407e85ecdc1",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/c28ca94bdb3400052f552aee2311ad7fa2956bf5eebcc7b3395df407e85ecdc1",
+      "requested_range_variants": [
+        [
+          1,
+          61
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "eof": 61,
+      "provenance": "Exact frozen f82 registered physical variant, all original effective ranges preserved. Independent lens13 inventory, no other-lens credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumed after prospective registration and hash verification. Receivers do not receive future original or other-lens credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/chronology.rs",
+      "sha256": "9bd03249bc0fbc1de28571a08035a777f3ab8fe1ddd0ac177d6e32b3693ee621",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/9bd03249bc0fbc1de28571a08035a777f3ab8fe1ddd0ac177d6e32b3693ee621",
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "eof": 200,
+      "provenance": "Exact frozen f82 registered physical variant; selected receiving body only, no future original credit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumed after prospective registration and hash verification. Receivers do not receive future original or other-lens credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/family.rs",
+      "sha256": "39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "ranges": [
+        [
+          65,
+          125
+        ]
+      ],
+      "eof": 267,
+      "provenance": "Exact frozen f82 registered physical variant; selected receiving body only, no future original credit",
+      "actual_consumed_ranges": [
+        [
+          65,
+          125
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumed after prospective registration and hash verification. Receivers do not receive future original or other-lens credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/browser_session.rs",
+      "sha256": "58bcbbfa28a430def36a47439a94587ab24f3fbdfe2eeca4b9c58e19a6e0ed4a",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/58bcbbfa28a430def36a47439a94587ab24f3fbdfe2eeca4b9c58e19a6e0ed4a",
+      "ranges": [
+        [
+          145,
+          230
+        ]
+      ],
+      "eof": 567,
+      "provenance": "Reconstructed unchanged physical exact a120 base=head; pinnedmanifestfiles/status no path; selected receiving body only, no future original credit",
+      "actual_consumed_ranges": [
+        [
+          145,
+          230
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumed after prospective registration and hash verification. Receivers do not receive future original or other-lens credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "ranges": [
+        [
+          350,
+          485
+        ]
+      ],
+      "eof": 1451,
+      "provenance": "Exact frozen f82 registered physical variant; selected receiving body only, no future original credit",
+      "actual_consumed_ranges": [
+        [
+          350,
+          485
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumed after prospective registration and hash verification. Receivers do not receive future original or other-lens credit."
+    },
+    {
+      "source_id": "physical-p16:world-schema/calendar.rs",
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "ranges": [
+        [
+          205,
+          240
+        ]
+      ],
+      "provenance": "Exact frozen source; actual maturity scaling receiver. No future variant credit.",
+      "actual_consumed_ranges": [
+        [
+          205,
+          240
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumed after prospective registration and hash verification. Receivers do not receive future original or other-lens credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/browser_session.rs",
+      "sha256": "58bcbbfa28a430def36a47439a94587ab24f3fbdfe2eeca4b9c58e19a6e0ed4a",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/58bcbbfa28a430def36a47439a94587ab24f3fbdfe2eeca4b9c58e19a6e0ed4a",
+      "ranges": [
+        [
+          231,
+          255
+        ]
+      ],
+      "eof": 567,
+      "provenance": "Reconstructed unchanged physical exact a120 base=head; pinnedmanifestfiles/status no path; selected receiving body only, no future original credit",
+      "actual_consumed_ranges": [
+        [
+          231,
+          255
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumed after prospective registration and hash verification. Receivers do not receive future original or other-lens credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "ranges": [
+        [
+          300,
+          349
+        ],
+        [
+          486,
+          585
+        ]
+      ],
+      "eof": 1451,
+      "provenance": "Exact frozen f82 registered physical variant; selected receiving body only, no future original credit",
+      "actual_consumed_ranges": [
+        [
+          300,
+          349
+        ],
+        [
+          486,
+          585
+        ]
+      ],
+      "read_qualification": "Actual bounded source consumed after prospective registration and hash verification. Receivers do not receive future original or other-lens credit."
+    }
+  ],
+  "originals": [
+    {
+      "original": 188,
+      "status": "source_accounted_with_qualified_owner_candidates",
+      "role": "Child development, adulthood, lineage and effective-dated estates",
+      "inventory_and_trace": [
+        "Full1-908 includes existing source fixtures. All rawu64 character/item/parent/heir IDs, bool ownership/alive/playable predicates, f32 effective-hour counters, u16 ages/basispoints, enum lifecycle/focus/heir/status, typed minutes and optional settlement dates inventoried. Child stages0..5/6..11/12..15/16+ agree with shared adult16 policy but repeated chronological thresholds remain an ownership/granularity candidate.",
+        "Actual birth initializes zero counters and freezes focus/lineage. Maternal grant wins ordered parent tie. settle_child_training rejects negative natural birth coordinates, bounds end to saturated16th anniversary and cursor to birth/end, iterates exactly two valid trackindices, applies canonical141 training and persists accepted effective hours/cursor. Generated curriculum is bounded; no claim arbitrary native attribute/skill rows are universally finite.",
+        "Actual adult grant receiver109-110 checks living/nontemporary, effective age>=sharedADULT, claim date<=current clock, non-self parent and matching owner/provenance before native grant insertion. Family view uses exact signed-birth clock and widened maturity calculation, observer/date filters, native u16 wire values. Raw retained numeric identity/hour ports remain possible existing-owner propagation gaps.",
+        "Estate admission validates equivalence between Unclaimed and zero heir. Eldest child sorted by signed birth/id, spouse date/death checks; first choice retained. No assertion native character0 can be admitted or ordinary sentinel collision occurs. Later route follows transferred estates only with strictly later death date, tracks visited IDs and errors on cycles; pending/deceased/unclaimed states preserve explicit outcomes. Settlement effective dates are intentional authority, not incidental processing time.",
+        "Actual transfer recipient109-110 prevalidates typed custody and stable object backing quantity1, walks subtree, changes native personal owner without changing rowIDs/amounts for personal\u2192personal estate branch; ordinary rows are then moved and capability refreshed. Cross-party rehome branches copy measured/food/condition state but all subordinate split/custody graph proofs are not claimed globally. Source-accounted own estate role does not certify every inventory transaction.",
+        "Every fixture literal and table ID is inventoried: birthday0/5/6/11/12/15/16, example birth1000, estateIDs2/3/4 and dates100/200/300, capacity/provenance predicates, tolerance.01, positive hours. Existing tests were read only, not run or modified."
+      ]
+    },
+    {
+      "original": 189,
+      "status": "source_accounted_with_qualified_owner_candidates",
+      "role": "Fixed two-track childhood curriculum",
+      "inventory_and_trace": [
+        "Full1-61: typed Seed domain draws index4 then maps0/1/2/other to four focus variants. Daily hours2 or3, weights.55/.45 or.6/.4; fixed homogeneous pair[(Skill,f32);2]. trackusize is indexed only by actual188 loop0..2 (and existing same-module fixtures), so no unproven dynamic index at that call. A checked collection/iteration API could own this bound without an enum that only renames integers.",
+        "Six/twelve/shared16th birthdays use typed saturation; overlap minutes use min and elapsed_since. Middle interval cannot exceed6years and adolescence4years under the actual saturated endpoints; hours remain finite for all native clocks through these calculations. Zero work/before-birth intervals are valid and should not be forced into a nonzero duration type. Typed real/effective training units are not retained in the raw returned pair/counters.",
+        "Actual141 apply_direct_training body and own098 life simulation170? extension proof are independent matched-source context only; no earlier-lens verdict transfer or automatic extension credit. Shared adult16 and repeated6/12 thresholds are reconciled as policy/authority candidates, not asserted divergent behavior."
+      ]
+    }
+  ],
+  "specific_boundary_proofs": [
+    "Calendar109205-240 actual scaled_progress uses u128 elapsed from nativeu64/i64 birth and u16whole. Maximum elapsed\u2264u64MAX+i64MAX, multiplied by65535 still fitsu128, so its saturating_mul does not establish the earlier u64 cumulative-share saturation defect here. target_years0 intentionally returnswhole; actual maturity target16 and whole10000 are positive. No mechanical saturation finding.",
+    "Relationship109 actual character_alive_at checks existence/birth/death dates; effective_age uses canonical age_years_since_signed_birth and persists native cached age only on change. Unread family/chronology tails are not covered.",
+    "Browser grant109-110 actual body checks adulthood and lineage ownership before durable insertion. No SDK/transaction/security-wide certification from those local checks.",
+    "Inventory220 selected300-585 and prior actual receiver ranges establish native ID adapters, checked PhysicalObjectId conversion, destination existence and quantity1 before rehome. Full graph/custody and exceptional cross-branch effects remain mandatory population/extension work."
+  ],
+  "qualified_observations": [
+    {
+      "kind": "owner and aggregate-state candidates",
+      "sources": [
+        "188 ChildDevelopment/LineageControlClaim/EstateDisposition",
+        "189 focus_training/curriculum_real_hours"
+      ],
+      "assessment": "Native IDs/clock-wire integers are legitimate adapter roles, while internal raw numeric IDs, real/effective hours, ordinal pair selection and flattened zero-heir/status state remain candidates for existing-owner propagation or aggregate ownership. Current writers validate the heir-kind/zero relation; do not call every zero invalid or invent an ordinary runtime failure."
+    }
+  ],
+  "limits": [
+    "No source-backed new arithmetic failure promoted in this packet. Unknown complete SDK, every estate/graph producer, currentness, allaliases and runtime acceptance remain qualified. Accepted new unique0.",
+    "Own original188/189 full effective scopes consumed; future source ranges are receiver-only and unread tails remain mandatory. Other-lens extension queue is independent.",
+    "All prior corrections, source-access disclosures, qualified findings and larger-lattice versus actualpopulation distinction retained. No backward-compatibility constraint was imposed.",
+    "No product/Git/root ledger/checks/tests/probes/publication changes."
+  ]
+}

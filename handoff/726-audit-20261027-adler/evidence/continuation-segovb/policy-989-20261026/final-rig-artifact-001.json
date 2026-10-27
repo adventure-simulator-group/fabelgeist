@@ -1,0 +1,521 @@
+{
+  "at": "2026-10-27T00:52:03.614766+00:00",
+  "head": "a21f9ccaeba1e3947e22dc1f64106c4f2bc371b6",
+  "run": 40421868169,
+  "artifact": {
+    "id": 12701330803,
+    "name": "rig-contracts-a21f9ccaeba1e3947e22dc1f64106c4f2bc371b6",
+    "size_in_bytes": 110970,
+    "url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/actions/artifacts/12701330803",
+    "archive_download_url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/actions/artifacts/12701330803/zip",
+    "expired": false,
+    "created_at": "2026-10-27T00:50:41Z",
+    "expires_at": "2027-01-24T23:45:11Z",
+    "updated_at": "2026-10-27T00:50:41Z",
+    "digest": "sha256:f44591588d55e91cd6cdb8704f1c1ea7c2ff2177a087dc7de754a5fc3609f270",
+    "workflow_run": {
+      "id": 40421868169,
+      "repository_id": 1049441561,
+      "head_repository_id": 1049441561,
+      "head_branch": "codex/989-texture-validation-policy",
+      "head_sha": "a21f9ccaeba1e3947e22dc1f64106c4f2bc371b6"
+    }
+  },
+  "artifact_digest_status": "GitHub-reported archive digest retained; extracted constituent files independently hashed, archive not independently rehashed",
+  "required_labels_from_current_workflow": [
+    "rig",
+    "autoresolve",
+    "contact-defense",
+    "mhr",
+    "strategic-bootstrap",
+    "geometry-admission",
+    "geometry-doc",
+    "native-iteration",
+    "camera",
+    "equipment-chronology",
+    "equipment-mapping",
+    "animation",
+    "audio",
+    "weather-audio",
+    "animation-reports",
+    "equipment",
+    "maneuver-consumers",
+    "creator-armor-frames",
+    "creator-clothing",
+    "creator-device-frames",
+    "creator-gorget-bib",
+    "creator-gorget-collar",
+    "creator-wrapped-tasset",
+    "creator-export",
+    "creator-garment",
+    "creator-runtime-equipment",
+    "creator-skin-rules",
+    "creator-torso-domain",
+    "creator-underlayer-design",
+    "creator-character-morphs",
+    "creator-animation-preview",
+    "creator-device-bracer",
+    "creator-device-breastplate",
+    "terrain-scene",
+    "terrain-scene-input",
+    "terrain-scene-coordinates",
+    "terrain-grounding",
+    "terrain-server-gates",
+    "terrain-landforms",
+    "terrain-erosion",
+    "terrain-extraction",
+    "terrain-presentation",
+    "terrain-strategic",
+    "terrain-viewer",
+    "terrain-art-demo",
+    "terrain-dispatcher",
+    "terrain-inspection",
+    "terrain-animation-capture"
+  ],
+  "source_and_all48_results_independently_verified": true,
+  "totals": {
+    "passed": 1461,
+    "failed": 0,
+    "ignored": 14
+  },
+  "cells": [
+    {
+      "cell": "rig",
+      "passed": 7,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "7240423da3cafc472da2181f985c0b21d6a91f831ec4c8038dc3c52119baa912",
+      "summary_groups": 2
+    },
+    {
+      "cell": "autoresolve",
+      "passed": 76,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "921179271bb49836427ebe8b487099b8f50528c0285c100a24f9f1b0e4dde59d",
+      "summary_groups": 1
+    },
+    {
+      "cell": "contact-defense",
+      "passed": 8,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "2cf8938facd382abd6834da44e5335e2c86d016ef66b22f05fb5e155fc8f98bf",
+      "summary_groups": 1
+    },
+    {
+      "cell": "mhr",
+      "passed": 19,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "c641a2bc4e0b2f192f583a7c2415a06d9c092673b24c5f95b705dd5e2a537f97",
+      "summary_groups": 2
+    },
+    {
+      "cell": "strategic-bootstrap",
+      "passed": 178,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "082ff4760339080bcc0d4718a0e4a2864ba8e0988ebcf0de795c39b760bcd348",
+      "summary_groups": 1
+    },
+    {
+      "cell": "geometry-admission",
+      "passed": 6,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "2594679bfce062fc3080986c90a9642f3c43f6a2db87efd51e24961873cf7010",
+      "summary_groups": 1
+    },
+    {
+      "cell": "geometry-doc",
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "ba89dee8dd852859d5da892957fdeb6c0ee70c554e4c7a85ace923ca9aaa0fb3",
+      "summary_groups": 1
+    },
+    {
+      "cell": "native-iteration",
+      "passed": 10,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "960c37dda6dc340572eeb54ab76019ff0bff73de154e6e7ef5f245da0d99ec87",
+      "summary_groups": 1
+    },
+    {
+      "cell": "camera",
+      "passed": 11,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "697a606de9678763ba194a959fe7b687edffa1a6f36a7320e858c3667173676e",
+      "summary_groups": 1
+    },
+    {
+      "cell": "equipment-chronology",
+      "passed": 18,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "6769621fe1619953b089d37f02d34556b03bc9c1e904254c7f614c253c3d59b7",
+      "summary_groups": 1
+    },
+    {
+      "cell": "equipment-mapping",
+      "passed": 5,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "da0e66e0479c4b0fabb937a91c1c67766f3c4d16e64d48d33afcb1b8653cea52",
+      "summary_groups": 1
+    },
+    {
+      "cell": "animation",
+      "passed": 260,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "0af92b36da0bd07c1878ca95165d3b30da05303a4dffc3498bdf4cc906dcac5c",
+      "summary_groups": 1
+    },
+    {
+      "cell": "audio",
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "6e875a7382b841da0bcb6bce19b414e78779171874e5a0b1e66a4400cbf6c98e",
+      "summary_groups": 1
+    },
+    {
+      "cell": "weather-audio",
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "307fd5e51b763620b770b4db32801c54f63fdecfe569aeb35ff3df653650ede5",
+      "summary_groups": 1
+    },
+    {
+      "cell": "animation-reports",
+      "passed": 26,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "3d2f434b6e815ce589a881ae061b7c9fa48a6ef6476f846ca3c03d15fe3b4f3f",
+      "summary_groups": 1
+    },
+    {
+      "cell": "equipment",
+      "passed": 47,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "872e178537006cc1e1d69af5174e7fd65de32a703f01bf5f71dc40499fc2c90d",
+      "summary_groups": 1
+    },
+    {
+      "cell": "maneuver-consumers",
+      "passed": 33,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "1865fc8c532aab7fa984fa048281ab5677f91b81e47716c659b5679e7ab848f3",
+      "summary_groups": 1
+    },
+    {
+      "cell": "creator-armor-frames",
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "9c85d9f851cea795da94fb59d71dbbcf9f52374c1f0a266ff079b923c2075879",
+      "summary_groups": 1
+    },
+    {
+      "cell": "creator-clothing",
+      "passed": 11,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "f393c1be5f44597477930f7e07359ea0d7d6dc080b5f2e2beba6edb17b517d5e",
+      "summary_groups": 1
+    },
+    {
+      "cell": "creator-device-frames",
+      "passed": 4,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "cbe7ed029ee8b03a14039585aedf5fe774c5af6652503cd934c4a37a26feef79",
+      "summary_groups": 1
+    },
+    {
+      "cell": "creator-gorget-bib",
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "e0d160200ec3763d58740705e171df6044b9f7f7d4d093ebfc215d99d2ec786e",
+      "summary_groups": 1
+    },
+    {
+      "cell": "creator-gorget-collar",
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "b9f5604fbd9946715cd7181a19f4aab722f533a89981e0c23aefb5568045db77",
+      "summary_groups": 1
+    },
+    {
+      "cell": "creator-wrapped-tasset",
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "50521f0b0bdc546af4513ff409de51175a36be37e201c7db0e817f99edbe72e7",
+      "summary_groups": 1
+    },
+    {
+      "cell": "creator-export",
+      "passed": 12,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "96e9d33a03fbba4025b82e968c2830e5f93d0356375a4e683fcab451d3efd172",
+      "summary_groups": 1
+    },
+    {
+      "cell": "creator-garment",
+      "passed": 37,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "95fc1bfc628739e211da117c5d532db35f43ddeacf7eda329e17067579bc290d",
+      "summary_groups": 1
+    },
+    {
+      "cell": "creator-runtime-equipment",
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "e961b26911bfc8d66bc90dbfe4084e3a4fa3922e44367690df37172ddcf686f9",
+      "summary_groups": 1
+    },
+    {
+      "cell": "creator-skin-rules",
+      "passed": 6,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "028664404c9696c26f8eeb663f6015701ea8d05e327fe4c0c13cfd83c380a268",
+      "summary_groups": 1
+    },
+    {
+      "cell": "creator-torso-domain",
+      "passed": 3,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "e2e3562e45d511cbe809af63a8cf8aef62de2718cb9571c4401cbddf69e2d435",
+      "summary_groups": 1
+    },
+    {
+      "cell": "creator-underlayer-design",
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "72476c865eea88daa9197f5b5b175806997d62207b8fbdc64b7e5979734eb62a",
+      "summary_groups": 1
+    },
+    {
+      "cell": "creator-character-morphs",
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "2349b5e765ac7f5c7d51024e26aeadcdc8ba8e45ab8da481d4d8ebd8e6bde6b4",
+      "summary_groups": 1
+    },
+    {
+      "cell": "creator-animation-preview",
+      "passed": 5,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "861bde4e5b0ae10a05c6729b394ffb5820bb000c71375c7ac2c54a121e345e96",
+      "summary_groups": 1
+    },
+    {
+      "cell": "creator-device-bracer",
+      "passed": 4,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "a58e149589a066a9bdbd20910ae9d3b2ff692abbf62fe74ea932720516c80a2b",
+      "summary_groups": 1
+    },
+    {
+      "cell": "creator-device-breastplate",
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "08b55def25d6a336bdd6afa03d085245daba59e82e9c947edced954b7ec04880",
+      "summary_groups": 1
+    },
+    {
+      "cell": "terrain-scene",
+      "passed": 14,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "1f7ab6e997cc263190d9547a75c2c830a8603ba75343cc87ada8dde929972be5",
+      "summary_groups": 1
+    },
+    {
+      "cell": "terrain-scene-input",
+      "passed": 70,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "a04317b4fe3eb45ad57c1201b899ecbf284347f37c30ff8b5893558c207f4f75",
+      "summary_groups": 1
+    },
+    {
+      "cell": "terrain-scene-coordinates",
+      "passed": 6,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "8ad08f6dbe8d3d2ef4cc98c70e2c957cc6eeadb01cfe2f8ac37f4f338669080f",
+      "summary_groups": 1
+    },
+    {
+      "cell": "terrain-grounding",
+      "passed": 94,
+      "failed": 0,
+      "ignored": 3,
+      "log_sha256": "811e932c8ab1609eb616629cbd818c56aee72e2bc0c50b8bfe262719b0b25319",
+      "summary_groups": 1
+    },
+    {
+      "cell": "terrain-server-gates",
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "3f0d5a2027955bb31c623cad225408df34cc7846d5998fca21aee7907fb67f46",
+      "summary_groups": 1
+    },
+    {
+      "cell": "terrain-landforms",
+      "passed": 5,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "ebf0d557c81c039bbf6ea70caa3d363d2bad394980bee686846a51edd5b58a29",
+      "summary_groups": 1
+    },
+    {
+      "cell": "terrain-erosion",
+      "passed": 10,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "03b71dac7719637f2bd66ca537174fe95bd8019cba25ba388d77fe6b2aa0d187",
+      "summary_groups": 1
+    },
+    {
+      "cell": "terrain-extraction",
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "b2b9dbdb74f48973c0e4424dbeecf1ec6308081f2cee7194996c0404d8d262f8",
+      "summary_groups": 1
+    },
+    {
+      "cell": "terrain-presentation",
+      "passed": 329,
+      "failed": 0,
+      "ignored": 7,
+      "log_sha256": "7542ddc2bdad8637eab8d698e5867efe6638e6f2bdbe85a69201c9f4f6870df1",
+      "summary_groups": 1
+    },
+    {
+      "cell": "terrain-strategic",
+      "passed": 21,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "3e5b6904bbe83ce4a964ec19368ea318eee7078b97e844b70cc087baf31d2b2a",
+      "summary_groups": 1
+    },
+    {
+      "cell": "terrain-viewer",
+      "passed": 62,
+      "failed": 0,
+      "ignored": 1,
+      "log_sha256": "fc0a7456d028f9300a30f7e1c9c39b36c5165a3f82628d846b06528513c6eece",
+      "summary_groups": 1
+    },
+    {
+      "cell": "terrain-art-demo",
+      "passed": 13,
+      "failed": 0,
+      "ignored": 2,
+      "log_sha256": "5086321f93558ade288d6bca43b77022566e18d16683d7c7b8143818df86f5cc",
+      "summary_groups": 1
+    },
+    {
+      "cell": "terrain-dispatcher",
+      "passed": 16,
+      "failed": 0,
+      "ignored": 1,
+      "log_sha256": "2554fcaa3ddad3c4ebb913eaf195fb63c97a0f1f5bbed82b940ee86920b8df9a",
+      "summary_groups": 1
+    },
+    {
+      "cell": "terrain-inspection",
+      "passed": 11,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "3c59c6c15ff67fe4d283ca912d497ed7c255230c7fd9fa2e27627338d5bcbdf1",
+      "summary_groups": 1
+    },
+    {
+      "cell": "terrain-animation-capture",
+      "passed": 5,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "18406b8b5a3e0f2dc746a82e27d2f2a25f6b8d2aa8932b1006155fd9e79f1f61",
+      "summary_groups": 1
+    }
+  ],
+  "additional_guarded_groups": [
+    {
+      "cell": "tactical-core-animation",
+      "passed": 98,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "8458972151b821af43bdc4f4f951cfe15f70381cb9c8d33530d09c59531aecdd",
+      "summary_groups": 1
+    },
+    {
+      "cell": "tactical-core-combat-config",
+      "passed": 5,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "86d591f5a0deb265403b097f1c8057d414898a39b0b82d163e1349a0920a4b8e",
+      "summary_groups": 1
+    },
+    {
+      "cell": "tactical-server-startup",
+      "passed": 3,
+      "failed": 0,
+      "ignored": 0,
+      "log_sha256": "3bcd0f5f6e45a93077e306e0d1a3f3c044b54a3a009d4311918ab5372033d75c",
+      "summary_groups": 1
+    }
+  ],
+  "additional_totals": {
+    "passed": 106,
+    "failed": 0,
+    "ignored": 0
+  },
+  "ignored_policy": "Exact per-group ignored counts equal accepted preceding source; test sources/workflow unchanged in990. No unexpected ignored count accepted.",
+  "baseline_cube_ceiling": 812,
+  "baseline_functions": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "item": "TextureCube::blit_texture_to_face",
+      "ceiling": 161
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "item": "TextureCube::render_face_shader_raw",
+      "ceiling": 149
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "item": "TextureCube::render_shader_raw",
+      "ceiling": 142
+    }
+  ],
+  "baseline_2d_3d_file_ceiling_absent": true,
+  "workflow_sha256": "3f6e1cfe6c05f5f6a2bb39155e3bf0d8ec8cbdabe3f77e993971d42e56891b33",
+  "qualification": "Counts are executions, not globally unique tests or audit clearance. Current view error/poll failure branches source-reviewed; no new cases authored.",
+  "no_local_project_execution": true
+}

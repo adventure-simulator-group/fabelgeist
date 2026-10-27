@@ -1,0 +1,52 @@
+{
+  "run": 40242912915,
+  "job": 121318365071,
+  "source": "ea6762b9c1cb156edb16f1a3f3ab7a9a42a464e5",
+  "artifact": 12618516175,
+  "source_equivalence": "ea676 to9a differs only workflow/docs; no Rust/Cargo input differences before these generated artifacts and budget literals.",
+  "passed": [
+    "Existing managed-hazel exporter:1case",
+    "Existing tree-impostor exporter:1case,decode6bakes",
+    "Existing leaves:5cases",
+    "Existing understory:6othercases"
+  ],
+  "failure": "Only old three-species sparse geometry snapshot:actual[(19800,9900,5012,2506),(21780,10890,5492,2746),(11880,5940,3016,1508)]. Full-card populations unchanged.",
+  "integration": [
+    {
+      "path": "content/tactical/garden-hazel-envelope.json",
+      "before_sha256": "b20667a2da263a7d298f9fc2442227d8741e7c0160f9a375040d47ce704bd29c",
+      "after_sha256": "42a9579f369610c98527ea8133105d41cf512692b9be9870cb36da325bb17f90",
+      "bytes": 1374
+    },
+    {
+      "path": "assets/art-demo/oak.tree-impostors",
+      "before_sha256": "9d188e05df4311fa894e7efd6a550ed6e9e6717d6894cac58a8489210d3e8cb8",
+      "after_sha256": "a2c5249233d9e37493c9e6e1efe39bf00adb01ce94935336053436c11ef24ef3",
+      "bytes": 1151640
+    }
+  ],
+  "expected_literals": [
+    [
+      "(19_800, 9_900, 4_904, 2_452)",
+      "(19_800, 9_900, 5_012, 2_506)"
+    ],
+    [
+      "(21_780, 10_890, 5_456, 2_728)",
+      "(21_780, 10_890, 5_492, 2_746)"
+    ],
+    [
+      "(11_880, 5_940, 2_972, 1_486)",
+      "(11_880, 5_940, 3_016, 1_508)"
+    ]
+  ],
+  "remaining": [
+    "Full connected scene/city/cloud regeneration",
+    "Fresh source/output reviews",
+    "Ordinary fullLinux and focusedWindows checks on final committed source"
+  ],
+  "not_acceptance": [
+    "Export mode is not normal quality",
+    "No Windows portability or current prepared-city validation claimed",
+    "No global audit clearance"
+  ]
+}

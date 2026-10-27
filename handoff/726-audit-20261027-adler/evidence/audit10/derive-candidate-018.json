@@ -1,0 +1,24 @@
+{
+  "id": "OWN10-DERIVE-CANDIDATE-018",
+  "classification": "Qualified mechanical Serialize delegation suggestion; current behavior correct, global remedy dedup pending",
+  "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+  "overlay_index": 177,
+  "path": "crates/adventuresim-core/src/bestiary.rs",
+  "ranges": [
+    [
+      210,
+      211
+    ],
+    [
+      237,
+      247
+    ]
+  ],
+  "inventory": "ReportDescription is non-generic single ThreatId field. Manual Serialize calls serializer.serialize_str(self.as_str()); as_str delegates self.0.as_str. Existing ThreatId Serialize124-128 personally read in overlay4 is exactly serializer.serialize_str(self.as_str()).",
+  "existing_dependency": "Existing serde Serialize already imported/used throughout exact P16 Core source and owning manifest; no new dependency or feature.",
+  "connected_repair": "Add Serialize derive with serde(transparent) to ReportDescription, remove only its manual Serialize impl. Retain manual Deserialize unchanged: it performs syntactic ReportDescription::try_new and emits invalid description ID, whereas inner ThreatId Deserialize performs catalogue-member validation. Retain manual Debug write_str and all identity/constructor/cause policies.",
+  "equivalence": "Transparent Serialize borrows the sole ThreatId field and dispatches its existing Serialize, reaching identical serializer.serialize_str text with no record/newtype name/extra field token, ownership change or generic bound. Manual Deserialize remains outside derive and is not changed by Serialize helper attribute.",
+  "acceptance": "After exhaustive ledger/global dedup and current canonical-version comparison, use existing serde/feature fixtures; no new tests/cases/helpers/assertions requested and no checks run. Verify exact attribute expansion if any derive-version uncertainty remains before repair.",
+  "new_unique_finding": false,
+  "clear": false
+}

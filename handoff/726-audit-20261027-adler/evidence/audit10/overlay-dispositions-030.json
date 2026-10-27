@@ -1,0 +1,26 @@
+{
+  "171": {
+    "inventory": "P16 native MINUTES_PER_DAY:u64=24*60 literal, no traits/codecs.",
+    "disposition": "Direct time-unit constant only; no calendar/activity/schedule/runtime acceptance."
+  },
+  "172": {
+    "inventory": "NPC saved schedule initialization checks age/decision state, selects typed initial schedule then projects persistent fields and records outcome; no traits/codecs.",
+    "disposition": "Keep semantic chronological initialization/database mutation, no derive candidate. No actual schedule validation/eligibility/all-field/runtime or other policy source clearance."
+  },
+  "173": {
+    "inventory": "Existing simulation reducer attributes plus complete configure_simulation_character body checks owned run/identity/scalar/party/settlement, updates native schema and refreshes state. No manual traits/codecs.",
+    "disposition": "Keep semantic fixture-authority/native validation/mutation path. No exemption change, source edit, profile completeness/clock/schedule/database safety/runtime or other lens clearance."
+  },
+  "174": {
+    "inventory": "Initial NPC schedule chooses stable purpose-seeded socializing quarterhours and authored labor with existing DailySchedule::default.",
+    "disposition": "Semantic authored policy native construction, no manual traits/codecs/candidate. No RNG/native count/saved-schedule correctness/global runtime acceptance."
+  },
+  "175": {
+    "inventory": "Actual fatigue/morale constants and LeisureOutcome already derives Default/serde/structural traits. settlement_leisure_outcome uses raw DailySchedule and native recovery/morale arithmetic, default only zero elapsed.",
+    "disposition": "No manual traits/codecs/candidate. Keep semantic numerical policy, no raw schedule/balance/finite admission/partition/runtime acceptance or training/organization/restorative span scope."
+  },
+  "176": {
+    "inventory": "Weapon gameplay() caches JSON catalogue into Vec<WeaponDesign> and default_design projects cloned matched chassis; imports only owning crate.",
+    "disposition": "Semantic catalogue lookup/native codec invocation, no manual traits/codecs/candidate. No asset/recipe schema/current immutable data/authoritative gameplay/runtime or other preset credit."
+  }
+}

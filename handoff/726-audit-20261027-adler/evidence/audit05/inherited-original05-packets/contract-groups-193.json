@@ -1,0 +1,36 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-193",
+  "at": "2026-10-23T04:33:57.246177+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/world_import.rs",
+      "sha256": "cc83d5f3e3c415a12dc0ced11a5e9271a2b115d3ed5ac9703d1a8b8ae9728d22",
+      "scope058_index": 2825,
+      "actual_EOF": 1159,
+      "scoped_ranges_compared": [
+        [
+          681,
+          717
+        ]
+      ],
+      "actual05_comparison": "Fresh exact qualified import record/publication681-717 only;675-680 premature Camera context and all other importer/helper bodies excluded per mandatory193."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "settlement-field-binding-at-publication",
+      "comparison": "One source settlement supplies ID/name/coordinates/population and category inputs. Both religion_id and religious_status are assigned from SAME source religious_status in one local row; this normal import producer is coherent, while independently retained descriptive mirror can diverge under other mutators/raw rows (Camera07 ownership work remains separate). Languages/hydrology/industries/economy/source node/source refs copied from same source DTO; no actual aggregate validity check in681-717, earlier source admission and native status.church().religion_id helper implementations not credited. Derived category uses same population fields but helper body excluded. Local row ID controls exact upsert branch; publication is one complete Settlement row, no independently published religion/tag columns. Currency resolved from same sourceID, actual policy helper separate. No new defect from duplicate representational fields alone; no whole import source or DB transaction guarantee."
+    }
+  ],
+  "new_unique_findings": [],
+  "scope_qualifications": [
+    "Current0582826+243 includes Camera039 exact681-717 only, mandatory193 excludes675-680/rest of import and copied helper bodies."
+  ],
+  "remaining_dependency_obligations": [
+    "Actual religious status/category/currency helper contracts, raw source admission, later status/religion mutations and other import roles are separately scoped; no coverage by symbol names."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

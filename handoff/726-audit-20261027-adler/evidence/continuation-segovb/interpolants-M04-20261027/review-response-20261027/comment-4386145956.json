@@ -1,0 +1,8 @@
+{
+  "id": 4386145956,
+  "html_url": "https://github.com/adventure-simulator-group/fabelgeist/pull/992#discussion_r4386145956",
+  "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+  "line": 100,
+  "commit_id": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+  "body": "If you have to call a primitive-casting helper before feeding a value into a function, you have almost certainly found a bespoke-typing propagation gap (i.e., a function that _should_ just take the bespoke type as it is)."
+}

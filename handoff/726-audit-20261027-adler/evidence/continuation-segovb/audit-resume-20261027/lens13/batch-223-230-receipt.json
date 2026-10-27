@@ -1,0 +1,823 @@
+{
+  "lens": 13,
+  "status": "350-359 source-accounted WITH qualified findings; continuing360",
+  "actual_source_reads": [
+    {
+      "original": 350,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat.rs",
+      "sha256": "98f3cb6b60b6672e3bdb730f6c922c012120f3763add4beb906040f1be122c2f",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/98f3cb6b60b6672e3bdb730f6c922c012120f3763add4beb906040f1be122c2f",
+      "eof": 310,
+      "ranges": [
+        [
+          1,
+          310
+        ]
+      ],
+      "requested_range_variants": [
+        [
+          1,
+          180
+        ],
+        [
+          1,
+          310
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "Exactf82physicalregistryvariant fulloriginaleffective+producer/admission/expandedunion; priorreceivingaccessnotorderedinventory",
+      "actual_consumed_ranges": [
+        [
+          1,
+          310
+        ]
+      ],
+      "registration": {
+        "path": "audit-resume-20261027/lens13/batch-223-registration.json",
+        "sha256": "e1c1a0ab694c4df649563257b0c87125f6adc8bf415083d70bbedcb19b05bb83"
+      },
+      "read_mode": "Independent ordered inventory: own213 actual1-240 reused, fresh223241-310; no false fresh whole-body claim."
+    },
+    {
+      "original": 351,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "6f50079ada28d050e5bfea42953c9c789e0da99bde9ea8af38f69a2240f4c47c",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/6f50079ada28d050e5bfea42953c9c789e0da99bde9ea8af38f69a2240f4c47c",
+      "eof": 827,
+      "ranges": [
+        [
+          1,
+          827
+        ]
+      ],
+      "requested_range_variants": [
+        [
+          1,
+          165
+        ],
+        [
+          1,
+          827
+        ],
+        [
+          375,
+          465
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "Exactf82physicalregistryvariant fulloriginaleffective+producer/admission/expandedunion; priorreceivingaccessnotorderedinventory",
+      "actual_consumed_ranges": [
+        [
+          1,
+          827
+        ]
+      ],
+      "registration": {
+        "path": "audit-resume-20261027/lens13/batch-223-registration.json",
+        "sha256": "e1c1a0ab694c4df649563257b0c87125f6adc8bf415083d70bbedcb19b05bb83"
+      }
+    },
+    {
+      "original": 352,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/ai_offense.rs",
+      "sha256": "cede3ecf1ccb8e95c2d4fedb6196a0a8137451304361c35822cafbe9c5f799e7",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/cede3ecf1ccb8e95c2d4fedb6196a0a8137451304361c35822cafbe9c5f799e7",
+      "eof": 37,
+      "ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "requested_range_variants": [
+        [
+          1,
+          37
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "Exactf82physicalregistryvariant fulloriginaleffective+producer/admission/expandedunion; priorreceivingaccessnotorderedinventory",
+      "actual_consumed_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "registration": {
+        "path": "audit-resume-20261027/lens13/batch-223-registration.json",
+        "sha256": "e1c1a0ab694c4df649563257b0c87125f6adc8bf415083d70bbedcb19b05bb83"
+      }
+    },
+    {
+      "original": 353,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "sha256": "5d254790fa2ec7e53bc749b18bfc8f4d89a1df367c3542f8f969403641c8a970",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/5d254790fa2ec7e53bc749b18bfc8f4d89a1df367c3542f8f969403641c8a970",
+      "eof": 71,
+      "ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "requested_range_variants": [
+        [
+          1,
+          71
+        ]
+      ],
+      "scope_kind": "materially_reached_producer_contract",
+      "provenance": "Exactf82physicalregistryvariant fulloriginaleffective+producer/admission/expandedunion; priorreceivingaccessnotorderedinventory",
+      "actual_consumed_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "registration": {
+        "path": "audit-resume-20261027/lens13/batch-223-registration.json",
+        "sha256": "e1c1a0ab694c4df649563257b0c87125f6adc8bf415083d70bbedcb19b05bb83"
+      }
+    },
+    {
+      "original": 354,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/doors.rs",
+      "sha256": "daf461a37ebe8f9ef72ac67aa98842c02bd8239ca43087f5c4d285f70df1ca34",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/daf461a37ebe8f9ef72ac67aa98842c02bd8239ca43087f5c4d285f70df1ca34",
+      "eof": 132,
+      "ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "requested_range_variants": [
+        [
+          1,
+          72
+        ],
+        [
+          1,
+          85
+        ],
+        [
+          1,
+          90
+        ],
+        [
+          1,
+          132
+        ]
+      ],
+      "scope_kind": "materially_reached_producer_contract",
+      "provenance": "Exactf82physicalregistryvariant fulloriginaleffective+producer/admission/expandedunion; priorreceivingaccessnotorderedinventory",
+      "actual_consumed_ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "registration": {
+        "path": "audit-resume-20261027/lens13/batch-223-registration.json",
+        "sha256": "e1c1a0ab694c4df649563257b0c87125f6adc8bf415083d70bbedcb19b05bb83"
+      },
+      "read_mode": "Independent ordered inventory: own208 actual1-75 reused, fresh22376-132."
+    },
+    {
+      "original": 355,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory.rs",
+      "sha256": "a1b3b6e0f7f1d9884a53f8306a3e0e9e6c1a8deb26e2b13fb163f73edd39900d",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/a1b3b6e0f7f1d9884a53f8306a3e0e9e6c1a8deb26e2b13fb163f73edd39900d",
+      "eof": 858,
+      "ranges": [
+        [
+          1,
+          858
+        ]
+      ],
+      "requested_range_variants": [
+        [
+          1,
+          215
+        ],
+        [
+          1,
+          858
+        ],
+        [
+          370,
+          415
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "Exactf82physicalregistryvariant fulloriginaleffective+producer/admission/expandedunion; priorreceivingaccessnotorderedinventory",
+      "actual_consumed_ranges": [
+        [
+          1,
+          858
+        ]
+      ],
+      "registration": {
+        "path": "audit-resume-20261027/lens13/batch-223-registration.json",
+        "sha256": "e1c1a0ab694c4df649563257b0c87125f6adc8bf415083d70bbedcb19b05bb83"
+      }
+    },
+    {
+      "original": 356,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory/armor.rs",
+      "sha256": "49cd8bc000aa19cd346741cd36179b1477050c9c1949bcddc4696e486cd0461c",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/49cd8bc000aa19cd346741cd36179b1477050c9c1949bcddc4696e486cd0461c",
+      "eof": 53,
+      "ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "requested_range_variants": [
+        [
+          1,
+          53
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "provenance": "Exactf82physicalregistryvariant fulloriginaleffective+producer/admission/expandedunion; priorreceivingaccessnotorderedinventory",
+      "actual_consumed_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "registration": {
+        "path": "audit-resume-20261027/lens13/batch-223-registration.json",
+        "sha256": "e1c1a0ab694c4df649563257b0c87125f6adc8bf415083d70bbedcb19b05bb83"
+      }
+    },
+    {
+      "original": 357,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory/quantity.rs",
+      "sha256": "6a0acac145fbe06b57ecbe43504dae3eca6d0923f65aedccf72c98c9e7977e33",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/6a0acac145fbe06b57ecbe43504dae3eca6d0923f65aedccf72c98c9e7977e33",
+      "eof": 28,
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "requested_range_variants": [
+        [
+          1,
+          28
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "provenance": "Exactf82physicalregistryvariant fulloriginaleffective+producer/admission/expandedunion; priorreceivingaccessnotorderedinventory",
+      "actual_consumed_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "registration": {
+        "path": "audit-resume-20261027/lens13/batch-223-registration.json",
+        "sha256": "e1c1a0ab694c4df649563257b0c87125f6adc8bf415083d70bbedcb19b05bb83"
+      }
+    },
+    {
+      "original": 358,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory/timing.rs",
+      "sha256": "d02da5117e785f6425ae9d21c2d48a30f0fb7818e22df987fa787f88a3cbab04",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/d02da5117e785f6425ae9d21c2d48a30f0fb7818e22df987fa787f88a3cbab04",
+      "eof": 17,
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "requested_range_variants": [
+        [
+          1,
+          17
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "provenance": "Exactf82physicalregistryvariant fulloriginaleffective+producer/admission/expandedunion; priorreceivingaccessnotorderedinventory",
+      "actual_consumed_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "registration": {
+        "path": "audit-resume-20261027/lens13/batch-223-registration.json",
+        "sha256": "e1c1a0ab694c4df649563257b0c87125f6adc8bf415083d70bbedcb19b05bb83"
+      }
+    },
+    {
+      "original": 359,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/lib.rs",
+      "sha256": "f0f319e706f85bf05b038d8e0387be8085c488aaa4b736609cb386eff9bd51e6",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/f0f319e706f85bf05b038d8e0387be8085c488aaa4b736609cb386eff9bd51e6",
+      "eof": 160,
+      "ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "requested_range_variants": [
+        [
+          1,
+          160
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "Exactf82physicalregistryvariant fulloriginaleffective+producer/admission/expandedunion; priorreceivingaccessnotorderedinventory",
+      "actual_consumed_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "registration": {
+        "path": "audit-resume-20261027/lens13/batch-223-registration.json",
+        "sha256": "e1c1a0ab694c4df649563257b0c87125f6adc8bf415083d70bbedcb19b05bb83"
+      }
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense/ranged.rs",
+      "registry_index": 379,
+      "sha256": "2f92d78e5bd08a1b831ec0901c256ce7b4a540193ad988ef6d3a4f3d62f68fdc",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/2f92d78e5bd08a1b831ec0901c256ce7b4a540193ad988ef6d3a4f3d62f68fdc",
+      "eof": 43,
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "provenance": "Exactf82registeredphysicalvariant materialsource;nofutureorderedcredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "registration": {
+        "path": "audit-resume-20261027/lens13/batch-224-registration.json",
+        "sha256": "1eb5c8ab2d2c2e082d7f98f2b461aab4c83492cbb4acf6b219a6c8c9796956e4"
+      }
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/projection_equipment.rs",
+      "registry_index": 415,
+      "sha256": "5e4a989041915c8e90f822e9947824bb05615df6c4b4427d6ec00a9cad71a726",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/5e4a989041915c8e90f822e9947824bb05615df6c4b4427d6ec00a9cad71a726",
+      "eof": 176,
+      "ranges": [
+        [
+          1,
+          176
+        ]
+      ],
+      "provenance": "Exactf82registeredphysicalvariant materialsource;nofutureorderedcredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          176
+        ]
+      ],
+      "registration": {
+        "path": "audit-resume-20261027/lens13/batch-224-registration.json",
+        "sha256": "1eb5c8ab2d2c2e082d7f98f2b461aab4c83492cbb4acf6b219a6c8c9796956e4"
+      }
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+      "registry_index": 2525,
+      "sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+      "eof": 26,
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "provenance": "Exactf82registeredphysicalvariant materialsource;nofutureorderedcredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "registration": {
+        "path": "audit-resume-20261027/lens13/batch-224-registration.json",
+        "sha256": "1eb5c8ab2d2c2e082d7f98f2b461aab4c83492cbb4acf6b219a6c8c9796956e4"
+      }
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory_armor.rs",
+      "registry_index": 2818,
+      "sha256": "6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b",
+      "eof": 205,
+      "ranges": [
+        [
+          1,
+          205
+        ]
+      ],
+      "provenance": "Exactf82registeredphysicalvariant materialsource;nofutureorderedcredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          205
+        ]
+      ],
+      "registration": {
+        "path": "audit-resume-20261027/lens13/batch-224-registration.json",
+        "sha256": "1eb5c8ab2d2c2e082d7f98f2b461aab4c83492cbb4acf6b219a6c8c9796956e4"
+      }
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/landing.rs",
+      "sha256": "d2e6f0bf1986b9465dec28c0b29c39db72b5470d50c0d8ce55332f6f8d1c0831",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/d2e6f0bf1986b9465dec28c0b29c39db72b5470d50c0d8ce55332f6f8d1c0831",
+      "eof": 33,
+      "ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "provenance": "Exactunchangedphysicala120manifest/statusabsence;actualroot351validate/declarationdependency",
+      "actual_consumed_ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "registration": {
+        "path": "audit-resume-20261027/lens13/batch-224-registration.json",
+        "sha256": "1eb5c8ab2d2c2e082d7f98f2b461aab4c83492cbb4acf6b219a6c8c9796956e4"
+      }
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+      "sha256": "6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+      "eof": 48,
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "provenance": "Exactunchangedphysicala120manifest/statusabsence;actualroot351validate/declarationdependency",
+      "actual_consumed_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "registration": {
+        "path": "audit-resume-20261027/lens13/batch-224-registration.json",
+        "sha256": "1eb5c8ab2d2c2e082d7f98f2b461aab4c83492cbb4acf6b219a6c8c9796956e4"
+      }
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/pose_buffer.rs",
+      "sha256": "3cced457f7299b93a524ecf97ec487ea9ffe33d0c522293dbba1d80e6ee70b39",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/3cced457f7299b93a524ecf97ec487ea9ffe33d0c522293dbba1d80e6ee70b39",
+      "eof": 46,
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "provenance": "Exactunchangedphysicala120manifest/statusabsence;actualroot351validate/declarationdependency",
+      "actual_consumed_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "registration": {
+        "path": "audit-resume-20261027/lens13/batch-224-registration.json",
+        "sha256": "1eb5c8ab2d2c2e082d7f98f2b461aab4c83492cbb4acf6b219a6c8c9796956e4"
+      }
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+      "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+      "eof": 66,
+      "ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "provenance": "Exactunchangedphysicala120manifest/statusabsence;actualroot351validate/declarationdependency",
+      "actual_consumed_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "registration": {
+        "path": "audit-resume-20261027/lens13/batch-224-registration.json",
+        "sha256": "1eb5c8ab2d2c2e082d7f98f2b461aab4c83492cbb4acf6b219a6c8c9796956e4"
+      }
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+      "sha256": "af87991f5cb3f8fd2a6398ea5135c5daacd24c7b9c2b23181ebecec7bc516ad3",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/af87991f5cb3f8fd2a6398ea5135c5daacd24c7b9c2b23181ebecec7bc516ad3",
+      "eof": 112,
+      "ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "provenance": "Exactunchangedphysicala120manifest/statusabsence;actualroot351validate/declarationdependency",
+      "actual_consumed_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "registration": {
+        "path": "audit-resume-20261027/lens13/batch-224-registration.json",
+        "sha256": "1eb5c8ab2d2c2e082d7f98f2b461aab4c83492cbb4acf6b219a6c8c9796956e4"
+      }
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "registry_index": 411,
+      "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+      "eof": 3450,
+      "ranges": [
+        [
+          650,
+          875
+        ]
+      ],
+      "provenance": "Exactf82physical411actualItemProperties+quantity/weapon/armorprojectionrecipient, no fullfutureoriginalcredit",
+      "actual_consumed_ranges": [
+        [
+          650,
+          875
+        ]
+      ],
+      "registration": {
+        "path": "audit-resume-20261027/lens13/batch-225-registration.json",
+        "sha256": "2e1204f681423557a17cc1cfb782a8addb508937a52671bc71385f21ccd5e21a"
+      }
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/item_geometry.rs",
+      "registry_index": 413,
+      "sha256": "fd0e55979400ec53e6db4c76a659bca5f732e45e2431a7f66db35335c3472a75",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/fd0e55979400ec53e6db4c76a659bca5f732e45e2431a7f66db35335c3472a75",
+      "eof": 112,
+      "ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "provenance": "Exactf82physical413 actualgeometry.mass producer\u2192355aggregate;nofutureoriginalcredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "registration": {
+        "path": "audit-resume-20261027/lens13/batch-226-registration.json",
+        "sha256": "391a62a73b87b11b78ec86f1402846dd1726b0b9fb143c5329a53eb520c91d71"
+      }
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-client/src/connected_player_item_type.rs",
+      "sha256": "250d23b8d767b72622ccdaa26a5e3032d7dce28807f900206651c7cd3fda5aac",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/250d23b8d767b72622ccdaa26a5e3032d7dce28807f900206651c7cd3fda5aac",
+      "encoding": "utf-8-sig",
+      "eof": 29,
+      "ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "provenance": "Exactunchangedphysicala120manifest/statusabsence, generatedreadonlyDBrowshape; no edit/generation orcurrentcode substitution. Encodingmetadataonly before registeredbodyread",
+      "actual_consumed_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "registration": {
+        "path": "audit-resume-20261027/lens13/batch-227-registration.json",
+        "sha256": "56302c82e715cd1344a1feb473de42e147134b58144493b84a604906739ac31c"
+      }
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-client/src/item_type.rs",
+      "sha256": "149704173dda23f065ff0e747bf57d2d8516db76a5e8dd864f810337a508bf62",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/149704173dda23f065ff0e747bf57d2d8516db76a5e8dd864f810337a508bf62",
+      "encoding": "utf-8-sig",
+      "eof": 207,
+      "ranges": [
+        [
+          1,
+          207
+        ]
+      ],
+      "provenance": "Exactunchangedphysicala120manifest/statusabsence, generatedreadonlyDBrowshape; no edit/generation orcurrentcode substitution. Encodingmetadataonly before registeredbodyread",
+      "actual_consumed_ranges": [
+        [
+          1,
+          207
+        ]
+      ],
+      "registration": {
+        "path": "audit-resume-20261027/lens13/batch-227-registration.json",
+        "sha256": "56302c82e715cd1344a1feb473de42e147134b58144493b84a604906739ac31c"
+      }
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/tactical.rs",
+      "registry_index": 2788,
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "eof": 1515,
+      "ranges": [
+        [
+          300,
+          330
+        ],
+        [
+          420,
+          495
+        ]
+      ],
+      "provenance": "Exact f82 physical2788 alreadyown049-053boundedotherfunctions; newbodyranges prospectiveregistered, no futureorderedcredit",
+      "actual_consumed_ranges": [
+        [
+          300,
+          330
+        ],
+        [
+          420,
+          495
+        ]
+      ],
+      "registration": {
+        "path": "audit-resume-20261027/lens13/batch-228-registration.json",
+        "sha256": "069bf4dfc230d5bdb5869023535175de829e045cc4e7259c12f7f347f384d153"
+      }
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/tactical.rs",
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "ranges": [
+        [
+          375,
+          419
+        ]
+      ],
+      "provenance": "Exact228source complete materialconnectedplayerinventoryItemview mass constructionprefix; nofutureoriginalcredit",
+      "eof": 1515,
+      "actual_consumed_ranges": [
+        [
+          375,
+          419
+        ]
+      ],
+      "registration": {
+        "path": "audit-resume-20261027/lens13/batch-229-registration.json",
+        "sha256": "d958e21382e4bdbb9752c865e62e69a2583b06b342e219ed611dc4a7f6deb26b"
+      }
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory/query.rs",
+      "sha256": "88a095239e91a987745462a6d940bd24f04148126ba2f0297a9365612ba6f512",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/88a095239e91a987745462a6d940bd24f04148126ba2f0297a9365612ba6f512",
+      "eof": 21,
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "provenance": "Exactunchangedphysicala120manifest/statusabsence; concreteinventoryiteratorlookupbody before numericaggregate, no futureoriginalcredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "registration": {
+        "path": "audit-resume-20261027/lens13/batch-230-registration.json",
+        "sha256": "b020c0c3b7b95335a6e1282592433d898f9939b0625189d7295892de56e3ea67"
+      }
+    }
+  ],
+  "registrations": [
+    {
+      "path": "audit-resume-20261027/lens13/batch-223-registration.json",
+      "sha256": "e1c1a0ab694c4df649563257b0c87125f6adc8bf415083d70bbedcb19b05bb83"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-224-registration.json",
+      "sha256": "1eb5c8ab2d2c2e082d7f98f2b461aab4c83492cbb4acf6b219a6c8c9796956e4"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-225-registration.json",
+      "sha256": "2e1204f681423557a17cc1cfb782a8addb508937a52671bc71385f21ccd5e21a"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-226-registration.json",
+      "sha256": "391a62a73b87b11b78ec86f1402846dd1726b0b9fb143c5329a53eb520c91d71"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-227-registration.json",
+      "sha256": "56302c82e715cd1344a1feb473de42e147134b58144493b84a604906739ac31c"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-228-registration.json",
+      "sha256": "069bf4dfc230d5bdb5869023535175de829e045cc4e7259c12f7f347f384d153"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-229-registration.json",
+      "sha256": "d958e21382e4bdbb9752c865e62e69a2583b06b342e219ed611dc4a7f6deb26b"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-230-registration.json",
+      "sha256": "b020c0c3b7b95335a6e1282592433d898f9939b0625189d7295892de56e3ea67"
+    }
+  ],
+  "independent_role_inventory": {
+    "350:1-310": "Complete original inventory. Typed SignedLength lunge epsilon1e-5m; ForwardLungeAcceleration finite signed scalar; MeleeContactTiming checked elapsed delay/contact; explicit CannotArrive/NotNeeded/Forward/Quickstep enums. InputAction native f32 outputs. Contact max-zero/max(authored,predicted), gap finite checked after native subtraction, sum of normalized reaches checked. Arrival uses positive speed and acceleration guards, half*a*t\u00b2, sqrt(2d/a), cruise and one fixed tick safety; completed nonfinite seconds\u2192Overflow. Conservative strength/mass max1 floors and min traction gravity are physical policy. Actual333-336 recipients read, not names alone. Existing fixtures .55/.8/1/.1/.11/.51/1.01/.526801m, drive/speed4, duration.5sec, distance.4/.8/.404/.441m, sqrt.2 and1e-6sec/.18sec thresholds are source only; full original tests241-310 now consumed without execution.",
+    "351:1-445": "Schema9/u16 exact protocol equality; serde deny_unknown_fields. Complete primitive-field inventory by actual records: GuardFootwork width/contact/reach f32 metres; transition handoff fraction f32; BouncyBones impulse scale/strength/frequencyHz/halflifeSec/coupling1/sec\u00b2/transmission/angleRad f32; Defense effectiveness fraction; Melee windup jitter fraction; Ranged aim half-angle degrees; Impact velocity scale; Movement prone lateral/effort scales, JumpHeights2 f32 metres; CharacterMotor gravity/mass/drive/brake/bodyweights/per-strength/per-agility/displacement/angle/reference attributes/lateral gravities/turn radii/traction/slide/aircontrol/stepheight/slope f32, authored displacement[f32;5]; AI dodge f64 and flanking f32; ClientInput4 unit-axis thresholds f32 + look scale[f32;3]; Targeting precision f32 + hitbox centre/halfextents[f32;3]; Presentation dodge_seconds f32; AttackCurve13 f32 inertia/weights/tell/drawback/followthrough/overshoot parameters. Each is a semantic unit/bound/ratio policy, not exempt because authored or a struct field. The remaining config leaves are checked bespoke speed/length/time/angle/phase/response owners, whose exact contracts and selected recipients are independently traced in earlier own receipts. No whole animation or all-config numerical closure from type names.",
+    "351:446-763": "Actual validate: schema equality and delegated core resolution/autoresolve; finite >=0 authority array, effectiveness/jitter<=1, aim<=180degrees, completion allowances<=5sec. Motor selected values finite >0; aircontrol[0,1], lateral/traction/slide<=2, takeoff<45degrees, step<=1m/slope<90degrees. Quickstep array fixedindices0/4, endpoint1e-6 unit tolerance, every entry[0,1], windows2 strictly increasing. Turn radius low>reference>high and quadratic derivative linear+2*abs(quadratic)<0; no intermediate finite closure proved for arbitrary huge radii. AI dodge[0,1], delay max>=min and offense subset below. Client thresholds[0,1], look3 finite. Exactly7 hitboxes, BodyPart\u21920..6 exhaustive adapter, duplicate flags[bool;7], finitecentres/positivehalfextents. Presentation dodge/downed turn positive; curve allfinite>=0, inertia>0, weight sum1 within1e-6. Gaits support radius[0,.5), distance>0, bounce/flight zero valid. Child validators actual224 below. Guard step max>=min and reach>margin. Bouncy finite/nonnegative, frequency/halflife>0, transmission<=1. Selected IK finiteness/positivity and outer track>half foot separation. No validation of raw transition handoff fraction; no run>walk or blend>initial aggregate constraint in this historical source. These latter concerns may relate to merged M04 repairs; currentness unresolved.",
+    "351:764-827": "Digest calls validate then native serde_json::to_vec\u2192SHA256 bytes\u2192two-character lowercase hex, tests length64. Default clones one parsed canonical YAML value. Existing invalid schema/duplicate hitbox, energy0/INFINITY, precision1.1 or .9>.8 and radii4/2.9 tests source only. Direct public fields/Deserialize do not invoke aggregate validate automatically; runtime installer actually does. Frozen dirty file contains two same-name SignedLength imports; source compilation not checked and no runnable/current binary claim.",
+    "352:1-37": "AI offense raw hit_precision, melee_measure_reach_fraction, ranged_reach_fraction; typed elapsed windup/cooldown/initiative min/max/jitter, checked signed lengths for threshold/standoff min/max/slop; BodyPart enum. Actual has_valid_intervals checks min finite + max>=min, initiative max>=min, long threshold finite>0, melee fraction finite[0,1]. It does not check raw hit_precision/ranged_reach_fraction nor nonnegative standoff/slop. Equal bounds valid; do not replace with strict interval type blindly. Default canonical YAML projection. Actual ranged recipient224 read below; missing checks are source admission concerns, not a claimed current NaN incident.",
+    "353:1-71": "validate precedes runtime snapshot clone under RwLock. AtomicU64 version0, fetch_add1 Release and Acquire loads are concrete native atomic protocol; thread Cell caches Option<(versionu64, AnimationConfig)> and invalidates mismatch. Typed config copy retained; default initialization parses canonical YAML. Version wrap/ABA and write-before-version publication remain qualified concurrency/protocol concerns, no ordinary 2^64 installs claim or whole cache/device coherence clearance.",
+    "354:1-132": "Independent full role inventory. Raw door depth1.6m, lateral margin.6m, interior-side .05m threshold; native layer bits1<<6/7. Complete native offset.dot/outward and tangentabs compares signed depth[-1.6,-.05], lateral<=halfwidth+.6, window delegates. EntityHashSet passage exemption lookup/grant/revoke; native collision pair filter honors either local exemption, ordinary Bool predicate. Existing Entity1/2 and positions0/-1/.5/1.2 with halfwidth.5m fixtures source only. Actual329/207 pickup recipients read, no all door/window activation claim.",
+    "355:1-300": "Native collision bits terrain1<<5/item1<<4. WeaponItem retains striking material, weights[f32;9], prefers_stab/melee/ranged Bool roles, precisionf32, checked reach/grip, inertiarf32 kgm\u00b2; Shield blockf32; ItemProperties weightf32 kg; EquipmentTopology order/requirement/capacityu16. InventoryItems native Entity relationship vector + optional hand caches; rebuilding uses Has predicates and semantic hand slots. Appearance generatoru16/hash[u8;32]/bytes; physical checked CuboidDimensions/SignedLengths/nativeanchorVec3, selected is_valid positive all3 dims, grip>=0, head[0,y], anchorfinite. Revisionu32 optimistic protocol actual accepted wrapping under207. EquipSlot exhaustive closedenum, native VARIANTS/COUNT and BodyPart mapping; queries hold checked quantity plus raw presentation/combat fields. No raw component admission invariant from Reflect/Serde alone.",
+    "355:301-600": "has_item_id checks quantity>0. AttackHand\u2192Right/Left semantic selection, optional weapon/shield; unarmed distribution/default reach/moment/precision0 retained valid absence. Fixed9 weights\u2192named skill fields indices0..8; covered_parts fixed7 indexed exhaustive BodyPart0..6. Bool component capabilities remain application state rather than framework-required Boolean outputs. Canonical physical timing dispatches checked elapsed in358. weapon_balance_from_moment reads raw mass/inertia and checked grip to own100 numerical receiver. inventory_weight sums raw ItemProperties.weight once per item, ignoring quantity; actual complete producer trace below. Shield and layered armor return raw bonuses/resistance/padding/flexibility/coverage; source native math does not establish checked retained-value invariants.",
+    "355:601-858": "Native ECS lifecycle hooks cache hand Weapon/Shield Entity only after ItemOf/InventoryItems exist; removal checks exact Entity before clearing. Existing fixtures only:9 zero skillweights, reach/grip1m/inertia0, shield1, timings.36sec/1e-5sec; layer coverage.5/.8/.4, resistance20/100/12, padding30/10/3, flex.8/.2/.75, ROM.9/.7/1, arrays7false/true andgeometryNone, layerorder0, expected120/40/.9/.7/.3 with1e-4 tolerances; Entity41/42/141, occupancyorder/index0/1, collectionlen3, TacticalItemQuantity3 valid/0 invalid. No test execution or malformed fixture invariant promoted to production.",
+    "356:1-53": "ArmorItem f32 ROM/coverage/resistance/padding/flexibility; [bool;7] coverage flags + [Option<AuthoredArmorCoverage>;7] correlated record andlayer_orderu8. TacticalInventoryItemId u64 native strategic identity wrapper; ArmorLayerContact optionalu64, intersected/selected predicates and ArmorSurface. Closed ArmorSlot/ArmorSide enums with valid optional side(both). Actual producer/aggregate recipients below; public malformed covered=true/geometryNone can reach expect, canonical projection correlation narrows actual ordinary case.",
+    "357:1-28": "Native ECS TacticalItemQuantity transparently wraps existing canonical ItemQuantity, DefaultONE, new u32 checked owner and get nativewire/array/query boundary. Own112 exact full inventory_measurement proof reused: private nonzero quantity and checked serde; no duplicate quantity owner or zero-as-valid claim. Public outertuple cannot construct invalid inner owner directly.",
+    "358:1-17": "No new tunable numeric literal: absence of equipped weapon maps inertialmoment0 and unarmed Bool to actual core100 melee_attack_timing; MeleeAttackStyle enum retained and checked elapsed result forwarded. Zero inertialmoment has unarmed absence meaning, not invalid positive weapon admission. Actual333-336 windup/recovery caller bodies read; canonical core100 full1182 numerical cadence owner proof reused.",
+    "359:1-160": "Full module/reexport/plugin-group declarations; no runtime numeric literals/fields or arbitrary count API. Exported protocol/owner constants are references, not reread descendant coverage; native plugin_group macro binds PhysicsPlugin, no code execution. No whole crate/SDK credit from presence/imports."
+  },
+  "source_backed_traces": [
+    "224 defaults2525full26 includes exact combat.yaml into LazyLock, deserializes then validates beforecanonical storage; panic on invalid compiled source explicit. Own40 physicalYAML05958...full1-344 read012-016 is same frozen authored source authority reused, not re-read or current/YAML-repair claim. Own79/80 corecombat eb7...full1137 and configcc2...full122 actual023-033/034-037 validate delegated resolution/autoresolve; no restart or lens08 transfer.",
+    "224 childvalidators actual landing33 allows min==max compression; playback48 enforces sourcegap>0 and deactivation<=initial<=activation (equal allowed); pose_buffer46 allows equal foot/height bounds; procedural66 requires samplegap>0 and maxresponseRadians>1e-6 report margin, rest typed leaves; ragdoll112 has typed capsule dimensions, coefficient owners, explicit MuscleRelease Never/AfterPositiveDuration checked Option<f32> serde, zero tone valid. These actual bodies narrow claims of absent validation, but no universal arithmetic closure or stricter than authored bounds asserted.",
+    "224 ranged379full43 actual raw standoff=(weaponreach*ranged_reach_fraction).clamp(signedMin, signedMax).min(weaponReach); selectedrootvalidate admits equal/negative signedbounds, unchecked raw fraction and slop affect forward/back/stop. Native bool decisions drive Some(+Y)/Some(-Y)/None, then checked duration Timer and RangedAttackStartedIntent. NaN fraction can be admitted by validator but clamp/min native arithmetic can mask it; do not infer NaN pose or inevitable failure without native scalar semantics/actual activation. Actual hit_precision consumer not claimed newly read; field omission retained as admission/owner-fit concern only.",
+    "224 projection415full176 authenticates generator/version/catalog/hash before parametric geometry and checked SignedLengths; appearance Vec\u2192[u8;32] expects priorvalidation, holder path asserts authentication, actual projected_armor derives geometry by canonical placement.protection and maps coverage flags from matchingprotectedparts. No universal corruptDB/performance/runtime guarantee; publiccomponent malformedtuplecase kept distinct.",
+    "225 physical411actual650-875 receives PreparedInventoryItem::Admitted quantity andgeometry, inserts quantity and ItemProperties{weight:geometry.mass} separately; all non-weapon ItemKinds still get ItemProperties. Incidental actor/enemy skill/limb scales, incap subtractionmax0, PIorientation/CollisionMargin.01 and topologyu16 copies are recorded source access with no full411/inferrednative scale proof. 226physical413full112 actually geometry.mass=parametric.mass_kg.or_else(holder_mass).unwrap_or(item.item.weight), never quantity; emptyquantity rejected beforeAdmitted; raw mass retained in firstparty PreparedItemGeometry, no unit conversion or multiplication.",
+    "227 generatedreadonlynative ConnectedPlayerItem250d...full29 includes quantityu32 and Item separately; Item149704...full207 weightf32 and physical/combat/volume/alcohol/quality/durability/schema primitives match native DBwire/Col query builders. Native generated forms are concrete external representations, not permission to carry rawsemantic mass into PreparedItemGeometry. Repair schema+regenerate perrules if schema ischanged; no generatedfile edits now.",
+    "228/229 actual physicaltactical82b5... declarations303-330 +connected_player_items405-490: gets Item catalogrow, emitsinventory.quantity independently; only precision/block/ROM condition transforms, no weight rewrite. Own221item ceb03...full source136-140 includes weight=definition.weight_kg andstackquantitysemantics, own177massf041...full31 (095-096) multiplies unitmass*effective_quantity andsums forstrategiccarriedmass. New230queryfull21 simply q_item.iter_many(the inventory Entity list); it does not multiply mass orfilterstacks. Therefore a positive fungible stack quantity3 with unitweightw is measured tacticalw vsstrategic3w; individualweapon/holder quantity1 narrows those actual cases. No runtime/current/unique claim.",
+    "224 physicalinventory_armor2818full205 actual fold: closedBodyPart index bounded0..6 by355; coverage union1-(1-prev)*(1-clampedcoverage), resistance/padding max0 sums, weightedflex sum(clampedflex*resistance)/totresistance else0, ROM min unitclamps. No finite aggregate check; public2*MAX resistance can overflow andflex ratio Inf/Inf, but actual catalogue/input bounds and ordinary reachability unproved. armor_layer_chain indexesgeometry for coveredpositivecoverage, sortsdescendinglayeru8, selectsfirst contains(sample) and emits allcontactlayers; malformedpublicComponent covered=true/geometryNone expectpath distinct from canonical matchedprojection. Prior core100 layer+AuthoredArmorCoverage proof retains exactscope; no SDK-wide proof."
+  ],
+  "qualified_findings": [
+    {
+      "kind": "tactical stack mass loses quantity",
+      "proof": "Native Item stores unitmass, ConnectedPlayerItem emits rowquantity independently,413 accepts positivequantity but geometry.mass ignoresit;411 forwardsgeometry.mass andquantity separately;355 iterates everyinventoryitem unchanged andsums onlyweight. Validquantity3/w>0 sourcecase yieldsw ratherthan3w. Own177strategicmass usesunitmass*effectivequantity.",
+      "limits": "Fungiblestack condition source-backed; individualgeneratedweapons/holders quantity1 narrow ordinaryequipmentcases. No liveincident/currenttree/runtime/acceptedunique claim. Relatedmass/quantity aliases andnativehydration/measuredfractions separate."
+    },
+    {
+      "kind": "incomplete raw configuration admission",
+      "proof": "Root351validate+352subset omit rawtransitionhandoff fraction andAI hit_precision/ranged_reach_fraction/slop constraints;353 validate\u2192retainedruntime clone isactual admission port. ExistingM04repairs mayalready addresssome currentaliases.",
+      "limits": "Historicaldirtyphysicalsource, publicmutation/nativeSerde routes; no compiled/current config or unavoidableNaNbehavior claim. Native ranged .min can maskNaN; do notclaiminvalidoutputsolelyfrom invalidfield."
+    },
+    {
+      "kind": "unchecked finite aggregates andrawdomain retention",
+      "proof": "Inventorymass f32sum andarmor resistance/padding/weightedflexf32 aggregates lackcompletedfiniteadmission; componentprimitives/roleBool/arrayindices carrydomainmeaning beforeactualnativekernel.",
+      "limits": "Publicrepresentable API case only forMAXarithmetic; noordinaryhugeinventory/armor proof. Canonicalquantity/placement/positivephysicalgates andcheckedelapsed recipients explicitly narrow claims; rootqualifiedearliermassaliases +0unique."
+    }
+  ],
+  "chronology": [
+    "All223 scopes prospective beforebodyreads;3501-240 own213 proofreuse and3541-75 own208proofreuse explicitlylabelled, complementsfreshunder223. Othersfullscopedrawsourceactuallyconsumed beforeaccounting.",
+    "225650-875 includes incidentalactorprojectionprefix/topology suffix, no full411 source or unrelatedcallercontractcredit.228declarations+229prefix/228tail together complete405-490 actualitemviewproducer; no retroactive original2788credit.",
+    "227 exactrawsource hashes verified, utf8-sig metadata only beforebodyconsumption; Git grep reportedbinary but actualcatbodyread no parser/summary substitute.",
+    "No sourceproof fromsourcehash/Gitmetadata/search, no product/toolchain execution; exactf82 andunchangeda120manifest/status provenance retained."
+  ],
+  "limits": [
+    "Allpriorqualification/correction/earliernativeobservations preserved. Acceptedunique0; no otherlens/current/runtime/global/all20 orSDKclearance.",
+    "Frozen351duplicateSignedLengthimports mean no assumptionthissnapshotwasrunnable; source contracts assessed independently of buildacceptance.",
+    "No product/Gitmutation/rootledger/projectchecks/tests/probes/newtests/helpers/assertions/doctests/publication. Runtime and repair acceptance remain separate."
+  ]
+}

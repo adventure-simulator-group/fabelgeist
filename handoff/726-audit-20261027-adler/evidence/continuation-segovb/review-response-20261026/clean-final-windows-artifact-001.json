@@ -1,0 +1,81 @@
+{
+  "head": "ef7630d757a6994297f6d24840991cda61bda63c",
+  "run": 40404924760,
+  "artifact": {
+    "id": 12691253781,
+    "name": "foliage-portability-ef7630d757a6994297f6d24840991cda61bda63c",
+    "size_in_bytes": 2832,
+    "url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/actions/artifacts/12691253781",
+    "archive_download_url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/actions/artifacts/12691253781/zip",
+    "expired": false,
+    "created_at": "2026-10-26T21:49:19Z",
+    "expires_at": "2027-01-24T21:30:26Z",
+    "updated_at": "2026-10-26T21:49:19Z",
+    "digest": "sha256:4a834ee4906d1c7768479e3ff154c34614b1824c817b50ccd166cb00c78ba778",
+    "workflow_run": {
+      "id": 40404924760,
+      "repository_id": 1049441561,
+      "head_repository_id": 1049441561,
+      "head_branch": "codex/826-texture-view-errors-main",
+      "head_sha": "ef7630d757a6994297f6d24840991cda61bda63c"
+    }
+  },
+  "at": "2026-10-26T21:52:56.139296+00:00",
+  "source_files_verified": true,
+  "actual_log_results": {
+    "understory": {
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0
+    },
+    "envelope": {
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0
+    },
+    "leaves": {
+      "passed": 5,
+      "failed": 0,
+      "ignored": 0
+    },
+    "sampling": {
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0
+    },
+    "prepared-impostors": {
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0
+    }
+  },
+  "files": [
+    {
+      "path": "envelope.log",
+      "sha256": "a4433ccfd04a728885bb487b2de2f5717391aa16640f5a3e34504e77278894c3"
+    },
+    {
+      "path": "leaves.log",
+      "sha256": "445bd105d8ccc445677f8440b9e19f8c99270dd7ec238170dffd5600a124da4c"
+    },
+    {
+      "path": "prepared-impostors.log",
+      "sha256": "f6f8479714d8b2d58883fc5ac037ca7caac61f1986e3c754b32d2b41c0f93c43"
+    },
+    {
+      "path": "revision.txt",
+      "sha256": "57b32bdbac55bf11ae2e960be550d7ec52a1d907ee9e24ed5e12216ee2843790"
+    },
+    {
+      "path": "sampling.log",
+      "sha256": "e00b8095a67ec225614ac424177796102340e9a2559576e55e30438a4359bf61"
+    },
+    {
+      "path": "understory.log",
+      "sha256": "9569659fbab2709388af6107b88e7eb6803a9cffb62d67f5b1a2faf1b5e9a6eb"
+    }
+  ],
+  "full_linux_acceptance": "Pending remaining stages; no old-head results credited",
+  "scope_limit": "Existing tests only; new error/poll-failure branches source-reviewed, not directly exercised by these cases",
+  "no_local_project_execution": true
+}

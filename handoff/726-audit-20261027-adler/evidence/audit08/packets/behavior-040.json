@@ -1,0 +1,80 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-040",
+  "lens": "08 behavior-preservation",
+  "completed_original": [
+    1562,
+    1563
+  ],
+  "source_pin": "source-pins-and-scope-060.json",
+  "source_reads": {
+    "1562": {
+      "head": [
+        [
+          1,
+          322
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          85
+        ]
+      ]
+    },
+    "1563": {
+      "head": [
+        [
+          1,
+          18
+        ]
+      ],
+      "actual_diff": "empty"
+    }
+  },
+  "support_reads": {
+    "1573": {
+      "head": [
+        [
+          75,
+          88
+        ]
+      ],
+      "pin": "support-pins-shrub-placement-061.json"
+    },
+    "1582": {
+      "head": [
+        [
+          1,
+          160
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          168
+        ]
+      ],
+      "pins": [
+        "support-pins-shrub-placement-061.json",
+        "support-diff-shrub-placement-062.json"
+      ],
+      "status": "Partial original role; all production placement helpers read, remaining fixture bodies not read."
+    }
+  },
+  "producer_and_receiver_analysis": [
+    "1562 retains three species and three representation bands, wood 0/.001/44/52, cambered 0/.001/26/34, cards 26/34/84/96. All native bark/leaf uniform layout, bind slots, no-prepass/double-sided/A2C settings and native mesh/material handle requirements are unchanged. Missing cache handles still omit presentation.",
+    "Actual 1582 placement producer retains spacing 3.2, z-outer/x-inner cell iteration, species probabilities, community multipliers, immutable cell seeds and purpose labels. Raw point coordinates become finite ScenePlanPoint with otherwise identical jitter/order; ground lookup/species filtering is unchanged. New finite admission rejects nonfinite points before species selection, without shifting other cells.",
+    "1562 consumes point getters, same terrain height and normal, same .72 slope cutoff; finite Position<Scene> construction occurs before adding instances. Own canonical Position proof retains input bits. This does not establish invariants for arbitrary deserialized terrain.",
+    "Actual 1573 constants preserve the old visual.understory.yaw and visual.understory.scale purposes exactly. Shrub shader seed masking, yaw TAU draw and scale .72 + draw*.58 are unchanged. Same Arc instances, native fitted nonempty AABB radius 4.5, root Transform, GPU-cull flags, white material data and representation bands reach native rendering.",
+    "1563 layer variants and presentation/interactor marker components are byte-identical. No new payload or authority introduced."
+  ],
+  "findings": [],
+  "qualifications": [
+    "Native renderer/shader/allocator internals are not cleared by this packet; no GPU execution.",
+    "1582 remains partial pending its existing fixture bodies; no whole original-role credit.",
+    "Frozen source 6533 was used; current CI TreeShootId changes and hosted results were not substituted.",
+    "Existing camera Q003, item-identity qualified candidate and broader saved findings/policy qualifications remain open."
+  ],
+  "validation": "Source-only; no local project checks/tests/builds or product/Git mutation.",
+  "global_clearance": false
+}

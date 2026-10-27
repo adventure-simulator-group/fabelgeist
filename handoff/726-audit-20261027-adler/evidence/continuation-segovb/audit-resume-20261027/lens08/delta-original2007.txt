@@ -1,0 +1,16 @@
+--- base
++++ frozen-head
+@@ -24,11 +24,13 @@
+ iteration = []
+ 
+ [dependencies]
++fabelgeist-geometry.workspace = true
+ rand.workspace = true
+ fabelgeist-determinism.workspace = true
+ serde-saphyr.workspace = true
+ serde.workspace = true
+ serde_json.workspace = true
++thiserror.workspace = true
+ 
+ # Bevy + shared Aeronet/Replicon netcode
+ bevy = { workspace = true, features = ["multi_threaded"] }

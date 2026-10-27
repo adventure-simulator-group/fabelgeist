@@ -1,0 +1,36 @@
+{
+  "material_index": 182,
+  "lens": "type-granularity",
+  "source_id": "scope-amendment:native:glam-0.32.1/src/f32/vec3.rs#normalization-contract",
+  "sha256": "28708ec95e5481d1673cbff86f8cafc8d19a50b5ea32fdd030cdbdb9d0601b4c",
+  "registered_ranges": [
+    [
+      573,
+      579
+    ],
+    [
+      626,
+      658
+    ]
+  ],
+  "personally_read_ranges": [
+    [
+      573,
+      579
+    ],
+    [
+      626,
+      658
+    ]
+  ],
+  "registration": "../shared-material-successor/registration-009.json",
+  "source_basis": "Root personally read exact shared pinned API bodies after prospective registration; prior CI or other-lens read gives no credit.",
+  "concepts_actual_uses_and_mixup": [
+    "Generic native Vec3 normalization is intrinsic mathematical arithmetic at a foreign library boundary. length_recip returns reciprocal Euclidean length; normalize multiplies self by that reciprocal and optionally asserts output finite. try_normalize admits only finite positive reciprocal, then multiplies the same self by the same scalar; returns Option instead of supplying a fallback. This does not make all finite inputs admissible (squared length may underflow/overflow). Caller frame/semantic normal type and error propagation remain first-party obligations; no whole Vec3 package, feature execution or original1645 frozen receiving-body credit."
+  ],
+  "new_unique_finding": false,
+  "whole_audit_clear": false,
+  "other_lens_credit": false,
+  "repair": "not started",
+  "validation": "not run"
+}

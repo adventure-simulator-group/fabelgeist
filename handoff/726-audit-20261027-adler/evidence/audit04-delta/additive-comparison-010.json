@@ -1,0 +1,128 @@
+{
+  "lens": "04",
+  "registry": "../shared-material-successor/source-extensions-196.json",
+  "registry_count": 196,
+  "registration_authorities": [
+    "registration-016.json",
+    "registration-017.json"
+  ],
+  "previous_packet": "additive-comparison-009.json",
+  "new_completed_materials": [
+    192,
+    193,
+    194,
+    195
+  ],
+  "entries": [
+    {
+      "source_id": "canonical-support:990430b:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers.rs",
+      "sha256": "4f2a0ea9d96dba2f493cb7bd317313f553b00f0e29ff1eb0c223c7eed02058f4",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "bytes": 6610,
+      "registration_evidence": "registration-016.json",
+      "reason": "Bounded current-canonical comparison for existing derivability candidate001; original inventory unchanged.",
+      "prior_reads": "Frozen6533 role1486 had been fully personally read before this followup. Current whole bytes differ; current body first read after registration001. Exact declaration15-18 and From41-45 match frozen bytes. Lines73-85 were incidental partial OutfitPlan context displayed with the bounded read; no unrelated whole-body coverage or verdict claimed.",
+      "own_prospective_authority": "../audit10/candidate001-reconciliation/canonical-registration-001.json",
+      "registration_timing": "Shared consolidation follows own10 prospective local registrations and qualified actual reads. No claim that prior reads awaited shared registry; no other-lens coverage transfer.",
+      "incidental_displayed_not_coverage": [
+        [
+          73,
+          85
+        ]
+      ],
+      "material_index": 192,
+      "source_copy": "sources/4f2a0ea9d96dba2f493cb7bd317313f553b00f0e29ff1eb0c223c7eed02058f4",
+      "assessment": "admit propagates failed catalogue lookup before producing Self and performs no retained-state mutation. From moves the admitted selection. Eq, Hash and Ord recompute the same item/placement tuple; no cached divergent key, arithmetic, normalization or dynamic indexing appears in1-71. Existing lexical semantics remain deliberate; map-key mutation and the wider outfit lifecycle are not assessed here.",
+      "disposition": "NO_NEW_UNIQUE_FINDING; preserve existing saved qualifications",
+      "actual_read": "Independently read registered bounded lines and selected Cargo section membership for this lens. Hash verified; no whole-file semantic coverage."
+    },
+    {
+      "source_id": "canonical-support:990430b:crates/adventuresim-tactical-client/Cargo.toml",
+      "sha256": "8aa55633cd7ff303e586406b52582fd208269232ae9217364c309fa085b074d1",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "ranges": [
+        [
+          20,
+          20
+        ],
+        [
+          23,
+          23
+        ],
+        [
+          95,
+          95
+        ]
+      ],
+      "bytes": 4171,
+      "registration_evidence": "registration-016.json",
+      "reason": "Bounded current-canonical comparison for existing derivability candidate001; original inventory unchanged.",
+      "prior_reads": "Frozen manifest had been read; current whole bytes differ. Current selected declarations/section metadata were read only after registration001; no other dependency bodies credited.",
+      "own_prospective_authority": "../audit10/candidate001-reconciliation/canonical-registration-001.json",
+      "registration_timing": "Shared consolidation follows own10 prospective local registrations and qualified actual reads. No claim that prior reads awaited shared registry; no other-lens coverage transfer.",
+      "structured_selection": "Containing Cargo section for each selected derive_more/thiserror declaration; normal derive_more is dependencies, line95 thiserror is build-dependencies.",
+      "material_index": 193,
+      "source_copy": "sources/8aa55633cd7ff303e586406b52582fd208269232ae9217364c309fa085b074d1",
+      "assessment": "Selected declarations only associate dependency sections, version and enabled macro features; there is no application arithmetic, index, mutable publication or error ordering in these selected metadata fields. No build execution or whole-manifest proof.",
+      "disposition": "NO_NEW_UNIQUE_FINDING; preserve existing saved qualifications",
+      "actual_read": "Independently read registered bounded lines and selected Cargo section membership for this lens. Hash verified; no whole-file semantic coverage."
+    },
+    {
+      "source_id": "canonical-support:990430b:Cargo.lock",
+      "sha256": "d148af6f0f15140e5337b4ee4bf9d5ea5f63c6ff10bae5c472592d2768f58515",
+      "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+      "ranges": [
+        [
+          4318,
+          4352
+        ]
+      ],
+      "bytes": 306154,
+      "registration_evidence": "registration-016.json",
+      "reason": "Bounded current-canonical comparison for existing derivability candidate001; original inventory unchanged.",
+      "prior_reads": "Current lock bytes copied/hashed before prospective registration002; selected package blocks first semantically read afterward. Older frozen lock/package proof existed, but no current-body credit inferred from it.",
+      "own_prospective_authority": "../audit10/candidate001-reconciliation/canonical-registration-002.json",
+      "registration_timing": "Shared consolidation follows own10 prospective local registrations and qualified actual reads. No claim that prior reads awaited shared registry; no other-lens coverage transfer.",
+      "structured_selection": "Only package blocks whose name is derive_more or derive_more-impl. This includes derive_more0.99.20, derive_more2.1.1 and derive_more-impl2.1.1, with blank separators, but no following package body.",
+      "material_index": 194,
+      "source_copy": "sources/d148af6f0f15140e5337b4ee4bf9d5ea5f63c6ff10bae5c472592d2768f58515",
+      "assessment": "Native package metadata selects two distinct derive_more versions and the exact2.1.1 implementation dependency. No application operation chain arises from these package blocks. Do not infer macro/runtime success from checksum/configuration identity.",
+      "disposition": "NO_NEW_UNIQUE_FINDING; preserve existing saved qualifications",
+      "actual_read": "Independently read registered bounded lines and selected Cargo section membership for this lens. Hash verified; no whole-file semantic coverage."
+    },
+    {
+      "source_id": "canonical-support:4530:Cargo.lock#http-package",
+      "revision": "4530fc19ce16641df65eae28735d69e86bbaa8ae",
+      "sha256": "197d8605659fa581961b37f9c18f2a46b04db822a666d3abefe5653b4204401a",
+      "bytes": 306163,
+      "ranges": [
+        [
+          6079,
+          6088
+        ]
+      ],
+      "reason": "F005 exact current lock mapping needed after986 changed lock bytes; old990 native package proof cannot imply new resolution. Only name/header/next-header locator; actual version/checksum/dependencies not semantically read before prospective registration.",
+      "registration_evidence": "registration-017.json",
+      "own_prospective_authority": "../audit05/remedy-reconciliation/main4530/F005-prospective-http-lock-registration-001.json",
+      "prior_reads": "Own05 locatoronly and hash/copy before registration; body unread. Root metadata/hash/copy only, no native package body assessment.",
+      "scope_limits": "Exact http package block only; no full lock/SDK/dependency/runtime/otherlens coverage.",
+      "material_index": 195,
+      "source_copy": "sources/197d8605659fa581961b37f9c18f2a46b04db822a666d3abefe5653b4204401a",
+      "assessment": "The current4530 http package block fixes version1.5.0 and its checksum/dependencies. It connects the previously bounded native length/scanner operation evidence to this exact package identity, without extending unsafe/authority/parse_full/caller or runtime guarantees and without a new source issue.",
+      "disposition": "NO_NEW_UNIQUE_FINDING; preserve existing saved qualifications",
+      "actual_read": "Independently read registered bounded lines and selected Cargo section membership for this lens. Hash verified; no whole-file semantic coverage."
+    }
+  ],
+  "no_cross_lens_credit": true,
+  "prior_read_disclosure": "M192-194 local prospective current990 comparison already recorded. Incidental73-85 exposure receives no extra coverage. M195 locator/hash-copy metadata only before registration; semantic read after registration. One rejected/truncated combined display receives no credit; fresh bounded displays supplied actual source reads.",
+  "new_unique_findings_claimed": 0,
+  "limits": "M192-194 remain pinned990; M195 is4530. No automatic equivalence to current product bodies. Existing URI unsafe/authority/caller limits and saved per-lens findings remain. No runtime/global/merge clearance.",
+  "source_edits": false,
+  "checks": "not run"
+}

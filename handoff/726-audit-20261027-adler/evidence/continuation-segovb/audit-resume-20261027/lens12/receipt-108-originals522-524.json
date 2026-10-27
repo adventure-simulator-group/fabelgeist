@@ -1,0 +1,138 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "108",
+  "predecessor": "receipt-107-originals511-521.json",
+  "manifest_prefix_sha256": "e43aa2319a191caa0a86e57ec47f7ef7450348435576ae717cfc7fcca64ded0e",
+  "sources": [
+    {
+      "original_index": 522,
+      "source_id": "pr-working:content/dialogue/examples.yaml",
+      "sha256": "0b88481c5969b3dba36855dd3f2cdeff3895abda9e9696cd76e1f9eb263dbc7f",
+      "actual_eof": 45,
+      "actual_ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "[[1, 45]]",
+          "role": "Full45lines JSON-formatted authored dialogue in .yaml path. Open conversation/role/topic/response/prompt/choice IDs4-40 and speaker/addressee references14/17/34-36/39; native shape keys/discriminators player/npc,role/group,text/runtime; finite time_period fact13 with morningvalue; topiccategoryquest30/promptmodesingle/resolutionmajority39; runtime slotsaddressee_title/second_person_subject35; labels/prose text14-40 distinct displayrole.",
+          "disposition": "All string occurrences grouped by actual authored ID/reference, finite kind/op/fact/value/effect/runtime vocabulary, narrative label/prose, source-reference or native key role. Reuse precise canonical slot/action/fact/policy owners at parser/runtime boundary; preserve open scoped content IDs distinct from prose. No blanket content/fixture/String boundary exemption. Native JSON/Serde execution and actual gameplay effect/worldstate receiver acceptance unclaimed."
+        }
+      ],
+      "status": "Full exact registered producer data independently inventoried WITH source-keyed receiving obligations."
+    },
+    {
+      "original_index": 523,
+      "source_id": "pr-working:content/dialogue/organizations.yaml",
+      "sha256": "57f566bbee311d7f54aa2cb344abbb5b0119fcdf7e321d2a2f2bda43bc2dcf67",
+      "actual_eof": 707,
+      "actual_ranges": [
+        [
+          1,
+          707
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "[[1, 707]]",
+          "role": "Full707lines read1-350/351-707. Open conversation/role/topic/response/prompt/choice IDs and participant/speaker/topic references4-699; canonical finite kinds/op tokens fact/all/not,text/runtime/topic,player/npc,participant/role,yes_no prompts405/483/548; organization factkeys membership41/69/111/145/173/239/307/371/457/589,dues_required78/120/186/212/449,promotion_available252/279/523,presentation320/345/598,referral_contact632; membership textvaluesnone45/375/461,suspended73/115,current149/177/243/311/593 are semanticclassification, not prose. Runtime organization/grammar/testimony slots18/90-94/131/386-396/474/537/615/648. Actualeffect tokensjoin_organization410,pay_organization_dues488,request_organization_promotion553,present_organization620,receive_referred_testimony651,investigation_action withreturn_asset675/expose699. Alllabels/textvalue fragments1-707 are narrative/outputdistinct from these IDs/selectors.",
+          "disposition": "All string occurrences grouped by actual authored ID/reference, finite kind/op/fact/value/effect/runtime vocabulary, narrative label/prose, source-reference or native key role. Reuse precise canonical slot/action/fact/policy owners at parser/runtime boundary; preserve open scoped content IDs distinct from prose. No blanket content/fixture/String boundary exemption. Native JSON/Serde execution and actual gameplay effect/worldstate receiver acceptance unclaimed."
+        }
+      ],
+      "status": "Full exact registered producer data independently inventoried WITH source-keyed receiving obligations."
+    },
+    {
+      "original_index": 524,
+      "source_id": "pr-working:content/dialogue/services.yaml",
+      "sha256": "72e3e18751e06c9334390f98ed3dec812147d32f089fd7dd4a03429b0c192556",
+      "actual_eof": 246,
+      "actual_ranges": [
+        [
+          1,
+          246
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "[[1, 246]]",
+          "role": "Full246lines rawread had middletruncation; actual70-115 gap independently reread before receipt. NativeJSON keys/finite discriminators throughout; allconversations/role/topic/response/prompt/choice IDs/references. Finite service equals merchants12/22/41,weapons13/26/42,armor14/30/43,clothing15/34/44,inn16/38/65,herbalist45,physician51,surgeon59; participant_status party_leader8,languagecompat limited9,agechild10/197,elder198; local_circumstance household errand200,timeperiod night201,location_rolemarket202,professionartisan203. Runtime grammatical/organizationname/testimony slots7-242; authoritative_explanation references physiology/humours54 andphysiology/observation147 are source-reference identity distinct from explanation prose; period_claim52/146. Promptyes_no81/91/98/180 andfirst_response81. begin_apprenticeship withselected-service83, report/accept_contract selected-service-contract92/100; contract_state ready toreport rawreadytoreport89/offered95 finitevalues; set_flag profess-local-faith181; investigationreturn_asset119/219/expose124/224; receive_referred_testimony114/158/191/214/242; allplayerfacing labels/value paragraphs independently read, not gameplayselector exemption.",
+          "disposition": "All string occurrences grouped by actual authored ID/reference, finite kind/op/fact/value/effect/runtime vocabulary, narrative label/prose, source-reference or native key role. Reuse precise canonical slot/action/fact/policy owners at parser/runtime boundary; preserve open scoped content IDs distinct from prose. No blanket content/fixture/String boundary exemption. Native JSON/Serde execution and actual gameplay effect/worldstate receiver acceptance unclaimed."
+        }
+      ],
+      "status": "Full exact registered producer data independently inventoried WITH source-keyed receiving obligations."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Authored finite dialogue slot/action/fact/value vocabularies and open scoped identities",
+      "sources": [
+        "522:1-45",
+        "523:1-707",
+        "524:1-246"
+      ],
+      "disposition": "Actual authored selectors/effects shown, including selected-service sentinel and member-state text; narrative label/value content is distinct from control/reference authority. Same-byte PR-working owner metadata1030/1031/1034 matches independentlyread P16owners166/167/170; prior own021/022 context useful, no futureoriginalcount or snapshotalias inferred.",
+      "remedy": "Use canonical typed PromptMode/ResolutionPolicy/runtime/action/fact-value owners across sourceadmission and state/effectreceivers, with purpose-specific scoped open IDs and separate narrative/reference types. Do not add compatibility aliases or fallback spellings.",
+      "acceptance": "Reconcile exact build/schema/runtime/source_revision owners plus actual worldstate/effect handlers and selectors before repair. Source producers accounted WITH unresolved receiver/canonical-alias obligations; no runtime truth or unique count.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "PR-working dialogue loader/build/runtime1030-1035 exact registered ranges must independently inventory at ordered frontier; same-SHA priorP16 own proof context not future completion transfer.",
+    "Actual gameplay/worldstate implementations of emitted effects, facttext categories, sentinel selectors and source-reference validation remain explicit; explanatory/medical producttruth not inferred from prose.",
+    "All inherited unread native/application/identity/canonical-alias scopes retained."
+  ],
+  "qualifications": [
+    "Frozen PR-working producer data only; no P16/current/global/runtime/unique-total/other-lensclearance.",
+    "No BC/API/schema/input preservation requirement. No project/native/test/probe execution or product/Git/rootledger/publication mutation.",
+    "All20/P16/P17/F9/M09 and aliases retained; unique delta0."
+  ],
+  "proposed_count": {
+    "before": 522,
+    "after": 525,
+    "indices_completed": [
+      522,
+      523,
+      524
+    ],
+    "next_original": 525,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "pr-working:content/dialogue/examples.yaml",
+      "sha256": "0b88481c5969b3dba36855dd3f2cdeff3895abda9e9696cd76e1f9eb263dbc7f",
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:content/dialogue/organizations.yaml",
+      "sha256": "57f566bbee311d7f54aa2cb344abbb5b0119fcdf7e321d2a2f2bda43bc2dcf67",
+      "ranges": [
+        [
+          1,
+          707
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:content/dialogue/services.yaml",
+      "sha256": "72e3e18751e06c9334390f98ed3dec812147d32f089fd7dd4a03429b0c192556",
+      "ranges": [
+        [
+          1,
+          246
+        ]
+      ]
+    }
+  ]
+}

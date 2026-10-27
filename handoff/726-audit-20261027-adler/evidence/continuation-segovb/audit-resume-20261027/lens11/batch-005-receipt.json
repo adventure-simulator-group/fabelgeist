@@ -1,0 +1,308 @@
+{
+  "lens": 11,
+  "frozen_authority": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+  "registry": {
+    "path": "target/recovery-20261025/audit05/original-scope-072.json",
+    "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_adoption_required": true,
+  "restrictions": "Ignored append-only evidence only; no product/source/Git mutations, root ledger, project execution/scanners/probes/tests/new tests or publication.",
+  "at": "2026-10-27T11:13:26.626615+00:00",
+  "status": "836\u2013840 independently source-accounted with qualified observations",
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-004.json",
+    "sha256": "613a0c33f8ed590fe3c513fbd302cc99b20a9f5db2597426b940aacdfb2dc1fb"
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-005-registration.jsonl",
+    "sha256": "5ba9ff1b439880c0b0c9a29ecdd6bf52bda564620e847180c93f833098fbfa1b"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 836,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/torso_domain.rs",
+      "sha256": "d00dd8818cff04db09a6da07ec1bb8e88270b85d88677532a01352ce9ad68209",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/d00dd8818cff04db09a6da07ec1bb8e88270b85d88677532a01352ce9ad68209",
+      "actual_eof": 188,
+      "ranges": [
+        [
+          1,
+          188
+        ]
+      ],
+      "provenance": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact recovered SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          188
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 837,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer/mail_regions.rs",
+      "sha256": "97d08f8f347891423424441d17e6d421f2b1855d184ac6c03aedc2914eab4dca",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/97d08f8f347891423424441d17e6d421f2b1855d184ac6c03aedc2914eab4dca",
+      "actual_eof": 94,
+      "ranges": [
+        [
+          1,
+          94
+        ]
+      ],
+      "provenance": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact recovered SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          94
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 838,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer/pattern.rs",
+      "sha256": "4b445b7dcd85806cde575fa40320b08412e87a18f12ff30c5e7de2648d8c3cab",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/4b445b7dcd85806cde575fa40320b08412e87a18f12ff30c5e7de2648d8c3cab",
+      "actual_eof": 258,
+      "ranges": [
+        [
+          1,
+          258
+        ]
+      ],
+      "provenance": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact recovered SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          258
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 839,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer_armor.rs",
+      "sha256": "2e8a0fab854290874e3eda648d5a957f93d4ea0efe16bf0d12797d68099085d2",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/2e8a0fab854290874e3eda648d5a957f93d4ea0efe16bf0d12797d68099085d2",
+      "actual_eof": 186,
+      "ranges": [
+        [
+          1,
+          186
+        ]
+      ],
+      "provenance": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact recovered SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          186
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 840,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer_equipment.rs",
+      "sha256": "91acbb6c6ec41a6642c3ef9ab51d184ef615cb1cf631662d719f12a9b8f8b35d",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/91acbb6c6ec41a6642c3ef9ab51d184ef615cb1cf631662d719f12a9b8f8b35d",
+      "actual_eof": 99,
+      "ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "provenance": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee exact recovered SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          99
+        ]
+      ]
+    }
+  ],
+  "per_role": [
+    {
+      "original": 836,
+      "roles": "TorsoSkinDomain shares topology/typed PackedRigSkin and RigJointTable; JointSkinOwnership separate torso/limb memberships; original triangle identity output.",
+      "trace": "Checks row/cardinality/rig count, face indices and finite unit skin weights; constructs membership from canonical names/parts, sums independent torso/limb weights, thresholds per-face means and emits original u32 triangle ordinals preserving duplicates. Eligibility is not attachment/footprint/slide authority. Two accumulation array slots are local numerical channels, not arbitrary persistent enum-of-number model. Source fixtures read, not executed.",
+      "disposition": "source-accounted; raw face-identity role qualified with existing geometry family"
+    },
+    {
+      "original": 837,
+      "roles": "UnderlayerDesign typed Permille and Millimeters, FittingPlacement.side, FitRegion and canonical RigJointName/Part; native reference-space regions.",
+      "trace": "Brayette/knee/standard have different actual anatomical landmark/length/patch uses. Side is required only where anatomical lateral placement matters; primitive signs only local plane construction. Permille length may exceed1 (actual owner allows doublet/brayette1200), so replacing it with UnitInterval would impose false bounds.",
+      "disposition": "source-accounted"
+    },
+    {
+      "original": 838,
+      "roles": "RegionFrame callback versus PartFrame payload; UnderlayerKind closed alternatives; include/subtract region vectors; reference-space points and plane normal/offset.",
+      "trace": "required_frames enumerates actual async frame preparation for each garment kind; regions dispatch consumes these same kind/placement roles. Doublet/hose/voider/mail construct authored anatomical volumes, sleeve/length ratios may exceed unit by policy. Include and subtract collections are returned as same-representation tuple although distinct cut authority; actual CutPlan immediately destructures correctly. Tube/box helpers are local vector numerical kernel, not extra public bounded-float owner.",
+      "disposition": "source-accounted with monolithic design-role question"
+    },
+    {
+      "original": 839,
+      "roles": "UnderlayerBody groups wearer, UV SurfaceDomain, named coordinate domain, static proportions; named morph/shape pairs versus fitted endpoints; typed UnderlayerDesign/TrunkHoseDesign, ArmorComponentRole.",
+      "trace": "fit_underlayer forwards sample shapes, fits once, and zips ordered outputs with retained names. Actual Fit.run creates wearer first then one realization per morph, separating static proportions as constraints; output-sized ordered copy loop and shell_surfaces decoder yield same order with base removed. Native GPU/readback algorithm validity not claimed. Trunk hose validates own design, builds private brayette carrier, replaces hash/material panes; carrier fields are deliberate algorithm input, not a compatibility fallback. Panel angular parity stays local triangle/material classification kernel.",
+      "disposition": "source-accounted; public independent endpoint association retains earlier qualified family"
+    },
+    {
+      "original": 840,
+      "roles": "Studio typed underlayer/trunk-hose alternatives, generated body, ForearmMorphSample, UnderlayerBody and named BodyShape slices.",
+      "trace": "with_body derives wearer positions/normals/joints from same generated sample and topology/skin/UV from same model; static proportion samples and named dynamic morphs remain distinct fields; fit closure receives them together and correct_armor_fit uses same source morph slice. Actual native domain string is named asset metadata, no arbitrary closed string policy inferred.",
+      "disposition": "source-accounted"
+    }
+  ],
+  "qualified_observations": [
+    {
+      "source_key": "pr-working:crates/adventuresim-character-creator/src/underlayer/pattern.rs@4b445b7dcd85806cde575fa40320b08412e87a18f12ff30c5e7de2648d8c3cab#UnderlayerDesign-variant-roles",
+      "observation": "One UnderlayerDesign stores and validates sleeve_length and patch_width for every UnderlayerKind, although actual doublet uses sleeve while knee/standard/voiders use patch_width and other variants do not. Same Permille representation has different construction length policies, and some valid lengths exceed1. Existing unit wrappers distinguish scale but not all variant-owned field roles.",
+      "remedy": "Reconcile actual canonical garment design family/aliases/current source; consider variant-owned construction payloads or validated focused records rather than generic UnitInterval/one numeric validator. Preserve authored greater-than-one scale policy.",
+      "acceptance": "Each construction owns actual applicable payload and validation, no irrelevant field authority; native region calculation receives coherent actual shape.",
+      "dependencies": [
+        "existing enum-shape/aggregate ownership review",
+        "currentness/alias reconciliation"
+      ],
+      "currentness": "Frozen only; no accepted unique or runtime malformed-input witness"
+    }
+  ],
+  "material_receivers": [
+    {
+      "kind": "new-unchanged-owner",
+      "path": "crates/adventuresim-character-creator/src/underlayer.rs",
+      "sha256": "9726131d4d0508a8b77b56bd2723a18c1f5e45d0be3e468ccc797d39a12a1f2a",
+      "ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "reason": "UnderlayerKind and design field role ownership consumed by regions/assembly",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "zero_new_original_credit": true
+    },
+    {
+      "kind": "connected-owner-producer",
+      "original_index": 755,
+      "sha256": "b42e82c29ce8e08f7e378abc16f0f9823aea7c2580456c37cbaa4084ea781591",
+      "ranges": [
+        [
+          111,
+          142
+        ],
+        [
+          300,
+          326
+        ]
+      ],
+      "reason": "design validation and actual ordered endpoint production for fit_underlayer zipper",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          111,
+          142
+        ],
+        [
+          300,
+          326
+        ]
+      ],
+      "zero_new_original_credit": true
+    },
+    {
+      "kind": "connected-endpoint-producer",
+      "original_index": 755,
+      "sha256": "b42e82c29ce8e08f7e378abc16f0f9823aea7c2580456c37cbaa4084ea781591",
+      "ranges": [
+        [
+          141,
+          220
+        ],
+        [
+          327,
+          369
+        ]
+      ],
+      "reason": "trace ordered realizations and decoded endpoint count; close FittedUnderlayer output",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          141,
+          220
+        ],
+        [
+          327,
+          369
+        ]
+      ],
+      "zero_new_original_credit": true
+    },
+    {
+      "kind": "connected-endpoint-producer-closure",
+      "original_index": 755,
+      "sha256": "b42e82c29ce8e08f7e378abc16f0f9823aea7c2580456c37cbaa4084ea781591",
+      "ranges": [
+        [
+          221,
+          299
+        ],
+        [
+          370,
+          381
+        ]
+      ],
+      "reason": "realization append/order and output-sized readback, shell decoder closure",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          221,
+          299
+        ],
+        [
+          370,
+          381
+        ]
+      ],
+      "zero_new_original_credit": true
+    }
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer. Preserve180/181nativeSDK/Bevy scheduling/imagecopylimits andallpendingreceiverqueues. M04current903reviewsseparate; notfrozenoriginal/lenscounts. Packet182InventoryItemId graph erasure, catalogkey/recordidentity and wear/order-selector sourcequestions retained, alias/currentness/unique acceptance unresolved. M04build-target review003 atdf5 andhostedCIseparatefromfrozenauditcounts. 184 newpublicDrapedPiece association/sourcegroupingquestion remainsfrozenlocal, noalias/currentness/uniqueacceptance; producerpathcoherent. M04df5validationseparate. 185 capacityreservationstaticAPIgap retainedasfrozenevidence only; alias/currentness/accepteduniqueness unresolved. No runtimewrongID orauthoredcurrentinputwitness. ExistingID/key/wear/savedassociationquestionsremainqualified. Packet186 independently accounts existing test-source812 only; fixture expectations are not observed execution/whole authored catalog/native guarantees and do not clear185 capacity witness. Existing lower-pattern fixture uses canonical owners; no new current alias or unique finding. Packet187 original813 only. New frozen inventory_ui and catalog wrapper material extensions mandatory other lenses, zero extra shared/original credit. UI acquisition is not atomic/all-worn; inherited capacity, typedID erasure/key authority and public saved-association questions retain all currentness/alias/unique limits.",
+  "clear": false,
+  "new_material_extensions": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/underlayer.rs",
+      "sha256": "9726131d4d0508a8b77b56bd2723a18c1f5e45d0be3e468ccc797d39a12a1f2a",
+      "material_ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "mandatory_other_lenses": true,
+      "provenance": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-005-receiver-staging.json",
+        "sha256": "2179f089c4c4d35c011d190712ecdeba208a7001c89ea8fba29a0badc7d4582c"
+      },
+      "zero_extra_original_shared_credit": true
+    }
+  ]
+}

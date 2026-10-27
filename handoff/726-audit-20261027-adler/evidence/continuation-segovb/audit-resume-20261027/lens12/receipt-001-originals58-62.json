@@ -1,0 +1,1606 @@
+{
+  "id": "L12-RESUME-001-ORIGINAL58-62",
+  "at": "2026-10-27T10:42:34.724667+00:00",
+  "lens": 12,
+  "source_authority": {
+    "frozen": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "inventory": "target/recovery-20261025/audit05/original-scope-072.json",
+    "inventory_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "current_head": "5376d149da40b9ba3afd93d86827832eab1f1f89",
+    "requested_current_main": "7a9d92ad7357779e9280146c521bd8588b86fcdb",
+    "both_tree": "9ad4f2300a9255bebc06f3aa1b15e58f69382130",
+    "qualification": "Current exact commit trees verified as task context only; no frozen/current file/API equivalence inferred. Local symbolic main is stalea411, explicit requested mainSHA used."
+  },
+  "prior_state": {
+    "path": "target/recovery-20261025/continuation-segovb/audit12-state-successor-037-root-001.json",
+    "sha256": "7c5c2cda34fef5332dfafb68117d302555fd8c10df387999055734a5c5dd3ab6"
+  },
+  "reconciled_pending_038": {
+    "path": "target/recovery-20261025/continuation-segovb/audit12-successor-038-original58-partial-001.json",
+    "sha256": "e594756816c457525a212210e4ab9e6c0c44e2de996c077a76157728d32a583b",
+    "rule": "Own exact full866line read and67literal/API inventory retained after source identity match; not root57 prior1-227 or another lens credit. Newly consumed actual receiver roles close its three concrete frontiers within recorded limits."
+  },
+  "prospective_manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens12/prospective-sources-001.jsonl",
+    "prefix_sha256_at_receipt": "e233ee620d0336f1baeb0da51598fa4c29d16b4092942e810725780f306e1d4e",
+    "meaning": "Append-only prospective rows precede raw body consumption. Staging rows with no ranges are metadata only; repeated rows add necessary ranges, not repeated body credit."
+  },
+  "primary_source_inventory": [
+    {
+      "original": 58,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "sha256": "e1dac77a2c5ef7c2bb50b886c9b7340c83f2fcee27fe767788e48463ad6f737c",
+      "actual_full_read": [
+        [
+          1,
+          866
+        ]
+      ]
+    },
+    {
+      "original": 59,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_iteration/error.rs",
+      "sha256": "a434a6844f7fc1634be9cab2e144ae9a6e7bc9b09a93c1b72b0bdca38140c197",
+      "actual_full_read": [
+        [
+          1,
+          48
+        ]
+      ]
+    },
+    {
+      "original": 60,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence.rs",
+      "sha256": "a806a6dd4779dabe9e140cdc109d4450a5d400c0460b862e157ad4f73b58c345",
+      "actual_full_read": [
+        [
+          1,
+          447
+        ]
+      ]
+    },
+    {
+      "original": 61,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/armor.rs",
+      "sha256": "9a5f5b89b21f9f10d774f35eb8c9f2cc2c73ebd4a21faf917bae8cd0b428561c",
+      "actual_full_read": [
+        [
+          1,
+          76
+        ]
+      ]
+    },
+    {
+      "original": 62,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/timeline.rs",
+      "sha256": "aeeb06c19efd75896544fd2d7d89f4e664f10d8c005772ccc8516d69e27f1126",
+      "actual_full_read": [
+        [
+          1,
+          151
+        ]
+      ]
+    }
+  ],
+  "original58_literal_inventory": [
+    {
+      "line": 30,
+      "values": [
+        "melee-iteration"
+      ],
+      "occurrences": 1,
+      "role": "default-character source key",
+      "trace": "default_character -> spec/native everydayname/personality producer pending",
+      "disposition_role": "roster_identity"
+    },
+    {
+      "line": 33,
+      "values": [
+        "john"
+      ],
+      "occurrences": 1,
+      "role": "roster key",
+      "trace": "build_from_spec -> build.key; stableID source is spec.id for this build; downstream key recipients pending",
+      "disposition_role": "roster_identity"
+    },
+    {
+      "line": 35,
+      "values": [
+        "Combat-trained adventurer; strong and agile, with broadly advanced melee training."
+      ],
+      "occurrences": 1,
+      "role": "description prose",
+      "trace": "build_from_spec -> build.description; output consumer pending",
+      "disposition_role": "freeform_prose"
+    },
+    {
+      "line": 36,
+      "values": [
+        "Longsword, morion, breastplate, paired steel vambraces, ordinary clothing and boots."
+      ],
+      "occurrences": 1,
+      "role": "equipment description prose",
+      "trace": "build_from_spec -> build.equipment_description; output consumer pending",
+      "disposition_role": "freeform_prose"
+    },
+    {
+      "line": 38,
+      "values": [
+        "longsword"
+      ],
+      "occurrences": 1,
+      "role": "weapon catalog key",
+      "trace": "build_from_spec -> authored_equipment -> item_catalog::definition, stable_id",
+      "disposition_role": "catalog_identity"
+    },
+    {
+      "line": 39,
+      "values": [
+        "morion",
+        "breastplate",
+        "vambrace",
+        "vambrace"
+      ],
+      "occurrences": 4,
+      "role": "armor catalog keys",
+      "trace": "build_from_spec -> apply_authored_armor -> definition and occurrence identity",
+      "disposition_role": "catalog_identity"
+    },
+    {
+      "line": 43,
+      "values": [
+        "hammer_brute"
+      ],
+      "occurrences": 1,
+      "role": "roster key",
+      "trace": "purpose_build -> stable_id/key/default_character(key).personality; retained build.key; downstream receiver pending",
+      "disposition_role": "roster_identity"
+    },
+    {
+      "line": 44,
+      "values": [
+        "Hammer Brute"
+      ],
+      "occurrences": 1,
+      "role": "authored display name",
+      "trace": "purpose_build -> PersonalNameIdentity::authored and build_from_spec rawname -> Stringname; authored/native name admission and final rendering pending",
+      "disposition_role": "name_projection"
+    },
+    {
+      "line": 47,
+      "values": [
+        "war_hammer"
+      ],
+      "occurrences": 1,
+      "role": "weapon catalog key",
+      "trace": "purpose_build -> authored_equipment -> item_catalog::definition and stable_id",
+      "disposition_role": "catalog_identity"
+    },
+    {
+      "line": 48,
+      "values": [
+        "brigandine",
+        "arming_cap"
+      ],
+      "occurrences": 2,
+      "role": "armor catalog keys",
+      "trace": "purpose_build -> apply_authored_armor -> catalog lookup/occurrence identity",
+      "disposition_role": "catalog_identity"
+    },
+    {
+      "line": 50,
+      "values": [
+        "Exceptionally strong but only moderately agile fighter with competent hammer training."
+      ],
+      "occurrences": 1,
+      "role": "description prose",
+      "trace": "purpose_build -> StartingCharacterSpec.background via.into and retainedbuild.description; consumers pending",
+      "disposition_role": "freeform_prose"
+    },
+    {
+      "line": 51,
+      "values": [
+        "War hammer, brigandine, and arming cap."
+      ],
+      "occurrences": 1,
+      "role": "equipment description prose",
+      "trace": "purpose_build -> retainedbuild.equipment_description; consumers pending",
+      "disposition_role": "freeform_prose"
+    },
+    {
+      "line": 60,
+      "values": [
+        "militia"
+      ],
+      "occurrences": 1,
+      "role": "roster key",
+      "trace": "purpose_build -> stable_id/key/default_character(key).personality; retained build.key; downstream receiver pending",
+      "disposition_role": "roster_identity"
+    },
+    {
+      "line": 61,
+      "values": [
+        "Shield Militiaman"
+      ],
+      "occurrences": 1,
+      "role": "authored display name",
+      "trace": "purpose_build -> PersonalNameIdentity::authored and build_from_spec rawname -> Stringname; authored/native name admission and final rendering pending",
+      "disposition_role": "name_projection"
+    },
+    {
+      "line": 64,
+      "values": [
+        "arming_sword"
+      ],
+      "occurrences": 1,
+      "role": "weapon catalog key",
+      "trace": "purpose_build -> authored_equipment -> item_catalog::definition and stable_id",
+      "disposition_role": "catalog_identity"
+    },
+    {
+      "line": 65,
+      "values": [
+        "arming_doublet",
+        "arming_cap"
+      ],
+      "occurrences": 2,
+      "role": "armor catalog keys",
+      "trace": "purpose_build -> apply_authored_armor -> catalog lookup/occurrence identity",
+      "disposition_role": "catalog_identity"
+    },
+    {
+      "line": 66,
+      "values": [
+        "buckler"
+      ],
+      "occurrences": 1,
+      "role": "shield catalog key",
+      "trace": "purpose_build -> authored_equipment -> definition/shield kind and stable_id",
+      "disposition_role": "catalog_identity"
+    },
+    {
+      "line": 67,
+      "values": [
+        "Healthy adult militia fighter with competent sword, shield, dodge, and balance training."
+      ],
+      "occurrences": 1,
+      "role": "description prose",
+      "trace": "purpose_build -> StartingCharacterSpec.background via.into and retainedbuild.description; consumers pending",
+      "disposition_role": "freeform_prose"
+    },
+    {
+      "line": 68,
+      "values": [
+        "Arming sword and buckler over an arming doublet and cap."
+      ],
+      "occurrences": 1,
+      "role": "equipment description prose",
+      "trace": "purpose_build -> retainedbuild.equipment_description; consumers pending",
+      "disposition_role": "freeform_prose"
+    },
+    {
+      "line": 71,
+      "values": [
+        "demi_lancer"
+      ],
+      "occurrences": 1,
+      "role": "roster key",
+      "trace": "purpose_build -> stable_id/key/default_character(key).personality; retained build.key; downstream receiver pending",
+      "disposition_role": "roster_identity"
+    },
+    {
+      "line": 72,
+      "values": [
+        "Demi-lancer"
+      ],
+      "occurrences": 1,
+      "role": "authored display name",
+      "trace": "purpose_build -> PersonalNameIdentity::authored and build_from_spec rawname -> Stringname; authored/native name admission and final rendering pending",
+      "disposition_role": "name_projection"
+    },
+    {
+      "line": 75,
+      "values": [
+        "arming_sword"
+      ],
+      "occurrences": 1,
+      "role": "weapon catalog key",
+      "trace": "purpose_build -> authored_equipment -> item_catalog::definition and stable_id",
+      "disposition_role": "catalog_identity"
+    },
+    {
+      "line": 76,
+      "values": [
+        "morion",
+        "cuirass",
+        "tassets",
+        "vambrace",
+        "vambrace"
+      ],
+      "occurrences": 5,
+      "role": "armor catalog keys",
+      "trace": "purpose_build -> apply_authored_armor -> catalog lookup/occurrence identity",
+      "disposition_role": "catalog_identity"
+    },
+    {
+      "line": 78,
+      "values": [
+        "Fit professional mounted soldier fighting on foot, with advanced sword, defense, and balance training."
+      ],
+      "occurrences": 1,
+      "role": "description prose",
+      "trace": "purpose_build -> StartingCharacterSpec.background via.into and retainedbuild.description; consumers pending",
+      "disposition_role": "freeform_prose"
+    },
+    {
+      "line": 79,
+      "values": [
+        "Arming sword and demi-lancer steel plate armor."
+      ],
+      "occurrences": 1,
+      "role": "equipment description prose",
+      "trace": "purpose_build -> retainedbuild.equipment_description; consumers pending",
+      "disposition_role": "freeform_prose"
+    },
+    {
+      "line": 82,
+      "values": [
+        "polearm_veteran"
+      ],
+      "occurrences": 1,
+      "role": "roster key",
+      "trace": "purpose_build -> stable_id/key/default_character(key).personality; retained build.key; downstream receiver pending",
+      "disposition_role": "roster_identity"
+    },
+    {
+      "line": 83,
+      "values": [
+        "Polearm Veteran"
+      ],
+      "occurrences": 1,
+      "role": "authored display name",
+      "trace": "purpose_build -> PersonalNameIdentity::authored and build_from_spec rawname -> Stringname; authored/native name admission and final rendering pending",
+      "disposition_role": "name_projection"
+    },
+    {
+      "line": 86,
+      "values": [
+        "halberd"
+      ],
+      "occurrences": 1,
+      "role": "weapon catalog key",
+      "trace": "purpose_build -> authored_equipment -> item_catalog::definition and stable_id",
+      "disposition_role": "catalog_identity"
+    },
+    {
+      "line": 87,
+      "values": [
+        "jack_of_plates",
+        "sallet"
+      ],
+      "occurrences": 2,
+      "role": "armor catalog keys",
+      "trace": "purpose_build -> apply_authored_armor -> catalog lookup/occurrence identity",
+      "disposition_role": "catalog_identity"
+    },
+    {
+      "line": 89,
+      "values": [
+        "Seasoned professional with expert polearm skill, strong balance, and advanced defensive training."
+      ],
+      "occurrences": 1,
+      "role": "description prose",
+      "trace": "purpose_build -> StartingCharacterSpec.background via.into and retainedbuild.description; consumers pending",
+      "disposition_role": "freeform_prose"
+    },
+    {
+      "line": 90,
+      "values": [
+        "Halberd, jack of plates, and sallet."
+      ],
+      "occurrences": 1,
+      "role": "equipment description prose",
+      "trace": "purpose_build -> retainedbuild.equipment_description; consumers pending",
+      "disposition_role": "freeform_prose"
+    },
+    {
+      "line": 94,
+      "values": [
+        "knife_novice"
+      ],
+      "occurrences": 1,
+      "role": "roster key",
+      "trace": "purpose_build -> stable_id/key/default_character(key).personality; retained build.key; downstream receiver pending",
+      "disposition_role": "roster_identity"
+    },
+    {
+      "line": 95,
+      "values": [
+        "Knife Novice"
+      ],
+      "occurrences": 1,
+      "role": "authored display name",
+      "trace": "purpose_build -> PersonalNameIdentity::authored and build_from_spec rawname -> Stringname; authored/native name admission and final rendering pending",
+      "disposition_role": "name_projection"
+    },
+    {
+      "line": 98,
+      "values": [
+        "baselard"
+      ],
+      "occurrences": 1,
+      "role": "weapon catalog key",
+      "trace": "purpose_build -> authored_equipment -> item_catalog::definition and stable_id",
+      "disposition_role": "catalog_identity"
+    },
+    {
+      "line": 99,
+      "values": [
+        "arming_doublet"
+      ],
+      "occurrences": 1,
+      "role": "armor catalog keys",
+      "trace": "purpose_build -> apply_authored_armor -> catalog lookup/occurrence identity",
+      "disposition_role": "catalog_identity"
+    },
+    {
+      "line": 101,
+      "values": [
+        "Below-average novice with rudimentary knife, dodge, block, will, and balance training."
+      ],
+      "occurrences": 1,
+      "role": "description prose",
+      "trace": "purpose_build -> StartingCharacterSpec.background via.into and retainedbuild.description; consumers pending",
+      "disposition_role": "freeform_prose"
+    },
+    {
+      "line": 102,
+      "values": [
+        "Baselard and an arming doublet."
+      ],
+      "occurrences": 1,
+      "role": "equipment description prose",
+      "trace": "purpose_build -> retainedbuild.equipment_description; consumers pending",
+      "disposition_role": "freeform_prose"
+    },
+    {
+      "line": 110,
+      "values": [
+        "fixture construction keeps reviewer context with its build"
+      ],
+      "occurrences": 1,
+      "role": "compiler lint rationale",
+      "trace": "Rust #[expect] reason annotation concrete compiler/tool text boundary; no runtime string authority inferred",
+      "disposition_role": "diagnostics"
+    },
+    {
+      "line": 182,
+      "values": [
+        "fixture construction names combat and reviewer context"
+      ],
+      "occurrences": 1,
+      "role": "compiler lint rationale",
+      "trace": "Rust #[expect] reason annotation concrete compiler/tool text boundary; no runtime string authority inferred",
+      "disposition_role": "diagnostics"
+    },
+    {
+      "line": 345,
+      "values": [
+        "{armor_id}:{occurrence}"
+      ],
+      "occurrences": 1,
+      "role": "structured instance identity encoding",
+      "trace": "format! -> stable_id bytes -> CombatArmor.inventory_item_id; semantic identity rather than display text, actual typed ID/hash recipient pending",
+      "disposition_role": "catalog_identity"
+    },
+    {
+      "line": 375,
+      "values": [
+        "hammer_brute"
+      ],
+      "occurrences": 1,
+      "role": "existing-test roster-key predicate",
+      "trace": "literal -> build.key equality/.find; actual primary producer source traced locally, canonical roster key ownership unresolved, no fixture exemption",
+      "disposition_role": "roster_identity"
+    },
+    {
+      "line": 383,
+      "values": [
+        "knife_novice"
+      ],
+      "occurrences": 1,
+      "role": "existing-test roster-key predicate",
+      "trace": "literal -> build.key equality/.find; actual primary producer source traced locally, canonical roster key ownership unresolved, no fixture exemption",
+      "disposition_role": "roster_identity"
+    },
+    {
+      "line": 405,
+      "values": [
+        "{} is not an authored weapon"
+      ],
+      "occurrences": 1,
+      "role": "existing-test human diagnostic boundary",
+      "trace": "panic! format build.weapon_id; source text read only, harness formatting/native receiver behavior not executed",
+      "disposition_role": "diagnostics"
+    },
+    {
+      "line": 441,
+      "values": [
+        "knife_novice"
+      ],
+      "occurrences": 1,
+      "role": "existing-test roster-key predicate",
+      "trace": "literal -> build.key equality/.find; actual primary producer source traced locally, canonical roster key ownership unresolved, no fixture exemption",
+      "disposition_role": "roster_identity"
+    },
+    {
+      "line": 485,
+      "values": [
+        "terminal timeline event"
+      ],
+      "occurrences": 1,
+      "role": "existing-test human diagnostic boundary",
+      "trace": "Option.expect concrete failure text; source text read only, harness formatting/native receiver behavior not executed",
+      "disposition_role": "diagnostics"
+    },
+    {
+      "line": 547,
+      "values": [
+        "bounded duel stopped making physiological or scheduled combat progress"
+      ],
+      "occurrences": 1,
+      "role": "existing-test human diagnostic boundary",
+      "trace": "assert! concrete failure text; source text read only, harness formatting/native receiver behavior not executed",
+      "disposition_role": "diagnostics"
+    },
+    {
+      "line": 574,
+      "values": [
+        "{} was not reproducible"
+      ],
+      "occurrences": 1,
+      "role": "existing-test human diagnostic boundary",
+      "trace": "assert_eq! format opponent.name; source text read only, harness formatting/native receiver behavior not executed",
+      "disposition_role": "diagnostics"
+    },
+    {
+      "line": 614,
+      "values": [
+        "{} shorter-reach side never landed"
+      ],
+      "occurrences": 1,
+      "role": "existing-test human diagnostic boundary",
+      "trace": "assert! format opponent.name; source text read only, harness formatting/native receiver behavior not executed",
+      "disposition_role": "diagnostics"
+    },
+    {
+      "line": 623,
+      "values": [
+        "hammer_brute"
+      ],
+      "occurrences": 1,
+      "role": "existing-test roster-key predicate",
+      "trace": "literal -> build.key equality/.find; actual primary producer source traced locally, canonical roster key ownership unresolved, no fixture exemption",
+      "disposition_role": "roster_identity"
+    },
+    {
+      "line": 646,
+      "values": [
+        "movement into reach cannot manufacture the remaining windup: {contact:?}"
+      ],
+      "occurrences": 1,
+      "role": "existing-test human diagnostic boundary",
+      "trace": "assert! native Debug contact formatting; source text read only, harness formatting/native receiver behavior not executed",
+      "disposition_role": "diagnostics"
+    },
+    {
+      "line": 656,
+      "values": [
+        "polearm_veteran"
+      ],
+      "occurrences": 1,
+      "role": "existing-test roster-key predicate",
+      "trace": "literal -> build.key equality/.find; actual primary producer source traced locally, canonical roster key ownership unresolved, no fixture exemption",
+      "disposition_role": "roster_identity"
+    },
+    {
+      "line": 705,
+      "values": [
+        "hammer_brute",
+        "polearm_veteran"
+      ],
+      "occurrences": 2,
+      "role": "existing-test roster-key predicate",
+      "trace": "literal -> build.key equality/.find; actual primary producer source traced locally, canonical roster key ownership unresolved, no fixture exemption",
+      "disposition_role": "roster_identity"
+    },
+    {
+      "line": 714,
+      "values": [
+        "authored torso armor must expose its engaged surface"
+      ],
+      "occurrences": 1,
+      "role": "existing-test human diagnostic boundary",
+      "trace": "Option.expect concrete failure text; source text read only, harness formatting/native receiver behavior not executed",
+      "disposition_role": "diagnostics"
+    },
+    {
+      "line": 804,
+      "values": [
+        "disabled_weapon_arm"
+      ],
+      "occurrences": 1,
+      "role": "existing-test evidence category predicate",
+      "trace": "entry.capability equality; evidence producer/type in declared mod evidence unassessed; retain M09 state-erasure obligation",
+      "disposition_role": "capability_category"
+    },
+    {
+      "line": 853,
+      "values": [
+        "war_hammer"
+      ],
+      "occurrences": 1,
+      "role": "existing-test evidence weapon identity predicate",
+      "trace": "contact.weapon equality in all_weapon_contact_bands; evidence producer/identity type unassessed, no closed catalog enum assumption",
+      "disposition_role": "weapon_evidence_identity"
+    },
+    {
+      "line": 861,
+      "values": [
+        "longsword"
+      ],
+      "occurrences": 1,
+      "role": "existing-test evidence weapon identity predicate",
+      "trace": "contact.weapon equality in all_weapon_contact_bands; evidence producer/identity type unassessed",
+      "disposition_role": "weapon_evidence_identity"
+    }
+  ],
+  "other_primary_literal_inventory": {
+    "59": {
+      "count": 12,
+      "lines": [
+        24,
+        26,
+        28,
+        30,
+        32,
+        34,
+        36,
+        38,
+        40,
+        42,
+        44,
+        46
+      ],
+      "role": "Native error formatting; payload catalog/roster IDs have independent semantic gap. Fields: weapon/shield/armor String, missing opponent/evidence key staticstr; all transparent causes typed."
+    },
+    "60": {
+      "count": 15,
+      "lines": [
+        125,
+        126,
+        127,
+        128,
+        129,
+        135,
+        136,
+        146,
+        147,
+        174,
+        175,
+        176,
+        297,
+        298,
+        299
+      ],
+      "roles": [
+        "roster selector5",
+        "human defender/case text4",
+        "catalog weapon identity3",
+        "capability category3"
+      ],
+      "string_api_ranges": [
+        [
+          23,
+          24
+        ],
+        [
+          61,
+          79
+        ],
+        [
+          89,
+          113
+        ],
+        [
+          285,
+          302
+        ],
+        [
+          414,
+          446
+        ]
+      ]
+    },
+    "61": {
+      "count": 11,
+      "occurrences": {
+        "brigandine": [
+          7,
+          8,
+          12,
+          22,
+          28
+        ],
+        "vambrace": [
+          42,
+          43,
+          47,
+          67
+        ],
+        "coverage_labels": {
+          "14": [
+            "armor_surface",
+            "gap"
+          ]
+        }
+      },
+      "role": "Open catalog keys and explicit closed coverage labels traced through parent60 and actual JSON/test output."
+    },
+    "62": {
+      "count": 0,
+      "fields_parameters_returns": "No raw text; typed forwarded event schema inspected."
+    }
+  },
+  "role_contracts": {
+    "roster_identity": {
+      "sources": [
+        "58:18,30,33,43,60,71,82,94,113,147,151,174-178,185,217",
+        "58 existing tests375/383/441/623/656/705"
+      ],
+      "trace": "Authored static keys -> retained build.key and exact key selection; purpose key -> local UTF8 hash -> spec.id; default_character uses raw seed at explicit Seed::derive byte kernel. CLI373/372 consumers use key as Path::join component, summary opponent and ReviewerIndex directories. Raw identity remains application state; no catalog/fixture exemption.",
+      "disposition": "Qualified inherited raw roster/build identity gap, no new unique. Keep IDs open; reconcile canonical roster/build key owner distinct from display and numerical battle ID before selecting wrapper/enum. No compatibility alias."
+    },
+    "name_projection": {
+      "sources": [
+        "58:31,34,44,61,72,83,95,114,148,164,186,218",
+        "physical unchanged starting_character/names.rs73-82",
+        "world person_names.rs95-163,189-198,351-392"
+      ],
+      "trace": "Native everyday renderer returns existing checked RenderedPersonalName, then58 erases into String before build retention. Purpose literals also become PersonalNameIdentity::Authored but raw label retained independently. ReviewerCombatant55-70/CLI147 and JSON serialize name, description and equipment prose.",
+      "disposition": "Source-backed unfinished rendered-name propagation. Existing RenderedPersonalName proves bounded nonempty no-control output without parsing/role claim. Carry it through actual display fields and admit authored literals at actual rendering/literal boundary; do not invent duplicate display wrapper blindly."
+    },
+    "name_as_identity": {
+      "sources": [
+        "server iteration.rs47-123,191-203",
+        "logging.rs79-84,124-164",
+        "runner.rs22-77",
+        "causal.rs7-38,96-129"
+      ],
+      "trace": "Build names copied into Player; tactical resolution encodes Victory{victor:String} from left/right name; batch winner branches and causal attribution compare names. Structured CharacterId already exists separately in spawn.",
+      "disposition": "Qualified connected semantic identity/name-label concern, not only final human text boundary. Preserve canonical aliases unresolved; choose correct existing character/combatant identifier or duel side role after lifecycle/owner reconciliation, separate rendered display. No ordinary duplicate-name runtime witness or current repair claim."
+    },
+    "catalog_identity": {
+      "sources": [
+        "58:38-39,47-48,64-66,75-76,86-87,98-99,117-119,190-192,257-357",
+        "item_catalog.rs30-58",
+        "item_catalog_schema.rs19-45",
+        "item_catalog_projection.rs23-77",
+        "authored_weapon.rs32-55",
+        "autoresolve/model.rs49-100"
+      ],
+      "trace": "Open catalog keys cross &str APIs and String definition/error fields; exact sorted lookup compares definition.id.as_str. IDs also hash into equipment optional u64 item identity, and armor occurrence string format feeds hash. No semantic key admission at these ports. Projection retains raw id and calls generated recipe lookup; no all-catalog generation/admission success claimed.",
+      "disposition": "Retain existing catalog/roster identity family candidate and unresolved aliases. Reconcile canonical open item-definition key and inventory-instance identity, actual build/compiler grammar/current owners before repair. Do not substitute closed enums or claim hash uniqueness/collision analysis."
+    },
+    "freeform_prose": {
+      "sources": [
+        "58 description/equipment description literals35-36,50-51,67-68,78-79,89-90,101-102 and parameters120-121/187-188/state20-21",
+        "reviewer.rs55-70",
+        "CLI mod.rs175-188,255-261"
+      ],
+      "trace": "Authored human explanatory prose copied without classification into ReviewerCombatant build/equipment fields and serialized to reviewer JSON. This concrete text boundary justifies literal prose; fields/API role expressly inventoried, no blanket fixture exemption.",
+      "disposition": "Concrete human-text output on observed route. No general all-description/all-string API exemption; names/IDs/categories have separate semantic authority."
+    },
+    "diagnostics": {
+      "sources": [
+        "58 literal lint reasons110/182 and test panic/expect/assert message lines405,485,547,574,614,646,714",
+        "59 all error templates24-46",
+        "CLI error.rs15-44"
+      ],
+      "trace": "Compiler rationale or actual format/thiserror error message boundaries. Error payload IDs remain semantic key gaps; structured MeleeIterationError propagates through CLI Preparation variant, not string-classified on read route.",
+      "disposition": "Native diagnostic wording/group complete; do not require old prose/Display shape compatibility or claim every possible unknown caller never parses text."
+    },
+    "capability_category": {
+      "sources": [
+        "58:804",
+        "60:98-103,285-302",
+        "combat/capability.rs6-44"
+      ],
+      "trace": "Existing MeleeAttackCapability carries Available/DisabledWeaponArm{arm}/NoStrikingSide; evidence maps to raw static labels and separately stores attack_available/disabled_arm. Primary test compares disabled_weapon_arm text.",
+      "disposition": "M09 typed category/state erasure retained qualified, no new unique. Reuse canonical enum and preserve actual arm payload through evidence/state, derive native serialization at boundary; reconcile adjacent injected-arm vs returned capability-arm and redundant availability separately rather than inventing wire preservation."
+    },
+    "weapon_evidence_identity": {
+      "sources": [
+        "58:853,861",
+        "60:23-24,167-177,213-225"
+      ],
+      "trace": "Evidence pairs a build reference with manual raw weapon key labels; tests compare labels; output serde JSON.",
+      "disposition": "Canonical open catalog key should follow build producer; derive reporting ID from actual retained build instead of duplicate labels. Same catalog identity family, unique/alias unresolved."
+    },
+    "armor_coverage_category": {
+      "sources": [
+        "60:61-79",
+        "61:7-37,42-75",
+        "server logging.rs50-56,109"
+      ],
+      "trace": "Catalog armor IDs retained in evidence and layer records; closed requested coverage labels armor_surface/gap feed coverage_contact. Nearby existing server TacticalCoverageContact has None/ArmorSurface/Gap, but core cannot depend upward and requested-vs-observed role equality is not proven.",
+      "disposition": "Keep M09/category gap and catalog ID aliases qualified. Reconcile common lowest owner and requested/observed semantics before promoting/reusing existing enum; no automatic duplicate type or new unique issue."
+    },
+    "defense_context": {
+      "sources": [
+        "60:89-95,131-150,414-446"
+      ],
+      "trace": "Human defender labels/scenario descriptions copied into DefenseEvidence and JSON; no branch on those texts in consumed caller. Actual defense branch still typed DefenderResponse.",
+      "disposition": "Concrete descriptive output on read route. Name field can share rendered-label repair, scenario classifications must remain distinguished from prose if other consumers branch later."
+    },
+    "no_raw_text_timeline": {
+      "sources": [
+        "62:1-151",
+        "timeline.rs1-80",
+        "autoresolve.rs312-319"
+      ],
+      "trace": "No quoted literals or raw string fields/parameters/returns in original62. Operates on typed MeleeTimelineKind/phase/response/terminal enums; forwarded event schema and BattleResolution declaration independently read. Enum serde rename_all tokens belong to external serialization boundary in foreign owner, not raw application discriminator.",
+      "disposition": "Full62 own lens inventory complete with no local raw text gap; no numerical/scheduling/runtime or other-lens clearance."
+    }
+  },
+  "actual_additional_source_reads": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "sha256": "e1dac77a2c5ef7c2bb50b886c9b7340c83f2fcee27fe767788e48463ad6f737c",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/e1dac77a2c5ef7c2bb50b886c9b7340c83f2fcee27fe767788e48463ad6f737c",
+      "ranges": [
+        [
+          1,
+          357
+        ],
+        [
+          757,
+          866
+        ]
+      ],
+      "role": "Revisit exact primary ports for pending receiver trace; prior038fullinventory retained, no repeat-original credit"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat.rs",
+      "sha256": "eb7dbfbe0a6f8fa81675d14434401b41bc0949b693b56338129c6c778af82284",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/eb7dbfbe0a6f8fa81675d14434401b41bc0949b693b56338129c6c778af82284",
+      "original": 79,
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "prospective_ranges": [],
+      "role": "Actual declaring/reexport/canonical catalog lookup ports for58"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/equipment.rs",
+      "sha256": "635ee67da06496157b5b091eb40535af2493a554d2b69f6b82023886b9b2a1e0",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/635ee67da06496157b5b091eb40535af2493a554d2b69f6b82023886b9b2a1e0",
+      "original": 100,
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "prospective_ranges": [],
+      "role": "Actual declaring/reexport/canonical catalog lookup ports for58"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog.rs",
+      "sha256": "12a6191433c61dae833826429a9ebacc2c043cce0fe593831e65f6ec10a132f6",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/12a6191433c61dae833826429a9ebacc2c043cce0fe593831e65f6ec10a132f6",
+      "original": 113,
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "prospective_ranges": [],
+      "role": "Actual declaring/reexport/canonical catalog lookup ports for58"
+    },
+    {
+      "source_id": "physical-p16-unchanged-receiver:crates/adventuresim-core/src/starting_character.rs",
+      "sha256": "6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
+      "ranges": [
+        [
+          1,
+          15
+        ],
+        [
+          295,
+          327
+        ],
+        [
+          375,
+          415
+        ]
+      ],
+      "prospective_ranges": [],
+      "role": "Actual StartingCharacterSpec declaration/default_character and declared native name module; not whole1936body coverage"
+    },
+    {
+      "source_id": "physical-p16-unchanged-receiver:crates/adventuresim-core/src/starting_character/names.rs",
+      "sha256": "feeb666963f06197194f5ee981cf808dfbf3915173ca838aaa04de5b03ab2bf5",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/feeb666963f06197194f5ee981cf808dfbf3915173ca838aaa04de5b03ab2bf5",
+      "prospective_ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "role": "58 native everyday name/default identity material owner"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/authored_weapon.rs",
+      "sha256": "d51000403c3e70e523d5bdfe690114fcf0781449dabb10a52ee3dc006b00f5ca",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/d51000403c3e70e523d5bdfe690114fcf0781449dabb10a52ee3dc006b00f5ca",
+      "original": 51,
+      "ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "prospective_ranges": [],
+      "role": "Actual58/59/60 material receiver string identity/admission/text boundary contract; no future-original completion"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/model.rs",
+      "sha256": "b1b76643680707125e6bd040b60703127a2ed09cc460e226b2c4f08c90724ffe",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/b1b76643680707125e6bd040b60703127a2ed09cc460e226b2c4f08c90724ffe",
+      "original": 69,
+      "ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "prospective_ranges": [],
+      "role": "Actual58/59/60 material receiver string identity/admission/text boundary contract; no future-original completion"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_projection.rs",
+      "sha256": "771a265b992561a0094e1b16784b8ca544e4192546e3f06396d35b4bde8b3e30",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/771a265b992561a0094e1b16784b8ca544e4192546e3f06396d35b4bde8b3e30",
+      "original": 115,
+      "ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "prospective_ranges": [],
+      "role": "Actual58/59/60 material receiver string identity/admission/text boundary contract; no future-original completion"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f",
+      "original": 116,
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "prospective_ranges": [],
+      "role": "Actual58/59/60 material receiver string identity/admission/text boundary contract; no future-original completion"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/person_names.rs",
+      "sha256": "e41326d6c8ae20b958581c0027d3b5bdd79a58faf43a142e446f52dc4a8f70ec",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/e41326d6c8ae20b958581c0027d3b5bdd79a58faf43a142e446f52dc4a8f70ec",
+      "original": 444,
+      "ranges": [
+        [
+          1,
+          215
+        ]
+      ],
+      "prospective_ranges": [],
+      "role": "Actual58/59/60 material receiver string identity/admission/text boundary contract; no future-original completion"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/report.rs",
+      "sha256": "732565c70b576d74ef982a5902e2268a5bd2611b296b9319f242562dd26571be",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/732565c70b576d74ef982a5902e2268a5bd2611b296b9319f242562dd26571be",
+      "original": 2823,
+      "ranges": [
+        [
+          1,
+          269
+        ]
+      ],
+      "prospective_ranges": [],
+      "role": "Actual58/59/60 material receiver string identity/admission/text boundary contract; no future-original completion"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs",
+      "sha256": "61fe528d93435e9e3d2d263110bc870e10ee25ea61c84196be203e4e771d6741",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/61fe528d93435e9e3d2d263110bc870e10ee25ea61c84196be203e4e771d6741",
+      "original": 372,
+      "ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "prospective_ranges": [],
+      "role": "Actual58/59/60 material receiver string identity/admission/text boundary contract; no future-original completion"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/error.rs",
+      "sha256": "5e7c0c74cc71452ee3a99374100ae1c8d60941f4b1a563eb4aa6d693440b3c31",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/5e7c0c74cc71452ee3a99374100ae1c8d60941f4b1a563eb4aa6d693440b3c31",
+      "original": 370,
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "role": "Actual MeleeIterationError typed propagation to CLI Error boundary, no future-original credit"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/person_names.rs",
+      "sha256": "e41326d6c8ae20b958581c0027d3b5bdd79a58faf43a142e446f52dc4a8f70ec",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/e41326d6c8ae20b958581c0027d3b5bdd79a58faf43a142e446f52dc4a8f70ec",
+      "original": 444,
+      "ranges": [
+        [
+          345,
+          405
+        ]
+      ],
+      "prospective_ranges": [],
+      "role": "Actual rendered-name checked boundary"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs",
+      "sha256": "61fe528d93435e9e3d2d263110bc870e10ee25ea61c84196be203e4e771d6741",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/61fe528d93435e9e3d2d263110bc870e10ee25ea61c84196be203e4e771d6741",
+      "original": 372,
+      "ranges": [
+        [
+          132,
+          261
+        ]
+      ],
+      "prospective_ranges": [],
+      "role": "MeleeIterationBuild metadata recipients/output JSON and filesystem boundaries"
+    },
+    {
+      "source_id": "physical-p16-unchanged-receiver:crates/adventuresim-core/src/starting_character.rs",
+      "sha256": "6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
+      "ranges": [
+        [
+          345,
+          364
+        ],
+        [
+          410,
+          438
+        ]
+      ],
+      "prospective_ranges": [],
+      "role": "Default_character raw identity seed native hash inputs, full concrete return close"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+      "sha256": "e8b238c454b79527cff117b2acc8ad4b32214dfd7fb3714b9949c725daf7460d",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/e8b238c454b79527cff117b2acc8ad4b32214dfd7fb3714b9949c725daf7460d",
+      "original": 373,
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "prospective_ranges": [],
+      "role": "Actual58 human name strings entering tactical request/causal identity consumers"
+    },
+    {
+      "source_id": "physical-p16-unchanged-receiver:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/reviewer.rs",
+      "sha256": "bf80b110a492a275bd8550afe0af9bfc9b858b45faa71340c0f13dd6d5992ee3",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/bf80b110a492a275bd8550afe0af9bfc9b858b45faa71340c0f13dd6d5992ee3",
+      "ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "role": "Actual58 metadata/report serializer fields and constructor only"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration.rs",
+      "sha256": "5ebb42e36e764cd3adee88c336b2976f42db557494a436e8fa2eef2f79fdef61",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/5ebb42e36e764cd3adee88c336b2976f42db557494a436e8fa2eef2f79fdef61",
+      "original": 406,
+      "ranges": [
+        [
+          1,
+          130
+        ],
+        [
+          185,
+          210
+        ],
+        [
+          540,
+          655
+        ]
+      ],
+      "role": "Actual frozen name projection, retained String outcome and production victor selection ports; no other numeric solve coverage"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal.rs",
+      "sha256": "8c3f05243082a222416fbfc0b33d8307fcce43dce219c0a4bdc2046012220740",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/8c3f05243082a222416fbfc0b33d8307fcce43dce219c0a4bdc2046012220740",
+      "original": 368,
+      "ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "role": "Exact58 name/String recipient and concrete result/report classification ports, no future-original credit"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/logging.rs",
+      "sha256": "cee413f196e6709475af3c4f68ba65471662d2dbc16d1fe978946ecbf362ca2d",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/cee413f196e6709475af3c4f68ba65471662d2dbc16d1fe978946ecbf362ca2d",
+      "original": 408,
+      "ranges": [
+        [
+          115,
+          185
+        ]
+      ],
+      "role": "Exact58 name/String recipient and concrete result/report classification ports, no future-original credit"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/timeline.rs",
+      "sha256": "97e87014b1ece1247d03e8e2a7e1e36db3c28ccae7b17b95dd7857ca13075406",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/97e87014b1ece1247d03e8e2a7e1e36db3c28ccae7b17b95dd7857ca13075406",
+      "original": 72,
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "role": "62 actual forwarded timeline string-valued field/schema ports, no future72credit"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/logging.rs",
+      "sha256": "cee413f196e6709475af3c4f68ba65471662d2dbc16d1fe978946ecbf362ca2d",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/cee413f196e6709475af3c4f68ba65471662d2dbc16d1fe978946ecbf362ca2d",
+      "original": 408,
+      "ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "role": "Canonical adjacent typed coverage/category owners and string identity fields for M09 fit comparison"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/capability.rs",
+      "sha256": "877f8932ea920a91c610829b96a637ad6d361189a28f41d464376763ca8d160c",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/877f8932ea920a91c610829b96a637ad6d361189a28f41d464376763ca8d160c",
+      "original": 2775,
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "role": "Exact canonical capability enum/state payload for60 categorical string erasure owner fit, no future-original credit"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve.rs",
+      "sha256": "0b6aef0b8e1be9846beaae48cc8f7130333b0b4634acbd0b2f8b393ee40d5cef",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/0b6aef0b8e1be9846beaae48cc8f7130333b0b4634acbd0b2f8b393ee40d5cef",
+      "original": 50,
+      "ranges": [
+        [
+          308,
+          321
+        ]
+      ],
+      "role": "62 exact terminal result signature only, no restart of completed original"
+    }
+  ],
+  "not_accounted_from_receiver_reads": "Foreign/reached originals51/69/72/79/100/113/115/116/368/370/372/373/406/408/444/2775/2823 and unchanged names/starting_character/reviewer remain their separate ordered/extension obligations. Access/full display not automatic whole-source verdict or other-lens credit.",
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "sha256": "e1dac77a2c5ef7c2bb50b886c9b7340c83f2fcee27fe767788e48463ad6f737c",
+      "ranges": [
+        [
+          1,
+          357
+        ],
+        [
+          757,
+          866
+        ]
+      ],
+      "role": "Revisit exact primary ports for pending receiver trace; prior038fullinventory retained, no repeat-original credit",
+      "classification": "Existing original or newly unchanged reached dependency; root reconcile mandatory all20/P16/P17/other lenses, no additional unique role count inferred"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat.rs",
+      "sha256": "eb7dbfbe0a6f8fa81675d14434401b41bc0949b693b56338129c6c778af82284",
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "role": "Actual declaring/reexport/canonical catalog lookup ports for58",
+      "classification": "Existing original or newly unchanged reached dependency; root reconcile mandatory all20/P16/P17/other lenses, no additional unique role count inferred"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/equipment.rs",
+      "sha256": "635ee67da06496157b5b091eb40535af2493a554d2b69f6b82023886b9b2a1e0",
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "role": "Actual declaring/reexport/canonical catalog lookup ports for58",
+      "classification": "Existing original or newly unchanged reached dependency; root reconcile mandatory all20/P16/P17/other lenses, no additional unique role count inferred"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog.rs",
+      "sha256": "12a6191433c61dae833826429a9ebacc2c043cce0fe593831e65f6ec10a132f6",
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "role": "Actual declaring/reexport/canonical catalog lookup ports for58",
+      "classification": "Existing original or newly unchanged reached dependency; root reconcile mandatory all20/P16/P17/other lenses, no additional unique role count inferred"
+    },
+    {
+      "source_id": "physical-p16-unchanged-receiver:crates/adventuresim-core/src/starting_character.rs",
+      "sha256": "6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
+      "ranges": [
+        [
+          1,
+          15
+        ],
+        [
+          295,
+          327
+        ],
+        [
+          375,
+          415
+        ]
+      ],
+      "role": "Actual StartingCharacterSpec declaration/default_character and declared native name module; not whole1936body coverage",
+      "classification": "Existing original or newly unchanged reached dependency; root reconcile mandatory all20/P16/P17/other lenses, no additional unique role count inferred"
+    },
+    {
+      "source_id": "physical-p16-unchanged-receiver:crates/adventuresim-core/src/starting_character/names.rs",
+      "sha256": "feeb666963f06197194f5ee981cf808dfbf3915173ca838aaa04de5b03ab2bf5",
+      "ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "role": "58 native everyday name/default identity material owner",
+      "classification": "Existing original or newly unchanged reached dependency; root reconcile mandatory all20/P16/P17/other lenses, no additional unique role count inferred"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/authored_weapon.rs",
+      "sha256": "d51000403c3e70e523d5bdfe690114fcf0781449dabb10a52ee3dc006b00f5ca",
+      "ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "role": "Actual58/59/60 material receiver string identity/admission/text boundary contract; no future-original completion",
+      "classification": "Existing original or newly unchanged reached dependency; root reconcile mandatory all20/P16/P17/other lenses, no additional unique role count inferred"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/model.rs",
+      "sha256": "b1b76643680707125e6bd040b60703127a2ed09cc460e226b2c4f08c90724ffe",
+      "ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "role": "Actual58/59/60 material receiver string identity/admission/text boundary contract; no future-original completion",
+      "classification": "Existing original or newly unchanged reached dependency; root reconcile mandatory all20/P16/P17/other lenses, no additional unique role count inferred"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_projection.rs",
+      "sha256": "771a265b992561a0094e1b16784b8ca544e4192546e3f06396d35b4bde8b3e30",
+      "ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "role": "Actual58/59/60 material receiver string identity/admission/text boundary contract; no future-original completion",
+      "classification": "Existing original or newly unchanged reached dependency; root reconcile mandatory all20/P16/P17/other lenses, no additional unique role count inferred"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f",
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "role": "Actual58/59/60 material receiver string identity/admission/text boundary contract; no future-original completion",
+      "classification": "Existing original or newly unchanged reached dependency; root reconcile mandatory all20/P16/P17/other lenses, no additional unique role count inferred"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/person_names.rs",
+      "sha256": "e41326d6c8ae20b958581c0027d3b5bdd79a58faf43a142e446f52dc4a8f70ec",
+      "ranges": [
+        [
+          1,
+          215
+        ]
+      ],
+      "role": "Actual58/59/60 material receiver string identity/admission/text boundary contract; no future-original completion",
+      "classification": "Existing original or newly unchanged reached dependency; root reconcile mandatory all20/P16/P17/other lenses, no additional unique role count inferred"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/report.rs",
+      "sha256": "732565c70b576d74ef982a5902e2268a5bd2611b296b9319f242562dd26571be",
+      "ranges": [
+        [
+          1,
+          269
+        ]
+      ],
+      "role": "Actual58/59/60 material receiver string identity/admission/text boundary contract; no future-original completion",
+      "classification": "Existing original or newly unchanged reached dependency; root reconcile mandatory all20/P16/P17/other lenses, no additional unique role count inferred"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs",
+      "sha256": "61fe528d93435e9e3d2d263110bc870e10ee25ea61c84196be203e4e771d6741",
+      "ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "role": "Actual58/59/60 material receiver string identity/admission/text boundary contract; no future-original completion",
+      "classification": "Existing original or newly unchanged reached dependency; root reconcile mandatory all20/P16/P17/other lenses, no additional unique role count inferred"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/error.rs",
+      "sha256": "5e7c0c74cc71452ee3a99374100ae1c8d60941f4b1a563eb4aa6d693440b3c31",
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "role": "Actual MeleeIterationError typed propagation to CLI Error boundary, no future-original credit",
+      "classification": "Existing original or newly unchanged reached dependency; root reconcile mandatory all20/P16/P17/other lenses, no additional unique role count inferred"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/person_names.rs",
+      "sha256": "e41326d6c8ae20b958581c0027d3b5bdd79a58faf43a142e446f52dc4a8f70ec",
+      "ranges": [
+        [
+          345,
+          405
+        ]
+      ],
+      "role": "Actual rendered-name checked boundary",
+      "classification": "Existing original or newly unchanged reached dependency; root reconcile mandatory all20/P16/P17/other lenses, no additional unique role count inferred"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs",
+      "sha256": "61fe528d93435e9e3d2d263110bc870e10ee25ea61c84196be203e4e771d6741",
+      "ranges": [
+        [
+          132,
+          261
+        ]
+      ],
+      "role": "MeleeIterationBuild metadata recipients/output JSON and filesystem boundaries",
+      "classification": "Existing original or newly unchanged reached dependency; root reconcile mandatory all20/P16/P17/other lenses, no additional unique role count inferred"
+    },
+    {
+      "source_id": "physical-p16-unchanged-receiver:crates/adventuresim-core/src/starting_character.rs",
+      "sha256": "6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
+      "ranges": [
+        [
+          345,
+          364
+        ],
+        [
+          410,
+          438
+        ]
+      ],
+      "role": "Default_character raw identity seed native hash inputs, full concrete return close",
+      "classification": "Existing original or newly unchanged reached dependency; root reconcile mandatory all20/P16/P17/other lenses, no additional unique role count inferred"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+      "sha256": "e8b238c454b79527cff117b2acc8ad4b32214dfd7fb3714b9949c725daf7460d",
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "role": "Actual58 human name strings entering tactical request/causal identity consumers",
+      "classification": "Existing original or newly unchanged reached dependency; root reconcile mandatory all20/P16/P17/other lenses, no additional unique role count inferred"
+    },
+    {
+      "source_id": "physical-p16-unchanged-receiver:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/reviewer.rs",
+      "sha256": "bf80b110a492a275bd8550afe0af9bfc9b858b45faa71340c0f13dd6d5992ee3",
+      "ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "role": "Actual58 metadata/report serializer fields and constructor only",
+      "classification": "Existing original or newly unchanged reached dependency; root reconcile mandatory all20/P16/P17/other lenses, no additional unique role count inferred"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration.rs",
+      "sha256": "5ebb42e36e764cd3adee88c336b2976f42db557494a436e8fa2eef2f79fdef61",
+      "ranges": [
+        [
+          1,
+          130
+        ],
+        [
+          185,
+          210
+        ],
+        [
+          540,
+          655
+        ]
+      ],
+      "role": "Actual frozen name projection, retained String outcome and production victor selection ports; no other numeric solve coverage",
+      "classification": "Existing original or newly unchanged reached dependency; root reconcile mandatory all20/P16/P17/other lenses, no additional unique role count inferred"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal.rs",
+      "sha256": "8c3f05243082a222416fbfc0b33d8307fcce43dce219c0a4bdc2046012220740",
+      "ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "role": "Exact58 name/String recipient and concrete result/report classification ports, no future-original credit",
+      "classification": "Existing original or newly unchanged reached dependency; root reconcile mandatory all20/P16/P17/other lenses, no additional unique role count inferred"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/logging.rs",
+      "sha256": "cee413f196e6709475af3c4f68ba65471662d2dbc16d1fe978946ecbf362ca2d",
+      "ranges": [
+        [
+          115,
+          185
+        ]
+      ],
+      "role": "Exact58 name/String recipient and concrete result/report classification ports, no future-original credit",
+      "classification": "Existing original or newly unchanged reached dependency; root reconcile mandatory all20/P16/P17/other lenses, no additional unique role count inferred"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/timeline.rs",
+      "sha256": "97e87014b1ece1247d03e8e2a7e1e36db3c28ccae7b17b95dd7857ca13075406",
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "role": "62 actual forwarded timeline string-valued field/schema ports, no future72credit",
+      "classification": "Existing original or newly unchanged reached dependency; root reconcile mandatory all20/P16/P17/other lenses, no additional unique role count inferred"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/logging.rs",
+      "sha256": "cee413f196e6709475af3c4f68ba65471662d2dbc16d1fe978946ecbf362ca2d",
+      "ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "role": "Canonical adjacent typed coverage/category owners and string identity fields for M09 fit comparison",
+      "classification": "Existing original or newly unchanged reached dependency; root reconcile mandatory all20/P16/P17/other lenses, no additional unique role count inferred"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/capability.rs",
+      "sha256": "877f8932ea920a91c610829b96a637ad6d361189a28f41d464376763ca8d160c",
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "role": "Exact canonical capability enum/state payload for60 categorical string erasure owner fit, no future-original credit",
+      "classification": "Existing original or newly unchanged reached dependency; root reconcile mandatory all20/P16/P17/other lenses, no additional unique role count inferred"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve.rs",
+      "sha256": "0b6aef0b8e1be9846beaae48cc8f7130333b0b4634acbd0b2f8b393ee40d5cef",
+      "ranges": [
+        [
+          308,
+          321
+        ]
+      ],
+      "role": "62 exact terminal result signature only, no restart of completed original",
+      "classification": "Existing original or newly unchanged reached dependency; root reconcile mandatory all20/P16/P17/other lenses, no additional unique role count inferred"
+    }
+  ],
+  "repair_and_acceptance": {
+    "status": "Discovery only; no implementation authorized before global ledger finished. Existing source questions/aliases/currentness remain mandatory.",
+    "connected_contracts": [
+      "Open roster/build key vs display label vs battle identity/native path component/hash inputs; no closed-ID enum without semantic proof.",
+      "Canonical catalog key through definition/lookup/recipe/error/evidence, instance identity distinct; inspect actual current authoring admission before future repair.",
+      "Existing rendered name type through display state; independent stable identity for victor and attribution.",
+      "M09 enum/payload and coverage owner fit retained to serialized evidence; update existing consumers/fixtures after clean schema decision."
+    ],
+    "future_acceptance": "Only after discovery and root user-authorized implementation: source/current owner reconciliation and existing applicable checks/positive execution evidence; no new tests/helpers/assertions/doctests authorized here. No frozen code/runtime/catalog success or native absence claim."
+  },
+  "counts_proposed": {
+    "before_original_accounted": 58,
+    "after_original_accounted": 63,
+    "new_originals": [
+      58,
+      59,
+      60,
+      61,
+      62
+    ],
+    "total": 2853,
+    "next_original": 63,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "new_unique_delta": 0
+  },
+  "source_accounted_with_findings": true,
+  "findings_unique_total": "Not established; qualified source keys only, inherited aliases preserved.",
+  "global_clearance": false,
+  "limitations": [
+    "No product/tracked/Git/root-ledger/test changes/projectchecks/probes/native execution/publication. Only exact source metadata/body reads and ignored append-only evidence.",
+    "Skill wire/accepted-old-input preservation clause overridden by user no backwards compatibility.",
+    "Frozen physical dirty bytes distinct from committed039/current main. Unchanged physical dependencies independently staged at declareda120 after full dirty-status absence check; matching PRworking hash is not authority alias.",
+    "All inherited scope/range anomalies/currentness/P16/P17/all20/native and existing findings remain; source-accounted does not mean clear/repaired/integrated/validated."
+  ],
+  "next_work": "Continue ordered63 and connected bodies autonomously; no one-file/packet stop."
+}

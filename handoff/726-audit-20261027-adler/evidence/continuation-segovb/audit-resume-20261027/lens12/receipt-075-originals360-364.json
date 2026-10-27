@@ -1,0 +1,204 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "075",
+  "predecessor": "receipt-074-originals355-359.json",
+  "manifest_prefix_sha256": "9e16b95e3f917ffa00922761a041fd3d7a1121f2e49652e584bb73e72d11102a",
+  "sources": [
+    {
+      "original_index": 360,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics.rs",
+      "sha256": "35c74e188c90bf25618bfb0170d513f1c0b342473c22acccaca79c50447c857f",
+      "actual_eof": 1762,
+      "actual_ranges": [
+        [
+          1,
+          1762
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-1762",
+          "role": "All1762 independently read in1-600/601-1200/1201-1762. Production warnings442/515/528/549/559/566/701/739 are failure rendering; target quickstep_trace619/647 and structured trace messages636/655 are native logging target/output, connecting33891/111. No String-valued gameplay API. Existingtest output strings991/1013/1280/1284/1288/1330/1435/1438/1479/1520/1524/1732 render computed values.",
+          "disposition": "Concrete tracing/panic/assert native text boundary, no stable semantic error classification from mutable prose. External logfilter/parser consumers unread. All physics/numeric/state/concurrency behavior, other-lens and runtime proof excluded; no test/probe execution."
+        }
+      ],
+      "status": "Requested scope independently inventoried WITH findings or concrete text/zero roles."
+    },
+    {
+      "original_index": 361,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics/quickstep.rs",
+      "sha256": "b14b69313123c2918b34a7aaa2c076821c05d7756edcfbee08561a4071504278",
+      "actual_eof": 81,
+      "actual_ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-81",
+          "role": "Zero literals or String-valued APIs. Typed quickstep elapsed ticks/clock operations and native numerical ratios only.",
+          "disposition": "Zero string role from actual full changed source; no clock, timing, numeric, runtime, or lens08 verdict."
+        }
+      ],
+      "status": "Requested scope independently inventoried WITH findings or concrete text/zero roles."
+    },
+    {
+      "original_index": 362,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/player.rs",
+      "sha256": "ebf883ac714ec8f48c9377495da01713b01e9f4ba9e7bd5e4edda78dc320ee68",
+      "actual_eof": 650,
+      "actual_ranges": [
+        [
+          1,
+          650
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "39-41,88-96,330-383,456-478",
+          "role": "Player.name String40 retained, default_character_name95\u2192raw Player.name; actual333native added-player log163-164 now full state declaration connected. default_character tactical89/332/458 repeated raw selector/namespace argument; exact factory role unread.",
+          "disposition": "Reuse canonical personal-name/rendered-name owner through retained Player/name factory and actual external projection, not arbitrary finite enum or pure logging exemption for stored application name. Inspect actual starting-character factory to distinguish semantic selector/native namespace before repair; do not guess wire/schema stability."
+        },
+        {
+          "source_ranges": "1-650",
+          "role": "Native authored constant panic messages63/67/71; StreamId character.display-color124 actual deterministic namespace; existingtests JSON keys endurance601/hearing602/0negative603 and [0,null] NOT here (belongs363). All650 read; no other strings.",
+          "disposition": "Native deterministic stream identity boundary (prior2531Seed framing scope only), authoreddiagnostic output, concrete serde field representation in existingtest. No native serialization/random/math/test execution or BC obligation."
+        }
+      ],
+      "status": "Requested scope independently inventoried WITH findings or concrete text/zero roles."
+    },
+    {
+      "original_index": 363,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "sha256": "e3b88b223ae8d99d6fbcb634fbb1dd3990f9f42f4440309a341f3da3b8c0a0ce",
+      "actual_eof": 122,
+      "actual_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-122",
+          "role": "Only serde::de::Error custom scene plan point must be finite96 and existing malformed JSON fixture [0,null]117. Typed positions/error quantities elsewhere; spatial_tests declaration122 no body credit.",
+          "disposition": "Actual Serde custom error trait is concrete text-required boundary, not internal raw classification API. MalformedJSON deliberate decoding fixture text, no preservation obligation or testexecution. Existing spatial/Position/math/other-lens proof not transferred."
+        }
+      ],
+      "status": "Requested scope independently inventoried WITH findings or concrete text/zero roles."
+    },
+    {
+      "original_index": 364,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates/velocity.rs",
+      "sha256": "f961ea0bc8da4a4bb23bba732b32f43172c9ab2aaa83bd4ff8319efb4faaf077",
+      "actual_eof": 38,
+      "actual_ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-38",
+          "role": "Zero strings or String-valued APIs. Registry earlier1-44 exceeds exactEOF38; actual full38 read after verified source identity.",
+          "disposition": "Zero string role with explicit EOF reconciliation, not missing6 lines or currentvariant alias; no numerical/SignedSpeed/native/other-lens acceptance."
+        }
+      ],
+      "status": "Requested scope independently inventoried WITH findings or concrete text/zero roles."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Tactical Player name retained as raw text and starting-character argument role pending",
+      "sources": [
+        "362:40,89,95,332,458",
+        "333:163-164",
+        "178/179 earlier canonical name proofs"
+      ],
+      "remedy": "Carry existing canonical rendered personal-name owner through starting-character producer/Player retained state/native UI or log projection; classify tactical argument at exact factory.",
+      "acceptance": "Inspect actual default_character/default_character_name factory and Player input/serialization producers/consumers before repair. No finite close of human names or preserve old text/schema requirement.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "362 exact starting_character factory argument role and Player replicated/appearance name input consumers unread.",
+    "360/338 external/native log target parsers not read; no gameplay string selector in these actual bodies, no runtime/numerical clearance.",
+    "364 exactEOF38 reconciles historical requested1-44 without inventing missing lines."
+  ],
+  "qualifications": [
+    "Frozen f82 physical-P16 exact source only, not current main/PR992 or other variants.",
+    "No backward compatibility/input-preservation obligation; no project/native/test/probe execution or product/Git/root-ledger/publication mutation.",
+    "All20/P16/P17/F9/M09/inherited aliases/currentness preserved; source-accounted WITH findings only, not repaired/global/runtime/unique-total/other-lens clearance."
+  ],
+  "proposed_count": {
+    "before": 360,
+    "after": 365,
+    "indices_completed": [
+      360,
+      361,
+      362,
+      363,
+      364
+    ],
+    "next_original": 365,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics.rs",
+      "sha256": "35c74e188c90bf25618bfb0170d513f1c0b342473c22acccaca79c50447c857f",
+      "ranges": [
+        [
+          1,
+          1762
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics/quickstep.rs",
+      "sha256": "b14b69313123c2918b34a7aaa2c076821c05d7756edcfbee08561a4071504278",
+      "ranges": [
+        [
+          1,
+          81
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/player.rs",
+      "sha256": "ebf883ac714ec8f48c9377495da01713b01e9f4ba9e7bd5e4edda78dc320ee68",
+      "ranges": [
+        [
+          1,
+          650
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "sha256": "e3b88b223ae8d99d6fbcb634fbb1dd3990f9f42f4440309a341f3da3b8c0a0ce",
+      "ranges": [
+        [
+          1,
+          122
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates/velocity.rs",
+      "sha256": "f961ea0bc8da4a4bb23bba732b32f43172c9ab2aaa83bd4ff8319efb4faaf077",
+      "ranges": [
+        [
+          1,
+          38
+        ]
+      ]
+    }
+  ]
+}

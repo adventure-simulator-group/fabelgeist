@@ -1,0 +1,155 @@
+{
+  "at": "2026-10-27T00:45:43.364057+00:00",
+  "source_id": "physical-p16-unchanged-base:crates/adventuresim-core/src/organization.rs",
+  "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+  "staged_path": "target/recovery-20261025/continuation-segovb/source-objects/cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+  "lines": 1251,
+  "provenance": "Exact a120 base object; no159changed/status entry",
+  "body_credit": false,
+  "locators_only": [
+    [
+      15,
+      "pub enum OrganizationMembershipStatus {"
+    ],
+    [
+      22,
+      "pub struct OrganizationCatalog {"
+    ],
+    [
+      30,
+      "pub struct OrganizationPromotionTransition {"
+    ],
+    [
+      37,
+      "pub struct SecondPersonRegister {"
+    ],
+    [
+      91,
+      "pub struct OrganizationDefinition {"
+    ],
+    [
+      130,
+      "pub enum OrganizationKind {"
+    ],
+    [
+      140,
+      "pub struct OrganizationRoleDefinition {"
+    ],
+    [
+      176,
+      "pub struct InitialSocialRole {"
+    ],
+    [
+      186,
+      "pub fn initial_social_role("
+    ],
+    [
+      226,
+      "pub struct OrganizationChapter {"
+    ],
+    [
+      239,
+      "pub enum ChapterBuildingKind {"
+    ],
+    [
+      252,
+      "pub struct OrganizationStartingRole {"
+    ],
+    [
+      260,
+      "pub enum StartingProfession {"
+    ],
+    [
+      319,
+      "pub enum Recognition {"
+    ],
+    [
+      326,
+      "pub struct Admission {"
+    ],
+    [
+      335,
+      "pub struct Dues {"
+    ],
+    [
+      342,
+      "pub enum Requirement {"
+    ],
+    [
+      356,
+      "pub struct OrganizationActivity {"
+    ],
+    [
+      363,
+      "pub struct TrainingEntry {"
+    ],
+    [
+      371,
+      "pub enum TrainingTarget {"
+    ],
+    [
+      392,
+      "pub enum ActivityReward {"
+    ],
+    [
+      399,
+      "pub enum Privilege {"
+    ],
+    [
+      410,
+      "pub struct SettlementPolicy {"
+    ],
+    [
+      487,
+      "pub fn catalog() -> &'static OrganizationCatalog {"
+    ],
+    [
+      495,
+      "pub fn organization(id: &str) -> Option<&'static OrganizationDefinition> {"
+    ],
+    [
+      499,
+      "pub fn organizations_for_chapter("
+    ],
+    [
+      512,
+      "pub fn organization_service_chapter("
+    ],
+    [
+      531,
+      "pub fn organization_chapter_at("
+    ],
+    [
+      548,
+      "pub fn service_npc_location_id(service_id: &str) -> Option<&'static str> {"
+    ],
+    [
+      562,
+      "pub fn service_npc_location_available("
+    ],
+    [
+      582,
+      "pub fn chapter_effective_location_id<'a>("
+    ],
+    [
+      596,
+      "pub fn chapter_has_standalone_building("
+    ],
+    [
+      606,
+      "pub fn organization_representative_id(settlement_id: &str, organization_id: &str) -> u64 {"
+    ],
+    [
+      612,
+      "pub fn exact_representative_fields_match("
+    ],
+    [
+      627,
+      "pub fn settlement_policy(settlement_id: &str) -> Option<&'static SettlementPolicy> {"
+    ],
+    [
+      634,
+      "#[cfg(test)]"
+    ]
+  ]
+}

@@ -1,0 +1,221 @@
+{
+  "at": "2026-10-27T13:53:44.112730+00:00",
+  "lens": 11,
+  "kind": "append-only semantic supplement; historical receipt unchanged",
+  "supplements": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-042-receipt.json",
+    "sha256": "679029c645bbe69075e5b0f1c297fdd91ece13e10c96c08197b5f264c7f19edc"
+  },
+  "source_evidence": [
+    {
+      "kind": "original",
+      "original_index": 993,
+      "source_id": "pr-working:crates/adventuresim-core/src/settlement_property/tests.rs",
+      "sha256": "37706ca3f62b5b44d61a78f6ec146281ba11990c9a218f0182be06e9f23a2c3b",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/37706ca3f62b5b44d61a78f6ec146281ba11990c9a218f0182be06e9f23a2c3b",
+      "actual_eof": 99,
+      "ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          99
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 994,
+      "source_id": "pr-working:crates/adventuresim-core/src/simulation_security.rs",
+      "sha256": "3c199480635cb250ba4fe3c60e13afcad2b958c8b11b3e97588c57fd85500272",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/3c199480635cb250ba4fe3c60e13afcad2b958c8b11b3e97588c57fd85500272",
+      "actual_eof": 61,
+      "ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          61
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 995,
+      "source_id": "pr-working:crates/adventuresim-core/src/skeletal_fit.rs",
+      "sha256": "9263e946947987759ca44148c3b0683b27ad749fa9c679f9edc6d852293eafdc",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/9263e946947987759ca44148c3b0683b27ad749fa9c679f9edc6d852293eafdc",
+      "actual_eof": 132,
+      "ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          132
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 996,
+      "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "actual_eof": 1165,
+      "ranges": [
+        [
+          1,
+          1165
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "prior_personal_read_reuse": {
+        "receipt": "batch-031-receipt.json",
+        "ranges": [
+          [
+            1020,
+            1115
+          ]
+        ],
+        "identity_reverified": true
+      },
+      "actual_read_ranges": [
+        [
+          1,
+          1019
+        ],
+        [
+          1116,
+          1165
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 997,
+      "source_id": "pr-working:crates/adventuresim-core/src/smithing.rs",
+      "sha256": "83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "actual_eof": 78,
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          78
+        ]
+      ]
+    },
+    {
+      "original_index": 1191,
+      "sha256": "909ef3cba93d998d407876cc05fd8c4ad9933f39faec7de0ac45dd0893d9bd60",
+      "actual_read_ranges": [
+        [
+          1,
+          33
+        ],
+        [
+          197,
+          280
+        ]
+      ]
+    },
+    {
+      "original_index": 1194,
+      "sha256": "aecea90ad65fd73946a24653499fdfe07a626491543cb20c57f5e70ae82e4d49",
+      "actual_read_ranges": [
+        [
+          1,
+          119
+        ]
+      ]
+    },
+    {
+      "original_index": 1490,
+      "sha256": "166a50824e9c051fa93ab7ce03790a3e36f362ad1b2326c98ce4e1da7fe7490c",
+      "actual_read_ranges": [
+        [
+          1,
+          77
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original_index": 993,
+      "inventory": "Property fixture identifiers, catalog/building scopes, area and capacity measurements, stock and allocation counts.",
+      "disposition": "Fixtures exercise different property identities and quantities; do not conflate area, headcount and stock or derive every household allocation solely from total aggregate capacity.",
+      "remedy": "Retain canonical PropertyId and purpose quantities at fixture boundaries when migrating production owners; no new fixture required for source discovery.",
+      "acceptance": "Existing source fixture roles reconciled to packet041 property/catalog receiver. No execution claim."
+    },
+    {
+      "original_index": 994,
+      "inventory": "Compiled optional bootstrap secret, presented untrusted token, fixed hex length, byte comparison, simulation horizon policy.",
+      "disposition": "Compiled credential, submitted text, run nonce and policy limits are distinct authority roles; token syntax is not entropy or formal constant-time proof.",
+      "remedy": "Use separately admitted compiled-token and presented-token ports at the authentication boundary; preserve run nonce/ownership independently rather than a generic string token owner.",
+      "acceptance": "Actual1191 lines1-33,197-280 check compiled token before nonce/fresh/player-bearing/import gates and owned_run checks owner/nonce. No full SDK authorization proof."
+    },
+    {
+      "original_index": 995,
+      "inventory": "Twelve skeletal short/long morph selectors; source/reference/endpoint lengths; signed morph coefficients and 0..1 influence; native float-bit equality keys.",
+      "disposition": "Morph identity differs from six broader body-proportion roles. Signed coefficient and bounded influence are not interchangeable. Reversed short-side interval is meaningful and equal reference/endpoint intentionally gives zero.",
+      "remedy": "Keep selector, length and influence roles distinct; centralize interpolation under the skeletal owner without forcing ascending all endpoint intervals or turning representation bits into a gameplay ordinal.",
+      "acceptance": "Full995 plus1490 full1-77 and personally read887-890 morphology proof retained. No universal normalized body-size bound or full MHR guarantee."
+    },
+    {
+      "original_index": 996,
+      "inventory": "Closed Skill identities/training IDs; direct, realtime, effective and excess training hours; latent rank, aptitude cap and final check; governing aptitude weights/limb weights; PlayerAttributes/PlayerSkills trait projections.",
+      "disposition": "hours_for_rank at rank>=5 deliberately returns positive infinity for the asymptotic unbounded requirement (720-730), consumed as available training capacity at1080. Finite stored hours and an unbounded requirement are different states, not a universal finite-hours invariant. Governing healthy aptitude differs from incapacitated checks. Private static GoverningAptitudes weights already total100; unused limb payload where agility weight0 is simplification rather than an established public invalid admission.",
+      "remedy": "Represent finite hours versus unbounded requirement explicitly, and preserve duration/hours/rank/healthy aptitude/check roles through operations. Reuse canonical skill identity and governing owner. Avoid inventing tighter limits. Default category fallback in PlayerSkills is a qualified projection dependency, not demonstrated wrong-family runtime behavior.",
+      "acceptance": "Full1-1165 personally consumed across042 and031 exact-hash reuse1020-1115. Actual mathematical operations and trait consumers accounted; no current/live execution or language/bestiary-wide repair claim."
+    },
+    {
+      "original_index": 997,
+      "inventory": "ForgeQuote per-stock mass and aggregate required micros maps, work hours and total mass; material/catalog IDs; per-item-row bounded consumable fraction.",
+      "disposition": "Aggregate material requirement may exceed one whole row. It must not use the bounded per-row ConsumableFractionMicros owner. Parallel mass/amount maps can drift by stock key. Receiver1194 uses micros and chunks at one whole row (31-50), while error100 labels the same required value milliunits: concrete source unit-label mismatch, without executed economy impact.",
+      "remedy": "Use one stock-keyed quote payload containing mass and total micros, with a distinct total requirement owner and bounded per-row consumption adapter. Correct receiver error unit label to micros (or deliberately convert to a named display unit).",
+      "acceptance": "Producer997 full1-78 and reducer1194 full1-119 personally consumed. Preserve existing chunked consumer; no transaction/rounding/runtime outcome or currentness proof."
+    }
+  ],
+  "accepted_unique_count_change": 0,
+  "new_coverage_credit": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "source_accounting_not_clearance": true,
+  "limits": [
+    "Frozen source only, no execution/current/accepted alias/runtime/global proof.",
+    "Registered full effective original scopes consumed; oversized sed upper bounds on short files return only actual EOF and receipt credits actual1..EOF."
+  ],
+  "finding_alias_policy": "Source-key candidates remain qualified until inherited finding aliases/current source checked; no new accepted unique finding."
+}

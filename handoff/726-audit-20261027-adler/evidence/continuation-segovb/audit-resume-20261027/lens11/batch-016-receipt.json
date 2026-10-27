@@ -1,0 +1,231 @@
+{
+  "at": "2026-10-27T12:15:25.777025+00:00",
+  "lens": 11,
+  "status": "883\u2013886 independently source-accounted within exact effective material scopes",
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-015.json",
+    "sha256": "50f840597cf53d7cbb031b542e2120f26a30c2b5df37da8c25764fe2b445db42"
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-016-registration.jsonl",
+    "sha256": "ef0ed3e17d57779e4fd90d0130b5ee4f372eb705bded4a9ac3cac6c23557789c"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 883,
+      "source_id": "pr-working:crates/adventuresim-core/src/bin/content-check.rs",
+      "sha256": "98447fa524e96dfa1f89ade51017472fae06833cd9ea73014855140c7062f387",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/98447fa524e96dfa1f89ade51017472fae06833cd9ea73014855140c7062f387",
+      "actual_eof": 36,
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          36
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 884,
+      "source_id": "pr-working:crates/adventuresim-core/src/body.rs",
+      "sha256": "febe5d8b193afe3cefa2292965bb42c15d4a5d25aef8a2f3c9fea757b3720317",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/febe5d8b193afe3cefa2292965bb42c15d4a5d25aef8a2f3c9fea757b3720317",
+      "actual_eof": 179,
+      "ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          179
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 885,
+      "source_id": "pr-working:crates/adventuresim-core/src/book.rs",
+      "sha256": "1b4aac417b1f0ea794ff7f2832552b2ce1561a7d2cbede9129b274e29dc394ef",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/1b4aac417b1f0ea794ff7f2832552b2ce1561a7d2cbede9129b274e29dc394ef",
+      "actual_eof": 529,
+      "ranges": [
+        [
+          1,
+          345
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          345
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 886,
+      "source_id": "pr-working:crates/adventuresim-core/src/capability.rs",
+      "sha256": "6e0a321cc3add825f92a96426d7bd4b3af413ad02381e547a2db66fdd8676d82",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/6e0a321cc3add825f92a96426d7bd4b3af413ad02381e547a2db66fdd8676d82",
+      "actual_eof": 552,
+      "ranges": [
+        [
+          1,
+          552
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          552
+        ]
+      ]
+    }
+  ],
+  "read_basis": {
+    "883": "fresh1-36",
+    "884": "own0081-179 hash reverified; independent ordered role inventory",
+    "885": "fresh1-345 only, actualEOF529",
+    "886": "fresh1-552"
+  },
+  "material_receivers": [
+    {
+      "kind": "connected-owner",
+      "original_index": 939,
+      "sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "ranges": [
+        [
+          500,
+          545
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual Book/BookTarget schema payload and typed selected knowledge namespaces",
+      "actual_read_ranges": [
+        [
+          500,
+          545
+        ]
+      ],
+      "zero_extra_original_credit": true
+    }
+  ],
+  "per_role": [
+    {
+      "original": 883,
+      "roles": "Native CLI text versus closed content-check target mode; typed catalog validation ports and native diagnostic/output text.",
+      "trace": "Full36 lines read only; command not run. Input supports all/items/encounters then repeated string dispatch, with no-arg all default. Three actual mode states can be admitted once into a closed mode owner; human diagnostic and native command-line input remain strings. Calls explicit existing catalog validators/reference check; source does not confer executed validation, source-artifact acceptance or every downstream validator body coverage.",
+      "disposition": "source-accounted with internal mode granularity question"
+    },
+    {
+      "original": 884,
+      "roles": "BodyPart seven-region enum and typed BitFlags groups, distinct BodySide Left/Right/Both; PlayerBody abstract health/mass/primary side; LimbWeights four-limb collection and native numeric normalization.",
+      "trace": "Own008 full179 hash-equal reused and independently inventoried. BodyPart::LIMBS is exactly four limbs; by_part accepts broader BodyPart and returns0 for nonlimbs, supporting855 limb selector question. BodySide::Both has actual symmetric weighting case and is not invalid by name alone. LimbWeights is meaningful named four-limb shape versus arbitrary vector/rigskin, but public scalar fields/default zero/normalize share no proved nonzero normalized admission. Do not require every default weight set positive or unit-sum without actual none/zero/caller contract; actual basic constructors have coherent intended allocations.",
+      "disposition": "source-accounted with overbroad limb selector and weight-admission qualification"
+    },
+    {
+      "original": 885,
+      "roles": "BookTarget teaching families and validated book quality/rank band; real reading hours versus direct training increments/effective correlation projection; WrittenLanguageHours medium/target identities; BookCandidate provenance/key; native scalar integration callbacks.",
+      "trace": "Effective registered scope1-345 fully consumed; actualEOF529, remaining346-529 is outside material role. Direct and written study gates/project/clip learning at actual rank/aptitude/medium literacy; scalar exp/log/binary search remain local numerical kernels, but state mutation and application result ports have distinct real/direct/effective roles. Actual Book schema939500-545 keeps teaching metadata in canonical catalog rather than persisted inventory, uses typed WrittenLanguage/OfficialReligion/BestiaryCategory, but Terrain and Skill are raw String and rematched to canonical Skill. BookCandidate names book/key/provenance and prioritizes personal before quality/key, deduplicating by supplied stable item key; do not assume it is concrete inventory instance ID without actual caller proof. Existing test prefix source only.",
+      "disposition": "source-accounted with study quantity/selector/rank-band questions"
+    },
+    {
+      "original": 886,
+      "roles": "Observed CharacterCapabilities versus minimum RoleRequirements; independent melee/ranged/heavy abilities versus monotone armor tier; concentration versus check/rating; unbounded pooled check versus bounded five-point medical/command checks and signed contribution.",
+      "trace": "Full552 lines read. Actual armor_tiers producer establishes full=>three_quarter=>half=>quarter; only five coherent boolean states exist. Requirements compare conjunction of flags, so a minimum supported tier captures this one axis while other capabilities remain independent. Actual player requirement ratings use round/clamp0-5, not universal enemy attribute bound; contact concentration tier labels report actual continuous stat and are not reason for enum-of-number weapon tags. aggregate_party_check is harmonic/unbounded, bounded check uses complement product within5, command supports negative incremental contribution from weak supporters. A universal UnitInterval/positive contribution type would be wrong. Religion/bestiary knowledge selectors have distinct learned target provenance even if scalar formulas share Skill-owner math; ignored instinct/focus inputs are real unused API ports, no compatibility reason to preserve them. Existing fixtures read, not executed.",
+      "disposition": "source-accounted with concrete armor state shape and check-quantity granularity findings"
+    }
+  ],
+  "qualified_observations": [
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/capability.rs@6e0a321cc3add825f92a96426d7bd4b3af413ad02381e547a2db66fdd8676d82#armor-tier-state",
+      "observation": "Actual armor_tiers returns four ordered booleans: full implies three-quarter, implies half, implies quarter. CharacterCapabilities/RoleRequirements retain these flags independently and meets compares them separately. Five meaningful categorical coverage/loadout states exist; malformed combinations are representable though actual producer is coherent. Tiers depend on helmet/cuirass/limb/shield configurations, not arbitrary scalar enum numbers.",
+      "remedy": "Reconcile canonical existing armor-capability tier owner and enum/aggregate master aliases; represent achieved tier and minimum required tier on this one axis. Keep melee/ranged/heavy, physical concentration and independent skill capabilities separate. Do not model tiers merely as0.25/0.5 coverage fractions or collapse entire capability product into one enum.",
+      "acceptance": "Supported tier states and threshold comparison are explicit and cannot encode full-but-not-quarter; actual shield/coverage proxies and independent ability axes remain correct.",
+      "dependencies": [
+        "current capability/role schema and actual recruitment/UI consumers",
+        "enum-shape/aggregate/owner aliases"
+      ],
+      "currentness": "Concrete frozen shape finding, no current/unique/runtime invalid-state claim"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/book.rs@1b4aac417b1f0ea794ff7f2832552b2ce1561a7d2cbede9129b274e29dc394ef#study-hour-rank-selector-granularity",
+      "observation": "Application study API uses raw f32 for real reading time, stored direct training hours, correlated effective hours, effective rank, aptitude and medium rank; callback signatures Fn(f32)->f32 erase opposite rank-to-hours/effective-projection responsibilities. Rank lower/upper are separate rawu8 and Book quality/target limits are admitted outside these helpers. Actual schema has existing typed knowledge namespaces, but ordinary skill/terrain selectors remain strings despite actual canonical Skill mapping.",
+      "remedy": "Reconcile canonical hours/skill/book target and actual interval/quality owner; keep direct/effective/real quantities and curve direction meaningful through admission/state/result ports, sharing invariant math in owner operations and leaving only numerical integration primitives inside kernel. Reuse typed supported selectors; keep book orchestration separate where it joins multiple owners. No new generic interval implementation or arbitrary rank/hour cap in discovery.",
+      "acceptance": "Actual catalog/study/retained-hour/result chain cannot confuse reading duration, direct/effective hours, rank or selector namespace; actual family-dependent teaching band and correlation semantics retained.",
+      "dependencies": [
+        "actual study callers, knowledge-hour/Skill owners and currentness",
+        "pending source/overlay/merged family and existing M03/M09 or other canonical aliases unresolved"
+      ],
+      "currentness": "Frozen scoped finding, no accepted unique/error-policy/runtime claim"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/capability.rs@6e0a321cc3add825f92a96426d7bd4b3af413ad02381e547a2db66fdd8676d82#check-and-contribution-quantities",
+      "observation": "Raw f32 represents individual/aggregate checks, bounded five-point values, signed command contribution, nonnegative contribution, aptitude, effective training hours, health fraction and continuous concentration. Actual formulas differ: ordinary aggregate can exceed5, command contribution can be negative, bounded medical check stays<=5, concentration can exceed1. Unused instinct/focus arguments in two knowledge helpers add meaningless receiving ports.",
+      "remedy": "Reconcile existing check/rating/health/hour/concentration owners with actual admissions and purposes; share mathematical constraints under distinct roles where needed, remove unused ports in clean API, and keep observed capabilities distinct from required minimum ratings. Do not apply one generic bounded/positive validator to unrelated values.",
+      "acceptance": "Actual capability/party/study consumers express supported sign/range/purpose distinctions and retain necessary knowledge target identity; no false unit interval or nonnegative command-increment invariant.",
+      "dependencies": [
+        "existing magnitude/fraction/producer/ownership master aliases",
+        "actual current player/party/recruitment/clinical recipients"
+      ],
+      "currentness": "Qualified frozen source, no accepted unique count"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/bin/content-check.rs@98447fa524e96dfa1f89ade51017472fae06833cd9ea73014855140c7062f387#content-target-mode",
+      "observation": "A native string input becomes an internally retained three-case command mode and is rechecked by spelling. This is a closed behavior choice, unlike diagnostics/file paths/catalog identity text.",
+      "remedy": "Parse once into actual closed content target mode, reuse existing owner if present; keep native CLI parsing/output at boundary and no new dependency merely to rename string.",
+      "acceptance": "Internal content gate dispatch receives only supported mode states, current all/items/encounters behavior/default clear.",
+      "dependencies": [
+        "current CLI/schema owner and magic-string/enum alias coordination"
+      ],
+      "currentness": "Qualified frozen source, no current/unique promotion"
+    }
+  ],
+  "carried_own_proofs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-008-receipt.json",
+      "sha256": "480a8e5ab6e0ba18252686cbe2eac0f4d38a718701571266a49ae7dd7076e900"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-014-receipt.json",
+      "sha256": "9e2e5834705569d01b06c7e772fb7d82d07dbbad374f8f8245dc818eb7e68b87"
+    }
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer. Preserve180/181nativeSDK/Bevy scheduling/imagecopylimits andallpendingreceiverqueues. M04current903reviewsseparate; notfrozenoriginal/lenscounts. Packet182InventoryItemId graph erasure, catalogkey/recordidentity and wear/order-selector sourcequestions retained, alias/currentness/unique acceptance unresolved. M04build-target review003 atdf5 andhostedCIseparatefromfrozenauditcounts. 184 newpublicDrapedPiece association/sourcegroupingquestion remainsfrozenlocal, noalias/currentness/uniqueacceptance; producerpathcoherent. M04df5validationseparate. 185 capacityreservationstaticAPIgap retainedasfrozenevidence only; alias/currentness/accepteduniqueness unresolved. No runtimewrongID orauthoredcurrentinputwitness. ExistingID/key/wear/savedassociationquestionsremainqualified. Packet186 independently accounts existing test-source812 only; fixture expectations are not observed execution/whole authored catalog/native guarantees and do not clear185 capacity witness. Existing lower-pattern fixture uses canonical owners; no new current alias or unique finding. Packet187 original813 only. New frozen inventory_ui and catalog wrapper material extensions mandatory other lenses, zero extra shared/original credit. UI acquisition is not atomic/all-worn; inherited capacity, typedID erasure/key authority and public saved-association questions retain all currentness/alias/unique limits. Batch011 frozen attack-ID packed participant-width witness retained; no runtime/current/alias/accepted unique finding, no invented32bit capacity bound. Batch012 actual simultaneous fixture permits absent scheduled measure beside present start/contact/recovery; group only proved coupled facts, do not require every active schedule measure.",
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_adoption_required": true,
+  "read_limits": [
+    "All1112 effective original scope lines personally consumed/reused exact same-lens.885 material scope1-345 is not entire529-line file; frozen changed747/dirty metadata has no pr-working book.rs changed entry, no full-changed exemption used.",
+    "939500-545 includes partial following Durability fields, not whole durability implementation; only complete Book/BookTarget schema used.",
+    "No source validator/binary/study/party function, test or project scanner executed. No current family/alias/unique/global acceptance."
+  ],
+  "restrictions": "No product/Git mutations/root ledger/project execution/scans/probes/tests/new tests/publication."
+}

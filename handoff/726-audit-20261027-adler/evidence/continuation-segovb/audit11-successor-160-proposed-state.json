@@ -1,0 +1,46 @@
+{
+  "lens": "type-granularity",
+  "prior_state": "audit11-successor-159-proposed-state.json",
+  "crosswalk": "audit11-question-crosswalk-001.json",
+  "historical_state_untouched": "target/recovery-20261025/audit11/STATE.json",
+  "newly_source_accounted": [
+    785,
+    786
+  ],
+  "proposed_original_accounted": 787,
+  "original_total": 2853,
+  "next_original": 787,
+  "earliest_unfinished": 787,
+  "active_partial": null,
+  "receipts": [
+    "audit11-successor-160-785.json",
+    "audit11-successor-160-786.json"
+  ],
+  "registration": "audit11-successor-160-registration.json",
+  "open_qualified_findings": [
+    "SEGOVB11-158-781-RIG-RECEIVER",
+    "SEGOVB11-158-781-ACCUMULATORS",
+    "SEGOVB11-158-782-PHYSICAL-PORTS"
+  ],
+  "future_source_reads": {
+    "787": "Connected full body1-76 under158; independently inventory next, no automatic ordered credit",
+    "788": "Connected49-237/239-308 under157; no ordered credit",
+    "792": "Connected1-273 under157; no ordered credit",
+    "923": "Earlier connected923-001; no ordered credit"
+  },
+  "new_unique_findings": 0,
+  "accepted_unique_count_change": 0,
+  "question_id_collision_retained": true,
+  "overlays": "unchanged incomplete",
+  "merged": "unchanged incomplete",
+  "material": "own181-195 retained;0-180 pending separately",
+  "source_complete": "Original0-786 source-accounted with inherited/160 qualifications; does not mean clear",
+  "currentness": "No current canonical source comparison by packet; frozen ordinal gap remains qualified",
+  "integrated": false,
+  "validated": false,
+  "clear": false,
+  "root_ledger_overwritten": false,
+  "historical_states_overwritten": false,
+  "product_edits_checks_tests_publication": "none",
+  "stop_boundary": "Requested bounded packet stops after786; no ordered787 advance."
+}

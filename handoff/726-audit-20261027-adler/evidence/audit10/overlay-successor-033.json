@@ -1,0 +1,696 @@
+{
+  "id": "OWN10-OVERLAY-SUCCESSOR-033",
+  "lens": "derivability",
+  "registration_authority": "../audit05/raw-overlay-registration-000.jsonl",
+  "registration_sha256": "c26e2def8f8520c870f359ef66919ce730fcddb65beb051365fce42371a7bc68",
+  "receipts": [
+    {
+      "overlay_index": 181,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-182",
+        "at": "2026-10-22T18:34:10.907325+00:00",
+        "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog.rs",
+        "sha256": "12a6191433c61dae833826429a9ebacc2c043cce0fe593831e65f6ec10a132f6",
+        "audit_owner": "rig",
+        "material_ranges": [
+          [
+            53,
+            59
+          ],
+          [
+            74,
+            80
+          ],
+          [
+            111,
+            117
+          ]
+        ],
+        "admission03_scope_observations": [
+          {
+            "supplier": "camera",
+            "registry": "continuation/camera/admission03/source-range-registration.jsonl",
+            "row_1based": 22,
+            "registration_id": "CAMERA-ADM03-REG020",
+            "original_record": {
+              "id": "CAMERA-ADM03-REG020",
+              "at": "2026-10-22T14:29:32.209061+00:00",
+              "authority": "CONT-ROOT-ADMISSION03-DISCOVERY-AUTHORITY-043",
+              "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog.rs",
+              "sha256": "12a6191433c61dae833826429a9ebacc2c043cce0fe593831e65f6ec10a132f6",
+              "actual_EOF": 544,
+              "ranges": [
+                [
+                  53,
+                  59
+                ],
+                [
+                  74,
+                  80
+                ],
+                [
+                  111,
+                  117
+                ]
+              ],
+              "material_caller": "P16ParametricGeometryconditioned_precision60 actualweapon_precision lookup; equipment distribution_for_item461->weapon_skills",
+              "role": "ActualIDlookupOption/missing-nonweapon/precision/skills receiving policies, nofullruntimecatalogue replay",
+              "exclusions": "Load/projection/source-map/buildvalidators/otheritemqueriesalreadyRigcurrentroles, notcreditingtheirbodieshere",
+              "status": "registered BEFORE current new role body analysis"
+            },
+            "local_qualifications": [
+              {
+                "registration_id": "CAMERA-ADM03-REG020",
+                "at": "2026-10-22T18:25:03.942345+00:00",
+                "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog.rs",
+                "sha256": "12a6191433c61dae833826429a9ebacc2c043cce0fe593831e65f6ec10a132f6",
+                "actual_EOF": 544,
+                "original_registered_ranges": [
+                  [
+                    53,
+                    59
+                  ],
+                  [
+                    74,
+                    80
+                  ],
+                  [
+                    111,
+                    117
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    53,
+                    59
+                  ],
+                  [
+                    74,
+                    80
+                  ],
+                  [
+                    111,
+                    117
+                  ]
+                ],
+                "context_only_ranges": [],
+                "role": "ActualIDlookupOption/missing-nonweapon/precision/skills receiving policies, nofullruntimecatalogue replay",
+                "proof_refs": [
+                  "CAMERA-ADM03-080"
+                ],
+                "qualification": "Exact registered current role limits; reference source contract and original exclusions remain mandatory, no whole-file or included callee credit.",
+                "exclusions": "Load/projection/source-map/buildvalidators/otheritemqueriesalreadyRigcurrentroles, notcreditingtheirbodieshere",
+                "source_registration_record": "continuation/camera/admission03/source-range-registration.jsonl#CAMERA-ADM03-REG020",
+                "no_source_body_credit_from_metadata": true,
+                "no_global_or_other_lens_credit": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                53,
+                59
+              ],
+              [
+                74,
+                80
+              ],
+              [
+                111,
+                117
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\item_catalog.rs",
+            "actual_EOF": 544,
+            "bytes": 19083
+          }
+        ],
+        "scope_limits": "Exact qualified current03 direct-definition/native-format roles only; preserve original scope. No metadata semantic credit or ownership transfer.",
+        "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+        "admission_discovery": "source_backed_packet_acceptance_pending"
+      },
+      "source_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/item_catalog.rs",
+      "exact_git_source": "039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/item_catalog.rs",
+      "source_sha256": "12a6191433c61dae833826429a9ebacc2c043cce0fe593831e65f6ec10a132f6",
+      "read_ranges": [
+        [
+          53,
+          59
+        ],
+        [
+          74,
+          80
+        ],
+        [
+          111,
+          117
+        ]
+      ],
+      "evidence_basis": "Fresh personal exact registered body comparison by own10; original bodies may support but do not automatically discharge overlay scope.",
+      "inventory": "P16 catalogue binary-search lookup and semantic weapon precision/skills selection from native item kind; no handwritten traits/codecs.",
+      "disposition": "Keep native lookup/optional kind projection, no derive/serde for classifier. No full catalogue/projection/build/map/other query or runtime acceptance."
+    },
+    {
+      "overlay_index": 182,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-183",
+        "at": "2026-10-22T18:34:10.907325+00:00",
+        "source_id": "pinned-registry:spacetimedb-bindings-macro-2.6.1/src/sats.rs",
+        "sha256": "bf26e6331c7cf9a560ecec507b5e06b11bc77460dec17ac0d553cff5278a5bc4",
+        "audit_owner": "camera",
+        "material_ranges": [
+          [
+            70,
+            80
+          ],
+          [
+            525,
+            637
+          ],
+          [
+            728,
+            752
+          ]
+        ],
+        "admission03_scope_observations": [
+          {
+            "supplier": "camera",
+            "registry": "continuation/camera/admission03/source-range-registration.jsonl",
+            "row_1based": 24,
+            "registration_id": "CAMERA-ADM03-REG022",
+            "original_record": {
+              "id": "CAMERA-ADM03-REG022",
+              "at": "2026-10-22T14:31:35.013895+00:00",
+              "authority": "CONT-ROOT-ADMISSION03-DISCOVERY-AUTHORITY-043",
+              "source_id": "pinned-registry:spacetimedb-bindings-macro-2.6.1/src/sats.rs",
+              "resolved_path": "audit\\continuation\\camera\\admission03\\dependency-snapshots\\spacetimedb-bindings-macro-2.6.1\\sats.rs",
+              "sha256": "bf26e6331c7cf9a560ecec507b5e06b11bc77460dec17ac0d553cff5278a5bc4",
+              "actual_EOF": 752,
+              "ranges": [
+                [
+                  70,
+                  80
+                ],
+                [
+                  525,
+                  637
+                ],
+                [
+                  728,
+                  752
+                ]
+              ],
+              "material_caller": "CurrentEquipmentChannel actual9unitvariants/no reprC optionalSATS derive; exactenumdeserialize route conditionalnamespace/versionlinkpendingRoot",
+              "role": "ProspectiveactualSumdecoderrole; priorREG002525-637 incidentalbranch was NOTEnumcredit. Samepinned2.6.1 nonreprCbranch semanticcomparison only, no inferenceRootspacetimedb namespacealreadyproved.",
+              "exclusions": "No serialize/schema/typeSpace/reducer/view/table graph; tuple/datavariants notrelevanttoactualchannelunitvariantinvariant; namespace/versionedgeexplicitpending",
+              "status": "registered BEFORE newSum role body analysis"
+            },
+            "local_qualifications": [
+              {
+                "registration_id": "CAMERA-ADM03-REG022",
+                "at": "2026-10-22T18:25:03.942345+00:00",
+                "source_id": "pinned-registry:spacetimedb-bindings-macro-2.6.1/src/sats.rs",
+                "sha256": "bf26e6331c7cf9a560ecec507b5e06b11bc77460dec17ac0d553cff5278a5bc4",
+                "actual_EOF": 752,
+                "original_registered_ranges": [
+                  [
+                    70,
+                    80
+                  ],
+                  [
+                    525,
+                    637
+                  ],
+                  [
+                    728,
+                    752
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    70,
+                    80
+                  ],
+                  [
+                    525,
+                    637
+                  ],
+                  [
+                    728,
+                    752
+                  ]
+                ],
+                "context_only_ranges": [],
+                "role": "ProspectiveactualSumdecoderrole; priorREG002525-637 incidentalbranch was NOTEnumcredit. Samepinned2.6.1 nonreprCbranch semanticcomparison only, no inferenceRootspacetimedb namespacealreadyproved.",
+                "proof_refs": [
+                  "CAMERA-ADM03-080"
+                ],
+                "qualification": "Exact registered current role limits; reference source contract and original exclusions remain mandatory, no whole-file or included callee credit.",
+                "exclusions": "No serialize/schema/typeSpace/reducer/view/table graph; tuple/datavariants notrelevanttoactualchannelunitvariantinvariant; namespace/versionedgeexplicitpending",
+                "source_registration_record": "continuation/camera/admission03/source-range-registration.jsonl#CAMERA-ADM03-REG022",
+                "no_source_body_credit_from_metadata": true,
+                "no_global_or_other_lens_credit": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                70,
+                80
+              ],
+              [
+                525,
+                637
+              ],
+              [
+                728,
+                752
+              ]
+            ],
+            "resolved_path": "audit\\continuation\\camera\\admission03\\dependency-snapshots\\spacetimedb-bindings-macro-2.6.1\\sats.rs",
+            "actual_EOF": 752,
+            "bytes": 33787
+          }
+        ],
+        "scope_limits": "Exact qualified current03 direct-definition/native-format roles only; preserve original scope. No metadata semantic credit or ownership transfer.",
+        "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+        "admission_discovery": "source_backed_packet_acceptance_pending"
+      },
+      "source_origin": "archive:audit/continuation/camera/admission03/dependency-snapshots/spacetimedb-bindings-macro-2.6.1/sats.rs",
+      "exact_git_source": "origin/codex/774-audit-handoff-20261025:handoff/774/adler-original/audit/continuation/camera/admission03/dependency-snapshots/spacetimedb-bindings-macro-2.6.1/sats.rs",
+      "source_sha256": "bf26e6331c7cf9a560ecec507b5e06b11bc77460dec17ac0d553cff5278a5bc4",
+      "read_ranges": [
+        [
+          70,
+          80
+        ],
+        [
+          525,
+          637
+        ],
+        [
+          728,
+          752
+        ]
+      ],
+      "evidence_basis": "Fresh personal exact registered body comparison by own10; original bodies may support but do not automatically discharge overlay scope.",
+      "inventory": "Fresh pinned SATS macro exact enum syntax extraction, generated sum Deserialize/validate and unit-variant payload/tag/name dispatch; variant_data maps syntax to member/type. Same own original2562 actual source supports only earlier role, explicit new unit-channel role freshly inspected.",
+      "disposition": "Already macro-generated native protocol implementations, no downstream mechanical derive candidate. Preserve generic bounds/wire sum/tag semantics; no serialize/schema/reducer/table/reprC/whole SDK/general business invariant or runtime acceptance."
+    },
+    {
+      "overlay_index": 183,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-184",
+        "at": "2026-10-22T18:34:10.907325+00:00",
+        "source_id": "physical-p16:crates/adventuresim-core/src/food.rs",
+        "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+        "audit_owner": "camera",
+        "material_ranges": [
+          [
+            7,
+            10
+          ],
+          [
+            171,
+            179
+          ],
+          [
+            336,
+            338
+          ]
+        ],
+        "admission03_scope_observations": [
+          {
+            "supplier": "camera",
+            "registry": "continuation/camera/admission03/source-range-registration.jsonl",
+            "row_1based": 27,
+            "registration_id": "CAMERA-ADM03-REG025",
+            "original_record": {
+              "id": "CAMERA-ADM03-REG025",
+              "at": "2026-10-22T14:44:07.640839+00:00",
+              "authority": "CONT-ROOT-ADMISSION03-DISCOVERY-AUTHORITY-043",
+              "source_id": "physical-p16:crates/adventuresim-core/src/food.rs",
+              "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+              "actual_EOF": 848,
+              "ranges": [
+                [
+                  7,
+                  8
+                ],
+                [
+                  10,
+                  10
+                ],
+                [
+                  171,
+                  179
+                ],
+                [
+                  336,
+                  338
+                ]
+              ],
+              "material_caller": "Original Camera62 contamination helper309-335 directly uses canonical constants/CookingMethod and ends mid-body",
+              "role": "Complete exact cooked_contamination body and direct definition policies only",
+              "exclusions": "No unrelated food definitions, catalogue, other cooking helpers or whole848 source credit",
+              "status": "registered BEFORE body analysis"
+            },
+            "local_qualifications": [
+              {
+                "registration_id": "CAMERA-ADM03-REG025",
+                "at": "2026-10-22T18:25:03.942345+00:00",
+                "source_id": "physical-p16:crates/adventuresim-core/src/food.rs",
+                "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+                "actual_EOF": 848,
+                "original_registered_ranges": [
+                  [
+                    7,
+                    8
+                  ],
+                  [
+                    10,
+                    10
+                  ],
+                  [
+                    171,
+                    179
+                  ],
+                  [
+                    336,
+                    338
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    7,
+                    8
+                  ],
+                  [
+                    10,
+                    10
+                  ],
+                  [
+                    171,
+                    179
+                  ],
+                  [
+                    336,
+                    338
+                  ]
+                ],
+                "context_only_ranges": [],
+                "role": "Complete exact cooked_contamination body and direct definition policies only",
+                "proof_refs": [
+                  "CAMERA-ADM03-089"
+                ],
+                "qualification": "Exact registered current role limits; reference source contract and original exclusions remain mandatory, no whole-file or included callee credit.",
+                "exclusions": "No unrelated food definitions, catalogue, other cooking helpers or whole848 source credit",
+                "source_registration_record": "continuation/camera/admission03/source-range-registration.jsonl#CAMERA-ADM03-REG025",
+                "no_source_body_credit_from_metadata": true,
+                "no_global_or_other_lens_credit": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                7,
+                8
+              ],
+              [
+                10,
+                10
+              ],
+              [
+                171,
+                179
+              ],
+              [
+                336,
+                338
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\food.rs",
+            "actual_EOF": 848,
+            "bytes": 30041
+          },
+          {
+            "supplier": "camera",
+            "registry": "continuation/camera/admission03/source-range-registration.jsonl",
+            "row_1based": 28,
+            "registration_id": "CAMERA-ADM03-REG026",
+            "original_record": {
+              "id": "CAMERA-ADM03-REG026",
+              "at": "2026-10-22T14:44:16.435164+00:00",
+              "authority": "CONT-ROOT-ADMISSION03-DISCOVERY-AUTHORITY-043",
+              "source_id": "physical-p16:crates/adventuresim-core/src/food.rs",
+              "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+              "actual_EOF": 848,
+              "ranges": [
+                [
+                  9,
+                  9
+                ]
+              ],
+              "material_caller": "Newly completed cooked_contamination337 directly uses RECONTAMINATION_FLOOR",
+              "role": "Exact called lower clamp constant only",
+              "exclusions": "No additional food role",
+              "status": "registered BEFORE body analysis"
+            },
+            "local_qualifications": [
+              {
+                "registration_id": "CAMERA-ADM03-REG026",
+                "at": "2026-10-22T18:25:03.942345+00:00",
+                "source_id": "physical-p16:crates/adventuresim-core/src/food.rs",
+                "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+                "actual_EOF": 848,
+                "original_registered_ranges": [
+                  [
+                    9,
+                    9
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    9,
+                    9
+                  ]
+                ],
+                "context_only_ranges": [],
+                "role": "Exact called lower clamp constant only",
+                "proof_refs": [
+                  "CAMERA-ADM03-089"
+                ],
+                "qualification": "Exact registered current role limits; reference source contract and original exclusions remain mandatory, no whole-file or included callee credit.",
+                "exclusions": "No additional food role",
+                "source_registration_record": "continuation/camera/admission03/source-range-registration.jsonl#CAMERA-ADM03-REG026",
+                "no_source_body_credit_from_metadata": true,
+                "no_global_or_other_lens_credit": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                9,
+                9
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\food.rs",
+            "actual_EOF": 848,
+            "bytes": 30041
+          }
+        ],
+        "scope_limits": "Exact qualified current03 direct-definition/native-format roles only; preserve original scope. No metadata semantic credit or ownership transfer.",
+        "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+        "admission_discovery": "source_backed_packet_acceptance_pending"
+      },
+      "source_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/food.rs",
+      "exact_git_source": "039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/food.rs",
+      "source_sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "read_ranges": [
+        [
+          7,
+          10
+        ],
+        [
+          171,
+          179
+        ],
+        [
+          336,
+          338
+        ]
+      ],
+      "evidence_basis": "Fresh personal exact registered body comparison by own10; original bodies may support but do not automatically discharge overlay scope.",
+      "inventory": "CookingMethod already derives serde/optional SpacetimeType; native contamination bounds and completed cooked_contamination clamp tail.",
+      "disposition": "No manual traits/codecs/candidate; keep semantic cooking policy/native numeric conversion. No unrelated food/cooking/schema or actual contamination/runtime correctness acceptance."
+    },
+    {
+      "overlay_index": 184,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-185",
+        "at": "2026-10-22T18:34:10.907325+00:00",
+        "source_id": "physical-p16:crates/adventuresim-core/src/organization.rs",
+        "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+        "audit_owner": "camera",
+        "material_ranges": [
+          [
+            1,
+            36
+          ],
+          [
+            88,
+            157
+          ],
+          [
+            227,
+            246
+          ],
+          [
+            316,
+            388
+          ]
+        ],
+        "admission03_scope_observations": [
+          {
+            "supplier": "camera",
+            "registry": "continuation/camera/admission03/source-range-registration.jsonl",
+            "row_1based": 30,
+            "registration_id": "CAMERA-ADM03-REG028",
+            "original_record": {
+              "id": "CAMERA-ADM03-REG028",
+              "at": "2026-10-22T14:52:47.114326+00:00",
+              "authority": "CONT-ROOT-ADMISSION03-DISCOVERY-AUTHORITY-043",
+              "source_id": "physical-p16:crates/adventuresim-core/src/organization.rs",
+              "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+              "actual_EOF": 1251,
+              "ranges": [
+                [
+                  1,
+                  36
+                ],
+                [
+                  88,
+                  157
+                ],
+                [
+                  227,
+                  246
+                ],
+                [
+                  316,
+                  388
+                ]
+              ],
+              "material_caller": "Original74 organization catalogue/recognition/role privilege/service helpers directly consume OrganizationDefinition/Role/Chapter/Recognition and nativeembedded include; scope startedmid-role andTrainingTargettail",
+              "role": "Exact directly consumed declaration headers/fields and nested admission policy records only; actual PR supplierRoot102Native002 declaration facts comparison afternew P16read",
+              "exclusions": "No SecondPersonRegister37-87/StartingProfession247-315 implementation, catalogue tests646+ or whole1251 credit",
+              "status": "registered BEFORE new body analysis"
+            },
+            "local_qualifications": [
+              {
+                "registration_id": "CAMERA-ADM03-REG028",
+                "at": "2026-10-22T18:25:03.942345+00:00",
+                "source_id": "physical-p16:crates/adventuresim-core/src/organization.rs",
+                "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+                "actual_EOF": 1251,
+                "original_registered_ranges": [
+                  [
+                    1,
+                    36
+                  ],
+                  [
+                    88,
+                    157
+                  ],
+                  [
+                    227,
+                    246
+                  ],
+                  [
+                    316,
+                    388
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    1,
+                    36
+                  ],
+                  [
+                    88,
+                    157
+                  ],
+                  [
+                    227,
+                    246
+                  ],
+                  [
+                    316,
+                    388
+                  ]
+                ],
+                "context_only_ranges": [],
+                "role": "Exact directly consumed declaration headers/fields and nested admission policy records only; actual PR supplierRoot102Native002 declaration facts comparison afternew P16read",
+                "proof_refs": [
+                  "CAMERA-ADM03-095"
+                ],
+                "qualification": "Exact registered current role limits; reference source contract and original exclusions remain mandatory, no whole-file or included callee credit.",
+                "exclusions": "No SecondPersonRegister37-87/StartingProfession247-315 implementation, catalogue tests646+ or whole1251 credit",
+                "source_registration_record": "continuation/camera/admission03/source-range-registration.jsonl#CAMERA-ADM03-REG028",
+                "no_source_body_credit_from_metadata": true,
+                "no_global_or_other_lens_credit": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                1,
+                36
+              ],
+              [
+                88,
+                157
+              ],
+              [
+                227,
+                246
+              ],
+              [
+                316,
+                388
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\organization.rs",
+            "actual_EOF": 1251,
+            "bytes": 45348
+          }
+        ],
+        "scope_limits": "Exact qualified current03 direct-definition/native-format roles only; preserve original scope. No metadata semantic credit or ownership transfer.",
+        "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+        "admission_discovery": "source_backed_packet_acceptance_pending"
+      },
+      "source_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/organization.rs",
+      "exact_git_source": "039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/organization.rs",
+      "source_sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+      "read_ranges": [
+        [
+          1,
+          36
+        ],
+        [
+          88,
+          157
+        ],
+        [
+          227,
+          246
+        ],
+        [
+          316,
+          388
+        ]
+      ],
+      "evidence_basis": "Fresh personal exact registered body comparison by own10; original bodies may support but do not automatically discharge overlay scope.",
+      "inventory": "Actual P16 organization schema headers/fields and nested enums/records already derive serde/default/structural traits with tagged/deny_unknown annotations.",
+      "disposition": "No handwritten traits/codecs/candidate. No PR supplier/current admission/validation/catalogue data or whole1251/runtime acceptance; preserve SecondPersonRegister/StartingProfession/tests exclusions."
+    }
+  ],
+  "checks": "not run",
+  "source_edits": false,
+  "clear": false
+}

@@ -1,0 +1,12 @@
+2026-10-26T20:39:23.4158757Z Diff in /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-gpu/src/globals/validation_scope.rs:60:
+2026-10-26T20:39:23.4159519Z  impl ValidationScope {
+2026-10-26T20:39:23.4159942Z      /// Return no guard when the context leaves validation errors uncaptured.
+2026-10-26T20:39:23.4160485Z      pub fn new(context: &WgpuContext) -> Option<Self> {
+2026-10-26T20:39:23.4161048Z -        let guard = context.validation_observation.start_scope(&context.device)?;
+2026-10-26T20:39:23.4161544Z +        let guard = context
+2026-10-26T20:39:23.4161895Z +            .validation_observation
+2026-10-26T20:39:23.4162227Z +            .start_scope(&context.device)?;
+2026-10-26T20:39:23.4162561Z          Some(Self {
+2026-10-26T20:39:23.4162861Z              device: context.device.clone(),
+2026-10-26T20:39:23.4163199Z              guard,
+2026-10-26T20:39:24.9754446Z ##[error]Process completed with exit code 1.

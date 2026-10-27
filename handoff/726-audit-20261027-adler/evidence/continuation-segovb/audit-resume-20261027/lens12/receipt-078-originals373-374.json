@@ -1,0 +1,116 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "078",
+  "predecessor": "receipt-077-originals367-372.json",
+  "manifest_prefix_sha256": "ce42db4df9d065ca99dc97f9fe064443bc7b143a2bfea4165910d1e26d5c1e5c",
+  "sources": [
+    {
+      "original_index": 373,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+      "sha256": "e8b238c454b79527cff117b2acc8ad4b32214dfd7fb3714b9949c725daf7460d",
+      "actual_eof": 319,
+      "actual_ranges": [
+        [
+          1,
+          319
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "22-78",
+          "role": "Actual TacticalDuelResolution::Victory victor rawString compared to john.name51/opponent.name55 selects counters52/57; unknownvictor copied61 to typed ReportContractError. record_tactical_causal receives john.name49. Autoresolve uses concrete combatant.id151/155/200/294 instead.",
+          "disposition": "Confirms local name-authority branch and error payload trace, not just format/search. Stable combatant identity/side should span tactical outcome/event and batch report; unknown raw observed value can remain error evidence at actual native admission boundary. Actual server outcome producer/name uniqueness contract still unread, no runtime collision claim."
+        },
+        {
+          "source_ranges": "1-319",
+          "role": "Only literals tactical-traces.ndjson38/tactical-trace.json69/autoresolve-traces.ndjson97/autoresolve-trace.json108 and byte newline72/111, concrete native filesystem/NDJSON encodings. No other String-valued API.",
+          "disposition": "Native output boundary, actual372file references connected; report map definitions/other readers pending. All319 independently read, no execution or assertion of acceptance."
+        }
+      ],
+      "status": "Full requested source independently inventoried WITH findings and concrete output roles."
+    },
+    {
+      "original_index": 374,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot.rs",
+      "sha256": "8799ec6db566e8afa5b708f0f13cb671cd6ecdbd5e02ae02a75e9c237954b1ce",
+      "actual_eof": 1248,
+      "actual_ranges": [
+        [
+          1,
+          1248
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "44-55",
+          "role": "resolve_scene_fixture(selector&str)->Result<PathBuf,String>44 with assets/tactical-scenes47/json48; load_enemy_fixture selector&str52 ->assets/tactical-enemies/yaml53 ->TacticalEnemyFixture::load54 returning Stringerror.",
+          "disposition": "Path/stem native file selector admission should use concrete source/fixture reference and typed load failure until CLI rendering; exact resolve_fixture_path/TacticalEnemyFixture::load bodies/source error classification pending, do not invent finite authored fixture list."
+        },
+        {
+          "source_ranges": "1-1248",
+          "role": "StreamId combat.tactical74; cfg iteration120/345 native feature; trace bot_continuation_decision122 diagnostic. Existing fixture literals dense-woodland360/filepath362/animation-demo365 are concrete source selector/path pair. ARROW_ID.to_owned506 populates actual355ItemProperties.id, retains raw catalog reference despite constant. Existing assert prose868/942/950/954/967 native diagnostics; all1248 read1-450/451-900/901-1248.",
+          "disposition": "Native namespace/feature/diagnostic boundaries specific; catalog identity remains earlier355 finding, no constant/fixture exemption. Native fixture decoder, child behavior admission, tactical physics/outcome/runtime and otherlens not certified."
+        }
+      ],
+      "status": "Full requested source independently inventoried WITH findings and concrete output roles."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Tactical victor/combatant name routes report attribution; fixture loading returns erased failure text",
+      "sources": [
+        "373:49-63",
+        "368:13,28,102,125",
+        "370:64-65",
+        "374:44-55"
+      ],
+      "remedy": "Carry stable combatant identity through native outcome/event and reporting; keep display name for output. Carry concrete fixture selector/path and typed load error through actual ingress/loader/caller.",
+      "acceptance": "Read actual tactical outcome producer and loader/CLI consumers before repair; preserve canonical aliases/unique0, no runtime collision/SDK/currentness claim.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actual server iteration victor/name/event production and identity admission not yet read; report map declarations/serializer/external readers still pending.",
+    "374 resolve_fixture_path and TacticalEnemyFixture::load error-producing bodies and CLI selection admission unread; no fixture acceptance from these calls."
+  ],
+  "qualifications": [
+    "Exact frozen f82 physical-P16 only, no current alias.",
+    "No backward compatibility/input preservation; no project/native/test/probe execution or product/Git/root-ledger/publication mutation.",
+    "All20/P16/P17/F9/M09/inherited aliases; no repaired/global/runtime/unique-total/other-lens clearance."
+  ],
+  "proposed_count": {
+    "before": 373,
+    "after": 375,
+    "indices_completed": [
+      373,
+      374
+    ],
+    "next_original": 375,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+      "sha256": "e8b238c454b79527cff117b2acc8ad4b32214dfd7fb3714b9949c725daf7460d",
+      "ranges": [
+        [
+          1,
+          319
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot.rs",
+      "sha256": "8799ec6db566e8afa5b708f0f13cb671cd6ecdbd5e02ae02a75e9c237954b1ce",
+      "ranges": [
+        [
+          1,
+          1248
+        ]
+      ]
+    }
+  ]
+}

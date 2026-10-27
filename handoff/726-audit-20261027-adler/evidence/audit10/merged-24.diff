@@ -1,0 +1,26 @@
+diff --git a/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers.rs b/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers.rs
+index 6e6c820b9..bd79b82df 100644
+--- a/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers.rs
++++ b/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers.rs
+@@ -175,19 +175,19 @@ impl RuntimeEquipmentBodyCache {
+     pub(super) fn next_fit(
+         &mut self,
+         key: &generation::FitKey,
+     ) -> anyhow::Result<generation::FitKey> {
+         for support in key.support_keys()? {
+             self.last_used.insert(support.clone(), self.use_clock);
+             match self.models.get(&support) {
+                 Some(Ok(_)) => {}
+                 Some(Err(error)) => bail!(
+                     "lower equipment {} {} failed: {error}",
+-                    support.selection.item().id,
+-                    support.selection.id
++                    support.selection.selection.item().id,
++                    support.selection.selection.definition().id
+                 ),
+                 None => return self.next_fit(&support),
+             }
+         }
+         Ok(key.clone())
+     }
+ }

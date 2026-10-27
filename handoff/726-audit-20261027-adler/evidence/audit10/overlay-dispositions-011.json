@@ -1,0 +1,42 @@
+{
+  "51": {
+    "inventory": "TacticalCore direct dependencies on BuildingGenerator/Core/geometry, serde and derive_more2.1.1 with explicit enabled traits, thiserror.",
+    "disposition": "Exact dependency direction/derive availability only, no compilation or source-owner acceptance. BuildingGenerator cannot import TacticalCore without reversed existing edge."
+  },
+  "52": {
+    "inventory": "SignedAngleDegrees/AngularMagnitudeDegrees already derive serde via f32 TryFrom and derive_more Into; manual TryFrom delegates distinct finite signed versus nonnegative admission; native radians getter converts units.",
+    "disposition": "Keep tiny checked conversion and degree/radian projection. No direct construction derive or unrelated angular-speed/body acceptance."
+  },
+  "53": {
+    "inventory": "NonnegativeLength structural serde/Into already derived, manual From<PositiveLength> changes semantic representation and TryFrom checks finite/nonnegative; actual checked_nonnegative preserves quantity-specific error.",
+    "disposition": "Keep semantic cross-role native projection/admission. No matching raw field conversion replacement proven and no duration44-69/82+ coverage; numeric/helper runtime acceptance not implied."
+  },
+  "54": {
+    "inventory": "PR CuboidDimensions checked native axes and lengths, handwritten Serialize/Deserialize retain Vec3 named tuple-struct identity and three-f32 visitor diagnostics then checked admission.",
+    "disposition": "Keep semantic representation/native-codec adapter. Transparent/array derives change observable wire token/name and checked construction; no equivalent borrowed structural derive proven. No feature/runtime/geometry-clearance claim."
+  },
+  "55": {
+    "inventory": "Actual frozen length.rs1-40 defines PositiveLength (historical actual_use text calls it SignedLength incorrectly); positive finite constructor and transparent Serialize, checked manual f32 Deserialize.",
+    "disposition": "Keep semantic checked decoder; no matching TryFrom shown. Record actual declaration rather than copying label; SignedLength separately personally read in overlay56. No metadata/Root001 proof transfer."
+  },
+  "56": {
+    "inventory": "SignedLength and Area structural Serialize/optional Reflect; manual f32 decoders attach finite/signed versus nonnegative unit policies. From<PositiveLength> extracts metres into SignedLength, other native arithmetic preserves checks.",
+    "disposition": "Keep semantic cross-role representation/admission adapters; no existing matching TryFrom codec route in104 body. No unchecked raw construction derive, area/sign/numerical/runtime acceptance."
+  },
+  "57": {
+    "inventory": "Metres and Ratio already derive transparent serde/Default/structural traits and have explicit raw unit-only constructors/getters.",
+    "disposition": "No manual traits/codecs/candidate; do not invent finite/refined admission for explicitly unit-only owners. Exact1-20/52-70 only, other units uncredited."
+  },
+  "58": {
+    "inventory": "AnimationElapsed checked finite/nonnegative seconds, checked_add overflow, native Duration.as_secs_f32 conversion, TryFromf32 admission and From native scalar projection. Serde already derives via conversion.",
+    "disposition": "Keep tiny semantic native-time/checked adapters; no available existing owner derive proven for native Duration representation conversion. Formatting/error codecs113+ and excluded arithmetic45-82 not credited."
+  },
+  "59": {
+    "inventory": "Attached TimberFrameMember derive Clone/Debug/Serialize/Deserialize at138; delimiter136-137 context only.",
+    "disposition": "Already derived structural traits; no manual candidate. Exact attribute/signature role only, other timber declarations/operations uncredited."
+  },
+  "60": {
+    "inventory": "Actual P16 CuboidDimensions81-123 native codec: Vec3 named tuple-struct serializer, exact three-f32 visitor expectation/missing-length diagnostics and checked from_metres. Distinct source hash from PR counterpart explicitly verified.",
+    "disposition": "Keep native representation/admission codec; raw array/newtype derive not exact token shape, errors or checking. No codec/runtime/canonical-source substitution acceptance."
+  }
+}

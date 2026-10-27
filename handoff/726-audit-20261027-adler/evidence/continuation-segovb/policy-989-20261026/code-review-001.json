@@ -1,0 +1,300 @@
+{
+  "review": "Independent final Code Review of989 increment",
+  "at": "2026-10-26T23:21:21.030262+00:00",
+  "base": "b3810b8b5db78c15cc51a0e1bef747a06450dffb",
+  "branch_reported_by_root": "codex/989-texture-validation-policy",
+  "verdict": "No actionable findings in the reviewed989 source increment. Requested constructor and face observation propagation is source-complete within this bounded scope; compilation/runtime/hosted acceptance remains unverified.",
+  "findings": [],
+  "implementation_manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/implementation-manifest-001.json",
+    "sha256": "8c486b63a1e69b7abbe7aedf242b6fe40b3b45294642bc8903ed2be110dce59e",
+    "eight_changed_paths_all_hash_verified": true
+  },
+  "complete_patch": {
+    "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/implementation-001.patch",
+    "sha256": "46d4bae33d770841be8dacbf7458074958328ad034ad44b6e945e5e47120b7ab",
+    "personally_read_in_full": true
+  },
+  "source_pins": [
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "sha256": "a7d4fc3525525acbcfa7ea6d88f751261132fc912cd26696d4975897a5f8b97e",
+      "bytes": 1368,
+      "actual_lines": 34,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "registration": "code-review-registration-001.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "d6cd017cc5d337a0ad47543cc51cc009cff84fa78bb65499b1cddfcb60afcb55",
+      "bytes": 21453,
+      "actual_lines": 620,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "registration": "code-review-registration-001.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "5b020e16dadfbc30f2eb50b784552258d880c631376ffc1d62e9e25cae07c992",
+      "bytes": 8988,
+      "actual_lines": 264,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          124
+        ]
+      ],
+      "registration": "code-review-registration-001.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "a5ec79b944808520b15bc649e4d54b14612859c9a5b1b1f8446a47c17bb6c1d6",
+      "bytes": 32494,
+      "actual_lines": 905,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          151
+        ],
+        [
+          366,
+          385
+        ]
+      ],
+      "registration": "code-review-registration-001.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "c396c5486a664dbb5d1804963e21e76bbee671521319e625c38f0b7531f3a391",
+      "bytes": 4356,
+      "actual_lines": 123,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "registration": "code-review-registration-001.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "f0828dbc6755445932455e5aa9edf040f2222deca3c1fe38c44460da856565d8",
+      "bytes": 1523,
+      "actual_lines": 42,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          42
+        ]
+      ],
+      "registration": "code-review-registration-001.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "14ac95339951ceb8b50cc3ab9452c251bbbce6122ebd7206a3961c406ff74858",
+      "bytes": 13112,
+      "actual_lines": 323,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          33
+        ],
+        [
+          100,
+          120
+        ],
+        [
+          262,
+          278
+        ]
+      ],
+      "registration": "code-review-registration-001.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "022b9d73dd2cfc76963f3945bc7b7c89e6bbb8322889adccf3599a7b4b0e83e7",
+      "bytes": 4659,
+      "actual_lines": 87,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "registration": "code-review-registration-001.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "e3ad593b83da185620d2729a5fde4a0f7bfda1c39993494432c55a0c989e0973",
+      "bytes": 2404,
+      "actual_lines": 65,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "registration": "code-review-registration-001.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "sha256": "878a4144b4fecdc20291885050e30fe521a5294117046c282ef24d40c5e407d9",
+      "bytes": 924,
+      "actual_lines": 27,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "registration": "code-review-registration-001.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/cube_face.rs",
+      "sha256": "db49ac57de817ae29d6341288c341aacbe884102e4d98575a32590f334f90709",
+      "bytes": 1654,
+      "actual_lines": 70,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "registration": "code-review-registration-001.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs",
+      "sha256": "370add54d9307c5cbd778de771a6e2d98d0b0dbdb7b4e4b02d1245315458b11d",
+      "bytes": 21020,
+      "actual_lines": 450,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "registration": "code-review-registration-002.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+      "sha256": "45495b07095d77c0cb93ea88115508eeb2a1f083b9368e6d9b02dc6bee3a268c",
+      "bytes": 10851,
+      "actual_lines": 313,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          33
+        ],
+        [
+          142,
+          195
+        ]
+      ],
+      "registration": "code-review-registration-002.json",
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+      "sha256": "83ba1e1ca0719ccdc74c3bc70f4fdc197dca496600a89b41a5e18c7a020fece0",
+      "bytes": 377,
+      "actual_lines": 17,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "registration": "code-review-registration-002.json",
+      "post_read_hash_verified": true
+    }
+  ],
+  "applicable_rules": [
+    "Repository rootAGENTS provided byuser: clean finalAPI/no compatibility; sharedowners; documentation synchronization; ignoredreviewevidence; rootsoleimplementation.",
+    "crates/AGENTS.md: typed semantic states/results, nativeboundaryconversions, cohesiveviewresponsibility, no addedtests withoutuserrequest.",
+    "rule-review skill and references/bespoke-type-review.md applied. Usertaskforbidsprojectexecution, so skillcheck/probe instructions notperformed."
+  ],
+  "scope": {
+    "changed": "All8paths in exactimplementationmanifest/fullpatch; every changedproductionbody and changed documentation read.",
+    "connected": "ValidationScope,ValidationObservation,contextpolicyadmissions,CubeFace,TextureFormat conversion,TextureView storage/readbacklayerboundary,texture exports and unchangeddirectcube blitreceivingcall.",
+    "outside": "Unchanged large texturemodule tails, all other error/progress policies, entireGPU/nativeSDK implementations, matrix/sizing/cachecoherence and otherauditpopulations."
+  },
+  "source_backed_traces": [
+    {
+      "family": "Canonicalpolicy owner/admission",
+      "evidence": "wgpu_context/mod.rs100-120 constructs borrowedcontexts withUncaptured;262-278 constructs nativeownedBlockingScopes/browserUncaptured. ValidationObservation21-25 centralizesnativeValidationfilterpush. ValidationScope38-45 delegatescanonicalpolicy and retainscontextdevice/guard.",
+      "result": "Newproducers useexistingpolicyowner directly; no ownership/presentation inference, parallelBoolean, fallbackwait or compatibilityroute introduced."
+    },
+    {
+      "family": "Constructorproducer -> nativeoperations -> retainedvalue",
+      "evidence": "Texture2d::create62-159,Texture3d::new48-120,TextureCube::new52-146: localvalidation/descriptorconstruction precedesguard; native-cfgValidationScope::new beforecreate_texture; sameguardcoversinitialcreate_view; ifSome.finish()? before constructingreturnedTextureArc/viewArc andmetadata. No fallibleearlyreturn appears betweenstart andfinish otherthanhelpercompletion.",
+      "result": "Blockingnativecontexts observecreation/initialview; Uncaptured producesNoneanddoesnotpoll/pop; wasm stripsimports/new/finish. Nativehelpererroris admittedintoexistinganyhowResultvia? withoutformattingawaytypedcause. No texturepublishedonfinisherror."
+    },
+    {
+      "family": "Actualobservationcompletion/errorstates",
+      "evidence": "validation_scope.rs53-63 pollswait_indefinitelythenalwayspopsandmatchesactualfouroutcomes. Ok/None succeeds;Ok/Some->Native;Err/None->Progress;Err/Some->ProgressWithNative. Enum21-32 retainswgpuError/PollError andmarksnativeorpollsource; combinedstateownsbothwithpollprimary.",
+      "result": "Constructorandfacecallsnowinheritsharedpollerrorretention; no silentlydiscardedpollstatus remainsinchangedcreationsegments. ScopefilterstillValidationonly. No inferenceofrollback/globaldevicehealth."
+    },
+    {
+      "family": "Faceadmission -> nativeview -> typederror/success",
+      "evidence": "cube/views.rs59-68 wrappersreturnTextureViewResultandforwardSomecontextorNone.75-121 requiresnative texturefirst, separatesoriginalformatfromeffectivelinearformat, usesnative-cfg_context.and_then(ValidationScope::new), createsD2viewwithface.index/basearraylayerandlayercount1, finishesifSomeandmapsObservation{requested:originalformat,operation:TextureCubeFace(face),cause}, thenretainsviewArc,parenttextureArc,size,effectiveformat,D2,layer. CubeFace37-45 closedroletonativelayer0-5.",
+      "result": "None andSomeUncaptured bothomitblockingobservation; SomeBlockingScopes capturesonce. MissingtexturetypedUninitialized. Errorownsoriginalface/request; successpreserveseffectiveformat/layerownership. No wholecubeviewcachefallback mistakenlyusedforface."
+    },
+    {
+      "family": "Errorowner/consumerpropagation",
+      "evidence": "view_error.rs15-20 addsCubeFacepayloadtotheexistingCloneCopyDebug operationenum. CubeFacealreadyCopyDebug. Observation36-40 continuesowningValidationScopeErrorasderivedErrorsource; no newmanualtrait/stringclassification. cube/mod.rs366-380 directblitcallerusesface_view_with_format? inanyhowResultthenreadsreturnedview. TextureView9-16/171-195 retainsandusesparenttextureandlayerascopyoriginz; texture/mod.rs1-17 reexportsthesamepublicowners.",
+      "result": "NarrowedproducerResultfitsactualreadgenericconsumer; operationcarriessemanticfaceroleuntilnativeboundary. Newenumvariantrequiresno newexhaustivematchwithintheGPUlibraryreference-navigationresult. No unrelatedreceivingrewrite."
+    },
+    {
+      "family": "Descriptor/APIbehaviorandresponsibility",
+      "evidence": "Fullpatchmovesfacebodyoutofcube/mod.rsintocube/views.rswithoutchangingD2dimension,faceindex,layercount1,label,formatadjustmentorreturnedmetadata. Wholecubeview_with_format16-57 retainscacheprecedence,descriptorCube/layer6,ValidationScopeandoperationTextureCube; WgpuTextureView importaliasonlydisambiguatesnativeviewfromwrapper. Format.rs49-82 ispureexhaustiveenummapping,so deletedunused_wgpu_format conversionshadnoobservableeffect.",
+      "result": "Existingcreationdimensions/usages/formats/cachesandtheexplicitoptionalcontextchoicepreserved; onlyintendedobservation/errorpropagation changes. No historicalAPI/layout/message/downcastconstraintapplied."
+    },
+    {
+      "family": "Documentation",
+      "evidence": "GPUREADME3-4 nowlinksowningvalidationguide. guide10-15 documentsfaceResultandrole;71-83 namesexactconstructor/facepolicypaths,uncaptured/browserbehavior,andindependentreadback/backpressurewaits;85-87 retainsmutablemetadata/devicecoherencelimits. Contextdocumentation20-32 removesstaleconstructor/facedeferralwithoutclaimingrollback/globalhealth.",
+      "result": "Changedprosesupportsactualincrementandkeepsarrayviews,clear/readbackseparate. RootREADME/wikiunchanged."
+    }
+  ],
+  "reference_navigation": "Reviewerusedboundedrgsource-reference navigation only inexactformat.rs andGPUsrcforTextureViewOperation/TextureViewError/face_view/TextureCube::face. Resultsidentifyonlytypedproducersanddirectcube blitcaller; searchesarelocators,notwholebodycoverage. Root separatelyreportedrepositorywidereferencenavigationfoundnoexternalfacefunctionpointer/macroregistrantsandgenericconstructorResult/?callers; thoseexternalbodiesnotpersonallyread/creditedhere.",
+  "correctness_vs_completeness": {
+    "correctness": "No actionableissue found inactualnewbodiesandreadreceivingboundaries.",
+    "migration": "Requestedthreeconstructorsandthreefaceentrypoints nowusecanonicalsharedobservation/errorpolicy. No claimthatallGPUresources/nativeoperations/otherauditlensesarecomplete.",
+    "validation": "Source-only. HostedCI/compiler/rustfmt/qualitygates and anyexistingruntimeevidencearependingroot; no resultinferredfromhistoricalPR988orpriorreview."
+  },
+  "limits": [
+    "All14sourceidentitiesverifiedbeforeandafterregisteredboundedreads;8manifestpathsmatched. Rootsourcewasstableforthisfinalreview. Discovery001wasseparatepreeditdesignassessmentanddoesnotstandinforfreshactualbodyreview.",
+    "Manifestandcompletepatchreadbeforeadditionalownboundedbodyregistration,afterrootprospectivelysuppliedexactscope/hashmanifest. Registration001recordsthisactualchronology;freshactualsourcebodyreadsfollowedregistration. No historicalreceipt/registrybackdated.",
+    "No build/test/lint/projectscanner/generator/probe/assertion/helper/doctest executedoradded. ExistingunchangedREADMEcodeblockwasreadasdocumentationonly;noexecution. No product/source/Git/ledger/publicationmutation;onlyignoredevidenceauthored.",
+    "Actualmacroexpandedderiveimplementations/nativeSDK/errorcallback/OSdriverbodiesnotfreshlyauditedhere. Enumfieldattributesandordinarytypedconversionsinspected;compiler/runtimeacceptanceunverified.",
+    "Existingpublicfield/cache/devicecoherenceandcontextmatchingtexturedevice notprovedorclosed. Guardobservesprovidedcontextdevice. Formatcapabilities,allsize/arithmeticadmission,allocationbudget,concurrency/lifetimeandalluncapturedproviderbehaviorremainoutsideincrement. No inheritedF1/F2/F6/F9closure orwholeSDK/global/otherlensclearance.",
+    "Sourcecodedoesnotrollbacksameguardedcreationorpriorcommandsuponerror;itpreventsreturningnewlyconstructedobject/view. Uncaptured/browser/contextfreefacesmaystillreportthroughdeviceprovideranddo notsynchronouslycertifyvalidity."
+  ],
+  "new_unique_finding_count": 0,
+  "root_implementation_owner": true,
+  "product_or_git_edits": false,
+  "root_ledger_mutation": false,
+  "project_execution": false,
+  "publication": false,
+  "global_audit_clearance": false
+}

@@ -1,0 +1,269 @@
+{
+  "at": "2026-10-27T11:52:24.329805+00:00",
+  "lens": 11,
+  "status": "870\u2013874 independently source-accounted with physical frame/commitment payload findings",
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-012.json",
+    "sha256": "d302cbc67d22258b2ffcb61a6a7429c120da75d043edf783882871659661c34e"
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-013-registration.jsonl",
+    "sha256": "66d46b431d2812a6bfb70ffb46259bc0e02e4368aa09d2e9b97e9b662b0d20c9"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 870,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_movement.rs",
+      "sha256": "086c2055231445836bac21e3ffa931c0909cd95def8d4fa7e4f041a2fe629e86",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/086c2055231445836bac21e3ffa931c0909cd95def8d4fa7e4f041a2fe629e86",
+      "actual_eof": 389,
+      "ranges": [
+        [
+          1,
+          389
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          389
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 871,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/commitment.rs",
+      "sha256": "52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
+      "actual_eof": 239,
+      "ranges": [
+        [
+          1,
+          239
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          239
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 872,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "sha256": "201e0aa26a4ceec81c0caa799acc2dae96ad3d1600ed6184aef8f671e3becf1c",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/201e0aa26a4ceec81c0caa799acc2dae96ad3d1600ed6184aef8f671e3becf1c",
+      "actual_eof": 226,
+      "ranges": [
+        [
+          1,
+          226
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          226
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 873,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "sha256": "3ada1de8aa9e1322565a5f1ae9b5882e0beba1d5ad024cc4705f7eb35ba0982b",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/3ada1de8aa9e1322565a5f1ae9b5882e0beba1d5ad024cc4705f7eb35ba0982b",
+      "actual_eof": 595,
+      "ranges": [
+        [
+          1,
+          595
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          595
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 874,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+      "sha256": "9c56fb8232e356e6e204ba7c1065597c6063b0b25572d6f0e7cb131b2a7eb320",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/9c56fb8232e356e6e204ba7c1065597c6063b0b25572d6f0e7cb131b2a7eb320",
+      "actual_eof": 391,
+      "ranges": [
+        [
+          1,
+          391
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          391
+        ]
+      ]
+    }
+  ],
+  "material_receivers": [
+    {
+      "kind": "new-unchanged-receiver",
+      "path": "crates/adventuresim-core/src/autoresolve/melee_round/assignment.rs",
+      "sha256": "edaab496e73d7ae22b10743303627d76c5526cdff566e72e60f563dcbc2c77f9",
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual side-local participant/target ordinal producer and body/weapon capability selection boundary",
+      "actual_read_ranges": [
+        [
+          1,
+          72
+        ]
+      ]
+    }
+  ],
+  "per_role": [
+    {
+      "original": 870,
+      "roles": "AxisMotion signed velocities/nonnegative speed versus signed displacement; OpposedMovement center distance and two actor contributions; physical force/mass/acceleration/traction inputs versus typed elapsed time and movement intent.",
+      "trace": "Full389 lines read. Actual integrator is local scalar numerical kernel: closes/retreats via signed targets, bounded acceleration interval and trapezoid displacement, limits separation and clips velocity direction at collision/max bounds. Incoming/outgoing velocity is admitted by canonical speed owner. Retained displacement/distance and force/mass/acceleration remain unlike raw f32 quantities; numeric kernel status does not make retained application result/frame roles interchangeable. Existing fixtures describe coast/zero time, acceleration/substep/mass/intent/collision behavior; no tests executed or all finite output/bounds/arithmetic guarantee.",
+      "disposition": "source-accounted with physical output/frame/bounds granularity question"
+    },
+    {
+      "original": 871,
+      "roles": "MeleeDefenderPhase versus timeline phase/response availability projection; DefenseCommitment kind/retained-power/recovery payload; attempted/effective response; canonical response enum versus static label conversion.",
+      "trace": "Full239 lines read. Phase matches inspect actual committed timing, including occupied earlier attack and recovery; semantic availability is not identical to response kind. Actual commit producer returns five commitment states, only TransformedOffhand has Some(retained_power), while recovery duration matters on recovery states. Shared consumer873 branches by kind, updates scheduling and serializes fields, so payload ownership opportunity is concrete. response_name and response_choice map same DefenderResponse to different native/canonical projections; preserve FinishTrade extra meaning in timeline choice rather than alias all response enums.",
+      "disposition": "source-accounted with required commitment payload state and tag propagation question"
+    },
+    {
+      "original": 872,
+      "roles": "Surface gap versus center separation conversion; paired Actor motion/intent and target association; positive bound speed widened to NonnegativeSpeed; signed separation velocity; readiness/window BattleTime versus elapsed.",
+      "trace": "Full226 lines read. Preview computes surface gap, adds humanoid center offset before integrator870, then mutates same OpposedMovement distance fields back to surface gap. Commit retains surface gap in both matching actors and signed velocity per actor; timeline records same surface role. This is concrete same-unit/different-origin frame handoff, not just cosmetic f32 naming. Action intent, realized motion and phase have separate actual consumers. Current frozen producer uses coherent conversions and bounds; no ordinary frame-mix/retarget failure or all-pair shared authority guarantee.",
+      "disposition": "source-accounted with qualified coordinate-frame and engagement grouping questions"
+    },
+    {
+      "original": 873,
+      "roles": "PreparedMeleeExchange groups sampled contact/response/result/power/performance/timing context; DefenderReadiness before/after same clock; actual contact/response/cancellation/transformation replay payloads; physical contact geometry versus retained numeric/text telemetry.",
+      "trace": "Full595 lines read. Prepared exchange keeps original exchange and power-scaled result as two intentionally different stages, not duplicate same fact. Response application consumes typed commitment state, adds checked recovery, records same causal facts and clears paired schedule fields on cancellation. Actual telemetry explicitly extracts response_name/commitment.as_str before serialized record and copies optional alignment fields. Contact/response/timeline kinds control required neighboring payloads; candidate owns these states rather than inventing a generic event enum disconnected from actual recipients. Absent scheduled measure has actual derived current-gap behavior; do not call every semantic default a legacy compatibility path. Fixture sets started-only for isolated movement-intent check, so no assumption every representable partial snapshot is an admitted complete schedule.",
+      "disposition": "source-accounted with actual payload/tag/schedule receiving evidence"
+    },
+    {
+      "original": 874,
+      "roles": "MeleeEngagement observed/committed stage; AttackStartTrace; side-tagged deterministic initialization; ScheduledMeleeAttack side-local ordinals/flanking/timing; MeleeContactBatch identity/members/order; typed RecoveryTime availability and exact current schedule match.",
+      "trace": "Full391 lines read. Initialization checks derived spans before publishing readiness/jitter. Scheduling guards defeated sides/capability, computes native assignment, reconstructs active timing only when start+contact present, admits checked coordinate/span arithmetic, records trace and retains timing with optional measure. RecoveryTime::CannotRecover yields no attack, rather than fabricated infinite time. Existing active contacts resolve stored target ID to defender ordinal if present, otherwise actual current assignment; selected ordering/native index conversion does not prove arbitrary source-instance association. scheduled_attack_is_current compares exact start/contact pair. All material ordinal producer assignment72 freshly read: active indices come from same side enumerations, target order is local defenders, returned tuple is immediately named/destructured. No universal branded index requirement or invented capacity bound.",
+      "disposition": "source-accounted; existing attack-ID/schedule/batch questions retained with actual producer/receiver proof"
+    }
+  ],
+  "qualified_observations": [
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs@201e0aa26a4ceec81c0caa799acc2dae96ad3d1600ed6184aef8f671e3becf1c#surface-gap-center-separation-handoff",
+      "observation": "The actual application handoff uses two different distance origins with identical f32 fields: integrator receives center separation (surface gap+humanoid offset), then the same OpposedMovement.distance_before/after fields are overwritten with surface gaps. Actor retained distance, contact measure and timeline are surface-gap values; signed AxisMotion displacement has a different role again. Existing ordinary conversion is coherent, but type does not prevent wrong-origin handoff.",
+      "remedy": "Reconcile existing canonical length/frame owners and inherited physical/frame aliases; distinguish surface measure, center separation and signed displacement at supported application ports, sharing unit math underneath. Explicit conversion owns humanoid offset; no universal entity-instance token or arbitrary additional numeric cap.",
+      "acceptance": "Actual movement/contact/retained/replay chain cannot interchange these distance origins or unsigned separation with signed displacement; native integrator remains bounded local numerical kernel.",
+      "dependencies": [
+        "inherited physical/frame/master aliases, no automatic equality",
+        "current canonical source and primitive native boundary/currentness population"
+      ],
+      "currentness": "Frozen source question, no observed ordinary wrong-frame behavior or accepted unique count"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/commitment.rs@52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6#DefenseCommitment-required-payload",
+      "observation": "DefenseCommitment stores a five-case kind plus Option<f32> retained_power and recovery span. Actual producers give retained power only to TransformedOffhand; actual consumers branch on kind then independently read payload and convert kind to static tag. The existing kind owner can own required state payloads rather than allowing unrelated tag/payload combinations. Recovery/state/response-availability remain different axes.",
+      "remedy": "Reconcile canonical commitment/enum-shape finding and current source; move actual exclusive payloads into existing commitment alternatives, reuse typed power/fraction/elapsed owners where actual policies apply. Serialize canonical state at native telemetry boundary; do not add a forwarding alias or duplicate enum.",
+      "acceptance": "All actual commitment producers and scheduling/record consumers receive required payload by state; unrelated retained-power/recovery combinations cannot be created, independent response/timeline phases remain explicit.",
+      "dependencies": [
+        "enum-shape/aggregate/producer lens reconciliation",
+        "batch010/011 tag/payload source-key support",
+        "currentness/master alias comparison"
+      ],
+      "currentness": "Concrete frozen shape finding, no runtime malformed-state witness or accepted uniqueness"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/autoresolve/melee_movement.rs@086c2055231445836bac21e3ffa931c0909cd95def8d4fa7e4f041a2fe629e86#retained-physical-output-and-ordered-bounds",
+      "observation": "Typed velocities and elapsed spans enter a local native scalar integrator, but its displacement/separation/acceleration bounds remain raw, and signed displacement returns into retained application motion/timeline without a corresponding physical owner. Minimum/maximum separation are two positional raw floats. Actual caller872 derives coherent center bounds from collision floor plus maximum surface gap; no malformed/reversed ordinary bound input is established.",
+      "remedy": "Inventory existing physical displacement/acceleration and interval owners/current candidates before repair; retain supported invariants at application result/input ports and checked numeric kernel exit. Generic ordered interval implementation remains discovery candidate only, no implementation authorized. Do not blindly apply UnitInterval to physical lengths or impose strict-positive acceleration (zero coasting is supported).",
+      "acceptance": "Supported physical roles/bound ordering are represented without rejecting zero elapsed/coasting or signed displacement, and any finite/result promises are admitted at native numerical exit.",
+      "dependencies": [
+        "deferred ordered-interval/physical owner candidate and currentness reconciliation",
+        "other-lens admission/invariant-operations review, no transferred verdict"
+      ],
+      "currentness": "Qualified frozen source; no execution/new accepted unique finding"
+    }
+  ],
+  "carried_own_proofs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-007-receipt.json",
+      "sha256": "d47d3a4b9fb4daa1a830241c6ead725c3bbe461b7d56a83b1a5614bb640acf1f"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-010-receipt.json",
+      "sha256": "59d8ab785e544e91e87e1d58761594679196a96d9a1573cc6160f6ede4227829"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-011-receipt.json",
+      "sha256": "a3dc283db56a86d80f5baad4143672999d602269a8f4598d32362487981dfb07"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-012-receipt.json",
+      "sha256": "821410a651ac39aeabdcb7ac6fe484a0b61d651eaec59889090264ffcb3c5933"
+    }
+  ],
+  "new_material_extensions": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-core/src/autoresolve/melee_round/assignment.rs",
+      "sha256": "edaab496e73d7ae22b10743303627d76c5526cdff566e72e60f563dcbc2c77f9",
+      "material_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "mandatory_other_lenses": true,
+      "provenance": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-013-receiver-staging.json",
+        "sha256": "f7e233e8015d4b1a33de4ecaab5c6d9db266bbfc4b3745e7a23076363a34a3f7"
+      },
+      "zero_extra_original_shared_credit": true
+    }
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer. Preserve180/181nativeSDK/Bevy scheduling/imagecopylimits andallpendingreceiverqueues. M04current903reviewsseparate; notfrozenoriginal/lenscounts. Packet182InventoryItemId graph erasure, catalogkey/recordidentity and wear/order-selector sourcequestions retained, alias/currentness/unique acceptance unresolved. M04build-target review003 atdf5 andhostedCIseparatefromfrozenauditcounts. 184 newpublicDrapedPiece association/sourcegroupingquestion remainsfrozenlocal, noalias/currentness/uniqueacceptance; producerpathcoherent. M04df5validationseparate. 185 capacityreservationstaticAPIgap retainedasfrozenevidence only; alias/currentness/accepteduniqueness unresolved. No runtimewrongID orauthoredcurrentinputwitness. ExistingID/key/wear/savedassociationquestionsremainqualified. Packet186 independently accounts existing test-source812 only; fixture expectations are not observed execution/whole authored catalog/native guarantees and do not clear185 capacity witness. Existing lower-pattern fixture uses canonical owners; no new current alias or unique finding. Packet187 original813 only. New frozen inventory_ui and catalog wrapper material extensions mandatory other lenses, zero extra shared/original credit. UI acquisition is not atomic/all-worn; inherited capacity, typedID erasure/key authority and public saved-association questions retain all currentness/alias/unique limits. Batch011 frozen attack-ID packed participant-width witness retained; no runtime/current/alias/accepted unique finding, no invented32bit capacity bound. Batch012 actual simultaneous fixture permits absent scheduled measure beside present start/contact/recovery; group only proved coupled facts, do not require every active schedule measure.",
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_adoption_required": true,
+  "read_limits": [
+    "All1840 registered original source lines consumed plus72 exact unchanged material assignment lines. No extra original/shared credit from new dependency.",
+    "Source reveals complete relevant application handoffs, not all shared physical-equation/collision/numerical/scheduling or runtime currentness acceptance. Every fixture read is source-only, not executed.",
+    "Paired active timing is source-backed; measure legitimately optional, isolated fixture also has start-only for movement-intent input. Remedy must distinguish complete supported state from partial fixture setup without backwards-compat constraints."
+  ],
+  "restrictions": "No product/Git mutations/root ledger/project checks/scans/probes/tests/new tests/publication."
+}

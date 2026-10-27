@@ -1,0 +1,443 @@
+{
+  "id": "SEGOVB-CONT08-SUCCESSOR-004",
+  "lens": "08 behavior-preservation",
+  "created_utc": "2026-10-26T18:22:39.651070+00:00",
+  "prior": "audit08-successor-003.json",
+  "registry": {
+    "path": "shared-material-successor/source-extensions-196.json",
+    "sha256": "12adb62b53902f4e42f8e882ec18181d465c049956c8af8b5626d3d3192ff849",
+    "entries": 196,
+    "qualification": "Exact41-44materialroles only; reusedoriginal1782 proofdoesnotincrement1799 orcountduplicatepopulation"
+  },
+  "registration": "audit08-successor-004-registration.json",
+  "skill": "audit-behavior-preservation previouslyloaded and reapplied to precise source/receiving old-new traces",
+  "rules_read": [
+    "AGENTS.md",
+    "crates/AGENTS.md",
+    "crates/fabelgeist-armor/AGENTS.md",
+    "crates/adventuresim-tactical-core/AGENTS.md previouslyread"
+  ],
+  "materials": [
+    {
+      "index": 41,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/helmets.rs",
+      "sha256": "7d1c8a8edd1deaaf9419984a9301b0fc7f3679b8e2f45ad8492a63d3c9df9a42",
+      "registered_and_read_ranges": [
+        [
+          222,
+          248
+        ],
+        [
+          276,
+          294
+        ],
+        [
+          381,
+          391
+        ]
+      ],
+      "comparison": {
+        "index": 41,
+        "source_id": "pr-working:crates/fabelgeist-armor/src/helmets.rs",
+        "base": {
+          "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+          "sha256": "7d1c8a8edd1deaaf9419984a9301b0fc7f3679b8e2f45ad8492a63d3c9df9a42",
+          "lines": 414
+        },
+        "head": {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "sha256": "7d1c8a8edd1deaaf9419984a9301b0fc7f3679b8e2f45ad8492a63d3c9df9a42",
+          "lines": 414
+        },
+        "head_expected_match": true
+      },
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/7d1c8a8edd1deaaf9419984a9301b0fc7f3679b8e2f45ad8492a63d3c9df9a42",
+      "current_path_sha256": "7d1c8a8edd1deaaf9419984a9301b0fc7f3679b8e2f45ad8492a63d3c9df9a42",
+      "current_matches_frozen": true,
+      "current_qualification": "File equality is not current receiving-family/revision validation or integration; exact frozen comparisons below only."
+    },
+    {
+      "index": 42,
+      "source_id": "physical-p16:crates/adventuresim-core/src/material.rs",
+      "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "registered_and_read_ranges": [
+        [
+          1198,
+          1252
+        ]
+      ],
+      "comparison": {
+        "index": 42,
+        "source_id": "physical-p16:crates/adventuresim-core/src/material.rs",
+        "base": {
+          "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+          "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+          "lines": 1869
+        },
+        "head": {
+          "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+          "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+          "lines": 1869
+        },
+        "head_expected_match": true
+      },
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "current_path_sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "current_matches_frozen": true,
+      "current_qualification": "File equality is not current receiving-family/revision validation or integration; exact frozen comparisons below only."
+    },
+    {
+      "index": 43,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/action_timeline.rs",
+      "sha256": "01140a5ec824cf8258598462f8d99cde62732bf1901ffaddcafcef6ee65e66a5",
+      "registered_and_read_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "comparison": {
+        "index": 43,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/action_timeline.rs",
+        "base": {
+          "rev": "3a50b708381ad00c116445c2c999a49c3943088b",
+          "status": "absent",
+          "error": "fatal: path 'crates/adventuresim-tactical-core/src/animation/state/action_timeline.rs' exists on disk, but not in '3a50b708381ad00c116445c2c999a49c3943088b'\n"
+        },
+        "head": {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "sha256": "01140a5ec824cf8258598462f8d99cde62732bf1901ffaddcafcef6ee65e66a5",
+          "lines": 89
+        },
+        "head_expected_match": true
+      },
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/01140a5ec824cf8258598462f8d99cde62732bf1901ffaddcafcef6ee65e66a5",
+      "current_path_sha256": "01140a5ec824cf8258598462f8d99cde62732bf1901ffaddcafcef6ee65e66a5",
+      "current_matches_frozen": true,
+      "current_qualification": "File equality is not current receiving-family/revision validation or integration; exact frozen comparisons below only."
+    },
+    {
+      "index": 44,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/placement.rs",
+      "sha256": "a2f0bf9ab7c3f926407e6957b28e04563f05c287418d90c678ff1fa9999c5073",
+      "registered_and_read_ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "comparison": {
+        "index": 44,
+        "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/placement.rs",
+        "base": {
+          "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+          "sha256": "a2f0bf9ab7c3f926407e6957b28e04563f05c287418d90c678ff1fa9999c5073",
+          "lines": 141
+        },
+        "head": {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "sha256": "a2f0bf9ab7c3f926407e6957b28e04563f05c287418d90c678ff1fa9999c5073",
+          "lines": 141
+        },
+        "head_expected_match": true
+      },
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/a2f0bf9ab7c3f926407e6957b28e04563f05c287418d90c678ff1fa9999c5073",
+      "current_path_sha256": "a2f0bf9ab7c3f926407e6957b28e04563f05c287418d90c678ff1fa9999c5073",
+      "current_matches_frozen": true,
+      "current_qualification": "File equality is not current receiving-family/revision validation or integration; exact frozen comparisons below only."
+    }
+  ],
+  "support_reads": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state.rs",
+      "sha256": "48d075954cf0381f63c73815380ed47c37be6c35e30c573b6839e74c21572557",
+      "base_sha256": "47c04943f11bc1d221e680cfdf8a44b05c9face66c7aa14279e6d7eee807aa7b",
+      "head_sha256": "48d075954cf0381f63c73815380ed47c37be6c35e30c573b6839e74c21572557",
+      "ranges": {
+        "base": [
+          [
+            700,
+            746
+          ],
+          [
+            2280,
+            2335
+          ],
+          [
+            2390,
+            2478
+          ]
+        ],
+        "head": [
+          [
+            1800,
+            1860
+          ],
+          [
+            1940,
+            2040
+          ]
+        ]
+      },
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/48d075954cf0381f63c73815380ed47c37be6c35e30c573b6839e74c21572557",
+      "qualification": "Exact affected support only. New changed original full-scope obligations remain separate; no original-count or other-lens/current acceptance inferred."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/part.rs",
+      "sha256": "b990af2759b5c457ee1e2035060d64f0fdeaa9185b2239392b8d98fd18eefeaf",
+      "base_sha256": "b990af2759b5c457ee1e2035060d64f0fdeaa9185b2239392b8d98fd18eefeaf",
+      "head_sha256": "b990af2759b5c457ee1e2035060d64f0fdeaa9185b2239392b8d98fd18eefeaf",
+      "ranges": [
+        [
+          1,
+          214
+        ]
+      ],
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/b990af2759b5c457ee1e2035060d64f0fdeaa9185b2239392b8d98fd18eefeaf",
+      "qualification": "Exact affected support only. New changed original full-scope obligations remain separate; no original-count or other-lens/current acceptance inferred."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "base_sha256": "7d56f25736a01ae495fddd7a316eb3f22b1e63939eb48585ee6291efde5c3b9d",
+      "head_sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "ranges": {
+        "base": [
+          [
+            1260,
+            1380
+          ]
+        ],
+        "head": [
+          [
+            1260,
+            1380
+          ]
+        ]
+      },
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "qualification": "Exact affected support only. New changed original full-scope obligations remain separate; no original-count or other-lens/current acceptance inferred."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/quickstep.rs",
+      "sha256": "10c98a5fec7f36e1567f37c82b15e65c990d8412f2a1a1a9f67982adaef10223",
+      "base_sha256": null,
+      "head_sha256": "10c98a5fec7f36e1567f37c82b15e65c990d8412f2a1a1a9f67982adaef10223",
+      "ranges": {
+        "head": [
+          [
+            1,
+            81
+          ]
+        ]
+      },
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/10c98a5fec7f36e1567f37c82b15e65c990d8412f2a1a1a9f67982adaef10223",
+      "qualification": "Exact affected support only. New changed original full-scope obligations remain separate; no original-count or other-lens/current acceptance inferred."
+    },
+    {
+      "source_id": "pr-base:crates/adventuresim-tactical-core/src/physics.rs",
+      "sha256": "c5a6375bda8f1a0a4f6c7249d87392c59af18ce57d321fb79deaf1119d85ce36",
+      "base_sha256": "c5a6375bda8f1a0a4f6c7249d87392c59af18ce57d321fb79deaf1119d85ce36",
+      "head_sha256": null,
+      "ranges": [
+        [
+          228,
+          282
+        ],
+        [
+          426,
+          441
+        ],
+        [
+          686,
+          730
+        ]
+      ],
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/c5a6375bda8f1a0a4f6c7249d87392c59af18ce57d321fb79deaf1119d85ce36",
+      "qualification": "Exact affected support only. New changed original full-scope obligations remain separate; no original-count or other-lens/current acceptance inferred."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/mod.rs",
+      "sha256": "e2c32d059f773c9dc53ca214859713765404865e75e82302ea6b978145960199",
+      "base_sha256": "e2c32d059f773c9dc53ca214859713765404865e75e82302ea6b978145960199",
+      "head_sha256": "e2c32d059f773c9dc53ca214859713765404865e75e82302ea6b978145960199",
+      "ranges": [
+        [
+          69,
+          142
+        ],
+        [
+          227,
+          253
+        ]
+      ],
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/e2c32d059f773c9dc53ca214859713765404865e75e82302ea6b978145960199",
+      "qualification": "Exact affected support only. New changed original full-scope obligations remain separate; no original-count or other-lens/current acceptance inferred."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/limb_build.rs",
+      "sha256": "3bb6b57ab917ceaf61262074dfeb2f9b648b2f2fa845226fa795edc3878f0220",
+      "base_sha256": "3bb6b57ab917ceaf61262074dfeb2f9b648b2f2fa845226fa795edc3878f0220",
+      "head_sha256": "3bb6b57ab917ceaf61262074dfeb2f9b648b2f2fa845226fa795edc3878f0220",
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/3bb6b57ab917ceaf61262074dfeb2f9b648b2f2fa845226fa795edc3878f0220",
+      "qualification": "Exact affected support only. New changed original full-scope obligations remain separate; no original-count or other-lens/current acceptance inferred."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/recipe.rs",
+      "sha256": "09540bbac5ff1df4fbe07021b362cd80495d565cc843ed8b484f8ab401fe508b",
+      "base_sha256": "09540bbac5ff1df4fbe07021b362cd80495d565cc843ed8b484f8ab401fe508b",
+      "head_sha256": "09540bbac5ff1df4fbe07021b362cd80495d565cc843ed8b484f8ab401fe508b",
+      "ranges": [
+        [
+          91,
+          166
+        ]
+      ],
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/09540bbac5ff1df4fbe07021b362cd80495d565cc843ed8b484f8ab401fe508b",
+      "qualification": "Exact affected support only. New changed original full-scope obligations remain separate; no original-count or other-lens/current acceptance inferred."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/helmets.rs",
+      "sha256": "7d1c8a8edd1deaaf9419984a9301b0fc7f3679b8e2f45ad8492a63d3c9df9a42",
+      "base_sha256": "7d1c8a8edd1deaaf9419984a9301b0fc7f3679b8e2f45ad8492a63d3c9df9a42",
+      "head_sha256": "7d1c8a8edd1deaaf9419984a9301b0fc7f3679b8e2f45ad8492a63d3c9df9a42",
+      "ranges": [
+        [
+          249,
+          275
+        ],
+        [
+          295,
+          380
+        ],
+        [
+          392,
+          414
+        ]
+      ],
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/7d1c8a8edd1deaaf9419984a9301b0fc7f3679b8e2f45ad8492a63d3c9df9a42",
+      "qualification": "Exact affected support only. New changed original full-scope obligations remain separate; no original-count or other-lens/current acceptance inferred."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/material.rs",
+      "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "base_sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "head_sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "ranges": [
+        [
+          882,
+          930
+        ],
+        [
+          953,
+          1056
+        ],
+        [
+          1057,
+          1110
+        ],
+        [
+          1253,
+          1307
+        ],
+        [
+          879,
+          881
+        ],
+        [
+          461,
+          476
+        ],
+        [
+          548,
+          576
+        ]
+      ],
+      "local_path": "target/recovery-20261025/continuation-segovb/audit08-source/ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "qualification": "Exact affected support only. New changed original full-scope obligations remain separate; no original-count or other-lens/current acceptance inferred."
+    }
+  ],
+  "own_prior_evidence": [
+    "audit08/packets/behavior-090-partial.json exact1782sourceandoldmovedbodycomparison",
+    "audit08/packets/behavior-093.json preservesmalformed/custompolicyqualifications; not freshcurrent/wholefamilyacceptance"
+  ],
+  "analyses": {
+    "41": {
+      "status": "accounted WITH whole-design/shared classifier qualifications",
+      "analysis": "Fresh exact222-248/276-294/381-391 plus prospectively registered249-275/295-380/392-414 read. CoifDesign keeps fit,neckcoverage,front/backflaps and flapwidth fields; default clearance8/wall4/crown1000 and neck1000/front110/back130/width1000 retain values within actual validatedinclusivebounds. HelmetKind and HelmetDesign contain the same9 roles; catalog matches eachkind to its corresponding owningdesign/default, including ArmingCap fit5/5/1000 and MailCoif Coif default. Actual fit() and crown() matchvariants directly; cap/coif have no crown. validate first validates optional crown, then retains generic fit bounds3..30,1..8,900..1300 and pervariant shape ordering, including MailCoif coverage800..1100/front60..150/back70..170/width750..1200. CloseHelmet shapevalidation can reject before finalbool; ArmingCap shape accepts subject to generic fit. Finalvalid_fit&&valid_shape preserves same ParametricParameters failure. All exact file bytes are unchanged between PRbase/head.",
+      "qualifications": [
+        "This is contextual completion of registered gaps, not full original2610 completion or all HelmetCrown/buffe/fluting/CloseHelmet shape admission. Their named validators are delegated as existing owners; no complete downstream mesh/fitting/render acceptance.",
+        "No independent primitive classifier owner created or claimed equivalent. Further type/redundant-authority repair must retain canonical HelmetDesign and actual variant-specific validation."
+      ]
+    },
+    "42": {
+      "status": "accounted WITH input-equality/replay provenance and transactional qualifications",
+      "analysis": "Fresh registered1198-1252 replaydecision body read, plus exact physicalP16 receipt/source/digest/commit support. classify_material_retry computescanonicaldigest before matching prior. No prior yieldsApply. A prior yieldsIdempotentReplay only when provenance equalsproposed, digestmatches and sortedfull exact_sources_equal succeeds; otherwiseProvenanceCollision. exact_sources_equal firstcompareslength then stable sorts by lotID and invokes derivedEq on all contributions. Derives881,551 and464 demonstrate contribution includes source snapshot and consumedmeasure/truth; snapshot includes identity,measure,preparation,truth,revision; truth includescomponents/contaminants. Therefore omissionofpreparation/privatecontentfromdigest alone is not an exact-replay acceptance witness. Receipt::try_new984-1006 rejects emptyinputs and duplicateinput/outputlot/object identities before digest/conservation; digest1057-1108 fixes sortedlot ordering,versionprefix,littleendian numericinputwords and custodytag/lengthprefix encoding. Actual validate_material_commit1276-1304 preserves missing/ambiguouslot,identity/custody,revision,overconsume and fullmeasure/preparation/truth checks inthatorder. Entire physicalP16 filebytes match actual P16basea120/preserved039.",
+      "qualifications": [
+        "No hash-resistance or universal private-content integrity proof is inferred from SHA names; Eq adds actual omitted-source-data comparison in this classifier.",
+        "Proposed action provenance/id reuse, requested output/policy/outcome meaning, reducer transaction invocation and currentauthoritative freshness are separate; neither returnedApply nor doc requiring same transaction establishes those receivers call it. No currentmodule/reducer or entireP16material integration clearance.",
+        "Read onlyexactmaterial+support ranges; not full1869linefile, no existingtest execution/caseaddition and no unique omitted-digest defect promoted."
+      ]
+    },
+    "43": {
+      "status": "accounted WITH exact moved-body,custom-duration/overflow and malformed-admission qualifications",
+      "analysis": "Fresh full89 ActionTimeline body read. Exactown08 behavior090partial sourceidentity1782 same01140...a5 and movedoldstate700-746/oldadvance2462-2478 proof retained; freshregisteredold/new construction andactual advance/action caller ranges compared. new uses saturatingsub/contact-start,max1, symmetricsamepreparation/recovery andphase0 asold; with_recovery independentlymax1s contact-start/end-contact. Saturatedcontact/end andintegerbeforefloat sample ratios matchtheold valid-state algorithm. At current==end phase1 staysActive unlessendMAX; latercurrentorMAXendsComplete. State advanceslocalactioncopy andassigns onlyaftersuccessfulsample; other state mutationglobalrollback remainsunproved. Actual serverbegin_authoritative_quickstep1335-1365 checksraised/upright,findsDodgeSpec, admitsbegin_dodgebeforepush.begin usingcommonskeletonstarttick. Actualdurationhelper73-80 rounds min2 complete ticks then integerdividesby2; actuatorclock49-55 separatelyrounds min1 complete ticks. If roundedcompleteNisodd5, symmetricActionTimeline spans4 whileactuatoruses5; tinypositive durationscan span2vs1. Bothquantizerorders alreadyexistinoldphysics430-434/689-718; thisispreexistingprecision/policy difference, not anewrefactorregression or equalacceptedspan proof.",
+      "source_differences_qualified": [
+        "Reached serverold1354-1357 usesraw start+contactspan whereashead1356-1358 saturates. Exampleatstart=MAX-10 withcontactspan20: oldrawaddoverflows (checkedpanic or uncheckedwrapping9), yieldingoldtimelinepreparation1; newcontactsaturatesMAX, yieldingpreparation10. This boundaryisnot universalbehaviorpreservation. No normal-session reachability/currentbug asserted.",
+        "Movedactuator old action_ticks+2 and elapsed_ticks+1 are rawu64 additions; newQuickstepSampleClock bounded_recovery14 and target_phase20 use saturation. AtMAX spans, oldarithmeticcanoverflow andnewretainsMAX. Positivefinitecustomdurationmay saturate nativeu64 quantization; thisisqualifiednativearithmeticpolicy, not simply labeledmalformed or silently cleared.",
+        "Direct checkedUnitInterval/typedtime admission rejectsnonfinite/unrepresentableprojection where recordedinown090/093; wireadapter policy and fullapplicationproducergraph stayqualified."
+      ],
+      "qualifications": [
+        "No newlycounteduniquefinding: preservedown1782comparison alreadyaccounted; material43role adds exactmidpoint/clock reconciliation and explicitboundarydifferences only. Rootremedy/policy reconciliation may determine whether saturatedcallerchanges are authorized; no repair attempted.",
+        "Currentmainhelper/source equalitydoesnotproveallphysicalP16/P17receiver variants or everycurrentbegin_dodgecaller; newfileabsenceatPRbaseis resolvedthroughactualoldparentbodies, not treatedas missingcoverage or inventednewbehavior."
+      ]
+    },
+    "44": {
+      "status": "accounted WITH public repeated-recording/hinge authority qualification",
+      "analysis": "Freshfull141 placement source read with actualPartBuild1-214/publicDevicePart69-142/build227-253/recipe91-166/limb_build1-46. Placement::record copies count/hingecount/frame/positions/hinges/status into nativeparameters and dispatchesmax(count,hingecount), preservingzero-pad/hostfloathook anddeviceerrorboundary. Shader rotates via host_mul/add in axisorder, checksnegativeframe determinantbeforewrites, setsinvalidsurfacestatus on lane0, transforms positions and hingeorigin/axis under separatebounds. PartBuild::record_shells alwaysrewindsindices, recomputeswalls, assemblespositions fromcarriers, optionallyplaces, thenfinalnormals. HINGE_WORDS8,origin offset0 andaxisoffset4 retained. DevicePart::place_by setsretainedframe; publicrecord_shells forwardsmutablywithnoonceguard. Repeating placementwithoutreauthoringhinges canapplyT(T(hinge)) whilepositions arerebuiltfromcarriers beforeT eachtime. Thus a double-record algebraiccoherence question survives atpublicAPI; do notclaimpositionsalsocumulativelytransform. Actualordinarybuild_in/recipebuild/pauldronbuildcallrecord_shells once onnewpart before submit/read; thesecheckedpaths do notprovean ordinarydouble-recordincident. AllM44andactualarmorsupportbytes matchPRbase/head.",
+      "qualifications": [
+        "No newlyintroducedrefactorregression or newuniquefinding promoted. Repeated-public-record authority/idempotence/intendedsingleuse andunchangedpubliccallers beyondreadrangesremainexplicit source/policyqualification frommaterial44registration.",
+        "No completehost_float shaderimplementation/performance/precision or GPU/visual acceptance inferredfromcomments/kernelgeneration.",
+        "M16 canonical layouts,counts,byte/word owners,resource/frame/hinge association and all publicnativebuffer mutation remainopen sharedrepairs. Preserve canonicalagreed APIs ratherthan invent duplicatehinge/frameowners or resetadapters."
+      ]
+    }
+  },
+  "qualified_observations": [
+    "M43 actualnearu64MAXcaller/clock saturationdifferencesexplicit; authorization/currentreachability andaliasremedy reconciliationpending, not newaccepteduniquedefect.",
+    "M44 repeatedpublicrecordinghingevspositionssourcecoherencequestion preserved; no ordinarysinglebuildfailureestablished.",
+    "M42 omitteddigestcontentalone cannotproveincorrectreplay becauseexactfullequalityis alsorequired; requestedprocess/provenancepolicy remainsseparate."
+  ],
+  "coverage_delta": {
+    "kind": "Additive proposedstate for rootreconciliation only; rootledger/historicalstates untouched",
+    "receipt": "audit08-successor-004.json",
+    "prior": "audit08-successor-003.json",
+    "newly_accounted_material_indices": [
+      41,
+      42,
+      43,
+      44
+    ],
+    "material_earlier_contiguous_proposal": [
+      0,
+      44
+    ],
+    "next_material": 45,
+    "new_original_completions": [],
+    "original_accounted": 1799,
+    "original_first_unfinished": 1462,
+    "next_ordered_original": 1792,
+    "partial1462": "CONT08-Q003 unchanged qualifiedpartial; prior GJK/EPA normal trace preserved",
+    "broad_goal_complete": false
+  },
+  "current_revision_observed": "961d226be23a81d9731a11958d62fe8a04b93e81",
+  "findings": "No newuniqueacceptedfinding. All20migrationfamilies,P16/P17,sharedcanonicalM16repairs,#780/#826integration,inheritedfindings/aliases andallpartials includingCONT08-Q003remainmandatory. Source-accounted roles retain explicitpolicyquestions; no integrated/validated/currentstatuspromoted.",
+  "global_clearance": false,
+  "repair": "None; exhaustive lens incomplete",
+  "validation": "Source-only exact frozenbody/identity/old-newreceivingcomparisons andignoredevidencewrites. No source/productedits,projectchecks/tests/helpercases/assertions/doctests,publication or runtime/GPU/SDK/CI execution."
+}

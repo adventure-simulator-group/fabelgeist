@@ -1,0 +1,17 @@
+{
+ "id":"OWN10-DERIVE-CANDIDATE-013",
+ "classification":"Qualified mechanical boilerplate suggestion; source behavior presently correct; global remedy dedup pending",
+ "revision":"6533e444fa37552927070cc8d8190907fd3b413e",
+ "roles":[2350,2351],
+ "locations":[
+  {"path":"crates/fabelgeist-xpbd/src/dynamics/mass.rs","ranges":[[30,37],[77,84]],"types":["ParticleInverseMass","ParticleMass"]},
+  {"path":"crates/fabelgeist-xpbd/src/dynamics/projection.rs","ranges":[[63,69],[119,125],[143,149]],"types":["ClippingFraction","ProjectionDepth","RelativeNormalSpeed"]}
+ ],
+ "existing_dependency":"Role2348 exact fabelgeist-xpbd/Cargo.toml13 enables derive_more2.1.1 from feature",
+ "equivalence":"Each non-generic private single-f32 tuple wrapper has a manual From<f32> body exactly Self(argument), without validation, allocation, narrowing or alternate representation. Existing derive_more::From generates the same input/output API and field construction, with no new generic bounds, serialization, native exposure or dependency.",
+ "connected_repair":"Add derive_more::From on those five existing tuple structs and remove only their five corresponding From<f32> implementations. Preserve layout/visibility, derives, named constants, native bit conversion, semantic classifiers and arithmetic. Check later original/material owner versions before any repair.",
+ "preserve":"ConstraintGradient From<f64> narrows numerically and stays explicit. ParticleInverseMass-to-u32 emits float bits, not raw numeric conversion. Cross-type Add and primitive iterator Sum encode semantic response types and stay explicit. Registered mass range ends110 mid AddAssign signature: no body111-162 coverage inferred.",
+ "acceptance":"After exhaustive own10 ledger and global remedy dedup, existing feature/build contracts must confirm unchanged conversions and native layouts; no new tests or cases requested. No checks run.",
+ "new_unique_finding":false,
+ "clear":false
+}

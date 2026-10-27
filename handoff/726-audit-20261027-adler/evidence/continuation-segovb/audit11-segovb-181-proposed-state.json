@@ -1,0 +1,95 @@
+{
+  "lens": 11,
+  "packet": 181,
+  "prior_adopted_state": {
+    "path": "audit11-segovb-180-proposed-state.json",
+    "sha256": "85bd6ae9859e77d84839f6b4959e039930478d6a6b8c036b7583b53811ad1b08"
+  },
+  "receipt": "audit11-segovb-181-808-complete-001.json",
+  "receipt_sha256": "ad607c9cc1141d1286dfd5a6258f82e73ad07a44d442683ee1080673a7ec4649",
+  "original_accounted": 809,
+  "original_total": 2853,
+  "next_original": 809,
+  "newly_source_accounted": [
+    808
+  ],
+  "active_partial": null,
+  "source_accounting_not_clearance": true,
+  "new_unique_findings": 0,
+  "accepted_unique_count_change": 0,
+  "mandatory_other_lens_extensions": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/hair_preview/scalp_shade.rs",
+      "sha256": "4bee07accb46e2b52d29da58644b4b620c69f55278774fcd1fff1d591d4c8779",
+      "actual_eof": 71,
+      "actual_access": [
+        [
+          28,
+          32
+        ],
+        [
+          40,
+          71
+        ],
+        [
+          1,
+          27
+        ],
+        [
+          33,
+          39
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          71
+        ]
+      ],
+      "provenance": {
+        "path": "audit11-root-scalp-receivers-staging-181.json",
+        "sha256": "189d1e5e80524c7e057e28eff1a8d7674f62728840b3699e4e34a8102a4d0102"
+      },
+      "native_contract_scope": "Concrete first-party material/image/texture-copy adapters only; no WGSL shader or whole SDK bodies",
+      "mandatory_other_lenses": "pending",
+      "original_shared_credit": 0
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/hair_preview/scalp_upload.rs",
+      "sha256": "2204f09240707fa76e04f408ffdd9a1b1ab0f7b65b840c4a290db3f368156a63",
+      "actual_eof": 150,
+      "actual_access": [
+        [
+          21,
+          132
+        ],
+        [
+          1,
+          20
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          132
+        ]
+      ],
+      "provenance": {
+        "path": "audit11-root-scalp-receivers-staging-181.json",
+        "sha256": "189d1e5e80524c7e057e28eff1a8d7674f62728840b3699e4e34a8102a4d0102"
+      },
+      "native_contract_scope": "Concrete first-party material/image/texture-copy adapters only; no WGSL shader or whole SDK bodies",
+      "mandatory_other_lenses": "pending",
+      "original_shared_credit": 0
+    }
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer.",
+  "clear": false,
+  "current_reconciled": false,
+  "integrated": false,
+  "validated": false,
+  "root_adoption_required": true,
+  "root_ledger_history_overwritten": false,
+  "product_source_git_checks_tests_publication": "none",
+  "stop": "808complete;no809orderedinventory"
+}

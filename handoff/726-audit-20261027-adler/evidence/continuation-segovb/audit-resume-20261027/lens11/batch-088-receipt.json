@@ -1,0 +1,314 @@
+{
+  "at": "2026-10-27T16:31:26.264131+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-088-registration.jsonl",
+    "sha256": "00754b3e822529bbcc562a18b83b343a002b9aed2915d5ddf2ec08dbecca134f"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-087.json",
+    "sha256": "1a46f468f019e2b0c43599f23a918d9bab0e667328f3a9e8d2d3e193cefeb55c"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1146,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/organization.rs",
+      "sha256": "39842ba122cf2240e36f267f8db415dd2b54bfcc0dbd2478e813ef3c374a9645",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/39842ba122cf2240e36f267f8db415dd2b54bfcc0dbd2478e813ef3c374a9645",
+      "ranges": [
+        [
+          1,
+          655
+        ]
+      ],
+      "actual_eof": 655,
+      "prospective": true,
+      "purpose": "Independent full requested organization role inventory; prior068/073 material ranges context only",
+      "actual_read_ranges": [
+        [
+          1,
+          474
+        ],
+        [
+          564,
+          655
+        ]
+      ],
+      "personal_same_lens_reuse": [
+        {
+          "receipt": {
+            "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-068-receipt.json",
+            "sha256": "e3df58188ce13a2f33be6f1e869f8164cec137489c1f98c96f6a842d789b1fb3"
+          },
+          "ranges": [
+            [
+              475,
+              536
+            ]
+          ]
+        },
+        {
+          "receipt": {
+            "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-073-receipt.json",
+            "sha256": "ed0a5dc5809ae33039ed53fe0993017ddf4cc9ab6562855f1e53a3f275eb9e28"
+          },
+          "ranges": [
+            [
+              537,
+              563
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1147,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/organization/membership.rs",
+      "sha256": "0d33ff33d3e12486c22e7724790e4c745f5f6e603ec06302c7e9fa161e3597a5",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/0d33ff33d3e12486c22e7724790e4c745f5f6e603ec06302c7e9fa161e3597a5",
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "actual_eof": 25,
+      "prospective": true,
+      "purpose": "Independent full ordered membership policy child inventory and direct1146clock/currentness recipient",
+      "actual_read_ranges": [
+        [
+          1,
+          25
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected_original",
+      "original_index": 1202,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social_roles.rs",
+      "sha256": "328d8285856568995cc423bb2ec74bb88bfa690af6e4defcbfc4aa8f9a355415",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/328d8285856568995cc423bb2ec74bb88bfa690af6e4defcbfc4aa8f9a355415",
+      "ranges": [
+        [
+          1,
+          44
+        ],
+        [
+          122,
+          145
+        ],
+        [
+          285,
+          365
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual one canonical character role association/key/admission and ensure/update receivers for1146",
+      "actual_read_ranges": [
+        [
+          1,
+          44
+        ],
+        [
+          122,
+          145
+        ],
+        [
+          285,
+          365
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1202,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social_roles.rs",
+      "sha256": "328d8285856568995cc423bb2ec74bb88bfa690af6e4defcbfc4aa8f9a355415",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/328d8285856568995cc423bb2ec74bb88bfa690af6e4defcbfc4aa8f9a355415",
+      "ranges": [
+        [
+          44,
+          121
+        ],
+        [
+          235,
+          284
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Close actual global organization instance and role admission producers before assessing definition/instance distinction",
+      "actual_read_ranges": [
+        [
+          44,
+          121
+        ],
+        [
+          235,
+          284
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1146,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/organization.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              143
+            ]
+          ],
+          "roles": "Organization dues/accrual membership, canonical social role, public presented choice and joined projection, active membership at personal date.",
+          "disposition": "Role/rank authority intentionally resides in social_roles; membership.status is dues checkpoint, NOT second canonical role nor complete current eligibility. Current eligibility requires active status+paid deadline, public presentation separate voluntary identity and recognition separate place policy. Accrued apprenticeship/practice minutes not absolute joined/paid-through minutes. Raw IDs lose organization definition/instance/role versus membership row distinctions.",
+          "remedy": "Canonical membership/organization/role IDs and durations, named admitted MembershipContext joining existing canonical role to dues record, maintain checkpoint provenance instead of blindly deleting historical status. SDK projection explicit raw boundary.",
+          "acceptance": "Actual current helper1147 and role assignment1202 material bodies consumed. No stale active public checkpoint falsely treated as accepted privilege; no actual corrupted/duplicate membership ordinary writer witness."
+        },
+        {
+          "ranges": [
+            [
+              145,
+              255
+            ]
+          ],
+          "roles": "Skill requirement selector, optional religion/bestiary leaf, training hours versus rank minimum, professed religion and local chapter admission.",
+          "disposition": "Requirement::SkillRating string skill+optionalleaf can express ignored leaves for ordinary skills or absent/wrong category for religion/bestiary. Existing Skill/OfficialReligion/BestiaryCategory canonical owners already available; selection needs typed payload not one broad arbitrary skill string. Same training rank invariant can be shared beneath role-specific hours/category, not UnitInterval because rank scale differs. bestiary_category145\u2013147 purely forwardsfrom_id, concrete simplification.",
+          "remedy": "Reuse typed skill/category/religion selectors in requirement owner, admitted SkillHours/rank; named requirement evaluation error. Keep profession-of-religion separate effective belief/knowledge or generic skill level.",
+          "acceptance": "Actual training_rank native996 skill full042 semantic supplement and requirement/coreorganization034 recorded ranges reused; no malformed authored ordinary catalog requirement or current eligibility failure asserted. Localchapter and living settlement checks actual."
+        },
+        {
+          "ranges": [
+            [
+              257,
+              371
+            ]
+          ],
+          "roles": "Join/admission entry role, fees, paid-through due extension, direct role promotion and currentness.",
+          "disposition": "OrganizationDefinition ID versus global instance ID distinct concepts even equal actualglobal instance text:1202 ensure_instance(None) derives same definition key, rejects local template without settlement. Entry versus promotion role are transition roles, not arbitrary additional duplicate role owners. No-dues MAX sentinel means lifetime membership deadline, not infinite personal clock. Money amount/perioddays versus absolutepaid-through minutedifferent.",
+          "remedy": "Typed canonical organization/role/instance reference and admitted membership event payload, checked duration/fee owners; reuse existing RoleDefinition transitions and currency operations.",
+          "acceptance": "Actual SDKactor authority/temporalinstitution gate, requirements and directtransition, fee preflight, canonicalrole insert, personal minute paiddeadline. No compatibility fallback or calendar bound invented. No transaction/overflow/runtime test claim."
+        },
+        {
+          "ranges": [
+            [
+              373,
+              563
+            ]
+          ],
+          "roles": "Voluntary presentation, recognized current presentation versus globally current presentation, dues settlement/clearing and local/global role privilege evaluation.",
+          "disposition": "Global forage license intentionally independent of settlement recognition; local open-carry style privilege uses recognized presented membership. These are semantic permission scopes, not duplicate predicates to collapse. Status changed only after now>deadline, membership current uses <= inclusive; exactlydeadline stillvalid. Presentation choice does not imply currentness. definition/member/role separate arguments may be mismatched by arbitrary API inputs but actual callers load same organization binding.",
+          "remedy": "Named admitted MembershipContext/PresentedOrganization scope retaining canonical role, current date and recognition. Reuse existing Privilege enum and global/local policy distinction; typed source rejection versus absent presentation.",
+          "acceptance": "Actual prior068475\u2013536/073537\u2013563 reused plus fresh401\u2013474; full ordered role inventory now. No blanket claim all role consumers use currentness or current runtime permission; inheritedpublic/private/local/global qualifications retained."
+        },
+        {
+          "ranges": [
+            [
+              565,
+              655
+            ]
+          ],
+          "roles": "Activity membership, two activity accrual durations, existing membership privilege fixtures.",
+          "disposition": "Apprenticeship versus practice are meaningful same-unit roles, namedfields prevent swap; nativeu64 time counters internally untyped and saturate. require_activity_membership owns real localchapter+currentness policy, not trivial forwarding. Increment helper silently no-ops absentmembership and does not check currentness itself; actual training caller context must admit before using, no bad ordinary accrual shown.",
+          "remedy": "Canonical elapsed-minute values through named ActivityAccrual, admitted membership context; no per-field wrapper needed merely distinct name if shared Duration plus namedfields adequate.",
+          "acceptance": "No universalpositive accrual bound; zero valid and saturationcapacityAPIonly. Existingfixture bodies readnotrun, no newtests/assertions/helpers or source execution."
+        }
+      ]
+    },
+    {
+      "original": 1147,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/organization/membership.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              25
+            ]
+          ],
+          "roles": "Personal current minute, dues status/deadline predicate and role privilege input.",
+          "disposition": "current_minute true SDK clock admission; membership_is_current real predicate combines two authority facts. current_membership_grants assumes associated definition/member/role, cannot establish association from raw fields alone; actual1146 callers bind those. Does not test minute>=joined_minute: API accepts historical dates, but intended current actor minute callers not proved earlier than join, so no historical privilege bug claimed.",
+          "remedy": "Reuse named admitted membership/role context and personal-date owner; preserve inclusive deadline. Do not add unsupported joined-bound policy without actual historical recipient contract.",
+          "acceptance": "Full25 read; source-account with shape/capacity questions, no arbitrary wrong organization/current runtime privilege/unique claim."
+        }
+      ]
+    }
+  ],
+  "connected_role_inventory": [
+    {
+      "original": 1202,
+      "ranges": [
+        [
+          1,
+          145
+        ],
+        [
+          235,
+          365
+        ]
+      ],
+      "inventory": "Canonical social instance/assignment schema1\u201332, global/local instanceadmission44\u201385 andlookup101\u2013120, derivedassignmentkey122\u2013124.145 parser prefix,235\u2013271 unrelated birth-family transfer tail exposed but not full family proof. Roleinsert274\u2013310/update312\u2013328/ensure330\u2013338/assignment340\u2013351 complete;353\u2013365 socialinitialization prefix. Actual same definition key for global instance and localtemplate requires settlement, so no blanket ID-equivalence bug. Role definition validates instance+role before write, checks duplicate membership assignment. Source fields still raw IDs, named canonical scoped role owner advised; no future1202 whole/original credit."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-068-receipt.json",
+        "sha256": "e3df58188ce13a2f33be6f1e869f8164cec137489c1f98c96f6a842d789b1fb3"
+      },
+      "contract": "1146 actual475\u2013536 recognized presentation/current privilege helper source."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-073-receipt.json",
+        "sha256": "ed0a5dc5809ae33039ed53fe0993017ddf4cc9ab6562855f1e53a3f275eb9e28"
+      },
+      "contract": "1146 actual537\u2013563 global current role/privilege source, source native caller1114 foraging full."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-034-receipt.json",
+        "sha256": "1c32165aeec548d529c12cad8746034abe727fc5e73834f77ce581d3338e1510"
+      },
+      "contract": "960 coreorganization personally recorded1\u2013329/406\u20131251 plus any explicitly linked prior reuse in034; do not infer missing330\u2013405 from hash. Existing Requirement/RoleDefinition/Privilege/recognition/chapter owners andactualoperations in recorded scope."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-042-receipt.json",
+        "sha256": "679029c645bbe69075e5b0f1c297fdd91ece13e10c96c08197b5f264c7f19edc"
+      },
+      "contract": "996 skill full1165 actual training_rank/hours, required042semantic supplement remains part proof."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-084-receipt.json",
+        "sha256": "a1e35a75e9eb2265261409dee6629fb2b7f627e223d182e4e78e33783dac9e21"
+      },
+      "contract": "1136 full actual currency fee/credit/amount receiver, no current/unique transfer."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-048-receipt.json",
+        "sha256": "45172eb33f46a6e35fe8c12f09f1b87fa6087f0e3029842e5421f6813eb6b2b1"
+      },
+      "contract": "1017time full860 schedule/activity clock/accrual context; no actualwrong elapsed duration witness."
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Original1146 full655 with fresh1\u2013474/564\u2013655 plus exact prior068/073475\u2013563 independently inventoried;1147 full25 actual.",
+    "1202 only actual registered ranges, unrelated235\u2013271 familytail exposure disclosed; no whole social role/kinship/policy/current source clearance.",
+    "All inheritedqualifications and original/overlays/merged/family/material/currentness/other-lens queues retained. No product/Git/root ledger/projectexecution/tests/probes/checks/publication."
+  ]
+}

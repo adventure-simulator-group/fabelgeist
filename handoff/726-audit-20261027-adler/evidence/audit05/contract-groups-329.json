@@ -1,0 +1,95 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-329",
+  "at": "2026-10-25T23:14:31.877804+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2713,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/terrain_feature.rs",
+      "sha256": "0e27249f12fa5c9007dcb4fc1bc99d1b0106a6b741d0ae6b4078e3078825b36a",
+      "personally_read_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1-43: closed TerrainFeature variant owns either mapped fault trace or geologic window; geometry() intentionally empty for geology. MappedFault public record/derived serde strict unknown fields but does not enforce id/trace length constants. Actual compiler/ingress must enforce limits; source evidence is modern prior explicitly not historic activity. No new ordinary malformed feature witness."
+      ]
+    },
+    {
+      "scope_index": 2714,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/geologic_window.rs",
+      "sha256": "371180d1fdfd5e93061a55a884f3bbf816db1e853a49f81540f215c4f9c3e2b3",
+      "personally_read_ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1-36: is_valid bounds id length and ordered side lengths using i64 subtraction, contains uses inclusive EPSG3034 bounds. Public record/derived serde does not carry polygon-with-holes proof promised by descriptive compiler contract; actual mapped compiler evidence/validation remains necessary. No polygon geometry invented or blanket coverage proof."
+      ]
+    },
+    {
+      "scope_index": 2718,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+      "sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+      "personally_read_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1-49 exact physical-p16: private checked E7 corners and southwest<=northeast preserve inclusive non-antimeridian rectangle, degenerate point/line bounds intentionally permitted. Native WGS84 conversion delegates coordinate admission/rounding; intersects symmetric inclusive edge test. No stricter positive-area invariant inferred."
+      ]
+    },
+    {
+      "scope_index": 2721,
+      "source_id": "physical-p16:crates/adventuresim-stdb-client/src/connected_player_type.rs",
+      "sha256": "01f3bc878d9996682dfdf6b694f614d358d3d5acaa0375b2ca10c027fa464390",
+      "personally_read_ranges": [
+        [
+          1,
+          114
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1-114 generated physical-p16 ConnectedPlayer schema/codecs/column bindings read without edits. Strategic character/side/items/stats/limbs and incapacitation sources/blood/bodymass remain scalar wire payloads; no generated aggregate semantic validation inferred. Actual source schema producer and tactical receiving admission remain separate requirements; generator marker preserved."
+      ]
+    },
+    {
+      "scope_index": 2722,
+      "source_id": "physical-p16:crates/adventuresim-stdb-client/src/connected_player_item_type.rs",
+      "sha256": "250d23b8d767b72622ccdaa26a5e3032d7dce28807f900206651c7cd3fda5aac",
+      "personally_read_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1-29 generated physical-p16 ConnectedPlayerItem: inventoryid/quantity/catalogitem plus optional placement/condition/appearance and occupancy/protected-part lists. Codec derives represent independent fields, not their cross-field equipment consistency. No hand edit, generated drift or admitted bad producer asserted."
+      ]
+    },
+    {
+      "scope_index": 2724,
+      "source_id": "physical-p16:crates/fabelgeist-armor/src/lib.rs",
+      "sha256": "80124b8fa3d698044166b5f4226391835bde877e6e3e55904a8e6ab149a5fdcd",
+      "personally_read_ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1-171 independently read exact physical-p16 armor root after pr-working2606: encode/decode validate Bracer; breastplate hash calls fullvalidator. Anime.validate still precedes wall-thickness bound, retaining prior exact RIG-ADMISSION03-F049/NATIVE-CAMERA-ADM03-F007 overflow dedup from309 rather than newfinding. Recipe hash of arbitrary encoded bytes is provenance adapter, not implicit validation of all armor types."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "6 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

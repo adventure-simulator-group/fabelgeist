@@ -1,0 +1,49 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-358",
+  "at": "2026-10-23T12:35:32.641534+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/strips.rs",
+      "sha256": "018591fdd7fdc9288f16a0ed5ed2f2ef6e3649448afa564b58358a3987144bba",
+      "scope072_index": 803,
+      "actual_EOF": 511,
+      "scoped_ranges_compared": [
+        [
+          1,
+          511
+        ]
+      ],
+      "actual05_comparison": "Fresh whole host/embedded shader1-270/271-511. Strip source/output addressing, attributes, topology, taper and per-strip lift producer/consumer compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "all output channels share one strip layout",
+      "comparison": "build computes rows=(max(source_rows,2)-1)*pieces+1, exactstrips*rows*2 vertices; allocates four same-length vec4 attributes and per-row lifts. Uniform strips/rows/pieces bind same metadata, one invocation owns whole strip, out_index=(strip*rows+row)*2+edge used for all channels. Host faces uses exactly same row ordering with two triangles per adjacent pair, read separatesxyz andw semantics without reordered channels. Native u32/usize count capacity and logical Buffer read lengths remain input/adapter contracts."
+    },
+    {
+      "id": "source row minimum is required native supplier condition",
+      "comparison": "pieces always1..16cards or1..8ribbons, taper samples fixed33 gives safe interpolation last index<=31. Native source_rows must>=2: WRAP cut_point subtracts2 and reads source segment+1, while hostmax2 only sets output rows and does not enlarge source data. Actual GpuLevel.points/GpuCards.segments admission remains queued native producer; no malformed normal source/current zero-row assertion or extra unique finding from hypothetical raw internal records."
+    },
+    {
+      "id": "per-strip two phases have coherent dependencies",
+      "comparison": "One invocation writes every row and its lift before consuming neighbouring row lifts from SAME strip; no cross-strip data dependency or omitted barrier claim. Both edges move by identical selected lift, preserving row width; turn-to-skin recomputes both normals consistently. Upper/lower neighbour endpoints clamp current rowrange, spread4 supplies divisor5. Finite source/field normals and current scalarpositiveclearance/curve/reach remain prerequisites, not an all-extremes result guarantee."
+    },
+    {
+      "id": "geometry and coverage roles",
+      "comparison": "Card source point reads actual four-entry packed row withvariant/tangent/normal/random/visibility, variantsmax1 prevents0division. Ribbons use source radius with drawn-count width compensation and min visual width; tangent/normal safe fallbacks separate from source vertex topology. UVs map same row and atlas variant. Clamped MOST pieces intentionally limits subdivision at coarse level, so doc longest segment is aim, not an absolute bound on all possible long raw hairs. No actual renderer/GPU run."
+    },
+    {
+      "id": "public product and freeze",
+      "comparison": "GpuGeometry private buffers/counts constructed only build; HairGeometry public later can mutate channels, not inferred checked token. No inline fixtures in511. Current072 metadataallprior qualifiers preserved. Exact producer/native projection bodies still pending; this row is source-specific comparison only."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Native GpuLevel/GpuCards minimum source rows and buffer capacity/read contracts remain exact queued requirements."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

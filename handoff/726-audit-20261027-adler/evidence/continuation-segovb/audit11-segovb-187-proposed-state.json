@@ -1,0 +1,222 @@
+{
+  "lens": 11,
+  "packet": 187,
+  "prior_authoritative_state": {
+    "path": "audit11-segovb-186-proposed-state.json",
+    "sha256": "3da2058039baab6f7ef6fe7123f51033c517058aea7a57de3c46596a0e8f6e91"
+  },
+  "receipt": "audit11-segovb-187-813-complete-001.json",
+  "receipt_sha256": "ae2930df55c5be6cec7a840c6d08e5889559c036fd7bc49dd969209bb2a18280",
+  "original_accounted": 814,
+  "original_total": 2853,
+  "next_original": 814,
+  "newly_source_accounted": [
+    813
+  ],
+  "active_partial": null,
+  "source_accounting_not_clearance": true,
+  "new_unique_findings": 0,
+  "accepted_unique_count_change": 0,
+  "qualified_source_key": "pr-working:crates/adventuresim-character-creator/src/inventory/occupancy.rs@sha256:dbd62cb0c402bcb0903b4bcebdc159c2d2f35f266e4dff77c359796db40231b8#L172-L237:same-candidate-attachment-capacity-reservation",
+  "mandatory_other_lens_extensions": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/garment/selection.rs",
+      "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+      "actual_eof": 271,
+      "actual_access": [
+        [
+          1,
+          79
+        ],
+        [
+          111,
+          225
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          79
+        ],
+        [
+          111,
+          225
+        ]
+      ],
+      "root_provenance": {
+        "path": "audit11-root-garment-selection-staging-182.json",
+        "sha256": "5e81fcb5f5ca2e8dd9a56703c3cdc10911de94615516d90ed59eb5718d4d1ba4"
+      },
+      "proof": "Exact frozenbase3a50/head6533bytes equal, absent747changes/dirty4; no currentalias or bodycredit fromstaging",
+      "mandatory_other_lenses": "pending",
+      "original_shared_credit": 0
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/inventory_ui.rs",
+      "sha256": "7826a8b7e47d4d72d87589c7c7e11d6054c7edbaa82bcc9f317f8ee949bad37b",
+      "actual_eof": 256,
+      "actual_access": [
+        [
+          1,
+          32
+        ],
+        [
+          177,
+          216
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          21
+        ],
+        [
+          187,
+          215
+        ]
+      ],
+      "provenance": {
+        "path": "audit11-segovb-187-inventory-ui-staging-001.json",
+        "sha256": "eb78a87440a7e37540a3bf8f8f902b046418d4021100e054e2819c227cdf2dff"
+      },
+      "proof": "Exact frozen3a50base/6533head bytes equal, absent747manifestchanges and all4dirty paths; no current substitution/body credit from staging",
+      "mandatory_other_lenses": "pending",
+      "original_shared_credit": 0
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/catalog.rs",
+      "sha256": "cd1472baf8c4e367dfe78a98f6331acd05cf86f5d9b93e945ba6040b60253627",
+      "actual_eof": 6,
+      "actual_access": [
+        [
+          1,
+          6
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          6
+        ]
+      ],
+      "provenance": {
+        "path": "audit11-segovb-187-catalog-staging-001.json",
+        "sha256": "bd454452006c2edce39b878c419e2bea3b3d7217bc69718c83e107156c690f2c"
+      },
+      "proof": "Exact frozen3a50base/6533head bytes equal, absent747manifestchanges and all4dirty paths; no current substitution/body credit from staging",
+      "mandatory_other_lenses": "pending",
+      "original_shared_credit": 0
+    }
+  ],
+  "new_material_receiver_ranges_for_other_lenses": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "actual_access": [
+        [
+          106,
+          145
+        ]
+      ],
+      "extra_original_shared_credit": 0,
+      "qualification": "Existing original scope remains mandatory other lenses; receiver access is not ordered credit"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/wardrobe.rs",
+      "sha256": "41051202a9da2998dcf73b5a1e095088d6838c1a849a66d080631ac8304951b9",
+      "actual_access": [
+        [
+          1,
+          42
+        ]
+      ],
+      "extra_original_shared_credit": 0,
+      "qualification": "Existing original scope remains mandatory other lenses; receiver access is not ordered credit"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/wardrobe_tab.rs",
+      "sha256": "4cd80a0338aaafa8f2b1f80eca296ef22614825d8d1058692fb8c4fe7bbe9595",
+      "actual_access": [
+        [
+          1,
+          38
+        ],
+        [
+          69,
+          112
+        ]
+      ],
+      "extra_original_shared_credit": 0,
+      "qualification": "Existing original scope remains mandatory other lenses; receiver access is not ordered credit"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/wardrobe.rs",
+      "sha256": "41051202a9da2998dcf73b5a1e095088d6838c1a849a66d080631ac8304951b9",
+      "actual_access": [
+        [
+          41,
+          75
+        ]
+      ],
+      "extra_original_shared_credit": 0,
+      "qualification": "Existing original scope remains mandatory other lenses; receiver access is not ordered credit"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/library_name.rs",
+      "sha256": "ecd978e94b850604d4345df1494e9536819e19d7a6d3b8921fde3d55bf54eb27",
+      "actual_access": [
+        [
+          1,
+          39
+        ]
+      ],
+      "extra_original_shared_credit": 0,
+      "qualification": "Existing original scope remains mandatory other lenses; receiver access is not ordered credit"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "actual_access": [
+        [
+          1,
+          80
+        ]
+      ],
+      "extra_original_shared_credit": 0,
+      "qualification": "Existing original scope remains mandatory other lenses; receiver access is not ordered credit"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "sha256": "da3139ef3625393db9041ad0680dc244b0f81235b86ea4519a87c9299763bdd6",
+      "actual_access": [
+        [
+          1,
+          91
+        ]
+      ],
+      "extra_original_shared_credit": 0,
+      "qualification": "Existing original scope remains mandatory other lenses; receiver access is not ordered credit"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "sha256": "da3139ef3625393db9041ad0680dc244b0f81235b86ea4519a87c9299763bdd6",
+      "actual_access": [
+        [
+          90,
+          112
+        ]
+      ],
+      "extra_original_shared_credit": 0,
+      "qualification": "Existing original scope remains mandatory other lenses; receiver access is not ordered credit"
+    }
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer. Preserve180/181nativeSDK/Bevy scheduling/imagecopylimits andallpendingreceiverqueues. M04current903reviewsseparate; notfrozenoriginal/lenscounts. Packet182InventoryItemId graph erasure, catalogkey/recordidentity and wear/order-selector sourcequestions retained, alias/currentness/unique acceptance unresolved. M04build-target review003 atdf5 andhostedCIseparatefromfrozenauditcounts. 184 newpublicDrapedPiece association/sourcegroupingquestion remainsfrozenlocal, noalias/currentness/uniqueacceptance; producerpathcoherent. M04df5validationseparate. 185 capacityreservationstaticAPIgap retainedasfrozenevidence only; alias/currentness/accepteduniqueness unresolved. No runtimewrongID orauthoredcurrentinputwitness. ExistingID/key/wear/savedassociationquestionsremainqualified. Packet186 independently accounts existing test-source812 only; fixture expectations are not observed execution/whole authored catalog/native guarantees and do not clear185 capacity witness. Existing lower-pattern fixture uses canonical owners; no new current alias or unique finding. Packet187 original813 only. New frozen inventory_ui and catalog wrapper material extensions mandatory other lenses, zero extra shared/original credit. UI acquisition is not atomic/all-worn; inherited capacity, typedID erasure/key authority and public saved-association questions retain all currentness/alias/unique limits.",
+  "clear": false,
+  "current_reconciled": false,
+  "integrated": false,
+  "validated": false,
+  "root_adoption_required": true,
+  "root_ledger_history_overwritten": false,
+  "product_source_git_checks_tests_publication": "none",
+  "stop": "813complete; no814orderedwork"
+}

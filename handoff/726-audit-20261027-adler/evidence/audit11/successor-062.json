@@ -1,0 +1,26 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-062",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 560,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/builder.rs",
+      "sha256": "502686dec923c61c5544f2249c9ba10f0a1ec2fac5db68afbb55a5426698570d",
+      "ranges": [
+        [
+          1,
+          305
+        ]
+      ],
+      "source_basis": "Root personally read complete305 frozen lines in two bounded windows after SHA match.",
+      "concepts_actual_uses_and_mixup": [
+        "Builder owns transactional construction_error, typed local colliders/clearances, typed wood/material/collision policy and native meshes/support vectors. member admits Position<FurnitureLocal>/CuboidDimensions/RigidRotation before corner generation; rejects first error, into_meshes/finish propagate it. First-error state prevents successful recipe after that failure. Colliders are separately readmitted from same native values; source IDs computed from collider count, decorative members do not advance collider identity, so do not infer globallyunique physical member ID from that local count. Existing IDs are documented recipe-local, runtime scope separate. Native supports:Vec<Vec3> persists and deduplicates then translates before final checkedPosition conversion, retaining type/producer-boundary question rather than blanket exemption. quad/triangle perform native normal/UV arithmetic without member leaf admission; finish admits accumulator bounds and final support/collider/clearance outputs, not necessarily every vertex/normal. Raw finite/min-max/degenerate numerical geometry and existing earlier family findings require independent reconciliation; no accepted runtime incident. Explicit native sentinel accumulator and named groundcontact tolerance are distinct from admitted bounds; fixed topology indices proven."
+      ],
+      "disposition": "Scoped role accounted with native/admission/identity/state limitations; no new accepted unique finding or family clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

@@ -1,0 +1,17 @@
+{
+  "purpose": "Material52 old actual checked grant implementation vs new canonical fallible method, oldwrapper429-439 observed separately",
+  "base_object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+  "base_sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+  "base_range": [
+    351,
+    408
+  ],
+  "head_object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-ceb03feba2b994ec10da5469e562e5a434a89ce36635aadb1d0ab11ccdc6b8ed",
+  "head_sha256": "ceb03feba2b994ec10da5469e562e5a434a89ce36635aadb1d0ab11ccdc6b8ed",
+  "head_range": [
+    351,
+    408
+  ],
+  "delta": "--- base-checked351-408\n+++ head-canonical351-408\n@@ -1,9 +1,9 @@\n-pub(crate) fn add_inventory_item_checked(\n+pub fn add_inventory_item(\n     ctx: &ReducerContext,\n     character_id: u64,\n     item_id: &str,\n     quantity: u32,\n-) -> Result<Option<u64>, String> {\n+) -> crate::StrategicOperationResult<Option<u64>> {\n     if quantity == 0 {\n         return Ok(None);\n     }\n@@ -52,7 +52,7 @@\n         first.get_or_insert(item.id);\n     }\n     if food {\n-        let _ = crate::capability::refresh_character_capability(ctx, character_id);\n+        crate::capability::refresh_character_capability(ctx, character_id)?;\n     }\n     Ok(first)\n }\n",
+  "invalid039_not_reused": true
+}

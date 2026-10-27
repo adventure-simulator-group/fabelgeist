@@ -1,0 +1,11 @@
+--- base
++++ frozen-head
+@@ -68,7 +68,7 @@
+     TacticalMeleeLogEntry {
+         sequence,
+         tick: clock.tick,
+-        elapsed_seconds: clock.tick as f32 * TACTICAL_TICK_SECONDS,
++        elapsed_seconds: TacticalElapsed::from_tick_count(clock.tick),
+         attacker: attacker.name.clone(),
+         defender: defender.name.clone(),
+         center_separation_metres: attacker_transform

@@ -1,0 +1,45 @@
+{
+  "sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/mod.rs",
+      "sha256": "de9811b3907cc3d97cd41b77b27c02d459a32275b5e813ee589b0cf1b8b9e4c9",
+      "prospective_ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "reason": "Actual reexport identity of interpolation fraction owner"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+      "sha256": "60c9a6b987e30fcff66d01e8afadaaf41ffde91b9d1285c46bd88ec6a1678a39",
+      "prospective_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "reason": "Actual bounce/flight scaled_by receiver and checked output contract"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be",
+      "prospective_ranges": [
+        [
+          2462,
+          2481
+        ],
+        [
+          5688,
+          5701
+        ],
+        [
+          5702,
+          5710
+        ]
+      ],
+      "reason": "Current pinned Bevy/glam version/checksum metadata only for retained scalar operation-order comment; no whole lock coverage"
+    }
+  ]
+}

@@ -1,0 +1,434 @@
+{
+  "lens": 13,
+  "packet": "010",
+  "at": "2026-10-26T20:59:06.556739+00:00",
+  "authority": "Exact original-scope072 effective registered unions; root12registration011 locator/provenance only",
+  "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+  "roles": [
+    {
+      "original": 28,
+      "source_id": "native-dependency:wgpu-29.0.4/src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "ranges": [
+        [
+          685,
+          750
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          685,
+          750
+        ]
+      ],
+      "extensions": [
+        {
+          "ranges": [
+            [
+              751,
+              757
+            ]
+          ],
+          "purpose": "Complete native RequestDeviceError From body"
+        }
+      ],
+      "extension_consumed_ranges": [
+        [
+          751,
+          757
+        ]
+      ],
+      "hash_verified_after_read": true
+    },
+    {
+      "original": 29,
+      "source_id": "native-dependency:wgpu-29.0.4/src/api/surface.rs",
+      "sha256": "c66e417d97814893f1293cd0f5e5e11443101a7aa3df4ffa0004f49079bb70b5",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/c66e417d97814893f1293cd0f5e5e11443101a7aa3df4ffa0004f49079bb70b5",
+      "ranges": [
+        [
+          430,
+          505
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          430,
+          505
+        ]
+      ],
+      "extensions": [
+        {
+          "ranges": [
+            [
+              506,
+              509
+            ]
+          ],
+          "purpose": "Complete native surface cause/source body"
+        }
+      ],
+      "extension_consumed_ranges": [
+        [
+          506,
+          509
+        ]
+      ],
+      "hash_verified_after_read": true
+    },
+    {
+      "original": 30,
+      "source_id": "native-dependency:wgpu-types-29.0.4/src/adapter.rs",
+      "sha256": "27486df080a81f4a668f47b4f68f1eb5b2fc72f14b51175db2fd678e0f5b7085",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/27486df080a81f4a668f47b4f68f1eb5b2fc72f14b51175db2fd678e0f5b7085",
+      "ranges": [
+        [
+          175,
+          300
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          175,
+          300
+        ]
+      ],
+      "extensions": [
+        {
+          "ranges": [
+            [
+              301,
+              301
+            ]
+          ],
+          "purpose": "Complete CooperativeMatrixProperties record"
+        }
+      ],
+      "extension_consumed_ranges": [
+        [
+          301,
+          301
+        ]
+      ],
+      "hash_verified_after_read": true
+    }
+  ],
+  "new_receivers": [
+    {
+      "path": "wgpu-29.0.4/src/api/tlas.rs",
+      "sha256": "10c59d38677b3ca2ca96f9cf3bb45dc268eb67b67b9458edf8e7f3156eadd23c",
+      "local": "target/recovery-20261025/continuation-segovb/audit13-successor-010-sources/10c59d38677b3ca2ca96f9cf3bb45dc268eb67b67b9458edf8e7f3156eadd23c",
+      "ranges": [
+        [
+          1,
+          165
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          165
+        ]
+      ],
+      "source_basis": "New current native cached archive member, checksum equals current Cargo.lock. Wgpu/device and wgpu-types/adapter peers exactly match original frozen sources; not proof unseen frozen identity. Wgpu-hal member only current archive provenance.",
+      "archive_sha256": "76e8840e1ba2881d4cbb18d2147627a56af426ff064c0401eb0c8410c6325d07",
+      "actual_lines": 165,
+      "hash_verified_after_read": true
+    },
+    {
+      "path": "wgpu-types-29.0.4/src/ray_tracing.rs",
+      "sha256": "349245d907020947a40b99fc8fe78b2d0a34ddce6190415284aec2c37d6ba4e2",
+      "local": "target/recovery-20261025/continuation-segovb/audit13-successor-010-sources/349245d907020947a40b99fc8fe78b2d0a34ddce6190415284aec2c37d6ba4e2",
+      "ranges": [
+        [
+          75,
+          108
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          75,
+          108
+        ]
+      ],
+      "source_basis": "New current native cached archive member, checksum equals current Cargo.lock. Wgpu/device and wgpu-types/adapter peers exactly match original frozen sources; not proof unseen frozen identity. Wgpu-hal member only current archive provenance.",
+      "archive_sha256": "84bf84cd9ca8ca45e2b223a3868f1adf9bfc0c66aeac212e76ee7e40fdadf8f5",
+      "actual_lines": 177,
+      "hash_verified_after_read": true
+    },
+    {
+      "path": "wgpu-29.0.4/src/backend/wgpu_core.rs",
+      "sha256": "8c0e1fab257ef93a86f6d6c93f1970f9756dececcaf3cebaa398a90a9d58efa9",
+      "local": "target/recovery-20261025/continuation-segovb/audit13-successor-010-sources/8c0e1fab257ef93a86f6d6c93f1970f9756dececcaf3cebaa398a90a9d58efa9",
+      "ranges": [
+        [
+          990,
+          1006
+        ],
+        [
+          2823,
+          2863
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          990,
+          1006
+        ],
+        [
+          2823,
+          2863
+        ]
+      ],
+      "source_basis": "New current native cached archive member, checksum equals current Cargo.lock. Wgpu/device and wgpu-types/adapter peers exactly match original frozen sources; not proof unseen frozen identity. Wgpu-hal member only current archive provenance.",
+      "archive_sha256": "76e8840e1ba2881d4cbb18d2147627a56af426ff064c0401eb0c8410c6325d07",
+      "actual_lines": 4014,
+      "hash_verified_after_read": true
+    },
+    {
+      "path": "wgpu-29.0.4/src/api/adapter.rs",
+      "sha256": "fc21ce5d1aebc1f21512d23e7ecceb2905c951c036782652f3198754d7fbf090",
+      "local": "target/recovery-20261025/continuation-segovb/audit13-successor-010-sources/fc21ce5d1aebc1f21512d23e7ecceb2905c951c036782652f3198754d7fbf090",
+      "ranges": [
+        [
+          208,
+          222
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          208,
+          222
+        ]
+      ],
+      "source_basis": "New current native cached archive member, checksum equals current Cargo.lock. Wgpu/device and wgpu-types/adapter peers exactly match original frozen sources; not proof unseen frozen identity. Wgpu-hal member only current archive provenance.",
+      "archive_sha256": "76e8840e1ba2881d4cbb18d2147627a56af426ff064c0401eb0c8410c6325d07",
+      "actual_lines": 222,
+      "hash_verified_after_read": true
+    },
+    {
+      "path": "wgpu-hal-29.0.4/src/vulkan/adapter.rs",
+      "sha256": "9f9f3557178ac555122d17a472d7cc4289bbde961d2eecf8099ca1b3bd10c24a",
+      "local": "target/recovery-20261025/continuation-segovb/audit13-successor-010-sources/9f9f3557178ac555122d17a472d7cc4289bbde961d2eecf8099ca1b3bd10c24a",
+      "ranges": [
+        [
+          2150,
+          2178
+        ],
+        [
+          3285,
+          3383
+        ],
+        [
+          2108,
+          2118
+        ],
+        [
+          3266,
+          3284
+        ],
+        [
+          3384,
+          3387
+        ],
+        [
+          2329,
+          2347
+        ],
+        [
+          1860,
+          1884
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          2150,
+          2178
+        ],
+        [
+          3285,
+          3383
+        ],
+        [
+          2108,
+          2118
+        ],
+        [
+          3266,
+          3284
+        ],
+        [
+          3384,
+          3387
+        ],
+        [
+          2329,
+          2347
+        ],
+        [
+          1860,
+          1884
+        ]
+      ],
+      "source_basis": "New current native cached archive member, checksum equals current Cargo.lock. Wgpu/device and wgpu-types/adapter peers exactly match original frozen sources; not proof unseen frozen identity. Wgpu-hal member only current archive provenance.",
+      "archive_sha256": "97ace1c17727311c22a46e4e3faf56ea6de81af99dcc839bdfb54857b94d448d",
+      "actual_lines": 3387,
+      "hash_verified_after_read": true
+    },
+    {
+      "path": "wgpu-core-29.0.4/src/ray_tracing.rs",
+      "sha256": "cb108103a11a4268accb7ec7515dfd9fac7592cf8fc76637eb39e419658c6aa5",
+      "local": "target/recovery-20261025/continuation-segovb/audit13-successor-010-sources/cb108103a11a4268accb7ec7515dfd9fac7592cf8fc76637eb39e419658c6aa5",
+      "ranges": [
+        [
+          278,
+          292
+        ],
+        [
+          362,
+          374
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          278,
+          292
+        ],
+        [
+          362,
+          374
+        ]
+      ],
+      "actual_lines": 448,
+      "source_basis": "New current lock-checksummed native archive member; no unseen frozen identity claimed",
+      "archive_sha256": "2f519832254e56965a9940c4af57dcb75f702b6f6fa4a0b172f685395843a4d7",
+      "hash_verified_after_read": true
+    },
+    {
+      "path": "wgpu-core-29.0.4/src/instance.rs",
+      "sha256": "4232f6beca1fdce5ac0204d3107514401286d590cb17b445cb4d6d285a7e34f6",
+      "local": "target/recovery-20261025/continuation-segovb/audit13-successor-010-sources/4232f6beca1fdce5ac0204d3107514401286d590cb17b445cb4d6d285a7e34f6",
+      "ranges": [
+        [
+          1170,
+          1193
+        ],
+        [
+          724,
+          738
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1170,
+          1193
+        ],
+        [
+          724,
+          738
+        ]
+      ],
+      "actual_lines": 1248,
+      "source_basis": "New current lock-checksummed native archive member; no unseen frozen identity claimed",
+      "archive_sha256": "2f519832254e56965a9940c4af57dcb75f702b6f6fa4a0b172f685395843a4d7",
+      "hash_verified_after_read": true
+    },
+    {
+      "path": "wgpu-types-29.0.4/src/backend.rs",
+      "sha256": "e6ab3a65a87eee0d6ba3270977a466a9504453988c02c639b59921b473865e6e",
+      "local": "target/recovery-20261025/continuation-segovb/audit13-successor-010-sources/e6ab3a65a87eee0d6ba3270977a466a9504453988c02c639b59921b473865e6e",
+      "ranges": [
+        [
+          15,
+          87
+        ],
+        [
+          88,
+          153
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          15,
+          87
+        ],
+        [
+          88,
+          153
+        ]
+      ],
+      "actual_lines": 995,
+      "source_basis": "New current lock-checksummed native archive member; no unseen frozen identity claimed",
+      "archive_sha256": "84bf84cd9ca8ca45e2b223a3868f1adf9bfc0c66aeac212e76ee7e40fdadf8f5",
+      "hash_verified_after_read": true
+    },
+    {
+      "path": "wgpu-types-29.0.4/src/lib.rs",
+      "sha256": "af153576bce090b101f05d3d4fc35523d82e8f7fd2f935bd60d12956af50cb3b",
+      "local": "target/recovery-20261025/continuation-segovb/audit13-successor-010-sources/af153576bce090b101f05d3d4fc35523d82e8f7fd2f935bd60d12956af50cb3b",
+      "ranges": [
+        [
+          212,
+          226
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          212,
+          226
+        ]
+      ],
+      "actual_lines": 612,
+      "source_basis": "New current lock-checksummed native archive member; no unseen frozen identity claimed",
+      "archive_sha256": "84bf84cd9ca8ca45e2b223a3868f1adf9bfc0c66aeac212e76ee7e40fdadf8f5",
+      "hash_verified_after_read": true
+    },
+    {
+      "path": "wgpu-core-29.0.4/src/command/ray_tracing.rs",
+      "sha256": "cfdff3dbbacbaa56f5f8f07b4202d594b3b03713651767cda16e04ece29413ce",
+      "local": "target/recovery-20261025/continuation-segovb/audit13-successor-010-sources/cfdff3dbbacbaa56f5f8f07b4202d594b3b03713651767cda16e04ece29413ce",
+      "ranges": [
+        [
+          142,
+          183
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          142,
+          183
+        ]
+      ],
+      "actual_lines": 1017,
+      "source_basis": "New current lock-checksummed native archive member, no frozen identity asserted",
+      "archive_sha256": "2f519832254e56965a9940c4af57dcb75f702b6f6fa4a0b172f685395843a4d7",
+      "hash_verified_after_read": true
+    },
+    {
+      "path": "wgpu-core-29.0.4/src/device/trace/record.rs",
+      "sha256": "4fa9b03c3126fc362b4b2b4e585d2cc51f4461d21032bf0ac013addbd3a15f30",
+      "local": "target/recovery-20261025/continuation-segovb/audit13-successor-010-sources/4fa9b03c3126fc362b4b2b4e585d2cc51f4461d21032bf0ac013addbd3a15f30",
+      "ranges": [
+        [
+          383,
+          400
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          383,
+          400
+        ]
+      ],
+      "actual_lines": 952,
+      "source_basis": "New current lock-checksummed native archive member, no frozen identity asserted",
+      "archive_sha256": "2f519832254e56965a9940c4af57dcb75f702b6f6fa4a0b172f685395843a4d7",
+      "hash_verified_after_read": true
+    }
+  ],
+  "read_attempt_disclosures": [
+    "Tlas receiver initially prospectively1-175 but exact sourceEOF165; first output construction failed before any Tlas body emitted. Actual1-165 re-registered before successful full body consumption; nonexistent166-175 uncredited.",
+    "Vulkan closing receiver initially3384-3388 but actualEOF3387; closing output construction failed before any3384+body emitted. Actual3384-3387 registered before successful consumption; nonexistent3388 uncredited."
+  ]
+}

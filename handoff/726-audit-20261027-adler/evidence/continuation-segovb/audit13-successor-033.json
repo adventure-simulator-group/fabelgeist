@@ -1,0 +1,215 @@
+{
+  "at": "2026-10-27T05:47:52.813552+00:00",
+  "lens": "13 magic-numbers",
+  "packet": "033",
+  "status": "Coherentrawheader4representation leaf traced: schemaOption<u32>,disktextparse/into_resolve invocation, retainedversionSerde/headerformat/diskwrite. Completehandoff/framework/materialpayload limits remain;37/2853unchanged,31/36/39partial.",
+  "authority": {
+    "original39_fullsource_sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+    "frozen_original_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "source_manifest_sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa",
+    "prior_adopted_state": "audit13-successor-032-suggested-state.json",
+    "prior_state_sha256": "5a70f785781f786a89e92d19a122d9528d9ffaa0f560cbb25710abf26ecaa7f1",
+    "prior_root_adoption": "audit13-successor-032-adoption-root.json",
+    "prior_root_adoption_sha256": "9cec2817734f299533cb1fd5153122ae519d3ba340386c1422182f6dd06f060a",
+    "correction": "audit13-successor-031-authority-correction-001.json",
+    "correction_sha256": "1e3625d9559bb66077ebc8c5e9dd283d57036d9dc030f8e618fbbfc0e953cc81",
+    "exact_Cargo_commit": "59800466c5c41c444d264b1010b4d57e85a7117f",
+    "Cargo_tree": "3b8f73cb75ecbd212ea88427ce00eeee3504809e",
+    "root_adoption_required": true
+  },
+  "skill": {
+    "path": "/home/brunosegovia/.codex/skills/audit-magic-numbers/SKILL.md",
+    "sha256": "d71feffe9ef2d777c5d447840f4d3fbcec2e1f4b2cc354fc331e0c899b558dee",
+    "read": "Fullreload025retained;allapplicablerules/priorqualifications retained."
+  },
+  "prospective_registration": {
+    "path": "audit13-successor-registration-033.json",
+    "sha256": "da57ef24334d31627e4ce4776713c556b479e1152f37b771f191845c8aa286bb",
+    "before_actual_body_consumption": true
+  },
+  "source_fingerprints": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/129c750f6afd9eb6af07b04a10e924f79ba49d14d24fa5c6e8b091df86ac3fd8",
+      "source_path": "crates/cargo-util-schemas/src/lockfile.rs",
+      "sha256": "129c750f6afd9eb6af07b04a10e924f79ba49d14d24fa5c6e8b091df86ac3fd8",
+      "git_blob": "d4c004068c752d5de104b22f31ab1d9ed1978e46",
+      "bytes": 12817,
+      "actual_lines": 405,
+      "ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "official_url": "https://api.github.com/repos/rust-lang/cargo/contents/crates/cargo-util-schemas/src/lockfile.rs?ref=59800466c5c41c444d264b1010b4d57e85a7117f",
+      "body_read_at_registration": false,
+      "actual_consumed_ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "post_read_SHA256_and_Git_blob_verified": true
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/abb5bba6e027e56abab733c1d8d529143dde313bbd0f8f6e1f8910c5010138d8",
+      "source_path": "src/cargo/ops/lockfile.rs",
+      "sha256": "abb5bba6e027e56abab733c1d8d529143dde313bbd0f8f6e1f8910c5010138d8",
+      "git_blob": "cc165c33b1eb10538fe1fad2c162f49bfc071971",
+      "bytes": 9105,
+      "actual_lines": 254,
+      "ranges": [
+        [
+          1,
+          254
+        ]
+      ],
+      "official_url": "https://api.github.com/repos/rust-lang/cargo/contents/src/cargo/ops/lockfile.rs?ref=59800466c5c41c444d264b1010b4d57e85a7117f",
+      "body_read_at_registration": false,
+      "actual_consumed_ranges": [
+        [
+          1,
+          254
+        ]
+      ],
+      "post_read_SHA256_and_Git_blob_verified": true
+    }
+  ],
+  "source_consumption": {
+    "original39_reread": false,
+    "original39_prior_fullbody_consumed": [
+      [
+        1,
+        13103
+      ]
+    ],
+    "new_schema_actualranges": [
+      [
+        1,
+        90
+      ]
+    ],
+    "new_ops_actualranges": [
+      [
+        1,
+        254
+      ]
+    ],
+    "unregistered_source_body_output_thispacket": false,
+    "schema_unread_ranges": [
+      [
+        91,
+        405
+      ]
+    ],
+    "ops_leaf_fullbody_read": true,
+    "original39_role_source_accounted": false,
+    "prior031genericpatchcoverage": 0
+  },
+  "independent_nonstring_inventory_and_actual_traces": [
+    {
+      "sources": "schema/lockfile.rs12-39",
+      "inventory": "TomlLockfile derivesSerialize/Deserialize; versionOption<u32>; optionalpackage/root/metadata, patchdefault/skipsisempty. Optionalnativeformatversion actualfieldtype, notf32/string/gameunit.",
+      "trace": "No customversionserdeconverter/validator on thefield; canonicaltypedmapping is into_resolveSome4->V4 from032. Missingversion is representableNone; validraw4 fitsu32. Exactnegative/float/string/overflow/TOMLparseracceptance behavior isdelegatedtothe derived/frameworkadapter andnot empiricallyormacro-expanded validatedhere.",
+      "remaining": "Do not infer everyrawinputpolicy fromfieldsyntax alone; nativeframeworkkernel/currentinvocations remain qualified."
+    },
+    {
+      "sources": "schema41-83",
+      "inventory": "MetadataBTreeMap<String,String>;patchunusedVec;dependencyname/versionString,optionalSourceId/checksumString,optionaldependency/replacementowners. is_emptybool derived fromVec.is_empty.",
+      "trace": "Concrete actualformatpayloadrepresentations clarifyquotedlockfilevalues; no packageversionscalarinthisnativeheaderboundary. NativeversionString isnot exemption from latersemanticVersionparse, checksum/sourcepayloadactualreceivers remainuntraced.",
+      "remaining": "SourceIddefinitiononlyattribute prefix87-90 visible; unseen91-405 and stringsemanticadmission uncredited."
+    },
+    {
+      "sources": "ops/lockfile.rs11-32",
+      "inventory": "LOCKFILE_NAME stringnativefilename;missingexistsfalse->OkNone,sharedread->String,parseresultOptionResolve and errors.",
+      "trace": "load_pkg_lockfile obtainsws.lock_root;absentfile returnsNone;openssharedRO,read_to_stringwithreadcontext;toml::from_str<TomlLockfile>(&s)? theninto_resolve(v,&s,ws)? wrappedwithparsefilecontext. Actualon-disktextparse/invocation totypednativeadmission body now sourcebacked, no toolchainbinaryrun."
+    },
+    {
+      "sources": "ops34-107",
+      "inventory": "Write returnbool(falseunchanged/truechanged),optionalorig/lockedflag,comparisonofcurrent/defaultversion,unstablebumpBool,getter/setter,set_len0bytecount/write_all.",
+      "trace": "Generateout first;unchangedreturnsfalse;lockedflagrejectscreate/update;computesdefaultwithlowestRustVersion,bumpswhen current<default andreserializes;current>maxstablewithoutbumpflagerrors. Createslockrootifneeded,opensRWexclusivecreate,truncates0,writesbytes,propagatescontextualerror,thenreturns true. CurrentV4equalsmaxstableV4so nofutureformaterror atthiscondition, thoughactualinputs/callersuntraced.",
+      "remaining": "Atomicfilewrite/rollback/failurecleanup not guaranteed; IOhelpers/OSlockimplementation andupstreamflag/RustVersionselection admission unread. No sourceonlyruntimedefect/uniqueclaim."
+    },
+    {
+      "sources": "ops109-206 + retained032encode504-571/getter463-465",
+      "inventory": "Optionalorigread;tomlTabletry_from(resolve),generatedcomments/newlines,preservedcomments,optionalversion,formattedheader,package/patch/metaarray/tables,>=V2newlinecleanup.",
+      "trace": "resolve_to_string_orig readsoriginal(ifpossible),callsserialize_resolve;serdeSerializeforResolve mapsretainedV4->Some4;Table::try_from(resolve).unwrap usesactualtraitboundary;toml.get(version) feeds format version = {} plusblankline then appendedout. Remainingpackageformattingandmetadatafollow;write_pkg_lockfilewritesout.as_bytes. Exactliteralheaderlayout+invocation source now proven; concreteTOMLValueDisplay/serializerinternals unassessed, no allformat/historicalproducer guarantee."
+    },
+    {
+      "sources": "ops208-254",
+      "inventory": "lock_update_allowedBool, falliblesemanticparsedcomparison,Oktrue fastreturn,fallbacklineequality;packageString/TOMLValueformatters,optionalkeys,arrayswithisemptyloops.",
+      "trace": "Whenupdatesnotallowed,are_equal_lockfiles parsesold/new andcomparesinto_resolve outputs;ifOktrue returns true;otherwise lineiterator equality. emit_packageformatsname/version/source/checksum/dependencychildren/replacement throughTOMLValueDisplay. No numericpackageversionparse/body inthisfunction.",
+      "remaining": "FullResolveequivalence/completeinto_resolve/source/checksum/versionadmission and TOMLValueDisplaynativeimplementation not proved by these invocations."
+    }
+  ],
+  "resolved_native_header_subset": [
+    "TomlLockfile.version actualOption<u32>representation andderiveadapters",
+    "On-diskread->String->toml::from_str<TomlLockfile>->into_resolve invocation",
+    "AlreadytypedSome4->ResolveVersionV4 guardedexplicitadmission from032",
+    "RetainedResolve.version/getter->nativeSerializeV4Some4 from031/032",
+    "ActualSerialize/Table->headerformatstring->outbytes->write_all invocation andflags/versionpolicy"
+  ],
+  "source_observations_noncounted": [],
+  "concrete_remaining_frontier": {
+    "original39_fullbody": {
+      "consumed_ranges": [
+        [
+          1,
+          13103
+        ]
+      ],
+      "unread_ranges": [],
+      "next_body_line": null,
+      "role_source_accounted": false
+    },
+    "header_representation_source_subset": "Actualschema+diskparse/writeinvocations read; no longer marked whollyuntraced.",
+    "pending_material_contracts": [
+      "Relevantcompleteinto_resolve versionmutations/constructorhandoff and aggregatepackage/graph failure paths unread176-494ofencode; prefixnativeadmission notfullsuccessfulfunctionproof.",
+      "UnderlyingSerde/TOMLscalarencoding/display/type-admission semantics not independently kernel-audited/macro-expanded; exactframeworkversion provenance/actual APIs mayboundlaterassessment, no arbitrarywholeSDK expansion.",
+      "MaterialquotedpackageVersion/checksum/source/dependencyselectors numericalinterpretation/actualreceivers, not inferredfromschemaStringorformattercall.",
+      "Historicalproducer/caller/toolchainoverride/currentfirstparty/runtime/IOdurability claims remain unproved and qualified."
+    ],
+    "schema_unread_ranges": [
+      [
+        91,
+        405
+      ]
+    ],
+    "stop": "Onecoherentheaderrepresentationleafdone;nofurthernativeexpansion/original40."
+  },
+  "accounting": {
+    "before_original_accounted": 37,
+    "after_proposed_original_accounted": 37,
+    "original_total": 2853,
+    "partial_original_indices": [
+      31,
+      36,
+      39
+    ],
+    "earliest_unfinished_original": 31,
+    "first_never_started_original": 40,
+    "new_original_roles_completed": [],
+    "original40_access_credit": 0,
+    "new_unique_count": 0,
+    "overlays_increment": 0,
+    "merged_increment": 0,
+    "material_increment": 0,
+    "other_lens_credit": 0
+  },
+  "other_lens_extension_queue": {
+    "path": "audit13-successor-033-other-lens-extension-queue.json",
+    "sha256": "e8ee74edffa0d701365b010452080f0614b766a8b92c02a437fa25383317094b",
+    "credit": 0
+  },
+  "qualifications": [
+    "033 personally consumed only prospectively registered exactnativeCargo-util-schemas lockfile1-90 andops/lockfile1-254; pre/postSHA256+Gitblob verified. Directory andidentifierline metadata supplied locators only. No genericfullcommit/patch output, unregisteredsource read orsourcebodycredit fromfetch/staging. PartialsourceIdattributecontext87-90 is not fullSourceId/URL codec proof.",
+    "Rawheader representation subset is nowsource-backed: derivedTomlLockfileversionOption<u32>, actualdisktext->toml::from_str<TomlLockfile>->into_resolve call, retainedResolveSerde->TomlTable->versionDisplay->headerformatstring->filebytes write. Prior032typedSome4->V4admission andV4->Some4encoding connect theseactualoperations. This is not actualproc-macro expansion/frameworkkernel execution proof or a claim all invalidscalar categories/serializationformats were exhaustively assessed.",
+    "Some4numericheader is nativeCargoformatselector, with canonicalResolveVersion retainedowner afteractualtypedmatch. Option/u32field is concreteexternalformatrepresentation boundary, not blanket native/string/metadata exemption. Completeinto_resolve relevantversionmutations/constructorhandoff, TOMLValue/Serde numericencoding/displayinternals and materialquotedpackagepayloadsemantics remain untraced; no fulloriginal39completion fromthisleaf.",
+    "Actualwritepath checksunchanged/lockedflag, mayupdateversionpolicy, opens/truncatesfilewithset_len0 thenwrite_all. IO failurespropagatewithcontext, but atomicreplace/durability/OSlocking/FileSystemimplementation and realfailurecleanup notread or promised. Sourcevisibility alone establishes no actualfirstpartyfailure/runtimepanic ornewunique finding. Currentflag/input/caller/backend semantics remainqualified.",
+    "Nativeupstream oldformat/optionalroot/checksum/blankline/commentpreservation andupdatepolicy are recorded as actualnative receiving behavior only, not applicationbackwardcompatibility requirements or permission toaddshims/aliases. Native source packagebodies/semver/checksum/sourceURL/dependencyselectors remain boundedunassessed whereunread.",
+    "031authoritycorrection proper64char534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa retained; historical031typoimmutable/correctionrootadopted. Staticinstalledtoolchain->exactofficialCargo59800466c...sourceidentity isnot historicalbinary/generation/currentCIexecutionproof.031accidentalunregisteredtruncatedcommitpatch stillzero coverage/notbackdated.",
+    "Original39 full1-13103 plus allcontainedsupplements retainedfrom023-030,norestart.37/2853accountedunchanged;partials31/36/39,earliest31,neverstarted40/no40bodymetadataassessment. AllinheritedF1/F2/F6/F9/global20/nativecurrentness/debug/history/AsBindGroup/custom-M/index/reset/count/buffer/range/otherlensobligations remainopen/noncounted.018 largerallowedlattice not actualspecieslenbudgetfailure/runtimepanicwitness. No accepteduniquealias/count.",
+    "No project/toolchain execution/build/check/lint/scan/generate/probe/tests/helpers/assertions/doctests additions/runs, product/source/Git/rootledger/historicalmutation orpublication. Read-onlyofficialAPI andignoredappend-onlystaging/evidence only. No wholeCargoSDK/global/lens13clearance."
+  ],
+  "stop_reason": "Stopafteractualschema+on-diskparse/writeinvocationleaf. Retainpreciseremaininghandoff/framework/materialreceivers,countsunchanged."
+}

@@ -1,0 +1,62 @@
+{
+  "registry_snapshot": "registry-183.json",
+  "registry_sha256": "b1aa1c2b7c8cf93d253e451336f5d396df24ae91ceebb3daf85bc8a4d0763827",
+  "members": [
+    {
+      "material_index": 182,
+      "registration": {
+        "source_id": "scope-amendment:native:glam-0.32.1/src/f32/vec3.rs#normalization-contract",
+        "sha256": "28708ec95e5481d1673cbff86f8cafc8d19a50b5ea32fdd030cdbdb9d0601b4c",
+        "revision": "Pinned glam0.32.1 native object, exact hash equal existing registered source",
+        "ranges": [
+          [
+            573,
+            579
+          ],
+          [
+            626,
+            658
+          ]
+        ],
+        "actual_EOF": 2238,
+        "object": "source-objects/28708ec95e5481d1673cbff86f8cafc8d19a50b5ea32fdd030cdbdb9d0601b4c",
+        "registration_evidence": "registration-009.json",
+        "related_material_indices": [
+          83
+        ],
+        "reason": "Original1645 changes native Vec3 normalize to try_normalize. Read only common reciprocal length and the two actual API bodies to compare valid arithmetic and degenerate rejection policy; no unrelated Vec3/SDK sweep.",
+        "prior_reads": "Requester08 performed declaration-only navigation and hash identity verification; these two requested API bodies remain unread in its lens before shared registration. Earlier CI reviewers may have separate current-source reads; none transfers frozen-lens coverage.",
+        "lenses": {
+          "producer-propagation": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+          "existing-type-owners": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+          "admission-contracts": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+          "invariant-operations": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+          "aggregate-states": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+          "type-ownership": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+          "redundant-authority": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+          "behavior-preservation": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+          "enum-shapes": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+          "derivability": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+          "type-granularity": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+          "magic-strings": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage.",
+          "magic-numbers": "New bounded material pending independent lens reconciliation; no inherited or other-lens coverage."
+        },
+        "status": "Prospective shared additive material182, queue183. Source file identity reused; no new original role or duplicate full-file coverage."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          573,
+          579
+        ],
+        [
+          626,
+          658
+        ]
+      ],
+      "disposition": "Personally read exact573-579 and626-658, same pinned glam0.32.1 SHA as M83; earlier current-CI reads transfer no frozen credit. length_recip delegates length().recip. normalize multiplies self by reciprocal and optional finite glam_assert; try_normalize computes same reciprocal but returns Some(self*rcp) only when finite and positive, otherwise None. Fresh exact frozen original1645natural.rs50-130 receiving comparison: tangent cross try_normalize None maps DegenerateNormal error before vertex tuple/mesh success, not silent zero fallback. Shared successful arithmetic preserved conditionally on admitted reciprocal; stricter failure policy explicit. Length/dot/cfg/helpers outside new ranges not newly credited. Two metadata try_normalize hits concern unrelated rig/targeting witnesses; no new unique finding/global dedup clearance."
+    }
+  ],
+  "first_unfinished_material_index": 183,
+  "new_findings": []
+}

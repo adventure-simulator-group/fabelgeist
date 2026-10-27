@@ -1,0 +1,224 @@
+{
+  "id": "ADLER-OWN02-MATERIAL-002",
+  "lens": "02 existing type owners",
+  "sources": [
+    {
+      "index": 69,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/bevy_error.rs",
+      "sha256": "ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+      "ranges": [
+        [
+          7,
+          25
+        ],
+        [
+          228,
+          285
+        ],
+        [
+          381,
+          421
+        ]
+      ],
+      "revision": "exactregisterednative source; originalscope pin retained",
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+      "line_count": 567,
+      "disposition": "Native BevyError retains Box<dyn Error+Send+Sync> and separate existing Severity enum; conversions defaultPanic and severity transforms preserve actual underlying error. Correct boundary owner for heterogeneous Bevy system failures, not a substitute for upstream concrete producer errors. No raw severity string or bespoke numerical quantity in registered ranges; generic dynamic error erasure is actual engine port.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 70,
+      "source_id": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-client/src/character_settlement_reputation_type.rs",
+      "sha256": "fb0c3f00ff6ec75a99d6053871e23ef12e31108af4342f236de077e4d8f2e881",
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\fb0c3f00ff6ec75a99d6053871e23ef12e31108af4342f236de077e4d8f2e881",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/fb0c3f00ff6ec75a99d6053871e23ef12e31108af4342f236de077e4d8f2e881",
+      "line_count": 65,
+      "disposition": "Generated SDK record/column/index accessors mirror actual module reputation table. Frozen module/reputation.rs19-29 declares characteru64/settlementString and fame/infamyi32 nonnegative centipoints capped100000; core/reputation.rs13-40 uses same centipoint authority. No existing exact Fame/Infamy leaf found in bounded core/schema search. UnitInterval/basispoints and arbitrary i32 eventdelta differ policy. General character/settlement identities also lack proven exact reusable owner here (CustodyCharacterId has distinct nonzero custodyrole). Reuse must occur at schema/row adapters and regenerate bindings, never edit this generated file. No generatedRow aggregate proof of bounds.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 71,
+      "source_id": "pr-working:crates/strategic-web/static/background-fetch.js",
+      "sha256": "00cfcd2e251b7d8b3020a2493c94a0907b7cf2afbeccc841331a2f81aabf2c86",
+      "ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\00cfcd2e251b7d8b3020a2493c94a0907b7cf2afbeccc841331a2f81aabf2c86",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/00cfcd2e251b7d8b3020a2493c94a0907b7cf2afbeccc841331a2f81aabf2c86",
+      "line_count": 83,
+      "disposition": "Browser URL and AbortController are actual receiving owners for same-origin relative return path and perkey request cancellation. strategicLocalReturnUrl explicitly admits localpath, queryandfragment and rejects slashslash/backslash/differentorigin; existing gameLocation is not equivalent to arbitrary returnpath. No exact Rust localreturn owner found in bounded web search; JS string/DOMevent keys are actual browser port. Request map identity check before delete preserves newercontroller. Do not introduce Rust wrapper into browser plumbing or conflate action/context diagnostics with canonical location.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 72,
+      "source_id": "pr-working:crates/strategic-web/static/strategic-navigation.js",
+      "sha256": "1419143934b4dacd73085c81a770534d63fbad34612ff6cc25bb886c430e6bff",
+      "ranges": [
+        [
+          1,
+          209
+        ]
+      ],
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\1419143934b4dacd73085c81a770534d63fbad34612ff6cc25bb886c430e6bff",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/1419143934b4dacd73085c81a770534d63fbad34612ff6cc25bb886c430e6bff",
+      "line_count": 209,
+      "disposition": "Navigation retains native URL/AbortController/history/DOM entities; generation is local stale-request token, scroll is browserCSSpixels, focus records are closed role tags with ID/service/equipment/control/href fields, not game metric coordinates. Actual existing Rust ScriptProfile shell.rs6-10 produces strategic DOMspelling43, and consumer155-168 checks negotiated profile/root/origin. Stringspelling at this browser boundary fits; primitive token/scroll values do not match StrategicMinute or physical distance. Server canonical URL/location owner still must be preserved to this port; no duplicate browser wrapper proposed.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 73,
+      "source_id": "pr-working:crates/strategic-web/src/routes/characters.rs",
+      "sha256": "10dd792473dbbed42eb10675903a838cb0858f13323b7029982c0c7e08a0e0b0",
+      "ranges": [
+        [
+          1,
+          15
+        ],
+        [
+          52,
+          87
+        ]
+      ],
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\10dd792473dbbed42eb10675903a838cb0858f13323b7029982c0c7e08a0e0b0",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/10dd792473dbbed42eb10675903a838cb0858f13323b7029982c0c7e08a0e0b0",
+      "line_count": 452,
+      "disposition": "Character condition receives HTTP u64 identity then actual Session viewer, loads observedsubject and validates synchronized/sameparty/colocated identity relationships before querying condition. Current Settlement/Case IDs are compared in same authority/frame, not arbitrary display names. SDK IDs are native transport; general CharacterId exact reusable leaf not established by bounded core/schema search and custody-specific nonzeroID is not drop-in. CharacterStrategicCondition already names payload owner; derived bool gates are policies, not quantities requiring a numeric owner.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 74,
+      "source_id": "pr-working:vendor/bevy_ahoy/src/kcc.rs",
+      "sha256": "270d6b20992ae497744d528d70421ca20075b2f22be9c0dff36f2c41978e72ba",
+      "ranges": [
+        [
+          145,
+          195
+        ]
+      ],
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\270d6b20992ae497744d528d70421ca20075b2f22be9c0dff36f2c41978e72ba",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/270d6b20992ae497744d528d70421ca20075b2f22be9c0dff36f2c41978e72ba",
+      "line_count": 1645,
+      "disposition": "Vendor KCC uses existing native Avian Position/Rotation/AngularVelocity/Friction and actual Bevy Time/Entity/WaterLevel owners; stopwatch ticks take actual Duration. This is an enginephysics boundary, with no proof architectural/game Wgs84 coordinate has same frame. Registered145-195 receives these typed engine components; no raw game authority float reconstructed here. Unread movement bodies remain outside this entry.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 75,
+      "source_id": "pinned-registry:bevy_time-0.19.1/src/stopwatch.rs",
+      "sha256": "0f89469949a788d5c34a3e2608a6feb5af224c57692f0a421f1846fcfc51e87f",
+      "ranges": [
+        [
+          115,
+          165
+        ]
+      ],
+      "revision": "pinned native dependency checksum/bytes in operations/contract-groups-583.json#fresh_dependencies",
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\0f89469949a788d5c34a3e2608a6feb5af224c57692f0a421f1846fcfc51e87f",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/0f89469949a788d5c34a3e2608a6feb5af224c57692f0a421f1846fcfc51e87f",
+      "line_count": 210,
+      "disposition": "Native Stopwatch.elapsed and tick/set_elapsed operate Duration allowing zero, with explicit saturating tick while unpaused. This is correct reusable elapsed-time owner; requested positive durations, strategic absoluteminutes and quarterhour plans have different policies. No need to replace Duration with a game request type or claim a native stopwatch is an absoluteclock.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 76,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/viewer/capture.rs",
+      "sha256": "de950524563388fee6bf5f849cc9cf10683a7eb8befcacdb3ebb8a0d562b3521",
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\de950524563388fee6bf5f849cc9cf10683a7eb8befcacdb3ebb8a0d562b3521",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/de950524563388fee6bf5f849cc9cf10683a7eb8befcacdb3ebb8a0d562b3521",
+      "line_count": 56,
+      "disposition": "Capture reuses typed Options view/seed/LOD/parameters through actual generator and emits native cameraarrays/meshcounts only in JSON manifest. Warmup f64 seconds and frameu32 are localcapture scheduling, not gameplay strategictime/requestduration. Existing Bevy ScreenshotCaptured is receipt of imagecapture, not successfuldiskwrite:76 callback calls native save_to_disk78 then exitsSuccess unconditionally for image1, while78 logs diskfailure. No exact existing saved-artifact/result owner found; missing completion policy is retained as owner question rather than asserting ScreenshotCaptured proves persistence. No new screenshot test or fix authorized.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 77,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/choices/sigil.rs",
+      "sha256": "938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5",
+      "ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5",
+      "line_count": 83,
+      "disposition": "Sigil is existing canonical closed choice owner; FromStr delegates exact serde vocabulary and maps error, stable_id distinctfromlabel methods despite present spelling equality. ALL uses canonical ORDERED_SIGIL_COUNT. String keys are terminal submission boundary, not reason to duplicate separate localenum or enforce visibleEnglish as mechanical authority.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 78,
+      "source_id": "pinned-registry:bevy_render-0.19.1/src/view/window/screenshot.rs",
+      "sha256": "f49e4ca4f0929fc51a5c55fc002294c6009ae7a4c1c07dc6ef6c8ff737df0c5b",
+      "ranges": [
+        [
+          125,
+          240
+        ]
+      ],
+      "revision": "native Bevy0.19.1 exact cached crate checksum matching P17Cargo.lock in operations/contract-groups-589.json#fresh_dependencies",
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\f49e4ca4f0929fc51a5c55fc002294c6009ae7a4c1c07dc6ef6c8ff737df0c5b",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/f49e4ca4f0929fc51a5c55fc002294c6009ae7a4c1c07dc6ef6c8ff737df0c5b",
+      "line_count": 702,
+      "disposition": "Native ScreenshotCaptured/Image/NormalizedRenderTarget/Entity own actual capture and render identity. save_to_disk accepts actual Path and converts image toRGB8; persistence errors only logged and functionreturnsunit. Thus it provides no saved-artifact success type for76 to reuse; changing successpolicy needs explicit consumer outcome, not renaming existing capture event. Native image/filename/Blob/URL structs are actual filesystem/web ports; no game metric wrapper fits these values. Unread screenshot extraction tail is not certified.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    },
+    {
+      "index": 79,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/choices/witness_path.rs",
+      "sha256": "363a096f49e88a04b938d910c9e90e311dd1a25cf9eca34c0f5e79881c07bd8f",
+      "ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "local_object": "C:\\Users\\adler\\projects\\fabelgeist\\target\\recovery-20261025\\audit02-delta\\sources\\363a096f49e88a04b938d910c9e90e311dd1a25cf9eca34c0f5e79881c07bd8f",
+      "recovery": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/363a096f49e88a04b938d910c9e90e311dd1a25cf9eca34c0f5e79881c07bd8f",
+      "line_count": 75,
+      "disposition": "WitnessPath closed enum owns canonical choices; stable_id and visiblelabel separate and FromStr uses same serde admission. ALL contains actual3 variants. This is already coherent ownerreuse, with terminal submissionstrings; no generic path/route/location type despite namePath, because meaning is puzzle choice.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OWNER_COMPARISON"
+    }
+  ],
+  "new_unique_findings_claimed": 0,
+  "execution": "Read-only source evidence; no project checks, source edits or Git changes",
+  "supplemental_source": [
+    "Frozen6533 core/reputation.rs1-64 and module/reputation.rs1-54 personally read: centipoint scale/cap, eventdelta vs retained boundedrow meanings.",
+    "Frozen6533 strategic-web/templates/layout/shell.rs1-50 personally read: ScriptProfile canonical enum and actual DOMwire spelling.",
+    "Bounded frozen core/schema searches for Character/Settlement IDs found custody-specific nonzero characterID only; no claim of repositorywide nonexistence."
+  ],
+  "source_questions": [
+    {
+      "id": "ADLER-OWN02-Q001",
+      "materials": [
+        76,
+        78
+      ],
+      "question": "Existing ScreenshotCaptured means capturedimage, while capture76 exitsSuccess after save_to_disk78 that logs failure. Determine shared saved-artifact completion remedy/accepted diagnostic policy before proposing a new outcome owner; do not infer successfulpersistence from nativecapture receipt.",
+      "status": "Concrete source-backed completion-owner gap; not yet deduplicated into globallyunique findings or final repair scope.",
+      "acceptance_if_repaired": "A terminal capture result distinguishes imagecapture from successfulfilepublication and reflects actual native save outcome; keep existing capture cases and no new tests unless separately authorized."
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-332",
+  "at": "2026-10-23T08:01:04.192222+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_underlayer.rs",
+      "sha256": "b42e82c29ce8e08f7e378abc16f0f9823aea7c2580456c37cbaa4084ea781591",
+      "scope071_index": 755,
+      "actual_EOF": 416,
+      "scoped_ranges_compared": [
+        [
+          1,
+          416
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source including original inline or separate fixtures without execution. Frozen cut topology, ordered sample correspondence, packed point/skin tables, failure channels and shared workspace lifetimes compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_underlayer/plan.rs",
+      "sha256": "7eb172df559ec4825c756c36b416e163b5703de648a9e6a84af309ca71c56fe9",
+      "scope071_index": 756,
+      "actual_EOF": 156,
+      "scoped_ranges_compared": [
+        [
+          1,
+          156
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source including original inline or separate fixtures without execution. Frozen cut topology, ordered sample correspondence, packed point/skin tables, failure channels and shared workspace lifetimes compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_underlayer/shell.rs",
+      "sha256": "705ca4896f9e3b459881a3ffb190e7878f3f3a34b348b2ec7e2c248bb977d4b3",
+      "scope071_index": 757,
+      "actual_EOF": 274,
+      "scoped_ranges_compared": [
+        [
+          1,
+          274
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source including original inline or separate fixtures without execution. Frozen cut topology, ordered sample correspondence, packed point/skin tables, failure channels and shared workspace lifetimes compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_underlayer/tests.rs",
+      "sha256": "fd8179b3a282dda66fc89a706bc4941a3153e9d96fa03dbe3519734534090a31",
+      "scope071_index": 758,
+      "actual_EOF": 341,
+      "scoped_ranges_compared": [
+        [
+          1,
+          341
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source including original inline or separate fixtures without execution. Frozen cut topology, ordered sample correspondence, packed point/skin tables, failure channels and shared workspace lifetimes compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_underlayer/wgsl.rs",
+      "sha256": "073d5ef4150b8cb02e931b270d6618caef2445135a7357482eb0e848d4aa8719",
+      "scope071_index": 759,
+      "actual_EOF": 86,
+      "scoped_ranges_compared": [
+        [
+          1,
+          86
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source including original inline or separate fixtures without execution. Frozen cut topology, ordered sample correspondence, packed point/skin tables, failure channels and shared workspace lifetimes compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_underlayer/workspace.rs",
+      "sha256": "7e94d4b4a91f817e93d5b64d77f218425609896af1cada1ab2ef7aa2b1f6160a",
+      "scope071_index": 760,
+      "actual_EOF": 90,
+      "scoped_ranges_compared": [
+        [
+          1,
+          90
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source including original inline or separate fixtures without execution. Frozen cut topology, ordered sample correspondence, packed point/skin tables, failure channels and shared workspace lifetimes compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "one cut topology moves across realizations",
+      "comparison": "755 builds frames for exact required regions, then CutPlan once from current body and UV faces. 756 validates design, derives include/subtract regions, rejects empty cut faces, interpolates original body triangle points, creates outer/reversed-inner shell and separate cut-edge shading vertices. Nine-word table stores body corners, UV corners and identical barycentric weights. 757 geometry and skin kernels read the same point/source table; duplicated edge vertices copy same layer points. This establishes normal topology correspondence, not acceptance of arbitrary public CutPlan fields/from_cut inputs."
+    },
+    {
+      "id": "proportions constrain envelope; endpoints are morphs",
+      "comparison": "755 checks every supplied positions/normals row count against body. Base plus proportion constraint sets share original faces; neutral base compression, proportion directions, and every proportion standoff contribute before base/morph shells are evaluated. Proportion samples retain base offset directions; each morph computes current weld/constraints/directions. Realizations contains exactly base followed by each morph, while proportions influence envelope rather than appear as endpoints. Thus endpoints length differing from proportions is intentional. Public same-count arrays are not a mesh identity certificate; normal generator provenance remains qualified."
+    },
+    {
+      "id": "readback count and status relationship",
+      "comparison": "One shell-sized buffer reused serially, copied into exact realization-indexed position, normal and status slices. Base always exists in internal realizations; normal constructor rejects empty cut, so chunks(count) and base expect are justified by normal private Fit route, not arbitrary empty public plan. ws.status checked after skin submission, every normal status checked by shell_surfaces and every position finite. shell_surfaces itself zip/chunks assumes exact device read lengths and does not independently validate all normal floats; native read/normal kernel contract remains needed. read_skin truncates/ takes count, validates native joint IDs through PackedRigSkin but does not independently seal arbitrary weight sums."
+    },
+    {
+      "id": "bounded gathered skin ownership",
+      "comparison": "Each point has three source corners, eight influences each, hence GATHERED=24 bounds every distinct insertion. Equal joints merge, strongest eight selected with lower joint tie, normalization total must be positive else shared NoInfluence status. Finite normalized source weights and valid barycentrics remain supplier contracts: total>0 alone would not exclude positive infinity or negative shares. No claim actual normal body generates such invalid weights, no new numeric defect inferred."
+    },
+    {
+      "id": "workspace and known failure agreement",
+      "comparison": "760 uploads exact current plan/faces/incidence and allocates scratch using same body/face counts, constraint-set count and max sort capacity; status bits 759 powers1/2/4/8/16 are shared by generated WGSL and host exhaustive ALL mapping. Shared scratch reused only in submission order. Counts narrowed to u32 and products assume native feasible capacities; no giant allocation/run witness. Compression starts f32MAX and actual standoff/direction/gap/sweep/weld bodies remain separate obligations, not cleared by module declarations."
+    },
+    {
+      "id": "public/raw indexed topology qualified",
+      "comparison": "756 from_cut and incidence directly index supplied triangle/corner membership. Independently mutable CutPlan vectors/count and SurfaceDomain fields do not seal the table/source/UV relationships. Existing F060 checked indexed geometry requirement applies as related source support; this packet does not assert normal SurfaceCut output is malformed or add another unique finding merely for public raw fields."
+    },
+    {
+      "id": "original source fixtures are specifications only",
+      "comparison": "756 fixture lists per-vertex incident triangles in ascending source order including repeated corners. 758 full341 builds two opposing wavy sheets with seam duplicates and tilted normals; checks cut shell closure/offsets/UV/skin and frozen envelope on base plus one morph, proportions separately constrain. All fixture bodies freshly read, none executed or modified. Their assertions do not establish observed GPU success."
+    }
+  ],
+  "new_unique_findings": [],
+  "existing_finding_support": [
+    "F060 related raw indexed-topology admission; normal CutPlan::new route remains separately qualified"
+  ],
+  "remaining_dependency_obligations": [
+    "Exact current underlayer direction/gap/standoff/sweep/weld and native normal/read contracts remain uncredited lower bodies."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

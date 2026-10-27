@@ -1,0 +1,54 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-414",
+  "at": "2026-10-26T00:30:27.753142+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 314,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/weapon_instance.rs",
+      "sha256": "e07ad1f88c536b1cd68f6384d729b7ca9d77bb74613af181283a9954346f9c27",
+      "personally_read_ranges": [
+        [
+          1,
+          439
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full frozen weapon_instance.rs 1-439. Recipes and holder projections are reconstructed against actual catalog definitions; replacement validates physical object and evaluated chassis before updating. combat_geometry returns None for missing/mismatched/corrupt instances, so any catalog fallback requires the actual consumer trace rather than assuming corrupt data is ordinary.",
+        "checked_scaled_u32 rejects nonfinite/negative and compares the f32 upper boundary before round/cast; an admitted design reaching the rounded u32 boundary remains unproved. fit_personal_holder checks actor-owned holder, but weapon ownership is an outer-caller contract; no cross-actor witness established. Gateway helpers return raw rows and rely on scoped caller authorization. No new accepted finding or execution."
+      ]
+    },
+    {
+      "scope_index": 315,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/weapon_instance/appearance.rs",
+      "sha256": "f6b8605a22c9db0d93d4152347ac800118d90203a6f9d6976e716755dd1b7094",
+      "personally_read_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full appearance.rs 1-78. Unique personal physical object and matching item are required; duplicate/missing ownership candidates yield None. Weapon/holder appearances reauthenticate instance projections and copy version/hash/canonical recipe with stored quantized mass/length/grip. Sender scoping remains the actual caller's authorization contract, not a helper guarantee."
+      ]
+    },
+    {
+      "scope_index": 316,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/weapon_instance/evaluation.rs",
+      "sha256": "6307923392138203a738fb32c47fe530f7f57ff0c417f2091e5440345d1a752b",
+      "personally_read_ranges": [
+        [
+          1,
+          152
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full evaluation.rs 1-152. Weapon and holder constructors canonicalize recipes, enforce limits, derive positive mass/length with minimum one unit, and allow grip zero. Decoders validate version/hash length/recipe bounds/catalog, then require reconstructed full instance equality including canonical bytes and derived fields. Read existing projection-tamper cases; no tests run."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

@@ -1,0 +1,38 @@
+diff --git a/crates/adventuresim-tactical-client/src/presentation/terrain/material.rs b/crates/adventuresim-tactical-client/src/presentation/terrain/material.rs
+index d889f80bb..2b2840060 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/terrain/material.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/terrain/material.rs
+@@ -1,5 +1,6 @@
+ //! Physical terrain material construction shared by scene and map ground.
+ use super::*;
++use adventuresim_building_generator::spatial_geometry::GeometryResult;
+ 
+ pub(in crate::presentation) fn terrain_material(
+     terrain: &SceneTerrain,
+@@ -8,8 +9,8 @@ pub(in crate::presentation) fn terrain_material(
+     procedural_assets: &ProceduralTextureAssets,
+     images: &mut Assets<Image>,
+     grass: &crate::presentation::config::GrassConfig,
+-) -> TacticalTerrainMaterial {
+-    TacticalTerrainMaterial {
++) -> GeometryResult<TacticalTerrainMaterial> {
++    Ok(TacticalTerrainMaterial {
+         base: StandardMaterial {
+             base_color: Color::WHITE,
+             perceptual_roughness: 0.92,
+@@ -90,7 +91,7 @@ pub(in crate::presentation) fn terrain_material(
+             ground_map: images.add(ground_map_image(
+                 ground,
+                 stable_text_seed(&environment.scene_digest),
+-            )),
++            )?),
+             soil_height_ao: procedural_assets.forest_soil.height_ao.clone(),
+             litter_surface: procedural_assets.forest_soil.litter_surface.clone(),
+             litter_normal: procedural_assets.forest_soil.litter_normal.clone(),
+@@ -98,5 +99,5 @@ pub(in crate::presentation) fn terrain_material(
+             cliff_height: procedural_assets.rock.height.clone(),
+             cliff_arm: procedural_assets.rock.arm.clone(),
+         },
+-    }
++    })
+ }

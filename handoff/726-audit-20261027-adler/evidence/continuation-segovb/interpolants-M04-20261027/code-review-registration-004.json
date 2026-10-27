@@ -1,0 +1,49 @@
+{
+  "at": "2026-10-27T04:41:59.424777+00:00",
+  "kind": "Independent M04finalworkflowincrement Code Review prospectivereads",
+  "base": "35b18ec280a6884bb53996a2d859c4b27096f65c",
+  "initial_review_head": "5ceaa9bd5738b8b01e7d488df55c172cd4f8593d",
+  "head": "903174935e1d8a07293105a9bccff17325489f3d",
+  "initial_review": "code-review-001.json",
+  "initial_review_sha256": "29f7a85f94d9fb507d0fb8bcc12e9cd6a55fcd0e61cc5118141995194e6a7161",
+  "manifest002_sha256": "96d764066b163106ad0d4da4c11ccf3f9da8ca6f3334076e6584b1344681dd62",
+  "sources": [
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "0ad5e0e1b2b062d47f48af303bc97f1259f6d4ac99c62bef9b42588b183233b4",
+      "bytes": 35773,
+      "actual_lines": 595,
+      "ranges": [
+        [
+          1,
+          27
+        ],
+        [
+          245,
+          317
+        ],
+        [
+          380,
+          455
+        ]
+      ],
+      "purpose": "Event/sourcecheckout andrigrevisioncapture; newexistingmovementteststep; actualrequiredpositive/source/artifactverifierbody",
+      "body_consumed_at_registration": false
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/code-review-workflow-delta-001.patch",
+      "sha256": "1913103b7aa127ceab4e6ba05ef120a41192d646f24fab65a722673e17f3918d",
+      "bytes": 1412,
+      "actual_lines": 23,
+      "ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "purpose": "Exactinitial-to-finalworkflowonlydelta",
+      "body_consumed_at_registration": false
+    }
+  ],
+  "limits": "Onlynewworkflowincrement/actualsourcebindingpositivegate/artifactrecipient;allfiveRustsourcepinsmustmatchretainedinitialreview. Noprojectexecution/tests/probes/sourceedits/ledger/publication; no auditscopeadvance."
+}

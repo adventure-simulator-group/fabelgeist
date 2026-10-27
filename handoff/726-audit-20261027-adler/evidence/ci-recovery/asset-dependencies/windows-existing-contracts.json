@@ -1,0 +1,65 @@
+{
+  "head": "3c5a10cebca9ac15c7d944a68529a316fa4d1ae7",
+  "purpose": "Focused Windows acceptance for the same committed artifacts and expected snapshots after Linux regeneration, without a full second workspace matrix.",
+  "native_hash_qualification": "TreeShootId is now derived from deterministic source seeds before float geometry; however tree_source_geometry_hash still hashes branch start/end/radius f32 bits and leaf petiole/centre/length/width f32 bits. Only identity itself is now lossless u64 input. This establishes stable identity, not bitexact cross-platform geometry or prepared-cache compatibility. Source review does not establish either a current Windows cache failure or portability success.",
+  "minimal_existing_target_set": [
+    "adventuresim-tactical-client package --bin adventuresim-tactical-client",
+    "adventuresim-tactical-client package --bin art-demo"
+  ],
+  "existing_filters": [
+    {
+      "target": "adventuresim-tactical-client",
+      "filter": "presentation::ground_scatter::understory::tests::minimal_shrub_cards_",
+      "exact": false,
+      "current_matching_cases": 2,
+      "contract": "Three-species full/sparse geometry budgets plus byte/order-invariant sparse meshes.",
+      "command_not_executed": "cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation::ground_scatter::understory::tests::minimal_shrub_cards_ -- --test-threads=1"
+    },
+    {
+      "target": "adventuresim-tactical-client",
+      "filter": "presentation::ground_scatter::specimens::tests::managed_hazel_matches_shared_envelope",
+      "exact": true,
+      "current_matching_cases": 1,
+      "contract": "Actual shared native hazel render geometry must fit committed hull/bounds, count and hull tolerance; export env flag must be absent.",
+      "command_not_executed": "cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation::ground_scatter::specimens::tests::managed_hazel_matches_shared_envelope -- --exact --test-threads=1"
+    },
+    {
+      "target": "adventuresim-tactical-client",
+      "filter": "presentation::obstacles::tree::geometry::leaves::tests::",
+      "exact": false,
+      "current_matching_cases": 5,
+      "contract": "Actual seed42 oak source finite geometry and terminal membership; alpha/textured topology, exact3/4 detailed subset, repeat/reverse-order identity/ordinal equality and shadow selector stability/distribution.",
+      "command_not_executed": "cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation::obstacles::tree::geometry::leaves::tests:: -- --test-threads=1"
+    },
+    {
+      "target": "adventuresim-tactical-client",
+      "filter": "presentation::obstacles::tree::impostor::raster::tests::coarse_leaf_sampling_preserves_positions_across_every_shoot",
+      "exact": true,
+      "current_matching_cases": 1,
+      "contract": "Existing32-shoot fixture retains one coarse sample per shoot, deterministic order and ordinal spatial spread.",
+      "command_not_executed": "cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation::obstacles::tree::impostor::raster::tests::coarse_leaf_sampling_preserves_positions_across_every_shoot -- --exact --test-threads=1"
+    },
+    {
+      "target": "art-demo",
+      "filter": "art_demo::scenery::tests::fixed_oak_exhibit_has_every_matching_prebaked_impostor",
+      "exact": true,
+      "current_matching_cases": 1,
+      "contract": "Existing asset decodes6 bakes; current site/runtime variant/species source hash matches all4 playable LODs plus both oak/beech vista bakes. Native coordinates/radii/leaf geometry bits remain fingerprint inputs.",
+      "command_not_executed": "cargo test --locked --package adventuresim-tactical-client --bin art-demo art_demo::scenery::tests::fixed_oak_exhibit_has_every_matching_prebaked_impostor -- --exact --test-threads=1"
+    }
+  ],
+  "current_expected_case_total": 10,
+  "optional_related_asset_receiver": {
+    "target": "art-demo",
+    "filter": "art_demo::scenery::tests::fixed_exhibits_embed_complete_nonempty_cloud_bakes",
+    "exact": true,
+    "reason": "If cloud pairs are refreshed, existing case checks both raw fixture digests, complete byte length and nonempty payload; no full ray-by-ray or rendered equivalence proof."
+  },
+  "execution_constraints": [
+    "Use native Windows target at the exact final source+artifact commit, keeping identical expected assets and assertions used for Linux.",
+    "Do not set FABELGEIST_UPDATE_GARDEN_SPECIMEN, do not use ignored exporter cases as acceptance, and do not introduce platform-specific snapshots/thresholds/fallback.",
+    "Record source revision and real nonempty successful case counts; existing result-cell guards can distinguish a genuine run from an empty filtered run.",
+    "No local execution was performed by reviewer. Corrected export and later Linux/Windows authoritative results remain root-owned and pending.",
+    "These cases cover only their current authored species/seeds/sites; no renderer/browser, all-seed, all-platform or full774 clearance."
+  ]
+}

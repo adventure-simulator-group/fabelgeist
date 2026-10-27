@@ -1,0 +1,32 @@
+{
+  "at": "2026-10-27T00:50:56.487781+00:00",
+  "lens": 12,
+  "original": 46,
+  "prior": "audit12-successor-022-partial-009.json",
+  "registration": "audit12-successor-registration-022-receiver-012.json",
+  "actual_reads": {
+    "source_id": "physical-p16-unchanged-base:crates/adventuresim-core/src/quest_catalog_validation.rs",
+    "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+    "ranges": [
+      [
+        1,
+        317
+      ]
+    ]
+  },
+  "contracts": [
+    "Quest validator actual1-174 key tables specify native authoredJSON shape; category labels are semantic bestiary vocabulary at source. Numeric/date/frame/role semantics of field payloads and eventual typed recipients remain unassessed. Keyconstants are not blanket magic-string exemptions.",
+    "Actual175-317 nativeValue access helpers return String errors with interpolated at/key/index; same M24 sourcepath/error-classification issue, no newunique finding. required/nonempty/optional/list text wrappers only enforce visible JSON/textshape and return borrowedstr/ownedVec<String>. Concrete consumers from318 onward still unread.",
+    "QuestIDgrammar accepts nonempty<=63 lowercaseASCII/digits/_-.:; not itemID64 underscoreonly or unboundedorgID. Sharedidentity reuse requires actual rolefit, not an overnarrowcommon wrapper. enum_value admits membership in passed vocabulary but retainsstr; finalowning semantic enums/canonical receiving APIs pending."
+  ],
+  "remaining": [
+    "Questproduction318-1517 and demographichelper/readers.",
+    "Encountervalidator and actual runtime quest/encounter include/decode recipients.",
+    "Existing other connected ID/recipe/current candidate frontiers retained."
+  ],
+  "original_count": 46,
+  "active_partial": 46,
+  "new_unique_delta": 0,
+  "no_project_execution": true,
+  "global_clearance": false
+}

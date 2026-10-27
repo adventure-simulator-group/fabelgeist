@@ -1,0 +1,39 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-049",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1601,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/card_mesh.rs",
+      "sha256": "b05ac342df292a30117ec56a148a282b51c6fe49d23f3b6f26b68059e092c416",
+      "ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "TreeCardGeometry derives CloneCopyDebug; borrowed bufferaggregate no manualtraits/codecs. append normalizes nativeaxes, computes corners/normal and encodes nativepositions/UV/indices.",
+      "disposition": "No derivability candidate. Explicit geometrykernel/representationpacking and mutablebuffer effects cannot be derivedserde/From.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1602,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/orientation.rs",
+      "sha256": "0832c7f01271afcbd8d65ccc61ac2a3b0837c605f1d6239b8ece5dddc7fb64bd",
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Three inherent/free orientationfunctions: deterministicphase, representativegroupvector and weightedmacroclusteraxis with explicitfallback. No handwritten trait/manualcodec.",
+      "disposition": "No derivability candidate. Native geometryclassification/normalization and replaystreamchoice semantic.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

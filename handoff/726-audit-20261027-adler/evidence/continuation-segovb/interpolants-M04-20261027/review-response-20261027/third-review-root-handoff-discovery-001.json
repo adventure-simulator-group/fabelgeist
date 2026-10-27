@@ -1,0 +1,170 @@
+{
+  "kind": "Pre-edit extension discovery for connected dive root-facing handoff, third userreview5664856132",
+  "status": "Candidate008 final source acceptance held; connected propagation/admission gap source-backed, root will implement",
+  "source_basis": "Exact current pins below; registeredbeforebodyread. No candidate008 broadclearance, no futureintervaltypeimplementation.",
+  "registrations": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/third-review-root-handoff-registration-001.json",
+      "sha256": "2a49fc7b96be19577593795c9a2dfca0f7b760d846400f7e12b4c49f30eaab3c"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/third-review-root-handoff-registration-002.json",
+      "sha256": "ee4a56f5cc6f7682e84b835805961e8a70b1a799970ba97c7b32b59defa97191"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/third-review-root-handoff-registration-003.json",
+      "sha256": "270d9630e342dd504349d7dff57586a80afa3e5dada5eba7447f36981c55f734"
+    }
+  ],
+  "sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs",
+      "sha256": "bc8baae81a0a5a732df8dba8928b78d85c6b941c193ec50a31780d1a5b43f816",
+      "ranges": [
+        [
+          50,
+          136
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          50,
+          136
+        ]
+      ],
+      "postread_sha256": "2f08587f00050e9ac7fbc472fca884f6b574c3b062e65afe9e8d06b36f9f9065"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "543ea955a72a4accf8550af44b35ad0a526fbcc6731bc5fb109ac38ceb609e17",
+      "ranges": [
+        [
+          90,
+          108
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          90,
+          108
+        ]
+      ],
+      "postread_sha256": "5fc4c31e00f464e255fd56f5681ae6d255646f90c74ab7c3bef4fd1a6c2a865b"
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "sha256": "e046a24787a8fe5b26e80d4808b7c00c37bfdfb6a886b67d4287119850a80b29",
+      "ranges": [
+        [
+          187,
+          202
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          187,
+          202
+        ]
+      ],
+      "postread_sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+      "sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+      "ranges": [
+        [
+          105,
+          150
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          105,
+          150
+        ]
+      ],
+      "postread_sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/subject_motion.rs",
+      "sha256": "863b3c4fafe43198495f75878f9544b5af7fd3cccd198a88c0cc37042c390981",
+      "ranges": [
+        [
+          30,
+          75
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          30,
+          75
+        ]
+      ],
+      "postread_sha256": "863b3c4fafe43198495f75878f9544b5af7fd3cccd198a88c0cc37042c390981"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "543ea955a72a4accf8550af44b35ad0a526fbcc6731bc5fb109ac38ceb609e17",
+      "ranges": [
+        [
+          424,
+          706
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          424,
+          706
+        ]
+      ],
+      "postread_sha256": "5fc4c31e00f464e255fd56f5681ae6d255646f90c74ab7c3bef4fd1a6c2a865b"
+    }
+  ],
+  "actual_trace": [
+    {
+      "stage": "Canonical phase source",
+      "source": "posture_transition.rs6-48; state.rs1481-1553, previously registered/read code-review-third002/004",
+      "contract": "Private/super phase UnitInterval retained; ctorZERO; posturetimeline admission/advance assigns UnitInterval; airborneholdsHALF, landing advancesHALF..ONE. Actual getter returns UnitInterval. This producer reaches root-facing and authored/proceduralreceivers."
+    },
+    {
+      "stage": "Current root-facing normalization gap",
+      "source": "posture_transition.rs54-86",
+      "contract": "DiveRecovery private struct retains UnitIntervalprogress, but current operation extracts phase, hardcodes (.5)*2, keeps root_handoff_start rawf32, chooses endnative1/.92, manually divides and clamps, then state::smoothstep\u2192UnitIntervaladmission. Same canonicalcontact normalization justrepaired at authored/proceduralports is bypassed here."
+    },
+    {
+      "stage": "Configuration admission",
+      "source": "combat_config.rs93-99 and424-706 completevalidator; YAML195-198",
+      "contract": "State-transition start is public rawf32, YAML.18; complete TacticalCombatConfig::validate body doesnotinspectstate_transitions orvalidate start/endrelationship. End.92 islocal authoredtuningliteral; no owneryamlfield. Thus validleaf/admission/orderingguarantees notprovided beforethisscalar denominator. Source-contract issue, no runtimeincidentclaim."
+    },
+    {
+      "stage": "Retained/native receiving operation",
+      "source": "posture_transition.rs94-129",
+      "contract": "Previous/current DiveRecovery progress typed; mismatched/finishedcurrentmapsONE perexistingcompletionpolicy. Perdirection totalyaw0/PI/+PI2/-PI2 multipliesclampednonnegativeprogressdifference inactualQuat::from_rotation_y nativekernel. This final angular-unit/nativehandoff is distinctfromearlieravoidable normalizationgap; no genericrotationframework required."
+    },
+    {
+      "stage": "Actual server consumer",
+      "source": "server player_projection/posture_facing.rs106-140",
+      "contract": "Previousposturestate copied, skeletonadvance runs, then facinghelper computesentire quaternion product viafalliblediveyaw plus supinecounteryaw andnormalizesbeforeassigning transform/physicsrotation. A diveerror propagatesbefore those rotationassignments. Skeletonadvance hasalreadyoccurred, so no wholeoperationatomicitypromise."
+    },
+    {
+      "stage": "Actual viewer consumer",
+      "source": "client animation_viewer/capture/subject_motion.rs35-62",
+      "contract": "Projection/transitionadvance precede same fallibleyawdelta product; assignment occursafterdelta success. No runtimeclaim orsubstituteforserverauthority."
+    }
+  ],
+  "minimal_recommendation": {
+    "phase_to_recovery": "let recovery = self.phase.clamped_inverse_lerp(DIVE_GROUND_CONTACT_PHASE, UnitInterval::ONE)?; no rawphase getter/formula here.",
+    "configuration": "Retype existing startfraction asUnitInterval; add required authored UnitInterval airborne-root-handoff-endfraction to owning state-transitionconfig+YAML(current.92). Keep groundedslide endpoint canonicalUnitInterval::ONE. No default/alias/localtuningfallback.",
+    "aggregate_admission": "Owning configvalidation enforces start<airborne_end. UnitIntervalleaves givefinite0<=start<end<=1, consequentlystart<groundedONE. Equal/reversedintervalrejectbeforepublication. Do notsilentlyclamp, requireend<ONEwithoutpolicyproof, or use rawf32 fractionfields. Call this validationfromTacticalCombatConfig::validate, whichinstall/digest/server/clientalreadyuse.",
+    "handoff_to_output": "let handoff = recovery.clamped_inverse_lerp(start, selected_end)?.smoothstep()?; retaintyped DiveRecovery.progress. Extract onlyinside existingfinalangularQuatkernel; existing completion/directionincrementpolicies preserved withoutnewgenericmathowner.",
+    "owning_module": "State-transition config should own itsnewvalidation; existing oversizedrootfilemayreexport extractedowner consistentwithpreviouslocomotionmodule. Root decidesconcrete minimalmodulelayout; no parallelconfigauthority.",
+    "receiving_schema": "Newrequiredfield participates in wholeconfigSerde/Clone/Copy/digest/snapshot through owningrecord. Reconcile YAMLworkflowtrigger/currentbody and existingfactory/snapshot paths, no compatfallback.",
+    "errors": "New UnitIntervalnormalization FractionError propagates through existing AnimationValueError mapping includingNonIncreasingBounds. Invalidconfigshouldfailatconfigadmission; directtypedmethodstillchecksitsownbounds."
+  },
+  "excluded_limits": [
+    "Supinegetup counteryaw isdifferentactionpolicy and remainsgloballypending; no approvalofitsrawnormalization from thispacket.",
+    "No futuregenerictypefororderedintervals implemented; sixdeferredinventoryfamiliesarebroaderorderedrangesallowingdegenerate/equalendpoints, not sixstrictupper>lower matches.",
+    "No source/Product/Git/ledger edits, projectexecution/newtests/helpers/assertions/doctests/publication. Rootsoleimplementation/adoption; exactignoredreceipts only.",
+    "Sourceoldnativekernel/publicconfigtrace isnotactualruntimefailure/panic orwholeSDK/global13/all20clearance. Mustreviewexactextendedimplementationbeforefinalsourceacceptance."
+  ]
+}

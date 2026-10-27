@@ -1,0 +1,278 @@
+{
+  "at": "2026-10-27T13:42:06.761228+00:00",
+  "lens": 11,
+  "status": "988-992 independently source-accounted with findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-041-registration.jsonl",
+    "sha256": "b4e448f682f9c4133c4d05b446fb2078be371d3f73c0b2f1259cd367acdcad06"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-040.json",
+    "sha256": "052483374dce6215a9be84b1d41a84b0b9ec6affeda10e27e96f7132b9b51806"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 988,
+      "source_id": "pr-working:crates/adventuresim-core/src/settlement_economy.rs",
+      "sha256": "5ebaaf60d766322d2dc8bbd0cf1a54b0c790793a11d1d3f7b98e139861a3c54e",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/5ebaaf60d766322d2dc8bbd0cf1a54b0c790793a11d1d3f7b98e139861a3c54e",
+      "actual_eof": 552,
+      "ranges": [
+        [
+          1,
+          552
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          552
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 989,
+      "source_id": "pr-working:crates/adventuresim-core/src/settlement_population.rs",
+      "sha256": "427a6f6e78d9b203d41f9186e0c4722a1622a9f1d3e2916b43e1b69b73ef601e",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/427a6f6e78d9b203d41f9186e0c4722a1622a9f1d3e2916b43e1b69b73ef601e",
+      "actual_eof": 667,
+      "ranges": [
+        [
+          1,
+          667
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          667
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 990,
+      "source_id": "pr-working:crates/adventuresim-core/src/settlement_population/age.rs",
+      "sha256": "31003479452c3c598a403dfeb1cdbfb32d807c7fdf1863fa27c799461c67ab66",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/31003479452c3c598a403dfeb1cdbfb32d807c7fdf1863fa27c799461c67ab66",
+      "actual_eof": 64,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          64
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 991,
+      "source_id": "pr-working:crates/adventuresim-core/src/settlement_population/demographics.rs",
+      "sha256": "3e604f71e6a6d7875755c49f940f0111d1c75d75dae50344b335962f44f50202",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/3e604f71e6a6d7875755c49f940f0111d1c75d75dae50344b335962f44f50202",
+      "actual_eof": 36,
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          36
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 992,
+      "source_id": "pr-working:crates/adventuresim-core/src/settlement_property.rs",
+      "sha256": "da9742eb9634c5f1b14cca267784dd6d55e2b08ff0434a6d1c265eaed145bdbf",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/da9742eb9634c5f1b14cca267784dd6d55e2b08ff0434a6d1c265eaed145bdbf",
+      "actual_eof": 226,
+      "ranges": [
+        [
+          1,
+          226
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          226
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "original_index": 1188,
+      "sha256": "99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "actual_read_ranges": [
+        [
+          1,
+          120
+        ],
+        [
+          127,
+          180
+        ],
+        [
+          258,
+          343
+        ]
+      ]
+    },
+    {
+      "original_index": 1190,
+      "sha256": "577af433807bf7c8a4cc22f46f82ed318d2d365ca79e61a66eaaf6d1b408c5e7",
+      "actual_read_ranges": [
+        [
+          1,
+          51
+        ],
+        [
+          181,
+          299
+        ]
+      ]
+    },
+    {
+      "original_index": 1184,
+      "sha256": "80864f0168cb8abf7dcd17c08ea7405e6124f2968ad6eb83dbca7e0a5aab4e26",
+      "actual_read_ranges": [
+        [
+          1,
+          70
+        ],
+        [
+          141,
+          377
+        ]
+      ]
+    }
+  ],
+  "locator_only_no_body_credit": [
+    1189
+  ],
+  "role_dispositions": [
+    {
+      "roles": [
+        988
+      ],
+      "locations": [
+        "settlement_economy.rs1-308;fixtures310-552",
+        "quest model430-445 personally037"
+      ],
+      "inventory": "Storefront policy differs from SettlementService availability and StockCategory commodity; ActionService subset for rest, ResidentTab location key versus display label, item CatalogKind versus actual catalog identity. Independent inn/temple availability booleans have four meaningful combinations and explicit Church-first preference; no need invent exclusive choice.",
+      "findings": [
+        "item_stock_category/storefront_stocks accept raw id and independent CatalogKind although actual ItemDefinition owns kind. A mismatched pair can choose wrong category; pass resolved definition or derive kind at canonical boundary. Do not reclassify dual-role ingredients as Food merely because Inn stocks them.",
+        "CatalogKind duplicates a payload-free projection of ItemKind; coherent derived view is reasonable, independent caller-supplied authority is the gap. Travel provision and cooking/book capabilities are independent from broad kind; retain actual policies.",
+        "Resident tab string location IDs/labels cannot substitute canonical place identity; typed location must allow dynamic organization chapters, not closed enum limited to default venues. Existing quest retain_navigable_witnesses supplies material consumer for UI authority."
+      ],
+      "remedy": "Use resolved catalog identity/kind and canonical open strategic place/location owner; preserve display labels and service/stock predicates as separate dimensions.",
+      "acceptance": "Caller cannot supply unrelated id/kind, and legal dual-role stock remains. Navigation derives from actual visible venue policy; no nonexistent-service referral."
+    },
+    {
+      "roles": [
+        989
+      ],
+      "locations": [
+        "settlement_population.rs116-160,236-541",
+        "resident_persistence.rs1-51,181-299",
+        "stdb settlement_population.rs1-120,127-180,258-343"
+      ],
+      "inventory": "GenerationInput source-coordinate seed, location classification, provider flag/options, optional planned AgeBand and bridge set. Profession, schedule, age, body appearance, household kind and explanation records. PopulationRelation separates random stream purposes; relation plausibility/curation are relative positive weights, not probability/fraction.",
+      "findings": [
+        "Provider flag plus profession_override/service_id options express invalid required-override combinations; generate checks override at387-397. Actual PreparedResident provider derives from business_id OR service, so missing service_id is legitimate for business-only provider; do not require serviceSome for every provider. A provider sum should own precise trade/business/service metadata.",
+        "RelationCandidate requires_bridge plus Option<PresenceBridge> represents required-without-bridge and optional bridge distinctions. Owner should encode NoRequirement versus Required(bridge), retaining causal bridge meaning independently from rarity.",
+        "GeneratedPopulationProfile stores typed Profession/Schedule/Age but height/build/hair/household as raw strings despite closed generated categories. Persisted explanations clone profile for provenance, while actual retained profile stores presentation strings and exact draft profession. Do not replace dynamic profession/local-role presentation with creation profession or treat generation explanation as live person authority.",
+        "Generation planned age bypasses weighted eligibility/bridge selection by design99116-27. This differs from random age generation and is explicitly marked household-plan with curation0. Public arbitrary input can select Child provider; source policy association question remains, not a witnessed actual draft or runtime violation.",
+        "Raw RelationDecision relation/context/decision strings erase PopulationRelation and heterogeneous selected category; trace record sum keyed by relation can preserve specific payload and explicit Planned versus Weighted provenance. This is not one generic arbitrary string owner."
+      ],
+      "remedy": "Group provider metadata and bridge requirement payloads; use canonical generated category enums/typed explanation, keeping exact planned age versus random choice authority. Preserve typed values until purposeful presentation formatting.",
+      "acceptance": "No missing provider override or required bridge shape; typed retained identity/location/version ports and explicit planned-age authority. No unsupported numeric bounds or child-provider runtime allegation."
+    },
+    {
+      "roles": [
+        990
+      ],
+      "locations": [
+        "age.rs1-64",
+        "stdb resident resolve73-119/project148-179"
+      ],
+      "inventory": "Four canonical AgeBand values derive from character age years boundaries0..12/13..17/18..59/60+; age in years is not strategic timestamp.",
+      "findings": [
+        "Live resident resolution correctly recomputes AgeBand from current Character chronology; saved generation profile is provenance, not second live age authority. Keep this canonical owner when quest witnesses currently accept age_band strings. No extra upper age bound inferred from classification."
+      ],
+      "remedy": "Reuse AgeBand at receiving query/selector boundaries; format stable labels only where required."
+    },
+    {
+      "roles": [
+        991
+      ],
+      "locations": [
+        "demographics.rs1-36"
+      ],
+      "inventory": "Building-plan Seed derives from settlement identity under separate StreamId. choose_age returns exact planned value before dependent profile generation, or weighted choice.",
+      "findings": [
+        "Planned choice records curation0 despite being chosen; do not apply weighted eligibility positivity invariant to all explanation records. Typed provenance states can express this difference."
+      ],
+      "remedy": "Retain relation seed and planned-versus-weighted distinction; no generic numeric probability owner."
+    },
+    {
+      "roles": [
+        992
+      ],
+      "locations": [
+        "settlement_property.rs1-226",
+        "residence/properties.rs1-70,141-377"
+      ],
+      "inventory": "Physical PropertyId is settlement+building identity independent of player/household/tenancy; HousingMarketReserve tracks one explicit supply per tier. GeneratedHome holds capacity/market role and settlement-local east/north metres, yaw radians and positive width/depth; HouseholdHome retains property versus household identity and resident count.",
+      "findings": [
+        "PropertyId is private String but derived transparent Deserialize bypasses checked new. Catalog.validate re-establishes exact settlement/building ID and positive finite geometry before actual registration; no malformed live persisted property inferred from parse alone.",
+        "Public raw home geometry/count fields lose frame/unit/positive admission inside API. Combine local pose/footprint units with existing canonical invariant owners; do not use latitude/longitude or normalized fraction for metre coordinates/capacity.",
+        "Home id and building_id/settlement repeat identity components, but validator explicitly reconciles them. Typed scoped building identity can derive PropertyId rather than independent copies.",
+        "Market reserve flag matches first encountered tier via ordered reserve state; explicit bounded game supply, not vacancy estimate. Household allocation separates abstract resident counts from named members. Actual receiver registers validated catalog/digest then writes property and occupancy; typed PropertyId becomes strings at table ports. Keep identity typed through internal persistence adapters.",
+        "allocate accepts nonempty family IDs and positive counts, verifies total and retains whole families in one home; sufficient aggregate capacity does not ensure every family fits a contiguous home, so InsufficientCapacity is meaningful even after validate. Do not impose mandatory individual Character rows for abstract population."
+      ],
+      "remedy": "Keep admitted PropertyId/geometry/capacity at owner, preserve physical identity versus tenancy, market supply versus occupied stock, named versus aggregate residents; type direct receiver ports.",
+      "acceptance": "Catalog registration validates identity/seed/population and actual allocation; no contradictory ID components or frame/unit substitution. No all-city geometry/native layout guarantee."
+    }
+  ],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_ledger_edited": false,
+  "new_material_extensions": [],
+  "limits": [
+    "Frozen only; fixtures not executed. No current/accepted alias/runtime wrong-ID/global clearance.",
+    "1188 retains partial field receiver contexts only; actual covered methods identified, not whole source.1190 insert_identity/reuse/role helpers not consumed here; no chronology constructor or all auth proof.",
+    "1184 full direct registration/available/admission/allocation receiving bodies read, not full residence tenancy/materialization/geometry producer algorithms."
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-281",
+  "at": "2026-10-25T22:34:04.239429+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2468,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/clothing.rs",
+      "sha256": "04f07439908559bf5787f569d0eb67cc016e246004677827f0b9d6f693a76de9",
+      "personally_read_ranges": [
+        [
+          1,
+          708
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full exact rig-quality snapshot1-708 in two chunks; no current-main substitution. GarmentSpecification::from_catalog obtains material and placement from same CatalogPlacement, then paired channel offset/PBR values. generate validates all body parallel extents and packed skin joint count before indexing. Span bindings project admitted joints into same global state table, select weighted vertices, coordinate bounds, surface interval, expanded faces and waist cross-section; shell geometry and occluded body face set use same selected source faces.",
+        "Public garment spec retains raw threshold/coverage/PBR and independently supplied packed skin/names/global states. Equal joint counts do not prove same semantic joint ordering; ordinary constructor/rig selection owner remains required for alignment, not a new actual mismatch witness. Canonical typed shape wrappers alone do not earn whole-family clearance.",
+        "Fitted faces validate finite output and index bounds while intentionally preserving deformation topology (test explicitly says placeholder not quality gate). Weld groups quantized source positions, concavity relaxation excludes boundary vertices and lifts outward only, normals fall back source. Full fixtures529-708 read, not executed; no clothing generation."
+      ]
+    },
+    {
+      "scope_index": 2469,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/clothing/validation.rs",
+      "sha256": "f1e1fe557065da98b1e80397aeb190dfacdbeaa1d9ab5c240094e27f8cfb7adf",
+      "personally_read_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full rig-quality snapshot1-62: body validator checks normals/skin/weights vertex extents, global state/name extents, packed joint count identity-by-count and face vertex bounds. Output validator checks finite fitted coordinates then source triangle bounds; preserves source face context in typed errors. Numerical weights/normals and table semantic identity not universally admitted here; actual producer contracts remain qualified."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

@@ -1,0 +1,56 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-257",
+  "at": "2026-10-25T22:17:38.387563+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2385,
+      "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+      "sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+      "personally_read_ranges": [
+        [
+          1,
+          273
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Client retains baseURL/database/token privately per clone and shares metrics Arc; query_sats decodes exact generated rows then optional fallible presentation conversion. query_one enforces at most one generated row before conversion, not first-row truncation. Presentation conversion formats concrete U::Error into remote-text variant, exact RIG-PPS-F009/shared cause family.",
+        "HTTP failure retains remote body string but failed error-body read itself defaults empty; success still requires response text+JSON decode. Call only returnsOk on HTTP success, no typed transaction receipt schema asserted. QueryMetrics loads independent atomic request/time counters; monotonic cumulative measurement is not one transaction snapshot or per-request association under concurrency. Overflow/time conversion not universal counters guarantee, no actualwrap. Tests read only."
+      ]
+    },
+    {
+      "scope_index": 2386,
+      "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client/sats.rs",
+      "sha256": "dbb97caa3f3bb18aa862aacce19d0d76f82f7760e82a389f9347698d24031906",
+      "personally_read_ranges": [
+        [
+          1,
+          540
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "SATS converter derives array/product/sum shape from same wire schema and enforces arraykind, byte hex completeoctets, exact product/row arity, tag+payload pair and knownvariant. Identity product recognizes exact __identity__ shape, normalizes hex leadingzeros for nativeU256 decode. Non-shaped primitives delegated generated SerdeWrapper; schema itself raw metadata not accepted application owner.",
+        "Duplicate named fields collapse in JSON Map exact ROOT-CAMERA-EXTRA40-ADM03-F002; u64tag asusize target-width truncation exact F001. No new findings. Only first SQL result is decoded and empty outer response becomes empty rows; actual single-query result multiplicity contract remains upstream, no arbitrary multistatement-response completeness guarantee.",
+        "Missing nested schema type becomes Null and enum missingname becomes Unknown before generated decode; no successful known malformed row inferred solely from this fallback. End-to-end fixture sources cover named products/options/bytearrays/data-carryingsums but do not replace actual canonical generated admission or prove complete aggregate relations. Read only."
+      ]
+    },
+    {
+      "scope_index": 2387,
+      "source_id": "pr-working:crates/strategic-web/src/spacetimedb/mod.rs",
+      "sha256": "a020d51bfbce659a44fe8f52c25124b01e77eb9659ef473bf76a4029e28ae130",
+      "personally_read_ranges": [
+        [
+          1,
+          136
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Module exports exact generated type aliases and explicit SATS boundary helpers. Option maps Some/None to rawsumobjects, unit variants use closed mappings for BodyRegion/InterventionRoute/SurgeryProcedure; paired tags exhaust same canonical enums, not inferred snake_case grammar. Helpers perform actual boundary projection, not evidence internal bespoke retention is complete. Tests read only."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

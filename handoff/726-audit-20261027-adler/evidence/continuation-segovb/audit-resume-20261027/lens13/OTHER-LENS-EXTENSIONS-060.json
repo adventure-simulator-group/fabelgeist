@@ -1,0 +1,140 @@
+{
+  "lens": 13,
+  "receipt": {
+    "path": "audit-resume-20261027/lens13/batch-212-218-receipt.json",
+    "sha256": "0b94b42dde6a8bc740e62bb5fa5e7c3f3f5deaa9616197bec84cd707f75aa6e1"
+  },
+  "status": "mandatory newmaterialdependency queue; zero otherlens/original/shared credit from access",
+  "sources": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/state.rs",
+      "sha256": "82a59a621b3c855886fcd18f50d917a76c60070917c5921976fed5fb0a11a6a6",
+      "actual_ranges": [
+        [
+          1870,
+          1960
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs",
+      "sha256": "bb92ce4b2c2252c6c68cc37955cba5f4d2c90ccdab05a4456a632a7f4adadc4e",
+      "actual_ranges": [
+        [
+          1,
+          230
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat.rs",
+      "sha256": "98f3cb6b60b6672e3bdb730f6c922c012120f3763add4beb906040f1be122c2f",
+      "actual_ranges": [
+        [
+          1,
+          240
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "3e29916a9d570f6e0d12ffb54541ee018fb068902a4e5b6c0f744db9971d9ba9",
+      "actual_ranges": [
+        [
+          1,
+          100
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/state.rs",
+      "sha256": "82a59a621b3c855886fcd18f50d917a76c60070917c5921976fed5fb0a11a6a6",
+      "actual_ranges": [
+        [
+          1961,
+          2010
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/state/action_timeline.rs",
+      "sha256": "01140a5ec824cf8258598462f8d99cde62732bf1901ffaddcafcef6ee65e66a5",
+      "actual_ranges": [
+        [
+          1,
+          89
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/procedural.rs",
+      "sha256": "9374a31dd00faa7d347212451bf0f2ff87b5b97246e068ec2db7894cc021b695",
+      "actual_ranges": [
+        [
+          1,
+          31
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/sky/mod.rs",
+      "sha256": "98db3fe74b0ea6ed6df1900a31714f9462067510a09b1583c055fcdc354225b1",
+      "actual_ranges": [
+        [
+          230,
+          290
+        ],
+        [
+          340,
+          375
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/sample_tick.rs",
+      "sha256": "ce44941a09ab6edf1bfe96d5617ad84d777c4bc3e0c8735d65ed6b369d727990",
+      "actual_ranges": [
+        [
+          1,
+          110
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/basis_points.rs",
+      "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+      "actual_ranges": [
+        [
+          1,
+          85
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/ground_scatter/mod.rs",
+      "sha256": "1577f17b44515d9e38cd44b010e81127ddace5a721dfc82688cc46be04c341fa",
+      "actual_ranges": [
+        [
+          225,
+          295
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/sky/mod.rs",
+      "sha256": "98db3fe74b0ea6ed6df1900a31714f9462067510a09b1583c055fcdc354225b1",
+      "actual_ranges": [
+        [
+          200,
+          229
+        ]
+      ]
+    }
+  ],
+  "roles": [
+    "Producer/retentionpropagation: elapsed/samplecount/angletag/phase/lightingfactors",
+    "Numericclosure/order andpausedturnrate kernel",
+    "Aggregate configtuning/weather/nativepacking andderivation",
+    "No automaticotherlensverdict/runtime/current/aliaspromotion"
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "candidate_id": "OWN05-LATER-LIVE-SYNC-001",
+  "status": "source-backed accepted lifecycle path; global dedup/ordinary API producer trace pending; not yet own unique increment",
+  "source_pins": [
+    {
+      "source_id": "pr-working:crates/strategic-web/static/live-state.js",
+      "sha256": "1a235da51b576fb096554b01baa053556d34a91ad588b5dedb611f2b76ed6e13",
+      "ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "material_index": 57
+    },
+    {
+      "registration_id": "OWN05-NAV-LIFECYCLE-001",
+      "source_id": "pr-working:crates/strategic-web/static/strategic-navigation.js",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "1419143934b4dacd73085c81a770534d63fbad34612ff6cc25bb886c430e6bff",
+      "bytes": 9646,
+      "actual_EOF": 209,
+      "ranges": [
+        [
+          1,
+          14
+        ],
+        [
+          91,
+          209
+        ]
+      ],
+      "role": "Direct window.strategicNavigate receiver, commitPage lifecycle and navigation completion/event/export path needed for material57 synchronization state survival. Header only for closure/root/bootstrap dependencies; exclude focus/scroll/prose helper bodies15-90.",
+      "prospective_before_new_body_read": true,
+      "discovery": "Definition-only frozen git grep: commitPage91,navigate117,window export205; exact bytes hashed only, no body semantics credit.",
+      "shared_material_index": "parent assignment pending",
+      "original_scope_unchanged": true,
+      "no_runtime_or_other_lens_credit": true
+    },
+    {
+      "registration_id": "OWN05-NAV-LIFECYCLE-002",
+      "source_id": "pr-working:crates/strategic-web/src/templates/layout/shell.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "f32130d3436df9a143d9be24ee09dba99ad5a9d4fbe01fb5663970119186ce6f",
+      "bytes": 7500,
+      "actual_EOF": 134,
+      "ranges": [
+        [
+          1,
+          134
+        ]
+      ],
+      "role": "Direct page shell and script-profile producer required to determine whether material57 live observer/script belongs to persistent shell or replaceable page. Complete small owning file only, no layout.rs1123line body credit.",
+      "prospective_before_full_body_read": true,
+      "locator_outputs": "Definition/string locator printed shell function12/58 and script/livehost lines30/100/104; incidental layout test assertions616-617/625-626 are navigation pointers only, no semantic proof imported. Exact bytes metadata/hash cached before new full body analysis.",
+      "shared_material_index": "parent assignment pending",
+      "original_scope_unchanged": true,
+      "no_runtime_or_other_lens_credit": true
+    }
+  ],
+  "personally_read_new_ranges": {
+    "navigation": [
+      [
+        1,
+        14
+      ],
+      [
+        91,
+        209
+      ]
+    ],
+    "shell": [
+      [
+        1,
+        134
+      ]
+    ]
+  },
+  "mechanism": "live-state synchronize44 sets true; actual mismatched location52-55 starts strategicNavigate and returns before59reset. navigation117-182 successful strategic branch172 calls commitPage91-115, which replaces only#strategic-page96 and dispatches strategic-page-mounted100. shell29-35puts livehost/revision outside replaceable page and58-134loads live/navigation scripts in persistent head. live-state mounted78-81clears navigating/pending but not synchronizing; next revision94calls synchronize, seestrue40-42sets pending and returns with no active synchronization loop.",
+  "accepted_source_witness": "Valid same-origin strategic-profile navigation response with replacement#strategic-page and revision update; no malformed input required. Server /api/live/navigation ordinary production emission not yet personally traced.",
+  "impact": "After first live-driven page transition, later live navigation/refresh dispatch can stay stuck until full document reload.",
+  "dedup_limit": "No live-state.js match in recovered1002findingmetadata; currentglobalparentdedupnotcomplete.",
+  "exclusions": "No browser/runtime/test execution, normal observed failure, main-current behavior or repair implemented. Focus/scroll helper bodies15-90/navigation and entirelayout.rs excluded.",
+  "shared_scope": "navigation assigned179/source-extensions-180; shell additiveindexpending. Existing179snapshotunchanged."
+}

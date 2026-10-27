@@ -1,0 +1,868 @@
+{
+  "at": "2026-10-27T08:23:57.221582+00:00",
+  "review": "Independent Rule Review PR992/M04 remediation candidate003",
+  "scope": "Full candidate003 16-file source graph relative35b18ec280a6884bb53996a2d859c4b27096f65c; fresh 13 Rust changed-responsibility inspection vs accepteddf5 parent plus exact unchanged workflow/Cargo/build proofs from own prior review003. Working source candidate, not committed/finalCI head assertion.",
+  "candidate_manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/edited-source-manifest-003.json",
+    "sha256": "b05ad41890a4b409717962a417ca5247a7e528c90b493e95bad32ca0b93424ff"
+  },
+  "earlier_manifests": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/edited-source-manifest-001.json",
+      "sha256": "82f6fef01a7cdeb137f54def3d0d0f7254cd21d532f786c6f2f0853cdc687b2c"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/edited-source-manifest-002.json",
+      "sha256": "841248509b7393fc57887522289708c3f1e65a2c8bf7bdb976dc4ee70b07460b"
+    }
+  ],
+  "final_source_pins": [
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "0ad5e0e1b2b062d47f48af303bc97f1259f6d4ac99c62bef9b42588b183233b4",
+      "verified_current_bytes": true
+    },
+    {
+      "path": "crates/adventuresim-core/Cargo.toml",
+      "sha256": "29e56014658d941895772dda71b9181863839eedf403c7d30b446186228c3441",
+      "verified_current_bytes": true
+    },
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+      "verified_current_bytes": true
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "ceb8c36c8e8abb4ac96fa0c61601d11145d28755fdb3e7af723aa20ae8dc58bf",
+      "verified_current_bytes": true
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "de48188cfd3789d9a2ac3d9239c4d62f7991191f0a07d88ad90faa5047f7f129",
+      "verified_current_bytes": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "sha256": "7510f380b30f9476c5a6fb1c685a1cb4311061f24a07616b1f7a054d95af04fc",
+      "verified_current_bytes": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "sha256": "47f1910a4f6a6f9ef3e0cc4bc75e39527a72a18babc94b34a9fea6c0647be39c",
+      "verified_current_bytes": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "sha256": "9ac62b342f4ffec934232478fb5e019d84228a3cb726e29ed9b6f62d91775f36",
+      "verified_current_bytes": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "sha256": "5bb5172865b0ed718a1ecb1bf7378539725fc0afdbe8394d43ed23979c151d9e",
+      "verified_current_bytes": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "d20c873dd470d03cd65d2c0da3d73dd050cde53f78dfc8bb81b1d237bf55ddcf",
+      "verified_current_bytes": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027",
+      "verified_current_bytes": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "sha256": "37a5dba433aa5219b544716053897df30d3df49662fb5fd38794130c1b803946",
+      "verified_current_bytes": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "sha256": "642983d4cdf24f5cda28f00740f180af4cc4e926b205df647057ef1194e9e32a",
+      "verified_current_bytes": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "a70dd7aa43995b5393dc2adbca58b231fd5d455c466b5ba926d1a65ef2d2232d",
+      "verified_current_bytes": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "c835a9611d133e6fbe72b9121632d5dca1752d4f22d1b0545792ff582844e68d",
+      "verified_current_bytes": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "sha256": "42b5532ca3f4d22095a3612e77ec5d3f3c4d3b9b8058bdc54ce9432a8e895dad",
+      "verified_current_bytes": true
+    }
+  ],
+  "source_patch": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/candidate-001-tracked.diff",
+    "sha256": "d4fda49ba0e998f810caa60f6aa132aecc3c97718a75f2fc31521d778ab2c4fe",
+    "actual_read_ranges": [
+      [
+        1,
+        320
+      ],
+      [
+        321,
+        637
+      ]
+    ],
+    "qualification": "Actual tracked candidate001 delta consumed completely; excludes newconfigfile read separately. Later narrow contact/config/direction edits are verified by fresh complete affected actualbody reads and candidate002/003 hashes, not attributed to this earlier patch."
+  },
+  "rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23"
+    },
+    {
+      "path": "crates/adventuresim-core/AGENTS.md",
+      "sha256": "7d2a3dd7507a8405fded5577a7f406273ab835389b52b189415d0878c39d8a73"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/AGENTS.md",
+      "sha256": "b3fd110d97bc871853458c38282d3d4c18369b6d0647e96e0de6d0641dca61c8"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/AGENTS.md",
+      "sha256": "f9633599a742ea38090fe2fb88e2dc464298d0ca4a70374f0851380e71e6910e"
+    }
+  ],
+  "skills": [
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/SKILL.md",
+      "sha256": "ff68d5ccf9f2545336b105f987ae17bb1a1f55dfbf1afb035dba8bef7053f27a"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/rule-review/references/bespoke-type-review.md",
+      "sha256": "c6a71896616123559c0be4d318cbde751d8767dccc6009a943971dc3d4424f71"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-producer-propagation/SKILL.md",
+      "sha256": "9d202f015eed4818d6d2753c7624faa64fb5522e03cc55284fc68a366a204293"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-existing-type-owners/SKILL.md",
+      "sha256": "0876e49f57d2b5397d23735b9c49916d5d20087b33c110746beaa73c1c8cba3f"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-invariant-operations/SKILL.md",
+      "sha256": "94c0fc73e926619b9a9a50ef9f342a0c8f6210840f1aa1f3c5b5d9637994519d"
+    }
+  ],
+  "registrations": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-final-rule-registration-001.json",
+      "sha256": "21b02e29a7a4df7406704a0378cdc9850ae1578b73e8cd4b1ffd7390cad5226a"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-final-rule-registration-002.json",
+      "sha256": "ee38acfaf324fab7ed838cc74f7e29a9dffac83b2593ff621ee09ef280c8e4bc"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-final-rule-registration-003.json",
+      "sha256": "5186e15d58ee0cfa20578af932d91da9da126c720f6521d56b503aabf9a4887d"
+    }
+  ],
+  "actual_source_reads": [
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "ceb8c36c8e8abb4ac96fa0c61601d11145d28755fdb3e7af723aa20ae8dc58bf",
+      "eof": 191,
+      "ranges": [
+        [
+          1,
+          191
+        ]
+      ],
+      "registration": "001",
+      "actually_read_ranges": [
+        [
+          1,
+          191
+        ]
+      ],
+      "read_scope_note": "First candidate001 then fresh candidate002/003 changed body rereads exactly registered. Earlier hashes retained as historical reviewed versions, not presented as final bytes."
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "de48188cfd3789d9a2ac3d9239c4d62f7991191f0a07d88ad90faa5047f7f129",
+      "eof": 76,
+      "ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "registration": "001",
+      "actually_read_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "read_scope_note": "First candidate001 then fresh candidate002/003 changed body rereads exactly registered. Earlier hashes retained as historical reviewed versions, not presented as final bytes."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "sha256": "7510f380b30f9476c5a6fb1c685a1cb4311061f24a07616b1f7a054d95af04fc",
+      "eof": 188,
+      "ranges": [
+        [
+          1,
+          188
+        ]
+      ],
+      "registration": "001",
+      "actually_read_ranges": [
+        [
+          1,
+          188
+        ]
+      ],
+      "read_scope_note": "First candidate001 then fresh candidate002/003 changed body rereads exactly registered. Earlier hashes retained as historical reviewed versions, not presented as final bytes."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "sha256": "47f1910a4f6a6f9ef3e0cc4bc75e39527a72a18babc94b34a9fea6c0647be39c",
+      "eof": 336,
+      "ranges": [
+        [
+          43,
+          98
+        ],
+        [
+          232,
+          311
+        ]
+      ],
+      "registration": "001",
+      "actually_read_ranges": [
+        [
+          43,
+          98
+        ],
+        [
+          232,
+          311
+        ]
+      ],
+      "read_scope_note": "First candidate001 then fresh candidate002/003 changed body rereads exactly registered. Earlier hashes retained as historical reviewed versions, not presented as final bytes."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "sha256": "9ac62b342f4ffec934232478fb5e019d84228a3cb726e29ed9b6f62d91775f36",
+      "eof": 588,
+      "ranges": [
+        [
+          365,
+          397
+        ]
+      ],
+      "registration": "001",
+      "actually_read_ranges": [
+        [
+          365,
+          397
+        ]
+      ],
+      "read_scope_note": "First candidate001 then fresh candidate002/003 changed body rereads exactly registered. Earlier hashes retained as historical reviewed versions, not presented as final bytes."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "sha256": "fddfc7081466c2609c2a3879071e69fa0141d6c9737c7049c13e9730a5f6c4b7",
+      "eof": 325,
+      "ranges": [
+        [
+          1,
+          325
+        ]
+      ],
+      "registration": "001",
+      "actually_read_ranges": [
+        [
+          1,
+          325
+        ]
+      ],
+      "read_scope_note": "First candidate001 then fresh candidate002/003 changed body rereads exactly registered. Earlier hashes retained as historical reviewed versions, not presented as final bytes."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "d20c873dd470d03cd65d2c0da3d73dd050cde53f78dfc8bb81b1d237bf55ddcf",
+      "eof": 255,
+      "ranges": [
+        [
+          1,
+          255
+        ]
+      ],
+      "registration": "001",
+      "actually_read_ranges": [
+        [
+          1,
+          255
+        ]
+      ],
+      "read_scope_note": "First candidate001 then fresh candidate002/003 changed body rereads exactly registered. Earlier hashes retained as historical reviewed versions, not presented as final bytes."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027",
+      "eof": 107,
+      "ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "registration": "001",
+      "actually_read_ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "read_scope_note": "First candidate001 then fresh candidate002/003 changed body rereads exactly registered. Earlier hashes retained as historical reviewed versions, not presented as final bytes."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "sha256": "37a5dba433aa5219b544716053897df30d3df49662fb5fd38794130c1b803946",
+      "eof": 212,
+      "ranges": [
+        [
+          1,
+          212
+        ]
+      ],
+      "registration": "001",
+      "actually_read_ranges": [
+        [
+          1,
+          212
+        ]
+      ],
+      "read_scope_note": "First candidate001 then fresh candidate002/003 changed body rereads exactly registered. Earlier hashes retained as historical reviewed versions, not presented as final bytes."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "sha256": "642983d4cdf24f5cda28f00740f180af4cc4e926b205df647057ef1194e9e32a",
+      "eof": 222,
+      "ranges": [
+        [
+          1,
+          222
+        ]
+      ],
+      "registration": "001",
+      "actually_read_ranges": [
+        [
+          1,
+          222
+        ]
+      ],
+      "read_scope_note": "First candidate001 then fresh candidate002/003 changed body rereads exactly registered. Earlier hashes retained as historical reviewed versions, not presented as final bytes."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "a70dd7aa43995b5393dc2adbca58b231fd5d455c466b5ba926d1a65ef2d2232d",
+      "eof": 783,
+      "ranges": [
+        [
+          1,
+          108
+        ],
+        [
+          605,
+          660
+        ]
+      ],
+      "registration": "001",
+      "actually_read_ranges": [
+        [
+          1,
+          108
+        ],
+        [
+          605,
+          660
+        ]
+      ],
+      "read_scope_note": "First candidate001 then fresh candidate002/003 changed body rereads exactly registered. Earlier hashes retained as historical reviewed versions, not presented as final bytes."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "c835a9611d133e6fbe72b9121632d5dca1752d4f22d1b0545792ff582844e68d",
+      "eof": 523,
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "registration": "001",
+      "actually_read_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "read_scope_note": "First candidate001 then fresh candidate002/003 changed body rereads exactly registered. Earlier hashes retained as historical reviewed versions, not presented as final bytes."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "sha256": "5446405a9325b3d18f2a0b610462dcccda459122780598ba519bb174e21e8ad0",
+      "eof": 66,
+      "ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "registration": "001",
+      "actually_read_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "read_scope_note": "First candidate001 then fresh candidate002/003 changed body rereads exactly registered. Earlier hashes retained as historical reviewed versions, not presented as final bytes."
+    },
+    {
+      "path": "crates/fabelgeist-geometry/src/length.rs",
+      "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "registration": "002",
+      "actually_read_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "read_scope_note": "First candidate001 then fresh candidate002/003 changed body rereads exactly registered. Earlier hashes retained as historical reviewed versions, not presented as final bytes."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "sha256": "c9193f8143814c6520525bdfbb50efddc122b14f817a639990815685d336a549",
+      "ranges": [
+        [
+          1,
+          325
+        ]
+      ],
+      "registration": "002",
+      "actually_read_ranges": [
+        [
+          1,
+          325
+        ]
+      ],
+      "read_scope_note": "First candidate001 then fresh candidate002/003 changed body rereads exactly registered. Earlier hashes retained as historical reviewed versions, not presented as final bytes."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "sha256": "5bb5172865b0ed718a1ecb1bf7378539725fc0afdbe8394d43ed23979c151d9e",
+      "ranges": [
+        [
+          1,
+          322
+        ]
+      ],
+      "registration": "003",
+      "actually_read_ranges": [
+        [
+          1,
+          322
+        ]
+      ],
+      "read_scope_note": "First candidate001 then fresh candidate002/003 changed body rereads exactly registered. Earlier hashes retained as historical reviewed versions, not presented as final bytes."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "sha256": "42b5532ca3f4d22095a3612e77ec5d3f3c4d3b9b8058bdc54ce9432a8e895dad",
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "registration": "003",
+      "actually_read_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "read_scope_note": "First candidate001 then fresh candidate002/003 changed body rereads exactly registered. Earlier hashes retained as historical reviewed versions, not presented as final bytes."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/landing.rs",
+      "sha256": "d2e6f0bf1986b9465dec28c0b29c39db72b5470d50c0d8ce55332f6f8d1c0831",
+      "ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "registration": "003",
+      "actually_read_ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "read_scope_note": "First candidate001 then fresh candidate002/003 changed body rereads exactly registered. Earlier hashes retained as historical reviewed versions, not presented as final bytes."
+    }
+  ],
+  "carried_exact_source_reads": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+      "sha256": "60c9a6b987e30fcff66d01e8afadaaf41ffde91b9d1285c46bd88ec6a1678a39",
+      "personally_read_prior_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "read_status": "Exact unchanged source carried from normalization-producer-trace-001, byte hash reverified. Not a fresh full-family or unrelated audit verdict."
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "sha256": "05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+      "personally_read_prior_ranges": [
+        [
+          171,
+          188
+        ]
+      ],
+      "read_status": "Exact unchanged source carried from normalization-producer-trace-001, byte hash reverified. Not a fresh full-family or unrelated audit verdict."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state/projection.rs",
+      "sha256": "1c3d107a1b048fc5397ff0bd4ce896e703fd748296193bf90bea403fe7af7bab",
+      "personally_read_prior_ranges": [
+        [
+          235,
+          265
+        ]
+      ],
+      "read_status": "Exact unchanged source carried from normalization-producer-trace-001, byte hash reverified. Not a fresh full-family or unrelated audit verdict."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/presentation.rs",
+      "sha256": "6a067389a1cdcbddd0dd3814f95e17664351794be139353572edd19928a18171",
+      "personally_read_prior_ranges": [
+        [
+          100,
+          140
+        ]
+      ],
+      "read_status": "Exact unchanged source carried from normalization-producer-trace-001, byte hash reverified. Not a fresh full-family or unrelated audit verdict."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "sha256": "5d254790fa2ec7e53bc749b18bfc8f4d89a1df367c3542f8f969403641c8a970",
+      "personally_read_prior_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "read_status": "Exact unchanged source carried from normalization-producer-trace-001, byte hash reverified. Not a fresh full-family or unrelated audit verdict."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+      "sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+      "personally_read_prior_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "read_status": "Exact unchanged source carried from normalization-producer-trace-001, byte hash reverified. Not a fresh full-family or unrelated audit verdict."
+    },
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+      "personally_read_prior_ranges": [
+        [
+          20,
+          38
+        ]
+      ],
+      "read_status": "Exact unchanged source carried from normalization-producer-trace-001, byte hash reverified. Not a fresh full-family or unrelated audit verdict."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/body_response.rs",
+      "sha256": "d307ec89363164d57e5762fea3f35d38adf4cb28c64801233bceacaddd9f5727",
+      "personally_read_prior_ranges": [
+        [
+          290,
+          332
+        ]
+      ],
+      "read_status": "Exact unchanged source carried from normalization-producer-trace-001, byte hash reverified. Not a fresh full-family or unrelated audit verdict."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/body_response/target.rs",
+      "sha256": "81446933b198eac655968dd876b5bdd007e102f4daad11024f3e92242a34bd20",
+      "personally_read_prior_ranges": [
+        [
+          40,
+          105
+        ]
+      ],
+      "read_status": "Exact unchanged source carried from normalization-producer-trace-001, byte hash reverified. Not a fresh full-family or unrelated audit verdict."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state.rs",
+      "sha256": "48d075954cf0381f63c73815380ed47c37be6c35e30c573b6839e74c21572557",
+      "personally_read_prior_ranges": [
+        [
+          32,
+          95
+        ],
+        [
+          1400,
+          1422
+        ]
+      ],
+      "read_status": "Exact unchanged source carried from normalization-producer-trace-001, byte hash reverified. Not a fresh full-family or unrelated audit verdict."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts.rs",
+      "sha256": "bd69d05aa06177aadb3c0a7e2e2e42f1e86fccf3ae5fc389bf5755bb6911f5dc",
+      "personally_read_prior_ranges": [
+        [
+          550,
+          570
+        ]
+      ],
+      "read_status": "Exact unchanged source carried from normalization-producer-trace-001, byte hash reverified. Not a fresh full-family or unrelated audit verdict."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "sha256": "8b82644fdbb52e00c1b40a850239bb273c956668c89805efae19800b35f42487",
+      "personally_read_prior_ranges": [
+        [
+          20,
+          40
+        ]
+      ],
+      "read_status": "Exact unchanged source carried from normalization-producer-trace-001, byte hash reverified. Not a fresh full-family or unrelated audit verdict."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+      "sha256": "6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+      "personally_read_prior_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "read_status": "Exact unchanged source carried from normalization-producer-trace-001, byte hash reverified. Not a fresh full-family or unrelated audit verdict."
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "sha256": "05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+      "personally_read_prior_ranges": [
+        [
+          215,
+          243
+        ]
+      ],
+      "read_status": "Exact unchanged source carried from normalization-producer-trace-001, byte hash reverified. Not a fresh full-family or unrelated audit verdict."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/presentation/cadence.rs",
+      "sha256": "9d7d6ca4239a97970517ad7b8b388d8173ce2cba9872f725316af92899489e9f",
+      "personally_read_prior_ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "read_status": "Exact unchanged source carried from normalization-producer-trace-001, byte hash reverified. Not a fresh full-family or unrelated audit verdict."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/cadence_limit.rs",
+      "sha256": "c8a718000e7ca797858aa79c1569d3a357a508e5bf319e75a1662bb47ebbf4c3",
+      "personally_read_prior_ranges": [
+        [
+          68,
+          105
+        ],
+        [
+          120,
+          145
+        ]
+      ],
+      "read_status": "Exact unchanged source carried from normalization-producer-trace-001, byte hash reverified. Not a fresh full-family or unrelated audit verdict."
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "sha256": "05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+      "personally_read_prior_ranges": [
+        [
+          205,
+          215
+        ]
+      ],
+      "read_status": "Exact unchanged source carried from normalization-producer-trace-001, byte hash reverified. Not a fresh full-family or unrelated audit verdict."
+    }
+  ],
+  "carried_unchanged_full_PR_proof": {
+    "receipt": [
+      {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/rule-review-003.json",
+        "sha256": "0a209aa3f8fd2d170cfbdadc25a98f83d9ee5ccb3bacc8e5663cece61bb03694"
+      }
+    ],
+    "sources": [
+      {
+        "path": ".github/workflows/rust-quality.yml",
+        "sha256": "0ad5e0e1b2b062d47f48af303bc97f1259f6d4ac99c62bef9b42588b183233b4",
+        "verified_current_bytes": true
+      },
+      {
+        "path": "crates/adventuresim-core/Cargo.toml",
+        "sha256": "29e56014658d941895772dda71b9181863839eedf403c7d30b446186228c3441",
+        "verified_current_bytes": true
+      },
+      {
+        "path": "crates/adventuresim-core/build.rs",
+        "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+        "verified_current_bytes": true
+      }
+    ],
+    "qualification": "All3hashes equal own accepteddf5review003; same existing four movement-speed tests workflow cell/positive verifier and all prior gates, canonical unit_interval build module and thiserrorbuilddep retained. No fresh hosted acceptance inferred; no new Cargo/lock/workflow changes in remediation."
+  },
+  "resolved_findings": [
+    {
+      "id": "RR-M04-20261027-001",
+      "severity": "P2",
+      "classification": "Incomplete typed fraction propagation in direct shared smoothstep recipient; no runtime failure claim",
+      "file": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "original_candidate001_sha256": "fddfc7081466c2609c2a3879071e69fa0141d6c9737c7049c13e9730a5f6c4b7",
+      "original_lines": [
+        194,
+        213
+      ],
+      "governing_rule": "crates/AGENTS.md semanticvalues: carrycheckedleaves throughinternal APIs; avoid extractingprimitive only to readmit next application operation; reuseexistingowners/ops.",
+      "consequence": "Production alternating_contact_pair extracted admitted progress, computed rawcomplement, compared0/1, readmitted BlendWeight though newlossless From/complement can preserveexactguarantee. Sharednewboundedcubic had a directapplicationrecipient stilldroppingtype.",
+      "correction": "Keep progressUnitInterval, compareZERO/ONE, use BlendWeight::from(progress.complement()) and From(progress).",
+      "disposition": "Resolved byroot in candidate002 and independently re-read wholefinal candidate003 file. Final lines186-215, sourceSHA5bb5172865b0ed718a1ecb1bf7378539725fc0afdbe8394d43ed23979c151d9e. Existing cfgtest gait_pair helper remains unchanged; no production propagationclaim for testfixture kernel."
+    }
+  ],
+  "actionable_findings": [],
+  "rule_contract_trace": [
+    {
+      "family": "Speed owner/admission/normalization",
+      "locations": [
+        "core/linear_speed.rs8-18,36-95,131-191"
+      ],
+      "result": "Correct in scoped source. Private finite/nonnegative speed leaves and checkedSerde retain admission; PositiveSpeed excludeszero. clamped_inverse_lerp rejects equal/reversed bounds before endpoint selection, returns UnitInterval constants outside, and only interior dividednative kernel constructsfraction. Finite nonnegative difference<=max and strictlypositivewidth; guardedinterior numerator<=width, so no divisionoverflow/NaN for admitted orderedinputs. No epsilon/physicalfloor/arbitrarycap/fallback. ErrorNonIncreasingBounds derives with existingSpeedError, distinct from malformedfraction/overflow."
+    },
+    {
+      "family": "Canonical fraction closure and contribution distinction",
+      "locations": [
+        "core/unit_interval.rs8-65",
+        "animation/sample_values.rs132-198"
+      ],
+      "result": "Correct. Existing finite0..1owner reused. Complement and product preservefiniteclosedinterval inclvalidzero underflow. Symmetriccubic evaluates polynomial only at value<=HALF, where square<=.25 andfactor<=3 keepresult finite/nonnegative<1, then optionalcomplement remainsadmitted; no output clamp or widenedbounds. This does not promise bitwise formerpolynomial equality. BlendWeight From<UnitInterval> losslesswidening preserves nonnegative contribution while independentweights>1 and generic checked_scale remain valid. No equivalentnewowner."
+    },
+    {
+      "family": "Typed interpolation operations and exact native boundary",
+      "locations": [
+        "linear_speed.rs69-77",
+        "animation/sample_values.rs93-129",
+        "animation/measurement.rs22-50",
+        "client/authored_cadence.rs62-70"
+      ],
+      "result": "Correct. Speedlerp extracts inside scalar interpolation, length/cycle operations extractonlyinside BevyFloatExt scalar kernel and readmit checked arithmetic result. Signedcyclefiniteoperands canoverflowdifference, and from_arithmetic rejects beforeretention. NonnegativeLength owns metrelerp reused by stride components and both ordinarydistancebranches; no applicationhelper retainingrawmetres/fraction betweenoperations. Oldoperationorder retained in lerps; new cubic explicitly symmetric."
+    },
+    {
+      "family": "Four ordinary run producers and connected fades",
+      "locations": [
+        "animation/locomotion.rs129-180",
+        "animation/evaluation/locomotion.rs111-155,217-256",
+        "client/authored_cadence.rs127-148",
+        "client/procedural/height.rs266-292",
+        "animation/evaluation.rs372-390"
+      ],
+      "result": "Source-complete within claimedconnectedchain. Locomotion profile, ordinarydistance upperbranch, evaluationrun and authoredstride use canonical speedinverse; authoredheightdirectrunfifthreceiving reconstruction removed. Reference speed, cycle radius, bounce complement, flight, native length outputs retaincheckedowners. Movementweight0..blend, airborne0..walk and bothheightinitial..blend fades use typedinverse/smoothstep. Allselected normalizedrunvalues staytyped throughcomparisons/products/complement or losslesscontribution widening; onlyactualowningmathkernels extract. Direction vectornorm outputs admittedonce asBlendWeight133-134 beforecheckedscale, no repeated per-sampleadmission."
+    },
+    {
+      "family": "Configuration and relational authority",
+      "locations": [
+        "combat_config.rs1-78,634-637",
+        "combat_config/locomotion.rs1-58",
+        "combat_config/landing.rs1-33",
+        "fabelgeist-geometry/length.rs1-40",
+        "priorruntime/defaults sourcepins"
+      ],
+      "result": "Correct. Extractedlocomotionmodule ownsactual records+gait/support/span/landing validation, ratherthan splitting merelyforlinecount. Parent delegates with typedplaybackinitialspeed. Leavesalreadyguarantee finite/strictpositivePositiveLength/PositiveSpeed and finite/nonnegativeHeightDistance; redundant rescans removed. SignedCycleDelta support needsandreceives ZERO<=r<halfcycletypedrelation. Newrun>walk andblend>initial policies explicit; YAML .05/.75,2/5.5 stilladmitted. Runtime install/default validatesbeforecache/snapshot retention. Publicconfigrecords remain explicitvalidation phase, not globallybrandedaggregate. No arbitraryupperbounds or positiveflightamplituderequirement."
+    },
+    {
+      "family": "Height receiving scope and zero-valid amplitude",
+      "locations": [
+        "client/procedural/height.rs44-77,236-292",
+        "priorBodyState.posture69-80,1409-1411",
+        "priorHeightDistance44-89"
+      ],
+      "result": "Correct. Ordinary authoredcompensation retainsfullgrounded/unarmedpack/upright/actionNone/loweredguard gate; Uprightmaps onlygroundedUpright. Directtypedrunfactor replaces flightampdivision, so configuredflightZERO no longerproduces0/0 toderiveunrelatedweight. Flightwave uses profileamplitude andtypedmovingweight. Targets are computedbeforeheight historyupdate; advance_height consumes self and returnsnewtypedstate. No fullcallerrollback/Bevyscheduling proof or liveincident claim."
+    },
+    {
+      "family": "Error mapping/modules/payloads/derives",
+      "locations": [
+        "animation/value_error.rs124-222",
+        "core/build.rs canonicalsharedmodules from priorreview003",
+        "combat_config newowner declarations"
+      ],
+      "result": "Correct. Exhaustive speederrorconversion includesnewNonIncreasingBounds{Speed}; for_quantity preservescategory. No displaymessage branching or manualnewtrait boilerplate, compatibilityshim/alias/rawoverload/oldfallback added. Newmoduleimports/reexports give one canonicalpublicowner; sameparent reexport is ordinary module API, not compatibility type duplication. Corebuildtarget imports canonical speed+fraction sources with existingthiserror dependency; std Mul adds no Cargo barrier."
+    },
+    {
+      "family": "Tests and boundaries retained outside production scope",
+      "locations": [
+        "evaluation/locomotion.rs286-322",
+        "existing workflow exacthash"
+      ],
+      "result": "No new tests/helpers/assertions/doctests or existingtest edits in candidate. Existing cfgtest gait_pair rawfraction fixturekernel unchanged, recorded and not counted as production migrationproof. Native direction-weight means and unrelatedsignedbodyresponse/phase/IK kernels remain bounded acceptedscope, not universalSDK exemptions. Existing four hostedmovement-speed tests and allpriorgates retained by exactunchangedworkflowhash, no execution byreviewer."
+    }
+  ],
+  "migration_completeness": {
+    "scoped_M04_normalization_and_direct_production_recipients": "Source-complete for enumerated connected chain after resolvedfinding; no remaining propagationgap found in thisscope.",
+    "global_configuration_M03_and_categories_M09": "Not cleared; unchanged inherited deferrals retained. Existing0.9metre low-speed distance and otherolderauthoredpolicyconstants are not newlyintroducedtuning or arbitrarybound in thisrepair.",
+    "global_audit038_or_frozen_lens11": "No credit, no ledgerchanges, notcomplete.",
+    "runtime_validation": "Unverified in thissourceonlyreview; finalhostedgates and exactartifact evidence required."
+  },
+  "baseline_and_acceptance": {
+    "status": "Pending authoritative hosted baseline export and finalsamehead CI/artifacts",
+    "contract": "After extractingconfigresponsibility andreducingvalidator, consumeactualhosted baseline output and applyonlyrelevant reductions. No ceilinggrowth or guessedcounts accepted. Thispendingacceptancecondition is not an actionable sourcecodefinding.",
+    "local_project_execution": "No fmt/build/test/check/scanner/probe run; requestedsource-onlyoverride applied toskillgenericcheck instruction."
+  },
+  "source_verification_limits": [
+    "All16 finalmanifestfilehashes independently verified; finalsourcecandidate003 frozen inworkspace. Actualsource readranges recorded; wholeunrelatedcombat_config,fullIK/SDKpopulationandglobalallUnitIntervalconsumers notclaimed.",
+    "Three unchangedfullPRfiles carried from own exacthashreview003 withqualification; sourceownership claims do not substitute fornewhostedCI.",
+    "Historicalcandidate001patch doesnotinclude laterbodyupdates/newuntrackedmodule; exactcurrentaffectedbodies personallyread, not inferredfromrootverdict.",
+    "No backwardscompatibility requirement imposed on API/layout/downcasts/messages or malformedinputbehavior.",
+    "No source/product/Git/rootledger/history/publication writes; appendonlyignoredreviewevidence."
+  ],
+  "overall_source_verdict": "No unresolved actionable scoped Rule Review finding on candidate003; source-approved with pending hosted baseline/finalCI acceptance.",
+  "tests_run": [],
+  "project_checks_run": [],
+  "broad_audit_credit": 0,
+  "root_adoption_required": true
+}

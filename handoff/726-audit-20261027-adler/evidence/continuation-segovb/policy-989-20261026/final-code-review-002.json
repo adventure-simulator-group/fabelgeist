@@ -1,0 +1,475 @@
+{
+  "review": "Independent final-source Code Review002 for PR990 / issue989 increment",
+  "at": "2026-10-27T00:18:51.164907+00:00",
+  "base": "b3810b8b5db78c15cc51a0e1bef747a06450dffb",
+  "head": "a21f9ccaeba1e3947e22dc1f64106c4f2bc371b6",
+  "verdict": "No actionable finding in the combined nine-file source delta and reviewed receiving contracts at the exact final source pins. Scope is the989 texture validation-policy increment plus format/baseline reconciliation; not global audit clearance or whole-CI acceptance.",
+  "findings": [],
+  "manifest": {
+    "path": "implementation-manifest-004.json",
+    "sha256": "bdc4ae1576bd074c1fde967a2c90747380f2027c91e36cd94cc7c943070da5b9",
+    "all_nine_paths_verified": true
+  },
+  "actual_combined_diff": {
+    "path": "final-source-002.patch",
+    "sha256": "3b12f8d201f130134f2d6b0cdd2e27137b78191c69491d80c2a04cce261fe619",
+    "bytes": 19547,
+    "personally_read_in_full": true,
+    "authority": "Root extracted actual committed baseb381..heada21 diff through read-onlyGit; this reviewer independently hash-checked/read patch and matched current source manifest. No ownGit command or remoteattestation."
+  },
+  "registrations": [
+    "final-code-review-registration-002.json",
+    "final-code-review-artifact-registration-002.json"
+  ],
+  "source_pins": [
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "sha256": "a7d4fc3525525acbcfa7ea6d88f751261132fc912cd26696d4975897a5f8b97e",
+      "bytes": 1368,
+      "actual_lines": 34,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "kind": "manifest productsource",
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "d6cd017cc5d337a0ad47543cc51cc009cff84fa78bb65499b1cddfcb60afcb55",
+      "bytes": 21453,
+      "actual_lines": 620,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "kind": "manifest productsource",
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "5b020e16dadfbc30f2eb50b784552258d880c631376ffc1d62e9e25cae07c992",
+      "bytes": 8988,
+      "actual_lines": 264,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          124
+        ]
+      ],
+      "kind": "manifest productsource",
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "a5ec79b944808520b15bc649e4d54b14612859c9a5b1b1f8446a47c17bb6c1d6",
+      "bytes": 32494,
+      "actual_lines": 905,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          146
+        ],
+        [
+          366,
+          380
+        ]
+      ],
+      "kind": "manifest productsource",
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "3adc6454ec9a8cada8428ebd2b800f5b7374028ce73a52df204e54aab3750a93",
+      "bytes": 4371,
+      "actual_lines": 125,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          125
+        ]
+      ],
+      "kind": "manifest productsource",
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "f0828dbc6755445932455e5aa9edf040f2222deca3c1fe38c44460da856565d8",
+      "bytes": 1523,
+      "actual_lines": 42,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          42
+        ]
+      ],
+      "kind": "manifest productsource",
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "14ac95339951ceb8b50cc3ab9452c251bbbce6122ebd7206a3961c406ff74858",
+      "bytes": 13112,
+      "actual_lines": 323,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          33
+        ],
+        [
+          100,
+          120
+        ],
+        [
+          262,
+          278
+        ]
+      ],
+      "kind": "manifest productsource",
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "022b9d73dd2cfc76963f3945bc7b7c89e6bbb8322889adccf3599a7b4b0e83e7",
+      "bytes": 4659,
+      "actual_lines": 87,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "kind": "manifest productsource",
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "8ccab96e129e4b873ed3f8ae3841afd6bf7cfa59809b69cbed46ec41855b171e",
+      "bytes": 331718,
+      "actual_lines": 12838,
+      "registered_and_consumed_ranges": [
+        [
+          695,
+          701
+        ]
+      ],
+      "kind": "manifest productsource",
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "e3ad593b83da185620d2729a5fde4a0f7bfda1c39993494432c55a0c989e0973",
+      "bytes": 2404,
+      "actual_lines": 65,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "kind": "connectedreceiver source",
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "sha256": "878a4144b4fecdc20291885050e30fe521a5294117046c282ef24d40c5e407d9",
+      "bytes": 924,
+      "actual_lines": 27,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "kind": "connectedreceiver source",
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/cube_face.rs",
+      "sha256": "db49ac57de817ae29d6341288c341aacbe884102e4d98575a32590f334f90709",
+      "bytes": 1654,
+      "actual_lines": 70,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "kind": "connectedreceiver source",
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs",
+      "sha256": "370add54d9307c5cbd778de771a6e2d98d0b0dbdb7b4e4b02d1245315458b11d",
+      "bytes": 21020,
+      "actual_lines": 450,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "kind": "connectedreceiver source",
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+      "sha256": "45495b07095d77c0cb93ea88115508eeb2a1f083b9368e6d9b02dc6bee3a268c",
+      "bytes": 10851,
+      "actual_lines": 313,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          33
+        ],
+        [
+          142,
+          195
+        ]
+      ],
+      "kind": "connectedreceiver source",
+      "post_read_hash_verified": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+      "sha256": "83ba1e1ca0719ccdc74c3bc70f4fdc197dca496600a89b41a5e18c7a020fece0",
+      "bytes": 377,
+      "actual_lines": 17,
+      "registered_and_consumed_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "kind": "connectedreceiver source",
+      "post_read_hash_verified": true
+    }
+  ],
+  "fresh_scope": "Allchangedconstructor/face/error bodies, changedcontextdocumentation and retainedpolicyadmission sites, relevantunchangedhelper/error/format/CubeFace/wrapper/exportreceivers and documentation freshlyreadinregisteredboundedranges. Actualfinaldiffall9filesread. Largeunchangedtailsandall12838baseline linesnotclaimedread; baselineexactchangedblock+relevantparsedrecords/inverseproof only.",
+  "source_backed_contract_traces": [
+    {
+      "family": "Canonicalpolicy admission and platform behavior",
+      "evidence": "WgpuContext.from_parts100-120 selectsUncaptured. Nativeowned/browserconstruction262-278 selectsBlockingScopes/Uncaptured respectively. ValidationObservation21-25 pushesValidationfilteronlyforBlockingScopes. ValidationScope.new38-45 delegatescanonicalpolicy and retains actualcontextdevice+guard.",
+      "assessment": "Threeconstructors andoptionalfacepath composeexistingowner; no ownership/surfaceproxy, dualpolicy orfallbackwait. Newimports/new/finish blocks allnativecfg; browsercannotenterblockinghelpercalls."
+    },
+    {
+      "family": "Textureconstructor producer/nativeops/retainedobject",
+      "evidence": "2Dcreate62-159,3Dnew48-120,cubenew52-146 build/validate descriptorsbefore nativeguard; new immediatelyprecedescreate_texture; initialcreate_view isinsideguard; finish()? occursbefore returnedtexture/viewArcmetadata construction.",
+      "assessment": "Enabledscope coversbothnativecreations; no newlyintroducedearly?drop betweenstartandfinish. UncapturedNone neverpolls/pops. ErrorpropagationusesexistinganyhowResult withoutstringifyingValidationScopeError. Descriptordimensions/usages/viewformats andlocaladmissionbehaviorunchanged bycombineddiff."
+    },
+    {
+      "family": "Actualcompletion outcomes and source causes",
+      "evidence": "ValidationScope.finish53-63 pollswait thenalwayspops andexhaustivelymapsOk/None,Ok/Some,Err/None,Err/Some tosuccess/Native/Progress/ProgressWithNative. Enum21-32 ownsbothcauseswhenpresentandmarkspollprimaryforpollfailure.",
+      "assessment": "Newproducerpathsretainstructuredpoll/nativefailuresandreturnnonewobjectonobservationerror. No devicehealthorrollbackguarantee. ActualSDKpoll/pop/deriveexpansion notfreshlyexecuted/auditedhere."
+    },
+    {
+      "family": "CubeFace typedrequest/descriptor/error/success",
+      "evidence": "Finalviews61-71 wrappersreturnTextureViewResult andforwardSomecontext/None. face_view_with_format77-124 obtainsnative texturefirst, adjustsdescriptorformatonly, uses_context.and_then(ValidationScope::new),D2/base_array_layerface.index/layercount1, thenmapsfinishcause toObservation{requested:originalformat,operation:TextureCubeFace(face),cause}. Successretainsview,parenttexture,size,effectiveformat,D2/layer. CubeFace37-45 mapsclosedroletonative0-5.",
+      "assessment": "Typedfaceandoriginalrequestretainedwithoutbroaderrorwidening; contextfree,Uncapturedandbrowserpathsavoidvalidation-onlywait. Existingnativeviewdescriptor/retainedmetadata preservedthroughmodulemove. No compatAPI/layout/message constraint applied."
+    },
+    {
+      "family": "Actualreceivingconversion and retained wrapper",
+      "evidence": "Cube.blit_texture_to_face366-380 usesface_view_with_format? inanyhowResult andreadsreturnedview. TextureView9-16 retainsview/parenttexture/effectiveformat/dimension/layer;read171-195 useslayerascopyoriginz. Texturemodule1-17 reexportsexistingowners. Errorenum36-40 derivedsource remainsValidationScopeError; newoperationpayloadCubeFacealreadyCopyDebug.",
+      "assessment": "Concretegenericconsumeracceptstypedproducererrorviastandardconversion; selectedfaceaddresssurvivesforthereadbackrecipient. PureTextureFormat49-82 conversionreadconfirmsremovedunused_wgpu_formatconversionhadnoeffect. No newconverter/manualtrait/parallelwrapper."
+    },
+    {
+      "family": "Wholecubeview and documentation scope",
+      "evidence": "Finalcubeviews18-59 retainscache-firstsameformatbranch,MissingView/Uninitializedorder,storageformatadjustment,Cubedimension/layers6,operationTextureCubeandtypednativefailure. GPUREADME3-4,guide1-87 andcontext20-32 describeactualconstructor/facepolicyandindependentreadback/backpressurewaits.",
+      "assessment": "ImportaliasWgpuTextureViewonlyseparatesnativeviewfromwrappername; no wholeviewsemanticchange. Proseretainsmutablemetadata/devicecoherencelimitsanddoesnotclaimarray/clear/readbackmigration. ExistingwholeComputePassguaranteesarenotexpandedintoaglobalreview."
+    }
+  ],
+  "previous_review_reconciliation": {
+    "prior": "code-review-001.json",
+    "prior_sha256": "2c134027c057464c4e04764a7388c7d314d5200d8ee035c5b02063c980dabb63",
+    "seven_original_paths_byte_identical": [
+      "crates/fabelgeist-gpu/README.md",
+      "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "crates/fabelgeist-gpu/texture-views.md"
+    ],
+    "only_original_path_changed": [
+      "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs"
+    ],
+    "format_patch": "hosted-format-fix-001.patch",
+    "format_patch_sha256": "a0177de5ab47e02bda17cc9bc742906124de6c46d1664557c43f6edad273d070",
+    "format_inverse_sha256": "c396c5486a664dbb5d1804963e21e76bbee671521319e625c38f0b7531f3a391",
+    "matches_prior_entire_cube_views_file": true,
+    "assessment": "Freshactualfinalbodyreviewperformed; priorverdictnotusedascoverageproxy. Exactinversenestedimportwrappingrestoresentirepriorfilehash,showingthelatercubeviewschangeiswhitespaceonly. Othersevenoriginalcode/docfilesandallreadconnectedreceiverpinsmatch."
+  },
+  "baseline_reconciliation": {
+    "location": "rust-quality-baseline.toml697-699",
+    "change": "Cube module file ceiling862->812 only",
+    "current_sha256": "8ccab96e129e4b873ed3f8ae3841afd6bf7cfa59809b69cbed46ec41855b171e",
+    "independent_inverse812_to862_sha256": "6144a5ab4e1f3132caf4c5b0aee92b151f093153e3e5bed8e4d6fadd7f12edb1",
+    "prior_baseline_sha256_from_pinned_evidence": "6144a5ab4e1f3132caf4c5b0aee92b151f093153e3e5bed8e4d6fadd7f12edb1",
+    "actual_combined_patch_only_baseline_mutation": true,
+    "hosted_snapshot_path": "hosted/run40420900203/gpu/rust-quality-baseline.toml",
+    "hosted_snapshot_sha256": "bdf6580dab45e25f9de25a94f2e5b1888f1b316b2104b028b64b98d9f671481f",
+    "independently_parsed_relevant_records": {
+      "current": {
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs": {
+          "files": [
+            {
+              "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+              "ceiling": 812
+            }
+          ],
+          "functions": [
+            {
+              "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+              "item": "TextureCube::blit_texture_to_face",
+              "ceiling": 161
+            },
+            {
+              "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+              "item": "TextureCube::render_face_shader_raw",
+              "ceiling": 149
+            },
+            {
+              "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+              "item": "TextureCube::render_shader_raw",
+              "ceiling": 142
+            }
+          ]
+        },
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs": {
+          "files": [],
+          "functions": []
+        },
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs": {
+          "files": [],
+          "functions": []
+        }
+      },
+      "hosted": {
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs": {
+          "files": [
+            {
+              "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+              "ceiling": 812
+            }
+          ],
+          "functions": [
+            {
+              "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+              "item": "TextureCube::blit_texture_to_face",
+              "ceiling": 161
+            },
+            {
+              "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+              "item": "TextureCube::render_face_shader_raw",
+              "ceiling": 149
+            },
+            {
+              "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+              "item": "TextureCube::render_shader_raw",
+              "ceiling": 142
+            }
+          ]
+        },
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs": {
+          "files": [],
+          "functions": []
+        },
+        "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs": {
+          "files": [],
+          "functions": []
+        }
+      }
+    },
+    "assessment": "Applicablecubeceilingexactlymatchesactualhostedoutput. Threefunctionceilings161/149/142unchanged; bothcurrent/hostedhaveno2D/3Dfileorfunctionceilingrecords. No ceilingraisedorblanketregenerationapplied; no workflow,qualityexception,gateor testsourcechangeinthecomplete9filediff.",
+    "coverage_method": "Changedbaselineblockfreshlyreadastext;artifactcube/filefunctionblocksfreshlyreadandlocalTOMLrecordsparsedforexactcomparison. No wholebaselinehumanlinecoverageorprojectbaselinegenerator/scannerexecutionclaimed."
+  },
+  "baseline_artifact_identity": {
+    "source_txt": "f2978ded53c97a69e3ee6855843078364a942920",
+    "pr_head_txt": "f2978ded53c97a69e3ee6855843078364a942920",
+    "results_json_source": "f2978ded53c97a69e3ee6855843078364a942920",
+    "local_fingerprints": [
+      {
+        "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/hosted/run40420900203/gpu/source.txt",
+        "sha256": "15a74bc0a01a567b6550519f9cd1d6850c3e5cd4a3677c2a56a25423c53ea559",
+        "lines": 1,
+        "ranges": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      {
+        "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/hosted/run40420900203/gpu/pr-head.txt",
+        "sha256": "15a74bc0a01a567b6550519f9cd1d6850c3e5cd4a3677c2a56a25423c53ea559",
+        "lines": 1,
+        "ranges": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      {
+        "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/hosted/run40420900203/gpu/results.json",
+        "sha256": "4906d705f1a0956b9d4fb1363e96579940bb591647b1c220da2f31642cbd5883",
+        "lines": 20,
+        "ranges": [
+          [
+            1,
+            20
+          ]
+        ]
+      },
+      {
+        "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/hosted/run40420900203/gpu/rust-quality-baseline.toml",
+        "sha256": "bdf6580dab45e25f9de25a94f2e5b1888f1b316b2104b028b64b98d9f671481f",
+        "lines": 12834,
+        "ranges": [
+          [
+            697,
+            701
+          ],
+          [
+            2758,
+            2762
+          ],
+          [
+            2763,
+            2767
+          ],
+          [
+            2768,
+            2772
+          ]
+        ]
+      }
+    ],
+    "qualification": "Localdownloadedartifactidentity/contentindependentlyread/hashverified. Remoteartifactarchive/digestprovenanceisroot-provided,notnewlyremoteattested. Thisolderpre-baselineartifactisrelevantbaselineevidenceonly,notfinala21wholeCIsuccess."
+  },
+  "validation_scope": "ThisCodeReviewperformednoexecution. Rootreportedfinalrun40421868169activewithGPU13library/2doc/1borrowedandWindows10verifiedatfinalsource;thisreviewdoesnotre-attestthoserunresultsorclaimoverallCIcompletion. Localolderartifactresults13/2/1werereadforidentityonly;notconfusedwithfourpreviouslyexcludedWIPtexture-viewruntimetests orfullfailure-branchcoverage.",
+  "correctness_and_completeness": {
+    "correctness": "No actionablefinding inactualcombined989/990sourceandreadreceivingcontracts.",
+    "requested_increment": "Threeconstructorandthreefaceentrypoints source-reviewedcompleteforcanonicalobservation/typedfailurepropagation,withexactlaterformat/baselinechangesreconciled.",
+    "broader_scope": "No closureofmutabletexturefield/device/cachecoherenceorallGPUvalidationpaths; broadmandatoryauditincludingearliest31partialandpending015adoptionunchanged. No population/findingcountcreditfromCodeReview."
+  },
+  "limits": [
+    "Scopeis15pinnedsourcepathswithdeclaredboundedreadrangesandcomplete9filediff;notwholeunchangedmodule/SDK/native/rendererreview. Sourcepinsrecheckedafterreads. Rootreportsstablecleanexactheadandprovidedcommitteddiff;thisagentdoesnotrunGitorpublish.",
+    "NativeSDKpop/pollimplementation,deriveexpandedcode,anyhowlibraryinternals,actualGPU/OSdriverbehaviorandalloutsidecallersarenotfreshlyreadhere. CodeReview001source-onlylimitspreserved;standardtypedconversionandsourceattributesinspectedwithoutcompilerexecution.",
+    "Providedcontextdeviceversustexturedeviceidentity,publicmutablecache/metadataadmission,allocation/formatcapabilities,sizing/arithmeticinvariantsandconcurrency/lifetimeguaranteesremainoutside989increment. Uncaptured/browser/contextfreepathsdelegatereportinganddonotsynchronouslycertifyvalidity.",
+    "No tests/assertions/helpers/doctestsadded/run,projectbuild/lint/format/scanner/generator/probeexecution,product/source/Git/rootledger/historicalmutationorpublication. Inmemoryhash/TOML/evidencecomparisonsarelimitedreviewmetadatawork,notprojectchecks.",
+    "No old API/schema/layout/message/downcast/backwardcompatibilityconstraint applied. AllinheritedF1/F2/F6/F9andnativeauditobservationsstayopen. No globalarchitecture/SDK/lens13/auditclearanceorall-hosted-gatespassclaim."
+  ],
+  "new_unique_findings": 0,
+  "project_execution": false,
+  "tests_added_or_run": false,
+  "product_or_git_edits": false,
+  "root_ledger_mutation": false,
+  "publication": false,
+  "global_clearance": false,
+  "stop": true
+}

@@ -1,0 +1,138 @@
+//! Per-character morph weights for asynchronously loaded body scenes.
+
+use super::skeletal_proportions::{CharacterSkeletalProportions, SkeletalProportionReference};
+use adventuresim_core::character_morph::CharacterMorphWeights;
+use adventuresim_core::character_proportions::CharacterProportions;
+use adventuresim_core::skeletal_fit::SkeletalFitMorph;
+use bevy::mesh::morph::MorphWeights;
+
+use super::*;
+
+#[expect(
+    clippy::type_complexity,
+    reason = "change-aware appearance inputs and disjoint read/write access to morph weights"
+)]
+pub(super) fn sync_character_morphs(
+    roots: Query<(Entity, &AnimationRigScene)>,
+    characters: Query<(
+        Ref<CharacterId>,
+        Option<Ref<CharacterSkeletalProportions>>,
+        Option<Ref<SkeletalProportionReference>>,
+    )>,
+    children: Query<&Children>,
+    meshes: Res<Assets<Mesh>>,
+    mut morph_queries: ParamSet<(Query<&mut MorphWeights>, Query<(), Added<MorphWeights>>)>,
+    mut removed_proportions: RemovedComponents<CharacterSkeletalProportions>,
+    mut removed_references: RemovedComponents<SkeletalProportionReference>,
+) {
+    let removed: HashSet<_> = removed_proportions
+        .read()
+        .chain(removed_references.read())
+        .collect();
+    let new_morphs = !morph_queries.p1().is_empty();
+    let mut morphs = morph_queries.p0();
+    for (root, owner) in &roots {
+        let Ok((character_id, explicit, reference)) = characters.get(owner.0) else {
+            continue;
+        };
+        if !new_morphs
+            && !removed.contains(&owner.0)
+            && !character_id.is_changed()
+            && !explicit.as_ref().is_some_and(|value| value.is_changed())
+            && !reference.as_ref().is_some_and(|value| value.is_changed())
+        {
+            continue;
+        }
+        let identity = CharacterMorphWeights::from_character_id(character_id.0);
+        let proportions = explicit.map(|p| p.0).unwrap_or_else(|| {
+            CharacterProportions::from_seed(fabelgeist_determinism::Seed::from_u64(character_id.0))
+        });
+        let reference = reference.map(|p| p.0).unwrap_or_default();
+        for entity in descendants_including(root, &children) {
+            let Ok(mut weights) = morphs.get_mut(entity) else {
+                continue;
+            };
+            let Some(names) = weights
+                .first_mesh()
+                .and_then(|mesh| meshes.get(mesh))
+                .and_then(Mesh::morph_target_names)
+            else {
+                continue;
+            };
+            for (index, name) in names.iter().enumerate() {
+                if let Some(value) = identity.named_weight(name).or_else(|| {
+                    SkeletalFitMorph::from_name(name).map(|m| m.weight(proportions, reference))
+                }) && weights
+                    .weights()
+                    .get(index)
+                    .is_some_and(|current| *current != value)
+                {
+                    weights.weights_mut()[index] = value;
+                }
+            }
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn late_loaded_bodies_use_distinct_identity_without_mutating_shared_mesh() {
+        let mut app = App::new();
+        app.init_resource::<Assets<Mesh>>()
+            .add_systems(Update, sync_character_morphs);
+        let mut mesh = Mesh::new(bevy::mesh::PrimitiveTopology::TriangleList, default());
+        mesh.set_morph_target_names(vec!["mhr_identity_00".into(), "smile".into()]);
+        let mesh = app.world_mut().resource_mut::<Assets<Mesh>>().add(mesh);
+        let mut bodies = Vec::new();
+        for id in [42, 43] {
+            let owner = app.world_mut().spawn(CharacterId(id)).id();
+            let root = app.world_mut().spawn(AnimationRigScene(owner)).id();
+            app.update();
+            let body = app
+                .world_mut()
+                .spawn((
+                    ChildOf(root),
+                    MorphWeights::new(vec![0.0, 0.7], Some(mesh.clone())).unwrap(),
+                ))
+                .id();
+            bodies.push(body);
+        }
+        app.update();
+        let first = app
+            .world()
+            .get::<MorphWeights>(bodies[0])
+            .unwrap()
+            .weights()
+            .to_vec();
+        let second = app
+            .world()
+            .get::<MorphWeights>(bodies[1])
+            .unwrap()
+            .weights();
+        assert_ne!(first[0], second[0]);
+        assert_eq!(first[1], 0.7);
+        app.update();
+        assert_eq!(
+            first,
+            app.world()
+                .get::<MorphWeights>(bodies[0])
+                .unwrap()
+                .weights()
+        );
+        assert_eq!(app.world().resource::<Assets<Mesh>>().len(), 1);
+        let rig = app.world().get::<ChildOf>(bodies[0]).unwrap().parent();
+        let owner = app.world().get::<AnimationRigScene>(rig).unwrap().0;
+        app.world_mut().entity_mut(owner).insert(CharacterId(99));
+        app.update();
+        assert_ne!(
+            app.world()
+                .get::<MorphWeights>(bodies[0])
+                .unwrap()
+                .weights()[0],
+            first[0]
+        );
+    }
+}

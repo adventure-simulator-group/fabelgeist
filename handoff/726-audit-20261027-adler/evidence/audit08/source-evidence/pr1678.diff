@@ -1,0 +1,275 @@
+diff --git a/crates/adventuresim-tactical-client/src/strategic_scene/buildings.rs b/crates/adventuresim-tactical-client/src/strategic_scene/buildings.rs
+index 2f9aaa6ee..270b0787a 100644
+--- a/crates/adventuresim-tactical-client/src/strategic_scene/buildings.rs
++++ b/crates/adventuresim-tactical-client/src/strategic_scene/buildings.rs
+@@ -1,31 +1,44 @@
+ //! Anchors in the full-size tactical buildings along the shared frontage.
+-use super::protocol::PlaceKind;
++use super::preparation::{PreparationError, PreparationResult};
++use super::protocol::{PlaceId, PlaceKind};
++use super::staging::ConversationPose;
+ use crate::presentation::venues::select_building;
++use adventuresim_building_generator::spatial_geometry::Position;
+ use adventuresim_building_generator::{OpeningUse, interior::InteriorLayout};
+ use adventuresim_tactical_core::prelude::*;
++use adventuresim_tactical_core::scene_coordinates::{Scene, ScenePlanPoint};
+ use bevy::prelude::*;
+ 
+ pub(super) const ROOM_LAYER: usize = 0;
+ #[derive(Clone)]
+ pub(super) struct Venue {
+-    pub anchor: Vec3,
+-    pub approach: Vec3,
+-    pub positions: Vec<Transform>,
++    pub anchor: Position<Scene>,
++    pub approach: Position<Scene>,
++    pub positions: Vec<ConversationPose>,
++}
++
++struct SelectedBuildings {
++    promoted: Vec<GeneratedBuilding>,
++    selected: std::collections::HashMap<
++        PlaceId,
++        adventuresim_tactical_core::scene_input::SceneBuildingId,
++    >,
+ }
+ 
+ impl Venue {
+     pub(super) fn from_building(
+         building: &GeneratedBuilding,
+         layout: &InteriorLayout,
+-    ) -> Result<Self, String> {
++    ) -> PreparationResult<Self> {
+         let bounds = building.collision.bounds;
+-        let transform = building.transform().map_err(|error| error.to_string())?;
+-        let positions =
+-            super::staging::positions(building, layout).map_err(|error| error.to_string())?;
++        let transform = building.transform()?;
++        let positions = ConversationPose::in_building(building, layout)?;
+         let anchor = positions
+             .first()
+-            .ok_or("building has no clear conversation position")?
+-            .translation;
++            .ok_or(PreparationError::MissingConversationPosition {
++                building: building.placement.id,
++            })?
++            .anchor;
+         let door = building.plan.opening_assemblies.iter().find(|opening| {
+             matches!(opening.use_kind, OpeningUse::Door | OpeningUse::Gate)
+                 && opening.frame.outside_room.is_none()
+@@ -36,14 +49,7 @@ impl Venue {
+         });
+         let outward = transform.rotation * outward;
+         // A standing-eye perspective from the real approach, with the entire facade in view.
+-        let distance = bounds
+-            .extent()
+-            .map_err(|error| error.to_string())?
+-            .metres()
+-            .xz()
+-            .max_element()
+-            * 0.8
+-            + 4.0;
++        let distance = bounds.extent()?.metres().xz().max_element() * 0.8 + 4.0;
+         let target = transform.translation;
+         let eye = Vec3::new(
+             target.x,
+@@ -52,25 +58,67 @@ impl Venue {
+         ) + outward * distance;
+         Ok(Self {
+             anchor,
+-            approach: eye,
++            approach: Position::from_metres(eye)?,
+             positions,
+         })
+     }
+ }
+ 
++impl SelectedBuildings {
++    fn prepare(
++        input: &TacticalSceneInput,
++        view: &super::protocol::StrategicView,
++        generated: &mut crate::presentation::PreparedStrategicScene,
++    ) -> PreparationResult<Self> {
++        let mut promoted = Vec::new();
++        let mut selected = std::collections::HashMap::new();
++        for place in &view.places {
++            let id = select_building(
++                input,
++                place.kind,
++                view.people
++                    .iter()
++                    .filter(|p| p.place == place.id)
++                    .map(|p| p.id.0),
++            );
++            if let Some(id) = id {
++                selected.insert(place.id.clone(), id);
++                if !generated
++                    .buildings
++                    .iter()
++                    .chain(promoted.iter())
++                    .any(|b| b.placement.id == id)
++                {
++                    let placement = input
++                        .distant_buildings
++                        .iter()
++                        .find(|b| b.id == id)
++                        .ok_or(PreparationError::MissingBuildingPlacement { building: id })?;
++                    let program = placement.occupied_program();
++                    let recipe = generated.building_recipes.get_or_generate(&program)?;
++                    promoted.push(GeneratedBuilding {
++                        placement: (*placement).into(),
++                        plan: recipe.plan.clone(),
++                        collision: recipe.collision.clone(),
++                    });
++                }
++            }
++        }
++        Ok(Self { promoted, selected })
++    }
++}
++
+ pub(super) fn prepare_venues(
+     input: &TacticalSceneInput,
+     view: &super::protocol::StrategicView,
+     generated: &mut crate::presentation::PreparedStrategicScene,
+     street: &mut Option<super::street::Street>,
+     backdrop: &crate::presentation::StrategicBackdrop,
+-) -> Result<std::collections::HashMap<super::protocol::PlaceId, Venue>, String> {
++) -> PreparationResult<std::collections::HashMap<PlaceId, Venue>> {
+     let mut venues = std::collections::HashMap::new();
+-    let (promoted, selected) = select_buildings(input, view, generated)?;
+-    generated
+-        .furniture
+-        .furnish_interiors(&promoted)
+-        .map_err(|e| e.to_string())?;
++    let SelectedBuildings { promoted, selected } =
++        SelectedBuildings::prepare(input, view, generated)?;
++    generated.furniture.furnish_interiors(&promoted)?;
+     generated.buildings.extend(promoted);
+     *street = if view
+         .places
+@@ -97,85 +145,41 @@ pub(super) fn prepare_venues(
+                 .interiors
+                 .iter()
+                 .find(|interior| interior.building_id == building.placement.id)
+-                .ok_or("building has no prepared interior")?;
++                .ok_or(PreparationError::MissingInterior {
++                    building: building.placement.id,
++                })?;
+             Venue::from_building(building, &interior.layout)?
+         } else {
+             // Public squares and camps are real outdoor positions on the terrain.
+-            let anchor = Vec3::Y * backdrop.height_at(Vec2::ZERO).unwrap_or_default();
++            let elevation = backdrop.required_height_at(ScenePlanPoint::ORIGIN)?;
++            let anchor = Position::from_metres(Vec3::Y * elevation.metres())?;
+             Venue {
+                 anchor,
+-                positions: vec![Transform::from_translation(anchor)],
+-                approach: anchor + Vec3::new(0.0, 1.7, 12.0),
++                positions: vec![ConversationPose {
++                    anchor,
++                    facing: Quat::IDENTITY,
++                }],
++                approach: Position::from_metres(anchor.metres() + Vec3::new(0.0, 1.7, 12.0))?,
+             }
+         };
+         if matches!(place.kind, PlaceKind::Square | PlaceKind::Camp) {
+             let position = venue.approach;
+-            venue.anchor = Vec3::new(
+-                position.x,
+-                backdrop.height_at(position.xz()).unwrap_or(venue.anchor.y),
+-                position.z,
+-            );
+-            venue.positions = vec![Transform::from_translation(venue.anchor)];
++            let elevation = backdrop.required_height_at(ScenePlanPoint::from(position))?;
++            venue.anchor = Position::from_metres(Vec3::new(
++                position.metres().x,
++                elevation.metres(),
++                position.metres().z,
++            ))?;
++            venue.positions = vec![ConversationPose {
++                anchor: venue.anchor,
++                facing: Quat::IDENTITY,
++            }];
+         }
+         venues.insert(place.id.clone(), venue);
+     }
+     Ok(venues)
+ }
+ 
+-fn select_buildings(
+-    input: &TacticalSceneInput,
+-    view: &super::protocol::StrategicView,
+-    generated: &mut crate::presentation::PreparedStrategicScene,
+-) -> Result<
+-    (
+-        Vec<GeneratedBuilding>,
+-        std::collections::HashMap<
+-            super::protocol::PlaceId,
+-            adventuresim_tactical_core::scene_input::SceneBuildingId,
+-        >,
+-    ),
+-    String,
+-> {
+-    let mut promoted = Vec::new();
+-    let mut selected = std::collections::HashMap::new();
+-    for place in &view.places {
+-        let id = select_building(
+-            input,
+-            place.kind,
+-            view.people
+-                .iter()
+-                .filter(|p| p.place == place.id)
+-                .map(|p| p.id.0),
+-        );
+-        if let Some(id) = id {
+-            selected.insert(place.id.clone(), id);
+-            if !generated
+-                .buildings
+-                .iter()
+-                .chain(promoted.iter())
+-                .any(|b| b.placement.id == id)
+-            {
+-                let placement = input
+-                    .distant_buildings
+-                    .iter()
+-                    .find(|b| b.id == id)
+-                    .ok_or("missing building placement")?;
+-                let program = placement.occupied_program();
+-                let recipe = generated
+-                    .building_recipes
+-                    .get_or_generate(&program)
+-                    .map_err(|e| e.to_string())?;
+-                promoted.push(GeneratedBuilding {
+-                    placement: (*placement).into(),
+-                    plan: recipe.plan.clone(),
+-                    collision: recipe.collision.clone(),
+-                });
+-            }
+-        }
+-    }
+-    Ok((promoted, selected))
+-}
+-
+ #[cfg(test)]
+ mod tests {
+     use super::*;
+@@ -229,7 +233,7 @@ mod tests {
+         let local = pose
+             .compute_affine()
+             .inverse()
+-            .transform_point3(venue.anchor)
++            .transform_point3(venue.anchor.metres())
+             + building.collision.bounds.centre().unwrap().metres();
+         let bounds = building.collision.bounds;
+         assert!(local.x >= bounds.min().metres().x && local.x <= bounds.max().metres().x);
+@@ -240,7 +244,8 @@ mod tests {
+             "selected room must receive actual daylight: {local:?}"
+         );
+         assert!(
+-            (venue.approach.y - building.placement.base_elevation_metres.metres() - 1.7).abs()
++            (venue.approach.metres().y - building.placement.base_elevation_metres.metres() - 1.7)
++                .abs()
+                 < 0.01
+         );
+     }

@@ -1,0 +1,561 @@
+{
+  "packet": 182,
+  "lens": 11,
+  "lens_name": "type-granularity",
+  "at": "2026-10-27T04:53:33.571986+00:00",
+  "status": "partial: full809 inventoried; material recipe-family receiver identity unavailable",
+  "authority": {
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "prior_adopted_state": {
+    "path": "audit11-segovb-181-proposed-state.json",
+    "sha256": "ad1b295c33ade7d6c44f98b67b706206b3e42d0c1daea42a6123e75396763750"
+  },
+  "root_adoption": {
+    "path": "audit11-segovb-181-adoption-root.json",
+    "sha256": "d1c05aa70d831c5ba9fe3bf692c172748af3c656091210014f5be41c9fd4b612"
+  },
+  "source": {
+    "original": 809,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory.rs",
+    "sha256": "0f820bca06e27b164da010e95dc7d3500a79a6feb0b7be9411ed8a41e88feb18",
+    "bytes": 15334,
+    "actual_eof": 442,
+    "effective_requested_scope": [
+      [
+        1,
+        442
+      ]
+    ],
+    "actually_consumed": [
+      [
+        1,
+        160
+      ],
+      [
+        161,
+        310
+      ],
+      [
+        311,
+        442
+      ]
+    ],
+    "full_body_read": true,
+    "source_accounted": false,
+    "ordered_credit": 0
+  },
+  "registrations": [
+    {
+      "path": "audit11-segovb-182-registration-001.json",
+      "sha256": "06b8d610949236aca72cfb14d97fc7ef2dcd25770bbdad93a891224536aa7f8e"
+    },
+    {
+      "path": "audit11-segovb-182-registration-002.json",
+      "sha256": "35742cf45636819a7d471c07d9e58c05af5ddc7ec7301b795c6630f6bb90ee11"
+    },
+    {
+      "path": "audit11-segovb-182-registration-003.json",
+      "sha256": "4af86bf401a8a83de41993ee487e3beb65609c4cc5127e4ba5f08a8f7c8072a8"
+    },
+    {
+      "path": "audit11-segovb-182-registration-004.json",
+      "sha256": "7ec30cac19ddc41d5a7a1ccfee4453e21d87d428c206857b58153a28e9719388"
+    },
+    {
+      "path": "audit11-segovb-182-registration-005.json",
+      "sha256": "7e86f6881f10fbaef7b176c1dc096047986d435ba71baef09d8e0cec06b070ba"
+    },
+    {
+      "path": "audit11-segovb-182-registration-006.json",
+      "sha256": "7e22a4878ba1862fa656072830948cd4abc6129205152ce8602102d2de19ace9"
+    }
+  ],
+  "new_source_reads": [
+    {
+      "original": 809,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory.rs",
+      "sha256": "0f820bca06e27b164da010e95dc7d3500a79a6feb0b7be9411ed8a41e88feb18",
+      "read_from": "crates/adventuresim-character-creator/src/inventory.rs",
+      "actual_access": [
+        [
+          1,
+          160
+        ],
+        [
+          161,
+          310
+        ],
+        [
+          311,
+          442
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          442
+        ]
+      ],
+      "ordered_credit": false,
+      "note": "809 fullbody read but materialdesignreceivingtrace remains incomplete; all connected originals zeronewordered/sharedcredit"
+    },
+    {
+      "original": 810,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory/loadout.rs",
+      "sha256": "8b3ada636d68eaae16cf4ca2bab097cd918be93a52452d34dc3e2648add51691",
+      "read_from": "crates/adventuresim-character-creator/src/inventory/loadout.rs",
+      "actual_access": [
+        [
+          1,
+          110
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          110
+        ]
+      ],
+      "ordered_credit": false,
+      "note": "809 fullbody read but materialdesignreceivingtrace remains incomplete; all connected originals zeronewordered/sharedcredit"
+    },
+    {
+      "original": 811,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory/occupancy.rs",
+      "sha256": "dbd62cb0c402bcb0903b4bcebdc159c2d2f35f266e4dff77c359796db40231b8",
+      "read_from": "crates/adventuresim-character-creator/src/inventory/occupancy.rs",
+      "actual_access": [
+        [
+          1,
+          155
+        ],
+        [
+          156,
+          287
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          287
+        ]
+      ],
+      "ordered_credit": false,
+      "note": "809 fullbody read but materialdesignreceivingtrace remains incomplete; all connected originals zeronewordered/sharedcredit"
+    },
+    {
+      "original": 764,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "sha256": "da3139ef3625393db9041ad0680dc244b0f81235b86ea4519a87c9299763bdd6",
+      "read_from": "crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "actual_access": [
+        [
+          1,
+          91
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          88
+        ]
+      ],
+      "ordered_credit": false,
+      "note": "809 fullbody read but materialdesignreceivingtrace remains incomplete; all connected originals zeronewordered/sharedcredit"
+    },
+    {
+      "original": 815,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/item_design.rs",
+      "sha256": "a33bdf3bde70ed5a647c3968c9e9c04dd60402bca585d47a4d2555ce9e3802aa",
+      "read_from": "crates/adventuresim-character-creator/src/item_design.rs",
+      "actual_access": [
+        [
+          1,
+          120
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          118
+        ]
+      ],
+      "ordered_credit": false,
+      "note": "809 fullbody read but materialdesignreceivingtrace remains incomplete; all connected originals zeronewordered/sharedcredit"
+    },
+    {
+      "original": 920,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment.rs",
+      "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "read_from": "crates/adventuresim-core/src/equipment.rs",
+      "actual_access": [
+        [
+          190,
+          276
+        ],
+        [
+          277,
+          318
+        ]
+      ],
+      "material_scope": [
+        [
+          197,
+          318
+        ]
+      ],
+      "ordered_credit": false,
+      "note": "809 fullbody read but materialdesignreceivingtrace remains incomplete; all connected originals zeronewordered/sharedcredit"
+    },
+    {
+      "original": 923,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment_assets/selection.rs",
+      "sha256": "162b898d78feeae3507d19844b4b11c999c50edd7609680e5ef7c2fac89486d6",
+      "read_from": "crates/adventuresim-core/src/equipment_assets/selection.rs",
+      "actual_access": [
+        [
+          1,
+          132
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          130
+        ]
+      ],
+      "ordered_credit": false,
+      "note": "809 fullbody read but materialdesignreceivingtrace remains incomplete; all connected originals zeronewordered/sharedcredit"
+    },
+    {
+      "original": 939,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "actual_access": [
+        [
+          23,
+          77
+        ],
+        [
+          147,
+          250
+        ],
+        [
+          315,
+          350
+        ]
+      ],
+      "material_scope": [
+        [
+          23,
+          70
+        ],
+        [
+          147,
+          250
+        ],
+        [
+          315,
+          340
+        ]
+      ],
+      "ordered_credit": false,
+      "note": "809 fullbody read but materialdesignreceivingtrace remains incomplete; all connected originals zeronewordered/sharedcredit"
+    },
+    {
+      "original": 780,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment.rs",
+      "sha256": "d6b09524be811c5e4202be50af529c941a917ff8f31ea61e2a73e4da17dc103e",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/d6b09524be811c5e4202be50af529c941a917ff8f31ea61e2a73e4da17dc103e",
+      "actual_access": [
+        [
+          1,
+          44
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          44
+        ]
+      ],
+      "ordered_credit": false,
+      "note": "809 fullbody read but materialdesignreceivingtrace remains incomplete; all connected originals zeronewordered/sharedcredit"
+    },
+    {
+      "original": 816,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/lib.rs",
+      "sha256": "dc0c4f7b59ecd62d3a8a4a6b00c5bfecfc15470df833fe4294e486d1ffa5393c",
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/dc0c4f7b59ecd62d3a8a4a6b00c5bfecfc15470df833fe4294e486d1ffa5393c",
+      "actual_access": [
+        [
+          94,
+          171
+        ]
+      ],
+      "material_scope": [
+        [
+          94,
+          170
+        ]
+      ],
+      "ordered_credit": false,
+      "note": "809 fullbody read but materialdesignreceivingtrace remains incomplete; all connected originals zeronewordered/sharedcredit"
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/garment/selection.rs",
+      "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+      "actual_eof": 271,
+      "actual_access": [
+        [
+          1,
+          79
+        ],
+        [
+          111,
+          225
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          79
+        ],
+        [
+          111,
+          225
+        ]
+      ],
+      "root_provenance": {
+        "path": "audit11-root-garment-selection-staging-182.json",
+        "sha256": "5e81fcb5f5ca2e8dd9a56703c3cdc10911de94615516d90ed59eb5718d4d1ba4"
+      },
+      "proof": "Exact frozenbase3a50/head6533bytes equal, absent747changes/dirty4; no currentalias or bodycredit fromstaging",
+      "mandatory_other_lenses": "pending",
+      "original_shared_credit": 0
+    }
+  ],
+  "reused_actual_source_proofs": [
+    {
+      "path": "audit11-successor-157.json",
+      "sha256": "42d279d414bf2248fed671176cb884c9dc3e367fcdc613290ac7dbc00eec8074"
+    },
+    {
+      "path": "audit11-successor-157-connected-780-003.json",
+      "sha256": "fa0a6faef8a06976d46ad2d289dd8548c0a83df6c7ff62f4d758076a4e89ecab"
+    }
+  ],
+  "role_inventory": [
+    {
+      "lines": [
+        1,
+        22
+      ],
+      "roles": "Inventory/loadout/occupancy responsibility and concrete imports. CatalogArticle/ItemDesign, armor Construction, garment Construction, garment selection and settled drape have different semantic owners despite names/storage overlap; no consolidation by spelling."
+    },
+    {
+      "lines": [
+        23,
+        41
+      ],
+      "roles": "InventoryItemId(u64) is local article-instance identity, distinct from catalog definition key and vector ordinal. Inventory owns Vec<InventoryItem>; mutable item access allows article/worn mutation. InventoryItem carries ID, worn selector and Article, serde transparent/container records. No proof of receiving-inventory membership or nonzero/unique/allocator bounds from publicID alone."
+    },
+    {
+      "lines": [
+        43,
+        67
+      ],
+      "roles": "Article sum distinguishes a catalog definition+placement reference, live draped GarmentSelection, and saved SettledGarment owning drape. Distinction reaches separateoccupancy/loadout receiver cases. CatalogArticle fields include itemkey, placementkey, optionalshapeoverride, decoration and armorConstruction; independent appearance/build parameters not redundant representation of articlekind."
+    },
+    {
+      "lines": [
+        69,
+        84
+      ],
+      "roles": "EquipConflict variants own occupied cell+otherinventoryID, unsupported channel+optional location, or generic invalidcause text. Channel/location are closed shared schema roles; optional location permits unspecifiedparent location. No branch on displayprose. Typed invalid-cause taxonomy remains unresolvedotherlens/owner work, no replacementerrorenum invented."
+    },
+    {
+      "lines": [
+        86,
+        137
+      ],
+      "roles": "CatalogArticle constructor accepts authored/decoded keyspelling. resolve uses ItemCatalog actual pair lookup. design_for checks supplied selection keys and selects catalogdefault orsamefamily override; actual inner ParametricDesign/DedicatedGenerator classification remains pending. Stringkey identity is not necessarily canonical borrowedrecord identity amongduplicates."
+    },
+    {
+      "lines": [
+        139,
+        206
+      ],
+      "roles": "Article name is humanpresentation; name fallbackdoesnotroutebehavior. Catalog optionalweightkg is physical quantity, absentforgeneratedgarments ratherthaninferred0. garment returnscommonborrowedselection whilepreserving Article sum. validate checksnonemptycatalogkeys, payloadshape/decoration/construction, or delegateslive/saved garmentvalidation; validation returnsprosetext. placement_count iscollectioncount usedonlypresentationdisambiguation."
+    },
+    {
+      "lines": [
+        208,
+        262
+      ],
+      "roles": "Inventory get/get_mut uses stableinstanceID, worn filtersstoredselector, add allocates maxpriorID+1 andinitialcarriedstate, removeusesIDthenremovesdependentwear, shift mapsIDtoordinal andmovesadjacent bybooldirection. IDs, dynamicordinal andorderdirectionaredistinct; wrapping_sub islocal previous-slotabsence representation guardedbylength. No claimallocatoroverflow/uniqueness underarbitrarydeserialization or mutation."
+    },
+    {
+      "lines": [
+        264,
+        306
+      ],
+      "roles": "wear snapshotsitems, marksrequestedinstanceworn, displacesoverlap counterparty, retriesfit, restoresonotherconflict; take_off clearsrequestedwearthenrepeatedlyclearsunsupportedculprits. Vec<InventoryItemId> is actual returnedset/orderofchangedinstances, distinctfrom arrayposition/catalogkeys. set_worn boolmutatesstoredwearstate, nota namedpredicate. Full termination/invariant/rollback correctness is not inferredfromstrongID."
+    },
+    {
+      "lines": [
+        308,
+        351
+      ],
+      "roles": "fit mapswornArticle to Candidate withsameInventoryItemId andspecific CatalogPlacement or garmentoccupancy, thenWornGraph build. Result errorpair carries culpableitemID+EquipConflict; explain consumes thesepayloadroles intohumantext. No textmatching classification."
+    },
+    {
+      "lines": [
+        353,
+        395
+      ],
+      "roles": "validate checksduplicateexistingIDs andArticlevalidation; explicitmethod isnotSerde-enforcedaggregate admission. DisplayformatsID#number; conflict.describebranchesontypedvariants, usescanonicalenum-to-displaylabels."
+    },
+    {
+      "lines": [
+        397,
+        442
+      ],
+      "roles": "ClosedsharedEquipmentChannel/Location maptohumanlabels, notparseableselectors. Existing tests declaredonly; testsource notread/run. Complete442body independentlyconsumed."
+    }
+  ],
+  "completed_contract_traces": [
+    {
+      "role": "Actual recipe producer/retention and validation boundary",
+      "locations": [
+        "81694-160",
+        "80923-67,174-199,208-240,353-360"
+      ],
+      "trace": "CharacterRecipe stores Inventory, defaultadds authored catalog item/placement pairs then marksnewlocalIDsworn. validate delegatesInventory.validate afterrecipechecks. Inventory Serde canconstructraw items beforeexplicitvalidation; validation uniqueness doesnotproveall public mutation or maxu64incrementclosure. No replacementforlocalID withglobalstrategicID solelyequalstorage."
+    },
+    {
+      "role": "Catalog borrowed owner vs serialized keys",
+      "locations": [
+        "76413-21,72-87",
+        "9238-125,127-130",
+        "80957-66,86-135"
+      ],
+      "trace": "CatalogItem privateborrow referencesactualItemDefinition. find choosesfirst exactkey, admit usesptrEq, equality isptrEq; CatalogPlacement privatelypairsplacementwithits actualitem. RetainedOwnedCatalogPlacement snapshotsactualdefinition+boundedprivateordinal. InventoryCatalogArticle holdsitem/placementtextandresolvesatuse, preservinglookupfailure. design_for guardcompareskeys, notrecordpointers. Thesephases have differentauthority/identity; cannotautomaticallyreplace persistedreferences withsnapshotowner orclaimidenticalrecordsfromequalstrings."
+    },
+    {
+      "role": "Occupancy and graph identity receiving boundary",
+      "locations": [
+        "81117-79,103-169,172-287",
+        "920197-318",
+        "939147-250,315-340"
+      ],
+      "trace": "Occupancy ownsbodyrequirements andparentrequirements. CanonicalEquipmentChannel/Location andoptionallocation remain typed. Candidate carriesinstanceID andactualcatalogequipment/tags or garment-derivedoccupancy. WornGraph defersunsupportedattachments, findsactualparentpoint bychannel/order/tag/location andcapacity, thenpassesEquipPlacement tosharedEquipmentGraph. LocalID iserasedto u64 atedgeparent andequip call, retainedraw insharedgraphnodes/edges andreadbyhas_children/would_cycle, thenreconstructedintoInventoryItemId forsupports. This isinternal firstpartyapplication graph, notnativeformat. Capacityindex andchannelorder aredifferentu16 roles; no capacity/overflow/arbitrarygraphmutationproof."
+    },
+    {
+      "role": "Article sum through retained loadout",
+      "locations": [
+        "81012-43,45-110",
+        "81167-99",
+        "newselection1-79,111-225",
+        "78030-44",
+        "157connected003saved-drapeproof"
+      ],
+      "trace": "CatalogPiece retainsID+CatalogPlacement, FittedPiece addsItemDesign/decoration/armorConstruction; clothingnone-designdistinguishedfromfittedsome-design. DrapedPiece retainsID+GarmentSelection and optionalSavedDrape; Article::Settled addsactualsavedpayload, liveDrapednone. Actual garment Construction::Sewn(Pattern) versusCoif(CoifDesign), GarmentForm, ClothLayer andFabricPreset aremeaningfulandnotduplicatesofarmorConstruction. ChannelmapsChainmail toFlexibleArmor, otherfabricsthroughClothLayer; coifcoversHead/Neck, sewnpatternpresencemapsbodylocations. loadout sortsbycanonicalchannelorder preservingactualselection. Fullnativepattern/armor/fabricmath andall saved-drape validationareoutsidecurrenttrace; prior780/788qualifiedproofcarried."
+    },
+    {
+      "role": "Design-family receiving port, partial",
+      "locations": [
+        "809117-135",
+        "81518-52,58-118"
+      ],
+      "trace": "ItemDesignsum Recipe/ Vambrace/ Breastplate preventsdifferentgeneratorpayloads; same_family returnsfalseacrosssumvariants andtrueforcorrespondingdedicatedvariants, delegatesRecipe varianttocanonicalParametricDesign.same_family. default_at delegatesactualCatalogPlacement throughDesignTarget andDedicatedGenerator.for_item/armor_recipes.recipe; storedoverrideslookup andselected routearevisiblecallsbutcalleeclassificationnotyetread. Cannotassertcompleteguard/familychoiceuntil frozen693 actualownerisavailable."
+    }
+  ],
+  "qualified_source_observations": [
+    {
+      "source_key": "pr-working:crates/adventuresim-character-creator/src/inventory/occupancy.rs@sha256:dbd62cb0c402bcb0903b4bcebdc159c2d2f35f266e4dff77c359796db40231b8#L220-L255:inventory-instance-id-erasure",
+      "classification": "source-backed frozen propagation/granularity question; canonicalalias/currentness/newuniqueacceptanceunproved",
+      "observation": "Existing local InventoryItemId preventsmixingwithcatalogkeys/ordinals inInventory API, butsharedEquipmentGraph takesnakedu64 and storesit asnodekey/parentID. Native/serializationrequirementhasnotbeenestablishedhere; accidentalunrelatedu64namespaceisrepresentableatsameinternalAPI. Reconcilelowestsharedownerorappropriateidentityparameterizationbefore repair; do notflattencreatorlocalIDwithstrategic/player IDs justbecauseu64matches. No actualwrongID/runtimeincident oraccepteduniquecount."
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-character-creator/src/inventory.rs@sha256:0f820bca06e27b164da010e95dc7d3500a79a6feb0b7be9411ed8a41e88feb18#L57-L66,L117-L135:catalog-key-versus-record-identity",
+      "classification": "qualified frozen identity-phase question; policy/alias/currentnessunresolved",
+      "observation": "Itemkey andplacementkey remainString inserializedCatalogArticle, whileactualborrowedCatalogItem equalityisrecordpointeridentity andfind choosesfirstduplicate. design_for keyguardalonecannotdistinguish differentactualrecordswithsameauthoredkeypair. PublicItems/borrowedselectionAPIrepresentthatmixup; no normalwrongrecordcaller demonstrated. Needreconcile intendedpersistentkeylookupversusactualrecord/snapshotauthority, notinventclosedcatalogenum or silentlyforce snapshotsemantics."
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-character-creator/src/inventory.rs@sha256:0f820bca06e27b164da010e95dc7d3500a79a6feb0b7be9411ed8a41e88feb18#L36-L40,L249-L260,L302-L305:wear-state-and-order-direction",
+      "classification": "retained scoped role distinction for enum-shape/ownerreconciliation; noacceptednewuniquefinding",
+      "observation": "Storedworn andAPIlater/worn parameters carrydifferenttwo-stateapplicationchoices; theyarenotordinarynamedpredicate returnvalues. Queryworn()/is_some_and predicates areordinarybooluses. Any canonical WearState/orderingdirection reconciliationmustpreserveindependent axes; notconsolidate intoArticle variant orconflatewithclothdrape policy. No additional >2state payloadrequiredbyconsumedsource."
+    }
+  ],
+  "pending_material_receiver": {
+    "original": 693,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_recipes.rs",
+    "expected_sha256": "a6c834971b1cd263330dea65a4a48a826dda0b767e3e16b49dc26c8a7405c725",
+    "cache_object_available": false,
+    "current_sha256": "8b2449df30f3da7cfaa1478203f428c4ac9517ff007e97396c7cfc916c11099a",
+    "current_source_body_read": false,
+    "required_next_contracts": [
+      "ParametricDesign.same_family concrete variant classification",
+      "DedicatedGenerator.for_item and armor_recipes.recipe actual catalog-to-design family admission",
+      "Only materially connected CatalogDesigns overrides.selected receiving identity if classification needsit"
+    ],
+    "reason": "Named owner/body required foractualdesign_for acceptance; current mismatchingfile must notsubstitute frozenauthority. No furtherdiscoveryafterthischeckpoint."
+  },
+  "mandatory_other_lens_extensions": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/garment/selection.rs",
+      "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+      "actual_eof": 271,
+      "actual_access": [
+        [
+          1,
+          79
+        ],
+        [
+          111,
+          225
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          79
+        ],
+        [
+          111,
+          225
+        ]
+      ],
+      "root_provenance": {
+        "path": "audit11-root-garment-selection-staging-182.json",
+        "sha256": "5e81fcb5f5ca2e8dd9a56703c3cdc10911de94615516d90ed59eb5718d4d1ba4"
+      },
+      "proof": "Exact frozenbase3a50/head6533bytes equal, absent747changes/dirty4; no currentalias or bodycredit fromstaging",
+      "mandatory_other_lenses": "pending",
+      "original_shared_credit": 0
+    }
+  ],
+  "new_unique_findings": 0,
+  "accepted_unique_count_change": 0,
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer. Preserve180/181nativeSDK/Bevy scheduling/imagecopylimits andallpendingreceiverqueues. M04current903reviewsseparate; notfrozenoriginal/lenscounts.",
+  "coverage_limits": [
+    "Original809 full442 actualbody isnotcompletionbecausematerialdesignfamilyreceivingtrace ispending. No810/811/923orderedcreditdespitefull/partialconnectedreads; nootheroriginal/sharedcountincrease.",
+    "Allnewbodiesprospectivelyregistered, exacthashverified. Correctpr-working schema939used; physical-p16schema116metadataonlyandnotbodyconsumed.",
+    "Newgarmentselectionregistered1-79,111-225; nativeFabricpreset80-110andtests226-271notread. Sourceprovenunchangedfrozenbase/head; no currentaliasor coveragefromrootstaging. Mandatoryallotherlensesqueuepending.",
+    "Incidentalaccesscore920190-195authoredprecedingtable,76491methodheader,815120nextmethodcomment,93974-77partialphysicalrecord/342-350partialstable_iddecoder excludedfromsemanticcoverage. No fullschema/EquipmentGraph1182file/SDK/globalbound guarantee.",
+    "Recipe693 onlymetadatahashcompared; sourcebody notreadbecausewrongcurrentbytes. Existing157/connected003actualsourceproofs reusedwithfingerprints, nothistoricalverdicttransfer.",
+    "No numericalallocationoverflow, duplicateID/arbitrarySerde/recordmutation, fullpattern/armor/fabricsolver, graphallinput/termination/fitpolicy/proseerrorclassifier oractualruntimeclaim. No inventedbounds/compatibilityconstraints.",
+    "No projectexecution/checks/tests/probes/scanners/newtests/helpers/assertions/doctests/product/source/Git/ledger/history/publication; appendignoredonly."
+  ],
+  "clear": false,
+  "current_reconciled": false,
+  "integrated": false,
+  "validated": false,
+  "source_complete": false,
+  "root_adoption_required": true,
+  "stop": "Concrete809designreceiverpartial saved; stopbefore810 orderedinventory orfurthernewsubsystemdiscovery"
+}

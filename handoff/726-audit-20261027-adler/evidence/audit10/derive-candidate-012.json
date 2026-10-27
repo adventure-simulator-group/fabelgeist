@@ -1,0 +1,11 @@
+{
+ "id":"OWN10-QUALIFIED-012",
+ "status":"qualified; global saved-remedy dedup pending; not counted unique",
+ "source":"6533e444fa37552927070cc8d8190907fd3b413e",
+ "roles":[
+  {"scope_index":2280,"path":"crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs","manual":"ComputePipeline Default sets shader=ComputeShader::default, vector empty, reflection/pipeline=None, fresh Arc<Mutex<HashMap>> empty and fresh Arc<Mutex<Option<String>>> None.","remedy":"Add built-in Default derive and remove manual Default; standard nested defaults construct exactly the same fresh values with no bounds/dependencies or sharing changes."},
+  {"scope_index":2281,"path":"crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs","manual":"PassParameters Default calls new; new constructs sole IndexMap::new field.","remedy":"Add built-in Default derive and remove manual Default; preserve public new/insert/get/native conversion APIs. IndexMap default is same empty map with default RandomState."}
+ ],
+ "retain":"PassParameters conversions and PassParameter From variants are small native adapters in exact frozen crate with no available field-conversion derive dependency; no new dependency proposed. Native compute resource lifecycle/error/cache behavior is outside this boilerplate remedy.",
+ "limits":"Manual code is semantically correct. No runtime/GPU/cache coherence/merge/global clearance. No local project checks/probes/tests or source edits. Global finding corpus dedup pending."
+}

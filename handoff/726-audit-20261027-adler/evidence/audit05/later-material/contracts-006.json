@@ -1,0 +1,242 @@
+{
+  "registry_snapshot": "registry-179.json",
+  "registry_sha256": "06d1e85af129d0513fbc0a5697d2d1f50c3e658c47b7d0dec766995f521adc46",
+  "members": [
+    {
+      "material_index": 21,
+      "registration": {
+        "source_id": "native-dependency:bevy_replicon-0.41.1/src/shared/replication/registry/rule_fns.rs",
+        "sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+        "ranges": [
+          [
+            40,
+            145
+          ],
+          [
+            162,
+            225
+          ]
+        ],
+        "registration_evidence": "root-native-codec-registration-001.json",
+        "reason": "Actual locked native landform replication codec and generated internally-tagged enum deserializer contract; only referenced ranges scoped, not entire third-party crate.",
+        "archive_lock_checksum_verified": true,
+        "archive_member_verified": true,
+        "lenses": {
+          "producer-propagation": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "existing-type-owners": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "admission-contracts": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "invariant-operations": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "aggregate-states": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "type-ownership": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "redundant-authority": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "behavior-preservation": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "enum-shapes": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "derivability": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "type-granularity": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "magic-strings": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "magic-numbers": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit"
+        },
+        "status": "Exact locked archive/member byte verification and native source ranges; no invocation/project checks. Utilities registration captured promptly after first native body read; do not claim prospective registration for that file."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          40,
+          145
+        ],
+        [
+          162,
+          225
+        ]
+      ],
+      "disposition": "Read registered40-145/162-225 plus1-39type guard,146-161dispatch,226-245inplace/consume receiving context. Private RuleFns couples four typed codecs; erased restore has documented unsafe same-type obligation and debug assertion. Default serialize/from_buf deserialize then entity-map; in-place assigns only after success. consume sets ignore_mapping true then ? before resetting, preserving earlier own context-reuse/error-recovery question, no actual reused-context failure witness. Not blanket serializer validity."
+    },
+    {
+      "material_index": 22,
+      "registration": {
+        "source_id": "native-dependency:bevy_replicon-0.41.1/src/shared/replication/rules.rs",
+        "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+        "ranges": [
+          [
+            1,
+            58
+          ],
+          [
+            262,
+            281
+          ],
+          [
+            890,
+            920
+          ]
+        ],
+        "registration_evidence": "root-native-codec-registration-001.json",
+        "reason": "Actual locked native landform replication codec and generated internally-tagged enum deserializer contract; only referenced ranges scoped, not entire third-party crate.",
+        "archive_lock_checksum_verified": true,
+        "archive_member_verified": true,
+        "lenses": {
+          "producer-propagation": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "existing-type-owners": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "admission-contracts": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "invariant-operations": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "aggregate-states": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "type-ownership": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "redundant-authority": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "behavior-preservation": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "enum-shapes": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "derivability": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "type-granularity": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "magic-strings": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "magic-numbers": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit"
+        },
+        "status": "Exact locked archive/member byte verification and native source ranges; no invocation/project checks. Utilities registration captured promptly after first native body read; do not claim prospective registration for that file."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          58
+        ],
+        [
+          262,
+          281
+        ],
+        [
+          890,
+          920
+        ]
+      ],
+      "disposition": "Read registered rule dispatch1-58/262-281/890-920 plus921-927closure. Ordinary replication/filtered uses default RuleFns, once adds explicit mode, diff uses dedicated codec; registration hashes protocol then installs component/filter rules. Actual landform/component selection and custom override must be personally traced before linking codec mismatch to product. No imported root verdict."
+    },
+    {
+      "material_index": 23,
+      "registration": {
+        "source_id": "native-dependency:postcard-1.1.3/src/de/deserializer.rs",
+        "sha256": "20f5ff69404628e4d765f58ceb91b6ac8879ce998aef6dfe49a2fdb2c5f20ac2",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/20f5ff69404628e4d765f58ceb91b6ac8879ce998aef6dfe49a2fdb2c5f20ac2",
+        "ranges": [
+          [
+            208,
+            236
+          ]
+        ],
+        "registration_evidence": "root-native-codec-registration-001.json",
+        "reason": "Actual locked native landform replication codec and generated internally-tagged enum deserializer contract; only referenced ranges scoped, not entire third-party crate.",
+        "archive_lock_checksum_verified": true,
+        "archive_member_verified": true,
+        "lenses": {
+          "producer-propagation": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "existing-type-owners": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "admission-contracts": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "invariant-operations": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "aggregate-states": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "type-ownership": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "redundant-authority": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "behavior-preservation": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "enum-shapes": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "derivability": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "type-granularity": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "magic-strings": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "magic-numbers": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit"
+        },
+        "status": "Exact locked archive/member byte verification and native source ranges; no invocation/project checks. Utilities registration captured promptly after first native body read; do not claim prospective registration for that file."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          208,
+          236
+        ]
+      ],
+      "disposition": "Read pinned Postcard208-236: nonhumanreadable and deserialize_any always WontImplement; bool accepts exactly0/1. This dependency contract matters only if actual payload derive requests any; not all serde enums fail."
+    },
+    {
+      "material_index": 24,
+      "registration": {
+        "source_id": "native-dependency:serde_derive-1.0.229/src/de/enum_internally.rs",
+        "sha256": "9d898dbc1c46262f695ef7ba1660b2af70de48e07bbac8f44b740326b7c5b303",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/9d898dbc1c46262f695ef7ba1660b2af70de48e07bbac8f44b740326b7c5b303",
+        "ranges": [
+          [
+            1,
+            106
+          ]
+        ],
+        "registration_evidence": "root-native-codec-registration-001.json",
+        "reason": "Actual locked native landform replication codec and generated internally-tagged enum deserializer contract; only referenced ranges scoped, not entire third-party crate.",
+        "archive_lock_checksum_verified": true,
+        "archive_member_verified": true,
+        "lenses": {
+          "producer-propagation": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "existing-type-owners": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "admission-contracts": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "invariant-operations": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "aggregate-states": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "type-ownership": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "redundant-authority": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "behavior-preservation": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "enum-shapes": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "derivability": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "type-granularity": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "magic-strings": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "magic-numbers": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit"
+        },
+        "status": "Exact locked archive/member byte verification and native source ranges; no invocation/project checks. Utilities registration captured promptly after first native body read; do not claim prospective registration for that file."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "disposition": "Read complete106line internally-tagged serde derive: tag/content extraction unconditionally calls deserialize_any, then buffered content visitor for concrete variant. Combined with material23 proves this particular derive/native codec incompatibility at API level. Actual replicated landform's serde attributes/registration and unique existing finding identity still pending; no executed packet or promoted product defect."
+    },
+    {
+      "material_index": 25,
+      "registration": {
+        "source_id": "native-dependency:bevy_replicon-0.41.1/src/postcard_utils.rs",
+        "sha256": "4a9f413f61885f1581e0a3ddadb2528459e45bd2ea029a7a08ad3b2ab085d537",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/4a9f413f61885f1581e0a3ddadb2528459e45bd2ea029a7a08ad3b2ab085d537",
+        "ranges": [
+          [
+            120,
+            143
+          ]
+        ],
+        "registration_evidence": "root-native-codec-registration-001.json",
+        "reason": "Actual locked native landform replication codec and generated internally-tagged enum deserializer contract; only referenced ranges scoped, not entire third-party crate.",
+        "archive_lock_checksum_verified": true,
+        "archive_member_verified": true,
+        "lenses": {
+          "producer-propagation": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "existing-type-owners": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "admission-contracts": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "invariant-operations": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "aggregate-states": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "type-ownership": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "redundant-authority": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "behavior-preservation": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "enum-shapes": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "derivability": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "type-granularity": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "magic-strings": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit",
+          "magic-numbers": "native-boundary evidence pending independent reconciliation; root01 exact source proof saved, no automatic lens credit"
+        },
+        "status": "Exact locked archive/member byte verification and native source ranges; no invocation/project checks. Utilities registration captured promptly after first native body read; do not claim prospective registration for that file."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          120,
+          143
+        ]
+      ],
+      "disposition": "Read exact registered120-143Postcard helper: typed from_buf constructs Postcard deserializer on borrowing BufFlavor then invokes T::deserialize; entity path uses custom compact entity decoder. Decoder advances cursor, so success or error does not imply rollback/retry-safe message state. Actualcomponent chain remains qualified as in21-24."
+    }
+  ],
+  "first_unfinished_material_index": 26,
+  "new_findings": []
+}

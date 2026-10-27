@@ -1,0 +1,181 @@
+{
+  "at": "2026-10-27T05:03:44.093826+00:00",
+  "lens": 12,
+  "original": 50,
+  "prior_state": "audit12-state-successor-027-root-002.json",
+  "source_id": "physical-p16:crates/adventuresim-core/src/quest_catalog.rs",
+  "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+  "actual_registered_reads": [
+    [
+      24,
+      32
+    ],
+    [
+      92,
+      119
+    ],
+    [
+      324,
+      400
+    ],
+    [
+      404,
+      430
+    ],
+    [
+      580,
+      605
+    ],
+    [
+      731,
+      800
+    ],
+    [
+      842,
+      885
+    ]
+  ],
+  "material_ranges": [
+    [
+      24,
+      26
+    ],
+    [
+      92,
+      109
+    ],
+    [
+      324,
+      380
+    ],
+    [
+      404,
+      413
+    ],
+    [
+      578,
+      595
+    ],
+    [
+      731,
+      791
+    ],
+    [
+      842,
+      860
+    ]
+  ],
+  "registrations": [
+    {
+      "path": "audit12-successor-registration-028-quest-001.json",
+      "sha256": "0ccc735bed13be5b69dae0a57da6c39442ea008a8ddc518f28d08d62dd438b6b"
+    },
+    {
+      "path": "audit12-successor-registration-028-quest-002.json",
+      "sha256": "6cb016dc5efaa7ce5923dc1cfaac8bfea4ab17f3680940d7f96b52fad117c749"
+    },
+    {
+      "path": "audit12-successor-registration-028-quest-003.json",
+      "sha256": "6bf78b17d00a9d392c94eb8bbf3c89abd0e1a25460362b276eea9db0af427a04"
+    },
+    {
+      "path": "audit12-successor-registration-028-quest-004.json",
+      "sha256": "20dbb3860ebfd18c2b015505a23eb668e5e2fc266cc997881e04580f4c5c3433"
+    }
+  ],
+  "contracts": [
+    {
+      "range": [
+        590,
+        595
+      ],
+      "fact": "Catalog::monster(id:&str) performs exact BTreeMap.get(id), with no alias/case normalization/fallback. ThreatId FromStr prior predicate therefore requires exact retained catalog key; monsters() enumerates actual retained values."
+    },
+    {
+      "range": [
+        404,
+        413
+      ],
+      "fact": "Compile validates each Monster then inserts cloned monster.id as key and cloned actual record as value; duplicate insertion returns proseerror. Catalog constructor private, map private; documents remain public but no allmutation-invariant claim. Rest of compile dependencies/validation/entries not audited here."
+    },
+    {
+      "range": [
+        842,
+        860
+      ],
+      "fact": "catalog() lazily initializes one immutable OnceLock<Catalog> from embedded JSON, calls shared validate_documents, decodes CatalogDocument records, then Catalog::compile. Expect strings are diagnosticpanicprose. Actual build-generated content payload/full shared validator not evaluated; no fixture-success/runtime claim."
+    },
+    {
+      "range": [
+        731,
+        791
+      ],
+      "fact": "Full validate_monster checks positive combat scalar conditions, innateprotectionbound, duplicate categories, nonempty investigation data, closed rig/attack/protection/temperament strings and ranged==attackbow relation. Errorformatting usesID onlyaspresentation. This prerequisite does not itself define ThreatId syntax. Rawclosedmechanicselector fields remaina qualifiedtypedowner/migrationquestion, no newuniqueacceptance/currentalias inferred."
+    }
+  ],
+  "qualified_inventory": [
+    "Monster.id and catalog map keys are authored exactlookup identities; presentation name/singular/plural/aliases different roles; no arbitrary closedcatalog enum or membership narrowing invented.",
+    "Neighboring source-map stringpath split/parse and dialogue ambiguity/bridge preflight prefixes displayed; only needed catalog construction context, no whole dialogue branch completeness.",
+    "Displayed existing test prefix861-885 and validate_evidence793-800 receivesno semantic clearance/test-execution claim.",
+    "closedmechaniclabels and bowselector in731-791 are newly material rawstringroles; reconcile existingcanonicalowners/inherited findings underall13, no blanket nativecatalog exemption."
+  ],
+  "remaining": [
+    "Canonical current owners/visibility and existingM09alias/currentness for effective response/commitment/phase strings need reconciliation; rawtelemetry retention precedes concreteJSON output.",
+    "Actual authoredcatalogentries/fullsharedschema/nativeDeserialize not proven; no cultist-fixtureexecution orwholecatalog guarantee. Exactmembership lookup/keyretention leaf is now source-backed.",
+    "Original50 remainsqualifiedpartial; no51body/credit ororiginal129populationcounttransfer."
+  ],
+  "mandatory_other_lens_extensions": {
+    "source_id": "physical-p16:crates/adventuresim-core/src/quest_catalog.rs",
+    "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+    "actual_ranges": [
+      [
+        24,
+        32
+      ],
+      [
+        92,
+        119
+      ],
+      [
+        324,
+        400
+      ],
+      [
+        404,
+        430
+      ],
+      [
+        580,
+        605
+      ],
+      [
+        731,
+        800
+      ],
+      [
+        842,
+        885
+      ]
+    ],
+    "pending_lenses": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      13
+    ],
+    "population_credit": 0
+  },
+  "original_count_before": 50,
+  "original_count_after": 50,
+  "new_unique_delta": 0,
+  "global_clearance": false,
+  "local_project_execution": false
+}

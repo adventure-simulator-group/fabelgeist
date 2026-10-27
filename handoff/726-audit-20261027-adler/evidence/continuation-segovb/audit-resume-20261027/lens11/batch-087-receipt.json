@@ -1,0 +1,195 @@
+{
+  "at": "2026-10-27T16:27:45.601638+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-087-registration.jsonl",
+    "sha256": "3f01e74b161df0e66a4729abf99523cc346a7c5242a39b7ebd16dbe0e76afed2"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-086.json",
+    "sha256": "001e78613e6648437d8b5d99b108051360564397c052c7a1561c45a73644fc99"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1145,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/object_custody.rs",
+      "sha256": "a9bb1a3335b7d10b135f817c54c903577af4b2df12ca9d1c10a9ca52d48b2d5c",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/a9bb1a3335b7d10b135f817c54c903577af4b2df12ca9d1c10a9ca52d48b2d5c",
+      "ranges": [
+        [
+          1,
+          501
+        ]
+      ],
+      "actual_eof": 501,
+      "prospective": true,
+      "purpose": "Independent full ordered custody typegranularity inventory; earlier070/074context reused onlyafterownroleassessment",
+      "actual_read_ranges": [
+        [
+          160,
+          302
+        ],
+        [
+          431,
+          501
+        ]
+      ],
+      "personal_same_lens_reuse": [
+        {
+          "receipt": {
+            "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-070-receipt.json",
+            "sha256": "bfce24727f8ea5bb00152c3bb85ae8d66e718fcf5c24521c667befcc6bf76c83"
+          },
+          "ranges": [
+            [
+              1,
+              159
+            ],
+            [
+              405,
+              430
+            ]
+          ]
+        },
+        {
+          "receipt": {
+            "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-074-receipt.json",
+            "sha256": "d20b4bfe67138220f9efc3d466679c022f1c5548662f22a5114a3f33b536009f"
+          },
+          "ranges": [
+            [
+              303,
+              404
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "connected_sources": [],
+  "role_dispositions": [
+    {
+      "original": 1145,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/object_custody.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              159
+            ]
+          ],
+          "roles": "PersistedOperationalCustody versus canonical OperationalCustody, character/party/container/place/fixture payloads; exact carried destination and custody lookup.",
+          "disposition": "Canonical sum protects unlike identity namespaces. Separate persisted SDK representation is an explicit native transport adapter, not automatically a duplicate semantic owner; conversion validates real core identities and canonical syntax. Character versus Party carried custody legitimate typed variants. carried_destination only accepts actor personal or pinned original party, deliberately not arbitrary current party, and rejects Container/Place/Fixture; focused carried refinement could eliminate repeated wider sum rejection without new owner competition.",
+          "remedy": "Reuse canonical custody/identity/place/fixture owners through private APIs and exact admitted carried destination; keep raw SDK variants at encode/decode edge. Preserve operational control versus legal title versus physical containment roles.",
+          "acceptance": "Actual070 personal bodies1\u2013159 reused, full own ordered inventory now. No requirement preserve old wire/API shape, no universal U64-positive assumption except actual selected canonical owner."
+        },
+        {
+          "ranges": [
+            [
+              160,
+              254
+            ]
+          ],
+          "roles": "Personal/party backing-row admission, fireplace canonical fixture, repair escrow backing and place authority.",
+          "disposition": "PhysicalObjectId versus inventory row ID, Character/Party owner and catalog key prevent different mix-ups. Actual personal/party require one-unit row + matching owner/item and unique object; repair uses personal InventoryItem table with character_id0 escrow sentinel and repair order. Fireplace is fixture-specific payload refinement, correct rejection of other fixture kind.",
+          "remedy": "Named canonical BackingRowKey and admitted source/custody association, preserve existing InventoryLocation typed payload. Keep escrow unowned row state explicit internally rather than inventing valid player Character0.",
+          "acceptance": "Actual membership/custody existence/row/item/quantity guards consumed. Character0 never admitted as real custody character. No ordinary duplicated object, wrong actor or escrow transition runtime witness."
+        },
+        {
+          "ranges": [
+            [
+              256,
+              309
+            ]
+          ],
+          "roles": "Backing-row alias identity, exact-one multiplicity and checked containment depth.",
+          "disposition": "same_backing_row compares Personal-Personal, Party-Party, Repair-Repair but returns false across Personal/Repair. Those latter two use SAME InventoryItem table/rowID in160\u2013254, so backing namespace and operational-location variants are not identical concepts. API witness: stale Personal object and Repair object naming same row not counted as backing aliases by this predicate; each root validity separately may reject stale object. Actual ordinary creator/transition producing this corruption not established. Depth is semantic bounded root traversal counter, distinct number of objects and child index, checked overflow/max enforced.",
+          "remedy": "Canonical backing-table row identity beneath operational location (PersonalInventoryRow versus PartyInventoryRow; Repair shares Personal backing namespace); use it for uniqueness. Existing containment depth policy owner reused, no extra arbitrary depth or alias maximum.",
+          "acceptance": "Require exact one object per backing key by actual table namespace, preserve invalid row/custody detection; no current/runtime/accepted unique claim. Native core graph932 full027 and root-resolve actual303\u2013388 source support bounded walk, no graph-wide algorithm re-audit."
+        },
+        {
+          "ranges": [
+            [
+              310,
+              404
+            ]
+          ],
+          "roles": "ResolvedObjectCustody record containing physical object and root OperationalCustody; containment parent walk/cycle/depth, recorded custody versus actual root and actor authorization.",
+          "disposition": "Named result earns distinct object/direct/root roles, unlike raw tuple or legal owner. Actual core typed identity and custody propagated, String errors still collapse malformed canonical storage/missing association/actor rejection where caller needs distinction. Ordinary actor-matches predicate useful, no new enum for every local boolean.",
+          "remedy": "Keep existing canonical object and custody owners, typed operation errors and admitted unique backing association; no duplicate ChildId/ParentId numeric wrappers solely for roles.",
+          "acceptance": "Exact074303\u2013404 prior bodies reused; actual loop validates parent existence/consistent child row, cycle/depth and root. All inherited185 capacity/ID/key/saved association questions retain currentness/alias/unique limits; no runtime wrong authority claim."
+        },
+        {
+          "ranges": [
+            [
+              405,
+              501
+            ]
+          ],
+          "roles": "Existing custody roundtrip/invalid input/carried destination/depth/alias fixtures.",
+          "disposition": "Native raw zero/malformed textual IDs intentionally exercise decoder; positive canonical custody ID invariant meaningful, not permission generalize all character IDs elsewhere. Typed Place/Fixture/Container variants are semantically distinct payload roles. Local small count0/1/2 and depth fixture ordinals are valid test boundaries.",
+          "remedy": "No tests/helpers/assertions added or run; existing canonical owners and explicit adapters retained for later repair.",
+          "acceptance": "Fresh431\u2013501 and prior070405\u2013430 collectively full fixture block; full original effective501 accounted, not assumed430EOF. No serialized current-shape or runtime roundtrip guarantee inferred."
+        }
+      ]
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-070-receipt.json",
+        "sha256": "bfce24727f8ea5bb00152c3bb85ae8d66e718fcf5c24521c667befcc6bf76c83"
+      },
+      "contract": "1145 actual transport/custody adapter1\u2013159 and405\u2013430."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-074-receipt.json",
+        "sha256": "d20b4bfe67138220f9efc3d466679c022f1c5548662f22a5114a3f33b536009f"
+      },
+      "contract": "1145 actual root resolution303\u2013404, prior1116/1118 measured object consumers."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-075-receipt.json",
+        "sha256": "6b137e7e6d04ab2aa240fc17fe1e6600bb795b4e79fcfee1db06a458037e0b3b"
+      },
+      "contract": "1119 full1451 actual physical inventory containment/insertion/backing/transition consumers;075qualification applies nativewater ordinal."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-084-receipt.json",
+        "sha256": "a1e35a75e9eb2265261409dee6629fb2b7f627e223d182e4e78e33783dac9e21"
+      },
+      "contract": "1136 full957 actual InventoryItem character/row/catalog/quantity/stable object creation/removal consumers."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-035-receipt.json",
+        "sha256": "4a35c1a6afd6d6ebf7e63867b4b939fc63ae5d55011f0f8f0151be0c4e2dd1e2"
+      },
+      "contract": "963 physical_object effectivefull383 combining prior same-lens exact reads; canonical ID/location/custody owner, selected actual positivity."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-027-receipt.json",
+        "sha256": "871ad0df2778d657e3f880a3444f1c99f36a6d2b9258c12e6a57bb3c11a97b41"
+      },
+      "contract": "932 containment full256 and933 measurement full804 canonical graph/unit/depth owners."
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Original1145 effectivefull501 personally covered via fresh160\u2013302/431\u2013501 and exact070/074 body reuse; independent ordered inventory, no automatic previous connected credit.",
+    "Cross Personal/Repair same backing-table alias witness is static API/data corruption shape only; ordinary transition/root validation may prevent materializing both valid objects. No runtime/current/family/alias/unique clearance.",
+    "All inherited pending populations/material extensions/currentness and qualifications retained. No product/Git/root ledger/project execution/checks/tests/probes/publication."
+  ]
+}

@@ -1,0 +1,175 @@
+diff --git a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation.rs b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation.rs
+index 1368b9297..26671e56c 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation.rs
+@@ -29,6 +29,7 @@ use crate::presentation::{
+     ActiveTacticalScene, ActiveVistaSurface, ProceduralTextureAssets, SceneEnvironment,
+ };
+ use adventuresim_tactical_core::prelude::SceneTerrain;
++use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
+ use bevy::{
+     camera::{primitives::Aabb, visibility::NoFrustumCulling},
+     light::NotShadowCaster,
+@@ -39,6 +40,7 @@ use fabelgeist_determinism::StreamId;
+ 
+ pub(crate) use diagnostics::TreeAssetResidencyDiagnostics;
+ pub(in crate::presentation) use residency::RetainedTreePresentations;
++use residency::{CachedTerrainContactHeightmap, TerrainBarkBinding};
+ 
+ #[cfg(test)]
+ use super::TREE_PRIMARY_GROUP_COUNT;
+@@ -62,9 +64,7 @@ pub(in crate::presentation) struct TreePresentationCache {
+     beech_bark_material: Option<Handle<TacticalTreeBarkMaterial>>,
+     oak_aggregate_bark_material: Option<Handle<TacticalTreeAggregateBarkMaterial>>,
+     beech_aggregate_bark_material: Option<Handle<TacticalTreeAggregateBarkMaterial>>,
+-    terrain_scene_digest: Option<String>,
+-    terrain_heightmap: Option<Handle<Image>>,
+-    terrain_height_range: Vec2,
++    terrain_contact: Option<CachedTerrainContactHeightmap>,
+ }
+ 
+ impl TreePresentationCache {
+@@ -157,11 +157,12 @@ fn spawn_cached_tree(
+     commands: &mut Commands,
+     entity: Entity,
+     cache_key: Seed,
+-    species_name: &'static str,
++    species: TreePresentationSpecies,
+ ) {
+     commands.entity(entity).insert((
+-        Name::new(format!("Presented mature {species_name}")),
++        Name::new(format!("Presented mature {}", species.name())),
+         PresentedTree,
++        species,
+         Visibility::Inherited,
+         StreamedTreePresentation {
+             cache_key,
+@@ -838,44 +839,48 @@ pub(in crate::presentation) fn present_pending_trees(
+     let Some(terrain) = active.entity.and_then(|entity| terrains.get(entity).ok()) else {
+         return;
+     };
+-    retained.activate(
++    if let Err(error) = retained.activate(
+         environment,
+         terrain,
+         &mut tree_cache,
+         &mut residency,
+         &mut images,
+-    );
+-    let terrain_heightmap = tree_cache
+-        .terrain_heightmap
+-        .clone()
+-        .expect("active terrain creates a tree contact heightmap");
++    ) {
++        warn!(%error, "Tree contact heightmap rejected");
++        return;
++    }
++    let Some(terrain_contact) = tree_cache.terrain_contact.clone() else {
++        return;
++    };
+     let competition = canopy_competition(environment.canopy_bps);
+     let site_key = oak_site_key(environment);
++    let mut bark_binding = TerrainBarkBinding {
++        procedural_assets: &procedural_assets,
++        contact: &terrain_contact,
++        terrain,
++        materials: &mut bark_materials,
++    };
+     for (entity, transform) in &pending {
+         let started = web_time::Instant::now();
+         info!("Generating playable tactical tree presentation");
+-        let species = tree_species_for_site(transform.translation, environment);
+-        let (variant_index, variant_seed) =
+-            super::specimen::oak_variant_for_site(transform.translation);
++        let Some(point) = ScenePlanPoint::from_metres(transform.translation.xz()) else {
++            warn!("Tree presentation has a nonfinite scene footprint");
++            continue;
++        };
++        let species = tree_species_for_site(point, environment);
++        let (variant_index, variant_seed) = super::specimen::oak_variant_for_site(point);
+         let competition_key = (competition * 4095.0).round() as u64;
+         let cache_key = StreamId::new("visual.tree.playable-cache-key").seed(
+             variant_seed,
+             &[competition_key, site_key, species.cache_salt()],
+         );
+-        if !tree_cache.variants.contains_key(&cache_key)
+-            && let Some(mut cached) = retained.variant(cache_key)
+-        {
+-            // Plant geometry is site-local; bind only bark to destination terrain.
+-            cached.bark_material = tree_cache.bark_for_terrain(
+-                species,
+-                &procedural_assets,
+-                terrain_heightmap.clone(),
+-                terrain,
+-                &mut bark_materials,
+-            );
+-            residency.add_resident_assets(&cached.resident_assets);
+-            tree_cache.variants.insert(cache_key, cached);
+-        }
++        retained.restore_variant(
++            cache_key,
++            &mut tree_cache,
++            &mut residency,
++            species,
++            &mut bark_binding,
++        );
+         if !tree_cache.variants.contains_key(&cache_key) {
+             let (branches, leaves) = playable_tree_source(
+                 species,
+@@ -890,13 +895,7 @@ pub(in crate::presentation) fn present_pending_trees(
+                 leaves = leaves.len(),
+                 "Generated playable tactical tree source geometry"
+             );
+-            let bark_material = tree_cache.bark_for_terrain(
+-                species,
+-                &procedural_assets,
+-                terrain_heightmap.clone(),
+-                terrain,
+-                &mut bark_materials,
+-            );
++            let bark_material = tree_cache.bark_for_terrain(species, &mut bark_binding);
+             let aggregate_bark_material = match species {
+                 TreePresentationSpecies::EnglishOak => tree_cache
+                     .oak_aggregate_bark_material
+@@ -952,7 +951,7 @@ pub(in crate::presentation) fn present_pending_trees(
+             residency.add_resident_assets(&cached.resident_assets);
+             tree_cache.variants.insert(cache_key, cached);
+         }
+-        spawn_cached_tree(&mut commands, entity, cache_key, species.name());
++        spawn_cached_tree(&mut commands, entity, cache_key, species);
+         info!(
+             elapsed_ms = started.elapsed().as_millis(),
+             "Generated playable tactical tree presentation"
+@@ -1280,20 +1279,28 @@ mod tests {
+         let mesic_count = (-30..30)
+             .flat_map(|x| (-30..30).map(move |z| Vec3::new(x as f32 * 30.0, 0.0, z as f32 * 30.0)))
+             .filter(|position| {
+-                tree_species_for_site(*position, &mesic) == TreePresentationSpecies::CommonBeech
++                tree_species_for_site(ScenePlanPoint::from_metres(position.xz()).unwrap(), &mesic)
++                    == TreePresentationSpecies::CommonBeech
+             })
+             .count();
+         let open_count = (-30..30)
+             .flat_map(|x| (-30..30).map(move |z| Vec3::new(x as f32 * 30.0, 0.0, z as f32 * 30.0)))
+             .filter(|position| {
+-                tree_species_for_site(*position, &open) == TreePresentationSpecies::CommonBeech
++                tree_species_for_site(ScenePlanPoint::from_metres(position.xz()).unwrap(), &open)
++                    == TreePresentationSpecies::CommonBeech
+             })
+             .count();
+         assert!(mesic_count > open_count * 3);
+-        let origin = tree_species_for_site(Vec3::new(1.0, 0.0, 1.0), &mesic);
++        let origin = tree_species_for_site(
++            ScenePlanPoint::from_metres(Vec3::new(1.0, 0.0, 1.0).xz()).unwrap(),
++            &mesic,
++        );
+         assert_eq!(
+             origin,
+-            tree_species_for_site(Vec3::new(29.0, 0.0, 29.0), &mesic)
++            tree_species_for_site(
++                ScenePlanPoint::from_metres(Vec3::new(29.0, 0.0, 29.0).xz()).unwrap(),
++                &mesic
++            )
+         );
+     }
+ 

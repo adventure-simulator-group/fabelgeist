@@ -1,0 +1,322 @@
+{
+  "at": "2026-10-27T13:31:04.322418+00:00",
+  "lens": 11,
+  "status": "969-974 independently source-accounted with findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-037-registration.jsonl",
+    "sha256": "cc40ef52a3eeb07f1cf86812f5e882cef8f9fb4f04616f3c554a7199f605f97d"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-036.json",
+    "sha256": "ccabf62728cdb9cea776edc7d55841a1223834e299b36f3fb104ca860437240c"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 969,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/assembly.rs",
+      "sha256": "a54013572d9b0b6a8385c70e2aac6dbd516dfd40a72e87ede1c8ab6e9ea48ff7",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/a54013572d9b0b6a8385c70e2aac6dbd516dfd40a72e87ede1c8ab6e9ea48ff7",
+      "actual_eof": 1443,
+      "ranges": [
+        [
+          1,
+          1443
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          1443
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 970,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/audit.rs",
+      "sha256": "d5c30cf48e89ffd626d8a3df81a151478fb15f25b92fe5bdaa4b1ca8bdb2674c",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/d5c30cf48e89ffd626d8a3df81a151478fb15f25b92fe5bdaa4b1ca8bdb2674c",
+      "actual_eof": 78,
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          78
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 971,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/mod.rs",
+      "sha256": "d413a6b7b05742aa234bab8a83285df33f25133338fe51fb9eebe1327680ac64",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/d413a6b7b05742aa234bab8a83285df33f25133338fe51fb9eebe1327680ac64",
+      "actual_eof": 35,
+      "ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          35
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 972,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+      "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "actual_eof": 1230,
+      "ranges": [
+        [
+          1,
+          1230
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          1230
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 973,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/projection.rs",
+      "sha256": "2ef4a66455b4f4fb0790abfcc0e0ca9ff70e312d140170fbf47b9f880e79fb87",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/2ef4a66455b4f4fb0790abfcc0e0ca9ff70e312d140170fbf47b9f880e79fb87",
+      "actual_eof": 506,
+      "ranges": [
+        [
+          1,
+          506
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          506
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 974,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/sampling.rs",
+      "sha256": "3c679c4e5177ee4462d6286d81cdd3e3cfaa9b6e2d91e844d3d45b8e2f666a44",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/3c679c4e5177ee4462d6286d81cdd3e3cfaa9b6e2d91e844d3d45b8e2f666a44",
+      "actual_eof": 213,
+      "ranges": [
+        [
+          1,
+          213
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "provenance": "exact frozen f82 SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          213
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected_receiver",
+      "original_index": 975,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/solver.rs",
+      "sha256": "5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+      "ranges": [
+        [
+          1,
+          979
+        ]
+      ],
+      "actual_eof": 979,
+      "prospective": true,
+      "no_ordered_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          217
+        ],
+        [
+          528,
+          590
+        ],
+        [
+          603,
+          700
+        ]
+      ]
+    },
+    {
+      "kind": "connected_receiver",
+      "original_index": 977,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests/outbreak.rs",
+      "sha256": "f71a35301c19050ae9f6cec34f321798d94fdf73554c6104b7c5af1d3f9281d3",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/f71a35301c19050ae9f6cec34f321798d94fdf73554c6104b7c5af1d3f9281d3",
+      "ranges": [
+        [
+          1,
+          288
+        ]
+      ],
+      "actual_eof": 288,
+      "prospective": true,
+      "no_ordered_credit": true,
+      "actual_read_ranges": []
+    },
+    {
+      "kind": "connected_receiver",
+      "original_index": 982,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/validation.rs",
+      "sha256": "a58991cdececa54b76db9d44b4f5dd1702ef3c8d132e37350fcba62b5bf9e827",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/a58991cdececa54b76db9d44b4f5dd1702ef3c8d132e37350fcba62b5bf9e827",
+      "ranges": [
+        [
+          1,
+          1121
+        ]
+      ],
+      "actual_eof": 1121,
+      "prospective": true,
+      "no_ordered_credit": true,
+      "actual_read_ranges": [
+        [
+          197,
+          1121
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "roles": [
+        969,
+        972
+      ],
+      "locations": [
+        "assembly.rs94-110,497-691,1265-1352",
+        "model.rs624-636,817-843,1066-1142"
+      ],
+      "finding": "GeneratedAction target_kind plus String target_id can express cross-namespace combinations. GeneratedFinale and GeneratedDialogueProducer discriminator plus optional payloads can express unrelated/missing identities; SubjectId/AssetId exist and are immediately extracted into strings by assembly. OutbreakExposure died_at/death_kind options represent one conditional fact.",
+      "trace": "Assembler selects payloads by cause/family; validation626-647 dispatches target lookup by kind,947-984 dispatches finale producers,1010-1078 matches typed ObjectiveRequirement against raw produced strings,403-414 validates paired death fields.",
+      "remedy": "Use payload-owning targets/finales/dialogue actions and Option<Death{at,kind}>; preserve existing canonical SubjectId/AssetId across consequence producers. Distinguish Expose proposition reference from Rescue subject identity. Do not merge two meanings merely named subject.",
+      "acceptance": "Receiving matching uses typed identity and payload shape, with aggregate case graph references validated separately. Existing valid producer branches remain expressible."
+    },
+    {
+      "roles": [
+        969,
+        972
+      ],
+      "locations": [
+        "assembly.rs882-979,1265-1352",
+        "model.rs532-542,572-585,647-661",
+        "validation.rs327-551"
+      ],
+      "finding": "GeneratedOutbreak stores source, route, remediation, optional carrier_threat independently. Native source enum owns threat, yet carrier_threat duplicates it; compatibility is repaired by a large validation match. Patient immunity is used in generator terminal evaluation (living patient5000/1000) but not retained in OutbreakExposure; validator recomputes with0.0.",
+      "remedy": "Let one admitted source/remediation plan own its required carrier and supported route or use canonical derivation. Retain actual clinical inputs needed to validate authored chronology, rather than recomputing with independently chosen immunity.",
+      "limits": "Source authority mismatch is concrete; no claim that a particular disease necessarily produces different terminal times or runtime failure without actual numerical receiver/currentness evidence. Patient disease versus carrier attack death distinctions are meaningful.",
+      "acceptance": "One canonical plan supplies matching carrier/source/remediation and chronology validation uses the same admitted clinical inputs."
+    },
+    {
+      "roles": [
+        972,
+        973,
+        974
+      ],
+      "locations": [
+        "model.rs24-57,99-153,288-303,476-497,935-968",
+        "projection.rs1-71,105-506",
+        "sampling.rs5-131"
+      ],
+      "finding": "Distinct quest ID namespaces and open catalog ID versus closed mechanic enums earn their roles. Open IDs validate syntax, not membership; public from_static validates only length and tuple ID fields/derived Serde bypass try_new. Weight product is relative u32*u32\u2192u64 and may exceed1; plausibility and curation have distinct roles. Candidate impossible/weight and FactorTrace accepted/decision/reason are coupled states still independently representable.",
+      "trace": "Sampling canonicalizes IDs, rejects duplicates even excluded values, filters impossible/zero weights, maps SamplingError into GenerationError. Shared native weighted draws remain fallible. select_follow_up_evidence325-342 discards that error boundary with expect; existing sampling196-211 fixture explicitly describes two max-weight overflow as an error.",
+      "remedy": "Preserve namespace wrappers; share bounded-ID invariant only beneath distinct identities. Encode candidate eligibility/trace disposition payloads where appropriate; keep fallible weighted result through follow-up selection.",
+      "limits": "Public API construction/admission observations are frozen, not current aliases or executed fixture results. Raw quantities such as thresholds are not automatically UnitInterval. No native RNG algorithm or complete aggregate-proof claim."
+    },
+    {
+      "roles": [
+        970
+      ],
+      "locations": [
+        "audit.rs1-78"
+      ],
+      "finding": "Audit seed count and per-family successful generation totals are separate numeric roles; failed generations are skipped, so returned counts are not requested counts or probability estimates. Test witness IDs/versions/age labels are fixture content, not execution or live NPC authority.",
+      "remedy": "Keep audit/reporting purpose distinct; optionally return explicit success/failure diagnostics if callers need completeness.",
+      "acceptance": "Do not present histogram as evidence all requested cases generated."
+    },
+    {
+      "roles": [
+        971
+      ],
+      "locations": [
+        "mod.rs1-35"
+      ],
+      "finding": "Include fragments share module scope; assembly/validation/audit use parent model owners. This is actual ownership context, not an independent duplicate type owner. Historical public-path preservation comments do not impose compatibility acceptance constraints.",
+      "remedy": "Review functional owner extraction separately; no new forwarding/compatibility API required."
+    },
+    {
+      "roles": [
+        972,
+        973
+      ],
+      "locations": [
+        "model.rs337-474,913-1001",
+        "projection.rs1-71,345-381"
+      ],
+      "finding": "Visible presentation is deliberately not converted to private Sex; missing Sex is meaningful observer limitation. Accuracy versus demeanor, withheld versus volunteered delivery, source occurrence versus received time, canonical case versus observer-scoped case identity remain distinct authorities. Private testimony projection is filtered by delivery/referral; no truth leakage established merely by storing private data.",
+      "remedy": "Retain these distinctions, type raw identity/version/location ports without reconstructing private facts from presentation.",
+      "acceptance": "Observer-facing projections exclude withheld private authority while preserving authorized referrals."
+    }
+  ],
+  "process_qualification": "977 was prospectively staged/registered by mistaken receiver selection but its body was not consumed and receives no coverage.982 validation actual197-1121 only;975 actual listed ranges only. Registry locators/searches give no body coverage.",
+  "personal_connected_reuse": [
+    "batch-021 case objective canonical SubjectId/AssetId graph",
+    "batch-028 investigation typed PipelineInput/AtomicProposition authority",
+    "batch-036 catalog validators and weights/IDs"
+  ],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_ledger_edited": false,
+  "new_material_extensions": [],
+  "limits": [
+    "No runtime, currentness, canonical alias, accepted unique or other-lens clearance.",
+    "No whole validation/solver/future-original credit from connected reads; actual detailed receiving paths have source-backed findings rather than asserted global invariants."
+  ]
+}

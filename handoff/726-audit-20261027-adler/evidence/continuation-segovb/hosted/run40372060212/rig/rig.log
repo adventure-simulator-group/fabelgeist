@@ -1,0 +1,23 @@
+[1m[92m   Compiling[0m derive_more-impl v2.1.1
+[1m[92m   Compiling[0m derive_more v2.1.1
+[1m[92m   Compiling[0m fabelgeist-rig v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-rig)
+[1m[92m    Finished[0m `test` profile [optimized] target(s) in 4.48s
+[1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/fabelgeist_rig-7a7b69099270d23d)
+
+running 5 tests
+test tests::case_insensitive_queries_do_not_change_exact_identity_or_sorting ... ok
+test tests::exact_labels_survive_json_without_trimming_or_namespace_changes ... ok
+test tests::anatomical_fragment_and_family_prefix_queries_remain_distinct ... ok
+test tests::lookup_keeps_first_duplicate_and_retains_the_rejected_identity ... ok
+test tests::mhr_topology_queries_preserve_case_and_unmatched_side_labels ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+[1m[92m   Doc-tests[0m fabelgeist_rig
+
+running 2 tests
+test crates/fabelgeist-rig/src/lib.rs - RigJointName (line 26) - compile fail ... ok
+test crates/fabelgeist-rig/src/lib.rs - RigJointName (line 21) - compile fail ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+

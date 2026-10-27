@@ -1,0 +1,87 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-099",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1761,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/event_span.rs",
+      "sha256": "671ba3d11fc6a9fb01961f027b9eed9180186ecfa28eb0edc35735ca71ec341a",
+      "ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete81line event count/budget owner. AnimationEventSpan basic/serde/From/Display/Debug already derives; budget basic/serde/Debug derives. TryFrom<u64> calls NonZero validation. Manual owned From budget->u6477-81 extracts NonZeroU64.get().",
+      "disposition": "KEEP validating TryFrom. Potential explicit-target existing Into forwarding recorded candidate004, qualified pending exact macro/standard-source proof and global dedup; do not silently count as finding or declare derive equivalence. Current conversion correct, no source/check changes.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1762,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/fraction_reflection.rs",
+      "sha256": "07b2507c55331e27ceb0838e9e340f751961f35d74d29738a121e64c119297e7",
+      "ranges": [
+        [
+          1,
+          14
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete14line remote canonical UnitInterval reflection wrapper; macro/basic/serde derives with opaque reflect and transparent checked serde.",
+      "disposition": "No derivability candidate; mechanical implementation already derived/delegated.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1763,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/ground_contact.rs",
+      "sha256": "f4891ab322b4930bfdb678a97ed3b226b2f1aafbbf2ff6e15de727f9c025be74",
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete26line GroundContact enum basic derives. Two manual From adapters classify bool and SkeletonState.is_grounded().",
+      "disposition": "KEEP semantic classification From implementations. They map behavior to named states and cannot be replaced by derive_more variant construction without changing API/meaning; no serde added merely for classification.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1764,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+      "sha256": "60c9a6b987e30fcff66d01e8afadaaf41ffde91b9d1285c46bd88ec6a1678a39",
+      "ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete138line height roles. Debug/serde/explicit-target Into and applicable basic traits already derive. Two validating TryFrom delegates; native flight/advance/difference/recovery/elapsed kernels retain contextual error quantity.",
+      "disposition": "KEEP validation-preserving TryFrom; getters and quantity-specific arithmetic are semantic adapters, no existing exact direct derive replacement. No new candidate or invariant execution claim.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1765,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/ik_parameters.rs",
+      "sha256": "53cc7934236d3051fdc9f6c24962500f4f4098a909bca4137dd2ac6ec4f14f57",
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete64line positive knee amplification and signed settle progress owners. Knee basic/serde/Into derived; SettleProgress basicDefault derived. TryFrom checks finite positive; progress constructors deliberately distinguish capped admission from arithmetic retention.",
+      "disposition": "KEEP checked TryFrom. Normalization/arithmetic/error semantics cannot be replaced by mechanical derive; no new candidate.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

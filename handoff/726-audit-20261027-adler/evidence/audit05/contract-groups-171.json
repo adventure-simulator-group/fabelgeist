@@ -1,0 +1,120 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-171",
+  "at": "2026-10-25T20:57:53.086753+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1792,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/bin/generate_scene_fixtures/heating.rs",
+      "sha256": "b92ee2d412b4ce07eeae5e08de9f482ccb8226d8a4e76b0fe3200e014acae923",
+      "personally_read_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full160 lines read. Authored heating fixture enumerates nine archetype/seed pairs, assigns stable unique SceneBuildingId(index+1), and deliberately adds rear-fed stove programmes to the final TownHouse/MerchantHouse specimens. It builds complete placements then arranges a catalogue grid before return. The tests compare generated programme by physical ID and check sampled terrain/ground under those final buildings. No executed generation or broad source geometry clearance is claimed."
+      ]
+    },
+    {
+      "scope_index": 1793,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/grounded/tests.rs",
+      "sha256": "c2dd6fd8bc29ddcbca5a79e0945e04db51766c5a40b72ed8bf5736664da8e16c",
+      "personally_read_ranges": [
+        [
+          1,
+          216
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full216-line test body read. Frozen fixture ties front/rear placements, compound, source triangles and grading policy from one asset. Assertions retain programme, horizontal transform, physical identity and nonfloor layout fields while changing accepted floor elevations; promotion/reordering is checked against same terrain result. Missing/duplicate buildings and overlapping property ownership are expected errors before publishing partial layout. These selected assertions are evidence of intended aggregate contract, not an executed result or general proof."
+      ]
+    },
+    {
+      "scope_index": 1794,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/homes.rs",
+      "sha256": "7dfacb7e216eecec7860d9e42a6abbb2cfc92ca6df1114d21a74bb762c6230ee",
+      "personally_read_ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full57 lines read. generated_homes carries ID, accepted centre/orientation and exact occupied programme through playable/distant chain, selects dwelling use, sorts by physical ID and derives class/capacity/footprint from that programme. Local HousingMarketReserve marks first tier occurrence; no external mutable state escapes failed construction. Actual recipient GeneratedHomeCatalog.validate (support992 lines1-226) checks settlement/seed/population, duplicate home ID, paired building-derived PropertyId, finite positive footprint, tier reserve order/completeness and total capacity before return. Direct native catalog parse is not validation, and broader inherited domain-policy gaps remain qualified; this producer calls validate explicitly."
+      ]
+    },
+    {
+      "scope_index": 1795,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/property/gate_sweep.rs",
+      "sha256": "60ca372a1f75d3accd4461f56dea1305e81bf8b653ca03850af93866782dfd6a",
+      "personally_read_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full127 lines read. clear receives one gate-relative door and gate-relative cuboids, conservatively filters by combined bounding spheres then constructs padded midpoint-oriented leaves for each angular interval. Retains source identity and computes pose/size/yaw as one fallible cuboid before intersection; building_solids transforms all source solids through the same ArchitecturalGateDatum derived from placement and collision bounds, preserving source-specific error. Tests exercise both hinges and three scene yaws with a mid-swing obstacle.",
+        "Zero open angle gives zero steps and no overlap test; this is a native API representability observation only until actual CityGate.door producer contract is traced, not an accepted defect or shipped fixture failure. Likewise arbitrary crossfall/longfall composition and overflow require owning geometry/producer proof. No proof from padded sampling comments alone beyond the inspected construction."
+      ]
+    },
+    {
+      "scope_index": 1796,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/support.rs",
+      "sha256": "d28606e279ac45d8c65e8ec2eceacaddf20747af389761b9c2b1b6a5b4273c82",
+      "personally_read_ranges": [
+        [
+          1,
+          291
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full291 lines read. CompoundGradingPolicy groups admitted limits/stairs/embedment/apron. StreetApronDimensions privately retains two strictly positive finite components. Physical building IDs are checked across playable and distant partitions before BTreeMap collection, preventing overwrite. Compounds sort by property ID; exact requested member ID must be present.",
+        "member ties exact placement programme to cached recipe equality, derives ground contact and outward doorway from that same recipe, converts contact centre minus collision origin using the same orientation, then binds building ID/contact/court threshold/geographic elevation as MemberSupport. Front street elevation deliberately replaces only front elevation from the opposite doorway; court-facing threshold retains its own meaning. Gate admission checks exact centre point and exactly one matching access route before retaining shared levels. Missing samples/bindings remain explicit typed errors. No mutation to caller layout/terrain occurs here."
+      ]
+    },
+    {
+      "scope_index": 1797,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/support/street.rs",
+      "sha256": "bfad206136bada1647f958a30c678a8adb4be33c01a967d3253aebde5f58de8b",
+      "personally_read_ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full67 lines read. street selection uses the same property plot frame, admitted apron dimensions, source region constraints and observations for preferred and maximum candidates. Preferred run is bounded by declared maximum and tolerance; zero/invalid dimensions fail fallible CityPlotBounds admission, not fabricated support. Only named stair-going/clearance/access-grade/cut-fill rejections retry maximum; other first errors propagate. The comment requires final composition to reject another property overlap; actual final ownership composition remains its own source role, not cleared by this retry helper."
+      ]
+    }
+  ],
+  "support_reads": [
+    {
+      "scope_index": 992,
+      "ranges": [
+        [
+          1,
+          226
+        ]
+      ],
+      "role_credit": "none; inherited same-lens support"
+    }
+  ],
+  "qualified_dependencies": [
+    {
+      "source_index": 1795,
+      "range": [
+        11,
+        43
+      ],
+      "contract": "Zero-sweep door actual producer admission",
+      "status": "native representability only; producer not traced; no accepted defect"
+    }
+  ],
+  "findings": [],
+  "discovery": "6 newly accounted original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

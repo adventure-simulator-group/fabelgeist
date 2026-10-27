@@ -1,0 +1,22 @@
+{
+  "id": "SEGOVB-CONT11-172-NATIVE-ABI-CITATION-001",
+  "supports": [
+    "audit11-segovb-172-798-complete.json",
+    "audit11-segovb-172-799-complete.json"
+  ],
+  "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/mod.rs",
+  "sha256": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+  "new_ranges": [
+    [
+      114,
+      118
+    ]
+  ],
+  "registered_before_read": "audit11-segovb-172-registration-005.json",
+  "established_contract": "Native StrandGpu field declaration119-125 is explicitly #[repr(C)] and derives bytemuck::Pod/Zeroable. Together with the previously consumed fields and shader79938-44 this supplies the actual fixed native representation citation; no arbitrary Rust-layout assumption or whole kernel ABI/runtime claim.",
+  "packet_postread_pin_recheck": "All sources in172registrations001-003 still match exact hashes.",
+  "new_original_shared_or_unique_credit": false,
+  "root_ledger_or_product_mutation": false,
+  "checks_tests_probes_publication": "none",
+  "stop": true
+}

@@ -1,0 +1,136 @@
+{
+  "lens": "type-granularity",
+  "prior_state": "audit11-successor-160-proposed-state.json",
+  "partial_receipt_preserved": "audit11-successor-161-partial-001.json",
+  "registrations": [
+    "audit11-successor-161-registration.json",
+    "audit11-successor-161-completion-registration.json"
+  ],
+  "crosswalk": "audit11-question-crosswalk-001.json",
+  "source_complete": true,
+  "current_main_integrated": false,
+  "validated": false,
+  "clear": false,
+  "new_unique_findings": 0,
+  "validation": "none; no project checks/tests/probes/publication",
+  "id": "SEGOVB-CONT11-SUCCESSOR-161-787",
+  "scope_index": 787,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/placement.rs",
+  "sha256": "7e744958c7df65097784318b313e51c658edae89fde9e0f80ba70ddce4fcaa81",
+  "source_ranges": [
+    [
+      1,
+      76
+    ]
+  ],
+  "status": "source-accounted-with-inherited-physical/frame-owner-qualifications; not clear",
+  "source_contracts": [
+    {
+      "role": "Fitted construction versus body-relative pattern placement",
+      "locations": "4-35,43-52",
+      "trace": "prepare receives the actual DrapeInput, GarmentBuild, FitSettings and Fabric and constructs Fit from that same build. selection.is_fitted is a locally derived construction predicate: fitted geometry is already where worn, pattern geometry gets floor/pelvis translation and clear_panels. Canonical RigJointName L_UPLEG/R_UPLEG lookup produces RigJointOrdinal for the typed joint table; no primitive ordinal cast here. Local hip closure retains native eight-float joint-state row and reads translation x/z. Its unit/frame interpretation remains a qualified canonical owner question, not an additional joint identity owner."
+    },
+    {
+      "role": "GarmentPose versus Move and Pivots",
+      "locations": "14-35; connected pose1-79,168-272",
+      "trace": "GarmentPose::for_mesh makes one identity Move per mesh panel plus one whole garment Move. Pivots::of derives garment centre and per-panel particle range/centre from the same base mesh retained by Fit. place applies panel nudge about that panel pivot first, then whole-garment move, always against base positions. This prevents accidental cumulative placement from already moved output and separates garment versus panel responsibility despite shared Move representation. Default/short panel list deliberately supplies identity; no stricter count policy invented. Pairing ranges with their centres is a coherent local numerical helper record; no universal particle/panel index framework or duplicate pose owner proposed."
+    },
+    {
+      "role": "Translation, angular components, local panel and body-space frames",
+      "locations": "18-33; connected pose34-70 and garment39-66",
+      "trace": "Move documents offset in metres and yaw/pitch/roll in degrees around named body axes. apply maps pitch/yaw/roll to native XYZ degree vector, calls existing rotate_xyz, then adds pivot and offset. Exact rotate_xyz converts each component to radians and applies X,Y,Z in that order, matching pattern Placement::apply. These are meaningful unit/axis distinctions; raw Vec3 storage is used at this identified arithmetic port. It does not settle broader typed physical/angle/frame propagation or justify flattening named components, scaling body or changing transform order."
+    },
+    {
+      "role": "Body collider versus whole outfit collision surface",
+      "locations": "36-63,66-76; connected Fit439-475",
+      "trace": "collision_surface first copies input wearer geometry then appends each successful inner garment with vertex offset; triangles and vertices belong to this same constructed BVH. Fit.set_body receives only wearer geometry, installs collision mesh and retains body-only BVH for body-specific clear_body. If obstacles exist, set_collision_mesh replaces active collision surface with combined body/garments while body remains distinct. Shared TriangleBvh/Vec3 shape does not make these authorities identical. Actual drape782131 and saved788200 consume same returned combined collision surface; outfit78638 supplies successful prefix obstacles."
+    },
+    {
+      "role": "Exact native placement/clearance receiving boundary",
+      "locations": "43-61; connected Fit478-572 and garment157-212",
+      "trace": "placed_positions invokes retained pose/base/pivots. clear_panels groups matching contiguous panel ranges, samples vertices/face centres, and chooses least required common shift along either normal; margin is settings.body_offset_cm*0.01 plus canonical fabric particle radius. Particle write receiving contract is retained from158. Fit.set_pose writes placed positions, stores pose and resets frame count. set_body invokes clear_body; that query uses original body BVH triangle/result mapping, explicit normals and metre offset before writing lifted positions. Collision receiver carries named body_offset_cm converted by CM_TO_M plus fabric friction into MeshSurface/MeshCollider. No whole-module raw primitive exemption or proof of all arithmetic/degenerate values."
+    },
+    {
+      "role": "Returned fit and collision surface tuple",
+      "locations": "9,63",
+      "trace": "(Fit,TriangleBvh) contains distinguishable types with actual separate responsibilities; caller destructures them. A new wrapper would not prevent a demonstrated swap at this two-different-type boundary. Preserve same-build/same-input construction association rather than invent new IDs or broad equivalence claims."
+    }
+  ],
+  "qualified_observations": [
+    {
+      "local_source_key": "pr-working:crates/adventuresim-character-creator/src/garment/placement.rs@sha256:7e744958c7df65097784318b313e51c658edae89fde9e0f80ba70ddce4fcaa81#L18-L60:placement-physical-and-frame-ports",
+      "classification": "retained physical/frame owner and producer propagation question; no accepted unique finding",
+      "support": [
+        "audit11-successor-158-782.json#SEGOVB11-158-782-PHYSICAL-PORTS",
+        "audit11-question-crosswalk-001.json"
+      ],
+      "observation": "Metre body coordinates and offsets, centimetre settings, degree pose angles, packed joint-state translations and native collider policy remain distinct before explicit arithmetic ports. Reconcile canonical owners under retained family work; no new bounds or duplicate owner invented."
+    }
+  ],
+  "connected_source_traces": [
+    {
+      "original_index": 2657,
+      "source_id": "pr-working:crates/fabelgeist-garment-fit/src/pose.rs",
+      "sha256": "2f61441a1ff287026cb6bbe667bb91ae6c60ae760a14632b433dc17cfaaafe36",
+      "ranges": [
+        [
+          1,
+          79
+        ],
+        [
+          168,
+          272
+        ]
+      ],
+      "ordered_credit": false,
+      "exclusion": "Axis UI controls80-167 not consumed or cleared; required transform/pivot bodies complete."
+    },
+    {
+      "original_index": 2266,
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "ranges": [
+        [
+          433,
+          574
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "original_index": 780,
+      "sha256": "d6b09524be811c5e4202be50af529c941a917ff8f31ea61e2a73e4da17dc103e",
+      "ranges": [
+        [
+          157,
+          218
+        ]
+      ],
+      "ordered_credit": false,
+      "note": "Material precise reuse of prior completed body, not new discovery credit."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/garment.rs",
+      "sha256": "d5124bc81c37905a779feea7e56a120ed5fadda9448cad8cf907a61c938b1da6",
+      "ranges": [
+        [
+          27,
+          68
+        ],
+        [
+          166,
+          183
+        ]
+      ],
+      "ordered_credit": false
+    }
+  ],
+  "qualifications": [
+    "Exact frozen pose object staged by root, hash reverified locally before reading. No root coverage transfer, source replacement or Git access.",
+    "Actual same-build/input geometry association demonstrated; arbitrary public mutation, instance branding, panel overlap/coverage, count overflow and all-finite/extreme numeric guarantees not inferred.",
+    "Rigid pose design and explicit rotation arithmetic reviewed for type granularity; other-lens behavior/geometry/operations correctness not transferred.",
+    "Inherited frozen ordinal receiver gap in other functions remains qualified pending current canonical comparison.",
+    "No connected future role2657 or source788 access credited before its own independent ordered disposition. No current-main integration/validation/global clearance."
+  ],
+  "proposed_original_accounted": 788,
+  "next_original": 788
+}

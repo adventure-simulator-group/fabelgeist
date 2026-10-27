@@ -1,0 +1,22 @@
+--- base
+
++++ head
+
+@@ -141,11 +141,15 @@
+
+ #[test]
+ fn collinear_arm_landmarks_are_rejected_instead_of_inventing_a_bend_plane() {
+     for side in [Side::Left, Side::Right] {
+         for wrist_y in [0.6, 1.5] {
+             let mut arms = Arms::bent();
+-            let first = if matches!(side, Side::Left) { 0 } else { 3 };
++            let first = if matches!(side, Side::Left) {
++                0usize
++            } else {
++                3
++            };
+             arms.joints[fabelgeist_rig::RigJointOrdinal::from(first)][2] = 0.0;
+             arms.joints[fabelgeist_rig::RigJointOrdinal::from(first + 2)][1] = wrist_y;
+             arms.joints[fabelgeist_rig::RigJointOrdinal::from(first + 2)][2] = 0.0;
+             assert!(arms.frame(side).is_err());
+         }

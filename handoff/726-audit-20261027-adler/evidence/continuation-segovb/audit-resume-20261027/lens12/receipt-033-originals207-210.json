@@ -1,0 +1,232 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "033",
+  "predecessor": "receipt-032-originals204-206.json",
+  "manifest_prefix_sha256": "3703a5faf5eed907ada11f3035d194826edbdd8a69be1ae124f96dcb61ba1026",
+  "sources": [
+    {
+      "original_index": 207,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+      "sha256": "28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "actual_ranges": [
+        [
+          1,
+          534
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              534
+            ]
+          ],
+          "role": "Raw item ID params64/108, item comparisons48, provenance ID list444/codec447/455, native stream names97/141; display names75/119",
+          "disposition": "Actual food definition lookup67/112 -> raw ingredient_item_ids81/125 -> state20918 and copy/split to body. Carry canonical open item/material-source/digest identities across application state; concrete native hash input450 and hexadecimal455 proven. Strings food.lot-consumption97/food.lot-update141 immediately StreamId native constructor. Human display names separate. All errors23/36/45/49/67/200/229/259/272/289/312/336/379/404/427 internal typed-cause gaps in ResultString, no prose parsing. Remaining full body typed/numeric state updates, no algorithm/runtime verdict."
+        }
+      ],
+      "status": "Full registered material body independently read and inventoried with findings; untraced outer contracts explicit."
+    },
+    {
+      "original_index": 208,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/mod.rs",
+      "sha256": "80bfa29d162de3dce0554d867093029ba6a5a3b02e405cafd0863a80692c0e7f",
+      "actual_ranges": [
+        [
+          1,
+          84
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              84
+            ]
+          ],
+          "role": "All include/include_str path strings42-49/55-63/72/77/82, authority-tests feature50, FOOD_SOURCE &str54",
+          "disposition": "Exact compiler/source-text assembly boundary; referenced bodies independently consumed where noted, not automatically credited by include. All own food owner imports11-15 now proven declaring context for canonical types. No gameplay text fields or raw label authority here."
+        }
+      ],
+      "status": "Full registered material body independently read and inventoried with findings; untraced outer contracts explicit."
+    },
+    {
+      "original_index": 209,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/model.rs",
+      "sha256": "b1ed41d6a51aaf7bcd77c4e36ad928b0ef533216ddc9efb1aa3a0f78a97c12d9",
+      "actual_ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              151
+            ]
+          ],
+          "role": "All String schema fields: display_name16, ingredients18; contributionIDs51/digest53; request60/scope62/place69/custody70/digests71/75; cursor84; station key96/fixture100/instrument101; dish key117/fixture121/names124/129/ingredients130/provenance145/147/profile148",
+          "disposition": "Actual source state receiver for202-207/210; no string literals. Canonical typed scope/fixture/place/custody/request/reference/profile/digest owners should survive schema/app APIs; authored names remain text snapshots. Native SpacetimeDB table declaration actual, SDK representation constraints not inferred. Typed preparation/method/custody already retained17/68/106/123/125; not blanket field exemption."
+        }
+      ],
+      "status": "Full registered material body independently read and inventoried with findings; untraced outer contracts explicit."
+    },
+    {
+      "original_index": 210,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/preparation_authority.rs",
+      "sha256": "4f06d127e8d7d358ded01b2d1b7eba9116644b53146a476dd780e98344689613",
+      "actual_ranges": [
+        [
+          1,
+          635
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              35
+            ],
+            [
+              56,
+              138
+            ],
+            [
+              333,
+              441
+            ],
+            [
+              443,
+              635
+            ]
+          ],
+          "role": "Raw scope/place/custody/request/tool/digest fields/params; native SHA domains20/63/98/584 and hex57; medicinal carrier discriminator food_lot73/198",
+          "disposition": "Actual canonical native hash byte ports source-proven with length framing, no whole SDK/hash security claim. CarriedInventoryScope parsed349 then erased421; place typed118 remains until actual string encoding587. Raw request446 admitted as existing ActionRequestId497, raw action.definition_id admitted499; use canonical request owner earlier. MaterialRequestId digest284 distinct owner/semantics, no blind alias. Raw carrier kind chooses medicinal components73/198; canonical carrier payload owner required."
+        },
+        {
+          "ranges": [
+            [
+              377,
+              408
+            ],
+            [
+              487,
+              520
+            ]
+          ],
+          "role": "Tool sentinel hands407 controls duration, display prefixes Cut388/Ground399 and trim_start_matches491/492, next display format519",
+          "disposition": "Exact206 grinding producer152-158 supplies sentinel. Canonical tool state Hands versus scoped Tool payload should drive duration and encode separately. Prefix display stripping edits authored label, not source admission: store/render preparation and base label explicitly rather than infer label state from prefixes. No preservation requirement for malformed/old names or formatting. Display name participates snapshot equality145/hash593 as data, no claim it chooses recipe behavior."
+        },
+        {
+          "ranges": [
+            [
+              37,
+              54
+            ],
+            [
+              168,
+              331
+            ],
+            [
+              333,
+              521
+            ],
+            [
+              554,
+              635
+            ]
+          ],
+          "role": "All internal raw validation/Debug error formatting, lint rationale4/335/556 and expect611",
+          "disposition": "Structured native material/admission failures are flattened to String at190/193/201/237/239/242/248/251/254/285/287/291/293/295/308/310/316/325/330 and authority356/358/365/369/371/375/380/383/394/470/473/498/500/510; actual source recipients206 consumed. Keep typed failures across internal code, format at real output. Native serde expectation611 text only, no serde implementation clearance."
+        }
+      ],
+      "status": "Full registered material body independently read and inventoried with findings; untraced outer contracts explicit."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Food source/key/profile and preparation scope/tool owner propagation",
+      "sources": [
+        "206:152-158",
+        "209:16-18,51-75,84-148",
+        "210:349-350,377-421,443-520"
+      ],
+      "remedy": "Model actual Hands/Tool semantic payload; keep canonical scope/reference/fixture/custody/request/profile/digest types through all actual state/callers and encode at native DB/hash boundary. Separate authored base name from preparation display prefix.",
+      "acceptance": "Complete actual projections/outer/native consumers and canonical alias fit before repair; no BC or old digest/name preservation obligations.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actual projections211 and existing tests212-214 next. Native object_custody/Item and medicinal carrier declaring receiver remain explicit.",
+    "Core material/planner contracts beyond exact own prior source ranges not inferred; no SDK/native/math/runtime clearance.",
+    "All inherited aliases/currentness/all20/P16/P17/F9/M09/population obligations preserved."
+  ],
+  "qualifications": [
+    "Exact f82 physical-P16 source bytes only; no current alias.",
+    "Source-only no execution/tests/probes/new tests/product/Git/rootledger/publication. User no BC.",
+    "Own lens12 source accounting with findings, no global/native/runtime/unique-total/other-lens clearance."
+  ],
+  "proposed_count": {
+    "before": 207,
+    "after": 211,
+    "indices_completed": [
+      207,
+      208,
+      209,
+      210
+    ],
+    "next_original": 211,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+      "sha256": "28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "ranges": [
+        [
+          1,
+          534
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/mod.rs",
+      "sha256": "80bfa29d162de3dce0554d867093029ba6a5a3b02e405cafd0863a80692c0e7f",
+      "ranges": [
+        [
+          1,
+          84
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/model.rs",
+      "sha256": "b1ed41d6a51aaf7bcd77c4e36ad928b0ef533216ddc9efb1aa3a0f78a97c12d9",
+      "ranges": [
+        [
+          1,
+          151
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/preparation_authority.rs",
+      "sha256": "4f06d127e8d7d358ded01b2d1b7eba9116644b53146a476dd780e98344689613",
+      "ranges": [
+        [
+          1,
+          635
+        ]
+      ]
+    }
+  ]
+}

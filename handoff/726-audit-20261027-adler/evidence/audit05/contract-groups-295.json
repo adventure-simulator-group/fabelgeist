@@ -1,0 +1,25 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-295",
+  "at": "2026-10-25T22:45:07.954497+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2569,
+      "source_id": "dependency-bevy_reflect_derive0.19.1:src/derive_data.rs",
+      "sha256": "113809d703c47d2d0c5d22bcb8be364a9c158c2878bbdbccd7034b57ba95a1dd",
+      "personally_read_ranges": [
+        [
+          1,
+          1422
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read full1422-line frozen bevy_reflect_derive metadata/parser/clone/access/type-path owner, contiguous bounded chunks1-240,241-480,481-730,731-970,971-1200,1201-1422. Metadata stores declarations and compact reflected indices together; active filtering uses same ignore predicate for field info, dependencies, lookup and reconstruction. Struct cloning builds each member from original active value/custom clone, refuses ignored fields lacking explicit clone, then direct literal constructs (no semantic constructor). Accessors expose mutable active private fields via reflection; remote fields use generated wrapper adapter. Container/type-name parsing rejects name without path, structural dispatch rejects unions and opaque bypasses field enumeration. Type-path strings encode type and const generics but are identity metadata rather than validation; module-path reduction unwrap relies parsed nonempty qualified path invariant. No actual project bad reflected field combination, macro expansion or universal dependency correctness claim."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

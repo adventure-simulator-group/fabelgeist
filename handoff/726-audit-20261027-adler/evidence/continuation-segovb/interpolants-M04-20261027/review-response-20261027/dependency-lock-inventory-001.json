@@ -1,0 +1,31 @@
+{
+  "inventory": "rg --files -g Cargo.lock returns exactlyfourrecordedpaths",
+  "locks": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "58118b1b138af4f9feea993ea990dc334f63d30c4aa66f8b5597a0f1dfecfcf6",
+      "contains_core": true,
+      "core_has_math": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "sha256": "c1eedbdf2c145f30bb9da7cc8f8fd02fa22b7ee9d9cd821c49ac5a17c441da09",
+      "contains_core": true,
+      "core_has_math": true
+    },
+    {
+      "path": "crates/fabelgeist-mhr/Cargo.lock",
+      "sha256": "45961a0c74b57fb81e9429abc14d387a4e4a00ba18a771c17b0fd5e4ea09eaf4",
+      "contains_core": false,
+      "core_has_math": false
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/Cargo.lock",
+      "sha256": "32956d36e5397e3492b5de1e1b8fc6b13fef5cb25077cb6f49e0793f918304c4",
+      "contains_core": false,
+      "core_has_math": false
+    }
+  ],
+  "source_qualification": "Package metadata and newdirectedge scope only; no broaddependencysemantic/global audit credit",
+  "required_acceptance": "Hosted lockedcommands and lock-diff guard stillpending"
+}

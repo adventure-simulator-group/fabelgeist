@@ -1,0 +1,61 @@
+{
+  "at": "2026-10-27T12:28:20.006658+00:00",
+  "lens": 8,
+  "registration": "REGISTRATION-071-original2067-2075.json",
+  "source_read": "Fullheads2067-2075 and fullchanged2067delta1323/2072delta107. All2067existingfixture/testsource consumed including3497EOF; no testexecution. Newhelpers explicitabsentbases.",
+  "per_role": [
+    {
+      "original": 2067,
+      "behavior": "Validated input finite check then movement clamp, camera yaw normalized once Radians/pitchclamped, jumpdirectionnormalized andzeroomitted; typedInputTickaccept observesOptioninitialabsence/wrap. Rawjump/posturesequence independentedges consumedbeforeactoradmission to preventstalejump; correctpolicy distinctfromacceptedaction. CameraFacing sumpriorityDownedAlign>Aim>Free coherent. Persistent latestmovement feedsnative perloop accumulator; downed lateral/roll overrides are actualphysicalposturefactors, no generalincap/fatigue movementpenalty added. Fixedelapsed/typedtick\u2192facing\u2192SkeletonLocomotionInput checked\u2192posture; facing/skeleton canmutate beforelaterfailedprojection, no rollback. All runtimeeffects kept transient. Connectedbatch drained only afterunambiguous terrain exists; preparationfailureaftertake maydropwholebatch, stdb delivery/retry obligation pending. Spawnprojection then relies on separate strategicvalidation forbodymass/items/topology, not completenessof PreparedPlayerSpawns. Reconnect owned snapshots safeagainstcompetingdeferredsource teardown peractualcode but clone stores entity-bearingauthority/pendingtargets/nativesnapshot andinventoryItemOfrebind only; otheractorsreferences andomitted woundstate/door exemptions/attackfacing association needcurrentreceiving chain, no fullcombat-state preservationcertificate. Core/motion query omitsTacticalWounds; snapshot explicitly doesnotretain them: wounds continueblood loss per priorcombat condition, actualreconnect restorationroute dependency. Equipmentsequence map stays keyedoldsource ondisconnect then calledwithorphanonrejoin, old!=orphan observed; receiving lifecycle2052movesorphan->client missesold key (concrete static lifecycle discontinuity, no replaysuccessclaim). Inventorymapduplicatescouldleakreservedemptyentities/zeroquantityskips; strategicadmission contract needed. Scaling raw skill/attribute multiplication andfinite religion sum are separate invariantchecks. No compatibility demandto retain malformed/default behavior. All testsreadonly."
+    },
+    {
+      "original": 2068,
+      "behavior": "Typed Radians/NonnegativeSpeed native horizontalvelocity; samecamera-relative sign anddirection, slide returns preservingcompletevelocity, airborne writesx/zonly. No newuniversalunitfraction or verticalvelocityreset."
+    },
+    {
+      "original": 2069,
+      "behavior": "ConfiguredBodyFacingTurn/DownedFacingStep/nativequat projection stagedperbranch; downedmotion setRestingbeforefalliblefacingsolve. advance_projected_posture mutatestransition before fallibledive rotation; failurecouldadvanceownershipwithoutphysicsrootupdate, focused mutation-order policy. Onsuccess transform/physics samecomputedrotation; no allnativefinitequatguarantee. Actualsignedhalfturn andelapsed/sample ownerskept, targetdeadline remaining saturatednonnegativelegitimate."
+    },
+    {
+      "original": 2070,
+      "behavior": "Parametricrecipeversion/hash/catalogidentity validatedviaassert/expect at projection; derivedmass/reach/moment precision feed actualWeaponItem. ReturnsOptionnewgeometry canNoneevenrecipepresent =>callerusescatalogphysicalfallback whileappearance retained; classify whethernew()canfailafterderive and actualstrictstrategicroute beforeclaim. Holder andarmor rawrequestedstate comparedauthoredcatalog thennativeprojection; firstprotectedpartslot and authoredprotection coveragegeometry versusdurableprotectedparts needexactcoupledvalidation. No automaticnativeclient/wholemodelcert."
+    },
+    {
+      "original": 2071,
+      "behavior": "Prepared batch performsentityrecipient selection/fixturemembership and deterministicspawnterrainrequiredsupport/position admission beforeanycommands. Missingpartyloadingrow skipped; allapplicable admittedasoneVec. Doesnotvalidate fullConnectedPlayer/items/bodycondition acceptedlaterexpect beforecommands? enemyentityallocatedbeforebodymasscheck; contractname broaderthan actualadmission. Exactsource pendingDBproducers. No oldmissingterrainzero fallback, preservetypedcause."
+    },
+    {
+      "original": 2072,
+      "behavior": "All obstaclepositions andsupportcheckedcollectbeforefirstqueuedspawn; nativecolliderconstruction occursduringpreparation butnotWorldmutation. Gridordinalsf32multiply-minus andseedtop24yawunchanged. ScenePlanPoint/Position checkedfinite, supportfailurecausepropagatesResult throughmain. Nozeroheightfallbackorfullsceneatomicclaim."
+    },
+    {
+      "original": 2073,
+      "behavior": "Vista snapshot alwaysSome fromvalidatedinputproperties/digestandtypedmetadata; native halfextentsraw, groupslaterfilled byactualfurniturecallbacks. Worldbounds fourhalfspacecolliders fromrawextent requiresadmittedinputcomputedcaller; no nativeGPU/capture cert."
+    },
+    {
+      "original": 2074,
+      "behavior": "Actualqueryowner returnsNone whenzeroauthoritativeterrain/ErrAmbiguousTerrain whenmorethanone, no first-query arbitraryselection; typedGeometry/Support/MissingFixturecause. Doesnotcertifyactualsupportkernelerrorclassification prior CONT08-SAMPLED-SUPPORT question."
+    },
+    {
+      "original": 2075,
+      "behavior": "Explicitpathvsdefault selection; fallbackonlypathresolution notmalformedinputorlegacyformat. Combatbytesmetadata1..64KiB gate before read/YAMLparse/validate; filegrowthbetweenmetadataandreadnotboundedbythisleaf but no ordinaryraceassert. Startupinstallsruntimeglobal snapshotaftervalidatedcombat; exactsnapshotowner priorreadneededforonce/version lifetime. Internal errors flattenedString insteadtypedsource untilmainoutput, M06shareddependency. Existingfilewritingtests onlyread, noneexecuted."
+    }
+  ],
+  "connected_observations": [
+    {
+      "key": "CONT08-RECONNECT-EQUIPMENT-SEQUENCE-REKEY",
+      "sources": [
+        "2067:950-1011,1754-1851,1957-1991",
+        "2052:7-29",
+        "2048:139-149,259"
+      ],
+      "observation": "Sequence map keyed originalclient; disconnect createsdifferentorphan and rebindsitems only; reconnect call movesorphan key tonewclient, oldsequence mapentrynotrekeyed atdisconnect. Typedsequence itself survivesvalueAPI but applicationidentity chain is incomplete.",
+      "remedy": "Own reconnect lifecycle payload/state withcanonicalactor identity; explicitlymovesequenceauthority andpurgeoldkeys acrossoriginal->orphan->newclient, or retain onstablecanonicalroot. Coordinate nativeidentity/reference andwoundauthority traces.",
+      "acceptance": "Previouslyacceptedsequencestate followsoneactor acrossdisconnect/rebind, staleoldentries removed; no replaysuccess or oldAPI compatibility assumption.",
+      "currentness": "Frozen statictrace; current/aliases/unique unresolved"
+    }
+  ],
+  "accepted_unique_count_change": 0,
+  "global_clearance": false,
+  "no_product_code_tests_or_execution": true
+}

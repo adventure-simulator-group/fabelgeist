@@ -1,0 +1,23 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-004",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1472,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/debug.rs",
+      "sha256": "95f141113d44f702b7ac4ae9db824785c6bc3340413a01f3e881b52fd26cdb33",
+      "ranges": [
+        [
+          1,
+          376
+        ]
+      ],
+      "source_basis": "Fresh root personal complete frozen exact-object read; own10 analysis, no other-lens verdict.",
+      "trait_inventory_and_semantics": "Manual DebugPlugin::build registers debug resources, required component providers, systems/observer and external input reflect data; manual DebugVisualsConfig::default uses false/false/true. Other mechanical native traits already derive on components/resources.",
+      "disposition": "Keep both explicit implementations. Plugin composition and external reflect registrations are runtime policy; std Default derive would make raycast false, changing authored default. Limb color/screenshot dispatch are runtime classifiers/IO, no codec derive prescribed. Existing source tests read only.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

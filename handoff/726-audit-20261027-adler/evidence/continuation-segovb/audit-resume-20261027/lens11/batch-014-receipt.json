@@ -1,0 +1,369 @@
+{
+  "at": "2026-10-27T11:59:01.835912+00:00",
+  "lens": 11,
+  "status": "875\u2013880 independently source-accounted; prior exact personally read bodies reused with independent ordered inventory",
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-013.json",
+    "sha256": "a8946d31a848dabfaac257724fd4431ab71562c3587f7a2207e83385f2a04bd3"
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-014-registration.jsonl",
+    "sha256": "e00fa55927c2d3082c7576a0dbf6ea169825c20e62860c0ef638969ef24503fb"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 875,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/model.rs",
+      "sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+      "actual_eof": 363,
+      "ranges": [
+        [
+          1,
+          363
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          363
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 876,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/power.rs",
+      "sha256": "76922a00bc1d4bf13c6d972aaba83258551ce853fff438f2edc3f0d295ae025a",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/76922a00bc1d4bf13c6d972aaba83258551ce853fff438f2edc3f0d295ae025a",
+      "actual_eof": 168,
+      "ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          168
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 877,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/threat.rs",
+      "sha256": "58a5e53d2fdf5283f4e7ba8a58f1335f894bb6b4ab4524f3684f92bbca8dc106",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/58a5e53d2fdf5283f4e7ba8a58f1335f894bb6b4ab4524f3684f92bbca8dc106",
+      "actual_eof": 187,
+      "ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          187
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 878,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/timeline.rs",
+      "sha256": "4e83c1f6cda9e4f7a8f9a19ac6c54119c67701f6d4dae37641c5e6b7b94b753d",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/4e83c1f6cda9e4f7a8f9a19ac6c54119c67701f6d4dae37641c5e6b7b94b753d",
+      "actual_eof": 139,
+      "ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          139
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 879,
+      "source_id": "pr-working:crates/adventuresim-core/src/battle_rewards.rs",
+      "sha256": "b01daaf0a320f38062f1772b90da65b1d29e49f85f49a1dcde2d72b539a381b5",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/b01daaf0a320f38062f1772b90da65b1d29e49f85f49a1dcde2d72b539a381b5",
+      "actual_eof": 31,
+      "ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          31
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 880,
+      "source_id": "pr-working:crates/adventuresim-core/src/battle_time.rs",
+      "sha256": "989db0ee4ad72276f3923b7d005480e50b6c618e04d0b7623602bf0de0d2a350",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/989db0ee4ad72276f3923b7d005480e50b6c618e04d0b7623602bf0de0d2a350",
+      "actual_eof": 95,
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          95
+        ]
+      ]
+    }
+  ],
+  "read_basis": {
+    "875": {
+      "prior_own_batch009": [
+        [
+          1,
+          90
+        ]
+      ],
+      "fresh": [
+        [
+          91,
+          363
+        ]
+      ]
+    },
+    "876": "fresh full1-168",
+    "877": "fresh full1-187",
+    "878": "prior own batch011 full1-139; hash reverified, new independent ordered role inventory",
+    "879": "fresh full1-31",
+    "880": "prior own batch010 full1-95; hash reverified, new independent ordered role inventory"
+  },
+  "material_receivers": [
+    {
+      "kind": "connected-owner",
+      "original_index": 903,
+      "sha256": "287ef23a8837049c44a05b856bcef61d536c382a5e3602b6755f434f02c177d5",
+      "ranges": [
+        [
+          78,
+          138
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual contact concentration owner and physical/training fixed-point scaling contract consumed by power/threat",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          78,
+          113
+        ]
+      ]
+    },
+    {
+      "kind": "connected-owner",
+      "original_index": 1021,
+      "sha256": "87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+      "ranges": [
+        [
+          245,
+          280
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual contact concentration owner and physical/training fixed-point scaling contract consumed by power/threat",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          245,
+          280
+        ]
+      ]
+    },
+    {
+      "kind": "connected-owner",
+      "original_index": 1021,
+      "sha256": "87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+      "ranges": [
+        [
+          185,
+          244
+        ]
+      ],
+      "prospective": true,
+      "reason": "physical/training/countermeasure multiplier operations underlying245-255 projection; distinguish fixed-point scale role from condition/attribute bound",
+      "actual_read_ranges": [
+        [
+          185,
+          244
+        ]
+      ],
+      "zero_extra_original_credit": true
+    }
+  ],
+  "per_role": [
+    {
+      "original": 875,
+      "roles": "CombatBody seven-region health/weight/primary-side versus CombatEssentials and skill-hour snapshot; innate/item armor metadata; broad CombatWeapon capability fields; retained loadout versus selected melee/ranged PlayerEquipment projection.",
+      "trace": "Full363 lines independently inventoried; own0091-90 hash-equal reused, fresh91-363 consumed. BodyPart-indexed health methods map canonical region, not RigJointOrdinal/bitflag cast. Shared body/attribute/equipment/skill traits remove framework metadata without redefining snapshots. BestiaryHours is actually category-indexed/effective versus aggregate, not automatically same as one raw training scalar. Equipment.for_melee/for_ranged clones loadout and deliberately sets selected weapon+side coherently; ordinary observed views are consistent. Broad public record still independently stores weapon snapshots/IDs/holding-side/projectile/ammunition state; abstract threat weapons legitimately lack persistent inventory IDs, so do not require every weapon to have a player item identity. Scalar physical/health/coverage roles and single per-region armor projection retain qualified source questions.",
+      "disposition": "source-accounted with existing physical/region/selected-view association finding support"
+    },
+    {
+      "original": 876,
+      "roles": "Observer-safe combat power heuristic versus actual battle result/physical energy; ContactPrecision concentration versus bounded hit accuracy; log-weight numerical aggregation and finite fallback policy.",
+      "trace": "Full168 lines read. Power reads selected melee/ranged views and actual body/armor/skills/condition, computes local weighted heuristic then quantizes native u64; comment explicitly decision aid not outcome oracle. ContactPrecision actual90378-113 admits finite nonnegative values without1 cap and derives bounded concentration, unlike UnitInterval hit/performance. Raw public CombatWeapon.precision is re-admitted by asserting constructor at power consumption; producer migration remains partial. Finite-log clamp policy does not imply all upstream constructors are non-panicking or all heuristic inputs finite. No execution of extreme fixtures, complete power calibration or outcome acceptance.",
+      "disposition": "source-accounted with concentration propagation/score-role question"
+    },
+    {
+      "original": 877,
+      "roles": "ThreatId typed catalog namespace versus raw incoming type text; typed error cause; difficulty versus separate escalation/countermeasure basis-point policies; physical attributes/training; authored profile attack/protection/rig axes versus physical weapon snapshot.",
+      "trace": "Full187 lines read. Parse creates actual ThreatId before profile lookup; failure retains original text plus typed UnknownThreatId. Profile shapes and category association are delegated to actual canonical bestiary, which remains its own pending881 scope. Scale1021 actual215-255 distinguishes escalation baseline-or-higher from bounded below-baseline countermeasure and returns square-root physical versus linear training values. Difficulty is unbounded i32 withminimum1 before multiplication, so player0-5 description is not a universal attribute bound; no cap5 invented. Abstract threat equipment deliberately has no persistent instance IDs and ranged profiles gain actual authored melee sidearm. Neither independent ranged/protection/rig nor mean physical/training roles should be flattened solely because each is primitive/enum storage.",
+      "disposition": "source-accounted with separate scale-policy/purpose finding"
+    },
+    {
+      "original": 878,
+      "roles": "MeleeTimelineEvent kind versus state-specific optional payloads; independent sequence/tick/BattleTime; participant/attack/affected/batch namespaces; typed movement/phase/response/RecoveryTime-related event facts; native sample-tick encoder.",
+      "trace": "Own011 full139 lines hash-equal reused and independently inventoried in ordered role. Actual producer/receivers862/869/871-874 demonstrate Movement, AttackStarted, Response, AttackCanceled/Transformed, Contact and Terminal carry different required facts. Flat record initializes every optional field absent and fills by kind; actual committed decision statistics and contact batch tuple are grouped by producer logic, not type. Timeline kind/phase/response availability/choice have genuinely different state spaces (FinishTrade exists in choice); do not alias them merely shared labels. tick is derived quantization of actual signed clock, not the same value as absolute seconds/sequence/attack identity. Preserve011 ID-capacity witness and all currentness limits.",
+      "disposition": "source-accounted with source-backed event payload ownership question"
+    },
+    {
+      "original": 879,
+      "roles": "Recorded participant IDs versus living eligibility set and returned order-preserving filtered IDs; native collection operations.",
+      "trace": "Full31 lines read. A BTreeSet of living IDs supports membership while recorded order/duplicates are retained in output. This is actual eligibility-at-commit calculation, not a new persistent life-state authority or reason to create distinct numeric validators for recorded/living IDs. Canonical participant identity type should be retained at application ports; arbitrary same-battle instance branding or dedup requirement not established. Existing fixtures source only.",
+      "disposition": "source-accounted with inherited raw identity namespace qualification"
+    },
+    {
+      "original": 880,
+      "roles": "Finite signed battle-relative coordinate versus finite nonnegative elapsed span; BattleTimeError input nonfinite/arithmetic overflow; typed comparisons/tolerance and explicit native seconds/Serde conversion.",
+      "trace": "Own010 full95 lines hash-equal reused and independently inventoried with actual scheduling/movement recipients. Negative battle coordinates are valid and distinct from authority/strategic clock and elapsed observations. checked_add admits finite result; elapsed_since returns AnimationElapsed and rejects negative/unrepresentable difference; saturation is explicitly requested by separate operation. is_within and precedes_with_margin have bounded comparison purpose and need not retain an intermediate coordinate. No redundant owner collapse based solely on f32 storage; arithmetic-error distinction candidate below is separate from semantic clock distinction.",
+      "disposition": "source-accounted with qualified arithmetic error-state granularity support"
+    }
+  ],
+  "qualified_observations": [
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/autoresolve/model.rs@20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72#selected-weapon-view-and-instance-payload",
+      "observation": "CombatEquipment retains selected weapon/side plus independent melee and ranged snapshots, IDs, sides, projectile kind and ammunition; for_melee/for_ranged clone then overwrite selected pair coherently. Same broad CombatWeapon carries melee/ranged flags and exclusive physical fields. This permits unassociated field combinations, but actual observed projection paths are coherent and hybrid/unarmed/abstract threats are genuine separate supported contexts.",
+      "remedy": "Reconcile canonical loadout/selected-view and weapon-state owners, joining actual instance/holding/capability payload where contract requires. Keep abstract itemless threat profiles and hybrid/alternate weapons explicit; avoid one duplicated forwarding view or mandatory persistent-ID rule without support.",
+      "acceptance": "Actual snapshot/projection/attack/telemetry ports retain the intended weapon, side and source identity without independent stale selected fields or irrelevant state-exclusive payloads.",
+      "dependencies": [
+        "batch011 checked-melee shape support and inherited master aliases",
+        "actual current loadout/projection recipients",
+        "enum-shape/redundant-authority coordination"
+      ],
+      "currentness": "Qualified frozen question, no ordinary wrong-instance runtime witness or accepted unique count"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/autoresolve/power.rs@76922a00bc1d4bf13c6d972aaba83258551ce853fff438f2edc3f0d295ae025a#ContactPrecision-retained-propagation",
+      "observation": "ContactPrecision is an existing finite nonnegative concentration owner with no1 upper cap. CombatWeapon still stores raw precision and power constructs ContactPrecision at consumption using assert. Same spelling precision also names bounded hit accuracy/performance in other ports, but actual contracts differ. A universal UnitInterval replacement would reject legitimate concentration above1 and miss producer/retained-state admission.",
+      "remedy": "Use the actual existing concentration owner across its supported catalog/projection/retained consumers, with explicit admission/errors at native input and extraction only for real numerical/serialization kernel. Keep bounded hit/performance fraction owner separate; do not invent generic finite cap or claim every concentration operation finite (resistance explicitly returns infinity at zero).",
+      "acceptance": "Supported concentration cannot be confused with hit accuracy or remain unadmitted until asserting consumer; actual above1 concentration and zero semantics retain correct clean contract.",
+      "dependencies": [
+        "existing contact/physical/producer finding aliases",
+        "actual canonical current catalog/weapon/physical receiver graph"
+      ],
+      "currentness": "Frozen source only, no executed invalid-precision witness or accepted uniqueness"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/threat_escalation.rs@87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47#combat_scaling_multipliers-roles",
+      "observation": "Escalation basis points are clamped baseline-or-higher, while countermeasure basis points permit5000..whole; physical effect takes square root while training remains linear. Raw u32 inputs and (f32,f32) result therefore have different actual policies/purposes despite shared fixed-point/scalar storage. Actual threat caller destructures intended order correctly.",
+      "remedy": "Reconcile existing fixed-point scale/ratio and named physical/training projection owner. Share arithmetic underneath distinct policies/role operations, retain explicit native basis-point conversion and actual authored constraints; do not flatten escalation into a unit fraction or copy its lower bound into countermeasure.",
+      "acceptance": "Actual tactical/strategic scale input and projection ports preserve both admitted policies and physical-versus-training meaning without order-only tuple authority.",
+      "dependencies": [
+        "master scaling/physical/granularity alias reconciliation",
+        "full original1021 and currentness population"
+      ],
+      "currentness": "Qualified frozen material range, no current/unique promotion"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/autoresolve/timeline.rs@4e83c1f6cda9e4f7a8f9a19ac6c54119c67701f6d4dae37641c5e6b7b94b753d#kind-required-event-payload",
+      "observation": "The seven-case kind sits beside a broad record of Optional timing/movement/response/contact/batch/terminal fields. Actual event writers in871-874 show required payload groups by kind; unrelated fields are representable together and required fields are not enforced. Shared phase/availability/choice enums are already distinct and useful.",
+      "remedy": "Reconcile canonical event owner/current source and enum-shape family; move actual state-required payload into event alternatives, reuse semantic clock/speed/identity owners, retain native wire shape only where a real external format requires adapter. No backward-compatible layout constraints.",
+      "acceptance": "Actual event producers, cancellation/contact correlation and replay/serialization recipients receive required facts by state, without erasing independent clock/phase/response axes.",
+      "dependencies": [
+        "event producer/receiver populations and existing shape alias comparison",
+        "currentness and actual external/native format requirements"
+      ],
+      "currentness": "Concrete frozen shape observation, no executed malformed event or accepted unique finding"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/battle_time.rs@989db0ee4ad72276f3923b7d005480e50b6c618e04d0b7623602bf0de0d2a350#elapsed-difference-error-identity",
+      "observation": "Finite BattleTime endpoints can produce an unrepresentable positive difference (MAX minus negativeMAX). elapsed_since/saturating_elapsed_since directly send scalar difference to AnimationElapsed::from_seconds, whose actual constructor916 returns NonFinite rather than its available Overflow variant. Meaningful input-admission versus arithmetic-error states are conflated in this path. This is an algebraic API witness, no probe or ordinary runtime current failure.",
+      "remedy": "Reconcile existing error/operation family and actual current owner; classify arithmetic failure at its owner operation or use an existing arithmetic admission path, retaining typed clock/span distinctions. No historical variant/message/layout compatibility requirement.",
+      "acceptance": "Supported finite-endpoint arithmetic overflow retains arithmetic failure identity distinct from nonfinite external input; negative elapsed semantics stay explicit.",
+      "dependencies": [
+        "invariant-operations/error family and master alias reconciliation",
+        "full elapsed owner/currentness review"
+      ],
+      "currentness": "Qualified frozen source, accepted unique0"
+    }
+  ],
+  "carried_own_proofs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-007-receipt.json",
+      "sha256": "d47d3a4b9fb4daa1a830241c6ead725c3bbe461b7d56a83b1a5614bb640acf1f"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-009-receipt.json",
+      "sha256": "c4846ed7280666ba54db302343501cb6a097784ab4b44929dc6751e5bb943324"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-010-receipt.json",
+      "sha256": "59d8ab785e544e91e87e1d58761594679196a96d9a1573cc6160f6ede4227829"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-011-receipt.json",
+      "sha256": "a3dc283db56a86d80f5baad4143672999d602269a8f4598d32362487981dfb07"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-013-receipt.json",
+      "sha256": "aaf1be371c4e0904427877a362e3f30c763db5afb1261f0ca820884fd3124593"
+    }
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer. Preserve180/181nativeSDK/Bevy scheduling/imagecopylimits andallpendingreceiverqueues. M04current903reviewsseparate; notfrozenoriginal/lenscounts. Packet182InventoryItemId graph erasure, catalogkey/recordidentity and wear/order-selector sourcequestions retained, alias/currentness/unique acceptance unresolved. M04build-target review003 atdf5 andhostedCIseparatefromfrozenauditcounts. 184 newpublicDrapedPiece association/sourcegroupingquestion remainsfrozenlocal, noalias/currentness/uniqueacceptance; producerpathcoherent. M04df5validationseparate. 185 capacityreservationstaticAPIgap retainedasfrozenevidence only; alias/currentness/accepteduniqueness unresolved. No runtimewrongID orauthoredcurrentinputwitness. ExistingID/key/wear/savedassociationquestionsremainqualified. Packet186 independently accounts existing test-source812 only; fixture expectations are not observed execution/whole authored catalog/native guarantees and do not clear185 capacity witness. Existing lower-pattern fixture uses canonical owners; no new current alias or unique finding. Packet187 original813 only. New frozen inventory_ui and catalog wrapper material extensions mandatory other lenses, zero extra shared/original credit. UI acquisition is not atomic/all-worn; inherited capacity, typedID erasure/key authority and public saved-association questions retain all currentness/alias/unique limits. Batch011 frozen attack-ID packed participant-width witness retained; no runtime/current/alias/accepted unique finding, no invented32bit capacity bound. Batch012 actual simultaneous fixture permits absent scheduled measure beside present start/contact/recovery; group only proved coupled facts, do not require every active schedule measure.",
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_adoption_required": true,
+  "read_limits": [
+    "903 registered78-138 exceeded actualEOF113; actual78-113 consumed and closing owner known; no fictitious114-138 coverage.1021 actual185-280 includes partial unrelated preceding/next algorithms; only complete scaling215-255 used as material proof.",
+    "Inherited body-region/physical/identity/payload findings remain qualified; no accepted current/runtime/unique clearance. Native score and literal report encodings do not exempt internal application state.",
+    "Existing exact same-lens body reads support independent ordered inventory, not automatic credit by cached presence/search. No other-lens semantic verdict transfer."
+  ],
+  "restrictions": "No product/Git mutations/root ledger/project checks/scans/probes/tests/new tests/publication."
+}

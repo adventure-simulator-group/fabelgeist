@@ -1,0 +1,270 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "036",
+  "predecessor": "receipt-035-originals215-216.json",
+  "manifest_prefix_sha256": "a63c19e036babacaa02b98089e10333f4d01f641157b3b57f5e11716a65041bb",
+  "sources": [
+    {
+      "original_index": 217,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/herbalism.rs",
+      "sha256": "98a9b9265a294f16c734dc7a90ca9cbb9f7770b359a71fdbdc4e19a3736ad934",
+      "actual_ranges": [
+        [
+          1,
+          600
+        ]
+      ],
+      "registered_requested_scope": [
+        [
+          1,
+          600
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              23,
+              48
+            ],
+            [
+              83,
+              99
+            ],
+            [
+              125,
+              175
+            ],
+            [
+              177,
+              272
+            ],
+            [
+              274,
+              580
+            ]
+          ],
+          "role": "Raw medicinal profile/item/carrier key state; carrier container134/168 and food_lot194/233/253/264 choose rows; profile POPPY23 stored472 and consumed214/552; semantic tag tincture_vessel98 and IDs tincture_spirit290/330/378/poppy402",
+          "disposition": "Actual cooking204 and authority210 carrier producers now connected to consuming/deleting/splitting recipient. Carrier kind + u64 should be canonical enum payload with actual container/food-lot identity, profile/version owner retained through state/application APIs; open catalog IDs remain open. Composite keys158/261/535 native DB key ports. Actual profile lookup198 and disease administration211/549 (193 body consumed) proven, no medical/numeric/native runtime claim. Tag98 drives ability to prepare, not prose; existing item catalog schema113/116 owner graph applies pendingcanonicalfit."
+        },
+        {
+          "ranges": [
+            [
+              101,
+              115
+            ],
+            [
+              177,
+              225
+            ],
+            [
+              240,
+              271
+            ],
+            [
+              274,
+              580
+            ]
+          ],
+          "role": "All raw validation/failure String text",
+          "disposition": "Exact failures110/112/184/202/204/210/247/288/293/301/308/311/318/320/345/354/361/370/377/379/388/395/404/409/416/418/423/430/436/440/448/496/513/515/523/531/533/541/545/562 flatten precise typed cause into String or227 catch-all. Keep typed payloads to real output. Other read bodies typed/numeric/native state operations only."
+        },
+        {
+          "ranges": [
+            [
+              583,
+              600
+            ]
+          ],
+          "role": "Existing fixture source: format588, include paths589/590 and source-symbol comparisons592-598",
+          "disposition": "Exact native/source-text boundary. Child218 independently consumed, no source execution, test exemption or included coverage inference."
+        }
+      ],
+      "status": "Full requested material scope independently read and inventoried with findings; foreign scope remains bounded."
+    },
+    {
+      "original_index": 218,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/herbalism/ingredient.rs",
+      "sha256": "0da336a33dfe2ce0319629649c1fe2192f15f73e04a7899d12cc9613f2f49156",
+      "actual_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "registered_requested_scope": [
+        [
+          1,
+          21
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              21
+            ]
+          ],
+          "role": "Zero raw strings or string-valued APIs",
+          "disposition": "Actual food lot deletion recipient207 and numeric object removal only; source-only no runtime/destructive action performed or cleanup/behavior verdict."
+        }
+      ],
+      "status": "Full requested material scope independently read and inventoried with findings; foreign scope remains bounded."
+    },
+    {
+      "original_index": 219,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+      "actual_ranges": [
+        [
+          1,
+          241
+        ]
+      ],
+      "registered_requested_scope": [
+        [
+          1,
+          241
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              241
+            ]
+          ],
+          "role": "Smithing material ID array11 drives measured-definition membership37, SOFT_SOAP36/222 and raw item query40-46, fixtures sword226/steel_stock231; error text103/138/173/195 and expects65/108/143",
+          "disposition": "Actual semantic stock IDs select divisible material behavior, no constant/fixture exemption. Carry canonical item/material classification authority instead of array equality in app logic, exact native Item declaration221 next. Existing typed ConsumableFractionMicros kept at API94/129; raw failuretext distinct structured-cause gaps. Other body typed/numeric; no quantity/ownership/math verdict."
+        }
+      ],
+      "status": "Full requested material scope independently read and inventoried with findings; foreign scope remains bounded."
+    },
+    {
+      "original_index": 220,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "actual_ranges": [
+        [
+          1,
+          62
+        ],
+        [
+          988,
+          1090
+        ]
+      ],
+      "registered_requested_scope": [
+        [
+          1030,
+          1085
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              62
+            ],
+            [
+              988,
+              1090
+            ]
+          ],
+          "role": "Registered exact material role1030-1085 plus minimal declaring/enclosing ranges; raw WATER25/liquid57/item37, typed custody1036; raw missing/volume/unknown-item errors999/1050/1054/1069/1075/1083/1087",
+          "disposition": "Actual ContainerLiquid authored reference field selects water filter1043; native Item lookup1074 and graph998. Canonical open liquid/item reference owner needed through state/API, native query text boundary concrete; water literal producer now read. Typed location38/custody1036 are existing owner; raw error formatting/prose before output is migration gap. Actual measured_volume_ml1006 and native graph/used_volume/custody resolver remain unread delegates, no whole container1451 credit. Extra1090 and61-62 signature fragments carry no body/coverage claim."
+        }
+      ],
+      "status": "Full requested material scope independently read and inventoried with findings; foreign scope remains bounded."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Medicinal carrier/profile and inventory material classification propagation",
+      "sources": [
+        "217:83-99,125-272,466-478,535-555",
+        "219:10-46",
+        "220:25-58,1034-1088",
+        "204:776-793",
+        "210:69-87,194-215"
+      ],
+      "remedy": "Use canonical carrier payload, preparation/profile/version and open item/liquid/material classification owners; retain typed causes until real output, native text encoding at actual storage/query/seed port.",
+      "acceptance": "Complete native Item/default producer221, generated references, object custody/measured-volume helpers and external recipients before repair; no old input/fallback/bytes preservation.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Native Item/default producer221 and actual catalog reference producer; canonical open ID owner fit/aliases pending.",
+    "Inventory-container measured_volume_ml1006, object-custody resolver1051 and native graph used_volume1078 receiver contracts unread; no whole container or SDK clearance.",
+    "External medicinal/tincture producer/consumer ports outside actual source remain unread. All inherited aliases/currentness/all20/P16/P17/F9/M09/populations preserved."
+  ],
+  "qualifications": [
+    "Exact f82 physical-P16 frozen bytes, no current alias. Original220 bounded1030-1085 plus prospectively registered declaration/callee support only.",
+    "Source-only no project execution/tests/probes/new tests/product/Git/rootledger/publication. User no BC.",
+    "Own lens12 source accounting with findings, no native/runtime/global/unique-total/other-lens clearance."
+  ],
+  "proposed_count": {
+    "before": 217,
+    "after": 221,
+    "indices_completed": [
+      217,
+      218,
+      219,
+      220
+    ],
+    "next_original": 221,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/herbalism.rs",
+      "sha256": "98a9b9265a294f16c734dc7a90ca9cbb9f7770b359a71fdbdc4e19a3736ad934",
+      "ranges": [
+        [
+          1,
+          600
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/herbalism/ingredient.rs",
+      "sha256": "0da336a33dfe2ce0319629649c1fe2192f15f73e04a7899d12cc9613f2f49156",
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+      "ranges": [
+        [
+          1,
+          241
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "ranges": [
+        [
+          1,
+          62
+        ],
+        [
+          988,
+          1090
+        ]
+      ]
+    }
+  ]
+}

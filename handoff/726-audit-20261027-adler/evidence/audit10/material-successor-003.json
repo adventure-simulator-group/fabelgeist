@@ -1,0 +1,95 @@
+{
+  "lens": "derivability",
+  "registry": "../shared-material-successor/source-extensions-185.json",
+  "registry_sha256": "b21e9b158607315c3a4d033425273c3375d4df4e8ddee0587533e1042c1d4439",
+  "receipts": [
+    {
+      "material_index": 12,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/status.rs",
+        "sha256": "4ed19181ab78cf91d879f183d56d313397141bcefd0c3139ebd1263c1c3163ff",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            1,
+            204
+          ]
+        ],
+        "registration_evidence": "redundant-authority/prospective-source-registration-009.json",
+        "reason": null
+      },
+      "source_origin": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/regional_map/status.rs",
+      "source_sha256": "4ed19181ab78cf91d879f183d56d313397141bcefd0c3139ebd1263c1c3163ff",
+      "read_ranges": [
+        [
+          1,
+          204
+        ]
+      ],
+      "inventory_and_semantics": "Status/Failure use serde derives; From<&MapProtocolError> intentionally classifies distinct typed failures to public closed categories, not structural variant forwarding. Ready/projection/publication and JSON fallback diagnostics are semantic presentation boundary. No derive-equivalent manual codec.",
+      "disposition": "No new derivability candidate; retain semantic policy and existing derives",
+      "evidence_basis": "Fresh personal exact registered body comparison; no other-lens verdict transfer",
+      "limits": "Only registered ranges, no unobserved callee/SDK/testexecution/runtime/global credit"
+    },
+    {
+      "material_index": 13,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/atmosphere.rs",
+        "sha256": "b9dcce7121c3161293d2fbd9c9f02f0df7aa341d51c9a0a1b94a7315f8bfdd4c",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            1,
+            332
+          ]
+        ],
+        "registration_evidence": "redundant-authority/prospective-source-registration-010.json",
+        "reason": null
+      },
+      "source_origin": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/atmosphere.rs",
+      "source_sha256": "b9dcce7121c3161293d2fbd9c9f02f0df7aa341d51c9a0a1b94a7315f8bfdd4c",
+      "read_ranges": [
+        [
+          1,
+          332
+        ]
+      ],
+      "inventory_and_semantics": "AtmosphereIblCache/Key/Phase/components derive structural/default/resource traits. Exact cache-key constructor, extraction cleanup, GPU-completion selection and begin/clear/install state transitions read. No manual traits/codecs; cache coherence and native GPU lifecycle correctness remain separate lenses.",
+      "disposition": "No new derivability candidate; retain semantic policy and existing derives",
+      "evidence_basis": "Fresh personal exact registered body comparison; no other-lens verdict transfer",
+      "limits": "Only registered ranges, no unobserved callee/SDK/testexecution/runtime/global credit"
+    },
+    {
+      "material_index": 14,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_sky_viewer_main.rs",
+        "sha256": "4675cb9d134b9dbe5b05c9d82bed6b323983a88d2a63de941125b0be29e097d0",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            1,
+            114
+          ]
+        ],
+        "registration_evidence": "redundant-authority/prospective-source-registration-011.json",
+        "reason": "SkyView::id definition directlyconsumed1742run/setup identifiers; exactcompareagainstsky_view_slug independentmapping andCLIconfiguration admission. Absentoriginal2853sourcecatalog, no replacementwithcurrentmain.",
+        "range_correction_evidence": "prospective-source-registration-011.json uses prospective_material_ranges; missing normalization corrected, no scope enlargement or coverage credit"
+      },
+      "source_origin": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/tactical_sky_viewer_main.rs",
+      "source_sha256": "4675cb9d134b9dbe5b05c9d82bed6b323983a88d2a63de941125b0be29e097d0",
+      "read_ranges": [
+        [
+          1,
+          114
+        ]
+      ],
+      "inventory_and_semantics": "SkyView derives CLI ValueEnum/structural traits, Args derives Parser. Const id maps authored stable capture identifiers; native/wasm main and original fixtures read. No handwritten trait/codec to replace; const ID naming not assumed Debug/CLI spelling equivalent.",
+      "disposition": "No new derivability candidate; retain semantic policy and existing derives",
+      "evidence_basis": "Fresh personal exact registered body comparison; no other-lens verdict transfer",
+      "limits": "Only registered ranges, no unobserved callee/SDK/testexecution/runtime/global credit"
+    }
+  ],
+  "checks": "not run",
+  "source_edits": false,
+  "clear": false
+}

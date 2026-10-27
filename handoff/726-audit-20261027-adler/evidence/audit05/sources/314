@@ -1,0 +1,439 @@
+//! Durable parametric weapon recipes keyed by stable physical-object identity.
+
+use adventuresim_core::physical_object::{CarriedInventoryScope, InventoryLocation};
+use adventuresim_weapon_model::{
+    GENERATOR_VERSION, HOLDER_GENERATOR_VERSION, WeaponDesign, WeaponHolderDesign, default_design,
+    default_holder_design, design_hash, holder_design_hash,
+};
+use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, table, view};
+
+use crate::inventory_container::inventory_object__view;
+use crate::item::item;
+use crate::strategic::PartyInventoryItem;
+use crate::strategic::strategic_gateway_authority__view;
+use crate::{CatalogItemKind, InventoryItem, inventory_object};
+
+mod appearance;
+mod evaluation;
+pub(crate) use appearance::{connected_appearance, connected_holder_appearance};
+use evaluation::{evaluate_holder_instance, evaluate_instance};
+
+pub const MAX_WEAPON_RECIPE_BYTES: usize = adventuresim_weapon_model::MAX_ENCODED_RECIPE_BYTES;
+
+fn checked_scaled_u32(value: f32, scale: f32, label: &str) -> Result<u32, String> {
+    let scaled = value * scale;
+    if !scaled.is_finite() || scaled < 0.0 || scaled > u32::MAX as f32 {
+        return Err(format!("Weapon {label} is outside the persisted range"));
+    }
+    Ok(scaled.round() as u32)
+}
+
+#[derive(Clone, Debug, PartialEq)]
+/// Immutable evaluated recipe and storage projections, owned by
+/// `from_evaluation`. Consumption re-evaluates the recipe and compares every
+/// projection; catalog defaults never rewrite an existing physical object.
+#[table(accessor = weapon_instance)]
+pub struct WeaponInstance {
+    #[primary_key]
+    pub physical_object_id: u64,
+    pub generator_version: u16,
+    pub design_hash: Vec<u8>,
+    pub recipe: Vec<u8>,
+    pub mass_grams: u32,
+    pub length_mm: u32,
+    pub grip_to_tip_mm: u32,
+}
+
+#[derive(Clone, Debug, PartialEq)]
+/// Independently evaluated holder recipe with the same construction and
+/// authentication contract as `WeaponInstance`; holder geometry is distinct.
+#[table(accessor = weapon_holder_instance)]
+pub struct WeaponHolderInstance {
+    #[primary_key]
+    pub physical_object_id: u64,
+    pub generator_version: u16,
+    pub design_hash: Vec<u8>,
+    pub recipe: Vec<u8>,
+    pub mass_grams: u32,
+    pub length_mm: u32,
+    pub grip_to_tip_mm: u32,
+}
+
+/// Trusted strategic-backend projection used to produce per-instance inventory
+/// icons. Recipes remain absent for ordinary player subscriptions and HTML.
+#[view(accessor = backend_weapon_instances, public)]
+pub fn backend_weapon_instances(ctx: &ViewContext) -> Vec<WeaponInstance> {
+    let gateway = ctx.db.strategic_gateway_authority().id().find(0);
+    if gateway.is_none_or(|authority| authority.identity != ctx.sender()) {
+        return Vec::new();
+    }
+    let mut instances = Vec::new();
+    for object in ctx
+        .db
+        .inventory_object()
+        .item_id()
+        .filter(""..)
+        .filter(|object| {
+            matches!(
+                &object.location,
+                InventoryLocation::Personal(_) | InventoryLocation::Party(_)
+            )
+        })
+    {
+        if let Some(instance) = ctx
+            .db
+            .weapon_instance()
+            .physical_object_id()
+            .find(object.id)
+        {
+            instances.push(instance);
+        }
+    }
+    instances
+}
+
+/// Trusted strategic-backend projection for independently persisted scabbard
+/// and haft-loop recipes. Ordinary players still receive holder recipes only
+/// through the sender-scoped tactical projection.
+#[view(accessor = backend_weapon_holder_instances, public)]
+pub fn backend_weapon_holder_instances(ctx: &ViewContext) -> Vec<WeaponHolderInstance> {
+    let gateway = ctx.db.strategic_gateway_authority().id().find(0);
+    if gateway.is_none_or(|authority| authority.identity != ctx.sender()) {
+        return Vec::new();
+    }
+    let mut instances = Vec::new();
+    for object in ctx
+        .db
+        .inventory_object()
+        .item_id()
+        .filter(""..)
+        .filter(|object| {
+            matches!(
+                &object.location,
+                InventoryLocation::Personal(_) | InventoryLocation::Party(_)
+            )
+        })
+    {
+        if let Some(instance) = ctx
+            .db
+            .weapon_holder_instance()
+            .physical_object_id()
+            .find(object.id)
+        {
+            instances.push(instance);
+        }
+    }
+    instances
+}
+
+/// Sender-scoped tactical transport. Strategic HTML likewise never embeds the
+/// full smithing recipe; its trusted icon endpoint consumes the backend view.
+#[derive(SpacetimeType, Clone, Debug)]
+pub struct ConnectedWeaponAppearance {
+    pub generator_version: u16,
+    pub design_hash: Vec<u8>,
+    pub recipe: Vec<u8>,
+    pub mass_kg: f32,
+    pub length_m: f32,
+    pub grip_to_tip_m: f32,
+}
+
+pub(crate) fn initialize_personal_weapon(
+    ctx: &ReducerContext,
+    inventory: &InventoryItem,
+) -> Result<(), String> {
+    let Some(definition) = ctx.db.item().id().find(inventory.item_id.clone()) else {
+        return Err(format!("Unknown weapon definition {}", inventory.item_id));
+    };
+    if definition.kind != CatalogItemKind::Weapon || !definition.melee {
+        return Ok(());
+    }
+    let Some(design) = default_design(&inventory.item_id) else {
+        return Ok(());
+    };
+    if inventory.quantity != 1 {
+        return Err("Parametric weapons must be individual inventory rows".into());
+    }
+    let object = crate::inventory_container::object_for_row(
+        ctx,
+        CarriedInventoryScope::Personal,
+        inventory.id,
+    )?
+    .ok_or("Parametric weapon has no stable physical object identity")?;
+    replace_design(ctx, object.id, &design)?;
+    Ok(())
+}
+
+pub(crate) fn initialize_party_weapon(
+    ctx: &ReducerContext,
+    inventory: &PartyInventoryItem,
+) -> Result<(), String> {
+    let Some(definition) = ctx.db.item().id().find(inventory.item_id.clone()) else {
+        return Err(format!("Unknown weapon definition {}", inventory.item_id));
+    };
+    if definition.kind != CatalogItemKind::Weapon || !definition.melee {
+        return Ok(());
+    }
+    let Some(design) = default_design(&inventory.item_id) else {
+        return Ok(());
+    };
+    if inventory.quantity != 1 {
+        return Err("Parametric weapons must be individual party inventory rows".into());
+    }
+    let object = crate::inventory_container::object_for_row(
+        ctx,
+        CarriedInventoryScope::Party,
+        inventory.id,
+    )?
+    .ok_or("Parametric party weapon has no stable physical object identity")?;
+    replace_design(ctx, object.id, &design)?;
+    Ok(())
+}
+
+pub(crate) fn delete_for_object(ctx: &ReducerContext, physical_object_id: u64) {
+    ctx.db
+        .weapon_instance()
+        .physical_object_id()
+        .delete(physical_object_id);
+    ctx.db
+        .weapon_holder_instance()
+        .physical_object_id()
+        .delete(physical_object_id);
+}
+
+pub(crate) fn fit_personal_holder(
+    ctx: &ReducerContext,
+    character_id: u64,
+    holder_inventory_row_id: u64,
+    weapon_inventory_row_id: u64,
+) -> Result<(), String> {
+    let holder_object = crate::inventory_container::require_object(
+        ctx,
+        character_id,
+        CarriedInventoryScope::Personal,
+        holder_inventory_row_id,
+    )?;
+    let weapon_object = crate::inventory_container::object_for_row(
+        ctx,
+        CarriedInventoryScope::Personal,
+        weapon_inventory_row_id,
+    )?
+    .ok_or("Fitted weapon has no physical identity")?;
+    let weapon = ctx
+        .db
+        .weapon_instance()
+        .physical_object_id()
+        .find(weapon_object.id)
+        .ok_or("Fitted weapon has no parametric recipe")?;
+    let evaluated = evaluate_instance(&weapon, &weapon_object.item_id)
+        .ok_or("Fitted weapon recipe is invalid")?;
+    let expected_holder =
+        match adventuresim_weapon_model::recommended_holder(&weapon_object.item_id) {
+            Some(adventuresim_weapon_model::WeaponHolderKind::BladeSheath) => "scabbard",
+            Some(adventuresim_weapon_model::WeaponHolderKind::HaftLoop) => "weapon_loop",
+            None => return Err("Polearms cannot be fitted to a body-mounted holder".into()),
+        };
+    if holder_object.item_id != expected_holder {
+        return Err(format!(
+            "{} requires a {expected_holder}",
+            weapon_object.item_id
+        ));
+    }
+    let weapon_design = evaluated.design();
+    let holder_design =
+        default_holder_design(weapon_design).ok_or("Weapon has no procedural holder template")?;
+    replace_holder_design(ctx, holder_object.id, &holder_design)?;
+    Ok(())
+}
+
+/// Atomic holder-design replacement seam for a future leatherworking/smithing
+/// reducer. Holder parameters and the fitted weapon snapshot are independently
+/// versioned; changing the weapon does not silently rewrite an existing holder.
+pub(crate) fn replace_holder_design(
+    ctx: &ReducerContext,
+    physical_object_id: u64,
+    design: &WeaponHolderDesign,
+) -> Result<(), String> {
+    let object = ctx
+        .db
+        .inventory_object()
+        .id()
+        .find(physical_object_id)
+        .ok_or("Holder physical object not found")?;
+    if object.item_id != design.catalog_id {
+        return Err("Holder design chassis does not match its inventory object".into());
+    }
+    let fit = WeaponHolderInstance::from_design(physical_object_id, design)?;
+    if ctx
+        .db
+        .weapon_holder_instance()
+        .physical_object_id()
+        .find(physical_object_id)
+        .is_some()
+    {
+        ctx.db
+            .weapon_holder_instance()
+            .physical_object_id()
+            .update(fit);
+    } else {
+        ctx.db.weapon_holder_instance().insert(fit);
+    }
+    Ok(())
+}
+
+/// Atomic design replacement seam for the future smithing reducer. Authority,
+/// material consumption, skill checks, price, and elapsed time belong to that
+/// reducer; this function owns recipe validation and derived-property refresh.
+pub(crate) fn replace_design(
+    ctx: &ReducerContext,
+    physical_object_id: u64,
+    design: &WeaponDesign,
+) -> Result<(), String> {
+    let object = ctx
+        .db
+        .inventory_object()
+        .id()
+        .find(physical_object_id)
+        .ok_or("Weapon physical object not found")?;
+    let definition = ctx
+        .db
+        .item()
+        .id()
+        .find(object.item_id.clone())
+        .ok_or("Weapon catalog definition not found")?;
+    if definition.kind != CatalogItemKind::Weapon || !definition.melee {
+        return Err("Only melee weapon objects accept parametric designs".into());
+    }
+    if design.catalog_id != object.item_id {
+        return Err("Weapon design chassis does not match its inventory object".into());
+    }
+    let instance = WeaponInstance::from_design(physical_object_id, design)?;
+    if ctx
+        .db
+        .weapon_instance()
+        .physical_object_id()
+        .find(physical_object_id)
+        .is_some()
+    {
+        ctx.db
+            .weapon_instance()
+            .physical_object_id()
+            .update(instance.clone());
+    } else {
+        ctx.db.weapon_instance().insert(instance.clone());
+    }
+    Ok(())
+}
+
+pub(crate) fn combat_geometry(
+    ctx: &ReducerContext,
+    inventory_row_id: u64,
+    item_id: &str,
+) -> crate::StrategicOperationResult<Option<adventuresim_core::equipment::ParametricWeaponCombatGeometry>> {
+    let Some(object) = crate::inventory_container::object_for_row(
+        ctx, CarriedInventoryScope::Personal, inventory_row_id,
+    )?.filter(|object| object.item_id == item_id) else { return Ok(None); };
+    let Some(instance) = ctx.db.weapon_instance().physical_object_id().find(object.id) else {
+        return Ok(None);
+    };
+    let Some(evaluated) = evaluate_instance(&instance, item_id) else { return Ok(None); };
+    let design = evaluated.design();
+    let derived = evaluated.derived();
+    adventuresim_core::equipment::ParametricWeaponCombatGeometry::new(
+        derived.mass_kg,
+        fabelgeist_geometry::SignedLength::from_metres(derived.length_m)?,
+        fabelgeist_geometry::SignedLength::from_metres(derived.grip_to_tip_m)?,
+        fabelgeist_geometry::SignedLength::from_metres(derived.striking_head_length_m)?,
+        derived.moment_of_inertia_kg_m2,
+        derived.balance,
+        adventuresim_core::combat::EMBEDDED_COMBAT_RESOLUTION_PARAMETERS.contact
+            .precision_for_design(design).value(),
+    ).map(Some).ok_or_else(|| crate::StrategicOperationError::InvalidWeaponCombatGeometry {
+        item: item_id.to_owned(),
+    })
+}
+
+/// Unfitted holders use their catalog construction; fitted instances use their
+/// authenticated material shells and must never silently fall back on corruption.
+pub(crate) fn fitted_holder_mass(
+    ctx: &ReducerContext,
+    inventory_row_id: u64,
+    item_id: &str,
+) -> Result<Option<f32>, String> {
+    let Some(object) = crate::inventory_container::object_for_row(
+        ctx,
+        CarriedInventoryScope::Personal,
+        inventory_row_id,
+    )?
+    else {
+        return Ok(None);
+    };
+    let Some(instance) = ctx
+        .db
+        .weapon_holder_instance()
+        .physical_object_id()
+        .find(object.id)
+    else {
+        return Ok(None);
+    };
+    if object.item_id != item_id {
+        return Err("Holder object has the wrong catalog identity".into());
+    }
+    let evaluated = evaluate_holder_instance(&instance, item_id)
+        .ok_or("Holder instance does not match its authenticated construction")?;
+    Ok(Some(evaluated.derived().mass_kg))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn persisted_projection_round_trips_and_rejects_tampering() {
+        let design = default_design("longsword").expect("longsword recipe");
+        let mut instance = WeaponInstance::from_design(42, &design).expect("instance");
+        assert!(evaluate_instance(&instance, "longsword").is_some());
+        instance.recipe[0] ^= 0x55;
+        assert!(evaluate_instance(&instance, "longsword").is_none());
+    }
+
+    #[test]
+    fn same_catalog_weapon_rows_can_retain_distinct_recipes() {
+        let first = default_design("longsword").expect("longsword recipe");
+        let mut second = first.clone();
+        let blade = second
+            .recipe
+            .components
+            .iter_mut()
+            .find_map(|component| match &mut component.shape {
+                adventuresim_weapon_model::recipe::Shape::LoftedBlade(blade) => Some(blade),
+                _ => None,
+            })
+            .expect("longsword should have a section blade");
+        blade.length =
+            adventuresim_weapon_model::recipe::Metres::new(blade.length.get() + 0.025).unwrap();
+        let first = WeaponInstance::from_design(10, &first).unwrap();
+        let second = WeaponInstance::from_design(11, &second).unwrap();
+        assert_ne!(first.physical_object_id, second.physical_object_id);
+        assert_ne!(first.design_hash, second.design_hash);
+        assert_ne!(first.recipe, second.recipe);
+        assert_ne!(first.mass_grams, second.mass_grams);
+        assert_ne!(first.length_mm, second.length_mm);
+        assert_ne!(first.grip_to_tip_mm, second.grip_to_tip_mm);
+    }
+
+    #[test]
+    fn same_holder_template_can_retain_distinct_per_object_recipes() {
+        let weapon = default_design("longsword").unwrap();
+        let first = default_holder_design(&weapon).unwrap();
+        let mut second = first.clone();
+        second.clearance.0 += 2;
+        second.chape_length.0 += 6;
+        let first = WeaponHolderInstance::from_design(20, &first).unwrap();
+        let second = WeaponHolderInstance::from_design(21, &second).unwrap();
+        assert_ne!(first.physical_object_id, second.physical_object_id);
+        assert_ne!(first.design_hash, second.design_hash);
+        assert_ne!(first.recipe, second.recipe);
+        assert_ne!(first.mass_grams, second.mass_grams);
+    }
+}

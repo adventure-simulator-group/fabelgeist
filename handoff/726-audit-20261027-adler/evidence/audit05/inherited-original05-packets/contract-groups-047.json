@@ -1,0 +1,53 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-047",
+  "at": "2026-10-22T21:26:03.916855+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+      "sha256": "b1645110395d62b1dab020f6328f9b3d3fde6cd3f64b88101d6c66d5e7d8b0e6",
+      "scope033_index": 1370,
+      "actual_EOF": 2973,
+      "scoped_ranges_compared": [
+        [
+          1,
+          2973
+        ]
+      ],
+      "actual05_comparison": "Fresh actual entire2973 source read in1–500/501–1000/1001–1500/1501–2000/2001–2500/2501–2973; external tests.rs remains separate unread. applyterrain105–2966 routes sameowner HumanoidRig+PresentedSkeleton, transientlocalpresentation only. Authoredlocomotion resets proceduralhandoff/raisedstate whilepreserving observationalmemory; unsupportedposture resetslegmemory/contactsequence instead ofmodifyingauthoredpose. Ordinary path copiesretainedLegIkMemory; sampleclock repeats skip BOTH state/nativeevaluation, firststartup terrainblend immediateconfiguredmode. ResolveObservedRigFrame beforeframebasedmemory; checkedplanarspeed andcontact-ready phase beforeusing typedcandidate. Raised path snapshotsbothleggeometries→localfootwork request→validate_guard_frame_targets both before IK; finalobservedsupport/targets validated before memorypublish thenraisedcomponentcommit1014–1025. Native transforms applied beforefinalchecks, so not atomic wholepose rollback. Branch335–342 immediately clears old RaisedFootworkState beforelaterfalliblememorywork: sourcecontract noted, no universalerroratomicity promise invented. Ordinary perleg fixedtwo array establishes index0left/1right; rawplannedcontact/start/phase values computed together beforepublish, clearallmetadata onfailedlobe. Acquiredcontact/worldplant remainsstationary untilreachrelease, unacquiredplan followsboundednative trajectory. Acquiring andreportedactualcontact distinct; terrainresampled AFTERreachmovesxz2469–2478. Solve uses actualguarded043kernel; targetretainedthenresolvedunplannedendpointcorrected together, notsuccessinferredfromOption. Finalrotation beforewholememorypublish, copiedcandidateError doesnotpublish retainedstate; actualnativepartialwrites remain possible. Stopfinish requires terminal/rendered BOTH ankle+toe surfaces, not progress1 alone2950–2959. HelpersFootClearance/RunReach/FlightProjection/Orientation/RaisedFootwork pendingexactownbody comparisons; no guaranteedallscene/rawquat validity oruniversalsolveclaim.",
+      "source_body_proof": "Fresh actual full requested source personally read under05, no priorverdict or execution credit. Externaltests explicitly separate."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts.rs",
+      "sha256": "bd69d05aa06177aadb3c0a7e2e2e42f1e86fccf3ae5fc389bf5755bb6911f5dc",
+      "scope033_index": 1384,
+      "actual_EOF": 564,
+      "scoped_ranges_compared": [
+        [
+          1,
+          564
+        ]
+      ],
+      "actual05_comparison": "Actualrelease/planning helpers maintainsamefoot world+owner target/releasegoal throughcommit_resolved methods132–181; use actualresolvedendpoint only forboundedunplannedrelease, frozenplan remainsseparate. Measuredspeed183–207 retains onrepeattick, clears ondiscontinuity/zeroelapsed andchecked completednorm/duration beforetypedretention. Raw/effective/reported support separate: exhaustedlatch resets fromUNSUPPRESSEDcadence andclearplan metadata threeOptionfields atomically atcallee; forwardcontactphase decidesrelease/descent notsymmetricweightalone. ordinarycontact projectsCOM byactualremainingtwosteptravel thenanatomicaltrackplan; native rawprediction canoverflow, callerfinalcandidate/publishvalidate obligations actual034/047 retained. advance_scalar signednonnegativepartspeed cap thenSignedLengthadmission. smoothstep556–559 exactly rawratio, permitsreversededges deliberately (approach edgewindow→0 atmain1774), collapsed equaledges not automaticallyvalid; callers UnitInterval/result gates rejectNaN beforeretainedstate. Do notimposeedge0<edge1globally. ActualFootroll044branching/height045nativehelperpending nowclosed ashelperbody, authoredconfigorderedrelationship gapsF009 stillindependent. Contactexclusiveboolside returnedpair intentionallyONEorZEROowner, notbothprohibitedglobally. Noinline testsinthisfile.",
+      "source_body_proof": "Fresh actual full requested source personally read under05, no priorverdict or execution credit. Externaltests explicitly separate."
+    }
+  ],
+  "comparison_groups": {
+    "retained-memory-versus-native-pose-publication": "Actualsample/frame/pairedgeometry/request candidate→localnativeapply→completedtarget/statevalidators→memorypublish. Mostretainedstate isstaged but nativewrites andraisedhandoffclear areearlier; no false wholefunctionatomicityclearance.",
+    "contact-lifecycle-and-metadata": "Plannedstart/contact/phase samecalculation; acquired renderedcontact vsnominalgait andfuturetarget deliberatelydifferent. Invalidatedmetadata cleared together; terminalcompletion renderpaircondition explicitlyjoinedactual046."
+  },
+  "new_unique_findings": [],
+  "finding_support": [
+    "F008 normalpipeline periodicwrap sourcefacts preserved; publickernel/rawphase qualifier unchanged",
+    "F011 actual guardedproceduralsolver excluded from posebufferclampcounterexample",
+    "F009 sharednative smoothstep/ratio recipients checkedresult ratherthanassumingnoinvalidconfiguration"
+  ],
+  "remaining_dependency_obligations": [
+    "RaisedFootwork/Orientation/nativeprojection+clearance+runreach actualcallee source cells unread",
+    "IKtests.rs full external source pending (no testexecution)"
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

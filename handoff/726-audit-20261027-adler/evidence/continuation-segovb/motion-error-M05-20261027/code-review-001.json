@@ -1,0 +1,214 @@
+{
+  "at": "2026-10-27T02:10:09.976180+00:00",
+  "kind": "Independent source-only Code Review",
+  "finding_family": "M05 retained animation motion error identity",
+  "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd",
+  "base": "d44a00cc9a0bed75b0d61a7b330a29fe8f0df83f",
+  "branch": "codex/780-retain-motion-error-identity",
+  "verdict": "No actionable findings within the exact three-site M05 delta and connected source contracts.",
+  "findings": [],
+  "scope": {
+    "changed_paths": [
+      "crates/adventuresim-tactical-client/src/animation/catalog.rs"
+    ],
+    "sites": [
+      {
+        "line": 65,
+        "change": "CatalogError::UnknownMotion payload String -> canonical MotionId"
+      },
+      {
+        "line": 125,
+        "change": "PackBuilder::pose error producer retains motion.clone() instead of motion.to_string()"
+      },
+      {
+        "line": 151,
+        "change": "PackBuilder::reference error producer retains motion.clone() instead of motion.to_string()"
+      }
+    ],
+    "connected_sources": [
+      "catalog_id.rs MotionId admission/traits/owner paths",
+      "catalog/builtin.rs actual typedbuilder callers,Result propagation andcatalogconstruction",
+      "catalog.rs actual receiving/error/default diagnostics andunchanged cfg(test) helper source"
+    ],
+    "manifest": "implementation-manifest-001.json",
+    "manifest_sha256": "bfebc595cf54e27f9df527a6956dae2d85a5d334f2855e0cec135271e03cebc1",
+    "delta_evidence": "delta-evidence-001.json",
+    "delta_evidence_sha256": "ea4342518ff70ac493f6a83b5c1c41215930b6b188f15fc69feca06212371de0"
+  },
+  "independent_delta_reconciliation": {
+    "base_catalog_sha256": "4621b2ac33e53d39be4866122ba41283261d01f8d007455c5266ef88916655a0",
+    "head_catalog_sha256": "8d8a70c663bdd8e62c8e4636ec414e979852b1f469bffc9e70331d5947c165a4",
+    "complete_source_diff_sha256": "24f60484213075b62f90714f8f75616f116cae3f820e10616dbde159565a402c",
+    "base_variant_replacement_count": 1,
+    "base_error_producer_replacement_count": 2,
+    "all_head_bytes_equal_exact_three_replacements": true,
+    "source_comparison_only": "In-memory immutable source-byte comparison, no project checker/test/probe or source rewrite."
+  },
+  "rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "read": "full"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "read": "full"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/AGENTS.md",
+      "sha256": "f9633599a742ea38090fe2fb88e2dc464298d0ca4a70374f0851380e71e6910e",
+      "read": "full"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-producer-propagation/SKILL.md",
+      "sha256": "9d202f015eed4818d6d2753c7624faa64fb5522e03cc55284fc68a366a204293",
+      "read": "full"
+    }
+  ],
+  "prospective_registrations": [
+    {
+      "path": "code-review-registration-001.json",
+      "sha256": "e8ab4b254ad5d5ebd3ed4439265fd76db6fd3b59ac1ffb4359b6d5b8097879f0",
+      "before_actual_body_reads": true
+    },
+    {
+      "path": "code-review-registration-002.json",
+      "sha256": "75bea3ee21ddb364472269eff59366c8d3df8f2ed185b896c07b6c512bcc2541",
+      "before_actual_body_reads": true
+    }
+  ],
+  "source_fingerprints": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/catalog.rs",
+      "sha256": "8d8a70c663bdd8e62c8e4636ec414e979852b1f469bffc9e70331d5947c165a4",
+      "bytes": 11798,
+      "actual_lines": 361,
+      "consumed_ranges": [
+        [
+          1,
+          361
+        ]
+      ],
+      "post_read_fingerprint_verified": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/catalog_id.rs",
+      "sha256": "349beedb860eef8c0f4e9b882e10824b343451085d654c20b7c001ea98a3b810",
+      "bytes": 5599,
+      "actual_lines": 134,
+      "consumed_ranges": [
+        [
+          1,
+          134
+        ]
+      ],
+      "post_read_fingerprint_verified": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/catalog/builtin.rs",
+      "sha256": "24dd229e7467ac0a4b6a11b398e06290949923b614b3deebfa972f03ab93e1d3",
+      "bytes": 9479,
+      "actual_lines": 264,
+      "consumed_ranges": [
+        [
+          1,
+          264
+        ]
+      ],
+      "post_read_fingerprint_verified": true
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/source.diff",
+      "sha256": "24f60484213075b62f90714f8f75616f116cae3f820e10616dbde159565a402c",
+      "bytes": 1266,
+      "actual_lines": 31,
+      "consumed_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "post_read_fingerprint_verified": true
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/base-catalog.rs",
+      "sha256": "4621b2ac33e53d39be4866122ba41283261d01f8d007455c5266ef88916655a0",
+      "bytes": 11804,
+      "actual_lines": 361,
+      "consumed_ranges": [
+        [
+          58,
+          67
+        ],
+        [
+          118,
+          126
+        ],
+        [
+          144,
+          152
+        ]
+      ],
+      "post_read_fingerprint_verified": true
+    }
+  ],
+  "source_backed_traces": [
+    {
+      "contract": "Canonical identity admission and retention",
+      "sources": "catalog_id.rs8-10/40-89;catalog.rs30/98-115/118-157",
+      "trace": "MotionId privatelyownsCow<static,str>; ownerconstants useborrowedvalidatedliteralstems,TryFrom<&str> rejects empty,dot/dotdot,controls,slash,backslash,colon,#,? and owns admittedtext. PackBuilder stores/looks upBTreeMap<MotionId,...> andreceives&MotionId. Bothmissinglookupbranches nowclone thatsamecanonicalowner directly intoCatalogError::UnknownMotion, without extracting/stringifying/re-admitting.",
+      "assessment": "Preservesadmittedidentity/ownership across theapplicationerrorboundary, includingownedadmittedtext andstatic authoredIDs. Lookup/controlflow/mapmutation unchanged."
+    },
+    {
+      "contract": "Traits,privacy andownership",
+      "sources": "catalog_id.rs8-10;catalog.rs60-67/118-157",
+      "trace": "MotionId explicitlyderivesClone,Debug,PartialEq,Eq (plusDisplay/Ord); CatalogError requiresDebug,Clone,PartialEq,Eq. MotionId andCatalogError arebothpub(crate); privateMotionIdfield isnotexposed. Errorpayload ownsaclone,notaborrowedlookupreference.",
+      "assessment": "Requiredsource-leveltraitbounds/accessibility match; no addedprimitiveconversion, lifetimeescape, duplicateidentitytype orwidenederror. Macro/compilerexecutionwasnotperformed."
+    },
+    {
+      "contract": "Actual receiving/error propagation bodies",
+      "sources": "catalog/builtin.rs1-264;catalog.rs69-75",
+      "trace": "Built-in authoredMotionId constants enterbuilder.motion/variable_motion andbuilder.pose; add_attack/add_locomotion/unarmed/biped_root returnResult<...,CatalogError> andpropagatewith? withoutdestructuringtheUnknownMotionpayload. AnimationPackCatalog::default matchesbiped_rootResult andformatsErr withDebug atits existingterminaldiagnosticpanic.",
+      "assessment": "Changedtypedpayload reachesexistingtypedResult/debugboundary without needingString-specificadaptation. Noproposed change tobuilt-in catalogsuccess path,poses/frames/assetpaths orpackvalidation."
+    },
+    {
+      "contract": "Invalid raw input remains a distinct rejected state",
+      "sources": "catalog.rs62-66;catalog_id.rs76-118",
+      "trace": "InvalidMotionStem(String) andInvalidAssetDirectory(String) are produced onlywhenrawstem/directoryadmissionfails; admittedMotionId doesnotexistonthosebranches. UnknownMotioninstead receivesalreadyadmittedidentitynotpresent inthiscatalog.",
+      "assessment": "Rawrejectedpayloadvariants remainappropriate atactualadmissionfailureboundary; theyare notcompatibilityaliases/dualAPIs ormissedcopies oftheUnknownMotionmigration."
+    },
+    {
+      "contract": "Display anddiagnostic boundary",
+      "sources": "catalog_id.rs8-10;catalog.rs73;catalog/builtin.rs6-38",
+      "trace": "MotionId hasderivedDebug withunderlyingfielddebugformat andDisplay; errorreceiverusesDebug-formattingCatalogError,notStringmanipulation/prosebranching. Repository-sourceidentifiernavigation foundonlythetwo UnknownMotion producers andvariant; actual catalogreceivingbodieswerepersonallyread.",
+      "assessment": "NoString-onlyreceivingoperationor textualreadmission remains inthisexacterrorpath. Diagnosticbytecompatibilityisnotanacceptanceconstraint; noBCscaffoldingintroduced."
+    }
+  ],
+  "navigation_limits": {
+    "source_reference_queries": [
+      "CatalogError|UnknownMotion acrosscratesRustsources",
+      "pose/reference/biped_root callers inanimation source"
+    ],
+    "purpose": "Locate materially connectedread ranges andpotentialpayloadconsumers; matchesaloneare notsourcecoverage/allrepoabsenceproof.",
+    "incidental_test_navigation": "Existingtestsignatures/duplicateposematches emittedbyidentifierqueries; noexistingtestexecutionornewcase/assertion/helper. Fullcatalog.rs166-361existingcfg(test) helperbodies were readasunchangedsourcecontextonly; noacceptancecredit."
+  },
+  "validation": {
+    "source_only": true,
+    "project_checks_executed": false,
+    "tests_executed_or_added": false,
+    "runtime_validated": false,
+    "git_commands_or_mutations": false,
+    "product_or_source_edits": false,
+    "root_ledger_or_historical_edits": false,
+    "publication": false,
+    "animation_guide_applicability": "This is a source propagation repair, not a defect reported in live tactical play; the guide nativeincident scenario/iteration authority isnottriggered. Useralsoexplicitlyrestricts reviewtolocalsourceonly; hostedvalidationownedbyroot."
+  },
+  "limitations": [
+    "Verdict covers only the pinnedonefilethree-siteM05delta and listedconnectedactualsourcecontracts; doesnotcertifyallanimationlogic,existingcfg(test) helperbehavior orwholecatalogadmissionpolicy.",
+    "No compiler/Clippy/rustfmt/test/nativeanimationdiagnostic execution; no runtime/pixelbehavior/allcaller/wholeSDK claim. Exacthead/base identities arethepinnedprovidedmanifest/delta snapshot,withactualsourcehashesindependentlymatched; noindependentrepositoryGitqueryperformed.",
+    "No backwardcompatibility/layout/message constraints applied. No aliases/shims/migrations/dualpaths ordeprecatedforwardingAPIs introduced bytheexactdelta.",
+    "Independent CodeReview isnotglobal13/all20clearance, rootledgeradoption oruniqueacceptedfindingcount. Prior021audit artifacts/state andallinheritednative/source/currentnessqualifications remain untouched."
+  ],
+  "stop_reason": "Exactdeltaandconnectedcanonicaltype/producer/retainederror/receivingdiagnosticbodyreviewcomplete; noactionabledefectfound,saveandstopwithoutprojectexecutionorpublication."
+}

@@ -1,0 +1,97 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-336",
+  "at": "2026-10-23T08:03:37.315828+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/drape_preview.rs",
+      "sha256": "c6e605a97a1a017db71939375f50395488a049834eebd77c4a09ee1058360077",
+      "scope071_index": 762,
+      "actual_EOF": 312,
+      "scoped_ranges_compared": [
+        [
+          1,
+          312
+        ]
+      ],
+      "actual05_comparison": "Fresh full source; truncated equipment exporter display recovered1-184, then complete remainder; asynchronous tags/results, catalogue export identity and dependency DAG compared. Original layer-plan fixtures read without execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/drape_worker.rs",
+      "sha256": "6e96818d06560c10bd8f74d121d84fc812726274dedc89b59f85bce7d0e6ca73",
+      "scope071_index": 763,
+      "actual_EOF": 131,
+      "scoped_ranges_compared": [
+        [
+          1,
+          131
+        ]
+      ],
+      "actual05_comparison": "Fresh full source; truncated equipment exporter display recovered1-184, then complete remainder; asynchronous tags/results, catalogue export identity and dependency DAG compared. Original layer-plan fixtures read without execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/equipment_export.rs",
+      "sha256": "a8541e9383d61945925725c89b8c8c6cc448ddd898fa2538379cf18a075d19e3",
+      "scope071_index": 765,
+      "actual_EOF": 343,
+      "scoped_ranges_compared": [
+        [
+          1,
+          343
+        ]
+      ],
+      "actual05_comparison": "Fresh full source; truncated equipment exporter display recovered1-184, then complete remainder; asynchronous tags/results, catalogue export identity and dependency DAG compared. Original layer-plan fixtures read without execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/equipment_layers.rs",
+      "sha256": "2b9b34141b3bd8d1b9bc98b9db3af749035fa68190e135d31183a2c89fd70b86",
+      "scope071_index": 766,
+      "actual_EOF": 244,
+      "scoped_ranges_compared": [
+        [
+          1,
+          244
+        ]
+      ],
+      "actual05_comparison": "Fresh full source; truncated equipment exporter display recovered1-184, then complete remainder; asynchronous tags/results, catalogue export identity and dependency DAG compared. Original layer-plan fixtures read without execution."
+    }
+  ],
+  "groups": [
+    {
+      "id": "cancellation keeps results and tags from same job",
+      "comparison": "763 request signals old cancel, replaces pending with nonempty tagged input and clears latest preview. Poll joins old finished handle, retains completed checkpoints but exposes outcome only if old cancel false. Only after handle empty does it unzip next tags/input together, create new cancel/latest Arcs and spawn that input. Thus old cancelled outcome is not rebound to new tags through this source. Checkpoint reuse correctness is delegated to actual drape_outfit key contract, not proved by mutex/Arc alone."
+    },
+    {
+      "id": "partial outcome is an explicit usable prefix",
+      "comparison": "762 request clears ready. Poll binds finished garments and previews by worker draping order; outcome problems intentionally do not hold back export, status reports completed count. This matches prior actual786 stop-first-failure supplier proof, not a hole-compacting filter. Public ready can still be independently paired; parent current dirty/running/drape key correspondence remains the separate252 qualification, including failed prepare leaving oldready. Empty-request old mesh cleanup and same-weave changed fabric/item cache lifecycle require parent regeneration source; no new stale-render claim from this source alone."
+    },
+    {
+      "id": "preview skin and appearance are separate channels",
+      "comparison": "spawn_garment uses current garment positions/faces/normals/UV, generates tangents before entity spawn, and installs ClothSkin only when skin row counts match. Skin constructor/weld topology admission remains F060 source support, normal generated topology separately checked. MailMaterials key is complete MailWeave for generated textures/material; refresh_mail memoizes ordered weave values and updates only currently chainmail selections. Fabric/identity changes are not represented in that local key; whether parent regeneration supplies replacement meshes/materials remains pending exact caller, no ordinary badframe claim."
+    },
+    {
+      "id": "export rows derive same catalogue selection",
+      "comparison": "765 selects one CatalogPlacement binding item+placement, current generated character+morph samples, then generates armor or one clothing specification from it. Manifest asset metadata derives that same finished geometry/design/material and placement; socket authoring checks supported UV domain and requires belt outward location plus tangent before fallible fitted socket. Clothing single-element indices justified by actual single-spec successful generator route, not arbitrary empty output. Morph target count/order remains actual lower conversion/GLB validation obligation."
+    },
+    {
+      "id": "staging export and failure semantics",
+      "comparison": "Filtered export rejects nonempty directory before generating; full export writes each generated GLB then removes stale glbs and writes manifest last. No atomic rollback promise for arbitrary filesystem error, no actual partial export run. Generated file-set and assets list appended together after each successful item export. All metadata identities originate the same private catalogue selection; it is not a general path/name grammar proof."
+    },
+    {
+      "id": "DAG private product and transitive support",
+      "comparison": "766 compares every placement pair, rejects opposing explicit precedence, otherwise uses channel/order rank only where actual location support relation applies. Stable first eligible topological selection terminates at placements.len or Err cycle. Private order/support vectors preserve source-index membership; supports filters in topological order; ancestors traverses reverse order then emits in dependency order. Caller must pass an outer index belonging to this plan; methods do not claim a checked arbitrary index API. Normal cache reconstructors need all transitive ancestors, not only directly overlapping supports."
+    },
+    {
+      "id": "fixtures and scope",
+      "comparison": "All four full bodies are frozen PR.766 full original fixtures explicitly compare unrelated limbs, transitive dependencies, explicit channel overrides, pairwise contradiction and nonlocal cycle. Source inspection only, no drape thread, filesystem export, rendering or tests executed."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Parent regeneration/cache lifecycle must establish empty-outfit cleanup and appearance changes before any stale preview finding.",
+    "Exact lower drape checkpoint, socket and GLB/export validation bodies remain their queued cells."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

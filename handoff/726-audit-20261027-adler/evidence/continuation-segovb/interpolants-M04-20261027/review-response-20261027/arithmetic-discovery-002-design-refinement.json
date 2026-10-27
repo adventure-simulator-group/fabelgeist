@@ -1,0 +1,53 @@
+{
+  "kind": "Pre-edit arithmetic design refinement requested by sole root implementer",
+  "prior_discovery": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/arithmetic-discovery-001.json",
+    "sha256": "ccd116ef49505220c902f2a12b81f6ba57089f9b1a6394d9ee14d1905ad6ee9d"
+  },
+  "preferred_after_explicit_operator_request": "Root proposed actual typed Add/Sub/Mul/Div chain is coherent and preferable to the earlier named bounded-fraction alternative for this explicit request.",
+  "source_basis": "Same exact actual source bodies/registrations as arithmetic-discovery001; no new body read or verdict transfer. Existing SignedSpeed, Ratio, UnitInterval and dependency ownership inspected there.",
+  "operator_contracts": [
+    {
+      "signature": "impl Sub<NonnegativeSpeed> for NonnegativeSpeed { type Output = SignedSpeed; }",
+      "proof": "Difference of finite nonnegative endpoints lies[-MAX,MAX], so finite; signed displacement needed for downward interpolation. Direct scalar kernel in owner may touch private fields. No negativevalue clipped or incorrectly admitted nonnegative."
+    },
+    {
+      "signature": "impl Mul<UnitInterval> for SignedSpeed { type Output = SignedSpeed; }",
+      "proof": "Finite signed speed times admitted finite[0,1] remains finite signed, including permitted underflow/signedzero. No fallible generic multiplication or new unitowner needed."
+    },
+    {
+      "signature": "impl Add<SignedSpeed> for NonnegativeSpeed { type Output = SpeedResult<NonnegativeSpeed>; }",
+      "proof": "Final sum may overflow or be negative; check native result through proper finite/nonnegative arithmetic admission, map nonfinite arithmetic to Overflow, reject negative. No clamp/panic/saturation."
+    },
+    {
+      "signature": "impl Div<SignedSpeed> for SignedSpeed { type Output = SpeedResult<fabelgeist_math::units::Ratio>; }",
+      "proof": "Check divisor equalzero (both +0/-0) before actual division. Reject nonfinite quotient as arithmetic overflow; permit negative or>1 ratios and valid underflow, since arbitrary sameunit quotient is not a boundedfraction. Wrap exact resulting scalar in existing canonical Ratio after producer checks; Ratio itself remains unrestricted, no type-level finitepromise."
+    },
+    {
+      "signature": "impl TryFrom<fabelgeist_math::units::Ratio> for UnitInterval",
+      "proof": "Destination owner calls actual checked fraction admission on native Ratio scalar, rejecting NaN/infinity/negative/>1 from any producer. This is meaningful narrowing, not forwarding API/duplicate ratio owner. Core owns UnitInterval so conversion legal; coredependsmath, no reverse dependency in inspected math manifest."
+    }
+  ],
+  "composite_operations": [
+    {
+      "operation": "checked_lerp",
+      "composition": "let difference = other - self; let scaled_difference = difference * factor; self + scaled_difference",
+      "assessment": "All intermediate values typed, named for readability; no .0/getter formula at composite operation. General downward differences supported. Final fallibility explicit."
+    },
+    {
+      "operation": "clamped_inverse_lerp",
+      "composition": "Keep strictbounds and endpointguards; let offset = self - lower; let span = upper - lower; let quotient = (offset / span)?; UnitInterval::try_from(quotient) with existing Fraction\u2192SpeedError conversion.",
+      "assessment": "Only interior positive span reaches division, but general Div independently checks its public zero/overflow contract. Arbitrary ratio semantics separated from destination fraction admission; no clamping generic quotient."
+    }
+  ],
+  "dependency_and_error_requirements": [
+    "Add fabelgeist-math workspace dependency to both normal and build-dependencies because build.rs directly includes linear_speed.rs AND unit_interval.rs. No need wgpu feature; default math dependencies inspected are serde/bytemuck with wgpu optional.",
+    "Update exact Cargo.lock dependency edge(s) from actual manifestgraph without widening package versions or generatinglocal project output. Root must provide final lock/source diff for review.",
+    "Add structured zero-division SpeedError and update actual exhaustive AnimationValueError conversion and any directly reached patternmatches. Existing SpeedError::Fraction can carry UnitInterval TryFrom failure. Do not conflate zerodiv with nonfiniteinput or silently discard it.",
+    "No unused operatorframework: implement only actual consumed dimensional signatures above. No Speed\u00d7Speed\u2192Speed or generic quotient\u2192UnitInterval. Existing unrelated general checked_scale factors>1 remain semantically distinct from bounded interpolation multiplication."
+  ],
+  "validation_limits": [
+    "Design/source reasoning only; actual implementation still requires independent exactbyte review and hosted same-source acceptance. No newtests/helper/assertion/doctest or local execution authorized.",
+    "No product/Git/rootledger mutations/publication, no new sourcegraph expansion, no global audit/lens13/all20 or acceptedunique count. Root sole implementation owner."
+  ]
+}

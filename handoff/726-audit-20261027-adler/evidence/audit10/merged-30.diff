@@ -1,0 +1,18 @@
+diff --git a/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/fungi.rs b/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/fungi.rs
+index eea998f3f..fd74d3d25 100644
+--- a/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/fungi.rs
++++ b/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/fungi.rs
+@@ -1,12 +1,12 @@
+ use super::*;
+-use crate::camera::authored_metres;
++use crate::camera::config::authored_metres;
+ use adventuresim_plant_generator::fungus::FungusSpecies;
+ 
+ pub(in crate::tactical_scene_viewer) const FUNGUS_REVIEW_VIEWS: [CaptureViewSpec; 7] = [
+     v!(
+         "warmup",
+         "Production vegetation warmup",
+         CapturePose::Ground,
+         55.0,
+         100
+     )

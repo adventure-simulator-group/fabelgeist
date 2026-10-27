@@ -1,0 +1,60 @@
+{
+  "reviewer": "recovery_826 independent Rule reviewer; root is source author and sole check owner",
+  "base": "91e7d86403ea969b573366506106de5e7e17d3ea",
+  "reviewed_manifest": "../source-proposal-002.json",
+  "exact_source_pins": "source-pins-002.json (all11 paths match; source-pins-001.json retains initial bytes)",
+  "rules_read": [
+    "AGENTS.md",
+    "crates/AGENTS.md",
+    "crates/strategic-web/AGENTS.md (in-world UI rules not applicable to developer guide delta)",
+    "../../../handoff/826/skills/rule-review/SKILL.md",
+    "../../../glb-review-rule/bespoke-type-review.md"
+  ],
+  "result": "NO_REMAINING_ACTIONABLE_RULE_FINDING_IN_PREPARED_SOURCE_DELTA",
+  "corrected_concern": {
+    "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs",
+    "initial": "New libm import was interleaved with mod declarations, contrary to crates/AGENTS file ordering.",
+    "successor": "Personally re-read proposal002 current header: imports now precede all four mod declarations; remediation is import ordering only, no math body change."
+  },
+  "family_traces": [
+    {
+      "family": "Source centreline and branch radii",
+      "source": "geometry/skeleton.rs complete production1-787 including unchanged sample_polyline/polyline_tangent receiving kernels; growth_axes.rs complete91; root_plan.rs complete223; root_profile.rs production1-55 (existing test section personally read separately)",
+      "trace": "Existing Seed purpose streams and authored species/gnarling parameters feed canonical tree/shrub source functions. Existing source owners now call pinned libm sinf/cosf/powf in place of native f32 transcendentals, preserving operands, stream draws, order, clamping and signed/Euclidean remainder policy. append_branch_curve retains native metre/Y-up positions and metre radii in TreeBranchSegment. source.rs playable/vista producers reuse these same functions; no duplicate application math facade or semantic owner introduced.",
+      "guarantees": "Current sampled t/count ranges and finite authored recipe paths remain explicit. Existing fixed shrub0..=6 collection constructs seven elements, so stem_points[6] replaces forbidden unwrap with an element guaranteed by unchanged local construction. libm powf exponent2 fastpath personally read returns x*x; growth_axes reuses identical computed sine window square. No new failure or missing-element outcome invented.",
+      "limits": "This is a source-math repair, not full bespoke-type closure for existing raw authored/runtime tree values. Existing unchecked/public raw numerical APIs and native vector arithmetic are not globally cleared."
+    },
+    {
+      "family": "Leaf placement and retained fingerprint",
+      "source": "geometry/leaves/arrangement.rs full277; unchanged leaves.rs definitions1-100; impostor.rs205-232/350-365/708-746; unchanged source.rs and impostor_assets.rs1-180",
+      "trace": "Actual terminal foliage TreeShootId and source segment endpoints produce TreeLeaf placement. Oak/shrub spiral sin/cos now use the same pinned library; beech's existing nontrigonometric placement is retained. tree_source_geometry_hash still hashes exact native branch/leaf float bits and full integer shoot identity, without quantization or tolerance. Bake provenance combines unchanged exact hash with bake version19; existing prepared-asset matching regenerates source through playable_tree_source/vista_tree_source then requires equal stored fingerprint for all expected LOD/species.",
+      "guarantees": "Hash loop and matching consumer unchanged relative91e7. No shortened identity, float cast of integer seed, tolerant hash, dual path or compatibility fallback introduced. Shared documented native mesh/raster/shader boundaries remain outside source fingerprint guarantee.",
+      "limits": "Source inspection cannot establish cross-host bit identity or prepared asset freshness. Actual regenerated bake output and final Linux/Windows acceptance remain unresolved."
+    },
+    {
+      "family": "Pinned software math dependency",
+      "source": "Cargo.toml134 existing workspace pin; TacticalClient Cargo.toml43 new normal dependency; normalized Cargo.lock exact delta; pinned libm configure/sinf/cosf/powf source ranges in source-pins002",
+      "trace": "TacticalClient inherits existing workspace libm exact0.2.16, default-features=false, force-soft-floats. Lock delta adds only libm to existing client dependency list; package version/checksum remains unchanged. Actual configure.rs force-soft-floats suppresses both arch and unstable-intrinsics config, and sinf/cosf APIs accept native radians. Actual powf special cases and exponent2 path read directly.",
+      "limits": "No dependency compilation, target-feature resolution, full libm kernel audit or floating-point runtime acceptance claimed. Root package-source proof used only for navigation/identity, never another review verdict."
+    },
+    {
+      "family": "Envelope/version and contributor documentation",
+      "source": "garden-hazel-envelope.json revision4; impostor bake version19; ground_scatter/specimens.rs existing producer/test; TacticalCore gardens/specimen.rs owning retained envelope; ART_DEMO.md current tail",
+      "trace": "Shared hazel envelope is loaded by GardenSpecimen; existing renderer fixture derives actual shrub meshes and exports hull/count/min/max using the envelope revision. Candidate advances geometry revision to4 and bake to19 for changed source bits. Guide describes current source fingerprint and software transcendentals while distinguishing native mesh/raster/shader contracts.",
+      "limits": "Envelope geometry body and prepared assets are deliberately still stale pending hosted exporter; revision-only candidate is not merge-ready. Documentation now says fingerprint, not an unsupported byte-for-byte complete geometry verification claim."
+    }
+  ],
+  "scope_controls": {
+    "new_tests_cases_helpers_assertions": "None in reviewed diff; existing cases and helpers unchanged.",
+    "quality": "No rust-quality registry/baseline/suppression changes or ceiling raises. Skeleton raw pre-test textual count decreases788to787 and growth_axes remains91; repository checker not run, so exact enforced counts/final gates remain root obligation.",
+    "ownership": "No tactical/strategic authority or generated binding changes, wiki prose, root README expansion, runtime compatibility path or new wrapper/facade.",
+    "baseline_debt": "Existing item order in doc-only geometry.rs, existing unchanged expects/raw values and larger tree-family migration are not granted clearance by this successor review.",
+    "untracked": "Untracked compute files and handoff folder are outside11-path proposal and were not reviewed or modified."
+  },
+  "checks": "No local project checks/builds/tests/probes/generators; parent expressly retained sole check ownership and forbade reviewer execution.",
+  "audit_checkpoint": "Frozen lens10 remains2794/2853, next2794, successor337; no review-to-audit coverage transfer. Overlay246/merged38/material181 pending independently.",
+  "first_unfinished": "Hosted full output regeneration and final exact-source Linux/Windows acceptance; review generated deltas and final source hashes afterward.",
+  "runtime_clear": false,
+  "merge_ready": false,
+  "global_audit_clear": false
+}

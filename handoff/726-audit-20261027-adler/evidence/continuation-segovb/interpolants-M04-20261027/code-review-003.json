@@ -1,0 +1,465 @@
+{
+  "at": "2026-10-27T04:54:43.478175+00:00",
+  "kind": "Independent source-only M04 build-target regression-remedy Code Review",
+  "head": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+  "base": "35b18ec280a6884bb53996a2d859c4b27096f65c",
+  "remedy_base": "903174935e1d8a07293105a9bccff17325489f3d",
+  "verdict": "No actionable source defects found in the exact two-file remedy and listed build/runtime target contracts. The source addresses both observed missing module/dependency errors; repaired-head hosted compilation and full acceptance remain pending.",
+  "findings": [],
+  "historical_review_correction": "Initial001/002 source review missed the direct #[path] inclusion of linear_speed.rs by core build.rs. That separate-target propagation gap caused the observed903 hosted failure. This003 does not retroactively claim903 compiled or was acceptance-ready. It reviews actual repaired bodies and the now-complete materially affected target-root/module/dependency graph.",
+  "scope": {
+    "manifest": "implementation-manifest-003.json",
+    "manifest_sha256": "1f13cba776d0819a38a88e28b5bc6c3255565ea4544bf0fff89ad0831798d01f",
+    "full_diff": "source-003.diff",
+    "full_diff_sha256": "3976d9b626c989ab52c8e8d3a26a5d98e9e3d4ef44236fde113da41c2e307d56",
+    "changed_paths": [
+      {
+        "path": "crates/adventuresim-core/src/linear_speed.rs",
+        "base_sha256": "db3686060ebd8ce533fe48c88685c5643b024b8a92b2b617d97481196988f3e0",
+        "sha256": "b1561f750844b7395f96f8fe2ee767db88d73fb8d8b6e997779493130b09f877",
+        "base_lines": 178,
+        "lines": 173
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+        "base_sha256": "6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+        "sha256": "7cca5e5cef2f3c3a5a11c88dba547195f36d61f4665f157c8d55eedc30179eab",
+        "base_lines": 267,
+        "lines": 267
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+        "base_sha256": "61864d871215d4140f142c121202374b5a8e3434504d459b29e97d7e0a889033",
+        "sha256": "3acaf77c189e6ab8abcd972e5615276d945a1ca6772ee90246feef673e8a2c69",
+        "base_lines": 207,
+        "lines": 207
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+        "base_sha256": "18c3232bb01109cd7ec857f3c750d2c04ffb869dd52ca42cec82524816c41206",
+        "sha256": "09565d01fd8fabbf899d84f107bdbf9c16fd6149ec61f51714599d160c1260e0",
+        "base_lines": 217,
+        "lines": 218
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+        "base_sha256": "2bdf24f3de20d1901bfc475d799d3a07781d9c5e22733caaea0d2365250edd0f",
+        "sha256": "51a510d3c5f039d6b7eb4ce2b1511432fb3415bf0b15152d036ec01a6394f9c8",
+        "base_lines": 522,
+        "lines": 525
+      },
+      {
+        "path": ".github/workflows/rust-quality.yml",
+        "base_sha256": "3f6e1cfe6c05f5f6a2bb39155e3bf0d8ec8cbdabe3f77e993971d42e56891b33",
+        "sha256": "0ad5e0e1b2b062d47f48af303bc97f1259f6d4ac99c62bef9b42588b183233b4",
+        "base_lines": 590,
+        "lines": 595
+      },
+      {
+        "path": "crates/adventuresim-core/build.rs",
+        "base_sha256": "fc42ea1f2234144e94d6bfac86f254cd059799b9f9e5ae6de7f77e3125f19b7c",
+        "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+        "base_lines": 509,
+        "lines": 511
+      },
+      {
+        "path": "crates/adventuresim-core/Cargo.toml",
+        "base_sha256": "feb7d553952f711d1296803b07e2ec1b7ee1cb555df59648b5bdef7e2cf5d4a9",
+        "sha256": "29e56014658d941895772dda71b9181863839eedf403c7d30b446186228c3441",
+        "base_lines": 42,
+        "lines": 43
+      }
+    ],
+    "new_remedy_paths": [
+      "crates/adventuresim-core/build.rs",
+      "crates/adventuresim-core/Cargo.toml"
+    ],
+    "retained_source_reviews": [
+      {
+        "path": "code-review-001.json",
+        "sha256": "29f7a85f94d9fb507d0fb8bcc12e9cd6a55fcd0e61cc5118141995194e6a7161",
+        "status": "Historical retained byte-scoped review. The missed separate build-target context is explicitly corrected by003; prior no-actionable wording is not evidence903 compiled."
+      },
+      {
+        "path": "code-review-002.json",
+        "sha256": "ca7ab62f4fea957959596a1b950cb5037fdac96e74d065841699df8015f3e64a",
+        "status": "Historical retained byte-scoped review. The missed separate build-target context is explicitly corrected by003; prior no-actionable wording is not evidence903 compiled."
+      }
+    ],
+    "prospective_registrations": [
+      {
+        "path": "code-review-registration-006.json",
+        "sha256": "443cd263747eab5d8aa7f71fa32405c1e03e10b0990950a00de4bbe9c5e7c0c9"
+      },
+      {
+        "path": "code-review-registration-007.json",
+        "sha256": "7d999f875498a1c9a1bfd98224727d510a1139b0d4ebc4368b9e3dcc01bd3d1c"
+      },
+      {
+        "path": "code-review-registration-008.json",
+        "sha256": "59aa380b0faeee5689468312548ed1a567f3de0d046d925322ac0e554469d4bc"
+      }
+    ],
+    "source_fingerprints": [
+      {
+        "path": "crates/adventuresim-core/build.rs",
+        "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+        "bytes": 19279,
+        "actual_lines": 511,
+        "ranges": [
+          [
+            1,
+            511
+          ]
+        ],
+        "body_read_at_registration": false,
+        "actual_consumed_ranges": [
+          [
+            1,
+            511
+          ]
+        ],
+        "post_read_hash_verified": true
+      },
+      {
+        "path": "crates/adventuresim-core/Cargo.toml",
+        "sha256": "29e56014658d941895772dda71b9181863839eedf403c7d30b446186228c3441",
+        "bytes": 1121,
+        "actual_lines": 43,
+        "ranges": [
+          [
+            1,
+            43
+          ]
+        ],
+        "body_read_at_registration": false,
+        "actual_consumed_ranges": [
+          [
+            1,
+            43
+          ]
+        ],
+        "post_read_hash_verified": true
+      },
+      {
+        "path": "crates/adventuresim-core/src/unit_interval.rs",
+        "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+        "bytes": 1740,
+        "actual_lines": 58,
+        "ranges": [
+          [
+            1,
+            58
+          ]
+        ],
+        "body_read_at_registration": false,
+        "actual_consumed_ranges": [
+          [
+            1,
+            58
+          ]
+        ],
+        "post_read_hash_verified": true
+      },
+      {
+        "path": "crates/adventuresim-core/src/linear_speed.rs",
+        "sha256": "b1561f750844b7395f96f8fe2ee767db88d73fb8d8b6e997779493130b09f877",
+        "bytes": 4953,
+        "actual_lines": 173,
+        "ranges": [
+          [
+            1,
+            173
+          ]
+        ],
+        "body_read_at_registration": false,
+        "actual_consumed_ranges": [
+          [
+            1,
+            173
+          ]
+        ],
+        "post_read_hash_verified": true
+      },
+      {
+        "path": "crates/adventuresim-core/src/lib.rs",
+        "sha256": "fd09a838f8cfdd2da3d48800fe56d9bbfad7e9ad5556ba696be7908b4a000c2a",
+        "bytes": 3455,
+        "actual_lines": 138,
+        "ranges": [
+          [
+            1,
+            138
+          ]
+        ],
+        "body_read_at_registration": false,
+        "actual_consumed_ranges": [
+          [
+            1,
+            138
+          ]
+        ],
+        "post_read_hash_verified": true
+      },
+      {
+        "path": "Cargo.toml",
+        "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+        "bytes": 8395,
+        "actual_lines": 221,
+        "ranges": [
+          [
+            130,
+            162
+          ]
+        ],
+        "body_read_at_registration": false,
+        "actual_consumed_ranges": [
+          [
+            130,
+            162
+          ]
+        ],
+        "post_read_hash_verified": true
+      },
+      {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/source-003.diff",
+        "sha256": "3976d9b626c989ab52c8e8d3a26a5d98e9e3d4ef44236fde113da41c2e307d56",
+        "bytes": 9728,
+        "actual_lines": 209,
+        "ranges": [
+          [
+            1,
+            209
+          ]
+        ],
+        "body_read_at_registration": false,
+        "actual_consumed_ranges": [
+          [
+            1,
+            209
+          ]
+        ],
+        "post_read_hash_verified": true
+      },
+      {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/hosted-linux-job-001.log",
+        "sha256": "413f6a4fb5162e841c5b0cacf5709eebdaed5e2287d612dd9a3c58658029a2b2",
+        "bytes": 103763,
+        "actual_lines": 1245,
+        "ranges": [
+          [
+            985,
+            1010
+          ],
+          [
+            1154,
+            1154
+          ]
+        ],
+        "body_read_at_registration": false,
+        "actual_consumed_ranges": [
+          [
+            985,
+            1010
+          ],
+          [
+            1154,
+            1154
+          ]
+        ],
+        "post_read_hash_verified": true
+      },
+      {
+        "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/hosted-windows-job-001.log",
+        "sha256": "56b7405f14a55763973916d86bd42ab9476335cf27cee60de4723094de82e3dc",
+        "bytes": 68128,
+        "actual_lines": 784,
+        "ranges": [
+          [
+            595,
+            607
+          ]
+        ],
+        "body_read_at_registration": false,
+        "actual_consumed_ranges": [
+          [
+            595,
+            607
+          ]
+        ],
+        "post_read_hash_verified": true
+      },
+      {
+        "path": "crates/adventuresim-core/build/combat_resolution.rs",
+        "sha256": "edfd993d879e1cb771859c76510e7e78e3f612d2f22bacdff5a8ce923970d2ce",
+        "actual_lines": 275,
+        "ranges": [
+          [
+            1,
+            135
+          ],
+          [
+            250,
+            275
+          ]
+        ],
+        "body_read_at_registration": false,
+        "actual_consumed_ranges": [
+          [
+            1,
+            135
+          ],
+          [
+            250,
+            275
+          ]
+        ],
+        "post_read_hash_verified": true
+      },
+      {
+        "path": "crates/adventuresim-core/src/combat/fatigue_config.rs",
+        "sha256": "a899b7bacdfbcbc116a93ff6adc283bfb56bea396687713dc3677ff505522ce9",
+        "actual_lines": 46,
+        "ranges": [
+          [
+            1,
+            46
+          ]
+        ],
+        "body_read_at_registration": false,
+        "actual_consumed_ranges": [
+          [
+            1,
+            46
+          ]
+        ],
+        "post_read_hash_verified": true
+      },
+      {
+        "path": "Cargo.lock",
+        "sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be",
+        "actual_lines": 13106,
+        "ranges": [
+          [
+            173,
+            215
+          ],
+          [
+            9761,
+            9778
+          ],
+          [
+            9806,
+            9820
+          ],
+          [
+            10837,
+            10878
+          ]
+        ],
+        "body_read_at_registration": false,
+        "actual_consumed_ranges": [
+          [
+            173,
+            215
+          ],
+          [
+            9761,
+            9778
+          ],
+          [
+            9806,
+            9820
+          ],
+          [
+            10837,
+            10878
+          ]
+        ],
+        "post_read_hash_verified": true
+      }
+    ]
+  },
+  "identity_evidence": {
+    "exact_head_verified": true,
+    "clean_worktree_verified": true,
+    "actual_full_base_to_head_diff_equals_staged_diff": true,
+    "exact_eight_path_set_verified": true,
+    "all_eight_current_sources_equal_final_commit_blobs": true,
+    "six_previously_reviewed_source_files_byte_equal903": true,
+    "remedy_only_adds_two_canonical_path_module_lines_and_one_build_dependency": true,
+    "Cargo_lock_unchanged_from_previous_commit": true
+  },
+  "observed_failure": {
+    "run": 40451496036,
+    "failed_head": "903174935e1d8a07293105a9bccff17325489f3d",
+    "summary": "hosted-failure-001.json",
+    "summary_sha256": "4e298a338de7d17cee3711f76642dec09a3a150329195df79033c0cf59d5329e",
+    "personally_read_linux_ranges": [
+      [
+        985,
+        1010
+      ],
+      [
+        1154,
+        1154
+      ]
+    ],
+    "personally_read_windows_ranges": [
+      [
+        595,
+        607
+      ]
+    ],
+    "source_backed_diagnosis": "Both bounded logs identify unresolved crate::unit_interval at linear_speed3 and thiserror at20; Linux1154 identifies the failing Cargo target as adventuresim-core build script. Later absent-artifact/upload symptoms not investigated."
+  },
+  "source_backed_traces": [
+    {
+      "contract": "Separate build-target crate root",
+      "sources": "core/Cargo.toml1-7,31-37; build.rs1-78; lib.rs1-138; linear_speed1-31; unit_interval1-58",
+      "trace": "Cargo explicitly selects build.rs. It imports exact src/linear_speed.rs as crate::linear_speed, which now requires crate::unit_interval. New path module at build32-33 resolves that path to the same canonical source file used by runtime lib100. Runtime lib54 already declares linear_speed. Module order is not used as an admission or feature gate; both declarations are unconditional. No duplicate implementation, compatibility alias, forwarding API or cfg fallback added."
+    },
+    {
+      "contract": "Host derive and dependency closure",
+      "sources": "core/Cargo.toml13-37; workspaceCargo136-139/158; linear_speed1-31; unit_interval1-58; Cargo.lock173-194/9761-9769/9806-9815/10846-10875",
+      "trace": "Build dependencies independently provide thiserror via existing workspace dependency and Serde with derive. UnitInterval requires only serde/std, and FractionError implements Display/Error plus Clone/Copy/Eq as required by SpeedError derives and #[from]. LinearSpeed likewise requires serde/std plus thiserror; no other new sibling module or optional-runtime dependency is referenced. Workspace Serde has alloc+derive with default features disabled, supported by the already-used build-target serde dependency. Existing lock already records core->thiserror2.0.20 and serde/derive; the new build use reuses that locked package and introduces no lockfile update."
+    },
+    {
+      "contract": "Actual build receiver and emitted runtime owner paths",
+      "sources": "build.rs35-38/74-78; build/combat_resolution.rs1-135/250-275; combat/fatigue_config.rs1-46; lib.rs54/100",
+      "trace": "Build root calls combat_resolution::compile. That module includes the unchanged canonical fatigue schema, whose dodge_speed is crate::linear_speed::PositiveSpeed with Serde derives. Build parsing therefore needs the speed/error module even without calling checked_lerp. Generated source still spells crate::linear_speed::PositiveSpeed::from_metres_per_second; no build-owned value is transported into runtime as a distinct bespoke type, nor any change to schema/validation/emission. Runtime has canonical unit_interval and linear_speed declarations already."
+    },
+    {
+      "contract": "Feature/cfg and additional inclusion contexts",
+      "sources": "full build.rs1-511; full canonical unit_interval1-58/linear_speed1-173; full lib1-138; source-reference navigation",
+      "trace": "Neither affected canonical module contains cfg gates or additional module/include definitions. The build root runtime_catalog emissions remain unchanged and add no condition to the new module. Repository Rust identifier navigation found only runtime lib declarations and the two build-root path declarations for these exact module/file names; no additional named direct path/include context was found. This is bounded source navigation, not a universal dynamic/macro expansion absence proof."
+    },
+    {
+      "contract": "Original M04 semantics and hosted execution gate retained",
+      "sources": "exact six-file byte reconciliation to903; retained001/002 traces",
+      "trace": "Interpolation producers/APIs/arithmetic/error mapping and existing four-test workflow remain byte-identical to903. Their prior scoped semantic review is retained, qualified by the build-context miss. New review does not add old API/layout/downcast/roundoff compatibility requirements or alter configured endpoints/tuning."
+    }
+  ],
+  "validation": {
+    "source_review_complete": true,
+    "hosted_repaired_head_acceptance_pending": true,
+    "required_hosted_revision": "df5f37abc8db96c3db69dd805f32ef1cf635dd59",
+    "expected_existing_movement_results": {
+      "passed": 4,
+      "failed": 0,
+      "ignored": 0
+    },
+    "generic_required_cell_gate_only_enforces_positive_pass_count_and_zero_failures": true,
+    "no_local_project_execution": true,
+    "no_new_or_modified_tests_helpers_assertions_doctests": true,
+    "no_product_source_Git_ledger_publication_edits": true
+  },
+  "limitations": [
+    "Source-only source/module/dependency review is not successful compilation, proc-macro expansion, runtime or test execution. Fresh exactdf5 hosted run must pass both target configurations and all authored gates.",
+    "Build root was fully read to ensure its declaration/cfg/receiver context; unrelated catalog generation schemas/algorithms and unneeded build submodule tails are not global-audited by this packet. Existing assertions in unchanged source were read only, none added or run.",
+    "Initial proposed lib.rs1-159 and combat_resolution250-280 bounds failed EOF metadata guards before body output or registration write. Corrected actual1-138 and250-275 were prospectively registered/read; nonexistent tails get no credit.",
+    "Reference navigation is not a scanner/check or proof of arbitrary dynamic generated contexts. Only actual affected target roots and recorded receiving contracts source-assessed.",
+    "Frozen audit13 held after026:37/2853 accounted; partial31/36/39; original39 own source1-6400, next6401 and nativeheader4/remaining tail unresolved. All other-lens queues/global20/F1/F2/F6/F9/M03/M09/native qualifications stay open; no new original or unique count."
+  ],
+  "stop_reason": "Bounded build-script remedy review complete; await root-owned hosted acceptance, no frozen audit packet advanced."
+}

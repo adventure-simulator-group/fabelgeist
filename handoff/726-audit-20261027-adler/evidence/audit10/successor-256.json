@@ -1,0 +1,64 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-256",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 2386,
+      "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client/sats.rs",
+      "sha256": "dbb97caa3f3bb18aa862aacce19d0d76f82f7760e82a389f9347698d24031906",
+      "ranges": [
+        [
+          1,
+          540
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh exact registered SATS bridge540 including every existing case. No handwritten Rust trait implementation; actual schema-directed array/byte/sum/product/identity native representation conversion, strict field/shape checks and generated SerdeWrapper decoding read.",
+      "disposition": "Keep semantic native wire bridge: generic schema-driven SQL positional to SATS representation transformation is not structural record delegation. Existing generated serializer owns record admission. No derivability candidate, generated-body/protocol/runtime acceptance or test execution.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2387,
+      "source_id": "pr-working:crates/strategic-web/src/spacetimedb/mod.rs",
+      "sha256": "a020d51bfbce659a44fe8f52c25124b01e77eb9659ef473bf76a4029e28ae130",
+      "ranges": [
+        [
+          1,
+          136
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh exact union registered Spacetime module136 including existing cases. Three custom SatsUnitVariant implementations explicitly map foreign core variants to native schema labels. Actual option/unit sum JSON helpers read.",
+      "disposition": "Keep small semantic native schema-name trait adapters for foreign owners; ordinary serde enum output is not this raw SATS shape. No derive/serialization API addition or runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 2388,
+      "source_id": "pr-working:crates/strategic-web/src/spacetimedb/queries.rs",
+      "sha256": "d0c3d034f86164b2ffc1acbe66095411629ed45e670ddb95938feea0c5c3e97e",
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "scope_kind": "materially_reached_producer_contract",
+      "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh exact registered query1-45 only. SqlQuery manual Deref borrows str via as_str; exact literal quoting and native SQL query macros read. Existing structural derives present.",
+      "disposition": "Keep tiny borrowed str facade: exact web manifest lacks equivalent forwarding-derive dependency. No new dependency for one tiny impl; no query invocation46-466 coverage or SQL/security/runtime clearance.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

@@ -1,0 +1,72 @@
+{
+  "at": "2026-10-27T05:29:44.536035+00:00",
+  "origin": "audit13 original39 nativeCargo format authority/version-owner continuation031",
+  "new_receiving_sources": [
+    {
+      "source_path": "rust-toolchain.toml",
+      "sha256": "0ede9efa984ca1bbaacf8ad3231e6e9ee1efd4000986bc913a2178c7ceb5be8a",
+      "ranges": [
+        [
+          1,
+          5
+        ]
+      ],
+      "provenance": "Reconstructed unchangedexactphysicalbasea120"
+    },
+    {
+      "source_path": "installednightly2026-07-13/lib/rustlib/multirust-channel-manifest.toml",
+      "sha256": "9335ea03f67e10eca8c9dd785dcf27ad5338609b92df071cb48678fb7a80b71d",
+      "ranges": [
+        [
+          1,
+          12
+        ]
+      ],
+      "provenance": "Currentlocal static toolchainmetadata, not frozen/executeproof"
+    },
+    {
+      "source_path": "rust-lang/cargo:src/cargo/core/resolver/resolve.rs",
+      "commit": "59800466c5c41c444d264b1010b4d57e85a7117f",
+      "sha256": "cbaf67dba589ff1ba2da2f8f6732de14a10e4e9323d683cb10728b500d312b96",
+      "git_blob": "d93e395325cf1275dea3129b65bbaad505305639",
+      "ranges": [
+        [
+          1,
+          25
+        ],
+        [
+          40,
+          205
+        ]
+      ],
+      "provenance": "Official contentsGETfixedcommit andGitblobSHA1verified; only boundedownerranges consumed"
+    }
+  ],
+  "other_lenses_pending": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "material_families": [
+    "Canonicalnative lockfileResolveVersion owner/default/Rust-version-policy/retention versus rawheader4actual encode/decode admission",
+    "Toolchain manifest transport/date/version/availability/checksum text authority and precision/currentness",
+    "UntracedCargo parser/formatpayload source-semantics and future exact-native receivingranges"
+  ],
+  "retained_queues": [
+    "audit13-successor-030-other-lens-extension-queue.json"
+  ],
+  "status": "Mandatory root existing-source/range reconciliation for new dependencies; no other-lens or original/shared/material population credit. Incidental unregisteredtruncated commitpatch receives zero coverage.",
+  "original_increment": 0,
+  "material_increment": 0,
+  "other_lens_credit": 0,
+  "new_unique_count": 0
+}

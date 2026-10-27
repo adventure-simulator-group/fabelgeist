@@ -1,0 +1,139 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "118",
+  "predecessor": "receipt-117-originals581-588.json",
+  "manifest_prefix_sha256": "ffbd84564e7e01340797e219b3937f32bd69db05b4438b6b7ba762c20549b124",
+  "sources": [
+    {
+      "original_index": 589,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/artillery_castle.rs",
+      "sha256": "14b02a0705bb6723b34d844c890603f50c3752efba281e3fefc495c1f4b70c71",
+      "actual_eof": 1859,
+      "actual_ranges": [
+        [
+          475,
+          555
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              475,
+              555
+            ]
+          ],
+          "role": "No quoted literal/String API in requested475-555. Canonical ArtilleryStationLevel511-515, WallSourceId522-525, typed GenerationError480/518/544. Actual resolver call534-543 flows to independently read590. Numeric ID packing and geometry/transactional behavior separate; rest of1859file unread.",
+          "disposition": "Exact requested ranges independently read WITH explicit unconsumed/native/numerical/current limits."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 590,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/artillery_openings.rs",
+      "sha256": "cf9a03acb280fa5d4e7397456d4ace1bcba402e898af3539d8301c5661c6deaa",
+      "actual_eof": 552,
+      "actual_ranges": [
+        [
+          1,
+          552
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              552
+            ]
+          ],
+          "role": "Full552 has no quoted literal/String API. Canonical StationLevel1/50/514, StructuralNodeKind23/28, Shape114/153/167/215/239, SurfaceRole214/238/274/297/318/337/348, target enums367-408, OpeningUse/Profile466-476, ClosurePolicy478-483/typed FireStation529-551 retain typed categories. Numeric target_id u64::MAX404 remains other-lens obligation, not semantic string. Native math/aggregate recipients delegated.",
+          "disposition": "Exact requested ranges independently read WITH explicit unconsumed/native/numerical/current limits."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 591,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/cathedral_clerestory.rs",
+      "sha256": "85e4cc768fd27113df0983f8999f7bd5fa56ca9ff08e57afae5b8f076feef870",
+      "actual_eof": 122,
+      "actual_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              122
+            ]
+          ],
+          "role": "Full122 no quoted literal/String API. Typed Direction28-29, StructuralNodeKind80, SolidRole91, WallSourceId99, WallMaterialClass100/WallStructuralRole114. Historical/physical comments1-6/62-69 not established by string lens; native geometry and actual call reachability remain unproved.",
+          "disposition": "Exact requested ranges independently read WITH explicit unconsumed/native/numerical/current limits."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    }
+  ],
+  "connected_findings": [],
+  "pending_contracts": [
+    "589 outside475-555 unread; no full-file/body reachability inference. Actual typed native geometry/GenerationError/aggregate recipients remain independent required contracts.",
+    "All inherited raw audit-code, catalog/config, native/canonical alias and producer/receiver obligations retained."
+  ],
+  "qualifications": [
+    "Exact frozen PR-working scopes only; no P16/current/global/runtime/unique-total/other-lens clearance.",
+    "No backward compatibility/API/schema/input preservation requirement. No project/native/test/probe execution or product/Git/root ledger/publication mutation.",
+    "All20/P16/P17/F9/M09 aliases retained; unique delta0."
+  ],
+  "proposed_count": {
+    "before": 589,
+    "after": 592,
+    "indices_completed": [
+      589,
+      590,
+      591
+    ],
+    "next_original": 592,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/artillery_castle.rs",
+      "sha256": "14b02a0705bb6723b34d844c890603f50c3752efba281e3fefc495c1f4b70c71",
+      "ranges": [
+        [
+          475,
+          555
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/artillery_openings.rs",
+      "sha256": "cf9a03acb280fa5d4e7397456d4ace1bcba402e898af3539d8301c5661c6deaa",
+      "ranges": [
+        [
+          1,
+          552
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/cathedral_clerestory.rs",
+      "sha256": "85e4cc768fd27113df0983f8999f7bd5fa56ca9ff08e57afae5b8f076feef870",
+      "ranges": [
+        [
+          1,
+          122
+        ]
+      ]
+    }
+  ]
+}

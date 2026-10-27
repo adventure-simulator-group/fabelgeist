@@ -1,0 +1,225 @@
+{
+  "at": "2026-10-27T02:27:49.528441+00:00",
+  "lens": 12,
+  "original": 49,
+  "source_id": "physical-p16:crates/adventuresim-core/src/autopsy.rs",
+  "sha256": "590a02732db6f33532c882ce0d6a6686de3f4bad9e3368242999cc3c30f9fd35",
+  "status": "source_accounted_with_findings_and_qualifications",
+  "full_effective_requested_scope": [
+    [
+      1,
+      648
+    ]
+  ],
+  "scope_basis": "Expanded explicit material1-648 retained, not reduced to earlier51-90 subset.",
+  "actual_full_source_reads": [
+    [
+      1,
+      200
+    ],
+    [
+      201,
+      397
+    ],
+    [
+      398,
+      648
+    ]
+  ],
+  "production_scope": [
+    [
+      1,
+      397
+    ]
+  ],
+  "existing_test_source_only": [
+    [
+      398,
+      648
+    ]
+  ],
+  "registrations": [
+    {
+      "path": "audit12-successor-registration-025.json",
+      "sha256": "2c978bf5dbd64af668ac9cb697a80bb9a2080872116a50cef2ec60fb09421b38"
+    },
+    {
+      "path": "audit12-successor-registration-025-receivers-001.json",
+      "sha256": "bf8e60e011331a44f74a8ce9bb732555a5ecba53d951595b1f7a6eec6fd1119f"
+    }
+  ],
+  "actual_receiving_reads": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/corpse.rs",
+      "path": "crates/adventuresim-stdb-module/src/corpse.rs",
+      "staged_path": "target/recovery-20261025/continuation-segovb/source-objects/7c9ccbcd887b073dab9e1e468d3e89b3b491124213383e12957c5e5736f06242",
+      "sha256": "7c9ccbcd887b073dab9e1e468d3e89b3b491124213383e12957c5e5736f06242",
+      "lines": 2122,
+      "provenance": "Exactf82 dirtysnapshot object",
+      "body_credit": false,
+      "ranges": [
+        [
+          172,
+          221
+        ],
+        [
+          378,
+          520
+        ],
+        [
+          521,
+          640
+        ],
+        [
+          1125,
+          1243
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          172,
+          221
+        ],
+        [
+          378,
+          520
+        ],
+        [
+          521,
+          640
+        ],
+        [
+          1125,
+          1243
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-unchanged-base:crates/fabelgeist-determinism/src/seed.rs",
+      "path": "crates/fabelgeist-determinism/src/seed.rs",
+      "staged_path": "target/recovery-20261025/continuation-segovb/source-objects/ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "lines": 213,
+      "provenance": "Absent159manifest/status; exacta120base=head Gitbytes",
+      "body_credit": false,
+      "ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          1,
+          49
+        ]
+      ]
+    }
+  ],
+  "string_inventory": [
+    {
+      "ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "role": "Module/gameplay explanation and one named StreamId purpose literal. Actual StreamId::new enforces nonempty caller-owned purpose; seed hashes root and stream bytes with lengths and fixedwordcontext under named BLAKE3 derive-key context, returning Seed. This is concrete deterministic native encoding, not untyped application status or arbitrary human prose branch."
+    },
+    {
+      "ranges": [
+        [
+          22,
+          210
+        ]
+      ],
+      "role": "Closed corpse/decomposition enum states, records, constants, numeric quality/custody/battle output predicates. No raw string field/parameter introduced in these records/functions. Numeric admission/authority/bool questions remain their separate lenses/shared families; no blanket primitive exemption."
+    },
+    {
+      "ranges": [
+        [
+          212,
+          274
+        ]
+      ],
+      "role": "BodyPart -> human anatomical label; numeric injury/quality/morphology/scene/caveat selection -> final surgery report String. All wound/depth/caveat literals terminate in one rendering expression. No parsing of generated wording in this body."
+    },
+    {
+      "ranges": [
+        [
+          276,
+          362
+        ]
+      ],
+      "role": "Numeric body/system severity and quality -> human physiology text, percentage format fragments and uncertainty clauses. System labels are local report labels selected by numeric severity then interpolated; no separate semantic category is recovered from those labels."
+    },
+    {
+      "ranges": [
+        [
+          364,
+          397
+        ]
+      ],
+      "role": "Numeric injury/lore quality -> candidate/support wording and final bestiary report. Strong/moderate/weak are presentation qualifiers immediately interpolated into the report, not raw statuses crossing internal logic."
+    },
+    {
+      "ranges": [
+        [
+          398,
+          648
+        ]
+      ],
+      "role": "Existing source fixtures: BattleLogEntry phase melee input is authored fixture payload unused by post_combat_body; report substring/forbidden-word checks express presentation intent. Every string fixture/assertion source was read as source only; no test was added or run and no passing behavior inferred."
+    }
+  ],
+  "actual_native_contracts": [
+    "realized_finding receives the core Option<String> report and separately carries AutopsyFindingKind::{Other,SystemicPathology}. Clinical knowledge grant branches on typed kind plus raw discipline, never the report wording. Missing report text is mapped to final human uncertainty text.",
+    "examine_corpse validates native discipline/stage through current helpers, calls realized_finding, grants evidence from typed kind, stores finding.wording in AutopsyActionReceipt.finding. Backend view copies row.finding into BackendCorpse.findings and redacts buried bodies; this is the concrete human-text output port, not a machine condition recovered from prose.",
+    "Native discipline/stage still drive matches as surgery/physiology/bestiary and external/internal strings across internal helpers. Native injury BodyPart text is parsed into canonical BodyPart and location/decomposition are lowered to String in BackendCorpse. These are source-backed existing M97 propagation gaps; local final prose need not become a new duplicate classification enum.",
+    "Actual canonical region-label alias distinctions stomach/abdomen are recorded without imposing old-schema compatibility. A final typed M97 schema may remove these raw classifier paths; no legacy parser requirement is inherited."
+  ],
+  "master_reconciliation": {
+    "id": "M97",
+    "path": "inherited-master-ledger.json",
+    "sha256": "74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+    "disposition": "Exact existing classification/examination owner graph. Additional source support only; M89/M01 physical quantity and native/generated/Web/time/permission recipients remain wider dependencies. No new unique accepted finding."
+  },
+  "current_identity_metadata": [
+    {
+      "path": "crates/adventuresim-core/src/autopsy.rs",
+      "sha256": "590a02732db6f33532c882ce0d6a6686de3f4bad9e3368242999cc3c30f9fd35",
+      "qualification": "Identity metadata only. Whole current receiving family not compared or validated."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/corpse.rs",
+      "sha256": "ae853a404a9463c18ad6bf2d0b06e86f6fc35061f88cd34e823fc3df0aebbc3f",
+      "qualification": "Identity metadata only. Whole current receiving family not compared or validated."
+    },
+    {
+      "path": "crates/fabelgeist-determinism/src/seed.rs",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "qualification": "Identity metadata only. Whole current receiving family not compared or validated."
+    }
+  ],
+  "coverage_delta": {
+    "before": 49,
+    "after": 50,
+    "new_original_completions": [
+      49
+    ],
+    "next_original": 50,
+    "new_unique_delta": 0
+  },
+  "qualifications": [
+    "Source-accounted WITH existing findings is not repaired/current integrated/runtime validated or global/otherlens clearance.",
+    "Only selected corpse production172-221/378-640/1125-1243 and deterministic seed1-49 were read as receivers; no full2122-line corpse, all permissions/time/strategiccombat/medical math or Web/generated-client body coverage.",
+    "Core arrays/BPS/contact damage/injury bounds and boolean-stage contracts were identified but numerical/aggregate correctness not certified by string-lens source proof.",
+    "Durable corpse evidence here is sourced from strategic autoresolve outcomes; this packet does not authorize tactical tick persistence or prove all storage sources.",
+    "Native hash framing/source roles are inspected, not executed or certified collision-free. No fulldeterminism library/nativeBLAKE3/randomness or crossplatform runtime guarantee.",
+    "Existing tests/text expectations consumed as source only; no projectchecks/probes/tests/cases/helpers/assertions/doctests added/run. No product/Git/publication action by this source packet.",
+    "No source hash/presence/search/oldCI or otherlens verdict confers body or role coverage; registryWindows path preserved as qualified metadata alias, exact source-ID/SHA supplied identity."
+  ],
+  "integrated": false,
+  "validated": false,
+  "global_clearance": false
+}

@@ -1,0 +1,23 @@
+{
+  "at": "2026-10-27T03:19:29.150280+00:00",
+  "previous_goal_turn_classification": "progress: source audit receipts advanced and PR991 reached verified merge-ready checkpoint",
+  "current_turn_classification": "no progress after authoritative checkpoint revalidation",
+  "checkpoint": {
+    "pr": 991,
+    "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd",
+    "state": "open",
+    "draft": false,
+    "merged": false,
+    "mergeable": true,
+    "mergeable_state": "clean",
+    "submitted_reviews": []
+  },
+  "evidence": "Fresh configured gh REST reads of pulls/991 and pulls/991/reviews; worktree clean on reviewed branch.",
+  "blocking_condition": "User explicitly requires stopping for review at each merge-ready PR; no review submitted yet.",
+  "live_process_wait": false,
+  "consecutive_blocked_goal_turns": 1,
+  "blocked_threshold": 3,
+  "goal_status_change": false,
+  "goal_complete": false,
+  "safe_action": "Hold requested review checkpoint; do not merge or start subsequent implementation."
+}

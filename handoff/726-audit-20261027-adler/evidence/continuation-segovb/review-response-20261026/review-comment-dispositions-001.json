@@ -1,0 +1,51 @@
+{
+  "at": "2026-10-26T20:46:06.636919+00:00",
+  "head": "dd1e69eca683a5aaee26ec93b7ad3cddf6de8720",
+  "review": 5658094187,
+  "dispositions": [
+    {
+      "comments": [
+        4381773838,
+        4381777745,
+        4381785618
+      ],
+      "change": "Importwgpu::TextureView ineachviews.rs andusenativeleafnameinreturntype",
+      "status": "implemented/source-reviewed"
+    },
+    {
+      "comments": [
+        4381798007
+      ],
+      "change": "Keep separateProgress arm withdocumentedtypedbindingdifference: Box<ValidationProgressError> versusBox<wgpu::Error>. Both returnactualboxedcontents, preservingconcretedowncasts.",
+      "status": "answeredinsource;manualsourcecontractretained"
+    },
+    {
+      "comments": [
+        4381889622
+      ],
+      "change": "ReplacecarriedboolwithsharedValidationObservation::{BlockingScopes,Uncaptured}; use acrosscontext/pipelineparam/shaders/2dconstructor/pairedScope/compute fastpath. Assessedbrowser/provisioning/presentation axes andoptionalpayloads; no artificialthirdstate orinvalidconsolidation.",
+      "status": "implemented/source-reviewed"
+    },
+    {
+      "comments": [
+        4381904362,
+        4381905163
+      ],
+      "change": "Use projectderive_more2.1.1 Display andError onValidationScopeError, explicitunboxedimmediatesourcefields andformatterdelegation.",
+      "status": "implemented/source-reviewed"
+    },
+    {
+      "comments": [
+        4381914559
+      ],
+      "change": "DeriveTextureViewError Display;retainmanualError::source toprojectthroughBox toactualSDK/progress error. ChosenErrorderivewouldexposeBoxasdynamicerror andalterdowncasts.",
+      "status": "equivalentderivedpartsimplemented;necessarymanualsourceexplained"
+    }
+  ],
+  "comments_posted_to_GitHub": false,
+  "threads_auto_resolved": false,
+  "validation": "Currenthostedrun40397904316 passedformatting, latergates+baselinepending; priorsourcehash/CIreceiptsqualifiedhistorical",
+  "no_new_tests": true,
+  "no_local_project_checks": true,
+  "goal_complete": false
+}

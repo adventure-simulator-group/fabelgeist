@@ -1,0 +1,132 @@
+{
+  "registry_snapshot": "registry-179.json",
+  "registry_sha256": "06d1e85af129d0513fbc0a5697d2d1f50c3e658c47b7d0dec766995f521adc46",
+  "members": [
+    {
+      "material_index": 12,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/status.rs",
+        "sha256": "4ed19181ab78cf91d879f183d56d313397141bcefd0c3139ebd1263c1c3163ff",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/4ed19181ab78cf91d879f183d56d313397141bcefd0c3139ebd1263c1c3163ff",
+        "ranges": [
+          [
+            1,
+            204
+          ]
+        ],
+        "registration_evidence": "redundant-authority/prospective-source-registration-009.json",
+        "reason": null,
+        "lenses": {
+          "producer-propagation": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "existing-type-owners": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "admission-contracts": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "invariant-operations": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "aggregate-states": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "type-ownership": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "redundant-authority": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "behavior-preservation": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "enum-shapes": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "derivability": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "type-granularity": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "magic-strings": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "magic-numbers": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative"
+        },
+        "status": "Exactsourceverifiedandrecovered only; unchanged2853historicaldenominator and no automaticlensclearance."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          204
+        ]
+      ],
+      "disposition": "Read full204line map status producer. requested-window errors retain failure; source match gates presented metadata, viewport/sky/pipeline/failure gates settled frames, route/connection capacities further gate ready. covered is separately reported but not directly part of settled-frame condition. This preserves a scoped question whether actual matched-but-undrawn surface can report ready; actual surface transitions/callers are needed before defect. Status JSON fallback is explicit unavailable diagnostic, no fabricated city/terrain geometry."
+    },
+    {
+      "material_index": 13,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/atmosphere.rs",
+        "sha256": "b9dcce7121c3161293d2fbd9c9f02f0df7aa341d51c9a0a1b94a7315f8bfdd4c",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/b9dcce7121c3161293d2fbd9c9f02f0df7aa341d51c9a0a1b94a7315f8bfdd4c",
+        "ranges": [
+          [
+            1,
+            332
+          ]
+        ],
+        "registration_evidence": "redundant-authority/prospective-source-registration-010.json",
+        "reason": null,
+        "lenses": {
+          "producer-propagation": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "existing-type-owners": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "admission-contracts": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "invariant-operations": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "aggregate-states": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "type-ownership": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "redundant-authority": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "behavior-preservation": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "enum-shapes": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "derivability": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "type-granularity": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "magic-strings": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "magic-numbers": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative"
+        },
+        "status": "Exactsourceverifiedandrecovered only; unchanged2853historicaldenominator and no automaticlensclearance."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          332
+        ]
+      ],
+      "disposition": "Read registered atmosphere1-332 only, not remaining656line file. Private phase/key pair tracks waiting/baking/cached; key includes scene/environment/size/light/atmosphere identity, scale+translationbits,ticks,medium/shader revisions. Changed key clears maps/probes then starts new probe; completion waits exact GPU bake identity and retains three texture handles before despawn. Disabled/no current clears cache; is_ready accepts disabled or cached. Actual GPU completion helper/nearest spherical authority remain independent. Existing selected-version cleanup removes three stale render components, no global Bevy/rotation/runtime acceptance imported."
+    },
+    {
+      "material_index": 14,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_sky_viewer_main.rs",
+        "sha256": "4675cb9d134b9dbe5b05c9d82bed6b323983a88d2a63de941125b0be29e097d0",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/4675cb9d134b9dbe5b05c9d82bed6b323983a88d2a63de941125b0be29e097d0",
+        "ranges": [
+          [
+            1,
+            114
+          ]
+        ],
+        "registration_evidence": "redundant-authority/prospective-source-registration-011.json",
+        "reason": "SkyView::id definition directlyconsumed1742run/setup identifiers; exactcompareagainstsky_view_slug independentmapping andCLIconfiguration admission. Absentoriginal2853sourcecatalog, no replacementwithcurrentmain.",
+        "lenses": {
+          "producer-propagation": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "existing-type-owners": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "admission-contracts": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "invariant-operations": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "aggregate-states": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "type-ownership": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "redundant-authority": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "behavior-preservation": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "enum-shapes": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "derivability": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "type-granularity": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "magic-strings": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative",
+          "magic-numbers": "newmaterial pending independentreconciliation; originatinglens owner liveproof separately authoritative"
+        },
+        "status": "Exactsourceverifiedandrecovered only; unchanged2853historicaldenominator and no automaticlensclearance.",
+        "range_correction_evidence": "prospective-source-registration-011.json uses prospective_material_ranges; missing normalization corrected, no scope enlargement or coverage credit"
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          1,
+          114
+        ]
+      ],
+      "disposition": "Read full114line native sky harness including existing tests statically. Closed10SkyView variants carry explicit stable report IDs, clap typed view plus output/settleframes passes to run; wasm explicitly unsupported. No generated images, atmosphere readiness, source-to-report camera policy or executed test acceptance claimed."
+    }
+  ],
+  "first_unfinished_material_index": 15,
+  "new_findings": []
+}

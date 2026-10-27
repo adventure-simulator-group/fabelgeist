@@ -1,0 +1,18 @@
+--- base
+
++++ head
+
+@@ -19,11 +19,11 @@
+
+ use fabelgeist_armor::{DevicePart, GarmentArmorDesign, GarmentArmorKind as Kind};
+ use fabelgeist_compute::KernelBatch;
+ use fabelgeist_geometry::SignedLength;
+ use fabelgeist_gpu::prelude::Buffer;
+ use fabelgeist_gpu::prelude::BufferUpload;
+-use fabelgeist_math::Ratio;
++use fabelgeist_math::units::Ratio;
+ use fabelgeist_rig::{RigJointLookupError, RigJointName, RigJointOrdinal};
+ 
+ pub(crate) use candidates::BAND;
+ 
+ mod candidates;

@@ -1,0 +1,422 @@
+{
+  "at": "2026-10-27T16:47:35.747530+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-091-registration.jsonl",
+    "sha256": "9f8768a768a4aef4ca686852a2e78ccf35840817d13b4b458694648be9e03cac"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-090.json",
+    "sha256": "1d383603e19426e9368f6fc3dfa83ab1791c8f7589e766cb339980a096e35280"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1152,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/authority_tests.rs",
+      "sha256": "79cb2928c581b94b83b90e220abb46105033b5e89588d1c7ba20e497772a0992",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/79cb2928c581b94b83b90e220abb46105033b5e89588d1c7ba20e497772a0992",
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "actual_eof": 75,
+      "prospective": true,
+      "purpose": "Independent full effective relationship fixture/chronology/commitments inventory, prior chronology receiver reads context only",
+      "actual_read_ranges": [
+        [
+          1,
+          75
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1153,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/chronology.rs",
+      "sha256": "ee9606893c2011c97cecde3bb8bef19e0b6354b96c165b66695c8f9e2b104646",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/ee9606893c2011c97cecde3bb8bef19e0b6354b96c165b66695c8f9e2b104646",
+      "ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "actual_eof": 200,
+      "prospective": true,
+      "purpose": "Independent full effective relationship fixture/chronology/commitments inventory, prior chronology receiver reads context only",
+      "actual_read_ranges": [
+        [
+          1,
+          200
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1154,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/commitments.rs",
+      "sha256": "ec754c7ccdd1dee1a7441ab99e805a8b36102e4db96b24cf221c0c3c369b48cc",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/ec754c7ccdd1dee1a7441ab99e805a8b36102e4db96b24cf221c0c3c369b48cc",
+      "ranges": [
+        [
+          1,
+          332
+        ]
+      ],
+      "actual_eof": 332,
+      "prospective": true,
+      "purpose": "Independent full effective relationship fixture/chronology/commitments inventory, prior chronology receiver reads context only",
+      "actual_read_ranges": [
+        [
+          1,
+          332
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected_original",
+      "original_index": 1162,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/model.rs",
+      "sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+      "ranges": [
+        [
+          1,
+          280
+        ],
+        [
+          295,
+          355
+        ]
+      ],
+      "actual_eof": 496,
+      "prospective": true,
+      "purpose": "Exact courtship/commitment/marriage/pregnancy state schemas and parsed-state adapters reached by1154 cleanup/reservation; boundary adjacent context disclosed",
+      "actual_read_ranges": [
+        [
+          1,
+          280
+        ],
+        [
+          295,
+          355
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1155,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/courtship.rs",
+      "sha256": "3f03d0db1b9cf1860a021496c4a4442a607e0dc03f6eaa309ca7318e965e323c",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/3f03d0db1b9cf1860a021496c4a4442a607e0dc03f6eaa309ca7318e965e323c",
+      "ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "actual_eof": 685,
+      "prospective": true,
+      "purpose": "Canonical typed CourtshipPairError and actual relationship conflict policy used by wedding reservation",
+      "actual_read_ranges": [
+        [
+          1,
+          160
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1165,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/reproduction.rs",
+      "sha256": "52318f2d0b66c1d88adaa38059b677829f263cfe6f2033fc92c2c59f6671563c",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/52318f2d0b66c1d88adaa38059b677829f263cfe6f2033fc92c2c59f6671563c",
+      "ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "actual_eof": 690,
+      "prospective": true,
+      "purpose": "Actual historical conception admission receiver of1152 chronology fixture",
+      "actual_read_ranges": [
+        [
+          1,
+          145
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1157,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/family.rs",
+      "sha256": "39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "ranges": [
+        [
+          232,
+          267
+        ]
+      ],
+      "actual_eof": 267,
+      "prospective": true,
+      "purpose": "Actual bounded relationship-conflict predicate required by wedding reservation; no full family inventory or future credit",
+      "actual_read_ranges": [
+        [
+          232,
+          267
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1160,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/marriage.rs",
+      "sha256": "707052669ad21da99362ea13fe18eefef9b2ee79c0cea3da8f4350da05068031",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/707052669ad21da99362ea13fe18eefef9b2ee79c0cea3da8f4350da05068031",
+      "ranges": [
+        [
+          1,
+          145
+        ],
+        [
+          270,
+          297
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual terminal status/reason call-site bodies reached by1154 helper; no full marriage subsystem or future ordered credit",
+      "actual_read_ranges": [
+        [
+          1,
+          145
+        ],
+        [
+          270,
+          297
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1152,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/authority_tests.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              75
+            ]
+          ],
+          "roles": "Existing guarded conception fixture: mother/father versus unordered spouses, signed birth minute, adulthood and death effective minute, mutable alive/age/display cache versus historical authority.",
+          "disposition": "Fixture explicitly creates role-specific parents, poisons display cache and moves personal clocks past trial, then expects historical conception admission to use canonical birth/death. It deletes birth and expects rejection rather than fallback. Native literal IDs and bootstrap token are fixture/SDK boundaries; same primitive does not make mother/father or historical minute/current cache interchangeable.",
+          "remedy": "Named ConceptionParents record rather than tuple, preserve canonical signed birth coordinate and historical admission; no new fixture/helper/test added.",
+          "acceptance": "Full existing75line source read, actual conception receiver1165 81\u2013134 consumed; expectations not execution proof or ordinary missing-birth witness."
+        }
+      ]
+    },
+    {
+      "original": 1153,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/chronology.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              107
+            ]
+          ],
+          "roles": "Character historical alive, canonical personal clock, birthday/wedding/birth/marriage/inheritance interval boundaries.",
+          "disposition": "Positive StrategicMinute versus signed birth coordinate and temporal interval endpoints meaningful. character_alive_at requires actual birth authority, unlike outbreak view alive predicate which accepts absent birth; canonical consistency question needs respective ordinary admission/currentness, not blanket runtime defect. next_lifecycle_boundary aggregates distinct event types into next timestamp deliberately when caller only needs split point; no extra event wrapper required there. Source eligibility compares statuses+optional time payloads while existing core state owner available.",
+          "remedy": "Use existing admitted state lifecycle operations before querying intervals, keep event identity only where consumer needs it, canonical CharacterId and signed BirthCoordinate at raw SDK edge.",
+          "acceptance": "Full200line source read; core strategic_state1015 full573 personally048; time1017 full860048, lifecycle1159 full138086; no newly claimed full time advancement subsystem."
+        },
+        {
+          "ranges": [
+            [
+              108,
+              200
+            ]
+          ],
+          "roles": "NpcPolicy normal Character identity, home settlement, deterministic Seed, authoritative forward personal-time advancement and control transfer.",
+          "disposition": "Policy marker is control authority, not second lightweight character. target minute cannot go backward, splits due boundary recursively and checks policy removed by adult promotion before continuing. Same clock value may carry distinct target/current/boundary role but all absolute time; no arbitrary finer numeric wrapper required if named interval record suffices. Seeded administration reducer checks database identity.",
+          "remedy": "Admitted NpcControlledCharacter/ForwardInterval may bind policy+clock to avoid separate repeated lookup; share canonical clock owner. No compatibility fallback or public-player clock path.",
+          "acceptance": "Actual receiver time::settle_lifecycle_after_character_time_write personally048, actual global lifecycle dispatch086; SDK admin guard present, no execution/control-transfer outcome claim."
+        }
+      ]
+    },
+    {
+      "original": 1154,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/commitments.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              107
+            ]
+          ],
+          "roles": "Canonical unordered participant pair, commitment/event IDs, terminal status+reason+effective time, escrow refund and active uniqueness releases.",
+          "disposition": "Sorting pair prevents direction-dependent duplicate romantic identity, distinct from directional mother/father. Terminal helper accepts whole CommitmentStatus and separate reason even though actual reached callers Cancelled+failure or Fulfilled+WeddingCompleted only; existing core CommitmentState parsed then discarded. Neighbor status/resolved/reason payload reassembled manually. Event ID omits reason but actual one-terminal transition prevents ordinary divergent event overwrite; no collision runtime claim.",
+          "remedy": "Use canonical pair record/IDs and typed TerminalTransition enum payload or existing CommitmentState operation, preserve named status reason/time correlation and uniqueness table authority. Record named event receipt rather than loose status/reason/time.",
+          "acceptance": "Actual helper full read and marriage1160 cancellation call bodies1\u2013133 plus fulfilled276\u2013290 read; current callers coherent, broader admitted API gap not observed malformed transition."
+        },
+        {
+          "ranges": [
+            [
+              109,
+              197
+            ]
+          ],
+          "roles": "Death-triggered commitment/courtship/pregnancy cleanup, participant/mother/reserved-child identities, active reservation indexes.",
+          "disposition": "Death cannot await advancing frozen CharacterTime, hence cleanup at death transaction is distinct from due queue. Active index deletes guarded matching relationship IDs, pregnancy mother-specific cleanup intentional. Existing parsed CourtshipState/PregnancyState owners discarded then raw status/payload rewritten; formal approval/dowry payload not related to pregnancy state.",
+          "remedy": "Operate on admitted relationship lifecycle sums and canonical reservation IDs; centralize valid terminal transitions while retaining distinct pregnancy, courtship, commitment policies.",
+          "acceptance": "Full body read; actual model state adapters1162 and corestate1015 personally048. No father-death pregnancy cancellation requirement invented."
+        },
+        {
+          "ranges": [
+            [
+              199,
+              332
+            ]
+          ],
+          "roles": "Exclusive wedding reservation, historical conflict window versus current uniqueness indexes, shared ceremony settlement, engagement effective date, count ordinal, formal dowry escrow money.",
+          "disposition": "Canonical clock captured by actual caller validate_canonical_courtship_pair at global ExclusiveShared; participants personal ages need not synchronize. Reservation sorted identity + current indexes + historical predicate give different protections. Optional approved_father and positive planned amount belong Formal approval payload; escrow same money units as personal currency, not count/volume. Ordinal per-pair history count distinct from effective-minute ID segment. Saturating wedding deadline at clock ceiling is source capacity/policy question only, no observed exhaustion.",
+          "remedy": "Admitted Pair/ApprovedFormalCourtship/ReservedEngagement receipts using existing courtship and strategic state owners, canonical Money/Character/Settlement/Commitment IDs through operations; named ReservationStamp.",
+          "acceptance": "Conflict predicate1157 232\u2013255, courtship validation1155 55\u2013153, temporal scope1162 29\u201357 consumed; item currency1136 full084 reused. No concrete double booking or currency loss/runtime/current/unique claim."
+        }
+      ]
+    }
+  ],
+  "connected_role_inventory": [
+    {
+      "original": 1162,
+      "ranges": [
+        [
+          1,
+          280
+        ],
+        [
+          295,
+          355
+        ]
+      ],
+      "roles": "Temporal policy target payload, signed birth, household/kinship, commitment/marriage/courtship/pregnancy raw SDK schemas and core-state parse adapters.",
+      "disposition": "Meaningful temporal authority enum currently separate target Option allows missing required/ignored target shapes. Core payload-bearing states already exist and SDK adapters admit them, so no duplicate owner justified. Read295 tail of discovery receipt +pregnancy prefix through355 only; no missing280\u2013294/356+ coverage.",
+      "remedy": "Policy enum variants own required target; retain typed parsed states through operations instead of repeated flat fields. Preserve directed kinship and unordered pair distinction.",
+      "acceptance": "Actual registered ranges consumed, no full future original credit."
+    },
+    {
+      "original": 1155,
+      "ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "roles": "Typed expected courtship rejection versus invalid state, directional suitor/partner, world canonical temporal scope and historical conflicting relationship.",
+      "disposition": "Rejected payload vs InvalidState meaningful; reducer String conversion actual boundary. validate_canonical uses global shared clock, adult/attraction/kinship/current co-location/history checks. 155\u2013160 establishment signature partial only.",
+      "remedy": "Retain typed error/state until reducer boundary and bind admitted pair+effective time rather than return bare minute if callers need proven pair.",
+      "acceptance": "Complete validation55\u2013153 and error1\u201338, no full establishment claimed."
+    },
+    {
+      "original": 1165,
+      "ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "roles": "Pregnancy reservation/child deterministic seeds and typed sex, historical marriage+birth+death conception, role-specific parent tuple, leisure prefix.",
+      "disposition": "Conception checks actual trial-time canonical chronology not current cached alive/age. Mother/father tuple distinct from sorted partner pair; named record prevents positional swap. Child identity collision loop has source fixed-width wrap/exhaustion policy, no actual full namespace witness; future ordered reproduction inventory remains pending.",
+      "remedy": "Named typed ConceptionParents/ChildIdentityReservation and admitted pregnancy lifecycle state, not shared universal ID.",
+      "acceptance": "1\u2013134 fullestablishment/conception read;136\u2013145 leisureprefix only, no full reproduction/laterbirth body credit."
+    },
+    {
+      "original": 1157,
+      "ranges": [
+        [
+          232,
+          267
+        ]
+      ],
+      "roles": "Historical courtship/commitment/marriage conflict predicates plus adjacent formal dowry amount policy.",
+      "disposition": "Different start/end timestamps for each relationship authority; permitted courtship ID applies onlycourtship not broad exclusion of existing commitments. 257\u2013267 dowry adjacent body actually consumed; tiered money policy not probability/rank.",
+      "remedy": "Named historical relationship window over canonical state+IDs; canonical money role for dowry.",
+      "acceptance": "Complete conflict and adjacent dowry helper read, no full family future credit."
+    },
+    {
+      "original": 1160,
+      "ranges": [
+        [
+          1,
+          145
+        ],
+        [
+          270,
+          297
+        ]
+      ],
+      "roles": "Terminal helper recipients: cancellation on death/underage/missing housing; fulfilled WeddingCompleted; ceremony effective date independent personal date.",
+      "disposition": "Actual calls coherent status+reason pairs, broader private terminal signature still weak. Missing character classified ParticipantDead is absence/error policy, not proved dead canonical history. Housing referenced as effective-dated ownership actualfilter, but whole housing/kernel not audited here.",
+      "remedy": "Payload-bearing terminal transition and explicit invalid-state versus participant death where policy needs distinction; no global chronology redefinition.",
+      "acceptance": "Only registered recipient ranges, gap146\u2013269 and298+ explicitly unread here; no full marriage credit."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-020-receipt.json",
+        "sha256": "289492421de4bb2e396ebcf493c368175e64c3377ebf656fc75737c76f5accad"
+      },
+      "contract": "908 corecourtship full1153 typed probability/seeds/parent and policy owners"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-048-receipt.json",
+        "sha256": "45172eb33f46a6e35fe8c12f09f1b87fa6087f0e3029842e5421f6813eb6b2b1"
+      },
+      "contract": "1015 strategic_state full573 actual coupled state parse;1017 time full860 actual lifecycle boundary settlement"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-062-receipt.json",
+        "sha256": "6f38488e18bb19f933f1bf16e5dbbc23fc0f3691f006b1d1d810fe84ce3f9c29"
+      },
+      "contract": "1157 family57\u2013115 actual birth/effective-age helper; Character full recorded source and signed birth authority"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-084-receipt.json",
+        "sha256": "a1e35a75e9eb2265261409dee6629fb2b7f627e223d182e4e78e33783dac9e21"
+      },
+      "contract": "1136 item currency full957 actual escrow consume/credit"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-086-receipt.json",
+        "sha256": "159dfc072922118236131cad060dc668cdb73d98fb95b2fc676a2b0836d4f015"
+      },
+      "contract": "1159 lifecycle full138 +1161mod1\u2013177 actual bounded dispatch;1155NPC courtship284\u2013425 context, not full family clearance"
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Exact frozen bodies only; original1152fixture read not executed; no whole marriage/reproduction/family source credit from narrow connected ranges.",
+    "All prior qualified questions and pending populations/currentness/aliases/unique limits retained. No project execution/tests/newtests/product/Git/ledger/publication."
+  ]
+}

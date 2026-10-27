@@ -1,0 +1,63 @@
+{
+  "id": "CONT08-021-POLICY-DIAGNOSTIC-REGISTRATION",
+  "created_utc": "2026-10-27T05:19:49.170950+00:00",
+  "provenance": {
+    "path": "target/recovery-20261025/continuation-segovb/audit08-root-policy-diagnostic-staging-021.json",
+    "sha256": "d0f50d8f5fb413606fba1791db31b11a18833f0526f31b794009286e3c728990"
+  },
+  "sources": [
+    {
+      "source_id": "base:crates/adventuresim-tactical-core/src/city_layout/grounding/policy.rs",
+      "sha256": "2a2a18dafb072f8878e496462df0257b5bdaa9481895595affbee001b0e52e46",
+      "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/2a2a18dafb072f8878e496462df0257b5bdaa9481895595affbee001b0e52e46",
+      "prospective_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "qualification": "Exact frozen before/after body scope; actual material ranges recorded in receipt."
+    },
+    {
+      "source_id": "head:crates/adventuresim-tactical-core/src/city_layout/grounding/policy.rs",
+      "sha256": "2a2a18dafb072f8878e496462df0257b5bdaa9481895595affbee001b0e52e46",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/2a2a18dafb072f8878e496462df0257b5bdaa9481895595affbee001b0e52e46",
+      "prospective_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "qualification": "Exact frozen before/after body scope; actual material ranges recorded in receipt."
+    },
+    {
+      "source_id": "base:crates/adventuresim-tactical-core/src/city_layout/grounding/diagnostic.rs",
+      "sha256": "520b5ce55ac4b5404d138e55e4d055f098d08b02377b7779dbc54bd970f3db62",
+      "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/520b5ce55ac4b5404d138e55e4d055f098d08b02377b7779dbc54bd970f3db62",
+      "prospective_ranges": [
+        [
+          1,
+          233
+        ]
+      ],
+      "qualification": "Exact frozen before/after body scope; actual material ranges recorded in receipt."
+    },
+    {
+      "source_id": "head:crates/adventuresim-tactical-core/src/city_layout/grounding/diagnostic.rs",
+      "sha256": "520b5ce55ac4b5404d138e55e4d055f098d08b02377b7779dbc54bd970f3db62",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/520b5ce55ac4b5404d138e55e4d055f098d08b02377b7779dbc54bd970f3db62",
+      "prospective_ranges": [
+        [
+          1,
+          233
+        ]
+      ],
+      "qualification": "Exact frozen before/after body scope; actual material ranges recorded in receipt."
+    }
+  ],
+  "scope": "Actual contact tolerance getter/admission context and framed geometry diagnostic plus needed local helper/type definitions; no compound solver or full family/original completion."
+}

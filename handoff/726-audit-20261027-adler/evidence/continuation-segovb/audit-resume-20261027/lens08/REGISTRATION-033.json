@@ -1,0 +1,181 @@
+{
+  "purpose": "Ordered1886-1893 exact behavior source and deltas",
+  "sources": [
+    {
+      "original": 1886,
+      "path": "crates/adventuresim-tactical-core/src/physics.rs",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics.rs",
+      "head_sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+      "head_object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+      "base_sha256": "c5a6375bda8f1a0a4f6c7249d87392c59af18ce57d321fb79deaf1119d85ce36",
+      "base_state": "present",
+      "base_equal": false,
+      "lines": 1738,
+      "prospective_ranges": [
+        [
+          1,
+          1738
+        ]
+      ],
+      "delta": {
+        "object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/delta-original1886.txt",
+        "sha256": "8bf4a4e46747704d092bcfa5174e1dc6f5d141fbbe077c60338a2951a82ef844",
+        "lines": 1267
+      }
+    },
+    {
+      "original": 1887,
+      "path": "crates/adventuresim-tactical-core/src/physics/controller_config.rs",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/controller_config.rs",
+      "head_sha256": "56773ae80325116c0e2383940bec1f3f8a05d95d97a2c76596982c717b5dbc62",
+      "head_object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-56773ae80325116c0e2383940bec1f3f8a05d95d97a2c76596982c717b5dbc62",
+      "base_sha256": null,
+      "base_state": "absent per inventory",
+      "base_equal": false,
+      "lines": 18,
+      "prospective_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "delta": {
+        "object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/delta-original1887.txt",
+        "sha256": "936c25b5a5b64e39857c167d83889e67d5b2782ec7554202b248f460416d5f92",
+        "lines": 21
+      }
+    },
+    {
+      "original": 1888,
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "head_sha256": "2bdf24f3de20d1901bfc475d799d3a07781d9c5e22733caaea0d2365250edd0f",
+      "head_object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-2bdf24f3de20d1901bfc475d799d3a07781d9c5e22733caaea0d2365250edd0f",
+      "base_sha256": null,
+      "base_state": "absent per inventory",
+      "base_equal": false,
+      "lines": 522,
+      "prospective_ranges": [
+        [
+          1,
+          522
+        ]
+      ],
+      "delta": {
+        "object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/delta-original1888.txt",
+        "sha256": "0d78842310662976d453c754d1f7087e51cc4ac191596b9b99238ae55e19aff1",
+        "lines": 525
+      }
+    },
+    {
+      "original": 1889,
+      "path": "crates/adventuresim-tactical-core/src/physics/quickstep.rs",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/quickstep.rs",
+      "head_sha256": "10c98a5fec7f36e1567f37c82b15e65c990d8412f2a1a1a9f67982adaef10223",
+      "head_object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-10c98a5fec7f36e1567f37c82b15e65c990d8412f2a1a1a9f67982adaef10223",
+      "base_sha256": null,
+      "base_state": "absent per inventory",
+      "base_equal": false,
+      "lines": 81,
+      "prospective_ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "delta": {
+        "object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/delta-original1889.txt",
+        "sha256": "9e7b3b84d75613f3bb7ef29864d669e61549cd824cf925aef5c20661f489698c",
+        "lines": 84
+      }
+    },
+    {
+      "original": 1890,
+      "path": "crates/adventuresim-tactical-core/src/player.rs",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player.rs",
+      "head_sha256": "7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+      "head_object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+      "base_sha256": "992a1360b91614a143629876cbdefcae530e628e49d1eb430f7c8a5dd1868958",
+      "base_state": "present",
+      "base_equal": false,
+      "lines": 640,
+      "prospective_ranges": [
+        [
+          1,
+          640
+        ]
+      ],
+      "delta": {
+        "object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/delta-original1890.txt",
+        "sha256": "bfb5f81858897aec2604f08ec9029bb052c07f04d090f6792efa7391e55e62c5",
+        "lines": 57
+      }
+    },
+    {
+      "original": 1891,
+      "path": "crates/adventuresim-tactical-core/src/player/attack_timing.rs",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player/attack_timing.rs",
+      "head_sha256": "b12efd1cc517a4644ee8742fcde084e4fec7ecf93bf35234fd1d7ba0b3ffaf31",
+      "head_object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-b12efd1cc517a4644ee8742fcde084e4fec7ecf93bf35234fd1d7ba0b3ffaf31",
+      "base_sha256": null,
+      "base_state": "absent per inventory",
+      "base_equal": false,
+      "lines": 41,
+      "prospective_ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "delta": {
+        "object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/delta-original1891.txt",
+        "sha256": "87d2d0ea54bada51ea04b7b679f08d149451bb1ae3f8437359293a49c8e7e651",
+        "lines": 44
+      }
+    },
+    {
+      "original": 1892,
+      "path": "crates/adventuresim-tactical-core/src/player/combat_state.rs",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player/combat_state.rs",
+      "head_sha256": "bfc02321b1d2716ffaf92d38902b547713a76a9de7a350ece7f35449e9dddf37",
+      "head_object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-bfc02321b1d2716ffaf92d38902b547713a76a9de7a350ece7f35449e9dddf37",
+      "base_sha256": "f1b855e7fd6b8c64123fcbc894411c9a71014ce9246a35410cd6973e9b7e5559",
+      "base_state": "present",
+      "base_equal": false,
+      "lines": 211,
+      "prospective_ranges": [
+        [
+          1,
+          211
+        ]
+      ],
+      "delta": {
+        "object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/delta-original1892.txt",
+        "sha256": "ddd97175b170487d1265657e65fb527dbd1b702371c80aa6a4bcbb75b35272b9",
+        "lines": 22
+      }
+    },
+    {
+      "original": 1893,
+      "path": "crates/adventuresim-tactical-core/src/player/input_tick.rs",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player/input_tick.rs",
+      "head_sha256": "e9d4d32a4beaa8f4a1631034abbb4cdd7db4e43bccd80935b3eb7e7674d4e27f",
+      "head_object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-e9d4d32a4beaa8f4a1631034abbb4cdd7db4e43bccd80935b3eb7e7674d4e27f",
+      "base_sha256": null,
+      "base_state": "absent per inventory",
+      "base_equal": false,
+      "lines": 33,
+      "prospective_ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "delta": {
+        "object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/delta-original1893.txt",
+        "sha256": "4563c8f60fe5ffcaf903396810b0d0237f7eb26c673b64848ce0ad75c922e841",
+        "lines": 36
+      }
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+--- base
++++ frozen-head
+@@ -9,7 +9,6 @@
+ pub(super) fn emit_melee_outcome(
+     cmd: &mut Commands,
+     attack: &AuthorizedMeleeAttack,
+-    attack_key: u64,
+     entity: Entity,
+     hand: AttackHand,
+     attacker_side: BodySide,
+@@ -27,8 +26,9 @@
+     viewer: &TacticalPlayerViewer<'_, '_>,
+     config: &TacticalCombatConfig,
+ ) {
++    let attack_key = attack.attack_key();
+     let Some(attacker_weapon_slot) = weapon_slot_for_side(Some(attacker_side)) else {
+-        info!(attack_key, attacker = ?attack.attacker(), target = ?attack.target(), body_part = ?attack.body_part(), outcome = "failed", reason = "ambiguous_striking_side", "melee_attack_resolved");
++        info!(attack_key = attack_key.encoded(), attacker = ?attack.attacker(), target = ?attack.target(), body_part = ?attack.body_part(), outcome = "failed", reason = "ambiguous_striking_side", "melee_attack_resolved");
+         return;
+     };
+     let defender_blocking_slot = defender_blocking_slot(
+@@ -92,7 +92,7 @@
+ }
+ 
+ fn log_melee_result(
+-    attack_key: u64,
++    attack_key: MeleeAttackKey,
+     attacker: Entity,
+     target: Entity,
+     body_part: BodyPart,
+@@ -100,7 +100,7 @@
+ ) {
+     match result {
+         AttackResult::ToAttacker { balance_damage, .. } => info!(
+-            attack_key,
++            attack_key = attack_key.encoded(),
+             ?attacker,
+             ?target,
+             ?body_part,
+@@ -114,7 +114,7 @@
+             balance_damage,
+             ..
+         } => info!(
+-            attack_key,
++            attack_key = attack_key.encoded(),
+             ?attacker,
+             ?target,
+             ?body_part,

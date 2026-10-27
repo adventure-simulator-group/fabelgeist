@@ -1,0 +1,308 @@
+--- base
++++ frozen-head
+@@ -1,6 +1,123 @@
+ use super::*;
+ 
+ mod outcome;
++
++struct RangedPerformances {
++    attacker: UnitInterval,
++    defender: UnitInterval,
++}
++
++struct PreparedRangedDefense<'v> {
++    defender_view: TacticalPlayerView<'v, 'v, 'v>,
++    response: DefenderResponse,
++    performance: RangedPerformances,
++    flanking: f32,
++}
++
++struct RangedAmmunition {
++    entity: Entity,
++    remaining: Option<CoreItemQuantity>,
++}
++
++impl RangedPerformances {
++    fn admit(
++        attacker: &TacticalCombatState,
++        defender: &TacticalCombatState,
++    ) -> adventuresim_core::unit_interval::FractionResult<Self> {
++        Ok(Self {
++            attacker: combat_incapacitation_performance(attacker.incapacitation)?,
++            defender: combat_incapacitation_performance(defender.incapacitation)?,
++        })
++    }
++}
++
++impl<'v> PreparedRangedDefense<'v> {
++    fn prepare(
++        shot: &authority::ValidatedRangedShot,
++        viewer: &'v TacticalPlayerViewer<'_, '_>,
++        states: &Query<&TacticalCombatState>,
++        skeletons: &Query<&SkeletonState>,
++        pending: &Query<&PendingDefenderResponse>,
++        time: &Time<()>,
++        config: &DefenseAuthorityConfig,
++    ) -> Option<Self> {
++        let ValidatedRangedImpact::Hit {
++            target, target_yaw, ..
++        } = shot.impact()
++        else {
++            return None;
++        };
++        let defender_view = viewer.get(target).ok()?;
++        let defender_skeleton = skeletons.get(target).ok()?;
++        let flanking = ranged_flanking(shot.attacker_yaw(), target_yaw);
++        let response = match resolve_passive_block(
++            pending.get(target).ok(),
++            time,
++            &defender_view,
++            defender_skeleton,
++            config,
++        ) {
++            Ok(response) => response,
++            Err(error) => {
++                warn!(%error, "cannot resolve defense timing");
++                return None;
++            }
++        };
++        let (Ok(attacker), Ok(defender)) = (states.get(shot.attacker()), states.get(target)) else {
++            return None;
++        };
++        let performance = match RangedPerformances::admit(attacker, defender) {
++            Ok(performance) => performance,
++            Err(error) => {
++                warn!(%error, "invalid ranged combat performance");
++                return None;
++            }
++        };
++        Some(Self {
++            defender_view,
++            response,
++            performance,
++            flanking,
++        })
++    }
++}
++
++impl RangedAmmunition {
++    fn find(
++        attacker: Entity,
++        ammunition: &Query<(Entity, &ItemOf, &ItemProperties, &TacticalItemQuantity)>,
++    ) -> Option<Self> {
++        let (entity, _, _, quantity) =
++            ammunition.iter().find(|(_, owner, properties, quantity)| {
++                owner.0 == attacker && properties.id == ARROW_ID && quantity.0.get() > 0
++            })?;
++        Some(Self {
++            entity,
++            remaining: remaining_ammo_after_shot(quantity.0),
++        })
++    }
++
++    fn consume(
++        self,
++        commands: &mut Commands,
++        ids: &Query<&CharacterId>,
++        consequences: &mut TacticalConsequenceAccumulator,
++        shot: &authority::AuthorizedRangedShot,
++    ) {
++        if let Some(remaining) = self.remaining {
++            commands
++                .entity(self.entity)
++                .insert(TacticalItemQuantity(remaining));
++        } else {
++            commands.entity(self.entity).despawn();
++        }
++        if shot.attacker_side() == TacticalCombatSide::Party
++            && let Ok(player_id) = ids.get(shot.attacker())
++        {
++            record_party_ammunition_use(consequences, *player_id);
++        }
++    }
++}
+ 
+ #[expect(
+     clippy::too_many_arguments,
+@@ -111,51 +228,63 @@
+             return;
+         }
+     }
+-    let cooldown = CombatDuration::from_secs_f32(config.realtime_authority.ranged.cooldown_seconds);
++    let cooldown =
++        match CombatDuration::from_elapsed(config.realtime_authority.ranged.cooldown_seconds) {
++            Ok(cooldown) => cooldown,
++            Err(error) => {
++                warn!(%error, "attack cooldown exceeds native clock");
++                return;
++            }
++        };
++    let ammunition = RangedAmmunition::find(validated.attacker(), &q_ammo);
++    let defense = if ammunition.is_some()
++        && matches!(validated.impact(), ValidatedRangedImpact::Hit { .. })
++    {
++        let Some(defense) = PreparedRangedDefense::prepare(
++            &validated,
++            &viewer,
++            &q_states,
++            &q_skeletons,
++            &q_pending,
++            &time,
++            &config.realtime_authority.defense,
++        ) else {
++            return;
++        };
++        Some(defense)
++    } else {
++        None
++    };
+     let Some(shot) = authority.authorize_shot(validated, now, cooldown) else {
+         return;
+     };
+-    if !consume_authorized_ammunition(&mut cmd, &q_ammo, &q_ids, &mut consequences, &shot) {
+-        return;
+-    }
+-
++    // Dry fire consumes only cooldown; misses consume ammunition without defense.
++    let Some(ammunition) = ammunition else {
++        return;
++    };
++    ammunition.consume(&mut cmd, &q_ids, &mut consequences, &shot);
++    let Some(PreparedRangedDefense {
++        defender_view,
++        response: defender_response,
++        performance,
++        flanking,
++    }) = defense
++    else {
++        return;
++    };
+     let ValidatedRangedImpact::Hit {
+-        target,
+-        body_part,
+-        target_yaw,
+-        ..
++        target, body_part, ..
+     } = shot.impact()
+     else {
+         return;
+     };
+-    let Ok(defender_view) = viewer.get(target) else {
+-        return;
+-    };
+-    let Ok(defender_skeleton) = q_skeletons.get(target) else {
+-        return;
+-    };
+-    let flanking = ranged_flanking(shot.attacker_yaw(), target_yaw);
+-    let defender_response = resolve_passive_block(
+-        q_pending.get(target).ok(),
+-        &time,
+-        &defender_view,
+-        defender_skeleton,
+-        &config.realtime_authority.defense,
+-    );
+     cmd.entity(target).remove::<PendingDefenderResponse>();
+-
+-    let attacker_performance = q_states.get(attacker).map_or(1.0, |state| {
+-        combat_incapacitation_performance(state.incapacitation)
+-    });
+-    let defender_response =
+-        defender_response.scaled_for_performance(q_states.get(target).map_or(1.0, |state| {
+-            combat_incapacitation_performance(state.incapacitation)
+-        }));
++    let defender_response = defender_response.scaled_for_performance(performance.defender);
+     let result = attacker_view.resolve_ranged_attack(
+         config.resolution,
+         &defender_view,
+         defender_response,
+-        shot.reported_precision().get() * attacker_performance,
++        shot.reported_precision().get() * performance.attacker.fraction(),
+         flanking,
+         body_part,
+     );
+@@ -168,38 +297,24 @@
+     let (_, target_transform) = q_character
+         .get(target)
+         .expect("validated ranged target still has a transform");
+-    let (impact_recipient, impact_velocity_change, impact_point, impact_normal) =
+-        authoritative_impact(
+-            result,
+-            shot.attacker(),
+-            attacker_transform.translation,
+-            attacker_view.body_weight() + attacker_view.inventory_weight(),
+-            target,
+-            target_transform,
+-            defender_view.body_weight() + defender_view.inventory_weight(),
+-            body_part,
+-            &config,
+-        );
+-    let impact_effects =
+-        authoritative_impact_effects(&viewer.inventory, shot.attacker(), AttackHand::Main, result);
+-    outcome::publish(
+-        &mut cmd,
++    outcome::RangedContact {
++        shot: &shot,
++        target_transform,
+         target,
++        body_part,
++        result,
++        defender_response,
++        flanking,
+         attacker_weapon_slot,
+         defender_blocking_slot,
+-        SuccessfulAttackResponse {
+-            attacker: shot.attacker(),
+-            hit: vec![target],
+-            body_part,
+-            result,
+-            flanking,
+-            defender_response,
+-            impact_recipient,
+-            impact_velocity_change,
+-            impact_point,
+-            impact_normal,
+-            impact_effects,
+-        },
++    }
++    .publish(
++        &mut cmd,
++        &viewer,
++        attacker_transform,
++        &attacker_view,
++        &defender_view,
++        &config,
+     );
+ }
+ 
+@@ -208,31 +323,3 @@
+     let (d2, d1) = target_yaw.sin_cos();
+     flanking_from_dir((a1, a2), (d1, d2))
+ }
+-
+-fn consume_authorized_ammunition(
+-    cmd: &mut Commands,
+-    q_ammo: &Query<(Entity, &ItemOf, &ItemProperties, &TacticalItemQuantity)>,
+-    q_ids: &Query<&CharacterId>,
+-    consequences: &mut TacticalConsequenceAccumulator,
+-    shot: &authority::AuthorizedRangedShot,
+-) -> bool {
+-    // Only an authorized shot scans inventory; dry fire still consumes its cooldown.
+-    let ammo = q_ammo.iter().find(|(_, owner, properties, quantity)| {
+-        owner.0 == shot.attacker() && properties.id == ARROW_ID && quantity.0.get() > 0
+-    });
+-    let Some((ammo_entity, _, _, quantity)) = ammo else {
+-        return false;
+-    };
+-    if let Some(remaining) = remaining_ammo_after_shot(quantity.0) {
+-        cmd.entity(ammo_entity)
+-            .insert(TacticalItemQuantity(remaining));
+-    } else {
+-        cmd.entity(ammo_entity).despawn();
+-    }
+-    if shot.attacker_side() == TacticalCombatSide::Party
+-        && let Ok(player_id) = q_ids.get(shot.attacker())
+-    {
+-        record_party_ammunition_use(consequences, *player_id);
+-    }
+-    true
+-}

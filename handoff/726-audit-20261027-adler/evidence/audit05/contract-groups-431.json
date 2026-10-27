@@ -1,0 +1,56 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-431",
+  "at": "2026-10-26T00:45:34.765658+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 502,
+      "source_id": "pr-working:assets/equipment/procedural/manifest.json",
+      "sha256": "7c9d975e49e5b775696c4120b075383ce2915b619761f7142d3feec1e35d0f10",
+      "personally_read_ranges": [
+        [
+          1,
+          694
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full frozen manifest1-694 in three bounded chunks. Per-asset records bind catalog item+placement, filename, material, coverage, morph count, triangles and optional armor generator/hash/domain; footer schema1/LOD1/MHRreleasev1.0.1. Left/right entries share design hash by authored recipe where appropriate; breastplate/curiass share generated design but distinct catalogcoverage, so catalog gameplaycoverage is not inferred solely from hash.",
+        "Belt uses belt--worn.glb and itembelt at394-400; deletedleatherbelt filename absent in actualmanifest. Actual P16equipment328reads EquipmentAssets and selected canonicalplacement, but this is PRmanifest source distinction, not imported runtime success. JSON declarations do not prove GLBbytes/hash/version match or currentproductiongenerator output. No validation, rendering or newacceptedfinding."
+      ]
+    },
+    {
+      "scope_index": 503,
+      "source_id": "pr-working:assets/shaders/tactical_city.wgsl",
+      "sha256": "b9f68613f166dd35f4ef5de3e5ccc51a46aa330079aea84b1ef20d6073a4185f",
+      "personally_read_ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full tactical_city shader1-109. Vertex dereferences visible range/owner/cluster geometry and shared packedtriples, applies canonical building/component transform plus cityframe and derives handedness/tangent/normal/UV. range.instances.y must be nonzero before division/modulo, indices/owners/bufferbounds and packedtag/componentidentity depend actualhostproducer; no shader-side wholeaggregatecheck or actualinvalidhostinputwitness.",
+        "Main/prepassalpha and dither/LOD policy differ explicitly; finalsurfacePBR uses same worldposition and transformednormalmap. Native shader outputs require coherent hostframe/ranges, no GPUexecution or blanketvalidity."
+      ]
+    },
+    {
+      "scope_index": 504,
+      "source_id": "pr-working:assets/shaders/tactical_city_cull.wgsl",
+      "sha256": "4d432edb3c8b72dfcd163fa412e19aa2ee5603f621de9e0fae55fc7e7e46132f",
+      "personally_read_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full tactical_city_cull1-80. Building selection uses same bounds/levels, view-indexedhistory, frustum/far-plane and explicitcamera/shadowpolicy with independenthistory; range compaction checks selectedowner/LOD then atomicallyreservescluster_count and writes packed(range,placementcluster) entries consumed by503.",
+        "Actualhost capacity must bound accumulated cluster counts/outputbase, ownerindices and job.x+instances.x; rawu32 math/atomicreservation alone not proof safe. Zero cluster_count skipwrites but503divisionrequiresdrawcount correspondence. No actualbadallocation/cullrace orGPUrun; hostreceiving graph remains qualified."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

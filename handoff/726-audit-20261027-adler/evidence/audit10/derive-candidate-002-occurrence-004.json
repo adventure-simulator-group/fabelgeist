@@ -1,0 +1,12 @@
+{
+  "candidate_family": "derive-candidate-002.json",
+  "scope_index": 1922,
+  "path": "crates/adventuresim-tactical-core/src/scene_input/error.rs",
+  "implementation": "Four manual unboxed error From adapters construct Grounding, GroundingProjection, SupportTerrain and BoundarySupport by Box::new of the exact owned error. Existing thiserror attributes already retain From<Box<Error>> with transparent concrete cause.",
+  "equivalent_repair": "Use already enabled derive_more::From with explicit unboxed source type on only these four variants, keeping existing thiserror boxed #[from] and source/display behavior. Remove only four manual unboxed adapters; do not use blanket forward or derive unspecified variants.",
+  "source_comparison": "Same exact selective enum/Box conversion mechanism as saved002. Hash-verified macro shared12223-86/160-185/256-258 chooses explicit unboxed conversion, invokes field Box<Error>:From<Error> and suppresses unspecified variants; saved exact native Box172 implementation uses Box::new. This preserves ownership, allocation, concrete variant/cause and no extra generic API. Existing dual-derive syntax/coherence must be confirmed during authorized implementation using existing acceptance.",
+  "status": "QUALIFIED_SAME_BOXED_ERROR_DERIVE_REMEDY_PENDING_SHARED_DEDUP_AND_IMPLEMENTATION_COHERENCE",
+  "new_unique_findings_claimed": 0,
+  "source_edits": false,
+  "checks": "not run"
+}

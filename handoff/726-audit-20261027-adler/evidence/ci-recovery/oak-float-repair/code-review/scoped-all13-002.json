@@ -1,0 +1,241 @@
+{
+  "schema": 1,
+  "reviewer": "recovery_780",
+  "head_at_review": "91e7d86403ea969b573366506106de5e7e17d3ea",
+  "kind": "Bounded exact-byte diagnostic-removal successor; source-only",
+  "previous_code": "code-review-001.json",
+  "previous_scoped13": "scoped-all13-001.json",
+  "previous_identity": "final-source-identity-001.json",
+  "arithmetic_proposal": "../source-proposal-002.json",
+  "arithmetic_fingerprint": "2ef430614578db6fd59bed6d33afe70e9b482f44e862f194fb106c94da79cbe3",
+  "all_11_arithmetic_hashes_reverified": true,
+  "restored_source": [
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "ba5976e7c7fbb51718979108ea26fb4002870613323755e1d407199c3fc40dde",
+      "raw_bytes_equal_8d6": true,
+      "prior_sha256": "ba5976e7c7fbb51718979108ea26fb4002870613323755e1d407199c3fc40dde",
+      "bytes": 32152
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor_assets.rs",
+      "sha256": "792c336a1d9612c83b4ae0f385c94a35175009ae202f71d4e3231d10179f899a",
+      "raw_bytes_equal_8d6": true,
+      "prior_sha256": "792c336a1d9612c83b4ae0f385c94a35175009ae202f71d4e3231d10179f899a",
+      "bytes": 15117
+    }
+  ],
+  "combined_13_path_fingerprint": "e79d07e74c89516fa2bd5a7153a614d1ff3f0886748f4fc82e768b31bf8b3416",
+  "combined_paths": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "197d8605659fa581961b37f9c18f2a46b04db822a666d3abefe5653b4204401a"
+    },
+    {
+      "path": "content/tactical/garden-hazel-envelope.json",
+      "sha256": "ceecbcf47a22344bb3da7a677b1230a9c3389e2ff7bc4f990a08fdc13356a34f"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/Cargo.toml",
+      "sha256": "736240a91cfc44359688a19535bd9984824264c4c2d9f5637ef5e477c17924a1"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry.rs",
+      "sha256": "b730b2dc02270ffc2b2990aceb80eb7ae0dc0a268b0c9c99974b05d87a5f0db9"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/arrangement.rs",
+      "sha256": "08200ee848bdbb6c0fa054926133bdf10cef64231fecb5506da098ce0210e73b"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs",
+      "sha256": "661e960ce52adbbd70eff6d9b7f9e4704273a9b2de2b0ad64b9dcea9de9ecf38"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/growth_axes.rs",
+      "sha256": "b436cbf44b376a8eff01bc3e1ff7592cb839a353fa7ab1cb986943417dcb0ec4"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_plan.rs",
+      "sha256": "edb14de1c8633e1c97b7e6d5b4cb4b150d04e908a68db882eb1bd92ff1ae9012"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_profile.rs",
+      "sha256": "d95e1f977abe46b3b6d27f3f9b12f3fe78aa33c8e2406e4b6ad89ebc3b542c23"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs",
+      "sha256": "89d34cfa5179d198fb44055235ef1638c1626b9fa979bdc722f0e06ba62a632a"
+    },
+    {
+      "path": "crates/strategic-web/ART_DEMO.md",
+      "sha256": "ba93cbcaa705efcd50d8deb01f035678aca84b192c61edad3d7d49b459820b4c"
+    },
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "ba5976e7c7fbb51718979108ea26fb4002870613323755e1d407199c3fc40dde"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor_assets.rs",
+      "sha256": "792c336a1d9612c83b4ae0f385c94a35175009ae202f71d4e3231d10179f899a"
+    }
+  ],
+  "findings": [],
+  "disposition": "No actionable finding in the restoration. Both restored files exactly match personally previously reviewed 8d6 source bytes; all eleven arithmetic proposal002 paths remain unchanged.",
+  "execution": "Read-only Git object extraction, byte comparison and evidence writes only; no source/Git changes or project checks.",
+  "lenses": [
+    {
+      "lens": "01",
+      "skill": "target/recovery-20261025/handoff/780/skills/audit-producer-propagation/SKILL.md",
+      "skill_sha256": "9d202f015eed4818d6d2753c7624faa64fb5522e03cc55284fc68a366a204293",
+      "skill_read": "Entire captured document personally read sequentially for this review; no other reviewer disposition used.",
+      "disposition": "No new actionable finding after bounded diagnostic removal; prior scoped source disposition retained, generated/hosted qualifications unresolved.",
+      "source_analysis": "Same seed/parameter producers flow through existing source geometry and native f32 libm ports into retained branch/leaf arrays, then unchanged hash/envelope/prepared consumers. Terminal typed shoot identities remain seeded before geometry.",
+      "source_anchors": "skeleton.rs 104-402,471-746,749-774; growth_axes.rs 1-91; arrangement.rs 1-277; unchanged identity and fingerprint proofs",
+      "limits": "Native math APIs require f32 radians and exponent values; no new application-side primitive storage or re-admission layer. Output regeneration and real-host consumers still pending.",
+      "delta_analysis": "No new executable/type/schema contract introduced: exact previously personally reviewed 8d6 workflow and asset-reader bytes replace temporary diagnostics; all eleven arithmetic-source pins unchanged. Previous independent source analysis and qualifications carry only for these exact bytes."
+    },
+    {
+      "lens": "02",
+      "skill": "target/recovery-20261025/handoff/780/skills/audit-existing-type-owners/SKILL.md",
+      "skill_sha256": "0876e49f57d2b5397d23735b9c49916d5d20087b33c110746beaa73c1c8cba3f",
+      "skill_read": "Entire captured document personally read sequentially for this review; no other reviewer disposition used.",
+      "disposition": "No new actionable finding after bounded diagnostic removal; prior scoped source disposition retained, generated/hosted qualifications unresolved.",
+      "source_analysis": "Existing workspace libm owns the software-math implementation; the client adds only its existing workspace edge. Existing Seed, TreeShootId, plant and root owners retain their responsibilities.",
+      "source_anchors": "Cargo.toml root exact libm declaration; client manifest; dependency-source-proof-001; all five source owners",
+      "limits": "No local math wrapper, duplicate geometry model or generic quantity framework added. Existing broader raw plant/root records are not declared clean.",
+      "delta_analysis": "No new executable/type/schema contract introduced: exact previously personally reviewed 8d6 workflow and asset-reader bytes replace temporary diagnostics; all eleven arithmetic-source pins unchanged. Previous independent source analysis and qualifications carry only for these exact bytes."
+    },
+    {
+      "lens": "03",
+      "skill": "target/recovery-20261025/handoff/780/skills/audit-admission-contracts/SKILL.md",
+      "skill_sha256": "de63b991f5d4a11423f639efc1a5c37b4593a10045ac3d93d88da4c9b95d249f",
+      "skill_read": "Entire captured document personally read sequentially for this review; no other reviewer disposition used.",
+      "disposition": "No new actionable finding after bounded diagnostic removal; prior scoped source disposition retained, generated/hosted qualifications unresolved.",
+      "source_analysis": "No new constructor, deserializer, reflection/default path or validation surface. Software API calls receive the same locally produced arguments. The only index replaces a guaranteed seven-element last() access.",
+      "source_anchors": "skeleton.rs 648-655 and716; curve_radius_at 96-98; growth_axes.rs 19-44; library powf 48-160",
+      "limits": "This does not establish validity for every externally supplied raw plant parameter. Existing admission-policy qualifications remain.",
+      "delta_analysis": "No new executable/type/schema contract introduced: exact previously personally reviewed 8d6 workflow and asset-reader bytes replace temporary diagnostics; all eleven arithmetic-source pins unchanged. Previous independent source analysis and qualifications carry only for these exact bytes."
+    },
+    {
+      "lens": "04",
+      "skill": "target/recovery-20261025/handoff/780/skills/audit-invariant-operations/SKILL.md",
+      "skill_sha256": "94c0fc73e926619b9a9a50ef9f342a0c8f6210840f1aa1f3c5b5d9637994519d",
+      "skill_read": "Entire captured document personally read sequentially for this review; no other reviewer disposition used.",
+      "disposition": "No new actionable finding after bounded diagnostic removal; prior scoped source disposition retained, generated/hosted qualifications unresolved.",
+      "source_analysis": "Software operations preserve the existing input relationships and grouping; generated/clamped fractional-power bases remain nonnegative. Exponent-two branch is actual x*x; existing growth window reuse multiplies the same value.",
+      "source_anchors": "skeleton curve_radius_at96-98 and production1-788; growth_axes25/39; libm powf134-137",
+      "limits": "No new epsilon, overflow policy, denominator, narrowing, angle remainder or clamp is introduced. Native vector and arbitrary-input behavior is outside the repair.",
+      "delta_analysis": "No new executable/type/schema contract introduced: exact previously personally reviewed 8d6 workflow and asset-reader bytes replace temporary diagnostics; all eleven arithmetic-source pins unchanged. Previous independent source analysis and qualifications carry only for these exact bytes."
+    },
+    {
+      "lens": "05",
+      "skill": "target/recovery-20261025/handoff/780/skills/audit-aggregate-states/SKILL.md",
+      "skill_sha256": "39d26ba8acbf1007875b37d7e0d6c35766fb246a01852d4237fa741139b12a82",
+      "skill_read": "Entire captured document personally read sequentially for this review; no other reviewer disposition used.",
+      "disposition": "No new actionable finding after bounded diagnostic removal; prior scoped source disposition retained, generated/hosted qualifications unresolved.",
+      "source_analysis": "Branch endpoints/radii, group identifiers and final-segment foliage relationships remain assembled together as before. Version/revision markers own invalidation for the derived prepared and envelope payloads.",
+      "source_anchors": "skeleton append_branch_curve749-774; all terminal seed sites; impostor version constant; envelope revision field",
+      "limits": "Current generated aggregates are deliberately unfinished: marker changes alone do not refresh hulls or prepared assets. Final connected export and validation required.",
+      "delta_analysis": "No new executable/type/schema contract introduced: exact previously personally reviewed 8d6 workflow and asset-reader bytes replace temporary diagnostics; all eleven arithmetic-source pins unchanged. Previous independent source analysis and qualifications carry only for these exact bytes."
+    },
+    {
+      "lens": "06",
+      "skill": "target/recovery-20261025/handoff/780/skills/audit-type-ownership/SKILL.md",
+      "skill_sha256": "4e6ed19f7244c134db991a339145858059bb098ac2b804076675c8fe71de87e0",
+      "skill_read": "Entire captured document personally read sequentially for this review; no other reviewer disposition used.",
+      "disposition": "No new actionable finding after bounded diagnostic removal; prior scoped source disposition retained, generated/hosted qualifications unresolved.",
+      "source_analysis": "Math policy stays in existing workspace dependency configuration; leaf, skeleton and root owners perform their respective source operations. Existing tree identity and prepared-asset validation remain at their owners.",
+      "source_anchors": "workspace/client Cargo declarations; arrangement; skeleton and three source submodules; connected asset proof",
+      "limits": "No validation is moved upward, duplicated across callers, or placed on an unrelated type. No broader ownership repair is implied.",
+      "delta_analysis": "No new executable/type/schema contract introduced: exact previously personally reviewed 8d6 workflow and asset-reader bytes replace temporary diagnostics; all eleven arithmetic-source pins unchanged. Previous independent source analysis and qualifications carry only for these exact bytes."
+    },
+    {
+      "lens": "07",
+      "skill": "target/recovery-20261025/handoff/780/skills/audit-redundant-authority/SKILL.md",
+      "skill_sha256": "9cf22aed78c7a55df0493264038f217f4c7d752c554741733cd8ed0795fbfeab",
+      "skill_read": "Entire captured document personally read sequentially for this review; no other reviewer disposition used.",
+      "disposition": "No new actionable finding after bounded diagnostic removal; prior scoped source disposition retained, generated/hosted qualifications unresolved.",
+      "source_analysis": "Seed-derived TreeShootId remains the source identity. Exact geometry fingerprint remains a derived record with unchanged algorithm; version19/revision4 invalidate cached representations after changed geometry math.",
+      "source_anchors": "unchanged identity.rs; unchanged fingerprint section; impostor version diff; envelope revision diff",
+      "limits": "No dual native/software fallback exists. Stale payloads must be replaced, not treated as authoritative. Cross-host disagreement is an outstanding real acceptance question.",
+      "delta_analysis": "No new executable/type/schema contract introduced: exact previously personally reviewed 8d6 workflow and asset-reader bytes replace temporary diagnostics; all eleven arithmetic-source pins unchanged. Previous independent source analysis and qualifications carry only for these exact bytes."
+    },
+    {
+      "lens": "08",
+      "skill": "target/recovery-20261025/handoff/780/skills/audit-behavior-preservation/SKILL.md",
+      "skill_sha256": "7413ca56a7a637a20cb56f6a35c7623253934e806415e26131af076050fa685c",
+      "skill_read": "Entire captured document personally read sequentially for this review; no other reviewer disposition used.",
+      "disposition": "No new actionable finding after bounded diagnostic removal; prior scoped source disposition retained, generated/hosted qualifications unresolved.",
+      "source_analysis": "The intentional change is source transcendental realization and consequent generated bits. Existing stream names/order, branch/leaf selection, counts, formula arguments and fixture oracles are preserved; square and guaranteed stem-tip substitution retain their mathematical meaning.",
+      "source_anchors": "complete five-source diff/body reads; unchanged-contract-proof-002; fingerprint proof; final docs paragraph",
+      "limits": "Do not claim equality to old generated output. Versioned complete regeneration and ordinary Linux/Windows existing-case acceptance remain pending.",
+      "delta_analysis": "No new executable/type/schema contract introduced: exact previously personally reviewed 8d6 workflow and asset-reader bytes replace temporary diagnostics; all eleven arithmetic-source pins unchanged. Previous independent source analysis and qualifications carry only for these exact bytes."
+    },
+    {
+      "lens": "09",
+      "skill": "target/recovery-20261025/handoff/780/skills/audit-enum-shapes/SKILL.md",
+      "skill_sha256": "964ebea7b08a545b5abcabf605c22b92ac0dbb09ed79e6f79651ea2f141a3500",
+      "skill_read": "Entire captured document personally read sequentially for this review; no other reviewer disposition used.",
+      "disposition": "No new actionable finding after bounded diagnostic removal; prior scoped source disposition retained, generated/hosted qualifications unresolved.",
+      "source_analysis": "No new enum, tag, flag, optional shape or schema introduced. Existing is_limb_tip describes wood geometry while terminal Option<TreeShootId> describes foliage; both remain independently routed as before.",
+      "source_anchors": "all changed declarations; append_branch_curve749-774; terminal call sites",
+      "limits": "Existing raw plant-form/parameter combinations and root option records are unchanged broader audit subjects, not cleared here.",
+      "delta_analysis": "No new executable/type/schema contract introduced: exact previously personally reviewed 8d6 workflow and asset-reader bytes replace temporary diagnostics; all eleven arithmetic-source pins unchanged. Previous independent source analysis and qualifications carry only for these exact bytes."
+    },
+    {
+      "lens": "10",
+      "skill": "target/recovery-20261025/handoff/780/skills/audit-derivability/SKILL.md",
+      "skill_sha256": "6c0f78f4e40e0432071f2e10db701d3da72efbafec83e2f678e03a550406a599",
+      "skill_read": "Entire captured document personally read sequentially for this review; no other reviewer disposition used.",
+      "disposition": "No new actionable finding after bounded diagnostic removal; prior scoped source disposition retained, generated/hosted qualifications unresolved.",
+      "source_analysis": "No manual trait implementation, serde adapter or handwritten delegating API is added. Existing external libm functions own runtime math operations rather than a derivable local implementation.",
+      "source_anchors": "complete changed function/declaration diffs; Cargo edge; package actual public API reads",
+      "limits": "No derive candidate is introduced by this bounded change. Prior broader derivability inventory remains separate.",
+      "delta_analysis": "No new executable/type/schema contract introduced: exact previously personally reviewed 8d6 workflow and asset-reader bytes replace temporary diagnostics; all eleven arithmetic-source pins unchanged. Previous independent source analysis and qualifications carry only for these exact bytes."
+    },
+    {
+      "lens": "11",
+      "skill": "target/recovery-20261025/handoff/780/skills/audit-type-granularity/SKILL.md",
+      "skill_sha256": "3a1fbf7f53c752e35eefe7763cbd49b9f280bd4b978ea998f74c3a68e45dc106",
+      "skill_read": "Entire captured document personally read sequentially for this review; no other reviewer disposition used.",
+      "disposition": "No new actionable finding after bounded diagnostic removal; prior scoped source disposition retained, generated/hosted qualifications unresolved.",
+      "source_analysis": "The repair adds no bespoke wrapper, alias or record and preserves existing typed Seed/TreeShootId. Primitive f32 appears at actual external source-math operations, not a new stored application representation.",
+      "source_anchors": "five source-owner bodies; identity.rs unchanged; libm f32 API declarations",
+      "limits": "No generic numeric framework is justified by this mechanical boundary change. Existing root/plant scalar models are not globally approved.",
+      "delta_analysis": "No new executable/type/schema contract introduced: exact previously personally reviewed 8d6 workflow and asset-reader bytes replace temporary diagnostics; all eleven arithmetic-source pins unchanged. Previous independent source analysis and qualifications carry only for these exact bytes."
+    },
+    {
+      "lens": "12",
+      "skill": "target/recovery-20261025/handoff/780/skills/audit-magic-strings/SKILL.md",
+      "skill_sha256": "4288426f134e7b781da6ea3b9167722776db976f577b56e7936e787306fb277c",
+      "skill_read": "Entire captured document personally read sequentially for this review; no other reviewer disposition used.",
+      "disposition": "No new actionable finding after bounded diagnostic removal; prior scoped source disposition retained, generated/hosted qualifications unresolved.",
+      "source_analysis": "New libm dependency/feature strings are canonical Cargo registry configuration, not a textly typed gameplay distinction. Documentation is terminal contributor prose; no route, dispatch key, protocol discriminant or generated identifier is introduced.",
+      "source_anchors": "Cargo.lock parsed delta; workspace libm force-soft-floats; client manifest; ART_DEMO171-175",
+      "limits": "Existing stream purpose strings and old protocols remain unchanged; this review does not import broad magic-string clearance.",
+      "delta_analysis": "No new executable/type/schema contract introduced: exact previously personally reviewed 8d6 workflow and asset-reader bytes replace temporary diagnostics; all eleven arithmetic-source pins unchanged. Previous independent source analysis and qualifications carry only for these exact bytes."
+    },
+    {
+      "lens": "13",
+      "skill": "target/recovery-20261025/handoff/780/skills/audit-magic-numbers/SKILL.md",
+      "skill_sha256": "d71feffe9ef2d777c5d447840f4d3fbcec2e1f4b2cc354fc331e0c899b558dee",
+      "skill_read": "Entire captured document personally read sequentially for this review; no other reviewer disposition used.",
+      "disposition": "No new actionable finding after bounded diagnostic removal; prior scoped source disposition retained, generated/hosted qualifications unresolved.",
+      "source_analysis": "The 2.0 operand is an intrinsic square exponent with proven software x*x semantics. Index6 is locally tied to the seven generated points. Version19 and revision4 are owned prepared-artifact invalidation markers. Other coefficients/policies are unchanged.",
+      "source_anchors": "libm powf134-137; growth_axes25/39; skeleton648-655/716; impostor/version and JSON/revision diffs",
+      "limits": "No tuning constant is newly spread or named misleadingly. Pre-existing numeric policy and units remain part of the broader audit.",
+      "delta_analysis": "No new executable/type/schema contract introduced: exact previously personally reviewed 8d6 workflow and asset-reader bytes replace temporary diagnostics; all eleven arithmetic-source pins unchanged. Previous independent source analysis and qualifications carry only for these exact bytes."
+    }
+  ],
+  "qualifications": [
+    "The arithmetic intentionally changes native source transcendental realizations, so old generated payloads are not evidence for the new source. Revision 4 and bake version 19 require a complete connected hosted refresh before final asset review.",
+    "Current envelope payload and committed prepared assets are stale pending export. This is an explicit unfinished acceptance obligation, not a hidden source-review approval.",
+    "Ordinary Linux and focused Windows existing-case acceptance must run on the final regenerated source/assets head. Source library/feature review does not establish runtime portability.",
+    "Native vector arithmetic, mesh tessellation, software rasterization and shader arithmetic remain separate boundaries. No universal floating-point determinism or full libm package correctness is claimed.",
+    "Existing broad #774 type, admission, aggregate-state and numeric-policy debts remain qualified. This scoped repair does not clear the frozen audit, #780 physical/material graph or #826 mutable metadata/device association.",
+    "Existing fixtures/cases/assertions are unchanged. geometry/skeleton/impostor test sections are raw-byte equal; root_profile test text is equal only after newline normalization. See proof002, which corrects proof001 wording.",
+    "Hosted source-body/no-growth thresholds and normal checks are pending; no local execution was performed."
+  ],
+  "skill_policy": "Same captured thirteen skill documents already read in full for predecessor review; no changed lens contract and no verdict from other reviewers imported."
+}

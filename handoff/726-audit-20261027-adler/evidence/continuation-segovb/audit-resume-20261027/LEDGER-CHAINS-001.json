@@ -1,0 +1,102 @@
+{
+  "at": "2026-10-27T17:02:17.008008+00:00",
+  "kind": "Additive connected discovery ledger entries from alreadyrootadopted source packets",
+  "entries": {
+    "CONT-REF-CORRECTION-SOURCE-NAMESPACE": {
+      "source_lenses": [
+        11
+      ],
+      "evidence": [
+        "audit-resume-20261027/lens11/batch-085-receipt.json",
+        "audit-resume-20261027/ADOPTION-054.json"
+      ],
+      "source_chain": [
+        "local_problem.rs original1139 surface_public_threat1411\u20131424 writes PublicThreatDisclosure.id to InvestigationLead.corrected_by",
+        "PublicThreatDisclosure ID uses public-threat:<character>:<publiccase>, distinct newlygenerated case-site-disclosure lead identity",
+        "investigation/sites.rs original1130 lead_is_live_at304\u2013320 looks corrected_by up only in investigation_lead to recover correction time"
+      ],
+      "failed_contract": "Producer stores disclosure-table identity while historical consumer requires correcting-lead-table identity. Previously learned correctedlead cannot recover correction frontier from this reference, so historical liveness can fail before disclosure.",
+      "reachability": "Connected actual frozen source writer and reader proved; no executed ordinaryworld/currentmain/IDcollision witness.",
+      "repair_contract": "Make one canonical correction reference own both correct source identity and correction frontier, with exact admitted writer/reader association. Choose the canonical existing lead/disclosure authority after current-source/alias reconciliation; migrate all writers/retained rows/historical readers directly to final clean API. Do not introduce ambiguous String namespaces or backward-compatibility lookup.",
+      "function_ownership": [
+        "surface_public_threat",
+        "lead_is_live_at",
+        "InvestigationLead correction-field owner and actual correction setters/readers"
+      ],
+      "dependencies": [
+        "Canonical investigation lead/disclosure/source IDs and observer-relative chronology",
+        "Existing historical knowledge/correction/lore authority findings; exactalias notyetdecided"
+      ],
+      "acceptance_contract": "A lead learned before a disclosure remains historically available before its actual correction frontier and retires according to canonical replacement/disclosure semantics thereafter. All correction producers and history readers use the same admitted identity/frontier. No runtime check/test execution while discovery remains incomplete.",
+      "status": "source-backed discovery candidate WITH findings; current/alias/exact finalrepairdecision/runtime acceptance pending",
+      "accepted_unique_count_change": 0,
+      "current_reconciled": false,
+      "validated": false
+    },
+    "CONT-TEMP-STAKE-SETTLEMENT-GUARD": {
+      "source_lenses": [
+        13
+      ],
+      "evidence": [
+        "audit-resume-20261027/lens13/batch-190-receipt.json",
+        "audit-resume-20261027/ADOPTION-057.json"
+      ],
+      "source_chain": [
+        "physical-P16 strategic/inventory_trade.rs original287 remove_party_member3010+ calls settle_temporary_member_stake for leader dismissingtemporarymember",
+        "settle_temporary_member_stake3089+ only invokes transfer_party_currency_to_personal1799\u20131833",
+        "transfer updates inventory currency, not PartyStake; following removal guard rejects any remaining positive stake"
+      ],
+      "failed_contract": "Successful settlement helper leaves the exact positive stake predicate that prevents dismissal unchanged. Under positive stake and successful currency transfer, the following removal still returns withdrawal-required Err.",
+      "reachability": "Actual frozen connected state/operation source contradiction; no runtime transaction persistence or currentmain activation claimed.",
+      "repair_contract": "Use a single authoritative stake settlement transition that conserves currency and debits/removes settled PartyStake consistently before dependent member removal. Plan all fallible amount/custody/ownership admission before publishing effects, and preserve typed rejection versus infrastructure error through the real transaction boundary. Audit all callers of settlement/withdrawal/removal as one connected repair.",
+      "function_ownership": [
+        "remove_party_member",
+        "settle_temporary_member_stake",
+        "transfer_party_currency_to_personal",
+        "PartyStake settlement/currency conservation owner"
+      ],
+      "dependencies": [
+        "Party currency/stake/reserve amount/custody authority",
+        "Existing proportional pool-ledger/checked currency/error-boundary findings; common remedy doesnotestablishexactalias"
+      ],
+      "acceptance_contract": "A valid temporary-member dismissal with positive stake either settles and removes the member with conserved balances and zero residual settled claim, or returns a clear failure with the intended transaction result. Member withdrawal and repeated settlement/removal do not doublepay. Source reconciliation first; execution only after audit ledger completion.",
+      "status": "source-backed discovery candidate WITH findings; current/alias/exact finalrepairdecision/runtime acceptance pending",
+      "accepted_unique_count_change": 0,
+      "current_reconciled": false,
+      "validated": false
+    },
+    "CONT-WGS84-ROUTE-INTERPOLATION-FRAME": {
+      "source_lenses": [
+        13
+      ],
+      "evidence": [
+        "audit-resume-20261027/lens13/batch-191-192-receipt.json",
+        "audit-resume-20261027/ADOPTION-060.json"
+      ],
+      "source_chain": [
+        "physical-P16 canonical route admission original173 computes short WGS84 great-circle distances and admits \u00b1180 crossing when endpoints/routeargs match",
+        "strategic/journey_camp.rs original288 route_position_at_minute decodes unbounded E7 coordinates and linearly interpolates raw longitude",
+        "encounter/narrative consumers original281/271 encode the resulting nearzero longitude as valid WGS84, without restoring geographic path semantics"
+      ],
+      "failed_contract": "Geographic distance/segment admission and position interpolation use inconsistent coordinate-frame path semantics. A symmetric short dateline-crossing route interpolates nearzero longitude midway instead of near the dateline.",
+      "reachability": "Conditional admitted endpoint/route source case, no actual frozenworlddatelinejourney/currentmain/runtime/numerical tolerance outcome claimed.",
+      "repair_contract": "Keep admitted geographic versus abstract route semantics explicit through retained segment and position sampling. Use canonical geographic segment interpolation for geographic routes, or explicitly reject unsupported geography at the single canonical admission point; preserve abstract planar interpolation only for its actual abstract-frame owner. Carry endpoint/path identity through native E7 encode/decode.",
+      "function_ownership": [
+        "canonical route admission/geographic distance",
+        "route_position_at_minute",
+        "actual encounter/narrative position adapters"
+      ],
+      "dependencies": [
+        "Canonical WGS84/UnboundedE7 coordinate-frame ownership and route segment/count/clock quantities",
+        "Existing destination/frame/nativeweather/sourcecoordinate findings; exactaliases/current activation pending"
+      ],
+      "acceptance_contract": "All admitted geographic segments sample positions on the same geographic path used to compute distance, including valid longitude-wrap segments and exact endpoints. Abstract routes retain their declared planar semantics. No ordinaryroute-bound or runtime acceptance inferred from native WGS84 range validation alone.",
+      "status": "source-backed discovery candidate WITH findings; current/alias/exact finalrepairdecision/runtime acceptance pending",
+      "accepted_unique_count_change": 0,
+      "current_reconciled": false,
+      "validated": false
+    }
+  },
+  "accepted_unique_count_change": 0,
+  "implementation_gate_complete": false
+}

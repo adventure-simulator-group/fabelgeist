@@ -1,0 +1,55 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-073",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1674,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/surface.rs",
+      "sha256": "b487f7c3b762586f17bebd06fd0a7cae7d415743566df637800b4056cc3441ac",
+      "ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "ActiveVistaSurface derives ResourceDefaultClone; VistaTerrain derives ComponentCloneCopy, VistaTerrainMesh Component. Inherent methods retain digest-matched near rings, ground support and published chunks. Existing fixture read. No handwritten trait/codec.",
+      "disposition": "No derivability candidate. Derived defaults already cover empty retained state; revision and scene/source selection are semantic behavior, not constructor boilerplate.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1675,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/weather.rs",
+      "sha256": "840dfc691065cd3c90f2f8bc9db2630ece62cc61ed5a2793e802ed3739d2b88e",
+      "ranges": [
+        [
+          1,
+          402
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "WeatherOcclusionState derives ResourceDefault; material derives AssetAsBindGroupReflectDebugClone; WeatherParticle derives ComponentCloneCopyDebugEqPartialEq. Manual Material implementation selects shaders/premultiplied blending/culling/native vertex layout. Complete402lines read including fixtures; no handwritten codec.",
+      "disposition": "Keep behaviorful Material trait. All other relevant record/framework traits derive already. Native particle/shader encodings and unique terrain/backdrop source classifier are semantic, not generic serialization.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1676,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/weather/occlusion.rs",
+      "sha256": "5d2644ab73944ec770aff90913a9d15f9e76e336437b5d9654b40f66affee7ad",
+      "ranges": [
+        [
+          1,
+          257
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete257line weather occlusion role read in two windows: exact-cache/translation-byte deterministic signature, fallible branch/elevation rasterization, image publication and existing fixture. No handwritten trait/customcodec.",
+      "disposition": "No derivability candidate. Selected little-endian native bit signature and quantized RGBA shelter encoding intentionally change representation, not equivalent to deriving Hash or Serialize for complete records. No numeric/raster/cache correctness clearance or fixture execution.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

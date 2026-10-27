@@ -1,0 +1,793 @@
+{
+  "lens": 13,
+  "status": "mixed_source_accounted_and_explicit_partial",
+  "authority": {
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "source_manifest_sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa"
+  },
+  "registrations": [
+    {
+      "path": "audit-resume-20261027/lens13/batch-069-registration.json",
+      "sha256": "49a6e5a9d8589fb1c8015f55c178a689ea4547a723a205c29acd7da5670d0bb1"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-070-registration.json",
+      "sha256": "be941656c5725bfb081a53ce5bd64341d74a3fe0c7b2d750a812b9f5933b1f92"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-071-registration.json",
+      "sha256": "42b12ce018eff54f9f4184d32e6dc4d99add2646de9fd031eb3e55f1630e1bc2"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-072-registration.json",
+      "sha256": "77275c88fa5c02af0164fa5eb23efd3b043330aa081b43113611633be051e220"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-073-registration.json",
+      "sha256": "39d0bb0c7c09958b8adeb96a1bebfebe4c57403c87cf5bed632f7b052ec13410"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-074-registration.json",
+      "sha256": "6f04f48749664be1cb2d147d286567b954a979a87b8689dfe1d27508b51f7009"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-075-registration.json",
+      "sha256": "5f1fd53aec63252aee7ee2308ee1b46e12386ba79f8923cca12fdb24b12bc975"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-076-registration.json",
+      "sha256": "5b9a02266e43969ab5578f46e64e30f53b40abc2ac3d2d9c55eef44e65114554"
+    }
+  ],
+  "actual_source_reads": [
+    {
+      "original": 140,
+      "source_id": "physical-p16:crates/adventuresim-core/src/simulation_security.rs",
+      "sha256": "3c199480635cb250ba4fe3c60e13afcad2b958c8b11b3e97588c57fd85500272",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/3c199480635cb250ba4fe3c60e13afcad2b958c8b11b3e97588c57fd85500272",
+      "requested_range_variants": [
+        [
+          1,
+          30
+        ],
+        [
+          1,
+          61
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "eof": 61,
+      "provenance": "Exact frozen f82 registered physical variant; prior receiver access is not original-role credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration/hash verification. Requested ranges beyond actual EOF are absent, not read credit."
+    },
+    {
+      "original": 141,
+      "source_id": "physical-p16:crates/adventuresim-core/src/skill.rs",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "requested_range_variants": [
+        [
+          9,
+          9
+        ],
+        [
+          10,
+          117
+        ],
+        [
+          720,
+          777
+        ],
+        [
+          892,
+          981
+        ],
+        [
+          1010,
+          1105
+        ]
+      ],
+      "ranges": [
+        [
+          9,
+          117
+        ],
+        [
+          720,
+          777
+        ],
+        [
+          892,
+          981
+        ],
+        [
+          1010,
+          1105
+        ]
+      ],
+      "eof": 1165,
+      "provenance": "Exact frozen f82 registered physical variant; prior receiver access is not original-role credit.",
+      "actual_consumed_ranges": [
+        [
+          9,
+          117
+        ],
+        [
+          720,
+          777
+        ],
+        [
+          892,
+          981
+        ],
+        [
+          1010,
+          1105
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration/hash verification. Requested ranges beyond actual EOF are absent, not read credit."
+    },
+    {
+      "original": 142,
+      "source_id": "physical-p16:crates/adventuresim-core/src/smithing.rs",
+      "sha256": "83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "requested_range_variants": [
+        [
+          1,
+          78
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "eof": 78,
+      "provenance": "Exact frozen f82 registered physical variant; prior receiver access is not original-role credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration/hash verification. Requested ranges beyond actual EOF are absent, not read credit."
+    },
+    {
+      "original": 143,
+      "source_id": "physical-p16:crates/adventuresim-core/src/social.rs",
+      "sha256": "bb53725a73f48ae6fbd9f4ff3e2e744aaaea403fa2fd0a9381c6766ce0ad1b6d",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/bb53725a73f48ae6fbd9f4ff3e2e744aaaea403fa2fd0a9381c6766ce0ad1b6d",
+      "requested_range_variants": [
+        [
+          1,
+          110
+        ],
+        [
+          1,
+          1909
+        ],
+        [
+          40,
+          125
+        ],
+        [
+          475,
+          610
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          1909
+        ]
+      ],
+      "eof": 1909,
+      "provenance": "Exact frozen f82 registered physical variant; prior receiver access is not original-role credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          1909
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration/hash verification. Requested ranges beyond actual EOF are absent, not read credit."
+    },
+    {
+      "original": 144,
+      "source_id": "physical-p16:crates/adventuresim-core/src/social/action_kind.rs",
+      "sha256": "2b9ff5d4ad32e81e8a66e3ad09dc43d0e382c88b117b89b970876d9d3789ce92",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/2b9ff5d4ad32e81e8a66e3ad09dc43d0e382c88b117b89b970876d9d3789ce92",
+      "requested_range_variants": [
+        [
+          1,
+          264
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          264
+        ]
+      ],
+      "eof": 264,
+      "provenance": "Exact frozen f82 registered physical variant; prior receiver access is not original-role credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          264
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration/hash verification. Requested ranges beyond actual EOF are absent, not read credit."
+    },
+    {
+      "original": 145,
+      "source_id": "physical-p16:crates/adventuresim-core/src/social/affinity.rs",
+      "sha256": "498a0922e501f63800d2c4fa9bbffd863ca4cf98b83e09393c504b29d8a8ba7c",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/498a0922e501f63800d2c4fa9bbffd863ca4cf98b83e09393c504b29d8a8ba7c",
+      "requested_range_variants": [
+        [
+          1,
+          60
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "eof": 60,
+      "provenance": "Exact frozen f82 registered physical variant; prior receiver access is not original-role credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration/hash verification. Requested ranges beyond actual EOF are absent, not read credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/simulation.rs",
+      "sha256": "caa8a155d38c326bf43174ed106f7b885196bcc23fcddb76af341a1acb380e0c",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/caa8a155d38c326bf43174ed106f7b885196bcc23fcddb76af341a1acb380e0c",
+      "ranges": [
+        [
+          197,
+          252
+        ],
+        [
+          349,
+          495
+        ]
+      ],
+      "eof": 610,
+      "provenance": "Exact f82 registered physical variant.",
+      "purpose": "Material native numeric producer/admission/retained error and receiving boundaries for originals140-145; no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          197,
+          252
+        ],
+        [
+          349,
+          495
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration/hash verification. Requested ranges beyond actual EOF are absent, not read credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/smithing.rs",
+      "sha256": "428e697ec583b24ab798b6dadd2c67abf251e6359ed5b26a9d4819f93e266ce3",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/428e697ec583b24ab798b6dadd2c67abf251e6359ed5b26a9d4819f93e266ce3",
+      "ranges": [
+        [
+          57,
+          156
+        ]
+      ],
+      "eof": 119,
+      "provenance": "Exact f82 registered physical variant.",
+      "purpose": "Material native numeric producer/admission/retained error and receiving boundaries for originals140-145; no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          57,
+          119
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration/hash verification. Requested ranges beyond actual EOF are absent, not read credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social.rs",
+      "sha256": "93e446648725e961aaac7377e920dd07a8fcef4b7c0ff243ad9b054801f2ca41",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/93e446648725e961aaac7377e920dd07a8fcef4b7c0ff243ad9b054801f2ca41",
+      "ranges": [
+        [
+          61,
+          90
+        ],
+        [
+          1121,
+          1152
+        ],
+        [
+          1572,
+          1623
+        ],
+        [
+          2566,
+          2884
+        ]
+      ],
+      "eof": 3805,
+      "provenance": "Exact f82 registered physical variant.",
+      "purpose": "Material native numeric producer/admission/retained error and receiving boundaries for originals140-145; no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          61,
+          90
+        ],
+        [
+          1121,
+          1152
+        ],
+        [
+          1572,
+          1623
+        ],
+        [
+          2566,
+          2884
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration/hash verification. Requested ranges beyond actual EOF are absent, not read credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/derive.rs",
+      "sha256": "c21331b47fbf9aff7837343abc27e7f572acb622fd7baaf8a86a3dfb0fc92edd",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/c21331b47fbf9aff7837343abc27e7f572acb622fd7baaf8a86a3dfb0fc92edd",
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "eof": 47,
+      "provenance": "Exact f82 registered physical variant.",
+      "purpose": "Material native numeric producer/admission/retained error and receiving boundaries for originals140-145; no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration/hash verification. Requested ranges beyond actual EOF are absent, not read credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/social/claim_resolution.rs",
+      "sha256": "adfd512aab47db7827260717ebbb91d41706b4668372a0137510c9d3df796dcc",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/adfd512aab47db7827260717ebbb91d41706b4668372a0137510c9d3df796dcc",
+      "eof": 69,
+      "provenance": "Exact f82 registered physical source.",
+      "original": 146,
+      "requested_range_variants": [
+        [
+          1,
+          69
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration/hash verification. Requested ranges beyond actual EOF are absent, not read credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/social/witness.rs",
+      "sha256": "14db851b00491a104efa4d272f24ef1285b357a92dbd0f875a109a27033fd735",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/14db851b00491a104efa4d272f24ef1285b357a92dbd0f875a109a27033fd735",
+      "eof": 233,
+      "provenance": "Exact f82 registered physical source.",
+      "original": 147,
+      "requested_range_variants": [
+        [
+          1,
+          233
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          233
+        ]
+      ],
+      "actual_consumed_ranges": [
+        [
+          1,
+          233
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration/hash verification. Requested ranges beyond actual EOF are absent, not read credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/simulation.rs",
+      "sha256": "caa8a155d38c326bf43174ed106f7b885196bcc23fcddb76af341a1acb380e0c",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/caa8a155d38c326bf43174ed106f7b885196bcc23fcddb76af341a1acb380e0c",
+      "eof": 610,
+      "provenance": "Exact f82 registered physical source.",
+      "ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "purpose": "Actual material numeric boundary for original140-145; no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration/hash verification. Requested ranges beyond actual EOF are absent, not read credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social/draws.rs",
+      "sha256": "788653b52576c63a07a52065f8742eb6b63bc0268cb64ce16441cdea693f8c09",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/788653b52576c63a07a52065f8742eb6b63bc0268cb64ce16441cdea693f8c09",
+      "eof": 54,
+      "provenance": "Exact f82 registered physical source.",
+      "ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "purpose": "Actual material numeric boundary for original140-145; no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration/hash verification. Requested ranges beyond actual EOF are absent, not read credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/mesh.rs",
+      "sha256": "13432d88e00f3227259bb5b938b0a72a40e300fa4cec4f0d92b020d07eca2418",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/13432d88e00f3227259bb5b938b0a72a40e300fa4cec4f0d92b020d07eca2418",
+      "eof": 145,
+      "provenance": "Exact f82 registered physical source.",
+      "ranges": [
+        [
+          62,
+          120
+        ]
+      ],
+      "purpose": "Actual material numeric boundary for original140-145; no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          62,
+          120
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration/hash verification. Requested ranges beyond actual EOF are absent, not read credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/model/mod.rs",
+      "sha256": "485c06d11de0a974d67d404c21cde555b41f4126f6a3ffdac7cf5ba7727dc8ad",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/485c06d11de0a974d67d404c21cde555b41f4126f6a3ffdac7cf5ba7727dc8ad",
+      "eof": 273,
+      "provenance": "Exact f82 registered physical source.",
+      "ranges": [
+        [
+          72,
+          126
+        ]
+      ],
+      "purpose": "Actual material numeric boundary for original140-145; no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          72,
+          126
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration/hash verification. Requested ranges beyond actual EOF are absent, not read credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/recipe/validation.rs",
+      "sha256": "e40db02777c0f7401b0e90bc493f420be7630091f469a9baa7f0ef1a6f7c965a",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/e40db02777c0f7401b0e90bc493f420be7630091f469a9baa7f0ef1a6f7c965a",
+      "ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "eof": 207,
+      "provenance": "Exact f82 physical registered source; receiver/producer access only no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration/hash verification. Requested ranges beyond actual EOF are absent, not read credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/model/output.rs",
+      "sha256": "6cfe3fe6963b9fe8617ab5eeb7c811619a98aef2ddfbfc4c2f502a00bfb6e2e2",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/6cfe3fe6963b9fe8617ab5eeb7c811619a98aef2ddfbfc4c2f502a00bfb6e2e2",
+      "ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "eof": 365,
+      "provenance": "Exact f82 physical registered source; receiver/producer access only no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration/hash verification. Requested ranges beyond actual EOF are absent, not read credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/model/mod.rs",
+      "sha256": "485c06d11de0a974d67d404c21cde555b41f4126f6a3ffdac7cf5ba7727dc8ad",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/485c06d11de0a974d67d404c21cde555b41f4126f6a3ffdac7cf5ba7727dc8ad",
+      "ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "eof": 273,
+      "provenance": "Exact f82 physical registered source; receiver/producer access only no future original credit.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration/hash verification. Requested ranges beyond actual EOF are absent, not read credit."
+    },
+    {
+      "source_id": "physical-p16:weapon-model/model/output.rs",
+      "sha256": "6cfe3fe6963b9fe8617ab5eeb7c811619a98aef2ddfbfc4c2f502a00bfb6e2e2",
+      "ranges": [
+        [
+          276,
+          365
+        ]
+      ],
+      "purpose": "Actual material-mass integration and shape-dispatch bounds; no future original credit.",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/6cfe3fe6963b9fe8617ab5eeb7c811619a98aef2ddfbfc4c2f502a00bfb6e2e2",
+      "actual_consumed_ranges": [
+        [
+          276,
+          365
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration/hash verification. Requested ranges beyond actual EOF are absent, not read credit."
+    },
+    {
+      "source_id": "physical-p16:weapon-model/recipe/validation.rs",
+      "sha256": "e40db02777c0f7401b0e90bc493f420be7630091f469a9baa7f0ef1a6f7c965a",
+      "ranges": [
+        [
+          171,
+          207
+        ]
+      ],
+      "purpose": "Actual material-mass integration and shape-dispatch bounds; no future original credit.",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/e40db02777c0f7401b0e90bc493f420be7630091f469a9baa7f0ef1a6f7c965a",
+      "actual_consumed_ranges": [
+        [
+          171,
+          207
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration/hash verification. Requested ranges beyond actual EOF are absent, not read credit."
+    },
+    {
+      "source_id": "physical-p16:stdb/social.rs",
+      "sha256": "93e446648725e961aaac7377e920dd07a8fcef4b7c0ff243ad9b054801f2ca41",
+      "ranges": [
+        [
+          545,
+          588
+        ],
+        [
+          1153,
+          1290
+        ],
+        [
+          2414,
+          2515
+        ]
+      ],
+      "purpose": "Actual casual-chat, witness captured resolution, diagnosis confidence and training recipients; no original260 credit.",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/93e446648725e961aaac7377e920dd07a8fcef4b7c0ff243ad9b054801f2ca41",
+      "actual_consumed_ranges": [
+        [
+          545,
+          588
+        ],
+        [
+          1153,
+          1290
+        ],
+        [
+          2414,
+          2515
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration/hash verification. Requested ranges beyond actual EOF are absent, not read credit."
+    },
+    {
+      "source_id": "physical-p16:stdb/social.rs",
+      "sha256": "93e446648725e961aaac7377e920dd07a8fcef4b7c0ff243ad9b054801f2ca41",
+      "ranges": [
+        [
+          49,
+          60
+        ],
+        [
+          471,
+          494
+        ],
+        [
+          2516,
+          2525
+        ]
+      ],
+      "purpose": "Actual casual segment duration cap and end of belief persistence; no future original credit.",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/93e446648725e961aaac7377e920dd07a8fcef4b7c0ff243ad9b054801f2ca41",
+      "actual_consumed_ranges": [
+        [
+          49,
+          60
+        ],
+        [
+          471,
+          494
+        ],
+        [
+          2516,
+          2525
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration/hash verification. Requested ranges beyond actual EOF are absent, not read credit."
+    },
+    {
+      "source_id": "physical-p16:stdb/social.rs",
+      "sha256": "93e446648725e961aaac7377e920dd07a8fcef4b7c0ff243ad9b054801f2ca41",
+      "ranges": [
+        [
+          469,
+          470
+        ]
+      ],
+      "purpose": "Exact physical-variant duration constants for admitted 1-32 casual-chat segments; a120 line locators differed by one line and supplied navigation only.",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/93e446648725e961aaac7377e920dd07a8fcef4b7c0ff243ad9b054801f2ca41",
+      "actual_consumed_ranges": [
+        [
+          469,
+          470
+        ]
+      ],
+      "read_qualification": "Actually consumed bounded source after prospective registration/hash verification. Requested ranges beyond actual EOF are absent, not read credit."
+    }
+  ],
+  "role_inventories": [
+    {
+      "original": 140,
+      "status": "source_accounted_with_qualifications",
+      "inventory": "64-byte ASCII-hex token shape, usize XOR/OR accumulator and fixed expected-byte loop, zero/false disabled case, finite simulation skill-hour ceiling1000000 and existing fixture constants.",
+      "trace": "Expected token is filtered by exact byte length/hex shape; difference folds length XOR and every expected byte without early byte mismatch return, ignoring only an already length-mismatching excess suffix. Actual module option_env supplies Option<&str>; claim checks authorization first, then nonce16..96 ASCII, fresh run/character/party state and completed-import conditions before inserting singleton id0 with typed Seed and owner identity. Actual simulation character admission checks finite attributes0.5..5 and skill hours0..1M before persistence.",
+      "qualification": "None disables; compile environment presence is build provenance, not a claimed production-build audit. Shape does not prove entropy. No timing/security/SDK atomicity certification or executing simulation fixture."
+    },
+    {
+      "original": 141,
+      "status": "source_accounted_with_findings",
+      "inventory": "Skill float max-hour calibrations5000..30000, max check5, trained flags/category enum, rank/hour inverse with positive infinity as deliberate rank5 cap sentinel, private percentage partitionu8 widened u16, limb float weights, finite/positive training-hour admission and accepted/excess floats.",
+      "trace": "Actual GoverningAptitudes weighted constructor asserts total100; getters preserve it, resolve calculates weighted raw attributes/100, finite result clamped0..5 else0. Actual training methods mutate supplied stored-hours state; language cap is aptitude*1000, direct cap uses hours_for_rank. Actual social discovery producer supplies conserved total0.25 hours and writes resulting skill row; actual simulation fixture ceiling is finite1M and not the MAX-hour counterexample route.",
+      "finding": "API arithmetic witness: finite positive real_hours=f32MAX with governing aptitude5 gives multiplier2.25 and effective_gain infinity; available rank5 cap is infinity, accepted infinity is persisted and excess infinity-infinity is NaN. No new helper/test/execution. No proof ordinary authored/current producer admits this extreme budget; cap sentinel itself is intentional, separate from unbounded accepted finite training gain."
+    },
+    {
+      "original": 142,
+      "status": "partial_material_numeric_upper_bound",
+      "inventory": "Base forge minutes60, mass rate120 minutes/kg,12 minutes/component, raw u64 minutes/f32 kg maps/u32 consumable micros, ceiling and checked aggregate requirements.",
+      "trace": "Actual quote -> derive_properties -> Construction::new -> Recipe.validate -> solid physical integration -> f64-to-f32 physical mass; derive_material_masses aggregates per-material f64 mass cast to f32. Quote computes unchecked time additions before checking finite/u32-sized per-stock micros and checked_add. Actual forge reducer bounds recipe bytes/chassis, obtains quote, checks/consumes material inventory, passes quote.minutes to shared wait-time advancement and creates one physical weapon.",
+      "qualification": "Construction admission actually caps96 components,64KiB recipe, manufactured dimensions to20m with sampling limits and resolves frame extent policy. Hypothetical mass1e18kg is NOT established as admitted, and no forge panic is claimed. All child geometry-family bounds/number of produced solids/faces and aggregate mass-to-u64 time bound remain materially untraced under this lens. Concrete unresolved frontier is those native validated shape/generation budgets, not missing runtime witness. Keep142 partial; no original423/431/432/433/437 credit."
+    },
+    {
+      "original": 143,
+      "status": "source_accounted_with_qualified_findings",
+      "inventory": "Raw f32 skill0..5, affinity\u00b1100, familiarity hours, bounded probability/roll/sensitivity, signed effects and modifiers, effectiveness up to2 and failure multiplier0.5..1.5, identity u64 pairs, counts usize, u64 elapsed/cooldown1440/response5 and0.25 training budget; axis-local i8 codes, obscurityu8, legal value arrays and Option<bool> diagnosis. Full1909 including fixture primitives consumed.",
+      "trace": "Actual closed topics/actions -> action profile/permission/attraction/prayer policy -> finite-filtered automatic ranking or probability numerical resolver -> outcome. Actual module constructs attempt from settled affinity, familiarity minutes/60, skill/context/personality and typed Seed draws; applies time, records morale, recomputes realized gain before affinity_gain, persists affinity and interaction/cooldown, and stores axis-validated finite-confidence belief. Actual casual segment receiver uses admitted15..480 minutes in15 increments, hence1..32 segments and safe positive count*3 comparisons. Contextual truth/axis code conversions are not inferred from sign.",
+      "qualification": "Permission petition explicitly rejects nonfinite inputs; other public f32 resolver structs mostly clamp without proving finite input. No activated NaN path claimed, but raw public admission/retention lacks owner guarantees. Effectiveness>1 and signed modifiers are valid, so do not mechanically use UnitInterval everywhere. Familiarity/relationship raw ID/time ports remain owner-fit gaps; returned automatic target bound truncates after collecting preferences, not a preallocation bound. Tests are source evidence only."
+    },
+    {
+      "original": 144,
+      "status": "source_accounted",
+      "inventory": "Shares-concern Boolean selects Insight vs Deception; typed action/topic availability predicates; fixed risk values0.05..0.85 and existing Boolean fixture cases.",
+      "trace": "Actual enum owns request mapping, executing skill, topic eligibility, description and risk; FromStr delegates closed serde vocabulary. 143 ordinary profiles consume action.risk; actual module rejects ineligible topic/action before constructing numerical attempt.",
+      "qualification": "Risk remains raw f32 with a bounded authored table; this is a suitable bounded-value owner opportunity, not a new arbitrary unit or string-lens clearance. Caller must enforce availability before fallback description; actual selected production path does."
+    },
+    {
+      "original": 145,
+      "status": "source_accounted_with_qualified_admission_observation",
+      "inventory": "Signed affinity[-100,100],43200-minute half-life,0.5 exponential decay,0.0001 near-neutral tolerance,0.8 gain attenuation/headroom, raw requested/realized deltas.",
+      "trace": "settle_affinity rejects nonfinite anchor to0 and clamps finite anchor before decay. Native elapsedu64->f32/exponent kernel returns bounded decay for admitted elapsed. affinity_gain checks finite positive realized gain, then headroom from clamped current. realized_delta clamps before subtracting baseline. Actual current_affinity reads anchored typed time; put_affinity clamps before persistence. Witness and ordinary social paths use actual realized/current values.",
+      "qualification": "Public setters/functions do not all reject nonfinite affinity/delta; clamp alone does not establish finite ownership, and put_affinity_at can retain NaN if handed one. Actual current read sanitizes nonfinite anchor. No current occurrence or runtime witness; record admission/owner-fit observation. Tiny-value snap is explicit error policy, so no exact floating partition-equality claim."
+    },
+    {
+      "original": 146,
+      "status": "source_accounted_with_qualified_owner_fit",
+      "inventory": "Raw f32 captured realized affinity_delta; enum outcome derived from succeeded Boolean; Option representation in fixtures.",
+      "trace": "Actual approach_dialogue_witness computes ClaimChallengeOutcome -> applies relationship result through realized_affinity_delta and persistent clamp -> WitnessClaimResolution::from_challenge receives realized delta -> Some resolution stored in claim. It retains historical result rather than recomputing from later relationship.",
+      "qualification": "Raw public field/constructor and derived serde do not independently enforce finite/bounded realized delta. Actual path captures the post-application value. No new runtime, serialization SDK or other-lens credit."
+    },
+    {
+      "original": 147,
+      "status": "source_accounted_with_qualified_owner_fit",
+      "inventory": "Bounded demeanor[-1,1], skill0..5, roll0..1, noise0.75, ambiguity threshold0.18, strength scaling0.82; leverage0/0.45/0.9, signed affinity tolls-0.4/-0.8/-1.4/-2.5, transparency-derived sensitivity, morale normalized\u00b1100 and1.5 effect multiplier, factual-accuracy Boolean.",
+      "trace": "Actual testimony perception kernel -> typed direction+raw strength. Challenge maps typed approach to canonical social skill/action and invokes143 resolver; truthful claims force failed result, Command success still pays-0.4. Actual module supplies canonical draws/settled affinity/reputation/morale/personality and persists post-application resolution under146.",
+      "qualification": "Raw public float input ports do not establish finite invariants; native clamp behavior is distinct from typed admission. No fabricated current malformed input. Canonical RNG inclusive-unit kernel is reused from our independently consumed earlier determinism/lib+stream proof, not another-lens verdict."
+    }
+  ],
+  "source_accounted_originals": [
+    140,
+    141,
+    143,
+    144,
+    145,
+    146,
+    147
+  ],
+  "partials": [
+    {
+      "original": 142,
+      "source_hash": "83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "scoped_body_consumed": [
+        [
+          1,
+          78
+        ]
+      ],
+      "remaining": "Source-backed aggregate numerical upper bound through all actual native child geometry-family/generation budget paths sufficient for quote mass-to-u64/additions, or a qualified admitted counterexample. Dimensions20m/component96/64KiB alone are not asserted as the full proof. No runtime witness required for source completion."
+    }
+  ],
+  "scope_limits": [
+    "Every effective original range variant in069/071 preserved. 141 excludes unregistered gaps/tails despite earlier receiver access.",
+    "070 smithing request57-156 actualEOF119:120-156 absent; derive request1-58 actualEOF47:48-58 absent.071 draws request1-73 actualEOF54:55-73 absent.",
+    "a120 identifier locators were navigation only; actual frozen physical source line offsets sometimes differ.075 lacked the actual minute constants, so076 registered469-470 before consuming them.",
+    "Future/native material recipients gain no original/overlay/merged/shared or other-lens verdict credit. All new dependencies are queued separately.",
+    "All previous findings/metadata errata/031 correction/access qualification,018 lattice-vs-population, aliases/currentness/SDK/runtime limits retained. No accepted unique count or global clearance. No project/toolchain execution, new tests or repairs."
+  ],
+  "accepted_new_unique_count": 0,
+  "global_clearance": false
+}

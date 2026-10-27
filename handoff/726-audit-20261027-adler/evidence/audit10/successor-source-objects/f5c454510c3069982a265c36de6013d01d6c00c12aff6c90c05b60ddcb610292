@@ -1,0 +1,370 @@
+use adventuresim_building_generator::spatial_geometry::Position;
+use adventuresim_tactical_core::{
+    prelude::*,
+    scene_coordinates::{Scene, ScenePlanPoint},
+};
+use adventuresim_world_schema::UnitBasisPoints;
+use bevy::audio::{AudioSink, AudioSinkPlayback, PlaybackMode, Volume};
+use bevy::prelude::*;
+use fabelgeist_determinism::{Seed, StreamId};
+
+use crate::{
+    animation::{LocomotionPresentationEvent, LocomotionPresentationPayload},
+    audio_config::TacticalAudioConfig,
+    presentation::GroundScatterLayer,
+};
+
+type GroundedDiveAudioQuery<'world, 'state> = Query<
+    'world,
+    'state,
+    (
+        Entity,
+        &'static CharacterId,
+        &'static GlobalTransform,
+        &'static SkeletonState,
+        Option<&'static mut MovementAudioState>,
+    ),
+    (With<Player>, Changed<SkeletonState>),
+>;
+
+pub struct MovementAudioPlugin;
+
+#[derive(Component)]
+struct TacticalWindAudio;
+
+#[derive(Component, Default)]
+struct MovementAudioState {
+    grounded_dive_active: bool,
+}
+
+impl Plugin for MovementAudioPlugin {
+    fn build(&self, app: &mut App) {
+        app.add_plugins(crate::weather_audio::WeatherAudioPlugin)
+            .add_systems(Startup, spawn_wind_loop)
+            .add_systems(
+                Update,
+                (
+                    play_locomotion_audio,
+                    play_grounded_dive_impacts,
+                    update_wind_volume,
+                ),
+            );
+    }
+}
+
+fn spawn_wind_loop(mut commands: Commands, asset_server: Res<AssetServer>) {
+    commands.spawn((
+        Name::new("tactical-wind-audio"),
+        TacticalWindAudio,
+        AudioPlayer::new(asset_server.load("audio/movement/wind_loop.ogg")),
+        PlaybackSettings {
+            mode: PlaybackMode::Loop,
+            volume: Volume::SILENT,
+            ..default()
+        },
+    ));
+}
+
+fn update_wind_volume(
+    environments: Query<&SceneEnvironment>,
+    mut wind: Query<&mut AudioSink, With<TacticalWindAudio>>,
+    config: Res<TacticalAudioConfig>,
+) {
+    let Some(environment) = environments.iter().next() else {
+        return;
+    };
+    let wind_speed = UnitBasisPoints::saturating(environment.weather.wind_speed_bps).as_unit_f32();
+    let audible_threshold =
+        UnitBasisPoints::saturating(config.movement.wind.minimum_audible_speed_bps).as_unit_f32();
+    let wind_fraction =
+        ((wind_speed - audible_threshold) / (1.0 - audible_threshold)).clamp(0.0, 1.0);
+    let volume = config.movement.wind.maximum_relative_volume
+        * wind_fraction.powf(config.movement.wind.response_exponent);
+    for mut sink in &mut wind {
+        sink.set_volume(Volume::Linear(volume));
+    }
+}
+
+fn play_locomotion_audio(
+    mut commands: Commands,
+    mut events: MessageReader<LocomotionPresentationEvent>,
+    characters: Query<(&GlobalTransform, &SkeletonState, &CharacterId), With<Player>>,
+    grounds: Query<&SceneGround>,
+    understory: Query<(&GlobalTransform, &GroundScatterLayer)>,
+    asset_server: Res<AssetServer>,
+    config: Res<TacticalAudioConfig>,
+) {
+    let ground = grounds.iter().next();
+    for event in events.read() {
+        let Ok((transform, skeleton, character_id)) = characters.get(event.owner) else {
+            continue;
+        };
+        let position = match Position::<Scene>::from_metres(transform.translation()) {
+            Ok(position) => position,
+            Err(error) => {
+                warn!(%error, owner = ?event.owner, "Invalid movement audio position");
+                continue;
+            }
+        };
+        let event_seed = StreamId::new("audio.locomotion-event")
+            .seed((character_id.0).into(), &[event.payload.encoded_sequence()]);
+        match event.payload {
+            LocomotionPresentationPayload::Contact { .. } => {
+                let surface =
+                    ground.and_then(|ground| ground.ground_at(ScenePlanPoint::from(position)));
+                let on_grass = surface.is_some_and(|surface| {
+                    matches!(surface.cover, GroundCover::TallGrass | GroundCover::Reeds)
+                });
+                let family = if on_grass {
+                    "footstep_grass_00"
+                } else {
+                    "footstep_concrete_00"
+                };
+                spawn_spatial_variant(
+                    &mut commands,
+                    &asset_server,
+                    family,
+                    event_seed,
+                    position,
+                    config.movement.footstep_relative_volume,
+                    config.movement.pitch_randomization,
+                );
+                if on_grass {
+                    spawn_rustle(
+                        &mut commands,
+                        &asset_server,
+                        event_seed,
+                        position,
+                        config.movement.tall_grass_rustle_relative_volume,
+                        config.movement.tall_grass_rustle_pitch,
+                        config.movement.pitch_randomization,
+                    );
+                }
+                if near_understory(position, &understory, config.movement.bush_contact_radius_m) {
+                    spawn_rustle(
+                        &mut commands,
+                        &asset_server,
+                        StreamId::new("audio.understory-rustle").seed(event_seed, &[]),
+                        position,
+                        config.movement.bush_rustle_relative_volume,
+                        config.movement.bush_rustle_pitch,
+                        config.movement.pitch_randomization,
+                    );
+                }
+            }
+            LocomotionPresentationPayload::Landing { .. }
+                if matches!(
+                    skeleton
+                        .posture_transition()
+                        .map(|transition| transition.kind()),
+                    Some(PostureTransitionKind::DiveToDowned { .. })
+                ) =>
+            {
+                spawn_spatial_variant(
+                    &mut commands,
+                    &asset_server,
+                    "impactSoft_heavy_00",
+                    event_seed,
+                    position,
+                    config.movement.body_impact_relative_volume,
+                    config.movement.pitch_randomization,
+                );
+            }
+            LocomotionPresentationPayload::Landing { .. } => {}
+        }
+    }
+}
+
+fn play_grounded_dive_impacts(
+    mut commands: Commands,
+    mut characters: GroundedDiveAudioQuery,
+    asset_server: Res<AssetServer>,
+    config: Res<TacticalAudioConfig>,
+) {
+    for (entity, character_id, transform, skeleton, state) in &mut characters {
+        let grounded_dive_active = matches!(
+            skeleton
+                .posture_transition()
+                .map(|transition| transition.kind()),
+            Some(PostureTransitionKind::DiveToDowned {
+                trajectory: DiveTrajectory::GroundedSlide,
+                ..
+            })
+        );
+        let was_active = state
+            .as_deref()
+            .is_some_and(|state| state.grounded_dive_active);
+        if grounded_dive_active && !was_active {
+            let position = match Position::<Scene>::from_metres(transform.translation()) {
+                Ok(position) => position,
+                Err(error) => {
+                    warn!(%error, ?entity, "Invalid grounded dive audio position");
+                    continue;
+                }
+            };
+            spawn_spatial_variant(
+                &mut commands,
+                &asset_server,
+                "impactSoft_heavy_00",
+                StreamId::new("audio.grounded-dive").seed(
+                    (character_id.0).into(),
+                    &[skeleton.locomotion_sample_tick.encoded()],
+                ),
+                position,
+                config.movement.body_impact_relative_volume,
+                config.movement.pitch_randomization,
+            );
+        }
+        if let Some(mut state) = state {
+            state.grounded_dive_active = grounded_dive_active;
+        } else {
+            commands.entity(entity).insert(MovementAudioState {
+                grounded_dive_active,
+            });
+        }
+    }
+}
+
+fn near_understory(
+    position: Position<Scene>,
+    scatter: &Query<(&GlobalTransform, &GroundScatterLayer)>,
+    contact_radius_m: f32,
+) -> bool {
+    scatter.iter().any(|(transform, layer)| {
+        if *layer != GroundScatterLayer::Understory {
+            return false;
+        }
+        let offset = transform.translation() - position.metres();
+        offset.xz().length_squared() <= contact_radius_m.powi(2)
+    })
+}
+
+fn spawn_spatial_variant(
+    commands: &mut Commands,
+    asset_server: &AssetServer,
+    family: &str,
+    event_seed: Seed,
+    position: Position<Scene>,
+    volume: f32,
+    pitch_randomization: [f32; 2],
+) {
+    let sample =
+        sound_seed(event_seed, position).child(StreamId::new("audio.family"), &[family.as_bytes()]);
+    let variant = sample
+        .child(StreamId::new("audio.variant"), &[])
+        .rng()
+        .index(3);
+    let path = format!("audio/movement/{family}{variant}.ogg");
+    spawn_spatial_sound(
+        commands,
+        asset_server.load(path),
+        sample,
+        position,
+        volume,
+        1.0,
+        pitch_randomization,
+    );
+}
+
+fn spawn_rustle(
+    commands: &mut Commands,
+    asset_server: &AssetServer,
+    event_seed: Seed,
+    position: Position<Scene>,
+    volume: f32,
+    base_speed: f32,
+    pitch_randomization: [f32; 2],
+) {
+    let sample = sound_seed(event_seed, position);
+    spawn_spatial_sound(
+        commands,
+        asset_server.load("audio/movement/foliage_rustle.ogg"),
+        sample,
+        position,
+        volume,
+        base_speed,
+        pitch_randomization,
+    );
+}
+
+fn spawn_spatial_sound(
+    commands: &mut Commands,
+    source: Handle<AudioSource>,
+    sample: Seed,
+    position: Position<Scene>,
+    volume: f32,
+    base_speed: f32,
+    pitch_randomization: [f32; 2],
+) {
+    let pitch_fraction = sample
+        .child(StreamId::new("audio.pitch"), &[])
+        .rng()
+        .inclusive_unit_f32();
+    let pitch =
+        pitch_randomization[0] + pitch_fraction * (pitch_randomization[1] - pitch_randomization[0]);
+    commands.spawn((
+        Name::new("tactical-movement-sound"),
+        AudioPlayer::new(source),
+        PlaybackSettings {
+            mode: PlaybackMode::Despawn,
+            speed: base_speed * pitch,
+            spatial: true,
+            volume: Volume::Linear(volume),
+            ..default()
+        },
+        Transform::from_translation(position.metres()),
+    ));
+}
+
+fn sound_seed(event_seed: Seed, position: Position<Scene>) -> Seed {
+    // Seed framing preserves the native scene position's three f32 bit patterns.
+    let position = position.metres();
+    StreamId::new("audio.spatial-event").seed(
+        event_seed,
+        &[
+            u64::from(position.x.to_bits()),
+            u64::from(position.y.to_bits()),
+            u64::from(position.z.to_bits()),
+        ],
+    )
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn strategic_display_models_do_not_acquire_tactical_audio_state() {
+        let mut app = App::new();
+        app.add_plugins((MinimalPlugins, AssetPlugin::default()))
+            .insert_resource(
+                TacticalAudioConfig::parse(include_str!(
+                    "../../../assets/config/tactical-audio.yaml"
+                ))
+                .unwrap(),
+            )
+            .add_systems(Update, play_grounded_dive_impacts);
+        let display = app
+            .world_mut()
+            .spawn((
+                CharacterId(1),
+                GlobalTransform::default(),
+                SkeletonState::default(),
+            ))
+            .id();
+        let tactical = app
+            .world_mut()
+            .spawn((
+                Player {
+                    name: "Combatant".into(),
+                },
+                GlobalTransform::default(),
+            ))
+            .id();
+
+        app.update();
+
+        assert!(app.world().get::<MovementAudioState>(display).is_none());
+        assert!(app.world().get::<MovementAudioState>(tactical).is_some());
+    }
+}

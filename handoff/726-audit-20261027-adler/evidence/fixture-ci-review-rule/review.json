@@ -1,0 +1,71 @@
+{
+  "review": "Independent Rule Review: settled-drape fixture rig admission",
+  "reviewer": "/root/recovery_826",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "branch": "codex/settled-drape-fixture-rig",
+  "changed_file": {
+    "path": "crates/adventuresim-character-creator/src/garment/settled/tests.rs",
+    "sha256": "4c2808636d16aef46474b2b617aa29b24aaf30700a02736b87c9dd549e604dd3"
+  },
+  "source_dependencies": [
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/settled.rs",
+      "sha256": "3dbafb11ea673b81b72c6d8599bf9c1ac4c55b3e456982e39d16d38faef2e42d"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment.rs",
+      "sha256": "3a53a6a40c78d926e2f50031f319b7fb338014633b6c73431b891b85a308c828"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/skin_transfer.rs",
+      "sha256": "49c7efbe7fc82d0cda47656cf2d90e877c50703da1355f5243a09100051b7b53"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/dressing.rs",
+      "sha256": "d9e49185a0d535f4dc1b7fb63850c927d5f59577fedf5d5f87ca8fc8b1e84a8a"
+    },
+    {
+      "path": "crates/fabelgeist-rig/src/skin.rs",
+      "sha256": "c1c856dd707201d43249ad4e61576728edf4ff9a2a2d1dbf68f6c980a1c2d206"
+    },
+    {
+      "path": "crates/fabelgeist-rig/src/table.rs",
+      "sha256": "491cfcace087aef015067a75e218e3bee9dc3c1e8bf681b40afa840f806da282"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/lib.rs",
+      "sha256": "fe34032d99c2145bb74dcd9f8228ea479fee4f2e61d3b1b3f41c8b8409e380d1"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.toml",
+      "sha256": "63d6c669c0beb22c2df485aaccff7a09dc0a7d623e09191c7b0322a8689d3c72"
+    }
+  ],
+  "scope": "Only existingwearer testfixture two-fieldcorrection; no product/sourcegeometrybehavior changes.",
+  "governing_sources": [
+    "AGENTS.md",
+    "crates/AGENTS.md",
+    "crates/adventuresim-character-creator/AGENTS.md",
+    "crates/fabelgeist-armor/AGENTS.md",
+    "capturedrule-review/SKILL.md",
+    "captured774rule-review/references/bespoke-type-review.md"
+  ],
+  "trace": {
+    "fixture": "wearer:49-50 nowauthorsthesameone-joint rig indicated byunchangedPackedRigSkinbound1 andall0ordinals; names andnative8wordjointstate columnsbothlength1. Everyvertex retainsunchangedindex/weightarraysandgeometry.",
+    "admission": "SkinSource::validate requires names.len==joints.len andskin joint_count==names.joint_count, theneachordinalincludingzero-weightonesbelongs toactualnames. Beforeemptytablescontradictedbound1; after0<1 andbothcolumns1.",
+    "consumer": "SettledDrape::fit\u2192garment::transfer_skin\u2192UpperformSkinSource::transfer\u2192validate\u2192existingBVHskininterpolation. Upperusesgenerictransfer, notskirtlandmarks; ROOT doesnotinvent requiredhip/headjoints.",
+    "native_identity": "Literal8wordstate iszeroXYZ/identityXYZW quaternion/unit scaleat authoredtest/nativenumericalboundary; canonicalRigJointTable retainedthroughFromonce. Rootname reusesRigJointName::ROOT.",
+    "feature_independence": "fabelgeist-rig isunconditionalCargo dependency;garmentmoduleandsettledcfgtestmoduleindependent ofoffline-creator. Nativeidentityliteral avoidsoptionalMHRhelper/dependency.",
+    "existing_cases": "All8existingtestdeclarations/helpers/assertions/oracles unchanged; sourceequalityprovesentirefileequalsbasewithonlyspecifiedtwofixturefieldreplacements. Existingdrapeshape/clearance/serialization/topologyassertions remainintact."
+  },
+  "source_equality_proof": true,
+  "quality_scope": "NoCargofeature/dependency/lock/policy/ceiling/exemption change; no productionAPIorfixturehelper/newtest added. Nativefixtureliterals expresslypermitted bycrates semanticvalue rules andRigJointCount::from_native_joint_count contract.",
+  "findings": [],
+  "verdict": "CLEAR_WITHIN_REVIEWED_SOURCE_SCOPE",
+  "validation_limits": [
+    "Read-onlysource/Git/hash inspection; no localprojectchecks/builds/tests executed.",
+    "Thisreview establishescorrectfixtureadmission bysource, notcurrenthostedruntimepass orbroadergarment/fittingacceptance.",
+    "Nootherreviewverdictread; existingbroaderbody/rig/modelingdebt isnotcleared."
+  ],
+  "source_edits": false
+}

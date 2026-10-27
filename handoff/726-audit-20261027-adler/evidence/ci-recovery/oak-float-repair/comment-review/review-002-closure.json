@@ -1,0 +1,38 @@
+{
+  "at": "2026-10-26T02:56:46.961223+00:00",
+  "supersedes_review_scope": "review-001.json open wording findings only; source/runtime/global conclusions remain qualified.",
+  "source_proposal": "source-proposal-002.json",
+  "source_proposal_sha256": "dc6c96812ee578b8318a25984ffe6a8f4dba9a40bf206fcd31cfa751d9e0994a",
+  "pins": "pins-002.json",
+  "actual_review": "Compared exact cached001 versus actual002 geometry header/ART_DEMO correction and skeleton import-order-only delta; read full corrected61-line PR draft body. Verified all11 current source hashes and body match002.",
+  "findings": [
+    {
+      "id": "CI-MATH-COMMENT-001",
+      "status": "closed_in_local_source_snapshot",
+      "proof": "geometry.rs3-5 says exact source fingerprints; ART_DEMO171-175 says carries current source-geometry fingerprint and retains native mesh/raster/shader limits. Matches actual selected-field raw-bit fingerprint check without full-geometry or image-equality claim.",
+      "source_hashes": {
+        "geometry.rs": "b730b2dc02270ffc2b2990aceb80eb7ae0dc0a268b0c9c99974b05d87a5f0db9",
+        "ART_DEMO.md": "ba93cbcaa705efcd50d8deb01f035678aca84b192c61edad3d7d49b459820b4c"
+      }
+    },
+    {
+      "id": "CI-MATH-COMMENT-002",
+      "status": "closed_in_local_body_snapshot_publication_pending",
+      "body_sha256": "8986a9e08d4b8239e2557e4fefb1699d325531d86180244ec3f895b2ab1456d1",
+      "proof": "Body14-19 describes pinned source trig/power math, exact fingerprint preservation,2% beech calibration and versions4/19.29-35 explicitly dates earlier exporter before software-math correction and replacement outputs pending.41-45 distinguishes earlier source Linux/Windows history from pending final-head gates;57-61 limits prior reviews and preserves same shared expected assets.",
+      "publication": "Ignored local draft only. No gh read/write or remote body equality evidence supplied/claimed; publication completion remains pending root action."
+    }
+  ],
+  "remaining_uncertainties": [
+    "Diagnostic91e7 active per parent at request; no runtime result accepted from this review.",
+    "The corrected body reports earlier Linux success; reviewer has not independently fetched that current hosted job status. This closure verifies scope/version/pending-language issues and does not certify hosted results.",
+    "No corrected source/generated assets published or accepted merely by local wording closure.",
+    "Cross-platform acceptance, source-equivalent generated-output review, other reviewer gates remain root-owned."
+  ],
+  "new_actionable_comment_findings": [],
+  "source_edits": false,
+  "project_checks": false,
+  "external_messages_or_publication": false,
+  "frozen_lens05_credit": false,
+  "verdict": "Both local wording findings satisfied against pinned002 bytes; publication and runtime acceptance explicitly pending."
+}

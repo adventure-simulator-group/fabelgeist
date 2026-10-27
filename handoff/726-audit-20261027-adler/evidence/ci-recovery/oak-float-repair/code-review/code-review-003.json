@@ -1,0 +1,177 @@
+{
+  "schema": 1,
+  "reviewer": "recovery_780",
+  "head": "f7305d139126e3f0a07a5df8869152b772947007",
+  "export_source": "c94b96d9a47453538985bbfb1ce2bd2b4874e627",
+  "export_run": 40262692854,
+  "export_job": 121378260220,
+  "artifact_id": 12626297265,
+  "source_fingerprint": "433898493e95ea9da9fb42c0fef43a698036e8a7c21856484ee08199a44d3ace",
+  "fingerprint_encoding": "SHA256 of ordered path + NUL + SHA256 + LF records",
+  "paths": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "197d8605659fa581961b37f9c18f2a46b04db822a666d3abefe5653b4204401a"
+    },
+    {
+      "path": "content/tactical/garden-hazel-envelope.json",
+      "sha256": "7a49ad28b8a21469ab00a862e1c757e65510ecd0599856658dd6018cbfe9410d"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/Cargo.toml",
+      "sha256": "736240a91cfc44359688a19535bd9984824264c4c2d9f5637ef5e477c17924a1"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry.rs",
+      "sha256": "b730b2dc02270ffc2b2990aceb80eb7ae0dc0a268b0c9c99974b05d87a5f0db9"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/arrangement.rs",
+      "sha256": "08200ee848bdbb6c0fa054926133bdf10cef64231fecb5506da098ce0210e73b"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs",
+      "sha256": "661e960ce52adbbd70eff6d9b7f9e4704273a9b2de2b0ad64b9dcea9de9ecf38"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/growth_axes.rs",
+      "sha256": "b436cbf44b376a8eff01bc3e1ff7592cb839a353fa7ab1cb986943417dcb0ec4"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_plan.rs",
+      "sha256": "edb14de1c8633e1c97b7e6d5b4cb4b150d04e908a68db882eb1bd92ff1ae9012"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_profile.rs",
+      "sha256": "d95e1f977abe46b3b6d27f3f9b12f3fe78aa33c8e2406e4b6ad89ebc3b542c23"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs",
+      "sha256": "89d34cfa5179d198fb44055235ef1638c1626b9fa979bdc722f0e06ba62a632a"
+    },
+    {
+      "path": "crates/strategic-web/ART_DEMO.md",
+      "sha256": "ba93cbcaa705efcd50d8deb01f035678aca84b192c61edad3d7d49b459820b4c"
+    },
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "ba5976e7c7fbb51718979108ea26fb4002870613323755e1d407199c3fc40dde"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor_assets.rs",
+      "sha256": "792c336a1d9612c83b4ae0f385c94a35175009ae202f71d4e3231d10179f899a"
+    },
+    {
+      "path": "assets/art-demo/oak.tree-impostors",
+      "sha256": "ad8e45cecb13f3cdadb98588e36c8db7c79f786a4a4852b746e9008d8b47f22c"
+    }
+  ],
+  "changed_paths_since_own_8d6_review": [
+    "Cargo.lock",
+    "assets/art-demo/oak.tree-impostors",
+    "content/tactical/garden-hazel-envelope.json",
+    "crates/adventuresim-tactical-client/Cargo.toml",
+    "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry.rs",
+    "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/arrangement.rs",
+    "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs",
+    "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/growth_axes.rs",
+    "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_plan.rs",
+    "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_profile.rs",
+    "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs",
+    "crates/strategic-web/ART_DEMO.md"
+  ],
+  "previous_code": "code-review-002.json",
+  "previous_scoped13": "scoped-all13-002.json",
+  "previous_source_identity": "final-source-identity-002.json",
+  "source_carry": "Actual10 executable/doc/dependency proposal002 file hashes unchanged. Envelope proposal bytes atc94 match prior review; only regenerated envelope and new binary differ atf730. Both diagnostic-restored files remain exact8d6. Own8d6 source report carried only outside these12 path deltas.",
+  "findings": [],
+  "execution": "Read-only source/Git object extraction and standard-library byte/hash/JSON/gzip bookkeeping. No product/Git mutation, project check, test, generator, build, lint, new case/assertion/helper or network query.",
+  "disposition": "No actionable source/output finding in the pinned two-file refresh; final ordinary/Windows/no-growth acceptance remains pending.",
+  "output_evidence": [
+    "output-source-proof-001.json",
+    "output-generator-log-proof-001.json"
+  ],
+  "actual_delta": {
+    "envelope": "Revision4/seed/heights/97029 source vertices/18 hull points unchanged. Only hull_metres[0] components change +2.384185791015625e-7 and +2.9802322387695312e-8m; paired displacement2.4027400458748785e-7m. JSON field keys/array lengths preserved. Exact regenerated artifact bytes copied.",
+    "tree_asset": "1151671 compressed bytes SHAad8e45cecb13f3cdadb98588e36c8db7c79f786a4a4852b746e9008d8b47f22c; gzip output10023077 bytes SHA4e23c22515bab756b3e9cf94f94790ed9169a45a4972633088a361a8a341df9a.31 compressed bytes larger than c94 prior asset.",
+    "other_outputs": "Nine regenerated files byte-identical to c94/f730 and artifact; not redumped or inferred from filenames."
+  },
+  "producer_receiver_source": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/art_demo/scenery.rs",
+      "sha256": "95a004dde106af96c0cf9b12ff034f21fdca47458dcc594df12b52abac2c7857",
+      "ranges": [
+        [
+          250,
+          339
+        ]
+      ],
+      "equals_export_source_and_final_head": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor_assets.rs",
+      "sha256": "792c336a1d9612c83b4ae0f385c94a35175009ae202f71d4e3231d10179f899a",
+      "ranges": [
+        [
+          36,
+          180
+        ],
+        [
+          177,
+          207
+        ],
+        [
+          300,
+          345
+        ]
+      ],
+      "equals_export_source_and_final_head": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/specimens.rs",
+      "sha256": "fc7ff2bd7a82b647f3d159373a29f47dbed689557c87cfddb5d3a0233a064beb",
+      "ranges": [
+        [
+          60,
+          147
+        ]
+      ],
+      "equals_export_source_and_final_head": true
+    }
+  ],
+  "existing_generator_shape": {
+    "exporter_test": "art_demo::scenery::tests::regenerate_art_demo_tree_impostors",
+    "test_count": 1,
+    "generated_bakes": {
+      "playable": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "vista_species": [
+        "EnglishOak",
+        "CommonBeech"
+      ],
+      "vista_lod": 4,
+      "total": 6
+    },
+    "actual_generator": "Existing scenery313-334 constructs same oak exhibit input/supported terrain/environment/site point as ordinary oracle264-280, calls prepare_art_demo_tree_impostor_asset, serializes gzip/postcard Vec and writes bytes, then decodes these bytes and asserts bake_count6.",
+    "ordinary_matching_oracle": "fixed_oak_exhibit_has_every_matching_prebaked_impostor264-280 separately asserts matches_art_demo. Actual matches_art_demo98-144 checks4 playable usage/species/seed/lod records and2 vista species records against recomputed source hash XOR bake version. It has not been established passed by this export-only log.",
+    "envelope_export_mode": "Existing specimens72-146 computes vertices for four woody mesh representations, checks every source vertex finite, derives point count/min/max and sorted convex hull>=3. With UPDATE env it writes the complete six-field document. It skips loaded-envelope contains/count/hull comparisons in update mode; those ordinary checks remain final acceptance obligations.",
+    "qualifications": [
+      "Binary gzip CRC/decompression and exact bytes inspected using standard library; no local postcard/project decode or source matching executed.",
+      "Log records are imported hosted existing-case evidence only; new final ordinary Linux/Windows run and no-growth remain pending.",
+      "Run/job/artifact numbers supplied by coordinator report; extracted revision/log/11output byte identities independently verified, no independent network API query."
+    ]
+  },
+  "bounded_domain_evidence": "Actual imported logs show envelope export1, cloud identity1, ignored tree export1, understory7 and leaves5 existing cases passed with zero failures; this is not the separate final ordinary/Windows quality run.",
+  "qualifications": [
+    "Static source/output provenance review completed; no final ordinary Linux/Windows, source-fingerprint matching or hosted no-growth success is asserted.",
+    "Imported export log runs one ignored tree-generator case; it validates gzip/postcard decoding into six bakes. The separate non-ignored matching oracle validates each usage/species/seed/lod hash and current bake version; it is pending on final output head.",
+    "Envelope export update mode validates finite generated source vertices and finite nontrivial hull/height construction while writing output, and deliberately skips loaded-envelope containment/count/hull matching. Those normal checks remain required on final committed bytes.",
+    "Run/job/artifact metadata comes from coordinator provenance report002. Independently verified extracted revision, all11 exact output bytes against artifact/worktree/final Git head, c94 comparison, actual relevant generator bodies and bounded existing-case logs. No independent GitHub API request.",
+    "Tree binary is treated as an opaque native prepared-asset payload beyond independent gzip CRC/decompression and hosted six-bake decode evidence. No local postcard/schema/array semantic validation, visual approval or portability proof.",
+    "All broader #774/#780/#826 type/admission/native constraints and prior findings remain qualified; this does not clear frozen inventory or whole physical/material families."
+  ]
+}

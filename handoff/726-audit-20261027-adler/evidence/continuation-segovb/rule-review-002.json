@@ -1,0 +1,90 @@
+{
+  "status": "workflow-source-review-complete; inherited RR001 still open",
+  "scope": "workflow-only delta from rule-review-001 fingerprints",
+  "registered_reads": [
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "ranges": [
+        "complete diff vs base and preceding review fingerprint; changed step ranges115-190"
+      ]
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/rule-review-001.json",
+      "ranges": [
+        "prior fingerprint vector, RR001, source-backed baseline CLI traces"
+      ]
+    }
+  ],
+  "no_checks": true,
+  "base": "a411abb4370bb6f6609622cef5da59988a37aee9",
+  "reviewed_head": "a411abb4370bb6f6609622cef5da59988a37aee9",
+  "workflow": {
+    "path": ".github/workflows/rust-quality.yml",
+    "sha256": "3f6e1cfe6c05f5f6a2bb39155e3bf0d8ec8cbdabe3f77e993971d42e56891b33",
+    "git_blob": "88c35275f91c73dc38a5bd17f37a668b916bda57",
+    "base_composition_operations": [
+      {
+        "operation": "insert",
+        "base_lines": [
+          115,
+          114
+        ],
+        "current_lines": [
+          115,
+          153
+        ]
+      },
+      {
+        "operation": "insert",
+        "base_lines": [
+          128,
+          127
+        ],
+        "current_lines": [
+          167,
+          174
+        ]
+      }
+    ]
+  },
+  "prior_report": {
+    "path": "target/recovery-20261025/continuation-segovb/rule-review-001.json",
+    "sha256": "0048d7bd9ac1a4a45334e6fe43068fa52c63fedd18dfe3d68c94501a6b152480",
+    "retained_scope": "exact prior source-backed contracts and qualifications; unchanged hashes verified, no renewed source reading or broader clearance"
+  },
+  "other_source_hash_changes": [],
+  "new_findings": [],
+  "inherited_findings": [
+    {
+      "id": "RR001",
+      "severity": "P2",
+      "status": "pending actual hosted baseline output consumption and relevant tracked baseline reductions",
+      "delta_disposition": "safe hosted path implemented; not resolved by export configuration alone"
+    }
+  ],
+  "traces": [
+    {
+      "location": ".github/workflows/rust-quality.yml:163-167",
+      "contract": "Existing semantic tests and check commands remain immediately before appended locked baseline export. main.rs baseline command prints snapshot and returns success independent of check diagnostics; keeping separate check first preserves enforcement. Hosted snapshot writes to existing texture evidence directory and does not rewrite tracked ceilings."
+    },
+    {
+      "location": ".github/workflows/rust-quality.yml:168-174",
+      "contract": "Artifact upload now follows semantic check/export, uses always(), retains artifact name/path/error-on-no-files. This includes baseline snapshot whenever export executes and existing GPU execution evidence whenever produced. Failed preceding checks still fail job; upload does not waive them."
+    },
+    {
+      "location": ".github/workflows/rust-quality.yml:115-153",
+      "contract": "Existing GPU contract commands, head/source comparison and positive exact13/2/1 execution validation unchanged from prior review."
+    },
+    {
+      "location": "complete workflow vs a411abb4370bb6f6609622cef5da59988a37aee9",
+      "contract": "Only insertions: current115-153 and167-174. No base line replaced/deleted, so current main exporter/positive-execution/Windows portability gates remain byte-identical."
+    }
+  ],
+  "coverage_limits": [
+    "Workflow-only source re-review; no scanner, local project checks, tests, probes, or product edits.",
+    "No hosted run reviewed; baseline output, its selective application, and final same-revision hosted validation pending.",
+    "No new cases/helpers/assertions/doctests added by workflow-only delta; existing13/2/1 populations remain the prior qualified coverage.",
+    "All broader migration/audit/review qualifications from rule-review-001 remain.",
+    "Fingerprint vector identifies uncommitted state; later changes require refresh."
+  ]
+}

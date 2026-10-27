@@ -1,0 +1,263 @@
+{
+  "at": "2026-10-27T12:43:25.463151+00:00",
+  "lens": 11,
+  "status": "920-924 independently source-accounted",
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-023.json",
+    "sha256": "a492645462145d7050aefd0afe3ce7c34b737b83c3d35add5951eb68e0dfbb65"
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-024-registration.jsonl",
+    "sha256": "a82ac53b698c497561f221ab00fd1468db5d7362c65c68348dc3307bf3e263f2"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 920,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment.rs",
+      "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "actual_eof": 1182,
+      "ranges": [
+        [
+          1,
+          1182
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          1182
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 921,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment/timing.rs",
+      "sha256": "2d07455dadf2a1893ef4a3867f0b5ada5170e81c3a279d347ee86c1cc6ab4dfd",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/2d07455dadf2a1893ef4a3867f0b5ada5170e81c3a279d347ee86c1cc6ab4dfd",
+      "actual_eof": 97,
+      "ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          97
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 922,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment_assets.rs",
+      "sha256": "0c7bd7e45c9a145954daf97ac6f0c2caa23bda96e9731a5ff033a2a3ce4a9365",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/0c7bd7e45c9a145954daf97ac6f0c2caa23bda96e9731a5ff033a2a3ce4a9365",
+      "actual_eof": 107,
+      "ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          107
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 923,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment_assets/selection.rs",
+      "sha256": "162b898d78feeae3507d19844b4b11c999c50edd7609680e5ef7c2fac89486d6",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/162b898d78feeae3507d19844b4b11c999c50edd7609680e5ef7c2fac89486d6",
+      "actual_eof": 170,
+      "ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          170
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 924,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment_presentation.rs",
+      "sha256": "7e48b429725c7241c26a7f4f83f3306b0b6c0372240e0c2e8310249ebf6ebe97",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/7e48b429725c7241c26a7f4f83f3306b0b6c0372240e0c2e8310249ebf6ebe97",
+      "actual_eof": 48,
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          48
+        ]
+      ]
+    }
+  ],
+  "material_receivers": [
+    {
+      "kind": "connected-owner",
+      "original_index": 939,
+      "sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "ranges": [
+        [
+          465,
+          499
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual canonical WeaponSkills representation compared with runtime distribution copy",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          465,
+          499
+        ]
+      ]
+    }
+  ],
+  "per_role": [
+    {
+      "original": 920,
+      "roles": "EquipmentGraph node/item identity, parent attachment identity/capacity versus body occupancy; input key/layout coordinate and equipment channel; weapon skill distribution, mass/inertia/length/concentration versus handling; encumbrance burden/capacity and fraction; typed duration/style versus broad selected-weapon facets.",
+      "trace": "Full1182 consumed independently. Graph equip checks children, duplicate body cells/edge keys, other occupancy and attachment conflict, parent presence and cycle before mutation; public map and scalar edge IDs do not themselves admit inventory/attachment/capacity relationships. Preserve exact185 capacity witness and all currentness/alias limits, not a new accepted finding. InputAddressMapping separates actual QWERTY UI address from EquipmentLocation and channel order; one key may address several physicalanchors, not synonymous owners. WeaponSkillDistribution duplicates actual939 WeaponSkills9f32 record with identity field copy and no refinement; both public/Serde, runtime adds Spacetime derive/methods. Arbitrary positive relative weights normalize at weighted_check and may be tiny/unbounded, so no individual UnitInterval requirement. validate(melee,ranged) supports hybrid families, booleans not automatically mutually exclusive. EncumbranceSummary burden/capacity both kilograms but different purpose, zero capacity returns totalpenalty including zero burden; actual normalization saturates infinity, combines masses before ratio, not averaging penalties. PlayerEquipment preserves independent side/style/duration but raw precision/mass/reach/inertia/energy/armor/fraction ports support earlier physical and ContactPrecision propagation gaps. Empty-hand explicitflag avoids weight0 heuristic, actual abstract armor surface permits absent concrete item/material legitimately. Default timing/geometry ports do not establish full authored native policy and no compatibility mandate. Allfixtures read only.",
+      "disposition": "source-accounted with inherited graph identity/capacity, duplicate record and quantity propagation findings"
+    },
+    {
+      "original": 921,
+      "roles": "MeleeAttackTiming preparation/recovery phase durations, attack style, unarmed-versus-held implement and moment of inertia; local numerical cadence kernel.",
+      "trace": "Full97 read. Same elapsed leaf for distinct named phase fields is legitimate common seconds invariant; no separate duration duplicate needed purely for names. Actual style scales total/contact share and unarmed branch uses fixed cadence independent of supplied moment; held input nonfinite becomes0.3 inside policy, finite negatives floored0. Joint unarmedflag+moment could be coherent payload sum if actual canonical implementowner supports it, not a blanket rule every2statebool needs enum. Moment physicalunit distinct duration/share, scalar fallback not proved backwardscompatibility adapter and not claimed current invalid-input behavior. Existing own frozen tempo/current M04 admissions are separate. Fixtures source only.",
+      "disposition": "source-accounted with physical input/payload question"
+    },
+    {
+      "original": 922,
+      "roles": "ProceduralEquipmentManifest wire header and asset metadata versus catalogue-checked EquipmentAssets; asset file path, item/placement identity, LOD/model release/schema/generator/hash/UV/count/coverage roles.",
+      "trace": "Full107 read. from_json deserializes wire then admits item and item-owned placement through923, rejects repeated admittedselection and stores selection+file. Entries sorted by item/placement key for lexical default selection, not input recordidentity or runtimewearorder. Source comment cites previous nested-map behavior but no backwardcompatibility acceptance constraint adopted; actual defaultselector purpose/currentconsumer to reconcile. Manifest wire headerLOD/release/schema and designhash/generator/UV/coverage/count metadata are not consumed by this loader; proven admission is catalog membership/pair uniqueness only, not model/device/geometry/generator consistency. Existing typed CharacterLod/MHR basis proof in own001 is relevantowner reuse, no allasset metadata validity assumed. Optional metadata fields are not automatically legacyfallback; actual native export/import authority needs reconciliation before requiredpayload schema. Native paths/bytes may remain at native boundary, catalogue selection should remain admitted.",
+      "disposition": "source-accounted with wire-to-admitted scope and metadata roles qualified"
+    },
+    {
+      "original": 923,
+      "roles": "CatalogItem actual borrowed record identity versus catalog key; CatalogPlacement relationship versus raw placement key; OwnedCatalogPlacement immutable snapshot and private retained ordinal.",
+      "trace": "Full170 consumed, independent ordered inventory; prior connected access not credit. all() preserves every actualrecord, find() intentionally first exactkey duplicate, admit() uses pointermembership to retain duplicate-recordidentity. CatalogPlacement private fields construct only from actualowning equipment placements; equality/hash include item and placement pointers, so meaningful relation cannot be replaced by genericstringlabel. Retained placements clone exactitemonce into shared immutableArc then private ordinal from count; selection dereferences only same snapshot and admits correct pair without reparsing keys. This is useful identity/association proof, not redundant wrapper or universal unique-key guarantee. It deliberately does not establish clothingeligibility/bodyfit/selected-model association; inherited M24/sourcekey and savedDrape qualifications remain. Deref exposes read-only definitions, not mutable authority.",
+      "disposition": "source-accounted; useful key-versus-record and owning snapshot distinctions retained"
+    },
+    {
+      "original": 924,
+      "roles": "PresentationId decimal transport token versus character/inventory parent identity; appearance item/placement key, occupancy root/attachment sum; requirement/order/capacity ordinals; generated recipe/hash/version payload.",
+      "trace": "Full48 read. AppearanceAnchor already owns distinct body location versus parent+point attachment payload, coherent sum. PresentationId publicString is shared for character/item/parent despite different identitynamespaces and does not enforce decimal spelling by itself; JS safe-range representation is real nativeboundary, not proofinternalrolecanbemerged. EquipmentAppearance item/placement remain rawkeypair while923 has actualchecked pair owner; wirekeys may remainstrings until admission. GeneratedAppearance version/hash/opaque recipe bytes meaningful nativewire record; weapon and holder Option axes not proven mutually exclusive, do not consolidate into one enum without actualinstance/decodercontract. Order/requirement/capacity scalars have different addresses and no proofallanchorsusethesamepayloadpolicy. Actual HTTP/Bevynative consumers/currentness pending, no false allwirevalidation/renderer proof.",
+      "disposition": "source-accounted with typed identity/admission and ordinal-port questions"
+    }
+  ],
+  "qualified_observations": [
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/equipment.rs@e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215#weapon-skill-record-duplication",
+      "observation": "WeaponSkillDistribution duplicates canonical schema WeaponSkills with same9 namedf32 fields and direct From field copy; runtime type adds methods/Spacetime derive but no stronger admission (publicfields, directDeserialize). Same facts have two record definitions and validator/operation authority separated.",
+      "remedy": "Reconcile one canonical weapon-leaf distribution representation and shared admission/closed operations across catalog/build/runtime/wire target constraints. Use transparent admitted wrapper only if it actually adds meaningful refinement, not another field copy. Keep relative weights unnormalized until actual operation and allow realhybrid families.",
+      "acceptance": "No repeated9field schema authority or independent validation drift; actual buildtarget/runtime/Spacetime roles supported with meaningful admitted record, relativeweight semantics correct.",
+      "dependencies": [
+        "939 exactschema465-499 and current canonical build/runtime dependency graph",
+        "ownership/redundant-authority/admission/producer alias coordination"
+      ],
+      "currentness": "concrete frozen duplicate record, no current/unique accepted promotion"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/equipment.rs@e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215#graph-and-physical-application-ports",
+      "observation": "Graph nodes/parent keys use rawu64, pointString and capacityu16 despite canonical inventory identity roles; public map bypasses checkedoperation. PlayerEquipment erases actual ContactPrecision, mass/length/inertia/energy and armor/sample/fraction roles. EncumbranceSummary preserves named burden/capacity but leaves bothpublicrawmass.",
+      "remedy": "Carry canonical inventory/attachment/capacity and quantity owners through actual graph/selectedweapon/body/armor APIs, preserving abstract aggregate surface absence and independent weapon capabilities. Reconcile185 exactcapacity/APIwitness and earlier physicalsourcegroups; no new alias or globalinstancebranding requirement.",
+      "acceptance": "Actual application ports prevent wrongnamespace/quantity use, graph relations/capacity assumptions admitted at actualowner, existing abstractrepresentation semantics explicit.",
+      "dependencies": [
+        "185 frozen capacity witness and182ID sourcegroups, no automatic alias",
+        "current canonical inventory/physical/native equipment consumers"
+      ],
+      "currentness": "qualified frozen source, no current/runtime/unique finding"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/equipment_assets.rs@0c7bd7e45c9a145954daf97ac6f0c2caa23bda96e9731a5ff033a2a3ce4a9365#manifest-wire-versus-admitted-model-scope",
+      "observation": "Wire DTO carriesLOD/modelrelease/schema/designhash/generator/UV metadata as rawprimitives. Loader consumes onlycatalog item/placement and file, so catalogue-checked output proves membership, not model/header/generator/geometry consistency. Existing CharacterLod and typedcatalogselection owners exist.",
+      "remedy": "Reconcile actual native export/import/model authority and only necessary metadata into admittedasset/manifest owner states using existingLOD/hash/version/selection owners. Keep wire paths/JSON/bytes at boundary; drop irrelevantmetadata rather than invent backwardcompatibility/defaultschema. Actualoptionalassetkindpayload policy requiresreceiverproof.",
+      "acceptance": "Claimed admittedasset scope matches actual guarantees; material model/generator/header roles checked/retained at realreceiver and no competingtypedowner. Explicitselection/defaultpolicy basedonrealbehavior, not historical maplayout.",
+      "dependencies": [
+        "actual current native export/load/renderer/model consumers",
+        "own001CharacterLod/MHR and producer/aggregate/admission aliases"
+      ],
+      "currentness": "qualified frozen metadata/owner scope question, no allasset validity/current/unique claim"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/equipment_presentation.rs@7e48b429725c7241c26a7f4f83f3306b0b6c0372240e0c2e8310249ebf6ebe97#transport-identity-and-address-roles",
+      "observation": "One PresentationId(String) is used forcharacter andinventory/attachment parent, whileoccupancy order/requirement/capacity arethreeu16roles. DecimalJStransportrepresentation preventsprecisionloss buttypeitselfdoesnotdistinguishidentitynamespace; rawitem/placementpairrequiresactualcatalogadmission.",
+      "remedy": "Reuse canonical character/inventory identity and address owners through DTO/adapter where actualmixups matter, serialize losslessly at nativeboundary. Preserve AppearanceAnchor sum and independent weapon/holder axes until actualcoupling proved; use actualcatalogpair admission on consumption rather than universal opaqueStringowner.",
+      "acceptance": "Native transport remains lossless and actualinternalroles cannotmixcharacter/item/parent orrequirement/capacity/order; wirepayload decoded into appropriate existingowners.",
+      "dependencies": [
+        "actual current HTTP/Bevy/native decoders and canonicalidentity aliases",
+        "ownership/producer/enum/aggregate independent lenses"
+      ],
+      "currentness": "frozen scoped question only, no current/unique/spoof claim"
+    }
+  ],
+  "carried_own_proofs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-001-receipt.json",
+      "sha256": "b67040e3d8f546f061a83c2253768f52cc5c9c5e0b8717b65a2ea5d94b7592f2"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-014-receipt.json",
+      "sha256": "9e2e5834705569d01b06c7e772fb7d82d07dbbad374f8f8245dc818eb7e68b87"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-018-receipt.json",
+      "sha256": "0f4346372944174f180d12722483bea2b3ee0a7130a0dda5bdc33e7623f0c0af"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-019-receipt.json",
+      "sha256": "f99ec163b4d7be8af81b66a3598fe3527c3381b405cb39281f6e7b9b28ffbf0b"
+    }
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer. Preserve180/181nativeSDK/Bevy scheduling/imagecopylimits andallpendingreceiverqueues. M04current903reviewsseparate; notfrozenoriginal/lenscounts. Packet182InventoryItemId graph erasure, catalogkey/recordidentity and wear/order-selector sourcequestions retained, alias/currentness/unique acceptance unresolved. M04build-target review003 atdf5 andhostedCIseparatefromfrozenauditcounts. 184 newpublicDrapedPiece association/sourcegroupingquestion remainsfrozenlocal, noalias/currentness/uniqueacceptance; producerpathcoherent. M04df5validationseparate. 185 capacityreservationstaticAPIgap retainedasfrozenevidence only; alias/currentness/accepteduniqueness unresolved. No runtimewrongID orauthoredcurrentinputwitness. ExistingID/key/wear/savedassociationquestionsremainqualified. Packet186 independently accounts existing test-source812 only; fixture expectations are not observed execution/whole authored catalog/native guarantees and do not clear185 capacity witness. Existing lower-pattern fixture uses canonical owners; no new current alias or unique finding. Packet187 original813 only. New frozen inventory_ui and catalog wrapper material extensions mandatory other lenses, zero extra shared/original credit. UI acquisition is not atomic/all-worn; inherited capacity, typedID erasure/key authority and public saved-association questions retain all currentness/alias/unique limits. Batch011 frozen attack-ID packed participant-width witness retained; no runtime/current/alias/accepted unique finding, no invented32bit capacity bound. Batch012 actual simultaneous fixture permits absent scheduled measure beside present start/contact/recovery; group only proved coupled facts, do not require every active schedule measure.",
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_adoption_required": true,
+  "read_limits": [
+    "Full1604 effective original lines personally consumed; all existing fixtures source only.939465-499 includes tail earlierArm/Leg enum and partialCapabilities record, only completeWeaponSkills used.",
+    "Inherited185/182 graphcapacity/ID/key/wear/savedassociation sourcewitness retained, no newacceptedalias/currentruntime claim.",
+    "Catalogue selection proof is not allasset model/native/generator/device validation or current wholefamily clearance; renderer and newmaterial populations independently pending."
+  ],
+  "restrictions": "Ignored append-only evidence only; no product/Git mutations/rootledger/projectchecks/tests/probes/publication."
+}

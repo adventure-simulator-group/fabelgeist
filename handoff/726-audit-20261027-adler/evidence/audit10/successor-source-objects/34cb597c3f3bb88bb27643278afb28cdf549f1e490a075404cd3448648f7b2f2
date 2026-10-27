@@ -1,0 +1,57 @@
+use super::*;
+
+#[test]
+fn height_interpolation_respects_non_unit_grid_scale() {
+    let terrain = SceneTerrain::new(2, 2, 2.0, |point| point.x + point.y * 2.0).unwrap();
+    let inside = ScenePlanPoint::from_metres(Vec2::new(-1.0, -1.0)).unwrap();
+    let outside = ScenePlanPoint::from_metres(Vec2::new(-3.0, 0.0)).unwrap();
+    assert!((terrain.height_at(inside).unwrap().metres() - 1.5).abs() < 0.0001);
+    assert_eq!(terrain.height_at(outside), None);
+}
+
+#[test]
+fn height_sampling_matches_each_mesh_triangle() {
+    let terrain = SceneTerrain::new(
+        1,
+        1,
+        1.0,
+        |point| {
+            if point == Vec2::ONE { 1.0 } else { 0.0 }
+        },
+    )
+    .unwrap();
+    let southeast = ScenePlanPoint::from_metres(Vec2::new(0.25, -0.25)).unwrap();
+    let northwest = ScenePlanPoint::from_metres(Vec2::new(-0.25, 0.25)).unwrap();
+    let northeast = ScenePlanPoint::from_metres(Vec2::new(0.25, 0.25)).unwrap();
+
+    // Avian's heightfield diagonal joins the two zero-height off-diagonal
+    // vertices. The high corner therefore affects only its own triangle,
+    // and CPU queries and rendered indices must use that same split.
+    assert_eq!(
+        terrain.height_at(southeast).unwrap(),
+        SupportElevation::ZERO
+    );
+    assert_eq!(
+        terrain.height_at(northwest).unwrap(),
+        SupportElevation::ZERO
+    );
+    assert_eq!(
+        terrain.height_at(ScenePlanPoint::ORIGIN).unwrap(),
+        SupportElevation::ZERO
+    );
+    assert!((terrain.height_at(northeast).unwrap().metres() - 0.5).abs() < 0.0001);
+}
+
+#[test]
+fn normals_are_finite_at_center_and_boundary() {
+    let terrain = SceneTerrain::new(2, 2, 2.0, |point| point.x * 0.25).unwrap();
+    for position in [
+        ScenePlanPoint::ORIGIN,
+        ScenePlanPoint::from_metres(Vec2::new(2.0, 2.0)).unwrap(),
+    ] {
+        let normal = terrain.normal_at(position).unwrap();
+        assert!(normal.is_finite());
+        assert!((normal.length() - 1.0).abs() < 0.0001);
+        assert!(normal.y > 0.0);
+    }
+}

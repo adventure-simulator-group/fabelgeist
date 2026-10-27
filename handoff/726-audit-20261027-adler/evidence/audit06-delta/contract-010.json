@@ -1,0 +1,144 @@
+{
+  "id": "ADLER-CONT06-LATER-010",
+  "lens": "type-ownership",
+  "receipts": [
+    {
+      "material_index": 160,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/system/commands/mod.rs",
+      "sha256": "a379a6828b061f0ef889b7a495f591282ac97f568e21d8355a14d33a3f7b3cc9",
+      "ranges": [
+        [
+          42,
+          62
+        ],
+        [
+          398,
+          426
+        ],
+        [
+          1897,
+          1915
+        ]
+      ],
+      "source_basis": "Fresh root complete personal bounded source read, exact hash verified; independent own06 owner comparison.",
+      "owners_and_users": "Bevy Commands owns deferred structural mutation of World, EntityCommands addresses allocated native Entity. spawn allocates identity then queues bundle publication; despawn queues handled command.",
+      "disposition": "Native command queue and eventual ECS state have different lifecycle roles. A returned Entity is not proof of immediate published entity; actual ApplyDeferred/schedule matters. No duplicate semantic owner and no claim of first-party atomicity from snippet.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 161,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population/authority_tests.rs",
+      "sha256": "3d35f13b4f3e263e8f175c10c010bf9361228812c3ab76d55199b371c33dc0b5",
+      "ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "source_basis": "Fresh root complete personal bounded source read, exact hash verified; independent own06 owner comparison.",
+      "owners_and_users": "Resident authority fixtures reuse local ResidentDraft and canonical shared organization/sex/presentation owners. Generated drafts and household binding are actual production helpers. is_default remains bool and service/profile strings are persisted separately.",
+      "disposition": "Additional source support for existing resident vocabulary/DefaultPresence propagation F210, not a new shared owner. Bootstrap fixture can intentionally exercise malformed/alternate setup; no execution. Reconcile canonical resident identity/optional service at producer before inventing parallel fixture-specific owners.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 162,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/focused.rs",
+      "sha256": "98c72492107d3f8b6409717857e0a590ae552afe300e7e53eed0f789f9d8671b",
+      "ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "source_basis": "Fresh root complete personal bounded source read, exact hash verified; independent own06 owner comparison.",
+      "owners_and_users": "Focused city uses canonical RegionalCityInput/TacticalBuildingPlacement, shared Wgs84CoordinateMicrodegrees, canonical gpu::CityFrame and owner=RegionalMap. Common cached_building_levels and PendingGpuBuildings own geometry/upload; PlacementAppearance distinguishes primary/distant.",
+      "disposition": "Focused and actor city share lower geometry/packing rather than duplicate implementation. Geographic origin, placement local origin and native transform are explicit different coordinates; raw native transforms do not create a new strategic identity. Complete local queue publishes once; other renderer cache/admission claims remain separate.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 163,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/strategic.rs",
+      "sha256": "c6448721576dbf02f9333d85245249b9eb8cfe4dfc3bd675d50f919d9e4af3cb",
+      "ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "source_basis": "Fresh root complete personal bounded source read, exact hash verified; independent own06 owner comparison.",
+      "owners_and_users": "Strategic skyline filters canonical distant placement identities against GeneratedBuilding placement IDs and feeds common PendingCityBuildings with existing establishments. StreamCityTraffic is local mode/resource.",
+      "disposition": "Reuses canonical static-city assembly and IDs. Distant versus occupied identity membership is selection policy, not new identity owner. Native deferred commands are boundary; no independent producer type or whole snapshot atomicity clearance.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 164,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_event/authority_tests.rs",
+      "sha256": "9c08b2624216387d88ba3f3bfe7d15c525726b4fbc53746c1d31ac467f7b9888",
+      "ranges": [
+        [
+          1,
+          172
+        ]
+      ],
+      "source_basis": "Fresh root complete personal bounded source read, exact hash verified; independent own06 owner comparison.",
+      "owners_and_users": "World event authority fixture uses canonical WorldEventConsequence/ExistingOffenseKind and shared StrategicMinute with reputation snapshot/settlement helpers. LocalProblemAuthority and durable receipt/reputation event represent different historical authorities.",
+      "disposition": "Existing offense-settlement bool strengthening F351 remains; offense discovery fact, immutable arrest snapshot and downstream settled status must remain distinct. Source fixture intentionally verifies replay and conflicting-source rejection; no runtime test execution. No new owner or ordinary duplicate consequence demonstrated.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 165,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials/furniture.rs",
+      "sha256": "2335cdb45fb125b437642bd587707adc68aeb3d1b3e177f8ca23b5de97d4deda",
+      "ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "source_basis": "Fresh root complete personal bounded source read, exact hash verified; independent own06 owner comparison.",
+      "owners_and_users": "Furniture material adapter uses canonical FurnitureWoodSurface and BuildingLodMaterial::FurnitureWood; some treatments retain textured wood and others obtain flat workplace reference from shared building-generator. Native StandardMaterial is renderer representation.",
+      "disposition": "Textured multiplier/roughness and flat reference values need actual material policy comparison, not automatic duplicate-owner consolidation. Existing lens07 Q003 remains qualified. Unsupported-role unwrap is rule/admission debt, no new enum or wrong owner established by fixed selections.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 166,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials/workplace.rs",
+      "sha256": "60040ff58b1a6d59e8eb9a126073b8109d91b7793911d56f72617c2e1f0436c5",
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "source_basis": "Fresh root complete personal bounded source read, exact hash verified; independent own06 owner comparison.",
+      "owners_and_users": "WorkplaceMaterials owns native StandardMaterial handles for fourteen semantic BuildingLodMaterial roles; all finish values come through canonical workplace_surface API.",
+      "disposition": "Renderer handles are projection of shared material policy, not duplicate semantic material definition. Keep role identity despite common native type. .expect is separate rule debt; all selected role validity depends on canonical surface owner173, no broad material-family clearance.",
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "material_index": 167,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/Cargo.toml",
+      "sha256": "6c4b6aca99dd4eacdda5f4723be9bd9a87b9cab7cb08b18f54ba170826b1bff5",
+      "ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "source_basis": "Fresh root complete personal bounded source read, exact hash verified; independent own06 owner comparison.",
+      "owners_and_users": "Strategic simulation depends on shared adventuresim-core/dialogue/world-schema/determinism and generated STDB client, with native HTTP/URL/serde/clap adapters.",
+      "disposition": "Dependency direction supports shared owner consumption. Generated client is wire boundary, not permission to duplicate schema or persist tactical tick state. Manifest alone earns no runtime or whole dependency-cycle clearance.",
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "new_unique_findings": 0,
+  "clear": false
+}

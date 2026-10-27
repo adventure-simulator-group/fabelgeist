@@ -1,0 +1,295 @@
+{
+  "id": "M05-COMMENT-REVIEW-BODY-006",
+  "created_utc": "2026-10-27T03:16:54.262066+00:00",
+  "skill": "/home/brunosegovia/.codex/skills/comment-review/SKILL.md",
+  "scope": "Final PR991 contributor-body006 validation update only against actual saved same-head terminal metadata and supplied independent raw-parse receipts. Source unchanged, no broader source review or publication.",
+  "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd",
+  "base": "d44a00cc9a0bed75b0d61a7b330a29fe8f0df83f",
+  "body": {
+    "body_path": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/pr-body-006.md",
+    "sha256": "3d4c6e55dafdb515855f6fc9a163ea5149a1126f94197b808651134cc423a8e5",
+    "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd",
+    "prospective_ranges": [
+      [
+        1,
+        24
+      ]
+    ],
+    "reason": "Final contributor-body006 validation-only review against exact same-head terminal and artifact receipts; no product source/body reread or execution.",
+    "actual_body_read_ranges": [
+      [
+        1,
+        24
+      ]
+    ]
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/comment-review-body-006-registration.json",
+    "sha256": "6f447c118a7849d117629741475f5af08e265aa00d4b7d5362eacb1723ada262"
+  },
+  "inputs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/implementation-manifest-001.json",
+      "sha256": "bfebc595cf54e27f9df527a6956dae2d85a5d334f2855e0cec135271e03cebc1"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/comment-review-001.json",
+      "sha256": "7a5b0ad90cc3661dc2e1524bfb07083794a7bc1da2dce69eb44bea8d146b2ca6"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/independent-source-review-adoption-001.json",
+      "sha256": "fd08e46402469ba30f4b8aba8777a5b096bdeb21a14201f9b162c6c21a5d1694"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/hosted-terminal-004-run.json",
+      "sha256": "99760595f3d1361b02cd46607e20e2da44e6022e85d05909b045a8b259fb2279"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/hosted-terminal-004-jobs.json",
+      "sha256": "e36cb9e146525ce0bfff2c72d440122c51f337f1c6dcd7feecda6d8550498e8d"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/hosted-terminal-004-checks.json",
+      "sha256": "7d394f3c58271676b55f17813751ce5d8c8a56cff502ed3aa1b7b68b47409296"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/hosted-terminal-004-pr.json",
+      "sha256": "30f9f353d881c0efb29139770bb9846fb79f5e51eca2ba40809ecf1856cc1c68"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/hosted-terminal-004-artifacts.json",
+      "sha256": "cc53af8a2671fb1efd3e77846b4c43acd9e7e0e4fa26229f2dc55695e3affb40"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/rig-raw-parse-001.json",
+      "sha256": "f14594284c1770fe68585bc33cc3e47ea32e0b667a731e2503e2a8392be0138e"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/gpu-windows-raw-parse-001.json",
+      "sha256": "5ffea144e67da78b370f38cc36bf20b99bfe31d9e8d5f113401a85274ed807e7"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/constraint-baseline-raw-parse-001.json",
+      "sha256": "d7d3d6f0913bbf4158c6a50fa26ab9f9157630fabfdbf2cc2366bc061c37f03a"
+    }
+  ],
+  "source_identity": "All manifest-pinned source/rule hashes still match, including catalog8d8a70c663bdd8e62c8e4636ec414e979852b1f469bffc9e70331d5947c165a4. Prior own Comment Review supplies actual source-body authority; this final body review performs no source-body reread.",
+  "reviews_verified": [
+    {
+      "path": "code-review-001.json",
+      "sha256": "f4b71a8e31dac40a2222138149e4f1f7ff34407c41226ac69ab478808b6c075e",
+      "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd",
+      "findings": [],
+      "verdict": "No actionable findings within the exact three-site M05 delta and connected source contracts."
+    },
+    {
+      "path": "rule-review-001.json",
+      "sha256": "a5f6b5e1d38a1839e2d27a7ae4e24abefabcc5709a9ac36a0711035871e0d038",
+      "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd",
+      "findings": [],
+      "verdict": "approved_source_only_no_actionable_findings"
+    },
+    {
+      "path": "comment-review-001.json",
+      "sha256": "7a5b0ad90cc3661dc2e1524bfb07083794a7bc1da2dce69eb44bea8d146b2ca6",
+      "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd",
+      "findings": [],
+      "verdict": "No actionable findings against same ff43 source and final proposed body003. One original-body editorial observation resolved; no product-source repair requested by this review."
+    }
+  ],
+  "final_hosted_evidence": {
+    "run": 40436696284,
+    "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd",
+    "status": "completed",
+    "conclusion": "success",
+    "updated_at": "2026-10-27T03:10:29Z",
+    "PR_capture": {
+      "number": 991,
+      "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd",
+      "base": "d44a00cc9a0bed75b0d61a7b330a29fe8f0df83f",
+      "changed_files": 1,
+      "additions": 3,
+      "deletions": 3,
+      "state": "open",
+      "draft": true,
+      "merged": false
+    },
+    "jobs": [
+      {
+        "id": 121966947810,
+        "name": "foliage-portability",
+        "status": "completed",
+        "conclusion": "success",
+        "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd"
+      },
+      {
+        "id": 121966947991,
+        "name": "rust-quality",
+        "status": "completed",
+        "conclusion": "success",
+        "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd"
+      },
+      {
+        "id": 121966949063,
+        "name": "regenerate-fixtures",
+        "status": "completed",
+        "conclusion": "skipped",
+        "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd"
+      }
+    ],
+    "checks": [
+      {
+        "name": "regenerate-fixtures",
+        "status": "completed",
+        "conclusion": "skipped",
+        "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd"
+      },
+      {
+        "name": "rust-quality",
+        "status": "completed",
+        "conclusion": "success",
+        "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd"
+      },
+      {
+        "name": "foliage-portability",
+        "status": "completed",
+        "conclusion": "success",
+        "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd"
+      }
+    ],
+    "artifacts": [
+      {
+        "id": 12707286078,
+        "name": "rig-contracts-ff43d18185572d19d9d2492873b9ff08f7ae14dd",
+        "run": 40436696284,
+        "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd"
+      },
+      {
+        "id": 12706145261,
+        "name": "constraint-validation-40436696284-1",
+        "run": 40436696284,
+        "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd"
+      },
+      {
+        "id": 12705350181,
+        "name": "texture-view-validation-40436696284-1",
+        "run": 40436696284,
+        "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd"
+      },
+      {
+        "id": 12704819110,
+        "name": "foliage-portability-ff43d18185572d19d9d2492873b9ff08f7ae14dd",
+        "run": 40436696284,
+        "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd"
+      }
+    ]
+  },
+  "count_reconciliation": {
+    "required_positive_labels": 48,
+    "additional_positive_labels": 3,
+    "required_totals": {
+      "passed": 1461,
+      "failed": 0,
+      "ignored": 14
+    },
+    "additional_totals": {
+      "passed": 106,
+      "failed": 0,
+      "ignored": 0
+    },
+    "animation": {
+      "passed": 260,
+      "failed": 0,
+      "ignored": 0
+    },
+    "terrain_ignored_distribution": {
+      "terrain-grounding": 3,
+      "terrain-presentation": 7,
+      "terrain-viewer": 1,
+      "terrain-art-demo": 2,
+      "terrain-dispatcher": 1
+    },
+    "GPU": {
+      "library": {
+        "passed": 13,
+        "failed": 0,
+        "ignored": 0
+      },
+      "doctests": {
+        "passed": 2,
+        "failed": 0,
+        "ignored": 0
+      },
+      "borrowed": {
+        "passed": 1,
+        "failed": 0,
+        "ignored": 0
+      }
+    },
+    "windows_passed": 10,
+    "constraints_unit_passed": 67,
+    "constraints_doc_passed": 5,
+    "qualification": "Totals checked arithmetically across the actual supplied independent parse records, not unique-test counts or re-executed tests. Constraint shell doc0 is transparent; manual fixture regeneration skipped. No new whole-gameplay/native acceptance inference."
+  },
+  "body_claims": [
+    {
+      "ranges": [
+        [
+          11,
+          12
+        ]
+      ],
+      "claim": "All three independent source reviews found no actionable findings on ff43d1818.",
+      "disposition": "Supported by exact adopted Code/Rule/Comment receipt hashes and their same-head empty findings/source-scoped verdicts."
+    },
+    {
+      "ranges": [
+        [
+          13,
+          16
+        ]
+      ],
+      "claim": "Hosted run passed formatting, Clippy with warnings denied, existing animation/rig/geometry/terrain, GPU validation and Windows portability; artifacts checked against this revision.",
+      "disposition": "Actual terminal Linux and Windows jobs/checks completed success at full same head; Linux relevant steps7,12,16,19,21,25-44,46-47 and Windows contract/evidence steps6-8 success. Source-keyed artifact metadata and raw-parse receipts bind the positive execution groups to the same run/head. Required fixture regeneration is not falsely claimed: its manual-only job is transparently skipped in evidence, body names executed check families."
+    },
+    {
+      "ranges": [
+        [
+          17,
+          18
+        ]
+      ],
+      "claim": "Terrain logs include14ignored cases; no tests/cases/helpers/assertions/doctests added.",
+      "disposition": "Ignored count recomputes to14 over terrain logs, with0failures. Existing three-replacement source delta unchanged per source review/manifest/PR capture; no new test changes claimed or made. Body explicitly discloses ignores and does not claim every case executed."
+    },
+    {
+      "ranges": [
+        [
+          1,
+          7
+        ],
+        [
+          20,
+          24
+        ]
+      ],
+      "claim": "Problem/scope and implementation context unchanged.",
+      "disposition": "Bytes outside Validation equal both body003 and actual captured remote PR body. Canonical MotionId/two-clone/diagnostic trace retains prior source-backed accuracy; resolved inherited-finding/compatibility rationale remains removed."
+    }
+  ],
+  "formatting": {
+    "ordinary_prose_over80_columns": [],
+    "line13": "Long hosted-run Markdown link preserved as permitted.",
+    "contributor_clarity": "Self-contained scope and verification with supplemental issue numbers, no agent history, goal-state/global clearance, native-scenario success, invented CI or backward-compatibility rationale."
+  },
+  "findings": [],
+  "verdict": "No actionable findings in final body006. Terminal success, check scope, source revision binding and14ignored terrain cases are accurately represented by supplied evidence.",
+  "limits": [
+    "Read saved terminal/parse/review JSON evidence and body source only; did not query live remote state, rerun checks/tests or independently parse raw logs anew. Supplied raw-parse receipts are actual evidence for this limited body review, not another audit-lens verdict transfer.",
+    "Earlier GPU/Windows/constraint/review receipt pending-CI qualifiers describe earlier capture times; current terminal004 metadata independently establishes final same-head run success. No raw parse result was upgraded beyond its source/count scope.",
+    "No product/source/Git/root-ledger/history changes, project/local tests/checks/native execution, helpers/assertions/doctests, publication or external messages. Root owns wording/publication and any PR readiness changes.",
+    "Audit08 packet017/state002 and original1800/2853,1793/Q003/material52 partials remain unchanged. No global F9/all20/P16/P17/#780/#826/M16 goal clearance."
+  ],
+  "global_clearance": false,
+  "stop": true
+}

@@ -1,0 +1,113 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "212",
+  "predecessor": "receipt-211-originals1024-1026.json",
+  "sources": [
+    {
+      "original_index": 1027,
+      "source_id": "pr-working:crates/adventuresim-core/src/world_event.rs",
+      "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+      "actual_eof": 620,
+      "actual_ranges": [
+        [
+          1,
+          620
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              620
+            ]
+          ],
+          "role": "Full620 independently read1-310/311-620. WorldEventSource30 rawrequest32/finale35/source36/consumption39; Actor46PartyString; Subject52Case/53ProblemString; Place58Settlement/59StrategicString; Payload65request/68case/69finale/73contribution_digest/79disease String; Consequence95 retains event97/settlement99/source101/offense107/settlement109/problem115/outcome116/snapshot122/case123/party125/disease131/digest133 Strings and public planner APIs140/142/155-156/204-208 rawstr. Actual1023simulator\u2192Envelope246/payload/source/place andgeneric validate261 body consumed. validate_id359 permits any nonempty<=192bytes noncontrol text, not canonicalDiseaseId914/StrategicPlaceId1010/ActionRequestId1006/CaseID/ProblemID owner admission. This is an internal semantic identity retention/classification migration gap, not proof accepted opaque reference spelling should become closed vocabulary. WorldEventEnvelope.id248 generic eventidentity; planning forage IDformat160 andoffenseformat173/case snapshot225/case-resolution232 are native-shaped composite producers; readactual persistence/identityjoining before defining canonical encoders. validate261 confirms source/payload identity equality315/327, subject/type alignment316-352, and numeric infection predicates344-351; disease/digest onlygenericvalidate350-351; PlaceStrategic307-308 onlygenericvalidate, no1010decode proof. Concrete nativeSerde derives29/43/49/56/62/94/245 retain semantic Strings before actual adapter, not automatic wire-boundary exemption. Canonical finite meaning84/offense90/Error371/ReplayDecision382 already typed; classify_retry389 compares entire envelopes395 without own validate call, actualcaller validation/order authority not demonstrated. expect/clippy reason201 human explanatory text, no semantic ID. Fullfixtures400-620 read: req417-428/other442 andlubeck424/nativeforage493/offense505; canonical-case/party/outcome/problem515-519 nativeIDs not closed samples; exactcaseformat544-545; fallback569-572; actual984contributions testcallee616-617 andlubeck/hamburg598/604 source link now local. Testname legacy479 andunchanged583 are historical source text, not a BC requirement/behavior or acceptance claim. No execution/allauthority/current/global/nativeSDK/collision/math verdict.",
+          "disposition": "Source-accounted WITH identity producer/admission/storage/native/current qualifications."
+        }
+      ],
+      "status": "source-accounted WITH qualifications"
+    }
+  ],
+  "connected_findings": [
+    {
+      "id": "L12-212-world-event-semantic-identities",
+      "source_indices": [
+        1027,
+        1023
+      ],
+      "ranges": [
+        [
+          29,
+          81
+        ],
+        [
+          94,
+          181
+        ],
+        [
+          203,
+          258
+        ],
+        [
+          260,
+          367
+        ]
+      ],
+      "finding": "WorldEvent internal planners and retained payloads use rawString for distinct request/case/party/problem/place/disease/digest identities; generic validate_id does not carry known canonical identity contracts through API. Actual1023 producer and1027 recipient proved; full adapter/allproducer graph remains pending.",
+      "remedy": "Carry meaningful canonical existing IDs or purpose-specific open identity/digest owners through event/source/payload/consequence planners and retained state; encode only at actual event persistence/native boundary. Determine precise reference identity before selecting each owner.",
+      "acceptance": "Trace actual authoritative event emitters, reducer/store/adapter/consumers, canonical case/problem/party/reference owners and actual input admission; preserve separate event vs source vs request meanings without BC requirement.",
+      "aliases": "May alias210 event and earlier identity/error/catalog candidates; no new unique/current promotion.",
+      "unique_count_delta": 0
+    }
+  ],
+  "verified_traces": [
+    {
+      "source_indices": [
+        1023,
+        1027
+      ],
+      "trace": "Actual WaterFlow emitted FoodWaterExposure/Strategic/String disease+digest fields\u2192WorldEventEnvelope payload andvalidate_id only; actual generic receiver consumed, no native/current/allcaller proof."
+    },
+    {
+      "source_indices": [
+        984,
+        1027
+      ],
+      "trace": "Actual WorldEvent reputation plan\u2192984contributions fixture call616, distinct from production storage/allauthoritative callers."
+    }
+  ],
+  "pending_contracts": [
+    "Actual event emitter/append/lookup/storage adapters and allsemanticconsumers/canonicalIDowner fit, current/nativeSerde/SATS proofs.",
+    "All prior pending REG13220/otherpopulations/all20/P16/P17/F9/M09/aliases preserved."
+  ],
+  "qualifications": [
+    "Exact full requested620 read, source-only; no project/native/probe/test execution.",
+    "No BC/current/runtime/global/unique/other-lens transfer."
+  ],
+  "proposed_count": {
+    "before": 1027,
+    "after": 1028,
+    "indices_completed": [
+      1027
+    ],
+    "next_original": 1028,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/world_event.rs",
+      "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+      "ranges": [
+        [
+          1,
+          620
+        ]
+      ]
+    }
+  ],
+  "unique_count_delta": 0
+}

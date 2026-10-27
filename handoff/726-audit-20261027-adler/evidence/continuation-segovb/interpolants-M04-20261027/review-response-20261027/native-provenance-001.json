@@ -1,0 +1,80 @@
+{
+  "at": "2026-10-27T08:02:30.552548+00:00",
+  "kind": "Exact currentnativepackage/member source provenance, no execution",
+  "Cargo_lock_sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be",
+  "packages": [
+    {
+      "package": "bevy",
+      "version": "0.19.1",
+      "Cargo_lock_checksum": "4bfadbebfc6599aa59289b754ac30023959854304f3d393da2cf62bb3cd5df8f",
+      "cached_crate_sha256": "4bfadbebfc6599aa59289b754ac30023959854304f3d393da2cf62bb3cd5df8f",
+      "archive": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/bevy-0.19.1.crate",
+      "members": [
+        {
+          "member": "src/lib.rs",
+          "sha256": "10075d3357dd35ffcb0b0c85a276ded49573b59d692e075ba6e8ad8b2738aa48",
+          "local_source_bytes_equal_archive_member": true,
+          "body_consumption_only_registered_ranges": true
+        }
+      ]
+    },
+    {
+      "package": "bevy_internal",
+      "version": "0.19.1",
+      "Cargo_lock_checksum": "4ba99ca2e501f14f4af3322d66ae41b5c5b6ebd3aac4d00cda47dea4c00290ae",
+      "cached_crate_sha256": "4ba99ca2e501f14f4af3322d66ae41b5c5b6ebd3aac4d00cda47dea4c00290ae",
+      "archive": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/bevy_internal-0.19.1.crate",
+      "members": [
+        {
+          "member": "src/lib.rs",
+          "sha256": "e4d62ec28c75d725a321bacfe8c6d2ac8cc8848833d3e9ddbcba22ff5f0c8c55",
+          "local_source_bytes_equal_archive_member": true,
+          "body_consumption_only_registered_ranges": true
+        }
+      ]
+    },
+    {
+      "package": "bevy_math",
+      "version": "0.19.1",
+      "Cargo_lock_checksum": "98ead494dcfaa9b4594eed7f09a27d868b7cc7fc9ebd655c5643322778f4a8a2",
+      "cached_crate_sha256": "98ead494dcfaa9b4594eed7f09a27d868b7cc7fc9ebd655c5643322778f4a8a2",
+      "archive": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/bevy_math-0.19.1.crate",
+      "members": [
+        {
+          "member": "src/lib.rs",
+          "sha256": "d743684d4c464873715e1fa8ef5fe0b6fa537fabb1172894056c3a7bff504a26",
+          "local_source_bytes_equal_archive_member": true,
+          "body_consumption_only_registered_ranges": true
+        }
+      ]
+    },
+    {
+      "package": "glam",
+      "version": "0.32.1",
+      "Cargo_lock_checksum": "f70749695b063ecbf6b62949ccccde2e733ec3ecbbd71d467dca4e5c6c97cca0",
+      "cached_crate_sha256": "f70749695b063ecbf6b62949ccccde2e733ec3ecbbd71d467dca4e5c6c97cca0",
+      "archive": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/glam-0.32.1.crate",
+      "members": [
+        {
+          "member": "src/lib.rs",
+          "sha256": "59d108054d6f38ce1cef40d832b79a1b2c4eac75c7182d19b46804b1ec0d8962",
+          "local_source_bytes_equal_archive_member": true,
+          "body_consumption_only_registered_ranges": true
+        },
+        {
+          "member": "src/float.rs",
+          "sha256": "ba7f8ab2d8f2a3e8d8706f29950edaac2b233163012636853dbc10c5d4fa1223",
+          "local_source_bytes_equal_archive_member": true,
+          "body_consumption_only_registered_ranges": true
+        },
+        {
+          "member": "src/f32/float.rs",
+          "sha256": "4ca0b623ede3a0ec0492fe7666ccf481e2d0fcc4d9bf0386a99a707a0473b63c",
+          "local_source_bytes_equal_archive_member": true,
+          "body_consumption_only_registered_ranges": true
+        }
+      ]
+    }
+  ],
+  "limitations": "Static source/memberidentity only, not compiler dispatch/runtime/librarywide guarantee or newly consumed source-body credit. Cargo.lock parsed solely for package provenance; only separately registered text ranges count as source consumption."
+}

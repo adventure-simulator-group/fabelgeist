@@ -1,0 +1,75 @@
+--- base:14cc7dac87568e296696a1720be8620adc2c31b3451388d7e099e569d6608108
++++ head:36a72e8b7ec69bfee0e9bf67a633ca079e4b157230b4628f885c9a19a4160e2b
+@@ -20,9 +20,11 @@
+ //! `GlobalTransform` still holds last frame's deltas and would misdirect the
+ //! applied axis.
+ 
++use adventuresim_building_generator::spatial_geometry::Radians;
+ use adventuresim_core::body::BodyPart;
+ use adventuresim_tactical_core::prelude::*;
+ use bevy::prelude::*;
++use fabelgeist_geometry::GeometryResult;
+ 
+ use super::{
+     HumanoidBone, HumanoidRig, pose_buffer::PoseBufferRig, procedural::BoneRole,
+@@ -200,19 +202,41 @@
+             .count() as u32
+     }
+ 
+-    fn maximum_deflection_radians(&self) -> f32 {
+-        self.springs
+-            .iter()
+-            .map(|spring| spring.offset.length())
+-            .fold(0.0, f32::max)
++    fn maximum_deflection_radians(&self) -> GeometryResult<Radians> {
++        // Spring offsets are native world rotation vectors; their lengths are
++        // radians. Admit each observed length before the same ordered maximum.
++        self.springs.iter().try_fold(Radians::ZERO, |maximum, spring| {
++            Ok(maximum.max(Radians::new(spring.offset.length())?))
++        })
+     }
+ }
+ 
+ /// Per-frame summary for capture tools.
+-#[derive(Resource, Default, Debug, Clone, Copy)]
++#[derive(Resource, Debug, Clone)]
+ pub(crate) struct BouncyBonesTelemetry {
+     pub(crate) active_springs: u32,
+-    pub(crate) maximum_deflection_radians: f32,
++    pub(crate) maximum_deflection_radians: GeometryResult<Radians>,
++}
++
++impl BouncyBonesTelemetry {
++    fn include(&mut self, springs: &BouncyBones) {
++        self.active_springs += springs.active_springs();
++        let rig_maximum = springs.maximum_deflection_radians();
++        self.maximum_deflection_radians = match (&self.maximum_deflection_radians, rig_maximum) {
++            (Ok(maximum), Ok(rig_maximum)) => Ok(maximum.max(rig_maximum)),
++            (Err(cause), _) => Err(cause.clone()),
++            (Ok(_), Err(cause)) => Err(cause),
++        };
++    }
++}
++
++impl Default for BouncyBonesTelemetry {
++    fn default() -> Self {
++        Self {
++            active_springs: 0,
++            maximum_deflection_radians: Ok(Radians::ZERO),
++        }
++    }
+ }
+ 
+ /// Exact damped-oscillator step, solved per axis: the equation is linear and
+@@ -362,10 +386,7 @@
+             spring.offset = spring.offset.clamp_length_max(tuning.maximum_angle_radians);
+             active = true;
+         }
+-        telemetry.active_springs += springs.active_springs();
+-        telemetry.maximum_deflection_radians = telemetry
+-            .maximum_deflection_radians
+-            .max(springs.maximum_deflection_radians());
++        telemetry.include(&springs);
+         // Springs keep decaying while ragdolled or culled so a rig that gets
+         // back up does not replay a stale wobble; only the transform walk is
+         // skipped, because those bones belong to physics or hold a frozen

@@ -1,0 +1,323 @@
+{
+  "base": "b3810b8b5db78c15cc51a0e1bef747a06450dffb",
+  "at": "2026-10-26T23:07:03.110163+00:00",
+  "prior_accepted_head": "ef7630d757a6994297f6d24840991cda61bda63c",
+  "squash_merge_tree_identity": "f5cb0a7653078650a5096f29eac5959a22e85de8",
+  "scope": "989 texture validation-policy completion and canonical shared result propagation; no broad audit clearance",
+  "files": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "e883e9bbfdcdb62065d26751a6135b65d6e3021604c9e6071ebdfbdf644457c5",
+      "lines": 627,
+      "prospective_ranges": [
+        [
+          1,
+          627
+        ]
+      ],
+      "actually_read_ranges_this_increment": [
+        [
+          1,
+          627
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "d4d9df664fcd5207e09a8453fedfb5fae4ce9d139cd45d3bd8bc1e6a9f9ac12e",
+      "lines": 270,
+      "prospective_ranges": [
+        [
+          1,
+          270
+        ]
+      ],
+      "actually_read_ranges_this_increment": [
+        [
+          1,
+          270
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "b86ab932de453c75553ba6a915d830406ac142dd7fe544a5d9fe5be25b14431a",
+      "lines": 962,
+      "prospective_ranges": [
+        [
+          1,
+          962
+        ]
+      ],
+      "actually_read_ranges_this_increment": [
+        [
+          1,
+          962
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/cube_face.rs",
+      "sha256": "db49ac57de817ae29d6341288c341aacbe884102e4d98575a32590f334f90709",
+      "lines": 70,
+      "prospective_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "actually_read_ranges_this_increment": [
+        [
+          1,
+          70
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "ab5ff0debbab0de569e16562ea77ab30df38cb8b9632cfacd900aad0024fba98",
+      "lines": 41,
+      "prospective_ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "actually_read_ranges_this_increment": [
+        [
+          1,
+          41
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "e3ad593b83da185620d2729a5fde4a0f7bfda1c39993494432c55a0c989e0973",
+      "lines": 65,
+      "prospective_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "actually_read_ranges_this_increment": [
+        [
+          1,
+          65
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "sha256": "878a4144b4fecdc20291885050e30fe521a5294117046c282ef24d40c5e407d9",
+      "lines": 27,
+      "prospective_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "actually_read_ranges_this_increment": [
+        [
+          1,
+          27
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "3a3902b9981ae772df92c2df1a97d245196d25cd83f2eacf4a586005ea39a6cd",
+      "lines": 70,
+      "prospective_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "actually_read_ranges_this_increment": [
+        [
+          1,
+          70
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/lib.rs",
+      "sha256": "5a9039181baf9cc6a6b45e7810f99fd9811427b80e62c9d84f52cde5f3bfa9a6",
+      "lines": 14,
+      "prospective_ranges": [
+        [
+          1,
+          14
+        ]
+      ],
+      "actually_read_ranges_this_increment": [
+        [
+          1,
+          14
+        ]
+      ],
+      "purpose": "Canonical exports/retained TextureView receiver and existing cube-view owner; prior source-access reused only after current identity check"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/prelude.rs",
+      "sha256": "1d909746b1d9fbd8135c06cb27bf2193f6f9141c1b11c26a6d3d856e1dcf0666",
+      "lines": 5,
+      "prospective_ranges": [
+        [
+          1,
+          5
+        ]
+      ],
+      "actually_read_ranges_this_increment": [
+        [
+          1,
+          5
+        ]
+      ],
+      "purpose": "Canonical exports/retained TextureView receiver and existing cube-view owner; prior source-access reused only after current identity check"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_view/mod.rs",
+      "sha256": "45495b07095d77c0cb93ea88115508eeb2a1f083b9368e6d9b02dc6bee3a268c",
+      "lines": 313,
+      "prospective_ranges": [
+        [
+          1,
+          313
+        ]
+      ],
+      "actually_read_ranges_this_increment": [
+        [
+          1,
+          313
+        ]
+      ],
+      "purpose": "Canonical exports/retained TextureView receiver and existing cube-view owner; prior source-access reused only after current identity check"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "0a399f468fc53f30affbe132b31d3b33f0f2de3d766758bb4023e86fc3b0bbff",
+      "lines": 56,
+      "prospective_ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "actually_read_ranges_this_increment": [
+        [
+          1,
+          56
+        ]
+      ],
+      "purpose": "Canonical exports/retained TextureView receiver and existing cube-view owner; prior source-access reused only after current identity check"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "56a27351a1b6013319dc514e027250efd43b0538d34237835d656ddd0d1a7b43",
+      "lines": 321,
+      "prospective_ranges": [
+        [
+          1,
+          321
+        ]
+      ],
+      "actually_read_ranges_this_increment": [
+        [
+          1,
+          80
+        ]
+      ],
+      "purpose": "989 affected documentation and constructor receiving bodies"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "sha256": "6df2befe9397b790ad88233dee3fe7ed4f4aaf918a41b939585a5c633fe0f3db",
+      "lines": 34,
+      "prospective_ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "actually_read_ranges_this_increment": [
+        [
+          1,
+          34
+        ]
+      ],
+      "purpose": "989 affected documentation and constructor receiving bodies"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/distance_field.rs",
+      "sha256": "d7f81bbaf6aad22406f8cbcf3b78c5bf3e77c828b1bd7d4e9aaac3566d1f578d",
+      "lines": 273,
+      "prospective_ranges": [
+        [
+          1,
+          273
+        ]
+      ],
+      "actually_read_ranges_this_increment": [
+        [
+          1,
+          273
+        ]
+      ],
+      "purpose": "989 affected documentation and constructor receiving bodies"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/distance_field_jfa.rs",
+      "sha256": "12f22cf9a4673efcb2a9690df44c1ecb36a7c6674e5e2f350601ab2030259e20",
+      "lines": 304,
+      "prospective_ranges": [
+        [
+          1,
+          304
+        ]
+      ],
+      "actually_read_ranges_this_increment": [
+        [
+          1,
+          170
+        ],
+        [
+          255,
+          310
+        ]
+      ],
+      "purpose": "989 affected documentation and constructor receiving bodies"
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/test_utils.rs",
+      "sha256": "d6a110a5317449bd4a0330749af0cb0433582763f40280c8294112203193cf6e",
+      "lines": 208,
+      "prospective_ranges": [
+        [
+          1,
+          208
+        ]
+      ],
+      "actually_read_ranges_this_increment": [
+        [
+          100,
+          155
+        ]
+      ],
+      "purpose": "989 affected documentation and constructor receiving bodies"
+    }
+  ],
+  "preflight_disclosure": "Initial registration aborted at incorrect ancestry expectation before writing. Squash merge verified via complete tree identity; previously observed source was already registered/read under prior988 scope. This registration precedes new989 discovery/body reads; no unregistered read is promoted as coverage.",
+  "prospective_reference_navigation": [
+    "face_view_with_format",
+    "face_view",
+    "TextureCube::face",
+    "Texture3d::new",
+    "TextureCube::new",
+    "Texture2d::new"
+  ],
+  "project_execution": false,
+  "navigation_disclosure": "Initial guessed flat texture_view.rs/fabelgeist-core paths were absent; no body access or coverage. Correct module path registered now.",
+  "read_credit_note": "Current-turn body reads plus previous continuation source reads at same base/tree, explicitly described in continuation. Caller files with partial ranges receive only operation-level receiving-boundary coverage, not whole-file clearance."
+}

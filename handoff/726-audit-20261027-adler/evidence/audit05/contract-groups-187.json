@@ -1,0 +1,84 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-187",
+  "at": "2026-10-25T21:16:19.595329+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1977,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare-city-terrain.rs",
+      "sha256": "7a0b3a8a4149fccbcca7de846096d3935ba19c76ec08656385cb421b19a70bf7",
+      "personally_read_ranges": [
+        [
+          1,
+          349
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full349 lines read. Comparison example loads validated scene, checks exact input digest and imported source digest against stage bundle before constructing raw/playable/prepared/graded surfaces. Four StageSource roles bind semantic stage to surface; lookup by role survives reordered arrays, actualmain supplies exactly all4. StageComparison pairs enums then resolves both from same set, not index-position shorthand.",
+        "Each selected report resolves exact requested playable building ID, generates plan/collision from same placement programme and converts actual floor polygon/entrances through the same collision origin/orientation. Missing explicitly requested building or empty population rejects; range/overlay/corner measurements retain stage and building identity. Reports explicitly state incomplete coverage/access/collision/render limits. Optional physical export/report/capture writes are diagnostic side effects and not transactionally all-or-nothing; no runtime scene publication."
+      ]
+    },
+    {
+      "scope_index": 1978,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture.rs",
+      "sha256": "3f691c1bd9644eff005d95abba6f62c0c89a8b0ed2ad2f54112a4b19321140f3",
+      "personally_read_ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full36 lines read. PreparedTerrainCapture retains purpose/input digest/source digest/terrain. geographic_surface checks complete owning input digest and imported source package before combining supplied terrain with ungraded vista; output construction may fail explicitly. Purpose remains explicit metadata, but this method accepts either purpose and does not establish that arbitrary supplied terrain is complete-context source just from matching digest. Actual diagnostic recipients must retain scope qualification, not treat successful surface construction as gameplay acceptance."
+      ]
+    },
+    {
+      "scope_index": 1979,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture_export.rs",
+      "sha256": "e65174baeec670a652bbab20759b78eee8e4298bb06332eaf027a7ef6f28c509",
+      "personally_read_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full21 lines read. Writer obtains checked geographic_surface first, derives triangle count from that same result, then writes metadata and capture as distinct file operations. Metadata text says complete-context while capture purpose enum is independent; currentmain1977 passes CompleteSceneContext and actual natural terrain, so no ordinary mislabeled capture witnessed. Native alternate purpose/caller labeling remains qualification. Partial filesystem output on a later write error is explicit diagnostic workflow behavior, not accepted shared state."
+      ]
+    },
+    {
+      "scope_index": 1980,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/contacts.rs",
+      "sha256": "d1dc987945cf487f097125d544dd536513a1e62e2cec5c21e898698e8e1883f8",
+      "personally_read_ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full102 lines read. CornerSupportProbe materializes colliders and binds actual terrain/tolerance once; every bearing point uses same admitted polygon vertex and supplied floor, and nearest point/ray/cylinder/bounded-height observations remain distinct. Missing collider or unsupported cast yields identity-specific error. Optional ray/height absence is reported, not converted into success.",
+        "Cylinder cast uses physical humanoid radius and actual shape bottom to calculate foot elevation; finite arbitrary enormous floor may overflow native scratch but actual accepted physical scene inputs are owning context. Enclosure report builds each boundary from same compound/terrain, constructs fixed collider before observing support cells and reports gate-relative positions plus same elevation. Reports explicitly do not certify occupied access/full footprint clearance."
+      ]
+    },
+    {
+      "scope_index": 1981,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/gardens.rs",
+      "sha256": "a661575cb030eb98630e010d43a9abba58071c261328a6e344d886f323ae2d51",
+      "personally_read_ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full142 lines read. Garden measurement retains kind/source element ordinal with each full soil/bed/route/plant hull outline, admits polygon then evaluates both complete source and composed physical surface in same frame. Every pass predicate requires Some measurement and area difference within perimeter-scaled coordinate tolerance; unchanged-source also checks both displacement extrema.",
+        "Root projection and geometry-validation results remain separate from grading coverage and controller maximum-walkable slope; actual scene/input linkage is supplied1977. Soil envelope may include front building, while working regions must be clear, explicitly scoped. No universal successful report acceptance or controller traversal proof from these metrics. Fixed default combat configuration for diagnostic slope is not an observed running-server snapshot; retain that limit."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "5 newly accounted distinct present original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

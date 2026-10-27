@@ -1,0 +1,55 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-417",
+  "at": "2026-10-26T00:32:49.905041+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 328,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/equipment.rs",
+      "sha256": "de5de9948499820d3cad696afbcdc3f1d2473f3abac518c580de6440f3f8dd8a",
+      "personally_read_ranges": [
+        [
+          1,
+          1764
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full frozen equipment.rs1-1764. Grab session builds typed request from active hand, observed revision/hand item/destination, wraps sequence and resets transient selection. Server revision/identity authorization remains receiving contract; u32 sequence wrap alone is not a reachable ordinary session defect. HUD takes topology-layer eligibility and same addressed entity IDs, catalog icon and authenticated procedural textures; arbitrary duplicate hand rows would require producer witness.",
+        "Weapon and holder mesh caches decode+check version/recipe bound/hash before warm hit and use separate caches. Generated mesh/grip data feed render children; invalid physical rows skip placeholder replacement, holder chassis without valid instance remains visually absent. Actual invalid-after-valid physical producer needed before stale-visual finding. Changed/added appearance/topology/property filters rebuild roots; component removals and changed physical alone are not selected, but actual valid lifecycle transition remains unproved.",
+        "Attachment resolution uses first matching occupancy, visited set and32-hop bound; socket resolver follows ancestor when nearer socket absent. Ordinary topology admission/catalog hierarchy determines whether deep hierarchy, conflicting anchors, or fallback to ancestor is reachable/incorrect. Existing skin, cache, replication-order, manifest, outline and attachment test sources personally read, no execution or new tests."
+      ]
+    },
+    {
+      "scope_index": 329,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/equipment/grab_world.rs",
+      "sha256": "6ae3e67b76458eb1c0db89a23b2a357b20c00fc7b962f50988c3f837ca68f2d2",
+      "personally_read_ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full grab_world.rs1-141. Target selection combines dropped item centre, inside-allowed door and window positions with terrain-mask sight and typed pickup range, then stable auto-aim tie key. Invalid direction or zero sight distance fails visibility. Terrain-only obstruction intentionally excludes other layers pending owner policy, no assumed wall/actor mismatch. Explicit slot/hand selection remains while world target refresh applies only empty hand; outline matches exact selected entity."
+      ]
+    },
+    {
+      "scope_index": 330,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/equipment/placeholder_visual.rs",
+      "sha256": "b875d058a3a33ee1456cd38a321f9ff3823f9794b7a398a3b901160e82a3ff55",
+      "personally_read_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full placeholder_visual.rs1-64. Generated parts attach at negative authored grip, fallback cuboid uses physical dimensions and negative anchor offset; both bind outline to actual item and start hidden outline. Caller328 validates physical before fallback, and root visibility/update is separate receiver. No rendering or GPU execution."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

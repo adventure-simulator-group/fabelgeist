@@ -1,0 +1,52 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-154",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 772,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/rigged.rs",
+      "sha256": "2f337baa2edb2356e1f086aacf549696c63bfac639d03c5f0a9b564d675bb397",
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "assessment": "Full60 read after hash verification. RigJointName/RigJointOrdinal and RigJointTable carry canonical rig identity at application boundary; public parallel tables still encode no equal-length/associated-skeleton proof by type. Public geometry/UV/color/metallic/roughness/raw state arrays retain Q009 accepted range/frame/channel provenance. RiggedShell surface Option tuple and independently optional joint_indices/joint_weights retain Q008 record/sum-state questions; comment establishes body-topology intended fallback rather than an obsolete compatibility shim. global_transforms maps same table order through actual state decoder, so ordering is local proof; physical/valid-state admission not inferred.",
+      "new_unique_finding": false,
+      "repair": "Qualified Q008/Q009 questions retained.",
+      "validation": "Frozen source not run; no local project checks."
+    },
+    {
+      "scope_index": 773,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/shell.rs",
+      "sha256": "6d0c444527f9a25d6aaf8e23e15ab8d973c489f6edb3a75429444c15c4132038",
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "assessment": "Exact registered1-80 read after hash verification. Views semantic tuple and body_skin two-index array are internal pre-serialization channel roles, not forced by glTF JSON/native ABI; retained Q008 bespoke record question. Accessor closure accepts native glTF component/type tokens at actual serialization adapter, concrete exemption only. Shell/view zip length and order rely on inspected767 same-source construction; materials.len used immediately for pushed primitive then exactly one material appended, local index correspondence. texcoords precedence follows explicit authored-channel then surface fallback, not automatically a compatibility path. Packed skin/bare parallel source data length/association remain Q009; no ordinary invalid-source witness established.",
+      "new_unique_finding": false,
+      "repair": "Qualified Q008/Q009 questions retained.",
+      "validation": "Frozen source not run; no local project checks."
+    },
+    {
+      "scope_index": 774,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/skeleton.rs",
+      "sha256": "ac761936db58c742f2c58ab7381b8e26a8b6f819bfb91c0b29c54170fe96abff",
+      "ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "assessment": "Full69 read after hash verification. Canonical names/ordinals and rig tables preserved until explicit native glTF collection indexes. nodes returns a semantic node/root pair pre JSON assembly, retained Q008 record question. append_attachment pushes one name,parent,global in same function, concrete count/order preservation for initially coherent tables; does not establish initial identity/coherence or prove arbitrary parent index bound. Actual validate_proportions checks empty-or-equal-count and finiteness only; does not validate other skeleton tables, topology or proportional basis semantics. Public mesh raw state conversion/native transform invariants retain Q009. Actual output numbers/translation/quaternion/scale arrays encode glTF wire layout, no blanket raw internal exemption.",
+      "new_unique_finding": false,
+      "repair": "Qualified Q008/Q009 questions retained.",
+      "validation": "Frozen source not run; no local project checks."
+    }
+  ],
+  "clear": false
+}

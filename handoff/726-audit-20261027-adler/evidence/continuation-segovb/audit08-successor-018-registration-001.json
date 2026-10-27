@@ -1,0 +1,45 @@
+{
+  "id": "CONT08-018-STREET-REGISTRATION-001",
+  "created_utc": "2026-10-27T04:47:17.271320+00:00",
+  "prior_state_sha256": "81d4226ee612d8bf40d99182037154832c40a9e43492f666bc5b51e9364f206c",
+  "scope": "One materially reached street::select leaf from ordered1793 partial; no original1797 or1794 completion credit",
+  "sources": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/support/street.rs",
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/support/street.rs",
+      "object": "target/recovery-20261025/audit10/successor-source-objects/bfad206136bada1647f958a30c678a8adb4be33c01a967d3253aebde5f58de8b",
+      "sha256": "bfad206136bada1647f958a30c678a8adb4be33c01a967d3253aebde5f58de8b",
+      "line_count": 67,
+      "bytes": 2965,
+      "prospective_ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "identity_basis": "Exact original-scope072 pinned head body and recovered local object matching SHA. Source bytes only; no other-lens verdict transfer. Exact committed base/head equality pending root staging."
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-core/src/city_layout/compiled/support.rs",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/d28606e279ac45d8c65e8ec2eceacaddf20747af389761b9c2b1b6a5b4273c82",
+      "sha256": "d28606e279ac45d8c65e8ec2eceacaddf20747af389761b9c2b1b6a5b4273c82",
+      "prospective_ranges": [
+        [
+          1,
+          40
+        ],
+        [
+          146,
+          277
+        ]
+      ],
+      "identity_basis": "Own015 exact before/after Git provenance and full prior read; narrowed actualcaller recall only."
+    }
+  ],
+  "manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/audit12-frozen-source-manifest-019.json",
+    "sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa",
+    "street_changed747_matches": []
+  },
+  "base_comparison": "Requested exact pair from root; no alias or currentness assumption until receipt."
+}

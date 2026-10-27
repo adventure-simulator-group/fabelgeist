@@ -1,0 +1,483 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "029",
+  "predecessor": "receipt-028-originals190-192.json",
+  "manifest_prefix_sha256": "b2fb746e3432bfc6a4dc4f46ddd75c5e8b099dcb9d192769c12af2d36ae6e53c",
+  "sources": [
+    {
+      "original_index": 193,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease.rs",
+      "sha256": "c001a52a7bb957260ae3914ca056d847292760b5911984791143b8a4a1ede2e5",
+      "actual_ranges": [
+        [
+          1,
+          2950
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              33,
+              75
+            ],
+            [
+              145,
+              149
+            ],
+            [
+              575,
+              638
+            ],
+            [
+              823,
+              861
+            ],
+            [
+              1514,
+              1651
+            ],
+            [
+              1654,
+              1679
+            ],
+            [
+              2304,
+              2392
+            ],
+            [
+              2550,
+              2567
+            ]
+          ],
+          "role": "DiseaseId erased to String in state/outbreak/differential and reparsed in episode/source adapters; raw open settlement/exposure keys",
+          "disposition": "Existing exact DiseaseId owner94 known; actual stable_id623/1660/2343/2384/2563 -> raw row44/71 and parse841/1546/1605 -> typed episode proven. Carry canonical disease identity through native schema/application state and DTO, admit at actual external boundary. Open exposure/problem/settlement IDs use canonical open owners; actual native/outer producer constraints unread."
+        },
+        {
+          "ranges": [
+            [
+              118,
+              182
+            ],
+            [
+              215,
+              238
+            ],
+            [
+              501,
+              524
+            ],
+            [
+              1723,
+              1733
+            ],
+            [
+              1789,
+              1798
+            ],
+            [
+              2057,
+              2077
+            ],
+            [
+              2159,
+              2264
+            ],
+            [
+              2627,
+              2706
+            ]
+          ],
+          "role": "Raw preparation and item identity API/storage/lookup, display known interventions, private hash input",
+          "disposition": "Preparation IDs choose versioned profile2182/2232 and native Item lookup2673; existing core physiology128 actualprofileowner known but raw. Stored2202/2251 then adapter194 clone. Carry canonical preparation/item identity across app APIs; legitimate formatted display514 and native hashbyte2068 are explicit boundaries. Typed route/region already kept, no blanket medication/catalog exemption."
+        },
+        {
+          "ranges": [
+            [
+              92,
+              104
+            ],
+            [
+              766,
+              821
+            ],
+            [
+              1886,
+              1925
+            ],
+            [
+              2028,
+              2055
+            ]
+          ],
+          "role": "Notice raw kind and message; actual typed event match produces symptom-onset/critical/resolution, raw terminal source labels",
+          "disposition": "DiseaseEventKind already selects actual effects. Raw notice kind771 retained780 and used dedupe identity774; message772/781 prose separate. Model notice semantic kind/payload directly with existing event mapping, keep message presentation. Four terminal failure labels2046-2049 duplicate typed DeathCause/TerminalFailure context; exact source recipient parent178 reviewed, no global/current verdict."
+        },
+        {
+          "ranges": [
+            [
+              276,
+              375
+            ],
+            [
+              501,
+              544
+            ],
+            [
+              1441,
+              1475
+            ],
+            [
+              1534,
+              1647
+            ],
+            [
+              2057,
+              2077
+            ],
+            [
+              2304,
+              2392
+            ]
+          ],
+          "role": "Chart/source composite identity formats313/527/1571/1583/1639/2337/2378 and exposure token1455/2361; native SHA domain2066/expect2070",
+          "disposition": "Concrete database/seed byte boundary source visible, not arbitrary string exemption. Use typed identity payload and encode once at boundary. No preservation of old hash/seed/output behavior, no cryptography/native implementation claims."
+        },
+        {
+          "ranges": [
+            [
+              766,
+              939
+            ],
+            [
+              942,
+              978
+            ],
+            [
+              1058,
+              1319
+            ],
+            [
+              1441,
+              1475
+            ],
+            [
+              1509,
+              1520
+            ],
+            [
+              1589,
+              1611
+            ],
+            [
+              1654,
+              1733
+            ],
+            [
+              1770,
+              1821
+            ],
+            [
+              1825,
+              2026
+            ],
+            [
+              2057,
+              2101
+            ],
+            [
+              2132,
+              2302
+            ],
+            [
+              2394,
+              2625
+            ],
+            [
+              2627,
+              2706
+            ]
+          ],
+          "role": "Raw failure text in internal Result<String> APIs, typed parse errors flattened, lint rationale and assertion diagnostics",
+          "disposition": "All failure literals/templates individually contained in these actual read bodies: version826/832/1712/1715; bounds888/1075/1164/1194/1266/1289; treatment2095/2098/2169/2171/2178/2180/2183/2185/2192/2233/2235/2242/2277; fixture2468/2516/2530/2543; purchase2645/2648/2655/2667/2674/2690/2703. Keep typed causes/payloads internally until native output, actual227 catch-all conversion known. Lint rationale455/945/1318/1443/1448/1512/1684/2135 and expect1610/2070 are source/native diagnostic text. No external prose-parser assumption."
+        },
+        {
+          "ranges": [
+            [
+              2394,
+              2625
+            ]
+          ],
+          "role": "Ten display-name literals2405-2455, three role labels2496/2502/2508, fixture typed disease IDs and raw failure prose",
+          "disposition": "Names passed to actual character insertion2461 (own178 producer body previously read); role labels go attach_seeded_party_member actual callee pending. Fixture deletes/inserts only source-read, not run. No fixture exemption and no destructive operation performed."
+        },
+        {
+          "ranges": [
+            [
+              2708,
+              2809
+            ],
+            [
+              2811,
+              2950
+            ]
+          ],
+          "role": "All existing test source paths, symbol/syntax comparisons, JSON-shaped authored evidence matches, formatting diagnostics",
+          "disposition": "Self include disease.rs2712/2724/2750/2776/2913/2938; child2733 actual195read; journey2797/surgery2803/content2896 only paths not included content. All lexical split/contains/forbidden assertions2714-2807/2896-2905/2915-2948 accounted as source-text boundaries; comparison diagnostic2891 and JSON id formats2900/2905 not gameplay state. Remaining numeric/typed tests have no string role. No execution or included-child coverage."
+        },
+        {
+          "ranges": [
+            [
+              1,
+              32
+            ],
+            [
+              77,
+              91
+            ],
+            [
+              105,
+              117
+            ],
+            [
+              184,
+              214
+            ],
+            [
+              240,
+              275
+            ],
+            [
+              376,
+              500
+            ],
+            [
+              547,
+              574
+            ],
+            [
+              640,
+              765
+            ],
+            [
+              980,
+              1057
+            ],
+            [
+              1320,
+              1440
+            ],
+            [
+              1477,
+              1508
+            ],
+            [
+              1686,
+              1705
+            ],
+            [
+              1735,
+              1769
+            ],
+            [
+              2103,
+              2131
+            ]
+          ],
+          "role": "Remaining actual declarations, typed/numeric physiology, authority projection and native macros",
+          "disposition": "No additional raw string roles omitted. authority-tests feature4 is native build cfg name; declared authority_tests child not read/credited. No disease numerical/medical/authority/behavior/other-lens clearance."
+        }
+      ],
+      "status": "Full requested body independently read and inventoried with findings and pending delegated contracts."
+    },
+    {
+      "original_index": 194,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease/administration_adapter.rs",
+      "sha256": "980f43c8f979574fcc23678173933bcef9f8fc18e678d0070dc3c8ec1e2a3181",
+      "actual_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              27
+            ]
+          ],
+          "role": "Two error literals9/20, Result<String>6, raw preparation clone16 into core Administration",
+          "disposition": "Concrete internal adapter retains raw profile ID and flattens version/dose failures. Match existing preparation owner graph193/128; preserve typed failures to output, no native validity inference."
+        }
+      ],
+      "status": "Full requested body independently read and inventoried with findings and pending delegated contracts."
+    },
+    {
+      "original_index": 195,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease/exposure_sources.rs",
+      "sha256": "fd65f1ffe87f35659e8ebfa0216668ba5e1c17373d94539901cf36bab248c81b",
+      "actual_ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              77
+            ]
+          ],
+          "role": "Open exposure id String5/settlement &String16; native scope key format27; raw disease parsing48/61 and errors.to_string49/62; expect70",
+          "disposition": "Actual parent1931233/1247/1255 recipients read. Carry typed open scope/exposure identity to native lookup/seed, canonical DiseaseId already admitted and retained here. Source validators/native declarations outside selected contracts pending."
+        }
+      ],
+      "status": "Full requested body independently read and inventoried with findings and pending delegated contracts."
+    },
+    {
+      "original_index": 196,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+      "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+      "actual_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              50
+            ]
+          ],
+          "role": "Two occurrences oral_rehydration_draught30/36, ResultString10",
+          "disposition": "Concrete fixture preparation ID sent to native hash private_variation and stored as raw preparation. Canonical profile identity fit matches193/128; no fixture exemption, no execution."
+        }
+      ],
+      "status": "Full requested body independently read and inventoried with findings and pending delegated contracts."
+    },
+    {
+      "original_index": 197,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease/interval.rs",
+      "sha256": "4384f792f23b407ce0400d31755a84c01e36c464be04edcea9ca39859deda652",
+      "actual_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              53
+            ]
+          ],
+          "role": "Zero raw strings or string-valued APIs",
+          "disposition": "Typed disease events and contact windows only; no numerical/behavior verdict."
+        }
+      ],
+      "status": "Full requested body independently read and inventoried with findings and pending delegated contracts."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Disease/preparation identity, notices and structured treatment failures",
+      "sources": [
+        "193:33-182,501-544,766-861,1654-1679,1886-1925,2057-2392",
+        "194:6-25",
+        "195:4-75",
+        "196:29-46"
+      ],
+      "remedy": "Retain DiseaseId, canonical preparation/reference identity and notice kind/payload through actual state/application APIs; format public messages separately and encode identity only at concrete native ports.",
+      "acceptance": "Complete actual source producers, external chart/admin/notice recipients, core profile alias fit, and native schema constraints before future repair.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actual external chart/admin/notice recipients and native table/reducer representation constraints.",
+    "Actual local-problem/outbreak source producer and exposure-window identifiers; core numerical/hash/serde implementations beyond exact own prior contracts not claimed.",
+    "Native Item/preparation producer and attach_seeded_party_member role label consumer. Declared authority_tests and included content/journey/surgery tests not read by include.",
+    "All inherited aliases/currentness/all20/P16/P17/F9/M09/population obligations preserved."
+  ],
+  "qualifications": [
+    "Exact f82 physical-P16 frozen bytes, no current alias or BC constraint.",
+    "Source-only: no execution/tests/probes/new tests/product/Git/rootledger/publication.",
+    "Own lens12 source-accounted with findings; no global/runtime/native/unique-total/other-lens clearance."
+  ],
+  "proposed_count": {
+    "before": 193,
+    "after": 198,
+    "indices_completed": [
+      193,
+      194,
+      195,
+      196,
+      197
+    ],
+    "next_original": 198,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease.rs",
+      "sha256": "c001a52a7bb957260ae3914ca056d847292760b5911984791143b8a4a1ede2e5",
+      "ranges": [
+        [
+          1,
+          2950
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease/administration_adapter.rs",
+      "sha256": "980f43c8f979574fcc23678173933bcef9f8fc18e678d0070dc3c8ec1e2a3181",
+      "ranges": [
+        [
+          1,
+          27
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease/exposure_sources.rs",
+      "sha256": "fd65f1ffe87f35659e8ebfa0216668ba5e1c17373d94539901cf36bab248c81b",
+      "ranges": [
+        [
+          1,
+          77
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+      "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease/interval.rs",
+      "sha256": "4384f792f23b407ce0400d31755a84c01e36c464be04edcea9ca39859deda652",
+      "ranges": [
+        [
+          1,
+          53
+        ]
+      ]
+    }
+  ]
+}

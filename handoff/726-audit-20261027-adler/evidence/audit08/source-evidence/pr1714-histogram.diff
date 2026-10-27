@@ -1,0 +1,288 @@
+diff --git a/crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture.rs b/crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture.rs
+index da75bea3d..49d9be632 100644
+--- a/crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture.rs
++++ b/crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture.rs
+@@ -1,6 +1,6 @@
+ //! Catalog staging and route-based cameras; all furniture uses production ECS presentation.
+ use adventuresim_building_generator::furniture::{FurnitureKey, FurnitureKind, FurnitureVariant};
+-use adventuresim_tactical_core::prelude::*;
++use adventuresim_tactical_core::{prelude::*, scene_coordinates::ScenePlanPoint};
+ use adventuresim_world_schema::settlement_buildings::BuildingUse;
+ use bevy::prelude::*;
+ 
+@@ -9,6 +9,12 @@ use super::{
+     view_specs::{CapturePose, CaptureViewSpec},
+ };
+ 
++use catalog::catalog_camera;
++#[cfg(test)]
++use catalog::catalog_pair_gap;
++pub(super) use catalog::setup_catalog;
++
++mod catalog;
+ mod finishes;
+ mod rooms;
+ 
+@@ -118,6 +124,16 @@ pub(super) const VIEWS: [CaptureViewSpec; CATALOG.len() + 2 + finishes::LABELS.l
+     catalog_views();
+ pub(super) const ROOM_VIEWS: [CaptureViewSpec; ROOM_LABELS.len() + 1] = room_views();
+ 
++#[derive(Debug, thiserror::Error)]
++enum CatalogAdmissionError {
++    #[error("catalog fixture must have no placed furniture")]
++    AlreadyPlaced,
++    #[error("catalog key {key:?} is absent from the authored catalogue")]
++    MissingCatalogueEntry { key: FurnitureKey },
++    #[error("catalog orientation must be finite")]
++    InvalidOrientation,
++}
++
+ const fn catalog_views() -> [CaptureViewSpec; CATALOG.len() + 2 + finishes::LABELS.len()] {
+     let warmup = CaptureViewSpec::new(
+         "warmup",
+@@ -204,195 +220,6 @@ pub(super) fn is_profile(profile: &str) -> bool {
+     matches!(profile, PROFILE | ROOMS_PROFILE)
+ }
+ 
+-pub(super) fn setup_catalog(
+-    commands: &mut Commands,
+-    layout: &mut FurnitureLayout,
+-    terrain: &SceneTerrain,
+-    profile: &str,
+-    output: &std::path::Path,
+-) -> Result<Option<Vec<BuildingReviewCamera>>> {
+-    if profile != PROFILE {
+-        return Ok(None);
+-    }
+-    assert!(
+-        layout.instances.is_empty(),
+-        "catalog fixture must have no placed furniture"
+-    );
+-    commands.insert_resource(crate::presentation::InteriorFurnitureExhibition);
+-    let mut cameras = Vec::new();
+-    for (index, kind) in FurnitureKind::INTERIOR.into_iter().enumerate() {
+-        let bay = Vec2::new(
+-            (index % CATALOG_COLUMNS) as f32 - 2.0,
+-            (index / CATALOG_COLUMNS) as f32 - 3.0,
+-        ) * CATALOG_BAY_SPACING_METRES;
+-        let keys = FurnitureVariant::ALL.map(|variant| FurnitureKey::natural(kind, variant));
+-        let sizes = keys.map(|key| key.interior_spec().unwrap().size_metres.metres());
+-        let pair_width = sizes[0].x + sizes[1].x + catalog_pair_gap(kind);
+-        for (variant, key) in keys.into_iter().enumerate() {
+-            let x = if variant == 0 {
+-                -pair_width * 0.5 + sizes[0].x * 0.5
+-            } else {
+-                pair_width * 0.5 - sizes[1].x * 0.5
+-            };
+-            let point = bay + Vec2::X * x;
+-            layout.instances.push(GeneratedFurniture {
+-                scene: SceneFurniture {
+-                    id: FurnitureInstanceId(
+-                        CATALOG_INSTANCE_ID_BASE + (index * 2 + variant) as u64,
+-                    ),
+-                    key,
+-                    // Specimens have no real building, but use the same interior location payload.
+-                    location: FurnitureLocation::Interior {
+-                        building_id: (0).into(),
+-                        room_id: adventuresim_building_generator::RoomIndex::from_serialized(
+-                            index as u16,
+-                        ),
+-                        storey: adventuresim_building_generator::StoreyIndex::from_serialized(0),
+-                    },
+-                },
+-                position_metres:
+-                    adventuresim_building_generator::spatial_geometry::Position::from_metres(
+-                        Vec3::new(point.x, terrain.height_at(point).unwrap(), point.y),
+-                    )?,
+-                orientation: BuildingOrientation::from_radians(std::f32::consts::PI).unwrap(),
+-            });
+-        }
+-        let envelope = Vec3::new(
+-            pair_width,
+-            sizes[0].y.max(sizes[1].y),
+-            sizes[0].z.max(sizes[1].z),
+-        );
+-        let ground = Vec3::new(bay.x, terrain.height_at(bay).unwrap(), bay.y);
+-        cameras.push(catalog_camera(kind, envelope, ground));
+-    }
+-    cameras.push(joined_counters(layout, terrain)?);
+-    cameras.extend(finishes::stage(layout, terrain)?);
+-    expect_furniture(commands, layout)?;
+-    std::fs::write(output.join("interior-catalog.json"), serde_json::to_vec_pretty(
+-            &serde_json::json!({ "left_variant": "Compact", "right_variant": "Broad", "finish_order": ["natural", "handled", "repaired", "painted"],
+-            "instances": layout.instances, "note": "Production furniture models staged as catalog specimens; building_id zero is reserved for these captures." })).unwrap())
+-        .expect("write catalog specimen evidence");
+-    Ok(Some(cameras))
+-}
+-
+-fn catalog_camera(kind: FurnitureKind, size: Vec3, ground: Vec3) -> BuildingReviewCamera {
+-    let side = if kind == FurnitureKind::BunkBed {
+-        1.1
+-    } else {
+-        0.24
+-    };
+-    let outward = Vec3::new(side, 0.5, 1.0).normalize();
+-    let right = Vec3::Y.cross(outward).normalize();
+-    let up = outward.cross(right);
+-    let tangent_y = (CATALOG_FOV_DEGREES.to_radians() * 0.5).tan();
+-    let tangent_x = tangent_y * super::capture_resolution::CAPTURE_ASPECT_RATIO;
+-    let target = ground + Vec3::Y * size.y * 0.5;
+-    // Fit every envelope corner in the actual perspective frustum, including tall beds' feet.
+-    let distance = envelope_corners(size)
+-        .into_iter()
+-        .map(|corner| {
+-            let point = corner - Vec3::Y * size.y * 0.5;
+-            point.dot(outward)
+-                + CATALOG_FRAMING_MARGIN
+-                    * (point.dot(right).abs() / tangent_x).max(point.dot(up).abs() / tangent_y)
+-        })
+-        .fold(0.0_f32, f32::max);
+-    BuildingReviewCamera {
+-        position: target + outward * distance,
+-        target,
+-        plaster_raking_light: None,
+-    }
+-}
+-
+-fn catalog_pair_gap(kind: FurnitureKind) -> f32 {
+-    // The side-on ladder proof needs room between the deep bed frames in projection.
+-    if kind == FurnitureKind::BunkBed {
+-        2.4
+-    } else {
+-        CATALOG_PAIR_GAP_METRES
+-    }
+-}
+-
+-fn envelope_corners(size: Vec3) -> [Vec3; 8] {
+-    std::array::from_fn(|index| {
+-        Vec3::new(
+-            if index & 1 == 0 {
+-                -size.x * 0.5
+-            } else {
+-                size.x * 0.5
+-            },
+-            if index & 2 == 0 { 0.0 } else { size.y },
+-            if index & 4 == 0 {
+-                -size.z * 0.5
+-            } else {
+-                size.z * 0.5
+-            },
+-        )
+-    })
+-}
+-
+-fn joined_counters(
+-    layout: &mut FurnitureLayout,
+-    terrain: &SceneTerrain,
+-) -> Result<BuildingReviewCamera> {
+-    use FurnitureKind::*;
+-    let variant = FurnitureVariant::Broad;
+-    let size = FurnitureKey::natural(Counter, variant)
+-        .interior_spec()
+-        .unwrap()
+-        .size_metres
+-        .metres();
+-    let corner = FurnitureKey::natural(CounterCorner, variant)
+-        .interior_spec()
+-        .unwrap()
+-        .size_metres
+-        .metres();
+-    let first = (corner.x + size.x) * 0.5;
+-    let second = first + size.x;
+-    let bay = Vec2::new(80.0, 60.0);
+-    let assembly = [
+-        (CounterCorner, Vec2::ZERO, 0.0),
+-        (Counter, Vec2::new(first, 0.0), 0.0),
+-        (CounterRightEnd, Vec2::new(second, 0.0), 0.0),
+-        (Counter, Vec2::new(0.0, first), std::f32::consts::FRAC_PI_2),
+-        (
+-            CounterLeftEnd,
+-            Vec2::new(0.0, second),
+-            std::f32::consts::FRAC_PI_2,
+-        ),
+-    ];
+-    let ground = terrain.height_at(bay).unwrap();
+-    for (index, (kind, local, yaw)) in assembly.into_iter().enumerate() {
+-        let point = bay - local;
+-        layout.instances.push(GeneratedFurniture {
+-            scene: SceneFurniture {
+-                id: FurnitureInstanceId(
+-                    CATALOG_INSTANCE_ID_BASE + (CATALOG.len() * 2 + index) as u64,
+-                ),
+-                key: FurnitureKey::natural(kind, variant),
+-                location: FurnitureLocation::Interior {
+-                    building_id: (0).into(),
+-                    room_id: adventuresim_building_generator::RoomIndex::from_serialized(
+-                        CATALOG.len() as u16,
+-                    ),
+-                    storey: adventuresim_building_generator::StoreyIndex::from_serialized(0),
+-                },
+-            },
+-            position_metres:
+-                adventuresim_building_generator::spatial_geometry::Position::from_metres(
+-                    Vec3::new(point.x, ground, point.y),
+-                )?,
+-            orientation: BuildingOrientation::from_radians(yaw + std::f32::consts::PI).unwrap(),
+-        });
+-    }
+-    let target = Vec3::new(bay.x - first, ground + size.y * 0.5, bay.y - first);
+-    Ok(BuildingReviewCamera {
+-        position: target + Vec3::new(5.5, 4.5, 6.0),
+-        target,
+-        plaster_raking_light: None,
+-    })
+-}
+-
+ pub(super) fn setup_rooms(
+     commands: &mut Commands,
+     buildings: &[GeneratedBuilding],
+@@ -440,6 +267,24 @@ pub(super) fn setup_rooms(
+     Ok(Some(cameras))
+ }
+ 
++fn envelope_corners(size: Vec3) -> [Vec3; 8] {
++    std::array::from_fn(|index| {
++        Vec3::new(
++            if index & 1 == 0 {
++                -size.x * 0.5
++            } else {
++                size.x * 0.5
++            },
++            if index & 2 == 0 { 0.0 } else { size.y },
++            if index & 4 == 0 {
++                -size.z * 0.5
++            } else {
++                size.z * 0.5
++            },
++        )
++    })
++}
++
+ fn expect_furniture(commands: &mut Commands, layout: &FurnitureLayout) -> Result {
+     commands.insert_resource(super::furniture_readiness::ExpectedFurniture {
+         instances: layout.instances.len() + layout.distant_instances.len(),
+@@ -474,12 +319,20 @@ mod tests {
+                 sizes[0].y.max(sizes[1].y),
+                 sizes[0].z.max(sizes[1].z),
+             );
+-            let camera = catalog_camera(kind, size, Vec3::ZERO);
+-            let view =
+-                Transform::from_translation(camera.position).looking_at(camera.target, Vec3::Y);
++            let camera = catalog_camera(
++                kind,
++                adventuresim_building_generator::spatial_geometry::CuboidDimensions::from_metres(
++                    size,
++                )
++                .unwrap(),
++                adventuresim_building_generator::spatial_geometry::Position::ORIGIN,
++            )
++            .unwrap();
++            let view = Transform::from_translation(camera.position.metres())
++                .looking_at(camera.target.metres(), Vec3::Y);
+             let tangent = (CATALOG_FOV_DEGREES.to_radians() * 0.5).tan();
+             for corner in envelope_corners(size) {
+-                let local = view.rotation.inverse() * (corner - camera.position);
++                let local = view.rotation.inverse() * (corner - camera.position.metres());
+                 assert!(local.z < 0.0, "{kind:?} behind camera");
+                 assert!(
+                     local.y.abs() < -local.z * tangent,

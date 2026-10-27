@@ -1,0 +1,103 @@
+{
+  "at": "2026-10-27T01:35:23.031941+00:00",
+  "lens": 13,
+  "packet": "020",
+  "extension_of": "audit13-successor-registration-020.json",
+  "sources": [
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/pipeline.rs",
+      "sha256": "d47a07104ac9b2333006bbacbc50b5f097b5fa7a57ba4a4d822a62fb3c64e16b",
+      "bytes": 7419,
+      "actual_lines": 232,
+      "ranges": [
+        [
+          85,
+          186
+        ]
+      ],
+      "purpose": "Material bindlayout/defaultshader resolution andactualM::specialize descriptorreceipt",
+      "body_consumed_at_registration": false,
+      "provenance": "Previously staged exactnative1a5aff objects; no currentalias substitution orfutureoriginalcredit"
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/utils.rs",
+      "sha256": "e0a8eea086cbad536b325d44c69e689280c931ddc1587e051167ec128bd4a383",
+      "bytes": 1049,
+      "actual_lines": 31,
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "purpose": "Actual ShaderRef Default/Handle/Path resolver",
+      "body_consumed_at_registration": false,
+      "provenance": "Previously staged exactnative1a5aff objects; no currentalias substitution orfutureoriginalcredit"
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/plugin.rs",
+      "sha256": "1e686092ec02c418795c2e1bed451a9aba8c196608d1b1fa2c334310d17f9b09",
+      "bytes": 9257,
+      "actual_lines": 262,
+      "ranges": [
+        [
+          42,
+          74
+        ],
+        [
+          100,
+          159
+        ]
+      ],
+      "purpose": "Embedded defaultshader registration andgeneric material RenderAsset/pipeline pluginselection",
+      "body_consumed_at_registration": false,
+      "provenance": "Previously staged exactnative1a5aff objects; no currentalias substitution orfutureoriginalcredit"
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/draw/set_material_bind_group.rs",
+      "sha256": "b4b73c9c1d6331880fe2939dd1487aaf1c97aad0b30c3144eaacbc13a6136638",
+      "bytes": 1730,
+      "actual_lines": 52,
+      "ranges": [
+        [
+          1,
+          52
+        ]
+      ],
+      "purpose": "Actual preparedmaterial bindgroup receiver setBG",
+      "body_consumed_at_registration": false,
+      "provenance": "Previously staged exactnative1a5aff objects; no currentalias substitution orfutureoriginalcredit"
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/bindings.wgsl",
+      "sha256": "8fdf638edbf13ddc04a1a8392f3b873ec730f86f085522de471108c623ac129b",
+      "bytes": 275,
+      "actual_lines": 6,
+      "ranges": [
+        [
+          1,
+          6
+        ]
+      ],
+      "purpose": "Actual WGSLgroup3uniform material binding",
+      "body_consumed_at_registration": false,
+      "provenance": "Previously staged exactnative1a5aff objects; no currentalias substitution orfutureoriginalcredit"
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/shading.wgsl",
+      "sha256": "965586e6cee62b7fe7623cafbd9a173ce271c14cd982466b73eb69a718dca6e9",
+      "bytes": 531,
+      "actual_lines": 21,
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "purpose": "Actual native defaultfragment conditional MaterialUniforms debug_color recipient",
+      "body_consumed_at_registration": false,
+      "provenance": "Previously staged exactnative1a5aff objects; no currentalias substitution orfutureoriginalcredit"
+    }
+  ],
+  "scope_limits": "Bounded actual materialselection/upload/conditional recipients only; no38body/orderedcredit orprevious/history completion. Stopafterthese sourcecontracts; no arbitrarySDKexpansion."
+}

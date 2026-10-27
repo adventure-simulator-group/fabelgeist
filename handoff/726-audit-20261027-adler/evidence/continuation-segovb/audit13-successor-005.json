@@ -1,0 +1,493 @@
+{
+  "id": "audit13-successor-005",
+  "lens": "13 magic numbers",
+  "skill": "/home/brunosegovia/.codex/skills/audit-magic-numbers/SKILL.md",
+  "source_authority": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+  "predecessor": "audit13-successor-004-suggested-state.json adopted by root",
+  "roles": [
+    {
+      "index": 18,
+      "source_id": "native-dependency:serde-saphyr-1.2.0/src/de/error.rs",
+      "path": "CARGO_REGISTRY/serde-saphyr-1.2.0/src/de/error.rs",
+      "sha256": "f814896313ec178ed4f0ee14ab60e358b354814e4019564a42d1f75f2f0d4713",
+      "registered_ranges": [
+        [
+          676,
+          1100
+        ],
+        [
+          1960,
+          1985
+        ],
+        [
+          2227,
+          2270
+        ]
+      ],
+      "status": "ACCOUNTED_REGISTERED_NATIVE_CONTRACT_WITH_QUALIFICATIONS",
+      "personally_consumed_registered_ranges": [
+        [
+          676,
+          1100
+        ],
+        [
+          1960,
+          1985
+        ],
+        [
+          2227,
+          2270
+        ]
+      ],
+      "primitive_inventory": [
+        {
+          "ranges": [
+            [
+              676,
+              839
+            ],
+            [
+              863,
+              1058
+            ],
+            [
+              1078,
+              1100
+            ]
+          ],
+          "values": [
+            "native Error enum discriminants",
+            "Location/Locations, BudgetBreach, RequireIndent, TransformReason and ExternalMessageSource typed owners",
+            "Vec/Option collection roles",
+            "Error::NonFiniteFloat textual scalar example1e999",
+            "serde unit (), strict Boolean and null semantics in variant docs"
+          ],
+          "assessment": "Native parser Error retains named variant and typed location/budget/indentation/reason owners. Variant selection is enum-based; no numeric status or semantic Boolean replaces those owners.1e999 is a documented external YAML overflow-token example retained as original String, not a Rust tuning number or application magnitude. Unit refers to actual Serde no-payload type. Empty typed collections/options are representational absence, not numerical fallback."
+        },
+        {
+          "ranges": [
+            [
+              840,
+              862
+            ]
+          ],
+          "values": [
+            "total_replayed_events:usize,max_total_replayed_events:usize",
+            "anchor_id:usize,expansions:usize,max_expansions_per_anchor:usize",
+            "depth:usize,max_depth:usize"
+          ],
+          "assessment": "Native parser diagnostic boundary carries event cardinality, anchor identity, per-anchor expansion cardinality and stack depth/maxima as raw native usize fields. Actual default and user formatters consume each field unchanged into labelled numeric text. No raw quantity is converted into project units or collapsed into Boolean status. Public error constructors do not establish total>max, unique-anchor allocation, counter overflow safety, or decoder budget enforcement; none claimed."
+        },
+        {
+          "ranges": [
+            [
+              1059,
+              1076
+            ]
+          ],
+          "values": [
+            "actual indentation usize",
+            "crop_radius usize",
+            "CroppedRegion numeric fields reached through stored Vec"
+          ],
+          "assessment": "Indentation actual is spaces, confirmed by native message consumer. Radius is horizontal character-column extent, confirmed by actual Snippet config and crop kernel; not vertical line count. WithSnippet retains raw radius alongside cropped regions and nested typed Error; upper-layer0 disables snippets. No new native/project owner introduced."
+        },
+        {
+          "ranges": [
+            [
+              1960,
+              1985
+            ],
+            [
+              2227,
+              2270
+            ]
+          ],
+          "values": [
+            "Display/Debug standard formatter Result<()>",
+            "Maybe fallback Location::UNKNOWN match",
+            "de::Error custom/invalid_type generic Display adapters"
+          ],
+          "assessment": "Display delegates to RenderOptions native named SnippetMode/formatter; Debug delegates Display. Formatter result unit is required Rust callback shape. Fallback location remains typed sentinel, not raw line0. Serde error adapters call native Display and retain Location::UNKNOWN/typed native enum; source enforcement of any decoded scalar value not inferred."
+        },
+        {
+          "ranges": [
+            [
+              110,
+              160
+            ],
+            [
+              233,
+              339
+            ],
+            [
+              1697,
+              1759
+            ]
+          ],
+          "values": [
+            "character codepoints U+2028/U+2029 and U+FEFF",
+            "CroppedRegion start_line/end_line usize",
+            "source_id0 checks",
+            "line_count.max(1),trailingline.saturating_add(1),end_line=start+lines-1",
+            "native .first() and inclusive range comparisons"
+          ],
+          "assessment": "Control/separator codepoints and BOM are actual native terminal/parser-layout tokens. Region line numbers are documented and operated as1-based inclusive absolute ordinals; count arithmetic saturates for end-line calculation. Source ID0 acts unknown/wildcard in the visible native matching operations. Native region constructor stores supplied values without range validation, so arbitrary caller-provided ordering/positive bounds are not guaranteed. Selection is checked find/first Option, never unproven dynamic indexing."
+        },
+        {
+          "ranges": [
+            [
+              1781,
+              1960
+            ]
+          ],
+          "values": [
+            "first=true thenfalse before separator newlines",
+            "ordinary Option/location/pointer predicates",
+            "crop_radius0 and regions empty fallback"
+          ],
+          "assessment": "Boolean accumulator is native presentation grammar flag controlling blank lines before subsequent validation errors; not parser state/game policy. Radius0/empty/missing data choose plain native formatting. Typed SnippetMode controls mode; no duplicate Boolean mode introduced."
+        }
+      ],
+      "source_backed_receiving_traces": [
+        {
+          "path": "src/de/message_formatters.rs",
+          "sha256": "de1b6f52e546bc92f2bc65b2b7ad12f830fab3b32684eff52ccd4d864540d160",
+          "ranges": [
+            [
+              160,
+              197
+            ],
+            [
+              350,
+              380
+            ],
+            [
+              465,
+              500
+            ],
+            [
+              520,
+              537
+            ]
+          ],
+          "trace": "Both native default/user formatters destructure raw alias/event/depth/anchor fields and render them directly; indentation actual is explicitly rendered as spaces. Budget remains typed debug presentation; required indentation uses native Display. These are final text formatting boundaries, not numeric validation/enforcement."
+        },
+        {
+          "path": "src/de/error.rs",
+          "sha256": "f814896313ec178ed4f0ee14ab60e358b354814e4019564a42d1f75f2f0d4713",
+          "ranges": [
+            [
+              196,
+              440
+            ],
+            [
+              1100,
+              1190
+            ],
+            [
+              1697,
+              1759
+            ],
+            [
+              1781,
+              1985
+            ]
+          ],
+          "trace": "Error::with_snippet passes radius to native crop producer, stores radius and CroppedRegion; region bounds retain absolute1-based coordinates; radius0 and unknown location suppress crop/store helpers. Render dispatch retains same radius/offset and falls back on missing region/location. Display/Debug reaches concrete native formatter."
+        },
+        {
+          "path": "src/de/snippet.rs",
+          "sha256": "69a9cdfed746974cb7e06f5c1b9c95d0c3444eebcc0537274e8543e8b133455f",
+          "ranges": [
+            [
+              1,
+              169
+            ],
+            [
+              170,
+              254
+            ],
+            [
+              606,
+              735
+            ],
+            [
+              984,
+              1200
+            ]
+          ],
+          "trace": "Native line mapping converts absolute1-based lines to relative1-based rows with saturating offsets; rejects zero/out-of-range row; vertical window is fixed\u00b12 lines clipped to existing line starts. crop_radius separately sets horizontal character-column window using saturating_sub/max1 and saturating_add. col_to_byte_offset iterates char_indices, permitting one-past-line EOL; LineCrop retains byte offsets/prefix-byte length. Rebase adjusts old byte spans, clamps to line/output bounds and orders endpoints. Annotation adapter receives native byte range, one-based line_start and fold(false) native UI flag."
+        }
+      ],
+      "native_numeric_policy_inventory": [
+        {
+          "source": "src/de/snippet.rs",
+          "ranges": [
+            [
+              96,
+              116
+            ],
+            [
+              205,
+              247
+            ]
+          ],
+          "values": [
+            "2 lines before/after",
+            "16*1024 window bytes storage threshold",
+            "4*1024 per-line bytes threshold",
+            "initial capacitymin4096"
+          ],
+          "assessment": "Actual native diagnostic layout/storage policies.2 counts context lines; thresholds measure UTF-8 buffer byte length;4096 is initial allocation capacity, not a final retention bound. Storage crop preserves error-line left prefix so it need not impose a global cap. No project performance policy adopted."
+        },
+        {
+          "source": "src/de/snippet.rs",
+          "ranges": [
+            [
+              606,
+              735
+            ],
+            [
+              992,
+              1200
+            ]
+          ],
+          "values": [
+            "radius0/no_crop predicates",
+            "one-based columns",
+            "byte span offsets0 start",
+            "line_len+1 EOL",
+            "Unicode ellipsis prefix len_utf8",
+            "false fold flag and rebased Boolean"
+          ],
+          "assessment": "These are actual native text/annotation kernel ordinals, byte-offset adapters, presence predicates and UI formatting flags. Empty-line0 byte counts remain valid; column0 rejected by helper, EOL allows charcount+1. Byte/column units remain distinct in trace. Actual code clamps spans before terminal sanitization; no all-input safety or unseen sanitizer length guarantee inferred."
+        }
+      ],
+      "guarantees": "Exact original18 packet independently inventoried for non-string primitives; actual native numeric presentation and crop/offset receiving bodies read under prospective ranges. No application numeral/type ownership or YAML budget correctness guarantee imported from lens12.",
+      "application_role_qualification": "Native error/rendering API is concrete decoding/diagnostic boundary. This does not certify first-party YAML config fields, game units/IDs, accepted schemas, resource budgets, redaction policies or final runtime validation. Native Error impl has no explicit source override in registered2227+ region; no structured-cause guarantee is invented.",
+      "untraced_paths": [
+        "Actual parser replay/expansion counters, budget producer enforcement and anchor allocation are outside registered diagnostic contract; no inequalities/uniqueness/overflow promises derived from variant names.",
+        "Location allocation, source ID origin and arbitrary custom CroppedRegion invariants not independently certified; visible native0matching behavior only.",
+        "Unseen redaction/localizer customization and terminal sanitizer implementations not covered; text security and post-sanitization byte-span guarantees unclaimed.",
+        "No complete serde-saphyr SDK/default feature universe/whole native source clearance."
+      ],
+      "hash_verified_before_after_read": true
+    },
+    {
+      "index": 19,
+      "source_id": "native-dependency:serde-saphyr-1.2.0/src/lib.rs",
+      "path": "CARGO_REGISTRY/serde-saphyr-1.2.0/src/lib.rs",
+      "sha256": "c8ac1fdcdcbfc060a9ef1696609f81289b0fdd5700e1d9b374de91b7770d6818",
+      "registered_ranges": [
+        [
+          20,
+          44
+        ]
+      ],
+      "status": "ACCOUNTED_REGISTERED_NATIVE_METADATA_WITH_QUALIFICATIONS",
+      "personally_consumed_registered_ranges": [
+        [
+          20,
+          44
+        ]
+      ],
+      "primitive_inventory": [
+        {
+          "ranges": [
+            [
+              20,
+              44
+            ]
+          ],
+          "values": [
+            "cfg(feature) predicates over native feature tokens",
+            "public reexports of Error/Budget/CroppedRegion/RenderOptions/SnippetMode/RequireIndent and callback types"
+          ],
+          "assessment": "This exact lib packet carries native type/module reexports and cfg feature-token metadata; it contains no naked numeric literal, parameter, field, return or semantic Boolean value. Existing named owners remain canonical; no duplicate primitive aliases or project adapter introduced."
+        }
+      ],
+      "guarantees": "Exact20-44 read; inherited source locators only reused.",
+      "application_role_qualification": "Reexports do not prove first-party configuration/callers, current dependency feature resolution or admission contracts. Does not import other-lens/native-library clearance.",
+      "untraced_paths": [
+        "lib.rs1-19/45-end and all unregistered native modules/callers not covered."
+      ],
+      "hash_verified_before_after_read": true
+    }
+  ],
+  "new_receiving_ranges": [
+    {
+      "role": 18,
+      "sha256": "f814896313ec178ed4f0ee14ab60e358b354814e4019564a42d1f75f2f0d4713",
+      "ranges": [
+        [
+          1,
+          190
+        ],
+        [
+          1100,
+          1190
+        ],
+        [
+          1781,
+          1840
+        ]
+      ],
+      "purpose": "RenderOptions/raw primitive default owner, initial native error methods and rendered numeric payload dispatch"
+    },
+    {
+      "role": 18,
+      "source": "new cached native crate member; not claimed frozen copy",
+      "package": "serde-saphyr1.2.0",
+      "archive_sha256": "3afb591f9cdb6223c88ba39269aff895620c7f0716dc42b705b5733d5c7c0823",
+      "archive_matches_current_lock": true,
+      "same_package_original_error_member_matches_frozen": true,
+      "path": "src/de/message_formatters.rs",
+      "sha256": "de1b6f52e546bc92f2bc65b2b7ad12f830fab3b32684eff52ccd4d864540d160",
+      "ranges": [
+        [
+          160,
+          197
+        ],
+        [
+          350,
+          380
+        ],
+        [
+          465,
+          500
+        ],
+        [
+          520,
+          537
+        ]
+      ],
+      "stage": "source identity registered before locator search; body ranges register next",
+      "hash_verified_before_after_read": true
+    },
+    {
+      "role": 18,
+      "source": "new cached native crate member; not claimed frozen copy",
+      "package": "serde-saphyr1.2.0",
+      "archive_sha256": "3afb591f9cdb6223c88ba39269aff895620c7f0716dc42b705b5733d5c7c0823",
+      "archive_matches_current_lock": true,
+      "same_package_original_error_member_matches_frozen": true,
+      "path": "src/de/snippet.rs",
+      "sha256": "69a9cdfed746974cb7e06f5c1b9c95d0c3444eebcc0537274e8543e8b133455f",
+      "ranges": [
+        [
+          1,
+          70
+        ],
+        [
+          170,
+          245
+        ],
+        [
+          606,
+          735
+        ]
+      ],
+      "stage": "source identity registered before locator search; body ranges register next",
+      "hash_verified_before_after_read": true
+    },
+    {
+      "role": 18,
+      "sha256": "f814896313ec178ed4f0ee14ab60e358b354814e4019564a42d1f75f2f0d4713",
+      "ranges": [
+        [
+          196,
+          440
+        ],
+        [
+          645,
+          681
+        ],
+        [
+          1841,
+          1960
+        ]
+      ],
+      "purpose": "Actual CroppedRegion numeric retention, radius-zero behavior and complete numeric rendering dispatch"
+    },
+    {
+      "role": 18,
+      "sha256": "69a9cdfed746974cb7e06f5c1b9c95d0c3444eebcc0537274e8543e8b133455f",
+      "ranges": [
+        [
+          71,
+          169
+        ],
+        [
+          245,
+          270
+        ]
+      ],
+      "purpose": "Complete native row/offset ordinal mapping and crop producer retained-output boundary"
+    },
+    {
+      "role": 18,
+      "sha256": "69a9cdfed746974cb7e06f5c1b9c95d0c3444eebcc0537274e8543e8b133455f",
+      "ranges": [
+        [
+          992,
+          1100
+        ]
+      ],
+      "purpose": "Actual deferred horizontal character-window/span offset receiver and optional annotation flag"
+    },
+    {
+      "role": 18,
+      "sha256": "69a9cdfed746974cb7e06f5c1b9c95d0c3444eebcc0537274e8543e8b133455f",
+      "ranges": [
+        [
+          984,
+          991
+        ],
+        [
+          1100,
+          1195
+        ]
+      ],
+      "purpose": "Complete numerical-kernel signature and concrete character-column-to-byte crop adapter"
+    },
+    {
+      "role": 18,
+      "sha256": "69a9cdfed746974cb7e06f5c1b9c95d0c3444eebcc0537274e8543e8b133455f",
+      "ranges": [
+        [
+          1196,
+          1200
+        ]
+      ],
+      "purpose": "Complete reached native line-start producer return"
+    },
+    {
+      "role": 18,
+      "sha256": "f814896313ec178ed4f0ee14ab60e358b354814e4019564a42d1f75f2f0d4713",
+      "ranges": [
+        [
+          1697,
+          1759
+        ]
+      ],
+      "purpose": "Plain formatting final count sink and actual region range/source-ID selection receiver"
+    }
+  ],
+  "status": "source_assessed_originals18-19_scoped_native_contracts",
+  "findings": [],
+  "new_unique_count": 0,
+  "global_clearance": false,
+  "project_execution": false,
+  "product_edit": false,
+  "at": "2026-10-26T18:15:31.496769+00:00",
+  "all_registered_receiving_ranges_consumed": true,
+  "at_completed": "2026-10-26T18:21:32.986834+00:00",
+  "qualifications": [
+    "Original0-17 not restarted/read. Root lens12 registration used only for file locators/provenance; no native number-lens verdict transferred.",
+    "Known original18/19 source retrieved as exact frozen SHA objects. New formatter/snippet members recovered only from cached native archive whose SHA256 matches current Cargo.lock; same archive error.rs member exactly matches frozen original18. No claim these new members were frozen registered sources.",
+    "No product/source/git mutation, project checks, test execution/additions or publication. No accepted new finding or unique-count increment. Existing findings/owner-fit obligations remain open.",
+    "Initial attempted archive path src/de_snippet.rs was absent; no body was read or source credit gained. Actual member src/de/snippet.rs identity was then pinned and ranges prospectively registered.",
+    "Every original requested range retained; newly reached bounds/defaults/flags assessed only at concrete native diagnostic adapters, with untraced producer policies explicitly qualified."
+  ]
+}

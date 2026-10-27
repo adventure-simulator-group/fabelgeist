@@ -1,0 +1,14 @@
+{
+  "candidate": "derive-candidate-008.json (with navigation corrected by derive-candidate-008-navigation-successor.json)",
+  "scope_index": 1956,
+  "path": "crates/adventuresim-tactical-core/src/scene_input/terrain_samples.rs",
+  "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "range": [70,74],
+  "same_remedy": "VistaLevelIndex(u8) manual Display delegates self.0.fmt(f) to the unchanged Formatter. Existing owning-crate derive_more2.1.1 Display forwards the identical nongeneric single u8 field and preserves formatter options/result under personally read pinned macro proof008. Add the existing Display derive and remove only this manual impl.",
+  "preserved_semantics": "Keep private u8 field, numeric transparent serde, explicit ordinal new/index API and scene-level ordered-ring validation. Do not introduce a distance-role classifier or extra conversion/serialization API.",
+  "status": "SAME_QUALIFIED_MAINTAINABILITY_REMEDY_CURRENT_SOURCE_CORRECT_PENDING_GLOBAL_DEDUP_AND_EXISTING_ACCEPTANCE",
+  "new_unique_findings_claimed": 0,
+  "checks": "not run",
+  "source_edits": false,
+  "material_credit": "No material role completion or cross-lens credit."
+}

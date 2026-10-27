@@ -1,0 +1,43 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-273",
+  "at": "2026-10-25T22:30:03.646087+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2417,
+      "source_id": "pr-working:crates/strategic-web/static/equipment-toggle.js",
+      "sha256": "86df6350e2e09720ae1d8293a48a484f6e0aa4154787e29dd06156ee7c1e6b37",
+      "personally_read_ranges": [
+        [
+          1,
+          431
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full frozen1-431 personally read in two chunks. Selection is constructed from same placementIndex, requirementIndex, parentID and attachment point emitted by2409. Input candidates sort by rank with deterministic placement/parent/point tiebreaks; shared selectedCapacity counts repeated requirements against freeCapacity+occupants, choosing replacement occupants by used slot. Canonical generated capacities/shape are assumed; parseJsonArray does not seal nested structure, no ordinary malformed producer witness asserted.",
+        "equipmentMutation forwards selected item ID, placement index and paired attachment targets with replace_occupied flag to canonical submit helper and origin page. Hover/keyboard/dialog controls preserve chosen control, current selection and error status; medication restores checkbox on failed submit. No local gameplay authority. Hovered control/preview state persists across page lifecycle in this file; stale disconnected-origin behavior depends canonical helper/navigator, remains qualified."
+      ]
+    },
+    {
+      "scope_index": 2418,
+      "source_id": "pr-working:crates/strategic-web/static/party-trade.js",
+      "sha256": "8bf14d47ad93735cea07acc1e20ad479d0edb2abffc2fd4cd3a6b2b1545c570f",
+      "personally_read_ranges": [
+        [
+          1,
+          677
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full frozen1-677 in three bounded chunks. Trade maps retain IDs and quantities together; merchant form keys/values share Map iteration order, party draft serializes from/to/item/quantity per same entry, loot/pool/discard also emit paired map collections. Thus ordinary client does not create earlier2371 independent-filter association corruption; raw route malformed-input question remains pending reducer/policy.",
+        "Staging respects per-row available/current/target bounds, mode modifiers and selected scope; switching merchant scope resets drafts. Merchant gold preview nets quantities by item then applies one matching sale price: per-instance differing sale-price equivalence and buy/sell cancellation semantics remain canonical pricing questions, no actual mismatch verdict. Target save updates local DOM optimistically without inspecting response; persistence/UI agreement remains qualified upstream fetch behavior.",
+        "Global strategicTradeUi state persists navigation; unmount clears faux-dialog styling/opener references, not draft maps. Canonical page/reload lifecycle and new-scope initialization must be compared before claiming ordinary cross-page stale draft transfer. Prior route2377 sends same-entry unzipped transfer collections; actual reducer validation remains authority.",
+        "Faux dialog focus trap/restore, bulk modifiers, generated rows and discard confirmation read; provisioning query quantities accept canonicalu32 range and explicitparty scope, same requested food/water IDs drive rows/form. No JS/browser execution or transfer performed."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

@@ -1,0 +1,16 @@
+{
+  "packet": 176,
+  "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+  "sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+  "actual_eof": 178,
+  "ranges": [
+    [
+      58,
+      126
+    ]
+  ],
+  "purpose": "Complete actualBuffer.read typedcopy receiver and necessary map/progress/error return contract, not adjacent unrelatedwrite APIs",
+  "registered_before_body_read": true,
+  "original_shared_credit": false,
+  "incidental_previous_readback_exposure": "Registered readback full89 exposed unrelatedtests47-89; exclude those from production semantic coverage. Tests not executed/added/restored."
+}

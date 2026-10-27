@@ -1,0 +1,543 @@
+name: Rust quality
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "AGENTS.md"
+      - ".cargo/**"
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "crates/**"
+      - "rustfmt.toml"
+      - "rust-toolchain.toml"
+      - "rust-quality.toml"
+      - "rust-quality-baseline.toml"
+      - "justfile"
+      - "scripts/dev_stack.py"
+      - "scripts/check_calendar_api.py"
+      - "scripts/test_check_calendar_api.py"
+      - "scripts/tests/test_dev_stack.py"
+      - "scripts/tests/test_building_review_boundary.py"
+      - "scripts/capture*review.py"
+      - "scripts/capture_shop_signs.py"
+      - "scripts/capture_workplaces.py"
+      - "assets/tactical-scenes/*review*.json"
+      - ".github/workflows/rust-quality.yml"
+  pull_request:
+    paths:
+      - "AGENTS.md"
+      - ".cargo/**"
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "crates/**"
+      - "rustfmt.toml"
+      - "rust-toolchain.toml"
+      - "rust-quality.toml"
+      - "rust-quality-baseline.toml"
+      - "justfile"
+      - "scripts/dev_stack.py"
+      - "scripts/check_calendar_api.py"
+      - "scripts/test_check_calendar_api.py"
+      - "scripts/tests/test_dev_stack.py"
+      - "scripts/tests/test_building_review_boundary.py"
+      - "scripts/capture*review.py"
+      - "scripts/capture_shop_signs.py"
+      - "scripts/capture_workplaces.py"
+      - "assets/tactical-scenes/*review*.json"
+      - ".github/workflows/rust-quality.yml"
+  workflow_dispatch:
+    inputs:
+      regenerate_fixtures:
+        description: Regenerate procedural fixtures with the existing exporters
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+  SPACETIMEDB_VERSION: "2.6.1"
+
+jobs:
+  rust-quality:
+    if: ${{ !inputs.regenerate_fixtures }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 2
+      - name: Install pinned Rust toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: nightly-2026-07-13
+          components: rustfmt, clippy
+          targets: wasm32-unknown-unknown
+      - name: Cache Rust build artifacts
+        uses: Swatinem/rust-cache@v2
+        with:
+          shared-key: rust-quality
+          cache-on-failure: true
+      - name: Install pinned SpacetimeDB CLI
+        run: |
+          curl -sSf https://install.spacetimedb.com | sh -s -- -y
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          "$HOME/.local/bin/spacetime" version install "$SPACETIMEDB_VERSION"
+          "$HOME/.local/bin/spacetime" version use "$SPACETIMEDB_VERSION"
+      - name: Install configured Linux linker
+        run: >-
+          sudo apt-get update && sudo apt-get install --no-install-recommends -y
+          mold libasound2-dev libudev-dev libwayland-dev libx11-dev
+          libxcursor-dev libxinerama-dev libxkbcommon-dev libxkbcommon-x11-dev
+          libxrandr-dev libxi-dev libvulkan1 mesa-vulkan-drivers
+      - name: Check formatting
+        run: |
+          format_status=0
+          cargo fmt --all -- --check || format_status=1
+          cargo fmt --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --check || format_status=1
+          cargo fmt --manifest-path crates/fabelgeist-mhr/Cargo.toml -- --check || format_status=1
+          cargo fmt --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml -- --check || format_status=1
+          exit "$format_status"
+      - name: Test generated bindings verifier
+        run: >-
+          python3 -m unittest
+          scripts.tests.test_dev_stack.WorkflowTests.test_binding_diff_detects_changed_and_extra_files
+      - name: Check building review presentation boundary
+        run: python3 -m unittest scripts.tests.test_building_review_boundary
+      - name: Verify generated SpacetimeDB bindings
+        run: python3 scripts/dev_stack.py verify-bindings
+      - name: Test shared schema and GPU readback boundaries
+        run: |
+          cargo test --package adventuresim-world-schema --all-features
+          cargo test --package fabelgeist-gpu --lib data::gpu::buffer::readback::tests
+      - name: Test resolved Bevy guard
+        run: cargo test --locked --package fabelgeist-rust-quality --test bevy_version_guard
+      - name: Test checked FBX array encoding
+        run: >-
+          cargo test --locked --package fabelgeist-fbx --lib
+          array_encoding_tests::array_encoding_preserves_actual_main_payload_and_error_behavior
+          -- --exact --nocapture
+      - name: Test existing FBX object-name consumers
+        run: cargo test --locked --package fabelgeist-fbx
+      - name: Check semantic values and Rust growth
+        run: |
+          cargo test --package fabelgeist-rust-quality
+          cargo run --package fabelgeist-rust-quality -- check .
+      - name: Check calendar API ownership
+        run: |
+          python3 -m unittest scripts.test_check_calendar_api
+          python3 scripts/check_calendar_api.py
+      - name: Lint tactical client WASM target
+        run: cargo clippy --package adventuresim-tactical-client --bin adventuresim-tactical-client --target wasm32-unknown-unknown -- -D warnings
+      - name: Test native and WASM deterministic draws
+        run: |
+          python3 -B -m unittest scripts.test_check_deterministic_rng
+          python3 scripts/check_deterministic_rng.py
+          cargo install wasm-bindgen-cli --version 0.2.126 --locked
+          python3 scripts/test_determinism.py
+      - name: Run Clippy with warnings denied
+        run: |
+          cargo clippy --workspace --all-targets --all-features -- -D warnings
+          cargo clippy --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml --all-targets --all-features -- -D warnings
+          cargo clippy --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-targets --all-features -- -D warnings
+          cargo clippy --locked --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-targets --all-features -- -D warnings
+      - name: Test constraint graph and shell consumers
+        timeout-minutes: 20
+        env:
+          EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          mkdir -p target/constraint-validation
+          git rev-parse HEAD | tee target/constraint-validation/source.txt
+          printf '%s\n' "$EXPECTED_SOURCE" > target/constraint-validation/pr-head.txt
+          git merge-base --is-ancestor "$EXPECTED_SOURCE" HEAD
+          export XDG_RUNTIME_DIR="$RUNNER_TEMP/constraint-runtime"
+          mkdir -p "$XDG_RUNTIME_DIR"
+          chmod 700 "$XDG_RUNTIME_DIR"
+          cargo test --locked --package fabelgeist-xpbd --package fabelgeist-shell -- --test-threads=1 2>&1 | tee target/constraint-validation/tests.log
+          git diff --exit-code -- Cargo.lock crates/adventuresim-character-creator/Cargo.lock crates/fabelgeist-mhr/Cargo.lock crates/fabelgeist-numpy-storage/Cargo.lock
+      - name: Upload constraint validation evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: constraint-validation-${{ github.run_id }}-${{ github.run_attempt }}
+          path: target/constraint-validation/
+          if-no-files-found: error
+      - name: Record rig contract revision
+        env:
+          EXPECTED_RIG_REVISION: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          revision="$(git rev-parse HEAD)"
+          test "$revision" = "$EXPECTED_RIG_REVISION"
+          mkdir -p target/rig-contracts
+          printf '%s\n' "$revision" | tee target/rig-contracts/revision.txt
+      - name: Test shared rig contracts
+        run: |
+          set -o pipefail
+          cargo test --locked --package fabelgeist-rig 2>&1 | tee target/rig-contracts/rig.log
+      - name: Test shared scalar geometry contracts
+        run: |
+          set -euo pipefail
+          cargo check --locked --package adventuresim-core --no-default-features
+          cargo test --locked --package adventuresim-building-generator --lib spatial_geometry:: -- --test-threads=1 2>&1 | tee target/rig-contracts/geometry-admission.log
+          cargo test --locked --package fabelgeist-geometry --doc 2>&1 | tee target/rig-contracts/geometry-doc.log
+      - name: Test native iteration report producers
+        run: |
+          set -euo pipefail
+          cargo test --locked --package adventuresim-tactical-server --features iteration --lib iteration:: -- --test-threads=1 2>&1 | tee target/rig-contracts/native-iteration.log
+      - name: Test autoresolve battle-time consumers
+        run: |
+          set -euo pipefail
+          cargo test --locked --package adventuresim-core --lib autoresolve:: -- --test-threads=1 2>&1 | tee target/rig-contracts/autoresolve.log
+          cargo test --locked --package adventuresim-core --lib combat::defense:: -- --test-threads=1 2>&1 | tee target/rig-contracts/contact-defense.log
+      - name: Test MHR rig admission
+        run: |
+          set -o pipefail
+          cargo test --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml -- --test-threads=1 2>&1 | tee target/rig-contracts/mhr.log
+      - name: Test strategic bootstrap failure contracts
+        env:
+          EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SOURCE"
+          cargo test --locked --package adventuresim-strategic-sim --lib live_core::tests:: -- --test-threads=1 2>&1 | tee target/rig-contracts/strategic-bootstrap.log
+      - name: Test creator rig family contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          creator_contract() {
+            local label="$1"
+            shift
+            local log="target/rig-contracts/creator-${label}"
+            printf '%q ' cargo test --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml "$@" > "${log}.command.txt"
+            printf '\n' >> "${log}.command.txt"
+            cargo test --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml "$@" 2>&1 | tee "${log}.log"
+          }
+          creator_contract armor-frames --lib armor_frames:: -- --test-threads=1 --nocapture
+          creator_contract clothing --lib clothing:: -- --test-threads=1 --nocapture
+          creator_contract device-frames --lib device_frames:: -- --test-threads=1 --nocapture
+          creator_contract gorget-bib --lib device_gorget_bib:: -- --test-threads=1 --nocapture
+          creator_contract gorget-collar --lib device_gorget_collar:: -- --test-threads=1 --nocapture
+          creator_contract wrapped-tasset --lib device_wrapped_tasset:: -- --test-threads=1 --nocapture
+          creator_contract export --lib export:: -- --test-threads=1 --nocapture
+          creator_contract garment --lib garment:: -- --test-threads=1 --nocapture
+          creator_contract runtime-equipment --lib runtime_equipment:: -- --test-threads=1 --nocapture
+          creator_contract skin-rules --lib skin_rules:: -- --test-threads=1 --nocapture
+          creator_contract torso-domain --lib torso_domain:: -- --test-threads=1 --nocapture
+          creator_contract underlayer-design --lib underlayer::tests::invalid_cut_and_construction_ranges_are_rejected -- --exact --test-threads=1 --nocapture
+          creator_contract character-morphs --bin adventuresim-character-creator character_morphs:: -- --test-threads=1 --nocapture
+          creator_contract animation-preview --bin adventuresim-character-creator animation_preview:: -- --test-threads=1 --nocapture
+          creator_contract device-bracer --test device_bracer -- --test-threads=1 --nocapture
+          creator_contract device-breastplate --test device_breastplate -- --test-threads=1 --nocapture
+      - name: Test tactical animation and audio contracts
+        run: |
+          set -o pipefail
+          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client animation:: -- --test-threads=1 2>&1 | tee target/rig-contracts/animation.log
+          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client movement_audio::tests:: -- --test-threads=1 2>&1 | tee target/rig-contracts/audio.log
+          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client weather_audio::tests:: -- --test-threads=1 2>&1 | tee target/rig-contracts/weather-audio.log
+      - name: Test existing animation report consumers
+        run: |
+          set -euo pipefail
+          cargo test --locked --package adventuresim-tactical-client --features debug --bin animation-viewer animation_viewer::report:: -- --test-threads=1 2>&1 | tee target/rig-contracts/animation-reports.log
+      - name: Test tactical equipment contracts
+        run: |
+          set -o pipefail
+          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client equipment:: -- --test-threads=1 2>&1 | tee target/rig-contracts/equipment.log
+      - name: Test equipment chronology and mapped requests
+        run: |
+          set -euo pipefail
+          cargo test --locked --package adventuresim-tactical-server --bin adventuresim-tactical-server equipment:: -- --test-threads=1 2>&1 | tee target/rig-contracts/equipment-chronology.log
+          cargo test --locked --package adventuresim-tactical-netcode --lib message::equipment_action_mapping_tests:: -- --test-threads=1 2>&1 | tee target/rig-contracts/equipment-mapping.log
+      - name: Test gameplay camera contracts
+        run: |
+          set -euo pipefail
+          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client camera:: -- --test-threads=1 2>&1 | tee target/rig-contracts/camera.log
+      - name: Test shared animation value contracts
+        run: |
+          set -euo pipefail
+          cargo test --locked --package adventuresim-tactical-core --lib animation:: -- --test-threads=1 2>&1 | tee target/rig-contracts/tactical-core-animation.log
+      - name: Test canonical combat configuration
+        env:
+          EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SOURCE"
+          cargo test --locked --package adventuresim-tactical-core --lib combat_config:: -- --test-threads=1 2>&1 | tee target/rig-contracts/tactical-core-combat-config.log
+          grep -Eq '^test result: ok\. [1-9][0-9]* passed; 0 failed;' target/rig-contracts/tactical-core-combat-config.log
+      - name: Test server configuration startup
+        env:
+          EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SOURCE"
+          cargo test --locked --package adventuresim-tactical-server --bin adventuresim-tactical-server startup::tests:: -- --test-threads=1 2>&1 | tee target/rig-contracts/tactical-server-startup.log
+          grep -Eq '^test result: ok\. [1-9][0-9]* passed; 0 failed;' target/rig-contracts/tactical-server-startup.log
+      - name: Test authoritative maneuver consumers
+        run: |
+          set -euo pipefail
+          cargo test --locked --package adventuresim-tactical-server --bin adventuresim-tactical-server player_projection::tests:: -- --test-threads=1 2>&1 | tee target/rig-contracts/maneuver-consumers.log
+      - name: Test shared terrain support contracts
+        env:
+          EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SOURCE"
+          cargo test --locked --package adventuresim-tactical-core --features meshgen --lib scene:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-scene.log
+          cargo test --locked --package adventuresim-tactical-core --features meshgen --lib scene_input:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-scene-input.log
+          cargo test --locked --package adventuresim-tactical-core --features meshgen --lib scene_coordinates:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-scene-coordinates.log
+          cargo test --locked --package adventuresim-tactical-core --features meshgen --lib city_layout::grounding:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-grounding.log
+          cargo test --locked --package adventuresim-tactical-core --features meshgen --lib volumetric_terrain:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-landforms.log
+          cargo test --locked --package adventuresim-tactical-core --features meshgen --lib erosional_terrain:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-erosion.log
+          cargo test --locked --package adventuresim-tactical-core --features meshgen --lib marching_tetrahedra:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-extraction.log
+          cargo test --locked --package adventuresim-tactical-server --bin adventuresim-tactical-server doors::gate_tests:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-server-gates.log
+      - name: Test terrain presentation and retained scene consumers
+        timeout-minutes: 20
+        env:
+          EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SOURCE"
+          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-presentation.log
+          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client strategic_scene:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-strategic.log
+      - name: Test existing terrain capture and art-demo consumers
+        env:
+          EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SOURCE"
+          cargo test --locked --package adventuresim-tactical-client --features debug --bin tactical-scene-viewer tactical_scene_viewer:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-viewer.log
+          cargo test --locked --package adventuresim-tactical-client --bin art-demo art_demo:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-art-demo.log
+          cargo test --locked --package adventuresim-tactical-client --features debug --bin animation-viewer animation_viewer::capture:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-animation-capture.log
+      - name: Test dispatcher terrain selection and inspection consumers
+        env:
+          EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SOURCE"
+          cargo test --locked --package adventuresim-tactical-server-dispatcher --lib scene_input:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-dispatcher.log
+          cargo test --locked --package adventuresim-tactical-server-dispatcher --example inspect-city-grounding -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-inspection.log
+      - name: Export semantic family baseline snapshot
+        env:
+          EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SOURCE"
+          cargo run --locked --package fabelgeist-rust-quality -- baseline . | tee target/rig-contracts/quality-baseline.toml
+      - name: Verify required rig contract execution
+        env:
+          EXPECTED_RIG_REVISION: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import re
+          from pathlib import Path
+
+          evidence = Path("target/rig-contracts")
+          revision = (evidence / "revision.txt").read_text().strip()
+          if not re.fullmatch(r"[0-9a-f]{40}", revision) or revision != os.environ["EXPECTED_RIG_REVISION"]:
+              raise SystemExit("Recorded rig revision does not match the required PR head")
+          required = [
+              "rig", "autoresolve", "contact-defense", "mhr", "strategic-bootstrap",
+              "geometry-admission", "geometry-doc", "native-iteration",
+              "camera", "equipment-chronology", "equipment-mapping",
+              "animation", "audio", "weather-audio", "animation-reports", "equipment", "maneuver-consumers",
+              "creator-armor-frames", "creator-clothing",
+              "creator-device-frames", "creator-gorget-bib",
+              "creator-gorget-collar", "creator-wrapped-tasset",
+              "creator-export", "creator-garment",
+              "creator-runtime-equipment", "creator-skin-rules",
+              "creator-torso-domain", "creator-underlayer-design",
+              "creator-character-morphs", "creator-animation-preview",
+              "creator-device-bracer", "creator-device-breastplate",
+              "terrain-scene",
+              "terrain-scene-input",
+              "terrain-scene-coordinates",
+              "terrain-grounding",
+              "terrain-server-gates",
+              "terrain-landforms",
+              "terrain-erosion",
+              "terrain-extraction",
+              "terrain-presentation",
+              "terrain-strategic",
+              "terrain-viewer",
+              "terrain-art-demo",
+              "terrain-dispatcher",
+              "terrain-inspection",
+              "terrain-animation-capture",
+          ]
+          cells = []
+          for label in required:
+              log = evidence / f"{label}.log"
+              text = log.read_text() if log.is_file() else ""
+              text = re.sub(r"\x1b\[[0-?]*[ -/]*[@-~]", "", text)
+              results = re.findall(
+                  r"^test result: ok\. (\d+) passed; (\d+) failed; (\d+) ignored;",
+                  text, re.MULTILINE,
+              )
+              passed, failed, ignored = (
+                  sum(int(result[index]) for result in results)
+                  for index in range(3)
+              )
+              cells.append({
+                  "cell": label, "log": str(log), "revision": revision,
+                  "passed": passed, "failed": failed, "ignored": ignored,
+                  "accepted": bool(results) and passed > 0 and failed == 0,
+              })
+          (evidence / "required-cells.json").write_text(
+              json.dumps(cells, indent=2) + "\n"
+          )
+          missing = [cell["cell"] for cell in cells if not cell["accepted"]]
+          if missing:
+              raise SystemExit(f"Missing or empty required test results: {missing}")
+          PY
+      - name: Upload rig contract evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rig-contracts-${{ github.event.pull_request.head.sha || github.sha }}
+          path: target/rig-contracts/
+          if-no-files-found: warn
+
+  regenerate-fixtures:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.regenerate_fixtures }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install pinned Rust toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: nightly-2026-07-13
+      - name: Cache Rust build artifacts
+        uses: Swatinem/rust-cache@v2
+        with:
+          shared-key: rust-quality
+          cache-on-failure: true
+      - name: Install configured Linux linker and presentation libraries
+        run: >-
+          sudo apt-get update && sudo apt-get install --no-install-recommends -y
+          mold libasound2-dev libudev-dev libwayland-dev libx11-dev
+          libxcursor-dev libxinerama-dev libxkbcommon-dev libxkbcommon-x11-dev
+          libxrandr-dev libxi-dev libvulkan1 mesa-vulkan-drivers
+      - name: Record source revision
+        run: |
+          mkdir -p target/procedural-fixtures
+          git rev-parse HEAD > target/procedural-fixtures/revision.txt
+      - name: Export existing managed-hazel envelope
+        env:
+          FABELGEIST_UPDATE_GARDEN_SPECIMEN: "1"
+        run: |
+          set -euo pipefail
+          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation::ground_scatter::specimens::tests::managed_hazel_matches_shared_envelope -- --exact --color=never --test-threads=1 2>&1 | tee target/procedural-fixtures/envelope-export.log
+          grep -F 'test result: ok. 1 passed;' target/procedural-fixtures/envelope-export.log
+      - name: Refresh scenes that depend on the garden envelope
+        run: |
+          set -euo pipefail
+          cargo run --locked --package adventuresim-tactical-core --bin generate-scene-fixtures -- --fixture garden-review
+          cargo run --locked --package adventuresim-tactical-core --bin generate-scene-fixtures -- --fixture massive-city
+          cargo run --locked --package adventuresim-tactical-core --bin generate-scene-fixtures -- --fixture compound-review
+      - name: Refresh paired prepared city assets
+        run: >-
+          cargo run --locked --package adventuresim-tactical-client
+          --example generate-art-demo-city
+      - name: Refresh stale fixed-exhibit cloud bakes
+        run: |
+          set -euo pipefail
+          if cargo test --locked --package adventuresim-tactical-client --bin art-demo art_demo::scenery::tests::fixed_exhibits_embed_complete_nonempty_cloud_bakes -- --exact --color=never --test-threads=1 2>&1 | tee target/procedural-fixtures/cloud-identity-before.log; then
+            grep -F 'test result: ok. 1 passed;' target/procedural-fixtures/cloud-identity-before.log
+          else
+            grep -F 'test result: FAILED. 0 passed; 1 failed;' target/procedural-fixtures/cloud-identity-before.log
+            cargo test --locked --package adventuresim-tactical-client --bin art-demo art_demo::scenery::tests::regenerate_art_demo_cloud_assets -- --exact --ignored --color=never --test-threads=1 2>&1 | tee target/procedural-fixtures/cloud-export.log
+            grep -F 'test result: ok. 1 passed;' target/procedural-fixtures/cloud-export.log
+            cargo test --locked --package adventuresim-tactical-client --bin art-demo art_demo::scenery::tests::fixed_exhibits_embed_complete_nonempty_cloud_bakes -- --exact --color=never --test-threads=1 2>&1 | tee target/procedural-fixtures/cloud-identity-after.log
+            grep -F 'test result: ok. 1 passed;' target/procedural-fixtures/cloud-identity-after.log
+          fi
+      - name: Export existing art-demo tree impostors
+        run: |
+          set -euo pipefail
+          cargo test --locked --package adventuresim-tactical-client --bin art-demo art_demo::scenery::tests::regenerate_art_demo_tree_impostors -- --exact --ignored --color=never --test-threads=1 2>&1 | tee target/procedural-fixtures/impostor-export.log
+          grep -F 'test result: ok. 1 passed;' target/procedural-fixtures/impostor-export.log
+      - name: Check existing shrub and tree leaf contracts
+        run: |
+          set -uo pipefail
+          status=0
+          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation::ground_scatter::understory::tests:: -- --test-threads=1 2>&1 | tee target/procedural-fixtures/understory.log || status=1
+          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation::obstacles::tree::geometry::leaves::tests:: -- --test-threads=1 2>&1 | tee target/procedural-fixtures/leaves.log || status=1
+          exit "$status"
+      - name: Upload generated fixtures and source evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: procedural-fixtures-${{ github.sha }}
+          path: |
+            content/tactical/garden-hazel-envelope.json
+            assets/tactical-scenes/garden-review.json
+            assets/tactical-scenes/massive-city.json
+            assets/tactical-scenes/compound-review.json
+            assets/art-demo/city-layout.json
+            assets/art-demo/city-furniture.json
+            assets/art-demo/oak.tree-impostors
+            assets/clouds/art-demo/
+            target/procedural-fixtures/
+          if-no-files-found: error
+
+  foliage-portability:
+    if: ${{ !inputs.regenerate_fixtures }}
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Install pinned Rust toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: nightly-2026-07-13
+      - name: Expose the configured bundled Rust linker
+        shell: pwsh
+        run: |
+          $foliageRustRoot = rustc --print sysroot
+          Add-Content -LiteralPath $env:GITHUB_PATH -Value "$foliageRustRoot\lib\rustlib\x86_64-pc-windows-msvc\bin"
+      - name: Cache Rust build artifacts
+        uses: Swatinem/rust-cache@v2
+        with:
+          shared-key: rust-quality
+          cache-on-failure: true
+      - name: Verify existing foliage and prepared-asset contracts
+        env:
+          EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SOURCE"
+          unset FABELGEIST_UPDATE_GARDEN_SPECIMEN
+          mkdir -p target/foliage-portability
+          git rev-parse HEAD > target/foliage-portability/revision.txt
+          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation::ground_scatter::understory::tests::minimal_shrub_cards_ -- --color=never --test-threads=1 2>&1 | tee target/foliage-portability/understory.log
+          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation::ground_scatter::specimens::tests::managed_hazel_matches_shared_envelope -- --exact --color=never --test-threads=1 2>&1 | tee target/foliage-portability/envelope.log
+          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation::obstacles::tree::geometry::leaves::tests:: -- --color=never --test-threads=1 2>&1 | tee target/foliage-portability/leaves.log
+          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation::obstacles::tree::impostor::raster::tests::coarse_leaf_sampling_preserves_positions_across_every_shoot -- --exact --color=never --test-threads=1 2>&1 | tee target/foliage-portability/sampling.log
+          cargo test --locked --package adventuresim-tactical-client --bin art-demo art_demo::scenery::tests::fixed_oak_exhibit_has_every_matching_prebaked_impostor -- --exact --color=never --test-threads=1 2>&1 | tee target/foliage-portability/prepared-impostors.log
+      - name: Verify required existing cases executed
+        run: |
+          python - <<'PY'
+          import re
+          from pathlib import Path
+
+          for name in ("understory", "envelope", "leaves", "sampling", "prepared-impostors"):
+              log = Path(f"target/foliage-portability/{name}.log").read_text(encoding="utf-8")
+              results = re.findall(r"test result: ok\. (\d+) passed;", log)
+              if len(results) != 1 or int(results[0]) == 0:
+                  raise SystemExit(f"Missing or empty required result: {name}")
+          PY
+      - name: Upload foliage portability evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: foliage-portability-${{ github.event.pull_request.head.sha || github.sha }}
+          path: target/foliage-portability/
+          if-no-files-found: warn

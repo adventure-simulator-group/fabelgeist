@@ -1,0 +1,32 @@
+{
+  "lens": "08 behavior-preservation",
+  "material_indices": [
+    185,
+    186
+  ],
+  "registry": "../shared-material-successor/source-extensions-187.json",
+  "read_ranges": {
+    "185": [
+      [
+        280,
+        364
+      ]
+    ],
+    "186": [
+      [
+        26,
+        38
+      ]
+    ]
+  },
+  "source_sha256": {
+    "185": "fec69e4c27506056a55fc472e30fb113fdf316dc73647fb11794fb6c1ac77377",
+    "186": "93ce4dd53c7e855b2ebc057fc23e71c191f1fd74c0f9ae224b49de260d556708"
+  },
+  "archive_checksum": "fc86a32b2eef9859e1e7d323c6d1a9150fe77aa17c30fd05abebc12f645929dc",
+  "archive_proof": "Actual archive checksum matches frozen6533 Cargo.lock; both installed registered file bytes equal corresponding archive entries. Only requested bodies assessed.",
+  "analysis": "Extract processes added/modified IDs, reads asset usage from actual GpuImage implementation, and for RENDER_WORLD calls take_gpu_data through get_mut_untracked. It does not remove Assets<Image> entry. Thus standard extraction is not an ordinary missing-destination witness. No inference about arbitrary external removal/native internals beyond these bodies.",
+  "candidate": "CONT08-Q004 non-counted conditional failure-cost ordering observation remains qualified; no ordinary witness.",
+  "chronology": "Pre-registration incidental rg316-352 navigation disclosed in064; complete requested bodies consumed after registration011.",
+  "global_clearance": false
+}

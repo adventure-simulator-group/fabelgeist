@@ -1,0 +1,53 @@
+{
+  "id": "ADLER-CONT01-LATER-013",
+  "lens": "producer-propagation",
+  "registry_sha256": "6a1e8a6ab30283cd83e3b46dc16873eeef30af6a61d449c17b93dbea849a7c33",
+  "receipts": [
+    {
+      "extension_index": 175,
+      "source_id": "scope-amendment:pr-working:crates/strategic-web/static/art-demo/viewer.mjs#send",
+      "sha256": "18e08b3c82909fa45a67ca5baeb0ecb0eb69b93db8f372d420940b8374effb78",
+      "source_ranges": [
+        [
+          32,
+          38
+        ]
+      ],
+      "actual_eof": 327,
+      "trace": {
+        "producer": "send receives actual UI command payload, returns early before runtime exists, otherwise JSON.stringify encodes it and runtime.command receives resulting string; thrown command/serialization error callsfail. Registered range also includes categoryOf: scenery maps to its exhibitid, other kinds to kind.",
+        "retained_and_operations": "No primitive ID is re-admitted into a checked owner between this helper and codec; external catalogID remains wire identity. Category projection is UI grouping (scenery split by exhibit), distinct from native catalogkind semantics.",
+        "actual_receiver": "Actual JSON.stringify at34 is proven serialization boundary, and command string is passed to actual module handle assigned by174 after module.default/boot. This closes previously untraced send helper edge by source body, not name. Native Rust command decoder and fail output are outside bounded helper graph.",
+        "boundary_and_disposition": "No new01 premature leaf flattening in JS wire adapter. Do not claim command success from unit return or a classified/validated native exhibit from serialization. Preserve existing UI/native error/protocol/source/revision obligations; no blanket viewer/runtime clearance."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    },
+    {
+      "extension_index": 176,
+      "source_id": "scope-amendment:pr-working:crates/strategic-web/static/art-demo/viewer.mjs#select",
+      "sha256": "18e08b3c82909fa45a67ca5baeb0ecb0eb69b93db8f372d420940b8374effb78",
+      "source_ranges": [
+        [
+          93,
+          161
+        ]
+      ],
+      "actual_eof": 327,
+      "trace": {
+        "producer": "select receives actual catalogentry from174 startup or shown catalog-derived tab/specimen listeners; updates current selected object and emits show command with same exhibit.id.",
+        "retained_and_operations": "Resets readiness/input/speculation, remembers per-category last choice, derives DOMlabels/counts/references and optional URLhistory. select stores actual entry, not an independent copied kind/metadata record.",
+        "actual_receiver": "Actual DOMtextContent/attributes/native URLhistory are concrete browser adapters; show payload147 goes to proven codec175. Existing startup174 repeats current selected after runtime becomes available, preserving preboot intent.",
+        "boundary_and_disposition": "Closes bounded119\u2192174\u2192select\u2192send codec flow. Raw stablekind/id within JS grouping/DOM/native JSON is not decoded from humanlabel; valid author/catalog identity remains open. No checked schema/membership admission is performed here; unsupported shape/empty and asynchronous runtime/readiness semantics remain explicit broader limits. Adjacent293pollStatus/prefetch bodies unreviewed, no whole viewer claim."
+      },
+      "repair": "not_started",
+      "validation": "not_run"
+    }
+  ],
+  "global_clearance": false,
+  "new_unique_count": "not asserted; existing-remedy dedup required",
+  "extra": {
+    "scope": "Prospectively registered175/176same sourcehash with exact ranges32-38/93-161; no queue replay or otherlensverdict credit.",
+    "receiving_edge_resolution": "M174send/select helper uncertainty closed at actual DOM/JSONcodec ports, not native semantic/renderer acceptance."
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "id": "ADLER-RESUMED05-MATERIAL-001",
+  "at": "2026-10-25T21:56:34.238665+00:00",
+  "lens": "audit-aggregate-states",
+  "material_index": 63,
+  "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+  "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+  "personally_read_ranges": [
+    [
+      1,
+      209
+    ]
+  ],
+  "authority": "source-extensions-175.json entries63; frozenPR6533e444, exact recoveredGitobject in774handoff",
+  "original_role_credit": 0,
+  "comparisons": [
+    {
+      "source_index": 2279,
+      "ranges": [
+        [
+          72,
+          80
+        ],
+        [
+          456,
+          479
+        ]
+      ]
+    },
+    {
+      "source_index": 2280,
+      "ranges": [
+        [
+          91,
+          108
+        ],
+        [
+          152,
+          158
+        ]
+      ]
+    },
+    {
+      "source_index": 2243,
+      "ranges": [
+        [
+          171,
+          184
+        ]
+      ]
+    }
+  ],
+  "observations": [
+    "Canonicalproducer groups variablesbyactualbinding.group inBTreeMap25..33, thenpushescompactlayouts/reflection vectors37..45 preservinggroup.index59..64. It doesnotinsertgaps. Slowpass2279indexescompactlayoutbyoriginalgroupindex andlaterbindsenumeratedgroups; pipeline2280compilescompactlayoutsasgroups0... Thus sparsegroupaddressesarenotpreserved throughthisfrozenpath. This narrowsopenproducerquestion frompacket229 withactualsource, not fabricatedpublicreflectionmutation.",
+    "Fastpath2243supportsonegroupindex0only, so sparsegroupdoesnotescapeviacachedpath. Actualcanonicalshadersalreadyreadusegroup0; noordinaryshippedshaderfailureestablished. Rootreportsrelatedhistorical#826qualifications; do nottreatthissupportasnewindependentfindingorcurrent#826verdict.",
+    "Uniformreflectionretainsoneuniformbindingandsingleblocksize butappendsmemberrecordsforeachuniformvariable113..140; multipleuniformassociationcontractrequiresexisting#826scope/sourcequalification, nofamilyclearance."
+  ],
+  "disposition": "Source-backed support/openfamilyqualification pendingRoot#826dedup; no newfindingcount, repair/not_started, execution/not_run"
+}

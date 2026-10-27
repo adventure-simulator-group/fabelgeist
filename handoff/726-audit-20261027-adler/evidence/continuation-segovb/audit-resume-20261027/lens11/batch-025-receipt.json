@@ -1,0 +1,205 @@
+{
+  "at": "2026-10-27T12:47:11.311527+00:00",
+  "lens": 11,
+  "status": "925-927 independently source-accounted",
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-024.json",
+    "sha256": "befb2d3fcab77ab2af1dc757c4a82c75483fe99dca34dd1fd4d9ee631c24a018"
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-025-registration.jsonl",
+    "sha256": "8e338ddd38b25d1558739045e875db1ee4bca0d71c8d227fb8e1c26d6a057914"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 925,
+      "source_id": "pr-working:crates/adventuresim-core/src/essential.rs",
+      "sha256": "3d1b91f2f3bd1d9ffaeaa98eb8cf921fcbfee807aba9fd8bd16ca762448a10e0",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/3d1b91f2f3bd1d9ffaeaa98eb8cf921fcbfee807aba9fd8bd16ca762448a10e0",
+      "actual_eof": 40,
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          40
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 926,
+      "source_id": "pr-working:crates/adventuresim-core/src/filth.rs",
+      "sha256": "a9e459f3c532b5661b495beff45dbdabd7946cf34bacf8e05f0d852d0f36e446",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/a9e459f3c532b5661b495beff45dbdabd7946cf34bacf8e05f0d852d0f36e446",
+      "actual_eof": 631,
+      "ranges": [
+        [
+          1,
+          631
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          631
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 927,
+      "source_id": "pr-working:crates/adventuresim-core/src/food.rs",
+      "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "actual_eof": 848,
+      "ranges": [
+        [
+          1,
+          848
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          848
+        ]
+      ]
+    }
+  ],
+  "material_receivers": [
+    {
+      "kind": "connected-owner",
+      "original_index": 939,
+      "sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "ranges": [
+        [
+          546,
+          580
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual Food and Flavors schema projection compared with food runtime shape",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          546,
+          580
+        ]
+      ]
+    }
+  ],
+  "per_role": [
+    {
+      "original": 925,
+      "roles": "PlayerEssentials calorie use versus focus, endurance check and derived strategic fatigue/physical skill condition; equipment burden contribution versus combat incapacitation policy.",
+      "trace": "Full40 read. Actual fatigue_by_parts divides daily caloric expenditure by endurance calibration; fatigue_penalty maps unbounded ratio through fifth power to nonnegative remainingcondition and physical_skill_condition combines burden. Calorie amount, endurance, focus, fatigue and performance rawf32 are different purposes; no universal max1 bound on daily expenditure/endurance/derivedratio inferred. SharedPlayerInfo907 and actual886 practicalcheck roles consumed. Comment separates strategic skill condition from combat liveincapacitation; actual current shared general-fatigue authority/legibility requires receiver reconciliation, no unproved newliveparallelpool claim. Denominatorzero/nonfinite policy notestablished by this trait alone, no arbitraryPositiveEndurance requirement invented.",
+      "disposition": "source-accounted with application quantity/authority ports qualified"
+    },
+    {
+      "original": 926,
+      "roles": "Filth amount/capacity versus soap stock units/cleansing points, deposit/character/episode identity, blood source/origin and disease snapshot; relative activity durations versus absolute clocks; wound route/state, fraction versus dirt multiplier; washing priority/category and namespaced soap identity.",
+      "trace": "Full631 read. Deposit substance2 and sourceOption/diseases association has blood-specific consumers, but no proofallDirt source metadata globallyforbidden. Unknownsource consideredforeign forconservative risk by actualforeign_blood, not invalidbyassumption. FilthOrigin3 separate reportedclassification; do not merge into explicitcharacteridentity. SOAPSource+ID pair prevents actualsame numericID acrosspersonal/party tables fromcolliding, proven sourcefixtures; meaningful composite namespace evenpayloadu64same. WashStack.quantity is cleansing-capacity points, not whole soap units: actual fixture multiplies fullunits*25, plan subtracts points and returns usedpoints to persistence. Deposit amountu16 boundedmeter vs accrual remainder dirt-minutes/1440, aggregatefilthu32 and cleanedamount are different roles. best_substance_rank raw0-4 plus5empty sentinel is closed prioritycategory, not arbitrary measurednumber; source comparator firstcategory then exposuredose/total/ID. TimedCutRoute durationOption means activewholeforecast versus ending relativeminute, distinct absoluteStrategicMinute. blood_exposure_for_vector explicitcompatibilitypolicy can override catalogdefault as actualtestsdemonstrate, so not automatically inconsistentunsupported pair; actualcurrentpolicyowner mustdecide. All exposure/washing/assertion source only, not executed.",
+      "disposition": "source-accounted with cleansing-quantity/priority/identity and duration port findings"
+    },
+    {
+      "original": 927,
+      "roles": "CookingMethod behavior versus FoodClass and preparation state; doneness0-2 versus kill/retention fractions and discrete quality/penalty; food amount/mass/kcal/value, mass-equivalent flavor potency versus physicalmass, microbial load/concentration/growth rate; positiveportion and signedenergybalance; catalog identity and terminalingredient policy.",
+      "trace": "Full848 consumed. Method has realdifferentlatebehavior (stewplateau, roastdrying/smoking, pan/ovenburn), not one generic normalizedphase. DonenessOutcome.progress can2 while kill/retention fraction<=1, so no universalUnitInterval or arbitraryphase bound1. FlavorProfile5components are mass-equivalent seasoningpotency (salt0.01kg actualmass may1kg potency), not ordinaryphysicalmass or probability; actualaggregatequality<=5 distinct itemqualitytier1-5 and chefs cap/penalty. Schema939Food/Flavors direct projection shows duplicate5field flavor record with no strongeradmission and closedFoodClass reconstructed fromrawschemaString. Local contamination kernel distinguishes aggregateload fromconcentration and exponentialgrowthperhour; staticMAX1e9 actualmodelbound not unitfraction. Cookingelapsed/target/safety/overhead rawminute quantities have distinctclockpurpose and actual equality/zerotargetpolicymax1; no arbitrarystrictboundsinvented. Travelconsumption acceptssigned calorie deficit, explicitmealcancreatefullnesssurplus, availablekcalnonnegative: do notnarrow balance topositiveenergy. is_cookable_ingredient checks onlyrawID !=cooked_meal, not actualfoodadmission/preparation; ordinaryfoodpipeline/currentcallervalidation notproved, source shows coarseexclusionpredicate/ownerquestion rather than runtimeunknownfoodaccepted. retained_component shares mathematicalscale acrossmass/nutrition/value/provenance; shareconstraintoperationsunderactualroleowners, not one allpurposequantity type. Existingfixtureloops onlysource read.",
+      "disposition": "source-accounted with duplicate flavor, quantity and semantic terminal-state port findings"
+    }
+  ],
+  "qualified_observations": [
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/filth.rs@a9e459f3c532b5661b495beff45dbdabd7946cf34bacf8e05f0d852d0f36e446#soap-capacity-versus-stock-and-filth",
+      "observation": "WashStack quantity and WashPlan soap amounts use cleansing points, not inventoryunits, provenfullunits*25fixtureandpointsubtraction. Sameintegerfields also represent depositamount, aggregatefilth, dirt-minuteremainder andIDs. Raw priorityrank0-4/5empty is closedcategory.",
+      "remedy": "Reuse actualcanonicalstock/cleansingcapacity/filth/remainder/identityowners at producer/persistence/applicationports; retain SoapSource+ID namespace relationship. Own namedprioritycategory rather than numericrank/sentinel where it preventsmixups. No loss of partialsoapconsumption or arbitraryunitfractioncap.",
+      "acceptance": "Actualwashplan/stockcommit cannot confuse one soapunit withonecleansingpoint; deposit/remaining/accrual andpriorityroles explicit, sameIDacrosstables remainsdistinct.",
+      "dependencies": [
+        "actual current soapstock conversion/persistence and existingquantity/identity aliases",
+        "enum/producer/owner/masterfinding reconciliation"
+      ],
+      "currentness": "qualified frozen source; no current/unique/runtime overconsumption claim"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/food.rs@e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf#flavor-shape-and-class-admission",
+      "observation": "SchemaFlavors and runtimeFlavorProfile duplicatefivef32 flavorpotencyfields withdirectcopy, noadmittedrefinement. FoodClass isclosed12runtimeenum rematched fromrawschemaString. Flavorpotencymass-equivalent isdifferentpurpose than physicalfoodmass even bothkilograms.",
+      "remedy": "Reconcile canonicalflavorcollection andclosedclassowner acrossschema/build/runtime targets, shareinvariantstoragewithactualops instead ofsecondfieldcopyauthority. Retain flavorchannelpurpose and mass-equivalent/physicalmass distinction; no arbitrary0-1cap or expandedclosedenum ofcatalogitems.",
+      "acceptance": "One shape/admissionauthority forflavor/class, actualcatalog/runtime receivercannotdrift; physicalmass andpotency ports remainmeaningful.",
+      "dependencies": [
+        "939exactFood/Flavors546-580",
+        "current schema/build/runtime target constraints and ownership/redundantauthority aliases"
+      ],
+      "currentness": "concrete frozen duplicate record andselectorpropagation; no current/acceptedunique claim"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/food.rs@e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf#food-quantity-doneness-and-terminal-admission",
+      "observation": "Rawscalarports conflate signedcaloriebalance/positiveavailableenergy, physicalmass/potency, currency, microbialload/concentration/hourlyrate, minutes, qualityratings/penalties andboundedfraction versusdonenessprogress0-2. Terminalingredientpolicy representedonlybyrawIDnegativecomparison, notactualfood/stateowner.",
+      "remedy": "Reuse canonicalphysical/energy/money/rate/duration/fraction/rating owners and closedoperations throughfoodlot/cooking/nativeports. Sharecommoninvariantsbelowdistinctpurposes. Reconcileactualcookedterminalstate andfoodadmission withcurrentcatalog/callers rather than negativeIDpredicate; no arbitraryintervalimplementation orbackwardfallback.",
+      "acceptance": "Actualproducer/retainedfoodlot/result chain cannotmixsign/unit/rate/progress/quality roles; terminalcookedoutput cannotreenter byunrelatedidentifier, actualvalidingredient admission explicit.",
+      "dependencies": [
+        "actual current foodlot/cooking/persistence/native consumers andmasteraliases",
+        "operations/producer/admission/aggregate/owner lenses"
+      ],
+      "currentness": "qualified frozen source, no currentruntimefoodadmission/uniquefinding"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/essential.rs@3d1b91f2f3bd1d9ffaeaa98eb8cf921fcbfee807aba9fd8bd16ca762448a10e0#calorie-endurance-fatigue-performance",
+      "observation": "Caloriesusedtoday/focus/endurance/derivedfatigueratio/performance allusef32 acrossactualtrait/applicationports. Dailyfatigueratiocanexceed1; divisioncapacitypolicyunproved, actualcombatincapacitation usesseparateprojection.",
+      "remedy": "Reconcileexistingenergy/check/focus/fatigue/performanceowners and actualsinglefatigueauthority/currentreceivers before selectingconstraints ormergingrepresentations. Preserve meaningfulstrategy/tacticalprojectionandactualnativepolicy, no unprovedhiddenparallelpoolorforced0-1bound onendurance/ratio.",
+      "acceptance": "Typedports expressactualquantityandprojectionauthority, denominator/zero/nonfinitepolicyownedwhereadmitted andonegeneralvisiblefatiguefactreconciledwithcurrentnativechain.",
+      "dependencies": [
+        "actual currentstrategic/tacticalfatigueauthority and885/886/898owners",
+        "aggregate/redundantauthority/producer/masteralias pending"
+      ],
+      "currentness": "qualified frozen question, no livepool/current/acceptedunique promotion"
+    }
+  ],
+  "carried_own_proofs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-016-receipt.json",
+      "sha256": "8a08d4a7a68768b9c1813ab799897da5c4422ede6cf9a388279d8d3c27eb92d0"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-019-receipt.json",
+      "sha256": "f99ec163b4d7be8af81b66a3598fe3527c3381b405cb39281f6e7b9b28ffbf0b"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-022-receipt.json",
+      "sha256": "f458ef20c08ccdb0e8388ebcc7109ff5d0acde5015789e0fa1067fe3c42d3ac0"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-024-receipt.json",
+      "sha256": "ca778635143938f2d880c6f080ce1b984ba4135d9686dd799c3adcc5734ea9c5"
+    }
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer. Preserve180/181nativeSDK/Bevy scheduling/imagecopylimits andallpendingreceiverqueues. M04current903reviewsseparate; notfrozenoriginal/lenscounts. Packet182InventoryItemId graph erasure, catalogkey/recordidentity and wear/order-selector sourcequestions retained, alias/currentness/unique acceptance unresolved. M04build-target review003 atdf5 andhostedCIseparatefromfrozenauditcounts. 184 newpublicDrapedPiece association/sourcegroupingquestion remainsfrozenlocal, noalias/currentness/uniqueacceptance; producerpathcoherent. M04df5validationseparate. 185 capacityreservationstaticAPIgap retainedasfrozenevidence only; alias/currentness/accepteduniqueness unresolved. No runtimewrongID orauthoredcurrentinputwitness. ExistingID/key/wear/savedassociationquestionsremainqualified. Packet186 independently accounts existing test-source812 only; fixture expectations are not observed execution/whole authored catalog/native guarantees and do not clear185 capacity witness. Existing lower-pattern fixture uses canonical owners; no new current alias or unique finding. Packet187 original813 only. New frozen inventory_ui and catalog wrapper material extensions mandatory other lenses, zero extra shared/original credit. UI acquisition is not atomic/all-worn; inherited capacity, typedID erasure/key authority and public saved-association questions retain all currentness/alias/unique limits. Batch011 frozen attack-ID packed participant-width witness retained; no runtime/current/alias/accepted unique finding, no invented32bit capacity bound. Batch012 actual simultaneous fixture permits absent scheduled measure beside present start/contact/recovery; group only proved coupled facts, do not require every active schedule measure.",
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_adoption_required": true,
+  "read_limits": [
+    "Full1519effectiveoriginal linespersonallyconsumed;existingfixtures sourceonly, neverexecuted.939546-580completeFood/FlavorsandsiblingAlcoholcontext; siblingownerorderedworknotcredited.",
+    "Allmateriallocalproducer/receiveroperations read; currentstock/foodlot/schema/nativepersistence/wholecatalog/currentfamily notcleared. No unsupportedprobability/clinical/foodsafe realworldclaim.",
+    "No current/alias/unique/global acceptance; inheritedqualifications andotherlensqueues retained."
+  ],
+  "restrictions": "Ignored append-only evidence only; no product/Git mutations/rootledger/projectchecks/tests/probes/publication."
+}

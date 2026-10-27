@@ -1,0 +1,28 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-333",
+  "at": "2026-10-25T23:19:43.789654+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2742,
+      "source_id": "pinned-registry:spacetimedb-2.6.1/src/lib.rs",
+      "sha256": "b4c9d8460c2b511a8ddd6bac50546cb06ab9e83daab5df6007605e4b65c65a00",
+      "personally_read_ranges": [
+        [
+          1,
+          1817
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full frozen SDK lib.rs 1-1817 across bounded reads. Distinguishes private/public table declarations, ordinary struct values from persisted rows, reducer transaction commit/rollback, scheduled reducer caller identity guard, nontransactional procedures, sender-bound and anonymous read-only views, and procedure transaction replay-once contract.",
+        "ReducerContext sender/auth/time/connection fields are produced together by private constructor; read-only conversion preserves sender. Procedure try_with_tx creates fresh TxContext per run; commit conflict may replay Fn and docs prohibit captured interior-mutability assumptions. Actual project procedure closure and host transaction semantics remain separate receiving traces, not cleared by dependency documentation.",
+        "JWT accessors assume valid host payload (or explicit raw testing constructor); malformed claim strings can panic, audience arrays filter nonstrings. No ordinary accepted host-token witness or project authorization bypass established. SDK deprecated identity aliases are external dependency API, not project compatibility implementation.",
+        "Iteration buffer pool clears bytes on Drop. Volatile immediate scheduling is explicitly feature-gated/nonatomic. Full source body read is static inventory only; no examples, tests, dependency implementation, RLS feature enforcement or host runtime executed. Included README source is not credited from include_str declaration."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

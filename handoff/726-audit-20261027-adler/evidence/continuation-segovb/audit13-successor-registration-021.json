@@ -1,0 +1,128 @@
+{
+  "at": "2026-10-27T01:46:21.596183+00:00",
+  "lens": 13,
+  "packet": "021",
+  "scope": "Bounded original37 historyconsumer/defaultselectednativegraph subset; no38orderedread/credit",
+  "prior_root_adoption": "audit13-successor-020-adoption-root.json",
+  "prior_root_adoption_sha256": "621ced6cd900bff33505a6db388b113abbb3d2ce865eb8d9c727bb43fbf14afc",
+  "prior_state": "audit13-successor-020-suggested-state.json",
+  "prior_state_sha256": "79bd2346876e4b67d6bab93bf32e4a89ce8e38e21719a988819d2c33fabd0dd9",
+  "sources": [
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/prepass/prepass.wgsl",
+      "sha256": "d55568e08bd83b5db11110f851fba531d10e170ad6c0bf0a4c5acda1a8c58695",
+      "bytes": 4212,
+      "actual_lines": 155,
+      "ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "purpose": "Fullselected defaultprepass vertex/fragmentpreviousmatrix/motionvector receiving body andconditionalvariants",
+      "body_consumed_at_registration": false
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/prepass/pipeline.rs",
+      "sha256": "8e3f4e39a664ef4ce7965f53f8a0d93da7d3ccd0b3312b003b27a23255e87dbc",
+      "bytes": 10547,
+      "actual_lines": 283,
+      "ranges": [
+        [
+          1,
+          283
+        ]
+      ],
+      "purpose": "Defaultprepass shaderresolution/MOTION_VECTOR_PREPASS featuregate/actualselectedshaderdescriptor body",
+      "body_consumed_at_registration": false
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/prepass/plugin.rs",
+      "sha256": "962b5cd44b2de30e93febfd431c1c538530d121e1e2dd514f63ec8dc3ccc0bf0",
+      "bytes": 1701,
+      "actual_lines": 51,
+      "ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "purpose": "Embeddedprepassasset andnativepipeline/queue registration",
+      "body_consumed_at_registration": false
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/prepass/queue.rs",
+      "sha256": "d7b476b47eca0a3dbd652572ee1e56daf97d14a21005038c102ffff0e681367e",
+      "bytes": 8172,
+      "actual_lines": 221,
+      "ranges": [
+        [
+          1,
+          221
+        ]
+      ],
+      "purpose": "ActualviewMotionVectorPrepass option/materialdisableprepass ->pipelinekey/selectedspecializationreceiving path",
+      "body_consumed_at_registration": false
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/components.rs",
+      "sha256": "e2053ee2dbf1a837b1a4e80d2d2afa22c0ecc2231bf586041222082971b9cbea",
+      "bytes": 5033,
+      "actual_lines": 193,
+      "ranges": [
+        [
+          104,
+          108
+        ],
+        [
+          128,
+          148
+        ]
+      ],
+      "purpose": "Historycomponent/transformuniformnativecarrier declarations",
+      "body_consumed_at_registration": false
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/plugin.rs",
+      "sha256": "1e686092ec02c418795c2e1bed451a9aba8c196608d1b1fa2c334310d17f9b09",
+      "bytes": 9257,
+      "actual_lines": 262,
+      "ranges": [
+        [
+          42,
+          56
+        ],
+        [
+          82,
+          99
+        ]
+      ],
+      "purpose": "ActualInstanceHistory initialization/update andextraction/schedule registration",
+      "body_consumed_at_registration": false
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/mod.rs",
+      "sha256": "7b8be56d6f6ea9285176e55efb88de7bcb8a15df4cdca7619d3038a92de56092",
+      "bytes": 10975,
+      "actual_lines": 340,
+      "ranges": [
+        [
+          112,
+          124
+        ],
+        [
+          179,
+          225
+        ]
+      ],
+      "purpose": "Actualuniformproducerquery excludesHistory andcurrentgtf assignment tobothcurrent/previousfields",
+      "body_consumed_at_registration": false
+    }
+  ],
+  "authority": "Exactknownf82 originalpeer/supplementaryimmutableGit1a5aff members asstaged; no currentalias substitution orunseenfrozenmember guarantee",
+  "staging_receipts": [
+    "audit13-native-history-staging-021.json",
+    "audit13-native-history-staging-021-supplement.json"
+  ],
+  "limits": "Identifiersearch/stagingno coverage. Native selectedgraph only; no runtime/currentfirstparty/compiledbyte/SDKglobalproof. Original37 maybesourceaccounted withqualifiedsourceobservations whenallrolesactuallytraced; runtimevalidation limits notsilentlyturned into unboundedsourceobligation."
+}

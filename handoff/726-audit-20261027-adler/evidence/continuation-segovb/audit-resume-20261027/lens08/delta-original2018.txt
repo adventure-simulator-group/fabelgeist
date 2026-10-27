@@ -1,0 +1,76 @@
+--- base
++++ frozen-head
+@@ -1,5 +1,8 @@
+-mod defense;
+-mod offense;
++use adventuresim_core::{
++    combat::RecoveryTime,
++    elapsed::{AnimationElapsed, ElapsedResult},
++};
++use adventuresim_tactical_core::animation::AnimationValueResult;
+ 
+ use adventuresim_core::{
+     combat::{
+@@ -28,6 +31,16 @@
+     player_projection::{AuthoritativeMovementIntent, begin_get_up_transition_configured},
+ };
+ 
++pub use defense::{DefenseChances, ReactiveDefenseAi};
++use defense::{
++    on_attack_started, on_targeted_attack_started, on_targeted_ranged_attack_started,
++    tick_bot_reactions,
++};
++pub use offense::OffensiveCombatAi;
++
++mod defense;
++mod offense;
++
+ pub(crate) fn resolve_scene_fixture(selector: &str) -> Result<PathBuf, String> {
+     Ok(resolve_fixture_path(
+         selector,
+@@ -47,13 +60,6 @@
+     }
+     args
+ }
+-pub use defense::{DefenseChances, ReactiveDefenseAi};
+-use defense::{
+-    on_attack_started, on_targeted_attack_started, on_targeted_ranged_attack_started,
+-    tick_bot_reactions,
+-};
+-pub use offense::OffensiveCombatAi;
+-
+ #[derive(Resource)]
+ pub(crate) struct CombatRandom(DeterministicRng);
+ 
+@@ -1000,13 +1006,20 @@
+             .entity_mut(target)
+             .get_mut::<SkeletonState>()
+             .unwrap()
+-            .begin_attack(AttackSpec::default(), 0, 1_000)
++            .begin_attack(
++                AttackSpec::default(),
++                adventuresim_tactical_core::animation::AnimationSampleTick::from(0u64),
++                adventuresim_tactical_core::animation::AnimationSampleTick::from(1_000u64),
++            )
+             .unwrap();
+         app.world_mut()
+             .entity_mut(target)
+             .get_mut::<SkeletonState>()
+             .unwrap()
+-            .advance_action(999);
++            .advance_action(
++                adventuresim_tactical_core::animation::AnimationSampleTick::from(999u64),
++            )
++            .unwrap();
+         app.world_mut()
+             .entity_mut(actor)
+             .get_mut::<OffensiveCombatAi>()
+@@ -1066,7 +1079,7 @@
+             .trigger(crate::combat::MeleeAttackCommittedToDefense {
+                 defender: actor,
+                 incoming_attacker: attacker,
+-                canceled_attack_key: 7,
++                canceled_attack_key: MeleeAttackKey::from(7),
+                 response: DefenderResponse::Parry {
+                     input_reflex: 0.8,
+                     precision: 0.6,

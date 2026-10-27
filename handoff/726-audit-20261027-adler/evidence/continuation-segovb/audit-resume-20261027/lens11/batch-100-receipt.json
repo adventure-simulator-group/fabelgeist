@@ -1,0 +1,382 @@
+{
+  "at": "2026-10-27T17:24:22.399143+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-100-registration.jsonl",
+    "sha256": "597901c87cf305b173c15cdf27b85eaca9fe0daeff69f14246e79a21c61a09da"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-099.json",
+    "sha256": "c301c8e20816930cad948173f836244fee04639d741c52d24c297d46eec4c014"
+  },
+  "mandatory_inherited_qualification": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-097-native-time-qualification-001.json",
+    "sha256": "8b5d251d80cb880d50c2e21b28fe4ece9ac8d71dc4e0e9b3397d4aaed3e3f4b9"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1188,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population.rs",
+      "sha256": "99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "ranges": [
+        [
+          1,
+          759
+        ]
+      ],
+      "actual_eof": 759,
+      "prospective": true,
+      "purpose": "Independent full effective settlement population/draft/persistence inventory. Prior personal material reads are explicitly reused, not automatic completion.",
+      "actual_read_ranges": [
+        [
+          46,
+          419
+        ],
+        [
+          466,
+          759
+        ]
+      ],
+      "personal_same_lens_reuse": [
+        {
+          "receipt": {
+            "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-092-receipt.json",
+            "sha256": "c68c9452f59bc65a1dfe69bfb08ed7b26969d392fba02e43c18f174f4bf1108a"
+          },
+          "ranges": [
+            [
+              1,
+              45
+            ],
+            [
+              420,
+              465
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1189,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population/resident_drafts.rs",
+      "sha256": "0bdbeb8d3d35fb200d35d06429d177a9311b5e71207f89a3644fadcd6e72d959",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/0bdbeb8d3d35fb200d35d06429d177a9311b5e71207f89a3644fadcd6e72d959",
+      "ranges": [
+        [
+          1,
+          585
+        ]
+      ],
+      "actual_eof": 585,
+      "prospective": true,
+      "purpose": "Independent full effective settlement population/draft/persistence inventory. Prior personal material reads are explicitly reused, not automatic completion.",
+      "actual_read_ranges": [
+        [
+          1,
+          203
+        ],
+        [
+          223,
+          448
+        ],
+        [
+          483,
+          585
+        ]
+      ],
+      "personal_same_lens_reuse": [
+        {
+          "receipt": {
+            "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-092-receipt.json",
+            "sha256": "c68c9452f59bc65a1dfe69bfb08ed7b26969d392fba02e43c18f174f4bf1108a"
+          },
+          "ranges": [
+            [
+              204,
+              222
+            ],
+            [
+              449,
+              482
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1190,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population/resident_persistence.rs",
+      "sha256": "577af433807bf7c8a4cc22f46f82ed318d2d365ca79e61a66eaaf6d1b408c5e7",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/577af433807bf7c8a4cc22f46f82ed318d2d365ca79e61a66eaaf6d1b408c5e7",
+      "ranges": [
+        [
+          1,
+          299
+        ]
+      ],
+      "actual_eof": 299,
+      "prospective": true,
+      "purpose": "Independent full effective settlement population/draft/persistence inventory. Prior personal material reads are explicitly reused, not automatic completion.",
+      "actual_read_ranges": [
+        [
+          1,
+          299
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected_original",
+      "original_index": 1202,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social_roles.rs",
+      "sha256": "328d8285856568995cc423bb2ec74bb88bfa690af6e4defcbfc4aa8f9a355415",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/328d8285856568995cc423bb2ec74bb88bfa690af6e4defcbfc4aa8f9a355415",
+      "ranges": [
+        [
+          353,
+          414
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual social-role family/class/religion/professional admission recipients used by resident persistence; no full social-role inventory.",
+      "actual_read_ranges": [
+        [
+          353,
+          414
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1188,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              262
+            ]
+          ],
+          "roles": "Private resident profile and traversal identity; joined ordinary Character/private personality versus gateway-safe presentation; daily presence offsets, independent context and health suppression; immutable generation explanation; BusinessId/operator one-to-one assignment.",
+          "disposition": "ResolvedSettlementResident is a useful joined record, not a persisted second Character. Sex, presentation, apparent age band and private biological/identity facts are meaningful distinctions. Gateway projection explicitly excludes sex/projection_id but that alone is not full higher-layer authorization proof. Profile profession/service/organization/conversation strings carry both labels and mechanical lookup roles; empty service/organization are sentinels rather than owned optional payloads. Daily offsets u16 differ absolute StrategicMinute and duration. Default presence, contextual suppression and health suppression are independent facts; no forced single enum. Projection_id duplicates character_id by construction as traversal index adapter, not independently authored identity.",
+          "remedy": "Retain explicit safe projection and named joined record. Use canonical CharacterId, typed service/organization/conversation identities and typed daily window at internal boundaries; keep free presentation prose separate from mechanical IDs. Reuse existing BusinessId and Date/Duration owners instead of generic String/u64 permissions.",
+          "acceptance": "Full759 effective source accounted with092 personal ranges. Actual business association checks, profile persistence1190 and core presence1011046 consumed. No public biological leak, ordinary identity collision/current/clinical/runtime/unique claim."
+        },
+        {
+          "ranges": [
+            [
+              264,
+              419
+            ]
+          ],
+          "roles": "PopulationLocation classification, core LocationContext, typed entropy stream labels, stable seed coordinates and high-half Character IDs, business operator key and conflict admission.",
+          "disposition": "PopulationLocation::Organization owns organization payload; venue parsing prevents conflating arbitrary presentation text with physical place. Bookstore\u2192Market is context classification, not exact venue identity; both can earn separate types. ResidentEntropyStream prevents mixing independent RNG streams; its StreamId adapter is meaningful. Resident high-bit IDs are a deliberate namespace, not a 53-bit restriction to invent. Business row key derived from typed BusinessId with actual equal-ID/operator checks; unique operator enforces one business per person. Generic seed String remains broader than existing deterministic Seed/stable coordinate owner.",
+          "remedy": "Canonical ResidentSeedCoordinate/CharacterId and BusinessOperatorAssignment, preserve physical PopulationLocation versus general generation LocationContext. Keep actual source serialization/hash adapters explicit, no new random framework or arbitrary ID bound.",
+          "acceptance": "Actual constructors/readers and business association operations read. Core population989041 and BusinessId typed producer1190/1189 used; no SDK-wide hashing/collision or other source credit."
+        },
+        {
+          "ranges": [
+            [
+              420,
+              571
+            ]
+          ],
+          "roles": "Settlement population setup, immutable organizational representative binding, exact canonical venue alias, observer-relative scheduled presence versus latest mutable suppression query.",
+          "disposition": "Setup persists drafts before binding family/home. overview and public-square map to the same physical venue by explicit presentation contract, not proof of a backwards compatibility shim. Historical presence reconstructs outbreak suppression and alive at passed frontier; latest helper intentionally reads mutable flags. Core DailyPresenceWindow/ScheduledStrategicPresence owners exist but native fields are re-admitted on every call. .ok()/Option collapses malformed schedule/place from unavailable presence at API; need typed distinction only where receivers must tell them apart.",
+          "remedy": "Use canonical typed place/day-window and admitted observer context through internal queries, retain explicit LatestPresence versus HistoricalPresence operations and context/health axes. Preserve actual presentation alias if it represents one place; no BC acceptance constraint.",
+          "acceptance": "Core presence1011 full662046 and outbreak1148 full2111089, chronology1153 full091 actual receivers reused. No current/ordinary invalid window/runtime/clinical/unique finding."
+        },
+        {
+          "ranges": [
+            [
+              573,
+              759
+            ]
+          ],
+          "roles": "Existing typed-window, suppression, immutable explanation and safe-projection/source fixtures.",
+          "disposition": "Fixture inputs and Rust selector strings are technical boundaries; explicit expectations reinforce role distinctions but do not execute the database or establish every caller uses historical helper. Test source contains no new role authority to transfer into currentness.",
+          "remedy": "Preserve canonical constructors/native fixture boundaries; no new tests/helpers/assertions.",
+          "acceptance": "Every existing fixture body personally read, no execution or included-source credit."
+        }
+      ]
+    },
+    {
+      "original": 1189,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population/resident_drafts.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              203
+            ]
+          ],
+          "roles": "ResidentDraft seed/identity, location, optional service/business, profession/role labels, DefaultPresence, sex/presentation, optional exact age and inherited surname; canonical service endpoint/location pair.",
+          "disposition": "Draft is an internal producer but fields erase semantic owners before persistence. StrategicServiceEndpoint::None/Service(&str) duplicates Option shape without canonical service admission; existing settlement service types should be reused where semantics match, while organization/religion endpoints may be a different service role. Do not force all endpoint strings into one unrelated enum. DefaultPresence is a meaningful named two-state choice, erased early to bool. BusinessId is already typed, and service+business can both be present for ordinal-zero operator, so do not impose XOR. Service/location pair uses two different String roles and is positional.",
+          "remedy": "Named ResidentSource/ServiceEndpoint payload retaining BusinessId and real service kind, a named EndpointLocation record, canonical Location/Profession/Role IDs where used mechanically. Keep Sex and Presentation independent and immutable demographic/surname roles explicit; no duplicate owner for already typed BusinessId/SurnameId.",
+          "acceptance": "Full585 effective source accounted with092 exact demographic/factory ranges. Actual constructors and persistence1190 read; no current malformed draft or arbitrary new endpoint policy."
+        },
+        {
+          "ranges": [
+            [
+              204,
+              482
+            ]
+          ],
+          "roles": "Complete versus incomplete household demographics; inherited surname birth-year calculation; ordered business grouping; ambient roles, urban category, organization representative identity; duplicate identity validation.",
+          "disposition": "Complete groups of four get authored sex/presentation/exact ages; remainder groups remain valid incomplete rosters (explicit1171/1190 fixtures), not automatically missing kinship bugs. Household surname chooses first.exact_age.unwrap_or(30), but persistence later maps generated AgeBand to8/15/30/68 if draft age absent. These are two demographic/birth-year producer choices before one final identity; no actual invalid surname/year witness claimed. Provider/ambient/organization source modes and presentation labels should not share loose profession/role strings when strings affect admission. Validation checks duplicate Character and BusinessId, meaningful distinct namespaces.",
+          "remedy": "Prepare one admitted Demographics/ExactAge/BirthYear receipt before surname and Character identity consumers. Named household group shape retains complete family versus partial roster. Reuse existing organization/role and BusinessId owners, isolate visible job prose from mechanical occupation decisions.",
+          "acceptance": "Actual core population989041 and age helper990041, names1081062, family1157092 and property materialization1186099 read. Ordinary sampled age/name failure/currentness/alias/unique unresolved, no generation probe."
+        },
+        {
+          "ranges": [
+            [
+              483,
+              585
+            ]
+          ],
+          "roles": "Existing complete-family, service endpoint ordinal and surname fixtures.",
+          "disposition": "The test name calls ordinal-zero endpoints legacy, but actual code implements a canonical primary endpoint policy. This label alone is not authorization to retain a compatibility path or proof every additional business is an alternate API. Existing fixture deliberately leaves fifth draft age None; this supports the demographic producer question rather than a universal complete-family promise.",
+          "remedy": "Review endpoint policy on source responsibility, not historical API preservation. Keep canonical role/name admissions and no new tests/helpers/assertions.",
+          "acceptance": "Every fixture line consumed, not run. No whole authored service catalog/current or runtime guarantee."
+        }
+      ]
+    },
+    {
+      "original": 1190,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population/resident_persistence.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              112
+            ]
+          ],
+          "roles": "PreparedResident input/profile/provider/age-band/stable seed, exact age selection, ordinary social/family/professional role setup, immutable resident reuse.",
+          "disposition": "PreparedResident caches profile.age and provider derived from draft; private constructor makes current fields coherent, so do not claim observed conflicting cache state. A single admitted preparation can remove redundant age/provider facts or expose methods from their canonical source. Provider true for business even without service endpoint is a real third mode relative to service provider and ambient resident. profession == cleric controls mechanical role admission, concrete label/key conflation. Reuse checks existing home settlement and repairs role/business association, preserving original identity rather than automatically rewriting immutable history; not a BC fallback.",
+          "remedy": "Canonical PreparedResident/Demographics owning final age and typed ResidentSource, use canonical occupation/professional role ID separate from display profession. Reuse existing core GenerationInput/Profile and social role owners.",
+          "acceptance": "Full299 actual source read; social_roles1202 353\u2013402 actual receiver below and existing role insertion088. No ordinary inconsistent cache/resident regeneration/corrupt profession/current/unique claim."
+        },
+        {
+          "ranges": [
+            [
+              114,
+              299
+            ]
+          ],
+          "roles": "Historical personal name/surname/sex/presentation, ordinary full Character and NPC policy, source profile versus safe display, schedule\u2192daily presence window, immutable explanation snapshot.",
+          "disposition": "Name creation uses prepared exact age/birth year, stable seed and inherited surname, while surname planning above can have a different default age. Character owns identity and personality; profile joins/display do not create a second person. Immutable generation explanation is provenance for population decisions, not current demographic truth. Raw service absence becomes empty string; actual dialogue selection uses provider plus endpoint string, and default presence becomes bool before SDK insertion. .input and .profile together are historical input/output, not redundant live authority.",
+          "remedy": "Retain typed exact age/birth year, NameStableSeed/SurnameId/CharacterId and admitted ResidentSource/Endpoint; native Schedule should yield canonical DailyPresenceWindow rather than scattered raw offsets. Store immutable preparation provenance explicitly and project current Character facts separately.",
+          "acceptance": "Actual Character creation/name identity1081062 and original Character source recorded there, personality source existing admitted constructor and core989041, presence1011046, native time lifecycle097 qualification used. No tactical tick persistence, current privacy/clinical/runtime/unique inference."
+        }
+      ]
+    }
+  ],
+  "connected_role_inventory": [
+    {
+      "original": 1202,
+      "ranges": [
+        [
+          353,
+          414
+        ]
+      ],
+      "roles": "Initial social role selection, provisional birth-family association, religion\u2192organization mapping, professional role membership admission.",
+      "disposition": "Existing organization/role owner validates role belongs to organization before insertion. Urban bool selects initial social policy; typed settlement category exists upstream but classification is a genuine two-state policy. religious_organization_for takes raw religion key although OfficialReligion exists; not every religion is assumed to require the same institution. 404\u2013414 begins next character_roles body only, no full reader credit.",
+      "remedy": "Typed admitted InitialSocialContext/OfficialReligion/OrganizationId/RoleId and named occupation selector; no duplicate family role owner or invented unsupported religion membership.",
+      "acceptance": "Complete353\u2013402 actual bodies plus next signature/prefix consumed. Prior088/092 core/role receiver proofs retained, no whole1202 ordered credit."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-034-receipt.json",
+        "sha256": "1c32165aeec548d529c12cad8746034abe727fc5e73834f77ce581d3338e1510"
+      },
+      "contract": "960 core organization personally recorded ranges and prior linked proofs; no invented missing330\u2013405 coverage"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-041-receipt.json",
+        "sha256": "d2186d949de0de7aa5830664f5fe96b5c4fa6870d0282ebe4dd5d36ec0640340"
+      },
+      "contract": "989 core population full667 plus990/991 age/demographic children; exact generation/age/profession/schedule owners"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-046-receipt.json",
+        "sha256": "e17f1e9d4531b622e5ba299c3adf9ac637d9bc6e9c0c810c5545c6d8f08e3a46"
+      },
+      "contract": "1011 core strategic_presence full662; absolute/daily/observer frames"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-062-receipt.json",
+        "sha256": "6f38488e18bb19f933f1bf16e5dbbc23fc0f3691f006b1d1d810fe84ce3f9c29"
+      },
+      "contract": "1081 name identity full242 and recorded full ordinary Character origin components"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-088-receipt.json",
+        "sha256": "e209983ef3cffc4ebbfc0dc31ed0f3a48ef5603c3ee0e75a63d044b3fc4a1fda"
+      },
+      "contract": "1202 role insertion/global instance actual44\u2013121/274\u2013365 material proofs"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-089-receipt.json",
+        "sha256": "121119e2b04ab8448b1fb92ee15c4a99333ca645e4cd24c1a3afc1e90488e0d0"
+      },
+      "contract": "1148 outbreak full2111 and suppression/death chronology"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-091-receipt.json",
+        "sha256": "dce80385e774a4d5f1b84f60d2114e2bd33677c6630468284dd855f0db9b6650"
+      },
+      "contract": "1153 full200 historical alive/birth/age/canonical time"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-092-receipt.json",
+        "sha256": "c68c9452f59bc65a1dfe69bfb08ed7b26969d392fba02e43c18f174f4bf1108a"
+      },
+      "contract": "1188 prior1\u201345/420\u2013465;1189 prior204\u2013222/449\u2013482;1157 fullfamily/source role contracts"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-097-receipt.json",
+        "sha256": "d4262c0437e29c169933163243d685d8a4068a0f500277a615157b172a43ff32"
+      },
+      "contract": "Native time1249/1245/1246 actual material ports and mandatory1017core-only qualification"
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-099-receipt.json",
+        "sha256": "cf73b9fabd08dc11a54029d1dc8b1909bf5ef9a8a7b55ff3c579093cd3462e19"
+      },
+      "contract": "1186 full111 census count transfer/current occupancy preservation,1184 property registration allocation"
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Frozen source discovery WITH findings only. No generation probe/test execution, actual clinical/runtime/current/alias/acceptedunique/global clearance.",
+    "Preserve incomplete-family qualification, canonical presentation alias versus unsupported BC distinction, private biological versus public presentation authority and all prior populations/queues.",
+    "No product/source/Git/root-ledger/publication or new tests/helpers/assertions."
+  ]
+}

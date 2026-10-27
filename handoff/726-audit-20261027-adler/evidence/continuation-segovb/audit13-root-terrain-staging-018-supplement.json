@@ -1,0 +1,114 @@
+{
+  "at": "2026-10-27T01:02:09.877414+00:00",
+  "authority": "Exactf82frozenSHAobjects,registeredprworkingvariants",
+  "sources": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/admission.rs",
+      "sha256": "c77986f9f9ff85cd6b4359792d8c28838b437942db2e61c92dc4104856e849cb",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/c77986f9f9ff85cd6b4359792d8c28838b437942db2e61c92dc4104856e849cb",
+      "lines": 98,
+      "locators_only": [
+        [
+          5,
+          "pub enum TerrainAdmissionError {"
+        ],
+        [
+          19,
+          "pub(super) struct TerrainWire {"
+        ],
+        [
+          26,
+          "impl TryFrom<TerrainWire> for SceneTerrain {"
+        ],
+        [
+          41,
+          "pub(super) fn validate_dimensions("
+        ],
+        [
+          71,
+          "impl SceneTerrain {"
+        ],
+        [
+          87,
+          "impl Default for SceneTerrain {"
+        ]
+      ],
+      "body_credit": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/descriptor.rs",
+      "sha256": "2b30929bb687f5865c0fa515cb96763b1b03d4a97522dbc015b02d7cb4558336",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/2b30929bb687f5865c0fa515cb96763b1b03d4a97522dbc015b02d7cb4558336",
+      "lines": 103,
+      "locators_only": [
+        [
+          4,
+          "pub const TACTICAL_SCENE_SCHEMA_VERSION: u16 = 29;"
+        ],
+        [
+          5,
+          "pub const TACTICAL_SCENE_GENERATION_VERSION: u16 = 73;"
+        ],
+        [
+          6,
+          "pub const MAX_SCENE_INPUT_BYTES: u64 = 32 * 1024 * 1024;"
+        ],
+        [
+          10,
+          "pub struct TacticalSceneInput {"
+        ],
+        [
+          40,
+          "#[cfg(test)]"
+        ]
+      ],
+      "body_credit": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation.rs",
+      "sha256": "6dd07ed9db5b93386803c3c441f3e84c340a217626c86b423f59563deaf1c739",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/6dd07ed9db5b93386803c3c441f3e84c340a217626c86b423f59563deaf1c739",
+      "lines": 204,
+      "locators_only": [
+        [
+          11,
+          "impl TacticalSceneInput {"
+        ],
+        [
+          59,
+          "fn prepare_terrain("
+        ],
+        [
+          79,
+          "fn generated_obstacles(input: &TacticalSceneInput) -> Vec<GeneratedObstacle> {"
+        ],
+        [
+          123,
+          "fn remove_reserved_obstacles("
+        ],
+        [
+          144,
+          "fn remove_building_obstacles("
+        ],
+        [
+          169,
+          "#[cfg(test)]"
+        ]
+      ],
+      "body_credit": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/validation.rs",
+      "sha256": "3d97a798029ddc9f195aa209105f64070c55fb0172ef87a515e67fe945c735c9",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/3d97a798029ddc9f195aa209105f64070c55fb0172ef87a515e67fe945c735c9",
+      "lines": 64,
+      "locators_only": [
+        [
+          4,
+          "impl TacticalSceneInput {"
+        ]
+      ],
+      "body_credit": false
+    }
+  ]
+}

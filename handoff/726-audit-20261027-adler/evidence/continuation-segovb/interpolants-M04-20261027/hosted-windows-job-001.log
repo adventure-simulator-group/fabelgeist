@@ -1,0 +1,784 @@
+﻿2026-10-27T04:45:39.0140569Z Current runner version: '2.338.0'
+2026-10-27T04:45:39.0382636Z ##[group]Runner Image Provisioner
+2026-10-27T04:45:39.0383723Z Hosted Compute Agent
+2026-10-27T04:45:39.0384567Z Version: 20261021.618
+2026-10-27T04:45:39.0385408Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+2026-10-27T04:45:39.0386389Z Build Date: 2026-10-21T00:45:21Z
+2026-10-27T04:45:39.0387367Z Worker ID: {68616b7c-1ab4-4560-bc41-c4e4b184d7e1}
+2026-10-27T04:45:39.0388430Z Region: centralus
+2026-10-27T04:45:39.0389175Z Cloud: Azure
+2026-10-27T04:45:39.0389906Z ##[endgroup]
+2026-10-27T04:45:39.0391840Z ##[group]Operating System
+2026-10-27T04:45:39.0392819Z Microsoft Windows Server 2025
+2026-10-27T04:45:39.0394194Z 10.0.26100
+2026-10-27T04:45:39.0394959Z Datacenter
+2026-10-27T04:45:39.0395693Z ##[endgroup]
+2026-10-27T04:45:39.0396429Z ##[group]Runner Image
+2026-10-27T04:45:39.0397270Z Image: windows-2025-vs2026
+2026-10-27T04:45:39.0398085Z Version: 20261021.278.1
+2026-10-27T04:45:39.0400322Z Included Software: https://github.com/actions/runner-images/blob/win25-vs2026/20261021.278/images/windows/Windows2025-VS2026-Readme.md
+2026-10-27T04:45:39.0402786Z Image Release: https://github.com/actions/runner-images/releases/tag/win25-vs2026%2F20261021.278
+2026-10-27T04:45:39.0404209Z ##[endgroup]
+2026-10-27T04:45:39.0405750Z ##[group]GITHUB_TOKEN Permissions
+2026-10-27T04:45:39.0408456Z Contents: read
+2026-10-27T04:45:39.0409252Z Metadata: read
+2026-10-27T04:45:39.0410007Z ##[endgroup]
+2026-10-27T04:45:39.0412728Z Secret source: Actions
+2026-10-27T04:45:39.0414484Z Cache mode: write
+2026-10-27T04:45:39.0415479Z Prepare workflow directory
+2026-10-27T04:45:39.1390376Z Prepare all required actions
+2026-10-27T04:45:39.1440423Z Getting action download info
+2026-10-27T04:45:39.3627317Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-10-27T04:45:39.5043228Z Download action repository 'dtolnay/rust-toolchain@master' (SHA:683b588c487a69d01f6c6ddf40f036ff682cc2c8)
+2026-10-27T04:45:39.7079416Z Download action repository 'Swatinem/rust-cache@v2' (SHA:d1527c8f67ef9af357290475d4af4b0fab8f12e0)
+2026-10-27T04:45:40.1553844Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-27T04:45:40.9146501Z Complete job name: foliage-portability
+2026-10-27T04:45:41.6158358Z ##[group]Run actions/checkout@v7
+2026-10-27T04:45:41.6160008Z with:
+2026-10-27T04:45:41.6160811Z   ref: 903174935e1d8a07293105a9bccff17325489f3d
+2026-10-27T04:45:41.6161880Z   repository: adventure-simulator-group/fabelgeist
+2026-10-27T04:45:41.6168598Z   token: ***
+2026-10-27T04:45:41.6169321Z   ssh-strict: true
+2026-10-27T04:45:41.6170050Z   ssh-user: git
+2026-10-27T04:45:41.6170847Z   persist-credentials: true
+2026-10-27T04:45:41.6171644Z   clean: true
+2026-10-27T04:45:41.6172391Z   sparse-checkout-cone-mode: true
+2026-10-27T04:45:41.6173239Z   fetch-depth: 1
+2026-10-27T04:45:41.6173944Z   fetch-tags: false
+2026-10-27T04:45:41.6174701Z   show-progress: true
+2026-10-27T04:45:41.6175532Z   lfs: false
+2026-10-27T04:45:41.6176255Z   submodules: false
+2026-10-27T04:45:41.6177008Z   set-safe-directory: true
+2026-10-27T04:45:41.6178335Z   allow-unsafe-pr-checkout: false
+2026-10-27T04:45:41.6179573Z env:
+2026-10-27T04:45:41.6180244Z   CARGO_TERM_COLOR: always
+2026-10-27T04:45:41.6181185Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-27T04:45:41.6181982Z ##[endgroup]
+2026-10-27T04:45:41.8060132Z Syncing repository: adventure-simulator-group/fabelgeist
+2026-10-27T04:45:41.8064415Z ##[group]Getting Git version info
+2026-10-27T04:45:41.8066018Z Working directory is 'D:\a\fabelgeist\fabelgeist'
+2026-10-27T04:45:41.8702616Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-10-27T04:45:42.1258307Z git version 2.56.0.windows.2
+2026-10-27T04:45:42.1312229Z ##[endgroup]
+2026-10-27T04:45:42.1344178Z Temporarily overriding HOME='D:\a\_temp\44afad48-8fdc-4a19-99e2-cc9a1cc40166' before making global git config changes
+2026-10-27T04:45:42.1346094Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-27T04:45:42.1408532Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\fabelgeist\fabelgeist
+2026-10-27T04:45:42.1939816Z Deleting the contents of 'D:\a\fabelgeist\fabelgeist'
+2026-10-27T04:45:42.1945449Z ##[group]Determining repository object format
+2026-10-27T04:45:42.1948079Z ##[endgroup]
+2026-10-27T04:45:42.1949263Z ##[group]Initializing the repository
+2026-10-27T04:45:42.1956750Z [command]"C:\Program Files\Git\bin\git.exe" init D:\a\fabelgeist\fabelgeist
+2026-10-27T04:45:42.2795905Z Initialized empty Git repository in D:/a/fabelgeist/fabelgeist/.git/
+2026-10-27T04:45:42.2858664Z [command]"C:\Program Files\Git\bin\git.exe" remote add origin https://github.com/adventure-simulator-group/fabelgeist
+2026-10-27T04:45:42.3503070Z ##[endgroup]
+2026-10-27T04:45:42.3504981Z ##[group]Disabling automatic garbage collection
+2026-10-27T04:45:42.3514066Z [command]"C:\Program Files\Git\bin\git.exe" config --local gc.auto 0
+2026-10-27T04:45:42.3914169Z ##[endgroup]
+2026-10-27T04:45:42.3915544Z ##[group]Setting up auth
+2026-10-27T04:45:42.3916592Z Removing SSH command configuration
+2026-10-27T04:45:42.3925561Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-27T04:45:42.4308039Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-27T04:45:43.5901224Z Removing HTTP extra header
+2026-10-27T04:45:43.5912750Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-27T04:45:43.6283901Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-27T04:45:44.1710176Z Removing includeIf entries pointing to credentials config files
+2026-10-27T04:45:44.1720533Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-27T04:45:44.2170237Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-27T04:45:44.7596743Z [command]"C:\Program Files\Git\bin\git.exe" config --file D:\a\_temp\git-credentials-999ccb3a-00cf-4b11-ab0c-6b9044475c81.config http.https://github.com/.extraheader "AUTHORIZATION: basic ***"
+2026-10-27T04:45:44.8058847Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:D:/a/fabelgeist/fabelgeist/.git.path D:\a\_temp\git-credentials-999ccb3a-00cf-4b11-ab0c-6b9044475c81.config
+2026-10-27T04:45:44.8436151Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:D:/a/fabelgeist/fabelgeist/.git/worktrees/*.path D:\a\_temp\git-credentials-999ccb3a-00cf-4b11-ab0c-6b9044475c81.config
+2026-10-27T04:45:44.8845605Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-999ccb3a-00cf-4b11-ab0c-6b9044475c81.config
+2026-10-27T04:45:44.9231311Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-999ccb3a-00cf-4b11-ab0c-6b9044475c81.config
+2026-10-27T04:45:44.9604392Z ##[endgroup]
+2026-10-27T04:45:44.9605262Z ##[group]Fetching the repository
+2026-10-27T04:45:44.9617873Z [command]"C:\Program Files\Git\bin\git.exe" -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin 903174935e1d8a07293105a9bccff17325489f3d
+2026-10-27T04:45:52.5332900Z From https://github.com/adventure-simulator-group/fabelgeist
+2026-10-27T04:45:52.5334895Z  * branch            903174935e1d8a07293105a9bccff17325489f3d -> FETCH_HEAD
+2026-10-27T04:45:52.5398568Z [command]"C:\Program Files\Git\bin\git.exe" rev-parse --verify --quiet 903174935e1d8a07293105a9bccff17325489f3d^{object}
+2026-10-27T04:45:52.5816260Z 903174935e1d8a07293105a9bccff17325489f3d
+2026-10-27T04:45:52.5861358Z ##[endgroup]
+2026-10-27T04:45:52.5862466Z ##[group]Determining the checkout info
+2026-10-27T04:45:52.5866759Z ##[endgroup]
+2026-10-27T04:45:52.5871915Z [command]"C:\Program Files\Git\bin\git.exe" sparse-checkout disable
+2026-10-27T04:45:52.6350183Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset-all extensions.worktreeConfig
+2026-10-27T04:45:52.6723319Z ##[group]Checking out the ref
+2026-10-27T04:45:52.6732023Z [command]"C:\Program Files\Git\bin\git.exe" checkout --progress --force 903174935e1d8a07293105a9bccff17325489f3d
+2026-10-27T04:45:54.3427732Z Updating files:   6% (423/6218)
+2026-10-27T04:45:54.4779149Z Updating files:   7% (436/6218)
+2026-10-27T04:45:54.7431684Z Updating files:   8% (498/6218)
+2026-10-27T04:45:55.1825074Z Updating files:   8% (533/6218)
+2026-10-27T04:45:55.8163655Z Updating files:   9% (560/6218)
+2026-10-27T04:45:55.9858463Z Updating files:   9% (588/6218)
+2026-10-27T04:45:56.0054730Z Updating files:  10% (622/6218)
+2026-10-27T04:45:56.0200765Z Updating files:  11% (684/6218)
+2026-10-27T04:45:56.0322422Z Updating files:  12% (747/6218)
+2026-10-27T04:45:56.0450075Z Updating files:  13% (809/6218)
+2026-10-27T04:45:56.0583175Z Updating files:  14% (871/6218)
+2026-10-27T04:45:56.0701702Z Updating files:  15% (933/6218)
+2026-10-27T04:45:56.0835386Z Updating files:  16% (995/6218)
+2026-10-27T04:45:56.0965157Z Updating files:  17% (1058/6218)
+2026-10-27T04:45:56.1063889Z Updating files:  18% (1120/6218)
+2026-10-27T04:45:56.1171786Z Updating files:  19% (1182/6218)
+2026-10-27T04:45:56.1287557Z Updating files:  20% (1244/6218)
+2026-10-27T04:45:56.1415406Z Updating files:  21% (1306/6218)
+2026-10-27T04:45:56.1531836Z Updating files:  22% (1368/6218)
+2026-10-27T04:45:56.1660433Z Updating files:  23% (1431/6218)
+2026-10-27T04:45:56.1803036Z Updating files:  24% (1493/6218)
+2026-10-27T04:45:56.2008050Z Updating files:  25% (1555/6218)
+2026-10-27T04:45:56.2160899Z Updating files:  26% (1617/6218)
+2026-10-27T04:45:56.2322610Z Updating files:  27% (1679/6218)
+2026-10-27T04:45:56.2446896Z Updating files:  28% (1742/6218)
+2026-10-27T04:45:56.2571798Z Updating files:  29% (1804/6218)
+2026-10-27T04:45:56.2659220Z Updating files:  30% (1866/6218)
+2026-10-27T04:45:56.2739767Z Updating files:  31% (1928/6218)
+2026-10-27T04:45:56.2823851Z Updating files:  32% (1990/6218)
+2026-10-27T04:45:56.2901673Z Updating files:  33% (2052/6218)
+2026-10-27T04:45:56.2973038Z Updating files:  34% (2115/6218)
+2026-10-27T04:45:56.3049386Z Updating files:  35% (2177/6218)
+2026-10-27T04:45:56.3128029Z Updating files:  36% (2239/6218)
+2026-10-27T04:45:56.3195842Z Updating files:  37% (2301/6218)
+2026-10-27T04:45:56.3271228Z Updating files:  38% (2363/6218)
+2026-10-27T04:45:56.3363043Z Updating files:  39% (2426/6218)
+2026-10-27T04:45:56.3442994Z Updating files:  40% (2488/6218)
+2026-10-27T04:45:56.3510597Z Updating files:  41% (2550/6218)
+2026-10-27T04:45:56.3575363Z Updating files:  42% (2612/6218)
+2026-10-27T04:45:56.3649446Z Updating files:  43% (2674/6218)
+2026-10-27T04:45:56.3735197Z Updating files:  44% (2736/6218)
+2026-10-27T04:45:56.3829342Z Updating files:  45% (2799/6218)
+2026-10-27T04:45:56.3992348Z Updating files:  46% (2861/6218)
+2026-10-27T04:45:56.4136154Z Updating files:  47% (2923/6218)
+2026-10-27T04:45:56.4321569Z Updating files:  48% (2985/6218)
+2026-10-27T04:45:56.4480019Z Updating files:  49% (3047/6218)
+2026-10-27T04:45:56.4642965Z Updating files:  50% (3109/6218)
+2026-10-27T04:45:56.4785817Z Updating files:  51% (3172/6218)
+2026-10-27T04:45:56.4908229Z Updating files:  52% (3234/6218)
+2026-10-27T04:45:56.5035402Z Updating files:  53% (3296/6218)
+2026-10-27T04:45:56.5153810Z Updating files:  54% (3358/6218)
+2026-10-27T04:45:56.5290108Z Updating files:  55% (3420/6218)
+2026-10-27T04:45:56.5414144Z Updating files:  56% (3483/6218)
+2026-10-27T04:45:56.5543122Z Updating files:  57% (3545/6218)
+2026-10-27T04:45:56.5662507Z Updating files:  58% (3607/6218)
+2026-10-27T04:45:56.5786230Z Updating files:  59% (3669/6218)
+2026-10-27T04:45:56.5909153Z Updating files:  60% (3731/6218)
+2026-10-27T04:45:56.6036089Z Updating files:  61% (3793/6218)
+2026-10-27T04:45:56.6904071Z Updating files:  62% (3856/6218)
+2026-10-27T04:45:56.7015433Z Updating files:  63% (3918/6218)
+2026-10-27T04:45:56.7144717Z Updating files:  64% (3980/6218)
+2026-10-27T04:45:56.7271326Z Updating files:  65% (4042/6218)
+2026-10-27T04:45:56.7354856Z Updating files:  66% (4104/6218)
+2026-10-27T04:45:56.7433913Z Updating files:  66% (4142/6218)
+2026-10-27T04:45:56.7563888Z Updating files:  67% (4167/6218)
+2026-10-27T04:45:56.7676278Z Updating files:  68% (4229/6218)
+2026-10-27T04:45:56.7783353Z Updating files:  69% (4291/6218)
+2026-10-27T04:45:56.7944922Z Updating files:  70% (4353/6218)
+2026-10-27T04:45:56.8272152Z Updating files:  71% (4415/6218)
+2026-10-27T04:45:56.8592350Z Updating files:  72% (4477/6218)
+2026-10-27T04:45:57.0497566Z Updating files:  73% (4540/6218)
+2026-10-27T04:45:57.0603500Z Updating files:  74% (4602/6218)
+2026-10-27T04:45:57.0725483Z Updating files:  75% (4664/6218)
+2026-10-27T04:45:57.0826113Z Updating files:  76% (4726/6218)
+2026-10-27T04:45:57.0954647Z Updating files:  77% (4788/6218)
+2026-10-27T04:45:57.1086717Z Updating files:  78% (4851/6218)
+2026-10-27T04:45:57.1243197Z Updating files:  79% (4913/6218)
+2026-10-27T04:45:57.1368903Z Updating files:  80% (4975/6218)
+2026-10-27T04:45:57.1509693Z Updating files:  81% (5037/6218)
+2026-10-27T04:45:57.1648945Z Updating files:  82% (5099/6218)
+2026-10-27T04:45:57.1786383Z Updating files:  83% (5161/6218)
+2026-10-27T04:45:57.1926332Z Updating files:  84% (5224/6218)
+2026-10-27T04:45:57.2070029Z Updating files:  85% (5286/6218)
+2026-10-27T04:45:57.2235726Z Updating files:  86% (5348/6218)
+2026-10-27T04:45:57.2390473Z Updating files:  87% (5410/6218)
+2026-10-27T04:45:57.2515719Z Updating files:  88% (5472/6218)
+2026-10-27T04:45:57.2589244Z Updating files:  89% (5535/6218)
+2026-10-27T04:45:57.2674887Z Updating files:  90% (5597/6218)
+2026-10-27T04:45:57.2931234Z Updating files:  91% (5659/6218)
+2026-10-27T04:45:57.3390531Z Updating files:  92% (5721/6218)
+2026-10-27T04:45:57.3501105Z Updating files:  93% (5783/6218)
+2026-10-27T04:45:57.3645865Z Updating files:  94% (5845/6218)
+2026-10-27T04:45:57.3836871Z Updating files:  95% (5908/6218)
+2026-10-27T04:45:57.3950617Z Updating files:  96% (5970/6218)
+2026-10-27T04:45:57.4087709Z Updating files:  97% (6032/6218)
+2026-10-27T04:45:57.4209036Z Updating files:  98% (6094/6218)
+2026-10-27T04:45:57.4456775Z Updating files:  99% (6156/6218)
+2026-10-27T04:45:57.4457284Z Updating files: 100% (6218/6218)
+2026-10-27T04:45:57.4457628Z Updating files: 100% (6218/6218), done.
+2026-10-27T04:45:57.4621003Z Note: switching to '903174935e1d8a07293105a9bccff17325489f3d'.
+2026-10-27T04:45:57.4621421Z 
+2026-10-27T04:45:57.4621869Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-27T04:45:57.4622635Z changes and commit them, and you can discard any commits you make in this
+2026-10-27T04:45:57.4624179Z state without impacting any branches by switching back to a branch.
+2026-10-27T04:45:57.4624713Z 
+2026-10-27T04:45:57.4624988Z If you want to create a new branch to retain commits you create, you may
+2026-10-27T04:45:57.4625699Z do so (now or later) by using -c with the switch command. Example:
+2026-10-27T04:45:57.4626122Z 
+2026-10-27T04:45:57.4626394Z   git switch -c <new-branch-name>
+2026-10-27T04:45:57.4626655Z 
+2026-10-27T04:45:57.4626851Z Or undo this operation with:
+2026-10-27T04:45:57.4627130Z 
+2026-10-27T04:45:57.4627325Z   git switch -
+2026-10-27T04:45:57.4627595Z 
+2026-10-27T04:45:57.4627920Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-27T04:45:57.4628503Z 
+2026-10-27T04:45:57.4628828Z HEAD is now at 9031749 Run existing movement speed consumers in hosted checks
+2026-10-27T04:45:57.5094513Z ##[endgroup]
+2026-10-27T04:45:57.5513603Z [command]"C:\Program Files\Git\bin\git.exe" log -1 --format=%H
+2026-10-27T04:45:57.5859293Z 903174935e1d8a07293105a9bccff17325489f3d
+2026-10-27T04:45:57.6422734Z ##[group]Run dtolnay/rust-toolchain@master
+2026-10-27T04:45:57.6423304Z with:
+2026-10-27T04:45:57.6423622Z   toolchain: nightly-2026-07-13
+2026-10-27T04:45:57.6423943Z env:
+2026-10-27T04:45:57.6424239Z   CARGO_TERM_COLOR: always
+2026-10-27T04:45:57.6424567Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-27T04:45:57.6424891Z ##[endgroup]
+2026-10-27T04:45:57.6496020Z ##[start-action display=Parse toolchain version;id=__dtolnay_rust-toolchain.parse]
+2026-10-27T04:45:57.6666224Z ##[group]Run if [[ -z $toolchain ]]; then
+2026-10-27T04:45:57.6666739Z [36;1mif [[ -z $toolchain ]]; then[0m
+2026-10-27T04:45:57.6667307Z [36;1m  # GitHub does not enforce `required: true` inputs itself. https://github.com/actions/runner/issues/1070[0m
+2026-10-27T04:45:57.6667935Z [36;1m  echo "'toolchain' is a required input" >&2[0m
+2026-10-27T04:45:57.6668298Z [36;1m  exit 1[0m
+2026-10-27T04:45:57.6668927Z [36;1melif [[ $toolchain =~ ^stable' '[0-9]+' '(year|month|week|day)s?' 'ago$ ]]; then[0m
+2026-10-27T04:45:57.6669397Z [36;1m  if [[ Windows == macOS ]]; then[0m
+2026-10-27T04:45:57.6669970Z [36;1m    echo "toolchain=1.$((($(date -v-$(sed 's/stable \([0-9]*\) \(.\).*/\1\2/' <<< $toolchain) +%s)/60/60/24-16569)/7/6))" >> $GITHUB_OUTPUT[0m
+2026-10-27T04:45:57.6670562Z [36;1m  else[0m
+2026-10-27T04:45:57.6671005Z [36;1m    echo "toolchain=1.$((($(date --date "${toolchain#stable }" +%s)/60/60/24-16569)/7/6))" >> $GITHUB_OUTPUT[0m
+2026-10-27T04:45:57.6671521Z [36;1m  fi[0m
+2026-10-27T04:45:57.6671951Z [36;1melif [[ $toolchain =~ ^stable' 'minus' '[0-9]+' 'releases?$ ]]; then[0m
+2026-10-27T04:45:57.6672545Z [36;1m  echo "toolchain=1.$((($(date +%s)/60/60/24-16569)/7/6-${toolchain//[^0-9]/}))" >> $GITHUB_OUTPUT[0m
+2026-10-27T04:45:57.6673055Z [36;1melif [[ $toolchain =~ ^1\.[0-9]+$ ]]; then[0m
+2026-10-27T04:45:57.6673653Z [36;1m  echo "toolchain=1.$((i=${toolchain#1.}, c=($(date +%s)/60/60/24-16569)/7/6, i+9*i*(10*i<=c)+90*i*(100*i<=c)))" >> $GITHUB_OUTPUT[0m
+2026-10-27T04:45:57.6674203Z [36;1melse[0m
+2026-10-27T04:45:57.6674491Z [36;1m  delimiter=EOF[0m
+2026-10-27T04:45:57.6674868Z [36;1m  while [[ $toolchain == *$delimiter* ]]; do delimiter+=_; done[0m
+2026-10-27T04:45:57.6675403Z [36;1m  printf 'toolchain<<%s\n%s\n%s\n' "$delimiter" "$toolchain" "$delimiter" >> $GITHUB_OUTPUT[0m
+2026-10-27T04:45:57.6675846Z [36;1mfi[0m
+2026-10-27T04:45:57.6692214Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-27T04:45:57.6692686Z env:
+2026-10-27T04:45:57.6693000Z   CARGO_TERM_COLOR: always
+2026-10-27T04:45:57.6693351Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-27T04:45:57.6693776Z   toolchain: nightly-2026-07-13
+2026-10-27T04:45:57.6694145Z ##[endgroup]
+2026-10-27T04:45:57.8280567Z ##[end-action id=__dtolnay_rust-toolchain.parse;outcome=success;conclusion=success;duration_ms=178]
+2026-10-27T04:45:57.8285523Z ##[start-action display=Set $CARGO_HOME;id=__dtolnay_rust-toolchain.__run]
+2026-10-27T04:45:57.8439365Z ##[group]Run echo CARGO_HOME=${CARGO_HOME:-"$USERPROFILE\.cargo"} >> $GITHUB_ENV
+2026-10-27T04:45:57.8439988Z [36;1mecho CARGO_HOME=${CARGO_HOME:-"$USERPROFILE\.cargo"} >> $GITHUB_ENV[0m
+2026-10-27T04:45:57.8451297Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-27T04:45:57.8452367Z env:
+2026-10-27T04:45:57.8452667Z   CARGO_TERM_COLOR: always
+2026-10-27T04:45:57.8453057Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-27T04:45:57.8453367Z ##[endgroup]
+2026-10-27T04:45:57.8845561Z ##[end-action id=__dtolnay_rust-toolchain.__run;outcome=success;conclusion=success;duration_ms=55]
+2026-10-27T04:45:57.8849289Z ##[start-action display=Install rustup if needed;id=__dtolnay_rust-toolchain.__run_2]
+2026-10-27T04:45:57.8860264Z ##[end-action id=__dtolnay_rust-toolchain.__run_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-27T04:45:57.8863688Z ##[start-action display=Install rustup if needed on windows;id=__dtolnay_rust-toolchain.__run_3]
+2026-10-27T04:45:57.8999515Z ##[group]Run if ! command -v rustup &>/dev/null; then
+2026-10-27T04:45:57.9000084Z [36;1mif ! command -v rustup &>/dev/null; then[0m
+2026-10-27T04:45:57.9000995Z [36;1m  curl --proto '=https' --tlsv1.2 --retry 10 --retry-connrefused --location --silent --show-error --fail https://win.rustup.rs/x86_64 --output 'D:\a\_temp\rustup-init.exe'[0m
+2026-10-27T04:45:57.9001880Z [36;1m  'D:\a\_temp\rustup-init.exe' --default-toolchain none --no-modify-path -y[0m
+2026-10-27T04:45:57.9002367Z [36;1m  echo "$CARGO_HOME\bin" >> $GITHUB_PATH[0m
+2026-10-27T04:45:57.9002742Z [36;1mfi[0m
+2026-10-27T04:45:57.9014232Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-27T04:45:57.9014706Z env:
+2026-10-27T04:45:57.9015002Z   CARGO_TERM_COLOR: always
+2026-10-27T04:45:57.9015324Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-27T04:45:57.9015676Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-27T04:45:57.9016011Z ##[endgroup]
+2026-10-27T04:45:57.9560836Z ##[end-action id=__dtolnay_rust-toolchain.__run_3;outcome=success;conclusion=success;duration_ms=69]
+2026-10-27T04:45:57.9588195Z ##[start-action display=rustup toolchain install nightly-2026-07-13;id=__dtolnay_rust-toolchain.__run_4]
+2026-10-27T04:45:57.9723871Z ##[group]Run set -f  # split targets and components on commas and whitespace, without glob expansion
+2026-10-27T04:45:57.9724620Z [36;1mset -f  # split targets and components on commas and whitespace, without glob expansion[0m
+2026-10-27T04:45:57.9725086Z [36;1mflags=()[0m
+2026-10-27T04:45:57.9725457Z [36;1mfor t in ${targets//,/ }; do flags+=(--target "$t"); done[0m
+2026-10-27T04:45:57.9725922Z [36;1mfor c in ${components//,/ }; do flags+=(--component "$c"); done[0m
+2026-10-27T04:45:57.9726467Z [36;1mif [[ $toolchain == nightly && -n $components ]]; then flags+=(--allow-downgrade); fi[0m
+2026-10-27T04:45:57.9726933Z [36;1mlog=$(mktemp)[0m
+2026-10-27T04:45:57.9727308Z [36;1mtrap 'rm -f "$log"' EXIT[0m
+2026-10-27T04:45:57.9727907Z [36;1mfor attempt in 1 2 3 4 5; do[0m
+2026-10-27T04:45:57.9728511Z [36;1m  if rustup toolchain install "$toolchain" "${flags[@]}" --profile minimal --no-self-update --force-non-host 2>&1 | tee "$log"; then[0m
+2026-10-27T04:45:57.9729112Z [36;1m    break[0m
+2026-10-27T04:45:57.9729435Z [36;1m  else[0m
+2026-10-27T04:45:57.9729691Z [36;1m    status=$?[0m
+2026-10-27T04:45:57.9730055Z [36;1m  fi[0m
+2026-10-27T04:45:57.9730409Z [36;1m  if [[ $attempt == 5 ]] || ! grep -Fq 'checksum failed for ' "$log" \[0m
+2026-10-27T04:45:57.9730975Z [36;1m      || ! grep -Fq 'this is likely due to an ongoing update of the official release server' "$log"; then[0m
+2026-10-27T04:45:57.9731561Z [36;1m    exit "$status"[0m
+2026-10-27T04:45:57.9731841Z [36;1m  fi[0m
+2026-10-27T04:45:57.9732319Z [36;1m  echo "Retrying rustup toolchain install in 30 seconds (retry $attempt of 4)" >&2[0m
+2026-10-27T04:45:57.9732847Z [36;1m  sleep 30[0m
+2026-10-27T04:45:57.9733125Z [36;1mdone[0m
+2026-10-27T04:45:57.9745489Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-27T04:45:57.9745946Z env:
+2026-10-27T04:45:57.9746257Z   CARGO_TERM_COLOR: always
+2026-10-27T04:45:57.9746593Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-27T04:45:57.9746907Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-27T04:45:57.9747277Z   toolchain: nightly-2026-07-13
+2026-10-27T04:45:57.9747582Z   targets: 
+2026-10-27T04:45:57.9747839Z   components: 
+2026-10-27T04:45:57.9748194Z   RUSTUP_PERMIT_COPY_RENAME: 1
+2026-10-27T04:45:57.9748497Z ##[endgroup]
+2026-10-27T04:45:58.5438311Z info: syncing channel updates for nightly-2026-07-13-x86_64-pc-windows-msvc
+2026-10-27T04:45:59.0185384Z info: latest update on 2026-07-13 for version 1.99.0-nightly (77cf889bc 2026-07-12)
+2026-10-27T04:45:59.0338711Z info: downloading 3 components
+2026-10-27T04:46:11.0648472Z 
+2026-10-27T04:46:11.0967533Z   nightly-2026-07-13-x86_64-pc-windows-msvc installed - rustc 1.99.0-nightly (77cf889bc 2026-07-12)
+2026-10-27T04:46:11.0968213Z 
+2026-10-27T04:46:11.1335246Z ##[end-action id=__dtolnay_rust-toolchain.__run_4;outcome=success;conclusion=success;duration_ms=13174]
+2026-10-27T04:46:11.1343021Z ##[start-action display=rustup default nightly-2026-07-13;id=__dtolnay_rust-toolchain.__run_5]
+2026-10-27T04:46:11.1473580Z ##[group]Run rustup default "$toolchain" --force-non-host
+2026-10-27T04:46:11.1474056Z [36;1mrustup default "$toolchain" --force-non-host[0m
+2026-10-27T04:46:11.1485544Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-27T04:46:11.1486025Z env:
+2026-10-27T04:46:11.1486305Z   CARGO_TERM_COLOR: always
+2026-10-27T04:46:11.1486640Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-27T04:46:11.1487017Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-27T04:46:11.1487360Z   toolchain: nightly-2026-07-13
+2026-10-27T04:46:11.1487727Z ##[endgroup]
+2026-10-27T04:46:11.2128936Z info: using existing install for nightly-2026-07-13-x86_64-pc-windows-msvc
+2026-10-27T04:46:11.2177523Z info: default toolchain set to nightly-2026-07-13-x86_64-pc-windows-msvc
+2026-10-27T04:46:11.2178128Z 
+2026-10-27T04:46:11.2381659Z   nightly-2026-07-13-x86_64-pc-windows-msvc unchanged - rustc 1.99.0-nightly (77cf889bc 2026-07-12)
+2026-10-27T04:46:11.2382412Z 
+2026-10-27T04:46:11.2385190Z info: note that the toolchain 'nightly-2026-07-13-x86_64-pc-windows-msvc' is currently in use (overridden by 'D:\a\fabelgeist\fabelgeist\rust-toolchain.toml')
+2026-10-27T04:46:11.2466586Z ##[end-action id=__dtolnay_rust-toolchain.__run_5;outcome=success;conclusion=success;duration_ms=112]
+2026-10-27T04:46:11.2470457Z ##[start-action display=Create cachekey;id=__dtolnay_rust-toolchain.rustc-version]
+2026-10-27T04:46:11.2601419Z ##[group]Run DATE=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-date: \(20[0-9][0-9]\)-\([01][0-9]\)-\([0-3][0-9]\)$/\1\2\3/p')
+2026-10-27T04:46:11.2602336Z [36;1mDATE=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-date: \(20[0-9][0-9]\)-\([01][0-9]\)-\([0-3][0-9]\)$/\1\2\3/p')[0m
+2026-10-27T04:46:11.2603038Z [36;1mHASH=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-hash: //p')[0m
+2026-10-27T04:46:11.2603578Z [36;1mecho "cachekey=$(echo $DATE$HASH | head -c12)" >> $GITHUB_OUTPUT[0m
+2026-10-27T04:46:11.2614742Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-27T04:46:11.2615237Z env:
+2026-10-27T04:46:11.2615529Z   CARGO_TERM_COLOR: always
+2026-10-27T04:46:11.2615838Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-27T04:46:11.2616197Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-27T04:46:11.2616555Z   toolchain: nightly-2026-07-13
+2026-10-27T04:46:11.2616869Z ##[endgroup]
+2026-10-27T04:46:12.0664910Z ##[end-action id=__dtolnay_rust-toolchain.rustc-version;outcome=success;conclusion=success;duration_ms=819]
+2026-10-27T04:46:12.0667878Z ##[start-action display=Disable incremental compilation;id=__dtolnay_rust-toolchain.__run_6]
+2026-10-27T04:46:12.0810265Z ##[group]Run if [ -z "${CARGO_INCREMENTAL+set}" ]; then
+2026-10-27T04:46:12.0811007Z [36;1mif [ -z "${CARGO_INCREMENTAL+set}" ]; then[0m
+2026-10-27T04:46:12.0811609Z [36;1m  echo CARGO_INCREMENTAL=0 >> $GITHUB_ENV[0m
+2026-10-27T04:46:12.0812094Z [36;1mfi[0m
+2026-10-27T04:46:12.0826552Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-27T04:46:12.0827008Z env:
+2026-10-27T04:46:12.0827316Z   CARGO_TERM_COLOR: always
+2026-10-27T04:46:12.0827644Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-27T04:46:12.0827961Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-27T04:46:12.0828322Z ##[endgroup]
+2026-10-27T04:46:12.1211294Z ##[end-action id=__dtolnay_rust-toolchain.__run_6;outcome=success;conclusion=success;duration_ms=54]
+2026-10-27T04:46:12.1214045Z ##[start-action display=Enable colors in Cargo output;id=__dtolnay_rust-toolchain.__run_7]
+2026-10-27T04:46:12.1342793Z ##[group]Run if [ -z "${CARGO_TERM_COLOR+set}" ]; then
+2026-10-27T04:46:12.1343252Z [36;1mif [ -z "${CARGO_TERM_COLOR+set}" ]; then[0m
+2026-10-27T04:46:12.1343790Z [36;1m  echo CARGO_TERM_COLOR=always >> $GITHUB_ENV[0m
+2026-10-27T04:46:12.1344175Z [36;1mfi[0m
+2026-10-27T04:46:12.1355574Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-27T04:46:12.1356054Z env:
+2026-10-27T04:46:12.1356342Z   CARGO_TERM_COLOR: always
+2026-10-27T04:46:12.1356648Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-27T04:46:12.1356990Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-27T04:46:12.1357349Z   CARGO_INCREMENTAL: 0
+2026-10-27T04:46:12.1357633Z ##[endgroup]
+2026-10-27T04:46:12.1737907Z ##[end-action id=__dtolnay_rust-toolchain.__run_7;outcome=success;conclusion=success;duration_ms=52]
+2026-10-27T04:46:12.1741893Z ##[start-action display=Enable Cargo sparse registry;id=__dtolnay_rust-toolchain.__run_8]
+2026-10-27T04:46:12.1869225Z ##[group]Run # implemented in 1.66, stabilized in 1.68, made default in 1.70
+2026-10-27T04:46:12.1870013Z [36;1m# implemented in 1.66, stabilized in 1.68, made default in 1.70[0m
+2026-10-27T04:46:12.1870695Z [36;1mif [ -z "${CARGO_REGISTRIES_CRATES_IO_PROTOCOL+set}" -o -f "D:\a\_temp"/.implicit_cargo_registries_crates_io_protocol ]; then[0m
+2026-10-27T04:46:12.1871498Z [36;1m  if rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.6[89]\.'; then[0m
+2026-10-27T04:46:12.1872097Z [36;1m    touch "D:\a\_temp"/.implicit_cargo_registries_crates_io_protocol || true[0m
+2026-10-27T04:46:12.1872729Z [36;1m    echo CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse >> $GITHUB_ENV[0m
+2026-10-27T04:46:12.1873326Z [36;1m  elif rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.6[67]\.'; then[0m
+2026-10-27T04:46:12.1873894Z [36;1m    touch "D:\a\_temp"/.implicit_cargo_registries_crates_io_protocol || true[0m
+2026-10-27T04:46:12.1874375Z [36;1m    echo CARGO_REGISTRIES_CRATES_IO_PROTOCOL=git >> $GITHUB_ENV[0m
+2026-10-27T04:46:12.1874847Z [36;1m  fi[0m
+2026-10-27T04:46:12.1875118Z [36;1mfi[0m
+2026-10-27T04:46:12.1885882Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-27T04:46:12.1886367Z env:
+2026-10-27T04:46:12.1886668Z   CARGO_TERM_COLOR: always
+2026-10-27T04:46:12.1887354Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-27T04:46:12.1887695Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-27T04:46:12.1888069Z   CARGO_INCREMENTAL: 0
+2026-10-27T04:46:12.1888395Z   toolchain: nightly-2026-07-13
+2026-10-27T04:46:12.1888707Z ##[endgroup]
+2026-10-27T04:46:12.3829072Z ##[end-action id=__dtolnay_rust-toolchain.__run_8;outcome=success;conclusion=success;duration_ms=208]
+2026-10-27T04:46:12.3833583Z ##[start-action display=Work around spurious network errors in curl 8.0;id=__dtolnay_rust-toolchain.__run_9]
+2026-10-27T04:46:12.3969794Z ##[group]Run # https://rust-lang.zulipchat.com/#narrow/stream/246057-t-cargo/topic/timeout.20investigation
+2026-10-27T04:46:12.3970858Z [36;1m# https://rust-lang.zulipchat.com/#narrow/stream/246057-t-cargo/topic/timeout.20investigation[0m
+2026-10-27T04:46:12.3971636Z [36;1mif rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.7[01]\.'; then[0m
+2026-10-27T04:46:12.3972244Z [36;1m  echo CARGO_HTTP_MULTIPLEXING=false >> $GITHUB_ENV[0m
+2026-10-27T04:46:12.3972676Z [36;1mfi[0m
+2026-10-27T04:46:12.3984594Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-27T04:46:12.3985069Z env:
+2026-10-27T04:46:12.3985411Z   CARGO_TERM_COLOR: always
+2026-10-27T04:46:12.3985753Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-27T04:46:12.3986092Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-27T04:46:12.3986476Z   CARGO_INCREMENTAL: 0
+2026-10-27T04:46:12.3986851Z   toolchain: nightly-2026-07-13
+2026-10-27T04:46:12.3987209Z ##[endgroup]
+2026-10-27T04:46:12.4945366Z ##[end-action id=__dtolnay_rust-toolchain.__run_9;outcome=success;conclusion=success;duration_ms=111]
+2026-10-27T04:46:12.4950842Z ##[start-action display=rustc +nightly-2026-07-13 --version --verbose;id=__dtolnay_rust-toolchain.__run_10]
+2026-10-27T04:46:12.5076127Z ##[group]Run rustc +"$toolchain" --version --verbose
+2026-10-27T04:46:12.5076739Z [36;1mrustc +"$toolchain" --version --verbose[0m
+2026-10-27T04:46:12.5088056Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-27T04:46:12.5088518Z env:
+2026-10-27T04:46:12.5088825Z   CARGO_TERM_COLOR: always
+2026-10-27T04:46:12.5089151Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-27T04:46:12.5089492Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-27T04:46:12.5089835Z   CARGO_INCREMENTAL: 0
+2026-10-27T04:46:12.5090172Z   toolchain: nightly-2026-07-13
+2026-10-27T04:46:12.5090504Z ##[endgroup]
+2026-10-27T04:46:12.5904849Z rustc 1.99.0-nightly (77cf889bc 2026-07-12)
+2026-10-27T04:46:12.5905588Z binary: rustc
+2026-10-27T04:46:12.5906134Z commit-hash: 77cf889bc178ddb44d6a1c78e5a820b5abb31d8d
+2026-10-27T04:46:12.5906805Z commit-date: 2026-07-12
+2026-10-27T04:46:12.5907336Z host: x86_64-pc-windows-msvc
+2026-10-27T04:46:12.5907908Z release: 1.99.0-nightly
+2026-10-27T04:46:12.5908397Z LLVM version: 22.1.8
+2026-10-27T04:46:12.6038485Z ##[end-action id=__dtolnay_rust-toolchain.__run_10;outcome=success;conclusion=success;duration_ms=108]
+2026-10-27T04:46:12.6203174Z ##[group]Run $foliageRustRoot = rustc --print sysroot
+2026-10-27T04:46:12.6203709Z [36;1m$foliageRustRoot = rustc --print sysroot[0m
+2026-10-27T04:46:12.6204330Z [36;1mAdd-Content -LiteralPath $env:GITHUB_PATH -Value "$foliageRustRoot\lib\rustlib\x86_64-pc-windows-msvc\bin"[0m
+2026-10-27T04:46:12.6770674Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-27T04:46:12.6771186Z env:
+2026-10-27T04:46:12.6771549Z   CARGO_TERM_COLOR: always
+2026-10-27T04:46:12.6771955Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-27T04:46:12.6772381Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-27T04:46:12.6772790Z   CARGO_INCREMENTAL: 0
+2026-10-27T04:46:12.6773113Z ##[endgroup]
+2026-10-27T04:46:13.1325285Z info: syncing channel updates for nightly-2026-07-13-x86_64-pc-windows-msvc
+2026-10-27T04:46:13.6942506Z info: latest update on 2026-07-13 for version 1.99.0-nightly (77cf889bc 2026-07-12)
+2026-10-27T04:46:13.7191329Z info: downloading 4 components
+2026-10-27T04:46:42.4886249Z ##[group]Run Swatinem/rust-cache@v2
+2026-10-27T04:46:42.4886674Z with:
+2026-10-27T04:46:42.4886980Z   shared-key: rust-quality
+2026-10-27T04:46:42.4887325Z   cache-on-failure: true
+2026-10-27T04:46:42.4887642Z   prefix-key: v0-rust
+2026-10-27T04:46:42.4887957Z   add-job-id-key: true
+2026-10-27T04:46:42.4888286Z   add-rust-environment-hash-key: true
+2026-10-27T04:46:42.4888620Z   cache-targets: true
+2026-10-27T04:46:42.4888977Z   cache-all-crates: false
+2026-10-27T04:46:42.4889347Z   cache-workspace-crates: false
+2026-10-27T04:46:42.4889683Z   save-if: true
+2026-10-27T04:46:42.4889977Z   cache-provider: github
+2026-10-27T04:46:42.4890270Z   cache-bin: true
+2026-10-27T04:46:42.4890576Z   lookup-only: false
+2026-10-27T04:46:42.4890965Z   cmd-format: {0}
+2026-10-27T04:46:42.4891231Z env:
+2026-10-27T04:46:42.4891535Z   CARGO_TERM_COLOR: always
+2026-10-27T04:46:42.4891860Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-27T04:46:42.4892328Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-27T04:46:42.4892680Z   CARGO_INCREMENTAL: 0
+2026-10-27T04:46:42.4892971Z ##[endgroup]
+2026-10-27T04:46:47.1345429Z ##[group]Cache Configuration
+2026-10-27T04:46:47.1345956Z Cache Provider:
+2026-10-27T04:46:47.1346423Z     github
+2026-10-27T04:46:47.1346879Z Workspaces:
+2026-10-27T04:46:47.1347252Z     D:\a\fabelgeist\fabelgeist
+2026-10-27T04:46:47.1347631Z Cache Paths:
+2026-10-27T04:46:47.1348054Z     C:\Users\runneradmin\.cargo\bin
+2026-10-27T04:46:47.1348531Z     C:\Users\runneradmin\.cargo\.crates.toml
+2026-10-27T04:46:47.1349033Z     C:\Users\runneradmin\.cargo\.crates2.json
+2026-10-27T04:46:47.1349491Z     C:\Users\runneradmin\.cargo\registry
+2026-10-27T04:46:47.1349908Z     C:\Users\runneradmin\.cargo\git
+2026-10-27T04:46:47.1351391Z     D:\a\fabelgeist\fabelgeist\target
+2026-10-27T04:46:47.1351794Z Restore Key:
+2026-10-27T04:46:47.1352129Z     v0-rust-rust-quality-Windows_NT-x64-f83d9a01
+2026-10-27T04:46:47.1352500Z Cache Key:
+2026-10-27T04:46:47.1352838Z     v0-rust-rust-quality-Windows_NT-x64-f83d9a01-1bc64bad
+2026-10-27T04:46:47.1353503Z .. Prefix:
+2026-10-27T04:46:47.1353909Z   - v0-rust-rust-quality-Windows_NT-x64
+2026-10-27T04:46:47.1354357Z .. Environment considered:
+2026-10-27T04:46:47.1354667Z   - Rust Versions:
+2026-10-27T04:46:47.1355099Z     - 1.99.0-nightly x86_64-pc-windows-msvc 77cf889bc178ddb44d6a1c78e5a820b5abb31d8d
+2026-10-27T04:46:47.1355651Z     - 1.99.1 x86_64-pc-windows-msvc 58cf8f9c35b355199727627d07ae34a4e2846d67
+2026-10-27T04:46:47.1356113Z   - CARGO_HOME
+2026-10-27T04:46:47.1356398Z   - CARGO_INCREMENTAL
+2026-10-27T04:46:47.1356681Z   - CARGO_TERM_COLOR
+2026-10-27T04:46:47.1356999Z .. Lockfiles considered:
+2026-10-27T04:46:47.1357336Z   - D:\a\fabelgeist\fabelgeist\.cargo\config.toml
+2026-10-27T04:46:47.1357720Z   - D:\a\fabelgeist\fabelgeist\Cargo.lock
+2026-10-27T04:46:47.1358175Z   - D:\a\fabelgeist\fabelgeist\crates\adventuresim-building-generator\Cargo.toml
+2026-10-27T04:46:47.1358732Z   - D:\a\fabelgeist\fabelgeist\crates\adventuresim-core\Cargo.toml
+2026-10-27T04:46:47.1359394Z   - D:\a\fabelgeist\fabelgeist\crates\adventuresim-dialogue\Cargo.toml
+2026-10-27T04:46:47.1360017Z   - D:\a\fabelgeist\fabelgeist\crates\adventuresim-plant-generator\Cargo.toml
+2026-10-27T04:46:47.1360678Z   - D:\a\fabelgeist\fabelgeist\crates\adventuresim-procedural-materials\Cargo.toml
+2026-10-27T04:46:47.1361307Z   - D:\a\fabelgeist\fabelgeist\crates\adventuresim-procedural-textures\Cargo.toml
+2026-10-27T04:46:47.1361927Z   - D:\a\fabelgeist\fabelgeist\crates\adventuresim-puzzles\Cargo.toml
+2026-10-27T04:46:47.1362509Z   - D:\a\fabelgeist\fabelgeist\crates\adventuresim-stdb-client\Cargo.toml
+2026-10-27T04:46:47.1363206Z   - D:\a\fabelgeist\fabelgeist\crates\adventuresim-stdb-module\Cargo.toml
+2026-10-27T04:46:47.1363827Z   - D:\a\fabelgeist\fabelgeist\crates\adventuresim-strategic-sim\Cargo.toml
+2026-10-27T04:46:47.1364407Z   - D:\a\fabelgeist\fabelgeist\crates\adventuresim-tactical-brp-generator\Cargo.toml
+2026-10-27T04:46:47.1366795Z   - D:\a\fabelgeist\fabelgeist\crates\adventuresim-tactical-client\.cargo\config.toml
+2026-10-27T04:46:47.1367688Z   - D:\a\fabelgeist\fabelgeist\crates\adventuresim-tactical-client\Cargo.toml
+2026-10-27T04:46:47.1368224Z   - D:\a\fabelgeist\fabelgeist\crates\adventuresim-tactical-core\Cargo.toml
+2026-10-27T04:46:47.1368746Z   - D:\a\fabelgeist\fabelgeist\crates\adventuresim-tactical-netcode\Cargo.toml
+2026-10-27T04:46:47.1369333Z   - D:\a\fabelgeist\fabelgeist\crates\adventuresim-tactical-server-dispatcher\Cargo.toml
+2026-10-27T04:46:47.1369925Z   - D:\a\fabelgeist\fabelgeist\crates\adventuresim-tactical-server\Cargo.toml
+2026-10-27T04:46:47.1370445Z   - D:\a\fabelgeist\fabelgeist\crates\adventuresim-terrain\Cargo.toml
+2026-10-27T04:46:47.1370953Z   - D:\a\fabelgeist\fabelgeist\crates\adventuresim-texture-studio\Cargo.toml
+2026-10-27T04:46:47.1371477Z   - D:\a\fabelgeist\fabelgeist\crates\adventuresim-weapon-model-browser\Cargo.toml
+2026-10-27T04:46:47.1372076Z   - D:\a\fabelgeist\fabelgeist\crates\adventuresim-weapon-model\Cargo.toml
+2026-10-27T04:46:47.1372589Z   - D:\a\fabelgeist\fabelgeist\crates\adventuresim-world-import\Cargo.toml
+2026-10-27T04:46:47.1373089Z   - D:\a\fabelgeist\fabelgeist\crates\adventuresim-world-schema\Cargo.toml
+2026-10-27T04:46:47.1373831Z   - D:\a\fabelgeist\fabelgeist\crates\fabelgeist-animation\Cargo.toml
+2026-10-27T04:46:47.1374573Z   - D:\a\fabelgeist\fabelgeist\crates\fabelgeist-armor\Cargo.toml
+2026-10-27T04:46:47.1375045Z   - D:\a\fabelgeist\fabelgeist\crates\fabelgeist-bvh\Cargo.toml
+2026-10-27T04:46:47.1375495Z   - D:\a\fabelgeist\fabelgeist\crates\fabelgeist-cloth\Cargo.toml
+2026-10-27T04:46:47.1375948Z   - D:\a\fabelgeist\fabelgeist\crates\fabelgeist-color\Cargo.toml
+2026-10-27T04:46:47.1376571Z   - D:\a\fabelgeist\fabelgeist\crates\fabelgeist-compute\Cargo.toml
+2026-10-27T04:46:47.1377030Z   - D:\a\fabelgeist\fabelgeist\crates\fabelgeist-determinism\Cargo.toml
+2026-10-27T04:46:47.1377519Z   - D:\a\fabelgeist\fabelgeist\crates\fabelgeist-fbx\Cargo.toml
+2026-10-27T04:46:47.1378013Z   - D:\a\fabelgeist\fabelgeist\crates\fabelgeist-fs\Cargo.toml
+2026-10-27T04:46:47.1378484Z   - D:\a\fabelgeist\fabelgeist\crates\fabelgeist-garment-code\Cargo.toml
+2026-10-27T04:46:47.1378976Z   - D:\a\fabelgeist\fabelgeist\crates\fabelgeist-garment-fit\Cargo.toml
+2026-10-27T04:46:47.1379484Z   - D:\a\fabelgeist\fabelgeist\crates\fabelgeist-geometry\Cargo.toml
+2026-10-27T04:46:47.1379970Z   - D:\a\fabelgeist\fabelgeist\crates\fabelgeist-gpu\Cargo.toml
+2026-10-27T04:46:47.1380414Z   - D:\a\fabelgeist\fabelgeist\crates\fabelgeist-hair\Cargo.toml
+2026-10-27T04:46:47.1380972Z   - D:\a\fabelgeist\fabelgeist\crates\fabelgeist-math\Cargo.toml
+2026-10-27T04:46:47.1381414Z   - D:\a\fabelgeist\fabelgeist\crates\fabelgeist-mesh\Cargo.toml
+2026-10-27T04:46:47.1381863Z   - D:\a\fabelgeist\fabelgeist\crates\fabelgeist-physics\Cargo.toml
+2026-10-27T04:46:47.1382328Z   - D:\a\fabelgeist\fabelgeist\crates\fabelgeist-rig\Cargo.toml
+2026-10-27T04:46:47.1382796Z   - D:\a\fabelgeist\fabelgeist\crates\fabelgeist-rust-quality\Cargo.toml
+2026-10-27T04:46:47.1383255Z   - D:\a\fabelgeist\fabelgeist\crates\fabelgeist-shell\Cargo.toml
+2026-10-27T04:46:47.1383733Z   - D:\a\fabelgeist\fabelgeist\crates\fabelgeist-spatial-hash\Cargo.toml
+2026-10-27T04:46:47.1384221Z   - D:\a\fabelgeist\fabelgeist\crates\fabelgeist-timer\Cargo.toml
+2026-10-27T04:46:47.1384677Z   - D:\a\fabelgeist\fabelgeist\crates\fabelgeist-xpbd\Cargo.toml
+2026-10-27T04:46:47.1385105Z   - D:\a\fabelgeist\fabelgeist\crates\strategic-web\Cargo.toml
+2026-10-27T04:46:47.1385507Z   - D:\a\fabelgeist\fabelgeist\rust-toolchain.toml
+2026-10-27T04:46:47.1386213Z ##[endgroup]
+2026-10-27T04:46:47.1386353Z 
+2026-10-27T04:46:47.1386496Z ... Restoring cache ...
+2026-10-27T04:46:47.3544124Z Cache hit for: v0-rust-rust-quality-Windows_NT-x64-f83d9a01-1bc64bad
+2026-10-27T04:46:48.5538763Z Received 109051904 of 1070971240 (10.2%), 103.1 MBs/sec
+2026-10-27T04:46:49.5651871Z Received 205520896 of 1070971240 (19.2%), 97.0 MBs/sec
+2026-10-27T04:46:50.5734819Z Received 289406976 of 1070971240 (27.0%), 91.1 MBs/sec
+2026-10-27T04:46:51.6207262Z Received 402653184 of 1070971240 (37.6%), 94.2 MBs/sec
+2026-10-27T04:46:52.7715050Z Received 536870912 of 1070971240 (50.1%), 98.0 MBs/sec
+2026-10-27T04:46:53.9411679Z Received 671088640 of 1070971240 (62.7%), 100.1 MBs/sec
+2026-10-27T04:46:55.1860308Z Received 805306368 of 1070971240 (75.2%), 100.5 MBs/sec
+2026-10-27T04:46:56.3500447Z Received 939524096 of 1070971240 (87.7%), 101.8 MBs/sec
+2026-10-27T04:46:57.4158646Z Received 1070971240 of 1070971240 (100.0%), 103.5 MBs/sec
+2026-10-27T04:46:57.4161943Z Cache Size: ~1021 MB (1070971240 B)
+2026-10-27T04:46:57.4199123Z [command]"C:\Program Files\Git\usr\bin\tar.exe" -xf D:/a/_temp/bee07234-c990-4875-9f4a-078d213b5d6e/cache.tzst -P -C D:/a/fabelgeist/fabelgeist --force-local --use-compress-program "zstd -d"
+2026-10-27T04:47:28.9434101Z Cache restored successfully
+2026-10-27T04:47:29.0690022Z Restored from cache key "v0-rust-rust-quality-Windows_NT-x64-f83d9a01-1bc64bad" full match: true.
+2026-10-27T04:47:29.1055944Z ##[group]Run set -euo pipefail
+2026-10-27T04:47:29.1056757Z [36;1mset -euo pipefail[0m
+2026-10-27T04:47:29.1057468Z [36;1mtest "$(git rev-parse HEAD)" = "$EXPECTED_SOURCE"[0m
+2026-10-27T04:47:29.1058139Z [36;1munset FABELGEIST_UPDATE_GARDEN_SPECIMEN[0m
+2026-10-27T04:47:29.1058731Z [36;1mmkdir -p target/foliage-portability[0m
+2026-10-27T04:47:29.1059421Z [36;1mgit rev-parse HEAD > target/foliage-portability/revision.txt[0m
+2026-10-27T04:47:29.1061203Z [36;1mcargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation::ground_scatter::understory::tests::minimal_shrub_cards_ -- --color=never --test-threads=1 2>&1 | tee target/foliage-portability/understory.log[0m
+2026-10-27T04:47:29.1064448Z [36;1mcargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation::ground_scatter::specimens::tests::managed_hazel_matches_shared_envelope -- --exact --color=never --test-threads=1 2>&1 | tee target/foliage-portability/envelope.log[0m
+2026-10-27T04:47:29.1067346Z [36;1mcargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation::obstacles::tree::geometry::leaves::tests:: -- --color=never --test-threads=1 2>&1 | tee target/foliage-portability/leaves.log[0m
+2026-10-27T04:47:29.1070242Z [36;1mcargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation::obstacles::tree::impostor::raster::tests::coarse_leaf_sampling_preserves_positions_across_every_shoot -- --exact --color=never --test-threads=1 2>&1 | tee target/foliage-portability/sampling.log[0m
+2026-10-27T04:47:29.1073826Z [36;1mcargo test --locked --package adventuresim-tactical-client --bin art-demo art_demo::scenery::tests::fixed_oak_exhibit_has_every_matching_prebaked_impostor -- --exact --color=never --test-threads=1 2>&1 | tee target/foliage-portability/prepared-impostors.log[0m
+2026-10-27T04:47:29.1087814Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-10-27T04:47:29.1088286Z env:
+2026-10-27T04:47:29.1088618Z   CARGO_TERM_COLOR: always
+2026-10-27T04:47:29.1088946Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-27T04:47:29.1089681Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-27T04:47:29.1090082Z   CARGO_INCREMENTAL: 0
+2026-10-27T04:47:29.1090373Z   CACHE_ON_FAILURE: true
+2026-10-27T04:47:29.1090769Z   EXPECTED_SOURCE: 903174935e1d8a07293105a9bccff17325489f3d
+2026-10-27T04:47:29.1091210Z ##[endgroup]
+2026-10-27T04:47:29.4768135Z [1m[92m    Updating[0m crates.io index
+2026-10-27T04:48:08.2986449Z [1m[92m   Compiling[0m adventuresim-world-schema v0.1.0 (D:\a\fabelgeist\fabelgeist\crates\adventuresim-world-schema)
+2026-10-27T04:48:08.2988037Z [1m[92m   Compiling[0m fabelgeist-timer v0.1.0 (D:\a\fabelgeist\fabelgeist\crates\fabelgeist-timer)
+2026-10-27T04:48:08.2989213Z [1m[92m   Compiling[0m fabelgeist-color v0.1.0 (D:\a\fabelgeist\fabelgeist\crates\fabelgeist-color)
+2026-10-27T04:48:08.2990268Z [1m[92m   Compiling[0m fabelgeist-math v0.1.0 (D:\a\fabelgeist\fabelgeist\crates\fabelgeist-math)
+2026-10-27T04:48:08.6203547Z [1m[92m   Compiling[0m fabelgeist-determinism v0.1.0 (D:\a\fabelgeist\fabelgeist\crates\fabelgeist-determinism)
+2026-10-27T04:48:09.4487793Z [1m[92m   Compiling[0m fabelgeist-gpu v0.1.0 (D:\a\fabelgeist\fabelgeist\crates\fabelgeist-gpu)
+2026-10-27T04:48:09.8163764Z [1m[92m   Compiling[0m fabelgeist-geometry v0.1.0 (D:\a\fabelgeist\fabelgeist\crates\fabelgeist-geometry)
+2026-10-27T04:48:10.1761096Z [1m[92m   Compiling[0m adventuresim-weapon-model v0.1.0 (D:\a\fabelgeist\fabelgeist\crates\adventuresim-weapon-model)
+2026-10-27T04:48:11.8243867Z [1m[92m   Compiling[0m fabelgeist-compute v0.1.0 (D:\a\fabelgeist\fabelgeist\crates\fabelgeist-compute)
+2026-10-27T04:48:27.9639636Z [1m[92m   Compiling[0m adventuresim-dialogue v0.1.0 (D:\a\fabelgeist\fabelgeist\crates\adventuresim-dialogue)
+2026-10-27T04:48:32.7255603Z [1m[92m   Compiling[0m fabelgeist-bvh v0.1.0 (D:\a\fabelgeist\fabelgeist\crates\fabelgeist-bvh)
+2026-10-27T04:48:35.7456262Z [1m[92m   Compiling[0m adventuresim-core v0.1.0 (D:\a\fabelgeist\fabelgeist\crates\adventuresim-core)
+2026-10-27T04:48:36.2028180Z [1m[91merror[E0432][0m[1m[97m: unresolved import `crate::unit_interval`[0m
+2026-10-27T04:48:36.2080002Z  [1m[96m--> [0mcrates\adventuresim-core\src\linear_speed.rs:3:12
+2026-10-27T04:48:36.2160683Z   [1m[96m|[0m
+2026-10-27T04:48:36.2294356Z [1m[96m3[0m [1m[96m|[0m use crate::unit_interval::{FractionError, UnitInterval};
+2026-10-27T04:48:36.2361843Z   [1m[96m|[0m            [1m[91m^^^^^^^^^^^^^[0m [1m[91mcould not find `unit_interval` in the crate root[0m
+2026-10-27T04:48:36.2419026Z 
+2026-10-27T04:48:36.2480971Z [1m[91merror[E0433][0m[1m[97m: cannot find module or crate `thiserror` in this scope[0m
+2026-10-27T04:48:36.2627953Z   [1m[96m--> [0mcrates\adventuresim-core\src\linear_speed.rs:20:45
+2026-10-27T04:48:36.2697272Z    [1m[96m|[0m
+2026-10-27T04:48:36.2737746Z [1m[96m20[0m [1m[96m|[0m #[derive(Clone, Copy, Debug, PartialEq, Eq, thiserror::Error)]
+2026-10-27T04:48:36.2798844Z    [1m[96m|[0m                                             [1m[91m^^^^^^^^^[0m [1m[91muse of unresolved module or unlinked crate `thiserror`[0m
+2026-10-27T04:48:36.2963307Z 
+2026-10-27T04:48:36.3021540Z [1m[91merror[0m[1m[97m: cannot find attribute `error` in this scope[0m
+2026-10-27T04:48:36.3061061Z   [1m[96m--> [0mcrates\adventuresim-core\src\linear_speed.rs:22:7
+2026-10-27T04:48:36.3121769Z    [1m[96m|[0m
+2026-10-27T04:48:36.3292286Z [1m[96m22[0m [1m[96m|[0m     #[error("linear speed must be finite")]
+2026-10-27T04:48:36.3350835Z    [1m[96m|[0m       [1m[91m^^^^^[0m
+2026-10-27T04:48:36.3390919Z 
+2026-10-27T04:48:36.3452880Z [1m[91merror[0m[1m[97m: cannot find attribute `error` in this scope[0m
+2026-10-27T04:48:36.3617989Z   [1m[96m--> [0mcrates\adventuresim-core\src\linear_speed.rs:24:7
+2026-10-27T04:48:36.3668937Z    [1m[96m|[0m
+2026-10-27T04:48:36.3710958Z [1m[96m24[0m [1m[96m|[0m     #[error("linear speed must be nonnegative")]
+2026-10-27T04:48:36.3775641Z    [1m[96m|[0m       [1m[91m^^^^^[0m
+2026-10-27T04:48:36.3953189Z 
+2026-10-27T04:48:36.4007463Z [1m[91merror[0m[1m[97m: cannot find attribute `error` in this scope[0m
+2026-10-27T04:48:36.4028048Z   [1m[96m--> [0mcrates\adventuresim-core\src\linear_speed.rs:26:7
+2026-10-27T04:48:36.4095807Z    [1m[96m|[0m
+2026-10-27T04:48:36.4274168Z [1m[96m26[0m [1m[96m|[0m     #[error("linear speed must be positive")]
+2026-10-27T04:48:36.4327406Z    [1m[96m|[0m       [1m[91m^^^^^[0m
+2026-10-27T04:48:36.4352240Z 
+2026-10-27T04:48:36.4416226Z [1m[91merror[0m[1m[97m: cannot find attribute `error` in this scope[0m
+2026-10-27T04:48:36.4606120Z   [1m[96m--> [0mcrates\adventuresim-core\src\linear_speed.rs:28:7
+2026-10-27T04:48:36.4646423Z    [1m[96m|[0m
+2026-10-27T04:48:36.4674729Z [1m[96m28[0m [1m[96m|[0m     #[error("linear speed arithmetic overflowed")]
+2026-10-27T04:48:36.4747834Z    [1m[96m|[0m       [1m[91m^^^^^[0m
+2026-10-27T04:48:36.4934991Z 
+2026-10-27T04:48:36.4976391Z [1m[91merror[0m[1m[97m: cannot find attribute `error` in this scope[0m
+2026-10-27T04:48:36.4995813Z   [1m[96m--> [0mcrates\adventuresim-core\src\linear_speed.rs:30:7
+2026-10-27T04:48:36.5071460Z    [1m[96m|[0m
+2026-10-27T04:48:36.5258528Z [1m[96m30[0m [1m[96m|[0m     #[error("invalid speed interpolation fraction: {0}")]
+2026-10-27T04:48:36.5298870Z    [1m[96m|[0m       [1m[91m^^^^^[0m
+2026-10-27T04:48:36.5320543Z 
+2026-10-27T04:48:36.5412269Z [1m[91merror[0m[1m[97m: cannot find attribute `from` in this scope[0m
+2026-10-27T04:48:36.5593678Z   [1m[96m--> [0mcrates\adventuresim-core\src\linear_speed.rs:31:16
+2026-10-27T04:48:36.5633909Z    [1m[96m|[0m
+2026-10-27T04:48:36.5654619Z [1m[96m31[0m [1m[96m|[0m     Fraction(#[from] FractionError),
+2026-10-27T04:48:36.5780301Z    [1m[96m|[0m                [1m[91m^^^^[0m
+2026-10-27T04:48:36.5926383Z 
+2026-10-27T04:48:36.8006303Z [1m[91merror[E0277][0m[1m[97m: `SpeedError` doesn't implement `std::fmt::Display`[0m
+2026-10-27T04:48:36.8022036Z    [1m[96m--> [0mcrates\adventuresim-core\src\linear_speed.rs:8:73
+2026-10-27T04:48:36.8076683Z     [1m[96m|[0m
+2026-10-27T04:48:36.8328827Z [1m[96m  8[0m [1m[96m|[0m #[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize)]
+2026-10-27T04:48:36.8330193Z     [1m[96m|[0m                                                                         [1m[91m^^^^^^^^^^^[0m [1m[91munsatisfied trait bound[0m
+2026-10-27T04:48:36.8341155Z     [1m[96m|[0m
+2026-10-27T04:48:36.8395242Z [1m[96mhelp[0m: the trait `std::fmt::Display` is not implemented for `SpeedError`
+2026-10-27T04:48:36.8644036Z    [1m[96m--> [0mcrates\adventuresim-core\src\linear_speed.rs:21:1
+2026-10-27T04:48:36.8656619Z     [1m[96m|[0m
+2026-10-27T04:48:36.8659959Z [1m[96m 21[0m [1m[96m|[0m pub enum SpeedError {
+2026-10-27T04:48:36.8715787Z     [1m[96m|[0m [1m[96m^^^^^^^^^^^^^^^^^^^[0m
+2026-10-27T04:48:36.8973093Z [1m[92mnote[0m: required by a bound in `attribute::_::_serde::de::Error::custom`
+2026-10-27T04:48:36.8980605Z    [1m[96m--> [0mC:\Users\runneradmin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.229\src\de\mod.rs:197:20
+2026-10-27T04:48:36.9051728Z     [1m[96m|[0m
+2026-10-27T04:48:36.9296257Z [1m[96m195[0m [1m[96m|[0m             fn custom<T>(msg: T) -> Self
+2026-10-27T04:48:36.9308931Z     [1m[96m|[0m                [1m[96m------[0m [1m[96mrequired by a bound in this associated function[0m
+2026-10-27T04:48:36.9309912Z [1m[96m196[0m [1m[96m|[0m             where
+2026-10-27T04:48:36.9410806Z [1m[96m197[0m [1m[96m|[0m                 T: Display;
+2026-10-27T04:48:36.9632503Z     [1m[96m|[0m                    [1m[92m^^^^^^^[0m [1m[92mrequired by this bound in `Error::custom`[0m
+2026-10-27T04:48:36.9633430Z [1m[96m...[0m
+2026-10-27T04:48:36.9634277Z [1m[96m304[0m [1m[96m|[0m declare_error_trait!(Error: Sized + StdError);
+2026-10-27T04:48:36.9635618Z     [1m[96m|[0m [1m[96m---------------------------------------------[0m [1m[96min this macro invocation[0m
+2026-10-27T04:48:36.9637619Z     [1m[96m= [0m[1m[97mnote[0m: this error originates in the derive macro `Deserialize` which comes from the expansion of the macro `declare_error_trait` (in Nightly builds, run with -Z macro-backtrace for more info)
+2026-10-27T04:48:36.9638842Z 
+2026-10-27T04:48:36.9639516Z [1m[91merror[E0277][0m[1m[97m: `SpeedError` doesn't implement `std::fmt::Display`[0m
+2026-10-27T04:48:36.9640682Z    [1m[96m--> [0mcrates\adventuresim-core\src\linear_speed.rs:12:73
+2026-10-27T04:48:36.9641447Z     [1m[96m|[0m
+2026-10-27T04:48:36.9642315Z [1m[96m 12[0m [1m[96m|[0m #[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize)]
+2026-10-27T04:48:36.9643561Z     [1m[96m|[0m                                                                         [1m[91m^^^^^^^^^^^[0m [1m[91munsatisfied trait bound[0m
+2026-10-27T04:48:36.9644277Z     [1m[96m|[0m
+2026-10-27T04:48:36.9645000Z [1m[96mhelp[0m: the trait `std::fmt::Display` is not implemented for `SpeedError`
+2026-10-27T04:48:36.9645924Z    [1m[96m--> [0mcrates\adventuresim-core\src\linear_speed.rs:21:1
+2026-10-27T04:48:36.9646602Z     [1m[96m|[0m
+2026-10-27T04:48:36.9647176Z [1m[96m 21[0m [1m[96m|[0m pub enum SpeedError {
+2026-10-27T04:48:36.9647867Z     [1m[96m|[0m [1m[96m^^^^^^^^^^^^^^^^^^^[0m
+2026-10-27T04:48:36.9648864Z [1m[92mnote[0m: required by a bound in `attribute::_::_serde::de::Error::custom`
+2026-10-27T04:48:36.9749517Z    [1m[96m--> [0mC:\Users\runneradmin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.229\src\de\mod.rs:197:20
+2026-10-27T04:48:36.9966894Z     [1m[96m|[0m
+2026-10-27T04:48:36.9990013Z [1m[96m195[0m [1m[96m|[0m             fn custom<T>(msg: T) -> Self
+2026-10-27T04:48:37.0135610Z     [1m[96m|[0m                [1m[96m------[0m [1m[96mrequired by a bound in this associated function[0m
+2026-10-27T04:48:37.0373700Z [1m[96m196[0m [1m[96m|[0m             where
+2026-10-27T04:48:37.0434822Z [1m[96m197[0m [1m[96m|[0m                 T: Display;
+2026-10-27T04:48:37.0498376Z     [1m[96m|[0m                    [1m[92m^^^^^^^[0m [1m[92mrequired by this bound in `Error::custom`[0m
+2026-10-27T04:48:37.0712533Z [1m[96m...[0m
+2026-10-27T04:48:37.0771228Z [1m[96m304[0m [1m[96m|[0m declare_error_trait!(Error: Sized + StdError);
+2026-10-27T04:48:37.0835117Z     [1m[96m|[0m [1m[96m---------------------------------------------[0m [1m[96min this macro invocation[0m
+2026-10-27T04:48:37.1049451Z     [1m[96m= [0m[1m[97mnote[0m: this error originates in the derive macro `Deserialize` which comes from the expansion of the macro `declare_error_trait` (in Nightly builds, run with -Z macro-backtrace for more info)
+2026-10-27T04:48:37.1100806Z 
+2026-10-27T04:48:37.1163255Z [1m[91merror[E0277][0m[1m[97m: `SpeedError` doesn't implement `std::fmt::Display`[0m
+2026-10-27T04:48:37.1170061Z    [1m[96m--> [0mcrates\adventuresim-core\src\linear_speed.rs:16:64
+2026-10-27T04:48:37.1384035Z     [1m[96m|[0m
+2026-10-27T04:48:37.1427817Z [1m[96m 16[0m [1m[96m|[0m #[derive(Clone, Copy, Debug, PartialEq, PartialOrd, Serialize, Deserialize)]
+2026-10-27T04:48:37.1488682Z     [1m[96m|[0m                                                                [1m[91m^^^^^^^^^^^[0m [1m[91munsatisfied trait bound[0m
+2026-10-27T04:48:37.1491086Z     [1m[96m|[0m
+2026-10-27T04:48:37.1719791Z [1m[96mhelp[0m: the trait `std::fmt::Display` is not implemented for `SpeedError`
+2026-10-27T04:48:37.1769303Z    [1m[96m--> [0mcrates\adventuresim-core\src\linear_speed.rs:21:1
+2026-10-27T04:48:37.1819181Z     [1m[96m|[0m
+2026-10-27T04:48:37.1849741Z [1m[96m 21[0m [1m[96m|[0m pub enum SpeedError {
+2026-10-27T04:48:37.2083818Z     [1m[96m|[0m [1m[96m^^^^^^^^^^^^^^^^^^^[0m
+2026-10-27T04:48:37.2137373Z [1m[92mnote[0m: required by a bound in `attribute::_::_serde::de::Error::custom`
+2026-10-27T04:48:37.2157699Z    [1m[96m--> [0mC:\Users\runneradmin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde_core-1.0.229\src\de\mod.rs:197:20
+2026-10-27T04:48:37.2256851Z     [1m[96m|[0m
+2026-10-27T04:48:37.2419521Z [1m[96m195[0m [1m[96m|[0m             fn custom<T>(msg: T) -> Self
+2026-10-27T04:48:37.2481079Z     [1m[96m|[0m                [1m[96m------[0m [1m[96mrequired by a bound in this associated function[0m
+2026-10-27T04:48:37.2595240Z [1m[96m196[0m [1m[96m|[0m             where
+2026-10-27T04:48:37.2856598Z [1m[96m197[0m [1m[96m|[0m                 T: Display;
+2026-10-27T04:48:37.2945643Z     [1m[96m|[0m                    [1m[92m^^^^^^^[0m [1m[92mrequired by this bound in `Error::custom`[0m
+2026-10-27T04:48:37.3087914Z [1m[96m...[0m
+2026-10-27T04:48:37.3179876Z [1m[96m304[0m [1m[96m|[0m declare_error_trait!(Error: Sized + StdError);
+2026-10-27T04:48:37.3265794Z     [1m[96m|[0m [1m[96m---------------------------------------------[0m [1m[96min this macro invocation[0m
+2026-10-27T04:48:37.3282339Z     [1m[96m= [0m[1m[97mnote[0m: this error originates in the derive macro `Deserialize` which comes from the expansion of the macro `declare_error_trait` (in Nightly builds, run with -Z macro-backtrace for more info)
+2026-10-27T04:48:37.3424740Z 
+2026-10-27T04:48:40.0972937Z [1m[97mSome errors have detailed explanations: E0277, E0432, E0433.[0m
+2026-10-27T04:48:40.0974499Z [1m[97mFor more information about an error, try `rustc --explain E0277`.[0m
+2026-10-27T04:48:40.1348611Z [1m[91merror[0m: could not compile `adventuresim-core` (build script) due to 11 previous errors
+2026-10-27T04:48:40.1442276Z [1m[93mwarning[0m: build failed, waiting for other jobs to finish...
+2026-10-27T04:49:11.3159350Z ##[error]Process completed with exit code 101.
+2026-10-27T04:49:11.3363108Z ##[group]Run actions/upload-artifact@v4
+2026-10-27T04:49:11.3363700Z with:
+2026-10-27T04:49:11.3364114Z   name: foliage-portability-903174935e1d8a07293105a9bccff17325489f3d
+2026-10-27T04:49:11.3364571Z   path: target/foliage-portability/
+2026-10-27T04:49:11.3364948Z   if-no-files-found: warn
+2026-10-27T04:49:11.3365318Z   compression-level: 6
+2026-10-27T04:49:11.3365640Z   overwrite: false
+2026-10-27T04:49:11.3365937Z   include-hidden-files: false
+2026-10-27T04:49:11.3366226Z env:
+2026-10-27T04:49:11.3366555Z   CARGO_TERM_COLOR: always
+2026-10-27T04:49:11.3366874Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-27T04:49:11.3367427Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+2026-10-27T04:49:11.3367779Z   CARGO_INCREMENTAL: 0
+2026-10-27T04:49:11.3368112Z   CACHE_ON_FAILURE: true
+2026-10-27T04:49:11.3368436Z ##[endgroup]
+2026-10-27T04:49:11.5360746Z (node:3528) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-27T04:49:11.5361602Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-27T04:49:11.5436016Z With the provided path, there will be 2 files uploaded
+2026-10-27T04:49:11.5441698Z Artifact name is valid!
+2026-10-27T04:49:11.5443803Z Root directory input is valid!
+2026-10-27T04:49:11.8347847Z Beginning upload of artifact content to blob storage
+2026-10-27T04:49:11.8565534Z (node:3528) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-27T04:49:11.9841684Z Uploaded bytes 1744
+2026-10-27T04:49:12.0255378Z Finished uploading artifact content to blob storage!
+2026-10-27T04:49:12.0256778Z SHA256 digest of uploaded artifact zip is 1342a69510201709b97751bec8514f1984e60463d9643a5628f4211b8d0c91a8
+2026-10-27T04:49:12.0258536Z Finalizing artifact upload
+2026-10-27T04:49:12.4487357Z Artifact foliage-portability-903174935e1d8a07293105a9bccff17325489f3d.zip successfully finalized. Artifact ID 12710304693
+2026-10-27T04:49:12.4489215Z Artifact foliage-portability-903174935e1d8a07293105a9bccff17325489f3d has been successfully uploaded! Final size is 1744 bytes. Artifact ID is 12710304693
+2026-10-27T04:49:12.4499270Z Artifact download URL: https://github.com/adventure-simulator-group/fabelgeist/actions/runs/40451496036/artifacts/12710304693
+2026-10-27T04:49:12.5309806Z Post job cleanup.
+2026-10-27T04:49:12.6954078Z Cache up-to-date.
+2026-10-27T04:49:12.7290827Z Post job cleanup.
+2026-10-27T04:49:12.9096081Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-10-27T04:49:12.9457114Z git version 2.56.0.windows.2
+2026-10-27T04:49:12.9526037Z Temporarily overriding HOME='D:\a\_temp\219ff73f-5152-4322-a2c4-c6bbeebdf871' before making global git config changes
+2026-10-27T04:49:12.9526797Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-27T04:49:12.9536761Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\fabelgeist\fabelgeist
+2026-10-27T04:49:12.9919289Z Removing SSH command configuration
+2026-10-27T04:49:12.9930889Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-27T04:49:13.0325065Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-27T04:49:13.6027544Z Removing HTTP extra header
+2026-10-27T04:49:13.6037442Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-27T04:49:13.6456098Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-27T04:49:14.2322568Z Removing includeIf entries pointing to credentials config files
+2026-10-27T04:49:14.2334764Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-27T04:49:14.2673017Z includeif.gitdir:D:/a/fabelgeist/fabelgeist/.git.path
+2026-10-27T04:49:14.2673680Z includeif.gitdir:D:/a/fabelgeist/fabelgeist/.git/worktrees/*.path
+2026-10-27T04:49:14.2674116Z includeif.gitdir:/github/workspace/.git.path
+2026-10-27T04:49:14.2674517Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-27T04:49:14.2717413Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/fabelgeist/fabelgeist/.git.path
+2026-10-27T04:49:14.3055884Z D:\a\_temp\git-credentials-999ccb3a-00cf-4b11-ab0c-6b9044475c81.config
+2026-10-27T04:49:14.3116028Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/fabelgeist/fabelgeist/.git.path D\:\\a\\_temp\\git\-credentials\-999ccb3a\-00cf\-4b11\-ab0c\-6b9044475c81\.config
+2026-10-27T04:49:14.3495912Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/fabelgeist/fabelgeist/.git/worktrees/*.path
+2026-10-27T04:49:14.3827485Z D:\a\_temp\git-credentials-999ccb3a-00cf-4b11-ab0c-6b9044475c81.config
+2026-10-27T04:49:14.3872213Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/fabelgeist/fabelgeist/.git/worktrees/*.path D\:\\a\\_temp\\git\-credentials\-999ccb3a\-00cf\-4b11\-ab0c\-6b9044475c81\.config
+2026-10-27T04:49:14.4248552Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-27T04:49:14.4579388Z /github/runner_temp/git-credentials-999ccb3a-00cf-4b11-ab0c-6b9044475c81.config
+2026-10-27T04:49:14.4624395Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-999ccb3a\-00cf\-4b11\-ab0c\-6b9044475c81\.config
+2026-10-27T04:49:14.4999061Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-27T04:49:14.5324422Z /github/runner_temp/git-credentials-999ccb3a-00cf-4b11-ab0c-6b9044475c81.config
+2026-10-27T04:49:14.5369265Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-999ccb3a\-00cf\-4b11\-ab0c\-6b9044475c81\.config
+2026-10-27T04:49:14.5756549Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-27T04:49:15.1536412Z Removing credentials config 'D:\a\_temp\git-credentials-999ccb3a-00cf-4b11-ab0c-6b9044475c81.config'
+2026-10-27T04:49:15.1764212Z Cleaning up orphan processes
+2026-10-27T04:49:15.2536397Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

@@ -1,0 +1,417 @@
+{
+  "at": "2026-10-27T16:21:15.982511+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-085-registration.jsonl",
+    "sha256": "d5885487a6e8cf2724b161854df52b4f5d7536e3266fe50d3f460a9ace941b4e"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-084.json",
+    "sha256": "a2f14b5132a3655c19d88825849e058edad3c7fbe60ec0b51b02669357c23bf8"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1139,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem.rs",
+      "sha256": "49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942",
+      "ranges": [
+        [
+          1,
+          2518
+        ]
+      ],
+      "actual_eof": 2518,
+      "prospective": true,
+      "purpose": "Independent full ordered localproblem typegranularity inventory",
+      "actual_read_ranges": [
+        [
+          1,
+          2518
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1140,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem/effects.rs",
+      "sha256": "8f55ea514db0ec15ae06fb8ad544fcb6f107237239dcbb5e46be81a51cf084e0",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/8f55ea514db0ec15ae06fb8ad544fcb6f107237239dcbb5e46be81a51cf084e0",
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "actual_eof": 17,
+      "prospective": true,
+      "purpose": "Independent full ordered localproblem typegranularity inventory",
+      "actual_read_ranges": [
+        [
+          1,
+          17
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1141,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem/incident_draws.rs",
+      "sha256": "ed9f5a25305d6d7aa9443ebebff0695bbe9102ccf307f84a112016f423bd903f",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/ed9f5a25305d6d7aa9443ebebff0695bbe9102ccf307f84a112016f423bd903f",
+      "ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "actual_eof": 62,
+      "prospective": true,
+      "purpose": "Full independent ordered child inventory + actual material receiver for1139, no automatic include credit",
+      "actual_read_ranges": [
+        [
+          1,
+          62
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1142,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem/inn_contact.rs",
+      "sha256": "3507dc6ed96e62ba936ebe3f306f0bfc853af7c80eca4c40f4c9131033205357",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/3507dc6ed96e62ba936ebe3f306f0bfc853af7c80eca4c40f4c9131033205357",
+      "ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "actual_eof": 39,
+      "prospective": true,
+      "purpose": "Full independent ordered child inventory + actual material receiver for1139, no automatic include credit",
+      "actual_read_ranges": [
+        [
+          1,
+          39
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected_original",
+      "original_index": 1218,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_sessions.rs",
+      "sha256": "86473c2872a35a61a69775dc2578440eeefe4b620a5414c4aa044ca98bacf412",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/86473c2872a35a61a69775dc2578440eeefe4b620a5414c4aa044ca98bacf412",
+      "ranges": [
+        [
+          275,
+          351
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual dual receipt namespace delivery consumer; no current substitution or fullfuturecredit",
+      "actual_read_ranges": [
+        [
+          275,
+          351
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1216,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_provenance.rs",
+      "sha256": "f9a27db833d675b23a449676ecfd6d878c0357f2a5190f6a649341766c5ee33c",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/f9a27db833d675b23a449676ecfd6d878c0357f2a5190f6a649341766c5ee33c",
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual canonical dual-referral namespace admission for1139deliveryreceiver; no wholefuturebodycredit",
+      "actual_read_ranges": [
+        [
+          1,
+          45
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1139,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              268
+            ]
+          ],
+          "roles": "Private symptom/effect authority, immutable incident, generation explanation, safe symptom/trade/rumor/delivery receipts, public threat and outcome receipt; Scope keys and symptom/mechanism vocabulary.",
+          "disposition": "Problem versus canonical/public case, original/follow-up incident ordinal, discovery session versus receipt, observer versus official chronology are meaningful distinctions despite raw storage. Symptom/effect mechanism differs hidden canonical cause, never merge them. Scope enum payload already canonical, key+JSON derived adapters but private consumers reparse. PrivateExplanation named aggregate is useful context/explanation binding. Raw signed trade BPS differ bounded awareness/mitigation/probability and unnormalized disease intensity.",
+          "remedy": "Retain existing lp::Scope/Symptom/ProblemId/canonical generation and typed quantity/clock/identity owners internally; typed effect/capability sum and named outcome/source proof, serialize SDK edge.",
+          "acceptance": "Static strategic authority is durable, not transient tactical tick state. Public known threat is an explicitly authorized disclosure distinct hidden cause of private problem; no blanket leak claim. Native schema adapters alone do not exempt private application raw ports."
+        },
+        {
+          "ranges": [
+            [
+              270,
+              453
+            ]
+          ],
+          "roles": "Gateway trade/rumor projections and materialized generated problem; active lifetime recurring/MAX versus finite period and disease payload.",
+          "disposition": "Canonical GeneratedCase already admitted named owner. Optional EncounterArchetype beside encounter intensity and diseaseID beside intensity are capability associations; raw zero/empty sentinels need explicit effect payload. Public symptom lifetime derived from same problem, not competing hidden cause. Fixed ongoing versus temporary expiry is lifetime state, not universal positive finite timestamp.",
+          "remedy": "Reuse canonical typed effects and admitted generated authority, explicit recurring/finite lifetime, typed disease capability and quantitative BPS roles.",
+          "acceptance": "Actual materializer defaults influenza only when non-outbreak positive illness effect, not old schema compatibility. No clinical diagnosis claim or arbitrary intensity fraction bound. Actual SDK projections retain owner IDs and gateway gate."
+        },
+        {
+          "ranges": [
+            [
+              455,
+              742
+            ]
+          ],
+          "roles": "Catalog circumstance/evidence lookup, scheduled versus forced incident mode, configured versus recurring count/catch-up, deterministic draws, retained event/evidence and combat escalation.",
+          "disposition": "Two optional mode fields only actual None/None versus Some/Some producers; named Scheduled/Forced{problem,time} removes invalid combinations. Count u16/MAX and saturating next makes recurring growth finite despite fixture2131\u20132143 calling it unbounded: static ordinal-space exhaustion at65535, no actual runtime saturation claimed. IncidentDraws stream ownership preserves witness/victim/site/circumstance/evidence roles. Follow-up evidence669\u2013676 stores JSON {kind,safe_description,incident_id} tagged Physical; inspection1127 parses Physical authority_json as GeneratedEvidence with identity/site/topics. These are distinct payload shapes under one tag. Projection1128 only manifest evidence, so ordinary UI presentation of follow-up evidence not established.",
+          "remedy": "Canonical IncidentOrdinal with explicit exhaustion policy, keep bounded work budget separate lifetime/ordinal capacity. Typed PhysicalEvidenceAuthority variants for generated manifest versus follow-up incident, admitted source payload through receivers. Share primitive bounds beneath roles without invented gameplay maximum.",
+          "acceptance": "Actual count catch-up16 per transaction and configured maximum are deliberate work/policy boundaries. Native1021 escalation and generation972/973 owners personally read earlier; no full combat algorithm, ordinary failed inspection or resource loss/current/alias/unique claim. Catalog expect issue belongs general Rust rules, no code repair here."
+        },
+        {
+          "ranges": [
+            [
+              744,
+              1028
+            ]
+          ],
+          "roles": "Standalone settlement/route problem generation, consequences, route influence aggregation and monotonic idempotent outcome commit.",
+          "disposition": "LocalProblem generation and generated-case materialization different source authorities; standalone opaque case has no validated generated receipt, current disclosure filters it out rather than inventing manifest. This is an unintegrated source-family responsibility, not permission for legacy fallback. Price signed BPS, encounter frequency, disease severity and mitigation have different meaning. Outcome resolve boolean plus mitigation need explicit terminal/mitigation semantics but independently valid mitigation+resolve can coexist, not force mutual exclusion.",
+          "remedy": "Canonical source provenance/lifetime/effect aggregate; source-specific generation admission; typed outcome input with named source, official clock and mitigation, preserve replay fingerprint. Keep existing lp native owners rather than duplicate arithmetic.",
+          "acceptance": "Actual same-source retry matches full serialized fingerprint, exact official-minute guard then monotonic max mitigation/earliest resolution, symptom end update. Route effect truncates bounded active rows and caps aggregate frequency. No actual missing generation cause, clinical harm or runtime trade failure proved."
+        },
+        {
+          "ranges": [
+            [
+              1030,
+              1240
+            ]
+          ],
+          "roles": "Validated generation lookup/settlement binding, source contact label, stable eligible candidate set, bounded road hearing graph and source authorization.",
+          "disposition": "Named ValidatedQuestGenerationAuthority reused correctly (contrast076 raw tuple). Road node IDs versus meters versus work counters meaningful, state includes whether first settlement crossed. Dijkstra primitive tuples may remain explicit numerical-kernel adapter but application outputs require named typed graph/coverage. Missing distance may mean not reached due bounded work, not proved graph-disconnected. Organization membership/currentness differs presented privilege, public-referral source is authorized role string.",
+          "remedy": "Typed node/distance/work-budget and Complete/Truncated graph coverage if callers must distinguish; canonical public-referral source enum and named witness/location authority. Preserve actual current membership versus presentation policy.",
+          "acceptance": "Actual bounded max nodes4096/edges16384/distance450000m, no graph completeness guarantee. Native hearing/authorization1021 full593 and organization permissions previously scoped; no deep unchanged clinical traversal. Local predicates same-settlement/is-current ordinary booleans."
+        },
+        {
+          "ranges": [
+            [
+              1242,
+              1464
+            ]
+          ],
+          "roles": "Public threat selection by official activity and hearing, public/canonical case, exact site, count-band disclosure and correction/disclosure/journal/delivery side effects.",
+          "disposition": "Named temporal/public source roles important. Concrete corrected_by namespace mismatch:1411\u20131424 writes PublicThreatDisclosure.id (public-threat:...) into InvestigationLead.corrected_by. Sites1130 lead_is_live_at304\u2013320 resolves it ONLY in investigation_lead and requires found correction timestamp, so earlier-frontier liveness fails for that link even before disclosure absent a same-named lead. disclose_exact_case_site creates case-site-disclosure:... ID, a different namespace. Count band is qualitative disclosed estimate, not actual enemy count or likelihood.",
+          "remedy": "Use canonical typed CorrectionSource payload with its authoritative timestamp, or link actual new disclosure lead ID; reuse existing correction/lead owner. Named PublicThreatCandidate and typed source/count-band/current clock rather than long same-primitive tuples.",
+          "acceptance": "Actual cross-table producer and full1130 receiver personally read, source-backed role/chronology candidate; no observed runtime encounter, current source identity, accepted alias or unique count. Public threat disclosure authorized and safe summary separate evidence/preparation, no generic hidden-cause leak allegation."
+        },
+        {
+          "ranges": [
+            [
+              1466,
+              1672
+            ]
+          ],
+          "roles": "New rumor authority/navigable persistent witness versus source NPC, observer/world clocks, development discovery and journal/referral materialization.",
+          "disposition": "Source NPC and referred witness different actors, optional source identity/name pair must stay associated. Development bootstrap and normal gateway admission are intentional separate policies, no backward compatibility path. Receipt knowledge is durable, private one-shot preference is ordering only; public case alias not mutable display label.",
+          "remedy": "Named admitted rumor source/witness/context and clock fields, canonical existing generation/referral owner; keep source/world identity separate presentation prose.",
+          "acceptance": "Actual home settlement/location navigability, manifest/receipt binding and living character guards. Developer function creates source receipt then guarded bootstrap consumer, no invocation or generated binding change. Default clock fallback or absent candidate is policy unavailability, no fabricated witness."
+        },
+        {
+          "ranges": [
+            [
+              1674,
+              1970
+            ]
+          ],
+          "roles": "Ordinary discovery ordering, public threat versus existing incidents versus referral versus new rumor, private preference consumption, source/target contact, dialogue fragments and delivery receipt namespaces.",
+          "disposition": "Type-level dispatch matters: delivery.receipt_id can be LocalProblemReceipt or PublicThreatDisclosure. Actual1216 ReferralDeliveryAuthority resolves both with conflict/missing rejection;1218 dispatches and invokes local rumor consumer only LocalProblem, so NO blanket wrong-receipt lookup finding. Potential same-String argument swap checked: receive_local_problem_rumor signature629\u2013636 is receipt_id thenaction_id, and1218334\u2013340 matches; false positive rejected. Fragment::Topic named fields owns label/topic while lp::ReferralPresentation optional(label,topic) tuple could be named.",
+          "remedy": "Carry existing canonical referral authority enum from producer instead of re-deriving at internal DB lookups; PublicThreat variant can retain actual admitted disclosure payload for owner/source association. Typed delivery source/session/receipt IDs at internal ports; no duplicate enum owner.",
+          "acceptance": "Actual selection filters valid source before stable cap, at most one delivery; official world controls active problems, observer clock records learning. Missing/invalid candidates skipped honestly. No full dialogue participant/ownership security guarantee beyond exact fresh1216/1218 ranges or future ordered credit."
+        },
+        {
+          "ranges": [
+            [
+              1971,
+              2518
+            ]
+          ],
+          "roles": "Existing policy/graph bounds/source-order/referral/clock/privacy/price fixtures and incident_draws module declaration.",
+          "disposition": "All lines read, not executed. Source contains/count assertions do not establish behavioral correctness, graph connectivity, secrecy or current limits. Fixture calls recurring incidents unbounded despite actual u16 capacity; no requirement preserve that wording/API. Literal fixture graph/counts/string selector inputs valid boundaries.",
+          "remedy": "No tests/helpers/assertions/probes added or executed. Source-account actual production/native owner bodies with findings; later policy acceptance/alias/currentness separate.",
+          "acceptance": "No coverage transferred from include_str/core/generated sources or module declaration. Independent child1141/1142 bodies separately registered and consumed, not inferred from includes."
+        }
+      ]
+    },
+    {
+      "original": 1140,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem/effects.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              17
+            ]
+          ],
+          "roles": "Problem activity window and signed consequence scaling by mitigation.",
+          "disposition": "Recurring expiry versus finite lifetime and resolved_at/mitigation end distinct semantic axes; local is_active predicate legitimate. i64 product of bounded mitigation factor<=10000 and i32 signed input safely fits, output magnitude cannot exceed input, truncation policy actual. Do not use UnitInterval for signed trade BPS or disease severity automatically.",
+          "remedy": "Existing canonical BPS/mitigation/lifetime owner at application port, numeric widening/division at explicit kernel.",
+          "acceptance": "Full17 actual body read; no scanner/test execution or actual out-of-range source input claim."
+        }
+      ]
+    },
+    {
+      "original": 1141,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem/incident_draws.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              62
+            ]
+          ],
+          "roles": "IncidentDraws case+ordinal and named deterministic StreamId roles; stable candidate/site/circumstance sorting.",
+          "disposition": "Seed/StreamId canonical shared owners earn purpose, arbitrary random word versus bounded index different outputs. Witness/victim independently drawn may same resident; no established distinct-person invariant, do not invent one. Source sorted IDs and ordinal govern reproducibility, not current map index identity.",
+          "remedy": "Canonical CaseId/IncidentOrdinal in wrapper, existing StreamId deterministic owner retained; named draw/selection outputs if transported.",
+          "acceptance": "Outer1139 checks nonempty candidate/site/circumstance before index; no full deterministic RNG distribution guarantee or SDK expansion. Own full62 independently read, no added original credit from include alone."
+        }
+      ]
+    },
+    {
+      "original": 1142,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem/inn_contact.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              39
+            ]
+          ],
+          "roles": "Inn service plus present dialogue-capable home resident at observer minute.",
+          "disposition": "Service availability, physical scheduled presence and dialogue capability distinct independent predicates. Named helper boundary owns reusable policy, not a redundant wrapper. SettlementID string passed internal; canonical existing service enum already reused.",
+          "remedy": "Carry canonical settlement identity/PresenceFrontier internally, keep predicate results simple and share existing resident presence owner.",
+          "acceptance": "Actual required service/current presence/home settlement/profile capability checks consumed. No full presence/clinical algorithm guarantee or invocation; canonical native presence owner1011 prior046, domain receiver institution semantics not inferred from tests."
+        }
+      ]
+    }
+  ],
+  "connected_role_inventory": [
+    {
+      "original": 1218,
+      "ranges": [
+        [
+          275,
+          351
+        ]
+      ],
+      "inventory": "Actual delivery receiver277\u2013351, preceding275\u2013276 tail only. ReferralDeliveryAuthority dispatch PublicThreat versus LocalProblem; only latter calls local rumor consumer and argument order matches actual1124 signature. No whole future1218 credit."
+    },
+    {
+      "original": 1216,
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "inventory": "Enum1\u20134 and complete admission10\u201343; raw DB key looked in two authority tables, canonical core1021 classifies Missing/Conflict/LocalProblem/PublicThreat. PublicThreat payload discarded after existence admission, useful association candidate not proof of actual wrong owner.45 next function doc only."
+    }
+  ],
+  "findings": [
+    {
+      "source_key": "frozen:49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942:1411-1424:correction-source-namespace",
+      "classification": "concrete_frozen_reference_role_mismatch",
+      "trace": "PublicThreatDisclosure ID stored in lead.corrected_by; actual1130 f1b87...304\u2013320 only queries investigation_lead and requires correction timestamp, while new disclosure lead ID471 differs. Earlier frontier liveness cannot obtain actual disclosure time from this reference.",
+      "remedy": "Typed correction source/authoritative time or actual disclosure-lead reference, shared with temporal and safe-label receivers.",
+      "acceptance": "Reconcile inherited alias/current identity before uniqueness or current status; preserve historical visibility until actual correction frontier, no executed runtime claim."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-031-receipt.json",
+        "sha256": "0e64c59e0e3b9b6f7f087017c110ec1dc0229cff16557910de8d5f001554dd99"
+      },
+      "contract": "953 corelocal_problem full865 actual Scope/Effects/GenerationContext/consequence aggregation/referral owner; SHA42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-049-receipt.json",
+        "sha256": "7c7a1bf82e75c5dbe9a67fb086ea7776db66160590f8435b8519b7479433d9df"
+      },
+      "contract": "1021 threat_escalation full593 actual ordinal awareness/combat/hearing/bounded public candidate/dual referral classification; SHA87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-037-receipt.json",
+        "sha256": "9eba0cc942018e3348434818aa4201ceb3a5509ab2183eb34b9a6e117cc1c75a"
+      },
+      "contract": "Canonical generation assembly/model/projection full personally consumed; no inherited current replay/crypto validation claim."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-078-receipt.json",
+        "sha256": "3b1bce05b2ca4a5a496632b8f8f07ab963c2ec744517c9515827e130c5a87fa9"
+      },
+      "contract": "1124 full actual receipt/referral signature/source admission. Potential call order mistake investigated and rejected."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-079-receipt.json",
+        "sha256": "ef70dff17f6462ef0ab28482eab61adec5e63bdd0e3b4735583c02bcbbc3b04e"
+      },
+      "contract": "1127 full Physical inspection GeneratedEvidence decoder and retained Lead schema; correction/source timestamp roles."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-081-receipt.json",
+        "sha256": "22b86f0c0ade24faaace3215121b9d409ef15c7f82f0cff2aa7fc878ac0cf272"
+      },
+      "contract": "1130full617 temporal lead correction lookup/disclosure ID writer,1131full95 provenance actual sources."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-073-receipt.json",
+        "sha256": "ed0a5dc5809ae33039ed53fe0993017ddf4cc9ab6562855f1e53a3f275eb9e28"
+      },
+      "contract": "1146 global privilege537\u2013563 actual permission helper, not complete unrelated organization owner."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-046-receipt.json",
+        "sha256": "e17f1e9d4531b622e5ba299c3adf9ac637d9bc6e9c0c810c5545c6d8f08e3a46"
+      },
+      "contract": "1011 native presence full662 actual time/window owner; not incorrect1008economy reference."
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Full1139 2518 and1140 17,1141 62,1142 39 personally read after exact prospective registration and verified frozen identity; no implicit include or prior connected completion credit.",
+    "Only1216 1\u201345 and1218 275\u2013351 connected; no whole dialogue, deep clinical/combat/RNG or source integrity guarantee.",
+    "All source-current/alias/capacity/other-population/mandatory extension queues retained; discovery with findings only. No project tests/probes/scans, product/Git/root ledger/publication."
+  ]
+}

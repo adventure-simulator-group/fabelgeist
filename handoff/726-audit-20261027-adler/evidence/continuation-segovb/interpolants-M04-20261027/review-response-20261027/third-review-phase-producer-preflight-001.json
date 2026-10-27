@@ -1,0 +1,21 @@
+{
+  "predecessor": "third-review-root-facing-preflight-001.json",
+  "scope": "Actual dive timeline phase producer in SkeletonState::advance_posture_transition",
+  "files_before": {
+    "crates/adventuresim-core/src/unit_interval.rs": "5866867b2d57f014832eb89f0e61a4df372f67bbb18b018f99feb88c9d6cb984",
+    "crates/adventuresim-tactical-core/src/animation/state.rs": "826f1aba2f89f6ff826b891589118da7e8f581d96bc564d9f239ade70d53a6c9",
+    "crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs": "2f08587f00050e9ac7fbc472fca884f6b574c3b062e65afe9e8d06b36f9f9065"
+  },
+  "gap": "same phaseproducer holds HALF and constructs launch/recovery with raw0.5; consumers use canonical DIVE_GROUND_CONTACT_PHASE; unfinished authority propagation",
+  "repair": [
+    "UnitInterval::checked_lerp(Self,Self,UnitInterval)->FractionResult<Self> owner numericalkernel checks result, no outputclamp",
+    "dive holds canonicalcontact, launch typed ZERO..CONTACT, recovery typedCONTACT..ONE",
+    "native samplecount ratio stays explicit numericalkernel: dimensionless elapsed/positive duration, branch/normalization guarantees elapsed<duration and duration>=ONE; admit once then typed fractions. No rawf32 applicationhelper or retainedstate. Other sampleclock APIs remain globalaudit pending.",
+    "Correct roottrajectory endpoint comment: code uses shared normalized handoff start; no fixedsettlingtime or differingstart share guarantee"
+  ],
+  "acceptance": "fresh fullsource010 and all3reviews plus samehead hosted/raw artifacts; baselineonlyhosted relevantreductions",
+  "global_discovery_complete": false,
+  "new_unique_delta": 0,
+  "tests_added": false,
+  "local_project_execution": false
+}

@@ -1,0 +1,163 @@
+{
+  "at": "2026-10-27T14:43:33.814671+00:00",
+  "lens": 11,
+  "status": "1055-1057 independently source-accounted with findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-056-registration.jsonl",
+    "sha256": "14d7ba08dc79f6436aef3c5698459209d98bda6c68b164a7e8c6a059266b81fa"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-055.json",
+    "sha256": "916ba7ffe4077e2f22cadcd1323cee48be0615fef713bc0633246bfec9533046"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1055,
+      "source_id": "pr-working:crates/adventuresim-procedural-materials/src/lib.rs",
+      "sha256": "3d5a061b676b7715c8db2c3687f4feadd02dd94e6e1cd51dded341c287c43396",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/3d5a061b676b7715c8db2c3687f4feadd02dd94e6e1cd51dded341c287c43396",
+      "ranges": [
+        [
+          1,
+          174
+        ]
+      ],
+      "actual_eof": 174,
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          174
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1056,
+      "source_id": "pr-working:crates/adventuresim-procedural-materials/src/shaders/tactical_tree_bark.wgsl",
+      "sha256": "226829eae04e17626eeda3721fcbe33fc5c2d51b0a73ed9c81112fe87f7dc653",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/226829eae04e17626eeda3721fcbe33fc5c2d51b0a73ed9c81112fe87f7dc653",
+      "ranges": [
+        [
+          1,
+          517
+        ]
+      ],
+      "actual_eof": 517,
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          517
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1057,
+      "source_id": "pr-working:crates/adventuresim-procedural-materials/src/shaders/tactical_tree_leaf_card.wgsl",
+      "sha256": "46a5f6da85cac6f612bdbeae41a1aa0cbee85b88205509e331ad526ca6fb146c",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/46a5f6da85cac6f612bdbeae41a1aa0cbee85b88205509e331ad526ca6fb146c",
+      "ranges": [
+        [
+          1,
+          284
+        ]
+      ],
+      "actual_eof": 284,
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          284
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected",
+      "original_index": 1606,
+      "sha256": "3611b0226c15f78d4dd5c10bb85a682798a4c5bcec6a5eec1aa09ca05d81a2e9",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/3611b0226c15f78d4dd5c10bb85a682798a4c5bcec6a5eec1aa09ca05d81a2e9",
+      "ranges": [
+        [
+          1,
+          280
+        ]
+      ],
+      "purpose": "Actual bark and leaf packed uniform producers, species bindings and image-role contract",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          280
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 1606,
+      "sha256": "3611b0226c15f78d4dd5c10bb85a682798a4c5bcec6a5eec1aa09ca05d81a2e9",
+      "ranges": [
+        [
+          281,
+          294
+        ]
+      ],
+      "purpose": "Close leaf material initializer and uniform payload",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          281,
+          294
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original_index": 1055,
+      "inventory": "Distinct bark extension versus leaf-card material; named texture/sampler handles; packed Vec4 CPU uniforms with mixed length/texture-scale/fraction/color/direction/clock/reserved channels; separate alpha-to-coverage/prepass/shadow pipelines and native shader-definition tags.",
+      "disposition": "Bark and leaf owners earn distinct types through different binding layouts and physical shader behavior, not duplicate wrapper names. Native upload Vec4 is appropriate terminal layout but public fields expose semantic slot swaps and invalid aggregate payloads upstream. Actual1606 constructors set coherent named slots, positive cell size, normalized light direction and reserved loop-zero. Public arbitrary vectors admit unsupported states; no actual malformed call/runtime failure demonstrated. Leaf parameters.w documented CPU phase and physical_parameters.x roughness have no shader reads: shader uses globals.time and ARM.g, so retained unused CPU controls are misleading competing authorities rather than meaningful distinctions.",
+      "remedy": "Keep native layout structs at upload boundary, derive them from named admitted LeafSurface/BarkRelief/TerrainContact parameters using existing length/fraction/color/direction owners. Remove unused CPU phase/roughness channels or make canonical shader consumer explicit; no need one wrapper per lane/literal. Texture roles should retain semantic height/AO/albedo/normal association before generic Handle<Image>.",
+      "acceptance": "Full1-174 plus both complete actual WGSL receivers and1606 constructors1-294. Does not prove all texture upload packing/native binding/runtime validity."
+    },
+    {
+      "original_index": 1056,
+      "inventory": "WGSL binding/native bark uniform; RG high/low normalized relief height with B horizonAO, two-channel terrain-u16 height; world metres versus periodicUV/branchUV, cotangent frames, signed-distance deposition, interpolation/visibility fractions, normalized normal/light and directional samples, binary material mask versus response seam.",
+      "disposition": "Renderer numerical kernels legitimately use native scalars/vectors while semantic distinctions belong CPU/adapter: projection alignment/parallax fractions differ from exponent/fade metres; root signed clearance differs from normalizedheight. One Vec4 does not retain these roles. soil_optics.y is reserved zero but controls both parallax and horizon integer loops, so the public CPU lane is an implicit executable control channel; actual producer writes0. terrain dimensions require>=2 and extent/range association, but no asserted bad actual heightmap. Texture decoder uses RGheight/B-AO, contrary to CPU doc Rheight/G-AO; keep as source format authority/documentation observation, not new unique typed/runtime defect. Native clamping epsilons and derivatives are numerical stabilization, not substitute proof upstream all vectors admitted.",
+      "remedy": "Use canonical CPU surface packing descriptor with explicit units/ordered terrain range/heightmap association and private reserved lanes; keep texture decode/native geometry frame at actual shader boundary. Separate physical root-contact geometry from visual coverage and light response; no universal fraction/quantity framework or arbitrary new world bounds.",
+      "acceptance": "Full1-517 consumed. Actual1606 bark constructors150-204 and distinct relief-free material54-85 read. No SDK derivative guarantees, complete texture encoder, terrain-dimension producer or all geometric degeneracy/runtime proof."
+    },
+    {
+      "original_index": 1057,
+      "inventory": "WGSL leaf front/back texture roles; wind XZ unit-direction, amplitude and native global clock; world/local/clip frames and tangent normals; alpha cutout versus LOD sample coverage versus canopy shadow/pigment vertex metadata; ARM color channels and physical thickness/transmission.",
+      "disposition": "Native front_facing bool is true hardware binary and meaningfully selects both albedo/normal payloads; CPU generic handles leave association implicit. Shared vertex color carries different meanings for tree foliage versus ground litter: physical_parameters.z chooses pigment contribution while color.a canopyvisibility and color.b shadowthinning persist. This merits explicit material/vertex metadata contract, not treating every color as color-space Pigment. parameters.w and physical_parameters.x are unused, globals.time/ARM.g actual authorities. Alpha coverage and hidden-prepass midpoint policy are intentionally distinct (shader161 versus168), not duplicate stored opacity. Shader explicitly outputs zero motion vector and current previous position; record only native temporal-presentation limitation, not inferred tested rendering defect.",
+      "remedy": "Retain named leaf surface/texture-side/vertex semantic upload contract, remove unsupported unused controls or make them operative with one authority. Preserve shader global-clock ownership and native transform/normal math; separate litter pigment profile from canopy metadata where concrete producers differ.",
+      "acceptance": "Full1-284 consumed with CPU1-174/1606leaf270-293. No broader wind timing/motion-vector/runtime, MSAA pipeline or complete litter producer proof."
+    }
+  ],
+  "locator_only_staging": [
+    {
+      "original_index": 1565,
+      "sha256": "f665b74f46d6c4bbc34a478c6c53616af25118ee90528ceb68edb558a807bca2",
+      "body_consumed": false
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Frozen source-only; no current/alias/runtime/accepted unique/global transfer.",
+    "Locator search output truncated; only explicitly registered full and connected ranges count. No1565 body coverage or ordered1606 credit.",
+    "Other-lens format/comment, arithmetic/geometry and temporal-rendering questions retained as qualified obligations, not transferred verdicts."
+  ]
+}

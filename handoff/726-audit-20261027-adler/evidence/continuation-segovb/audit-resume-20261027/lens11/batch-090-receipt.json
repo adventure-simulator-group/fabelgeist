@@ -1,0 +1,182 @@
+{
+  "at": "2026-10-27T16:39:35.834326+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-090-registration.jsonl",
+    "sha256": "5d4a43be099666535ee0aa1b36cb05379825f889adacc19d353e03f438fa47a4"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-089.json",
+    "sha256": "e63c371f322d2503314c3200c14c9c35c008544dd9d0339013fb7fe91edc24d5"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1149,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak/authority_tests.rs",
+      "sha256": "327d9f247ed9c164305e23809fbe5b46f77e8a1f5fb14adb60d01093c5f3324a",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/327d9f247ed9c164305e23809fbe5b46f77e8a1f5fb14adb60d01093c5f3324a",
+      "ranges": [
+        [
+          1,
+          212
+        ]
+      ],
+      "actual_eof": 212,
+      "prospective": true,
+      "purpose": "Independent full effective ordered outbreak child inventory; prior089 child read context personally reused, not automatic credit",
+      "actual_read_ranges": [
+        [
+          1,
+          212
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1150,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak/patient_chronology.rs",
+      "sha256": "13d2838fd47720c3645d3c0cba3875699b4ad7984159ddeded1b2a23a32f15ee",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/13d2838fd47720c3645d3c0cba3875699b4ad7984159ddeded1b2a23a32f15ee",
+      "ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "actual_eof": 37,
+      "prospective": true,
+      "purpose": "Independent full effective ordered outbreak child inventory; prior089 child read context personally reused, not automatic credit",
+      "actual_read_ranges": [],
+      "personal_same_lens_reuse": [
+        {
+          "receipt": {
+            "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-089-receipt.json",
+            "sha256": "121119e2b04ab8448b1fb92ee15c4a99333ca645e4cd24c1a3afc1e90488e0d0"
+          },
+          "ranges": [
+            [
+              1,
+              37
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1151,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak/water_time.rs",
+      "sha256": "de713cf1a7816326fcc398a37c9194736867f984202e5efaa22e7ac944bb1390",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/de713cf1a7816326fcc398a37c9194736867f984202e5efaa22e7ac944bb1390",
+      "ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "actual_eof": 13,
+      "prospective": true,
+      "purpose": "Independent full effective ordered outbreak child inventory; prior089 child read context personally reused, not automatic credit",
+      "actual_read_ranges": [],
+      "personal_same_lens_reuse": [
+        {
+          "receipt": {
+            "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-089-receipt.json",
+            "sha256": "121119e2b04ab8448b1fb92ee15c4a99333ca645e4cd24c1a3afc1e90488e0d0"
+          },
+          "ranges": [
+            [
+              1,
+              13
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "connected_sources": [],
+  "role_dispositions": [
+    {
+      "original": 1149,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak/authority_tests.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              212
+            ]
+          ],
+          "roles": "Dev-token-guarded source fixture actor IDs, typed seed/clock/scope/family/weather, episode/patient/context row IDs, private cleanup checkpoint versus historical PresenceSuppression, remediation replay/closure revision.",
+          "disposition": "Fixture mutates generated chronology to one living resident and explicitly clears death-kind/time together; isolated death fixture clones patient/episode/membership records then changes matching IDs. Reuse of same numeric literal for episode and actor is intentional fixture setup, not identity-equivalence contract. Context release is distinct from health recovery; source assertions expect health checkpoint retained until recovery/death and observer past reconstructed independently. No enum collapse of two suppression axes.",
+          "remedy": "Production typed source/identity/state remedies in089 apply; named fixture builders only if later authorized, no test/helper additions here. Preserve explicit source-boundary raw literals and typed canonical constructors.",
+          "acceptance": "Full212line existing reducer source personally consumed, not invoked. Fixture expectations are not execution proof, do not close089 future-predicted-terminal question, and do not confer full generated quest/binding pipeline coverage."
+        }
+      ]
+    },
+    {
+      "original": 1150,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak/patient_chronology.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              37
+            ]
+          ],
+          "roles": "Authored causal death proposal, optional private terminal, current cutoff, symptom onset, correlated resolved death-kind/time.",
+          "disposition": "Independent own-role inventory: explicit Disease versus CarrierAttack prevents causality mixup. Repeated match on kind with neighboring Option timestamp admits semantically malformed shapes at API; actual body maintains resolved correlations. Disease sets prediction to terminal without now cap; carrier uses symptom lower bound and pre-terminal/current upper bound. Authored proposal versus private forecast versus occurred death are different authorities.",
+          "remedy": "Canonical patient-course/resolved-outcome payload that distinguishes no death forecast, forecast and occurred event where consumers require it; no arbitrary death bound/BC alias. Reuse existing OutbreakPatientDeathKind within canonical owner.",
+          "acceptance": "Hash-equal full37 actual personal read089 reused, source roles independently inventoried; no current/runtime/clinical/unique inference."
+        }
+      ]
+    },
+    {
+      "original": 1151,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak/water_time.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              13
+            ]
+          ],
+          "roles": "Water source concentration anchor/growth per hour/absolute anchor minute/collection minute to elapsed minutes kernel.",
+          "disposition": "Time adapter owns a real absolute-to-duration conversion and avoids treating strategic timestamp as growth duration; not redundant alias/helper. Concentration and growth are distinct raw f32 roles, not UnitInterval and not interchangeable physical units.",
+          "remedy": "Canonical concentration/rate record over shared finite/nonnegative invariants as actual kernel admits; preserve elapsed_since adapter at durable material boundary.",
+          "acceptance": "Exact full13 actual personal089 read reused, corefood927 full848025 numerical kernel context; no invented maximum concentration or growth policy."
+        }
+      ]
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-089-receipt.json",
+        "sha256": "121119e2b04ab8448b1fb92ee15c4a99333ca645e4cd24c1a3afc1e90488e0d0"
+      },
+      "contract": "Full1148 and full1150/1151 actual producer/receiver bodies; independent own inventory above, prior connected access not automatic ordered credit."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-025-receipt.json",
+        "sha256": "da2167395504955b78e9c36ddd77daeb4b3337f7a00fb6905b77d85b096ddaf4"
+      },
+      "contract": "Corefood927 full848 contamination kernel"
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Frozen source and existing fixture bodies only; no execution/newtests/product/Git/rootledger/publication.",
+    "All prior capacities/clinical/currentness/alias/unique/source populations qualifications retained."
+  ]
+}

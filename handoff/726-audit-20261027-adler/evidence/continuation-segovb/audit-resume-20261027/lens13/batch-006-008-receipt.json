@@ -1,0 +1,206 @@
+{
+  "at": "2026-10-27T10:36:50.157378+00:00",
+  "lens": 13,
+  "scope": "Original31 final delegated allocation/API-boundary reconciliation, proposal source-accounted WITH findings",
+  "original": {
+    "index": 31,
+    "source": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/components.rs",
+    "sha256": "e2053ee2dbf1a837b1a4e80d2d2afa22c0ecc2231bf586041222082971b9cbea",
+    "full_effective_ranges": [
+      [
+        1,
+        193
+      ]
+    ],
+    "prior_independent_inventory": {
+      "path": "target/recovery-20261025/continuation-segovb/audit13-successor-011.json",
+      "sha256": "447a79d1b91936373933b686803a9ca2f31774d03aa6e0ebb836522f98538e86"
+    }
+  },
+  "new_registrations": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-006-registration.json",
+      "sha256": "4100b644e200175bc93467176e10b245a387790192172709a2f6fa42f59ff621"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-007-registration.json",
+      "sha256": "20551033c5b5c2d222f81616550d816ba57eea203efdda6fd6f6d519147d1e35"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-008-registration.json",
+      "sha256": "296228e82499ec742ea07dedd463505468fd22e076fdcea68a5c6a87f9c3fe87"
+    }
+  ],
+  "new_source_consumption": [
+    {
+      "source_id": "native:offset-allocator@0.2.0/src/lib.rs",
+      "sha256": "43a73129d00fad0759696e9ea13cde08f0350e022dbc201c0569091ed5412419",
+      "ranges": [
+        [
+          1,
+          300
+        ],
+        [
+          301,
+          592
+        ]
+      ]
+    },
+    {
+      "source_id": "native:offset-allocator@0.2.0/src/small_float.rs",
+      "sha256": "65e6d46991a872caa15dce00be1b8c3da0c86199899929f8e42934678704f001",
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ]
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/allocator/paged_allocator.rs",
+      "sha256": "60da2629cd205e6cd1c9f5a243ef7f3f0769eb48e609a09afb9f9e23ed2d282d",
+      "ranges": [
+        [
+          36,
+          84
+        ],
+        [
+          107,
+          144
+        ]
+      ]
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/allocator/core.rs",
+      "sha256": "203681714cad9e19d57130e093b1736e04ac387de5369ec56c12fe72f4f227e8",
+      "ranges": [
+        [
+          1,
+          112
+        ]
+      ]
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/allocator/paged_allocator.rs",
+      "sha256": "60da2629cd205e6cd1c9f5a243ef7f3f0769eb48e609a09afb9f9e23ed2d282d",
+      "ranges": [
+        [
+          85,
+          106
+        ]
+      ]
+    }
+  ],
+  "retained_material_proofs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit13-successor-011.json",
+      "sha256": "447a79d1b91936373933b686803a9ca2f31774d03aa6e0ebb836522f98538e86"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit13-successor-012.json",
+      "sha256": "fb89a3297d828378d04fe31979bd9692a06a9839dff750b3d2da065986254e9c"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit13-successor-013.json",
+      "sha256": "8145fc02cdb09e06a0b608d91a9d59a70e62a6c4fb8f73dcafa56b25d6457ca4"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit13-successor-014.json",
+      "sha256": "30538a60c0532d75c228e94400eeb96c0ff30d2f7abd29906b65b8b12be14451"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit13-successor-017.json",
+      "sha256": "ee043585bb7757488b492e507ece781ee2b900737a530aeae66fbc0ef9ed9724"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit13-successor-018.json",
+      "sha256": "f474261f508450624ad8cd9917eea167529d12136a7f6dfe9ae8f7592586835f"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit13-successor-019.json",
+      "sha256": "61adb07a7fcda5d1dcf379dbc450ea89d2c991a249c9497af70afcd065136c4f"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit13-successor-020.json",
+      "sha256": "53c29c45f72bee2acbacc246824ba080507ca62fbbedf3c932b5a1aa78298cf7"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit13-successor-021.json",
+      "sha256": "23a7e17785f1be3953f2d7e741415a91d2789820a85b8f9d0bbf34a1cfe8ae6a"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-001-002-receipt.json",
+      "sha256": "0297cbbe7047f33bb282f6bcc1d44280e3e437218151732047df1cfbd2698805"
+    }
+  ],
+  "field_dispositions": [
+    {
+      "fields": "InstanceData position/scale/rotation/index/batch_id/seed and invalid/with_batch_id",
+      "source_accounted": "Actualproducergrass+shrubs, typedSeedpositions/nativeYrotation/nativeGPUvertex formats, rewrittenbatchID/tombstone/compute/indexing andselectedshaderreceivers nowtraced in own011-014 +resume001/002. index/seedprimitiveordinals/nativebitpackingports areidentified; no blanketbusinessprimitiveexemption. NativeIDsentinel reservation andrawcountnarrowing remainqualifiedsourcefindings."
+    },
+    {
+      "fields": "InstanceMaterialData Arcvector/color/range, InstanceHistory, InstanceUniforms matrices/AABB",
+      "source_accounted": "Actualnativepreparation->retainedbatchuniform/update/flush/bindings->cull/render/defaultmotionprepass source proven withown011/012/019/021. Exactsharedsource reused, notlens12verdict. Matrixhistorywritescurrentmatrixintopreviousfieldandactualpreviousconsumer nowknown, source-backedmismatch. Appgrass/shrubselectedpaths/count/mask/fade roles read. Primitiveadmission/finite/errorbudget/currentnessconcerns retainedWITHfindings, not source-unread field."
+    },
+    {
+      "fields": "InstanceBuffer.length/capacity; GpuDrawIndexedIndirect.offset; InstancedComputeSourceBuffer.count/capacity; InstanceBatch.batch_id/offset",
+      "source_accounted": "Original193lines inventory plus exactnative src narrowidentifiernavigation finds only declarations, while actuallib49-71 exportscomponents via publicmodule/prelude. Actualselectednativebuffer/upload/drawgraph uses otherstructures directly, as alreadyread011/012/015. Classify exposedorphan/native API primitive state with undocumented count/offset contract: no nativekernel requirement proved for these particularwrapperfields, and no units invented from names. This is a missingexplicitcontract/unusednativeAPI disposition WITHqualification, not claimthatallunknownfutureexternal/macro/Reflectcallersareabsent or universallysafe. Do not leave falselyrecorded needfor already-exhausted in-tree namedreceiverlocator as if an actualmissingbodyhadbeenidentified."
+    },
+    {
+      "fields": "buffer/bindgroup/marker/MaterialBindGroupData generic wrappers",
+      "source_accounted": "Typednativehandles/unitmarkers or genericpayload; no additionalrawscalaroperation inoriginalscope. Actualbuffers/pipelinebind/drawregionsfrom011-015 retained; generatedlayoutbyteproof/driver/coherenceandcustomMcontracts remainexternalacceptancequalifiers."
+    },
+    {
+      "fields": "Allocator InstanceAllocation page/offset/count and Custom backend",
+      "source_accounted": "Actualcoretrait31-55 explicitly defines contiguous instanceindices, perpagewatermark andtombstoneranges. DefaultPaged/readdelegation nowconnectstheexactoffset_allocatorallocate/free andcompactbinhelperbody. Custom is actualopen dyntrait nativeextensionpoint withimplicituncorrelated page/count contract andunchecked consumingpageindex; retainmissingaggregate/boundedcustomcontract as sourcefinding ratherthandemandallfutureimplementations. No currentCustomimplementation/reachabilityclaim."
+    }
+  ],
+  "new_numeric_inventory": [
+    {
+      "source": "offset_allocator lib1-592",
+      "roles": "Nativeu32storageunits/count/offset/freebins;32topbins*8leafbins, bitshift3/mask7, NonMaxsentinelindices andOption-linkednodes, Vecstorage/usize indexing, rawusedBool. Defaultmaxallocs min128*1024/NI_MAX-1,assertstrictcap; resetfree_offset=max_allocs-1,reversefreelistandinitialfullstorage. allocatecheckfree_offset0, roundedbins,bitmasksearch,subtraction/offsetsplit/add, nativeAllocationmetadata; freeassertused/doublereleasepolicy,neighborcoalescing andfreelistcounts; allocation_sizecheckedgetdefault0, reportrawtotals/max/0/defaultregions. ActualNodeIndexu32/u16conversions andNonMaxshape read. No proof that arbitrarypubliccustomNodeIndex implementations/size0/maxallocs0 are safe; semanticnativeallocatorboundary doesnot guaranteeallgenericinputs."
+    },
+    {
+      "source": "small_float1-65",
+      "roles": "Actualsizeclasscodec: mantissabits3/value1<<3/mask7, leadingzeros/highbit31, hiddenbit/exp+1, integerroundup/down/truncation andshiftcodec; 0smallsizehandledasdenorm. Nativecompactbinrepresentation is intrinsicactualoperation, notapplicationmagicvalue; all65lines consumed."
+    },
+    {
+      "source": "Eidolon core1-112/Paged36-106,107-144",
+      "roles": "ActualEntitycountu32/pageusize/offsetu32/Vec<Range<u32>> trait, page metadata andBoolgpuCullkey; allocation optionalfailure, page-sizerejection,zerocountreturns(0,0),dynamicfree/get/page_count, watermarks/active_counts. Wrappertupleconversionplaincopies; correlatedpublicfields/genericCustomcontract remainunvalidated."
+    }
+  ],
+  "observations_noncounted": [
+    {
+      "id": "L13-RESUME-ALLOCATOR-SIZECLASS-001",
+      "kind": "source-backednative API counterexample, currentalias/actualfirstpartyreachability notestablished",
+      "trace": "DefaultPagedpage_size1_000_000 + alloc(count1_000_000) passes count<=page_size, createsnew offsetAllocator and asksallocate exactcount. smallfloat:1_000_000 highestbit19,mantissastart16,exp17,mantissa7; roundeddown bin143 butnonzero16960 remainder causesroundedup bin144. Initialsizebin143 cannotserve minbin144; no higherusedbin ->None. Pagedalloc_new propagatesNone afternewpagecreation; actualprepareprocess_dirty_entities320-321 expectsSome. This shows nominalcount<=page_size isnot sufficient allocation-success contract, notproofactualfirstpartyspecieslen1M or runtimepanic.",
+      "repair_candidate": "Reconcile nativepagebudget/roundedsizeclasses at actual admission and propagateallocationfailure/consistentpagecommit instead ofunconditionalexpect; rootfindings/currentnessownership required."
+    }
+  ],
+  "retained_findings": [
+    "NATIVE012sentinel/reset/bufferbounds and021history plus018largerallowedlattice vs actualpopulation distinction unchanged.",
+    "Newgrasspositiveusize->i32loss/APIuncheckedmeshproducts andcountnarrowing, missingnativeopaqueWrappercontracts, literal/tolerance/tuningownerfit concerns remainqualifiedunrepaired.",
+    "No acceptednewuniqueissuecount, no allSDK/application/range/device/driver/currentnessclearance."
+  ],
+  "discovery_vs_acceptance": "Everyregisteredoriginal31primitive occurrence now has actualselectedproducer/state/operation/receiver proof or an explicit source-backed missingcontract/mismatch/exposedopenAPI disposition. Runtimewitness,actualOOM/populationbudget/compiler/repairtests/currentaliasacceptance are separate pendingvalidation. Do not confuse these with unread materiallyselectedsource.",
+  "accounting": {
+    "previous_proposed": 38,
+    "proposed": 39,
+    "newly_source_accounted": [
+      31
+    ],
+    "partial": [
+      39
+    ],
+    "earliest_unfinished": 39,
+    "first_never_started": 40,
+    "new_unique": 0,
+    "other_population_increment": 0
+  },
+  "limits": [
+    "No freshwholeoriginal31bodyrestart; priorownindependent193lineinventory retained byexacthash. Selectednativeexportbodyandboundednamequeries support onlyexplicitboundedAPI disposition, notuniversalabsence.",
+    "Packageoffset_allocator0.2.0 cachearchivechecksummatches exactfrozenlock,selectedmembersbytesmatcharchive. No unseenfrozenfileidentity orwholeSDK claim. extmodule/tests/README/nonmax/loginternals notreadorcredited; materiallyusednumericbin/alloc/freebodiesareactualread.",
+    "No localproject/toolchain execution/build/checks/tests/probes/newhelpers/assertions/doctests/product/Git/rootledger/history/publication."
+  ],
+  "continue": "Nextcompleteoriginal39nativehandoff/materialpayload then40+,allotherpopulationsseparate."
+}

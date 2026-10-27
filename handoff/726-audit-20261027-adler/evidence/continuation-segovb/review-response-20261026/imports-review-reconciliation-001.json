@@ -1,0 +1,56 @@
+{
+  "head": "ef7630d757a6994297f6d24840991cda61bda63c",
+  "before": "d06474d775215d87c813bb7583ced8cbbf94223f",
+  "at": "2026-10-26T21:31:29.854553+00:00",
+  "user_review": "user-review-002.json",
+  "files": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "5b5fe5e4ff2f4e7d2ec8daf2e852ea0c6f5de112716d6d1695502b1304318106",
+      "exact_import_or_message_space_only": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "786f4f75b779e92f2a1b2e521e672606b4fa3b6bf9176530903dd6a4edf7f84b",
+      "exact_import_or_message_space_only": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "0a399f468fc53f30affbe132b31d3b33f0f2de3d766758bb4023e86fc3b0bbff",
+      "exact_import_or_message_space_only": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "sha256": "878a4144b4fecdc20291885050e30fe521a5294117046c282ef24d40c5e407d9",
+      "exact_import_or_message_space_only": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "56a27351a1b6013319dc514e027250efd43b0538d34237835d656ddd0d1a7b43",
+      "exact_import_or_message_space_only": true
+    }
+  ],
+  "review_dispositions": [
+    {
+      "id": 4382663791,
+      "change": "Device/ErrorFilter/ErrorScopeGuard imported with same native cfg"
+    },
+    {
+      "id": 4382667901,
+      "change": "Removed repeated spaces from existing assertion diagnostic"
+    },
+    {
+      "ids": [
+        4382685678,
+        4382688103,
+        4382704173,
+        4382705530
+      ],
+      "change": "TextureUsages and TextureViewDescriptor imported in2D/3D; same cleanup plus TextureViewDimension applied to cube"
+    }
+  ],
+  "source_review_reconciliation": "Prior semantic Code/Rule/Comment reviews retained through exact import qualification and existing-message whitespace-only transformations. Error enums unchanged. No semantic compatibility requirements added. Root reviewed complete actual delta.",
+  "tests_added": false,
+  "project_execution": false,
+  "same_head_hosted_acceptance": "Pending"
+}

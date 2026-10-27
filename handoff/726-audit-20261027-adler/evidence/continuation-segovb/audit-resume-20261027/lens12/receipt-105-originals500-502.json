@@ -1,0 +1,143 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "105",
+  "predecessor": "receipt-104-originals498-499.json",
+  "manifest_prefix_sha256": "2efe96bb7612dc6152eba2a4bf84a12d8721cfeda9784f81f47e516c1bed2510",
+  "sources": [
+    {
+      "original_index": 500,
+      "source_id": "pr-working:assets/equipment/procedural/icons/belt--worn.png",
+      "sha256": "5b4ab9883c3153a5f2aaff6dc07d118e75eb7f8b1f17e99a562c9186f2fa438c",
+      "state": "new",
+      "actual_byte_ranges": [
+        [
+          0,
+          13624
+        ]
+      ],
+      "actual_ranges": [],
+      "actual_eof_bytes": 13625,
+      "roles": [
+        {
+          "source_byte_ranges": "0-13624",
+          "role": "Exact PNG signature/complete chunk sequence consumed as metadata;128x128 RGBA raster visually inspected. IHDR8-32/sRGB33-45/gAMA46-61/cHRM62-105/eXIf106-171/oFFs172-192/pHYs193-213; native image metadata; all tEXt chunks214-607 decoded and independently read. File=<untitled>,Date=2026/09/14 21:09:30,Time=00:00:00:01,Frame=001,Camera=Portrait camera,Scene=Scene,RenderTime=00:00.38,cycles.ViewLayer.samples=32,total_time=00:00.38,render_time=00:00.14,synchronization_time=00:00.23. IDAT608-13612 native compressed raster; IEND13613-13624.",
+          "disposition": "Concrete PNG/render provenance metadata, not gameplay identity or command authority. No blanket binary exemption: all native text-bearing chunks explicitly accounted. IDAT is pixel payload, not interpreted text; no native PNG/EXIF/decompression/checksum implementation or provenance truth proof.500 new filename belt--worn.png and501 deleted leather_belt--worn.png share exact bytes; this is metadata identity proof only, not caller/path transition acceptance or BC obligation."
+        }
+      ],
+      "status": "Full binary identity, native metadata string roles and rendered appearance independently inspected; no pixel numerical/native decoder proof."
+    },
+    {
+      "original_index": 501,
+      "source_id": "pr-working:assets/equipment/procedural/icons/leather_belt--worn.png",
+      "sha256": "5b4ab9883c3153a5f2aaff6dc07d118e75eb7f8b1f17e99a562c9186f2fa438c",
+      "state": "deleted",
+      "actual_byte_ranges": [
+        [
+          0,
+          13624
+        ]
+      ],
+      "actual_ranges": [],
+      "actual_eof_bytes": 13625,
+      "roles": [
+        {
+          "source_byte_ranges": "0-13624",
+          "role": "Exact PNG signature/complete chunk sequence consumed as metadata;128x128 RGBA raster visually inspected. IHDR8-32/sRGB33-45/gAMA46-61/cHRM62-105/eXIf106-171/oFFs172-192/pHYs193-213; native image metadata; all tEXt chunks214-607 decoded and independently read. File=<untitled>,Date=2026/09/14 21:09:30,Time=00:00:00:01,Frame=001,Camera=Portrait camera,Scene=Scene,RenderTime=00:00.38,cycles.ViewLayer.samples=32,total_time=00:00.38,render_time=00:00.14,synchronization_time=00:00.23. IDAT608-13612 native compressed raster; IEND13613-13624.",
+          "disposition": "Concrete PNG/render provenance metadata, not gameplay identity or command authority. No blanket binary exemption: all native text-bearing chunks explicitly accounted. IDAT is pixel payload, not interpreted text; no native PNG/EXIF/decompression/checksum implementation or provenance truth proof.500 new filename belt--worn.png and501 deleted leather_belt--worn.png share exact bytes; this is metadata identity proof only, not caller/path transition acceptance or BC obligation."
+        }
+      ],
+      "status": "Full binary identity, native metadata string roles and rendered appearance independently inspected; no pixel numerical/native decoder proof."
+    },
+    {
+      "original_index": 502,
+      "source_id": "pr-working:assets/equipment/procedural/manifest.json",
+      "sha256": "7c9d975e49e5b775696c4120b075383ce2915b619761f7142d3feec1e35d0f10",
+      "actual_eof": 694,
+      "actual_ranges": [
+        [
+          1,
+          694
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-694",
+          "role": "Every asset record native JSON key set and string values independently read: armor_design_hash lowercase digest text; file .glb filename, item_id catalog identity, material surface vocabulary, placement_id worn/left/right, surface_uv_domain mhr_body_v1; metadata mhr_release v1.0.1 at692. Belt record393-401 file belt--worn.glb395/item_id belt396/material vegetable_tanned_leather397/placement worn399. No record count asserted; every occurrence1-694 accounted by common roles, including no-hash linen garments159-176 and belt393-401.",
+          "disposition": "Catalog identity and placement authority distinct from display/filename/material/digest/release text; use canonical owning catalog/placement/material/digest types at actual internal loader/state, native filename/JSON/release text at explicit I/O boundary. Not exempt generated/artifact vocabulary. Actual JSON loader/schema/generator/asset resolution not read here; no proof of missing bespoke owner from data alone, geometry correctness, source hash integrity, or current path consistency."
+        }
+      ],
+      "status": "Full requested changed JSON independently read1-350 and351-694 WITH receiving obligations."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Equipment manifest retains distinct catalog/placement/material/digest/asset text roles",
+      "sources": [
+        "502:1-694",
+        "500/501:path identity"
+      ],
+      "remedy": "Trace exact loader/generator and catalog/placement/material/digest owners before repair; keep role identities distinct, filename conversion at asset I/O boundary, no aliases/legacy fallback requirement.",
+      "acceptance": "All producer data and PNG metadata string occurrences source-accounted; actual loader/internal retention/native asset lookup remain separate receiving obligations; unique/canonical-alias classification pending.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Exact502 manifest loader/schema/generator/native asset resolver and500/501 filename callers unconsumed; earlier client icon producer context is not same-hash current proof.",
+    "PNG native decoding/EXIF/CRC validation not audited; visual inspection only establishes visible beltlike dark raster with no visible lettering.",
+    "503-510 staged/registered not yet read; all inherited receiving/alias/other-lens scopes preserved."
+  ],
+  "qualifications": [
+    "Exact frozen PR-working image variants/JSON only, no P16/current/global/runtime/unique/other-lens clearance.",
+    "No BC/schema/API/input preservation requirement. No project/native/test/probe execution or product/Git/rootledger/publication mutation.",
+    "All20/P16/P17/F9/M09 and inherited aliases retained; unique delta0."
+  ],
+  "proposed_count": {
+    "before": 500,
+    "after": 503,
+    "indices_completed": [
+      500,
+      501,
+      502
+    ],
+    "next_original": 503,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "pr-working:assets/equipment/procedural/icons/belt--worn.png",
+      "sha256": "5b4ab9883c3153a5f2aaff6dc07d118e75eb7f8b1f17e99a562c9186f2fa438c",
+      "ranges": [],
+      "byte_ranges": [
+        [
+          0,
+          13624
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:assets/equipment/procedural/icons/leather_belt--worn.png",
+      "sha256": "5b4ab9883c3153a5f2aaff6dc07d118e75eb7f8b1f17e99a562c9186f2fa438c",
+      "ranges": [],
+      "byte_ranges": [
+        [
+          0,
+          13624
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:assets/equipment/procedural/manifest.json",
+      "sha256": "7c9d975e49e5b775696c4120b075383ce2915b619761f7142d3feec1e35d0f10",
+      "ranges": [
+        [
+          1,
+          694
+        ]
+      ],
+      "byte_ranges": []
+    }
+  ]
+}

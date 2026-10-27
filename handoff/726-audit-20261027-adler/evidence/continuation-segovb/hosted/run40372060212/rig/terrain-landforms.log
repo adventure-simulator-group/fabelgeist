@@ -1,0 +1,12 @@
+[1m[92m    Finished[0m `test` profile [optimized] target(s) in 0.34s
+[1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/adventuresim_tactical_core-1c1f0e01b14fa6e8)
+
+running 5 tests
+test volumetric_terrain::surface_recipe::tests::depositional_and_foliated_structure_never_leaks_to_massive_rock ... ok
+test volumetric_terrain::surface_recipe::tests::every_canonical_lithology_has_deterministic_bounded_surface_parameters ... ok
+test volumetric_terrain::tests::collar_matches_the_heightfield_exactly ... ok
+test volumetric_terrain::tests::fault_scarp_is_deterministic_and_has_a_vertical_face ... ok
+test volumetric_terrain::tests::fringe_lod_keeps_the_full_feature_across_the_playable_edge ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 405 filtered out; finished in 0.11s
+

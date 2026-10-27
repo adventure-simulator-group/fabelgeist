@@ -1,0 +1,237 @@
+{
+  "lens": "derivability",
+  "registry": "../shared-material-successor/source-extensions-187.json",
+  "registry_sha256": "afd8158f9381deffcb264daf382e4db681880cd51b120b9a3fcc9b8bfc2ea3b9",
+  "receipts": [
+    {
+      "material_index": 67,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/item_classification.rs",
+        "sha256": "a65529b45c53a783feaa8905b9fba38d95d28e97b01fe8198d4ffeee0a57c58d",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            1,
+            55
+          ]
+        ],
+        "registration_evidence": "enum-shapes/registration-463A-material.json",
+        "reason": "Authored ItemKind939 -> actual native original1136 item.rs183..234 projection -> Item.kind CatalogItemKind87 retained -> native capability299..363 weapon/shield/mode-specific selection. Defines candidate existing owner for retained classification. Native receivers not freshly read yet, navigation only, no transferred coverage.",
+        "qualification": "Exact committed PR6533 affected material ranges; broader own09 viewed support does not enlarge shared all-lens scope. No receiver/other-lens coverage."
+      },
+      "source_origin": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/item_classification.rs",
+      "source_sha256": "a65529b45c53a783feaa8905b9fba38d95d28e97b01fe8198d4ffeee0a57c58d",
+      "read_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "inventory_and_semantics": "CatalogItemKind already derives structural/default/serde/optional Spacetime traits. stable_id explicit const spelling is inherent API; economy_kind deliberately lossy policy projects Container into Simple. Do not substitute serialization/runtime parsing or erase policy.",
+      "disposition": "No derivability candidate; existing derives or required semantic/native/generated behavior retained",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no whole-callee/native/browser-runtime/global acceptance"
+    },
+    {
+      "material_index": 68,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/errantry.rs",
+        "sha256": "c745b617fe6b91b054b4f968565f295d03f9839eb329c4957d86306d65969858",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            62,
+            98
+          ]
+        ],
+        "registration_evidence": "enum-shapes/registration-463A-material.json",
+        "reason": "Shared bestiary ThreatProfile combat.ranged from scoped881/classification F150 -> tactical_insight_for76..98 -> whole TacticalInsight{kind,threatID,finding,preparation} -> original1207 native strategic/challenges.rs391 receiver, later source trace. Same P16 path104 is separate source variant.",
+        "qualification": "Exact committed PR6533 affected material ranges; broader own09 viewed support does not enlarge shared all-lens scope. No receiver/other-lens coverage."
+      },
+      "source_origin": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/errantry.rs",
+      "source_sha256": "c745b617fe6b91b054b4f968565f295d03f9839eb329c4957d86306d65969858",
+      "read_ranges": [
+        [
+          62,
+          98
+        ]
+      ],
+      "inventory_and_semantics": "TacticalInsight already derives record/serde traits. tactical_insight_for checks combat range and modeled weakness before constructing prose/preparation; semantic gameplay evidence projection, no mechanical codec.",
+      "disposition": "No derivability candidate; existing derives or required semantic/native/generated behavior retained",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no whole-callee/native/browser-runtime/global acceptance"
+    },
+    {
+      "material_index": 69,
+      "registration": {
+        "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/bevy_error.rs",
+        "sha256": "ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+        "revision": "exactregisterednative source; originalscope pin retained",
+        "ranges": [
+          [
+            7,
+            25
+          ],
+          [
+            228,
+            285
+          ],
+          [
+            381,
+            421
+          ]
+        ],
+        "registration_evidence": "behavior-preservation/source-registration-001.json",
+        "reason": "Need actual BevyError severity/default conversion to distinguish typed Err from recovery; caller411/main410 routes new projection errors here.",
+        "qualification": "Exact new material source/ranges; no original2853count increment or other-lens transfer."
+      },
+      "source_origin": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+      "source_sha256": "ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+      "read_ranges": [
+        [
+          7,
+          25
+        ],
+        [
+          228,
+          285
+        ],
+        [
+          381,
+          421
+        ]
+      ],
+      "inventory_and_semantics": "Native Bevy Error support keeps severity policy, blanket From with boxed Error bounds, native allocation and conditional backtrace capture; Display writes cause plus newline/backtrace rather than transparent single field. ResultSeverityExt maps preserve Into bound and metadata. No equivalent simple derive; upstream dependency retained. Only registered narratives/body ranges including partial Display prefix.",
+      "disposition": "No derivability candidate; existing derives or required semantic/native/generated behavior retained",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no whole-callee/native/browser-runtime/global acceptance"
+    },
+    {
+      "material_index": 70,
+      "registration": {
+        "source_id": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-client/src/character_settlement_reputation_type.rs",
+        "sha256": "fb0c3f00ff6ec75a99d6053871e23ef12e31108af4342f236de077e4d8f2e881",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            1,
+            65
+          ]
+        ],
+        "registration_evidence": "operations/contract-groups-566.json#fresh_dependencies",
+        "reason": "Exact generated backend reputation i32 field widths and codec; no source change or originalscope credit.",
+        "qualification": "Generated native transport signed widths; no generated bindings edits, original2853 denominator unchanged."
+      },
+      "source_origin": "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-client/src/character_settlement_reputation_type.rs",
+      "source_sha256": "fb0c3f00ff6ec75a99d6053871e23ef12e31108af4342f236de077e4d8f2e881",
+      "read_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "inventory_and_semantics": "Generated CharacterSettlementReputation SDK derives; InModule/HasCols/HasIxCols/CanBeLookupTable native typed query association retained. Any changes belong generator/schema, no direct generated repair.",
+      "disposition": "No derivability candidate; existing derives or required semantic/native/generated behavior retained",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no whole-callee/native/browser-runtime/global acceptance"
+    },
+    {
+      "material_index": 71,
+      "registration": {
+        "source_id": "pr-working:crates/strategic-web/static/background-fetch.js",
+        "sha256": "00cfcd2e251b7d8b3020a2493c94a0907b7cf2afbeccc841331a2f81aabf2c86",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            1,
+            83
+          ]
+        ],
+        "registration_evidence": "operations/contract-groups-578.json#fresh_dependencies",
+        "reason": "Actual strategic fetch/navigation/condition receiver or native KCC Stopwatch contract; dependency proof in operations/contract-groups-578.json#fresh_dependencies",
+        "qualification": "Only listed material ranges extend shared scope. Original2853 denominator and adopted completed baselines unchanged; no other-lens coverage transfer."
+      },
+      "source_origin": "6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/static/background-fetch.js",
+      "source_sha256": "00cfcd2e251b7d8b3020a2493c94a0907b7cf2afbeccc841331a2f81aabf2c86",
+      "read_ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "inventory_and_semantics": "JavaScript local return URL admission, abort-controller lifetime, fetch reporting and serialized initial-load queue are semantic browser behavior. No Rust handwritten trait/codec or derive candidate; no UI/runtime correctness clearance.",
+      "disposition": "No derivability candidate; existing derives or required semantic/native/generated behavior retained",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no whole-callee/native/browser-runtime/global acceptance"
+    },
+    {
+      "material_index": 72,
+      "registration": {
+        "source_id": "pr-working:crates/strategic-web/static/strategic-navigation.js",
+        "sha256": "1419143934b4dacd73085c81a770534d63fbad34612ff6cc25bb886c430e6bff",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            1,
+            209
+          ]
+        ],
+        "registration_evidence": "operations/contract-groups-578.json#fresh_dependencies",
+        "reason": "Actual strategic fetch/navigation/condition receiver or native KCC Stopwatch contract; dependency proof in operations/contract-groups-578.json#fresh_dependencies",
+        "qualification": "Only listed material ranges extend shared scope. Original2853 denominator and adopted completed baselines unchanged; no other-lens coverage transfer."
+      },
+      "source_origin": "6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/static/strategic-navigation.js",
+      "source_sha256": "1419143934b4dacd73085c81a770534d63fbad34612ff6cc25bb886c430e6bff",
+      "read_ranges": [
+        [
+          1,
+          209
+        ]
+      ],
+      "inventory_and_semantics": "JavaScript focus/scroll snapshots, negotiated navigation contract, generation/abort lifecycle and DOM/history publication are semantic browser operations. Object spread/literal snapshots are not Rust trait/serde boilerplate; no derivability candidate or lifecycle correctness verdict.",
+      "disposition": "No derivability candidate; existing derives or required semantic/native/generated behavior retained",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no whole-callee/native/browser-runtime/global acceptance"
+    },
+    {
+      "material_index": 73,
+      "registration": {
+        "source_id": "pr-working:crates/strategic-web/src/routes/characters.rs",
+        "sha256": "10dd792473dbbed42eb10675903a838cb0858f13323b7029982c0c7e08a0e0b0",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            1,
+            15
+          ],
+          [
+            52,
+            87
+          ]
+        ],
+        "registration_evidence": "operations/contract-groups-581.json#fresh_dependencies",
+        "reason": "Actual strategic fetch/navigation/condition receiver or native KCC Stopwatch contract; dependency proof in operations/contract-groups-581.json#fresh_dependencies",
+        "qualification": "Only listed material ranges extend shared scope. Original2853 denominator and adopted completed baselines unchanged; no other-lens coverage transfer."
+      },
+      "source_origin": "6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/routes/characters.rs",
+      "source_sha256": "10dd792473dbbed42eb10675903a838cb0858f13323b7029982c0c7e08a0e0b0",
+      "read_ranges": [
+        [
+          1,
+          15
+        ],
+        [
+          52,
+          87
+        ]
+      ],
+      "inventory_and_semantics": "Character condition handler gates viewer authority, party/synchronization/location before SATS SerdeWrapper response. Native Axum/SATS adapters and explicit admission remain semantic; no handwritten structural codec.",
+      "disposition": "No derivability candidate; existing derives or required semantic/native/generated behavior retained",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no whole-callee/native/browser-runtime/global acceptance"
+    }
+  ],
+  "checks": "not run",
+  "source_edits": false,
+  "clear": false
+}

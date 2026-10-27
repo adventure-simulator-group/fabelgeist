@@ -1,0 +1,93 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-173",
+  "at": "2026-10-25T20:59:15.998048+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1801,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/gardens/geometry.rs",
+      "sha256": "6714471caf51d59b35d1f74bc741f96616aa5eded3fd07658d13516b2aeab93d",
+      "personally_read_ranges": [
+        [
+          1,
+          270
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full270 lines read. validate_geometry orders bounds before access before plants, so private plant validation can rely on earlier corridor construction and access[0] is guarded by nonempty access. It checks cultivated corners in plot, disjoint beds in cultivated bounds, street attachment/connected bounded-width tending lanes, limited approach outside plot, and plant hull separation from beds/access/other plants with wind margins. Native overlaps assumes convex finite polygons; actual specimen hull support527 and transforms1800 were read, no arbitrary hull admission is asserted.",
+        "clearance_geometry includes actual beds and corridors, plus world-space specimen hulls. clears_building broad phase relies explicitly on already-validated bounded plot/approach; raw unvalidated public CityGarden could defeat it, but actual successful invalid producer not established here. translate updates related fields sequentially through fallible operations and can leave partial changes on error in a caller-owned garden; actual caller failure handling remains pending before accepting a persisted partial-state defect. No normal source coordinates/overflow witness claimed."
+      ]
+    },
+    {
+      "scope_index": 1802,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/gardens/specimen.rs",
+      "sha256": "f4f7b85d6aa1694b5b2732810b329ac15caf2ebb77b71832a67880c70e0bd4d4",
+      "personally_read_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full61 lines read. GardenSpecimen is closed CommonHazel and its actual immutable LazyLock binds the committed envelope seed/revision/hull/heights/count; world_hull support1800 applies same orientation/positive scale and scene centre. Actual frozen asset527 has17 ordered finite points and finite height band, not an empty production envelope.",
+        "Dedup exact inherited NATIVE-INITIAL05-F026: public GardenSpecimenEnvelope can contain an empty hull and contains_local_vertex then vacuously certifies arbitrary horizontal point inside its height band. Same source SHA and ranges22-31,47-60 match. Retain inherited API/rawdecode weakness qualification; do not call this normal CommonHazel bad geometry or create a duplicate finding. Revision/count-to-mesh matching policy remains separately unproven."
+      ]
+    },
+    {
+      "scope_index": 1803,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+      "personally_read_ranges": [
+        [
+          1,
+          407
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full407 lines read. SupportElevation privately retains finite signed scene elevation with checked translation and serde; SurfaceElevations allows an intentionally empty/multiple support result. MemberSupport/CompoundSupportLevels combine independently admitted leaves, while CompoundSupportPlan privately owns property, levels, passage/regions/profiles/stairs/treatment/optional street entry and delegates admission to compound::compile, not arbitrary public struct construction.",
+        "Queries retain distinct gate/main/passage levels at split tolerance instead of collapsing to one heightfield; contains uses actual bounded plot, street reservation and passage. Nonzero passage and coherent profile/levels are upstream compiler obligations, queued1807/1808 for source closure. main_height maps stair calculation failure to absence rather than fabricating elevation.",
+        "floor_translation_basis clones the plan, checked-translates front/rear/court and corresponding profile/stair bases, retains fixed gate/street coordinates as explicit affine basis, and never installs the basis as accepted support. Mesh/foundation methods reconstruct checked results and attach attempted treatment to errors. validate_displacement_at is expressly point-query diagnostics; full cut/fill acceptance belongs triangle/source intersection, not clearance from a zero fold on no observations."
+      ]
+    }
+  ],
+  "support_reads": [
+    {
+      "scope_index": 1800,
+      "ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "role_credit": "none; inherited same-lens support"
+    },
+    {
+      "scope_index": 527,
+      "ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "role_credit": "none; inherited same-lens support"
+    }
+  ],
+  "deduplicated_findings": [
+    "NATIVE-INITIAL05-F026; exact same source SHA/ranges and public-empty-hull qualification retained"
+  ],
+  "qualified_dependencies": [
+    {
+      "source_index": 1801,
+      "range": [
+        60,
+        80
+      ],
+      "contract": "Partial garden translation error recipient",
+      "status": "actual caller handling pending; no accepted new finding"
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

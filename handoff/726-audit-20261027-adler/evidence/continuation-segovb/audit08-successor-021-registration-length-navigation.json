@@ -1,0 +1,30 @@
+{
+  "id": "CONT08-021-POSITIVE-LENGTH-DECLARATION-REGISTRATION",
+  "sources": [
+    {
+      "role": "base",
+      "source_id": "base:crates/adventuresim-building-generator/src/spatial_geometry.rs",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/bae5a90cacf4d5bdb2a30d57f25ab8f71fb51c36fbe8378568879b01174d617d",
+      "sha256": "bae5a90cacf4d5bdb2a30d57f25ab8f71fb51c36fbe8378568879b01174d617d",
+      "prospective_ranges": [
+        [
+          1,
+          29
+        ]
+      ]
+    },
+    {
+      "role": "head",
+      "source_id": "head:crates/adventuresim-building-generator/src/spatial_geometry.rs",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+      "sha256": "c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+      "prospective_ranges": [
+        [
+          1,
+          29
+        ]
+      ]
+    }
+  ],
+  "reason": "Canonical PositiveLength getter declaring/reexport path only; no closed coordinate/Position body restart."
+}

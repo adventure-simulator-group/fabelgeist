@@ -1,0 +1,21 @@
+{
+  "at": "2026-10-27T01:02:13.658916+00:00",
+  "lens": 13,
+  "packet": "018",
+  "extension_of": "audit13-successor-registration-018.json",
+  "sources": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input.rs",
+      "sha256": "bde515fc144669a9902a54886ded6185c84fca86313d86ca7c44ba0626e8ae12",
+      "ranges": [
+        [
+          75,
+          95
+        ]
+      ],
+      "purpose": "Actual MAX_PLAYABLE_SIDE and corresponding declared grid maximum constants used in source-grid dimension validation and upsampling; adjacent simple constants included",
+      "body_consumed_at_registration": false
+    }
+  ],
+  "scope_limits": "Receiving source access only; no original1914credit, no unrelated weather/obstacle producer expansion."
+}

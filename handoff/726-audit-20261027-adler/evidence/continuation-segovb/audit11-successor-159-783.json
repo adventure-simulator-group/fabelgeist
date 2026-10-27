@@ -1,0 +1,88 @@
+{
+  "id": "SEGOVB-CONT11-SUCCESSOR-159-783",
+  "lens": "type-granularity",
+  "scope_index": 783,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/dressing.rs",
+  "sha256": "a5b190694f00f1dbc5e1895f5b40f65b6c1f7242da45ea844b59a6b6d6932523",
+  "ranges": [
+    [
+      1,
+      145
+    ]
+  ],
+  "source_read_basis": "Full exact body previously consumed and SHA-verified under158; independently classified now in ordered role783. No completed earlier role restarted.",
+  "status": "source-accounted-with-qualified-frozen-receiver-gap; not clear",
+  "source_complete": true,
+  "current_main_integrated": false,
+  "validated": false,
+  "contracts": [
+    {
+      "owner": "BodyPart9-16 versus canonical RigJointPart",
+      "trace": "Private BodyPart deliberately groups atomic canonical RigJointPart roles into Trunk/Head/Hand/Leg/Foot, the five different garment-coverage decisions. Head/Jaw/Eye/Tongue share one Head role while arm parts are Trunk; hand and foot never draw cloth, leg draws only Legged, head only Fitted. Reusing an atomic part enum directly would lose grouped coverage meaning; this is not a duplicate anatomical identity owner. Actual canonical part.rs SHA bb324...1-135 owns fragment tokens; RigJointName.contains_part in frozen lib.rs109-124 performs existing fragment substring classification and returns canonical Included/Excluded. It expressly does not establish canonical anatomy; preserve helper-suffix/general exact-label policy instead of inventing stricter admission."
+    },
+    {
+      "owner": "joint-column mask versus vertex-column mask",
+      "trace": "new80-107 first derives one Boolean coverage predicate per named rig joint, then chooses the maximum-weight influence per packed skin row and looks up its joint predicate to produce one Boolean per vertex. A Boolean represents an ordinary local named coverage predicate here, not an independently carried equipment/body state that needs a new role enum. Joint-column and vertex-column vectors have different populations even though both are Vec<bool>; existing canonical RigJointTable<bool> fits the joint mask, while dressed is vertex-topology data. Preserving this distinction prevents accidentally indexing vertex classification by joint ordinal or vice versa."
+    },
+    {
+      "owner": "Dressing body/face/mask association",
+      "trace": "Dressing71-77 retains a copied body BVH, same face list and computed vertex mask. dresses111-124 queries nearest triangle from that same BVH, then selects a corner by geometric distance and reads its mask. Same copied faces/BVH source proves the local triangle lookup association. Missing BVH surface returns false; nearest triangle has fixed3 corners; influence width is fixed8. Public DrapeInput coherence and zip-truncated/mutated arrays remain qualified admission/relationship questions; no ordinary malformed producer witness or universal rig-instance association claimed."
+    },
+    {
+      "owner": "actual consumer",
+      "trace": "conform781198-229 computes dresses(point) per sewn cloth point, then draws only selected points towards collision surface. Actual garment construction/form and same producer-copy/worker paths were traced in157/158; no native/string reclassification of the returned Boolean. Predicate use demonstrates the local BodyPart abstraction prevents head/limb coverage mixups without requiring a second public body-part taxonomy."
+    }
+  ],
+  "qualified_findings": [
+    {
+      "local_source_key": "pr-working:crates/adventuresim-character-creator/src/garment/dressing.rs@sha256:a5b190694f00f1dbc5e1895f5b40f65b6c1f7242da45ea844b59a6b6d6932523#L80-L107:dressing-typed-ordinal-receiver",
+      "prior_finding": "SEGOVB11-158-781-RIG-RECEIVER",
+      "classification": "Same concrete frozen receiving migration gap already recorded; no new unique count",
+      "evidence": "PackedRigSkin::iter returns [RigJointOrdinal;WIDTH] and canonical lib.rs50-52 defines a struct; dressing97 still uses *joint as usize. Existing RigJointTable.get consumes RigJointOrdinal and map retains typed column. Source is incompatible with primitive casting, but this was not compiled or compared to current main.",
+      "coherent_repair": "Consume canonical RigJointTable<bool> from input.names.map and typed ordinal lookup as part of shared producer/receiving repair, retaining absent-membership/weight tie/coverage policies. Do not add duplicate ordinal owner or primitive adapter."
+    }
+  ],
+  "new_connected_reads": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-rig/src/part.rs",
+      "sha256": "bb324df83dafc6706069ecbe3e4fa829c21af0de463166169f96904089a034b7",
+      "ranges": [
+        [
+          1,
+          135
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-rig/src/lib.rs",
+      "sha256": "7e73efb0a5ce824e111c2d28e54a5422b75bdca12e0c7553423dc0dfab8f563b",
+      "ranges": [
+        [
+          61,
+          83
+        ],
+        [
+          109,
+          127
+        ]
+      ]
+    }
+  ],
+  "retained_source_support": [
+    "audit11-successor-158-781.json",
+    "audit11-successor-157-connected-780-003.json",
+    "audit11-question-crosswalk-001.json"
+  ],
+  "qualifications": [
+    "Use exact source-key crosswalk; bare export Q008/Q009 are invalid canonical edges and were not reused.",
+    "Inherited F50/source-row and other canonical rig repair dependencies are related; no unproved exact alias or global defect count assigned.",
+    "Existing fixtures127-145 read only; no tests/checks/probes/product edits/publication.",
+    "BodyPart/rig membership classification is source-complete here; no other-lens correctness/behavior/numeric/admission/global-clearance verdict transferred.",
+    "Connected canonical rig source roles2332/2335 retain no ordered credit. Future786/923 remain uncredited."
+  ],
+  "proposed_original_accounted": 784,
+  "next_original": 784,
+  "new_unique_findings": 0,
+  "clear": false,
+  "validation": "none"
+}

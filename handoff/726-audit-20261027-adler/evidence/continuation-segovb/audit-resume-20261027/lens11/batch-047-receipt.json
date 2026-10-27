@@ -1,0 +1,202 @@
+{
+  "at": "2026-10-27T14:05:30.994956+00:00",
+  "lens": 11,
+  "status": "1013-1014 independently source-accounted with findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-047-registration.jsonl",
+    "sha256": "73b439e7f07d9583acac143feb027203227b9e299f74fe4a7130b2bdebd79c61"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-046.json",
+    "sha256": "67701fdc5912c9213e4e871c3d7f680c6203f3cfdc6fb5a153fc8e8b2db68505"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1013,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_schedule.rs",
+      "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "ranges": [
+        [
+          1,
+          1363
+        ]
+      ],
+      "actual_eof": 1363,
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "prior_personal_read_reuse": {
+        "receipt": "batch-031-receipt.json",
+        "ranges": [
+          [
+            1,
+            115
+          ],
+          [
+            235,
+            640
+          ]
+        ],
+        "identity_reverified": true
+      },
+      "actual_read_ranges": [
+        [
+          116,
+          234
+        ],
+        [
+          641,
+          1363
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1014,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+      "sha256": "031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+      "ranges": [
+        [
+          1,
+          364
+        ]
+      ],
+      "actual_eof": 364,
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          364
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected",
+      "original_index": 1251,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/schedule.rs",
+      "sha256": "08c054563be5757fc2da0ce95af4c995e5a8f8d1acf549bc5dbc65f2c3443077",
+      "ranges": [
+        [
+          65,
+          120
+        ],
+        [
+          260,
+          335
+        ],
+        [
+          728,
+          741
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual allocation/training receiving ports, exact snapshot variant explicit",
+      "actual_read_ranges": [
+        [
+          65,
+          120
+        ],
+        [
+          260,
+          335
+        ],
+        [
+          728,
+          741
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 313,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/stationary.rs",
+      "sha256": "4247ba159aa9a5ceb6183f7a4e23023b27e47cd6c48c46e66565120fe89e1ca8",
+      "ranges": [
+        [
+          180,
+          263
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual allocation/training receiving ports, exact snapshot variant explicit",
+      "actual_read_ranges": [
+        [
+          180,
+          263
+        ]
+      ]
+    },
+    {
+      "kind": "connected",
+      "original_index": 304,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/activities.rs",
+      "sha256": "04dc828b86ab6bc354e9242ef33f6d1d75902cc5d9fad656c5192540167ec18a",
+      "ranges": [
+        [
+          90,
+          165
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual economic income and infamy unit adapter from activity outcome; snapshot explicit",
+      "actual_read_ranges": [
+        [
+          90,
+          165
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original_index": 1013,
+      "inventory": "SkillHours fixed skill/terrain and religion/bestiary leaf storage; finite query vs admission; real/effective/excess training hours; healthy aptitude; canonical and duplicate SocializingSociability/Transparency; BPS conservation weights; combat relative weights/balance/shield hand profile; curriculum target tagged selectors; daily allocation versus absolute spans and proportional leisure minutes; fatigue reservoir signed delta and clearance; morale gain/earning duration; activity checks/population scale, coin income/infamy and discovery probabilities; existing fixtures.",
+      "disposition": "Raw training hours, effective hours, work rates and capped rank are different quantities; normalized weights differ from relative pre-normalized weights (organization emphasis may multiply4). Existing fixed SkillHours duplicates StartingSkills (044) and generic public fields do not admit nonnegative finite storage; is_finite is a query, not a construction guarantee. Actual training canonical enum/target operations397-620 already read031 retain purpose and accepted/excess split. SocializingSociability repeats canonical CharacterSociability three states in actual1251 conversion281-288; reuse canonical owner or a named purpose conversion, no need independent state authority. Combat balance and shield role differ, combined weapon weights are relative not necessarily summing1; checked sanitization is not universal fraction admission. Fatigue clearance uses infinity223 for never-clears sentinel; preserve that semantic state rather than banning all infinity. Proportional restorative_leisure_minutes and absolute end-of-day restorative_leisure_spans intentionally implement different projections\u2014do not assume every subinterval has equal minute total; name aggregate versus realized schedule semantics. Activity income rounds per aggregate interval: existing fixture1205-1222 deliberately differs from daily partitions; no automatic partition-invariance requirement. Discovery/carousing risks are fractions, population scale/morale totals/infamy are not the same bound.",
+      "remedy": "Share common hours/minutes numeric invariant under stored-direct/effective/excess and duration/rate purposes, retain leaf IDs and separate healthy aptitude from impaired checks. Reuse canonical sociability rather than duplicate semantic enum. Use explicit never-clears state, admitted chronological span owner, and named outcome quantities/projections. Keep native BPS/float conversions at actual operations; no arbitrary new caps. Preserve inherited033 fatigue rule qualification: check/combat effects alone are not movement-speed-rule conflict.",
+      "acceptance": "Effective full1-1363 accounted from exact031 personally read1-115/235-640 plus fresh116-234/641-1363. New complete full existing fixtures685-1363 are read-only. Actual1251 saved-to-core schedule/effective redistribution/training ports65-120/260-335/728-741 and physical-p16 recipient30490-165 route gold to currency, morale to event and infamy\u00d7100 into reputation. These exact variants are explicit; no claim both snapshots form one byte-identical whole tree or all clinical/native implementations read."
+    },
+    {
+      "original_index": 1014,
+      "inventory": "ActivityMinutes quarter-hour multiples; OrganizationAllocation None/Scheduled payload; raw organization ID; DailySchedulePlan activities positional10 plus apprenticeship/practice payloads; raw DailySchedule publicSerde fields; ValidatedSchedule total/day/segment admission; location-dependent effective schedule and deterministic ephemeral weighted redistribution; existing fixtures.",
+      "disposition": "ActivityMinutes admits zero, correctly useful for idle activities; OrganizationAllocation::parse requires positive minutes iff nonblank organization, but public Scheduled variant can directly pair zero ActivityMinutes or blank String, bypassing parse. Public DailySchedulePlan independently stores positional organization minutes and named organization allocations, and validate_daily_allocation does not enforce equality of those copies: qualified API authority shape. Actual physical-p16 reducer313204-252 sends the same downtime organization values in both positions and payload arguments, so no demonstrated live mismatch from that caller. Raw DailySchedule is also used for analytical life profiles with deliberately non-quarter-hour minutes (031), while saved schedules require ValidatedSchedule multiples15 and total<=1440. Do not universalize saved schedule rule onto all analytical profiles. effective_at consumes admitted saved schedule, preserves reading, redistributes only unavailable activity segments with bounded positive total weights; absent alternatives become leisure intentionally. Output returns raw DailySchedule, erasing admitted allocation contract.",
+      "remedy": "Keep one canonical activity allocation/order mapping rather than duplicate positional and named organization minute authority; make Scheduled payload admit positive segment minutes+organization identity privately. Keep zero-allowed ActivityMinutes common invariant separate from positive organization allocation. Distinguish analytical daily activity budget from admitted saved quarter-hour allocation, and retain validated proof through effective schedule return/internal APIs. Do not implement a generic ascending time interval for these aggregate budgets.",
+      "acceptance": "Full1-364 independently consumed. Actual validated caller313 physical-p16180-263 and exact pr-working1251 core_schedule728-741/effective71-89 supply coherent fields. Organization authorization remains receiver DB check, no all membership/saved-row/current guarantee or wrong-authored-schedule runtime witness."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-031-receipt.json",
+      "sha256": "0e64c59e0e3b9b6f7f087017c110ec1dc0229cff16557910de8d5f001554dd99"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-035-receipt.json",
+      "sha256": "4a35c1a6afd6d6ebf7e63867b4b939fc63ae5d55011f0f8f0151be0c4e2dd1e2"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-042-receipt.json",
+      "sha256": "679029c645bbe69075e5b0f1c297fdd91ece13e10c96c08197b5f264c7f19edc"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-044-receipt.json",
+      "sha256": "5316b771defcf75d73c5dfe4d5ad876e3730e8894fb56e6d3ffd35895e29d724"
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Frozen source discovery only, no execution/currentness/accepted unique/global clearance. No count credit for prior-connected or other snapshot receiver access.",
+    "1251 ranges260-335 begin and end inside surrounding training function; exact operations293-316 and explicit personality conversion281-292 read, not full training persistence body.30490-165 starts and ends inside activity application; complete material income/reputation/morale/leisure call ports117-162 read, not full authorization/condition/relationship implementation.",
+    "Selected physical-p16313/304 sources differ from raw Git6533 candidates; exact frozen registry variants used explicitly, no pr-working/current substitution. Read-only candidate hash and locator searches confer no source credit.309mod staged/hash verified/locator only, body unread and no credit."
+  ]
+}

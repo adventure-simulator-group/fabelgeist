@@ -1,0 +1,234 @@
+{
+  "lens": "derivability",
+  "registry": "../shared-material-successor/source-extensions-187.json",
+  "registry_sha256": "afd8158f9381deffcb264daf382e4db681880cd51b120b9a3fcc9b8bfc2ea3b9",
+  "receipts": [
+    {
+      "material_index": 141,
+      "registration": {
+        "id": "SEGO-INITIAL09-REG696",
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer_main.rs",
+        "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_blob": "b06daff03936e2a22d7647f7a3579d5c93635ba5",
+        "sha256": "c47317c7b2aa4afb18ac097c828f3b3bdd0c38bb2e52312dccbdc8b66bf80f69",
+        "ranges": [
+          [
+            25,
+            205
+          ]
+        ],
+        "reason": "Actual CLI producer invokes tactical_scene_viewer1699::run762 with the paired source options, three optional benchmark frame counts and exclusive terrain/census flags; needed to verify the asserted source exclusivity791\u2013808 and priority/headless selection864\u2013965 before qualifying workflow shape. Actual API caller and admission contract, not module namespace adjacency.",
+        "line_count": 254,
+        "registration_evidence": "enum-shapes/source-registration-696.json",
+        "qualification": "Actual connected producer/callee contract only, narrowed affected ranges. No cross-lens coverage or full baseline replay."
+      },
+      "source_origin": "../audit02-delta/sources/c47317c7b2aa4afb18ac097c828f3b3bdd0c38bb2e52312dccbdc8b66bf80f69",
+      "source_sha256": "c47317c7b2aa4afb18ac097c828f3b3bdd0c38bb2e52312dccbdc8b66bf80f69",
+      "read_ranges": [
+        [
+          25,
+          205
+        ]
+      ],
+      "inventory_and_semantics": "Native capture profiles already derive Default/ValueEnum and Args derives Parser with authored admission/option conflicts. Profile-to-runtime string mapping is inherent semantic CLI adapter (some canonical constants), not handwritten trait/serde. Registeredmain tail only, no full CLI/runtime verdict.",
+      "disposition": "No derivability candidate; existing derives or semantic/native behavior retained",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no fixture/native rendering/residency/runtime/global acceptance"
+    },
+    {
+      "material_index": 142,
+      "registration": {
+        "id": "SEGO-INITIAL09-REG698-48",
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs",
+        "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_blob": "101b34feca545b567c15bde7148c92e977c19fa5",
+        "sha256": "3c564d966106dc282daa68307a9b2fe6bb064582bab74f8a50e64a1aa9650896",
+        "ranges": [
+          [
+            44,
+            186
+          ]
+        ],
+        "reason": "Actual1699 setup invokes configure/cameras to populate SceneCaptureState building cameras;1700 camera ReviewTarget uses shared GeneratedBuilding/ReviewRequirements/signs owner,1701 readiness receives actualReviewRequirements. Exact connected callee/type/retained-state contract, not directory adjacency. Full own09 support ranges; shared affected ranges will be narrowed from actual definitions.",
+        "line_count": 186,
+        "registration_evidence": "enum-shapes/source-registration-698.json",
+        "qualification": "Actual connected producer/callee contract only, narrowed affected ranges. No cross-lens coverage or full baseline replay."
+      },
+      "source_origin": "../audit02-delta/sources/3c564d966106dc282daa68307a9b2fe6bb064582bab74f8a50e64a1aa9650896",
+      "source_sha256": "3c564d966106dc282daa68307a9b2fe6bb064582bab74f8a50e64a1aa9650896",
+      "read_ranges": [
+        [
+          44,
+          186
+        ]
+      ],
+      "inventory_and_semantics": "ReviewFixture already derives strict serde record. ReviewRequirements compiles semantic expected doors/windows/audit/sign support, validates fixture view roster and publishes resources only after preparation. No mechanical handwritten codec/trait.",
+      "disposition": "No derivability candidate; existing derives or semantic/native behavior retained",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no fixture/native rendering/residency/runtime/global acceptance"
+    },
+    {
+      "material_index": 143,
+      "registration": {
+        "id": "SEGO-INITIAL09-REG698-49",
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/heating.rs",
+        "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_blob": "4841b02b42447a05a4f53350ff1481ce3fa10651",
+        "sha256": "132d482c3a2ff8afb67a63fe50cbb2d71d33bafe1e0e82649e14c65ac60a93f2",
+        "ranges": [
+          [
+            9,
+            156
+          ]
+        ],
+        "reason": "Actual1700 ReviewTarget::Heating target.frame/offset/anchor concrete coordinate and optional payload owner used by ReviewView camera. Exact connected callee/type/retained-state contract, not directory adjacency. Full own09 support ranges; shared affected ranges will be narrowed from actual definitions.",
+        "line_count": 156,
+        "registration_evidence": "enum-shapes/source-registration-698.json",
+        "qualification": "Actual connected producer/callee contract only, narrowed affected ranges. No cross-lens coverage or full baseline replay."
+      },
+      "source_origin": "../audit02-delta/sources/132d482c3a2ff8afb67a63fe50cbb2d71d33bafe1e0e82649e14c65ac60a93f2",
+      "source_sha256": "132d482c3a2ff8afb67a63fe50cbb2d71d33bafe1e0e82649e14c65ac60a93f2",
+      "read_ranges": [
+        [
+          9,
+          156
+        ]
+      ],
+      "inventory_and_semantics": "HeatingTarget already derives serde spellings. anchor/offset/flue_bounds resolve typed construction identities and checked geometric positions/directions/bounds with concrete error variants. Semantic construction/camera policy retained.",
+      "disposition": "No derivability candidate; existing derives or semantic/native behavior retained",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no fixture/native rendering/residency/runtime/global acceptance"
+    },
+    {
+      "material_index": 144,
+      "registration": {
+        "id": "SEGO-INITIAL09-REG698-50",
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/openings.rs",
+        "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_blob": "67501a9930753b8e42d0f04dd31919afd2d560f2",
+        "sha256": "14199ccf21d392bf19b46f9cfe2acb7675b248c2034bb65d04f9ace610aacc03",
+        "ranges": [
+          [
+            6,
+            217
+          ]
+        ],
+        "reason": "Actual1700 ReviewView.openings OpeningPose + OpeningTarget frame;1701 plugin directly installs select_pose;1702 spawn_openings concrete scene opening producer. Exact connected callee/type/retained-state contract, not directory adjacency. Full own09 support ranges; shared affected ranges will be narrowed from actual definitions.",
+        "line_count": 217,
+        "registration_evidence": "enum-shapes/source-registration-698.json",
+        "qualification": "Actual connected producer/callee contract only, narrowed affected ranges. No cross-lens coverage or full baseline replay."
+      },
+      "source_origin": "../audit02-delta/sources/14199ccf21d392bf19b46f9cfe2acb7675b248c2034bb65d04f9ace610aacc03",
+      "source_sha256": "14199ccf21d392bf19b46f9cfe2acb7675b248c2034bb65d04f9ace610aacc03",
+      "read_ranges": [
+        [
+          6,
+          217
+        ]
+      ],
+      "inventory_and_semantics": "OpeningTarget/Pose derive serde/default; OpeningFrame validates native coordinate inputs. Frame selection and ReviewLeafPose transform choose actual doors/windows/hinges and install native scene objects. No handwritten structural traits/codecs.",
+      "disposition": "No derivability candidate; existing derives or semantic/native behavior retained",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no fixture/native rendering/residency/runtime/global acceptance"
+    },
+    {
+      "material_index": 145,
+      "registration": {
+        "id": "SEGO-INITIAL09-REG698-51",
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/gardens.rs",
+        "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_blob": "d9939d6ab7c6b7b3137de20a0a961a9cbcde5337",
+        "sha256": "5936937971ea96478c9d052b5421c59c54e8866c41c7ed76fee9f3023f04371d",
+        "ranges": [
+          [
+            6,
+            115
+          ]
+        ],
+        "reason": "Actual1701 Observation retains GardenObservation and check gpu at134/275; need concrete readiness result and material evidence producer. Exact connected callee/type/retained-state contract, not directory adjacency. Full own09 support ranges; shared affected ranges will be narrowed from actual definitions.",
+        "line_count": 115,
+        "registration_evidence": "enum-shapes/source-registration-698.json",
+        "qualification": "Actual connected producer/callee contract only, narrowed affected ranges. No cross-lens coverage or full baseline replay."
+      },
+      "source_origin": "../audit02-delta/sources/5936937971ea96478c9d052b5421c59c54e8866c41c7ed76fee9f3023f04371d",
+      "source_sha256": "5936937971ea96478c9d052b5421c59c54e8866c41c7ed76fee9f3023f04371d",
+      "read_ranges": [
+        [
+          6,
+          115
+        ]
+      ],
+      "inventory_and_semantics": "GardenObservation already derives SystemParam. check matches authored plant identity/count/transform and branch/leaf GPU resources, semantic fixture admission rather than codec/trait boilerplate. No new checks/cases or execution.",
+      "disposition": "No derivability candidate; existing derives or semantic/native behavior retained",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no fixture/native rendering/residency/runtime/global acceptance"
+    },
+    {
+      "material_index": 146,
+      "registration": {
+        "id": "SEGO-INITIAL09-REG698-52",
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/lod.rs",
+        "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_blob": "b7f0eb98d3e3023a31d4cce466fd5d2f379d44d5",
+        "sha256": "4fd2d2aefa94b99bee1c8d2784f8399ed4f70bec9c3dfe9431d737192ef4a0e1",
+        "ranges": [
+          [
+            9,
+            98
+          ]
+        ],
+        "reason": "Actual1701 plugin installs select after BuildingClosureVisibility; source1700 cameras and1701 three-renderedlevel observation depend on this concrete selector. Exact connected callee/type/retained-state contract, not directory adjacency. Full own09 support ranges; shared affected ranges will be narrowed from actual definitions.",
+        "line_count": 98,
+        "registration_evidence": "enum-shapes/source-registration-698.json",
+        "qualification": "Actual connected producer/callee contract only, narrowed affected ranges. No cross-lens coverage or full baseline replay."
+      },
+      "source_origin": "../audit02-delta/sources/4fd2d2aefa94b99bee1c8d2784f8399ed4f70bec9c3dfe9431d737192ef4a0e1",
+      "source_sha256": "4fd2d2aefa94b99bee1c8d2784f8399ed4f70bec9c3dfe9431d737192ef4a0e1",
+      "read_ranges": [
+        [
+          9,
+          98
+        ]
+      ],
+      "inventory_and_semantics": "ReviewLod already derives structural/Serialize. From<BuildingRenderLevel> deliberately relabels Lod0/1/2 to Detail/Facade/Shell; enum semantic mapping cannot use direct field From. select preserves original range/overrides native visibility and records computed evidence. No derive candidate.",
+      "disposition": "No derivability candidate; existing derives or semantic/native behavior retained",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no fixture/native rendering/residency/runtime/global acceptance"
+    },
+    {
+      "material_index": 147,
+      "registration": {
+        "id": "SEGO-INITIAL09-REG698-53",
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/gpu_readiness.rs",
+        "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_blob": "942902fabe916a0dad6e3e3b8554f5cd3bb5b929",
+        "sha256": "3fc7f599e45d69c79994c4044060d1cb7552f2d501830a6661d033a4fff9441e",
+        "ranges": [
+          [
+            14,
+            50
+          ]
+        ],
+        "reason": "Actual1701 plugin installs GpuReadiness and assets_ready118\u2013130 calls contains mesh+materialtexture handles; concrete native observation adapter determines availability versus current accepted readiness. Exact connected callee/type/retained-state contract, not directory adjacency. Full own09 support ranges; shared affected ranges will be narrowed from actual definitions.",
+        "line_count": 50,
+        "registration_evidence": "enum-shapes/source-registration-698.json",
+        "qualification": "Actual connected producer/callee contract only, narrowed affected ranges. No cross-lens coverage or full baseline replay."
+      },
+      "source_origin": "../audit02-delta/sources/3fc7f599e45d69c79994c4044060d1cb7552f2d501830a6661d033a4fff9441e",
+      "source_sha256": "3fc7f599e45d69c79994c4044060d1cb7552f2d501830a6661d033a4fff9441e",
+      "read_ranges": [
+        [
+          14,
+          50
+        ]
+      ],
+      "inventory_and_semantics": "GpuReadiness/ResidentAssets already derive Default/Clone/resource as appropriate. ArcMutex residency snapshot and contains mesh+alltextures are native render-world observation predicates, not serde/trait boilerplate. No runtime residency proof.",
+      "disposition": "No derivability candidate; existing derives or semantic/native behavior retained",
+      "evidence_basis": "Fresh personal exact registered material bodies; no other-lens verdict transfer",
+      "limits": "Only stated ranges; no fixture/native rendering/residency/runtime/global acceptance"
+    }
+  ],
+  "checks": "not run",
+  "source_edits": false,
+  "clear": false
+}

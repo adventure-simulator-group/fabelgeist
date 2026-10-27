@@ -1,0 +1,53 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-217",
+  "at": "2026-10-25T21:46:55.522109+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2216,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/template.rs",
+      "sha256": "a1cd00e8c02d5c25d675041927317755b24262122ac4096db8fec9a5b1ac16c8",
+      "personally_read_ranges": [
+        [
+          1,
+          317
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all317lines tiling/template.rs including source tests. One outline+same hole rings supply front/back CDT constraints and boundary walls; triangle and PlateFace append occur together. Invalid CDT returns None to caller HoleSpacing. Private vertex ID offsets refer same appended CDT iteration; finite positive spacing/bevel/hole dimensions derive from construction validator2214. No ordinary hole-crossing/zero-gauge witness; test source only, no execution."
+      ]
+    },
+    {
+      "scope_index": 2217,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/tests.rs",
+      "sha256": "166ec2be7855c465b709326152b2be1babfdcd538a062213cc6a5d8ae680d1f9",
+      "personally_read_ranges": [
+        [
+          1,
+          192
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all192lines tiling/tests.rs as source evidence only. Fixture supplies equal-cardinality positions/normals/skin/morph arrays, actual reversed-grid case and source tests assert finite/output cardinalities, correspondence and skin sums. These show intended same-topology morph and individual plate trim behavior, not passing test execution or arbitrary-input proof."
+      ]
+    },
+    {
+      "scope_index": 2218,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/tile_map.rs",
+      "sha256": "2acac8447a7f7a9347382ff425f74de58a7aeef6786c43d1d352412cbaff4065",
+      "personally_read_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Read all115lines tile_map.rs including source test. Private constructor allocates exact5x9 lattice from fixed4x8cells, fills all spine/row nodes and returns None when surface frame step fails. at clamps chosen cell then interpolates/extrapolates same node layout; denominators rely validated positive plate widths/heights established by constructed path. Same base-grid mapping remains fixed through morphs. No newfinding."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

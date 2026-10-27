@@ -1,0 +1,66 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-390",
+  "at": "2026-10-23T13:01:56.075408+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve.rs",
+      "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "scope072_index": 857,
+      "actual_EOF": 2878,
+      "scoped_ranges_compared": [
+        [
+          1,
+          2878
+        ]
+      ],
+      "actual05_comparison": "Fresh complete 2878-line source, including every original inline fixture. Strategic versus transient state, wound and evidence channel consistency, private attack plans and public battle products independently compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "strategic projection initializes transient state together",
+      "comparison": "Combatant::new initializes all transient attack, engagement, wound, blood-loss, work and ranged-credit fields together. from_strategic_state copies durable fields, snapshots initial ammunition from the same equipment, subtracts fatigue from total starting incapacitation and clamps fatigue separately. Its documented input relationship is that fatigue is already included in strategic incapacitation. Raw public CombatantStrategicState can violate that relationship; the normal DB supplier must establish it. This supports the aggregate discipline of Native F029 without asserting the same literal counterexample or another unique defect. Many Combatant fields remain publicly mutable, so fresh construction is not a sealed proof of all subsequent state. Private timing option fields require the separately queued scheduling operations to retain their correlation. No tactical positions or live tick history should be persisted to repair this boundary."
+    },
+    {
+      "id": "one general fatigue value and physical movement have distinct roles",
+      "comparison": "incapacitation combines strategic residual, blood/pain, acute trauma, general fatigue and encumbrance once. Movement explicitly uses limb agility, armor and physical load, rejects a nonfinite computed speed and admits a positive minimum; it does not add fatigue or total-incapacitation speed scaling. Work accounting retains max active duration, recovery subtracts only inactive time, and advances the residual active interval. Existing fixtures directly express equivalent impairment sources and sliced recovery; source assertions were read, not executed. Underlying workload, bleeding and incapacitation arithmetic remain actual canonical lower contracts, not cleared by call names."
+    },
+    {
+      "id": "applied damage and recorded channel shares have different owners today",
+      "comparison": "apply_attack_result uses health_damage_from_attack, clamps through body.apply_damage, then canonical apportion_attack_health_damage for retained cut and wounds. record_attack independently divides applied total by unweighted raw cut/blunt. Personally consumed Root04 F043 / CONTRACT117, then independently compared current 541\u2013554 and 1104\u20131138: ordinary cut=1, blunt=1 produces applied fractions .05/.0375 but logs .04375/.04375 under the canonical .75 blunt weighting. This is exact existing source-level finding support, no new unique or executed shipped-weapon claim. The proper connected repair carries canonical applied channels into mutation, wound and durable log projection while keeping raw contact energy distinct."
+    },
+    {
+      "id": "private per-side plans preserve vector membership until application",
+      "comparison": "Opening plans are constructed by mapping the complete current attacker slice, one plan per entry. Detour and target indices come from current defender indices; no removal or resizing occurs between planning and application. Each target list is checked nonempty before random.index. PendingAttack indices are built from enumerated attackers and selected current defenders, retained privately, then applied to the same slices. Both ranged sides plan before damage application intentionally, preserving simultaneous responses. Local plan/ranged ammunition decrement is guarded by available ammunition. Canonical active-index and joint-melee helpers remain separate queued source bodies. No public arbitrary plan construction is exposed here."
+    },
+    {
+      "id": "bounded opening fire does not seal public main-round ranged credit",
+      "comparison": "Opening volley counts clamp to the explicit 64-per-phase cap and execution rechecks defeated state and ammunition. Main plan_ranged_round instead accumulates public ranged_attack_progress, extracts floor credit and loops up to ammunition before target damage is applied. Personally consumed CAMERA-ADM03-F015 and compared current 1044\u20131101: huge/Inf prior public credit is not fixed by the 256-round or opening-volley cap. Exact existing API-only admission/work-capacity support; no arbitrary new main-round cap or normal cadence/resource-exhaustion run claimed. Valid fractional residual and legitimate multiple attacks must remain."
+    },
+    {
+      "id": "battle outcomes and diagnostic totals are broad public products",
+      "comparison": "BattleOutcome, BattleLogEntry, Summary and telemetry fields are public serialized projections, not admission tokens. Normal recorder derives hit/outcome from the same AttackResult/effect, stable log sequence from current length and timeline sequence from its private counter. u32 summary totals and log narrowing require an admitted work/capacity bound; the number of combatants is not bounded locally just by the round cap. initial_ammunition is public and can disagree with equipment ammunition, while normal strategic construction snapshots them together. These are precise raw-product preconditions, no ordinary huge roster or duplicate-ID failure asserted. A complete participant identity/membership gate is not present in resolve_battle itself; imported initialization and normal roster suppliers remain separate obligations."
+    },
+    {
+      "id": "terminal classification and seven-region projection are locally correlated",
+      "comparison": "Empty/all-defeated sides and round exhaustion are classified by one closed function; the terminal expect is justified by explicit round_limit=true. Rounds increments only for an entered round. Terminal event takes the last recorded timeline time or admits computed elapsed time if there were no events; chronological ordering depends on queued timeline producers. Outcome derives wound counts from the same current wound vector and terminal cause from the largest impairment contribution, preserving diagnostic cause versus durable forensic non-diagnosis distinction. Fixed BodyPart index map is seven-entry bounded. Numeric wound-flow sums and raw fields still require canonical finite producer contracts."
+    },
+    {
+      "id": "all existing fixtures are source evidence only",
+      "comparison": "Every fixture from 1332 through 2878 was read: fresh strategic initialization, fatigue slice equivalence, authored power/checked safety margins, fixed seeds and side permutation, simultaneous membership and canceled contacts, surprise, ranged defenses and armor, movement/opening cadence, concrete contact item IDs, body injury channels, committed defense/recovery and disabled-arm yield. These define intended relationships but were not executed. No new test, project command, generated artifact or simulation output was produced."
+    }
+  ],
+  "new_unique_findings": [],
+  "existing_finding_support": [
+    "ROOT-INITIAL04-F043 / CONTRACT117 applied channel provenance",
+    "CAMERA-ADM03-F015 public ranged residual credit",
+    "NATIVE-INITIAL05-F029 related raw fatigue/total binding principle"
+  ],
+  "remaining_dependency_obligations": [
+    "Actual scheduling, active index, combat result and normal roster/DB admission suppliers remain separate queued source bodies. No imported helper clearance."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

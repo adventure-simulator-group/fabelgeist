@@ -1,0 +1,135 @@
+{
+  "id": "SEGOVB-CONT11-169-796-PARTIAL-002",
+  "lens": "type-granularity",
+  "original": 796,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/cap.rs",
+  "sha256": "f15aaadb4a376988994c92be34ee22767367490569bb5a1fec2dd21d0db5fdf8",
+  "prior_partial": "audit11-segovb-169-796-partial-001.json",
+  "prior_state": "audit11-segovb-168-proposed-state.json",
+  "actually_read": [
+    [
+      1,
+      256
+    ]
+  ],
+  "source_accounted": false,
+  "source_complete": false,
+  "status": "Full original796 body and exact direct owner/receiver contracts read; actual GPU scalp-to-Surface producer body remains untraced. No ordered advancement.",
+  "contract_traces": [
+    {
+      "role": "Scalp cap channel distinctions and actual storage",
+      "locations": "cap.rs50-118; groom.rs164-185",
+      "trace": "ScalpCap stores model-space metre positions, smooth model-space normals, scalp-map UVs, directional tangent+handedness, triangle vertex slots and opacity. Same primitive arrays do not imply same frame/unit/role. Private fit produces these together and prepare stores cap next to placement and scalp texture. Public fields do not establish arbitrary caller mutations preserve length/identity; coherent owner record does not itself validate all stream associations. No renderer/serialization/skin binding body coverage inferred from exported names."
+    },
+    {
+      "role": "Body projection versus bust parameterization",
+      "locations": "cap.rs78-109; placement.rs38-47,107-126; scalp_map.rs33-147; head.rs170-189,263-269",
+      "trace": "Each original scalp point is mapped by HeadPlacement.point into model space before MeshCollider.query and metre CAP_LIFT offset; smooth normals use distinct inverse-transpose normal mapping. UV uses original bust point, and opacity hairline uses original bust point/head rather than deformed model point. ScalpMap.fit computes center/axis/side/forward/rim from that scalp and head; uv rejects out-of-map direction and maps its unit disk to square, returning normalized texture coordinates. fit uses unwrap_or_default UV fallback; no universal proof that every arbitrary/degenerate Surface point maps successfully is claimed. Head.above_hairline returns signed metre height difference at bust azimuth; cap subtracts metre stepped-edge allowance and divides by metre softness before smoothstep. Signed distance, normal direction, UV and opacity remain distinct meaningful roles."
+    },
+    {
+      "role": "Actual signed body query receiver",
+      "locations": "collider.rs1-24,108-162; groom.rs103-125,131-138",
+      "trace": "Collider.query explicitly returns signed distance (negative inside) plus outward direction; distance delegates to query. MeshCollider owns a BVH and same cloned positions/triangle order plus derived vertex normals/reach. query selects closest triangle and uses barycentric normals to orient distance/outward vector, returning reach/up outside query radius. BodySurface metre positions/faces supplied to place are copied into MeshCollider with BODY_REACH0.1; on_bust builds collider from head mesh and uses identity placement. This first-party numerical port explains local raw float/Vec3 tuple operations without certifying every external body mesh, finite state, normal or algorithm outcome. Named query record could clarify heterogeneous tuple roles if a coherent owner repair is later chosen; no new canonical alias or unique finding accepted."
+    },
+    {
+      "role": "Actual retained scalp/head/map association and pending producer",
+      "locations": "groom.rs27-44,70-93,164-185; surface.rs16-63; head.rs218-254",
+      "trace": "grow derives head from look, cuts GPU scalp for that head, reads scalp into Surface, then fits ScalpMap from that same head/scalp. These retained fields are passed together into cap.fit; no separate reordering is introduced in cap. Surface owns raw parallel positions/normals/UVs/triangles, with optional constructor channels; its constructor computes defaults and derived BVH but does not prove supplied normals/UV lengths. CPU Head.mesh/scalp derives same-index normals/UVs and remaps them with positions when clipping triangles, but that CPU producer is not the actual grow GPU readback path. Therefore no substitute producer proof: exact cut_scalp/GpuScalp.read body is still necessary for source-complete actual producer trace."
+    },
+    {
+      "role": "Tangent numerical kernel",
+      "locations": "cap.rs121-173",
+      "trace": "Input position/normal/UV arrays use same scalp triangle vertex slots. Native triangle-edge displacements and UV determinant produce along-u/along-v accumulators; projection removes normal component, normalizes finite nonzero direction and emits tangentxyz plus sign chosen by normal cross tangent dotv. Degenerate UV area and invalid tangent length have explicit kernel fallbacks. Signed handedness is a closed native rendering component, not independent human role enum. No new epsilon, tolerance, finite geometry bound or orthogonal-fallback correctness guarantee invented. Public channel association remains qualified beyond private producer chain."
+    },
+    {
+      "role": "Sampled clearance and topology workspaces",
+      "locations": "cap.rs175-256",
+      "trace": "clear_skin generates homogeneous barycentric weights from DIP_STEPS4 using nonzero fixed denominator and fixed-sum construction, samples triangle dips, accumulates per-vertex max metre lift, and performs DIP_PASSES4 bounded correction passes using native body distance/query. These are sampled iterative numerical policies, not proof of continuous all-triangle clearance. edge_fade keeps canonicalized undirected edge pairs, triangle incidence counts, vertex neighbours and BFS row distances; MAX denotes unvisited local workspace, then row/EDGE_FADE_ROWS maps to clampedopacity. Homogeneous vertex pairs/triangles/barycentric weights and numerical workspace slots do not warrant enum variants for arbitrary ordinals. Physical metre offsets, sampling/pass counts, graph row distance and output opacity must not be conflated solely by storage type."
+    }
+  ],
+  "sources": [
+    {
+      "original": 796,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/cap.rs",
+      "sha256": "f15aaadb4a376988994c92be34ee22767367490569bb5a1fec2dd21d0db5fdf8",
+      "ordered_credit": false
+    },
+    {
+      "original": 804,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/groom.rs",
+      "sha256": "6be15ac30dc63fd83b87ed48442b9fa9d403bb875737c7bafe13bdc19ac6c4c9",
+      "ordered_credit": false
+    },
+    {
+      "original": 805,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/placement.rs",
+      "sha256": "95f08e95fd0815ac957cb0578ef7291036b5d4a9b047e38da1a9f16bdebd4a7f",
+      "ordered_credit": false
+    },
+    {
+      "original": 2637,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/head.rs",
+      "sha256": "5d1dcadadba0fa88cbd668791a3a995a7ef83af5fdbaa3b699b828531f339335",
+      "ordered_credit": false
+    },
+    {
+      "original": 2643,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/surface.rs",
+      "sha256": "117cfab53d13fbb84de5149685248b1c6a0b6d5578fb8ffdb522d08af10ccd60",
+      "ordered_credit": false
+    },
+    {
+      "original": 2645,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/collider.rs",
+      "sha256": "a6c42473a9969568f6eb700df01cc6753b92bb2034ade7d129733d1a550c2021",
+      "ordered_credit": false
+    },
+    {
+      "original": 2844,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+      "sha256": "717bbedb859bc7b5df413aeea35d20cccbdf1e08dc53f2f8d692b72dc2cc662e",
+      "ordered_credit": false
+    }
+  ],
+  "connected_registration_receipts": [
+    "audit11-segovb-169-registration-001.json",
+    "audit11-segovb-169-registration-002.json",
+    "audit11-segovb-169-registration-003.json",
+    "audit11-segovb-169-registration-004.json",
+    "audit11-segovb-169-registration-005.json",
+    "audit11-segovb-169-registration-006.json"
+  ],
+  "remaining_trace": {
+    "owner_parent": {
+      "original": 2289,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+      "read_from": "crates/fabelgeist-hair/src/gpu/mod.rs",
+      "coverage": "Exact workspace byte hash matches frozen source; symbol locator only. Lines90/113 identify private scalp module and reexported GpuScalp. No cut_scalp/GpuScalp.read bodies in this module. No broad current-family equivalence."
+    },
+    "pending_source_id": "pr-working:crates/fabelgeist-hair/src/gpu/scalp.rs",
+    "pending_identity_status": "Absent from original2853 source_id registry; exact frozen child identity/object requested from root if narrowly locatable. Body not consumed; no current child substituted without frozen provenance.",
+    "boundary": "804grow75-78 cut_scalp then read creates actual Surface; verify geometry stream ordering/cardinality and native readback admission before granting original796 source accounting."
+  },
+  "qualifications": [
+    "One original796 cell only. Original0-795 retained, no797 ordered access; allconnected original804/805/2289/etc receive zero ordered credit.",
+    "No current cap796 counterpart read. Byte identity of one native parent receiver file is not current cap family identity or integration proof.",
+    "Prior795 NaN remains frozen local qualified candidate, with no new accepted unique finding or currentness promotion.",
+    "Source-key crosswalk001 and current Dressing reconciliation001 remain controlling; no bare Q008/Q009 aliases or F50/M108 family clearance.",
+    "Type granularity assessment does not transfer admission, aggregate state, numerical invariants, GPU behavior, comment accuracy or other-lens verdicts.",
+    "No new accepted finding/alias/count; potential primitive geometry/frame/query record questions remain source-local and broadly unreconciled.",
+    "No product/Git/rootledger/history edits, project execution/tests/probes/scanners or publication; append-only ignored evidence only."
+  ],
+  "new_unique_findings": 0,
+  "accepted_unique_count_change": 0,
+  "original_accounted": 796,
+  "original_total": 2853,
+  "next_original": 796,
+  "current_counterpart_inspected": false,
+  "integrated": false,
+  "validated": false,
+  "clear": false,
+  "crosswalk": "audit11-question-crosswalk-001.json",
+  "current_reconciliation": "current-rig-dressing-reconciliation-001.json",
+  "stop_boundary": "One-cell bounded packet checkpoint at concrete native scalp child provenance/body limit; do not begin797."
+}

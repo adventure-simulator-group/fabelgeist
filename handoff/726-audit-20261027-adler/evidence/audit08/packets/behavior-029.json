@@ -1,0 +1,95 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-029",
+  "lens": "08 behavior-preservation",
+  "completed_original": [
+    1515,
+    1516,
+    1517,
+    1518,
+    1519,
+    1520
+  ],
+  "source_pin": "source-pins-and-scope-044.json",
+  "source_reads": {
+    "1515": {
+      "head": [
+        [
+          1,
+          103
+        ]
+      ],
+      "actual_diff": "empty; exactbase/headhashidentity"
+    },
+    "1516": {
+      "head": [
+        [
+          1,
+          151
+        ]
+      ],
+      "actual_diff": "empty; exactbase/headhashidentity"
+    },
+    "1517": {
+      "head": [
+        [
+          1,
+          102
+        ]
+      ],
+      "actual_diff": "empty; exactbase/headhashidentity"
+    },
+    "1518": {
+      "head": [
+        [
+          1,
+          123
+        ]
+      ],
+      "actual_diff": "empty; exactbase/headhashidentity"
+    },
+    "1519": {
+      "head": [
+        [
+          1,
+          139
+        ]
+      ],
+      "actual_diff": "empty; exactbase/headhashidentity"
+    },
+    "1520": {
+      "head": [
+        [
+          1,
+          107
+        ]
+      ],
+      "actual_diff": "empty; exactbase/headhashidentity"
+    }
+  },
+  "material_receipt": {
+    "index": 123,
+    "registration": "shared-material-successor/source-extensions-179.json entry123, immutable under181",
+    "pin": "support-material-gpu-draw-045.json",
+    "read_ranges": [
+      [
+        1,
+        134
+      ]
+    ],
+    "actual_diff": "empty; exactbasehashmatches frozenSHAfaca55a34e4a003497e4f3aa87dfcef3a25e20ffa7e6c7108785a2df225e7337",
+    "independence": "Fresh actual source analysis for08; no01/03/07/09 verdict imported, no material0-122/fullqueuecredit."
+  },
+  "comparisons": [
+    "1515CityFrame stores affineworld/normalinverseTranspose/handedness, samegeographicprojectioneastscale/sign/absoluteelevation andnativef64->f32casts. installupdatesonlyresidentframebuffer beforeCPUframecommit andrejectsmissingbuffer withoutchangingCPUframe; sameframe no-op andemptycity storedframeonly. Exact029receiver uniforms/scratchbind frame stillsameper-owner, old1513sourceoracles verifyintendedreanchorbufferidentity source-only. No addedgeographicnormalization/wrappingorunderlyingsamplercoverageassumed.",
+    "1516geometrypacking preserves triangle order/page split beforeinsert, per-page remap reset,threeVec4vertexwordslanes(position+UVx/normal+UVy/tangent), optionaltangentfallbacksameany_orthonormal_vector, andindex/nativecast/radiuslayout.64MiBpervertex/indexpage threshold identical andactualoversizedmeshfixture exactread; lowernativeattribute/indexbounds/finiteguarantees notinvented. Unchangedpanicsforwrongmissingattributes remainpreexistingcontractlimits, notnewissue.",
+    "1517CityMaterial copiesactualStandardMaterial linearcolor/roughness/metallic/maskcutoff/normalpresence andUVdiagonal+offset, sametexturehandles. NativealphaMaskpositivecutoffelseOpaque, samefourvertex/fragmentprepasshooks andspecializelayoutslot2/vertexbufferstride0/clearedattributes/noCull. ActualnativeSDKwholepipeline/shader internalsremainseparatecontracts; unchangedconstructorisnotinventedfullmaterialsupport.",
+    "1518CityGpuPlugin schedulesassemblyLast afterdeferredmaterialupdates andbeforeExtract; preservesALLownerScene/RegionalMapindependentresources andRelaxedREADY. Nativevaluescluster64tri/192vertex/MAX64viewsconfirmedactualconstants. Visibilitysetter andresetscopeonlysameowneranchors/buffers/pendingqueue; no crossowner eviction. Unchangeddraw/compute installation nowdirectactualM123recipientread.",
+    "1519scratch requiresresidentbuildings+frame+allbatchbuffers; samebuildingsAssetIdandenoughslotsreuse, freshcandidatebuffersonlycommittedafterallbatchesprepare. capacity*slots*UVec2nativebytesdevicebindinglimit check and16byteindirectrecord [192,0,0,slot*capacity] littleendian/usageflags preserved. Samegeometrybindingtuplevertices/buildings/visible/ranges/indices/owners/frame andlayoutread-onlytypes. No newallmutablebuffer-invalidation/deviceassociation guarantee claimed; existingnativeGPUobligationsretained.",
+    "FreshM123DrawCity consumesactualpreparedOwnerViews slot andsame scratchbatch via CityMaterialAssetId lookup; bindsgeometrygroup2, sameindirectbufferasvertexslot0 thennative draw_indirect(slot*16). Main/shadow/prepassdrawcommandssameview/materialgroups; renderassetreplacementlimitedCityMaterialandArc::get_mut skip. This closesactualassembly\u2192compute/scratch\u2192draw association atsourcelevel WITH lowerdevice/shader/readiness qualifications; notnativeexecution.",
+    "1520ComponentCache nativebitpatternsize+interior key andsamecanonicalTimberComponent meshes, reusedHandle/material/trianglecount, localtranslation*instanceTransform andUVoffset. StaticaddsLOD0,facadeflagaddsLOD1;Wasmfacadeinstall retainsprogram/localorigin/signsites/shell/facadebuffers thenretainsgenerationfacadebeforecachecommit. Exactsourceproducers and1502receiver nowread; geometrygenerator/material/shaderfuturefamiliesremaintracked."
+  ],
+  "new_unique_findings": [],
+  "disposition": "Six fullregisteredunchangedoriginalroles plus freshindependentM123 boundedreceipt complete WITH statednative/foreign/geometrygenerator qualifications. No automatic materialqueue/globalclearance.",
+  "global_clearance": false,
+  "execution": "No product/Gitmutations, localprojectchecks/tests/newcases/assertions/probes."
+}

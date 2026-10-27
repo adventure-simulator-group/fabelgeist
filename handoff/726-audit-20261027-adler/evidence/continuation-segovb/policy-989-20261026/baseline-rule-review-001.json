@@ -1,0 +1,276 @@
+{
+  "id": "SEGOVB-989-990-BASELINE-RULE-REVIEW-001",
+  "scope": "Bounded baseline-only final acceptance delta plus exact formatting reconciliation; earlier Rule Review retained only at matching source/receiver pins. No new architectural/global audit clearance.",
+  "base": "b3810b8b5db78c15cc51a0e1bef747a06450dffb",
+  "implementation_source_before_baseline": "f2978ded53c97a69e3ee6855843078364a942920",
+  "current_manifest": {
+    "path": "implementation-manifest-003.json",
+    "sha256": "a312f2807be27d68f3e3cf2e6302479314e7f9aa8a66a3b16f1ce46909e4eb3b"
+  },
+  "prior_rule_review": {
+    "path": "rule-review-001.json",
+    "sha256": "2e316d7c42c44016e9d6399e141177af7e67d61bc39fb7d376fcb12202aae7db",
+    "disposition": "Prior source-only no-actionable-finding verdict and exact semantic traces carried forward; prior acceptance-pending baseline item resolved by verified actual snapshot/applicable reduction. Final same-head hosted checks remain pending."
+  },
+  "verdict": "No actionable finding in this bounded baseline/format delta. Relevant baseline reduction matches actual hosted output; source condition is ready for final push and hosted validation.",
+  "findings": [],
+  "baseline_contract": {
+    "governing_rule": "crates/AGENTS.md: after splitting an oversized module or migrating a semantic family, run baseline and apply only relevant reductions; never raise ceilings. Hosted-only execution constraint honored.",
+    "source_location": "rust-quality-baseline.toml697-699",
+    "applied_mutation": "Only TextureCube module file ceiling862->812. Function ceilings remain161/149/142.",
+    "proof": {
+      "current_sha256": "8ccab96e129e4b873ed3f8ae3841afd6bf7cfa59809b69cbed46ec41855b171e",
+      "old_sha256": "6144a5ab4e1f3132caf4c5b0aee92b151f093153e3e5bed8e4d6fadd7f12edb1",
+      "inverse_812_to_862_sha256": "6144a5ab4e1f3132caf4c5b0aee92b151f093153e3e5bed8e4d6fadd7f12edb1",
+      "exact_old_hash_restored": true,
+      "only_mutation": "Cube file ceiling862->812; no other baseline bytes changed"
+    },
+    "artifact_snapshot_sha256": "bdf6580dab45e25f9de25a94f2e5b1888f1b316b2104b028b64b98d9f671481f",
+    "actual_entries": {
+      "files": [
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "ceiling": 812
+        }
+      ],
+      "functions": [
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "item": "TextureCube::blit_texture_to_face",
+          "ceiling": 161
+        },
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "item": "TextureCube::render_face_shader_raw",
+          "ceiling": 149
+        },
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+          "item": "TextureCube::render_shader_raw",
+          "ceiling": 142
+        }
+      ]
+    },
+    "assessment": "Source repair satisfies exact relevant no-growth reduction. No blanket regenerated baseline applied, no ceiling raised, unrelated baseline bytes identical to prior reviewed baseline."
+  },
+  "format_reconciliation": {
+    "patch": "hosted-format-fix-001.patch",
+    "patch_sha256": "a0177de5ab47e02bda17cc9bc742906124de6c46d1664557c43f6edad273d070",
+    "proof": {
+      "current_sha256": "3adc6454ec9a8cada8428ebd2b800f5b7374028ce73a52df204e54aab3750a93",
+      "prior_review_sha256": "c396c5486a664dbb5d1804963e21e76bbee671521319e625c38f0b7531f3a391",
+      "inverse_nested_import_wrapping_sha256": "c396c5486a664dbb5d1804963e21e76bbee671521319e625c38f0b7531f3a391",
+      "exact_prior_bytes_restored": true
+    },
+    "assessment": "Only nested use-list line wrapping changed; exact inverse restores entire prior reviewed file hash. All imported names, function bodies, cfg, policy, error payloads and receiver behavior remain byte-identical outside this whitespace edit. Seven other original source manifest pins unchanged."
+  },
+  "hosted_evidence": {
+    "run": 40420900203,
+    "artifact_id": 12698030019,
+    "artifact_digest_as_recorded": "sha256:e92deac498819b18dc0c1d6126fdc4a686b757d24dc19d7e85a3c1923745b99a",
+    "identity_qualification": "Run/artifact id and published artifact digest are root-provided downloaded-artifact metadata; this review independently checked local source/pr-head/results identity and baseline content SHA, not a new remote/archive attestation.",
+    "source_file": "f2978ded53c97a69e3ee6855843078364a942920",
+    "pr_head_file": "f2978ded53c97a69e3ee6855843078364a942920",
+    "results": {
+      "source": "f2978ded53c97a69e3ee6855843078364a942920",
+      "results": {
+        "library": {
+          "passed": 13,
+          "failed": 0,
+          "ignored": 0
+        },
+        "doctests": {
+          "passed": 2,
+          "failed": 0,
+          "ignored": 0
+        },
+        "borrowed": {
+          "passed": 1,
+          "failed": 0,
+          "ignored": 0
+        }
+      }
+    },
+    "log_summary_crosscheck": {
+      "library": "13passed,0failed,0ignored,0filtered",
+      "doctests": "2passed,0failed,0ignored,0filtered",
+      "borrowed_exact": "1passed,0failed,0ignored,12filtered"
+    },
+    "coverage": "Subset at exact pre-baseline f2978 implementation source only; not final whole CI success or post-baseline same-head acceptance."
+  },
+  "current_nine_source_pins": [
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "sha256": "a7d4fc3525525acbcfa7ea6d88f751261132fc912cd26696d4975897a5f8b97e",
+      "lines": 34,
+      "actual_sha256": "a7d4fc3525525acbcfa7ea6d88f751261132fc912cd26696d4975897a5f8b97e"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "d6cd017cc5d337a0ad47543cc51cc009cff84fa78bb65499b1cddfcb60afcb55",
+      "lines": 620,
+      "actual_sha256": "d6cd017cc5d337a0ad47543cc51cc009cff84fa78bb65499b1cddfcb60afcb55"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "5b020e16dadfbc30f2eb50b784552258d880c631376ffc1d62e9e25cae07c992",
+      "lines": 264,
+      "actual_sha256": "5b020e16dadfbc30f2eb50b784552258d880c631376ffc1d62e9e25cae07c992"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "a5ec79b944808520b15bc649e4d54b14612859c9a5b1b1f8446a47c17bb6c1d6",
+      "lines": 905,
+      "actual_sha256": "a5ec79b944808520b15bc649e4d54b14612859c9a5b1b1f8446a47c17bb6c1d6"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "3adc6454ec9a8cada8428ebd2b800f5b7374028ce73a52df204e54aab3750a93",
+      "lines": 125,
+      "actual_sha256": "3adc6454ec9a8cada8428ebd2b800f5b7374028ce73a52df204e54aab3750a93"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "f0828dbc6755445932455e5aa9edf040f2222deca3c1fe38c44460da856565d8",
+      "lines": 42,
+      "actual_sha256": "f0828dbc6755445932455e5aa9edf040f2222deca3c1fe38c44460da856565d8"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "14ac95339951ceb8b50cc3ab9452c251bbbce6122ebd7206a3961c406ff74858",
+      "lines": 323,
+      "actual_sha256": "14ac95339951ceb8b50cc3ab9452c251bbbce6122ebd7206a3961c406ff74858"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "022b9d73dd2cfc76963f3945bc7b7c89e6bbb8322889adccf3599a7b4b0e83e7",
+      "lines": 87,
+      "actual_sha256": "022b9d73dd2cfc76963f3945bc7b7c89e6bbb8322889adccf3599a7b4b0e83e7"
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "8ccab96e129e4b873ed3f8ae3841afd6bf7cfa59809b69cbed46ec41855b171e",
+      "lines": 12838,
+      "actual_sha256": "8ccab96e129e4b873ed3f8ae3841afd6bf7cfa59809b69cbed46ec41855b171e"
+    }
+  ],
+  "retained_connected_receiver_pins": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "d6cd017cc5d337a0ad47543cc51cc009cff84fa78bb65499b1cddfcb60afcb55",
+      "matches_prior_review": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "5b020e16dadfbc30f2eb50b784552258d880c631376ffc1d62e9e25cae07c992",
+      "matches_prior_review": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "a5ec79b944808520b15bc649e4d54b14612859c9a5b1b1f8446a47c17bb6c1d6",
+      "matches_prior_review": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "14ac95339951ceb8b50cc3ab9452c251bbbce6122ebd7206a3961c406ff74858",
+      "matches_prior_review": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "e3ad593b83da185620d2729a5fde4a0f7bfda1c39993494432c55a0c989e0973",
+      "matches_prior_review": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "sha256": "878a4144b4fecdc20291885050e30fe521a5294117046c282ef24d40c5e407d9",
+      "matches_prior_review": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/cube_face.rs",
+      "sha256": "db49ac57de817ae29d6341288c341aacbe884102e4d98575a32590f334f90709",
+      "matches_prior_review": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "sha256": "878a4144b4fecdc20291885050e30fe521a5294117046c282ef24d40c5e407d9",
+      "matches_prior_review": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "5b5fe5e4ff2f4e7d2ec8daf2e852ea0c6f5de112716d6d1695502b1304318106",
+      "matches_prior_review": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "786f4f75b779e92f2a1b2e521e672606b4fa3b6bf9176530903dd6a4edf7f84b",
+      "matches_prior_review": true
+    }
+  ],
+  "bounded_source_reads_registration": "baseline-rule-registration-001.json",
+  "artifact_fingerprints": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/hosted/run40420900203/gpu/source.txt",
+      "sha256": "15a74bc0a01a567b6550519f9cd1d6850c3e5cd4a3677c2a56a25423c53ea559",
+      "coverage": "source/pr-head/result metadata and relevant cube baseline records; log result summaries only"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/hosted/run40420900203/gpu/pr-head.txt",
+      "sha256": "15a74bc0a01a567b6550519f9cd1d6850c3e5cd4a3677c2a56a25423c53ea559",
+      "coverage": "source/pr-head/result metadata and relevant cube baseline records; log result summaries only"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/hosted/run40420900203/gpu/results.json",
+      "sha256": "4906d705f1a0956b9d4fb1363e96579940bb591647b1c220da2f31642cbd5883",
+      "coverage": "source/pr-head/result metadata and relevant cube baseline records; log result summaries only"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/hosted/run40420900203/gpu/rust-quality-baseline.toml",
+      "sha256": "bdf6580dab45e25f9de25a94f2e5b1888f1b316b2104b028b64b98d9f671481f",
+      "coverage": "source/pr-head/result metadata and relevant cube baseline records; log result summaries only"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/hosted/run40420900203/gpu/library.log",
+      "sha256": "4921fbf22c658cd46dd303550d22e2a421922015dd6c1ea5e7d87a4c8898f58a",
+      "coverage": "source/pr-head/result metadata and relevant cube baseline records; log result summaries only"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/hosted/run40420900203/gpu/doctests.log",
+      "sha256": "487a510c5b39c3c959c3faf22757dff0b0993e06641c57367dfe350099c5a819",
+      "coverage": "source/pr-head/result metadata and relevant cube baseline records; log result summaries only"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/hosted/run40420900203/gpu/borrowed.log",
+      "sha256": "501e2026dcdd8ffaa2f0175f1b4edf6e9bb2dd7f22eae60a2d7616f31bc8561e",
+      "coverage": "source/pr-head/result metadata and relevant cube baseline records; log result summaries only"
+    }
+  ],
+  "proof_data": {
+    "path": "baseline-rule-review-001-data.json",
+    "sha256": "34b855542e473db8f70e8c0e6f66ca68f7fa374b4497a5901230975969a259a2"
+  },
+  "rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23"
+    }
+  ],
+  "accepted_constraints": [
+    "No backward compatibility requirement or source/API/layout/message preservation condition; prior clean final schema remains source-reviewed.",
+    "No new tests/assertions/helpers/doctests; exact format inverse and source pins preserve prior no-addition review.",
+    "No local project execution, baseline scanner, tests or probes; only bounded source/JSON/TOML/hash comparison."
+  ],
+  "acceptance_pending": [
+    "Commit/push relevant baseline change and complete final hosted checks on that exact new head.",
+    "Do not infer final acceptance from earlier subset or failure-branch behavior not exercised."
+  ],
+  "checks_tests_probes_run": "none",
+  "product_git_rootledger_history_changes": false,
+  "external_publication": false,
+  "new_original_audit_credit": false,
+  "global_clearance": false,
+  "stop": true
+}

@@ -1,0 +1,182 @@
+{
+  "at": "2026-10-27T01:33:15.057878+00:00",
+  "packet": "020",
+  "authority": "Read-only exact immutable cached native Git commit; no repositoryGit mutation/network/fulltree download",
+  "native_commit": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+  "peer_comparison": {
+    "source": "src/render/types.wgsl",
+    "sha256": "9bd27e4a4bb61b319e4ee13ae7e1407be2fdd432471ef6e9aede72e206321d90",
+    "matches_known_f82_original37": true,
+    "limitation": "SameGitcommit/sameknownpeer doesnotprove identitiesofallunseenfrozenmembercopies orcurrentmain"
+  },
+  "sources": [
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/material.rs",
+      "git_blob_oid": "7a49ce42df420c656d68b7b33c36fa2e31ed6555",
+      "sha256": "67733383aa74089a84e76448e23b6911132a2a298ab684e44655f8e85fa0765c",
+      "bytes": 5459,
+      "actual_lines": 203,
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/67733383aa74089a84e76448e23b6911132a2a298ab684e44655f8e85fa0765c",
+      "identifier_only_locators": [
+        [
+          23,
+          "pub trait InstancedMaterial: Asset + AsBindGroup + Clone + Sized + Send + Sync + 'static {"
+        ],
+        [
+          25,
+          "    fn vertex_shader() -> ShaderRef {"
+        ],
+        [
+          30,
+          "    fn fragment_shader() -> ShaderRef {"
+        ],
+        [
+          33,
+          "    fn prepass_shader() -> ShaderRef {"
+        ],
+        [
+          38,
+          "    fn cull_shader() -> ShaderRef {"
+        ],
+        [
+          42,
+          "    fn disable_prepass(&self) -> bool {"
+        ],
+        [
+          46,
+          "    fn polygon_mode(&self) -> PolygonMode {"
+        ],
+        [
+          50,
+          "    fn debug(&self) -> bool {"
+        ],
+        [
+          54,
+          "    fn debug_color(&self) -> Color {"
+        ],
+        [
+          58,
+          "    fn double_sided(&self) -> bool {"
+        ],
+        [
+          63,
+          "    fn specialize("
+        ],
+        [
+          73,
+          "#[uniform(0, InstancedMaterialUniforms)]"
+        ],
+        [
+          75,
+          "pub struct StandardInstancedMaterial {"
+        ],
+        [
+          83,
+          "impl From<&StandardInstancedMaterial> for InstancedMaterialKey {"
+        ],
+        [
+          84,
+          "    fn from(material: &StandardInstancedMaterial) -> Self {"
+        ],
+        [
+          104,
+          "impl InstancedMaterial for StandardInstancedMaterial {"
+        ],
+        [
+          105,
+          "    fn disable_prepass(&self) -> bool {"
+        ],
+        [
+          109,
+          "    fn polygon_mode(&self) -> PolygonMode {"
+        ],
+        [
+          113,
+          "    fn debug(&self) -> bool {"
+        ],
+        [
+          116,
+          "    fn debug_color(&self) -> Color {"
+        ],
+        [
+          120,
+          "    fn double_sided(&self) -> bool {"
+        ],
+        [
+          124,
+          "    fn specialize("
+        ],
+        [
+          150,
+          "            fragment.shader_defs.push(\"MATERIAL_DEBUG\".into());"
+        ],
+        [
+          159,
+          "pub struct InstancedMaterialUniforms {"
+        ],
+        [
+          163,
+          "impl InstancedMaterialUniforms {"
+        ],
+        [
+          164,
+          "    pub fn new(debug_color: Vec4) -> Self {"
+        ],
+        [
+          170,
+          "pub struct InstancedMeshMaterial<M>(pub Handle<M>)"
+        ],
+        [
+          174,
+          "impl<M: InstancedMaterial> SyncComponent for InstancedMeshMaterial<M> {"
+        ],
+        [
+          178,
+          "impl<M: InstancedMaterial> ExtractComponent for InstancedMeshMaterial<M> {"
+        ],
+        [
+          183,
+          "    fn extract_component(item: QueryItem<'_, '_, Self::QueryData>) -> Option<Self> {"
+        ],
+        [
+          188,
+          "impl<'a> From<&'a StandardInstancedMaterial> for InstancedMaterialUniforms {"
+        ],
+        [
+          189,
+          "    fn from(material: &'a StandardInstancedMaterial) -> Self {"
+        ],
+        [
+          197,
+          "    pub struct InstancedMaterialKey: u64 {"
+        ]
+      ],
+      "body_read_coverage": false
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepared_material.rs",
+      "git_blob_oid": "46aff730839fbeedeb60c47becfddaa22bd44184",
+      "sha256": "768aee9dc6ac7401d6c33c3b40196b416a56ace65352de1419e8a7c26472f813",
+      "bytes": 3950,
+      "actual_lines": 109,
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/768aee9dc6ac7401d6c33c3b40196b416a56ace65352de1419e8a7c26472f813",
+      "identifier_only_locators": [
+        [
+          20,
+          "pub struct PreparedInstancedMaterial<M: InstancedMaterial> {"
+        ],
+        [
+          30,
+          "impl<M: InstancedMaterial> RenderAsset for PreparedInstancedMaterial<M> {"
+        ],
+        [
+          42,
+          "    fn prepare_asset("
+        ]
+      ],
+      "body_read_coverage": false
+    }
+  ],
+  "stage_is_personal_body_coverage": false,
+  "scope": "OnlyrequestedMaterialUniforms/defaultdebug materialproducer/upload receivers; prospective bodyranges registrationstillrequired"
+}

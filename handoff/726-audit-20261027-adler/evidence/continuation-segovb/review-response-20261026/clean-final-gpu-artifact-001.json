@@ -1,0 +1,89 @@
+{
+  "head": "ef7630d757a6994297f6d24840991cda61bda63c",
+  "run": 40404924760,
+  "artifact": {
+    "id": 12690513181,
+    "name": "texture-view-validation-40404924760-1",
+    "size_in_bytes": 29921,
+    "url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/actions/artifacts/12690513181",
+    "archive_download_url": "https://api.github.com/repos/adventure-simulator-group/fabelgeist/actions/artifacts/12690513181/zip",
+    "expired": false,
+    "created_at": "2026-10-26T21:49:48Z",
+    "expires_at": "2027-01-24T21:30:26Z",
+    "updated_at": "2026-10-26T21:49:48Z",
+    "digest": "sha256:24354b57ea4ceb15ba1c3533789cc559047d581994534b3b65dd7a5594b2c134",
+    "workflow_run": {
+      "id": 40404924760,
+      "repository_id": 1049441561,
+      "head_repository_id": 1049441561,
+      "head_branch": "codex/826-texture-view-errors-main",
+      "head_sha": "ef7630d757a6994297f6d24840991cda61bda63c"
+    }
+  },
+  "at": "2026-10-26T21:52:56.138678+00:00",
+  "source_files_verified": true,
+  "actual_log_results": {
+    "library": {
+      "passed": 13,
+      "failed": 0,
+      "ignored": 0
+    },
+    "doctests": {
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0
+    },
+    "borrowed": {
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0
+    }
+  },
+  "files": [
+    {
+      "path": "borrowed.command.txt",
+      "sha256": "ac753c838d8ff9782d898b9dfb0a3e82479a4354d34cdde1447a3d82fba19c5b"
+    },
+    {
+      "path": "borrowed.log",
+      "sha256": "501e2026dcdd8ffaa2f0175f1b4edf6e9bb2dd7f22eae60a2d7616f31bc8561e"
+    },
+    {
+      "path": "doctests.command.txt",
+      "sha256": "d6ab4cb9f496a0d1838a8455caa4f86b1e8bad8d301558033e24cb7fcdf7f154"
+    },
+    {
+      "path": "doctests.log",
+      "sha256": "cb7bbdd835b7cf17c9a460043bc7f3c171979335b8b5e6b7f6760b9081588075"
+    },
+    {
+      "path": "library.command.txt",
+      "sha256": "db18db08c53fe13e1b5f758450500af3bf7f0ad70b06caab2c65882d62bd205d"
+    },
+    {
+      "path": "library.log",
+      "sha256": "8f4096dd6819ba7653f562c408165e56ae21d90ffbcf22776ae51cfcdb11820d"
+    },
+    {
+      "path": "pr-head.txt",
+      "sha256": "57b32bdbac55bf11ae2e960be550d7ec52a1d907ee9e24ed5e12216ee2843790"
+    },
+    {
+      "path": "results.json",
+      "sha256": "861e6ddf6007c93ae60aab926cdd07d4846ccc67f727ce269678f117e8d5be03"
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "6c59c24c8c7ca1c3e252ddf9bf8cbded3ab5cec47a7bdb7b5e185f8acb6839dc"
+    },
+    {
+      "path": "source.txt",
+      "sha256": "57b32bdbac55bf11ae2e960be550d7ec52a1d907ee9e24ed5e12216ee2843790"
+    }
+  ],
+  "full_linux_acceptance": "Pending remaining stages; no old-head results credited",
+  "scope_limit": "Existing tests only; new error/poll-failure branches source-reviewed, not directly exercised by these cases",
+  "no_local_project_execution": true,
+  "baseline_2d_entry_absent": true,
+  "baseline_cube_ceiling": 862
+}

@@ -1,0 +1,140 @@
+{
+  "lens": "13 magic-numbers",
+  "packet": "017",
+  "at": "2026-10-27T00:44:54.509388+00:00",
+  "status": "One upstream shrub/litter-shared placement/count path now source-traced to an explicit lattice upper bound; admitted terrain-dimension/cardinality contract remains unread. Original31/36 partials and35/2853 count unchanged. Stop bounded packet.",
+  "authority": {
+    "frozen_original_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "original_scope": "original31 nativecomponents.rs e2053ee2... full1-193 retained; original36 sharedIOpartial retained",
+    "upstream_dependency": "pr-working understory.rs exact registry1582SHA2d5aaa58b592f7182c148c4bcdd572837c6e85df8e036e622c604c92bb594d96",
+    "staging_receipt": "audit13-root-understory-staging-017.json",
+    "prior_root_adopted_state": "audit13-successor-016-suggested-state.json",
+    "prior_state_sha256": "7b7cce46461ba9dbf4093ec71118c49d6a0b9275582dc9eb581a77f57c4b5fee",
+    "root_adoption_required": true
+  },
+  "registration": {
+    "path": "audit13-successor-registration-017.json",
+    "sha256": "d986e87331acd9c800a665b9b8178578a6da9b9bdd504861e6fb268a65ced412",
+    "before_actual_body_read": true
+  },
+  "source_fingerprint": {
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/understory.rs",
+    "sha256": "2d5aaa58b592f7182c148c4bcdd572837c6e85df8e036e622c604c92bb594d96",
+    "bytes": 12616,
+    "actual_lines": 357,
+    "registered_and_consumed_ranges": [
+      [
+        1,
+        151
+      ]
+    ],
+    "post_read_hash_verified": true,
+    "registry_alias_metadata": "Original1582 sameSHA; dependencyreadonly, zero independentoriginal1582credit"
+  },
+  "provenance": "Exact modified pr-working frozen manifest/recovered f82 source object,357lines/12616bytes. Changedsource hash distinct from recorded base d548990d...; base/current/physical snapshots not substituted or assumed equivalent. Function/test-boundary navigation and root staging were metadata only. No original1582role credit from this subset receiving read.",
+  "independent_numeric_inventory": [
+    {
+      "locations": "11-31 UnderstoryHabitat/ShrubPlacement/Species",
+      "roles": "Habitat canopy/wetland/cultivation/moisture rawf32; typedclosedSpecies,ScenePlanPoint,Seed retained inShrubPlacement.",
+      "assessment": "Species/point/hash have canonicaltypedowners; habitatunitrange/finite admission is not implemented by fourrawfields inthissource. Upstreamhabitatproducer notread; no positiveboundedweights guarantee assumed."
+    },
+    {
+      "locations": "33-58 select_species",
+      "roles": "Unit complements, authoredhabitatweight coefficients, threeweights, basis-point scaleowner, round/as_u64, weighted-index andfixedspeciesarray.",
+      "actual_operations": "dry=1-moisture/open=1-canopy; compute threeweightedformulas; map weight*existingadventuresim_world_schema::BASIS_POINTS_PER_WHOLE,round,castu64; deterministicstream.weighted_index(...).expect; returnindexintofixed3speciesarray.",
+      "assessment": "Concrete weightedselection boundary/quantization visible; actualRNGweighted_index contract/returned-index bound, basispointowner implementation, allhabitatinputbounds andnumericerrorbudget are unread. No wholeprobabilityadmission orpanic-freedom inferredfromexpectprose."
+    },
+    {
+      "locations": "62-105 placements",
+      "roles": "Rawchancef32; literalspacing3.2; terrainwidth/depthfloatstolatticecounti32 viafloor/cast; halfextentfactor.5; iterationindices; deterministicseedselectors; probabilitycap.82; jitter/coordinates; typedpointadmission andgroundpredicate.",
+      "actual_operations": "Compute count_x=floor(width/3.2) asi32/count_z likewise, halfextents=dimensions*.5. For each z0..count_z/x0..count_x deriveSeed using integerselectors, communityseed, presence threshold=min(chance*communitymultiplier,.82), reject byrandomdraw, createjitterunit-.5, compute centeredsceneinterpretedmetrecoords withcellcenter.5/jitterfactor.72, attemptScenePlanPoint::from_metres, selectspecies, groundfilter, thenpushoneShrubPlacement.",
+      "assessment": "Exact producer loop/count and at-most-onepush per cell are established. No local total count cap/chunk or hard dimensions budget. Rngunit/finiteness/distribution, terrain/point/ground admissions and exactphysical spacing/units guarantees notproved fromnames."
+    },
+    {
+      "locations": "107-117 community_hash",
+      "roles": "Latticecommunityindicesi32; Euclideanblocks4; u32tou64selectorencoding; typedSeed.",
+      "actual_operations": "community_x=x.div_euclid4/zlikewise, seedexistingCOMMUNITYstreamwithconvertedcoordinatepair.",
+      "assessment": "Actual observedplacements edge suppliesnonnegativefor-loopindices, so their narrowing to u32 doesnot reinterpretnegativeinputs onthat edge. Fourcellcommunity groupingislocalpolicy,notnewworldcoordinateowner. Otherpossiblemodulecallers andstreamimplementation unread."
+    },
+    {
+      "locations": "119-133 density_multiplier",
+      "roles": "Randomstructuref32, thresholds.25/.60 and multipliers2.5/1/.15.",
+      "actual_operations": "Mapone deterministicdraw tothreedensity regimes.",
+      "assessment": "Authored populationtuning affects chance,not a deterministic total populationbudget. Inputrandomrange andprobability/finite owner guarantees unread; do not multiplyhardcardinalitybound byexpected density."
+    },
+    {
+      "locations": "135-150 ground_allows_species",
+      "roles": "Namedpredicatebool, typedGroundSurface/Species enums, zero-densitypresence check.",
+      "actual_operations": "Rejectwater/reeds/barewithcoverdensity0;leaflitterallowsspeciesotherthanBlackthorn;loosestonereject;bare/tallgrassallow;reedsreject.",
+      "assessment": "Concretefiltercanonlyreject placementcandidates; ordinarynamedpredicatebool appropriate atthiscall. FullGroundSurface densityunitadmission/sampling semantics/readersnotnewlyassessed."
+    }
+  ],
+  "producer_bound": {
+    "definitions": "nx andnz are the exact computed i32count_x/count_z values; Nx=max(nx,0),Nz=max(nz,0) as mathematical nonnegative integers.",
+    "bound": "Every successfulreturn of placements has sites.len() <= Nx*Nz, because nested Rust0..count ranges visit at mostNx*Nz cells and each cell contains exactlyonepossiblepush. No assumption about randomdistribution needed for this bound. This product is a mathematical bound, not a new product expression executed by source.",
+    "filters": "Presence/typedpoint/groundchecks and downstream terrain-height/normal/slope checks only remove candidates. A .82 presence threshold is not a hard .82*Ncardinality cap.",
+    "downstream_connection": "Previously read014 instanced_understory groups at mostone instance from each ShrubPlacement into one of3speciesvectors; eachspecieslen<=siteslen. Eachnonempty speciesArc is shared by3representationentities; eachindividual nativeallocationcount remains thatspecieslen,not3*len. TotalGPU storage/budget acrossrepresentations isnotcertified.",
+    "native_requirement": "Previously read012 defaultPagedAllocator accepts each count<=1_000_000 (specialzero case) and013 narrowslen tou32 thenexpectssuccess. Nx*Nz<=1_000_000 is a sufficient conditional bound for every downstream shrub speciesvector tofit the default per-allocation count policy, not a demonstrated admittedSceneTerrainbound ornecessary condition.",
+    "unproved_input": "SceneTerrain.width/depth bodies, constructor/decoder/reflection/publicmutation and scene-sourcing limits have notbeenread; no hardmaximumcount established for actualallinputs/currentfirstpartycallers. Memorybudget/nativeID/offsetallocator andCustombackend invariantsremainunresolved."
+  },
+  "trace_sequence": [
+    "SceneTerrain width/depth +rawchance/habitat +SceneGround +Seed -> deterministic latticecells -> typedScenePlanPoint andclosedSpecies/Seed ShrubPlacement records -> Vecsites.",
+    "Prior014 exactinstanced_understory producer receivesplacements, appliesterrain/slope/typedrootchecks, pushesnativeInstanceData perspecies, wrapsnonemptyvectors inArc, spawns3representations per species withsharedArc.",
+    "Prior nativecollect_inputs/013allocationproducer clonesArc,convertsinstances.len()asu32,callsbackendallocandexpect,retainsWriteoffset/batchID; prior compute/drawreceiversremainasrecorded. Thispacketconnectsactualupstreamcountformula tothatknownnativeexpect precondition, withoutrestartingthosecompletedreadroles."
+  ],
+  "source_observations_noncounted": [
+    {
+      "local_id": "UPSTREAM-017-COUNT-BOUND",
+      "observation": "Actualsource cardinality grows with computedterrainlatticearea. Presencecap.82/patchdensitymultipliers/filteringdonotestablish a fixedmaximum. A hardterrain-dimension/count admission, explicitchunking orother actualproducerboundisrequiredtodemonstrate compatibilitywithnative1_000_000 budget.",
+      "qualification": "No currentoversizedscene/nativepanicclaimed; actualterraininputcontract/currentness/rootfindingalias/reachabilityremainunverified. No new unique finding accepted."
+    },
+    {
+      "local_id": "UPSTREAM-017-HABITAT-SAMPLER",
+      "observation": "Rawhabitatfields andchanceareunvalidated locally; weighted-index.expectpositivebounded claimanddynamicfixedarrayaccess dependonupstreamunits/boundsandsamplercontract. Numericweightquantization andauthoredplacementtuningarenotblanketnativeboundaryexemptions.",
+      "qualification": "No nativeRNG/SDKexpansionorunreadcontractinference; underlyingmethod/inputproducernotread. Existingsemanticowner/admission/operationfindingsandrootdedup/currentnessqualificationrequired;zero newuniqueclaim."
+    }
+  ],
+  "remaining_partial_original31": [
+    {
+      "count_frontier": "Actualadmitted SceneTerrain width/depth and allsceneconstruction/source bounds; compare resulting Nx*Nz/per-specieslen withnativeu32/defaultpagepolicy. Currentpacket stopsat thisconcreteinputcontractwithoutarbitrarynativeSDKexpansion."
+    },
+    {
+      "other_producers": "Actualgrass/litter lattice fillingTierSpeciesBatches,grass/custom index/seed meaningandselectedshaderpaths remainunread. Sharedshrubs placementonly doesnotproveallgrass/littercountpolicies."
+    },
+    {
+      "retained": "All original31 wrapperrecipient,historyconsumer/previousworld,offset_allocator/Custom/publicstate/devicecoherenceandcurrentnesscontracts from014/015remainunchanged. Original36conditionalhost/recipient/local_pospartialalso unchanged."
+    }
+  ],
+  "other_lens_queue": {
+    "path": "audit13-successor-017-other-lens-extension-queue.json",
+    "sha256": "806373d04d7f834b786d03b897d2b117807d2aadfbb66c9f831a7c1bb76fc57c",
+    "status": "Proposed root exactsource/range alias/relevantreceivingassessment reconciliation; knownoriginal1582, zero original/shared/otherlenscredit. Existing014/015queues retained unchanged."
+  },
+  "accounting": {
+    "before_original_accounted": 35,
+    "after_proposed_original_accounted": 35,
+    "original_total": 2853,
+    "partial_original_indices": [
+      31,
+      36
+    ],
+    "earliest_unfinished_original": 31,
+    "first_unread_original": 37,
+    "new_original_roles_inspected": [],
+    "new_original_roles_completed": [],
+    "original1582_receiving_subset_credit": 0,
+    "overlays_increment": 0,
+    "merged_increment": 0,
+    "material_increment": 0,
+    "other_lens_credit": 0,
+    "new_unique_count": 0
+  },
+  "qualifications": [
+    "Exactoneobject production1-151 consumed afterprospective registration,hashverifiedbefore/after. Existingtestsource152-357notread/run. Futureoriginal1582fullrequested scopeunchanged/uncredited; bodyreadhereonlychosenmaterialdependency.",
+    "Original0-30/32-35 andcompleted990reviewnotreopened; no36completion or37assessment. Original31fullscope/partialobligationsretained. Priorreceiverfactsusedassame-lenssourceconnection,not automaticoriginal/otherlensclearance.",
+    "Sourceauthorityisfrozenprworkingobject,notbase/current/physicalidentity; currentness/selectedbackend/allcallers/memory/GPUbudgetnotproved. NativeID/reset/count/buffer/historyandallinherited/global20findingsstaynoncounted/openuntilrootalias/currentness/reachabilityreconciliation.",
+    "No project/Git/product/rootledger/historicalmutation, build/test/lint/scanner/generator/probe/assertion/helper/doctestexecution/addition orpublication. Only ignoredregistration/receipt/queue/proposedstateartifacts authored.",
+    "No arbitrarySDK/treeexpansion,backwardcompatibilityconditions,nativeboundaryblanketexemption,globallyuniquealias/count,global/lens13/SDK/allfirstpartyclearance or integratedrepairclaim."
+  ],
+  "stop_reason": "Concrete upstream lattice bound and unproved terraininputmaximum recorded; oneboundedproducerpath complete, stoppingwithout37 orbroaderterrain/grass expansion. Saveimmediatelyonanymerge-readycheckpoint; none received beforethissave."
+}

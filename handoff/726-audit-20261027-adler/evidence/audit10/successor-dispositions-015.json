@@ -1,0 +1,14 @@
+{
+  "1499": {
+    "inventory": "MeleeAcquisitionTiming and MeleePlaybackTiming alreadyderive Clone/Copy. Handwritten TryFrom<&TacticalMovementConfig> selects actualrunspeed and quickstepduration plus fallibleconservative_forward_lunge_acceleration. Remainingfunctions perform checkedtimeline/deadline arithmetic, nativeclockprojection and eventadmission. No handwrittencodec.",
+    "disposition": "Keep TryFrom manual: contextualnestedfield selection and computedcheckedacceleration with AnimationValueError are semanticadmission, not equivalent derive_more fieldFrom or rawconversion. Preserve exactzero/duration/tick/saturation policies and existingcontinuationfixture; no addedserialization or newtests."
+  },
+  "1500": {
+    "inventory": "Attackfacts/request/prepared/ranged/melee structs have no handwrittentraits or codecs. Inherent observe/admit/prepare/start and controlflush methods resolve actualviewerfacts, typedtiming, availability and transitionfailures beforepublication.",
+    "disposition": "No derive opportunity. Keep semanticrequest preparation and state-transition/failure/buffering policy explicit; introducingFrom/serde would bypasscontext anderrorhandling. No attack/numeric/authorityclearance beyond10."
+  },
+  "1501": {
+    "inventory": "LocalQuickstepTrace Component/Debug/Clone/Copy/Default and observation/actuator Clone/Copy/Debug alreadyderive. has_changed_since/is_active/start_tick are inherentsemanticclassification/projection; tracing function comparesauthoritativeanimation/actuator states and emitsdiagnostics. No handwrittentrait orcodec.",
+    "disposition": "No derive opportunity. Do notaddSerialization justtoreplace runtimeis_active/start_tick classifier; retain distinctinactive retainedstart andactivestart semantics. Observationchange is selectedsemanticprojection ratherthan fullPartialEq, so no equivalentderive recommended."
+  }
+}

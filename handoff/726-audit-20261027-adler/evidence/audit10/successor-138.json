@@ -1,0 +1,83 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-138",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1890,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player.rs",
+      "sha256": "7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+      "ranges": [
+        [
+          1,
+          640
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh full640line requested player owner read1-225/226-445/446-640. Basic/serde/Bevy traits derive; TacticalAttributes already derives Deref/DerefMut and transparent serde. Manual defaults select measured anatomy, shared starting character/name/skills, Human category and nonzero healthy/focus values. PlayerEssentials/PlayerBody/PlayerSkills implementations classify body/skill roles, aggregate effective bestiary values and preserve semantic constants/default cases. PlayerAttributes forwards arbitrary canonical trait methods to its stored shared attributes; no arbitrary trait derive enabled. One manual From<PlayerAttributeValues> for TacticalAttributes directly wraps its owned field.",
+      "disposition": "Retain semantic defaults and gameplay/query/arbitrary-trait implementations. Save direct infallible owned From as candidate001 occurrence002 with existing macro/dependency equivalence and no new unique finding count. Existing tests/read-only source do not establish tactical/combat/default correctness; no native-port/serde expansion or child credit.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1891,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player/attack_timing.rs",
+      "sha256": "b12efd1cc517a4644ee8742fcde084e4fec7ecf93bf35234fd1d7ba0b3ffaf31",
+      "ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh full41line requested attack timing receiver. No handwritten traits/codecs. Functions combine actual weapon inertia, shared elapsed timing, arm strength, handling skill and continuation policy, bound physical timing then admit canonical elapsed values.",
+      "disposition": "No derivability candidate. Source-dependent computation, checked timing and failure propagation are semantic operations, not field projection. No combat/numeric/runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1892,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player/combat_state.rs",
+      "sha256": "bfc02321b1d2716ffaf92d38902b547713a76a9de7a350ece7f35449e9dddf37",
+      "ranges": [
+        [
+          1,
+          211
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh full211line requested combat-state body and existing cases. Selected basic/serde/Bevy traits derive; TacticalIncapacitationSources derives standard zero Default. TacticalCombatState manual Default deliberately initializes starting_blood_fraction to1 while other values and forecast start zero. Methods charge work, update readiness, project actual source breakdown and classify status; no manual codecs. Existing cases inspect immediate work/readiness and calorie-history independence.",
+      "disposition": "Retain semantic nonzero healthy-state Default; ordinary field derive changes blood state. Readiness/source construction and classification are semantic computations. No derivability candidate, new test or gameplay/runtime acceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1893,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player/input_tick.rs",
+      "sha256": "e9d4d32a4beaa8f4a1631034abbb4cdd7db4e43bccd80935b3eb7e7674d4e27f",
+      "ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+      "range_authority": "audit05/original-scope-072.json, exact per-role range provenance in dispositions",
+      "source_basis": "Fresh recovery_826 personal exact frozen-object ranges read; independent own10 registered-scope comparison, no unobserved whole-file coverage.",
+      "trait_inventory_and_semantics": "Fresh full33line requested PlayerInputTick owner. Existing derive_more From/Display and standard basic/Default/serde/Reflect derives cover opaque u32 transport word. No handwritten traits/codecs. Inherent methods preserve wrapping sequence comparison and explicit encoded native boundary.",
+      "disposition": "No derivability candidate. Mechanical traits already derive; wrapping clock semantics and scalar port remain explicit with no added conversion/serialization API or numeric verdict.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

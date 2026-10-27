@@ -1,0 +1,275 @@
+{
+  "registrations": [
+    "audit-resume-20261027/REGISTRATION-146-final-original-scope-contracts.json"
+  ],
+  "per_role": [
+    {
+      "original": 2825,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/world_import.rs",
+      "sha256": "cc83d5f3e3c415a12dc0ced11a5e9271a2b115d3ed5ac9703d1a8b8ae9728d22",
+      "read_ranges": [
+        [
+          681,
+          717
+        ]
+      ],
+      "behavior": "Exact681\u2013717 only. Imported canonical settlement fields/religious_status church religion ID and settlement_currency_id producer to retained raw Settlement religion_id/currency_id/source_node_id, update-or-insert keyed settlement.id. Association requirements preserved; no whole import/admission/transaction proof from this slice."
+    },
+    {
+      "original": 2826,
+      "source_id": "physical-p16:crates/adventuresim-puzzles/src/ordered_sigils.rs",
+      "sha256": "663ef1d62d85a2b952a6be5d496949ae0b71d293110c14d6d7d123319559ee6b",
+      "read_ranges": [
+        [
+          1,
+          12
+        ],
+        [
+          56,
+          81
+        ]
+      ],
+      "behavior": "Exact1\u201312/56\u201381 only. Clue enum owns sigils/position payload; rawu8 position text adds1 before display, possible255 overflow through public/Serde clue outside legal positions. Actual validated/generator path needed before ordinary witness. Before/Adjacent distinct relation payloads."
+    },
+    {
+      "original": 2827,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/node.rs",
+      "sha256": "b6f664a13608f6fe8013f3e3af8f98d3335e96daeef806a11040958b87297974",
+      "read_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "behavior": "Full119 native cull node guards every optional pipeline/cache/allocator/cullbuffer/group and compute_capacity0. Workgroups calculated f32 ceil instances/64 then u32; beyond f32 exact integer range may under/over dispatch, actual allocation admission needed. 65535 splitting uses2D y but shader flatten/guard not in this body; no claim all instances processed until actual shader and device limits connected. No project execution."
+    },
+    {
+      "original": 2828,
+      "source_id": "physical-p16:crates/adventuresim-puzzles/Cargo.toml",
+      "sha256": "776ef3b34040bd18cba056db05a10463f6838cbaef84a75f4d669ffe3966683f",
+      "read_ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "behavior": "Full15 manifest wires serde/serde_json/clap/determinism and inherited lints; package declaration is not transitive body/admission proof."
+    },
+    {
+      "original": 2829,
+      "source_id": "physical-p16:crates/adventuresim-puzzles/src/lib.rs",
+      "sha256": "710b7464b874f4a7d13e47772786ff780a13d4b4689a613d6f7fbc0efa2b5f28",
+      "read_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "behavior": "Full19 canonical five sigils/rulesversion/minimizationbudget and module reexports. Rules versions name current authority, no support for old versions demanded."
+    },
+    {
+      "original": 2830,
+      "source_id": "physical-p16:crates/adventuresim-puzzles/src/choices.rs",
+      "sha256": "903776fd76d202ee0e8047523cff9ae9812cfa700bdfa466a68e066c19a69f0d",
+      "read_ranges": [
+        [
+          1,
+          6
+        ]
+      ],
+      "behavior": "Full6 choice reexport wiring only; actual sigil/path bodies separately read here."
+    },
+    {
+      "original": 2831,
+      "source_id": "physical-p16:crates/adventuresim-puzzles/src/choices/sigil.rs",
+      "sha256": "938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5",
+      "read_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "behavior": "Exact1\u201361 only. Closed five-sigil enum/ALL canonical submission keys vs visible labels independent roles; FromStr delegates actual Serde vocabulary and maps failure to parse error. Error unit manual Display/Error derivable candidate, no need preserve dynamic downcasts. Remaining tests62+ unread."
+    },
+    {
+      "original": 2832,
+      "source_id": "physical-p16:crates/adventuresim-puzzles/src/choices/witness_path.rs",
+      "sha256": "363a096f49e88a04b938d910c9e90e311dd1a25cf9eca34c0f5e79881c07bd8f",
+      "read_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "behavior": "Exact1\u201353 only. Closed three WitnessPath enum/ALL, stable keys vs visible label and actual Serde FromStr. Unit parse error manualtrait candidate; no arbitrary raw String admission on typed branch. Remaining tests54+ unread."
+    },
+    {
+      "original": 2833,
+      "source_id": "physical-p16:crates/adventuresim-puzzles/src/puzzles.rs",
+      "sha256": "e3eb46b050e02df31df84a6d18ded142d748383d0e9611c55bc720d086bbbfbe",
+      "read_ranges": [
+        [
+          1,
+          944
+        ]
+      ],
+      "behavior": "Exact1\u2013944 of1131. Authority/spec/projection/submission sums bind matching puzzle kind; WrongKind vs malformed vs valid wrong answer separate. Generation validates spec then resulting puzzle, projection/check/replay do not themselves validate all public/Serde retained authority. Truthful statement speakers/order/truth/uniquepath/liar/irredundancy actualvalidate checked; witness_solutions only9 finite candidate pairs. allow_witness_claims without path claims passes spec but cannot prove safe path, generation returnsErr rather than inventing solution; spec-realizability policy pending. Rune spec1..3gates/1..8route/1..2examples bounds generator. Rune validate enforces dimensions/route membership/example proof but does not enforce allow_repeated_operations=false or allow_repeated_route_gates=false on retained/Serde structure; actual admitted persisted authority needed for ordinary discrepancy. Duplicate gate law hypothesis narrowed by total example cardinality and per-gate count constraints; not alleged independently. Public check truthful/rune compares private authority without validation. No old rules/deterministic output compatibility guarantee."
+    },
+    {
+      "original": 2834,
+      "source_id": "physical-p16:crates/adventuresim-puzzles/src/logic_grid.rs",
+      "sha256": "c40ef50453ea8397ae1ea890892eb142f77ce9b6f8d58f5d8e2158afd75de2c4",
+      "read_ranges": [
+        [
+          1,
+          382
+        ]
+      ],
+      "behavior": "Exact1\u2013382 of407. LogicGrid spec3..4 and <=12clues; generator bounded permutations576max, clue elimination and minimization then validates all assignment permutations, canonical traveler order, valid clue indices/polarity/truth and exact unique solution. check validates submitted permutation/order. Public spec/clues mutable and derivedSerde authority may bypass validate; projection slices static arrays at spec.size and public clue.text indexes without admission, so invalid retained spec/index can panic. Public all_grid_solutions/grid_solutions rawu8 size does not enforce3..4 and has factorial work/allocation; actual external call boundary needed before ordinary resource issue. Native tests read scope excludes383+."
+    },
+    {
+      "original": 2835,
+      "source_id": "physical-p16:crates/adventuresim-puzzles/src/resource_allocation.rs",
+      "sha256": "d2ec402f714f075538152f588064e8025bd2436fac765d8168e09980f4fa911b",
+      "read_ranges": [
+        [
+          1,
+          358
+        ]
+      ],
+      "behavior": "Exact1\u2013358 of373. Resource spec4..7provisions/2..4hazards/capacity3..14; generator512tries with finite enum domain validates unique sorted sets, unique optimum, irredundancy/capacity policy. Canonical ProvisionId computes weight/readiness/protections; projection copies into public profile fields whose mutation is display transport separate from solver authority. Public allocation_legal_packs uses1_u16<<provisions.len without bounded/unique input guard: 16+entries API shift failure and huge/duplicated sets possible, while validated/generator <=7 closes ordinary route. u16 sums safe for canonical <=7. check sorts rejects duplicates/unknown IDs then compares unique optimum. Serde/private solution does not automatically validate authority; actual decode caller needed."
+    },
+    {
+      "original": 2836,
+      "source_id": "pr-working:crates/adventuresim-core/src/bestiary/report_quality.rs",
+      "sha256": "99cf829423d94b7d5cafa84c6bc853ce91d1c74dc20891d894e1ca435cc5310b",
+      "read_ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "behavior": "Full39 quality gates actual catalog report iterator\u2192ambiguous cardinality>=2, regional curated dominance<=9500BPS, >=2 distinguishing clue sets. Distribution source/reachability and current producer association pending; report prose is open catalog value, not forced closedenum."
+    },
+    {
+      "original": 2837,
+      "source_id": "pr-working:crates/adventuresim-core/src/bestiary/catalog_tests.rs",
+      "sha256": "3ed5388a106af6a5915305446634cba57154d784984dc9f05ffc089161938279",
+      "read_ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "behavior": "Full33 existingtest source read not run: authored threat parse\u2192catalog/profile/loot and added open ID compile fixture. Assertions document intended propagation, do not prove all live callers/validator/native bindings or current behavior."
+    },
+    {
+      "original": 2838,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/landing_policy.rs",
+      "sha256": "e054b33865a02762e480744ec0074a04fe71d7bf73e61c10ca5357f493eaf7d3",
+      "read_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "behavior": "Full62 occupied keep storey/cell membership checks landing center at cell square inclboundary, retain onlymatchingheight solid and logical landing then addcrown physical landing if none. Crown arrival deliberately no occupied floor portal. Multiple flights/same elevation spatial association and actual physical clearance require owning flight/caller, no generic missing-floor claim."
+    },
+    {
+      "original": 2839,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/floors.rs",
+      "sha256": "8a2961c2a6d64a997bc81cf6cc94ac1647dbe32afa1093446f97f6de93cedca4",
+      "read_ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "behavior": "Full101 private rectangle subtraction partitions without overlapping area and drops <=1mm fragments; cells dedupBTreeSet, upper occupied storeys cut square flightwell over applicable height interval. foundation and each append mayResult after prior geometry writes; actual caller owns/discards local plan needed before partialpublication claim. index increments unchecked but actualbounded footprint/storey admission needed."
+    },
+    {
+      "original": 2840,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/keep_core.rs",
+      "sha256": "4fe112080f5dcc507eb0600309b787389a2dbb7b056ead9fd82bea634d9e496b",
+      "read_ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "behavior": "Exact1\u201336 of70. Keep archetype+>=2storeys gate creates onecentered spiral; rise count*height-base and required_treads actualcallee pending. Explicit occupied-storey ownership distinct auxiliary tower routes; no all-plan height positivity proof in slice."
+    },
+    {
+      "original": 2841,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/bearings.rs",
+      "sha256": "fe9290ba0a257cd25b730ebad5762e929b2c184773fb1b92f4b4591722a36089",
+      "read_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "behavior": "Full69 geometry pairing restricteddeck/wall/tread/landing and excludes sameowner, computes AABBoverlap then positivevolume/deckheight threshold, registers bounds and area/penetration. JunctionBond ID domain14|globaljunctionlen differs previously observed local-reset domain6; do not alias merely shared remedy. AABB of rotated cuboid canoverlap whenactual solids do not; actual non-axisaligned authored pair and downstream oriented check needed before falsebond ordinary claim. Push expressions boundsResult occurs before push, priorpairs remain only ifcallerpublishespartialErr."
+    },
+    {
+      "original": 2842,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/tests.rs",
+      "sha256": "cc9107fd14bb47171e08b5020021594835c779dc021dd32e095a926ff9e977f1",
+      "read_ranges": [
+        [
+          1,
+          221
+        ]
+      ],
+      "behavior": "Full221 existingtests only read, noexecution. Exact flight treadcount, ground newel, heights/support, headroom, shared detail/collision sources, keepfloor holes and auxiliary nooccupied portals intended acceptance. These assertions are not proof compile_flight/detail/collision bodies all correct; no historicalbits/geometry compatibility constraint."
+    },
+    {
+      "original": 2843,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/coif_drape.rs",
+      "sha256": "f9ccb3bf0662590f4dd34ea6de4ce89569348359037efc93e3736a9524c3bca1",
+      "read_ranges": [
+        [
+          1,
+          12
+        ]
+      ],
+      "behavior": "Exact1\u201312 of72 constant COIF_DRAPE_SECTIONS5/WORDS37 offset imports only. GPU floatlayout has owning constants but actual encoder/shader/drape constructors unread by this scope; no blanket ABI proof."
+    },
+    {
+      "original": 2844,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+      "sha256": "717bbedb859bc7b5df413aeea35d20cccbdf1e08dc53f2f8d692b72dc2cc662e",
+      "read_ranges": [
+        [
+          1,
+          147
+        ]
+      ],
+      "behavior": "Full147 ScalpMap fit computes approximate cone64steps, basis, rim positive margin and texel scale; UV radialangle and equal-area square mapping. unit rejectszero/nonfinite length but fit radius still rawpositions sum, invalid positions can contaminate scale. texel(size0) divideszero. Axis parallelface fallbackface isnotorthogonal toaxis then sidezero, possibledegeneratebasis for arbitraryscalp; actual Head/scalp generator bounds needed before ordinary defect. Private-map construction narrows directexternal forge, cratevisiblefields still possible mutation. Approximate spherical area intentional estimate not exact arbitraryellipsoid guarantee."
+    },
+    {
+      "original": 2845,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+      "read_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "behavior": "Full138 HairGpu compiles kernels/retains onecontext and Mutex groomer. Poison recovery intentionally assumes every groom resizes/clears scratches; actual groom lifecycle body is required before accepting recovery guarantee, not BC preservation. Kernelcache string source semantic key vs diagnostic bufferlabels separate. storage bytesmax16 and uploadempty4defaults guarantee only nonempty for non-ZST T, generic NoUninit+Default permitsZST, actualcallers/types/nativeBuffer rejects needed. Byte lengths/element count/GPUnative limits not proved here."
+    }
+  ],
+  "connected_repair_requirements": [
+    "Preserve validated generator bounds through puzzle Serde/storage/check/projection; locate actual authority admission before deciding publicinvalidstructure reachability. Repetition flags must be enforced or removed in final retained authority, no compatibility path.",
+    "Trace native cull workgroup cardinality to actual allocation cap, shader2D flatten and device limits, and preserve exact integer/count semantics.",
+    "Trace map fit/GPUgeneric helpers through actual producer bounds, private retained state, native encoders and shaders; no comment/assertion/hash substitutes."
+  ],
+  "acceptance_requirements": [
+    "Sourceaudit only: no product edits, runtime validation, CI, currentness or acceptedunique promotion. All remaining affected bases/overlay/merged/extension/current/all20 and exactdedup repair/acceptance remain pending."
+  ],
+  "at": "2026-10-27T16:29:17.892890+00:00",
+  "lens": 8,
+  "accepted_unique_count_change": 0,
+  "implementation_gate_complete": false
+}

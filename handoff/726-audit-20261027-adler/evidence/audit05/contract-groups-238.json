@@ -1,0 +1,58 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-238",
+  "at": "2026-10-25T22:05:57.464709+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2341,
+      "source_id": "pr-working:crates/fabelgeist-shell/src/shell.rs",
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "personally_read_ranges": [
+        [
+          1,
+          408
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Shell::new validates mesh and material, rejects empty geometry, derives particles/masses and stretch/seam/bend incidence from the same mesh, reorders bend weights by the same compiled incidence before attachment. Private SurfaceContacts retains original topology. Public triangles/particles/material can later diverge; deduplicated exact RIG-ADMISSION03-F083 (and particle-buffer F082), no duplicate finding.",
+        "apply_material explicitly synchronizes compliance and self-collision radius; masses are documented as baked and require rebuild. Cloth fabric edit question remains an explicit caller synchronization contract, not automatic material propagation.",
+        "Host-contact schedule snapshots positions for each configured interval, completes a partial final interval, zero schedule waits for submitted work; collision hooks run around constraints intentionally. Bounded projection can end at pass limit; no universal convergence guarantee inferred. read_mesh uses public triangle indices as F083 already records."
+      ]
+    },
+    {
+      "scope_index": 2345,
+      "source_id": "pr-working:crates/fabelgeist-shell/src/topology.rs",
+      "sha256": "98444936697b73035be3e07e0464a3e4a031ad0b1f28084275206b1b8ae7eb91",
+      "personally_read_ranges": [
+        [
+          1,
+          427
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Topology::build derives one sorted undirected edge list and exactly-two-face hinges from triangle adjacency; nonmanifold edges retain stretch only by explicit policy. BendQuad particle order matches bending_weights hinge/wing order. vertex_masses derives one value per supplied position and distributes each triangle share; caller mesh index/finite admission remains upstream rather than proven by this raw utility.",
+        "bending_weights rejects collapsed/null-space degeneracy, returns four weights with shared normalization and area scale; documented resolution retuning prevents inferring full resolution independence. Tests personally read as contract examples, not executed."
+      ]
+    },
+    {
+      "scope_index": 2346,
+      "source_id": "pr-working:crates/fabelgeist-shell/src/wgsl.rs",
+      "sha256": "e724670ea98957037a3fed9a6057929b2f48be87f2c217e5a01b59649a050ccc",
+      "personally_read_ranges": [
+        [
+          1,
+          361
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "BEND reads four particle indices and eight-float padded weight record, first/count dispatch from SolveParams; host Shell uses same incidence reorder before flattening. Magnitude-zero returns explicitly.",
+        "Self-collision hash and search use identical cell/hash functions, retain exact cell comparison to reject hash collisions, exclude mesh-connected neighbors, weight corrections by inverse mass, and use antisymmetric fallback for coincident points. Pinned particles skip. Fixed-point corrections accumulated separately then averaged by contributor count and atomically reset per pass; overflow/quantization are documented numerical limits, no universal exactness claim or ordinary overflow witness.",
+        "CELL_RANGES and CLEAR_RANGES use table_size+1 end marker; exact host allocation/dispatch authority remains required for cross-module relation, not discharged by shader body alone."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

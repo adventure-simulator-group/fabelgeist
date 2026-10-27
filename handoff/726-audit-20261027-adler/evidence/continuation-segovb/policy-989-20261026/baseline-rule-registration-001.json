@@ -1,0 +1,117 @@
+{
+  "scope": "989/990 acceptance baseline-only delta and exact hosted formatting reconciliation; prior semantic review carried forward only at unchanged pins",
+  "manifest": {
+    "path": "implementation-manifest-003.json",
+    "sha256": "a312f2807be27d68f3e3cf2e6302479314e7f9aa8a66a3b16f1ce46909e4eb3b"
+  },
+  "source_pins": [
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "sha256": "a7d4fc3525525acbcfa7ea6d88f751261132fc912cd26696d4975897a5f8b97e",
+      "lines": 34,
+      "actual_sha256": "a7d4fc3525525acbcfa7ea6d88f751261132fc912cd26696d4975897a5f8b97e"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "d6cd017cc5d337a0ad47543cc51cc009cff84fa78bb65499b1cddfcb60afcb55",
+      "lines": 620,
+      "actual_sha256": "d6cd017cc5d337a0ad47543cc51cc009cff84fa78bb65499b1cddfcb60afcb55"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "5b020e16dadfbc30f2eb50b784552258d880c631376ffc1d62e9e25cae07c992",
+      "lines": 264,
+      "actual_sha256": "5b020e16dadfbc30f2eb50b784552258d880c631376ffc1d62e9e25cae07c992"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "a5ec79b944808520b15bc649e4d54b14612859c9a5b1b1f8446a47c17bb6c1d6",
+      "lines": 905,
+      "actual_sha256": "a5ec79b944808520b15bc649e4d54b14612859c9a5b1b1f8446a47c17bb6c1d6"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "3adc6454ec9a8cada8428ebd2b800f5b7374028ce73a52df204e54aab3750a93",
+      "lines": 125,
+      "actual_sha256": "3adc6454ec9a8cada8428ebd2b800f5b7374028ce73a52df204e54aab3750a93"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "f0828dbc6755445932455e5aa9edf040f2222deca3c1fe38c44460da856565d8",
+      "lines": 42,
+      "actual_sha256": "f0828dbc6755445932455e5aa9edf040f2222deca3c1fe38c44460da856565d8"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "14ac95339951ceb8b50cc3ab9452c251bbbce6122ebd7206a3961c406ff74858",
+      "lines": 323,
+      "actual_sha256": "14ac95339951ceb8b50cc3ab9452c251bbbce6122ebd7206a3961c406ff74858"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "022b9d73dd2cfc76963f3945bc7b7c89e6bbb8322889adccf3599a7b4b0e83e7",
+      "lines": 87,
+      "actual_sha256": "022b9d73dd2cfc76963f3945bc7b7c89e6bbb8322889adccf3599a7b4b0e83e7"
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "8ccab96e129e4b873ed3f8ae3841afd6bf7cfa59809b69cbed46ec41855b171e",
+      "lines": 12838,
+      "actual_sha256": "8ccab96e129e4b873ed3f8ae3841afd6bf7cfa59809b69cbed46ec41855b171e"
+    }
+  ],
+  "baseline_read_ranges": [
+    [
+      697,
+      699
+    ],
+    [
+      2758,
+      2775
+    ]
+  ],
+  "format_read_range": [
+    [
+      1,
+      18
+    ]
+  ],
+  "artifact_sources": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/hosted/run40420900203/gpu/source.txt",
+      "sha256": "15a74bc0a01a567b6550519f9cd1d6850c3e5cd4a3677c2a56a25423c53ea559",
+      "coverage": "source/pr-head/result metadata and relevant cube baseline records; log result summaries only"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/hosted/run40420900203/gpu/pr-head.txt",
+      "sha256": "15a74bc0a01a567b6550519f9cd1d6850c3e5cd4a3677c2a56a25423c53ea559",
+      "coverage": "source/pr-head/result metadata and relevant cube baseline records; log result summaries only"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/hosted/run40420900203/gpu/results.json",
+      "sha256": "4906d705f1a0956b9d4fb1363e96579940bb591647b1c220da2f31642cbd5883",
+      "coverage": "source/pr-head/result metadata and relevant cube baseline records; log result summaries only"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/hosted/run40420900203/gpu/rust-quality-baseline.toml",
+      "sha256": "bdf6580dab45e25f9de25a94f2e5b1888f1b316b2104b028b64b98d9f671481f",
+      "coverage": "source/pr-head/result metadata and relevant cube baseline records; log result summaries only"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/hosted/run40420900203/gpu/library.log",
+      "sha256": "4921fbf22c658cd46dd303550d22e2a421922015dd6c1ea5e7d87a4c8898f58a",
+      "coverage": "source/pr-head/result metadata and relevant cube baseline records; log result summaries only"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/hosted/run40420900203/gpu/doctests.log",
+      "sha256": "487a510c5b39c3c959c3faf22757dff0b0993e06641c57367dfe350099c5a819",
+      "coverage": "source/pr-head/result metadata and relevant cube baseline records; log result summaries only"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/policy-989-20261026/hosted/run40420900203/gpu/borrowed.log",
+      "sha256": "501e2026dcdd8ffaa2f0175f1b4edf6e9bb2dd7f22eae60a2d7616f31bc8561e",
+      "coverage": "source/pr-head/result metadata and relevant cube baseline records; log result summaries only"
+    }
+  ],
+  "registered_before_bounded_reads": true
+}

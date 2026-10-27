@@ -1,0 +1,367 @@
+{
+  "at": "2026-10-27T01:19:13.135439+00:00",
+  "sources": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/fabelgeist-hair/src/gpu/wgsl/lod.rs",
+      "path": "crates/fabelgeist-hair/src/gpu/wgsl/lod.rs",
+      "staged_path": "target/recovery-20261025/continuation-segovb/source-objects/84921c3738f17ead3b584e9957b4da132682a3a9c475c3b99a664b48ec245df7",
+      "sha256": "84921c3738f17ead3b584e9957b4da132682a3a9c475c3b99a664b48ec245df7",
+      "lines": 932,
+      "provenance": "Exact3a50base/6533head identical; absent747changed/status4rows",
+      "locators_only": [
+        [
+          9,
+          "pub const DENSITY_FIXED: f32 = 16384.0;"
+        ],
+        [
+          11,
+          "pub const SPINE_FIXED: f32 = 1e5;"
+        ],
+        [
+          13,
+          "pub const SPREAD_FIXED: f32 = 1e8;"
+        ],
+        [
+          15,
+          "pub const BEHIND_FIXED: f32 = 1e6;"
+        ],
+        [
+          17,
+          "fn kernel(bindings: &str, helpers: &[&str], body: &str) -> String {"
+        ],
+        [
+          28,
+          "pub fn order_keys() -> String {"
+        ],
+        [
+          36,
+          "struct Params {{"
+        ],
+        [
+          48,
+          "fn main(@builtin(global_invocation_id) id: vec3<u32>, @builtin(num_workgroups) groups: vec3<u32>) {"
+        ],
+        [
+          60,
+          "const GRID: &str = r#\""
+        ],
+        [
+          61,
+          "fn grid_index(c: vec3<i32>) -> u32 {"
+        ],
+        [
+          65,
+          "fn grid_inside(c: vec3<i32>) -> bool {"
+        ],
+        [
+          69,
+          "fn grid_cell(p: vec3<f32>) -> vec3<i32> {"
+        ],
+        [
+          73,
+          "fn grid_center(i: u32) -> vec3<f32> {"
+        ],
+        [
+          79,
+          "const GRID_PARAMS: &str = r#\""
+        ],
+        [
+          92,
+          "pub fn splat() -> String {"
+        ],
+        [
+          100,
+          "struct Params {{"
+        ],
+        [
+          114,
+          "fn main(@builtin(global_invocation_id) id: vec3<u32>, @builtin(num_workgroups) groups: vec3<u32>) {{"
+        ],
+        [
+          139,
+          "pub fn densify() -> String {"
+        ],
+        [
+          146,
+          "struct Params {{"
+        ],
+        [
+          160,
+          "fn main(@builtin(global_invocation_id) id: vec3<u32>, @builtin(num_workgroups) groups: vec3<u32>) {{"
+        ],
+        [
+          178,
+          "pub fn occlusion() -> String {"
+        ],
+        [
+          184,
+          "struct Params {{"
+        ],
+        [
+          197,
+          "fn main(@builtin(global_invocation_id) id: vec3<u32>, @builtin(num_workgroups) groups: vec3<u32>) {"
+        ],
+        [
+          247,
+          "const SAMPLE: &str = r#\""
+        ],
+        [
+          248,
+          "fn grid_sample(p: vec3<f32>) -> f32 {"
+        ],
+        [
+          276,
+          "const KEEP_CLEAR: &str = r#\""
+        ],
+        [
+          278,
+          "fn segment_push(i: u32, a: vec3<f32>, b: vec3<f32>, clearance: f32) -> vec4<f32> {"
+        ],
+        [
+          308,
+          "fn keep_clear(n: u32, clearance: f32) {"
+        ],
+        [
+          344,
+          "pub fn level() -> String {"
+        ],
+        [
+          356,
+          "struct Params {{"
+        ],
+        [
+          371,
+          "fn clear_get(k: u32) -> vec3<f32> {{"
+        ],
+        [
+          374,
+          "fn clear_set(k: u32, v: vec3<f32>) {{"
+        ],
+        [
+          382,
+          "fn main(@builtin(global_invocation_id) id: vec3<u32>, @builtin(num_workgroups) groups: vec3<u32>) {"
+        ],
+        [
+          436,
+          "const CARD_PARAMS: &str = r#\""
+        ],
+        [
+          447,
+          "const LOCKS: &str = r#\""
+        ],
+        [
+          448,
+          "fn lock_stride() -> u32 {"
+        ],
+        [
+          452,
+          "fn lock_spine_word(g: u32, j: u32, k: u32) -> u32 {"
+        ],
+        [
+          456,
+          "fn lock_spread_word(g: u32, j: u32) -> u32 {"
+        ],
+        [
+          463,
+          "pub fn card_accumulate() -> String {"
+        ],
+        [
+          470,
+          "struct Params {{"
+        ],
+        [
+          480,
+          "fn main(@builtin(global_invocation_id) id: vec3<u32>, @builtin(num_workgroups) groups: vec3<u32>) {{"
+        ],
+        [
+          502,
+          "pub fn card_flags() -> String {"
+        ],
+        [
+          508,
+          "struct Params {{"
+        ],
+        [
+          517,
+          "fn main(@builtin(global_invocation_id) id: vec3<u32>, @builtin(num_workgroups) groups: vec3<u32>) {"
+        ],
+        [
+          528,
+          "const SPINE: &str = r#\""
+        ],
+        [
+          529,
+          "fn lock_count(g: u32) -> u32 {"
+        ],
+        [
+          533,
+          "fn spine_at(g: u32, j: u32) -> vec3<f32> {"
+        ],
+        [
+          545,
+          "pub fn card_spread() -> String {"
+        ],
+        [
+          554,
+          "struct Params {{"
+        ],
+        [
+          562,
+          "const SPINE_FIXED: f32 = {SPINE_FIXED:.1};"
+        ],
+        [
+          563,
+          "fn lock_value(i: u32) -> i32 {{"
+        ],
+        [
+          572,
+          "fn main(@builtin(global_invocation_id) id: vec3<u32>, @builtin(num_workgroups) groups: vec3<u32>) {{"
+        ],
+        [
+          607,
+          "pub fn card_build() -> String {"
+        ],
+        [
+          619,
+          "struct Params {{"
+        ],
+        [
+          642,
+          "const SPINE_FIXED: f32 = {SPINE_FIXED:.1};"
+        ],
+        [
+          643,
+          "fn lock_value(i: u32) -> i32 {{"
+        ],
+        [
+          649,
+          "fn clear_get(k: u32) -> vec3<f32> {{"
+        ],
+        [
+          652,
+          "fn clear_set(k: u32, v: vec3<f32>) {{"
+        ],
+        [
+          657,
+          "fn row_width(g: u32, j: u32, radius: f32, n: f32) -> f32 {{"
+        ],
+        [
+          667,
+          "fn main(@builtin(global_invocation_id) id: vec3<u32>, @builtin(num_workgroups) groups: vec3<u32>) {{"
+        ],
+        [
+          751,
+          "pub fn cover_count() -> String {"
+        ],
+        [
+          761,
+          "struct Params {{"
+        ],
+        [
+          776,
+          "fn main(@builtin(global_invocation_id) id: vec3<u32>, @builtin(num_workgroups) groups: vec3<u32>) {{"
+        ],
+        [
+          810,
+          "pub fn cover_finish() -> String {"
+        ],
+        [
+          820,
+          "struct Params {{"
+        ],
+        [
+          833,
+          "fn main(@builtin(global_invocation_id) id: vec3<u32>, @builtin(num_workgroups) groups: vec3<u32>) {"
+        ],
+        [
+          859,
+          "pub fn cover_smooth() -> String {"
+        ],
+        [
+          866,
+          "struct Params {"
+        ],
+        [
+          877,
+          "fn main(@builtin(global_invocation_id) id: vec3<u32>, @builtin(num_workgroups) groups: vec3<u32>) {"
+        ],
+        [
+          897,
+          "pub fn bounds() -> String {"
+        ],
+        [
+          902,
+          "struct Params {"
+        ],
+        [
+          912,
+          "fn ordered(x: f32) -> u32 {"
+        ],
+        [
+          918,
+          "fn main(@builtin(global_invocation_id) id: vec3<u32>, @builtin(num_workgroups) groups: vec3<u32>) {"
+        ]
+      ],
+      "body_credit": false
+    },
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/hair_preview/strand_shading.rs",
+      "path": "crates/adventuresim-character-creator/src/hair_preview/strand_shading.rs",
+      "staged_path": "target/recovery-20261025/continuation-segovb/source-objects/13592232826ab0676fdf0cf93edd150713c436e3c73f743bd5d828072e1224b9",
+      "sha256": "13592232826ab0676fdf0cf93edd150713c436e3c73f743bd5d828072e1224b9",
+      "lines": 133,
+      "provenance": "Exact3a50base/6533head identical; absent747changed/status4rows",
+      "locators_only": [
+        [
+          13,
+          "use adventuresim_character_creator::hair::GpuGeometry;"
+        ],
+        [
+          24,
+          "const SHADER: &str = \"embedded://adventuresim_character_creator/hair_preview/strand_shading.wgsl\";"
+        ],
+        [
+          25,
+          "const VERTEX: &str = \"embedded://adventuresim_character_creator/hair_preview/hair_vertex.wgsl\";"
+        ],
+        [
+          26,
+          "const PREPASS_VERTEX: &str ="
+        ],
+        [
+          29,
+          "const PREPASS: &str = \"PREPASS_PIPELINE\";"
+        ],
+        [
+          31,
+          "const PREPASS_NORMALS: &str = \"NORMAL_PREPASS_OR_DEFERRED_PREPASS\";"
+        ],
+        [
+          41,
+          "pub(crate) struct StrandShading {"
+        ],
+        [
+          56,
+          "impl StrandShading {"
+        ],
+        [
+          58,
+          "    pub(super) fn new(geometry: &GpuGeometry) -> Self {"
+        ],
+        [
+          70,
+          "impl MaterialExtension for StrandShading {"
+        ],
+        [
+          117,
+          "pub(crate) struct HairShadingPlugin;"
+        ],
+        [
+          119,
+          "impl Plugin for HairShadingPlugin {"
+        ]
+      ],
+      "body_credit": false
+    }
+  ]
+}

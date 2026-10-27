@@ -1,0 +1,70 @@
+{
+  "at": "2026-10-27T00:56:25.794277+00:00",
+  "scope": "PR990/issue989 texture observation policy; no broader audit/family completion",
+  "head": "a21f9ccaeba1e3947e22dc1f64106c4f2bc371b6",
+  "base": "b3810b8b5db78c15cc51a0e1bef747a06450dffb",
+  "source_manifest": "implementation-manifest-004.json",
+  "source_preflight": "final-source-preflight-001.json",
+  "scoped13lens_source_wave": "scoped-thirteen-lenses-003-final-source.json",
+  "independent_reviews": [
+    "final-code-review-002.json",
+    "final-rule-review-002.json",
+    "final-comment-review-002.json"
+  ],
+  "source_integrated": true,
+  "source_review_conditions_satisfied": true,
+  "same_head_hosted_run": 40421868169,
+  "same_head_hosted_status": "final-hosted-status-003.json",
+  "workflow_conclusion": "success",
+  "required_jobs": {
+    "rust-quality": "success",
+    "foliage-portability": "success"
+  },
+  "fixtures_job": "skipped; no fixture regeneration introduced/required by this increment",
+  "artifacts": [
+    {
+      "path": "final-gpu-artifact-001.json",
+      "sha256": "53143f238b49665256f47216b64c3030f4c1ad684cb06778aa044604a273758a"
+    },
+    {
+      "path": "final-windows-artifact-001.json",
+      "sha256": "5ba0bd9e8104546719233e0b2aca944d804f67c7ca7912681d1c2fd9d6e5b112"
+    },
+    {
+      "path": "final-constraints-artifact-001.json",
+      "sha256": "924704517a8b01e156f1464eb8817bb406cb1fe8a377edb4e5f0dfd781dd56a2"
+    },
+    {
+      "path": "final-rig-artifact-001.json",
+      "sha256": "c13c2aab759fc129a0a4331e3be182f29614b8bcdf641e14227046040a0bd856"
+    }
+  ],
+  "required48_results": {
+    "passed": 1461,
+    "failed": 0,
+    "ignored": 14,
+    "all_groups_positive": true
+  },
+  "additional3_results": {
+    "passed": 106,
+    "failed": 0,
+    "ignored": 0
+  },
+  "historical_pending_conditions_resolved": "Terminal finalstatus003 supersedes the earlier subset receipts pending-WASM/Clippy/remaining-consumer wording; immutable receipts remain historical partial snapshots.",
+  "baseline_cube": 812,
+  "original_stashes_untouched": true,
+  "new_tests_cases_helpers_assertions_doctests": 0,
+  "local_project_execution": false,
+  "direct_poll_failure_or_hang_runtime_witness": false,
+  "qualification": "Existing tests and source review support this scoped policy increment. Complete graphical runtime, arbitrary public mutation coherence, global13lenses and20migration families remain open.",
+  "pr": 990,
+  "pr_ready_as_observed": true,
+  "pr_unmerged": true,
+  "user_review": "LGTM submitted2026-10-27T00:46:15Z; no inline threads",
+  "final_body_publication": "Completed and remotely verified exact reviewed body005",
+  "stop_at_merge_ready_checkpoint": true,
+  "overall_goal_complete": false,
+  "supersedes_publication_pending_only": "final-slice-acceptance-001.json",
+  "final_pr_state": "final-pr-state-001.json",
+  "body_review": "pr-body-comment-review-003.json"
+}

@@ -1,0 +1,160 @@
+{
+  "head": "5ceaa9bd5738b8b01e7d488df55c172cd4f8593d",
+  "base": "35b18ec280a6884bb53996a2d859c4b27096f65c",
+  "manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/implementation-manifest-001.json",
+    "sha256": "a3c6d937060b6e252e642fc2f609e62e0399c3504ce1c9095e4b725d7748cf60"
+  },
+  "sources": [
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "base_sha256": "db3686060ebd8ce533fe48c88685c5643b024b8a92b2b617d97481196988f3e0",
+      "sha256": "b1561f750844b7395f96f8fe2ee767db88d73fb8d8b6e997779493130b09f877",
+      "base_lines": 178,
+      "lines": 173,
+      "prospective_ranges": [
+        [
+          1,
+          173
+        ]
+      ],
+      "reason": "Complete affected comment/API and producer/operation/error owner scope registered; actual bounded body reads recorded separately, no project execution."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "base_sha256": "6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+      "sha256": "7cca5e5cef2f3c3a5a11c88dba547195f36d61f4665f157c8d55eedc30179eab",
+      "base_lines": 267,
+      "lines": 267,
+      "prospective_ranges": [
+        [
+          1,
+          267
+        ]
+      ],
+      "reason": "Complete affected comment/API and producer/operation/error owner scope registered; actual bounded body reads recorded separately, no project execution."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "base_sha256": "61864d871215d4140f142c121202374b5a8e3434504d459b29e97d7e0a889033",
+      "sha256": "3acaf77c189e6ab8abcd972e5615276d945a1ca6772ee90246feef673e8a2c69",
+      "base_lines": 207,
+      "lines": 207,
+      "prospective_ranges": [
+        [
+          1,
+          207
+        ]
+      ],
+      "reason": "Complete affected comment/API and producer/operation/error owner scope registered; actual bounded body reads recorded separately, no project execution."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "base_sha256": "18c3232bb01109cd7ec857f3c750d2c04ffb869dd52ca42cec82524816c41206",
+      "sha256": "09565d01fd8fabbf899d84f107bdbf9c16fd6149ec61f51714599d160c1260e0",
+      "base_lines": 217,
+      "lines": 218,
+      "prospective_ranges": [
+        [
+          1,
+          218
+        ]
+      ],
+      "reason": "Complete affected comment/API and producer/operation/error owner scope registered; actual bounded body reads recorded separately, no project execution."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "base_sha256": "2bdf24f3de20d1901bfc475d799d3a07781d9c5e22733caaea0d2365250edd0f",
+      "sha256": "51a510d3c5f039d6b7eb4ce2b1511432fb3415bf0b15152d036ec01a6394f9c8",
+      "base_lines": 522,
+      "lines": 525,
+      "prospective_ranges": [
+        [
+          1,
+          525
+        ]
+      ],
+      "reason": "Complete affected comment/API and producer/operation/error owner scope registered; actual bounded body reads recorded separately, no project execution."
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+      "lines": 58,
+      "prospective_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "reason": "Canonical fraction owner and applicable governing rules; source-only review."
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "lines": 113,
+      "prospective_ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "reason": "Canonical fraction owner and applicable governing rules; source-only review."
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "lines": 192,
+      "prospective_ranges": [
+        [
+          1,
+          192
+        ]
+      ],
+      "reason": "Canonical fraction owner and applicable governing rules; source-only review."
+    },
+    {
+      "path": "crates/adventuresim-core/AGENTS.md",
+      "sha256": "7d2a3dd7507a8405fded5577a7f406273ab835389b52b189415d0878c39d8a73",
+      "lines": 9,
+      "prospective_ranges": [
+        [
+          1,
+          9
+        ]
+      ],
+      "reason": "Canonical fraction owner and applicable governing rules; source-only review."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/AGENTS.md",
+      "sha256": "b3fd110d97bc871853458c38282d3d4c18369b6d0647e96e0de6d0641dca61c8",
+      "lines": 17,
+      "prospective_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "reason": "Canonical fraction owner and applicable governing rules; source-only review."
+    }
+  ],
+  "diff": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/source.diff",
+    "sha256": "051d1466a1e6aacae17135c4156ed4a95a562a52f47dda01ec7f46e4ed035396",
+    "prospective_ranges": [
+      [
+        1,
+        161
+      ]
+    ]
+  },
+  "body": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/pr-body-001.md",
+    "sha256": "494c8372a04abebc8d117530a1c99b69921670ec950b08fa830982abba26933b",
+    "prospective_ranges": [
+      [
+        1,
+        22
+      ]
+    ]
+  }
+}

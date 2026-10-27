@@ -1,0 +1,166 @@
+{
+  "id": "SEGOVB-CLEAN-ERROR-COMMENT-REG-001",
+  "created_utc": "2026-10-26T21:11:22.150662+00:00",
+  "base": "323789dd1beca252d4515c580573596ca0c98143",
+  "manifest": {
+    "path": "clean-error-source-manifest-001.json",
+    "sha256": "e15b95d5c3b025c624f53356243c537d0966078e3b2e69f3e70bbdd0a7cd232b"
+  },
+  "patch": {
+    "path": "clean-error-actual-diff-001.patch",
+    "sha256": "c4086530fc7efafd8e4c967a24a2fd38288cbef91d62c3381435a4682cd1da0d"
+  },
+  "scope": "All7 exact changed current files, new composed error/source/doc semantics only. User forbids backward-compatibility constraints. No product/Git/ledger/tests/checks/publication.",
+  "skill": "/home/brunosegovia/.codex/skills/comment-review/SKILL.md previously read and reapplied; applicable root/crates rules remain current",
+  "sources": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "a295f80fefc3035bf18c518b5ad9d1c379cd2473deacb33dad2c738bbf35e92f",
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "d15d73bd8fbf0410de7031e9c2cb7672153f24391614877fedd8f6766f37692c",
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "04110cf73034d74c5252361f77af470d11d289fc1a1106e9c42e975707ebdf04",
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "0c00273b8492fa0919e7264459cffbd80f97564784a292e7e88d28bf928cb244",
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "3dce5de96be36b2463daee4fb0ed823563d3f87e99bfc9a8ba3b1ddcdc37fca8",
+      "ranges": [
+        [
+          1,
+          9
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "e3ad593b83da185620d2729a5fde4a0f7bfda1c39993494432c55a0c989e0973",
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "3a3902b9981ae772df92c2df1a97d245196d25cd83f2eacf4a586005ea39a6cd",
+      "ranges": [
+        [
+          1,
+          70
+        ]
+      ]
+    }
+  ],
+  "additional_support": [
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "sha256": "14cccb953bd0b8466b7ad010219c4220d535ee7ed9e6e66cad981c37cc67df88",
+      "ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "purpose": "Actual unchanged context policy constructor/gating source required by guide semantics; no global context comment clearance."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "baf15af7fdf3ecbc0776b475b3aadbd35c29a3d6e0185cef3b2f064803315381",
+      "ranges": [
+        [
+          20,
+          31
+        ],
+        [
+          98,
+          118
+        ],
+        [
+          260,
+          275
+        ]
+      ],
+      "purpose": "Actual unchanged context policy constructor/gating source required by guide semantics; no global context comment clearance."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "ranges": [
+        [
+          1,
+          16
+        ],
+        [
+          255,
+          341
+        ]
+      ],
+      "purpose": "Actual three generic texture-binding error conversions needed by guide60-61; bounded body only."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-impl-2.1.1/src/error.rs",
+      "sha256": "40cfa53d126eae5284310d5814318d32269e482e3491bf561ec9cd6168646aeb",
+      "observed_ranges": [
+        [
+          175,
+          219
+        ],
+        [
+          286,
+          334
+        ]
+      ],
+      "provenance": "Current lock-checksummed archive member bytes equal inspected local source; not frozen audit-source identity",
+      "package": "derive_more-impl-2.1.1",
+      "archive_sha256": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb",
+      "purpose": "Re-evaluate exact previously archive-verified derive_more source generation against final unboxed explicit source fields. No prior error-layout/downcast promise transferred."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-2.1.1/src/as_dyn_error.rs",
+      "sha256": "ba3767c6c95966583360f28cd59bfe20717d0f53c2041c2c534552fcb1b265d9",
+      "observed_ranges": [
+        [
+          24,
+          29
+        ]
+      ],
+      "provenance": "Current lock-checksummed archive member bytes equal inspected local source; not frozen audit-source identity",
+      "package": "derive_more-2.1.1",
+      "archive_sha256": "d751e9e49156b02b44f9c1815bcb94b984cdcc4396ecc32521c739452808b134",
+      "purpose": "Re-evaluate exact previously archive-verified derive_more source generation against final unboxed explicit source fields. No prior error-layout/downcast promise transferred."
+    }
+  ]
+}

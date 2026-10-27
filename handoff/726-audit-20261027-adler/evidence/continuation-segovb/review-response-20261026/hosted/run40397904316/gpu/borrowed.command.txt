@@ -1,0 +1,1 @@
+cargo test --locked --package fabelgeist-gpu --lib globals::wgpu_context::tests::a_borrowed_device_skips_blocking_validation -- --exact --test-threads=1 --nocapture

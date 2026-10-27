@@ -1,0 +1,71 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-376",
+  "at": "2026-10-25T23:53:09.125581+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 165,
+      "source_id": "physical-p16:crates/adventuresim-dialogue/build.rs",
+      "sha256": "cc1742e70ed56b721e25aebb320b2295d621a1f826310a05b1f8771ab968093b",
+      "personally_read_ranges": [
+        [
+          1,
+          580
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full registered dialoguebuild1-580 read. Build parsesJSONsubsetofYAML toValue, strictschema then semanticvalidation beforeembeddingdocs/sourcemap/revision; sortedfilepaths preserved. Rolekind/cardinality, factroleexistence/sexvaluekind, nonemptyturns/knownspeakers/addressees/notself, runtimeslotclosedlist andeffects/inline topics arechecked.",
+        "TestimonyrequiresoneRuntime(testimony)+oneReceiveReferredTestimonyperresponse andforbiddenon_start/promptchoice. Prompts enforceatleast2choices,positiveorderedlimits, max<=choices, single/yesnobounds, uniquechoiceIDsandknownrespondent. Conditions/priorityequalityrejectsexactstructuralduplicates only, notlogicaloverlappingequalpriority; runtime resolutionorder needsactual170.",
+        "GlobalIDs flattenconversation/topic/response/prompt/start withcolonstrings; arbitraryauthoredcolonIDs can causefalsecollision acrosssemanticcoordinates, but no shippedcatalogfailure orneedforbroaderIDpolicy claimed. InitialsourceValue duplicateJSONkeys collapsebeforevalidation, rawscanner recordsalllexicalscalaroccurrences anddotjoinedpaths; canonical consumer/source-maplookup needstrace beforeattributionfinding. Scanner assumesalreadyvalidJSON, so internalindexing/stringboundarysafety comesfromearlierparser. No buildexecution."
+      ]
+    },
+    {
+      "scope_index": 166,
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/authoring_schema.rs",
+      "sha256": "5218afbbe83f65f767841fc2de3aea7f09b2b9fff8226085d6ab2ad98f63f6a7",
+      "personally_read_ranges": [
+        [
+          1,
+          347
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full registered strictschema1-347 read. Authoredclosedmode/resolution,rolebounds, conditions/factkeys/effects andturn/addresseefragments have shapecontracts; structskeeprawIDs/cardinality until build/runtime semanticadmission. FactKey participant_roles enumeratesactualone/twoparticipant references; authoring_value_is_valid onlysexversusnonsex, otherfactvaluekindcompatibility isnotuniversallyenforcedhere. FactValue untaggedorder preservesbool/int/sex/text butnotfield-specificsemanticbounds; receiverrequired.",
+        "on_start/conditions/knownflags andpromptdefaults are authored defaults, notalternatelegacyroutes. Runtimefragment/actionstrings stillvalidatedbybuildlist; actualruntimeparsemustreapplysemanticrules fordynamicdocuments. No declaredpolicy modulecredit here; separatelyread167."
+      ]
+    },
+    {
+      "scope_index": 167,
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/authoring_schema/policy.rs",
+      "sha256": "a9642460145cc1153e7ead65a73b4a149dcdd4312676947997709889f4b3b2ae",
+      "personally_read_ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full registered dialoguepolicy1-102 read. Serdeauthoredsnakecase andstablepersistedPascalCasevocabulariesareexplicitdifferentportsownedbyoneenums; parseexactmatchesclosedvaluesandtypedcause, rejectsotherpolicyfamily. No accidentalcompatibilityaliases inferred. Existingtestsource documentsbothformatsandnotexecuted."
+      ]
+    },
+    {
+      "scope_index": 168,
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/catalog_revision.rs",
+      "sha256": "c84897e6fc426cb620908fdabf4a4e52302d05bb588da91361407ab2d32868fb",
+      "personally_read_ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full registered catalogrevision1-82 read. VersionedSHAhashframesentrycount,pathbytecount andtypedJSONvariants; arrayspreserveorder, objectsexplicitkeysortindependentofmapfeature, recursivevaluesframedso concatenationambiguityavoided. Entriesorder remainscallerowned andbuild165sortsfilepaths; functiondoesnotitselfsortpaths orvalidatepathuniqueness. CanonicalValue numberformat changesorlexicalduplicatekeys arenotdistinguishedonceparsed, actualsemanticcatalogue/sourcepurpose separate. Fixedvector/objectorder testsreadnotrun."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "4 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "scope_authority": "original-scope-072.json full165-168; sourcebodyanalysis only, no generatedsource execution."
+}

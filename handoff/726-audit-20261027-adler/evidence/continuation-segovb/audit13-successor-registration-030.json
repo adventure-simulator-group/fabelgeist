@@ -1,0 +1,80 @@
+{
+  "at": "2026-10-27T05:18:34.721797+00:00",
+  "lens": "13 magic-numbers",
+  "packet": "030",
+  "authority": {
+    "frozen_original_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "original_registry": "target/recovery-20261025/audit05/original-scope-072.json",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "prior_adopted_state": "audit13-successor-029-suggested-state.json",
+    "prior_state_sha256": "8880d83ee1b2f64f2eb2f709ceb5719bd79996e9ea45dbab4f134db30f66ee05",
+    "root_adoption": "audit13-successor-029-adoption-root.json",
+    "root_adoption_sha256": "51bb409665aa5c8cf37989f39d5f5e6d066309ead4ff0934f381b09fe621ea66"
+  },
+  "source": {
+    "original": 39,
+    "source_id": "physical-p16:Cargo.lock",
+    "object_path": "target/recovery-20261025/continuation-segovb/source-objects/1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+    "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+    "bytes": 306149,
+    "actual_lines": 13103,
+    "full_effective_ranges": [
+      [
+        1,
+        13103
+      ]
+    ],
+    "contained_supplemental_ranges": [
+      [
+        10243,
+        10256
+      ],
+      [
+        10303,
+        10327
+      ],
+      [
+        10373,
+        10405
+      ]
+    ],
+    "prior_consumed_ranges": [
+      [
+        1,
+        11200
+      ]
+    ],
+    "contained_supplements_consumed_in_prior029": true,
+    "registered_ranges_this_packet": [
+      [
+        11201,
+        13103
+      ]
+    ],
+    "planned_actual_output_chunks": [
+      [
+        11201,
+        11600
+      ],
+      [
+        11601,
+        12000
+      ],
+      [
+        12001,
+        12400
+      ],
+      [
+        12401,
+        12800
+      ],
+      [
+        12801,
+        13103
+      ]
+    ],
+    "body_read_at_registration": false
+  },
+  "purpose": "Finish actual fullremaining source-line inventory without metadata exemption; maintain rawheader4/native numericproducer/admission/receiving frontier after EOF. No scanner/parser/summary or other-lensverdict substitute.",
+  "limits": "Counts37/2853 unchanged;31/36/39partial;earliest31;neverstarted40/no40. EOFnotautomatic39completion; no new native expansion thispacket. No product/source/Git/rootledger/historical edits, projectexecution/checks/scans/probes/tests/helpers/assertions/doctests orpublication. Append ignored evidence;stopEOF13103."
+}

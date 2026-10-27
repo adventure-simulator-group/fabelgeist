@@ -1,0 +1,67 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-314",
+  "at": "2026-10-25T22:59:15.144038+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2629,
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/pattern/spec.rs",
+      "sha256": "091a579552af6da77a2bbcf091a6a7afddf4784dd6f488460940b9eb9fa77ee9",
+      "personally_read_ranges": [
+        [
+          1,
+          582
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1-582: PatternSpec jointly carries ordered named panels, stitch panel/edge references, cached panel_order and properties. Merge replaces equal-named panel and extends stitches without clearing cached order or validating references; raw mutability and merger preconditions remain caller owned. JSON writer escapes names/labels/control characters, preserves required key order and intentionally emits NaN/Infinity for nonfinite floats; actual generator/admission witness needed before treating public arbitrary values as ordinary malformed output. Included finite roundtrip/order tests read, not run."
+      ]
+    },
+    {
+      "scope_index": 2630,
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/pattern/core.rs",
+      "sha256": "78a40a867edc2528c4d5bd02bd24b48e21b4e8fdf0e70e4c0cac759b680efa50",
+      "personally_read_ranges": [
+        [
+          1,
+          442
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1-442 paired 2629: panel_order(false) reuses cached order; force recomputes from world anchors. serialize guards only cached order emptiness, then writes hand-built JSON. normalize loops remaps stitch indices after rotating/mirroring each panel and marks normalized at end; assumes nonempty coherent vertices/edges/stitch references, with indexing/unwrap and partial_cmp unwrap for invalid/nonfinite shapes. No loader/generator bad-shape witness established. Second rotation's mapping composition and mutable cached order remain targeted trace questions rather than accepted findings."
+      ]
+    },
+    {
+      "scope_index": 2631,
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/garment/mod.rs",
+      "sha256": "d5124bc81c37905a779feea7e56a120ed5fadda9448cad8cf907a61c938b1da6",
+      "personally_read_ranges": [
+        [
+          1,
+          455
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1-455: build validates seam references through count lookup, propagates max segment count monotonically to fixed point before meshing, packs contiguous offsets/material/world positions, pairs/sorts/deduplicates seams and avoids duplicate edge constraints. Seam bending union-find uses roots and checks distinct particle ids; mass/rest/weights depend on valid finite geometry from triangulator. target_edge rejects <=0/NaN but permits +infinity; empty panels short-circuit before settings checks. Nonfinite placement and repeated/empty geometry require triangulator/ordinary caller trace, not blanket success clearance."
+      ]
+    },
+    {
+      "scope_index": 2632,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+      "personally_read_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full 1-138: private Unspecified versus Explicit usage selection preserves all() default while new().with_usage starts empty and accumulates exact selected flags; Storage adds copy flags, map uses explicit MAP_READ/WRITE. allocate_native forwards flags and byte length to wgpu with mapped_at_creation false; no local cross-capability validation. Native wgpu requirements/actual mixed-map caller remain separate; no new demonstrated aggregate mismatch."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "4 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

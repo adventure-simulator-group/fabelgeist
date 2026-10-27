@@ -1,0 +1,247 @@
+{
+  "at": "2026-10-27T13:58:41.565493+00:00",
+  "lens": 11,
+  "status": "1006-1009 independently source-accounted with findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-045-registration.jsonl",
+    "sha256": "af8234b4f542a45df1f93b3e312f2cf1fd63c0c97a5780aa7dceee0c94619f3f"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-044.json",
+    "sha256": "ad6f9055b2a31408580cdd44c0fab56886ee593fae1606041eed3891d91cf5b1"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1006,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_action.rs",
+      "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+      "ranges": [
+        [
+          1,
+          1209
+        ]
+      ],
+      "actual_eof": 1209,
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          1209
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1007,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_currency.rs",
+      "sha256": "837f9fd6f0198b1141b6908e9a329a770104cb67be25e2234764977af3db85df",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/837f9fd6f0198b1141b6908e9a329a770104cb67be25e2234764977af3db85df",
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "actual_eof": 40,
+      "scope_kind": "materially_reached_owner_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          40
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1008,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_economy.rs",
+      "sha256": "0821918d44bc66de59484518b50255c6a75b8001427feaa6ab8309a7a8ec7e5c",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/0821918d44bc66de59484518b50255c6a75b8001427feaa6ab8309a7a8ec7e5c",
+      "ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "actual_eof": 143,
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          143
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1009,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_inventory.rs",
+      "sha256": "d271b63418f6ef51f276ab1e383bb534724f08ae106ffd7285f530e0308fef3e",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/d271b63418f6ef51f276ab1e383bb534724f08ae106ffd7285f530e0308fef3e",
+      "ranges": [
+        [
+          1,
+          455
+        ]
+      ],
+      "actual_eof": 455,
+      "scope_kind": "affected_unchanged_reached_contract",
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          455
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected",
+      "original_index": 1225,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+      "ranges": [
+        [
+          2140,
+          2175
+        ],
+        [
+          2295,
+          2338
+        ],
+        [
+          2370,
+          2405
+        ],
+        [
+          2450,
+          2505
+        ],
+        [
+          2510,
+          2585
+        ],
+        [
+          2650,
+          2695
+        ],
+        [
+          2745,
+          2820
+        ],
+        [
+          2940,
+          3005
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual request/payment/provider/quote/native deduction boundary; no full reducer/global authorization proof",
+      "actual_read_ranges": [
+        [
+          2140,
+          2175
+        ],
+        [
+          2295,
+          2338
+        ],
+        [
+          2370,
+          2405
+        ],
+        [
+          2450,
+          2505
+        ],
+        [
+          2510,
+          2585
+        ],
+        [
+          2650,
+          2695
+        ],
+        [
+          2745,
+          2820
+        ],
+        [
+          2940,
+          3005
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original_index": 1006,
+      "inventory": "Typed actor/object/place/fixture/domain target; custody-bound ToolReference/CustodyTransfer; snapshot revision vs digest vs authority binding; request vs definition IDs; cap-specific milli measurement and minimum; requirements/checks; positive requested duration vs absolute StrategicMinute and elapsed duration; independent terminal/interruption boundaries and closed completion outcomes; private rejected vs public sanitized plan; private authoritative plan/replan/receipt/idempotence; negotiation social/rank/language/affinity/morale/awareness/score; medical emergency flags.",
+      "disposition": "Canonical action IDs share syntax but different namespaces. Snapshot revision, input-content digest and reducer authority binding are different facts despite same numeric/byte storage. ActionCoordinates constructors actually check fixture/target place and duplicate tools; custody constructors check self-containment. Plan/replan checks665-714 retain request/action/authority, complete input provenance, snapshot, requirements/time/calculation; public preview deliberately drops private failed requirements and non-completion reason. Terminal/interruption are independent competing boundaries; tie favors terminal and reaching clock MAX cannot grant completion. Completed flag is derived at public projection, not duplicate authoritative state. Public TimeResolution fields admit arbitrary incoherent clock/duration/outcome records, but actual authoritative plan builder only takes resolve_time output; qualified API-shape candidate, not shown forged runtime plan. Cap milli_value/minimum are broad tag-plus-unit primitives under generic C: use a cap-associated value only if actual capability units differ rather than an arbitrary universal range. Negotiation outputs accepts_demand and offers_surrender answer different questions and must not be merged blindly; raw language0..1, skill0..5, affinity\u00b1100, moralepercent/awarenessBPS differ from unnormalized demand score.",
+      "remedy": "Preserve existing typed identities and payload enums; encapsulate TimeResolution construction and typed duration operands if extending public consumption. Retain contextual refusal vs unavailable vs allowed reason and private/public separation. Reuse purpose language/affinity/BPS/percentage/skill owners through native assessment, keeping score separate; closed assessment outputs can own required evidence without discarding independent demand/offer semantics. Keep domain-specific rights questions bound to the actual question; previously recorded generic Allowed erasure remains qualified, not closed here.",
+      "acceptance": "Full1-1209 consumed including existing fixtures716-1209. Prior actual action consumers026/028 and rights039 proof retained; source tests establish intended contracts only, not execution/transactional authority. No SDK/global authorization or every domain adapter claim."
+    },
+    {
+      "original_index": 1007,
+      "inventory": "Currency catalog selector and display name; equal-value denomination semantics; settlement-ID keyed deterministic assignment and ephemeral RNG index.",
+      "disposition": "Currency denomination/item identity differs from coin amount. is_currency_id actually checks canonical ItemKind::Currency, currency_name checks same kind before projecting label. Name is not mechanical identity; assigned selector remains raw str through catalog boundary. Equal denomination value is explicit current frozen policy, no exchange-rate type invented.",
+      "remedy": "Reuse canonical currency/catalog identity through assignment and consumers; keep quantity/amount owner separate and avoid display-name identity.",
+      "acceptance": "Full1-40 independently inventoried, earlier033 personal read reused context; no authored CURRENCY_IDS nonempty/global catalog execution proof."
+    },
+    {
+      "original_index": 1008,
+      "inventory": "Unit base value/quote, aggregate line and total coin values; quantity; merchant margin>1 vs sales-tax fraction; shared-language coefficient; fractional food-lot value; full-board requested minutes and ceil-day billing; personal/party balance split.",
+      "disposition": "MERCHANT_MARGIN1.25 is not UnitInterval; tax/language fractions differ from positive money totals and nonnegative subcoin food value. Whole-item sale floor1 differs intentionally from depleted lot floor0. checked u32\u00d7u32 into u64 and checked total addition are retained, native f32 price conversion still accepts large monetary integers and saturating float-to-int results, a source representation/operation candidate without observed runtime overflow. Party split permits zero contributions and uses pooled funds first; this differs deliberately from storefront authorization personal-first. Do not conflate these funding policies or force all valid totals positive.",
+      "remedy": "Use purpose amount/unit-price/line-total and quantity/duration owners with checked quote operations; name pooled/personal split fields rather than two raw tuple integers. Keep fractional lot valuation capable of zero, and explicit merchant multiplier separate from fraction owners. Admission/rounding limits must follow actual currency capacity rather than an invented f32-safe gameplay maximum.",
+      "acceptance": "Full1-143 consumed; actual1225 quotes2650-2695/2745-2820 and settlement2957-2997 read: checked totals, food/measured rows, u32 proceeds capacity checks and coin-consumption calls. Reducer bodies only specified ranges; no full DB transaction/stock/authorization/native persistence proof."
+    },
+    {
+      "original_index": 1009,
+      "inventory": "Nonzero CoinAmount; personal/stake authorization maxima and three payment-source payload states; MerchantProviderId nonzero character identity; provider cardinality errors; Storefront-route/location derivation; positive TradeQuantity wrapping ItemQuantity; BuyLine catalog String vs SellLine inventory u64; TradeScope; aligned parallel-wire vectors and PartyOfferLine from/to/inventory IDs; closed request errors.",
+      "disposition": "Payment payloads correctly distinguish absent source from zero-valued contribution and derive source values; maxima can be zero. Provider wrapper proves nonzero identifier, not provider membership; actual default-provider query filters service/location/presence before exactly-one selection. Route owner stores storefront and derived location redundant under six private parser arms but public fields are private and no actual divergence. TradeQuantity adds purpose to same admitted positive ItemQuantity; keep common numeric invariant instead of independent duplicate validation. Buy catalog selector, sell inventory row, party member and provider IDs are semantically different, yet request and party-offer line IDs remain raw after parser. Parser checks lengths/quantity, not identity; public Vec fields also permit empty trade intentionally (only party offer rejects empty). Actual1225 extracts typed lines back into parallel vectors and quantities/get before processing; preserve row association and typed quantities deeper.",
+      "remedy": "Use existing canonical catalog/inventory/character ID owners through request records, keep trade purpose over common ItemQuantity invariant, iterate typed lines directly rather than regenerate parallel vectors. Derive location from Storefront if this exact fixed route mapping is the authority. Retain source-specific funding policy and payload-owning payment enum. Raw native wire values should be admitted once at reducer boundary.",
+      "acceptance": "Full1-455 consumed. Existing933 ItemQuantity owner full source personally consumed027. Actual1225 parse-party2140-2175, payment2295-2338, service2370-2405/provider2450-2505/request2510-2585 show database lookup/error and source fields; no runtime wrong-ID occurrence or whole reducer authorization proof. Qualified inherited inventory ID/key/wear/capacity source-key questions retained without accepted alias/unique claim."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-026-receipt.json",
+      "sha256": "a6a3bf715d71a10786994eea605f942cdb91f137578cb423ec0f81a23465904e"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-027-receipt.json",
+      "sha256": "871ad0df2778d657e3f880a3444f1c99f36a6d2b9258c12e6a57bb3c11a97b41"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-028-receipt.json",
+      "sha256": "45e9ec96599b408c85a36ae3ba0299bcdb195524537add323b6aba4a300c89b2"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-033-receipt.json",
+      "sha256": "2fa5eddcfced7cfdc55209d38df689845b351ca17c3551e42c9bd3acc54dca86"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-039-receipt.json",
+      "sha256": "e8dd9acd61a6e7ff4cf5551c460653184529319b1da16bdc63a269a7d90fb5e8"
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Frozen source only. Relevant unchanged receiving contracts are actual listed ranges, not whole1225 reducer; native transaction/authorization/runtime behavior unproved.",
+    "Connected1225 source access grants zero future ordered credit; no current source or inherited alias acceptance inferred. Existing tests read, never run."
+  ]
+}

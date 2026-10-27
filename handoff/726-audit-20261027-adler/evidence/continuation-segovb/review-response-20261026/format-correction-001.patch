@@ -1,0 +1,15 @@
+diff --git a/crates/fabelgeist-gpu/src/globals/validation_scope.rs b/crates/fabelgeist-gpu/src/globals/validation_scope.rs
+index 5bfda1ea0..6d91d0ba5 100644
+--- a/crates/fabelgeist-gpu/src/globals/validation_scope.rs
++++ b/crates/fabelgeist-gpu/src/globals/validation_scope.rs
+@@ -60,7 +60,9 @@ impl Error for ValidationProgressError {
+ impl ValidationScope {
+     /// Return no guard when the context leaves validation errors uncaptured.
+     pub fn new(context: &WgpuContext) -> Option<Self> {
+-        let guard = context.validation_observation.start_scope(&context.device)?;
++        let guard = context
++            .validation_observation
++            .start_scope(&context.device)?;
+         Some(Self {
+             device: context.device.clone(),
+             guard,

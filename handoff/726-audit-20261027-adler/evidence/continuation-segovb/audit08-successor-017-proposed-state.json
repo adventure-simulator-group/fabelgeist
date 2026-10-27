@@ -1,0 +1,384 @@
+{
+  "kind": "Additiveproposal forrootadoptiononly",
+  "receipt": "audit08-successor-017.json",
+  "sha256": "f442adcb7f37ccd0836b024528cf2280201aa23baa0ec0d8a68e8d988336045d",
+  "prior": "audit08-successor-016-proposed-state.json",
+  "original_accounted": 1800,
+  "original_total": 2853,
+  "new_original_completions": [],
+  "original_first_unfinished": 1462,
+  "partial1462": "CONT08-Q003 unchanged qualified partial; Transform/GlobalTransform decomposition boundary resolved for pure-w candidate only, actual admission/cast witness still open",
+  "next_ordered_original": 1793,
+  "material_earlier_contiguous": [
+    0,
+    51
+  ],
+  "next_material": 52,
+  "partial_material_indices": [
+    52
+  ],
+  "separate_material_interval": [
+    178,
+    195
+  ],
+  "newly_accounted_material_indices": [],
+  "preexisting_candidate": "SEGOVB-CONT08-007-M51-PAID-WITHDRAWN unchangedpartial",
+  "new_reached_shared_dependency": {
+    "canonical_source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-netcode/src/lib.rs",
+    "registration_alias": "frozen-pr-head:crates/adventuresim-tactical-netcode/src/lib.rs",
+    "path": "crates/adventuresim-tactical-netcode/src/lib.rs",
+    "sha256": "81b65a58f7ea1449d570ad5d18ead386e28179e307299964d530790974a818d7",
+    "root_provenance": "audit08-root-net-plugin-staging-011.json",
+    "own08_actualread": [
+      1,
+      45
+    ],
+    "required": "Rootadopt as newlyreachedsharedfirstpartysource andqueuerequiredother-lensroleassessment. No changedoriginaldenominator increment, duplicatealias populationor automaticclearance."
+  },
+  "rootledger_modified": false,
+  "broad_goal_complete": false,
+  "next_evidence": [
+    {
+      "id": "CONT08-016-SOLVER-JSON-TERRAIN-INHERITED",
+      "frontiers": [
+        {
+          "id": "CONT08-015-PLANNING-INTERIOR",
+          "source_backed_callers": [
+            {
+              "source": "pr-head:crates/adventuresim-tactical-core/src/city_layout/compiled/support.rs",
+              "ranges": [
+                [
+                  146,
+                  225
+                ],
+                [
+                  227,
+                  277
+                ]
+              ]
+            },
+            {
+              "source": "own014 compiled/grounded.rs",
+              "ranges": [
+                [
+                  53,
+                  80
+                ]
+              ]
+            }
+          ],
+          "actual_symbols": [
+            "street::select",
+            "CityRecipePalette::for_program",
+            "Recipe::door_point",
+            "BuildingCollision::ground_floor_contact_bounds",
+            "CitySceneLayout::plan_single_property_support"
+          ],
+          "known_sources": [
+            "crates/adventuresim-tactical-core/src/city_layout/compiled/support/street.rs is declared at support.rs6, not read in015",
+            "Recipe palette and plan_single_property_support actual declaring paths/ranges still need exact locators; no guessed path credit."
+          ],
+          "needed": "Follow actual changed checked geometry/bounds/door-selection and support solver receivers for this fixed fixture, including floor outputs and permutations. No new native/generator-wide expansion; save next bounded declared contracts before reading."
+        },
+        {
+          "id": "CONT08-015-GEOGRAPHIC-NUMERIC-KERNEL",
+          "source_backed_caller": {
+            "source": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source.rs",
+            "ranges": [
+              [
+                138,
+                177
+              ]
+            ]
+          },
+          "actual_symbols": [
+            "GroundTriangle::new",
+            "GroundTriangle::compare",
+            "GroundTriangle::bounds",
+            "GroundTriangle::contains",
+            "GroundTriangle::height_at",
+            "GroundTriangle::boundary_extension_factor",
+            "PlanarQueryIndex::from_bounds",
+            "PlanarQueryIndex::intersections"
+          ],
+          "known_source_bridges": [
+            "foundations.rs11 reexports geometry::GroundTriangle, so actual declared module grounding/foundations/geometry.rs is identified but not read here",
+            "source.rs3 imports grounding/planar/query::{PlanarBounds,PlanarQueryIndex}; actual geometric predicates/index constructors not read here"
+          ],
+          "needed": "Exact frozen before/after numerical admission/canonical order/point sampling contracts. Current constructor outer source preserves ordering by compare and all-or-none new, but that does not prove exact admission or triangle-order independence through changed kernels."
+        },
+        {
+          "id": "CONT08-015-JSON-REMAINING-LEAVES",
+          "source_backed_callers": [
+            {
+              "source": "own014 grounded/tests.rs",
+              "ranges": [
+                [
+                  11,
+                  23
+                ]
+              ]
+            },
+            {
+              "source": "pr-head:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+              "ranges": [
+                [
+                  111,
+                  148
+                ]
+              ]
+            }
+          ],
+          "actual_symbols": [
+            "CityCompound serde admission and nested plot/access/boundary owners",
+            "SceneBuildingId serde/Ord",
+            "ScenePlanPoint serde",
+            "BuildingArchetype/BuildingUse/ServiceBuildingSize/ProsperityTier/Seed serialization",
+            "BuildingProgram::settlement",
+            "BuildingProgram::fixture",
+            "BuildingProgram::with_service_size"
+          ],
+          "progress": "Actual Distant/Tactical record fields and promotion body, orientation Deserialize and finite SupportElevation Deserialize are source-read before/after. Remaining leaves/program constructors not newly traversed; actual JSON decoded-success/program identity is not asserted from derive or old test assertions. ScenePlanPoint has own earlier013 evidence but no new independent015 leaf-body credit.",
+          "needed": "Narrow exact changed leaf/compound serialization and program-selection receivers needed by actual captured front/rear records. No requirement to support old malformed schema/inputs."
+        },
+        {
+          "id": "CONT08-015-TERRAIN-COMPOSITION",
+          "source_backed_caller": {
+            "source": "own014 compiled/grounded.rs",
+            "ranges": [
+              [
+                100,
+                118
+              ]
+            ]
+          },
+          "actual_symbols": [
+            "BoundedSettlementTerrain::compile",
+            "BoundedSettlementTerrain::elevations_at",
+            "PropertySupportSurface/CompoundSupportPlan member and surface extraction"
+          ],
+          "known_source_bridge": "foundations.rs13 reexports settlement::{BoundedSettlementTerrain,SettlementSupportError}; settlement module was listed as Git path metadata only, not staged/read.",
+          "needed": "Ownership composition and elevation lookup remain open; no actual numeric floor/terrain permutation witness or executed fixture."
+        }
+      ],
+      "qualification": "Packet016 resolves only requested local geometry/index bodies. Preserve actual street/recipe/single-property planning, remaining typed JSON/compound/program leaves, BoundedSettlementTerrain composition/elevation lookup and full geometry-clipping callers. These are not discharged by local canonical index order."
+    }
+  ],
+  "bounded_packet_result": "Checked position/scene-point constructor, accessor, finite predicate, projection and serde wrapper contracts source-closed for actual sampler. Original1793 remains partial at solver/JSON/terrain; no count/finding change.",
+  "ordered1792_status": {
+    "status": "complete for this lens and exact requested variant scope",
+    "original_index": 1792,
+    "source_id": "pr-working:crates/adventuresim-tactical-core/src/bin/generate_scene_fixtures/heating.rs",
+    "base_sha256": "deab8a8b54485ffbcd6a8276a7424a0f7907af7776e72e190d9dd9550e2cbcaf",
+    "head_sha256": "b92ee2d412b4ce07eeae5e08de9f482ccb8226d8a4e76b0fe3200e014acae923",
+    "actual_full_before_ranges": [
+      [
+        1,
+        155
+      ]
+    ],
+    "actual_full_after_ranges": [
+      [
+        1,
+        160
+      ]
+    ],
+    "full_body_authority": "own audit08-successor-013.json and matching fresh hashes",
+    "result": "No actionable unintended behavior defect found in this original. Product fixture/buildings bodies are unchanged; only the existing test sample is admitted as finite ScenePlanPoint before calling migrated typed receivers. For finite coordinates this preserves values and receiving lookup rules. Rejecting non-finite derived coordinates at the assertion boundary is the intended new finite input contract, not an old malformed-input preservation obligation.",
+    "resolved_partial": "SEGOVB-CONT08-013-1792-RECEIVERS-PARTIAL resolved for original1792 by actual staged producer/receiving body reads above.",
+    "qualifications": [
+      "No executed test/fixture result or assertion success is claimed. Existing test was read as source only; no test/case/helper/assertion/doctest added.",
+      "No universal proof of recipe generation, bounded floating-point arithmetic, grounding ownership, terrain generation, urban cache geometry or current runtime behavior. Those owners retain their separately scoped audit obligations.",
+      "No before/after all-source equivalence follows from unchanged parent/support bytes; own actual called bodies are described, and dependent generator internals are not blanket-cleared.",
+      "No backward compatibility requirement imposed on malformed old coordinates, APIs, schemas or unchecked behavior."
+    ]
+  },
+  "new_reached_shared_dependencies": [
+    {
+      "canonical_source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-core/src/bin/generate-scene-fixtures.rs",
+      "sha256": "3a9432cfc6a30402262e35b2283c4f0374c89801d23f387df6b207ad8803e06f",
+      "root_provenance": "audit08-root-heating-parent-staging-013-main.json",
+      "required": "Root reconcile as newly reached shared first-party dependency and queue applicable other-lens roles; no changed-original denominator increment or verdict transfer. Preserve base/head aliases as one source identity."
+    },
+    {
+      "canonical_source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-core/src/bin/generate_scene_fixtures/support.rs",
+      "sha256": "8374fc2e3ae03db6138eb8003c20127b314c3740b0e2080120fbaf4193175419",
+      "root_provenance": "audit08-root-heating-parent-staging-013.json",
+      "required": "Root reconcile as newly reached shared first-party dependency and queue applicable other-lens roles; no fixture exemption, changed-original denominator increment or verdict transfer."
+    }
+  ],
+  "newly_accounted_original_roles": 0,
+  "new_unique_finding_count_delta": 0,
+  "ordered1793_status": {
+    "original_index": 1793,
+    "status": "qualified partial",
+    "qualification_id": "SEGOVB-CONT08-017-1793-SOLVER-JSON-TERRAIN-PARTIAL",
+    "actionable_findings": [],
+    "resolved_subset": "CONT08-016-CHECKED-POSITION-LEAF closed for the materially reached actual triangle sampler through exact before/after constructors/accessors/finite adapter/projection/serde wrapper bodies.",
+    "untraced_frontier": [
+      {
+        "id": "CONT08-016-SOLVER-JSON-TERRAIN-INHERITED",
+        "frontiers": [
+          {
+            "id": "CONT08-015-PLANNING-INTERIOR",
+            "source_backed_callers": [
+              {
+                "source": "pr-head:crates/adventuresim-tactical-core/src/city_layout/compiled/support.rs",
+                "ranges": [
+                  [
+                    146,
+                    225
+                  ],
+                  [
+                    227,
+                    277
+                  ]
+                ]
+              },
+              {
+                "source": "own014 compiled/grounded.rs",
+                "ranges": [
+                  [
+                    53,
+                    80
+                  ]
+                ]
+              }
+            ],
+            "actual_symbols": [
+              "street::select",
+              "CityRecipePalette::for_program",
+              "Recipe::door_point",
+              "BuildingCollision::ground_floor_contact_bounds",
+              "CitySceneLayout::plan_single_property_support"
+            ],
+            "known_sources": [
+              "crates/adventuresim-tactical-core/src/city_layout/compiled/support/street.rs is declared at support.rs6, not read in015",
+              "Recipe palette and plan_single_property_support actual declaring paths/ranges still need exact locators; no guessed path credit."
+            ],
+            "needed": "Follow actual changed checked geometry/bounds/door-selection and support solver receivers for this fixed fixture, including floor outputs and permutations. No new native/generator-wide expansion; save next bounded declared contracts before reading."
+          },
+          {
+            "id": "CONT08-015-GEOGRAPHIC-NUMERIC-KERNEL",
+            "source_backed_caller": {
+              "source": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source.rs",
+              "ranges": [
+                [
+                  138,
+                  177
+                ]
+              ]
+            },
+            "actual_symbols": [
+              "GroundTriangle::new",
+              "GroundTriangle::compare",
+              "GroundTriangle::bounds",
+              "GroundTriangle::contains",
+              "GroundTriangle::height_at",
+              "GroundTriangle::boundary_extension_factor",
+              "PlanarQueryIndex::from_bounds",
+              "PlanarQueryIndex::intersections"
+            ],
+            "known_source_bridges": [
+              "foundations.rs11 reexports geometry::GroundTriangle, so actual declared module grounding/foundations/geometry.rs is identified but not read here",
+              "source.rs3 imports grounding/planar/query::{PlanarBounds,PlanarQueryIndex}; actual geometric predicates/index constructors not read here"
+            ],
+            "needed": "Exact frozen before/after numerical admission/canonical order/point sampling contracts. Current constructor outer source preserves ordering by compare and all-or-none new, but that does not prove exact admission or triangle-order independence through changed kernels."
+          },
+          {
+            "id": "CONT08-015-JSON-REMAINING-LEAVES",
+            "source_backed_callers": [
+              {
+                "source": "own014 grounded/tests.rs",
+                "ranges": [
+                  [
+                    11,
+                    23
+                  ]
+                ]
+              },
+              {
+                "source": "pr-head:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+                "ranges": [
+                  [
+                    111,
+                    148
+                  ]
+                ]
+              }
+            ],
+            "actual_symbols": [
+              "CityCompound serde admission and nested plot/access/boundary owners",
+              "SceneBuildingId serde/Ord",
+              "ScenePlanPoint serde",
+              "BuildingArchetype/BuildingUse/ServiceBuildingSize/ProsperityTier/Seed serialization",
+              "BuildingProgram::settlement",
+              "BuildingProgram::fixture",
+              "BuildingProgram::with_service_size"
+            ],
+            "progress": "Actual Distant/Tactical record fields and promotion body, orientation Deserialize and finite SupportElevation Deserialize are source-read before/after. Remaining leaves/program constructors not newly traversed; actual JSON decoded-success/program identity is not asserted from derive or old test assertions. ScenePlanPoint has own earlier013 evidence but no new independent015 leaf-body credit.",
+            "needed": "Narrow exact changed leaf/compound serialization and program-selection receivers needed by actual captured front/rear records. No requirement to support old malformed schema/inputs."
+          },
+          {
+            "id": "CONT08-015-TERRAIN-COMPOSITION",
+            "source_backed_caller": {
+              "source": "own014 compiled/grounded.rs",
+              "ranges": [
+                [
+                  100,
+                  118
+                ]
+              ]
+            },
+            "actual_symbols": [
+              "BoundedSettlementTerrain::compile",
+              "BoundedSettlementTerrain::elevations_at",
+              "PropertySupportSurface/CompoundSupportPlan member and surface extraction"
+            ],
+            "known_source_bridge": "foundations.rs13 reexports settlement::{BoundedSettlementTerrain,SettlementSupportError}; settlement module was listed as Git path metadata only, not staged/read.",
+            "needed": "Ownership composition and elevation lookup remain open; no actual numeric floor/terrain permutation witness or executed fixture."
+          }
+        ],
+        "qualification": "Packet016 resolves only requested local geometry/index bodies. Preserve actual street/recipe/single-property planning, remaining typed JSON/compound/program leaves, BoundedSettlementTerrain composition/elevation lookup and full geometry-clipping callers. These are not discharged by local canonical index order."
+      }
+    ],
+    "stop": "Save at retained solver/remaining typed JSON/terrain composition frontier. No further source/native/kernel expansion in017."
+  },
+  "new_reached_shared_dependencies_014": [
+    {
+      "canonical_source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-core/src/city_layout/compiled/grounded.rs",
+      "sha256": "e9356eb1af7a7dc646c721b3ef5033a23924b28081e8c9a3f8917159b770b346",
+      "actual_body_read_ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "required": "Root reconcile mandatory applicable other-lens roles/source extension, preserve base/head aliases as one identity; no original denominator increase, no other-lens/full-family clearance."
+    },
+    {
+      "canonical_source_id": "pr-working-unchanged-base-dependency:assets/tactical-grounding/goslar-1238.json",
+      "sha256": "1a842b2e8dcdaf157223be260d9f032ca33c50a0fe6fe4eee1a93fd2d86d64c6",
+      "actual_body_read_ranges": [
+        [
+          1,
+          301
+        ]
+      ],
+      "required": "Root reconcile mandatory applicable other-lens roles/source extension, preserve base/head aliases as one identity; no original denominator increase, no other-lens/full-family clearance."
+    }
+  ],
+  "new_reached_shared_dependency_015": {
+    "canonical_source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source.rs",
+    "sha256": "ff887ab06cf0892fa9f624f587e493319a93fc570898a890fb117a382061e3b3",
+    "actual_body_read_ranges": [
+      [
+        1,
+        181
+      ]
+    ],
+    "provenance": "audit08-successor-015-provenance-geographic.json",
+    "required": "Root reconcile applicable other-lens roles for newly reached shared first-party source, retain base/head aliases as one identity; no original denominator increase or automatic clearance."
+  },
+  "resolved_receiving_frontier_017": "CONT08-016-CHECKED-POSITION-LEAF for actual triangle sampler only"
+}

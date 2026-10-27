@@ -1,0 +1,453 @@
+{
+  "lens": "type-granularity",
+  "scope_revision": "frozen original manifest audit05/original-scope-072.json",
+  "original_roles": [
+    {
+      "scope_index": 778,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/textures/tests.rs",
+      "sha256": "3443c2f0ebaff8646fa3ac613ba770ea48024c53e850ce0dc8fbad014bc48072",
+      "scope_kind": "frozen_requested_change",
+      "registered_ranges": [
+        [
+          1,
+          191
+        ]
+      ]
+    },
+    {
+      "scope_index": 779,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/validation.rs",
+      "sha256": "61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb",
+      "scope_kind": "frozen_requested_change",
+      "registered_ranges": [
+        [
+          1,
+          164
+        ]
+      ]
+    },
+    {
+      "scope_index": 780,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment.rs",
+      "sha256": "d6b09524be811c5e4202be50af529c941a917ff8f31ea61e2a73e4da17dc103e",
+      "scope_kind": "frozen_requested_change",
+      "registered_ranges": [
+        [
+          1,
+          702
+        ]
+      ]
+    },
+    {
+      "scope_index": 781,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/conform.rs",
+      "sha256": "4c3ee7c251ed1a4d18681e0b05c0fcf35b3b61e7d6dd0decfda0708577469162",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registered_ranges": [
+        [
+          1,
+          324
+        ]
+      ]
+    },
+    {
+      "scope_index": 782,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/drape.rs",
+      "sha256": "c26b0508ccce30c3c2ca164e46327764ca4b133b418b5ea49e008b0a45613421",
+      "scope_kind": "frozen_requested_change",
+      "registered_ranges": [
+        [
+          1,
+          334
+        ]
+      ]
+    }
+  ],
+  "new_extensions": [
+    {
+      "connected_scope_index": 767,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "ee364aaa0d304eb120d6f91216c6da3e186f5e20809e28ffa74f5864e568d72d",
+      "ranges": [
+        [
+          1,
+          220
+        ]
+      ],
+      "ordered_credit": false,
+      "reason": "Trace779 validation record distinction/LOD and export entry boundary; completed earlier role not recounted and future818 not credited"
+    },
+    {
+      "connected_scope_index": 772,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/rigged.rs",
+      "sha256": "2f337baa2edb2356e1f086aacf549696c63bfac639d03c5f0a9b564d675bb397",
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "ordered_credit": false,
+      "reason": "Trace779 validation record distinction/LOD and export entry boundary; completed earlier role not recounted and future818 not credited"
+    },
+    {
+      "connected_scope_index": 818,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/lod.rs",
+      "sha256": "73ad82b91f4b15146231c922544a72466849407fc7fca6ebe2268d78f45d7fa3",
+      "ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "ordered_credit": false,
+      "reason": "Trace779 validation record distinction/LOD and export entry boundary; completed earlier role not recounted and future818 not credited"
+    },
+    {
+      "connected_scope_index": 767,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "ee364aaa0d304eb120d6f91216c6da3e186f5e20809e28ffa74f5864e568d72d",
+      "ranges": [
+        [
+          625,
+          680
+        ]
+      ],
+      "ordered_credit": false,
+      "reason": "Validation779 actual called before serialization"
+    },
+    {
+      "connected_scope_index": 2226,
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/cpu/mod.rs",
+      "sha256": "c38b573a2cc782cf12b477bf67c5fd77c4b35c756c91569d8b2e0c36a75273b2",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "Earliest780 exact BVH/metre-centimetre measurement/packed skin/caller admission source symbol locator; no source accounting credit"
+    },
+    {
+      "connected_scope_index": 2263,
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/measure/mod.rs",
+      "sha256": "dbbbf373f7069a15074d0e348f36707aa24f9125146cc3cb60579a75fd5e3452",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "Earliest780 exact BVH/metre-centimetre measurement/packed skin/caller admission source symbol locator; no source accounting credit"
+    },
+    {
+      "connected_scope_index": 2336,
+      "source_id": "pr-working:crates/fabelgeist-rig/src/skin.rs",
+      "sha256": "c1c856dd707201d43249ad4e61576728edf4ff9a2a2d1dbf68f6c980a1c2d206",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "Earliest780 exact BVH/metre-centimetre measurement/packed skin/caller admission source symbol locator; no source accounting credit"
+    },
+    {
+      "connected_scope_index": 793,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/validation.rs",
+      "sha256": "26ab01120c442d3d0f7fece4c338f28680fafcd633314036aeb853dc263e637e",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "Earliest780 exact BVH/metre-centimetre measurement/packed skin/caller admission source symbol locator; no source accounting credit"
+    },
+    {
+      "connected_scope_index": 2226,
+      "ranges": [
+        [
+          388,
+          462
+        ]
+      ],
+      "ordered_credit": false,
+      "registered_before_read": true,
+      "reason": "Earliest780 BVH index-to-geometry receiver, named centimetre measurement admission, canonical packed-vs-weighted skin distinctions, surface validation contract"
+    },
+    {
+      "connected_scope_index": 2263,
+      "ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "ordered_credit": false,
+      "registered_before_read": true,
+      "reason": "Earliest780 BVH index-to-geometry receiver, named centimetre measurement admission, canonical packed-vs-weighted skin distinctions, surface validation contract"
+    },
+    {
+      "connected_scope_index": 2336,
+      "ranges": [
+        [
+          1,
+          226
+        ]
+      ],
+      "ordered_credit": false,
+      "registered_before_read": true,
+      "reason": "Earliest780 BVH index-to-geometry receiver, named centimetre measurement admission, canonical packed-vs-weighted skin distinctions, surface validation contract"
+    },
+    {
+      "connected_scope_index": 793,
+      "ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "ordered_credit": false,
+      "registered_before_read": true,
+      "reason": "Earliest780 BVH index-to-geometry receiver, named centimetre measurement admission, canonical packed-vs-weighted skin distinctions, surface validation contract"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/selection.rs",
+      "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+      "catalog_locator": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee:handoff/774/audit/reconcile-adler-20261023/recovered-sources/catalog.json#/rows/2597",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "Exact frozen source identity located from recovered catalog; original072 manifest has no path. Connected earliest780 selection/frame/body-fit domains."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/selection.rs",
+      "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+      "ranges": [
+        [
+          1,
+          49
+        ],
+        [
+          110,
+          142
+        ],
+        [
+          180,
+          224
+        ]
+      ],
+      "ordered_credit": false,
+      "registered_before_read": true,
+      "reason": "Earliest780 garment form, construction, selection and validation contracts"
+    },
+    {
+      "connected_scope_index": 763,
+      "sha256": "6e96818d06560c10bd8f74d121d84fc812726274dedc89b59f85bce7d0e6ca73",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/drape_worker.rs",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "Trace780 actual DrapeInput receiving boundary from existing completed worker role; no discovery recount"
+    },
+    {
+      "connected_scope_index": 843,
+      "sha256": "41051202a9da2998dcf73b5a1e095088d6838c1a849a66d080631ac8304951b9",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/wardrobe.rs",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "Locate original780 DrapeInput body-data producer in wardrobe; not future ordered role discovery or accounting"
+    },
+    {
+      "connected_scope_index": 844,
+      "sha256": "4cd80a0338aaafa8f2b1f80eca296ef22614825d8d1058692fb8c4fe7bbe9595",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/wardrobe_tab.rs",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "Locate original780 DrapeInput body-data producer in wardrobe; not future ordered role discovery or accounting"
+    },
+    {
+      "connected_scope_index": 844,
+      "sha256": "4cd80a0338aaafa8f2b1f80eca296ef22614825d8d1058692fb8c4fe7bbe9595",
+      "ranges": [
+        [
+          162,
+          200
+        ],
+        [
+          242,
+          267
+        ]
+      ],
+      "ordered_credit": false,
+      "registered_before_read": true,
+      "reason": "Actual780 DrapeInput producer and worker request; source locator identified input method162"
+    },
+    {
+      "connected_scope_index": 762,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/drape_preview.rs",
+      "sha256": "c6e605a97a1a017db71939375f50395488a049834eebd77c4a09ee1058360077",
+      "symbol_locator_only": true,
+      "ranges": [],
+      "ordered_credit": false,
+      "reason": "Actual780 DrapeInput source used by wardrobe844162-165"
+    },
+    {
+      "connected_scope_index": 762,
+      "sha256": "c6e605a97a1a017db71939375f50395488a049834eebd77c4a09ee1058360077",
+      "ranges": [
+        [
+          136,
+          163
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "Exact DrapeInput copy from Generated body and BodyModel rig names"
+    },
+    {
+      "connected_scope_index": 763,
+      "sha256": "6e96818d06560c10bd8f74d121d84fc812726274dedc89b59f85bce7d0e6ca73",
+      "ranges": [
+        [
+          55,
+          61
+        ],
+        [
+          77,
+          123
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "Actual same tagged input travels through pending worker and spawned drape_outfit"
+    },
+    {
+      "connected_scope_index": 785,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/lining.rs",
+      "sha256": "693fb7bf790d8bfebd26304241c8dfd0e2b338bc37225a4d0795b0fe754e8b70",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "Trace780 field owners imported UnderPlate/SettledDrape/DrapeSettings and actual worker receiving outfit path; no future-role accounting"
+    },
+    {
+      "connected_scope_index": 786,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/outfit.rs",
+      "sha256": "571784773d4506fa741fed5d4dab85c61bbf9dee836fab1833987b233a4ecdb9",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "Trace780 field owners imported UnderPlate/SettledDrape/DrapeSettings and actual worker receiving outfit path; no future-role accounting"
+    },
+    {
+      "connected_scope_index": 788,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/settled.rs",
+      "sha256": "3dbafb11ea673b81b72c6d8599bf9c1ac4c55b3e456982e39d16d38faef2e42d",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "Trace780 field owners imported UnderPlate/SettledDrape/DrapeSettings and actual worker receiving outfit path; no future-role accounting"
+    },
+    {
+      "connected_scope_index": 792,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/stages.rs",
+      "sha256": "ccbbca63f8954cde1d15934b057edc40dfe382d36c273fed0acd0316f9a2fe2a",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "Trace780 field owners imported UnderPlate/SettledDrape/DrapeSettings and actual worker receiving outfit path; no future-role accounting"
+    },
+    {
+      "connected_scope_index": 785,
+      "sha256": "693fb7bf790d8bfebd26304241c8dfd0e2b338bc37225a4d0795b0fe754e8b70",
+      "ranges": [
+        [
+          30,
+          145
+        ]
+      ],
+      "ordered_credit": false,
+      "registered_before_read": true,
+      "reason": "Earliest780 imported field owner roles, retained/resume association, and actual outfit receiving bodies only"
+    },
+    {
+      "connected_scope_index": 786,
+      "sha256": "571784773d4506fa741fed5d4dab85c61bbf9dee836fab1833987b233a4ecdb9",
+      "ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "ordered_credit": false,
+      "registered_before_read": true,
+      "reason": "Earliest780 imported field owner roles, retained/resume association, and actual outfit receiving bodies only"
+    },
+    {
+      "connected_scope_index": 788,
+      "sha256": "3dbafb11ea673b81b72c6d8599bf9c1ac4c55b3e456982e39d16d38faef2e42d",
+      "ranges": [
+        [
+          49,
+          237
+        ]
+      ],
+      "ordered_credit": false,
+      "registered_before_read": true,
+      "reason": "Earliest780 imported field owner roles, retained/resume association, and actual outfit receiving bodies only"
+    },
+    {
+      "connected_scope_index": 792,
+      "sha256": "ccbbca63f8954cde1d15934b057edc40dfe382d36c273fed0acd0316f9a2fe2a",
+      "ranges": [
+        [
+          1,
+          273
+        ]
+      ],
+      "ordered_credit": false,
+      "registered_before_read": true,
+      "reason": "Earliest780 imported field owner roles, retained/resume association, and actual outfit receiving bodies only"
+    },
+    {
+      "connected_scope_index": 785,
+      "sha256": "693fb7bf790d8bfebd26304241c8dfd0e2b338bc37225a4d0795b0fe754e8b70",
+      "ranges": [
+        [
+          146,
+          158
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "Finish previously reached tuck_under numerical consumer body"
+    },
+    {
+      "connected_scope_index": 788,
+      "sha256": "3dbafb11ea673b81b72c6d8599bf9c1ac4c55b3e456982e39d16d38faef2e42d",
+      "ranges": [
+        [
+          239,
+          308
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "SurfaceBinding barycentric versus tangent/bitangent/normal offset use by bind/place"
+    },
+    {
+      "connected_scope_index": 2264,
+      "sha256": "be4a376452c89f7275b6f7c4692168b16814d28e82539b5d76d13e2c0e02193f",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "BodyMesh native measurement frame record shape used in780135-141"
+    },
+    {
+      "connected_scope_index": 2264,
+      "sha256": "be4a376452c89f7275b6f7c4692168b16814d28e82539b5d76d13e2c0e02193f",
+      "ranges": [
+        [
+          16,
+          25
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "Exact BodyMesh native array schema consumed by780 measurement adapter"
+    }
+  ],
+  "status": "registered-before-source-consumption"
+}

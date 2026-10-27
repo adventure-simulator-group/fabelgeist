@@ -1,0 +1,36 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-096",
+  "at": "2026-10-23T01:52:59.207707+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player.rs",
+      "sha256": "7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+      "scope046_index": 1890,
+      "actual_EOF": 640,
+      "scoped_ranges_compared": [
+        [
+          1,
+          640
+        ]
+      ],
+      "source_body_proof": "Fresh complete actual 1–280/281–640 bodies personally read before context handover; original inline fixtures source-only, no execution.",
+      "actual05_comparison": "Player required components establish presence, not whole finite/admitted product. Public CharacterDimensions/Limbs/Skills/Stats and transparent DerefMut TacticalAttributes retain raw source policy. Defaults project the same historical starting character, corresponding skill/attribute fields and seven-denomination religion sum; tactical cooking/herbalism/terrain intentionally zero rather than full strategic projection. CharacterId is all-u64 identity, deterministic display color does not establish membership. TacticalCombatSide is transient closed authority independent of network control. Limb damage clamps normal nonnegative application; raw mutable fields remain broader. PlayerEssentials deliberately returns physical_skill_condition 1: fatigue and burden already contribute through incapacitation, no calorie-history double penalty. TacticalPlayerViewer borrows limbs/skills/stats/attributes from same entity, inventory view same entity, hand retained for attack; no independently cached mismatched copies. Weapon handling and attack curve use same view/authored weapon distribution. Original fixtures 555–640 compare default projection/transparent attribute JSON and intentionally construct partial raw combat state for source-breakdown observation; they do not promise authoritative total for that raw observation. No normal enrollment/tick total write occurs here. Existing F029 remains accepted-state boundary candidate only, explicitly preserves raw observation fixture use."
+    }
+  ],
+  "comparison_groups": {
+    "same-entity-view": "Query borrows from one entity, no second canonical store.",
+    "tactical-projection": "Purpose-specific projected fields and one incapacitation authority; raw components do not seal whole actor.",
+    "raw-observation-versus-accepted-state": "Partial fixture source observation is intentional; total coherence applies to actual accepted gameplay state."
+  },
+  "new_unique_findings": [],
+  "qualifies": [
+    "NATIVE-INITIAL05-F029"
+  ],
+  "remaining_dependency_obligations": [
+    "Actual physics/enrollment/tick writes and gameplay total consumers remain unread; no normal runtime mismatch claim."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

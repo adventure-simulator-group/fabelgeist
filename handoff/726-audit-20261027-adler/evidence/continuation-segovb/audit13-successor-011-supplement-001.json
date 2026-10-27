@@ -1,0 +1,106 @@
+{
+  "lens": "13 magic-numbers",
+  "packet": "011 append-only supplementary receiving proof",
+  "at": "2026-10-26T22:09:03.703539+00:00",
+  "base_receipt": "audit13-successor-011.json",
+  "base_receipt_sha256": "447a79d1b91936373933b686803a9ca2f31774d03aa6e0ebb836522f98538e86",
+  "registration": "audit13-successor-registration-011-receivers-003.json",
+  "stage_provenance": "audit13-native-render-stage-011.json; IO exact known original36 frozenSHA; mesh/prepare immutable native1a5aff Gitmembers, frozen31/32/33 peers samecommit bytes, no unseen frozen identity claimed",
+  "pins": [
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/io_types.wgsl",
+      "sha256": "3529f71ec77f88963ee969691ef2dd2f871abf490a8a4beed073b98ff10974b9",
+      "bytes": 1131,
+      "registered_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "actual_lines": 48
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/mesh.wgsl",
+      "sha256": "bb8dc8d197bfd558464608bb447dc4224e67c0488e695270f44e1656c9c8fa70",
+      "bytes": 1494,
+      "registered_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "actual_lines": 60
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/mod.rs",
+      "sha256": "7b8be56d6f6ea9285176e55efb88de7bcb8a15df4cdca7619d3038a92de56092",
+      "bytes": 10975,
+      "registered_ranges": [
+        [
+          1,
+          225
+        ]
+      ],
+      "consumed_ranges": [
+        [
+          1,
+          225
+        ]
+      ],
+      "actual_lines": 340
+    }
+  ],
+  "scope": "Receiver-only continuation of original31; does not reopen/restart prior original0-30 or credit36/future roles",
+  "new_source_backed_traces": [
+    "prepare/mod.rs35-104 obtains materials/GlobalTransform/optionalGpuCullCompute/Aabb and calls collect_inputs; after allocation/removal calls it clears batchranges then runs eachpage PagePrepareRunner.prepare with common/compute layouts. Called process_removals/allocations bodies227+ remain unread; they are not proven by callsites.",
+    "collect_inputs128-131 defaultAABB uses zero center,f32MAX extents. It excludes emptyinstances135 and requiresrender mesh/material138-139. BatchKey uses gpu_cull.is_some153; dirty160-166 is hashchange or different Arc allocation, defaulttrue. Hash/ptrcache is native change detection only; no universal coherence/admission claim.",
+    "Actual AABBproducer179-199 transforms localcenter with transform_point3; transforms each axis-scaledextent vector, sums absolutevectors for worldaxis alignedextents; defaults to origin/f32MAX when noAabb. Matrix/coordinate finite/scale/normalization and missingAABB policy are not admitted here.",
+    "Actual InstanceUniforms207-213 stores currentgtf.to_matrix for BOTH world_from_local and previous_world_from_local, stores AABBcenter/extents extendedw0 and fills color/range from InstanceMaterialData.into. This resolves the previously untraced concrete producer and currentworld frame path; it does not establish motionhistory correctness or whole lifecycle semantics.",
+    "IO28-32 assigns pos/scale,rotation,index,batchid,seed to native vertexlocations8,9,10,11,12 with concretef32/u32 shader formats. The selected native renderpipeline vertexattribute layout body is still untraced in thispacket; IO declaration is not full upload validation.",
+    "mesh.wgsl14 indexes uniforms by i_batch_id,15-24 calls calc_instance_world_matrix with pos/scale,rotation,currentparentmatrix; multiplies meshposition extendedw1 then view.clip_from_world. Normal/tangent use matrixvectorw0 and normalize, with fallbackupnormal(0,1,0),tangent(1,0,0,1); UVdefault0. Dither47-51 consumes range and finalmatrixcolumn3. Batchidcopied tooutput54.",
+    "Read mesh.wgsl1-60 never consumes vertex.i_index orvertex.i_seed. That is bounded direct proof for this exact native default shader only; customshader/firstparty application uses and full native symbol absence are not inferred. Index/seed remain protocol extension carriers rather than proven semantic application owners."
+  ],
+  "remaining_partial_original31": [
+    "Actual recipients or demonstrated bounded absence for InstanceBuffer.length/capacity,GpuDrawIndexedIndirect.offset,InstancedComputeSourceBuffer.count/capacity,InstanceBatch.batch_id/offset and InstanceHistory. Prior constructor/fieldread does not complete their retained use traces.",
+    "Native renderpipeline vertexattribute binding layout, selected custommaterial shaders, index/seed application meaning, allocator ID/sentinel and capacity/offset/count bounds, data_offset/check_bounds helper bodies remain untraced. No universal guarantee inferred from Pod/ShaderType derives or nativecalls.",
+    "No wider original or helper source requested/read after these three recipients. Parent requested keep31partial where unresolved; packet stops now."
+  ],
+  "accounting": {
+    "original_inspected_this_packet": [
+      31,
+      32,
+      33
+    ],
+    "original_source_accounted_this_packet": [
+      32,
+      33
+    ],
+    "partial_originals": [
+      31
+    ],
+    "proposed_accounted_count": 33,
+    "original_total": 2853,
+    "first_unfinished_original": 31,
+    "first_unread_original": 34,
+    "new_unique_count": 0,
+    "root_adoption_required": true
+  },
+  "qualifications": [
+    "Base receipt qualifications retained. New source access is not source scope/lens/role completion credit. Exact original31 producer gaps for world/AABB are resolved by currentreceivers only; remaining partial list supersedes that subset of base pending traces.",
+    "Sourcehashes verified before prospective registration and after boundedread; metadataquery onlylocatedfunctionpositions. No bodyread340tail226+ credited.",
+    "No tests/checks/probes/assertions/helpers/doctests added/run, product/source/Git/rootledger/historicalmutation orpublication. No oldAPI/layout/backwardcompatibility constraints. All prior finding/nativepolicy/currentness/firstpartyreachability qualifications remain open."
+  ],
+  "stop_reason": "Bounded original31 receiver supplement saved;31 remains exactpartial,32/33 accountedwithlimits; no furtherpacket work."
+}

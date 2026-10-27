@@ -1,0 +1,47 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-097",
+  "at": "2026-10-23T01:54:27.443428+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics.rs",
+      "sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+      "scope047_index": 1886,
+      "actual_EOF": 1738,
+      "scoped_ranges_compared": [
+        [
+          1,
+          1738
+        ]
+      ],
+      "actual05_comparison": "Fresh full1738 in 1–380/381–780/781–1200/1201–1738 incl all original fixtures. CharacterMotionSnapshot groups acknowledged Option input tick, physical transform/velocity/grounding and quickstep/lunge rollback state; None distinct from observed zero. Public raw Serde/Reflect records do not prove cross-field accepted snapshot coherence; actual capture/restore consumers remain separate pending inventory. Motor takes one entity query and same-entity player view, configures Ahoy acceleration/friction off before own canonical horizontal velocity update. Body mass plus inventory weight supplies physics mass, biological mass separate for force; no total-incapacitation movement penalty. Posture/roll/quickstep/lunge mutually prioritized; ended attack removes lunge, arrived lunge cancels push and removes movement; commands deferred, local filtered reference controls same tick. Push direction/origin/orientation/starttick retained together; duration/target/observed-speed failures warn and continue, no promise atomic rollback of previously written controller/mass fields and no generic transaction requirement. Missing actuator recovery deliberately bounded braking, not velocity teleport. Grounded slide preserves initial momentum then drag, distinct from ordinary target speed. Finite positive clock/motor/config inputs remain required at their actual admission, not inferred from clamps; support ticks min1 prevents local division zero, cubic fixed5 profile indexes0..4 valid from segment<=3. Checked SignedSpeed only checks velocity result, not entire target acceleration/displacement record. Ground force limits and speed-dependent turn radius form one local product, no persistent competing total. Existing fixtures cover stop/reversal, mass/injury, pace, turn, force tracking and scaled travel, not arbitrary raw/native inputs. This source contains no TacticalCombatState total/fatigue writes; F029 normal enrollment remains pending.",
+      "source_body_proof": "Fresh actual full scoped bodies personally read; original fixtures source-only, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "2bdf24f3de20d1901bfc475d799d3a07781d9c5e22733caaea0d2365250edd0f",
+      "scope047_index": 1888,
+      "actual_EOF": 522,
+      "scoped_ranges_compared": [
+        [
+          1,
+          522
+        ]
+      ],
+      "actual05_comparison": "Fresh full522 including original fixtures. Pace/guard/body/input magnitude form one speed decision; configured ordinary admission precedes intentional prone override. Same player body/inventory burden and per-leg strength/health control sprint, endurance controls jog, preserves physical mass and limb effects but no fatigue/total movement penalty. Input None→zero, radial magnitude cap1 retains analog intensity; raw NaN remains rejected by checked scale rather than silently valid state. Intentional exertion, not externally imposed velocity, generates exhaustion change, jog contribution <=0 while other work contributions remain additive. Prone speed lateral factor and 3x effort deliberately distinct distance/effort roles; no extra oxygen/fatigue pool implied by helper name. Pure functions return computed scalar, no retained independent actor state. All speed outputs readmit NonnegativeSpeed; exhaustion rate is signed recovery/work, not probability. Actual server integration of this rate into total remains pending, no normal state mismatch established.",
+      "source_body_proof": "Fresh actual full scoped bodies personally read; original fixtures source-only, no execution."
+    }
+  ],
+  "comparison_groups": {
+    "motor-authority": "One canonical velocity update; native collision constraint responsibility separate.",
+    "rollback-product": "Snapshot fields coupled to same simulation step, actual restore admission remains recipient obligation.",
+    "movement-effort": "Physical mass/limb speed and additive work/recovery roles distinct, no hidden fatigue penalty."
+  },
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Actual snapshot capture/restore and server combat-state total integration unread; no F029 normal closure."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

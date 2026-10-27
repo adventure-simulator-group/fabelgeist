@@ -1,0 +1,392 @@
+{
+  "id": "SEGOVB-SOURCE-RECONCILIATION-004",
+  "created_utc": "2026-10-26T21:05:31.764839+00:00",
+  "head": "323789dd1beca252d4515c580573596ca0c98143",
+  "base": "4fcc43038fc8abff41996c6e68376344569025cb",
+  "scope": "Independent small metadata-source review of creator standalone lock correction after4fcc hosted --locked rejection. No native dependency resolution or project execution.",
+  "registration": {
+    "path": "source-review-reconciliation-004-registration.json",
+    "sha256": "fcf01d5278f5ac362aeac01327c16f7cb170e05e7864cf6fe38b5eddf4fb0314"
+  },
+  "baseline_manifest": {
+    "path": "combined-pr-source-manifest-003.json",
+    "sha256": "cdf71d88f04e95328a14ebccc3336af00154646d1fc5814ffa6a7e88b6c193a8",
+    "reason": "Actual final4fcc baseline. Initial source-manifest001 predates an already-reviewed validation_scope Error import correction; it is not treated as the final4fcc fingerprint set."
+  },
+  "evidence": [
+    {
+      "path": "creator-lock-correction-001.patch",
+      "sha256": "98b94798dfccbd594fa19204ad2bdcc48d38e3980030efa692877ed8a2cce1b9"
+    },
+    {
+      "path": "creator-lock-correction-001.json",
+      "sha256": "711902c25219cbfa049f25372988e9c15a051649e22e4ec61d12a0adcacf4d6c"
+    },
+    {
+      "path": "hosted-creator-lock-failure-001.txt",
+      "sha256": "c61ad5a72b3fd83f0d08c316bbe6b0579614c69bde013672cab0da167c0204d0",
+      "bounded_observation": "Supplied3-line hosted excerpt says creator/Cargo.lock could not update because --locked prevented it, then exit101. No full log or downstream diagnosis."
+    }
+  ],
+  "actual_one_edge_proof": {
+    "path": "crates/adventuresim-character-creator/Cargo.lock",
+    "after_sha256": "0814366f818cf580e09b015977170498c750f76174d620a866e602855a455597",
+    "before_reconstructed_sha256": "0ba2ba1fd4f6eaa9fbad083857e1e34f6ec6c90d5f0c5ba127163fb8b641946a",
+    "old_native_blob_sha1": "4474e05db414740f5b98e496231a5f22a5b09718",
+    "new_native_blob_sha1": "8cad91a4a396b4531c7167bc733ae25576506810",
+    "matches_patch_index_prefixes": true,
+    "method": "Read exact current bytes; remove only the one derive_more2.1.1 dependency line inside fabelgeist-gpu to reconstruct patch base in memory. Standard blob-content fingerprints computed without Git commands match both patch index prefixes. Recomputed unified hunk coordinates and all context/change lines equal the supplied patch after removing its extra dependencies=[ function-context annotation. No source file rewritten.",
+    "changed_package_records": 1,
+    "package_count_before_after": [
+      1064,
+      1064
+    ],
+    "added_edge": "fabelgeist-gpu0.1.0 -> derive_more2.1.1",
+    "versions_sources_checksums_changed": false,
+    "all_other_creator_bytes_identical_by_reconstruction": true,
+    "note": "Parent supplied revision/patch provenance; no independent commit/tree traversal performed."
+  },
+  "four_lock_crosswalk": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be",
+      "package_count": 1126,
+      "gpu_package_count": 1,
+      "gpu_dependency_edge_count": 1,
+      "derive_nodes": [
+        {
+          "name": "derive_more",
+          "version": "2.1.1",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "checksum": "d751e9e49156b02b44f9c1815bcb94b984cdcc4396ecc32521c739452808b134",
+          "dependencies": [
+            "derive_more-impl"
+          ]
+        },
+        {
+          "name": "derive_more-impl",
+          "version": "2.1.1",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "checksum": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb",
+          "dependencies": [
+            "convert_case 0.10.0",
+            "proc-macro2",
+            "quote",
+            "rustc_version",
+            "syn 2.0.119",
+            "unicode-xid"
+          ]
+        }
+      ],
+      "raw_read_ranges": [
+        [
+          4319,
+          4354
+        ],
+        [
+          5008,
+          5038
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "sha256": "0814366f818cf580e09b015977170498c750f76174d620a866e602855a455597",
+      "package_count": 1064,
+      "gpu_package_count": 1,
+      "gpu_dependency_edge_count": 1,
+      "derive_nodes": [
+        {
+          "name": "derive_more",
+          "version": "2.1.1",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "checksum": "d751e9e49156b02b44f9c1815bcb94b984cdcc4396ecc32521c739452808b134",
+          "dependencies": [
+            "derive_more-impl"
+          ]
+        },
+        {
+          "name": "derive_more-impl",
+          "version": "2.1.1",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "checksum": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb",
+          "dependencies": [
+            "convert_case 0.10.0",
+            "proc-macro2",
+            "quote",
+            "rustc_version",
+            "syn 2.0.119",
+            "unicode-xid"
+          ]
+        }
+      ],
+      "raw_read_ranges": [
+        [
+          4303,
+          4338
+        ],
+        [
+          5038,
+          5067
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-mhr/Cargo.lock",
+      "sha256": "45961a0c74b57fb81e9429abc14d387a4e4a00ba18a771c17b0fd5e4ea09eaf4",
+      "package_count": 661,
+      "gpu_package_count": 0,
+      "gpu_dependency_edge_count": 0,
+      "derive_nodes": [
+        {
+          "name": "derive_more",
+          "version": "2.1.1",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "checksum": "d751e9e49156b02b44f9c1815bcb94b984cdcc4396ecc32521c739452808b134",
+          "dependencies": [
+            "derive_more-impl"
+          ]
+        },
+        {
+          "name": "derive_more-impl",
+          "version": "2.1.1",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "checksum": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb",
+          "dependencies": [
+            "convert_case 0.10.0",
+            "proc-macro2",
+            "quote",
+            "rustc_version",
+            "syn 2.0.119",
+            "unicode-xid"
+          ]
+        }
+      ],
+      "raw_read_ranges": [
+        [
+          1997,
+          2020
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/Cargo.lock",
+      "sha256": "32956d36e5397e3492b5de1e1b8fc6b13fef5cb25077cb6f49e0793f918304c4",
+      "package_count": 591,
+      "gpu_package_count": 0,
+      "gpu_dependency_edge_count": 0,
+      "derive_nodes": [
+        {
+          "name": "derive_more",
+          "version": "2.1.1",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "checksum": "d751e9e49156b02b44f9c1815bcb94b984cdcc4396ecc32521c739452808b134",
+          "dependencies": [
+            "derive_more-impl"
+          ]
+        },
+        {
+          "name": "derive_more-impl",
+          "version": "2.1.1",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "checksum": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb",
+          "dependencies": [
+            "convert_case 0.10.0",
+            "proc-macro2",
+            "quote",
+            "rustc_version",
+            "syn 2.0.119",
+            "unicode-xid"
+          ]
+        }
+      ],
+      "raw_read_ranges": [
+        [
+          1795,
+          1818
+        ]
+      ]
+    }
+  ],
+  "unchanged_4fcc_fingerprints": [
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "prior_sha256": "3f6e1cfe6c05f5f6a2bb39155e3bf0d8ec8cbdabe3f77e993971d42e56891b33",
+      "current_sha256": "3f6e1cfe6c05f5f6a2bb39155e3bf0d8ec8cbdabe3f77e993971d42e56891b33",
+      "unchanged": true,
+      "current_blob_fingerprint": "88c35275f91c73dc38a5bd17f37a668b916bda57",
+      "matches_prior_blob": true
+    },
+    {
+      "path": "Cargo.lock",
+      "prior_sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be",
+      "current_sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be",
+      "unchanged": true,
+      "current_blob_fingerprint": "2b32481153a3344caa1a951686e489024ac1f1cb",
+      "matches_prior_blob": true
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "prior_sha256": "352f06a1ddfc9d7be1813161e4ac2365ae813a2f0e751614464fc8adddf9a735",
+      "current_sha256": "352f06a1ddfc9d7be1813161e4ac2365ae813a2f0e751614464fc8adddf9a735",
+      "unchanged": true,
+      "current_blob_fingerprint": "e1b53a5ceb774d0af2e9085081fa1fb84f72f83b",
+      "matches_prior_blob": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/Cargo.toml",
+      "prior_sha256": "460e9c3fcc4cb794358e3a25ba96b2e877dbeffaac6404703ff493aa6cb58e18",
+      "current_sha256": "460e9c3fcc4cb794358e3a25ba96b2e877dbeffaac6404703ff493aa6cb58e18",
+      "unchanged": true,
+      "current_blob_fingerprint": "43ec5b14cd4adbd6b00cdafe60851d46ccb247bd",
+      "matches_prior_blob": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "prior_sha256": "6df2befe9397b790ad88233dee3fe7ed4f4aaf918a41b939585a5c633fe0f3db",
+      "current_sha256": "6df2befe9397b790ad88233dee3fe7ed4f4aaf918a41b939585a5c633fe0f3db",
+      "unchanged": true,
+      "current_blob_fingerprint": "0e3026441132a049c2472bbccbc294cf7a279b82",
+      "matches_prior_blob": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "prior_sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+      "current_sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+      "unchanged": true,
+      "current_blob_fingerprint": "8489b7ec8a3a2489915ba9b617aaecd46a7b9ab2",
+      "matches_prior_blob": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "prior_sha256": "33fed8d0c2ea47e990b60ad9c2cc14962f130c66ed4328d134e8f7f15d9b1128",
+      "current_sha256": "33fed8d0c2ea47e990b60ad9c2cc14962f130c66ed4328d134e8f7f15d9b1128",
+      "unchanged": true,
+      "current_blob_fingerprint": "ec503606414cf21d4181fad00f2723f12615ac0a",
+      "matches_prior_blob": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+      "prior_sha256": "83ba1e1ca0719ccdc74c3bc70f4fdc197dca496600a89b41a5e18c7a020fece0",
+      "current_sha256": "83ba1e1ca0719ccdc74c3bc70f4fdc197dca496600a89b41a5e18c7a020fece0",
+      "unchanged": true,
+      "current_blob_fingerprint": "ae680d919df5352dd3fe2aeefa7a9eaf2dd614e0",
+      "matches_prior_blob": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "prior_sha256": "e883e9bbfdcdb62065d26751a6135b65d6e3021604c9e6071ebdfbdf644457c5",
+      "current_sha256": "e883e9bbfdcdb62065d26751a6135b65d6e3021604c9e6071ebdfbdf644457c5",
+      "unchanged": true,
+      "current_blob_fingerprint": "f16536c5a4b771b53ec303421391ffa8a108225f",
+      "matches_prior_blob": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "prior_sha256": "bb98de5214d48bd87519d09a702a5e8df2914c6a7d614d38b2c95ab13df51205",
+      "current_sha256": "bb98de5214d48bd87519d09a702a5e8df2914c6a7d614d38b2c95ab13df51205",
+      "unchanged": true,
+      "current_blob_fingerprint": "2dd8d6f7482f456b2869068c525b1a1b6acb4d4a",
+      "matches_prior_blob": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "prior_sha256": "d4d9df664fcd5207e09a8453fedfb5fae4ce9d139cd45d3bd8bc1e6a9f9ac12e",
+      "current_sha256": "d4d9df664fcd5207e09a8453fedfb5fae4ce9d139cd45d3bd8bc1e6a9f9ac12e",
+      "unchanged": true,
+      "current_blob_fingerprint": "e7f51eabca236ff910d45d61b7926b95a68546d5",
+      "matches_prior_blob": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "prior_sha256": "e8573dd939e0db024bb674e2647e14b10cdca9d5d4d141b9a39e2778a0e3aab8",
+      "current_sha256": "e8573dd939e0db024bb674e2647e14b10cdca9d5d4d141b9a39e2778a0e3aab8",
+      "unchanged": true,
+      "current_blob_fingerprint": "bc5547d6a049808d9225292a95415e52d9fc626b",
+      "matches_prior_blob": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "prior_sha256": "b86ab932de453c75553ba6a915d830406ac142dd7fe544a5d9fe5be25b14431a",
+      "current_sha256": "b86ab932de453c75553ba6a915d830406ac142dd7fe544a5d9fe5be25b14431a",
+      "unchanged": true,
+      "current_blob_fingerprint": "42b1a63f5bc1c1e207163b820d5985d0d9d39f34",
+      "matches_prior_blob": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "prior_sha256": "019e06bddeb3cf69b87f4a5ca9ed92b605d5a7e211490af27f36d3ae3a63422d",
+      "current_sha256": "019e06bddeb3cf69b87f4a5ca9ed92b605d5a7e211490af27f36d3ae3a63422d",
+      "unchanged": true,
+      "current_blob_fingerprint": "7b3c1218023ce55fa1654f97b9f886deb32d2ad3",
+      "matches_prior_blob": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "prior_sha256": "f64791a9b8ca3d2203ed6c04fd5e0f0028fd8855ea3bc5674840e646581b5135",
+      "current_sha256": "f64791a9b8ca3d2203ed6c04fd5e0f0028fd8855ea3bc5674840e646581b5135",
+      "unchanged": true,
+      "current_blob_fingerprint": "397141d2ab9a7bda08d1f0f133f7d27a123eb270",
+      "matches_prior_blob": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "prior_sha256": "6369e5b4f4847db2e85cd5a105dd891f8a68dcbf584622731565d36d05b6cb4e",
+      "current_sha256": "6369e5b4f4847db2e85cd5a105dd891f8a68dcbf584622731565d36d05b6cb4e",
+      "unchanged": true,
+      "current_blob_fingerprint": "be4fa01d7458cf481e8232ff6f284f2f3f9a970f",
+      "matches_prior_blob": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+      "prior_sha256": "14cccb953bd0b8466b7ad010219c4220d535ee7ed9e6e66cad981c37cc67df88",
+      "current_sha256": "14cccb953bd0b8466b7ad010219c4220d535ee7ed9e6e66cad981c37cc67df88",
+      "unchanged": true,
+      "current_blob_fingerprint": "d8279d68f1487a9a3f6296f4d84195b9fe829d0a",
+      "matches_prior_blob": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "prior_sha256": "61bcf0fcfbea2980bd9426c89ae144fa0324e8d2d84e0a0094eeb6d6ea590ba3",
+      "current_sha256": "61bcf0fcfbea2980bd9426c89ae144fa0324e8d2d84e0a0094eeb6d6ea590ba3",
+      "unchanged": true,
+      "current_blob_fingerprint": "6d91d0ba5317912163f91fb54772cb3eb258f7e1",
+      "matches_prior_blob": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "prior_sha256": "baf15af7fdf3ecbc0776b475b3aadbd35c29a3d6e0185cef3b2f064803315381",
+      "current_sha256": "baf15af7fdf3ecbc0776b475b3aadbd35c29a3d6e0185cef3b2f064803315381",
+      "unchanged": true,
+      "current_blob_fingerprint": "5dd6cd39d003e1266528413d497f623dbd9d0c53",
+      "matches_prior_blob": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "prior_sha256": "0fe254434e5c065ab49a04ba8c522d7066b48802b37538b6840653f5b2e3e59d",
+      "current_sha256": "0fe254434e5c065ab49a04ba8c522d7066b48802b37538b6840653f5b2e3e59d",
+      "unchanged": true,
+      "current_blob_fingerprint": "28f30a957c5393c0eccf2197f6dcbe5fc79e6ee5",
+      "matches_prior_blob": true
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "prior_sha256": "6144a5ab4e1f3132caf4c5b0aee92b151f093153e3e5bed8e4d6fadd7f12edb1",
+      "current_sha256": "6144a5ab4e1f3132caf4c5b0aee92b151f093153e3e5bed8e4d6fadd7f12edb1",
+      "unchanged": true,
+      "current_blob_fingerprint": "2b3e071511bd7f4e2052e556ccddbf8d3c3d1b33",
+      "matches_prior_blob": true
+    }
+  ],
+  "conclusion": "No source-metadata defect found. Creator now declares exactly the existing derive_more2.1.1 dependency required by the unchanged GPU manifest. Relevant locked nodes/versions/sources/checksums are unchanged and agree across all four locks. Root lock already contains the edge; MHR/numpy metadata have no GPU package. All21 final4fcc combined-PR file fingerprints and native blob identities, including production source/root lock/baseline/workflow, remain unchanged; only the creator edge correction is shown by the supplied post4fcc patch.",
+  "findings": [],
+  "limits": [
+    "No Cargo --locked acceptance, creator build or final hosted CI success is claimed. Root owns later hosted results; no resolver/build/check/test run.",
+    "Supplied one-file correction patch has no version/source/checksum or other source-file change. All21 pinned4fcc PR files were independently re-fingerprinted; unrelated repository files/commit tree were not exhaustively compared under no-Git instructions.",
+    "The four locks are distinct graphs. Exact GPU-package absence in MHR/numpy is metadata evidence, not a source/audit exemption. Existing derive_more0.99.20 and2.1.1 in root/creator remain distinct; the added edge explicitly selects2.1.1.",
+    "Broader source counts, all20/P16/P17/#780/#826/M16/lens obligations, current/frozen distinctions and partial1462Q003/material52 remain unchanged. No global clearance."
+  ],
+  "coverage_effect": "No original/material/ordered counts advanced or root ledger/history writes.",
+  "actions": "Only native TOML metadata/source-byte reads and ignored evidence writes. No Cargo/Git/project checks/tests, source/product edits, publication or CI retries.",
+  "stop": "Saved reconciliation004 and stopped as requested."
+}

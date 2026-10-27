@@ -1,0 +1,72 @@
+{
+  "scope": "Exactformatterdelta only; exactold/newGit16filehashes match candidate003/004 manifests; workspace004hashes verified",
+  "before": "4303418bbce7c01407ddf6ef22b39fb7d44e3b9a",
+  "after": "f7681f248cfeb0634fcb9b46fc170ed2f6b01b82",
+  "sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "sha256": "12d4b4e5ed4ce3940c78b7ee4420ec94e5efa83776b14d60afdbf2ba0d501f5d",
+      "before_sha256": "7510f380b30f9476c5a6fb1c685a1cb4311061f24a07616b1f7a054d95af04fc",
+      "actual_eof": 190,
+      "ranges": [
+        [
+          62,
+          75
+        ],
+        [
+          127,
+          150
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "sha256": "fcc7c277f72f6a1004077bd04d3fb0c91607e17e8ee3977106aaa2c3cee38b98",
+      "before_sha256": "47f1910a4f6a6f9ef3e0cc4bc75e39527a72a18babc94b34a9fea6c0647be39c",
+      "actual_eof": 342,
+      "ranges": [
+        [
+          245,
+          295
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "543ea955a72a4accf8550af44b35ad0a526fbcc6731bc5fb109ac38ceb609e17",
+      "before_sha256": "a70dd7aa43995b5393dc2adbca58b231fd5d455c466b5ba926d1a65ef2d2232d",
+      "actual_eof": 785,
+      "ranges": [
+        [
+          1,
+          12
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "sha256": "024ec4e60675ea68c97e5ed11e89756356b724a7ea0519006227c58c6bfeefce",
+      "before_sha256": "42b5532ca3f4d22095a3612e77ec5d3f3c4d3b9b8058bdc54ce9432a8e895dad",
+      "actual_eof": 63,
+      "ranges": [
+        [
+          30,
+          58
+        ]
+      ]
+    }
+  ],
+  "patch": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-format-delta-001.patch",
+    "sha256": "2e341c772f2ff7f99363d5d2008fe05753cdf1d467d1ecc064d894b3d21862c7",
+    "ranges": [
+      [
+        1,
+        91
+      ]
+    ]
+  },
+  "registered_before_bodies": true,
+  "process_qualification": "Earlier index hash locator failed before artifact/registration write or sourcebody/diff consumption; index was004, now exactknowncommits used. No coverage inferred from failed attempt.",
+  "git_commands": "Read-only exact show + diff scoped4paths, no project/Gitmutation"
+}

@@ -1,0 +1,37 @@
+{
+  "head": "38ff1be52ea1d71c7b951730dbb2b77f8cb6d5a7",
+  "canonical_finding": "M04",
+  "new_unique_delta": 0,
+  "dispositions": [
+    {
+      "comment": 4386135236,
+      "resolution": "NonnegativeSpeed::clamped_inverse_lerp owns dimensionless speed normalization, strict ascending interval check and endpoint saturation; all four original run producers plus reached fades use typed speeds."
+    },
+    {
+      "comment": 4386140379,
+      "resolution": "UnitInterval::complement returns an admitted inverse fraction; closed Mul and lossless BlendWeight widening retain typed values through bounce and weights."
+    },
+    {
+      "comment": 4386145956,
+      "resolution": "Actual pinned Bevy/glam f32 FloatExt body is the numerical kernel itself. CycleDelta checked_lerp already accepts Self/Self/UnitInterval, extracts only at that actual native call and immediately admits arithmetic result; no intermediate firstparty primitive callee. Native-boundary trace receipt independently establishes this. New NonnegativeLength interpolation places the same boundary in its existing owner."
+    },
+    {
+      "comment": 4386147316,
+      "resolution": "FloatExt import moved to file-level imports."
+    },
+    {
+      "comment": 4386224068,
+      "resolution": "UnitInterval::smoothstep evaluates bounded half interval and reflects upper half, returns UnitInterval without output clamp. Endurance admits input once; connected speed and phase recipients retain typed output."
+    }
+  ],
+  "connected_gap_repair": [
+    "typed ordinary step distance and authored stride measurements",
+    "typed locomotion and contact-pair BlendWeight contributions",
+    "direct speed-derived authored height compensation without valid-zero-amplitude division",
+    "typed airborne and initial/blend height fades",
+    "owning config validates support radius and strictly ascending run/walk and fade spans; checked leaves own their ranges"
+  ],
+  "acceptance": "Independent Code/Rule/Comment and baseline source receipts accepted. Final samehead CI40474946139 and raw artifacts pending.",
+  "global_discovery_complete": false,
+  "later_implementation_gate": "Finish exhaustive selected13-lens discovery and deduplicated dependency/repair/acceptance ledger before any later implementation."
+}

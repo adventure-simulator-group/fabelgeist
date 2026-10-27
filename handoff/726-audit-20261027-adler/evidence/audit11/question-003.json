@@ -1,0 +1,30 @@
+{
+  "id": "ADLER-CONT11-Q003",
+  "classification": "Qualified configured-listen versus bound/advertised endpoint role question; not accepted finding",
+  "source_roles": [
+    {
+      "scope_index": 410,
+      "sha256": "0fd91dac25a4b0b05eb65c51f7aa7bc5740bd0de5adff082320dd247d83b2444",
+      "ranges": [
+        [
+          69,
+          75
+        ],
+        [
+          643,
+          650
+        ],
+        [
+          713,
+          724
+        ]
+      ]
+    }
+  ],
+  "actual_trace": "Args.addr is SocketAddr, is passed into AdventureSimulatorServer and later serialized for create_tactical_server_for_request. on_server_started also receives Single<&LocalAddr> and logs it, but does not use that bound-address observation for the reducer argument.",
+  "candidate_witness": "A configured listen port0 is a normal native bind request for an ephemeral port, but the configured0 differs from the assigned bound port. CLI parser has no explicit nonzero restriction in this source.",
+  "qualification": "Native server bind/LocalAddr owner, reducer address admission and actual dispatcher publication/routing contracts still need direct frozen receiving trace before claiming accepted unreachable endpoint or current-main regression. No run, outage or particular deployment alleged. May require use of actual bound observation/explicit advertised endpoint, not arbitrary rejection of all bind0 or new duplicate SocketAddr wrapper.",
+  "new_unique_count": 0,
+  "repair": "not started",
+  "validation": "not run"
+}

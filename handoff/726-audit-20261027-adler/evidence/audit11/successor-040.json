@@ -1,0 +1,64 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-040",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 511,
+      "source_id": "pr-working:assets/shaders/tactical_interior_lighting.wgsl",
+      "sha256": "92d6043b6367ed1a9ce3159c5e749bbff8eb7b5b528dd26ae9cd17592fada2d4",
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "source_basis": "Root personally read exact frozen registered full body before receipt; inherited turn source evidence preserved.",
+      "concepts_actual_uses_and_mixup": [
+        "InteriorField holds16 buildings and directional irradiance samples. Building transform, bounds, origin/cell/height, count/dimensions/offset and room tag have distinct roles. sample_index is offset+(y*zdim+z)*xdim+x. World normal offset precedes world-to-local grid conversion. Bilinear XZ excludes neighbor room tags unlike center; center fallback remains. Host count<=16, positive cells, dimensions, offsets and buffer admission not traced. No GPU execution clearance."
+      ],
+      "disposition": "Accounted with explicit host/native GPU limits; no accepted new finding or runtime clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 512,
+      "source_id": "pr-working:assets/shaders/tactical_moon.wgsl",
+      "sha256": "69d07afb5411b9aab80510259c6f30c47d2f6a6f27a07e96b09276dc3fb7639a",
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "source_basis": "Root personally read exact frozen registered full body before receipt; inherited turn source evidence preserved.",
+      "concepts_actual_uses_and_mixup": [
+        "Native local/world/clip vertex transforms, normal and sun direction, lunar reflectance, earthshine, radiance, emission cosine and scattering retain distinct quantities. sRGB comment does not prove texture-view metadata. Pure GPU numerical kernel; CPU astronomy, host material admission and visuals not traced."
+      ],
+      "disposition": "Accounted with explicit host/native GPU limits; no accepted new finding or runtime clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 513,
+      "source_id": "pr-working:assets/shaders/tactical_pebble.wgsl",
+      "sha256": "5a55c52e1b2950b498e8d1679e7983bd84b6da069dc6fe5698a4b22d0646353e",
+      "ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "source_basis": "Root personally read exact frozen registered full body before receipt; inherited turn source evidence preserved.",
+      "concepts_actual_uses_and_mixup": [
+        "Native albedo RGB/ambient-scale lane and vertex frame/normal/visibility feed flat ambient plus Lambert/pi, shadow clamp and view exposure. Native GPU material arithmetic, no host layout/radius/depth or runtime clearance."
+      ],
+      "disposition": "Accounted with explicit host/native GPU limits; no accepted new finding or runtime clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

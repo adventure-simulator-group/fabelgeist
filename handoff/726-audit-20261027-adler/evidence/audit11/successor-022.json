@@ -1,0 +1,72 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-022",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 441,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/coordinates.rs",
+      "sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+      "ranges": [
+        [
+          1,
+          512
+        ]
+      ],
+      "source_basis": "Fresh root exact frozen registeredfull/reachedranges, scope072 authority.",
+      "concepts_actual_uses_and_mixup": [
+        "WGS84 latitude versuslongitude and E7versusmicrodegree wrappers are separate even thoughi32representations; UnboundedCoordinateE7 intentionally serves abstractlocations withoutWGS84bounds. Constructors rejectnonfinite/outofaxisbounds andround atnativeboundary; E7\u2192microtruncates towardzero, micro\u2192E7 multiplies10within admittedbounds. Wgs84 pairedconstructors/getters nameboth axisorders explicitly. ManualincomingSerde delegateseachcomponentconstructor; existingconversion/transportfixturesfullyreadnotrun. Childbounds/terrainprojectionnotcredited."
+      ],
+      "disposition": "Own11sourcecomparedWITHstatedunreaddependencies/admissionlimits; no newunique finding or blankettype/libraryclearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 442,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/language.rs",
+      "sha256": "1475b920cad83e1f040a2c19627f288508d660a9d771bd72cf8993fa34b9a05f",
+      "ranges": [
+        [
+          214,
+          243
+        ]
+      ],
+      "source_basis": "Fresh root exact frozen registeredfull/reachedranges, scope072 authority.",
+      "concepts_actual_uses_and_mixup": [
+        "Registered214-243 only: bestcommonorallanguage couples selected OralLanguage and cappedsharedcoefficient, stabletie preference lowerindex; language-scaled effect explicitly returns0onnonfinite inputs andclampsfraction before nativeproduct. Raw experiencehours/capacity/fraction/effect have separate meanings; upstream OralLanguageHours.effective bodyunread here, no full756lineorfluentproof. Whole-observation grouping meaning retained, no newwrapperrecommendation."
+      ],
+      "disposition": "Own11sourcecomparedWITHstatedunreaddependencies/admissionlimits; no newunique finding or blankettype/libraryclearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 443,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+      "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+      "ranges": [
+        [
+          70,
+          180
+        ],
+        [
+          1610,
+          1710
+        ],
+        [
+          2670,
+          2735
+        ]
+      ],
+      "source_basis": "Fresh root exact frozen registeredfull/reachedranges, scope072 authority.",
+      "concepts_actual_uses_and_mixup": [
+        "Registered70-180/1610-1710/2670-2735: OfficialReligionenumidentity/index/displaylabel distinct andtypedmatrixindex; ReligionHoursrawperreligionexperience differentfromboundedfraction. Boundedsource text enforcescanonicaltrim/byte/NULpolicy. LandUseProfileincomingSerde callsaggregateconstructor, ElevationMeters[-500,9000]incomingcallsnew, EdgeProgressPermille0..1000incomingcallsnew; signaturesdeclaremeaningful owners, actualLandUseaggregateconstructor/bodyoutsideassignedrangesnotcredited. LanguageCodeboundarydeclaration isnotparserbodycoverage. Hydrology freshwater/saltwater predicates project typedoptionalwaterbodies; riverkind/order/persistence remain wholepayloads. SATSderive alone notvalidationproof, no4796linewholebodycredit."
+      ],
+      "disposition": "Own11sourcecomparedWITHstatedunreaddependencies/admissionlimits; no newunique finding or blankettype/libraryclearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

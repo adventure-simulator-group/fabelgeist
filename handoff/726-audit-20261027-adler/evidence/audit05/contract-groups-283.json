@@ -1,0 +1,57 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-283",
+  "at": "2026-10-25T22:35:17.917839+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2472,
+      "source_id": "rig-quality:crates/adventuresim-tactical-client/examples/armor_browser_probe.rs",
+      "sha256": "c1c35c5512650985dc6cf1cba8545b9db2cb63b65c3b092424893541811b1453",
+      "personally_read_ranges": [
+        [
+          1,
+          231
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full rig-quality1-231: isolated browser acceptance probe enumerates12 catalog/synthetic recipes twice, captures uncaughtGPU errors, checks no postreadiness new kernels, nonempty/finiteness/index validity and at least one noncollapsed triangle. Probe builds FitBody/Realization/Fitted from the same RuntimeBody fields/domain/names, preserving body association for this ordinary caller.",
+        "Preparation warm_up and fit_probe use same design loaders/GPU owner; error capture accumulates and each round fails on any prior GPU validation. At-least-one valid triangle does not prove everytriangle quality, nor raw output cardinality alignment; source fixtures not execution/acceptance evidence. No GPU/browser/project run."
+      ]
+    },
+    {
+      "scope_index": 2473,
+      "source_id": "rig-quality:crates/fabelgeist-mhr/src/model.rs",
+      "sha256": "aee06aeea1137885801fdc4d8c1b8aa5f36f967670dc935a2a121840c3149eb0",
+      "personally_read_ranges": [
+        [
+          1,
+          612
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full rig-quality1-612 in two chunks: loader gatesLOD4..6 and correctives archive presence, from_loaded_assets parses model definition against exact loaded skeleton then appends45 identity parameters. Model constructor checks117 blendshapes and creates topology/basis/skin/FK tensors with same source character. Flattened influence vectors push joint/vertex/weight together and signed gather conversion checked.",
+        "forward_with validates identity45columns and batch/broadcastrows, parameter width and optional expression72columns/exactbatch before tensor operations. Same skeleton_state drives skin and normals from finalvertices, keeping output correspondence. Numerical finiteness/deviceidentity/batch0 and coefficient ranges remain caller/backend policy; not a universal validated coefficient API.",
+        "Mhr.character and parameter_transform remain public while derived GPU tensors cached privately; later mutation could desynchronize public topology/counts from tensors. This is representable API risk pending actual mutation/caller and inherited dedup, no accepted ordinary state corruption. FK source/targetlevel uniqueness belongs canonical prefix owner; tensor_upload2474 preserves pairing without sealing raw PrefixMultiplicationLevel.",
+        "URI direct/assets fallback occurs perasset and can combine files from roots; actual deployment/package provenance remains scoped source question, no compatibility-shim or observed mixed-model claim."
+      ]
+    },
+    {
+      "scope_index": 2474,
+      "source_id": "rig-quality:crates/fabelgeist-mhr/src/model/tensor_upload.rs",
+      "sha256": "ff780fc23efc1039a47cd2e6f873ce231b4f6ee113349bc093e3acdd37a23cb1",
+      "personally_read_ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full rig-quality1-33: projects admitted joint ordinals with checkedi32 conversion into source/target tensors preserving iteration order. targettensor dimension uses source length, so parallel-level equality relies PrefixMultiplicationLevel producer; no local independent admission or new actual mismatch witness. No tensor execution."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

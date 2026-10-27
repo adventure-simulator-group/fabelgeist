@@ -1,0 +1,41 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-415",
+  "at": "2026-10-26T00:30:50.154612+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 317,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_actor.rs",
+      "sha256": "232be94a5acf0de9c374f0c16d546051e2d007c1005510b0adb7f3c0d41b28f6",
+      "personally_read_ranges": [
+        [
+          1,
+          1353
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read complete frozen world_actor.rs 1-1353, with prior1-370 partial retained. Context roster deterministic IDs detect existing-character collisions and require immutable roster metadata; road cast retries compare identity, name, role, interval and decisions. Road-to-combat rebind preserves Character IDs; generic materializer adds missing counterparties.",
+        "Context presence and visibility distinguish historical case/hostile intervals from currently open road/strategic contexts. Treatment requires living actor/patient, co-presence and exactly one visible matching context claim; authored decision overrides party preference and only exact emergency bandaging receives emergency handling. Nonemergency preparation passes no claim, so contextual targets fail closed; actual intended preparation callers/policy not yet established. Historical alive_at versus current injury/treatment projection remains qualified, not accepted as ordinary mismatch.",
+        "Contact reducer validates authority, liveness, bounded action ID, exact retry tuple, unique contextual claim, patient visibility and context revision; updates awareness/contact and social physiology before durable receipt. Case/hostile membership revision and per-party contact revision are distinct. Saturation at maximum revision and hash representability are not ordinary witnesses. Read existing tests as source only; no run."
+      ]
+    },
+    {
+      "scope_index": 318,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_actor/roster.rs",
+      "sha256": "9b4cde3a9009140eb19a6dab12c897dc30ea527fd5cb976c867d651f62c73a07",
+      "personally_read_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Personally read full frozen roster.rs1-28. Closure modifies only open intervals, clamps end to entered_at, increments revision saturating and preserves an existing end. Caller without explicit minute uses refresh_clock().unwrap_or_default(); failure can clamp closure to start rather than observed time, requiring actual clock-error reachability/caller policy before finding. No project execution."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

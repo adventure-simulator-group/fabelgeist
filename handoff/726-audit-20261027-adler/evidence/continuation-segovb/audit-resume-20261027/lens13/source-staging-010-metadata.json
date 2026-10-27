@@ -1,0 +1,78 @@
+{
+  "scope": "Exact selected fixedCargo identity leaves only; source staging not body credit",
+  "sources": [
+    {
+      "source_id": "native:Cargo@59800466c5c41c444d264b1010b4d57e85a7117f/src/cargo/core/package_id.rs",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/8add0e9f96dc5c121a62ba9af315e1e38184bd4e6b377afa0fbc34b6dd1f02b8",
+      "sha256": "8add0e9f96dc5c121a62ba9af315e1e38184bd4e6b377afa0fbc34b6dd1f02b8",
+      "git_blob": "cde68b761d348bd1d7d525765989a60feafed29b",
+      "eof": 278,
+      "fixed_ref": "59800466c5c41c444d264b1010b4d57e85a7117f",
+      "api_blob_verified": true,
+      "locators": [
+        {
+          "line": 22,
+          "text": "pub struct PackageId {"
+        },
+        {
+          "line": 27,
+          "text": "struct PackageIdInner {"
+        },
+        {
+          "line": 127,
+          "text": "pub fn try_new("
+        },
+        {
+          "line": 136,
+          "text": "pub fn new(name: InternedString, version: semver::Version, source_id: SourceId) -> PackageId {"
+        },
+        {
+          "line": 201,
+          "text": "pub struct PackageIdStableHash<'a>(PackageId, &'a Path);"
+        }
+      ],
+      "body_read": false
+    },
+    {
+      "source_id": "native:Cargo@59800466c5c41c444d264b1010b4d57e85a7117f/src/cargo/core/source_id.rs",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/c39195e7f2a3a77995ef73dbd140a28d2c93a6f0e194757753d61ea3829270a3",
+      "sha256": "c39195e7f2a3a77995ef73dbd140a28d2c93a6f0e194757753d61ea3829270a3",
+      "git_blob": "043557b1c4e4e28de3e566832ab4290e1457772f",
+      "eof": 919,
+      "fixed_ref": "59800466c5c41c444d264b1010b4d57e85a7117f",
+      "api_blob_verified": true,
+      "locators": [
+        {
+          "line": 39,
+          "text": "pub struct SourceId {"
+        },
+        {
+          "line": 46,
+          "text": "struct SourceIdInner {"
+        },
+        {
+          "line": 101,
+          "text": "fn new(kind: SourceKind, url: Url, key: Option<KeyOf>) -> CargoResult<SourceId> {"
+        },
+        {
+          "line": 152,
+          "text": "pub fn from_url(string: &str) -> CargoResult<SourceId> {"
+        },
+        {
+          "line": 183,
+          "text": "pub fn as_url(&self) -> SourceIdAsUrl<'_> {"
+        },
+        {
+          "line": 191,
+          "text": "pub fn as_encoded_url(&self) -> SourceIdAsUrl<'_> {"
+        },
+        {
+          "line": 705,
+          "text": "pub struct SourceIdAsUrl<'a> {"
+        }
+      ],
+      "body_read": false
+    }
+  ],
+  "prior_attempt": "urllib DNS failed before source retrieval; GitHub read-only connector fallback, no escalation/project execution"
+}

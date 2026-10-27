@@ -1,0 +1,876 @@
+diff --git a/crates/adventuresim-tactical-client/src/presentation/obstacles/mod.rs b/crates/adventuresim-tactical-client/src/presentation/obstacles/mod.rs
+index 42cb859f7..0c5eb5ceb 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/obstacles/mod.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/obstacles/mod.rs
+@@ -53,15 +53,14 @@ pub(crate) fn oak_review_terminal_specimen(
+     let preferred_height = 2.5;
+     let (shoot_id, shoot) = branches
+         .iter()
+-        .filter(|branch| branch.depth == 3 && branch.is_limb_tip)
+-        .enumerate()
++        .filter_map(|branch| branch.foliage.map(|identity| (identity, branch)))
+         .max_by(|(_, left), (_, right)| {
+             let score = |branch: &TreeBranchSegment| {
+                 branch.end.dot(camera_direction) - (branch.end.y - preferred_height).abs() * 0.35
+             };
+             score(left).total_cmp(&score(right))
+         })
+-        .map(|(_, branch)| (tree::shoot_identity(branch), *branch))
++        .map(|(identity, branch)| (identity, *branch))
+         .expect("procedural oak has terminal shoots");
+     let offset = -shoot.start;
+     let mut specimen_shoot = shoot;
+diff --git a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry.rs b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry.rs
+index 3ac6f55b6..c2fd0f8c5 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry.rs
+@@ -255,6 +255,8 @@ pub(in crate::presentation) struct TreeBranchSegment {
+     pub(in crate::presentation) primary_group: u8,
+     pub(in crate::presentation) secondary_group: u16,
+     pub(in crate::presentation) is_limb_tip: bool,
++    /// Present only on the terminal segment of a foliage-bearing shoot.
++    pub(in crate::presentation) foliage: Option<TreeShootId>,
+ }
+ 
+ mod leaves;
+@@ -262,11 +264,11 @@ mod skeleton;
+ mod wood_mesh;
+ 
+ pub(in crate::presentation) use leaves::{
+-    TreeLeaf, procedural_oak_bud_group_mesh, procedural_oak_bud_mesh,
++    TreeLeaf, TreeShootId, procedural_oak_bud_group_mesh, procedural_oak_bud_mesh,
+     procedural_oak_leaf_card_group_mesh, procedural_oak_leaf_card_mesh, procedural_oak_leaves,
+     procedural_oak_textured_leaf_group_mesh, procedural_oak_textured_leaf_mesh,
+     procedural_woody_cambered_leaf_mesh, procedural_woody_leaf_card_mesh,
+-    procedural_woody_plant_leaves, procedural_woody_sparse_leaf_card_mesh, shoot_identity,
++    procedural_woody_plant_leaves, procedural_woody_sparse_leaf_card_mesh,
+ };
+ pub(in crate::presentation) use skeleton::{
+     procedural_oak_skeleton_with_gnarling, procedural_tree_skeleton,
+diff --git a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves.rs b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves.rs
+index 4a0145358..d726eede5 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves.rs
+@@ -9,7 +9,7 @@ use bevy::{
+     prelude::Mesh,
+ };
+ use fabelgeist_determinism::Seed;
+-pub(in crate::presentation) use identity::shoot_identity;
++pub(in crate::presentation) use identity::TreeShootId;
+ pub(in crate::presentation) use selection::detailed_flat_card_group_leaves;
+ use selection::sparse_woody_far_card_leaves;
+ #[cfg(test)]
+@@ -30,7 +30,7 @@ pub(in crate::presentation) struct TreeLeaf {
+     pub(in crate::presentation) width: f32,
+     pub(in crate::presentation) primary_group: u8,
+     pub(in crate::presentation) secondary_group: u16,
+-    pub(in crate::presentation) shoot_id: u64,
++    pub(in crate::presentation) shoot_id: TreeShootId,
+     /// Stable ordinal within the source shoot. This is deliberately stored on
+     /// the leaf rather than inferred from a mesh-building iteration order so
+     /// representation LODs can make deterministic per-leaf choices.
+@@ -53,7 +53,7 @@ pub(in crate::presentation) fn oak_leaf_card_bounds(leaf: TreeLeaf) -> (Vec3, f3
+ fn leaf_shadow_selector(leaf: TreeLeaf) -> f32 {
+     let shoot_key = leaf.shoot_id;
+     streams::SHOOT_THRESHOLD
+-        .rng(shoot_key.into(), &[])
++        .rng(shoot_key.seed(), &[])
+         .inclusive_unit_f32()
+ }
+ 
+@@ -248,10 +248,7 @@ pub(in crate::presentation) fn procedural_oak_bud_mesh(branches: &[TreeBranchSeg
+     let mut indices = Vec::new();
+     const SIDES: u32 = 6;
+     const BUD_LENGTH: f32 = 0.008;
+-    for branch in branches
+-        .iter()
+-        .filter(|branch| branch.depth == 3 && branch.is_limb_tip)
+-    {
++    for branch in branches.iter().filter(|branch| branch.foliage.is_some()) {
+         let direction = (branch.end - branch.start).normalize();
+         let (frame_right, frame_forward) = branch_frame(direction);
+         let base = positions.len() as u32;
+@@ -366,7 +363,7 @@ mod tests {
+             .expect("bud mesh has float positions");
+         let terminal_shoots = branches
+             .iter()
+-            .filter(|branch| branch.depth == 3 && branch.is_limb_tip)
++            .filter(|branch| branch.foliage.is_some())
+             .count();
+         assert_eq!(terminal_shoots, leaves.len() / 16);
+         assert_eq!(bud_positions.len(), terminal_shoots * 19);
+diff --git a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/arrangement.rs b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/arrangement.rs
+index ebe6ef1e3..0f3fef1ec 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/arrangement.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/arrangement.rs
+@@ -12,11 +12,10 @@ pub(in crate::presentation) fn procedural_oak_leaves(
+     // The pulsed shoot layout then cuts redundant alpha overlap while
+     // retaining the oak's irregular shell.
+     let leaves_per_shoot = 16_u64;
+-    for shoot in branches
++    for (shoot_id, shoot) in branches
+         .iter()
+-        .filter(|branch| branch.depth == 3 && branch.is_limb_tip)
++        .filter_map(|branch| branch.foliage.map(|identity| (identity, branch)))
+     {
+-        let shoot_id = shoot_identity(shoot);
+         let direction = (shoot.end - shoot.start).normalize();
+         let tangent = direction.cross(Vec3::Y).normalize_or_zero();
+         let tangent = if tangent.length_squared() < 0.25 {
+@@ -26,7 +25,7 @@ pub(in crate::presentation) fn procedural_oak_leaves(
+         };
+         let binormal = direction.cross(tangent).normalize();
+         for leaf_index in 0..leaves_per_shoot {
+-            let leaf_seed = streams::LEAF.seed(seed, &[shoot_id, leaf_index]);
++            let leaf_seed = streams::LEAF.seed(seed, &[shoot_id.seed().to_u64(), leaf_index]);
+             let leaf_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
+                 purpose.rng(leaf_seed, &[]).inclusive_unit_f32()
+             };
+@@ -121,11 +120,10 @@ fn procedural_beech_leaves(
+ ) -> Vec<TreeLeaf> {
+     let mut leaves = Vec::new();
+     let leaves_per_shoot = u64::from(parameters.leaves_per_shoot.max(4));
+-    for shoot in branches
++    for (shoot_id, shoot) in branches
+         .iter()
+-        .filter(|branch| branch.depth == 3 && branch.is_limb_tip)
++        .filter_map(|branch| branch.foliage.map(|identity| (identity, branch)))
+     {
+-        let shoot_id = shoot_identity(shoot);
+         let direction = (shoot.end - shoot.start).normalize();
+         let horizontal = Vec3::new(direction.x, 0.0, direction.z).normalize_or_zero();
+         let spray_forward = if horizontal.length_squared() > 0.25 {
+@@ -135,7 +133,7 @@ fn procedural_beech_leaves(
+         };
+         let spray_side = Vec3::Y.cross(spray_forward).normalize();
+         for leaf_index in 0..leaves_per_shoot {
+-            let leaf_seed = streams::LEAF.seed(seed, &[shoot_id, leaf_index]);
++            let leaf_seed = streams::LEAF.seed(seed, &[shoot_id.seed().to_u64(), leaf_index]);
+             let leaf_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
+                 purpose.rng(leaf_seed, &[]).inclusive_unit_f32()
+             };
+@@ -206,15 +204,14 @@ fn procedural_multistem_shrub_leaves(
+ ) -> Vec<TreeLeaf> {
+     let mut leaves = Vec::new();
+     let leaves_per_shoot = u64::from(parameters.leaves_per_shoot.max(4));
+-    for shoot in branches
++    for (shoot_id, shoot) in branches
+         .iter()
+-        .filter(|branch| branch.depth == 3 && branch.is_limb_tip)
++        .filter_map(|branch| branch.foliage.map(|identity| (identity, branch)))
+     {
+-        let shoot_id = shoot_identity(shoot);
+         let direction = (shoot.end - shoot.start).normalize();
+         let (frame_right, frame_up) = branch_frame(direction);
+         for leaf_index in 0..leaves_per_shoot {
+-            let leaf_seed = streams::LEAF.seed(seed, &[shoot_id, leaf_index]);
++            let leaf_seed = streams::LEAF.seed(seed, &[shoot_id.seed().to_u64(), leaf_index]);
+             let leaf_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
+                 purpose.rng(leaf_seed, &[]).inclusive_unit_f32()
+             };
+diff --git a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/identity.rs b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/identity.rs
+index 08361ea00..9448b2560 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/identity.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/identity.rs
+@@ -1,20 +1,19 @@
+-//! Stable terminal-shoot identity, independent of branch traversal.
+-use super::*;
++//! Stable terminal-shoot identity derived before native geometry evaluation.
++use fabelgeist_determinism::{Seed, StreamId};
+ 
+-pub(in crate::presentation) fn shoot_identity(shoot: &TreeBranchSegment) -> u64 {
+-    streams::SHOOT_IDENTITY
+-        .seed(
+-            0.into(),
+-            &[
+-                u64::from(shoot.primary_group),
+-                u64::from(shoot.secondary_group),
+-                u64::from(shoot.start.x.to_bits()),
+-                u64::from(shoot.start.y.to_bits()),
+-                u64::from(shoot.start.z.to_bits()),
+-                u64::from(shoot.end.x.to_bits()),
+-                u64::from(shoot.end.y.to_bits()),
+-                u64::from(shoot.end.z.to_bits()),
+-            ],
+-        )
+-        .to_u64()
++const SHOOT_IDENTITY: StreamId = StreamId::new("visual.tree.shoot-identity");
++
++/// Identifies one source shoot across leaf ordering and native float rounding.
++#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
++pub(in crate::presentation) struct TreeShootId(u64);
++
++impl TreeShootId {
++    pub(in crate::presentation) fn from_seed(source: Seed) -> Self {
++        Self(SHOOT_IDENTITY.seed(source, &[]).to_u64())
++    }
++
++    /// Adapt the identity to the deterministic sampler's native seed boundary.
++    pub(in crate::presentation) fn seed(self) -> Seed {
++        Seed::from_u64(self.0)
++    }
+ }
+diff --git a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/selection.rs b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/selection.rs
+index e0314b4ca..f5f368630 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/selection.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/selection.rs
+@@ -23,7 +23,7 @@ pub(super) fn sparse_woody_far_card_leaves(leaves: &[TreeLeaf]) -> Vec<TreeLeaf>
+ 
+ pub(super) fn sparse_woody_far_card_retained(leaf: TreeLeaf) -> bool {
+     let shoot_key = leaf.shoot_id;
+-    let retained_ordinal_lane = streams::RETAINED_LANE.rng(shoot_key.into(), &[]).index(4) as u8;
++    let retained_ordinal_lane = streams::RETAINED_LANE.rng(shoot_key.seed(), &[]).index(4) as u8;
+     leaf.leaf_ordinal & 3 == retained_ordinal_lane
+ }
+ 
+@@ -56,6 +56,6 @@ pub(in crate::presentation) fn detailed_flat_card_group_leaves(
+ 
+ pub(super) fn detailed_flat_card_leaf_retained(leaf: TreeLeaf) -> bool {
+     let shoot_key = leaf.shoot_id;
+-    let omitted_ordinal_lane = streams::OMITTED_LANE.rng(shoot_key.into(), &[]).index(4) as u8;
++    let omitted_ordinal_lane = streams::OMITTED_LANE.rng(shoot_key.seed(), &[]).index(4) as u8;
+     leaf.leaf_ordinal & 3 != omitted_ordinal_lane
+ }
+diff --git a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/streams.rs b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/streams.rs
+index 2cea7e40a..45a157522 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/streams.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/streams.rs
+@@ -29,4 +29,3 @@ pub(super) const TORSION: StreamId = StreamId::new("visual.obstacles.tree.geomet
+ pub(super) const VERTICAL_LIFT: StreamId =
+     StreamId::new("visual.obstacles.tree.geometry.leaves.vertical-lift");
+ pub(super) const WIDTH: StreamId = StreamId::new("visual.obstacles.tree.geometry.leaves.width");
+-pub(super) const SHOOT_IDENTITY: StreamId = StreamId::new("visual.tree.shoot-identity");
+diff --git a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs
+index 96b7cfeaa..540abb269 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs
+@@ -2,18 +2,19 @@ mod growth_axes;
+ use fabelgeist_determinism::Seed;
+ use growth_axes::{append_shrub_shoots, oak_trunk_points};
+ mod root_plan;
+-use root_plan::{append_beech_roots, procedural_oak_root_specs_with_gnarling, root_plan_angles};
++use root_plan::{
++    append_beech_roots, append_oak_roots, procedural_oak_root_specs_with_gnarling, root_plan_angles,
++};
+ mod root_profile;
+ mod streams;
+ 
+ use adventuresim_tactical_core::prelude::TREE_TRUNK_HEIGHT_METRES;
+ use bevy::math::{FloatExt, Vec3, Vec3Swizzles};
+-use root_profile::{oak_root_fork_points, oak_root_points};
+ 
+ use super::{
+     ENGLISH_OAK_PARAMETERS, NATURAL_OAK_GNARLING, OakGnarlingParameters, TREE_PRIMARY_GROUP_COUNT,
+-    TREE_SECONDARY_GROUP_STRIDE, TreeBranchSegment, WoodyPlantForm, WoodyPlantParameters,
+-    branch_frame,
++    TREE_SECONDARY_GROUP_STRIDE, TreeBranchSegment, TreeShootId, WoodyPlantForm,
++    WoodyPlantParameters, branch_frame,
+ };
+ 
+ const OAK_ROOT_MIN_COUNT: usize = 4;
+@@ -115,46 +116,18 @@ pub(in crate::presentation) fn procedural_oak_skeleton_with_gnarling(
+     append_branch_curve(
+         &mut branches,
+         &trunk_points,
+-        0.72_f32.lerp(0.56, canopy_competition)
+-            * (1.0 + gnarling.taper_irregularity.clamp(0.0, 1.0) * 0.16),
+-        0.045_f32.lerp(0.035, canopy_competition),
++        [
++            0.72_f32.lerp(0.56, canopy_competition)
++                * (1.0 + gnarling.taper_irregularity.clamp(0.0, 1.0) * 0.16),
++            0.045_f32.lerp(0.035, canopy_competition),
++        ],
+         0,
+         u8::MAX,
+         u16::MAX,
++        None,
+     );
+ 
+-    // Unequal surface roots visually carry the weight of the low, spreading
+-    // scaffold limbs without changing the authoritative collider. Their plan
+-    // is presentation-only: a bounded irregular partition avoids a radial
+-    // star, while the broadest buttresses share the major scaffold azimuths.
+-    let root_specs = procedural_oak_root_specs_with_gnarling(seed, crown_phase, gnarling);
+-    debug_assert!(oak_root_segment_count(&root_specs) <= OAK_ROOT_MAX_SEGMENTS);
+-    for root in root_specs {
+-        // Roots begin below grade, expose a shoulder according to the site's
+-        // gnarling recipe, and taper back into the soil.
+-        let points = oak_root_points(trunk_points[0] - Vec3::Y * 0.07, root, gnarling);
+-        append_branch_curve(
+-            &mut branches,
+-            &points,
+-            root.base_radius,
+-            root.tip_radius,
+-            0,
+-            u8::MAX,
+-            u16::MAX,
+-        );
+-        if let Some(fork) = root.fork {
+-            let fork_points = oak_root_fork_points(&points, root, fork);
+-            append_branch_curve(
+-                &mut branches,
+-                &fork_points,
+-                root.base_radius * 0.34,
+-                root.tip_radius * 0.72,
+-                0,
+-                u8::MAX,
+-                u16::MAX,
+-            );
+-        }
+-    }
++    append_oak_roots(&mut branches, seed, crown_phase, trunk_points[0], gnarling);
+ 
+     append_oak_knots(&mut branches, seed, &trunk_points, gnarling);
+ 
+@@ -280,11 +253,11 @@ pub(in crate::presentation) fn procedural_oak_skeleton_with_gnarling(
+         append_branch_curve(
+             &mut branches,
+             &primary_points,
+-            primary_start_radius,
+-            primary_end_radius,
++            [primary_start_radius, primary_end_radius],
+             1,
+             primary_index as u8,
+             u16::MAX,
++            None,
+         );
+         if dominant {
+             dominant_scaffolds.push((
+@@ -361,11 +334,11 @@ pub(in crate::presentation) fn procedural_oak_skeleton_with_gnarling(
+             append_branch_curve(
+                 &mut branches,
+                 &secondary_points,
+-                secondary_start_radius,
+-                secondary_end_radius,
++                [secondary_start_radius, secondary_end_radius],
+                 2,
+                 primary_index as u8,
+                 secondary_group,
++                None,
+             );
+ 
+             // Short shoots are distributed around the secondary limb rather
+@@ -409,14 +382,17 @@ pub(in crate::presentation) fn procedural_oak_skeleton_with_gnarling(
+                 append_branch_curve(
+                     &mut branches,
+                     &[shoot_start, shoot_mid, shoot_end],
+-                    child_base_radius(
+-                        0.012,
+-                        curve_radius_at(secondary_start_radius, secondary_end_radius, attach),
+-                    ),
+-                    0.0032,
++                    [
++                        child_base_radius(
++                            0.012,
++                            curve_radius_at(secondary_start_radius, secondary_end_radius, attach),
++                        ),
++                        0.0032,
++                    ],
+                     3,
+                     primary_index as u8,
+                     secondary_group,
++                    Some(TreeShootId::from_seed(shoot_seed)),
+                 );
+             }
+         }
+@@ -482,11 +458,11 @@ fn append_oak_knots(
+                 center + radial * scale * 0.75,
+                 center + radial * scale + axis * scale * 0.18,
+             ],
+-            scale,
+-            scale * 0.38,
++            [scale, scale * 0.38],
+             0,
+             u8::MAX,
+             u16::MAX,
++            None,
+         );
+     }
+ }
+@@ -520,11 +496,11 @@ fn procedural_beech_skeleton(
+     append_branch_curve(
+         &mut branches,
+         &trunk_points,
+-        0.5,
+-        0.055,
++        [0.5, 0.055],
+         0,
+         u8::MAX,
+         u16::MAX,
++        None,
+     );
+ 
+     append_beech_roots(&mut branches, seed, crown_phase, trunk_base);
+@@ -575,11 +551,11 @@ fn procedural_beech_skeleton(
+         append_branch_curve(
+             &mut branches,
+             &primary_points,
+-            0.24 - layer * 0.095,
+-            0.018,
++            [0.24 - layer * 0.095, 0.018],
+             1,
+             primary_group,
+             u16::MAX,
++            None,
+         );
+ 
+         for secondary_index in 0..5_u64 {
+@@ -613,11 +589,11 @@ fn procedural_beech_skeleton(
+             append_branch_curve(
+                 &mut branches,
+                 &secondary_points,
+-                0.048,
+-                0.007,
++                [0.048, 0.007],
+                 2,
+                 primary_group,
+                 secondary_group,
++                None,
+             );
+             for twig_index in 0..6_u64 {
+                 let twig_seed = streams::BEECH_TWIG.seed(secondary_seed, &[twig_index]);
+@@ -640,11 +616,11 @@ fn procedural_beech_skeleton(
+                         twig_start + twig_direction * twig_length * 0.52,
+                         twig_start + twig_direction * twig_length,
+                     ],
+-                    0.008,
+-                    0.002,
++                    [0.008, 0.002],
+                     3,
+                     primary_group,
+                     secondary_group,
++                    Some(TreeShootId::from_seed(twig_seed)),
+                 );
+             }
+         }
+@@ -681,11 +657,11 @@ fn procedural_multistem_shrub_skeleton(
+         append_branch_curve(
+             &mut branches,
+             &stem_points,
+-            0.035 + stem_unit_draw(streams::STEM_RADIUS) * 0.018,
+-            0.008,
++            [0.035 + stem_unit_draw(streams::STEM_RADIUS) * 0.018, 0.008],
+             0,
+             stem_index as u8,
+             u16::MAX,
++            None,
+         );
+         for branch_index in 0..10_u64 {
+             let branch_seed = streams::SHRUB_BRANCH.seed(stem_seed, &[branch_index]);
+@@ -720,11 +696,11 @@ fn procedural_multistem_shrub_skeleton(
+             append_branch_curve(
+                 &mut branches,
+                 &branch_points,
+-                branch_start_radius,
+-                0.0036,
++                [branch_start_radius, 0.0036],
+                 2,
+                 stem_index as u8,
+                 secondary_group,
++                None,
+             );
+             append_shrub_shoots(
+                 &mut branches,
+@@ -759,25 +735,26 @@ fn procedural_multistem_shrub_skeleton(
+                     stem_tip + direction * length * 0.5,
+                     stem_tip + direction * length,
+                 ],
+-                0.0045,
+-                0.0014,
++                [0.0045, 0.0014],
+                 3,
+                 stem_index as u8,
+                 (stem_index * 16 + 15) as u16,
++                Some(TreeShootId::from_seed(tip_seed)),
+             );
+         }
+     }
+     branches
+ }
+ 
++/// Append a native metre-based, Y-up centreline with metre radii at its ends.
+ fn append_branch_curve(
+     branches: &mut Vec<TreeBranchSegment>,
+     points: &[Vec3],
+-    start_radius: f32,
+-    end_radius: f32,
++    [start_radius, end_radius]: [f32; 2],
+     depth: u8,
+     primary_group: u8,
+     secondary_group: u16,
++    foliage: Option<TreeShootId>,
+ ) {
+     let segment_count = points.len() - 1;
+     for index in 0..segment_count {
+@@ -792,6 +769,7 @@ fn append_branch_curve(
+             primary_group,
+             secondary_group,
+             is_limb_tip: index + 1 == segment_count,
++            foliage: foliage.filter(|_| index + 1 == segment_count),
+         });
+     }
+ }
+@@ -810,6 +788,7 @@ fn polyline_tangent(points: &[Vec3], t: f32) -> Vec3 {
+ 
+ #[cfg(test)]
+ mod tests {
++    use super::root_profile::{oak_root_fork_points, oak_root_points};
+     use super::*;
+     use crate::presentation::obstacles::tree::geometry::{
+         BLACKTHORN_PARAMETERS, COMMON_BEECH_BARK, COMMON_BEECH_PARAMETERS,
+diff --git a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/growth_axes.rs b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/growth_axes.rs
+index aa5d35592..7860aded2 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/growth_axes.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/growth_axes.rs
+@@ -78,11 +78,14 @@ pub(super) fn append_shrub_shoots(
+                 shoot_start + shoot_direction * shoot_length * 0.52,
+                 shoot_start + shoot_direction * shoot_length,
+             ],
+-            child_base_radius(0.005, curve_radius_at(branch_start_radius, 0.0036, along)),
+-            0.0015,
++            [
++                child_base_radius(0.005, curve_radius_at(branch_start_radius, 0.0036, along)),
++                0.0015,
++            ],
+             3,
+             primary_group,
+             secondary_group,
++            Some(TreeShootId::from_seed(shoot_seed)),
+         );
+     }
+ }
+diff --git a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_plan.rs b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_plan.rs
+index f19bc5fea..a036b7ed8 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_plan.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_plan.rs
+@@ -1,4 +1,5 @@
+ //! Surface-root placement and species-specific root morphology.
++use super::root_profile::{oak_root_fork_points, oak_root_points};
+ use super::*;
+ use fabelgeist_determinism::Seed;
+ 
+@@ -129,6 +130,47 @@ pub(super) fn procedural_oak_root_specs_with_gnarling(
+     roots
+ }
+ 
++pub(super) fn append_oak_roots(
++    branches: &mut Vec<TreeBranchSegment>,
++    seed: Seed,
++    crown_phase: f32,
++    trunk_base: Vec3,
++    gnarling: OakGnarlingParameters,
++) {
++    // Unequal surface roots visually carry the weight of the low, spreading
++    // scaffold limbs without changing the authoritative collider. Their plan
++    // is presentation-only: a bounded irregular partition avoids a radial
++    // star, while the broadest buttresses share the major scaffold azimuths.
++    let root_specs = procedural_oak_root_specs_with_gnarling(seed, crown_phase, gnarling);
++    debug_assert!(oak_root_segment_count(&root_specs) <= OAK_ROOT_MAX_SEGMENTS);
++    for root in root_specs {
++        // Roots begin below grade, expose a shoulder according to the site's
++        // gnarling recipe, and taper back into the soil.
++        let points = oak_root_points(trunk_base - Vec3::Y * 0.07, root, gnarling);
++        append_branch_curve(
++            branches,
++            &points,
++            [root.base_radius, root.tip_radius],
++            0,
++            u8::MAX,
++            u16::MAX,
++            None,
++        );
++        if let Some(fork) = root.fork {
++            let fork_points = oak_root_fork_points(&points, root, fork);
++            append_branch_curve(
++                branches,
++                &fork_points,
++                [root.base_radius * 0.34, root.tip_radius * 0.72],
++                0,
++                u8::MAX,
++                u16::MAX,
++                None,
++            );
++        }
++    }
++}
++
+ pub(super) fn append_beech_roots(
+     branches: &mut Vec<TreeBranchSegment>,
+     seed: Seed,
+@@ -167,11 +209,14 @@ pub(super) fn append_beech_roots(
+         append_branch_curve(
+             branches,
+             &root_points,
+-            0.11 + root_unit_draw(streams::BEECH_ROOT_RADIUS) * 0.025,
+-            0.006 + root_unit_draw(streams::BEECH_ROOT_TIP_RADIUS) * 0.004,
++            [
++                0.11 + root_unit_draw(streams::BEECH_ROOT_RADIUS) * 0.025,
++                0.006 + root_unit_draw(streams::BEECH_ROOT_TIP_RADIUS) * 0.004,
++            ],
+             0,
+             u8::MAX,
+             u16::MAX,
++            None,
+         );
+     }
+ }
+diff --git a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/wood_mesh.rs b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/wood_mesh.rs
+index 7864e2a0e..3d87b91b4 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/wood_mesh.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/wood_mesh.rs
+@@ -908,6 +908,7 @@ mod tests {
+             primary_group: 0,
+             secondary_group: 0,
+             is_limb_tip: true,
++            foliage: None,
+         }];
+         let mesh = procedural_tree_branch_mesh(&branches, 1);
+         let Some(VertexAttributeValues::Float32x2(uvs)) = mesh.attribute(Mesh::ATTRIBUTE_UV_0)
+@@ -995,26 +996,26 @@ mod tests {
+ 
+         // Seed 42 is the representative oak fixture used by the tree suite.
+         // These exact reductions guard both the LOD budget and the simplified
+-        // one-cap terminal topology: 9,540/15,523 -> 4,810/7,099 for LOD1,
+-        // and 1,119/1,897 -> 462/700 for LOD2 (vertices/triangles).
+-        assert_eq!(full_lod1.count_vertices(), 9_540);
++        // one-cap terminal topology: 9,556/15,551 -> 4,630/6,811 for LOD1,
++        // and 1,135/1,925 -> 462/700 for LOD2 (vertices/triangles).
++        assert_eq!(full_lod1.count_vertices(), 9_556);
+         assert_eq!(
+             full_lod1.indices().expect("full LOD1 is indexed").len() / 3,
+-            15_523
++            15_551
+         );
+-        assert_eq!(aggregate_lod1.count_vertices(), 4_810);
++        assert_eq!(aggregate_lod1.count_vertices(), 4_630);
+         assert_eq!(
+             aggregate_lod1
+                 .indices()
+                 .expect("aggregate LOD1 is indexed")
+                 .len()
+                 / 3,
+-            7_099
++            6_811
+         );
+-        assert_eq!(full_lod2.count_vertices(), 1_119);
++        assert_eq!(full_lod2.count_vertices(), 1_135);
+         assert_eq!(
+             full_lod2.indices().expect("full LOD2 is indexed").len() / 3,
+-            1_897
++            1_925
+         );
+         assert_eq!(aggregate_lod2.count_vertices(), 462);
+         assert_eq!(
+@@ -1108,13 +1109,13 @@ mod tests {
+         // Seed 42 is the representative oak fixture used by the tree suite.
+         // Exact counts lock the nine-sided, 0.9-metre, one-cap budget and
+         // verify that the root-only close mesh remains substantially denser.
+-        assert_eq!(full.count_vertices(), 771);
++        assert_eq!(full.count_vertices(), 857);
+         assert_eq!(
+             full.indices().expect("full trunk is indexed").len() / 3,
+-            1_344
++            1_488
+         );
+-        assert_eq!(mid.count_vertices(), 173);
+-        assert_eq!(indices.len() / 3, 279);
++        assert_eq!(mid.count_vertices(), 236);
++        assert_eq!(indices.len() / 3, 360);
+         assert!(mid.count_vertices() * 2 < full.count_vertices());
+         assert!(indices.len() / 3 * 2 < full.indices().unwrap().len() / 3);
+ 
+@@ -1319,6 +1320,7 @@ mod tests {
+                 primary_group: 0,
+                 secondary_group: 0,
+                 is_limb_tip: true,
++                foliage: None,
+             };
+             (0..96)
+                 .map(|index| {
+diff --git a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs
+index 0dd24ad9e..c922463e5 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs
+@@ -11,7 +11,7 @@ use raster::*;
+ use super::super::super::*;
+ use super::geometry::*;
+ 
+-pub(in crate::presentation) const TREE_IMPOSTOR_BAKE_VERSION: u32 = 16;
++pub(in crate::presentation) const TREE_IMPOSTOR_BAKE_VERSION: u32 = 18;
+ pub(in crate::presentation) const TREE_IMPOSTOR_RENDER_METHOD: &str =
+     "deterministic software triangle render with species-calibrated crown coverage";
+ /// Per-LOD atlas tiles, from near aggregate cards through the whole-tree
+@@ -117,7 +117,8 @@ pub(in crate::presentation) const BEECH_TREE_BAKE_STYLE: TreeBakeStyle = TreeBak
+     // small retained sample into a dark solid mass at the 6-8 m handoff.
+     aggregate_leaf_scales: [0.82, 1.32, 1.62, 1.84],
+     lod1_world_vertical: false,
+-    lod1_runtime_width_scale: 1.0,
++    // Keep the flattened near crown within the source occupancy budget.
++    lod1_runtime_width_scale: 0.98,
+ };
+ 
+ pub(in crate::presentation) fn validate_tree_bake_provenance(provenance: &TreeImpostorProvenance) {
+@@ -734,11 +735,13 @@ pub(in crate::presentation) fn tree_source_geometry_hash(
+             leaf.center.z,
+             leaf.length,
+             leaf.width,
+-            leaf.shoot_id as f32,
+         ] {
+             hash ^= u64::from(value.to_bits());
+             hash = hash.wrapping_mul(0x100_0000_01b3);
+         }
++        // Identity is a native integer hash input; float conversion loses bits.
++        hash ^= leaf.shoot_id.seed().to_u64();
++        hash = hash.wrapping_mul(0x100_0000_01b3);
+     }
+     hash
+ }
+diff --git a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/raster.rs b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/raster.rs
+index 53d044f4e..c8f41a6bc 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/raster.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/raster.rs
+@@ -119,7 +119,7 @@ fn stratified_tree_bake_leaves(
+         }
+         let shoot = &included[start..end];
+         let mut random = StreamId::new("visual.tree.impostor-shoot-sampling")
+-            .rng(shoot_id.into(), &[u64::from(card.source_group)]);
++            .rng(shoot_id.seed(), &[u64::from(card.source_group)]);
+         if shoot.len() >= stride {
+             let phase = random.index(stride);
+             let before = sampled.len();
+@@ -302,14 +302,12 @@ mod tests {
+         BEECH_TREE_BAKE_STYLE, fit_tree_bake_card, tree_bake_cards, tree_bake_cards_with_style,
+     };
+     use super::*;
+-    use crate::presentation::obstacle_seed;
+     use crate::presentation::obstacles::tree::presentation::oak_gnarling_for_test_site;
+     use crate::presentation::obstacles::tree::{
+         COMMON_BEECH_PARAMETERS, OAK_GNARLING_SHOWCASE, procedural_oak_leaves,
+         procedural_oak_skeleton_with_gnarling, procedural_tree_skeleton,
+         procedural_woody_plant_leaves, procedural_woody_plant_skeleton,
+     };
+-    use adventuresim_tactical_core::prelude::{Precipitation, SceneEnvironment, WeatherSnapshot};
+ 
+     #[derive(Clone, Copy, Debug)]
+     struct ProjectedCrownCoverage {
+@@ -716,7 +714,7 @@ mod tests {
+                     width: 0.07,
+                     primary_group: 0,
+                     secondary_group: 0,
+-                    shoot_id,
++                    shoot_id: super::super::geometry::TreeShootId::from_seed(shoot_id.into()),
+                     leaf_ordinal: ordinal as u8,
+                     shade: 1.0,
+                     torsion: 0.0,
+@@ -817,77 +815,32 @@ mod tests {
+     }
+ 
+     #[test]
+-    fn sparse_fixture_oak_lod1_preserves_45_degree_upper_right_silhouette() {
+-        const SCENE_SEED: u64 = 47_104;
+-        const FOCUSED_TREE_RECIPE_SEED: fabelgeist_determinism::Seed =
+-            fabelgeist_determinism::Seed::from_u64(15_240_619_980_244_641_867);
+-        const VISTA_CACHE_RECIPE_SEED: fabelgeist_determinism::Seed =
+-            fabelgeist_determinism::Seed::from_u64(16_311_644_104_379_926_507);
+-        const FIXTURE_COMPETITION: f32 = 0.281_75;
+-        // Seed 47104 deterministically places the reviewed playable tree at
+-        // (12.5, 37.5). Production hashes that placement, selects showcase
+-        // variant 1, and applies the sparse-woodland site history. The much
+-        // more frequent variant-0 seed in the manifest belongs to vista/cache
+-        // bakes and is not the tree framed by the forced-LOD views.
+-        let fixture_position = Vec3::new(12.5, 0.0, 37.5);
+-        let obstacle_seed = obstacle_seed(
+-            adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(Vec2::new(
+-                fixture_position.x,
+-                fixture_position.z,
+-            ))
+-            .unwrap(),
+-        );
+-        let variant_index = (obstacle_seed.to_u64() & 3) as usize;
+-        let variant_seed =
+-            crate::presentation::obstacles::tree::specimen::oak_variant_seed(variant_index);
+-        assert_eq!(SCENE_SEED, 47_104);
+-        assert_eq!(variant_index, 1);
+-        assert_eq!(variant_seed, FOCUSED_TREE_RECIPE_SEED);
+-        assert_ne!(variant_seed, VISTA_CACHE_RECIPE_SEED);
+-        let environment = SceneEnvironment {
+-            scene_digest: "4926dcc166599287c1966fd23ced047bd918de9f6b80ed1b8f9280159f094a6b".into(),
+-            generation_version: 8,
+-            latitude_microdegrees:
+-                adventuresim_world_schema::coordinates::LatitudeMicrodegrees::new(53_500_000)
+-                    .unwrap(),
+-            longitude_microdegrees:
+-                adventuresim_world_schema::coordinates::LongitudeMicrodegrees::new(10_000_000)
+-                    .unwrap(),
+-            absolute_minute: adventuresim_world_schema::calendar::StrategicMinute::new(340_440),
+-            lunar_phase_minute: adventuresim_world_schema::calendar::StrategicMinute::new(340_440),
+-            absolute_elevation_metres: adventuresim_world_schema::ElevationMeters::new(42).unwrap(),
+-            weather: WeatherSnapshot {
+-                rules_version: adventuresim_tactical_core::prelude::WEATHER_RULES_VERSION,
+-                interval_start_minute: adventuresim_world_schema::calendar::StrategicMinute::new(
+-                    340_440,
+-                ),
+-                cell_latitude: 214,
+-                cell_longitude: 40,
+-                temperature_deci_c: 120,
+-                wind_speed_bps: 1_200,
+-                precipitation: Precipitation::Clear,
+-                intensity_bps: 0,
+-                ground_moisture_bps: 100,
+-                snow_cover_bps: 0,
+-                atmosphere: Default::default(),
+-            },
+-            canopy_bps: 3_500,
+-            wetland_bps: 300,
+-            cultivation_bps: 0,
+-            water_bps: 0,
+-            hilly_bps: 0,
+-        };
++    fn woodland_oak_site_lod1_preserves_45_degree_upper_right_silhouette() {
++        let input = adventuresim_tactical_core::scene_input::TacticalSceneInput::load(
++            std::path::Path::new(concat!(
++                env!("CARGO_MANIFEST_DIR"),
++                "/../../assets/tactical-scenes/sparse-woodland.json"
++            )),
++        )
++        .unwrap();
++        let environment = input.environment_snapshot(input.digest().unwrap());
++        let point = adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
++            Vec2::new(12.5, 37.5),
++        )
++        .unwrap();
++        let (variant_index, variant_seed) =
++            crate::presentation::obstacles::tree::specimen::oak_variant_for_site(point);
++        let competition =
++            crate::presentation::obstacles::tree::canopy_competition(environment.canopy_bps);
+         let gnarling = oak_gnarling_for_test_site(
+             OAK_GNARLING_SHOWCASE[variant_index],
+             &environment,
+             variant_seed,
+         );
+-        let branches =
+-            procedural_oak_skeleton_with_gnarling(variant_seed, FIXTURE_COMPETITION, gnarling);
+-        let leaves = procedural_oak_leaves(variant_seed, &branches, FIXTURE_COMPETITION);
+-        // The viewer places the camera in +X/+Z at review azimuth 45 degrees.
+-        // Use its manifested twig-LOD camera-up vector so this regression
+-        // evaluates the rejected fixture rather than a convenient atlas axis.
++        let branches = procedural_oak_skeleton_with_gnarling(variant_seed, competition, gnarling);
++        let leaves = procedural_oak_leaves(variant_seed, &branches, competition);
++        // Review the current woodland site from +X/+Z at 45 degrees, with
++        // the near-horizontal elevation used by the tree inspection camera.
+         let camera_right = Vec3::new(
+             core::f32::consts::FRAC_1_SQRT_2,
+             0.0,
+diff --git a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/mod.rs b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/mod.rs
+index 7beca343a..ff11bc60a 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/mod.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/obstacles/tree/mod.rs
+@@ -20,7 +20,7 @@ pub(in crate::presentation) use geometry::{
+     procedural_woody_branch_mesh, procedural_woody_cambered_leaf_mesh, procedural_woody_crown_mesh,
+     procedural_woody_leaf_card_mesh, procedural_woody_mid_trunk_mesh,
+     procedural_woody_plant_leaves, procedural_woody_plant_skeleton,
+-    procedural_woody_sparse_leaf_card_mesh, shoot_identity,
++    procedural_woody_sparse_leaf_card_mesh,
+ };
+ pub(crate) use impostor::TreeImpostorProvenance;
+ pub(in crate::presentation) use impostor_assets::PreparedTreeImpostorLoader;

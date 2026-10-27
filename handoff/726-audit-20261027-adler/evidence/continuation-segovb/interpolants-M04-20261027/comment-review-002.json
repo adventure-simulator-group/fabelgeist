@@ -1,0 +1,179 @@
+{
+  "id": "M04-comment-review-002",
+  "created_utc": "2026-10-27T04:41:17.188811+00:00",
+  "review_type": "Independent source-only supplemental Comment Review",
+  "skill": "/home/brunosegovia/.codex/skills/comment-review/SKILL.md",
+  "head": "903174935e1d8a07293105a9bccff17325489f3d",
+  "base": "35b18ec280a6884bb53996a2d859c4b27096f65c",
+  "manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/implementation-manifest-002.json",
+    "sha256": "96d764066b163106ad0d4da4c11ccf3f9da8ca6f3334076e6584b1344681dd62"
+  },
+  "source_diff": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/source-002.diff",
+    "sha256": "b65a637241a90525b10c8b0b7badce3e5705a7cdb80bf8fa81cd58137b3141a8",
+    "prospective_ranges": [
+      [
+        1,
+        184
+      ]
+    ]
+  },
+  "body": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/pr-body-002.md",
+    "sha256": "a45e6fc49a19360744caaa7a4569275cc40a463131d06dc128d5758eea7a2329",
+    "prospective_ranges": [
+      [
+        1,
+        24
+      ]
+    ]
+  },
+  "prospective_registration": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/comment-review-002-registration.json",
+    "sha256": "ad10690774686736436dd50eb154dcfdbb5c118cb12c297c482ff8036e15b5bb"
+  },
+  "prior_accepted_source_review": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/comment-review-001.json",
+    "sha256": "62afc26c99d5c160b497b46fadef9ecf54331bfb0756c3ef6f4be45609505d8a"
+  },
+  "identity_qualification": "All six current file bytes match final manifest002. All five Rust file hashes match own review001; the complete 161-line Rust diff tail is byte-identical to source.diff001. Supplemental source identity is manifest-bound to final head903174935; no Git commands were used.",
+  "source_pins": [
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "b1561f750844b7395f96f8fe2ee767db88d73fb8d8b6e997779493130b09f877",
+      "lines": 173,
+      "unchanged_from_review001": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "7cca5e5cef2f3c3a5a11c88dba547195f36d61f4665f157c8d55eedc30179eab",
+      "lines": 267,
+      "unchanged_from_review001": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "sha256": "3acaf77c189e6ab8abcd972e5615276d945a1ca6772ee90246feef673e8a2c69",
+      "lines": 207,
+      "unchanged_from_review001": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "sha256": "09565d01fd8fabbf899d84f107bdbf9c16fd6149ec61f51714599d160c1260e0",
+      "lines": 218,
+      "unchanged_from_review001": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "51a510d3c5f039d6b7eb4ce2b1511432fb3415bf0b15152d036ec01a6394f9c8",
+      "lines": 525,
+      "unchanged_from_review001": true
+    },
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "0ad5e0e1b2b062d47f48af303bc97f1259f6d4ac99c62bef9b42588b183233b4",
+      "lines": 595,
+      "unchanged_from_review001": false
+    }
+  ],
+  "workflow_body_reads": {
+    "path": ".github/workflows/rust-quality.yml",
+    "sha256": "0ad5e0e1b2b062d47f48af303bc97f1259f6d4ac99c62bef9b42588b183233b4",
+    "actual_ranges": [
+      [
+        210,
+        228
+      ],
+      [
+        280,
+        335
+      ],
+      [
+        370,
+        530
+      ]
+    ],
+    "material_ranges": [
+      [
+        215,
+        223
+      ],
+      [
+        305,
+        312
+      ],
+      [
+        380,
+        455
+      ]
+    ],
+    "qualification": "Other displayed neighboring unchanged steps receive no new independent semantic verdict."
+  },
+  "retained_existing_test_evidence": {
+    "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+    "sha256": "51a510d3c5f039d6b7eb4ce2b1511432fb3415bf0b15152d036ec01a6394f9c8",
+    "own_prior_read": "Full1-525 in comment-review001, identity reverified unchanged here",
+    "test_ranges": [
+      [
+        263,
+        390
+      ],
+      [
+        392,
+        400
+      ],
+      [
+        402,
+        485
+      ],
+      [
+        487,
+        525
+      ]
+    ],
+    "qualification": "Four existing source test functions under physics::movement_speed::tests; no execution or runtime outcome claimed."
+  },
+  "verified_contracts": [
+    {
+      "claim": "Workflow title and filter select existing movement-speed consumers.",
+      "evidence": ".github/workflows/rust-quality.yml:309-312; retained movement_speed.rs test bodies listed above. The filter is the full module tests prefix, without --exact."
+    },
+    {
+      "claim": "Cargo failure is preserved through tee; the log stem matches the required-cell label.",
+      "evidence": ".github/workflows/rust-quality.yml:311-312 and398,425-440. set -euo pipefail makes the test pipeline fail on a nonzero Cargo result; the required list resolves tactical-core-movement-speed.log."
+    },
+    {
+      "claim": "The positive verifier rejects missing/empty/zero-pass records and reported nonzero failures.",
+      "evidence": ".github/workflows/rust-quality.yml:425-447. accepted requires a parsed ok summary, passed>0 and failed==0. This verifier does not enforce exactly four tests or zero ignored; four is the current source inventory, not a hardcoded count gate."
+    },
+    {
+      "claim": "The new log remains source-revision keyed and is included in artifact upload.",
+      "evidence": ".github/workflows/rust-quality.yml:215-223 records required head;391-393 checks recorded revision;449-455 uploads target/rig-contracts/ under the required head. No claim of cryptographic log provenance or successful hosted execution."
+    },
+    {
+      "claim": "No test source, case, helper, assertion or doctest was added in this delta.",
+      "evidence": "Complete source-002.diff1-184: five previously reviewed Rust files plus five workflow lines; Rust sections byte-identical to review001. Existing movement-speed tests unchanged at their exact source hash."
+    },
+    {
+      "claim": "Body002 final Rust API and scalar arithmetic descriptions remain supported.",
+      "evidence": "pr-body-002.md:1-9,21-24; unchanged exact Rust body proof in own comment-review001 retained. Canonical owner, receiver and native FloatExt proof remains limited to that receipt."
+    },
+    {
+      "claim": "Body002 validation paragraph accurately describes proposed source and a pending hosted outcome.",
+      "evidence": "pr-body-002.md:14-17. It claims four existing selected tests and rejection of empty/failing results, not an exact-count verifier or passing hosted run. The pending final workflow review is the draft state being closed by this receipt; author should update that status when summarizing completed reviews."
+    }
+  ],
+  "findings": [],
+  "source_comment_verdict": "Accepted within this supplement: no actionable inaccurate workflow name/comment or affected retained Rust comment found.",
+  "body_verdict": "Accepted as the reviewed proposed draft. No concrete wording/count/limit defect. Its pending-review wording is naturally superseded by completion of this source review; no hosted-success claim is authorized by this receipt.",
+  "unknowns_and_limits": [
+    "No Cargo, test, workflow, linter, build, project helper or native source execution performed; no hosted checks requested or evaluated by this review.",
+    "Other reviewers status and unrequested hosted-check state are root-provided process facts, not independently fetched remote evidence.",
+    "Related issue numbers #780 and #726 are links only; their content is neither assumed nor granted clearance.",
+    "The workflow verifier checks positive execution rather than exactly four passes or zero ignored. Current four-test source inventory is verified independently.",
+    "No backward-compatibility, old malformed-input, old API/schema or raw-float-overload preservation constraint was applied.",
+    "No global F9/all20/bespoke audit or other-lens clearance. Frozen audit08 remains held at adopted017 state002 with count1800/2853, ordered1793partial, earliest1462Q003partial and material52partial."
+  ],
+  "global_clearance": false,
+  "stop": "Supplement complete; only ignored append-only evidence written. No product/source/Git/root-ledger/publication changes."
+}

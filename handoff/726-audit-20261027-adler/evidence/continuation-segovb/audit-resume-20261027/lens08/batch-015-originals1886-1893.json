@@ -1,0 +1,138 @@
+{
+  "lens": 8,
+  "kind": "full frozen source/delta behavior accounting WITH observations",
+  "registration": "REGISTRATION-033.json",
+  "newly_source_accounted": [
+    1886,
+    1887,
+    1888,
+    1889,
+    1890,
+    1891,
+    1892,
+    1893
+  ],
+  "actual_reads": [
+    {
+      "original": 1886,
+      "head": [
+        [
+          1,
+          1738
+        ]
+      ],
+      "sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+      "delta": "complete1267lines in three bounded reads"
+    },
+    {
+      "original": 1887,
+      "head": [
+        [
+          1,
+          18
+        ]
+      ],
+      "sha256": "56773ae80325116c0e2383940bec1f3f8a05d95d97a2c76596982c717b5dbc62",
+      "delta": "full moved parent comparison"
+    },
+    {
+      "original": 1888,
+      "head": [
+        [
+          1,
+          522
+        ]
+      ],
+      "sha256": "2bdf24f3de20d1901bfc475d799d3a07781d9c5e22733caaea0d2365250edd0f",
+      "delta": "full moved parent comparison"
+    },
+    {
+      "original": 1889,
+      "head": [
+        [
+          1,
+          81
+        ]
+      ],
+      "sha256": "10c98a5fec7f36e1567f37c82b15e65c990d8412f2a1a1a9f67982adaef10223",
+      "delta": "full moved parent comparison"
+    },
+    {
+      "original": 1890,
+      "head": [
+        [
+          1,
+          640
+        ]
+      ],
+      "sha256": "7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+      "delta": "complete unified delta"
+    },
+    {
+      "original": 1891,
+      "head": [
+        [
+          1,
+          41
+        ]
+      ],
+      "sha256": "b12efd1cc517a4644ee8742fcde084e4fec7ecf93bf35234fd1d7ba0b3ffaf31",
+      "delta": "full moved parent comparison"
+    },
+    {
+      "original": 1892,
+      "head": [
+        [
+          1,
+          211
+        ]
+      ],
+      "sha256": "bfc02321b1d2716ffaf92d38902b547713a76a9de7a350ece7f35449e9dddf37",
+      "delta": "complete unified delta"
+    },
+    {
+      "original": 1893,
+      "head": [
+        [
+          1,
+          33
+        ]
+      ],
+      "sha256": "e9d4d32a4beaa8f4a1631034abbb4cdd7db4e43bccd80935b3eb7e7674d4e27f",
+      "delta": "full moved parent comparison"
+    }
+  ],
+  "contracts": {
+    "1886": "Full1738 head plus all1267actualdelta. Shared motor preserves ordinary target/force/traction/turn/jump/slide/arrival numerical order, native settings moved into helper, typed speed extracted at controller assignment. DownedRollMotion explicit zero/move, inputack Option includes observedzero. New fallible ordinary speed/support duration/target/observed speed/turn speed log and continue entity. Rejected support now computed before integration vs oldafter, intentional reject candidate not malformed BC requirement. Mass/controller/deferred changes can precede later failure; no atomic wholemotor guarantee. All existing1738 testsource read, no runtime motor/scheduling assertion.",
+    "1887": "All18 new helper exact old controllerfield assignment order/value (0 acceleration/friction/stop, configured gravity/step/slope cosine) from1886delta. Native API flag semantics qualified to existing native boundary proof, not full engine cert.",
+    "1888": "All522 new body, actualold moved1886definitions and existingoracles compared. Jog/sprint/guard/prone calibrations, source/body branching and shared fatigue contribution same ordinary expression; wrapper checked_lerp/checked_scale error propagation replaces malformed raw output. ordinary_controller_speed computes jog/sprint first and validates ordinary cap before prone override, preserving prior normal ordering; cannot call all admitted config arithmetic total. Raw returned fatigue rate/native input owner gaps remain other actual findings, no hidden new separate pool or incap speed penalty introduced.",
+    "1889": "Full81 new QuickstepPush begin/cancel/sample clock/half-duration conversion compared exact1886removed/nativeclock expressions. Span saturatingadd replaces unchecked+1/+2 at extremes; no BC overflow requirement. Ordinary64Hz positive authored intervals preserve midpoint/min1/2 round and recovery window. Cached rate accessed repeatedly; snapshot consistency under concurrent runtime update not proven by this source.",
+    "1890-1891": "Full640 player and57delta + full41 moved timing. Same anatomy/skills/equipment/default/dataflow and strength/inertia/control/continuation corrected duration kernels; fallible shared cadence error propagates through Result and checked output. Default CharacterDimensions values, attributes, limb injury/weight, transientStats and wheel existingoracles unchanged. Actual PlayerInfo sharedtrait/coretiming same-lens source proofs retained; later server/client commit recipients remain mandatory. No raw limb/skill mutableadmission or sharedskill unsupported category exemption.",
+    "1892": "Full211 combatstate and22delta; charge_work/source total/status unchanged, only existing test typedelapsed/performance adapters. Tacticalfatigue singlevisible contribution and encumbrance source explicit; no persistence introduced. Existing unchecked raw incapacitation/health admission and duplicatedtotal relationships are inherited aggregate/admission subjects, not clear because unchanged.",
+    "1893": "Full33 new inputtick, scalartransparent completeu32, wrapping increment/half-range order explicit; nativeencodedonlyport. Earlier actualclient input bodies existing own08 proof and pending server ack/restore must be reconciled; no globalprotocol ordering/runtimeacceptance."
+  },
+  "qualified_observation": {
+    "id": "CONT08-MOTOR-FAILURE-UPDATE-ORDER",
+    "locations": [
+      "physics.rs367-424",
+      "physics.rs453-495",
+      "physics.rs530-547",
+      "physics.rs711-717"
+    ],
+    "trace": "Existing apply_motor_config/controller speed/mass/deferredcommands can commit before later checked speed/duration failure continues the entity. Support duration rejection also moved before quickstep integration, which formerly calculated duration afterwards. Actual control-flow fact, not ordinary failure runtime witness or acceptedunique defect.",
+    "repair_dependency": "Reconcile operation/admission/behavior ledger for exact intended failure transaction scope before deciding whether preflight should stage all perentity results or deliberately retain documented partial effects. No malformed compatibility fallback. Native Ahoy may consume prior retained velocity/controller settings after continue; actual plugin scheduling and caller contract remain pending.",
+    "acceptance": "Explicit intended rejection/commit behavior across fixedtick motor and downstream Ahoy solver; ordinaryfinite movement remains within documented gameplay rules. Use existing hosted acceptance only after implementation authorized.",
+    "status": "qualified source observation; alias/currentness/repair policy pending"
+  },
+  "pending": [
+    "physics/plugin.rs actual system ordering plus native Ahoy execution not read here; no whole native/controller transaction clearance.",
+    "Client/server bot/timer/recovery/lunge/identity/ack source queues remain mandatory; doc1750 remains partial.",
+    "Currentmain/overlays/sharedmaterials and allotherlens reconciliation remain incomplete."
+  ],
+  "new_unique_count": 0,
+  "global_clearance": false,
+  "project_execution": false,
+  "product_edits": false,
+  "new_tests": false,
+  "other_lens_credit": false
+}

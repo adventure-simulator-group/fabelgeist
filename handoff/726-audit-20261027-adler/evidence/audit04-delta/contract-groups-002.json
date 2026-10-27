@@ -1,0 +1,206 @@
+{
+  "id": "ADLER-CONT04-MATERIAL-002",
+  "lens": "04 invariant operations",
+  "completed_material": [
+    116,
+    117,
+    118,
+    119,
+    120,
+    121,
+    122,
+    123,
+    124,
+    125,
+    126
+  ],
+  "sources": [
+    {
+      "index": 116,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/examples/armor_fixture/manifold.rs",
+      "sha256": "6c193531b08ef45d0da983a54e0e3c54cab095b24fe2c9629bd66d4d62b7426d",
+      "ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "line_count": 96,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\6c193531b08ef45d0da983a54e0e3c54cab095b24fe2c9629bd66d4d62b7426d",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\6c193531b08ef45d0da983a54e0e3c54cab095b24fe2c9629bd66d4d62b7426d",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON",
+      "disposition": "The manifold assertion welds signed zero by exact bit keys, checks every edge has two opposite uses, traverses vertex fans, then requires positive finite signed volume per component. f32\u2192f64 geometry arithmetic preserves original values; nonfinite volume rejects. Dynamic invalid indices panic the assertion rather than publish state. Complete triangle-list/nondegenerate generator admission is a fixture precondition; no normal malformed-tail occurrence or new gameplay defect established."
+    },
+    {
+      "index": 117,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/examples/armor_fixture/shared_contact.rs",
+      "sha256": "85a6daa3d64dbf8fe3a713ede9e5f093908c3599f9af7baaa0f56d3f4ca57a7b",
+      "ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "line_count": 141,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\85a6daa3d64dbf8fe3a713ede9e5f093908c3599f9af7baaa0f56d3f4ca57a7b",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\85a6daa3d64dbf8fe3a713ede9e5f093908c3599f9af7baaa0f56d3f4ca57a7b",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON",
+      "disposition": "Shared-contact diagnostic widens f32 positions to f64, computes normals, sections, bounded interpolation and intersection beyond an exact shared feature. Contact interval absence and denominator==0 branches are explicit; interpolation only includes signed-distance crossings. Zero-area triangles can invalidate unit/edge division, so the source reasoning remains qualified to nondegenerate triangles; no accepted ordinary generated degeneracy or runtime false-pass is established. No retained game state mutates."
+    },
+    {
+      "index": 118,
+      "source_id": "physical-p16:crates/adventuresim-dialogue/Cargo.toml",
+      "sha256": "6f2c4bfbf6d202fdadfc88465dfacd0ffd8461259578bde3f185ad0b47ab844b",
+      "ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "line_count": 23,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\6f2c4bfbf6d202fdadfc88465dfacd0ffd8461259578bde3f185ad0b47ab844b",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\6f2c4bfbf6d202fdadfc88465dfacd0ffd8461259578bde3f185ad0b47ab844b",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON",
+      "disposition": "Dialogue Cargo metadata only; no arithmetic or value-changing operation in exact full file."
+    },
+    {
+      "index": 119,
+      "source_id": "pr-working:assets/art-demo/catalog.json",
+      "sha256": "765076511ef7f6d1e7ea00204088128519329399059e93ad89a53e5587192c37",
+      "ranges": [
+        [
+          1,
+          154
+        ]
+      ],
+      "line_count": 154,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\765076511ef7f6d1e7ea00204088128519329399059e93ad89a53e5587192c37",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\765076511ef7f6d1e7ea00204088128519329399059e93ad89a53e5587192c37",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON",
+      "disposition": "Authored catalogue data has finite focus triples and positive camera distances for its nine products. It contains no arithmetic or mutation; current consumer admission is inherited baseline scope, not re-cleared by this data read."
+    },
+    {
+      "index": 120,
+      "source_id": "pinned-registry:glam-0.32.1/src/features/impl_serde.rs",
+      "sha256": "da9b8a13b57b257793481f554e6888a8fb0c82a7669e52d7e2d2af74701f0061",
+      "ranges": [
+        [
+          87,
+          140
+        ]
+      ],
+      "line_count": 1638,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\da9b8a13b57b257793481f554e6888a8fb0c82a7669e52d7e2d2af74701f0061",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\da9b8a13b57b257793481f554e6888a8fb0c82a7669e52d7e2d2af74701f0061",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON",
+      "disposition": "Vec3 native decoding requires exactly three sequence elements, forwarding decoder failures before constructing Vec3. No normalization/clamp applied; signed and zero components remain data. Native crate tests assert round-trip and malformed arities. Nonfinite acceptance is a native vector contract, not evidence of an application finite-wrapper bypass."
+    },
+    {
+      "index": 121,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/Cargo.toml",
+      "sha256": "a514b1eccfff839c875aaa5148d8299f119beb39ce645dc828e653399b6ef320",
+      "ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "line_count": 44,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\a514b1eccfff839c875aaa5148d8299f119beb39ce645dc828e653399b6ef320",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\a514b1eccfff839c875aaa5148d8299f119beb39ce645dc828e653399b6ef320",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON",
+      "disposition": "Tactical-core manifest identifies derive/error/native numerical dependencies and features; no arithmetic/mutation in metadata."
+    },
+    {
+      "index": 122,
+      "source_id": "registry:derive_more-impl-2.1.1/src/from.rs",
+      "sha256": "dbcea1f655618518d366313124b59d50181928e1f0a092ff8796d5accec81fd6",
+      "ranges": [
+        [
+          1,
+          322
+        ]
+      ],
+      "line_count": 403,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\dbcea1f655618518d366313124b59d50181928e1f0a092ff8796d5accec81fd6",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\dbcea1f655618518d366313124b59d50181928e1f0a092ff8796d5accec81fd6",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON",
+      "disposition": "From expansion parses conversion choices before token publication; exact field iterator/type validation constructs ordered output fields, propagating syn errors. Forwarded generic IDs advance once per actual field and matching vectors/generic bounds derive from that same traversal. Generated conversion delegates actual From or directly moves fields; no numerical casts/clamps or independently retained application authority introduced. Unread legacy parser tail322+ is outside registered range."
+    },
+    {
+      "index": 123,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/draw.rs",
+      "sha256": "faca55a34e4a003497e4f3aa87dfcef3a25e20ffa7e6c7108785a2df225e7337",
+      "ranges": [
+        [
+          1,
+          134
+        ]
+      ],
+      "line_count": 134,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\faca55a34e4a003497e4f3aa87dfcef3a25e20ffa7e6c7108785a2df225e7337",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\faca55a34e4a003497e4f3aa87dfcef3a25e20ffa7e6c7108785a2df225e7337",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON",
+      "disposition": "City draw registration precedes replacement system. Arc::get_mut failure skips before clearing old functions; successful branch clears then installs all registered fixed roles. Render path skips missing material/owner/view/batch before bind/draw. Native indirect offset u64::from(slot)*16 cannot overflow for supported u32-or-smaller native From sources; actual buffer/slot provenance remains inherited layout obligation, not guaranteed by this receiver alone. No new source-backed mismatch is established."
+    },
+    {
+      "index": 124,
+      "source_id": "pinned-registry:serde_derive-1.0.229/src/internals/check.rs",
+      "sha256": "86ea817316638ec33f70ecdf9634a31c934fd3df84533e3e315816dc130f0bff",
+      "ranges": [
+        [
+          369,
+          395
+        ]
+      ],
+      "line_count": 477,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\86ea817316638ec33f70ecdf9634a31c934fd3df84533e3e315816dc130f0bff",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\86ea817316638ec33f70ecdf9634a31c934fd3df84533e3e315816dc130f0bff",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON",
+      "disposition": "Serde transparent-attribute checker rejects From/TryFrom/Into combination before generated transparent execution; registered fragment has no numeric/state operation or bypass added. Remaining attribute validation tail is not credited."
+    },
+    {
+      "index": 125,
+      "source_id": "pinned-registry:serde_derive-1.0.229/src/ser.rs",
+      "sha256": "18b3a4d06cd721c402835b17f008a63fdbaad379734f0fd4132aa28d8ea5c1de",
+      "ranges": [
+        [
+          514,
+          538
+        ]
+      ],
+      "line_count": 1369,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\18b3a4d06cd721c402835b17f008a63fdbaad379734f0fd4132aa28d8ea5c1de",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\18b3a4d06cd721c402835b17f008a63fdbaad379734f0fd4132aa28d8ea5c1de",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON",
+      "disposition": "Native enum serializer chooses unit/newtype style and forwards actual variant index/name and field serialization. No arithmetic, mutation or computed application invariant; newtype field indexing is within native parser-assigned style and not a new application index-admission path."
+    },
+    {
+      "index": 126,
+      "source_id": "pinned-registry:serde_derive-1.0.229/src/de.rs",
+      "sha256": "a04fdb321ce47b479b42b2dd0ca1cfd57db88e06451d7dc95303c582fedc135c",
+      "ranges": [
+        [
+          300,
+          320
+        ],
+        [
+          435,
+          444
+        ]
+      ],
+      "line_count": 976,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\a04fdb321ce47b479b42b2dd0ca1cfd57db88e06451d7dc95303c582fedc135c",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\a04fdb321ce47b479b42b2dd0ca1cfd57db88e06451d7dc95303c582fedc135c",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON",
+      "disposition": "Deserializer dispatch preserves transparent/from/try_from distinctions. TryFrom path decodes wire value then invokes actual checked TryFrom and maps failure at serde decoder boundary; no replacement application value is returned on Err. No numeric transformation in registered body."
+    }
+  ],
+  "new_findings": [],
+  "qualifications": [
+    "M116/117 are assertion/diagnostic helpers; degenerate or incomplete native geometry assumptions are explicit source limits, not claimed ordinary generated bugs.",
+    "No unregistered/unread dependency tails receive coverage. Existing closure678 findings remain mandatory."
+  ],
+  "next_unfinished_material": 127,
+  "execution": "No project/source/Git changes."
+}

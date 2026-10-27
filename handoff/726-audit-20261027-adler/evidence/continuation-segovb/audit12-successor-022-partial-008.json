@@ -1,0 +1,63 @@
+{
+  "at": "2026-10-27T00:45:00.748777+00:00",
+  "lens": 12,
+  "original": 46,
+  "prior": "audit12-successor-022-partial-007.json",
+  "source_registration": "audit12-successor-registration-022-receiver-009.json",
+  "actual_reads": [
+    {
+      "source_id": "physical-p16-unchanged-base:crates/adventuresim-core/src/item_catalog_fit.rs",
+      "sha256": "a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-unchanged-base:crates/adventuresim-core/src/item_catalog_surface.rs",
+      "sha256": "9f49d61c21b245ad0793daea4f28f1f74769c76680ef383553454b688c9f6cbd",
+      "ranges": [
+        [
+          1,
+          47
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_physical_serde.rs",
+      "sha256": "f260cac7fddd136d2fd754e6f147a3fcecaa67eb107b87d506121e3c60016671",
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ]
+    }
+  ],
+  "contracts": [
+    {
+      "source": "fit1-46",
+      "trace": "Canonical EquipmentFitZone enum Serde labels native snake_case. fits_location matches typed zone/location; OccupancyRequirement.conflicts_with consumes canonical Channel.singleton_per_location and typed order/fit fields; no raw application string state in these actual methods. Confirms raw singleton string membership in source validator duplicates an available owner, not an absent API."
+    },
+    {
+      "source": "surface1-47",
+      "trace": "EquipmentSurfaceSpan retains Vec<EquipmentAnatomicalRegion> and typed SurfaceAnchor; both closed enum Serde use native snake_case metadata. Segment bound supplied by same schema owner. Actual source-validator textregion/bodypart/contiguity policy can consume these owners rather than inventing extra string wrappers; all downstream garment consumers not certified."
+    },
+    {
+      "source": "physicalSerde1-18",
+      "trace": "Explicit native [f32;3] serialization and CuboidDimensions checked decode, then GeometryError into required serde::de::Error::custom. No runtime application text classification. Comment describing original authored array is not a backward-compatibility requirement; native coordinate representation stays a final design choice."
+    }
+  ],
+  "original_count": 46,
+  "active_partial": 46,
+  "new_unique_delta": 0,
+  "global_clearance": false,
+  "no_project_execution": true,
+  "remaining": [
+    "Other three catalog build validators/generated receiving contracts.",
+    "Canonical current ID/tag/icon/surface owner and weapon recipe lookup.",
+    "Current/master reconciliation of local validator surface/chain/singleton policy candidates; all broader required populations/families remain."
+  ]
+}

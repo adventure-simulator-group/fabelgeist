@@ -1,0 +1,96 @@
+{
+  "registry_snapshot": "registry-187.json",
+  "registry_sha256": "afd8158f9381deffcb264daf382e4db681880cd51b120b9a3fcc9b8bfc2ea3b9",
+  "members": [
+    {
+      "material_index": 185,
+      "registration": {
+        "source_id": "native-support:bevy_render-0.19.1/src/render_asset.rs",
+        "sha256": "fec69e4c27506056a55fc472e30fb113fdf316dc73647fb11794fb6c1ac77377",
+        "revision": "Cargo.lock pinned Bevy0.19.1",
+        "archive_checksum": "fc86a32b2eef9859e1e7d323c6d1a9150fe77aa17c30fd05abebc12f645929dc",
+        "ranges": [
+          [
+            280,
+            364
+          ]
+        ],
+        "actual_EOF": 569,
+        "object": "source-objects/fec69e4c27506056a55fc472e30fb113fdf316dc73647fb11794fb6c1ac77377",
+        "registration_evidence": "registration-011.json",
+        "reason": "Exact framework image-extraction/retention contract materially reached by original weather1675/1676; no unrelated SDK or whole-file obligation.",
+        "prior_reads": "08 navigation rg incidentally exposed render_asset316-352 before registration; disclosed with no verdict or other-lens transfer. Requested native contract bodies not yet fully consumed. Coordinator hash/copy/count only.",
+        "lenses": {
+          "producer-propagation": "New bounded material pending independent lens reconciliation; no inherited or other-lens credit.",
+          "existing-type-owners": "New bounded material pending independent lens reconciliation; no inherited or other-lens credit.",
+          "admission-contracts": "New bounded material pending independent lens reconciliation; no inherited or other-lens credit.",
+          "invariant-operations": "New bounded material pending independent lens reconciliation; no inherited or other-lens credit.",
+          "aggregate-states": "New bounded material pending independent lens reconciliation; no inherited or other-lens credit.",
+          "type-ownership": "New bounded material pending independent lens reconciliation; no inherited or other-lens credit.",
+          "redundant-authority": "New bounded material pending independent lens reconciliation; no inherited or other-lens credit.",
+          "behavior-preservation": "New bounded material pending independent lens reconciliation; no inherited or other-lens credit.",
+          "enum-shapes": "New bounded material pending independent lens reconciliation; no inherited or other-lens credit.",
+          "derivability": "New bounded material pending independent lens reconciliation; no inherited or other-lens credit.",
+          "type-granularity": "New bounded material pending independent lens reconciliation; no inherited or other-lens credit.",
+          "magic-strings": "New bounded material pending independent lens reconciliation; no inherited or other-lens credit.",
+          "magic-numbers": "New bounded material pending independent lens reconciliation; no inherited or other-lens credit."
+        },
+        "status": "Prospective bounded native owner support; original inventory unchanged, no accepted finding."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          280,
+          364
+        ]
+      ],
+      "disposition": "Personally read exact280-364 pinned Bevy source. Extraction clears per-frame event sets, merges explicit reextract IDs, handles Added/Modified, ignores Removed from main-world Assets and turns Unused into render removal. Actual usage gates extraction; exact RENDER_WORLD calls take_gpu_data with optional prior render asset and logs failure, combined usage clones. This distinguishes CPU source removal/data extraction from render residency. No full native prepare/removal system, upload completion or concrete weather lifetime proof from this range; declared retention depends strong-handle/event ownership. Prior incidental08rg yields no own credit."
+    },
+    {
+      "material_index": 186,
+      "registration": {
+        "source_id": "native-support:bevy_render-0.19.1/src/texture/gpu_image.rs",
+        "sha256": "93ce4dd53c7e855b2ebc057fc23e71c191f1fd74c0f9ae224b49de260d556708",
+        "revision": "Cargo.lock pinned Bevy0.19.1",
+        "archive_checksum": "fc86a32b2eef9859e1e7d323c6d1a9150fe77aa17c30fd05abebc12f645929dc",
+        "ranges": [
+          [
+            26,
+            38
+          ]
+        ],
+        "actual_EOF": 214,
+        "object": "source-objects/93ce4dd53c7e855b2ebc057fc23e71c191f1fd74c0f9ae224b49de260d556708",
+        "registration_evidence": "registration-011.json",
+        "reason": "Exact framework image-extraction/retention contract materially reached by original weather1675/1676; no unrelated SDK or whole-file obligation.",
+        "prior_reads": "08 navigation rg incidentally exposed render_asset316-352 before registration; disclosed with no verdict or other-lens transfer. Requested native contract bodies not yet fully consumed. Coordinator hash/copy/count only.",
+        "lenses": {
+          "producer-propagation": "New bounded material pending independent lens reconciliation; no inherited or other-lens credit.",
+          "existing-type-owners": "New bounded material pending independent lens reconciliation; no inherited or other-lens credit.",
+          "admission-contracts": "New bounded material pending independent lens reconciliation; no inherited or other-lens credit.",
+          "invariant-operations": "New bounded material pending independent lens reconciliation; no inherited or other-lens credit.",
+          "aggregate-states": "New bounded material pending independent lens reconciliation; no inherited or other-lens credit.",
+          "type-ownership": "New bounded material pending independent lens reconciliation; no inherited or other-lens credit.",
+          "redundant-authority": "New bounded material pending independent lens reconciliation; no inherited or other-lens credit.",
+          "behavior-preservation": "New bounded material pending independent lens reconciliation; no inherited or other-lens credit.",
+          "enum-shapes": "New bounded material pending independent lens reconciliation; no inherited or other-lens credit.",
+          "derivability": "New bounded material pending independent lens reconciliation; no inherited or other-lens credit.",
+          "type-granularity": "New bounded material pending independent lens reconciliation; no inherited or other-lens credit.",
+          "magic-strings": "New bounded material pending independent lens reconciliation; no inherited or other-lens credit.",
+          "magic-numbers": "New bounded material pending independent lens reconciliation; no inherited or other-lens credit."
+        },
+        "status": "Prospective bounded native owner support; original inventory unchanged, no accepted finding."
+      },
+      "sha256_verified": true,
+      "personally_read_registered_ranges": [
+        [
+          26,
+          38
+        ]
+      ],
+      "disposition": "Personally read exact26-38 at separate pinned GpuImage owner. SourceAsset is Image, native device/queue/default sampler Params and asset_usage returns Image.asset_usage directly. This establishes real generic185 usage dispatch, not take_gpu_data implementation, Image clone/data retention, GPU upload success or whole214-line texture-owner coverage. No current CI or other-lens runtime evidence transferred."
+    }
+  ],
+  "first_unfinished_material_index": 187,
+  "new_findings": []
+}

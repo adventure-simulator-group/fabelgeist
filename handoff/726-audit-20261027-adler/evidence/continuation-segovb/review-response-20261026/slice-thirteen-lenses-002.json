@@ -1,0 +1,145 @@
+{
+  "scope": "Root scoped13-lens reassessment of PR988 humanreviewcorrection delta only, source-only; not globalclearance",
+  "base": "961d226be23a81d9731a11958d62fe8a04b93e81",
+  "head": "a9d3597c60a9b762e73bf98762f0d2f8b61e462e",
+  "at": "2026-10-26T20:40:19.680730+00:00",
+  "source_manifest": "source-manifest-001.json",
+  "lenses": [
+    {
+      "number": "01",
+      "name": "producer propagation",
+      "source_backed_trace": "Context factories produce ValidationObservation, retain it in WgpuContext, clone/copy it into the validated pipeline API, then native start_scope consumes the typed mode. All previous rawbool scopes (shader/2dconstructor/pipeline/fastpath/pairedscope) now use the same owner. Wholeviews stillpropagate exacttypedresults to unchanged ComputePass recipients.",
+      "discovery": "Current review-correction delta source-assessed; not full global audit wave",
+      "repair": "integrated/reviewed at a9d3597c60a9; newhostedvalidationpending",
+      "global_clearance": false,
+      "limits": "Only exactreviewdelta andmateriallyreachedreceiver contracts; allpreviousbroader family/findings/currentness/runtime limits retained. No frozenpopulation advancement."
+    },
+    {
+      "number": "02",
+      "name": "existing type owners",
+      "source_backed_trace": "Existing TextureFormat, SDK guard/device/Error/PollError, result/error owners retained. One new shared enum owns the preexisting validation choice; derive_more2.1.1 reused from project and exact locked macro implementation, not duplicate errors or nativeownership enum.",
+      "discovery": "Current review-correction delta source-assessed; not full global audit wave",
+      "repair": "integrated/reviewed at a9d3597c60a9; newhostedvalidationpending",
+      "global_clearance": false,
+      "limits": "Only exactreviewdelta andmateriallyreachedreceiver contracts; allpreviousbroader family/findings/currentness/runtime limits retained. No frozenpopulation advancement."
+    },
+    {
+      "number": "03",
+      "name": "admission",
+      "source_backed_trace": "Closed enum admits exactly BlockingScopes/Uncaptured. Existing-device andbrowser factories selectUncaptured; nativecreatedcontext selectsBlockingScopes. Native start_scope selects same Validation filter without new decode/default/fallback; policy doesnotadmit deviceownership/exclusivity. Error andbox resourceadmission unchanged.",
+      "discovery": "Current review-correction delta source-assessed; not full global audit wave",
+      "repair": "integrated/reviewed at a9d3597c60a9; newhostedvalidationpending",
+      "global_clearance": false,
+      "limits": "Only exactreviewdelta andmateriallyreachedreceiver contracts; allpreviousbroader family/findings/currentness/runtime limits retained. No frozenpopulation advancement."
+    },
+    {
+      "number": "04",
+      "name": "operations",
+      "source_backed_trace": "Native scope factory returns guard only forblocking choice; pairedscope clones same device andowns actualguard. finish poll/pop/results unchanged. Other consumers retain prior poll/pop behavior. No newarithmetic/panics/mutations; Error/Display derives use identifiedprojection; cache-first and publication paths unchanged.",
+      "discovery": "Current review-correction delta source-assessed; not full global audit wave",
+      "repair": "integrated/reviewed at a9d3597c60a9; newhostedvalidationpending",
+      "global_clearance": false,
+      "limits": "Only exactreviewdelta andmateriallyreachedreceiver contracts; allpreviousbroader family/findings/currentness/runtime limits retained. No frozenpopulation advancement."
+    },
+    {
+      "number": "05",
+      "name": "aggregate states",
+      "source_backed_trace": "Policy retainedasoneenum, noparallelbool or independentpayloadflags. Alwaysneeded contextdevice/queue notmovedintoonlyBlockingvariant. Scopeddevice+guard paired; mandatorypoll+optionalnative preserves independentcapturedrejection. Presentationcanvas/surface/blitter ownership independentfromobservation.",
+      "discovery": "Current review-correction delta source-assessed; not full global audit wave",
+      "repair": "integrated/reviewed at a9d3597c60a9; newhostedvalidationpending",
+      "global_clearance": false,
+      "limits": "Only exactreviewdelta andmateriallyreachedreceiver contracts; allpreviousbroader family/findings/currentness/runtime limits retained. No frozenpopulation advancement."
+    },
+    {
+      "number": "06",
+      "name": "type ownership",
+      "source_backed_trace": "ValidationObservation definedonce atlowestsharedglobals, reexportedonce; nativeadapterthere. fabelgeist-compute consumespubliccontextenum without equivalenttype. Allthreeviewproducers useTextureViewError/Result unchanged; macrosderiveexistingowners only.",
+      "discovery": "Current review-correction delta source-assessed; not full global audit wave",
+      "repair": "integrated/reviewed at a9d3597c60a9; newhostedvalidationpending",
+      "global_clearance": false,
+      "limits": "Only exactreviewdelta andmateriallyreachedreceiver contracts; allpreviousbroader family/findings/currentness/runtime limits retained. No frozenpopulation advancement."
+    },
+    {
+      "number": "07",
+      "name": "redundant authority",
+      "source_backed_trace": "No bool-to-enum conversion atintermediateapplicationcalls andno copiedparallelpolicy. Factoryplatformdecision selectsenumonce; publicpipelineargumentcarries it. Presentation andprovisioning notused asproxyvalidationauthority; twoerrorcausesretainedbecausetheycandiffer, notduplicateclaims.",
+      "discovery": "Current review-correction delta source-assessed; not full global audit wave",
+      "repair": "integrated/reviewed at a9d3597c60a9; newhostedvalidationpending",
+      "global_clearance": false,
+      "limits": "Only exactreviewdelta andmateriallyreachedreceiver contracts; allpreviousbroader family/findings/currentness/runtime limits retained. No frozenpopulation advancement."
+    },
+    {
+      "number": "08",
+      "name": "behavior preservation",
+      "source_backed_trace": "Exactdiff961->a9: true then(nativepush) mapsBlockingScopes; false mapsUncaptured; cfgWASMscopepaths remainexcluded. Rawdevicepipelinedefault true mapsBlockingScopes. Existingtestonlypredicatesnewenummatches sameintendedconditions; assertions/count unchanged. Exactdisplaytemplates/formatterdelegation andconcretesourcedowncasts retained. Prior961CIhistorical; newrevisionvalidationpending.",
+      "discovery": "Current review-correction delta source-assessed; not full global audit wave",
+      "repair": "integrated/reviewed at a9d3597c60a9; newhostedvalidationpending",
+      "global_clearance": false,
+      "limits": "Only exactreviewdelta andmateriallyreachedreceiver contracts; allpreviousbroader family/findings/currentness/runtime limits retained. No frozenpopulation advancement."
+    },
+    {
+      "number": "09",
+      "name": "enum shapes",
+      "source_backed_trace": "Humanreview correctlyreopened priorpermissivebooldisposition. Exhaustivescopedfactory/retained/consumer matrix nowone2statepolicyenum. Owned/borrowed/browser wouldconflateindependentaxes: ownedexistinghairdevicefrom_parts isUncaptured, nativeheadlessisBlockingScopes, browserpresentationUncaptured. Noinvalidpayloadcombinationnew; alternatives documentedseparately.",
+      "discovery": "Current review-correction delta source-assessed; not full global audit wave",
+      "repair": "integrated/reviewed at a9d3597c60a9; newhostedvalidationpending",
+      "global_clearance": false,
+      "limits": "Only exactreviewdelta andmateriallyreachedreceiver contracts; allpreviousbroader family/findings/currentness/runtime limits retained. No frozenpopulation advancement."
+    },
+    {
+      "number": "10",
+      "name": "derivability",
+      "source_backed_trace": "Humanreview correctlyreopened priorclaim manualscopeDisplay/Errornecessary: botharemechanical andnowderive_more Display/Error with explicitunboxedsource. TextureViewError Displayalso derives. ManualTextureViewError Error unwrapsBox toconcretecause; lockedmacrootherwiseexposesBoxdynamicidentity. ManualValidationProgressError suffix/prioritysource/into_anyhow areconditionalclassification, retained. SeparateProgress patternbinding remainsdistinctBoxtype.",
+      "discovery": "Current review-correction delta source-assessed; not full global audit wave",
+      "repair": "integrated/reviewed at a9d3597c60a9; newhostedvalidationpending",
+      "global_clearance": false,
+      "limits": "Only exactreviewdelta andmateriallyreachedreceiver contracts; allpreviousbroader family/findings/currentness/runtime limits retained. No frozenpopulation advancement."
+    },
+    {
+      "number": "11",
+      "name": "type granularity",
+      "source_backed_trace": "Exactlytwo observationoutcomes needed, alreadypublicnamedenumchoice reusedinallconsumers. NativeguardOption isactualSDK no newsemanticstateframework. Progress/nativecause andrequestedformat distinctions unchanged. Nooverspecificowner/opaquephantomdeviceassociation invented.",
+      "discovery": "Current review-correction delta source-assessed; not full global audit wave",
+      "repair": "integrated/reviewed at a9d3597c60a9; newhostedvalidationpending",
+      "global_clearance": false,
+      "limits": "Only exactreviewdelta andmateriallyreachedreceiver contracts; allpreviousbroader family/findings/currentness/runtime limits retained. No frozenpopulation advancement."
+    },
+    {
+      "number": "12",
+      "name": "magic strings",
+      "source_backed_trace": "Newdisplayattrs copyhumanerror templates; {_0} explicitnativeformatdelegation. No string-valuedsemanticmodeorprosebranching introduced. Cratedependency2.1.1/lockedge isnativeCargo metadata; comments/guide stateconcretepolicy anddowncastcontracts; no newruntimestringID.",
+      "discovery": "Current review-correction delta source-assessed; not full global audit wave",
+      "repair": "integrated/reviewed at a9d3597c60a9; newhostedvalidationpending",
+      "global_clearance": false,
+      "limits": "Only exactreviewdelta andmateriallyreachedreceiver contracts; allpreviousbroader family/findings/currentness/runtime limits retained. No frozenpopulation advancement."
+    },
+    {
+      "number": "13",
+      "name": "magic numbers",
+      "source_backed_trace": "No raw numeric gameplayquantity orsemantictuning introduced. Nativefilter enum andOption guard/unitError contract remainSDK/Rust boundaries. Sourcecfg bool isplatformpredicate selectingenum once, notcarriedpolicy. Existingtestassertions notadded. Cargoquotedversion isstringmetadata; no numericwrapperneeded.",
+      "discovery": "Current review-correction delta source-assessed; not full global audit wave",
+      "repair": "integrated/reviewed at a9d3597c60a9; newhostedvalidationpending",
+      "global_clearance": false,
+      "limits": "Only exactreviewdelta andmateriallyreachedreceiver contracts; allpreviousbroader family/findings/currentness/runtime limits retained. No frozenpopulation advancement."
+    }
+  ],
+  "correction_to_historical_receipt": "slice-thirteen-lenses001 original09bool and10manualscopeDisplay/Error dispositions were too permissive. Preserve historicalbytes; userreview/source-backedmacro/enumreceipts supersede those exactclaims. No inheritedfindingalias/newglobalunique count invented.",
+  "evidence": [
+    "initial-dispositions-root-001.json",
+    "enum-shape-validation-observation-001.json",
+    "derivability-response-001.json",
+    "derivability-response-002-confirmation.json",
+    "code-review-001.json",
+    "rule-review-001.json",
+    "comment-review-001.json",
+    "actual-diff-002-complete.patch"
+  ],
+  "qualifications": [
+    "Rootselfassessment notindependentreview; separateCode/Rule/Comment reports applysamefingerprints",
+    "Full20families/P16/P17/all13globalpopulation obligations remainmandatory",
+    "No localprojectchecks/probes/tests/generators, no test additions; newcurrenthostedrun required",
+    "Newsourceextensions remainmandatoryseparatependingqueueforbroaderlenscontext, notautomaticfullclearance"
+  ],
+  "global_clearance": false,
+  "frozen_original_count_delta": 0
+}

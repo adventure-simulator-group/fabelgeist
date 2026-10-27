@@ -1,0 +1,39 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-074",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1677,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/windows.rs",
+      "sha256": "2d77a52e25f3ddce4d5ddba62a3d79b48c9479e298e4e1e89e3abbe4b25e157e",
+      "ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "PresentedWindowCasement derives Component. WindowPresentationPlugin manually implements Plugin::build to initialize closure cache and register observer. Observer selects primary/material batches and publishes server-authoritative window casement presentation; no handwritten codec.",
+      "disposition": "Keep behaviorful Plugin trait. No other handwritten trait/codec or derivability candidate; mesh/material ownership and closure associations remain semantic.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1678,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/buildings.rs",
+      "sha256": "eed4c2d99ec4ad18e67456e133d4ea14ae54d5bb6645beaa5dd3b707f842a3be",
+      "ranges": [
+        [
+          1,
+          252
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Venue derives Clone. Venue/SelectedBuildings inherent constructors plus prepare_venues admit canonical building transforms, promote matching recipes, select furnished interiors and grounded outdoor/street conversation poses. Complete252lines including existing fixtures read; no handwritten trait/codec.",
+      "disposition": "No derivability candidate. Selected building/place associations, checked coordinate/frame projection and fallible generation/publication are semantic, not mechanical conversion. Existing wire test inputs use delegated serde without custom codec; no fixture execution.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

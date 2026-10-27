@@ -1,0 +1,35 @@
+{
+  "sha256": "059d0c2bc687c8d7bd314cfa50fb863ac83959cc3483e74aee993980f47e3efe",
+  "line_count": 12847,
+  "method": "Complete TOML parsed record and raw line-shape enumeration; personal schema/type and all rule/form groups read; no claim to individually review referenced source bodies or historical finding verdicts.",
+  "sections": {
+    "files": {
+      "count": 209,
+      "key_shapes": {
+        "ceiling,path": 209
+      },
+      "type_shapes": {
+        "ceiling:int,path:str": 209
+      }
+    },
+    "functions": {
+      "count": 485,
+      "key_shapes": {
+        "ceiling,item,path": 485
+      },
+      "type_shapes": {
+        "ceiling:int,item:str,path:str": 485
+      }
+    },
+    "findings": {
+      "count": 1369,
+      "key_shapes": {
+        "fingerprint,item,occurrences,path,rule": 1369
+      },
+      "type_shapes": {
+        "fingerprint:str,item:str,occurrences:int,path:str,rule:str": 1369
+      }
+    }
+  },
+  "lens_disposition": "Metadata only: paths/items/rules/fingerprints/ceilings/occurrences, no executable handwritten trait or source codec. Values refer to source but do not supply own source coverage."
+}

@@ -1,0 +1,312 @@
+{
+  "at": "2026-10-27T16:05:21.077625+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-080-registration.jsonl",
+    "sha256": "c9303c6447b34b2e0bc3656b93c702206e5f0160feef5e98cda3eda0b979ec11"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-079.json",
+    "sha256": "68ea28b3d7ec3ae451f7e369b87cb6d1fa19dcdd46e806ead85bdd4d8dcf977d"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1128,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/projections.rs",
+      "sha256": "4277df1f4841a51dafe10f9ef950ca7dec6f434358cc8aa5a98f742766825102",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/4277df1f4841a51dafe10f9ef950ca7dec6f434358cc8aa5a98f742766825102",
+      "ranges": [
+        [
+          1,
+          1801
+        ]
+      ],
+      "actual_eof": 1801,
+      "prospective": true,
+      "purpose": "Independent ordered full requested inventory, prior076partial1128notautomaticcredit",
+      "actual_read_ranges": [
+        [
+          1,
+          734
+        ],
+        [
+          966,
+          1801
+        ]
+      ],
+      "personal_same_lens_reuse": {
+        "receipt": {
+          "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-076-receipt.json",
+          "sha256": "34bad8167fc24ed0400a20064c7585975518859a9e5ac8d413b29736449a27c6"
+        },
+        "ranges": [
+          [
+            735,
+            965
+          ]
+        ],
+        "qualification": "Exact prior registered personal body; independentfullorderedroleinventory now, no automatic priorconnectedcompletion."
+      }
+    },
+    {
+      "kind": "original",
+      "original_index": 1129,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/projections/site_context.rs",
+      "sha256": "2e0af33426ae082a23f587bfc8faa842f644769551a897e091208fa14caf7129",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/2e0af33426ae082a23f587bfc8faa842f644769551a897e091208fa14caf7129",
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "actual_eof": 40,
+      "prospective": true,
+      "purpose": "Independent ordered full requested inventory, prior076partial1128notautomaticcredit",
+      "actual_read_ranges": [
+        [
+          1,
+          40
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected_original",
+      "original_index": 1130,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/sites.rs",
+      "sha256": "f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+      "ranges": [
+        [
+          1,
+          125
+        ],
+        [
+          224,
+          265
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual BackendCaseSitePin producer fields/combatpayload and characterlocation projection for1129",
+      "actual_read_ranges": [
+        [
+          1,
+          125
+        ],
+        [
+          224,
+          265
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1130,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/sites.rs",
+      "sha256": "f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+      "ranges": [
+        [
+          126,
+          223
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Close actual presentation variant and coupled combat optional payload producer",
+      "actual_read_ranges": [
+        [
+          126,
+          223
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1128,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/projections.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              208
+            ]
+          ],
+          "roles": "Observer-safe journal/lead/action/outcome/casesummary/physical evidence schemas and earliest/latest chronology.",
+          "disposition": "Frameworkoutput fields legitimateprimitiveedge, internalstatusString andcasekey\u2192(subjectat,subject,latestat) tuple mixes distinctroles, useful namedrecord. Rootfirstjournal immutable subject differslatestleadheadline;caseviewonlyjournal-knowncases intentional. Confidenceband nottruthlikelihood. Exactpin versus generallead payload distinctions. Backendaction durationrange, optionalcontact/site, existingavailability and message independent states need named typed admitted projection.",
+          "remedy": "Keep canonical IDs/support/status/units internal, named CaseJournalSummary/ResolutionState andtyped durationrange; external SDK outputs explicitadapter.",
+          "acceptance": "Actual gatewaychecks andownerkeys present; no missinguser-sessionfilterclaim sinceSSRgateway expectedretainsowners. Case ambiguity/missingresolution projectedOpen/ZERO is unavailabilitypolicy question notprovenunresolvedcaseRuntime. No inheritedpastdeprecatedAPIretention."
+        },
+        {
+          "ranges": [
+            [
+              210,
+              443
+            ]
+          ],
+          "roles": "Gateway proof, bestiary receipt\u2192typedthreat/support projection, exact evidencejoin/topicredaction, inspectionandbeliefjournal.",
+          "disposition": "Supportstring reconstructedfromcanonicalenum andrawbranch236 before output, broadinternalowner gap. Projectiontopics onlyID/label legitimateprivacyadapter; checks/difficulty remainprivate. Reportdeduction+diagnostic separatelysourced. Contextfieldnamesdifferent notduplicateconventionalowner.",
+          "remedy": "Canonical DeductionSupport keptthroughnative projection, typedtopicpresentationrecord, named safejournalvariantpayload.",
+          "acceptance": "Actualknowledgepin+generatedmanifest+evidencecase/type join consumed; inspectionoutputpreserves passed/narration butno hiddenlorethreshold. SourceonlySDK notqueryexecution/securityproof; sessionfilterowneroffloaded toactualSSRnotre-auditedhere."
+        },
+        {
+          "ranges": [
+            [
+              445,
+              642
+            ]
+          ],
+          "roles": "Active capabilityview/liveprereq, expectedversion/publiccase, typed costs/duration and safe text/terrain derivation.",
+          "disposition": "Meaningfulavailability reason enum preserved but duplicatedOptionreason/availability couldcontradict ifunadmitted; actualconstructors coherent. Method/Terrainadmitted thenconverted/reparsed atinternalports, contact rawStringparseu64. generated_capability_safe_text return(twoString) prerequisitesversusresult interchangeable, concrete namedrecordprevents swap. Scene/track/area resolutionshareexistingTerrainowner.",
+          "remedy": "Typed admitted ActionProjection/Availability withmessagepayload, named SafeCapabilityText, canonicaltargetsum/IDs andcostdurations internal.",
+          "acceptance": "Actualsuccessfulattempt/live-supportfilters and projectionpubliccaseguard. weather_available constanttrue is displaypolicy no claimedactualweatherabsence. Nomagicboundsinvented beyondactualbasecostrole; noinvalidduration ordinarycostwitness established."
+        },
+        {
+          "ranges": [
+            [
+              643,
+              949
+            ]
+          ],
+          "roles": "GeneratedPatternAuthority, private admitted manifest/context/outputs, expectedblueprintconsequence, uniqueauthority tuple and investigability.",
+          "disposition": "Four-way authority sum meaningfullydistinguishes manual/generatednopattern/pattern/invalid, patternownscondition+evidence; do notreplacewithgenericbool. PrimitiveJSONtuple erases validatedGeneratedCase/GenerationContext and causes actual076manifest/context slot error917. validate_quest_generation_authority already returns namedvalidated owner in1123/1124; reuseexisting ratherthaninventcompetingowner.",
+          "remedy": "Carry existing validatedauthorityrecord/namedprojection through distinctView/Reducer adapters, canonicalgeneratedconsequence/outputpayload; correctactualmanifest selection onlyafterglobaldiscoveryperuser.",
+          "acceptance": "Actualblueprintfields+serializedexpectedconsequence+persistedoutputs compared. Uniqueauthoritydedupcase/hashes conflictfailclosed, no fullcryptographicproofreperformed. Frozenactualslotmixup source-key076samefinding,+0unique,current/runtimeunreconciled."
+        },
+        {
+          "ranges": [
+            [
+              951,
+              1213
+            ]
+          ],
+          "roles": "Adaptedevidenceknowledge envelope identity, liveclue observerclock, trackinggraph recursivecycle/ownercase, exact-siteknowledge.",
+          "disposition": "Canonical inv::adapt_evidence_knowledge yields typed record/envelope ratherthanDBrowauthority; owner/case/evidence/source/time roles distinct. NumericrecordID hashedfrompersistedString collisiondetectionexplicit, notsameasstringIDidentityguarantee. GraphVisitedHashSet meaningfulcollection. Coordinateequalboolordinarypredicate valid atcomparisonedge butflat11argumentsexactknowledge canmixauthority roles.",
+          "remedy": "Named admitted Knowledge/Capability/CaseSite association withcanonicalIDs and correctionstate; sharedpure sourcepolicy forView/Reducer whilepreservingactualSDKadapters.",
+          "acceptance": "Full nativeknowledge owner934already028; currentcorroboratedrecordfalserejectifmalformed/duplicatehash; no cryptographiccollisionfreeguarantee. Liveexact helper firstlead selection thenactualcase/coordprovenancechecks, noactualwrongcasebypassclaim."
+        },
+        {
+          "ranges": [
+            [
+              1215,
+              1562
+            ]
+          ],
+          "roles": "Exact knowledge predicate, ProjectedActionAvailability constructors, ready/occupancy/wait, dailycontactpresence/currentwitness and nightwindowclocks.",
+          "disposition": "Independent partyready/requiredsite/currentoccupancy facts meaningful, but boolpositionalargumentsencodeconceptualroles shouldtypedstate/context. OptionwaitNone=unavailable,Some0=present,Somepositive=wait; sumhelpspreventmisinterpretingmissingaszero. Rawduplicatecanonical/publicOptionalpairshouldsingleadmittedcaseidentity. Referred expected/currentWitnessCandidate distinct snapshot/live versionssameowner, privategenerationcontext correctlysecondslot1394.",
+          "remedy": "Reuse existingAvailability/UnavailableReason and typed temporalpresence outcome, named readiness/location/time inputs; preserve clockand public/privatecase roles.",
+          "acceptance": "ActualDailyPresenceWindow canonicalcore1008full143prior045 reused, suppressionoverrideuseshistoricalview before ordinaryschedule. No universalallNone/Some coupling beyondactualproducer, no fatigue-speedpenaltyclaim. ManualContact currentview requiresgeneratedauthority1394 andthusunavailable; actualreceiveRumor1124requiresgeneration soAPI-levelunintegratedmanualbranchquestiononly, notordinaryruntimebug."
+        },
+        {
+          "ranges": [
+            [
+              1564,
+              1801
+            ]
+          ],
+          "roles": "Victimcohort snapshot/current demographic/presence andownertime, finalavailability andoutcomeprojection.",
+          "disposition": "GeneratedPatternCondition::VictimProfile owns coherentcohortpayload; schemaStringdemographic/age/professionflatten andsourcepresenceversion retainedindependentactualclock. Modelsubjectactorparty/currenttargetproof vshiddenlikelihood separate. Finalprojectiontargetstateelsewherefiltersinvalidpattern; no earlierelse-returntrue standalonebypassclaim. Outcome joinscapabilityownercase thenpublicmaps; exactattemptID omitted is safepresentation notauthoritylossbyitself.",
+          "remedy": "Canonical demographic/age/identity/currenttargetadmission aggregate and sameexistingpatternowner retained; internaltypedclock/MinuteOfDay ->nativeoutputduration.",
+          "acceptance": "Actualmutation1120revalidates livepattern/route/position attransaction; viewnotgrantingmutationauthority. Expected/currentpresent witnesses with optionalsexdevpolicy deliberate. No newcurrent/runtime/alias/unique finding."
+        }
+      ]
+    },
+    {
+      "original": 1129,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/projections/site_context.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              40
+            ]
+          ],
+          "roles": "Observer-safe pin coordinates/frame, generatedcase/resolved/tracked/raiding/combat eligibility, optionalopposition estimate, typedcharacterlocation.",
+          "disposition": "Meaningfulindependentaxes: trackedpresentation notoccupancy, generatedpresentation notcontractcompletion, raidingordinaryactivity notcombatpermission, exactknowledge nottruth/reliability. Do notcollapseallboolsintooneconflatedenum. Combatestimatecountandaggregatepower alwaysproducedtogetherfromsameOptiontuple; Option<OppositionEstimate> earns association, count/unitpower/aggregatepower distinctquantities. Actualcombat_available cantrue withestimateNone oninvalid/overflowenemyconversion, so do notinventavailable=>Some constraint.",
+          "remedy": "Typedcoordinateframe+distance andnamedestimatecount/power; generated/manualpresentationsum ifsimplifiesownpayload, keepindependentactualpredicateaxes. CharacterCaseSiteLocation canonicalCaseSiteId alreadycorrect.",
+          "acceptance": "Actual1130producer1\u2013223showsmanualallfalse/noestimate, generatedresolvedindependenteligibility andcheckedopposition; count>0/power>0 actualnativebound, notgloballyinventedenemycountupperlimit. PrivacyqualifiedestimatecontainsaggregatesnotenemyIDs; no fullcombat algorithm/currentruntimeclaim."
+        }
+      ]
+    }
+  ],
+  "connected_role_inventory": [
+    {
+      "original": 1130,
+      "ranges": [
+        [
+          1,
+          265
+        ]
+      ],
+      "inventory": "Backendpinproducer1\u201387, presentation89\u2013199, exactknowledgepredicate201\u2013215 andlocationprojection224\u2013240complete.242\u2013265ExactActionCaseSiteandnextreceiverprefixonly. SDKsendergate, owner+typedsiteMapkey,Visitedpriority, canonical/privatepublicprovenance, actualoppositionOptionpair+checkedmultiply. Numericenemyconversion mayNoneindependentcombatavailability; no fullautoresolvecapability/sourcefamilyguarantee."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-076-receipt.json",
+        "sha256": "34bad8167fc24ed0400a20064c7585975518859a9e5ac8d413b29736449a27c6"
+      },
+      "contract": "Exact1128personal735\u2013965 authorityproducer/consumers andfull1120actionmutation guards; sourcekeyslotmixup sameobservationnotunique."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-077-receipt.json",
+        "sha256": "f5beff649d59ea6b7e3e0d2414b54f88339e31b6e7be21c381c062c9d6e92fc4"
+      },
+      "contract": "1123full1343 actualcapabilityissuance/transitions andgeneratedauthorityblueprintreceivers."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-078-receipt.json",
+        "sha256": "3b1bce05b2ca4a5a496632b8f8f07ab963c2ec744517c9515827e130c5a87fa9"
+      },
+      "contract": "1124full1771 privateclaim/referral/safelead/destination/currentcorrection consumers."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-079-receipt.json",
+        "sha256": "ef70dff17f6462ef0ab28482eab61adec5e63bdd0e3b4735583c02bcbbc3b04e"
+      },
+      "contract": "1127full1399 retainedsource/directnativeinspection/knowledge/time schema andactualmutators."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-028-receipt.json",
+        "sha256": "45e9ec96599b408c85a36ae3ba0299bcdb195524537add323b6aba4a300c89b2"
+      },
+      "contract": "934investigationfull825 adapt_evidence_knowledge/envelope and935/936actionavailability/kinds/target/checkcost owners."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-037-receipt.json",
+        "sha256": "9eba0cc942018e3348434818aa4201ceb3a5509ab2183eb34b9a6e117cc1c75a"
+      },
+      "contract": "972generationmodelfull1230 canonicalwitness/condition/typedactualpattern_target_matches andauthoritycontextowners."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-045-receipt.json",
+        "sha256": "ef84d892ee23b0f811e99ab6e951c2e0bb21e340b90207e80f2b1f5f367f357b"
+      },
+      "contract": "1008strategic_presencefull143 dailywindow boundary and1006plannerfull1209."
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "1128full1801 personallycoveredfresh1\u2013734/966\u20131801 plus076735\u2013965 reverified;1129full40 fresh, independent owninventory despiteearlierconnectedcontext.",
+    "Onlyactualmaterial1130receiverranges, no futurewhole1130orderedcredit/deepnativeclinical/combatguarantees. Preserve meaningfulindependentaxes; no universalpayloadcoupling unsupportedbyactualproducers.",
+    "Globalinventory/otherpopulations/currentness pending, no product/Git/rootledger/checks/tests/probes/publication."
+  ]
+}

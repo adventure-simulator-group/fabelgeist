@@ -1,0 +1,163 @@
+{
+  "id": "M05-COMMENT-REVIEW-BODY-004",
+  "created_utc": "2026-10-27T02:23:07.521228+00:00",
+  "skill": "/home/brunosegovia/.codex/skills/comment-review/SKILL.md",
+  "scope": "Proposed M05 body004 validation paragraph only, same already source-reviewed ff43 revision. No expanded source review or publication.",
+  "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd",
+  "base": "d44a00cc9a0bed75b0d61a7b330a29fe8f0df83f",
+  "manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/implementation-manifest-001.json",
+    "sha256": "bfebc595cf54e27f9df527a6956dae2d85a5d334f2855e0cec135271e03cebc1"
+  },
+  "body": {
+    "path": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/pr-body-004.md",
+    "sha256": "04dfa1947bbe28e36470bbdb5191cffa1e994324c3e9a2c2b152ff7038b0c74c",
+    "prospective_ranges": [
+      [
+        1,
+        20
+      ]
+    ],
+    "source_head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd",
+    "source_base": "d44a00cc9a0bed75b0d61a7b330a29fe8f0df83f",
+    "reason": "Body004 only: source-review/CI wording update against existing source verdict and root supplied in-progress hosted run; no product source body reread",
+    "actual_body_read_ranges": [
+      [
+        1,
+        20
+      ]
+    ]
+  },
+  "prior_body": {
+    "path": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/pr-body-003.md",
+    "sha256": "aae483ef703c0279660e7f73cb10252e1842d3acc69feac6f25b8890ac829232"
+  },
+  "prior_source_review": {
+    "path": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/comment-review-001.json",
+    "sha256": "7a5b0ad90cc3661dc2e1524bfb07083794a7bc1da2dce69eb44bea8d146b2ca6"
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/comment-review-body-004-registration.json",
+    "sha256": "42d92141b9c8d20030ee8131194e3079f334e14392c49ca3f19503c4833ab708"
+  },
+  "source_pins_verified": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/catalog.rs",
+      "sha256": "8d8a70c663bdd8e62c8e4636ec414e979852b1f469bffc9e70331d5947c165a4",
+      "new_body_read_ranges": [],
+      "qualification": "Fresh identity verification only; own prior source review remains exact source-body authority."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/catalog_id.rs",
+      "sha256": "349beedb860eef8c0f4e9b882e10824b343451085d654c20b7c001ea98a3b810",
+      "new_body_read_ranges": [],
+      "qualification": "Fresh identity verification only; own prior source review remains exact source-body authority."
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "new_body_read_ranges": [],
+      "qualification": "Fresh identity verification only; own prior source review remains exact source-body authority."
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "new_body_read_ranges": [],
+      "qualification": "Fresh identity verification only; own prior source review remains exact source-body authority."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/AGENTS.md",
+      "sha256": "f9633599a742ea38090fe2fb88e2dc464298d0ca4a70374f0851380e71e6910e",
+      "new_body_read_ranges": [],
+      "qualification": "Fresh identity verification only; own prior source review remains exact source-body authority."
+    }
+  ],
+  "independent_review_adoption": {
+    "path": "target/recovery-20261025/continuation-segovb/motion-error-M05-20261027/independent-source-review-adoption-001.json",
+    "sha256": "fd08e46402469ba30f4b8aba8777a5b096bdeb21a14201f9b162c6c21a5d1694"
+  },
+  "verified_reviews": [
+    {
+      "path": "code-review-001.json",
+      "sha256": "f4b71a8e31dac40a2222138149e4f1f7ff34407c41226ac69ab478808b6c075e",
+      "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd",
+      "findings": [],
+      "verdict": "No actionable findings within the exact three-site M05 delta and connected source contracts."
+    },
+    {
+      "path": "rule-review-001.json",
+      "sha256": "a5f6b5e1d38a1839e2d27a7ae4e24abefabcc5709a9ac36a0711035871e0d038",
+      "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd",
+      "findings": [],
+      "verdict": "approved_source_only_no_actionable_findings"
+    },
+    {
+      "path": "comment-review-001.json",
+      "sha256": "7a5b0ad90cc3661dc2e1524bfb07083794a7bc1da2dce69eb44bea8d146b2ca6",
+      "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd",
+      "findings": [],
+      "verdict": "No actionable findings against same ff43 source and final proposed body003. One original-body editorial observation resolved; no product-source repair requested by this review."
+    }
+  ],
+  "verified_claims": [
+    {
+      "ranges": [
+        [
+          11,
+          12
+        ]
+      ],
+      "claim": "Independent Code, Rule and Comment source reviews found no actionable findings on ff43d1818.",
+      "evidence": "All three actual review receipts match their exact adoption SHA256 and full ff43 head; each findings list empty and verdict source-scoped. Body explicitly calls them source reviews, with no runtime/global-clearance inference."
+    },
+    {
+      "ranges": [
+        [
+          12,
+          13
+        ]
+      ],
+      "claim": "Required validation in progress in hosted run40436696284.",
+      "evidence": "Matches parent supplied current in-progress hosted-run identity/status and exact URL. Wording does not claim terminal success, test counts, native acceptance or all requirements passed.",
+      "qualification": "No live CI query/raw-log read or check execution by this reviewer. This is body accuracy at supplied status/capture; root owns later status updates."
+    },
+    {
+      "ranges": [
+        [
+          14,
+          14
+        ]
+      ],
+      "claim": "No tests/cases/helpers/assertions/doctests added.",
+      "evidence": "Unchanged statement from prior reviewed body; parent-provided exact three-site source delta and manifest scope unchanged. No new product/source changes in this body-only review."
+    },
+    {
+      "ranges": [
+        [
+          1,
+          7
+        ],
+        [
+          16,
+          20
+        ]
+      ],
+      "claim": "Problem/scope and material context preserved.",
+      "evidence": "Both prefix before Validation and complete Implementation context suffix are byte-identical to prior approved003. Resolved inherited-finding/compatibility-rationale observation stays removed; source diagnostic/canonical-owner claims retain own001 source-backed authority."
+    }
+  ],
+  "formatting": {
+    "ordinary_prose_over80_columns": [],
+    "hosted_link_line13": "Long Markdown link preserved as permitted by root rules.",
+    "contributor_clarity": "Body remains self-contained, related issue numbers supplemental, no agent history/goal status/BC justification or public snapshot claim."
+  },
+  "findings": [],
+  "verdict": "No actionable findings in proposed body004 against existing source review receipts and supplied in-progress CI status.",
+  "limits": [
+    "No product/source body reread, Git commands/mutations, project/tests/checks/native execution, root-ledger/history changes, publication or external messages. Hash checks are identity metadata only, not fresh source coverage.",
+    "No live-hosted-status verification or success claim; reviews source-scoped and validation still in progress. Root retains final wording/publication authority.",
+    "Audit08 packet016 saved separately; original1800/2853, ordered1793/Q003/material52 partials and all inherited qualifications unchanged. No global goal or F9 clearance."
+  ],
+  "global_clearance": false,
+  "stop": true
+}

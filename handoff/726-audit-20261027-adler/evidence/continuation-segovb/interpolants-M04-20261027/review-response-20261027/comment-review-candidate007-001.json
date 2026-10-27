@@ -1,0 +1,407 @@
+{
+  "kind": "Independent final scoped source Comment Review and mathematical contract check candidate007",
+  "skill": "/home/brunosegovia/.codex/skills/comment-review/SKILL.md",
+  "base": "35b18ec280a6884bb53996a2d859c4b27096f65c",
+  "review_parent": "38ff1be52ea1d71c7b951730dbb2b77f8cb6d5a7",
+  "identity": "Exact current working source SHA256 pins; no final committed identity or hosted pass inferred. Candidate006 read first, then007 one-file layout successor independently reconciled; source hash verification caught concurrent height change before receipt save.",
+  "manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/edited-source-manifest-007.json",
+    "sha256": "f08da7369d1fbd285f83a74473a6e5dc0f58e089b10b583c035d638dca1cb43b"
+  },
+  "source_pins": [
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "850183741ff4a1b097b93fc6285055d135558894f5ebf9324b52031cb9aadfc4"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "58118b1b138af4f9feea993ea990dc334f63d30c4aa66f8b5597a0f1dfecfcf6"
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "sha256": "e046a24787a8fe5b26e80d4808b7c00c37bfdfb6a886b67d4287119850a80b29"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "sha256": "c1eedbdf2c145f30bb9da7cc8f8fd02fa22b7ee9d9cd821c49ac5a17c441da09"
+    },
+    {
+      "path": "crates/adventuresim-core/Cargo.toml",
+      "sha256": "e5e9c6ed987838be5b7fef72e25ba3e6b6e848bc84105c42f396fcdfd7d65f53"
+    },
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "sha256": "06bfd3a023ac0c22751466720321fe796aba122f605d621f16ba56b318c712f8"
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "6b68d706cda548cbc9329aff56a2ba099e5da11d24ad98e006a500736a5276e0"
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "e00ad4ab58d75204f2286543ebc37d3a9e746790c83e84fa5933732634dae8f2"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "sha256": "12d4b4e5ed4ce3940c78b7ee4420ec94e5efa83776b14d60afdbf2ba0d501f5d"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "sha256": "ae1dcc0043d5bd5a98744dfb43a3f172a259b3ac3b5e0fe0743c31b83e00327e"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "sha256": "2276321bd15949a298196a1879bfe64cbee5d2b864023f33ea81199789a828e9"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "sha256": "e54bd673db78d4b343707613e348b7d7fb4f74d34b8a454fefe73f426145a045"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "f26dc1059e4a9d133ac1fba9c80a1086753b20b54e5a5074dc8e557540cea67b"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "sha256": "37a5dba433aa5219b544716053897df30d3df49662fb5fd38794130c1b803946"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "sha256": "1608b681791e4f1ffd9f4691a5ec204204669c0b68989a0f98b56b6064a9760d"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "543ea955a72a4accf8550af44b35ad0a526fbcc6731bc5fb109ac38ceb609e17"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "sha256": "b394bde991895d6328b6f9f2be24fcb6d51c5c00e7f7143316339c372b7b5089"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "ada76a964c72b64d6bd3671a8ca2bde134da787f339914cc2091bd7994fac722"
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "sha256": "8da5ee46241fe574e76a0b67391c30e5287f90a228995456a39b15cf00701262"
+    }
+  ],
+  "registrations": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/comment-review-candidate006-registration-001.json",
+      "sha256": "a66e7170c72f6115a4ff9403eb97678fee9e7d19942dd35cc4db8eb53944b3d3"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/comment-review-candidate006-registration-002.json",
+      "sha256": "91572b8c175b2edaf76b006449ed832a77a65c2eaf47d5a32f3a67548a2e9b9e"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/comment-review-candidate006-registration-003.json",
+      "sha256": "a6b7c0a482d791031d31967835e3f3202a132867c577a03754c9c326c3668883"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/comment-review-candidate007-registration-001.json",
+      "sha256": "3dcc1a19fcb9f1ae959d6495f13c6a797207302df1da979d9a01dde77966ba8c"
+    }
+  ],
+  "candidate006_delta": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/comment-review-candidate006-delta-001.patch",
+    "sha256": "2e410d89c959276bd6b4e37a8a4554cc86c346360a6bf41f1ab3e7dade5a840f",
+    "scope": "Full tracked selected-path delta versus38ff; exact new extracted config body read separately. Lock diff binary markers supplemented with independent exact raw-byte proof."
+  },
+  "candidate007_layout": "Only height.rs changed from006. Expanding the two exact one-line config chains back to three-line layout reconstructs candidate006 SHA e6bfb25e6db26ec718f582a23118d0884157ceef98e724d9f96bc9677f2171d1 exactly. Other20 source pins equal006. Actual final height248-295 reread; only whitespace changed.",
+  "actual_reads": {
+    "linear_speed.rs": [
+      [
+        1,
+        245
+      ]
+    ],
+    "unit_interval.rs": [
+      [
+        1,
+        81
+      ]
+    ],
+    "core/autoresolve/melee_round/mobility.rs": [
+      [
+        1,
+        110
+      ]
+    ],
+    "animation/locomotion.rs": [
+      [
+        1,
+        260
+      ]
+    ],
+    "combat_config/locomotion.rs": [
+      [
+        1,
+        65
+      ]
+    ],
+    "animation/evaluation.rs": [
+      [
+        260,
+        340
+      ],
+      [
+        370,
+        390
+      ]
+    ],
+    "animation/evaluation/locomotion.rs": [
+      [
+        108,
+        152
+      ],
+      [
+        180,
+        255
+      ],
+      [
+        280,
+        320
+      ]
+    ],
+    "client/procedural/height.rs006": [
+      [
+        232,
+        299
+      ]
+    ],
+    "client/procedural/height.rs007": [
+      [
+        248,
+        295
+      ]
+    ],
+    "animation/value_error.rs": [
+      [
+        140,
+        226
+      ]
+    ],
+    "physics/movement_speed.rs": [
+      [
+        38,
+        55
+      ]
+    ],
+    "animation/measurement.rs": [
+      [
+        1,
+        83
+      ]
+    ],
+    "combat_config.rs": [
+      [
+        1,
+        95
+      ],
+      [
+        620,
+        640
+      ]
+    ],
+    "core/build.rs": [
+      [
+        1,
+        65
+      ]
+    ],
+    "core/Cargo.toml": [
+      [
+        1,
+        45
+      ]
+    ],
+    "workflow": [
+      [
+        1,
+        52
+      ]
+    ],
+    "combat.yaml": [
+      [
+        175,
+        187
+      ]
+    ]
+  },
+  "additional_source_ports": [
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "contract": "Canonical Ratio is dimensionless without policy bounds, from_ratio/getter do not validate. Speed division checks finite; UnitInterval TryFrom applies stricter bounds."
+    },
+    {
+      "path": "crates/fabelgeist-geometry/src/length.rs",
+      "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "contract": "Private positive finite leaf; checked constructor and Deserialize reject zero/negative/nonfinite."
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/spatial_geometry.rs",
+      "sha256": "c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+      "ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "contract": "Actual PositiveLength reexport reaches canonical geometry owner."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+      "sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "contract": "Default deserializes same committed combat YAML then validates; no duplicated endpoint or field fallback."
+    }
+  ],
+  "comment_dispositions": [
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "lines": [
+        39,
+        42
+      ],
+      "decision": "Accurate concise direct cubic then checked admission; obsolete reflection/output clamp prose removed."
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "lines": [
+        73,
+        94
+      ],
+      "decision": "Increasing-interval normalization and endpoint saturation doc matches guards and typed offset/span quotient."
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "lines": [
+        160,
+        176
+      ],
+      "decision": "Checked Add and infallible nonnegative Sub comments explain non-obvious failure/finite closure, accurate."
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "lines": [
+        186,
+        199
+      ],
+      "decision": "Units cancel to signed/wider-than-one Ratio, matches finite checked quotient. Does not promise every Ratio is finite."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "lines": [
+        12,
+        13
+      ],
+      "decision": "Accurate zero-speed distance endpoint before walk interpolation. Positive distance is intentional; zero refers to speed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "lines": [
+        291,
+        295
+      ],
+      "decision": "Existing Hermite endpoint statement matches real cubic derivative; historical visual rationale retained without new native acceptance."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "lines": [
+        42,
+        44
+      ],
+      "decision": "Native Bevy interpolation comment unchanged and actual boundary remains correct; own prior exact SDK proof retained, no new SDK/global credit."
+    }
+  ],
+  "math_contracts": {
+    "smoothstep": "Direct f(x)=x*x*(3-2*x), real f(0)=0,f(1)=1 and derivative6*x*(1-x)>=0 over[0,1]. Direct f32 result admitted via existing from_fraction -> FractionResult, no output clamp/reflection. No unchecked floating closure/exact bits/performance/runtime overshoot claim.",
+    "nonnegative_sub": "Both finite represented operands0..MAX, difference in[-MAX,MAX], rounded result finite; existing SignedSpeed valid.",
+    "signed_mul_unit": "Finite signed times admitted0..1 remains finite. Underflow zero valid; no new owner needed.",
+    "nonnegative_add_signed": "Potential negative/nonfinite sum checked via from_arithmetic; Negative retained, NonFinite mapped Overflow.",
+    "signed_div": "Checks signed-zero divisor, then finite quotient; finite ratios may be signed/>1. Canonical Ratio has no numerical policy, so guard is necessary; division does not itself claim UnitInterval bounds.",
+    "composite_arithmetic": "Named difference/scaled_difference/checked sum in checked_lerp; named offset/span/quotient in inverse_lerp. Lower>=upper checked before saturation; typed Ratio then checked UnitInterval admission.",
+    "widening": "PositiveSpeed stores checked NonnegativeSpeed; standard From returns inner value. Old nonnegative getter removed; seven ports migrate standard From/Into or Into bounds.",
+    "phase": "Adapter removed. Contact half.fract and existing test-only quarter.fract directly checked into UnitInterval then smoothstep?. Dive recovery only called after HALF guards; directly admits normalized second-half phase.",
+    "gait_endpoint": "Required PositiveLength zero_speed_step_distance_metres from YAML0.9 flows into ordinary_step_distance171-178. Config/parent have no serde default; leaf rejects invalid lengths. Same embedded YAML owns default; no fallback or schema alias.",
+    "smoothstep_error_propagation": "All nine source call sites propagate checked result. SpeedError Fraction #[from] and AnimationValueError From<FractionError> retained. New SpeedError ZeroDivisor maps to AnimationQuantity::Speed and for_quantity correctly."
+  },
+  "nine_calls": {
+    "physics/movement_speed.rs": [
+      44
+    ],
+    "animation/evaluation.rs": [
+      338,
+      385
+    ],
+    "animation/evaluation/locomotion.rs": [
+      131,
+      190,
+      227,
+      295
+    ],
+    "client/procedural/height.rs007": [
+      258,
+      287
+    ],
+    "test_only": "evaluation/locomotion.rs295 existing gait_pair; typed comparisons/complement/widening only, no new helper/test/assertion"
+  },
+  "metadata_checks": {
+    "core_dependencies": "fabelgeist-math workspace dependency at runtime15 and build33; same leaves included by build.rs30-33.",
+    "locks": "Independent raw-byte comparison against38ff proves exactly one existing fabelgeist-math dependency edge inserted into adventuresim-core record in each root/creator lock. No other raw-byte change, node/version/checksum update.",
+    "workflow": "Added combat YAML path at push-main11 and pull_request34. Existing movement-speed gate314 and positive-verifier cell400 retained; no command executed.",
+    "tests": "No test file/case/helper/assertion/doctest added. Exact delta migrates existing cfg(test) gait_pair source uses only; tests.rs prior discovery hash48ba1b8005d63740183260c570153bbd903dba12c0fc3615253199a65a70f27e retained.",
+    "baseline": "Existing pinned baseline carried unchanged versus38ff; no baseline check or whole global debt clearance claimed."
+  },
+  "earlier_own_evidence": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/smoothstep-source-math-discovery-001.json",
+      "sha256": "864ee0013c908470cd20458f5d410698df44d91ba5633d08125b360faa59eb9b"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/comment-review-001.json",
+      "sha256": "e1ea26ffba0a224c6289c18f23da6e3024703311da6c62e69c9e6410157f3b71"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/comment-review-format-001.json",
+      "sha256": "b1a2032a4141dd2f54c31403ae6e5399e782254d1baa35ab949b8641d12b4f21"
+    }
+  ],
+  "findings": [],
+  "verdict": "Accepted candidate007 within scoped source comment/math review. No actionable stale/inaccurate/needless new comment or advertised mathematical-contract mismatch found.",
+  "body": "Separate exact proposed body review to follow; old body/pending validation is not final candidate publication or hosted acceptance.",
+  "limits": [
+    "Source-only; no project/fmt/compiler/tests/native probes/generators or new helpers/tests/assertions/doctests.",
+    "No source/product/Git mutation/root ledger/publication actions; exact read-only source metadata only.",
+    "No backward compatibility constraints or preservation of old malformed inputs/API.",
+    "No current hosted success, native visual acceptance, global F9/all20/other-lens clearance, frozen source identity or audit count transfer; audit08/audit12 partials and aliases persist."
+  ]
+}

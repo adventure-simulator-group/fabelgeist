@@ -1,0 +1,575 @@
+{
+  "id": "SEGOVB-CONT08-SUCCESSOR-009",
+  "created_utc": "2026-10-26T23:54:56.421120+00:00",
+  "lens": "08 behavior-preservation",
+  "skill": "/home/brunosegovia/.codex/skills/audit-behavior-preservation/SKILL.md",
+  "scope": "One bounded native-authority/composition packet continuing root-adopted008 Q003; no completed original restart or new materialqueue traversal. All old/new original1462 fullsource reads remain precisely the own008 base230/head339 reads. Thispacket adds actual obstacleRotation/Pose3/quat-vector contract proof and local intended-new-admission counterexample.",
+  "inputs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-008.json",
+      "sha256": "d416f521ab16a91874f18f17f3764ce7d02f576fc43ce3cf74b5605549943f04"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-008-proposed-state.json",
+      "sha256": "e7e1416fe4a502fbf65cbe1fb7f90aa76f5e684b59fce6e3fd57cbb09d220535"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-007.json",
+      "sha256": "62dcdf5764c779b6f896ccb6eea3863fd79064713cd1ef812166f48b92b194f9"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-current-comparison-001.json",
+      "sha256": "b3116b0e9394b77f186c1db5eee7e0a8e63e94afa242885d2cd2ebed5b6dd93c"
+    },
+    {
+      "path": "target/recovery-20261025/audit05/original-scope-072.json",
+      "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+    },
+    {
+      "path": "target/recovery-20261025/audit08/predecessor/source-inventory.json",
+      "sha256": "bfbcfba87ab12644946de377b9cda227f3203ac836bcf4933d3ce099d8f21b97"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-009-registration.json",
+      "sha256": "0eb6a7eb862c0c4a302679ac4f2b46605862acc31fe6dca98c8fedb64e525039"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-009-registration-supplement.json",
+      "sha256": "880aad9cf4c720d23fc3b089846f6d623680a9f91d9d5615d5755102c26b99af"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-009-registration-vec4.json",
+      "sha256": "e60105ec057c03558054ae8daf43f8adf95f2efe76d3157a3a9ba5de24007ea2"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit08-successor-009-registration-owner.json",
+      "sha256": "5c2a5549e3890606efec90a026c990bf655d2bc1013053e825f51e046ed8c86f"
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "pinned-registry:avian3d-0.7.0/src/physics_transform/transform.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/physics_transform/transform.rs",
+      "sha256": "5020a25a60cbe8b42d37cadf31c24a6d24dcde07df2c8f156ee45ff81e9c450b",
+      "prospective_ranges": [
+        [
+          1,
+          1275
+        ]
+      ],
+      "reason": "Actual obstacle Rotation declaration/admission and Parry Pose3 alias; boundednativeauthoritytrace only",
+      "provenance": {
+        "archive": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0.crate",
+        "archive_sha256": "35a30cb730c72527ffaca7f8806881c7e4acc70a4a74c54eb1ffb56c27f64235",
+        "member": "avian3d-0.7.0/src/physics_transform/transform.rs",
+        "member_bytes_equal": true,
+        "expected_identity": "Originalcatalog484/488 and predecessorinventory484/488"
+      },
+      "actual_body_read_ranges": [
+        [
+          707,
+          815
+        ],
+        [
+          1035,
+          1118
+        ],
+        [
+          1116,
+          1275
+        ]
+      ]
+    },
+    {
+      "source_id": "pinned-registry:parry3d-0.27.0/src/math/mod.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/parry3d-0.27.0/src/math/mod.rs",
+      "sha256": "f1b05b3e1a27c95127e70c59bc0269e9a191b64f4c8f7b02d0f9e402f1752c8c",
+      "prospective_ranges": [
+        [
+          1,
+          314
+        ]
+      ],
+      "reason": "Actual obstacle Rotation declaration/admission and Parry Pose3 alias; boundednativeauthoritytrace only",
+      "provenance": {
+        "archive": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/parry3d-0.27.0.crate",
+        "archive_sha256": "99613136af5c3ae1e26907eb8ef90183636f54d02341c0a1121caa813a242cb5",
+        "member": "parry3d-0.27.0/src/math/mod.rs",
+        "member_bytes_equal": true,
+        "expected_identity": "Originalcatalog484/488 and predecessorinventory484/488"
+      },
+      "actual_body_read_ranges": [
+        [
+          1,
+          120
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:Cargo.lock",
+      "original_index": 497,
+      "path": "target/recovery-20261025/audit10/overlay-source-objects/82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+      "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "prospective_ranges": [
+        [
+          1,
+          13102
+        ]
+      ],
+      "reason": "Exactfrozenhead package resolution/checksummetadata for nativeauthoritychain only; no original497 completion or current/P16identitysubstitution",
+      "actual_body_read_ranges": [
+        [
+          1228,
+          1285
+        ],
+        [
+          2459,
+          2484
+        ],
+        [
+          5684,
+          5735
+        ],
+        [
+          8280,
+          8318
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:glamx-0.2.0/src/lib.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glamx-0.2.0/src/lib.rs",
+      "sha256": "c4157b92bd4624d8a66728526c08cff30519cacceab06e44d7d96ee318370f78",
+      "prospective_ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "reason": "Exact reached Pose3/Rot3 constructor and selected f32 quaternion-vector multiplication/normalizedadmission; only actual boundedreadranges count",
+      "provenance": {
+        "archive_path": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/glamx-0.2.0.crate",
+        "archive_sha256": "59157a5886a9c68eb694df59254f7c9419c5648fc6ca1b728601a8baecc0dfcd",
+        "matches_frozen_head_lock_package_checksum": true,
+        "lock_source_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+        "lock_ranges": [
+          [
+            5684,
+            5729
+          ]
+        ],
+        "member": "glamx-0.2.0/src/lib.rs",
+        "member_bytes_equal": true
+      },
+      "actual_body_read_ranges": [
+        [
+          39,
+          63
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:glamx-0.2.0/src/pose3.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glamx-0.2.0/src/pose3.rs",
+      "sha256": "78ed613fca19980e8a19a47062989d7174a902168c804cbcce24915604f10f71",
+      "prospective_ranges": [
+        [
+          1,
+          628
+        ]
+      ],
+      "reason": "Exact reached Pose3/Rot3 constructor and selected f32 quaternion-vector multiplication/normalizedadmission; only actual boundedreadranges count",
+      "provenance": {
+        "archive_path": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/glamx-0.2.0.crate",
+        "archive_sha256": "59157a5886a9c68eb694df59254f7c9419c5648fc6ca1b728601a8baecc0dfcd",
+        "matches_frozen_head_lock_package_checksum": true,
+        "lock_source_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+        "lock_ranges": [
+          [
+            5684,
+            5729
+          ]
+        ],
+        "member": "glamx-0.2.0/src/pose3.rs",
+        "member_bytes_equal": true
+      },
+      "actual_body_read_ranges": [
+        [
+          1,
+          90
+        ],
+        [
+          406,
+          420
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:glamx-0.2.0/src/rot3.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glamx-0.2.0/src/rot3.rs",
+      "sha256": "29a4c68c8862263f2330d7f6fd15395284fd809d73e2294f570899d5add1a559",
+      "prospective_ranges": [
+        [
+          1,
+          14
+        ]
+      ],
+      "reason": "Exact reached Pose3/Rot3 constructor and selected f32 quaternion-vector multiplication/normalizedadmission; only actual boundedreadranges count",
+      "provenance": {
+        "archive_path": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/glamx-0.2.0.crate",
+        "archive_sha256": "59157a5886a9c68eb694df59254f7c9419c5648fc6ca1b728601a8baecc0dfcd",
+        "matches_frozen_head_lock_package_checksum": true,
+        "lock_source_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+        "lock_ranges": [
+          [
+            5684,
+            5729
+          ]
+        ],
+        "member": "glamx-0.2.0/src/rot3.rs",
+        "member_bytes_equal": true
+      },
+      "actual_body_read_ranges": [
+        [
+          1,
+          14
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:glam-0.32.1/src/f32/sse2/quat.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glam-0.32.1/src/f32/sse2/quat.rs",
+      "sha256": "b2782d8370aa4bfbbf68444398a5820ea4efb591e7c4f1f3b765b26c091b5c6d",
+      "prospective_ranges": [
+        [
+          1,
+          1363
+        ]
+      ],
+      "reason": "Exact reached Pose3/Rot3 constructor and selected f32 quaternion-vector multiplication/normalizedadmission; only actual boundedreadranges count",
+      "provenance": {
+        "archive_path": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/glam-0.32.1.crate",
+        "archive_sha256": "f70749695b063ecbf6b62949ccccde2e733ec3ecbbd71d467dca4e5c6c97cca0",
+        "matches_frozen_head_lock_package_checksum": true,
+        "lock_source_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+        "lock_ranges": [
+          [
+            5684,
+            5729
+          ]
+        ],
+        "member": "glam-0.32.1/src/f32/sse2/quat.rs",
+        "member_bytes_equal": true
+      },
+      "actual_body_read_ranges": [
+        [
+          604,
+          618
+        ],
+        [
+          778,
+          810
+        ],
+        [
+          870,
+          907
+        ],
+        [
+          1180,
+          1195
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:glam-0.32.1/src/f32/scalar/quat.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glam-0.32.1/src/f32/scalar/quat.rs",
+      "sha256": "59492839f1e4b0d1b0032427aaa3420f213c14d80780b13f9c2f232f3854f793",
+      "prospective_ranges": [
+        [
+          1,
+          1288
+        ]
+      ],
+      "reason": "Exact reached Pose3/Rot3 constructor and selected f32 quaternion-vector multiplication/normalizedadmission; only actual boundedreadranges count",
+      "provenance": {
+        "archive_path": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/glam-0.32.1.crate",
+        "archive_sha256": "f70749695b063ecbf6b62949ccccde2e733ec3ecbbd71d467dca4e5c6c97cca0",
+        "matches_frozen_head_lock_package_checksum": true,
+        "lock_source_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+        "lock_ranges": [
+          [
+            5684,
+            5729
+          ]
+        ],
+        "member": "glam-0.32.1/src/f32/scalar/quat.rs",
+        "member_bytes_equal": true
+      },
+      "actual_body_read_ranges": [
+        [
+          600,
+          617
+        ],
+        [
+          759,
+          783
+        ],
+        [
+          1127,
+          1164
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:glam-0.32.1/src/f32/vec3.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glam-0.32.1/src/f32/vec3.rs",
+      "sha256": "28708ec95e5481d1673cbff86f8cafc8d19a50b5ea32fdd030cdbdb9d0601b4c",
+      "prospective_ranges": [
+        [
+          1,
+          2238
+        ]
+      ],
+      "reason": "Exact reached Pose3/Rot3 constructor and selected f32 quaternion-vector multiplication/normalizedadmission; only actual boundedreadranges count",
+      "provenance": {
+        "archive_path": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/glam-0.32.1.crate",
+        "archive_sha256": "f70749695b063ecbf6b62949ccccde2e733ec3ecbbd71d467dca4e5c6c97cca0",
+        "matches_frozen_head_lock_package_checksum": true,
+        "lock_source_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+        "lock_ranges": [
+          [
+            5684,
+            5729
+          ]
+        ],
+        "member": "glam-0.32.1/src/f32/vec3.rs",
+        "member_bytes_equal": true
+      },
+      "actual_body_read_ranges": [
+        [
+          244,
+          258
+        ],
+        [
+          557,
+          570
+        ],
+        [
+          690,
+          707
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:glam-0.32.1/src/f32/sse2/vec4.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glam-0.32.1/src/f32/sse2/vec4.rs",
+      "sha256": "7bda0e65bd4427df04832fedd9dfb552e86129c61ccb8ce090a82d7069c941b9",
+      "prospective_ranges": [
+        [
+          1,
+          2109
+        ]
+      ],
+      "reason": "Quat::is_normalized delegates to exactVec4 predicate; actual bound required, no namednormalized assumption",
+      "provenance": {
+        "archive": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/glam-0.32.1.crate",
+        "archive_sha256": "f70749695b063ecbf6b62949ccccde2e733ec3ecbbd71d467dca4e5c6c97cca0",
+        "matches_exact_frozen_head_lock_checksum": true,
+        "member": "glam-0.32.1/src/f32/sse2/vec4.rs",
+        "member_bytes_equal": true
+      },
+      "actual_body_read_ranges": [
+        [
+          244,
+          254
+        ],
+        [
+          554,
+          567
+        ],
+        [
+          696,
+          711
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:glam-0.32.1/src/f32/scalar/vec4.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glam-0.32.1/src/f32/scalar/vec4.rs",
+      "sha256": "763bf48bd47c1ba6494d6128b24803075104ca0c6008c488e1f7a257a64e6c68",
+      "prospective_ranges": [
+        [
+          1,
+          2234
+        ]
+      ],
+      "reason": "Quat::is_normalized delegates to exactVec4 predicate; actual bound required, no namednormalized assumption",
+      "provenance": {
+        "archive": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/glam-0.32.1.crate",
+        "archive_sha256": "f70749695b063ecbf6b62949ccccde2e733ec3ecbbd71d467dca4e5c6c97cca0",
+        "matches_exact_frozen_head_lock_checksum": true,
+        "member": "glam-0.32.1/src/f32/scalar/vec4.rs",
+        "member_bytes_equal": true
+      },
+      "actual_body_read_ranges": [
+        [
+          244,
+          263
+        ],
+        [
+          600,
+          612
+        ],
+        [
+          736,
+          752
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "original_index": 671,
+      "path": "target/recovery-20261025/continuation-segovb/audit08-source/05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "ranges": [
+        [
+          84,
+          102
+        ],
+        [
+          119,
+          142
+        ]
+      ],
+      "reason": "Exact intended new RigidRotation admission and SpatialDirection receivingpredicate for local compositioncounterexample; selective reusedownersupport, no original671 completion",
+      "actual_body_read_ranges": [
+        [
+          84,
+          102
+        ],
+        [
+          119,
+          142
+        ]
+      ]
+    }
+  ],
+  "post_read_fingerprints": "All12 distinct registered source files still match SHA256 at receipt creation. Native archive member bytes verified before bounded nativebody reads; newglamx/glam archives match exactfrozenheadlock checksums before theirbodyreads. ExistingAvian/Parry sourceidentity matched original484/488 and predecessorinventory beforebodyread, with archiveprovenance then independently tied to frozenheadlockrecords.",
+  "frozen_identity": {
+    "PR_base": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "PR_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "head_lock_original_index": 497,
+    "head_lock_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+    "head_dependency_chain": [
+      "avian3d0.7.0",
+      "parry3d0.27.0",
+      "glamx0.2.0",
+      "glam0.32.1"
+    ],
+    "qualification": "Exactfrozenhead dependency chain, not current989workingbranch or P16lock1191...8201. Base dependencyresolution not re-fetched/reconciled in thispacket; no old/new native-version equality claim. Archiveverification establishes sourceprovenance, not program/runtime acceptance."
+  },
+  "authority_trace": [
+    {
+      "source": "avian3d0.7.0/src/physics_transform/transform.rs:740-745,1051-1101",
+      "fact": "Native3D Rotation is public Quaternion tuple struct with DerefMut; From<Quat> copies components into Quaternion::from_xyzw without normalizing or checking unitlength. Transform and GlobalTransform conversions delegate into that conversion. Public native representation is not itself an admitted unit-rotation proof."
+    },
+    {
+      "source": "avian3d0.7.0/src/physics_transform/transform.rs:1116-1275",
+      "fact": "Initialization distinguishes missing/PLACEHOLDER from explicitly supplied Rotation. It defaults placeholders to identity, may derive globalrotation through GlobalTransform decomposition, and only writes computed component values into PLACEHOLDER slots. The directly supplied nativeRotation path in thisbody does not impose a normalizedpredicate. GlobalTransform decomposition and later synchronization bodies were not followed; this does not prove every actualobstaclecanreacharbitraryRotation."
+    },
+    {
+      "source": "own008 Avianmath/mod.rs:606-618 -> parrymath/mod.rs:25-40,59-97 -> glamxpose3.rs:15-19,68-76,414 -> glamxrot3.rs:1-14",
+      "fact": "3D make_pose passes nativeQuaternion into ParryPose3::from_parts. Parryreexports glamxPose3; macro instantiation uses f32 glamVec3 and Rot3=glamQuat. from_parts copies the rotation/translation directly, with no hidden normalization, checkedwrapper or normalized-result guarantee."
+    },
+    {
+      "source": "glam0.32.1 scalarquat.rs:606-613,769-778,1127-1137; sse2quat.rs:607-614,788-792,879-892,1180-1190",
+      "fact": "Quat::is_normalized delegates to Vec4. Bothdisplayed scalar andSSEQuat multiplication routes use the suppliedquaternion without normalizing thevectorresult; glam_assert whenenabled checks the quaternionpredicate. Scalarformula is v*(w*w-dot(b,b)) + b*(2*dot(v,b)) + cross(b,v)*(2*w). SSEdisplayed arithmetic has the same terms through vectorintrinsics."
+    },
+    {
+      "source": "glam0.32.1 sse2vec4.rs:700-707 and scalarvec4.rs:740-747; vec3.rs:695-702",
+      "fact": "Bothactual Vec4 predicates use abs(length_squared-1)<=2e-4, and Vec3 uses thesame2e-4 threshold. The Quatmethod prose says1e-6, but its called predicate body, not that prose, governs admission. ScalarVec4 dot/length_squared and Vec3 dot/length_squared bodies were read to support the floatderivation."
+    },
+    {
+      "source": "frozenpr-working orientation.rs:84-102,119-142",
+      "fact": "Intendednew RigidRotation accepts any finite quaternion passing Quat::is_normalized and preserves it. SpatialDirection::from_normalized retains the originalvector only if its originalVec3 passes is_normalized; Dir3::new does not replace the subsequently tested input with its normalized result."
+    }
+  ],
+  "local_counterexample": {
+    "id": "CONT08-Q003-COMPOSITION-009",
+    "classification": "Source-derived local admission/composition counterexample; linked qualification, not new accepted unique finding or runtime camera witness",
+    "input": "Let a=2^-14 and q=(0,0,0,1+a); let n=(1,0,0). These components are exactly representable f32 values. q is finite. n is an exactly unit nonzero vector.",
+    "arithmetic_assumption": "IEEE754 binary32 round-to-nearest ties-to-even for the displayed scalar source expressions. No code, fixture, numeric simulation or project check was executed. The displayed SSE expressions contain the same pure-w arithmetic, but fullSIMD helper/feature selection and otherbackend proofs were not expanded.",
+    "derivation": [
+      "q.length_squared = RN((1+2^-14)^2) = RN(1+2^-13+2^-28) = 1+2^-13. The discarded2^-28 is below half anULP near1.",
+      "abs(q.length_squared-1)=2^-13=0.0001220703125 <= binary32(2e-4). Quat::is_normalized istrue. Therefore the newRigidRotation::from_quaternion admits q and returns it unchanged; even an enabled glam_assert using thatpredicate accepts q.",
+      "With b=(0,0,0), the displayed scalar quat-vector formula returns n*(w*w)=(1+2^-13,0,0); no normalization is applied.",
+      "length_squared(q*n)=RN((1+2^-13)^2)=RN(1+2^-12+2^-26)=1+2^-12. The discarded2^-26 is below half anULP near1.",
+      "abs(length_squared(q*n)-1)=2^-12=0.000244140625 > binary32(2e-4). SpatialDirection::from_normalized(q*n) therefore rejects the originalvector (or errors earlier; either path cannot yield the claimed admittednormalizeddirection)."
+    ],
+    "proven_conclusion": "The actual intendednew rotation-admission predicate plus quaternion-vector multiplication does not universally preserve the stricterreceiving normalizedvector contract, even with an exactly unit inputnormal. A general proof based only on admittedRigidRotation or the nativeunitquaternion name is false.",
+    "not_proven": [
+      "No firstparty admitted obstacle/collider retainedstate producing q has been traced through the camera hard_obstacle selection in thispacket.",
+      "No actualParry castnormal n for that retainedpose/collider configuration is established here.",
+      "No ordinarycamera rejection/runtimehang/currentmainregression or allbackendexample is claimed."
+    ],
+    "policy": "This is about composability of values admitted by intendednewcontracts. Backwardcompatibility is unsupported: retaining old malformedinputs, priorresult/errorlayouts or oldnormalfailurebehavior is not an acceptance requirement. Root must classify intended admission/observationpolicy once actualfirstpartyreachability is known; no unsolicited normalizationrepair was made."
+  },
+  "next_actual_firstparty_trace": {
+    "goal": "Trace the actual accepted obstacle population/rotationproducer into Avian SpatialQuery.colliders and camera hard_obstacle before claiming a camera defect. Establish whether authored/deserialized/newchecked rotations can retain the localcounterexample or whether intendedfirstpartyadmissionexcludes it; alternatively prove a nativeGJK/EPA output bound sufficient for the actualcomposition.",
+    "exact_metadata_starting_points": [
+      {
+        "original_index": 1465,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/rig.rs",
+        "sha256": "1ec50b293b57a16a3f213a4e26d2a6a6f3d69500f61d3f586939745bc2978d01"
+      },
+      {
+        "original_index": 1466,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/rig/observation.rs",
+        "sha256": "a0a88df02f4d557950c09e55645900e75731a2817d9d422b636fe3126f062ef1"
+      },
+      {
+        "original_index": 1590,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/mod.rs",
+        "sha256": "30d5e6301edce9013871f2322401b5a982a0a0cdd70aa556bc1404b1452a3c8f"
+      }
+    ],
+    "qualification": "These are catalogmetadata locators only, not sourcebody/verdicts. Prospectively register exact reachedranges before sourcebodyreads; inspect actual caller/selection first and follow only material producer. Do not restart completed originalscope accounting or assume these files contain every relevant obstacleproducer."
+  },
+  "coverage_delta": {
+    "original_accounted": 1799,
+    "original_total": 2853,
+    "new_original_completions": [],
+    "earliest_unfinished_original": 1462,
+    "partial1462": "CONT08-Q003 remainsqualifiedpartial; localcompositioncounterexample now sourceestablished",
+    "next_ordered_original": 1792,
+    "material_contiguous": [
+      0,
+      51
+    ],
+    "next_material": 52,
+    "partial_material_indices": [
+      52
+    ],
+    "separate_material_interval": [
+      178,
+      195
+    ],
+    "new_material_completions": [],
+    "accepted_unique_increment": 0
+  },
+  "inherited": {
+    "material52": "Frozen039329 typed-error receivingpartial unchanged; owncurrentcomparison001 remainsbound to its exact4fcc sources, not today989branch.",
+    "paid_withdrawn": "SEGOVB-CONT08-007-M51-PAID-WITHDRAWN unchanged preexistingpartialcandidate; no classification/repair.",
+    "preserve": "All20/P16/P17/M16, originalaliases, actualunknownP16dirtybytes qualifications, othernative/policy/overflow qualifiers and #780/#826 obligations remain unchanged."
+  },
+  "limits": [
+    "No product/source repair, Git commands, project execution/tests/checks, rootledger/history overwrite or publication. Only archivebytecomparison, source read/metadata and ignored evidencewrites.",
+    "Source grep navigation and truncatedoutput are not bodycoverage. An incidental pose3 tail593-628 printed existingdependencytestsource; it is not a witness or credited behaviorcoverage, and nothing was executed.",
+    "No original497Cargo.lock or original671orientation completion inferred from selective support. No otherlens or historicalCI verdicttransfer.",
+    "Fulloriginal1462 scope was read in own008;009 adds only this bounded lowerauthoritycontract. Its partialcannotclose from the localformula alone."
+  ],
+  "global_clearance": false,
+  "stop": "Bounded009 saved at concrete firstparty obstacle-admission/reachability frontier."
+}

@@ -1,0 +1,19 @@
+diff --git a/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/plants.rs b/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/plants.rs
+index 1414f0b23..07f1e74f7 100644
+--- a/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/plants.rs
++++ b/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/plants.rs
+@@ -1,13 +1,13 @@
+ use super::super::view_camera::{CaptureCameraResult, SceneCameraView};
+ use super::*;
+-use crate::camera::authored_metres;
++use crate::camera::config::authored_metres;
+ use adventuresim_building_generator::spatial_geometry::{Position, SpatialDirection};
+ use adventuresim_tactical_core::scene_coordinates::Scene;
+ impl CapturePose {
+     pub(in crate::tactical_scene_viewer) fn accepts_plant(
+         self,
+         species: adventuresim_plant_generator::PlantSpecies,
+     ) -> bool {
+         match self {
+             Self::Fungus {
+                 species: requested, ..

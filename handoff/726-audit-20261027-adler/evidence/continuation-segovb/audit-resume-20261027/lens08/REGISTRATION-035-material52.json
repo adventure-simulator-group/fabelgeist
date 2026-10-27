@@ -1,0 +1,71 @@
+{
+  "purpose": "Close exact committed P16 material52 remaining producer/receiver contracts; no dirty/original/current credit",
+  "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+  "base": "a120390947c89b703dc74c4255a13c035d054c50",
+  "sources": [
+    {
+      "path": "crates/adventuresim-core/src/tactical_fixture.rs",
+      "sha256": "563f1e6e038981b2f33a77d3291e761b7d1569335ddac5355278d04335c50670",
+      "object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-563f1e6e038981b2f33a77d3291e761b7d1569335ddac5355278d04335c50670",
+      "lines": 202,
+      "prospective_ranges": [
+        [
+          1,
+          202
+        ]
+      ],
+      "base_sha256": "563f1e6e038981b2f33a77d3291e761b7d1569335ddac5355278d04335c50670",
+      "base_equal": true,
+      "source_id": "committed-p16:crates/adventuresim-core/src/tactical_fixture.rs"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/world_actor.rs",
+      "sha256": "232be94a5acf0de9c374f0c16d546051e2d007c1005510b0adb7f3c0d41b28f6",
+      "object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-232be94a5acf0de9c374f0c16d546051e2d007c1005510b0adb7f3c0d41b28f6",
+      "lines": 1353,
+      "prospective_ranges": [
+        [
+          330,
+          355
+        ]
+      ],
+      "base_sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "base_equal": false,
+      "source_id": "committed-p16:crates/adventuresim-stdb-module/src/world_actor.rs"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "sha256": "1c346cbf22b4b7ad34cdd6b515b08d015c43e6489f953aa3a75ea40d8e3c675c",
+      "object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-1c346cbf22b4b7ad34cdd6b515b08d015c43e6489f953aa3a75ea40d8e3c675c",
+      "lines": 3987,
+      "prospective_ranges": [
+        [
+          3240,
+          3340
+        ]
+      ],
+      "base_sha256": "c0d449aad5116662aeb2f7dfb377d60e0e1753b043d529a8b871072fa36ea6de",
+      "base_equal": false,
+      "source_id": "committed-p16:crates/adventuresim-stdb-module/src/character.rs"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+      "sha256": "4421b1617dbe612f0ac626645aea036d082746d7823e383da6492db3334517a3",
+      "object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-4421b1617dbe612f0ac626645aea036d082746d7823e383da6492db3334517a3",
+      "lines": 2973,
+      "prospective_ranges": [
+        [
+          490,
+          535
+        ],
+        [
+          620,
+          655
+        ]
+      ],
+      "base_sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+      "base_equal": false,
+      "source_id": "committed-p16:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs"
+    }
+  ]
+}

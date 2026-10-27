@@ -1,0 +1,319 @@
+--- base
++++ frozen-head
+@@ -1,10 +1,87 @@
+-use super::authority::AuthorizedMeleeAttack;
++use super::authority::{AuthorizedMeleeAttack, ValidatedMeleeAttack};
+ use super::*;
+ 
++use active_defense::{commit_active_defense, commit_defense_during_attack, prepare_active_defense};
++use outcome::emit_melee_outcome;
++
+ mod active_defense;
+-use active_defense::{commit_defense_during_attack, resolve_active_defense};
+ mod outcome;
+-use outcome::emit_melee_outcome;
++
++/// Read-only contact admission; authority is consumed only after defense preparation.
++struct MeleeCompletion {
++    attack: ValidatedMeleeAttack,
++    started_at: CombatInstant,
++    cooldown: CombatDuration,
++}
++
++impl MeleeCompletion {
++    #[expect(
++        clippy::too_many_arguments,
++        reason = "authority validation consumes spatial and timing facts"
++    )]
++    fn prepare(
++        facts: MeleeIntentFacts,
++        authority: &MeleeAttackAuthority,
++        spatial: &SpatialQuery,
++        scene_items: &Query<Entity, With<TacticalSceneItem>>,
++        config: &TacticalCombatConfig,
++        attack_key: Option<MeleeAttackKey>,
++        surface_distance: f32,
++        reach: f32,
++    ) -> Option<Self> {
++        let validated = match validate_melee_intent_cheap(facts) {
++            Ok(validated) => validated,
++            Err(reason) => {
++                info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?facts.attacker, target = ?facts.target, body_part = ?facts.body_part, reason = ?reason, surface_distance_metres = surface_distance, reach_metres = reach, "melee_completion_rejected");
++                info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?facts.attacker, target = ?facts.target, body_part = ?facts.body_part, outcome = "miss", reason = ?reason, "melee_attack_resolved");
++                return None;
++            }
++        };
++        let line_of_sight = authoritative_line_of_sight(
++            spatial,
++            scene_items,
++            validated.attacker(),
++            validated.target(),
++            validated.attacker_position(),
++            validated.target_position(),
++        );
++        if let Err(reason) = validate_melee_line_of_sight(line_of_sight) {
++            info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?facts.attacker, target = ?facts.target, body_part = ?facts.body_part, reason = ?reason, surface_distance_metres = surface_distance, reach_metres = reach, "melee_completion_rejected");
++            info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?facts.attacker, target = ?facts.target, body_part = ?facts.body_part, outcome = "miss", reason = ?reason, "melee_attack_resolved");
++            return None;
++        }
++        let cooldown = match CombatDuration::from_elapsed(
++            config.realtime_authority.melee.replay_cooldown_seconds,
++        ) {
++            Ok(cooldown) => cooldown,
++            Err(error) => {
++                warn!(%error, "attack cooldown exceeds native clock");
++                return None;
++            }
++        };
++        Some(Self {
++            attack: validated,
++            started_at: authority.started_at()?,
++            cooldown,
++        })
++    }
++
++    fn authorize(
++        self,
++        authority: &mut MeleeAttackAuthority,
++        now: CombatInstant,
++        attack_key: Option<MeleeAttackKey>,
++        surface_distance: f32,
++        reach: f32,
++    ) -> Option<AuthorizedMeleeAttack> {
++        let attack = self.attack;
++        authority.authorize_attack(attack, now, self.cooldown).or_else(|| {
++            info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?attack.attacker(), target = ?attack.target(), body_part = ?attack.body_part, reason = "authorization_consumed", surface_distance_metres = surface_distance, reach_metres = reach, "melee_completion_rejected");
++            info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?attack.attacker(), target = ?attack.target(), body_part = ?attack.body_part, outcome = "miss", reason = "authorization_consumed", "melee_attack_resolved");
++            None
++        })
++    }
++}
+ 
+ fn contact_at_completion(
+     attacker: &TacticalPlayerView<'_, '_, '_>,
+@@ -100,51 +177,6 @@
+ 
+ #[expect(
+     clippy::too_many_arguments,
+-    reason = "authority validation consumes spatial and timing facts"
+-)]
+-fn authorize_completion(
+-    facts: MeleeIntentFacts,
+-    authority: &mut MeleeAttackAuthority,
+-    spatial: &SpatialQuery,
+-    scene_items: &Query<Entity, With<TacticalSceneItem>>,
+-    now: CombatInstant,
+-    config: &TacticalCombatConfig,
+-    attack_key: u64,
+-    surface_distance: f32,
+-    reach: f32,
+-) -> Option<AuthorizedMeleeAttack> {
+-    let validated = match validate_melee_intent_cheap(facts) {
+-        Ok(validated) => validated,
+-        Err(reason) => {
+-            info!(attack_key, attacker = ?facts.attacker, target = ?facts.target, body_part = ?facts.body_part, reason = ?reason, surface_distance_metres = surface_distance, reach_metres = reach, "melee_completion_rejected");
+-            info!(attack_key, attacker = ?facts.attacker, target = ?facts.target, body_part = ?facts.body_part, outcome = "miss", reason = ?reason, "melee_attack_resolved");
+-            return None;
+-        }
+-    };
+-    let line_of_sight = authoritative_line_of_sight(
+-        spatial,
+-        scene_items,
+-        validated.attacker(),
+-        validated.target(),
+-        validated.attacker_position(),
+-        validated.target_position(),
+-    );
+-    if let Err(reason) = validate_melee_line_of_sight(line_of_sight) {
+-        info!(attack_key, attacker = ?facts.attacker, target = ?facts.target, body_part = ?facts.body_part, reason = ?reason, surface_distance_metres = surface_distance, reach_metres = reach, "melee_completion_rejected");
+-        info!(attack_key, attacker = ?facts.attacker, target = ?facts.target, body_part = ?facts.body_part, outcome = "miss", reason = ?reason, "melee_attack_resolved");
+-        return None;
+-    }
+-    let cooldown =
+-        CombatDuration::from_secs_f32(config.realtime_authority.melee.replay_cooldown_seconds);
+-    authority.authorize_attack(validated, now, cooldown).or_else(|| {
+-        info!(attack_key, attacker = ?facts.attacker, target = ?facts.target, body_part = ?facts.body_part, reason = "authorization_consumed", surface_distance_metres = surface_distance, reach_metres = reach, "melee_completion_rejected");
+-        info!(attack_key, attacker = ?facts.attacker, target = ?facts.target, body_part = ?facts.body_part, outcome = "miss", reason = "authorization_consumed", "melee_attack_resolved");
+-        None
+-    })
+-}
+-
+-#[expect(
+-    clippy::too_many_arguments,
+     reason = "alignment compares complete attacker and defender views"
+ )]
+ fn weapon_defense_alignment(
+@@ -239,19 +271,19 @@
+     let attack_style = event.strike_family.melee_style();
+     let entity = event.attacker;
+     let hand = event.hand;
+-    let Ok(mut authority) = q_authorities.get_mut(entity) else {
++    let Ok(authority) = q_authorities.get(entity) else {
+         info!(attacker = ?entity, reason = "missing_authority", "melee_completion_rejected");
+         return;
+     };
+-    let attack_key = authority.attack_key().unwrap_or_default();
++    let attack_key = authority.attack_key();
+ 
+     let Ok(attacker_view) = viewer.get_for_attack(entity, hand).inspect_err(|err| {
+-        info!(attack_key, attacker = ?entity, reason = %err, "melee_completion_rejected");
++        info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?entity, reason = %err, "melee_completion_rejected");
+     }) else {
+         return;
+     };
+     let Ok(defender_view) = viewer.get(event.target).inspect_err(|err| {
+-        info!(attack_key, attacker = ?entity, target = ?event.target, reason = %err, "melee_completion_rejected");
++        info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?entity, target = ?event.target, reason = %err, "melee_completion_rejected");
+     }) else {
+         return;
+     };
+@@ -259,7 +291,7 @@
+     let Ok([attacker_character, defender_character]) = q_character
+         .get_many([entity, event.target])
+         .inspect_err(|err| {
+-            info!(attack_key, attacker = ?entity, target = ?event.target, reason = %err, "melee_completion_rejected");
++            info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?entity, target = ?event.target, reason = %err, "melee_completion_rejected");
+         })
+     else {
+         return;
+@@ -269,7 +301,7 @@
+ 
+     let weapon_reach = attacker_view.weapon_reach();
+     let Ok(attacker_dimensions) = q_dimensions.get(entity) else {
+-        info!(attack_key, attacker = ?entity, reason = "missing_attacker_dimensions", "melee_completion_rejected");
++        info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?entity, reason = "missing_attacker_dimensions", "melee_completion_rejected");
+         return;
+     };
+     let now = CombatInstant::from_elapsed(&time);
+@@ -283,7 +315,7 @@
+         .max(0.0);
+     let contact_at_time = contact_at_completion(
+         &attacker_view,
+-        &authority,
++        authority,
+         surface_distance,
+         reach,
+         attack_style,
+@@ -292,7 +324,7 @@
+     let facts = completion_intent_facts(
+         &event,
+         &attacker_view,
+-        &authority,
++        authority,
+         attacker_look,
+         attacker_transform,
+         defender_look,
+@@ -307,12 +339,11 @@
+     );
+     let contact_sample = event.contact_sample;
+     let defense_alignment_sample = event.defense_alignment_sample;
+-    let Some(attack) = authorize_completion(
++    let Some(completion) = MeleeCompletion::prepare(
+         facts,
+-        &mut authority,
++        authority,
+         &spatial,
+         &q_scene_items,
+-        now,
+         &config,
+         attack_key,
+         surface_distance,
+@@ -320,43 +351,67 @@
+     ) else {
+         return;
+     };
+-    info!(attack_key, attacker = ?attack.attacker(), target = ?attack.target(), body_part = ?attack.body_part(), surface_distance_metres = surface_distance, reach_metres = reach, "melee_completion_accepted");
+-    let (a2, a1) = attack.attacker_yaw().sin_cos();
+-    let (d2, d1) = attack.target_yaw().sin_cos();
++    let (a2, a1) = completion.attack.attacker_yaw().sin_cos();
++    let (d2, d1) = completion.attack.target_yaw().sin_cos();
+     let flanking = flanking_from_dir((a1, a2), (d1, d2));
+-
+     let Some(attacker_side) = attacker_view.weapon_holding_side() else {
+-        info!(attack_key, attacker = ?attack.attacker(), target = ?attack.target(), body_part = ?attack.body_part(), outcome = "failed", reason = "missing_striking_side", "melee_attack_resolved");
++        info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?completion.attack.attacker(), target = ?completion.attack.target(), body_part = ?completion.attack.body_part, outcome = "failed", reason = "missing_striking_side", "melee_attack_resolved");
+         return;
+     };
+     let attacker_has_weapon = super::contact::attacker_has_weapon(&viewer, entity, hand);
+-    let attacker_performance = q_states.get(attack.attacker()).map_or(1.0, |state| {
+-        combat_incapacitation_performance(state.incapacitation)
+-    });
+-
+-    let Some(attempted_defender_response) = resolve_active_defense(
+-        &attack,
++    let Ok(attacker_state) = q_states.get(completion.attack.attacker()) else {
++        return;
++    };
++    let attacker_performance =
++        match combat_incapacitation_performance(attacker_state.incapacitation) {
++            Ok(performance) => performance,
++            Err(error) => {
++                warn!(%error, "invalid attacker performance");
++                return;
++            }
++        };
++
++    let Some(prepared_defense) = prepare_active_defense(
++        &completion.attack,
++        completion.started_at,
+         &attacker_view,
+         &defender_view,
+         attacker_performance,
+         attack_style,
+         contact_sample,
+         &q_pending,
++        &q_authorities,
++        &q_skeletons,
++        &q_states,
++        &time,
++        &config,
++    ) else {
++        return;
++    };
++    let Ok(mut authority) = q_authorities.get_mut(entity) else {
++        return;
++    };
++    let Some(attack) =
++        completion.authorize(&mut authority, now, attack_key, surface_distance, reach)
++    else {
++        return;
++    };
++    info!(attack_key = attack.attack_key().encoded(), attacker = ?attack.attacker(), target = ?attack.target(), body_part = ?attack.body_part(), surface_distance_metres = surface_distance, reach_metres = reach, "melee_completion_accepted");
++    let attempted_defender_response = commit_active_defense(
++        prepared_defense,
++        &attack,
++        &defender_view,
+         &mut q_authorities,
+-        &mut q_skeletons,
+         &mut q_states,
+-        &time,
+-        &config,
+-    ) else {
+-        return;
+-    };
++        &config,
++    );
+ 
+     // Consume the pending response so it is not reused.
+     cmd.entity(attack.target())
+         .remove::<PendingDefenderResponse>();
+ 
+     let impaired_precision =
+-        ReportedPrecision::new(attack.reported_precision().get() * attacker_performance)
++        ReportedPrecision::new(attack.reported_precision().get() * attacker_performance.fraction())
+             .expect("incapacitation preserves finite bounded precision");
+     let defense_alignment = weapon_defense_alignment(
+         &attacker_view,
+@@ -394,11 +449,10 @@
+         contact_at_time,
+         &config,
+     );
+-    let result = result * attacker_performance * attack.power_multiplier();
++    let result = result * attacker_performance.fraction() * attack.power_multiplier();
+     emit_melee_outcome(
+         &mut cmd,
+         &attack,
+-        attack_key,
+         entity,
+         hand,
+         attacker_side,

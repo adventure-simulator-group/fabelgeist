@@ -1,0 +1,427 @@
+{
+  "schema": "lens12-source-discovery-receipt-v1",
+  "id": "L12-RESUME-003",
+  "created_utc": "2026-10-27T10:50:10.168511+00:00",
+  "predecessor": "receipt-002-originals63-74.json",
+  "prospective_manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens12/prospective-sources-001.jsonl",
+    "sha256_prefix": "efef20519f421b301e2406d9867c2658b6fc2d8d664a20fbaa1f2c9b3075c696",
+    "bytes_prefix": 44117
+  },
+  "source_reads": [
+    {
+      "original_index": 75,
+      "source_id": "physical-p16:crates/adventuresim-core/src/bestiary.rs",
+      "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "registered_scope_consumed": [
+        [
+          66,
+          125
+        ],
+        [
+          139,
+          191
+        ],
+        [
+          210,
+          294
+        ],
+        [
+          311,
+          396
+        ],
+        [
+          484,
+          803
+        ]
+      ],
+      "actual_extra_material_ranges": [
+        [
+          1,
+          65
+        ],
+        [
+          126,
+          138
+        ],
+        [
+          295,
+          310
+        ],
+        [
+          804,
+          836
+        ]
+      ],
+      "context_only_ranges": [
+        [
+          838,
+          850
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              66,
+              125
+            ]
+          ],
+          "role": "22 named ThreatId constants67-91, display_name97-105, parser108-116/Debug119-123/serializer124-125",
+          "disposition": "typed open ID constants remain canonical ThreatId identities (not enum complete roster); raw syntax/member admission1-61/108-116 independently read002. display_name returns raw String human projection selected singular/plural, eventual text consumer not independently traced; no display-as-ID allowance."
+        },
+        {
+          "ranges": [
+            [
+              139,
+              191
+            ],
+            [
+              295,
+              338
+            ]
+          ],
+          "role": "closed categorical enums and loot_item_id Option<&static str>335",
+          "disposition": "enums preserve category identity; loot item remains raw semantic catalog key retained from MonsterCombat145 through compile626; connected open item-ID finding, not native text exemption."
+        },
+        {
+          "ranges": [
+            [
+              210,
+              286
+            ]
+          ],
+          "role": "8 ReportDescription named constants217-224,20 EvidenceKind constants255-274, raw try_new/as_str/Debug/serde APIs and diagnostic text245",
+          "disposition": "existing canonical open checked wrappers retain report/evidence identity; ReportDescription serde is concrete text boundary; as_str/Debug projections potential external use not universal internal permission. Both wrappers reuse ThreatId storage+syntax without threat membership validation; do not impose closed catalog set. Underlying owner reuse semantic-fit left for ownership lens."
+        },
+        {
+          "ranges": [
+            [
+              345,
+              396
+            ]
+          ],
+          "role": "raw victim_tags349/sounds353/preparation_advice358 and ThreatProfile display/singular/plural/aliases369-372, loreVecString390-391",
+          "disposition": "finding/context: retained semantic tags/sounds have no checked owner in this path; distinguish open vocabulary IDs from human advice/names. Prose data roles established by source fields and transfer, actual final consumer pending; no blanket prose/freeform exemption."
+        },
+        {
+          "ranges": [
+            [
+              484,
+              712
+            ]
+          ],
+          "role": "catalog->runtime profile compilation: name projections508-510/560-562; empty advice553; aliases564-571; closed rig578-579, attack585-591 incl tusk alias, protection602-607, temperament617-622, activity643-645, countermeasure696-700; unknown diagnostics580/592/608/623/646/701; loot626/victimtags648-656/sounds661-669/preparation632; existing evidence/report/threat wrappers657-689",
+          "disposition": "finding: schema retains String closed categories then rematches inside app compiler despite same-module enums already owning vocabulary. Admit canonical enums at actual serde/schema ingress, propagate; attack tusk->Blunt mapping is observed currentsemanticmapping not BC requirement. Open evidence/report/ThreatId should remain checked through internal schema/collection. Human names/advice distinct text roles pending eventual consumers. Diagnostic expect/unreachable prose goes to panic boundary; statements validated are assertions, validation body not inferred."
+        },
+        {
+          "ranges": [
+            [
+              713,
+              744
+            ]
+          ],
+          "role": "11 habitat match tokens715-725, validated habitat diagnostic726, evidence731/report743 diagnostic templates; String slice leak733-740",
+          "disposition": "same closed Habitat migration: canonical enum exists179-191; EvidenceKind/ReportDescription existing open canonicaltypes, raw String collections transformed late; checked output retained. Box::leak is lifetime operation, no typing exemption."
+        },
+        {
+          "ranges": [
+            [
+              745,
+              803
+            ],
+            [
+              804,
+              836
+            ]
+          ],
+          "role": "typed habitat relation filtering and bridge/evidence selection",
+          "disposition": "actual direct helper bodies consumed: no raw string in these ranges; IDs/Habitat/CausalBridge/EvidenceKind stay typed. No unrelated report-likelihood body verdict."
+        }
+      ],
+      "status": "source-accounted with findings/qualified untraced consumers; no runtime acceptance"
+    },
+    {
+      "original_index": 76,
+      "source_id": "physical-p16:crates/adventuresim-core/src/bestiary/error.rs",
+      "sha256": "279813fa320c4ce35bbef2229faa4367af4c93d97f074cec46e6984974245b6c",
+      "registered_scope_consumed": [
+        [
+          1,
+          51
+        ]
+      ],
+      "actual_extra_material_ranges": [],
+      "context_only_ranges": [],
+      "roles": [
+        {
+          "ranges": [
+            [
+              6,
+              10
+            ],
+            [
+              20,
+              50
+            ]
+          ],
+          "role": "7 raw literal occurrences: production display8; negative parser samples22(two), expected error30/37, exact serde47 and valid parser49",
+          "disposition": "production write_str human error boundary; existing test strings intentionally exercise rejected ingress, error rendering and exact serializer wire output, directly traced to canonical ThreatId.from_str108-116; no testexecution/oldwirepreservation requirement. Rawkeys confined to actual parser/wire boundary in this body."
+        }
+      ],
+      "status": "source-accounted with findings/qualified untraced consumers; no runtime acceptance"
+    },
+    {
+      "original_index": 77,
+      "source_id": "physical-p16:crates/adventuresim-core/src/body.rs",
+      "sha256": "febe5d8b193afe3cefa2292965bb42c15d4a5d25aef8a2f3c9fea757b3720317",
+      "registered_scope_consumed": [
+        [
+          1,
+          179
+        ]
+      ],
+      "actual_extra_material_ranges": [],
+      "context_only_ranges": [],
+      "roles": [
+        {
+          "ranges": [
+            [
+              32,
+              44
+            ],
+            [
+              54,
+              60
+            ]
+          ],
+          "role": "7 BodyPart Display labels35-41 plus serde snake_case55",
+          "disposition": "concrete fmt::Formatter text and serializer strategy boundaries for existing canonical enums; no raw retained stringstate/API elsewhere full179. No numeric/enum-shape-lens verdict."
+        }
+      ],
+      "status": "source-accounted with findings/qualified untraced consumers; no runtime acceptance"
+    },
+    {
+      "original_index": 78,
+      "source_id": "physical-p16:crates/adventuresim-core/src/capability.rs",
+      "sha256": "80bba40bb933f538a8ad43a88ab0d13bb1cea44bf19486687e27896363dae7f0",
+      "registered_scope_consumed": [
+        [
+          1,
+          554
+        ]
+      ],
+      "actual_extra_material_ranges": [],
+      "context_only_ranges": [],
+      "roles": [
+        {
+          "ranges": [
+            [
+              165,
+              167
+            ]
+          ],
+          "role": "spacetimedb feature token166",
+          "disposition": "compiler feature configuration boundary"
+        },
+        {
+          "ranges": [
+            [
+              207,
+              219
+            ]
+          ],
+          "role": "weapon_precision_tier_label returns4 raw text labels209/211/213/215",
+          "disposition": "source-backed qualification: categorical threshold->human labels; body retains no separate stringstate. Actual final UI receiver not found in exact a120 committed grep, which is locator context only (dirty snapshot differs) and proves no frozen/current unused claim. Need actual consumers or owner enum vs presentation-only boundary disposition before future repair; source-account with this pending finding, not search clearance."
+        },
+        {
+          "ranges": [
+            [
+              356,
+              369
+            ]
+          ],
+          "role": "melee/endurance serialized object field assertions364/365",
+          "disposition": "existing test uses actual serde_json::Value string-key indexing as wire field boundary; typed RoleRequirements producer and serde consumer body both read. Not arbitraryfixture exemption."
+        }
+      ],
+      "status": "source-accounted with findings/qualified untraced consumers; no runtime acceptance"
+    }
+  ],
+  "material_receiver": [
+    {
+      "original_index": 129,
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_catalog.rs",
+      "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+      "ranges": [
+        [
+          1,
+          180
+        ],
+        [
+          320,
+          370
+        ],
+        [
+          580,
+          600
+        ],
+        [
+          830,
+          875
+        ]
+      ],
+      "trace": "Monster93 rawID/name/alias; MonsterCombat128/131/138/143 rawclosedcategories, loot145, MonsterInvestigation155-172 rawsemanticlists/prose. Catalog326 rawStringkey map, exact monster590-592 BTreeMaplookup (closes002 direct membership lookup question). Startup842-859 actual JSON->Value validation->typedserde->compile route; validator/body rest of compile/generated include build producer not read and remain explicit future scope. No original129 credit.",
+      "incidental_context": "DialogueVariant70-87 format-based template/substitution and generatedinclude20 read incidentally; raw String errors/placeholder APIs are mandatory other-lens/future ownlens roles, not cleared by this Monster receiver analysis."
+    }
+  ],
+  "source_backed_findings": [
+    {
+      "family": "canonical open identity late admission / inherited identity aliases",
+      "sources": [
+        "75:108-116,210-286,484-712",
+        "129:92-108,127-173,324-332,590-595"
+      ],
+      "remedy": "retain canonical ThreatId/ReportDescription/EvidenceKind and item IDs from actual ingress across retained schema/profile collections; distinguish syntax from membership and human text",
+      "limits": "only exact selected roles; catalog validator/wholecompile/item loader/eventual prose and tag/sound consumers not granted coverage; no new unique finding count"
+    },
+    {
+      "family": "M09 categorical String state despite existing enum owners",
+      "sources": [
+        "75:139-191,577-623,642-647,695-702,713-728",
+        "129:127-173"
+      ],
+      "remedy": "serde-admit and carry RigTopology/AttackStyle/Protection/Temperament/ActivityTime/Habitat/CountermeasureHypothesis in the real schema owner; remove internal string rematching; no aliases/fallbacks for old APIs/wire",
+      "acceptance": "inspect all producers/retainedfields/consumers incl actualvalidator/schema ingress before repair; root future authorized checks separate",
+      "unique_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Existing label text API78:207 receiver and purpose not fully traced; no actual final-text-boundary clearance.",
+    "Bestiary raw victim tags/sounds/loot references and humanname/advice eventual consumers pending; source-accounted with explicit raw-retention findings.",
+    "QuestCatalog::compile fullbody, quest_catalog_validation and generated build/include producer not independently consumed here; exact .monster get implementation is consumed."
+  ],
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/bestiary.rs",
+      "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "ranges": [
+        [
+          66,
+          125
+        ],
+        [
+          139,
+          191
+        ],
+        [
+          210,
+          294
+        ],
+        [
+          311,
+          396
+        ],
+        [
+          484,
+          803
+        ],
+        [
+          1,
+          65
+        ],
+        [
+          126,
+          138
+        ],
+        [
+          295,
+          310
+        ],
+        [
+          804,
+          836
+        ]
+      ],
+      "coverage": "lens12 source roles only; no other-lens acceptance transfer"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/bestiary/error.rs",
+      "sha256": "279813fa320c4ce35bbef2229faa4367af4c93d97f074cec46e6984974245b6c",
+      "ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "coverage": "lens12 source roles only; no other-lens acceptance transfer"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/body.rs",
+      "sha256": "febe5d8b193afe3cefa2292965bb42c15d4a5d25aef8a2f3c9fea757b3720317",
+      "ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "coverage": "lens12 source roles only; no other-lens acceptance transfer"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/capability.rs",
+      "sha256": "80bba40bb933f538a8ad43a88ab0d13bb1cea44bf19486687e27896363dae7f0",
+      "ranges": [
+        [
+          1,
+          554
+        ]
+      ],
+      "coverage": "lens12 source roles only; no other-lens acceptance transfer"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_catalog.rs",
+      "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+      "ranges": [
+        [
+          1,
+          180
+        ],
+        [
+          320,
+          370
+        ],
+        [
+          580,
+          600
+        ],
+        [
+          830,
+          875
+        ]
+      ],
+      "coverage": "new reached receiver mandatory all applicable lenses; future original129 independent inventory remains"
+    }
+  ],
+  "qualifications": [
+    "Preserve every inherited all20/P16/P17/currentness/raw identity/M09 alias and count qualification.",
+    "Frozen physical-P16 is exact f82 bytes; a120 grep is navigation only, no current/frozen absence proof.",
+    "User no-BC overrides preserve-wire instruction; clean final API/schema only.",
+    "No project execution/tests/probes/Git mutations/source changes/root-ledger edits.",
+    "Only original75 registered material scopes accounted, not whole1558. Original76-78 full51/179/554 independently read."
+  ],
+  "proposed_count": {
+    "before": 75,
+    "after": 79,
+    "indices_completed": [
+      75,
+      76,
+      77,
+      78
+    ],
+    "next_original": 79,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  }
+}

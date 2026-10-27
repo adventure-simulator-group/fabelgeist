@@ -1,0 +1,46 @@
+{
+  "purpose": "Exact material52 before/after helper/caller comparisons, base source ranges registered before body consumption",
+  "sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/world_actor.rs",
+      "base_sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "base_object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "declaration_locator_only": [
+        [
+          "pub(crate) fn context_members",
+          320
+        ],
+        [
+          "pub(crate) fn context_character_ids",
+          335
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "base_sha256": "c0d449aad5116662aeb2f7dfb377d60e0e1753b043d529a8b871072fa36ea6de",
+      "base_object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-c0d449aad5116662aeb2f7dfb377d60e0e1753b043d529a8b871072fa36ea6de",
+      "declaration_locator_only": [
+        [
+          "pub(crate) fn add_and_equip_basic_clothing",
+          3240
+        ],
+        [
+          "pub(crate) fn replace_development_loadout",
+          3259
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+      "base_sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+      "base_object": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/source-9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+      "declaration_locator_only": [
+        [
+          "pub fn seed_standalone_tactical_mission",
+          499
+        ]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "id": "AUDIT12-CONTRACTS-010",
+  "lens": 12,
+  "at": "2026-10-26T18:20:40.948410+00:00",
+  "roles": [
+    24,
+    25,
+    26,
+    27
+  ],
+  "registration": "audit12-successor-registration-010.json",
+  "source_identities": [
+    {
+      "source_id": "native-dependency:spacetimedb-sdk-2.6.1/src/db_connection.rs",
+      "sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+      "ranges": [
+        [
+          187,
+          254
+        ],
+        [
+          410,
+          450
+        ],
+        [
+          727,
+          770
+        ],
+        [
+          1290,
+          1433
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:tiny-skia-0.11.4/Cargo.toml",
+      "sha256": "76370c68002a8cf88f605f06e1d645d11045ae2bae97a7d8b490acf47362e6ad",
+      "ranges": [
+        [
+          46,
+          47
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:tiny-skia-0.11.4/src/pixmap.rs",
+      "sha256": "a7845a931a40b5b24eaa24b6053121e61bfe8b3fffa4c0db89f58c368fb9bc56",
+      "ranges": [
+        [
+          155,
+          182
+        ],
+        [
+          385,
+          430
+        ]
+      ]
+    },
+    {
+      "source_id": "native-dependency:wgpu-29.0.4/src/api/buffer.rs",
+      "sha256": "c7d2c13d8031a9416d5562ec970a46470da331544d3a5e15bc8fb7dae2a9de32",
+      "ranges": [
+        [
+          835,
+          880
+        ]
+      ]
+    }
+  ],
+  "inventory": [
+    {
+      "role": 24,
+      "occurrences": "Reducer name, serialized arguments, nested reducer result error strings, parse-type/container diagnostic labels, identity token Box<str>, subscription message String, table_name static str, channel/panic/log labels and cfg target strings",
+      "trace": "187-254 consumes request-indexed native ReducerResult into ReducerEvent Status::Committed/Err/Panic and invokes callback with nested typed result; missing request becomes InternalError diagnostic.410-450 obtains typed reducer_name and BSATN arguments, emits CallReducer native wire request with name and bytes.727-770 stores table name in typed TableHandle and accepts native callback Result<Result<(),String>,InternalError>.1290-1433 explicitly separates parsed message variants, BSATN-decodes rejection String and attaches parse cause for decoder failure. Additional1434-1438 passes received token unchanged to IdentityToken;140-186 stores typed identity/connection ID and lends token to on_connect callback; no text classification. Subscription1477-1480 materializes server message text,278-283 wraps native SubscriptionError, subscription.rs134-142 removes query registration and invokes selected on_error with typed event;443-449 changes native subscription state to Error before taking callback. Additional client_cache347-396/400-530 stores table name as native keyed cache selection with typed Row then carries same key into callbacks; db_connection500-560 dispatches table key unchanged to DbCallbacks map; callbacks45-102 resolves same key before row callbacks. Native InternalError stores message String plus optional typed Arc cause; failed_parse55-61 formats static type/container labels into diagnostic and Display74-81 appends cause. Native SDK owns these protocol/diagnostic/cache boundaries."
+    },
+    {
+      "role": 25,
+      "occurrences": "Cargo dependencies.png version=\"0.17\" at46-47",
+      "trace": "Native Cargo dependency-version constraint; package metadata consumed by native package resolver. This bounded manifest is not proof of exact resolved png version or application ownership."
+    },
+    {
+      "role": 26,
+      "occurrences": "cfg png-format, AsRef<Path> filename boundaries, typed png EncodingError/DecodingError; documentation code example .unwrap strings are code syntax rather than application identifiers",
+      "trace": "155-182 fs::read(Path)? forwards bytes to decode_png and native encode/save delegates;385-430 clone/demultiply image data then native png Encoder configured Rgba/Eight and write_header/write_image_data with ?; save_png encodes then std::fs::write(path,data)? returns typed native EncodingError. No raw app string contract introduced in these bodies."
+    },
+    {
+      "role": 27,
+      "occurrences": "fixed panic label at835-836, native BufferDescriptor alias/docs and BufferAsyncError fixed Display text",
+      "trace": "835-880 has native unit BufferAsyncError and fixed Error occurred when trying to async map a buffer rendering, empty std::error::Error impl. MapMode explicit Read/Write enum follows. No textual classification or independently stored application meaning in registered body."
+    }
+  ],
+  "findings": [],
+  "disposition": "ACCOUNTED exact original24-27 registered scopes with receiving supplements; no full foreign-file claim",
+  "qualifications": [
+    "InternalError::source99-101 returns None despite optional Arc cause and deprecated cause85-95 exposing it. Typed storage does not prove standard source-chain preservation; native SDK limitation retained, no firstparty repair/new unique count inferred.",
+    "Native TableHandle name/Row matching, callback downcasts and identity/token validity rely on generated SDK/server contracts. No current application whole producer/admission/schema comparison or auth security audit. Native token literal values were neither requested nor printed.",
+    "Original24 only registered owner/producer union and explicit supplements consumed; remainder of1624line file not credited. Supplement identity is cached archive Cargo.lock checksum074a6d8828638176eb8e9bba7a3e6fb75dc659b260717306eb966c7e10575cd7 with original24 exact member match; not mislabelled historical frozen entries.",
+    "Native PNG I/O conversion can stringify its source as established in original17; these typed signatures do not prove reverse-conversion cause preservation. Native wgpu async unit error intentionally has no retained cause in registered contract.",
+    "No completed discovery restarted, no tests added or run, no project execution, product changes or other-lens verdict transfer. Other populations and newly registered receiver ranges remain pending for every other lens."
+  ],
+  "global_clearance": false
+}

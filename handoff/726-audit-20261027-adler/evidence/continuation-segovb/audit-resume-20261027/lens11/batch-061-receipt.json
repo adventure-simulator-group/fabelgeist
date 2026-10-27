@@ -1,0 +1,326 @@
+{
+  "at": "2026-10-27T14:58:18.113840+00:00",
+  "lens": 11,
+  "status": "1076-1078 independently source-accounted with findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-061-registration.jsonl",
+    "sha256": "be96b3952ea4d0309217f750b3e17a2ba19fa9fe2b151797959ad9b10036ea74"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-060.json",
+    "sha256": "3f85c92117bd1fbca4717dd31508957ab5d0796c56b1f6977a2e85a62207769a"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1076,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability.rs",
+      "sha256": "3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
+      "ranges": [
+        [
+          1,
+          694
+        ]
+      ],
+      "actual_eof": 694,
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          694
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1077,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/combatant.rs",
+      "sha256": "afba3aaeb15ab41fe36d35221b5269a784098863766c03ad61ecd6532204bdbc",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/afba3aaeb15ab41fe36d35221b5269a784098863766c03ad61ecd6532204bdbc",
+      "ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "actual_eof": 111,
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          111
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1078,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/equipment_projection.rs",
+      "sha256": "f8b4732bf544887996ecaf8ffba647c00a6a7f4c4d88728b7b5ac094a689c6af",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/f8b4732bf544887996ecaf8ffba647c00a6a7f4c4d88728b7b5ac094a689c6af",
+      "ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "actual_eof": 85,
+      "prospective": true,
+      "provenance": "exact frozen f82 SHA object",
+      "actual_read_ranges": [
+        [
+          1,
+          85
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-module/src/capability/mass.rs",
+      "sha256": "1f6a584fc834b98fd0a39dee168f5b8c461518b712f56906a9de26bd44fe192e",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/1f6a584fc834b98fd0a39dee168f5b8c461518b712f56906a9de26bd44fe192e",
+      "actual_eof": 41,
+      "provenance": "frozen base3a50/head6533 exactbyteequal, absent747changes/dirty4",
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual load equipment mass or armor identity/coverage/material association boundary",
+      "actual_read_ranges": [
+        [
+          1,
+          41
+        ]
+      ]
+    },
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-module/src/capability/armor.rs",
+      "sha256": "027f27a4294fe1574bcb9c7f376db05904519094f99936be09bcf66d5459b7e0",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/027f27a4294fe1574bcb9c7f376db05904519094f99936be09bcf66d5459b7e0",
+      "actual_eof": 103,
+      "provenance": "frozen base3a50/head6533 exactbyteequal, absent747changes/dirty4",
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual load equipment mass or armor identity/coverage/material association boundary",
+      "actual_read_ranges": [
+        [
+          1,
+          103
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original_index": 1076,
+      "inventory": "Derived CharacterCapability abilities/armor-tierbooleans/skillratings/power; PlayerBody/Attributes/Essentials/Skills transporttraits; StrategicEquipment parallel optionweapon/itemID/geometry/side and seven-region armor/ID/material/coveragearrays; carriedmass/survivalclothing/quantity; canonical handheldselection/loadout\u2192CombatEquipment/trainingprofile/nativepersistence projection.",
+      "disposition": "Core886armorproducer has five monotone tierstates: four armorbooleans can retain canonical minimumtier while independent melee/ranged/heavy remain distinct capabilityaxes. These are materialized derived cache values, not authored minimum RoleRequirements. StrategicEquipment private builder keeps matching parallel options/arrays coherent by common hand orBodyPart index, but recordshape admits meaningless absent-item/side/ID combinations internally; group selectedequipment payloads rather than add duplicate generalpurposeItem owner. Canonical equipment/mass/geometry and core PlayerEquipment/CombatEquipment actualreceiversretain different selection views; abstractthreatinventoryIDNone remains valid, not allweapons requirepersistentID. PlayerBodyforCharacterLimbs returnsfixed70kg whereas load_combatant usescondition.body_weight_kg; scope shows alternateprojections, but evaluate_capabilitiesdoesnotprove a runtime mass-sensitive wrongresult here. Raw inventory_weight usesINFINITY sentinel oncontained-watererror, so cannot silently narrowtofiniteBodyMass without typederrorpolicy. Projectilekind derived fromstringcontainsarquebus while ammunition countsarrowonly: qualified item/projectile/ammo association question, not demonstrated actualwrongammo or namespacealias. Generic religionmaxeffective versuscombat totaldirect are different currentprojections needing explicitpurpose, not assumedidentical.",
+      "remedy": "Retain canonical armor-tier/check/power and meaningful identity/quantity distinctions; coherent optional selectedweapon/shield/armor payloads with regionindexassociation, named physicalmass and errorresult insteadofinfinity sentinel when upstreamapi admitsfailure. Carry existing concentration/elapsed/dimensional owners through derived state. Reconcile actual mass/religion/projectile/ammo consumers before a concrete behavioral or acceptedunique claim; preserve scopedsummaryversusauthoritativecontext distinctions.",
+      "acceptance": "Full1-694 personally consumed; newexactunchanged massfull41/armorfull103 consumed, core857/875/876/886/891/916/920 personalexactreuse. No wholecanonicaldatabase/custody/allweaponinstanceproduction/runtime/current proof, no fatigue-movement-speed conflict inferred."
+    },
+    {
+      "original_index": 1077,
+      "inventory": "Persistent row\u2192transientCombatant snapshot; effectiveattributes, typedcategorybestiary and traditionaggregatereligion, conditioncurrent/maxbloodml versus rawstrategicbaselineincapacitation/pain/bloodloss, bodyregionhealth/bodymass/rightprimaryside, fatigue and existing equipmentprojection.",
+      "disposition": "CombatantStrategicState meaningfully separates persisted baseline from per-battle mutable state; baselinebloodfraction differsincrementalloss and totalincapacitation canexceed1 (core891). Conditionbodymass used here, raw samef32 doesnotmakepain/bloodml/health/skillhours interchangeable. Functionthreecondition scalars have independentroles despite commonstorage; named admitted condition aggregate prevents swaps without duplicateeffectvalidators. BodyPartsevenregionorderingexplicitnotrigjointordinal. BodySideRight literal notproofeverycharacterhandednessauthored; existingcharacterprimarysidepopulationpending. CombatSkillsreligiontotaldirect losestraditioncontext relative PlayerSkillsmaxeffective summary; preserve asqualifiedpurpose question ratherthanpromoteobservedreligionwrongness.",
+      "remedy": "Typed strategicstartingcondition aggregate plus existing bodymass/bloodvolume/skillhours and category/tradition owners, projected once intocanonicalCombatant. Preserve totalincapacitation versus performance/displayfractions and transientbattleauthority, no duplicate combatantschemaforSDK/ECS.",
+      "acceptance": "Full1-111 consumed. Actualcore891derivecondition and857from_strategic_state plus875skills/body and876power personallyreadexactproof reused; no healthoutcome/runtime/fullpersistentconditionadmission acceptance."
+    },
+    {
+      "original_index": 1078,
+      "inventory": "Effectivecatalog/instanceweaponprojection with optional ParametricWeaponCombatGeometry; canonicalmaterials/contactshape/signedframe versus metre reach/total/headlength, kgmass/inertia/energy/concentration/balance; melee/rangedcapabilityaxes, nativefixedrangedforce/timingkernel, AnimationElapsed checkedoperations.",
+      "disposition": "Existing instancegeometry and authoredstaticdefinition are intentional different authoritylevels; concreteparametriccallerrequiresgeometry beforeprojection, while nonparametriccatalogweapons useauthoredstaticvalues, notBCfallback. Bothmeleeandranged true is supportedhybridcapability, shouldnotreplacewithmutuallyexclusive sum. Geometryoptionalwithoutitemassociation permits publiccaller mismatchedinstance, privatecaller currentlysameinventorydef. PhysicalenergyJ versus masskg versus kgm2 and metre dimensions need canonicalowners atinternalports, while localtimingmath may remainnative. AnimationElapsed preserves duration and checked timing errors, strongerthan rawrangedforce/dimensions/precision. Existing ContactPrecision continuous>1 valid, not probability. Weapon interval usespreparation+recovery and nativefallbackrangedshape; do notinventcontactphase requirement absent establishedsimulationcontract.",
+      "remedy": "Coherent selectedequipment/instanceidentity payload and canonical authoredadmittedgeometry, existing concentration/energy/mass/length/balance owners; keep native numerical adapters at actual operation boundary and errorclassification. No old API forwarding or fixedrawfloatcompatibility.",
+      "acceptance": "Full1-85 consumed withactualprivatecallers1076andexistingcore920melee_attack_timing/parametricgeometry,916elapsed and891contactconsumers personallyreadexactproof. No all physicalcalibration/nativefloatbounds/rangedmechanics/currentstate guarantee."
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-010-receipt.json",
+        "sha256": "59d8ab785e544e91e87e1d58761594679196a96d9a1573cc6160f6ede4227829"
+      },
+      "original_index": 857,
+      "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "ranges": [
+        [
+          1,
+          2878
+        ]
+      ],
+      "identity_reverified": true
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-014-receipt.json",
+        "sha256": "9e2e5834705569d01b06c7e772fb7d82d07dbbad374f8f8245dc818eb7e68b87"
+      },
+      "original_index": 875,
+      "sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+      "ranges": [
+        [
+          1,
+          363
+        ]
+      ],
+      "identity_reverified": true
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-014-receipt.json",
+        "sha256": "9e2e5834705569d01b06c7e772fb7d82d07dbbad374f8f8245dc818eb7e68b87"
+      },
+      "original_index": 876,
+      "sha256": "76922a00bc1d4bf13c6d972aaba83258551ce853fff438f2edc3f0d295ae025a",
+      "ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "identity_reverified": true
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-016-receipt.json",
+        "sha256": "8a08d4a7a68768b9c1813ab799897da5c4422ede6cf9a388279d8d3c27eb92d0"
+      },
+      "original_index": 886,
+      "sha256": "6e0a321cc3add825f92a96426d7bd4b3af413ad02381e547a2db66fdd8676d82",
+      "ranges": [
+        [
+          1,
+          552
+        ]
+      ],
+      "identity_reverified": true
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-018-receipt.json",
+        "sha256": "0f4346372944174f180d12722483bea2b3ee0a7130a0dda5bdc33e7623f0c0af"
+      },
+      "original_index": 891,
+      "sha256": "7d00629a7da937cf41b5bc49a86df7119cc7054743dce1f70ac2507a7aba59b0",
+      "ranges": [
+        [
+          1,
+          1137
+        ]
+      ],
+      "identity_reverified": true
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-023-receipt.json",
+        "sha256": "03b30b384e3206d060da613d1da2619503e1dfed244ee67fa51bcd8aaddc4a42"
+      },
+      "original_index": 916,
+      "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "identity_reverified": true
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-024-receipt.json",
+        "sha256": "ca778635143938f2d880c6f080ce1b984ba4135d9686dd799c3adcc5734ea9c5"
+      },
+      "original_index": 920,
+      "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "ranges": [
+        [
+          1,
+          1182
+        ]
+      ],
+      "identity_reverified": true
+    }
+  ],
+  "new_material_extensions": [
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-module/src/capability/mass.rs",
+      "sha256": "1f6a584fc834b98fd0a39dee168f5b8c461518b712f56906a9de26bd44fe192e",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/1f6a584fc834b98fd0a39dee168f5b8c461518b712f56906a9de26bd44fe192e",
+      "actual_eof": 41,
+      "provenance": "frozen base3a50/head6533 exactbyteequal, absent747changes/dirty4",
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual load equipment mass or armor identity/coverage/material association boundary",
+      "actual_read_ranges": [
+        [
+          1,
+          41
+        ]
+      ]
+    },
+    {
+      "kind": "unchanged_connected_extension",
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-stdb-module/src/capability/armor.rs",
+      "sha256": "027f27a4294fe1574bcb9c7f376db05904519094f99936be09bcf66d5459b7e0",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/027f27a4294fe1574bcb9c7f376db05904519094f99936be09bcf66d5459b7e0",
+      "actual_eof": 103,
+      "provenance": "frozen base3a50/head6533 exactbyteequal, absent747changes/dirty4",
+      "mandatory_other_lenses": true,
+      "zero_extra_original_shared_credit": true,
+      "ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual load equipment mass or armor identity/coverage/material association boundary",
+      "actual_read_ranges": [
+        [
+          1,
+          103
+        ]
+      ]
+    }
+  ],
+  "provenance": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-061-receiver-provenance.json",
+    "sha256": "7136be53e105dea95781fdd859889900e8442cfc2fc6a22a9e41a655c4c261a0"
+  },
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Frozen source-only; no acceptedunique/current/runtime/alias/global transfer.",
+    "One cache-wide locator search exposed isolatedbody-weight/armor-name matches only; not prospective bodycoverage or independent proof. Onlyregisteredactualreads/personalexactreceipts count.",
+    "Armor/mass leafextensions mandatoryotherlenses, zeroextraoriginal/sharedcount. Earlier all registered coretypes/operations personallyread reused, no wholephysicalkernel/SDK/database correctness inference.",
+    "Fixed70kgversusconditionmass, religionprojection and ammoassociation remain qualified source-purpose/caller questions; no tracedmass-sensitive capabilitywrongresult/actualwrongammo asserted."
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "run": 40369750022,
+  "artifact": 12672692320,
+  "source": "bb0c5c1603639bbd6768d4774dcf980a2ffae634",
+  "results": {
+    "library": {
+      "passed": 13,
+      "failed": 0,
+      "ignored": 0
+    },
+    "doctests": {
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0
+    },
+    "borrowed": {
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0
+    }
+  },
+  "baseline_snapshot_sha256": "9227c2c90c0d837d4f6cba5d9cd457e1be24e0710c942f503b5152a6e11a4c0e",
+  "changes": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "old": 538,
+      "new": 502
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "old": 899,
+      "new": 862
+    }
+  ],
+  "limits": "Only existing tests executed; no new view-error/PollError branch coverage. Full run still in progress; final revised baseline requires new hosted validation."
+}

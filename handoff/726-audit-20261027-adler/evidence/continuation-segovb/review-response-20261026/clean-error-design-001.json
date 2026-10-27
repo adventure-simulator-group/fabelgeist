@@ -1,0 +1,197 @@
+{
+  "id": "PR988-CLEAN-ERROR-DESIGN-001",
+  "at": "2026-10-26T21:08:46.642995+00:00",
+  "reviewer": "/root/texture_code_review",
+  "scope": "Source-only assessment of parent clean proposal after explicit user rejection of compatibility-driven Box/layout/downcast preservation; proposal assessment, not postimplementation approval",
+  "user_priority": "No backward compatibility until release; old API/layout/variant/downcast shapes are not constraints. Earlier preservation recommendation is superseded. No wrappers/aliases retained solely for historical compatibility.",
+  "skills": [
+    "audit-enum-shapes",
+    "audit-derivability"
+  ],
+  "status": "Clean proposal is coherent; no blocking source-level design or obvious size concern identified",
+  "findings": [],
+  "recommended_shapes": {
+    "TextureViewError": [
+      "Uninitialized",
+      "MissingView",
+      "Observation { requested: TextureFormat, operation: TextureViewOperation, #[error(source)] cause: ValidationScopeError }"
+    ],
+    "ValidationScopeError": [
+      "Native(#[error(source)] wgpu::Error)",
+      "Progress(#[error(source)] wgpu::PollError)",
+      "ProgressWithNative { #[error(source)] poll: wgpu::PollError, native: wgpu::Error }"
+    ],
+    "traits": "derive Debug, derive_more::Display and derive_more::Error on both enums, with explicit display attributes and exactly one selected cause per payload-bearing variant",
+    "removals": [
+      "ValidationProgressError struct and both manual traits",
+      "TextureViewError old three dimension-native variants and Progress variant",
+      "TextureViewError::from_observation helper",
+      "TextureViewError manual Error implementation and historical Box downcast comment",
+      "ValidationScopeError unused into_anyhow helper",
+      "All old ValidationProgressError exports/imports/guide references",
+      "All Boxes introduced solely for old error layout; no compatibility aliases or forwarding helpers"
+    ]
+  },
+  "semantic_assessment": [
+    {
+      "contract": "State ownership and semantic granularity",
+      "assessment": "Three scope error states own exactly their applicable data: native rejection after progress; progress failure alone; progress failure plus captured rejection. No optional native payload ambiguously paired with a generic progress wrapper; absence of captured rejection is represented by Progress variant itself. Texture operation is independent of failure class, so one Observation record owns original request/operation with canonical scope error. No duplicate per-dimension source classification or operation-specific error types are needed."
+    },
+    {
+      "contract": "Four actual finish outcomes",
+      "mapping": [
+        {
+          "poll": "Ok(_)",
+          "captured": "None",
+          "result": "Ok(())"
+        },
+        {
+          "poll": "Ok(_)",
+          "captured": "Some(native)",
+          "result": "Err(ValidationScopeError::Native(native))"
+        },
+        {
+          "poll": "Err(poll)",
+          "captured": "None",
+          "result": "Err(ValidationScopeError::Progress(poll))"
+        },
+        {
+          "poll": "Err(poll)",
+          "captured": "Some(native)",
+          "result": "Err(ValidationScopeError::ProgressWithNative {poll,native})"
+        }
+      ],
+      "assessment": "Keep poll first, then always pop/read the same guard, and only then exhaustively match these four outcomes. Do not short-circuit? on polling failure. Scope/device ownership and native-only observation policy remain separate."
+    },
+    {
+      "contract": "Intentional primary-cause policy",
+      "assessment": "Poll is source in both Progress and ProgressWithNative, because observation failure is the returned failure. Captured native rejection remains owned and visible as field and Display text in ProgressWithNative. Native-only state selects native source. A single std::error::Error source chain cannot enumerate two causes; explicit variant payload retains secondary evidence without making native-primary fallback. This intentionally replaces earlier prefer-native policy; do not preserve it for historical behavior."
+    },
+    {
+      "contract": "Derived Error/Display applicability",
+      "assessment": "Each source is direct/unboxed Error implementor, so existing derive_more2.1.1 source selection emits immediate selected borrowed field. No Box-specific manual dereference policy remains necessary. Mark Observation.cause and ProgressWithNative.poll explicitly #[error(source)]; named native remains retained secondary payload. Tuple Native/Progress fields can also be explicitly annotated. No thiserror dependency, hand-written Error, source adapter type or new From conversion needed."
+    },
+    {
+      "contract": "Current source chain by design",
+      "chains": [
+        "TextureViewError::Observation \u2192 ValidationScopeError::Native \u2192 wgpu::Error \u2192 native SDK source",
+        "TextureViewError::Observation \u2192 ValidationScopeError::Progress \u2192 wgpu::PollError",
+        "TextureViewError::Observation \u2192 ValidationScopeError::ProgressWithNative \u2192 wgpu::PollError (captured native separately retained in variant)"
+      ],
+      "assessment": "This is the clean current hierarchy, not a promise of previous downcast positions. Unit absences derive sourceNone. Preserve native values themselves, not historical wrapper/layout identity."
+    },
+    {
+      "contract": "Direct producer construction",
+      "example": "error_scope.finish().map_err(|cause| TextureViewError::Observation { requested: format, operation: TextureViewOperation::Texture2d, cause })?;",
+      "assessment": "Apply same direct construction with the appropriate operation at each of the three view bodies. Retain original requested format, rather than descriptor projected linear format. Shared canonical scope error eliminates conversion classifier helper; no public generic From can supply the missing request/operation metadata automatically."
+    },
+    {
+      "contract": "View operation behavior to retain",
+      "assessment": "Keep matching stored-format cached Arc fast path first, missing-view/absent-texture typed units, storage sRGB descriptor projection, labels/dimensions/cube layer count and SDK device/descriptor routing. Alternate view cannot return when observed scope result is Err. Preserve borrowed/browser Uncaptured policy and native BlockingScopes scope behavior. Existing standard? receiving bodies continue accepting the bespoke Error; no need keep deprecated variants or manual generic conversion helper."
+    },
+    {
+      "contract": "Cfg and Error bounds",
+      "assessment": "Native constructors/finish and three observation mappings retain existing cfg guards. Both enums may remain available on both targets using the same existing wgpu Error/PollError types. Removing Box does not add Send/Sync requirements: direct field auto-traits depend on same contained SDK types. Existing derive_more Error needs Error/static; parent still owns actual native/wasm compiler validation. Do not introduce conditional old/new error paths."
+    },
+    {
+      "contract": "Obvious source-level size constraints",
+      "assessment": "TextureFormat and TextureViewOperation are fieldless closed enums. PollError largest visible payload is two u64 submission indices; wgpu::Error owns Box<dyn Error> and String metadata, not inline message bytes or an unbounded array. Combined scope failure contains only one PollError plus one wgpu::Error; outer Observation adds two small tags and the scope enum. No recursive type, giant inline buffer or obvious source reason to keep the historical Box layout. Exact ABI bytes/alignment or a lint threshold are not measured/promised; no source probe/check run. Do not retain boxes or manual traits merely to preserve historical size."
+    },
+    {
+      "contract": "Guide and stale authority",
+      "assessment": "Guide must describe one Observation variant with requested/operation/cause and three scope states, polling-primary source in failure-with-native, retained captured native fields and both diagnostics. Remove claims of three dimension error variants, old ValidationProgressError and old downcast/source priority. No backward compatibility aliases, deprecated helper text or preservation rationale. Prior initial derivability/source reviews apply only their old snapshots and do not approve this new implementation; root must obtain fresh source review after edit."
+    }
+  ],
+  "suggested_diagnostic_policy": "Observation Display should state operation and original requested format plus canonical cause. Scope Native may delegate native display; Progress should identify failed validation progress and poll cause; ProgressWithNative should include both poll failure and captured validation error. Historical exact prefixes/chain/layout are not acceptance constraints; completeness/readability of current error evidence is.",
+  "required_retention_limits": [
+    "No global device health, rollback, all-hardware, cache/metadata/device coherence, constructor/subresource admission or complete audit clearance.",
+    "Preserve existing polling behavior outside the whole-view observation change unless root separately scopes that work.",
+    "Native captured rejection must not be dropped merely because polling failed, even though poll is primary cause.",
+    "All removed public helpers/variants/imports must be removed from current code and guide, with no compatibility substitute. Existing tests, not new cases/helpers/assertions/doctests; root owns any necessary existing predicate/API updates and final checks."
+  ],
+  "evidence_pins": {
+    "current_source_snapshot": [
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+        "sha256": "78f936bc22fbf6595df598951dd75944e3edf806504913574ed5aca6d74f0852"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+        "sha256": "0c00273b8492fa0919e7264459cffbd80f97564784a292e7e88d28bf928cb244"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+        "sha256": "3dce5de96be36b2463daee4fb0ed823563d3f87e99bfc9a8ba3b1ddcdc37fca8"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+        "sha256": "3631314017e2c2ecf0c610699f4ec5fa8834417e9e2adfae1e0386689ef961a9"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+        "sha256": "b409f557ae2241773bd3188bb582d86ccb98612a3db5320604eb9626ce91e278"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+        "sha256": "e469881e9c40d936623f0df150770be2e23e578ec80fdf6e63df9e5ccd578741"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs",
+        "sha256": "370add54d9307c5cbd778de771a6e2d98d0b0dbdb7b4e4b02d1245315458b11d"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/texture-views.md",
+        "sha256": "0fe254434e5c065ab49a04ba8c522d7066b48802b37538b6840653f5b2e3e59d"
+      }
+    ],
+    "native_actual_bodies": [
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-29.0.4/src/api/device.rs",
+        "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+        "read_ranges": [
+          [
+            770,
+            837
+          ]
+        ]
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/wgpu-types-29.0.4/src/lib.rs",
+        "sha256": "af153576bce090b101f05d3d4fc35523d82e8f7fd2f935bd60d12956af50cb3b",
+        "read_ranges": [
+          [
+            294,
+            321
+          ]
+        ]
+      },
+      {
+        "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-impl-2.1.1/src/error.rs",
+        "sha256": "40cfa53d126eae5284310d5814318d32269e482e3491bf561ec9cd6168646aeb",
+        "read_ranges": [
+          [
+            212,
+            220
+          ],
+          [
+            286,
+            291
+          ]
+        ]
+      }
+    ]
+  },
+  "limitations": [
+    "Design proposal only; no new implementation exists in this assessment and no compiler/macro expansion/project checks/tests/size probe executed.",
+    "Source occurrence search scoped GPU/compute established direct old helper/variant/export recipients; no external compatibility obligations inferred or retained.",
+    "Broad audit packet010 already saved/stopped; this review advances no original-role/lens/global counts. No source/Git/ledger/historical edits or publication."
+  ],
+  "source_changes": false,
+  "git_commands_or_mutations": false,
+  "project_execution": false,
+  "tests_added_or_run": false,
+  "ledger_changes": false,
+  "publication": false,
+  "global_clearance": false,
+  "stopped": true
+}

@@ -1,0 +1,500 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index 377c20e84..2b3248115 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -5012,6 +5012,7 @@ dependencies = [
+  "anyhow",
+  "async-lock",
+  "bytemuck",
++ "derive_more 2.1.1",
+  "fabelgeist-color",
+  "fabelgeist-fs",
+  "fabelgeist-math",
+diff --git a/crates/fabelgeist-compute/src/kernel/fast.rs b/crates/fabelgeist-compute/src/kernel/fast.rs
+index 6708a1762..e1b53a5ce 100644
+--- a/crates/fabelgeist-compute/src/kernel/fast.rs
++++ b/crates/fabelgeist-compute/src/kernel/fast.rs
+@@ -119,11 +119,7 @@ impl CompiledLayout {
+         entry_point: &str,
+     ) -> Result<Self> {
+         #[cfg(not(target_arch = "wasm32"))]
+-        let error_scope = context.blocking_validation.then(|| {
+-            context
+-                .device
+-                .push_error_scope(wgpu::ErrorFilter::Validation)
+-        });
++        let error_scope = context.validation_observation.start_scope(&context.device);
+         let layout = context
+             .device
+             .create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {
+diff --git a/crates/fabelgeist-gpu/Cargo.toml b/crates/fabelgeist-gpu/Cargo.toml
+index 147cd8b21..43ec5b14c 100644
+--- a/crates/fabelgeist-gpu/Cargo.toml
++++ b/crates/fabelgeist-gpu/Cargo.toml
+@@ -10,6 +10,7 @@ fabelgeist-math = { "default-features" = false, "features" = ["wgpu"], "path" =
+ fabelgeist-color = { "features" = ["wgpu"], "path" = "../fabelgeist-color" }
+ anyhow = { "version" = "1.0" }
+ bytemuck = { "version" = "1.16", "features" = ["derive"] }
++derive_more = { "version" = "2.1.1", "features" = ["display", "error"] }
+ indexmap = { "version" = "2.12.1", "features" = ["serde"] }
+ serde = { "version" = "1", "features" = ["derive"] }
+ strum = { "version" = "0.27.2", "features" = ["derive"] }
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs b/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs
+index 0a287a846..8489b7ec8 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs
+@@ -48,11 +48,7 @@ impl ComputeShader {
+ 
+         // 3. WGPU Validation & Creation
+         #[cfg(not(target_arch = "wasm32"))]
+-        let error_scope = context.blocking_validation.then(|| {
+-            context
+-                .device
+-                .push_error_scope(wgpu::ErrorFilter::Validation)
+-        });
++        let error_scope = context.validation_observation.start_scope(&context.device);
+ 
+         let sm = context
+             .device
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs b/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs
+index 625ab4bac..ec5036064 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs
+@@ -1,15 +1,15 @@
+-mod compute_shader;
+-mod reflection;
+-pub use compute_shader::*;
+-
+ use crate::data::TextureFormat;
+ use crate::data::gpu::shader::{ReflectionData, parse_naga};
+-use crate::globals::WgpuContext;
++use crate::globals::{ValidationObservation, WgpuContext};
+ use anyhow::{Result, anyhow};
++pub use compute_shader::*;
+ 
+ use std::collections::HashMap;
+ use std::sync::{Arc, Mutex};
+ 
++mod compute_shader;
++mod reflection;
++
+ #[derive(Clone, Debug)]
+ pub struct ComputePipeline {
+     pub shader: ComputeShader,
+@@ -39,21 +39,24 @@ impl ComputePipeline {
+         device: &wgpu::Device,
+         entry_point: &str,
+     ) -> anyhow::Result<Arc<wgpu::ComputePipeline>> {
+-        self.get_or_create_pipeline_validated(device, entry_point, true)
++        self.get_or_create_pipeline_validated(
++            device,
++            entry_point,
++            ValidationObservation::BlockingScopes,
++        )
+     }
+ 
+     /// The same, with control over whether the validation error scope is read
+     /// back. Draining the queue to read it is only safe on a device nothing
+-    /// else is submitting to -- see `WgpuContext::blocking_validation`.
++    /// else is submitting to -- see `WgpuContext::validation_observation`.
+     pub fn get_or_create_pipeline_validated(
+         &self,
+         device: &wgpu::Device,
+         entry_point: &str,
+-        // The web never blocks to read the scope back.
+-        #[cfg_attr(target_arch = "wasm32", allow(unused_variables))] blocking_validation: bool,
++        validation_observation: ValidationObservation,
+     ) -> anyhow::Result<Arc<wgpu::ComputePipeline>> {
+         #[cfg(target_arch = "wasm32")]
+-        let _ = blocking_validation;
++        let _ = validation_observation;
+         use std::collections::hash_map::DefaultHasher;
+         use std::hash::{Hash, Hasher};
+ 
+@@ -79,8 +82,7 @@ impl ComputePipeline {
+ 
+         // Create Pipeline
+         #[cfg(not(target_arch = "wasm32"))]
+-        let error_scope =
+-            blocking_validation.then(|| device.push_error_scope(wgpu::ErrorFilter::Validation));
++        let error_scope = validation_observation.start_scope(device);
+ 
+         let module = self
+             .shader
+@@ -172,7 +174,7 @@ impl ComputePipeline {
+         let pipeline = self.get_or_create_pipeline_validated(
+             &context.device,
+             &reflection.vertex_entry_point,
+-            context.blocking_validation,
++            context.validation_observation,
+         )?;
+         let validation = self
+             .validation_error
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs
+index b4c0357f3..f16536c5a 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs
+@@ -130,11 +130,7 @@ impl Texture2d {
+         // waits for a queue that never empties. The same rule the shader and
+         // pipeline paths follow: only a context that owns its device drains it.
+         #[cfg(not(target_arch = "wasm32"))]
+-        let error_scope = context.blocking_validation.then(|| {
+-            context
+-                .device
+-                .push_error_scope(wgpu::ErrorFilter::Validation)
+-        });
++        let error_scope = context.validation_observation.start_scope(&context.device);
+ 
+         let texture = context.device.create_texture(&texture_desc);
+ 
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs
+index 72fa66f16..2dd8d6f74 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs
+@@ -8,13 +8,14 @@ use crate::{
+     globals::WgpuContext,
+ };
+ use std::sync::Arc;
++use wgpu::TextureView;
+ 
+ impl Texture2d {
+     pub fn view_with_format(
+         &self,
+         _context: &WgpuContext,
+         format: TextureFormat,
+-    ) -> TextureViewResult<Arc<wgpu::TextureView>> {
++    ) -> TextureViewResult<Arc<TextureView>> {
+         if format == self.format {
+             return self.view.clone().ok_or(TextureViewError::MissingView);
+         }
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs
+index 51f1976f9..bc5547d6a 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs
+@@ -8,13 +8,14 @@ use crate::{
+     globals::WgpuContext,
+ };
+ use std::sync::Arc;
++use wgpu::TextureView;
+ 
+ impl Texture3d {
+     pub fn view_with_format(
+         &self,
+         _context: &WgpuContext,
+         format: TextureFormat,
+-    ) -> TextureViewResult<Arc<wgpu::TextureView>> {
++    ) -> TextureViewResult<Arc<TextureView>> {
+         if format == self.format {
+             return self.view.clone().ok_or(TextureViewError::MissingView);
+         }
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs
+index 25ad6ce45..7b3c12180 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs
+@@ -8,13 +8,14 @@ use crate::{
+     globals::WgpuContext,
+ };
+ use std::sync::Arc;
++use wgpu::TextureView;
+ 
+ impl TextureCube {
+     pub fn view_with_format(
+         &self,
+         _ctx: &WgpuContext,
+         format: TextureFormat,
+-    ) -> TextureViewResult<Arc<wgpu::TextureView>> {
++    ) -> TextureViewResult<Arc<TextureView>> {
+         if format == self.format {
+             return self.view.clone().ok_or(TextureViewError::MissingView);
+         }
+diff --git a/crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs b/crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs
+index a9745304d..397141d2a 100644
+--- a/crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs
++++ b/crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs
+@@ -4,6 +4,7 @@ use super::TextureFormat;
+ use crate::globals::ValidationProgressError;
+ #[cfg(not(target_arch = "wasm32"))]
+ use crate::globals::ValidationScopeError;
++use derive_more::Display;
+ 
+ /// The concrete result of selecting a whole-texture format view.
+ ///
+@@ -23,29 +24,37 @@ pub enum TextureViewOperation {
+ ///
+ /// Native variants retain the original request, even when storage binding
+ /// requires its linear counterpart at the WebGPU descriptor boundary.
+-#[derive(Debug)]
++#[derive(Debug, Display)]
+ pub enum TextureViewError {
+     /// The operation requires a native texture, but none is present.
++    #[display("Texture is not initialized")]
+     Uninitialized,
+     /// The operation requires a cached view, but none is present.
++    #[display("Texture has no view")]
+     MissingView,
+     /// Failed progress retains the request and any captured native rejection.
++    #[display(
++        "WGPU {operation:?} view validation observation Error (requested {requested:?}): {cause}"
++    )]
+     Progress {
+         requested: TextureFormat,
+         operation: TextureViewOperation,
+         cause: Box<ValidationProgressError>,
+     },
+     /// Native rejection of a two-dimensional texture view.
++    #[display("WGPU Texture2d view_with_format Error (requested {requested:?}): {cause}")]
+     Texture2d {
+         requested: TextureFormat,
+         cause: Box<wgpu::Error>,
+     },
+     /// Native rejection of a three-dimensional texture view.
++    #[display("WGPU Texture3d view_with_format Error (requested {requested:?}): {cause}")]
+     Texture3d {
+         requested: TextureFormat,
+         cause: Box<wgpu::Error>,
+     },
+     /// Native rejection of a cube texture view.
++    #[display("WGPU TextureCube view_with_format Error (requested {requested:?}): {cause}")]
+     TextureCube {
+         requested: TextureFormat,
+         cause: Box<wgpu::Error>,
+@@ -78,35 +87,9 @@ impl TextureViewError {
+     }
+ }
+ 
+-impl std::fmt::Display for TextureViewError {
+-    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+-        match self {
+-            Self::Uninitialized => formatter.write_str("Texture is not initialized"),
+-            Self::MissingView => formatter.write_str("Texture has no view"),
+-            Self::Progress {
+-                requested,
+-                operation,
+-                cause,
+-            } => write!(
+-                formatter,
+-                "WGPU {operation:?} view validation observation Error (requested {requested:?}): {cause}"
+-            ),
+-            Self::Texture2d { requested, cause } => write!(
+-                formatter,
+-                "WGPU Texture2d view_with_format Error (requested {requested:?}): {cause}"
+-            ),
+-            Self::Texture3d { requested, cause } => write!(
+-                formatter,
+-                "WGPU Texture3d view_with_format Error (requested {requested:?}): {cause}"
+-            ),
+-            Self::TextureCube { requested, cause } => write!(
+-                formatter,
+-                "WGPU TextureCube view_with_format Error (requested {requested:?}): {cause}"
+-            ),
+-        }
+-    }
+-}
+-
++// Keep the concrete error behind each box as the dynamic source for downcasts.
++// Deriving Error would expose the Box itself; the progress box also has a
++// different concrete type from the three native-error boxes.
+ impl std::error::Error for TextureViewError {
+     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+         match self {
+diff --git a/crates/fabelgeist-gpu/src/globals/mod.rs b/crates/fabelgeist-gpu/src/globals/mod.rs
+index d124c8b8b..be4fa01d7 100644
+--- a/crates/fabelgeist-gpu/src/globals/mod.rs
++++ b/crates/fabelgeist-gpu/src/globals/mod.rs
+@@ -1,7 +1,9 @@
++pub use validation_observation::ValidationObservation;
+ #[cfg(not(target_arch = "wasm32"))]
+ pub use validation_scope::ValidationScope;
+ pub use validation_scope::{ValidationProgressError, ValidationScopeError, ValidationScopeResult};
+ pub use wgpu_context::*;
+ 
++mod validation_observation;
+ mod validation_scope;
+ mod wgpu_context;
+diff --git a/crates/fabelgeist-gpu/src/globals/validation_scope.rs b/crates/fabelgeist-gpu/src/globals/validation_scope.rs
+index fd6300086..5bfda1ea0 100644
+--- a/crates/fabelgeist-gpu/src/globals/validation_scope.rs
++++ b/crates/fabelgeist-gpu/src/globals/validation_scope.rs
+@@ -2,6 +2,7 @@
+ 
+ #[cfg(not(target_arch = "wasm32"))]
+ use super::WgpuContext;
++use derive_more::{Display, Error};
+ #[cfg(not(target_arch = "wasm32"))]
+ use std::sync::Arc;
+ use std::{error::Error, fmt};
+@@ -24,10 +25,12 @@ pub struct ValidationScope {
+ }
+ 
+ /// Native rejection or incomplete progress while observing validation.
+-#[derive(Debug)]
++#[derive(Debug, Display, Error)]
+ pub enum ValidationScopeError {
+-    Native(wgpu::Error),
+-    Progress(ValidationProgressError),
++    #[display("{_0}")]
++    Native(#[error(source)] wgpu::Error),
++    #[display("{_0}")]
++    Progress(#[error(source)] ValidationProgressError),
+ }
+ 
+ impl fmt::Display for ValidationProgressError {
+@@ -55,13 +58,12 @@ impl Error for ValidationProgressError {
+ 
+ #[cfg(not(target_arch = "wasm32"))]
+ impl ValidationScope {
+-    /// Return no guard when `context.blocking_validation` is disabled.
++    /// Return no guard when the context leaves validation errors uncaptured.
+     pub fn new(context: &WgpuContext) -> Option<Self> {
+-        context.blocking_validation.then(|| Self {
++        let guard = context.validation_observation.start_scope(&context.device)?;
++        Some(Self {
+             device: context.device.clone(),
+-            guard: context
+-                .device
+-                .push_error_scope(wgpu::ErrorFilter::Validation),
++            guard,
+         })
+     }
+ 
+@@ -93,21 +95,3 @@ impl ValidationScopeError {
+         }
+     }
+ }
+-
+-impl fmt::Display for ValidationScopeError {
+-    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+-        match self {
+-            Self::Native(cause) => fmt::Display::fmt(cause, formatter),
+-            Self::Progress(cause) => fmt::Display::fmt(cause, formatter),
+-        }
+-    }
+-}
+-
+-impl Error for ValidationScopeError {
+-    fn source(&self) -> Option<&(dyn Error + 'static)> {
+-        Some(match self {
+-            Self::Native(cause) => cause,
+-            Self::Progress(cause) => cause,
+-        })
+-    }
+-}
+diff --git a/crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs b/crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs
+index 3a540cc7f..5dd6cd39d 100644
+--- a/crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs
++++ b/crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs
+@@ -1,8 +1,10 @@
++use super::ValidationObservation;
+ use anyhow::{Result, anyhow};
++pub use blitter::Blitter;
+ use std::sync::Arc;
+ use wgpu::{Adapter, Device, Instance, Queue};
++
+ pub mod blitter;
+-pub use blitter::Blitter;
+ 
+ #[derive(Clone)]
+ pub struct WgpuContext {
+@@ -15,18 +17,18 @@ pub struct WgpuContext {
+     pub surface: Option<Arc<wgpu::Surface<'static>>>,
+     pub blitter: Option<Arc<Blitter>>,
+     pub blit_lock: Arc<async_lock::Mutex<()>>,
+-    /// Whether shader, pipeline and whole-texture format-view creation may wait
+-    /// for the device to read back a native validation error scope.
++    /// How shader, pipeline and whole-texture format-view creation observe
++    /// native validation errors.
+     ///
+-    /// Owned native contexts enable this observation. Borrowed contexts and
+-    /// browser targets disable it to avoid synchronously waiting on another
+-    /// application's active device or the browser event loop. Native errors
+-    /// then follow the provider's uncaptured-error policy.
++    /// Contexts that create a native device select blocking scopes. Contexts
++    /// wrapping an existing device and browser targets select uncaptured errors
++    /// to avoid synchronously waiting on another application's active device or
++    /// the browser event loop.
+     ///
+     /// Texture constructors and cube subresource views have separate validation
+     /// paths and do not yet consistently honor this policy. Observing a scope
+     /// does not establish the device's global health or roll back prior work.
+-    pub blocking_validation: bool,
++    pub validation_observation: ValidationObservation,
+ }
+ 
+ /// Reports which GPU the adapter request actually landed on. `device_type: Cpu`
+@@ -111,7 +113,7 @@ impl WgpuContext {
+             blit_lock: Arc::new(async_lock::Mutex::new(())),
+             // Someone else's device, and very likely someone else's render
+             // loop with it.
+-            blocking_validation: false,
++            validation_observation: ValidationObservation::Uncaptured,
+         }
+     }
+ 
+@@ -126,7 +128,7 @@ impl WgpuContext {
+     /// Waits on a submission index rather than the whole queue, so it is safe
+     /// on a device shared with a renderer -- unlike `poll(wait_indefinitely)`,
+     /// which never returns while something else keeps submitting. See
+-    /// [`WgpuContext::blocking_validation`].
++    /// [`WgpuContext::validation_observation`].
+     pub async fn submitted_work_done(&self) {
+         #[cfg(not(target_arch = "wasm32"))]
+         {
+@@ -265,7 +267,11 @@ impl WgpuContext {
+             surface,
+             blitter,
+             blit_lock: Arc::new(async_lock::Mutex::new(())),
+-            blocking_validation: !cfg!(target_arch = "wasm32"),
++            validation_observation: if cfg!(target_arch = "wasm32") {
++                ValidationObservation::Uncaptured
++            } else {
++                ValidationObservation::BlockingScopes
++            },
+         })
+     }
+ }
+@@ -289,7 +295,10 @@ mod tests {
+     async fn a_borrowed_device_skips_blocking_validation() -> Result<()> {
+         let owned = WgpuContext::new().await?;
+         assert!(
+-            owned.blocking_validation,
++            matches!(
++                owned.validation_observation,
++                ValidationObservation::BlockingScopes
++            ),
+             "a context that owns its device can afford to read the error scope"
+         );
+ 
+@@ -300,7 +309,10 @@ mod tests {
+             owned.queue.clone(),
+         );
+         assert!(
+-            !borrowed.blocking_validation,
++            matches!(
++                borrowed.validation_observation,
++                ValidationObservation::Uncaptured
++            ),
+             "a borrowed device may have someone else submitting to it; draining              its queue would block until the driver gives up"
+         );
+         assert!(borrowed.surface.is_none());
+diff --git a/crates/fabelgeist-gpu/texture-views.md b/crates/fabelgeist-gpu/texture-views.md
+index 0f8c2dfc3..28f30a957 100644
+--- a/crates/fabelgeist-gpu/texture-views.md
++++ b/crates/fabelgeist-gpu/texture-views.md
+@@ -44,10 +44,13 @@ Storage binding requires an sRGB request to select its linear counterpart at
+ the descriptor boundary. The original request remains in a rejection. The
+ method preserves descriptor inference, cube layers, labels and validation
+ filtering. Cached returns do not poll. On native targets, alternate-format view
+-creation observes validation only when `WgpuContext::blocking_validation` is
+-enabled. Borrowed contexts disable that policy and leave native errors to the
+-provider's uncaptured-error handling. Browser targets do not synchronously wait
+-for a native validation scope.
++creation observes validation only when
++`WgpuContext::validation_observation` selects
++`ValidationObservation::BlockingScopes`. Borrowed and browser contexts select
++`ValidationObservation::Uncaptured`, leaving native errors to the provider's
++uncaptured-error handling. The same policy type is carried through shader,
++pipeline and compute fast-path creation. Ownership and presentation are
++independent of this observation choice.
+ 
+ Enabled observation attempts the native wait and then always pops its scope,
+ including after a polling failure. A captured rejection returns its native

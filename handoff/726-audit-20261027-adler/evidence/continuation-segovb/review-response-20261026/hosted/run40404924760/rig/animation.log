@@ -1,0 +1,299 @@
+[1m[92m   Compiling[0m adventuresim-world-schema v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-world-schema)
+[1m[92m   Compiling[0m fabelgeist-timer v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-timer)
+[1m[92m   Compiling[0m fabelgeist-color v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-color)
+[1m[92m   Compiling[0m fabelgeist-math v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-math)
+[1m[92m   Compiling[0m fabelgeist-geometry v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-geometry)
+[1m[92m   Compiling[0m fabelgeist-gpu v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-gpu)
+[1m[92m   Compiling[0m adventuresim-puzzles v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-puzzles)
+[1m[92m   Compiling[0m adventuresim-weapon-model v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-weapon-model)
+[1m[92m   Compiling[0m fabelgeist-compute v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-compute)
+[1m[92m   Compiling[0m adventuresim-dialogue v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-dialogue)
+[1m[92m   Compiling[0m fabelgeist-bvh v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-bvh)
+[1m[92m   Compiling[0m adventuresim-core v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-core)
+[1m[92m   Compiling[0m fabelgeist-xpbd v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-xpbd)
+[1m[92m   Compiling[0m fabelgeist-physics v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-physics)
+[1m[92m   Compiling[0m fabelgeist-mesh v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-mesh)
+[1m[92m   Compiling[0m fabelgeist-shell v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-shell)
+[1m[92m   Compiling[0m fabelgeist-garment-code v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-garment-code)
+[1m[92m   Compiling[0m fabelgeist-cloth v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-cloth)
+[1m[92m   Compiling[0m bevy_ahoy v0.2.0 (/home/runner/work/fabelgeist/fabelgeist/vendor/bevy_ahoy)
+[1m[92m   Compiling[0m adventuresim-building-generator v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-building-generator)
+[1m[92m   Compiling[0m fabelgeist-spatial-hash v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-spatial-hash)
+[1m[92m   Compiling[0m fabelgeist-rig v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-rig)
+[1m[92m   Compiling[0m adventuresim-tactical-client v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client)
+[1m[92m   Compiling[0m adventuresim-tactical-core v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-core)
+[1m[92m   Compiling[0m fabelgeist-armor v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-armor)
+[1m[92m   Compiling[0m fabelgeist-hair v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-hair)
+[1m[92m   Compiling[0m fabelgeist-garment-fit v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-garment-fit)
+[1m[92m   Compiling[0m adventuresim-tactical-netcode v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-netcode)
+[1m[92m   Compiling[0m adventuresim-character-creator v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-character-creator)
+[1m[92m   Compiling[0m adventuresim-plant-generator v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-plant-generator)
+[1m[92m   Compiling[0m adventuresim-procedural-textures v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-procedural-textures)
+[1m[92m   Compiling[0m adventuresim-procedural-materials v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-procedural-materials)
+[1m[92m    Finished[0m `test` profile [optimized] target(s) in 5m 20s
+[1m[92m     Running[0m unittests src/main.rs (target/debug/deps/adventuresim_tactical_client-a2bbc1129c63ae10)
+
+running 260 tests
+test animation::bouncy_bones::tests::every_hit_body_part_lands_on_a_reactive_bone ... ok
+test animation::bouncy_bones::tests::reactive_chain_indices_point_at_earlier_bones_and_end_at_the_pelvis ... ok
+test animation::bouncy_bones::tests::spring_decays_toward_rest_and_snaps_to_exact_zero ... ok
+test animation::bouncy_bones::tests::spring_step_is_stable_for_large_render_deltas ... ok
+test animation::capture_ids::capture_id_tests::capture_ids_have_explicit_stable_encodings ... ok
+test animation::contract_tests::attack_semantics_use_the_canonical_motion_names ... ok
+test animation::contract_tests::authored_quickstep_timeline_never_requests_leg_ik ... ok
+test animation::contract_tests::combat_cycle_ik_switches_exclusive_support_at_authored_contacts ... ok
+test animation::contract_tests::planted_and_moving_combat_both_component_blend_the_pelvis ... ok
+test animation::contract_tests::sparse_catalog_declares_airborne_and_three_attack_assets ... ok
+test animation::identity_morphs::tests::late_loaded_bodies_use_distinct_identity_without_mutating_shared_mesh ... ok
+test animation::jitter::tests::authored_combat_locomotion_uses_keyframe_derivative_limits ... ok
+test animation::jitter::tests::detects_large_position_jerk ... ok
+test animation::jitter::tests::force_driven_quickstep_uses_explosive_derivative_limits ... ok
+test animation::jitter::tests::guard_stop_contacts_restart_derivative_windows_only ... ok
+test animation::jitter::tests::ignores_noise_floor ... ok
+test animation::jitter::tests::stationary_turn_jitter_excludes_only_spawn_acquisition ... ok
+test animation::jitter::tests::steady_authored_guard_excludes_spawn_but_transition_does_not ... ok
+test animation::pose_buffer::contact_calibration::tests::authored_contact_fit_ignores_airborne_foot_excursions ... ok
+test animation::pose_buffer::contact_calibration::tests::authored_foot_range_is_the_average_foot_travel_along_the_motion_axis ... ok
+test animation::pose_buffer::hierarchy::tests::hand_layer_contains_only_hand_bone_subtrees ... ok
+test animation::pose_buffer::inertialization::tests::angular_velocity_uses_the_short_quaternion_hemisphere ... ok
+test animation::pose_buffer::inertialization::tests::chained_interruptions_preserve_the_displayed_pose ... ok
+test animation::pose_buffer::inertialization::tests::closing_velocity_is_preserved_and_diverging_velocity_is_dropped ... ok
+test animation::pose_buffer::inertialization::tests::decay_finishes_with_zero_velocity ... ok
+test animation::pose_buffer::inertialization::tests::fast_closing_offsets_finish_early_instead_of_overshooting ... ok
+test animation::pose_buffer::inertialization::tests::quaternion_antipodes_interpolate_without_a_teleport ... ok
+test animation::pose_buffer::inertialization::tests::quintic_starts_on_the_displayed_pose_and_lands_exactly_on_the_target ... ok
+test animation::pose_buffer::locomotion_sampling::tests::sparse_locomotion_sampling_uses_only_semantic_quarter_cycle_anchors ... ok
+test animation::pose_buffer::proportions::tests::skeletal_proportions_preserve_shared_motion_and_do_not_accumulate ... ok
+test animation::pose_buffer::sampling_clock::tests::large_frame_gaps_are_bounded_but_consume_sampler_debt ... ok
+test animation::pose_buffer::stride_calibration::tests::skeletal_proportions_remeasure_stride_from_actual_limb_lengths ... ok
+test animation::pose_buffer::tests::anchor_curve_span_conserves_transform_velocity_through_contact ... ok
+test animation::pose_buffer::tests::combat_contact_retains_world_pose_until_the_plant_limit ... ok
+test animation::pose_buffer::tests::combat_pelvis_uses_attack_rotation_and_locomotion_translation ... ok
+test animation::pose_buffer::tests::continuation_spline_interpolates_anchors_and_preserves_derivatives ... ok
+test animation::pose_buffer::tests::non_finite_samples_fall_back_to_the_bind_pose ... ok
+test animation::pose_buffer::tests::pelvis_rotation_compensation_keeps_an_unweighted_foot_at_locomotion_fk ... ok
+test animation::pose_buffer::tests::pose_extrapolation_extends_translation_and_shortest_rotation ... ok
+test animation::pose_buffer::tests::presentation_space_removes_the_controller_centre_height ... ok
+test animation::pose_buffer::tests::terrain_solve_does_not_lower_an_authored_flat_ground_foot ... ok
+test animation::pose_buffer::tests::terrain_solve_modifies_next_pose_before_local_pose_interpolation ... ok
+test animation::pose_buffer::tests::translating_combat_terrain_conformity_preserves_every_authored_xz_sample ... ok
+test animation::pose_buffer::visibility::tests::strategic_pose_culling_uses_active_views_and_matching_layers ... ok
+test animation::presentation::authored_cadence_tests::coalesced_quickstep_phase_still_traverses_the_authored_timeline ... ok
+test animation::presentation::authored_cadence_tests::completed_authoritative_attack_finishes_its_presented_tail ... ok
+test animation::presentation::authored_cadence_tests::delayed_attack_packet_converges_without_skipping_authored_motion ... ok
+test animation::presentation::authored_cadence_tests::follow_up_recovery_spends_time_on_its_authored_overshoot ... ok
+test animation::presentation::authored_cadence_tests::ordinary_attack_advances_between_repeated_authoritative_contact_samples ... ok
+test animation::presentation::authored_cadence_tests::ordinary_attack_reconciles_packets_without_reversing_visual_phase ... ok
+test animation::presentation::authored_cadence_tests::predicted_follow_up_survives_stale_initial_attack_packet ... ok
+test animation::presentation::authored_cadence_tests::released_guard_cannot_replace_the_presented_quickstep_timeline ... ok
+test animation::presentation::cadence::tests::authored_cadence_cap_has_a_smooth_bounded_transition ... ok
+test animation::presentation::cadence::tests::authored_cadence_reports_and_caps_unrepresentable_speed ... ok
+test animation::presentation::cadence::tests::authored_walk_stride_controls_visual_cycle_rate ... ok
+test animation::presentation::cadence::tests::diagonal_combat_cadence_blends_strafe_and_skip_stride ... ok
+test animation::presentation::cadence::tests::rejected_recalibration_clears_only_the_changed_motion ... ok
+test animation::procedural::body_response::tests::acceleration_response_has_smooth_attack_and_release ... ok
+test animation::procedural::body_response::tests::body_response_preserves_motion_through_a_target_step ... ok
+test animation::procedural::body_response::tests::body_response_step_is_bounded_by_render_time ... ok
+test animation::procedural::body_response::tests::deceleration_lean_follows_current_planar_speed_only_while_braking ... ok
+test animation::procedural::body_response::tests::pelvis_response_uses_a_stable_reference_and_exactly_compensates_legs ... ok
+test animation::procedural::body_response::tests::sprint_ramp_is_continuous_and_settles_below_its_startup_peak ... ok
+test animation::procedural::contract_tests::guarded_run_pelvis_yaw_is_cancelled_at_the_upper_body_boundary ... ok
+test animation::procedural::contract_tests::measured_sole_offset_matches_the_authored_rig ... ok
+test animation::procedural::contract_tests::presentation_tick_delta_handles_wrap_and_rejects_large_gaps ... ok
+test animation::procedural::contract_tests::raised_guard_never_adds_jump_charge_pelvis_lowering ... ok
+test animation::procedural::contract_tests::run_flight_is_additive_without_replacing_authored_pelvis_translation ... ok
+test animation::procedural::contract_tests::walk_preserves_authored_root_and_pelvis_translation ... ok
+test animation::procedural::dive::tests::airborne_dive_pelvis_faces_forward_independently_of_guard_rotation ... ok
+test animation::procedural::dive::tests::dive_pelvis_lean_tips_up_axis_exactly_toward_travel ... ok
+test animation::procedural::dive::tests::dive_pelvis_override_releases_exactly_to_authored_contact ... ok
+test animation::procedural::ik::foot_roll::tests::run_foot_roll_has_heel_flat_and_toe_off_beats ... ok
+test animation::procedural::ik::hands::memory_tests::resetting_leg_memory_cannot_reset_arm_continuity ... ok
+test animation::procedural::ik::hands::target_tests::secondary_grip_uses_final_weapon_transform ... ok
+test animation::procedural::ik::hands::tests::held_weapon_uses_the_authored_socket_orientation_without_inheriting_scale ... ok
+test animation::procedural::ik::locomotion::tests::attack_uses_the_live_guard_support_weights ... ok
+test animation::procedural::ik::locomotion::tests::authored_ownership_routes_only_translating_raised_guard_to_locomotion_ik ... ok
+test animation::procedural::ik::locomotion::tests::authored_posture_transition_excludes_ordinary_locomotion_ik ... ok
+test animation::procedural::ik::locomotion::tests::ordinary_swing_support_is_not_filled_in_by_low_speed ... ok
+test animation::procedural::ik::locomotion::tests::raised_guard_movement_reports_exactly_one_procedural_support_foot ... ok
+test animation::procedural::ik::settle::planning::tests::settle_landing_is_ahead_of_the_capture_point ... ok
+test animation::procedural::ik::settle::planning::tests::settle_landing_retains_the_actual_swing_track ... ok
+test animation::procedural::ik::settle::planning::tests::unsupported_idle_recovers_from_feet_toward_projected_com ... ok
+test animation::procedural::ik::solver::tests::authored_knee_bend_is_preserved_within_the_stable_pole_hemisphere ... ok
+test animation::procedural::ik::solver::tests::leg_solver_keeps_minimum_flexion_and_anatomical_hemisphere ... ok
+test animation::procedural::ik::solver::tests::lower_joint_solves_through_twist_intermediate_parent ... ok
+test animation::procedural::ik::solver::tests::stable_pole_overrides_an_authored_knee_in_the_opposite_hemisphere ... ok
+test animation::procedural::ik::solver::tests::straight_chain_uses_rig_bind_space_knee_pole ... ok
+test animation::procedural::ik::solver::tests::two_bone_solver_clamps_unreachable_target_without_nan ... ok
+test animation::procedural::ik::solver::tests::two_bone_solver_preserves_segment_lengths_and_reaches_target ... ok
+test animation::procedural::ik::terrain_contacts::approach::tests::collapsed_contact_window_is_a_step_and_small_windows_interpolate ... ok
+test animation::procedural::ik::terrain_contacts::flight_projection::tests::captured_run_swing_step_keeps_target_inside_knee_budget_margin ... ok
+test animation::procedural::ik::terrain_contacts::flight_projection::tests::first_run_release_searches_off_chord_for_terrain_clearance ... ok
+test animation::procedural::ik::terrain_contacts::flight_projection::tests::uphill_airborne_projection_preserves_clearance_and_step_budget ... ok
+test animation::procedural::ik::terrain_contacts::foot_clearance::tests::settle_swing_leaves_and_returns_to_ground_only_at_contact ... ok
+test animation::procedural::ik::tests::coordination_tests::acquired_plant_survives_authored_fk_divergence_until_support_exit ... ok
+test animation::procedural::ik::tests::coordination_tests::acquired_support_waits_for_replacement_contact_not_phase_exit ... ok
+test animation::procedural::ik::tests::coordination_tests::airborne_foot_orientation_releases_at_a_bounded_angular_speed ... ok
+test animation::procedural::ik::tests::coordination_tests::airborne_run_limiter_bounds_combined_horizontal_and_clearance_motion ... ok
+test animation::procedural::ik::tests::coordination_tests::airborne_settle_support_lands_atomically_once_contact_is_reachable ... ok
+test animation::procedural::ik::tests::coordination_tests::attack_knee_bend_parallel_transports_with_the_leg ... ok
+test animation::procedural::ik::tests::coordination_tests::attack_knee_bend_rejects_an_inward_authored_pole ... ok
+test animation::procedural::ik::tests::coordination_tests::attack_knee_bend_retains_the_pre_attack_rendered_pole ... ok
+test animation::procedural::ik::tests::coordination_tests::attack_knee_bend_survives_a_straight_leg_singularity ... ok
+test animation::procedural::ik::tests::coordination_tests::authored_locomotion_releases_dormant_raised_pelvis_correction ... ok
+test animation::procedural::ik::tests::coordination_tests::authored_to_idle_handoff_does_not_reset_contact_sequence ... ok
+test animation::procedural::ik::tests::coordination_tests::cancelled_settle_returns_to_run_inside_the_existing_knee_budget ... ok
+test animation::procedural::ik::tests::coordination_tests::cold_start_clearance_solve_reports_procedural_release_ownership ... ok
+test animation::procedural::ik::tests::coordination_tests::cold_start_run_plan_is_bounded_over_the_remaining_approach ... ok
+test animation::procedural::ik::tests::coordination_tests::completed_settle_promotes_both_targets_to_stable_idle_plants ... ok
+test animation::procedural::ik::tests::coordination_tests::diagonal_leg_cannot_rotate_clamped_pole_yaw_sideways ... ok
+test animation::procedural::ik::tests::coordination_tests::downhill_rising_contact_retargets_inside_current_leg_reach ... ok
+test animation::procedural::ik::tests::coordination_tests::expired_late_plan_replaces_all_frozen_swing_metadata ... ok
+test animation::procedural::ik::tests::coordination_tests::final_run_descent_transports_unacquired_footprint_then_freezes_it ... ok
+test animation::procedural::ik::tests::coordination_tests::finished_terminal_reach_persists_through_held_idle ... ok
+test animation::procedural::ik::tests::coordination_tests::first_run_release_uses_last_propagated_foot_orientation ... ok
+test animation::procedural::ik::tests::coordination_tests::frozen_plan_survives_support_entry_until_actual_acquisition ... ok
+test animation::procedural::ik::tests::coordination_tests::frozen_run_contact_is_reachable_through_predicted_downhill_stance ... ok
+test animation::procedural::ik::tests::coordination_tests::full_cycle_run_plan_has_no_progress_velocity_seam ... ok
+test animation::procedural::ik::tests::coordination_tests::guard_frame_validation_allows_airborne_foot_to_pass_support ... ok
+test animation::procedural::ik::tests::coordination_tests::guard_reacquire_moves_the_foot_whose_path_does_not_cross_support ... ok
+test animation::procedural::ik::tests::coordination_tests::guard_step_state_cannot_represent_two_swing_feet ... ok
+test animation::procedural::ik::tests::coordination_tests::guard_swing_has_zero_endpoint_velocity_and_acceleration ... ok
+test animation::procedural::ik::tests::coordination_tests::guard_target_validation_never_moves_support_and_rejects_non_finite_input ... ok
+test animation::procedural::ik::tests::coordination_tests::guard_target_validation_preserves_horizontal_swing_while_lifting_for_reach ... ok
+test animation::procedural::ik::tests::coordination_tests::high_speed_unplanned_release_uses_run_budget_before_gait_style_catches_up ... ok
+test animation::procedural::ik::tests::coordination_tests::immediate_restart_cancels_settle_without_waiting_for_release_targets ... ok
+test animation::procedural::ik::tests::coordination_tests::knee_pole_inside_foot_facing_cone_is_unchanged ... ok
+test animation::procedural::ik::tests::coordination_tests::knee_pole_is_clamped_to_pi_over_eight_from_foot_facing ... ok
+test animation::procedural::ik::tests::coordination_tests::new_run_plan_prefers_last_propagated_ankle_over_stale_solve ... ok
+test animation::procedural::ik::tests::coordination_tests::new_run_plan_transports_in_progress_release_start_with_owner ... ok
+test animation::procedural::ik::tests::coordination_tests::newly_acquired_contact_keeps_orientation_blending_until_converged ... ok
+test animation::procedural::ik::tests::coordination_tests::owner_discontinuity_clears_both_plans_and_all_frozen_trajectory_metadata ... ok
+test animation::procedural::ik::tests::coordination_tests::planned_run_contact_anticipates_a_bounded_pelvis_reach_drop ... ok
+test animation::procedural::ik::tests::coordination_tests::quickstep_contact_handoff_can_be_held_without_waiting_for_a_full_stop ... ok
+test animation::procedural::ik::tests::coordination_tests::quickstep_contact_handoff_is_seeded_from_the_last_rendered_pose ... ok
+test animation::procedural::ik::tests::coordination_tests::raised_footwork_reports_the_visual_support_contact ... ok
+test animation::procedural::ik::tests::coordination_tests::raised_stop_handoff_preserves_visible_targets_in_owner_space ... ok
+test animation::procedural::ik::tests::coordination_tests::raised_stop_settle_keeps_terrain_ik_alive_across_ticks ... ok
+test animation::procedural::ik::tests::coordination_tests::raised_support_requires_rendered_sole_contact ... ok
+test animation::procedural::ik::tests::coordination_tests::raw_run_cycle_clears_toe_off_latch_and_reacquires_rising_plan ... ok
+test animation::procedural::ik::tests::coordination_tests::reach_released_support_lobe_cannot_reenter_before_true_flight ... ok
+test animation::procedural::ik::tests::coordination_tests::release_target_cap_preserves_the_knee_continuity_budget ... ok
+test animation::procedural::ik::tests::coordination_tests::release_to_planned_contact_starts_at_the_visible_solve_target ... ok
+test animation::procedural::ik::tests::coordination_tests::repeated_evaluation_restores_the_exact_cached_leg_chain ... ok
+test animation::procedural::ik::tests::coordination_tests::repeated_fixed_tick_leaves_advanced_ik_memory_identical ... ok
+test animation::procedural::ik::tests::coordination_tests::run_contact_approach_reaches_the_plant_at_support_entry ... ok
+test animation::procedural::ik::tests::coordination_tests::run_follower_can_converge_on_fixed_world_contact_at_full_speed ... ok
+test animation::procedural::ik::tests::coordination_tests::run_release_follows_root_once_and_lifts_only_clearance_floor ... ok
+test animation::procedural::ik::tests::coordination_tests::run_swing_end_and_first_support_sample_share_target_and_pole ... ok
+test animation::procedural::ik::tests::coordination_tests::run_toe_off_plan_survives_same_lobe_tail_and_next_ticks ... ok
+test animation::procedural::ik::tests::coordination_tests::shallow_acquisition_pole_survives_support_confidence_ramp ... ok
+test animation::procedural::ik::tests::coordination_tests::slope_rotation_cache_is_preserved_within_tick_and_cleared_between_modes ... ok
+test animation::procedural::ik::tests::coordination_tests::stationary_turn_retains_plants_until_limit_then_lifts_one_foot ... ok
+test animation::procedural::ik::tests::coordination_tests::stop_settle_retains_the_selected_rendered_support ... ok
+test animation::procedural::ik::tests::coordination_tests::stop_settle_seeds_from_visible_reach_limited_feet ... ok
+test animation::procedural::ik::tests::coordination_tests::stop_settle_uses_current_fk_only_without_a_rendered_snapshot ... ok
+test animation::procedural::ik::tests::coordination_tests::stop_settle_visible_airborne_support_remains_unacquired ... ok
+test animation::procedural::ik::tests::coordination_tests::terminal_contact_preparation_prefers_last_rendered_stance_over_stale_solve ... ok
+test animation::procedural::ik::tests::coordination_tests::terminal_contact_preparation_preserves_the_visible_pelvis_shift ... ok
+test animation::procedural::ik::tests::coordination_tests::terminal_prepared_contacts_own_both_solves_despite_zero_idle_cadence ... ok
+test animation::procedural::ik::tests::coordination_tests::terminal_settle_lowers_shared_root_until_both_contacts_are_reachable ... ok
+test animation::procedural::ik::tests::coordination_tests::terminal_settle_with_idle_followers_finishes_on_dual_terrain_contacts ... ok
+test animation::procedural::ik::tests::coordination_tests::toe_aware_settle_height_couples_ankle_clearance_to_the_visible_toe_lever ... ok
+test animation::procedural::ik::tests::coordination_tests::truthful_reported_support_does_not_erase_solver_ownership ... ok
+test animation::procedural::ik::tests::coordination_tests::unacquired_run_support_entry_keeps_using_bounded_follower ... ok
+test animation::procedural::ik::tests::coordination_tests::unplanned_run_support_lobe_waits_for_true_flight ... ok
+test animation::procedural::ik::tests::coordination_tests::unreachable_run_contact_keeps_flight_floor_until_chain_can_land ... ok
+test animation::procedural::ik_tests::additive_locomotion_height_covers_run_only ... ok
+test animation::procedural::ik_tests::airborne_release_is_bounded_to_fifty_three_millimetres_per_tick ... ok
+test animation::procedural::ik_tests::anatomical_side_does_not_collapse_during_mirror_blend ... ok
+test animation::procedural::ik_tests::attacks_keep_live_locomotion_support_while_unsupported_actions_preserve_authored_fk ... ok
+test animation::procedural::ik_tests::body_response_and_landing_compression_are_bounded ... ok
+test animation::procedural::ik_tests::camera_pitch_reaches_head_and_neck_only_while_guard_is_raised ... ok
+test animation::procedural::ik_tests::canonical_mhr_role_names_are_recognized ... ok
+test animation::procedural::ik_tests::cascadeur_foot_bind_axis_keeps_flat_ground_unchanged ... ok
+test animation::procedural::ik_tests::current_root_facing_removes_camera_yaw_from_the_neck_chain ... ok
+test animation::procedural::ik_tests::exhausted_support_releases_before_the_plant_can_skate ... ok
+test animation::procedural::ik_tests::first_support_solve_seeds_the_authored_knee_in_the_canonical_hemisphere ... ok
+test animation::procedural::ik_tests::foot_tracks_prevent_crossing_and_keep_minimum_separation ... ok
+test animation::procedural::ik_tests::global_mirror_uses_character_space_under_owner_rotation ... ok
+test animation::procedural::ik_tests::inactive_postures_require_raised_footwork_reset ... ok
+test animation::procedural::ik_tests::landing_knee_reserve_releases_smoothly_for_late_recovery_reach ... ok
+test animation::procedural::ik_tests::landing_leg_solve_preserves_the_foot_with_real_knee_flexion ... ok
+test animation::procedural::ik_tests::look_evaluation_is_a_strict_base_plus_offset ... ok
+test animation::procedural::ik_tests::pelvis_smoothing_depends_on_elapsed_time_not_evaluation_count ... ok
+test animation::procedural::ik_tests::phase_owned_height_has_two_contact_minima_and_two_equal_peaks ... ok
+test animation::procedural::ik_tests::plant_releases_only_on_a_real_discontinuity_and_reach_slides_continuously ... ok
+test animation::procedural::ik_tests::pose_mirror_is_an_involution ... ok
+test animation::procedural::ik_tests::raised_camera_look_is_shared_across_three_heavily_limited_joints ... ok
+test animation::procedural::ik_tests::rear_camera_crossing_cannot_flip_between_neck_joint_limits ... ok
+test animation::procedural::ik_tests::remembered_pole_follows_owner_yaw ... ok
+test animation::procedural::ik_tests::rendered_sole_contact_uses_the_shared_hierarchy_tolerance ... ok
+test animation::procedural::ik_tests::run_has_unconstrained_flight_but_walk_retains_support ... ok
+test animation::procedural::ik_tests::slope_alignment_is_idempotent_across_repeated_evaluation ... ok
+test animation::procedural::ik_tests::standing_knee_yaw_constraint_preserves_downed_and_transition_poses ... ok
+test animation::procedural::ik_tests::terrain_height_is_transient_during_an_active_guard_step ... ok
+test animation::procedural::ik_tests::terrain_ik_accepts_grounded_upright_but_not_airborne ... ok
+test animation::procedural::rig::tests::duplicate_roles_retain_the_lowest_stable_entity ... ok
+test animation::procedural::rig::tests::mhr_mirroring_covers_center_attachments_and_every_bilateral_joint_kind ... ok
+test animation::procedural::rig::tests::partial_and_empty_rigs_have_explicit_missing_chains ... ok
+test animation::procedural::rig::tests::sole_axis_is_calibrated_from_authored_bind_not_live_fk ... ok
+test animation::ragdoll::definition::tests::a_rig_missing_a_driving_bone_has_no_ragdoll ... ok
+test animation::ragdoll::definition::tests::capsules_run_from_the_bone_along_the_limb ... ok
+test animation::ragdoll::definition::tests::definition_roots_at_a_kinematic_pelvis_and_lists_joints_parent_first ... ok
+test animation::ragdoll::definition::tests::knee_and_elbow_hinges_fold_the_limb_the_anatomical_way ... ok
+test animation::ragdoll::drive::tests::capsule_offset_from_its_body_origin_is_honoured ... ok
+test animation::ragdoll::drive::tests::tilted_capsule_samples_its_low_endpoint_on_a_slope ... ok
+test animation::ragdoll::entry::tests::angular_velocity_takes_the_short_arc ... ok
+test animation::ragdoll::muscles::tests::muscle_envelope_is_stunned_then_gathers_itself_then_lets_go ... ok
+test animation::ragdoll::muscles::tests::muscles_that_never_let_go_hold_full_tone ... ok
+test animation::ragdoll::muscles::tests::the_kinematic_pelvis_is_never_kicked ... ok
+test animation::ragdoll::tests::proportioned_bind_global_composes_authored_locals_with_offsets ... ok
+test animation::ragdoll::tests::ragdoll_collision_layer_interacts_with_itself_only ... ok
+test animation::skeletal_proportions::tests::skeletal_proportions_keep_instances_independent_and_long_legs_grounded ... ok
+test animation::tests::legacy_tests::analytical_attack_curves_bypass_the_fixed_rate_clip_sampler ... ok
+test animation::tests::legacy_tests::asset_validation_resolves_deterministic_routes ... ok
+test animation::tests::legacy_tests::attack_entry_blends_frame_zero_guard_and_contact_in_one_motion ... ok
+test animation::tests::legacy_tests::authored_quickstep_direction_wins_over_its_reverse_fallback ... ok
+test animation::tests::legacy_tests::authored_rig_attaches_to_a_player_with_skeleton_state ... ok
+test animation::tests::legacy_tests::authored_zero_motion_rig_hides_mannequin_and_shows_bind_pose ... ok
+test animation::tests::legacy_tests::client_constraint_api_is_reexported ... ok
+test animation::tests::legacy_tests::combat_cycle_support_is_exclusive_and_switches_at_authored_contacts ... ok
+test animation::tests::legacy_tests::composite_mask_keeps_mhr_world_pelvis_and_legs_out_of_the_upper_body ... ok
+test animation::tests::legacy_tests::database_weapon_skill_weights_select_the_grip_without_item_names ... ok
+test animation::tests::legacy_tests::default_catalog_owns_all_required_poses_once ... ok
+test animation::tests::legacy_tests::downed_camera_alignment_enters_the_idle_locomotion_crossfade ... ok
+test animation::tests::legacy_tests::duplicate_authoritative_pose_is_rejected ... ok
+test animation::tests::legacy_tests::frame_eight_is_sampled_at_thirty_fps ... ok
+test animation::tests::legacy_tests::incompatible_motion_target_set_is_rejected_independently ... ok
+test animation::tests::legacy_tests::locomotion_phase_curve_changes_only_authored_cycle_sampling ... ok
+test animation::tests::legacy_tests::mirrored_gait_endpoint_uses_a_distinct_pre_fk_clip_node ... ok
+test animation::tests::legacy_tests::missing_base_keeps_generated_mannequin_visible ... ok
+test animation::tests::legacy_tests::missing_forward_quickstep_plays_the_authored_back_clip_in_reverse ... ok
+test animation::tests::legacy_tests::out_of_range_catalog_frame_is_unavailable ... ok
+test animation::tests::legacy_tests::pack_builder_supports_specialized_pack_paths_and_fallbacks ... ok
+test animation::tests::legacy_tests::presentation_phase_advances_between_sparse_authoritative_samples ... ok
+test animation::tests::legacy_tests::presentation_phase_correction_is_rate_limited_across_packet_jitter ... ok
+test animation::tests::legacy_tests::presentation_phase_filters_persistent_drift_before_bounded_correction ... ok
+test animation::tests::legacy_tests::presentation_phase_ignores_minor_authoritative_packet_jitter ... ok
+test animation::tests::legacy_tests::presentation_sequence_gaps_are_bounded_ordered_and_reset_safe ... ok
+test animation::tests::legacy_tests::presentation_velocity_smooths_a_sparse_turn_without_changing_authority ... ok
+test animation::tests::legacy_tests::prone_presentation_does_not_predict_locomotion_from_residual_velocity ... ok
+test animation::tests::legacy_tests::raised_guard_uses_authored_hand_tracks_before_the_attack_starts ... ok
+test animation::tests::legacy_tests::runtime_catalog_registers_both_downed_gait_mirror_endpoints ... ok
+test animation::tests::legacy_tests::same_motion_span_blends_only_the_two_exact_anchor_frames ... ok
+test animation::tests::legacy_tests::semantic_router_inputs_are_read_only_and_keep_live_attack_movement ... ok
+test animation::tests::legacy_tests::semantic_router_preserves_ordinary_locomotion_evaluation ... ok
+test animation::tests::legacy_tests::semantic_router_preserves_raised_attack_contact_timing ... ok
+test animation::tests::legacy_tests::sole_clip_accepts_named_or_unnamed_animation_equally ... ok
+test animation::tests::legacy_tests::span_endpoints_remain_declared_at_zero_and_complete_progress ... ok
+test animation::tests::legacy_tests::terrain_ik_defaults_on ... ok
+test animation::tests::legacy_tests::timeline_and_cycle_samples_preserve_the_requested_bone_layer ... ok
+test animation::tests::legacy_tests::two_handed_close_pack_overrides_attacks_and_inherits_other_poses ... ok
+test animation::tests::legacy_tests::two_handed_weapon_only_recruits_an_empty_offhand ... ok
+test animation::tests::legacy_tests::unavailable_motion_uses_similar_pose_fallback ... ok
+test animation::tests::legacy_tests::unresolved_motion_restores_authored_bind_transform ... ok
+test animation::tests::legacy_tests::weapon_catalog_selects_specific_and_two_handed_fallback_packs ... ok
+test animation::tests::legacy_tests::zero_clip_base_gets_stable_animation_targets_without_a_player ... ok
+
+test result: ok. 260 passed; 0 failed; 0 ignored; 0 measured; 441 filtered out; finished in 0.37s
+

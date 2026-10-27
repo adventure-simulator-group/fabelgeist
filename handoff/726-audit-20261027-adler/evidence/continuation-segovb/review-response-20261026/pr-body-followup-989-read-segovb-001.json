@@ -1,0 +1,28 @@
+{
+  "retrieved_at": "2026-10-26T22:02:15.425Z",
+  "tool": "GitHub fetch_issue (read only)",
+  "issue": {
+    "url": "https://github.com/adventure-simulator-group/fabelgeist/issues/989",
+    "title": "Honor validation observation policy in 3D and cube texture operations",
+    "issue_number": 989,
+    "body": "*Written by Codex on behalf of @segovb.*\n\nNative texture creation and cube-face view creation do not consistently honor\nthe context's validation-observation policy. A context wrapping an existing\ndevice selects `Uncaptured`, but the operations below still push a validation\nscope and wait indefinitely for device progress. On a device shared with a\ncontinuously submitting renderer, this can block on unrelated work.\n\nThis behavior predates #988: the same paths ignored the former\n`blocking_validation` flag. That PR introduces the shared\n`ValidationObservation` and `ValidationScope` owners and applies them to\nwhole-texture format views, but leaves these existing gaps unresolved. This\nissue tracks completing policy enforcement, rather than a regression\nintroduced by #988.\n\n## Affected operations\n\nThe following references pin the inspected PR revision:\n\n- [`Texture3d::new`](https://github.com/adventure-simulator-group/fabelgeist/blob/ef7630d757a6994297f6d24840991cda61bda63c/crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs#L90).\n- [`TextureCube::new`](https://github.com/adventure-simulator-group/fabelgeist/blob/ef7630d757a6994297f6d24840991cda61bda63c/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs#L114).\n- [`TextureCube::face_view_with_format`](https://github.com/adventure-simulator-group/fabelgeist/blob/ef7630d757a6994297f6d24840991cda61bda63c/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs#L293),\n  when given a context.\n\n## Intended change and acceptance\n\n- Route these operations through the context's shared validation policy,\n  reusing `ValidationScope::new` and its completion/error handling.\n- With `Uncaptured`, do not create a blocking validation scope or perform a\n  validation-only wait. Leave validation reporting to the device provider.\n- With `BlockingScopes`, finish the scope even when polling fails, retain both\n  polling and captured validation failures, and propagate the structured error.\n- Retain the context-free cube-face path and browser behavior without adding\n  synchronous waits. Update the owning documentation to describe the completed\n  policy coverage and verify the applicable native and browser checks.\n\nReadback completion and submission backpressure are separate operations: their\nrequired waits should not be disabled by a validation-observation policy.\n\nThe evidence is a source comparison, not a runtime reproduction of a hang.\nRelated work: #988 and #826.\n",
+    "state": "open",
+    "user": {
+      "login": "segovb",
+      "name": "segovb",
+      "email": null,
+      "avatar_url": "https://avatars.githubusercontent.com/u/70238035?v=4",
+      "id": 70238035
+    },
+    "assignees": null,
+    "labels": null,
+    "milestone": null,
+    "state_reason": null,
+    "comments": 0,
+    "created_at": "2026-10-26T21:37:16Z",
+    "updated_at": "2026-10-26T21:37:16Z",
+    "closed_at": null,
+    "display_url": "https://github.com/adventure-simulator-group/fabelgeist/issues/989",
+    "display_title": "Honor validation observation policy in 3D and cube texture operations"
+  }
+}

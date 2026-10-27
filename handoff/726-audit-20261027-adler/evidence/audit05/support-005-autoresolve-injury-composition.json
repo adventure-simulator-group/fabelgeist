@@ -1,0 +1,43 @@
+{
+  "finding": "ROOT-INITIAL04-F043",
+  "kind": "independent additional receiving support only",
+  "proof_ref": "contract-groups-413.json",
+  "source_pins": [
+    {
+      "scope_index": 281,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+      "sha256": "3c9ffa24338de25378c4f5b46c684ed6e4dbe34e70b4edff6badc1df3f025340",
+      "ranges": [
+        [
+          976,
+          999
+        ]
+      ]
+    },
+    {
+      "scope_index": 300,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/surgery.rs",
+      "sha256": "e3beacbecc62d9b55e495bf21e6b2b430a08d0e464e6374a16047a4babf5ef08",
+      "ranges": [
+        [
+          254,
+          329
+        ],
+        [
+          414,
+          432
+        ],
+        [
+          467,
+          485
+        ],
+        [
+          498,
+          548
+        ]
+      ]
+    }
+  ],
+  "trace": "Logged exchange cut/blunt -> commit_hit_injury -> unchanged aggregate increments retained LimbInjury.cut_damage/bruise_damage and fracture_from_single_hit(blunt) -> later open-cut vector goes to blood interval and cut-specific standing-infection exposure. Equal total projection can hide changed composition.",
+  "qualification": "Extends existing static logsplit finding. No normal generated exchange/loadout or executed injury, bleed, infection or fracture consequence claimed. No new finding, repair or other-lens/global acceptance."
+}

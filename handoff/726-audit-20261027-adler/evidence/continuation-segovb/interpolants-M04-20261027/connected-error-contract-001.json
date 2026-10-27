@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-27T04:29:29.722145+00:00",
+  "source": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+  "sha256": "18c3232bb01109cd7ec857f3c750d2c04ffb869dd52ca42cec82524816c41206",
+  "actual_read": [
+    [
+      1,
+      217
+    ]
+  ],
+  "connected_change": "Exhaustive From<SpeedError> is sole explicit variant consumer; newFraction variant must map through existing canonical From<FractionError> for AnimationValueError. Other uses retain SpeedError as typedcause through owning variants.",
+  "quantity_policy": "Invalid interpolants report UnitInterval rejection at producer; no requirement to preserve prior incidental speed-overflow/error-downcast behavior."
+}

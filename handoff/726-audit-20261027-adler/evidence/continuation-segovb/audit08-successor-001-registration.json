@@ -1,0 +1,157 @@
+{
+  "lens": "08 behavior preservation",
+  "original": 1462,
+  "base": {
+    "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "sha256": "862d65dcfa27ffb94110dbaf5c32fd94e248028f14f278aa9429047789ec31d9",
+    "path": "crates/adventuresim-tactical-client/src/camera/collision.rs",
+    "read_ranges": "1-EOF; full changed original requested scope"
+  },
+  "head": {
+    "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "sha256": "e57c0f4f3a2b7f4cb749b5e1ca57628e9e5ef864f1bd4365fe48313a3f426c3e",
+    "read_ranges": [
+      [
+        1,
+        339
+      ]
+    ]
+  },
+  "question": "CONT08-Q003 exact normal producer admission; source only; retain all20 P16/P17 and aliases; no historical/source presence clearance",
+  "prospective_native_support": [
+    {
+      "index": 88,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/shape_cast/shape_cast.rs",
+      "sha256": "55751d940df916bcdc1526be642b46736efe8223038ea0bbed6cee5530db129e",
+      "ranges": [
+        [
+          1,
+          151
+        ],
+        [
+          272,
+          284
+        ]
+      ]
+    },
+    {
+      "index": 89,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/default_query_dispatcher.rs",
+      "sha256": "dd9873e219688b93f28314df13a405c0c78fb44444344b46e18ba2eb75fbe53d",
+      "ranges": [
+        [
+          437,
+          543
+        ]
+      ]
+    },
+    {
+      "index": 90,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/shape_cast/shape_cast_support_map_support_map.rs",
+      "sha256": "d874526a7a624206fd8ae6e3302db0f51f2d643c53014b8f5d496daa7d1e125c",
+      "ranges": [
+        [
+          1,
+          67
+        ]
+      ]
+    },
+    {
+      "index": 92,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/gjk/gjk.rs",
+      "sha256": "893b9246ae77eb21d8a3f10afaeeb05e36bfdb774ce6e98579f614ac32e57a68",
+      "ranges": [
+        [
+          634,
+          822
+        ]
+      ]
+    },
+    {
+      "index": 93,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/contact/contact_support_map_support_map.rs",
+      "sha256": "fcb9e37067085e862b6a23bfbe73a4bc39ff56ceefc90031f9c0b10766430562",
+      "ranges": [
+        [
+          1,
+          73
+        ]
+      ]
+    }
+  ],
+  "new_reached_native_ranges": [
+    {
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/gjk/gjk.rs",
+      "sha256": "893b9246ae77eb21d8a3f10afaeeb05e36bfdb774ce6e98579f614ac32e57a68",
+      "ranges": [
+        [
+          353,
+          633
+        ]
+      ],
+      "reason": "Contact support map calls closest_points; establish actual returned normal production before strict direction admission."
+    },
+    {
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/epa/epa3.rs",
+      "sha256": "d7594bce8c436e98ca80944333cad8637478f1c9b1b5df42dc8f0bb463abc1df",
+      "ranges": [
+        [
+          55,
+          167
+        ],
+        [
+          427,
+          650
+        ]
+      ],
+      "reason": "GJK intersection fallback returns EPA closest points normal; exact Face constructor and EPA output body needed; no whole SDK expansion."
+    },
+    {
+      "source_id": "native-dependency:parry3d-0.27.0/src/utils/ccw_face_normal.rs",
+      "sha256": "8bd63a55cf6ad370a0208e57876ceafbe637220d024c0108071d848ae7a8cccc",
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "reason": "EPA Face normal constructor delegates to exact cross product normalize helper."
+    }
+  ],
+  "additional_owner_support": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry.rs",
+      "sha256": "c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+      "ranges": "1-EOF facade only",
+      "reason": "Find exact SpatialDirection reexport owner before requested constructor body."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "ranges": [
+        [
+          1,
+          100
+        ],
+        [
+          105,
+          142
+        ]
+      ],
+      "reason": "SpatialDirection native-normal admission declaration and implementation."
+    }
+  ],
+  "material32": {
+    "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/shape.rs",
+    "sha256": "97e23604f5ed995bc4d619d8e37747acc42671ba34e7236a8184b1e3d175a35d",
+    "ranges": [
+      [
+        1,
+        539
+      ]
+    ],
+    "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "reason": "Exact host2180\u20132188 layout/policy reaches shader receiver/canonical slot definitions; prospective current07 source role before body analysis. No inherited currentlocal/P16/main proof.",
+    "comparison": "Resolve exact same-path base/head presence before behavior inference; no original-role completion."
+  }
+}

@@ -1,0 +1,18 @@
+[1m[92m    Finished[0m `test` profile [optimized] target(s) in 0.43s
+[1m[92m     Running[0m unittests src/main.rs (target/debug/deps/adventuresim_tactical_client-a2bbc1129c63ae10)
+
+running 11 tests
+test camera::collision::tests::brief_doorway_gaps_do_not_pump_distance_and_recovery_is_monotonic ... ok
+test camera::collision::tests::close_view_clears_wall_and_keeps_subject_beside_manual_aim ... ok
+test camera::collision::tests::final_close_offset_cannot_enter_an_inside_corner ... ok
+test camera::collision::tests::focus_lag_on_the_other_side_of_a_wall_cannot_move_camera_through_it ... ok
+test camera::collision::tests::near_plane_clears_doorway_ceiling_and_stairs_during_manual_orbit ... ok
+test camera::collision::tests::open_space_preserves_full_distance_and_shoulder ... ok
+test camera::smoothing::tests::critical_damping_is_nearly_render_rate_independent ... ok
+test camera::smoothing::tests::reversing_a_mode_blend_continues_from_the_displayed_state ... ok
+test camera::smoothing::tests::sweet_spot_absorbs_small_motion_and_bounds_large_motion ... ok
+test camera::tests::a_different_muzzle_hit_reports_cover_blockage ... ok
+test camera::tests::f9_toggles_third_person_mode ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 690 filtered out; finished in 0.06s
+

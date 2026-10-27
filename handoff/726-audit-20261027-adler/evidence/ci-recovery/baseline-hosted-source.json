@@ -1,0 +1,11 @@
+{
+  "candidate_source": "4440155643b52a17c07cb97cd873a34412880c84",
+  "auxiliary_branch": "codex/ci-baseline-444015564",
+  "auxiliary_head": "e1637ef79452544906e25fa0261b42c386c895f6",
+  "only_changed_path": [
+    ".github/workflows/rust-quality.yml"
+  ],
+  "purpose": "Invoke existing hosted baseline exporter; no Rust/Cargo input changes, no tests added/run locally",
+  "integration": "Never merge auxiliary workflow into implementation branch; adopt only relevant strict baseline reductions from source-matched hosted output",
+  "restored_workspace_branch": "codex/ci-audit-recovery"
+}

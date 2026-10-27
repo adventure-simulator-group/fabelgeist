@@ -1,0 +1,77 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-024-PARTIAL",
+  "lens": "08 behavior-preservation",
+  "source_pin": "source-pins-and-scope-030.json",
+  "completed_original": [
+    1501
+  ],
+  "partial_original": [
+    1498,
+    1499,
+    1500
+  ],
+  "reads": {
+    "1498": {
+      "head": [
+        [
+          1,
+          944
+        ]
+      ],
+      "actual_diff": [
+        [
+          1,
+          918
+        ]
+      ]
+    },
+    "1499": {
+      "head": [
+        [
+          1,
+          201
+        ]
+      ],
+      "base": "absent; whole addition already pinned; core numeric recipients pending"
+    },
+    "1500": {
+      "head": [
+        [
+          1,
+          453
+        ]
+      ],
+      "base": "absent; whole addition pinned; connected contracts pending"
+    },
+    "1501": {
+      "head": [
+        [
+          1,
+          128
+        ]
+      ],
+      "actual_addition_diff": [
+        [
+          1,
+          134
+        ]
+      ],
+      "addition_body_identity": "Exact every added source line compared with pinned head; six diff-header lines read."
+    }
+  },
+  "comparisons": [
+    "1501 Option observation replaces initialized flag and three fields. has_changed_since compares exact Dodge predicate, actuator active boolean and retained start tick even inactive; native logs still same mismatch condition (dodge or melee quickstep) != active, same transition gating and all original payload words. Full action retained privately but only Dodge predicate affects decisions, so no added trigger on ordinary non-Dodge transitions. Commit observation occurs only after same warning/info selection; no effect on gameplay authority. Actual old deleted trace body read in1498 diff246-307. Typed tick encoded getter proof retained from own1776/1893 selected reads.",
+    "1498 whole actual diff now read; source moved cooldown test into1499 with exact700/732/0.5/0.3 oracle; facing tests removed from parent need actual turn_deadline recipient/test comparison before completion. Acquisition contact_arrival early exits closure > maxTravel+1e-5 before arithmetic, preserving far target filtering; no speculative all-candidate arithmetic failure finding.",
+    "1499/1500 whole heads read. Buffered/immediate/ranged prepare fallible acquisition, durations and deadlines before skeleton mutation/publication; original no-weapon/busy/downed exits and family/hand/curve/continuation branches traced. New explicit incapacitated input and buffered gate requires authoritative-policy comparison. Saturating add replaces raw +, finite tick product still Rust saturating integer cast; extreme deadline/error policy must be reconciled with actual canonical tick/elapsed/turn/lunge bodies."
+  ],
+  "unfinished_contracts": [
+    "Frozen916 elapsed native_duration and AnimationElapsed representation",
+    "Frozen1776 tick saturating-add/span and sample-rate identity",
+    "Frozen combat.rs melee_lunge_arrival/contact_timing vs deleted numeric formulas",
+    "Frozen turn_deadline full relevant facing policy and moved fixtures vs old methods",
+    "Authoritative incapacitation/attack begin policy and known finding aliases"
+  ],
+  "new_unique_findings": [],
+  "global_clearance": false,
+  "execution": "No source/Git mutations or project/local checks."
+}

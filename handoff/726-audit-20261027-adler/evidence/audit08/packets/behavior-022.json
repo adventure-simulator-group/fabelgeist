@@ -1,0 +1,78 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-022",
+  "lens": "08 behavior-preservation",
+  "completed_original": [
+    1497
+  ],
+  "source_pin": "source-pins-and-scope-026.json",
+  "source_reads": {
+    "head": [
+      [
+        1,
+        370
+      ]
+    ],
+    "whole_actual_diff": [
+      [
+        1,
+        265
+      ]
+    ]
+  },
+  "truncation_recovery": "Initialhead1-210+diff265displaytruncated; explicitlyre-readhead150-370 andwhole265actualdiff, no creditfrommissingdisplay.",
+  "support_pins": [
+    "support-pins-audio-seeds-027.json",
+    "support-pins-audio-ground-028.json",
+    "support-pins-audio-urban-029.json"
+  ],
+  "additional_support_ranges": {
+    "1354_events": [
+      [
+        24,
+        65
+      ]
+    ],
+    "1907_scene_coordinates": [
+      [
+        70,
+        109
+      ]
+    ],
+    "1901_old_ground_at": [
+      [
+        120,
+        136
+      ]
+    ]
+  },
+  "adopted_own_exact_proofs": [
+    {
+      "index": 1354,
+      "sha256": "e8b15deac3874c9457efc9dec7ac27b1b4eca56b6577a0352fe6cf3c1c896238",
+      "proof": "Ownfull174newbody+actualold1350eventemitter684-804diff comparison: firstobservationbaseline, contactsoldestfirst/footparity, latestlanding,delta0/dropbackwardwrap/gap8 unchanged. Audioactualdownstreamnowfreshlycompared, notinheritedwholeaudioclearance."
+    },
+    {
+      "index": 666,
+      "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+      "proof": "Ownfull140geometrycoordinate/sourceactualdiff: finitePosition frame/zerosignedcomponents/nativepayload unchanged; no normalization/rounding."
+    },
+    {
+      "index": 1755,
+      "sha256": "e03c51c5d1f80bc6961802e1e70e9cac962661c3f83c44e275a2c5800d422d3c",
+      "proof": "Existingcompletedcontactleafretained; fresh52-54getterrawu64 confirmed foractualaudioseed."
+    }
+  ],
+  "comparisons": [
+    "Actualevent.payloadencoded_sequence matchesContact/Landingrawunderlyingu64; fresh1354getter+1755/1766nativeencodedbodies prove no addedtag/hash/narrowing. Groundeddivelocomotion_sample_tick fresh1776getter alsorawu64. Seed::to_u64/Fromu64/from_u64 actual2249bodies showrawwordidentity; oldto_u64->Into roundtrip equalsnewretainedSeed onlocomotion/groundeddive/understory branches. Samecharacterroot/purpose/context/threeXYZf32bitwords, familychild/RNG3variant/pitchdraw andinterpolation/multiplication/order.",
+    "NewfinitePosition<Scene> admission rejectsnonfiniteGlobalTransformtranslation beforegroundquery/spatialaudio spawn. Allvalidnegative/unwrapped/signedzero/subnormalcomponents preserved. ExactScenePlanPointFrom(Position) body100-104 selects(point.x,point.z) unchangedoldVec3.xz; no projectionnormalization.",
+    "Actual1901ground_at new122-136 vsold120-134 samecenter/scale/gridboundsinclusiveendpoint/floor/min/sampleaddress andurban-before-natural lookup. Actual1903private101-138/public215-217 receiversections old/newdiff onlytypedpoint+rawmetres getters into samebucket/containsVec2nativecalls; streetpriority/building/yardprecedence/Barecoverpayload preserved. Futurefullurban/groundconstructor/source bodies remainuncredited supportroles, notallcityownershipclearance.",
+    "Contactgrass/reed familychoice, extra tallgrassrustle thenunderstorydistance<=radius\u00b2 andpurpose stream, Landing-onlydivetodownedimpact gates unchanged. Nativepositions onlyextractatspatialTransform/seednumericalports. Windloop configmath/threshold/response/audioflags/paths unchanged; configvalidation/order own1457sourceproof preserved.",
+    "GroundedSlideAudioState query/missingstate/default/ChangedSkeleton andedge-trigger logic samevalidflow. Rejectednonfiniteposition continuesbeforestatecommit; mayretryfirstimpactonlaterfiniteobservation instead ofmarkingactiveafterinvalidnativeaudio. Thisis explicitrequiredfiniteownedposition/errorpolicy, noordinaryvalidfailureasserted. EventMessageReaderconsumptionstilladvancesbeforefilter; no newblanketreplay/transactionpromise.",
+    "Allsourcefixturebody/oracles read unchanged: displaynonPlayer doesnotgainMovementAudioState; tacticalPlayer acquiresstate. Nativeaudioassetload/playback/renderer andframeworkresource/runtimeclosure remainunexecuted; no volume/speed arithmeticfiniteguarantee invented beyondunchangedconfigchecks."
+  ],
+  "source_scope_qualification": "Allsupportorigins/hashes sourcecatalogmatchedfrozenGit. 1907actual122lines despiteolderownerreadranges155; realcurrentbodyonlyread/credited. 1766/1776/1901/1903/1907/2249selectedranges areactualsupportonly, no whole-role/material/newcount. Per-role scope reviewed; no wholeforeignSDKassumption.",
+  "disposition": "Whole1497requestedbody/actualdiff plusactualevent/clock/seed/position/ground-native recipient comparison complete WITH checkednonfinite-position behavior andnativeaudio/futureconstructor qualifications.",
+  "new_unique_findings": [],
+  "global_clearance": false,
+  "execution": "No source/Gitmutation, tests/builds/lints/projectchecks/probes."
+}

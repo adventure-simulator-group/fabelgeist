@@ -1,0 +1,178 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-175",
+  "at": "2026-10-25T21:02:03.497010+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1872,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/erosional_terrain.rs",
+      "sha256": "c95efbf7c798d1e7570da38a0082bd99661cc4958f1dcb6818126dc30faf2d88",
+      "personally_read_ranges": [
+        [
+          1,
+          395
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full395 lines read. Erosional patch derives origin/radius/spacing from one immutable recipe, samples support extrema across the same grid, computes vertical extent and rejects declared side/height caps before extraction. Actual terrain_landform_patch dispatch (support1965 lines159-189) validates recipe/terrain then excludes FaultScarp from erosional field, closing the unreachable kind arm at this caller. Recipe support1968 fully read: tangent norm0.98-1.02, positive LOD spacing, relief/dimension bounds and collar relationships exclude zero normalized tangent/relief and u16 subtraction underflow.",
+        "Field uses transition collar and same recipe seed/kind for recess, talus and retained material. It derives downhill foot from same tangent/frame and explicit clamped-edge terrain query, retains original heightfield outside collar, and returns one blend field. Marching sample admission1883 rejects nonfinite positions/field values; admitted buffer product1967 checks parallel cardinality and indexed triangle shape before return. No arbitrarily huge finite source-height success is guaranteed by just parameter validation.",
+        "Fixtures describe supported sandstone roof, multiple crossings, downhill drainage, per-kind shape, serial/parallel determinism, winding/topology and interior-edge closure at two LODs. These assertions were read only; no morphology/physics run or empirical lithology accuracy claimed."
+      ]
+    },
+    {
+      "scope_index": 1873,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/erosional_terrain/basalt.rs",
+      "sha256": "fefc6bc76814a799129733d42c9a58b2fc8eb417a549d35c106dfe48b12fa6c0",
+      "personally_read_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full18 lines read. Basalt front keeps deterministic phase keyed by same seed and fixed column spacing, wrapping the along coordinate into one connected-column profile. Return is a scalar field contribution, not separately retained disconnected meshes or tick physics. Its valid bounded caller coordinates come from1872."
+      ]
+    },
+    {
+      "scope_index": 1874,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/erosional_terrain/carbonate.rs",
+      "sha256": "50c4644d1c77c5c6ee85b83372994d7100c8294dcc5553574a20503748885416",
+      "personally_read_ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full35 lines read. Carbonate pocket centre/width/depth/radius tuples remain correlated per authored pocket; widths/radii are positive constants. Seed+index jitter stays with that pocket, recess takes maximum bounded elliptical contribution, then one relief-bound depth. No native mutable parallel parameter arrays or admitted arbitrary zero divisor."
+      ]
+    },
+    {
+      "scope_index": 1875,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/erosional_terrain/granite.rs",
+      "sha256": "edac5e0f451e979b94a408567152ae143aed8f04ec056c874bda7e0d5377575a",
+      "personally_read_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full65 lines read. Granite phase and per-block seed retain deterministic block identity, setback and vertical-joint variation as one calculation. Selected depth-fraction interval gates relief-limited detachment, and fixed tuple-based fragment centres/widths/depths contribute one bounded retained surface. Current bounded1872 caller excludes arbitrary native along/relief input; comments do not establish mapped fracture accuracy."
+      ]
+    },
+    {
+      "scope_index": 1876,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/erosional_terrain/slump.rs",
+      "sha256": "075f69b1e924975c15a53ab61cb95e2da98e849aad132968872ab0b214771b19",
+      "personally_read_ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full30 lines read. Slump front and bench share plan-curvature relation; bench half-open head/toe range and positive fixed toe-rise interval preserve bounded blend factors at actual caller. This is static morphology expressly not a stability or mass-conservation authority. No runtime state aggregate retained independently."
+      ]
+    },
+    {
+      "scope_index": 1883,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/marching_tetrahedra.rs",
+      "sha256": "f9f54199093c3a25bf9295b11ebeedceb88fe03c44be92ffcfed2c6bf990f335",
+      "personally_read_ranges": [
+        [
+          1,
+          278
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full278 lines read. Lattice position/value are sampled together, checked finite, and unzipped into matched vectors; checked sample cardinality prevents dimension multiplication overflow. Cube/tetrahedron IDs index this same lattice. Edge vertex identity uses shared zero-endpoint identity or canonical sorted lattice edge; vertex index checked before push. Winding follows solid-to-empty direction within the same tetrahedron, not a potentially opposite nonlinear field gradient.",
+        "Builder computes triangle normals from generated indices, removes exact zero-area triangles, accumulates matched normals and retains oriented triples. Empty output rejects; actual SceneTerrainPatch admission1967 verifies parallel arrays, finite values, nonempty triangles and in-range indices. Internal shape assumptions hold because private stages consume their own generated arrays. Raw general dimensions below two can underflow extraction loops; actual erosional/fault producers have positive bounded dimensions, no malformed ordinary call proved.",
+        "Finite-extreme interpolation subtraction or nonaffine arbitrary position closures are native representability questions, not acceptance of normal producer corruption. Existing precise surface/topology findings remain separate; no new family clearance."
+      ]
+    },
+    {
+      "scope_index": 1884,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/marching_tetrahedra/height_surface.rs",
+      "sha256": "7e6ff1e41f864ad664c6996727b8d1b11570d3b5ed8af1201b15347ae59018bc",
+      "personally_read_ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full107 lines read. Height extractor checks at least2 each dimension, checked column/full cardinality, matching heights length, finite heights/end elevations and finite endpoint differences, strict shared Y increase and finite horizontal-column endpoints. Crossings use exact original subtraction/zero-snap and preserve original z/y/x/tetrahedron visitation and shared edge identity when skipping homogeneous rows/cells.",
+        "The documented input is a native metre lattice with horizontal coordinates shared through elevation and common increasing Y; only endpoint/first-column probes do not enforce that entire contract for an arbitrary function closure. Actual fault producer affine lattice is the relevant source handoff; no ordinary mutated/nonmonotone closure path established."
+      ]
+    },
+    {
+      "scope_index": 1885,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/marching_tetrahedra/height_surface/tests.rs",
+      "sha256": "3437832bcc3bd88d508e7b5ecc06146e4202ba88eb2ce9c4fd23f8fe785a860a",
+      "personally_read_ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full90-line fixture body read. Six selected regular affine height fields compare trimmed mesh buffers exactly against dense extraction including near-zero-snap boundaries and columns crossing outside the lattice. Separate cases expect nonfinite-height and subtraction-overflow rejection. These are source assertions, not executed passes or proof for arbitrary function closures."
+      ]
+    }
+  ],
+  "support_reads": [
+    {
+      "scope_index": 1968,
+      "ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "role_credit": "none; supporting admission only, queued original role not claimed"
+    },
+    {
+      "scope_index": 1970,
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "role_credit": "none; supporting query only, queued original role not claimed"
+    },
+    {
+      "scope_index": 1965,
+      "ranges": [
+        [
+          1,
+          110
+        ],
+        [
+          128,
+          189
+        ],
+        [
+          440,
+          526
+        ]
+      ],
+      "role_credit": "none; bounded supporting read only"
+    },
+    {
+      "scope_index": 1967,
+      "ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "role_credit": "none; supporting product admission only, queued original role not claimed"
+    }
+  ],
+  "findings": [],
+  "discovery": "8 newly accounted distinct original roles; inherited1877-1882 and1886-1893 not recounted; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

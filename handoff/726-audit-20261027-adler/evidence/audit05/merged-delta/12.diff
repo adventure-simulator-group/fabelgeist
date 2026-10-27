@@ -1,0 +1,15 @@
+--- 6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/hair_preview/render_test.rs
++++ 13fc9dcc71ab879de364117e5462310673e43210:crates/adventuresim-character-creator/src/hair_preview/render_test.rs
+@@ -288,11 +288,11 @@
+             Form::Strands { level, .. } => format!("strands{level}"),
+             Form::Cards { level } => format!("cards{level}"),
+         };
+         // Drawn in the bind pose, skinned as the studio skins it but to one
+         // joint left where it is.
+-        let mesh = assets::mesh(&geometry, 0)?;
++        let mesh = assets::mesh(&geometry, fabelgeist_rig::RigJointOrdinal::from(0usize))?;
+         let paths = VIEWS
+             .iter()
+             .map(|view| {
+                 out.join(format!(
+                     "{subject_name}{preset_name}-{form_name}-{}.png",

@@ -1,0 +1,33 @@
+{
+  "at": "2026-10-27T05:24:14.659866+00:00",
+  "lens": "13 magic-numbers",
+  "packet": "031",
+  "kind": "Native Cargo source authority/preflight prospective source registration",
+  "authority": {
+    "frozen_original_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "prior_adopted_state": "audit13-successor-030-suggested-state.json",
+    "prior_state_sha256": "7cf99e57f0796b0d8cb0880eaaab3bda9a3089ac633ed95d124858bcd7021244",
+    "root_adoption": "audit13-successor-030-adoption-root.json",
+    "root_adoption_sha256": "633112a76be07203a839b4138634e8e1882d53590795794fbe2afa6d2122de91",
+    "source_manifest_ref": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee:handoff/774/adler-original/audit/records/final-acceptance-20261021/source-manifest.json",
+    "source_manifest_sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa"
+  },
+  "sources": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/0ede9efa984ca1bbaacf8ad3231e6e9ee1efd4000986bc913a2178c7ceb5be8a",
+      "source_path": "rust-toolchain.toml",
+      "sha256": "0ede9efa984ca1bbaacf8ad3231e6e9ee1efd4000986bc913a2178c7ceb5be8a",
+      "bytes": 150,
+      "actual_lines": 5,
+      "ranges": [
+        [
+          1,
+          5
+        ]
+      ],
+      "provenance": "Exacta120390baseGitblob18d1c14844d398c027c2e2cc740acca5bda2ec75. Frozen source-manifest physical-p16base=head a120,159changedvariants/statusrows; no matchingtoolchain path. Reconstructed unchanged physical receiver, not current working alias.",
+      "body_read_at_registration": false
+    }
+  ],
+  "limits": "Original39 body fully consumed; no39completion/count increment, no40. Static toolchain metadata/source only, no toolchain/project execution/probe or Git mutation. Newnative source requires exact authority and prospective range registration; no broad download. Ignored append-only evidence only."
+}

@@ -1,0 +1,248 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "094",
+  "predecessor": "receipt-093-originals439-447.json",
+  "manifest_prefix_sha256": "e755422485f6e0837cfc432ec9c7b75fe0bdf2d00297a708b5343ee08c1ed31a",
+  "sources": [
+    {
+      "original_index": 448,
+      "source_id": "physical-p16:crates/fabelgeist-geometry/Cargo.toml",
+      "sha256": "a301b39ec718fa3959414680a15d2fa22226c216298da879aed86b9a1fb62165",
+      "actual_eof": 21,
+      "actual_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-21",
+          "role": "Native Cargo package fabelgeist-geometry2, description3; featuredependency names11/12, nativebevyversions/std15/16.",
+          "disposition": "Concrete Cargo metadata/parser boundary; no native dependency or compatibility acceptance."
+        }
+      ],
+      "status": "All exact requested owner ranges or full changed variant independently read."
+    },
+    {
+      "original_index": 449,
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/error.rs",
+      "sha256": "78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+      "actual_eof": 95,
+      "actual_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "7,15,42-80,84-95",
+          "role": "Finite GeometryRole/CoordinateAxis and typed GeometryError/DirectionError, display42/44/46/52/54/56/58/63/68/73/75/80; DirectionError native serializer zero90/infinite91/nan92.",
+          "disposition": "Actual typed errorclassification owns finitecodes until concrete serialized/text output; no actual parser/numerical/native direction adapter proof."
+        }
+      ],
+      "status": "All exact requested owner ranges or full changed variant independently read."
+    },
+    {
+      "original_index": 450,
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/length.rs",
+      "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "actual_eof": 40,
+      "actual_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-40",
+          "role": "Only literalstrings reflect feature3/11/14 and nativeSerdeattrs; no String applicationAPI. TypedGeometryError propagated18-38.",
+          "disposition": "No arithmetic/reflection/native/otherlens clearance."
+        }
+      ],
+      "status": "All exact requested owner ranges or full changed variant independently read."
+    },
+    {
+      "original_index": 451,
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/lib.rs",
+      "sha256": "4be1dea1bfca250604d52c9c8ea026aac5e3608d4d8cf35168f0cdc60ff4a7ab",
+      "actual_eof": 16,
+      "actual_ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-16",
+          "role": "Module documentation mentions nativefeature reflect5/bevy-math6; no literal strings or string-valued application API.",
+          "disposition": "Declarations not childcoverage; prose source inventoried as documentation, no implementation or BC authority transfer."
+        }
+      ],
+      "status": "All exact requested owner ranges or full changed variant independently read."
+    },
+    {
+      "original_index": 452,
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/measurement.rs",
+      "sha256": "c84b2c054d772b9b8037209e1d8542238c397c5dc0148ca5f68c86ef5fc9b9b2",
+      "actual_eof": 107,
+      "actual_ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-107",
+          "role": "Full changed107read. Only literalstrings reflect feature3/15/18/27/30. NativeSerde/error adapters retaintyped GeometryError35/82/88/105. Existing docs compile_fail code10-13/22-25 and numerical comments44-68 are text contracts, not runtime source execution.",
+          "disposition": "No string semantic finding. Historical preserve/promotion wording44/59-61 does not impose BC requirement; no numeric/lens08/commentaccuracy verdict."
+        }
+      ],
+      "status": "All exact requested owner ranges or full changed variant independently read."
+    },
+    {
+      "original_index": 453,
+      "source_id": "physical-p16:crates/fabelgeist-math/Cargo.toml",
+      "sha256": "6aaf0cb94d1603d0d6cdd07f1bee8021c3c29c841d01d144143faa4be39a6321",
+      "actual_eof": 17,
+      "actual_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-17",
+          "role": "NativeCargo package/version/edition/license/repository2-6; serde/bytemuck/wgpu feature/version keys/values9-11 include webgl/webgpu/wgsl/vulkan/metal/glsl.",
+          "disposition": "Concrete dependency/toolchain boundary, no fetched docs/native implementation or project checks."
+        }
+      ],
+      "status": "All exact requested owner ranges or full changed variant independently read."
+    },
+    {
+      "original_index": 454,
+      "source_id": "physical-p16:crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "actual_eof": 120,
+      "actual_ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-120",
+          "role": "No literalstrings/string-valued APIs; numerical typedwrappers and scalar getters. Moduleprose3-6 includes sameJSONasbefore claim; no instruction to preserve oldschema/acceptedinput.",
+          "disposition": "No stringfinding or numerical/admission/behavior/BC proof; carry prose/currentness assessment to relevant otherlens queue."
+        }
+      ],
+      "status": "All exact requested owner ranges or full changed variant independently read."
+    }
+  ],
+  "connected_findings": [],
+  "pending_contracts": [
+    "449native serialization consumers and direction adapter unclaimed; no remaining local rawstring classification gap established by scopedbody.",
+    "All inherited actual catalog/frame/terrain/name/identity/native receiving obligations remain unchanged."
+  ],
+  "qualifications": [
+    "Exact frozen f82 physical-P16 only; no current/global/runtime/unique-total/other-lens clearance.",
+    "No BC/schema/API/input preservation obligation; source prose containing preserve/asbefore is not userpolicy.",
+    "No project/native/test/probe execution or product/Git/rootledger/publication mutation. All20/P16/P17/F9/M09 qualifications/aliases retained."
+  ],
+  "proposed_count": {
+    "before": 448,
+    "after": 455,
+    "indices_completed": [
+      448,
+      449,
+      450,
+      451,
+      452,
+      453,
+      454
+    ],
+    "next_original": 455,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/fabelgeist-geometry/Cargo.toml",
+      "sha256": "a301b39ec718fa3959414680a15d2fa22226c216298da879aed86b9a1fb62165",
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/error.rs",
+      "sha256": "78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/length.rs",
+      "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/lib.rs",
+      "sha256": "4be1dea1bfca250604d52c9c8ea026aac5e3608d4d8cf35168f0cdc60ff4a7ab",
+      "ranges": [
+        [
+          1,
+          16
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/measurement.rs",
+      "sha256": "c84b2c054d772b9b8037209e1d8542238c397c5dc0148ca5f68c86ef5fc9b9b2",
+      "ranges": [
+        [
+          1,
+          107
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/fabelgeist-math/Cargo.toml",
+      "sha256": "6aaf0cb94d1603d0d6cdd07f1bee8021c3c29c841d01d144143faa4be39a6321",
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "ranges": [
+        [
+          1,
+          120
+        ]
+      ]
+    }
+  ]
+}

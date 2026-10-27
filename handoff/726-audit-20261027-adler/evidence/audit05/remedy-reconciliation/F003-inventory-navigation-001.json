@@ -1,0 +1,69 @@
+{
+  "records": 1002,
+  "terms": [
+    "convert_pixels",
+    "SourceBufferTooSmall",
+    "pixel buffer",
+    "pixelconversion",
+    "fabelgeist-color",
+    "RIG-ADMISSION03-F056"
+  ],
+  "matches": [
+    {
+      "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+      "record_index": 58,
+      "record": {
+        "id": "RIG-ADMISSION03-F056",
+        "lens": "audit-admission-contracts",
+        "source_id": "pr-working:crates/fabelgeist-color/src/space.rs",
+        "source_locations": [
+          [
+            153,
+            229
+          ]
+        ],
+        "related_receiver": "conversion.rs56..58/107..148",
+        "finding": "Custom ColorPrimaries rawconstruction/Serde can have singular identicalRGB ory0; to/fromXYZmatrix silently substitutesidentity when inversefails, while invert_3x3 returnsSomeNaN forNaNdet. ColorTransform.new accepts result as transformation withno admissionerror. Actualstandardspacesconstants valid; no malformedcurrentcaller/runtimeclaim. ConversionError::SingularMatrix already expressesfailedinversepolicy butfactorydoesnotuseit.",
+        "connected_repair_acceptance": "Falliblecustomprimary/matrix admission withfinite/invertibilitypredicate andauthoritativeerror, propagateactualacceptedtransform; removeidentityfallback. Preserve arbitrarymathematicalMatrix3x3rawports,HDRnegative/signedcolor andACESnegativechromaticity, no0..1blanketban.",
+        "repair": "not_started_frozen",
+        "validation": "not_executed"
+      }
+    },
+    {
+      "archive_file": "audit/continuation/rig/initial06-type-ownership/findings.jsonl",
+      "record_index": 4,
+      "record": {
+        "id": "RIG-INITIAL06-F005",
+        "at": "2026-10-22T19:58:20.046488+00:00",
+        "classification": "ownership_migration_gap",
+        "title": "Retain the existing shared Color in host RGBA material fields",
+        "canonical_owner": "fabelgeist-color::Color",
+        "evidence": "contracts-024.json#/groups/canonical-low-RGBA-owner-and-raw-host-carrier",
+        "exact_sources": {
+          "crates/fabelgeist-color/src/color.rs": [
+            [
+              4,
+              65
+            ]
+          ],
+          "crates/fabelgeist-armor/src/components.rs": [
+            [
+              81,
+              87
+            ]
+          ],
+          "crates/fabelgeist-armor/src/puff_and_slash.rs": [
+            [
+              11,
+              28
+            ]
+          ]
+        },
+        "connected_repair": "ArmorComponentMaterial.base_color usescanonicalColor; TextileColor.material constructsit afterexistingu8/255projection. MigrateactualcontinuousRGBA callers/consumers directly and unwraponlynativeport. Preserve authoredsRGBu8source, RGBthreechannelvalues, alpha, allf32/HDR/rawSerdepolicy and actualrendercolorcontext; no blanketUnitInterval/clamp/transfercorrection.",
+        "dependency": "Color alreadylowestindependentcrate optionalSerde/Pod/WGPU; Armor candependonvaluefeature withoutBuilding/Core/nativeenginecycle. Current root F005 naming unrelated; exactRigID required.",
+        "limits": "Rootclaim/repairauthority retained; furtheractualColorconsumerinventorypending and samefieldnamealone notcredit."
+      }
+    }
+  ],
+  "qualification": "Saved1002 metadata navigation only, no blanket uniqueness or source/verdict transfer."
+}

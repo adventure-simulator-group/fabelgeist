@@ -1,0 +1,16 @@
+2026-10-26T23:29:16.5108818Z Diff in /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs:4:
+2026-10-26T23:29:16.5109866Z  #[cfg(not(target_arch = "wasm32"))]
+2026-10-26T23:29:16.5118955Z  use crate::{data::gpu::texture::TextureViewOperation, globals::ValidationScope};
+2026-10-26T23:29:16.5119560Z  use crate::{
+2026-10-26T23:29:16.5120112Z -    data::gpu::texture::{CubeFace, TextureFormat, TextureView, TextureViewError, TextureViewResult},
+2026-10-26T23:29:16.5121194Z +    data::gpu::texture::{
+2026-10-26T23:29:16.5121692Z +        CubeFace, TextureFormat, TextureView, TextureViewError, TextureViewResult,
+2026-10-26T23:29:16.5122237Z +    },
+2026-10-26T23:29:16.5122488Z      globals::WgpuContext,
+2026-10-26T23:29:16.5122776Z  };
+2026-10-26T23:29:16.5123013Z  use std::sync::Arc;
+2026-10-26T23:29:18.6092591Z ##[error]Process completed with exit code 1.
+2026-10-26T23:29:18.6204984Z ##[group]Run actions/upload-artifact@v7
+2026-10-26T23:29:18.6205297Z with:
+2026-10-26T23:29:18.6205532Z   name: texture-view-validation-40419867459-1
+2026-10-26T23:29:18.6205874Z   path: target/texture-view-validation/

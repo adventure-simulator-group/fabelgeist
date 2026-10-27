@@ -1,0 +1,160 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "064",
+  "predecessor": "receipt-063-originals304-310.json",
+  "manifest_prefix_sha256": "dbb92e6489808180b95f584cf28ea69a4cdc96a3fb60655ada85326e43a8fd1b",
+  "sources": [
+    {
+      "original_index": 311,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/schedule.rs",
+      "sha256": "6cbe8772bb5c9f5bd4f48d7dffa099df1b8a39a8a1cf69a83bc4a5ad0b938c73",
+      "actual_ranges": [
+        [
+          1,
+          741
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              741
+            ]
+          ],
+          "role": "Raw settlement reference ActivityExecutionLocation.origin_settlement_id OptionString7 passed33/53, native tablejoins25/43; raw organization IDs135-146/165-185/347-358 read from310 saved state, require_activity_membership actual228 priorread, rawreligion307 convertedOfficialReligion309. Raw itemID/nativecatalog sets662/681/685/694/716 and settlement allowlist691; typed BookTarget is envelope but terrain raw &str429 with plains431/forest432/hills433/wetlands434/urban435/snow436 -> Skill then used502/584.",
+          "disposition": "Existing canonical OrganizationId/SettlementId/ItemId/OfficialReligion/Terrain/Skill owners should span source/admission/state/reading/training; BookTarget terrain payload should be canonical typed selector instead of repeated string matcher. Actual116 raw BookTarget schema and113catalog source connect to concrete skillmutation595. Open item/organizationIDs stay open; no catalog/privatehelper exemption."
+        },
+        {
+          "ranges": [
+            [
+              1,
+              741
+            ]
+          ],
+          "role": "All diagnostics19/26/44/78/137/144/149/241/473/530/585/608/655. ErrorString returns13/99/132/235/523/647; native typed policy and BookTarget variants otherwise retained.",
+          "disposition": "Concrete error-rendering context with canonical typed causes until output. BookTarget ordinary_skill509/607 and select_candidate699 actual bodies outsideownsource remainpending if not inearlierbookscope, no implied catalog/native algorithm/acceptance. No tests in741; no numerical/lifecycle/runtime/otherlens conclusion."
+        }
+      ],
+      "status": "Entire requested changed original independently read; source-accounted WITH findings and explicit external contracts."
+    },
+    {
+      "original_index": 312,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+      "sha256": "597a9011b190676ac71213abd7cf040a71a673d78e5b0498f204452a5b2d3223",
+      "actual_ranges": [
+        [
+          1,
+          651
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              651
+            ]
+          ],
+          "role": "Raw settlement_id String115 -> membership/colocation140/141 native joins200; inherited Party/Residence/Household IDs in actual source. SettlementRestProvision enum39 owns typed PublicService40; no finite restservice strings. All output diagnostics16/97/120/128/137/143/147/151/155/159/182/195/201/210/213/236/245/254/304/344/367/369/371/437/485/492/528/537/542/576/590/596/604/625.",
+          "disposition": "Carry canonical open SettlementId/PartyId/Residence references through source/nativeprojection and helpers, preserve already typed rest provision/service. Error prose concrete output/context; do not add magic string enum for typed Inn/Temple. Full651 read including requestedmaterial385-445; delegated currency/disease/condition/training existingownread only, no numerical/cost/transaction/restauthority verdict."
+        }
+      ],
+      "status": "Entire requested changed original independently read; source-accounted WITH findings and explicit external contracts."
+    },
+    {
+      "original_index": 313,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/stationary.rs",
+      "sha256": "4247ba159aa9a5ceb6183f7a4e23023b27e47cd6c48c46e66565120fe89e1ca8",
+      "actual_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              263
+            ]
+          ],
+          "role": "All literals diagnostic17/28/31/73/163; raw schedule apprenticeship/practice organizationIDs219/223 passed core validate_daily_allocation204 then recovered245/247 into raw state, errorflatten226. Other finite activities typed and time numeric/typed.",
+          "disposition": "Canonical admitted OrganizationId and activity-payload owners should span actual update reducer to validation plan to native schedule310 and actual311/304 consumers; retain checked owner rather than extracting raw organization strings into state. Core validate_daily_allocation implementation not newlyread; exact source native ownership proof remains qualified. No source test/native/project execution or regression/math assertion."
+        }
+      ],
+      "status": "Entire requested changed original independently read; source-accounted WITH findings and explicit external contracts."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Book terrain and admitted organization schedule references remain raw through state and skill selection",
+      "sources": [
+        "311:429-438,501-505,583-595",
+        "313:204-247",
+        "310:48-50",
+        "304:182-196,383-434",
+        "116:BookTarget schema"
+      ],
+      "remedy": "Reuse canonical terrain/Skill and open OrganizationId owners through authored BookTarget, schedule plan/state and actual training/application recipients.",
+      "acceptance": "Reconcile actual book/catalog/parser and core schedule plan owners plus native/gateway schedule ingress; no raw-selector fallback or old schema compatibility obligation.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actual core book selection/training and validate_daily_allocation plan implementations not newly read; native/gateway input contracts remain qualified.",
+    "All inherited aliases/currentness/F9/M09/all20/P16/P17 and other populations retained."
+  ],
+  "qualifications": [
+    "Exact f82 physical-P16 sources only, no current alias.",
+    "User no backwards compatibility; no project/native/test/probe execution or product/Git/rootledger/publication mutations.",
+    "Source-accounted WITH findings only, no repaired/global/runtime/native/unique-total/other-lens clearance."
+  ],
+  "proposed_count": {
+    "before": 311,
+    "after": 314,
+    "indices_completed": [
+      311,
+      312,
+      313
+    ],
+    "next_original": 314,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/schedule.rs",
+      "sha256": "6cbe8772bb5c9f5bd4f48d7dffa099df1b8a39a8a1cf69a83bc4a5ad0b938c73",
+      "ranges": [
+        [
+          1,
+          741
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+      "sha256": "597a9011b190676ac71213abd7cf040a71a673d78e5b0498f204452a5b2d3223",
+      "ranges": [
+        [
+          1,
+          651
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/stationary.rs",
+      "sha256": "4247ba159aa9a5ceb6183f7a4e23023b27e47cd6c48c46e66565120fe89e1ca8",
+      "ranges": [
+        [
+          1,
+          263
+        ]
+      ]
+    }
+  ]
+}

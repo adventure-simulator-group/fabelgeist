@@ -1,0 +1,174 @@
+{
+  "lens": 13,
+  "status": "source-accounted with qualified findings; continuing",
+  "registrations": [
+    {
+      "path": "audit-resume-20261027/lens13/batch-166-registration.json",
+      "sha256": "eb72237cf712296135158adf9f07d4edac6acde62e78eaf74b3ed1ecbc1209b0"
+    },
+    {
+      "path": "audit-resume-20261027/lens13/batch-167-registration.json",
+      "sha256": "6b7ebf3877e61a292939a909d8d4424ee8e13fe3e7ad5886de623e5e88f6cb6e"
+    }
+  ],
+  "actual_source_reads": [
+    {
+      "original": 259,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/smithing.rs",
+      "sha256": "428e697ec583b24ab798b6dadd2c67abf251e6359ed5b26a9d4819f93e266ce3",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/428e697ec583b24ab798b6dadd2c67abf251e6359ed5b26a9d4819f93e266ce3",
+      "eof": 119,
+      "requested_range_variants": [
+        [
+          1,
+          119
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "provenance": "Exact frozen f82 registered physical variant; all effective requested scopes, not automatically credited from receiver access.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          119
+        ]
+      ]
+    },
+    {
+      "original": 260,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social.rs",
+      "sha256": "93e446648725e961aaac7377e920dd07a8fcef4b7c0ff243ad9b054801f2ca41",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/93e446648725e961aaac7377e920dd07a8fcef4b7c0ff243ad9b054801f2ca41",
+      "eof": 3805,
+      "requested_range_variants": [
+        [
+          1,
+          3805
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          3805
+        ]
+      ],
+      "provenance": "Exact frozen f82 registered physical variant; all effective requested scopes, not automatically credited from receiver access.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          3805
+        ]
+      ]
+    },
+    {
+      "original": 261,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social/action_authority_tests.rs",
+      "sha256": "ba5b4a0bf39b20046078778a463fce3dea54375d10801a7f68c2d58aaa689198",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/ba5b4a0bf39b20046078778a463fce3dea54375d10801a7f68c2d58aaa689198",
+      "eof": 154,
+      "requested_range_variants": [
+        [
+          1,
+          154
+        ]
+      ],
+      "ranges": [
+        [
+          1,
+          154
+        ]
+      ],
+      "provenance": "Exact frozen f82 registered physical variant; all effective requested scopes, not automatically credited from receiver access.",
+      "actual_consumed_ranges": [
+        [
+          1,
+          154
+        ]
+      ]
+    },
+    {
+      "sha256": "83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "eof": 78,
+      "role": "Re-read actual own142 complete corequote source; connect requirement unit/quantity to native259",
+      "actual_consumed_ranges": [
+        [
+          1,
+          78
+        ]
+      ]
+    },
+    {
+      "sha256": "69e421c97648b448a374ac32ca30481cb6d0599800f9fbfa88d27dd6fb0f9137",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/69e421c97648b448a374ac32ca30481cb6d0599800f9fbfa88d27dd6fb0f9137",
+      "ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "eof": 31,
+      "role": "Exact f82 future262 actual social admission/typed action receiving boundary only; no ordered rolecredit",
+      "actual_consumed_ranges": [
+        [
+          1,
+          31
+        ]
+      ]
+    }
+  ],
+  "original_indices": [
+    259,
+    260,
+    261
+  ],
+  "prior_actual_source_reuse": [
+    "Core142 smithing full78 re-read167; prior082-084 actual weapon construction/admission/dispatch/material integration and unchecked quote conversion concern retained without universal huge-mass proof. Inventory219 full241 actual132 and core112 fraction owner earlier actual source support bounded consumption. Native221 full946 actual136 creation and item count ports retained.",
+    "Core143 social SHAbb53725a full1-1909 actual069-076 provides actual affinity, chat, action, belief, probability, target-selection and training split kernels. Native draws266 SHA788653b5 full54 actual069-076 retained; no new ordered266 credit. Native262 admission31 read167, no ordered credit.",
+    "Existing actual core145 Skill and native condition/morale selected proofs, native193 disease full2950 and core93 selected chronology, native253 presence759 and world-schema calendar prior exact ranges support selected receivers only. No whole physiology/SDK/current/runtime certification."
+  ],
+  "numeric_inventory_and_actual_trace": [
+    {
+      "original": 259,
+      "scope": "Full119",
+      "inventory": "Raw character/native item IDs u64, quantity/microfraction availability u32 and sorted row IDs, requestedmicros u32; recipe bytes Vecu8 lengthguard, outputquantity1 and forge timeu64; typed ConsumableFractionMicros already used inside consumption.",
+      "trace": "Availability saturates aggregate at u32MAX: actual quote requirements are checked u32 per item, so saturation does not falsely report insufficient stock for a representable requirement. Core quote multiplies material/stock-unit ratio by MICROS_PER_WHOLE (actual167), not milliunits; native error wording is stale but no factor1000 debit defect claimed. Consumption limits each request to one checked whole-row fraction, actual219 consume_personal returns<=request, subtraction nonnegative and stable order. Quote requirements aggregate shared stock using checked addition. Recipe admission/quote time unchecked float conversion/order concern remains original142 qualified; no ordinary huge weapon assertion. Source requires actual forge service/chapter/local actor; consumes quoted stocks then advances wait time, creates one exact weapon and physical design. Native transaction rollback not independently proved; no partial-commit allegation solely from operation order."
+    },
+    {
+      "original": 260,
+      "scope": "Full3805, all production and existing inline tests consumed in <=400-line outputs, including all definitions after embedded test modules.",
+      "fields_and_ports": "Raw u64 directed actor/subject IDs and canonical pair IDs, raw affinity f32 anchor and shared_minutes u64 alongside typed StrategicMinute; raw u32 event sequence/claim order, u64 session revision and optional typed WitnessClaimResolution; raw bool factual accuracy/concern/released checkpoints, f32 signal/assessment/confidence/morale/affinity deltas, i8 perceived personality value paired with typed axis. Native singleton0/range0u64.. and autoincrement0 are framework roles; other semantic IDs/durations/probabilities/scores need canonical owners. Optional payload and axis/value encoding opportunities remain distinct from ordinary named predicates.",
+      "bands_and_chat": "Affinity bands -25/15/50; familiarity60/8*60/40*60, morale -20/10 and familiar-address40h are authored policy. Chat accepts15..480 minutes, multiples15, actionID<=96 native text boundary. Thus segments1..32, positive_segments<=32 and classification multipliers3/2 cannot overflow; both zero-segment public misuse and arbitrary u64-loop assumptions are narrowed by actual caller validation. Segment results sum finite core143 bounded outcomes and clamp running affinity. Disposition sociability/outlook codes0/1/2 bridge existing enums through primitive fields; use actual canonical owner rather than new unrelated integer enum. Resident availability checks typed observer minute, target alive-at-date and remaining scheduled window; party chat synchronizes clocks and applies ordinary wait to both, with receipts before mutable replay checks.",
+      "witness_actions": "Native claims capture actual insight assessment, random challenge as two u64 hex words, claim_order enumerate asu32 without local checked narrowing. No ordinary >u32 claims claimed; stronger manifest cardinality guarantee requires its exact upstream proof. Heard event sequence/claim ownership/unresolved payload and expected revision checked before response; authored response presence determines approach availability. Native revision increments saturating1 and records resulting_revision. At revisionMAX numeric change no longer distinguishes successive mutations; receipt/claim-resolution guards independently prevent same-claim replay, so do not claim arbitrary duplicate outcome or ordinary stale-client exploit. Five-minute response shared constant is consumed through actual investigation time receiver. FamiliarityBPS uses sat(minutes*10000)/6000 then min10000; overflow can only occur far above full-familiarity threshold6000, so final bounded result remains10000, unlike previously reported cumulative-share saturation-before-division case.",
+      "affinity_familiarity_presence": "Actual local put_affinity clamps signed [-100,100] but does not reject NaN (f32 clamp preserves NaN), so universal finite record invariant not established; existing ordinary core143 producer bounds narrow this to API/admission concern. Async familiarity skips self/zero, saturates u64 accumulation and optionally disables familiarity to avoid double-counting party time. Shared party settlement adds elapsed min(personal clocks) since anchor and maxes anchor; join resets anchor, history spans have typed start/optional end and native rounded physiology band0..5. Context contact helper records start=min(clocks), closure=max(start,min(clocks)); no negative duration. Its claim that earlier contact is not retroactive needs frontier-policy qualification for asymmetric clocks; no actual erroneous chart disclosure/runtime witness asserted. Existing chart193 inclusive-MAX conversion concern remains distinct.",
+      "belief_personality_training": "Contact obvious presentation maps typed variants to i8 codes0/1/2, ambiguous uses actual Insight/Deception kernel with transparency offsets -1/0/1 and clamp0..5. Personality truth table maps each existing enum to raw legal code0..2, with Conscience/Inclination extending3; legal_values guard before retention and gateway projection, but axis-neighbor payload still raw semantic encoding. Existing first-insert confidence issue remains: put_belief checks legal value, only invokes finite/stronger replacement predicate when an old row exists, and new confidence is stored raw. Core143 diagnoses finite ordinary confidence, so no ordinary NaN evidence. Discovery training split .25-type bounded actual core143 policy plus actual Skill owner avoids the generic public MAXhours source example becoming an ordinary claim.",
+      "social_resolution_policy": "Eight action choices; personality fit accumulates explicit signed weights 1,.75,.5,.25,1.25,2 by existing enums; sensitivity authored .35/.4/.45/.5/.8/.9/1, affinity gain .4 perhour, modifier units and clamped deception/skill values are numerical policy requiring owning records/types, not native SDK boundaries. Prayer requires positive finite direct hours in exact target religion before correlated capability calculation. Manual action consumes participant time, automatic path reuses same resolver with consume_time=false and max3 selected attempts after stable candidate acquisition. Max3 does not cap preference/source collection. Bool consume_time and record_familiarity represent neighboring execution policy; other-lens enum/payload queue mandatory.",
+      "idempotency_and_terminal_policy": "Chat/witness receipts compare immutable coordinates and reject conflicting reuse. apply_corpse_family_offense itself applies affinity before morale event idempotency; source comment retry-safe depends on caller receipt guard, not this eventID alone. Actual190 corpse permission/offense paths already source-accounted; no ordinary duplicate claim. Saturated cooldown available_atMAX is no longer strictly later than nowMAX, so temporal cooldown cannot reject repeat solely by date at terminal coordinate; other source/address/request conditions remain, no runtime/ordinary activation claim.",
+      "fixtures": "Full existing social demo IDs ending977/976/975/974, hours900/600, morale -8/-3, affinity18, familiarity18h, belief .64/.82/1 and values2/3; guarded fixture policy, not arbitrary primitive exemption. All inline contract/source predicates, test IDs1/2, enum table counts, invalid -1, time bands and expected5-minute count checks consumed, not executed or added."
+    },
+    {
+      "original": 261,
+      "scope": "Full154 existing guarded authority reducer",
+      "inventory": "Two participants per index; actor732910+index*2/companion+1 over fixed10 keys, specialindex9 shared-concern branch, neutral score0, direct religion100, negative source-15, exactreceiptcount1 and direct[0] guarded by preceding short-circuit len!=1. Unknown-key fixture IDs0/0 reject at parse before actor lookup.",
+      "trace": "Actual262 admission parser rejects unsupported keys and enforces Reflect iff self, living/same-party/co-location through260 receiver. Existing authority fixtures reuse ordinary authoritative path without time consumption, test cooldown on second request. No new tests/helpers or execution."
+    }
+  ],
+  "qualified_observations": [
+    "No new unique count. Raw public/core inputs and native stored state can exceed ordinary producer contracts; retain source findings with currentness, alias and runtime acceptance separate. Existing first-insert confidence and durability/quote concerns retain their original relationships, not new unique variants.",
+    "Social saturation and time/claim identity concerns are exact source policy endpoints; no fabricated overflow in bounded chat segment arithmetic or saturated full-familiarity conversion."
+  ],
+  "limits": [
+    "All effective original scopes retained; future262/266 access no ordered credit. Stronger incoming claim cardinality or SDK transaction behavior not inferred from names or searches. No global source clearance from this large file.",
+    "No product/Git/rootledger/project checks/probes/tests/new tests/helpers/assertions/doctests/publication. Accepted unique0; remaining populations and other-lens extensions separate mandatory."
+  ]
+}

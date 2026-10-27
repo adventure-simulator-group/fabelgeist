@@ -1,0 +1,15 @@
+{
+ "id": "ADLER-CONT10-DERIVE-CANDIDATE-003",
+ "scope_index": 1687,
+ "source": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/preparation.rs",
+ "source_hash": "Pinned by successor077",
+ "classification": "Qualified maintainability candidate; correct current manual conversions; same mechanical error-conversion family as candidate002, not a new unique finding",
+ "candidate": "Existing derive_more2.1.1 From feature can selectively derive owned BevyError→PreparationError::Presentation via explicit variant #[from(BevyError)], deleting only manual lines61–65. Existing boxed SceneInput/Generation wrappers may follow candidate002 exact selective boxing separately; keep two-step GenerationError semantic conversion explicit unless an exact existing adapter is proven.",
+ "comparison": "Personally reread hash-verified registered derive_more implementation material122 enum selection23–86, Types expansion160–185 and skip256–258. Explicit variant types suppress unspecified variants and invoke exact field From; BevyError→BevyError is identity. No generic bounds/borrow changes, decoding/native narrowing, stable status changes or new dependency.",
+ "important_semantic_qualification": "Do not casually replace manual BevyError adapter with thiserror field #[from]: that attribute also declares the field as an error source, whereas current Presentation(BevyError) has a nontransparent display label and no explicit source annotation. Any source-chain change must be deliberate and independently established. Derive-more selective constructor keeps thiserror display/source annotations unchanged.",
+ "acceptance": "Before implementation, confirm exact dual-derive attributes/coherence with existing acceptance, unchanged owned conversion API/variant/display/source behavior and boxed conversions. No new tests or macro probes authorized here.",
+ "material_credit": "Bounded supporting macro read only; does not complete material122 or other material queue roles",
+ "source_edits": false,
+ "checks": "not run",
+ "new_unique_findings_claimed": 0
+}

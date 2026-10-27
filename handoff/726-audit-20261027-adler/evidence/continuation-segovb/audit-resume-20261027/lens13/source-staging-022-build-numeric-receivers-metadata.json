@@ -1,0 +1,73 @@
+{
+  "scope": "Original46 actualsource-map primitive receiver andsourcebytes constant locators only",
+  "sources": [
+    {
+      "original_locator_no_credit": 134,
+      "source_id": "physical-p16:crates/adventuresim-core/src/road_encounter_catalog.rs",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "eof": 2689,
+      "locators": [
+        {
+          "line": 381,
+          "text": "pub struct EncounterSource {"
+        },
+        {
+          "line": 384,
+          "text": "pub line: u32,"
+        },
+        {
+          "line": 1037,
+          "text": "pub fn sources() -> Vec<EncounterSource> {"
+        },
+        {
+          "line": 1038,
+          "text": "serde_json::from_str(ROAD_ENCOUNTER_SOURCE_MAP_JSON).expect(\"embedded encounter sources\")"
+        }
+      ],
+      "body_read": false
+    },
+    {
+      "original_locator_no_credit": 2587,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_validation.rs",
+      "local": "target/recovery-20261025/continuation-segovb/source-objects/df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "eof": 2053,
+      "locators": [
+        {
+          "line": 26,
+          "text": "pub const MAX_SOURCE_BYTES: usize = 2 * 1024 * 1024;"
+        },
+        {
+          "line": 36,
+          "text": "fn new(source_index: usize, path: impl Into<String>, message: impl Into<String>) -> Self {"
+        },
+        {
+          "line": 107,
+          "text": "fn source_coordinates(source: &str, path: &str) -> (usize, usize) {"
+        },
+        {
+          "line": 133,
+          "text": "pub fn parse_document(text: &str) -> Result<Value, serde_json::Error> {"
+        },
+        {
+          "line": 212,
+          "text": "pub fn validate_documents_with_sources("
+        },
+        {
+          "line": 227,
+          "text": "if source.len() > MAX_SOURCE_BYTES {"
+        },
+        {
+          "line": 231,
+          "text": "format!(\"source exceeds {MAX_SOURCE_BYTES} bytes\"),"
+        },
+        {
+          "line": 1653,
+          "text": "fn semantic_diagnostics_include_exact_source_coordinates() {"
+        }
+      ],
+      "body_read": false
+    }
+  ]
+}

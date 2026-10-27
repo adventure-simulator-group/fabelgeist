@@ -1,0 +1,71 @@
+{
+  "lens": 8,
+  "kind": "actual source context accounting; no whole original1793 or material52 completion",
+  "registrations": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/REGISTRATION-005.json",
+      "sha256": "8be0a5438a4d868b0d0dd1a27c7f99429333fee3c509146f914d76a71edfe8e3"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/REGISTRATION-006-diffs.json",
+      "sha256": "70a2f738ef2ce8ce41db5d265089ddb430d6317eff77a174b3caf1929615e0fc"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/REGISTRATION-007.json",
+      "sha256": "f4d72db5558c15c59feb17dbc47311b38de24f3c399656b5235ebc50d0839346"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens08/REGISTRATION-008-diff.json",
+      "sha256": "4a6bc7e4d96376ada4a82aaa249857703068f4c37dec57893c1043447ced22b2"
+    }
+  ],
+  "actual_reads": {
+    "REGISTRATION-005": "All eight frozen module bodies full EOF: compound304,foundations390,stairs318,access138,surface177,support291,single_support89,settlement420. Equal base/frozen hashes establish exact unchanged bodies. Changed foundations12line and stairs225line actual unified diff fully read. Foundations initial output truncation151-161 was explicitly recovered145-172; no unseen credit.",
+    "REGISTRATION-007": "Full constraints141,profiles171,mesh242; profiles and mesh exactly equal base/frozen. All42 actual constraints diff lines read."
+  },
+  "contracts": [
+    {
+      "source": "compound.rs7-51",
+      "assessment": "Unchanged gate adjustment requires exactly one centreline-containing access; clamps gate between street plus/minus grade reach after subtracting two halfwidths and tolerance. Negative reach rejects before candidate. Native intermediate finite arithmetic is not comprehensively established; unchanged extreme-value contract concern is separate from demonstrated migration regression."
+    },
+    {
+      "source": "compound.rs53-304;profiles.rs1-171",
+      "assessment": "Compile validates member identity/plot/contact, exactly one route per front/rear/gate, aligned positive-run reservations; Level replaces court/rear with front floor while Terraced compiles explicit stairs. Court profile uses duplicate coordinates for vertical terrace boundaries; passage profile derives gate/hinge sweep and landings then validates ordered grade profile. Bearings compare exact member corner/intersection heights to support mesh with contact tolerance."
+    },
+    {
+      "source": "constraints.rs13-141;foundations.rs59-65",
+      "assessment": "Floor-shift geometry is unchanged: original and unit-shift basis meshes constrain f64 displacement intervals over all source intersections, require coverage, choose zero clamped inside a tolerance margin or interval midpoint. Only successful f64-to-f32 result admission changed: SignedLength rejects nonfinite cast with framed Reservation diagnostic. No numeric clamp/alternate solver or rounding was added. Nonfinite old return is not a compatibility requirement."
+    },
+    {
+      "source": "stairs.rs1-318 and actual old/new delta",
+      "assessment": "Frame-correct SupportStairFlight replaces raw architectural flight; endpoints/heights/going/width/landing/nosing use checked leaves and riser count NonZeroU16. Rise/run/count thresholds, landing selection, width max and native height arithmetic/order otherwise preserved. shift_floor preflights three checked sums before mutation. height_at now returns Option<Result<SupportElevation,_>>: caller must propagate the error; actual caller remains queued."
+    },
+    {
+      "source": "foundations.rs87-390",
+      "assessment": "Mesh cap checked before u32 indexing; cells have exact support/solid topology. Complete source intersections bound displacement and coverage with deterministic diagnostics. Foundation compilation, bank compilation and final validation keep source geometry separate. Selected support controls run before final composition. Other unchanged helper algorithms are context, not a universal native geometry proof."
+    },
+    {
+      "source": "support.rs1-291;single_support.rs1-89",
+      "assessment": "Compound support sorts properties, maps exact members across playable/distant, verifies recipe programme equality, derives collision contact and directional thresholds, samples terrain at typed scene points, uniquely binds gate access and invokes street selector. Single support sorts retained properties, derives exact recipe bearing/door thresholds and requests support. Exact recipe/program/collision contracts still needed for original1793 captured fixture."
+    },
+    {
+      "source": "surface.rs1-177;mesh.rs1-242",
+      "assessment": "Generated surfaces run same encoded validation as decode before publication; capture mesh, bearings, clipping outlines, limits and treatment. Mesh finite topology admission and u32 capacity checked. Elevation interpolation preserves f32 calculation then uses f64 fallback only on failed finite height admission; invalid interpolation may be filtered out, qualified native arithmetic concern, no ordinary witness asserted."
+    },
+    {
+      "source": "settlement.rs1-420",
+      "assessment": "Sort owners, reject duplicate property/member and overlapping outlines, compile one foundation per owner, clip source once, validate finite geometry and presentation capacity then compile/validate query index. elevations_at filters invalid heights, sorts and coalesces by contact tolerance. Collision and presentation project same owned geometry with different winding. Query cache excluded from semantic equality; exact query implementation not yet assessed."
+    }
+  ],
+  "remaining_actual_sources": [
+    "Stair height receiver mesh/grid and changed error forwarding",
+    "CityRecipePalette::for_program; Recipe::door_point; BuildingCollision::ground_floor_contact_bounds",
+    "Captured fixture CityCompound nested boundary/ID/program enum/seed serde and programme constructors",
+    "Remaining generated surface validation/query/native kernels only where materially needed for changed fixture/selection contract; no blanket SDK clearance"
+  ],
+  "qualification": "Actual bodies/deltas source-assessed, findings qualified. No original count advancement, runtime result, source validation, repair, current snapshot or other-lens credit. Existing qualified findings retained. New reached bodies must map to other-lens source extension roles.",
+  "project_execution": false,
+  "product_edits": false,
+  "new_tests": false,
+  "global_clearance": false
+}

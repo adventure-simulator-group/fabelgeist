@@ -1,0 +1,432 @@
+{
+  "lens": "type-granularity",
+  "status": "registered-before-new-connected-consumption",
+  "base_state": "audit11-successor-157-proposed-state-002.json",
+  "registered_original_roles": [
+    {
+      "scope_index": 781,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/conform.rs",
+      "sha256": "4c3ee7c251ed1a4d18681e0b05c0fcf35b3b61e7d6dd0decfda0708577469162",
+      "reused_full_body_read": [
+        [
+          1,
+          324
+        ]
+      ],
+      "prior_read_receipt": "audit11-successor-157.json",
+      "new_discovery_credit": false
+    },
+    {
+      "scope_index": 782,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/drape.rs",
+      "sha256": "c26b0508ccce30c3c2ca164e46327764ca4b133b418b5ea49e008b0a45613421",
+      "reused_full_body_read": [
+        [
+          1,
+          334
+        ]
+      ],
+      "prior_read_receipt": "audit11-successor-157.json",
+      "new_discovery_credit": false
+    }
+  ],
+  "connected_extensions": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/dressing.rs",
+      "connected_original_index": 783,
+      "sha256": "a5b190694f00f1dbc5e1895f5b40f65b6c1f7242da45ea844b59a6b6d6932523",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "781 dressing predicate role /782 fit settings native solver and fabric clearance ports"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-garment-fit/src/lib.rs",
+      "connected_original_index": 2266,
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "781 dressing predicate role /782 fit settings native solver and fabric clearance ports"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/fabric.rs",
+      "connected_original_index": 2229,
+      "sha256": "37cf4430a9923bb91663a7eb0eadee8674fd3489e172a5f8d164a929d6ba1313",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "781 dressing predicate role /782 fit settings native solver and fabric clearance ports"
+    },
+    {
+      "connected_original_index": 783,
+      "sha256": "a5b190694f00f1dbc5e1895f5b40f65b6c1f7242da45ea844b59a6b6d6932523",
+      "ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "ordered_credit": false,
+      "registered_before_read": true,
+      "reason": "781 Dressing constructor and d resses predicate actually classifies checked rig roles, not extra impairment/state"
+    },
+    {
+      "connected_original_index": 2266,
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "ranges": [
+        [
+          32,
+          98
+        ]
+      ],
+      "ordered_credit": false,
+      "registered_before_read": true,
+      "reason": "781/782 owning centimetre FitSettings offset/default to explicit metre clearance"
+    },
+    {
+      "connected_original_index": 2229,
+      "sha256": "37cf4430a9923bb91663a7eb0eadee8674fd3489e172a5f8d164a929d6ba1313",
+      "ranges": [
+        [
+          1,
+          31
+        ],
+        [
+          117,
+          134
+        ]
+      ],
+      "ordered_credit": false,
+      "registered_before_read": true,
+      "reason": "Fabric thickness frame and actual particle radius numerical contract"
+    },
+    {
+      "connected_original_index": 2337,
+      "source_id": "pr-working:crates/fabelgeist-rig/src/table.rs",
+      "sha256": "491cfcace087aef015067a75e218e3bee9dc3c1e8bf681b40afa840f806da282",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "Actual Dressing78397 casts packed returned RigJointOrdinal; verify canonical ordinal representation before recording receiving migration qualification"
+    },
+    {
+      "connected_original_index": 2229,
+      "sha256": "37cf4430a9923bb91663a7eb0eadee8674fd3489e172a5f8d164a929d6ba1313",
+      "ranges": [
+        [
+          29,
+          49
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "Read explicit Fabric thickness metre/damping declarations omitted by prior narrow header range"
+    },
+    {
+      "connected_original_index": 2334,
+      "source_id": "pr-working:crates/fabelgeist-rig/src/names.rs",
+      "sha256": "94146b1b91f11d9711a5439e607b357cd8bb2fe828de4763cb432f58b0225554",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "Canonical RigJointOrdinal representation to distinguish valid native conversion from impossible primitive cast in Dressing"
+    },
+    {
+      "connected_original_index": 2332,
+      "source_id": "pr-working:crates/fabelgeist-rig/src/lib.rs",
+      "sha256": "7e73efb0a5ce824e111c2d28e54a5422b75bdca12e0c7553423dc0dfab8f563b",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "Locate canonical RigJointOrdinal definition/export; names2334 locator absent symbol, not source coverage"
+    },
+    {
+      "connected_original_index": 2332,
+      "sha256": "7e73efb0a5ce824e111c2d28e54a5422b75bdca12e0c7553423dc0dfab8f563b",
+      "ranges": [
+        [
+          1,
+          61
+        ],
+        [
+          90,
+          109
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "Canonical ordinal opaque struct and supported conversions; direct casting is not valid native admission"
+    },
+    {
+      "connected_original_index": 2337,
+      "sha256": "491cfcace087aef015067a75e218e3bee9dc3c1e8bf681b40afa840f806da282",
+      "ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "Canonical typed indexed/get receiving APIs for rig tables"
+    },
+    {
+      "connected_original_index": 2266,
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "ranges": [
+        [
+          369,
+          385
+        ],
+        [
+          575,
+          625
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "782 actual native Fit.step numeric delta handoff and positions readback unit/kernel boundary"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/cloth/mod.rs",
+      "sha256": "2318544fe5a77b517ae01b26f7d4b65b288c0be78c63aa9a90034bd2a7385c05",
+      "ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "ordered_credit": false,
+      "registered_before_read": true,
+      "reason": "Locate782 cloth seams/bending/particles actual receiver owners; registered source owner2228"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/lib.rs",
+      "sha256": "73854d3247aafeacaca9882c0d9666e5b83e482dd9924374ff0dec2b6a77cef9",
+      "ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "ordered_credit": false,
+      "registered_before_read": true,
+      "reason": "Locate782 cloth seams/bending/particles actual receiver owners; registered source owner2230"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-shell/src/lib.rs",
+      "sha256": "f56675ce9e64d8c46ee028e405abd261b969614531a211b4c75471ba5b714f10",
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "ordered_credit": false,
+      "registered_before_read": true,
+      "reason": "Locate782 cloth seams/bending/particles actual receiver owners; recovered catalog source identity, connected only"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-shell/src/shell.rs",
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "locator": 2341,
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "782 SeamClosure actual shared colored-constraint/topology boundary symbol lookup only"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/constraint.rs",
+      "sha256": "184f9ec53d0daec144a6c90408ef84fab86f29e62aa48c0d6c5377d45173f6e4",
+      "locator": 2349,
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "782 SeamClosure actual shared colored-constraint/topology boundary symbol lookup only"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/garment/mod.rs",
+      "sha256": "d5124bc81c37905a779feea7e56a120ed5fadda9448cad8cf907a61c938b1da6",
+      "locator": "catalog2631",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "782 SeamClosure actual shared colored-constraint/topology boundary symbol lookup only"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-shell/src/topology.rs",
+      "sha256": "98444936697b73035be3e07e0464a3e4a031ad0b1f28084275206b1b8ae7eb91",
+      "locator": 2345,
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "782 SeamClosure actual shared colored-constraint/topology boundary symbol lookup only"
+    },
+    {
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "ranges": [
+        [
+          1,
+          48
+        ],
+        [
+          76,
+          166
+        ],
+        [
+          253,
+          304
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "782 actual Shell constraint identities, same source mesh construction and step/readback numerical ports"
+    },
+    {
+      "sha256": "184f9ec53d0daec144a6c90408ef84fab86f29e62aa48c0d6c5377d45173f6e4",
+      "ranges": [
+        [
+          1,
+          115
+        ],
+        [
+          154,
+          229
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "782 coloring reorder and attach versus attach_raw explicit native upload behavior"
+    },
+    {
+      "sha256": "98444936697b73035be3e07e0464a3e4a031ad0b1f28084275206b1b8ae7eb91",
+      "ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "782 BendQuad semantic hinge record and particles native order"
+    },
+    {
+      "sha256": "d5124bc81c37905a779feea7e56a120ed5fadda9448cad8cf907a61c938b1da6",
+      "ranges": [
+        [
+          130,
+          164
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "782 actual GarmentMesh distinct metre geometry/material UV/seam/bend collections"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-shell/src/mesh.rs",
+      "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+      "ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "782 exact same build.mesh -> Fit construction -> ShellMesh validation channel ordering/membership boundary"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/placement.rs",
+      "sha256": "7e744958c7df65097784318b313e51c658edae89fde9e0f80ba70ddce4fcaa81",
+      "ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "782 exact same build.mesh -> Fit construction -> ShellMesh validation channel ordering/membership boundary"
+    },
+    {
+      "connected_original_index": 2266,
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "ranges": [
+        [
+          391,
+          432
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "782 actual Fit constructor consumes same build.mesh into Cloth::new, establishes seam/bend source ordering before caller manipulation"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/particles.rs",
+      "sha256": "99b46998863ca413643469afd3b2108707428e366d63088af8f759a515bcf37b",
+      "locator": "catalog2648",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "782 exact particle native positions upload/readback and color ordering receiver symbol locations"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/coloring.rs",
+      "sha256": "1f97fcaab5611d5acf757c551732b3e02485babc05c3ad976d05407da73f3a2a",
+      "locator": "catalog2655",
+      "ranges": [],
+      "symbol_locator_only": true,
+      "ordered_credit": false,
+      "reason": "782 exact particle native positions upload/readback and color ordering receiver symbol locations"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/particles.rs",
+      "sha256": "99b46998863ca413643469afd3b2108707428e366d63088af8f759a515bcf37b",
+      "ranges": [
+        [
+          21,
+          34
+        ],
+        [
+          125,
+          171
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "782 exact native particle positions rewrite/readback retains inverse masses and checks count"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/coloring.rs",
+      "sha256": "1f97fcaab5611d5acf757c551732b3e02485babc05c3ad976d05407da73f3a2a",
+      "ranges": [
+        [
+          1,
+          46
+        ],
+        [
+          68,
+          149
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "782 exact Coloring original constraint ordinal vs colored slot role and complete per-constraint permutation construction"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/particles.rs",
+      "sha256": "99b46998863ca413643469afd3b2108707428e366d63088af8f759a515bcf37b",
+      "ranges": [
+        [
+          87,
+          118
+        ]
+      ],
+      "registered_before_read": true,
+      "ordered_credit": false,
+      "reason": "Finish782 positions native packing/count/mass preservation receiving body under write_positions"
+    }
+  ],
+  "no_project_checks": true
+}

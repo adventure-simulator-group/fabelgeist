@@ -1,0 +1,86 @@
+{
+  "run": 40372060212,
+  "source": "961d226be23a81d9731a11958d62fe8a04b93e81",
+  "scope": "Final-source GPU/Windows artifacts only; full Linux run pending",
+  "gpu": {
+    "library": {
+      "passed": 13,
+      "failed": 0,
+      "ignored": 0,
+      "sha256": "5ffc4f58857576296037cd66eeb128d741d6747ad396262401b4f3d5a6c8b24f"
+    },
+    "doctests": {
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0,
+      "sha256": "b9877005114d57d758b18f6c82051222e5bee5758282b6bda513f28bbae5c3af"
+    },
+    "borrowed": {
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "sha256": "94d9c9ff2fe96dd9f706155c01683f4ec8f357c477335b45766dfa6e426304c2"
+    }
+  },
+  "windows": {
+    "envelope": {
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "names": [
+        "presentation::ground_scatter::specimens::tests::managed_hazel_matches_shared_envelope"
+      ],
+      "sha256": "5687558bc56dcfc11abc30ec3b87c58a9ac724e6a19d9b83ef07a19cbf8005c2"
+    },
+    "leaves": {
+      "passed": 5,
+      "failed": 0,
+      "ignored": 0,
+      "names": [
+        "presentation::obstacles::tree::geometry::leaves::tests::alpha_leaf_lod_uses_exactly_two_triangles_per_leaf",
+        "presentation::obstacles::tree::geometry::leaves::tests::detailed_flat_cards_keep_a_stable_balanced_three_quarters_per_cluster",
+        "presentation::obstacles::tree::geometry::leaves::tests::leaf_shadow_transmission_is_stable_per_shoot_and_well_distributed",
+        "presentation::obstacles::tree::geometry::leaves::tests::production_oak_has_finite_cambered_leaf_geometry",
+        "presentation::obstacles::tree::geometry::leaves::tests::textured_leaf_lod_uses_exactly_eight_triangles_per_leaf"
+      ],
+      "sha256": "94ec3022f1b66596bcce002d75f53d35810d54ad944e2ee7557cb0dc3c235d53"
+    },
+    "prepared-impostors": {
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "names": [
+        "art_demo::scenery::tests::fixed_oak_exhibit_has_every_matching_prebaked_impostor"
+      ],
+      "sha256": "6a8b3ac98dffc851b5c8fa1c62d1cee989ab596bf32e5c02647a8e0ffcc87e15"
+    },
+    "sampling": {
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "names": [
+        "presentation::obstacles::tree::impostor::raster::tests::coarse_leaf_sampling_preserves_positions_across_every_shoot"
+      ],
+      "sha256": "15e3cce6a12c53dee701e8868085f14a098e16cd8ae4d7b78e2e473498b62b4d"
+    },
+    "understory": {
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0,
+      "names": [
+        "presentation::ground_scatter::understory::tests::minimal_shrub_cards_are_deterministic_when_source_order_changes",
+        "presentation::ground_scatter::understory::tests::minimal_shrub_cards_pin_the_per_species_geometry_budget"
+      ],
+      "sha256": "dec57e7e32a0d3fc46cf58244673b7d0a4d63e8e8e3f8d365941d0a4de20065a"
+    }
+  },
+  "limits": [
+    "Existing tests only. No dedicated runtime exercise of new TextureViewError/PollError paths; borrowed case verifies context policy fields, not all operations.",
+    "No browser runtime/all hardware/32-bit/device-association/transactional/global migration clearance."
+  ],
+  "windows_total": 10,
+  "baseline": {
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs": 502,
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs": 862
+  }
+}

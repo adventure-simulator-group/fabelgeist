@@ -1,0 +1,36 @@
+{
+  "scope": "actual production PoseSamplingSpan receiver and sourcephaseSerde, correcting prior test-only semantic locator",
+  "sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/resolver/span.rs",
+      "sha256": "6d417f317e9d6c150d1b588395132d72996b5645a9ede00a68c0f2eeac51e433",
+      "ranges": [
+        [
+          1,
+          143
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/resolver.rs",
+      "sha256": "1b0873cd746e039bdbc6d22d4f55b28ffad8141f68f43fbdb9fb3be25eb7eeb0",
+      "ranges": [
+        [
+          120,
+          145
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/pose_coordinates.rs",
+      "sha256": "10188a5b28d9578344b32aff9e51ca9b673e16696f9750f745d903bc85c281b3",
+      "ranges": [
+        [
+          80,
+          95
+        ]
+      ]
+    }
+  ],
+  "before_body_read": true
+}

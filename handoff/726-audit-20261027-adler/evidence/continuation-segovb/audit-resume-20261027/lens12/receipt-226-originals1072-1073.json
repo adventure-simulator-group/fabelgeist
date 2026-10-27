@@ -1,0 +1,121 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "226",
+  "predecessor": "receipt-225-originals1065-1071.json",
+  "sources": [
+    {
+      "original_index": 1072,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/Cargo.toml",
+      "sha256": "88120e04c42c2e3a0dfa5100055838100a09da1e60fb3193f2aa8ab2a8867113",
+      "actual_eof": 31,
+      "actual_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              1,
+              31
+            ]
+          ],
+          "role": "Fullactual31 exactchangedrequestedvariant independentlyread; historicalranges1-32 exceedEOF31 andnotbodycredit. Cargo packagenameadventuresim-stdb-module2/nativecrate-typescdylib/rlib7/dependencyspacetimedbfeatures16/19/21 andlogversion0.422/petnameversion2.0.2/default-words24 concreteCargo/buildmetadata; versionsfrozenonlynotcurrentrecommendation/nativeparserproof. authority-tests13 featurehumancomment12 guardedfaultinjection/disposableacceptanceintentnotpermissiontorun/destructivedata. Lintworkspace31/nativeSerde/SHA/thiserror dependencykeys only, no projectexecution orSDKbehaviorproof.",
+          "disposition": "Source-accounted WITH explicitunread/native/actualproducer-consumer/currentness qualifications."
+        }
+      ],
+      "status": "requested-scope source-accounted WITH qualifications"
+    },
+    {
+      "original_index": 1073,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs",
+      "sha256": "c572b0014c6114020ee98d99a3cdfa1579b25a815ade34656bfeb8b6a421d1dc",
+      "actual_eof": 677,
+      "actual_ranges": [
+        [
+          565,
+          605
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": [
+            [
+              565,
+              605
+            ]
+          ],
+          "role": "Onlyregistered565-605ofactualEOF677 consumed, notfullalcoholsource. best_disinfectant569 returnsOption(u64,String,u16),actualinventory row.item_id582\u2192db.itemdefinition\u2192def.id.clone601 retainsrawcatalogitemidentity inreturnalongsideinstance/effectiveness;actual923canonicalItem/catalog937 IDownerfitneedsreceiver/actualdatabasemodel. Rankingnumeric595\u2192adventuresim_core::alcohol::best_disinfectant597 delegatedcallee/readersnotconsumedhere. NoStringliteralinboundedbody; rawStringreturnstillsemanticcontract, notnativeIOadapterproof. Precedingfunctiontail565-567 doesnotgrantwholefunction/sourcecoverage; originalcaller/body1-564/606-677 unread.",
+          "disposition": "Source-accounted WITH explicitunread/native/actualproducer-consumer/currentness qualifications."
+        }
+      ],
+      "status": "requested-scope source-accounted WITH qualifications"
+    }
+  ],
+  "connected_findings": [
+    {
+      "id": "L12-226-disinfectant-catalog-id-return",
+      "source_indices": [
+        1073
+      ],
+      "ranges": [
+        [
+          569,
+          605
+        ]
+      ],
+      "finding": "Actualdatabaseitem definition ID isclonedasString inbest_disinfectant return, alongsideinstanceidentity; internalrecipient/canonicalcatalog ownerfitunread.",
+      "remedy": "Carrymeaningfulcatalogitemidentity/definitionowner throughselectiontoactualsurgery/consumptionrecipient, encodeonlyactualdatabase/nativeboundary.",
+      "acceptance": "Readactualitemrow/admission,allbest_disinfectantcallers/coreselector/canonicalcatalogownerfit; no blanketSQL/Stringreturnexemption.",
+      "aliases": "Priorcatalog/surgery/medicine candidates mayalias;zero unique/currentpromotion.",
+      "unique_count_delta": 0
+    }
+  ],
+  "verified_traces": [],
+  "pending_contracts": [
+    "Actualboundedalcoholcaller/resultreceiver/dbitemdefinition/coreselector identityports;unread1-564/606-677 remainexplicit.",
+    "REG13220/viewercapture/puzzlechild/allpriorunread/otherpopulations/all20/P16/P17/F9/M09/current/aliases preserved."
+  ],
+  "qualifications": [
+    "Exactrequestedregistered scopes independentlyread; no unrelatedwholefile/EOF/metadata/current/otherlenscoverageinference.",
+    "NoBC/project/native/probe/testexecution/global/uniqueclearance."
+  ],
+  "proposed_count": {
+    "before": 1072,
+    "after": 1074,
+    "indices_completed": [
+      1072,
+      1073
+    ],
+    "next_original": 1074,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/Cargo.toml",
+      "sha256": "88120e04c42c2e3a0dfa5100055838100a09da1e60fb3193f2aa8ab2a8867113",
+      "ranges": [
+        [
+          1,
+          31
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs",
+      "sha256": "c572b0014c6114020ee98d99a3cdfa1579b25a815ade34656bfeb8b6a421d1dc",
+      "ranges": [
+        [
+          565,
+          605
+        ]
+      ]
+    }
+  ],
+  "unique_count_delta": 0
+}

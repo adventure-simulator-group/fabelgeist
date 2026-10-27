@@ -1,0 +1,131 @@
+diff --git a/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/plant_lods.rs b/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/plant_lods.rs
+index eda479e4b..c6f3fbac5 100644
+--- a/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/plant_lods.rs
++++ b/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/plant_lods.rs
+@@ -1,4 +1,5 @@
+ use super::*;
++use crate::camera::authored_metres;
+ 
+ pub(in crate::tactical_scene_viewer) const PLANT_LOD_ISOLATED_VIEWS: [CaptureViewSpec; 12] =
+     isolated();
+@@ -32,7 +33,9 @@ pub(in crate::tactical_scene_viewer) const PLANT_LOD_REVIEW_VIEWS: [CaptureViewS
+     v!(
+         "lod-contact",
+         "Highest botanical tier",
+-        CapturePose::PlantLod { distance: 0.45 },
++        CapturePose::PlantLod {
++            distance: authored_metres(0.45)
++        },
+         40.0,
+         100
+     )
+@@ -40,7 +43,9 @@ pub(in crate::tactical_scene_viewer) const PLANT_LOD_REVIEW_VIEWS: [CaptureViewS
+     v!(
+         "lod-high",
+         "Before high transition",
+-        CapturePose::PlantLod { distance: 2.15 },
++        CapturePose::PlantLod {
++            distance: authored_metres(2.15)
++        },
+         40.0,
+         100
+     )
+@@ -48,7 +53,9 @@ pub(in crate::tactical_scene_viewer) const PLANT_LOD_REVIEW_VIEWS: [CaptureViewS
+     v!(
+         "lod-high-blend",
+         "High and medium crossfade",
+-        CapturePose::PlantLod { distance: 2.5 },
++        CapturePose::PlantLod {
++            distance: authored_metres(2.5)
++        },
+         40.0,
+         100
+     )
+@@ -56,7 +63,9 @@ pub(in crate::tactical_scene_viewer) const PLANT_LOD_REVIEW_VIEWS: [CaptureViewS
+     v!(
+         "lod-medium",
+         "After high transition",
+-        CapturePose::PlantLod { distance: 2.85 },
++        CapturePose::PlantLod {
++            distance: authored_metres(2.85)
++        },
+         40.0,
+         100
+     )
+@@ -64,7 +73,9 @@ pub(in crate::tactical_scene_viewer) const PLANT_LOD_REVIEW_VIEWS: [CaptureViewS
+     v!(
+         "lod-medium-end",
+         "Before low transition",
+-        CapturePose::PlantLod { distance: 6.4 },
++        CapturePose::PlantLod {
++            distance: authored_metres(6.4)
++        },
+         40.0,
+         100
+     )
+@@ -73,7 +84,9 @@ pub(in crate::tactical_scene_viewer) const PLANT_LOD_REVIEW_VIEWS: [CaptureViewS
+     v!(
+         "lod-low-blend",
+         "Medium and low crossfade",
+-        CapturePose::PlantLod { distance: 7.0 },
++        CapturePose::PlantLod {
++            distance: authored_metres(7.0)
++        },
+         40.0,
+         100
+     )
+@@ -82,7 +95,9 @@ pub(in crate::tactical_scene_viewer) const PLANT_LOD_REVIEW_VIEWS: [CaptureViewS
+     v!(
+         "lod-low",
+         "After low transition",
+-        CapturePose::PlantLod { distance: 7.6 },
++        CapturePose::PlantLod {
++            distance: authored_metres(7.6)
++        },
+         40.0,
+         100
+     )
+@@ -91,7 +106,9 @@ pub(in crate::tactical_scene_viewer) const PLANT_LOD_REVIEW_VIEWS: [CaptureViewS
+     v!(
+         "lod-distant",
+         "Distant botanical tier",
+-        CapturePose::PlantLod { distance: 20.0 },
++        CapturePose::PlantLod {
++            distance: authored_metres(20.0)
++        },
+         40.0,
+         100
+     )
+@@ -100,7 +117,9 @@ pub(in crate::tactical_scene_viewer) const PLANT_LOD_REVIEW_VIEWS: [CaptureViewS
+     v!(
+         "lod-fade",
+         "Final distance fade",
+-        CapturePose::PlantLod { distance: 25.0 },
++        CapturePose::PlantLod {
++            distance: authored_metres(25.0)
++        },
+         40.0,
+         100
+     )
+@@ -109,7 +128,9 @@ pub(in crate::tactical_scene_viewer) const PLANT_LOD_REVIEW_VIEWS: [CaptureViewS
+     v!(
+         "lod-culled",
+         "Beyond botanical range",
+-        CapturePose::PlantLod { distance: 28.0 },
++        CapturePose::PlantLod {
++            distance: authored_metres(28.0)
++        },
+         40.0,
+         100
+     )
+@@ -118,7 +139,9 @@ pub(in crate::tactical_scene_viewer) const PLANT_LOD_REVIEW_VIEWS: [CaptureViewS
+     v!(
+         "lod-return",
+         "Return to high tier",
+-        CapturePose::PlantLod { distance: 2.15 },
++        CapturePose::PlantLod {
++            distance: authored_metres(2.15)
++        },
+         40.0,
+         100
+     )

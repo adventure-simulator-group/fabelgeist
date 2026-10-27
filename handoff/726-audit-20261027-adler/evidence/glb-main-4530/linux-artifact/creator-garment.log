@@ -1,0 +1,45 @@
+[1m[92m    Finished[0m `test` profile [unoptimized] target(s) in 0.61s
+[1m[92m     Running[0m unittests src/lib.rs (crates/adventuresim-character-creator/target/debug/deps/adventuresim_character_creator-9aa74abd4e2be238)
+
+running 37 tests
+test garment::dressing::tests::only_the_trunk_and_the_parts_a_cut_covers_are_dressed ... ok
+test garment::fitted::tests::fitted_coif_is_one_cloth_surface_sewn_up_the_front ... [fabelgeist-gpu] adapter: llvmpipe (LLVM 20.1.2, 256 bits) | type: Cpu | backend: Vulkan | driver: llvmpipe Mesa 25.2.8-0ubuntu0.24.04.4 (LLVM 20.1.2)
+ok
+test garment::fitted::tests::mail_texture_lies_flat_without_folds_or_stretch ... ok
+test garment::lining::tests::a_piece_without_a_lining_is_no_plate ... ok
+test garment::lining::tests::cloth_through_a_plate_is_pressed_under_it ... ok
+test garment::pattern::shapes::tests::collar_pieces_are_sewn_on ... ok
+test garment::pattern::shapes::tests::every_shape_is_a_valid_pattern ... ok
+test garment::pattern::shapes::tests::lower_garments_hang_from_a_waistband_only_without_an_upper ... ok
+test garment::pattern::shapes::tests::sleeveless_shapes_leave_the_armholes_open ... ok
+test garment::pattern::tests::form_follows_what_the_pattern_covers ... ok
+test garment::pattern::tests::invalid_patterns_are_rejected ... ok
+test garment::seam_and_leg_regression::dress_center_is_continuous_and_sides_retain_opposing_leg_motion ... ok
+test garment::seam_and_leg_regression::opposite_panel_winding_does_not_cancel_seam_normals ... ok
+test garment::selection::tests::a_new_garment_is_a_valid_cotton_shirt ... ok
+test garment::selection::tests::coifs_are_fitted_and_have_no_pattern ... ok
+test garment::selection::tests::garments_round_trip_and_reject_invalid_patterns ... ok
+test garment::settled::tests::a_drape_follows_a_larger_moved_body_and_keeps_its_ease ... ok
+test garment::settled::tests::a_drape_is_not_worn_on_another_body_mesh ... ok
+test garment::settled::tests::a_drape_worn_on_its_own_body_keeps_its_shape ... ok
+test garment::settled::tests::a_saved_garment_reloads_from_compact_json ... ok
+test garment::settled::tests::a_truncated_packed_array_is_rejected ... ok
+test garment::settled::tests::an_unsettled_drape_is_not_saved ... ok
+test garment::settled::tests::cloth_bound_to_parts_that_move_apart_holds_together ... ok
+test garment::settled::tests::cloth_that_would_sink_into_a_body_is_pushed_clear ... ok
+test garment::shading::tests::deformed_normals_remain_smooth_across_material_seams ... ok
+test garment::stages::tests::a_changed_stage_reruns_from_that_stage_and_reuses_earlier_ones ... ok
+test garment::stages::tests::an_unfinished_drape_resumes_only_from_its_completed_stages ... ok
+test garment::stages::tests::stage_settings_reject_contacts_spaced_beyond_one_step ... ok
+test garment::symmetrize::tests::hems_keep_their_outline_and_distant_cloth_is_not_pulled_to_the_body ... ok
+test garment::symmetrize::tests::pairs_and_symmetrizes_bilateral_vertices ... ok
+test garment::symmetrize::tests::seam_copies_stay_together ... ok
+test garment::tests::flat_mail_panels_do_not_inflate_from_self_contact ... ok
+test garment::tests::garment_skin_interpolates_and_normalizes_body_influences ... ok
+test garment::tests::shapes_build_sewn_patterns ... ok
+test garment::tests::shirt_length_lowers_the_hem ... ok
+test garment::validation::tests::a_fold_through_the_same_garment_is_reported_without_failing ... ok
+test garment::validation::tests::body_clearance_rejects_wrong_side_without_a_surface_crossing ... ok
+
+test result: ok. 37 passed; 0 failed; 0 ignored; 0 measured; 111 filtered out; finished in 29.26s
+

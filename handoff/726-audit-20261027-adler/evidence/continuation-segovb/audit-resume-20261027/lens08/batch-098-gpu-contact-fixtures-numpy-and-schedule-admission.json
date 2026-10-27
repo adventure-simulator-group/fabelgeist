@@ -1,0 +1,128 @@
+{
+  "registrations": [
+    "REGISTRATION-140-garment-and-numpy-receivers.json"
+  ],
+  "per_role": [
+    {
+      "original": 2658,
+      "behavior": "Only1\u2013116/196. OuterLayer checks inward finite and length>0 but extreme finite components may lengthInf then normalize\u2192zero; checks clearancefinite>=0 only constructor while clearance publicly mutable. corrections best effort, residual folds f32max may hide NaN. project asserts equal counts, preserves prescribed vertices, calls surface projection2668. project_particles reads paired buffers then writes position\u2192velocity, later failure may leave changed positions without velocities; actual Buffer/write contract and batch commit needed. Faces membership assumed, no ordinary malformed source proved."
+    },
+    {
+      "original": 2659,
+      "behavior": "Full283. SelfCollision count checked after asu32, capacity*2.next_power_of_two overflow for hugeparticlecounts, adjacencyflatten/offsets narrowu32 without own bounds; actualGPUlimits feasibility separate. Public radius mutable independently of private spacing/built, bypasses set_radius which updates both and invalidates grid. record rebuild false reuses existing grid without particle/cellidentity proof; caller documented rebuild-before/after must be traced. built settrue BEFORE fallible hash/sort/ranges dispatches; later Err may retain built=true despite incomplete recording. KernelBatch outerownership/submit policy needed before accepted stalegrid claim. radiusfinitepositive not checked before reciprocal; normal clothmaterial validation2657notinferred. adjacency public helper unchecked edges, ShellMesh.validate can narrow ordinary callers."
+    },
+    {
+      "original": 2660,
+      "behavior": "Exact391\u2013490/490 WGSL traversal source, earlierbodyunread. Publicconfig stack_size0/1 and arbitrary identifier strings unadmitted; stack0 initialwrite and overdeep branch dropped intentionally, boundeddefault64 does not establish completeness for all Morton trees. Comment promises candidates but silently overdeep can lose them; actualdepth proof/native WGSL validation/caller policies pending. Emptytree handling caller required. Prefix/callback/buffer names are generated compiler identifiers, grammar validation/native boundary role distinct usertext."
+    },
+    {
+      "original": 2661,
+      "behavior": "Full45 existingtest readonly. All36 fixtures split18 each VertexTriangle/EdgeEdge, native float words incl signedzero decoded, massroles and corrections/velocities exactcompared. No execution, no oldbitwise guarantee required under noBC; actual physics intention may justify numerical criterion independently."
+    },
+    {
+      "original": 2662,
+      "behavior": "Full111 existingtest readonly. Native u32MAX particle accepted deliberately role-not-membership, wrongarity/attachment shapes rejected, emptyallocwords and dispatchcounts, stable reordering. Test comments preserve existingrawattachment policy for emptysets are historical expectations not authorization for invalidbehavior/compatibility path. Actual consume kernels and nonempty membership checks needed before final admission scope."
+    },
+    {
+      "original": 2663,
+      "behavior": "Full11 rows literalfixture:0..65growth16\u2192128/64bytes per collider; count4294967295 expects capacity0bytes0,4294967296/7312 expects16/1024 after narrowing. These expose overflow/truncation expectations to replace if contract requires rejection; no fixture execution, no BC constraint or proof all hugeallocations ordinaryreachable."
+    },
+    {
+      "original": 2664,
+      "behavior": "Full4396line JSON read losslessly via complete compact36cases0\u201335 and allfields. Two families18 each, with/withoutvelocity paired, inverse masses unit/mixed/allzero/signedzero/verytiny/large/MAX/minnormal, unchanged tiny or saturated cases, resolved0/1 and rawfloat corrections. Existinggoldenexpected bits not mathematical correctness or runtime result; source solver activity/overflow policy and fixture generation authority need reconciliation without requiring backward compatibility."
+    },
+    {
+      "original": 2665,
+      "behavior": "Full47line JSON complete compact read. Nativeconstraintword permutation includesu32MAX7; attachment/reordered/restwords,6messages, empty allocation4bytes, live/disabled/emptydispatch1/0/0. Golden shape documents test contract; exacterrorphrasing and allocationhistoricalbehavior not mandated untilrelease."
+    },
+    {
+      "original": 2666,
+      "behavior": "Only1\u2013186/260. Npy parse guards len>=10 then non-v1 reads8..12 unconditionally, so 10/11byte correctmagic non-v1 buffer panics insteadResult. Any non1version interpreted4byteheader, no version whitelist. shapeproduct/count*size/start+ unchecked host arithmetic can overflow before payload bound; publicshape/dtype mutate independently of privatepayload. to_bool iteratesBYTES for anydtype, yields widthtimes logicalelements for f32/f64 unlike logical nonzero conversion; actualcaller dtype gate needed. f64\u2192f32 narrows/overflows despite widened wording, nativefloatpayload may nonfinite allowed numericalasset role until receiveradmission. dims checks rank only, TensorData association relies shape/payload. Noformatprobe."
+    },
+    {
+      "original": 2667,
+      "behavior": "Full232. ZIP central header checks fixed46bytes then slices variable name/extra lengths WITHOUT complete bound, malformedcentralrecords panic; wrongsignature/truncatedfixedheader silentlybreak returns partialarchiveOk. Zip64 record+56/localbase+30/end additions unchecked, u64\u2192usize truncation target32bit and overflow64 cases. LossyUTF8 names/duplicates firstmatch, no equalitywith localname/CRC/decodedsize checks. Deflate read_to_end actualallocateduncompressedcapacity isnot outputbudget, actualassetpolicy needed. mmap immutableinput assumption explicit and separate from parserdata safety. Memberbytes returnedborrowedforstored, correct memoryownership; noexecution/securityimpactclaim."
+    },
+    {
+      "original": 2668,
+      "behavior": "Only1\u2013169/215. Actual surface residual includes interiors via triangleoverlap/clipping, narrows2658vertexonly concern. Faces indexunchecked, finiteaxis/geometry needed before normal/denominator. Clipped finite crossing gives0..1t, but ClippingFraction::from raw not own guarantee on invalidoverflow; actualtypedprojectionowner required. ParticleInverseMass/EffectiveInverseMass roles retained through weightedcorrections, masspolicy delegated. No minpolygon arithmetic panic for emptyloop (no iteration modulo), explicit distinction. Mutating surface loop uses currentpositionsperplate then sampleweights currentbarycentric reuse intendedprojectionalgorithm."
+    },
+    {
+      "original": 2669,
+      "behavior": "Only1\u201350/150. Independent emptytoken filtering ids and quantities can realign noncorresponding compactform entries despite equalresultlength; e.g ids a,,b versus quantities ,1,2 interpreted a1,b2. Actualbrowserproducerencoding required before ordinary mismatch claim. Quantityu32positive enforced, typedIDparse generic; duplicates not rejected here, transaction sum semantics needed. PartyPooltransferIDu64retained not inferred canonical semantic owner."
+    },
+    {
+      "original": 2670,
+      "behavior": "Full31 P16 Cargo features: worldschema optionalspacetimedb-lib runtime feature but unconditionalbuilddependency; serde_json actualworkspacefeature separate. Dependency metadata role only, no compiler/sourcecoverage."
+    },
+    {
+      "original": 2671,
+      "behavior": "Exact178\u2013182/221 pinsSpacetimeDB2.6.1, lib defaultfeaturesfalse and SATS serde. No wholemanifest or derive/runtime admission implication fromversion metadata."
+    },
+    {
+      "original": 2672,
+      "behavior": "Exact39\u201349/337 SDK lib reexports sats de/ser/type owners, Identity/Time/UUID etc canonical framework owner; no body semantics inferred."
+    },
+    {
+      "original": 2673,
+      "behavior": "Exact74\u201396/307 SDK SATS reexports frameworkDeserialize/Serialize independently ofSerde, validates earlier distinction of trait owners. No downstream derivecustomvalidation proof from reexports."
+    },
+    {
+      "original": 2674,
+      "behavior": "Exact320 only macroreexport SpacetimeType, doesnot alone supplyadmission; actualderive source separately registeredprior."
+    },
+    {
+      "original": 2675,
+      "behavior": "Full364 P16 allocation. ActivityMinutes onlymultiple15 includeszero/fullu16; Daily ValidatedSchedule enforces sum<=1440 with widenedu64, peractivityquarterhours, redistribution<=96segments and effectiveaddition bounded1440 so overflowclosed ordinaryroute. OrganizationAllocation::parse rejects0Some/positiveNone/blank; PUBLIC Scheduled variant can directly contain0ActivityMinutes andblankString, weakening docguarantee. validate_daily_allocation checks arraytotal but apprenticeship/practice tupleminutes notmatched to actualarray slots; actualreducer passesassociation needed before mismatchordinary. DailySchedulePlan publicfields allow recombination, separatefromValidatedSchedule purpose. Readingexcludedredistributionintentional, unavailablewithnootherweight becomesleisure. Testsreadnotrun, execution/previewactualcallerspending."
+    },
+    {
+      "original": 2676,
+      "behavior": "Exact28only15minuteconstant confirms allocationquantization, no otheractivity policycoverage."
+    },
+    {
+      "original": 2677,
+      "behavior": "Full29 P16 TacticalElapsed finiteforu64tick*fixedsmalltick conditional actualconstant, distinctionfromAnimationElapsed retained. Elapsed subtractsf32beforepromotion intentionalnumericalkernel order, but historical rounding noBCrequirement. Tickf32 loses individualticksatlargecounts, actualharnessdurationbudgetneededbefore precisiondefect."
+    },
+    {
+      "original": 2678,
+      "behavior": "Full7 namedthreatlimits1000weakest/300000ceiling dependencyfree sharedbuild/runtimeowner, comments identifybaselineunits. Actualallconsumers/currentconstantagreement separate, no rawmagic findingjustconstant."
+    },
+    {
+      "original": 2679,
+      "behavior": "Only1\u201379/102 P17 SignedLength constructorfinite, min/max finiteclosed, u16mmdivisionfinite and scaleResultrevalidates overflow. OpaqueReflect ordinarytypedcloneproofprior no innerfieldbypass, customDeserialize canonical. Area declaration but implementation80+unread; no areaadmissioncredit. Signedzeroallowedphysicaloffset intentional."
+    },
+    {
+      "original": 2680,
+      "behavior": "Full40 P17 PositiveLength rejectsnonfinite/negative/bothzeros, Deserializecallsconstructor, opaqueReflectpriorqualifiedproof. rawmetres explicitnumericalboundary; no helpersarithmetic unguardedinsideowner."
+    },
+    {
+      "original": 2681,
+      "behavior": "Full120 P17 ScenePlanPoint finiteXY XZeastnorth, checkedtranslation result, displacementdistinctfrompoint but ctorOptionnotstaticallyrange identity. FromPositionScene projectsfinitecomponents assumingcanonicalPositioninvariant; no bypassclaimedwithoutowner. CustomSerdecanonical, OpaqueReflect. Readonlytests no execution. Childmodules declarations do not recursively coverdoor/window/spatial/polygon."
+    },
+    {
+      "original": 2682,
+      "behavior": "Only1\u2013110/407 P17 SupportElevation finite, maxclosed, translatedbySignedLength revalidates sum; Serderevalidates. Many boundedgeometryreexports canonicalownerlocators not nestedcoverage, bounded/gradingadmission notinferred. Grounding earlier .ok\u2192empty finding unaltereduntilactualremainingbody/delta."
+    },
+    {
+      "original": 2683,
+      "behavior": "Only1\u201327/55 P17 manifest actualgeometry dependency enablesreflect feature; defaultfeaturesempty andviewerrenderoptional. Nativefeaturemetadata no compile/runtime proof."
+    },
+    {
+      "original": 2684,
+      "behavior": "Full19 P17 geometry reflect optionalbevy0.19std no defaults, serde/thiserror dependencies. Featureenabled2673doesnotmeanReflectDeserializeautomaticallyregistered, priornativebridgeproofretained."
+    }
+  ],
+  "connected_repair_requirements": [
+    "Choose clean count/admission contracts before adjusting tests that freeze overflow, truncated counts, raw attachments, old messages or bits; no backward compatibility constraint.",
+    "Trace all NPY/ZIP numerical asset decoders to model/body recipients; use checked extents/ranks/byte ownership and structured errors before slices, while respecting native arbitraryfloatpayload where receiveradmits.",
+    "Track selfcollision radius/grid invalidation, particle identity and KernelBatch partialfailure/submit semantics as one connected repair before cache fields are changed.",
+    "Reconcile schedule organization allocation slotassociation and actual persisted/reducer callers, preserving purposeful reading/eligibility distinctions."
+  ],
+  "acceptance_requirements": [
+    "All27REG140 exact scopes consumed, fullfixturecontents losslesslyread, no projectcheck/probe/testexecution. Earlierbases/otherpopulations/current/extensions/all20/deduprepairacceptance pending; +0unique."
+  ],
+  "at": "2026-10-27T16:07:58.090262+00:00",
+  "lens": 8,
+  "accepted_unique_count_change": 0,
+  "implementation_gate_complete": false
+}

@@ -1,0 +1,75 @@
+--- base
+
++++ frozen-head
+
+@@ -1,5 +1,6 @@
+
+ use super::*;
++use crate::scene_coordinates::ScenePlanPoint;
+ use bevy::math::Vec2;
+ fn fixture() -> TacticalSceneInput {
+     serde_json::from_str(include_str!(
+         "../../../../../assets/tactical-scenes/garden-review.json"
+@@ -121,10 +122,11 @@
+
+         assert!(
+             (support.elevation.metres()
+                 - generated
+                     .terrain
+-                    .height_at(plant.centre_metres.metres())
+-                    .unwrap())
++                    .height_at(plant.centre_metres)
++                    .unwrap()
++                    .metres())
+             .abs()
+                 < 0.001
+         );
+         assert!(
+@@ -143,16 +145,12 @@
+
+         .abs()
+             > 0.1
+     }));
+     for point in garden.garden().cultivated_bounds.corners() {
+-        assert!(
+-            (generated.terrain.height_at(point).unwrap()
+-                - source
+-                    .elevation_at(
+-                        crate::scene_coordinates::ScenePlanPoint::try_from(point).unwrap()
+-                    )
+-                    .unwrap()
+-                    .metres())
++        let point = ScenePlanPoint::from_metres(point).unwrap();
++        assert!(
++            (generated.terrain.height_at(point).unwrap().metres()
++                - source.elevation_at(point).unwrap().metres())
+             .abs()
+                 < 0.001
+         );
+         if let Some(ground) = generated.ground.ground_at(point) {
+@@ -267,9 +265,9 @@
+
+             .find(|plant| plant.id == support.plant_id)
+             .unwrap()
+             .centre_metres;
+         assert!(
+-            (support.elevation.metres() - generated.terrain.height_at(point.metres()).unwrap())
++            (support.elevation.metres() - generated.terrain.height_at(point).unwrap().metres())
+                 .abs()
+                 < 0.001
+         );
+     }
+@@ -320,10 +318,11 @@
+
+         assert_eq!(plant.id, support.plant_id);
+         assert!(
+             (generated
+                 .terrain
+-                .height_at(plant.centre_metres.metres())
++                .height_at(plant.centre_metres)
+                 .unwrap()
++                .metres()
+                 - support.elevation.metres())
+             .abs()
+                 < 0.001
+         );

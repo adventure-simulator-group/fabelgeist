@@ -1,0 +1,16 @@
+{
+  "at": "2026-10-27T15:45:25.757112+00:00",
+  "lens": 11,
+  "qualifies": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-075-receipt.json",
+    "sha256": "6b137e7e6d04ab2aa240fc17fe1e6600bb795b4e79fcfee1db06a458037e0b3b"
+  },
+  "correction": "Two narrative references to core1026proportionalmaterial and1026corewater_source are mistaken ordinal references. Correct actual canonical water_source original is1023, full1-500 personally consumed in batch050, not1026weather/streams. No source-body coverage or finding/current/unique count change.",
+  "actual_authority": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-050-receipt.json",
+    "sha256": "0f23acc687c49d5da235bff7f543610cceab01a8e151173da1289b445ff24dd6"
+  },
+  "correct_original": 1023,
+  "wrong_original": 1026,
+  "source_accounting_unchanged": true
+}

@@ -1,0 +1,290 @@
+{
+  "scope_index": 680,
+  "head_sha256": "60cf80c50552791fe98d6c50b3a730b7c0f04bdfa993ec003a781538683e6d72",
+  "base_sha256": "e7446afc26aaf978f628c8c2b07269f379bf990bd2cfce58ac78e28bf3164ee3",
+  "base_revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+  "head_lines": 12310,
+  "base_lines": 12283,
+  "format": 4,
+  "head_packages": 1064,
+  "base_packages": 1062,
+  "changes": [
+    {
+      "key": [
+        "adventuresim-character-creator",
+        "0.1.0",
+        null
+      ],
+      "before": {
+        "name": "adventuresim-character-creator",
+        "version": "0.1.0",
+        "dependencies": [
+          "adventuresim-core",
+          "adventuresim-world-schema",
+          "anyhow",
+          "async-lock",
+          "base64",
+          "bevy",
+          "bevy_egui",
+          "blake3",
+          "burn",
+          "bytemuck",
+          "clap",
+          "egui_extras",
+          "fabelgeist-armor",
+          "fabelgeist-bvh",
+          "fabelgeist-cloth",
+          "fabelgeist-compute",
+          "fabelgeist-determinism",
+          "fabelgeist-garment-code",
+          "fabelgeist-garment-fit",
+          "fabelgeist-gpu",
+          "fabelgeist-hair",
+          "fabelgeist-math",
+          "fabelgeist-mhr",
+          "fabelgeist-shell",
+          "gltf",
+          "image",
+          "pollster",
+          "rand 0.9.5",
+          "rayon",
+          "serde",
+          "serde_json",
+          "thiserror 2.0.20",
+          "tokio"
+        ]
+      },
+      "after": {
+        "name": "adventuresim-character-creator",
+        "version": "0.1.0",
+        "dependencies": [
+          "adventuresim-core",
+          "adventuresim-world-schema",
+          "anyhow",
+          "async-lock",
+          "base64",
+          "bevy",
+          "bevy_egui",
+          "blake3",
+          "burn",
+          "bytemuck",
+          "clap",
+          "derive_more 2.1.1",
+          "egui_extras",
+          "fabelgeist-armor",
+          "fabelgeist-bvh",
+          "fabelgeist-cloth",
+          "fabelgeist-compute",
+          "fabelgeist-determinism",
+          "fabelgeist-garment-code",
+          "fabelgeist-garment-fit",
+          "fabelgeist-geometry",
+          "fabelgeist-gpu",
+          "fabelgeist-hair",
+          "fabelgeist-math",
+          "fabelgeist-mhr",
+          "fabelgeist-rig",
+          "fabelgeist-shell",
+          "gltf",
+          "image",
+          "pollster",
+          "rand 0.9.5",
+          "rayon",
+          "serde",
+          "serde_json",
+          "thiserror 2.0.20",
+          "tokio"
+        ]
+      }
+    },
+    {
+      "key": [
+        "adventuresim-core",
+        "0.1.0",
+        null
+      ],
+      "before": {
+        "name": "adventuresim-core",
+        "version": "0.1.0",
+        "dependencies": [
+          "adventuresim-dialogue",
+          "adventuresim-puzzles",
+          "adventuresim-weapon-model",
+          "adventuresim-world-schema",
+          "ambassador",
+          "blanket",
+          "enum-assoc",
+          "enumflags2",
+          "fabelgeist-determinism",
+          "serde",
+          "serde-saphyr",
+          "serde_json",
+          "sha2",
+          "thiserror 2.0.20"
+        ]
+      },
+      "after": {
+        "name": "adventuresim-core",
+        "version": "0.1.0",
+        "dependencies": [
+          "adventuresim-dialogue",
+          "adventuresim-puzzles",
+          "adventuresim-weapon-model",
+          "adventuresim-world-schema",
+          "ambassador",
+          "blanket",
+          "enum-assoc",
+          "enumflags2",
+          "fabelgeist-determinism",
+          "fabelgeist-geometry",
+          "serde",
+          "serde-saphyr",
+          "serde_json",
+          "sha2",
+          "thiserror 2.0.20"
+        ]
+      }
+    },
+    {
+      "key": [
+        "fabelgeist-armor",
+        "0.1.0",
+        null
+      ],
+      "before": {
+        "name": "fabelgeist-armor",
+        "version": "0.1.0",
+        "dependencies": [
+          "blake3",
+          "bytemuck",
+          "fabelgeist-compute",
+          "fabelgeist-garment-code",
+          "fabelgeist-gpu",
+          "fabelgeist-math",
+          "image",
+          "pollster",
+          "postcard",
+          "serde",
+          "serde_json",
+          "spade",
+          "thiserror 2.0.20"
+        ]
+      },
+      "after": {
+        "name": "fabelgeist-armor",
+        "version": "0.1.0",
+        "dependencies": [
+          "blake3",
+          "bytemuck",
+          "fabelgeist-compute",
+          "fabelgeist-garment-code",
+          "fabelgeist-geometry",
+          "fabelgeist-gpu",
+          "fabelgeist-math",
+          "fabelgeist-rig",
+          "image",
+          "pollster",
+          "postcard",
+          "serde",
+          "serde_json",
+          "spade",
+          "thiserror 2.0.20"
+        ]
+      }
+    },
+    {
+      "key": [
+        "fabelgeist-fbx",
+        "0.1.0",
+        null
+      ],
+      "before": {
+        "name": "fabelgeist-fbx",
+        "version": "0.1.0",
+        "dependencies": [
+          "anyhow",
+          "derive_more 2.1.1",
+          "flate2",
+          "num_enum"
+        ]
+      },
+      "after": {
+        "name": "fabelgeist-fbx",
+        "version": "0.1.0",
+        "dependencies": [
+          "anyhow",
+          "derive_more 2.1.1",
+          "fabelgeist-rig",
+          "flate2",
+          "num_enum"
+        ]
+      }
+    },
+    {
+      "key": [
+        "fabelgeist-geometry",
+        "0.1.0",
+        null
+      ],
+      "before": null,
+      "after": {
+        "name": "fabelgeist-geometry",
+        "version": "0.1.0",
+        "dependencies": [
+          "bevy_math",
+          "bevy_reflect",
+          "serde",
+          "thiserror 2.0.20"
+        ]
+      }
+    },
+    {
+      "key": [
+        "fabelgeist-mhr",
+        "0.1.0",
+        null
+      ],
+      "before": {
+        "name": "fabelgeist-mhr",
+        "version": "0.1.0",
+        "dependencies": [
+          "anyhow",
+          "burn",
+          "fabelgeist-fbx",
+          "fabelgeist-fs",
+          "fabelgeist-numpy-storage"
+        ]
+      },
+      "after": {
+        "name": "fabelgeist-mhr",
+        "version": "0.1.0",
+        "dependencies": [
+          "anyhow",
+          "burn",
+          "fabelgeist-fbx",
+          "fabelgeist-fs",
+          "fabelgeist-numpy-storage",
+          "fabelgeist-rig"
+        ]
+      }
+    },
+    {
+      "key": [
+        "fabelgeist-rig",
+        "0.1.0",
+        null
+      ],
+      "before": null,
+      "after": {
+        "name": "fabelgeist-rig",
+        "version": "0.1.0",
+        "dependencies": [
+          "derive_more 2.1.1",
+          "serde",
+          "strum 0.27.2"
+        ]
+      }
+    }
+  ],
+  "limits": "WholeTOMLmetadata parsed, notfullrawlinepersonalread ornativepackagebody/feature/runtimecoverage."
+}

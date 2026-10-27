@@ -1,0 +1,101 @@
+{
+  "at": "2026-10-27T01:03:46.172119+00:00",
+  "authority": "Exactf82frozenSHAobjects,registeredprworkingvariants",
+  "sources": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/geographic.rs",
+      "sha256": "b0a7c91fd0c9c09870ebcacd16ae968638ba3381e66e7d44b9ee6c7e6235236c",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/b0a7c91fd0c9c09870ebcacd16ae968638ba3381e66e7d44b9ee6c7e6235236c",
+      "lines": 96,
+      "locators_only": [
+        [
+          8,
+          "pub struct UngradedSceneTerrain {"
+        ],
+        [
+          16,
+          "impl TacticalSceneInput {"
+        ],
+        [
+          20,
+          "    pub fn prepare_geographic_terrain("
+        ],
+        [
+          66,
+          "fn obstacle_reservations("
+        ],
+        [
+          95,
+          "#[cfg(test)]"
+        ]
+      ],
+      "body_credit": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/supported.rs",
+      "sha256": "951ac796fe6192eccfebbeca4317a11c29f0ac3697424ddc46973810d05db06b",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/951ac796fe6192eccfebbeca4317a11c29f0ac3697424ddc46973810d05db06b",
+      "lines": 56,
+      "locators_only": [
+        [
+          7,
+          "pub struct SupportedSceneTerrain {"
+        ],
+        [
+          15,
+          "impl TacticalSceneInput {"
+        ],
+        [
+          19,
+          "    pub fn prepare_supported_terrain("
+        ]
+      ],
+      "body_credit": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/property_support.rs",
+      "sha256": "4eb5b88b6059d622bb8663f784c3cd8eab5289a4928d2c51ab38031acc6a354a",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/4eb5b88b6059d622bb8663f784c3cd8eab5289a4928d2c51ab38031acc6a354a",
+      "lines": 181,
+      "locators_only": [
+        [
+          8,
+          "pub(super) enum TerrainGeometry {"
+        ],
+        [
+          14,
+          "impl SceneTerrain {"
+        ],
+        [
+          17,
+          "    pub fn property_surface(&self) -> Option<&BoundedSettlementTerrain> {"
+        ],
+        [
+          29,
+          "    pub fn with_property_surface(mut self, surface: BoundedSettlementTerrain) -> Self {"
+        ],
+        [
+          36,
+          "    pub fn sampled_geographic_surface(&self) -> Option<GeographicSurface> {"
+        ],
+        [
+          51,
+          "    pub fn physical_geographic_surface(&self) -> Option<GeographicSurface> {"
+        ],
+        [
+          63,
+          "    pub fn support_elevations_at("
+        ],
+        [
+          76,
+          "    pub fn surface_below("
+        ],
+        [
+          112,
+          "    pub fn property_foundation("
+        ]
+      ],
+      "body_credit": false
+    }
+  ]
+}

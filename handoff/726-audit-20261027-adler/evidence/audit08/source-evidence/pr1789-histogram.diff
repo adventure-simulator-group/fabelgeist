@@ -1,0 +1,458 @@
+diff --git a/crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs b/crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs
+index e64aa9de4..6422e32d0 100644
+--- a/crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs
++++ b/crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs
+@@ -1,40 +1,432 @@
+-//! Deadline-based planar body facing.
++//! Checked facing policy keeps deadline quotients inside the bounded turn kernel.
++
++use super::{SkeletonAction, WeaponGuardState};
++use crate::animation::{
++    AngularSpeedRadians, AnimationElapsed, AnimationQuantity, AnimationValueError,
++    AnimationValueResult, PositiveAnimationDuration, STATIONARY_ANIMATION_SPEED_LIMIT,
++};
++use adventuresim_building_generator::spatial_geometry::Radians;
+ use bevy::math::{Quat, Vec3, Vec3Swizzles};
+ 
+-/// Angular speed required to reach a planar facing by a deadline without an
+-/// instantaneous turn. Re-evaluating this as the target moves still lands on
+-/// the live heading at canonical contact.
+-pub fn body_turn_speed_for_deadline(
+-    current: Quat,
+-    desired_forward: Vec3,
+-    remaining_seconds: f32,
+-    delta_seconds: f32,
+-) -> f32 {
+-    let Some(desired) = desired_forward.xz().try_normalize() else {
+-        return 0.0;
+-    };
+-    let current = (current * Vec3::Z).xz().normalize_or_zero();
+-    let duration = remaining_seconds.max(delta_seconds);
+-    if duration <= 0.0 {
+-        return 0.0;
++/// Finite admitted operands for a configured or deadline-directed planar turn.
++/// A tiny deadline may overflow the transient rate; only the completed native
++/// quotient -> elapsed product -> pi cap is the retained rotation operation.
++#[derive(Clone, Copy, Debug)]
++pub struct BodyFacingTurn(TurnPolicy);
++
++#[derive(Clone, Copy, Debug)]
++enum TurnPolicy {
++    Speed(AngularSpeedRadians),
++    HalfTurn(PositiveAnimationDuration),
++    Deadline {
++        angle: Radians,
++        duration: PositiveAnimationDuration,
++    },
++}
++
++impl BodyFacingTurn {
++    pub fn configured_half_turn(duration: PositiveAnimationDuration) -> Self {
++        Self(TurnPolicy::HalfTurn(duration))
+     }
+-    current.angle_to(desired).abs() / duration
++
++    pub fn configured_speed(speed: AngularSpeedRadians) -> Self {
++        Self(TurnPolicy::Speed(speed))
++    }
++
++    /// The effective deadline is the larger of remaining time and frame elapsed.
++    /// Missing planar direction and two real zero intervals preserve no turn.
++    pub fn for_deadline(
++        current: Quat,
++        desired_forward: Vec3,
++        remaining: AnimationElapsed,
++        elapsed: AnimationElapsed,
++    ) -> AnimationValueResult<Self> {
++        let Some(desired) = desired_forward.xz().try_normalize() else {
++            return Ok(Self::configured_speed(AngularSpeedRadians::ZERO));
++        };
++        let current = (current * Vec3::Z).xz().normalize_or_zero();
++        let duration = remaining.max(elapsed);
++        if duration.is_zero() {
++            return Ok(Self::configured_speed(AngularSpeedRadians::ZERO));
++        }
++        let angle = Radians::new(current.angle_to(desired).abs()).map_err(|_| {
++            AnimationValueError::NonFinite {
++                quantity: AnimationQuantity::BodyOrientation,
++            }
++        })?;
++        Ok(Self(TurnPolicy::Deadline {
++            angle,
++            duration: PositiveAnimationDuration::from_elapsed(duration)?,
++        }))
++    }
++
++    /// Native yaw integration is the only rate projection for application facing.
++    pub fn advance(
++        self,
++        current: Quat,
++        desired_forward: Vec3,
++        elapsed: AnimationElapsed,
++    ) -> AnimationValueResult<Quat> {
++        let current_yaw = body_yaw(current);
++        let desired_yaw = desired_forward.x.atan2(desired_forward.z);
++        let mut delta = (desired_yaw - current_yaw + std::f32::consts::PI)
++            .rem_euclid(std::f32::consts::TAU)
++            - std::f32::consts::PI;
++        if (delta + std::f32::consts::PI).abs() <= 1.0e-5 {
++            delta = std::f32::consts::PI;
++        }
++        let maximum = (self.native_radians_per_second() * elapsed.seconds().max(0.0))
++            .min(std::f32::consts::PI);
++        rotation_from_yaw(current_yaw + delta.clamp(-maximum, maximum))
++    }
++
++    /// Captured-vector error budget at the final report's angular measurement.
++    pub fn tracking_residual(self, before: Vec3, desired: Vec3, elapsed: AnimationElapsed) -> f32 {
++        (before.angle_between(desired) - self.native_radians_per_second() * elapsed.seconds())
++            .max(0.0)
++    }
++
++    // Local to the two complete native numerical kernels above. Infinity can be
++    // transient here, but is never an admitted speed, field, or application handoff.
++    fn native_radians_per_second(self) -> f32 {
++        match self.0 {
++            TurnPolicy::Speed(speed) => speed.radians_per_second(),
++            TurnPolicy::HalfTurn(duration) => std::f32::consts::PI / duration.seconds(),
++            TurnPolicy::Deadline { angle, duration } => angle.radians() / duration.seconds(),
++        }
++    }
++}
++
++pub fn body_facing_turn() -> BodyFacingTurn {
++    BodyFacingTurn::configured_half_turn(
++        crate::combat_config::runtime_combat_presentation_config().body_turn_seconds_per_half_turn,
++    )
++}
++
++pub fn downed_turn_speed_radians() -> AngularSpeedRadians {
++    crate::combat_config::runtime_combat_presentation_config().downed_turn_radians_per_second
++}
++
++/// Returns the controller's yaw without allowing camera pitch or roll to tilt
++/// planar locomotion into or out of the ground plane.
++pub fn controller_yaw(orientation: Quat) -> Quat {
++    let forward = orientation * Vec3::NEG_Z;
++    let Some(flat_forward) = forward.xz().try_normalize() else {
++        return Quat::IDENTITY;
++    };
++    Quat::from_rotation_y((-flat_forward.x).atan2(-flat_forward.y))
++}
++
++/// Root orientation committed when a procedural directional dive launches.
++/// Dive travel and pelvis tilt are both camera-relative, so they must capture
++/// the same controller frame before posture-transition facing locks.
++pub fn dive_launch_root_rotation(controller_orientation: Quat) -> Quat {
++    let forward = controller_yaw(controller_orientation) * Vec3::NEG_Z;
++    Quat::from_rotation_y(forward.x.atan2(forward.z))
++}
++
++/// Guard follows look; ordinary moving states follow authoritative planar velocity.
++pub fn advance_body_facing(
++    current: Quat,
++    controller_orientation: Quat,
++    linear_velocity: Vec3,
++    action: SkeletonAction,
++    weapon_guard: WeaponGuardState,
++    elapsed: AnimationElapsed,
++) -> AnimationValueResult<Quat> {
++    advance_body_facing_with_turn(
++        current,
++        controller_orientation,
++        linear_velocity,
++        action,
++        weapon_guard,
++        elapsed,
++        body_facing_turn(),
++    )
++}
++
++pub fn advance_body_facing_with_turn(
++    current: Quat,
++    controller_orientation: Quat,
++    linear_velocity: Vec3,
++    action: SkeletonAction,
++    weapon_guard: WeaponGuardState,
++    elapsed: AnimationElapsed,
++    turn: BodyFacingTurn,
++) -> AnimationValueResult<Quat> {
++    let current_yaw = body_yaw(current);
++    let desired_forward = if weapon_guard == WeaponGuardState::Raised
++        || matches!(action, SkeletonAction::Attack | SkeletonAction::Block)
++    {
++        controller_yaw(controller_orientation) * Vec3::NEG_Z
++    } else {
++        if linear_velocity.xz().length() <= STATIONARY_ANIMATION_SPEED_LIMIT.metres_per_second() {
++            return rotation_from_yaw(current_yaw);
++        }
++        let Some(direction) = linear_velocity.xz().try_normalize() else {
++            return rotation_from_yaw(current_yaw);
++        };
++        Vec3::new(direction.x, 0.0, direction.y)
++    };
++    turn.advance(current, desired_forward, elapsed)
++}
++
++pub fn advance_downed_body_facing(
++    current: Quat,
++    controller_orientation: Quat,
++    elapsed: AnimationElapsed,
++) -> AnimationValueResult<Quat> {
++    advance_downed_body_facing_with_speed(
++        current,
++        controller_orientation,
++        elapsed,
++        downed_turn_speed_radians(),
++    )
++}
++
++pub fn advance_downed_body_facing_with_speed(
++    current: Quat,
++    controller_orientation: Quat,
++    elapsed: AnimationElapsed,
++    speed: AngularSpeedRadians,
++) -> AnimationValueResult<Quat> {
++    let desired_forward = controller_yaw(controller_orientation) * Vec3::NEG_Z;
++    BodyFacingTurn::configured_speed(speed).advance(current, desired_forward, elapsed)
++}
++
++pub(super) fn body_yaw(rotation: Quat) -> f32 {
++    let forward = rotation * Vec3::Z;
++    forward.x.atan2(forward.z)
++}
++
++fn rotation_from_yaw(yaw: f32) -> AnimationValueResult<Quat> {
++    let yaw = Radians::new(yaw).map_err(|_| AnimationValueError::NonFinite {
++        quantity: AnimationQuantity::BodyOrientation,
++    })?;
++    Ok(Quat::from_rotation_y(yaw.radians()))
+ }
+ 
+ #[cfg(test)]
+ mod tests {
+     use super::*;
++    use bevy::math::EulerRot;
++
+     #[test]
+     fn paused_turns_do_not_advance_and_small_deadlines_remain_meaningful() {
+         assert_eq!(
+-            body_turn_speed_for_deadline(Quat::IDENTITY, Vec3::X, 0.0, 0.0),
++            BodyFacingTurn::for_deadline(
++                Quat::IDENTITY,
++                Vec3::X,
++                AnimationElapsed::from_seconds(0.0).unwrap(),
++                AnimationElapsed::from_seconds(0.0).unwrap()
++            )
++            .unwrap()
++            .native_radians_per_second(),
+             0.0
+         );
+-        let rate = body_turn_speed_for_deadline(Quat::IDENTITY, Vec3::X, 1.0e-10, 0.0);
++        let rate = BodyFacingTurn::for_deadline(
++            Quat::IDENTITY,
++            Vec3::X,
++            AnimationElapsed::from_seconds(1.0e-10).unwrap(),
++            AnimationElapsed::from_seconds(0.0).unwrap(),
++        )
++        .unwrap()
++        .native_radians_per_second();
+         assert!(rate.is_finite() && rate > 1.0e10);
+         assert_eq!(
+-            body_turn_speed_for_deadline(Quat::IDENTITY, Vec3::ZERO, 1.0, 1.0),
++            BodyFacingTurn::for_deadline(
++                Quat::IDENTITY,
++                Vec3::ZERO,
++                AnimationElapsed::from_seconds(1.0).unwrap(),
++                AnimationElapsed::from_seconds(1.0).unwrap()
++            )
++            .unwrap()
++            .native_radians_per_second(),
+             0.0
+         );
+     }
++
++    #[test]
++    fn body_facing_is_bounded_and_uses_stable_half_turn() {
++        let first = advance_body_facing(
++            Quat::IDENTITY,
++            Quat::IDENTITY,
++            Vec3::NEG_Z,
++            SkeletonAction::None,
++            WeaponGuardState::Lowered,
++            AnimationElapsed::from_seconds(1.0 / 64.0).unwrap(),
++        )
++        .unwrap();
++        let angle = Quat::IDENTITY.angle_between(first);
++        assert!((angle - body_facing_turn().native_radians_per_second() / 64.0).abs() < 0.0001);
++        assert!(
++            (first * Vec3::Z).x > 0.0,
++            "exact reversal chooses positive yaw"
++        );
++
++        let completed = advance_body_facing(
++            Quat::IDENTITY,
++            Quat::IDENTITY,
++            Vec3::NEG_Z,
++            SkeletonAction::None,
++            WeaponGuardState::Lowered,
++            AnimationElapsed::from_seconds(0.25).unwrap(),
++        )
++        .unwrap();
++        assert!((Quat::IDENTITY.angle_between(completed) - std::f32::consts::PI).abs() < 0.0001);
++    }
++
++    #[test]
++    fn dive_launch_root_maps_every_procedural_axis_to_camera_relative_travel() {
++        let orientation = Quat::from_euler(EulerRot::YXZ, 0.83, -0.4, 0.2);
++        let root = dive_launch_root_rotation(orientation);
++        let camera = controller_yaw(orientation);
++        for (authored_axis, travel) in [
++            (Vec3::Z, camera * Vec3::NEG_Z),
++            (Vec3::NEG_Z, camera * Vec3::Z),
++            (Vec3::X, camera * Vec3::NEG_X),
++            (Vec3::NEG_X, camera * Vec3::X),
++        ] {
++            assert!((root * authored_axis).abs_diff_eq(travel, 0.000_01));
++        }
++    }
++
++    #[test]
++    fn downed_camera_alignment_turns_slowly_and_stops_at_the_observed_step() {
++        let first = advance_downed_body_facing(
++            Quat::IDENTITY,
++            Quat::IDENTITY,
++            AnimationElapsed::from_seconds(0.5).unwrap(),
++        )
++        .unwrap();
++        assert!((Quat::IDENTITY.angle_between(first) - std::f32::consts::FRAC_PI_4).abs() < 0.0001);
++        let unchanged_without_another_step = first;
++        assert_eq!(first, unchanged_without_another_step);
++    }
++
++    #[test]
++    fn guard_faces_look_while_locomotion_faces_world_velocity() {
++        let look = Quat::from_rotation_y(0.8);
++        let guard = advance_body_facing(
++            Quat::IDENTITY,
++            look,
++            Vec3::X,
++            SkeletonAction::Block,
++            WeaponGuardState::Lowered,
++            AnimationElapsed::from_seconds(1.0).unwrap(),
++        )
++        .unwrap();
++        assert!((guard * Vec3::Z).abs_diff_eq(look * Vec3::NEG_Z, 0.0001));
++        let travel = advance_body_facing(
++            Quat::IDENTITY,
++            look,
++            Vec3::X,
++            SkeletonAction::None,
++            WeaponGuardState::Lowered,
++            AnimationElapsed::from_seconds(1.0).unwrap(),
++        )
++        .unwrap();
++        assert!((travel * Vec3::Z).abs_diff_eq(Vec3::X, 0.0001));
++        let raised = advance_body_facing(
++            Quat::IDENTITY,
++            look,
++            Vec3::X,
++            SkeletonAction::None,
++            WeaponGuardState::Raised,
++            AnimationElapsed::from_seconds(1.0).unwrap(),
++        )
++        .unwrap();
++        assert!((raised * Vec3::Z).abs_diff_eq(look * Vec3::NEG_Z, 0.0001));
++    }
++
++    #[test]
++    fn local_aim_facing_advances_on_every_render_frame() {
++        let camera = Quat::from_rotation_y(std::f32::consts::FRAC_PI_2);
++        let target = advance_body_facing(
++            Quat::IDENTITY,
++            camera,
++            Vec3::ZERO,
++            SkeletonAction::None,
++            WeaponGuardState::Raised,
++            AnimationElapsed::from_seconds(1.0).unwrap(),
++        )
++        .unwrap();
++        let mut facing = Quat::IDENTITY;
++        let mut previous_distance = facing.angle_between(target);
++
++        for _ in 0..4 {
++            facing = advance_body_facing(
++                facing,
++                camera,
++                Vec3::ZERO,
++                SkeletonAction::None,
++                WeaponGuardState::Raised,
++                AnimationElapsed::from_seconds(1.0 / 60.0).unwrap(),
++            )
++            .unwrap();
++            let distance = facing.angle_between(target);
++            assert!(distance < previous_distance);
++            previous_distance = distance;
++        }
++
++        assert!(previous_distance > 0.0);
++    }
++
++    #[test]
++    fn local_travel_facing_advances_toward_world_velocity() {
++        let velocity = Vec3::X * 3.0;
++        let target = advance_body_facing(
++            Quat::IDENTITY,
++            Quat::IDENTITY,
++            velocity,
++            SkeletonAction::None,
++            WeaponGuardState::Lowered,
++            AnimationElapsed::from_seconds(1.0).unwrap(),
++        )
++        .unwrap();
++        let next = advance_body_facing(
++            Quat::IDENTITY,
++            Quat::IDENTITY,
++            velocity,
++            SkeletonAction::None,
++            WeaponGuardState::Lowered,
++            AnimationElapsed::from_seconds(1.0 / 60.0).unwrap(),
++        )
++        .unwrap();
++
++        assert!(next.angle_between(target) < Quat::IDENTITY.angle_between(target));
++        assert!(next.angle_between(target) > 0.0);
++    }
++
++    #[test]
++    fn attack_facing_reaches_the_target_at_canonical_contact_without_snapping() {
++        let desired = Vec3::X;
++        let delta_seconds = 0.05;
++        let contact_seconds = 0.5;
++        let mut rotation = Quat::IDENTITY;
++
++        for step in 0..10 {
++            let remaining = contact_seconds - step as f32 * delta_seconds;
++            let turn = BodyFacingTurn::for_deadline(
++                rotation,
++                desired,
++                AnimationElapsed::from_seconds(remaining).unwrap(),
++                AnimationElapsed::from_seconds(delta_seconds).unwrap(),
++            )
++            .unwrap();
++            let next = turn
++                .advance(
++                    rotation,
++                    desired,
++                    AnimationElapsed::from_seconds(delta_seconds).unwrap(),
++                )
++                .unwrap();
++            if step == 0 {
++                assert!(next.angle_between(rotation) < std::f32::consts::FRAC_PI_2);
++            }
++            rotation = next;
++        }
++
++        assert!((rotation * Vec3::Z).angle_between(desired) < 1.0e-5);
++    }
+ }

@@ -1,0 +1,41 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-287",
+  "at": "2026-10-25T22:38:42.463910+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2505,
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+      "sha256": "485156188b8c858094e576418d153b0e315f06c01ef25685a6e11eb97e60a56b",
+      "personally_read_ranges": [
+        [
+          1,
+          447
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full physical-p16 resolved_shapes1-447 in two chunks: bespoke IDs separate owner/solid/wall/opening/structural references; shape enums attach variant-specific fields. ResolvedSolid constructor projects checked CollisionCuboid envelope with same sourceID; custom deserialize routes native geometry through shared constructor before solid exists. This checks envelope leaves, not raw shape dimensions or role/envelope/support/reference consistency.",
+        "ResolvedSurface/Void derive deserialize independently typed bounds and raw shape payload/owner/subtractsfrom. They can represent contradictoryshape/envelope/owner but canonical plan admission required before operational finding; no broad imported current-main semantics. Crown drain0.12 explicitly project readability policy, not universal historic constraint. No new accepted defect."
+      ]
+    },
+    {
+      "scope_index": 2506,
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/model/walls.rs",
+      "sha256": "0ccc94972996dae71d762e7019f9814a02a26ff12a2eabe8709f7c791c8b9930",
+      "personally_read_ranges": [
+        [
+          1,
+          353
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full physical-p16 walls1-353 in two chunks: WallSourceId closed variants bind needed source fields; OpeningProfile methods consistently select same variant's exterior/interior/clearheight. Wall material thickness predicate implements explicit bands, but fortified>=1.2 lacks finite upper check here; canonical acceptedplan validation remains needed before new nonfinitewall claim.",
+        "WallLocalFrame raworigin/tangent/outward, optional radialframe, closurelayers/state and WallAssembly support/host/opening references are independently public. OpeningAssembly bindshost/source/frame/use/profile/closure and solid/node IDs with ordered sectional void slices documented as subtractionauthority, broad void bounds conservativeonly. Enum structure alone does not enforce referential, orientation, spanordering or closure compatibility. Existing inherited geometry/assembly contracts remain qualified; no repair/testexecution."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "2 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

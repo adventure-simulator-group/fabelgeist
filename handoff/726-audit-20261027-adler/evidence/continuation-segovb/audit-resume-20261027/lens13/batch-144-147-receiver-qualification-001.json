@@ -1,0 +1,26 @@
+{
+  "receipt": "batch-144-146-receipt.json",
+  "corrections": [
+    "Core156 is strategic_time.rs, not world-schema/calendar.rs. Replace receipt own156/calendar full wording with exact separate calendar source64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc and actual prior ranges. No full calendar claim.",
+    "Prior actual097-101 read180-210 covers age getter190-195, signed_birth197-201 and elapsed203-205; prior108-110205-240 covers anniversary signature only, not body241-249. Complete next anniversary body was actually consumed AFTER registration147, not earlier. Original235 source completeness must be adopted together with this actual receiver supplement, not assumed prior full implementation proof."
+  ],
+  "registration": {
+    "path": "audit-resume-20261027/lens13/batch-147-registration.json",
+    "sha256": "aa1f89e5eb8d795bddfe5c8f30e7ce021b941811481f36384292f9138af291a3"
+  },
+  "actual_source_reads": [
+    {
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "actual_consumed_ranges": [
+        [
+          180,
+          259
+        ]
+      ],
+      "chronology": "After prospective147, exact hash verified; priorread reuse clarified not expanded retroactively."
+    }
+  ],
+  "source_trace": "Actual signedbirth calculation widens u64minutes/u16years to i128, clamps nativei64; elapsed i128 subtraction max0 ->u128, years division/minu16MAX. Anniversary uses checked completed+1, checked signedaddition and u64conversion, strict self<next<end; integerproduct bounds u64elapsed+1year fit i128. Actual recursive235 recipient uses strict interior next so source numericalprogress contract covered. No native/current/runtime/global/unique credit.",
+  "original_count_delta": 0,
+  "state_proposal": "STATE-033-proposal.json unchanged238,next238, adopt ONLY together with this completion/chronology qualification."
+}

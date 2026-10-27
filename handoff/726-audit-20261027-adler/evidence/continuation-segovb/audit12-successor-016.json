@@ -1,0 +1,46 @@
+{
+  "lens": "12 magic-strings",
+  "packet": "audit12-successor-016",
+  "owner": "/root",
+  "at": "2026-10-26T19:21:30.712899+00:00",
+  "source_authority": "original-scope-072.json exact frozenf82adc",
+  "original": 41,
+  "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry.rs",
+  "sha256": "c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+  "requested_and_read_ranges": [
+    [
+      1,
+      29
+    ]
+  ],
+  "inventory": [
+    {
+      "range": [
+        1,
+        6
+      ],
+      "text_role": "module-level Rust documentation prose about geometry frames, arithmetic/native adapter boundaries and admission; concrete documentation output boundary; not identifier state or data parser",
+      "disposition": "Retain prose at Rust documentation boundary. Accuracy of every neighboring geometric claim not certified by this string lens."
+    },
+    {
+      "range": [
+        8,
+        29
+      ],
+      "text_role": "Rust use/module/test cfg identifiers, no raw string literal, String field/API, format/parse/serialization or retained text value",
+      "disposition": "Names are compile-time Rust item resolution, not string-valued domain IDs. Do not invent text wrapper or string enum."
+    }
+  ],
+  "receiving_trace": "No runtime string producer or receiving value in exact29line module. Rust documentation prose is its direct output boundary; reexported type operation bodies are separate original roles and receive no whole-file or global credit.",
+  "registration": "audit12-successor-registration-016.json",
+  "qualifications": [
+    "No current-main equivalence, runtime tests, geometry admission/ownership/global/other-lens clearance.",
+    "Source-accounted exact module only; inherited findings and all untraced neighboring implementations remain open."
+  ],
+  "new_unique_count": 0,
+  "project_execution": false,
+  "product_or_git_changes": false,
+  "next_original": 42,
+  "source_accounted": true,
+  "global_clearance": false
+}

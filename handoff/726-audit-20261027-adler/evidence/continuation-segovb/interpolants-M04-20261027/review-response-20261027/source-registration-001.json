@@ -1,0 +1,256 @@
+{
+  "at": "2026-10-27T07:59:51.440817+00:00",
+  "kind": "Source-only review-response trace prospective reads",
+  "review_comment": 4386145956,
+  "scope": "CycleDelta typedinterpolation fraction escape -> actual pinned nativekernel -> resultadmission; existing sharedmath ownerfit + actualcallers; importplacement.",
+  "sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "sha256": "3acaf77c189e6ab8abcd972e5615276d945a1ca6772ee90246feef673e8a2c69",
+      "bytes": 7349,
+      "actual_lines": 207,
+      "ranges": [
+        [
+          1,
+          207
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "7cca5e5cef2f3c3a5a11c88dba547195f36d61f4665f157c8d55eedc30179eab",
+      "bytes": 9717,
+      "actual_lines": 267,
+      "ranges": [
+        [
+          105,
+          175
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/shaping_time.rs",
+      "sha256": "daf4c6b1cf6f43edc45f91ac44fb6fe70ae0848a2e1b23b8bc313ba24d887a87",
+      "bytes": 2331,
+      "actual_lines": 63,
+      "ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "sha256": "09565d01fd8fabbf899d84f107bdbf9c16fd6149ec61f51714599d160c1260e0",
+      "bytes": 8299,
+      "actual_lines": 218,
+      "ranges": [
+        [
+          1,
+          90
+        ],
+        [
+          170,
+          218
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+      "bytes": 1740,
+      "actual_lines": 58,
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "b1561f750844b7395f96f8fe2ee767db88d73fb8d8b6e997779493130b09f877",
+      "bytes": 4953,
+      "actual_lines": 173,
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "crates/fabelgeist-math/src/lib.rs",
+      "sha256": "bd588528cad05e62401905c31645e928a15b1175985219d9d79d21b2b2e81510",
+      "bytes": 429,
+      "actual_lines": 17,
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "bytes": 3578,
+      "actual_lines": 120,
+      "ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "crates/fabelgeist-math/src/math/mod.rs",
+      "sha256": "312ecd93f7f83fcc264045d99e6d2ca8c04e5e80141bfc165fae3e193ad8030b",
+      "bytes": 164,
+      "actual_lines": 11,
+      "ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "crates/fabelgeist-math/src/math/smoothstep.rs",
+      "sha256": "68e4843f53c7df9a12854abc59a74ff957a5efe79002cc5d874bf29e8a5e1208",
+      "bytes": 1095,
+      "actual_lines": 35,
+      "ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "crates/fabelgeist-math/src/vector/vec3.rs",
+      "sha256": "83d359f9d5ae866cc3935577b48f93d9916081bceb05ac92748c91e98672c143",
+      "bytes": 5816,
+      "actual_lines": 263,
+      "ranges": [
+        [
+          70,
+          105
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "crates/fabelgeist-math/Cargo.toml",
+      "sha256": "6aaf0cb94d1603d0d6cdd07f1bee8021c3c29c841d01d144143faa4be39a6321",
+      "bytes": 487,
+      "actual_lines": 17,
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "crates/adventuresim-core/Cargo.toml",
+      "sha256": "29e56014658d941895772dda71b9181863839eedf403c7d30b446186228c3441",
+      "bytes": 1121,
+      "actual_lines": 43,
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/Cargo.toml",
+      "sha256": "a514b1eccfff839c875aaa5148d8299f119beb39ce645dc828e653399b6ef320",
+      "bytes": 1228,
+      "actual_lines": 44,
+      "ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be",
+      "bytes": 306185,
+      "actual_lines": 13106,
+      "ranges": [
+        [
+          2462,
+          2485
+        ],
+        [
+          5061,
+          5071
+        ],
+        [
+          5688,
+          5702
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_math-0.19.1/src/lib.rs",
+      "sha256": "d743684d4c464873715e1fa8ef5fe0b6fa537fabb1172894056c3a7bff504a26",
+      "bytes": 2774,
+      "actual_lines": 103,
+      "ranges": [
+        [
+          74,
+          100
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glam-0.32.1/src/float.rs",
+      "sha256": "ba7f8ab2d8f2a3e8d8706f29950edaac2b233163012636853dbc10c5d4fa1223",
+      "bytes": 2015,
+      "actual_lines": 48,
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "body_read_at_registration": false
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glam-0.32.1/src/f32/float.rs",
+      "sha256": "4ca0b623ede3a0ec0492fe7666ccf481e2d0fcc4d9bf0386a99a707a0473b63c",
+      "bytes": 886,
+      "actual_lines": 40,
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "body_read_at_registration": false
+    }
+  ],
+  "navigation": "Prior rg source references/filelists locate names and exact nativebody files only; not source completeness/verdict.",
+  "limits": "No product/Git/ledger edits, project/toolchain/nativeprobes/tests/newtests/helpers/assertions/doctests orpublication. Append ignoredtrace/recommendation; no global/lens13 credit."
+}

@@ -1,0 +1,152 @@
+{
+  "id": "SEGOVB-CONT11-SUCCESSOR-160-786",
+  "lens": "type-granularity",
+  "scope_index": 786,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/outfit.rs",
+  "sha256": "571784773d4506fa741fed5d4dab85c61bbf9dee836fab1833987b233a4ecdb9",
+  "source_ranges": [
+    [
+      1,
+      82
+    ]
+  ],
+  "source_read_basis": "Full connected body read under157; exact bytes verified and independently inventoried in ordered786 after785 disposition. No automatic credit from prior access.",
+  "source_complete": true,
+  "status": "source-accounted-with-inherited-qualifications; not global clear",
+  "source_contracts": [
+    {
+      "role": "OutfitOutcome versus single-garment DrapeOutcome",
+      "locations": "4-13,55-81",
+      "trace": "OutfitOutcome represents an ordered successful garment prefix, human warnings about successful garments, an optional stopping error, and checkpoints for every attempted garment. The current attempt checkpoint is appended before result matching. Success extends prefix; first failure returns that prefix plus error and its checkpoint; all-success returns no error. These outputs intentionally coexist, so replacing them with one success/failure payload that discards partial geometry or checkpoints would lose supported behavior. DrapeOutcome remains one attempt result/warnings/checkpoints as already traced780/782."
+    },
+    {
+      "role": "Success-prefix order, attempted-slot checkpoint order and previous resume slot",
+      "locations": "26-55,57-81",
+      "trace": "inputs are consumed in declared innermost-first order with one local enumerate index. finished only gains successes, so each new input receives exactly that finished prefix as obstacles. previous.get(index) is the matching prior attempt slot when present; DrapeCheckpoints.start_for173-253 in previously read exact stages sourceccbb... compares retained setup before constructing payload-owning DrapeStart, rather than accepting any prior slot merely by integer. No universal garment identity brand or new index type is justified by this local sequential use. Public arbitrary previous vectors and precise setup equivalence retain inherited admission/relationship qualifications."
+    },
+    {
+      "role": "Saved reusable drape versus live simulation path",
+      "locations": "39-54",
+      "trace": "Some(saved) calls SettledDrape.wear(&input), which produces the same single-attempt DrapeOutcome contract as live drape(input, previous.get(index), cancel,...). Source-accounted saved owner78849-308 distinguishes bound saved cloth/body correspondence from live mutable fit state; input ownership and actual same input feed both paths. Saved success preview and live stage preview each append the current garment to the completed prefix. Saved/live representations should not be flattened or implemented as duplicate identity/geometry authorities."
+    },
+    {
+      "role": "Preview snapshots versus committed successful garments",
+      "locations": "34-54,55-81",
+      "trace": "Preview owns a cloned prefix plus current available garment; finished is extended only after Ok result. A preview during a failed live attempt may have included transient current geometry; returned final garments contain only the successful prefix. Both use Vec<DrapedGarment> because payload shape matches; named callback/output boundaries distinguish lifecycle without an evidenced need for a public parallel garment wrapper."
+    },
+    {
+      "role": "Human diagnostic text versus machine state",
+      "locations": "8-11,15-24,58-63",
+      "trace": "Warnings name their garment through formatted human text. problems collects these and prepends contextual formatted anyhow error, returning None when there is no problem text. Free-form human diagnostics and open underlying error causes are distinct from the machine stopping predicate/error Option; no closed magic-string status enum or duplicate warning/error owner is justified by actual use. Outcome.problem wording is presentation, not parsed identity or authoritative garment matching."
+    },
+    {
+      "role": "Actual asynchronous receiver and retained checkpoint ownership",
+      "locations": "connected worker12-51,55-75,77-131",
+      "trace": "DrapeWorker pending Vec<(T,DrapeInput)> is unzipped once into draping tags and corresponding inputs, then those inputs and taken previous checkpoints are moved into the single spawned drape_outfit call. The preview callback stores matching prefix snapshots only while uncancelled. Join receives OutfitOutcome (or an explicit thread-failure outcome); poll takes outcome.checkpoints into worker state even for failed/cancelled completion, then publishes successful-prefix preview/finished only when uncancelled. Thus the published outcome has had its checkpoint vector taken: do not claim every downstream finished record retains all checkpoints. The machine event fields may coexist in one poll; no unsupported single worker-state enum redesign inferred."
+    },
+    {
+      "role": "Native cancellation predicate and optional collections",
+      "locations": "28-33,49; connected worker55-58,77-128",
+      "trace": "AtomicBool is the actual shared thread-cancellation primitive consumed by live drape/preview/worker. Empty input validly returns an empty successful outfit. Option on saved state, prior slot, diagnostics and stopping error expresses actual absence at distinct boundaries, not duplicate Boolean flags needing arbitrary bounds. No cancellation, concurrency or fresh-versus-cached behavior correctness claim transferred from the role assessment."
+    }
+  ],
+  "connected_contract_support": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/drape_worker.rs",
+      "original_index": 763,
+      "sha256": "6e96818d06560c10bd8f74d121d84fc812726274dedc89b59f85bce7d0e6ca73",
+      "newly_registered_consumed_ranges": [
+        [
+          12,
+          53
+        ],
+        [
+          55,
+          75
+        ],
+        [
+          77,
+          131
+        ]
+      ],
+      "range_note": "Registered final ceiling139; actualEOF131. Earlier55-61/77-123 already read under157; extension completes exact outcome receiver.",
+      "ordered_credit": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/stages.rs",
+      "sha256": "ccbbca63f8954cde1d15934b057edc40dfe382d36c273fed0acd0316f9a2fe2a",
+      "retained_material_ranges": [
+        [
+          173,
+          253
+        ]
+      ],
+      "previous_receipt": "audit11-successor-157-connected-780-003.json",
+      "ordered_credit": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/settled.rs",
+      "sha256": "3dbafb11ea673b81b72c6d8599bf9c1ac4c55b3e456982e39d16d38faef2e42d",
+      "retained_material_ranges": [
+        [
+          49,
+          237
+        ],
+        [
+          239,
+          308
+        ]
+      ],
+      "previous_receipt": "audit11-successor-157-connected-780-003.json",
+      "ordered_credit": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/drape.rs",
+      "sha256": "c26b0508ccce30c3c2ca164e46327764ca4b133b418b5ea49e008b0a45613421",
+      "previous_receipt": "audit11-successor-158-782.json",
+      "trace": "Actual live drape and stage-dependent outcome paths already independently source-accounted; no earlier role restarted."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/outfit.rs",
+      "sha256": "4d3281fb80e63eeb57bf3caaec77e63eb33d75c62e6ec5d7053e2fd76ebd95f2",
+      "ranges": [
+        [
+          44,
+          73
+        ]
+      ],
+      "previous_receipt": "audit11-successor-160-785.json",
+      "trace": "Concrete loadout producer creates paired item IDs/input, walks reversed draped list for standoff then reverses inputs back to innermost-first.",
+      "ordered_credit": false
+    }
+  ],
+  "qualified_observations": [
+    {
+      "local_source_key": "pr-working:crates/adventuresim-character-creator/src/garment/outfit.rs@sha256:571784773d4506fa741fed5d4dab85c61bbf9dee836fab1833987b233a4ecdb9#L4-L13:outfit-partial-success-and-attempt-checkpoints",
+      "classification": "justified distinct simultaneous output responsibilities; no new accepted finding",
+      "observation": "The vectors differ in population: garments contains only successes; checkpoints contains all attempts including failure. Preserve names/order and ownership transfer; common vector storage is not evidence to merge these roles."
+    },
+    {
+      "local_source_key": "pr-working:crates/adventuresim-character-creator/src/garment/outfit.rs@sha256:571784773d4506fa741fed5d4dab85c61bbf9dee836fab1833987b233a4ecdb9#L26-L55:resume-slot-context",
+      "classification": "bounded source-backed local correspondence; universal identity/admission remains qualified",
+      "observation": "Ordinal prior lookup is guarded by existing checkpoint setup comparison. No current source comparison, invalid mutation example or stronger identity contract established; do not invent new global identity constraints or count a source-key alias as an accepted issue."
+    }
+  ],
+  "qualifications": [
+    "Original786 independently inventoried only after785; prior connected access did not confer ordered credit.",
+    "Question/source-key crosswalk001 retained, no bare export Q008/Q009 alias; accepted unique count unchanged.",
+    "Frozen rig ordinal receiving cast and physical/frame propagation questions remain qualified and current-uncompared; this role does not resolve them.",
+    "Saved topology identity, arbitrary input/checkpoint equality policy, failed-attempt warning policy, thread races/cancellation behavior and other-lens invariants not cleared by this bounded type-granularity trace.",
+    "Connected future788/792/821 receive no ordered credit; earlier source763 receiver extension is not restarted discovery. Original787 not advanced.",
+    "No product edits, root ledger/historical overwrites, project checks/tests/probes/publication, current-main integration/validation or global clearance."
+  ],
+  "registration": "audit11-successor-160-registration.json",
+  "new_unique_findings": 0,
+  "proposed_original_accounted": 787,
+  "next_original": 787,
+  "active_partial": null,
+  "current_main_integrated": false,
+  "validated": false,
+  "clear": false,
+  "validation": "none"
+}

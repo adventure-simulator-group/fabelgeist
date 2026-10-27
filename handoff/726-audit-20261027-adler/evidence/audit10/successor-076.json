@@ -1,0 +1,71 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-076",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1682,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/cached_views/travel.rs",
+      "sha256": "fcc5da9af3e6cdbc09ec0512bcd8f36416dbfcf4ce9fad4f2c0e44c5cd8e47b5",
+      "ranges": [
+        [
+          1,
+          159
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "SavedViews/CachedViews inherent byte budget, discard and scene-change operations plus complete existing return-trip fixture; no handwritten traits/codecs.",
+      "disposition": "No derivability candidate. Selected city/environment identity, completed-frame retention and camera/entity ownership transitions are semantic. Native image memory projection is not a generic record codec.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1683,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/equipment.rs",
+      "sha256": "bcfd6571ac4b5c7fb271cfb50e5ef79c08b7110bc649364f23abd31c44799bdf",
+      "ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "SceneEquipment derives Component, Wardrobe ComponentDefault. Free presentation equipment synchronization/spawn/held-slot classification carries canonical appearance and attachment maps to tactical framework descriptors; no handwritten trait/codec.",
+      "disposition": "No derivability candidate. Role/attachment/entity lookup and presentation-only physical projection require explicit semantic conversion; do not add serde or direct From to replace classifier.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1684,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/instances.rs",
+      "sha256": "66149a921888d0c9cf3f530e5c3d909dc4950a182bbaefc83c15ff8f7adf792b",
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Native spawn_building/spawn_props functions adapt canonical building datum/door/window poses and furniture to framework entity/material observation. No handwritten traits/codecs.",
+      "disposition": "No derivability candidate. Checked pose transformations, retained source descriptors and entity publication are semantic effects, not mechanical record traits.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1685,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/lighting_diagnostics.rs",
+      "sha256": "a1627688fff10fc5762346ef4f2842952fb09815946d3ccbb17408e48353cb4c",
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "ViewLighting already derives Serialize, LightingDiagnostics SystemParam. Inherent views selects active cameras and samples native daylight at camera/subject positions.",
+      "disposition": "Already derives mechanical diagnostic record writing. Constructing selected sample data is semantic mapping that should remain explicit; no manual codec candidate.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

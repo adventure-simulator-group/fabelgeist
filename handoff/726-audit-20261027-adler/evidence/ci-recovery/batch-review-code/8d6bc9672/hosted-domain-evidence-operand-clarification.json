@@ -1,0 +1,8 @@
+{
+  "kind": "CLOUD_ORACLE_LOG_OPERAND_CLARIFICATION",
+  "source_assert": "scenery.rs257assert_eq(fixture_environment(id).scene_digest,identity.trim())",
+  "left_current_prepared_fixture": "765676788c70edd0a44f67bec0378e10a4877249aaf60256926e3b39d66636a7",
+  "right_stale_committed_identity": "ad11d5d56bac1df5b080d5a23e725f78557ca8c03ffc3b5e62143af416bba5e8",
+  "new_committed_identity_matches_left": true,
+  "note": "hosted-domain-evidence actual_old_digest/expected_new_digest refer oldGitidentity andnewgeneratedidentity, not left/rightlogoperands. Actualearliestfailedcontract is exactCityidentityequality; no primitivepanic/compile/no-casefallback."
+}

@@ -1,0 +1,53 @@
+{
+  "at_utc": "2026-10-27T10:25:31.569226+00:00",
+  "user_instruction": "Resume audit and finish ledger before writing morecode",
+  "main": "7a9d92ad7357779e9280146c521bd8588b86fcdb",
+  "working_head": "5376d149da40b9ba3afd93d86827832eab1f1f89",
+  "tree": "9ad4f2300a9255bebc06f3aa1b15e58f69382130",
+  "clean": true,
+  "implementation_gate": false,
+  "product_edits_authorized": false,
+  "ledger_owner": "/root",
+  "assignments": {
+    "root": "lens08+root adoption/currentness/dedup/acceptance ledger",
+    "texture_rule_review": "lens11discovery",
+    "texture_comment_review": "lens12discovery",
+    "texture_code_review": "lens13discovery"
+  },
+  "prior_frontiers": {
+    "08": {
+      "accounted": 1800,
+      "next_ordered": 1793,
+      "partial": [
+        1462,
+        1793
+      ],
+      "material_next": 52
+    },
+    "11": {
+      "accounted": 814,
+      "next": 814
+    },
+    "12": {
+      "accounted": 58,
+      "next": 58,
+      "pending038_adopted": false
+    },
+    "13": {
+      "accounted": 37,
+      "partial": [
+        31,
+        36,
+        39
+      ],
+      "never_started": 40
+    }
+  },
+  "separate_populations": {
+    "original": 2853,
+    "overlay": 246,
+    "merged": 38,
+    "original_shared_material": 196
+  },
+  "limits": "No projectexecution/newtests/codeedits; no BCuntilrelease; prior sourceaccounting retainedqualified, notcurrentvalidation"
+}

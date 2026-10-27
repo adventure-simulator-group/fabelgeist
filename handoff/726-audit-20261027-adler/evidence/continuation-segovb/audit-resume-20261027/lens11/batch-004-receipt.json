@@ -1,0 +1,299 @@
+{
+  "lens": 11,
+  "frozen_authority": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+  "registry": {
+    "path": "target/recovery-20261025/audit05/original-scope-072.json",
+    "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_adoption_required": true,
+  "restrictions": "Ignored append-only evidence only; no product/source/Git mutations, root ledger, project execution/scanners/probes/tests/new tests or publication.",
+  "at": "2026-10-27T11:13:26.626172+00:00",
+  "status": "831\u2013835 independently source-accounted with qualified observations",
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-003.json",
+    "sha256": "50ca8ca662f861911a3ce3a1010659e78d575d0bcead0f93d2b5642ff5e50afe"
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-004-registration.jsonl",
+    "sha256": "e63cd7610aacadf7c2eb4c25aff3c899d89d74730919f8072c5f46792d8af2c0"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 831,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/studio_cache.rs",
+      "sha256": "6d7378554d92fcefc39d39434744bdb50dd98358ce1596f571652a65ce4bf013",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/6d7378554d92fcefc39d39434744bdb50dd98358ce1596f571652a65ce4bf013",
+      "actual_eof": 192,
+      "ranges": [
+        [
+          1,
+          192
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/6d7378554d92fcefc39d39434744bdb50dd98358ce1596f571652a65ce4bf013",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          192
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 832,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/studio_generation.rs",
+      "sha256": "7d6baf7df5362f498eb963aa984845e08e31952bec84de19b40620ea8f15dd0b",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/7d6baf7df5362f498eb963aa984845e08e31952bec84de19b40620ea8f15dd0b",
+      "actual_eof": 187,
+      "ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "provenance": "existingverifiedcache",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          187
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 833,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/studio_scene.rs",
+      "sha256": "e486c21e58ee4c7f689bceed15e636afc2b11d12fc0989b02ca4a5e128c85fcf",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/e486c21e58ee4c7f689bceed15e636afc2b11d12fc0989b02ca4a5e128c85fcf",
+      "actual_eof": 367,
+      "ranges": [
+        [
+          1,
+          367
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "provenance": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/e486c21e58ee4c7f689bceed15e636afc2b11d12fc0989b02ca4a5e128c85fcf",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          367
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 834,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/studio_ui.rs",
+      "sha256": "ab4430b01df6df4b77ee2e29a491531bd3a5782c92fd16b67a9aaba2d239b394",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/ab4430b01df6df4b77ee2e29a491531bd3a5782c92fd16b67a9aaba2d239b394",
+      "actual_eof": 435,
+      "ranges": [
+        [
+          350,
+          430
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "provenance": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/ab4430b01df6df4b77ee2e29a491531bd3a5782c92fd16b67a9aaba2d239b394",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          350,
+          435
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 835,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/surface_cut.rs",
+      "sha256": "a62fc268fef2024b832c7557c089daee6d948bfa8296b12f128bdbf5fea7b849",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/a62fc268fef2024b832c7557c089daee6d948bfa8296b12f128bdbf5fea7b849",
+      "actual_eof": 277,
+      "ranges": [
+        [
+          1,
+          277
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "provenance": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/a62fc268fef2024b832c7557c089daee6d948bfa8296b12f128bdbf5fea7b849",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          277
+        ]
+      ]
+    }
+  ],
+  "per_role": [
+    {
+      "original": 831,
+      "roles": "Body serialized key, fit digest, finish key, lining and drape key; typed CatalogPlacement/ItemDesign and staged GeneratedArmor/Finish payloads.",
+      "trace": "Body key retains LOD/proportions/identity/expression; body replacement clears dependent caches. Fit key includes typed item, placement, design and actual ancestor finish keys in LayerPlan order; decoration and construction enter finish key. SelectedArmor binds cached finish to actual fitted piece. Lining filters rigid layers by their same fit keys; drape key includes body/lining and selected draped payloads. All actual current frozen maps use intended keys; no observed collision or failed runtime execution.",
+      "disposition": "source-accounted with qualified key-role and omitted-input questions"
+    },
+    {
+      "original": 832,
+      "roles": "PreviewScene groups Bevy ports; local typed generated/clothed/armor/drape-input tuple; CharacterBounds, entities and mesh handles; dragging predicate.",
+      "trace": "Regeneration defers while dragging, clears dirty, clones recipe, computes cache body/clothing/armor/lining and optional drape request, rebuilds animation from same generated body, updates bounds then despawns/replaces preview entities. SelectedArmor construction keeps material/trim with generated payload; lacing path explicitly has no trim. Native Bevy mesh conversion terminates positions/normals/index encoding. No transaction, frame-order or all-device scheduling guarantee inferred.",
+      "disposition": "source-accounted"
+    },
+    {
+      "original": 833,
+      "roles": "CreatorPanelRight logical pixels versus physical viewport size; Shot sum and ShotRequest; CharacterBounds min/max; OrbitCamera and OrbitGoal retained yaw/pitch radians, radius/focus metres, optional target orientation.",
+      "trace": "Every shot branch has actual consumer: full-body/portrait choose target framing; turn-left/right updates goal yaw while retaining pitch. Native input deltas map into camera numerical kernel; pitch clamps -1.2..1.2, zoom/framing radius clamps 0.25..14.0. Time.delta_secs drives exponential approach; native Quat/Transform and SubCameraView terminate radians/metres/logical-to-physical pixel conversion. No new hard physical bounds or cross-frame token required from source alone.",
+      "disposition": "source-accounted with qualified retained unit-role recommendation"
+    },
+    {
+      "original": 834,
+      "roles": "Play/pause and physics toggles independent of ignore-cloth-weights; retained SimulationSettings distinct thickness/margins/distances, gravity, damping/stiffness/follow strength, contact/substep/iteration counts.",
+      "trace": "Requested scope350-430 plus closing431-435 personally read. WalkPreview owner22-105 proves independent physics/play/ignore choices and named settings/defaults, rather than one semantic bool family. UI sliders expose actual ranges and reset owner defaults; native player pause/resume occurs only when ready and player exists. Do not replace all settings by one generic bounded float or conflate independent playback/physics axes. Actual solver numerical guarantee not inferred.",
+      "disposition": "source-accounted with retained setting-role qualification"
+    },
+    {
+      "original": 835,
+      "roles": "Plane reference metres, ConvexRegion alias, SourcePoint original-triangle ordinal plus barycentric weights; cut vertex/face IDs, UV IDs, polygon clipping numerical kernel.",
+      "trace": "Full277 lines personally read including existing fixtures (not executed). Cut keeps source-triangle and barycentric correspondence through include/subtract clipping, seam-aware dedup and physical-border lookup. Actual CutPlan::from_cut receiver indexes body.faces and uv_faces by triangle, interpolates with weights, then packs body IDs, UV IDs and f32 bits into explicit nine-word native table. Equal raw arrays represent different domains; no claim all arbitrary public arrays are validated. Numerical f64 clipping/interpolation arithmetic is local kernel, not justification for raw retained correspondence owner.",
+      "disposition": "source-accounted with qualified correspondence grouping recommendation"
+    }
+  ],
+  "qualified_observations": [
+    {
+      "source_key": "pr-working:crates/adventuresim-character-creator/src/studio_cache.rs@6d7378554d92fcefc39d39434744bdb50dd98358ce1596f571652a65ce4bf013#Key-and-body-key",
+      "observation": "One Key=Vec<u8> alias covers body JSON key, fit fixed-size BLAKE3 digest, finish JSON key and drape JSON key. Map/value names keep ordinary frozen flow coherent, but the type system does not distinguish these cache authority roles. Body key also does not include BodyModel.correctives; actual model reload changes this flag, but output-sensitive current witness and alias are not established here.",
+      "remedy": "Reconcile existing cache owners/current source; use actual fit digest representation and distinct cache key roles only where they prevent substitutions. Establish relevant generation dependencies before claiming omitted-input defect.",
+      "acceptance": "Role-specific cache ports cannot interchange keys; every proved output-sensitive body input invalidates dependent entries. No invented cache key framework or runtime collision claim.",
+      "dependencies": [
+        "existing cache/redundant-authority finding alias reconciliation",
+        "current source/actual output dependency"
+      ],
+      "currentness": "Frozen source question; no accepted unique finding"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-character-creator/src/studio_scene.rs@e486c21e58ee4c7f689bceed15e636afc2b11d12fc0989b02ca4a5e128c85fcf#OrbitCamera-OrbitGoal",
+      "observation": "Retained camera yaw/pitch/radius and panel logical pixels use primitive storage despite distinct unit/frame roles; actual native operations make the distinctions concrete. Shared numeric representation does not justify a single generic positive scalar for all.",
+      "remedy": "Reuse canonical existing angle/length/UI coordinate owners if applicable, preserve native camera numerical kernel and distinguish logical pixels from physical viewport sizes. Do not invent numeric bounds beyond admitted camera policy.",
+      "acceptance": "Application target/retained camera ports express actual radians, metres and logical pixel roles; extraction occurs at relevant Bevy/egui operations.",
+      "dependencies": [
+        "existing owner lookup/currentness and alias reconciliation"
+      ],
+      "currentness": "Frozen only, no runtime failure or accepted uniqueness"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-character-creator/src/surface_cut.rs@a62fc268fef2024b832c7557c089daee6d948bfa8296b12f128bdbf5fea7b849#SourcePoint-CutPlan",
+      "observation": "SourcePoint public usize triangle and f32[3] weights group correspondence but preserve no source-topology association; CutPlan body/UV/cut/shell IDs become raw u32 at explicit packing boundary. Actual ordinary producer/consumer agrees; arbitrary public input not proved.",
+      "remedy": "Assess canonical topology index/correspondence owners and use distinct meaningful roles before native packing; keep low-level clipping generic, no universal mesh-instance requirement without contract.",
+      "acceptance": "Material source triangle, barycentric coordinate and cut/shell IDs cannot be confused across supported ports; preserve seam-aware correspondence and actual native layout.",
+      "dependencies": [
+        "inherited public geometry/association questions and aliases",
+        "currentness"
+      ],
+      "currentness": "Qualified frozen question; no accepted unique count"
+    }
+  ],
+  "material_receivers": [
+    {
+      "kind": "connected-tail",
+      "source_sha256": "ab4430b01df6df4b77ee2e29a491531bd3a5782c92fd16b67a9aaba2d239b394",
+      "ranges": [
+        [
+          431,
+          435
+        ]
+      ],
+      "reason": "close actual play/pause consumer after registered changed range350-430",
+      "actual_read_ranges": [
+        [
+          431,
+          435
+        ]
+      ],
+      "zero_new_original_credit": true
+    },
+    {
+      "kind": "connected-owner",
+      "source_sha256": "8c21b357f6f90a1c9c297c9e1c4306e63872daa3ccb32e060651f5df878b7ba3",
+      "ranges": [
+        [
+          22,
+          105
+        ]
+      ],
+      "reason": "WalkPreview retained field and simulation configuration ownership consumed by animation UI",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          22,
+          105
+        ]
+      ],
+      "zero_new_original_credit": true
+    },
+    {
+      "kind": "connected-receiver",
+      "original_index": 755,
+      "sha256": "b42e82c29ce8e08f7e378abc16f0f9823aea7c2580456c37cbaa4084ea781591",
+      "ranges": [
+        [
+          1,
+          110
+        ],
+        [
+          390,
+          416
+        ]
+      ],
+      "reason": "SurfaceCut retained topology, barycentric correspondence and CPU/native interpolation receiving ports",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          110
+        ],
+        [
+          390,
+          416
+        ]
+      ],
+      "zero_new_original_credit": true
+    },
+    {
+      "kind": "connected-receiver",
+      "original_index": 756,
+      "sha256": "7eb172df559ec4825c756c36b416e163b5703de648a9e6a84af309ca71c56fe9",
+      "ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "reason": "CutPlan actual use of SurfaceCut triangle/barycentric and UV identities",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "zero_new_original_credit": true
+    }
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer. Preserve180/181nativeSDK/Bevy scheduling/imagecopylimits andallpendingreceiverqueues. M04current903reviewsseparate; notfrozenoriginal/lenscounts. Packet182InventoryItemId graph erasure, catalogkey/recordidentity and wear/order-selector sourcequestions retained, alias/currentness/unique acceptance unresolved. M04build-target review003 atdf5 andhostedCIseparatefromfrozenauditcounts. 184 newpublicDrapedPiece association/sourcegroupingquestion remainsfrozenlocal, noalias/currentness/uniqueacceptance; producerpathcoherent. M04df5validationseparate. 185 capacityreservationstaticAPIgap retainedasfrozenevidence only; alias/currentness/accepteduniqueness unresolved. No runtimewrongID orauthoredcurrentinputwitness. ExistingID/key/wear/savedassociationquestionsremainqualified. Packet186 independently accounts existing test-source812 only; fixture expectations are not observed execution/whole authored catalog/native guarantees and do not clear185 capacity witness. Existing lower-pattern fixture uses canonical owners; no new current alias or unique finding. Packet187 original813 only. New frozen inventory_ui and catalog wrapper material extensions mandatory other lenses, zero extra shared/original credit. UI acquisition is not atomic/all-worn; inherited capacity, typedID erasure/key authority and public saved-association questions retain all currentness/alias/unique limits.",
+  "clear": false,
+  "process_qualification": "755 locator-only output exposed121/145/325 before new receiver registration. No prospective-first-consumption or semantic coverage credit from search; exact needed bodies subsequently registered/read. Existing registered source reads not restarted."
+}

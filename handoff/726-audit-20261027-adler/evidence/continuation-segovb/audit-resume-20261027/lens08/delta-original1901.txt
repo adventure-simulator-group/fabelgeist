@@ -1,0 +1,108 @@
+--- base
++++ head
+@@ -1,6 +1,31 @@
+ use super::*;
++use crate::scene_coordinates::ScenePlanPoint;
++pub use urban::{UrbanGroundLookup, UrbanGroundSurfaces};
++
+ mod urban;
+-pub use urban::{UrbanGroundLookup, UrbanGroundSurfaces};
++
++/// Compact server-queryable description of one ground sample.
++#[derive(Debug, Clone, Copy, Default, Eq, PartialEq, Serialize, Deserialize, Reflect)]
++#[serde(deny_unknown_fields)]
++pub struct GroundSurface {
++    pub substrate: GroundSubstrate,
++    pub cover: GroundCover,
++    pub cover_density_bps: u16,
++    pub cover_height_cm: u16,
++}
++
++/// Authoritative spatial ground semantics shared by the tactical server and
++/// clients. Samples use the same centered row-major grid convention as
++/// [`SceneTerrain`], allowing presentation and future gameplay systems to ask
++/// the same world-position question.
++#[derive(Component, Serialize, Deserialize, Debug, Reflect, Clone, PartialEq)]
++#[component(immutable)]
++pub struct SceneGround {
++    samples: Vec<GroundSurface>,
++    pub urban: UrbanGroundSurfaces,
++    width: usize,
++    scale: f32,
++}
+ 
+ /// Physical material below a tactical ground-cover layer.
+ ///
+@@ -31,29 +56,6 @@
+     LeafLitter,
+     LooseStone,
+     Reeds,
+-}
+-
+-/// Compact server-queryable description of one ground sample.
+-#[derive(Debug, Clone, Copy, Default, Eq, PartialEq, Serialize, Deserialize, Reflect)]
+-#[serde(deny_unknown_fields)]
+-pub struct GroundSurface {
+-    pub substrate: GroundSubstrate,
+-    pub cover: GroundCover,
+-    pub cover_density_bps: u16,
+-    pub cover_height_cm: u16,
+-}
+-
+-/// Authoritative spatial ground semantics shared by the tactical server and
+-/// clients. Samples use the same centered row-major grid convention as
+-/// [`SceneTerrain`], allowing presentation and future gameplay systems to ask
+-/// the same world-position question.
+-#[derive(Component, Serialize, Deserialize, Debug, Reflect, Clone, PartialEq)]
+-#[component(immutable)]
+-pub struct SceneGround {
+-    samples: Vec<GroundSurface>,
+-    pub urban: UrbanGroundSurfaces,
+-    width: usize,
+-    scale: f32,
+ }
+ 
+ impl SceneGround {
+@@ -117,8 +119,8 @@
+ 
+     /// Returns exact urban ownership, then the natural sample at a world point.
+     /// Enum values are intentionally not interpolated across boundaries.
+-    pub fn ground_at(&self, pos: Vec2) -> Option<GroundSurface> {
+-        let grid = (pos + Vec2::new(self.width(), self.depth()) * 0.5) / self.scale;
++    pub fn ground_at(&self, point: ScenePlanPoint) -> Option<GroundSurface> {
++        let grid = (point.metres() + Vec2::new(self.width(), self.depth()) * 0.5) / self.scale;
+         if grid.x < 0.0
+             || grid.y < 0.0
+             || grid.x > (self.grid_width() - 1) as f32
+@@ -129,7 +131,7 @@
+         let x = (grid.x.floor() as usize).min(self.grid_width() - 1);
+         let z = (grid.y.floor() as usize).min(self.grid_depth() - 1);
+         self.urban
+-            .surface_at(pos)
++            .surface_at(point)
+             .or_else(|| self.samples.get(z * self.width + x).copied())
+     }
+ 
+@@ -137,13 +139,14 @@
+     /// use this to avoid extending blades across a leaf-litter boundary.
+     pub fn cover_intersects_square(
+         &self,
+-        centre: Vec2,
++        centre: ScenePlanPoint,
+         half_extent: f32,
+         cover: GroundCover,
+     ) -> bool {
+         if !half_extent.is_finite() || half_extent < 0.0 {
+             return false;
+         }
++        let centre = centre.metres();
+         let half_size = Vec2::new(self.width(), self.depth()) * 0.5;
+         let minimum = ((centre - Vec2::splat(half_extent) + half_size) / self.scale)
+             .floor()
+@@ -174,3 +177,6 @@
+             .count()
+     }
+ }
++
++#[cfg(test)]
++mod tests;

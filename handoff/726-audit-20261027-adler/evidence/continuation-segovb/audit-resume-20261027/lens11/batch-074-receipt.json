@@ -1,0 +1,305 @@
+{
+  "at": "2026-10-27T15:42:29.827363+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-074-registration.jsonl",
+    "sha256": "67993f9ac58f3be89a9af3555c8625435844fe7f49a4f0213f8b64bee23f9fbc"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-073.json",
+    "sha256": "2c6a1437bc166efff20cced01d10ac0b04794745543ff52945622ccefdfca041"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1116,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/herbalism.rs",
+      "sha256": "22a0312534bd03b91e900595bd44d7bffe8b159545dfd65c8eccfe207f8cb0b8",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/22a0312534bd03b91e900595bd44d7bffe8b159545dfd65c8eccfe207f8cb0b8",
+      "ranges": [
+        [
+          1,
+          600
+        ]
+      ],
+      "actual_eof": 600,
+      "prospective": true,
+      "purpose": "Independent ordered full type-granularity inventory; previousconnectedreads are context only",
+      "actual_read_ranges": [
+        [
+          1,
+          600
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1117,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/herbalism/ingredient.rs",
+      "sha256": "0da336a33dfe2ce0319629649c1fe2192f15f73e04a7899d12cc9613f2f49156",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/0da336a33dfe2ce0319629649c1fe2192f15f73e04a7899d12cc9613f2f49156",
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "actual_eof": 21,
+      "prospective": true,
+      "purpose": "Independent ordered full type-granularity inventory; previousconnectedreads are context only",
+      "actual_read_ranges": [
+        [
+          1,
+          21
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1118,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+      "ranges": [
+        [
+          1,
+          241
+        ]
+      ],
+      "actual_eof": 241,
+      "prospective": true,
+      "purpose": "Independent ordered full type-granularity inventory; previousconnectedreads are context only",
+      "actual_read_ranges": [
+        [
+          1,
+          241
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [
+    {
+      "kind": "connected_original",
+      "original_index": 1145,
+      "sha256": "a9bb1a3335b7d10b135f817c54c903577af4b2df12ca9d1c10a9ca52d48b2d5c",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/a9bb1a3335b7d10b135f817c54c903577af4b2df12ca9d1c10a9ca52d48b2d5c",
+      "ranges": [
+        [
+          330,
+          404
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Actual actor-carried root custody receiver for tincture/ingredient owner assertion; bounded materialbody not whole futurecredit",
+      "actual_read_ranges": [
+        [
+          330,
+          404
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1145,
+      "sha256": "a9bb1a3335b7d10b135f817c54c903577af4b2df12ca9d1c10a9ca52d48b2d5c",
+      "ranges": [
+        [
+          303,
+          329
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Close actual resolved custody definition/signature/body prefix for registered receiver; no persisted backing/SDK expansion",
+      "actual_read_ranges": [
+        [
+          303,
+          329
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "original": 1116,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/herbalism.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              23,
+              175
+            ]
+          ],
+          "roles": "Tincture world-clock lifecycle versus personal preparation elapsed, time-ready versus installed matured checkpoint, originalpreparer identity versus current custody, pinned preparationprofile/version/potency and consumed ingredientobject/mass; sanitized gatewaystatus and private carriercomponent.",
+          "disposition": "matured proves componentinstallation, not merely datepassed; meaningful distinction prevents declaring readydate duplicateauthority. Shared worldclock intentionally survivescustodytransfer, not sameauthority as actorclock despiteStrategicMinute storage. MedicinalComponent carrier_kind String+ID conflates containerobject withfoodlot namespace; profile/version/potency are requiredpair/quantity notlabels. TinctureProcess broadrawIDs/grams/potency, actualbuilderpins specificrecipe/profile.",
+          "remedy": "Explicit lifecycle state with installedcomponentidentity if useful, canonical worldclock/elapsed wrappers and carrier sum using existing PhysicalObjectId/MaterialLotId owners; canonical profile/version/potency roles. Preserve originalpreparer provenance independentcurrentcustodian.",
+          "acceptance": "No nativeclinical/current/runtimeclaims; soleactualprocessbuilder coherent. Keep private profile/potency out of gatewaystatus, no collapsing publicreadiness into secretclinicalstate."
+        },
+        {
+          "ranges": [
+            [
+              177,
+              272
+            ]
+          ],
+          "roles": "Consumed bounded foodportion, extensive potency, rounded clinicalDoseMilliunits, retained/split componentidentity and profile.",
+          "disposition": "ExistingDoseMilliunits reusedcorrectly at actual standarddose numericalkernel. fraction rawf32 re-admitted/checked in receivingfunctions, incompleteproducer propagation from typedfoodportion through1102/1106. No duplicateDoseowner or universalbound on extensivepotency; prescribed fractionbounds differ quantitybounds.",
+          "remedy": "Carry canonical admitted fraction/Portion from materialproducer into medicineoperations, named carrier/component identity and typedpotency; one existingDose roundingadapter.",
+          "acceptance": "Preserve proportional componentdepletion, profilevalidation and dose error propagation. Actual1093typedinterventioncomponent receiverfullread067; no clinicalexecution/accepteduniqueclaim."
+        },
+        {
+          "ranges": [
+            [
+              274,
+              480
+            ]
+          ],
+          "roles": "150ml spirit serving and bottlevolume/capacity, exact direct ground-poppy50g lot with tolerance, personaloperationalcustody, preparationcheck/setuprealhours, worldmaturation andpinned potency.",
+          "disposition": "Catalog tag vesselrole and rawitem/profile IDs could reusecanonical authoredowners. ContainerLiquid.water_ml carries generic tincturespirit volume here; semantic liquidvolume differs watersubstance despitefieldname. Exactmass predicate allowsNaN to evade abs>tol at API/persisted-rowshape, but actualcanonicalfoodlotordinarysourcefinite notproven malformed; qualifiedadmissiononly. Beforewait loaded skills/ingredient snapshots reusedafterwait without1110-style revalidation; sourceauthority/retention question, not claim concurrentmutation or permissiongap.",
+          "remedy": "Canonical liquidvolume/mass/tincture recipe/check/duration/profile owner and checked ingredient witness; guard actualsource/amount/skill afterwait if required by operationcontract. No BC fallback.",
+          "acceptance": "Preserve one directingredient, Groundpreparation, personalcustody, exactrecipequantity, no materialconsumption on interruptedwait, pinnedpostsetupworldclock/recipeprovenance. No arbitrarynewmassbounds or clinicaladvice."
+        },
+        {
+          "ranges": [
+            [
+              482,
+              581
+            ]
+          ],
+          "roles": "Current carriedobject/consent, requested carrierportion calledDoseMilliunits, clinical administeredDose afterpotency, remainingpotency/liquidvolume and minimumquantization.",
+          "disposition": "Concrete type-granularityconflation: tincture_dose512 is cappedSTANDARD then as_standard_doses542 used as fraction of remainingcomponent/liquid; actual administered_dose544 is clinicalstandarddose. Same DoseMilliunits type represents different semantic roles at actual receiver. Repeated500 consumeshalfremaining, not a fixed500clinicalmilliunits; no claim designintendsone interpretation without APIpolicy. ceilvolume/minimum1clinicaldose are explicitquantization policy, not proven exactmaterialconservation.",
+          "remedy": "Request existing canonical bounded carrierportion/fraction (or explicit measuredvolume if intended), keep DoseMilliunits solely actualclinicaldose afterpotency adapter; clear API meaningwith actualcaller. Reconcile minimumdosequantization/errorbudget without inventingbounds/newduplicatefraction owner.",
+          "acceptance": "Typedrequest cannot confuse liquidportion andclinicaldose; preserve0<portion<=whole policy, exactprofilepotency and actor/patientcontext. No actual clinicalharm/runtime/current/uniquealiasclaim."
+        },
+        {
+          "ranges": [
+            [
+              583,
+              600
+            ]
+          ],
+          "roles": "Existing sourcefixture lifecycle assertions.",
+          "disposition": "Allsourceconsumednotexecuted; no tests added.",
+          "remedy": "No code authorized.",
+          "acceptance": "Assertions not runtimeacceptance."
+        }
+      ]
+    },
+    {
+      "original": 1117,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/herbalism/ingredient.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              21
+            ]
+          ],
+          "roles": "Exact inventoryrow and physicalingredientobject deletion with foodlot/amount/containment cleanup.",
+          "disposition": "Helper owns coherentcommitted ingredient cleanup, not redundant pass-through; two sameu64parameters mean differentnamespaces. Actualcaller1116passes validatedinventory.id andingredient.id, no wrongassociationobserved.",
+          "remedy": "Checked ingredient/material identitywitness or namedtypedrow/object fields, reuse existingowners.",
+          "acceptance": "Preserve deletion of linked foodmedicine/provenance via1106helper and exactphysicalchild; no destructiveexecutionpermission or runtimeproof."
+        }
+      ]
+    },
+    {
+      "original": 1118,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              88
+            ]
+          ],
+          "roles": "Publicpersonal/party remainingamount storage, measureditemclassifier, typedConsumableFractionMicros initialization/decode, inventoryrowIDs vs itemdefinitionIDs.",
+          "disposition": "Personal andparty samefractionsemantics but distinct rownamespaces; not twofractionowners. ExistingConsumableFractionMicros canonicalleaf validstorageadapter; persisted_fraction expect panicsifmalformedstorednativevalue, qualifiedboundaryerrorclassification not observed ordinarybadwrite. Classifier combines catalogkind/alcohol/soap/authoredsmithingIDs plus canonicalfooddefinition.",
+          "remedy": "Canonical rowidentity/scope and shared typedfractionadapter with explicit persistederror; keep necessary DBschemaforms while carryingtypedleafinternally. Reuse authoreditemowners rather than duplicate materialcatalog.",
+          "acceptance": "No arbitrarytotalstock<=1 requirement: fraction describes each quantity-one stableunit. ActualinitializerswriteWHOLE; rowvsobjectidentity separate. No current/runtime/uniqueclaim."
+        },
+        {
+          "ranges": [
+            [
+              90,
+              205
+            ]
+          ],
+          "roles": "Requested/available/consumed/remaining fraction and scopedrow transfer.",
+          "disposition": "Canonical leafoperations min/checkedsub preserve boundedremaining; consumingatmostavailability intentionallyreturnsactualconsumed, distinct erroroninsufficientrequest. Transfer moves rawpersistedfractionwithoutrevalidation/source-destinationassociationcheck; actual1119typedpreflight/rehome receiverusescoherent rows. Two duplicatedpersonal/party bodies primarilyDB adapters, not standalone typeownerduplication.",
+          "remedy": "Retain explicit scope/typedrow transfer witness and canonical fraction through mutation, namedactualconsumptionresult if useful; do not collapse namespaces or inventall-or-nothing behavior.",
+          "acceptance": "Preserve zero no-op, deletiononempty and exactremainingfraction transfer; alias/current/runtime/fullgraphcleanup separate. No infinite/new tests."
+        },
+        {
+          "ranges": [
+            [
+              207,
+              241
+            ]
+          ],
+          "roles": "Existing measureddefinition fixture examples.",
+          "disposition": "Fullsourceconsumed; native raw500serving/exampleIDs fixtureboundary, no newtype towrapisolatedtestdata.",
+          "remedy": "No testchanges.",
+          "acceptance": "Noexecution or projectchecks."
+        }
+      ]
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-035-receipt.json",
+        "sha256": "4a35c1a6afd6d6ebf7e63867b4b939fc63ae5d55011f0f8f0151be0c4e2dd1e2"
+      },
+      "contract": "964physiology full effective source, actual DoseMilliunits includesZERO/max8000 and Administrationclinicaleffect receiver; no duplicateowner."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-026-receipt.json",
+        "sha256": "a6a3bf715d71a10786994eea605f942cdb91f137578cb423ec0f81a23465904e"
+      },
+      "contract": "930coreherbalism full405 recipe/maturation/nativepreparation contract."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-067-receipt.json",
+        "sha256": "e02e209bcb9d7257a2a89762ff62094e269991a6d7e48af1897a8e10b7047e7f"
+      },
+      "contract": "1093full administrationcomponent typedDose/context/terminalboundary."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-071-receipt.json",
+        "sha256": "b94198e8df2c2233a4ea0271205c9c647155925e7056bc7752267f3b4dc797d4"
+      },
+      "contract": "1106full lotdelete/medicinecleanup and existingmaterialowners/producer graph."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-070-receipt.json",
+        "sha256": "bfce24727f8ea5bb00152c3bb85ae8d66e718fcf5c24521c667befcc6bf76c83"
+      },
+      "contract": "1145typedcustodydecode/direct/carriedfixtureactual1-159/405-430; now303-404receiveradded."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-064-receipt.json",
+        "sha256": "91c5c0fe2515a9d9782cbc7c18b53148b198e3ad2b331eccd6d26e78bc2b575c"
+      },
+      "contract": "Exact pr-working clock549496...1-45 actualworldrefresh; wrongvariantincidentqualifiednotalias."
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "All inherited qualifications and own/otherlensmaterial/currentness queues retained; no source/product/Git/rootledger/publication/projectexecution/probes/tests.",
+    "1145new303-404 consumed includes nextdepthhelper tail303-306 and fullResolvedObjectCustody/resolve/require_actor_carried_object; persisted_location_custody160-254 and nextdepth292-302 remainunread here, no wholegraphalgorithm/backingconstraintguarantee.",
+    "Tincture carrierportion/clinicalDose confusion sourcebacked actualoperation, no assumed callerUImeaning/current/runtimeclinicaloutcome or accepteduniquealias."
+  ]
+}

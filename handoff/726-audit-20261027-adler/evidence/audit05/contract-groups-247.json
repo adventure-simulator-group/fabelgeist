@@ -1,0 +1,27 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-247",
+  "at": "2026-10-25T22:12:34.829357+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2373,
+      "source_id": "pr-working:crates/strategic-web/src/routes/scene_equipment.rs",
+      "sha256": "2ecdbb109e62b9227c8b94ae71714cab987c49a1cb9c47c4e87afb39560ac210",
+      "personally_read_ranges": [
+        [
+          1,
+          306
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Scene equipment parses every requested character ID as u64 and caps count256, checks authenticated actor exists, admits all requested subjects through self/grant/party/settlement visibility before fetching appearances. Exact missing observer-frontier aggregate gate deduplicates RIG-ADMISSION03-F085; broader join-request-derived grants have distinct actual policy, not equivalent authenticated ownership.",
+        "Appearance assembly sorts worn/occupancy records deterministically, joins inventory item by both rowID and characterID, filters occupancies by same pair, joins physical inventory object through Personal character+row, fetches only matching worn-object recipes and associates them by physical_object_id. Missing required inventory or malformed occupancy/hash rejects entire response, not partial publication.",
+        "occupancy uses anchor-kind enum to require correct location or parent+attachmentpoint; unrelated raw optional fields not treated as meaningful for other variant. Native anchor graph membership/cycle/recipe-version/hash coherence delegates canonical equipment presentation/model admission, not established merely by this DTO. IDs render decimal strings; no precision loss in this endpoint itself. Tests read only."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

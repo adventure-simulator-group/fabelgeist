@@ -1,0 +1,436 @@
+{
+  "id": "M04-COMMENT-REVIEW-001",
+  "created_utc": "2026-10-27T04:37:34.285749+00:00",
+  "review_type": "Independent source-only Comment Review plus draft contributor-body accuracy",
+  "skill": {
+    "path": "/home/brunosegovia/.codex/skills/comment-review/SKILL.md",
+    "sha256": "31dc8dc28441a5b643e534a631b5d50444fb1b4d48a305c91e8a32519a2827a4"
+  },
+  "head": "5ceaa9bd5738b8b01e7d488df55c172cd4f8593d",
+  "base": "35b18ec280a6884bb53996a2d859c4b27096f65c",
+  "manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/implementation-manifest-001.json",
+    "sha256": "a3c6d937060b6e252e642fc2f609e62e0399c3504ce1c9095e4b725d7748cf60"
+  },
+  "source_diff": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/source.diff",
+    "sha256": "051d1466a1e6aacae17135c4156ed4a95a562a52f47dda01ec7f46e4ed035396",
+    "prospective_ranges": [
+      [
+        1,
+        161
+      ]
+    ],
+    "actual_read_ranges": [
+      [
+        1,
+        161
+      ]
+    ]
+  },
+  "body": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/pr-body-001.md",
+    "sha256": "494c8372a04abebc8d117530a1c99b69921670ec950b08fa830982abba26933b",
+    "prospective_ranges": [
+      [
+        1,
+        22
+      ]
+    ],
+    "actual_read_ranges": [
+      [
+        1,
+        22
+      ]
+    ]
+  },
+  "identity_qualification": "Exact head5ceaa9bd5738b8b01e7d488df55c172cd4f8593d supplied by parent; actual full5file hashes match its implementation manifest and diff hash. Manifest itself records base/source hashes rather than a head field. No Git command or independently fetched commit state used. Base changed comment/API evidence consumed from exact supplied full source.diff; no broad base-tree source assumption.",
+  "governing_rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "actual_read_ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "qualification": "Root and crates instructions previously personally read at same hashes; crate-specific core/tactical rules freshly read for this increment."
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "actual_read_ranges": [
+        [
+          1,
+          192
+        ]
+      ],
+      "qualification": "Root and crates instructions previously personally read at same hashes; crate-specific core/tactical rules freshly read for this increment."
+    },
+    {
+      "path": "crates/adventuresim-core/AGENTS.md",
+      "sha256": "7d2a3dd7507a8405fded5577a7f406273ab835389b52b189415d0878c39d8a73",
+      "actual_read_ranges": [
+        [
+          1,
+          9
+        ]
+      ],
+      "qualification": "Root and crates instructions previously personally read at same hashes; crate-specific core/tactical rules freshly read for this increment."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/AGENTS.md",
+      "sha256": "b3fd110d97bc871853458c38282d3d4c18369b6d0647e96e0de6d0641dca61c8",
+      "actual_read_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "qualification": "Root and crates instructions previously personally read at same hashes; crate-specific core/tactical rules freshly read for this increment."
+    }
+  ],
+  "prospective_registrations": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/comment-review-001-registration.json",
+      "sha256": "5af5c4f9b8574f3a6cd562bee29a009668f55595a169cba06dc8a71a9533facc"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/comment-review-001-registration-receivers.json",
+      "sha256": "0758995f60a9bb2a39c9404e5ef10ceae862bf17a2fff87a0ba7b3d53bccc9f7"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/comment-review-001-registration-native-navigation.json",
+      "sha256": "58562065c554b285c4dd14d6eeee7b498b2df7962159db661c62cec1fdb238d9"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/comment-review-001-registration-native-bodies.json",
+      "sha256": "7784ab4e52125d1b0534009312495836d3a1fbf567b5ccd30207104305fa6dd0"
+    }
+  ],
+  "primary_source_reads": [
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "b1561f750844b7395f96f8fe2ee767db88d73fb8d8b6e997779493130b09f877",
+      "base_sha256": "db3686060ebd8ce533fe48c88685c5643b024b8a92b2b617d97481196988f3e0",
+      "actual_body_read_ranges": [
+        [
+          1,
+          173
+        ]
+      ],
+      "credit": "Independent scoped Comment Review only, no other audit-lens/count transfer."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "7cca5e5cef2f3c3a5a11c88dba547195f36d61f4665f157c8d55eedc30179eab",
+      "base_sha256": "6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+      "actual_body_read_ranges": [
+        [
+          1,
+          267
+        ]
+      ],
+      "credit": "Independent scoped Comment Review only, no other audit-lens/count transfer."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "sha256": "3acaf77c189e6ab8abcd972e5615276d945a1ca6772ee90246feef673e8a2c69",
+      "base_sha256": "61864d871215d4140f142c121202374b5a8e3434504d459b29e97d7e0a889033",
+      "actual_body_read_ranges": [
+        [
+          1,
+          207
+        ]
+      ],
+      "credit": "Independent scoped Comment Review only, no other audit-lens/count transfer."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "sha256": "09565d01fd8fabbf899d84f107bdbf9c16fd6149ec61f51714599d160c1260e0",
+      "base_sha256": "18c3232bb01109cd7ec857f3c750d2c04ffb869dd52ca42cec82524816c41206",
+      "actual_body_read_ranges": [
+        [
+          1,
+          218
+        ]
+      ],
+      "credit": "Independent scoped Comment Review only, no other audit-lens/count transfer."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "51a510d3c5f039d6b7eb4ce2b1511432fb3415bf0b15152d036ec01a6394f9c8",
+      "base_sha256": "2bdf24f3de20d1901bfc475d799d3a07781d9c5e22733caaea0d2365250edd0f",
+      "actual_body_read_ranges": [
+        [
+          1,
+          525
+        ]
+      ],
+      "credit": "Independent scoped Comment Review only, no other audit-lens/count transfer."
+    }
+  ],
+  "canonical_owner": {
+    "path": "crates/adventuresim-core/src/unit_interval.rs",
+    "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+    "lines": 58,
+    "prospective_ranges": [
+      [
+        1,
+        58
+      ]
+    ],
+    "reason": "Canonical fraction owner and applicable governing rules; source-only review.",
+    "actual_body_read_ranges": [
+      [
+        1,
+        58
+      ]
+    ],
+    "preflight_identity": "Same268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86 canonical source as supplied preflight; not a new duplicated owner."
+  },
+  "receiving_and_native_reads": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/mod.rs",
+      "sha256": "de9811b3907cc3d97cd41b77b27c02d459a32275b5e813ee589b0cf1b8b9e4c9",
+      "prospective_ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "reason": "Actual reexport identity of interpolation fraction owner",
+      "actual_body_read_ranges": [
+        [
+          1,
+          35
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+      "sha256": "60c9a6b987e30fcff66d01e8afadaaf41ffde91b9d1285c46bd88ec6a1678a39",
+      "prospective_ranges": [
+        [
+          1,
+          80
+        ],
+        [
+          81,
+          90
+        ]
+      ],
+      "reason": "Actual bounce/flight scaled_by receiver and checked output contract",
+      "actual_body_read_ranges": [
+        [
+          1,
+          80
+        ],
+        [
+          81,
+          90
+        ]
+      ]
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be",
+      "prospective_ranges": [
+        [
+          2462,
+          2481
+        ],
+        [
+          5688,
+          5701
+        ],
+        [
+          5702,
+          5710
+        ]
+      ],
+      "reason": "Current pinned Bevy/glam version/checksum metadata only for retained scalar operation-order comment; no whole lock coverage",
+      "actual_body_read_ranges": [
+        [
+          2462,
+          2481
+        ],
+        [
+          5688,
+          5701
+        ],
+        [
+          5702,
+          5710
+        ]
+      ]
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_math-0.19.1/src/lib.rs",
+      "sha256": "d743684d4c464873715e1fa8ef5fe0b6fa537fabb1172894056c3a7bff504a26",
+      "line_count": 103,
+      "provenance": {
+        "archive_path": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/bevy_math-0.19.1.crate",
+        "archive_sha256": "98ead494dcfaa9b4594eed7f09a27d868b7cc7fc9ebd655c5643322778f4a8a2",
+        "member": "bevy_math-0.19.1/src/lib.rs",
+        "member_bytes_equal": true,
+        "lock_sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be"
+      },
+      "purpose": "Declaration navigation only to pinned native FloatExt lerp/reexport; no source body credit until range registration",
+      "prospective_ranges": [
+        [
+          103,
+          103
+        ]
+      ],
+      "reason": "Verify retained operation-order claim against exact pinned native f32 kernel and trait/reexport only",
+      "actual_body_read_ranges": [
+        [
+          103,
+          103
+        ]
+      ]
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glam-0.32.1/src/float.rs",
+      "sha256": "ba7f8ab2d8f2a3e8d8706f29950edaac2b233163012636853dbc10c5d4fa1223",
+      "line_count": 48,
+      "provenance": {
+        "archive_path": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/glam-0.32.1.crate",
+        "archive_sha256": "f70749695b063ecbf6b62949ccccde2e733ec3ecbbd71d467dca4e5c6c97cca0",
+        "member": "glam-0.32.1/src/float.rs",
+        "member_bytes_equal": true,
+        "lock_sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be"
+      },
+      "purpose": "Declaration navigation only to pinned native FloatExt lerp/reexport; no source body credit until range registration",
+      "prospective_ranges": [
+        [
+          1,
+          14
+        ]
+      ],
+      "reason": "Verify retained operation-order claim against exact pinned native f32 kernel and trait/reexport only",
+      "actual_body_read_ranges": [
+        [
+          1,
+          14
+        ]
+      ]
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glam-0.32.1/src/f32/float.rs",
+      "sha256": "4ca0b623ede3a0ec0492fe7666ccf481e2d0fcc4d9bf0386a99a707a0473b63c",
+      "line_count": 40,
+      "provenance": {
+        "archive_path": "/home/brunosegovia/.cargo/registry/cache/index.crates.io-1949cf8c6b5b557f/glam-0.32.1.crate",
+        "archive_sha256": "f70749695b063ecbf6b62949ccccde2e733ec3ecbbd71d467dca4e5c6c97cca0",
+        "member": "glam-0.32.1/src/f32/float.rs",
+        "member_bytes_equal": true,
+        "lock_sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be"
+      },
+      "purpose": "Declaration navigation only to pinned native FloatExt lerp/reexport; no source body credit until range registration",
+      "prospective_ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "reason": "Verify retained operation-order claim against exact pinned native f32 kernel and trait/reexport only",
+      "actual_body_read_ranges": [
+        [
+          1,
+          16
+        ]
+      ]
+    }
+  ],
+  "verified_contracts": [
+    {
+      "id": "M04-COMMENT-ADMITTED-FACTOR",
+      "sources": [
+        "crates/adventuresim-core/src/linear_speed.rs:67-77",
+        "crates/adventuresim-tactical-core/src/animation/sample_values.rs:92-123",
+        "crates/adventuresim-core/src/unit_interval.rs:8-48",
+        "crates/adventuresim-tactical-core/src/animation/mod.rs:15-17"
+      ],
+      "fact": "Both changed interpolation APIs accept the same canonical core UnitInterval, whose public constructor rejects non-finite and outside0..1 factors and whose Deserialize reuses TryFrom/from_fraction. Scalar extraction occurs in the numeric interpolation kernels; CycleDelta remains signed/unwrapped and both operations retain checked output admission. Changed CycleDelta documentation correctly describes an admitted input fraction, without claiming every floating-point result cannot fail."
+    },
+    {
+      "id": "M04-COMMENT-NATIVE-ORDER",
+      "sources": [
+        "crates/adventuresim-core/src/linear_speed.rs:69-76",
+        "crates/adventuresim-tactical-core/src/animation/sample_values.rs:97-101",
+        "Cargo.lock:2462-2481,5688-5701",
+        "bevy_math0.19.1/src/lib.rs:103",
+        "glam0.32.1/src/f32/float.rs:5-9"
+      ],
+      "fact": "Retained scalar operation-order comment is supported: current pinned BevyMath0.19.1 reexports glam0.32.1 FloatExt, whose f32 kernel is self+(rhs-self)*t, matching checked speed interpolation. Exact cached crate checksums match lock package records and actual member bytes before the tiny native body reads. No arithmetic probe, code generation or project/native execution.",
+      "limit": "Same source order is not a universal bitwise/numerical endpoint/overflow success guarantee; no such guarantee is asserted in body. Other local glam0.33.6 record is unrelated to this BevyMath dependency."
+    },
+    {
+      "id": "M04-COMMENT-PRODUCERS",
+      "sources": [
+        "crates/adventuresim-tactical-core/src/animation/locomotion.rs:129-171",
+        "crates/adventuresim-tactical-core/src/physics/movement_speed.rs:41-57",
+        "crates/adventuresim-tactical-core/src/animation/height_measurement.rs:44-56,75-82"
+      ],
+      "fact": "Locomotion clamps/admit run once, compares with canonical HALF, and supplies the same admitted value to speed, cycle support radius and flight apex. Bounce computes a distinct complementary arithmetic result1-run.fraction and admits it separately. Jog speed clamps the unchanged smoothstep polynomial result to0..1 before UnitInterval admission. HeightDistance.scaled_by extracts only at multiplication and checks its arithmetic output. Draft body accurately distinguishes run reuse from complementary bounce and explicitly discloses smoothstep result clamp."
+    },
+    {
+      "id": "M04-COMMENT-ERROR-CONTRACT",
+      "sources": [
+        "crates/adventuresim-core/src/linear_speed.rs:20-32",
+        "crates/adventuresim-tactical-core/src/animation/value_error.rs:177-188,209-218",
+        "crates/adventuresim-core/src/unit_interval.rs:12-16,50-58"
+      ],
+      "fact": "SpeedError now derives thiserror::Error with structured Fraction(#[from]FractionError) and declared error text; existing manually implemented Display/Error replaced in actual diff. AnimationValueError exhaustively handles Fraction through existing canonical FractionError conversion and classifies it as UnitInterval. No stale comment or PR promise retains old invalid-factor error layout, prose/downcast behavior or raw overload."
+    },
+    {
+      "id": "M04-COMMENT-CALLER-SCOPE",
+      "source_navigation": "Independent rg checked_lerp reference search across crates/*.rs",
+      "actual_body_locations": [
+        "linear_speed.rs67 declaration",
+        "sample_values.rs98 declaration",
+        "locomotion.rs160 speed call",
+        "locomotion.rs164 cycle call",
+        "movement_speed.rs48 speed call"
+      ],
+      "fact": "Both speed callers and the sole cycle caller are actual consumed primary bodies. Other same-named references are separate ShapingTime API and camera users, already taking their own typed blend and outside this five-file increment; locator hits on those paths confer no body coverage. Thus draft completeness statement is bounded to these two changed interpolation methods, not every interpolation/cadence/native pipeline."
+    },
+    {
+      "id": "M04-COMMENT-RETAINED-DOCS",
+      "sources": [
+        "linear_speed.rs1,69,107-110",
+        "sample_values.rs9-22,93-113",
+        "locomotion.rs33-45,70-84,173-205",
+        "movement_speed.rs38-78,128-145,171-223"
+      ],
+      "fact": "Quantity/unit/role comments remain consistent with actual checked leaves and scalar ports. Retained cadence/fixture/controller comments describe separate existing contracts; this review does not certify global timing/calibration or input admission policy from them. Existing movement tests259-525 were read as source intent, not executed or expanded. No source-comment accuracy defect identified in the scoped producer/operation/error changes."
+    },
+    {
+      "id": "M04-COMMENT-BODY",
+      "source": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/pr-body-001.md",
+      "ranges": [
+        [
+          1,
+          22
+        ]
+      ],
+      "fact": "Body leads with raw interpolation factor propagation, explains the final canonical typed APIs/run reuse/low-endurance clamp/error mapping, and keeps related issues supplemental. Implementation context names actual scalar extraction boundaries and bounded two-speed/one-cycle caller scope. UnitInterval as sole fraction owner is read in this bounded interpolation-factor context, not global clearance of all semantic fractional quantities. Validation marks independent source reviews pending and hosted checks not requested at draft capture, with no invented CI/native outcome. Prose wraps within80columns; no agent history, global goal completion or backward-compatibility rationale."
+    }
+  ],
+  "findings": [],
+  "source_comment_verdict": "No actionable mismatch in changed or materially retained comments/API claims for exact five-file M04 source scope.",
+  "body_verdict": "No actionable accuracy/contributor-context issue in pr-body001 at supplied draft status.",
+  "unknowns_and_limits": [
+    "No project/tests/checks/probes/native scenario execution or new tests/cases/helpers/assertions/doctests; exact supplied diff contains no test changes. Existing tests source-read only. Hosted outcomes remain pending/not requested as body capture states; not independently queried.",
+    "No universal floating-point proof, bitwise equality for prior tiny smoothstep extrapolation, all-config admission, native movement calibration or gameplay equivalence claim. M03configuration, M09categories and all20/global families remain open outside this increment.",
+    "Only necessary pinned native lerp formula/reexport read after archive/checksum verification; no broader SDK/derive macro expansion/test or native behavior claim. Derive attributes are reviewed as source contracts.",
+    "No source/product/Git/root-ledger/history edits or publication; ignored append-only review evidence only. Audit08 packet017/state002 and1800/2853/1793/Q003/material52 partials remain unchanged.",
+    "No requirement to preserve malformed old inputs, raw-float overload, old error text/layout/downcast classification. Clean final typed API is the user-authorized scope.",
+    "Global inherited comment/F9/other-lens verdicts remain qualified; source discovery/scoped13 reports used only as task context, not substituted for actual source reads or whole-goal clearance."
+  ],
+  "global_clearance": false,
+  "stop": true
+}

@@ -1,0 +1,644 @@
+{
+  "id": "CONT12-ORIGINAL39-RECEIVERS-001",
+  "created_utc": "2026-10-26T18:46:35.062512+00:00",
+  "lens": "12 magic-strings",
+  "scope": "Source-only bounded receiving support for ROOT original39 Cargo.lock. Parent alone reconciles the original full body and ledger; no original39 completion.",
+  "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+  "registration": {
+    "path": "audit12-original39-receivers-registration.json",
+    "sha256": "9a773b638c9f2051a1e1d38e91c08e7af5d8a12bb7b84754c4a655b11abb5e6f"
+  },
+  "original39": {
+    "source_id": "physical-p16:Cargo.lock",
+    "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+    "base_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+    "full_body_lines": 13103,
+    "our_direct_read_ranges": [
+      [
+        1435,
+        1440
+      ],
+      [
+        9746,
+        9750
+      ],
+      [
+        11768,
+        11779
+      ]
+    ],
+    "commit_lock_matches_frozen_identity": true,
+    "original_complete": false
+  },
+  "sources": [
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-tactical-client/build.rs",
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "163139166c401d4e8b770c9fe07bbaf21cb2ba2de0168daa00762823adca24e6",
+      "lines": 236,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/163139166c401d4e8b770c9fe07bbaf21cb2ba2de0168daa00762823adca24e6",
+      "ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "reason": "Prospective exact Cargo.lock receiving graph: parse/check/tool argument or path/hash recipient. No execution or whole original completion.",
+      "original_catalog_matches": [],
+      "qualification": "Distinct committed P16 source variant; catalog presence does not identify unknown dirty bytes or grant original/current coverage."
+    },
+    {
+      "source_id": "physical-p16-commit039329:scripts/build_texture_studio.py",
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "779707ff042a5c92c637cd4e6ad9bf06faddd7380165c09278aec9c8eeb84284",
+      "lines": 38,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/779707ff042a5c92c637cd4e6ad9bf06faddd7380165c09278aec9c8eeb84284",
+      "ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "reason": "Prospective exact Cargo.lock receiving graph: parse/check/tool argument or path/hash recipient. No execution or whole original completion.",
+      "original_catalog_matches": [],
+      "qualification": "Distinct committed P16 source variant; catalog presence does not identify unknown dirty bytes or grant original/current coverage."
+    },
+    {
+      "source_id": "physical-p16-commit039329:scripts/build_wasm.py",
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "2b45fea5f64c89476878b3e74e8974678bf423f7464e8524865b63bcde829fc6",
+      "lines": 136,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/2b45fea5f64c89476878b3e74e8974678bf423f7464e8524865b63bcde829fc6",
+      "ranges": [
+        [
+          1,
+          136
+        ]
+      ],
+      "reason": "Prospective exact Cargo.lock receiving graph: parse/check/tool argument or path/hash recipient. No execution or whole original completion.",
+      "original_catalog_matches": [],
+      "qualification": "Distinct committed P16 source variant; catalog presence does not identify unknown dirty bytes or grant original/current coverage."
+    },
+    {
+      "source_id": "physical-p16-commit039329:scripts/showcase.py",
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "292089164020846d3938b8d2723c6249130b2c5619e64c2e187706dd84da5d41",
+      "lines": 240,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/292089164020846d3938b8d2723c6249130b2c5619e64c2e187706dd84da5d41",
+      "ranges": [
+        [
+          1,
+          165
+        ]
+      ],
+      "reason": "Prospective exact Cargo.lock receiving graph: parse/check/tool argument or path/hash recipient. No execution or whole original completion.",
+      "original_catalog_matches": [],
+      "qualification": "Distinct committed P16 source variant; catalog presence does not identify unknown dirty bytes or grant original/current coverage."
+    },
+    {
+      "source_id": "physical-p16-commit039329:scripts/deploy.py",
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "770b53946d5e856398c489fd57b85bb652f61e9d59cf4431c6eb7ef3be739c17",
+      "lines": 837,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/770b53946d5e856398c489fd57b85bb652f61e9d59cf4431c6eb7ef3be739c17",
+      "ranges": [
+        [
+          620,
+          720
+        ]
+      ],
+      "reason": "Prospective exact Cargo.lock receiving graph: parse/check/tool argument or path/hash recipient. No execution or whole original completion.",
+      "original_catalog_matches": [],
+      "qualification": "Distinct committed P16 source variant; catalog presence does not identify unknown dirty bytes or grant original/current coverage."
+    },
+    {
+      "source_id": "physical-p16-commit039329:scripts/capture_tactical_scenes.py",
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "c99c3ec76a1ec6edb9097b232123b9175ed9175f23a00c7f26af9ce280be8509",
+      "lines": 556,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/c99c3ec76a1ec6edb9097b232123b9175ed9175f23a00c7f26af9ce280be8509",
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "reason": "Prospective exact Cargo.lock receiving graph: parse/check/tool argument or path/hash recipient. No execution or whole original completion.",
+      "original_catalog_matches": [],
+      "qualification": "Distinct committed P16 source variant; catalog presence does not identify unknown dirty bytes or grant original/current coverage."
+    },
+    {
+      "source_id": "physical-p16-commit039329:scripts/dev_stack.py",
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "a6016bb53c71ca978521006bbd4a6f929047db76d1a654194f3ddc7dd60230bd",
+      "lines": 3466,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/a6016bb53c71ca978521006bbd4a6f929047db76d1a654194f3ddc7dd60230bd",
+      "ranges": [
+        [
+          715,
+          790
+        ]
+      ],
+      "reason": "Prospective exact Cargo.lock receiving graph: parse/check/tool argument or path/hash recipient. No execution or whole original completion.",
+      "original_catalog_matches": [],
+      "qualification": "Distinct committed P16 source variant; catalog presence does not identify unknown dirty bytes or grant original/current coverage."
+    },
+    {
+      "source_id": "physical-p16-commit039329:scripts/real_world_tactical.py",
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "b506a05937657b1f1c30e25122fb0861ece3cc25a342cfac0de158c176ad4001",
+      "lines": 159,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/b506a05937657b1f1c30e25122fb0861ece3cc25a342cfac0de158c176ad4001",
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "reason": "Prospective exact Cargo.lock receiving graph: parse/check/tool argument or path/hash recipient. No execution or whole original completion.",
+      "original_catalog_matches": [],
+      "qualification": "Distinct committed P16 source variant; catalog presence does not identify unknown dirty bytes or grant original/current coverage."
+    }
+  ],
+  "additional_support": [
+    {
+      "source_id": "physical-p16-commit039329:scripts/capture_tactical_scenes.py",
+      "sha256": "c99c3ec76a1ec6edb9097b232123b9175ed9175f23a00c7f26af9ce280be8509",
+      "ranges": [
+        [
+          172,
+          220
+        ]
+      ],
+      "reason": "Prospective actual Cargo.lock path-to-digest/git argv or deploy command receiving body before read."
+    },
+    {
+      "source_id": "physical-p16-commit039329:scripts/dev_stack.py",
+      "sha256": "a6016bb53c71ca978521006bbd4a6f929047db76d1a654194f3ddc7dd60230bd",
+      "ranges": [
+        [
+          696,
+          714
+        ],
+        [
+          1020,
+          1080
+        ],
+        [
+          1180,
+          1220
+        ],
+        [
+          2850,
+          2920
+        ]
+      ],
+      "reason": "Prospective actual Cargo.lock path-to-digest/git argv or deploy command receiving body before read."
+    },
+    {
+      "source_id": "physical-p16-commit039329:scripts/real_world_tactical.py",
+      "sha256": "b506a05937657b1f1c30e25122fb0861ece3cc25a342cfac0de158c176ad4001",
+      "ranges": [
+        [
+          90,
+          159
+        ]
+      ],
+      "reason": "Prospective actual Cargo.lock path-to-digest/git argv or deploy command receiving body before read."
+    },
+    {
+      "source_id": "physical-p16-commit039329:scripts/deploy.py",
+      "sha256": "770b53946d5e856398c489fd57b85bb652f61e9d59cf4431c6eb7ef3be739c17",
+      "ranges": [
+        [
+          740,
+          764
+        ]
+      ],
+      "reason": "Prospective actual Cargo.lock path-to-digest/git argv or deploy command receiving body before read."
+    },
+    {
+      "source_id": "physical-p16-commit039329:Cargo.lock",
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+      "lines": 13103,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+      "ranges": [
+        [
+          1435,
+          1440
+        ],
+        [
+          9746,
+          9750
+        ],
+        [
+          11768,
+          11779
+        ]
+      ],
+      "reason": "Only actual Bevy/semver/wasm-bindgen name/version crossboundary records; parent supplied locators; no full original39 re-read or completion.",
+      "catalog_hash_matches_original39": true
+    },
+    {
+      "source_id": "native-crates.io:semver1.0.28/src/lib.rs",
+      "sha256": "e56f4d7c7774c45e61026fb0050955d67601c9ad18bdf93f8921d9898067c119",
+      "lines": 569,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/e56f4d7c7774c45e61026fb0050955d67601c9ad18bdf93f8921d9898067c119",
+      "ranges": [
+        [
+          140,
+          176
+        ],
+        [
+          370,
+          430
+        ]
+      ],
+      "reason": "Actual build guard semver::Version parse/structured comparison native owner, bounded before body read.",
+      "provenance": {
+        "package": "semver",
+        "version": "1.0.28",
+        "local_source_directory": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/semver-1.0.28",
+        "lock_checksum": "8a7852d02fc848982e0c167ef163aaff9cd91dc640ba85e263cb1ce46fae51cd",
+        "cargo_checksum_metadata_available": false,
+        "archive_available": true,
+        "archive_sha256": "8a7852d02fc848982e0c167ef163aaff9cd91dc640ba85e263cb1ce46fae51cd"
+      }
+    },
+    {
+      "source_id": "native-crates.io:semver1.0.28/src/parse.rs",
+      "sha256": "2d9cb28a72a813968c16da29a9690f8e53f1ce00727a1dbe67aec3ddb5ed59ed",
+      "lines": 404,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/2d9cb28a72a813968c16da29a9690f8e53f1ce00727a1dbe67aec3ddb5ed59ed",
+      "ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "reason": "Actual build guard semver::Version parse/structured comparison native owner, bounded before body read.",
+      "provenance": {
+        "package": "semver",
+        "version": "1.0.28",
+        "local_source_directory": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/semver-1.0.28",
+        "lock_checksum": "8a7852d02fc848982e0c167ef163aaff9cd91dc640ba85e263cb1ce46fae51cd",
+        "cargo_checksum_metadata_available": false,
+        "archive_available": true,
+        "archive_sha256": "8a7852d02fc848982e0c167ef163aaff9cd91dc640ba85e263cb1ce46fae51cd"
+      }
+    },
+    {
+      "source_id": "native-crates.io:semver1.0.28/src/parse.rs",
+      "sha256": "2d9cb28a72a813968c16da29a9690f8e53f1ce00727a1dbe67aec3ddb5ed59ed",
+      "lines": 404,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/2d9cb28a72a813968c16da29a9690f8e53f1ce00727a1dbe67aec3ddb5ed59ed",
+      "ranges": [
+        [
+          156,
+          185
+        ],
+        [
+          198,
+          261
+        ]
+      ],
+      "reason": "Complete reached numeric/prerelease/build identifier parsers and Version derived ordering component bodies, not full semver package.",
+      "provenance": "Exact source bytes equal the cached crate archive members; archive SHA256 matches original39 semver1.0.28 checksum8a7852d02fc848982e0c167ef163aaff9cd91dc640ba85e263cb1ce46fae51cd."
+    },
+    {
+      "source_id": "native-crates.io:semver1.0.28/src/impls.rs",
+      "sha256": "30bac3940b9bab840dc59280832c9afbb342abf47c51740a1b83b43c1646c56b",
+      "lines": 160,
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/30bac3940b9bab840dc59280832c9afbb342abf47c51740a1b83b43c1646c56b",
+      "ranges": [
+        [
+          1,
+          146
+        ]
+      ],
+      "reason": "Complete reached numeric/prerelease/build identifier parsers and Version derived ordering component bodies, not full semver package.",
+      "provenance": "Exact source bytes equal the cached crate archive members; archive SHA256 matches original39 semver1.0.28 checksum8a7852d02fc848982e0c167ef163aaff9cd91dc640ba85e263cb1ce46fae51cd."
+    },
+    {
+      "source_id": "native-crates.io:semver1.0.28/src/impls.rs",
+      "sha256": "30bac3940b9bab840dc59280832c9afbb342abf47c51740a1b83b43c1646c56b",
+      "local_path": "target/recovery-20261025/continuation-segovb/audit12-source/30bac3940b9bab840dc59280832c9afbb342abf47c51740a1b83b43c1646c56b",
+      "ranges": [
+        [
+          147,
+          151
+        ]
+      ],
+      "reason": "Close actual BuildMetadata ordering tail after registered146; no further SDK scope."
+    }
+  ],
+  "dispositions": [
+    {
+      "id": "CONT12-39-RECV-01",
+      "role": "Bevy atmosphere-backport retirement guard",
+      "sources": [
+        {
+          "source_id": "physical-p16-commit039329:crates/adventuresim-tactical-client/build.rs",
+          "sha256": "163139166c401d4e8b770c9fe07bbaf21cb2ba2de0168daa00762823adca24e6",
+          "ranges": [
+            [
+              1,
+              118
+            ]
+          ]
+        },
+        {
+          "source_id": "physical-p16-commit039329:Cargo.lock",
+          "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+          "ranges": [
+            [
+              1435,
+              1440
+            ],
+            [
+              9746,
+              9750
+            ]
+          ]
+        }
+      ],
+      "trace": "run_guard111-117 obtains the native CARGO_MANIFEST_DIR value, constructs a PathBuf to workspace Cargo.lock, emits the Cargo rerun directive and deserializes TOML into ResolvedDependencies. Its package array has explicit name and version fields. CargoPackageRole90-97 maps exact external name bevy to Bevy and every other open package name to the local Other relevance role. It does not define or close the global Cargo package identifier space. EncodedPackageVersion keeps source text until selected_engine_version59-73 selects exactly one Bevy, checks multiplicity before parsing, and delegates to semver::Version. require_backport75-81 compares that structured Version with Version::new(0,20,0), yielding BackportObsolete when greater or equal. Lock record1435-1440 supplies bevy0.19.1.",
+      "disposition": "Source-backed local semantic ownership: finite Bevy/Other relevance role plus native structured SemVer. Preserve arbitrary valid package identifiers and native version grammar. The threshold is a retirement policy, not a complete finite list or proof of supported engine versions.",
+      "text_boundaries": [
+        "Cargo native TOML package/name/version field labels at serde admission.",
+        "Cargo environment/path and rerun-if-changed stdout directive.",
+        "Human diagnostics retain structured error source, selected Version and thiserror formatting; main emits the error to stderr and returns failure."
+      ],
+      "limits": [
+        "No full TOML/serde decoder or Cargo package parser implementation proof. Native version parsing is followed separately below.",
+        "Guard rejects missing/multiple selected engines and malformed selected versions; it deliberately does not parse irrelevant versions. That purpose-specific classification is not an exemption for all other lockfile strings.",
+        "Existing test source120-200 was incidental context, not run or used to claim fixture/current acceptance."
+      ]
+    },
+    {
+      "id": "CONT12-39-RECV-02",
+      "role": "Native semver1.0.28 selected-version owner",
+      "sources": [
+        {
+          "source_id": "native-crates.io:semver1.0.28/src/lib.rs",
+          "sha256": "e56f4d7c7774c45e61026fb0050955d67601c9ad18bdf93f8921d9898067c119",
+          "ranges": [
+            [
+              140,
+              164
+            ],
+            [
+              371,
+              424
+            ]
+          ]
+        },
+        {
+          "source_id": "native-crates.io:semver1.0.28/src/parse.rs",
+          "sha256": "2d9cb28a72a813968c16da29a9690f8e53f1ce00727a1dbe67aec3ddb5ed59ed",
+          "ranges": [
+            [
+              25,
+              82
+            ],
+            [
+              156,
+              185
+            ],
+            [
+              198,
+              261
+            ]
+          ]
+        },
+        {
+          "source_id": "native-crates.io:semver1.0.28/src/impls.rs",
+          "sha256": "30bac3940b9bab840dc59280832c9afbb342abf47c51740a1b83b43c1646c56b",
+          "ranges": [
+            [
+              22,
+              150
+            ]
+          ]
+        }
+      ],
+      "trace": "Version has u64 major/minor/patch and Prerelease/BuildMetadata fields, with derived Ord/PartialOrd. Version::parse422-424 delegates to FromStr25-82, which requires numeric components separated by dots, parses optional prerelease/build segments, and rejects trailing text. Numeric parsing156-184 rejects leading zeros and u64 overflow; identifier220-260 admits only ASCII letters/digits/hyphens separated by nonempty dots, forbids leading-zero numeric prerelease segments and allows build numeric leading zeros. Prerelease ordering50-105 places a nonempty prerelease below the corresponding stable release, compares numeric identifiers by length then lexicographically, and handles numeric versus nonnumeric identifiers. Build metadata ordering107-150 is a derived Version tie breaker; the guard does not use cmp_precedence. Therefore0.20.0-rc.1 remains below the stable0.20.0 threshold, while0.20.0+build is above the empty-build stable threshold and is rejected.",
+      "disposition": "Actual structured native parse and comparison boundary followed through the needed bodies. No claim that semantic version strings are an arbitrary closed enum or that all versions below0.20.0 are supported.",
+      "provenance": "Exact local semver1.0.28 source members matched cached crate archive bytes. Archive SHA2568a7852d02fc848982e0c167ef163aaff9cd91dc640ba85e263cb1ce46fae51cd equals Cargo.lock9750 checksum. Three source hashes/ranges are pinned in registration.",
+      "limits": [
+        "Identifier allocation/storage, full error Display and unrelated VersionReq/comparator code were not traversed. No whole SDK coverage or runtime proof."
+      ]
+    },
+    {
+      "id": "CONT12-39-RECV-03",
+      "role": "Texture Studio wasm-bindgen version gate",
+      "sources": [
+        {
+          "source_id": "physical-p16-commit039329:scripts/build_texture_studio.py",
+          "sha256": "779707ff042a5c92c637cd4e6ad9bf06faddd7380165c09278aec9c8eeb84284",
+          "ranges": [
+            [
+              1,
+              38
+            ]
+          ]
+        },
+        {
+          "source_id": "physical-p16-commit039329:Cargo.lock",
+          "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+          "ranges": [
+            [
+              11768,
+              11779
+            ]
+          ]
+        }
+      ],
+      "trace": "TOML package/name/version keys identify the first exact wasm-bindgen package. Expected version text is compared literally with the last whitespace-separated token of --version stdout. Mismatch renders a diagnostic and aborts before cargo build; successful equality reaches native cargo --locked build and then the same user-selected bindgen path as a subprocess argv element. Expected version is not retained in a separate application API. The scoped lock record version is0.2.126.",
+      "disposition": "Concrete native lockfile text to tool-output comparison and subprocess argv boundaries. No structured SemVer parse occurs in this script; exact serialized version equality is its implemented policy.",
+      "limits": [
+        "CLI prefix/output shape is not validated; empty output can fail by indexing and arbitrary extra prefixes can leave the final token accepted. This is a source-backed robustness/authority qualification, not an accepted new regression.",
+        "The first-match lookup neither checks duplicate package versions nor handles no match explicitly. Parent must reconcile complete original39 multiplicity/selected-resolution evidence; this bounded record alone does not prove uniqueness.",
+        "Actual external wasm-bindgen CLI implementation/output contract was not inspected or run."
+      ]
+    },
+    {
+      "id": "CONT12-39-RECV-04",
+      "role": "Tactical WASM build tool version gates",
+      "sources": [
+        {
+          "source_id": "physical-p16-commit039329:scripts/build_wasm.py",
+          "sha256": "2b45fea5f64c89476878b3e74e8974678bf423f7464e8524865b63bcde829fc6",
+          "ranges": [
+            [
+              17,
+              28
+            ],
+            [
+              40,
+              110
+            ]
+          ]
+        }
+      ],
+      "trace": "Lock version selection49-50 mirrors the first exact wasm-bindgen package lookup. shutil.which admits command paths. Missing tools and literal last-token version mismatch return1; expected lock text appears in the actionable CLI installation diagnostic. The resolved executable path then flows to subprocess argv93-98 through run24-28. wasm-opt has an independent authored pin123, compares stdout token[2], and later flows to optimization argv102-104. This separate tool version is not derived from Cargo.lock.",
+      "disposition": "Native package-name/version and tool output/path/argv boundaries identified independently. Literal equality and each token shape are specific local policies; neither raw field is automatically cleared by being in a private helper or constant.",
+      "limits": [
+        "No normalized SemVer equality, CLI output grammar validation, missing/duplicate lock package policy or external tool body proof. OSError/CalledProcessError are handled, but indexing or StopIteration are outside that exception handler.",
+        "Cargo build here omits --locked; original lock snapshot equality is not proof that a future build cannot change its resolution. This is a workflow qualification for root, not a newly accepted defect under this source-only packet.",
+        "Other compression/report paths are outside the receiving role, even though the entire136-line file was read as registered context."
+      ]
+    },
+    {
+      "id": "CONT12-39-RECV-05",
+      "role": "Showcase shared bindgen selection",
+      "sources": [
+        {
+          "source_id": "physical-p16-commit039329:scripts/showcase.py",
+          "sha256": "292089164020846d3938b8d2723c6249130b2c5619e64c2e187706dd84da5d41",
+          "ranges": [
+            [
+              80,
+              154
+            ]
+          ]
+        }
+      ],
+      "trace": "wasm_bindgen93-106 resolves the CLI path, parses native TOML, selects first exact wasm-bindgen version and compares the last --version token literally. It returns the resolved executable path after equality. build146-150 shares that admitted path with build_art_demo and build_studio. Release art demo invokes build_wasm.py with --bindgen; dev art demo invokes the selected CLI directly; Texture Studio invokes build_texture_studio.py with that same path.",
+      "disposition": "Actual receiving body closes the path handoff from gate to both child builders and direct bindgen invocation. Raw version does not cross that path-returning application API.",
+      "limits": [
+        "The same first-match, token-shape and exact-text policy qualifications apply independently here; no exemption from duplicating those contracts across scripts. No external child/tool execution.",
+        "Landing page and HTTP serving strings were incidental registered context; this packet does not declare all showcase strings audited."
+      ]
+    },
+    {
+      "id": "CONT12-39-RECV-06",
+      "role": "Deployment shell lock-version extraction and installer argv",
+      "sources": [
+        {
+          "source_id": "physical-p16-commit039329:scripts/deploy.py",
+          "sha256": "770b53946d5e856398c489fd57b85bb652f61e9d59cf4431c6eb7ef3be739c17",
+          "ranges": [
+            [
+              631,
+              674
+            ],
+            [
+              750,
+              762
+            ]
+          ]
+        }
+      ],
+      "trace": "GAME_BUILD_SCRIPT embeds a shell boundary: awk666 searches the native Cargo.lock text for name = \"wasm-bindgen\", then extracts the first following version field $3 with double quotes removed. The selected text becomes shell variable required, is compared with second whitespace token from wasm-bindgen --version, and is passed quoted to cargo install wasm-bindgen-cli --version \"${required}\" --locked --force when absent/mismatched. The script then invokes scripts/build_wasm.py. deploy_game758 hands this exact script and deployment arguments to ssh_script.",
+      "disposition": "Actual extracted version-to-native cargo installer argument recipient identified. This is lexical AWK extraction, not TOML parsing or structured version admission; native tool argv is the concrete text boundary.",
+      "limits": [
+        "Relies on native lockfile package/version line ordering and quoting shape. It selects the first occurrence and does not prove duplicate-version handling, generalized TOML equivalence or package-specific resolver selection.",
+        "ssh_script implementation, shell interpreter and Cargo installer version-argument implementation were not followed. No remote action, publication, deployment or source script was executed.",
+        "Other adjacent identity/swap script text is outside this lockfile receiving role; no claim of whole deploy script or destructive-operation review."
+      ]
+    },
+    {
+      "id": "CONT12-39-RECV-07",
+      "role": "Capture/review source identity and git path boundaries",
+      "sources": [
+        {
+          "source_id": "physical-p16-commit039329:scripts/capture_tactical_scenes.py",
+          "sha256": "c99c3ec76a1ec6edb9097b232123b9175ed9175f23a00c7f26af9ce280be8509",
+          "ranges": [
+            [
+              50,
+              76
+            ],
+            [
+              179,
+              205
+            ]
+          ]
+        },
+        {
+          "source_id": "physical-p16-commit039329:scripts/real_world_tactical.py",
+          "sha256": "b506a05937657b1f1c30e25122fb0861ece3cc25a342cfac0de158c176ad4001",
+          "ranges": [
+            [
+              21,
+              34
+            ],
+            [
+              100,
+              120
+            ],
+            [
+              123,
+              155
+            ]
+          ]
+        }
+      ],
+      "trace": "Capture SOURCE_PATHS treats Cargo.lock as a repository-relative filesystem path. source_files expands directories and keeps files; source_identity hashes each relative POSIX path, NUL, raw bytes, NUL, and separately queries native Git HEAD/status with explicit -- path arguments. It returns head/dirty/source_sha256/identity dictionary fields. Real-world source identity independently uses Path Cargo.lock, hashes path labels plus raw bytes without the capture NUL framing, combines native Git HEAD/status into an identity string, and passes it to the capture subprocess environment under CAPTURE_SOURCE_IDENTITY at148. Neither consumer interprets Cargo package names or versions.",
+      "disposition": "Each concrete path, native raw-byte hash framing, Git argv and identity serialization/environment boundary is traced. Source bytes are opaque by this particular algorithm, not globally exempt from semantic review elsewhere.",
+      "limits": [
+        "The two identity encodings are distinct; no cross-format equality or collision-proof claim. Capture downstream manifest and Rust environment consumers are not followed in this bounded lockfile packet.",
+        "Missing Cargo.lock is omitted by is_file filtering; expected lock presence and identity completeness are policy questions separate from interpretation of its package fields.",
+        "Other SOURCE_PATHS entries remain source-identity path contracts here; no semantic review of the referenced trees, assets, fixtures or repositories."
+      ]
+    },
+    {
+      "id": "CONT12-39-RECV-08",
+      "role": "Development module input digest and cache/profile fields",
+      "sources": [
+        {
+          "source_id": "physical-p16-commit039329:scripts/dev_stack.py",
+          "sha256": "a6016bb53c71ca978521006bbd4a6f929047db76d1a654194f3ddc7dd60230bd",
+          "ranges": [
+            [
+              696,
+              776
+            ],
+            [
+              1038,
+              1080
+            ],
+            [
+              1193,
+              1207
+            ],
+            [
+              2857,
+              2872
+            ]
+          ]
+        }
+      ],
+      "trace": "workspace_module_files715-764 obtains native cargo metadata, traces workspace path dependencies via open package ids/manifest paths, and includes root Cargo.toml/Cargo.lock plus optional toolchain/config and workspace files. file_tree_digest696-705 resolves/deduplicates paths, orders them, hashes length-prefixed UTF-8 relative path labels and length-prefixed raw bytes. module_input_digest767-776 additionally hashes normalized native spacetime --version stdout and the file tree hex digest. The module digest is compared in expected_cache format/module_input_digest/generated_bindings_digest fields1052-1057 and retained in tactical_profile_identity1203, with actual call2866-2869. Cargo package fields are not interpreted from the lockfile here; metadata package id/name/path fields come from the separate Cargo metadata JSON boundary.",
+      "disposition": "Actual native Cargo metadata JSON/open identifier/path owner, opaque lock bytes, digest and cache/profile text boundaries distinguished. This body uses raw ids as open lookup keys; no finite package-role enum should replace that identity space.",
+      "limits": [
+        "Native cargo metadata subprocess/parser implementation and returned schema/format-version are not proved. Cache file loading, rest of cache verification/write and profile cache comparison graph remain outside these registered bodies.",
+        "spacetime --version output is normalized to arbitrary whitespace-separated text, not parsed as a structured Version; this is a build-tool identity string in the digest, not a supported-version comparison.",
+        "Path case/order and file-tree integrity semantics beyond the actual algorithm are not cleared; no current cache/profile readiness or database state claim."
+      ]
+    }
+  ],
+  "accepted_new_findings": [],
+  "qualified_questions": [
+    "Root must reconcile lock package multiplicity/first-match versus selected dependency policy for each actual consumer; no blanket metadata or generated-file exemption.",
+    "CLI token-prefix, malformed/empty version output, lexical AWK record assumptions, exact serialized equality versus structured version meaning, and build-without--locked behavior remain explicit source-keyed qualifications; no accepted regression or repair is invented.",
+    "Bevy guard relevance classification and structured native Version ownership are local contracts, not a global closed Cargo identifier catalog, complete support policy or all-string clearance."
+  ],
+  "remaining_gaps": [
+    "Root full-original39 occurrence reconciliation and exact base/head differences remain with root. Our bounded receiver support alone cannot complete39.",
+    "Workflow path filters/Git diff consumers identified by parent are not independently fetched/read in this packet; root must retain their exact source/range reconciliation.",
+    "Full Cargo native grammar/lock parser and dependency resolution implementations are not covered. Root native CargoBook evidence is contextual authority owned by its packet, not transferred implementation coverage.",
+    "Downstream capture manifest/Rust environment decoding, full dev cache/profile comparison, external wasm-bindgen/wasm-opt CLI implementations, ssh shell receiver and cargo install parser are bounded stops described per role. Register necessary next bodies before claiming those contracts.",
+    "All native semver coverage is the explicit registered parser/comparison body subset; no entire SDK/type or decoder success inferred."
+  ],
+  "coverage_effect": {
+    "original39_completion": false,
+    "root_ledger_modified": false,
+    "other_original_or_material_completion": false,
+    "broad_goal_complete": false
+  },
+  "inherited_obligations": "Preserve all20/P16/P17/#780/#826/M16, all13 lenses, inherited findings/aliases and partial original1462 CONT08-Q003, ordered1792/original count1799. No current/frozen/unknown dirty source or cross-lens acceptance transfer.",
+  "validation": "Only raw bounded source bodies, source navigation, exact byte hashing/provenance and ignored JSON evidence writes. No product/source edits, source execution, project checks/tests/scanners, Git mutations, root ledger/history writes or publication."
+}

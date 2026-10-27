@@ -1,0 +1,19 @@
+{
+  "review": 5665245278,
+  "comments": [
+    4387319084,
+    4387373378,
+    4387387764
+  ],
+  "head": "bca8a656440564fb7d486224115520fa5d317599",
+  "working_source_before": "184bb79359c77e6b8350e0b680b67b6f9b9782b34d04977dba3f81958e652c29",
+  "discovery": "Existing samearithmeticchain: Add sole arithmeticconstructorconsumer, closed sub/multiply remain infallible, checked_lerp obtainsfiniteSignedSpeed and boundedfactor guarantees nonnegative; no externalcaller changes. GeneralTryFromSigned retained under explicit userpreference despiteunusedbylerp.",
+  "repair": [
+    "SignedSpeed::from_arithmetic finitecheck mapsnonfinite toOverflow; Addcallsit directly",
+    "checked_lerp names interpolated_speed thendirectSelf(interpolated_speed.0) aftercheckedAdd; no repeatedadmission",
+    "retainTryFromSigned generalcheckedconversion as requested"
+  ],
+  "proof": "Twofinite nonnegative operands differ within [-MAX,MAX]; scaling finite signedoffset by [0,1] cannot increase magnitude. For descendinglerp, roundednegative difference magnitude cannot exceedself; scalingcannot increase it, so addresultisnonnegative. CheckedAdd enforcesfinite result before directconstructor. IEEErounding may lose a tinyendpoint difference, so no exactbetweenendpoints/bitwisepreservation claim.",
+  "acceptance": "fresh all27pin source reviews and finalsamehead hostedCI; no local probes/testsadded",
+  "global_discovery_complete": false
+}

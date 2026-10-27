@@ -1,0 +1,173 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "054",
+  "predecessor": "receipt-053-originals276-277.json",
+  "manifest_prefix_sha256": "92d3b4d8f2e4353d17d4b4966c4faa7c3e3e30b79049df0d256de9ac1876df0a",
+  "sources": [
+    {
+      "original_index": 278,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+      "sha256": "d00168e23c47224b67755629192618e89fd66e2dc3c2f2440e4e2193acacaf4e",
+      "actual_ranges": [
+        [
+          1,
+          616
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              113
+            ],
+            [
+              115,
+              368
+            ]
+          ],
+          "role": "Prompt ID request-organization-promotion15 selects dynamic promotion choices, native choice ID57 and prose58. CorpsePermissionTopicId parses prefix90, scope tokens103/104, retains raw approach84/corpse85; actual190 permission producer ->276 topic projection ->278 parse139 ->190 grant161. Raw session/topic/action/catalog ports119-123, action row key128, topic key140, event keys192/293 and response granted/refused197-198.",
+          "disposition": "Canonical promotion capability/prompt reference should own dynamic behavior; canonical typed corpse permission topic payload should retain existing PermissionPetitionApproach and CorpseId after parsing, not only scope. The exact raw approach parser in190 is known own source. Spoken permission prose170-182 and resolved fragment190 are actual presentation text, not enum authority. All field-name literals value/label/slot260-264 are native source-reference schema keys passed to actual170 source resolver; use canonical source-field owner if one exists, no generic magic-literal exemption. Typed PromptMode/ResolutionPolicy/PromptState erased329-339 into raw279 schema; retain through app/state and serialize at final boundary."
+        },
+        {
+          "ranges": [
+            [
+              370,
+              616
+            ]
+          ],
+          "role": "Prompt state&str372 parsed375; action_kind compared to answer:{prompt_row_id}377, raw prompt/action/catalog/choice JSON393-397. Chosen Vec<String>430, ballots Vec<Vec<String>>477, vote_counts BTreeMap<String,usize>481; raw choices validated against authored Choice IDs441 then stored JSON454. Source scope format532, field schema keys558-564, native event/response582 and actionkind611.",
+          "disposition": "Use canonical typed prompt state/mode/policy, open ChoiceId and structured DialogueAction payload through retry/ballot/effect/native projection; answer prefix comparison is actual internal semantic protocol, not only native DB key. JSON codecs431/433/454/479/584/593/601 are actual native serialization boundaries, typed causes should survive errors. All errors30/32/35/52/76/95/98/100/105/134/137/148/156/160/202/207/223/228/237/242/245/289/300/302/335/353/380/384/407/416/418/425/428/431/433/434/444/448/455/518/528/592/594/602 semantic/codec causes; no tests in616body, no runtime/approval correctness claim."
+        }
+      ],
+      "status": "Entire exact registered material/full changed source independently read and inventoried WITH findings."
+    },
+    {
+      "original_index": 279,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+      "sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+      "actual_ranges": [
+        [
+          1,
+          781
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              696
+            ]
+          ],
+          "role": "All retained raw fields and app ports: chat party/sender/body10-15, projected conversation_kind23 with player65/74/npc84 and missing peer String::new67/76/85; session IDs/conversation/catalog/settlement/location/party/state119-129; parsed tagged ID154-175; participant role/actor187/190; event response/speaker/fragments/source JSON204-207; prompt mode/policy/state/choice/source JSON220-229; action_kind263, open IDs throughout answer/topic/binding rows271-324 and backend projections329-389. Existing SessionState active142/148 and PromptState open/resolved241-249 parser/encoder.",
+          "disposition": "Actual278 producer and280 session producer,276/277 bindings,260 session consumer412 all now locally linked. Canonical enum/payload owners should span native state and internal comparisons instead of String parse wrappers; open role names are catalog-authored references, distinct from finite ParticipantKind. Numeric actor identity should be typed character/participant payload rather than mixed formatted player vs numeric NPC text with Option<u64>188. Existing typed PromptMode/ResolutionPolicy owner actually170; no need parallel vocabulary. Native text/JSON/prose projections and source-safe strings remain boundary data, no native database exemption for internal state. Catalog digest equality542 and typed coded reducer code627-640 should remain typed across app boundaries; native helper implementation not claimed. All diagnostics149/162/173/250/545/562/564/567/577/585/595/601/607/613/619/629/640/653/657/670/683/694 are internal cause gaps or coded-prose rendering. Org conversation token643 selects authority and matches actual253/271/280 producer graph."
+        },
+        {
+          "ranges": [
+            [
+              697,
+              781
+            ]
+          ],
+          "role": "All test strings: tagged session accepted706/nonce708 and invalid709/710; state active712/713 and invalid715; modes721-723/rejections728, policies732-735/rejection740; prompt resolved742/745/rejection747; corpse topic grammar753/761/762/763/768/774-776.",
+          "disposition": "Semantic grammar fixtures exercise actual parsers and canonical owners, not an exemption or BC obligation. Native text rejection inputs remain external boundary examples; typed valid state should migrate with owner. No execution, all remaining test code typed/numeric; no implicit source coverage from fixture references."
+        }
+      ],
+      "status": "Entire exact registered material/full changed source independently read and inventoried WITH findings."
+    },
+    {
+      "original_index": 280,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_sessions.rs",
+      "sha256": "bf32ce83dd633973a32cabdb638590e85dca6b4b06eec2a45d135f6c1c138cf0",
+      "actual_ranges": [
+        [
+          1,
+          351
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              351
+            ]
+          ],
+          "role": "Raw ingress session/conversation/npc_actor/location/catalog5-9; numeric NPC parse30-32; actual canonical place29/presence39-91, org conversation literal60; admitted tagged SessionId113 -> original raw stored129-139. Native participant IDs144/199, player actor format149 vs NPC numeric string205; source schema field names227-231, event keys243/324, source_scope start264 and raw start action270, generated-referral response328 and rumor source key339.",
+          "disposition": "Actual state/native producers prove parse/admission proof discarded before app state; carry canonical SessionId/CharacterId/ConversationId/Location/Revision owners and participant sum payload. Existing DialogueSessionState becomes string139 then actual260/279 parsing/comparison; keep typed internally. Source field-name literals are immediate source resolver keys, native source-language boundary (actual170), whereas start source/action and generated-referral response identities need structured canonical producer/receiver fit. Session/localproblem/investigation/social recipients277-349 traced only where own actual sources already read (224 surface_problem body beyond own ranges remains unread; receive_local_problem_rumor unseen). All failure strings19/23/26/32/48/54/56/58/64/71/81/90/94/97/99/105/111/115/126/183/195/213/219/257/259/302/313 are internal typed cause gaps/coded diagnostics. No tests, no security/chronology/runtime/native verdict."
+        }
+      ],
+      "status": "Entire exact registered material/full changed source independently read and inventoried WITH findings."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Dialogue retained finite state/policies/action payload and checked identity erasure",
+      "sources": [
+        "278:81-111,319-339,370-386,430-505,599-612",
+        "279:117-175,180-324",
+        "280:113-149,198-205"
+      ],
+      "remedy": "Retain canonical typed session/prompt policies, action/participant/permission payloads and open checked identity through admission/application/state/retry/consumers; native encoding remains final boundary.",
+      "acceptance": "Unify actual170 policy/approach/role owners, actual190 permission chain, source-field schema owner and remaining root/gateway/authoring recipients before implementation; no compatibility paths or unique count increment.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actual validate_dialogue_action_id, dialogue_actor_id/cardinality/runtime/fact helpers and global dev/native reducer-code implementations not consumed here.",
+    "Actual external gateway chat/dialogue decode/render and authored source-map field producer remain pending; no global vocabulary closure.",
+    "All inherited source/currentness/aliases/F9/M09/all20/P16/P17/other populations remain."
+  ],
+  "qualifications": [
+    "Exact frozen f82 physical-P16 objects; no current alias.",
+    "No project/native/test/probe execution, new tests, product/Git mutations, root ledger or publication.",
+    "Source-accounted WITH findings only; no repaired/native/runtime/global/unique-total/other-lens clearance. User no BC."
+  ],
+  "proposed_count": {
+    "before": 278,
+    "after": 281,
+    "indices_completed": [
+      278,
+      279,
+      280
+    ],
+    "next_original": 281,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+      "sha256": "d00168e23c47224b67755629192618e89fd66e2dc3c2f2440e4e2193acacaf4e",
+      "ranges": [
+        [
+          1,
+          616
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+      "sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+      "ranges": [
+        [
+          1,
+          781
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_sessions.rs",
+      "sha256": "bf32ce83dd633973a32cabdb638590e85dca6b4b06eec2a45d135f6c1c138cf0",
+      "ranges": [
+        [
+          1,
+          351
+        ]
+      ]
+    }
+  ]
+}

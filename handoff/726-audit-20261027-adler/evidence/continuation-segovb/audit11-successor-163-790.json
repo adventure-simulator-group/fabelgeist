@@ -1,0 +1,106 @@
+{
+  "id": "SEGOVB-CONT11-SUCCESSOR-163-790",
+  "lens": "type-granularity",
+  "scope_index": 790,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/settled/tests.rs",
+  "sha256": "18961b0116bbc93358501df011ca5a6a31d912a61f357c201ed56f9ff61f3476",
+  "source_ranges": [
+    [
+      1,
+      244
+    ]
+  ],
+  "source_complete": true,
+  "status": "source-accounted-test-source-with-inherited-limits; not execution/clearance",
+  "source_contracts": [
+    {
+      "role": "Native body/cloth fixture geometry and measurement roles",
+      "locations": "3-38,60-100,194-244",
+      "trace": "sphere receives radius/centre and builds same-source native positions and triangle triples via explicit ring/segment parameterization; cap constructs native cloth positions/UV/faces; thighs merges two generated sphere populations with index offset. Native vector arithmetic, polar/azimuth loops, ring/segment counts and homogeneous triangle/edge arrays are actual authored numerical fixtures, not application identity APIs. BODY_RADIUS versus CLOTH_RADIUS defines ease; position, radius, distance, normalized UV and stretch ratio remain different meanings despite f32 storage. No new unsupported primitive bounds or blanket fixture exemption."
+    },
+    {
+      "role": "Typed rig owner retained at fixture admission",
+      "locations": "40-57; connected skin37-56,103-118",
+      "trace": "wearer creates DrapeInput with native bound1 and all-zero fixed8 joint words. RigJointCount::from_native_joint_count docs explicitly permit authored numerical fixture counts while production must retain actual source extent. PackedRigSkin::from_native checks every word (including zero slots) is representable and below supplied count, then stores original words/bound. Names/joints are intentionally default/empty in this isolated fixture; this does not prove production same-rig instance/column association or grant permission to infer count from data. Canonical PackedRigSkin and stage/form/fabric/selection owners are reused, not re-created as raw semantic codes."
+    },
+    {
+      "role": "Saved versus Worn state and settled-stage admission",
+      "locations": "84-95,102-167",
+      "trace": "cap uses DrapeStage::Settling{step:1,of:1}; source tests call capture then wear and compare Worn stage, copied cloth topology/UV and positions. Another fixture sets nonfinal3/180 and expects capture error. Canonical payload-owning stage sum/ensure_settled owner788229-235 is the actual receiving boundary; no parallel Boolean saved/final distinction or new stage range rule needed. These are assertion intentions only, no observed pass."
+    },
+    {
+      "role": "Same-count deformation compatibility versus changed-count mismatch",
+      "locations": "119-159",
+      "trace": "Larger/moved body fixture preserves sphere generation topology while changing radius/centre. Another-body test appends a position and triangle, exercising actual BodyTopology count mismatch at saved fit. This does not establish same-count/different-connectivity rejection or validate canonical MHR LOD identity. Retain161 count-only topology qualification; no new accepted finding, universal instance brand or inferred test clearance."
+    },
+    {
+      "role": "Generic wire shape versus semantic saved-garment validation",
+      "locations": "169-192",
+      "trace": "Round-trip test creates SettledGarment through its owning capture, serializes pretty JSON, parses typed SettledGarment, compares and calls validate explicitly. Truncated test mutates only native JSON bindings field with five-byte base64 string; Packed6word24byte decoder rejects nonintegral records before unpack, as fully source-traced162. HumanJSON field key and base64 payload are exact serialized data at a native fixture boundary, not application state identifiers. No automatic validate-on-Deserialize claim or arbitrary schema variant accepted."
+    },
+    {
+      "role": "Transferred mesh strain and retained same-source edges",
+      "locations": "194-244",
+      "trace": "Two-body spheres use one generated merged wearer topology. Strip mesh positions/faces/UV come from one sequence; saved record binds to narrow gap and is worn on wider gap. Source computes edge length from source topology and uses the same edge ordinal pair to compare worn and settled positions, taking max dimensionless ratio. This is an actual numerical test kernel; typed BodyTopology/SurfaceBinding remain owners of saved association, no duplicate fixture mesh identity owner proposed."
+    },
+    {
+      "role": "Assertion tolerances, counts and diagnostics",
+      "locations": "102-244",
+      "trace": "Eight test functions contain geometric tolerance checks, count/enum comparisons, expected errors and human diagnostics. Native fixture constants/loop counts/JSON size bound distinguish intended observations; they are not production admission policies. All raw/bespoke roles in full body inventoried; no tests/helpers/assertions/doctests authored, restored, run or credited as validation."
+    }
+  ],
+  "connected_sources": [
+    {
+      "original_index": 2336,
+      "source_id": "pr-working:crates/fabelgeist-rig/src/skin.rs",
+      "sha256": "c1c856dd707201d43249ad4e61576728edf4ff9a2a2d1dbf68f6c980a1c2d206",
+      "newly_registered_consumed_ranges": [
+        [
+          37,
+          56
+        ],
+        [
+          94,
+          124
+        ]
+      ],
+      "material_contract_ranges": [
+        [
+          37,
+          56
+        ],
+        [
+          103,
+          118
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "receipt": "audit11-successor-161-788.json",
+      "trace": "Saved capture/validate/wear stage/topology/SurfaceBinding ownership and actual conformation receiver."
+    },
+    {
+      "receipt": "audit11-successor-162-789.json",
+      "trace": "Typed record/word/byte/base64 codec and24byte binding record admission."
+    }
+  ],
+  "qualifications": [
+    "Frozen test source read as requested original changed variant. No current test-population comparison or applicability to final hosted961 case set inferred.",
+    "Current Dressing reconciliation001 remains authoritative: frozen as-cast absent at961; typed-column propagation question remains. No repeat of frozen syntax as current defect.",
+    "BodyTopology compatibility, physical/frame owner work, F50 broader rig row/weight/zero/duplicate policies and namespace crosswalk questions remain open.",
+    "No other-lens correctness, numerical/geometry/concurrency/admission or complete audit clearance transferred from assertions.",
+    "No ordered credit for connected2336 or future791/792/923 by reading. Prior0-789 not restarted.",
+    "No rootledger/historical/product/Git/checks/tests/probes/publication actions."
+  ],
+  "registration": "audit11-successor-163-registration.json",
+  "crosswalk": "audit11-question-crosswalk-001.json",
+  "current_reconciliation": "current-rig-dressing-reconciliation-001.json",
+  "new_unique_findings": 0,
+  "proposed_original_accounted": 791,
+  "next_original": 791,
+  "current_main_integrated": false,
+  "validated": false,
+  "clear": false,
+  "validation": "none"
+}

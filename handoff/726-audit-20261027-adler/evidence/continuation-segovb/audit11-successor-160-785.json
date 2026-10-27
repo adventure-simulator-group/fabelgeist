@@ -1,0 +1,171 @@
+{
+  "id": "SEGOVB-CONT11-SUCCESSOR-160-785",
+  "lens": "type-granularity",
+  "scope_index": 785,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/lining.rs",
+  "sha256": "693fb7bf790d8bfebd26304241c8dfd0e2b338bc37225a4d0795b0fe754e8b70",
+  "source_ranges": [
+    [
+      1,
+      227
+    ]
+  ],
+  "source_complete": true,
+  "status": "source-accounted-with-qualified-physical-owner-question; not clear",
+  "source_contracts": [
+    {
+      "role": "PlateLining versus UnderPlate versus body/cloth obstacles",
+      "locations": "32-46,48-113",
+      "trace": "PlateLining privately owns the wearer-facing rigid surface and matching per-triangle rim masks; it filters GeneratedArmor per-triangle PlateFace::Inner, the canonical semantic enum whose other distinct roles are Outer/Edge. GeneratedArmor123-143 explicitly stores one face per triangle or empty for an unthickened piece. UnderPlate adds one garment-specific standoff to an Arc shared lining. This is distinct from arbitrary body/cloth obstacles and from the source full rigid piece; flattening these owners would lose the wearer-facing and garment-offset contracts."
+    },
+    {
+      "role": "Actual under-plate producer and semantic equipment ordering",
+      "locations": "108-113; connected outfit44-85",
+      "trace": "Outfit drape_inputs walks actual loadout.draped in reverse, creates each input from the same model/generated body, and only supplies UnderPlate when lining exists and channel.order is below RigidArmor.order. Canonical EquipmentChannel147-172 owns order Held0,BaseClothing10,Padding20,FlexibleArmor30,RigidArmor40,Outerwear50,... . covers is that general named predicate, not an independently stored Boolean or new channel taxonomy. Actual garment collection narrows callers; do not silently redefine covers as a closed list. Producer starts over=LINING_CLEARANCE_M0.001, standoff=over+fabric.particle_radius, accumulates twice that radius and reverses back to inner-first. These are metre clearance, half-thickness and accumulated layer depth roles, not arbitrary interchangeable f32 parameters."
+    },
+    {
+      "role": "Per-triangle rim edge predicates and original triangle ordinal",
+      "locations": "50-83,89-104",
+      "trace": "Merged positions apply one per-piece vertex offset; inner triangles and their rim masks derive from the same ordered triangle list. Edge use is counted on unordered endpoint position-bit keys so duplicated vertices at equal bit coordinates share the lining edge. Three Boolean flags are local edge-membership predicates in triangle-corner order; replacing each with a new role enum is unsupported. BVH TriangleBvh395-402 constructs bounds in triangle order; Bvh48-68 explicitly defines bounds order as reported primitive numbering, closest302-325 returns the winning original primitive, and walk359-383 calls leaf on self.indices entries. triangle413-419 indexes that same list. press therefore consumes same-index rim mask/triangle, not a traversal-node ordinal. Native query tuple roles are locally named on destructuring; no duplicate BVH identity owner proposed."
+    },
+    {
+      "role": "Raw exact-coordinate edge keys versus mesh indices",
+      "locations": "65-78",
+      "trace": "HashMap key ([u32;3],[u32;3]) holds endpoint f32 bit patterns, not triangle/vertex identifiers despite u32 storage. min/max only canonicalizes unordered endpoints; counter counts uses. This actual numerical topology key is homogeneous endpoint data. No evidence justifies epsilon welding, normalizing signed zero, geometric ordering or extra validation policy here; those would change the present matching policy."
+    },
+    {
+      "role": "Press optional displacement and numerical spreading",
+      "locations": "86-105,115-153,156-165",
+      "trace": "press returns None for no nearby lining, rim hit or insufficient positive depth; Some is the displacement vector toward wearer based on winding and standoff. tuck_under forms one Option<Vec3> per sewn vertex, preserving distinction between directly covered vertices and uncovered vertices whose numeric spread starts zero. Covered vertices retain direct displacement; uncovered neighbours receive named SPREAD fraction over bounded rounds; presses and sewn coordinates share enumeration. Self.sewn/neighbours/expand belong to the already-traced SewnCloth producer/receiver in781; returning expanded positions feeds same conformation path. distance_to_segment is bounded local vector arithmetic with dimensionless clamped projection, not a new physical role owner."
+    },
+    {
+      "role": "Named metre lengths, fractions and algorithm counts",
+      "locations": "19-30,89-104,118-164",
+      "trace": "REACH_M limits nearest lining search, RIM_TOLERANCE_M excludes boundary hits, UnderPlate.standoff sets garment mid-surface depth, SPREAD is a dimensionless smoothing share, and PRESS_ROUNDS/SPREAD_ROUNDS count separate algorithm stages. Their matching primitive storage does not justify merging roles. Native dot/cross/projection arrays have actual numerical uses, but raw metre standoff remains a canonical physical-owner propagation question before this port; no bounds or new independent wrapper invented."
+    },
+    {
+      "role": "Existing tests and native fixture construction",
+      "locations": "167-227",
+      "trace": "Full existing fixtures read only. GeneratedArmor uses canonical PlateFace and PackedRigSkin with native test geometry; test calls cover through-plate, rim/out-of-reach and channel cases. No execution, additions, restoration, validation credit or whole generator admission proof."
+    }
+  ],
+  "qualified_observations": [
+    {
+      "local_source_key": "pr-working:crates/adventuresim-character-creator/src/garment/lining.rs@sha256:693fb7bf790d8bfebd26304241c8dfd0e2b338bc37225a4d0795b0fe754e8b70#L39-L45:under-plate-standoff-metres",
+      "classification": "retained role-bearing raw physical scalar question; no accepted unique finding",
+      "support": [
+        "audit11-successor-157-connected-780-003.json",
+        "audit11-successor-158-782.json#SEGOVB11-158-782-PHYSICAL-PORTS",
+        "audit11-question-crosswalk-001.json"
+      ],
+      "observation": "UnderPlate.standoff owns accumulated layer depth in metres; actual outfit producer derives it from canonical fabric half-thickness. Reconcile existing physical owner family/M108 support before remedy; local numerical press arithmetic is not a module-wide primitive exemption."
+    }
+  ],
+  "connected_sources": [
+    {
+      "original_index": 821,
+      "sha256": "4d3281fb80e63eeb57bf3caaec77e63eb33d75c62e6ec5d7053e2fd76ebd95f2",
+      "ranges": [
+        [
+          1,
+          19
+        ],
+        [
+          36,
+          97
+        ]
+      ],
+      "material_contract_ranges": [
+        [
+          10,
+          11
+        ],
+        [
+          44,
+          85
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "original_index": 939,
+      "sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "ranges": [
+        [
+          137,
+          181
+        ]
+      ],
+      "material_contract_ranges": [
+        [
+          141,
+          172
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "original_index": 2226,
+      "sha256": "c38b573a2cc782cf12b477bf67c5fd77c4b35c756c91569d8b2e0c36a75273b2",
+      "ranges": [
+        [
+          41,
+          92
+        ],
+        [
+          292,
+          462
+        ]
+      ],
+      "registered_range_note": "Registered378-477 reached actualEOF462; other ranges exact. Raycast and neighbouring prefixes incidentally read are not separately audited.",
+      "ordered_credit": false
+    },
+    {
+      "original_index": 2768,
+      "sha256": "7c7d222066ebe81219e45b4ac4086acc9de7da36c7633f662027be299d93ba71",
+      "ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "ordered_credit": false
+    },
+    {
+      "original_index": 2175,
+      "sha256": "8e37cfc29b43f781bc5f265fc6f263c2625aa32cdffbc21e289268437d772ecb",
+      "ranges": [
+        [
+          108,
+          153
+        ]
+      ],
+      "material_contract_ranges": [
+        [
+          123,
+          143
+        ]
+      ],
+      "ordered_credit": false
+    }
+  ],
+  "retained_receiver_support": [
+    "audit11-successor-158-781.json",
+    "audit11-successor-157-connected-780-003.json"
+  ],
+  "coverage_limits": [
+    "GeneratedArmor source schema/PlateFace and actual source filter traced; not every armor generator, arbitrary malformed shape, public mutation or zip-truncation admission audited.",
+    "BVH exact original primitive hit contract inspected, not whole BVH algorithm or extreme-size arithmetic clearance.",
+    "Sewn numerical press orientation/winding, smoothing quality and finite/degenerate behavior retain separate-lens qualifications; no global geometry/artistic correctness conclusion.",
+    "Future connected821/939/2175/2226/2768 receive no ordered credit; earlier766/840/843 symbol lookups were bounded source location only, no discovery restart.",
+    "No current source comparison. Frozen ordinal gap/source-key crosswalk retained. No product edits/checks/tests/probes/publication."
+  ],
+  "registration": "audit11-successor-160-registration.json",
+  "new_unique_findings": 0,
+  "proposed_original_accounted": 786,
+  "next_original": 786,
+  "current_main_integrated": false,
+  "validated": false,
+  "clear": false,
+  "validation": "none"
+}

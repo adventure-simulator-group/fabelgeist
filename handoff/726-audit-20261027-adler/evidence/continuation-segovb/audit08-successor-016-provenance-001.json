@@ -1,0 +1,74 @@
+{
+  "id": "CONT08-016-provenance",
+  "at": "2026-10-27T02:19:05.041871+00:00",
+  "manifest_path": "target/recovery-20261025/continuation-segovb/audit12-frozen-source-manifest-019.json",
+  "manifest_sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa",
+  "frozen_base": "3a50b708381ad00c116445c2c999a49c3943088b",
+  "frozen_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "pr_working_changed_count": 747,
+  "dirty4": [
+    " M crates/adventuresim-stdb-module/src/character.rs",
+    " M crates/adventuresim-stdb-module/src/character/attachment_capacity.rs",
+    " M crates/adventuresim-tactical-client/src/equipment.rs",
+    " M crates/adventuresim-tactical-client/src/equipment/icons.rs"
+  ],
+  "sources": [
+    {
+      "source_id": "pr-base:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/geometry.rs",
+      "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "git_tree_entry": "100644 blob 67021b396081bf9c19a79cdf71aeaef17b368108\tcrates/adventuresim-tactical-core/src/city_layout/grounding/foundations/geometry.rs",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/35462629537232e291556fb180d6092e157ed718cf492f6a448d1c1c142cf0cb",
+      "sha256": "35462629537232e291556fb180d6092e157ed718cf492f6a448d1c1c142cf0cb",
+      "bytes": 9153,
+      "line_count": 242,
+      "frozen747_matches": [],
+      "dirty4_matches": [],
+      "body_read_ranges": [],
+      "base_head_equal": true,
+      "unchanged_alias_eligible": true
+    },
+    {
+      "source_id": "pr-head:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/geometry.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_tree_entry": "100644 blob 67021b396081bf9c19a79cdf71aeaef17b368108\tcrates/adventuresim-tactical-core/src/city_layout/grounding/foundations/geometry.rs",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/35462629537232e291556fb180d6092e157ed718cf492f6a448d1c1c142cf0cb",
+      "sha256": "35462629537232e291556fb180d6092e157ed718cf492f6a448d1c1c142cf0cb",
+      "bytes": 9153,
+      "line_count": 242,
+      "frozen747_matches": [],
+      "dirty4_matches": [],
+      "body_read_ranges": [],
+      "base_head_equal": true,
+      "unchanged_alias_eligible": true
+    },
+    {
+      "source_id": "pr-base:crates/adventuresim-tactical-core/src/city_layout/grounding/planar/query.rs",
+      "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "git_tree_entry": "100644 blob 5d4a2705116d129dc4f86de067b3492e8133975b\tcrates/adventuresim-tactical-core/src/city_layout/grounding/planar/query.rs",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/6876c759c1e7a12a44cce57a8c372f1f7dcb4f926b9edc6e1486fc341a489cf6",
+      "sha256": "6876c759c1e7a12a44cce57a8c372f1f7dcb4f926b9edc6e1486fc341a489cf6",
+      "bytes": 5177,
+      "line_count": 156,
+      "frozen747_matches": [],
+      "dirty4_matches": [],
+      "body_read_ranges": [],
+      "base_head_equal": true,
+      "unchanged_alias_eligible": true
+    },
+    {
+      "source_id": "pr-head:crates/adventuresim-tactical-core/src/city_layout/grounding/planar/query.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_tree_entry": "100644 blob 5d4a2705116d129dc4f86de067b3492e8133975b\tcrates/adventuresim-tactical-core/src/city_layout/grounding/planar/query.rs",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/6876c759c1e7a12a44cce57a8c372f1f7dcb4f926b9edc6e1486fc341a489cf6",
+      "sha256": "6876c759c1e7a12a44cce57a8c372f1f7dcb4f926b9edc6e1486fc341a489cf6",
+      "bytes": 5177,
+      "line_count": 156,
+      "frozen747_matches": [],
+      "dirty4_matches": [],
+      "body_read_ranges": [],
+      "base_head_equal": true,
+      "unchanged_alias_eligible": true
+    }
+  ],
+  "qualification": "Exact path read-only Git source objects only. Absence747/dirty4 and equalGitbytes checked, no coverage from provenance. One exact actual body read may serve established base/head aliases; no other original/other-lens credit."
+}

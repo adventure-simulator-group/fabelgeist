@@ -1,0 +1,80 @@
+{
+  "kind": "INDEPENDENT_CODE_REVIEW",
+  "reviewer": "/root/recovery_780",
+  "base": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "snapshot_manifest": "snapshot.json",
+  "status": "ACCEPT_SOURCE_CORRECTNESS_WITH_NONFUNCTIONAL_DERIVABILITY_FOLLOWUP_IN_SCOPED_WAVE",
+  "functional_findings": [],
+  "separate_lens_findings": [
+    {
+      "id": "GLB-13-DERIVE-1",
+      "priority": 3,
+      "lens": "derivability",
+      "file": "crates/adventuresim-character-creator/src/export/glb/error.rs",
+      "lines": [
+        53,
+        61
+      ],
+      "classification": "scoped maintenance correction; no runtime bug",
+      "consequence": "Three static role labels gain a handwritten Display implementation despite an already enabled equivalent derive, retaining unnecessary trait boilerplate in this refactor.",
+      "source_proof": [
+        "Creator Cargo.toml direct derive_more2.1.1 features include display.",
+        "Creator rig_parameters.rs already uses derive_more::Display with per-variant static #[display(\"...\")] labels.",
+        "Pinned installed derive_more-impl2.1.1 src/fmt/display.rs404-423 emits direct core::write!(formatter,literal) for such attrs. With static literals/no args this retains write_str output and ignores outer width/precision flags as the current implementation does; no new fields/generic bounds/wire/API change."
+      ],
+      "macro_source_sha256": "d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+      "correction": "Derive derive_more::Display on GlbLengthRole, attach exact JSON chunk/BIN chunk/container display labels, remove manual impl and unused fmt import.",
+      "acceptance": "Exact enum variants, spellings, public visibility, Error display/source and behavior unchanged; no dependency or test change."
+    }
+  ],
+  "contracts_checked": [
+    {
+      "contract": "u32/native widths and 32/64-bit arithmetic",
+      "trace": "ChunkLayout::new checked_next_multiple_of4 rejects usize overflow, computes padding0..3 and checks actual padded width with u32::try_from. GlbLayout::new checked_add chain computes28+originalJson+jsonPad+originalBin+binPad, then checks total u32 width. No signed32 bound or arbitrary cap; max aligned native total4294967292. On32bit, arithmetic overflow rejects via Overflow before write; host allocator may additionally reject capacity, as intended.",
+      "verdict": "No issue"
+    },
+    {
+      "contract": "reserve and exact output byte population",
+      "trace": "PreparedGlb::new reserves final byte_length on an empty Vec using try_reserve_exact. Extensions emit4magic+4version+4total+4jsonLen+4jsonTag+J+padJ+4binLen+4binTag+B+padB=28+J+padJ+B+padB. Thus no later appends exceed initially reserved population. repeat_n lengths are0..3; original payload slices are unchanged.",
+      "verdict": "No issue; proof is source arithmetic, not executed allocation control"
+    },
+    {
+      "contract": "zero/fullwidth boundary",
+      "trace": "Zero-length JSON/BIN private lengths remain admitted and padding0; writer serializes actual Value JSON, always emits JSON and BIN headers, preserves zero BIN. No i32 cap. The unsigned32 width rule is format-specific and allocation uses actual host capacity separately.",
+      "verdict": "No issue"
+    },
+    {
+      "contract": "successful frame byte preservation",
+      "trace": "Old serializer serializes &Value through an extra reference; new serializer uses &Value directly with the same serde_json value/order. New flow writes same little-endian magic/version/lengths/tags, JSON spaces and BIN zeros in same order as former separately padded vectors for every previously representable frame.",
+      "verdict": "No issue; ordinary fixture native parse checks remain unchanged/pending hosted execution"
+    },
+    {
+      "contract": "native causes/public visibility",
+      "trace": "Typed Serialize and Reserve use #[from] retaining serde_json/TryReserve errors, Width uses actual TryFromIntError source, IO variants retain actual io::Error and relevant PathBuf. Overflow carries no fabricated cause. GlbLayoutError is inspected through GlbError::Layout; transparent source chaining retains its underlying integer error. Public export::glb exports only error vocabulary; writer remains pub(super), layout/packet private. map_err(Into::into) at public mixed anyhow exporter preserves GlbError root for downcast.",
+      "verdict": "No issue"
+    },
+    {
+      "contract": "filesystem staging",
+      "trace": "PreparedGlb::new completes before parent creation. Original empty-parent filter remains; CreateDirectory stores actual parent and Write actual output path. File write uses complete packet. Earlier TextureImages::finish can publish sibling PNGs and remain unchanged. No rename/transaction guarantee is implied.",
+      "verdict": "No issue"
+    },
+    {
+      "contract": "optional profiling",
+      "trace": "measure<T> still calls operation once, returns original result after record; record failure now drops only an optional timing event. Duration conversion and labels unchanged, no export error replacement/retry state. Existing stderr behavior otherwise remains.",
+      "verdict": "No issue"
+    }
+  ],
+  "fixture_proof": {
+    "all_existing_export_tests_identical": false,
+    "direct_exporter_before_final_error_conversion_identical": false,
+    "old_return": "glb::write(output.path(), &document, buffer.bytes)",
+    "new_return": "glb::write(output.path(), &document, buffer.bytes).map_err(Into::into)",
+    "qualification": "Exact source comparison plus personally reread relevant fixture construction/output read/native gltf parse assertions. No new cases/assertions/helpers; no execution."
+  },
+  "limits": [
+    "No local project checks, builds/lints/tests, GPU/UI/DB or new tests were run.",
+    "No allocator-exhaustion or >4GiB runtime witness; arithmetic and emission evidence are source-backed.",
+    "Whole #780/#826/774 migration, geometry admission and calibrated renderer acceptance remain outside this selected review.",
+    "All hosted required checks and final same-head review acceptance remain pending."
+  ]
+}

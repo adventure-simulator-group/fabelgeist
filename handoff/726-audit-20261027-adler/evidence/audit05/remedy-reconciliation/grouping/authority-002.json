@@ -1,0 +1,98 @@
+{
+  "at": "2026-10-26T05:47:10.177282+00:00",
+  "supersedes_no_prior_evidence": true,
+  "prior_authority": "authority-001.json",
+  "canonical_F47": {
+    "ledger_json_pointer": "/findings/149",
+    "record": {
+      "id": "F47",
+      "priority": "P2",
+      "classification": "source-confirmed retained six-leaf aggregate projection defect; no test execution/new regression claim",
+      "title": "Use the same six-leaf population for terrain effective-hours aggregation",
+      "lenses": [
+        "producer-propagation",
+        "redundant-authority",
+        "aggregate-states",
+        "magic-numbers"
+      ],
+      "locations": [
+        {
+          "file": "crates/strategic-web/src/templates/settlement/character_skills.rs",
+          "start": 1310,
+          "end": 1314
+        }
+      ],
+      "contract_trace": "terrain_skill_rows constructs six distinct Skill terrain entries (Plains, Forest, Hills, Wetlands, Urban, Snow), averages their direct hours over6, but averages the corresponding effective_skill_hours sum over5. The summary rank helper also averages six ranks over6. SkillTooltip::aggregate receives these mismatched averages, derives correlated_hours=effective-trained, and emits accessible description plus serialized tooltip JSON. For a legitimate forest1000h and other direct0 state, symmetric20% correlations produce six effective amounts summing2000h: the aggregate reports400 effective hours instead of333.3, inflating implied correlated contribution. Existing terrain fixture asserts an individual200h leaf and has no isolated aggregate check; it does not close this discrepancy.",
+      "repair": "Derive both direct/effective hour aggregates from one canonical associated terrain-leaf collection with its actual population, preserving distinct direct/effective hours and rank roles through M51 receivers. Remove independently hard-coded aggregate divisors; do not change six-leaf20% transfer, leaf ranks, direct-zero policy or the rank average. Repair this actual shared family projection once rather than local duplicate terrain definitions.",
+      "dependencies": [
+        "M51 real/direct/effective hour and rank owners",
+        "M23/M53 canonical Skill terrain target subset",
+        "Existing six-leaf source roster and PlayerSkills correlation contract"
+      ],
+      "acceptance": "Terrain aggregate effective/direct hours use the same six members and normalization; accessible text and JSON tooltip agree with that aggregate. Individual leaf200h forest-correlation fixture behavior and six-way rank average remain unchanged. Use existing checks later, add no tests.",
+      "repair_status": "blocked by initial all13 discovery gate; no source repair",
+      "validation": "Independent static six-leaf recipient->SkillTooltip->HTML/JSON trace; no project checks, fixtures or browser execution. This is a retained defect at pinned merged774, not asserted to be newly introduced by that PR.",
+      "existing_discussion": "No exact same terrain denominator record located in supplied finding index; M51 broader propagation remains related, not an automatic duplicate. Search is not coverage/clearance.",
+      "rule_support": [
+        {
+          "file": "crates/AGENTS.md",
+          "start": 31,
+          "end": 57,
+          "reason": "Semantic source population and direct/effective quantity guarantees must survive related application aggregate operations."
+        }
+      ]
+    }
+  },
+  "dependency_record_refs": [
+    {
+      "ledger_json_pointer": "/findings/34",
+      "id": "M23",
+      "title": "Retain admitted book skill and terrain choices through study mechanics"
+    },
+    {
+      "ledger_json_pointer": "/findings/72",
+      "id": "M51",
+      "title": "Distinguish real training time, effective study hours, skill rank and unbounded rank ceilings"
+    },
+    {
+      "ledger_json_pointer": "/findings/75",
+      "id": "M53",
+      "title": "Retain admitted organization roles, requirements and membership terms through their consumers"
+    }
+  ],
+  "exact_inherited_record_refs": {
+    "CAMERA-INITIAL07-F038": {
+      "archive_file": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl",
+      "zero_based_record_index": 37
+    },
+    "RIG-PPS-F009": {
+      "archive_file": "audit/records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/findings.jsonl",
+      "zero_based_record_index": 8
+    },
+    "ROOT-INITIAL04-F026": {
+      "archive_file": "audit/continuation/root/initial04-invariant-operations/findings.jsonl",
+      "zero_based_record_index": 25
+    },
+    "CAM-PROP-F018": {
+      "archive_file": "audit/records/final-acceptance-20261021/wave-01/audit-producer-propagation/camera/findings.jsonl",
+      "zero_based_record_index": 17
+    },
+    "NATIVE-CAMERA-ROOT169-OWNER-SUPPORT-160": {
+      "archive_file": "audit/continuation/native/camera-root169-supplier-owner-fit/findings.jsonl",
+      "zero_based_record_index": 41
+    },
+    "NATIVE-CAMERA-ROOT169-OWNER-SUPPORT-476": {
+      "archive_file": "audit/continuation/native/camera-root169-supplier-owner-fit/findings.jsonl",
+      "zero_based_record_index": 131
+    },
+    "ROOT-PP-010": {
+      "archive_file": "audit/records/final-acceptance-20261021/wave-01/audit-producer-propagation/root/findings.jsonl",
+      "zero_based_record_index": 10
+    },
+    "ROOT-PP-011": {
+      "archive_file": "audit/records/final-acceptance-20261021/wave-01/audit-producer-propagation/root/findings.jsonl",
+      "zero_based_record_index": 11
+    }
+  },
+  "inspection_limit": "Selected ledger mechanisms/remedy fields reviewed for same-source candidate rejection; no full173-record semantic coverage or family20 acceptance transferred."
+}

@@ -1,0 +1,412 @@
+{
+  "id": "audit13-successor-003",
+  "lens": "13 magic numbers",
+  "skill": "/home/brunosegovia/.codex/skills/audit-magic-numbers/SKILL.md",
+  "source_authority": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+  "predecessor": "audit13-partials-002-suggested-state.json adopted by root",
+  "at": "2026-10-26T17:51:39.087087+00:00",
+  "roles": [
+    {
+      "index": 10,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/observer/mod.rs",
+      "path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/observer/mod.rs",
+      "sha256": "ebea03dbd974a67dc92c11ae4232a2a25a9e653c6df28eaea70e26a5f964c78a",
+      "registered_ranges": [
+        [
+          45,
+          64
+        ]
+      ],
+      "state": "ACCOUNTED_REGISTERED_NATIVE_CONTRACT_WITH_QUALIFICATIONS",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              45,
+              64
+            ]
+          ],
+          "values": [
+            "Rust unit-returning world callback/default marker shape",
+            "Event and generic trigger constructor default",
+            "lifetime/type generic parameter M, E"
+          ],
+          "assessment": "Native World::add_observer admits IntoObserver<M> into EntityWorldMut; no naked numeric identity or game unit. Generic event trigger remains typed E::Trigger; default creates that typed native trigger rather than introducing numerical fallback."
+        },
+        {
+          "ranges": [
+            [
+              64,
+              112
+            ]
+          ],
+          "values": [
+            "MaybeLocation::caller typed caller metadata",
+            "mutable Event and Trigger references",
+            "registered EventKey retained through unsafe trigger call"
+          ],
+          "assessment": "Actual triggering receiver registers typed EventKey then passes typed references to DeferredWorld::trigger_raw. This slice contains no raw primitive numeric conversion requiring a bespoke project owner."
+        }
+      ],
+      "guarantees": "Exact registered45-64 assessed, adjacent call/signature completed through112; no scope credit for remaining observer module.",
+      "untraced": "Concrete generic E::Trigger defaults and DeferredWorld::trigger_raw internals are not recursively cleared; no numeric semantics were inferred from them.",
+      "postread_sha256_matches": true,
+      "personally_consumed_registered_ranges": [
+        [
+          45,
+          64
+        ]
+      ]
+    },
+    {
+      "index": 11,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/observer/runner.rs",
+      "path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/observer/runner.rs",
+      "sha256": "e8a6dca4f1ae317b6653d6f1c5fdf175fdb6ed42a5d4a6125730bc9e716f43dd",
+      "registered_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "state": "ACCOUNTED_REGISTERED_NATIVE_CONTRACT_WITH_QUALIFICATIONS",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              16,
+              23
+            ],
+            [
+              35,
+              55
+            ]
+          ],
+          "values": [
+            "native callback function type -> ()",
+            "native Event generation u32 getter and stored-field equality",
+            "type-erased pointer casts to typed observer system"
+          ],
+          "assessment": "Required native function-pointer ABI uses unit for no success payload. Generation remains native equality identity; source-backed predecessor partials002 traced actual wrapping increment and zero initialization. No arithmetic/order assertion beyond that trace. Raw pointers adapt erased native storage to concrete System, not a numerical identifier."
+        },
+        {
+          "ranges": [
+            [
+              57,
+              68
+            ]
+          ],
+          "values": [
+            "should_run=true",
+            "should_run &= condition.check(world)",
+            "if !should_run return"
+          ],
+          "assessment": "true is Boolean AND identity; each native condition predicate is evaluated and accumulated. False denotes ordinary predicate rejection; this is concrete native run-condition control flow, not a semantic game mode."
+        },
+        {
+          "ranges": [
+            [
+              87,
+              127
+            ]
+          ],
+          "values": [
+            "typed Option predicate is_none_or",
+            "typed change Tick comparison and last_run",
+            "typed RunSystemError::Failed; default error-handler Option; callback returns unit"
+          ],
+          "assessment": "Native optional hotpatch marker determines whether refresh is needed; no naked tick extracted. Actual Failed enum payload flows into typed ErrorContext::Observer handler; handler dispatch and queue_deferred retain native contracts. No prose-derived numeric classification."
+        },
+        {
+          "ranges": [
+            [
+              130,
+              150
+            ]
+          ],
+          "values": [
+            "test marker unit event type",
+            "native Result with absent success payload",
+            "World/Schedule native defaults"
+          ],
+          "assessment": "Existing source test setup and Result unit use native callback/test framework shapes; no authored numerical fixture, threshold or count appears in this registered tail. No test added or executed."
+        }
+      ],
+      "guarantees": "Exact1-150 assessed independently for magic numbers; prior1-85 source access is not imported verdict.",
+      "untraced": "Condition implementations, all hotpatch behavior, system parameter safety, unregistered test tail151-end and complete trigger generation global behavior not cleared.",
+      "postread_sha256_matches": true,
+      "personally_consumed_registered_ranges": [
+        [
+          1,
+          150
+        ]
+      ]
+    },
+    {
+      "index": 12,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/system/function_system.rs",
+      "path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/system/function_system.rs",
+      "sha256": "a8c0b778125f2da28ada5005a40c2bc2ab5d783fd9d080aad99361cb55641c3a",
+      "registered_ranges": [
+        [
+          570,
+          630
+        ]
+      ],
+      "state": "ACCOUNTED_REGISTERED_NATIVE_CONTRACT_WITH_QUALIFICATIONS",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              574,
+              587
+            ]
+          ],
+          "values": [
+            "(IsFunctionSystem,Marker) framework trait marker tuple",
+            "FunctionSystem::new(...,None)"
+          ],
+          "assessment": "Tuple is required native IntoSystem trait discriminator, not a positional application record. None is actual Option<FunctionSystemState<F::Param>> absence at constructor, not numeric sentinel."
+        },
+        {
+          "ranges": [
+            [
+              589,
+              629
+            ]
+          ],
+          "values": [
+            "native Result<Out,RunSystemError>",
+            "Ok(self), self, Ok(self?) result adapters",
+            "IntoResult<()> and IntoResult<bool> for Never"
+          ],
+          "assessment": "Result adapters retain concrete success T/error enum and do not invent scalar fallback. Native unit/bool trait outputs distinguish system no-payload and run-condition predicate interfaces. Never has no inhabitable value; these impls introduce no numeric/Boolean admitted state."
+        },
+        {
+          "ranges": [
+            [
+              503,
+              569
+            ],
+            [
+              663,
+              700
+            ],
+            [
+              725,
+              745
+            ]
+          ],
+          "values": [
+            "state Option and PhantomData function type",
+            "clone state None",
+            "WorldId equality assertion",
+            "typed change Tick from increment_change_tick",
+            "last_run relative_to(Tick::MAX)"
+          ],
+          "assessment": "Constructor retains supplied Option, run_unsafe requires initialized state and matching typed WorldId, and initialize fills state using native parameter init and WorldId. Tick values retain existing native Tick owner and its MAX constant through relative calculation; no primitive extraction/default/epsilon. PhantomData and tuple output markers are compile-time native function-system shapes."
+        }
+      ],
+      "guarantees": "Exact570-630 source-assessed; prospective constructor/retained state/initialization/run slices trace None through real receiving operations.",
+      "untraced": "SystemMeta::new internal defaults and Param-specific initialization logic are not whole-source cleared; no numerical guarantees attributed to unseen generic implementations. run_unsafe safety review is outside this non-string primitive lens.",
+      "postread_sha256_matches": true,
+      "personally_consumed_registered_ranges": [
+        [
+          570,
+          630
+        ]
+      ]
+    },
+    {
+      "index": 13,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/system/observer_system.rs",
+      "path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/system/observer_system.rs",
+      "sha256": "a5ec50cfa2fdb29a0f86a8bfb1c42a266bbd199da74e8c60c30384bf59409ac6",
+      "registered_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "state": "ACCOUNTED_REGISTERED_NATIVE_CONTRACT_WITH_QUALIFICATIONS",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              9,
+              19
+            ],
+            [
+              32,
+              54
+            ]
+          ],
+          "values": [
+            "ObserverSystem Out=() default",
+            "On static lifetime and generic E/B payloads",
+            "IntoObserverSystem native conversion delegates IntoSystem"
+          ],
+          "assessment": "Native observer trait no-success-payload default is Rust unit, already source-backed by actual runner unit callback/IntoResult operations. E/B/Out remain typed. No raw numerical state or semantic Boolean introduced by generic marker conversion."
+        },
+        {
+          "ranges": [
+            [
+              56,
+              75
+            ]
+          ],
+          "values": [
+            "test unit event struct",
+            "no-output test system functions a,b",
+            "World::new and unit callback pipe marker"
+          ],
+          "assessment": "Native framework example supplies no payload via unit where no return value exists; typed Event/On carries event identity. No raw magnitude, tolerance, protocol status or numeric fixture appears in exact registered test slice."
+        }
+      ],
+      "guarantees": "Exact1-75 read and primitive roles assessed. The IntoSystem receiving adapter is directly read under role12; no other-lens verdict adopted.",
+      "untraced": "Remaining test body76-end and generic System execution behavior are not scope cleared.",
+      "postread_sha256_matches": true,
+      "personally_consumed_registered_ranges": [
+        [
+          1,
+          75
+        ]
+      ]
+    },
+    {
+      "index": 14,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/world/mod.rs",
+      "path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/world/mod.rs",
+      "sha256": "34963c05abcc51517c1db6cf1a3e1f90ae365409f75a9ceb54d6a892505681b6",
+      "registered_ranges": [
+        [
+          3448,
+          3475
+        ]
+      ],
+      "state": "ACCOUNTED_REGISTERED_NATIVE_CONTRACT_WITH_QUALIFICATIONS",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              3448,
+              3456
+            ]
+          ],
+          "values": [
+            "slice of ComponentId identifiers",
+            "native bundle ID temporary",
+            "unsafe typed native bundles.get(id) access"
+          ],
+          "assessment": "ComponentId is existing native bespoke identity carried through dynamic bundle initialization; returned bundle ID goes directly to native indexed owner lookup. No extracted raw primitive, arbitrary index or numeric enum mapping is introduced. Safety precondition is stated native interface contract, not claimed validated for arbitrary caller inputs."
+        },
+        {
+          "ranges": [
+            [
+              3458,
+              3468
+            ]
+          ],
+          "values": [
+            "Option<FallbackErrorHandler> copied/unwrap_or_default",
+            "tuple member .0"
+          ],
+          "assessment": "Accessor returns native ErrorHandler function-pointer type. .0 is fixed tuple-struct field projection, not mutable collection index/primitive state. Missing resource selects native FallbackErrorHandler default callback; completed original7 receipt retains exact handler/default source contract. No restart/rediscovery of original7, no new broad default-handler claim."
+        }
+      ],
+      "guarantees": "Exact3448-3475 read; no first-party numeric adapter or changed unit/error behavior found in scoped accessor contracts.",
+      "untraced": "Bundle storage implementation, generic resource lookup, all fallback policies and following resource-pointer method body3476+ not cleared.",
+      "postread_sha256_matches": true,
+      "personally_consumed_registered_ranges": [
+        [
+          3448,
+          3475
+        ]
+      ]
+    }
+  ],
+  "new_receiving_ranges": [
+    {
+      "role": 10,
+      "sha256": "ebea03dbd974a67dc92c11ae4232a2a25a9e653c6df28eaea70e26a5f964c78a",
+      "ranges": [
+        [
+          64,
+          105
+        ]
+      ],
+      "purpose": "complete trigger call descriptor and receiving trigger ref signature"
+    },
+    {
+      "role": 12,
+      "sha256": "a8c0b778125f2da28ada5005a40c2bc2ab5d783fd9d080aad99361cb55641c3a",
+      "ranges": [
+        [
+          630,
+          700
+        ]
+      ],
+      "purpose": "FunctionSystem::new native None argument owner/signature"
+    },
+    {
+      "role": 10,
+      "sha256": "ebea03dbd974a67dc92c11ae4232a2a25a9e653c6df28eaea70e26a5f964c78a",
+      "ranges": [
+        [
+          101,
+          125
+        ]
+      ],
+      "purpose": "complete actual trigger receiver body"
+    },
+    {
+      "role": 12,
+      "sha256": "a8c0b778125f2da28ada5005a40c2bc2ab5d783fd9d080aad99361cb55641c3a",
+      "ranges": [
+        [
+          503,
+          569
+        ]
+      ],
+      "purpose": "FunctionSystem stored state and actual constructor input/retention"
+    },
+    {
+      "role": 12,
+      "sha256": "a8c0b778125f2da28ada5005a40c2bc2ab5d783fd9d080aad99361cb55641c3a",
+      "ranges": [
+        [
+          725,
+          745
+        ]
+      ],
+      "purpose": "actual state initialization operation and typed world identity guard"
+    }
+  ],
+  "status": "source_assessed_originals10-14_scoped_native_contracts",
+  "findings": [],
+  "global_clearance": false,
+  "project_execution": false,
+  "product_edit": false,
+  "receiving_edge_reuse": [
+    {
+      "receipt": "audit13-partials-002.json",
+      "edge": "role11 native last_trigger_id owner/getter/increment/equality receiver",
+      "qualification": "Completed native primitive trace/source access retained; role11 full registered1-150 separately assessed now."
+    },
+    {
+      "receipt": "../audit13/contracts-001.json scope_index7",
+      "edge": "role14 native ErrorHandler/FallbackErrorHandler callback default",
+      "qualification": "Retained completed exact source-backed handler/default contract only; no original7 reread or count change."
+    }
+  ],
+  "new_unique_count": 0,
+  "at_completed": "2026-10-26T17:54:43.573255+00:00",
+  "qualifications": [
+    "Source ranges registered before bounded consumption; source identities recovered only as exact frozen hash objects and verified before/after reads. No whole frozen source tree downloaded/read.",
+    "Original0-9 not restarted or reread. Existing receiver-only access to10/11/14 confers no prior population credit; current independent inventory covers every original registered range for10-14.",
+    "No first-party migration, integrated repair, runtime validation, whole-SDK/source clearance or other-lens clearance follows from these native contract assessments.",
+    "Typed native generic/default calls are assessed only for visible primitive roles; unseen implementations/unused tails explicitly remain untraced.",
+    "Original11 registered1-150 includes existing test source; original13 registered1-75 ends at next test attribute. No unseen test tail counted; no tests/cases/helpers/assertions/doctests added or run.",
+    "Earlier prospective630-700 receiver read reached run_unsafe rather than new constructor; exact new constructor503-569 subsequently registered/read. Both ranges retained accurately, no unregistered read credit."
+  ]
+}

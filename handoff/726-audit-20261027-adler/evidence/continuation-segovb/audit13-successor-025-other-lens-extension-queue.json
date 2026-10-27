@@ -1,0 +1,98 @@
+{
+  "at": "2026-10-27T04:47:46.656113+00:00",
+  "origin": "audit13 original39 Cargo.lock packet025 independent3201-4800 body inventory",
+  "source": {
+    "source_id": "physical-p16:Cargo.lock",
+    "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+    "base_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+    "bytes": 306149,
+    "actual_lines": 13103,
+    "full_effective_original_scope": [
+      [
+        1,
+        13103
+      ]
+    ],
+    "contained_supplemental_ranges": [
+      [
+        10243,
+        10256
+      ],
+      [
+        10303,
+        10327
+      ],
+      [
+        10373,
+        10405
+      ]
+    ],
+    "registered_and_consumed_ranges_this_packet": [
+      [
+        3201,
+        4800
+      ]
+    ],
+    "output_chunks": [
+      [
+        3201,
+        3600
+      ],
+      [
+        3601,
+        4000
+      ],
+      [
+        4001,
+        4400
+      ],
+      [
+        4401,
+        4800
+      ]
+    ],
+    "cumulative_independent_lens13_consumed_ranges": [
+      [
+        1,
+        4800
+      ]
+    ],
+    "pre_and_post_read_hash_verified": true,
+    "unread_required_ranges": [
+      [
+        4801,
+        13103
+      ]
+    ],
+    "original39_completion_credit": 0
+  },
+  "new_dependency_body_reads": [],
+  "other_lenses_pending": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "material_families": [
+    "Quoted package/dependency identity and version/checksum payloads versus actual native parser/semantic numeric consumers",
+    "Native Cargo header format-version4 producer/admission/receiving contract still unresolved",
+    "Full original39 tail and supplemental source contracts remain unread"
+  ],
+  "retained_queues": [
+    "audit13-successor-024-other-lens-extension-queue.json",
+    "audit13-successor-023-other-lens-extension-queue.json"
+  ],
+  "status": "Mandatory root reconciliation queue retained; no new receiving dependency body or other-lens verdict/credit. All new dependency access, if later required, must be registered and queued separately.",
+  "original_increment": 0,
+  "material_increment": 0,
+  "other_lens_credit": 0,
+  "new_unique_count": 0
+}

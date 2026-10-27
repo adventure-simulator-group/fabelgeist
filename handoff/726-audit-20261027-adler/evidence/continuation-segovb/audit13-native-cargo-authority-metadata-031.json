@@ -1,0 +1,13 @@
+{
+  "url": "https://api.github.com/repos/rust-lang/cargo/commits/59800466c",
+  "resolved_commit": "59800466c5c41c444d264b1010b4d57e85a7117f",
+  "tree": {
+    "sha": "3b8f73cb75ecbd212ea88427ce00eeee3504809e",
+    "url": "https://api.github.com/repos/rust-lang/cargo/git/trees/3b8f73cb75ecbd212ea88427ce00eeee3504809e"
+  },
+  "commit_date": "2026-07-07T15:52:22Z",
+  "canonical_url": "https://github.com/rust-lang/cargo/commit/59800466c5c41c444d264b1010b4d57e85a7117f",
+  "transport": "GitHub connector read-only GET",
+  "source_diff_coverage_credit": 0,
+  "disclosure": "The structuredContent wrapper was mistakenly printed before a metadata-only projection, exposing a truncated oversized changed-file patch. No lines from that incidental response are registered/read as source audit coverage; no semantic conclusions from it."
+}

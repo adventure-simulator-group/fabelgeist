@@ -1,0 +1,52 @@
+{
+  "id": "PR992-SOURCE-MATH-RECEIVER-REGISTRATION-001",
+  "sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "sha256": "7b026fd31eb9c09c84b446dbb0b71faea9717f93c027226dfbe357c5150dd704",
+      "prospective_ranges": [
+        [
+          1,
+          591
+        ]
+      ],
+      "scope": "Only actual smoothstep localhelper andendurance viewgetter declaration/body ports; no other wholefile verdict."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "7cca5e5cef2f3c3a5a11c88dba547195f36d61f4665f157c8d55eedc30179eab",
+      "prospective_ranges": [
+        [
+          1,
+          267
+        ]
+      ],
+      "scope": "Only actual smoothstep localhelper andendurance viewgetter declaration/body ports; no other wholefile verdict."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/player.rs",
+      "sha256": "7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+      "prospective_ranges": [
+        [
+          1,
+          640
+        ]
+      ],
+      "scope": "Only actual smoothstep localhelper andendurance viewgetter declaration/body ports; no other wholefile verdict."
+    }
+  ],
+  "prospective_navigation_only": [
+    {
+      "scope": [
+        "crates/adventuresim-tactical-core/src/player.rs",
+        "crates/adventuresim-tactical-core/src/player"
+      ],
+      "symbols": [
+        "raw_single_body_part_attr",
+        "TacticalPlayerView"
+      ],
+      "purpose": "Actual endurance getter owners only; no bodycredit until registered rangesread."
+    }
+  ],
+  "reason": "Existing local smoothstep wrapper API vs canonicalUnitInterval and actual endurance admission boundary."
+}

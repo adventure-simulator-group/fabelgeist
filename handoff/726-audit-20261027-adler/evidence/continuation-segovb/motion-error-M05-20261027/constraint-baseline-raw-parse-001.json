@@ -1,0 +1,64 @@
+{
+  "at": "2026-10-27T02:36:04.161727+00:00",
+  "head": "ff43d18185572d19d9d2492873b9ff08f7ae14dd",
+  "run": 40436696284,
+  "artifact": 12706145261,
+  "archive_sha256": "7efc40defa844ca3a10d015303190bddf3301a436d340754fcf13c22b616f1e7",
+  "raw_log_sha256": "019e6508387d37127ca3fcb72c71e6eaab463e37123b3f0c0282e55f1f6152fe",
+  "raw_summaries": [
+    {
+      "status": "ok",
+      "passed": 40,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "status": "ok",
+      "passed": 27,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "status": "ok",
+      "passed": 0,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "status": "ok",
+      "passed": 5,
+      "failed": 0,
+      "ignored": 0
+    }
+  ],
+  "unit_passed": 67,
+  "doc_passed": 5,
+  "gpu_baseline_selected_entries_match_committed": {
+    "files": [
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+        "ceiling": 812
+      }
+    ],
+    "functions": [
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+        "item": "TextureCube::blit_texture_to_face",
+        "ceiling": 161
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+        "item": "TextureCube::render_face_shader_raw",
+        "ceiling": 149
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+        "item": "TextureCube::render_shader_raw",
+        "ceiling": 142
+      }
+    ]
+  },
+  "baseline_whole_sha_equality_claimed": false,
+  "catalog_baseline_entry_present": false,
+  "qualification": "Hosted raw log independently parsed; zero-test shell doc group is transparent, other three groups positive. No local project execution. Overall CI still pending."
+}

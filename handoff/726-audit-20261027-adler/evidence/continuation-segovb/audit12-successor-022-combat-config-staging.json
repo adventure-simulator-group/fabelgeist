@@ -1,0 +1,90 @@
+{
+  "at": "2026-10-27T01:22:26.632189+00:00",
+  "sources": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/config.rs",
+      "sha256": "cc2a62a000314375ca41307ed50b057e71d670192954b4aee7774a69fe2e976a",
+      "path": "crates/adventuresim-core/src/combat/config.rs",
+      "staged_path": "target/recovery-20261025/continuation-segovb/source-objects/cc2a62a000314375ca41307ed50b057e71d670192954b4aee7774a69fe2e976a",
+      "lines": 122,
+      "provenance": "Exactfrozenchangedobject",
+      "locators_only": [
+        [
+          10,
+          "pub struct CombatResolutionParameters {"
+        ],
+        [
+          22,
+          "pub struct AutoresolveParameters {"
+        ],
+        [
+          56,
+          "impl CombatResolutionParameters {"
+        ],
+        [
+          57,
+          "    pub fn validate(self) -> Result<(), &'static str> {"
+        ],
+        [
+          72,
+          "impl AutoresolveParameters {"
+        ],
+        [
+          73,
+          "    pub fn validate(self) -> Result<(), &'static str> {"
+        ],
+        [
+          122,
+          "include!(concat!(env!(\"OUT_DIR\"), \"/combat_resolution_config.rs\"));"
+        ]
+      ],
+      "body_credit": false
+    },
+    {
+      "source_id": "physical-p16-unchanged-base:crates/adventuresim-core/src/combat/fatigue_config.rs",
+      "sha256": "a899b7bacdfbcbc116a93ff6adc283bfb56bea396687713dc3677ff505522ce9",
+      "path": "crates/adventuresim-core/src/combat/fatigue_config.rs",
+      "staged_path": "target/recovery-20261025/continuation-segovb/source-objects/a899b7bacdfbcbc116a93ff6adc283bfb56bea396687713dc3677ff505522ce9",
+      "lines": 46,
+      "provenance": "Exacta120base,absent159changed/statusrows",
+      "locators_only": [
+        [
+          8,
+          "pub struct CombatFatigueParameters {"
+        ],
+        [
+          22,
+          "impl CombatFatigueParameters {"
+        ],
+        [
+          23,
+          "    pub fn validate(self) -> Result<(), &'static str> {"
+        ]
+      ],
+      "body_credit": false
+    },
+    {
+      "source_id": "physical-p16-unchanged-base:crates/adventuresim-core/src/combat/weapon_contact_config.rs",
+      "sha256": "ad51483d70e3e95165e16c92b3d3e270e381db2c9aa9135056cb6484e3e1b287",
+      "path": "crates/adventuresim-core/src/combat/weapon_contact_config.rs",
+      "staged_path": "target/recovery-20261025/continuation-segovb/source-objects/ad51483d70e3e95165e16c92b3d3e270e381db2c9aa9135056cb6484e3e1b287",
+      "lines": 32,
+      "provenance": "Exacta120base,absent159changed/statusrows",
+      "locators_only": [
+        [
+          6,
+          "pub struct WeaponContactParameters {"
+        ],
+        [
+          14,
+          "impl WeaponContactParameters {"
+        ],
+        [
+          15,
+          "    pub fn validate(self) -> Result<(), &'static str> {"
+        ]
+      ],
+      "body_credit": false
+    }
+  ]
+}

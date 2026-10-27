@@ -1,0 +1,81 @@
+{
+  "id": "PR992-SOURCE-MATH-INTAKE-REGISTRATION-001",
+  "created_utc": "2026-10-27T07:59:39.162126+00:00",
+  "source_head_context": "User comments refer df5f37abc8db96c3db69dd805f32ef1cf635dd59; fresh actualsource fingerprints below, no Gitquery/currentheadassumption",
+  "feedback": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-feedback-comments-001.json",
+    "sha256": "a835c01725ba93c3dbae0ed02b72fff2046691ce0044ebe512823703b442243c"
+  },
+  "sources": [
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+      "lines": 58,
+      "prospective_ranges": [
+        [
+          1,
+          58
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "b1561f750844b7395f96f8fe2ee767db88d73fb8d8b6e997779493130b09f877",
+      "lines": 173,
+      "prospective_ranges": [
+        [
+          1,
+          173
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "51a510d3c5f039d6b7eb4ce2b1511432fb3415bf0b15152d036ec01a6394f9c8",
+      "lines": 525,
+      "prospective_ranges": [
+        [
+          1,
+          525
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "7cca5e5cef2f3c3a5a11c88dba547195f36d61f4665f157c8d55eedc30179eab",
+      "lines": 267,
+      "prospective_ranges": [
+        [
+          1,
+          267
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "sha256": "3acaf77c189e6ab8abcd972e5615276d945a1ca6772ee90246feef673e8a2c69",
+      "lines": 207,
+      "prospective_ranges": [
+        [
+          1,
+          207
+        ]
+      ]
+    }
+  ],
+  "prospective_navigation_only": [
+    {
+      "scope": [
+        "crates/adventuresim-core/src",
+        "crates/adventuresim-tactical-core/src"
+      ],
+      "symbols": [
+        "smoothstep",
+        "complement",
+        "tactical_jog_speed"
+      ],
+      "purpose": "Existing semantic owner/actual call locators only; no body orwholecratecredit frommatches."
+    }
+  ],
+  "scope": "All5usercomments intake; focus admitted smoothstep/nooutputclamp andtypedcomplement. Source/math only, no product/Git/ledger/tests/probes/publication."
+}

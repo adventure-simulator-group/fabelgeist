@@ -1,0 +1,332 @@
+{
+  "at": "2026-10-27T08:30:49.380676+00:00",
+  "review": "Narrow independent Rule Review format reconciliation PR992 candidate004",
+  "before_commit": "4303418bbce7c01407ddf6ef22b39fb7d44e3b9a",
+  "after_commit": "f7681f248cfeb0634fcb9b46fc170ed2f6b01b82",
+  "prior_review": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-review-001.json",
+    "sha256": "798bcea068c8ad65d54eb9c94932f7885f082cb225b6206ef80ef72ca2a461c1"
+  },
+  "before_manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/edited-source-manifest-003.json",
+    "sha256": "b05ad41890a4b409717962a417ca5247a7e528c90b493e95bad32ca0b93424ff"
+  },
+  "after_manifest": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/edited-source-manifest-004.json",
+    "sha256": "53eb2c0c7a06d56ff5cab4c487c9d6b69dee06347675242872591658fa9fbb67"
+  },
+  "root_format_evidence": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/format-reconciliation-001.json",
+    "sha256": "bc54c07281809ed5fdf6d3d8ed96b1df39bbc86ea7ba7313504700df32da0581"
+  },
+  "source_pins": [
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "sha256": "0ad5e0e1b2b062d47f48af303bc97f1259f6d4ac99c62bef9b42588b183233b4",
+      "before_sha256": "0ad5e0e1b2b062d47f48af303bc97f1259f6d4ac99c62bef9b42588b183233b4",
+      "changed": false,
+      "current_workspace_hash_verified": true,
+      "exact_Git_before_after_bytes_match_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-core/Cargo.toml",
+      "sha256": "29e56014658d941895772dda71b9181863839eedf403c7d30b446186228c3441",
+      "before_sha256": "29e56014658d941895772dda71b9181863839eedf403c7d30b446186228c3441",
+      "changed": false,
+      "current_workspace_hash_verified": true,
+      "exact_Git_before_after_bytes_match_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+      "before_sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+      "changed": false,
+      "current_workspace_hash_verified": true,
+      "exact_Git_before_after_bytes_match_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "ceb8c36c8e8abb4ac96fa0c61601d11145d28755fdb3e7af723aa20ae8dc58bf",
+      "before_sha256": "ceb8c36c8e8abb4ac96fa0c61601d11145d28755fdb3e7af723aa20ae8dc58bf",
+      "changed": false,
+      "current_workspace_hash_verified": true,
+      "exact_Git_before_after_bytes_match_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "de48188cfd3789d9a2ac3d9239c4d62f7991191f0a07d88ad90faa5047f7f129",
+      "before_sha256": "de48188cfd3789d9a2ac3d9239c4d62f7991191f0a07d88ad90faa5047f7f129",
+      "changed": false,
+      "current_workspace_hash_verified": true,
+      "exact_Git_before_after_bytes_match_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "sha256": "12d4b4e5ed4ce3940c78b7ee4420ec94e5efa83776b14d60afdbf2ba0d501f5d",
+      "before_sha256": "7510f380b30f9476c5a6fb1c685a1cb4311061f24a07616b1f7a054d95af04fc",
+      "changed": true,
+      "current_workspace_hash_verified": true,
+      "exact_Git_before_after_bytes_match_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "sha256": "fcc7c277f72f6a1004077bd04d3fb0c91607e17e8ee3977106aaa2c3cee38b98",
+      "before_sha256": "47f1910a4f6a6f9ef3e0cc4bc75e39527a72a18babc94b34a9fea6c0647be39c",
+      "changed": true,
+      "current_workspace_hash_verified": true,
+      "exact_Git_before_after_bytes_match_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "sha256": "9ac62b342f4ffec934232478fb5e019d84228a3cb726e29ed9b6f62d91775f36",
+      "before_sha256": "9ac62b342f4ffec934232478fb5e019d84228a3cb726e29ed9b6f62d91775f36",
+      "changed": false,
+      "current_workspace_hash_verified": true,
+      "exact_Git_before_after_bytes_match_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "sha256": "5bb5172865b0ed718a1ecb1bf7378539725fc0afdbe8394d43ed23979c151d9e",
+      "before_sha256": "5bb5172865b0ed718a1ecb1bf7378539725fc0afdbe8394d43ed23979c151d9e",
+      "changed": false,
+      "current_workspace_hash_verified": true,
+      "exact_Git_before_after_bytes_match_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "d20c873dd470d03cd65d2c0da3d73dd050cde53f78dfc8bb81b1d237bf55ddcf",
+      "before_sha256": "d20c873dd470d03cd65d2c0da3d73dd050cde53f78dfc8bb81b1d237bf55ddcf",
+      "changed": false,
+      "current_workspace_hash_verified": true,
+      "exact_Git_before_after_bytes_match_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027",
+      "before_sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027",
+      "changed": false,
+      "current_workspace_hash_verified": true,
+      "exact_Git_before_after_bytes_match_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "sha256": "37a5dba433aa5219b544716053897df30d3df49662fb5fd38794130c1b803946",
+      "before_sha256": "37a5dba433aa5219b544716053897df30d3df49662fb5fd38794130c1b803946",
+      "changed": false,
+      "current_workspace_hash_verified": true,
+      "exact_Git_before_after_bytes_match_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "sha256": "642983d4cdf24f5cda28f00740f180af4cc4e926b205df647057ef1194e9e32a",
+      "before_sha256": "642983d4cdf24f5cda28f00740f180af4cc4e926b205df647057ef1194e9e32a",
+      "changed": false,
+      "current_workspace_hash_verified": true,
+      "exact_Git_before_after_bytes_match_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "543ea955a72a4accf8550af44b35ad0a526fbcc6731bc5fb109ac38ceb609e17",
+      "before_sha256": "a70dd7aa43995b5393dc2adbca58b231fd5d455c466b5ba926d1a65ef2d2232d",
+      "changed": true,
+      "current_workspace_hash_verified": true,
+      "exact_Git_before_after_bytes_match_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "c835a9611d133e6fbe72b9121632d5dca1752d4f22d1b0545792ff582844e68d",
+      "before_sha256": "c835a9611d133e6fbe72b9121632d5dca1752d4f22d1b0545792ff582844e68d",
+      "changed": false,
+      "current_workspace_hash_verified": true,
+      "exact_Git_before_after_bytes_match_manifest": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "sha256": "024ec4e60675ea68c97e5ed11e89756356b724a7ea0519006227c58c6bfeefce",
+      "before_sha256": "42b5532ca3f4d22095a3612e77ec5d3f3c4d3b9b8058bdc54ce9432a8e895dad",
+      "changed": true,
+      "current_workspace_hash_verified": true,
+      "exact_Git_before_after_bytes_match_manifest": true
+    }
+  ],
+  "actual_delta": {
+    "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-format-delta-001.patch",
+    "sha256": "2e341c772f2ff7f99363d5d2008fe05753cdf1d467d1ecc064d894b3d21862c7",
+    "personally_read_ranges": [
+      [
+        1,
+        91
+      ]
+    ],
+    "git_readonly_name_set": "Exactly four formatter-touched paths; no source/dependency/workflow/baseline/test paths beyond those4 in exactcommitdelta",
+    "method": "Verified exact gitshow old/new16sourcebytes againstmanifestpins, then consumed actual91linepatch and re-read bounded affectedactualcurrentbodies. No normalized-text/hash-only semantic coverage inference."
+  },
+  "registrations": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-format-registration-001.json",
+      "sha256": "f315a7c0ef426ea660573f7f9c47d1e9a12f0898ceef55b09081216a3916fabb"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/interpolants-M04-20261027/review-response-20261027/independent-rule-format-registration-002.json",
+      "sha256": "b8950c646507013e41162c9d4bbf8ef7d672bd9688783e249e33c914d0f3bcc3"
+    }
+  ],
+  "actual_new_body_reads": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "sha256": "12d4b4e5ed4ce3940c78b7ee4420ec94e5efa83776b14d60afdbf2ba0d501f5d",
+      "actually_read_ranges": [
+        [
+          62,
+          75
+        ],
+        [
+          127,
+          150
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "sha256": "fcc7c277f72f6a1004077bd04d3fb0c91607e17e8ee3977106aaa2c3cee38b98",
+      "actually_read_ranges": [
+        [
+          245,
+          295
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "543ea955a72a4accf8550af44b35ad0a526fbcc6731bc5fb109ac38ceb609e17",
+      "actually_read_ranges": [
+        [
+          1,
+          12
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "sha256": "024ec4e60675ea68c97e5ed11e89756356b724a7ea0519006227c58c6bfeefce",
+      "actually_read_ranges": [
+        [
+          30,
+          58
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "543ea955a72a4accf8550af44b35ad0a526fbcc6731bc5fb109ac38ceb609e17",
+      "actually_read_ranges": [
+        [
+          630,
+          648
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "sha256": "024ec4e60675ea68c97e5ed11e89756356b724a7ea0519006227c58c6bfeefce",
+      "actually_read_ranges": [
+        [
+          59,
+          63
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "sha256": "fcc7c277f72f6a1004077bd04d3fb0c91607e17e8ee3977106aaa2c3cee38b98",
+      "actually_read_ranges": [
+        [
+          294,
+          300
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "sha256": "12d4b4e5ed4ce3940c78b7ee4420ec94e5efa83776b14d60afdbf2ba0d501f5d",
+      "actually_read_ranges": [
+        [
+          150,
+          153
+        ]
+      ]
+    }
+  ],
+  "format_dispositions": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "actual_change": "The step_distance checked_lerp receiver chain wraps across lines; same receiver, arguments, question-mark and typed result. No native or applicationboundary changed.",
+      "new_material_body_ranges": [
+        [
+          62,
+          73
+        ],
+        [
+          129,
+          151
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "actual_change": "Both runtime_animation_config().locomotion.blend_speed.nonnegative() chains wrap; same typed fadebounds and sameordinarygate/directrunfactor/checkedheightoperators.",
+      "new_material_body_ranges": [
+        [
+          245,
+          298
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "actual_change": "Locomotion.validate moves its single argument to multiline layout with optional trailingcomma; parentheses and receiver/typedinitialspeed argument unchanged. No validationorder/ownership/cause changed.",
+      "new_material_body_ranges": [
+        [
+          634,
+          639
+        ]
+      ],
+      "incidental_read": [
+        [
+          1,
+          12
+        ],
+        [
+          630,
+          633
+        ],
+        [
+          640,
+          648
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "actual_change": "Five gait fields wrap asarrayentries; run<=walk condition joinsline. Exactfieldset/order, typedradiusbounds, strictreference/fade spans andlandingvalidate unchanged.",
+      "new_material_body_ranges": [
+        [
+          30,
+          63
+        ]
+      ]
+    }
+  ],
+  "actionable_findings": [],
+  "carried_findings": "PriorRR-M04-20261027-001 contact-pair propagation finding remainsresolved; final evaluationlocomotionSHA unchanged5bb5172865b0ed718a1ecb1bf7378539725fc0afdbe8394d43ed23979c151d9e. Checkedleafcleanup/sourceapprovals carried within originalboundedreview.",
+  "source_verdict": "No semantic change in exact4303418..f7681f2delta. Prior independent-rule-review001 scopedsourceapproval carries to candidate004/exactf7681f248cfeb0634fcb9b46fc170ed2f6b01b82; no unresolved actionable scoped finding.",
+  "acceptance_limits": {
+    "hosted_baseline": "Pending authoritative newhosted export and onlyrelevant reductions; no baselineentry/ceiling changed in thisformatterdelta, no ceilinggrowth accepted.",
+    "CI": "Newrun40473663095 supplied byroot; statusnotqueriedoracceptedhere. Hosted earliestformatfailure context40473139582 supplied/root evidence, no laterdownstreamdiagnosis. Finalsameheadacceptance remains pending.",
+    "execution": "No localprojectformat/build/test/check/scanner/probe ornewtests.",
+    "scope": "Narrowformat carry only, not freshglobalarchitecturalreview, globaldiscovery/ledger/audit038/lens11/unique counts unchanged."
+  },
+  "process_qualification": "Initialread-onlyindexhashcomparison failed before anypatch/registrationwrite orbody/diffconsumption because indexalreadycandidate004. No coverage inferred. Root suppliedexact003commit4303418 and004f7681f2, both16fileGitbytes thenverified. Laterregistration001config1-12 incidentalimports wasfollowed byregistration002beforeactualchangeddelegation630-648/closures; allactualrangesexplicit.",
+  "product_source_Git_mutations_rootledger_publication": "none; readonlyexactGit object/diffmetadata queries andappendonlyignoredevidenceonly",
+  "root_adoption_required": true
+}

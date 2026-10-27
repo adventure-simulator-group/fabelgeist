@@ -1,0 +1,12 @@
+{
+ "scope_index":2654,
+ "revision":"6533e444fa37552927070cc8d8190907fd3b413e",
+ "path":"crates/fabelgeist-xpbd/src/dynamics/constraint.rs",
+ "ranges":[[5,19]],
+ "implementation":"CompliancePerSubstep From<f32> and ConstraintViolation From<f32> directly wrap identical owned scalar fields as Self(argument), without arithmetic, checks, narrowing or representation changes.",
+ "repair":"Add already enabled derive_more::From on those two nongeneric tuple wrappers and remove only those two manual From implementations. Keep semantic multiplier_delta, ConstraintMultiplier zero/default and AddAssign native arithmetic.",
+ "source_evidence":"Complete source40 personally read. Same frozen owning XPBD Cargo.toml explicitly enables derive_more2.1.1 from; exact macro source already personally established in candidate001. Same direct-f32-wrapper family as candidate013, global remedy dedup remains pending.",
+ "new_unique_findings_claimed":0,
+ "acceptance":"Existing solver/conversion feature acceptance after exhaustive own10/dedup only. No new tests/cases/helpers/assertions, no checks or source edits.",
+ "clear":false
+}

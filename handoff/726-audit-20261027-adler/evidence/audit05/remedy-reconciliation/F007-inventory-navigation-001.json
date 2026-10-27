@@ -1,0 +1,85 @@
+{
+  "records": 1002,
+  "terms": [
+    "fabelgeist-physics",
+    "collider_surface",
+    "local_normal",
+    "NATIVE-INITIAL04-F081",
+    "RIG-ADMISSION03-F081"
+  ],
+  "matches": [
+    {
+      "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+      "record_index": 87,
+      "record": {
+        "id": "RIG-ADMISSION03-F081",
+        "source_ids": [
+          "pr-working:crates/fabelgeist-physics/src/contact.rs",
+          "pr-working:crates/fabelgeist-physics/src/wgsl.rs",
+          "pr-working:crates/fabelgeist-physics/src/collider.rs"
+        ],
+        "source_locations": {
+          "collider.rs": [
+            [
+              15,
+              88
+            ],
+            [
+              100,
+              133
+            ]
+          ],
+          "wgsl.rs": [
+            [
+              25,
+              31
+            ],
+            [
+              39,
+              99
+            ]
+          ]
+        },
+        "finding": "Physics ShapeBox documentsunitquat/worldgeometry, but rawenum/new/set_colliders admit[0;4]rotation andnonfinite geometry unchanged. Actualshader quaternionconjugate/rotate assumesunitquat; zeroquatcollapsesqueryframe/normal ratherthanarealorientedbox. Plane rawnormal likewiseunadmittedunit/distance meaning, whilegroundknownYvalid. Noactualbadcaller/GPUrun.",
+        "connected_repair_acceptance": "Admit supported analyticshape finite/frame/rotation/size contract atcoherentowner/installationboundary, preserve signedplaneoffset, degeneratecapsuleguard, zerooptionalfriction/thickness and coefficientsnotnecessarily<=1. No blanket privatehelper/native exemption.",
+        "repair": "not_started_frozen",
+        "validation": "not_executed"
+      }
+    },
+    {
+      "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+      "record_index": 90,
+      "record": {
+        "id": "RIG-ADMISSION03-F073-SUPPLEMENT-001",
+        "extends": "RIG-ADMISSION03-F073",
+        "source_ids": [
+          "pr-working:crates/fabelgeist-physics/src/contact/count.rs",
+          "pr-working:crates/fabelgeist-bvh/src/gpu/mod.rs",
+          "pr-working:crates/fabelgeist-physics/src/mesh.rs",
+          "pr-working:crates/fabelgeist-xpbd/src/particles.rs"
+        ],
+        "finding": "Actualadditionalnativewordboundaries: ColliderCapacityfit/countbind truncateusize/hostnextpower beforeu32; MeshCollidernew/write_positions andParticleswrite castlengthbeforecapacity/equality; GpuBvhnewallocatesu64nodes while record_refit_passes computes2*count-1u32. This isnotinvalidgenericfullwordcountowner byitself; executablebuffer/dispatchextent admission lackscheckedrepresentation. Earlier allocation/nativeSDKerrorsmayprecede overflow.",
+        "connected_repair_acceptance": "Checked executablecount/extents at coherent eachnative interface, preservefullhostdiagnostics/genericzero andexplicitcapacityroundingwherevalid. No runtimeassertions/newtests.",
+        "repair": "not_started_frozen",
+        "validation": "not_executed"
+      }
+    },
+    {
+      "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+      "record_index": 91,
+      "record": {
+        "id": "RIG-ADMISSION03-F054-SUPPLEMENT-001",
+        "extends": "RIG-ADMISSION03-F054",
+        "source_ids": [
+          "pr-working:crates/fabelgeist-bvh/src/gpu/mod.rs",
+          "pr-working:crates/fabelgeist-physics/src/mesh.rs"
+        ],
+        "finding": "MeshCollidernew DOES validateindexmembership/nonempty beforeupload, unlike rawTriangleBvhnew. Butpublictopology/position/bounds/BVH buffers canreplaceaftergate; GpuBvhpublicnodes/rightchildren/indices/parents likewiseunsealedfromprivatecapacity/count. record_buildchecks count<=capacityonly; inputprimitivebounds cardinality/provenanceunchallengedbeforedispatch. Noactualbadcaller/SDKrun.",
+        "connected_repair_acceptance": "Preserveactualinitialmembershipgate andencapsulatecoherentacceptedtopology/nativebufferidentity; explicit boundednativeviews/readmission, not blanketforeignGPUaudit.",
+        "repair": "not_started_frozen",
+        "validation": "not_executed"
+      }
+    }
+  ],
+  "qualification": "Saved metadata only; no source/verdict credit or blanket uniqueness."
+}

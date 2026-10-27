@@ -1,0 +1,2156 @@
+{
+  "id": "OWN10-OVERLAY-SUCCESSOR-025",
+  "lens": "derivability",
+  "registration_authority": "../audit05/raw-overlay-registration-000.jsonl",
+  "registration_sha256": "c26e2def8f8520c870f359ef66919ce730fcddb65beb051365fce42371a7bc68",
+  "receipts": [
+    {
+      "overlay_index": 151,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-152",
+        "at": "2026-10-22T18:34:10.907325+00:00",
+        "source_id": "pr-working:Cargo.toml",
+        "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+        "audit_owner": "root",
+        "material_ranges": [
+          [
+            178,
+            181
+          ]
+        ],
+        "admission03_scope_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 78,
+            "registration_id": "NATIVE-ADMISSION03-REG-078",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-078",
+              "at": "2026-10-22T15:20:22.604612+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "pr-working:Cargo.toml",
+              "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+              "snapshot": "pr-working",
+              "actual_EOF": 221,
+              "material_ranges": [
+                [
+                  178,
+                  181
+                ]
+              ],
+              "role": "Exact current PR optionalCore runtime workspace2.6.1 edge, with SDK/_lib/SATS siblings for actual macro bridge",
+              "actual_caller": "CaseSiteId currentPR cfgfeature spacetimedb derive49 via CoreCargo feature/optionalworkspace Native077",
+              "reason": "Root/Camera confirm no currentPR version/lock proof; exact bounded necessary dependency registered BEFORE body",
+              "exclusions": "No other lockpackages/fullmanifest/body/newforeignversion or laterlens credit",
+              "resolved_path": "SNAPSHOTS\\pr-working\\Cargo.toml",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FINALQUAL-078",
+                "registration_id": "NATIVE-ADMISSION03-REG-078",
+                "source_id": "pr-working:Cargo.toml",
+                "snapshot": "pr-working",
+                "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+                "actual_EOF": 221,
+                "registered_requested_ranges": [
+                  [
+                    178,
+                    181
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    178,
+                    181
+                  ]
+                ],
+                "context_or_excluded_within_registration": [],
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-078",
+                  "at": "2026-10-22T15:20:22.604612+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                  "source_id": "pr-working:Cargo.toml",
+                  "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+                  "snapshot": "pr-working",
+                  "actual_EOF": 221,
+                  "material_ranges": [
+                    [
+                      178,
+                      181
+                    ]
+                  ],
+                  "role": "Exact current PR optionalCore runtime workspace2.6.1 edge, with SDK/_lib/SATS siblings for actual macro bridge",
+                  "actual_caller": "CaseSiteId currentPR cfgfeature spacetimedb derive49 via CoreCargo feature/optionalworkspace Native077",
+                  "reason": "Root/Camera confirm no currentPR version/lock proof; exact bounded necessary dependency registered BEFORE body",
+                  "exclusions": "No other lockpackages/fullmanifest/body/newforeignversion or laterlens credit",
+                  "resolved_path": "SNAPSHOTS\\pr-working\\Cargo.toml",
+                  "status": "registered_before_direct_current03_body_analysis"
+                },
+                "qualification_history": [
+                  {
+                    "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                    "row_1based": 6,
+                    "payload": {
+                      "id": "NATIVE-CAMERA-SUPPORT03-QUAL-078",
+                      "registration_id": "NATIVE-ADMISSION03-REG-078",
+                      "original_registration": {
+                        "id": "NATIVE-ADMISSION03-REG-078",
+                        "at": "2026-10-22T15:20:22.604612+00:00",
+                        "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                        "source_id": "pr-working:Cargo.toml",
+                        "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+                        "snapshot": "pr-working",
+                        "actual_EOF": 221,
+                        "material_ranges": [
+                          [
+                            178,
+                            181
+                          ]
+                        ],
+                        "role": "Exact current PR optionalCore runtime workspace2.6.1 edge, with SDK/_lib/SATS siblings for actual macro bridge",
+                        "actual_caller": "CaseSiteId currentPR cfgfeature spacetimedb derive49 via CoreCargo feature/optionalworkspace Native077",
+                        "reason": "Root/Camera confirm no currentPR version/lock proof; exact bounded necessary dependency registered BEFORE body",
+                        "exclusions": "No other lockpackages/fullmanifest/body/newforeignversion or laterlens credit",
+                        "resolved_path": "SNAPSHOTS\\pr-working\\Cargo.toml",
+                        "status": "registered_before_direct_current03_body_analysis"
+                      },
+                      "qualified_material_ranges": [
+                        [
+                          178,
+                          181
+                        ]
+                      ],
+                      "qualification": "Exactregisteredcurrentdirectrole only; no unrelatedsource/tests/nativegraph credit.",
+                      "actual_semantic_refs": [
+                        "case-site-sats-admission-003.json"
+                      ],
+                      "registered_before_body": true,
+                      "global_registry_reconciliation_pending": true,
+                      "later_lens_credit": false
+                    }
+                  }
+                ],
+                "current_proof_refs": {
+                  "actual_semantic_refs": [
+                    "case-site-sats-admission-003.json"
+                  ]
+                },
+                "body_rereads_for_this_normalization": 0,
+                "semantic_credit_from_metadata": false,
+                "producer_or_owner_or_later_lens_credit": false,
+                "global_reconciliation_pending": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                178,
+                181
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\Cargo.toml",
+            "actual_EOF": 221,
+            "bytes": 8395
+          }
+        ],
+        "scope_limits": "Exact qualified current03 direct-definition/native-format roles only; preserve original scope. No metadata semantic credit or ownership transfer.",
+        "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+        "admission_discovery": "source_backed_packet_acceptance_pending"
+      },
+      "source_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:Cargo.toml",
+      "exact_git_source": "6533e444fa37552927070cc8d8190907fd3b413e:Cargo.toml",
+      "source_sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+      "read_ranges": [
+        [
+          178,
+          181
+        ]
+      ],
+      "evidence_basis": "Fresh personal exact registered body comparison by own10; original bodies may support but do not automatically discharge overlay scope.",
+      "inventory": "Exact PR workspace SpacetimeDB/SDK/lib/SATS2.6.1 pins and lib/SATS features; no traits/codecs.",
+      "disposition": "Dependency identity only, no actual decoder/whole manifest/foreign semantics/compilation or later-lens credit."
+    },
+    {
+      "overlay_index": 152,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-153",
+        "at": "2026-10-22T18:34:10.907325+00:00",
+        "source_id": "pr-working:Cargo.lock",
+        "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+        "audit_owner": "root",
+        "material_ranges": [
+          [
+            10219,
+            10255
+          ],
+          [
+            10302,
+            10326
+          ],
+          [
+            10372,
+            10404
+          ],
+          [
+            10436,
+            10466
+          ]
+        ],
+        "admission03_scope_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 79,
+            "registration_id": "NATIVE-ADMISSION03-REG-079",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-079",
+              "at": "2026-10-22T15:20:22.604893+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "pr-working:Cargo.lock",
+              "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+              "snapshot": "pr-working",
+              "actual_EOF": 13102,
+              "material_ranges": [
+                [
+                  10219,
+                  10256
+                ],
+                [
+                  10302,
+                  10327
+                ],
+                [
+                  10372,
+                  10405
+                ]
+              ],
+              "role": "Exact locked runtime/bindings-macro/lib/SATS package version/checksum/dependency records for CaseSite namedProduct macro route; no whole lock graph",
+              "actual_caller": "CaseSiteId currentPR cfgfeature spacetimedb derive49 via CoreCargo feature/optionalworkspace Native077",
+              "reason": "Root/Camera confirm no currentPR version/lock proof; exact bounded necessary dependency registered BEFORE body",
+              "exclusions": "No other lockpackages/fullmanifest/body/newforeignversion or laterlens credit",
+              "resolved_path": "SNAPSHOTS\\pr-working\\Cargo.lock",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FINALQUAL-079",
+                "registration_id": "NATIVE-ADMISSION03-REG-079",
+                "source_id": "pr-working:Cargo.lock",
+                "snapshot": "pr-working",
+                "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+                "actual_EOF": 13102,
+                "registered_requested_ranges": [
+                  [
+                    10219,
+                    10256
+                  ],
+                  [
+                    10302,
+                    10327
+                  ],
+                  [
+                    10372,
+                    10405
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    10219,
+                    10255
+                  ],
+                  [
+                    10302,
+                    10326
+                  ],
+                  [
+                    10372,
+                    10404
+                  ]
+                ],
+                "context_or_excluded_within_registration": [
+                  [
+                    10256,
+                    10256
+                  ],
+                  [
+                    10327,
+                    10327
+                  ],
+                  [
+                    10405,
+                    10405
+                  ]
+                ],
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-079",
+                  "at": "2026-10-22T15:20:22.604893+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                  "source_id": "pr-working:Cargo.lock",
+                  "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+                  "snapshot": "pr-working",
+                  "actual_EOF": 13102,
+                  "material_ranges": [
+                    [
+                      10219,
+                      10256
+                    ],
+                    [
+                      10302,
+                      10327
+                    ],
+                    [
+                      10372,
+                      10405
+                    ]
+                  ],
+                  "role": "Exact locked runtime/bindings-macro/lib/SATS package version/checksum/dependency records for CaseSite namedProduct macro route; no whole lock graph",
+                  "actual_caller": "CaseSiteId currentPR cfgfeature spacetimedb derive49 via CoreCargo feature/optionalworkspace Native077",
+                  "reason": "Root/Camera confirm no currentPR version/lock proof; exact bounded necessary dependency registered BEFORE body",
+                  "exclusions": "No other lockpackages/fullmanifest/body/newforeignversion or laterlens credit",
+                  "resolved_path": "SNAPSHOTS\\pr-working\\Cargo.lock",
+                  "status": "registered_before_direct_current03_body_analysis"
+                },
+                "qualification_history": [
+                  {
+                    "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                    "row_1based": 7,
+                    "payload": {
+                      "id": "NATIVE-CAMERA-SUPPORT03-QUAL-079",
+                      "registration_id": "NATIVE-ADMISSION03-REG-079",
+                      "original_registration": {
+                        "id": "NATIVE-ADMISSION03-REG-079",
+                        "at": "2026-10-22T15:20:22.604893+00:00",
+                        "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                        "source_id": "pr-working:Cargo.lock",
+                        "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+                        "snapshot": "pr-working",
+                        "actual_EOF": 13102,
+                        "material_ranges": [
+                          [
+                            10219,
+                            10256
+                          ],
+                          [
+                            10302,
+                            10327
+                          ],
+                          [
+                            10372,
+                            10405
+                          ]
+                        ],
+                        "role": "Exact locked runtime/bindings-macro/lib/SATS package version/checksum/dependency records for CaseSite namedProduct macro route; no whole lock graph",
+                        "actual_caller": "CaseSiteId currentPR cfgfeature spacetimedb derive49 via CoreCargo feature/optionalworkspace Native077",
+                        "reason": "Root/Camera confirm no currentPR version/lock proof; exact bounded necessary dependency registered BEFORE body",
+                        "exclusions": "No other lockpackages/fullmanifest/body/newforeignversion or laterlens credit",
+                        "resolved_path": "SNAPSHOTS\\pr-working\\Cargo.lock",
+                        "status": "registered_before_direct_current03_body_analysis"
+                      },
+                      "qualified_material_ranges": [
+                        [
+                          10219,
+                          10255
+                        ],
+                        [
+                          10302,
+                          10326
+                        ],
+                        [
+                          10372,
+                          10404
+                        ]
+                      ],
+                      "qualification": "Nextpackage delimiters10256/10327/10405 excluded; no unrelatedpackages.",
+                      "actual_semantic_refs": [
+                        "case-site-sats-admission-003.json"
+                      ],
+                      "registered_before_body": true,
+                      "global_registry_reconciliation_pending": true,
+                      "later_lens_credit": false
+                    }
+                  }
+                ],
+                "current_proof_refs": {
+                  "actual_semantic_refs": [
+                    "case-site-sats-admission-003.json"
+                  ]
+                },
+                "body_rereads_for_this_normalization": 0,
+                "semantic_credit_from_metadata": false,
+                "producer_or_owner_or_later_lens_credit": false,
+                "global_reconciliation_pending": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                10219,
+                10255
+              ],
+              [
+                10302,
+                10326
+              ],
+              [
+                10372,
+                10404
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\Cargo.lock",
+            "actual_EOF": 13102,
+            "bytes": 306125
+          },
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 96,
+            "registration_id": "NATIVE-ADMISSION03-REG-096",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-096",
+              "at": "2026-10-22T17:03:02.647739+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "pr-working:Cargo.lock",
+              "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+              "snapshot": "pr-working",
+              "actual_EOF": 13102,
+              "material_ranges": [
+                [
+                  10436,
+                  10467
+                ]
+              ],
+              "role": "Exact generated PR client SDK dependency edge to already-read bounded SDK2.6.1 native callback/namespace contracts; no unrelated package algorithm",
+              "actual_caller": "Camera supplier482\u2013488 generated reducer/table transport imports spacetimedb_sdk::__codegen",
+              "reason": "Necessary precise imported/native callback version link registered before body analysis; not inferred from installed folder",
+              "exclusions": "Only exact dependency ranges; no full SDK/native algorithm graph or semantics/other-lens credit",
+              "resolved_path": "SNAPSHOTS\\pr-working\\Cargo.lock",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FINALQUAL-096",
+                "registration_id": "NATIVE-ADMISSION03-REG-096",
+                "source_id": "pr-working:Cargo.lock",
+                "snapshot": "pr-working",
+                "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+                "actual_EOF": 13102,
+                "registered_requested_ranges": [
+                  [
+                    10436,
+                    10467
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    10436,
+                    10466
+                  ]
+                ],
+                "context_or_excluded_within_registration": [
+                  [
+                    10467,
+                    10467
+                  ]
+                ],
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-096",
+                  "at": "2026-10-22T17:03:02.647739+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                  "source_id": "pr-working:Cargo.lock",
+                  "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+                  "snapshot": "pr-working",
+                  "actual_EOF": 13102,
+                  "material_ranges": [
+                    [
+                      10436,
+                      10467
+                    ]
+                  ],
+                  "role": "Exact generated PR client SDK dependency edge to already-read bounded SDK2.6.1 native callback/namespace contracts; no unrelated package algorithm",
+                  "actual_caller": "Camera supplier482\u2013488 generated reducer/table transport imports spacetimedb_sdk::__codegen",
+                  "reason": "Necessary precise imported/native callback version link registered before body analysis; not inferred from installed folder",
+                  "exclusions": "Only exact dependency ranges; no full SDK/native algorithm graph or semantics/other-lens credit",
+                  "resolved_path": "SNAPSHOTS\\pr-working\\Cargo.lock",
+                  "status": "registered_before_direct_current03_body_analysis"
+                },
+                "qualification_history": [
+                  {
+                    "qualification_file": "camera-support/source-qualifications-018.jsonl",
+                    "row_1based": 2,
+                    "payload": {
+                      "registration_id": "NATIVE-ADMISSION03-REG-096",
+                      "source_id": "pr-working:Cargo.lock",
+                      "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+                      "actual_EOF": 13102,
+                      "original_requested_ranges": [
+                        [
+                          10436,
+                          10467
+                        ]
+                      ],
+                      "qualified_material_ranges": [
+                        [
+                          10436,
+                          10466
+                        ]
+                      ],
+                      "context_only_ranges": [
+                        [
+                          10467,
+                          10467
+                        ]
+                      ],
+                      "admission_proof": "contracts-017.json#generated-client-raw-transport-versus-reducer-admission",
+                      "other_lens_credit": false
+                    }
+                  }
+                ],
+                "current_proof_refs": {
+                  "admission_proof": "contracts-017.json#generated-client-raw-transport-versus-reducer-admission"
+                },
+                "body_rereads_for_this_normalization": 0,
+                "semantic_credit_from_metadata": false,
+                "producer_or_owner_or_later_lens_credit": false,
+                "global_reconciliation_pending": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                10436,
+                10466
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\Cargo.lock",
+            "actual_EOF": 13102,
+            "bytes": 306125
+          }
+        ],
+        "scope_limits": "Exact qualified current03 direct-definition/native-format roles only; preserve original scope. No metadata semantic credit or ownership transfer.",
+        "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+        "admission_discovery": "source_backed_packet_acceptance_pending"
+      },
+      "source_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:Cargo.lock",
+      "exact_git_source": "6533e444fa37552927070cc8d8190907fd3b413e:Cargo.lock",
+      "source_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+      "read_ranges": [
+        [
+          10219,
+          10255
+        ],
+        [
+          10302,
+          10326
+        ],
+        [
+          10372,
+          10404
+        ],
+        [
+          10436,
+          10466
+        ]
+      ],
+      "evidence_basis": "Fresh personal exact registered body comparison by own10; original bodies may support but do not automatically discharge overlay scope.",
+      "inventory": "Exact PR lock package checksums and direct dependency edges for SpacetimeDB runtime/bindings/lib/SATS/SDK2.6.1.",
+      "disposition": "Version/reexport/native callback identity witness only, no decoder/protocol/generalized finite-owner or whole lock/native graph acceptance."
+    },
+    {
+      "overlay_index": 153,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-154",
+        "at": "2026-10-22T18:34:10.907325+00:00",
+        "source_id": "pinned-bevy-replicon-0.41.1:src/shared/replication/rules.rs",
+        "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+        "audit_owner": "camera",
+        "material_ranges": [
+          [
+            153,
+            159
+          ],
+          [
+            273,
+            278
+          ]
+        ],
+        "admission03_scope_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 80,
+            "registration_id": "NATIVE-ADMISSION03-REG-080",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-080",
+              "at": "2026-10-22T15:23:08.834684+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "pinned-bevy-replicon-0.41.1:src/shared/replication/rules.rs",
+              "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+              "snapshot": "pinned-bevy-replicon-0.41.1",
+              "actual_EOF": 1386,
+              "material_ranges": [
+                [
+                  146,
+                  165
+                ],
+                [
+                  273,
+                  279
+                ]
+              ],
+              "role": "Actual replicate_as method body and replicate_once_filtered closingbody; old scoped docs/partialsignature alone insufficient for exact conversion/defaultroute",
+              "actual_caller": "AssignedCamera349 current foreign nativeport contract; direct Camera308 physics_rotation.0",
+              "reason": "Necessary actual scoped contract bodies prospectivelyregistered BEFOREanalysis; no wholeforeignpackage waiver",
+              "exclusions": "Only selected current direct methods/declaration; otherforeign methods/source/tests excluded; qualifycontextedges afterread",
+              "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_replicon-0.41.1\\src\\shared\\replication\\rules.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FINALQUAL-080",
+                "registration_id": "NATIVE-ADMISSION03-REG-080",
+                "source_id": "pinned-bevy-replicon-0.41.1:src/shared/replication/rules.rs",
+                "snapshot": "pinned-bevy-replicon-0.41.1",
+                "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+                "actual_EOF": 1386,
+                "registered_requested_ranges": [
+                  [
+                    146,
+                    165
+                  ],
+                  [
+                    273,
+                    279
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    153,
+                    159
+                  ],
+                  [
+                    273,
+                    278
+                  ]
+                ],
+                "context_or_excluded_within_registration": [
+                  [
+                    146,
+                    152
+                  ],
+                  [
+                    160,
+                    165
+                  ],
+                  [
+                    279,
+                    279
+                  ]
+                ],
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-080",
+                  "at": "2026-10-22T15:23:08.834684+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                  "source_id": "pinned-bevy-replicon-0.41.1:src/shared/replication/rules.rs",
+                  "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+                  "snapshot": "pinned-bevy-replicon-0.41.1",
+                  "actual_EOF": 1386,
+                  "material_ranges": [
+                    [
+                      146,
+                      165
+                    ],
+                    [
+                      273,
+                      279
+                    ]
+                  ],
+                  "role": "Actual replicate_as method body and replicate_once_filtered closingbody; old scoped docs/partialsignature alone insufficient for exact conversion/defaultroute",
+                  "actual_caller": "AssignedCamera349 current foreign nativeport contract; direct Camera308 physics_rotation.0",
+                  "reason": "Necessary actual scoped contract bodies prospectivelyregistered BEFOREanalysis; no wholeforeignpackage waiver",
+                  "exclusions": "Only selected current direct methods/declaration; otherforeign methods/source/tests excluded; qualifycontextedges afterread",
+                  "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_replicon-0.41.1\\src\\shared\\replication\\rules.rs",
+                  "status": "registered_before_direct_current03_body_analysis"
+                },
+                "qualification_history": [
+                  {
+                    "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                    "row_1based": 8,
+                    "payload": {
+                      "id": "NATIVE-CAMERA-SUPPORT03-QUAL-080",
+                      "registration_id": "NATIVE-ADMISSION03-REG-080",
+                      "original_registration": {
+                        "id": "NATIVE-ADMISSION03-REG-080",
+                        "at": "2026-10-22T15:23:08.834684+00:00",
+                        "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                        "source_id": "pinned-bevy-replicon-0.41.1:src/shared/replication/rules.rs",
+                        "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+                        "snapshot": "pinned-bevy-replicon-0.41.1",
+                        "actual_EOF": 1386,
+                        "material_ranges": [
+                          [
+                            146,
+                            165
+                          ],
+                          [
+                            273,
+                            279
+                          ]
+                        ],
+                        "role": "Actual replicate_as method body and replicate_once_filtered closingbody; old scoped docs/partialsignature alone insufficient for exact conversion/defaultroute",
+                        "actual_caller": "AssignedCamera349 current foreign nativeport contract; direct Camera308 physics_rotation.0",
+                        "reason": "Necessary actual scoped contract bodies prospectivelyregistered BEFOREanalysis; no wholeforeignpackage waiver",
+                        "exclusions": "Only selected current direct methods/declaration; otherforeign methods/source/tests excluded; qualifycontextedges afterread",
+                        "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_replicon-0.41.1\\src\\shared\\replication\\rules.rs",
+                        "status": "registered_before_direct_current03_body_analysis"
+                      },
+                      "qualified_material_ranges": [
+                        [
+                          153,
+                          159
+                        ],
+                        [
+                          273,
+                          278
+                        ]
+                      ],
+                      "qualification": "Previousdocexample146-152 andnextmethod161-165 partialsignature excluded; exactreplicate_as andonce_filteredbody only.",
+                      "actual_semantic_refs": [
+                        "contracts-004.json"
+                      ],
+                      "registered_before_body": true,
+                      "global_registry_reconciliation_pending": true,
+                      "later_lens_credit": false
+                    }
+                  }
+                ],
+                "current_proof_refs": {
+                  "actual_semantic_refs": [
+                    "contracts-004.json"
+                  ]
+                },
+                "body_rereads_for_this_normalization": 0,
+                "semantic_credit_from_metadata": false,
+                "producer_or_owner_or_later_lens_credit": false,
+                "global_reconciliation_pending": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                153,
+                159
+              ],
+              [
+                273,
+                278
+              ]
+            ],
+            "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_replicon-0.41.1\\src\\shared\\replication\\rules.rs",
+            "actual_EOF": 1386,
+            "bytes": 46609
+          }
+        ],
+        "scope_limits": "Exact qualified current03 direct-definition/native-format roles only; preserve original scope. No metadata semantic credit or ownership transfer.",
+        "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+        "admission_discovery": "source_backed_packet_acceptance_pending"
+      },
+      "source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_replicon-0.41.1/src/shared/replication/rules.rs",
+      "exact_git_source": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+      "source_sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+      "read_ranges": [
+        [
+          153,
+          159
+        ],
+        [
+          273,
+          278
+        ]
+      ],
+      "evidence_basis": "Fresh personal exact registered body comparison by own10; original bodies may support but do not automatically discharge overlay scope.",
+      "inventory": "Pinned Replicon generic default replicate_as/replicate_once_filtered method adapters select existing semantic conversion protocol and RuleFns with component mutability/serde/filter bounds.",
+      "disposition": "Keep semantic framework configuration/trait methods, no ordinary derive replacement. No full registry/diff/decoder/runtime/business-policy acceptance or unrelated package methods."
+    },
+    {
+      "overlay_index": 154,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-155",
+        "at": "2026-10-22T18:34:10.907325+00:00",
+        "source_id": "pinned-registry:avian3d-0.7.0/src/physics_transform/transform.rs",
+        "sha256": "5020a25a60cbe8b42d37cadf31c24a6d24dcde07df2c8f156ee45ff81e9c450b",
+        "audit_owner": "camera",
+        "material_ranges": [
+          [
+            740,
+            745
+          ],
+          [
+            1051,
+            1074
+          ],
+          [
+            1092,
+            1114
+          ]
+        ],
+        "admission03_scope_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 81,
+            "registration_id": "NATIVE-ADMISSION03-REG-081",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-081",
+              "at": "2026-10-22T15:23:08.834702+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "pinned-registry:avian3d-0.7.0/src/physics_transform/transform.rs",
+              "sha256": "5020a25a60cbe8b42d37cadf31c24a6d24dcde07df2c8f156ee45ff81e9c450b",
+              "snapshot": "pinned-registry",
+              "actual_EOF": 1275,
+              "material_ranges": [
+                [
+                  739,
+                  745
+                ],
+                [
+                  1051,
+                  1075
+                ],
+                [
+                  1092,
+                  1115
+                ]
+              ],
+              "role": "Actual 3D Rotation publicquaternion declaration/derives and direct Transform/GlobalTransform/Quat/DQuat conversion bodies; scoped125-146 onlyprecedingcontext/RotationValuealias, not3DRotationdefinition",
+              "actual_caller": "AssignedCamera354 current foreign nativeport contract; direct Camera308 physics_rotation.0",
+              "reason": "Necessary actual scoped contract bodies prospectivelyregistered BEFOREanalysis; no wholeforeignpackage waiver",
+              "exclusions": "Only selected current direct methods/declaration; otherforeign methods/source/tests excluded; qualifycontextedges afterread",
+              "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\avian3d-0.7.0\\src\\physics_transform\\transform.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FINALQUAL-081",
+                "registration_id": "NATIVE-ADMISSION03-REG-081",
+                "source_id": "pinned-registry:avian3d-0.7.0/src/physics_transform/transform.rs",
+                "snapshot": "pinned-registry",
+                "sha256": "5020a25a60cbe8b42d37cadf31c24a6d24dcde07df2c8f156ee45ff81e9c450b",
+                "actual_EOF": 1275,
+                "registered_requested_ranges": [
+                  [
+                    739,
+                    745
+                  ],
+                  [
+                    1051,
+                    1075
+                  ],
+                  [
+                    1092,
+                    1115
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    740,
+                    745
+                  ],
+                  [
+                    1051,
+                    1074
+                  ],
+                  [
+                    1092,
+                    1114
+                  ]
+                ],
+                "context_or_excluded_within_registration": [
+                  [
+                    739,
+                    739
+                  ],
+                  [
+                    1075,
+                    1075
+                  ],
+                  [
+                    1115,
+                    1115
+                  ]
+                ],
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-081",
+                  "at": "2026-10-22T15:23:08.834702+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                  "source_id": "pinned-registry:avian3d-0.7.0/src/physics_transform/transform.rs",
+                  "sha256": "5020a25a60cbe8b42d37cadf31c24a6d24dcde07df2c8f156ee45ff81e9c450b",
+                  "snapshot": "pinned-registry",
+                  "actual_EOF": 1275,
+                  "material_ranges": [
+                    [
+                      739,
+                      745
+                    ],
+                    [
+                      1051,
+                      1075
+                    ],
+                    [
+                      1092,
+                      1115
+                    ]
+                  ],
+                  "role": "Actual 3D Rotation publicquaternion declaration/derives and direct Transform/GlobalTransform/Quat/DQuat conversion bodies; scoped125-146 onlyprecedingcontext/RotationValuealias, not3DRotationdefinition",
+                  "actual_caller": "AssignedCamera354 current foreign nativeport contract; direct Camera308 physics_rotation.0",
+                  "reason": "Necessary actual scoped contract bodies prospectivelyregistered BEFOREanalysis; no wholeforeignpackage waiver",
+                  "exclusions": "Only selected current direct methods/declaration; otherforeign methods/source/tests excluded; qualifycontextedges afterread",
+                  "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\avian3d-0.7.0\\src\\physics_transform\\transform.rs",
+                  "status": "registered_before_direct_current03_body_analysis"
+                },
+                "qualification_history": [
+                  {
+                    "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                    "row_1based": 9,
+                    "payload": {
+                      "id": "NATIVE-CAMERA-SUPPORT03-QUAL-081",
+                      "registration_id": "NATIVE-ADMISSION03-REG-081",
+                      "original_registration": {
+                        "id": "NATIVE-ADMISSION03-REG-081",
+                        "at": "2026-10-22T15:23:08.834702+00:00",
+                        "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                        "source_id": "pinned-registry:avian3d-0.7.0/src/physics_transform/transform.rs",
+                        "sha256": "5020a25a60cbe8b42d37cadf31c24a6d24dcde07df2c8f156ee45ff81e9c450b",
+                        "snapshot": "pinned-registry",
+                        "actual_EOF": 1275,
+                        "material_ranges": [
+                          [
+                            739,
+                            745
+                          ],
+                          [
+                            1051,
+                            1075
+                          ],
+                          [
+                            1092,
+                            1115
+                          ]
+                        ],
+                        "role": "Actual 3D Rotation publicquaternion declaration/derives and direct Transform/GlobalTransform/Quat/DQuat conversion bodies; scoped125-146 onlyprecedingcontext/RotationValuealias, not3DRotationdefinition",
+                        "actual_caller": "AssignedCamera354 current foreign nativeport contract; direct Camera308 physics_rotation.0",
+                        "reason": "Necessary actual scoped contract bodies prospectivelyregistered BEFOREanalysis; no wholeforeignpackage waiver",
+                        "exclusions": "Only selected current direct methods/declaration; otherforeign methods/source/tests excluded; qualifycontextedges afterread",
+                        "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\avian3d-0.7.0\\src\\physics_transform\\transform.rs",
+                        "status": "registered_before_direct_current03_body_analysis"
+                      },
+                      "qualified_material_ranges": [
+                        [
+                          740,
+                          745
+                        ],
+                        [
+                          1051,
+                          1074
+                        ],
+                        [
+                          1092,
+                          1114
+                        ]
+                      ],
+                      "qualification": "Previousdocfence739/blank1075/1115 contextual; no2DRotation/otheroperations.",
+                      "actual_semantic_refs": [
+                        "contracts-004.json"
+                      ],
+                      "registered_before_body": true,
+                      "global_registry_reconciliation_pending": true,
+                      "later_lens_credit": false
+                    }
+                  }
+                ],
+                "current_proof_refs": {
+                  "actual_semantic_refs": [
+                    "contracts-004.json"
+                  ]
+                },
+                "body_rereads_for_this_normalization": 0,
+                "semantic_credit_from_metadata": false,
+                "producer_or_owner_or_later_lens_credit": false,
+                "global_reconciliation_pending": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                740,
+                745
+              ],
+              [
+                1051,
+                1074
+              ],
+              [
+                1092,
+                1114
+              ]
+            ],
+            "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\avian3d-0.7.0\\src\\physics_transform\\transform.rs",
+            "actual_EOF": 1275,
+            "bytes": 40830
+          }
+        ],
+        "scope_limits": "Exact qualified current03 direct-definition/native-format roles only; preserve original scope. No metadata semantic credit or ownership transfer.",
+        "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+        "admission_discovery": "source_backed_packet_acceptance_pending"
+      },
+      "source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/physics_transform/transform.rs",
+      "exact_git_source": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/5020a25a60cbe8b42d37cadf31c24a6d24dcde07df2c8f156ee45ff81e9c450b",
+      "source_sha256": "5020a25a60cbe8b42d37cadf31c24a6d24dcde07df2c8f156ee45ff81e9c450b",
+      "read_ranges": [
+        [
+          740,
+          745
+        ],
+        [
+          1051,
+          1074
+        ],
+        [
+          1092,
+          1114
+        ]
+      ],
+      "evidence_basis": "Fresh personal exact registered body comparison by own10; original bodies may support but do not automatically discharge overlay scope.",
+      "inventory": "Pinned Avian Rotation already structural/default/serde derives, native Transform/global/quaternion precision conversions; From Rotation\u2192Quaternion1052-1056 is direct scalar field projection.",
+      "disposition": "Qualified mechanical native projection occurrence recorded derive-candidates-occurrence-overlay154-155.json; upstream macro/cfg proof unresolved. Keep semantic precision/transform extraction. No blanket SDK exemption, native quaternion validity/runtime or unrelated feature source clearance."
+    },
+    {
+      "overlay_index": 155,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-156",
+        "at": "2026-10-22T18:34:10.907325+00:00",
+        "source_id": "physical-p16:crates/adventuresim-world-schema/src/source_package.rs",
+        "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+        "audit_owner": "root",
+        "material_ranges": [
+          [
+            1,
+            53
+          ]
+        ],
+        "admission03_scope_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 83,
+            "registration_id": "NATIVE-ADMISSION03-REG-083",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-083",
+              "at": "2026-10-22T15:35:32.931763+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "physical-p16:crates/adventuresim-world-schema/src/source_package.rs",
+              "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+              "snapshot": "physical-p16",
+              "actual_EOF": 53,
+              "material_ranges": [
+                [
+                  1,
+                  53
+                ]
+              ],
+              "role": "ExactP16 SourcePackageDigest constructor/manualSerde/privatepayload currentRoadManifest source identity, notfromPRsamepath",
+              "actual_caller": "CurrentCamera312RoadPackload/manifestvalidate/nativeRoadLine E7 bounds actualsource",
+              "reason": "Exactdirectowningdefinitions/helper currentP16 necessaryroutes registeredbeforebody; no fullterrain/source graph",
+              "exclusions": "Only thisshortcurrentdefinition/helper, no othermodules/foreignpackageproof/authoritytransfer",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\source_package.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FINALQUAL-083",
+                "registration_id": "NATIVE-ADMISSION03-REG-083",
+                "source_id": "physical-p16:crates/adventuresim-world-schema/src/source_package.rs",
+                "snapshot": "physical-p16",
+                "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+                "actual_EOF": 53,
+                "registered_requested_ranges": [
+                  [
+                    1,
+                    53
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    1,
+                    53
+                  ]
+                ],
+                "context_or_excluded_within_registration": [],
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-083",
+                  "at": "2026-10-22T15:35:32.931763+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                  "source_id": "physical-p16:crates/adventuresim-world-schema/src/source_package.rs",
+                  "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+                  "snapshot": "physical-p16",
+                  "actual_EOF": 53,
+                  "material_ranges": [
+                    [
+                      1,
+                      53
+                    ]
+                  ],
+                  "role": "ExactP16 SourcePackageDigest constructor/manualSerde/privatepayload currentRoadManifest source identity, notfromPRsamepath",
+                  "actual_caller": "CurrentCamera312RoadPackload/manifestvalidate/nativeRoadLine E7 bounds actualsource",
+                  "reason": "Exactdirectowningdefinitions/helper currentP16 necessaryroutes registeredbeforebody; no fullterrain/source graph",
+                  "exclusions": "Only thisshortcurrentdefinition/helper, no othermodules/foreignpackageproof/authoritytransfer",
+                  "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\source_package.rs",
+                  "status": "registered_before_direct_current03_body_analysis"
+                },
+                "qualification_history": [
+                  {
+                    "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                    "row_1based": 11,
+                    "payload": {
+                      "id": "NATIVE-CAMERA-SUPPORT03-QUAL-083",
+                      "registration_id": "NATIVE-ADMISSION03-REG-083",
+                      "original_registration": {
+                        "id": "NATIVE-ADMISSION03-REG-083",
+                        "at": "2026-10-22T15:35:32.931763+00:00",
+                        "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                        "source_id": "physical-p16:crates/adventuresim-world-schema/src/source_package.rs",
+                        "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+                        "snapshot": "physical-p16",
+                        "actual_EOF": 53,
+                        "material_ranges": [
+                          [
+                            1,
+                            53
+                          ]
+                        ],
+                        "role": "ExactP16 SourcePackageDigest constructor/manualSerde/privatepayload currentRoadManifest source identity, notfromPRsamepath",
+                        "actual_caller": "CurrentCamera312RoadPackload/manifestvalidate/nativeRoadLine E7 bounds actualsource",
+                        "reason": "Exactdirectowningdefinitions/helper currentP16 necessaryroutes registeredbeforebody; no fullterrain/source graph",
+                        "exclusions": "Only thisshortcurrentdefinition/helper, no othermodules/foreignpackageproof/authoritytransfer",
+                        "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\source_package.rs",
+                        "status": "registered_before_direct_current03_body_analysis"
+                      },
+                      "qualified_material_ranges": [
+                        [
+                          1,
+                          53
+                        ]
+                      ],
+                      "qualification": "Exactregisteredcurrentdirectrole only; no unrelatedsource/tests/nativegraph credit.",
+                      "actual_semantic_refs": [
+                        "contracts-006.json"
+                      ],
+                      "registered_before_body": true,
+                      "global_registry_reconciliation_pending": true,
+                      "later_lens_credit": false
+                    }
+                  }
+                ],
+                "current_proof_refs": {
+                  "actual_semantic_refs": [
+                    "contracts-006.json"
+                  ]
+                },
+                "body_rereads_for_this_normalization": 0,
+                "semantic_credit_from_metadata": false,
+                "producer_or_owner_or_later_lens_credit": false,
+                "global_reconciliation_pending": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                1,
+                53
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\source_package.rs",
+            "actual_EOF": 53,
+            "bytes": 1658
+          }
+        ],
+        "scope_limits": "Exact qualified current03 direct-definition/native-format roles only; preserve original scope. No metadata semantic credit or ownership transfer.",
+        "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+        "admission_discovery": "source_backed_packet_acceptance_pending"
+      },
+      "source_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-world-schema/src/source_package.rs",
+      "exact_git_source": "039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-world-schema/src/source_package.rs",
+      "source_sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+      "read_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "evidence_basis": "Fresh personal exact registered body comparison by own10; original bodies may support but do not automatically discharge overlay scope.",
+      "inventory": "P16 SourcePackageDigest checked lower-hex64 admission, transparent Serialize, String Display, manual checked native String Deserialize; static unit digest error Display/Error.",
+      "disposition": "Qualified candidate008/015 dependency-gap occurrences saved overlay154-155 file. Keep checked decoder (no existing equivalent TryFrom String) and exact source(None)/scalar-wire behavior; no SHA validation/security/runtime/global source identity clearance."
+    },
+    {
+      "overlay_index": 156,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-157",
+        "at": "2026-10-22T18:34:10.907325+00:00",
+        "source_id": "physical-p16:crates/adventuresim-terrain/src/digest.rs",
+        "sha256": "80e021f45fedb26ff313fe42e19a49503716be0c710173af5285e572bfe5ce98",
+        "audit_owner": "root",
+        "material_ranges": [
+          [
+            1,
+            28
+          ]
+        ],
+        "admission03_scope_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 84,
+            "registration_id": "NATIVE-ADMISSION03-REG-084",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-084",
+              "at": "2026-10-22T15:35:32.940569+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "physical-p16:crates/adventuresim-terrain/src/digest.rs",
+              "sha256": "80e021f45fedb26ff313fe42e19a49503716be0c710173af5285e572bfe5ce98",
+              "snapshot": "physical-p16",
+              "actual_EOF": 28,
+              "material_ranges": [
+                [
+                  1,
+                  28
+                ]
+              ],
+              "role": "ExactP16 currentRoadManifest valid_digest/hex_sha nativeboundary helper; PRproofnotautomaticcounterpart",
+              "actual_caller": "CurrentCamera312RoadPackload/manifestvalidate/nativeRoadLine E7 bounds actualsource",
+              "reason": "Exactdirectowningdefinitions/helper currentP16 necessaryroutes registeredbeforebody; no fullterrain/source graph",
+              "exclusions": "Only thisshortcurrentdefinition/helper, no othermodules/foreignpackageproof/authoritytransfer",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-terrain\\src\\digest.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FINALQUAL-084",
+                "registration_id": "NATIVE-ADMISSION03-REG-084",
+                "source_id": "physical-p16:crates/adventuresim-terrain/src/digest.rs",
+                "snapshot": "physical-p16",
+                "sha256": "80e021f45fedb26ff313fe42e19a49503716be0c710173af5285e572bfe5ce98",
+                "actual_EOF": 28,
+                "registered_requested_ranges": [
+                  [
+                    1,
+                    28
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    1,
+                    28
+                  ]
+                ],
+                "context_or_excluded_within_registration": [],
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-084",
+                  "at": "2026-10-22T15:35:32.940569+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                  "source_id": "physical-p16:crates/adventuresim-terrain/src/digest.rs",
+                  "sha256": "80e021f45fedb26ff313fe42e19a49503716be0c710173af5285e572bfe5ce98",
+                  "snapshot": "physical-p16",
+                  "actual_EOF": 28,
+                  "material_ranges": [
+                    [
+                      1,
+                      28
+                    ]
+                  ],
+                  "role": "ExactP16 currentRoadManifest valid_digest/hex_sha nativeboundary helper; PRproofnotautomaticcounterpart",
+                  "actual_caller": "CurrentCamera312RoadPackload/manifestvalidate/nativeRoadLine E7 bounds actualsource",
+                  "reason": "Exactdirectowningdefinitions/helper currentP16 necessaryroutes registeredbeforebody; no fullterrain/source graph",
+                  "exclusions": "Only thisshortcurrentdefinition/helper, no othermodules/foreignpackageproof/authoritytransfer",
+                  "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-terrain\\src\\digest.rs",
+                  "status": "registered_before_direct_current03_body_analysis"
+                },
+                "qualification_history": [
+                  {
+                    "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                    "row_1based": 12,
+                    "payload": {
+                      "id": "NATIVE-CAMERA-SUPPORT03-QUAL-084",
+                      "registration_id": "NATIVE-ADMISSION03-REG-084",
+                      "original_registration": {
+                        "id": "NATIVE-ADMISSION03-REG-084",
+                        "at": "2026-10-22T15:35:32.940569+00:00",
+                        "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                        "source_id": "physical-p16:crates/adventuresim-terrain/src/digest.rs",
+                        "sha256": "80e021f45fedb26ff313fe42e19a49503716be0c710173af5285e572bfe5ce98",
+                        "snapshot": "physical-p16",
+                        "actual_EOF": 28,
+                        "material_ranges": [
+                          [
+                            1,
+                            28
+                          ]
+                        ],
+                        "role": "ExactP16 currentRoadManifest valid_digest/hex_sha nativeboundary helper; PRproofnotautomaticcounterpart",
+                        "actual_caller": "CurrentCamera312RoadPackload/manifestvalidate/nativeRoadLine E7 bounds actualsource",
+                        "reason": "Exactdirectowningdefinitions/helper currentP16 necessaryroutes registeredbeforebody; no fullterrain/source graph",
+                        "exclusions": "Only thisshortcurrentdefinition/helper, no othermodules/foreignpackageproof/authoritytransfer",
+                        "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-terrain\\src\\digest.rs",
+                        "status": "registered_before_direct_current03_body_analysis"
+                      },
+                      "qualified_material_ranges": [
+                        [
+                          1,
+                          28
+                        ]
+                      ],
+                      "qualification": "Exactregisteredcurrentdirectrole only; no unrelatedsource/tests/nativegraph credit.",
+                      "actual_semantic_refs": [
+                        "contracts-006.json"
+                      ],
+                      "registered_before_body": true,
+                      "global_registry_reconciliation_pending": true,
+                      "later_lens_credit": false
+                    }
+                  }
+                ],
+                "current_proof_refs": {
+                  "actual_semantic_refs": [
+                    "contracts-006.json"
+                  ]
+                },
+                "body_rereads_for_this_normalization": 0,
+                "semantic_credit_from_metadata": false,
+                "producer_or_owner_or_later_lens_credit": false,
+                "global_reconciliation_pending": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                1,
+                28
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-terrain\\src\\digest.rs",
+            "actual_EOF": 28,
+            "bytes": 822
+          }
+        ],
+        "scope_limits": "Exact qualified current03 direct-definition/native-format roles only; preserve original scope. No metadata semantic credit or ownership transfer.",
+        "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+        "admission_discovery": "source_backed_packet_acceptance_pending"
+      },
+      "source_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-terrain/src/digest.rs",
+      "exact_git_source": "039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-terrain/src/digest.rs",
+      "source_sha256": "80e021f45fedb26ff313fe42e19a49503716be0c710173af5285e572bfe5ce98",
+      "read_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "evidence_basis": "Fresh personal exact registered body comparison by own10; original bodies may support but do not automatically discharge overlay scope.",
+      "inventory": "Actual P16 digest native SHA256 byte/reader\u2192hex boundary and canonical SourcePackageDigest validator; full28 personally read.",
+      "disposition": "No manual traits/codecs/candidate; keep semantic hashing/native-format adapter. No PR counterpart/hash-only acceptance, foreign digest/whole terrain/runtime clearance."
+    },
+    {
+      "overlay_index": 157,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-158",
+        "at": "2026-10-22T18:34:10.907325+00:00",
+        "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+        "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+        "audit_owner": "camera",
+        "material_ranges": [
+          [
+            33,
+            33
+          ],
+          [
+            1504,
+            1610
+          ]
+        ],
+        "admission03_scope_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 85,
+            "registration_id": "NATIVE-ADMISSION03-REG-085",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-085",
+              "at": "2026-10-22T15:37:20.274675+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+              "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+              "snapshot": "physical-p16",
+              "actual_EOF": 4796,
+              "material_ranges": [
+                [
+                  1503,
+                  1610
+                ]
+              ],
+              "role": "Actual LandUseFraction/Profile declaration+constructors directlycalledscoped329manualDeserialize1618-1633; requireactualsum/fieldpredicate noterrorstringinference",
+              "actual_caller": "Camera329 currentP16WorldLib scopedLandUseProfileDeserialize Self::new1631",
+              "reason": "Necessary canonicaldirectadmission definition registeredbeforebody; no full4796WorldLib expansion",
+              "exclusions": "Only exactLandUseFraction/Profile/closedintensity metadata+methods, no otherworldsourcebody roles",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\lib.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FINALQUAL-085",
+                "registration_id": "NATIVE-ADMISSION03-REG-085",
+                "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+                "snapshot": "physical-p16",
+                "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+                "actual_EOF": 4796,
+                "registered_requested_ranges": [
+                  [
+                    1503,
+                    1610
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    1504,
+                    1610
+                  ]
+                ],
+                "context_or_excluded_within_registration": [
+                  [
+                    1503,
+                    1503
+                  ]
+                ],
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-085",
+                  "at": "2026-10-22T15:37:20.274675+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                  "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+                  "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+                  "snapshot": "physical-p16",
+                  "actual_EOF": 4796,
+                  "material_ranges": [
+                    [
+                      1503,
+                      1610
+                    ]
+                  ],
+                  "role": "Actual LandUseFraction/Profile declaration+constructors directlycalledscoped329manualDeserialize1618-1633; requireactualsum/fieldpredicate noterrorstringinference",
+                  "actual_caller": "Camera329 currentP16WorldLib scopedLandUseProfileDeserialize Self::new1631",
+                  "reason": "Necessary canonicaldirectadmission definition registeredbeforebody; no full4796WorldLib expansion",
+                  "exclusions": "Only exactLandUseFraction/Profile/closedintensity metadata+methods, no otherworldsourcebody roles",
+                  "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\lib.rs",
+                  "status": "registered_before_direct_current03_body_analysis"
+                },
+                "qualification_history": [
+                  {
+                    "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                    "row_1based": 13,
+                    "payload": {
+                      "id": "NATIVE-CAMERA-SUPPORT03-QUAL-085",
+                      "registration_id": "NATIVE-ADMISSION03-REG-085",
+                      "original_registration": {
+                        "id": "NATIVE-ADMISSION03-REG-085",
+                        "at": "2026-10-22T15:37:20.274675+00:00",
+                        "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                        "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+                        "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+                        "snapshot": "physical-p16",
+                        "actual_EOF": 4796,
+                        "material_ranges": [
+                          [
+                            1503,
+                            1610
+                          ]
+                        ],
+                        "role": "Actual LandUseFraction/Profile declaration+constructors directlycalledscoped329manualDeserialize1618-1633; requireactualsum/fieldpredicate noterrorstringinference",
+                        "actual_caller": "Camera329 currentP16WorldLib scopedLandUseProfileDeserialize Self::new1631",
+                        "reason": "Necessary canonicaldirectadmission definition registeredbeforebody; no full4796WorldLib expansion",
+                        "exclusions": "Only exactLandUseFraction/Profile/closedintensity metadata+methods, no otherworldsourcebody roles",
+                        "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\lib.rs",
+                        "status": "registered_before_direct_current03_body_analysis"
+                      },
+                      "qualified_material_ranges": [
+                        [
+                          1504,
+                          1610
+                        ]
+                      ],
+                      "qualification": "1503blank excluded, LandUseFraction/Profile/intensity partiallyoverlapsoriginal3291610-1710 soactualcompleteintensityclosure suppliedbyoriginalrange; no otherWorldLibtypes.",
+                      "actual_semantic_refs": [
+                        "contracts-008.json"
+                      ],
+                      "registered_before_body": true,
+                      "global_registry_reconciliation_pending": true,
+                      "later_lens_credit": false
+                    }
+                  }
+                ],
+                "current_proof_refs": {
+                  "actual_semantic_refs": [
+                    "contracts-008.json"
+                  ]
+                },
+                "body_rereads_for_this_normalization": 0,
+                "semantic_credit_from_metadata": false,
+                "producer_or_owner_or_later_lens_credit": false,
+                "global_reconciliation_pending": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                1504,
+                1610
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\lib.rs",
+            "actual_EOF": 4796,
+            "bytes": 172137
+          },
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 86,
+            "registration_id": "NATIVE-ADMISSION03-REG-086",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-086",
+              "at": "2026-10-22T15:40:20.753157+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+              "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+              "snapshot": "physical-p16",
+              "actual_EOF": 4796,
+              "material_ranges": [
+                [
+                  33,
+                  33
+                ]
+              ],
+              "role": "ExactUnitBasisPoints/BASIS_POINTS_PER_WHOLE reexport connectsNative085LandUse constructor namedbound toactualP16basis_points Native043 admission proof",
+              "actual_caller": "Native085LandUseFraction1513/LandUseProfile1575",
+              "reason": "Directnamedcanonicalconstant/leafedge registeredbeforesemanticbodycomparison, notname-onlyinference",
+              "exclusions": "No otherWorldLibmodule/reexports/materialsourcecredit",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\lib.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FINALQUAL-086",
+                "registration_id": "NATIVE-ADMISSION03-REG-086",
+                "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+                "snapshot": "physical-p16",
+                "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+                "actual_EOF": 4796,
+                "registered_requested_ranges": [
+                  [
+                    33,
+                    33
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    33,
+                    33
+                  ]
+                ],
+                "context_or_excluded_within_registration": [],
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-086",
+                  "at": "2026-10-22T15:40:20.753157+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                  "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+                  "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+                  "snapshot": "physical-p16",
+                  "actual_EOF": 4796,
+                  "material_ranges": [
+                    [
+                      33,
+                      33
+                    ]
+                  ],
+                  "role": "ExactUnitBasisPoints/BASIS_POINTS_PER_WHOLE reexport connectsNative085LandUse constructor namedbound toactualP16basis_points Native043 admission proof",
+                  "actual_caller": "Native085LandUseFraction1513/LandUseProfile1575",
+                  "reason": "Directnamedcanonicalconstant/leafedge registeredbeforesemanticbodycomparison, notname-onlyinference",
+                  "exclusions": "No otherWorldLibmodule/reexports/materialsourcecredit",
+                  "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\lib.rs",
+                  "status": "registered_before_direct_current03_body_analysis"
+                },
+                "qualification_history": [
+                  {
+                    "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                    "row_1based": 14,
+                    "payload": {
+                      "id": "NATIVE-CAMERA-SUPPORT03-QUAL-086",
+                      "registration_id": "NATIVE-ADMISSION03-REG-086",
+                      "original_registration": {
+                        "id": "NATIVE-ADMISSION03-REG-086",
+                        "at": "2026-10-22T15:40:20.753157+00:00",
+                        "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                        "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+                        "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+                        "snapshot": "physical-p16",
+                        "actual_EOF": 4796,
+                        "material_ranges": [
+                          [
+                            33,
+                            33
+                          ]
+                        ],
+                        "role": "ExactUnitBasisPoints/BASIS_POINTS_PER_WHOLE reexport connectsNative085LandUse constructor namedbound toactualP16basis_points Native043 admission proof",
+                        "actual_caller": "Native085LandUseFraction1513/LandUseProfile1575",
+                        "reason": "Directnamedcanonicalconstant/leafedge registeredbeforesemanticbodycomparison, notname-onlyinference",
+                        "exclusions": "No otherWorldLibmodule/reexports/materialsourcecredit",
+                        "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\lib.rs",
+                        "status": "registered_before_direct_current03_body_analysis"
+                      },
+                      "qualified_material_ranges": [
+                        [
+                          33,
+                          33
+                        ]
+                      ],
+                      "qualification": "Exactregisteredcurrentdirectrole only; no unrelatedsource/tests/nativegraph credit.",
+                      "actual_semantic_refs": [
+                        "contracts-008.json"
+                      ],
+                      "registered_before_body": true,
+                      "global_registry_reconciliation_pending": true,
+                      "later_lens_credit": false
+                    }
+                  }
+                ],
+                "current_proof_refs": {
+                  "actual_semantic_refs": [
+                    "contracts-008.json"
+                  ]
+                },
+                "body_rereads_for_this_normalization": 0,
+                "semantic_credit_from_metadata": false,
+                "producer_or_owner_or_later_lens_credit": false,
+                "global_reconciliation_pending": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                33,
+                33
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\lib.rs",
+            "actual_EOF": 4796,
+            "bytes": 172137
+          }
+        ],
+        "scope_limits": "Exact qualified current03 direct-definition/native-format roles only; preserve original scope. No metadata semantic credit or ownership transfer.",
+        "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+        "admission_discovery": "source_backed_packet_acceptance_pending"
+      },
+      "source_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-world-schema/src/lib.rs",
+      "exact_git_source": "039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-world-schema/src/lib.rs",
+      "source_sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+      "read_ranges": [
+        [
+          33,
+          33
+        ],
+        [
+          1504,
+          1610
+        ]
+      ],
+      "evidence_basis": "Fresh personal exact registered body comparison by own10; original bodies may support but do not automatically discharge overlay scope.",
+      "inventory": "LandUseFraction derives Serialize/SpacetimeType and manually decodes named WireFraction then bound new with specific static error. LandUseProfile construction enforces exact sum, closed intensity classifier semantic; HumanLandUseIntensity derives serde.",
+      "disposition": "Keep checked aggregate/native named-wire decoder; no matching TryFrom wire route and raw derive bypasses admission. Exact effective33/1504-1610 only, no remainder intensity/profile decode/whole worldlib/runtime acceptance."
+    },
+    {
+      "overlay_index": 158,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-159",
+        "at": "2026-10-22T18:34:10.907325+00:00",
+        "source_id": "physical-p16:crates/fabelgeist-determinism/src/stream.rs",
+        "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+        "audit_owner": "rig",
+        "material_ranges": [
+          [
+            12,
+            28
+          ],
+          [
+            104,
+            115
+          ]
+        ],
+        "admission03_scope_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 87,
+            "registration_id": "NATIVE-ADMISSION03-REG-087",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-087",
+              "at": "2026-10-22T15:41:41.431633+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "physical-p16:crates/fabelgeist-determinism/src/stream.rs",
+              "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+              "snapshot": "physical-p16",
+              "actual_EOF": 169,
+              "material_ranges": [
+                [
+                  11,
+                  29
+                ],
+                [
+                  105,
+                  117
+                ]
+              ],
+              "role": "Exactweighted_index/errorvocabulary directlycalledcurrentP16 names330 generation; Rig069actualindex/below only excludesweighted, RootPRRNGnotautomaticP16credit",
+              "actual_caller": "Camera330 generate_personal_name_from_catalog293/313/325",
+              "reason": "Actualdirectmissingadmission/selectedindex/error contract registeredbeforebody; no RNGwholefile/foreignsamplingstatisticalproof",
+              "exclusions": "weighted_order118+excluded; otherhelpersremainactualRig069boundedproof, no siblingRNG graph",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\fabelgeist-determinism\\src\\stream.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FINALQUAL-087",
+                "registration_id": "NATIVE-ADMISSION03-REG-087",
+                "source_id": "physical-p16:crates/fabelgeist-determinism/src/stream.rs",
+                "snapshot": "physical-p16",
+                "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+                "actual_EOF": 169,
+                "registered_requested_ranges": [
+                  [
+                    11,
+                    29
+                  ],
+                  [
+                    105,
+                    117
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    12,
+                    28
+                  ],
+                  [
+                    105,
+                    115
+                  ]
+                ],
+                "context_or_excluded_within_registration": [
+                  [
+                    11,
+                    11
+                  ],
+                  [
+                    29,
+                    29
+                  ],
+                  [
+                    116,
+                    117
+                  ]
+                ],
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-087",
+                  "at": "2026-10-22T15:41:41.431633+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                  "source_id": "physical-p16:crates/fabelgeist-determinism/src/stream.rs",
+                  "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+                  "snapshot": "physical-p16",
+                  "actual_EOF": 169,
+                  "material_ranges": [
+                    [
+                      11,
+                      29
+                    ],
+                    [
+                      105,
+                      117
+                    ]
+                  ],
+                  "role": "Exactweighted_index/errorvocabulary directlycalledcurrentP16 names330 generation; Rig069actualindex/below only excludesweighted, RootPRRNGnotautomaticP16credit",
+                  "actual_caller": "Camera330 generate_personal_name_from_catalog293/313/325",
+                  "reason": "Actualdirectmissingadmission/selectedindex/error contract registeredbeforebody; no RNGwholefile/foreignsamplingstatisticalproof",
+                  "exclusions": "weighted_order118+excluded; otherhelpersremainactualRig069boundedproof, no siblingRNG graph",
+                  "resolved_path": "SNAPSHOTS\\p16\\crates\\fabelgeist-determinism\\src\\stream.rs",
+                  "status": "registered_before_direct_current03_body_analysis"
+                },
+                "qualification_history": [
+                  {
+                    "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                    "row_1based": 15,
+                    "payload": {
+                      "id": "NATIVE-CAMERA-SUPPORT03-QUAL-087",
+                      "registration_id": "NATIVE-ADMISSION03-REG-087",
+                      "original_registration": {
+                        "id": "NATIVE-ADMISSION03-REG-087",
+                        "at": "2026-10-22T15:41:41.431633+00:00",
+                        "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                        "source_id": "physical-p16:crates/fabelgeist-determinism/src/stream.rs",
+                        "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+                        "snapshot": "physical-p16",
+                        "actual_EOF": 169,
+                        "material_ranges": [
+                          [
+                            11,
+                            29
+                          ],
+                          [
+                            105,
+                            117
+                          ]
+                        ],
+                        "role": "Exactweighted_index/errorvocabulary directlycalledcurrentP16 names330 generation; Rig069actualindex/below only excludesweighted, RootPRRNGnotautomaticP16credit",
+                        "actual_caller": "Camera330 generate_personal_name_from_catalog293/313/325",
+                        "reason": "Actualdirectmissingadmission/selectedindex/error contract registeredbeforebody; no RNGwholefile/foreignsamplingstatisticalproof",
+                        "exclusions": "weighted_order118+excluded; otherhelpersremainactualRig069boundedproof, no siblingRNG graph",
+                        "resolved_path": "SNAPSHOTS\\p16\\crates\\fabelgeist-determinism\\src\\stream.rs",
+                        "status": "registered_before_direct_current03_body_analysis"
+                      },
+                      "qualified_material_ranges": [
+                        [
+                          12,
+                          28
+                        ],
+                        [
+                          105,
+                          115
+                        ]
+                      ],
+                      "qualification": "117nextweighted_ordermethoddoc excluded; no weighted_order/newforeignstatisticalgraph.",
+                      "actual_semantic_refs": [
+                        "contracts-008.json"
+                      ],
+                      "registered_before_body": true,
+                      "global_registry_reconciliation_pending": true,
+                      "later_lens_credit": false
+                    }
+                  }
+                ],
+                "current_proof_refs": {
+                  "actual_semantic_refs": [
+                    "contracts-008.json"
+                  ]
+                },
+                "body_rereads_for_this_normalization": 0,
+                "semantic_credit_from_metadata": false,
+                "producer_or_owner_or_later_lens_credit": false,
+                "global_reconciliation_pending": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                12,
+                28
+              ],
+              [
+                105,
+                115
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\fabelgeist-determinism\\src\\stream.rs",
+            "actual_EOF": 169,
+            "bytes": 5688
+          },
+          {
+            "supplier": "camera",
+            "registry": "continuation/camera/admission03/source-range-registration.jsonl",
+            "row_1based": 29,
+            "registration_id": "CAMERA-ADM03-REG027",
+            "original_record": {
+              "id": "CAMERA-ADM03-REG027",
+              "at": "2026-10-22T14:47:58.772441+00:00",
+              "authority": "CONT-ROOT-ADMISSION03-DISCOVERY-AUTHORITY-043",
+              "source_id": "physical-p16:crates/fabelgeist-determinism/src/stream.rs",
+              "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+              "actual_EOF": 169,
+              "ranges": [
+                [
+                  104,
+                  115
+                ]
+              ],
+              "material_caller": "Original Camera encounter52 three bounded u64weights calls weighted_index; current exactP16Rig069 excluded weighted route",
+              "role": "Direct weighted-selection fallible error/bounded ordinal native adapter only; actual PRRoot023 proof is counterpart supplier, not P16credit",
+              "exclusions": "No weighted_order/shuffle/range_f32 or wholeRNG graph; existing index/unitRig069 exact roles remain separate",
+              "status": "registered BEFORE P16 weighted body analysis"
+            },
+            "local_qualifications": [
+              {
+                "registration_id": "CAMERA-ADM03-REG027",
+                "at": "2026-10-22T18:25:03.942345+00:00",
+                "source_id": "physical-p16:crates/fabelgeist-determinism/src/stream.rs",
+                "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+                "actual_EOF": 169,
+                "original_registered_ranges": [
+                  [
+                    104,
+                    115
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    104,
+                    115
+                  ]
+                ],
+                "context_only_ranges": [],
+                "role": "Direct weighted-selection fallible error/bounded ordinal native adapter only; actual PRRoot023 proof is counterpart supplier, not P16credit",
+                "proof_refs": [
+                  "CAMERA-ADM03-090"
+                ],
+                "qualification": "Exact registered current role limits; reference source contract and original exclusions remain mandatory, no whole-file or included callee credit.",
+                "exclusions": "No weighted_order/shuffle/range_f32 or wholeRNG graph; existing index/unitRig069 exact roles remain separate",
+                "source_registration_record": "continuation/camera/admission03/source-range-registration.jsonl#CAMERA-ADM03-REG027",
+                "no_source_body_credit_from_metadata": true,
+                "no_global_or_other_lens_credit": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                104,
+                115
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\fabelgeist-determinism\\src\\stream.rs",
+            "actual_EOF": 169,
+            "bytes": 5688
+          }
+        ],
+        "scope_limits": "Exact qualified current03 direct-definition/native-format roles only; preserve original scope. No metadata semantic credit or ownership transfer.",
+        "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+        "admission_discovery": "source_backed_packet_acceptance_pending"
+      },
+      "source_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/fabelgeist-determinism/src/stream.rs",
+      "exact_git_source": "039329518e264f19206cf5b0b98d177433f40c17:crates/fabelgeist-determinism/src/stream.rs",
+      "source_sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "read_ranges": [
+        [
+          12,
+          28
+        ],
+        [
+          104,
+          115
+        ]
+      ],
+      "evidence_basis": "Fresh personal exact registered body comparison by own10; original bodies may support but do not automatically discharge overlay scope.",
+      "inventory": "P16 SamplingError manual static Display/empty Error; weighted_index maps pinned native WeightedIndex error categories to semantic application failure then one native sample.",
+      "disposition": "Same qualified candidate015 dependency-gap occurrence as own overlay105 with explicit P16 comparison; keep semantic native error mapping. No statistical/weight/pinnedforeign/runtime or weighted_order118+ acceptance."
+    },
+    {
+      "overlay_index": 159,
+      "registration": {
+        "id": "CONT-OWNER-RANGE-EXTENSION-160",
+        "at": "2026-10-22T18:34:10.907325+00:00",
+        "source_id": "physical-p16:crates/adventuresim-core/Cargo.toml",
+        "sha256": "308714b71f7effc69b5f0d0314884b560472372f1746b1101147414253715b42",
+        "audit_owner": "camera",
+        "material_ranges": [
+          [
+            9,
+            12
+          ],
+          [
+            29,
+            29
+          ]
+        ],
+        "admission03_scope_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 90,
+            "registration_id": "NATIVE-ADMISSION03-REG-090",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-090",
+              "at": "2026-10-22T15:44:50.129656+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json; RootG060061boundedremainingclosure",
+              "source_id": "physical-p16:crates/adventuresim-core/Cargo.toml",
+              "sha256": "308714b71f7effc69b5f0d0314884b560472372f1746b1101147414253715b42",
+              "snapshot": "physical-p16",
+              "actual_EOF": 43,
+              "material_ranges": [
+                [
+                  9,
+                  13
+                ],
+                [
+                  29,
+                  29
+                ]
+              ],
+              "role": "ExactP16 optionalruntime/Corefeature edge forCaseSite derive; P16workspace/lock actualNative043 resolves2.6.1; PRCoreedge077notautomaticP16credit",
+              "actual_caller": "OriginalNative069 P16world_event commit validation +Native070/071actualP16Placefactories; currentPRCamera474definition joinsneedexplicitcomparison",
+              "reason": "Exactdirectgenuineremainingcanonicalcontractregisteredbeforebody; no unrelatedDB/membership/fullSDKgraph",
+              "exclusions": "No unrelatedWorldEventplanners/tests orPlaceexistingtests; fullonlynecessarydefinitions/ctor/codecs, no repairauthoritytransfer",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\Cargo.toml",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FINALQUAL-090",
+                "registration_id": "NATIVE-ADMISSION03-REG-090",
+                "source_id": "physical-p16:crates/adventuresim-core/Cargo.toml",
+                "snapshot": "physical-p16",
+                "sha256": "308714b71f7effc69b5f0d0314884b560472372f1746b1101147414253715b42",
+                "actual_EOF": 43,
+                "registered_requested_ranges": [
+                  [
+                    9,
+                    13
+                  ],
+                  [
+                    29,
+                    29
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    9,
+                    12
+                  ],
+                  [
+                    29,
+                    29
+                  ]
+                ],
+                "context_or_excluded_within_registration": [
+                  [
+                    13,
+                    13
+                  ]
+                ],
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-090",
+                  "at": "2026-10-22T15:44:50.129656+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json; RootG060061boundedremainingclosure",
+                  "source_id": "physical-p16:crates/adventuresim-core/Cargo.toml",
+                  "sha256": "308714b71f7effc69b5f0d0314884b560472372f1746b1101147414253715b42",
+                  "snapshot": "physical-p16",
+                  "actual_EOF": 43,
+                  "material_ranges": [
+                    [
+                      9,
+                      13
+                    ],
+                    [
+                      29,
+                      29
+                    ]
+                  ],
+                  "role": "ExactP16 optionalruntime/Corefeature edge forCaseSite derive; P16workspace/lock actualNative043 resolves2.6.1; PRCoreedge077notautomaticP16credit",
+                  "actual_caller": "OriginalNative069 P16world_event commit validation +Native070/071actualP16Placefactories; currentPRCamera474definition joinsneedexplicitcomparison",
+                  "reason": "Exactdirectgenuineremainingcanonicalcontractregisteredbeforebody; no unrelatedDB/membership/fullSDKgraph",
+                  "exclusions": "No unrelatedWorldEventplanners/tests orPlaceexistingtests; fullonlynecessarydefinitions/ctor/codecs, no repairauthoritytransfer",
+                  "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\Cargo.toml",
+                  "status": "registered_before_direct_current03_body_analysis"
+                },
+                "qualification_history": [
+                  {
+                    "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                    "row_1based": 18,
+                    "payload": {
+                      "id": "NATIVE-CAMERA-SUPPORT03-QUAL-090",
+                      "registration_id": "NATIVE-ADMISSION03-REG-090",
+                      "original_registration": {
+                        "id": "NATIVE-ADMISSION03-REG-090",
+                        "at": "2026-10-22T15:44:50.129656+00:00",
+                        "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json; RootG060061boundedremainingclosure",
+                        "source_id": "physical-p16:crates/adventuresim-core/Cargo.toml",
+                        "sha256": "308714b71f7effc69b5f0d0314884b560472372f1746b1101147414253715b42",
+                        "snapshot": "physical-p16",
+                        "actual_EOF": 43,
+                        "material_ranges": [
+                          [
+                            9,
+                            13
+                          ],
+                          [
+                            29,
+                            29
+                          ]
+                        ],
+                        "role": "ExactP16 optionalruntime/Corefeature edge forCaseSite derive; P16workspace/lock actualNative043 resolves2.6.1; PRCoreedge077notautomaticP16credit",
+                        "actual_caller": "OriginalNative069 P16world_event commit validation +Native070/071actualP16Placefactories; currentPRCamera474definition joinsneedexplicitcomparison",
+                        "reason": "Exactdirectgenuineremainingcanonicalcontractregisteredbeforebody; no unrelatedDB/membership/fullSDKgraph",
+                        "exclusions": "No unrelatedWorldEventplanners/tests orPlaceexistingtests; fullonlynecessarydefinitions/ctor/codecs, no repairauthoritytransfer",
+                        "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\Cargo.toml",
+                        "status": "registered_before_direct_current03_body_analysis"
+                      },
+                      "qualified_material_ranges": [
+                        [
+                          9,
+                          12
+                        ],
+                        [
+                          29,
+                          29
+                        ]
+                      ],
+                      "qualification": "Dependencyheader13 contextonly.",
+                      "actual_semantic_refs": [
+                        "contracts-009.json"
+                      ],
+                      "registered_before_body": true,
+                      "global_registry_reconciliation_pending": true,
+                      "later_lens_credit": false
+                    }
+                  }
+                ],
+                "current_proof_refs": {
+                  "actual_semantic_refs": [
+                    "contracts-009.json"
+                  ]
+                },
+                "body_rereads_for_this_normalization": 0,
+                "semantic_credit_from_metadata": false,
+                "producer_or_owner_or_later_lens_credit": false,
+                "global_reconciliation_pending": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                9,
+                12
+              ],
+              [
+                29,
+                29
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\Cargo.toml",
+            "actual_EOF": 43,
+            "bytes": 1163
+          }
+        ],
+        "scope_limits": "Exact qualified current03 direct-definition/native-format roles only; preserve original scope. No metadata semantic credit or ownership transfer.",
+        "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+        "admission_discovery": "source_backed_packet_acceptance_pending"
+      },
+      "source_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/Cargo.toml",
+      "exact_git_source": "039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/Cargo.toml",
+      "source_sha256": "308714b71f7effc69b5f0d0314884b560472372f1746b1101147414253715b42",
+      "read_ranges": [
+        [
+          9,
+          12
+        ],
+        [
+          29,
+          29
+        ]
+      ],
+      "evidence_basis": "Fresh personal exact registered body comparison by own10; original bodies may support but do not automatically discharge overlay scope.",
+      "inventory": "Exact P16 Core optional SpacetimeDB schema/determinism feature edges, default empty; no traits/codecs.",
+      "disposition": "Feature identity only, no compilation/SATS/database/whole manifest or other canonical source acceptance."
+    }
+  ],
+  "checks": "not run",
+  "source_edits": false,
+  "clear": false
+}

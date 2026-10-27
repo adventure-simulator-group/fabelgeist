@@ -1,0 +1,73 @@
+{
+  "at": "2026-10-27T05:40:46.228529+00:00",
+  "lens": 12,
+  "original": 52,
+  "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/classification.rs",
+  "sha256": "7699fe2b1452a7aff4551999b62c6ed6764dc5dddabf8bce8d8d74e8bf1ebd78",
+  "effective_and_personally_read_ranges": [
+    [
+      1,
+      65
+    ]
+  ],
+  "prior_state": {
+    "path": "audit12-state-successor-030-root-001.json",
+    "sha256": "bf4dea59069a34cbedea1e4809d12a0c50ba111af9026312ac12e2db8d42e969"
+  },
+  "prospective_registration": {
+    "path": "audit12-successor-registration-031-original52.json",
+    "sha256": "36bb525cd906bdcbf36821fadcfd8ec192b01dd71379e7f6dfcdae69f21eee8b"
+  },
+  "independent_inventory": [
+    {
+      "lines": [
+        1,
+        4
+      ],
+      "role": "Module documentation final contributor prose; no semantic runtime string or string API."
+    },
+    {
+      "lines": [
+        6,
+        19
+      ],
+      "role": "BattleAttackKind is canonical closed state Melee/Ranged. snake_case attribute is Serde format policy at enum serialization boundary. Display matches enum variants to final melee/ranged formatter text once. write_str final formatter receives literals; no raw input, text comparison or internally retained state label."
+    },
+    {
+      "lines": [
+        22,
+        41
+      ],
+      "role": "MeleeMovementAction canonical Close/Retreat/Hold; snake_case attribute owns serialization vocabulary. target_velocity consumes typed enum/speed and returns SignedSpeed, no raw string role."
+    },
+    {
+      "lines": [
+        44,
+        65
+      ],
+      "role": "cfg(test)/test names compiler attributes. Existing local expected strings melee/ranged/close/retreat/hold represent exact canonical enum output vocabulary used only by actual serde_json::to_value/to_string assertions. No literal blanket exemption: expected-label/output contracts identified at concrete assertions, fixture code read only and unexecuted. No reason to migrate closed output expected strings into internal state."
+    }
+  ],
+  "trace": "Both actual local producing enum contracts are typed. Display consumes state at std::fmt boundary; Serialize derive/rename attribute describes external enum encoding. Existing tests compare those outputs to fixed textual expectations. No string-producing internal application API or dispatch on prose in this exact source. Native Serde macro/formatter implementations and all external enum consumers not newly source-audited; no runtime test result inferred.",
+  "source_accounted": true,
+  "clear_for_exact_string_roles": true,
+  "global_clearance": false,
+  "current_reconciled": false,
+  "integrated": false,
+  "validated": false,
+  "new_unique_delta": 0,
+  "counts": {
+    "before": 52,
+    "after": 53,
+    "total": 2853,
+    "next": 53,
+    "no53bodycredit": true
+  },
+  "mandatory_other_lens_queue": [],
+  "qualifications": [
+    "Exact frozen65line source independently inventoried after registration and hashcheck, no foreign supplier/other-lens verdict transfer. No currentwholefile alias.",
+    "No obligation to preserve prior vocabulary/wire shapes before release. Existing expected outputs described as source contract only, no new preservation tests/cases/assertions.",
+    "No project/native execution/tests/build/lint/scanner/generator, product/Git edits or publication. All all20/P16/P17/inherited/other-lens and previousM09/51candidate obligations preserved via priorstate."
+  ],
+  "stop": "Full52 stringroles source-accounted, stop before53."
+}

@@ -1,0 +1,407 @@
+//! Shared tactical scene and gameplay-camera presentation.
+//!
+//! Both the networked client and deterministic animation capture install this
+//! plugin so screenshots cannot drift to a different camera, terrain mesh,
+//! lighting, or post-processing setup.
+
+#![expect(
+    unused_imports,
+    reason = "the gameplay client and capture binaries consume different parts of this shared presentation facade"
+)]
+
+mod atmosphere;
+mod buildings;
+mod cloud_bake_assets;
+mod clouds;
+mod config;
+mod demo_lifecycle;
+#[cfg(any(target_family = "wasm", test))]
+pub(crate) mod generation;
+
+pub(crate) use demo_lifecycle::{clear_demo_scene, clear_scene_entities};
+pub(crate) use vista::streets::streaming::StreamCityTraffic;
+mod closure_meshes;
+mod doors;
+mod furniture;
+pub(crate) use furniture::{InteriorFurnitureExhibition, PresentedFurnitureMesh};
+mod building_closures;
+mod environment;
+mod ground_palette;
+pub(crate) mod ground_scatter;
+#[cfg(any(target_family = "wasm", test))]
+mod regional_lighting;
+#[cfg(target_family = "wasm")]
+pub(crate) mod regional_map;
+use ground_palette::{TACTICAL_DIRT_SRGB, scene_ground_color};
+pub(crate) use ground_scatter::gardens::ManagedGardenPlant;
+pub(crate) mod interior_lighting;
+mod materials;
+mod obstacles;
+pub(crate) mod ownership;
+pub(crate) mod preparation;
+mod procedural;
+pub(crate) mod procedural_texture_setup;
+pub(crate) mod recipe_mesh;
+mod sky;
+mod strategic_scene_assets;
+mod terrain;
+pub(crate) use strategic_scene_assets::PreparedStrategicScene;
+pub(crate) mod venues;
+mod vista;
+pub(crate) use buildings::queue_strategic_city;
+pub(crate) use vista::{BackdropError, PreparedBackdrop, StrategicBackdrop};
+mod volumetric;
+mod weather;
+mod windows;
+pub(crate) use building_closures::{BuildingClosureVisibility, PresentedBuildingClosureMesh};
+
+use adventuresim_procedural_textures::LeafTextureSet;
+pub(crate) use adventuresim_procedural_textures::ProceduralTextureAssets;
+#[cfg(test)]
+use adventuresim_procedural_textures::generate_procedural_textures;
+pub(crate) use atmosphere::AtmosphereIblCache;
+use atmosphere::*;
+pub(crate) use buildings::BuildingRenderLevel;
+pub(crate) use buildings::city_gpu_ready;
+use buildings::*;
+use clouds::*;
+pub(crate) use doors::{DoorPresentationPlugin, GrabTargetOutline};
+use environment::*;
+use ground_scatter::*;
+use obstacles::on_scene_obstacle_added;
+use obstacles::rock::TacticalRockMaterial;
+use obstacles::tree::*;
+use procedural::*;
+use procedural_texture_setup::setup_procedural_texture_assets;
+use sky::*;
+pub(crate) use terrain::PendingTerrainPresentation;
+use terrain::*;
+use vista::*;
+use volumetric::*;
+use weather::*;
+use windows::WindowPresentationPlugin;
+
+pub use config::{
+    AntiAliasingConfig, PresentModeConfig, ShadowFiltering, SmaaQuality, TacticalGraphicsConfig,
+    TonemappingConfig, WindowModeConfig,
+};
+
+#[derive(Component, Debug, Clone, Copy)]
+pub(crate) struct TerrainTriangleCount(pub(crate) usize);
+
+fn mesh_triangle_count(mesh: &Mesh) -> usize {
+    mesh.indices()
+        .map_or_else(|| mesh.count_vertices() / 3, |indices| indices.len() / 3)
+}
+
+// This facade is compiled independently by several binaries, so each binary
+// uses only the subset of the stable presentation interface that it needs.
+pub(crate) use buildings::{
+    PendingCityBuildings, PreparedBuildingGeometry, PresentedBuildingMesh, PresentedSign,
+    TacticalBuildingMaterials, TacticalBuildingMeshCache,
+};
+pub(crate) use cloud_bake_assets::PrebakedCloudEnvironment;
+#[cfg(test)]
+pub(crate) use clouds::bake_environment_rgba8;
+pub(crate) use clouds::{
+    TacticalCloudAnimationStatus, TacticalCloudBenchmarkIsolation, TacticalCloudCaptureOverride,
+    TacticalCloudCaptureProfile, TacticalCloudLayer, TacticalCloudOffscreenCamera,
+};
+pub(crate) use environment::{RegionalMapCamera, TacticalCameraSetup, TacticalGameplayCamera};
+pub(crate) use ground_scatter::{
+    GrassInteractor, GroundLitterCaptureAnchors, GroundLitterCapturePair, GroundLitterDiagnostics,
+    GroundScatterLayer, LooseStonePebblePatch, PlantCaptureAnchors, PlantLodInstance,
+    UnderstoryReviewSpecimen, WoodyUnderstoryPresentationCache, spawn_understory_review_specimens,
+};
+pub(crate) use obstacles::oak_review_terminal_specimen;
+pub(crate) use obstacles::rock::ProceduralRockVisual;
+pub(crate) use obstacles::tree::TreeImpostorProvenance;
+#[cfg(test)]
+pub(crate) use obstacles::tree::prepare_art_demo_tree_impostor_asset;
+pub(crate) use obstacles::tree::{
+    PlayableTreeAggregateWood, PlayableTreeBuds, PlayableTreeCanopyCard,
+    PlayableTreeDetailedLeaves, PlayableTreeDetailedTrunk, PlayableTreeDetailedWood,
+    PlayableTreeMidTrunk, PlayableTreeTrunk, PreparedTreeImpostorAsset, PreparedTreeImpostorAssets,
+    PresentedTree, TacticalTreeAggregateBarkMaterial, TacticalTreeBarkMaterial,
+    TacticalTreeBenchmarkIsolation, TacticalTreeLeafCardMaterial, TreeAssetResidencyDiagnostics,
+    TreeLeafRepresentation, TreeLeafTriangleCount, TreeLod, TreeLodCluster, TreeLodRenderOverride,
+    TreePresentationSpecies, TreeTrunkLod, oak_aggregate_bark_material, oak_bark_material,
+    oak_leaf_material, oak_root_exposure_for_site, tree_species_for_site,
+};
+pub(crate) use sky::AtmosphereIblStatus;
+pub(crate) use sky::{TacticalMoon, TacticalMoonlight, TacticalStars, TacticalSunlight};
+pub(crate) use terrain::{
+    DETAIL_PATCH_SPACING_METRES, TerrainContactHeightmap, TerrainDetailPatch,
+    TerrainMaterialPresentation,
+};
+pub(crate) use vista::{CityGroundMaterial, VistaTerrain, VistaTerrainMesh, VistaTreePresentation};
+pub(crate) use weather::WeatherParticle;
+
+use adventuresim_tactical_core::prelude::*;
+use adventuresim_tactical_netcode::prelude::SceneVistaBundle;
+#[cfg(test)]
+use bevy::mesh::VertexAttributeValues;
+use bevy::{
+    asset::RenderAssetUsages,
+    camera::{
+        Exposure,
+        visibility::{NoFrustumCulling, VisibilityRange},
+    },
+    core_pipeline::tonemapping::Tonemapping,
+    image::ImageSampler,
+    light::{
+        Atmosphere, AtmosphereEnvironmentMapLight, DirectionalLightShadowMap, EnvironmentMapLight,
+        NotShadowCaster, atmosphere::ScatteringMedium, light_consts::lux,
+    },
+    mesh::{Indices, MeshVertexAttribute, PrimitiveTopology},
+    pbr::{AtmosphereSettings, ExtendedMaterial, MaterialExtension},
+    post_process::bloom::Bloom,
+    prelude::*,
+    render::render_resource::{
+        AsBindGroup, Extent3d, RenderPipelineDescriptor, SpecializedMeshPipelineError,
+        TextureDimension, TextureFormat, VertexFormat,
+    },
+    shader::ShaderRef,
+};
+use web_time::Instant;
+
+#[derive(Resource)]
+pub(crate) struct ClientStartupTiming {
+    started_at: Instant,
+    terrain_preparation_reported: bool,
+}
+
+impl ClientStartupTiming {
+    pub(crate) fn new(started_at: Instant) -> Self {
+        Self {
+            started_at,
+            terrain_preparation_reported: false,
+        }
+    }
+
+    pub(crate) fn mark(&self, phase: &str) {
+        let elapsed_ms = self.started_at.elapsed().as_millis();
+        info!(phase, elapsed_ms, "[startup] tactical client phase");
+        #[cfg(not(target_family = "wasm"))]
+        eprintln!("[startup] native client phase={phase:?} elapsed_ms={elapsed_ms}");
+    }
+
+    pub(crate) fn mark_terrain_prepared_once(&mut self) {
+        if self.terrain_preparation_reported {
+            return;
+        }
+        self.terrain_preparation_reported = true;
+        self.mark("first tactical terrain prepared");
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct TacticalPresentationPlugin {
+    pub config: TacticalGraphicsConfig,
+}
+
+impl Default for TacticalPresentationPlugin {
+    fn default() -> Self {
+        Self {
+            config: TacticalGraphicsConfig::parse(include_str!(
+                "../../../../assets/config/tactical-graphics.yaml"
+            ))
+            .expect("shipped tactical graphics configuration must be valid"),
+        }
+    }
+}
+
+fn tactical_global_ambient_light() -> GlobalAmbientLight {
+    GlobalAmbientLight {
+        brightness: 0.0,
+        ..default()
+    }
+}
+
+impl Plugin for TacticalPresentationPlugin {
+    fn build(&self, app: &mut App) {
+        // GPU-instanced grass renders through bevy_eidolon on native and wasm
+        // (the fork's WebGPU draw path substitutes draw_indexed_indirect for
+        // multi-draw-indirect on the browser backend).
+        app.add_plugins((
+            ground_scatter::InstancedGrassPlugin,
+            ground_scatter::gardens::GardenPresentationPlugin,
+        ));
+        app.add_plugins(materials::TacticalMaterialsPlugin)
+            .add_plugins(interior_lighting::InteriorLightingPlugin)
+            // Tactical play uses one compact close-range cascade for whichever
+            // celestial light is active. Keep the map allocation identical in the
+            // game and all tactical review viewers.
+            .insert_resource(DirectionalLightShadowMap {
+                size: self.config.rendering.shadows.map_size,
+            })
+            .insert_resource(TacticalGraphicsSettings {
+                config: self.config.clone(),
+            })
+            .init_resource::<TacticalCameraSetup>()
+            // Generated sky radiance owns ambient illumination.
+            .insert_resource(tactical_global_ambient_light())
+            .add_systems(
+                Startup,
+                (
+                    setup_procedural_texture_assets,
+                    setup_tactical_building_materials,
+                    setup_tactical_presentation,
+                    setup_tactical_sky,
+                    setup_tactical_clouds,
+                )
+                    .chain(),
+            )
+            .init_resource::<WoodyUnderstoryPresentationCache>()
+            .init_resource::<GroundFoliagePresentationCache>()
+            .init_resource::<TreePresentationCache>()
+            .init_resource::<obstacles::tree::RetainedTreePresentations>()
+            .init_resource::<TreeAssetResidencyDiagnostics>()
+            .init_resource::<VistaTreePresentationCache>()
+            .init_resource::<PreparedTreeImpostorAssets>()
+            .init_asset::<PreparedTreeImpostorAsset>()
+            .init_asset_loader::<PreparedTreeImpostorLoader>()
+            .init_resource::<ActiveVistaSurface>()
+            .init_resource::<vista::pending::PendingVista>()
+            .init_resource::<TreeLodRenderOverride>()
+            .init_resource::<TacticalTreeBenchmarkIsolation>()
+            .init_resource::<ActiveTacticalScene>()
+            .init_resource::<PresentedCelestialLighting>()
+            .init_resource::<AtmosphereIblCache>()
+            .init_resource::<AtmosphereIblStatus>()
+            .init_resource::<TacticalCloudCaptureOverride>()
+            .init_resource::<TacticalCloudBenchmarkIsolation>()
+            .init_resource::<WeatherOcclusionState>()
+            .add_systems(
+                Update,
+                (
+                    (
+                        present_pending_terrain,
+                        vista::pending::present_ready_vista,
+                        update_terrain_detail_patch,
+                        present_ground_scatter,
+                    )
+                        .chain(),
+                    (
+                        refresh_active_tactical_scene,
+                        update_presented_celestial_lighting,
+                        apply_presented_celestial_lighting,
+                    )
+                        .chain(),
+                    update_celestial_material_lighting
+                        .after(update_presented_celestial_lighting)
+                        .after(present_pending_trees),
+                    (
+                        present_pending_trees,
+                        stream_tree_lod_children,
+                        update_tree_projected_lod_ranges,
+                    )
+                        .chain(),
+                    keep_celestial_visuals_centered.after(update_presented_celestial_lighting),
+                    update_tactical_clouds.after(update_presented_celestial_lighting),
+                    update_tactical_cloud_offscreen_target,
+                    update_global_ambient_policy.after(apply_presented_celestial_lighting),
+                    apply_active_environment_fog.after(refresh_active_tactical_scene),
+                    apply_active_scene_weather
+                        .after(refresh_active_tactical_scene)
+                        .after(present_pending_trees),
+                    update_weather_occlusion_map
+                        .after(apply_active_scene_weather)
+                        .after(present_pending_trees),
+                ),
+            )
+            .add_observer(on_game_scene_added)
+            .add_observer(activate_tactical_scene)
+            .add_observer(terrain::on_environment_added)
+            .add_observer(terrain::on_ground_added)
+            .add_observer(on_scene_obstacle_added)
+            .add_plugins(BuildingPresentationPlugin)
+            .add_plugins(furniture::FurniturePresentationPlugin)
+            .add_plugins(terrain::UrbanGroundCoveragePlugin)
+            .add_observer(on_scene_vista_bundle)
+            .add_systems(Update, vista::streets::streaming::update)
+            // Bevy prepares probe components with deferred commands in Update.
+            // Retire probes only after those inserts have been applied.
+            .add_systems(
+                PostUpdate,
+                cache_initialized_atmosphere.after(bevy::transform::TransformSystems::Propagate),
+            );
+    }
+
+    fn finish(&self, app: &mut App) {
+        // Install this after every plugin has built so the RenderApp and
+        // Bevy's atmosphere extractor exist regardless of plugin order.
+        install_atmosphere_cleanup_backport(app);
+    }
+}
+
+#[derive(Resource, Debug, Clone)]
+pub(crate) struct TacticalGraphicsSettings {
+    pub(crate) config: TacticalGraphicsConfig,
+}
+
+impl Default for TacticalGraphicsSettings {
+    fn default() -> Self {
+        Self {
+            config: TacticalPresentationPlugin::default().config,
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use std::{fs, path::Path};
+
+    /// WGSL requires every directive to precede the first declaration, and an
+    /// `#import` expands into declarations. A directive written below the
+    /// imports fails composition for the whole file, which surfaces only as a
+    /// log line while the material stops rendering on every backend.
+    #[test]
+    fn shader_directives_precede_declarations() {
+        // Both shader roots the tactical renderer composes: the runtime asset
+        // directory and the shaders embedded in the procedural materials crate.
+        const SHADER_ROOTS: [&str; 2] = [
+            concat!(env!("CARGO_MANIFEST_DIR"), "/../../assets/shaders"),
+            concat!(
+                env!("CARGO_MANIFEST_DIR"),
+                "/../adventuresim-procedural-materials/src/shaders"
+            ),
+        ];
+        let mut checked = 0;
+        for root in SHADER_ROOTS {
+            for entry in fs::read_dir(Path::new(root)).expect("tactical shader directory") {
+                let path = entry.expect("shader directory entry").path();
+                if path.extension().is_none_or(|extension| extension != "wgsl") {
+                    continue;
+                }
+                let source = fs::read_to_string(&path).expect("readable tactical shader");
+                assert_directives_precede_declarations(&path.display().to_string(), &source);
+                checked += 1;
+            }
+        }
+        assert!(checked > 0, "no tactical shaders were checked");
+    }
+
+    fn assert_directives_precede_declarations(label: &str, source: &str) {
+        let mut declared = false;
+        for (index, line) in source.lines().enumerate() {
+            let line = line.trim();
+            if line.is_empty() || line.starts_with("//") {
+                continue;
+            }
+            if line.starts_with("diagnostic(")
+                || line.starts_with("enable ")
+                || line.starts_with("requires ")
+            {
+                assert!(
+                    !declared,
+                    "{label}:{}: WGSL directive written after a declaration; \
+                     move it above the imports or the shader will not compile",
+                    index + 1
+                );
+            } else if !line.starts_with('#') || line.starts_with("#import") {
+                declared = true;
+            }
+        }
+    }
+}

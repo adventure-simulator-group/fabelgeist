@@ -1,0 +1,30 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-001",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 385,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/consequence.rs",
+      "sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+      "ranges": [
+        [
+          1,
+          308
+        ]
+      ],
+      "source_basis": "Fresh root complete personal exact frozen physical-p16 recovered-object read; no same-path/current-main substitution or cross-lens verdict credit.",
+      "concepts_and_actual_uses": [
+        "EquipmentContactQuery aliases exact ECS borrow contract, no new semantic identity. CharacterId, tactical inventory item provenance, EquipSlot and BodyPart retain useful identity/selection meanings.",
+        "apply_transient_attack_result272-307 distinguishes balance impairment, current applied limb-health loss and wound allocation; record_party_injury176-200 stores summed cut/blunt plus largest-single blunt, which have distinct aggregate/time roles despite f32 storage.",
+        "Contact force is reduced into bounded terminal stress; stress is separate from health fractions and ammunition count. Mutable contacts aggregate by inventory item; attacker/defender contact role bool is semantic terminal evidence, not native numerical padding.",
+        "Party metadata selects terminal recording while live limbs/state/wounds/velocity stay transient Bevy. Injury and contact data need coherent admitted aggregate, not universal scalar wrapper or per-field redundant validation."
+      ],
+      "disposition": "Source support for existing local774:M59 terminal receipt/accumulator contract and M01/physical producer distinctions. Full M59 repair text explicitly requires named participant/injury/contact records, max-hit vs aggregate relationships, distinct contact-stress scale and ammunition bounded count, preserving zero/empty policy. Keep raw native SDK DTO at final boundary only. No ordinary lost-contact/participant, force-unit bug or strategic authority bypass established from this role. Existing flags/selection association remain family obligation; no new unique issue counted.",
+      "acceptance": "Preserve actual applied damage rather than requested damage, per-body-part sum/max meaning, exact inventory provenance/role and actual saturation bounds; no tactical tick persistence, no unsupported new numerical bounds. Reconcile canonical current source and full producer/receipt/strategic receivers before source changes.",
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "new_unique_findings": 0,
+  "clear": false
+}

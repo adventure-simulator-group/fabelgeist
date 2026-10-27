@@ -1,0 +1,11 @@
+--- base:974eb0a6fc0c028f246576cd03e2ba83b772d47befe3a2593663c1d38339dd68
++++ head:442ea977df5466ad973589f48a61e9166674c05f541f174dd0e54bb7e319b47e
+@@ -18,7 +18,7 @@
+         Self {
+             scenario: frame.scenario.label().to_owned(),
+             scenario_frame: frame.scenario_frame,
+-            time_seconds: frame.time_seconds.seconds(),
++            time_seconds: frame.time_seconds,
+             action: skeleton.action_kind(),
+             action_phase: skeleton.action_phase(),
+             subject_translation: subject_global.translation().to_array(),

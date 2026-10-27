@@ -1,0 +1,19 @@
+{
+  "scope_index": 1781,
+  "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state.rs",
+  "sha256": "48d075954cf0381f63c73815380ed47c37be6c35e30c573b6839e74c21572557",
+  "source": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/state.rs",
+  "ranges": [
+    [
+      1,
+      660
+    ]
+  ],
+  "predecessor": "partial-1781-001.json",
+  "next_line": 661,
+  "whole_role_complete": false,
+  "inventory_so_far": "Fresh additional exact frozen read221-660. Basic/default/serde derives common. ActionState manual Deserialize507-551 retains variant-specific timeline/curve/queued normalization and finite target clamp/fallback; QuickstepDirection Deserialize585-595 retains finite nonzero normalization/error. These are semantic small adapters, no direct derive substitution. ActionState manual Default553-557 constructs private ActionKind::Idle; potential standard derive pair on private ActionKind(default Idle) and ActionState to assess after whole role. Body/guard/contact normalization and configured AttackCurve default are behaviorful. Remaining661-2069 pending.",
+  "new_findings": [],
+  "credit": "Partial only; no whole-role/material count",
+  "checks": "not run"
+}

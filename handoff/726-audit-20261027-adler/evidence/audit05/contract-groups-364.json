@@ -1,0 +1,29 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-364",
+  "at": "2026-10-25T23:40:23.474360+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 108,
+      "source_id": "physical-p16:crates/adventuresim-core/src/foraging.rs",
+      "sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+      "personally_read_ranges": [
+        [
+          1,
+          1278
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1278line P16 foraging source read. Fixed resource definitions have distinct IDs/source categories, bounded ordered yields and explicit habitat sets. Resolution validates whole-hour1..24h duration, individually bounded normalized terrain sum, source count/unique/known/available then canonicalizes source order before shared category/resource budget and domain-separated draws.",
+        "Bounded duration/resource/skill/habitat constants keep expected-yield arithmetic within ordinary u64 limits in this producer; no blanket arbitrary ForageResource helper admission. Resolution carries yield list plus paired optional stealth DC/result from same environment/time/seed; interruption exposure resolver intentionally accepts partial elapsed duration.",
+        "License question digest frames actor/source/operation/global jurisdiction. ForageLicenseDecision checks subject/resource/operation/jurisdiction plus decision digest, retaining actor/source/private decision. Privilege-presented bool/current evidence revision remain trusted server inputs; this pure API is not authority acquisition.",
+        "Plan checks canonical source order, exact one decision per source/actor, and legality derived from local restriction or denied decisions. It trusts currentness/source availability booleans and precomputed optional resolution. Positive elapsed with resolutionNone silently emits no CommitResolution; resolution-source/time/environment matching and source-count/duration validity must be enforced by actual authoritative adapter before accepted finding.",
+        "Interrupted plans explicitly clear yields and preserve stealth consequence with permits_yield=false; public preview excludes secret environment/license/seed/DC/yield. Existing tests read but not run. No persistence plan freshness, arbitrary payload safety or player secrecy global clearance."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

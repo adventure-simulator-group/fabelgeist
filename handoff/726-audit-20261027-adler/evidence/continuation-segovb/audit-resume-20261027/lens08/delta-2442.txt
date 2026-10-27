@@ -1,0 +1,41 @@
+--- base:40836a3c9a7e347f98f9ecf51aca3df955494d854e67f805e1cff8e54d02ec8a
++++ head:9b77b6040fcf91aa02261a284189f50a43a59f05ba0e8e4d719966b21a0685bd
+@@ -4,6 +4,7 @@
+ use adventuresim_building_generator::spatial_geometry::{
+     CoordinateAxis, GeometryError, GeometryRole, Position,
+ };
++use fabelgeist_geometry::{GeometryResult, SignedLength};
+ use adventuresim_tactical_core::{
+     city_layout::grounding::SupportElevation,
+     scene_coordinates::{Scene, ScenePlanPoint},
+@@ -21,7 +22,7 @@
+         subject: Entity,
+         bones: &Query<(&HumanoidBone, &GlobalTransform)>,
+         terrain: &SceneTerrain,
+-    ) -> CapturedBones {
++    ) -> GeometryResult<CapturedBones> {
+         bones
+             .iter()
+             .filter(|(bone, _)| bone.owner == subject && report_bone_label(bone.role).is_some())
+@@ -34,15 +35,18 @@
+                             .and_then(|point| terrain.height_at(point))
+                     }
+                 };
+-                (
++                Ok((
+                     bone.role,
+                     BoneSample {
+                         position: transform.translation().to_array(),
+                         rotation_xyzw: [rotation.x, rotation.y, rotation.z, rotation.w],
+                         terrain_clearance_metres: elevation
+-                            .map(|height| transform.translation().y - height.metres()),
++                            .map(|height| {
++                                SignedLength::from_metres(transform.translation().y - height.metres())
++                            })
++                            .transpose()?,
+                     },
+-                )
++                ))
+             })
+             .collect()
+     }

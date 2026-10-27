@@ -1,0 +1,20 @@
+{
+  "kind": "append-only metadata erratum",
+  "supersedes_fields_only": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens13/batch-038-040-receipt.json",
+  "receipt_sha256": "42593a5c1e76a2bdc5f2d0a06a9c76f66ea1131e434808292ceb55ffad081d82",
+  "corrections": [
+    {
+      "field": "actual_source_reads[*].read_qualification",
+      "meaning": "The repeated original96-specific history is a copied metadata string, applicable only to original96. All other entries mean their listed actual_consumed_ranges were read after their corresponding prospective registrations038/039/040; there is no original96 read-history claim for those files."
+    },
+    {
+      "field": "entropy.body_read",
+      "meaning": "false was retained from prospective source-staging metadata. Actual entropy1-26 was consumed after039 registration; actual_consumed_ranges records actual read, and body_read is true as of final receipt."
+    },
+    {
+      "field": "original96.reuse",
+      "meaning": "Prior014 proof was initially planned for reuse. Actual full1-131 was freshly body-read after038 registration for independent ordered inventory. The stale no-fresh-body-credited wording is withdrawn; one original96 credit only."
+    }
+  ],
+  "scope_unchanged": "No new body reads or population counts; original93 credit limited to registered effective union, supplemental disease receiver reads remain receiver access; other-lens queues and all findings/qualifications unchanged."
+}

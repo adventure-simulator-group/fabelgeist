@@ -1,0 +1,63 @@
+{
+  "id": "CONT08-020-BOUNDS-DIMENSIONS-REGISTRATION",
+  "created_utc": "2026-10-27T05:07:40.673617+00:00",
+  "provenance": {
+    "path": "target/recovery-20261025/continuation-segovb/audit08-root-bounds-dimensions-staging-020.json",
+    "sha256": "4060f6d2749b8060e7b482dc4a51fc3330adbf198a1f5147b3cefdf953ba78fd"
+  },
+  "sources": [
+    {
+      "source_id": "base:crates/adventuresim-tactical-core/src/city_layout.rs",
+      "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/d5aacb8a24fecfd5dadee9361c1b6c3d32bd19171bfc0bc984cd8b2efb183c8f",
+      "sha256": "d5aacb8a24fecfd5dadee9361c1b6c3d32bd19171bfc0bc984cd8b2efb183c8f",
+      "prospective_ranges": [
+        [
+          1,
+          338
+        ]
+      ],
+      "scope": "Full changed dimensions before/after variant body, or city_layout parent only actual CityPlotBounds declarations/constructors/corner methods plus necessary imports; no unrelated whole parent behavior credit."
+    },
+    {
+      "source_id": "head:crates/adventuresim-tactical-core/src/city_layout.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/d5aacb8a24fecfd5dadee9361c1b6c3d32bd19171bfc0bc984cd8b2efb183c8f",
+      "sha256": "d5aacb8a24fecfd5dadee9361c1b6c3d32bd19171bfc0bc984cd8b2efb183c8f",
+      "prospective_ranges": [
+        [
+          1,
+          338
+        ]
+      ],
+      "scope": "Full changed dimensions before/after variant body, or city_layout parent only actual CityPlotBounds declarations/constructors/corner methods plus necessary imports; no unrelated whole parent behavior credit."
+    },
+    {
+      "source_id": "base:crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+      "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/2d2939444a886b9c8e24716c41c21844e44abe8f18b2f6607d881ef75090c89d",
+      "sha256": "2d2939444a886b9c8e24716c41c21844e44abe8f18b2f6607d881ef75090c89d",
+      "prospective_ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "scope": "Full changed dimensions before/after variant body, or city_layout parent only actual CityPlotBounds declarations/constructors/corner methods plus necessary imports; no unrelated whole parent behavior credit."
+    },
+    {
+      "source_id": "head:crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "object": "target/recovery-20261025/continuation-segovb/source-objects/4ccc1188de7d5f8bdbf63b71160b8557f76fb524ae47f924381325da11198ee8",
+      "sha256": "4ccc1188de7d5f8bdbf63b71160b8557f76fb524ae47f924381325da11198ee8",
+      "prospective_ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "scope": "Full changed dimensions before/after variant body, or city_layout parent only actual CityPlotBounds declarations/constructors/corner methods plus necessary imports; no unrelated whole parent behavior credit."
+    }
+  ],
+  "qualification": "Frozen exact source identity only; city_layout unchanged338line full file is not requested for whole-family clearance. Actual ranges recorded after bounded reads. No original667/future-original count transfer."
+}

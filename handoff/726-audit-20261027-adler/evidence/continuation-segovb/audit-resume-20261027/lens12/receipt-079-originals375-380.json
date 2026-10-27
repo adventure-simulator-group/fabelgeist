@@ -1,0 +1,259 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "079",
+  "predecessor": "receipt-078-originals373-374.json",
+  "manifest_prefix_sha256": "ce42db4df9d065ca99dc97f9fe064443bc7b143a2bfea4165910d1e26d5c1e5c",
+  "sources": [
+    {
+      "original_index": 375,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/defense.rs",
+      "sha256": "4eca0fbb28b320a2c62d9351bc7ce4331d2b0d011abe8ad74a6f10b62071884e",
+      "actual_eof": 287,
+      "actual_ranges": [
+        [
+          1,
+          287
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              287
+            ]
+          ],
+          "role": "Warnings cannot admit observed attack windup115/cannot schedule bot reaction132/171/210 only; no String-valued application API. Typed DefendRequest retained53/280-285.",
+          "disposition": "Concrete native tracing output boundary; all287read, no reaction/admission/physics/timing/other-lens proof."
+        }
+      ],
+      "status": "Full requested source independently inventoried WITH qualified catalog finding or concrete text/zero roles."
+    },
+    {
+      "original_index": 376,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense.rs",
+      "sha256": "4275e4b481c27b96b32ef6cf85927899c939af70d3aa8cf2f4094bbd8d80e7dd",
+      "actual_eof": 302,
+      "actual_ranges": [
+        [
+          1,
+          302
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              302
+            ]
+          ],
+          "role": "Warnings cannot schedule bot initiative141/cannot admit bot target separation160/cannot admit bot attack facts182/cannot schedule bot attack phase229/cannot schedule bot counterattack initiative254. No String-valued application API. Existingtests258-302 numeric/typed no strings.",
+          "disposition": "Concrete native tracing output boundary; child377-380 separately independently read, no source/verdict transfer from module declaration or numerical/runtime claim."
+        }
+      ],
+      "status": "Full requested source independently inventoried WITH qualified catalog finding or concrete text/zero roles."
+    },
+    {
+      "original_index": 377,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense/facts.rs",
+      "sha256": "be9f3c237f25e8a4604f2eab6cf51a11b0e988d3b780ea7904884f0bb79a3e97",
+      "actual_eof": 199,
+      "actual_ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              199
+            ]
+          ],
+          "role": "Compiler lint reasons facts span both actors and authored movement56/lunge projection joins both collider facts169. Actual ARROW_ID passed has_item_id81\u2192355322-324 string equality controls use_ranged104. No literal gameplay string in199.",
+          "disposition": "Native lint prose boundary separate from semantic raw catalog reference through existing constant/API. Retain canonical open ItemId/Ammo capability owner through ItemProperties.id and lookup; no constant exemption or finite closed catalog."
+        }
+      ],
+      "status": "Full requested source independently inventoried WITH qualified catalog finding or concrete text/zero roles."
+    },
+    {
+      "original_index": 378,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense/phase.rs",
+      "sha256": "d779afa0fed93760d08b2dc0b0cea2701dcda4cca41f4be0d5d2b6106d16092d",
+      "actual_eof": 370,
+      "actual_ranges": [
+        [
+          1,
+          370
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              370
+            ]
+          ],
+          "role": "Expect AI precision is finite74/359, unreachable pursuit was handled above122, compiler lint reason89/170 only. All phase transitions use OffensiveCombatPhase typed17-30/121-164, BotContinuationDecisionWithdraw241/Yield297 typed.",
+          "disposition": "Concrete diagnostic/compiler boundaries; no raw semantic status or String API. No assertion of expect adequacy/admission/elapsed/state/runtime/lens08 behavior; no BC requirement from existing arithmetic comments."
+        }
+      ],
+      "status": "Full requested source independently inventoried WITH qualified catalog finding or concrete text/zero roles."
+    },
+    {
+      "original_index": 379,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense/ranged.rs",
+      "sha256": "2f92d78e5bd08a1b831ec0901c256ce7b4a540193ad988ef6d3a4f3d62f68fdc",
+      "actual_eof": 43,
+      "actual_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              43
+            ]
+          ],
+          "role": "Zero literals/String APIs in43; RangedAttackStartedIntent actualtyped34-39.",
+          "disposition": "Zero string role only; no arithmetic/timer/native/other-lens acceptance."
+        }
+      ],
+      "status": "Full requested source independently inventoried WITH qualified catalog finding or concrete text/zero roles."
+    },
+    {
+      "original_index": 380,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense/tactics.rs",
+      "sha256": "b65059c1af131b6b98f426067c5bf495ade564c4f8538987bbdce63dcc42a54d",
+      "actual_eof": 48,
+      "actual_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              48
+            ]
+          ],
+          "role": "Zero literals/String APIs in48; typed length/interval inputs and native numerical operations.",
+          "disposition": "Zero string role only; no numerical/probability/runtime/other-lens acceptance."
+        }
+      ],
+      "status": "Full requested source independently inventoried WITH qualified catalog finding or concrete text/zero roles."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Bot ammo availability uses raw catalog ID through constant and tactical inventory query",
+      "sources": [
+        "377:80-81,104",
+        "355:103,322-324",
+        "374:505-509"
+      ],
+      "remedy": "Carry canonical item reference or intended catalog capability through producer/ItemProperties/state/inventory query and final native codec.",
+      "acceptance": "Reconcile existing catalog owner and constant declaration with all source producers/recipients before repair; no invented closed item enum or unique count.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Exact ARROW_ID declaration/catalog capability and external inventory producers are not proven by constant spelling/import alone.",
+    "Actual combat admission/event and native runtime/timer/geometry contracts remain other scoped obligations; no gameplay behavior verdict."
+  ],
+  "qualifications": [
+    "Exact frozen f82 physical-P16 source, no current alias.",
+    "No backward compatibility/input preservation or project/native/test/probe execution; no product/Git/root-ledger/publication mutation.",
+    "All20/P16/P17/F9/M09/aliases/currentness retained; no repaired/global/runtime/unique-total/other-lens clearance."
+  ],
+  "proposed_count": {
+    "before": 375,
+    "after": 381,
+    "indices_completed": [
+      375,
+      376,
+      377,
+      378,
+      379,
+      380
+    ],
+    "next_original": 381,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/defense.rs",
+      "sha256": "4eca0fbb28b320a2c62d9351bc7ce4331d2b0d011abe8ad74a6f10b62071884e",
+      "ranges": [
+        [
+          1,
+          287
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense.rs",
+      "sha256": "4275e4b481c27b96b32ef6cf85927899c939af70d3aa8cf2f4094bbd8d80e7dd",
+      "ranges": [
+        [
+          1,
+          302
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense/facts.rs",
+      "sha256": "be9f3c237f25e8a4604f2eab6cf51a11b0e988d3b780ea7904884f0bb79a3e97",
+      "ranges": [
+        [
+          1,
+          199
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense/phase.rs",
+      "sha256": "d779afa0fed93760d08b2dc0b0cea2701dcda4cca41f4be0d5d2b6106d16092d",
+      "ranges": [
+        [
+          1,
+          370
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense/ranged.rs",
+      "sha256": "2f92d78e5bd08a1b831ec0901c256ce7b4a540193ad988ef6d3a4f3d62f68fdc",
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense/tactics.rs",
+      "sha256": "b65059c1af131b6b98f426067c5bf495ade564c4f8538987bbdce63dcc42a54d",
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ]
+    }
+  ]
+}

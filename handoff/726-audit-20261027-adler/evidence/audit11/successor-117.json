@@ -1,0 +1,127 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-117",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 708,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/clothing/error.rs",
+      "sha256": "3a33f6fd8aaabd68b8be71ea21f472b142fd17f7648bd79551af19b2c8f24297",
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "assessment": "Full48 actual source read after hash match. ClothingError closed variants retain canonical rig lookup and geometry causes. ClothingPieceName is a deliberate display identity wrapper accepting arbitrary strings; ClothingFaceContext owns original encoded native triangle slots. Thin wrapper justification is error-provenance role, not validation. No new type-granularity finding or global clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 709,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/clothing/fitting.rs",
+      "sha256": "c994568e769cacd263045e2683b6750382cc6834f28a6f3059b6bad839cea628",
+      "ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "assessment": "Full49 actual source read after hash match. Inherent ClothingShell::refit checks new row counts and returns named Self with preserved spec/topology. Existing public self.faces used in fitted_surface before validated_placeholder_faces, so safety requires originally valid ClothingShell; malformed public construction is an API qualification, not ordinary producer witness. fitted_surface returns semantic position/normal pair and raw arrays in actual rest-frame kernel, Q008/Q009. SignedLength projects only during offset arithmetic.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 710,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/clothing/regions.rs",
+      "sha256": "3819e9e4805a3004655e303c8a9e84b2d28892ea2d2b193ea9d094a31afc8f5a",
+      "ranges": [
+        [
+          1,
+          162
+        ]
+      ],
+      "assessment": "Full162 actual source read after hash match including existing fixtures only. RegionRig maps closed anatomical enum to canonical RigJointName pair then returns canonical RigJointMembership and RigJointOrdinal sets. Named struct retains region role and distinct proximal/distal fields; internal typed local pair is a homogeneous mapping assignment. Existing exact and prefix policies intentional, not open identity owner replacement. Collection-order/source-table binding still contextual, no accepted new finding or runtime/physical clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 711,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/clothing/rig.rs",
+      "sha256": "827e367d7bc6b3b171f5a1bde231ebf13a91a54ad593dc09474bccaae1360e18",
+      "ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "assessment": "Full73 actual source read after hash match. ClothingRig carries canonical table borrow and caches RegionBinding with typed RigSegment ordinals, admitting exact named joints before reuse. Actual same-table lookup/cache narrows arbitrary foreign index concern from caller707 while public SpanRig fields remain internal scope. Empty/multiple region lists and unordered joint-set versus ordered segment semantics are intentional representation distinctions; no automatic invalid-state or duplicate owner finding. No whole-rig/runtime/global clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 712,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/clothing/rig_selection.rs",
+      "sha256": "ad1d98a61735793cf092069424b3571e3cc44e00b3634d2a38886a37fafc5e9c",
+      "ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "assessment": "Full41 actual source read after hash match including existing fixture. Actual policy intentionally accepts exact owner or unconstrained twist spelling prefix and returns canonical membership enum. RigJointName native str projection is explicit label grammar ownership boundary. Does not substitute restricted enum of all joint spellings. No new type-granularity issue; no separate magic-string-lens completion credit.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 713,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/clothing/validation.rs",
+      "sha256": "630f8e3e98411ed571b011cdd36f22ff53ea367770a459c0fd16617077b05a1c",
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "assessment": "Full28 actual source read after hash match. Actual validator checks all fitted coordinates finite and all encoded face slots in range, then preserves topology; it intentionally does not reject degenerate triangles, as existing707 fixture says arbitrary deformation is not a quality gate. Typed names/errors wrap diagnostic native triangle context; public generated geometry aggregate admission still Q009 outside this helper. No physical/topology quality or current-main/runtime clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 714,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/clothing_material.rs",
+      "sha256": "bafb2117ada36281130d4dd00bb3862dc6f51840637a74fe1924c5106840668e",
+      "ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "assessment": "Full16 exact reached owner body read after hash match. Closed EquipmentMaterial dispatch returns semantic PBR color/metallic/roughness positional triple, extending qualified Q008 with actual owning purpose rather than ordinary mathematical tuple. Canonical shared PBR record/adapter ownership and current-main/remedy dedup pending; not accepted unique. Numeric authored material values not independently magic-number-reviewed here.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 715,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/construction_controls.rs",
+      "sha256": "3f3fa3760c04b76557e2a6927b461eb83c134a41d561952d22579c3f3f286599",
+      "ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "assessment": "Full93 unchanged reached body read after hash match. Actual egui native sliders convert shown millimetres and edit public construction/plate/lacing primitive values, then present validate errors. Raw unit/range types here require distinction between editable UI values and checked model; lower model admission not inferred. UI Boolean lacing projected to Option at actual widget boundary; Construction enum selection uses discriminant rather than displayed names. Dynamic ranges clamp dependent bevel/hole/cord values, no ordinary invalid-range witness established. No current-main/runtime/physical/global clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

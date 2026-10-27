@@ -1,0 +1,103 @@
+{
+  "id": "CONT08-014-completion-provenance",
+  "at": "2026-10-27T01:36:31.263675+00:00",
+  "manifest_path": "target/recovery-20261025/continuation-segovb/audit12-frozen-source-manifest-019.json",
+  "manifest_sha256": "534be48a9e2108b7e446c9f069ef177bdfcf0165c0ad90f59b4f9610c514e5aa",
+  "manifest_pr_working_count": 747,
+  "dirty4": [
+    " M crates/adventuresim-stdb-module/src/character.rs",
+    " M crates/adventuresim-stdb-module/src/character/attachment_capacity.rs",
+    " M crates/adventuresim-tactical-client/src/equipment.rs",
+    " M crates/adventuresim-tactical-client/src/equipment/icons.rs"
+  ],
+  "frozen_base": "3a50b708381ad00c116445c2c999a49c3943088b",
+  "frozen_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "include_path_proof": {
+    "consumed_source": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/grounded/tests.rs",
+    "ranges": [
+      [
+        6,
+        9
+      ]
+    ],
+    "CARGO_MANIFEST_DIR": "crates/adventuresim-tactical-core",
+    "literal": "/../../assets/tactical-grounding/goslar-1238.json",
+    "normalized_repository_path": "assets/tactical-grounding/goslar-1238.json",
+    "qualification": "Known package source is under this crate; joined compile-time include literal is normalized relative to its crate manifest directory, not test source subdirectory."
+  },
+  "sources": [
+    {
+      "source_id": "pr-base:crates/adventuresim-tactical-core/src/city_layout/compiled/grounded/tests.rs",
+      "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "git_tree_entry": "100644 blob 7fc0c4356da83f86777c814bca49bf576f2f7642\tcrates/adventuresim-tactical-core/src/city_layout/compiled/grounded/tests.rs",
+      "sha256": "c2dd6fd8bc29ddcbca5a79e0945e04db51766c5a40b72ed8bf5736664da8e16c",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/c2dd6fd8bc29ddcbca5a79e0945e04db51766c5a40b72ed8bf5736664da8e16c",
+      "bytes": 7979,
+      "line_count": 216,
+      "frozen747_matches": [],
+      "dirty4_matches": [],
+      "body_coverage": false
+    },
+    {
+      "source_id": "pr-head:crates/adventuresim-tactical-core/src/city_layout/compiled/grounded/tests.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_tree_entry": "100644 blob 7fc0c4356da83f86777c814bca49bf576f2f7642\tcrates/adventuresim-tactical-core/src/city_layout/compiled/grounded/tests.rs",
+      "sha256": "c2dd6fd8bc29ddcbca5a79e0945e04db51766c5a40b72ed8bf5736664da8e16c",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/c2dd6fd8bc29ddcbca5a79e0945e04db51766c5a40b72ed8bf5736664da8e16c",
+      "bytes": 7979,
+      "line_count": 216,
+      "frozen747_matches": [],
+      "dirty4_matches": [],
+      "body_coverage": false
+    },
+    {
+      "source_id": "pr-base:crates/adventuresim-tactical-core/src/city_layout/compiled/grounded.rs",
+      "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "git_tree_entry": "100644 blob 7da35215803800364bfd0a0ec9bae6860aaef621\tcrates/adventuresim-tactical-core/src/city_layout/compiled/grounded.rs",
+      "sha256": "e9356eb1af7a7dc646c721b3ef5033a23924b28081e8c9a3f8917159b770b346",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/e9356eb1af7a7dc646c721b3ef5033a23924b28081e8c9a3f8917159b770b346",
+      "bytes": 7040,
+      "line_count": 199,
+      "frozen747_matches": [],
+      "dirty4_matches": [],
+      "body_coverage": false
+    },
+    {
+      "source_id": "pr-head:crates/adventuresim-tactical-core/src/city_layout/compiled/grounded.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_tree_entry": "100644 blob 7da35215803800364bfd0a0ec9bae6860aaef621\tcrates/adventuresim-tactical-core/src/city_layout/compiled/grounded.rs",
+      "sha256": "e9356eb1af7a7dc646c721b3ef5033a23924b28081e8c9a3f8917159b770b346",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/e9356eb1af7a7dc646c721b3ef5033a23924b28081e8c9a3f8917159b770b346",
+      "bytes": 7040,
+      "line_count": 199,
+      "frozen747_matches": [],
+      "dirty4_matches": [],
+      "body_coverage": false
+    },
+    {
+      "source_id": "pr-base:assets/tactical-grounding/goslar-1238.json",
+      "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "git_tree_entry": "100644 blob 2bba77793377ed9d01e868cffefbf56c774ed261\tassets/tactical-grounding/goslar-1238.json",
+      "sha256": "1a842b2e8dcdaf157223be260d9f032ca33c50a0fe6fe4eee1a93fd2d86d64c6",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/1a842b2e8dcdaf157223be260d9f032ca33c50a0fe6fe4eee1a93fd2d86d64c6",
+      "bytes": 8027,
+      "line_count": 301,
+      "frozen747_matches": [],
+      "dirty4_matches": [],
+      "body_coverage": false
+    },
+    {
+      "source_id": "pr-head:assets/tactical-grounding/goslar-1238.json",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_tree_entry": "100644 blob 2bba77793377ed9d01e868cffefbf56c774ed261\tassets/tactical-grounding/goslar-1238.json",
+      "sha256": "1a842b2e8dcdaf157223be260d9f032ca33c50a0fe6fe4eee1a93fd2d86d64c6",
+      "path": "target/recovery-20261025/continuation-segovb/source-objects/1a842b2e8dcdaf157223be260d9f032ca33c50a0fe6fe4eee1a93fd2d86d64c6",
+      "bytes": 8027,
+      "line_count": 301,
+      "frozen747_matches": [],
+      "dirty4_matches": [],
+      "body_coverage": false
+    }
+  ],
+  "qualification": "Read-only Git exact-path ls-tree/show only. No entire source-tree retrieval, Git mutation, source execution or audit body credit from staging. All three files absent from exact747 changed variants and dirty4, exact base/head object hashes equal; eligible unchanged alias only after independent body review."
+}

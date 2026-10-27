@@ -1,0 +1,3335 @@
+{
+  "kind": "Authoritative continuation ledger; historical receipts remain immutable referenced evidence",
+  "base": "a411abb4370bb6f6609622cef5da59988a37aee9",
+  "saved_delta": "2e8b0cb0728bbcde65bb91c6e04c5488aac6fa23",
+  "status": "PR990 ready/unmerged checkpoint satisfied and LGTM received; continuing source-only audit, no implementationstack.08=1799partial1462;11=803next803;12=46partial46;13=35partial31/36firstunread37. All20families andglobalgoal incomplete.",
+  "implementation_owner": "root",
+  "preflight": [
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "old": "9f49fcf40aeb141430141e7981d1f17bad8a952f",
+      "main": "7a0ad98e87c60481eb05911888868c4ba7a4b922",
+      "saved": "007ac15008c2bc586aed030832bc86858aa96439"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/README.md",
+      "old": "17b819770621da7a62cdd83669d1a66f50fcbb7c",
+      "main": "17b819770621da7a62cdd83669d1a66f50fcbb7c",
+      "saved": "0e3026441132a049c2472bbccbc294cf7a279b82"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+      "old": "c51fc0bdc745be39c7ee7ed99af064245fda1ade",
+      "main": "c51fc0bdc745be39c7ee7ed99af064245fda1ade",
+      "saved": "ae680d919df5352dd3fe2aeefa7a9eaf2dd614e0"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "old": "0ba6cad565dcbcf0819c09182cdd0a88c8611ead",
+      "main": "0ba6cad565dcbcf0819c09182cdd0a88c8611ead",
+      "saved": "b4c0357f3039588132ec78b9477f9ab9a709bcdd"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "old": null,
+      "main": null,
+      "saved": "72fa66f1609e75fc7da85fcfcee7839498011df4"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "old": "009e39b27dfaf9852567608fab6c225632d8475a",
+      "main": "009e39b27dfaf9852567608fab6c225632d8475a",
+      "saved": "e7f51eabca236ff910d45d61b7926b95a68546d5"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "old": null,
+      "main": null,
+      "saved": "51f1976f97861f022441d14dfe2b2ceb156aeb14"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "old": "26d4a573ad815123367b0e166a5eadc7abe31b48",
+      "main": "26d4a573ad815123367b0e166a5eadc7abe31b48",
+      "saved": "42b1a63f5bc1c1e207163b820d5985d0d9d39f34"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "old": null,
+      "main": null,
+      "saved": "25ad6ce45801d221e5ffd9acdce61a84151c75f7"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "old": null,
+      "main": null,
+      "saved": "0f1c53361e3b7aaba047b6161c7c10788bf966b1"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "old": "bd89d8d2caa0431271a9cdb490919626b2a9b54d",
+      "main": "bd89d8d2caa0431271a9cdb490919626b2a9b54d",
+      "saved": "d124c8b8bfac9cd00253d2e1c6541a8a5361c6d6"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "old": null,
+      "main": null,
+      "saved": "fd6300086bbe288e72a23935d0eaa066ecbd6341"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "old": "061ef696844c75285b5d5edce22ecd0b9aa3030f",
+      "main": "061ef696844c75285b5d5edce22ecd0b9aa3030f",
+      "saved": "3a540cc7fc3c763bdf6a5f808616df81ab99a2cb"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/tests/fixtures/texture_views.json",
+      "old": null,
+      "main": null,
+      "saved": "79be38777355e2397cc999babc5953ab98eee85b"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/tests/texture_views.rs",
+      "old": null,
+      "main": null,
+      "saved": "7b1de1dd73a883708b9b5f7204825183c8dd76a9"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "old": null,
+      "main": null,
+      "saved": "58186921f7797764736646551f1ac57e238f6722"
+    }
+  ],
+  "inherited_master": {
+    "path": "inherited-master-ledger.json",
+    "sha256": "74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+    "status": "historical source/finding authority; not current validation"
+  },
+  "lens_coverage": [
+    {
+      "number": 1,
+      "name": "producer-propagation",
+      "state": "audit01-delta/STATE.json",
+      "state_sha256_at_handoff": "9a59636a70d00124cfac70d63dfd978d3f5774d3b11467ff11335530b5af6806",
+      "authoritative_receipts": [
+        "audit01-delta/packets/producer-015.json",
+        "audit01-delta/registered-queue.json"
+      ],
+      "saved_coverage": "Adopted original baseline/additional312roles/246overlays/38merged retained WITH findings; do not sum overlapping populations. Material0-61 preserved,62-195 personally successor-accounted134roles.",
+      "incomplete_or_qualified_scope": "No pending registered material through195; existing remedy/policy reconciliation and current complete receiving families remain. Native readiness/prefetch/cause and broad physical/export/count families are not cleared.",
+      "scope_complete_is_clearance": false,
+      "skill": {
+        "captured_path": "handoff/826/skills/audit-producer-propagation/SKILL.md",
+        "sha256": "9d202f015eed4818d6d2753c7624faa64fb5522e03cc55284fc68a366a204293"
+      },
+      "receipt_presence": true
+    },
+    {
+      "number": 2,
+      "name": "existing-type-owners",
+      "state": "audit02-delta/STATE.json",
+      "state_sha256_at_handoff": "ded600690619155f58c56123acb5bf886bfb6137999354351b0391a81aaf79ae",
+      "authoritative_receipts": [
+        "audit02-delta/inherited-frontier.json",
+        "audit02-delta/closure-001.json",
+        "audit02-delta/additive-closure-006.json"
+      ],
+      "saved_coverage": "Inherited adopted2560/59baseline plus312additional-role report,246overlays/38merged and material0-61 preserved WITH findings; overlapping counts are not a new unique total. New62-174113roles plus175-195 additive accounted.",
+      "incomplete_or_qualified_scope": "No pending registered material through195. Existing owner-fit/frame/admission/policy questions remain, including dimensionally similar owners without proved producer contracts; current canonical reconciliation/connected repair/acceptance incomplete.",
+      "scope_complete_is_clearance": false,
+      "skill": {
+        "captured_path": "handoff/826/skills/audit-existing-type-owners/SKILL.md",
+        "sha256": "0876e49f57d2b5397d23735b9c49916d5d20087b33c110746beaa73c1c8cba3f"
+      },
+      "receipt_presence": true
+    },
+    {
+      "number": 3,
+      "name": "admission-contracts",
+      "state": "audit03-delta/CURRENT.json",
+      "state_sha256_at_handoff": "7b4ff8309dbb7648b0a29c93db99fa3449bf69e11a73e19647496915fb5e4b30",
+      "authoritative_receipts": [
+        "audit03-delta/packets/contract-012.json",
+        "audit03-delta/registered-queue.json",
+        "audit03-delta/CURRENT-STATE.json"
+      ],
+      "saved_coverage": "Adopted03original baseline,246overlays,38merged and material0-99 preserved WITH findings; later100-19596roles accounted. CURRENT.json supersedes older173registry CURRENT-STATE for material frontier.",
+      "incomplete_or_qualified_scope": "No pending registered material through195. Existing admission findings/family policies remain; native body-abort concurrency and full URI/application acceptance beyond selected native methods not globally cleared.",
+      "scope_complete_is_clearance": false,
+      "skill": {
+        "captured_path": "handoff/826/skills/audit-admission-contracts/SKILL.md",
+        "sha256": "de63b991f5d4a11423f639efc1a5c37b4593a10045ac3d93d88da4c9b95d249f"
+      },
+      "receipt_presence": true
+    },
+    {
+      "number": 4,
+      "name": "invariant-operations",
+      "state": "audit04-delta/STATE.json",
+      "state_sha256_at_handoff": "f46d28626869f61910f2e871253e72a40463b64420f9a312eb1085bccb815c08",
+      "authoritative_receipts": [
+        "audit04-delta/progress-001.json",
+        "audit04-delta/closure-001.json",
+        "audit04-delta/additive-closure-006.json"
+      ],
+      "saved_coverage": "Inherited closure SEGOVB-INITIAL04-CONTRACT-678 and completed original2853/246overlays/38merged/material0-103 preserved WITH findings.104-17471roles plus175-195 additive accounted.",
+      "incomplete_or_qualified_scope": "No pending registered material through195. Existing operation/normalization/admission findings and public API counterexamples stay qualified; global remedy dedup/current canonical comparison and connected repairs/acceptance remain.",
+      "scope_complete_is_clearance": false,
+      "skill": {
+        "captured_path": "handoff/826/skills/audit-invariant-operations/SKILL.md",
+        "sha256": "94c0fc73e926619b9a9a50ef9f342a0c8f6210840f1aa1f3c5b5d9637994519d"
+      },
+      "receipt_presence": true
+    },
+    {
+      "number": 5,
+      "name": "aggregate-states",
+      "state": "audit05/STATE.json",
+      "state_sha256_at_handoff": "66c8c5ce6fffd42126e59cb5bc1d01688dc1eea0a92fd2d87d38bf390cf315aa",
+      "authoritative_receipts": [
+        "audit05/FINAL-HANDOFF-SUCCESSOR-005.json",
+        "audit05/pending-source-qualification-manifest-001.json",
+        "audit05/later-material/reconciliation-complete-001.json",
+        "audit05/remedy-reconciliation/main4530/current-comparison-complete-001.json"
+      ],
+      "saved_coverage": "Exact mapped original2853indices accounted separately from historical2860report(seven historical extras remain report-only);246overlays,38merged and196material dispositions accounted WITH qualifications.",
+      "incomplete_or_qualified_scope": "Ten own finding records are not ten globally unique issues. Bounded grouping has exact aliases/shared proposal/separate-policy records; master dedup/unique acceptance, current receiving repairs and final waves remain. Follow qualification_manifest; stale pending notices are reconciled by complete receipt.",
+      "scope_complete_is_clearance": false,
+      "skill": {
+        "captured_path": "handoff/826/skills/audit-aggregate-states/SKILL.md",
+        "sha256": "39d26ba8acbf1007875b37d7e0d6c35766fb246a01852d4237fa741139b12a82"
+      },
+      "receipt_presence": true
+    },
+    {
+      "number": 6,
+      "name": "type-ownership",
+      "state": "audit06-delta/STATE.json",
+      "state_sha256_at_handoff": "fd9612c600c9532d58bde7bfd9291afc81afaf74ba97cb9d81035edaa65cd2fe",
+      "authoritative_receipts": [
+        "audit06-delta/closure-001.json",
+        "audit06-delta/closure-002.json",
+        "audit06-delta/frontier-adoption-recovery826-001.json"
+      ],
+      "saved_coverage": "2853original/246overlays/38merged/material0-99 adopted WITH findings; root100-177 and recovery_826178-195 independently recorded. Attribution is not root-personal for successor.",
+      "incomplete_or_qualified_scope": "No pending registered material through195. Existing ownership/dependency/frame questions remain; no repairs/global clearance. Narrow native SDK ranges and geometry receiver do not establish complete application producer ownership.",
+      "scope_complete_is_clearance": false,
+      "skill": {
+        "captured_path": "handoff/826/skills/audit-type-ownership/SKILL.md",
+        "sha256": "4e6ed19f7244c134db991a339145858059bb098ac2b804076675c8fe71de87e0"
+      },
+      "receipt_presence": true
+    },
+    {
+      "number": 7,
+      "name": "redundant-authority",
+      "state": "audit07-delta/CURRENT.json",
+      "state_sha256_at_handoff": "4a27b54eb2f796ce8506cad1a7cb59336cde1d5319fc428e1a1d289660547942",
+      "authoritative_receipts": [
+        "audit07-delta/predecessor/redundant-authority/progress.json",
+        "audit07-delta/packets/authority-009.json",
+        "audit07-reconciliation/CURRENT.json",
+        "audit07-reconciliation/reconciliation-001.json"
+      ],
+      "saved_coverage": "2853original/246overlays/38merged/material0-99 retained WITH findings;100-19596laterroles accounted. Predecessor includes qualified/deleted-role and local classified-record counts, not unique accepted issue counts.",
+      "incomplete_or_qualified_scope": "No pending registered material through195. C001 aliases existing780NS3/NS4 and remains open under owning graph; C002 non-counted representation simplification; Q003 unresolved policy. Native lifecycle/root queue-envelope-cache graph and current canonical repairs remain qualified.",
+      "scope_complete_is_clearance": false,
+      "skill": {
+        "captured_path": "handoff/826/skills/audit-redundant-authority/SKILL.md",
+        "sha256": "9cf22aed78c7a55df0493264038f217f4c7d752c554741733cd8ed0795fbfeab"
+      },
+      "receipt_presence": true
+    },
+    {
+      "number": 8,
+      "name": "behavior-preservation",
+      "state": "audit08/STATE.json",
+      "state_sha256_at_handoff": "b4f9c4a6c3c59966cfe3cde46ee814963aad9c3d3808e9928ce40620c7e46e7b",
+      "authoritative_receipts": [
+        "audit08/packets/behavior-093.json",
+        "audit08/predecessor/contract-groups-425-partial-handoff.json",
+        "audit08/material-receipts/earlier-024-031-001.json"
+      ],
+      "saved_coverage": "1799/2853originals accounted WITH findings and exact partial/out-of-order ranges retained; next sequential original1792; earliest unfinished1462. Overlay/merge/material populations remain separately incomplete.",
+      "incomplete_or_qualified_scope": "Saved earlier material contiguous0-31, next32, latest material-receipts/earlier-024-031-001.json; separate178-195 and selected exact receipts retained. Not all196complete. README1750/reflection1757/1762 and all saved partials/qualifications retained.",
+      "scope_complete_is_clearance": false,
+      "skill": {
+        "captured_path": "handoff/826/skills/audit-behavior-preservation/SKILL.md",
+        "sha256": "7413ca56a7a637a20cb56f6a35c7623253934e806415e26131af076050fa685c"
+      },
+      "receipt_presence": true,
+      "current_successor": "audit08-successor-014-receivers-001-proposed-state.json",
+      "current_coverage": "1800/2853 originals source-accounted;earliest1462Q003partial;ordered1793partial;material52partial",
+      "current_qualification": "Original1793 independently inventoried; exact unchanged base/head test, parent and JSON provenance plus actual selection/compile publication order read. Delegated support planning, terrain composition and typed JSON admission remain concrete partials.",
+      "latest_receipt": "audit08-successor-014-receivers-001.json",
+      "current_comparison": "audit08-current-comparison-001.json"
+    },
+    {
+      "number": 9,
+      "name": "enum-shapes",
+      "state": "audit09-delta/STATE.json",
+      "state_sha256_at_handoff": "f6378568623a9a9592f1be94e8e816cbc8b745e1428444c9366a648690dc9ecc",
+      "authoritative_receipts": [
+        "audit09-delta/contract-003.json",
+        "audit09-delta/contract-006.json",
+        "audit09-delta/closure-001.json",
+        "audit09-delta/frontier-adoption-recovery826-001.json"
+      ],
+      "saved_coverage": "2853original/246overlays/38merged and material0-159 inherited;160-177 earlier bounded receipts; recovery_826178-195 independently recorded WITH findings/qualifications.",
+      "incomplete_or_qualified_scope": "No pending registered material through195. Existing enum/policy/browser-state questions and current producer/serialization receiving reconciliation remain; local predicates/native flags are not blanket application-state clearance.",
+      "scope_complete_is_clearance": false,
+      "skill": {
+        "captured_path": "handoff/826/skills/audit-enum-shapes/SKILL.md",
+        "sha256": "964ebea7b08a545b5abcabf605c22b92ac0dbb09ed79e6f79651ea2f141a3500"
+      },
+      "receipt_presence": true
+    },
+    {
+      "number": 10,
+      "name": "derivability",
+      "state": "audit10/STATE.json",
+      "state_sha256_at_handoff": "094452c21cf86b64343a7c0143f03e1edac5c8bbac02d01bcd3caf6d01e0c34e",
+      "authoritative_receipts": [
+        "audit10/original-stage-closure-001.json",
+        "audit10/overlay-stage-closure-001.json",
+        "audit10/merged-stage-closure-001.json",
+        "audit10/material-stage-closure-006.json",
+        "audit10/candidate001-reconciliation/disposition-001.json"
+      ],
+      "saved_coverage": "Original2853/2853,overlay246/246,merged38/38,material196/196accounted WITH qualified candidates; inherited1473 includes1470semantic+3absence roles, all historical partial/out-of-order evidence preserved.",
+      "incomplete_or_qualified_scope": "Next stage is global remedy dedup and current canonical receiving comparison, not new frozen original role. Candidate001 equals/extends optional inheritedF004; five conversions compared at990 and one frozen receiving site absent, not current4530 equivalence or new accepted unique issue. Other candidate families/repair/acceptance remain.",
+      "scope_complete_is_clearance": false,
+      "skill": {
+        "captured_path": "handoff/826/skills/audit-derivability/SKILL.md",
+        "sha256": "6c0f78f4e40e0432071f2e10db701d3da72efbafec83e2f678e03a550406a599"
+      },
+      "receipt_presence": true
+    },
+    {
+      "number": 11,
+      "name": "type-granularity",
+      "state": "audit11/STATE.json",
+      "state_sha256_at_handoff": "9f796f861a32642c3f8e4b737dff2a583b6537e61a376af84f931f58ef0e489d",
+      "authoritative_receipts": [
+        "audit11/successor-156.json",
+        "audit11/inherited-STATE.json",
+        "audit11/material-successor-195.json"
+      ],
+      "saved_coverage": "778/2853originals accounted; next778,latest successor156.385inherited plus393new original roles; no active partial. Nine explicit inherited overlays retained, not full246.",
+      "incomplete_or_qualified_scope": "Original778onward pending;overlay246 reconciliation and merged38 incomplete. Shared material181-19515exactrows assessed;0-180pending separately. Seven inheritedFrecords/ninealiases and questions are not globally unique counts; pending connected accounting remains.",
+      "scope_complete_is_clearance": false,
+      "skill": {
+        "captured_path": "handoff/826/skills/audit-type-granularity/SKILL.md",
+        "sha256": "3a1fbf7f53c752e35eefe7763cbd49b9f280bd4b978ea998f74c3a68e45dc106"
+      },
+      "receipt_presence": true,
+      "current_successor": "audit11-segovb-177-proposed-state.json",
+      "current_coverage": "805/2853 scoped originals source-accounted;next805;noactiveoriginalpartial",
+      "current_qualification": "Original804 full233 independently inventoried, native grow/mesh/bounds/placement/preview contracts traced. Known Draping erasure retained; bust-versus-placed longest measurement remains a qualified frozen question. Initial unregistered exposures and correct later registered reads remain explicit.",
+      "latest_receipt": "audit11-segovb-177-804-complete-001.json"
+    },
+    {
+      "number": 12,
+      "name": "magic-strings",
+      "state": "audit12/STATE.json",
+      "state_sha256_at_handoff": "b7a1c1801c89e38d75eded972b419b013c9cd960931c968ad80d8e3809e08b79",
+      "authoritative_receipts": [
+        "audit12/contracts-002.json",
+        "audit12/inherited-qualified-slices-001.json"
+      ],
+      "saved_coverage": "Only original0-9 scoped roles accounted10/2853; next10. Four historical qualified slices retained at exact proven ranges only; no broad baseline adoption.",
+      "incomplete_or_qualified_scope": "Original10onward,all246overlays/all38merged/all196sharedmaterials pending. Saved range/revision anomaly in historical rig_parameters95-99 versusEOF81 must remain unresolved, not silently remapped; no current source/runtime/global clearance.",
+      "scope_complete_is_clearance": false,
+      "skill": {
+        "captured_path": "handoff/826/skills/audit-magic-strings/SKILL.md",
+        "sha256": "4288426f134e7b781da6ea3b9167722776db976f577b56e7936e787306fb277c"
+      },
+      "receipt_presence": true,
+      "current_successor": "audit12-state-successor-024-root.json",
+      "current_coverage": "49/2853 scoped originals source-accounted WITH findings;next49;no active original partial",
+      "latest_receipt": "audit12-successor-024-complete.json",
+      "latest_partial": null,
+      "current_qualification": "Original48 open AnimationPackId full43 and actual schema/builtin/library/runtime key recipients traced. ExistingM05 checked motion error erasure reconfirmed, no newunique finding. Otherfamily/currentnative guarantees remain unvalidated."
+    },
+    {
+      "number": 13,
+      "name": "magic-numbers",
+      "state": "audit13/STATE.json",
+      "state_sha256_at_handoff": "e197abcb81024f42bdfdbdbd434414d03585ea7809e0cfbcc553754d04d71db6",
+      "authoritative_receipts": [
+        "audit13/contracts-001.json",
+        "audit13/pending-traces-001.json",
+        "audit13/inherited-qualified-slices-001.json"
+      ],
+      "saved_coverage": "Exactly original0-9 inspected; seven assessed roles1,2,3,4,6,7,8. Partials0/5/9 remain; earliest unfinished0; first unread10. Four historical exact qualified slices retained only, no broad baseline adoption.",
+      "incomplete_or_qualified_scope": "Resolve prospectively registered trace needs for0guard index/popped,5positionalfalse/load taskcounter,9trigger/counter defaults before completing those roles. Do not treat locator-only ranges as consumed. Original10onward/all246overlays/all38merged/all196sharedmaterials pending.",
+      "scope_complete_is_clearance": false,
+      "skill": {
+        "captured_path": "handoff/826/skills/audit-magic-numbers/SKILL.md",
+        "sha256": "d71feffe9ef2d777c5d447840f4d3fbcec2e1f4b2cc354fc331e0c899b558dee"
+      },
+      "receipt_presence": true,
+      "current_successor": "audit13-successor-020-suggested-state.json",
+      "current_coverage": "35/2853 scoped originals source-accounted;partials31/36/37;earliest31;firstunread38",
+      "current_qualification": "Native standard-material debug uniform producer/binding/default-shader/enabling-key path traced. Historical-transform recipient and conditional/current application/macro boundaries remain partial. No actual firstparty debug compilation/failure or unique finding accepted.",
+      "latest_receipt": "audit13-successor-020.json"
+    }
+  ],
+  "historical_findings": {
+    "source": "inherited-master-ledger.json#/findings",
+    "count": 173,
+    "qualification": "Not a global unique count; per-lens findings/aliases preserved in transported receipts; actionable reconciliation remains open"
+  },
+  "obligations": {
+    "families": 20,
+    "P16": "pending current-source integration/review/validation",
+    "P17": "pending current-source integration/review/validation",
+    "shared_dependencies": "pending canonical function-level reconciliation",
+    "780": "pending broader composition",
+    "826": "whole-texture result slice first; broader F1/F2/F6/F9 and remaining dependencies stay open"
+  },
+  "acceptance": [
+    "Independent small complete PR slices; stop at merge-ready for user review; never merge or deep stack",
+    "All thirteen complete audit waves plus independent Code/Rule/Comment reviews at final revision; unresolved global scope stays active",
+    "Hosted checks only; source-backed coverage and same-revision positive execution required",
+    "No tests/cases/helpers/assertions/doctests added; preserve original stash and unrelated work"
+  ],
+  "test_reconciliation": {
+    "excluded_added_paths": [
+      "crates/fabelgeist-gpu/tests/texture_views.rs",
+      "crates/fabelgeist-gpu/tests/fixtures/texture_views.json"
+    ],
+    "excluded_doctests": [
+      "view_error.rs compile_fail block",
+      "texture-views.md Rust example retained only as text (not doctest)"
+    ],
+    "authority": "Current user instruction: Add no tests, cases, helpers, assertions or doctests",
+    "workflow_plan": "Compose existing main with saved evidence mechanism; use only existing borrowed-context case, existing GPU library suite and existing doctests. No four-case texture runtime coverage claimed.",
+    "historical_test_bytes": "Saved immutable 2e8b0cb plus transported texture-view snapshots remain available"
+  },
+  "fresh_slice": {
+    "discovery": "Clean composed errors and typed observation policy are source-complete, independently reviewed, integrated and validated for PR988; broader audit remains incomplete",
+    "source_complete": true,
+    "integrated": true,
+    "validated": true,
+    "reviewed": true,
+    "files": [
+      {
+        "path": ".github/workflows/rust-quality.yml",
+        "sha256": "3f6e1cfe6c05f5f6a2bb39155e3bf0d8ec8cbdabe3f77e993971d42e56891b33",
+        "git_blob": "88c35275f91c73dc38a5bd17f37a668b916bda57"
+      },
+      {
+        "path": "Cargo.lock",
+        "sha256": "f3059207bfbc9bd762df27d126e1f15366e6759ae6bcbfa6571ab93d6c5075be",
+        "git_blob": "2b32481153a3344caa1a951686e489024ac1f1cb"
+      },
+      {
+        "path": "crates/adventuresim-character-creator/Cargo.lock",
+        "sha256": "0814366f818cf580e09b015977170498c750f76174d620a866e602855a455597",
+        "git_blob": "8cad91a4a396b4531c7167bc733ae25576506810"
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+        "sha256": "352f06a1ddfc9d7be1813161e4ac2365ae813a2f0e751614464fc8adddf9a735",
+        "git_blob": "e1b53a5ceb774d0af2e9085081fa1fb84f72f83b"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/Cargo.toml",
+        "sha256": "460e9c3fcc4cb794358e3a25ba96b2e877dbeffaac6404703ff493aa6cb58e18",
+        "git_blob": "43ec5b14cd4adbd6b00cdafe60851d46ccb247bd"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/README.md",
+        "sha256": "6df2befe9397b790ad88233dee3fe7ed4f4aaf918a41b939585a5c633fe0f3db",
+        "git_blob": "0e3026441132a049c2472bbccbc294cf7a279b82"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+        "sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+        "git_blob": "8489b7ec8a3a2489915ba9b617aaecd46a7b9ab2"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+        "sha256": "33fed8d0c2ea47e990b60ad9c2cc14962f130c66ed4328d134e8f7f15d9b1128",
+        "git_blob": "ec503606414cf21d4181fad00f2723f12615ac0a"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/mod.rs",
+        "sha256": "83ba1e1ca0719ccdc74c3bc70f4fdc197dca496600a89b41a5e18c7a020fece0",
+        "git_blob": "ae680d919df5352dd3fe2aeefa7a9eaf2dd614e0"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+        "sha256": "e883e9bbfdcdb62065d26751a6135b65d6e3021604c9e6071ebdfbdf644457c5",
+        "git_blob": "f16536c5a4b771b53ec303421391ffa8a108225f"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+        "sha256": "5b5fe5e4ff2f4e7d2ec8daf2e852ea0c6f5de112716d6d1695502b1304318106",
+        "git_blob": "ed202c68483cdec22f3c74160ac57257cc1a3a85"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+        "sha256": "d4d9df664fcd5207e09a8453fedfb5fae4ce9d139cd45d3bd8bc1e6a9f9ac12e",
+        "git_blob": "e7f51eabca236ff910d45d61b7926b95a68546d5"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+        "sha256": "786f4f75b779e92f2a1b2e521e672606b4fa3b6bf9176530903dd6a4edf7f84b",
+        "git_blob": "7e3ca54f0fb61fcf1c66a94f6302fc1a70d1bf70"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+        "sha256": "b86ab932de453c75553ba6a915d830406ac142dd7fe544a5d9fe5be25b14431a",
+        "git_blob": "42b1a63f5bc1c1e207163b820d5985d0d9d39f34"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+        "sha256": "0a399f468fc53f30affbe132b31d3b33f0f2de3d766758bb4023e86fc3b0bbff",
+        "git_blob": "42512daad793521a4a66620c3bf0a8912d3f3085"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+        "sha256": "ab5ff0debbab0de569e16562ea77ab30df38cb8b9632cfacd900aad0024fba98",
+        "git_blob": "0785117450e459af2a3c14ba24637c7923b86b83"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+        "sha256": "3dce5de96be36b2463daee4fb0ed823563d3f87e99bfc9a8ba3b1ddcdc37fca8",
+        "git_blob": "b1a35b1b8e615f605689b6f73273ffcf6a08510c"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+        "sha256": "878a4144b4fecdc20291885050e30fe521a5294117046c282ef24d40c5e407d9",
+        "git_blob": "7d3ea629daf9df09dd78005e4fa3c0e8090241fe"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+        "sha256": "e3ad593b83da185620d2729a5fde4a0f7bfda1c39993494432c55a0c989e0973",
+        "git_blob": "4f2329dd8c7ee24afb79ce92bb573a96b9a104c0"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+        "sha256": "56a27351a1b6013319dc514e027250efd43b0538d34237835d656ddd0d1a7b43",
+        "git_blob": "e1475800043d9f3d29c760db3a161884aab63289"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/texture-views.md",
+        "sha256": "3a3902b9981ae772df92c2df1a97d245196d25cd83f2eacf4a586005ea39a6cd",
+        "git_blob": "7a2e60785bcc5ba5d44a379d7cf41ca72cb28494"
+      },
+      {
+        "path": "rust-quality-baseline.toml",
+        "sha256": "6144a5ab4e1f3132caf4c5b0aee92b151f093153e3e5bed8e4d6fadd7f12edb1",
+        "git_blob": "2b3e071511bd7f4e2052e556ccddbf8d3c3d1b33"
+      }
+    ],
+    "registered_receiving_ranges": [
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+        "ranges": [
+          [
+            1,
+            110
+          ],
+          [
+            210,
+            484
+          ]
+        ],
+        "read": "Scoped record/dispatch receiving trace consumed previously;249-484 freshly reread bounded this turn to reconcile truncated-output qualification. No full uniform-path/wholefile credit."
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/format.rs",
+        "ranges": [
+          [
+            1,
+            85
+          ],
+          [
+            350,
+            398
+          ]
+        ],
+        "read": "consumed; prior requested475-550 beyond EOF, no credit"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/cube_face.rs",
+        "ranges": "entire",
+        "read": "Previously consumed actual registered ranges in preceding goal turn; metadata reconciliation only, not new lens coverage"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+        "ranges": "entire",
+        "read": "consumed"
+      },
+      {
+        "path": "Cargo.lock",
+        "ranges": [
+          [
+            8594,
+            8600
+          ],
+          [
+            12069,
+            12230
+          ]
+        ],
+        "read": "Previously consumed actual registered ranges in preceding goal turn; metadata reconciliation only, not new lens coverage"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+        "ranges": [
+          [
+            1,
+            180
+          ]
+        ],
+        "read": "Previously consumed actual registered ranges in preceding goal turn; metadata reconciliation only, not new lens coverage"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+        "ranges": [
+          [
+            1,
+            170
+          ]
+        ],
+        "read": "Previously consumed actual registered ranges in preceding goal turn; metadata reconciliation only, not new lens coverage"
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+        "ranges": [
+          [
+            1,
+            210
+          ]
+        ],
+        "read": "Previously consumed actual registered ranges in preceding goal turn; metadata reconciliation only, not new lens coverage"
+      }
+    ],
+    "reviews": {
+      "code": "review-response-20261026/clean-error-code-review-001.json",
+      "rule": "review-response-20261026/clean-error-rule-review-001.json",
+      "comment": "review-response-20261026/clean-error-comment-review-001.json"
+    },
+    "remaining_acceptance": [
+      "User re-review checkpoint before any subsequent implementation"
+    ],
+    "scoped_audit": "review-response-20261026/slice-thirteen-lenses-003.json",
+    "baseline": "2dfiledebtremovedperhostedbelowlimitdiagnostic;cube862unchanged; allceilingsnonincreasing",
+    "commit": "ef7630d757a6994297f6d24840991cda61bda63c",
+    "pull_request": "https://github.com/adventure-simulator-group/fabelgeist/pull/988",
+    "draft": false,
+    "hosted": {
+      "source": "ef7630d757a6994297f6d24840991cda61bda63c",
+      "run": 40404924760,
+      "url": "https://github.com/adventure-simulator-group/fabelgeist/actions/runs/40404924760",
+      "status": "completed/success"
+    },
+    "historical_gpu_validation": "baseline-reduction-001.json: bb0c5c160363 lib13/doc2/borrowed1 all pass, not current revision validation",
+    "registration_metadata_reconciliation": "Stale pending read labels corrected from preceding actual tool/body reads; no counts/clearance promoted by metadata change",
+    "ready_for_review": true,
+    "previous_final_acceptance": "final-slice-acceptance-001.json (961historical)",
+    "review_response": "review-response-20261026",
+    "reviews_verified": true,
+    "review_reconciliation": "review-response-20261026/imports-review-reconciliation-001.json",
+    "final_source_identity": "review-response-20261026/clean-final-source-identity-001.json",
+    "current_artifact_evidence": [
+      "review-response-20261026/clean-final-gpu-artifact-001.json",
+      "review-response-20261026/clean-final-windows-artifact-001.json",
+      "review-response-20261026/clean-final-constraints-artifact-001.json",
+      "review-response-20261026/clean-final-rig-artifact-001.json"
+    ],
+    "final_acceptance": "review-response-20261026/clean-final-slice-acceptance-001.json",
+    "current_validation_summary": "Exact ef7630d75 passed Linux and Windows. GPU13lib/2doc/1separateborrowed,Windows10,constraints67lib/5doc;48required consumer groups recorded1461passes,0failures,14existingignored cases. Relevant baseline:2Ddebtabsent,cube862 unchanged."
+  },
+  "previous_goal_turn": {
+    "classification": "progress",
+    "reason": "PR988 review corrections, independent reviews, final same-head hosted acceptance and source audit receipts completed; stopped at explicit review checkpoint"
+  },
+  "local_project_checks": "none",
+  "audit_progress": [
+    {
+      "lens": 13,
+      "change": "Resolved original role0 Q001 at exact frontier, source-complete with native receiver qualification",
+      "receipt": "audit13-role0-successor-001.json",
+      "status": "not global clearance"
+    },
+    {
+      "lens": 12,
+      "change": "Original10-14 exact registered native roles source-assessed; next15",
+      "receipt": "audit12-successor-003.json",
+      "status": "source-complete within ranges, not integrated/current validation/global clearance"
+    },
+    {
+      "lens": 12,
+      "change": "Original15-17 scoped native text boundaries assessed; next18",
+      "receipt": "audit12-successor-004.json",
+      "qualification": "PNG native io conversion concretely stringifies cause; not a claim of cause preservation or an application fix"
+    },
+    {
+      "lens": 8,
+      "receipt": "audit08-successor-001.json",
+      "change": "Material32 source-accounted; earliest1462 Q003 narrowed but still partial",
+      "status": "frozen source evidence, not current integration/validation"
+    },
+    {
+      "lens": 11,
+      "receipt": "audit11-successor-157.json",
+      "change": "778-779 source-accounted; next780,partials780-782 preserved; IDcollision pending",
+      "status": "frozen source evidence, not current integration/validation"
+    },
+    {
+      "lens": 13,
+      "receipt": "audit13-partials-002.json",
+      "change": "Partial5/9 receiving traces resolved; source-accounted0-9;next10",
+      "status": "scoped native role accounting, not application migration/runtime/global clearance"
+    },
+    {
+      "lens": 11,
+      "change": "Earliest780 completed with exact garment producers/owners/native-kernel contracts; next781; partials781/782 retained",
+      "receipt": "audit11-successor-157-connected-780-003.json",
+      "qualification": "No universal same-instance/topology guarantee; qualified raw-record observations retained; export question IDcollision unresolved"
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-005.json",
+      "change": "Original18 native YAML errortext fields traced through actual formatter/localizer/redaction; next19",
+      "status": "scoped sourceaccounting, not current application/global clearance"
+    },
+    {
+      "lens": 8,
+      "receipt": "audit08-successor-002.json",
+      "change": "Material33-36fullbodies and connectedhost comparisons source-accounted;next37; nooriginalcompletion"
+    },
+    {
+      "lens": 13,
+      "receipt": "audit13-successor-003.json",
+      "change": "Original10-14exactregisteredcontracts assessed;next15; nootherpopulationcredit"
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-006.json",
+      "change": "Original19feature/reexport nativeboundary source-accounted;next20"
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-007.json",
+      "change": "Original20runtime metadata/error text/SQL fields traced to actual SDK schema/encoding/hostsink;next21"
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-008.json",
+      "change": "Original21/22 native macro string/token producers traced to canonical Symbol/AST/runtime schema boundaries;next23",
+      "qualification": "util.rs42-83 was consumed after prior registration update failed on guessed missing sym.rs; record actual prior access, do not backdate it. Source identity already pinned; these additional bounds are now registered for explicit revalidation. No source credit inferred merely from that accidental read."
+    },
+    {
+      "lens": 11,
+      "receipt": "audit11-successor-158-781.json; audit11-successor-158-782.json",
+      "change": "Full781/782required connectedphysical/garment/solver/constraint reorder/bodytopology source traces assessed;next783; noactivepartial"
+    },
+    {
+      "lens": 13,
+      "receipt": "audit13-successor-004.json",
+      "change": "Original15-17 exact effective nativebounds source-assessed;next18"
+    },
+    {
+      "lens": 8,
+      "receipt": "audit08-successor-003.json",
+      "change": "Material37-40source-accounted with receiver/currentbyte qualifications;next41"
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-009.json",
+      "change": "Original23nativeTimestamptext producer/formattingreceivers assessed;next24; nativeformatpanic/numeric/platformqualificationsretained"
+    },
+    {
+      "lens": 11,
+      "receipt": "audit11-question-crosswalk-001.json",
+      "change": "22source-keyed concerns/18historical references disambiguated without altering counts or authoring aliases; contract-support links preserved",
+      "status": "historicalsource aliasinterpretation corrected; currentvalidation unassessed"
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-010.json",
+      "change": "Original24-27 exact SDK string/callback/cache/diagnostic and native manifest/PNG/wgpu contracts source-accounted;next28",
+      "qualification": "SDKInternalError::source returnsNone despite storedcause; native/application contracts not conflated"
+    },
+    {
+      "lens": 13,
+      "receipt": "audit13-successor-005.json",
+      "adoption": "audit13-adoption-005.json",
+      "change": "Original18-19native diagnosticnumerals/reexports source-accounted;next20;numericbudgetenforcementunclaimed"
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-011.json",
+      "change": "Original28-32 nativeGPUerrors/env/reflection/shadergrammar source-assessed;next33",
+      "qualification": "NativeWebGPUJSerrors stringify; nativeEnvNotSetbroader than absent only. Nofirstparty/runtime/globalclearance."
+    },
+    {
+      "lens": 11,
+      "receipt": "audit11-successor-159-783.json; audit11-successor-159-784.json",
+      "adoption": "audit11-adoption-159.json",
+      "change": "Original783/784sourceaccounted;next785;frozenordinal/physicalport/framequalificationsopen"
+    },
+    {
+      "lens": 8,
+      "receipt": "audit08-successor-004.json",
+      "adoption": "audit08-adoption-004.json",
+      "change": "Materials41-44sourceaccounted;next45;originalcounts/earliest1462Q003unchanged",
+      "qualification": "NearMAXsaturation/M44repeatedrecordingauthority requiresfuturepolicy/currentcanonicalreconciliation"
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-012.json",
+      "change": "Original33-37nativeWGSL/compiler/reflection stringboundaries and requiredshaderflagsource producers source-assessed;next38",
+      "qualification": "NativeM::specialize andunseenlayout/runtimebehavior notcertified"
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-013.json",
+      "change": "Original38nativeWGSLutils source-accounted;next39fullphysicalP16Cargo.lock",
+      "qualification": "Nolayout/numeric/current/runtime/globalclearance"
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-014-partial.json",
+      "change": "Original39fullrequestedCargo.lockpartial1-800sourceconsumed;39/2853countunchanged;nextline801",
+      "qualification": "Full13103scope remains; nativegeneratedformat/hash/metadata is not wholefileclearance"
+    },
+    {
+      "lens": 11,
+      "receipt": "audit11-successor-160-785.json; audit11-successor-160-786.json",
+      "adoption": "audit11-adoption-160.json",
+      "change": "Original785/786 actualBVHprimitive numbering/semanticlayer standoff/worker prefix-checkpoint receivingroles source-accounted;next787"
+    },
+    {
+      "lens": 13,
+      "receipt": "audit13-successor-006.json",
+      "adoption": "audit13-adoption-006.json",
+      "change": "Original20-22nativeABIscalar/bytecount/tuplearity/macroprimitivecontracts source-assessed;next23;unseenhostvalidityunclaimed"
+    },
+    {
+      "lens": 8,
+      "receipt": "audit08-successor-005.json",
+      "adoption": "audit08-adoption-005.json",
+      "change": "Materials45-48 actualroof/geology/slotreceivers source-assessed;next49;originalcountspartialsunchanged"
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-014-complete.json",
+      "change": "Original39full13103lineCargo.lock actualbodyunion and native/firstparty string boundary receivers source-assessed;next40",
+      "qualification": "Qualified tooloutput/multiplicity/caches/graph/parser policies retained; no current/product/runtime/global clearance"
+    },
+    {
+      "lens": 13,
+      "receipt": "audit13-successor-007.json",
+      "adoption": "audit13-adoption-007.json",
+      "change": "Original23nativeTimestamp numericoperation contracts assessed;next24",
+      "qualification": "NativeMINsignednegation/formatabs anddurationpreconversionpanic source-backed; alias/firstpartyreachability unassessed, no uniqueincrement"
+    },
+    {
+      "lens": 11,
+      "receipt": "audit11-successor-161-787.json; audit11-successor-161-788.json",
+      "adoption": "audit11-adoption-161.json",
+      "change": "Original787/788placement/savedbinding/nativewire records source-accounted afterexactPose/Packed receivingbodies;next789",
+      "qualification": "Topologycountsare not completeidentity; explicitvaluevalidationinvocation/currentphysical/ordinalownerquestionsretain"
+    },
+    {
+      "lens": 11,
+      "receipt": "audit11-successor-162-789.json",
+      "adoption": "audit11-adoption-162.json",
+      "change": "Original789nativeword/byte/base64/Serde shapeversussemanticrecord owners source-assessed;next790"
+    },
+    {
+      "lens": 8,
+      "receipt": "audit08-successor-006.json",
+      "adoption": "audit08-adoption-006.json",
+      "change": "Material49/50 readiness-retainedscene state and canonicaldialoguepolicy-to-persisted-to-ballot receivers source-assessed;next51;originalcountsunchanged",
+      "qualification": "Malformed/alternateproducer/transaction/renderer/nativeport policies remainqualified"
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-015.json",
+      "adoption": "audit12-adoption-015.json",
+      "change": "Original40fullYAML344lines strictmapping/BodyPart/nativeSerde/retainedruntime/buildprojection receivers source-assessed;next41",
+      "qualification": "DuplicatefrozenSignedLengthimports, independentauthored/projection authorities, diagnostic/digestAPIsremainpendingcanonical/currentreconciliation; no bareF9alias"
+    },
+    {
+      "lens": 11,
+      "receipt": "current-rig-dressing-reconciliation-001.json",
+      "adoption": "current-rig-dressing-adoption-001.json",
+      "change": "Exact961 current Dressing receiver reconciled against frozen: as-cast absent; narrower typed joint-column propagation remains open; orderednext790 unchanged"
+    },
+    {
+      "lens": 13,
+      "receipt": "audit13-successor-008.json",
+      "adoption": "audit13-adoption-008.json",
+      "change": "Original24 exact SDK numeric/callback/query correlation source-assessed;next25",
+      "qualification": "Finite counters/native timestamp documentation/failure policies remain non-counted observations; firstparty/current-caller reconciliation pending"
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-016.json",
+      "adoption": "audit12-adoption-016.json",
+      "change": "Original41 module doc/item-resolution boundaries source-accounted;next42;no neighboring bodycredit"
+    },
+    {
+      "lens": 11,
+      "receipt": "audit11-successor-163-791.json",
+      "adoption": "audit11-adoption-163.json",
+      "change": "Adopt790/791 exact frozen source contracts WITH fixture/codec/topology/frame limits and citation001 clarification; current Dressing split retained."
+    },
+    {
+      "lens": 13,
+      "receipt": "audit13-successor-009.json",
+      "adoption": "audit13-adoption-009.json",
+      "change": "Adopt25-27 native metadata/pixel/PNG/buffer numeric boundaries WITH unchecked arithmetic/raw-buffer/offset admission limitations; no application/global clearance."
+    },
+    {
+      "lens": 8,
+      "receipt": "audit08-successor-007.json",
+      "adoption": "audit08-adoption-007.json",
+      "change": "Adopt material51 WITH preexisting Paid-to-Withdrawn candidate;52 remains concrete typed-error receiving partial. Original1799/1462Q003/ordered1792 unchanged."
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-017.json",
+      "change": "Original42 actualEOF140 coordinates/emptySerdebounds/typeddiagnostic boundary source-accounted;next43; no macro/concreteD implementation clearance"
+    },
+    {
+      "adoption": "review-response-20261026/broader-receipt-adoption-001.json",
+      "change": "Adopt delegated source-only13 original28-30 and11 original792;11original793/12original43 retained partial;8current comparison metadata bound to exact head",
+      "global_clearance": false,
+      "accepted_unique_count_change": 0
+    },
+    {
+      "lens": 11,
+      "receipt": "audit11-successor-164-root-793-completion-001.json",
+      "change": "Resolved missing793 tolerance-owner contract; scoped source accounting advances1 to794/2853, no current/global clearance"
+    },
+    {
+      "lens": 11,
+      "receipt": "audit11-root-166-794-partial.json",
+      "change": "Next794 full body inventoried, explicit actual receiver requirements retained; no count advance"
+    },
+    {
+      "lens": 11,
+      "receipt": "audit11-root-166-794-complete.json",
+      "change": "Actual794 first-party receivers resolved; advance1 scoped original to795/2853 with physical/native layout qualifications; no global clearance"
+    },
+    {
+      "lens": 11,
+      "receipt": "audit11-root-167-795-partial.json",
+      "change": "Next795 owner source read and inventoried; explicit receiver needs retained without count advance"
+    },
+    {
+      "lens": 11,
+      "receipt": "audit11-segovb-168-adoption-root.json",
+      "change": "Adopted795 exact source accounting,796/2853; retained frozen NaN candidate without current/unique verdict"
+    },
+    {
+      "lens": 13,
+      "receipt": "audit13-successor-011-adoption-root.json",
+      "change": "32/33 bounded native roles accounted,33/2853 total;31 remains earliestpartial, no application/global clearance"
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-019-complete.json",
+      "change": "Original43 accounted with qualified exact frozen receiving/provenance traces;44/2853 next44. No current family/global acceptance."
+    },
+    {
+      "lens": 8,
+      "receipt": "audit08-successor-adoption-policy989-root.json",
+      "change": "Original1462Q003 worldnormal now traced through obstacle rotation; no concrete violating admitted hit established. Material52 and frozen/current comparison unchanged. No originalcount or unique finding advance."
+    },
+    {
+      "lens": 11,
+      "receipt": "audit11-successor-adoption-policy989-root.json",
+      "change": "Full796 and actual scalp/cap direct recipients read; GPU scalp child exact provenance/body unresolved; next796 activepartial. Prior795NaN remains frozen local, not current/unique. No originalcount or unique finding advance."
+    },
+    {
+      "lens": 13,
+      "receipt": "audit13-successor-adoption-policy989-root.json",
+      "change": "Native layout/history producer/default allocator bodies traced;31 remainspartial at actual wrapper/custom shader/historyconsumer/delegated allocator/app paths. Three native arithmetic/reset/sentinel observations non-counted pending currentness/alias/reachability. No originalcount or unique finding advance."
+    },
+    {
+      "lens": 11,
+      "receipt": "audit11-segovb-170-scalp-staging.json",
+      "change": "New exact immutable scalp child extension staged only; no coverage. Other-lens role queue mandatory."
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-020-complete.json",
+      "change": "Original44 scoped role accounted;45/2853 next45; no other-lens/global/currentness credit."
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-021-complete.json",
+      "change": "Original45 Cargo/native config-role accounted;46/2853 next46; no runtime/global or otherlens credit."
+    },
+    {
+      "lens": 11,
+      "receipt": "audit11-segovb-170-adoption-root.json",
+      "change": "Actual GPUscalp cut/read and same16-byte streamtrim boundaries traced; original796 typegranularity roles source-accounted with publicarray/frame/numerical/native/currentness qualifications. Two unchanged children add zero independent original/shared count; mandatory other-lensqueue remains."
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-022-partial.json",
+      "change": "Full original46 buildscript local string inventory read; actualvalidators/generated recipients pending, no completioncount/unique advance."
+    },
+    {
+      "lens": 8,
+      "receipt": "audit08-successor-009-adoption-root.json",
+      "change": "Actual intended rotation and vector predicates plus native quaternion multiplication establish local admitted-input composition counterexample. Ordinary firstparty camera obstacle/cast reachability and currentness not proven. Q003 remains partial, ordered1792/material52partial; no newunique count."
+    },
+    {
+      "lens": 11,
+      "receipt": "audit11-segovb-171-adoption-root.json",
+      "change": "Original797 requested/resolved hairform, carriedgeometry, native strip packing and atlas mip/channel roles sourceaccounted with public mutation/frame/native/currentness limits. Three unchanged extension children mandatory other-lensqueue; no798 orderedread from thispacket."
+    },
+    {
+      "lens": 13,
+      "receipt": "audit13-successor-013-adoption-root.json",
+      "change": "Native actualallocation producer226-340 read: countnarrowing, dirtyfreebeforealloc, pagegrowth and retainedWrite producer traced. Raw native oversizedcount/pageCustom observations remain noncounted pending firstparty/currentness/alias.31partial/firstunread34 unchanged."
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-022-partial-002.json",
+      "change": "Actual item parser/preflight/dynamicpath receiver traced1-360; sourcecandidate retained, original46countunchanged."
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-current-diagnosticpath-M24-reconciliation-001.json",
+      "change": "Local rawpath diagnostic candidate deduplicated to inheritedM24; selectedcurrent180line owner/path behavior byteidentical, fullcurrentM24 remainsunverified; no unique increment."
+    },
+    {
+      "lens": 13,
+      "receipt": "audit13-successor-014-015-adoption-root.json",
+      "change": "Packet014 firstparty shrubproducer/selectedshader trace source-backed with pending upstream/currentness bounds. Independent originals34/35 fullyinventoried and native actualdraw/binding callbacks read, sourceaccounted outoforder. Earliest31partial retained;firstunread36; no original37/2793/shared/otherlenscredit."
+    },
+    {
+      "lens": 11,
+      "receipt": "audit11-segovb-172-adoption-root.json",
+      "change": "Independent full hostbake798 and400line shader799 role inventories/receiving traces sourceaccounted with native math/buffer/cardinality/mutation/currentness limits. map_texel coordinate+validity resultrecord concern qualified/noncounted. No800bodyread or broadfamilyvalidation."
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-022-partial-003.json",
+      "change": "Actual runtimeitem/source-mapretention + public stringID lookup traced to projection/schema boundary, original46remains46count/partial. No113/otherlenscredit."
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-022-partial-004.json",
+      "change": "Corrected runtimeitem semantic/test source boundary to actualcfg133; zero sourcecount/otherlens/runtimevalidation change."
+    },
+    {
+      "lens": 8,
+      "receipt": "audit08-successor-010-adoption-root.json",
+      "change": "Actual camera hard predicate, generated obstacle rotation and replication registration traced. Ordinary violating camera hit/currentness remains unproved; no count advance.",
+      "global_clearance": false,
+      "accepted_unique_count_change": 0
+    },
+    {
+      "lens": 11,
+      "receipt": "audit11-segovb-173-adoption-root.json",
+      "change": "Original800 full field producer, canonical header, packed triangle and actual native decoder traced. Qualified20-bit capacity gap retained without current-family/accepted unique claim;801 receiver-only,802 unread.",
+      "global_clearance": false,
+      "accepted_unique_count_change": 0
+    },
+    {
+      "lens": 13,
+      "receipt": "audit13-successor-016-adoption-root.json",
+      "change": "Original36 all48 lines inventoried with ordinary receivers; conditional UV_B/skinning host and material consumers plus local_pos remain concrete partials. No37 original credit or new unique findings.",
+      "global_clearance": false,
+      "accepted_unique_count_change": 0
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-022-partial-005.json",
+      "change": "Original46 remains partial; actual generated runtime projection and schema1-320 now traced, raw retained identifiers/tags/surface domains require current owner/master reconciliation. M24 stays deduplicated; no unique increment."
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-022-partial-006.json",
+      "change": "Original46 partial; item validator production1-1492 and schema production1-592 actual connected roles now read. M23/M25 selected current owners confirmed/dedup; native helpers and other catalogs pending. No unique/global credit."
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-022-partial-007.json",
+      "change": "Original46 partial; actual four item validation helpers now traced. Surface/bodypart/chain and singleton rawpolicy candidates remain qualified without unique/current claim; M23/M25/M24dedup retained. Other catalog recipients pending."
+    },
+    {
+      "lens": 11,
+      "receipt": "audit11-segovb-174-adoption-root.json",
+      "change": "Original801 actual carrying/guide/solver/native dispatch roles traced. Existing canonical Draping policy erased to retainedbool is frozen local candidate, not current/unique accepted finding.802 actual receiver-only with no orderedcredit; all prior qualifications retained."
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-022-partial-008.json",
+      "change": "Original46 partial; item schema fit/surface/physicalSerde receiving bodies now traced, native labels and typed fit/conflict owner confirmed. Other three catalog validators/runtime plus ID/recipe/current candidate reconciliation pending. No count/unique advance."
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-022-partial-009.json",
+      "change": "Original46 partial; organization validator production1-722 and selectedruntime model/catalog traced. Currentbuild/validator/runtime source byteequal confirms existingF23/M53/M24 selected gaps; other catalogs/canonicalreceivers pending, no unique/count advance."
+    },
+    {
+      "lens": 13,
+      "receipt": "audit13-successor-017-adoption-root.json",
+      "change": "Actual understory lattice yields at most max(countx,0)*max(countz,0) sites/species entries; chance cap only filters. Terrain admitted dimensions remain unproved for native count/page budget.31/36 partials and all prior currentness/alias/native/otherproducer limits remain."
+    },
+    {
+      "lens": 8,
+      "receipt": "audit08-successor-011-adoption-root.json",
+      "change": "Installedclient net/physics/camera route to collider initialization, transformsync and query retention source-backed. Q003 remains partial at defaultcodec/GlobalTransform decomposition and actual violating cast/currentness;1799count unchanged."
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-022-partial-010.json",
+      "change": "Original46 remains partial; questvalidator1-317 sourcekey/shape/ID/error helper roles traced. Production318+ and encounter/generatedreceivers pending; M24support existing. No sourcecount/unique/current clearance."
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-022-partial-011.json",
+      "change": "Original46 partial. Actual questvalidator1517/catalog861+Sexhelper/Condition schema traced; selectedcurrentowners byteequal. ExistingM46 rawsemantic model and additionalConditionadmission gap supported; M24 causes/path andM42 dependencies retained. Encounter and itemcanonicalreceivers pending; no unique/count advance."
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-022-partial-012.json",
+      "change": "Original46 partial; allfourcatalogvalidator/runtime selectedproductionreceivers traced. CurrentM39/M46/M53/F23/M24 selectedgaps supported/dedup, no newunique. Buildcombat_resolution and itemrecipe/canonicalID receivers pending; allglobalqualifications remain."
+    },
+    {
+      "lens": 8,
+      "receipt": "audit08-successor-012-adoption-root.json",
+      "change": "Pure-w packet009 deviation is erased by actualBevy/glam affine-matrix route. Localdirect compositioncounterexample retained; ordinarycollider codec/explicitRotation/normal/currentness witness remainsunproved."
+    },
+    {
+      "lens": 11,
+      "receipt": "audit11-segovb-175-adoption-root.json",
+      "change": "Independent802 full274line shader role inventory and actualKernel/HEADgradient/dispatch recipients source-accounted. Rootmovement bound/currentfamily/capacity/Draping and all priorqualifications remain;803unread."
+    },
+    {
+      "lens": 13,
+      "receipt": "audit13-successor-018-adoption-root.json",
+      "change": "Terrain admission allows candidate lattice area above1M, supplying no sufficient hard inputcap. Largerupperbound doesnot prove actualspecieslen>1M, nativepanic orcurrentfailure. Actualpopulation/sourcevalidator/mutation/currentness andall31/36frontiers retained."
+    },
+    {
+      "lens": 8,
+      "receipt": "audit08-successor-013-adoption-root.json",
+      "change": "Original1792 finite-point boundary and actual generator/grid/ground recipients source-accounted with no defect found. Q003 and material52 remain partial; no runtime/current-family clearance.",
+      "global_clearance": false,
+      "accepted_unique_count_change": 0
+    },
+    {
+      "lens": 11,
+      "receipt": "audit11-segovb-176-adoption-root.json",
+      "change": "Original803 native level/card packing and four-buffer preview retention traced. Public mutation, finite geometry, capacity, Draping, root bounds and current-family obligations remain; next804.",
+      "global_clearance": false,
+      "accepted_unique_count_change": 0
+    },
+    {
+      "lens": 13,
+      "receipt": "audit13-successor-019-adoption-root.json",
+      "change": "Original37 independently inventoried but historical-transform recipient and debug-uniform producer remain partial. Counts unchanged; partial31/36/37, first unread38. Larger lattice is not an actual population-budget failure.",
+      "global_clearance": false,
+      "accepted_unique_count_change": 0
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-022-partial-013.json",
+      "change": "Original46 compiler/weapon registry/generated config recipients traced. Concrete canonical identity/outcome/material-key fit and current changed contracts remain partial; no original or unique count advance.",
+      "global_clearance": false,
+      "accepted_unique_count_change": 0
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-022-complete.json",
+      "change": "Original46 connected catalog/weapon-key/outcome/compiler roles source-accounted WITH existing findings and qualified candidates; current P16 compiler/config differ explicitly, not current integrated clearance.",
+      "original_count_delta": 1,
+      "new_unique_delta": 0,
+      "global_clearance": false
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-023-complete.json",
+      "change": "Original47 compiler entire275 independently inventoried; actual generated/shared runtime config receivers reused from own matching proofs. Existing M87 and current P16/global family acceptance remain open.",
+      "original_count_delta": 1,
+      "new_unique_delta": 0,
+      "global_clearance": false
+    },
+    {
+      "lens": 8,
+      "receipt": "audit08-successor-014-adoption-root.json",
+      "change": "Original1793 independently inventoried; exact unchanged base/head test, parent and JSON provenance plus actual selection/compile publication order read. Delegated support planning, terrain composition and typed JSON admission remain concrete partials.",
+      "original_count_delta": 0,
+      "new_unique_delta": 0,
+      "global_clearance": false
+    },
+    {
+      "lens": 11,
+      "receipt": "audit11-segovb-177-adoption-root.json",
+      "change": "Original804 full233 independently inventoried, native grow/mesh/bounds/placement/preview contracts traced. Known Draping erasure retained; bust-versus-placed longest measurement remains a qualified frozen question. Initial unregistered exposures and correct later registered reads remain explicit.",
+      "original_count_delta": 1,
+      "new_unique_delta": 0,
+      "global_clearance": false
+    },
+    {
+      "lens": 13,
+      "receipt": "audit13-successor-020-adoption-root.json",
+      "change": "Native standard-material debug uniform producer/binding/default-shader/enabling-key path traced. Historical-transform recipient and conditional/current application/macro boundaries remain partial. No actual firstparty debug compilation/failure or unique finding accepted.",
+      "original_count_delta": 0,
+      "new_unique_delta": 0,
+      "global_clearance": false
+    },
+    {
+      "lens": 12,
+      "receipt": "audit12-successor-024-complete.json",
+      "change": "Original48 open AnimationPackId full43 and actual schema/builtin/library/runtime key recipients traced. ExistingM05 checked motion error erasure reconfirmed, no newunique finding. Otherfamily/currentnative guarantees remain unvalidated.",
+      "original_count_delta": 1,
+      "new_unique_delta": 0,
+      "global_clearance": false
+    }
+  ],
+  "family_obligations": [
+    {
+      "id": "P01",
+      "name": "Movement-audio Seed propagation",
+      "exit_requirement": "No Seed\u2192u64\u2192Seed round trip between application audio helpers.",
+      "responsible_owner": "/root",
+      "ownership_claims": [
+        "parallel-ownership/root-claims.json"
+      ],
+      "shared_dependencies": [],
+      "source_status": {
+        "state": "complete_preserved",
+        "source_commit": "1115db3ed1a9507f71337024a79020ed59cfdf1e",
+        "source_commits": [
+          "1115db3ed1a9507f71337024a79020ed59cfdf1e"
+        ],
+        "remaining_gaps": [],
+        "evidence": [
+          "rig-artifact-verification-82cb2.json"
+        ]
+      },
+      "integration_status": {
+        "state": "integrated",
+        "integrated_commit": "1115db3ed1a9507f71337024a79020ed59cfdf1e",
+        "commit_pairs": [
+          {
+            "source": "1115db3ed1a9507f71337024a79020ed59cfdf1e",
+            "integrated": "1115db3ed1a9507f71337024a79020ed59cfdf1e"
+          }
+        ],
+        "pending_source_commits": []
+      },
+      "validation_status": {
+        "state": "blocked_at_semantic_quality_before_contract_execution",
+        "validated_head": null,
+        "evidence": [
+          "P06-hosted-contract-expectations-def7777.json",
+          "hosted-checkpoint-def7777-discovery.json"
+        ],
+        "historical_acceptance": {
+          "validated_head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+          "run": 39466774426,
+          "job": 118780099699,
+          "evidence": "rig-artifact-verification-82cb2.json",
+          "status": "accepted selected historical contracts",
+          "limits": "Historical selected coverage only; does not validate current changes or the whole repository/live renderer."
+        },
+        "limits": [],
+        "attempted_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "run": 39576450512,
+        "formatting_repair_commit": "6533e444fa37552927070cc8d8190907fd3b413e"
+      },
+      "next_action": "Complete exhaustive all-thirteen-lens initial source inventory including preserved work and affected unchanged paths, then perform reconciled repairs and mandatory integration. Final clearance requires all lenses/reviews/hosted CI at one final revision; earlier evidence remains historical.",
+      "current_status": "unverified against current main; historical statuses retained in fields, no acceptance carried by transport"
+    },
+    {
+      "id": "P02",
+      "name": "Autoresolve battle-time coordinates",
+      "exit_requirement": "No raw absolute-time parameter/field on this connected scheduling/defense chain; no admitted duration re-erased into readiness state.",
+      "responsible_owner": "/root",
+      "ownership_claims": [
+        "parallel-ownership/root-claims.json"
+      ],
+      "shared_dependencies": [
+        {
+          "repair": "native-error-report-followthrough",
+          "relationship": "Preserves P02 error causes through the P18 native report graph."
+        },
+        {
+          "repair": "post-acceptance-review-followthrough",
+          "relationship": "Integrated duration/validation/receiving-body repairs from the earlier review preserve this family; exact historical acceptance remains pinned to 82cb2 and does not cover these later source changes."
+        },
+        {
+          "repair": "strategic-operation-error-owner",
+          "relationship": "Connected P16 storage admission reaches mutually calling strategic helpers; canonical aggregate ownership is being repaired by camera while preserving earlier leaf causes. Existing complete families require reconciliation/revalidation when it integrates."
+        }
+      ],
+      "source_status": {
+        "state": "complete_preserved",
+        "source_commit": "c6fe55e42e90981d9e132fcf1dd6615d17227275",
+        "source_commits": [
+          "604e241dcaca46420b355e7a5762f4d053d78e3c",
+          "c6fe55e42e90981d9e132fcf1dd6615d17227275",
+          "39121ddae304f977f944eccfe4eab307644d763c"
+        ],
+        "remaining_gaps": [],
+        "evidence": [
+          "rig-artifact-verification-82cb2.json",
+          "P02-authored-sidearm-evidence-source-review.json",
+          "P18-native-reports-source-complete.json"
+        ]
+      },
+      "integration_status": {
+        "state": "integrated",
+        "integrated_commit": "6a758402e3b2daa09ad728703705139a1eee3461",
+        "commit_pairs": [
+          {
+            "source": "604e241dcaca46420b355e7a5762f4d053d78e3c",
+            "integrated": "604e241dcaca46420b355e7a5762f4d053d78e3c"
+          },
+          {
+            "source": "c6fe55e42e90981d9e132fcf1dd6615d17227275",
+            "integrated": "6a758402e3b2daa09ad728703705139a1eee3461"
+          },
+          {
+            "source": "39121ddae304f977f944eccfe4eab307644d763c",
+            "integrated": "39121ddae304f977f944eccfe4eab307644d763c"
+          }
+        ],
+        "pending_source_commits": []
+      },
+      "validation_status": {
+        "state": "blocked_at_semantic_quality_before_contract_execution",
+        "validated_head": null,
+        "evidence": [
+          "P06-hosted-contract-expectations-def7777.json",
+          "hosted-checkpoint-def7777-discovery.json"
+        ],
+        "historical_acceptance": {
+          "validated_head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+          "run": 39466774426,
+          "job": 118780099699,
+          "evidence": "rig-artifact-verification-82cb2.json",
+          "status": "accepted selected historical contracts",
+          "limits": "Historical selected coverage only; does not validate current changes or the whole repository/live renderer."
+        },
+        "limits": [],
+        "attempted_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "run": 39576450512,
+        "formatting_repair_commit": "6533e444fa37552927070cc8d8190907fd3b413e"
+      },
+      "next_action": "Complete exhaustive all-thirteen-lens initial source inventory including preserved work and affected unchanged paths, then perform reconciled repairs and mandatory integration. Final clearance requires all lenses/reviews/hosted CI at one final revision; earlier evidence remains historical.",
+      "current_status": "unverified against current main; historical statuses retained in fields, no acceptance carried by transport"
+    },
+    {
+      "id": "P03",
+      "name": "Remaining maneuver-duration producers",
+      "exit_requirement": "All maneuver durations stay checked until sample-count conversion.",
+      "responsible_owner": "/root",
+      "ownership_claims": [
+        "parallel-ownership/root-claims.json"
+      ],
+      "shared_dependencies": [
+        {
+          "repair": "post-acceptance-review-followthrough",
+          "relationship": "Integrated duration/validation/receiving-body repairs from the earlier review preserve this family; exact historical acceptance remains pinned to 82cb2 and does not cover these later source changes."
+        }
+      ],
+      "source_status": {
+        "state": "complete_preserved",
+        "source_commit": "39121ddae304f977f944eccfe4eab307644d763c",
+        "source_commits": [
+          "d5b4837ea6c2863cb99c768ee528cb94177f0f08",
+          "39121ddae304f977f944eccfe4eab307644d763c"
+        ],
+        "remaining_gaps": [],
+        "evidence": [
+          "rig-artifact-verification-82cb2.json",
+          "partial-review-20261020-followthrough.json"
+        ]
+      },
+      "integration_status": {
+        "state": "integrated",
+        "integrated_commit": "39121ddae304f977f944eccfe4eab307644d763c",
+        "commit_pairs": [
+          {
+            "source": "d5b4837ea6c2863cb99c768ee528cb94177f0f08",
+            "integrated": "d5b4837ea6c2863cb99c768ee528cb94177f0f08"
+          },
+          {
+            "source": "39121ddae304f977f944eccfe4eab307644d763c",
+            "integrated": "39121ddae304f977f944eccfe4eab307644d763c"
+          }
+        ],
+        "pending_source_commits": []
+      },
+      "validation_status": {
+        "state": "blocked_at_semantic_quality_before_contract_execution",
+        "validated_head": null,
+        "evidence": [
+          "P06-hosted-contract-expectations-def7777.json",
+          "hosted-checkpoint-def7777-discovery.json"
+        ],
+        "historical_acceptance": {
+          "validated_head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+          "run": 39466774426,
+          "job": 118780099699,
+          "evidence": "rig-artifact-verification-82cb2.json",
+          "status": "accepted selected historical contracts",
+          "limits": "Historical selected coverage only; does not validate current changes or the whole repository/live renderer."
+        },
+        "limits": [],
+        "attempted_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "run": 39576450512,
+        "formatting_repair_commit": "6533e444fa37552927070cc8d8190907fd3b413e"
+      },
+      "next_action": "Complete exhaustive all-thirteen-lens initial source inventory including preserved work and affected unchanged paths, then perform reconciled repairs and mandatory integration. Final clearance requires all lenses/reviews/hosted CI at one final revision; earlier evidence remains historical.",
+      "current_status": "unverified against current main; historical statuses retained in fields, no acceptance carried by transport"
+    },
+    {
+      "id": "P04",
+      "name": "Playback rates, phase bounds and event budget",
+      "exit_requirement": "Each retained playback policy value has its existing or specifically owned checked role; no same-quantity float helper forwarding.",
+      "responsible_owner": "/root",
+      "ownership_claims": [
+        "parallel-ownership/root-claims.json"
+      ],
+      "shared_dependencies": [
+        {
+          "repair": "post-acceptance-review-followthrough",
+          "relationship": "Integrated duration/validation/receiving-body repairs from the earlier review preserve this family; exact historical acceptance remains pinned to 82cb2 and does not cover these later source changes."
+        }
+      ],
+      "source_status": {
+        "state": "complete_preserved",
+        "source_commit": "39121ddae304f977f944eccfe4eab307644d763c",
+        "source_commits": [
+          "c59c01e3ea5471925a8954c26a08afadf5d22942",
+          "82528917d5de0b9391b6e608ca5db8ba4a8c9271",
+          "39121ddae304f977f944eccfe4eab307644d763c"
+        ],
+        "remaining_gaps": [],
+        "evidence": [
+          "rig-artifact-verification-82cb2.json",
+          "partial-review-20261020-followthrough.json"
+        ]
+      },
+      "integration_status": {
+        "state": "integrated",
+        "integrated_commit": "39121ddae304f977f944eccfe4eab307644d763c",
+        "commit_pairs": [
+          {
+            "source": "c59c01e3ea5471925a8954c26a08afadf5d22942",
+            "integrated": "c59c01e3ea5471925a8954c26a08afadf5d22942"
+          },
+          {
+            "source": "82528917d5de0b9391b6e608ca5db8ba4a8c9271",
+            "integrated": "82528917d5de0b9391b6e608ca5db8ba4a8c9271"
+          },
+          {
+            "source": "39121ddae304f977f944eccfe4eab307644d763c",
+            "integrated": "39121ddae304f977f944eccfe4eab307644d763c"
+          }
+        ],
+        "pending_source_commits": []
+      },
+      "validation_status": {
+        "state": "blocked_at_semantic_quality_before_contract_execution",
+        "validated_head": null,
+        "evidence": [
+          "P06-hosted-contract-expectations-def7777.json",
+          "hosted-checkpoint-def7777-discovery.json"
+        ],
+        "historical_acceptance": {
+          "validated_head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+          "run": 39466774426,
+          "job": 118780099699,
+          "evidence": "rig-artifact-verification-82cb2.json",
+          "status": "accepted selected historical contracts",
+          "limits": "Historical selected coverage only; does not validate current changes or the whole repository/live renderer."
+        },
+        "limits": [],
+        "attempted_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "run": 39576450512,
+        "formatting_repair_commit": "6533e444fa37552927070cc8d8190907fd3b413e"
+      },
+      "next_action": "Complete exhaustive all-thirteen-lens initial source inventory including preserved work and affected unchanged paths, then perform reconciled repairs and mandatory integration. Final clearance requires all lenses/reviews/hosted CI at one final revision; earlier evidence remains historical.",
+      "current_status": "unverified against current main; historical statuses retained in fields, no acceptance carried by transport"
+    },
+    {
+      "id": "P05",
+      "name": "Capture elapsed through jitter analysis",
+      "exit_requirement": "No elapsed erasure when building JitterFrame; derivative division sees only its final numerical coefficient.",
+      "responsible_owner": "/root",
+      "ownership_claims": [
+        "parallel-ownership/root-claims.json"
+      ],
+      "shared_dependencies": [],
+      "source_status": {
+        "state": "complete_preserved",
+        "source_commit": "43dd4dbdc4c47b3af2e99170204a0c21f3e2fa70",
+        "source_commits": [
+          "43dd4dbdc4c47b3af2e99170204a0c21f3e2fa70"
+        ],
+        "remaining_gaps": [],
+        "evidence": [
+          "rig-artifact-verification-82cb2.json"
+        ]
+      },
+      "integration_status": {
+        "state": "integrated",
+        "integrated_commit": "43dd4dbdc4c47b3af2e99170204a0c21f3e2fa70",
+        "commit_pairs": [
+          {
+            "source": "43dd4dbdc4c47b3af2e99170204a0c21f3e2fa70",
+            "integrated": "43dd4dbdc4c47b3af2e99170204a0c21f3e2fa70"
+          }
+        ],
+        "pending_source_commits": []
+      },
+      "validation_status": {
+        "state": "blocked_at_semantic_quality_before_contract_execution",
+        "validated_head": null,
+        "evidence": [
+          "P06-hosted-contract-expectations-def7777.json",
+          "hosted-checkpoint-def7777-discovery.json"
+        ],
+        "historical_acceptance": {
+          "validated_head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+          "run": 39466774426,
+          "job": 118780099699,
+          "evidence": "rig-artifact-verification-82cb2.json",
+          "status": "accepted selected historical contracts",
+          "limits": "Historical selected coverage only; does not validate current changes or the whole repository/live renderer."
+        },
+        "limits": [],
+        "attempted_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "run": 39576450512,
+        "formatting_repair_commit": "6533e444fa37552927070cc8d8190907fd3b413e"
+      },
+      "next_action": "Complete exhaustive all-thirteen-lens initial source inventory including preserved work and affected unchanged paths, then perform reconciled repairs and mandatory integration. Final clearance requires all lenses/reviews/hosted CI at one final revision; earlier evidence remains historical.",
+      "current_status": "unverified against current main; historical statuses retained in fields, no acceptance carried by transport"
+    },
+    {
+      "id": "P06",
+      "name": "Terrain support elevation through IK",
+      "exit_requirement": "No typed support hit is flattened merely to pass between application queries and IK consumers.",
+      "responsible_owner": "/root",
+      "ownership_claims": [
+        "parallel-ownership/root-claims.json",
+        "parallel-ownership/rig_garments-claims.json"
+      ],
+      "shared_dependencies": [
+        {
+          "repair": "support-and-foot-influence",
+          "relationship": "Both guarantees share pose conformity/IK receivers; source integrated, current-head acceptance pending."
+        },
+        {
+          "repair": "capture-clearance-and-ik-admission",
+          "relationship": "P17 source dependency; preserve/reconcile P06/P19 guarantees when this later shared extension integrates. Current source-complete P06/P19 implementation remains intact."
+        },
+        {
+          "repair": "post-acceptance-review-followthrough",
+          "relationship": "Integrated duration/validation/receiving-body repairs from the earlier review preserve this family; exact historical acceptance remains pinned to 82cb2 and does not cover these later source changes."
+        },
+        {
+          "repair": "prepared-physical-player-spawns",
+          "relationship": "Transferred whole affected player admission/project/spawn functions to camera owner; preserve earlier support/position/random-order and atomic batch contracts."
+        },
+        {
+          "repair": "required-landform-presentation-error",
+          "relationship": "Rig first-trace owner repairs whole volumetric spawn/refresh and terrain::present_pending_terrain receiving error chain plus owning typed cause, preserving all root P06 geometry/support requirements."
+        },
+        {
+          "repair": "canonical-nonnegative-length-owner",
+          "relationship": "Existing checked zero-capable metre owner is shared dependency; source/integration/validation unfinished. Exact claims authoritative; do not duplicate or narrow zero."
+        },
+        {
+          "repair": "shared-ik-successful-point-and-analytic-solution",
+          "relationship": "Native whole connected producer/state/receiver loop; root canonical phase/conformity/continuation retained. Discovery only, later reconcile exact source contract and original accepted family evidence."
+        },
+        {
+          "repair": "shared-pure-route-coordinate-and-duration-contracts",
+          "relationship": "ROOT-OWNER-ROUTE-FRAMES-AND-FIXTURES-074 / F023: whole pure TerrainPack reconstruction/retained spans/projection/simplification, distinct grid vs geographic points. Camera DB/web gateways consume agreed final output; imported package versus fallback route identity authorities stay distinct. Initial inventory only; implementation/validation remain open."
+        },
+        {
+          "repair": "shared-timber-component-source-contract",
+          "relationship": "Explicit root042->rig whole TimberComponent/TimberInstance/BuildingKit and detail/cuboid placement source graph transfer; root client ComponentCache/install_facade and canonical geometry retained. ROOT078/RIG072 full same-lens source and native receiver proof. No unrelated family credit from shared leaf alone. Initial inventory only; implementation/validation remain open."
+        },
+        {
+          "repair": "shared-guard-and-attack-state-contracts",
+          "relationship": "Whole AttackCurve/attack height begin_attack_timed+ActionState/QueuedAttack/GuardContacts/GuardStepPlan and exact necessary receivers. Existing root continuation/PoseConformity/foot phase methods excluded; local planar vs Scene frames and progress>1 distinguished. Current source-backed requirements only, no family completion. Initial inventory only; implementation/validation remain open."
+        }
+      ],
+      "source_status": {
+        "state": "reopened",
+        "source_commit": "b948c992a430dd8c53c3162c26d0cd13e74d51a1",
+        "source_commits": [
+          "39121ddae304f977f944eccfe4eab307644d763c",
+          "b948c992a430dd8c53c3162c26d0cd13e74d51a1"
+        ],
+        "remaining_gaps": [
+          "ROOT-PP-001: ArchitecturalPlanProjection re-admits already checked ScenePlanPoint; retain original value and finish all callers.",
+          "ROOT-PP-002/005: raw vista extent state/signatures and art-demo retained focus still erase checked scene geometry before application receivers. Finish original producers and all receiving state/native ports.",
+          "RIG-SUPP-LANDFORM-001: client volumetric helper drops required TerrainRecipeError with .ok then publishes successful base-only presentation. Rig owner must finish whole spawn/refresh/present result chain and owning error cause.",
+          "ROOT-PP-006/007/008/009: furniture checked extent/point forwarding, group identity helper, acceptance Walker point/elevation contracts and stair capacity producer remain unfinished; exact full-function claims in root-claims.json and source repair/acceptance in producer ledger.",
+          "ROOT-PP-010\u2013015: dispatcher checked coordinate/cause producer chain, grade forwarding, diagnostic internalJSON round trip, support tolerance and garden polygon retention remain unfinished on reached P06 paths. Exact contracts/repairs in audit ledger/shards; later lenses must reconcile before fixing.",
+          "ROOT-PP-016/017: terrain source identity and generated-home building/geometry records lose checked owners in retained application state; exact root claims authoritative, rig/camera receiving consumers coordinated.",
+          "ROOT-PP-018/019: pure configuration parser errors lose typed causes and required stair query failure is .ok-discarded; reconcile total finite interpolation/typed failure policy across subsequent lenses before exact shared repair. Source-backed contracts/claims in current audit output.",
+          "RIG-SUPP-GEOMETRY-001/003/004: whole retained apron leaves, existing checked-point fixture adapter and canonical support diagnostic factory/caller propagation remain mandatory. Root owns location/attempt factories; rig owns existing mesh/apron/fixture callers; exact claims and receiver proofs authoritative."
+        ],
+        "evidence": [
+          "P06-8f2b-connected-boundary-source-review.json",
+          "P06-8f2b-connected-source-reopen-plan.json",
+          "final-acceptance-20261021/audit-ledger.json",
+          "final-acceptance-20261021/wave-01/audit-existing-type-owners/root/contracts.jsonl#ROOT-OWNER-PAVING-054",
+          "final-acceptance-20261021/wave-01/audit-existing-type-owners/root/contracts.jsonl#ROOT-OWNER-FOUNDATION-059",
+          "final-acceptance-20261021/wave-01/audit-existing-type-owners/root/contracts.jsonl#ROOT-OWNER-TERRAIN-KERNEL-063",
+          "final-acceptance-20261021/wave-01/audit-existing-type-owners/root/contracts.jsonl#ROOT-OWNER-TERRAIN-FIXTURES-064",
+          "final-acceptance-20261021/wave-01/audit-existing-type-owners/root/contracts.jsonl#ROOT-OWNER-FURNITURE-CONNECTED-065",
+          "final-acceptance-20261021/wave-01/audit-existing-type-owners/root/contracts.jsonl#ROOT-OWNER-GARDEN-ROOT-066"
+        ],
+        "reopened_work": [
+          {
+            "head": "8f2b901881f8aa8035a03cd99dbfefb7bbdf8926",
+            "reason": "Failed existing litter Result receiver plus connected GateDatum/boundary forwarding found on source reopen.",
+            "evidence": "P06-hosted-8f2b-first-failure.log",
+            "resolved_by_source_commit": "b948c992a430dd8c53c3162c26d0cd13e74d51a1",
+            "remaining_source_gap": false
+          },
+          {
+            "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "reason": "Current exhaustive initial producer pass demonstrates retained geometry/required-render-error gaps on affected unchanged P06 receiving paths; prior implementation/commits remain intact.",
+            "evidence": [
+              "final-acceptance-20261021/wave-01/audit-producer-propagation/root/findings.jsonl#ROOT-PP-001/002/005",
+              "final-acceptance-20261021/wave-01/audit-producer-propagation/rig/supplemental-root-receivers-003.json#RIG-SUPP-LANDFORM-001"
+            ],
+            "remaining_source_gap": true
+          }
+        ],
+        "reference_evidence": [
+          "P06-execution-plan.md",
+          "P06-reference-classification.json",
+          "P06-expanded-survey.json",
+          "P06-absence-policy-plan.json",
+          "P06-validation-selection-plan.json",
+          "P06-coordinate-producer-frontier.json",
+          "P06-range-consumer-trace.json",
+          "P06-viewer-dispatcher-trace.json",
+          "P06-ik-scatter-body-trace.json",
+          "P06-admission-decisions.json",
+          "P06-vista-placement-body-trace.json",
+          "P06-strategic-preparation-error-trace.json",
+          "P06-server-spawn-body-trace.json",
+          "P06-native-grid-boundary-trace.json"
+        ]
+      },
+      "integration_status": {
+        "state": "integrated_prior_increment_repair_pending",
+        "integrated_commit": "b948c992a430dd8c53c3162c26d0cd13e74d51a1",
+        "commit_pairs": [
+          {
+            "source": "b948c992a430dd8c53c3162c26d0cd13e74d51a1",
+            "integrated": "b948c992a430dd8c53c3162c26d0cd13e74d51a1"
+          },
+          {
+            "source": "39121ddae304f977f944eccfe4eab307644d763c",
+            "integrated": "39121ddae304f977f944eccfe4eab307644d763c"
+          }
+        ],
+        "pending_source_commits": []
+      },
+      "validation_status": {
+        "state": "blocked_at_semantic_quality_before_contract_execution",
+        "validated_head": null,
+        "evidence": [
+          "ci-result-39552331390-terminal.json",
+          "P06-hosted-contract-expectations-def7777.json",
+          "hosted-checkpoint-def7777-discovery.json"
+        ],
+        "historical_acceptance": null,
+        "limits": [
+          "No current-head native behavioral acceptance."
+        ],
+        "latest_attempt": "latest_hosted_attempt",
+        "attempted_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "run": 39576450512,
+        "formatting_repair_commit": "6533e444fa37552927070cc8d8190907fd3b413e"
+      },
+      "next_action": "Complete all13 initial discovery and reconcile exact root/rig shared contracts; then finish current geometry and required-support/render error gaps, preserving prior integrated source. Revalidate final revision; no CI while known source gaps remain.",
+      "current_status": "unverified against current main; historical statuses retained in fields, no acceptance carried by transport"
+    },
+    {
+      "id": "P07",
+      "name": "IK angular-cap handoff",
+      "exit_requirement": "No angle representation round trip at the two knee-cap application calls; native atan2/clamp/trigonometry receives the final radian coefficient.",
+      "responsible_owner": "/root",
+      "ownership_claims": [
+        "parallel-ownership/root-claims.json"
+      ],
+      "shared_dependencies": [],
+      "source_status": {
+        "state": "complete_preserved",
+        "source_commit": "c0796a58c1df9ad25078ef5339bc7d1d46a41056",
+        "source_commits": [
+          "c0796a58c1df9ad25078ef5339bc7d1d46a41056"
+        ],
+        "remaining_gaps": [],
+        "evidence": [
+          "rig-artifact-verification-82cb2.json"
+        ]
+      },
+      "integration_status": {
+        "state": "integrated",
+        "integrated_commit": "c0796a58c1df9ad25078ef5339bc7d1d46a41056",
+        "commit_pairs": [
+          {
+            "source": "c0796a58c1df9ad25078ef5339bc7d1d46a41056",
+            "integrated": "c0796a58c1df9ad25078ef5339bc7d1d46a41056"
+          }
+        ],
+        "pending_source_commits": []
+      },
+      "validation_status": {
+        "state": "blocked_at_semantic_quality_before_contract_execution",
+        "validated_head": null,
+        "evidence": [
+          "P06-hosted-contract-expectations-def7777.json",
+          "hosted-checkpoint-def7777-discovery.json"
+        ],
+        "historical_acceptance": {
+          "validated_head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+          "run": 39466774426,
+          "job": 118780099699,
+          "evidence": "rig-artifact-verification-82cb2.json",
+          "status": "accepted selected historical contracts",
+          "limits": "Historical selected coverage only; does not validate current changes or the whole repository/live renderer."
+        },
+        "limits": [],
+        "attempted_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "run": 39576450512,
+        "formatting_repair_commit": "6533e444fa37552927070cc8d8190907fd3b413e"
+      },
+      "next_action": "Complete exhaustive all-thirteen-lens initial source inventory including preserved work and affected unchanged paths, then perform reconciled repairs and mandatory integration. Final clearance requires all lenses/reviews/hosted CI at one final revision; earlier evidence remains historical.",
+      "current_status": "unverified against current main; historical statuses retained in fields, no acceptance carried by transport"
+    },
+    {
+      "id": "P08",
+      "name": "Camera physical measures and retained history",
+      "exit_requirement": "Physical camera state is typed until actual physics/render/math projection, without duplicate camera time or length owners.",
+      "responsible_owner": "/root/camera_targeting",
+      "ownership_claims": [
+        "parallel-ownership/camera_targeting-claims.json",
+        "parallel-ownership/root-claims.json",
+        "parallel-ownership/native_reports-claims.json"
+      ],
+      "shared_dependencies": [
+        {
+          "repair": "neutral-scalar-geometry",
+          "relationship": "Required canonical scalar/error owner; source dependency is integrated, validation pending."
+        },
+        {
+          "repair": "canonical-length-caps",
+          "relationship": "Reuse the integrated canonical cap operations; no leaf extraction/readmission."
+        },
+        {
+          "repair": "checked-cuboid-axis-leaves",
+          "relationship": "Checked cuboid axes are integrated at f326f9d85f087ab2b129f8fd8320384953505e5e; the neutral actual owner is integrated at 4ecae9125b81fe2a9ca4881a6f589fe5b870b622. P16 downstream contracts remain unfinished; no validation claimed."
+        },
+        {
+          "repair": "neutral-cuboid-and-build-schema",
+          "relationship": "The neutral CuboidDimensions actual owner is integrated at 4ecae9125b81fe2a9ca4881a6f589fe5b870b622. Core build-schema and physical producer/receiver follow-through remain uncommitted P16 work; coordinate affected P14/P18 consumers and revalidate on integration."
+        },
+        {
+          "repair": "shared-understory-species-capture",
+          "relationship": "RIG058/058A: canonical UnderstorySpecies retained through review specimen/CaptureViewSpec producers. Camera owns entire actual capture_views/build_manifest receiving functions. No apply_view exists; stale proposed scope corrected in claims; do not duplicate species or slice shared functions. Initial inventory only; implementation/validation remain open."
+        },
+        {
+          "repair": "shared-celestial-cloud-native-observation",
+          "relationship": "Whole cloud/celestial retained source->native render graph and skyviewer explicit camera/image availability. CELESTIAL-FRAME005/F035 corrects earlier false Scene equivalence: scene+north vs reflected render-north needs actual frame contract; preserve representedvectors and do not blindlyflip. Root shared config loader/validation/SceneDigest/extent/weather state/material and rig main/asset branches retain exact ownership. Initial inventory only; implementation/validation remain open."
+        }
+      ],
+      "source_status": {
+        "state": "reopened",
+        "source_commit": "d559ceff3edccf2306dc3840ad92407fa233edc9",
+        "source_commits": [
+          "99760970b143ef9eab65e3e156202a6bb4939631",
+          "9069fa159772ec440cb4013dc9a73b85f805a460",
+          "bda1fab7163a86dd46a7d60d4fd8bf2b6c0c320f",
+          "d559ceff3edccf2306dc3840ad92407fa233edc9"
+        ],
+        "remaining_gaps": [
+          "NATIVE-PP-021/027 +CAM-PROP-F013: actual retained checked boom/FOV capture metadata becomes primitive before validation, and checked Position receiver/fixture APIs remain incompatible. Complete whole claimed camera/capture functions and root-owned native triangle_census before source closure."
+        ],
+        "evidence": [
+          "P08-camera-source-implementation.json",
+          "final-acceptance-20261021/audit-ledger.json"
+        ],
+        "reopened_work": [
+          {
+            "source_commit": "99760970b143ef9eab65e3e156202a6bb4939631",
+            "reason": "Two incomplete SignedLength signatures found by coordinator source review; observation preparation and same-owner cap also closed before CI.",
+            "resolved_by_source_commits": [
+              "9069fa159772ec440cb4013dc9a73b85f805a460",
+              "bda1fab7163a86dd46a7d60d4fd8bf2b6c0c320f"
+            ],
+            "remaining_source_gap": false
+          },
+          {
+            "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "reason": "NATIVE-PP-021/027 +CAM-PROP-F013: actual retained checked boom/FOV capture metadata becomes primitive before validation, and checked Position receiver/fixture APIs remain incompatible. Complete whole claimed camera/capture functions and root-owned native triangle_census before source closure.",
+            "evidence": "final-acceptance-20261021/wave-01/audit-producer-propagation/camera/findings.jsonl; native/family-exit-reconciliation.json",
+            "remaining_source_gap": true
+          }
+        ],
+        "historical_source_state": "complete"
+      },
+      "integration_status": {
+        "state": "integrated_prior_increment_repair_pending",
+        "integrated_commit": "e37320f2585c2ca1897829ca6264f5384e04d2a9",
+        "commit_pairs": [
+          {
+            "source": "99760970b143ef9eab65e3e156202a6bb4939631",
+            "integrated": "ea6179163436f6b2a2719cdd699ffa751425323d"
+          },
+          {
+            "source": "9069fa159772ec440cb4013dc9a73b85f805a460",
+            "integrated": "e329c7dd84fcb412545dbbce6eb3a3d47bb268ea"
+          },
+          {
+            "source": "bda1fab7163a86dd46a7d60d4fd8bf2b6c0c320f",
+            "integrated": "c912fd7a7c7346c187399644e32919dde8aa2bbd"
+          },
+          {
+            "source": "d559ceff3edccf2306dc3840ad92407fa233edc9",
+            "integrated": "e37320f2585c2ca1897829ca6264f5384e04d2a9"
+          }
+        ],
+        "pending_source_commits": []
+      },
+      "validation_status": {
+        "state": "blocked_at_semantic_quality_before_contract_execution",
+        "validated_head": null,
+        "evidence": [
+          "P06-hosted-contract-expectations-def7777.json",
+          "hosted-checkpoint-def7777-discovery.json"
+        ],
+        "historical_acceptance": null,
+        "limits": [],
+        "attempted_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "run": 39576450512,
+        "formatting_repair_commit": "6533e444fa37552927070cc8d8190907fd3b413e"
+      },
+      "next_action": "Finish all13 initial discovery, reconcile exact connected producer/consumer repairs and canonical shared contracts, then repair/integrate this reopened requirement and validate same final revision. Preserve existing integrated implementation and historical acceptance; no CI while source gaps remain.",
+      "current_status": "unverified against current main; historical statuses retained in fields, no acceptance carried by transport"
+    },
+    {
+      "id": "P09",
+      "name": "Joint columns and skin ordinals from their producers",
+      "exit_requirement": "No late table recollection or internal ordinal\u2192usize\u2192ordinal round trip on these columns; packing occurs at TensorData/glTF/GPU endpoints.",
+      "responsible_owner": "/root/rig_garments",
+      "ownership_claims": [
+        "parallel-ownership/rig_garments-claims.json",
+        "parallel-ownership/root-claims.json"
+      ],
+      "shared_dependencies": [
+        {
+          "repair": "shared-rig-skin-layout-receivers",
+          "relationship": "Blocks source closure of the connected producer/receiver cluster."
+        },
+        {
+          "repair": "preview-cloth-binding-state",
+          "relationship": "Rig owner closes the complete constructor/deformation receiving graph; invalid unused weighted inputs are not admitted into an unweighted state."
+        },
+        {
+          "repair": "rig-cluster-integration",
+          "relationship": "Source commit6aee89e is clean and owner-reported complete; coordinator must finish manifest dependency and integration review. No current-head acceptance."
+        },
+        {
+          "repair": "anime-fixture-typed-rig-owner",
+          "relationship": "Root first-trace owns complete anime_courses fixture; rig owner supplies final skin/table/morph contracts. Preserves all existing assertions; no new tests."
+        }
+      ],
+      "source_status": {
+        "state": "reopened",
+        "source_commit": "8be48645f4a92ab41723240ea2e957472706fc39",
+        "source_commits": [
+          "6aee89ebf17bf3e823ff9003bca82596f608da0f",
+          "8be48645f4a92ab41723240ea2e957472706fc39"
+        ],
+        "remaining_gaps": [
+          "RIG-PP-001: parse_skin resolves canonical RigJointOrdinal then erases to internal raw influence rows before PackedRigSkin re-admission. Retain typed ordinal rows until actual encoding; finish connected receiving paths after exhaustive initial all13 discovery.",
+          "ROOT-CODE-001: existing anime fixture retains packed u32 owner set and indexes RigJointTable with usize; finish typed owner propagation and consume agreed morph-record updates in the same whole fixture. Root owns this shared receiving function."
+        ],
+        "evidence": [
+          "P09-P14-rig-garments-source-handoff.json",
+          "parallel-ownership/rig_garments-claims.json",
+          "P09-P14-independent-source-review.md"
+        ],
+        "completed_paths": [
+          "Integrated6aee/8be checked rig columns/parents/skin aggregate and connected Creator/runtime/socket/preview/cloth receivers; preserve implementation.",
+          "Historical focused Code/Rule review of those increments and exact fixture repair remains recorded; same-wave exhaustive discovery now reopens parse_skin producer path."
+        ],
+        "review_status": "Independent focused Code/Rule review of6aee and exact8be repair complete from source; no additional demonstrated finding; executable validation not performed.",
+        "reopened_work": [
+          {
+            "source_commit": "6aee89ebf17bf3e823ff9003bca82596f608da0f",
+            "reason": "Focused independent source review found a concrete unchanged fixture receiving-body type mismatch.",
+            "file": "crates/adventuresim-character-creator/src/clothing.rs",
+            "function": "tests::absent_landmark",
+            "resolved_by_source_commit": "8be48645f4a92ab41723240ea2e957472706fc39",
+            "remaining_source_gap": false
+          },
+          {
+            "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "reason": "Same-wave source trace RIG-PP-001 demonstrates original P09 producer exit remains violated in MHR parse_skin. Existing integration and scoped review retained, not reset.",
+            "evidence": "final-acceptance-20261021/wave-01/audit-producer-propagation/rig/contracts-001.json",
+            "remaining_source_gap": true
+          }
+        ],
+        "historical_completed_paths": [
+          "Typed rig columns/parents/packed skins implemented locally through FBX builder, bind pose, Mhr::new, Creator body/proportion/morph/fitting/garment/hair/export, armor/GPU readbacks and runtime/socket/mesh receivers.",
+          "RigInfluences retains original duplicate-combining reduction; preview retains its distinct sorting/fallback and checked u16 encoding.",
+          "Owner reports the fixture count leaf and ClothBinding weighted/unweighted payload graph locally implemented through constructor/weld/drape/deform. Existing physical assertions retained; source/caller review still pending and no commit/validation claimed."
+        ]
+      },
+      "integration_status": {
+        "state": "integrated_prior_increment_repair_pending",
+        "integrated_commit": "def7777f6318b55bc71edc74e3c6575fc397fd0a",
+        "commit_pairs": [
+          {
+            "source": "6aee89ebf17bf3e823ff9003bca82596f608da0f",
+            "integrated": "d504e38d782afb7b5ad3b89fd80959634f6160b5"
+          },
+          {
+            "source": "8be48645f4a92ab41723240ea2e957472706fc39",
+            "integrated": "def7777f6318b55bc71edc74e3c6575fc397fd0a"
+          }
+        ],
+        "pending_source_commits": []
+      },
+      "validation_status": {
+        "state": "blocked_at_semantic_quality_before_contract_execution",
+        "validated_head": null,
+        "evidence": [
+          "P06-hosted-contract-expectations-def7777.json",
+          "hosted-checkpoint-def7777-discovery.json"
+        ],
+        "historical_acceptance": null,
+        "limits": [
+          "Planned fixture adaptation: pure numerical armor/underlayer fixtures declare authored ordinal extents while unused empty metadata proves no rig identity. The existing unweighted preview fixture will retain its physical assertions but no longer inject invalid weighted data into a state that owns no weighted binding; this is representational exclusion, not executed invalid-input rejection coverage."
+        ],
+        "attempted_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "run": 39576450512,
+        "formatting_repair_commit": "6533e444fa37552927070cc8d8190907fd3b413e"
+      },
+      "next_action": "Finish all13 initial discovery with rig owner, reconcile RIG-PP-001/shared repairs, then finish complete typed skin producer/receiving graph. Preserve prior integrated work and validate eventual final revision.",
+      "current_status": "unverified against current main; historical statuses retained in fields, no acceptance carried by transport"
+    },
+    {
+      "id": "P10",
+      "name": "Parent topology without the -1 sentinel",
+      "exit_requirement": "No parent -1, negative-parent test or cast-based root reconstruction in application topology.",
+      "responsible_owner": "/root/rig_garments",
+      "ownership_claims": [
+        "parallel-ownership/rig_garments-claims.json"
+      ],
+      "shared_dependencies": [
+        {
+          "repair": "shared-rig-skin-layout-receivers",
+          "relationship": "Blocks source closure of the connected producer/receiver cluster."
+        },
+        {
+          "repair": "rig-cluster-integration",
+          "relationship": "Source commit6aee89e is clean and owner-reported complete; coordinator must finish manifest dependency and integration review. No current-head acceptance."
+        }
+      ],
+      "source_status": {
+        "state": "complete",
+        "source_commit": "8be48645f4a92ab41723240ea2e957472706fc39",
+        "source_commits": [
+          "6aee89ebf17bf3e823ff9003bca82596f608da0f",
+          "8be48645f4a92ab41723240ea2e957472706fc39"
+        ],
+        "remaining_gaps": [],
+        "evidence": [
+          "P09-P14-rig-garments-source-handoff.json",
+          "parallel-ownership/rig_garments-claims.json",
+          "P09-P14-independent-source-review.md"
+        ],
+        "completed_paths": [
+          "Builder/topology/bind pose uses Option<RigJointOrdinal>; prefix levels and native TensorData parent adapter implemented locally.",
+          "Shared producer implementations now locally reach Mhr::new; not committed or source-review complete."
+        ],
+        "review_status": "Independent focused Code/Rule review of6aee and exact8be repair complete from source; no additional demonstrated finding; executable validation not performed."
+      },
+      "integration_status": {
+        "state": "integrated",
+        "integrated_commit": "def7777f6318b55bc71edc74e3c6575fc397fd0a",
+        "commit_pairs": [
+          {
+            "source": "6aee89ebf17bf3e823ff9003bca82596f608da0f",
+            "integrated": "d504e38d782afb7b5ad3b89fd80959634f6160b5"
+          },
+          {
+            "source": "8be48645f4a92ab41723240ea2e957472706fc39",
+            "integrated": "def7777f6318b55bc71edc74e3c6575fc397fd0a"
+          }
+        ],
+        "pending_source_commits": []
+      },
+      "validation_status": {
+        "state": "blocked_at_semantic_quality_before_contract_execution",
+        "validated_head": null,
+        "evidence": [
+          "P06-hosted-contract-expectations-def7777.json",
+          "hosted-checkpoint-def7777-discovery.json"
+        ],
+        "historical_acceptance": null,
+        "limits": [],
+        "attempted_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "run": 39576450512,
+        "formatting_repair_commit": "6533e444fa37552927070cc8d8190907fd3b413e"
+      },
+      "next_action": "Complete exhaustive all-thirteen-lens initial source inventory including preserved work and affected unchanged paths, then perform reconciled repairs and mandatory integration. Final clearance requires all lenses/reviews/hosted CI at one final revision; earlier evidence remains historical.",
+      "current_status": "unverified against current main; historical statuses retained in fields, no acceptance carried by transport"
+    },
+    {
+      "id": "P11",
+      "name": "MHR joint-channel rows and model-parameter columns",
+      "exit_requirement": "No joint ordinal erasure before an application row API, or interchangeable raw row/column indices in retained parameter records.",
+      "responsible_owner": "/root/rig_garments",
+      "ownership_claims": [
+        "parallel-ownership/rig_garments-claims.json"
+      ],
+      "shared_dependencies": [
+        {
+          "repair": "shared-rig-skin-layout-receivers",
+          "relationship": "Blocks source closure of the connected producer/receiver cluster."
+        },
+        {
+          "repair": "rig-cluster-integration",
+          "relationship": "Source commit6aee89e is clean and owner-reported complete; coordinator must finish manifest dependency and integration review. No current-head acceptance."
+        }
+      ],
+      "source_status": {
+        "state": "reopened",
+        "source_commit": "6aee89ebf17bf3e823ff9003bca82596f608da0f",
+        "source_commits": [
+          "6aee89ebf17bf3e823ff9003bca82596f608da0f"
+        ],
+        "remaining_gaps": [
+          "RIG-PP-002: BodyProportion::mhr_parameter emits raw parameter identity before two ModelParameterName lookup re-admissions. Reconcile canonical shared/integration owner without Core\u2192MHR dependency. Earlier checked row/column-index implementation remains intact; this reopens connected parameter-name producer closure."
+        ],
+        "evidence": [
+          "P09-P14-rig-garments-source-handoff.json",
+          "parallel-ownership/rig_garments-claims.json",
+          "P09-P14-independent-source-review.md",
+          "final-acceptance-20261021/audit-ledger.json"
+        ],
+        "completed_paths": [
+          "Typed row/channel/model columns/names/sets/parser/limits/matrix/transpose and fixture signatures implemented locally."
+        ],
+        "review_status": "Independent focused Code/Rule review of6aee and exact8be repair complete from source; no additional demonstrated finding; executable validation not performed.",
+        "historical_source_state": "complete",
+        "reopened_work": [
+          {
+            "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "reason": "RIG-PP-002: BodyProportion::mhr_parameter emits raw parameter identity before two ModelParameterName lookup re-admissions. Reconcile canonical shared/integration owner without Core\u2192MHR dependency. Earlier checked row/column-index implementation remains intact; this reopens connected parameter-name producer closure.",
+            "evidence": "final-acceptance-20261021/wave-01/audit-producer-propagation/rig/contracts-*.json#RIG-PP-002",
+            "remaining_source_gap": true
+          }
+        ]
+      },
+      "integration_status": {
+        "state": "integrated_prior_increment_repair_pending",
+        "integrated_commit": "d504e38d782afb7b5ad3b89fd80959634f6160b5",
+        "commit_pairs": [
+          {
+            "source": "6aee89ebf17bf3e823ff9003bca82596f608da0f",
+            "integrated": "d504e38d782afb7b5ad3b89fd80959634f6160b5"
+          }
+        ],
+        "pending_source_commits": []
+      },
+      "validation_status": {
+        "state": "blocked_at_semantic_quality_before_contract_execution",
+        "validated_head": null,
+        "evidence": [
+          "P06-hosted-contract-expectations-def7777.json",
+          "hosted-checkpoint-def7777-discovery.json"
+        ],
+        "historical_acceptance": null,
+        "limits": [],
+        "attempted_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "run": 39576450512,
+        "formatting_repair_commit": "6533e444fa37552927070cc8d8190907fd3b413e"
+      },
+      "next_action": "Finish all13 initial discovery, reconcile exact connected producer/consumer repairs and canonical shared contracts, then repair/integrate this reopened requirement and validate same final revision. Preserve existing integrated implementation and historical acceptance; no CI while source gaps remain.",
+      "current_status": "unverified against current main; historical statuses retained in fields, no acceptance carried by transport"
+    },
+    {
+      "id": "P12",
+      "name": "Garment offsets and named upright anchors",
+      "exit_requirement": "No typed garment offset is erased into retained tuples or passed as a naked distance through fitting APIs.",
+      "responsible_owner": "/root/rig_garments",
+      "ownership_claims": [
+        "parallel-ownership/rig_garments-claims.json"
+      ],
+      "shared_dependencies": [
+        {
+          "repair": "neutral-scalar-geometry",
+          "relationship": "Required canonical scalar/error owner; source dependency is integrated, validation pending."
+        },
+        {
+          "repair": "shared-rig-skin-layout-receivers",
+          "relationship": "Blocks source closure of the connected producer/receiver cluster."
+        },
+        {
+          "repair": "rig-cluster-integration",
+          "relationship": "Source commit6aee89e is clean and owner-reported complete; coordinator must finish manifest dependency and integration review. No current-head acceptance."
+        }
+      ],
+      "source_status": {
+        "state": "reopened",
+        "source_commit": "6aee89ebf17bf3e823ff9003bca82596f608da0f",
+        "source_commits": [
+          "6aee89ebf17bf3e823ff9003bca82596f608da0f"
+        ],
+        "remaining_gaps": [
+          "RIG-PP-003: authored FAULD_DROP_M/TASSET_RISE_M offset producers remain raw and are admitted only inside skirt_span. Finish existing SignedLength const admission/connected sibling spans without unwrap or unchecked constructor. RIG-CODE-001 is an additional required suspended-waist receiver source blocker.",
+          "Rig current-lens source reports device_underlayer::Fit::shells242\u2013245 erases admitted Millimeters clearance/thickness into retained raw LayerOffsets before Workspace::record_layers41\u201342 actual GPUword packing; gorget240\u2013241 likewise rawpadding before record_gorget_support/bib_fit/measure/collar_fit. Finish shared SignedLength offset composite/native receiver graph; exactcontinuousemetres/zero andoriginalarithmetic order retained. This is a connected gap against originalP12exit, notautomaticfailureofunrelatedacceptedfamilies."
+        ],
+        "evidence": [
+          "P09-P14-rig-garments-source-handoff.json",
+          "parallel-ownership/rig_garments-claims.json",
+          "P09-P14-independent-source-review.md",
+          "final-acceptance-20261021/audit-ledger.json",
+          "final-acceptance-20261021/wave-01/audit-existing-type-owners/rig/contracts.jsonl#RIG-OWNER-UNDERLAYER-NATIVE-033"
+        ],
+        "completed_paths": [
+          "SignedLength offsets, named upright anchors/span/reach ratio, bounded armor millimetre conversion and callers implemented locally."
+        ],
+        "review_status": "Independent focused Code/Rule review of6aee and exact8be repair complete from source; no additional demonstrated finding; executable validation not performed.",
+        "historical_source_state": "complete",
+        "reopened_work": [
+          {
+            "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "reason": "RIG-PP-003: authored FAULD_DROP_M/TASSET_RISE_M offset producers remain raw and are admitted only inside skirt_span. Finish existing SignedLength const admission/connected sibling spans without unwrap or unchecked constructor. RIG-CODE-001 is an additional required suspended-waist receiver source blocker.",
+            "evidence": "final-acceptance-20261021/wave-01/audit-producer-propagation/rig/contracts-*.json#RIG-PP-003/RIG-CODE-001",
+            "remaining_source_gap": true
+          }
+        ]
+      },
+      "integration_status": {
+        "state": "integrated_prior_increment_repair_pending",
+        "integrated_commit": "d504e38d782afb7b5ad3b89fd80959634f6160b5",
+        "commit_pairs": [
+          {
+            "source": "6aee89ebf17bf3e823ff9003bca82596f608da0f",
+            "integrated": "d504e38d782afb7b5ad3b89fd80959634f6160b5"
+          }
+        ],
+        "pending_source_commits": []
+      },
+      "validation_status": {
+        "state": "blocked_at_semantic_quality_before_contract_execution",
+        "validated_head": null,
+        "evidence": [
+          "P06-hosted-contract-expectations-def7777.json",
+          "hosted-checkpoint-def7777-discovery.json"
+        ],
+        "historical_acceptance": null,
+        "limits": [],
+        "attempted_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "run": 39576450512,
+        "formatting_repair_commit": "6533e444fa37552927070cc8d8190907fd3b413e"
+      },
+      "next_action": "Finish all13 initial discovery, reconcile exact connected producer/consumer repairs and canonical shared contracts, then repair/integrate this reopened requirement and validate same final revision. Preserve existing integrated implementation and historical acceptance; no CI while source gaps remain.",
+      "current_status": "unverified against current main; historical statuses retained in fields, no acceptance carried by transport"
+    },
+    {
+      "id": "P13",
+      "name": "Shader candidate and cursor states",
+      "exit_requirement": "No -1/MAX/zero sample stands in for an uninitialized cursor or absent candidate in these searches.",
+      "responsible_owner": "/root/rig_garments",
+      "ownership_claims": [
+        "parallel-ownership/rig_garments-claims.json"
+      ],
+      "shared_dependencies": [
+        {
+          "repair": "rig-cluster-integration",
+          "relationship": "Source commit6aee89e is clean and owner-reported complete; coordinator must finish manifest dependency and integration review. No current-head acceptance."
+        }
+      ],
+      "source_status": {
+        "state": "complete",
+        "source_commit": "6aee89ebf17bf3e823ff9003bca82596f608da0f",
+        "source_commits": [
+          "6aee89ebf17bf3e823ff9003bca82596f608da0f"
+        ],
+        "remaining_gaps": [],
+        "evidence": [
+          "P09-P14-rig-garments-source-handoff.json",
+          "parallel-ownership/rig_garments-claims.json",
+          "P09-P14-independent-source-review.md"
+        ],
+        "completed_paths": [
+          "Explicit shader candidate/cursor/band/envelope presence and atomic fit status propagation implemented locally."
+        ],
+        "review_status": "Independent focused Code/Rule review of6aee and exact8be repair complete from source; no additional demonstrated finding; executable validation not performed."
+      },
+      "integration_status": {
+        "state": "integrated",
+        "integrated_commit": "d504e38d782afb7b5ad3b89fd80959634f6160b5",
+        "commit_pairs": [
+          {
+            "source": "6aee89ebf17bf3e823ff9003bca82596f608da0f",
+            "integrated": "d504e38d782afb7b5ad3b89fd80959634f6160b5"
+          }
+        ],
+        "pending_source_commits": []
+      },
+      "validation_status": {
+        "state": "blocked_at_semantic_quality_before_contract_execution",
+        "validated_head": null,
+        "evidence": [
+          "P06-hosted-contract-expectations-def7777.json",
+          "hosted-checkpoint-def7777-discovery.json"
+        ],
+        "historical_acceptance": null,
+        "limits": [],
+        "attempted_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "run": 39576450512,
+        "formatting_repair_commit": "6533e444fa37552927070cc8d8190907fd3b413e"
+      },
+      "next_action": "Complete exhaustive all-thirteen-lens initial source inventory including preserved work and affected unchanged paths, then perform reconciled repairs and mandatory integration. Final clearance requires all lenses/reviews/hosted CI at one final revision; earlier evidence remains historical.",
+      "current_status": "unverified against current main; historical statuses retained in fields, no acceptance carried by transport"
+    },
+    {
+      "id": "P14",
+      "name": "Catalogue-bound equipment placement through generation",
+      "exit_requirement": "No internal raw-key dispatch/re-admission or API that accepts an arbitrary unrelated item/placement pair. EquipmentItemSelection's private exact-string membership operation is not by itself a gap.",
+      "responsible_owner": "/root/rig_garments",
+      "ownership_claims": [
+        "parallel-ownership/rig_garments-claims.json"
+      ],
+      "shared_dependencies": [
+        {
+          "repair": "neutral-scalar-geometry",
+          "relationship": "Required canonical scalar/error owner; source dependency is integrated, validation pending."
+        },
+        {
+          "repair": "shared-rig-skin-layout-receivers",
+          "relationship": "Blocks source closure of the connected producer/receiver cluster."
+        },
+        {
+          "repair": "physical-equipment-producers",
+          "relationship": "P16 requires this producer chain; P14 coordinates shared functions and P18 consumes later checked sources. Existing P18 closure is not retroactively validation of P16."
+        },
+        {
+          "repair": "neutral-cuboid-and-build-schema",
+          "relationship": "The neutral CuboidDimensions actual owner is integrated at 4ecae9125b81fe2a9ca4881a6f589fe5b870b622. Core build-schema and physical producer/receiver follow-through remain uncommitted P16 work; coordinate affected P14/P18 consumers and revalidate on integration."
+        },
+        {
+          "repair": "rig-cluster-integration",
+          "relationship": "Source commit6aee89e is clean and owner-reported complete; coordinator must finish manifest dependency and integration review. No current-head acceptance."
+        },
+        {
+          "repair": "shared-physical-construction-output",
+          "relationship": "ROOT071/072/073: whole f64 HolderConstruction/helpers and actual f32 DerivedProperties/GeneratedWeapon/Holder mesh output. Rig recipe/hash owner and camera DB whole construction/memo/projections remain their exact claims. Do not narrow f64 model or invent mass/inertia/zeroabsence policy. Initial inventory only; implementation/validation remain open."
+        }
+      ],
+      "source_status": {
+        "state": "reopened",
+        "source_commit": "6aee89ebf17bf3e823ff9003bca82596f608da0f",
+        "source_commits": [
+          "6aee89ebf17bf3e823ff9003bca82596f608da0f"
+        ],
+        "remaining_gaps": [
+          "RIG-PP-005/007/010: retained raw design keys, checked CatalogItem flattened into catalogue pair and runtime typed identity discarded tobool then FitKey re-resolution violate catalogue producer/retention closure. RIG-CODE-002 writer wrong type is a connected source blocker. Private exact-string membership PP004 remains withdrawn by actual body proof."
+        ],
+        "evidence": [
+          "P09-P14-rig-garments-source-handoff.json",
+          "parallel-ownership/rig_garments-claims.json",
+          "P09-P14-independent-source-review.md",
+          "final-acceptance-20261021/audit-ledger.json"
+        ],
+        "completed_paths": [
+          "Catalogue-bound item/placement handles propagated through Creator design/loadout/export, runtime FitKey/LayerSelection, fitting roles and mesh/material/socket paths locally."
+        ],
+        "review_status": "Independent focused Code/Rule review of6aee and exact8be repair complete from source; no additional demonstrated finding; executable validation not performed.",
+        "historical_source_state": "complete",
+        "reopened_work": [
+          {
+            "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "reason": "RIG-PP-005/007/010: retained raw design keys, checked CatalogItem flattened into catalogue pair and runtime typed identity discarded tobool then FitKey re-resolution violate catalogue producer/retention closure. RIG-CODE-002 writer wrong type is a connected source blocker. Private exact-string membership PP004 remains withdrawn by actual body proof.",
+            "evidence": "final-acceptance-20261021/wave-01/audit-producer-propagation/rig/contracts-*.json#RIG-PP-005/007/010/RIG-CODE-002",
+            "remaining_source_gap": true
+          }
+        ]
+      },
+      "integration_status": {
+        "state": "integrated_prior_increment_repair_pending",
+        "integrated_commit": "d504e38d782afb7b5ad3b89fd80959634f6160b5",
+        "commit_pairs": [
+          {
+            "source": "6aee89ebf17bf3e823ff9003bca82596f608da0f",
+            "integrated": "d504e38d782afb7b5ad3b89fd80959634f6160b5"
+          }
+        ],
+        "pending_source_commits": []
+      },
+      "validation_status": {
+        "state": "blocked_at_semantic_quality_before_contract_execution",
+        "validated_head": null,
+        "evidence": [
+          "P06-hosted-contract-expectations-def7777.json",
+          "hosted-checkpoint-def7777-discovery.json"
+        ],
+        "historical_acceptance": null,
+        "limits": [],
+        "attempted_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "run": 39576450512,
+        "formatting_repair_commit": "6533e444fa37552927070cc8d8190907fd3b413e"
+      },
+      "next_action": "Finish all13 initial discovery, reconcile exact connected producer/consumer repairs and canonical shared contracts, then repair/integrate this reopened requirement and validate same final revision. Preserve existing integrated implementation and historical acceptance; no CI while source gaps remain.",
+      "current_status": "unverified against current main; historical statuses retained in fields, no acceptance carried by transport"
+    },
+    {
+      "id": "P15",
+      "name": "Equipment reservations, replay chronology and missing revision",
+      "exit_requirement": "No fabricated occupant or chronology observation; initial protocol behavior is explicit and type-safe.",
+      "responsible_owner": "/root",
+      "ownership_claims": [
+        "parallel-ownership/root-claims.json"
+      ],
+      "shared_dependencies": [],
+      "source_status": {
+        "state": "complete",
+        "source_commit": "b656d15d7b11579fc0a69e6013b3bc999aedec2e",
+        "source_commits": [
+          "b656d15d7b11579fc0a69e6013b3bc999aedec2e"
+        ],
+        "remaining_gaps": [],
+        "evidence": [
+          "P15-source-closure.json"
+        ]
+      },
+      "integration_status": {
+        "state": "integrated",
+        "integrated_commit": "b656d15d7b11579fc0a69e6013b3bc999aedec2e",
+        "commit_pairs": [
+          {
+            "source": "b656d15d7b11579fc0a69e6013b3bc999aedec2e",
+            "integrated": "b656d15d7b11579fc0a69e6013b3bc999aedec2e"
+          }
+        ],
+        "pending_source_commits": []
+      },
+      "validation_status": {
+        "state": "blocked_at_semantic_quality_before_contract_execution",
+        "validated_head": null,
+        "evidence": [
+          "P06-hosted-contract-expectations-def7777.json",
+          "hosted-checkpoint-def7777-discovery.json"
+        ],
+        "historical_acceptance": null,
+        "limits": [
+          "DB crate test=false/doctest=false remains unchanged: existing capacity unit fixture is not claimed executed; no live DB acceptance."
+        ],
+        "attempted_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "run": 39576450512,
+        "formatting_repair_commit": "6533e444fa37552927070cc8d8190907fd3b413e"
+      },
+      "next_action": "Complete exhaustive all-thirteen-lens initial source inventory including preserved work and affected unchanged paths, then perform reconciled repairs and mandatory integration. Final clearance requires all lenses/reviews/hosted CI at one final revision; earlier evidence remains historical.",
+      "current_status": "unverified against current main; historical statuses retained in fields, no acceptance carried by transport"
+    },
+    {
+      "id": "P16",
+      "name": "Melee geometry and explicit targeting range policy",
+      "exit_requirement": "No naked physical range tuple/helper forwarding or numeric code for the absence of a radial limit.",
+      "responsible_owner": "/root/camera_targeting",
+      "ownership_claims": [
+        "parallel-ownership/camera_targeting-claims.json",
+        "parallel-ownership/native_reports-claims.json"
+      ],
+      "shared_dependencies": [
+        {
+          "repair": "neutral-scalar-geometry",
+          "relationship": "Required canonical scalar/error owner; source dependency is integrated, validation pending."
+        },
+        {
+          "repair": "canonical-length-caps",
+          "relationship": "Reuse the integrated canonical cap operations; no leaf extraction/readmission."
+        },
+        {
+          "repair": "physical-equipment-producers",
+          "relationship": "P16 requires this producer chain; P14 coordinates shared functions and P18 consumes later checked sources. Existing P18 closure is not retroactively validation of P16."
+        },
+        {
+          "repair": "checked-cuboid-axis-leaves",
+          "relationship": "Checked cuboid axes are integrated at f326f9d85f087ab2b129f8fd8320384953505e5e; the neutral actual owner is integrated at 4ecae9125b81fe2a9ca4881a6f589fe5b870b622. P16 downstream contracts remain unfinished; no validation claimed."
+        },
+        {
+          "repair": "optional-motor-tick-evidence",
+          "relationship": "Camera owns the complete motor function for both requirements; reporting owner consumes it."
+        },
+        {
+          "repair": "neutral-cuboid-and-build-schema",
+          "relationship": "The neutral CuboidDimensions actual owner is integrated at 4ecae9125b81fe2a9ca4881a6f589fe5b870b622. Core build-schema and physical producer/receiver follow-through remain uncommitted P16 work; coordinate affected P14/P18 consumers and revalidate on integration."
+        },
+        {
+          "repair": "prepared-physical-player-spawns",
+          "relationship": "Transferred whole affected player admission/project/spawn functions to camera owner; preserve earlier support/position/random-order and atomic batch contracts."
+        },
+        {
+          "repair": "strategic-operation-error-owner",
+          "relationship": "Connected P16 storage admission reaches mutually calling strategic helpers; canonical aggregate ownership is being repaired by camera while preserving earlier leaf causes. Existing complete families require reconciliation/revalidation when it integrates."
+        },
+        {
+          "repair": "iteration-observer-retained-failure",
+          "relationship": "Native report owner receives whole iteration callback/error-readback repair across P16+P18; keep existing checked physical/elapsed/report work and no temporary primitive adapters."
+        },
+        {
+          "repair": "canonical-nonnegative-length-owner",
+          "relationship": "Existing checked zero-capable metre owner is shared dependency; source/integration/validation unfinished. Exact claims authoritative; do not duplicate or narrow zero."
+        },
+        {
+          "repair": "name-display-and-structured-sampling",
+          "relationship": "Shared source and report contract; exact camera/native claims govern complete functions. Initial inventory only, no implementation/integration/validation acceptance."
+        },
+        {
+          "repair": "shared-pure-route-coordinate-and-duration-contracts",
+          "relationship": "ROOT-OWNER-ROUTE-FRAMES-AND-FIXTURES-074 / F023: whole pure TerrainPack reconstruction/retained spans/projection/simplification, distinct grid vs geographic points. Camera DB/web gateways consume agreed final output; imported package versus fallback route identity authorities stay distinct. Initial inventory only; implementation/validation remain open."
+        },
+        {
+          "repair": "shared-physical-construction-output",
+          "relationship": "ROOT071/072/073: whole f64 HolderConstruction/helpers and actual f32 DerivedProperties/GeneratedWeapon/Holder mesh output. Rig recipe/hash owner and camera DB whole construction/memo/projections remain their exact claims. Do not narrow f64 model or invent mass/inertia/zeroabsence policy. Initial inventory only; implementation/validation remain open."
+        },
+        {
+          "repair": "shared-custody-version-authority",
+          "relationship": "CAM087/F010: existing canonical strategic_state::CustodyVersion allu32 incl0 through Core case record/apply and DB SDK. Whole connected functions owned camera, no unrelated version narrowing. Initial inventory only; implementation/validation remain open."
+        },
+        {
+          "repair": "shared-generated-investigation-authority",
+          "relationship": "CAM090/091 F011: source-backed context/manifest tuple inversion; actual existing ValidatedQuestGenerationAuthority aggregate through whole candidate/unique/view/reducer/investigability and actual tuple receivers. Existing malformed authored JSON cases preserved; later admission checks still required. Initial inventory only; implementation/validation remain open."
+        }
+      ],
+      "source_status": {
+        "state": "implementing",
+        "source_commit": null,
+        "source_commits": [],
+        "remaining_gaps": [
+          "Finish server lunge/authority/bot receivers and physics/client fixture signatures.",
+          "Finish remaining canonical WeaponItem/parametric and physical producer/receiver handoffs; verify locally written catalogue/PlayerEquipment/CombatWeapon contracts.",
+          "Prepare checked StrategicEquipment::load projection and typed failures through eight actual consumers; no schema/state/generated changes.",
+          "Consume P18 typed native report clock/errors and accept checked reach directly in report conversion.",
+          "Finish actual core contact geometry, power, autoresolve mobility/exchange/evidence and owning typed GeometryResult error receivers.",
+          "Close Core build.rs shared schema/no-engine dependency and physical configuration length admission/emission, preserving checked duration/speed fields.",
+          "Preserve selected strategic Item reach separately from per-instance CombatWeapon reach in the checked retained storage projection; close both existing trait and combat consumers without native DTO reconstruction.",
+          "Close newly transferred whole drop_hand and atomic PreparedPlayerSpawns/player projection, direct no-engine DB geometry dependency, and transitive StrategicCharacterResult helper/reducer graph through the real SDK Display error boundary.",
+          "Consolidate reached mutually calling DB operation helpers under one nonrecursive canonical StrategicOperationError/Result, preserving existing leaf causes and prior unrelated text-context limits through the actual SDK Display boundary.",
+          "NATIVE-PP-018: frozen logging observers return bespoke Results unsupported by pinned Bevy IntoResult. Native owner must finish full accepted callback + retained typed error/readback through IterationError/main, preserving P16 physical and P18 temporal/report contracts.",
+          "NATIVE-PP-017: required Movement displacement and before/after distances (all Some at actual Core producer) still default to zero in preserved causal/autoresolve receiver. Reconcile required evidence with aggregate/enum shapes and native error path after exhaustive discovery.",
+          "Current preserved generation_tests.rs P16 variant still has pre-rig raw Vec/selection fields while physical leaves are typed. Reconcile only its complete changed physical contracts with current canonical RigJointTable/PackedRigSkin/CatalogPlacement fixtures; preserve existing test cases/assertions and current P15 exports, no whole stale branch restore.",
+          "CAM-OWN-SOCIAL-037: preserved typed StrategicOperationResult reaches existing social/authority_tests.rs357 map_err(String::as_str) and social/action_authority_tests.rs149 aggregate-vsstr comparison. Adapt only existing assertions/calls to canonical error contracts, retaining all original cases/count/order; no compile/test verdict.",
+          "CAM-OWN-SURGERY-057: existing surgery authority_tests .err().as_deref and projectile_authority_tests::authority_test_projectile_identity Result<(),String> still receive typed StrategicOperationError from the preserved P16 source. Camera owns whole existing caller adaptation, preserving all fixture inputs/cases/order/assertions; no new tests or execution.",
+          "CAM-OWNER-F011 source-backed investigation authority manifest/context tuple inversion must use existing admitted aggregate through actual optional modifier/action receivers. Source frozen pending all13 inventory; no execution verdict.",
+          "Whole pure weapon/holder physical output contract now root-owned; DB construction/evaluation and SDK projections camera-owned consume agreed leaves and cause without primitive reconstruction. Preserve all existing generated fixtures and P15 exports.",
+          "CAM-PPS-F001: preserved Core melee_iteration existing fixture lines672\u2013677 call unavailable SignedLength::abs and862 compares SignedLength to f32. Camera owns whole existing fixture/signature adaptation; retain original values/cases/oracles, no added tests and no compiler/CI claim."
+        ],
+        "evidence": [
+          "parallel-ownership/camera_targeting-claims.json",
+          "final-acceptance-20261021/wave-01/audit-existing-type-owners/camera/contracts.jsonl#CAM-OWN-SOCIAL-037",
+          "final-acceptance-20261021/wave-01/audit-existing-type-owners/camera/contracts.jsonl#CAM-OWN-SURGERY-057",
+          "final-acceptance-20261021/wave-01/audit-existing-type-owners/camera/contracts.jsonl#CAM-OWN-TACTICAL-CONFIG-INVENTORY-061",
+          "final-acceptance-20261021/wave-01/audit-existing-type-owners/camera/contracts.jsonl#CAM-OWN-AUTORESOLVE-RECONCILIATION-086",
+          "final-acceptance-20261021/wave-01/audit-existing-type-owners/camera/contracts.jsonl#CAM-OWN-CUSTODY-OBJECTIVES-087",
+          "final-acceptance-20261021/wave-01/audit-existing-type-owners/camera/contracts.jsonl#CAM-OWN-INVESTIGATION-PROJECTIONS-090",
+          "final-acceptance-20261021/wave-01/audit-existing-type-owners/camera/contracts.jsonl#CAM-OWN-INVESTIGATION-ACTIONS-091",
+          "final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/findings.jsonl#CAM-PPS-F001"
+        ],
+        "completed_paths": [
+          "Uncommitted targeting range policy, named acquisition/lunge geometry, checked configuration/dimensions, physics travel and optional tick projections.",
+          "Owner-reported local EquipmentPhysical checked dimensions/grip, ItemKind reach, catalogue native projection, PlayerEquipment/CombatWeapon leaves and typed contact facts/results. Still uncommitted; actual error/report/autoresolve receivers remain open."
+        ]
+      },
+      "integration_status": {
+        "state": "not_integrated",
+        "integrated_commit": null,
+        "commit_pairs": [],
+        "pending_source_commits": []
+      },
+      "validation_status": {
+        "state": "not_run_for_current_changes",
+        "validated_head": null,
+        "evidence": [],
+        "historical_acceptance": null,
+        "limits": []
+      },
+      "next_action": "Inventory the entire frozen dirty P16 producer/error/native/fixture graph and shared owners across all13 lenses first; after inventory gate, resume unfinished implementation, finish all connected producers/consumers and integrate. P16 cannot be deferred from final clearance.",
+      "current_status": "unverified against current main; historical statuses retained in fields, no acceptance carried by transport"
+    },
+    {
+      "id": "P17",
+      "name": "Typed report measurements, applicability and optional observations",
+      "exit_requirement": "Report computations retain their guarantees until actual serialization/formatting; applicability and absence cannot impersonate measurements.",
+      "responsible_owner": "/root/native_reports",
+      "ownership_claims": [
+        "parallel-ownership/native_reports-claims.json"
+      ],
+      "shared_dependencies": [
+        {
+          "repair": "canonical-length-caps",
+          "relationship": "Reuse the integrated canonical cap operations; no leaf extraction/readmission."
+        },
+        {
+          "repair": "capture-clearance-and-ik-admission",
+          "relationship": "P17 source dependency; preserve/reconcile P06/P19 guarantees when this later shared extension integrates. Current source-complete P06/P19 implementation remains intact."
+        },
+        {
+          "repair": "optional-motor-tick-evidence",
+          "relationship": "Camera owns the complete motor function for both requirements; reporting owner consumes it."
+        },
+        {
+          "repair": "report-checked-extrema",
+          "relationship": "Keep typed extrema through remaining report reductions without extraction/readmission."
+        },
+        {
+          "repair": "capture-distance-report-retention",
+          "relationship": "Reporting owner now owns the entire shared drive_sequence repair and distance state/receivers; keep partial source isolated."
+        },
+        {
+          "repair": "bouncy-deflection-report-producer",
+          "relationship": "Reporting owner confirmed no competing claim and claimed first reached producer/method; constructor/error enum transfer is unnecessary."
+        },
+        {
+          "repair": "repeated-evaluation-clock-evidence",
+          "relationship": "Native report owner owns full snapshot/matches/capture report receiver repair; already typed FrameSample clock must propagate into repeated-view evidence."
+        },
+        {
+          "repair": "canonical-nonnegative-length-owner",
+          "relationship": "Existing checked zero-capable metre owner is shared dependency; source/integration/validation unfinished. Exact claims authoritative; do not duplicate or narrow zero."
+        },
+        {
+          "repair": "name-display-and-structured-sampling",
+          "relationship": "Shared source and report contract; exact camera/native claims govern complete functions. Initial inventory only, no implementation/integration/validation acceptance."
+        },
+        {
+          "repair": "shared-animation-admission-and-plan-failures",
+          "relationship": "Native owns whole shared loading/sampling/readiness failure loop; consume root canonical conformity/continuation contracts. Discovery only, preserve existing implementation/evidence and revalidate final integration."
+        },
+        {
+          "repair": "shared-ik-successful-point-and-analytic-solution",
+          "relationship": "Native whole connected producer/state/receiver loop; root canonical phase/conformity/continuation retained. Discovery only, later reconcile exact source contract and original accepted family evidence."
+        },
+        {
+          "repair": "shared-ragdoll-native-physical-contract",
+          "relationship": "Whole prepare/spec/entry/drive/muscle/lifecycle native physics graph. Signed angles and allf32 Ratio keep exact product-before-admission; failed native BodySeed policy explicit. Existing canonical rig/geometry owners consumed. Initial inventory only; implementation/validation remain open."
+        },
+        {
+          "repair": "shared-guard-and-attack-state-contracts",
+          "relationship": "Whole AttackCurve/attack height begin_attack_timed+ActionState/QueuedAttack/GuardContacts/GuardStepPlan and exact necessary receivers. Existing root continuation/PoseConformity/foot phase methods excluded; local planar vs Scene frames and progress>1 distinguished. Current source-backed requirements only, no family completion. Initial inventory only; implementation/validation remain open."
+        }
+      ],
+      "source_status": {
+        "state": "implementing",
+        "source_commit": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+        "source_commits": [
+          "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696"
+        ],
+        "remaining_gaps": [
+          "Camera-owned optional skeleton_tick logging repair in whole apply_character_motor is still uncommitted inside partial P16. Do not import unfinished shared motor source.",
+          "NATIVE-PP-012: repeated-evaluation snapshot/matches omits authoritative AnimationSampleTick despite same-tick repeated-view contract; preserved90a does not close clock-only mutation detection. Retain typed tick in snapshot/comparison and existing error reporting, without adding tests.",
+          "NATIVE-PP-013: preserved90a metrics still retains contact foot as Option<bool>/Vec<bool> despite canonical LeadFoot; retain existing foot owner through required contact validation, preserving order/tie/4-minimum policy. Reconcile remaining lenses before exact repair.",
+          "Native family-exit reconciliation PP001/003/007/008/011: earliest jitter/required support/catastrophic contact/rendered knee-yaw observations still require connected source repair despite90a fixing many later metrics. Preserve90a exact implementation/evidence; resolve absence/guarantees through shared root/native producers rather than claiming the entire report family complete.",
+          "Current lens-two native jitter/load/diagnostic/fallback owner fits are recorded for the mandatory connected P17 completion: preserve actual all-f32 acceleration/Ratio severity support, typed load/duration causes, canonical AnimationElapsed and explicit actual actor-local frame. Reconcile exact claims/evidence after all initial lenses; no source or validation completion inferred."
+        ],
+        "evidence": [
+          "P17-viewer-reports-source-handoff.json",
+          "parallel-ownership/native_reports-claims.json",
+          "P17-independent-source-review.md",
+          "final-acceptance-20261021/wave-01/audit-producer-propagation/native/progress.json#NATIVE-PP-012.tick_contract_proof",
+          "final-acceptance-20261021/wave-01/audit-producer-propagation/native/family-exit-reconciliation.json",
+          "final-acceptance-20261021/wave-01/audit-existing-type-owners/native/findings.jsonl"
+        ],
+        "completed_paths": [
+          "Committed90a422a: explicit NotApplicable/Unavailable/Measured observations reach capture, metric gates, JSON and HTML; real zero/negative values remain measurements, required absence fails.",
+          "Committed90a422a: structural/invalid-bone mismatch enum, typed clearance/anatomical/facing and continuity/seam/slip/drift report values, typed extrema and capture distance/clock/rate producers.",
+          "Geometry prerequisite18360adb already integrated independently as c912fd7; P17 delta is90a422a against18360adb, not wholesale parent import.",
+          "Independent focused Code/Rule source review of90a422a found no actionable issue in that scoped increment. Full all13 audit discovery and final revision validation remain incomplete."
+        ],
+        "review_status": "Independent focused Code/Rule source review of90a422a complete; no actionable finding in scoped capture/report increment. Full family still awaits complete camera-owned motor source.",
+        "historical_progress_notes": [
+          "Local typed height/expected-bound/sample observations reach validation/JSON/HTML; required missing height fails.",
+          "Local repeated-evaluation structural/invalid-bone mismatch replaces sentinels.",
+          "Owner-reported local typed clearance/anatomical/facing, continuity/seam/slip/drift and guard liveness producers; capture retains optional IK/body response/height instead of zero defaults. Validation/quality/HTML receivers are still being connected.",
+          "Canonical report extrema methods locally written; existing SignedLength extrema consumed as geometry-only prerequisite 18360adba0fb43add88c75dfbd2f45d7e71d8ace (already integrated independently at c912fd7a7c7346c187399644e32919dde8aa2bbd). Not a P17 source-complete commit.",
+          "Owner reports all known metric producer/receiver edits now present locally, including retained capture distance/clock/rate, settle progress and explicit incomplete-capture quality observation. Focused source review and existing fixture API closure remain; no source-complete commit or validation."
+        ]
+      },
+      "integration_status": {
+        "state": "waiting_for_source_repairs_and_shared_dependency",
+        "integrated_commit": null,
+        "commit_pairs": [],
+        "pending_source_commits": [
+          "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696"
+        ]
+      },
+      "validation_status": {
+        "state": "not_run_for_current_changes",
+        "validated_head": null,
+        "evidence": [],
+        "historical_acceptance": null,
+        "limits": []
+      },
+      "next_action": "Finish all13 initial discovery, then complete typed repeated-evaluation tick snapshot/comparison and camera-owned full motor dependency; reconcile/integrate90a delta plus completed repairs and validate final revision. P17 cannot be deferred.",
+      "current_status": "unverified against current main; historical statuses retained in fields, no acceptance carried by transport"
+    },
+    {
+      "id": "P18",
+      "name": "Causal report quantities at f64 precision",
+      "exit_requirement": "The unobserved contact minimum is explicit. A typed f64 statistical owner is a worthwhile separate increment; f64::from inside a genuine numerical reduction is not itself a migration defect.",
+      "responsible_owner": "/root/native_reports",
+      "ownership_claims": [
+        "parallel-ownership/native_reports-claims.json"
+      ],
+      "shared_dependencies": [
+        {
+          "repair": "native-error-report-followthrough",
+          "relationship": "Preserves P02 error causes through the P18 native report graph."
+        },
+        {
+          "repair": "physical-equipment-producers",
+          "relationship": "P16 requires this producer chain; P14 coordinates shared functions and P18 consumes later checked sources. Existing P18 closure is not retroactively validation of P16."
+        },
+        {
+          "repair": "neutral-cuboid-and-build-schema",
+          "relationship": "The neutral CuboidDimensions actual owner is integrated at 4ecae9125b81fe2a9ca4881a6f589fe5b870b622. Core build-schema and physical producer/receiver follow-through remain uncommitted P16 work; coordinate affected P14/P18 consumers and revalidate on integration."
+        },
+        {
+          "repair": "strategic-operation-error-owner",
+          "relationship": "Connected P16 storage admission reaches mutually calling strategic helpers; canonical aggregate ownership is being repaired by camera while preserving earlier leaf causes. Existing complete families require reconciliation/revalidation when it integrates."
+        },
+        {
+          "repair": "iteration-observer-retained-failure",
+          "relationship": "Native report owner receives whole iteration callback/error-readback repair across P16+P18; keep existing checked physical/elapsed/report work and no temporary primitive adapters."
+        },
+        {
+          "repair": "shared-physical-construction-output",
+          "relationship": "ROOT071/072/073: whole f64 HolderConstruction/helpers and actual f32 DerivedProperties/GeneratedWeapon/Holder mesh output. Rig recipe/hash owner and camera DB whole construction/memo/projections remain their exact claims. Do not narrow f64 model or invent mass/inertia/zeroabsence policy. Initial inventory only; implementation/validation remain open."
+        }
+      ],
+      "source_status": {
+        "state": "complete",
+        "source_commit": "c6fe55e42e90981d9e132fcf1dd6615d17227275",
+        "source_commits": [
+          "c6fe55e42e90981d9e132fcf1dd6615d17227275"
+        ],
+        "remaining_gaps": [],
+        "evidence": [
+          "P18-native-reports-source-complete.json",
+          "P18-native-measurement-error-source-trace.json"
+        ]
+      },
+      "integration_status": {
+        "state": "integrated",
+        "integrated_commit": "6a758402e3b2daa09ad728703705139a1eee3461",
+        "commit_pairs": [
+          {
+            "source": "c6fe55e42e90981d9e132fcf1dd6615d17227275",
+            "integrated": "6a758402e3b2daa09ad728703705139a1eee3461"
+          }
+        ],
+        "pending_source_commits": []
+      },
+      "validation_status": {
+        "state": "blocked_at_semantic_quality_before_contract_execution",
+        "validated_head": null,
+        "evidence": [
+          "P06-hosted-contract-expectations-def7777.json",
+          "hosted-checkpoint-def7777-discovery.json"
+        ],
+        "historical_acceptance": null,
+        "limits": [
+          "Observed f32 extrema now use the report f64 representation; JSON decimal precision can differ. Absent extrema serialize as null."
+        ],
+        "attempted_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "run": 39576450512,
+        "formatting_repair_commit": "6533e444fa37552927070cc8d8190907fd3b413e"
+      },
+      "next_action": "Complete exhaustive all-thirteen-lens initial source inventory including preserved work and affected unchanged paths, then perform reconciled repairs and mandatory integration. Final clearance requires all lenses/reviews/hosted CI at one final revision; earlier evidence remains historical.",
+      "acceptance_dependencies": [
+        {
+          "repair": "iteration-observer-retained-failure",
+          "note": "P18 narrow original contact-minimum implementation remains preserved; shared P16 integration needs complete observer/error handling before final current-head validation. No new source-complete claim."
+        }
+      ],
+      "current_status": "unverified against current main; historical statuses retained in fields, no acceptance carried by transport"
+    },
+    {
+      "id": "P19",
+      "name": "Per-foot bounded influence",
+      "exit_requirement": "No UnitInterval\u2192Vec2 application retention\u2192UnitInterval cycle. Record the prior scope decision before pulling this followup into implementation.",
+      "responsible_owner": "/root",
+      "ownership_claims": [
+        "parallel-ownership/root-claims.json"
+      ],
+      "shared_dependencies": [
+        {
+          "repair": "support-and-foot-influence",
+          "relationship": "Both guarantees share pose conformity/IK receivers; source integrated, current-head acceptance pending."
+        },
+        {
+          "repair": "capture-clearance-and-ik-admission",
+          "relationship": "P17 source dependency; preserve/reconcile P06/P19 guarantees when this later shared extension integrates. Current source-complete P06/P19 implementation remains intact."
+        },
+        {
+          "repair": "shared-animation-admission-and-plan-failures",
+          "relationship": "Native owns whole shared loading/sampling/readiness failure loop; consume root canonical conformity/continuation contracts. Discovery only, preserve existing implementation/evidence and revalidate final integration."
+        },
+        {
+          "repair": "shared-ik-successful-point-and-analytic-solution",
+          "relationship": "Native whole connected producer/state/receiver loop; root canonical phase/conformity/continuation retained. Discovery only, later reconcile exact source contract and original accepted family evidence."
+        },
+        {
+          "repair": "shared-ragdoll-native-physical-contract",
+          "relationship": "Whole prepare/spec/entry/drive/muscle/lifecycle native physics graph. Signed angles and allf32 Ratio keep exact product-before-admission; failed native BodySeed policy explicit. Existing canonical rig/geometry owners consumed. Initial inventory only; implementation/validation remain open."
+        },
+        {
+          "repair": "shared-guard-and-attack-state-contracts",
+          "relationship": "Whole AttackCurve/attack height begin_attack_timed+ActionState/QueuedAttack/GuardContacts/GuardStepPlan and exact necessary receivers. Existing root continuation/PoseConformity/foot phase methods excluded; local planar vs Scene frames and progress>1 distinguished. Current source-backed requirements only, no family completion. Initial inventory only; implementation/validation remain open."
+        }
+      ],
+      "source_status": {
+        "state": "complete",
+        "source_commit": "0e6dad125108058d58919f6d174ba1f0ef6e7e55",
+        "source_commits": [
+          "0e6dad125108058d58919f6d174ba1f0ef6e7e55"
+        ],
+        "remaining_gaps": [],
+        "evidence": [
+          "P19-source-closure.json"
+        ]
+      },
+      "integration_status": {
+        "state": "integrated",
+        "integrated_commit": "0e6dad125108058d58919f6d174ba1f0ef6e7e55",
+        "commit_pairs": [
+          {
+            "source": "0e6dad125108058d58919f6d174ba1f0ef6e7e55",
+            "integrated": "0e6dad125108058d58919f6d174ba1f0ef6e7e55"
+          }
+        ],
+        "pending_source_commits": []
+      },
+      "validation_status": {
+        "state": "blocked_at_semantic_quality_before_contract_execution",
+        "validated_head": null,
+        "evidence": [
+          "P06-hosted-contract-expectations-def7777.json",
+          "hosted-checkpoint-def7777-discovery.json"
+        ],
+        "historical_acceptance": null,
+        "limits": [],
+        "attempted_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "run": 39576450512,
+        "formatting_repair_commit": "6533e444fa37552927070cc8d8190907fd3b413e"
+      },
+      "next_action": "Complete exhaustive all-thirteen-lens initial source inventory including preserved work and affected unchanged paths, then perform reconciled repairs and mandatory integration. Final clearance requires all lenses/reviews/hosted CI at one final revision; earlier evidence remains historical.",
+      "current_status": "unverified against current main; historical statuses retained in fields, no acceptance carried by transport"
+    },
+    {
+      "id": "P20",
+      "name": "Continuation coordinate, tangent, readiness and progress",
+      "exit_requirement": "No typed action phase erasure into continuation records or untyped continuation producer signature; settle the explicit followup before implementation.",
+      "responsible_owner": "/root",
+      "ownership_claims": [
+        "parallel-ownership/root-claims.json"
+      ],
+      "shared_dependencies": [
+        {
+          "repair": "capture-distance-report-retention",
+          "relationship": "Later whole drive_sequence repair belongs to P17 owner; preserve existing P20 continuation/action behavior and reconcile on integration. This does not reopen the already complete continuation contract by itself."
+        },
+        {
+          "repair": "shared-animation-admission-and-plan-failures",
+          "relationship": "Native owns whole shared loading/sampling/readiness failure loop; consume root canonical conformity/continuation contracts. Discovery only, preserve existing implementation/evidence and revalidate final integration."
+        },
+        {
+          "repair": "shared-ik-successful-point-and-analytic-solution",
+          "relationship": "Native whole connected producer/state/receiver loop; root canonical phase/conformity/continuation retained. Discovery only, later reconcile exact source contract and original accepted family evidence."
+        },
+        {
+          "repair": "shared-ragdoll-native-physical-contract",
+          "relationship": "Whole prepare/spec/entry/drive/muscle/lifecycle native physics graph. Signed angles and allf32 Ratio keep exact product-before-admission; failed native BodySeed policy explicit. Existing canonical rig/geometry owners consumed. Initial inventory only; implementation/validation remain open."
+        },
+        {
+          "repair": "shared-guard-and-attack-state-contracts",
+          "relationship": "Whole AttackCurve/attack height begin_attack_timed+ActionState/QueuedAttack/GuardContacts/GuardStepPlan and exact necessary receivers. Existing root continuation/PoseConformity/foot phase methods excluded; local planar vs Scene frames and progress>1 distinguished. Current source-backed requirements only, no family completion. Initial inventory only; implementation/validation remain open."
+        }
+      ],
+      "source_status": {
+        "state": "complete",
+        "source_commit": "1d4873f41b51b4888800c9d0a7ebce8d24197df8",
+        "source_commits": [
+          "1d4873f41b51b4888800c9d0a7ebce8d24197df8"
+        ],
+        "remaining_gaps": [],
+        "evidence": [
+          "P20-source-closure.json"
+        ]
+      },
+      "integration_status": {
+        "state": "integrated",
+        "integrated_commit": "1d4873f41b51b4888800c9d0a7ebce8d24197df8",
+        "commit_pairs": [
+          {
+            "source": "1d4873f41b51b4888800c9d0a7ebce8d24197df8",
+            "integrated": "1d4873f41b51b4888800c9d0a7ebce8d24197df8"
+          }
+        ],
+        "pending_source_commits": []
+      },
+      "validation_status": {
+        "state": "blocked_at_semantic_quality_before_contract_execution",
+        "validated_head": null,
+        "evidence": [
+          "P06-hosted-contract-expectations-def7777.json",
+          "hosted-checkpoint-def7777-discovery.json"
+        ],
+        "historical_acceptance": null,
+        "limits": [
+          "Stricter readiness/nonfinite decoding is explicit; existing native spline overflow bind fallback is preserved."
+        ],
+        "attempted_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "run": 39576450512,
+        "formatting_repair_commit": "6533e444fa37552927070cc8d8190907fd3b413e"
+      },
+      "next_action": "Complete exhaustive all-thirteen-lens initial source inventory including preserved work and affected unchanged paths, then perform reconciled repairs and mandatory integration. Final clearance requires all lenses/reviews/hosted CI at one final revision; earlier evidence remains historical.",
+      "current_status": "unverified against current main; historical statuses retained in fields, no acceptance carried by transport"
+    }
+  ],
+  "shared_repairs": {
+    "source": "inherited-family-execution.json#/shared_repairs",
+    "count": 44,
+    "status": "historical owners/dependencies retained; reassess against current canonical source before repair"
+  },
+  "publication": {
+    "destination_verified": {
+      "id": 1049441561,
+      "public": true,
+      "remote": "https://github.com/adventure-simulator-group/fabelgeist.git",
+      "account_permission": "admin/push confirmed by connector"
+    },
+    "connector_create": "403 integration unavailable",
+    "cli_create": "initial auto-review rejection resolved by read-only destination and human authorization evidence; accepted retry created988",
+    "body": "pr-body-001.md",
+    "latest_body": "pr-body-011.md",
+    "latest_body_review": "review-response-20261026/pr-body-contributor-source-review-ef7630d-001.json",
+    "latest_body_published": true,
+    "latest_body_scope": "Final ef7630d75 same-head results; concurrent989/body content preserved",
+    "published": true,
+    "draft": false,
+    "ready_for_review": true,
+    "final_state_receipt": "review-response-20261026/clean-final-pr-state-001.json",
+    "review_fix_commit": "a9d3597c60a9b762e73bf98762f0d2f8b61e462e",
+    "validation_wording": "Completed exact-head Linux/Windows acceptance verified through job metadata and actual GPU,Windows,constraint,48consumer artifacts",
+    "latest_body_review_sha256": "375e4f7346144eb05b8d050b58eaec3030b6d30194eb98400c350c63fbab1c42"
+  },
+  "new_reached_materials": {
+    "registration_authorities": [
+      "audit13-role0-extension-registration-001.json",
+      "audit13-partials-002.json#/prospective_ranges",
+      "audit13-partials-002.json#/local_supplements",
+      "audit08-successor-001-registration.json",
+      "audit11-successor-157-registration.json",
+      "audit12-successor-registration-003.json",
+      "audit12-successor-registration-004.json",
+      "audit12-successor-registration-005.json",
+      "audit08-successor-002-registration.json",
+      "audit13-successor-003.json#/new_receiving_ranges",
+      "audit12-successor-registration-006.json",
+      "audit12-successor-registration-007.json",
+      "audit12-successor-registration-008.json",
+      "audit11-successor-158-registration.json",
+      "audit13-successor-004.json",
+      "audit08-successor-003-registration.json",
+      "audit12-successor-registration-009.json",
+      "audit11-question-crosswalk-001-registration.json",
+      "audit12-successor-registration-010.json",
+      "audit13-successor-005.json#/new_receiving_ranges",
+      "audit12-successor-registration-011.json",
+      "audit11-successor-159-registration.json",
+      "audit08-successor-004-registration.json",
+      "audit12-successor-registration-012.json",
+      "audit12-successor-registration-013.json",
+      "audit12-successor-registration-014.json",
+      "audit11-successor-160-registration.json",
+      "audit13-successor-006.json#/new_receiving_ranges",
+      "audit08-successor-005-registration.json",
+      "audit12-original39-part8801-13103-registration.json",
+      "audit12-original39-native-boundary-registration.json",
+      "audit12-original39-receivers-registration.json",
+      "audit12-original39-workflow-registration.json",
+      "audit13-successor-007.json#/new_receiving_ranges",
+      "audit11-successor-161-registration.json",
+      "audit11-successor-161-completion-registration.json",
+      "audit11-successor-162-registration.json",
+      "audit08-successor-006-registration.json",
+      "audit12-successor-registration-015.json",
+      "current-rig-dressing-reconciliation-001-registration.json",
+      "audit13-successor-registration-008.json",
+      "audit12-successor-registration-016.json",
+      "audit11-successor-163-registration.json",
+      "audit13-successor-registration-009.json",
+      "audit08-successor-007-registration.json",
+      "audit12-successor-registration-017.json",
+      "review-response-20261026/source-registration-001.json",
+      "review-response-20261026/code-review-registration-001.json",
+      "review-response-20261026/comment-review-registration-001.json",
+      "review-response-20261026/clean-error-source-manifest-001.json",
+      "audit13-successor-registration-010.json",
+      "audit11-successor-164-registration.json",
+      "audit11-successor-164-registration-002.json",
+      "audit11-successor-164-registration-003.json",
+      "audit11-successor-164-registration-004.json",
+      "audit11-successor-164-registration-005.json",
+      "audit08-current-comparison-001-registration.json",
+      "audit12-successor-registration-018.json",
+      "audit11-successor-164-root-tolerance-registration-001.json",
+      "audit11-root-registration-166.json",
+      "audit11-root-registration-166-receiver-001.json",
+      "audit11-root-registration-166-receiver-002.json",
+      "audit12-successor-registration-018-receiver-001.json",
+      "audit12-successor-registration-018-receiver-002.json",
+      "audit11-root-registration-166-receiver-003.json",
+      "audit11-root-registration-166-receiver-004.json",
+      "audit11-root-registration-166-receiver-005.json",
+      "audit11-root-registration-167.json",
+      "audit11-segovb-168-registration-001.json",
+      "audit11-segovb-168-registration-002.json",
+      "audit11-segovb-168-registration-003.json",
+      "audit11-segovb-168-registration-004.json",
+      "audit11-segovb-168-registration-005.json",
+      "audit13-successor-registration-011.json",
+      "audit13-successor-registration-011-receivers-002.json",
+      "audit13-successor-registration-011-receivers-003.json",
+      "policy-989-20261026/source-registration-001.json",
+      "policy-989-20261026/initial-thirteen-lenses-001.json",
+      "audit08-successor-008.json#/source_reads",
+      "audit11-segovb-169-796-partial-002.json#/connected_registration_receipts",
+      "audit12-successor-registration-019.json",
+      "audit13-successor-012.json#/registration_files",
+      "audit11-segovb-170-scalp-staging.json",
+      "audit11-segovb-170-scalp-layout-staging.json",
+      "audit12-successor-registration-020.json",
+      "audit12-successor-registration-021.json",
+      "audit11-segovb-170-796-complete.json#/connected_registration_receipts",
+      "audit11-segovb-171-form-staging.json",
+      "audit12-successor-registration-022.json",
+      "audit11-segovb-171-atlas-staging.json",
+      "audit13-root-firstparty-staging-014.json",
+      "audit13-root-firstparty-shader-staging-014.json",
+      "audit08-successor-009.json#/sources",
+      "audit11-segovb-171-797-complete.json#/sources",
+      "audit13-successor-013.json#/registration",
+      "audit12-successor-022-receiver-staging.json",
+      "audit13-root-original31-reread-registration-014.json",
+      "audit12-successor-registration-022-receiver-001.json",
+      "audit12-current-diagnosticpath-registration-001.json",
+      "audit11-segovb-172-registration-001.json",
+      "audit11-segovb-172-registration-002.json",
+      "audit11-segovb-172-registration-003.json",
+      "audit11-segovb-172-registration-004.json",
+      "audit11-segovb-172-registration-005.json",
+      "audit13-successor-014-other-lens-extension-queue.json",
+      "audit13-successor-015-other-lens-extension-queue.json",
+      "audit11-segovb-173-field-staging.json",
+      "audit12-successor-registration-022-receiver-002.json",
+      "audit13-successor-016-other-lens-reconciliation-note.json",
+      "audit08-successor-010-registration.json",
+      "audit08-successor-010-registration-replication.json",
+      "audit08-successor-010-registration-scene.json",
+      "audit12-successor-registration-022-receiver-003.json",
+      "audit12-successor-registration-022-receiver-004.json",
+      "audit12-successor-registration-022-receiver-005.json",
+      "audit12-successor-registration-022-receiver-006.json",
+      "audit12-successor-registration-022-receiver-007.json",
+      "audit12-current-M23-M25-registration-001.json",
+      "audit08-root-net-plugin-staging-011.json",
+      "audit13-root-understory-staging-017.json",
+      "audit12-successor-022-item-helper-staging.json",
+      "audit12-successor-registration-022-receiver-008.json",
+      "audit12-successor-022-schema-helper-staging.json",
+      "audit12-successor-registration-022-receiver-009.json",
+      "audit12-successor-registration-022-receiver-010.json",
+      "audit12-successor-registration-022-receiver-011.json",
+      "audit12-successor-022-organization-runtime-staging.json",
+      "audit13-successor-017-other-lens-extension-queue.json",
+      "audit08-successor-011.json#/source_reads",
+      "audit08-successor-011.json#/new_dependency_obligations",
+      "audit11-segovb-174-proposed-state.json#/mandatory_other_lens_queue_extension",
+      "audit11-segovb-174-registration-001.json",
+      "audit11-segovb-174-registration-002.json",
+      "audit11-segovb-174-registration-003.json",
+      "audit12-successor-registration-022-receiver-012.json",
+      "audit12-successor-registration-022-receiver-013.json",
+      "audit12-successor-registration-022-receiver-014.json",
+      "audit12-successor-registration-022-receiver-015.json",
+      "audit12-successor-registration-022-receiver-016.json",
+      "audit12-successor-022-condition-staging.json",
+      "audit12-successor-022-demographic-staging.json",
+      "audit12-successor-registration-022-receiver-017.json",
+      "audit12-successor-registration-022-receiver-018.json",
+      "audit08-successor-012.json#/source_reads",
+      "audit13-successor-018.json#/other_lens_extension_queue",
+      "audit13-root-terrain-staging-018.json",
+      "audit13-root-terrain-staging-018-supplement.json",
+      "audit13-root-terrain-staging-018-final.json",
+      "audit11-segovb-175-proposed-state.json#/new_material_extension",
+      "audit13-successor-018-other-lens-extension-queue.json",
+      "audit08-root-heating-base-staging-013.json",
+      "audit08-root-heating-parent-staging-013.json",
+      "audit08-root-heating-parent-staging-013-main.json",
+      "audit08-root-ground-base-staging-013.json",
+      "audit08-successor-013-completion.json#/new_reached_shared_dependencies",
+      "audit11-root-packing-preview-staging-176.json",
+      "audit11-segovb-176-proposed-state-002.json#/mandatory_other_lens_extensions",
+      "audit13-successor-019-other-lens-extension-queue.json",
+      "audit12-successor-022-final-compiler-staging.json",
+      "audit12-successor-registration-022-receiver-019.json",
+      "audit12-successor-022-combat-config-staging.json",
+      "audit12-successor-registration-022-receiver-020.json",
+      "audit12-successor-022-challenge-staging.json",
+      "audit12-successor-022-weapon-identity-staging.json",
+      "audit12-successor-registration-022-receiver-021.json",
+      "audit12-successor-022-current-comparison-registration.json",
+      "audit08-successor-014-completion-provenance.json",
+      "audit08-successor-014-completion-registration.json",
+      "audit08-successor-014-receivers-001.json#/new_reached_shared_dependencies",
+      "audit11-segovb-177-804-complete-001.json#/mandatory_other_lens_queue_extensions",
+      "audit13-successor-020-other-lens-extension-queue.json",
+      "audit12-successor-024-receiver-staging.json",
+      "audit12-successor-registration-024-receivers-001.json",
+      "audit12-successor-registration-024-receivers-002.json"
+    ],
+    "policy": "Keep original196 shared-material registry immutable; these prospectively registered extensions are mandatory pending queue for other lenses. Deduplicate by source identity/contract before assigning combined indices; registration and hash equality add no coverage. Root ledger is authoritative selector.",
+    "global_other_lens_coverage": "Incomplete; no new-body coverage transferred across lenses",
+    "policy989_scope_note": "Eight-file current policy/error increment assessed at scoped13 lenses with independentreviews; no inherited global count clearance. New native/frozen receiver role extensions in appended registrations remain mandatory other-lens queue; staging scalp child adds zero role coverage."
+  },
+  "preservation": {
+    "stash_list": [
+      "stash@{0} 6c109560050d97dd6deeb842b1d71ec8a280949b On codex/audit-domain-types-726: Goal #726 paused: preserve unfinished migration before CI WIP narrowing",
+      "stash@{1} 5d123a896914dae269833c473330d63d454aff7b On codex/issue-487-wiki-ia: codex-wiki-cutover-pre-main-sync-2026-09-04",
+      "stash@{2} b6da4b4bdb70def66126f540ea8bb828e4c80d49 On codex/wiki-information-architecture: codex: preserve wiki IA work before syncing origin/main",
+      "stash@{3} c0b78fa61cc4a893ce66ad4aa54850621c73aee4 WIP on main: fca0fad [strategic] Web deployment with Axum, Maud, and SpacetimeDB (#38)"
+    ],
+    "working_tree": "",
+    "historical_evidence": "8068 files exactbytes restored, no conflicts, no historical record overwritten",
+    "active_implementation_owner": "root; source-only reviewers now completed checkpoints"
+  },
+  "last_turn_classification": {
+    "status": "progress",
+    "at": "2026-10-27T01:57:16.106776+00:00",
+    "evidence": [
+      "audit12-successor-024-complete.json"
+    ],
+    "note": "Root48 accounted,next49; exact currentM05 witness and recipients reconfirmed. Three successor packets returned pending rootadoption. No product/project execution."
+  },
+  "next_available_actions": [
+    "Lens08: resume ordered1793 delegated support-plan/terrain/typed JSON receiving contracts; preserveQ003/material52 partials.",
+    "Lens11: independently inventory original805; reconcile inherited Draping/bounds/count/frame/longest candidates with canonical current owners before repairs.",
+    "Lens12: independently register/inventory original48 exact full requested43-line owner; original46/47 source-accounted WITH findings, not current family acceptance.",
+    "Lens13: retained original31/36/37 receiver/history/conditional gaps remain; first unread38 has no orderedcredit. Bounded source work remains possible.",
+    "Continue all20/P16/P17/shared repair and remaining#780/#826 obligations; no stacked implementation whilePR990open, no merge. RechecklivePR/main before subsequent implementation."
+  ],
+  "question_alias_reconciliation": {
+    "authority": "audit11-question-crosswalk-001.json",
+    "status": "source namespaces disambiguated; historical export bareQ008/Q009 invalid canonicalalias edges",
+    "canonical_ADLER_Q008": "glazing original544",
+    "canonical_ADLER_Q009": "timber original547",
+    "canonical_contract_support": [
+      "M18",
+      "M21",
+      "F50",
+      "M108"
+    ],
+    "support_is_issue_alias": false,
+    "source_keyed_cases": 22,
+    "accepted_unique_increment": 0,
+    "historical_records_modified": false,
+    "unresolved": [
+      "Original author intended targets of bare export Q008/Q009 cannot be inferred from the mismatched canonical records. No rename/typo target invented.",
+      "No exact canonical question IDs found for most local export tuple/mode/record observations in this bounded inspected authority set; source keys preserve them.",
+      "PC36 canonical policy body and explicit alias authority not located; master mention alone is insufficient.",
+      "Master revision13fc9dcc71ab879de364117e5462310673e43210/treea12b210638996e5e2aafe99c47c6bf793f935a90 differs from frozen scope6533; contract overlap is not byte/revision equivalence.",
+      "No current production source was inspected for currentness in this task. Every case currentness remains unassessed, including M22 after historicalPR987.",
+      "Inherited alias index metadata scan did not identify explicit export-specific alias rows; this is not exhaustive semantic proof that no other canonical record exists."
+    ]
+  },
+  "native_observation_reconciliation": [
+    {
+      "receipt": "audit13-successor-007.json",
+      "ids": [
+        "A13-NATIVE-TIMESTAMP-NEGMIN-OBS007",
+        "A13-NATIVE-DURATION-CONVERSION-OBS007",
+        "A13-NATIVE-DURATION-FMT-ABS-OBS007"
+      ],
+      "status": "Source-backed native limitation, not accepted unique firstparty finding; compare inherited source-keyaliases and actual firstparty admitted inputs/callers before remedy",
+      "unique_count_delta": 0,
+      "closed": false
+    },
+    {
+      "receipt": "audit13-successor-008.json",
+      "ids": [
+        "NATIVE-FINITE-COUNTER-BOUNDARY",
+        "NATIVE-TIMESTAMP-DOC-UNIT",
+        "NATIVE-FAILURE-POLICY"
+      ],
+      "status": "Non-counted source-backed native observations; inherited source-key alias and current firstparty reachability not established",
+      "unique_count_delta": 0,
+      "closed": false
+    },
+    {
+      "receipt": "audit13-successor-009.json",
+      "ids": [
+        "NATIVE-PIXMAP-RAW-BUFFER-BOUNDARY",
+        "NATIVE-PNG-ARITHMETIC-BOUNDARY",
+        "NATIVE-WGPU-RANGE-ADMISSION"
+      ],
+      "closed": false,
+      "unique_count_delta": 0,
+      "status": "Native source limitations; inherited source-key aliases/current firstparty reachability unassessed"
+    }
+  ],
+  "source_observation_reconciliation": [
+    {
+      "receipt": "audit12-successor-015.json",
+      "source_id": "physical-p16:content/tactical/combat.yaml",
+      "observations": [
+        {
+          "id": "P16-DUPLICATE-IMPORT",
+          "locations": [
+            "combat_config.rs1",
+            "combat_config.rs10"
+          ],
+          "classification": "source observation, no new unique finding"
+        },
+        {
+          "id": "BUILD-AUTHORITY-PROJECTION",
+          "locations": [
+            "build/combat_resolution.rs92-275",
+            "combat_config.rs53-66"
+          ],
+          "classification": "source-backed inherited authority/behavior reconciliation obligation; no unique finding invented"
+        },
+        {
+          "id": "TEXT-ERROR-BOUNDARIES",
+          "locations": [
+            "combat_config.rs424-442",
+            "combat_config.rs750-758",
+            "core/config.rs validate"
+          ],
+          "classification": "retained F9/string error migration qualification"
+        }
+      ],
+      "status": "Compare inherited exactsourcekeys/currentcanonical owners before alias orremedy. BareF9 text cannotestablish equalitywithCommentReviewF9.",
+      "accepted_unique_count_delta": 0,
+      "closed": false
+    },
+    {
+      "receipt": "current-rig-dressing-reconciliation-001.json",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/dressing.rs",
+      "finding": "SEGOVB11-158-781-RIG-RECEIVER",
+      "current_revision": "961d226be23a81d9731a11958d62fe8a04b93e81",
+      "disposition": {
+        "literal_frozen_as_cast": "ABSENT at961; replaced by explicit supported usize::from conversion in this receiver",
+        "full_typed_joint_column_receiver_migration": "UNINTEGRATED in current Dressing80-107: still creates Vec<bool> and crosses RigJointOrdinal->usize at local application lookup",
+        "whole_finding_status": "Concrete split disposition: exact frozen syntax/static incompatibility no longer describes current961; narrower canonical-column propagation concern remains source-backed and qualified. Do not mark broader rig/F50/family repaired or call current code the same compile failure.",
+        "current_line97": "parts.get(usize::from(*joint)).copied().unwrap_or(true)",
+        "exact_registered_range_delta": "Comparing frozen and current80-107, only line97 differs. Full-file SHA differs; no unregistered line coverage inferred.",
+        "new_accepted_unique_findings": 0,
+        "canonical_alias_assigned": false
+      },
+      "closed": false,
+      "accepted_unique_count_delta": 0
+    },
+    {
+      "receipt": "audit08-successor-007.json",
+      "candidate_ids": [
+        "SEGOVB-CONT08-007-M51-PAID-WITHDRAWN"
+      ],
+      "partial_ids": [
+        "SEGOVB-CONT08-007-M52-PARTIAL"
+      ],
+      "closed": false,
+      "accepted_unique_count_delta": 0,
+      "status": "Classify/alias preexisting Paid-withdrawn invariant witness; reconcile actual typed-error receiving port/currentness before material52 complete."
+    },
+    {
+      "receipt": "audit12-current-M23-M25-reconciliation-002.json",
+      "aliases": [
+        "M23",
+        "M25"
+      ],
+      "new_unique_delta": 0,
+      "qualification": "Selected current owner gaps; full families not validated."
+    },
+    {
+      "receipt": "audit12-successor-022-partial-009.json",
+      "aliases": [
+        "F23",
+        "M53",
+        "M24"
+      ],
+      "new_unique_delta": 0,
+      "qualification": "Selectedcurrentthreefile identity, fullfamily/native/UI scopes remain pending."
+    },
+    {
+      "receipt": "audit12-successor-022-partial-011.json",
+      "aliases": [
+        "M46 support"
+      ],
+      "local_source_key": "L12-022-QUEST-CONDITION-SHAPE",
+      "accepted_unique_delta": 0,
+      "qualification": "Currentselected source admission mismatch, full family and globaldedup not clear."
+    },
+    {
+      "receipt": "audit12-successor-022-partial-012.json",
+      "aliases": [
+        "M39 support"
+      ],
+      "accepted_unique_delta": 0,
+      "qualification": "Selectedcurrent1040production source only; materialroute typedkey concern pendingmasteralias, fullnativefamily incomplete."
+    }
+  ],
+  "review_checkpoint": {
+    "pull_request": "https://github.com/adventure-simulator-group/fabelgeist/pull/990",
+    "pr": 990,
+    "head": "a21f9ccaeba1e3947e22dc1f64106c4f2bc371b6",
+    "ready": true,
+    "merged": false,
+    "user_review_received": "LGTM submitted2026-10-27T00:46:15Z",
+    "stopped_at": "2026-10-27T00:56:25.794277+00:00",
+    "reason": "User requested stopping for each independently merge-ready PR; no merge or subsequent implementation stack.",
+    "consecutive_pending_review_turns": 0,
+    "evidence": "policy-989-20261026/final-pr-state-001.json",
+    "goal_complete": false
+  },
+  "review_remediation": {
+    "head": "ef7630d757a6994297f6d24840991cda61bda63c",
+    "source_manifest": "review-response-20261026/combined-pr-source-manifest-006.json",
+    "user_review": "review-response-20261026/user-review-001.json",
+    "all_eight_dispositions": "TextureView imports; shared observation enum across consumers; composed direct error payloads; Display and Error derived on both enums; manual implementations and obsolete wrappers/helpers removed",
+    "source_complete": true,
+    "independent_reviews": true,
+    "validated": true,
+    "reviews_verified": {
+      "clean-error-code-review-001.json": "9523ff88cea82dad72575dd4b17a0573bf1f21e6cf68d24bf2f8810123fd8da6",
+      "clean-error-rule-review-001.json": "621720d96665543189659aea7d99d951108ff1b8f3bdfc009c728296c43e93eb",
+      "clean-error-comment-review-001.json": "c2c8ac8897aec6aa26cd43271f6937e6ca96d5e81e844451335d2885109f4250"
+    },
+    "pending_baseline": "Satisfied on exact ef7630d75 actual GPU artifact:2D debt absent,cube862; clean-final-gpu-artifact-001.json",
+    "reopened_prior_dispositions": [
+      "Carried observation bool replaced with one shared policy enum",
+      "Manual Display/Error and obsolete boxed representation removed; both canonical error enums derive final traits"
+    ],
+    "scoped_thirteen_lens_delta": "review-response-20261026/slice-thirteen-lenses-003.json",
+    "format_correction": "review-response-20261026/format-correction-001.json",
+    "format_source_contracts_reconciled": true,
+    "baseline_removal": "review-response-20261026/baseline-removal-001.json",
+    "intermediate_gpu_evidence": "review-response-20261026/gpu-intermediate-evidence-001.json",
+    "baseline_source_repair_condition": "Exact2D-only debt removal integrated, final ef artifact confirms; no ceiling raised",
+    "final_source_reconciliation_sha256": "e5ffa2d6cf18a4989a3d7094477019eb09394d739766654e32dc677b7820ad5e",
+    "user_correction": {
+      "at": "2026-10-26T21:11:58.604389+00:00",
+      "instruction": "No backward compatibility anywhereuntilrelease. Do notpreservehistoricalBox/downcastlayouttojustify manualtraits.",
+      "rejected_decision": "Preservingboxedconcretesourcedowncasts asanacceptanceconstraint",
+      "current_design": "DirectTextureErrorObservationownsrequested/operation/ScopeError; directScopeErrorNative/Progress/ProgressWithNativepayloads; deriveDisplay/Errorboth; pollprimaryonpollfailure; no oldwrapper/helper/manualimpl/alias",
+      "new_source_manifest": "review-response-20261026/clean-error-source-manifest-001.json",
+      "initial_dispositions": "review-response-20261026/clean-error-initial-dispositions-001.json",
+      "prior_reviews": "Earlier layout-specific verdicts superseded; fresh clean-error Code/Rule/Comment reports adopted with matching file hashes"
+    },
+    "latest_user_review": "review-response-20261026/user-review-002.json",
+    "latest_six_comments": "All addressed: explicit WGPU imports and existing assertion-message whitespace; current error enums derive Display/Error without obsolete boxed wrappers or manual traits",
+    "current_review_reconciliations": [
+      "review-response-20261026/clean-error-source-manifest-001.json",
+      "review-response-20261026/clean-error-code-review-001.json",
+      "review-response-20261026/clean-error-rule-review-001.json",
+      "review-response-20261026/clean-error-comment-review-001.json",
+      "review-response-20261026/clean-error-format-reconciliation-001.json",
+      "review-response-20261026/imports-review-reconciliation-001.json"
+    ],
+    "final_acceptance": "review-response-20261026/clean-final-slice-acceptance-001.json"
+  },
+  "historical_evidence_by_revision": {
+    "961d226be23a81d9731a11958d62fe8a04b93e81": {
+      "current_artifact_evidence": "final-artifact-evidence-001.json",
+      "constraint_evidence": "final-constraint-artifact-evidence-001.json",
+      "rig_evidence": "final-rig-artifact-evidence-001.json",
+      "hosted_evidence": "final-hosted-status-001.json",
+      "final_review_reconciliation": "final-review-reconciliation-001.json",
+      "final_acceptance": "final-slice-acceptance-001.json",
+      "review_checkpoint": {
+        "at": "2026-10-26T19:46:11.328649+00:00",
+        "pull_request": "https://github.com/adventure-simulator-group/fabelgeist/pull/988",
+        "commit": "961d226be23a81d9731a11958d62fe8a04b93e81",
+        "stopped": false,
+        "goal_complete": false,
+        "reason": "User explicitly requested stop at every merge-ready PR; ready state and final body remotely reverified; no merge/deepstack",
+        "consecutive_pending_review_turns": 0,
+        "latest_poll": "review-checkpoint-poll-003.json",
+        "review_received": "review-response-20261026/user-review-001.json"
+      }
+    }
+  },
+  "next_slice": {
+    "issue": 989,
+    "branch": "codex/989-texture-validation-policy",
+    "base": "b3810b8b5db78c15cc51a0e1bef747a06450dffb",
+    "phase": "Ready/open/unmerged checkpoint; userLGTM received, final validation body published; no new implementation until checkpoint continuation.",
+    "registration": "policy-989-20261026/source-registration-001.json",
+    "global_clearance": false,
+    "discovery": "policy-989-20261026/initial-thirteen-lenses-001.json",
+    "pr": 990,
+    "head": "a21f9ccaeba1e3947e22dc1f64106c4f2bc371b6",
+    "run": 40421868169,
+    "publication": "policy-989-20261026/publication-001.json",
+    "source_manifest": "policy-989-20261026/implementation-manifest-004.json",
+    "final_gpu_evidence": "policy-989-20261026/final-gpu-artifact-001.json",
+    "final_windows_evidence": "policy-989-20261026/final-windows-artifact-001.json",
+    "final_reviews": [
+      "policy-989-20261026/final-code-review-002.json",
+      "policy-989-20261026/final-rule-review-002.json",
+      "policy-989-20261026/final-comment-review-002.json"
+    ],
+    "final_source_wave": "policy-989-20261026/scoped-thirteen-lenses-003-final-source.json",
+    "final_constraints_evidence": "policy-989-20261026/final-constraints-artifact-001.json",
+    "latest_hosted_snapshot": "policy-989-20261026/final-hosted-status-003.json",
+    "latest_review_lookup": "policy-989-20261026/final-hosted-status-002.json#/review_lookup",
+    "final_rig_evidence": "policy-989-20261026/final-rig-artifact-001.json",
+    "acceptance": "policy-989-20261026/final-slice-acceptance-002.json",
+    "final_pr_state": "policy-989-20261026/final-pr-state-001.json",
+    "latest_body": "policy-989-20261026/pr-body-005.md",
+    "latest_body_review": "policy-989-20261026/pr-body-comment-review-003.json",
+    "ready": true,
+    "merged": false,
+    "integrated": true,
+    "validated": true
+  },
+  "current_M24_reconciliation": {
+    "receipt": "audit12-current-diagnosticpath-M24-reconciliation-001.json",
+    "status": "Selectedcurrent diagnosticpath owner confirmed; full currenthelper/recipient/remedy acceptance pending"
+  }
+}

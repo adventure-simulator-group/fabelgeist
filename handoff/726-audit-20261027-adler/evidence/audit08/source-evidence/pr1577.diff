@@ -1,0 +1,96 @@
+diff --git a/crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants/tests.rs b/crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants/tests.rs
+index 46d20aa74..749fc0c62 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants/tests.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants/tests.rs
+@@ -15,7 +15,7 @@ fn autumn_woodland_fixture_contains_ground_fruiting_fungi() {
+     let seed = stable_text_seed("fungi-woodland")
+         .xor_word(stable_text_seed(&environment.scene_digest).to_u64())
+         .xor_word(PLANT_SEED.to_u64());
+-    let sites = placements(&scene.terrain, &scene.ground, &environment, seed);
++    let sites = placements(&scene.terrain, &scene.ground, &environment, seed).unwrap();
+     assert!(!sites.is_empty());
+     for species in adventuresim_plant_generator::fungus::FungusSpecies::ALL {
+         assert!(
+@@ -57,7 +57,8 @@ fn seasonal_catalog_shares_population_budget_and_preserves_spring_flowers() {
+         &ground,
+         &environment,
+         fabelgeist_determinism::Seed::from_u64(42),
+-    );
++    )
++    .unwrap();
+     assert_eq!(spring.len(), MAX_SPECIMENS);
+     assert!(
+         spring
+@@ -71,7 +72,8 @@ fn seasonal_catalog_shares_population_budget_and_preserves_spring_flowers() {
+         &ground,
+         &environment,
+         fabelgeist_determinism::Seed::from_u64(42),
+-    );
++    )
++    .unwrap();
+     assert_eq!(autumn.len(), MAX_SPECIMENS);
+     assert!(
+         autumn
+@@ -103,7 +105,8 @@ fn spring_woodland_fixture_has_suitable_flower_openings() {
+         &scene.ground,
+         &environment,
+         fabelgeist_determinism::Seed::from_u64(42),
+-    );
++    )
++    .unwrap();
+     let litter = scene
+         .ground
+         .samples()
+@@ -145,7 +148,8 @@ fn placement_is_repeatable_bounded_grounded_and_excludes_roads_water_and_winter(
+         &ground,
+         &environment,
+         fabelgeist_determinism::Seed::from_u64(42),
+-    );
++    )
++    .unwrap();
+     assert!(!sites.is_empty());
+     assert!(sites.len() <= MAX_SPECIMENS);
+     assert_eq!(
+@@ -156,14 +160,15 @@ fn placement_is_repeatable_bounded_grounded_and_excludes_roads_water_and_winter(
+             &environment,
+             fabelgeist_determinism::Seed::from_u64(42)
+         )
++        .unwrap()
+     );
+     assert!(
+         sites
+             .iter()
+-            .all(|s| (s.root.y - (2.0 - ROOT_EMBED_METRES)).abs() < 0.0001)
++            .all(|s| (s.root.metres().y - (2.0 - ROOT_EMBED_METRES)).abs() < 0.0001)
+     );
+-    assert!(sites.iter().any(|s| s.root.x > 0.0));
+-    assert!(sites.iter().any(|s| s.root.x < 0.0));
++    assert!(sites.iter().any(|s| s.root.metres().x > 0.0));
++    assert!(sites.iter().any(|s| s.root.metres().x < 0.0));
+     let dense_sward = SceneGround::from_samples(
+         65,
+         65,
+@@ -186,6 +191,7 @@ fn placement_is_repeatable_bounded_grounded_and_excludes_roads_water_and_winter(
+             &environment,
+             fabelgeist_determinism::Seed::from_u64(42)
+         )
++        .unwrap()
+         .is_empty(),
+         "dense tall grass has no low-herb openings"
+     );
+@@ -201,6 +207,7 @@ fn placement_is_repeatable_bounded_grounded_and_excludes_roads_water_and_winter(
+                 &environment,
+                 fabelgeist_determinism::Seed::from_u64(42)
+             )
++            .unwrap()
+             .is_empty()
+         );
+     }
+@@ -213,6 +220,7 @@ fn placement_is_repeatable_bounded_grounded_and_excludes_roads_water_and_winter(
+             &environment,
+             fabelgeist_determinism::Seed::from_u64(42)
+         )
++        .unwrap()
+         .is_empty()
+     );
+ }

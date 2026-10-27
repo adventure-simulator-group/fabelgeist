@@ -1,0 +1,284 @@
+{
+  "at": "2026-10-27T16:14:50.018341+00:00",
+  "lens": 11,
+  "status": "source_accounted_with_findings",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-084-registration.jsonl",
+    "sha256": "69c445f72d67a0b1cc389a41e8ad9fa6392e7c157bc014b47e6a1b706daca916"
+  },
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-083.json",
+    "sha256": "b2c183411e2d9fd942b6550763ec7022f57e450a38ab63313368c36bea2fe40d"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 1136,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/item.rs",
+      "sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "ranges": [
+        [
+          1,
+          957
+        ]
+      ],
+      "actual_eof": 957,
+      "prospective": true,
+      "purpose": "Independent full ordered role inventory, priorconnected1136context notautomaticcredit",
+      "actual_read_ranges": [
+        [
+          1,
+          321
+        ],
+        [
+          428,
+          957
+        ]
+      ],
+      "personal_same_lens_reuse": {
+        "receipt": {
+          "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-073-receipt.json",
+          "sha256": "ed0a5dc5809ae33039ed53fe0993017ddf4cc9ab6562855f1e53a3f275eb9e28"
+        },
+        "ranges": [
+          [
+            322,
+            427
+          ]
+        ],
+        "qualification": "Same exact native insertion body personally read earlier, now independent full ordered inventory."
+      }
+    },
+    {
+      "kind": "original",
+      "original_index": 1137,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/item/authority_tests.rs",
+      "sha256": "ea66e08d18040b2a131cd6064cb78d96819930fa46b7e7026e406baab6785cd3",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/ea66e08d18040b2a131cd6064cb78d96819930fa46b7e7026e406baab6785cd3",
+      "ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "actual_eof": 44,
+      "prospective": true,
+      "purpose": "Independent full ordered role inventory, priorconnected1136context notautomaticcredit",
+      "actual_read_ranges": [
+        [
+          1,
+          44
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 1138,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/lib.rs",
+      "sha256": "6ddb214f1409b1c3451c129b19ff4b795dfebf036c17f48f833af54c01048f2e",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/6ddb214f1409b1c3451c129b19ff4b795dfebf036c17f48f833af54c01048f2e",
+      "ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "actual_eof": 93,
+      "prospective": true,
+      "purpose": "Independent full ordered role inventory, priorconnected1136context notautomaticcredit",
+      "actual_read_ranges": [
+        [
+          1,
+          93
+        ]
+      ]
+    }
+  ],
+  "connected_sources": [],
+  "role_dispositions": [
+    {
+      "original": 1136,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/item.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              138
+            ]
+          ],
+          "roles": "Item catalog definition versus inventory row; persisted placement/attachment records; kind, mass/exterior/interior/liquid capacities, combat/quality/durability/alcohol capability fields.",
+          "disposition": "Stable inventory instance ID, catalog item key and character ID prevent different mix-ups despite String/u64 storage. SDK tables are actual primitive adapters, but private APIs need canonical identities and quantities. Monolithic Item flattens authored ItemKind sum and independent optional capabilities into defaults, kind plus many irrelevant zero fields/flags. Preserve physical mass, reach, inertia, dimensionless balance, energy, volume, probability, skill quality and damage energy distinctions; same f32 is not one universal scalar. Attachment count capacity/order is not volume or body coverage.",
+          "remedy": "Retain canonical authored capability aggregates internally, named typed persistence projection at SDK. Reuse existing item classification/slot/channel/occupancy/parent and quantity owners; no extra child/parent numeric ID wrappers just argument labels.",
+          "acceptance": "Static catalog item stats are not transient tactical tick state; do not allege architecture violation from static persisted definitions. Inventory whole quantity versus measured amount/food-lot extent legitimate separate authority. No global positive/allU64-nonzero rule."
+        },
+        {
+          "ranges": [
+            [
+              140,
+              320
+            ]
+          ],
+          "roles": "Authored ItemDefinition projection, optional equipment and kind payloads, derived radius of gyration, food/book/durability quality overwrite, initialization and surgery references.",
+          "disposition": "Actual source kind sum already owns relevant shield/armor/weapon payloads. Native projector flattens at persistence boundary appropriately, private consumers should not reconstruct arbitrary zero combinations. Balance is derived from inertia/mass/grip geometry and documented source authority, not another independently authored truth. Food/book/durability quality assignments sequentially overwrite shared field if co-present: API shape may obscure capability-specific quality; actual mixed authored producer not established, no proven wrong ordinary item. melee/ranged are capabilities; do not force XOR from fixture alone.",
+          "remedy": "Reuse existing canonical catalog/schema/equipment owners; typed quality roles beneath shared numeric admission if consumers differ, carry named weapon/armor/alcohol/durability payloads. Avoid a new competing catalog representation.",
+          "acceptance": "Actual catalog937/schema941 and equipment920 native operations personally read029/024; surgery upsert expect forbidden Rust style but this lens records admission/error role only, no project execution or source repair. Waterskin-only water_capacity is actual chosen policy, generic container capacity separate."
+        },
+        {
+          "ranges": [
+            [
+              322,
+              438
+            ]
+          ],
+          "roles": "Food prevalidation, stable-object policy, checked insertion, discrete versus fungible rows, measured amount/condition/food-lot/physical object binding, foraged units, lossy wrapper.",
+          "disposition": "requires_stable_object captures real non-fungibility across equipment, food, measured, medication. Individual row quantity1 and one physical object distinct fungible row quantity>1; count versus remaining measured amount must stay separate. add_inventory_item_checked returns Result<Option<rowID>,String>; wrapper .ok().flatten collapses unknown/absent definition with actual insertion failure. Foraged helper uses repeated quantity1 to preserve independent source units even where generic input fungible.",
+          "remedy": "Canonical typed insertion outcome and inventory row/object IDs, keep error cause through callers; named admitted creation plan retains material/condition association. Preserve actual measured/food/stable-object owner rather than globally enforcing every stack quantity1.",
+          "acceptance": "Actual073 native322\u2013427 reused plus071 food/074 measured/075 containment bodies; no automatic earlier connected credit. No transaction rollback, ordinary failed insert or runtime resource loss proven."
+        },
+        {
+          "ranges": [
+            [
+              440,
+              561
+            ]
+          ],
+          "roles": "Currency catalog membership, equal-value personal total, denomination/row/count tuples, withdrawal plan and credit preflight/checked merge.",
+          "disposition": "Currency monetary amount and generic stack count different role even both integer; canonical currency owner exists strategic_currency. CurrencyWithdrawal tuple(String,rowID,count) and output(rowID,taken) can confuse identity/quantity; named plan earns clarity. Native u32 narrowing taken justified min with source u32 quantity. Total sums unchecked u64 across unbounded DB rows are capacity API shape, not observed overflow or arbitrary cap. Credit wrapper ignores insertion outcome in split/absent branches.",
+          "remedy": "Reuse currency owner and checked money/count operations, named withdrawal entries; typed insertion errors propagated. Keep denomination order deterministic, avoid inventing exchange values because function explicitly consumes equal-value currencies.",
+          "acceptance": "Actual preflight insufficient payment returns before mutation; sourceplan IDs from same stack vector make lookup logically guaranteed, but unwrap remains general Rust rule concern separate lens. No actual currency loss/incorrect exchange/current/unique claim."
+        },
+        {
+          "ranges": [
+            [
+              563,
+              720
+            ]
+          ],
+          "roles": "Signed inventory delta, durable versus measured/food versus ordinary fungible mutation, equipped association and capability refresh.",
+          "disposition": "Signed change is not nonnegative count; existing bounded_durable_change returns add/remove pair and source policy differs bulk mutation. Typed Add/Remove/NoChange outcome could own positive magnitude, while ordinary predicates food/measured/equipped remain independent. Measurement/medicine/material/physical identity cleanup differs count arithmetic. Errors erased through add wrapper and unchecked return create propagation gap, not a guaranteed ordinary failure.",
+          "remedy": "Reuse existing durability delta owner with named closed change, canonical inventory/object IDs and material fraction owners; retain linked-state lifecycle cleanup through admitted mutation plan.",
+          "acceptance": "Actual durable removals preflight instance count, delete physical object if present and refresh equipped capability/condition; measured food fraction before row deletion actual receiver071. No all branches globally proven same mutability guard, no corrupt ordinary object/runtime witness."
+        },
+        {
+          "ranges": [
+            [
+              722,
+              957
+            ]
+          ],
+          "roles": "Existing insertion, currency, equipment projection/quality and catalog fixture bodies.",
+          "disposition": "All fixture literals are native test boundaries, invalid data intentional. Static assertions include melee!=ranged for current catalog but do not alone establish canonical all-future weapon XOR invariant. food quality/book quality/durability quality share field but actual separate fixture cases not proof mixed capability invalid.",
+          "remedy": "No new tests, helpers, assertions or probe execution; actual production/catalog/native bodies drive findings.",
+          "acceptance": "Full957 source consumed using fresh and personally pinned reuse, no tests executed or complete authored catalog currentness inferred."
+        }
+      ]
+    },
+    {
+      "original": 1137,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/item/authority_tests.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              44
+            ]
+          ],
+          "roles": "Feature-gated authority fixture reducer, bootstrap token, typed authored/materialized item kind mapping and BTreeSet kind coverage.",
+          "disposition": "Actual framework reducer exposes raw token; SDK gateway admitted by require_dev_bootstrap_token. Canonical CatalogItemKind and authored ItemKind represent intentionally payload-bearing authored kind versus simple persisted classification, not blindly redundant enums. Classification count10 matches fixture current ten variants, not a general numerical inventory maximum.",
+          "remedy": "Keep canonical classification owner and admitted bootstrap capability; no new fixture types or tests.",
+          "acceptance": "Read full44, no reducer invocation, DB probe or bootstrap action. Exact development guard contract remains previously scoped, no production authorization guarantee transferred."
+        }
+      ]
+    },
+    {
+      "original": 1138,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/lib.rs",
+      "inventory": [
+        {
+          "ranges": [
+            [
+              1,
+              93
+            ]
+          ],
+          "roles": "Crate module/re-export wiring and cfgtest production_source text adapter.",
+          "disposition": "Re-export glob wiring not a bespoke value role or new authority; actual modules preserve physical/durable/tactical/private boundaries separately. production_source splits final cfgtest marker as textual test extraction, not Rust semantic parser; raw strings at explicit test source boundary valid.",
+          "remedy": "No new abstraction needed for primitive source slice; future source checking must not infer semantic coverage from text match alone.",
+          "acceptance": "Full93 source consumed; no project compile, generated client mutation or whole re-exported module source credit."
+        }
+      ]
+    }
+  ],
+  "personal_proof_reuse": [
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-073-receipt.json",
+        "sha256": "ed0a5dc5809ae33039ed53fe0993017ddf4cc9ab6562855f1e53a3f275eb9e28"
+      },
+      "contract": "Exact1136 native insertion322\u2013427 personally read, reused now independent ordered role inventory."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-023-receipt.json",
+        "sha256": "03b30b384e3206d060da613d1da2619503e1dfed244ee67fa51bcd8aaddc4a42"
+      },
+      "contract": "915 durability full454 canonical bounded_durable_change and stable instance removal, actual owner."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-024-receipt.json",
+        "sha256": "ca778635143938f2d880c6f080ce1b984ba4135d9686dd799c3adcc5734ea9c5"
+      },
+      "contract": "920 equipment full1182 weapon_balance_from_moment, weapon skill/capability owner."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-029-receipt.json",
+        "sha256": "b5f69edf443b8875a00e648ec25fe4ceeb5c35862c1aa03b273538ce355aec36"
+      },
+      "contract": "937 catalog full614 and941 schema full2053, remaining937\u2013945 owner graph scope as recorded, not fresh current catalog."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-045-receipt.json",
+        "sha256": "ef84d892ee23b0f811e99ab6e951c2e0bb21e340b90207e80f2b1f5f367f357b"
+      },
+      "contract": "1007 strategic_currency full40 actual fixed equal-value catalog assignment; no presence proof claimed."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-071-receipt.json",
+        "sha256": "b94198e8df2c2233a4ea0271205c9c647155925e7056bc7752267f3b4dc797d4"
+      },
+      "contract": "1106food lot/full native proportional transfer and private provenance."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-074-receipt.json",
+        "sha256": "d20b4bfe67138220f9efc3d466679c022f1c5548662f22a5114a3f33b536009f"
+      },
+      "contract": "1116/1118 full medicine/measured amount typed extent lifecycle."
+    },
+    {
+      "receipt": {
+        "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-075-receipt.json",
+        "sha256": "6b137e7e6d04ab2aa240fc17fe1e6600bb795b4e79fcfee1db06a458037e0b3b"
+      },
+      "contract": "1119 full containment/physical-object lifecycle;075qualification corrects nativewater source ordinal only."
+    }
+  ],
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "limits": [
+    "Full1136 requested957 using fresh1\u2013321/428\u2013957 and exact073322\u2013427;1137 full44 and1138 full93 personally read.",
+    "Source-account with raw payload/identity/error/capacity/quality association candidates; no actual conflicting authored capability, DB failure, runtime conservation or current/alias/unique claim.",
+    "All prior qualifiers/other populations/material queues retained; no product/Git/root ledger/project checks/tests/probes/publication."
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "id": "ADLER-CONT08-BEHAVIOR-072-PARTIAL",
+  "lens": "08 behavior-preservation",
+  "completed_original": [
+    1705,
+    1706
+  ],
+  "partial_original": [
+    1703,
+    1704
+  ],
+  "source_pin": "source-pins-and-scope-097.json",
+  "source_reads": {
+    "1703": {
+      "head": [
+        [
+          1,
+          97
+        ]
+      ],
+      "actual_histogram_diff": [
+        [
+          1,
+          136
+        ]
+      ],
+      "head_sha256": "fef0313045022b4f77f5869639bcddf97b5f81c87ce84c1e95ca7ba0dcf0bbf5",
+      "base_sha256": "02dac77ed518927ec9c90eb33470f430f775e453987777faf9a953e6ef4eb66f",
+      "diff_sha256": "883cac95b6b5f5f0cccaad06635dabf763413d7aa1c432523e83b224a2f9c1f7"
+    },
+    "1704": {
+      "head": [
+        [
+          1,
+          373
+        ]
+      ],
+      "actual_histogram_diff": [
+        [
+          1,
+          260
+        ]
+      ],
+      "head_sha256": "c9727fc74c74134d8b6f7b5beb407f9cea87d594ee426c04f3c3b93789ce7bb2",
+      "base_sha256": "dd0eb06df68f585fe296c8c4d4236d554771d23867272923a089f9c4045913d4",
+      "diff_sha256": "34323f02f45f50facaa14347e5dcbf363ea4bb4a11a5f3010ab8d8ae461ca06b"
+    },
+    "1705": {
+      "head": [
+        [
+          1,
+          54
+        ]
+      ],
+      "actual_histogram_diff": [
+        [
+          1,
+          60
+        ]
+      ],
+      "head_sha256": "e900f86c48e53d3a6ca276cb50c94a1f0630dc8738d0a1f1c56bd8828d55b580",
+      "base_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "diff_sha256": "8e75d6d4dcdd009565964a1804fb6e8ec6c9a4e79ba8d69dba979fb0752a6983"
+    },
+    "1706": {
+      "head": [
+        [
+          1,
+          39
+        ]
+      ],
+      "actual_histogram_diff": [
+        [
+          1,
+          21
+        ]
+      ],
+      "head_sha256": "327d3a435905a1e7bd3a748bc4cc1b881d82dced9cc1c656d1839620810f6098",
+      "base_sha256": "b5f146304c0b8639c1594788d1af54ddf8011f276abe4ef9867d0f0ffc9c5852",
+      "diff_sha256": "3f6a679af6499291bab379c392c9710f711199f35660a4dccd1698f7b12af71e"
+    }
+  },
+  "analysis": {
+    "1703": "Full97/136actualdiff compared. Same default config/no-tree fallback observation, yaw/outward/rootheight+1.35/.95, boundaryplayer height+1.48, lowered focus subtraction, shoulder/distance/reset and ZEROelapsed nativeBoomRecovery call. Typed camera/volume/rigidrotation can now reject before publication; canonical CameraFrame/Volume/Boom source proof adopted from own earlier collision originals, including unresolved1462 native EPA qualification, not silently cleared. Native_transform/oriented1724 and signedangle1752 owners queued before full role closure.",
+    "1704": "Full373/260actualdiff: typed retained camera/state fields and Option<VistaCaptureGeometry> replace old metrics tuple. State enums/readback shape, lightingbudget8, latestpair finite/mean2%/max1.5 policy, FNV1awords/pixel4byte chunking/metricthresholds andregionloops remain unchanged. Moved lighting fixture module exactcases/assertions, originalphase/zeroimage/hash/canopytests allsame. Finite-state/camera metadata producers andvista optional serialization still queued; no global malformedimage capacity/overflow guarantee (existing unchecked native row arithmetic unchanged).",
+    "1705": "Full54 newsource/diff60 actual receiver. Terrain.single failure now logs/writesfailure.txt thenqueuesAppExit::error and callerreturn (prior expect panic). Boundary placement error samepath; failure artifact write failure logs butstillqueueserror. Actual1699 callsreturn before camera translation/stateprogress on rejectedplacement, though earlierperviewvisibility/materialwrites mayalreadyoccur. This is explicit failure reporting change; no rollback or error-string compatibility claim.",
+    "1706": "Full39/21actualdiff: production leaf filter identical excluded TreeReviewSpecimen andUnderstoryReviewSpecimen; original queryfixture onlytypedzero focus, same soleproduction entity oracle."
+  },
+  "findings": [],
+  "qualifications": [
+    "1699 remains full-source/diff but connected-owner qualified. Earlier1462 and1474/1484 policies/findings retained.",
+    "Read-only source/evidence work; no project checks,tests,Github messages,source/Git mutation."
+  ],
+  "global_clearance": false
+}

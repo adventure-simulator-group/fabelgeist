@@ -1,0 +1,53 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-321",
+  "at": "2026-10-25T23:07:01.708806+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2671,
+      "source_id": "physical-p16:Cargo.toml",
+      "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+      "personally_read_ranges": [
+        [
+          1,
+          221
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-221 exact physical-p16 workspace manifest distinct from PR/current worktree: serde derive+alloc, serde_json plain, spacetimedb/lib/sats exact2.6.1 declared, SATSserde feature present; Bevyserialize/reflectauto registration selected. Member/exclude boundaries include standalone Burn crates; this declaration inventory does not resolve transitive feature graph/build correctness. Native primitive validation and codec schema must be traced in dependency bodies, no current-main substitution."
+      ]
+    },
+    {
+      "scope_index": 2672,
+      "source_id": "native-dependency:spacetimedb-lib-2.6.1/src/lib.rs",
+      "sha256": "a7aa9b25f2c271998679ab0c79c861d0e44647bc42d6dc7d94d0c9f979b18b57",
+      "personally_read_ranges": [
+        [
+          1,
+          337
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-337 exact native spacetimedb-lib2.6.1: TableDesc resolves ref to product and requires column cardinality, not full percolumn type validation here. TypespaceBuilder seeds unit placeholder before make_ty so recursive references can be represented; resolved_type_via_v9 explicitlypanics recursive. Rawmodule version variants are external dependency ABI, not new project compatibility path. VersionTuple.from_u32 masks minor8bits versus to_u32u16; actual projectversion>=256roundtrip witness pending, no new accepted finding."
+      ]
+    },
+    {
+      "scope_index": 2673,
+      "source_id": "native-dependency:spacetimedb-sats-2.6.1/src/lib.rs",
+      "sha256": "402f09813045df7a27d95ceceac65b2191e570b9284371cd4bd948e1b1e79620",
+      "personally_read_ranges": [
+        [
+          1,
+          307
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1-307 exact native SATSlib source read: exported AlgebraicType/Value/product/sum/ref/map and serde feature boundaries establish library roles; Rust SpacetimeType metadata construction and type registration not proof that project aggregate numeric/business invariants run during decode. Schema/ser/de modules remain required actual owner traces; no full dependency or runtime admission clearance."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "3 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

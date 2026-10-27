@@ -1,0 +1,71 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-029",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1554,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass.rs",
+      "sha256": "4ebc106478d263a859403c114c4711598dd570927f2706abf5e7123bc37a9c91",
+      "ranges": [
+        [
+          1,
+          623
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete623line instanced grass role read in three sequential windows including all existing fixtures. Manual Plugin.build registers systems/plugins. Manual TuftPlacement for ScenePlacement implements five semantic terrain/cover/community sampling methods, involving derived latticebounds, slope admission, retained mask, terrain query and mutable cache. Records derive Component/Resource/Default/CloneCopy as applicable; no manual codec.",
+      "disposition": "Keep Plugin and TuftPlacement implementations: behavioral dispatch and stateful sampling, not mechanical derivable forwarding. Native instance field packing includes coverage/shader bit layout and native coordinates; not serde replacement. Existing fixtures source-read only; numeric safety and nativeGPU correctness are separate obligations.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1555,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/batches.rs",
+      "sha256": "55a8f28f05846eea9e2cd7460a1a1aaecb83c64af31573ed82a2bb2f5bdaf196",
+      "ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Native batch builder consumes instance vectors, generates meshes/material/cullingmetadata and constructs Bevy bundles; no handwritten trait impl/manual codec.",
+      "disposition": "No derivability candidate. Explicit asset creation, ownership transfer, native metadata and entity publication are semantic.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1556,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/culling.rs",
+      "sha256": "965ddf1af38c60ebc28657a7b9261fb5384998a97d57606ea70e49bbf2a6f5a2",
+      "ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Native cullingmetadata computes conservative animated radius from mesh position/UV and authored motionbounds then encodes alpha lane; existing fixture. No trait impl/manual codec.",
+      "disposition": "No derivability candidate. Explicit representation packing and bound computation retained; no numeric bound clearance implied by this lens.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1557,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/diagnostics.rs",
+      "sha256": "137a4589cc0b7945de4fb4d552dd9dab6a3e4f0d42f426b4d5d439881a0f7bb9",
+      "ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "GrassTriangleCount derives Component. Helpers count native mesh triangles, classify perLOD shadow policy and construct uniformvectors; no handwritten trait or codec.",
+      "disposition": "No derivability candidate. RuntimeLOD classification and native uniformpacking remain explicit, not serde trait replacements.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

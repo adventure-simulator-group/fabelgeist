@@ -1,0 +1,52 @@
+{
+  "at": "2026-10-27T02:21:56.373614+00:00",
+  "lens": 13,
+  "packet": "022",
+  "extension_of": "audit13-successor-registration-022.json",
+  "sources": [
+    {
+      "source_id": "native:bevy_pbr@0.19.1/src/render/pbr_functions.wgsl",
+      "sha256": "13a5344ef4e0fa967e05978489d0909dd0c1862cf7a989ce0882dbc8de9a55dd",
+      "bytes": 44800,
+      "actual_lines": 1030,
+      "ranges": [
+        [
+          87,
+          106
+        ]
+      ],
+      "purpose": "ActualbevyPBR signed16-leveldither receiver body only; further referencedconstant ranges mustberegistered beforebodyread",
+      "body_consumed_at_registration": false
+    }
+  ],
+  "provenance": {
+    "root_staging": "audit13-root-pbr-dither-staging-022.json",
+    "root_staging_sha256": "8e4a2079253fdc2e7af4ed69515d8b07812fe28b494a8a0b007c3e8534f6f549",
+    "frozen_lock_package_records": [
+      {
+        "snapshot": "pr-working",
+        "lock_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+        "package": {
+          "name": "bevy_pbr",
+          "version": "0.19.1",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "checksum": "244ae7d618b51a59c913c36b0564a295cd85ea91a5e777b542bb7bdb846a23d6"
+        }
+      },
+      {
+        "snapshot": "physical-p16",
+        "lock_sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+        "package": {
+          "name": "bevy_pbr",
+          "version": "0.19.1",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "checksum": "244ae7d618b51a59c913c36b0564a295cd85ea91a5e777b542bb7bdb846a23d6"
+        }
+      }
+    ],
+    "cached_archive_sha256_independently_verified": "244ae7d618b51a59c913c36b0564a295cd85ea91a5e777b542bb7bdb846a23d6",
+    "exact_archive_member_matches_staged_object": true,
+    "qualification": "Lock-matching nativearchive supplement; notclaimedunseen frozenlocalmemberobject/currentmainidentity orwholeSDKassessment. No .cargo-checksum.json proof asserted."
+  },
+  "limits": "Source-onlyactualnumericreceiving boundary; other1030linefiletails notbodyread/credited. No39orderedcredit/projectexecution/productGitrootledgerhistoryedits/publication."
+}

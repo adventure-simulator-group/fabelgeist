@@ -1,0 +1,47 @@
+{
+  "id": "ADLER-RESUMED05-GROUP-205",
+  "at": "2026-10-25T21:36:05.683992+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 2162,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/economy.rs",
+      "sha256": "ce7c60b4dca374b058a50d845ac3171642869aa47fc95b7873ac27392bff308e",
+      "personally_read_ranges": [
+        [
+          1,
+          358
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full economy inference: same inputs derive capped score, matching tier thresholds, canonical ordered service/stock sets and abundance; specialization chosen from actual stock then sorted/truncated. Returned profile.validate checks version, score upper bound, collection ordering/capacity and abundance.",
+        "Preserve inherited ROOT-CAMERA-EXTRA40-ADM03-F003 rawpopulation_level65535 multiplication overflow before saturating adds, conditional checked/unchecked arithmetic and no bad normal import claim. Public validate does not verify tier-score or specialization-stock association; actual full-world admission/finalization and consumers pending, no new accepted mismatch finding."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "1 newly accounted distinct original roles; lens incomplete",
+  "repair": "not_started",
+  "validation": "not_run",
+  "dedup_refs": [
+    "ROOT-CAMERA-EXTRA40-ADM03-F003",
+    "ROOT-INITIAL04-F016"
+  ],
+  "support_sources": [
+    {
+      "scope_index": 2163,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/language.rs",
+      "sha256": "1475b920cad83e1f040a2c19627f288508d660a9d771bd72cf8993fa34b9a05f",
+      "ranges": [
+        [
+          1,
+          756
+        ]
+      ],
+      "disposition": "full inherited support only, no new role credit",
+      "observations": [
+        "Oral/written complete source retains generic raw study overflow qualification ROOT-INITIAL04-F016; normal5000domain finite. Party top-two algorithm requires unique actual speaker IDs; no normal duplicate producer established. Settlement mix sum10000/incidence<=1000 predicate retained."
+      ]
+    }
+  ]
+}

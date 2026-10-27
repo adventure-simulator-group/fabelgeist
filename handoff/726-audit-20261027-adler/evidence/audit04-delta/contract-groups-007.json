@@ -1,0 +1,140 @@
+{
+  "id": "ADLER-CONT04-MATERIAL-007",
+  "lens": "04 invariant operations",
+  "sources": [
+    {
+      "index": 149,
+      "source_id": "native-dependency:spacetimedb-sdk-2.6.1/src/client_cache.rs",
+      "sha256": "1815445657f053bf0d24bdf218219eed822e9626511eade5d3afa0aca3fa7ff1",
+      "ranges": [
+        [
+          22,
+          79
+        ],
+        [
+          196,
+          214
+        ],
+        [
+          340,
+          406
+        ],
+        [
+          409,
+          452
+        ]
+      ],
+      "line_count": 636,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\1815445657f053bf0d24bdf218219eed822e9626511eade5d3afa0aca3fa7ff1",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\1815445657f053bf0d24bdf218219eed822e9626511eade5d3afa0aca3fa7ff1",
+      "disposition": "Registered native SDK ranges show serialized-byte row identity, ref_count declaration and partial delete prelude only: actual increment/decrement body outside ranges is not certified. Typed table creation selects the exact row type plus table name; apply_diff delegates actual mutation. TableHandle mutex-protected count len as u64 is lossless on supported32/64bit targets and iter clones a snapshot under lock, so no live row borrow escapes. Missing registration/poison/channel errors panic per native contract; no bespoke quantity arithmetic introduced or normal cache defect proved.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 150,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/backend_hostile_negotiations_table.rs",
+      "sha256": "ef0878fa2f385c6e35e1b4ef8e3702bbb114a81520c8cc3b6c35ddab4319065e",
+      "ranges": [
+        [
+          24,
+          57
+        ],
+        [
+          85,
+          90
+        ],
+        [
+          106,
+          120
+        ]
+      ],
+      "line_count": 120,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\ef0878fa2f385c6e35e1b4ef8e3702bbb114a81520c8cc3b6c35ddab4319065e",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\ef0878fa2f385c6e35e1b4ef8e3702bbb114a81520c8cc3b6c35ddab4319065e",
+      "disposition": "Generated negotiation table wrapper uses canonical row type/table-name consistently for handle/count/iteration/registration/query builder. Count and iterator semantics delegate to personally inspected native SDK registered ranges149; no reindexing, narrowing, field mutation or custom validation in these generated ranges. Generated source must remain regeneration-owned.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 151,
+      "source_id": "pinned-registry:derive_more-impl-2.1.1/src/fmt/display.rs",
+      "sha256": "d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+      "ranges": [
+        [
+          1,
+          82
+        ],
+        [
+          233,
+          327
+        ],
+        [
+          398,
+          438
+        ],
+        [
+          499,
+          552
+        ]
+      ],
+      "line_count": 585,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+      "disposition": "Display macro parses syn input/attributes fallibly, creates exhaustive variant matching, binds fields from actual AST and forwards formatter result. Field-free labels write exact identifier/static formatting; no game quantity arithmetic or mutation. Shared-format unwrap under mix_shared_attr_bounds is protected by shared_attr_info control condition in registered caller logic, without claiming unread helper implementation. Formatter source display is not numerical admission.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 152,
+      "source_id": "scope-amendment:pinned-registry:derive_more-impl-2.1.1/src/fmt/display.rs#tuple-struct-bindings",
+      "sha256": "d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+      "ranges": [
+        [
+          198,
+          232
+        ]
+      ],
+      "line_count": 585,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\d89038991be0df38f51d280f8fc3f0ed0a21beba1b3fd3330b9a395c87bf9781",
+      "disposition": "Struct Display expansion binds each borrowed field using identical enumeration/member index and generated name, then evaluates generated formatting body. No reconstructed/mutable quantity or narrowed semantic value; no bespoke type arithmetic invariant is transformed.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 153,
+      "source_id": "pinned-registry:derive_more-impl-2.1.1/src/as/mod.rs",
+      "sha256": "767fe0f2cb67c57028ca69d138757c5fdd894ad6fa54fcb11ef8f4a7d4b4ef82",
+      "ranges": [
+        [
+          17,
+          68
+        ],
+        [
+          147,
+          306
+        ]
+      ],
+      "line_count": 306,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\767fe0f2cb67c57028ca69d138757c5fdd894ad6fa54fcb11ef8f4a7d4b4ef82",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\767fe0f2cb67c57028ca69d138757c5fdd894ad6fa54fcb11ef8f4a7d4b4ef82",
+      "disposition": "AsRef/AsMut native expansion rejects invalid enum/union/container field shape before code publication. Selected field index derives from same AST; direct return borrows actual field, forwarding delegates actual trait, specialized extraction preserves target reference type. AsMut can expose mutable fields by declared API; whether that breaks a particular wrapper is a caller/type-owner question, not established by generic macro alone. No numeric operation or fallback storage.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    },
+    {
+      "index": 154,
+      "source_id": "pinned-registry:derive_more-impl-2.1.1/src/as/ref.rs",
+      "sha256": "06f9f3379037f8002874119b864ca62c65d8dd785c821a1fdfd74b59d988f133",
+      "ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "line_count": 15,
+      "local_object": "target\\recovery-20261025\\audit04-delta\\sources\\06f9f3379037f8002874119b864ca62c65d8dd785c821a1fdfd74b59d988f133",
+      "recovered_from": "target\\recovery-20261025\\audit03-delta\\source-objects\\06f9f3379037f8002874119b864ca62c65d8dd785c821a1fdfd74b59d988f133",
+      "disposition": "AsRef entry selects immutable as_ref with no mut token then delegates to inspected153 generic expansion. It cannot itself grant mutation; no quantity conversion or validation is added.",
+      "method": "FRESH_PERSONAL_EXACT_REGISTERED_RANGE_OPERATION_COMPARISON"
+    }
+  ],
+  "new_unique_findings_claimed": 0,
+  "execution": "No project execution, source edits or Git changes"
+}

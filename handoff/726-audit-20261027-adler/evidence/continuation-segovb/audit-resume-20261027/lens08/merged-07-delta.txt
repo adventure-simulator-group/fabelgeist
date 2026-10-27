@@ -1,0 +1,18 @@
+--- base
+
++++ head
+
+@@ -11,11 +11,11 @@
+
+ };
+ use fabelgeist_compute::KernelBatch;
+ use fabelgeist_geometry::SignedLength;
+ use fabelgeist_gpu::prelude::Buffer;
+ use fabelgeist_gpu::prelude::BufferUpload;
+-use fabelgeist_math::Ratio;
++use fabelgeist_math::units::Ratio;
+ use fabelgeist_rig::RigJointName;
+ 
+ use crate::armor_frames::FitRegion;
+ use crate::device_frames::{DeviceFrame, DeviceWearer};
+ use crate::device_garment::{BAND, JointHeightAnchor, JointReachTarget, UprightSpan};

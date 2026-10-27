@@ -1,0 +1,49 @@
+{
+  "head": "837204c061adb97a2a62f43f7bcd841a223f0647",
+  "review": 5664856132,
+  "comments": [
+    4387031655,
+    4387152319,
+    4387198654
+  ],
+  "files_before": {
+    "crates/adventuresim-core/src/linear_speed.rs": "6b68d706cda548cbc9329aff56a2ba099e5da11d24ad98e006a500736a5276e0",
+    "crates/adventuresim-core/src/unit_interval.rs": "e00ad4ab58d75204f2286543ebc37d3a9e746790c83e84fa5933732634dae8f2",
+    "crates/adventuresim-tactical-core/src/animation/evaluation.rs": "2276321bd15949a298196a1879bfe64cbee5d2b864023f33ea81199789a828e9",
+    "crates/adventuresim-tactical-core/src/animation/value_error.rs": "1608b681791e4f1ffd9f4691a5ec204204669c0b68989a0f98b56b6064a9760d",
+    "crates/adventuresim-tactical-client/src/animation/procedural/dive.rs": "26b5e25b95cf1676bd54e0138ece10b0c150bf9787a1b47818b88746e3b9bfb2"
+  },
+  "discovery_complete_for_repair_scope": true,
+  "chains": [
+    {
+      "producer": "NonnegativeSpeed Add<SignedSpeed>",
+      "problem": "ordinary sum may be negative; result incorrectly constrained nonnegative",
+      "repair": "return checked SignedSpeed; finite overflow rejected, negative valid; checked_lerp sole operator consumer explicitly narrows via TryFrom<SignedSpeed> for NonnegativeSpeed",
+      "admission": "TryFrom rejects negative, retains finite admission; no clamp/compatibility alias"
+    },
+    {
+      "producer": "typed posture transition UnitInterval phase and canonical DIVE_GROUND_CONTACT_PHASE",
+      "receivers": [
+        "evaluation::dive_transition_samples launch",
+        "evaluation::dive_contact_pose_progress recovery used by upper and lower bodies",
+        "procedural::dive::apply_procedural_dive_lower_body influence",
+        "native Quat/radian/slerp operations"
+      ],
+      "problem": "two evaluation2 multipliers duplicate HALF assumption; client extracts/clamps/re-admits through primitive smoothstep",
+      "repair": "owner UnitInterval::clamped_inverse_lerp typed endpoints; validate strict increasing first, saturate endpoints, derive normalization inside owner; launch ZERO..contact; contact contact..ONE; procedural same intervals smoothstep and complement, retain typed DiveInfluence until actual native rotation boundary",
+      "errors": "new FractionError::NonIncreasingBounds, Display and sole exhaustive AnimationValueError conversion updated; other FractionError consumers wrap transparently"
+    }
+  ],
+  "deferred": {
+    "comment": 4387198654,
+    "ordered_interval_type": "explicitly out of PR scope; candidate discovery only; no type implementation/global completion",
+    "new_unique_delta": 0
+  },
+  "acceptance": [
+    "all three independent source reviews on full finalPR manifest",
+    "hosted format/lint/lockguards and existing animation/config/movement/CI gates at finalhead",
+    "read raw current-head artifacts and relevant baseline reductions",
+    "no local project execution; no added tests/cases/helpers/assertions/doctests; minimally migrate existing dive fixture constructors only"
+  ],
+  "gate": "current PR user exception only; exhaustive global ledger still incomplete"
+}

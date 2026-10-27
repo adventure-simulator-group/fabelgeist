@@ -1,0 +1,164 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "039",
+  "predecessor": "receipt-038-originals224-227.json",
+  "manifest_prefix_sha256": "1972f11d543e3e908346eee6cb5df7880dad39ebc6f2dce0847d8d5903e572eb",
+  "sources": [
+    {
+      "original_index": 228,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/organization.rs",
+      "sha256": "c6543ebb001f40f15986ba54ee0f5a2d05fa72e12639504d65d963aa816b17fc",
+      "actual_ranges": [
+        [
+          1,
+          655
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              17,
+              128
+            ],
+            [
+              132,
+              143
+            ],
+            [
+              241,
+              588
+            ]
+          ],
+          "role": "Raw organization/role/settlement IDs in app/state/DTO/reducer fields29/45/67/68 and inputs51/135/244/261/262/327/328/350/377/515/568/577, returns447/470/493; actual catalog lookup and role equality",
+          "disposition": "Actual125 own organization catalog producer -> definition lookup125/246/380 and role126/285/339 -> state307/391 -> recognition/membership and privilege529-531/545-561. Canonical open OrganizationId/RoleId/SettlementId should survive app APIs/schema and nativecodec extraction only at DB/query/transport, not closed enum of current IDs. Status32/71 and Privilege516/540 already typed. Actual198 equipment-law and215 forage receivers now connected, social_roles actual declaring/assignment producer still pending."
+        },
+        {
+          "ranges": [
+            [
+              145,
+              238
+            ]
+          ],
+          "role": "Closed raw skill table151-190 and optional leaf149 -> typed Skill/OfficialReligion163/BestiaryCategory167; religion requirement raw comparison232",
+          "disposition": "Requirement source125 catalog actual semantic contract: typed Skill with correlated religion/bestiary leaf should own selection, not &str + arbitrary optional string. Reuse actual existing owners; leaf payload association must retain required distinction. Player prose formats223/226/233 and underscore replacement224 are output presentation, not enumkeys. OfficialReligion actual186 stored/profession producer connected."
+        },
+        {
+          "ranges": [
+            [
+              116,
+              143
+            ],
+            [
+              195,
+              238
+            ],
+            [
+              241,
+              408
+            ]
+          ],
+          "role": "Raw internal validation/error literals127/138/140/205/220/223/226/233/246/250/252/282/286/336/340/357/359/380/385/387; ResultString throughout",
+          "disposition": "Canonical structured missing/ineligible/requirements/role-transition/recognition/dues causes should survive internal calls until actual output; map actual IDs/payload not prose parsing. Exact227 catch-all known. Other full source typed/numeric/native updates; no chronology/authority/runtime verdict."
+        },
+        {
+          "ranges": [
+            [
+              130,
+              130
+            ],
+            [
+              590,
+              655
+            ]
+          ],
+          "role": "Include membership path130 and existing semantic fixtures lodge_hart_king601/612, warden614/master630",
+          "disposition": "Actual229 child consumed independently. Fixture IDs flow actualorganization lookup/role and same open-ID owner, no catalog/test exemption. No other string-bearing tests; no execution."
+        }
+      ],
+      "status": "Full requested body independently read and inventoried with findings and explicit delegated consumers."
+    },
+    {
+      "original_index": 229,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/organization/membership.rs",
+      "sha256": "0d33ff33d3e12486c22e7724790e4c745f5f6e603ec06302c7e9fa161e3597a5",
+      "actual_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              25
+            ]
+          ],
+          "role": "One failure literal8 and ResultString2; typed membership chronology and privilege call",
+          "disposition": "Actual parent228 callers consume internal String cause; preserve typed missing-clock payload until native output. Role.id24 raw existing catalog reference, exact125 role owner connected. No numerical/dues/privilege policy verdict."
+        }
+      ],
+      "status": "Full requested body independently read and inventoried with findings and explicit delegated consumers."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Organization/role and correlated skill requirement owner propagation",
+      "sources": [
+        "125:own catalog receipt014",
+        "228:145-238,257-342,447-588",
+        "229:16-24"
+      ],
+      "remedy": "Carry canonical open organization/role/settlement IDs, typed Skill and correlated Religion/Bestiary leaf payload through actual catalog/state/application interfaces; retain typed errors to text boundary.",
+      "acceptance": "Complete social_roles declaring/admitting assignment producer, actual external membership/reducer recipients and exact aliases/native constraints before repair; no BC.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Actual social_roles role assignment producer and external membership/reducer consumers.",
+    "Canonical open organization/role/item alias fit remains explicit; native representation constraints unclaimed.",
+    "All inherited aliases/currentness/all20/P16/P17/F9/M09/populations and prior unread receiver contracts preserved."
+  ],
+  "qualifications": [
+    "Exact f82 physical-P16 frozen bytes; no current alias.",
+    "Source-only no project execution/tests/probes/new tests/product/Git/rootledger/publication. User no BC.",
+    "Source accounting with findings only; no global/native/runtime/unique-total/other-lens clearance."
+  ],
+  "proposed_count": {
+    "before": 228,
+    "after": 230,
+    "indices_completed": [
+      228,
+      229
+    ],
+    "next_original": 230,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/organization.rs",
+      "sha256": "c6543ebb001f40f15986ba54ee0f5a2d05fa72e12639504d65d963aa816b17fc",
+      "ranges": [
+        [
+          1,
+          655
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/organization/membership.rs",
+      "sha256": "0d33ff33d3e12486c22e7724790e4c745f5f6e603ec06302c7e9fa161e3597a5",
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ]
+    }
+  ]
+}

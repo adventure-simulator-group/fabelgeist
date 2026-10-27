@@ -1,0 +1,47 @@
+{
+  "lens": "type-granularity",
+  "prior_state": "audit11-successor-157-proposed-state-002.json",
+  "historical_state_untouched": "target/recovery-20261025/audit11/STATE.json",
+  "proposed_original_accounted": 783,
+  "newly_source_accounted": [
+    781,
+    782
+  ],
+  "next_original": 783,
+  "earliest_unfinished": 783,
+  "active_partial": null,
+  "future_source_reads": {
+    "783": {
+      "sha256": "a5b190694f00f1dbc5e1895f5b40f65b6c1f7242da45ea844b59a6b6d6932523",
+      "connected_read": [
+        [
+          1,
+          145
+        ]
+      ],
+      "ordered_credit": false,
+      "next": "Perform ordered role783 granularity disposition using retained source body and source-backed cast finding from158-781; do not re-read full body unnecessarily."
+    },
+    "786": "Connected full body read under157; earlier connected-786-001 remains pending exact ordered accounting; not credited early",
+    "923": "Earlier connected-923-001 remains pending exact ordered accounting; not credited early"
+  },
+  "receipts": [
+    "audit11-successor-158-781.json",
+    "audit11-successor-158-782.json"
+  ],
+  "registration": "audit11-successor-158-registration.json",
+  "new_unique_findings": 0,
+  "open_qualified_findings": [
+    "SEGOVB11-158-781-RIG-RECEIVER",
+    "SEGOVB11-158-781-ACCUMULATORS",
+    "SEGOVB11-158-782-PHYSICAL-PORTS"
+  ],
+  "question_id_collision_retained": true,
+  "overlays": "unchanged incomplete",
+  "merged": "unchanged incomplete",
+  "material": "own181-195 retained;0-180 pending separately",
+  "source_complete": "Original0-782 source-accounted with all inherited qualifications; this does not mean clear",
+  "integrated": false,
+  "validated": false,
+  "clear": false
+}

@@ -1,0 +1,28 @@
+{
+  "at": "2026-10-25T18:57:23.846139+00:00",
+  "authoritative_audit_ledger": "audit/ledger.json",
+  "historical_family_authority": "historical-family-execution/execution-ledger.json",
+  "adler_adopted_findings": "audit/reconcile-adler-20261023/adler-finding-records.json",
+  "original_role_catalog": "audit/reconcile-adler-20261023/recovered-sources/catalog.json",
+  "shared_material_registry": "audit/reconcile-adler-20261023/audit-continuation/source-extensions.json",
+  "registry_count": 173,
+  "local_records": 173,
+  "completed_full_waves": 0,
+  "cleared_lenses": 0,
+  "current_gate": "Finish all13 initial discovery lenses before writing execution plan or making repairs. Carry completed Adler03/06 evidence without requiring a fresh exhaustive baseline reread.",
+  "owners_stopped": true,
+  "own_frontiers": {
+    "05": {
+      "handoff": "audit/reconcile-adler-20261023/audit-continuation/aggregate-states/FINAL-HANDOFF.json"
+    },
+    "08": {
+      "handoff": "audit/reconcile-adler-20261023/audit-continuation/behavior-preservation/FINAL-HANDOFF.json"
+    },
+    "10": {
+      "handoff": "audit/reconcile-adler-20261023/audit-continuation/derivability/FINAL-HANDOFF.json"
+    },
+    "11": {
+      "handoff": "audit/reconcile-adler-20261023/audit-continuation/type-granularity/FINAL-HANDOFF.json"
+    }
+  }
+}

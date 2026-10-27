@@ -1,0 +1,49 @@
+{
+  "source": "f2978ded53c97a69e3ee6855843078364a942920",
+  "run": 40420900203,
+  "artifact_id": 12698030019,
+  "artifact_digest": "sha256:e92deac498819b18dc0c1d6126fdc4a686b757d24dc19d7e85a3c1923745b99a",
+  "results": {
+    "source": "f2978ded53c97a69e3ee6855843078364a942920",
+    "results": {
+      "library": {
+        "passed": 13,
+        "failed": 0,
+        "ignored": 0
+      },
+      "doctests": {
+        "passed": 2,
+        "failed": 0,
+        "ignored": 0
+      },
+      "borrowed": {
+        "passed": 1,
+        "failed": 0,
+        "ignored": 0
+      }
+    }
+  },
+  "baseline_sha256": "bdf6580dab45e25f9de25a94f2e5b1888f1b316b2104b028b64b98d9f671481f",
+  "cube_entries": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "ceiling": 812
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "item": "TextureCube::blit_texture_to_face",
+      "ceiling": 161
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "item": "TextureCube::render_face_shader_raw",
+      "ceiling": 149
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "item": "TextureCube::render_shader_raw",
+      "ceiling": 142
+    }
+  ],
+  "scope": "GPU evidence/growth only at this exact source, other final gates still pending; relevant baseline mutation requires another final same-head run"
+}

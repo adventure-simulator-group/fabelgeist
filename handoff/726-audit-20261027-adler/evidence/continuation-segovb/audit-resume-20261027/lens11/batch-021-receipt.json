@@ -1,0 +1,226 @@
+{
+  "at": "2026-10-27T12:31:57.313237+00:00",
+  "lens": 11,
+  "status": "910-911 independently source-accounted within effective material scopes",
+  "prior_source_checkpoint": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/STATE-proposal-020.json",
+    "sha256": "94beb6881eba424385367c5cc5711340361c0de1f1504e470d7a44902f06fd9b"
+  },
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-021-registration.jsonl",
+    "sha256": "3a26fc6ba5ade2e118b557fafc4d4fdb6fa26c00317481e011c866411a3c604b"
+  },
+  "originals": [
+    {
+      "kind": "original",
+      "original_index": 910,
+      "source_id": "pr-working:crates/adventuresim-core/src/developer_quest.rs",
+      "sha256": "c81518557455da223c56b59f0003647eac72633ee5d4e681786aad20fa31de78",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/c81518557455da223c56b59f0003647eac72633ee5d4e681786aad20fa31de78",
+      "actual_eof": 2492,
+      "ranges": [
+        [
+          1,
+          114
+        ],
+        [
+          270,
+          554
+        ],
+        [
+          1018,
+          1783
+        ]
+      ],
+      "scope_kind": "materially_reached_owner_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          114
+        ],
+        [
+          270,
+          554
+        ],
+        [
+          1018,
+          1783
+        ]
+      ]
+    },
+    {
+      "kind": "original",
+      "original_index": 911,
+      "source_id": "pr-working:crates/adventuresim-core/src/dialogue_boundary.rs",
+      "sha256": "e68ecc33496a7820aad7f54bccb03d86b407e59c97759223fe80ed6205c8894b",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/e68ecc33496a7820aad7f54bccb03d86b407e59c97759223fe80ed6205c8894b",
+      "actual_eof": 49,
+      "ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "provenance": "f82 exact SHA object",
+      "prospective": true,
+      "actual_read_ranges": [
+        [
+          1,
+          49
+        ]
+      ]
+    }
+  ],
+  "material_receivers": [
+    {
+      "kind": "connected-local-closure",
+      "original_index": 910,
+      "sha256": "c81518557455da223c56b59f0003647eac72633ee5d4e681786aad20fa31de78",
+      "ranges": [
+        [
+          115,
+          140
+        ],
+        [
+          260,
+          269
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual diagnostic helper and prefix declaration header closure",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          115,
+          140
+        ],
+        [
+          260,
+          269
+        ]
+      ]
+    },
+    {
+      "kind": "connected-owner",
+      "original_index": 971,
+      "sha256": "d413a6b7b05742aa234bab8a83285df33f25133338fe51fb9eebe1327680ac64",
+      "ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual generation identity model and observer namespace receiving boundary",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          35
+        ]
+      ]
+    },
+    {
+      "kind": "connected-owner",
+      "original_index": 972,
+      "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "ranges": [
+        [
+          1,
+          65
+        ],
+        [
+          290,
+          345
+        ],
+        [
+          1140,
+          1230
+        ]
+      ],
+      "prospective": true,
+      "reason": "actual generation identity model and observer namespace receiving boundary",
+      "zero_extra_original_credit": true,
+      "actual_read_ranges": [
+        [
+          1,
+          65
+        ],
+        [
+          290,
+          345
+        ],
+        [
+          1140,
+          1230
+        ]
+      ]
+    }
+  ],
+  "per_role": [
+    {
+      "original": 910,
+      "roles": "Developer author-local definition versus private server GenerationContext and materialized observer IDs; template/cause/catalog identity, raw declared-ID namespaces; diagnostic path/code/prose and structural versus plausibility tier; custody object kind, route/target/bridge identity, occurrence count/duration.",
+      "trace": "Effective1-114,270-554,1018-1783 personally read, not whole2492; exact pr-working frozen747 manifest nochanged entry. Additional115-140 and260-269 closes diagnostic helper/prefix header (partial parser/read context not claimedcomplete). DeclaredIdSets stores separate logical namespaces but all asString, unions only for actual remap. validate_local_ids enforces bounded supportedprefix syntax and duplicate IDs; validate_custody recovers asset-versus-subject kind by stringtag while existing887 CustodyObject/AssetId/SubjectId own those roles. namespace_definition remaps declared author-localIDs through privatecontext and reconstructs checked Objective/Asset/Subject while public qg wrappers mutableString. Actualcompile gate rejects structuraldiagnostics always, plausibility only if !allow_implausible; DiagnosticTier::Compatibility is curated/plausibility compatibility here, not backwards-compatible API requirement. Compile uses typedcause/family/outcomevariants but converts to rawcatalogselectors, diagnosticscodes and (object,site)/(group,site,ThreatId,count)tupleports. Generated state and qgmodelactualobserver helper prove authorlocal and observer scoped IDs different authority even same storage. Bridge catalogidentity deliberately not remapped; not legacy forwarding alias. Actual compile finalGeneratedCase construct and qg::validate call consumed, validationimplementation/uncheckedcallback fullproof nottransferred. Question is source role granularity, not claimadmission accepts every invalidkind or observerleak.",
+      "disposition": "source-accounted with scoped identity/diagnostic/tuple payload questions"
+    },
+    {
+      "original": 911,
+      "roles": "Public dialogue Started(payload) versus ContactUnavailable outcome; reducer versus projection failure and missing owner-scoped session; generic backendpayload and native Display.",
+      "trace": "Full49 read. Distinct result and error sums make unavailable contact a supported result while reducer/projection failures retain layer-specific typed causes, even if backends choose same primitiveerror storage. Started generic payload useful owner association not a unitlabel wrapper. Infallible projectionparameter accurately can eliminate impossible backendlayer, not backwardscompatibility adapter. Missing session is anotheractual error state rather than ContactUnavailable. Handwritten Display merely transport/rendering here; derivability lens independently pending, no oldstring/downcast/APIconstraint. Testsource only, no actual reducer execution or everycurrentadapter/sourcecoverage.",
+      "disposition": "source-accounted; useful result/error authority distinctions"
+    }
+  ],
+  "qualified_observations": [
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/developer_quest.rs@c81518557455da223c56b59f0003647eac72633ee5d4e681786aad20fa31de78#author-local-observer-identity-and-custody",
+      "observation": "Author-local IDs and observer-scoped generated IDs use same qg String-backed wrappers/containers, with mutablepublic payloads; namespace_definition crossesauthority by generic String map. Typed Case Asset/Subject/Objectives coexist with custodyString kind tags and monolithic group tuples. Actual observer IDs derive independentprivate entropy, ordinal, settlement and kind/name, so distinction is meaningful beyond character syntax.",
+      "remedy": "Reconcile canonical existing local/scoped/catalog identity owners at author admission, namespacing operation and GeneratedCase/retainedreceivers; share neutral syntax backing without duplicating authority. Use actual CustodyObject/sum role instead of recovering asset/subject through Stringtag, namedgroup record where it preserves real roles. Keep catalogbridge identity separate and only nativeJSON/hash text at boundary.",
+      "acceptance": "Author-local or unrelated namespace cannotbe substituted for observer-scoped/catalog/asset/subject identity at applicationports; materialization and receivingvalidation preserve exactprivateauthority and coherent identity remapping.",
+      "dependencies": [
+        "actual current quest owner/recipient family",
+        "887 strategic identity sourcegroup; canonical master aliases unresolved",
+        "ownership/producer/aggregate/enum lenses"
+      ],
+      "currentness": "qualified frozen scoped source; no runtimeinvalidinput acceptance/leak/current/unique claim"
+    },
+    {
+      "source_key": "pr-working:crates/adventuresim-core/src/developer_quest.rs@c81518557455da223c56b59f0003647eac72633ee5d4e681786aad20fa31de78#diagnostic-code-versus-path-prose",
+      "observation": "Structured diagnostic record has actualtier enum but rawString for bounded behaviorcode, hierarchicalfieldpath and humanmessage. Local functions use codes asstablecategories independent of prose; no universal stringrole.",
+      "remedy": "Reuse canonical diagnostic code/path owner where actualeditor/APIreceivers dispatch; retain humanprose strings and nativeJSONpaths at boundary. Preserve structural rejection versus explicitly permitted plausibility policy, no backwardcompatibility rationale.",
+      "acceptance": "Diagnostic consumers cannotconfuse machinecode/path/message, actualpolicytier remains explicit and transportdoesnotreparsehumanprose.",
+      "dependencies": [
+        "actual current editor/gateway diagnosticreceiver and magic-string/enum alias"
+      ],
+      "currentness": "frozen scoped question; no allcodevocab/global/currentunique claim"
+    }
+  ],
+  "carried_own_proofs": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-015-receipt.json",
+      "sha256": "7004d53b1622eb7834523ad33453cba4658d03e5783c21c18f6742f91ad5c3b0"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-017-receipt.json",
+      "sha256": "248e389c980fabae29b237383d7f7e5974775a7ae6eccf99fb4ac741199271bf"
+    }
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer. Preserve180/181nativeSDK/Bevy scheduling/imagecopylimits andallpendingreceiverqueues. M04current903reviewsseparate; notfrozenoriginal/lenscounts. Packet182InventoryItemId graph erasure, catalogkey/recordidentity and wear/order-selector sourcequestions retained, alias/currentness/unique acceptance unresolved. M04build-target review003 atdf5 andhostedCIseparatefromfrozenauditcounts. 184 newpublicDrapedPiece association/sourcegroupingquestion remainsfrozenlocal, noalias/currentness/uniqueacceptance; producerpathcoherent. M04df5validationseparate. 185 capacityreservationstaticAPIgap retainedasfrozenevidence only; alias/currentness/accepteduniqueness unresolved. No runtimewrongID orauthoredcurrentinputwitness. ExistingID/key/wear/savedassociationquestionsremainqualified. Packet186 independently accounts existing test-source812 only; fixture expectations are not observed execution/whole authored catalog/native guarantees and do not clear185 capacity witness. Existing lower-pattern fixture uses canonical owners; no new current alias or unique finding. Packet187 original813 only. New frozen inventory_ui and catalog wrapper material extensions mandatory other lenses, zero extra shared/original credit. UI acquisition is not atomic/all-worn; inherited capacity, typedID erasure/key authority and public saved-association questions retain all currentness/alias/unique limits. Batch011 frozen attack-ID packed participant-width witness retained; no runtime/current/alias/accepted unique finding, no invented32bit capacity bound. Batch012 actual simultaneous fixture permits absent scheduled measure beside present start/contact/recovery; group only proved coupled facts, do not require every active schedule measure.",
+  "new_material_extensions": [],
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "clear": false,
+  "current_reconciled": false,
+  "validated": false,
+  "global_discovery_complete": false,
+  "root_adoption_required": true,
+  "read_limits": [
+    "910effective1165lines plus localextensions36, not whole2492. Partial boundaries114/554/1783 treated as signature/comment context; complete named bodies actually consumed.",
+    "972model connected1-65,290-345,1140-1230 only; actualWeight declarationheader before290, nextVisibleWitnessCandidate tail beyond345 and GeneratedDialogueProducer prefix before1140 notfullyconsumed/claimed. Complete generationcontext/generatedcase/hashnamespace andIDmacrobodyused;971layout35doesnotgrant includedchild bodycredit.",
+    "No qgvalidation/catalog/JSONparser execution or whole/native/SDK/currentsource clearance; every future original independent."
+  ],
+  "restrictions": "Ignored append-only evidence only; no product/Git mutations/rootledger/projectchecks/tests/probes/publication."
+}

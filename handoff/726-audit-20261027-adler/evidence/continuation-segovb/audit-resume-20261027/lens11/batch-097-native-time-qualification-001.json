@@ -1,0 +1,128 @@
+{
+  "at": "2026-10-27T17:11:39.269190+00:00",
+  "lens": 11,
+  "status": "mandatory_source_identity_qualification",
+  "affected_receipts": [
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-089-receipt.json",
+      "sha256": "121119e2b04ab8448b1fb92ee15c4a99333ca645e4cd24c1a3afc1e90488e0d0"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-090-receipt.json",
+      "sha256": "81196568f0bf100bf3e4c86aeaf28096e95dc3d3e5f724118e7d2aa21a64a9a6"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-091-receipt.json",
+      "sha256": "dce80385e774a4d5f1b84f60d2114e2bd33677c6630468284dd855f0db9b6650"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-092-receipt.json",
+      "sha256": "c68c9452f59bc65a1dfe69bfb08ed7b26969d392fba02e43c18f174f4bf1108a"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-093-receipt.json",
+      "sha256": "b678d140a2abbc2cd900379c0e6235bd4fc7ff0a52719fccd297d495321994e1"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-094-receipt.json",
+      "sha256": "dea422bd7e7dd4570611cc60e69f6c0efefae41e8cbfe97fb9db9305a1ec7938"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-095-receipt.json",
+      "sha256": "872799e7e4d69b09b2002fa47749f033e0cb729e16b35fa8b7e0d0485d61f6be"
+    },
+    {
+      "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-096-receipt.json",
+      "sha256": "cb508cb19d971b4c58b48f9bc29968ed073bbec2fddd07518307fe2861b10dd6"
+    }
+  ],
+  "correction": "Original1017 SHA3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c is core strategic_time.rs full860, personally048. It is valid core time arithmetic/admission proof ONLY, not actual native time::settle_lifecycle_after_character_time_write. Prior reuse prose describing it as native lifecycle receiver is withdrawn. Historical files unchanged. Physical305 time advancement SHA2baeb... ranges240\u2013305 personally076 is a different frozen variant, not substitution for PR1245.",
+  "registration": {
+    "path": "target/recovery-20261025/continuation-segovb/audit-resume-20261027/lens11/batch-097-registration.jsonl",
+    "sha256": "fd051e8f1b846ef474f03af87fdf8531e46711c730164e7217046a49b01ab551"
+  },
+  "fresh_correct_native_proofs": [
+    {
+      "kind": "connected_original",
+      "original_index": 1249,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/mod.rs",
+      "sha256": "00f1fa799283c10da8bc5b3310a04c43d117753258629c791c379b6485f25f3f",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/00f1fa799283c10da8bc5b3310a04c43d117753258629c791c379b6485f25f3f",
+      "ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Correct actual PR native settle_lifecycle_after_character_time_write receiver; priorcore1017reuseisnotthissource",
+      "actual_read_ranges": [
+        [
+          1,
+          85
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1245,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/advancement.rs",
+      "sha256": "4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+      "ranges": [
+        [
+          1,
+          149
+        ],
+        [
+          266,
+          301
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Correct actualPR forward character/investigation time adapters requiredbyoutbreak/relationship callers; oldphysical305 variant notsubstitute",
+      "actual_read_ranges": [
+        [
+          1,
+          149
+        ],
+        [
+          266,
+          301
+        ]
+      ]
+    },
+    {
+      "kind": "connected_original",
+      "original_index": 1246,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/advancement/lifecycle.rs",
+      "sha256": "a8f43539a28232bc47303c02e648761d55590e7f33d97fd66abbc703374965f5",
+      "object_path": "target/recovery-20261025/continuation-segovb/source-objects/a8f43539a28232bc47303c02e648761d55590e7f33d97fd66abbc703374965f5",
+      "ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "prospective": true,
+      "purpose": "Exact first lifecycle segment cutoff adapter for1245",
+      "actual_read_ranges": [
+        [
+          1,
+          11
+        ]
+      ]
+    }
+  ],
+  "actual_contract": "Exact PR1249 native lifecycle57\u201375 invokes age/continuity/residence/wedding/birth/discovery/marriage/outbreak refresh at passed StrategicMinute;1245 advancement1\u2013146 settles injury/disease/time/lifecycle before completion bool,266\u2013297 investigation tracksactualelapsed;1246 full11 converts earliest lifecycle boundary to duration. Absoluteclock/elapsed/boundary/completed-vs-stopped roles distinct. No entire time module/SDK/other activity/native algorithm coverage.",
+  "new_qualified_observation": "Outbreak1148 collection536 discards Result<bool> completion value from advance_character_time. Actual1245 returnsfalse on terminal/injury stop66\u201367; subsequentliving/revalidation mayreject, so doNOTclaim ordinarypartialcollection or time rollback/runtime outcome. A typed Completed/Stopped{elapsed} result makes ignored completion authority harder to miss. Existing089sourcefindings retain source-onlyqualifiers.",
+  "source_accounting_not_clearance": true,
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "root_adoption_required": true,
+  "limits": [
+    "This replaces a mistaken proof identity, not an invented earlier native body read. Correct native bodies were first consumed prospectively097, personal048 remains core only.",
+    "No original1245/1246/1249 orderedcredit/current comparison/test run/globalclearance; root assesses actualsource proof and retained qualification."
+  ]
+}

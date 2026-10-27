@@ -1,0 +1,23 @@
+{
+  "id": "ADLER-CONT11-Q007",
+  "classification": "Qualified raw storey-level propagation in frozen architectural audit; no accepted/global-unique finding or current-main regression claim.",
+  "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/vertical_circulation.rs",
+  "scope_index": 535,
+  "sha256": "61cecc8ba05a5f788ece207cfcaa96ac4575f557143704191cb16b4f7e59cf54",
+  "ranges": [
+    [
+      14,
+      27
+    ],
+    [
+      32,
+      47
+    ]
+  ],
+  "observation": "A geometric height/storey-height ratio rounds and casts directly to u16, which crosses audit_stair_landing as level:u16 and selects storey.level. This is a semantic storey selector beyond the local vector arithmetic, unlike stair_index used as an intrinsic diagnostic ordinal. It needs comparison with existing canonical level ownership rather than a blanket native-geometry exemption.",
+  "qualification": "Actual Storey field/constructor ownership, prior accepted type-family findings, P16/P17 corrections and current main are not traced for this question. No claim about valid negative/huge levels or a runtime saturation incident; finite/admission policy cannot be inferred from the cast alone.",
+  "next": "Locate the already registered canonical storey-level owner and reconcile frozen/current/global remedy before accepting or repairing. Preserve height quantity versus storey selector versus array ordinal.",
+  "new_unique_finding": false,
+  "repair": "not started",
+  "validation": "not run"
+}

@@ -1,0 +1,121 @@
+{
+  "head": "323789dd1beca252d4515c580573596ca0c98143",
+  "path": "crates/adventuresim-character-creator/Cargo.lock",
+  "sha256": "0814366f818cf580e09b015977170498c750f76174d620a866e602855a455597",
+  "diff_sha256": "98b94798dfccbd594fa19204ad2bdcc48d38e3980030efa692877ed8a2cce1b9",
+  "evidence": "hosted-creator-lock-failure-001.txt",
+  "metadata_scope": [
+    {
+      "path": "Cargo.lock",
+      "gpu_package_present": true,
+      "gpu_dependencies": [
+        "anyhow",
+        "async-lock",
+        "bytemuck",
+        "derive_more 2.1.1",
+        "fabelgeist-color",
+        "fabelgeist-fs",
+        "fabelgeist-math",
+        "fabelgeist-timer",
+        "futures-channel",
+        "image",
+        "indexmap 2.14.1",
+        "naga",
+        "parking_lot",
+        "pollster",
+        "regex",
+        "serde",
+        "serde_json",
+        "strum 0.27.2",
+        "tokio",
+        "wasm-bindgen-futures",
+        "web-sys",
+        "wgpu"
+      ],
+      "existing_derive_nodes": [
+        {
+          "name": "derive_more",
+          "version": "2.1.1",
+          "checksum": "d751e9e49156b02b44f9c1815bcb94b984cdcc4396ecc32521c739452808b134"
+        },
+        {
+          "name": "derive_more-impl",
+          "version": "2.1.1",
+          "checksum": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb"
+        }
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "gpu_package_present": true,
+      "gpu_dependencies": [
+        "anyhow",
+        "async-lock",
+        "bytemuck",
+        "derive_more 2.1.1",
+        "fabelgeist-color",
+        "fabelgeist-math",
+        "fabelgeist-timer",
+        "futures-channel",
+        "indexmap",
+        "naga 29.0.4",
+        "parking_lot",
+        "pollster",
+        "regex",
+        "serde",
+        "strum 0.27.2",
+        "wasm-bindgen-futures",
+        "web-sys",
+        "wgpu 29.0.4"
+      ],
+      "existing_derive_nodes": [
+        {
+          "name": "derive_more",
+          "version": "2.1.1",
+          "checksum": "d751e9e49156b02b44f9c1815bcb94b984cdcc4396ecc32521c739452808b134"
+        },
+        {
+          "name": "derive_more-impl",
+          "version": "2.1.1",
+          "checksum": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb"
+        }
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-mhr/Cargo.lock",
+      "gpu_package_present": false,
+      "gpu_dependencies": null,
+      "existing_derive_nodes": [
+        {
+          "name": "derive_more",
+          "version": "2.1.1",
+          "checksum": "d751e9e49156b02b44f9c1815bcb94b984cdcc4396ecc32521c739452808b134"
+        },
+        {
+          "name": "derive_more-impl",
+          "version": "2.1.1",
+          "checksum": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb"
+        }
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/Cargo.lock",
+      "gpu_package_present": false,
+      "gpu_dependencies": null,
+      "existing_derive_nodes": [
+        {
+          "name": "derive_more",
+          "version": "2.1.1",
+          "checksum": "d751e9e49156b02b44f9c1815bcb94b984cdcc4396ecc32521c739452808b134"
+        },
+        {
+          "name": "derive_more-impl",
+          "version": "2.1.1",
+          "checksum": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb"
+        }
+      ]
+    }
+  ],
+  "source_contracts": "All production source identical4fcc; dependencyedgeonly, --locked requirementpreserved",
+  "no_project_execution": true
+}

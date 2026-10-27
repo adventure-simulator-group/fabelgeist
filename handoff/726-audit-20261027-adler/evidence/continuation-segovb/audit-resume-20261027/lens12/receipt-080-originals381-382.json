@@ -1,0 +1,98 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "080",
+  "predecessor": "receipt-079-originals375-380.json",
+  "manifest_prefix_sha256": "a33dbf5ae86a0ae82bef31ecb739599f78b77c10f6c85b66005d58020ae06ea6",
+  "sources": [
+    {
+      "original_index": 381,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat.rs",
+      "sha256": "a21f436f16e7c331c844e120198460cd485a9342d6d9c41ff79fc039c913e0c5",
+      "actual_eof": 1165,
+      "actual_ranges": [
+        [
+          1,
+          1165
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-533",
+          "role": "Compiler reason123; cfg iteration279/289/316/328/527; trace messages defend_intent_resolved285/melee_attack_resolved312/melee_attack_committed_to_defense324/melee_attack_transformed_by_defense337. Typed MeleeIntentError display455 with canonical Rejected enum456/Geometry458. AnatomicalSubregion retained event226/249. No String-valued gameplay APIs.",
+          "disposition": "Native compiler/feature/tracing/Display text boundaries; actual typed native source event precedes later report erasure368/369, no event/trace runtime acceptance."
+        },
+        {
+          "source_ranges": "535-1165",
+          "role": "All1165 read1-500/501-1000/1001-1165. Existing include paths combat/ranged.rs777/791 and combat/melee.rs790; source literal markers validate_ranged_intent(facts)779/authority.authorize_shot782/q_ammo.iter().find784/let Some(attack) = authorize_completion795/event.798/805/authorize_shot802 plus corresponding expect messages780/783/784 are intentional syntax-coupled fixture oracle. Assert diagnostic602/752/849/1143 only otherstrings.",
+          "disposition": "Native Rust source fixture/lexical oracle boundary; explicit syntax coupling rather than gameplay identity. No test execution/nativebehavior proof or requirement to preserve old source/API/schema."
+        }
+      ],
+      "status": "Full independent requested string inventory with concrete text/native boundary roles."
+    },
+    {
+      "original_index": 382,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/authority.rs",
+      "sha256": "115035332f28384bede83b873bba67e6877fbc481560196ae9aaa1ca2fd2d52b",
+      "actual_eof": 672,
+      "actual_ranges": [
+        [
+          1,
+          672
+        ]
+      ],
+      "roles": [
+        {
+          "source_ranges": "1-672",
+          "role": "Compiler reason202/376; native StreamId combat.reciprocal-attack322 feeding Seedderive320-325; expect an observed windup has active attack metadata360/validated target position613/validated target yaw614. All672 read1-350/351-672; no otherstrings or String-valued API.",
+          "disposition": "Specific compiler/native deterministic namespace/diagnostic boundaries; typed MeleeAttackKey and canonical rejections retained. No aggregation/admission/arithmetic/timing/expect adequacy proof, no native execution/other-lens credit."
+        }
+      ],
+      "status": "Full independent requested string inventory with concrete text/native boundary roles."
+    }
+  ],
+  "connected_findings": [],
+  "pending_contracts": [
+    "External trace readers/logfilters and server iteration projection from typed anatomical events to raw report remain unread, despite actual381 typed producer declaration.",
+    "381/382 numerical/timing/native/expect/invariant behavior and source-test execution are excluded; source lexical includes do not grant child body coverage."
+  ],
+  "qualifications": [
+    "Exact frozen f82 physical-P16 only; no current alias.",
+    "No backward-compatibility/input preservation requirement; no project/native/test/probe execution or product/Git/root-ledger/publication mutation.",
+    "All20/P16/P17/F9/M09/aliases/currentness preserved; no repaired/global/runtime/unique-total/other-lens clearance."
+  ],
+  "proposed_count": {
+    "before": 381,
+    "after": 383,
+    "indices_completed": [
+      381,
+      382
+    ],
+    "next_original": 383,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat.rs",
+      "sha256": "a21f436f16e7c331c844e120198460cd485a9342d6d9c41ff79fc039c913e0c5",
+      "ranges": [
+        [
+          1,
+          1165
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/authority.rs",
+      "sha256": "115035332f28384bede83b873bba67e6877fbc481560196ae9aaa1ca2fd2d52b",
+      "ranges": [
+        [
+          1,
+          672
+        ]
+      ]
+    }
+  ]
+}

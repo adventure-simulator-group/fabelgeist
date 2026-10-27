@@ -1,0 +1,87 @@
+{
+  "id": "ADLER-CONT10-SUCCESSOR-063",
+  "lens": "derivability",
+  "receipts": [
+    {
+      "scope_index": 1631,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/material.rs",
+      "sha256": "be5f1ca4e6b11d18c8ce8c36e0f360d08e2edd36ba694977b9c616ba5982c70f",
+      "ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Native terrain materialfactory only, no handwritten traits/codecs. Computes optical/grass/environment/texture uniformlanes and fallibly generates groundmap before materialpublication.",
+      "disposition": "No derivability candidate. Native representations, authoreddefaults and resourceeffects semantic.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1632,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/urban.rs",
+      "sha256": "9a5b7ee95b337a7ebea938ba18f6e87c6ab6bd67b1119745c9287b756925deee",
+      "ranges": [
+        [
+          1,
+          336
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete336line urbancoverage role read including all fixtures. GroundTopology derives CloneCopyPartialEqEq; GroundCoverage derives Component. Plugin manually registers orderedupdate. Runtimeclassifies owned/fine/sampled topology and replaces native mesh/cutout/visibility by revision.",
+      "disposition": "Keep behaviorfulPlugin and topologyselection; no otherhandwritten traits/codecs. No derivability candidate; fixtures not executed.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1633,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/urban/owned_tests.rs",
+      "sha256": "dec16e8dcf926fed2d6260f315e3a1a59d9697ba51fae232d6bb74b1155c23e3",
+      "ranges": [
+        [
+          1,
+          259
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete259line ownedterrain fixture source with native meshtriangle to IEEEbitset projection, explicitGroundFixture and two catalogue/landform cases. No handwritten traits/codecs.",
+      "disposition": "No derivability candidate. Trianglebits are intentional comparisonrepresentation, not omitted Hash/serde; no fixtureexecution/outputmutation.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1634,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/volumetric.rs",
+      "sha256": "0f2bab77a6c50c3112e630c06558e9a4b3612de7011b2de38930f464abd3cfe1",
+      "ranges": [
+        [
+          1,
+          338
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "Complete338line volumetricpresentation role read in two windows including existingfixture. Queryalias, falliblerefresh/spawn and native patch/UV/topology generation, no handwritten trait/customcodec.",
+      "disposition": "No derivability candidate. Native resourcepublication/retry/coordinate/meshencoding semantic; no blanket source/operation/failureacceptance.",
+      "new_finding": false,
+      "checks": "not run"
+    },
+    {
+      "scope_index": 1635,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/venues.rs",
+      "sha256": "ae556b18add14ae22e1b97bc772ab06f455827e6afdff55b5659fac6ae9b9d27",
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "source_basis": "Fresh recovery_826 personal complete exact frozen-object read; independent own10 comparison.",
+      "trait_inventory_and_semantics": "PlaceId/PortraitId/PlaceKind/Place already derive CloneDebugDeserialize/Eq/Hash as applicable. PortraitId serde try_from String uses manual TryFrom<String> parsing u64 with ParseIntError. Runtimebuilding_use/selection classifies venue and actorassociation. Existing integerlimitfixture read.",
+      "disposition": "Keep parsing TryFrom: representationchange and fallibility, not directfieldconstructor. Existing serde derivation already delegates required stringport; do not derive rawFrom<String> or acceptnumericJSON. Runtimevenueclassifier semantic, no derivability replacement. Fixture not executed.",
+      "new_finding": false,
+      "checks": "not run"
+    }
+  ],
+  "clear": false
+}

@@ -1,0 +1,57 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-434",
+  "at": "2026-10-23T13:41:18.204574+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "scope072_index": 939,
+      "actual_EOF": 618,
+      "scoped_ranges_compared": [
+        [
+          1,
+          618
+        ]
+      ],
+      "actual05_comparison": "Fresh full actual schema including original boundary roundtrip fixture; raw authored records, contextual optional capabilities, topology/surface/physical correlation and closed vocabularies independently analyzed."
+    }
+  ],
+  "groups": [
+    {
+      "id": "authoring schema is raw input, not accepted compiled item",
+      "comparison": "ItemCatalogDocument version+Vecitems and public ItemDefinition fields (ID/name/physicalweight/exteriorvolume/value/tags/presentation/equipment/kind/capabilities) ordinarySerde lack whole correlation. denyunknown on many records or tagged kind restricts syntax only; no finite/order/nonempty/membership predicates. Flattened ItemKind payload carries required meaningful fields, but separate optionalcapabilities/defaults require actual mainvalidator. Unknown/malformed authored rawstate must remain rejected input, not a fallback compatibility path."
+    },
+    {
+      "id": "equipment topology is independent of item kind but must be coherent within accepted product",
+      "comparison": "EquipmentDefinition publicphysical/material/strikingmaterial/tags/placements/protection/attachmentpoints; placement has stableID,occupancy,parentrequirements,precedence,protectedparts,surface. Locations expressly do not implyprotection and exteriorvolume does notinferdimensions. Fine topology locations separate from7combatbodyparts intentionally. Actual surface-to-protectedpart consistency, sidedparentreach and unique placement/pointIDs need wholevalidator/runtimegraph; raw publicstate canmix each independently. Existing connected preparation/armor mask graph retains exact receivers, not blanket archetype constraint."
+    },
+    {
+      "id": "contextual optional values retain documented semantic meaning",
+      "comparison": "Surface UV domain+coordinate and optional tangent mustbeauthoredtogether percomment but public independentOptions donotseal. Attachmentpoint emptylocations inherits parentreach and emptyacceptedtags accepts anyequipmentauthoredchild, so emptiness not automaticmalformed. Parent.locationNone genericpath legitimate; occupancy fitzoneNone reserveswholelocation. Optionalnonarmor protection and materials meaningful; no universal requiredallfields rule. Actualvalidateboundaries must distinguish these cases."
+    },
+    {
+      "id": "layer order and stable identity projections use actual canonical vocabulary",
+      "comparison": "EquipmentChannel::order fixedlogical0/10..80 independentenumdeclarationordering; outermost_channel traversesbothoccupancy+parents andselectsorder. EmptyplacementNone describes no layer, not automatically admitted. singleton_per_location onlyHeld/Base/Padding/Flexible/Rigid/Outerwear, otherchannels canrepeat/order. EquipmentLocation stablewords exhaustivefinebody/topology; serde snakecase andcfgSATS derives have distinct nativecodec contract earlieractualSDKproven, no macrobodycredit fromthisread."
+    },
+    {
+      "id": "weapon and capability aggregates preserve ranges and owner dependencies",
+      "comparison": "WeaponSkills defaultallzero rawfloats doesnotensure normalizedpositive distribution; separate skilldistributionowner existingF031 andcataloggate. Weaponhandling/carry/slot/modes/pack/physicaldimensions correlation notsealed; melee+ranged booleans canlegitimatelybothtrue, no blanketexclusiveenum. Precisioncoefficient may>1; reach/inertia/mass need actualphysicallyacceptedproduct. Durability yield/fracture/wear/share/sensitivity and Alcohol serving/ABV/hydration/disinfectant/rawu16 aredeclarations, not acceptedkernelpolicy."
+    },
+    {
+      "id": "book and food typed names do not prove semantic admission",
+      "comparison": "Book qualityu8 accepts0..255 structurally; medium and typed written/religion/bestiary targets closedclassification, Terrain/Skill openstrings. Allowlist rawVecstrings/defaultempty. Actual rankband/familycaps/readability/candidate policy in885own404 pluscatalogvalidator required. FoodclassString/growth/nutrition/value/quality/cookingminutes/flavors raw; actualFoodcatalogclassunreachable onlysafeaftervalidatedembeddedproducer. Containercapacityu32zero and exteriorvolume relationship needactualcontract, no universal NonZero assumption."
+    },
+    {
+      "id": "fixture and scope limits",
+      "comparison": "All588-618 originalroundtrip fixture readnotrun; it explicitly admits boundaryrecords independentofruntimewholegraph and doesnotprove occupancy is physicallyplaceable. Importedfit/surface declarations lowerbodies separate alreadyglobalroles; no transitive credit fromreexports. Full618 actual requestedunion, no sourceadditions."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Actual item catalog validation main941, occupancy944/surface945 and importedfit/surface predicates; accepted equipment physical/topology/profile products at runtime recipients."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

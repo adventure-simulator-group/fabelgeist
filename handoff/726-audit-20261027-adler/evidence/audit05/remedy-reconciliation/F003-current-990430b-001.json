@@ -1,0 +1,79 @@
+{
+  "at": "2026-10-26T04:39:33.100858+00:00",
+  "finding_id": "ADLER-RESUMED05-F003",
+  "phase": "Read-only global remedy/current-canonical reconciliation",
+  "finding_authority": {
+    "path": "target\\recovery-20261025\\audit05\\findings.jsonl",
+    "record_id": "ADLER-RESUMED05-F003",
+    "frozen_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "source_sha256": "1c16766feee62bbb80b38bdcc46c18cd7c732d6f2d796a4c26e228cb4eff6f1e",
+    "ranges": [
+      [
+        8,
+        18
+      ],
+      [
+        166,
+        182
+      ],
+      [
+        249,
+        268
+      ],
+      [
+        412,
+        430
+      ]
+    ]
+  },
+  "current_canonical": {
+    "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "source_id": "pr-working:crates/fabelgeist-color/src/conversion.rs",
+    "sha256": "1c16766feee62bbb80b38bdcc46c18cd7c732d6f2d796a4c26e228cb4eff6f1e",
+    "entire_blob_exact_equal_to_frozen": true,
+    "personally_read_ranges": [
+      [
+        8,
+        18
+      ],
+      [
+        166,
+        182
+      ],
+      [
+        249,
+        268
+      ],
+      [
+        412,
+        430
+      ]
+    ]
+  },
+  "disposition": "CURRENT_UNREPAIRED_QUALIFIED",
+  "source_relationship": "Same-format pixel path copies min source/destination bytes and returns Ok without requested extent checks, unlike BGRA/RGBA route using required4bytes per pixel and existing length errors. Empty1x1 RGBA source/destination counterexample remains supported API-only.",
+  "dedup": {
+    "inventory": "target\\recovery-20261025\\audit05\\inherited\\adler-finding-records.json",
+    "inventory_sha256": "473fc7ce6d08f96419a86d239410cf94fa1ba9b8cf8c93ef45ba2d7b44d6942d",
+    "records": 1002,
+    "navigation": "F003-inventory-navigation-001.json",
+    "candidate_ids": [
+      "RIG-ADMISSION03-F056",
+      "RIG-INITIAL06-F005"
+    ],
+    "assessment": "RIG-ADMISSION03-F056 custom-primary invertibility/NaN matrix admission and RIG-INITIAL06-F005 retained Color ownership are distinct from extent/buffer success contract. Full candidate metadata read; related crate alone does not make an exact duplicate.",
+    "global_uniqueness": "Not established by limited inventory search; final connected remedy grouping remains pending."
+  },
+  "retained_existing_remedy_identity": "The width/height/format aggregate defines the required bytes for a completed image conversion. Same-format conversion should preserve the source/destination minimum-length contract already enforced for other format pairs, or explicitly declare a different partial-copy contract.",
+  "qualifications": [
+    "No normal malformed caller or observed asset corruption claimed.",
+    "Width/height overflow and odd YUV contracts remain separate qualified questions, not expanded into this finding.",
+    "No materially reached unregistered source body, no current CI/frozen inventory credit or repair design here."
+  ],
+  "project_checks": false,
+  "source_or_git_mutations": false,
+  "new_issue": false,
+  "new_unique_count": 0,
+  "accepted_own_findings_unchanged": 10,
+  "global_clearance": false
+}

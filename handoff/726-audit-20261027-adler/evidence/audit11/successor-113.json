@@ -1,0 +1,52 @@
+{
+  "id": "ADLER-CONT11-SUCCESSOR-113",
+  "lens": "type-granularity",
+  "receipts": [
+    {
+      "scope_index": 697,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/bare_body.rs",
+      "sha256": "68cef7d12e388a580394d74d3162513902fc9a8c6539ae328aac33e1240bd4cb",
+      "ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "assessment": "Actual full71 source read after SHA256 check. Named BodyKey groups model LOD/correctives and clone-normalized recipe, clearing inventory/name only in cache key. BareBody::generate passes original recipe into generate_character, so independence of generated body from those fields still requires actual generator contract; no false-cache witness inferred from comments. LOD u8/Boolean and public GeneratedCharacter remain qualified Q009/native-boundary questions. Returned material handle is actual Bevy adapter, no current-main/runtime clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 698,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/bracer.rs",
+      "sha256": "2fd643dd2bc33e9b844cdd3c185c7ca9d474fe5ca773d8759d54854129ce64ef",
+      "ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "assessment": "Actual full119 read after SHA256 match. ForearmSide closed role maps canonical RigJointName and returns canonical RigJointMembership. Potential duplicate Side versus RigSide requires lowest shared owner context, not accepted finding. ForearmSurfaceInput/MorphSample publicly carry raw geometry, weights and association-bearing collections; validate checks key lengths and joint-table counts, but does not establish all finite, triangle-bound, UV-index, or device-realization invariants. No claim that this one validate is sole admission without downstream trace. Canonical packed skin/table types retained. Qualified Q009 context; no runtime/physical/current-main clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    },
+    {
+      "scope_index": 699,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/chainmail_export_test.rs",
+      "sha256": "ddcb7701a02cc8c90582fb80bae74cc92d26569f07adba9058ed9ac6ec3274cb",
+      "ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "assessment": "Actual full88 existing ignored fixture read after SHA256 match. Explicit requires MHR assets/measured drape output, so source read gives no execution credit. JSON value to typed vector conversion is an actual diagnostic-file adapter; exact body equality establishes one association before transfer_skin. Raw related DrapedGarment arrays/stage counts remain qualified Q009. Material-name lookup is glTF fixture assertion at serialized-output boundary, not production prose branching. No current-main/runtime/physical/global clearance.",
+      "new_unique_finding": false,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  ],
+  "clear": false
+}

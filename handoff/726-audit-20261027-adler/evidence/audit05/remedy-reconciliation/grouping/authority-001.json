@@ -1,0 +1,285 @@
+{
+  "at": "2026-10-26T05:45:08.884529+00:00",
+  "ledger": {
+    "local": "target\\774-intake-20261025\\remote-handoff\\audit\\ledger.json",
+    "git_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/audit/ledger.json",
+    "sha256": "74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+    "local_exact_git_equal": true,
+    "selected_records": {
+      "F26": {
+        "array_index": 84,
+        "record": {
+          "id": "F26",
+          "priority": "P2",
+          "classification": "Retained dispatcher counter overflow for admitted CLI configuration; source witness only.",
+          "title": "Represent dispatcher port exhaustion before advancing past the last port",
+          "lenses": [
+            "producer-propagation",
+            "admission-contracts",
+            "invariant-operations",
+            "enum-shapes"
+          ],
+          "locations": [
+            {
+              "file": "crates/adventuresim-tactical-server-dispatcher/src/main.rs",
+              "start": 147,
+              "end": 152
+            }
+          ],
+          "contract_trace": "The dispatcher admits any u16 base_port through Clap and stores next_port as Mutex<u16>. Each new request copies the port, then increments the retained counter before roster validation, scene provisioning or spawning. It later constructs SocketAddr(host,port) for the child CLI.",
+          "counterexample": "With --base-port=65535, the first request evaluates u16::MAX+1 before launching. With overflow checks enabled this panics; with checks disabled it wraps the next port to zero. Even a request that later fails source admission consumes this advance. No process or socket was launched during this audit, and the active build overflow profile is not assumed.",
+          "repair": "Give allocation an explicit available/exhausted state and advance with checked arithmetic. Preserve the final usable port as an allocation, then record exhaustion rather than panic or wrap to an implicit zero/ephemeral mode. Propagate a structured allocation failure to the owning request callback. Coordinate allocation timing with successful request admission and the actual child lifecycle; do not silently recycle a live port or invent a broad arbitrary maximum below the real socket range. Native u16 projection belongs at SocketAddr/CLI construction, not unchecked allocator state.",
+          "dependencies": [
+            "F27 configured bind endpoint versus actual bound advertised endpoint",
+            "PC73 dispatcher claim/launch lifecycle and exact native receiving behavior; current source-complete fixes are not authorized"
+          ],
+          "acceptance": "The full supported u16 port range has an explicit last-allocation/exhausted policy; --base-port=65535 cannot overflow, panic or silently wrap to a different allocation mode. Failed scene or roster admission must not accidentally change the documented allocation policy. Preserve actual native SocketAddr serialization and claim-before-spawn authorization. No new tests or runtime checks.",
+          "repair_status": "not started; awaiting complete initial discovery",
+          "validation": "Full dispatcher346 and actual child Args/setup/registration slices read. Static witness; no launch/check/test.",
+          "base_comparison": "Dispatcher file byteidentical to base3a50b708; retained defect, not introduced774 regression.",
+          "rule_support": [
+            {
+              "file": "crates/AGENTS.md",
+              "start": 31,
+              "end": 57,
+              "reason": "Retain bounded semantic state and valid mutation results rather than allow a checked boundary value to overflow internally."
+            }
+          ]
+        }
+      },
+      "F27": {
+        "array_index": 85,
+        "record": {
+          "id": "F27",
+          "priority": "P2",
+          "classification": "Retained configured-versus-bound endpoint disagreement for an ephemeral-port launch; source witness only.",
+          "title": "Advertise the socket\u2019s actual bound port when registering a tactical server",
+          "lenses": [
+            "producer-propagation",
+            "redundant-authority",
+            "aggregate-states"
+          ],
+          "locations": [
+            {
+              "file": "crates/adventuresim-tactical-server/src/main.rs",
+              "start": 715,
+              "end": 720
+            }
+          ],
+          "contract_trace": "Args.addr is a SocketAddr used by setup_server to spawn AdventureSimulatorServer. on_server_started receives the native LocalAddr after the server binds and logs it, but create_tactical_server_for_request receives args.addr.to_string(). Native registration retains that configured string in TacticalServer.addr for clients. The actual native binding result is available but discarded as endpoint authority.",
+          "counterexample": "For --addr=127.0.0.1:0, a socket uses an OS-selected port reported through LocalAddr. Registration instead publishes 127.0.0.1:0, so the retained endpoint is not the listening endpoint. The existing test Args fixture also uses port0, though its offline world-dump flow is not a claimed registration reproduction. Dispatcher wrap-to-zero(F26) is another conditional producer; this defect also exists independently for an explicit zero-port launch.",
+          "repair": "Construct the advertised endpoint from the actual bound port. Keep configured listen address, bound native socket and any deliberately configured public host as distinct roles; do not blindly replace an explicit public host with an unspecified wildcard address. Carry the resolved endpoint through registration until actual SDK string encoding, instead of retaining configured port as a second authority. Reconcile dispatcher and server endpoint ownership once, preserving current explicit host policy and concrete bind/registration failures.",
+          "dependencies": [
+            "F26 port allocation and PC73 dispatcher/claim/endpoint lifecycle",
+            "Actual client endpoint parser/connection and certificate handling remain connected inventory; do not infer TLS/cert policy from this string alone"
+          ],
+          "acceptance": "An explicit zero-port bind registers the actual listening port, and a fixed-port bind registers that same fixed port. Preserve the configured public-host contract, IPv4/IPv6 SocketAddr encoding and one-use server claim. No new tests or launch during discovery.",
+          "repair_status": "not started; awaiting complete initial discovery",
+          "validation": "Actual Args69-75, setup_server623-638, on_server_started644-729 and native registration870-1015 inspected; no socket/runtime capture.",
+          "base_comparison": "Both base and merged source receive native LocalAddr in on_server_started and register args.addr.to_string(); retained mismatch independently verified from base function slices.",
+          "rule_support": [
+            {
+              "file": "crates/AGENTS.md",
+              "start": 31,
+              "end": 57,
+              "reason": "The native result owns the bound endpoint fact; retain it across internal registration rather than publish a separately configured value."
+            }
+          ]
+        }
+      }
+    }
+  },
+  "inherited_metadata": {
+    "path": "target\\recovery-20261025\\audit05\\inherited\\adler-finding-records.json",
+    "sha256": "473fc7ce6d08f96419a86d239410cf94fa1ba9b8cf8c93ef45ba2d7b44d6942d",
+    "records": 1002,
+    "selected_records": [
+      {
+        "archive_file": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl",
+        "record_index": 37,
+        "record": {
+          "id": "CAMERA-INITIAL07-F038",
+          "at": "2026-10-23T04:09:20.832986+00:00",
+          "lens": "audit-redundant-authority",
+          "classification": "duplicate_local_navigation_policy_owner_strengthening",
+          "source_refs": [
+            "physical-p16:crates/strategic-web/src/routes/mod.rs:127-145",
+            "physical-p16:crates/strategic-web/src/location_urls.rs:200-203",
+            "physical-p16:crates/strategic-web/src/main.rs:174-180/204-227/301-339"
+          ],
+          "contract": "CAMERA-INITIAL07-CONTRACT-203",
+          "fact": "Local absolute return/navigation target syntax is independently implemented by local_return_url and local_redirect_path.",
+          "disagreement": "Representable raw /x followed by newline is Some in local_redirect_path but None in local_return_url (control rejection/nativeUri validation). Both gate workflow redirect/current destination contexts. Actual main later splits fragments and parses nativeUri or HeaderValue, so no accepted bad browser navigation/exploit/run asserted; target kinds and fragment policy may require explicit distinctions rather than blindly swapping helpers.",
+          "actual_receiver": "routes::redirect_to_local emits Redirect from stronger helper; main negotiated_post_root uses weaker helper for redirected/current target and forwards to internal renderer or hard-navigation response. Actual runtime ports impose additional constraints but no single accepted local-target owner exists.",
+          "connected_repair": "One canonical accepted local navigation target with explicit path/query/fragment/native-header projections, preserving local-only versus explicit HTTP/HTTPS hard navigation. Keep raw rejected source text and error policy; do not make unsafe values accepted through a compatibility fallback. Derive borrowed/owned forms from same admission.",
+          "acceptance": "Source-specific HTTP form and negotiated navigation classify shared local target invariant consistently; represent intentional hard destination/fragment differences explicitly, with one predicate owner. Preserve cookie updates and exact renderer lifecycle. No tests or source edits now.",
+          "validation_status": "not_run",
+          "repair_status": "frozen",
+          "normal_bad_caller_claim": false
+        }
+      },
+      {
+        "archive_file": "audit/records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/findings.jsonl",
+        "record_index": 8,
+        "record": {
+          "id": "RIG-PPS-F009",
+          "trace_refs": [
+            "RIG-PPS-021"
+          ],
+          "kind": "existing structured cause propagation gap",
+          "dedup": [
+            "RIG-OWNER-F025",
+            "CAM-OWNER-F015"
+          ],
+          "earliest_sources": [
+            "spacetimedb/client.rs155\u2013189 concrete U::Error\u2192Spacetime(String)",
+            "routes/mod.rs193\u2013348/474\u2013513/904\u2013930 SpacetimeError and PlaceIdentityError\u2192String",
+            "routes/foraging.rs316\u2013380/466\u2013533 concrete causes\u2192String before pure app helpers",
+            "main.rs95\u2013103 concrete SpacetimeError formatted into anyhow message"
+          ],
+          "connected_repair": "Consume camera canonical SpacetimeError projection-cause aggregate in existing rig whole handlers/helper APIs and camera whole main; keep concrete serde_json/PlaceIdentity/terrain causes until actual HTTP/CLI/native presentation, preserve final allowlisted messages and raw remote response text role. No duplicate broad error/primitive adapter.",
+          "source_backed_limit": "Does not assert all raw String errors are defects: native remote rejection text, token fail-closed classification and terminal rendered feedback have distinct proven roles. Other lenses independently examine those policies.",
+          "source_repair": "frozen until all13 initial inventories",
+          "owner_dependencies": [
+            "rig existing Web session/mission/forage/party-action/types functions",
+            "camera Web query/client SpacetimeError and main",
+            "root TerrainPack/source owner"
+          ]
+        }
+      }
+    ]
+  },
+  "new_completed_lens_metadata": {
+    "path": "target\\recovery-20261025\\audit11\\question-003.json",
+    "sha256": "235506f6f1a5026dec5936e0644e57469b5a9348ab6a4d169e8784c06f8a5740",
+    "record": {
+      "id": "ADLER-CONT11-Q003",
+      "classification": "Qualified configured-listen versus bound/advertised endpoint role question; not accepted finding",
+      "source_roles": [
+        {
+          "scope_index": 410,
+          "sha256": "0fd91dac25a4b0b05eb65c51f7aa7bc5740bd0de5adff082320dd247d83b2444",
+          "ranges": [
+            [
+              69,
+              75
+            ],
+            [
+              643,
+              650
+            ],
+            [
+              713,
+              724
+            ]
+          ]
+        }
+      ],
+      "actual_trace": "Args.addr is SocketAddr, is passed into AdventureSimulatorServer and later serialized for create_tactical_server_for_request. on_server_started also receives Single<&LocalAddr> and logs it, but does not use that bound-address observation for the reducer argument.",
+      "candidate_witness": "A configured listen port0 is a normal native bind request for an ephemeral port, but the configured0 differs from the assigned bound port. CLI parser has no explicit nonzero restriction in this source.",
+      "qualification": "Native server bind/LocalAddr owner, reducer address admission and actual dispatcher publication/routing contracts still need direct frozen receiving trace before claiming accepted unreachable endpoint or current-main regression. No run, outage or particular deployment alleged. May require use of actual bound observation/explicit advertised endpoint, not arbitrary rejection of all bind0 or new duplicate SocketAddr wrapper.",
+      "new_unique_count": 0,
+      "repair": "not started",
+      "validation": "not run"
+    }
+  },
+  "historical_family_authority": {
+    "git_ref": "origin/codex/774-audit-handoff-20261025:handoff/774/historical-family-execution/execution-ledger.json",
+    "sha256": "1f278dbfcf5564b7fc8f87154b0f374855a894cc3718ff136510e266fbee6442",
+    "authority": {
+      "family_status": "This execution-ledger.json is the sole authoritative current family-status record.",
+      "exact_file_function_ownership": "Existing per-agent claim files listed under owners and each family are authoritative for exact scopes/transfers; ownership-map.json is a generated summary only.",
+      "derived_views": [
+        "CURRENT.md",
+        "parallel-ownership/ownership-map.json",
+        "P06-hosted-status.json"
+      ],
+      "renderer": "render-current-state.py",
+      "update_rule": "After every integration, ownership transfer or validation outcome, update affected ledger records and head/result facts together, then regenerate derived views. Do this before a handoff/context reset. Do not refresh the timestamp/head alone or independently edit derived status summaries.",
+      "historical_evidence": "Pinned closure/CI/acceptance reports are immutable evidence at their recorded revision; they are not current status instructions."
+    },
+    "selected_metadata": "ID/name table only; broad historical status/event bodies not semantically exhausted. No contemporary acceptance transferred.",
+    "families": [
+      {
+        "id": "P01",
+        "name": "Movement-audio Seed propagation"
+      },
+      {
+        "id": "P02",
+        "name": "Autoresolve battle-time coordinates"
+      },
+      {
+        "id": "P03",
+        "name": "Remaining maneuver-duration producers"
+      },
+      {
+        "id": "P04",
+        "name": "Playback rates, phase bounds and event budget"
+      },
+      {
+        "id": "P05",
+        "name": "Capture elapsed through jitter analysis"
+      },
+      {
+        "id": "P06",
+        "name": "Terrain support elevation through IK"
+      },
+      {
+        "id": "P07",
+        "name": "IK angular-cap handoff"
+      },
+      {
+        "id": "P08",
+        "name": "Camera physical measures and retained history"
+      },
+      {
+        "id": "P09",
+        "name": "Joint columns and skin ordinals from their producers"
+      },
+      {
+        "id": "P10",
+        "name": "Parent topology without the -1 sentinel"
+      },
+      {
+        "id": "P11",
+        "name": "MHR joint-channel rows and model-parameter columns"
+      },
+      {
+        "id": "P12",
+        "name": "Garment offsets and named upright anchors"
+      },
+      {
+        "id": "P13",
+        "name": "Shader candidate and cursor states"
+      },
+      {
+        "id": "P14",
+        "name": "Catalogue-bound equipment placement through generation"
+      },
+      {
+        "id": "P15",
+        "name": "Equipment reservations, replay chronology and missing revision"
+      },
+      {
+        "id": "P16",
+        "name": "Melee geometry and explicit targeting range policy"
+      },
+      {
+        "id": "P17",
+        "name": "Typed report measurements, applicability and optional observations"
+      },
+      {
+        "id": "P18",
+        "name": "Causal report quantities at f64 precision"
+      },
+      {
+        "id": "P19",
+        "name": "Per-foot bounded influence"
+      },
+      {
+        "id": "P20",
+        "name": "Continuation coordinate, tangent, readiness and progress"
+      }
+    ]
+  }
+}

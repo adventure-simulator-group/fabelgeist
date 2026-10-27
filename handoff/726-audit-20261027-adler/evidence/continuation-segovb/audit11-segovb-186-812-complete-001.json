@@ -1,0 +1,432 @@
+{
+  "packet": 186,
+  "lens": 11,
+  "lens_name": "type-granularity",
+  "at": "2026-10-27T05:43:47.586288+00:00",
+  "status": "812 source-accounted with inherited qualified frozen source questions; existing fixtures not executed",
+  "authority": {
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "prior_authoritative_state": {
+    "path": "audit11-segovb-185-proposed-state.json",
+    "sha256": "b42380369568bd2374b1922715badf003b069fd522628cc64272bbe75be6ae1a"
+  },
+  "root_adoption": {
+    "path": "audit11-segovb-185-adoption-root.json",
+    "sha256": "42c1941bdf89157333a50f69a1fcbc548d6c07f75cae3b9c6e7e3ec42858b075"
+  },
+  "source": {
+    "original": 812,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory/tests.rs",
+    "sha256": "3c8c66c5b49199d343845589bf635cd68c05dbd740656a1e33bdbc7c0534f4cd",
+    "bytes": 9270,
+    "actual_eof": 239,
+    "effective_requested_scope": [
+      [
+        1,
+        239
+      ]
+    ],
+    "personally_consumed": [
+      [
+        1,
+        120
+      ],
+      [
+        121,
+        239
+      ]
+    ],
+    "read_from": "crates/adventuresim-character-creator/src/inventory/tests.rs",
+    "full_independent_inventory": true,
+    "source_accounted": true,
+    "scope_kind": "Frozen requested existing test source; read only, no tests/assertions/helpers authored or executed"
+  },
+  "rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "read_status": "Prior personally read governing text retained; exact bytes reverified; root source-only and no backwards compatibility instructions apply"
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "read_status": "Prior personally read governing text retained; exact bytes reverified; root source-only and no backwards compatibility instructions apply"
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-type-granularity/SKILL.md",
+      "sha256": "3a1fbf7f53c752e35eefe7763cbd49b9f280bd4b978ea998f74c3a68e45dc106",
+      "read_status": "Prior personally read governing text retained; exact bytes reverified; root source-only and no backwards compatibility instructions apply"
+    }
+  ],
+  "registrations": [
+    {
+      "path": "audit11-segovb-186-registration-001.json",
+      "sha256": "6e2ccc0637955e788ca02ab9b273fb247d87209969c17bf17edbbad4ec8581b0"
+    },
+    {
+      "path": "audit11-segovb-186-registration-002.json",
+      "sha256": "60e01b3ed13902752802a76ab03bdee7f0d79f5dad09f496ef9933a525fcc980"
+    }
+  ],
+  "new_receiver_read": {
+    "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/garment/selection.rs",
+    "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+    "actually_read": [
+      [
+        144,
+        185
+      ]
+    ],
+    "actual_eof": 271,
+    "prior_material_scope": [
+      [
+        1,
+        79
+      ],
+      [
+        111,
+        225
+      ]
+    ],
+    "provenance": {
+      "path": "audit11-root-garment-selection-staging-182.json",
+      "sha256": "5e81fcb5f5ca2e8dd9a56703c3cdc10911de94615516d90ed59eb5718d4d1ba4"
+    },
+    "new_material_extension": false,
+    "mandatory_other_lenses": "inherited pending; fresh range subset already queued",
+    "ordered_credit": false,
+    "extra_original_shared_credit": 0
+  },
+  "carried_actual_source_proofs": [
+    {
+      "path": "audit11-segovb-182-809-partial-001.json",
+      "sha256": "eaa345f977d03d0d81fbd8a50ceda01280c6c591fec32347d23bef132d3c0c74"
+    },
+    {
+      "path": "audit11-segovb-183-809-complete-001.json",
+      "sha256": "ec788fbe604cb3ca970a41ae1e3326ab39049156b5c8a7aed6df22e0bc7a1916"
+    },
+    {
+      "path": "audit11-segovb-184-810-complete-001.json",
+      "sha256": "1efd23196f71ca4b5cdca49ef43277bf8637d2406faa019403b93d8e07f85328"
+    },
+    {
+      "path": "audit11-segovb-185-811-complete-001.json",
+      "sha256": "47f2f0534b526d991c4e67c3000ccde2354de56e3c8f2ad97241cc4f198109b4"
+    }
+  ],
+  "hash_reverified_reused_receivers": [
+    {
+      "original": 693,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_recipes.rs",
+      "sha256": "a6c834971b1cd263330dea65a4a48a826dda0b767e3e16b49dc26c8a7405c725",
+      "verified_read_from": "target/recovery-20261025/continuation-segovb/source-objects/a6c834971b1cd263330dea65a4a48a826dda0b767e3e16b49dc26c8a7405c725",
+      "material_reused_ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "proof_status": "Prior personally consumed exact same-lens source/ranges in carried receipts; bytes reverified only this packet. No fresh body-read or ordered/shared credit claimed. Ranges 93990-250 union available prior182/185 portions; no claim of fresh contiguous read.",
+      "extra_original_shared_credit": 0
+    },
+    {
+      "original": 764,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "sha256": "da3139ef3625393db9041ad0680dc244b0f81235b86ea4519a87c9299763bdd6",
+      "verified_read_from": "crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "material_reused_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "proof_status": "Prior personally consumed exact same-lens source/ranges in carried receipts; bytes reverified only this packet. No fresh body-read or ordered/shared credit claimed. Ranges 93990-250 union available prior182/185 portions; no claim of fresh contiguous read.",
+      "extra_original_shared_credit": 0
+    },
+    {
+      "original": 809,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory.rs",
+      "sha256": "0f820bca06e27b164da010e95dc7d3500a79a6feb0b7be9411ed8a41e88feb18",
+      "verified_read_from": "crates/adventuresim-character-creator/src/inventory.rs",
+      "material_reused_ranges": [
+        [
+          1,
+          442
+        ]
+      ],
+      "proof_status": "Prior personally consumed exact same-lens source/ranges in carried receipts; bytes reverified only this packet. No fresh body-read or ordered/shared credit claimed. Ranges 93990-250 union available prior182/185 portions; no claim of fresh contiguous read.",
+      "extra_original_shared_credit": 0
+    },
+    {
+      "original": 810,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory/loadout.rs",
+      "sha256": "8b3ada636d68eaae16cf4ca2bab097cd918be93a52452d34dc3e2648add51691",
+      "verified_read_from": "crates/adventuresim-character-creator/src/inventory/loadout.rs",
+      "material_reused_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "proof_status": "Prior personally consumed exact same-lens source/ranges in carried receipts; bytes reverified only this packet. No fresh body-read or ordered/shared credit claimed. Ranges 93990-250 union available prior182/185 portions; no claim of fresh contiguous read.",
+      "extra_original_shared_credit": 0
+    },
+    {
+      "original": 811,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory/occupancy.rs",
+      "sha256": "dbd62cb0c402bcb0903b4bcebdc159c2d2f35f266e4dff77c359796db40231b8",
+      "verified_read_from": "crates/adventuresim-character-creator/src/inventory/occupancy.rs",
+      "material_reused_ranges": [
+        [
+          1,
+          287
+        ]
+      ],
+      "proof_status": "Prior personally consumed exact same-lens source/ranges in carried receipts; bytes reverified only this packet. No fresh body-read or ordered/shared credit claimed. Ranges 93990-250 union available prior182/185 portions; no claim of fresh contiguous read.",
+      "extra_original_shared_credit": 0
+    },
+    {
+      "original": 815,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/item_design.rs",
+      "sha256": "a33bdf3bde70ed5a647c3968c9e9c04dd60402bca585d47a4d2555ce9e3802aa",
+      "verified_read_from": "crates/adventuresim-character-creator/src/item_design.rs",
+      "material_reused_ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "proof_status": "Prior personally consumed exact same-lens source/ranges in carried receipts; bytes reverified only this packet. No fresh body-read or ordered/shared credit claimed. Ranges 93990-250 union available prior182/185 portions; no claim of fresh contiguous read.",
+      "extra_original_shared_credit": 0
+    },
+    {
+      "original": 816,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/lib.rs",
+      "sha256": "dc0c4f7b59ecd62d3a8a4a6b00c5bfecfc15470df833fe4294e486d1ffa5393c",
+      "verified_read_from": "target/recovery-20261025/continuation-segovb/source-objects/dc0c4f7b59ecd62d3a8a4a6b00c5bfecfc15470df833fe4294e486d1ffa5393c",
+      "material_reused_ranges": [
+        [
+          94,
+          171
+        ]
+      ],
+      "proof_status": "Prior personally consumed exact same-lens source/ranges in carried receipts; bytes reverified only this packet. No fresh body-read or ordered/shared credit claimed. Ranges 93990-250 union available prior182/185 portions; no claim of fresh contiguous read.",
+      "extra_original_shared_credit": 0
+    },
+    {
+      "original": 920,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment.rs",
+      "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "verified_read_from": "crates/adventuresim-core/src/equipment.rs",
+      "material_reused_ranges": [
+        [
+          197,
+          318
+        ]
+      ],
+      "proof_status": "Prior personally consumed exact same-lens source/ranges in carried receipts; bytes reverified only this packet. No fresh body-read or ordered/shared credit claimed. Ranges 93990-250 union available prior182/185 portions; no claim of fresh contiguous read.",
+      "extra_original_shared_credit": 0
+    },
+    {
+      "original": 923,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment_assets/selection.rs",
+      "sha256": "162b898d78feeae3507d19844b4b11c999c50edd7609680e5ef7c2fac89486d6",
+      "verified_read_from": "crates/adventuresim-core/src/equipment_assets/selection.rs",
+      "material_reused_ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "proof_status": "Prior personally consumed exact same-lens source/ranges in carried receipts; bytes reverified only this packet. No fresh body-read or ordered/shared credit claimed. Ranges 93990-250 union available prior182/185 portions; no claim of fresh contiguous read.",
+      "extra_original_shared_credit": 0
+    },
+    {
+      "original": 938,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_fit.rs",
+      "sha256": "a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "verified_read_from": "target/recovery-20261025/continuation-segovb/source-objects/a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "material_reused_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "proof_status": "Prior personally consumed exact same-lens source/ranges in carried receipts; bytes reverified only this packet. No fresh body-read or ordered/shared credit claimed. Ranges 93990-250 union available prior182/185 portions; no claim of fresh contiguous read.",
+      "extra_original_shared_credit": 0
+    },
+    {
+      "original": 939,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "verified_read_from": "target/recovery-20261025/continuation-segovb/source-objects/96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "material_reused_ranges": [
+        [
+          90,
+          250
+        ]
+      ],
+      "proof_status": "Prior personally consumed exact same-lens source/ranges in carried receipts; bytes reverified only this packet. No fresh body-read or ordered/shared credit claimed. Ranges 93990-250 union available prior182/185 portions; no claim of fresh contiguous read.",
+      "extra_original_shared_credit": 0
+    }
+  ],
+  "independent_role_inventory": [
+    {
+      "lines": [
+        1,
+        20
+      ],
+      "roles": "catalog_item uses two distinct authored text-key roles (catalog definition and placement), resolves through CatalogArticle::new/Inventory.add, and returns canonical local InventoryItemId. ids deliberately projects borrowed CatalogPiece definitions to displayable/catalog key strings for expected arrays; it drops placement/instance identity only in assertion comparison, not retained application graph state. Repeated leather_boot keys intentionally do not assert equal instance IDs. worn retains typed local instance IDs. Borrow lifetime is actual definition borrow; no bespoke lifetime/token wrapper needed for fixture projection."
+    },
+    {
+      "lines": [
+        22,
+        63
+      ],
+      "roles": "Default recipe/loadout split, replacement, chainmail channel and left/right fit-zone fixtures retain distinct typed IDs through wear/worn/results. String literals select authored catalog records/placements, not generated identity or enum casts. Index0 chooses a known fixture vector position, distinct from InventoryItemId. Bool assertion outcomes are ordinary predicates; stored worn remains the inherited application state question."
+    },
+    {
+      "lines": [
+        65,
+        102
+      ],
+      "roles": "Unsupported typed error pattern, parent dependence, committed attachment usage and sided-parent fixtures call actual wear/fit/dependents/take_off/remove receivers already traced811/920/938. IDs remain distinct parent/child instances in typed APIs. This source expects capacity behavior for a second committed child, not multiple requirements simultaneously reserved by one child."
+    },
+    {
+      "lines": [
+        104,
+        129
+      ],
+      "roles": "Shape token to draped Article, canonical chainmail/coif construction and stable layer sorting feed loadout. Order closures return typed instance IDs. shift(coif,false) twice uses raw direction selector already qualified at809249-260; false is not a new boolean authority. Vector0 is explicit expected order check. Same-layer relative ordering is fixture intent, not a whole numeric scheduling/geometry guarantee."
+    },
+    {
+      "lines": [
+        131,
+        166
+      ],
+      "roles": "Design override is canonical ItemDesign option routed from actual selected catalog item; ItemDesign/ParametricDesign family distinctions already traced183, not a new raw variant tag. let-else unreachable assumes this test-created Article::Catalog. JSON bytes are serialization boundary representation of typed Inventory, not a second key owner. Round-trip equality and explicit parsed.validate are separate expectations: Serde decode is not proven checked aggregate admission. Deliberate duplicated private fixture item must fail explicit validation; no ID allocator/current-runtime uniqueness proof."
+    },
+    {
+      "lines": [
+        168,
+        208
+      ],
+      "roles": "draped takes canonical shapes::Shape into GarmentSelection::from_shape, preserving typed pattern and layer in actual receiver159-165. Named shape constants and FabricPreset select construction/material roles, distinct from article instance IDs. Array iteration order and expected layer-sorted ID arrays are collection order. Outerwear displacement keeps canonical ClothLayer/channel distinction; no independent enum required solely for expected fixture arrays."
+    },
+    {
+      "lines": [
+        210,
+        239
+      ],
+      "roles": "Fixture mutates sewn Pattern.lower to Some(Lower::TROUSERS) while retaining other tunic fields, then sets canonical ClothLayer::Outerwear. Option is actual absence/presence of lower garment, not a magic sentinel. Construction::Sewn payload groups pattern with variant; ClothLayer is independent placement axis. Existing body-location/channel/fit conflict receiver811 consumes component presence and canonical channel. No raw role merger, duplicate owner, frame/unit cast or new independently stored authority introduced in this test file."
+    }
+  ],
+  "actual_contract_traces": [
+    {
+      "role": "Catalog text keys -> actual selected record -> typed instance -> retained loadout",
+      "sources": [
+        "8127-16,23-30,51-62",
+        "80923-67,86-135,208-240,264-350",
+        "76413-21,72-112",
+        "9231-132",
+        "8101-110"
+      ],
+      "disposition": "Keys are open authored selectors; typed local instance IDs and actual borrowed CatalogPlacement are meaningfully different authorities. Fixture key projection is purpose-limited. Inherited key-v-record and internal raw graph-ID questions remain, not solved by these fixture assertions."
+    },
+    {
+      "role": "Parent, side, capacity and location receiving contracts",
+      "sources": [
+        "81265-102",
+        "811131-287",
+        "920197-318",
+        "9381-46",
+        "939193-250"
+      ],
+      "disposition": "Actual producer/graph receivers source-accounted in185 with source witnesses and limitations. 812 second committed child rejection does not exercise185 same-candidate two-requirement allocation; no clearance of that source-backed qualified gap, nor point.locations/traversal legality or authored-data/current-runtime guarantee."
+    },
+    {
+      "role": "Garment constructor/pattern/layer -> occupancy -> stable loadout order",
+      "sources": [
+        "812104-129,168-239",
+        "selection144-185",
+        "81117-100",
+        "81045-110"
+      ],
+      "disposition": "from_shape copies name, sewn pattern and layer; chainmail overrides fabric/drape; coif owns CoifDesign. channel maps Chainmail to FlexibleArmor else ClothLayer.channel. Occupancy uses Pattern component presence, fit conflict checks existing typed location/channel/zone, loadout sorts canonical channel order. Raw shift direction is retained existing scoped role question. No need to traverse pattern solver/native numerical details merely to inventory these fixture payloads; no assertion of native algorithm/admitted shape geometry."
+    },
+    {
+      "role": "Design family and serialization validation",
+      "sources": [
+        "812131-166",
+        "809117-135,174-199,353-360",
+        "81518-118",
+        "6931-83",
+        "81694-171"
+      ],
+      "disposition": "Exact family guard and canonical payload variants already traced183. Existing fixture expects morion/barbute family distinction; authored catalog contents not independently certified or executed here. Serde_JSON round-trip is format boundary followed by separate validation, not automatic unique-ID enforcement. No new compatibility constraint or public raw overload proposed."
+    }
+  ],
+  "qualified_observations": [
+    {
+      "source_key": "pr-working:crates/adventuresim-character-creator/src/inventory/tests.rs@sha256:3c8c66c5b49199d343845589bf635cd68c05dbd740656a1e33bdbc7c0534f4cd#L65-L88:committed-capacity-fixture-scope",
+      "classification": "Evidence coverage limit, not new accepted unique finding",
+      "observation": "Existing fixture creates distinct children sequentially and expects spare child failure after the graph already contains an edge. It does not cover the qualified frozen185 simultaneous same-candidate capacity reservation gap. No permission to add tests inferred."
+    }
+  ],
+  "new_unique_findings": 0,
+  "accepted_unique_count_change": 0,
+  "new_material_receiver_extensions": [],
+  "mandatory_other_lens_extensions": [
+    {
+      "source_id": "pr-working-unchanged-base-dependency:crates/adventuresim-character-creator/src/garment/selection.rs",
+      "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+      "actual_eof": 271,
+      "actual_access": [
+        [
+          1,
+          79
+        ],
+        [
+          111,
+          225
+        ]
+      ],
+      "material_scope": [
+        [
+          1,
+          79
+        ],
+        [
+          111,
+          225
+        ]
+      ],
+      "root_provenance": {
+        "path": "audit11-root-garment-selection-staging-182.json",
+        "sha256": "5e81fcb5f5ca2e8dd9a56703c3cdc10911de94615516d90ed59eb5718d4d1ba4"
+      },
+      "proof": "Exact frozenbase3a50/head6533bytes equal, absent747changes/dirty4; no currentalias or bodycredit fromstaging",
+      "mandatory_other_lenses": "pending",
+      "original_shared_credit": 0
+    }
+  ],
+  "inherited_qualifications": "Retain all795/179 nonfinite admission candidates,178 reciprocal-scale,177 longest phase,174 Draping policy erasure,800 20-bit field capacity/root bounds, current Dressing reconciliation (frozen cast not repeated current), F50/M108/M24 qualifications, source-key crosswalk (no bareQ008/Q009 aliases), exact frozen-v-current separation, all unfinished populations and pending other-lens queues. Preserve177 failed-registration exposed-ranges incident and178 EOF correction; not repeated here. Retain180 frozen/current/nativeSDK/Bevy scheduling/device lifetime limits and172 map-texel-validity-record concern; no canonical alias or accepted unique transfer. Preserve180/181nativeSDK/Bevy scheduling/imagecopylimits andallpendingreceiverqueues. M04current903reviewsseparate; notfrozenoriginal/lenscounts. Packet182InventoryItemId graph erasure, catalogkey/recordidentity and wear/order-selector sourcequestions retained, alias/currentness/unique acceptance unresolved. M04build-target review003 atdf5 andhostedCIseparatefromfrozenauditcounts. 184 newpublicDrapedPiece association/sourcegroupingquestion remainsfrozenlocal, noalias/currentness/uniqueacceptance; producerpathcoherent. M04df5validationseparate. 185 capacityreservationstaticAPIgap retainedasfrozenevidence only; alias/currentness/accepteduniqueness unresolved. No runtimewrongID orauthoredcurrentinputwitness. ExistingID/key/wear/savedassociationquestionsremainqualified. Packet186 independently accounts existing test-source812 only; fixture expectations are not observed execution/whole authored catalog/native guarantees and do not clear185 capacity witness. Existing lower-pattern fixture uses canonical owners; no new current alias or unique finding.",
+  "coverage_limits": [
+    "Original812 full239 personally read after successful prospective registration; no813 body or ordered inventory.",
+    "Prior same-lens receiver reads reused with exact hashes and cited receipts, not invented fresh ranges or automatic future original credit.",
+    "All fixture assertions/helpers preexist; no project/test/check/probe executed, no test/helper/assertion/doc/source added.",
+    "Shape constants/catalog authored data and native geometry implementation not independently validated; no whole shader/SDK/algorithm or runtime/current-family claims.",
+    "Packet185 capacity witness remains static qualified frozen/API evidence pending currentness/alias reconciliation, no accepted unique count.",
+    "Canonical crosswalk, all pending source-v-current/other-lens populations retained; completed source accounting is not global clearance."
+  ],
+  "clear": false,
+  "current_reconciled": false,
+  "integrated": false,
+  "validated": false,
+  "root_adoption_required": true,
+  "product_source_git_ledger_tests_checks_publication": "none; append-only ignored evidence only",
+  "stop": "812complete; no813orderedinventory"
+}

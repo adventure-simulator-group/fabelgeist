@@ -1,0 +1,197 @@
+{
+  "schema": "lens12-discovery-receipt-v1",
+  "batch": "042",
+  "predecessor": "receipt-041-originals234-236.json",
+  "manifest_prefix_sha256": "5dcb6de2477ba0953ff57c05c72fac5824d68e7a330e596a870ca5c6ecc199c1",
+  "sources": [
+    {
+      "original_index": 237,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/lifecycle.rs",
+      "sha256": "e07c9d7949a4086798ee405ba1deac19e4adcbb4e5dc5cf618eba028b229415d",
+      "actual_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              138
+            ]
+          ],
+          "role": "Raw wedding/birth IDs6/11 and stable key19 -> native lookup44; failure event_id77/error String80 -> composite key83 and native state92/95; pregnancy_id100 -> query105/equality119/131.",
+          "disposition": "Actual238 collection79/89, sorting94, and failure121/142 connect these IDs to native state. Canonical open event/pregnancy/key payload fit; typed LifecycleEventKind stable token84 already exists. Diagnostic error is actually stored and character-truncated95, no prose-parser claim. Typed failure causes should survive until external text projection; exact underlying causes remain qualified."
+        }
+      ],
+      "status": "Requested material/full changed scope independently read; source-accounted with findings, unread receivers explicit."
+    },
+    {
+      "original_index": 238,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/mod.rs",
+      "sha256": "e256eb33fd8ea25a8ef2d424cb1638ec08da0f6177bd5d6562cde1212a4b5b49",
+      "actual_ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              217
+            ]
+          ],
+          "role": "Feature names39/53; source include paths46-58/158-169 and test include177-215 are compiler/source-text boundaries. Actual lifecycle application63-154 collects IDs, invokes validators and records caught errors.",
+          "disposition": "Native feature/path/source lexemes are legitimate boundary values; included bodies gain no coverage by inclusion. Raw event identities and error causes follow237/239; no whole lifecycle behavioral verdict."
+        }
+      ],
+      "status": "Requested material/full changed scope independently read; source-accounted with findings, unread receivers explicit."
+    },
+    {
+      "original_index": 239,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/model.rs",
+      "sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+      "actual_ranges": [
+        [
+          1,
+          115
+        ],
+        [
+          250,
+          496
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              115
+            ],
+            [
+              250,
+              496
+            ]
+          ],
+          "role": "KinshipKind native tokens70-73, four temporal error texts41/43/48/50, household/settlement/event/pregnancy/courtship/residence/slice/overlap/pair/commitment IDs throughout the actual registered model fields. LifecycleEventKind tokens458/459, LifecycleEventFailure event_id473/error476.",
+          "disposition": "Typed KinshipKind/HouseholdRole/LifecycleEventKind already retained. Actual236 native key uses stable_id and237 failure key uses event kind, keeping codec at DB boundary; open reference identities should propagate through canonical owners. NpcPolicy home settlement12 connects235 initializer and225 consumer. Field declarations286-443 establish open references, not closed catalogs. No source116-249 or whole496 credit; error causes erased by String before persistence remain finding with underlying producer obligations."
+        }
+      ],
+      "status": "Requested material/full changed scope independently read; source-accounted with findings, unread receivers explicit."
+    },
+    {
+      "original_index": 240,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/newborn_residence.rs",
+      "sha256": "4057e287f3a5f3e79a9925db6a3b0769662f356fc27a8a8f9ea82a4db3b4affc",
+      "actual_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "roles": [
+        {
+          "ranges": [
+            [
+              1,
+              21
+            ]
+          ],
+          "role": "Only string-valued application port settlement_id&str10 -> inherit_parent_home_at14-20; no string literals.",
+          "disposition": "Canonical open SettlementId across the application port; exact residence delegate body remains unread, not inferred from delegation or ignored result. Other values typed/numeric."
+        }
+      ],
+      "status": "Requested material/full changed scope independently read; source-accounted with findings, unread receivers explicit."
+    }
+  ],
+  "connected_findings": [
+    {
+      "family": "Relationship reference identities and failure causes",
+      "sources": [
+        "237:6-95",
+        "238:63-154",
+        "239:1-115,250-496",
+        "240:10-20"
+      ],
+      "remedy": "Propagate canonical open identifiers and typed failure causes through application/state; encode native row keys and diagnostic prose only at actual boundaries. Reuse existing kind/role owners.",
+      "acceptance": "Trace residence inheritance, reproduction/courtship reference producers and native projection recipients; preserve aliases and distinguish open identity from finite event kind. No BC constraints.",
+      "unique_count_delta": 0
+    }
+  ],
+  "pending_contracts": [
+    "Exact residence inherit_parent_home_at body and broader reproduction/courtship reference producers still pending.",
+    "Model116-249 unread; no implicit whole-model coverage.",
+    "All inherited currentness/aliases/F9/M09/all20/P16/P17 and prior receiving obligations retained."
+  ],
+  "qualifications": [
+    "Exact frozen physical-P16 f82 objects, not current aliases.",
+    "No execution/tests/probes/new tests/product/Git mutations/root ledger/publication.",
+    "Source-accounting with findings only; no repaired/native/runtime/global/unique-total/other-lens clearance."
+  ],
+  "proposed_count": {
+    "before": 237,
+    "after": 241,
+    "indices_completed": [
+      237,
+      238,
+      239,
+      240
+    ],
+    "next_original": 241,
+    "overlays_delta": 0,
+    "merged_delta": 0,
+    "material_delta": 0,
+    "requires_root_adoption": true
+  },
+  "mandatory_other_lens_queue": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/lifecycle.rs",
+      "sha256": "e07c9d7949a4086798ee405ba1deac19e4adcbb4e5dc5cf618eba028b229415d",
+      "ranges": [
+        [
+          1,
+          138
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/mod.rs",
+      "sha256": "e256eb33fd8ea25a8ef2d424cb1638ec08da0f6177bd5d6562cde1212a4b5b49",
+      "ranges": [
+        [
+          1,
+          217
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/model.rs",
+      "sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+      "ranges": [
+        [
+          1,
+          115
+        ],
+        [
+          250,
+          496
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/newborn_residence.rs",
+      "sha256": "4057e287f3a5f3e79a9925db6a3b0769662f356fc27a8a8f9ea82a4db3b4affc",
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ]
+    }
+  ]
+}

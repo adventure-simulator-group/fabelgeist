@@ -1,0 +1,104 @@
+[1m[92m    Finished[0m `test` profile [optimized] target(s) in 0.38s
+[1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/adventuresim_tactical_core-1c1f0e01b14fa6e8)
+
+running 97 tests
+test city_layout::grounding::access::tests::approach_crosses_a_shared_street_segment_join_without_requiring_a_single_owner ... ok
+test city_layout::grounding::access::tests::population_6500_seed_42_doorway_join_retains_its_full_near_street_approach ... ok
+test city_layout::grounding::access::tests::repeated_clipping_endpoint_does_not_turn_zero_area_into_a_blocked_route ... ok
+test city_layout::grounding::boundaries::tests::goslar_cut_faces_do_not_cross_the_internal_street_apron_join ... ok
+test city_layout::grounding::boundaries::tests::goslar_street_apron_join_is_internal_to_the_owned_union ... ok
+test city_layout::grounding::foundations::geometry::tests::canonical_planes_reject_cancellation_without_an_absolute_area_floor ... ok
+test city_layout::grounding::foundations::geometry::tests::goslar_1036_clipped_source_preserves_the_represented_geographic_plane ... ok
+test city_layout::grounding::foundations::geometry::tests::represented_edge_queries_do_not_extend_ownership_by_a_contact_margin ... ok
+test city_layout::grounding::foundations::replacement::tests::goslar_965_owned_apron_join_leaves_no_source_sliver_across_the_walkable_route ... ok
+test city_layout::grounding::foundations::settlement::query::tests::nested_margin_reuse_preserves_all_candidates_and_their_shared_edge_order ... ok
+test city_layout::grounding::foundations::settlement::query::transport::tests::binary_index_preserves_branching_bounds_and_exact_triangle_references ... ok
+test city_layout::grounding::foundations::settlement::query::transport::tests::malformed_binary_index_rejects_cycles_and_out_of_range_leaves ... ok
+test city_layout::grounding::foundations::settlement::tests::goslar_properties_share_one_clipped_source_and_iteration_independent_support ... ok
+test city_layout::grounding::foundations::settlement::tests::nearby_properties_are_not_merged_and_overlap_names_both_owners ... ok
+test city_layout::grounding::foundations::settlement::tests::ownership_broad_phase_includes_aprons_beyond_disjoint_rotated_plots ... ok
+test city_layout::grounding::foundations::settlement::tests::repeated_property_and_member_authority_are_rejected_before_clipping ... ok
+test city_layout::grounding::foundations::settlement::tests::retaining_edge_queries_keep_both_bound_levels_without_averaging ... ok
+test city_layout::grounding::foundations::settlement::tests::runtime_terrain_retains_the_accepted_source_diagonal_and_roundtrips_owned_geometry ... ok
+test city_layout::grounding::foundations::settlement::tests::unowned_source_query_does_not_extrapolate_a_nearby_graded_floor ... ok
+test city_layout::grounding::foundations::source::presented::tests::composed_source_retains_fine_mesh_and_exact_presented_seam_with_complete_coverage ... ok
+test city_layout::grounding::foundations::source::presented::tests::source_rejects_offset_and_nonexpanding_rings_instead_of_substituting_another_surface ... ok
+test city_layout::grounding::foundations::source::region::tests::rotated_footprint_measures_hidden_triangle_slope_and_missing_area ... ok
+test city_layout::grounding::foundations::source::tests::boundary_query_preserves_tolerated_segment_sections_and_acute_corner_extensions ... ok
+test city_layout::grounding::foundations::source::tests::complete_surface_comparison_accounts_for_rotated_footprint_intersections ... ok
+test city_layout::grounding::foundations::source::tests::complete_surface_comparison_detects_diagonal_peak_and_missing_coverage ... ok
+test city_layout::grounding::foundations::source::tests::indexed_sampling_retains_canonical_edges_and_reports_missing_source ... ok
+test city_layout::grounding::foundations::source::tests::indexed_source_retains_complete_rotated_intersections_and_interior_peak ... ok
+test city_layout::grounding::foundations::transport::tests::foundation_cells_round_trip_dated_fixture_vertices_topology_and_members ... ok
+test city_layout::grounding::foundations::transport::tests::incomplete_or_changed_prisms_cannot_be_silently_encoded_as_canonical_cells ... ok
+test city_layout::grounding::foundations::transport::tests::malformed_binary_cells_reject_nonfinite_pairs_reversed_heights_and_members ... ok
+test city_layout::grounding::mesh::assembly::tests::oversized_mesh_and_degenerate_doorway_report_exact_owners_without_appending ... ok
+test city_layout::grounding::planar::query::tests::broad_phase_preserves_exhaustive_intersections_and_input_order ... ok
+test city_layout::grounding::planar::query::tests::closed_bounds_keep_touching_regions_and_overlapping_source_references ... ok
+test city_layout::grounding::profile::tests::empty_invalid_and_reversed_profiles_reject_at_construction ... ok
+test city_layout::grounding::profile::tests::interpolation_of_finite_extreme_endpoints_stays_finite ... ok
+test city_layout::grounding::profile::tests::passage_requires_strict_order_and_bounded_grade ... ok
+test city_layout::grounding::profile::tests::stepped_court_preserves_retaining_faces_and_endpoint_interpolation ... ok
+test city_layout::grounding::single::apron::constraint_tests::impossible_crossfall_preserves_crossed_floor_constraints_for_rejection ... ok
+test city_layout::grounding::single::tests::a_contained_centre_cannot_authorize_bearings_outside_its_property ... ok
+test city_layout::grounding::single::tests::an_unsupported_owned_perimeter_is_rejected_instead_of_omitting_its_bank ... ok
+test city_layout::grounding::single::tests::cut_banks_join_natural_ground_to_the_floor_without_adding_occupied_floor_height ... ok
+test city_layout::grounding::single::tests::impossible_single_property_reports_the_same_member_and_exact_access_shortfall ... ok
+test city_layout::grounding::single::tests::recessed_doorway_landings_share_the_floor_without_duplicate_bearings ... ok
+test city_layout::grounding::single::tests::single_property_supports_all_doors_without_levelling_its_court_or_garden ... ok
+test city_layout::grounding::surface::floor::region::tests::architectural_transport_rebuilds_exact_projection_and_rejects_bad_source ... ok
+test city_layout::grounding::surface::floor::tests::partition_admission_rejects_empty_duplicate_and_partial_shared_edges ... ok
+test city_layout::grounding::surface::floor::tests::rounded_architectural_edges_keep_union_coverage_without_masking_missing_faces ... ok
+test city_layout::grounding::surface::floor::tests::signed_zero_shared_edges_cancel_without_changing_vertices ... ok
+test city_layout::grounding::surface::validation::tests::accepted_surfaces_require_selected_treatment_and_exact_member_arity ... ok
+test city_layout::grounding::surface::validation::tests::kassel_18_rounded_bearing_is_valid_but_a_real_concavity_is_rejected ... ok
+test city_layout::grounding::surface_hit::tests::support_rejects_nonfinite_elevation_and_degenerate_normal ... ok
+test city_layout::grounding::tests::a_complete_bearing_rejects_an_interior_ramp_even_when_its_corners_are_level ... ok
+test city_layout::grounding::tests::a_cut_fill_shortfall_does_not_enlarge_the_property_reservation ... ok
+test city_layout::grounding::tests::a_declared_street_apron_that_is_too_short_reports_its_constraint_without_expanding ... ok
+test city_layout::grounding::tests::a_level_court_is_compared_without_lowering_the_separate_gate_to_the_front_floor ... ok
+test city_layout::grounding::tests::a_retaining_edge_exposes_both_levels_instead_of_inventing_one_shared_terrain_datum ... ok
+test city_layout::grounding::tests::a_terraced_court_has_level_open_ground_and_narrow_discrete_stairs ... ok
+test city_layout::grounding::tests::enclosures::boundary_physics_retains_both_windings_thin_prisms_and_contact_cells ... ok
+test city_layout::grounding::tests::enclosures::decoded_enclosures_reject_foreign_owner_roles_elements_and_gate_datums ... ok
+test city_layout::grounding::tests::enclosures::enclosure_projection_ignores_other_property_support_and_is_repeatable ... ok
+test city_layout::grounding::tests::enclosures::enclosure_projection_rejects_missing_wall_bearings_with_exact_property_and_member_ids ... ok
+test city_layout::grounding::tests::enclosures::goslar_1238_enclosure_follows_all_terraces_and_anchors_the_gate_above_the_front_floor ... ok
+test city_layout::grounding::tests::foundations::a_coplanar_source_has_one_foundation_volume_instead_of_duplicate_zero_line_cells ... ok
+test city_layout::grounding::tests::foundations::an_interior_source_peak_is_rejected_even_when_its_corners_fit_cut_fill_limits ... ok
+test city_layout::grounding::tests::foundations::bounded_replacement_removes_interior_ground_without_changing_surrounding_relief ... ok
+test city_layout::grounding::tests::foundations::complete_triangles_reject_boundary_fill_that_a_containment_query_can_miss ... ok
+test city_layout::grounding::tests::foundations::geographic_iteration_and_winding_do_not_change_foundation_geometry ... ok
+test city_layout::grounding::tests::foundations::goslar_foundations_are_closed_and_extend_below_complete_source_intersections ... ok
+test city_layout::grounding::tests::foundations::missing_geographic_coverage_reports_exact_property_and_square_metre_shortfall ... ok
+test city_layout::grounding::tests::foundations::overlapping_geographic_triangles_are_rejected_instead_of_counted_as_support ... ok
+test city_layout::grounding::tests::full_landing_failure_reports_the_old_floor_constraints_without_relaxing_grade ... ok
+test city_layout::grounding::tests::gate_leaf_sweep_and_both_fixed_posts_have_level_support_above_the_front_floor ... ok
+test city_layout::grounding::tests::geographic_selection_prefers_a_level_court_when_complete_support_and_access_fit ... ok
+test city_layout::grounding::tests::goslar_1238_retains_bearings_and_generates_graded_triangles_with_separate_gate_support ... ok
+test city_layout::grounding::tests::goslar_geographic_selection_seats_complete_triangles_and_retains_identity ... ok
+test city_layout::grounding::tests::insufficient_stair_width_reports_its_reserved_boundary_instead_of_clipping ... ok
+test city_layout::grounding::tests::intentionally_invalid_gate_approach_reports_exact_identity_location_and_shortfall ... ok
+test city_layout::grounding::tests::missing_exact_threshold_binding_is_rejected_instead_of_selecting_a_nearby_route ... ok
+test city_layout::grounding::tests::movement::a_riser_above_the_configured_step_limit_remains_blocked ... ok
+test city_layout::grounding::tests::movement::a_surface_only_door_landing_does_not_count_as_usable_architectural_access ... ok
+test city_layout::grounding::tests::movement::an_ordinary_step_with_insufficient_headroom_remains_blocked ... ok
+test city_layout::grounding::tests::movement::gardens::production_garden_routes_allow_entry_tending_and_return ... ignored, requires a frozen production export in FABELGEIST_TERRAIN_SCENE
+test city_layout::grounding::tests::movement::goslar_1238_front_street_door_remains_accessible_in_both_directions ... ok
+test city_layout::grounding::tests::movement::goslar_1238_pedestrian_enters_from_unchanged_geographic_ground_and_traverses_the_court ... ok
+test city_layout::grounding::tests::movement::goslar_1238_pedestrian_traverses_both_court_stairs_without_jumping ... ok
+test city_layout::grounding::tests::movement::goslar_1238_pedestrian_traverses_closed_foundations_without_jumping ... ok
+test city_layout::grounding::tests::movement::goslar_965_street_door_is_traversable_with_an_unchanged_recipe_on_level_ground ... ok
+test city_layout::grounding::tests::movement::goslar_965_uses_its_existing_front_setback_for_geographic_entry_and_return ... ok
+test city_layout::grounding::tests::movement::pedestrian_control_traverses_the_same_compound_on_a_level_court ... ok
+test city_layout::grounding::tests::movement::pedestrian_starts_at_an_ordinary_riser_below_the_configured_step_limit ... ok
+test city_layout::grounding::tests::movement::production::production_compound_routes_allow_entry_thresholds_and_return ... ignored, requires a frozen production export in FABELGEIST_TERRAIN_SCENE
+test city_layout::grounding::tests::movement::single::a_steep_physical_bearing_face_remains_unwalkable ... ok
+test city_layout::grounding::tests::movement::single::goslar_2_pedestrian_starts_on_the_source_clipped_rotated_stair ... ok
+test city_layout::grounding::tests::movement::single::production_single_entrances_allow_full_width_entry_and_return ... ignored, requires a frozen production export in FABELGEIST_TERRAIN_SCENE
+test city_layout::grounding::tests::nonfinite_gate_binding_retains_its_owner_location_and_construction_cause ... ok
+test city_layout::grounding::tests::stair_run_failure_reports_the_required_going_without_changing_floor_levels ... ok
+test city_layout::grounding::tests::support_retains_horizontal_identity_and_is_independent_of_route_iteration_order ... ok
+
+test result: ok. 94 passed; 0 failed; 3 ignored; 0 measured; 313 filtered out; finished in 21.21s
+

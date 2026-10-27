@@ -1,0 +1,307 @@
+{
+  "packet": 178,
+  "lens": 11,
+  "lens_name": "type-granularity",
+  "status": "source_accounted_with_qualified_frame_admission_question",
+  "prior_adopted_state": {
+    "path": "audit11-segovb-177-proposed-state.json",
+    "sha256": "6c0e766a5f21f911d103e8c6458285db6b67e2fc42b59fd32c65d1860f8b3b5d",
+    "adoption": "audit11-segovb-177-adoption-root.json",
+    "adoption_sha256": "7d0ed630ebcd3f943858ac167c792eeea041d1490f71d672f8c36838797472b5"
+  },
+  "authority": {
+    "frozen_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "registry": "target/recovery-20261025/audit05/original-scope-072.json",
+    "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f"
+  },
+  "source": {
+    "original": 805,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/placement.rs",
+    "sha256": "95f08e95fd0815ac957cb0578ef7291036b5d4a9b047e38da1a9f16bdebd4a7f",
+    "bytes": 9565,
+    "actual_eof": 266,
+    "effective_requested_scope": [
+      [
+        1,
+        266
+      ]
+    ],
+    "personally_consumed_this_packet": [
+      [
+        1,
+        140
+      ],
+      [
+        141,
+        266
+      ]
+    ],
+    "full_scope": true,
+    "read_from": "target/recovery-20261025/continuation-segovb/source-objects/95f08e95fd0815ac957cb0578ef7291036b5d4a9b047e38da1a9f16bdebd4a7f",
+    "prior_access": "1-127,129-184 receiverreadsnotorderedcredit; full266independentlyinventoriednow"
+  },
+  "rules": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "51338dad10ee53bbf3fe30525a969aae466e55c746cc0f2dbd7e82a28f2cfe5a",
+      "read_status": "Personallyconsumed177governingrules/skill, sameexactbytesreverified178; user/rootrestrictionsapplied."
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "read_status": "Personallyconsumed177governingrules/skill, sameexactbytesreverified178; user/rootrestrictionsapplied."
+    },
+    {
+      "path": "/home/brunosegovia/.codex/skills/audit-type-granularity/SKILL.md",
+      "sha256": "3a1fbf7f53c752e35eefe7763cbd49b9f280bd4b978ea998f74c3a68e45dc106",
+      "read_status": "Personallyconsumed177governingrules/skill, sameexactbytesreverified178; user/rootrestrictionsapplied."
+    }
+  ],
+  "registrations": [
+    {
+      "path": "audit11-segovb-178-registration-001.json",
+      "sha256": "cada52d9f5d97d5a534190ef0d17933db0b690644178e16363b6ecfd2580b004"
+    },
+    {
+      "path": "audit11-segovb-178-registration-002.json",
+      "sha256": "9849d58240a065f3327163deea73d3e677b695a3e005f3495b80e17ef83cef04"
+    },
+    {
+      "path": "audit11-segovb-178-registration-003.json",
+      "sha256": "a81bdd8b7ae9d84c63fde553c67e3088777191125a4030259be999ecf79482f9"
+    },
+    {
+      "path": "audit11-segovb-178-registration-004.json",
+      "sha256": "95317d35bda3195147a3a69b9f4d1e35ded995a50147bc54add4b3c7d90f815d"
+    }
+  ],
+  "range_qualification": {
+    "path": "audit11-segovb-178-registration-003-eof-qualification.json",
+    "sha256": "d1a8bb7e27d38a064f3197f4b8aa500691a2ed525c290c8be234106c85750297",
+    "detail": "003requestedskin213-228butsourceactualEOF226, whichwasrecordedin003; actualbodyconsumed213-226only. NocoveragepastEOFandnoidentityremap. Allactualbodyconsumptioncontainedwithinprospectivelyregisteredrange."
+  },
+  "new_connected_source_reads": [
+    {
+      "original": 2332,
+      "source_id": "pr-working:crates/fabelgeist-rig/src/lib.rs",
+      "sha256": "7e73efb0a5ce824e111c2d28e54a5422b75bdca12e0c7553423dc0dfab8f563b",
+      "actual_eof": 155,
+      "ranges": [
+        [
+          40,
+          75
+        ],
+        [
+          116,
+          145
+        ]
+      ],
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/7e73efb0a5ce824e111c2d28e54a5422b75bdca12e0c7553423dc0dfab8f563b",
+      "original_shared_credit": false
+    },
+    {
+      "original": 2337,
+      "source_id": "pr-working:crates/fabelgeist-rig/src/table.rs",
+      "sha256": "491cfcace087aef015067a75e218e3bee9dc3c1e8bf681b40afa840f806da282",
+      "actual_eof": 108,
+      "ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/491cfcace087aef015067a75e218e3bee9dc3c1e8bf681b40afa840f806da282",
+      "original_shared_credit": false
+    },
+    {
+      "original": 2336,
+      "source_id": "pr-working:crates/fabelgeist-rig/src/skin.rs",
+      "sha256": "c1c856dd707201d43249ad4e61576728edf4ff9a2a2d1dbf68f6c980a1c2d206",
+      "actual_eof": 226,
+      "ranges": [
+        [
+          1,
+          35
+        ],
+        [
+          133,
+          169
+        ]
+      ],
+      "read_from": "target/recovery-20261025/continuation-segovb/source-objects/c1c856dd707201d43249ad4e61576728edf4ff9a2a2d1dbf68f6c980a1c2d206",
+      "original_shared_credit": false,
+      "actual_consumed_ranges": [
+        [
+          1,
+          35
+        ],
+        [
+          133,
+          169
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-rig/src/skin.rs",
+      "sha256": "c1c856dd707201d43249ad4e61576728edf4ff9a2a2d1dbf68f6c980a1c2d206",
+      "actual_eof": 226,
+      "ranges": [
+        [
+          37,
+          57
+        ],
+        [
+          105,
+          132
+        ],
+        [
+          175,
+          190
+        ],
+        [
+          213,
+          228
+        ]
+      ],
+      "original_shared_credit": false,
+      "actual_consumed_ranges": [
+        [
+          37,
+          57
+        ],
+        [
+          105,
+          132
+        ],
+        [
+          175,
+          190
+        ],
+        [
+          213,
+          226
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair_preview.rs",
+      "sha256": "800207ff944cfc7487b00bfbaa888dbe254ec85340094e9104c392b54b14ea78",
+      "actual_eof": 343,
+      "ranges": [
+        [
+          78,
+          109
+        ]
+      ],
+      "original_shared_credit": false
+    }
+  ],
+  "inherited_actual_source_contracts": [
+    {
+      "receipt": "audit11-segovb-170-796-complete.json",
+      "sha256": "429b079349ab86d448549a150f71dfe5cc39b2038549d5b94f7e9f316609d653",
+      "use": "ScalpCap.fit mapsbustpointtobody,normalinverse-transpose; scalpmap/hairlineuseoriginalbustpoint. Exact796f15... identity andframeportsretained."
+    },
+    {
+      "receipt": "audit11-segovb-171-797-complete.json",
+      "sha256": "a84068ba273bbdaeb01127bfa94dbc911fee5a741db2a3da32a8c7e15d4fb235",
+      "use": "HairGeometry.carried actualfrom.bust_point->to.point,from.bust_normal->to.normal,from.bust_direction->to.direction withunchangedUV/topology. Concreteexistingreceivingboundary of inverse/forwardmethods."
+    },
+    {
+      "receipt": "audit11-segovb-174-801-complete.json",
+      "sha256": "f1f7fba67f7d06187aaec09a7db85bf90518983022b37af3ecde2b7ee7d4c699",
+      "use": "NativeGPUframecoefficients derivesorigin/axesfromplacement.point; inverseaxislengths andcarry_normal shadernativeport; rootbounds/fadethresholdpointmapping. No801orderedcreditagain."
+    },
+    {
+      "receipt": "audit11-segovb-176-803-complete-001.json",
+      "sha256": "170225a7655e70ba202c3c44b98d71a69e4c329cb3a39c9bee5e8ef35d25b7a4",
+      "use": "Previewmeshheadjointcheckednativeu16conversion andfourbufferdirectretention, no universalrigmembershipfromwidthcheck."
+    },
+    {
+      "receipt": "audit11-segovb-177-804-complete-001.json",
+      "sha256": "10b0476156bb5d27b68414859850f1231cbbf0eff423e15d5ce74c8880944f90",
+      "use": "GroomedHair.place/prepare retainsplacement/cap/body,physicalbustbounds carried8corners,identitybustworkflow,previewworkerreceiver. All177registrationincident/currentness/longestqualificationspreserved, no newcreditforpriorreads."
+    }
+  ],
+  "inventory_and_contract_traces": [
+    {
+      "role": "HeadSkin native borrowed columns",
+      "locations": "80515-23,51-68,187-219;80778-109;RigJointTable1-101;PackedRigSkin1-35,133-169",
+      "disposition": "HeadSkin tiesmodelmetrepositions,8wideinfluences/weights,namedrigorder andglobalrest-statecolumn intooneborrowednumericalinput. Native8floatstatebuffer suppliestranslationxyzforanatomicaljoints; remainingquaternion/scalecomponentsunusedbyfit. ActualBodyHead clonesgeneratedpositions/globalstates andmodelmesh/skin/names,thenborrowsallfieldsforfit. Sourceassociationisexplicitwiring,notproofanyBodyModel/GeneratedCharacterpairbelongs tosameinstance."
+    },
+    {
+      "role": "Rig names versus ordinals, vertex slots and count bounds",
+      "locations": "80552-68,193-201;riglib48-58,127-145;table48-68,94-101;skin105-117,138-168,175-188,213-224",
+      "disposition": "RigJointName.index_in returnsfirstmatchingsemanticlabelasRigJointOrdinal;MissingJointownsexactqueryname. Head/eyeordinalsderivedfromnames withinitsactualtable; globalstateslencheckedagainstnameslenbeforetypedordinalindex. NativePackedRigSkin.vertex(index) traversessamevertexenumeration checkedbypositions/skin/weightlengths,returns8typedordinals,notvertexslots. Sumweightsfortypedheadordinaldoesnotcastitintoarbitraryusize. Nativefrom_nativeandencodecheckwordrepresentabilityandactualRigJointCount bound; countfromtable isdifferentrolethanordinal. Typedtable/countdocsexplicitlydisclaimuniversalinstanceidentity; equalboundcheckdoesnotprovecommonrigassociation. No invalidhistoricalDressingcastclaimtransferredhere."
+    },
+    {
+      "role": "HeadPlacement error states",
+      "locations": "80525-36,51-77",
+      "disposition": "Closederrorenum separatesinconsistentcolumns,missingnamedjoint(payload),noheadvertices,andnonspecificusablefacingabsence. Resultreturnsconcreteownererrorratherthanbranchingonprose; NoFacingcoversnormalizeunusablevectorpredicate. No needpayloadsforallvariantsoronecorrelatedenumforindependentinputcolumns. Missingfinite/reciprocalscaleadmissionquestionrecordedbelow,notfalselyclaimedexistingerrorvariant."
+    },
+    {
+      "role": "HeadExtent projected measurements",
+      "locations": "805179-236",
+      "disposition": "Privatecoherentrecord keepsside/forwardranges andcrownalongactualconstructedorthogonalbasis. Theseareprojectedphysicalextents,notglobalaxisalignedboundingboxoronegenericunitinterval. Bodyofiteratesnativevertices,addsallheadinfluenceweights,includesshare>=.5 andupdatesperaxisminmax/crownmax. Optionmeansnoqualifyingvertexfound; thresholdisexplicitnumericclassificationpolicy,notaboolcarriedacross APIs. Bustextentusesears/skull/nosephysicalgeometrytodefinesameorientationroles. No universalweightnormalization/finiteness/catalogpositivityorbodygeometryguarantee."
+    },
+    {
+      "role": "Frame, anisotropic scale and affine origin",
+      "locations": "80538-48,69-104",
+      "disposition": "MeaningfulHeadPlacementowner mapsthecanonicalbustframetocharacter modelspace. Facingfromeye-midpointminustheheadtranslationisprojectedhorizontalandcheckedbyfinitepositivevectorlength;side=crossup/forward. Scale_side deriveswidthratio,scale_forwarddepthratio,scale_upmeanofboth;origin alignsrange-centersandcrowns. Scaledaxes andstoredfactors constructedfromsamevaluesinfit/identity; thislocalrelationdoesnotjustifyuniversalorthogonality/reciprocal/finitenessguarantees. Avoidmergingpoint,normal,tangentorframeownerssolelybecausefloattriplesmatch."
+    },
+    {
+      "role": "Forward point versus direction versus normal",
+      "locations": "805107-126,140-145;cap796/geometry797/GPU801actualreceiversabove",
+      "disposition": "pointaddsorigintranslationandscaledaxes;directionusesaxeswithoutoriginthenormalizes;normalusesinverse-transposefactor1/(scaleaxis squared) before normalization. Actualcapconsumernormal andHairGeometrycarriednormaldifferfromtangentdirectionunderanisotropicstretch; theseareconcretemixups thedistinctmethodsandownerprevent. Nativearraysatthisexplicitdocumentedmathematicalportarenotblanketpermissionforarbitrarysemanticprimitive APIs."
+    },
+    {
+      "role": "Inverse mappings and identity",
+      "locations": "805128-138,147-176;geometry797136-159;804131-138",
+      "disposition": "bust_pointsubtractsoriginthenprojectsontoaxesdividedbyscale\u00b2;bust_directionusesprojection/scale\u00b2thenormalizes;bust_normalusesaxisdotthenormalizes(covectorinverse). ActualHairGeometry.carriedfirstmapsfrommodelsourcetobustthenappliesdestinationmap,keepingUV/optical/topologychannelsunchanged. identityconstructszeroorigin,canonicalunitaxes/unitfactorsandexplicittypedheadordinalforbustcomparison;0ordinalinthe804callerisa literalrigport,notsemanticstringorcompatfallback."
+    },
+    {
+      "role": "Native helper arithmetic and normalization",
+      "locations": "805239-266",
+      "disposition": "add/sub/scale/dot/cross arehomogeneous3componentnumericaloperations; normalize returnsNoneunlesslength>0andfinite,thenrescales. Ordinarymathpredicates/Optionabsencearenotnewdomainstateenums. Thisreadestablishesactualguard,notfullfloatingpoint/numericalconditioning/NaN/overflowaccuracyorcanonicalvectorlibraryreview."
+    }
+  ],
+  "qualified_observations": [
+    {
+      "source_key": "SEGOVB11-178-805-RECIPROCAL-SCALE-ADMISSION",
+      "classification": "frozen source-backed frame-owner admissionquestion; notaccepteduniqueorcurrentdefect",
+      "evidence": "fitcomputesscale_side,widthratio;scale_forward,depthratio;scale_upmean(81-84),thenreturnsHeadPlacementwithoutfinite/nonzerofactorcheck(95-104). HeadExtent.ofonlyrequiresonequalifyingvertexanddoesnotenforcepositive side/depthspan(192-219);of_bustreturnsrawauthoreddimensions. bust_point,normal,bust_directionlaterdividebyscale\u00b2(118-137,149-157). Thussourcehasnoadmittedreciprocalscalecontractmatchingthoseactualinverseconsumers.",
+      "coherent_next_reconciliation": "PinactualcurrentcanonicalHead/BodyHead/placementandexistingadmission/framefindingaliases first. Ifstillrequired, choosecheckedfinite/nonzeroscale/frameadmission andowningtypederror or anexplicitcoherentdegenerate-framepolicyacrossCPU/GPUports; donotinventarbitrarymaximum/minimumorpositivitypolicybeyondactualinvertibilityrequirements. No test/probe/newcasecreated.",
+      "limits": "No actualgamebodyoccurrence,catalogfailure,universalrigassociationrequirement,currentcompletefamilycomparison orglobaluniquealiasacceptance."
+    },
+    {
+      "source_key": "SEGOVB11-177-804-LENGTH-PHASE-RETENTION",
+      "relationship": "805explicitnonuniformscaleformula supportsinheritedphasequestion; no newfinding orclosure",
+      "evidence": "80581-84,97-102 usewidth/depthscale;804retainsbustlongestunchanged. Thisdoesnotbyitselfproveactualrenderdefect oracceptableboundstrategy."
+    }
+  ],
+  "coverage_limits": [
+    "Full805266linesindependentlyinventoried; no806orderedinventory. Newconnectedowners2332/2336/2337/807retainfuturefullrequestedscopesandzerooriginal/sharedcredit.",
+    "Existingoriginalreceiveridentitiesonly,notnewunchangeddependencyobjects. Allpriorother-lensmandatoryqueuesremainpending; thisreadconfersnoother-lensverdict.",
+    "Table/skinactualsourceboundscontractsandtypedlookuparetraced,notwholeRig/GeneratedCharacter/nativeMHRproducer,body-instanceassociationorcurrentfamilyvalidation.",
+    "Headanatomy/skinweights/extentsareactualnumericalinputports; finite/unit/strictpositivegeometry/boundsandphysicaladmissionnotuniversallyproved. No fullnativehead/driver/SDF/solverguarantee.",
+    "Draping,20bitfieldcapacity,rootbounds,longestphase,795NaN,currentDressing,F50/M108/M24,crosswalk andallunfinishedpopulations preserved. No accepteduniquealias/countchange; bareQ008/Q009notrepurposed.",
+    "No backwardcompatibilityrequirements. No product/source/Git/rootledger/historymutations,projectexecution/tests/cases/helpers/assertions/doctestsorpublication. Ignoredappend-onlyevidenceonly."
+  ],
+  "new_unique_findings": 0,
+  "accepted_unique_count_change": 0,
+  "source_accounting_not_clearance": true,
+  "clear": false,
+  "integrated": false,
+  "validated": false,
+  "proposed_frontier": {
+    "original_accounted": 806,
+    "original_total": 2853,
+    "next_original": 806,
+    "active_partial": null,
+    "newly_source_accounted": [
+      805
+    ]
+  },
+  "root_adoption_required": true,
+  "stop": "178saved;stopbefore806orderedwork"
+}

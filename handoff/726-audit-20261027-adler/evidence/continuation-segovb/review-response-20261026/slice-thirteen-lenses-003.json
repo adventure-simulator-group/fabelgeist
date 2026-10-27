@@ -1,0 +1,114 @@
+{
+  "scope": "Root reassessment of seven-file clean error delta only, full current bodies and actual patch read; separate independent connected-receiver reviews; no global clearance",
+  "base": "323789dd1beca252d4515c580573596ca0c98143",
+  "head": "c8eccb6706c160c21b337c49b401b2f2737513a8",
+  "at": "2026-10-26T21:17:25.287136+00:00",
+  "source_manifest": "combined-pr-source-manifest-004.json",
+  "lenses": [
+    {
+      "number": "01",
+      "name": "producer propagation",
+      "source_backed_trace": "Three view producers construct Observation directly with original request, matching operation and exact scope cause; no intermediary classification helper. Existing generic ComputePass recipients accept the composed Error via standard conversion; independently traced in fresh reports.",
+      "global_clearance": false,
+      "validation": "Same-head hosted acceptance pending"
+    },
+    {
+      "number": "02",
+      "name": "existing type owners",
+      "source_backed_trace": "TextureFormat and SDK Error/PollError remain authoritative leaves. Observation composes the single shared ValidationScopeError rather than recreating its failure variants.",
+      "global_clearance": false,
+      "validation": "Same-head hosted acceptance pending"
+    },
+    {
+      "number": "03",
+      "name": "admission",
+      "source_backed_trace": "finish exhaustively maps actual poll/capture outcomes to success, Native, Progress or ProgressWithNative; no missing mandatory cause or fallible string classification. Unit absence states carry no cause.",
+      "global_clearance": false,
+      "validation": "Same-head hosted acceptance pending"
+    },
+    {
+      "number": "04",
+      "name": "operations",
+      "source_backed_trace": "finish attempts poll then always pops the same-device guard, before classifying all four outcomes. Every observed failure propagates before returning the new view. No arithmetic or new cache mutation added.",
+      "global_clearance": false,
+      "validation": "Same-head hosted acceptance pending"
+    },
+    {
+      "number": "05",
+      "name": "aggregate states",
+      "source_backed_trace": "ProgressWithNative owns both required causes. Native-only and polling-only variants own exactly their required cause. Removed separate Progress struct with optional native field; no old tag/payload pairing retained.",
+      "global_clearance": false,
+      "validation": "Same-head hosted acceptance pending"
+    },
+    {
+      "number": "06",
+      "name": "type ownership",
+      "source_backed_trace": "Scope failures live in globals shared scope owner; whole-texture error owns only operation/request context plus canonical scope failure. Exports remove obsolete wrapper. No duplicate owner added.",
+      "global_clearance": false,
+      "validation": "Same-head hosted acceptance pending"
+    },
+    {
+      "number": "07",
+      "name": "redundant authority",
+      "source_backed_trace": "Operation role and failure kind are independent; one Observation carries each once. Poll and native errors are independently observed evidence, not competing copies of one result. Removed duplicate per-operation native variants.",
+      "global_clearance": false,
+      "validation": "Same-head hosted acceptance pending"
+    },
+    {
+      "number": "08",
+      "name": "behavior preservation",
+      "source_backed_trace": "Intentional final API and diagnostic changes follow explicit user direction: composed Observation replaces boxed native/progress variants, immediate source becomes scope error, polling failures select poll as primary. No historical API/layout/downcast/message constraints. Required cache admission, descriptor, original request and always-pop semantics remain source-visible.",
+      "global_clearance": false,
+      "validation": "Same-head hosted acceptance pending"
+    },
+    {
+      "number": "09",
+      "name": "enum shapes",
+      "source_backed_trace": "Texture error has two resource absences and one operation-context observation failure. Scope error has three actual failure products. Successful observation remains Result::Ok, with no extra success tag or optional cause combinations.",
+      "global_clearance": false,
+      "validation": "Same-head hosted acceptance pending"
+    },
+    {
+      "number": "10",
+      "name": "derivability",
+      "source_backed_trace": "Both TextureViewError and ValidationScopeError derive Debug, Display and Error with explicit source selection. Manual traits, boxed layout, ValidationProgressError, from_observation and unused into_anyhow removed. Locked macro semantics independently read and reviewed.",
+      "global_clearance": false,
+      "validation": "Same-head hosted acceptance pending"
+    },
+    {
+      "number": "11",
+      "name": "type granularity",
+      "source_backed_trace": "One operation enum expresses 2D/3D/cube roles; no per-operation copy of scope failure model. Three scope failure variants reflect actual distinct payload requirements. No new primitive wrapper without policy.",
+      "global_clearance": false,
+      "validation": "Same-head hosted acceptance pending"
+    },
+    {
+      "number": "12",
+      "name": "magic strings",
+      "source_backed_trace": "Display attributes are human diagnostics of typed fields. No branching on message text or semantic string selector. Removed old prefix/downcast promises; current documentation describes final shape and sources.",
+      "global_clearance": false,
+      "validation": "Same-head hosted acceptance pending"
+    },
+    {
+      "number": "13",
+      "name": "magic numbers",
+      "source_backed_trace": "No numeric tuning or gameplay quantity introduced. Existing cube layer count6 is intrinsic descriptor geometry. Error payload leaves are SDK-owned; no new tests/assertions/constants.",
+      "global_clearance": false,
+      "validation": "Same-head hosted acceptance pending"
+    }
+  ],
+  "supersedes": "slice-thirteen-lenses-002 historical Box-layout/source preservation decisions; no backward compatibility is an acceptance requirement",
+  "evidence": [
+    "clean-error-actual-diff-001.patch",
+    "clean-error-code-review-001.json",
+    "clean-error-rule-review-001.json",
+    "clean-error-comment-review-001.json"
+  ],
+  "frozen_original_count_delta": 0,
+  "global_clearance": false,
+  "limits": [
+    "All20 families and all13 broader lens populations remain mandatory and incomplete",
+    "No local project execution or new tests",
+    "Other previously reached material stays in mandatory lens queues; no automatic global coverage"
+  ]
+}

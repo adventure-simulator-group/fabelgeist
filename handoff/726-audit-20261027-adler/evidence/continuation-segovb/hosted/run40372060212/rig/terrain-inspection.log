@@ -1,0 +1,19 @@
+[1m[92m   Compiling[0m adventuresim-tactical-server-dispatcher v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-server-dispatcher)
+[1m[92m    Finished[0m `test` profile [optimized] target(s) in 3.50s
+[1m[92m     Running[0m unittests examples/inspect-city-grounding.rs (target/debug/examples/inspect_city_grounding-dddecf296dfdb8a0)
+
+running 11 tests
+test footprint::tests::intersections_follow_the_collision_heightfield_diagonal ... ok
+test footprint::tests::rotated_footprint_detects_an_interior_terrain_peak_absent_from_corners ... ok
+test footprint::vista::tests::vista_diagonal_is_distinct_from_the_playable_collision_diagonal ... ok
+test footprint::vista::tests::vista_footprint_finds_interior_peak_and_accounts_for_complete_area ... ok
+test solutions::input_tests::proposed_levels_reject_malformed_or_unrepresentable_capture_values ... ok
+test solutions::quantities::tests::linear_cut_fill_is_split_at_the_zero_line_instead_of_cancelling_out ... ok
+test support_regions::distance::tests::crossed_edges_touching_edges_and_separated_contacts_are_distinguished ... ok
+test support_regions::tests::goslar_1238_post_reaches_the_contact_envelope_despite_hinge_clearance ... ok
+test terraces::gate_approach::tests::goslar_1238_interior_endpoint_feasibility_does_not_accept_the_gate ... ok
+test terraces::tests::a_nearby_route_cannot_replace_a_missing_threshold_binding ... ok
+test terraces::tests::goslar_1238_requires_a_stepped_court_and_reserves_both_landings ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s
+

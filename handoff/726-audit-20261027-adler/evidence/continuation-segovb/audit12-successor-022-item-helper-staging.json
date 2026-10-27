@@ -1,0 +1,102 @@
+{
+  "at": "2026-10-27T00:42:07.495960+00:00",
+  "sources": [
+    {
+      "source_id": "physical-p16-unchanged-base:crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+      "path": "crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+      "staged_path": "target/recovery-20261025/continuation-segovb/source-objects/a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+      "sha256": "a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+      "lines": 49,
+      "provenance": "Exact a120 base; absent159changed/status entries",
+      "body_credit": false,
+      "locators_only": [
+        [
+          7,
+          "pub(super) fn finite_in("
+        ],
+        [
+          27,
+          "pub(super) fn positive_f32_in("
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-unchanged-base:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "path": "crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "staged_path": "target/recovery-20261025/continuation-segovb/source-objects/9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "sha256": "9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "lines": 185,
+      "provenance": "Exact a120 base; absent159changed/status entries",
+      "body_credit": false,
+      "locators_only": [
+        [
+          5,
+          "pub(super) const PLACEMENT_FIELDS: &[&str] = &["
+        ],
+        [
+          14,
+          "pub(super) fn validate_dependencies("
+        ],
+        [
+          33,
+          "pub(super) fn validate_layer_precedence("
+        ],
+        [
+          58,
+          "pub(super) fn validate_occupancy("
+        ],
+        [
+          145,
+          "#[cfg(test)]"
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-unchanged-base:crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+      "path": "crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+      "staged_path": "target/recovery-20261025/continuation-segovb/source-objects/1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+      "sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+      "lines": 219,
+      "provenance": "Exact a120 base; absent159changed/status entries",
+      "body_credit": false,
+      "locators_only": [
+        [
+          8,
+          "pub(super) fn validate_equipment_surface("
+        ],
+        [
+          55,
+          "fn validate_equipment_surface_span("
+        ],
+        [
+          132,
+          "fn anatomical_body_part(region: &str) -> &str {"
+        ],
+        [
+          147,
+          "fn contiguous_regions(proximal: &str, distal: &str) -> bool {"
+        ],
+        [
+          160,
+          "#[cfg(test)]"
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16-unchanged-base:crates/adventuresim-core/src/item_catalog_validation_material.rs",
+      "path": "crates/adventuresim-core/src/item_catalog_validation_material.rs",
+      "staged_path": "target/recovery-20261025/continuation-segovb/source-objects/823eb461e0534843b71a2b8199e6428fd9a558cf9bc1387beedf87500bf71f8a",
+      "sha256": "823eb461e0534843b71a2b8199e6428fd9a558cf9bc1387beedf87500bf71f8a",
+      "lines": 17,
+      "provenance": "Exact a120 base; absent159changed/status entries",
+      "body_credit": false,
+      "locators_only": [
+        [
+          1,
+          "pub(crate) fn is_equipment_material_name(value: Option<&str>) -> bool {"
+        ]
+      ]
+    }
+  ],
+  "no_body_credit": true
+}

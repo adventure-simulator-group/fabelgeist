@@ -1,0 +1,165 @@
+{
+  "members": [
+    {
+      "overlay_index": 9,
+      "registration_id": "CONT-OWNER-RANGE-EXTENSION-010",
+      "source_id": "pr-working:crates/fabelgeist-physics/src/wgsl.rs",
+      "sha256": "a1f915887fcad485606bdc80aae9a12f5224233a774693b02d40df0f1d1ebb95",
+      "registered_ranges": [
+        [
+          386,
+          413
+        ]
+      ],
+      "personally_read_registered_ranges": [
+        [
+          386,
+          413
+        ]
+      ],
+      "disposition": "Triangle bounds shader count protects primitive ordinal only, indexed position validity and finite nonnegative margin must come from actual producer. Zero vec4w is native padding. Existing own F007 refers distinct box center normal, not triangle bounds; no global physics clearance."
+    },
+    {
+      "overlay_index": 10,
+      "registration_id": "CONT-OWNER-RANGE-EXTENSION-011",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/prepared.rs",
+      "sha256": "93f6d71ef4483adfa946c8c19da9692b9843eb84629a32210c1652a3978b3e4d",
+      "registered_ranges": [
+        [
+          51,
+          54
+        ]
+      ],
+      "personally_read_registered_ranges": [
+        [
+          51,
+          54
+        ]
+      ],
+      "disposition": "Prepared install cache append and returned Arc occur after checked collision-center origin and facade openings construction; fresh1-50 reads aggregate before tail. Geometry batches install counts/materials/transforms; independently supplied geometry/recipe coherence not proved merely by typing."
+    },
+    {
+      "overlay_index": 11,
+      "registration_id": "CONT-OWNER-RANGE-EXTENSION-012",
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/surface.rs",
+      "sha256": "d6e8b3b39d21c87e2a7c4d51f25b2e9e57b2a884a87b2b8fad17b24b1a2d1087",
+      "registered_ranges": [
+        [
+          1,
+          119
+        ],
+        [
+          166,
+          199
+        ]
+      ],
+      "personally_read_registered_ranges": [
+        [
+          1,
+          119
+        ],
+        [
+          166,
+          199
+        ]
+      ],
+      "disposition": "Fixed48rim/12rings/40fan columns define indexed crown topology. Fresh120-165 connects fan columns and shared rimendpoint identities; repeatedtriangle IDs skipped. CoordSurface connect assumes equal nonempty rings, actual private producers herefixed; no arbitrarymalformed caller witness. No GPU topology acceptance."
+    },
+    {
+      "overlay_index": 12,
+      "registration_id": "CONT-OWNER-RANGE-EXTENSION-013",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "registered_ranges": [
+        [
+          1086,
+          1089
+        ]
+      ],
+      "personally_read_registered_ranges": [
+        [
+          1086,
+          1089
+        ]
+      ],
+      "disposition": "Remainingcapacity checks itemdefinition, graphusedvolume plus liquid via checked addition then checked subtraction. Exteriorvolume/capacity distinction retained; actual liquid doublecount question requires graph implementation/producers, no new finding from arithmetic alone."
+    },
+    {
+      "overlay_index": 13,
+      "registration_id": "CONT-OWNER-RANGE-EXTENSION-014",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/family.rs",
+      "sha256": "39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "registered_ranges": [
+        [
+          106,
+          126
+        ]
+      ],
+      "personally_read_registered_ranges": [
+        [
+          106,
+          126
+        ]
+      ],
+      "disposition": "Age refresh derives authoritative signedbirth minute and changescached display age only ifchanged. SeededHouseholdPlan explicitlyholds household/family IDs, member roles and kinships; parent trace of completehouseholdrequired for crossrelation coherence; no fabricatedclockabsence."
+    },
+    {
+      "overlay_index": 14,
+      "registration_id": "CONT-OWNER-RANGE-EXTENSION-015",
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "registered_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "personally_read_registered_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "disposition": "SummaryIcon groups label/tooltip/rank/kind with variants carrying differingpayloads; finite_rank clamps display finite0..5 and mapsnonfinite0, not retained authoritative skillstate. Fresh62-105 shows source same sixterrain calculation already ownF006; preserve exactexisting finding, no duplicateacceptance."
+    }
+  ],
+  "source_authority": "frozen f82adcabd9 registration navigation; raw origin proof pending",
+  "supporting_actual_ranges": {
+    "1522": [
+      [
+        1,
+        50
+      ]
+    ],
+    "2188": [
+      [
+        120,
+        165
+      ],
+      [
+        200,
+        205
+      ]
+    ],
+    "220": [
+      [
+        1050,
+        1085
+      ]
+    ],
+    "236": [
+      [
+        79,
+        106
+      ]
+    ],
+    "2402": [
+      [
+        62,
+        105
+      ]
+    ]
+  },
+  "first_unfinished_overlay_index": 15,
+  "findings": []
+}

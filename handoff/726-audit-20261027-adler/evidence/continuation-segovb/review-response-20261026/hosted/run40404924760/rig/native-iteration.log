@@ -1,0 +1,30 @@
+[1m[92m   Compiling[0m adventuresim-world-schema v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-world-schema)
+[1m[92m   Compiling[0m fabelgeist-determinism v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-determinism)
+[1m[92m   Compiling[0m fabelgeist-geometry v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-geometry)
+[1m[92m   Compiling[0m adventuresim-puzzles v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-puzzles)
+[1m[92m   Compiling[0m adventuresim-weapon-model v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-weapon-model)
+[1m[92m   Compiling[0m bevy_ahoy v0.2.0 (/home/runner/work/fabelgeist/fabelgeist/vendor/bevy_ahoy)
+[1m[92m   Compiling[0m adventuresim-dialogue v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-dialogue)
+[1m[92m   Compiling[0m adventuresim-core v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-core)
+[1m[92m   Compiling[0m adventuresim-building-generator v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-building-generator)
+[1m[92m   Compiling[0m adventuresim-stdb-client v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-stdb-client)
+[1m[92m   Compiling[0m adventuresim-tactical-core v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-core)
+[1m[92m   Compiling[0m adventuresim-tactical-netcode v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-netcode)
+[1m[92m   Compiling[0m adventuresim-tactical-server v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-server)
+[1m[92m    Finished[0m `test` profile [optimized] target(s) in 3m 25s
+[1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/adventuresim_tactical_server-4cf2bb4b10085b84)
+
+running 10 tests
+test iteration::tests::committed_sword_uses_buckler_and_is_transformed_before_contact ... ok
+test iteration::tests::duel_uses_production_bot_and_combat_observers ... ok
+test iteration::tests::fixed_seed_replays_identically ... ok
+test iteration::tests::fixed_step_advances_production_skeleton_projection ... ok
+test iteration::tests::parry_consumes_the_committed_attack_before_any_later_riposte ... ok
+test iteration::tests::production_dodge_observers_cover_a_seeded_melee_sample ... ok
+test iteration::tests::production_polearm_seeks_authored_head_band_and_uses_live_contact_revalidation ... ok
+test iteration::tests::pursued_melee_bot_with_disabled_weapon_arm_withdraws_then_yields ... ok
+test iteration::tests::simultaneous_terminal_state_is_a_mutual_incapacitation_not_a_timeout ... ok
+test iteration::tests::unresolved_healthy_combatants_at_the_tick_limit_are_a_timeout ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 133 filtered out; finished in 20.47s
+

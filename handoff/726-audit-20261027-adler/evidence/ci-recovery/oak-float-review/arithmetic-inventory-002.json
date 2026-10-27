@@ -1,0 +1,470 @@
+{
+  "source_head": "91e7d86403ea969b573366506106de5e7e17d3ea",
+  "same_bytes_as": "8d6bc9672da4e63d5545ead34589fd950d29e988",
+  "supersedes": "arithmetic-inventory-001.json incorrectly stopped skeleton at isolated cfg(test) helper86;002 corrects to actual test module789. No coverage from001 partial skeleton inventory.",
+  "records": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs",
+      "sha256": "d59e5d0392bd0c25edf67def3a92e1331ade6a36f935411a7b6847f61525c4c1",
+      "inventory_end_line": 788,
+      "arithmetic_locators": [
+        {
+          "line": 77,
+          "method": "remainder_operator",
+          "actual_source_line": "let mut delta = (to - from) % core::f32::consts::TAU;"
+        },
+        {
+          "line": 96,
+          "method": "powf",
+          "actual_source_line": "start_radius.lerp(end_radius, t.clamp(0.0, 1.0).powf(0.64))"
+        },
+        {
+          "line": 151,
+          "method": "cos",
+          "actual_source_line": "let outward = Vec3::new(phase.cos(), 0.0, phase.sin());"
+        },
+        {
+          "line": 151,
+          "method": "sin",
+          "actual_source_line": "let outward = Vec3::new(phase.cos(), 0.0, phase.sin());"
+        },
+        {
+          "line": 152,
+          "method": "sin",
+          "actual_source_line": "let tangent = Vec3::new(-phase.sin(), 0.0, phase.cos());"
+        },
+        {
+          "line": 152,
+          "method": "cos",
+          "actual_source_line": "let tangent = Vec3::new(-phase.sin(), 0.0, phase.cos());"
+        },
+        {
+          "line": 201,
+          "method": "cos",
+          "actual_source_line": "1.0 + gnarling.crown_asymmetry.clamp(0.0, 1.0) * 0.38 * (phase - lean_phase).cos();"
+        },
+        {
+          "line": 214,
+          "method": "sin",
+          "actual_source_line": "+ tangent * lateral * (core::f32::consts::PI * t).sin()"
+        },
+        {
+          "line": 217,
+          "method": "sin",
+          "actual_source_line": "* (core::f32::consts::TAU * t + torsion_phase).sin()"
+        },
+        {
+          "line": 218,
+          "method": "sin",
+          "actual_source_line": "* (core::f32::consts::PI * t).sin()"
+        },
+        {
+          "line": 220,
+          "method": "sin",
+          "actual_source_line": "* (-sag * (core::f32::consts::PI * t).sin()"
+        },
+        {
+          "line": 224,
+          "method": "sin",
+          "actual_source_line": "* (core::f32::consts::PI * t).sin().powi(2)"
+        },
+        {
+          "line": 224,
+          "method": "powi",
+          "actual_source_line": "* (core::f32::consts::PI * t).sin().powi(2)"
+        },
+        {
+          "line": 225,
+          "method": "powf",
+          "actual_source_line": "+ lift * t.powf(1.85)"
+        },
+        {
+          "line": 227,
+          "method": "sin",
+          "actual_source_line": "* (core::f32::consts::TAU * t + torsion_phase * 0.7).sin()"
+        },
+        {
+          "line": 228,
+          "method": "sin",
+          "actual_source_line": "* (core::f32::consts::PI * t).sin())"
+        },
+        {
+          "line": 288,
+          "method": "powf",
+          "actual_source_line": "0.14_f32.lerp(0.24, canopy_competition) + normalized.powf(0.7) * 0.72"
+        },
+        {
+          "line": 295,
+          "method": "cos",
+          "actual_source_line": "let radial = frame_right * branch_phase.cos() + frame_up * branch_phase.sin();"
+        },
+        {
+          "line": 295,
+          "method": "sin",
+          "actual_source_line": "let radial = frame_right * branch_phase.cos() + frame_up * branch_phase.sin();"
+        },
+        {
+          "line": 319,
+          "method": "sin",
+          "actual_source_line": "+ secondary_bend * (core::f32::consts::PI * t).sin()"
+        },
+        {
+          "line": 320,
+          "method": "powf",
+          "actual_source_line": "+ Vec3::Y * (0.2 * t.powf(1.7))"
+        },
+        {
+          "line": 368,
+          "method": "cos",
+          "actual_source_line": "let radial = frame_right * spiral.cos() + frame_up * spiral.sin();"
+        },
+        {
+          "line": 368,
+          "method": "sin",
+          "actual_source_line": "let radial = frame_right * spiral.cos() + frame_up * spiral.sin();"
+        },
+        {
+          "line": 450,
+          "method": "cos",
+          "actual_source_line": "let radial = right * phase.cos() + forward * phase.sin();"
+        },
+        {
+          "line": 450,
+          "method": "sin",
+          "actual_source_line": "let radial = right * phase.cos() + forward * phase.sin();"
+        },
+        {
+          "line": 488,
+          "method": "sin",
+          "actual_source_line": "let sweep = (core::f32::consts::PI * t).sin() * (0.045 + 0.025 * competition);"
+        },
+        {
+          "line": 490,
+          "method": "cos",
+          "actual_source_line": "crown_phase.cos() * sweep,"
+        },
+        {
+          "line": 492,
+          "method": "sin",
+          "actual_source_line": "crown_phase.sin() * sweep,"
+        },
+        {
+          "line": 515,
+          "method": "powf",
+          "actual_source_line": "+ layer.powf(0.88) * (0.95 - clear_bole_fraction)"
+        },
+        {
+          "line": 522,
+          "method": "cos",
+          "actual_source_line": "let radial = Vec3::new(phase.cos(), 0.0, phase.sin());"
+        },
+        {
+          "line": 522,
+          "method": "sin",
+          "actual_source_line": "let radial = Vec3::new(phase.cos(), 0.0, phase.sin());"
+        },
+        {
+          "line": 523,
+          "method": "sin",
+          "actual_source_line": "let tangent = Vec3::new(-phase.sin(), 0.0, phase.cos());"
+        },
+        {
+          "line": 523,
+          "method": "cos",
+          "actual_source_line": "let tangent = Vec3::new(-phase.sin(), 0.0, phase.cos());"
+        },
+        {
+          "line": 528,
+          "method": "sin",
+          "actual_source_line": ".sin()"
+        },
+        {
+          "line": 536,
+          "method": "sin",
+          "actual_source_line": "let arch = (core::f32::consts::PI * t).sin();"
+        },
+        {
+          "line": 539,
+          "method": "powf",
+          "actual_source_line": "+ Vec3::Y * (reach * (0.18 * arch + (0.5 + layer * 0.3) * t.powf(1.35)))"
+        },
+        {
+          "line": 547,
+          "method": "rem_euclid",
+          "actual_source_line": "let primary_group = ((phase.rem_euclid(core::f32::consts::TAU) / core::f32::consts::TAU"
+        },
+        {
+          "line": 607,
+          "method": "cos",
+          "actual_source_line": "+ right * phase.cos() * 0.52"
+        },
+        {
+          "line": 608,
+          "method": "sin",
+          "actual_source_line": "+ up * phase.sin() * 0.3"
+        },
+        {
+          "line": 643,
+          "method": "cos",
+          "actual_source_line": "let outward = Vec3::new(phase.cos(), 0.0, phase.sin());"
+        },
+        {
+          "line": 643,
+          "method": "sin",
+          "actual_source_line": "let outward = Vec3::new(phase.cos(), 0.0, phase.sin());"
+        },
+        {
+          "line": 644,
+          "method": "sin",
+          "actual_source_line": "let tangent = Vec3::new(-phase.sin(), 0.0, phase.cos());"
+        },
+        {
+          "line": 644,
+          "method": "cos",
+          "actual_source_line": "let tangent = Vec3::new(-phase.sin(), 0.0, phase.cos());"
+        },
+        {
+          "line": 653,
+          "method": "powf",
+          "actual_source_line": "+ outward * lean * t.powf(1.35)"
+        },
+        {
+          "line": 654,
+          "method": "sin",
+          "actual_source_line": "+ tangent * 0.11 * (core::f32::consts::PI * t).sin()"
+        },
+        {
+          "line": 672,
+          "method": "cos",
+          "actual_source_line": "let radial = Vec3::new(spiral.cos(), 0.0, spiral.sin());"
+        },
+        {
+          "line": 672,
+          "method": "sin",
+          "actual_source_line": "let radial = Vec3::new(spiral.cos(), 0.0, spiral.sin());"
+        },
+        {
+          "line": 727,
+          "method": "cos",
+          "actual_source_line": "+ stem_right * phase.cos() * 0.58"
+        },
+        {
+          "line": 728,
+          "method": "sin",
+          "actual_source_line": "+ stem_up * phase.sin() * 0.42)"
+        },
+        {
+          "line": 766,
+          "method": "powf",
+          "actual_source_line": "start_radius: start_radius.lerp(end_radius, t0.powf(0.64)),"
+        },
+        {
+          "line": 767,
+          "method": "powf",
+          "actual_source_line": "end_radius: start_radius.lerp(end_radius, t1.powf(0.64)),"
+        }
+      ],
+      "counts": {
+        "remainder_operator": 1,
+        "powf": 9,
+        "cos": 14,
+        "sin": 25,
+        "powi": 1,
+        "rem_euclid": 1
+      },
+      "authority": "Exact source text inventory before test module; isolated cfg(test) helper may be present but has no matching math calls. Not AST/callee/whole-geometry clearance."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/growth_axes.rs",
+      "sha256": "8fa32da699c5cefff06418c1411744dca8488c3b336f09cbc50b2233f9e61d7d",
+      "inventory_end_line": 91,
+      "arithmetic_locators": [
+        {
+          "line": 11,
+          "method": "cos",
+          "actual_source_line": "let bend_direction = Vec3::new(crown_phase.cos(), 0.0, crown_phase.sin());"
+        },
+        {
+          "line": 11,
+          "method": "sin",
+          "actual_source_line": "let bend_direction = Vec3::new(crown_phase.cos(), 0.0, crown_phase.sin());"
+        },
+        {
+          "line": 17,
+          "method": "cos",
+          "actual_source_line": "let lean_direction = Vec3::new(lean_phase.cos(), 0.0, lean_phase.sin());"
+        },
+        {
+          "line": 17,
+          "method": "sin",
+          "actual_source_line": "let lean_direction = Vec3::new(lean_phase.cos(), 0.0, lean_phase.sin());"
+        },
+        {
+          "line": 24,
+          "method": "sin",
+          "actual_source_line": "let window = (core::f32::consts::PI * t).sin();"
+        },
+        {
+          "line": 25,
+          "method": "powf",
+          "actual_source_line": "let sweep = lean_direction * (gnarling.trunk_lean.clamp(0.0, 1.0) * 2.6 * t.powf(1.25));"
+        },
+        {
+          "line": 29,
+          "method": "sin",
+          "actual_source_line": "* (t * core::f32::consts::TAU * 2.4 + crown_phase).sin()"
+        },
+        {
+          "line": 32,
+          "method": "cos",
+          "actual_source_line": "(crown_phase + t * core::f32::consts::TAU * 1.7).cos(),"
+        },
+        {
+          "line": 34,
+          "method": "sin",
+          "actual_source_line": "(crown_phase + t * core::f32::consts::TAU * 1.7).sin(),"
+        },
+        {
+          "line": 39,
+          "method": "sin",
+          "actual_source_line": "* (t * core::f32::consts::PI).sin().powi(2));"
+        },
+        {
+          "line": 39,
+          "method": "powi",
+          "actual_source_line": "* (t * core::f32::consts::PI).sin().powi(2));"
+        },
+        {
+          "line": 42,
+          "method": "powf",
+          "actual_source_line": "+ bend_direction * (0.28 * t.powf(1.45))"
+        },
+        {
+          "line": 69,
+          "method": "cos",
+          "actual_source_line": "+ right * shoot_phase.cos() * 0.62"
+        },
+        {
+          "line": 70,
+          "method": "sin",
+          "actual_source_line": "+ up * shoot_phase.sin() * 0.42"
+        }
+      ],
+      "counts": {
+        "cos": 4,
+        "sin": 7,
+        "powf": 2,
+        "powi": 1
+      },
+      "authority": "Exact source text inventory before test module; isolated cfg(test) helper may be present but has no matching math calls. Not AST/callee/whole-geometry clearance."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_plan.rs",
+      "sha256": "d58a2bf492f149857525a71717edab2336d50f2e4bb7ae459af0df2dc6dc1a4f",
+      "inventory_end_line": 222,
+      "arithmetic_locators": [
+        {
+          "line": 118,
+          "method": "rem_euclid",
+          "actual_source_line": "angle: angle.rem_euclid(core::f32::consts::TAU),"
+        },
+        {
+          "line": 192,
+          "method": "cos",
+          "actual_source_line": "let outward = Vec3::new(phase.cos(), 0.0, phase.sin());"
+        },
+        {
+          "line": 192,
+          "method": "sin",
+          "actual_source_line": "let outward = Vec3::new(phase.cos(), 0.0, phase.sin());"
+        },
+        {
+          "line": 193,
+          "method": "sin",
+          "actual_source_line": "let tangent = Vec3::new(-phase.sin(), 0.0, phase.cos());"
+        },
+        {
+          "line": 193,
+          "method": "cos",
+          "actual_source_line": "let tangent = Vec3::new(-phase.sin(), 0.0, phase.cos());"
+        }
+      ],
+      "counts": {
+        "rem_euclid": 1,
+        "cos": 2,
+        "sin": 2
+      },
+      "authority": "Exact source text inventory before test module; isolated cfg(test) helper may be present but has no matching math calls. Not AST/callee/whole-geometry clearance."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_profile.rs",
+      "sha256": "55e0e9789ade5938b62b9c929b4a8e6ccb49920e42ad85b38648c19fe315022b",
+      "inventory_end_line": 53,
+      "arithmetic_locators": [
+        {
+          "line": 14,
+          "method": "cos",
+          "actual_source_line": "let outward = Vec3::new(root.angle.cos(), 0.0, root.angle.sin());"
+        },
+        {
+          "line": 14,
+          "method": "sin",
+          "actual_source_line": "let outward = Vec3::new(root.angle.cos(), 0.0, root.angle.sin());"
+        },
+        {
+          "line": 15,
+          "method": "sin",
+          "actual_source_line": "let tangent = Vec3::new(-root.angle.sin(), 0.0, root.angle.cos());"
+        },
+        {
+          "line": 15,
+          "method": "cos",
+          "actual_source_line": "let tangent = Vec3::new(-root.angle.sin(), 0.0, root.angle.cos());"
+        },
+        {
+          "line": 18,
+          "method": "sin",
+          "actual_source_line": "* (root.angle * 2.7 + root.reach * 3.1).sin();"
+        }
+      ],
+      "counts": {
+        "cos": 2,
+        "sin": 3
+      },
+      "authority": "Exact source text inventory before test module; isolated cfg(test) helper may be present but has no matching math calls. Not AST/callee/whole-geometry clearance."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/arrangement.rs",
+      "sha256": "317fb3e49173aa0ef894ad61801df69f7f967b177b990e15331e8ed2e8b2413d",
+      "inventory_end_line": 276,
+      "arithmetic_locators": [
+        {
+          "line": 45,
+          "method": "cos",
+          "actual_source_line": "let radial = (tangent * spiral.cos() + binormal * spiral.sin()).normalize();"
+        },
+        {
+          "line": 45,
+          "method": "sin",
+          "actual_source_line": "let radial = (tangent * spiral.cos() + binormal * spiral.sin()).normalize();"
+        },
+        {
+          "line": 227,
+          "method": "cos",
+          "actual_source_line": "let radial = (frame_right * phase.cos() + frame_up * phase.sin()).normalize();"
+        },
+        {
+          "line": 227,
+          "method": "sin",
+          "actual_source_line": "let radial = (frame_right * phase.cos() + frame_up * phase.sin()).normalize();"
+        }
+      ],
+      "counts": {
+        "cos": 2,
+        "sin": 2
+      },
+      "authority": "Exact source text inventory before test module; isolated cfg(test) helper may be present but has no matching math calls. Not AST/callee/whole-geometry clearance."
+    }
+  ],
+  "limits": "Read actual matching expressions plus pinned source/receiver ranges. Not claim of every file full-body review or all-platform proof."
+}

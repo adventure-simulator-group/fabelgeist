@@ -1,0 +1,34 @@
+[1m[92m   Compiling[0m adventuresim-tactical-client v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client)
+[1m[92m    Finished[0m `test` profile [optimized] target(s) in 1m 17s
+[1m[92m     Running[0m unittests src/animation_viewer_main.rs (target/debug/deps/animation_viewer-fcf7da7e6e41a320)
+
+running 26 tests
+test animation_viewer::report::metrics::catastrophic_contacts::tests::severe_sideways_foot_displacement_is_catastrophic ... ok
+test animation_viewer::report::metrics::scenario_policy_tests::raised_guard_uses_strict_plant_and_separation_gates ... ok
+test animation_viewer::report::metrics::tests::authored_guard_locomotion_does_not_require_procedural_step_liveness ... ok
+test animation_viewer::report::metrics::tests::cold_start_manifest_frame_requires_truthful_release_ownership ... ok
+test animation_viewer::report::metrics::tests::complete_run_cycles_use_the_run_foot_continuity_budget_only ... ok
+test animation_viewer::report::metrics::tests::contact_clearance_falls_back_to_phase_without_procedural_targets ... ok
+test animation_viewer::report::metrics::tests::contact_clearance_uses_effective_ik_support_instead_of_gait_phase ... ok
+test animation_viewer::report::metrics::tests::continuity_bone_classes_separate_feet_from_knees ... ok
+test animation_viewer::report::metrics::tests::hard_stop_height_gate_measures_only_the_transition_and_settle_window ... ok
+test animation_viewer::report::metrics::tests::manifest_metrics_detect_crossed_feet_and_facing_mismatch ... ok
+test animation_viewer::report::metrics::tests::pelvis_vertical_step_detects_a_one_frame_guard_height_snap ... ok
+test animation_viewer::report::metrics::tests::planned_run_transition_validates_metadata_and_body_local_motion ... ok
+test animation_viewer::report::metrics::tests::planted_drift_excludes_the_deliberate_support_release_interval ... ok
+test animation_viewer::report::metrics::tests::prominent_height_gate_requires_only_the_two_passing_peaks ... ok
+test animation_viewer::report::metrics::tests::release_transition_is_not_misclassified_as_a_repeatable_loop ... ok
+test animation_viewer::report::metrics::tests::terrain_run_contact_gate_is_non_vacuous_and_requires_alternation ... ok
+test animation_viewer::report::metrics::tests::terrain_run_stop_and_restart_require_the_strict_toe_clearance_contract ... ok
+test animation_viewer::report::metrics::tests::terrain_vertical_allowance_is_derived_from_sampled_foot_relief ... ok
+test animation_viewer::report::metrics::tests::transient_toe_gate_excludes_idle_preroll_but_keeps_motion_and_settle ... ok
+test animation_viewer::report::metrics::tests::unplanned_release_transition_uses_run_specific_motion_budget ... ok
+test animation_viewer::report::metrics::tests::viewer_rejects_reported_support_beyond_the_shared_contact_tolerance ... ok
+test animation_viewer::report::metrics::tests::viewer_uses_action_support_instead_of_stale_ordinary_ik_support ... ok
+test animation_viewer::report::tests::capture_requires_every_nonempty_view_artifact ... ok
+test animation_viewer::report::tests::report_invalidation_preserves_unrelated_files ... ok
+test animation_viewer::report::validation::tests::quality_score_is_zero_for_an_incomplete_capture ... ok
+test animation_viewer::report::validation::tests::quality_score_uses_the_documented_power_of_two_weights ... ok
+
+test result: ok. 26 passed; 0 failed; 0 ignored; 0 measured; 677 filtered out; finished in 0.00s
+

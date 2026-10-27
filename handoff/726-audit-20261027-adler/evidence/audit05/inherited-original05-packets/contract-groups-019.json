@@ -1,0 +1,126 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-019",
+  "at": "2026-10-22T19:46:25.791190+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/resolved_geometry_helpers.rs",
+      "sha256": "e6f71c899743f84ee65814398d45e0b9a98d21945a3d5cf6b483a47a368a742c",
+      "scope020_index": 533,
+      "actual_EOF": 445,
+      "scoped_ranges_compared": [
+        [
+          1,
+          445
+        ]
+      ],
+      "fresh_source_proof": "Fresh full05 bodies plan53/walls353/resolved_shapes447/actual relying native helper445; actual correlated fields, all own getters/new/manualdecoder/publicmutation routes compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/plan.rs",
+      "sha256": "23e353759ff4ea8be954680fcc550feac57d3b56a6e3086d92ad46e5d5692f6d",
+      "scope020_index": 647,
+      "actual_EOF": 53,
+      "scoped_ranges_compared": [
+        [
+          1,
+          53
+        ]
+      ],
+      "fresh_source_proof": "Fresh full05 bodies plan53/walls353/resolved_shapes447/actual relying native helper445; actual correlated fields, all own getters/new/manualdecoder/publicmutation routes compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+      "sha256": "485156188b8c858094e576418d153b0e315f06c01ef25685a6e11eb97e60a56b",
+      "scope020_index": 648,
+      "actual_EOF": 447,
+      "scoped_ranges_compared": [
+        [
+          1,
+          447
+        ]
+      ],
+      "fresh_source_proof": "Fresh full05 bodies plan53/walls353/resolved_shapes447/actual relying native helper445; actual correlated fields, all own getters/new/manualdecoder/publicmutation routes compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/walls.rs",
+      "sha256": "0ccc94972996dae71d762e7019f9814a02a26ff12a2eabe8709f7c791c8b9930",
+      "scope020_index": 650,
+      "actual_EOF": 353,
+      "scoped_ranges_compared": [
+        [
+          1,
+          353
+        ]
+      ],
+      "fresh_source_proof": "Fresh full05 bodies plan53/walls353/resolved_shapes447/actual relying native helper445; actual correlated fields, all own getters/new/manualdecoder/publicmutation routes compared."
+    }
+  ],
+  "groups": {
+    "building-recipe-versus-resolved-plan-graph": {
+      "relationship": "A BuildingPlan holds recipe/source footprint/roofs/storeys and separately resolved assembly/physical/route collections. Source recipes are not automatically stale duplicate authority when actual accepted geometry has been edited.",
+      "actual_source": "plan5-43 raw public and derivedSerde, no owning complete admission in thisfile; typed Seed doesnotprove all wall/roof/opening owner/member/circuit lists agree. dimensions46-52 computes fresh rawVec2 from actualFootprint grid dimensions times commoncellconstant; no stored duplicate dimensionscache, zero policy inherited fromFootprint, no guaranteedpositive building solely fromthisgetter.",
+      "current_operation_comparison": "Current actualpitch editor clones and reconstructs accepted roof assembly/geometry while retaining sourceRoofPiece evidence; earlier010 proves its concrete missed physicaldescriptor, but unchanged plan.roofs itself is NOT evidence of staleacceptedauthority. Currentroofbuilder andtimberframed supplier uses related same-source slices. Nonroofmixed building graph membership still actualproducer/validator receiver obligations, not conferredby publicVec types or schema decode.",
+      "disposition": "Rawplan representablecorrelations explicitly inventoried; existingRootF001 unsealedaccepted roof subgraph and F002IDs retained. No new generalplanvalidator clearance fromthisdefinition and no recipe/schema erasure proposed."
+    },
+    "wall-frame-opening-and-retained-section-correlations": {
+      "relationships": [
+        "WallLocalFrame tangent/outward orientation and same Architecturalplan origin; inside/outside rooms belong to particular storey. Radial frame centre/reference must fit actualcurvedwall, not merely finite vectors.",
+        "WallAssembly source/owner/storeylevel/supportnode/hostsolids/openingIDs and replacement owner must correspond to actualgenerated wall. OpeningAssembly.host_wall/source/frame and jamb/head/spandrel/void/surface/nodeIDs must refer to thathost and agree with chosen profile/closure/head.",
+        "Opening sectional_void is ordered exterior0 to interior1 authority; conservative voidbounds alone do not define actual aperture shape. Fixed jamb arrays2 givecardinality, not distinctness/memberownership."
+      ],
+      "actual_source": "walls120-133 rawpublicframes/ordinarySerde; profile156-189 taggedpayload eliminateswrongvariantfields but allows independent rawdimensions andsupportparameters. getters191-245 use matchingvariantpayload, Segmentalclearheight spring+rise, no crossshape finite/positivewholepredicate. Wall material predicate104-116 checksactualmaterial-specific thickness ONLY, not frame/length/profile/membership. Closure278-283 independentlyraw layers/state/thickness/swing: notevery layer must swing or be closed; do notinvent crossclosure policy. Wall286-303/opening312-343 publiccompletegraph fields withderivedSerde andrawsourceindices. SectionalOpeningVoidSlice346-350 rawdepth/width/height with no own orderedcollectionfactory.",
+      "actual_relying_roles": "Currentroofoutlets projects desiredlocation through actual wall frame and matcheshostsupport; helpersopening_host190-229 uses opening.frame along/outward and wall.thickness tocompute depthfraction. Individuallyvalid directions/positive lengths do notproveperpendicular sharedframe or hostmatch. Existing normal wall constructors and wallopening audits need exactsourcecomparison before asserting a malformedactualproductionwall. Rawfields/template evidence not successfulacceptedplan certificate.",
+      "disposition": "Meaningful aggregate obligations mapped; no new actual malformedwall caller or universal auditfailure claimed. Roleleaf strengthening must still establish frame/host/sectionrelationships at accepted boundary. Preserve closedvariant distinctions, raw rejectedsource and military/open/None semantics. No arbitrary grammar or allwidthsstrictlylarger thana global clearance."
+    },
+    "checked-oriented-envelope-versus-authored-shape": {
+      "relationship": "ResolvedSolid envelope must conservatively contain corresponding authored shape in same Architecturalframe, and IDs/supportnode references must fit actual graph. Individual finitegeometryleaves do not establish this whole relation.",
+      "actual_routes": "resolved_shapes344-391 publicleafbacking, new361 acceptscheckedCollisionCuboid andindependent rawshape/supportIDs then copies; cuboid_envelope381 copies same storedleaf tuple. ManualDeserialize393-427 admits native envelopeviaCollisionCuboid::from_metres then passes rawshape/supportIDs unchanged. Thus actual finite/nonnegative/anglepredicate is real, but no shape->envelope containment or orderedradius/arc relationship readmission occurs. Publicshape/centre/size independentmutation bypassesany caller-coupled construction.",
+      "valid_leaf_counterexample": "Ordinary finite checked envelopecentre0/size(1,1,1)/allangles0, RoundTowerShellouterradius1/innerradius.5/chordNone are otherwisevalidleaves. Helpersresolved_solid_contains_point118-129 clips localpoint(.75,0,0) againsthalfextent.5 before156-162 radialpredicate(.5<=.75<=1), rejecting a point ofthedeclaredshell. No zero/negative/nonfinite leaf isneeded. This supports NATIVE-INITIAL05-F005 representable whole-state APIweakness, NOcurrentgeneratedbadcaller/runtime or actualrender/artifactclaim.",
+      "acceptance": "Separate raw authored shape evidence from accepted solid, or establish one authoritative shape+conservativeenvelope wholefactory andretaincoupling undermeaningfulmutation/decoder. Envelope may be oversizedconservative; do NOTforceexact equality, unitnormal, convex weatherpolygon, positive genericCuboid or universalnonempty supportIDs. Copycheckedleaveswithout repeated rawre-admission/compatforwarding. Canonicalboundednativeports/firsterror identity remain."
+    },
+    "native-containment-and-same-record-kernels": {
+      "actual_source": "Helper1-10 returns yaw-only axisbounds fromsame solidcentre/size/yaw; no cachedmirror. Containment118-166 firstinverseyaw+envelopeclip, thenannulus/shellradial andperiodicsectorangles; endpointswrap viarem_euclid with .0001minimumsweep intentionally, not blanketstart<=endnarrowing. Towerchord12-113 findsactualowner WallSource and tower.get orfalse, physicalbondownersarray2 examinedbothorders. opening190-229 usesactualframe/thickness/profilepayload.",
+      "measured_collections": "Overlap237-305 computes actual intersected bounds then fixed9x5x9grid; strictnative signed toleranceandannularpredicate preserved, noexactcontinuousintersectionpromiseinferred. FullSAT334-375 builds exactly3axesperQuaternion andcrosspair9, pushesonlynondegeneratecrossaxis then checksactualaxiswithsameA/Bhalfextent/rotation tuple. Radiusclosure uses correspondingaxisarraycomponents, not arbitrarycolumnzip. Otheroccupant307-332/vertical377-420 are intentionallyyaw-plan kernels, not fullrigid bodyclaim. Hollowclearance425-445 fixed4corners fromsameinnersolid yaw/half dimensions.",
+      "qualification": "Theseare privatebool/sample/nativegeometrickernels thatconsumeexistingwholegraph; no successful acceptedshape admission fromboolreturn. Envelope/shape inconsistencyF005 affects actualearlyprune; inheritedfinitePositionpubsuperRootF003 andrawshapeproducerstrengthening remain separate. No newnativeFP normalization/tolerance or overflow default introduced."
+    }
+  },
+  "new_unique_findings": [
+    {
+      "id": "NATIVE-INITIAL05-F005",
+      "lens": "audit-aggregate-states",
+      "classification": "representable_valid_leaf_combination_violates_shape_conservative_envelope_contract",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+      "sha256": "485156188b8c858094e576418d153b0e315f06c01ef25685a6e11eb97e60a56b",
+      "source_ranges": [
+        [
+          344,
+          427
+        ]
+      ],
+      "relying_source_id": "pr-working:crates/adventuresim-building-generator/src/audit/resolved_geometry_helpers.rs",
+      "relying_ranges": [
+        [
+          118,
+          166
+        ]
+      ],
+      "relationship": "Checked oriented envelope conservatively contains declaredshape in sameframe; docs358-359, new/rawmutation/manualSerde do not bind these independentlyvalid parts.",
+      "representable_counterexample": "Finitecentre0/size1XYZ/yawcrosslong0 plus otherwisevalid RoundTowerShell outer1/inner.5/nochords; local(.75,0,0) belongsannulus butfailsactualenvelopeearlyclip. No actualgeneratedbadcaller/runtime claim.",
+      "connected_repair": "Canonical accepted ResolvedSolid/shape-envelope boundary and native containment receivers; Root retains authority, exactexistingwhole-record/functionclaim fit to reconcile before repairs. Keep rawsource/rejectedshape evidence separate from acceptedcorrelatedsolid.",
+      "acceptance": "All acceptedconstructor/decode/mutation routes preserveconservativecontainment; allow oversizedconservativebounds, ordinaryzero genericgeometry elsewhere, signednative tolerances/nonunitplanes/concaveweatherinput; no duplicateduncheckedshadowwrapper or perconsumer revalidation.",
+      "proof_ref": "contract-groups-019.json",
+      "repair": "frozen",
+      "validation": "not_established"
+    }
+  ],
+  "prior_finding_support": [
+    "RootADM-F001 roofacceptedgraph, distinct sourceRecipe evidence",
+    "RootADM-F003 finitecoordinatebacking qualification",
+    "NativeF002 allocationcapacity"
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

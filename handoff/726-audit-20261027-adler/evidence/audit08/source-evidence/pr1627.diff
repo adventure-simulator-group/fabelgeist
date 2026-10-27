@@ -1,0 +1,14 @@
+diff --git a/crates/adventuresim-tactical-client/src/presentation/terrain/cliff_surface.rs b/crates/adventuresim-tactical-client/src/presentation/terrain/cliff_surface.rs
+index 64d84244f..b85ae7d2d 100644
+--- a/crates/adventuresim-tactical-client/src/presentation/terrain/cliff_surface.rs
++++ b/crates/adventuresim-tactical-client/src/presentation/terrain/cliff_surface.rs
+@@ -184,7 +184,8 @@ mod tests {
+             &procedural_assets,
+             &mut images,
+             &graphics.config.grass,
+-        );
++        )
++        .unwrap();
+         assert_eq!(material.extension.cliff_palette_a.w, 0.0);
+ 
+         let sandstone = TerrainSurfaceRecipe::new(
